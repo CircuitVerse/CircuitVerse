@@ -45,8 +45,6 @@ gem 'jquery-rails'
 
 gem 'carrierwave', '~> 1.0'
 
-gem 'mysql2' , '>= 0.3.18' , '<0.5'
-
 gem 'rails_admin', '~> 1.2'
 
 gem 'cancancan', '~>2.0'
@@ -70,12 +68,17 @@ group :development, :test do
 end
 
 group :development do
+  gem 'mysql2' , '>= 0.3.18' , '<0.5'
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+end
+
+group :production do
+    gem 'pg', '~> 1.0.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

@@ -172,6 +172,7 @@ GEM
       cocaine (~> 0.5.5)
       mime-types
       mimemagic (~> 0.3.0)
+    pg (1.0.0)
     public_suffix (3.0.2)
     puma (3.11.4)
     rack (2.0.5)
@@ -308,6 +309,7 @@ DEPENDENCIES
   omniauth-google-oauth2
   omniauth-microsoft-office365
   paperclip (~> 5.0.0)
+  pg (~> 1.0.0)
   puma (~> 3.7)
   rails (~> 5.1.4)
   rails_admin (~> 1.2)
@@ -324,4 +326,4 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 BUNDLED WITH
-   1.16.2
+   1.16.3
