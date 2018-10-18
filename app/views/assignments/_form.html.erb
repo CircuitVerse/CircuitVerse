@@ -1,0 +1,57 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<%= form_with(model: [group,@assignment], local: true, html: {onsubmit:"before_submit()"}, multipart: true ,id:"assignmentForm") do |form| %>
+  <% if @assignment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@assignment.errors.count, "error") %> prohibited this assignment from being saved:</h2>
+
+      <ul>
+      <% @assignment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :assignment_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :deadline %>
+    <input class ="date" id="party" type="datetime-local" name="assignment[deadline]" min="<%= Time.now.strftime("%Y-%m-%dT%H:%M")%>" value="<%= assignment.deadline.strftime("%Y-%m-%dT%H:%M")%>">
+  </div>
+
+  <div class="field" id="wysiwyg">
+    <%= form.label :description %><br>
+    <%= render "wysiwyg/index" %>
+  </div>
+
+  <div class="actions" >
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<script src="/js/time.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.date').each(
+            function () {
+                this.value = formatDate(new Date(new Date(this.value) + " UTC"),"yyyy-MM-ddTHH:mm")
+            }
+        )
+    })
+
+    function before_submit() {
+        $('.date').each(
+            function () {
+                this.value = formatDate(new Date(new Date(this.value).getTime() + new Date().getTimezoneOffset()*60*1000),"yyyy-MM-ddTHH:mm")
+            }
+        )
+
+        $('<input />').attr('type', 'hidden')
+            .attr('name', 'description')
+            .attr('value', $("#editor").cleanHtml())
+            .appendTo('#assignmentForm');
+    }
+</script>

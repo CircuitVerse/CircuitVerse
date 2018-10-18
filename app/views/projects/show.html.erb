@@ -1,0 +1,179 @@
+<% content_for :title, @project.name %>
+<% content_for :author_name, @project.author.name %>
+<% content_for :page_description, @project.description %>
+
+
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="container feature">
+  <% if notice %>
+    <p class="alert alert-success" id="notice"><%= notice %></p>
+  <% end %>
+  <div class="row ">
+
+    <div class="col col-7 ">
+        <div class="embed-responsive embed-responsive-4by3 feature">
+          <iframe src = <%=simulator_path(@project) %> webkitAllowFullScreen mozAllowFullScreen allowFullScreen scrolling="no"> </iframe>
+        </div>
+    </div>
+    <div class="col col-5">
+
+      <div class="card h-100">
+        <div class="card-header text-center font-weight-bold text-capitalize">
+          <%= @project.name %>  &ensp;  &ensp;  &ensp;  &ensp; &ensp; &ensp; &ensp; &ensp;
+          <span class="badge badge-secondary noSelect">
+            &ensp;&ensp;
+            <% if user_signed_in? %>
+                <i id="toggleStarButton" class="fa fa-star fa-2x noSelect" aria-hidden="true" style=<%= Star.find_by(user_id: current_user.id, project_id: @project.id).nil? ? "color:white" : "color:orange" %> onclick="toggleStar()"></i>
+                &ensp;
+            <% else%>
+                <i  class="fa fa-star fa-2x noSelect" aria-hidden="true" style="color:orange" ></i>
+                &ensp;
+            <% end %>
+            <r id="star_count" style="font-size:20px" class="noSelect"><%= @project.stars.count %></r>&ensp;&ensp;&ensp;
+            <i class="fa fa-eye fa-2x" aria-hidden="true" style="font-size:24px;font-weight: bold">&ensp;</i>
+            <r id="star_count" style="font-size:20px" class="noSelect"><%= @project.view %></r>&ensp;&ensp;&ensp;
+            </span>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <p class="card-text">
+              <strong>Author:</strong>
+              <%= @project.author.name %>
+            </p>
+
+            <% if !@project.forked_project.nil? %>
+                <p class="card-text">
+                  <strong>Forked project:</strong>
+                  <%= link_to @project.forked_project.author.name+"/"+@project.forked_project.name , user_project_path(@project.forked_project.author,@project.forked_project) %>
+                </p>
+            <% end %>
+
+            <p class="card-text">
+              <strong>Project access type:</strong>
+              <%= @project.project_access_type %>
+            </p>
+
+
+
+
+          </li>
+          <li class="list-group-item text-center">
+            <a href="#>" class="btn btn-secondary previewButton" id="<%=@project.id%>" data-toggle="modal" data-target="#myModal">Preview</a>
+
+            <% if @user_access %>
+                <a href="<%= simulator_edit_path(@project) %>" class="btn btn-secondary" target="_blank">Launch simulator</a>
+            <% end %>
+
+
+          </li>
+          <%if !@project.description.nil? %>
+              <li class="list-group-item"><b >Description: </b>
+                <%=sanitize @project.description , tags: %w(strong em a)%><br></li>
+          <%end%>
+
+
+        </ul>
+        <div class="card-body">
+
+
+        </div>
+
+        <div class="card-footer text-center">
+            <% if @user_access %>
+                <%= link_to 'Edit', edit_user_project_path(@author, @project), class: "card-link"%>
+                <%= link_to 'Delete',user_project_path(@author,@project), method: :delete, data: { confirm: 'Are you sure?' }, class: "card-link" %>
+            <% else %>
+                <%= link_to 'Fork', create_fork_project_path(@project), class: "card-link" %>
+            <% end %>
+            <%= link_to 'Back', user_path(@author), class: "card-link" %>
+          <% if @project.project_access_type != "Private" %>
+            <a class="card-link" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" onclick="embed()" >
+              Embed
+            </a>
+              <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                  <textarea id="embedTextArea" style="font-size:12px"><iframe width="600px" height="400px" src="<%=simulator_embed_url(@project)%>" id="projectPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen> </iframe></textarea>
+                  <a class="text-success">Embed code copied to clipboard!</a>
+                </div>
+              </div>
+          <%end%>
+
+
+        </div>
+      </div>
+
+
+
+    </div>
+  </div>
+
+    <%= commontator_thread(@project) %>
+
+</div>
+
+
+
+
+
+
+  </p>
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Project Preview</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+      </div>
+      <div class="modal-body">
+        <div class="embed-responsive embed-responsive-4by3 feature">
+          <iframe src="" id="projectPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen> </iframe>
+        </div>
+      </div>
+      <!--<div class="modal-footer">-->
+      <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">close</button>-->
+      <!--</div>-->
+    </div>
+
+  </div>
+</div>
+
+<script>
+    function embed() {
+        console.log("HIY")
+        setTimeout(function(){$("#embedTextArea").select();document.execCommand("copy")},100) ;
+
+//        $("#embedTextArea").copy();
+    }
+    $( function() {
+        $('.previewButton').on('click', function (e) {
+            e.preventDefault()
+            $("#projectPreview").attr("src","/simulator/" + e.currentTarget.id );
+            $("#myModal").tab('show')
+        })
+    } );
+    function toggleStar(toggle) {
+        $.ajax({
+            url: "<%=change_stars_path(@project)%>",
+            type: 'GET',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+            },
+            success: function (response) {
+                star_count = document.getElementById("star_count").innerHTML;
+
+                if(response == "1"){
+                    document.getElementById('toggleStarButton').style.color='white';
+                }
+                else{
+                    document.getElementById('toggleStarButton').style.color='orange';
+                }
+                document.getElementById("star_count").innerHTML = (response == "1") ? (Number(star_count)-1) : (Number(star_count)+1);
+            }
+        });
+    }
+</script>

@@ -1,0 +1,47 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<%= form_with(model: [ current_user, @project] , local: true, multipart: true, id:"projectForm") do |form| %>
+  <% if project.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:</h2>
+
+      <ul>
+      <% project.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :project_name %>
+  </div>
+
+
+  <div class="field">
+    <%= form.label :project_access_type %>
+    <%= form.select :project_access_type, [["Public","Public"],["Private","Private"],["Limited access","Limited access"]], id: :project_project_access_type %>
+  </div>
+
+  <div class="field" id="wysiwyg">
+    <%= form.label :description %><br>
+    <%= render "wysiwyg/index" %>
+  </div>
+
+
+  <div class="actions" , onclick="before_submit()">
+    <%= form.submit() %>
+  </div>
+
+<% end %>
+
+
+<script>
+  function before_submit(){                     //add params before submission
+    $('<input />').attr('type', 'hidden')
+        .attr('name', 'description')
+        .attr('value', $("#editor").cleanHtml())
+        .appendTo('#projectForm');
+    }
+
+</script>

@@ -1,0 +1,80 @@
+<div class="container">
+  <div class="row feature">
+
+    <div class="col">
+      <%= link_to 'New Group +', new_group_path, class: "btn btn-info" %>
+      <% if notice %>
+          <p id="notice" class="alert alert-danger"><%= notice %></p>
+        <% end %>
+
+      <% if current_user.groups.count!=0 %>
+          <h1>Groups you belong to: </h1>
+          <table class="table">
+            <thead>
+            <tr>
+              <th>Name</th>
+              <th>Mentor</th>
+              <th colspan="3"></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <% current_user.groups.each do |group| %>
+                <tr>
+                  <td><%= group.name %></td>
+                  <td><%= group.mentor.name %></td>
+                  <td><%= link_to 'Show', group %></td>
+                  <%if group.mentor.id == current_user.id %>
+                      <td><%= link_to 'Edit', edit_group_path(group) %></td>
+                      <td><%= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                  <%end%>
+
+                </tr>
+            <% end %>
+            </tbody>
+          </table>
+
+          <br>
+      <% end %>
+
+      <% if current_user.groups_mentored.count!=0 %>
+          <h1>Groups you mentor: </h1>
+          <table class="table">
+            <thead>
+            <tr>
+              <th>Name</th>
+              <th>Member Count</th>
+              <th colspan="3">Actions</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <% current_user.groups_mentored.each do |group| %>
+                <tr>
+                  <td><%= group.name %></td>
+                  <td><%= group.users.count %></td>
+                  <td><%= link_to 'Show', group %></td>
+                  <td><%= link_to 'Edit', edit_group_path(group) %></td>
+                  <td><%= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                </tr>
+            <% end %>
+            </tbody>
+          </table>
+
+          <br>
+      <% end %>
+
+
+
+    </div>
+
+
+  </div>
+  <br />
+
+  <br />
+
+
+
+</div>
+

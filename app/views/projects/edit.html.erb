@@ -1,0 +1,10 @@
+<div class="container feature">
+  <h1>Editing Project</h1>
+
+  <%= render 'form', project: @project %>
+
+  <%= link_to 'Show', user_project_path(current_user,@project) %> |
+  <%= link_to 'Back', user_path(@author)%>
+
+</div>
+

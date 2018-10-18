@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Welcome to CircuitVerse, <%= @user.name %></h1>
+    <p>
+      You have successfully forked a new project from <%= User.find_by(id: @old_project.author_id).name + "/" +@old_project.name %>.<br>
+      Your forked project name is: <%= @new_project.name %> with an access type: <%= @new_project.project_access_type%>.<br>
+    </p>
+
+    <p>Have a great day!</p>
+  </body>
+</html>

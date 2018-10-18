@@ -1,0 +1,70 @@
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark" style="padding-right:4.5em;padding-left:4.5em;">
+  <a class="navbar-brand" href="/"><img src="/img/circuitverse2.svg" alt="Logo" height="25px"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/simulator">Simulator</a>
+      </li>
+      <li class="nav-item">
+      <a class="nav-link" href="https://docs.circuitverse.org/">Getting Started</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/features">Features</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/examples">Examples</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/teachers">Teachers</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/about">About</a>
+      </li>
+      <!-- <form class="form-inline my-2 my-lg-0 navbar-right">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form> -->
+
+    </ul>
+    <div class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" id="searchInput" aria-label="Search" >
+      <!--<button class="btn btn-outline-secondary my-2 my-sm-0" id="searchButton" onclick="search()" type="submit">Search</button>-->
+      <script>
+        function search(){
+
+            window.location="https://circuitverse.org/search?q="+document.getElementById("searchInput").value
+
+        }
+        document.getElementById("searchInput").onkeypress = function(event){
+            if (event.keyCode == 13 || event.which == 13){
+                search()
+            }
+        };
+      </script>
+    </div>
+    <div class="navbar-nav nav-item dropdown">
+      <%if user_signed_in? %>
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <%= current_user.name %>
+      </a>
+
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href=<%=  profile_path(current_user) %>>Profile </a>
+          <a class="dropdown-item" href= <%=  user_path(current_user) %>>My Circuits</a>
+          <a class="dropdown-item" href= <%=  user_groups_path(current_user) %>>My Groups</a>
+          <a class="dropdown-item" href= <%=  user_favourites_path(current_user) %>>My Favourites</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" rel="nofollow" data-method="delete" href= <%= destroy_user_session_path%> >Sign Out</a>
+
+        </div>
+      <%else%>
+          <a class="navbar-nav nav-link" href=<%= new_user_session_path  %>> Sign in </a>
+      <%end %>
+    </div>
+
+  </div>
+</nav>

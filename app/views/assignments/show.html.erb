@@ -1,0 +1,93 @@
+<div class="container feature">
+  <div class="row">
+
+    <div class="col">
+
+
+      <p id="notice"><%= notice %></p>
+
+      <p>
+        <strong>Name:</strong>
+        <%= @assignment.name %>
+      </p>
+
+      <p>
+        <strong>Group:</strong>
+        <%= @assignment.group.name %>
+      </p>
+
+      <p>
+        <strong>Deadline:</strong>
+        <div class="date">
+          <%= @assignment.deadline.strftime("%d %b,%Y %I:%M %p %Z") %>
+        </div>
+        <% if(@assignment.deadline > Time.now) %>
+          <p> <strong>Time remaining: </strong><%=(( @assignment.deadline.to_i - Time.now.to_i)/1.day)%> days,  <%=(( @assignment.deadline.to_i- Time.now.to_i)/1.hour)%24%> hours, <%=(( @assignment.deadline.to_i- Time.now.to_i)/1.minute)%60%> minutes</p>
+      <% end %>
+      </p>
+
+      <p>
+        <strong>Description:</strong>
+        <p><%=sanitize @assignment.description%></p><br>
+      </p>
+
+      <%= link_to 'Back', group_path(@group) %>
+
+      <%if @admin_access && @assignment.status!="closed"%>
+
+          <%=link_to 'Edit', edit_group_assignment_path(@group,@assignment) %>
+
+      <%end%>
+
+    </div>
+
+
+  </div>
+  <hr>
+  <%if @admin_access %>
+  <div class="row">
+
+    <script>
+        $( function() {
+            $('.list-group-item-action').on('click', function (e) {
+                e.preventDefault()
+                $("#assignmentPreview").attr("src","/simulator/" + e.currentTarget.id );
+                $(this).tab('show')
+            })
+        } );
+    </script>
+
+    <div class="col-3">
+      <div class="overflow:scroll">
+        <div class="list-group" id="list-tab" role="tablist" id="submissionTable" style="max-height:600px;overflow:hidden;overflow-y:scroll">
+		  <% @project_order = @assignment.projects.sort_by {|p| p.author.name} %>
+          <% @project_order.each do |project| %>
+              <a class="list-group-item list-group-item-action" id=<%= project.id%> ><%= project.author.name  %></a>
+          <%end%>
+
+        </div>
+      </div>
+
+    </div>
+    <div class="col col-9">
+
+      <div class="embed-responsive embed-responsive-4by3 feature">
+        <iframe src="" id="assignmentPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen> </iframe>
+      </div>
+    </div>
+  </div>
+  <%end%>
+  <br />
+
+  <br />
+
+  <script src="/js/time.js"></script>
+  <script>
+      $(document).ready(function() {
+          $('.date').each(function(){
+              this.innerHTML = formatDate(new Date(this.innerHTML), "dddd hh:mmTT zz, dd MMM yyyy")
+          })})
+  </script>
+
+
+</div>

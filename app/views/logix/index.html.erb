@@ -1,0 +1,107 @@
+
+
+<% content_for :title, "CircuitVerse - Online Digital Logic Circuit Simulator" %>
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+
+
+    <!-- <div class="col">
+        <img src="img/logixBanner.png" class="img-fluid img-thumbnail" alt="Responsive image">
+    </div> -->
+    <div class="jumbotron" style="background-image: url('img/logixBanner2.png')">
+        <div class="container">
+            <div class="row justify-content-md-center">
+                <div class="col-md-auto">
+                    <div class="card text-center" style="max-width: 40rem; box-shadow: 0px 0px 40px 8px rgba(0, 0, 0, .6), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                        <div class="card-body">
+                            <h1 class="card-title display-4" style="font-size: 3em">Explore Digital Logic Circuits with <img src="/img/circuitverse_black.svg" height="45px" alt="Logo"></h1>
+                            <p class="card-text">From simple gates to complex sequential circuits, plot timing diagrams, automatic circuit generation, explore standard ICs, and much more – for free!</p>
+                            <a class="btn btn-lg btn-secondary" href=<%= simulator_new_path %> role="button">Launch Simulator &raquo;</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="col">
+                    <img src="img/logixBanner.png" class="img-fluid img-thumbnail" alt="Responsive image">
+                </div> -->
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+
+            <div class="col-md-4">
+                <h2 class="">Features</h2>
+                <p>CircuitVerse contains most primary circuit elements from both combinational and sequential circuit design. CircuitVerse allows multi-bit wires(buses) and Subcircuits.</p>
+                <p><a class="btn btn-secondary" href="./features.html" role="button">Read More &raquo;</a></p>
+            </div>
+            <div class="col-md-4">
+                <h2 class="">Ease of use</h2>
+                <p>CircuitVerse uses a drag and drop interface. Most users are able to get started immediately. Checkout the interactive online documentation to learn CircuitVerse and Digital Logic Design.</p>
+                <p><a class="btn btn-secondary" href="https://docs.circuitverse.org" role="button"> Documentation &raquo;</a></p>
+            </div>
+            <div class="col-md-4">
+                <h2 class="">Teachers</h2>
+                <p>CircuitVerse has been designed to be very easy to use in class. Teachers can create groups for their class class and issue tests and assignments. </p>
+                <p><a class="btn btn-secondary" href="./teachers.html" role="button">Read More &raquo;</a></p>
+            </div>
+            <!--<div class="col-md-4">-->
+                <!--<h2 class="">The Idea</h2>-->
+                <!--<p>CircuitVerse in its present form is an easy to use digital circuit simulator. The idea is to form a community based learning platform around it. Something very similar to MIT-Scratch. </p>-->
+                <!--<p><a class="btn btn-secondary" href="./about.html" role="button">Read More &raquo;</a></p>-->
+            <!--</div>-->
+        </div>
+    </div>
+  <br>
+  <br>
+  <div class="container">
+    <% if Rails.env.production? %>
+    <h5 class="">Featured Circuits</h5>
+    <div class="row">
+     <!-- This is temporary, needs to replaced by a proper featured project management system  -->
+      <% featured_ids=[247,248,252,67] %>
+      <% featured_ids.each do |project_id| %>
+          <% project = Project.find(project_id) %>
+          <div class="col-sm-3">
+            <div class="card text-center " style="margin-top: 2rem">
+              <div class="card-header card-title">
+               <a href="<%= user_project_path(project.author_id,project) %>"><%=project.name %></a>
+              </div>
+              <a href="<%= user_project_path(project.author_id,project) %>" ><img class="card-img-top " src="<%= project.image_preview.url %>" alt="<%= project.name%>" ></a>
+            </div>
+          </div>
+      <% end %>
+    </div>
+    <br>
+    <% end %>
+
+    <h5 class="">Recent Circuits</h5>
+    <div class="row">
+      <% Project.select("id,author_id,image_preview,name").where(project_access_type:"Public",forked_project_id:nil).order("id desc").limit(12).each do |project| %>
+          <div class="col-sm-3">
+            <div class="card text-center " style="margin-top: 2rem">
+              <div class="card-header card-title">
+               <a href="<%= user_project_path(project.author_id,project) %>"><%=project.name %></a>
+              </div>
+              <a href="<%= user_project_path(project.author_id,project) %>" ><img class="card-img-top " src="<%= project.image_preview.url %>" alt="<%= project.name%>" ></a>
+            </div>
+          </div>
+      <% end %>
+    </div>
+
+  </div>
+
+    <script>
+        if(localStorage.getItem("recover_login")){
+            window.location.href = "/simulator"
+        }
+    </script>
+    <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->

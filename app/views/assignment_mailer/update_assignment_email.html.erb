@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1><%= @assignment.name %> </h1>
+    <p>
+      Assignment <%=@assignment.name%> in <%=Group.find_by(id:@assignment.group_id).name%> has been updated.<br>
+    </p>
+    <p>
+      Assignment is mentored by <%=User.find_by(id:Group.find_by(id:@assignment.group_id).mentor_id).name %>
+    </p>
+    <p>
+      Deadline: <%= @assignment.deadline%>
+    </p>
+  </body>
+</html>

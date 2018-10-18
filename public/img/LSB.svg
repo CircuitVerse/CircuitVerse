@@ -1,0 +1,13 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="70" height="70">
+    <defs/>
+    <g>
+        <path fill="white" stroke="black" paint-order="fill stroke markers" d=" M 20.5 5.5 L 50.5 5.5 L 50.5 65.5 L 20.5 65.5 L 20.5 5.5 Z" stroke-miterlimit="10" stroke-width="3" stroke-dasharray="" />
+        <path fill="none" stroke="none" />
+        <text fill="black" stroke="none" font-family="Georgia" font-size="10px" font-style="normal" font-weight="normal" text-decoration="normal" x="36" y="23" text-anchor="middle" dominant-baseline="alphabetic">LSB</text>
+        <text fill="black" stroke="none" font-family="Georgia" font-size="8px" font-style="normal" font-weight="normal" text-decoration="normal" x="40" y="58" text-anchor="middle" dominant-baseline="alphabetic">EN</text>
+        <path fill="green" stroke="black" paint-order="stroke fill markers" d="" stroke-miterlimit="10" stroke-width="3" stroke-dasharray="" />
+        <path fill="green" stroke="none" paint-order="stroke fill markers" d=" M 23 35 A 3 3 0 1 1 22.999998500000125 34.9970000005 Z" />
+        <path fill="green" stroke="none" paint-order="stroke fill markers" d=" M 53 35 A 3 3 0 1 1 52.999998500000125 34.9970000005 Z" />
+        <path fill="green" stroke="none" paint-order="stroke fill markers" d=" M 53 55 A 3 3 0 1 1 52.999998500000125 54.9970000005 Z" />
+    </g>
+</svg>

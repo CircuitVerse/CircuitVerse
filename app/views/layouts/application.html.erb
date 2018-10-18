@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="<%= yield(:page_description).presence || 'Explore Digital circuits online with CircuitVerse. With our easy to use simulator interface, you will be building circuits in no time.' %>">
+  <meta name="keywords" content="Digital circuits, logisim, online, educational platform, karnaugh map, kmap, electronic devices and circuits,digital electronics basics,introduction to digital electronics, simple electronics projects for students,electric circuit analysis, logic circuits, logic simulation, digital logic circuits, boolean logic">
+  <meta name="author" content="<%= yield(:author_name) %>">
+  <link rel="icon" href="/img/favicon.ico">
+  <!--<script src="https://use.fontawesome.com/86b18442ae.js"></script>-->
+
+  <title><%= yield(:title).presence || 'CircuitVerse - Digital Circuit Simulator' %></title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <!-- Bootstrap core CSS -->
+
+  <link href="/css/4.0.0_bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous"> -->
+  <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+  <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
+
+  <!-- Custom styles for this template -->
+  <link href="/css/logixRelease.css" rel="stylesheet">
+
+  <%= csrf_meta_tags %>
+
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112678513-1"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-112678513-1');
+  </script>
+
+</head>
+
+<body>
+<%= render 'logix_assets/nav'%>
+<%= yield %>
+
+<!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->
+<script src="/js/1.13.0_popper.min.js" ></script>
+
+<script src="/js/4.0.0_bootstrap.min.js" ></script>
+
+<div class="container" style="height:250px">
+<!--This is to give space for footer-->
+</div>
+
+<!--<<<<<<< Updated upstream-->
+<!--<div class="" style="position:relative;margin-bottom:10px;margin-top:20px;width:100%">-->
+<!--=======-->
+<div class="foot">
+<!--&gt;>>>>>> Stashed changes-->
+  <hr>
+  <div class="container">
+    <div class="row">
+      <div class="col" style="text-align: center">
+        <p style="text-align: center">Brought to you by</p>
+        <a href="https://www.iiitb.ac.in/"><img src="/img/iiitb.jpg" height="70px"></a>
+      </div>
+      <div class="col" style="text-align: center">
+        <p style="text-align: center">Hosting Sponsor</p>
+        <a href="http://digitalocean.com/" ><img src="/img/DO.png" height="60px"></a>
+      </div>
+      <div class="col" style="text-align: center">
+        <p style="text-align: center">Marketed by</p>
+        <a href="http://www.iiitb.org/"><img src="/img/istudio.png" height="70px"></a>
+      </div>
+      <div class="col" style="text-align: center">
+        <p style="text-align: center">Developed by</p>
+        <a href="http://zense.co.in/"><img src="/img/zense.png" height="70px"></a>
+      </div>
+
+      <!--<div class="col">-->
+        <!---->
+      <!--</div>-->
+    </div>
+    <!--<p text-aligh>&copy; CircuitVerse Team 2018</p>-->
+
+
+  </div>
+
+</div>
+
+</body>
+
+
+</html>

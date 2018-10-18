@@ -1,0 +1,159 @@
+class AssignmentsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :set_assignment, only: [:show, :edit, :update, :destroy,:start, :reopen]
+  before_action :set_group
+  before_action :set_access
+  before_action :check_access, only: [:edit,:update,:destroy,:new,:create, :reopen]
+  after_action :check_reopening_status, only: [:update]
+
+
+
+  # GET /assignments
+  # GET /assignments.json
+  def index
+    @assignments = Assignment.all
+  end
+
+  # GET /assignments/1
+  # GET /assignments/1.json
+  def show
+
+  end
+
+  def start
+    if(@assignment.status == 'closed' or !Project.find_by(author_id:current_user, assignment_id: @assignment.id).nil? )
+      render plain: "access restricted" and return;
+    end
+    @project = current_user.projects.new
+    @project.name = current_user.name + "/" + @assignment.name
+    @project.assignment_id = @assignment.id
+    @project.project_access_type="Private"
+    @project.save
+    redirect_to user_project_path(current_user,@project)
+
+
+  end
+
+  # GET /assignments/new
+  def new
+    @assignment = Assignment.new
+    @assignment.deadline = Time.now+1.week
+  end
+
+  # GET /assignments/1/edit
+  def edit
+    if @assignment.status == 'closed'
+      render plain: "access restricted" and return;
+    end
+  end
+
+  def reopen
+    if @assignment.status == 'open'
+      render plain: "already open" and return;
+    end
+    @assignment.status = 'open'
+    @assignment.deadline = Time.now + 1.day
+    @assignment.save
+
+    redirect_to edit_group_assignment_path(@group,@assignment)
+
+  end
+
+  def check_reopening_status
+
+      @assignment.projects.each do |proj|
+        if proj.project_submission == true
+          old_project = Project.find_by(id:proj.forked_project_id)
+          if(old_project.nil?)
+            proj.project_submission = false
+            proj.save
+          else
+            old_project.assignment_id = proj.assignment_id
+            old_project.save
+            proj.destroy
+          end
+        end
+    end
+  end
+  # POST /assignments
+  # POST /assignments.json
+  def create
+
+    description = params["description"]
+    params = assignment_params                  # dont name it as params as params and assignment_params are different
+    # params[:deadline] = params[:deadline].to_time
+
+    @assignment = @group.assignments.new(params)
+    puts(params)
+    @assignment.description = description
+    @assignment.status = 'open'
+    if @assignment.deadline.nil?
+      @assignment.deadline = Time.now + 1.year
+    end
+
+    respond_to do |format|
+      if @assignment.save
+        format.html { redirect_to @group, notice: 'Assignment was successfully created.' }
+        format.json { render :show, status: :created, location: @assignment }
+      else
+        format.html { render :new }
+        format.json { render json: @assignment.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PATCH/PUT /assignments/1
+  # PATCH/PUT /assignments/1.json
+  def update
+
+    description = params["description"]
+    params = assignment_params
+    @assignment.description = description
+    # params[:deadline] = params[:deadline].to_time
+
+    respond_to do |format|
+      if @assignment.update(params)
+        format.html { redirect_to @group, notice: 'Assignment was successfully updated.' }
+        format.json { render :show, status: :ok, location: @assignment }
+      else
+        format.html { render :edit }
+        format.json { render json: @assignment.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /assignments/1
+  # DELETE /assignments/1.json
+  def destroy
+    @assignment.destroy
+    respond_to do |format|
+      format.html { redirect_to @group, notice: 'Assignment was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_assignment
+        @assignment = Assignment.find(params[:id])
+    end
+
+    def set_group
+      @group = Group.find(params[:group_id])
+    end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def assignment_params
+      params.require(:assignment).permit(:name, :deadline, :description)
+    end
+
+    def set_access
+      @admin_access = (@group.mentor_id == current_user.id or (!current_user.nil? and current_user.admin))
+    end
+
+    def check_access
+      if !@admin_access
+        render plain: "access restricted" and return;
+      end
+    end
+end

@@ -1,0 +1,33 @@
+
+
+    <div class="container">
+        <div class="row feature">
+
+            <div class="container">
+               <h2>Profile</h2>
+                <div class="row">
+                   <div class="col-lg-8">
+                    <p> <strong>Name: </strong><%=@profile.name%></p>
+                    <p> <strong>Email: </strong><%=@profile.email%></p>
+                    <p> <strong>Member since: </strong><%=((Time.now.to_i - @profile.created_at.to_i)/1.day)%> days</p>
+                    <!--<p> <strong>Educational Institution: </strong> IIIT-Bangalore </p>-->
+                    <!--<p> <strong>Country: </strong> India </p>-->
+                    <% if user_signed_in? and current_user.id==@profile.id%>
+                        <p><a class="btn btn-secondary" href = <%= profile_edit_path(current_user) %> role="button">Edit </a></p>
+                    <% end %>
+                  </div>
+                  <div class="col-lg-4">
+                      <%= image_tag @profile.profile_picture.url(:medium) , :style => "border: 2px solid black"%>
+                  </div>
+                </div>
+            </div>
+
+
+        </div>
+        <br />
+
+        <br />
+
+
+
+    </div>

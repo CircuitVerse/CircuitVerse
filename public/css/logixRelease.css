@@ -1,0 +1,59 @@
+p{
+    text-align: justify;
+}
+
+.feature{
+    border:1px solid rgba(0,0,0,.125);
+    padding:  1.25rem;
+    border-radius: 0.25em;
+}
+
+.gif-box{
+	position:absolute;
+	text-align: center;
+	top: 50%;
+}
+
+body {
+    padding-top: 100px;
+    min-height: 100vh;
+    position:relative;
+}
+@media (max-width: 979px) {
+    body {
+        padding-top: 100px;
+    }
+}
+
+.jumbotron{
+    margin-top:-50px;
+}
+
+.footer{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    /*background-color: #efefef;*/
+    text-align: center;
+}
+
+.noSelect {
+    -moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;
+}
+.pointerCursor {
+    cursor: pointer;
+}
+.defaultCursor {
+    cursor: default;
+}
+
+@media only screen and (max-width: 700px){
+    body {
+        padding-bottom: 250px;
+    }
+    .foot{
+        background-color: "transparent"
+    }
+}

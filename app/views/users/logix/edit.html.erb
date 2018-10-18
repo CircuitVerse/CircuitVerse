@@ -1,0 +1,46 @@
+
+
+<div class="container">
+  <div class="row feature">
+
+    <div class="container">
+
+      <h2>Profile</h2>
+
+      <!--<p> <strong>Name: </strong><%=@profile.name%></p>-->
+      <!--<p> <strong>Email: </strong><%=@profile.email%></p>-->
+      <!--<p> <strong>Member since: </strong><%=((Time.now.to_i - @profile.created_at.to_i)/1.day)%> days</p>-->
+      <!--<p> <strong>Educational Institution: </strong> IIIT-Bangalore </p>-->
+      <!--<p> <strong>Country: </strong> India </p>-->
+
+
+      <%= form_for @profile, html: { multipart: true},  url: {action: "update"}  do |f| %>
+          <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" name="profile[name]" value = "<%= @profile.name%>">
+          </div>
+          <div class="form-group">
+            <label for="profile_picture">Profile Picture:</label>
+            <p> <%= image_tag @profile.profile_picture.url(:thumb)%></p>
+            <input type="file" class="form-control" id="profile_picture" name="profile[profile_picture]" value = "<%= @profile.profile_picture%>">
+          <!--<div class="form-group">-->
+            <!--<label for="educational_institution">Educational Institution:</label>-->
+            <!--<input type="text" class="form-control" id="educational_institution" placeholder="e.g. IIIT-Bangalore" name="profile[educational_institution]">-->
+          <!--</div>-->
+          <!--<div class="form-group">-->
+            <!--<label for="country">Country:</label>-->
+            <!--<input type="text" class="form-control" id="country" placeholder="Enter country" name="profile[country]">-->
+          <!--</div>-->
+          <button type="submit" class="btn btn-secondary">Save</button>
+      <% end %>
+    </div>
+
+
+  </div>
+  <br />
+
+  <br />
+
+
+
+</div>
