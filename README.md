@@ -16,6 +16,11 @@
 * Start Redis server process.
 * To start sidekiq: `bundle exec sidekiq -e development -q default -q mailers -d -L tmp/sidekiq.log` (In development)
 
+## Docker Instructions
+
+* Install docker and docker-compose
+* Run: `docker-compose up`
+
 ## Production Specific Instructions
 
 ```
