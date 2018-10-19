@@ -1,0 +1,28 @@
+#!/bin/bash
+
+cat << EOF > config/database.yml
+development:
+  adapter: mysql2
+  username: root
+  password: root
+  database: circuitverse_development
+  host: db
+  port: 3306
+  secure_auth: false
+EOF
+
+echo "Waiting for db to be available"
+for i in $(seq 1 30) ; do timeout 1 bash -c "echo > /dev/tcp/db/3306" > /dev/null 2>&1 && status=0 && break || status=$? && sleep 1 ; done
+
+if [ $status -ne 0 ]
+then
+    echo "Could not connect to db"
+    exit 0
+fi
+
+bundle exec rails db:create
+bundle exec rails db:migrate
+
+rm -f /circuitverse/tmp/pids/server.pid
+echo "Starting on 127.0.0.1:3000"
+bundle exec rails s -p 3000 -b '0.0.0.0'
