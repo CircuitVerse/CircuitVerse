@@ -125,16 +125,15 @@ function showProperties(obj) {
         if (!obj.propagationDelayFixed)
             $('#moduleProperty-inner').append("<p>Delay: <input class='objectPropertyAttribute' type='number'  name='changePropagationDelay' min='0' max='100000' value=" + obj.propagationDelay + "></p>");
 
-
-        $('#moduleProperty-inner').append("<p>Label: <input class='objectPropertyAttribute' type='text'  name='setLabel'  value='" + escapeHtml(obj.label) + "'></p>");
-
+        if (obj.hasOwnProperty('label')) {
+            $('#moduleProperty-inner').append("<p>Label: <input class='objectPropertyAttribute' type='text'  name='setLabel'  value='" + escapeHtml(obj.label) + "'></p>");
+        }
 
         if (!obj.labelDirectionFixed) {
             var s = $("<select class='objectPropertyAttribute' name='newLabelDirection'>" + "<option value='RIGHT' "+ ["","selected"][+(obj.labelDirection=="RIGHT")] +  " >RIGHT</option><option value='DOWN' "+ ["","selected"][+(obj.labelDirection=="DOWN")] +  " >DOWN</option><option value='LEFT' " + "<option value='RIGHT'"+ ["","selected"][+(obj.labelDirection=="LEFT")] +  " >LEFT</option><option value='UP' " + "<option value='RIGHT'"+ ["","selected"][+(obj.labelDirection=="UP")] +  " >UP</option>"+"</select>");
             s.val(obj.labelDirection);
             $('#moduleProperty-inner').append("<p>Label Direction: " + $(s).prop('outerHTML') + "</p>");
         }
-
 
         if (!obj.directionFixed) {
             var s = $("<select class='objectPropertyAttribute' name='newDirection'>" + "<option value='RIGHT' "+ ["","selected"][+(obj.direction=="RIGHT")] +  " >RIGHT</option><option value='DOWN' "+ ["","selected"][+(obj.direction=="DOWN")] +  " >DOWN</option><option value='LEFT' " + "<option value='RIGHT'"+ ["","selected"][+(obj.direction=="LEFT")] +  " >LEFT</option><option value='UP' " + "<option value='RIGHT'"+ ["","selected"][+(obj.direction=="UP")] +  " >UP</option>"+"</select>");
