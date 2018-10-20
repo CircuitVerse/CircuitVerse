@@ -891,11 +891,6 @@ function generateImage(imgType, view, transparent, resolution, down = true) {
         simulationArea.context.fill();
     }
 
-    // Watermark
-    simulationArea.context.font = "12pt Verdana";
-    simulationArea.context.fillStyle = "#e3e3e3";
-    simulationArea.context.fillText("Made with CircuitVerse",  simulationArea.canvas.width * 0.01, simulationArea.canvas.height * 0.98, simulationArea.canvas.width * 0.98);
-
     // Draw circuits, why is it updateOrder and not renderOrder?
     for (var i = 0; i < updateOrder.length; i++)
         for (var j = 0; j < scope[updateOrder[i]].length; j++)
