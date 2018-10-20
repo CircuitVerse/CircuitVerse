@@ -169,6 +169,16 @@ function startListeners() {
             undo();
         }
 
+        // Detect online save shortcut (CTRL+S)
+        if (simulationArea.controlDown && e.keyCode == 83) {
+            save();
+        }
+         // Detect offline save shortcut (CTRL+F)
+        if (simulationArea.controlDown && e.keyCode == 70) {
+            console.log("saveOffline");
+            saveOffline();
+        }
+        
         //change direction fns
         if (e.keyCode == 37 && simulationArea.lastSelected != undefined) {
             simulationArea.lastSelected.newDirection("LEFT");
