@@ -38,7 +38,7 @@ class SimulatorController < ApplicationController
   def update
     @project.data = params[:data]
     data_url = params[:image]
-    jpeg = (data_url.include? 'data:image/jpeg;base64,') ? Base64.decode64(data_url['data:image/jpeg;base64,'.length .. -1]) : Base64.decode64(data_url['data:,'.length .. -1])
+    jpeg      = Base64.decode64(data_url['data:image/jpeg;base64,'.length .. -1])
     image_file = File.new("preview_#{Time.now()}.jpeg", "wb")
     image_file.write(jpeg)
     @project.image_preview = image_file
@@ -56,7 +56,7 @@ class SimulatorController < ApplicationController
     @project.author = current_user
 
     data_url = params[:image]
-    jpeg = (data_url.include? 'data:image/jpeg;base64,') ? Base64.decode64(data_url['data:image/jpeg;base64,'.length .. -1]) : Base64.decode64(data_url['data:,'.length .. -1])
+    jpeg      = Base64.decode64(data_url['data:image/jpeg;base64,'.length .. -1])
     image_file = File.new("preview_#{Time.now()}.jpeg", "wb")
     image_file.write(jpeg)
     @project.image_preview = image_file
