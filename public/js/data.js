@@ -217,7 +217,7 @@ function extract(obj) {
 // Check if there is anything to backup - to be deprecated
 function checkIfBackup(scope) {
     for (var i = 0; i < updateOrder.length; i++)
-        if (scope[updateOrder[i]].length) return true;
+        if (scope.hasOwnProperty(updateOrder[i]) && scope[updateOrder[i]].length) return true;
     return false;
 }
 
