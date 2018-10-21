@@ -12,7 +12,7 @@ function SubCircuit(x, y, scope = globalScope, id = undefined, savedData = undef
 
     this.id = id || prompt("Enter Id: ");
     var subcircuitScope = scopeList[this.id]; // Scope of the subcircuit
-
+    
     // Error handing
     if (subcircuitScope == undefined) {
         showError("SubCircuit : " + ((savedData && savedData.title) || this.id) + " Not found");
@@ -51,18 +51,24 @@ function SubCircuit(x, y, scope = globalScope, id = undefined, savedData = undef
         scheduleUpdate();
 
         this.version = this.savedData["version"] || "1.0";
-
         this.id = this.savedData["id"];
-        for (var i = 0; i < this.savedData["inputNodes"].length; i++) {
-            this.inputNodes.push(this.scope.allNodes[this.savedData["inputNodes"][i]]);
-            this.inputNodes[i].parent = this;
-            this.inputNodes[i].layout_id = subcircuitScope.Input[i].layoutProperties.id
+
+        if (this.savedData.hasOwnProperty("inputNodes")) {
+            for (var i = 0; i < this.savedData["inputNodes"].length; i++) {
+                this.inputNodes.push(this.scope.allNodes[this.savedData["inputNodes"][i]]);
+                this.inputNodes[i].parent = this;
+                this.inputNodes[i].layout_id = subcircuitScope.Input[i].layoutProperties.id
+            }
         }
-        for (var i = 0; i < this.savedData["outputNodes"].length; i++) {
-            this.outputNodes.push(this.scope.allNodes[this.savedData["outputNodes"][i]]);
-            this.outputNodes[i].parent = this;
-            this.outputNodes[i].layout_id = subcircuitScope.Output[i].layoutProperties.id;
+
+        if (this.savedData.hasOwnProperty("outputNodes")) {
+            for (var i = 0; i < this.savedData["outputNodes"].length; i++) {
+                this.outputNodes.push(this.scope.allNodes[this.savedData["outputNodes"][i]]);
+                this.outputNodes[i].parent = this;
+                this.outputNodes[i].layout_id = subcircuitScope.Output[i].layoutProperties.id;
+            }
         }
+
         if (this.version == "1.0") { // For backward compatibility
             this.version = "2.0";
             this.x -= subcircuitScope.layout.width / 2;
@@ -177,115 +183,114 @@ SubCircuit.prototype.reset = function() {
 
     this.removeConnections();
 
-    var subcircuitScope = scopeList[this.id];
-
-    for (var i = 0; i < subcircuitScope.SubCircuit.length; i++) {
-        subcircuitScope.SubCircuit[i].reset();
-    }
-
-    if (subcircuitScope.Input.length == 0 && subcircuitScope.Output.length == 0) {
-        showError("SubCircuit : " + subcircuitScope.name + " is an empty circuit");
-        this.delete();
-        this.scope.backups = [];
-        return;
-    }
-
-    subcircuitScope.layout.height = subcircuitScope.layout.height;
-    subcircuitScope.layout.width = subcircuitScope.layout.width;
-    this.leftDimensionX = 0;
-    this.upDimensionY = 0;
-    this.rightDimensionX = subcircuitScope.layout.width;
-    this.downDimensionY = subcircuitScope.layout.height;
-
-
-    var temp_map_inp = {}
-    for (var i = 0; i < subcircuitScope.Input.length; i++) {
-        temp_map_inp[subcircuitScope.Input[i].layoutProperties.id] = [subcircuitScope.Input[i], undefined];
-    }
-    for (var i = 0; i < this.inputNodes.length; i++) {
-        if (temp_map_inp.hasOwnProperty(this.inputNodes[i].layout_id)) {
-            temp_map_inp[this.inputNodes[i].layout_id][1] = this.inputNodes[i];
-        } else {
+    if (scopeList.hasOwnProperty(this.id)) {
+        var subcircuitScope = scopeList[this.id];
+    
+        for (var i = 0; i < subcircuitScope.SubCircuit.length; i++) {
+            subcircuitScope.SubCircuit[i].reset();
+        }
+    
+        if (subcircuitScope.Input.length == 0 && subcircuitScope.Output.length == 0) {
+            showError("SubCircuit : " + subcircuitScope.name + " is an empty circuit");
+            this.delete();
             this.scope.backups = [];
-            this.inputNodes[i].delete();
-            this.nodeList.clean(this.inputNodes[i])
+            return;
         }
-    }
-
-    for (id in temp_map_inp) {
-        if (temp_map_inp[id][1]) {
-            if (temp_map_inp[id][0].layoutProperties.x == temp_map_inp[id][1].x && temp_map_inp[id][0].layoutProperties.y == temp_map_inp[id][1].y)
-                temp_map_inp[id][1].bitWidth = temp_map_inp[id][0].bitWidth;
-            else {
+    
+        subcircuitScope.layout.height = subcircuitScope.layout.height;
+        subcircuitScope.layout.width = subcircuitScope.layout.width;
+        this.leftDimensionX = 0;
+        this.upDimensionY = 0;
+        this.rightDimensionX = subcircuitScope.layout.width;
+        this.downDimensionY = subcircuitScope.layout.height;
+    
+    
+        var temp_map_inp = {}
+        for (var i = 0; i < subcircuitScope.Input.length; i++) {
+            temp_map_inp[subcircuitScope.Input[i].layoutProperties.id] = [subcircuitScope.Input[i], undefined];
+        }
+        for (var i = 0; i < this.inputNodes.length; i++) {
+            if (temp_map_inp.hasOwnProperty(this.inputNodes[i].layout_id)) {
+                temp_map_inp[this.inputNodes[i].layout_id][1] = this.inputNodes[i];
+            } else {
                 this.scope.backups = [];
-                temp_map_inp[id][1].delete();
-                this.nodeList.clean(temp_map_inp[id][1]);
-                temp_map_inp[id][1] = new Node(temp_map_inp[id][0].layoutProperties.x, temp_map_inp[id][0].layoutProperties.y, 0, this, temp_map_inp[id][0].bitWidth)
-                temp_map_inp[id][1].layout_id = id;
+                this.inputNodes[i].delete();
+                this.nodeList.clean(this.inputNodes[i])
             }
         }
-    }
-
-    this.inputNodes = []
-    for (var i = 0; i < subcircuitScope.Input.length; i++) {
-        var input = temp_map_inp[subcircuitScope.Input[i].layoutProperties.id][0]
-        if (temp_map_inp[input.layoutProperties.id][1])
-            this.inputNodes.push(temp_map_inp[input.layoutProperties.id][1])
-        else {
-            var a = new Node(input.layoutProperties.x, input.layoutProperties.y, 0, this, input.bitWidth);
-            a.layout_id = input.layoutProperties.id;
-            this.inputNodes.push(a);
+    
+        for (id in temp_map_inp) {
+            if (temp_map_inp[id][1]) {
+                if (temp_map_inp[id][0].layoutProperties.x == temp_map_inp[id][1].x && temp_map_inp[id][0].layoutProperties.y == temp_map_inp[id][1].y)
+                    temp_map_inp[id][1].bitWidth = temp_map_inp[id][0].bitWidth;
+                else {
+                    this.scope.backups = [];
+                    temp_map_inp[id][1].delete();
+                    this.nodeList.clean(temp_map_inp[id][1]);
+                    temp_map_inp[id][1] = new Node(temp_map_inp[id][0].layoutProperties.x, temp_map_inp[id][0].layoutProperties.y, 0, this, temp_map_inp[id][0].bitWidth)
+                    temp_map_inp[id][1].layout_id = id;
+                }
+            }
         }
-    }
-
-    var temp_map_out = {}
-    for (var i = 0; i < subcircuitScope.Output.length; i++) {
-        temp_map_out[subcircuitScope.Output[i].layoutProperties.id] = [subcircuitScope.Output[i], undefined];
-    }
-    for (var i = 0; i < this.outputNodes.length; i++) {
-        if (temp_map_out.hasOwnProperty(this.outputNodes[i].layout_id)) {
-            temp_map_out[this.outputNodes[i].layout_id][1] = this.outputNodes[i];
-        } else {
-            this.outputNodes[i].delete();
-            this.nodeList.clean(this.outputNodes[i])
-        }
-    }
-
-    for (id in temp_map_out) {
-        if (temp_map_out[id][1]) {
-            if (temp_map_out[id][0].layoutProperties.x == temp_map_out[id][1].x && temp_map_out[id][0].layoutProperties.y == temp_map_out[id][1].y)
-                temp_map_out[id][1].bitWidth = temp_map_out[id][0].bitWidth;
+    
+        this.inputNodes = []
+        for (var i = 0; i < subcircuitScope.Input.length; i++) {
+            var input = temp_map_inp[subcircuitScope.Input[i].layoutProperties.id][0]
+            if (temp_map_inp[input.layoutProperties.id][1])
+                this.inputNodes.push(temp_map_inp[input.layoutProperties.id][1])
             else {
-                temp_map_out[id][1].delete();
-                this.nodeList.clean(temp_map_out[id][1])
-                temp_map_out[id][1] = new Node(temp_map_out[id][0].layoutProperties.x, temp_map_out[id][0].layoutProperties.y, 1, this, temp_map_out[id][0].bitWidth)
-                temp_map_out[id][1].layout_id = id
+                var a = new Node(input.layoutProperties.x, input.layoutProperties.y, 0, this, input.bitWidth);
+                a.layout_id = input.layoutProperties.id;
+                this.inputNodes.push(a);
             }
         }
-    }
-
-    this.outputNodes = []
-    for (var i = 0; i < subcircuitScope.Output.length; i++) {
-        var output = temp_map_out[subcircuitScope.Output[i].layoutProperties.id][0]
-        if (temp_map_out[output.layoutProperties.id][1])
-            this.outputNodes.push(temp_map_out[output.layoutProperties.id][1])
-        else {
-            var a = new Node(output.layoutProperties.x, output.layoutProperties.y, 1, this, output.bitWidth);
-            a.layout_id = output.layoutProperties.id;
-            this.outputNodes.push(a);
+    
+        var temp_map_out = {}
+        for (var i = 0; i < subcircuitScope.Output.length; i++) {
+            temp_map_out[subcircuitScope.Output[i].layoutProperties.id] = [subcircuitScope.Output[i], undefined];
         }
+        for (var i = 0; i < this.outputNodes.length; i++) {
+            if (temp_map_out.hasOwnProperty(this.outputNodes[i].layout_id)) {
+                temp_map_out[this.outputNodes[i].layout_id][1] = this.outputNodes[i];
+            } else {
+                this.outputNodes[i].delete();
+                this.nodeList.clean(this.outputNodes[i])
+            }
+        }
+    
+        for (id in temp_map_out) {
+            if (temp_map_out[id][1]) {
+                if (temp_map_out[id][0].layoutProperties.x == temp_map_out[id][1].x && temp_map_out[id][0].layoutProperties.y == temp_map_out[id][1].y)
+                    temp_map_out[id][1].bitWidth = temp_map_out[id][0].bitWidth;
+                else {
+                    temp_map_out[id][1].delete();
+                    this.nodeList.clean(temp_map_out[id][1])
+                    temp_map_out[id][1] = new Node(temp_map_out[id][0].layoutProperties.x, temp_map_out[id][0].layoutProperties.y, 1, this, temp_map_out[id][0].bitWidth)
+                    temp_map_out[id][1].layout_id = id
+                }
+            }
+        }
+    
+        this.outputNodes = []
+        for (var i = 0; i < subcircuitScope.Output.length; i++) {
+            var output = temp_map_out[subcircuitScope.Output[i].layoutProperties.id][0]
+            if (temp_map_out[output.layoutProperties.id][1])
+                this.outputNodes.push(temp_map_out[output.layoutProperties.id][1])
+            else {
+                var a = new Node(output.layoutProperties.x, output.layoutProperties.y, 1, this, output.bitWidth);
+                a.layout_id = output.layoutProperties.id;
+                this.outputNodes.push(a);
+            }
+        }
+    
+        if (subcircuitScope.timeStamp > this.lastUpdated) {
+            this.reBuildCircuit();
+        }
+    
+        this.localScope.reset();
+    
+        this.makeConnections();
     }
-
-    if (subcircuitScope.timeStamp > this.lastUpdated) {
-        this.reBuildCircuit();
-    }
-
-    this.localScope.reset();
-
-    this.makeConnections();
-
-
-
 }
 
 SubCircuit.prototype.click = function() {
@@ -354,48 +359,48 @@ SubCircuit.prototype.verilogName = function() {
 }
 
 SubCircuit.prototype.customDraw = function() {
-
-    var subcircuitScope = scopeList[this.id];
-
-    ctx = simulationArea.context;
-
-    ctx.lineWidth = globalScope.scale * 3;
-    ctx.strokeStyle = "black"; //("rgba(0,0,0,1)");
-    ctx.fillStyle = "white";
-    var xx = this.x;
-    var yy = this.y;
-
-    ctx.beginPath();
-
-    ctx.textAlign = "center";
-    ctx.fillStyle = "black";
-    if (this.version == "1.0")
-        fillText(ctx, subcircuitScope.name, xx, yy - subcircuitScope.layout.height / 2 + 13, 11);
-    else if (this.version == "2.0")
-        fillText(ctx, subcircuitScope.name, subcircuitScope.layout.title_x + xx, yy + subcircuitScope.layout.title_y, 11);
-    else
-        console.log(this.version)
-
-    for (var i = 0; i < subcircuitScope.Input.length; i++) {
-        if (!subcircuitScope.Input[i].label) continue;
-        var info = this.determine_label(this.inputNodes[i].x, this.inputNodes[i].y);
-        ctx.textAlign = info[0];
-        fillText(ctx, subcircuitScope.Input[i].label, this.inputNodes[i].x + info[1] + xx, yy + this.inputNodes[i].y + info[2], 12);
+    if (scopeList.hasOwnProperty(this.id)) {
+        var subcircuitScope = scopeList[this.id];
+    
+        ctx = simulationArea.context;
+    
+        ctx.lineWidth = globalScope.scale * 3;
+        ctx.strokeStyle = "black"; //("rgba(0,0,0,1)");
+        ctx.fillStyle = "white";
+        var xx = this.x;
+        var yy = this.y;
+    
+        ctx.beginPath();
+    
+        ctx.textAlign = "center";
+        ctx.fillStyle = "black";
+        if (this.version == "1.0")
+            fillText(ctx, subcircuitScope.name, xx, yy - subcircuitScope.layout.height / 2 + 13, 11);
+        else if (this.version == "2.0")
+            fillText(ctx, subcircuitScope.name, subcircuitScope.layout.title_x + xx, yy + subcircuitScope.layout.title_y, 11);
+        else
+            console.log(this.version)
+    
+        for (var i = 0; i < subcircuitScope.Input.length; i++) {
+            if (!subcircuitScope.Input[i].label) continue;
+            var info = this.determine_label(this.inputNodes[i].x, this.inputNodes[i].y);
+            ctx.textAlign = info[0];
+            fillText(ctx, subcircuitScope.Input[i].label, this.inputNodes[i].x + info[1] + xx, yy + this.inputNodes[i].y + info[2], 12);
+        }
+    
+        for (var i = 0; i < subcircuitScope.Output.length; i++) {
+            if (!subcircuitScope.Output[i].label) continue;
+            var info = this.determine_label(this.outputNodes[i].x, this.outputNodes[i].y);
+            ctx.textAlign = info[0];
+            fillText(ctx, subcircuitScope.Output[i].label, this.outputNodes[i].x + info[1] + xx, yy + this.outputNodes[i].y + info[2], 12);
+        }
+        ctx.fill();
+    
+        for (var i = 0; i < this.inputNodes.length; i++)
+            this.inputNodes[i].draw();
+        for (var i = 0; i < this.outputNodes.length; i++)
+            this.outputNodes[i].draw();
     }
-
-    for (var i = 0; i < subcircuitScope.Output.length; i++) {
-        if (!subcircuitScope.Output[i].label) continue;
-        var info = this.determine_label(this.outputNodes[i].x, this.outputNodes[i].y);
-        ctx.textAlign = info[0];
-        fillText(ctx, subcircuitScope.Output[i].label, this.outputNodes[i].x + info[1] + xx, yy + this.outputNodes[i].y + info[2], 12);
-    }
-    ctx.fill();
-
-    for (var i = 0; i < this.inputNodes.length; i++)
-        this.inputNodes[i].draw();
-    for (var i = 0; i < this.outputNodes.length; i++)
-        this.outputNodes[i].draw();
-
 }
 SubCircuit.prototype.centerElement = true; // To center subcircuit when new
 
