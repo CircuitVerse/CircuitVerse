@@ -767,27 +767,32 @@ createOpenLocalPrompt = function() {
 // Prompt to create subcircuit, shows list of circuits which dont depend on the current circuit
 createSubCircuitPrompt = function(scope = globalScope) {
     $('#insertSubcircuitDialog').empty();
+    
     var flag = true;
+
     for (id in scopeList) {
         if (!scopeList[id].checkDependency(scope.id)) {
             flag = false;
             $('#insertSubcircuitDialog').append('<label class="option"><input type="radio" name="subCircuitId" value="' + id + '" />' + scopeList[id].name + '</label>');
         }
     }
+
     if (flag) $('#insertSubcircuitDialog').append('<p>Looks like there are no other circuits which doesn\'t have this circuit as a dependency. Create a new one!</p>')
+    
     $('#insertSubcircuitDialog').dialog({
         width: "auto",
         buttons: [{
             text: "Insert SubCircuit",
             click: function() {
                 if (!$("input[name=subCircuitId]:checked").val()) return;
-                simulationArea.lastSelected = new SubCircuit(undefined, undefined, globalScope, $("input[name=subCircuitId]:checked").val());
+                let subcircuitId = parseInt($("input[name=subCircuitId]:checked").val(), 10);
+                const savedData = JSON.parse(generateSaveData("Untitled"));
+                const subcircuitData = savedData.scopes.filter((circuitData) => circuitData.id === subcircuitId)
+                simulationArea.lastSelected = new SubCircuit(undefined, undefined, globalScope, subcircuitId, subcircuitData);
                 $(this).dialog("close");
             },
         }]
-
     });
-
 }
 
 // Helper function to store to localStorage -- needs to be deprecated/removed
