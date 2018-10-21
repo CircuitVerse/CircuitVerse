@@ -116,7 +116,8 @@ function showProperties(obj) {
 
         $('#moduleProperty-inner').append("<div id='moduleProperty-header'>" + obj.objectType + "</div>");
         // $('#moduleProperty').append("<input type='range' name='points' min='1' max='32' value="+obj.bitWidth+">");
-        if (!obj.fixedBitWidth)
+
+        if (!obj.fixedBitWidth && obj.bitWidth)
             $('#moduleProperty-inner').append("<p>BitWidth: <input class='objectPropertyAttribute' type='number'  name='newBitWidth' min='1' max='32' value=" + obj.bitWidth + "></p>");
 
         if (obj.changeInputSize)
@@ -125,7 +126,7 @@ function showProperties(obj) {
         if (!obj.propagationDelayFixed)
             $('#moduleProperty-inner').append("<p>Delay: <input class='objectPropertyAttribute' type='number'  name='changePropagationDelay' min='0' max='100000' value=" + obj.propagationDelay + "></p>");
 
-        if (obj.hasOwnProperty('label')) {
+        if (obj.label) {
             $('#moduleProperty-inner').append("<p>Label: <input class='objectPropertyAttribute' type='text'  name='setLabel'  value='" + escapeHtml(obj.label) + "'></p>");
         }
 
