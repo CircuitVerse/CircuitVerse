@@ -169,6 +169,17 @@ function startListeners() {
             undo();
         }
 
+        // Detect online save shortcut (CTRL+S)
+        if (simulationArea.controlDown && e.keyCode == 83 && !simulationArea.shiftDown) {
+            save();
+            e.preventDefault();
+        }
+         // Detect offline save shortcut (CTRL+SHIFT+S)
+        if (simulationArea.controlDown && e.keyCode == 83 && simulationArea.shiftDown) {
+            saveOffline();
+            e.preventDefault();
+        }
+
         //change direction fns
         if (e.keyCode == 37 && simulationArea.lastSelected != undefined) {
             simulationArea.lastSelected.newDirection("LEFT");
