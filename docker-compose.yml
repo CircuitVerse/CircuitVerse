@@ -14,6 +14,13 @@ services:
       - ./public:/circuitverse/public
     ports:
       - "3000:3000"
+    depends_on:
+      - db
+      - redis
+    environment:
+      REDIS_URL: "redis://redis:6379/0"
+  redis:
+    image: redis
 volumes:
   app:
   public:
