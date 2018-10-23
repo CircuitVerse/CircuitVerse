@@ -16,7 +16,7 @@ class User < ApplicationRecord
   after_commit :send_mail ,  on: :create
   after_commit :check_group_invites, on: :create
 
-  has_attached_file :profile_picture, styles: { medium: "205X240#", thumb: "100x100>" }, default_url: ":style/Default.jpeg"
+  has_attached_file :profile_picture, styles: { medium: "205X240#", thumb: "100x100>" }, default_url: ":style/Default.jpg"
   validates_attachment_content_type :profile_picture, content_type: /\Aimage\/.*\z/
 
   def send_mail
