@@ -20,8 +20,12 @@ then
     exit 0
 fi
 
+echo "Running db:create"
 bundle exec rails db:create
+echo "Running db:migrate"
 bundle exec rails db:migrate
+echo "Running db:seed"
+bundle exec rails db:seed
 
 rm -f /circuitverse/tmp/pids/server.pid
 echo "Starting on 127.0.0.1:3000"
