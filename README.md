@@ -21,6 +21,20 @@
 * Install docker and docker-compose
 * Run: `docker-compose up`
 
+If you need to rebuild, run this before `docker-compose up`
+```
+docker system prune
+docker-compose build --no-cache
+```
+
+## Developer Instructions
+Developers can quickly get started by setting up the dev environment using the instructions above. The database is seeded with the following admin account. 
+```
+User: Admin
+Email: admin@circuitverse.org
+Password: password
+```
+
 ## Production Specific Instructions
 
 ```
