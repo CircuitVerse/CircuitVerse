@@ -60,6 +60,13 @@ NODE_INTERMEDIATE = 2;
 
 function Node(x, y, type, parent, bitWidth = undefined, label = "") {
 
+    // Should never raise, but just in case
+    if(isNaN(x) || isNaN(y)){
+        this.delete();
+        showError("Fatal error occurred");
+        return;
+    }
+
     forceResetNodes = true;
 
     this.objectType = "Node";
@@ -506,9 +513,19 @@ Node.prototype.update = function() {
         x2 = simulationArea.mouseX;
         y2 = simulationArea.mouseY;
         x = this.absX();
-        y = this.absY()
+        y = this.absY();
 
         if (x != x2 && y != y2) {
+
+            // Rare Exception Cases
+            if (this.prev == 'a' && distance(simulationArea.mouseX, simulationArea.mouseY, this.absX(), this.absY()) >= 10) {
+                if (Math.abs(this.x + this.parent.x - simulationArea.mouseX) > Math.abs(this.y + this.parent.y - simulationArea.mouseY)) {
+                    this.prev = 'x';
+                } else {
+                    this.prev = 'y';
+                }
+            }
+
             flag = 1;
             if (this.prev == 'x') {
                 x1 = x2;

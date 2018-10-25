@@ -9,6 +9,7 @@ function scheduleUpdate(count = 0, time = 100, fn) {
     if (lightMode) time *= 5;
 
     if (count && !layoutMode) { // Force update
+        update();
         for (var i = 0; i < count; i++)
             setTimeout(update, 10 + 50 * i);
     }

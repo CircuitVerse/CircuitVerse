@@ -39,38 +39,10 @@ function startListeners() {
     document.getElementById("simulationArea").addEventListener('mouseup', function(e) {
         if (simulationArea.lastSelected) simulationArea.lastSelected.newElement = false;
     });
-    window.addEventListener('mousemove', function(e) {
-
-        var rect = simulationArea.canvas.getBoundingClientRect();
-        simulationArea.mouseRawX = (e.clientX - rect.left) * DPR;
-        simulationArea.mouseRawY = (e.clientY - rect.top) * DPR;
-
-        simulationArea.mouseX = Math.round(((simulationArea.mouseRawX - globalScope.ox) / globalScope.scale) / unit) * unit;
-        simulationArea.mouseY = Math.round(((simulationArea.mouseRawY - globalScope.oy) / globalScope.scale) / unit) * unit;
-
-        updateCanvas = true;
-
-        if (simulationArea.lastSelected && (simulationArea.mouseDown || simulationArea.lastSelected.newElement)) {
-            updateCanvas = true;
-            var fn;
-
-            if (simulationArea.lastSelected == globalScope.root) {
-                fn = function() {
-                    updateSelectionsAndPane();
-                }
-            } else {
-                fn = function() {
-                    if (simulationArea.lastSelected)
-                        simulationArea.lastSelected.update();
-                };
-            }
-            scheduleUpdate(0, 20, fn);
-        } else {
-            scheduleUpdate(0, 200);
-        }
+    window.addEventListener('mousemove', onMouseMove);
 
 
-    });
+
     window.addEventListener('keydown', function(e) {
 
         if (simulationArea.mouseRawX < 0 || simulationArea.mouseRawY < 0 || simulationArea.mouseRawX > width || simulationArea.mouseRawY > height) {
@@ -216,36 +188,9 @@ function startListeners() {
         }
     });
 
-    window.addEventListener('mouseup', function(e) {
+    window.addEventListener('mouseup', onMouseUp);
 
-        if (!lightMode) {
-            lastMiniMapShown = new Date().getTime();
-            setTimeout(removeMiniMap, 2000);
-        }
 
-        simulationArea.mouseDown = false;
-
-        for (var i = 0; i < 2; i++) {
-            updatePosition = true;
-            wireToBeChecked = true;
-            update();
-        }
-        errorDetected = false;
-        updateSimulation = true;
-        updatePosition = true;
-        updateCanvas = true;
-        gridUpdate = true;
-        wireToBeChecked = true;
-
-        scheduleUpdate(1);
-        var rect = simulationArea.canvas.getBoundingClientRect();
-
-        if (!(simulationArea.mouseRawX < 0 || simulationArea.mouseRawY < 0 || simulationArea.mouseRawX > width || simulationArea.mouseRawY > height)) {
-            smartDropXX = simulationArea.mouseX + 100; //Math.round(((simulationArea.mouseRawX - globalScope.ox+100) / globalScope.scale) / unit) * unit;
-            smartDropYY = simulationArea.mouseY - 50; //Math.round(((simulationArea.mouseRawY - globalScope.oy+100) / globalScope.scale) / unit) * unit;
-        }
-
-    });
 
     document.getElementById("simulationArea").addEventListener('mousewheel', MouseScroll);
     document.getElementById("simulationArea").addEventListener('DOMMouseScroll', MouseScroll);
@@ -337,5 +282,78 @@ function removeMiniMap() {
         return;
     }
     $('#miniMap').fadeOut('fast');
+
+}
+
+
+function onMouseMove(e) {
+
+    var rect = simulationArea.canvas.getBoundingClientRect();
+    simulationArea.mouseRawX = (e.clientX - rect.left) * DPR;
+    simulationArea.mouseRawY = (e.clientY - rect.top) * DPR;
+
+    simulationArea.mouseX = Math.round(((simulationArea.mouseRawX - globalScope.ox) / globalScope.scale) / unit) * unit;
+    simulationArea.mouseY = Math.round(((simulationArea.mouseRawY - globalScope.oy) / globalScope.scale) / unit) * unit;
+
+    updateCanvas = true;
+
+    if (simulationArea.lastSelected && (simulationArea.mouseDown || simulationArea.lastSelected.newElement)) {
+        updateCanvas = true;
+        var fn;
+
+        if (simulationArea.lastSelected == globalScope.root) {
+            fn = function() {
+                updateSelectionsAndPane();
+            }
+        } else {
+            fn = function() {
+                if (simulationArea.lastSelected)
+                    simulationArea.lastSelected.update();
+            };
+        }
+        scheduleUpdate(0, 20, fn);
+    } else {
+        scheduleUpdate(0, 200);
+    }
+
+
+}
+
+function onMouseUp(e) {
+
+    if (!lightMode) {
+        lastMiniMapShown = new Date().getTime();
+        setTimeout(removeMiniMap, 2000);
+    }
+
+    errorDetected = false;
+    updateSimulation = true;
+    updatePosition = true;
+    updateCanvas = true;
+    gridUpdate = true;
+    wireToBeChecked = true;
+
+    scheduleUpdate(1);
+    simulationArea.mouseDown = false;
+
+    for (var i = 0; i < 2; i++) {
+        updatePosition = true;
+        wireToBeChecked = true;
+        update();
+    }
+    errorDetected = false;
+    updateSimulation = true;
+    updatePosition = true;
+    updateCanvas = true;
+    gridUpdate = true;
+    wireToBeChecked = true;
+
+    scheduleUpdate(1);
+    var rect = simulationArea.canvas.getBoundingClientRect();
+
+    if (!(simulationArea.mouseRawX < 0 || simulationArea.mouseRawY < 0 || simulationArea.mouseRawX > width || simulationArea.mouseRawY > height)) {
+        smartDropXX = simulationArea.mouseX + 100; //Math.round(((simulationArea.mouseRawX - globalScope.ox+100) / globalScope.scale) / unit) * unit;
+        smartDropYY = simulationArea.mouseY - 50; //Math.round(((simulationArea.mouseRawY - globalScope.oy+100) / globalScope.scale) / unit) * unit;
+    }
 
 }

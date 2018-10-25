@@ -71,14 +71,16 @@ Wire.prototype.update = function() {
         n.wasClicked = true;
         simulationArea.lastSelected=n;
         this.converge(n);
-        //console.log("wire:",n);
     }
     if (simulationArea.lastSelected == this) {
-        // //console.log("HITT");
+        
     }
-    //console.log("wire:",simulationArea.lastSelected);
 
-    if (this.node1.deleted || this.node2.deleted) this.delete(); //if either of the nodes are deleted
+    if (this.node1.deleted || this.node2.deleted){
+        this.delete();
+        return;
+    } //if either of the nodes are deleted
+
     if (simulationArea.mouseDown == false) {
         if (this.type == "horizontal") {
             if (this.node1.absY() != this.y1) {
