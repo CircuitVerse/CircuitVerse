@@ -94,11 +94,14 @@
 
   </div>
 
+    <% if user_signed_in? %>
     <script>
         if(localStorage.getItem("recover_login")){
             window.location.href = "/simulator"
         }
     </script>
+    <% end %>
+
     <!-- /container -->
 
 

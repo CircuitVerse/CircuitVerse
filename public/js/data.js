@@ -421,7 +421,7 @@ function save() {
 
     if (!userSignedIn) {
         // user not signed in, save locally temporarily and force user to sign in
-        localStorage.setItem("recover_login", data)
+        localStorage.setItem("recover_login", data);
         alert("You have to login to save the project, you will be redirected to the login page.")
         window.location.href = "/users/sign_in"
     } else if (logix_project_id == 0) {
@@ -925,4 +925,13 @@ function generateImage(imgType, view, transparent, resolution, down = true) {
 
     if (!down) return returnData
 
+}
+
+if (logix_project_id == 0)
+setTimeout(promptSave,120000);
+
+function promptSave(){
+    console.log("PROMPT")
+    if(confirm("You have not saved your creation! Would you like save your project online? "))
+    save()
 }

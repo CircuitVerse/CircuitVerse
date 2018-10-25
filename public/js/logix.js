@@ -310,7 +310,7 @@ function setup() {
         }
 
         // Restore unsaved data and save
-        else if (localStorage.getItem("recover_login")) {
+        else if (localStorage.getItem("recover_login")&&userSignedIn) {
             var data = JSON.parse(localStorage.getItem("recover_login"));
             load(data);
             localStorage.removeItem("recover");
