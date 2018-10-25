@@ -102,8 +102,8 @@ function renderLayout(scope = globalScope) {
     ctx.lineWidth = correctWidth(3);
 
     // Draw base rectangle
-    rect2(ctx, 0, 0, temp_buffer.layout.width, temp_buffer.layout.height, xx, yy, "RIGHT");
     ctx.beginPath();
+    rect2(ctx, 0, 0, temp_buffer.layout.width, temp_buffer.layout.height, xx, yy, "RIGHT");
     ctx.fill();
     ctx.stroke();
 
