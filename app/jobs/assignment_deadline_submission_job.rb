@@ -15,8 +15,6 @@ class AssignmentDeadlineSubmissionJob < ApplicationJob
       end
 
       if Time.now - assignment.deadline >= -10
-        assignment.status = 'closed'
-        assignment.save!
 
         if assignment.status == 'open'
           assignment.projects.each do |proj|
@@ -29,8 +27,11 @@ class AssignmentDeadlineSubmissionJob < ApplicationJob
               submission.save!
             end
           end
-
+          assignment.status = 'closed'
+          assignment.save!
         end
+
+
       end
 
     end
