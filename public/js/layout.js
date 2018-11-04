@@ -33,8 +33,44 @@ function layoutUpdate(scope = globalScope) {
     for (var i = 0; i < temp_buffer.Output.length; i++) {
         temp_buffer.Output[i].update()
     }
+    paneLayout(scope);
     renderLayout(scope);
 }
+
+function paneLayout(scope = globalScope){
+    if (!simulationArea.selected && simulationArea.mouseDown) {
+
+        simulationArea.selected = true;
+        simulationArea.lastSelected = scope.root;
+        simulationArea.hover = scope.root;
+
+    } else if (simulationArea.lastSelected == scope.root && simulationArea.mouseDown) {
+
+        //pane canvas
+        if (!objectSelection) {
+            globalScope.ox = (simulationArea.mouseRawX - simulationArea.mouseDownRawX) + simulationArea.oldx;
+            globalScope.oy = (simulationArea.mouseRawY - simulationArea.mouseDownRawY) + simulationArea.oldy;
+            globalScope.ox = Math.round(globalScope.ox);
+            globalScope.oy = Math.round(globalScope.oy);
+            gridUpdate = true;
+            if (!embed && !lightMode) miniMapArea.setup();
+        } else {
+
+        }
+
+
+    } else if (simulationArea.lastSelected == scope.root) {
+
+        // Select multiple objects
+
+        simulationArea.lastSelected = undefined;
+        simulationArea.selected = false;
+        simulationArea.hover = undefined;
+
+
+    }
+}
+
 
 // Buffer object to store changes
 function layout_buffer(scope = globalScope) {
@@ -136,6 +172,11 @@ function renderLayout(scope = globalScope) {
         temp_buffer.Output[i].draw()
     }
 
+    if (gridUpdate) {
+        gridUpdate = false;
+        dots();
+    }
+
 }
 
 // Helper function to reset all nodes to original default positions
@@ -184,14 +225,14 @@ function decreaseLayoutWidth() {
     if (temp_buffer.layout.width < 30) return;
     for (var i = 0; i < temp_buffer.Input.length; i++) {
         if (temp_buffer.Input[i].x == temp_buffer.layout.width - 10) {
-            showMessage("No space");
+            showMessage("No space. Move or delete some nodes to make space.");
             return;
         }
 
     }
     for (var i = 0; i < temp_buffer.Output.length; i++) {
         if (temp_buffer.Output[i].x == temp_buffer.layout.width - 10) {
-            showMessage("No space");
+            showMessage("No space. Move or delete some nodes to make space.");
             return;
         }
     }
@@ -213,14 +254,14 @@ function decreaseLayoutHeight() {
     if (temp_buffer.layout.height < 30) return;
     for (var i = 0; i < temp_buffer.Input.length; i++) {
         if (temp_buffer.Input[i].y == temp_buffer.layout.height - 10) {
-            showMessage("No space");
+            showMessage("No space. Move or delete some nodes to make space.");
             return;
         }
 
     }
     for (var i = 0; i < temp_buffer.Output.length; i++) {
         if (temp_buffer.Output[i].y == temp_buffer.layout.height - 10) {
-            showMessage("No space");
+            showMessage("No space. Move or delete some nodes to make space.");
             return;
         }
     }

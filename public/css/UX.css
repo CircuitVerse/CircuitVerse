@@ -37,6 +37,7 @@ button:focus {
 	border: 1px solid grey;
 	border-radius: 2px;
 	background-color: white;
+    overflow-x: hidden;
 }
 
 .projectName {

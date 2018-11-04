@@ -8,8 +8,6 @@ function changeScale(delta,xx,yy,method=1) {
 	// method = 1 - Zoom wrt position of mouse
 	// Otherwise zoom wrt to selected object
 
-	if(layoutMode)return; // No zoom in layoutMode for now
-
     if(method==3){
         xx =(width/2 - globalScope.ox) / globalScope.scale
         yy = (height/2 - globalScope.oy) / globalScope.scale

@@ -187,6 +187,7 @@ function downloadAsImg(name, imgType) {
 
 // Function to restore copy from backup
 function undo(scope = globalScope) {
+    if(layoutMode)return;
     if (scope.backups.length == 0) return;
     var backupOx = globalScope.ox;
     var backupOy = globalScope.oy;
