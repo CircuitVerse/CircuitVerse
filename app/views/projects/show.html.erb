@@ -83,9 +83,8 @@
             <% if @user_access %>
                 <%= link_to 'Edit', edit_user_project_path(@author, @project), class: "card-link"%>
                 <%= link_to 'Delete',user_project_path(@author,@project), method: :delete, data: { confirm: 'Are you sure?' }, class: "card-link" %>
-            <% else %>
-                <%= link_to 'Fork', create_fork_project_path(@project), class: "card-link" %>
             <% end %>
+          <%= link_to 'Fork', create_fork_project_path(@project), class: "card-link" %>
             <%= link_to 'Back', user_path(@author), class: "card-link" %>
           <% if @project.project_access_type != "Private" %>
             <a class="card-link" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" onclick="embed()" >

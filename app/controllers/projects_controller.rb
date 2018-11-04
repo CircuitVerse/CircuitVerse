@@ -47,9 +47,10 @@ class ProjectsController < ApplicationController
 
   def create_fork
 
-    if current_user.id == @project.author_id
-      render plain: "Cannot fork your own project" and return
-    end
+    # Relaxing fork constraints for now
+    # if current_user.id == @project.author_id
+    #   render plain: "Cannot fork your own project" and return
+    # end
 
     if !@project.assignment_id.nil?
       render plain: "Cannot fork an assignment" and return
