@@ -572,7 +572,7 @@ SevenSegDisplay.prototype.customDraw = function() {
     ctx.beginPath();
     var dotColor = ["lightgrey", "red"][this.dot.value] || "lightgrey"
     ctx.strokeStyle = dotColor;
-    rect(ctx, xx + 20, yy + 40, 2, 2);
+    rect(ctx, xx + 22, yy + 42, 2, 2);
     ctx.stroke();
 }
 
