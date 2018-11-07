@@ -167,6 +167,7 @@ function Scope(name = "localScope", id = undefined) {
         height: 40,
         title_x: 50,
         title_y: 13,
+        titleEnabled:true,
     }
 
 
@@ -867,7 +868,7 @@ function CircuitElement(x, y, scope, dir, bitWidth) {
     /**
      The following attributes help in setting the touch area bound. They are the distances from the center.
      Note they are all positive distances from center. They will automatically be rotated when direction is changed.
-     To stop the rotation when direction is changed, check overrideDirectionRotation attribute. 
+     To stop the rotation when direction is changed, check overrideDirectionRotation attribute.
      **/
     this.leftDimensionX = 10;
     this.rightDimensionX = 10;

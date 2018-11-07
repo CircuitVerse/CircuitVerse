@@ -691,6 +691,10 @@ function loadScope(scope, data) {
             }
     }
 
+    // Backward compatibility
+    if(scope.layout.titleEnabled==undefined)
+        scope.layout.titleEnabled=true;
+
 }
 
 

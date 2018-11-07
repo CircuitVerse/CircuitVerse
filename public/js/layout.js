@@ -16,7 +16,9 @@ function toggleLayoutMode() {
         globalScope.oy = 0;
         globalScope.scale = DPR * 1.3;
         dots();
+
         temp_buffer = new layout_buffer();
+        $("#toggleLayoutTitle")[0].checked=temp_buffer.layout.titleEnabled;
     }
     hideProperties();
     update(globalScope, true)
@@ -146,8 +148,9 @@ function renderLayout(scope = globalScope) {
     ctx.beginPath();
     ctx.textAlign = "center";
     ctx.fillStyle = "black";
-
-    fillText(ctx, scope.name, temp_buffer.layout.title_x + xx, yy + temp_buffer.layout.title_y, 11);
+    if(temp_buffer.layout.titleEnabled){
+        fillText(ctx, scope.name, temp_buffer.layout.title_x + xx, yy + temp_buffer.layout.title_y, 11);
+    }
 
     // Draw labels
     for (var i = 0; i < temp_buffer.Input.length; i++) {
@@ -294,6 +297,10 @@ function layoutTitleLeft() {
     temp_buffer.layout.title_x -= 5;
 }
 
+function toggleLayoutTitle(){
+    temp_buffer.layout.titleEnabled=!temp_buffer.layout.titleEnabled;
+}
+
 function layoutNode(x, y, id, label = "", xx, yy, type, parent) {
 
     this.type = type;
@@ -390,6 +397,7 @@ function cancelLayout() {
         toggleLayoutMode();
     }
 }
+
 
 // Store all data into layout and exit
 function saveLayout() {
