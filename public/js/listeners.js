@@ -233,12 +233,15 @@ function startListeners() {
 
 
         var textToPutOnClipboard = copy(simulationArea.copyList, true);
+        e.preventDefault();
+        if(textToPutOnClipboard==undefined)
+            return;
         if (isIe) {
             window.clipboardData.setData('Text', textToPutOnClipboard);
         } else {
             e.clipboardData.setData('text/plain', textToPutOnClipboard);
         }
-        e.preventDefault();
+
     });
 
     document.addEventListener('copy', function(e) {
@@ -248,12 +251,15 @@ function startListeners() {
         }
 
         var textToPutOnClipboard = copy(simulationArea.copyList);
+        e.preventDefault();
+        if(textToPutOnClipboard==undefined)
+            return;
         if (isIe) {
             window.clipboardData.setData('Text', textToPutOnClipboard);
         } else {
             e.clipboardData.setData('text/plain', textToPutOnClipboard);
         }
-        e.preventDefault();
+
     });
 
     document.addEventListener('paste', function(e) {
