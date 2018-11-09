@@ -504,11 +504,15 @@ XnorGate.prototype.customDraw = function() {
 }
 
 
-function SevenSegDisplay(x, y, scope = globalScope) {
+function SevenSegDisplay(x, y, scope = globalScope, color = "Red") {
+    
     CircuitElement.call(this, x, y, scope, "RIGHT", 1);
     this.fixedBitWidth = true;
     this.directionFixed = true;
     this.setDimensions(30, 50);
+    this.color = color;
+    var temp = colorToRGBA(this.color)
+    this.actualColor = "rgba(" + temp[0] + "," + temp[1] + "," + temp[2] + "," + 0.8 + ")";
 
     this.g = new Node(-20, -50, 0, this);
     this.f = new Node(-10, -50, 0, this);
@@ -526,7 +530,7 @@ SevenSegDisplay.prototype = Object.create(CircuitElement.prototype);
 SevenSegDisplay.prototype.constructor = SevenSegDisplay;
 SevenSegDisplay.prototype.customSave = function() {
     var data = {
-
+        constructorParameters: [this.color],
         nodes: {
             g: findNode(this.g),
             f: findNode(this.f),
@@ -541,6 +545,23 @@ SevenSegDisplay.prototype.customSave = function() {
     }
     return data;
 }
+SevenSegDisplay.prototype.mutableProperties = {
+    "color": {
+        name: "Color: ",
+        type: "text",
+        func: "changeColor",
+    },
+}
+
+SevenSegDisplay.prototype.changeColor = function(value) {
+    if (validColor(value)) {
+        this.color = value;
+        var temp = colorToRGBA(this.color)
+        this.actualColor = "rgba(" + temp[0] + "," + temp[1] + "," + temp[2] + "," + 0.8 + ")";
+    }
+
+}
+
 SevenSegDisplay.prototype.customDrawSegment = function(x1, y1, x2, y2, color) {
     if (color == undefined) color = "lightgrey";
     ctx = simulationArea.context;
