@@ -167,6 +167,7 @@ function Scope(name = "localScope", id = undefined) {
         height: 40,
         title_x: 50,
         title_y: 13,
+        titleEnabled:true,
     }
 
 
@@ -310,7 +311,7 @@ function setup() {
         }
 
         // Restore unsaved data and save
-        else if (localStorage.getItem("recover_login")&&userSignedIn) {
+        else if (localStorage.getItem("recover_login") && userSignedIn) {
             var data = JSON.parse(localStorage.getItem("recover_login"));
             load(data);
             localStorage.removeItem("recover");
@@ -863,10 +864,17 @@ function CircuitElement(x, y, scope, dir, bitWidth) {
 
     this.oldx = x;
     this.oldy = y;
+
+    /**
+     The following attributes help in setting the touch area bound. They are the distances from the center.
+     Note they are all positive distances from center. They will automatically be rotated when direction is changed.
+     To stop the rotation when direction is changed, check overrideDirectionRotation attribute.
+     **/
     this.leftDimensionX = 10;
     this.rightDimensionX = 10;
     this.upDimensionY = 10;
     this.downDimensionY = 10;
+
     this.rectangleObject = true;
     this.label = "";
     this.scope = scope;
@@ -988,6 +996,8 @@ CircuitElement.prototype.setHeight = function(height) {
 // Return Value: true if state has changed else false
 // NOT OVERIDABLE
 
+// When true this.isHover() will not rotate bounds. To be used when bounds are set manually.
+CircuitElement.prototype.overrideDirectionRotation = false;
 
 CircuitElement.prototype.startDragging = function() {
     this.oldx = this.x;
@@ -1102,7 +1112,7 @@ CircuitElement.prototype.isHover = function() {
     var uY = this.upDimensionY;
     var dY = this.downDimensionY;
 
-    if (!this.directionFixed) {
+    if (!this.directionFixed && !this.overrideDirectionRotation) {
         if (this.direction == "LEFT") {
             lX = this.rightDimensionX;
             rX = this.leftDimensionX

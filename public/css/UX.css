@@ -33,7 +33,7 @@ button:focus {
     top: 100px;
     z-index: 101;
     width: 200px;
-    height: 200px;
+    height: 230px;
 	border: 1px solid grey;
 	border-radius: 2px;
 	background-color: white;
@@ -433,6 +433,56 @@ input:checked+.slider:before {
 }
 
 .slider.round:before {
+    border-radius: 50%;
+}
+
+/* Slider for white background */
+.slider2 {
+    position: absolute;
+    cursor: pointer;
+    top: 2;
+    left: 0;
+    right: 0;
+    bottom: -2;
+    /* border: 1px solid black; */
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider2:before {
+    position: absolute;
+    content: "";
+    height: 17px;
+    width: 17px;
+    left: 0px;
+    bottom: 0px;
+    background-color: #aaa;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked+.slider2 {
+    background-color: #2196F3;
+}
+
+input:focus+.slider2 {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked+.slider2:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+
+.slider2.round {
+    border-radius: 34px;
+}
+
+.slider2.round:before {
     border-radius: 50%;
 }
 

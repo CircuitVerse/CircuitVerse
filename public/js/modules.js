@@ -572,7 +572,7 @@ SevenSegDisplay.prototype.customDraw = function() {
     ctx.beginPath();
     var dotColor = ["lightgrey", "red"][this.dot.value] || "lightgrey"
     ctx.strokeStyle = dotColor;
-    rect(ctx, xx + 20, yy + 40, 2, 2);
+    rect(ctx, xx + 22, yy + 42, 2, 2);
     ctx.stroke();
 }
 
@@ -3126,7 +3126,6 @@ PriorityEncoder.prototype.customDraw = function() {
 function Tunnel(x, y, scope = globalScope, dir = "LEFT", bitWidth = 1, identifier) {
 
     CircuitElement.call(this, x, y, scope, dir, bitWidth);
-    this.setDimensions(60, 20);
     this.rectangleObject = false;
     this.centerElement = true;
 
@@ -3135,12 +3134,45 @@ function Tunnel(x, y, scope = globalScope, dir = "LEFT", bitWidth = 1, identifie
     this.plotValues = [];
     this.inp1 = new Node(0, 0, 0, this);
     this.setIdentifier(identifier || "T");
-
-
+    this.setBounds();
 
 }
 Tunnel.prototype = Object.create(CircuitElement.prototype);
 Tunnel.prototype.constructor = Tunnel;
+Tunnel.prototype.newDirection = function(dir){
+    if (this.direction == dir) return;
+    this.direction = dir;
+    this.setBounds();
+}
+Tunnel.prototype.overrideDirectionRotation=true;
+Tunnel.prototype.setBounds=function(){
+
+    var xRotate = 0;
+    var yRotate = 0;
+    if (this.direction == "LEFT") {
+        xRotate = 0;
+        yRotate = 0;
+    } else if (this.direction == "RIGHT") {
+        xRotate = 120 - this.xSize;
+        yRotate = 0;
+    } else if (this.direction == "UP") {
+        xRotate = 60 - this.xSize / 2;
+        yRotate = -20;
+    } else {
+        xRotate = 60 - this.xSize / 2;
+        yRotate = 20;
+    }
+
+    this.leftDimensionX= Math.abs(-120 + xRotate + this.xSize);
+    this.upDimensionY=  Math.abs(-20 + yRotate);
+    this.rightDimensionX= Math.abs(xRotate)
+    this.downDimensionY=Math.abs(20 + yRotate);
+    console.log(this.leftDimensionX,this.upDimensionY,this.rightDimensionX,this.downDimensionY);
+
+    // rect2(ctx, -120 + xRotate + this.xSize, -20 + yRotate, 120 - this.xSize, 40, xx, yy, "RIGHT");
+
+
+}
 Tunnel.prototype.setTunnelValue = function(val) {
     this.inp1.value = val;
     for (var i = 0; i < this.inp1.connections.length; i++) {
@@ -3201,6 +3233,8 @@ Tunnel.prototype.setIdentifier = function(id = "") {
     if (len == 1) this.xSize = 40;
     else if (len > 1 && len < 4) this.xSize = 20;
     else this.xSize = 0;
+
+    this.setBounds();
 }
 Tunnel.prototype.mutableProperties = {
     "identifier": {
@@ -3212,7 +3246,8 @@ Tunnel.prototype.mutableProperties = {
 }
 Tunnel.prototype.delete = function() {
     this.scope.Tunnel.clean(this);
-    this.scope.tunnelList[this.identifier].clean(this)
+    this.scope.tunnelList[this.identifier].clean(this);
+    CircuitElement.prototype.delete.call(this);
 }
 Tunnel.prototype.customDraw = function() {
     ctx = simulationArea.context;

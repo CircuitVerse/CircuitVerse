@@ -371,8 +371,11 @@ SubCircuit.prototype.customDraw = function() {
     ctx.fillStyle = "black";
     if (this.version == "1.0")
         fillText(ctx, subcircuitScope.name, xx, yy - subcircuitScope.layout.height / 2 + 13, 11);
-    else if (this.version == "2.0")
-        fillText(ctx, subcircuitScope.name, subcircuitScope.layout.title_x + xx, yy + subcircuitScope.layout.title_y, 11);
+    else if (this.version == "2.0"){
+        if(subcircuitScope.layout.titleEnabled){
+            fillText(ctx, subcircuitScope.name, subcircuitScope.layout.title_x + xx, yy + subcircuitScope.layout.title_y, 11);
+        }
+    }
     else
         console.log(this.version)
 

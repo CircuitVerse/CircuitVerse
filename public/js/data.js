@@ -691,6 +691,10 @@ function loadScope(scope, data) {
             }
     }
 
+    // Backward compatibility
+    if(scope.layout.titleEnabled==undefined)
+        scope.layout.titleEnabled=true;
+
 }
 
 
@@ -893,9 +897,9 @@ function generateImage(imgType, view, transparent, resolution, down = true) {
     }
 
     // Draw circuits, why is it updateOrder and not renderOrder?
-    for (var i = 0; i < updateOrder.length; i++)
-        for (var j = 0; j < scope[updateOrder[i]].length; j++)
-            scope[updateOrder[i]][j].draw();
+    for (var i = 0; i < renderOrder.length; i++)
+        for (var j = 0; j < scope[renderOrder[i]].length; j++)
+            scope[renderOrder[i]][j].draw();
 
     // If circuit is to be downloaded, download, other wise return dataURL
     if (down) {
