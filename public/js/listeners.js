@@ -65,14 +65,14 @@ function startListeners() {
             simulationArea.controlDown = true;
         }
 
-        if (simulationArea.controlDown && e.keyCode == 187) {
+        if (simulationArea.controlDown && (e.keyCode == 187 || e.keyCode == 61)) {
             e.preventDefault();
             if (globalScope.scale < 4 * DPR) {
                 changeScale(.1 * DPR);
             }
         }
         // zoom out (-)
-        if (simulationArea.controlDown && e.keyCode == 189) {
+        if (simulationArea.controlDown && (e.keyCode == 189 || e.keyCode == 173)) {
             e.preventDefault();
             if (globalScope.scale > 0.5 * DPR) {
                 changeScale(-.1 * DPR);
