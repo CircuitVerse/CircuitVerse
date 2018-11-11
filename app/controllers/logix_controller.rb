@@ -28,4 +28,7 @@ class LogixController < ApplicationController
   def teachers
   end
 
+  def contribute
+  end
+
 end

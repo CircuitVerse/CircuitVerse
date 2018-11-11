@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   get  '/tos', to:'logix#tos'
   get  '/search', to:'logix#search'
   get  '/teachers', to:'logix#teachers'
+  get  '/contribute', to:'logix#contribute'
 
   #users
   scope '/users' do
