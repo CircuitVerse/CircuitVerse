@@ -582,16 +582,16 @@ SevenSegDisplay.prototype.customDraw = function() {
     var xx = this.x;
     var yy = this.y;
 
-    this.customDrawSegment(18, -3, 18, -38, ["lightgrey", "red"][this.b.value]);
-    this.customDrawSegment(18, 3, 18, 38, ["lightgrey", "red"][this.c.value]);
-    this.customDrawSegment(-18, -3, -18, -38, ["lightgrey", "red"][this.f.value]);
-    this.customDrawSegment(-18, 3, -18, 38, ["lightgrey", "red"][this.e.value]);
-    this.customDrawSegment(-17, -38, 17, -38, ["lightgrey", "red"][this.a.value]);
-    this.customDrawSegment(-17, 0, 17, 0, ["lightgrey", "red"][this.g.value]);
-    this.customDrawSegment(-15, 38, 17, 38, ["lightgrey", "red"][this.d.value]);
+    this.customDrawSegment(18, -3, 18, -38, ["lightgrey", this.actualColor][this.b.value]);
+    this.customDrawSegment(18, 3, 18, 38, ["lightgrey", this.actualColor][this.c.value]);
+    this.customDrawSegment(-18, -3, -18, -38, ["lightgrey", this.actualColor][this.f.value]);
+    this.customDrawSegment(-18, 3, -18, 38, ["lightgrey", this.actualColor][this.e.value]);
+    this.customDrawSegment(-17, -38, 17, -38, ["lightgrey", this.actualColor][this.a.value]);
+    this.customDrawSegment(-17, 0, 17, 0, ["lightgrey", this.actualColor][this.g.value]);
+    this.customDrawSegment(-15, 38, 17, 38, ["lightgrey", this.actualColor][this.d.value]);
 
     ctx.beginPath();
-    var dotColor = ["lightgrey", "red"][this.dot.value] || "lightgrey"
+    var dotColor = ["lightgrey", this.actualColor][this.dot.value] || "lightgrey"
     ctx.strokeStyle = dotColor;
     rect(ctx, xx + 22, yy + 42, 2, 2);
     ctx.stroke();
