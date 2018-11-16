@@ -65,7 +65,7 @@ function startListeners() {
             simulationArea.controlDown = true;
         }
 
-        if (simulationArea.controlDown && (e.keyCode == 187 || e.keyCode == 61)) {
+        if (simulationArea.controlDown && (e.keyCode == 187 || e.keyCode == 171)) {
             e.preventDefault();
             if (globalScope.scale < 4 * DPR) {
                 changeScale(.1 * DPR);
@@ -170,6 +170,7 @@ function startListeners() {
                 simulationArea.lastSelected.newBitWidth(parseInt(prompt("Enter new bitWidth"), 10));
         }
         if (simulationArea.controlDown && (e.key == "T" || e.key == "t")) {
+            e.preventDefault(); //browsers normally open a new tab
             simulationArea.changeClockTime(prompt("Enter Time:"));
         }
         if ((e.keyCode == 108 || e.keyCode == 76) && simulationArea.lastSelected != undefined) {
