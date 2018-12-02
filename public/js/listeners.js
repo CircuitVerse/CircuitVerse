@@ -153,16 +153,16 @@ function startListeners() {
         }
 
         //change direction fns
-        if (e.keyCode == 37 && simulationArea.lastSelected != undefined) {
+        if ((e.keyCode == 37 || e.keyCode == 65)&& simulationArea.lastSelected != undefined) {
             simulationArea.lastSelected.newDirection("LEFT");
         }
-        if (e.keyCode == 38 && simulationArea.lastSelected != undefined) {
+        if ((e.keyCode == 38 || e.keyCode == 85) && simulationArea.lastSelected != undefined) {
             simulationArea.lastSelected.newDirection("UP");
         }
-        if (e.keyCode == 39 && simulationArea.lastSelected != undefined) {
+        if ((e.keyCode == 39 || e.keyCode == 68) && simulationArea.lastSelected != undefined) {
             simulationArea.lastSelected.newDirection("RIGHT");
         }
-        if (e.keyCode == 40 && simulationArea.lastSelected != undefined) {
+        if ((e.keyCode == 40 || e.keyCode == 83) && simulationArea.lastSelected != undefined) {
             simulationArea.lastSelected.newDirection("DOWN");
         }
         if ((e.keyCode == 113 || e.keyCode == 81) && simulationArea.lastSelected != undefined) {
