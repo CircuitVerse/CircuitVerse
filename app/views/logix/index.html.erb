@@ -85,7 +85,7 @@
 
     <h5 class="">Recent Circuits</h5>
     <div class="row">
-      <% Project.select("id,author_id,image_preview,name").where(project_access_type:"Public",forked_project_id:nil).order("id desc").limit(12).each do |project| %>
+      <% Project.select("id,author_id,image_preview,name").where(project_access_type:"Public",forked_project_id:nil).order("id desc").limit(16).each do |project| %>
           <div class="col-sm-3">
             <div class="card text-center " style="margin-top: 2rem">
               <div class="card-header card-title">
