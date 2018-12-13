@@ -881,7 +881,7 @@ function CircuitElement(x, y, scope, dir, bitWidth) {
 
     this.scope[this.objectType].push(this);
 
-    this.bitWidth = bitWidth || parseInt(prompt("Enter bitWidth"), 10);
+    this.bitWidth = bitWidth || parseInt(prompt("Enter bitWidth"), 10) || 1;
     this.direction = dir;
     this.directionFixed = false;
     this.labelDirectionFixed = false;
