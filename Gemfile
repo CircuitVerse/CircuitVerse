@@ -51,6 +51,10 @@ gem 'cancancan', '~>2.0'
 
 gem 'sidekiq'
 
+# For home page pagination
+gem 'will_paginate', '~> 3.1.1'
+gem 'will_paginate-bootstrap' 
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password

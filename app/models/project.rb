@@ -8,6 +8,8 @@ class Project < ApplicationRecord
 
   mount_uploader :image_preview, ImagePreviewUploader
 
+  self.per_page = 8
+
   acts_as_commontable
   # after_commit :send_mail, on: :create
 
