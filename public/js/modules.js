@@ -1424,7 +1424,7 @@ function Splitter(x, y, scope = globalScope, dir = "RIGHT", bitWidth = undefined
     this.rectangleObject = false;
 
     this.bitWidthSplit = bitWidthSplit || prompt("Enter bitWidth Split").split(' ').map(function(x) {
-        return parseInt(x, 10);
+        return parseInt(x, 10)||1;
     });
     this.splitCount = this.bitWidthSplit.length;
 
