@@ -45,6 +45,11 @@ function startListeners() {
 
     window.addEventListener('keydown', function(e) {
 
+        // If mouse is focusing on input element, then override any action
+        if($(':focus').length){
+            return;
+        }
+
         if (simulationArea.mouseRawX < 0 || simulationArea.mouseRawY < 0 || simulationArea.mouseRawX > width || simulationArea.mouseRawY > height) {
             return;
         } else {
@@ -156,7 +161,8 @@ function startListeners() {
         if ((e.keyCode == 37 || e.keyCode == 65)&& simulationArea.lastSelected != undefined) {
             simulationArea.lastSelected.newDirection("LEFT");
         }
-        if ((e.keyCode == 38 || e.keyCode == 85) && simulationArea.lastSelected != undefined) {
+        console.log(e.keyCode);
+        if ((e.keyCode == 38 || e.keyCode == 87) && simulationArea.lastSelected != undefined) {
             simulationArea.lastSelected.newDirection("UP");
         }
         if ((e.keyCode == 39 || e.keyCode == 68) && simulationArea.lastSelected != undefined) {
