@@ -161,7 +161,6 @@ function startListeners() {
         if ((e.keyCode == 37 || e.keyCode == 65)&& simulationArea.lastSelected != undefined) {
             simulationArea.lastSelected.newDirection("LEFT");
         }
-        console.log(e.keyCode);
         if ((e.keyCode == 38 || e.keyCode == 87) && simulationArea.lastSelected != undefined) {
             simulationArea.lastSelected.newDirection("UP");
         }
