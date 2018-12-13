@@ -83,9 +83,9 @@
     <br>
     <% end %>
 
-    <h5 class="">Recent Circuits</h5>
+    <h5 class="" id="recent">Recent Circuits</h5>
     <div class="row">
-      <% Project.select("id,author_id,image_preview,name").where(project_access_type:"Public",forked_project_id:nil).order("id desc").limit(12).each do |project| %>
+      <% @projects.each do |project| %>
           <div class="col-sm-3">
             <div class="card text-center " style="margin-top: 2rem">
               <div class="card-header card-title">
@@ -96,8 +96,16 @@
           </div>
       <% end %>
     </div>
+    <br>
+    <div class"container">
+<%= will_paginate @projects, renderer: PaginateRenderer %>
+
+    </div>
+
+
 
   </div>
+
 
     <% if user_signed_in? %>
     <script>
