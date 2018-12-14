@@ -170,7 +170,7 @@ function startListeners() {
                 simulationArea.lastSelected.newBitWidth(parseInt(prompt("Enter new bitWidth"), 10));
         }
         if (simulationArea.controlDown && (e.key == "T" || e.key == "t")) {
-            e.preventDefault(); //browsers normally open a new tab
+            // e.preventDefault(); //browsers normally open a new tab
             simulationArea.changeClockTime(prompt("Enter Time:"));
         }
         if ((e.keyCode == 108 || e.keyCode == 76) && simulationArea.lastSelected != undefined) {
