@@ -28,7 +28,7 @@
 
       <p>
         <strong>Description:</strong>
-        <p><%=sanitize @assignment.description%></p><br>
+        <p><%= @assignment.html_safe%></p><br>
       </p>
 
       <%= link_to 'Back', group_path(@group) %>
