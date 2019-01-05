@@ -69,7 +69,7 @@
           </li>
           <%if !@project.description.nil? %>
               <li class="list-group-item"><b >Description: </b>
-                <%=sanitize @project.description , tags: %w(strong em a)%><br></li>
+                <%= @project.description.html_safe %><br></li>
           <%end%>
 
 
