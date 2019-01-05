@@ -29,6 +29,10 @@ body {
     margin-top:-50px;
 }
 
+img{
+    max-width: 100%
+}
+
 .footer{
     position: absolute;
     right: 0;
