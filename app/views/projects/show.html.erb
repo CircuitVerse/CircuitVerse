@@ -6,9 +6,14 @@
 <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div class="container feature">
-  <% if notice %>
-    <p class="alert alert-success" id="notice"><%= notice %></p>
-  <% end %>
+    <% if notice %>
+        <div class="row">
+            <div class="alert alert-success alert-dismissible container-fluid text-center">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <%= notice %>
+            </div>
+        </div>
+    <% end %>
   <div class="row ">
 
     <div class="col col-7 ">

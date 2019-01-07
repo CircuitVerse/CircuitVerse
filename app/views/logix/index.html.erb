@@ -29,8 +29,22 @@
 
     </div>
 
+
+
     <div class="container">
-        <!-- Example row of columns -->
+
+
+
+        <% if notice %>
+            <div class="row">
+                <div class="alert alert-success alert-dismissible container-fluid text-center">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <%= notice %>
+                </div>
+            </div>
+        <% end %>
+
+
         <div class="row text-center">
 
             <div class="col-md-4">
