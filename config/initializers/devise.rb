@@ -20,12 +20,11 @@ Devise.setup do |config|
   # config.parent_mailer = 'ActionMailer::Base'
   config.omniauth :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], {
     :skip_jwt => true,
-    :scope => 'email, profile, plus.login',
-    :prompt => 'consent',
+    :scope => 'email, profile',
+    prompt: 'select_account',
   }
   config.omniauth :facebook, ENV['FACEBOOK_CLIENT_ID'], ENV['FACEBOOK_CLIENT_SECRET'],  {
-
-    :info_fields => 'email,name,gender'
+    :info_fields => 'email,name'
   }
 
   config.omniauth :microsoft_office365,ENV['MICROSOFT_CLIENT_ID'], ENV['MICROSOFT_CLIENT_SECRET']
