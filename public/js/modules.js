@@ -2535,8 +2535,14 @@ Demultiplexer.prototype.customSave = function() {
     return data;
 }
 Demultiplexer.prototype.resolve = function() {
+
+    for(var i=0;i<this.output1.length;i++)
+        this.output1[i].value=0;
+
     this.output1[this.controlSignalInput.value].value = this.input.value;
-    simulationArea.simulationQueue.add(this.output1[this.controlSignalInput.value]);
+
+    for(var i=0;i<this.output1.length;i++)
+        simulationArea.simulationQueue.add(this.output1[i]);
 
 }
 Demultiplexer.prototype.customDraw = function() {
