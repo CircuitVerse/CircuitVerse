@@ -15,7 +15,7 @@
   <% end %>
 
   <div class ="row">
-    <h2 class="card-title">Projects</h2>
+    <h2 class="card-title"><%= @user.name%> - Projects | <a href=  "<%= profile_path(@user)%>"  target="_blank"> View Profile </a> | <a href=  "<%= user_favourites_path(@user)%>"  target="_blank"> View Favourites </a> </h2>
   </div>
 
   <div class="row ">

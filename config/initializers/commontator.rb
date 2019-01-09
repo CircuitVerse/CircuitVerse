@@ -26,7 +26,6 @@ Commontator.configure do |config|
   config.javascript_proc = ->(view) { '$("#error_explanation").remove();' }
 
 
-
   # User (acts_as_commontator) Configuration
 
   # user_name_proc
@@ -45,7 +44,8 @@ Commontator.configure do |config|
   # comments will become a hyperlink pointing to this path
   # The main application's routes can be accessed through the app_routes object
   # Default: ->(user, app_routes) { '' } (no link)
-  config.user_link_proc = ->(user, app_routes) { '' }
+
+  config.user_link_proc = ->(user, app_routes) { user.nil? ? '' : app_routes.user_path(user) }
 
   # user_avatar_proc
   # Type: Proc
