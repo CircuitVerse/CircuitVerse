@@ -158,6 +158,7 @@ function switchCircuit(id) {
 
     if (layoutMode)
         toggleLayoutMode();
+
     globalScope.fixLayout();
     scheduleBackup();
     if (id == globalScope.id) return;
@@ -171,6 +172,10 @@ function switchCircuit(id) {
     updateSubcircuit = true;
     forceResetNodes = true;
     dots(true, false);
+    simulationArea.lastSelected = globalScope.root;
+    showProperties(simulationArea.lastSelected);
+    updateCanvas=true;
+    scheduleUpdate();
 
 }
 
