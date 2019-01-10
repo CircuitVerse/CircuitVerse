@@ -34,7 +34,10 @@ class Project < ApplicationRecord
 
 
   def check_direct_view_access(user)
-    @user_access = (self.project_access_type == "Public" or (self.project_submission == false and  !user.nil? and self.author_id==user.id) or (!user.nil? and user.admin))
+    @user_access =
+        (self.project_access_type == "Public" or \
+        (self.project_submission == false and  !user.nil? and self.author_id==user.id) or \
+        (!user.nil? and user.admin))
   end
 
   def increase_views(user)

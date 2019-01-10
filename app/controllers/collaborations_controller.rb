@@ -25,11 +25,15 @@ class CollaborationsController < ApplicationController
   # POST /collaborations.json
   def create
 
-    if(Project.find(collaboration_params[:project_id]).author_id!=current_user.id)
+    @project = Project.find(collaboration_params[:project_id])
+
+    # if(not @project.assignment_id.nil?)
+    #   render plain: "Assignments cannot have collaborators. Please contact admin." and return
+    # end
+
+    if(@project.author_id!=current_user.id)
       render plain: "Access Restricted " and return
     end
-
-    @project = Project.find(collaboration_params[:project_id])
 
     collaboration_params[:emails].split(',').each do |email|
       email = email.strip
