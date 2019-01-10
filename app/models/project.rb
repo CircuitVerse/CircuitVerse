@@ -37,6 +37,7 @@ class Project < ApplicationRecord
     @user_access =
         (self.project_access_type == "Public" or \
         (self.project_submission == false and  !user.nil? and self.author_id==user.id) or \
+        (!user.nil? and Collaboration.find_by(project_id:self.id,user_id:user.id)) or \
         (!user.nil? and user.admin))
   end
 
