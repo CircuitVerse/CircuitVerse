@@ -6,6 +6,9 @@ class Project < ApplicationRecord
   has_many :user_ratings, through: :stars , dependent: :destroy ,source: 'user'
   belongs_to :assignment , optional: true
 
+  has_many :collaborations, dependent: :destroy
+  has_many :collaborators, source: 'user' , through: :collaborations
+
   mount_uploader :image_preview, ImagePreviewUploader
 
   self.per_page = 8
@@ -14,11 +17,19 @@ class Project < ApplicationRecord
   # after_commit :send_mail, on: :create
 
   def check_edit_access(user)
-    @user_access = (!user.nil? and self.author_id == user.id and self.project_submission != true)
+    @user_access =
+        ((!user.nil? and self.author_id == user.id and self.project_submission != true) \
+        or (!user.nil? and Collaboration.find_by(project_id:self.id,user_id:user.id)))
+
   end
 
   def check_view_access(user)
-    @user_access = (self.project_access_type != "Private" or (!user.nil? and self.author_id==user.id) or (!user.nil? and !self.assignment_id.nil? and self.assignment.group.mentor_id==user.id) or (!user.nil? and user.admin))
+    @user_access =
+        (self.project_access_type != "Private" \
+        or (!user.nil? and self.author_id==user.id) \
+        or (!user.nil? and !self.assignment_id.nil? and self.assignment.group.mentor_id==user.id) \
+        or (!user.nil? and Collaboration.find_by(project_id:self.id,user_id:user.id)) \
+        or (!user.nil? and user.admin))
   end
 
 

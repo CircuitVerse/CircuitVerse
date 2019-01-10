@@ -13,6 +13,9 @@ class User < ApplicationRecord
   has_many :groups, through: :group_members
   acts_as_commontator
 
+  has_many :collaborations, dependent: :destroy
+  has_many :collaborated_projects, source: 'project', through: :collaborations
+
   after_commit :send_mail ,  on: :create
   after_commit :check_group_invites, on: :create
 
