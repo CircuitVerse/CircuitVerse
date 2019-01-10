@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :collaborations
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   # resources :assignment_submissions
   resources :group_members ,only: [:create,:destroy]

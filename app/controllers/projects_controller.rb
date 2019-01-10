@@ -4,6 +4,7 @@ class ProjectsController < ApplicationController
 
   before_action :set_access , only: [:show, :edit, :update, :destroy, :create_fork]
   before_action :check_access , only: [:edit, :update, :destroy]
+  before_action :check_delete_access , only: [:destroy]
   before_action :check_view_access , only: [:show, :create_fork]
 
   # GET /projects
@@ -16,6 +17,8 @@ class ProjectsController < ApplicationController
   # GET /projects/1.json
   def show
     @project.increase_views(current_user)
+    @collaboration = @project.collaborations.new
+    @admin_access = true
     commontator_thread_show(@project)
   end
 
@@ -120,6 +123,7 @@ class ProjectsController < ApplicationController
 
     def set_access
       @user_access = user_signed_in? ? @project.check_edit_access(current_user) : false
+      @is_author = @project.author_id == (user_signed_in? and current_user.id)
     end
 
     def check_access
@@ -127,6 +131,13 @@ class ProjectsController < ApplicationController
         render plain: "Access Restricted" and return
       end
     end
+
+    def check_delete_access
+      if(!@is_author)
+        render plain: "Access Restricted" and return
+      end
+    end
+
     def check_view_access
       if(!@project.check_view_access(current_user))
         render plain: "Access Restricted" and return
