@@ -173,7 +173,9 @@ function switchCircuit(id) {
     forceResetNodes = true;
     dots(true, false);
     simulationArea.lastSelected = globalScope.root;
-    showProperties(simulationArea.lastSelected);
+    if (!embed) {
+        showProperties(simulationArea.lastSelected);
+    }
     updateCanvas=true;
     scheduleUpdate();
 
