@@ -14,6 +14,8 @@ function startListeners() {
     });
     document.getElementById("simulationArea").addEventListener('mousedown', function(e) {
 
+        $("input").blur();
+
         errorDetected = false;
         updateSimulation = true;
         updatePosition = true;
@@ -46,9 +48,9 @@ function startListeners() {
     window.addEventListener('keydown', function(e) {
 
         // If mouse is focusing on input element, then override any action
-        if($(':focus').length){
-            return;
-        }
+        // if($(':focus').length){
+        //     return;
+        // }
 
         if (simulationArea.mouseRawX < 0 || simulationArea.mouseRawY < 0 || simulationArea.mouseRawX > width || simulationArea.mouseRawY > height) {
             return;
@@ -134,12 +136,7 @@ function startListeners() {
         }
 
         if (e.keyCode == 8 || e.key == "Delete") {
-            if (simulationArea.lastSelected && !(simulationArea.lastSelected.objectType == "Node" && simulationArea.lastSelected.type != 2)) simulationArea.lastSelected.delete();
-            for (var i = 0; i < simulationArea.multipleObjectSelections.length; i++) {
-                if (!(simulationArea.multipleObjectSelections[i].objectType == "Node" && simulationArea.multipleObjectSelections[i].type != 2)) simulationArea.multipleObjectSelections[i].cleanDelete();
-            }
-            simulationArea.multipleObjectSelections = [];
-
+            delete_selected();
         }
 
         if (simulationArea.controlDown && e.key.charCodeAt(0) == 122) { // detect the special CTRL-Z code
@@ -369,4 +366,15 @@ function onMouseUp(e) {
         smartDropYY = simulationArea.mouseY - 50; //Math.round(((simulationArea.mouseRawY - globalScope.oy+100) / globalScope.scale) / unit) * unit;
     }
 
+}
+
+function delete_selected(){
+
+    $("input").blur();
+    hideProperties();
+    if (simulationArea.lastSelected && !(simulationArea.lastSelected.objectType == "Node" && simulationArea.lastSelected.type != 2)) simulationArea.lastSelected.delete();
+    for (var i = 0; i < simulationArea.multipleObjectSelections.length; i++) {
+        if (!(simulationArea.multipleObjectSelections[i].objectType == "Node" && simulationArea.multipleObjectSelections[i].type != 2)) simulationArea.multipleObjectSelections[i].cleanDelete();
+    }
+    simulationArea.multipleObjectSelections = [];
 }
