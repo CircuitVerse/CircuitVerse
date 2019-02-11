@@ -2468,6 +2468,66 @@ RGBLed.prototype.customDraw = function() {
     ctx.fill();
 }
 
+function SquareRGBLed(x, y, scope = globalScope, dir = "UP") {
+    CircuitElement.call(this, x, y, scope, dir, 8);
+    this.rectangleObject = false;
+    this.setDimensions(15, 15);
+    this.inp1 = new Node(-20, -10, 0, this, 8);
+    this.inp2 = new Node(-20, 0, 0, this, 8);
+    this.inp3 = new Node(-20, 10, 0, this, 8);
+    this.inp = [this.inp1, this.inp2, this.inp3];
+    this.labelDirection = "UP";
+    this.fixedBitWidth = true;
+}
+SquareRGBLed.prototype = Object.create(CircuitElement.prototype);
+SquareRGBLed.prototype.constructor = SquareRGBLed;
+SquareRGBLed.prototype.customSave = function() {
+    var data = {
+        constructorParamaters: [this.direction],
+        nodes: {
+            inp1: findNode(this.inp1),
+            inp2: findNode(this.inp2),
+            inp3: findNode(this.inp3),
+        },
+    }
+    return data;
+}
+SquareRGBLed.prototype.customDraw = function() {
+    var ctx = simulationArea.context;
+    var xx = this.x;
+    var yy = this.y;
+
+    var colors = ["red", "green", "blue"];
+    for(var i=0; i<3; i++)
+    {
+        ctx.strokeStyle = colors[i];
+        ctx.lineWidth = correctWidth(3);
+        ctx.beginPath();
+        ctx.lineCap = "butt";
+        moveTo(ctx, -15, i*10-10, xx, yy, this.direction);
+        lineTo(ctx, -20, i*10-10, xx, yy, this.direction);
+        ctx.stroke();
+    }
+
+    var a = this.inp1.value;
+    var b = this.inp2.value;
+    var c = this.inp3.value;
+    ctx.strokeStyle = "#d3d4d5";
+    ctx.fillStyle = ["rgba(" + a + ", " + b + ", " + c + ", 0.8)", "rgba(227, 228, 229, 0.8)"][((a === undefined || b === undefined || c === undefined)) + 0]
+    ctx.lineWidth = correctWidth(1);
+    ctx.beginPath();
+    rect2(ctx, -15, -15, 30, 30, xx, yy, this.direction);
+    ctx.stroke();
+
+    if ((this.hover && !simulationArea.shiftDown) || 
+        simulationArea.lastSelected == this || 
+        simulationArea.multipleObjectSelections.contains(this)) {
+            ctx.fillStyle = "rgba(255, 255, 32,0.8)";
+    }
+
+    ctx.fill();
+}
+
 function Demultiplexer(x, y, scope = globalScope, dir = "LEFT", bitWidth = 1, controlSignalSize = 1) {
 
     CircuitElement.call(this, x, y, scope, dir, bitWidth);
