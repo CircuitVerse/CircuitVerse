@@ -12,7 +12,10 @@
 * Configure your DB in config/database.yml, copy config/database.yml.example
 * Create database: `rails db:create`
 * Run Migrations: `rails db:migrate`
-* install imagemagick
+* At this point, local development can be started with ```rails s -b 127.0.0.1 -p 8080```
+
+Additional software:
+* Install imagemagick
 * Start Redis server process.
 * To start sidekiq: `bundle exec sidekiq -e development -q default -q mailers -d -L tmp/sidekiq.log` (In development)
 
@@ -33,6 +36,34 @@ Developers can quickly get started by setting up the dev environment using the i
 User: Admin
 Email: admin@circuitverse.org
 Password: password
+```
+
+## Additional setup instructions for Ubuntu
+Additional instructions can be found [here](https://www.howtoforge.com/tutorial/ubuntu-ruby-on-rails/) and there are some extra notes for single user installations:
+- If setting up Postgres with these instructions, use your user name instead of 'rails_dev'.
+- [Run Terminal as a login shell](https://rvm.io/integration/gnome-terminal/) so ruby and rails will be available.
+- You can remove `gem mysql2` from the gemfile (but don't check it in), move `gem pg` up and create the database.yml file with just Postgres. Example:
+```
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: <your user name>
+  password: <postgres password>
+
+development:
+  <<: *default
+  database: circuitverse_development
+
+test:
+  <<: *default
+  database: circuitverse_test
+
+production:
+  <<: *default
+  database: circuitverse_production
+  username: circuitverse
+  password: <%= ENV['circuitverse_DATABASE_PASSWORD'] %>
 ```
 
 ## Production Specific Instructions
