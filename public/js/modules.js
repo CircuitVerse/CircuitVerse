@@ -2468,22 +2468,53 @@ RGBLed.prototype.customDraw = function() {
     ctx.fill();
 }
 
-function SquareRGBLed(x, y, scope = globalScope, dir = "UP") {
+function SquareRGBLed(x, y, scope = globalScope, dir = "UP", pinLength = 5) {
     CircuitElement.call(this, x, y, scope, dir, 8);
     this.rectangleObject = false;
     this.setDimensions(15, 15);
-    this.inp1 = new Node(-20, -10, 0, this, 8);
-    this.inp2 = new Node(-20, 0, 0, this, 8);
-    this.inp3 = new Node(-20, 10, 0, this, 8);
+    this.pinLength = pinLength === undefined ? 5 : pinLength;
+    this.inp1 = new Node(-15 - this.pinLength, -10, 0, this, 8);
+    this.inp2 = new Node(-15 - this.pinLength, 0, 0, this, 8);
+    this.inp3 = new Node(-15 - this.pinLength, 10, 0, this, 8);
     this.inp = [this.inp1, this.inp2, this.inp3];
     this.labelDirection = "UP";
     this.fixedBitWidth = true;
+    
+    this.changePinLength = function (pinLength) {
+        if (pinLength == undefined) return;
+        pinLength = parseInt(pinLength, 10);
+        if (pinLength < 0 || pinLength > 1000) return;
+
+        // Calculate the new position of the LED, so the nodes will stay in the same place.
+        var diff = pinLength - this.pinLength;
+        var diffX = this.direction == "LEFT" ? -diff : this.direction == "RIGHT" ? diff : 0;
+        var diffY = this.direction == "UP" ? -diff : this.direction == "DOWN" ? diff : 0;
+
+        // Build a new LED with the new values; preserve label properties too.
+        var obj = new window[this.objectType](this.x + diffX, this.y + diffY, this.scope, this.direction, pinLength);
+        obj.label = this.label;
+        obj.labelDirection = this.labelDirection;
+
+        this.cleanDelete();
+        simulationArea.lastSelected = obj;
+        return obj;
+    }
+
+    this.mutableProperties = {
+        "pinLength": {
+            name: "Pin Length",
+            type: "number",
+            max: "1000",
+            min: "0",
+            func: "changePinLength",
+        },
+    }
 }
 SquareRGBLed.prototype = Object.create(CircuitElement.prototype);
 SquareRGBLed.prototype.constructor = SquareRGBLed;
-SquareRGBLed.prototype.customSave = function() {
+SquareRGBLed.prototype.customSave = function () {
     var data = {
-        constructorParamaters: [this.direction],
+        constructorParamaters: [this.direction, this.pinLength],
         nodes: {
             inp1: findNode(this.inp1),
             inp2: findNode(this.inp2),
@@ -2492,20 +2523,19 @@ SquareRGBLed.prototype.customSave = function() {
     }
     return data;
 }
-SquareRGBLed.prototype.customDraw = function() {
+SquareRGBLed.prototype.customDraw = function () {
     var ctx = simulationArea.context;
     var xx = this.x;
     var yy = this.y;
 
     var colors = ["red", "green", "blue"];
-    for(var i=0; i<3; i++)
-    {
+    for (var i = 0; i < 3; i++) {
         ctx.strokeStyle = colors[i];
         ctx.lineWidth = correctWidth(3);
         ctx.beginPath();
         ctx.lineCap = "butt";
-        moveTo(ctx, -15, i*10-10, xx, yy, this.direction);
-        lineTo(ctx, -20, i*10-10, xx, yy, this.direction);
+        moveTo(ctx, -15, i * 10 - 10, xx, yy, this.direction);
+        lineTo(ctx, -15 - this.pinLength, i * 10 - 10, xx, yy, this.direction);
         ctx.stroke();
     }
 
@@ -2519,8 +2549,8 @@ SquareRGBLed.prototype.customDraw = function() {
     rect2(ctx, -15, -15, 30, 30, xx, yy, this.direction);
     ctx.stroke();
 
-    if ((this.hover && !simulationArea.shiftDown) || 
-        simulationArea.lastSelected == this || 
+    if ((this.hover && !simulationArea.shiftDown) ||
+        simulationArea.lastSelected == this ||
         simulationArea.multipleObjectSelections.contains(this)) {
             ctx.fillStyle = "rgba(255, 255, 32,0.8)";
     }
