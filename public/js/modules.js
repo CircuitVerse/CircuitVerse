@@ -2468,14 +2468,15 @@ RGBLed.prototype.customDraw = function() {
     ctx.fill();
 }
 
-function SquareRGBLed(x, y, scope = globalScope, dir = "UP", pinLength = 5) {
+function SquareRGBLed(x, y, scope = globalScope, dir = "UP", pinLength = 1) {
     CircuitElement.call(this, x, y, scope, dir, 8);
     this.rectangleObject = false;
     this.setDimensions(15, 15);
-    this.pinLength = pinLength === undefined ? 5 : pinLength;
-    this.inp1 = new Node(-15 - this.pinLength, -10, 0, this, 8);
-    this.inp2 = new Node(-15 - this.pinLength, 0, 0, this, 8);
-    this.inp3 = new Node(-15 - this.pinLength, 10, 0, this, 8);
+    this.pinLength = pinLength === undefined ? 1 : pinLength;
+    var nodeX = -10 - 10 * pinLength;
+    this.inp1 = new Node(nodeX, -10, 0, this, 8, "R");
+    this.inp2 = new Node(nodeX, 0, 0, this, 8, "G");
+    this.inp3 = new Node(nodeX, 10, 0, this, 8, "B");
     this.inp = [this.inp1, this.inp2, this.inp3];
     this.labelDirection = "UP";
     this.fixedBitWidth = true;
@@ -2486,7 +2487,7 @@ function SquareRGBLed(x, y, scope = globalScope, dir = "UP", pinLength = 5) {
         if (pinLength < 0 || pinLength > 1000) return;
 
         // Calculate the new position of the LED, so the nodes will stay in the same place.
-        var diff = pinLength - this.pinLength;
+        var diff = 10 * (pinLength - this.pinLength);
         var diffX = this.direction == "LEFT" ? -diff : this.direction == "RIGHT" ? diff : 0;
         var diffY = this.direction == "UP" ? -diff : this.direction == "DOWN" ? diff : 0;
 
@@ -2527,23 +2528,35 @@ SquareRGBLed.prototype.customDraw = function () {
     var ctx = simulationArea.context;
     var xx = this.x;
     var yy = this.y;
+    var r = this.inp1.value;
+    var g = this.inp2.value;
+    var b = this.inp3.value;
 
-    var colors = ["red", "green", "blue"];
+    var colors = ["rgb(174,20,20)","rgb(40,174,40)","rgb(0,100,255)"];
     for (var i = 0; i < 3; i++) {
-        ctx.strokeStyle = colors[i];
+        var x = -10 - 10 * this.pinLength;
+        var y = i * 10 - 10;
         ctx.lineWidth = correctWidth(3);
+
+        // A gray line, which makes it easy on the eyes when the pin length is large
         ctx.beginPath();
         ctx.lineCap = "butt";
-        moveTo(ctx, -15, i * 10 - 10, xx, yy, this.direction);
-        lineTo(ctx, -15 - this.pinLength, i * 10 - 10, xx, yy, this.direction);
+        ctx.strokeStyle = "rgb(227, 228, 229)";
+        moveTo(ctx, -15, y, xx, yy, this.direction);
+        lineTo(ctx, x + 10, y, xx, yy, this.direction);
+        ctx.stroke();
+
+        // A colored line, so people know which pin does what.
+        ctx.lineCap = "round";
+        ctx.beginPath();
+        ctx.strokeStyle = colors[i];
+        moveTo(ctx, x + 10, y, xx, yy, this.direction);
+        lineTo(ctx, x, y, xx, yy, this.direction);
         ctx.stroke();
     }
 
-    var a = this.inp1.value;
-    var b = this.inp2.value;
-    var c = this.inp3.value;
     ctx.strokeStyle = "#d3d4d5";
-    ctx.fillStyle = ["rgb(" + a + ", " + b + ", " + c + ")", "rgba(227, 228, 229)"][((a === undefined || b === undefined || c === undefined)) + 0]
+    ctx.fillStyle = (r === undefined && g === undefined && b === undefined) ? "rgb(227, 228, 229)": "rgb(" + (r||0) + ", " + (g||0) + ", " + (b||0) + ")";
     ctx.lineWidth = correctWidth(1);
     ctx.beginPath();
     rect2(ctx, -15, -15, 30, 30, xx, yy, this.direction);
