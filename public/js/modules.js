@@ -2543,7 +2543,7 @@ SquareRGBLed.prototype.customDraw = function () {
     var b = this.inp2.value;
     var c = this.inp3.value;
     ctx.strokeStyle = "#d3d4d5";
-    ctx.fillStyle = ["rgba(" + a + ", " + b + ", " + c + ", 0.8)", "rgba(227, 228, 229, 0.8)"][((a === undefined || b === undefined || c === undefined)) + 0]
+    ctx.fillStyle = ["rgb(" + a + ", " + b + ", " + c + ")", "rgba(227, 228, 229)"][((a === undefined || b === undefined || c === undefined)) + 0]
     ctx.lineWidth = correctWidth(1);
     ctx.beginPath();
     rect2(ctx, -15, -15, 30, 30, xx, yy, this.direction);
@@ -2552,7 +2552,7 @@ SquareRGBLed.prototype.customDraw = function () {
     if ((this.hover && !simulationArea.shiftDown) ||
         simulationArea.lastSelected == this ||
         simulationArea.multipleObjectSelections.contains(this)) {
-            ctx.fillStyle = "rgba(255, 255, 32,0.8)";
+            ctx.fillStyle = "rgba(255, 255, 32)";
     }
 
     ctx.fill();
