@@ -79,9 +79,11 @@ var miniMapArea = {
                 }
             } else if (lst[i] != 'nodes') {
 
+                // Don't include SquareRGBLed here; it has correct size.
                 var ledY = 0;
                 if (lst[i] == "DigitalLed" || lst[i] == "VariableLed" || lst[i] == "RGBLed")
                     ledY = 20;
+
                 for (var j = 0; j < globalScope[lst[i]].length; j++) {
                     var xx = (globalScope[lst[i]][j].x - simulationArea.minWidth);
                     var yy = (globalScope[lst[i]][j].y - simulationArea.minHeight);
