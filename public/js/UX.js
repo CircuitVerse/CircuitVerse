@@ -81,6 +81,7 @@ var help = {
     "Stepper": "Stepper ToolTip: Increase/Decrease value by selecting the stepper and using +/- keys.",
     "Output": "Output ToolTip: Simple output element showing output in binary.",
     "RGBLed": "RGB Led ToolTip: RGB Led inputs 8 bit values for the colors RED, GREEN and BLUE.",
+    "SquareRGBLed": "Square RGB Led ToolTip: RGB Led inputs 8 bit values for the colors RED, GREEN and BLUE.",
     "DigitalLed": "Digital Led ToolTip: Digital LED glows high when input is High(1).",
     "VariableLed": "Variable Led ToolTip: Variable LED inputs an 8 bit value and glows with a proportional intensity.",
     "HexDisplay": "Hex Display ToolTip: Inputs a 4 Bit Hex number and displays it.",
