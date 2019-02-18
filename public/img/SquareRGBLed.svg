@@ -1,0 +1,14 @@
+<svg version="1.1" 
+    xmlns="http://www.w3.org/2000/svg" 
+    xmlns:xlink="http://www.w3.org/1999/xlink" width="70" height="70">
+    <defs/>
+    <g>
+        <path stroke="green" d="M 35.2 40 L 35.2 50" stroke-width="2" />
+        <path stroke="red" d="M 25.2 40 L 25.2 50" stroke-width="2" />
+        <path stroke="blue" d="M 45.2 40 L 45.2 50" stroke-width="2" />
+        <rect fill="rgb(227, 228, 229)" stroke="#d3d4d5" height="30" width="30" x="20.5" y="12.5"/>
+        <ellipse fill="green" cx="25.2" cy="50" rx="3" ry="3"/>
+        <ellipse fill="green" cx="35.2" cy="50" rx="3" ry="3"/>
+        <ellipse fill="green" cx="45.2" cy="50" rx="3" ry="3"/>
+    </g>
+</svg>

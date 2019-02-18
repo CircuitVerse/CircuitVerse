@@ -2468,6 +2468,109 @@ RGBLed.prototype.customDraw = function() {
     ctx.fill();
 }
 
+function SquareRGBLed(x, y, scope = globalScope, dir = "UP", pinLength = 1) {
+    CircuitElement.call(this, x, y, scope, dir, 8);
+    this.rectangleObject = false;
+    this.setDimensions(15, 15);
+    this.pinLength = pinLength === undefined ? 1 : pinLength;
+    var nodeX = -10 - 10 * pinLength;
+    this.inp1 = new Node(nodeX, -10, 0, this, 8, "R");
+    this.inp2 = new Node(nodeX, 0, 0, this, 8, "G");
+    this.inp3 = new Node(nodeX, 10, 0, this, 8, "B");
+    this.inp = [this.inp1, this.inp2, this.inp3];
+    this.labelDirection = "UP";
+    this.fixedBitWidth = true;
+    
+    this.changePinLength = function (pinLength) {
+        if (pinLength == undefined) return;
+        pinLength = parseInt(pinLength, 10);
+        if (pinLength < 0 || pinLength > 1000) return;
+
+        // Calculate the new position of the LED, so the nodes will stay in the same place.
+        var diff = 10 * (pinLength - this.pinLength);
+        var diffX = this.direction == "LEFT" ? -diff : this.direction == "RIGHT" ? diff : 0;
+        var diffY = this.direction == "UP" ? -diff : this.direction == "DOWN" ? diff : 0;
+
+        // Build a new LED with the new values; preserve label properties too.
+        var obj = new window[this.objectType](this.x + diffX, this.y + diffY, this.scope, this.direction, pinLength);
+        obj.label = this.label;
+        obj.labelDirection = this.labelDirection;
+
+        this.cleanDelete();
+        simulationArea.lastSelected = obj;
+        return obj;
+    }
+
+    this.mutableProperties = {
+        "pinLength": {
+            name: "Pin Length",
+            type: "number",
+            max: "1000",
+            min: "0",
+            func: "changePinLength",
+        },
+    }
+}
+SquareRGBLed.prototype = Object.create(CircuitElement.prototype);
+SquareRGBLed.prototype.constructor = SquareRGBLed;
+SquareRGBLed.prototype.customSave = function () {
+    var data = {
+        constructorParamaters: [this.direction, this.pinLength],
+        nodes: {
+            inp1: findNode(this.inp1),
+            inp2: findNode(this.inp2),
+            inp3: findNode(this.inp3),
+        },
+    }
+    return data;
+}
+SquareRGBLed.prototype.customDraw = function () {
+    var ctx = simulationArea.context;
+    var xx = this.x;
+    var yy = this.y;
+    var r = this.inp1.value;
+    var g = this.inp2.value;
+    var b = this.inp3.value;
+
+    var colors = ["rgb(174,20,20)","rgb(40,174,40)","rgb(0,100,255)"];
+    for (var i = 0; i < 3; i++) {
+        var x = -10 - 10 * this.pinLength;
+        var y = i * 10 - 10;
+        ctx.lineWidth = correctWidth(3);
+
+        // A gray line, which makes it easy on the eyes when the pin length is large
+        ctx.beginPath();
+        ctx.lineCap = "butt";
+        ctx.strokeStyle = "rgb(227, 228, 229)";
+        moveTo(ctx, -15, y, xx, yy, this.direction);
+        lineTo(ctx, x + 10, y, xx, yy, this.direction);
+        ctx.stroke();
+
+        // A colored line, so people know which pin does what.
+        ctx.lineCap = "round";
+        ctx.beginPath();
+        ctx.strokeStyle = colors[i];
+        moveTo(ctx, x + 10, y, xx, yy, this.direction);
+        lineTo(ctx, x, y, xx, yy, this.direction);
+        ctx.stroke();
+    }
+
+    ctx.strokeStyle = "#d3d4d5";
+    ctx.fillStyle = (r === undefined && g === undefined && b === undefined) ? "rgb(227, 228, 229)": "rgb(" + (r||0) + ", " + (g||0) + ", " + (b||0) + ")";
+    ctx.lineWidth = correctWidth(1);
+    ctx.beginPath();
+    rect2(ctx, -15, -15, 30, 30, xx, yy, this.direction);
+    ctx.stroke();
+
+    if ((this.hover && !simulationArea.shiftDown) ||
+        simulationArea.lastSelected == this ||
+        simulationArea.multipleObjectSelections.contains(this)) {
+            ctx.fillStyle = "rgba(255, 255, 32)";
+    }
+
+    ctx.fill();
+}
+
 function Demultiplexer(x, y, scope = globalScope, dir = "LEFT", bitWidth = 1, controlSignalSize = 1) {
 
     CircuitElement.call(this, x, y, scope, dir, bitWidth);
