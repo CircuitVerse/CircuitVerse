@@ -48,11 +48,13 @@ $(document).ready(function() {
 
     }
     $('.logixModules').hover(function() {
-        if (!help[this.id]) return;
+        // Tooltip can be statically defined in the prototype.
+        var tooltipText = window[this.id].prototype.tooltipText || help[this.id];
+        if (!tooltipText) return;
         $("#Help").addClass("show");
         $("#Help").empty();
         ////console.log("SHOWING")
-        $("#Help").append(help[this.id]);
+        $("#Help").append(tooltipText);
     }); // code goes in document ready fn only
     $('.logixModules').mouseleave(function() {
         $("#Help").removeClass("show");
@@ -89,7 +91,6 @@ var help = {
     "Flag": "FLag ToolTip: Use this for debugging and plotting.",
     "Splitter": "Splitter ToolTip: Split multiBit Input into smaller bitwidths or vice versa.",
     "ALU": "ALU ToolTip: 0: A&B, 1:A|B, 2:A+B, 4:A&~B, 5:A|~B, 6:A-B, 7:SLT ",
-
 }
 
 
@@ -164,22 +165,19 @@ function showProperties(obj) {
             }
         }
     }
-    // $('#moduleProperty-toolTip').empty();
-    // if(help[obj.objectType])$('#moduleProperty-toolTip').append(help[obj.objectType])
-    if (obj && help[obj.objectType]) {
-        $('#moduleProperty-inner').append('<p><button id="toolTipButton" class="btn btn-primary btn-xs" type="button" >Logix Tip</button></p>');
-        // $('#moduleProperty-toolTip').append('<div class="collapse" id="collapseExample"><div class="card card-body">'+help[obj.objectType]+'</div></div>')
 
+    // Tooltip can be defined in the prototype or the object itself, in addition to help map.
+    var tooltipText = obj && (obj.tooltipText || help[obj.objectType]);
+    if (tooltipText) {
+        $('#moduleProperty-inner').append('<p><button id="toolTipButton" class="btn btn-primary btn-xs" type="button" >CircuitVerse Tip</button></p>');
         $('#toolTipButton').hover(function() {
-            if (!help[obj.objectType]) return;
             $("#Help").addClass("show");
             $("#Help").empty();
             ////console.log("SHOWING")
-            $("#Help").append(help[obj.objectType]);
+            $("#Help").append(tooltipText);
         }); // code goes in document ready fn only
         $('#toolTipButton').mouseleave(function() {
             $("#Help").removeClass("show");
-
         });
     }
 
