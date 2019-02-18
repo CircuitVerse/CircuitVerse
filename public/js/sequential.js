@@ -696,6 +696,7 @@ TTY.prototype.isResolvable = function() {
     return true;
 }
 TTY.prototype.resolve = function() {
+
     if (this.reset.value == 1) {
         this.data = "";
         return;
@@ -825,6 +826,7 @@ Keyboard.prototype.isResolvable = function() {
     return true;
 }
 Keyboard.prototype.resolve = function() {
+
     if (this.reset.value == 1) {
         this.buffer = "";
         return;
@@ -833,10 +835,7 @@ Keyboard.prototype.resolve = function() {
         return;
     }
 
-    if (this.bufferOutValue !== undefined && this.available.value != 1) {
-        this.available.value = 1; //this.bufferOutValue;
-        simulationArea.simulationQueue.add(this.available);
-    } else if (this.available.value != 0) {
+    if (this.available.value != 0) {
         this.available.value = 0; //this.bufferOutValue;
         simulationArea.simulationQueue.add(this.available);
     }
@@ -868,6 +867,11 @@ Keyboard.prototype.resolve = function() {
     if (this.asciiOutput.value != this.bufferOutValue) {
         this.asciiOutput.value = this.bufferOutValue;
         simulationArea.simulationQueue.add(this.asciiOutput);
+    }
+
+    if (this.bufferOutValue !== undefined && this.available.value != 1) {
+        this.available.value = 1; //this.bufferOutValue;
+        simulationArea.simulationQueue.add(this.available);
     }
 
 }
