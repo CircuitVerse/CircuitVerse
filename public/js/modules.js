@@ -1658,13 +1658,12 @@ function Power(x, y, scope = globalScope, bitWidth = 1) {
     CircuitElement.call(this, x, y, scope, "RIGHT", bitWidth);
     this.directionFixed = true;
     this.rectangleObject = false;
-    this.setDimensions(15, 15);
+    this.setDimensions(10, 10);
+    this.downDimensionY = 2;
     this.output1 = new Node(0, 10, 1, this);
-    this.output1.value = this.state;
-    this.wasClicked = false;
-
 }
 Power.prototype = Object.create(CircuitElement.prototype);
+Power.prototype.tooltipText = "Power: All bits are High(1).";
 Power.prototype.constructor = Power;
 Power.prototype.propagationDelay = 0;
 Power.prototype.resolve = function() {

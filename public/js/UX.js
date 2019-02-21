@@ -75,7 +75,6 @@ $(document).ready(function() {
 var help = {
     "Input": "Input ToolTip: Toggle the individual bits by clicking on them.",
     "Button": "Button ToolTip: High(1) when pressed and Low(0) when released.",
-    "Power": "Power ToolTip: All bits are High(1).",
     "Ground": "Ground ToolTip: All bits are Low(0).",
     "ConstantVal": "Constant ToolTip: Bits are fixed. Double click element to change the bits.",
     "Stepper": "Stepper ToolTip: Increase/Decrease value by selecting the stepper and using +/- keys.",
