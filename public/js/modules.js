@@ -1593,16 +1593,12 @@ Splitter.prototype.customDraw = function() {
 function Ground(x, y, scope = globalScope, bitWidth = 1) {
     CircuitElement.call(this, x, y, scope, "RIGHT", bitWidth);
     this.rectangleObject = false;
-    this.setDimensions(20, 20);
+    this.setDimensions(10, 10);
     this.directionFixed = true;
     this.output1 = new Node(0, -10, 1, this);
-
-    this.output1.value = this.state;
-
-    this.wasClicked = false;
-
 }
 Ground.prototype = Object.create(CircuitElement.prototype);
+Ground.prototype.tooltipText = "Ground: All bits are Low(0).";
 Ground.prototype.constructor = Ground;
 Ground.prototype.propagationDelay = 0;
 Ground.prototype.customSave = function() {
@@ -1659,7 +1655,6 @@ function Power(x, y, scope = globalScope, bitWidth = 1) {
     this.directionFixed = true;
     this.rectangleObject = false;
     this.setDimensions(10, 10);
-    this.downDimensionY = 2;
     this.output1 = new Node(0, 10, 1, this);
 }
 Power.prototype = Object.create(CircuitElement.prototype);
