@@ -217,7 +217,7 @@ function Multiplexer(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1, con
         this.yOff = 2;
     }
 
-    this.setDimensions(20, this.yOff * 5 * (this.inputSize));
+    this.setDimensions(20 - this.xOff, this.yOff * 5 * (this.inputSize));
     this.rectangleObject = false;
 
     this.inp = [];
@@ -2604,7 +2604,7 @@ function Demultiplexer(x, y, scope = globalScope, dir = "LEFT", bitWidth = 1, co
         this.input.bitWidth = bitWidth;
     }
 
-    this.setDimensions(20, this.yOff * 5 * (this.outputsize));
+    this.setDimensions(20 - this.xOff, this.yOff * 5 * (this.outputsize));
     this.rectangleObject = false;
     this.input = new Node(20 - this.xOff, 0, 0, this);
 
@@ -2730,7 +2730,7 @@ function Decoder(x, y, scope = globalScope, dir = "LEFT", bitWidth = 1) {
         return obj;
     }
 
-    this.setDimensions(20, this.yOff * 5 * (this.outputsize));
+    this.setDimensions(20 - this.xOff, this.yOff * 5 * (this.outputsize));
     this.rectangleObject = false;
     this.input = new Node(20 - this.xOff, 0, 0, this);
 
