@@ -8,7 +8,6 @@
                 <div class="row">
                    <div class="col-lg-8">
                     <p> <strong>Name: </strong><%=@profile.name%></p>
-                    <p> <strong>Email: </strong><%=@profile.email%></p>
                     <p> <strong>Member since: </strong><%=((Time.now.to_i - @profile.created_at.to_i)/1.day)%> days</p>
                     <!--<p> <strong>Educational Institution: </strong> IIIT-Bangalore </p>-->
                     <!--<p> <strong>Country: </strong> India </p>-->
