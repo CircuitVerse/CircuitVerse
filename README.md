@@ -26,7 +26,7 @@ Additional software:
 
 If you need to rebuild, run this before `docker-compose up`
 ```
-docker system prune
+docker-compose down 
 docker-compose build --no-cache
 ```
 
