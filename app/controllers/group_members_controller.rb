@@ -31,8 +31,9 @@ class GroupMembersController < ApplicationController
     end
 
     @group = Group.find(group_member_params[:group_id])
+    group_member_emails = group_member_params[:emails].split(/[\s,\,]/).compact.reject(&:empty?)
 
-    group_member_params[:emails].split(',').each do |email|
+    group_member_emails.each do |email|
       email = email.strip
       user = User.find_by(email: email)
       if user.nil?

@@ -35,7 +35,9 @@ class CollaborationsController < ApplicationController
       render plain: "Access Restricted " and return
     end
 
-    collaboration_params[:emails].split(',').each do |email|
+    collaboration_emails = collaboration_params[:emails].split(/[\s,\,]/).compact.reject(&:empty?)
+
+    collaboration_emails.each do |email|
       email = email.strip
       user = User.find_by(email: email)
       if user.nil?
