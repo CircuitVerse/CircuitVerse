@@ -62,7 +62,7 @@
 
             </div>
             <div class="modal-body">
-              <p>Enter Email IDs separated by commas. If users are not registered, an email ID will be sent requesting them to sign up.</p>
+              <p>Enter Email IDs separated by commas or spaces. If users are not registered, an email ID will be sent requesting them to sign up.</p>
               <%= form_with(model: @group_member, local: true) do |form| %>
                   <% if @group_member.errors.any? %>
                       <div id="error_explanation">
