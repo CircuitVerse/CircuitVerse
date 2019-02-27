@@ -217,7 +217,7 @@ function Multiplexer(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1, con
         this.yOff = 2;
     }
 
-    this.setDimensions(20, this.yOff * 5 * (this.inputSize));
+    this.setDimensions(20 - this.xOff, this.yOff * 5 * (this.inputSize));
     this.rectangleObject = false;
 
     this.inp = [];
@@ -1593,16 +1593,12 @@ Splitter.prototype.customDraw = function() {
 function Ground(x, y, scope = globalScope, bitWidth = 1) {
     CircuitElement.call(this, x, y, scope, "RIGHT", bitWidth);
     this.rectangleObject = false;
-    this.setDimensions(20, 20);
+    this.setDimensions(10, 10);
     this.directionFixed = true;
     this.output1 = new Node(0, -10, 1, this);
-
-    this.output1.value = this.state;
-
-    this.wasClicked = false;
-
 }
 Ground.prototype = Object.create(CircuitElement.prototype);
+Ground.prototype.tooltipText = "Ground: All bits are Low(0).";
 Ground.prototype.constructor = Ground;
 Ground.prototype.propagationDelay = 0;
 Ground.prototype.customSave = function() {
@@ -1658,13 +1654,11 @@ function Power(x, y, scope = globalScope, bitWidth = 1) {
     CircuitElement.call(this, x, y, scope, "RIGHT", bitWidth);
     this.directionFixed = true;
     this.rectangleObject = false;
-    this.setDimensions(15, 15);
+    this.setDimensions(10, 10);
     this.output1 = new Node(0, 10, 1, this);
-    this.output1.value = this.state;
-    this.wasClicked = false;
-
 }
 Power.prototype = Object.create(CircuitElement.prototype);
+Power.prototype.tooltipText = "Power: All bits are High(1).";
 Power.prototype.constructor = Power;
 Power.prototype.propagationDelay = 0;
 Power.prototype.resolve = function() {
@@ -2610,7 +2604,7 @@ function Demultiplexer(x, y, scope = globalScope, dir = "LEFT", bitWidth = 1, co
         this.input.bitWidth = bitWidth;
     }
 
-    this.setDimensions(20, this.yOff * 5 * (this.outputsize));
+    this.setDimensions(20 - this.xOff, this.yOff * 5 * (this.outputsize));
     this.rectangleObject = false;
     this.input = new Node(20 - this.xOff, 0, 0, this);
 
@@ -2736,7 +2730,7 @@ function Decoder(x, y, scope = globalScope, dir = "LEFT", bitWidth = 1) {
         return obj;
     }
 
-    this.setDimensions(20, this.yOff * 5 * (this.outputsize));
+    this.setDimensions(20 - this.xOff, this.yOff * 5 * (this.outputsize));
     this.rectangleObject = false;
     this.input = new Node(20 - this.xOff, 0, 0, this);
 

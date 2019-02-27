@@ -1102,10 +1102,8 @@ CircuitElement.prototype.fixDirection = function() {
 // NOT OVERIDABLE
 CircuitElement.prototype.isHover = function() {
 
-    var mouseX = simulationArea.mouseX;
-    var mouseY = simulationArea.mouseY;
-
-    if (Math.abs(mouseX - this.x > Math.max(this.leftDimensionX, this.rightDimensionX)) || Math.abs(mouseY - this.y > Math.max(this.upDimensionY, this.downDimensionY))) return false;
+    var mX = simulationArea.mouseXf - this.x;
+    var mY = this.y - simulationArea.mouseYf;
 
     var rX = this.rightDimensionX;
     var lX = this.leftDimensionX;
@@ -1129,9 +1127,7 @@ CircuitElement.prototype.isHover = function() {
         }
     }
 
-    if (mouseX - this.x <= rX && this.x - mouseX <= lX && mouseY - this.y <= dY && this.y - mouseY <= uY) return true;
-
-    return false;
+    return -lX <= mX && mX <= rX && -dY <= mY && mY <= uY;
 };
 
 CircuitElement.prototype.setLabel = function(label) {
