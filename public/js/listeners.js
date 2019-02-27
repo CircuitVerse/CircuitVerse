@@ -301,9 +301,10 @@ function onMouseMove(e) {
     var rect = simulationArea.canvas.getBoundingClientRect();
     simulationArea.mouseRawX = (e.clientX - rect.left) * DPR;
     simulationArea.mouseRawY = (e.clientY - rect.top) * DPR;
-
-    simulationArea.mouseX = Math.round(((simulationArea.mouseRawX - globalScope.ox) / globalScope.scale) / unit) * unit;
-    simulationArea.mouseY = Math.round(((simulationArea.mouseRawY - globalScope.oy) / globalScope.scale) / unit) * unit;
+    simulationArea.mouseXf = (simulationArea.mouseRawX - globalScope.ox) / globalScope.scale;
+    simulationArea.mouseYf = (simulationArea.mouseRawY - globalScope.oy) / globalScope.scale;
+    simulationArea.mouseX = Math.round(simulationArea.mouseXf / unit) * unit;
+    simulationArea.mouseY = Math.round(simulationArea.mouseYf / unit) * unit;
 
     updateCanvas = true;
 
