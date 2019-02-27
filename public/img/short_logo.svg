@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="16px"
+   height="16px"
+   viewBox="0 0 16 16"
+   version="1.1"
+   id="SVGRoot"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="favicon.svg">
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="16"
+     inkscape:cx="41.492247"
+     inkscape:cy="7.3070565"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1004"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:grid-bbox="true"
+     inkscape:pagecheckerboard="true" />
+  <defs
+     id="defs3975" />
+  <metadata
+     id="metadata3978">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:groupmode="layer"
+     inkscape:label="Layer 1">
+    <path
+       inkscape:connector-curvature="0"
+       class="st0"
+       d="m 15.744104,2.9555074 c -0.200944,0 -0.368396,-0.2245903 -0.368396,-0.4940987 0,-0.2695085 0.167452,-0.4940989 0.368396,-0.4940989 0.200943,0 0.368396,0.2245904 0.368396,0.4940989 v 0 c 0,0.2695084 -0.167453,0.4940987 -0.368396,0.4940987 z"
+       id="path3792"
+       style="stroke-width:0.12928569" />
+    <path
+       inkscape:connector-curvature="0"
+       class="st0"
+       d="m 9.4590424,2.9555074 c -0.2009432,0 -0.3683962,-0.2245903 -0.3683962,-0.4940987 0,-0.2695085 0.167453,-0.4940989 0.3683962,-0.4940989 0.2009435,0 0.3683962,0.2245904 0.3683962,0.4940989 v 0 c 0,0.2695084 -0.1674527,0.4940987 -0.3683962,0.4940987 z"
+       id="path3794"
+       style="stroke-width:0.12928569" />
+    <ellipse
+       class="st0"
+       cx="13.645362"
+       cy="13.705898"
+       id="circle3796"
+       rx="0.36839613"
+       ry="0.49409872"
+       style="stroke-width:0.12928569" />
+    <path
+       inkscape:connector-curvature="0"
+       class="st0"
+       d="m 14.437972,12.37333 c 0.05581,0 0.111635,0.02995 0.145126,0.07486 0.07814,0.104809 0.07814,0.284482 0,0.404263 -0.07814,0.10481 -0.212107,0.10481 -0.301415,0 -0.07814,-0.104808 -0.07814,-0.284481 0,-0.404263 0.04465,-0.04492 0.100471,-0.07486 0.156289,-0.07486 z m 0,-0.209618 c -0.200943,0 -0.368396,0.209618 -0.368396,0.479126 0,0.269509 0.156289,0.494099 0.357232,0.494099 0.200944,0 0.368397,-0.209617 0.368397,-0.479126 0,-0.134754 -0.03349,-0.254535 -0.100472,-0.344372 -0.06698,-0.104808 -0.15629,-0.149727 -0.256761,-0.149727 z"
+       id="path3798"
+       style="stroke-width:0.12928569" />
+    <polygon
+       transform="matrix(0.1116352,0,0,0.1497269,-27.827112,1.2635933)"
+       class="st0"
+       points="391.7,6.6 391.7,64.9 380.9,75.7 378.9,73.7 388.9,63.8 388.9,6.6 "
+       id="polygon3800" />
+    <polygon
+       transform="matrix(0.1116352,0,0,0.1497269,-27.827112,1.2635933)"
+       class="st0"
+       points="373,84.5 352.2,84.5 332.6,64.9 332.6,6.6 335.4,6.6 335.4,63.8 353.3,81.7 373,81.7 "
+       id="polygon3802" />
+    <path
+       inkscape:connector-curvature="0"
+       class="st0"
+       d="m 6.5788544,2.8506986 c -0.2009435,0 -0.3683962,-0.2245903 -0.3683962,-0.4940988 0,-0.2695084 0.1674527,-0.4940988 0.3683962,-0.4940988 0.2009432,0 0.3683962,0.2245904 0.3683962,0.4940988 0,0.2695085 -0.167453,0.4940988 -0.3683962,0.4940988 z"
+       id="path3804"
+       style="stroke-width:0.12928569" />
+    <path
+       inkscape:connector-curvature="0"
+       class="st0"
+       d="m 6.5788544,14.095189 c -0.2009435,0 -0.3683962,-0.22459 -0.3683962,-0.494099 0,-0.269508 0.1674527,-0.494098 0.3683962,-0.494098 0.2009432,0 0.3683962,0.22459 0.3683962,0.494098 v 0 c 0,0.269509 -0.167453,0.494099 -0.3683962,0.494099 z"
+       id="path3806"
+       style="stroke-width:0.12928569" />
+    <polygon
+       transform="matrix(0.1116352,0,0,0.1497269,-27.827112,1.2635933)"
+       class="st0"
+       points="272.3,8.7 253.3,26.7 253.3,82 309.7,81 309.7,83.8 250.5,83.8 250.5,25.5 270.2,5.9 309.7,5.9 309.7,8.7 "
+       id="polygon3808" />
+  </g>
+</svg>
