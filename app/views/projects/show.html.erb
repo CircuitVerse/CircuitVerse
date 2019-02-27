@@ -161,7 +161,7 @@
 
         </div>
         <div class="modal-body">
-          <p>Enter Email IDs separated by commas or spaces. Users need to be registered already on the platform.
+          <p>Enter Email IDs separated by commas/spaces or in separate lines. Users need to be registered already on the platform.
             Note that collaboration is not real time as of now. Every save overwites the previous data.</p>
           <%= form_with(model: @collaboration, local: true) do |form| %>
               <% if @collaboration.errors.any? %>
