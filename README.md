@@ -7,6 +7,8 @@
 
 ## Setup Instructions
 
+**Note:** You might want to use the docker instructions if you do not want to setup your own environment. 
+
 * Install ruby using RVM, use ruby-2.5.1
 * Install Dependencies: `bundle install --without production`
 * Configure your DB in config/database.yml, copy config/database.yml.example
