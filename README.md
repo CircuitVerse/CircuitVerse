@@ -38,7 +38,7 @@ Email: admin@circuitverse.org
 Password: password
 ```
 
-For debugging include `binding.pry` anywhere inside to code to open the `pry` console.
+For debugging include `binding.pry` anywhere inside the code to open the `pry` console.
 
 ## Additional setup instructions for Ubuntu
 Additional instructions can be found [here](https://www.howtoforge.com/tutorial/ubuntu-ruby-on-rails/) and there are some extra notes for single user installations:
