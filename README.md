@@ -77,3 +77,7 @@ bundle install --without development test
 RAILS_ENV=production bundle exec rake assets:precompile
 bundle exec sidekiq -e production -q default -q mailers -d -L tmp/sidekiq.log` (In production)
 ```
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) for details.
