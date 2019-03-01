@@ -4,10 +4,10 @@
 
 #### Describe your bug/feature -
 
-#### Current behaviour of the bug -
+#### Current behaviour -
 
-#### Expected behaviour of the bug -
+#### Expected behaviour -
 
-#### Screenshots of the bug -
+#### Screenshots (if relevant) -
 
 #### Are you working on this issue? (Yes/No)
