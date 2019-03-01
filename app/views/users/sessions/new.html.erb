@@ -1,5 +1,4 @@
 
-
 <div class="container">
   <div class="row feature">
     <div class="col-5">
@@ -11,12 +10,12 @@
           <% end %>
           <div class="field form-group">
             <%= f.label :email %><br />
-            <%= f.email_field :email, autofocus: true ,class:"form-control"%>
+            <%= f.email_field :email, autofocus: true ,class:"form-control", placeholder: 'Email'%>
           </div>
 
           <div class="field form-group">
             <%= f.label :password %><br />
-            <%= f.password_field :password, autocomplete: "off" ,class:"form-control"%>
+            <%= f.password_field :password, autocomplete: "off" ,class:"form-control", placeholder: 'Password'%>
           </div>
 
           <% if devise_mapping.rememberable? -%>
