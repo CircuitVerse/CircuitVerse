@@ -1,6 +1,6 @@
 # README
 
-[![Gitter](https://badges.gitter.im/CircuitVerseChannel/community.svg)](https://gitter.im/CircuitVerseChannel/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Gitter](https://badges.gitter.im/CircuitVerse/community.svg)](https://gitter.im/CircuitVerse/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 ## Versions
 - Ruby Version: ruby-2.5.1
