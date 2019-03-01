@@ -70,6 +70,13 @@ production:
   password: <%= ENV['circuitverse_DATABASE_PASSWORD'] %>
 ```
 
+- If you are facing difficulties installing RVM it is because Ubuntu's desktop edition ships with a older version of rvm, you need to get rid of it.  
+  try using the following commands `sudo apt-get --purge remove ruby-rvm` <br /> `sudo rm -rf /usr/share/ruby-rvm /etc/rvmrc /etc/profile.d/rvm.sh` <br/>
+  then install it using ` \curl -L https://get.rvm.io | 
+  bash -s stable --ruby --autolibs=enable --auto-dotfiles`
+- If you are facing errors running the 'rails db:create' ensure that the socket file(i.e mysql.sock) is present in that location.   Some possible locations where it might be present is '/run/mysqld/mysqld.sock'  or '/var/lib/mysql/mysql.sock' and mention the exact location.
+
+
 ## Production Specific Instructions
 
 ```
