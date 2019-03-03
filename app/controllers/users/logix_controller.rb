@@ -38,7 +38,7 @@ class Users::LogixController < ApplicationController
       @profile = current_user
       @user = current_user
     else
-      redirect_to '/', alert: "Please Sign In or Sign Up to continue"
+      redirect_to '/users/sign_in', alert: "Please Sign In or Sign Up to continue"
     end
   end
 end
