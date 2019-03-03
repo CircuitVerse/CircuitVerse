@@ -576,6 +576,112 @@ SevenSegDisplay.prototype.customDraw = function() {
     ctx.stroke();
 }
 
+function SixteenSegDisplay(x, y, scope = globalScope) {
+    CircuitElement.call(this, x, y, scope, "RIGHT", 16);
+
+    this.directionFixed = true;
+    this.setDimensions(30, 50);
+
+      this.input1 = new Node( 0, -50, 0, this, bitwidth=16);
+      this.direction ="RIGHT";
+      this.dot = new Node( 0, 50, 0, this, bitwidth=1);
+}
+
+SixteenSegDisplay.prototype = Object.create(CircuitElement.prototype);
+SixteenSegDisplay.prototype.constructor = SixteenSegDisplay;
+SixteenSegDisplay.prototype.tooltipText = "Sixteen Display ToolTip: Consists of 16+1 bit inputs.";
+SixteenSegDisplay.prototype.customSave = function() {
+    var data = {
+
+        nodes: {
+            input1: findNode(this.input1),
+            dot: findNode(this.dot)    
+        }
+    }
+    return data;
+}
+
+SixteenSegDisplay.prototype.customDrawSegment = function(x1, y1, x2, y2, color) {
+    if (color == undefined) color = "lightgrey";
+    ctx = simulationArea.context;
+    ctx.beginPath();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = correctWidth(4);
+    xx = this.x;
+    yy = this.y;
+    moveTo(ctx, x1, y1, xx, yy, this.direction);
+    lineTo(ctx, x2, y2, xx, yy, this.direction);
+    ctx.closePath();
+    ctx.stroke();
+}
+
+SixteenSegDisplay.prototype.customDrawSegmentSlant = function(x1, y1, x2, y2, color) {
+    if (color == undefined) color = "lightgrey";
+    ctx = simulationArea.context;
+    ctx.beginPath();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = correctWidth(3);
+    xx = this.x;
+    yy = this.y;
+    moveTo(ctx, x1, y1, xx, yy, this.direction);
+    lineTo(ctx, x2, y2, xx, yy, this.direction);
+    ctx.closePath();
+    ctx.stroke();
+}
+
+SixteenSegDisplay.prototype.customDraw = function() {
+    ctx = simulationArea.context;
+
+    var xx = this.x;
+    var yy = this.y;
+    if(this.input1.value == undefined){
+		var a1=a2=b=c=d1=d2=e=f=g1=g2=h=i=j=k=l=m=dot=0;
+	}else{
+		var binNum = dec2bin(this.input1.value, 16);
+		var arr = (binNum).toString(10).split("").map(Number);
+		
+			a1 = arr[0];
+			a2 = arr[1];
+			b = arr[2];
+			c = arr[3];
+			d1 = arr[4];
+			d2 = arr[5];
+			e = arr[6];
+		    f = arr[7];
+			g1 = arr[8];
+			g2 = arr[9];
+			h = arr[10];
+			i = arr[11];
+			j = arr[12];
+			k = arr[13];
+			l = arr[14];
+			m = arr[15];
+	}
+
+    this.customDrawSegment(-20, -38, 0, -38, ["lightgrey", "red"][a1]);
+    this.customDrawSegment(20, -38, 0, -38, ["lightgrey", "red"][a2]);
+    this.customDrawSegment(-20, 0, 0, 0, ["lightgrey", "red"][g1]);
+    this.customDrawSegment(20, 0, 0, 0, ["lightgrey", "red"][g2]);
+    this.customDrawSegment(-20, 38, 0, 38, ["lightgrey", "red"][d1]);
+    this.customDrawSegment(20, 38, 0, 38, ["lightgrey", "red"][d2]);
+    this.customDrawSegment(-21.5, -36, -21.5, -2, ["lightgrey", "red"][f]);
+    this.customDrawSegment(0, -2, 0, -36, ["lightgrey", "red"][i]);
+    this.customDrawSegment(21.5, -2, 21.5, -36, ["lightgrey", "red"][b]);
+    this.customDrawSegment(-21.5, 2, -21.5, 36, ["lightgrey", "red"][e]);
+    this.customDrawSegment(0, 2, 0, 36, ["lightgrey", "red"][l]);
+    this.customDrawSegment(21.5, 2, 21.5, 36, ["lightgrey", "red"][c]);
+    this.customDrawSegmentSlant(0, 0, -21, -37, ["lightgrey", "red"][h]);
+    this.customDrawSegmentSlant(0, 0, 21, -37, ["lightgrey", "red"][j]);
+    this.customDrawSegmentSlant(0, 0, -21, 37, ["lightgrey", "red"][m]);
+    this.customDrawSegmentSlant(0, 0, 21, 37, ["lightgrey", "red"][k]);
+
+ 	ctx.beginPath();
+    var dotColor = ["lightgrey", "red"][this.dot.value] || "lightgrey"
+    ctx.strokeStyle = dotColor;
+    rect(ctx, xx + 22, yy + 42, 2, 2);
+    ctx.stroke();
+}
+
 function HexDisplay(x, y, scope = globalScope) {
     CircuitElement.call(this, x, y, scope, "RIGHT", 4);
     this.directionFixed = true;
@@ -595,7 +701,7 @@ HexDisplay.prototype.customSave = function() {
 
         nodes: {
             inp: findNode(this.inp)
-        },
+        }
 
     }
     return data;
