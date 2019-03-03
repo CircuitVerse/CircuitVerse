@@ -104,6 +104,8 @@ production:
   ```
 - If you are facing errors running the `rails db:create` ensure that the socket file(i.e mysql.sock) is present in that location.   Some possible locations where it might be present is `/run/mysqld/mysqld.sock`  or `/var/lib/mysql/mysql.sock` and mention the exact location.
 
+## [Contributing](CONTRIBUTING.md)
+
 
 ## Production Specific Instructions
 
