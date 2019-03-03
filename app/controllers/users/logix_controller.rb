@@ -1,6 +1,6 @@
 class Users::LogixController < ApplicationController
   before_action :authenticate_user!, only: [:edit, :update, :groups]
-  before_action :set_user
+  before_action :set_user, except: [:typeahead_educational_institute]
 
   def index
     @edit_access = (user_signed_in? and current_user.id == @user.id)
@@ -16,6 +16,12 @@ class Users::LogixController < ApplicationController
 
   def edit
 
+  end
+
+  def typeahead_educational_institute
+    query = params[:query]
+    educational_institute_list = User.where("educational_institute LIKE ?", "%#{query}%").map{|user| {name:user.educational_institute}}
+    render json: educational_institute_list
   end
 
   def update

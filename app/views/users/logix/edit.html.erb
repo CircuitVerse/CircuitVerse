@@ -1,3 +1,4 @@
+<link href="/css/typeahead.css" rel="stylesheet">
 <div class="container">
   <div class="row feature">
 
@@ -16,9 +17,9 @@
           <%= f.country_select :country,priority_countries: ["IN"], class: "form-control" %>
         </div>
 
-        <div class="field form-group">
+        <div class="field form-group ">
           <%= f.label :educational_institute %><br/>
-          <%= f.text_field :educational_institute,{ class: "form form-group form-control" } %>
+          <%= f.text_field :educational_institute,{ class: "typeahead form form-group form-control",autocomplete:"off" } %>
         </div>
 
         <div class="form-group">
@@ -38,3 +39,19 @@
 
   </div>
 </div>
+<script>
+    var searchSelector = 'input.typeahead';
+    var bloodhound = new Bloodhound({
+        datumTokenizer: function (d) {
+            return Bloodhound.tokenizers.whitespace(d.value);
+        },
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        remote: '/users/educational_institute/typeahead/%QUERY',
+        limit: 50
+    });
+    bloodhound.initialize();
+    $(searchSelector).typeahead(null, {
+        displayKey: 'name',
+        source: bloodhound.ttAdapter()
+    });
+</script>

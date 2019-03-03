@@ -56,6 +56,7 @@ gem 'will_paginate', '~> 3.1.1'
 gem 'will_paginate-bootstrap'
 
 gem 'country_select', '~> 4.0'
+gem 'bootstrap-typeahead-rails'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
