@@ -104,13 +104,13 @@ function startListeners() {
 
         }
 
-        if (simulationArea.lastSelected && simulationArea.lastSelected.keyDown3) {
-            if (e.key.toString() != "Backspace" && e.key.toString() != "Delete") {
-                simulationArea.lastSelected.keyDown3(e.key.toString());
-                return;
-            }
+        // if (simulationArea.lastSelected && simulationArea.lastSelected.keyDown3) {
+        //     if (e.key.toString() != "Backspace" && e.key.toString() != "Delete") {
+        //         simulationArea.lastSelected.keyDown3(e.key.toString());
+        //         return;
+        //     }
 
-        }
+        // }
 
         if (e.key == "T" || e.key == "t") {
             simulationArea.changeClockTime(prompt("Enter Time:"));
