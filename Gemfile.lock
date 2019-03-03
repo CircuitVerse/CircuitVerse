@@ -218,6 +218,8 @@ GEM
     psych (3.1.0)
     public_suffix (3.0.3)
     puma (3.12.0)
+    pundit (2.0.1)
+      activesupport (>= 3.0.0)
     rack (2.0.6)
     rack-pjax (1.0.0)
       nokogiri (~> 1.5)
@@ -417,6 +419,7 @@ DEPENDENCIES
   pg (~> 1.1.4)
   pry-rails
   puma (~> 3.7)
+  pundit
   rails (~> 5.1.4)
   rails-erd
   rails_admin (~> 1.2)
