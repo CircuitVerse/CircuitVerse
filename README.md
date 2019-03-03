@@ -1,9 +1,22 @@
 # README
 
 ## Versions
+
 - Ruby Version: ruby-2.5.1
 - Rails Version: Rails 5.1.6
 - PostgreSQL Version: 9.5
+
+## Cloning Instructions
+
+- `git clone https://github.com/CircuitVerse/CircuitVerse.git` this repository
+- `cd CircuitVerse`
+
+**Note :** If you want to contribute, first fork the original repository and clone the forked repository into your local machine followed by ```cd``` into the directory
+
+```sh
+git clone https://github.com/<username>/CircuitVerse.git
+cd CircuitVerse
+```
 
 ## Setup Instructions
 
@@ -31,7 +44,7 @@ docker-compose build --no-cache
 ```
 
 ## Developer Instructions
-Developers can quickly get started by setting up the dev environment using the instructions above. The database is seeded with the following admin account. 
+Developers can quickly get started by setting up the dev environment using the instructions above. The database is seeded with the following admin account.
 ```
 User: Admin
 Email: admin@circuitverse.org
