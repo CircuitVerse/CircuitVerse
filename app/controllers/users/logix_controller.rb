@@ -34,7 +34,11 @@ class Users::LogixController < ApplicationController
   end
 
   def set_user
-    @profile = current_user
-    @user = current_user
+    if current_user
+      @profile = current_user
+      @user = current_user
+    else
+      redirect_to '/', alert: "Please Sign In or Sign Up to continue"
+    end
   end
 end
