@@ -28,7 +28,7 @@ class User < ApplicationRecord
 
   def country_name
     country = ISO3166::Country[self.country]
-    country.translations[I18n.locale.to_s] || country.name
+    country ? country.translations[I18n.locale.to_s] || country.name : "Not Entered"
   end
 
   def check_group_invites

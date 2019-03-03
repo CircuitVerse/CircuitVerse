@@ -1,5 +1,5 @@
 class Users::LogixController < ApplicationController
-  before_action :authenticate_user! ,only: [:edit, :update, :groups]
+  before_action :authenticate_user!, only: [:edit, :update, :groups]
   before_action :set_user
 
   def index
@@ -11,7 +11,7 @@ class Users::LogixController < ApplicationController
   end
 
   def profile
-
+    @profile = @user
   end
 
   def edit
@@ -27,18 +27,15 @@ class Users::LogixController < ApplicationController
   end
 
   def groups
+
   end
 
   def profile_params
-    params.require(:user).permit(:name,:profile_picture,:country,:educational_institute)
+    params.require(:user).permit(:name, :profile_picture, :country, :educational_institute)
   end
 
   def set_user
-    if current_user
-      @profile = current_user
-      @user = current_user
-    else
-      redirect_to '/users/sign_in', alert: "Please Sign In or Sign Up to continue"
-    end
+    @profile = current_user
+    @user = User.find(params[:id])
   end
 end

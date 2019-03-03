@@ -7,7 +7,7 @@
         <div class="col-lg-8">
           <p><strong>Name: </strong><%= @profile.name %></p>
           <p><strong>Member since: </strong><%= ((Time.now.to_i - @profile.created_at.to_i) / 1.day) %> days</p>
-          <p><strong>Educational Institution: </strong><%= @profile.educational_institute %></p>
+          <p><strong>Educational Institution: </strong><%= @profile.educational_institute ? @profile.educational_institute : "Not Entered"  %></p>
           <p><strong>Country: </strong><%= @profile.country_name %></p>
           <% if user_signed_in? and current_user.id == @profile.id %>
             <p><a class="btn btn-secondary" href=<%= profile_edit_path(current_user) %> role="button">Edit </a></p>
