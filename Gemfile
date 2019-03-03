@@ -56,6 +56,9 @@ gem 'will_paginate-bootstrap'
 gem 'country_select', '~> 4.0'
 gem 'bootstrap-typeahead-rails'
 
+# for authorization layer
+gem 'pundit'
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
