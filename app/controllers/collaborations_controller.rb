@@ -35,9 +35,12 @@ class CollaborationsController < ApplicationController
       render plain: "Access Restricted " and return
     end
 
-    collaboration_emails = collaboration_params[:emails].split(/[\s,\,]/).compact.reject(&:empty?)
+    already_present = User.where(id: @project.collaborations.pluck(:user_id)).pluck(:email)
+    collaboration_emails = Utils.parse_mails(collaboration_params[:emails])
 
-    collaboration_emails.each do |email|
+    newly_added = collaboration_emails - already_present
+
+    newly_added.each do |email|
       email = email.strip
       user = User.find_by(email: email)
       if user.nil?
@@ -48,7 +51,7 @@ class CollaborationsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_to user_project_path(@project.author_id,@project.id), notice: 'Collaborators have been added'}
+      format.html { redirect_to user_project_path(@project.author_id,@project.id), notice: Utils.mail_notice(collaboration_params[:emails], collaboration_emails, newly_added)}
     end
 
   end
