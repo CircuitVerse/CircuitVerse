@@ -7,12 +7,13 @@ WORKDIR /circuitverse
 # install dependencies
 RUN apt-get update -qq && apt-get install -y imagemagick && apt-get clean
 
+RUN wget -qO- https://deb.nodesource.com/setup_8.x | bash - && apt-get install -y nodejs && apt-get clean
+
 COPY Gemfile /circuitverse/Gemfile
 COPY Gemfile.lock /circuitverse/Gemfile.lock
 
-RUN bundle install --without production
+RUN bundle install --with mysql --without production
 
-RUN wget -qO- https://deb.nodesource.com/setup_8.x | bash - && apt-get install -y nodejs && apt-get clean
 
 # copy source
 COPY . /circuitverse
