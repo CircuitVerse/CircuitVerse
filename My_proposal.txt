@@ -1,0 +1,18 @@
+Project 3 - Search Engine
+Difficulty: Medium
+
+Brief Explanation:
+Currently, CircuitVerse uses google custom search as the search engine. CircuitVerse needs to have a customizable search engine so that users can have more personal experience. The website needs better SEO with respect to project pages so that they show up on search results.
+
+Expected results
+Custom Inbuilt Search engine
+User search
+Group search
+Project search
+Project tags feature
+Search by tag
+Other SEO optimizations
+Knowledge/Skills Involved: Search Engines, Elastic Search, SEO, Rails
+
+
+I want to start wokring on this topic.
