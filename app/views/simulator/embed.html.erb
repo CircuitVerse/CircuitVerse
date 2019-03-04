@@ -9,7 +9,7 @@
 
 <body onload="setup()">
 
-
+<div>
 
     <div class="simulation" id="simulation" style="height:100%;width:100%">
 
@@ -51,8 +51,23 @@
         <!-- <div id="plot" >
             <canvas id="plotArea" style="position: absolute; left: 0; top: 0; z-index: 1; width:100%"></canvas>
         </div> -->
+      <div id="bottom_right_watermark">
 
-     </div>
+
+        <a style="text-decoration:none;
+            position: fixed;
+            bottom: 0px;
+            right: 0px;
+            padding: 8px;
+            font-family: Verdana;
+            font-size: 12px;
+            color: grey;"
+           href= <%=simulator_path(@project) %> target="_blank">
+          Made With CircuitVerse</a>
+
+      </div>
+
+    </div>
 
 
 </div>
@@ -78,7 +93,7 @@
  <script src="/js/embedListeners.js"></script>
  <script src="/js/embed.js"></script>
  <script src="/js/testBench.js"></script>
-    <script src="/js/eventQueue.js"></script>
+ <script src="/js/eventQueue.js"></script>
 
 
 
