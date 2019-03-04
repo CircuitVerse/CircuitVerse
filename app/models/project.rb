@@ -8,7 +8,8 @@ class Project < ApplicationRecord
 
   has_many :collaborations, dependent: :destroy
   has_many :collaborators, source: 'user' , through: :collaborations
-
+  has_many :taggings
+  has_many :tags, through: :taggings
   mount_uploader :image_preview, ImagePreviewUploader
 
   self.per_page = 8
@@ -63,9 +64,20 @@ class Project < ApplicationRecord
     end
   end
 
+  def self.tagged_with(name)
+    Tag.find_by!(name: name).projects
+  end
 
-  validate :check_validity
+  def tag_list
+    tags.map(&:name).join(', ')
+  end
 
+  def tag_list=(names)
+    self.tags = names.split(',').map do |n|
+      Tag.where(name: n.strip).first_or_create!
+    end
+  end
+  
   private
   def check_validity
     if project_access_type != "Private" and !assignment_id.nil?

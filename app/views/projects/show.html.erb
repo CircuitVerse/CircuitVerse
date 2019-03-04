@@ -45,6 +45,14 @@
             <p class="card-text">
               <strong>Author:</strong>
               <%= link_to @project.author.name, @project.author %>
+              </p>
+              <strong>Tags:</strong>
+              <p class="card-text">
+              <ul>
+              <% @project.tags.each do |tag| %>
+                <li><%= link_to tag.name, tag_path(tag.name) %></li>
+              <% end %>
+              </ul>
             </p>
 
             <% if !@project.forked_project.nil? %>
