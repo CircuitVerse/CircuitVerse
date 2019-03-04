@@ -46,8 +46,7 @@ GEM
     bootstrap-typeahead-rails (0.10.5.1)
       railties (>= 3.0)
     builder (3.2.3)
-    byebug (11.0.0)
-    cancancan (2.3.0)
+    byebug (10.0.2)
     capybara (2.18.0)
       addressable
       mini_mime (>= 0.1.3)
@@ -211,6 +210,8 @@ GEM
       pry (>= 0.10.4)
     public_suffix (3.0.3)
     puma (3.12.0)
+    pundit (2.0.1)
+      activesupport (>= 3.0.0)
     rack (2.0.6)
     rack-pjax (1.0.0)
       nokogiri (~> 1.5)
@@ -373,7 +374,6 @@ PLATFORMS
 DEPENDENCIES
   bootstrap-typeahead-rails
   byebug
-  cancancan (~> 2.0)
   capybara (~> 2.13)
   carrierwave (~> 1.0)
   coffee-rails (~> 4.2)
@@ -396,6 +396,7 @@ DEPENDENCIES
   pg (~> 1.1.4)
   pry-rails
   puma (~> 3.7)
+  pundit
   rails (~> 5.1.4)
   rails-erd
   rails_admin (~> 1.2)
