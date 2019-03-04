@@ -12,6 +12,28 @@ function changeInputSize(size) {
 
 }
 
+/**
+ * Handler to update a gate's bitWidth when all connected input nodes have the same expected bitWidth.
+ * This callback is triggered when the input of a gate change its bitWidth. The change propagates thru the
+ * wire and reaches the gate input, where we detect a bitWidth mismatch; see Node.resolve(). At this point,
+ * if all connected inputs have the same bitWidth then we can change the bitWidth of the gate to match its
+ * inputs. We put back the connected nodes and the gate itself in the simulation queue to clear up "errors"
+ * and to propagate the change thru the output connection.
+ */
+function onBitWidthErrorInGateElement(node, expectedBitWidth) {
+    if (node.type == NODE_INPUT) {
+        var connectedInputNodes = this.nodeList.filter(n => n.type == NODE_INPUT && n.connections.length != 0);
+        var allConnectedInputsMatchBitWidth = connectedInputNodes.every(
+            n => n.connections.every(
+                c => c.bitWidth == expectedBitWidth));
+        if (allConnectedInputsMatchBitWidth) {
+            this.newBitWidth(expectedBitWidth);
+            connectedInputNodes.forEach(n => n.connections.forEach(c => simulationArea.simulationQueue.add(c)));
+            simulationArea.simulationQueue.add(this);
+        }
+    }
+}
+
 function AndGate(x, y, scope = globalScope, dir = "RIGHT", inputLength = 2, bitWidth = 1) {
 
     CircuitElement.call(this, x, y, scope, dir, bitWidth);
@@ -54,8 +76,8 @@ AndGate.prototype = Object.create(CircuitElement.prototype);
 AndGate.prototype.constructor = AndGate;
 AndGate.prototype.alwaysResolve = true;
 AndGate.prototype.verilogType = "and";
-
 AndGate.prototype.changeInputSize = changeInputSize;
+AndGate.prototype.onBitWidthError = onBitWidthErrorInGateElement;
 //fn to create save Json Data of object
 AndGate.prototype.customSave = function() {
     var data = {
@@ -147,6 +169,7 @@ NandGate.prototype = Object.create(CircuitElement.prototype);
 NandGate.prototype.constructor = NandGate;
 NandGate.prototype.alwaysResolve = true;
 NandGate.prototype.changeInputSize = changeInputSize;
+NandGate.prototype.onBitWidthError = onBitWidthErrorInGateElement;
 NandGate.prototype.verilogType = "nand";
 //fn to create save Json Data of object
 NandGate.prototype.customSave = function() {
@@ -364,8 +387,8 @@ function XorGate(x, y, scope = globalScope, dir = "RIGHT", inputs = 2, bitWidth 
 XorGate.prototype = Object.create(CircuitElement.prototype);
 XorGate.prototype.constructor = XorGate;
 XorGate.prototype.alwaysResolve = true;
-
 XorGate.prototype.changeInputSize = changeInputSize;
+XorGate.prototype.onBitWidthError = onBitWidthErrorInGateElement;
 XorGate.prototype.verilogType = "xor";
 XorGate.prototype.customSave = function() {
     // //console.log(this.scope.allNodes);
@@ -451,8 +474,8 @@ function XnorGate(x, y, scope = globalScope, dir = "RIGHT", inputs = 2, bitWidth
 XnorGate.prototype = Object.create(CircuitElement.prototype);
 XnorGate.prototype.constructor = XnorGate;
 XnorGate.prototype.alwaysResolve = true;
-
 XnorGate.prototype.changeInputSize = changeInputSize;
+XnorGate.prototype.onBitWidthError = onBitWidthErrorInGateElement;
 XnorGate.prototype.verilogType = "xnor";
 XnorGate.prototype.customSave = function() {
     var data = {
@@ -735,6 +758,7 @@ function OrGate(x, y, scope = globalScope, dir = "RIGHT", inputs = 2, bitWidth =
 OrGate.prototype = Object.create(CircuitElement.prototype);
 OrGate.prototype.constructor = OrGate;
 OrGate.prototype.changeInputSize = changeInputSize;
+OrGate.prototype.onBitWidthError = onBitWidthErrorInGateElement;
 OrGate.prototype.alwaysResolve = true;
 OrGate.prototype.verilogType = "or";
 OrGate.prototype.customSave = function() {
@@ -849,6 +873,9 @@ NotGate.prototype.customSave = function() {
         },
     }
     return data;
+}
+NotGate.prototype.onBitWidthError = function(node, expectedBitWidth) {
+    this.newBitWidth(expectedBitWidth);
 }
 NotGate.prototype.resolve = function() {
     if (this.isResolvable() == false) {
@@ -1876,6 +1903,9 @@ Output.prototype.customSave = function() {
     }
     return data;
 }
+Output.prototype.onBitWidthError = function(node, expectedBitWidth) {
+    this.newBitWidth(expectedBitWidth);
+}
 Output.prototype.newBitWidth = function(bitWidth) {
     if (bitWidth < 1) return;
     this.state = undefined;
@@ -2143,6 +2173,7 @@ NorGate.prototype = Object.create(CircuitElement.prototype);
 NorGate.prototype.constructor = NorGate;
 NorGate.prototype.alwaysResolve = true;
 NorGate.prototype.changeInputSize = changeInputSize;
+NorGate.prototype.onBitWidthError = onBitWidthErrorInGateElement;
 NorGate.prototype.verilogType = "nor";
 NorGate.prototype.customSave = function() {
     var data = {

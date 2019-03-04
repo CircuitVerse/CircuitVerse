@@ -283,6 +283,16 @@ Node.prototype.resolve = function() {
 
         let node = this.connections[i];
 
+        // If we detect a bitWidth mismatch, give the parent element a chance to correct itself.
+        if (node.bitWidth != this.bitWidth) {
+            if (node.parent.onBitWidthError) {
+                node.parent.onBitWidthError(node, this.bitWidth);
+            }
+
+            // And then force recalculation of this particular node
+            node.value = undefined; 
+        }
+
         if (node.value != this.value) {
 
             if (node.type == 1 && node.value != undefined && node.parent.objectType != "TriState" && !(node.subcircuitOverride && node.scope != this.scope)) {
@@ -300,6 +310,8 @@ Node.prototype.resolve = function() {
 
                 node.bitWidth = this.bitWidth;
                 node.value = this.value;
+                this.highlighted = false;
+                node.highlighted = false;
                 simulationArea.simulationQueue.add(node);
             } else {
                 this.highlighted = true;
@@ -380,17 +392,14 @@ Node.prototype.draw = function() {
                 x: this.absX(),
                 y: this.absY() - 15
             }
-            if (this.type == 2) {
-                var v = "X";
-                if (this.value !== undefined)
-                    v = this.value.toString(16);
-                if (this.label.length) {
-                    canvasMessageData.string = this.label + " : " + v;
-                } else {
-                    canvasMessageData.string = v;
-                }
-            } else if (this.label.length) {
-                canvasMessageData.string = this.label;
+
+            // Show value, bitWidth and id on the tooltip of every node.
+            var v = (this.value !== undefined) ? this.value.toString(16) : "X";
+            var nodeTooltip = v + " (" + this.bitWidth + " bit" + (this.bitWidth == 1 ? "" : "s") + ", " + this.id + ")";
+            if (this.label.length) {
+                canvasMessageData.string = this.label + " : " + nodeTooltip;
+            } else {
+                canvasMessageData.string = nodeTooltip;
             }
         } else {
             setTimeout(function() {
