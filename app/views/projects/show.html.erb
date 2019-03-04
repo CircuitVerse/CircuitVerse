@@ -26,7 +26,7 @@
       <div class="card h-100">
         <div class="card-header text-center font-weight-bold text-capitalize">
           <%= @project.name %>  &ensp;  &ensp;  &ensp;  &ensp; &ensp; &ensp; &ensp; &ensp;
-          <span class="badge badge-secondary noSelect">
+          <span class="badge badge-secondary noSelect" style="width: 100%;">
             &ensp;&ensp;
             <% if user_signed_in? %>
                 <i id="toggleStarButton" class="fa fa-star fa-2x noSelect" aria-hidden="true" style=<%= Star.find_by(user_id: current_user.id, project_id: @project.id).nil? ? "color:white" : "color:orange" %> onclick="toggleStar()"></i>
