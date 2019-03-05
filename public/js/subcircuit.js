@@ -157,7 +157,7 @@ SubCircuit.prototype.buildCircuit = function () {
         //for led
         for (var i = 0; i < subcircuitScope.DigitalLed.length; i++) {
             console.log(i);
-            var a = subcircuitScope.DigitalLed[i];
+            var a = new DigitalLed(subcircuitScope.DigitalLed[i].layoutProperties.x, subcircuitScope.DigitalLed[i].layoutProperties.y, this.scope, color = "Red", subcircuitScope.DigitalLed[i].layoutProperties, true);
             //a.layout_id = subcircuitScope.Output[i].layoutProperties.id;
             this.indicatorNodes.push(a);
         }
@@ -324,7 +324,7 @@ SubCircuit.prototype.saveObject = function () {
         id: this.id,
         inputNodes: this.inputNodes.map(findNode),
         outputNodes: this.outputNodes.map(findNode),
-        indicatorNodes: this.indicatorNodes,
+        //indicatorNodes: this.indicatorNodes,
         version: this.version,
     }
     return data;
@@ -409,8 +409,9 @@ SubCircuit.prototype.customDraw = function () {
         this.inputNodes[i].draw();
     for (var i = 0; i < this.outputNodes.length; i++)
         this.outputNodes[i].draw();
-    for (var i = 0; i < this.indicatorNodes.length; i++)
+    for (var i = 0; i < this.indicatorNodes.length; i++) {
         this.indicatorNodes[i].customDraw();  
+    } 
 
 }
 SubCircuit.prototype.centerElement = true; // To center subcircuit when new

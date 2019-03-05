@@ -2187,7 +2187,7 @@ NorGate.prototype.customDraw = function () {
     //for debugging
 }
 
-function DigitalLed(x, y, scope = globalScope, color = "Red", layoutProperties) {
+function DigitalLed(x, y, scope = globalScope, color = "Red", layoutProperties,subcircuitVisible=false) {
     // Calling base class constructor
     if (layoutProperties)
         this.layoutProperties = layoutProperties;
@@ -2198,6 +2198,7 @@ function DigitalLed(x, y, scope = globalScope, color = "Red", layoutProperties) 
             id: generateId(),
         }
     }
+    this.subcircuitVisible=subcircuitVisible;
     CircuitElement.call(this, x, y, scope, "UP", 1);
     this.rectangleObject = false;
     this.setDimensions(10, 20);
@@ -2237,8 +2238,10 @@ DigitalLed.prototype.changeColor = function (value) {
 
 }
 DigitalLed.prototype.customDraw = function () {
-
-    ctx = simulationArea.context;
+    if(!this.subcircuitVisible)
+    {
+        //not a part of sub circuit regular render
+        ctx = simulationArea.context;
 
     var xx = this.x;
     var yy = this.y;
@@ -2266,6 +2269,20 @@ DigitalLed.prototype.customDraw = function () {
     ctx.stroke();
     if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = "rgba(255, 255, 32,0.8)";
     ctx.fill();
+
+    }
+    else
+    {
+                //part of sub circuit  render circle canbe change later
+                ctx = simulationArea.context;
+                drawCircle(ctx, this.x, this.y, 5, ["green", "red"][+(simulationArea.lastSelected == this)]);
+                if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = "rgba(255, 255, 32,0.8)";
+                ctx.fillStyle = ["rgba(227,228,229,0.8)", this.actualColor][this.inp1.value || 0];
+                ctx.fill();
+
+    }
+
+    
 
 }
 
