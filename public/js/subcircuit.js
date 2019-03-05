@@ -44,8 +44,8 @@ function SubCircuit(x, y, scope = globalScope, id = undefined, savedData = undef
     this.savedData = savedData;
     this.inputNodes = [];
     this.outputNodes = [];
-    // 
-    this.DigitalLedNode = [];
+    // for led
+    this.indicatorNodes = [];
     this.localScope = new Scope();
 
     if (this.savedData != undefined) {
@@ -107,7 +107,7 @@ function SubCircuit(x, y, scope = globalScope, id = undefined, savedData = undef
 SubCircuit.prototype = Object.create(CircuitElement.prototype);
 SubCircuit.prototype.constructor = SubCircuit;
 
-SubCircuit.prototype.makeConnections = function() {
+SubCircuit.prototype.makeConnections = function () {
     for (let i = 0; i < this.inputNodes.length; i++) {
         this.localScope.Input[i].output1.connectWireLess(this.inputNodes[i]);
         this.localScope.Input[i].output1.subcircuitOverride = true;
@@ -120,7 +120,7 @@ SubCircuit.prototype.makeConnections = function() {
 
 }
 
-SubCircuit.prototype.removeConnections = function() {
+SubCircuit.prototype.removeConnections = function () {
     for (let i = 0; i < this.inputNodes.length; i++) {
         this.localScope.Input[i].output1.disconnectWireLess(this.inputNodes[i]);
     }
@@ -129,7 +129,7 @@ SubCircuit.prototype.removeConnections = function() {
         this.localScope.Output[i].inp1.disconnectWireLess(this.outputNodes[i]);
 }
 
-SubCircuit.prototype.buildCircuit = function() {
+SubCircuit.prototype.buildCircuit = function () {
 
     var subcircuitScope = scopeList[this.id];
     loadScope(this.localScope, this.data);
@@ -152,13 +152,21 @@ SubCircuit.prototype.buildCircuit = function() {
             var a = new Node(subcircuitScope.Input[i].layoutProperties.x, subcircuitScope.Input[i].layoutProperties.y, 0, this, subcircuitScope.Input[i].bitWidth);
             a.layout_id = subcircuitScope.Input[i].layoutProperties.id;
             this.inputNodes.push(a);
+            console.log(i);
+        }
+        //for led
+        for (var i = 0; i < subcircuitScope.DigitalLed.length; i++) {
+            console.log(i);
+            var a = subcircuitScope.DigitalLed[i];
+            //a.layout_id = subcircuitScope.Output[i].layoutProperties.id;
+            this.indicatorNodes.push(a);
         }
     }
 
 }
 
 // Needs to be deprecated, removed
-SubCircuit.prototype.reBuild = function() {
+SubCircuit.prototype.reBuild = function () {
     return;
     new SubCircuit(x = this.x, y = this.y, scope = this.scope, this.id)
     this.scope.backups = []; // Because all previous states are invalid now
@@ -166,7 +174,7 @@ SubCircuit.prototype.reBuild = function() {
     showMessage("Subcircuit: " + subcircuitScope.name + " has been reloaded.")
 }
 
-SubCircuit.prototype.reBuildCircuit = function() {
+SubCircuit.prototype.reBuildCircuit = function () {
     this.data = JSON.parse(scheduleBackup(scopeList[this.id]));
     this.localScope = new Scope();
     loadScope(this.localScope, this.data);
@@ -175,7 +183,7 @@ SubCircuit.prototype.reBuildCircuit = function() {
 
 }
 
-SubCircuit.prototype.reset = function() {
+SubCircuit.prototype.reset = function () {
 
     this.removeConnections();
 
@@ -290,38 +298,39 @@ SubCircuit.prototype.reset = function() {
 
 }
 
-SubCircuit.prototype.click = function() {
+SubCircuit.prototype.click = function () {
     // this.id=prompt();
 }
 
-SubCircuit.prototype.addInputs = function() {
+SubCircuit.prototype.addInputs = function () {
     for (let i = 0; i < subCircuitInputList.length; i++)
         for (let j = 0; j < this.localScope[subCircuitInputList[i]].length; j++)
             simulationArea.simulationQueue.add(this.localScope[subCircuitInputList[i]][j], 0)
     for (let j = 0; j < this.localScope.SubCircuit.length; j++)
         this.localScope.SubCircuit[j].addInputs();
 }
-SubCircuit.prototype.isResolvable = function() {
+SubCircuit.prototype.isResolvable = function () {
     if (CircuitElement.prototype.isResolvable.call(this))
         return true;
     return false;
 }
-SubCircuit.prototype.dblclick = function() {
+SubCircuit.prototype.dblclick = function () {
     switchCircuit(this.id)
 }
-SubCircuit.prototype.saveObject = function() {
+SubCircuit.prototype.saveObject = function () {
     var data = {
         x: this.x,
         y: this.y,
         id: this.id,
         inputNodes: this.inputNodes.map(findNode),
         outputNodes: this.outputNodes.map(findNode),
+        indicatorNodes: this.indicatorNodes,
         version: this.version,
     }
     return data;
 }
 
-SubCircuit.prototype.resolve = function() {
+SubCircuit.prototype.resolve = function () {
 
 
     // deprecated
@@ -347,15 +356,15 @@ SubCircuit.prototype.resolve = function() {
 
 }
 
-SubCircuit.prototype.isResolvable = function() {
+SubCircuit.prototype.isResolvable = function () {
     return false
 }
 
-SubCircuit.prototype.verilogName = function() {
+SubCircuit.prototype.verilogName = function () {
     return verilog.fixName(scopeList[this.id].name);
 }
 
-SubCircuit.prototype.customDraw = function() {
+SubCircuit.prototype.customDraw = function () {
 
     var subcircuitScope = scopeList[this.id];
 
@@ -373,8 +382,8 @@ SubCircuit.prototype.customDraw = function() {
     ctx.fillStyle = "black";
     if (this.version == "1.0")
         fillText(ctx, subcircuitScope.name, xx, yy - subcircuitScope.layout.height / 2 + 13, 11);
-    else if (this.version == "2.0"){
-        if(subcircuitScope.layout.titleEnabled){
+    else if (this.version == "2.0") {
+        if (subcircuitScope.layout.titleEnabled) {
             fillText(ctx, subcircuitScope.name, subcircuitScope.layout.title_x + xx, yy + subcircuitScope.layout.title_y, 11);
         }
     }
@@ -400,11 +409,13 @@ SubCircuit.prototype.customDraw = function() {
         this.inputNodes[i].draw();
     for (var i = 0; i < this.outputNodes.length; i++)
         this.outputNodes[i].draw();
+    for (var i = 0; i < this.indicatorNodes.length; i++)
+        this.indicatorNodes[i].customDraw();  
 
 }
 SubCircuit.prototype.centerElement = true; // To center subcircuit when new
 
-SubCircuit.prototype.determine_label = function(x, y) {
+SubCircuit.prototype.determine_label = function (x, y) {
     if (x == 0) return ["left", 5, 5]
     if (x == scopeList[this.id].layout.width) return ["right", -5, 5]
     if (y == 0) return ["center", 0, 13]

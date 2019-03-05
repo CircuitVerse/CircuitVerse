@@ -10,7 +10,7 @@ function newCircuit(name, id) {
 
     $('.circuits').removeClass("current");
     $('#tabsBar').append("<div class='circuits toolbarButton current' id='" + scope.id + "'>" + name + "</div>");
-    $('.circuits').click(function() {
+    $('.circuits').click(function () {
         switchCircuit(this.id)
     });
     if (!embed) {
@@ -176,7 +176,7 @@ function switchCircuit(id) {
     if (!embed) {
         showProperties(simulationArea.lastSelected);
     }
-    updateCanvas=true;
+    updateCanvas = true;
     scheduleUpdate();
 
 }
@@ -194,7 +194,7 @@ function downloadAsImg(name, imgType) {
 
 // Function to restore copy from backup
 function undo(scope = globalScope) {
-    if(layoutMode)return;
+    if (layoutMode) return;
     if (scope.backups.length == 0) return;
     var backupOx = globalScope.ox;
     var backupOy = globalScope.oy;
@@ -477,7 +477,7 @@ function save() {
         $.ajax({
             url: '/simulator/update_data',
             type: 'POST',
-            beforeSend: function(xhr) {
+            beforeSend: function (xhr) {
                 xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
             },
             data: {
@@ -486,12 +486,12 @@ function save() {
                 "image": generateImageForOnline(),
                 name: projectName
             },
-            success: function(response) {
+            success: function (response) {
                 showMessage("We have saved your project: " + projectName + " in our servers.")
                 $('.loadingIcon').fadeOut();
                 localStorage.removeItem("recover");
             },
-            failure: function(err) {
+            failure: function (err) {
                 showMessage("There was an error, we couldn't save to our servers")
                 $('.loadingIcon').fadeOut();
             }
@@ -636,7 +636,7 @@ function loadScope(scope, data) {
     var ML = moduleList.slice(); // Module List copy
 
     // Load all nodes
-    data["allNodes"].map(function(x) {
+    data["allNodes"].map(function (x) {
         return loadNode(x, scope)
     });
 
@@ -666,7 +666,7 @@ function loadScope(scope, data) {
 
     // Update wires according
 
-    scope.wires.map(function(x) {
+    scope.wires.map(function (x) {
         x.updateData(scope)
     });
 
@@ -699,8 +699,8 @@ function loadScope(scope, data) {
     }
 
     // Backward compatibility
-    if(scope.layout.titleEnabled==undefined)
-        scope.layout.titleEnabled=true;
+    if (scope.layout.titleEnabled == undefined)
+        scope.layout.titleEnabled = true;
 
 }
 
@@ -720,19 +720,19 @@ function removeBugNodes(scope = globalScope) {
 
 // Helper function to show prompt to save image
 // Options - resolution, image type, view
-createSaveAsImgPrompt = function(scope = globalScope) {
+createSaveAsImgPrompt = function (scope = globalScope) {
     $('#saveImageDialog').dialog({
         width: "auto",
         buttons: [{
             text: "Render Circuit Image",
-            click: function() {
+            click: function () {
                 generateImage($('input[name=imgType]:checked').val(), $('input[name=view]:checked').val(), $('input[name=transparent]:checked').val(), $('input[name=resolution]:checked').val());
                 $(this).dialog("close");
             },
         }]
 
     });
-    $("input[name=imgType]").change(function() {
+    $("input[name=imgType]").change(function () {
         $('input[name=resolution]').prop("disabled", false);
         $('input[name=transparent]').prop("disabled", false);
         var imgType = $('input[name=imgType]:checked').val();
@@ -752,7 +752,7 @@ createSaveAsImgPrompt = function(scope = globalScope) {
 }
 
 // Prompt to restore from localStorage
-createOpenLocalPrompt = function() {
+createOpenLocalPrompt = function () {
     $('#openProjectDialog').empty();
     var projectList = JSON.parse(localStorage.getItem("projectList"));
     var flag = true;
@@ -765,7 +765,7 @@ createOpenLocalPrompt = function() {
         width: "auto",
         buttons: [{
             text: "Open Project",
-            click: function() {
+            click: function () {
                 if (!$("input[name=projectId]:checked").val()) return;
                 load(JSON.parse(localStorage.getItem($("input[name=projectId]:checked").val())));
                 $(this).dialog("close");
@@ -777,7 +777,7 @@ createOpenLocalPrompt = function() {
 }
 
 // Prompt to create subcircuit, shows list of circuits which dont depend on the current circuit
-createSubCircuitPrompt = function(scope = globalScope) {
+createSubCircuitPrompt = function (scope = globalScope) {
     $('#insertSubcircuitDialog').empty();
     var flag = true;
     for (id in scopeList) {
@@ -791,7 +791,7 @@ createSubCircuitPrompt = function(scope = globalScope) {
         width: "auto",
         buttons: [{
             text: "Insert SubCircuit",
-            click: function() {
+            click: function () {
                 if (!$("input[name=subCircuitId]:checked").val()) return;
                 simulationArea.lastSelected = new SubCircuit(undefined, undefined, globalScope, $("input[name=subCircuitId]:checked").val());
                 $(this).dialog("close");
@@ -823,7 +823,7 @@ function checkToSave() {
 }
 
 // Prompt user to save data if unsaved
-window.onbeforeunload = function() {
+window.onbeforeunload = function () {
     if (projectSaved || embed) return;
 
     if (!checkToSave()) return;
@@ -940,10 +940,10 @@ function generateImage(imgType, view, transparent, resolution, down = true) {
 }
 
 if (logix_project_id == 0)
-setTimeout(promptSave,120000);
+    setTimeout(promptSave, 120000);
 
-function promptSave(){
+function promptSave() {
     console.log("PROMPT")
-    if(confirm("You have not saved your creation! Would you like save your project online? "))
-    save()
+    if (confirm("You have not saved your creation! Would you like save your project online? "))
+        save()
 }

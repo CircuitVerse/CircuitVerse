@@ -109,8 +109,8 @@ function layout_buffer(scope = globalScope) {
         this.Output.push(new layoutNode(scope.Output[i].layoutProperties.x, scope.Output[i].layoutProperties.y, scope.Output[i].layoutProperties.id, scope.Output[i].label, xx, yy, scope.Output[i].type, scope.Output[i]))
     this.DigitalLed=[];
     //for led
-    for (var i = 0; i < scope.Output.length; i++)
-        this.DigitalLed.push(new layoutNode(scope.DigitalLed[i].layoutProperties.x, scope.DigitalLed[i].layoutProperties.y, scope.DigitalLed[i].layoutProperties.id, scope.DigitalLed[i].label, xx, yy, scope.DigitalLed[i].type, scope.DigitalLed[i]))
+    for (var i = 0; i < scope.DigitalLed.length; i++)
+        this.DigitalLed.push(new layoutIndicator(scope.DigitalLed[i].layoutProperties.x, scope.DigitalLed[i].layoutProperties.y, scope.DigitalLed[i].layoutProperties.id, scope.DigitalLed[i].label, xx, yy, scope.DigitalLed[i].type, scope.DigitalLed[i]))
 
 }
 
@@ -348,7 +348,6 @@ function layoutNode(x, y, id, label = "", xx, yy, type, parent) {
     this.parent = parent;
 
 }
-
 layoutNode.prototype.absX = function() {
     return this.x + this.xx;
 }
