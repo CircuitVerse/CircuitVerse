@@ -2,6 +2,8 @@ version: "2"
 plugins:
   rubocop:
     enabled: true
+  eslint:
+    enabled: true
 
 ratings:
   paths:
