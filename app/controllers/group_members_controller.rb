@@ -26,9 +26,9 @@ class GroupMembersController < ApplicationController
   # POST /group_members
   # POST /group_members.json
   def create
-    if(Group.find(group_member_params[:group_id]).mentor_id!=current_user.id)
-      render plain: "Access Restricted " and return
-    end
+    dummy = GroupMember.new
+    dummy.group_id = group_member_params[:group_id]
+    authorize dummy, :mentor?
 
     @group = Group.find(group_member_params[:group_id])
 
@@ -111,8 +111,6 @@ class GroupMembersController < ApplicationController
 
 
     def check_access
-      if(@group_member.group.mentor_id!=current_user.id)
-        render plain: "Access Restricted " and return
-      end
+      authorize @group_member, :mentor?
     end
 end
