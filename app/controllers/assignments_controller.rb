@@ -2,8 +2,7 @@ class AssignmentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_assignment, only: [:show, :edit, :update, :destroy,:start, :reopen]
   before_action :set_group
-  before_action :set_access
-  before_action :check_access, only: [:edit,:update,:destroy,:new,:create, :reopen]
+  before_action :check_access, only: [:edit,:update,:destroy, :reopen]
   after_action :check_reopening_status, only: [:update]
 
 
@@ -21,9 +20,7 @@ class AssignmentsController < ApplicationController
   end
 
   def start
-    if(@assignment.status == 'closed' or !Project.find_by(author_id:current_user, assignment_id: @assignment.id).nil? )
-      render plain: "access restricted" and return;
-    end
+    authorize @assignment
     @project = current_user.projects.new
     @project.name = current_user.name + "/" + @assignment.name
     @project.assignment_id = @assignment.id
@@ -37,20 +34,18 @@ class AssignmentsController < ApplicationController
   # GET /assignments/new
   def new
     @assignment = Assignment.new
+    @assignment.group_id = params[:group_id]
     @assignment.deadline = Time.now+1.week
+    authorize @assignment, :admin_access?
   end
 
   # GET /assignments/1/edit
   def edit
-    if @assignment.status == 'closed'
-      render plain: "access restricted" and return;
-    end
+    authorize @assignment
   end
 
   def reopen
-    if @assignment.status == 'open'
-      render plain: "already open" and return;
-    end
+    authorize @assignment
     @assignment.status = 'open'
     @assignment.deadline = Time.now + 1.day
     @assignment.save
@@ -83,7 +78,10 @@ class AssignmentsController < ApplicationController
     params = assignment_params                  # dont name it as params as params and assignment_params are different
     # params[:deadline] = params[:deadline].to_time
 
+
     @assignment = @group.assignments.new(params)
+    authorize @assignment, :admin_access?
+
     puts(params)
     @assignment.description = description
     @assignment.status = 'open'
@@ -147,13 +145,7 @@ class AssignmentsController < ApplicationController
       params.require(:assignment).permit(:name, :deadline, :description)
     end
 
-    def set_access
-      @admin_access = (@group.mentor_id == current_user.id or (!current_user.nil? and current_user.admin))
-    end
-
     def check_access
-      if !@admin_access
-        render plain: "access restricted" and return;
-      end
+      authorize @assignment, :admin_access?
     end
 end
