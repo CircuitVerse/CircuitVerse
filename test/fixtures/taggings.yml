@@ -1,9 +1,0 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  project: one
-  tag: one
-
-two:
-  project: two
-  tag: two

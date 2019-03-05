@@ -11,8 +11,3 @@ User.create(name: 'Admin',
   password: 'password',
   admin: true
 )
-
-Tag.create(name: "Recipe")
-Tag.create(name: "Travel")
-Tag.create(name: "Fashion/Beauty")
-Tag.create(name: "Humour")
