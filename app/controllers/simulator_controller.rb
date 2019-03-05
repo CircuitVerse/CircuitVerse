@@ -6,6 +6,10 @@ class SimulatorController < ApplicationController
   before_action :check_edit_access, only: [:edit,:update,:update_image]
   after_action :allow_iframe, only: :embed
 
+  def self.policy_class
+    ProjectPolicy
+  end
+
   def show
     @logix_project_id = params[:id]
     @external_embed = false
@@ -19,9 +23,7 @@ class SimulatorController < ApplicationController
   end
 
   def embed
-    if(@project.nil? or @project.project_access_type=="Private" )
-      render plain: "Project has been moved or deleted. If you are the owner of the project, Please check your project access privileges." and return
-    end
+    authorize @project
     @logix_project_id = params[:id]
     @project = Project.find(params[:id])
     @author = @project.author_id
@@ -82,15 +84,11 @@ class SimulatorController < ApplicationController
   end
 
   def check_edit_access
-    if(@project.nil? or !@project.check_edit_access(current_user))
-      render plain: "Project has been moved or deleted. If you are the owner of the project, Please check your project access privileges." and return
-    end
+    authorize @project, :edit_access?
   end
 
   def check_view_access
-    if(@project.nil? or !@project.check_view_access(current_user))
-      render plain: "Project has been moved or deleted. If you are the owner of the project, Please check your project access privileges." and return
-    end
+    authorize @project, :view_access?
   end
 
 end

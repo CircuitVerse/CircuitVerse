@@ -62,10 +62,10 @@
           </li>
           <li class="list-group-item text-center">
             <a href="#>" class="btn btn-secondary previewButton" id="<%=@project.id%>" data-toggle="modal" data-target="#myModal">Preview</a>
-            <% if @user_access %>
+            <% if policy(@project).user_access? %>
                 <a href="<%= simulator_edit_path(@project) %>" class="btn btn-primary" target="_blank">Launch simulator</a>
             <% end %>
-            <% if @is_author %>
+            <% if policy(@project).author_access? %>
               <a href="#>" class="btn btn-secondary collaboratorButton" id="<%=@project.id%>" data-toggle="modal" data-target="#collaboratorModal">Add Collaborator</a>
             <%end %>
 
@@ -85,9 +85,9 @@
         </div>
 
         <div class="card-footer text-center">
-            <% if @user_access %>
+            <% if policy(@project).user_access? %>
                 <%= link_to 'Edit', edit_user_project_path(@author, @project), class: "card-link"%>
-                <% if @is_author  %>
+                <% if policy(@project).author_access?  %>
                   <%= link_to 'Delete',user_project_path(@author,@project), method: :delete, data: { confirm: 'Are you sure?' }, class: "card-link" %>
                 <% end %>
             <% end %>
@@ -135,7 +135,7 @@
           <tr>
             <td><%= link_to user.name, user %></td>
             <td><%= user.email %></td>
-            <% if @is_author %>
+            <% if policy(@project).author_access? %>
                 <td><%= link_to 'Remove', collaboration_path(Collaboration.find_by(user_id:user.id,project_id:@project.id)), method: :delete, data: { confirm: 'Are you sure?' } %></td>
             <% end %>
           </tr>
