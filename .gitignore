@@ -45,4 +45,3 @@ dump.rdb
 db/schema.rb
 
 public/sitemap.xml.gz
-coverage
