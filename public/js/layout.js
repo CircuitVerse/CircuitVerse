@@ -35,6 +35,10 @@ function layoutUpdate(scope = globalScope) {
     for (var i = 0; i < temp_buffer.Output.length; i++) {
         temp_buffer.Output[i].update()
     }
+    //for led
+    for (var i = 0; i < temp_buffer.DigitalLed.length; i++) {
+        temp_buffer.DigitalLed[i].update()
+    }
     paneLayout(scope);
     renderLayout(scope);
 }
@@ -103,6 +107,10 @@ function layout_buffer(scope = globalScope) {
     this.Output = [];
     for (var i = 0; i < scope.Output.length; i++)
         this.Output.push(new layoutNode(scope.Output[i].layoutProperties.x, scope.Output[i].layoutProperties.y, scope.Output[i].layoutProperties.id, scope.Output[i].label, xx, yy, scope.Output[i].type, scope.Output[i]))
+    this.DigitalLed=[];
+    //for led
+    for (var i = 0; i < scope.Output.length; i++)
+        this.DigitalLed.push(new layoutNode(scope.DigitalLed[i].layoutProperties.x, scope.DigitalLed[i].layoutProperties.y, scope.DigitalLed[i].layoutProperties.id, scope.DigitalLed[i].label, xx, yy, scope.DigitalLed[i].type, scope.DigitalLed[i]))
 
 }
 
@@ -165,6 +173,13 @@ function renderLayout(scope = globalScope) {
         ctx.textAlign = info[0];
         fillText(ctx, temp_buffer.Output[i].label, temp_buffer.Output[i].x + info[1] + xx, yy + temp_buffer.Output[i].y + info[2], 12);
     }
+    //for led
+    for (var i = 0; i < temp_buffer.DigitalLed.length; i++) {
+        if (!temp_buffer.DigitalLed[i].label) continue;
+        var info = determine_label(temp_buffer.DigitalLed[i].x, temp_buffer.DigitalLed[i].y, scope);
+        ctx.textAlign = info[0];
+        fillText(ctx, temp_buffer.DigitalLed[i].label, temp_buffer.DigitalLed[i].x + info[1] + xx, yy + temp_buffer.DigitalLed[i].y + info[2], 12);
+    }
     ctx.fill();
 
     // Draw points
@@ -173,6 +188,10 @@ function renderLayout(scope = globalScope) {
     }
     for (var i = 0; i < temp_buffer.Output.length; i++) {
         temp_buffer.Output[i].draw()
+    }
+    //for led
+    for (var i = 0; i < temp_buffer.DigitalLed.length; i++) {
+        temp_buffer.DigitalLed[i].draw()
     }
 
     if (gridUpdate) {
@@ -193,6 +212,11 @@ function layoutResetNodes() {
     for (var i = 0; i < temp_buffer.Output.length; i++) {
         temp_buffer.Output[i].x = temp_buffer.layout.width;
         temp_buffer.Output[i].y = i * 20 + 20;
+    }
+    //for led
+    for (var i = 0; i < temp_buffer.DigitalLed.length; i++) {
+        temp_buffer.DigitalLed[i].x = temp_buffer.layout.width;
+        temp_buffer.DigitalLed[i].y = i * 20 + 20;
     }
 }
 
@@ -409,6 +433,11 @@ function saveLayout() {
         for (var i = 0; i < temp_buffer.Output.length; i++) {
             temp_buffer.Output[i].parent.layoutProperties.x = temp_buffer.Output[i].x;
             temp_buffer.Output[i].parent.layoutProperties.y = temp_buffer.Output[i].y;
+        }
+        //for led
+        for (var i = 0; i < temp_buffer.DigitalLed.length; i++) {
+            temp_buffer.DigitalLed[i].parent.layoutProperties.x = temp_buffer.DigitalLed[i].x;
+            temp_buffer.DigitalLed[i].parent.layoutProperties.y = temp_buffer.DigitalLed[i].y;
         }
         globalScope.layout = Object.assign({}, temp_buffer.layout);
         toggleLayoutMode();

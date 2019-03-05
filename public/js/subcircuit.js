@@ -44,6 +44,8 @@ function SubCircuit(x, y, scope = globalScope, id = undefined, savedData = undef
     this.savedData = savedData;
     this.inputNodes = [];
     this.outputNodes = [];
+    // 
+    this.DigitalLedNode = [];
     this.localScope = new Scope();
 
     if (this.savedData != undefined) {
