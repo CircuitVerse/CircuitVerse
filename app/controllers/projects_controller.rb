@@ -2,7 +2,6 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy, :create_fork, :change_stars]
   before_action :authenticate_user!, only: [:edit, :update, :destroy, :create_fork, :change_stars]
 
-  before_action :set_access , only: [:show, :edit, :update, :destroy, :create_fork]
   before_action :check_access , only: [:edit, :update, :destroy]
   before_action :check_delete_access , only: [:destroy]
   before_action :check_view_access , only: [:show, :create_fork]
@@ -55,9 +54,7 @@ class ProjectsController < ApplicationController
     #   render plain: "Cannot fork your own project" and return
     # end
 
-    if !@project.assignment_id.nil?
-      render plain: "Cannot fork an assignment" and return
-    end
+    authorize @project
 
     @project_new = @project.dup
     @project_new.view = 1
@@ -121,27 +118,16 @@ class ProjectsController < ApplicationController
       @author = @project.author
     end
 
-    def set_access
-      @user_access = user_signed_in? ? @project.check_edit_access(current_user) : false
-      @is_author = @project.author_id == (user_signed_in? and current_user.id)
-    end
-
     def check_access
-      if(!@user_access)
-        render plain: "Access Restricted" and return
-      end
+      authorize @project, :edit_access?
     end
 
     def check_delete_access
-      if(!@is_author)
-        render plain: "Access Restricted" and return
-      end
+      authorize @project, :author_access?
     end
 
     def check_view_access
-      if(!@project.check_view_access(current_user))
-        render plain: "Access Restricted" and return
-      end
+      authorize @project, :view_access?
     end
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
