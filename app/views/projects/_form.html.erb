@@ -17,11 +17,6 @@
     <%= form.text_field :name, id: :project_name %>
   </div>
 
-  <div class="field">
-    <%= form.label :tag_list %>
-    <%= form.text_field :tag_list%>
-  </div>
-
 
   <div class="field">
     <%= form.label :project_access_type %>
@@ -44,7 +39,7 @@
 <script>
   function before_submit(){                     //add params before submission
     $('<input />').attr('type', 'hidden')
-        .attr('name', 'description','tag_list')
+        .attr('name', 'description')
         .attr('value', $("#editor").cleanHtml())
         .appendTo('#projectForm');
     }
