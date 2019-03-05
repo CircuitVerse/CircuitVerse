@@ -20,7 +20,7 @@ class Users::LogixController < ApplicationController
 
   def typeahead_educational_institute
     query = params[:query]
-    educational_institute_list = User.where("educational_institute LIKE ?", "%#{query}%").uniq { |user| user.educational_institute }
+    educational_institute_list = User.where("educational_institute LIKE ?", "%#{query}%").distinct
                                      .pluck(:educational_institute)
     list_to_obj_array = educational_institute_list.map{|item| {name:item}}
     render json: list_to_obj_array
