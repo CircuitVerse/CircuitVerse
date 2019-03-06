@@ -9,7 +9,7 @@
 
 <body onload="setup()">
 
-
+<div>
 
     <div class="simulation" id="simulation" style="height:100%;width:100%">
 
@@ -53,17 +53,36 @@
         <!-- <div id="plot" >
             <canvas id="plotArea" style="position: absolute; left: 0; top: 0; z-index: 1; width:100%"></canvas>
         </div> -->
+      <% if @external_embed  == true %>
+        <div id="bottom_right_watermark">
 
-     </div>
+
+          <a style="text-decoration:none;
+              position: fixed;
+              bottom: 0px;
+              right: 0px;
+              padding: 8px;
+              font-family: Verdana;
+              font-size: 12px;
+              color: grey;"
+             href= "/users/<%=@author%>/projects/<%=@logix_project_id%>";
+             target="_blank";>
+            Made With CircuitVerse</a>
+
+        </div>
+      <% end %>
+
+
+    </div>
 
 
 </div>
 
 
- <!-- <script src="/js/SAP_DATA.js"></script> -->
- <script type="text/javascript">
-     logix_project_id = <%= @logix_project_id%>
-     embed=true;
+<!-- <script src="/js/SAP_DATA.js"></script> -->
+<script type="text/javascript">
+    logix_project_id = <%= @logix_project_id%>
+        embed=true;
 
  </script>
     <link rel="stylesheet" type="text/css" href="/css/embed.css"/>
@@ -85,7 +104,7 @@
 
 
 
- <!-- <script src="/js/canvas2svg.js"></script> -->
+<!-- <script src="/js/canvas2svg.js"></script> -->
 
 
 </body>
