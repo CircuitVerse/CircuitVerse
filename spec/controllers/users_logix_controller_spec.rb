@@ -31,7 +31,7 @@ describe Users::LogixController, type: :request do
 
   it 'should update user profile' do
     patch profile_update_path(@user), params:{id:@user.id,user:{"name"=>"Jd", "country"=>"IN", "educational_institute"=>"MAIT"}}
-    response.should redirect_to profile_path(:id => @user.id)
+    expect(response).to redirect_to(profile_path(:id => @user.id))
     expect(@user.name).to eq('Jd')
     expect(@user.country).to eq('IN')
     expect(@user.educational_institute).to eq('MAIT')
