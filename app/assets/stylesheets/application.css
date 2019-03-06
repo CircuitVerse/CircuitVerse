@@ -12,7 +12,8 @@
  *
 
  *= require commontator/application
- */
+ *= require bootstrap-typeahead-rails
+*/
  .alert {
    width:60%;
  }
@@ -22,3 +23,7 @@
   width:100%;
  }
 
+.col-centered{
+  float: none;
+  margin: 0 auto;
+}

@@ -34,6 +34,24 @@ function startListeners() {
         e.preventDefault();
         scheduleUpdate(1);
     });
+
+    document.getElementById("simulationArea").addEventListener('mousemove', function(e) {
+
+        var ele = document.getElementById("subCircuitName");
+        if(globalScope && globalScope.SubCircuit) {
+            for (var i = 0; i < globalScope.SubCircuit.length; i++) {
+                if(globalScope.SubCircuit[i].isHover()) {
+                    ele.style.display = 'block';
+                    ele.innerHTML = "Subcircuit: " + globalScope.SubCircuit[i].data.name;
+                    return;
+                }
+            }
+        }
+
+        ele.style.display = 'none';
+        document.getElementById("subCircuitName").innerHTML = "";
+    });
+
     window.addEventListener('mousemove', function(e) {
 
         var rect = simulationArea.canvas.getBoundingClientRect();
@@ -96,6 +114,21 @@ function startListeners() {
             }
 
         }
+        if (simulationArea.lastSelected && simulationArea.lastSelected.keyDown2) {
+            if (e.key.toString().length == 1) {
+                simulationArea.lastSelected.keyDown2(e.key.toString());
+                return;
+            }
+
+        }
+
+        // if (simulationArea.lastSelected && simulationArea.lastSelected.keyDown3) {
+        //     if (e.key.toString() != "Backspace" && e.key.toString() != "Delete") {
+        //         simulationArea.lastSelected.keyDown3(e.key.toString());
+        //         return;
+        //     }
+
+        // }
 
         if (e.key == "T" || e.key == "t") {
             simulationArea.changeClockTime(prompt("Enter Time:"));

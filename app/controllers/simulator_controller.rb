@@ -8,6 +8,7 @@ class SimulatorController < ApplicationController
 
   def show
     @logix_project_id = params[:id]
+    @external_embed = false
     render 'embed'
   end
 
@@ -22,6 +23,9 @@ class SimulatorController < ApplicationController
       render plain: "Project has been moved or deleted. If you are the owner of the project, Please check your project access privileges." and return
     end
     @logix_project_id = params[:id]
+    @project = Project.find(params[:id])
+    @author = @project.author_id
+    @external_embed = true
     render 'embed'
   end
 

@@ -1,5 +1,4 @@
-
-
+<link href="/css/typeahead.min.css" rel="stylesheet">
 <div class="container">
   <div class="row feature">
 
@@ -7,40 +6,52 @@
 
       <h2>Profile</h2>
 
-      <!--<p> <strong>Name: </strong><%=@profile.name%></p>-->
-      <!--<p> <strong>Email: </strong><%=@profile.email%></p>-->
-      <!--<p> <strong>Member since: </strong><%=((Time.now.to_i - @profile.created_at.to_i)/1.day)%> days</p>-->
-      <!--<p> <strong>Educational Institution: </strong> IIIT-Bangalore </p>-->
-      <!--<p> <strong>Country: </strong> India </p>-->
+      <%= form_for @profile, html: {multipart: true}, url: {action: "update"} do |f| %>
+        <div class="field form-group">
+          <%= f.label :name %><br>
+          <%= f.text_field :name, required: true, class:"form-control" %>
+        </div>
 
+        <div class="field form-group">
+          <%= f.label :country %><br/>
+          <%= f.country_select :country,priority_countries: ["IN"], class: "form-control" %>
+        </div>
 
-      <%= form_for @profile, html: { multipart: true},  url: {action: "update"}  do |f| %>
-          <div class="form-group">
-            <label for="name">Name:</label>
-            <input type="text" class="form-control" id="name" name="profile[name]" value = "<%= @profile.name%>">
-          </div>
-          <div class="form-group">
-            <label for="profile_picture">Profile Picture:</label>
-            <p> <%= image_tag @profile.profile_picture.url(:thumb)%></p>
-            <input type="file" class="form-control" id="profile_picture" name="profile[profile_picture]" value = "<%= @profile.profile_picture%>">
-          <!--<div class="form-group">-->
-            <!--<label for="educational_institution">Educational Institution:</label>-->
-            <!--<input type="text" class="form-control" id="educational_institution" placeholder="e.g. IIIT-Bangalore" name="profile[educational_institution]">-->
-          <!--</div>-->
-          <!--<div class="form-group">-->
-            <!--<label for="country">Country:</label>-->
-            <!--<input type="text" class="form-control" id="country" placeholder="Enter country" name="profile[country]">-->
-          <!--</div>-->
-          <button type="submit" class="btn btn-secondary">Save</button>
+        <div class="field form-group ">
+          <%= f.label :educational_institute %><br/>
+          <%= f.text_field :educational_institute,{ class: "typeahead form form-group form-control",autocomplete:"off" } %>
+        </div>
+
+        <div class="form-group">
+          <label for="profile_picture">Profile Picture:</label>
+          <p> <%= image_tag @profile.profile_picture.url(:thumb) %></p>
+          <input type="file" class="form-control" id="profile_picture" name="user[profile_picture]" value="<%= @profile.profile_picture %>">
+        </div>
+        <button type="submit" class="btn btn-secondary">Save</button>
       <% end %>
+
+
     </div>
+    <br/>
+
+    <br/>
 
 
   </div>
-  <br />
-
-  <br />
-
-
-
 </div>
+<script>
+    var searchSelector = 'input.typeahead';
+    var bloodhound = new Bloodhound({
+        datumTokenizer: function (d) {
+            return Bloodhound.tokenizers.whitespace(d.value);
+        },
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        remote: '/users/educational_institute/typeahead/%QUERY',
+        limit: 50
+    });
+    bloodhound.initialize();
+    $(searchSelector).typeahead(null, {
+        displayKey: 'name',
+        source: bloodhound.ttAdapter()
+    });
+</script>
