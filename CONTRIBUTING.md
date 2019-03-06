@@ -1,6 +1,11 @@
 [Back to README](README.md)
 
-## Contributing
+## Contributing to CircuitVerse
+
+- Thanks for checking out our guide. We'll be glad to hear from you.
+- Interested in making a contribution? Read on!
+
+## How to Contribute
 
 When you are ready to start work on a issue:
 
@@ -8,8 +13,13 @@ When you are ready to start work on a issue:
 
 - Once you are assigned the issue (or you have claimed the issue) only then proceed to making the Pull Request. This will help avoid multiple PRs pertaining to the same issue.
 
+If you don't see your idea listed, do one of the following:
+
+* **If your contribution is minor,** such as a typo fix, open a pull request.
+* **If your contribution is major,** such as a new guide, start by opening an issue first. That way, other people can be also involved in the discussion before you do any work.
+
 ## Pull Request Process
- 
+
 1. Create a branch. For example, if you are going to work on issue number #44(which is, say, a new feature for ‘forgot password’ management):
 
         git checkout -b forgot-password#44
@@ -22,3 +32,9 @@ When you are ready to start work on a issue:
 3. Develop the feature and push it to your local repo.
 
 4. Create Pull Request(PR). Make sure to comment the issue that your PR is supposed to solve.
+
+## Community
+
+Discussions about the CircuitVerse take place on the repository's [Issues](https://github.com/CircuitVerse/CircuitVerse/issues) and [Pull Requests](https://github.com/CircuitVerse/CircuitVerse/pulls) sections. Anybody is welcome to join these conversations. There is also a [chat room](https://gitter.im/CircuitVerse/community) for regular updates.
+
+Wherever possible, do not take these conversations to private channels. Keeping communication public means everybody can benefit and learn from the conversation.
