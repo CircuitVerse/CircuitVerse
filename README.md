@@ -115,6 +115,10 @@ RAILS_ENV=production bundle exec rake assets:precompile
 bundle exec sidekiq -e production -q default -q mailers -d -L tmp/sidekiq.log` (In production)
 ```
 
+## Code of Conduct
+
+This repository contains the [Code of Conduct](./CODE%20OF%20CONDUCT.md) of [CircuitVerse](https://circuitverse.org) Community.
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) for details.
