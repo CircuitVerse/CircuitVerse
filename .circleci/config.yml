@@ -45,7 +45,7 @@ jobs: # a collection of steps
           name: Wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
 
-      -run:
+      - run:
           name: Copy sample database configuration
           command: cp config/database.pg.example.yml config/database.yml
 
