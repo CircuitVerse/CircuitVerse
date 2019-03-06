@@ -26,6 +26,11 @@ class User < ApplicationRecord
     UserMailer.welcome_email(self).deliver_later
   end
 
+  def country_name
+    country = ISO3166::Country[self.country]
+    country ? country.translations[I18n.locale.to_s] || country.name : "Not Entered"
+  end
+
   def check_group_invites
     PendingInvitation.where(email:self.email).each do |invitation|
       GroupMember.where(group_id:invitation.group.id,user_id:self.id).first_or_create
