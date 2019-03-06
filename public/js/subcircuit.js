@@ -32,9 +32,10 @@ function SubCircuit(x, y, scope = globalScope, id = undefined, savedData = undef
             for (var i = 0; i < savedData["outputNodes"].length; i++) {
                 scope.allNodes[savedData["outputNodes"][i]].deleted = true;
             }
-/*             for (var i = 0; i < savedData["outputNodes"].length; i++) {
-                scope.allNodes[savedData["outputNodes"][i]].deleted = true;
-            } */
+            //for led
+            for (var i = 0; i < savedData["indicatorLeds"].length; i++) {
+                scope.allNodes[savedData["indicatorLeds"][i]].deleted = true;
+            }
         }
         return;
 
@@ -68,6 +69,13 @@ function SubCircuit(x, y, scope = globalScope, id = undefined, savedData = undef
             this.outputNodes[i].parent = this;
             this.outputNodes[i].layout_id = subcircuitScope.Output[i].layoutProperties.id;
         }
+        //for led
+        for (var i = 0; i < this.savedData["indicatorLeds"].length; i++) {
+            this.indicatorLeds.push(this.scope.DigitalLed[this.savedData["indicatorLeds"][i]]);
+            this.indicatorLeds[i].parent = this;
+            this.indicatorLeds[i].layout_id = subcircuitScope.DigitalLed[i].layoutProperties.id;
+            this.indicatorLeds[i].subcircuitVisible = true;
+        }
         if (this.version == "1.0") { // For backward compatibility
             this.version = "2.0";
             this.x -= subcircuitScope.layout.width / 2;
@@ -83,7 +91,14 @@ function SubCircuit(x, y, scope = globalScope, id = undefined, savedData = undef
                 this.outputNodes[i].y = subcircuitScope.Output[i].layoutProperties.y;
                 this.outputNodes[i].leftx = this.outputNodes[i].x;
                 this.outputNodes[i].lefty = this.outputNodes[i].y;
+            }//for led
+            for (var i = 0; i < this.indicatorLeds.length; i++) {
+                this.indicatorLeds[i].x = subcircuitScope.DigitalLed[i].layoutProperties.x;
+                this.indicatorLeds[i].y = subcircuitScope.DigitalLed[i].layoutProperties.y;
+                this.indicatorLeds[i].leftx = this.indicatorLeds[i].x;
+                this.indicatorLeds[i].lefty = this.indicatorLeds[i].y;
             }
+
 
         }
 
@@ -120,6 +135,7 @@ SubCircuit.prototype.makeConnections = function () {
         this.localScope.Output[i].inp1.connectWireLess(this.outputNodes[i]);
         this.outputNodes[i].subcircuitOverride = true;
     }
+    //for led
     for (let i = 0; i < this.indicatorLeds.length; i++) {
         this.localScope.DigitalLed[i].inp1.connectWireLess(this.indicatorLeds[i].inp1);
         this.indicatorLeds[i].subcircuitOverride = true;
@@ -134,6 +150,9 @@ SubCircuit.prototype.removeConnections = function () {
 
     for (let i = 0; i < this.outputNodes.length; i++)
         this.localScope.Output[i].inp1.disconnectWireLess(this.outputNodes[i]);
+    //for led
+    for (let i = 0; i < this.indicatorLeds.length; i++)
+        this.localScope.DigitalLed[i].inp1.disconnectWireLess(this.indicatorLeds[i].inp1);
 }
 
 SubCircuit.prototype.buildCircuit = function () {
@@ -162,7 +181,7 @@ SubCircuit.prototype.buildCircuit = function () {
         }
 
         for (var i = 0; i < subcircuitScope.DigitalLed.length; i++) {
-            var a = new DigitalLed(subcircuitScope.DigitalLed[i].layoutProperties.x, subcircuitScope.DigitalLed[i].layoutProperties.y, this.scope, color = "Red", subcircuitScope.DigitalLed[i].layoutProperties, true,this);
+            var a = new DigitalLed(subcircuitScope.DigitalLed[i].layoutProperties.x, subcircuitScope.DigitalLed[i].layoutProperties.y, this.scope, color = "Red", subcircuitScope.DigitalLed[i].layoutProperties, true, this);
             a.layout_id = subcircuitScope.DigitalLed[i].layoutProperties.id;
             this.indicatorLeds.push(a);
         }
@@ -290,6 +309,44 @@ SubCircuit.prototype.reset = function () {
             this.outputNodes.push(a);
         }
     }
+    //for led
+    var temp_map_led = {}
+    for (var i = 0; i < subcircuitScope.DigitalLed.length; i++) {
+        temp_map_led[subcircuitScope.DigitalLed[i].layoutProperties.id] = [subcircuitScope.DigitalLed[i], undefined];
+    }
+    for (var i = 0; i < this.indicatorLeds.length; i++) {
+        if (temp_map_led.hasOwnProperty(this.indicatorLeds[i].layout_id)) {
+            temp_map_led[this.indicatorLeds[i].layout_id][1] = this.indicatorLeds[i];
+        } else {
+            this.indicatorLeds[i].delete();
+        }
+    }
+
+    for (id in temp_map_led) {
+        if (temp_map_led[id][1]) {
+            if (temp_map_led[id][0].layoutProperties.x == temp_map_led[id][1].x && temp_map_led[id][0].layoutProperties.y == temp_map_led[id][1].y)
+                temp_map_led[id][1].bitWidth = temp_map_led[id][0].bitWidth;
+            else {
+                temp_map_led[id][1].delete();
+                //subcircuitScope.DigitalLed[i].layoutProperties.x, subcircuitScope.DigitalLed[i].layoutProperties.y, this.scope, color = "Red", subcircuitScope.DigitalLed[i].layoutProperties, true, this
+                temp_map_led[id][1] = new DigitalLed(temp_map_led[id][0].layoutProperties.x, temp_map_led[id][0].layoutProperties.y,this.Scope,color="Red",temp_map_led[id][0].layoutProperties,true,this);
+                temp_map_led[id][1].layout_id = id
+            }
+        }
+    }
+
+    this.indicatorLeds = []
+    for (var i = 0; i < subcircuitScope.DigitalLed.length; i++) {
+        var led = temp_map_led[subcircuitScope.DigitalLed[i].layoutProperties.id][0]
+        if (temp_map_led[led.layoutProperties.id][1])
+            this.indicatorLeds.push(temp_map_led[led.layoutProperties.id][1])
+        else {
+            var a = new DigitalLed(led.layoutProperties.x, led.layoutProperties.y,this.Scope,color="Red",led.layoutProperties, true,this);
+            a.layout_id = led.layoutProperties.id;
+            this.indicatorLeds.push(a);
+        }
+    }
+    //led end
 
     if (subcircuitScope.timeStamp > this.lastUpdated) {
         this.reBuildCircuit();
@@ -411,18 +468,16 @@ SubCircuit.prototype.customDraw = function () {
     ctx.fill();
 
     for (var i = 0; i < this.inputNodes.length; i++) {
-       // this.inputNodes[i].draw();
-        //console.log("No of input Node = "+subcircuitScope.Input.length);
+        this.inputNodes[i].draw();
+        console.log("No of input Node = " + subcircuitScope.Input.length);
 
     }
     for (var i = 0; i < this.outputNodes.length; i++) {
-    //this.outputNodes[i].draw();
-        //console.log("No of Output Node = "+subcircuitScope.Output.length);
+        this.outputNodes[i].draw();
 
     }
     for (var i = 0; i < this.indicatorLeds.length; i++) {
-        // this.indicatorLeds[i].customDraw();  
-        //console.log("No of Led Node = "+this.indicatorLeds.length);
+        this.indicatorLeds[i].customDraw();
     }
 
 }

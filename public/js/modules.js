@@ -2206,6 +2206,8 @@ function DigitalLed(x, y, scope = globalScope, color = "Red", layoutProperties, 
     this.rectangleObject = false;
     this.setDimensions(10, 20);
     this.inp1 = new Node(-40, 0, 0, this, 1);
+    if(subcircuitVisible==true)
+        this.inp1.visibility=false;
     this.directionFixed = true;
     this.fixedBitWidth = true;
     this.color = color;

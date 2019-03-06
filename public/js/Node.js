@@ -58,8 +58,8 @@ NODE_OUTPUT = 1;
 NODE_INPUT = 0;
 NODE_INTERMEDIATE = 2;
 
-function Node(x, y, type, parent, bitWidth = undefined, label = "") {
-
+function Node(x, y, type, parent, bitWidth = undefined, label = "",visibility=true) {
+    
     // Should never raise, but just in case
     if(isNaN(x) || isNaN(y)){
         this.delete();
@@ -336,6 +336,10 @@ Node.prototype.checkHover = function() {
 }
 
 Node.prototype.draw = function() {
+    if(this.visibility==false){
+        //early reurn dont draw for subcircuit led
+        return;
+    }
 
     if (this.type == 2) this.checkHover();
 
