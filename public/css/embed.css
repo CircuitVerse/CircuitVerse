@@ -115,6 +115,15 @@ button:focus {outline:0;}
     background-color: "white";
 }
 
+#subCircuitName {
+    position:absolute;
+    right: 6px; bottom: 6px;
+    background-color: white;
+    color: black;
+    padding: 1px;
+    border: 0.5px solid black;
+    display: none;
+}
 
 
 /* LOADING ICON CSS STARTS*/
