@@ -117,7 +117,7 @@ bundle exec sidekiq -e production -q default -q mailers -d -L tmp/sidekiq.log` (
 
 ## Code of Conduct
 
-This repository contains the [Code of Conduct](./CODE%20OF%20CONDUCT.md) of [CircuitVerse](https://circuitverse.org) Community.
+This repository contains the [Code of Conduct](./code-of-conduct.md) of [CircuitVerse](https://circuitverse.org) Community.
 
 ## License
 
