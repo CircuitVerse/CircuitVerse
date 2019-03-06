@@ -8,7 +8,7 @@ class SimulatorController < ApplicationController
 
   def show
     @logix_project_id = params[:id]
-    @show_value = 0
+    @external_embed = false
     render 'embed'
   end
 
@@ -25,7 +25,7 @@ class SimulatorController < ApplicationController
     @logix_project_id = params[:id]
     @project = Project.find(params[:id])
     @author = @project.author_id
-    @show_value = 1
+    @external_embed = true
     render 'embed'
   end
 
