@@ -22,6 +22,8 @@ cd CircuitVerse
 
 ## Setup Instructions
 
+Please go through the [Contribution Guidelines](CONTRIBUTING.md) before going forward with any development. This helps us keep the process streamlines and results in better PRs
+
 **Note:** You might want to use the docker instructions if you do not want to setup your own environment.
 
 * Install ruby using RVM, use ruby-2.5.1
@@ -103,8 +105,6 @@ production:
   bash -s stable --ruby --autolibs=enable --auto-dotfiles
   ```
 - If you are facing errors running the `rails db:create` ensure that the socket file(i.e mysql.sock) is present in that location.   Some possible locations where it might be present is `/run/mysqld/mysqld.sock`  or `/var/lib/mysql/mysql.sock` and mention the exact location.
-
-## [Contributing](CONTRIBUTING.md)
 
 
 ## Production Specific Instructions
