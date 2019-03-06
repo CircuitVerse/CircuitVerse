@@ -51,21 +51,25 @@
         <!-- <div id="plot" >
             <canvas id="plotArea" style="position: absolute; left: 0; top: 0; z-index: 1; width:100%"></canvas>
         </div> -->
-      <div id="bottom_right_watermark">
+      <% if @show_value  == 1 %>
+        <div id="bottom_right_watermark">
 
 
-        <a style="text-decoration:none;
-            position: fixed;
-            bottom: 0px;
-            right: 0px;
-            padding: 8px;
-            font-family: Verdana;
-            font-size: 12px;
-            color: grey;"
-           href= "https://circuitverse.org/" target="_blank">
-          Made With CircuitVerse</a>
+          <a style="text-decoration:none;
+              position: fixed;
+              bottom: 0px;
+              right: 0px;
+              padding: 8px;
+              font-family: Verdana;
+              font-size: 12px;
+              color: grey;"
+             href= "/users/<%=@author%>/projects/<%=@logix_project_id%>";
+             target="_blank";>
+            Made With CircuitVerse</a>
 
-      </div>
+        </div>
+      <% end %>
+
 
     </div>
 
@@ -73,31 +77,31 @@
 </div>
 
 
- <!-- <script src="/js/SAP_DATA.js"></script> -->
- <script type="text/javascript">
-     logix_project_id = <%= @logix_project_id%>
-     embed=true;
+<!-- <script src="/js/SAP_DATA.js"></script> -->
+<script type="text/javascript">
+    logix_project_id = <%= @logix_project_id%>
+        embed=true;
 
- </script>
-    <link rel="stylesheet" type="text/css" href="/css/embed.css"/>
- <script src="/js/engine.js"></script>
- <script src="/js/logix.js"></script>
- <script src="/js/Node.js"></script>
- <script src="/js/wire.js"></script>
- <script src="/js/subcircuit.js"></script>
- <script src="/js/modules.js"></script>
- <script src="/js/sequential.js"></script>
- <script src="/js/ram.js"></script>
- <script src="/js/canvasApi.js"></script>
- <script src="/js/data.js"></script>
- <script src="/js/embedListeners.js"></script>
- <script src="/js/embed.js"></script>
- <script src="/js/testBench.js"></script>
- <script src="/js/eventQueue.js"></script>
+</script>
+<link rel="stylesheet" type="text/css" href="/css/embed.css"/>
+<script src="/js/engine.js"></script>
+<script src="/js/logix.js"></script>
+<script src="/js/Node.js"></script>
+<script src="/js/wire.js"></script>
+<script src="/js/subcircuit.js"></script>
+<script src="/js/modules.js"></script>
+<script src="/js/sequential.js"></script>
+<script src="/js/ram.js"></script>
+<script src="/js/canvasApi.js"></script>
+<script src="/js/data.js"></script>
+<script src="/js/embedListeners.js"></script>
+<script src="/js/embed.js"></script>
+<script src="/js/testBench.js"></script>
+<script src="/js/eventQueue.js"></script>
 
 
 
- <!-- <script src="/js/canvas2svg.js"></script> -->
+<!-- <script src="/js/canvas2svg.js"></script> -->
 
 
 </body>
