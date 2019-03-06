@@ -1,0 +1,525 @@
+{
+    "name": "Toogle",
+    "timePeriod": 500,
+    "clockEnabled": true,
+    "projectId": "ZI6rThhM4EsKCbfD1VhB",
+    "focussedCircuit": 80636730907,
+    "scopes": [
+        {
+            "layout": {
+                "width": 100,
+                "height": 40,
+                "title_x": 50,
+                "title_y": 13,
+                "titleEnabled": true
+            },
+            "allNodes": [
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        12
+                    ]
+                },
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        17
+                    ]
+                },
+                {
+                    "x": -40,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        18
+                    ]
+                },
+                {
+                    "x": -40,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        20
+                    ]
+                },
+                {
+                    "x": -20,
+                    "y": 10,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "Clock",
+                    "connections": [
+                        15
+                    ]
+                },
+                {
+                    "x": -20,
+                    "y": -10,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "T",
+                    "connections": [
+                        13
+                    ]
+                },
+                {
+                    "x": 20,
+                    "y": -10,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "Q",
+                    "connections": [
+                        16
+                    ]
+                },
+                {
+                    "x": 20,
+                    "y": 10,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "Q Inverse",
+                    "connections": [
+                        19
+                    ]
+                },
+                {
+                    "x": 10,
+                    "y": 20,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "Asynchronous Reset",
+                    "connections": []
+                },
+                {
+                    "x": 0,
+                    "y": 20,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "Preset",
+                    "connections": []
+                },
+                {
+                    "x": -10,
+                    "y": 20,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "Enable",
+                    "connections": []
+                },
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        14
+                    ]
+                },
+                {
+                    "x": 480,
+                    "y": 250,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        0,
+                        13
+                    ]
+                },
+                {
+                    "x": 480,
+                    "y": 290,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        5,
+                        12
+                    ]
+                },
+                {
+                    "x": 490,
+                    "y": 390,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        11,
+                        15
+                    ]
+                },
+                {
+                    "x": 490,
+                    "y": 310,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        4,
+                        14
+                    ]
+                },
+                {
+                    "x": 620,
+                    "y": 290,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        6,
+                        17,
+                        18
+                    ]
+                },
+                {
+                    "x": 620,
+                    "y": 250,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        1,
+                        16
+                    ]
+                },
+                {
+                    "x": 620,
+                    "y": 340,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        2,
+                        16
+                    ]
+                },
+                {
+                    "x": 590,
+                    "y": 310,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        7,
+                        20
+                    ]
+                },
+                {
+                    "x": 590,
+                    "y": 410,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        3,
+                        19
+                    ]
+                }
+            ],
+            "id": 6144579229,
+            "name": "Toogle",
+            "Input": [
+                {
+                    "x": 410,
+                    "y": 250,
+                    "objectType": "Input",
+                    "label": "",
+                    "direction": "RIGHT",
+                    "labelDirection": "LEFT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "output1": 0
+                        },
+                        "values": {
+                            "state": 0
+                        },
+                        "constructorParamaters": [
+                            "RIGHT",
+                            1,
+                            {
+                                "x": 0,
+                                "y": 20,
+                                "id": "9driMOxxqzoRLQVq7DM5"
+                            }
+                        ]
+                    }
+                }
+            ],
+            "Output": [
+                {
+                    "x": 670,
+                    "y": 250,
+                    "objectType": "Output",
+                    "label": "",
+                    "direction": "LEFT",
+                    "labelDirection": "RIGHT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "inp1": 1
+                        },
+                        "constructorParamaters": [
+                            "LEFT",
+                            1,
+                            {
+                                "x": 100,
+                                "y": 20,
+                                "id": "SodMt3iKzgHlPDu2R2JZ"
+                            }
+                        ]
+                    }
+                }
+            ],
+            "TflipFlop": [
+                {
+                    "x": 540,
+                    "y": 300,
+                    "objectType": "TflipFlop",
+                    "label": "",
+                    "direction": "RIGHT",
+                    "labelDirection": "LEFT",
+                    "propagationDelay": 100,
+                    "customData": {
+                        "nodes": {
+                            "clockInp": 4,
+                            "dInp": 5,
+                            "qOutput": 6,
+                            "qInvOutput": 7,
+                            "reset": 8,
+                            "preset": 9,
+                            "en": 10
+                        },
+                        "constructorParamaters": [
+                            "RIGHT",
+                            1
+                        ]
+                    }
+                }
+            ],
+            "Clock": [
+                {
+                    "x": 420,
+                    "y": 390,
+                    "objectType": "Clock",
+                    "label": "",
+                    "direction": "RIGHT",
+                    "labelDirection": "LEFT",
+                    "propagationDelay": 100,
+                    "customData": {
+                        "nodes": {
+                            "output1": 11
+                        },
+                        "constructorParamaters": [
+                            "RIGHT"
+                        ]
+                    }
+                }
+            ],
+            "DigitalLed": [
+                {
+                    "x": 680,
+                    "y": 300,
+                    "objectType": "DigitalLed",
+                    "label": "",
+                    "direction": "UP",
+                    "labelDirection": "DOWN",
+                    "propagationDelay": 100,
+                    "customData": {
+                        "constructorParamaters": [
+                            "Red"
+                        ],
+                        "nodes": {
+                            "inp1": 2
+                        }
+                    }
+                },
+                {
+                    "x": 680,
+                    "y": 370,
+                    "objectType": "DigitalLed",
+                    "label": "",
+                    "direction": "UP",
+                    "labelDirection": "DOWN",
+                    "propagationDelay": 100,
+                    "customData": {
+                        "constructorParamaters": [
+                            "Red"
+                        ],
+                        "nodes": {
+                            "inp1": 3
+                        }
+                    }
+                }
+            ],
+            "nodes": [
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20
+            ]
+        },
+        {
+            "layout": {
+                "width": 100,
+                "height": 40,
+                "title_x": 50,
+                "title_y": 13,
+                "titleEnabled": true
+            },
+            "allNodes": [
+                {
+                    "x": 100,
+                    "y": 20,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": []
+                },
+                {
+                    "x": 0,
+                    "y": 20,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        4
+                    ]
+                },
+                {
+                    "x": -40,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        2
+                    ]
+                },
+                {
+                    "x": -40,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        3
+                    ]
+                },
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        1
+                    ]
+                }
+            ],
+            "id": 80636730907,
+            "name": "Main",
+            "Input": [
+                {
+                    "x": -220,
+                    "y": -60,
+                    "objectType": "Input",
+                    "label": "",
+                    "direction": "RIGHT",
+                    "labelDirection": "LEFT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "output1": 4
+                        },
+                        "values": {
+                            "state": 1
+                        },
+                        "constructorParamaters": [
+                            "RIGHT",
+                            1,
+                            {
+                                "x": 0,
+                                "y": 20,
+                                "id": "eupBceL9E2jeJZd2NhOa"
+                            }
+                        ]
+                    }
+                }
+            ],
+            "DigitalLed": [
+                {
+                    "x": 90,
+                    "y": 30,
+                    "objectType": "DigitalLed",
+                    "label": "",
+                    "direction": "UP",
+                    "labelDirection": "DOWN",
+                    "propagationDelay": 100,
+                    "customData": {
+                        "constructorParamaters": [
+                            "Red"
+                        ],
+                        "nodes": {
+                            "inp1": 2
+                        }
+                    }
+                },
+                {
+                    "x": 90,
+                    "y": 10,
+                    "objectType": "DigitalLed",
+                    "label": "",
+                    "direction": "UP",
+                    "labelDirection": "DOWN",
+                    "propagationDelay": 100,
+                    "customData": {
+                        "constructorParamaters": [
+                            "Red"
+                        ],
+                        "nodes": {
+                            "inp1": 3
+                        }
+                    }
+                }
+            ],
+            "SubCircuit": [
+                {
+                    "x": -100,
+                    "y": -80,
+                    "id": "6144579229",
+                    "inputNodes": [
+                        1
+                    ],
+                    "outputNodes": [
+                        0
+                    ],
+                    "indicatorLeds": [
+                        0,
+                        1
+                    ],
+                    "version": "2.0"
+                }
+            ],
+            "nodes": []
+        }
+    ]
+}
