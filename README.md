@@ -22,7 +22,7 @@ cd CircuitVerse
 
 ## Setup Instructions
 
-Please go through the [Contribution Guidelines](CONTRIBUTING.md) before going forward with any development. This helps us keep the process streamlines and results in better PRs
+Please go through the [Contribution Guidelines](CONTRIBUTING.md) before going forward with any development. This helps us keep the process streamlined and results in better PRs
 
 **Note:** You might want to use the docker instructions if you do not want to setup your own environment.
 
