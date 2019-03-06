@@ -1,5 +1,3 @@
-[Back to README](README.md)
-
 ## Contributing to CircuitVerse
 
 - Thanks for checking out our guide. We'll be glad to hear from you.
@@ -16,7 +14,7 @@ When you are ready to start work on a issue:
 If you don't see your idea listed, do one of the following:
 
 * **If your contribution is minor,** such as a typo fix, open a pull request.
-* **If your contribution is major,** such as a new guide, start by opening an issue first. That way, other people can be also involved in the discussion before you do any work.
+* **If your contribution is major,** such as a new feature/enhancement, start by opening an issue first. That way, other people can be also involved in the discussion before you do any work.
 
 ## Pull Request Process
 
@@ -37,4 +35,4 @@ If you don't see your idea listed, do one of the following:
 
 Discussions about the CircuitVerse take place on the repository's [Issues](https://github.com/CircuitVerse/CircuitVerse/issues) and [Pull Requests](https://github.com/CircuitVerse/CircuitVerse/pulls) sections. Anybody is welcome to join these conversations. There is also a [chat room](https://gitter.im/CircuitVerse/community) for regular updates.
 
-Wherever possible, do not take these conversations to private channels. Keeping communication public means everybody can benefit and learn from the conversation.
+We encourage people to talk on public platforms for the maximum participation and try to avoid private messages/conversations so whenever possible, do not take conversations to private channels. Keeping communication public means everybody can benefit and learn from the conversation.
