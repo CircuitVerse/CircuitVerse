@@ -45,7 +45,7 @@ gem 'carrierwave', '~> 1.0'
 
 gem 'rails_admin', '~> 1.2'
 
-gem 'cancancan', '~>2.0'
+# gem 'cancancan', '~>2.0'
 
 gem 'sidekiq'
 
