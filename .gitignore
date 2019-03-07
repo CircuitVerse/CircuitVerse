@@ -7,7 +7,11 @@
 # Ignore bundler config.
 /.bundle
 /.idea
-
+#my ignore specific to my environment
+/public/js/*.json
+/docker-compose.yml
+/Dockerfile
+#end ofmy ignore specific to my environment
 public/assets/
 
 /config/database.yml
