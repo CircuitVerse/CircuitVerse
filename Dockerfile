@@ -1,10 +1,4 @@
 FROM ruby:2.5.1
-#for proxy
-ENV http_proxy http://172.16.2.30:8080
-ENV https_proxy http://172.16.2.30:8080
-
-RUN export HTTP_PROXY=http://172.16.2.30:8080
-RUN export HTTPS_PROXY=http://172.16.2.30:8080
 # set up workdir
 RUN mkdir /circuitverse
 WORKDIR /circuitverse
