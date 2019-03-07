@@ -582,9 +582,9 @@ function SixteenSegDisplay(x, y, scope = globalScope) {
     this.directionFixed = true;
     this.setDimensions(30, 50);
 
-      this.input1 = new Node( 0, -50, 0, this, bitwidth=16);
-      this.direction ="RIGHT";
-      this.dot = new Node( 0, 50, 0, this, bitwidth=1);
+    this.input1 = new Node( 0, -50, 0, this, bitwidth=16);
+    this.dot = new Node( 0, 50, 0, this, bitwidth=1);
+    this.direction ="RIGHT";
 }
 
 SixteenSegDisplay.prototype = Object.create(CircuitElement.prototype);
@@ -592,7 +592,6 @@ SixteenSegDisplay.prototype.constructor = SixteenSegDisplay;
 SixteenSegDisplay.prototype.tooltipText = "Sixteen Display ToolTip: Consists of 16+1 bit inputs.";
 SixteenSegDisplay.prototype.customSave = function() {
     var data = {
-
         nodes: {
             input1: findNode(this.input1),
             dot: findNode(this.dot)    
@@ -634,48 +633,28 @@ SixteenSegDisplay.prototype.customDraw = function() {
 
     var xx = this.x;
     var yy = this.y;
-    if(this.input1.value == undefined){
-		var a1=a2=b=c=d1=d2=e=f=g1=g2=h=i=j=k=l=m=dot=0;
-	}else{
-		var binNum = dec2bin(this.input1.value, 16);
-		var arr = (binNum).toString(10).split("").map(Number);
-		
-			a1 = arr[0];
-			a2 = arr[1];
-			b = arr[2];
-			c = arr[3];
-			d1 = arr[4];
-			d2 = arr[5];
-			e = arr[6];
-		    f = arr[7];
-			g1 = arr[8];
-			g2 = arr[9];
-			h = arr[10];
-			i = arr[11];
-			j = arr[12];
-			k = arr[13];
-			l = arr[14];
-			m = arr[15];
-	}
 
-    this.customDrawSegment(-20, -38, 0, -38, ["lightgrey", "red"][a1]);
-    this.customDrawSegment(20, -38, 0, -38, ["lightgrey", "red"][a2]);
-    this.customDrawSegment(-20, 0, 0, 0, ["lightgrey", "red"][g1]);
-    this.customDrawSegment(20, 0, 0, 0, ["lightgrey", "red"][g2]);
-    this.customDrawSegment(-20, 38, 0, 38, ["lightgrey", "red"][d1]);
-    this.customDrawSegment(20, 38, 0, 38, ["lightgrey", "red"][d2]);
-    this.customDrawSegment(-21.5, -36, -21.5, -2, ["lightgrey", "red"][f]);
-    this.customDrawSegment(0, -2, 0, -36, ["lightgrey", "red"][i]);
-    this.customDrawSegment(21.5, -2, 21.5, -36, ["lightgrey", "red"][b]);
-    this.customDrawSegment(-21.5, 2, -21.5, 36, ["lightgrey", "red"][e]);
-    this.customDrawSegment(0, 2, 0, 36, ["lightgrey", "red"][l]);
-    this.customDrawSegment(21.5, 2, 21.5, 36, ["lightgrey", "red"][c]);
-    this.customDrawSegmentSlant(0, 0, -21, -37, ["lightgrey", "red"][h]);
-    this.customDrawSegmentSlant(0, 0, 21, -37, ["lightgrey", "red"][j]);
-    this.customDrawSegmentSlant(0, 0, -21, 37, ["lightgrey", "red"][m]);
-    this.customDrawSegmentSlant(0, 0, 21, 37, ["lightgrey", "red"][k]);
+	var color = ["lightgrey", "red"];
+	var value = this.input1.value;
 
- 	ctx.beginPath();
+    this.customDrawSegment(-20, -38, 0, -38, ["lightgrey", "red"][(value >> 15) & 1]);		//a1
+    this.customDrawSegment(20, -38, 0, -38, ["lightgrey", "red"][(value >> 14) & 1]);		//a2
+    this.customDrawSegment(21.5, -2, 21.5, -36, ["lightgrey", "red"][(value >> 13) & 1]);	//b
+    this.customDrawSegment(21.5, 2, 21.5, 36, ["lightgrey", "red"][(value >> 12) & 1]);		//c
+    this.customDrawSegment(-20, 38, 0, 38, ["lightgrey", "red"][(value >> 11) & 1]);		//d1
+    this.customDrawSegment(20, 38, 0, 38, ["lightgrey", "red"][(value >> 10) & 1]);			//d2
+    this.customDrawSegment(-21.5, 2, -21.5, 36, ["lightgrey", "red"][(value >> 9) & 1]);	//e
+    this.customDrawSegment(-21.5, -36, -21.5, -2, ["lightgrey", "red"][(value >> 8) & 1]);	//f
+    this.customDrawSegment(-20, 0, 0, 0, ["lightgrey", "red"][(value >> 7) & 1]);			//g1
+    this.customDrawSegment(20, 0, 0, 0, ["lightgrey", "red"][(value >> 6) & 1]);			//g2
+    this.customDrawSegmentSlant(0, 0, -21, -37, ["lightgrey", "red"][(value >> 5) & 1]);	//h
+    this.customDrawSegment(0, -2, 0, -36, ["lightgrey", "red"][(value >> 4) & 1]);			//i
+    this.customDrawSegmentSlant(0, 0, 21, -37, ["lightgrey", "red"][(value >> 3) & 1]);		//j
+    this.customDrawSegmentSlant(0, 0, 21, 37, ["lightgrey", "red"][(value >> 2) & 1]);		//k
+    this.customDrawSegment(0, 2, 0, 36, ["lightgrey", "red"][(value >> 1) & 1]);			//l
+    this.customDrawSegmentSlant(0, 0, -21, 37, ["lightgrey", "red"][(value >> 0) & 1]);		//m
+
+    ctx.beginPath();
     var dotColor = ["lightgrey", "red"][this.dot.value] || "lightgrey"
     ctx.strokeStyle = dotColor;
     rect(ctx, xx + 22, yy + 42, 2, 2);
@@ -690,9 +669,8 @@ function HexDisplay(x, y, scope = globalScope) {
 
     this.inp = new Node(0, -50, 0, this, 4);
     this.direction = "RIGHT";
-
-
 }
+
 HexDisplay.prototype = Object.create(CircuitElement.prototype);
 HexDisplay.prototype.constructor = HexDisplay;
 HexDisplay.prototype.customSave = function() {
