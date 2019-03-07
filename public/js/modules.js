@@ -2220,7 +2220,7 @@ DigitalLed.prototype = Object.create(CircuitElement.prototype);
 DigitalLed.prototype.constructor = DigitalLed;
 DigitalLed.prototype.customSave = function () {
     var data = {
-        constructorParamaters: [this.color],
+        constructorParamaters: [this.color, this.layoutProperties],
         nodes: {
             inp1: findNode(this.inp1)
         },
