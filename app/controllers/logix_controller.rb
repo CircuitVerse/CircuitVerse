@@ -16,7 +16,7 @@ class LogixController < ApplicationController
   end
 
   def search
-    @projects = Project.includes(:author).search(params[:q]).where(project_access_type:"Public",forked_project_id:nil).select("id,author_id,image_preview,name,description,view").paginate(:page => params[:page], :per_page => 2)
+    @projects = projects_scope
     render "search"
   end
 
@@ -42,6 +42,13 @@ class LogixController < ApplicationController
   end
 
   def contribute
+  end
+
+  private
+
+  def projects_scope
+    public_and_not_forked_projects = ProjectsQuery.new.public_and_not_forked
+    ProjectsQuery.new(public_and_not_forked_projects).search_name_description(params[:q]).paginate(page: params[:page],per_page: 5)
   end
 
 end
