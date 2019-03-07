@@ -25,7 +25,8 @@ class ProjectsQuery
   end
 
   def simple_search_name_description(query)
-    relation.includes(:author).where("name LIKE :query OR description LIKE :query", query: "%#{query}%").
+    relation.includes(:author)
+      .where("name LIKE :query OR description LIKE :query", query: "%#{query}%").
       select("id,author_id,image_preview,name,description,view")
   end
 
