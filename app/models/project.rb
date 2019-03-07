@@ -1,4 +1,5 @@
 class Project < ApplicationRecord
+  require "pg_search"
   belongs_to :author, class_name: 'User'
   has_many :forks , class_name: 'Project', foreign_key: 'forked_project_id', dependent: :nullify
   belongs_to :forked_project , class_name: 'Project' , optional: true
