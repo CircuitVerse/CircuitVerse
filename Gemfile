@@ -52,7 +52,6 @@ gem 'sidekiq'
 # For home page pagination
 gem 'will_paginate', '~> 3.1.1'
 gem 'will_paginate-bootstrap'
-gem 'pg_search'
 
 gem 'country_select', '~> 4.0'
 gem 'bootstrap-typeahead-rails'
@@ -73,6 +72,7 @@ group :mysql, optional: true do
 end
 group :postgresql, optional: true do
   gem "pg", "~> 1.1.4"
+  gem 'pg_search'
 end
 
 group :development, :test do
@@ -101,7 +101,6 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'rails-erd'
-  gem 'pg', '~> 1.0.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
