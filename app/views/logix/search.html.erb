@@ -1,4 +1,10 @@
 <link href="/css/search.css" rel="stylesheet">
+<% if @projects.length === 0 %>
+  <div class="jumbotron text-center">
+    <h2>No Results Found</h2>
+  </div>
+<% end %>
+<div class=""></div>
 <div class="container">
   <% @projects.each do |project| %>
     <div class="row feature m-4">
@@ -11,10 +17,10 @@
               <a class="btn btn-dark btn-md" target="_blank" href="<%= user_project_path(project.author, project) %>" role="button">View</a>
             </div>
           </div>
-          <div class="col-8 d-flex justify-content-end" >
+          <div class="col-8 d-flex justify-content-end">
             <div class="row">
               <div class="col-sm-auto p-1">
-                <%= image_tag project.author.profile_picture.url(:medium) , :style => "height:60px;width:60px;", :class => ' img-responsive thumbnail rounded-circle'%>
+                <%= image_tag project.author.profile_picture.url(:medium), :style => "height:60px;width:60px;", :class => ' img-responsive thumbnail rounded-circle' %>
               </div>
               <div class="col p-3">
                 <small class="text-muted"><%= link_to project.author.name, project.author %></small>
@@ -31,5 +37,5 @@
       </div>
     </div>
   <% end %>
-  <%= will_paginate( @projects, renderer: SearchPaginateRenderer )%>
+  <%= will_paginate(@projects, renderer: SearchPaginateRenderer) %>
 </div>
