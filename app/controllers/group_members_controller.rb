@@ -2,6 +2,7 @@ class GroupMembersController < ApplicationController
   before_action :set_group_member, only: [:show, :edit, :update, :destroy]
   before_action :check_access, only: [:edit,:update,:destroy]
   before_action :authenticate_user!
+
   # GET /group_members
   # GET /group_members.json
   # def index
@@ -25,15 +26,18 @@ class GroupMembersController < ApplicationController
   # POST /group_members
   # POST /group_members.json
   def create
-
     if(Group.find(group_member_params[:group_id]).mentor_id!=current_user.id)
       render plain: "Access Restricted " and return
     end
 
     @group = Group.find(group_member_params[:group_id])
-    group_member_emails = group_member_params[:emails].split(/[\s,\,]/).compact.reject(&:empty?)
 
-    group_member_emails.each do |email|
+    group_member_emails = Utils.parse_mails(group_member_params[:emails])
+
+    present_members = User.where(id: @group.group_members.pluck(:user_id)).pluck(:email)
+    newly_added = group_member_emails - present_members
+
+    newly_added.each do |email|
       email = email.strip
       user = User.find_by(email: email)
       if user.nil?
@@ -49,8 +53,11 @@ class GroupMembersController < ApplicationController
 
     end
 
+    notice = Utils.mail_notice(group_member_params[:emails], group_member_emails, newly_added)
+
     respond_to do |format|
-      format.html { redirect_to group_path(@group), notice: 'Group members have been added or notified'}
+      format.html { redirect_to group_path(@group), notice: Utils.mail_notice(group_member_params[:emails], group_member_emails, newly_added)
+}
     end
     # redirect_to group_path(@group)
     # @group_member = GroupMember.new(group_member_params)

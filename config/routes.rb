@@ -44,6 +44,7 @@ Rails.application.routes.draw do
     get '/:id/favourites', to: 'users/logix#favourites', as: 'user_favourites'
     get '/:id/projects/:id/WYSIWYG/index.css', to: redirect('/index.css')
     get '/:id/projects/:id/WYSIWYG/bootstrap-wysiwyg.js', to: redirect('/bootstrap-wysiwyg.js')
+    get '/educational_institute/typeahead/:query' => 'users/logix#typeahead_educational_institute'
   end
 
 
