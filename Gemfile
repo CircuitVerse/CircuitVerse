@@ -54,6 +54,7 @@ gem 'sidekiq'
 # For home page pagination
 gem 'will_paginate', '~> 3.1.1'
 gem 'will_paginate-bootstrap'
+gem 'pg_search'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
@@ -81,6 +82,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'rails-erd'
+  gem 'pg', '~> 1.0.0'
 end
 
 group :production do
