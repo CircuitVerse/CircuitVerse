@@ -11,7 +11,10 @@ class ProjectsController < ApplicationController
   def index
     @author = User.find(params[:user_id])
   end
-
+  
+  def get_projects
+    params[:tag] ? @projects = Project.tagged_with(params[:tag]) : @projects = Project.all
+  end  
   # GET /projects/1
   # GET /projects/1.json
   def show
@@ -131,7 +134,7 @@ class ProjectsController < ApplicationController
     end
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:name, :project_access_type, :description)
+      params.require(:project).permit(:name, :project_access_type, :description,:tag_list, :tags)
     end
 
 end
