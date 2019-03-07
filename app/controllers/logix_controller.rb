@@ -16,7 +16,7 @@ class LogixController < ApplicationController
   end
 
   def search
-    @projects = Project.search(params[:q]).where(project_access_type:"Public",forked_project_id:nil).select("id,author_id,image_preview,name,description,view").paginate(:page => params[:page], :per_page => 2)
+    @projects = Project.includes(:author).search(params[:q]).where(project_access_type:"Public",forked_project_id:nil).select("id,author_id,image_preview,name,description,view").paginate(:page => params[:page], :per_page => 2)
     render "search"
   end
 
