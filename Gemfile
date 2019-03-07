@@ -14,8 +14,6 @@ gem 'omniauth-facebook'
 gem 'omniauth-microsoft-office365'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.4'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 # Use SCSS for stylesheets
@@ -66,19 +64,32 @@ gem 'bootstrap-typeahead-rails'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+
+# Database
+
+group :mysql, optional: true do
+  gem "mysql2", "~> 0.5.2"
+end
+group :postgresql, optional: true do
+  gem "pg", "~> 1.1.4"
+end
+
 group :development, :test do
-  gem 'mysql2' , '>= 0.3.18' , '<0.5'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '~> 2.13'
-  gem 'selenium-webdriver'
   gem 'pry-rails'
-  gem 'rspec-rails', '~> 3.8'
-  gem 'shoulda-matchers'
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'coveralls'
+end
+
+group :test do
+  gem 'rspec-rails', '~> 3.8'
+  gem "rspec_junit_formatter"
+  gem 'selenium-webdriver'
+  gem 'capybara', '~> 2.13'
+  gem 'shoulda-matchers'
 end
 
 group :development do
@@ -89,10 +100,6 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'rails-erd'
-end
-
-group :production do
-    gem 'pg', '~> 1.0.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
