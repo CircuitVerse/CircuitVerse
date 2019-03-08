@@ -6,6 +6,8 @@ services:
     environment:
       MYSQL_DATABASE: circuitverse_development
       MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3307:3306"
   web:
     build: .
     entrypoint: /circuitverse/bin/docker_run
