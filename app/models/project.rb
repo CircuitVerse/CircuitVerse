@@ -12,8 +12,8 @@ class Project < ApplicationRecord
 
   mount_uploader :image_preview, ImagePreviewUploader
 
-  include PgSearch
-  pg_search_scope :text_search, against: [:name,:description]
+  include PgSearch if ActiveRecord::Base.connection_config[:adapter] === "postgresql"
+  pg_search_scope :text_search, against: [:name,:description] if ActiveRecord::Base.connection_config[:adapter] === "postgresql"
 
   self.per_page = 8
 

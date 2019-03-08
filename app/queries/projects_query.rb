@@ -6,7 +6,7 @@ class ProjectsQuery
   end
 
   def search_name_description(query)
-    if ActiveRecord::Base.connection_config["adapter"] === "postgresql"
+    if ActiveRecord::Base.connection_config[:adapter] === "postgresql"
       full_text_search_name_description(query)
     else
       simple_search_name_description(query)
