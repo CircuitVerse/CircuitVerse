@@ -1,5 +1,4 @@
 FROM ruby:2.5.1
-
 # set up workdir
 RUN mkdir /circuitverse
 WORKDIR /circuitverse
