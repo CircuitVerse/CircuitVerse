@@ -10,8 +10,7 @@ services:
     build: .
     entrypoint: /circuitverse/bin/docker_run
     volumes:
-      - ./app:/circuitverse/app
-      - ./public:/circuitverse/public
+      - .:/circuitverse
     ports:
       - "3000:3000"
     depends_on:
@@ -21,6 +20,6 @@ services:
       REDIS_URL: "redis://redis:6379/0"
   redis:
     image: redis
-volumes:
-  app:
-  public:
+# volumes:
+  # app:
+  # public:
