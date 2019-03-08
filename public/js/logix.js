@@ -39,14 +39,14 @@ forceResetNodes = true; // FLag to reset all Nodes
 circuitElementList = [
     "Input", "Output", "NotGate", "OrGate", "AndGate", "NorGate", "NandGate", "XorGate", "XnorGate", "SevenSegDisplay", "HexDisplay",
     "Multiplexer", "BitSelector", "Splitter", "Power", "Ground", "ConstantVal", "ControlledInverter", "TriState", "Adder", "Rom", "RAM", "TflipFlop",
-    "JKflipFlop", "SRflipFlop", "DflipFlop", "TTY", "Keyboard", "Clock", "Stepper", "VariableLed", "RGBLed", "SquareRGBLed", "Button", "Demultiplexer",
+    "JKflipFlop", "SRflipFlop", "DflipFlop", "TTY", "Keyboard", "Clock", "DigitalLed" ,"Stepper", "VariableLed", "RGBLed", "SquareRGBLed", "Button", "Demultiplexer",
     "Buffer", "SubCircuit", "Flag", "MSB", "LSB", "PriorityEncoder", "Tunnel", "ALU", "Decoder", "Random", "Dlatch", "TB_Input", "TB_Output", "ForceGate"
 ];
 
 annotationList = ["Text", "Rectangle", "Arrow"]
 moduleList = [...circuitElementList, ...annotationList]
 
-updateOrder = ["wires", ...circuitElementList, "nodes","DigitalLed" ,...annotationList]; // Order of update
+updateOrder = ["wires", ...circuitElementList, "nodes",...annotationList]; // Order of update
 renderOrder = [...(moduleList.slice().reverse()), "wires", "allNodes"]; // Order of render
 
 //Exact same name as object constructor
