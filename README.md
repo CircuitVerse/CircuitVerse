@@ -96,6 +96,15 @@ bundle exec sidekiq -e production -q default -q mailers -d -L tmp/sidekiq.log` (
 
 This repository contains the [Code of Conduct](./code-of-conduct.md) of [CircuitVerse](https://circuitverse.org) Community.
 
+## CircuitVerse Community
+
+We would love to hear from you :smile:
+Here are links to our:
+
+[Gitter Channel](https://gitter.im/CircuitVerse/community)
+
+[Discord Channel](https://discord.gg/95x8H7b)
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) for details.
