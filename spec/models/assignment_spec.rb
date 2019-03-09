@@ -35,7 +35,7 @@ RSpec.describe Assignment, type: :model do
       }.to have_enqueued_job.on_queue('mailers')
     end
 
-    it "sends assignemtn update mail" do
+    it "sends assignment update mail" do
       expect {
         @assignment.send_update_mail
       }.to have_enqueued_job.on_queue('mailers')
