@@ -103,7 +103,7 @@ Here are links to our:
 
 [Gitter Channel](https://gitter.im/CircuitVerse/community)
 
-[Discord Channel](https://discord.gg/95x8H7b)
+[Discord Channel](https://discord.gg/95x8H7b) - This is an unofficial fan communication channel. Thanks to [@jaybox](https://github.com/jbox144) for this initiative.
 
 ## License
 
