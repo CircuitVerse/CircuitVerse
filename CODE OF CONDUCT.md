@@ -6,6 +6,13 @@ We are committed to making participation in this project a harassment-free exper
 
 Diversity and inclusion make the CircuitVerse community strong. We encourage participation from the most varied and diverse backgrounds possible and want to be very clear about where we stand.
 
+## Ground rules & expectations
+
+Before we get started, here are a few things we expect from you (and that you should expect from others):
+
+* Be kind and thoughtful in your conversations around this project. We all come from different backgrounds and projects, which means we likely have different perspectives on "how open source is done." Try to listen to others rather than convince them that your way is correct.
+* When adding content, please consider if it is widely valuable. Please don't add references or links to things you have created as others will do so if they appreciate it.
+
 ## Expected Behaviour
 
 - Be professional.
