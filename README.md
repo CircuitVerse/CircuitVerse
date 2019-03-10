@@ -103,9 +103,9 @@ This repository contains the [Code of Conduct](./code-of-conduct.md) of [Circuit
 We would love to hear from you :smile:
 Here are links to our:
 
-[Gitter Channel](https://gitter.im/CircuitVerse/community)
+[![Gitter](https://badges.gitter.im/CircuitVerse/community.svg)](https://gitter.im/CircuitVerse/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-[Discord Channel](https://discord.gg/95x8H7b) - This is an unofficial fan communication channel. Thanks to [@jaybox](https://github.com/jbox144) for this initiative.
+[![Discord](https://img.shields.io/badge/chat-on%20disord-green.svg?logo=discord)](https://discord.gg/95x8H7b) - This is an unofficial fan communication channel. Thanks to [@jbox1](https://github.com/jbox144) for this initiative.
 
 ## License
 
