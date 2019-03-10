@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="50" height="50" version="1.1">
+    <rect width="40" height="40" x="5" y="5" fill="white" stroke="black" stroke-width="3"/>
+    <text x="25" y="30" fill="green" font-family="Georgia" font-size="20px" text-anchor="middle">
+        0
+    </text>
+    <path fill="black" stroke="black" stroke-width="3" d=" M 5 30 L 10 35 L 5 40"/>
+    <g fill="green">
+        <circle cx="5" cy="15" r="3"/>
+        <circle cx="5" cy="35" r="3"/>
+        <circle cx="25" cy="45" r="3"/>
+        <circle cx="45" cy="15" r="3"/>
+        <circle cx="45" cy="35" r="3"/>
+    </g>
+</svg>

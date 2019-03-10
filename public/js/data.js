@@ -315,7 +315,7 @@ function generateDependencyOrder() {
 
 function deleteCurrentCircuit() {
     if (Object.keys(scopeList).length <= 1) {
-        showMessage("Atleast 2 circuits need to be there in order to delete a circuit.")
+        showError("Atleast 2 circuits need to be there in order to delete a circuit.")
         return;
     }
     var dependencies = "";
