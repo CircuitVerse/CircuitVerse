@@ -8,9 +8,10 @@ default: &default
   adapter: mysql2
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
   username: root
   password: root
-  socket: /tmp/mysql.sock
+  host: <%= ENV['DB_HOST'] || '127.0.0.1' %>
 
 development:
   <<: *default
