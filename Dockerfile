@@ -1,5 +1,4 @@
 FROM ruby:2.5.1
-#proxy for institute
 
 # set up workdir
 RUN mkdir /circuitverse
