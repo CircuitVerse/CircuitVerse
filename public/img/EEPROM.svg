@@ -3,7 +3,7 @@
     <rect width="60" height="40" x="5" y="15" fill="white" stroke="black"/>
     <g fill="black" font-family="Georgia" font-size="6px" text-anchor="middle">
         <text x="35" y="37">
-            RAM
+            EPROM
         </text>
         <text x="11" y="27">
             A
