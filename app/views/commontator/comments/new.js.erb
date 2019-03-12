@@ -1,4 +1,4 @@
-$("#thread_<%= @thread.id %>_new_comment_form_div").html("<%= escape_javascript(
+$("#thread_<%= @thread.id %>_new_comment_form_div").html("<%= j(
   render partial: 'form',
          locals: { comment: @comment,
                       thread: @thread,

@@ -8,7 +8,7 @@
 %>
 
 $("#thread_<%= thread.id %>_div").html(
-  "<%= escape_javascript(
+  "<%= j(
     render partial: 'commontator/threads/show',
            formats: [:html],
            locals: { thread: thread,
