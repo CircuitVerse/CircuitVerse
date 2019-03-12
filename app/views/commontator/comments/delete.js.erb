@@ -1,0 +1,17 @@
+$("#comment_<%= @comment.id.to_s %>_body_div").html("<%= escape_javascript(
+  render partial: 'body', locals: { comment: @comment }) %>");
+
+$("#comment_<%= @comment.id.to_s %>_updated_timestamp_span").html("<%= escape_javascript(
+  @comment.updated_timestamp) %>");
+                                                           
+$("#comment_<%= @comment.id.to_s %>_actions_span").html("<%= escape_javascript(
+  render partial: 'actions',
+         locals: { comment: @comment,
+                      user: @user }) %>");
+         
+$("#comment_<%= @comment.id %>_votes_span").html("<%= escape_javascript(
+  render partial: 'votes',
+         locals: { comment: @comment,
+                      user: @user }) %>");
+
+<%= javascript_proc %>

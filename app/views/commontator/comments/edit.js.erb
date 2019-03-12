@@ -1,0 +1,5 @@
+$("#comment_<%= @comment.id.to_s %>_body_div").html("<%= escape_javascript(
+  render partial: 'form',
+         locals: { comment: @comment }) %>");
+         
+<%= javascript_proc %>

@@ -1,0 +1,15 @@
+<% # Clients of this partial must supply the following variables:
+   # thread
+   # user
+%>
+
+<% is_subscribed = !!thread.subscription_for(user) %>
+<% sub_string = is_subscribed ? "unsubscribe" : "subscribe" %>
+<%= link_to t("commontator.subscription.actions.#{sub_string}"),
+            commontator.polymorphic_path([sub_string, thread]),
+            confirm: (is_subscribed ? t('commontator.subscription.actions.confirm_unsubscribe') : \
+                          nil),
+            method: :put,
+            id: "thread_#{thread.id.to_s}_#{sub_string}_link",
+            class: "thread_#{sub_string}_link",
+            remote: true %>
