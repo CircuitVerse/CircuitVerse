@@ -15,7 +15,7 @@
  *= require bootstrap-typeahead-rails
 */
  .alert {
-   width:60%;
+   width:100%;
  }
  .foot {
   position:absolute;

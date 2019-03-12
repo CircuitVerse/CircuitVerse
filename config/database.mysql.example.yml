@@ -24,7 +24,6 @@ test:
   database: circuitverse_test
 
 production:
-  adapter: postgresql
   username: <%= ENV['DB_USERNAME']%>
   password: <%= ENV['DB_PASSWORD']%>
   host: localhost
