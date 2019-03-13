@@ -578,12 +578,12 @@ SevenSegDisplay.prototype.customDraw = function() {
 
 function SixteenSegDisplay(x, y, scope = globalScope) {
     CircuitElement.call(this, x, y, scope, "RIGHT", 16);
-
+    this.fixedBitWidth = true;
     this.directionFixed = true;
     this.setDimensions(30, 50);
 
-    this.input1 = new Node( 0, -50, 0, this, bitwidth=16);
-    this.dot = new Node( 0, 50, 0, this, bitwidth=1);
+    this.input1 = new Node( 0, -50, 0, this, 16);
+    this.dot = new Node( 0, 50, 0, this, 1);
     this.direction ="RIGHT";
 }
 
