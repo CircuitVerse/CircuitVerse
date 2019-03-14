@@ -1,6 +1,5 @@
 
 <div class="container">
-
   <div class="row feature">
     <div class="col-xs-10 col-lg-6 col-md-8 col-s-10 col-centered">
       <h2>Log in</h2>
@@ -18,35 +17,22 @@
             <%= f.password_field :password, autocomplete: "off" ,class:"form-control", placeholder: 'Password'%>
           </div>
 
+          <% if devise_mapping.rememberable? -%>
+              <div class="field checkbox">
+                <%= f.check_box :remember_me %>
+                <%= f.label :remember_me %>
+              </div>
+          <% end -%>
 
-        <div class="field form-group col-lg-6 col-sm-12">
-          <%= f.label :password %><br />
-          <%= f.password_field :password, autocomplete: "off" ,class:"form-control"%>
-        </div>
-
-        <% if devise_mapping.rememberable? -%>
-          <div class="field checkbox col-lg-6 col-sm-12 ">
-            <%= f.check_box :remember_me %>
-            <%= f.label :remember_me %>
-
+          <div class="actions">
+            <%= f.submit "Log in" ,class:"btn btn-primary"%>
           </div>
-        <% end -%>
-
-        <div class="actions col-lg-6 col-sm-12">
-
-          <%= f.submit "Log in" ,class:"btn btn-primary"%>
-
       <% end %>
-      </div>
-      <div class="col-lg-6 col-sm-12">
-        <%= render "users/shared/links" %>
-      </div>
 
-
-
+      <%= render "users/shared/links" %>
+    </div>
 
   </div>
-
   <br />
 
   <br />
@@ -54,4 +40,3 @@
 
 
 </div>
-
