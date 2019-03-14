@@ -1,28 +1,49 @@
 class Users::LogixController < ApplicationController
-  before_action :authenticate_user! ,only: [:edit, :update, :groups]
+  before_action :authenticate_user!, only: [:edit, :update, :groups]
+  before_action :set_user, except: [:typeahead_educational_institute]
+
   def index
-    @user = User.find(params[:id])
     @edit_access = (user_signed_in? and current_user.id == @user.id)
   end
+
   def favourites
-    @user = User.find(params[:id])
     @projects = @user.rated_projects
   end
+
   def profile
-    @profile = User.find(params[:id])
+    @profile = @user
   end
+
   def edit
-    @profile = current_user
+
   end
+
+  def typeahead_educational_institute
+    query = params[:query]
+    educational_institute_list = User.where("educational_institute LIKE ?", "%#{query}%").distinct
+                                     .pluck(:educational_institute)
+    list_to_obj_array = educational_institute_list.map{|item| {name:item}}
+    render json: list_to_obj_array
+  end
+
   def update
-    @profile = current_user
-    @profile.name = params["profile"]["name"]
-    if params["profile"]["profile_picture"]!=nil
-      @profile.profile_picture = params["profile"]["profile_picture"]
+    if @profile.update(profile_params)
+      redirect_to profile_path(current_user)
+    else
+      render :edit
     end
-    @profile.save
-    redirect_to profile_path(current_user)
   end
+
   def groups
+
+  end
+
+  def profile_params
+    params.require(:user).permit(:name, :profile_picture, :country, :educational_institute)
+  end
+
+  def set_user
+    @profile = current_user
+    @user = User.find(params[:id])
   end
 end

@@ -1782,14 +1782,17 @@ Input.prototype.resolve = function() {
 // Check if override is necessary!!
 Input.prototype.newBitWidth = function(bitWidth) {
     if (bitWidth < 1) return;
+    var diffBitWidth = bitWidth - this.bitWidth;
     this.bitWidth = bitWidth; //||parseInt(prompt("Enter bitWidth"),10);
     this.setWidth(this.bitWidth * 10);
     this.state = 0;
     this.output1.bitWidth = bitWidth;
     if (this.direction == "RIGHT") {
+        this.x -= 10 * diffBitWidth;
         this.output1.x = 10 * this.bitWidth;
         this.output1.leftx = 10 * this.bitWidth;
     } else if (this.direction == "LEFT") {
+        this.x += 10 * diffBitWidth;
         this.output1.x = -10 * this.bitWidth;
         this.output1.leftx = 10 * this.bitWidth;
     }
@@ -1878,15 +1881,18 @@ Output.prototype.customSave = function() {
 }
 Output.prototype.newBitWidth = function(bitWidth) {
     if (bitWidth < 1) return;
+    var diffBitWidth = bitWidth - this.bitWidth;
     this.state = undefined;
     this.inp1.bitWidth = bitWidth;
     this.bitWidth = bitWidth;
     this.setWidth(10 * this.bitWidth);
 
     if (this.direction == "RIGHT") {
+        this.x -= 10 * diffBitWidth;
         this.inp1.x = 10 * this.bitWidth;
         this.inp1.leftx = 10 * this.bitWidth;
     } else if (this.direction == "LEFT") {
+        this.x += 10 * diffBitWidth;
         this.inp1.x = -10 * this.bitWidth;
         this.inp1.leftx = 10 * this.bitWidth;
     }

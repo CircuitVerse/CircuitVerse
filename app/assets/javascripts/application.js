@@ -15,3 +15,4 @@
 //= require jquery
 //= require jquery_ujs
 //= require commontator/application
+//= require bootstrap-typeahead-rails
