@@ -7,7 +7,7 @@ end
 
 gem "paperclip", ">= 5.2.0"
 gem 'hirb'
-
+gem 'acts_as_votable','~> 0.12.0'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-facebook'

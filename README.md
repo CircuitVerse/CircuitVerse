@@ -31,6 +31,7 @@ Please go through the [Contribution Guidelines](CONTRIBUTING.md) before going fo
 * Install Dependencies: `bundle install --with mysql` (If you wanto use pg use `bundle install --with pg`)
 * Configure your DB in config/database.yml, copy config/database.yml.example
 * Create database: `rails db:create`
+* Create Database for voting: `rails generate acts_as_votable:migration`
 * Run Migrations: `rails db:migrate`
 * At this point, local development can be started with ```rails s -b 127.0.0.1 -p 8080```
 
