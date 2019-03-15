@@ -33,6 +33,6 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def author_access?
-    project.author_id == user.id
+    project.author_id == (user.present? && user.id)
   end
 end
