@@ -576,6 +576,91 @@ SevenSegDisplay.prototype.customDraw = function() {
     ctx.stroke();
 }
 
+function SixteenSegDisplay(x, y, scope = globalScope) {
+    CircuitElement.call(this, x, y, scope, "RIGHT", 16);
+    this.fixedBitWidth = true;
+    this.directionFixed = true;
+    this.setDimensions(30, 50);
+
+    this.input1 = new Node( 0, -50, 0, this, 16);
+    this.dot = new Node( 0, 50, 0, this, 1);
+    this.direction ="RIGHT";
+}
+
+SixteenSegDisplay.prototype = Object.create(CircuitElement.prototype);
+SixteenSegDisplay.prototype.constructor = SixteenSegDisplay;
+SixteenSegDisplay.prototype.tooltipText = "Sixteen Display ToolTip: Consists of 16+1 bit inputs.";
+SixteenSegDisplay.prototype.customSave = function() {
+    var data = {
+        nodes: {
+            input1: findNode(this.input1),
+            dot: findNode(this.dot)    
+        }
+    }
+    return data;
+}
+
+SixteenSegDisplay.prototype.customDrawSegment = function(x1, y1, x2, y2, color) {
+    if (color == undefined) color = "lightgrey";
+    ctx = simulationArea.context;
+    ctx.beginPath();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = correctWidth(4);
+    xx = this.x;
+    yy = this.y;
+    moveTo(ctx, x1, y1, xx, yy, this.direction);
+    lineTo(ctx, x2, y2, xx, yy, this.direction);
+    ctx.closePath();
+    ctx.stroke();
+}
+
+SixteenSegDisplay.prototype.customDrawSegmentSlant = function(x1, y1, x2, y2, color) {
+    if (color == undefined) color = "lightgrey";
+    ctx = simulationArea.context;
+    ctx.beginPath();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = correctWidth(3);
+    xx = this.x;
+    yy = this.y;
+    moveTo(ctx, x1, y1, xx, yy, this.direction);
+    lineTo(ctx, x2, y2, xx, yy, this.direction);
+    ctx.closePath();
+    ctx.stroke();
+}
+
+SixteenSegDisplay.prototype.customDraw = function() {
+    ctx = simulationArea.context;
+
+    var xx = this.x;
+    var yy = this.y;
+
+	var color = ["lightgrey", "red"];
+	var value = this.input1.value;
+
+    this.customDrawSegment(-20, -38, 0, -38, ["lightgrey", "red"][(value >> 15) & 1]);		//a1
+    this.customDrawSegment(20, -38, 0, -38, ["lightgrey", "red"][(value >> 14) & 1]);		//a2
+    this.customDrawSegment(21.5, -2, 21.5, -36, ["lightgrey", "red"][(value >> 13) & 1]);	//b
+    this.customDrawSegment(21.5, 2, 21.5, 36, ["lightgrey", "red"][(value >> 12) & 1]);		//c
+    this.customDrawSegment(-20, 38, 0, 38, ["lightgrey", "red"][(value >> 11) & 1]);		//d1
+    this.customDrawSegment(20, 38, 0, 38, ["lightgrey", "red"][(value >> 10) & 1]);			//d2
+    this.customDrawSegment(-21.5, 2, -21.5, 36, ["lightgrey", "red"][(value >> 9) & 1]);	//e
+    this.customDrawSegment(-21.5, -36, -21.5, -2, ["lightgrey", "red"][(value >> 8) & 1]);	//f
+    this.customDrawSegment(-20, 0, 0, 0, ["lightgrey", "red"][(value >> 7) & 1]);			//g1
+    this.customDrawSegment(20, 0, 0, 0, ["lightgrey", "red"][(value >> 6) & 1]);			//g2
+    this.customDrawSegmentSlant(0, 0, -21, -37, ["lightgrey", "red"][(value >> 5) & 1]);	//h
+    this.customDrawSegment(0, -2, 0, -36, ["lightgrey", "red"][(value >> 4) & 1]);			//i
+    this.customDrawSegmentSlant(0, 0, 21, -37, ["lightgrey", "red"][(value >> 3) & 1]);		//j
+    this.customDrawSegmentSlant(0, 0, 21, 37, ["lightgrey", "red"][(value >> 2) & 1]);		//k
+    this.customDrawSegment(0, 2, 0, 36, ["lightgrey", "red"][(value >> 1) & 1]);			//l
+    this.customDrawSegmentSlant(0, 0, -21, 37, ["lightgrey", "red"][(value >> 0) & 1]);		//m
+
+    ctx.beginPath();
+    var dotColor = ["lightgrey", "red"][this.dot.value] || "lightgrey"
+    ctx.strokeStyle = dotColor;
+    rect(ctx, xx + 22, yy + 42, 2, 2);
+    ctx.stroke();
+}
+
 function HexDisplay(x, y, scope = globalScope) {
     CircuitElement.call(this, x, y, scope, "RIGHT", 4);
     this.directionFixed = true;
@@ -584,9 +669,8 @@ function HexDisplay(x, y, scope = globalScope) {
 
     this.inp = new Node(0, -50, 0, this, 4);
     this.direction = "RIGHT";
-
-
 }
+
 HexDisplay.prototype = Object.create(CircuitElement.prototype);
 HexDisplay.prototype.constructor = HexDisplay;
 HexDisplay.prototype.customSave = function() {
@@ -595,7 +679,7 @@ HexDisplay.prototype.customSave = function() {
 
         nodes: {
             inp: findNode(this.inp)
-        },
+        }
 
     }
     return data;
