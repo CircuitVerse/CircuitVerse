@@ -16,7 +16,7 @@ class AssignmentsController < ApplicationController
   # GET /assignments/1
   # GET /assignments/1.json
   def show
-
+    authorize @assignment
   end
 
   def start
@@ -133,11 +133,11 @@ class AssignmentsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_assignment
-        @assignment = Assignment.find(params[:id])
+      @assignment = Assignment.find_by_id(params[:id]) || not_found
     end
 
     def set_group
-      @group = Group.find(params[:group_id])
+      @group = Group.find_by_id(params[:group_id]) || not_found
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

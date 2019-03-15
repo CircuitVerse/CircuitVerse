@@ -6,6 +6,10 @@ class AssignmentPolicy < ApplicationPolicy
     @assignment = assignment
   end
 
+  def show?
+    assignment.group.mentor_id == user.id || user.groups.pluck(:id).include?(assignment.group.id)
+  end
+
   def admin_access?
     (assignment.group&.mentor_id == user.id) || user.admin?
   end

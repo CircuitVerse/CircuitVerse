@@ -12,4 +12,8 @@ class ApplicationController < ActionController::Base
   def custom_auth_error(exception)
     render plain: "Not Authorized: #{exception.custom_message}"
   end
+
+  def not_found
+    raise ActionController::RoutingError.new('Not Found')
+  end
 end
