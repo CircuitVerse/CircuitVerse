@@ -19,7 +19,7 @@ describe GroupMemberPolicy do
   end
 
   context "user is group member" do
-    let(:user) { @group_member }
+    let(:user) { @user }
     it { should_not permit(:mentor) }
   end
 end
