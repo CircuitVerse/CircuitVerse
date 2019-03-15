@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   rescue_from ApplicationPolicy::CustomAuthException, with: :custom_auth_error
 
   def auth_error
-    render plain: 'You are not authorized to do the requested operation'
+    render plain: "You are not authorized to do the requested operation"
   end
 
   def custom_auth_error(exception)
@@ -14,6 +14,6 @@ class ApplicationController < ActionController::Base
   end
 
   def not_found
-    raise ActionController::RoutingError.new('Not Found')
+    raise ActionController::RoutingError.new("Not Found")
   end
 end

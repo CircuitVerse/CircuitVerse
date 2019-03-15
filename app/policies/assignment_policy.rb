@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AssignmentPolicy < ApplicationPolicy
   attr_reader :user, :assignment
 
@@ -16,15 +18,16 @@ class AssignmentPolicy < ApplicationPolicy
 
   def start?
     # assignment should not be closed and not submitted
-    assignment.status != 'closed' && Project.find_by(author_id: user.id, assignment_id: assignment.id).nil?
+    assignment.status != "closed" \
+      && Project.find_by(author_id: user.id, assignment_id: assignment.id).nil?
   end
 
   def edit?
-    assignment.status != 'closed'
+    assignment.status != "closed"
   end
 
   def reopen?
-    raise CustomAuthError.new('Project is already open') if assignment.status == 'open'
+    raise CustomAuthError.new("Project is already open") if assignment.status == "open"
     true
   end
 end

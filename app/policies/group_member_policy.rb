@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GroupMemberPolicy < ApplicationPolicy
   attr_reader :user, :group_member
 
