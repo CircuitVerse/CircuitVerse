@@ -1,4 +1,6 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 describe GroupMemberPolicy do
   subject { GroupMemberPolicy.new(user, group_member) }
@@ -11,12 +13,12 @@ describe GroupMemberPolicy do
     @group_member = FactoryBot.create(:group_member, group: group, user: @user)
   end
 
-  context 'user is mentor' do
+  context "user is mentor" do
     let(:user) { @mentor }
     it { should permit(:mentor) }
   end
 
-  context 'user is group member' do
+  context "user is group member" do
     let(:user) { @group_member }
     it { should_not permit(:mentor) }
   end

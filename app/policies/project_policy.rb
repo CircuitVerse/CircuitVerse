@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 class ProjectPolicy < ApplicationPolicy
   attr_reader :user, :project
 
   def initialize(user, project)
     @user = user
     @project = project
-    simulator_error = 'Project has been moved or deleted. If you are the owner'\
-            ' of the project, Please check your project access privileges.'
+    simulator_error = "Project has been moved or deleted. If you are the owner"\
+            " of the project, Please check your project access privileges."
     @simulator_exception = CustomAuthException.new(simulator_error)
   end
 
@@ -24,7 +26,7 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def embed?
-    raise @simulator_exception unless project.project_access_type != 'Private'
+    raise @simulator_exception unless project.project_access_type != "Private"
     true
   end
 
