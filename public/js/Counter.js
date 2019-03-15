@@ -51,7 +51,7 @@ Counter.prototype.isResolvable = function () {
 Counter.prototype.resolve = function () {
     // Max value is either the value in the input pin or the max allowed by the bitWidth.
     var maxValue = this.maxValue.value != undefined ? this.maxValue.value : (1 << this.bitWidth) - 1;
-    var outputValue = this.output.value || 0;
+    var outputValue = this.value;
 
     // Increase value when clock is raised
     if (this.clock.value != this.prevClockState && this.clock.value == 1) {

@@ -244,7 +244,7 @@ Scope.prototype.fixLayout = function() {
     for (var i = 0; i < this.Output.length; i++)
         max_y = Math.max(this.Output[i].layoutProperties.y, max_y)
     if (max_y != this.layout.height)
-        this.layout.height = max_y + 20;
+        this.layout.height = max_y + 10;
 }
 
 // Funciton which centers the circuit to the correct zoom level
