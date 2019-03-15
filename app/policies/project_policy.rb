@@ -12,7 +12,7 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def user_access?
-    project.check_edit_access(user)
+    project.check_edit_access(user) || (user.present? && user.admin?)
   end
 
   def edit_access?
@@ -35,6 +35,6 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def author_access?
-    project.author_id == (user.present? && user.id)
+    (user.present? && user.admin?) || project.author_id == (user.present? && user.id)
   end
 end
