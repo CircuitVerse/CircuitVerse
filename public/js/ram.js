@@ -1,10 +1,10 @@
-/** 
+/**
  * RAM Component.
- * 
+ *
  * Two settings are available:
  * - addressWidth: 1 to 20, default=10. Controls the width of the address input.
  * - bitWidth: 1 to 32, default=8. Controls the width of data pins.
- * 
+ *
  * Amount of memory in the element is 2^addressWidth x bitWidth bits.
  * Minimum RAM size is: 2^1  x  1 = 2 bits.
  * Maximum RAM size is: 2^20 x 32 = 1M x 32 bits => 32 Mbits => 4MB.
@@ -12,18 +12,18 @@
  * Default RAM size is: 2^10 x  8 = 1024 bytes => 1KB.
  *
  * RAMs are volatile therefore this component does not persist the memory contents.
- * 
+ *
  * Changes to addressWidth and bitWidth also cause data to be lost.
- * Think of these operations as being equivalent to taking a piece of RAM out of a 
+ * Think of these operations as being equivalent to taking a piece of RAM out of a
  * circuit board and replacing it with another RAM of different size.
- * 
- * The contents of the RAM can be reset to zero by setting the RESET pin 1 or 
+ *
+ * The contents of the RAM can be reset to zero by setting the RESET pin 1 or
  * or by selecting the component and pressing the "Reset" button in the properties window.
- * 
+ *
  * The contents of the RAM can be dumped to the console by transitioning CORE DUMP pin to 1
  * or by selecting the component and pressing the "Core Dump" button in the properties window.
- * Address spaces that have not been written will show up as `undefined` in the core dump. 
- * 
+ * Address spaces that have not been written will show up as `undefined` in the core dump.
+ *
  * NOTE: The maximum address width of 20 is arbitrary.
  * Larger values are possible, but in practice circuits won't need this much
  * memory and keeping the value small helps avoid allocating too much memory on the browser.
@@ -38,7 +38,7 @@ function RAM(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 8, addressWidt
     this.directionFixed = true;
     this.labelDirection = "UP";
 
-    this.addressWidth = Math.min(Math.max(1, addressWidth), 20);
+    this.addressWidth = Math.min(Math.max(1, addressWidth), this.maxAddressWidth);
     this.address = new Node(-this.leftDimensionX, -20, 0, this, this.addressWidth, "ADDRESS");
     this.dataIn = new Node(-this.leftDimensionX, 0, 0, this, this.bitWidth, "DATA IN");
     this.write = new Node(-this.leftDimensionX, 20, 0, this, 1, "WRITE");
@@ -51,6 +51,8 @@ function RAM(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 8, addressWidt
 }
 RAM.prototype = Object.create(CircuitElement.prototype);
 RAM.prototype.tooltipText = "Random Access Memory";
+RAM.prototype.shortName = "RAM";
+RAM.prototype.maxAddressWidth = 20;
 RAM.prototype.constructor = RAM;
 RAM.prototype.mutableProperties = {
     "addressWidth": {
@@ -96,7 +98,7 @@ RAM.prototype.newBitWidth = function (value) {
 }
 RAM.prototype.changeAddressWidth = function (value) {
     value = parseInt(value);
-    if (!isNaN(value) && this.addressWidth != value && value >= 1 && value <= 20) {
+    if (!isNaN(value) && this.addressWidth != value && value >= 1 && value <= this.maxAddressWidth) {
         this.addressWidth = value;
         this.address.bitWidth = value;
         this.clearData();
@@ -104,7 +106,7 @@ RAM.prototype.changeAddressWidth = function (value) {
 }
 RAM.prototype.clearData = function () {
     this.data = new Array(Math.pow(2, this.addressWidth));
-    this.tooltipText = this.memSizeString() + " Random Access Memory";
+    this.tooltipText = this.memSizeString() + " " + this.shortName;
 }
 RAM.prototype.isResolvable = function () {
     return this.address.value !== undefined || this.reset.value !== undefined || this.coreDump.value !== undefined;
@@ -142,12 +144,12 @@ RAM.prototype.customDraw = function () {
     ctx.beginPath();
     ctx.textAlign = "center";
     ctx.fillStyle = "black";
-    fillText2(ctx, this.memSizeString(), 0, -10, xx, yy, this.direction);
-    fillText2(ctx, "RAM", 0, 10, xx, yy, this.direction);
+    fillText4(ctx, this.memSizeString(), 0, -10, xx, yy, this.direction, 12);
+    fillText4(ctx, this.shortName, 0, 10, xx, yy, this.direction, 12);
     fillText2(ctx, "A", this.address.x + 12, this.address.y, xx, yy, this.direction);
     fillText2(ctx, "DI", this.dataIn.x + 12, this.dataIn.y, xx, yy, this.direction);
     fillText2(ctx, "W", this.write.x + 12, this.write.y, xx, yy, this.direction);
-    fillText2(ctx, "DO", this.dataOut.x - 17, this.dataOut.y, xx, yy, this.direction);
+    fillText2(ctx, "DO", this.dataOut.x - 15, this.dataOut.y, xx, yy, this.direction);
     ctx.fill();
 }
 RAM.prototype.memSizeString = function () {
