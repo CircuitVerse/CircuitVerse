@@ -1,83 +1,131 @@
-// Event Queue is simply a priority Queue, basic implementation O(n^2)
+// Event Queue is simply a priority Queue, basic implementation O(logn) per query
 
 class EventQueue {
-  constructor(size) {
-    this.size=size;
-	this.queue=new Array(size);
-	this.frontIndex=0;
-	this.time=0;
-  }
+    constructor(size){
+        this.size = size;
+        this.queue = new Array(size);
+        this.frontIndex = 0;
+        this.time = 0;
+    }
 
-  add(obj,delay){
+    parent(index){
+        if(index == 0){
+            return 0;
+        }
+        return Math.floor((index - 1) / 2);
+    }
 
-	  if(obj.queueProperties.inQueue){
-		  obj.queueProperties.time=this.time+(delay||obj.propagationDelay);
-		  let i=obj.queueProperties.index;
-		  while(i>0 && obj.queueProperties.time>this.queue[i-1].queueProperties.time){
-			  this.swap(i,i-1)
-			  i--;
-		  }
-		  i=obj.queueProperties.index;
-		  while(i<this.frontIndex-1 && obj.queueProperties.time<this.queue[i+1].queueProperties.time){
-			  this.swap(i,i+1);
-			  i++;
-		  }
-		  return;
-	  }
+    left(index){
+        return (2 * index + 1);
+    }
 
-	  if(this.frontIndex==this.size) throw "EventQueue size exceeded";
-	  this.queue[this.frontIndex]=obj;
-	  // console.log(this.time)
-	  // obj.queueProperties.time=obj.propagationDelay;
-	  obj.queueProperties.time=this.time+(delay||obj.propagationDelay);
-	  obj.queueProperties.index=this.frontIndex;
-	  this.frontIndex++;
-	  obj.queueProperties.inQueue=true;
-	  let i=obj.queueProperties.index;
-	  while(i>0 && obj.queueProperties.time>this.queue[i-1].queueProperties.time){
-		  this.swap(i,i-1)
-		  i--;
-	  }
+    right(index){
+        return (2 * index + 2);
+    }
 
-  }
-  addImmediate(obj){
-	  this.queue[this.frontIndex]=obj;
-	  obj.queueProperties.time=this.time;
-	  obj.queueProperties.index=this.frontIndex;
-	  obj.queueProperties.inQueue=true;
-	  this.frontIndex++;
-  }
+    time_ind(index){
+        return (this.queue[index].queueProperties.time);
+    }
 
-  swap(v1,v2){
-	  let obj1= this.queue[v1];
-	  obj1.queueProperties.index=v2;
+    minHeapify(index){
+        let left_child = this.left(index);
+        let right_child = this.right(index);
+        let smallest = index;
+        if(left_child < this.frontIndex && this.time_ind(left_child) < this.time_ind(index)){
+            smallest = left_child;
+        }
+        if(right_child < this.frontIndex && this.time_ind(right_child) < this.time_ind(smallest)){
+            smallest = right_child;
+        }
+        if(smallest != index){
+            this.swap(smallest, index);
+            this.minHeapify(smallest);
+        }
+    }
 
-	  let obj2= this.queue[v2];
-	  obj2.queueProperties.index=v1;
+    deleteHelp(index){
+        this.queue[index].queueProperties.time = 0;
+        let newtime = -1;
+        while(index > 0 && this.queue[this.parent(index)].queueProperties.time > newtime){
+            this.swap(index, this.parent(index));
+            index = this.parent(index);
+        }
+    }
 
-	  this.queue[v1]=obj2;
-	  this.queue[v2]=obj1;
-  }
+    deleteKey(index){
+        this.deleteHelp(index);
+        this.pop();
+    }
 
-  pop(){
-	 if(this.isEmpty())throw "Queue Empty"
+    add(obj, delay){
+        if(obj.queueProperties.inQueue){
+            this.deleteKey(obj.queueProperties.index);
+        }
+        if(this.frontIndex == this.size) throw "EventQueue size exceeded";
+        this.queue[this.frontIndex] = obj;
+        obj.queueProperties.time = this.time + (delay || obj.propagationDelay);
+        obj.queueProperties.index = this.frontIndex;
+        obj.queueProperties.inQueue = true;
+        let i = obj.queueProperties.index;
+        let newtime = obj.queueProperties.time;
+        while(i > 0 && this.queue[this.parent(i)].queueProperties.time > newtime){
+            this.swap(i, this.parent(i));
+            i = this.parent(i);
+        }
+        this.frontIndex++;
+    }
 
-	 this.frontIndex--;
-	 let obj=this.queue[this.frontIndex]
-	 this.time=obj.queueProperties.time;
-	 obj.queueProperties.inQueue=false;
-	 return obj;
-  }
+    addImmediate(obj){
+        if(this.frontIndex == this.size) throw "EventQueue size exceeded";
+        this.queue[this.frontIndex] = obj;
+        obj.queueProperties.time = this.time;
+        obj.queueProperties.index = this.frontIndex;
+        obj.queueProperties.inQueue = true;
+        let i = obj.queueProperties.index;
+        let newtime = obj.queueProperties.time;
+        while(i > 0 && this.queue[this.parent(i)].queueProperties.time > newtime){
+            this.swap(i, this.parent(i));
+            i = this.parent(i);
+        }
+        this.frontIndex++;
+    }
 
-  reset(){
-	  for(let i=0;i<this.frontIndex;i++)
-	  	this.queue[i].queueProperties.inQueue=false
-	  this.time=0
-	  this.frontIndex=0;
-  }
+    swap(v1, v2){
+        let obj1 = this.queue[v1];
+        obj1.queueProperties.index = v2;
+        let obj2 = this.queue[v2];
+        obj2.queueProperties.index = v1;
+        this.queue[v1] = obj2;
+        this.queue[v2] = obj1;
+    }
 
-  isEmpty(){
-	  return this.frontIndex==0;
-  }
+    pop(){
+        //console.log(this.time_ind(0));
+        if(this.isEmpty()) throw "Queue Empty";
+        if(this.frontIndex == 1){
+            this.frontIndex = 0;
+            return this.queue[0];
+        }
+        let min_obj = this.queue[0];
+        this.queue[0] = this.queue[this.frontIndex - 1];
+        this.frontIndex--;
+        this.minHeapify(0);
+        this.time = min_obj.queueProperties.time;
+        min_obj.queueProperties.inQueue = false;
+        return min_obj;
+    }
 
+    reset(){
+        for(let i = 0; i < this.frontIndex; i++){
+            this.queue[i].queueProperties.inQueue = false;
+            this.queue[i].queueProperties.time = undefined;
+            this.queue[i].queueProperties.index = undefined;
+        }
+        this.time = 0;
+        this.frontIndex = 0;
+    }
+
+    isEmpty(){
+        return this.frontIndex == 0;
+    }
 }
