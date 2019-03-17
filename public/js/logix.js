@@ -37,8 +37,8 @@ forceResetNodes = true; // FLag to reset all Nodes
 //This list needs to be updated when new circuitselements are created
 
 circuitElementList = [
-    "Input", "Output", "NotGate", "OrGate", "AndGate", "NorGate", "NandGate", "XorGate", "XnorGate", "SevenSegDisplay", "HexDisplay",
-    "Multiplexer", "BitSelector", "Splitter", "Power", "Ground", "ConstantVal", "ControlledInverter", "TriState", "Adder", "Rom", "RAM", "TflipFlop",
+    "Input", "Output", "NotGate", "OrGate", "AndGate", "NorGate", "NandGate", "XorGate", "XnorGate", "SevenSegDisplay", "SixteenSegDisplay", "HexDisplay",
+    "Multiplexer", "BitSelector", "Splitter", "Power", "Ground", "ConstantVal", "ControlledInverter", "TriState", "Adder", "Rom", "RAM", "EEPROM", "TflipFlop",
     "JKflipFlop", "SRflipFlop", "DflipFlop", "TTY", "Keyboard", "Clock", "DigitalLed", "Stepper", "VariableLed", "RGBLed", "SquareRGBLed", "Button", "Demultiplexer",
     "Buffer", "SubCircuit", "Flag", "MSB", "LSB", "PriorityEncoder", "Tunnel", "ALU", "Decoder", "Random", "Counter", "Dlatch", "TB_Input", "TB_Output", "ForceGate",
 ];
@@ -244,7 +244,7 @@ Scope.prototype.fixLayout = function() {
     for (var i = 0; i < this.Output.length; i++)
         max_y = Math.max(this.Output[i].layoutProperties.y, max_y)
     if (max_y != this.layout.height)
-        this.layout.height = max_y + 20;
+        this.layout.height = max_y + 10;
 }
 
 // Funciton which centers the circuit to the correct zoom level

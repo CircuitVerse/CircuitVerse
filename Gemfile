@@ -7,7 +7,7 @@ end
 
 gem "paperclip", ">= 5.2.0"
 gem 'hirb'
-
+gem 'acts_as_votable','~> 0.12.0'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-facebook'
@@ -82,6 +82,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'coveralls'
+  gem 'rubocop-rspec'
 end
 
 group :test do
@@ -100,6 +101,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'rails-erd'
+  gem 'rubocop'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
