@@ -61,7 +61,7 @@ class SimulatorController < ApplicationController
 
     data_url = params[:image]
 
-    str =data_url['data:image/jpeg;base64,'.length .. -1];
+    str = data_url['data:image/jpeg;base64,'.length .. -1]
     if str.to_s.empty?
       image_file = File.open(Rails.root.join("app/assets/images/empty_project/no_preview.png"), "rb")
 
