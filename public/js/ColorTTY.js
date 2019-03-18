@@ -75,7 +75,8 @@ function ColorTTY(x, y, scope = globalScope, rows = 8, cols = 32){
      * if value of any element is 'undefined', then the user hasn't assign it yet and It will be rendered as 
      * {data: 'space/no character', foreground: 'unnecessary as there is nothing written', background: '000'}
     */
-    this.screenCharacters = new Array(this.cols * this.rows);
+    //this.screenCharacters = new Array(this.cols * this.rows);
+    this.screenCharacters = [{character: 'q', foreground:'FFF'}];
     this.buffer = {};
 };
 
@@ -130,8 +131,8 @@ ColorTTY.prototype.resolve = function() {
         if (this.clockInp.value == 0 && this.legalInputValues() && this.asciiInp.value != undefined){
             this.buffer = {
                 character: String.fromCharCode(this.asciiInp.value),
-                foregroundColor: this.foregroundColor.value,
-                backgroundColor: this.backgroundColor.value,
+                foregroundColor: this.convertToHexColor(this.foregroundColor.value, this.colorBitWidth),
+                backgroundColor: this.convertToHexColor(this.backgroundColor.value, this.colorBitWidth),
                 position: parseInt(this.xPosition, 2) * this.rows + parseInt(this.yPosition, 2)
             };
         }
@@ -146,8 +147,8 @@ ColorTTY.prototype.resolve = function() {
         } else if (this.clockInp.value == 0 && this.legalInputValues() && this.asciiInp.value != undefined) {
             this.buffer = {
                 character: String.fromCharCode(this.asciiInp.value),
-                foregroundColor: this.foregroundColor.value,
-                backgroundColor: this.backgroundColor.value,
+                foregroundColor: this.convertToHexColor(this.foregroundColor.value, this.colorBitWidth),
+                backgroundColor: this.convertToHexColor(this.backgroundColor.value, this.colorBitWidth),
                 position: parseInt(this.xPosition, 2) * this.rows + parseInt(this.yPosition, 2)
             };
         }
@@ -290,12 +291,23 @@ ColorTTY.prototype.shiftScreen = function(shiftCode) {
 }
 
 ColorTTY.prototype.getRowUsingIndex = function(index){
-    let numberOfRows = 0;
+    var numberOfRows = 0;
     while(index + 1 - this.cols > 0){
         index -= this.cols;
         numberOfRows++;
     }
     return numberOfRows;
+}
+
+ColorTTY.prototype.convertToHexColor = function(str, colorBitWidth){
+    var hexColor = '', firstConstant = 0, secondConstant = 4;
+    for(var i = 0; i < colorBitWidth; i++){
+        var tmp = str.slice(firstConstant, secondConstant);
+        hexColor += parseInt(tmp, 2).toString(16).toUpperCase();
+        firstConstant += 4;
+        secondConstant += 4;
+    }
+    return hexColor;
 }
 
 /* 
@@ -308,3 +320,5 @@ ColorTTY.prototype.getRowUsingIndex = function(index){
     6- add mutable width and height/ reset button to properties UI.
     7- add a very small spacing between characters.
 */
+
+
