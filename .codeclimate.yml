@@ -4,6 +4,7 @@ plugins:
     enabled: true
   eslint:
     enabled: true
+    channel: "eslint-5"
 
 ratings:
   paths:
