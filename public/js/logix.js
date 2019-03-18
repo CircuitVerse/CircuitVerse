@@ -39,7 +39,7 @@ forceResetNodes = true; // FLag to reset all Nodes
 circuitElementList = [
     "Input", "Output", "NotGate", "OrGate", "AndGate", "NorGate", "NandGate", "XorGate", "XnorGate", "SevenSegDisplay", "HexDisplay",
     "Multiplexer", "BitSelector", "Splitter", "Power", "Ground", "ConstantVal", "ControlledInverter", "TriState", "Adder", "Rom", "RAM", "TflipFlop",
-    "JKflipFlop", "SRflipFlop", "DflipFlop", "TTY", "Keyboard", "Clock", "DigitalLed", "Stepper", "VariableLed", "RGBLed", "SquareRGBLed", "Button", "Demultiplexer",
+    "JKflipFlop", "SRflipFlop", "DflipFlop", "TTY", "ColorTTY", "Keyboard", "Clock", "DigitalLed", "Stepper", "VariableLed", "RGBLed", "SquareRGBLed", "Button", "Demultiplexer",
     "Buffer", "SubCircuit", "Flag", "MSB", "LSB", "PriorityEncoder", "Tunnel", "ALU", "Decoder", "Random", "Counter", "Dlatch", "TB_Input", "TB_Output", "ForceGate",
 ];
 
@@ -55,8 +55,8 @@ renderOrder = [...(moduleList.slice().reverse()), "wires", "allNodes"]; // Order
 // inputList = ["Random","Buffer", "Stepper", "Ground", "Power", "ConstantVal", "Input", "Clock", "Button","Dlatch","JKflipFlop","TflipFlop","SRflipFlop","DflipFlop"];
 // subCircuitInputList=["Clock", "Button","Buffer", "Stepper", "Ground", "Power", "ConstantVal","Dlatch","JKflipFlop","TflipFlop","SRflipFlop","DflipFlop"]
 
-inputList = ["Random", "Dlatch", "JKflipFlop", "TflipFlop", "SRflipFlop", "DflipFlop", "Buffer", "Stepper", "Ground", "Power", "ConstantVal", "Input", "Clock", "Button", "Counter"];
-subCircuitInputList = ["Random", "Dlatch", "JKflipFlop", "TflipFlop", "SRflipFlop", "DflipFlop", "Buffer", "Stepper", "Ground", "Power", "ConstantVal", "Clock", "Button", "Counter"];
+inputList = ["Random", "Dlatch", "JKflipFlop", "TflipFlop", "SRflipFlop", "DflipFlop", "Buffer", "Stepper", "Ground", "Power", "ConstantVal", "Input", "Clock", "Button", "Counter", "ColorTTY"];
+subCircuitInputList = ["Random", "Dlatch", "JKflipFlop", "TflipFlop", "SRflipFlop", "DflipFlop", "Buffer", "Stepper", "Ground", "Power", "ConstantVal", "Clock", "Button", "Counter", "ColorTTY"];
 
 //Scope object for each circuit level, globalScope for outer level
 scopeList = {};

@@ -14,6 +14,5 @@ COPY Gemfile.lock /circuitverse/Gemfile.lock
 
 RUN bundle install --with mysql --without production
 
-
 # copy source
 COPY . /circuitverse

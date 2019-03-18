@@ -139,7 +139,7 @@ function bezierCurveTo(x1, y1, x2, y2, x3, y3, xx, yy, dir) {
     ctx.bezierCurveTo(Math.round(xx + ox + x1), Math.round(yy + oy + y1), Math.round(xx + ox + x2), Math.round(yy + oy + y2), Math.round(xx + ox + x3), Math.round(yy + oy + y3));
 }
 
-function moveTo(ctx, x1, y1, xx, yy, dir,bypass=false) {
+function moveTo(ctx, x1, y1, xx, yy, dir, bypass=false) {
     var correction=0.5*(ctx.lineWidth%2);
     [newX, newY] = rotate(x1, y1, dir);
     newX = newX * globalScope.scale;
@@ -325,7 +325,7 @@ function canvasMessage(ctx,str,x1,y1,fontSize=10){
     ctx.shadowOffsetY = 3;
     ctx.stroke();
     ctx.fill();
-    ctx.restore();
+    ctx.restore(); 
     x1 = x1 * globalScope.scale;
     y1 = y1 * globalScope.scale;
     ctx.beginPath();
@@ -334,10 +334,14 @@ function canvasMessage(ctx,str,x1,y1,fontSize=10){
     ctx.fill();
 }
 
-function fillText(ctx, str, x1, y1, fontSize = 20) {
+function fillText(ctx, str, x1, y1, fontSize = 20, serving = 'other') {
     x1 = x1 * globalScope.scale;
     y1 = y1 * globalScope.scale;
-    ctx.font = Math.round(fontSize * globalScope.scale) + "px Georgia";
+    if (serving === 'ColorTTY'){
+        ctx.font = Math.round(fontSize * globalScope.scale) + "px Lekton";
+    }else {
+        ctx.font = Math.round(fontSize * globalScope.scale) + "px Georgia";
+    }
     ctx.fillText(str, Math.round(x1 + globalScope.ox), Math.round( y1 + globalScope.oy));
 }
 
