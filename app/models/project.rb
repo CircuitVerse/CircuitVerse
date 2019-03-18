@@ -8,7 +8,7 @@ class Project < ApplicationRecord
 
   has_many :collaborations, dependent: :destroy
   has_many :collaborators, source: 'user' , through: :collaborations
-  has_many :taggings
+  has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
   mount_uploader :image_preview, ImagePreviewUploader
 
@@ -16,7 +16,7 @@ class Project < ApplicationRecord
 
   acts_as_commontable
   # after_commit :send_mail, on: :create
-
+  scope :open, -> { where(project_access_type: "Public") }
   def check_edit_access(user)
     @user_access =
         ((!user.nil? and self.author_id == user.id and self.project_submission != true) \
@@ -69,15 +69,15 @@ class Project < ApplicationRecord
   end
 
   def tag_list
-    tags.map(&:name).join(', ')
+    tags.map(&:name).join(", ")
   end
 
   def tag_list=(names)
-    self.tags = names.split(',').map do |n|
+    self.tags = names.split(",").map do |n|
       Tag.where(name: n.strip).first_or_create!
     end
   end
-  validate :check_validity	
+  validate :check_validity
   private
   def check_validity
     if project_access_type != "Private" and !assignment_id.nil?
