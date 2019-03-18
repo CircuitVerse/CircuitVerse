@@ -46,8 +46,8 @@ function ColorTTY(x, y, scope = globalScope, rows = 8, cols = 32){
      */
     this.directionFixed = true;
     this.fixedBitWidth = true;
-    this.cols = Math.min(128, Math.max(cols, Math.pow(2, this.xBitWidth)));    // changed from TTY class to restrict col/row to 128 max and 32 min
-    this.rows = Math.min(128, Math.max(rows, Math.pow(2, this.yBitWidth)));    
+    this.cols = Math.min(128, Math.max(cols, Math.pow(2, this.yBitWidth)));    // changed from TTY class to restrict col/row to 128 max and 32 min
+    this.rows = Math.min(128, Math.max(rows, Math.pow(2, this.xBitWidth)));    
 
     // each character will be 2 squares tall and 1 square wide
     // height/width of the whole element, '+ 2' adds 1 square padding up/down/left/right
@@ -297,3 +297,14 @@ ColorTTY.prototype.getRowUsingIndex = function(index){
     }
     return numberOfRows;
 }
+
+/* 
+    TODO:
+    1- make svg more beautiful.
+    2- find out why zooming in/out doesn't update the ctx.rect() method.
+    3- find the bug inside the char positioning.
+    4- make the color positioning approach the same as the char positioning.
+    5- refactor some of the large functions.
+    6- add mutable width and height/ reset button to properties UI.
+    7- add a very small spacing between characters.
+*/
