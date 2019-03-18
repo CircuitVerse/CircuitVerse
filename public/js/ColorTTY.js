@@ -34,8 +34,8 @@ function ColorTTY(x, y, scope = globalScope, rows = 4, cols = 8){
     CircuitElement.call(this, x, y, scope, "RIGHT", 1);
 
     // To make user able to change size in the future, either the size or the resolution of the colors being 4bits each or 8bits
-    this.xBitWidth = 3;
-    this.yBitWidth = 5;
+    this.xBitWidth = 4;
+    this.yBitWidth = 6;
     this.colorBitWidth = 4;
     this.characterHeight = 2;   // unit is simulationArea squares
     this.characterWidth = 1;
@@ -76,7 +76,7 @@ function ColorTTY(x, y, scope = globalScope, rows = 4, cols = 8){
      * {data: 'space/no character', foreground: 'unnecessary as there is nothing written', background: '000'}
     */
     this.screenCharacters = new Array(this.cols * this.rows);
-    // for testing
+    /* // for testing
     this.screenCharacters = [{character: 'q', foreground:'FFF', background: '000'}, {character: 'o', foreground:'FFF', background: '000'}, {character: 'j', foreground:'FFF', background: '000'}, {character: 'n', foreground:'333', background: '000'},
     {character: 'w', foreground:'456', background: '123'}, {character: 'p', foreground:'3F3', background: 'CCC'}, {character: 'k', foreground:'A7A', background: 'B23'}, {character: 'm', foreground:'FFF', background: '333'},
     {character: 'e', foreground:'FFF', background: '000'}, {character: 'a', foreground:'FFF', background: '245'}, {character: 'l', foreground:'FFF', background: '0F0'}, {character: 'q', foreground:'569', background: '000'},
@@ -140,7 +140,7 @@ function ColorTTY(x, y, scope = globalScope, rows = 4, cols = 8){
     {character: 't', foreground:'FFF', background: '000'}, {character: 'd', foreground:'FFF', background: '245'}, {character: 'x', foreground:'FFF', background: '0F0'}, {character: 'e', foreground:'569', background: '569'},
     {character: 'y', foreground:'456', background: '123'}, {character: 'f', foreground:'3F3', background: 'CCC'}, {character: 'c', foreground:'A7A', background: 'B23'}, {character: 'r', foreground:'FFF', background: '333'},
     {character: 'u', foreground:'FFF', background: '000'}, {character: 'g', foreground:'FFF', background: '245'}, {character: 'v', foreground:'FFF', background: '0F0'}, {character: 't', foreground:'569', background: '000'},
-    {character: 'i', foreground:'456', background: '123'}, {character: 'h', foreground:'3F3', background: 'CCC'}, {character: 'b', foreground:'A7A', background: 'B23'}, {character: 'y', foreground:'FFF', background: 'CCC'}];
+    {character: 'i', foreground:'456', background: '123'}, {character: 'h', foreground:'3F3', background: 'CCC'}, {character: 'b', foreground:'A7A', background: 'B23'}, {character: 'y', foreground:'FFF', background: 'CCC'}]; */
     this.buffer = {};
 };
 
@@ -239,8 +239,8 @@ ColorTTY.prototype.customDraw = function() {
     for(let c = 0; c < this.screenCharacters.length; c++) {
         // undefined elements will have a black backround by default
         if (this.screenCharacters[c] !== undefined){
+            /* 
             let xColorOffset, yColorOffset, row;
-
             // calculate xColorOffset
             if(c % this.cols <= (this.cols / 2 - 1)){
                 // first half characters (default 16)
@@ -267,31 +267,34 @@ ColorTTY.prototype.customDraw = function() {
                 // bottom half except first one (3 by default)
                 yColorOffset = (row - (this.rows/2 + 1)) * (this.characterHeight * 10) + (this.characterHeight * 10) + 2;
             }
-
+ */
+            let row = this.getRowUsingIndex(c);
             // make a rectangle according to index, using xColorOffset and yColorOffset
             ctx.beginPath();
-            ctx.rect(xx + xColorOffset, yy + yColorOffset, this.characterWidth * 10, this.characterHeight * 10);
+            ctx.rect((xx + this.elementWidth/2) - ((this.characterWidth * 10 * (this.cols - (c % this.cols))) + 10), (yy + this.elementHeight/2) - (this.characterHeight * 10 * (this.rows - row) + 8), this.characterWidth * 10, this.characterHeight * 10);
             ctx.fillStyle = '#' + this.screenCharacters[c].background;
             ctx.fill();
 
+            // for tests
+            /* row = this.getRowUsingIndex(c);
+            // make a rectangle according to index, using xColorOffset and yColorOffset
+            ctx.beginPath();
+            ctx.rect((xx + this.elementWidth/2) - ((this.characterWidth * 10 * (this.cols - (c % this.cols))) + 10), (yy + this.elementHeight/2) - (this.characterHeight * 10 * (this.rows - row) + 8), this.characterWidth * 10, this.characterHeight * 10);
+            ctx.fillStyle = 'violet';
+            ctx.fill();
 
-            /* // put a character according to index
+            ctx.beginPath();
+            ctx.fillStyle = 'pink';    
+            ctx.textAlign = "center";
+            fillText(ctx, 'K', (xx + this.elementWidth/2) - ((this.characterWidth * 10 * (this.cols - (c % this.cols))) + 5), (yy + this.elementHeight/2) - (this.characterHeight * 10 * (this.rows - row) - 7), 19, 'ColorTTY');
+            ctx.fill(); */
+            // put a character according to index
             ctx.beginPath();
             ctx.fillStyle = '#' + this.screenCharacters[c].foreground;    
             ctx.textAlign = "center";
             fillText(ctx, this.screenCharacters[c].character, (xx + this.elementWidth/2) - ((this.characterWidth * 10 * (this.cols - (c % this.cols))) + 5), (yy + this.elementHeight/2) - (this.characterHeight * 10 * (this.rows - row) - 7), 19, 'ColorTTY');
-            ctx.fill(); */
+            ctx.fill();
         }
-    }
-
-    for(var c =0 ; c <this.screenCharacters.length; c++){
-        var row = this.getRowUsingIndex(c);
-        // put a character according to index
-        ctx.beginPath();
-        ctx.fillStyle = '#' + this.screenCharacters[c].foreground;    
-        ctx.textAlign = "center";
-        fillText(ctx, this.screenCharacters[c].character, (xx + this.elementWidth/2) - ((this.characterWidth * 10 * (this.cols - (c % this.cols))) + 5), (yy + this.elementHeight/2) - (this.characterHeight * 10 * (this.rows - row) - 7), 19, 'ColorTTY');
-        ctx.fill();
     }
 
     // clock sign
@@ -391,8 +394,8 @@ ColorTTY.prototype.convertToHexColor = function(str, colorBitWidth){
     TODO:
     1- make svg more beautiful. --DONE
     2- find out why zooming in/out doesn't update the ctx.rect() method.
-    3- find the bug inside the char positioning.
-    4- make the color positioning approach the same as the char positioning.
+    3- find the bug inside the char positioning.        -- DONE
+    4- make the color positioning approach the same as the char positioning. --Done
     5- refactor some of the large functions.
     6- add mutable width and height/ reset button to properties UI.
 */
