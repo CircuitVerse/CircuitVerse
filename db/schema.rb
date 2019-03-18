@@ -129,6 +129,21 @@ ActiveRecord::Schema.define(version: 20190314204600) do
     t.index ["user_id"], name: "index_stars_on_user_id"
   end
 
+  create_table "taggings", force: :cascade do |t|
+    t.bigint "project_id"
+    t.bigint "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_taggings_on_project_id"
+    t.index ["tag_id"], name: "index_taggings_on_tag_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -182,4 +197,6 @@ ActiveRecord::Schema.define(version: 20190314204600) do
   add_foreign_key "projects", "users", column: "author_id"
   add_foreign_key "stars", "projects"
   add_foreign_key "stars", "users"
+  add_foreign_key "taggings", "projects"
+  add_foreign_key "taggings", "tags"
 end
