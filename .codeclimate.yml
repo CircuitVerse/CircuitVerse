@@ -5,6 +5,8 @@ plugins:
   eslint:
     enabled: true
     channel: "eslint-5"
+    exclude_patterns:
+      - "!public/js/"
 
 ratings:
   paths:
