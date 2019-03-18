@@ -1,6 +1,5 @@
 class SimulatorController < ApplicationController
   include SimulatorHelper
-
   before_action :authenticate_user!, only: [:create, :update, :edit,:update_image]
   before_action :set_project, only: [:show, :embed, :embed, :update, :edit, :get_data,:update_image]
   before_action :check_view_access, only: [:show,:embed,:get_data]
