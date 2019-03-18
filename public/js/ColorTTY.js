@@ -1,7 +1,7 @@
 /* 
  * Color TTY Component.
  * 
- * A 64*64 Display screen, Where user can write to any char position using its X and Y position.
+ * A 8*32 Display screen, Where user can write to any char position using its X and Y position.
  * To add a character to the display. Beside WRITE_PIN being HIGH(set to 1) there would be :
  * 1- data/ASCII (7 bits)       // 7 bits as Keyboard element indicated a 7-bit ASCII data output 
  * 2- Xpos (5 bits)
@@ -33,13 +33,16 @@
 */
 
 // element constructor class
-function ColorTTY(x, y, scope = globalScope, rows = 32, cols = 32){
+function ColorTTY(x, y, scope = globalScope, rows = 8, cols = 32){
     // Inherit default properties and methods of all circuit elements
     CircuitElement.call(this, x, y, scope, "RIGHT", 1);
 
     // To make user able to change size in the future, either the size or the resolution of the colors being 4bits each or 8bits
-    this.xBitWidth = this.yBitWidth = 5;
+    this.xBitWidth = 5;
+    this.yBitWidth = 3;
     this.colorBitWidth = 4;
+    this.characterHeight = 2;   // unit is simulationArea squares
+    this.characterWidth = 1;
 
     /* Copied from TTY class
      * can be put in a seperate class TTYCircuitElement()
@@ -50,9 +53,10 @@ function ColorTTY(x, y, scope = globalScope, rows = 32, cols = 32){
     this.cols = Math.min(128, Math.max(cols, Math.pow(2, this.xBitWidth)));    // changed from TTY class to restrict col/row to 128 max and 32 min
     this.rows = Math.min(128, Math.max(rows, Math.pow(2, this.yBitWidth)));    
 
-    // increased min value to be 150 because there are more inputs to the ColorTTY
-    this.elementWidth = Math.max(150, Math.ceil(this.cols / 2) * 20);
-    this.elementHeight = Math.max(150, Math.ceil(this.rows * 15 / 20) * 20);
+    // each character will be 2 squares tall and 1 square wide
+    // height/width of the whole element, '+ 4' adds 1 square padding up/down/left/right
+    this.elementWidth = ((this.characterWidth * this.cols) + 2) * 10;
+    this.elementHeight = ((this.characterHeight * this.rows) + 2) * 10;
     this.setWidth(this.elementWidth / 2);
     this.setHeight(this.elementHeight / 2);
 
@@ -71,7 +75,7 @@ function ColorTTY(x, y, scope = globalScope, rows = 32, cols = 32){
 
     /* this.buffer = {character: CHAR_DATA, foreground: FOREGROUND_COLOR, background: BackgroundCOLOR, position: PLACE_OF_CHAR}
      * this.screenCharacters = [{}, {}, ...]  
-     * A 32*32 array of objects, where each object will be same as this.buffer without position key.
+     * A 8*32 array of objects, where each object will be same as this.buffer without position key.
      * if value of any element is 'undefined', then the user hasn't assign it yet and It will be rendered as 
      * {data: 'space/no character', foreground: 'unnecessary as there is nothing written', background: '000'}
     */
@@ -82,7 +86,7 @@ function ColorTTY(x, y, scope = globalScope, rows = 32, cols = 32){
 // class prototypes
 ColorTTY.prototype = Object.create(CircuitElement.prototype);
 ColorTTY.prototype.constructor = ColorTTY;
-ColorTTY.prototype.tooltipText = "A 64*64 Display screen, Where user can write to any char position using its X and Y position and indicate a fore color and a background color.";
+ColorTTY.prototype.tooltipText = "A 8*32 color display screen.";
 
 ColorTTY.prototype.customSave = function(){
     var data = {
@@ -104,6 +108,7 @@ ColorTTY.prototype.customSave = function(){
 
 ColorTTY.prototype.isResolvable = function() {
     // copied from TTY. Didn't add forgroundColor/backgroundColor because they will be assigned default values if not provided
+    console.log('inside isResolvable()');
     if (this.reset.value == 1) return true;
     else if (this.en.value == 0||(this.en.connections.length&&this.en.value==undefined)) return false;
     else if (this.clockInp.value == undefined) return false;
@@ -114,7 +119,7 @@ ColorTTY.prototype.isResolvable = function() {
 };
 
 ColorTTY.prototype.resolve = function() {
-
+    // console.log(`foregroundColor: ${this.foregroundColor.value}`);
     // Reset to default state if RESET pin is on or the enable pin is zero
     if (this.reset.value == 1) {
         this.screenCharacters = new Array(this.cols * this.rows);
@@ -132,8 +137,8 @@ ColorTTY.prototype.resolve = function() {
             this.buffer = {
                 character: String.fromCharCode(this.asciiInp.value),
                 foregroundColor: this.foregroundColor.value,
-                backgroundColor: this.backgroundColor.value,
-                position: this.xPosition * this.rows + this.yPosition
+                backgroundColor: this.backgroundColor.value
+                // needed to insert into screenCharacters() --> position: this.xPosition * this.rows + this.yPosition       // convert from binary into decimal
             };
         }
     // clock has changed
@@ -149,7 +154,7 @@ ColorTTY.prototype.resolve = function() {
                 character: String.fromCharCode(this.asciiInp.value),
                 foregroundColor: this.foregroundColor.value,
                 backgroundColor: this.backgroundColor.value,
-                position: this.xPosition * this.rows + this.yPosition
+                // not needed -- > position: this.xPosition * this.rows + this.yPosition
             };
         }
         this.prevClockState = this.clockInp.value;
@@ -159,26 +164,100 @@ ColorTTY.prototype.resolve = function() {
 };
 
 ColorTTY.prototype.customDraw = function() {
+    // Didn't use canvas API as by experiment ctx.rect() is rendered better. No correction is needed.
     var ctx = simulationArea.context;
     var xx = this.x;
     var yy = this.y;
 
+    // make a black Rectangle at the whole background
     ctx.beginPath();
-    ctx.strokeStyle = "lightgray";
+    // '-10' represent the padding square at the start, '+2' represent a padding for the background itself to include the bottom part of small characters such as 'g' and 'y'.
+    ctx.rect(xx - (this.elementWidth/2 - 10), yy - (this.elementHeight/2 - 10) + 2, (this.characterWidth * 10) * this.cols, (this.characterHeight * 10) * this.rows);
     ctx.fillStyle = "black";
-    ctx.lineWidth = correctWidth(3);
-
     ctx.fill();
+
+    // render all backgrounds and characters one by one
+    for(let c = 0; c < this.screenCharacters.length; c++) {
+        // {character: CHAR_DATA, foreground: ForgroundCOLOR, background: BackgroundCOLOR}
+        let xColorOffset, yColorOffset, row;
+
+        // calculate xColorOffset
+        if(c % this.cols <= (this.cols / 2 - 1)){
+            // first half characters (default 16)
+            xColorOffset = -1 * (this.cols / 2 * (this.characterWidth * 10) - (c % (this.cols / 2 - 1) * (this.characterWidth * 10)));
+
+            // for sixteenth character, the above eq seems not to work properly
+            if (c % this.cols === this.cols / 2 - 1) xColorOffset = this.characterWidth * -10;
+        }else{
+            // following half characters (default 16)
+            xColorOffset = (c % (this.cols / 2) * (this.characterWidth * 10));
+        }
+
+        // calculate yColorOffset
+        row = this.getRowUsingIndex(c);
+        
+        // '+2' is added to cover the bottom half of small characters like 'g' and 'y'
+        if(row < this.rows/2){
+            // upper half of rows (4 by default)
+            yColorOffset = (row * this.characterHeight * 10) - (this.rows/2 * this.characterHeight * 10) + 2;
+        }else if (row === this.rows/2){
+            // first row of the bottom rows
+            yColorOffset = 2;
+        }else {
+            // bottom half except first one (3 by default)
+            yColorOffset = (row - (this.rows/2 + 1)) * (this.characterHeight * 10) + (this.characterHeight * 10) + 2;
+        }
+
+        // make a rectangle according to index, using xColorOffset and yColorOffset
+        ctx.beginPath();
+        ctx.rect(xx + xColorOffset, yy + yColorOffset, this.characterWidth * 10, this.characterHeight * 10);
+        ctx.fillStyle = "green";    // REPLACE : green will be replaced by each element backgroundColor property
+        ctx.fill();
+
+        // put a character according to index
+        ctx.beginPath();
+        ctx.fillStyle = "white";    // REPLACE
+        ctx.textAlign = "center";
+        // 5 will depend on index, -2 will depend on index
+        // fillText(ctx, 'a', this.x - (this.cols / 2 * 10 - 5), this.y -((this.rows - 2)/2 * 20 + 3), 19, 'ColorTTy');
+        // fillText(ctx, 'a', (xx + this.elementWidth/2) - ((this.characterWidth * 10 * (this.cols - (c % this.cols))) + 5), (yy + this.elementHeight/2) - (this.characterHeight * 10 * (this.rows - row) - 7), 19, 'ColorTTy');
+        fillText(ctx, 'a', (xx + this.elementWidth/2) - ((this.characterWidth * 10 * (this.cols - (c % this.cols))) + 5), (yy + this.elementHeight/2) - (this.characterHeight * 10 * (this.rows - row) - 7), 19, 'ColorTTy');
+        
+        ctx.fill();
+        // console.log(`c: ${c}, r: ${row}`);
+        console.log(`xx: ${xx}`);
+    }
+
+    /* ctx.beginPath();
+    ctx.fillStyle = "white";
+    ctx.textAlign = "center";
+    // 5 will depend on index, -2 will depend on index
+    fillText(ctx,'a', this.x - (this.cols / 2 * 10 - 5), this.y -((this.rows - 2)/2 * 20 + 3), 19, 'ColorTTy');
+    fillText(ctx,'A', this.x - 145, this.y -63, 19, 'ColorTTy');
+    //fillText(ctx, 'abcdefghiabcdefghiabcdefghiabcde'.toUpperCase(), this.x, this.y - 63, 19,'ColorTTy');
+    fillText(ctx, 'abcdefghirstuvwxyzgjklmnopqabcde', this.x, this.y - 43, 19,'ColorTTy');
+    fillText(ctx, '12345678912345678912345678912345', this.x, this.y - 20 - 3, 19,'ColorTTy');
+    fillText(ctx, 'abcdefghiabcdefghiabcdefghiabcde'.toUpperCase(), this.x, this.y - 3, 19,'ColorTTy');
+    fillText(ctx, 'abcdefghiabcdefghiabcdefghiabcde', this.x, this.y + 20 - 3, 19,'ColorTTy');
+    fillText(ctx, '12345678912345678912345678912345', this.x, this.y + 40 - 3, 19,'ColorTTy');
+    fillText(ctx, 'abcdefghiabcdefghiabcdefghiabcde'.toUpperCase(), this.x, this.y + 60 - 3, 19,'ColorTTy');
+    fillText(ctx, 'abcdefghiabcdefghiabcdefghiabcde', this.x, this.y + 80 - 3, 19,'ColorTTy');
+    ctx.fill(); */
+
+    // clock sign
+    ctx.beginPath();
+    moveTo(ctx, -1 * this.elementWidth / 2, (this.elementHeight / 2) - 5, xx, yy, this.direction);  // 360, 200
+    lineTo(ctx, (-1 * this.elementWidth / 2) + 5, (this.elementHeight / 2) - 10, xx, yy, this.direction);
+    lineTo(ctx, -1 * this.elementWidth / 2, (this.elementHeight / 2) - 15, xx, yy, this.direction);
     ctx.stroke();
-
-    // customDraw() is where you add your changes to the UX, resolve() is where you calculate changes that will be executed here
-
+    /* 
+    ctx.beginPath(); 
+    moveTo(ctx, -1 * this.elementWidth / 2, (this.elementHeight / 2) - 5, xx, yy, this.direction);  // 360, 200
+    lineTo(ctx, -175, 90, xx, yy, this.direction);
+    lineTo(ctx, -180, 85, xx, yy, this.direction);
+    ctx.stroke();
+    */
 };
-
-ColorTTY.prototype.clearData = function(){
-    this.screenCharacters = new Array(this.cols * this.rows);
-    this.buffer = {};
-}
 
 ColorTTY.prototype.legalInputValues = function(){
     // return 1 if values of (xPosition AND yPosition AND forgroundColor AND backgroundColor) is whithin allowed limits
@@ -243,4 +322,13 @@ ColorTTY.prototype.shiftScreen = function(shiftCode) {
         // add the empty line to the bottom
         this.screenCharacters.push(...newLine);
     }
+}
+
+ColorTTY.prototype.getRowUsingIndex = function(index){
+    let numberOfRows = 0;
+    while(index + 1 - this.cols > 0){
+        index -= this.cols;
+        numberOfRows++;
+    }
+    return numberOfRows;
 }
