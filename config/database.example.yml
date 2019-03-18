@@ -5,16 +5,18 @@
 #   gem 'sqlite3'
 #
 default: &default
-  adapter: mysql2
-  encoding: utf8
+  adapter: postgresql
+  encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: root
-  password: root
-  socket: /tmp/mysql.sock
+  username: postgres
+  password: postgres
+  host: localhost
+
 
 development:
   <<: *default
   database: circuitverse_development
+
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

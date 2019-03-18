@@ -2,17 +2,19 @@
 
 cat << EOF > config/database.yml
 development:
-  adapter: mysql2
-  username: root
-  password: root
+  adapter: postgresql
+  username: postgres
+  password: postgres
   database: circuitverse_development
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   host: db
-  port: 3306
-  secure_auth: false
+  port: 5432
+
 EOF
 
 echo "Waiting for db to be available"
-for i in $(seq 1 30) ; do timeout 1 bash -c "echo > /dev/tcp/db/3306" > /dev/null 2>&1 && status=0 && break || status=$? && sleep 1 ; done
+for i in $(seq 1 30) ; do timeout 1 bash -c "echo > /dev/tcp/db/5432" > /dev/null 2>&1 && status=0 && break || status=$? && sleep 1 ; done
 
 if [ $status -ne 0 ]
 then
