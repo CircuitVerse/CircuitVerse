@@ -30,7 +30,7 @@ Please go through the [Contribution Guidelines](CONTRIBUTING.md) before going fo
 **Note:** You might want to use the docker instructions if you do not want to setup your own environment.
 
 * Install ruby using RVM, use ruby-2.5.1
-* Install Dependencies: `bundle install ` 
+* Install Dependencies: `bundle install `
 * Configure your DB in config/database.yml, copy config/database.example.yml (Note : check for postgres password and update it in place of "postgres")
 * Create database: `rails db:create`
 * Run Migrations: `rails db:migrate`
@@ -105,7 +105,7 @@ Here are links to our:
 
 [![Gitter](https://badges.gitter.im/CircuitVerse/community.svg)](https://gitter.im/CircuitVerse/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-[![Discord](https://img.shields.io/badge/chat-on%20disord-green.svg?logo=discord)](https://discord.gg/95x8H7b) - This is an unofficial fan communication channel. Thanks to [@jbox1](https://github.com/jbox144) for this initiative.
+[![Discord](https://img.shields.io/discord/552660710232948749.svg) - This is an unofficial fan communication channel. Thanks to [@jbox1](https://github.com/jbox144) for this initiative.
 
 ## License
 
