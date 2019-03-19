@@ -29,15 +29,29 @@
 */
 
 // element constructor class
-function ColorTTY(x, y, scope = globalScope, rows = 4, cols = 8){
+function ColorTTY(x, y, scope = globalScope, dimensions){
     // Inherit default properties and methods of all circuit elements
     CircuitElement.call(this, x, y, scope, "RIGHT", 1);
 
-    // To make user able to change size in the future, either the size or the resolution of the colors being 4bits each or 8bits
-    this.xBitWidth = 4;
-    this.yBitWidth = 6;
-    this.colorBitWidth = 4;
-    this.characterHeight = 2;   // unit is simulationArea squares
+    // es6 --> let [row, col] = dimensions;     Just beccause it's more beautiful 
+    var rows = dimensions[0], cols = dimensions[1], colors = dimensions[2];
+
+    // checks
+    if(rows % 2 !== 0 || cols % 2 !== 0){
+        showError('rows and columns must be multiples of 2!');
+        return;         // ASK: The instance isn't made yet Right
+    }else if (rows <= 4 || cols <= 4){
+        showError('Minimum value for rows or columns is 8!');
+        return;
+    }
+
+    // To make user able to change size the screen size or the resolution of the colors being 4bits each or 8bits
+    this.xBitWidth = rows % 2;
+    this.yBitWidth = cols % 2;
+    this.colorBitWidth = colors;
+    
+    // unit is simulationArea squares
+    this.characterHeight = 2;   
     this.characterWidth = 1;
 
     /* Copied from TTY class
@@ -46,26 +60,26 @@ function ColorTTY(x, y, scope = globalScope, rows = 4, cols = 8){
      */
     this.directionFixed = true;
     this.fixedBitWidth = true;
-    this.cols = Math.min(128, Math.max(cols, Math.pow(2, this.yBitWidth)));    // changed from TTY class to restrict col/row to 128 max and 32 min
-    this.rows = Math.min(128, Math.max(rows, Math.pow(2, this.xBitWidth)));    
+    this.cols = Math.min(128, cols);
+    this.rows = Math.min(128, rows);  
 
-    // each character will be 2 squares tall and 1 square wide
-    // height/width of the whole element, '+ 2' adds 1 square padding up/down/left/right
+    // height/width of the whole element not a single character, '+ 2' adds 1 square padding up/down/left/right
     this.elementWidth = ((this.characterWidth * this.cols) + 2) * 10;
     this.elementHeight = ((this.characterHeight * this.rows) + 2) * 10;
-    this.setWidth(this.elementWidth / 2);
-    this.setHeight(this.elementHeight / 2);
+    var halfHeight = this.elementHeight / 2, halfWidth = this.elementWidth / 2;
+    this.setWidth(halfWidth);
+    this.setHeight(halfHeight);
 
     // node configurations, all input pins are on the left side of the element seperated by 30 pixels each
-    this.clockInp = new Node(-this.elementWidth / 2, this.elementHeight / 2 - 10, 0, this, 1, "Clock");
-    this.asciiInp = new Node(-this.elementWidth / 2, this.elementHeight / 2 - 30, 0, this, 7,"Ascii Input");
-    this.xPosition = new Node(-this.elementWidth / 2, this.elementHeight / 2 - 50, 0, this, this.xBitWidth, "X-axis position");
-    this.yPosition = new Node(-this.elementWidth / 2, this.elementHeight / 2 - 80, 0, this, this.yBitWidth, "Y-axis position");
-    this.foregroundColor = new Node(-this.elementWidth / 2, this.elementHeight / 2 - 110, 0, this, this.colorBitWidth * 3, "Foreground color");
-    this.backgroundColor = new Node(-this.elementWidth / 2, this.elementHeight / 2 - 140, 0, this, this.colorBitWidth * 3, "Background color");
-    this.reset = new Node(30 - this.elementWidth / 2, this.elementHeight / 2, 0, this, 1,"Reset");
-    this.en = new Node(10 - this.elementWidth / 2, this.elementHeight / 2, 0, this, 1,"Enable");
-    this.shift = new Node(50 - this.elementWidth / 2, this.elementHeight / 2, 0, this, 2, "Shift");
+    this.clockInp = new Node(-1 * halfWidth, halfHeight - 10, 0, this, 1, "Clock");
+    this.asciiInp = new Node(-1 * halfWidth, halfHeight - 30, 0, this, 7,"Ascii Input");
+    this.xPosition = new Node(-1 * halfWidth, halfHeight - 50, 0, this, this.xBitWidth, "X-axis position");
+    this.yPosition = new Node(-1 * halfWidth, halfHeight - 80, 0, this, this.yBitWidth, "Y-axis position");
+    this.foregroundColor = new Node(-1 * halfWidth, halfHeight - 110, 0, this, this.colorBitWidth * 3, "Foreground color");
+    this.backgroundColor = new Node(-1 * halfWidth, halfHeight - 140, 0, this, this.colorBitWidth * 3, "Background color");
+    this.reset = new Node(30 - halfWidth, halfHeight, 0, this, 1,"Reset");
+    this.en = new Node(10 - halfWidth, halfHeight, 0, this, 1,"Enable");
+    this.shift = new Node(50 - halfWidth, halfHeight, 0, this, 2, "Shift");
 
     this.prevClockState = 0;
 
@@ -76,78 +90,13 @@ function ColorTTY(x, y, scope = globalScope, rows = 4, cols = 8){
      * {data: 'space/no character', foreground: 'unnecessary as there is nothing written', background: '000'}
     */
     this.screenCharacters = new Array(this.cols * this.rows);
-    /* // for testing
-    this.screenCharacters = [{character: 'q', foreground:'FFF', background: '000'}, {character: 'o', foreground:'FFF', background: '000'}, {character: 'j', foreground:'FFF', background: '000'}, {character: 'n', foreground:'333', background: '000'},
-    {character: 'w', foreground:'456', background: '123'}, {character: 'p', foreground:'3F3', background: 'CCC'}, {character: 'k', foreground:'A7A', background: 'B23'}, {character: 'm', foreground:'FFF', background: '333'},
-    {character: 'e', foreground:'FFF', background: '000'}, {character: 'a', foreground:'FFF', background: '245'}, {character: 'l', foreground:'FFF', background: '0F0'}, {character: 'q', foreground:'569', background: '000'},
-    {character: 'r', foreground:'456', background: '123'}, {character: 's', foreground:'3F3', background: 'CCC'}, {character: 'z', foreground:'A7A', background: 'B23'}, {character: 'w', foreground:'FFF', background: '333'},
-    {character: 't', foreground:'FFF', background: '000'}, {character: 'd', foreground:'FFF', background: '245'}, {character: 'x', foreground:'FFF', background: '0F0'}, {character: 'e', foreground:'569', background: '569'},
-    {character: 'y', foreground:'456', background: '123'}, {character: 'f', foreground:'3F3', background: 'CCC'}, {character: 'c', foreground:'A7A', background: 'B23'}, {character: 'r', foreground:'FFF', background: '333'},
-    {character: 'u', foreground:'FFF', background: '000'}, {character: 'g', foreground:'FFF', background: '245'}, {character: 'v', foreground:'FFF', background: '0F0'}, {character: 't', foreground:'569', background: '000'},
-    {character: 'i', foreground:'456', background: '123'}, {character: 'h', foreground:'3F3', background: 'CCC'}, {character: 'b', foreground:'A7A', background: 'B23'}, {character: 'y', foreground:'FFF', background: 'CCC'},
-    {character: 'q', foreground:'FFF', background: '000'}, {character: 'o', foreground:'FFF', background: '000'}, {character: 'j', foreground:'FFF', background: '000'}, {character: 'n', foreground:'333', background: '000'},
-    {character: 'w', foreground:'456', background: '123'}, {character: 'p', foreground:'3F3', background: 'CCC'}, {character: 'k', foreground:'A7A', background: 'B23'}, {character: 'm', foreground:'FFF', background: '333'},
-    {character: 'e', foreground:'FFF', background: '000'}, {character: 'a', foreground:'FFF', background: '245'}, {character: 'l', foreground:'FFF', background: '0F0'}, {character: 'q', foreground:'569', background: '000'},
-    {character: 'r', foreground:'456', background: '123'}, {character: 's', foreground:'3F3', background: 'CCC'}, {character: 'z', foreground:'A7A', background: 'B23'}, {character: 'w', foreground:'FFF', background: '333'},
-    {character: 't', foreground:'FFF', background: '000'}, {character: 'd', foreground:'FFF', background: '245'}, {character: 'x', foreground:'FFF', background: '0F0'}, {character: 'e', foreground:'569', background: '569'},
-    {character: 'y', foreground:'456', background: '123'}, {character: 'f', foreground:'3F3', background: 'CCC'}, {character: 'c', foreground:'A7A', background: 'B23'}, {character: 'r', foreground:'FFF', background: '333'},
-    {character: 'u', foreground:'FFF', background: '000'}, {character: 'g', foreground:'FFF', background: '245'}, {character: 'v', foreground:'FFF', background: '0F0'}, {character: 't', foreground:'569', background: '000'},
-    {character: 'i', foreground:'456', background: '123'}, {character: 'h', foreground:'3F3', background: 'CCC'}, {character: 'b', foreground:'A7A', background: 'B23'}, {character: 'y', foreground:'FFF', background: 'CCC'},
-    {character: 'q', foreground:'FFF', background: '000'}, {character: 'o', foreground:'FFF', background: '000'}, {character: 'j', foreground:'FFF', background: '000'}, {character: 'n', foreground:'333', background: '000'},
-    {character: 'w', foreground:'456', background: '123'}, {character: 'p', foreground:'3F3', background: 'CCC'}, {character: 'k', foreground:'A7A', background: 'B23'}, {character: 'm', foreground:'FFF', background: '333'},
-    {character: 'e', foreground:'FFF', background: '000'}, {character: 'a', foreground:'FFF', background: '245'}, {character: 'l', foreground:'FFF', background: '0F0'}, {character: 'q', foreground:'569', background: '000'},
-    {character: 'r', foreground:'456', background: '123'}, {character: 's', foreground:'3F3', background: 'CCC'}, {character: 'z', foreground:'A7A', background: 'B23'}, {character: 'w', foreground:'FFF', background: '333'},
-    {character: 't', foreground:'FFF', background: '000'}, {character: 'd', foreground:'FFF', background: '245'}, {character: 'x', foreground:'FFF', background: '0F0'}, {character: 'e', foreground:'569', background: '569'},
-    {character: 'y', foreground:'456', background: '123'}, {character: 'f', foreground:'3F3', background: 'CCC'}, {character: 'c', foreground:'A7A', background: 'B23'}, {character: 'r', foreground:'FFF', background: '333'},
-    {character: 'u', foreground:'FFF', background: '000'}, {character: 'g', foreground:'FFF', background: '245'}, {character: 'v', foreground:'FFF', background: '0F0'}, {character: 't', foreground:'569', background: '000'},
-    {character: 'i', foreground:'456', background: '123'}, {character: 'h', foreground:'3F3', background: 'CCC'}, {character: 'b', foreground:'A7A', background: 'B23'}, {character: 'y', foreground:'FFF', background: 'CCC'},
-    {character: 'q', foreground:'FFF', background: '000'}, {character: 'o', foreground:'FFF', background: '000'}, {character: 'j', foreground:'FFF', background: '000'}, {character: 'n', foreground:'333', background: '000'},
-    {character: 'w', foreground:'456', background: '123'}, {character: 'p', foreground:'3F3', background: 'CCC'}, {character: 'k', foreground:'A7A', background: 'B23'}, {character: 'm', foreground:'FFF', background: '333'},
-    {character: 'e', foreground:'FFF', background: '000'}, {character: 'a', foreground:'FFF', background: '245'}, {character: 'l', foreground:'FFF', background: '0F0'}, {character: 'q', foreground:'569', background: '000'},
-    {character: 'r', foreground:'456', background: '123'}, {character: 's', foreground:'3F3', background: 'CCC'}, {character: 'z', foreground:'A7A', background: 'B23'}, {character: 'w', foreground:'FFF', background: '333'},
-    {character: 't', foreground:'FFF', background: '000'}, {character: 'd', foreground:'FFF', background: '245'}, {character: 'x', foreground:'FFF', background: '0F0'}, {character: 'e', foreground:'569', background: '569'},
-    {character: 'y', foreground:'456', background: '123'}, {character: 'f', foreground:'3F3', background: 'CCC'}, {character: 'c', foreground:'A7A', background: 'B23'}, {character: 'r', foreground:'FFF', background: '333'},
-    {character: 'u', foreground:'FFF', background: '000'}, {character: 'g', foreground:'FFF', background: '245'}, {character: 'v', foreground:'FFF', background: '0F0'}, {character: 't', foreground:'569', background: '000'},
-    {character: 'i', foreground:'456', background: '123'}, {character: 'h', foreground:'3F3', background: 'CCC'}, {character: 'b', foreground:'A7A', background: 'B23'}, {character: 'y', foreground:'FFF', background: 'CCC'},
-    {character: 'q', foreground:'FFF', background: '000'}, {character: 'o', foreground:'FFF', background: '000'}, {character: 'j', foreground:'FFF', background: '000'}, {character: 'n', foreground:'333', background: '000'},
-    {character: 'w', foreground:'456', background: '123'}, {character: 'p', foreground:'3F3', background: 'CCC'}, {character: 'k', foreground:'A7A', background: 'B23'}, {character: 'm', foreground:'FFF', background: '333'},
-    {character: 'e', foreground:'FFF', background: '000'}, {character: 'a', foreground:'FFF', background: '245'}, {character: 'l', foreground:'FFF', background: '0F0'}, {character: 'q', foreground:'569', background: '000'},
-    {character: 'r', foreground:'456', background: '123'}, {character: 's', foreground:'3F3', background: 'CCC'}, {character: 'z', foreground:'A7A', background: 'B23'}, {character: 'w', foreground:'FFF', background: '333'},
-    {character: 't', foreground:'FFF', background: '000'}, {character: 'd', foreground:'FFF', background: '245'}, {character: 'x', foreground:'FFF', background: '0F0'}, {character: 'e', foreground:'569', background: '569'},
-    {character: 'y', foreground:'456', background: '123'}, {character: 'f', foreground:'3F3', background: 'CCC'}, {character: 'c', foreground:'A7A', background: 'B23'}, {character: 'r', foreground:'FFF', background: '333'},
-    {character: 'u', foreground:'FFF', background: '000'}, {character: 'g', foreground:'FFF', background: '245'}, {character: 'v', foreground:'FFF', background: '0F0'}, {character: 't', foreground:'569', background: '000'},
-    {character: 'i', foreground:'456', background: '123'}, {character: 'h', foreground:'3F3', background: 'CCC'}, {character: 'b', foreground:'A7A', background: 'B23'}, {character: 'y', foreground:'FFF', background: 'CCC'},
-    {character: 'q', foreground:'FFF', background: '000'}, {character: 'o', foreground:'FFF', background: '000'}, {character: 'j', foreground:'FFF', background: '000'}, {character: 'n', foreground:'333', background: '000'},
-    {character: 'w', foreground:'456', background: '123'}, {character: 'p', foreground:'3F3', background: 'CCC'}, {character: 'k', foreground:'A7A', background: 'B23'}, {character: 'm', foreground:'FFF', background: '333'},
-    {character: 'e', foreground:'FFF', background: '000'}, {character: 'a', foreground:'FFF', background: '245'}, {character: 'l', foreground:'FFF', background: '0F0'}, {character: 'q', foreground:'569', background: '000'},
-    {character: 'r', foreground:'456', background: '123'}, {character: 's', foreground:'3F3', background: 'CCC'}, {character: 'z', foreground:'A7A', background: 'B23'}, {character: 'w', foreground:'FFF', background: '333'},
-    {character: 't', foreground:'FFF', background: '000'}, {character: 'd', foreground:'FFF', background: '245'}, {character: 'x', foreground:'FFF', background: '0F0'}, {character: 'e', foreground:'569', background: '569'},
-    {character: 'y', foreground:'456', background: '123'}, {character: 'f', foreground:'3F3', background: 'CCC'}, {character: 'c', foreground:'A7A', background: 'B23'}, {character: 'r', foreground:'FFF', background: '333'},
-    {character: 'u', foreground:'FFF', background: '000'}, {character: 'g', foreground:'FFF', background: '245'}, {character: 'v', foreground:'FFF', background: '0F0'}, {character: 't', foreground:'569', background: '000'},
-    {character: 'i', foreground:'456', background: '123'}, {character: 'h', foreground:'3F3', background: 'CCC'}, {character: 'b', foreground:'A7A', background: 'B23'}, {character: 'y', foreground:'FFF', background: 'CCC'},
-    {character: 'q', foreground:'FFF', background: '000'}, {character: 'o', foreground:'FFF', background: '000'}, {character: 'j', foreground:'FFF', background: '000'}, {character: 'n', foreground:'333', background: '000'},
-    {character: 'w', foreground:'456', background: '123'}, {character: 'p', foreground:'3F3', background: 'CCC'}, {character: 'k', foreground:'A7A', background: 'B23'}, {character: 'm', foreground:'FFF', background: '333'},
-    {character: 'e', foreground:'FFF', background: '000'}, {character: 'a', foreground:'FFF', background: '245'}, {character: 'l', foreground:'FFF', background: '0F0'}, {character: 'q', foreground:'569', background: '000'},
-    {character: 'r', foreground:'456', background: '123'}, {character: 's', foreground:'3F3', background: 'CCC'}, {character: 'z', foreground:'A7A', background: 'B23'}, {character: 'w', foreground:'FFF', background: '333'},
-    {character: 't', foreground:'FFF', background: '000'}, {character: 'd', foreground:'FFF', background: '245'}, {character: 'x', foreground:'FFF', background: '0F0'}, {character: 'e', foreground:'569', background: '569'},
-    {character: 'y', foreground:'456', background: '123'}, {character: 'f', foreground:'3F3', background: 'CCC'}, {character: 'c', foreground:'A7A', background: 'B23'}, {character: 'r', foreground:'FFF', background: '333'},
-    {character: 'u', foreground:'FFF', background: '000'}, {character: 'g', foreground:'FFF', background: '245'}, {character: 'v', foreground:'FFF', background: '0F0'}, {character: 't', foreground:'569', background: '000'},
-    {character: 'i', foreground:'456', background: '123'}, {character: 'h', foreground:'3F3', background: 'CCC'}, {character: 'b', foreground:'A7A', background: 'B23'}, {character: 'y', foreground:'FFF', background: 'CCC'},
-    {character: 'q', foreground:'FFF', background: '000'}, {character: 'o', foreground:'FFF', background: '000'}, {character: 'j', foreground:'FFF', background: '000'}, {character: 'n', foreground:'333', background: '000'},
-    {character: 'w', foreground:'456', background: '123'}, {character: 'p', foreground:'3F3', background: 'CCC'}, {character: 'k', foreground:'A7A', background: 'B23'}, {character: 'm', foreground:'FFF', background: '333'},
-    {character: 'e', foreground:'FFF', background: '000'}, {character: 'a', foreground:'FFF', background: '245'}, {character: 'l', foreground:'FFF', background: '0F0'}, {character: 'q', foreground:'569', background: '000'},
-    {character: 'r', foreground:'456', background: '123'}, {character: 's', foreground:'3F3', background: 'CCC'}, {character: 'z', foreground:'A7A', background: 'B23'}, {character: 'w', foreground:'FFF', background: '333'},
-    {character: 't', foreground:'FFF', background: '000'}, {character: 'd', foreground:'FFF', background: '245'}, {character: 'x', foreground:'FFF', background: '0F0'}, {character: 'e', foreground:'569', background: '569'},
-    {character: 'y', foreground:'456', background: '123'}, {character: 'f', foreground:'3F3', background: 'CCC'}, {character: 'c', foreground:'A7A', background: 'B23'}, {character: 'r', foreground:'FFF', background: '333'},
-    {character: 'u', foreground:'FFF', background: '000'}, {character: 'g', foreground:'FFF', background: '245'}, {character: 'v', foreground:'FFF', background: '0F0'}, {character: 't', foreground:'569', background: '000'},
-    {character: 'i', foreground:'456', background: '123'}, {character: 'h', foreground:'3F3', background: 'CCC'}, {character: 'b', foreground:'A7A', background: 'B23'}, {character: 'y', foreground:'FFF', background: 'CCC'}]; */
     this.buffer = {};
 };
 
 // class prototypes
 ColorTTY.prototype = Object.create(CircuitElement.prototype);
 ColorTTY.prototype.constructor = ColorTTY;
-ColorTTY.prototype.tooltipText = "Color Display Screen";
+ColorTTY.prototype.tooltipText = "A variable dimensions color Display Screen";
 
 ColorTTY.prototype.customSave = function(){
     var data = {
@@ -168,20 +117,21 @@ ColorTTY.prototype.customSave = function(){
 };
 
 ColorTTY.prototype.isResolvable = function() {
-    // copied from TTY. Didn't add forgroundColor/backgroundColor because they will be assigned default values if not provided
+    // copied from TTY
+    // Ask : Didn't add forgroundColor/backgroundColor because they will be assigned default values if not provided
     if (this.reset.value == 1) return true;
     else if (this.en.value == 0||(this.en.connections.length&&this.en.value==undefined)) return false;
-    else if (this.clockInp.value == undefined) return false;
-    else if (this.asciiInp.value == undefined) return false;
-    else if (this.xPosition.value == undefined) return false;
-    else if (this.yPosition.value == undefined) return false;
+    else if (this.clockInp.value == undefined || this.asciiInp.value == undefined
+            || this.xPosition.value == undefined || this.yPosition.value == undefined ){
+                return false;
+            } 
     return true;
 };
 
 ColorTTY.prototype.resolve = function() {
     // Reset to default state if RESET pin is on or the enable pin is zero
     if (this.reset.value == 1) {
-        this.screenCharacters = new Array(this.cols * this.rows);
+        this.clearData();
         return;
     }
     
@@ -193,12 +143,7 @@ ColorTTY.prototype.resolve = function() {
     // clock is still the same, put changes in buffer in order to put them in the screenCharacters array on next clock pulse
     if (this.clockInp.value == this.prevClockState) {
         if (this.clockInp.value == 0 && this.legalInputValues() && this.asciiInp.value != undefined){
-            this.buffer = {
-                character: String.fromCharCode(this.asciiInp.value),
-                foregroundColor: this.convertToHexColor(this.foregroundColor.value, this.colorBitWidth),
-                backgroundColor: this.convertToHexColor(this.backgroundColor.value, this.colorBitWidth),
-                position: parseInt(this.xPosition, 2) * this.rows + parseInt(this.yPosition, 2)
-            };
+            this.buffer = this.bufferFill();
         }
     // clock has changed
     } else if (this.clockInp.value != undefined) {
@@ -209,12 +154,7 @@ ColorTTY.prototype.resolve = function() {
             if (this.shift.value != undefined) this.shiftScreen(this.shift.value);
 
         } else if (this.clockInp.value == 0 && this.legalInputValues() && this.asciiInp.value != undefined) {
-            this.buffer = {
-                character: String.fromCharCode(this.asciiInp.value),
-                foregroundColor: this.convertToHexColor(this.foregroundColor.value, this.colorBitWidth),
-                backgroundColor: this.convertToHexColor(this.backgroundColor.value, this.colorBitWidth),
-                position: parseInt(this.xPosition, 2) * this.rows + parseInt(this.yPosition, 2)
-            };
+            this.buffer = this.bufferFill();
         }
         this.prevClockState = this.clockInp.value;
     }
@@ -236,70 +176,35 @@ ColorTTY.prototype.customDraw = function() {
     ctx.fill();
 
     // render all backgrounds and characters one by one
-    for(let c = 0; c < this.screenCharacters.length; c++) {
+    for(var c = 0; c < this.screenCharacters.length; c++) {
         // undefined elements will have a black backround by default
         if (this.screenCharacters[c] !== undefined){
-            /* 
-            let xColorOffset, yColorOffset, row;
-            // calculate xColorOffset
-            if(c % this.cols <= (this.cols / 2 - 1)){
-                // first half characters (default 16)
-                xColorOffset = -1 * (this.cols / 2 * (this.characterWidth * 10) - (c % (this.cols / 2 - 1) * (this.characterWidth * 10)));
-
-                // for sixteenth character, the above eq seems not to work properly
-                if (c % this.cols === this.cols / 2 - 1) xColorOffset = this.characterWidth * -10;
-            }else{
-                // following half characters (default 16)
-                xColorOffset = (c % (this.cols / 2) * (this.characterWidth * 10));
-            }
-
-            // calculate yColorOffset
-            row = this.getRowUsingIndex(c);
+            var row = this.getRowUsingIndex(c),
+                newXRelativePoint = xx + this.elementWidth/2,
+                newYRelativePoint = yy + this.elementHeight/2,
+                xBackgroundOffset = (this.characterWidth * 10 * (this.cols - (c % this.cols))) + 10,
+                yBackgroundOffset = (this.characterHeight * 10 * (this.rows - row) + 8),
+                xCharacterOffset = (this.characterWidth * 10 * (this.cols - (c % this.cols))) + 5,
+                yCharacterOffset = (this.characterHeight * 10 * (this.rows - row) - 7);
             
-            // '+2' is added to cover the bottom half of small characters like 'g' and 'y'
-            if(row < this.rows/2){
-                // upper half of rows (4 by default)
-                yColorOffset = (row * this.characterHeight * 10) - (this.rows/2 * this.characterHeight * 10) + 2;
-            }else if (row === this.rows/2){
-                // first row of the bottom rows
-                yColorOffset = 2;
-            }else {
-                // bottom half except first one (3 by default)
-                yColorOffset = (row - (this.rows/2 + 1)) * (this.characterHeight * 10) + (this.characterHeight * 10) + 2;
-            }
- */
-            let row = this.getRowUsingIndex(c);
             // make a rectangle according to index, using xColorOffset and yColorOffset
             ctx.beginPath();
-            ctx.rect((xx + this.elementWidth/2) - ((this.characterWidth * 10 * (this.cols - (c % this.cols))) + 10), (yy + this.elementHeight/2) - (this.characterHeight * 10 * (this.rows - row) + 8), this.characterWidth * 10, this.characterHeight * 10);
+            ctx.rect(newXRelativePoint - xBackgroundOffset, newYRelativePoint - yBackgroundOffset, this.characterWidth * 10, this.characterHeight * 10);
             ctx.fillStyle = '#' + this.screenCharacters[c].background;
             ctx.fill();
 
-            // for tests
-            /* row = this.getRowUsingIndex(c);
-            // make a rectangle according to index, using xColorOffset and yColorOffset
-            ctx.beginPath();
-            ctx.rect((xx + this.elementWidth/2) - ((this.characterWidth * 10 * (this.cols - (c % this.cols))) + 10), (yy + this.elementHeight/2) - (this.characterHeight * 10 * (this.rows - row) + 8), this.characterWidth * 10, this.characterHeight * 10);
-            ctx.fillStyle = 'violet';
-            ctx.fill();
-
-            ctx.beginPath();
-            ctx.fillStyle = 'pink';    
-            ctx.textAlign = "center";
-            fillText(ctx, 'K', (xx + this.elementWidth/2) - ((this.characterWidth * 10 * (this.cols - (c % this.cols))) + 5), (yy + this.elementHeight/2) - (this.characterHeight * 10 * (this.rows - row) - 7), 19, 'ColorTTY');
-            ctx.fill(); */
             // put a character according to index
             ctx.beginPath();
             ctx.fillStyle = '#' + this.screenCharacters[c].foreground;    
             ctx.textAlign = "center";
-            fillText(ctx, this.screenCharacters[c].character, (xx + this.elementWidth/2) - ((this.characterWidth * 10 * (this.cols - (c % this.cols))) + 5), (yy + this.elementHeight/2) - (this.characterHeight * 10 * (this.rows - row) - 7), 19, 'ColorTTY');
+            fillText(ctx, this.screenCharacters[c].character, newXRelativePoint - xCharacterOffset, newYRelativePoint - yCharacterOffset, 19, 'ColorTTY');
             ctx.fill();
         }
     }
 
     // clock sign
     ctx.beginPath();
-    moveTo(ctx, -1 * this.elementWidth / 2, (this.elementHeight / 2) - 5, xx, yy, this.direction);  // 360, 200
+    moveTo(ctx, -1 * this.elementWidth / 2, (this.elementHeight / 2) - 5, xx, yy, this.direction); 
     lineTo(ctx, (-1 * this.elementWidth / 2) + 5, (this.elementHeight / 2) - 10, xx, yy, this.direction);
     lineTo(ctx, -1 * this.elementWidth / 2, (this.elementHeight / 2) - 15, xx, yy, this.direction);
     ctx.stroke();
@@ -388,6 +293,19 @@ ColorTTY.prototype.convertToHexColor = function(str, colorBitWidth){
         secondConstant += 4;
     }
     return '#' + hexColor;
+}
+
+ColorTTY.prototype.clearData = function(){
+    this.screenCharacters = new Array(this.cols * this.rows);
+}
+
+ColorTTY.prototype.bufferFill = function(){
+    return {
+        character: String.fromCharCode(this.asciiInp.value),
+        foregroundColor: this.convertToHexColor(this.foregroundColor.value, this.colorBitWidth),
+        backgroundColor: this.convertToHexColor(this.backgroundColor.value, this.colorBitWidth),
+        position: parseInt(this.xPosition, 2) * this.rows + parseInt(this.yPosition, 2)
+    };
 }
 
 /* 
