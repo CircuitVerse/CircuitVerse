@@ -15,11 +15,6 @@ module SimulatorHelper
   end
 
   def check_to_delete (data_url)
-    str = data_url["data:image/jpeg;base64,".length .. -1]
-    if str.to_s.empty?
-      return false
-    else
-      return true
-    end
+    !data_url["data:image/jpeg;base64,".length .. -1].to_s.empty?
   end
 end
