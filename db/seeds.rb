@@ -11,3 +11,11 @@ User.create(name: 'Admin',
   password: 'password',
   admin: true
 )
+users = User.create([{ name: 'user1',email: 'user1@circuitverse.org',password: 'password' },
+  { name: 'user2',email: 'user2@circuitverse.org',password: 'password' }])
+group = Group.create(name: 'group1',
+  mentor_id: users.first.id,
+)
+GroupMember.create(group_id: group.id,
+  user_id: users.second.id,
+)
