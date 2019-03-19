@@ -31,14 +31,7 @@ function ColorTTY(x, y, scope = globalScope, dimensions){
     // es6 --> let [row, col] = dimensions; 
     var rows = dimensions[0], cols = dimensions[1], colors = dimensions[2];
     CircuitElement.call(this, x, y, scope, "RIGHT", 1);
-
-    if(rows % 2 !== 0 || cols % 2 !== 0){
-        showError('rows and columns must be multiples of 2!');
-        return;         // ASK: The instance isn't made yet, Right? I want to make sure the class instance isn't added to the UI until this test is passed ok
-    }else if (rows <= 4 || cols <= 4){
-        showError('Minimum value for rows or columns is 8!');
-        return;
-    }
+    this.checkLegalDimensions(rows, cols, colors);                // ASK: The instance isn't made yet, Right? I want to make sure the class instance isn't added to the UI until this test is passed ok
 
     this.cols = Math.min(128, cols);
     this.rows = Math.min(128, rows);  
@@ -109,7 +102,7 @@ ColorTTY.prototype.resolve = function() {
 
     // clock is still the same, put changes in buffer in order to put them in the screenCharacters array on next clock pulse
     if (this.clockInp.value == this.prevClockState) {
-        if (this.clockInp.value == 0 && this.legalInputValues() && this.asciiInp.value != undefined){
+        if (this.clockInp.value == 0 && this.asciiInp.value != undefined){
             this.buffer = this.bufferFill();
         }
     // clock has changed
@@ -120,7 +113,7 @@ ColorTTY.prototype.resolve = function() {
             // Shifting the screen
             if (this.shift.value != undefined) this.shiftScreen(this.shift.value);
 
-        } else if (this.clockInp.value == 0 && this.legalInputValues() && this.asciiInp.value != undefined) {
+        } else if (this.clockInp.value == 0 && this.asciiInp.value != undefined) {
             this.buffer = this.bufferFill();
         }
         this.prevClockState = this.clockInp.value;
@@ -282,6 +275,13 @@ ColorTTY.prototype.drawDefaultBackground = function(ctx, defaultColor, xx, yy){
     ctx.rect(xx - (this.elementWidth/2 - 10), yy - (this.elementHeight/2 - 10) + 2, (this.characterWidth * 10) * this.cols, (this.characterHeight * 10) * this.rows);
     ctx.fillStyle = defaultColor;
     ctx.fill();
+}
+
+ColorTTY.prototype.checkLegalDimensions = function(rows, cols, colors){
+    if(rows % 2 != 0 || cols % 2 != 0)  showError('rows and columns must be multiples of 2!');
+    else if (rows <= 4 || cols <= 4)    showError('Minimum value for rows or columns is 8!');
+
+    if(colors != 3 || colors != 4)  showError('Check the bitWidth of Colors');
 }
 
 /* 
