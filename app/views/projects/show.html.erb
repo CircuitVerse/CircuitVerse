@@ -80,7 +80,7 @@
           </li>
           <%if !@project.description.nil? %>
               <li class="list-group-item"><b >Description: </b>
-                <%= @project.description.html_safe %><br></li>
+                <%= sanitize @project.description %><br></li>
           <%end%>
 
 
