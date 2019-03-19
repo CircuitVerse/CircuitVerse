@@ -105,7 +105,7 @@ Here are links to our:
 
 [![Gitter](https://badges.gitter.im/CircuitVerse/community.svg)](https://gitter.im/CircuitVerse/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-[![Discord](https://img.shields.io/discord/552660710232948749.svg) - This is an unofficial fan communication channel. Thanks to [@jbox1](https://github.com/jbox144) for this initiative.
+[![Discord](https://img.shields.io/discord/552660710232948749.svg)](https://discordapp.com/channels/552660710232948749) - This is an unofficial fan communication channel. Thanks to [@jbox1](https://github.com/jbox144) for this initiative.
 
 ## License
 
