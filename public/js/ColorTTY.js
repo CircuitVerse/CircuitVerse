@@ -202,6 +202,7 @@ ColorTTY.prototype.changeNumberOfRows = function(value){
         this.rows = value;
         this.xBitWidth = value / 2;
         this.elementHeight = ((this.characterHeight * this.rows) + 2) * 10;
+        this.deleteAllNodes();
         this.configureNodes(this.elementHeight / 2, this.elementWidth / 2);
         this.setHeight(this.elementHeight / 2);
         this.screenCharacters = new Array(this.cols * this.rows);
@@ -214,6 +215,7 @@ ColorTTY.prototype.changeNumberOfColumns = function(value){
         this.cols = value;
         this.ybitWidth = value / 2;
         this.elementWidth = ((this.characterWidth * this.cols) + 2) * 10;
+        this.deleteAllNodes();
         this.configureNodes(this.elementHeight / 2, this.elementWidth / 2);
         this.setWidth(this.elementWidth / 2);
         this.screenCharacters = new Array(this.cols * this.rows);
@@ -298,6 +300,14 @@ ColorTTY.prototype.leftAndRightShift = function(code){
         this.screenCharacters.push(undefined);
     }
 }
+ColorTTY.prototype.deleteAllNodes = function() {
+    var nodes = [this.clockInp, this.asciiInp, this.xPosition, 
+                 this.yPosition, this.foregroundColor, this.backgroundColor,
+                 this.reset, this.en, this.shift];
+    nodes.forEach(function(node){
+        node.delete();
+    });
+}
 
 /* 
     TODO:
@@ -306,7 +316,7 @@ ColorTTY.prototype.leftAndRightShift = function(code){
     3- find the bug inside the char positioning.                             -- DONE
     4- make the color positioning approach the same as the char positioning. -- DONE
     5- refactor some of the large functions.                                 -- DONE
-    6- add mutable width and height/ reset button to properties UI.          -- DONE but not tested
+    6- add mutable width and height/ reset button to properties UI.          -- DONE
 */
 
 
