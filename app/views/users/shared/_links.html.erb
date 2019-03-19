@@ -1,13 +1,13 @@
 <br>
 <%- if controller_name != 'sessions' %>
-  <%= link_to "Log in", new_session_path(resource_name) ,class:"btn-sm btn-secondary" %><br />
+  <%= link_to "Log in", new_session_path(resource_name) ,class:"btn-sm btn-outline-secondary" %><br />
 <% end -%>
 
 
 
 
 <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-  <%= link_to "New User? Sign up", new_registration_path(resource_name) ,class:"btn-sm btn-secondary"%><br />
+  <%= link_to "New User? Sign up", new_registration_path(resource_name) ,class:"btn-sm btn-outline-secondary"%><br />
 <% end -%>
 
 
@@ -20,8 +20,8 @@
 <% end -%>
 <br />
 
-<a href="/users/auth/google_oauth2"><img src="/img/google_signin.png" height="40px"></a>
-<a href="/users/auth/facebook"><img src="/img/facebook_signin.png" height="40px"></a><br />
+<a class="btn btn-outline-danger" href="/users/auth/google_oauth2" role="button"><img src="/img/google.png" height="24px"> LOG IN WITH GOOGLE</a>
+<a class="btn btn-outline-primary" href="/users/auth/facebook" role="button"><img src="/img/facebook.png" height="24px"> LOG IN WITH FACEBOOK</a><br />
 
 <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
     <%= link_to "Forgot your password?", new_password_path(resource_name) %><br />
@@ -38,6 +38,3 @@
         <% end -%>
     <% end -%>
 <% end -%>
-
-
-
