@@ -159,8 +159,13 @@ function showProperties(obj) {
                 else if (obj.mutableProperties[attr].type == "button") {
                     var s = "<p><button class='objectPropertyAttribute btn btn-primary btn-xs' type='button'  name='" + prop.func + "'>" +prop.name +"</button></p>";
                     $('#moduleProperty-inner').append(s);
+                }else if (obj.mutableProperties[attr].type == "dropdown"){
+                    var fonts = obj.mutableProperties[attr].values.map(function(el){ 
+                                    return "<option value='" + el + "'>" + el + "</option>";
+                                }).join();
+                    var s = "<p>" + prop.name + "<select class='objectPropertyAttribute' type='dropdown' name='>" + prop.func + "'>" + fonts + "</select></p>";
+                    $('#moduleProperty-inner').append(s);
                 }
-
             }
         }
     }

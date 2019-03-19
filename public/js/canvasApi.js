@@ -334,14 +334,10 @@ function canvasMessage(ctx,str,x1,y1,fontSize=10){
     ctx.fill();
 }
 
-function fillText(ctx, str, x1, y1, fontSize = 20, serving = 'other') {
+function fillText(ctx, str, x1, y1, fontSize = 20, font = "Georgia") {
     x1 = x1 * globalScope.scale;
     y1 = y1 * globalScope.scale;
-    if (serving === 'ColorTTY'){
-        ctx.font = Math.round(fontSize * globalScope.scale) + "px Lekton";
-    }else {
-        ctx.font = Math.round(fontSize * globalScope.scale) + "px Georgia";
-    }
+    ctx.font = Math.round(fontSize * globalScope.scale) + "px " + font;
     ctx.fillText(str, Math.round(x1 + globalScope.ox), Math.round( y1 + globalScope.oy));
 }
 

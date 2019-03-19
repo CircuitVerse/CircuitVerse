@@ -43,6 +43,7 @@ function ColorTTY(x, y, scope = globalScope, dimensions = [8, 32, 4]){
     this.colorBitWidth = colors;
     this.characterHeight = 2;               // unit is simulationArea squares
     this.characterWidth = 1;
+    this.font = "Lekton";
 
     // '+2' adds 1 square padding in each direction
     this.elementWidth = ((this.characterWidth * this.cols) + 2) * 10;
@@ -59,7 +60,7 @@ ColorTTY.prototype.constructor = ColorTTY;
 ColorTTY.prototype.tooltipText = "A variable dimensions color Display Screen";
 ColorTTY.prototype.mutableProperties = {
     "rows": {
-        name: "Rows",
+        name: "Rows ",
         type: "number",
         max: "128",
         min: "8",
@@ -71,6 +72,12 @@ ColorTTY.prototype.mutableProperties = {
         max: "128",
         min: "8",
         func: "changeNumberOfColumns",
+    },
+    "fonts": {
+        name: "Font",
+        type: "dropdown",
+        values: ["Lekton"],
+        func: "changeFont"
     },
     "reset": {
         name: "Reset",
@@ -162,7 +169,7 @@ ColorTTY.prototype.customDraw = function() {
             ctx.beginPath();
             ctx.fillStyle = this.screenCharacters[c].foreground;    
             ctx.textAlign = "center";
-            fillText(ctx, this.screenCharacters[c].character, newXRelativePoint - xCharacterOffset, newYRelativePoint - yCharacterOffset, 19, 'ColorTTY');
+            fillText(ctx, this.screenCharacters[c].character, newXRelativePoint - xCharacterOffset, newYRelativePoint - yCharacterOffset, 19, this.font);
             ctx.fill();
         }
     }
@@ -220,6 +227,9 @@ ColorTTY.prototype.changeNumberOfColumns = function(value){
         this.setWidth(this.elementWidth / 2);
         this.screenCharacters = new Array(this.cols * this.rows);
     }
+}
+ColorTTY.prototype.changeFont = function(value){
+    this.font = value;
 }
 ColorTTY.prototype.getRowUsingIndex = function(index){
     var numberOfRows = 0;
@@ -317,6 +327,7 @@ ColorTTY.prototype.deleteAllNodes = function() {
     4- make the color positioning approach the same as the char positioning. -- DONE
     5- refactor some of the large functions.                                 -- DONE
     6- add mutable width and height/ reset button to properties UI.          -- DONE
+    7- make user select Font                                                 -- DONE
 */
 
 
