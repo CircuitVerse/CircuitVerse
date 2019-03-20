@@ -49,7 +49,7 @@ $(document).ready(function () {
     }
     $('.logixModules').hover(function () {
         // Tooltip can be statically defined in the prototype.
-        var tooltipText = window[this.id].prototype.tooltipText || help[this.id];
+        var tooltipText = window[this.id].prototype.tooltipText;
         if (!tooltipText) return;
         $("#Help").addClass("show");
         $("#Help").empty();
@@ -71,26 +71,6 @@ $(document).ready(function () {
     // $('#moduleProperty').draggable();
 
 }); // accordion
-
-// var help = {
-//     "Input": "Input ToolTip: Toggle the individual bits by clicking on them.",
-//     "Button": "Button ToolTip: High(1) when pressed and Low(0) when released.",
-//     "ConstantVal": "Constant ToolTip: Bits are fixed. Double click element to change the bits.",
-//     "Stepper": "Stepper ToolTip: Increase/Decrease value by selecting the stepper and using +/- keys.",
-//     "Output": "Output ToolTip: Simple output element showing output in binary.",
-//     "RGBLed": "RGB Led ToolTip: RGB Led inputs 8 bit values for the colors RED, GREEN and BLUE.",
-//     "SquareRGBLed": "Square RGB Led ToolTip: RGB Led inputs 8 bit values for the colors RED, GREEN and BLUE.",
-//     "DigitalLed": "Digital Led ToolTip: Digital LED glows high when input is High(1).",
-//     "VariableLed": "Variable Led ToolTip: Variable LED inputs an 8 bit value and glows with a proportional intensity.",
-//     "HexDisplay": "Hex Display ToolTip: Inputs a 4 Bit Hex number and displays it.",
-//     "SevenSegDisplay": "Seven Display ToolTip: Consists of 7+1 single bit inputs.",
-//     "TTY": "TTY ToolTip: Console buffer",
-//     "Keyboard": "Keyboard ToolTip: Select the Keyboard and type into the buffer.",
-//     "Text": "Text ToolTip: Use this to document your circuit.",
-//     "Flag": "FLag ToolTip: Use this for debugging and plotting.",
-//     "Splitter": "Splitter ToolTip: Split multiBit Input into smaller bitwidths or vice versa.",
-//     "ALU": "ALU ToolTip: 0: A&B, 1:A|B, 2:A+B, 4:A&~B, 5:A|~B, 6:A-B, 7:SLT ",
-// }
 
 
 
@@ -166,7 +146,7 @@ function showProperties(obj) {
     }
 
     // Tooltip can be defined in the prototype or the object itself, in addition to help map.
-    var tooltipText = obj && (obj.tooltipText || help[obj.objectType]);
+    var tooltipText = obj && (obj.tooltipText);
     if (tooltipText) {
         $('#moduleProperty-inner').append('<p><button id="toolTipButton" class="btn btn-primary btn-xs" type="button" >CircuitVerse Tip</button></p>');
         $('#toolTipButton').hover(function () {
