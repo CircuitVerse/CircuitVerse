@@ -44,6 +44,7 @@ GEM
     arel (8.0.0)
     ast (2.4.0)
     bcrypt (3.1.12)
+    bcrypt (3.1.12-x86-mingw32)
     bindex (0.5.0)
     bootstrap-typeahead-rails (0.10.5.1)
       railties (>= 3.0)
@@ -116,6 +117,7 @@ GEM
     faraday (0.15.4)
       multipart-post (>= 1.2, < 3)
     ffi (1.10.0)
+    ffi (1.10.0-x86-mingw32)
     font-awesome-rails (4.7.0.4)
       railties (>= 3.2, < 6.0)
     globalid (0.4.2)
@@ -176,6 +178,8 @@ GEM
     nio4r (2.3.1)
     nokogiri (1.10.1)
       mini_portile2 (~> 2.4.0)
+    nokogiri (1.10.1-x86-mingw32)
+      mini_portile2 (~> 2.4.0)
     oauth2 (1.4.1)
       faraday (>= 0.8, < 0.16.0)
       jwt (>= 1.0, < 3.0)
@@ -208,6 +212,7 @@ GEM
     parser (2.6.0.0)
       ast (~> 2.4.0)
     pg (1.1.4)
+    pg (1.1.4-x86-mingw32)
     powerpack (0.1.2)
     pry (0.12.2)
       coderay (~> 1.1.0)
@@ -215,6 +220,7 @@ GEM
     pry-rails (0.3.9)
       pry (>= 0.10.4)
     psych (3.1.0)
+    psych (3.1.0-x86-mingw32)
     public_suffix (3.0.3)
     puma (3.12.0)
     pundit (2.0.1)
@@ -369,6 +375,8 @@ GEM
     turbolinks-source (5.2.0)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
+    tzinfo-data (1.2018.9)
+      tzinfo (>= 1.0.0)
     uglifier (4.1.20)
       execjs (>= 0.3.0, < 3)
     unicode-display_width (1.4.1)
@@ -391,6 +399,7 @@ GEM
 
 PLATFORMS
   ruby
+  x86-mingw32
 
 DEPENDENCIES
   acts_as_votable (~> 0.12.0)
@@ -440,4 +449,4 @@ DEPENDENCIES
   will_paginate-bootstrap
 
 BUNDLED WITH
-   1.17.1
+   2.0.1
