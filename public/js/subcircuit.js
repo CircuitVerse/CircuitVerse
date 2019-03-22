@@ -1,8 +1,8 @@
 function loadSubCircuit(savedData, scope) {
     var v = new SubCircuit(savedData["x"], savedData["y"], scope, savedData["id"], savedData);
     // Copy all Layouts to allLayouts variable
-    for(var x in scopeList)
-        allLayouts[x] = Object.assign({},scopeList[x].layout);
+    for (var x in scopeList)
+        allLayouts[x] = Object.assign({}, scopeList[x].layout);
     // if(v.version == "1.0"){
     // 	v.version = "2.0";
     // 	v.x-=v.width/2;
@@ -193,8 +193,8 @@ SubCircuit.prototype.reset = function() {
         return;
     }
     // Set the width and height
-    subcircuitScope.layout.height = (allLayouts[subcircuitScope.id])?allLayouts[subcircuitScope.id].height:subcircuitScope.layout.height;
-    subcircuitScope.layout.width = (allLayouts[subcircuitScope.id])?allLayouts[subcircuitScope.id].width:subcircuitScope.layout.width;
+    subcircuitScope.layout.height = (allLayouts[subcircuitScope.id]) ? allLayouts[subcircuitScope.id].height : subcircuitScope.layout.height;
+    subcircuitScope.layout.width = (allLayouts[subcircuitScope.id]) ? allLayouts[subcircuitScope.id].width : subcircuitScope.layout.width;
     this.leftDimensionX = 0;
     this.upDimensionY = 0;
     this.rightDimensionX = subcircuitScope.layout.width;

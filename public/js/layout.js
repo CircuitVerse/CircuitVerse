@@ -93,7 +93,7 @@ function layout_buffer(scope = globalScope) {
     this.yy = yy;
 
     // Assign layout if exist or create new one
-    this.layout = (allLayouts[scope.id])?Object.assign({},allLayouts[scope.id]):Object.assign({}, scope.layout); //Object.create(scope.layout);
+    this.layout = (allLayouts[scope.id]) ? Object.assign({}, allLayouts[scope.id]) : Object.assign({}, scope.layout); //Object.create(scope.layout);
 
     // Push Input Nodes
     this.Input = [];
