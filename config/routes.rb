@@ -76,7 +76,12 @@ Rails.application.routes.draw do
   end
 
 
-
+  require 'sidekiq/web'
+  require 'sidekiq-scheduler/web'
+  Rails.application.routes.draw do
+    # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+    mount Sidekiq::Web => '/sidekiq'
+  end
 
   # get 'comments/create_reply/:id', to: 'comments#create_reply', as: 'reply_comment'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
