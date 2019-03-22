@@ -196,12 +196,12 @@ SubCircuit.prototype.reset = function() {
         this.scope.backups = [];
         return;
     }
-    
+
     if(allLayouts[subcircuitScope.id]){
         // Set the width and height
         subcircuitScope.layout = Object.assign(allLayouts[subcircuitScope.id]);
     }
-    
+
     subcircuitScope.layout.height = subcircuitScope.layout.height;
     subcircuitScope.layout.width = subcircuitScope.layout.width;
     this.leftDimensionX = 0;
