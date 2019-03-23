@@ -80,7 +80,9 @@ Rails.application.routes.draw do
   require 'sidekiq-scheduler/web'
   Rails.application.routes.draw do
     # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-    mount Sidekiq::Web => '/sidekiq'
+    authenticate :user, lambda { |u| u.admin? } do
+      mount Sidekiq::Web => '/sidekiq'
+    end
   end
 
   # get 'comments/create_reply/:id', to: 'comments#create_reply', as: 'reply_comment'
