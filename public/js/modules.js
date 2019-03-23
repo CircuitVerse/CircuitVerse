@@ -57,7 +57,7 @@ AndGate.prototype.verilogType = "and";
 
 AndGate.prototype.changeInputSize = changeInputSize;
 //fn to create save Json Data of object
-AndGate.prototype.customSave = function() {
+AndGate.prototype.customSave = function () {
     var data = {
         constructorParamaters: [this.direction, this.inputSize, this.bitWidth],
         nodes: {
@@ -70,7 +70,7 @@ AndGate.prototype.customSave = function() {
 }
 
 //resolve output values based on inputData
-AndGate.prototype.resolve = function() {
+AndGate.prototype.resolve = function () {
     var result = this.inp[0].value || 0;
     if (this.isResolvable() == false) {
         return;
@@ -82,7 +82,7 @@ AndGate.prototype.resolve = function() {
 }
 
 //fn to draw
-AndGate.prototype.customDraw = function() {
+AndGate.prototype.customDraw = function () {
 
     ctx = simulationArea.context;
 
@@ -149,7 +149,7 @@ NandGate.prototype.alwaysResolve = true;
 NandGate.prototype.changeInputSize = changeInputSize;
 NandGate.prototype.verilogType = "nand";
 //fn to create save Json Data of object
-NandGate.prototype.customSave = function() {
+NandGate.prototype.customSave = function () {
     var data = {
 
         constructorParamaters: [this.direction, this.inputSize, this.bitWidth],
@@ -161,7 +161,7 @@ NandGate.prototype.customSave = function() {
     return data;
 }
 //resolve output values based on inputData
-NandGate.prototype.resolve = function() {
+NandGate.prototype.resolve = function () {
     var result = this.inp[0].value || 0;
     if (this.isResolvable() == false) {
         return;
@@ -173,7 +173,7 @@ NandGate.prototype.resolve = function() {
     simulationArea.simulationQueue.add(this.output1);
 }
 //fn to draw
-NandGate.prototype.customDraw = function() {
+NandGate.prototype.customDraw = function () {
 
     ctx = simulationArea.context;
     ctx.beginPath();
@@ -234,7 +234,7 @@ function Multiplexer(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1, con
 }
 Multiplexer.prototype = Object.create(CircuitElement.prototype);
 Multiplexer.prototype.constructor = Multiplexer;
-Multiplexer.prototype.changeControlSignalSize = function(size) {
+Multiplexer.prototype.changeControlSignalSize = function (size) {
     if (size == undefined || size < 1 || size > 32) return;
     if (this.controlSignalSize == size) return;
     var obj = new window[this.objectType](this.x, this.y, this.scope, this.direction, this.bitWidth, size);
@@ -251,7 +251,7 @@ Multiplexer.prototype.mutableProperties = {
         func: "changeControlSignalSize",
     },
 }
-Multiplexer.prototype.newBitWidth = function(bitWidth) {
+Multiplexer.prototype.newBitWidth = function (bitWidth) {
     this.bitWidth = bitWidth;
     for (var i = 0; i < this.inputSize; i++) {
         this.inp[i].bitWidth = bitWidth
@@ -261,11 +261,11 @@ Multiplexer.prototype.newBitWidth = function(bitWidth) {
 
 
 //fn to create save Json Data of object
-Multiplexer.prototype.isResolvable = function() {
+Multiplexer.prototype.isResolvable = function () {
     if (this.controlSignalInput.value != undefined && this.inp[this.controlSignalInput.value].value != undefined) return true;
     return false;
 }
-Multiplexer.prototype.customSave = function() {
+Multiplexer.prototype.customSave = function () {
     var data = {
         constructorParamaters: [this.direction, this.bitWidth, this.controlSignalSize],
         nodes: {
@@ -276,7 +276,7 @@ Multiplexer.prototype.customSave = function() {
     }
     return data;
 }
-Multiplexer.prototype.resolve = function() {
+Multiplexer.prototype.resolve = function () {
 
     if (this.isResolvable() == false) {
         return;
@@ -284,7 +284,7 @@ Multiplexer.prototype.resolve = function() {
     this.output1.value = this.inp[this.controlSignalInput.value].value;
     simulationArea.simulationQueue.add(this.output1);
 }
-Multiplexer.prototype.customDraw = function() {
+Multiplexer.prototype.customDraw = function () {
 
     ctx = simulationArea.context;
 
@@ -367,7 +367,7 @@ XorGate.prototype.alwaysResolve = true;
 
 XorGate.prototype.changeInputSize = changeInputSize;
 XorGate.prototype.verilogType = "xor";
-XorGate.prototype.customSave = function() {
+XorGate.prototype.customSave = function () {
     // //console.log(this.scope.allNodes);
     var data = {
         constructorParamaters: [this.direction, this.inputSize, this.bitWidth],
@@ -378,7 +378,7 @@ XorGate.prototype.customSave = function() {
     }
     return data;
 }
-XorGate.prototype.resolve = function() {
+XorGate.prototype.resolve = function () {
     var result = this.inp[0].value || 0;
     if (this.isResolvable() == false) {
         return;
@@ -389,7 +389,7 @@ XorGate.prototype.resolve = function() {
     this.output1.value = result;
     simulationArea.simulationQueue.add(this.output1);
 }
-XorGate.prototype.customDraw = function() {
+XorGate.prototype.customDraw = function () {
 
     ctx = simulationArea.context;
     ctx.strokeStyle = ("rgba(0,0,0,1)");
@@ -454,7 +454,7 @@ XnorGate.prototype.alwaysResolve = true;
 
 XnorGate.prototype.changeInputSize = changeInputSize;
 XnorGate.prototype.verilogType = "xnor";
-XnorGate.prototype.customSave = function() {
+XnorGate.prototype.customSave = function () {
     var data = {
         constructorParamaters: [this.direction, this.inputSize, this.bitWidth],
         nodes: {
@@ -464,7 +464,7 @@ XnorGate.prototype.customSave = function() {
     }
     return data;
 }
-XnorGate.prototype.resolve = function() {
+XnorGate.prototype.resolve = function () {
     var result = this.inp[0].value || 0;
     if (this.isResolvable() == false) {
         return;
@@ -475,7 +475,7 @@ XnorGate.prototype.resolve = function() {
     this.output1.value = result;
     simulationArea.simulationQueue.add(this.output1);
 }
-XnorGate.prototype.customDraw = function() {
+XnorGate.prototype.customDraw = function () {
 
     ctx = simulationArea.context;
     ctx.strokeStyle = ("rgba(0,0,0,1)");
@@ -524,7 +524,7 @@ function SevenSegDisplay(x, y, scope = globalScope) {
 }
 SevenSegDisplay.prototype = Object.create(CircuitElement.prototype);
 SevenSegDisplay.prototype.constructor = SevenSegDisplay;
-SevenSegDisplay.prototype.customSave = function() {
+SevenSegDisplay.prototype.customSave = function () {
     var data = {
 
         nodes: {
@@ -541,7 +541,7 @@ SevenSegDisplay.prototype.customSave = function() {
     }
     return data;
 }
-SevenSegDisplay.prototype.customDrawSegment = function(x1, y1, x2, y2, color) {
+SevenSegDisplay.prototype.customDrawSegment = function (x1, y1, x2, y2, color) {
     if (color == undefined) color = "lightgrey";
     ctx = simulationArea.context;
     ctx.beginPath();
@@ -555,7 +555,7 @@ SevenSegDisplay.prototype.customDrawSegment = function(x1, y1, x2, y2, color) {
     ctx.stroke();
 }
 
-SevenSegDisplay.prototype.customDraw = function() {
+SevenSegDisplay.prototype.customDraw = function () {
     ctx = simulationArea.context;
 
     var xx = this.x;
@@ -582,25 +582,25 @@ function SixteenSegDisplay(x, y, scope = globalScope) {
     this.directionFixed = true;
     this.setDimensions(30, 50);
 
-    this.input1 = new Node( 0, -50, 0, this, 16);
-    this.dot = new Node( 0, 50, 0, this, 1);
-    this.direction ="RIGHT";
+    this.input1 = new Node(0, -50, 0, this, 16);
+    this.dot = new Node(0, 50, 0, this, 1);
+    this.direction = "RIGHT";
 }
 
 SixteenSegDisplay.prototype = Object.create(CircuitElement.prototype);
 SixteenSegDisplay.prototype.constructor = SixteenSegDisplay;
 SixteenSegDisplay.prototype.tooltipText = "Sixteen Display ToolTip: Consists of 16+1 bit inputs.";
-SixteenSegDisplay.prototype.customSave = function() {
+SixteenSegDisplay.prototype.customSave = function () {
     var data = {
         nodes: {
             input1: findNode(this.input1),
-            dot: findNode(this.dot)    
+            dot: findNode(this.dot)
         }
     }
     return data;
 }
 
-SixteenSegDisplay.prototype.customDrawSegment = function(x1, y1, x2, y2, color) {
+SixteenSegDisplay.prototype.customDrawSegment = function (x1, y1, x2, y2, color) {
     if (color == undefined) color = "lightgrey";
     ctx = simulationArea.context;
     ctx.beginPath();
@@ -614,7 +614,7 @@ SixteenSegDisplay.prototype.customDrawSegment = function(x1, y1, x2, y2, color) 
     ctx.stroke();
 }
 
-SixteenSegDisplay.prototype.customDrawSegmentSlant = function(x1, y1, x2, y2, color) {
+SixteenSegDisplay.prototype.customDrawSegmentSlant = function (x1, y1, x2, y2, color) {
     if (color == undefined) color = "lightgrey";
     ctx = simulationArea.context;
     ctx.beginPath();
@@ -628,14 +628,14 @@ SixteenSegDisplay.prototype.customDrawSegmentSlant = function(x1, y1, x2, y2, co
     ctx.stroke();
 }
 
-SixteenSegDisplay.prototype.customDraw = function() {
+SixteenSegDisplay.prototype.customDraw = function () {
     ctx = simulationArea.context;
 
     var xx = this.x;
     var yy = this.y;
 
-	var color = ["lightgrey", "red"];
-	var value = this.input1.value;
+    var color = ["lightgrey", "red"];
+    var value = this.input1.value;
 
     this.customDrawSegment(-20, -38, 0, -38, ["lightgrey", "red"][(value >> 15) & 1]);		//a1
     this.customDrawSegment(20, -38, 0, -38, ["lightgrey", "red"][(value >> 14) & 1]);		//a2
@@ -673,7 +673,7 @@ function HexDisplay(x, y, scope = globalScope) {
 
 HexDisplay.prototype = Object.create(CircuitElement.prototype);
 HexDisplay.prototype.constructor = HexDisplay;
-HexDisplay.prototype.customSave = function() {
+HexDisplay.prototype.customSave = function () {
     var data = {
 
 
@@ -684,7 +684,7 @@ HexDisplay.prototype.customSave = function() {
     }
     return data;
 }
-HexDisplay.prototype.customDrawSegment = function(x1, y1, x2, y2, color) {
+HexDisplay.prototype.customDrawSegment = function (x1, y1, x2, y2, color) {
     if (color == undefined) color = "lightgrey";
     ctx = simulationArea.context;
     ctx.beginPath();
@@ -698,7 +698,7 @@ HexDisplay.prototype.customDrawSegment = function(x1, y1, x2, y2, color) {
     ctx.closePath();
     ctx.stroke();
 }
-HexDisplay.prototype.customDraw = function() {
+HexDisplay.prototype.customDraw = function () {
     ctx = simulationArea.context;
 
     var xx = this.x;
@@ -821,7 +821,7 @@ OrGate.prototype.constructor = OrGate;
 OrGate.prototype.changeInputSize = changeInputSize;
 OrGate.prototype.alwaysResolve = true;
 OrGate.prototype.verilogType = "or";
-OrGate.prototype.customSave = function() {
+OrGate.prototype.customSave = function () {
     var data = {
 
         constructorParamaters: [this.direction, this.inputSize, this.bitWidth],
@@ -833,7 +833,7 @@ OrGate.prototype.customSave = function() {
     }
     return data;
 }
-OrGate.prototype.resolve = function() {
+OrGate.prototype.resolve = function () {
     var result = this.inp[0].value || 0;
     if (this.isResolvable() == false) {
         return;
@@ -843,7 +843,7 @@ OrGate.prototype.resolve = function() {
     this.output1.value = result;
     simulationArea.simulationQueue.add(this.output1);
 }
-OrGate.prototype.customDraw = function() {
+OrGate.prototype.customDraw = function () {
 
     ctx = simulationArea.context;
     ctx.strokeStyle = ("rgba(0,0,0,1)");
@@ -878,7 +878,7 @@ function Stepper(x, y, scope = globalScope, dir = "RIGHT") {
 }
 Stepper.prototype = Object.create(CircuitElement.prototype);
 Stepper.prototype.constructor = Stepper;
-Stepper.prototype.customSave = function() {
+Stepper.prototype.customSave = function () {
     var data = {
         constructorParamaters: [this.direction],
         nodes: {
@@ -890,7 +890,7 @@ Stepper.prototype.customSave = function() {
     }
     return data;
 }
-Stepper.prototype.customDraw = function() {
+Stepper.prototype.customDraw = function () {
     ctx = simulationArea.context;
 
     ctx.beginPath();
@@ -900,12 +900,12 @@ Stepper.prototype.customDraw = function() {
     fillText(ctx, this.state.toString(16), this.x, this.y + 5);
     ctx.fill();;
 }
-Stepper.prototype.resolve = function() {
+Stepper.prototype.resolve = function () {
     this.state = Math.min(this.state, (1 << this.bitWidth) - 1);
     this.output1.value = this.state;
     simulationArea.simulationQueue.add(this.output1);
 }
-Stepper.prototype.keyDown2 = function(key) {
+Stepper.prototype.keyDown2 = function (key) {
     //console.log(key);
     if (this.state < (1 << this.bitWidth) && (key == "+" || key == "=")) this.state++;
     if (this.state > 0 && (key == "_" || key == "-")) this.state--;
@@ -924,7 +924,7 @@ function NotGate(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
 }
 NotGate.prototype = Object.create(CircuitElement.prototype);
 NotGate.prototype.constructor = NotGate;
-NotGate.prototype.customSave = function() {
+NotGate.prototype.customSave = function () {
     var data = {
         constructorParamaters: [this.direction, this.bitWidth],
         nodes: {
@@ -934,14 +934,14 @@ NotGate.prototype.customSave = function() {
     }
     return data;
 }
-NotGate.prototype.resolve = function() {
+NotGate.prototype.resolve = function () {
     if (this.isResolvable() == false) {
         return;
     }
     this.output1.value = ((~this.inp1.value >>> 0) << (32 - this.bitWidth)) >>> (32 - this.bitWidth);
     simulationArea.simulationQueue.add(this.output1);
 }
-NotGate.prototype.customDraw = function() {
+NotGate.prototype.customDraw = function () {
 
     ctx = simulationArea.context;
     ctx.strokeStyle = "black";
@@ -978,10 +978,10 @@ function ForceGate(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
 }
 ForceGate.prototype = Object.create(CircuitElement.prototype);
 ForceGate.prototype.constructor = ForceGate;
-ForceGate.prototype.isResolvable = function() {
+ForceGate.prototype.isResolvable = function () {
     return (this.inp1.value != undefined || this.inp2.value != undefined)
 }
-ForceGate.prototype.customSave = function() {
+ForceGate.prototype.customSave = function () {
     var data = {
         constructorParamaters: [this.direction, this.bitWidth],
         nodes: {
@@ -992,14 +992,14 @@ ForceGate.prototype.customSave = function() {
     }
     return data;
 }
-ForceGate.prototype.resolve = function() {
+ForceGate.prototype.resolve = function () {
     if (this.inp2.value != undefined)
         this.output1.value = this.inp2.value;
     else
         this.output1.value = this.inp1.value;
     simulationArea.simulationQueue.add(this.output1);
 }
-ForceGate.prototype.customDraw = function() {
+ForceGate.prototype.customDraw = function () {
 
     ctx = simulationArea.context;
     var xx = this.x;
@@ -1033,7 +1033,7 @@ function Text(x, y, scope = globalScope, label = "") {
 }
 Text.prototype = Object.create(CircuitElement.prototype);
 Text.prototype.constructor = Text;
-Text.prototype.setLabel = function(str = "") {
+Text.prototype.setLabel = function (str = "") {
 
     this.label = str;
     ctx = simulationArea.context;
@@ -1042,13 +1042,13 @@ Text.prototype.setLabel = function(str = "") {
     this.rightDimensionX = ctx.measureText(this.label).width + 10;
     //console.log(this.leftDimensionX,this.rightDimensionX,ctx.measureText(this.label))
 }
-Text.prototype.customSave = function() {
+Text.prototype.customSave = function () {
     var data = {
         constructorParamaters: [this.label],
     }
     return data;
 }
-Text.prototype.keyDown = function(key) {
+Text.prototype.keyDown = function (key) {
 
 
     if (key.length == 1) {
@@ -1063,7 +1063,7 @@ Text.prototype.keyDown = function(key) {
             this.setLabel(this.label.slice(0, -1));
     }
 }
-Text.prototype.draw = function() {
+Text.prototype.draw = function () {
 
     if (this.label.length == 0 && simulationArea.lastSelected != this) this.delete();
 
@@ -1106,7 +1106,7 @@ function TriState(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
 TriState.prototype = Object.create(CircuitElement.prototype);
 TriState.prototype.constructor = TriState;
 // TriState.prototype.propagationDelay=10000;
-TriState.prototype.customSave = function() {
+TriState.prototype.customSave = function () {
     var data = {
         constructorParamaters: [this.direction, this.bitWidth],
         nodes: {
@@ -1120,12 +1120,12 @@ TriState.prototype.customSave = function() {
 // TriState.prototype.isResolvable = function(){
 // 	return this.inp1.value!=undefined
 // }
-TriState.prototype.newBitWidth = function(bitWidth) {
+TriState.prototype.newBitWidth = function (bitWidth) {
     this.inp1.bitWidth = bitWidth;
     this.output1.bitWidth = bitWidth;
     this.bitWidth = bitWidth;
 }
-TriState.prototype.resolve = function() {
+TriState.prototype.resolve = function () {
     if (this.isResolvable() == false) {
         return;
     }
@@ -1145,7 +1145,7 @@ TriState.prototype.resolve = function() {
     }
     simulationArea.contentionPending.clean(this);
 }
-TriState.prototype.customDraw = function() {
+TriState.prototype.customDraw = function () {
 
     ctx = simulationArea.context;
     ctx.strokeStyle = ("rgba(0,0,0,1)");
@@ -1180,7 +1180,7 @@ function Buffer(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
 }
 Buffer.prototype = Object.create(CircuitElement.prototype);
 Buffer.prototype.constructor = Buffer;
-Buffer.prototype.customSave = function() {
+Buffer.prototype.customSave = function () {
     var data = {
         constructorParamaters: [this.direction, this.bitWidth],
         nodes: {
@@ -1191,15 +1191,15 @@ Buffer.prototype.customSave = function() {
     }
     return data;
 }
-Buffer.prototype.newBitWidth = function(bitWidth) {
+Buffer.prototype.newBitWidth = function (bitWidth) {
     this.inp1.bitWidth = bitWidth;
     this.output1.bitWidth = bitWidth;
     this.bitWidth = bitWidth;
 }
-Buffer.prototype.isResolvable = function() {
+Buffer.prototype.isResolvable = function () {
     return true;
 }
-Buffer.prototype.resolve = function() {
+Buffer.prototype.resolve = function () {
 
     if (this.reset.value == 1) {
         this.state = this.preState;
@@ -1211,7 +1211,7 @@ Buffer.prototype.resolve = function() {
     simulationArea.simulationQueue.add(this.output1);
 
 }
-Buffer.prototype.customDraw = function() {
+Buffer.prototype.customDraw = function () {
 
     ctx = simulationArea.context;
     ctx.strokeStyle = ("rgba(200,0,0,1)");
@@ -1244,7 +1244,7 @@ function ControlledInverter(x, y, scope = globalScope, dir = "RIGHT", bitWidth =
 }
 ControlledInverter.prototype = Object.create(CircuitElement.prototype);
 ControlledInverter.prototype.constructor = ControlledInverter;
-ControlledInverter.prototype.customSave = function() {
+ControlledInverter.prototype.customSave = function () {
     var data = {
         constructorParamaters: [this.direction, this.bitWidth],
         nodes: {
@@ -1255,12 +1255,12 @@ ControlledInverter.prototype.customSave = function() {
     }
     return data;
 }
-ControlledInverter.prototype.newBitWidth = function(bitWidth) {
+ControlledInverter.prototype.newBitWidth = function (bitWidth) {
     this.inp1.bitWidth = bitWidth;
     this.output1.bitWidth = bitWidth;
     this.bitWidth = bitWidth;
 }
-ControlledInverter.prototype.resolve = function() {
+ControlledInverter.prototype.resolve = function () {
     if (this.isResolvable() == false) {
         return;
     }
@@ -1272,7 +1272,7 @@ ControlledInverter.prototype.resolve = function() {
         this.output1.value = undefined;
     }
 }
-ControlledInverter.prototype.customDraw = function() {
+ControlledInverter.prototype.customDraw = function () {
 
     ctx = simulationArea.context;
     ctx.strokeStyle = ("rgba(0,0,0,1)");
@@ -1311,7 +1311,7 @@ function Adder(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
 }
 Adder.prototype = Object.create(CircuitElement.prototype);
 Adder.prototype.constructor = Adder;
-Adder.prototype.customSave = function() {
+Adder.prototype.customSave = function () {
     var data = {
         constructorParamaters: [this.direction, this.bitWidth],
         nodes: {
@@ -1324,16 +1324,16 @@ Adder.prototype.customSave = function() {
     }
     return data;
 }
-Adder.prototype.isResolvable = function() {
+Adder.prototype.isResolvable = function () {
     return this.inpA.value != undefined && this.inpB.value != undefined;
 }
-Adder.prototype.newBitWidth = function(bitWidth) {
+Adder.prototype.newBitWidth = function (bitWidth) {
     this.bitWidth = bitWidth;
     this.inpA.bitWidth = bitWidth;
     this.inpB.bitWidth = bitWidth;
     this.sum.bitWidth = bitWidth;
 }
-Adder.prototype.resolve = function() {
+Adder.prototype.resolve = function () {
     if (this.isResolvable() == false) {
         return;
     }
@@ -1358,7 +1358,7 @@ function Rom(x, y, scope = globalScope, data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     this.memAddr = new Node(-80, 0, 0, this, 4, "Address");
     this.en = new Node(0, 50, 0, this, 1, "Enable");
     this.dataOut = new Node(80, 0, 1, this, 8, "DataOut");
-    this.data = data || prompt("Enter data").split(' ').map(function(x) {
+    this.data = data || prompt("Enter data").split(' ').map(function (x) {
         return parseInt(x, 16);
     });
     //console.log(this.data);
@@ -1368,11 +1368,11 @@ function Rom(x, y, scope = globalScope, data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 }
 Rom.prototype = Object.create(CircuitElement.prototype);
 Rom.prototype.constructor = Rom;
-Rom.prototype.isResolvable = function() {
+Rom.prototype.isResolvable = function () {
     if ((this.en.value == 1 || this.en.connections.length == 0) && this.memAddr.value != undefined) return true;
     return false;
 }
-Rom.prototype.customSave = function() {
+Rom.prototype.customSave = function () {
     var data = {
         constructorParamaters: [this.data],
         nodes: {
@@ -1384,16 +1384,16 @@ Rom.prototype.customSave = function() {
     }
     return data;
 }
-Rom.prototype.findPos = function() {
+Rom.prototype.findPos = function () {
     var i = Math.floor((simulationArea.mouseX - this.x + 35) / 20)
     var j = Math.floor((simulationArea.mouseY - this.y + 35) / 16);
     if (i < 0 || j < 0 || i > 3 || j > 3) return undefined;
     return j * 4 + i;
 }
-Rom.prototype.click = function() { // toggle
+Rom.prototype.click = function () { // toggle
     this.selectedIndex = this.findPos();
 }
-Rom.prototype.keyDown = function(key) {
+Rom.prototype.keyDown = function (key) {
     if (key == "Backspace") this.delete();
     if (this.selectedIndex == undefined) return;
     key = key.toLowerCase();
@@ -1402,7 +1402,7 @@ Rom.prototype.keyDown = function(key) {
         this.data[this.selectedIndex] = (this.data[this.selectedIndex] * 16 + parseInt(key, 16)) % 256;
     }
 }
-Rom.prototype.customDraw = function() {
+Rom.prototype.customDraw = function () {
 
 
 
@@ -1494,7 +1494,7 @@ Rom.prototype.customDraw = function() {
 
 
 }
-Rom.prototype.resolve = function() {
+Rom.prototype.resolve = function () {
     if (this.isResolvable() == false) {
         return;
     }
@@ -1507,8 +1507,8 @@ function Splitter(x, y, scope = globalScope, dir = "RIGHT", bitWidth = undefined
     CircuitElement.call(this, x, y, scope, dir, bitWidth);
     this.rectangleObject = false;
 
-    this.bitWidthSplit = bitWidthSplit || prompt("Enter bitWidth Split").split(' ').map(function(x) {
-        return parseInt(x, 10)||1;
+    this.bitWidthSplit = bitWidthSplit || prompt("Enter bitWidth Split").split(' ').map(function (x) {
+        return parseInt(x, 10) || 1;
     });
     this.splitCount = this.bitWidthSplit.length;
 
@@ -1528,7 +1528,7 @@ function Splitter(x, y, scope = globalScope, dir = "RIGHT", bitWidth = undefined
 }
 Splitter.prototype = Object.create(CircuitElement.prototype);
 Splitter.prototype.constructor = Splitter;
-Splitter.prototype.customSave = function() {
+Splitter.prototype.customSave = function () {
     var data = {
 
         constructorParamaters: [this.direction, this.bitWidth, this.bitWidthSplit],
@@ -1539,7 +1539,7 @@ Splitter.prototype.customSave = function() {
     }
     return data;
 }
-Splitter.prototype.removePropogation = function() {
+Splitter.prototype.removePropogation = function () {
 
     if (this.inp1.value == undefined) {
         let i = 0;
@@ -1564,7 +1564,7 @@ Splitter.prototype.removePropogation = function() {
     this.prevInpValue = undefined;
 
 }
-Splitter.prototype.isResolvable = function() {
+Splitter.prototype.isResolvable = function () {
     var resolvable = false;
     if (this.inp1.value != this.prevInpValue) {
         if (this.inp1.value !== undefined) return true;
@@ -1576,7 +1576,7 @@ Splitter.prototype.isResolvable = function() {
     if (i == this.splitCount) resolvable = true;
     return resolvable;
 }
-Splitter.prototype.resolve = function() {
+Splitter.prototype.resolve = function () {
     if (this.isResolvable() == false) {
         return;
     }
@@ -1608,10 +1608,10 @@ Splitter.prototype.resolve = function() {
     }
     this.prevInpValue = this.inp1.value;
 }
-Splitter.prototype.reset = function() {
+Splitter.prototype.reset = function () {
     this.prevInpValue = undefined;
 }
-Splitter.prototype.processVerilog = function() {
+Splitter.prototype.processVerilog = function () {
 
     // console.log(this.inp1.verilogLabel +":"+ this.outputs[0].verilogLabel);
     if (this.inp1.verilogLabel != "" && this.outputs[0].verilogLabel == "") {
@@ -1641,7 +1641,7 @@ Splitter.prototype.processVerilog = function() {
         }
     }
 }
-Splitter.prototype.customDraw = function() {
+Splitter.prototype.customDraw = function () {
 
     ctx = simulationArea.context;
     ctx.strokeStyle = ["black", "brown"][((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) + 0];
@@ -1685,7 +1685,7 @@ Ground.prototype = Object.create(CircuitElement.prototype);
 Ground.prototype.tooltipText = "Ground: All bits are Low(0).";
 Ground.prototype.constructor = Ground;
 Ground.prototype.propagationDelay = 0;
-Ground.prototype.customSave = function() {
+Ground.prototype.customSave = function () {
     var data = {
         nodes: {
             output1: findNode(this.output1)
@@ -1697,11 +1697,11 @@ Ground.prototype.customSave = function() {
     }
     return data;
 }
-Ground.prototype.resolve = function() {
+Ground.prototype.resolve = function () {
     this.output1.value = 0;
     simulationArea.simulationQueue.add(this.output1);
 }
-Ground.prototype.customSave = function() {
+Ground.prototype.customSave = function () {
     var data = {
         nodes: {
             output1: findNode(this.output1)
@@ -1710,7 +1710,7 @@ Ground.prototype.customSave = function() {
     }
     return data;
 }
-Ground.prototype.customDraw = function() {
+Ground.prototype.customDraw = function () {
 
     ctx = simulationArea.context;
 
@@ -1745,11 +1745,11 @@ Power.prototype = Object.create(CircuitElement.prototype);
 Power.prototype.tooltipText = "Power: All bits are High(1).";
 Power.prototype.constructor = Power;
 Power.prototype.propagationDelay = 0;
-Power.prototype.resolve = function() {
+Power.prototype.resolve = function () {
     this.output1.value = ~0 >>> (32 - this.bitWidth);
     simulationArea.simulationQueue.add(this.output1);
 }
-Power.prototype.customSave = function() {
+Power.prototype.customSave = function () {
     var data = {
 
         nodes: {
@@ -1759,7 +1759,7 @@ Power.prototype.customSave = function() {
     }
     return data;
 }
-Power.prototype.customDraw = function() {
+Power.prototype.customDraw = function () {
 
     ctx = simulationArea.context;
 
@@ -1847,7 +1847,7 @@ function Input(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1, layoutPro
 Input.prototype = Object.create(CircuitElement.prototype);
 Input.prototype.constructor = Input;
 Input.prototype.propagationDelay = 0;
-Input.prototype.customSave = function() {
+Input.prototype.customSave = function () {
     var data = {
         nodes: {
             output1: findNode(this.output1)
@@ -1859,12 +1859,12 @@ Input.prototype.customSave = function() {
     }
     return data;
 }
-Input.prototype.resolve = function() {
+Input.prototype.resolve = function () {
     this.output1.value = this.state;
     simulationArea.simulationQueue.add(this.output1);
 }
 // Check if override is necessary!!
-Input.prototype.newBitWidth = function(bitWidth) {
+Input.prototype.newBitWidth = function (bitWidth) {
     if (bitWidth < 1) return;
     var diffBitWidth = bitWidth - this.bitWidth;
     this.bitWidth = bitWidth; //||parseInt(prompt("Enter bitWidth"),10);
@@ -1881,13 +1881,13 @@ Input.prototype.newBitWidth = function(bitWidth) {
         this.output1.leftx = 10 * this.bitWidth;
     }
 }
-Input.prototype.click = function() { // toggle
+Input.prototype.click = function () { // toggle
     var pos = this.findPos();
     if (pos == 0) pos = 1; // minor correction
     if (pos < 1 || pos > this.bitWidth) return;
     this.state = ((this.state >>> 0) ^ (1 << (this.bitWidth - pos))) >>> 0;
 }
-Input.prototype.customDraw = function() {
+Input.prototype.customDraw = function () {
 
     ctx = simulationArea.context;
     ctx.beginPath();
@@ -1906,7 +1906,7 @@ Input.prototype.customDraw = function() {
 
 
 }
-Input.prototype.newDirection = function(dir) {
+Input.prototype.newDirection = function (dir) {
     if (dir == this.direction) return;
     this.direction = dir;
     this.output1.refresh();
@@ -1921,7 +1921,7 @@ Input.prototype.newDirection = function(dir) {
     this.output1.refresh();
     this.labelDirection = oppositeDirection[this.direction];
 }
-Input.prototype.findPos = function() {
+Input.prototype.findPos = function () {
     return Math.round((simulationArea.mouseX - this.x + 10 * this.bitWidth) / 20.0);
 }
 
@@ -1951,10 +1951,10 @@ function Output(x, y, scope = globalScope, dir = "LEFT", bitWidth = 1, layoutPro
 Output.prototype = Object.create(CircuitElement.prototype);
 Output.prototype.constructor = Output;
 Output.prototype.propagationDelay = 0;
-Output.prototype.generateVerilog = function() {
+Output.prototype.generateVerilog = function () {
     return "assign " + this.label + " = " + this.inp1.verilogLabel + ";"
 }
-Output.prototype.customSave = function() {
+Output.prototype.customSave = function () {
     var data = {
         nodes: {
             inp1: findNode(this.inp1)
@@ -1963,7 +1963,7 @@ Output.prototype.customSave = function() {
     }
     return data;
 }
-Output.prototype.newBitWidth = function(bitWidth) {
+Output.prototype.newBitWidth = function (bitWidth) {
     if (bitWidth < 1) return;
     var diffBitWidth = bitWidth - this.bitWidth;
     this.state = undefined;
@@ -1981,7 +1981,7 @@ Output.prototype.newBitWidth = function(bitWidth) {
         this.inp1.leftx = 10 * this.bitWidth;
     }
 }
-Output.prototype.customDraw = function() {
+Output.prototype.customDraw = function () {
     this.state = this.inp1.value;
     ctx = simulationArea.context;
     ctx.beginPath();
@@ -2012,7 +2012,7 @@ Output.prototype.customDraw = function() {
     ctx.fill();
 
 }
-Output.prototype.newDirection = function(dir) {
+Output.prototype.newDirection = function (dir) {
     if (dir == this.direction) return;
     this.direction = dir;
     this.inp1.refresh();
@@ -2041,7 +2041,7 @@ function BitSelector(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 2, sel
 }
 BitSelector.prototype = Object.create(CircuitElement.prototype);
 BitSelector.prototype.constructor = BitSelector;
-BitSelector.prototype.changeSelectorBitWidth = function(size) {
+BitSelector.prototype.changeSelectorBitWidth = function (size) {
     if (size == undefined || size < 1 || size > 32) return;
     this.selectorBitWidth = size;
     this.bitSelectorInp.bitWidth = size;
@@ -2055,7 +2055,7 @@ BitSelector.prototype.mutableProperties = {
         func: "changeSelectorBitWidth",
     }
 }
-BitSelector.prototype.customSave = function() {
+BitSelector.prototype.customSave = function () {
     var data = {
 
         nodes: {
@@ -2067,15 +2067,15 @@ BitSelector.prototype.customSave = function() {
     }
     return data;
 }
-BitSelector.prototype.newBitWidth = function(bitWidth) {
+BitSelector.prototype.newBitWidth = function (bitWidth) {
     this.inp1.bitWidth = bitWidth;
     this.bitWidth = bitWidth;
 }
-BitSelector.prototype.resolve = function() {
+BitSelector.prototype.resolve = function () {
     this.output1.value = extractBits(this.inp1.value, this.bitSelectorInp.value + 1, this.bitSelectorInp.value + 1); //(this.inp1.value^(1<<this.bitSelectorInp.value))==(1<<this.bitSelectorInp.value);
     simulationArea.simulationQueue.add(this.output1);
 }
-BitSelector.prototype.customDraw = function() {
+BitSelector.prototype.customDraw = function () {
 
     ctx = simulationArea.context;
     ctx.beginPath();
@@ -2119,10 +2119,10 @@ function ConstantVal(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1, sta
 ConstantVal.prototype = Object.create(CircuitElement.prototype);
 ConstantVal.prototype.constructor = ConstantVal;
 ConstantVal.prototype.propagationDelay = 0;
-ConstantVal.prototype.generateVerilog = function() {
+ConstantVal.prototype.generateVerilog = function () {
     return "localparam [" + (this.bitWidth - 1) + ":0] " + this.verilogLabel + "=" + this.bitWidth + "b'" + this.state + ";";
 }
-ConstantVal.prototype.customSave = function() {
+ConstantVal.prototype.customSave = function () {
     var data = {
         nodes: {
             output1: findNode(this.output1)
@@ -2131,17 +2131,17 @@ ConstantVal.prototype.customSave = function() {
     }
     return data;
 }
-ConstantVal.prototype.resolve = function() {
+ConstantVal.prototype.resolve = function () {
     this.output1.value = bin2dec(this.state);
     simulationArea.simulationQueue.add(this.output1);
 }
-ConstantVal.prototype.dblclick = function() {
+ConstantVal.prototype.dblclick = function () {
     this.state = prompt("Re enter the value") || "0";
     console.log(this.state);
     this.newBitWidth(this.state.toString().length);
     //console.log(this.state, this.bitWidth);
 }
-ConstantVal.prototype.newBitWidth = function(bitWidth) {
+ConstantVal.prototype.newBitWidth = function (bitWidth) {
     if (bitWidth > this.state.length) this.state = '0'.repeat(bitWidth - this.state.length) + this.state;
     else if (bitWidth < this.state.length) this.state = this.state.slice(this.bitWidth - bitWidth);
     this.bitWidth = bitWidth; //||parseInt(prompt("Enter bitWidth"),10);
@@ -2155,7 +2155,7 @@ ConstantVal.prototype.newBitWidth = function(bitWidth) {
         this.output1.leftx = 10 * this.bitWidth;
     }
 }
-ConstantVal.prototype.customDraw = function() {
+ConstantVal.prototype.customDraw = function () {
 
     ctx = simulationArea.context;
     ctx.beginPath();
@@ -2179,7 +2179,7 @@ ConstantVal.prototype.customDraw = function() {
     ctx.fill();
 
 }
-ConstantVal.prototype.newDirection = function(dir) {
+ConstantVal.prototype.newDirection = function (dir) {
     if (dir == this.direction) return;
     this.direction = dir;
     this.output1.refresh();
@@ -2234,7 +2234,7 @@ NorGate.prototype.constructor = NorGate;
 NorGate.prototype.alwaysResolve = true;
 NorGate.prototype.changeInputSize = changeInputSize;
 NorGate.prototype.verilogType = "nor";
-NorGate.prototype.customSave = function() {
+NorGate.prototype.customSave = function () {
     var data = {
         constructorParamaters: [this.direction, this.inputSize, this.bitWidth],
         nodes: {
@@ -2244,7 +2244,7 @@ NorGate.prototype.customSave = function() {
     }
     return data;
 }
-NorGate.prototype.resolve = function() {
+NorGate.prototype.resolve = function () {
     var result = this.inp[0].value || 0;
     for (var i = 1; i < this.inputSize; i++)
         result = result | (this.inp[i].value || 0);
@@ -2252,7 +2252,7 @@ NorGate.prototype.resolve = function() {
     this.output1.value = result
     simulationArea.simulationQueue.add(this.output1);
 }
-NorGate.prototype.customDraw = function() {
+NorGate.prototype.customDraw = function () {
 
     ctx = simulationArea.context;
     ctx.strokeStyle = ("rgba(0,0,0,1)");
@@ -2294,7 +2294,7 @@ function DigitalLed(x, y, scope = globalScope, color = "Red") {
 }
 DigitalLed.prototype = Object.create(CircuitElement.prototype);
 DigitalLed.prototype.constructor = DigitalLed;
-DigitalLed.prototype.customSave = function() {
+DigitalLed.prototype.customSave = function () {
     var data = {
         constructorParamaters: [this.color],
         nodes: {
@@ -2310,7 +2310,7 @@ DigitalLed.prototype.mutableProperties = {
         func: "changeColor",
     },
 }
-DigitalLed.prototype.changeColor = function(value) {
+DigitalLed.prototype.changeColor = function (value) {
     if (validColor(value)) {
         this.color = value;
         var temp = colorToRGBA(this.color)
@@ -2318,7 +2318,7 @@ DigitalLed.prototype.changeColor = function(value) {
     }
 
 }
-DigitalLed.prototype.customDraw = function() {
+DigitalLed.prototype.customDraw = function () {
 
     ctx = simulationArea.context;
 
@@ -2365,7 +2365,7 @@ function VariableLed(x, y, scope = globalScope) {
 }
 VariableLed.prototype = Object.create(CircuitElement.prototype);
 VariableLed.prototype.constructor = VariableLed;
-VariableLed.prototype.customSave = function() {
+VariableLed.prototype.customSave = function () {
     var data = {
         nodes: {
             inp1: findNode(this.inp1)
@@ -2373,7 +2373,7 @@ VariableLed.prototype.customSave = function() {
     }
     return data;
 }
-VariableLed.prototype.customDraw = function() {
+VariableLed.prototype.customDraw = function () {
 
     ctx = simulationArea.context;
 
@@ -2414,6 +2414,8 @@ function Button(x, y, scope = globalScope, dir = "RIGHT") {
     this.state = 0;
     this.output1 = new Node(30, 0, 1, this);
     this.wasClicked = false;
+    this.addActivationKey = true;
+    this.activationKey = 'Control';
     this.rectangleObject = false;
     this.setDimensions(10, 10);
 
@@ -2422,7 +2424,7 @@ function Button(x, y, scope = globalScope, dir = "RIGHT") {
 Button.prototype = Object.create(CircuitElement.prototype);
 Button.prototype.constructor = Button;
 Button.prototype.propagationDelay = 0;
-Button.prototype.customSave = function() {
+Button.prototype.customSave = function () {
     var data = {
         nodes: {
             output1: findNode(this.output1)
@@ -2434,7 +2436,7 @@ Button.prototype.customSave = function() {
     }
     return data;
 }
-Button.prototype.resolve = function() {
+Button.prototype.resolve = function () {
     if (this.wasClicked) {
         this.state = 1;
         this.output1.value = this.state;
@@ -2444,7 +2446,7 @@ Button.prototype.resolve = function() {
     }
     simulationArea.simulationQueue.add(this.output1);
 }
-Button.prototype.customDraw = function() {
+Button.prototype.customDraw = function () {
     ctx = simulationArea.context;
     var xx = this.x;
     var yy = this.y;
@@ -2492,7 +2494,7 @@ function RGBLed(x, y, scope = globalScope) {
 }
 RGBLed.prototype = Object.create(CircuitElement.prototype);
 RGBLed.prototype.constructor = RGBLed;
-RGBLed.prototype.customSave = function() {
+RGBLed.prototype.customSave = function () {
     var data = {
         nodes: {
             inp1: findNode(this.inp1),
@@ -2502,7 +2504,7 @@ RGBLed.prototype.customSave = function() {
     }
     return data;
 }
-RGBLed.prototype.customDraw = function() {
+RGBLed.prototype.customDraw = function () {
 
     ctx = simulationArea.context;
 
@@ -2564,7 +2566,7 @@ function SquareRGBLed(x, y, scope = globalScope, dir = "UP", pinLength = 1) {
     this.inp = [this.inp1, this.inp2, this.inp3];
     this.labelDirection = "UP";
     this.fixedBitWidth = true;
-    
+
     this.changePinLength = function (pinLength) {
         if (pinLength == undefined) return;
         pinLength = parseInt(pinLength, 10);
@@ -2616,7 +2618,7 @@ SquareRGBLed.prototype.customDraw = function () {
     var g = this.inp2.value;
     var b = this.inp3.value;
 
-    var colors = ["rgb(174,20,20)","rgb(40,174,40)","rgb(0,100,255)"];
+    var colors = ["rgb(174,20,20)", "rgb(40,174,40)", "rgb(0,100,255)"];
     for (var i = 0; i < 3; i++) {
         var x = -10 - 10 * this.pinLength;
         var y = i * 10 - 10;
@@ -2640,7 +2642,7 @@ SquareRGBLed.prototype.customDraw = function () {
     }
 
     ctx.strokeStyle = "#d3d4d5";
-    ctx.fillStyle = (r === undefined && g === undefined && b === undefined) ? "rgb(227, 228, 229)": "rgb(" + (r||0) + ", " + (g||0) + ", " + (b||0) + ")";
+    ctx.fillStyle = (r === undefined && g === undefined && b === undefined) ? "rgb(227, 228, 229)" : "rgb(" + (r || 0) + ", " + (g || 0) + ", " + (b || 0) + ")";
     ctx.lineWidth = correctWidth(1);
     ctx.beginPath();
     rect2(ctx, -15, -15, 30, 30, xx, yy, this.direction);
@@ -2649,7 +2651,7 @@ SquareRGBLed.prototype.customDraw = function () {
     if ((this.hover && !simulationArea.shiftDown) ||
         simulationArea.lastSelected == this ||
         simulationArea.multipleObjectSelections.contains(this)) {
-            ctx.fillStyle = "rgba(255, 255, 32)";
+        ctx.fillStyle = "rgba(255, 255, 32)";
     }
 
     ctx.fill();
@@ -2669,7 +2671,7 @@ function Demultiplexer(x, y, scope = globalScope, dir = "LEFT", bitWidth = 1, co
         this.yOff = 2;
     }
 
-    this.changeControlSignalSize = function(size) {
+    this.changeControlSignalSize = function (size) {
         if (size == undefined || size < 1 || size > 32) return;
         if (this.controlSignalSize == size) return;
         var obj = new window[this.objectType](this.x, this.y, this.scope, this.direction, this.bitWidth, size);
@@ -2686,7 +2688,7 @@ function Demultiplexer(x, y, scope = globalScope, dir = "LEFT", bitWidth = 1, co
             func: "changeControlSignalSize",
         },
     }
-    this.newBitWidth = function(bitWidth) {
+    this.newBitWidth = function (bitWidth) {
         this.bitWidth = bitWidth;
         for (var i = 0; i < this.outputsize; i++) {
             this.output1[i].bitWidth = bitWidth
@@ -2710,7 +2712,7 @@ function Demultiplexer(x, y, scope = globalScope, dir = "LEFT", bitWidth = 1, co
 }
 Demultiplexer.prototype = Object.create(CircuitElement.prototype);
 Demultiplexer.prototype.constructor = Demultiplexer;
-Demultiplexer.prototype.customSave = function() {
+Demultiplexer.prototype.customSave = function () {
     var data = {
         constructorParamaters: [this.direction, this.bitWidth, this.controlSignalSize],
         nodes: {
@@ -2721,18 +2723,18 @@ Demultiplexer.prototype.customSave = function() {
     }
     return data;
 }
-Demultiplexer.prototype.resolve = function() {
+Demultiplexer.prototype.resolve = function () {
 
-    for(var i=0;i<this.output1.length;i++)
-        this.output1[i].value=0;
+    for (var i = 0; i < this.output1.length; i++)
+        this.output1[i].value = 0;
 
     this.output1[this.controlSignalInput.value].value = this.input.value;
 
-    for(var i=0;i<this.output1.length;i++)
+    for (var i = 0; i < this.output1.length; i++)
         simulationArea.simulationQueue.add(this.output1[i]);
 
 }
-Demultiplexer.prototype.customDraw = function() {
+Demultiplexer.prototype.customDraw = function () {
 
     ctx = simulationArea.context;
 
@@ -2806,7 +2808,7 @@ function Decoder(x, y, scope = globalScope, dir = "LEFT", bitWidth = 1) {
     //         func: "changeControlSignalSize",
     //     },
     // }
-    this.newBitWidth = function(bitWidth) {
+    this.newBitWidth = function (bitWidth) {
         // this.bitWidth = bitWidth;
         // for (var i = 0; i < this.inputSize; i++) {
         //     this.outputs1[i].bitWidth = bitWidth
@@ -2836,7 +2838,7 @@ function Decoder(x, y, scope = globalScope, dir = "LEFT", bitWidth = 1) {
 }
 Decoder.prototype = Object.create(CircuitElement.prototype);
 Decoder.prototype.constructor = Decoder;
-Decoder.prototype.customSave = function() {
+Decoder.prototype.customSave = function () {
     var data = {
         constructorParamaters: [this.direction, this.bitWidth],
         nodes: {
@@ -2846,7 +2848,7 @@ Decoder.prototype.customSave = function() {
     }
     return data;
 }
-Decoder.prototype.resolve = function() {
+Decoder.prototype.resolve = function () {
 
     for (var i = 0; i < this.output1.length; i++)
         this.output1[i].value = 0;
@@ -2855,7 +2857,7 @@ Decoder.prototype.resolve = function() {
         simulationArea.simulationQueue.add(this.output1[i]);
 
 }
-Decoder.prototype.customDraw = function() {
+Decoder.prototype.customDraw = function () {
 
     ctx = simulationArea.context;
 
@@ -2915,7 +2917,7 @@ function Flag(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1, identifier
 }
 Flag.prototype = Object.create(CircuitElement.prototype);
 Flag.prototype.constructor = Flag;
-Flag.prototype.setPlotValue = function() {
+Flag.prototype.setPlotValue = function () {
     var time = plotArea.stopWatch.ElapsedMilliseconds;
 
     // //console.log("DEB:",time);
@@ -2932,7 +2934,7 @@ Flag.prototype.setPlotValue = function() {
     else
         this.plotValues.push([time, this.inp1.value]);
 }
-Flag.prototype.customSave = function() {
+Flag.prototype.customSave = function () {
     var data = {
         constructorParamaters: [this.direction, this.bitWidth],
         nodes: {
@@ -2944,7 +2946,7 @@ Flag.prototype.customSave = function() {
     }
     return data;
 }
-Flag.prototype.setIdentifier = function(id = "") {
+Flag.prototype.setIdentifier = function (id = "") {
     if (id.length == 0) return;
     this.identifier = id;
     var len = this.identifier.length;
@@ -2960,7 +2962,7 @@ Flag.prototype.mutableProperties = {
         func: "setIdentifier",
     },
 }
-Flag.prototype.customDraw = function() {
+Flag.prototype.customDraw = function () {
     ctx = simulationArea.context;
     ctx.beginPath();
     ctx.strokeStyle = "grey";
@@ -3002,7 +3004,7 @@ Flag.prototype.customDraw = function() {
     ctx.fill();
 
 }
-Flag.prototype.newDirection = function(dir) {
+Flag.prototype.newDirection = function (dir) {
     if (dir == this.direction) return;
     this.direction = dir;
     this.inp1.refresh();
@@ -3040,7 +3042,7 @@ function MSB(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
 }
 MSB.prototype = Object.create(CircuitElement.prototype);
 MSB.prototype.constructor = MSB;
-MSB.prototype.customSave = function() {
+MSB.prototype.customSave = function () {
     var data = {
 
         nodes: {
@@ -3052,14 +3054,14 @@ MSB.prototype.customSave = function() {
     }
     return data;
 }
-MSB.prototype.newBitWidth = function(bitWidth) {
+MSB.prototype.newBitWidth = function (bitWidth) {
     // this.inputSize = 1 << bitWidth
     this.inputSize = bitWidth
     this.inp1.bitWidth = this.inputSize;
     this.bitWidth = bitWidth;
     this.output1.bitWidth = bitWidth;
 }
-MSB.prototype.resolve = function() {
+MSB.prototype.resolve = function () {
 
     var inp = this.inp1.value;
     this.output1.value = (dec2bin(inp).length) - 1
@@ -3071,7 +3073,7 @@ MSB.prototype.resolve = function() {
     }
     simulationArea.simulationQueue.add(this.enable);
 }
-MSB.prototype.customDraw = function() {
+MSB.prototype.customDraw = function () {
 
     ctx = simulationArea.context;
     ctx.beginPath();
@@ -3122,7 +3124,7 @@ function LSB(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
 }
 LSB.prototype = Object.create(CircuitElement.prototype);
 LSB.prototype.constructor = LSB;
-LSB.prototype.customSave = function() {
+LSB.prototype.customSave = function () {
     var data = {
 
         nodes: {
@@ -3134,14 +3136,14 @@ LSB.prototype.customSave = function() {
     }
     return data;
 }
-LSB.prototype.newBitWidth = function(bitWidth) {
+LSB.prototype.newBitWidth = function (bitWidth) {
     // this.inputSize = 1 << bitWidth
     this.inputSize = bitWidth
     this.inp1.bitWidth = this.inputSize;
     this.bitWidth = bitWidth;
     this.output1.bitWidth = bitWidth;
 }
-LSB.prototype.resolve = function() {
+LSB.prototype.resolve = function () {
 
     var inp = dec2bin(this.inp1.value);
     var out = 0;
@@ -3161,7 +3163,7 @@ LSB.prototype.resolve = function() {
     }
     simulationArea.simulationQueue.add(this.enable);
 }
-LSB.prototype.customDraw = function() {
+LSB.prototype.customDraw = function () {
 
     ctx = simulationArea.context;
     ctx.beginPath();
@@ -3225,7 +3227,7 @@ function PriorityEncoder(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1)
 }
 PriorityEncoder.prototype = Object.create(CircuitElement.prototype);
 PriorityEncoder.prototype.constructor = PriorityEncoder;
-PriorityEncoder.prototype.customSave = function() {
+PriorityEncoder.prototype.customSave = function () {
     var data = {
 
         nodes: {
@@ -3237,7 +3239,7 @@ PriorityEncoder.prototype.customSave = function() {
     }
     return data;
 }
-PriorityEncoder.prototype.newBitWidth = function(bitWidth) {
+PriorityEncoder.prototype.newBitWidth = function (bitWidth) {
     if (bitWidth == undefined || bitWidth < 1 || bitWidth > 32) return;
     if (this.bitWidth == bitWidth) return;
 
@@ -3249,7 +3251,7 @@ PriorityEncoder.prototype.newBitWidth = function(bitWidth) {
     simulationArea.lastSelected = obj;
     return obj;
 }
-PriorityEncoder.prototype.resolve = function() {
+PriorityEncoder.prototype.resolve = function () {
     var out = 0;
     var temp = 0;
     for (var i = this.inputSize - 1; i >= 0; i--) {
@@ -3285,7 +3287,7 @@ PriorityEncoder.prototype.resolve = function() {
         simulationArea.simulationQueue.add(this.output1[this.bitWidth - 1 - i]);
     }
 }
-PriorityEncoder.prototype.customDraw = function() {
+PriorityEncoder.prototype.customDraw = function () {
 
     ctx = simulationArea.context;
     ctx.beginPath();
@@ -3332,13 +3334,13 @@ function Tunnel(x, y, scope = globalScope, dir = "LEFT", bitWidth = 1, identifie
 }
 Tunnel.prototype = Object.create(CircuitElement.prototype);
 Tunnel.prototype.constructor = Tunnel;
-Tunnel.prototype.newDirection = function(dir){
+Tunnel.prototype.newDirection = function (dir) {
     if (this.direction == dir) return;
     this.direction = dir;
     this.setBounds();
 }
-Tunnel.prototype.overrideDirectionRotation=true;
-Tunnel.prototype.setBounds=function(){
+Tunnel.prototype.overrideDirectionRotation = true;
+Tunnel.prototype.setBounds = function () {
 
     var xRotate = 0;
     var yRotate = 0;
@@ -3356,17 +3358,17 @@ Tunnel.prototype.setBounds=function(){
         yRotate = 20;
     }
 
-    this.leftDimensionX= Math.abs(-120 + xRotate + this.xSize);
-    this.upDimensionY=  Math.abs(-20 + yRotate);
-    this.rightDimensionX= Math.abs(xRotate)
-    this.downDimensionY=Math.abs(20 + yRotate);
-    console.log(this.leftDimensionX,this.upDimensionY,this.rightDimensionX,this.downDimensionY);
+    this.leftDimensionX = Math.abs(-120 + xRotate + this.xSize);
+    this.upDimensionY = Math.abs(-20 + yRotate);
+    this.rightDimensionX = Math.abs(xRotate)
+    this.downDimensionY = Math.abs(20 + yRotate);
+    console.log(this.leftDimensionX, this.upDimensionY, this.rightDimensionX, this.downDimensionY);
 
     // rect2(ctx, -120 + xRotate + this.xSize, -20 + yRotate, 120 - this.xSize, 40, xx, yy, "RIGHT");
 
 
 }
-Tunnel.prototype.setTunnelValue = function(val) {
+Tunnel.prototype.setTunnelValue = function (val) {
     this.inp1.value = val;
     for (var i = 0; i < this.inp1.connections.length; i++) {
         if (this.inp1.connections[i].value != val) {
@@ -3375,20 +3377,20 @@ Tunnel.prototype.setTunnelValue = function(val) {
         }
     }
 }
-Tunnel.prototype.resolve = function() {
+Tunnel.prototype.resolve = function () {
     for (var i = 0; i < this.scope.tunnelList[this.identifier].length; i++) {
         if (this.scope.tunnelList[this.identifier][i].inp1.value != this.inp1.value) {
             this.scope.tunnelList[this.identifier][i].setTunnelValue(this.inp1.value);
         }
     }
 }
-Tunnel.prototype.updateScope = function(scope) {
+Tunnel.prototype.updateScope = function (scope) {
     this.scope = scope;
     this.inp1.updateScope(scope);
     this.setIdentifier(this.identifier);
     //console.log("ShouldWork!");
 }
-Tunnel.prototype.setPlotValue = function() {
+Tunnel.prototype.setPlotValue = function () {
     var time = plotArea.stopWatch.ElapsedMilliseconds;
     if (this.plotValues.length && this.plotValues[this.plotValues.length - 1][0] == time)
         this.plotValues.pop();
@@ -3403,7 +3405,7 @@ Tunnel.prototype.setPlotValue = function() {
     else
         this.plotValues.push([time, this.inp1.value]);
 }
-Tunnel.prototype.customSave = function() {
+Tunnel.prototype.customSave = function () {
     var data = {
         constructorParamaters: [this.direction, this.bitWidth, this.identifier],
         nodes: {
@@ -3415,7 +3417,7 @@ Tunnel.prototype.customSave = function() {
     }
     return data;
 }
-Tunnel.prototype.setIdentifier = function(id = "") {
+Tunnel.prototype.setIdentifier = function (id = "") {
     if (id.length == 0) return;
     if (this.scope.tunnelList[this.identifier]) this.scope.tunnelList[this.identifier].clean(this);
     this.identifier = id;
@@ -3437,12 +3439,12 @@ Tunnel.prototype.mutableProperties = {
         func: "setIdentifier",
     },
 }
-Tunnel.prototype.delete = function() {
+Tunnel.prototype.delete = function () {
     this.scope.Tunnel.clean(this);
     this.scope.tunnelList[this.identifier].clean(this);
     CircuitElement.prototype.delete.call(this);
 }
-Tunnel.prototype.customDraw = function() {
+Tunnel.prototype.customDraw = function () {
     ctx = simulationArea.context;
     ctx.beginPath();
     ctx.strokeStyle = "grey";
@@ -3518,13 +3520,13 @@ function ALU(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
 }
 ALU.prototype = Object.create(CircuitElement.prototype);
 ALU.prototype.constructor = ALU;
-ALU.prototype.newBitWidth = function(bitWidth) {
+ALU.prototype.newBitWidth = function (bitWidth) {
     this.bitWidth = bitWidth;
     this.inp1.bitWidth = bitWidth;
     this.inp2.bitWidth = bitWidth;
     this.output.bitWidth = bitWidth;
 }
-ALU.prototype.customSave = function() {
+ALU.prototype.customSave = function () {
     var data = {
         constructorParamaters: [this.direction, this.bitWidth],
         nodes: {
@@ -3537,7 +3539,7 @@ ALU.prototype.customSave = function() {
     }
     return data;
 }
-ALU.prototype.customDraw = function() {
+ALU.prototype.customDraw = function () {
     ctx = simulationArea.context;
     var xx = this.x;
     var yy = this.y;
@@ -3580,7 +3582,7 @@ ALU.prototype.customDraw = function() {
     ctx.fill();
 
 }
-ALU.prototype.resolve = function() {
+ALU.prototype.resolve = function () {
     if (this.controlSignalInput.value == 0) {
         this.output.value = ((this.inp1.value) & (this.inp2.value));
         simulationArea.simulationQueue.add(this.output);
@@ -3648,21 +3650,21 @@ function Rectangle(x, y, scope = globalScope, rows = 15, cols = 20) {
 }
 Rectangle.prototype = Object.create(CircuitElement.prototype);
 Rectangle.prototype.constructor = Rectangle;
-Rectangle.prototype.changeRowSize = function(size) {
+Rectangle.prototype.changeRowSize = function (size) {
     if (size == undefined || size < 5 || size > 1000) return;
     if (this.rows == size) return;
     this.rows = parseInt(size)
     this.setSize()
     return this;
 }
-Rectangle.prototype.changeColSize = function(size) {
+Rectangle.prototype.changeColSize = function (size) {
     if (size == undefined || size < 5 || size > 1000) return;
     if (this.cols == size) return;
     this.cols = parseInt(size);
     this.setSize()
     return this;
 }
-Rectangle.prototype.keyDown3 = function(dir) {
+Rectangle.prototype.keyDown3 = function (dir) {
     //console.log(dir)
     if (dir == "ArrowRight")
         this.changeColSize(this.cols + 2)
@@ -3689,13 +3691,13 @@ Rectangle.prototype.mutableProperties = {
         func: "changeRowSize",
     }
 }
-Rectangle.prototype.customSave = function() {
+Rectangle.prototype.customSave = function () {
     var data = {
         constructorParamaters: [this.rows, this.cols],
     }
     return data;
 }
-Rectangle.prototype.customDraw = function() {
+Rectangle.prototype.customDraw = function () {
 
     ctx = simulationArea.context;
     ctx.beginPath();
@@ -3715,7 +3717,7 @@ Rectangle.prototype.customDraw = function() {
 
 
 }
-Rectangle.prototype.setSize = function() {
+Rectangle.prototype.setSize = function () {
     this.elementWidth = this.cols * 10;
     this.elementHeight = this.rows * 10;
     this.upDimensionY = 0;
@@ -3735,13 +3737,13 @@ function Arrow(x, y, scope = globalScope, dir = "RIGHT") {
 }
 Arrow.prototype = Object.create(CircuitElement.prototype);
 Arrow.prototype.constructor = Arrow;
-Arrow.prototype.customSave = function() {
+Arrow.prototype.customSave = function () {
     var data = {
         constructorParamaters: [this.direction],
     }
     return data;
 }
-Arrow.prototype.customDraw = function() {
+Arrow.prototype.customDraw = function () {
 
     ctx = simulationArea.context;
     ctx.lineWidth = correctWidth(3);

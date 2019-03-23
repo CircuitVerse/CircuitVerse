@@ -2,7 +2,18 @@
 
 
 function startListeners() {
-    window.addEventListener('keyup', function(e) {
+    window.addEventListener('keyup', function (e) {
+        if (globalScope.Button.length > 0) {
+
+            globalScope.Button.forEach((button, index) => {
+                if (e.key == button.activationKey) {
+                    button.wasClicked = false
+                    button.resolve()
+                }
+
+            })
+        };
+
         scheduleUpdate(1);
         simulationArea.shiftDown = e.shiftKey;
         if (e.keyCode == 16) {
@@ -12,7 +23,7 @@ function startListeners() {
             simulationArea.controlDown = false;
         }
     });
-    document.getElementById("simulationArea").addEventListener('mousedown', function(e) {
+    document.getElementById("simulationArea").addEventListener('mousedown', function (e) {
 
         $("input").blur();
 
@@ -38,19 +49,31 @@ function startListeners() {
         scheduleUpdate(1);
         $('.dropdown.open').removeClass('open');
     });
-    document.getElementById("simulationArea").addEventListener('mouseup', function(e) {
+    document.getElementById("simulationArea").addEventListener('mouseup', function (e) {
         if (simulationArea.lastSelected) simulationArea.lastSelected.newElement = false;
     });
     window.addEventListener('mousemove', onMouseMove);
 
 
 
-    window.addEventListener('keydown', function(e) {
+    window.addEventListener('keydown', function (e) {
 
         // If mouse is focusing on input element, then override any action
         // if($(':focus').length){
         //     return;
         // }
+        if (globalScope.Button.length > 0) {
+
+            globalScope.Button.forEach((button, index) => {
+                if (e.key == button.activationKey) {
+                    button.wasClicked = true
+                    button.resolve()
+                }
+
+            });
+
+
+        }
 
         if (simulationArea.mouseRawX < 0 || simulationArea.mouseRawY < 0 || simulationArea.mouseRawX > width || simulationArea.mouseRawY > height) {
             return;
@@ -148,14 +171,14 @@ function startListeners() {
             save();
             e.preventDefault();
         }
-         // Detect offline save shortcut (CTRL+SHIFT+S)
+        // Detect offline save shortcut (CTRL+SHIFT+S)
         if (simulationArea.controlDown && e.keyCode == 83 && simulationArea.shiftDown) {
             saveOffline();
             e.preventDefault();
         }
 
         //change direction fns
-        if ((e.keyCode == 37 || e.keyCode == 65)&& simulationArea.lastSelected != undefined) {
+        if ((e.keyCode == 37 || e.keyCode == 65) && simulationArea.lastSelected != undefined) {
             simulationArea.lastSelected.newDirection("LEFT");
         }
         if ((e.keyCode == 38 || e.keyCode == 87) && simulationArea.lastSelected != undefined) {
@@ -181,7 +204,7 @@ function startListeners() {
         }
     })
 
-    document.getElementById("simulationArea").addEventListener('dblclick', function(e) {
+    document.getElementById("simulationArea").addEventListener('dblclick', function (e) {
         scheduleUpdate(2);
         if (simulationArea.lastSelected && simulationArea.lastSelected.dblclick !== undefined) {
             simulationArea.lastSelected.dblclick();
@@ -224,11 +247,11 @@ function startListeners() {
 
         updateCanvas = true;
         gridUpdate = true;
-        if(layoutMode)layoutUpdate();
+        if (layoutMode) layoutUpdate();
         else update(); // Schedule update not working, this is INEFFICENT
     }
 
-    document.addEventListener('cut', function(e) {
+    document.addEventListener('cut', function (e) {
         simulationArea.copyList = simulationArea.multipleObjectSelections.slice();
         if (simulationArea.lastSelected && simulationArea.lastSelected !== simulationArea.root && !simulationArea.copyList.contains(simulationArea.lastSelected)) {
             simulationArea.copyList.push(simulationArea.lastSelected);
@@ -237,7 +260,7 @@ function startListeners() {
 
         var textToPutOnClipboard = copy(simulationArea.copyList, true);
         e.preventDefault();
-        if(textToPutOnClipboard==undefined)
+        if (textToPutOnClipboard == undefined)
             return;
         if (isIe) {
             window.clipboardData.setData('Text', textToPutOnClipboard);
@@ -247,7 +270,7 @@ function startListeners() {
 
     });
 
-    document.addEventListener('copy', function(e) {
+    document.addEventListener('copy', function (e) {
         simulationArea.copyList = simulationArea.multipleObjectSelections.slice();
         if (simulationArea.lastSelected && simulationArea.lastSelected !== simulationArea.root && !simulationArea.copyList.contains(simulationArea.lastSelected)) {
             simulationArea.copyList.push(simulationArea.lastSelected);
@@ -255,7 +278,7 @@ function startListeners() {
 
         var textToPutOnClipboard = copy(simulationArea.copyList);
         e.preventDefault();
-        if(textToPutOnClipboard==undefined)
+        if (textToPutOnClipboard == undefined)
             return;
         if (isIe) {
             window.clipboardData.setData('Text', textToPutOnClipboard);
@@ -265,7 +288,7 @@ function startListeners() {
 
     });
 
-    document.addEventListener('paste', function(e) {
+    document.addEventListener('paste', function (e) {
         var data;
         if (isIe) {
             data = window.clipboardData.getData('Text');
@@ -313,11 +336,11 @@ function onMouseMove(e) {
         var fn;
 
         if (simulationArea.lastSelected == globalScope.root) {
-            fn = function() {
+            fn = function () {
                 updateSelectionsAndPane();
             }
         } else {
-            fn = function() {
+            fn = function () {
                 if (simulationArea.lastSelected)
                     simulationArea.lastSelected.update();
             };
@@ -369,7 +392,7 @@ function onMouseUp(e) {
 
 }
 
-function delete_selected(){
+function delete_selected() {
 
     $("input").blur();
     hideProperties();

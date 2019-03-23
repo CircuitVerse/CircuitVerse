@@ -70,7 +70,7 @@ function showError(error) {
     prevErrorMessage = error;
     var id = Math.floor(Math.random() * 10000);
     $('#MessageDiv').append("<div class='alert alert-danger' role='alert' id='" + id + "'> " + error + "</div>");
-    setTimeout(function() {
+    setTimeout(function () {
         prevErrorMessage = undefined;
         $('#' + id).fadeOut();
     }, 1500);
@@ -82,7 +82,7 @@ function showMessage(mes) {
     prevShowMessage = mes
     var id = Math.floor(Math.random() * 10000);
     $('#MessageDiv').append("<div class='alert alert-success' role='alert' id='" + id + "'> " + mes + "</div>");
-    setTimeout(function() {
+    setTimeout(function () {
         prevShowMessage = undefined;
         $('#' + id).fadeOut()
     }, 2500);
@@ -96,7 +96,7 @@ function openInNewTab(url) {
 
 // Following function need to be improved - remove mutability etc
 //fn to remove elem in array
-Array.prototype.clean = function(deleteValue) {
+Array.prototype.clean = function (deleteValue) {
     for (var i = 0; i < this.length; i++) {
         if (this[i] == deleteValue) {
             this.splice(i, 1);
@@ -107,23 +107,23 @@ Array.prototype.clean = function(deleteValue) {
 };
 
 // Following function need to be improved
-Array.prototype.extend = function(other_array) {
+Array.prototype.extend = function (other_array) {
     /* you should include a test to check whether other_array really is an array */
-    other_array.forEach(function(v) {
+    other_array.forEach(function (v) {
         this.push(v)
     }, this);
 }
 
 // Following function need to be improved
 //fn to check if an elem is in an array
-Array.prototype.contains = function(value) {
+Array.prototype.contains = function (value) {
     return this.indexOf(value) > -1
 };
 
 // Helper function to return unique list
 function uniq(a) {
     var seen = {};
-    return a.filter(function(item) {
+    return a.filter(function (item) {
         return seen.hasOwnProperty(item) ? false : (seen[item] = true);
     });
 }
@@ -167,7 +167,7 @@ function Scope(name = "localScope", id = undefined) {
         height: 40,
         title_x: 50,
         title_y: 13,
-        titleEnabled:true,
+        titleEnabled: true,
     }
 
 
@@ -180,7 +180,7 @@ function Scope(name = "localScope", id = undefined) {
 }
 
 // Resets all nodes recursively
-Scope.prototype.reset = function() {
+Scope.prototype.reset = function () {
     for (var i = 0; i < this.allNodes.length; i++)
         this.allNodes[i].reset();
     for (var i = 0; i < this.Splitter.length; i++) {
@@ -193,7 +193,7 @@ Scope.prototype.reset = function() {
 }
 
 // Adds all inputs to simulationQueue
-Scope.prototype.addInputs = function() {
+Scope.prototype.addInputs = function () {
     for (var i = 0; i < inputList.length; i++) {
         for (var j = 0; j < this[inputList[i]].length; j++) {
             simulationArea.simulationQueue.add(this[inputList[i]][j], 0);
@@ -206,7 +206,7 @@ Scope.prototype.addInputs = function() {
 }
 
 // Ticks clocks recursively -- needs to be deprecated and syncronize all clocks with a global clock
-Scope.prototype.clockTick = function() {
+Scope.prototype.clockTick = function () {
     for (var i = 0; i < this.Clock.length; i++)
         this.Clock[i].toggleState(); //tick clock!
     for (var i = 0; i < this.SubCircuit.length; i++)
@@ -215,7 +215,7 @@ Scope.prototype.clockTick = function() {
 
 // Checks if this circuit contains directly or indirectly scope with id
 // Recursive nature
-Scope.prototype.checkDependency = function(id) {
+Scope.prototype.checkDependency = function (id) {
     if (id == this.id) return true;
     for (var i = 0; i < this.SubCircuit.length; i++)
         if (this.SubCircuit[i].id == id) return true;
@@ -227,7 +227,7 @@ Scope.prototype.checkDependency = function(id) {
 }
 
 // Get dependency list - list of all circuits, this circuit depends on
-Scope.prototype.getDependencies = function() {
+Scope.prototype.getDependencies = function () {
     var list = []
     for (var i = 0; i < this.SubCircuit.length; i++) {
         list.push(this.SubCircuit[i].id);
@@ -237,7 +237,7 @@ Scope.prototype.getDependencies = function() {
 }
 
 // helper function to reduce layout size
-Scope.prototype.fixLayout = function() {
+Scope.prototype.fixLayout = function () {
     var max_y = 20;
     for (var i = 0; i < this.Input.length; i++)
         max_y = Math.max(this.Input[i].layoutProperties.y, max_y)
@@ -248,7 +248,7 @@ Scope.prototype.fixLayout = function() {
 }
 
 // Funciton which centers the circuit to the correct zoom level
-Scope.prototype.centerFocus = function(zoomIn = true) {
+Scope.prototype.centerFocus = function (zoomIn = true) {
     if (layoutMode) return;
     findDimensions(this);
     var minX = simulationArea.minWidth || 0;
@@ -281,19 +281,19 @@ function setup() {
     resetup();
 
     // Load project data after 1 second - needs to be improved, delay needs to be eliminated
-    setTimeout(function() {
+    setTimeout(function () {
         if (logix_project_id != 0) {
             $('.loadingIcon').fadeIn();
             $.ajax({
                 url: '/simulator/get_data',
                 type: 'POST',
-                beforeSend: function(xhr) {
+                beforeSend: function (xhr) {
                     xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
                 },
                 data: {
                     "id": logix_project_id
                 },
-                success: function(response) {
+                success: function (response) {
                     data = (response);
 
                     if (data) {
@@ -302,7 +302,7 @@ function setup() {
                     }
                     $('.loadingIcon').fadeOut();
                 },
-                failure: function() {
+                failure: function () {
                     alert("Error: could not load ");
                     $('.loadingIcon').fadeOut();
                 }
@@ -405,13 +405,13 @@ window.addEventListener('orientationchange', resetup); // listener
 // Object that holds data and objects of grid canvas
 var backgroundArea = {
     canvas: document.getElementById("backgroundArea"),
-    setup: function() {
+    setup: function () {
         this.canvas.width = width;
         this.canvas.height = height;
         this.context = this.canvas.getContext("2d");
         dots(true, false);
     },
-    clear: function() {
+    clear: function () {
         if (!this.context) return;
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
@@ -448,13 +448,13 @@ var simulationArea = {
 
     clickCount: 0, //double click
     lock: "unlocked",
-    timer: function() {
-        ckickTimer = setTimeout(function() {
+    timer: function () {
+        ckickTimer = setTimeout(function () {
             simulationArea.clickCount = 0;
         }, 600);
     },
 
-    setup: function() {
+    setup: function () {
         this.canvas.width = width;
         this.canvas.height = height;
         this.simulationQueue = new EventQueue(10000);
@@ -462,14 +462,14 @@ var simulationArea = {
         simulationArea.changeClockTime(simulationArea.timePeriod)
         this.mouseDown = false;
     },
-    changeClockTime: function(t) {
+    changeClockTime: function (t) {
         if (t < 50) return;
         clearInterval(simulationArea.ClockInterval);
         t = t || prompt("Enter Time Period:");
         simulationArea.timePeriod = t;
         simulationArea.ClockInterval = setInterval(clockTick, t);
     },
-    clear: function() {
+    clear: function () {
         if (!this.context) return;
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
@@ -901,16 +901,16 @@ function CircuitElement(x, y, scope, dir, bitWidth) {
 
 CircuitElement.prototype.alwaysResolve = false
 CircuitElement.prototype.propagationDelay = 100
-CircuitElement.prototype.flipBits = function(val) {
+CircuitElement.prototype.flipBits = function (val) {
     return ((~val >>> 0) << (32 - this.bitWidth)) >>> (32 - this.bitWidth);
 }
-CircuitElement.prototype.absX = function() {
+CircuitElement.prototype.absX = function () {
     return this.x;
 }
-CircuitElement.prototype.absY = function() {
+CircuitElement.prototype.absY = function () {
     return this.y;
 }
-CircuitElement.prototype.copyFrom = function(obj) {
+CircuitElement.prototype.copyFrom = function (obj) {
     var properties = ["label", "labelDirection"];
     for (var i = 0; i < properties.length; i++) {
         if (obj[properties[i]] !== undefined)
@@ -929,13 +929,13 @@ CircuitElement.prototype.copyFrom = function(obj) {
 
 // Method definitions
 
-CircuitElement.prototype.updateScope = function(scope) {
+CircuitElement.prototype.updateScope = function (scope) {
     this.scope = scope;
     for (var i = 0; i < this.nodeList.length; i++)
         this.nodeList[i].scope = scope;
 }
 
-CircuitElement.prototype.saveObject = function() {
+CircuitElement.prototype.saveObject = function () {
     var data = {
         x: this.x,
         y: this.y,
@@ -949,7 +949,7 @@ CircuitElement.prototype.saveObject = function() {
     return data;
 
 }
-CircuitElement.prototype.customSave = function() {
+CircuitElement.prototype.customSave = function () {
     return {
         values: {},
         nodes: {},
@@ -957,7 +957,7 @@ CircuitElement.prototype.customSave = function() {
     }
 }
 
-CircuitElement.prototype.checkHover = function() {
+CircuitElement.prototype.checkHover = function () {
 
     if (simulationArea.mouseDown) return;
     for (var i = 0; i < this.nodeList.length; i++) {
@@ -981,14 +981,14 @@ CircuitElement.prototype.checkHover = function() {
 //width and height define the X and Y distance from the center.
 //Effectively HALF the actual width and height.
 // NOT OVERIDABLE
-CircuitElement.prototype.setDimensions = function(width, height) {
+CircuitElement.prototype.setDimensions = function (width, height) {
     this.leftDimensionX = this.rightDimensionX = width;
     this.downDimensionY = this.upDimensionY = height;
 }
-CircuitElement.prototype.setWidth = function(width) {
+CircuitElement.prototype.setWidth = function (width) {
     this.leftDimensionX = this.rightDimensionX = width;
 }
-CircuitElement.prototype.setHeight = function(height) {
+CircuitElement.prototype.setHeight = function (height) {
     this.downDimensionY = this.upDimensionY = height;
 }
 
@@ -999,15 +999,15 @@ CircuitElement.prototype.setHeight = function(height) {
 // When true this.isHover() will not rotate bounds. To be used when bounds are set manually.
 CircuitElement.prototype.overrideDirectionRotation = false;
 
-CircuitElement.prototype.startDragging = function() {
+CircuitElement.prototype.startDragging = function () {
     this.oldx = this.x;
     this.oldy = this.y;
 }
-CircuitElement.prototype.drag = function() {
+CircuitElement.prototype.drag = function () {
     this.x = this.oldx + simulationArea.mouseX - simulationArea.mouseDownX;
     this.y = this.oldy + simulationArea.mouseY - simulationArea.mouseDownY;
 }
-CircuitElement.prototype.update = function() {
+CircuitElement.prototype.update = function () {
 
     var update = false;
 
@@ -1092,7 +1092,7 @@ CircuitElement.prototype.update = function() {
     return update;
 }
 
-CircuitElement.prototype.fixDirection = function() {
+CircuitElement.prototype.fixDirection = function () {
     this.direction = fixDirection[this.direction] || this.direction;
     this.labelDirection = fixDirection[this.labelDirection] || this.labelDirection;
 }
@@ -1100,7 +1100,7 @@ CircuitElement.prototype.fixDirection = function() {
 // The isHover method is used to check if the mouse is hovering over the object.
 // Return Value: true if mouse is hovering over object else false
 // NOT OVERIDABLE
-CircuitElement.prototype.isHover = function() {
+CircuitElement.prototype.isHover = function () {
 
     var mX = simulationArea.mouseXf - this.x;
     var mY = this.y - simulationArea.mouseYf;
@@ -1130,7 +1130,7 @@ CircuitElement.prototype.isHover = function() {
     return -lX <= mX && mX <= rX && -dY <= mY && mY <= uY;
 };
 
-CircuitElement.prototype.setLabel = function(label) {
+CircuitElement.prototype.setLabel = function (label) {
     this.label = label || ""
 }
 
@@ -1138,7 +1138,7 @@ CircuitElement.prototype.propagationDelayFixed = false;
 
 //Method that draws the outline of the module and calls draw function on module Nodes.
 //NOT OVERIDABLE
-CircuitElement.prototype.draw = function() {
+CircuitElement.prototype.draw = function () {
     var ctx = simulationArea.context;
     this.checkHover();
     if (this.x * this.scope.scale + this.scope.ox < -this.rightDimensionX * this.scope.scale - 00 || this.x * this.scope.scale + this.scope.ox > width + this.leftDimensionX * this.scope.scale + 00 || this.y * this.scope.scale + this.scope.oy < -this.downDimensionY * this.scope.scale - 00 || this.y * this.scope.scale + this.scope.oy > height + 00 + this.upDimensionY * this.scope.scale) return;
@@ -1214,7 +1214,7 @@ CircuitElement.prototype.draw = function() {
 
 //method to delete object
 //OVERRIDE WITH CAUTION
-CircuitElement.prototype.delete = function() {
+CircuitElement.prototype.delete = function () {
     simulationArea.lastSelected = undefined;
     this.scope[this.objectType].clean(this); // CHECK IF THIS IS VALID
     if (this.deleteNodesWhenDeleted)
@@ -1228,19 +1228,19 @@ CircuitElement.prototype.delete = function() {
     this.deleted = true;
 }
 
-CircuitElement.prototype.cleanDelete = function() {
+CircuitElement.prototype.cleanDelete = function () {
     this.deleteNodesWhenDeleted = true;
     this.delete();
 }
 
-CircuitElement.prototype.deleteNodes = function() {
+CircuitElement.prototype.deleteNodes = function () {
     for (var i = 0; i < this.nodeList.length; i++)
         this.nodeList[i].delete();
 }
 
 //method to change direction
 //OVERRIDE WITH CAUTION
-CircuitElement.prototype.newDirection = function(dir) {
+CircuitElement.prototype.newDirection = function (dir) {
     if (this.direction == dir) return;
     // Leave this for now
     if (this.directionFixed && this.orientationFixed) return;
@@ -1257,13 +1257,13 @@ CircuitElement.prototype.newDirection = function(dir) {
 
 }
 
-CircuitElement.prototype.newLabelDirection = function(dir) {
+CircuitElement.prototype.newLabelDirection = function (dir) {
     this.labelDirection = dir;
 }
 
 //Method to check if object can be resolved
 //OVERRIDE if necessary
-CircuitElement.prototype.isResolvable = function() {
+CircuitElement.prototype.isResolvable = function () {
     if (this.alwaysResolve) return true;
     for (var i = 0; i < this.nodeList.length; i++)
         if (this.nodeList[i].type == 0 && this.nodeList[i].value == undefined) return false;
@@ -1272,7 +1272,7 @@ CircuitElement.prototype.isResolvable = function() {
 
 //Method to change object Bitwidth
 //OVERRIDE if necessary
-CircuitElement.prototype.newBitWidth = function(bitWidth) {
+CircuitElement.prototype.newBitWidth = function (bitWidth) {
     if (this.fixedBitWidth) return;
     if (this.bitWidth == undefined) return;
     if (this.bitWidth < 1) return;
@@ -1283,7 +1283,7 @@ CircuitElement.prototype.newBitWidth = function(bitWidth) {
 
 //Method to change object delay
 //OVERRIDE if necessary
-CircuitElement.prototype.changePropagationDelay = function(delay) {
+CircuitElement.prototype.changePropagationDelay = function (delay) {
     if (this.propagationDelayFixed) return;
     if (delay == undefined) return;
     if (delay == "") return;
@@ -1294,11 +1294,11 @@ CircuitElement.prototype.changePropagationDelay = function(delay) {
 
 //Dummy resolve function
 //OVERRIDE if necessary
-CircuitElement.prototype.resolve = function() {
+CircuitElement.prototype.resolve = function () {
 
 }
 
-CircuitElement.prototype.processVerilog = function() {
+CircuitElement.prototype.processVerilog = function () {
     var output_count = 0;
     for (var i = 0; i < this.nodeList.length; i++) {
         if (this.nodeList[i].type == NODE_OUTPUT) {
@@ -1316,7 +1316,7 @@ CircuitElement.prototype.processVerilog = function() {
     }
 }
 
-CircuitElement.prototype.isVerilogResolvable = function() {
+CircuitElement.prototype.isVerilogResolvable = function () {
 
     var backupValues = []
     for (var i = 0; i < this.nodeList.length; i++) {
@@ -1339,7 +1339,7 @@ CircuitElement.prototype.isVerilogResolvable = function() {
     return res;
 }
 
-CircuitElement.prototype.removePropogation = function() {
+CircuitElement.prototype.removePropogation = function () {
     for (var i = 0; i < this.nodeList.length; i++) {
         if (this.nodeList[i].type == NODE_OUTPUT) {
             if (this.nodeList[i].value !== undefined) {
@@ -1350,11 +1350,11 @@ CircuitElement.prototype.removePropogation = function() {
     }
 }
 
-CircuitElement.prototype.verilogName = function() {
+CircuitElement.prototype.verilogName = function () {
     return this.verilogType || this.objectType;
 }
 
-CircuitElement.prototype.generateVerilog = function() {
+CircuitElement.prototype.generateVerilog = function () {
 
     var inputs = [];
     var outputs = [];
@@ -1369,7 +1369,7 @@ CircuitElement.prototype.generateVerilog = function() {
     }
 
     var list = outputs.concat(inputs);
-    var res = this.verilogName() + " " + this.verilogLabel + " (" + list.map(function(x) {
+    var res = this.verilogName() + " " + this.verilogLabel + " (" + list.map(function (x) {
         return x.verilogLabel
     }).join(",") + ");";
 
