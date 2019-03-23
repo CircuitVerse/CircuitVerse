@@ -1,8 +1,83 @@
 var smartDropXX = 50;
 var smartDropYY = 80;
 
+// Object stores the position of context menu
+var ctxPos = {
+    x: 0,
+    y: 0,
+    visible: false,
+};
 
-$(document).ready(function() {
+// Function hides the context menu
+function hideContextMenu() {
+    var el = document.getElementById('contextMenu');
+    el.style = 'opacity:0;';
+    setTimeout(() => {
+        el.style = 'visibility:hidden;';
+        ctxPos.visible = false;
+    }, 200); // Hide after 2 sec
+}
+
+// Function displays context menu
+function showContextMenu() {
+    if (layoutMode) return false; // Hide context menu when it is in Layout Mode
+    $('#contextMenu').css({
+        visibility: 'visible',
+        opacity: 1,
+        top: `${ctxPos.y}px`,
+        left: `${ctxPos.x}px`,
+    });
+    ctxPos.visible = true;
+    return false;
+}
+
+// Function is called when context item is clicked
+// eslint-disable-next-line no-unused-vars
+function menuItemClicked(id) {
+    hideContextMenu();
+    switch (id) {
+    case 0:
+        delete_selected();
+        break;
+    case 1:
+        // whenever we click on the simulation area it generates a backup to undo call undo twice
+        undo();
+        undo();
+        break;
+    case 2:
+        globalScope.centerFocus(false);
+        break;
+    case 3:
+        newCircuit();
+        break;
+    case 4:
+        createSubCircuitPrompt();
+        break;
+    case 5:
+        newProject();
+        break;
+    case 6:
+        clearProject();
+        break;
+    default:
+    }
+}
+
+$(document).ready(function () {
+    var ctxEl = document.getElementById('contextMenu');
+    document.addEventListener('mousedown', (e) => {
+        // Check if mouse is not inside the context menu and menu is visible
+        if (!((e.clientX >= ctxPos.x && e.clientX <= ctxPos.x + ctxEl.offsetWidth)
+        && (e.clientY >= ctxPos.y && e.clientY <= ctxPos.y + ctxEl.offsetHeight))
+        && (ctxPos.visible && e.which !== 3)) {
+            hideContextMenu();
+        }
+
+        // Change the position of context whenever mouse is clicked
+        ctxPos.x = e.clientX;
+        ctxPos.y = e.clientY;
+    });
+    document.getElementById('canvasArea').oncontextmenu = showContextMenu;
 
     $("#sideBar").resizable({
         handles: 'e',
