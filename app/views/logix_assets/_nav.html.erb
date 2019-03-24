@@ -34,7 +34,9 @@
 
     </ul>
     <div class="form-inline my-2 my-lg-0">
-
+      <%= form_tag("/search", method: "get") do %>
+        <%= text_field_tag :q,params[:q],class:'form-control mr-sm-2',placeholder: 'Search',autocomplete:"off"  %>
+      <% end %>
     </div>
     <div class="navbar-nav nav-item dropdown">
       <%if user_signed_in? %>
