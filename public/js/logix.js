@@ -835,6 +835,18 @@ function copy(copyList, cut = false) {
     return data;
 }
 
+// Function selects all the elements from the scope
+function selectAll(scope = globalScope){
+    circuitElementList.forEach((val,_,__)=>{
+        if(scope.hasOwnProperty(val)) {
+            simulationArea.multipleObjectSelections = simulationArea.multipleObjectSelections.concat(scope[val]);
+        }
+    });
+    
+    if(scope.nodes) {
+        simulationArea.multipleObjectSelections = simulationArea.multipleObjectSelections.concat(scope.nodes);
+    }
+}
 
 // The Circuit element class serves as the abstract class for all circuit elements.
 // Data Members: /* Insert Description */
