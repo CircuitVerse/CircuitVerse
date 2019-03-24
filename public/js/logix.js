@@ -839,12 +839,12 @@ function copy(copyList, cut = false) {
 function selectAll(scope = globalScope){
     circuitElementList.forEach((val,_,__)=>{
         if(scope.hasOwnProperty(val)) {
-            simulationArea.multipleObjectSelections = simulationArea.multipleObjectSelections.concat(scope[val]);
+            simulationArea.multipleObjectSelections.push(...scope[val]);
         }
     });
     
     if(scope.nodes) {
-        simulationArea.multipleObjectSelections = simulationArea.multipleObjectSelections.concat(scope.nodes);
+        simulationArea.multipleObjectSelections.push(...scope.nodes);
     }
 }
 
