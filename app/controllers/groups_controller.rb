@@ -1,7 +1,7 @@
 class GroupsController < ApplicationController
   before_action :set_group, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
-  before_action :set_and_check_access, only: [:show, :edit, :update, :destroy]
+  before_action :check_show_access, only: [:show, :edit, :update, :destroy]
   before_action :check_edit_access, only: [:edit,:update, :destroy]
 
   # GET /groups
@@ -82,17 +82,11 @@ class GroupsController < ApplicationController
       params.require(:group).permit(:name, :mentor_id)
     end
 
-    def set_and_check_access
-
-      @admin_access = ((@group.mentor_id==current_user.id) or current_user.admin)
-      if (!@admin_access and GroupMember.find_by(user_id:current_user.id,group_id:@group.id).nil?)
-        render plain: "Access restricted" and return
-      end
+    def check_show_access
+      authorize @group, :show_access?
     end
 
-  def check_edit_access
-    if (!@admin_access)
-      render plain: "Access restricted" and return
+    def check_edit_access
+      authorize @group, :admin_access?
     end
-  end
 end

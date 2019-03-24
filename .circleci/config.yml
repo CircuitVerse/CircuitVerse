@@ -47,11 +47,11 @@ jobs: # a collection of steps
 
       - run:
           name: Copy sample database configuration
-          command: cp config/database.pg.example.yml config/database.yml
+          command: cp config/database.example.yml config/database.yml
 
       - run:
           name: Database setup
-          command: bin/rails db:migrate
+          command: bin/rails db:schema:load
 
       - run:
           name: Run rspec in parallel

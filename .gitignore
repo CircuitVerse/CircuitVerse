@@ -42,7 +42,7 @@ public/.DS_Store
 .DS_Store
 
 dump.rdb
-db/schema.rb
+# db/schema.rb
 
 public/sitemap.xml.gz
 coverage

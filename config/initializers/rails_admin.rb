@@ -9,11 +9,15 @@ RailsAdmin.config do |config|
   config.current_user_method(&:current_user)
 
   ## == Cancan ==
-  config.authorize_with :cancan
+  # config.authorize_with :cancan
   config.parent_controller = 'ApplicationController'
 
   ## == Pundit ==
   # config.authorize_with :pundit
+
+  config.authorize_with do
+    redirect_to main_app.root_path, error: 'You are not authorized to perform this action.' unless current_user.admin?
+  end
 
   ## == PaperTrail ==
   # config.audit_with :paper_trail, 'User', 'PaperTrail::Version' # PaperTrail >= 3.0.0

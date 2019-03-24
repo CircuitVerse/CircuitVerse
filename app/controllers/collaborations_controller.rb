@@ -1,6 +1,10 @@
 class CollaborationsController < ApplicationController
   before_action :set_collaboration, only: [:show, :edit, :update, :destroy]
 
+  def self.policy_class
+    ProjectPolicy
+  end
+
   # GET /collaborations
   # GET /collaborations.json
   def index
@@ -30,10 +34,7 @@ class CollaborationsController < ApplicationController
     # if(not @project.assignment_id.nil?)
     #   render plain: "Assignments cannot have collaborators. Please contact admin." and return
     # end
-
-    if(@project.author_id!=current_user.id)
-      render plain: "Access Restricted " and return
-    end
+    authorize @project, :author_access?
 
     already_present = User.where(id: @project.collaborations.pluck(:user_id)).pluck(:email)
     collaboration_emails = Utils.parse_mails(collaboration_params[:emails])

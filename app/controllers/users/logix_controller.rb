@@ -35,7 +35,7 @@ class Users::LogixController < ApplicationController
   end
 
   def groups
-
+    @user = authorize @user
   end
 
   def profile_params

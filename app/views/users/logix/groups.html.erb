@@ -7,7 +7,7 @@
           <p id="notice" class="alert alert-danger"><%= notice %></p>
         <% end %>
 
-      <% if current_user.groups.count!=0 %>
+      <% if @user.groups.count!=0 %>
           <h1>Groups you belong to: </h1>
           <table class="table">
             <thead>
@@ -19,12 +19,12 @@
             </thead>
 
             <tbody>
-            <% current_user.groups.each do |group| %>
+            <% @user.groups.each do |group| %>
                 <tr>
                   <td><%= group.name %></td>
                   <td><%= group.mentor.name %></td>
                   <td><%= link_to 'Show', group %></td>
-                  <%if group.mentor.id == current_user.id %>
+                  <%if group.mentor.id == @user.id %>
                       <td><%= link_to 'Edit', edit_group_path(group) %></td>
                       <td><%= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
                   <%end%>
@@ -37,7 +37,7 @@
           <br>
       <% end %>
 
-      <% if current_user.groups_mentored.count!=0 %>
+      <% if @user.groups_mentored.count!=0 %>
           <h1>Groups you mentor: </h1>
           <table class="table">
             <thead>
@@ -49,7 +49,7 @@
             </thead>
 
             <tbody>
-            <% current_user.groups_mentored.each do |group| %>
+            <% @user.groups_mentored.each do |group| %>
                 <tr>
                   <td><%= group.name %></td>
                   <td><%= group.users.count %></td>

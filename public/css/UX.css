@@ -303,10 +303,6 @@ table {
     user-select: none;
 }
 
-.ui-dialog-titlebar {
-    background-color: #42d1f4;
-}
-
 body, html {
     width: 100%;
     height: 100%;
@@ -737,6 +733,19 @@ div.icon img {
 .ui-dialog-titlebar {
     background-color: black;
 }
+
+.ui-dialog-titlebar-close {
+    background-image: url('../img/cross.png');
+    position: absolute;
+	right: .3em;
+	top: 50%;
+	width: 21px;
+	margin: -10px 0 0 0;
+	padding: 1px;
+	height: 20px;
+}
+
+.ui-icon-close{background-position:-80px -128px}
 
 .ui-dialog .ui-dialog-buttonpane button {
     background-color: #004280;
