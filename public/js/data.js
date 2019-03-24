@@ -176,7 +176,7 @@ function switchCircuit(id) {
     if (!embed) {
         showProperties(simulationArea.lastSelected);
     }
-    updateCanvas=true;
+    updateCanvas = true;
     scheduleUpdate();
 
 }
@@ -194,7 +194,7 @@ function downloadAsImg(name, imgType) {
 
 // Function to restore copy from backup
 function undo(scope = globalScope) {
-    if(layoutMode)return;
+    if (layoutMode) return;
     if (scope.backups.length == 0) return;
     var backupOx = globalScope.ox;
     var backupOy = globalScope.oy;
@@ -699,8 +699,8 @@ function loadScope(scope, data) {
     }
 
     // Backward compatibility
-    if(scope.layout.titleEnabled==undefined)
-        scope.layout.titleEnabled=true;
+    if (scope.layout.titleEnabled == undefined)
+        scope.layout.titleEnabled = true;
 
 }
 
@@ -786,10 +786,32 @@ createSubCircuitPrompt = function(scope = globalScope) {
             $('#insertSubcircuitDialog').append('<label class="option"><input type="radio" name="subCircuitId" value="' + id + '" />' + scopeList[id].name + '</label>');
         }
     }
-    if (flag) $('#insertSubcircuitDialog').append('<p>Looks like there are no other circuits which doesn\'t have this circuit as a dependency. Create a new one!</p>')
+    if (flag) {
+        $('#insertSubcircuitDialog').append('<p>Looks like there are no other circuits which doesn\'t have this circuit as a dependency. Create a new one!</p>')
+        $('#insertSubcircuitDialog').dialog({
+            width: "auto",
+            buttons: [{
+                text: "Create SubCircuit",
+                click: function() {
+                    newCircuit();
+                    $(this).dialog("close");
+                },
+            }, {
+                text: "Insert SubCircuit",
+                disabled: true,
+            }, ]
+
+        })
+    }
     $('#insertSubcircuitDialog').dialog({
         width: "auto",
         buttons: [{
+            text: "Create SubCircuit",
+            click: function() {
+                newCircuit();
+                $(this).dialog("close");
+            }
+        }, {
             text: "Insert SubCircuit",
             click: function() {
                 if (!$("input[name=subCircuitId]:checked").val()) return;
@@ -940,10 +962,10 @@ function generateImage(imgType, view, transparent, resolution, down = true) {
 }
 
 if (logix_project_id == 0)
-setTimeout(promptSave,120000);
+    setTimeout(promptSave, 120000);
 
-function promptSave(){
+function promptSave() {
     console.log("PROMPT")
-    if(confirm("You have not saved your creation! Would you like save your project online? "))
-    save()
+    if (confirm("You have not saved your creation! Would you like save your project online? "))
+        save()
 }

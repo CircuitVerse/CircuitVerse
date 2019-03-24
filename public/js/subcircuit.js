@@ -155,15 +155,6 @@ SubCircuit.prototype.buildCircuit = function() {
 
 }
 
-// Needs to be deprecated, removed
-SubCircuit.prototype.reBuild = function() {
-    return;
-    new SubCircuit(x = this.x, y = this.y, scope = this.scope, this.id)
-    this.scope.backups = []; // Because all previous states are invalid now
-    this.delete();
-    showMessage("Subcircuit: " + subcircuitScope.name + " has been reloaded.")
-}
-
 SubCircuit.prototype.reBuildCircuit = function() {
     this.data = JSON.parse(scheduleBackup(scopeList[this.id]));
     this.localScope = new Scope();
@@ -371,12 +362,11 @@ SubCircuit.prototype.customDraw = function() {
     ctx.fillStyle = "black";
     if (this.version == "1.0")
         fillText(ctx, subcircuitScope.name, xx, yy - subcircuitScope.layout.height / 2 + 13, 11);
-    else if (this.version == "2.0"){
-        if(subcircuitScope.layout.titleEnabled){
+    else if (this.version == "2.0") {
+        if (subcircuitScope.layout.titleEnabled) {
             fillText(ctx, subcircuitScope.name, subcircuitScope.layout.title_x + xx, yy + subcircuitScope.layout.title_y, 11);
         }
-    }
-    else
+    } else
         console.log(this.version)
 
     for (var i = 0; i < subcircuitScope.Input.length; i++) {
