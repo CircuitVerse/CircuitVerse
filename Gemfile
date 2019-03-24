@@ -48,6 +48,7 @@ gem 'rails_admin', '~> 1.2'
 # gem 'cancancan', '~>2.0'
 
 gem 'sidekiq'
+gem 'pg_search'
 
 # For home page pagination
 gem 'will_paginate', '~> 3.1.1'

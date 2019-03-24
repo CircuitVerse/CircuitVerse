@@ -1,4 +1,5 @@
 class Project < ApplicationRecord
+  require "pg_search"
   belongs_to :author, class_name: 'User'
   has_many :forks , class_name: 'Project', foreign_key: 'forked_project_id', dependent: :nullify
   belongs_to :forked_project , class_name: 'Project' , optional: true
@@ -12,10 +13,21 @@ class Project < ApplicationRecord
   has_many :tags, through: :taggings
   mount_uploader :image_preview, ImagePreviewUploader
 
+  include PgSearch
+  pg_search_scope :text_search, against: [:name,:description]
+
   self.per_page = 8
 
   acts_as_commontable
   # after_commit :send_mail, on: :create
+  def self.search(query)
+    if query.present?
+      Project.text_search(query)
+    else
+      return Project.all
+    end
+  end
+
   scope :open, -> { where(project_access_type: "Public") }
   def check_edit_access(user)
     @user_access =
