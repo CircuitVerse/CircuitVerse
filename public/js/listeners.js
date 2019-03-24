@@ -236,6 +236,7 @@ function startListeners() {
 
 
         var textToPutOnClipboard = copy(simulationArea.copyList, true);
+        dataPasted = textToPutOnClipboard;
         e.preventDefault();
         if(textToPutOnClipboard==undefined)
             return;
@@ -254,6 +255,7 @@ function startListeners() {
         }
 
         var textToPutOnClipboard = copy(simulationArea.copyList);
+        dataPasted = textToPutOnClipboard;
         e.preventDefault();
         if(textToPutOnClipboard==undefined)
             return;

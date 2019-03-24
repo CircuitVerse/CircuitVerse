@@ -7,6 +7,7 @@ var ctxPos = {
     y: 0,
     visible: false,
 };
+var dataPasted; // Stores the copy/cut data
 
 // Function hides the context menu
 function hideContextMenu() {
@@ -35,31 +36,25 @@ function showContextMenu() {
 // eslint-disable-next-line no-unused-vars
 function menuItemClicked(id) {
     hideContextMenu();
-    switch (id) {
-    case 0:
+
+    if (id === 0) {
+        document.execCommand('copy');
+    } else if (id === 1) {
+        document.execCommand('cut');
+    } else if (id === 2) {
+        // document.execCommand('paste'); it is restricted to sove this problem we use dataPasted variable
+        if (dataPasted) paste(dataPasted);
+    } else if (id === 3) {
         delete_selected();
-        break;
-    case 1:
-        // whenever we click on the simulation area it generates a backup to undo call undo twice
+    } else if (id === 4) {
         undo();
         undo();
-        break;
-    case 2:
-        globalScope.centerFocus(false);
-        break;
-    case 3:
+    } else if (id === 5) {
         newCircuit();
-        break;
-    case 4:
+    } else if (id === 6) {
         createSubCircuitPrompt();
-        break;
-    case 5:
-        newProject();
-        break;
-    case 6:
-        clearProject();
-        break;
-    default:
+    } else if (id === 7) {
+        globalScope.centerFocus(false);
     }
 }
 
