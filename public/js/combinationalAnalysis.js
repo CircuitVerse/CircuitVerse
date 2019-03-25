@@ -19,8 +19,8 @@ createCombinationalAnalysisPrompt=function(scope=globalScope){
           text: "Next",
           click: function() {
             // //console.log($("#inputNameList"),$("#inputNameList").val(),$("#inputNameList").html());
-            var inputList=$("#inputNameList").val().split(' ');
-            var outputList=$("#outputNameList").val().split(' ');
+            var inputList=$("#inputNameList").val().match(/\S+/g);
+            var outputList=$("#outputNameList").val().match(/\S+/g);
             $( this ).dialog( "close" );
             createBooleanPrompt(inputList,outputList,scope);
         },
@@ -31,8 +31,8 @@ createCombinationalAnalysisPrompt=function(scope=globalScope){
 }
 function createBooleanPrompt(inputListNames,outputListNames,scope=globalScope){
 
-    inputListNames=inputListNames||(prompt("Enter inputs separated by space").split(' '));
-    outputListNames=outputListNames||(prompt("Enter outputs separated by space").split(' '));
+    inputListNames=inputListNames||(prompt("Enter inputs separated by space").match(/\S+/g));
+    outputListNames=outputListNames||(prompt("Enter outputs separated by space").match(/\S+/g));
 
     var s='<table>';
     s+='<tbody style="display:block; max-height:70vh; overflow-y:scroll" >';
