@@ -25,8 +25,8 @@
 
       <div class="card h-100">
         <div class="card-header text-center font-weight-bold text-capitalize">
-          <%= @project.name %>  &ensp;  &ensp;  &ensp;  &ensp; &ensp; &ensp; &ensp; &ensp;
-          <span class="badge badge-secondary noSelect">
+          <%= @project.name %>  &ensp; 
+          <span class="badge badge-secondary noSelect" style="width: 100%;">
             &ensp;&ensp;
             <% if user_signed_in? %>
                 <i id="toggleStarButton" class="fa fa-star fa-2x noSelect" aria-hidden="true" style=<%= Star.find_by(user_id: current_user.id, project_id: @project.id).nil? ? "color:white" : "color:orange" %> onclick="toggleStar()"></i>
@@ -35,9 +35,12 @@
                 <i  class="fa fa-star fa-2x noSelect" aria-hidden="true" style="color:orange" ></i>
                 &ensp;
             <% end %>
-            <r id="star_count" style="font-size:20px" class="noSelect"><%= @project.stars.count %></r>&ensp;&ensp;&ensp;
+            <r id="star_count" style="font-size:18px" class="noSelect"><%= @project.stars.count %></r>&ensp;&ensp;&ensp;
+            <div class="d-block d-md-none">
+              <br/>
+            </div>
             <i class="fa fa-eye fa-2x" aria-hidden="true" style="font-size:24px;font-weight: bold">&ensp;</i>
-            <r id="star_count" style="font-size:20px" class="noSelect"><%= @project.view %></r>&ensp;&ensp;&ensp;
+            <r id="star_count" style="font-size:18px" class="noSelect"><%= @project.view %></r>
             </span>
         </div>
         <ul class="list-group list-group-flush">
