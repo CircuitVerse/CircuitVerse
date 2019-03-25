@@ -1,7 +1,6 @@
 // Layout.js - all subcircuit layout related code is here
 
 // Function to toggle between layoutMode and normal Mode
-var allLayouts = {}; // Stores all layouts of SubCircuit
 function toggleLayoutMode() {
     if (layoutMode) {
         layoutMode = false;
@@ -93,7 +92,7 @@ function layout_buffer(scope = globalScope) {
     this.yy = yy;
 
     // Assign layout if exist or create new one
-    this.layout = (allLayouts[scope.id]) ? Object.assign({}, allLayouts[scope.id]) : Object.assign({}, scope.layout); //Object.create(scope.layout);
+    this.layout = Object.assign({}, scope.layout); //Object.create(scope.layout);
 
     // Push Input Nodes
     this.Input = [];
@@ -412,7 +411,6 @@ function saveLayout() {
             temp_buffer.Output[i].parent.layoutProperties.y = temp_buffer.Output[i].y;
         }
         globalScope.layout = Object.assign({}, temp_buffer.layout);
-        allLayouts[globalScope.id] = Object.assign({}, temp_buffer.layout);
         toggleLayoutMode();
     }
 }

@@ -1,12 +1,5 @@
 function loadSubCircuit(savedData, scope) {
     var v = new SubCircuit(savedData["x"], savedData["y"], scope, savedData["id"], savedData);
-    // Copy all Layouts to allLayouts variable
-    for (var x in scopeList) {
-        if (scopeList.hasOwnProperty(x)) {
-            allLayouts[x] = Object.assign({}, scopeList[x].layout);
-        } 
-    }
-
     // if(v.version == "1.0"){
     // 	v.version = "2.0";
     // 	v.x-=v.width/2;
@@ -195,11 +188,6 @@ SubCircuit.prototype.reset = function() {
         this.delete();
         this.scope.backups = [];
         return;
-    }
-
-    if(allLayouts[subcircuitScope.id]){
-        // Set the width and height
-        subcircuitScope.layout = Object.assign(allLayouts[subcircuitScope.id]);
     }
 
     subcircuitScope.layout.height = subcircuitScope.layout.height;
