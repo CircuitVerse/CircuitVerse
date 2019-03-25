@@ -7,7 +7,6 @@ var ctxPos = {
     y: 0,
     visible: false,
 };
-var dataPasted; // Stores the copy/cut data
 
 // Function hides the context menu
 function hideContextMenu() {
@@ -43,7 +42,7 @@ function menuItemClicked(id) {
         document.execCommand('cut');
     } else if (id === 2) {
         // document.execCommand('paste'); it is restricted to sove this problem we use dataPasted variable
-        if (dataPasted) paste(dataPasted);
+        paste(localStorage.getItem('clipboardData'));
     } else if (id === 3) {
         delete_selected();
     } else if (id === 4) {

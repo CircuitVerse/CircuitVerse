@@ -236,7 +236,7 @@ function startListeners() {
 
 
         var textToPutOnClipboard = copy(simulationArea.copyList, true);
-        dataPasted = textToPutOnClipboard;
+        localStorage.setItem('clipboardData', textToPutOnClipboard);
         e.preventDefault();
         if(textToPutOnClipboard==undefined)
             return;
@@ -255,7 +255,7 @@ function startListeners() {
         }
 
         var textToPutOnClipboard = copy(simulationArea.copyList);
-        dataPasted = textToPutOnClipboard;
+        localStorage.setItem('clipboardData', textToPutOnClipboard);
         e.preventDefault();
         if(textToPutOnClipboard==undefined)
             return;
@@ -274,8 +274,9 @@ function startListeners() {
         } else {
             data = e.clipboardData.getData('text/plain');
         }
-
-        paste(data);
+        // Check if data occurs on local storage else take data from clipboard
+        if (!(localStorage.getItem('clipboardData'))) localStorage.setItem('clipboardData', data);
+        paste(localStorage.getItem('clipboardData'));
         e.preventDefault();
     });
 
