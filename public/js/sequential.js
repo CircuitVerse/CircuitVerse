@@ -57,7 +57,7 @@ TflipFlop.prototype.newBitWidth = function(bitWidth) {
     this.preset.bitWidth = bitWidth;
 }
 TflipFlop.prototype.resolve = function() {
-    if (this.reset.value == 1) {
+    if (this.reset.value == 1 || this.preset.value == 1) {
 
         this.masterState = this.slaveState = this.preset.value || 0;
 
@@ -165,7 +165,7 @@ DflipFlop.prototype.newBitWidth = function(bitWidth) {
     this.preset.bitWidth = bitWidth;
 }
 DflipFlop.prototype.resolve = function() {
-    if (this.reset.value == 1) {
+    if (this.reset.value == 1 || this.preset.value == 1) {
         this.masterState = this.slaveState = (this.preset.value||0);
     }
     else if (this.en.value == 0) {
@@ -442,12 +442,8 @@ SRflipFlop.prototype.isResolvable = function() {
     return false;
 }
 SRflipFlop.prototype.resolve = function() {
-
-    if (this.reset.value == 1) {
-
+    if (this.reset.value == 1 || this.preset.value == 1) {
         this.state = this.preset.value || 0;
-
-
     }
 
     else if ((this.en.value ==1||this.en.connections==0) && this.S.value ^ this.R.value) {
@@ -543,7 +539,7 @@ JKflipFlop.prototype.newBitWidth = function(bitWidth) {
     this.preset.bitWidth = bitWidth;
 }
 JKflipFlop.prototype.resolve = function() {
-    if (this.reset.value == 1) {
+    if (this.reset.value == 1 || this.preset.value == 1) {
 
         this.masterState = this.slaveState = this.preset.value || 0;
 
