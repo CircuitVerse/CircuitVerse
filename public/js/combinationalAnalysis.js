@@ -10,8 +10,8 @@ createCombinationalAnalysisPrompt=function(scope=globalScope){
     //console.log("Ya");
     scheduleBackup();
     $('#combinationalAnalysis').empty();
-    $('#combinationalAnalysis').append("<p>Enter Input names separated by spaces: <input id='inputNameList' type='text'  placeHolder='eg. A B C'></p>");
-    $('#combinationalAnalysis').append("<p>Enter Output names separated by spaces: <input id='outputNameList' type='text'  placeHolder='eg. X Y Z'></p>");
+    $('#combinationalAnalysis').append("<p>Enter Input names separated by commas: <input id='inputNameList' type='text'  placeHolder='eg. Input A, Input B'></p>");
+    $('#combinationalAnalysis').append("<p>Enter Output names separated by commas: <input id='outputNameList' type='text'  placeHolder='eg. Output X, Output Y'></p>");
     $('#combinationalAnalysis').dialog({
         width:"auto",
       buttons: [
@@ -19,8 +19,8 @@ createCombinationalAnalysisPrompt=function(scope=globalScope){
           text: "Next",
           click: function() {
             // //console.log($("#inputNameList"),$("#inputNameList").val(),$("#inputNameList").html());
-            var inputList=$("#inputNameList").val().match(/\S+/g);
-            var outputList=$("#outputNameList").val().match(/\S+/g);
+            var inputList=$("#inputNameList").val().split(",");
+            var outputList=$("#outputNameList").val().split(",");
             $( this ).dialog( "close" );
             createBooleanPrompt(inputList,outputList,scope);
         },
@@ -31,16 +31,16 @@ createCombinationalAnalysisPrompt=function(scope=globalScope){
 }
 function createBooleanPrompt(inputListNames,outputListNames,scope=globalScope){
 
-    inputListNames=inputListNames||(prompt("Enter inputs separated by space").match(/\S+/g));
-    outputListNames=outputListNames||(prompt("Enter outputs separated by space").match(/\S+/g));
+    inputListNames=inputListNames||(prompt("Enter inputs separated by commas").split(","));
+    outputListNames=outputListNames||(prompt("Enter outputs separated by commas").split(","));
 
     var s='<table>';
     s+='<tbody style="display:block; max-height:70vh; overflow-y:scroll" >';
     s+='<tr>';
     for(var i=0;i<inputListNames.length;i++)
-        s+='<th>'+inputListNames[i]+'</th>';
+        s+='<th>'+inputListNames[i].trim()+'</th>';
     for(var i=0;i<outputListNames.length;i++)
-        s+='<th>'+outputListNames[i]+'</th>';
+        s+='<th>'+outputListNames[i].trim()+'</th>';
     s+='</tr>';
 
     var matrix = [];
@@ -60,7 +60,7 @@ function createBooleanPrompt(inputListNames,outputListNames,scope=globalScope){
             s+='<td>'+matrix[i][j]+'</td>';
         }
         for(var i=0;i<outputListNames.length;i++){
-            s+='<td class ="output '+outputListNames[i]+'" id="'+j+'">'+'x'+'</td>';
+            s+='<td class ="output '+outputListNames[i].trim()+'" id="'+j+'">'+'x'+'</td>';
         }
         s+='</tr>';
     }
