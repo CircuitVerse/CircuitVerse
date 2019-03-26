@@ -21,8 +21,8 @@ createCombinationalAnalysisPrompt=function(scope=globalScope){
             // //console.log($("#inputNameList"),$("#inputNameList").val(),$("#inputNameList").html());
             var inputList=$("#inputNameList").val().split(',');
             var outputList=$("#outputNameList").val().split(',');
-            inputList = inputList.map(function (x){return x.trim();});
-            outputList = outputList.map(function (x){return x.trim();});
+            inputList = inputList.map( x => x.trim() );
+            outputList = outputList.map( x => x.trim() );
             $( this ).dialog( "close" );
             createBooleanPrompt(inputList,outputList,scope);
         },
