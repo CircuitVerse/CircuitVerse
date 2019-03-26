@@ -82,6 +82,7 @@ Rails.application.configure do
 
   # Mailer settings
   config.action_mailer.delivery_method = :smtp
+  config.action_mailer.default_url_options = { host: "https://circuitverse.org/" }
 
     config.action_mailer.smtp_settings = {
      :address              => 'smtp.yandex.com',
