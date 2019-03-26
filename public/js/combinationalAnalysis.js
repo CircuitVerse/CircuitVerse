@@ -10,8 +10,8 @@ createCombinationalAnalysisPrompt=function(scope=globalScope){
     //console.log("Ya");
     scheduleBackup();
     $('#combinationalAnalysis').empty();
-    $('#combinationalAnalysis').append("<p>Enter Input names separated by spaces: <input id='inputNameList' type='text'  placeHolder='eg. A B C'></p>");
-    $('#combinationalAnalysis').append("<p>Enter Output names separated by spaces: <input id='outputNameList' type='text'  placeHolder='eg. X Y Z'></p>");
+    $('#combinationalAnalysis').append("<p>Enter Input names separated by commas: <input id='inputNameList' type='text'  placeHolder='eg. Input A, Input B'></p>");
+    $('#combinationalAnalysis').append("<p>Enter Output names separated by commas: <input id='outputNameList' type='text'  placeHolder='eg. Output X, Output Y'></p>");
     $('#combinationalAnalysis').dialog({
         width:"auto",
       buttons: [
@@ -19,8 +19,10 @@ createCombinationalAnalysisPrompt=function(scope=globalScope){
           text: "Next",
           click: function() {
             // //console.log($("#inputNameList"),$("#inputNameList").val(),$("#inputNameList").html());
-            var inputList=$("#inputNameList").val().split(' ');
-            var outputList=$("#outputNameList").val().split(' ');
+            var inputList=$("#inputNameList").val().split(',');
+            var outputList=$("#outputNameList").val().split(',');
+            inputList = inputList.map(function (x){return x.trim();});
+            outputList = outputList.map(function (x){return x.trim();});
             $( this ).dialog( "close" );
             createBooleanPrompt(inputList,outputList,scope);
         },
@@ -31,8 +33,8 @@ createCombinationalAnalysisPrompt=function(scope=globalScope){
 }
 function createBooleanPrompt(inputListNames,outputListNames,scope=globalScope){
 
-    inputListNames=inputListNames||(prompt("Enter inputs separated by space").split(' '));
-    outputListNames=outputListNames||(prompt("Enter outputs separated by space").split(' '));
+    inputListNames=inputListNames||(prompt("Enter inputs separated by commas").split(','));
+    outputListNames=outputListNames||(prompt("Enter outputs separated by commas").split(','));
 
     var s='<table>';
     s+='<tbody style="display:block; max-height:70vh; overflow-y:scroll" >';
