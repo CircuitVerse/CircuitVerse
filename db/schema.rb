@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190314204600) do
+ActiveRecord::Schema.define(version: 20190317092903) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,6 +72,11 @@ ActiveRecord::Schema.define(version: 20190314204600) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["commontable_id", "commontable_type"], name: "index_commontator_threads_on_c_id_and_c_type", unique: true
+  end
+
+  create_table "featured_circuits", force: :cascade do |t|
+    t.bigint "project_id"
+    t.index ["project_id"], name: "index_featured_circuits_on_project_id"
   end
 
   create_table "group_members", force: :cascade do |t|
@@ -188,6 +193,7 @@ ActiveRecord::Schema.define(version: 20190314204600) do
   add_foreign_key "assignments", "groups"
   add_foreign_key "collaborations", "projects"
   add_foreign_key "collaborations", "users"
+  add_foreign_key "featured_circuits", "projects"
   add_foreign_key "group_members", "groups"
   add_foreign_key "group_members", "users"
   add_foreign_key "groups", "users", column: "mentor_id"
