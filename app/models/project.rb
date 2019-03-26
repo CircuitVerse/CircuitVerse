@@ -14,7 +14,7 @@ class Project < ApplicationRecord
   mount_uploader :image_preview, ImagePreviewUploader
 
   include PgSearch
-  pg_search_scope :text_search, against: [:name,:description]
+  pg_search_scope :text_search, against: [:name, :description]
 
   self.per_page = 8
 
@@ -24,7 +24,7 @@ class Project < ApplicationRecord
     if query.present?
       Project.text_search(query)
     else
-      return Project.all
+      Project.all
     end
   end
 

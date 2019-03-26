@@ -45,10 +45,10 @@ class LogixController < ApplicationController
   end
 
   private
-
-  def projects_scope
-    public_and_not_forked_projects = ProjectsQuery.new.public_and_not_forked
-    ProjectsQuery.new(public_and_not_forked_projects).search_name_description(params[:q]).paginate(page: params[:page],per_page: 5)
-  end
+    def projects_scope
+      public_and_not_forked_projects = ProjectsQuery.new.public_and_not_forked
+      ProjectsQuery.new(public_and_not_forked_projects)
+        .search_name_description(params[:q]).paginate(page: params[:page], per_page: 5)
+    end
 
 end

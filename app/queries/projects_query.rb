@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class ProjectsQuery
   attr_reader :relation
 
@@ -13,5 +14,4 @@ class ProjectsQuery
     relation.includes(:author).search(query).
       select("id,author_id,image_preview,name,description,view")
   end
-
 end
