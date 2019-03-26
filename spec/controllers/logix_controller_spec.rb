@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 describe LogixController, type: :request do
@@ -59,7 +60,7 @@ describe LogixController, type: :request do
   end
 
   it "should get no results" do
-    FactoryBot.create(:project, name: "Full adder using basic gates", project_access_type: 'Public')
+    FactoryBot.create(:project, name: "Full adder using basic gates", project_access_type: "Public")
     get search_path, params: { q: "half adder" }
     expect(response.status).to eq(200)
     expect(response.body).not_to include "Full adder using basic gates"
