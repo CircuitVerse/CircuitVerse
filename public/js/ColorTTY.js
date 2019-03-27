@@ -29,7 +29,7 @@
  * 
 */
 function ColorTTY(x, y, scope = globalScope, dimensions = [8, 32, 4]){
-    // es6 --> let [rows, cols, colors] = dimensions;
+    // es6 --> let [rows, cols, colors] = dimensions(rows, columns, colors);
     var rows = dimensions[0], cols = dimensions[1], colors = dimensions[2];
     CircuitElement.call(this, x, y, scope, "RIGHT", 1);
     this.checkLegalDimensions(rows, cols, colors);       // ASK: The instance isn't made yet, Right? I want to make sure the class instance isn't added to the UI until this test is passed ok
@@ -38,8 +38,8 @@ function ColorTTY(x, y, scope = globalScope, dimensions = [8, 32, 4]){
     this.rows = Math.min(128, rows);  
     this.directionFixed = true;
     this.fixedBitWidth = true;
-    this.xBitWidth = rows / 2;
-    this.yBitWidth = cols / 2;
+    this.xBitWidth = this.whichMultipleOfTwo(rows);
+    this.yBitWidth = this.whichMultipleOfTwo(cols);
     this.colorBitWidth = colors;
     this.characterHeight = 2;               // unit is simulationArea squares
     this.characterWidth = 1;
@@ -76,7 +76,7 @@ ColorTTY.prototype.mutableProperties = {
     "fonts": {
         name: "Font",
         type: "dropdown",
-        values: ["Lekton"],
+        values: ["Lekton"],     // add more fonts here, ASK
         func: "changeFont"
     },
     "reset": {
@@ -131,12 +131,14 @@ ColorTTY.prototype.resolve = function() {
         }
     // clock has changed
     } else if (this.clockInp.value != undefined) {
-        if (this.clockInp.value == 1) {
+        if (this.clockInp.value == 1 && this.buffer != {}) {
             this.screenCharacters[this.buffer.position] = this.buffer;
 
             // Shifting the screen
             if (this.shift.value != undefined) this.shiftScreen(this.shift.value);
-
+            
+            // empty buffer for next fill
+            this.buffer = {};
         } else if (this.clockInp.value == 0 && this.asciiInp.value != undefined) {
             this.buffer = this.bufferFill();
         }
@@ -255,8 +257,8 @@ ColorTTY.prototype.clearData = function(){
 ColorTTY.prototype.bufferFill = function(){
     return {
         character: String.fromCharCode(this.asciiInp.value),
-        foregroundColor: this.convertToHexColor(this.foregroundColor.value, this.colorBitWidth),
-        backgroundColor: this.convertToHexColor(this.backgroundColor.value, this.colorBitWidth),
+        foregroundColor: this.convertToHexColor(this.foregroundColor.value.toString(), this.colorBitWidth),
+        backgroundColor: this.convertToHexColor(this.backgroundColor.value.toString(), this.colorBitWidth),
         position: parseInt(this.xPosition, 2) * this.rows + parseInt(this.yPosition, 2)
     };
 }
@@ -318,7 +320,14 @@ ColorTTY.prototype.deleteAllNodes = function() {
         node.delete();
     });
 }
-
+ColorTTY.prototype.whichMultipleOfTwo = function(num){
+    var counter = 0;
+    while(num != 1){
+        num /= 2;
+        counter++;
+    }
+    return num;
+}
 /* 
     TODO:
     1- make svg more beautiful.                                              -- DONE
