@@ -49,8 +49,11 @@ Rails.application.routes.draw do
 
 
   #projects
-  get 'projects/create_fork/:id', to: 'projects#create_fork',as: 'create_fork_project'
-  get 'projects/change_stars/:id', to: 'projects#change_stars', as: 'change_stars'
+  scope '/projects' do
+    get '/create_fork/:id', to: 'projects#create_fork',as: 'create_fork_project'
+    get '/change_stars/:id', to: 'projects#change_stars', as: 'change_stars'
+    get 'tags/:tag', to: 'projects#get_projects', as: 'tag'
+  end  
 
   mount Commontator::Engine => '/commontator'
 

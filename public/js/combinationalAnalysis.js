@@ -34,7 +34,8 @@ function createBooleanPrompt(inputListNames,outputListNames,scope=globalScope){
     inputListNames=inputListNames||(prompt("Enter inputs separated by space").split(' '));
     outputListNames=outputListNames||(prompt("Enter outputs separated by space").split(' '));
 
-    var s='<table>'
+    var s='<table>';
+    s+='<tbody style="display:block; max-height:70vh; overflow-y:scroll" >';
     s+='<tr>';
     for(var i=0;i<inputListNames.length;i++)
         s+='<th>'+inputListNames[i]+'</th>';
@@ -63,7 +64,7 @@ function createBooleanPrompt(inputListNames,outputListNames,scope=globalScope){
         }
         s+='</tr>';
     }
-
+    s+='</tbody>';
     s+='</table>';
     //console.log(s)
     $('#combinationalAnalysis').empty()

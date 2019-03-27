@@ -1,11 +1,10 @@
-version: '3'
+version: '3.1'
 services:
   db:
-    image: mysql
-    command: --default-authentication-plugin=mysql_native_password
+    image: postgres
     environment:
-      MYSQL_DATABASE: circuitverse_development
-      MYSQL_ROOT_PASSWORD: root
+      POSTGRES_DB: circuitverse_development
+      POSTGRES_PASSWORD: postgres
   web:
     build: .
     entrypoint: /circuitverse/bin/docker_run

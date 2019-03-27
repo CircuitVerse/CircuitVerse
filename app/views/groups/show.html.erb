@@ -37,7 +37,7 @@
                 <tr>
                   <td><%= link_to user.name, user %></td>
                   <td><%= user.email %></td>
-                  <% if @admin_access %>
+                  <% if policy(@group).admin_access? %>
                       <td><%= link_to 'Remove', group_member_path(GroupMember.find_by(user_id:user.id,group_id:@group.id)), method: :delete, data: { confirm: 'Are you sure?' } %></td>
                   <% end %>
                 </tr>
@@ -98,7 +98,7 @@
         </div>
       </div>
 
-      <% if @admin_access %>
+      <% if policy(@group).admin_access? %>
           <button type="button" class="btn btn-secondary btn-info" data-toggle="modal" data-target="#myModal">Add member</button>
             <%= link_to 'Add new assignment', new_group_assignment_path(@group), class: "btn btn-info" %>
           <br>
@@ -129,7 +129,7 @@
               </td>
               <td><%= link_to 'Show', group_assignment_path(@group,assignment) %></td>
               <td>
-                <% if @admin_access %>
+                <% if policy(@group).admin_access? %>
                   <% if assignment.status!="closed" %>
                     <%= link_to 'Edit', edit_group_assignment_path(@group,assignment) %>
                   <% else %>
@@ -163,7 +163,7 @@
         <% end %>
         </tbody>
       </table>
-      <% if @admin_access %>
+      <% if policy(@group).admin_access? %>
       <%= link_to 'Edit', edit_group_path(@group) %> |
       <% end %>
       <%= link_to 'Back', user_groups_path(current_user) %>

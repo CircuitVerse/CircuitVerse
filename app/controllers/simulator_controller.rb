@@ -1,10 +1,14 @@
 class SimulatorController < ApplicationController
-
+  include SimulatorHelper
   before_action :authenticate_user!, only: [:create, :update, :edit,:update_image]
   before_action :set_project, only: [:show, :embed, :embed, :update, :edit, :get_data,:update_image]
   before_action :check_view_access, only: [:show,:embed,:get_data]
   before_action :check_edit_access, only: [:edit,:update,:update_image]
   after_action :allow_iframe, only: :embed
+
+  def self.policy_class
+    ProjectPolicy
+  end
 
   def show
     @logix_project_id = params[:id]
@@ -19,9 +23,7 @@ class SimulatorController < ApplicationController
   end
 
   def embed
-    if(@project.nil? or @project.project_access_type=="Private" )
-      render plain: "Project has been moved or deleted. If you are the owner of the project, Please check your project access privileges." and return
-    end
+    authorize @project
     @logix_project_id = params[:id]
     @project = Project.find(params[:id])
     @author = @project.author_id
@@ -41,14 +43,17 @@ class SimulatorController < ApplicationController
 
   def update
     @project.data = params[:data]
-    data_url = params[:image]
-    jpeg      = Base64.decode64(data_url['data:image/jpeg;base64,'.length .. -1])
-    image_file = File.new("preview_#{Time.now()}.jpeg", "wb")
-    image_file.write(jpeg)
+
+    image_file = return_image_file(params[:image])
+
     @project.image_preview = image_file
     @project.name = params[:name]
     @project.save
-    File.delete(image_file)
+
+    if check_to_delete(params[:image])
+      File.delete(image_file)
+    end
+
     render plain: "success"
   end
 
@@ -59,13 +64,14 @@ class SimulatorController < ApplicationController
     @project.name = params[:name]
     @project.author = current_user
 
-    data_url = params[:image]
-    jpeg      = Base64.decode64(data_url['data:image/jpeg;base64,'.length .. -1])
-    image_file = File.new("preview_#{Time.now()}.jpeg", "wb")
-    image_file.write(jpeg)
+    image_file = return_image_file(params[:image])
+
     @project.image_preview = image_file
     @project.save
-    File.delete(image_file)
+
+    if check_to_delete(params[:image])
+      File.delete(image_file)
+    end
 
     # render plain: simulator_path(@project)
     # render plain: user_project_url(current_user,@project)
@@ -82,15 +88,11 @@ class SimulatorController < ApplicationController
   end
 
   def check_edit_access
-    if(@project.nil? or !@project.check_edit_access(current_user))
-      render plain: "Project has been moved or deleted. If you are the owner of the project, Please check your project access privileges." and return
-    end
+    authorize @project, :edit_access?
   end
 
   def check_view_access
-    if(@project.nil? or !@project.check_view_access(current_user))
-      render plain: "Project has been moved or deleted. If you are the owner of the project, Please check your project access privileges." and return
-    end
+    authorize @project, :view_access?
   end
 
 end

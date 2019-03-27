@@ -23,5 +23,7 @@
         <circle cx="5" cy="35" r="2"/>
         <circle cx="5" cy="45" r="2"/>
         <circle cx="65" cy="35" r="2"/>
+        <circle cx="25" cy="55" r="2"/>
+        <circle cx="35" cy="55" r="2"/>
     </g>
 </svg>

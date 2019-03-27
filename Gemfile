@@ -7,7 +7,7 @@ end
 
 gem "paperclip", ">= 5.2.0"
 gem 'hirb'
-
+gem 'acts_as_votable','~> 0.12.0'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-facebook'
@@ -45,7 +45,7 @@ gem 'carrierwave', '~> 1.0'
 
 gem 'rails_admin', '~> 1.2'
 
-gem 'cancancan', '~>2.0'
+# gem 'cancancan', '~>2.0'
 
 gem 'sidekiq'
 
@@ -55,6 +55,9 @@ gem 'will_paginate-bootstrap'
 
 gem 'country_select', '~> 4.0'
 gem 'bootstrap-typeahead-rails'
+
+# for authorization layer
+gem 'pundit'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
@@ -67,12 +70,9 @@ gem 'bootstrap-typeahead-rails'
 
 # Database
 
-group :mysql, optional: true do
-  gem "mysql2", "~> 0.5.2"
-end
-group :postgresql, optional: true do
-  gem "pg", "~> 1.1.4"
-end
+gem "pg", "~> 1.1.4"
+
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -82,6 +82,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'coveralls'
+  gem 'rubocop-rspec'
 end
 
 group :test do
@@ -100,6 +101,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'rails-erd'
+  gem 'rubocop'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
