@@ -242,6 +242,7 @@ function startListeners() {
 
 
         var textToPutOnClipboard = copy(simulationArea.copyList, true);
+        localStorage.setItem('clipboardData', textToPutOnClipboard);
         e.preventDefault();
         if(textToPutOnClipboard==undefined)
             return;
@@ -260,6 +261,7 @@ function startListeners() {
         }
 
         var textToPutOnClipboard = copy(simulationArea.copyList);
+        localStorage.setItem('clipboardData', textToPutOnClipboard);
         e.preventDefault();
         if(textToPutOnClipboard==undefined)
             return;
