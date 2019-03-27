@@ -135,7 +135,7 @@ function startListeners() {
             }
         }
 
-        if (e.keyCode == 8 || e.key == "Delete") {
+        if (simulationArea.lastSelected && (e.keyCode == 8 || e.key == "Delete")) {
             delete_selected();
         }
 

@@ -8,6 +8,9 @@ var sampleOutputListNames=["X"];
 
 createCombinationalAnalysisPrompt=function(scope=globalScope){
     //console.log("Ya");
+    // Deselect all
+    simulationArea.multipleObjectSelections = [];
+    simulationArea.lastSelected = undefined;
     scheduleBackup();
     $('#combinationalAnalysis').empty();
     $('#combinationalAnalysis').append("<p>Enter Input names separated by spaces: <input id='inputNameList' type='text'  placeHolder='eg. A B C'></p>");
