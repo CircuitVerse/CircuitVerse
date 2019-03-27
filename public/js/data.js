@@ -802,25 +802,26 @@ createSubCircuitPrompt = function(scope = globalScope) {
             }, ]
 
         })
-    }
-    $('#insertSubcircuitDialog').dialog({
-        width: "auto",
-        buttons: [{
-            text: "Create SubCircuit",
-            click: function() {
-                newCircuit();
-                $(this).dialog("close");
-            }
-        }, {
-            text: "Insert SubCircuit",
-            click: function() {
-                if (!$("input[name=subCircuitId]:checked").val()) return;
-                simulationArea.lastSelected = new SubCircuit(undefined, undefined, globalScope, $("input[name=subCircuitId]:checked").val());
-                $(this).dialog("close");
-            },
-        }]
+    } else {
+        $('#insertSubcircuitDialog').dialog({
+            width: "auto",
+            buttons: [{
+                text: "Create SubCircuit",
+                click: function() {
+                    newCircuit();
+                    $(this).dialog("close");
+                }
+            }, {
+                text: "Insert SubCircuit",
+                click: function() {
+                    if (!$("input[name=subCircuitId]:checked").val()) return;
+                    simulationArea.lastSelected = new SubCircuit(undefined, undefined, globalScope, $("input[name=subCircuitId]:checked").val());
+                    $(this).dialog("close");
+                },
+            }]
 
-    });
+        });
+    }
 
 }
 
