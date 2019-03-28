@@ -150,7 +150,7 @@ ColorTTY.prototype.resolve = function() {
 }
 ColorTTY.prototype.customDraw = function() {
     var ctx = simulationArea.context, xx = this.x, yy = this.y;
-    // this.drawDefaultBackground(ctx, '#000', xx, yy);
+    this.drawDefaultBackground(ctx, '#000', xx, yy);
 
     for(var c = 0; c < this.screenCharacters.length; c++) {
         if (this.screenCharacters[c] !== undefined){
@@ -164,7 +164,7 @@ ColorTTY.prototype.customDraw = function() {
             
             // make a rectangle according to index
             ctx.beginPath();
-            ctx.rect(newXRelativePoint - xBackgroundOffset, newYRelativePoint - yBackgroundOffset, this.characterWidth * 10, this.characterHeight * 10);
+	    rect(ctx, newXRelativePoint - xBackgroundOffset, newYRelativePoint - yBackgroundOffset, this.characterWidth * 10, this.characterHeight * 10);
             ctx.fillStyle = this.screenCharacters[c].backgroundColor;
             ctx.fill();
 
@@ -287,7 +287,7 @@ ColorTTY.prototype.drawDefaultBackground = function(ctx, defaultColor, xx, yy){
     // '-10' represent the padding square at the start
     // '+2' represent a padding to include the bottom part of small characters such as 'g' and 'y'.
     ctx.beginPath();
-    ctx.rect(xx - (this.elementWidth/2 - 10), yy - (this.elementHeight/2 - 10) + 2, (this.characterWidth * 10) * this.cols, (this.characterHeight * 10) * this.rows);
+    rect(ctx, xx - (this.elementWidth/2 - 10), yy - (this.elementHeight/2 - 10) + 2, (this.characterWidth * 10) * this.cols, (this.characterHeight * 10) * this.rows);
     ctx.fillStyle = defaultColor;
     ctx.fill();
 }
