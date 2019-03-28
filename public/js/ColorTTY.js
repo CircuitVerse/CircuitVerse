@@ -28,7 +28,7 @@
  * 4- choose between a set of Fonts.
  * 
 */
-function ColorTTY(x, y, scope = globalScope, dimensions = [8, 32, 4]){
+function ColorTTY(x, y, scope = globalScope, dimensions = [8, 32, 12]){
     // es6 --> let [rows, cols, colors] = dimensions(rows, columns, colors);
     var rows = dimensions[0], cols = dimensions[1], colors = dimensions[2];
     CircuitElement.call(this, x, y, scope, "RIGHT", 1);
@@ -39,7 +39,7 @@ function ColorTTY(x, y, scope = globalScope, dimensions = [8, 32, 4]){
     this.directionFixed = true;
     this.fixedBitWidth = true;
     this.xBitWidth = this.whichMultipleOfTwo(rows);
-    this.yBitWidth = this.whichMultipleOfTwo(cols);
+    this.yBitWidth = this.whichMultipleOfTwo(cols); 
     this.colorBitWidth = colors;
     this.characterHeight = 2;               // unit is simulationArea squares
     this.characterWidth = 1;
@@ -131,9 +131,10 @@ ColorTTY.prototype.resolve = function() {
         }
     // clock has changed
     } else if (this.clockInp.value != undefined) {
-        if (this.clockInp.value == 1 && this.buffer != {}) {
+        if (this.clockInp.value == 1 && Object.keys(this.buffer).length) {
             this.screenCharacters[this.buffer.position] = this.buffer;
-
+	    console.log(this.buffer);
+	    console.log(this.screenCharacters);
             // Shifting the screen
             if (this.shift.value != undefined) this.shiftScreen(this.shift.value);
             
@@ -149,7 +150,7 @@ ColorTTY.prototype.resolve = function() {
 }
 ColorTTY.prototype.customDraw = function() {
     var ctx = simulationArea.context, xx = this.x, yy = this.y;
-    this.drawDefaultBackground(ctx, '#000', xx, yy);
+    // this.drawDefaultBackground(ctx, '#000', xx, yy);
 
     for(var c = 0; c < this.screenCharacters.length; c++) {
         if (this.screenCharacters[c] !== undefined){
@@ -164,12 +165,12 @@ ColorTTY.prototype.customDraw = function() {
             // make a rectangle according to index
             ctx.beginPath();
             ctx.rect(newXRelativePoint - xBackgroundOffset, newYRelativePoint - yBackgroundOffset, this.characterWidth * 10, this.characterHeight * 10);
-            ctx.fillStyle = this.screenCharacters[c].background;
+            ctx.fillStyle = this.screenCharacters[c].backgroundColor;
             ctx.fill();
 
             // put a colored character according to index
             ctx.beginPath();
-            ctx.fillStyle = this.screenCharacters[c].foreground;    
+            ctx.fillStyle = this.screenCharacters[c].foregroundColor;    
             ctx.textAlign = "center";
             fillText(ctx, this.screenCharacters[c].character, newXRelativePoint - xCharacterOffset, newYRelativePoint - yCharacterOffset, 19, this.font);
             ctx.fill();
@@ -255,11 +256,13 @@ ColorTTY.prototype.clearData = function(){
     this.screenCharacters = new Array(this.cols * this.rows);
 }
 ColorTTY.prototype.bufferFill = function(){
+    var correctedForeground = this.correctNumberOfBits(this.foregroundColor.value.toString(2));
+    var correctedBackground = this.correctNumberOfBits(this.backgroundColor.value.toString(2));
     return {
         character: String.fromCharCode(this.asciiInp.value),
-        foregroundColor: this.convertToHexColor(this.foregroundColor.value.toString(2), this.colorBitWidth),
-        backgroundColor: this.convertToHexColor(this.backgroundColor.value.toString(2), this.colorBitWidth),
-        position: parseInt(this.xPosition, 2) * this.rows + parseInt(this.yPosition, 2)
+        foregroundColor: this.convertToHexColor(correctedForeground, this.colorBitWidth / 4),
+        backgroundColor: this.convertToHexColor(correctedBackground, this.colorBitWidth / 4),
+        position: this.xPosition.value * this.cols + this.yPosition.value
     };
 }
 ColorTTY.prototype.configureNodes = function(halfHeight, halfWidth){
@@ -267,8 +270,8 @@ ColorTTY.prototype.configureNodes = function(halfHeight, halfWidth){
     this.asciiInp = new Node(-1 * halfWidth, halfHeight - 30, 0, this, 7,"Ascii Input");
     this.xPosition = new Node(-1 * halfWidth, halfHeight - 50, 0, this, this.xBitWidth, "X-axis position");
     this.yPosition = new Node(-1 * halfWidth, halfHeight - 80, 0, this, this.yBitWidth, "Y-axis position");
-    this.foregroundColor = new Node(-1 * halfWidth, halfHeight - 110, 0, this, this.colorBitWidth * 3, "Foreground color");
-    this.backgroundColor = new Node(-1 * halfWidth, halfHeight - 140, 0, this, this.colorBitWidth * 3, "Background color");
+    this.foregroundColor = new Node(-1 * halfWidth, halfHeight - 110, 0, this, this.colorBitWidth, "Foreground color");
+    this.backgroundColor = new Node(-1 * halfWidth, halfHeight - 140, 0, this, this.colorBitWidth, "Background color");
     this.reset = new Node(30 - halfWidth, halfHeight, 0, this, 1,"Reset");
     this.en = new Node(10 - halfWidth, halfHeight, 0, this, 1,"Enable");
     this.shift = new Node(50 - halfWidth, halfHeight, 0, this, 2, "Shift");
@@ -326,7 +329,19 @@ ColorTTY.prototype.whichMultipleOfTwo = function(num){
         num /= 2;
         counter++;
     }
-    return num;
+    return counter;
+}
+ColorTTY.prototype.correctNumberOfBits = function(str){
+	var numOfMissingCharacters = str.length % (this.colorBitWidth/3);
+	if(numOfMissingCharacters != 0){
+	    for (var i = 0; i < (this.colorBitWidth/3) - numOfMissingCharacters; i++){
+		str = '0' + str;
+	    }
+	}
+	while (str.length != this.colorBitWidth){
+	    str = '0000' + str;
+	}
+	return str;
 }
 /* 
     TODO:
