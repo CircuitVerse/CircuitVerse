@@ -257,8 +257,8 @@ ColorTTY.prototype.clearData = function(){
 ColorTTY.prototype.bufferFill = function(){
     return {
         character: String.fromCharCode(this.asciiInp.value),
-        foregroundColor: this.convertToHexColor(this.foregroundColor.value.toString(), this.colorBitWidth),
-        backgroundColor: this.convertToHexColor(this.backgroundColor.value.toString(), this.colorBitWidth),
+        foregroundColor: this.convertToHexColor(this.foregroundColor.value.toString(2), this.colorBitWidth),
+        backgroundColor: this.convertToHexColor(this.backgroundColor.value.toString(2), this.colorBitWidth),
         position: parseInt(this.xPosition, 2) * this.rows + parseInt(this.yPosition, 2)
     };
 }
