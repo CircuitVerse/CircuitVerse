@@ -23,6 +23,10 @@ class LogixController < ApplicationController
   def examples
   end
 
+  def featured
+    @projects = FeaturedCircuit.all.select(&:valid?).map(&:project)
+  end
+
   def features
   end
 
