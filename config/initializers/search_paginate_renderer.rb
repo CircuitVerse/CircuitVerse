@@ -29,7 +29,8 @@ class SearchPaginateRenderer < WillPaginate::ActionView::LinkRenderer
   end
 
   def gap
-    tag :li, tag(:i, ELLIPSIS, class: 'page-link'), class: 'page-item disabled'
+    text = @template.will_paginate_translate(:page_gap) { '&hellip;' }
+    %(<li class="page-item disabled" style="padding: 0 8px"> #{text} </li>)
   end
 
   def previous_page
