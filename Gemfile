@@ -60,6 +60,11 @@ gem 'bootstrap-typeahead-rails'
 # for authorization layer
 gem 'pundit'
 
+# for analytics
+gem 'ahoy_matey'
+
+gem 'mysql2'
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
