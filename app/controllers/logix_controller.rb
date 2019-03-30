@@ -2,14 +2,17 @@ class LogixController < ApplicationController
   # before_action :authenticate_user!
 
   def index
-      @projects = Project.select("id,author_id,image_preview,name").where(project_access_type:"Public",forked_project_id:nil).paginate(:page => params[:page]).order("id desc").limit(Project.per_page)
+    @projects = Project.select("id,author_id,image_preview,name")
+                       .where(project_access_type: "Public", forked_project_id: nil)
+                       .paginate(page: params[:page]).order("id desc").limit(Project.per_page)
 
-      respond_to do |format|
-        format.html # index.html.erb
-        format.json { render json: @projects }
-        format.js
-      end
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @projects }
+      format.js
+    end
 
+    @featured_circuits = FeaturedCircuit.all.pluck(:project_id).take(4)
   end
 
   def gettingStarted
