@@ -1507,7 +1507,7 @@ function Splitter(x, y, scope = globalScope, dir = "RIGHT", bitWidth = undefined
     CircuitElement.call(this, x, y, scope, dir, bitWidth);
     this.rectangleObject = false;
 
-    this.bitWidthSplit = bitWidthSplit || prompt("Enter bitWidth Split").split(' ').map(function(x) {
+    this.bitWidthSplit = bitWidthSplit || prompt("Enter bitWidth Split").split(' ').filter(x => x != '').map(function(x) {
         return parseInt(x, 10)||1;
     });
     this.splitCount = this.bitWidthSplit.length;
