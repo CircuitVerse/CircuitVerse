@@ -2,7 +2,7 @@
 // Refer listeners.js
 
 function startListeners() {
-    window.addEventListener('keyup', function(e) {
+    window.parent.addEventListener('keyup', function(e) {
         scheduleUpdate(1);
         if (e.keyCode == 16) {
             simulationArea.shiftDown = false;
@@ -35,21 +35,29 @@ function startListeners() {
         scheduleUpdate(1);
     });
 
-    document.getElementById("simulationArea").addEventListener('mousemove', function(e) {
+    document.getElementById('simulationArea').addEventListener('mousemove', () => {
+        var ele = document.getElementById('elementName');
+        if (globalScope && simulationArea && simulationArea.objectList) {
+            var { objectList } = simulationArea;
+            objectList = objectList.filter(val => val !== 'wires');
 
-        var ele = document.getElementById("subCircuitName");
-        if(globalScope && globalScope.SubCircuit) {
-            for (var i = 0; i < globalScope.SubCircuit.length; i++) {
-                if(globalScope.SubCircuit[i].isHover()) {
-                    ele.style.display = 'block';
-                    ele.innerHTML = "Subcircuit: " + globalScope.SubCircuit[i].data.name;
-                    return;
+            for (var i = 0; i < objectList.length; i++) {
+                for (var j = 0; j < globalScope[objectList[i]].length; j++) {
+                    if (globalScope[objectList[i]][j].isHover()) {
+                        ele.style.display = 'block';
+                        if (objectList[i] === 'SubCircuit') {
+                            ele.innerHTML = `Subcircuit: ${globalScope.SubCircuit[j].data.name}`;
+                        } else {
+                            ele.innerHTML = `CircuitElement: ${objectList[i]}`;
+                        }
+                        return;
+                    }
                 }
             }
         }
 
         ele.style.display = 'none';
-        document.getElementById("subCircuitName").innerHTML = "";
+        document.getElementById('elementName').innerHTML = '';
     });
 
     window.addEventListener('mousemove', function(e) {
@@ -77,7 +85,7 @@ function startListeners() {
 
 
     });
-    window.addEventListener('keydown', function(e) {
+    window.parent.addEventListener('keydown', function(e) {
 
         errorDetected = false;
         updateSimulation = true;

@@ -34,20 +34,9 @@
 
     </ul>
     <div class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" id="searchInput" aria-label="Search" >
-      <!--<button class="btn btn-outline-secondary my-2 my-sm-0" id="searchButton" onclick="search()" type="submit">Search</button>-->
-      <script>
-        function search(){
-
-            window.location="https://circuitverse.org/search?q="+document.getElementById("searchInput").value
-
-        }
-        document.getElementById("searchInput").onkeypress = function(event){
-            if (event.keyCode == 13 || event.which == 13){
-                search()
-            }
-        };
-      </script>
+      <%= form_tag("/search", method: "get") do %>
+        <%= text_field_tag :q,params[:q],class:'form-control mr-sm-2',placeholder: 'Search',autocomplete:"off"  %>
+      <% end %>
     </div>
     <div class="navbar-nav nav-item dropdown">
       <%if user_signed_in? %>

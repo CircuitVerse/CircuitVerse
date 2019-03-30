@@ -154,6 +154,12 @@ function startListeners() {
             e.preventDefault();
         }
 
+        // Detect Select all Shortcut
+        if (simulationArea.controlDown && (e.keyCode == 65 || e.keyCode == 97)) {
+            selectAll();
+            e.preventDefault();
+        }
+
         //change direction fns
         if ((e.keyCode == 37 || e.keyCode == 65)&& simulationArea.lastSelected != undefined) {
             simulationArea.lastSelected.newDirection("LEFT");
@@ -236,6 +242,7 @@ function startListeners() {
 
 
         var textToPutOnClipboard = copy(simulationArea.copyList, true);
+        localStorage.setItem('clipboardData', textToPutOnClipboard);
         e.preventDefault();
         if(textToPutOnClipboard==undefined)
             return;
@@ -254,6 +261,7 @@ function startListeners() {
         }
 
         var textToPutOnClipboard = copy(simulationArea.copyList);
+        localStorage.setItem('clipboardData', textToPutOnClipboard);
         e.preventDefault();
         if(textToPutOnClipboard==undefined)
             return;

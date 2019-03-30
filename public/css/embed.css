@@ -115,10 +115,11 @@ button:focus {outline:0;}
     background-color: "white";
 }
 
-#subCircuitName {
+#elementName {
     position:absolute;
-    right: 6px; bottom: 6px;
+    left: 6px; bottom: 6px;
     background-color: white;
+    z-index:101;
     color: black;
     padding: 1px;
     border: 0.5px solid black;

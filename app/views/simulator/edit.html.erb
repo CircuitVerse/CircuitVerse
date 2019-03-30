@@ -11,11 +11,8 @@
 
 
 <!-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
-<link rel="stylesheet" href="/css/bootstrap-3.3.7.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
-
-
 
 <body onload="setup()">
 <script>
@@ -127,6 +124,7 @@
           <div class="icon logixModules" id="VariableLed" ></div>
           <div class="icon logixModules" id="HexDisplay" ></div>
           <div class="icon logixModules" id="SevenSegDisplay" ></div>
+          <div class="icon logixModules" id="SixteenSegDisplay" ></div>
           <div class="icon logixModules" id="SquareRGBLed" ></div>
         </div>
 
@@ -164,6 +162,7 @@
           <div class="icon logixModules" id="Clock" ></div>
           <div class="icon logixModules" id="Rom" ></div>
           <div class="icon logixModules" id="RAM" ></div>
+          <div class="icon logixModules" id="EEPROM" ></div>
         </div>
 
         <div class="panelHeader">Test Bench</div>
@@ -216,6 +215,19 @@
           <canvas id="miniMapArea" style="position: absolute; left:0; top: 0; z-index: 3;"></canvas>
         </div>
 
+
+        <div id="contextMenu" oncontextmenu="return false;">
+        <ul>    
+          <li onclick="menuItemClicked(2)"><a>Paste</a></li>
+          <li onclick="menuItemClicked(0)"><a>Copy</a></li>
+          <li onclick="menuItemClicked(1)"><a>Cut</a></li>
+          <li onclick="menuItemClicked(3)"><a>Delete</a></li>
+          <li onclick="menuItemClicked(4)"><a>Undo</a></li>
+          <li onclick="menuItemClicked(5)"><a>New Circuit</a></li>
+          <li onclick="menuItemClicked(6)"><a>Insert SubCircuit</a></li>
+          <li onclick="menuItemClicked(7)"><a>Center Focus</a></li>
+        </ul>
+      </div>
 
 
         <div id="Help">
@@ -390,6 +402,7 @@
   <script src="/js/modules.js"></script>
   <script src="/js/sequential.js"></script>
   <script src="/js/ram.js"></script>
+  <script src="/js/eeprom.js"></script>
   <script src="/js/Counter.js"></script>
   <script src="/js/canvasApi.js"></script>
   <script src="/js/data.js"></script>
