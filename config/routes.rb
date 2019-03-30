@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   end
   resources :stars , only: [:create, :destroy]
 
-  post '/feature', to: 'featured_circuits#feature'
+  resources :featured_circuits, only: [:index, :create]
 
   devise_for :users, controllers: {registrations: 'users/registrations', :omniauth_callbacks => "users/omniauth_callbacks"}
 
@@ -26,7 +26,6 @@ Rails.application.routes.draw do
   root 'logix#index'
   get  '/gettingStarted', to:'logix#gettingStarted'
   get  '/examples', to:'logix#examples'
-  get  '/featured', to:'logix#featured'
   get  '/features', to:'logix#features'
   get  '/about', to:'logix#about'
   get  '/privacy', to:'logix#privacy'

@@ -1,7 +1,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 
 <% if policy(@project).admin? && @project.project_access_type == 'Public' %>
-  <%= form_with(model: FeaturedCircuit.new, url: '/feature', multipart: true, id:"featuredCircuit") do |form| %>
+  <%= form_with(model: FeaturedCircuit.new, url: '/featured_circuits', method: 'post', multipart: true, id:"featuredCircuit") do |form| %>
     <%= form.hidden_field :project_id, value: @project.id %>
     <div class="field" style="margin-bottom: 8px;margin-top: 17px">
         <span style="font-weight: 600"> Featured: </span> <%= form.check_box :featured, {checked: @project.featured?, style: 'margin-top: 0', id: 'featured_checkbox'} %>

@@ -96,7 +96,7 @@
     <br>
     <% end %>
 
-    <h5 class=""><a href="/featured" style="color: black;">Editor Picks</a></h5>
+    <h5 class=""><a href="/featured_circuits" style="color: black;">Editor Picks</a></h5>
     <div class="row">
       <% featured_ids=FeaturedCircuit.all.select(&:valid?).pluck(:project_id).take(4) %>
       <% featured_ids.each do |project_id| %>

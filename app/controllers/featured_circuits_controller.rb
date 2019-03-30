@@ -3,7 +3,11 @@
 class FeaturedCircuitsController < ApplicationController
   before_action :authenticate_user!, only: [:feature]
 
-  def feature
+  def index
+    @projects = FeaturedCircuit.all.map(&:project)
+  end
+
+  def create
     authorize FeaturedCircuit, :admin?
     featured_circuit = FeaturedCircuit.find_by(project_id: featured_circuit_params[:project_id])
 
