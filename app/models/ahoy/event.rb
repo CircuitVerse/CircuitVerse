@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Ahoy::Event < ApplicationRecord
   include Ahoy::QueryMethods
 
