@@ -60,7 +60,7 @@ function createBooleanPrompt(inputListNames,outputListNames,scope=globalScope){
     for(var j=0;j<(1<<inputListNames.length);j++){
         s+='<tr>';
         if($("#decimalColumnBox").is(":checked"))
-            s+='<td>'+j+</td>;
+            s+='<td>'+j+'</td>';
         for(var i=0;i<inputListNames.length;i++){
             s+='<td>'+matrix[i][j]+'</td>';
         }
