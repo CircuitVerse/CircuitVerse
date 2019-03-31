@@ -12,7 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20190330051946) do
 
-  create_table "ahoy_events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+  create_table "ahoy_events", force: :cascade do |t|
     t.bigint "visit_id"
     t.bigint "user_id"
     t.string "name"
@@ -23,7 +25,7 @@ ActiveRecord::Schema.define(version: 20190330051946) do
     t.index ["visit_id"], name: "index_ahoy_events_on_visit_id"
   end
 
-  create_table "ahoy_visits", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "ahoy_visits", force: :cascade do |t|
     t.string "visit_token"
     t.string "visitor_token"
     t.bigint "user_id"
@@ -51,7 +53,7 @@ ActiveRecord::Schema.define(version: 20190330051946) do
     t.index ["visit_token"], name: "index_ahoy_visits_on_visit_token", unique: true
   end
 
-  create_table "assignments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "assignments", force: :cascade do |t|
     t.string "name"
     t.datetime "deadline", null: false
     t.text "description"
@@ -62,7 +64,7 @@ ActiveRecord::Schema.define(version: 20190330051946) do
     t.index ["group_id"], name: "index_assignments_on_group_id"
   end
 
-  create_table "collaborations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "collaborations", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "project_id"
     t.datetime "created_at", null: false
@@ -71,7 +73,7 @@ ActiveRecord::Schema.define(version: 20190330051946) do
     t.index ["user_id"], name: "index_collaborations_on_user_id"
   end
 
-  create_table "commontator_comments", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "commontator_comments", id: :serial, force: :cascade do |t|
     t.string "creator_type"
     t.integer "creator_id"
     t.string "editor_type"
@@ -89,7 +91,7 @@ ActiveRecord::Schema.define(version: 20190330051946) do
     t.index ["thread_id", "created_at"], name: "index_commontator_comments_on_thread_id_and_created_at"
   end
 
-  create_table "commontator_subscriptions", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "commontator_subscriptions", id: :serial, force: :cascade do |t|
     t.string "subscriber_type", null: false
     t.integer "subscriber_id", null: false
     t.integer "thread_id", null: false
@@ -99,7 +101,7 @@ ActiveRecord::Schema.define(version: 20190330051946) do
     t.index ["thread_id"], name: "index_commontator_subscriptions_on_thread_id"
   end
 
-  create_table "commontator_threads", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "commontator_threads", id: :serial, force: :cascade do |t|
     t.string "commontable_type"
     t.integer "commontable_id"
     t.datetime "closed_at"
@@ -110,12 +112,7 @@ ActiveRecord::Schema.define(version: 20190330051946) do
     t.index ["commontable_id", "commontable_type"], name: "index_commontator_threads_on_c_id_and_c_type", unique: true
   end
 
-  create_table "featured_projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "group_members", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "group_members", force: :cascade do |t|
     t.bigint "group_id"
     t.bigint "user_id"
     t.datetime "created_at", null: false
@@ -125,7 +122,7 @@ ActiveRecord::Schema.define(version: 20190330051946) do
     t.index ["user_id"], name: "index_group_members_on_user_id"
   end
 
-  create_table "groups", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "groups", force: :cascade do |t|
     t.string "name"
     t.bigint "mentor_id"
     t.datetime "created_at", null: false
@@ -133,7 +130,7 @@ ActiveRecord::Schema.define(version: 20190330051946) do
     t.index ["mentor_id"], name: "index_groups_on_mentor_id"
   end
 
-  create_table "pending_invitations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "pending_invitations", force: :cascade do |t|
     t.bigint "group_id"
     t.string "email"
     t.datetime "created_at", null: false
@@ -142,12 +139,12 @@ ActiveRecord::Schema.define(version: 20190330051946) do
     t.index ["group_id"], name: "index_pending_invitations_on_group_id"
   end
 
-  create_table "projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "projects", force: :cascade do |t|
     t.string "name"
     t.bigint "author_id"
     t.bigint "forked_project_id"
     t.string "project_access_type", default: "Public"
-    t.text "data", limit: 16777215
+    t.text "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "assignment_id"
@@ -160,7 +157,7 @@ ActiveRecord::Schema.define(version: 20190330051946) do
     t.index ["forked_project_id"], name: "index_projects_on_forked_project_id"
   end
 
-  create_table "stars", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "stars", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "project_id"
     t.datetime "created_at", null: false
@@ -170,7 +167,7 @@ ActiveRecord::Schema.define(version: 20190330051946) do
     t.index ["user_id"], name: "index_stars_on_user_id"
   end
 
-  create_table "taggings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "taggings", force: :cascade do |t|
     t.bigint "project_id"
     t.bigint "tag_id"
     t.datetime "created_at", null: false
@@ -179,13 +176,13 @@ ActiveRecord::Schema.define(version: 20190330051946) do
     t.index ["tag_id"], name: "index_taggings_on_tag_id"
   end
 
-  create_table "tags", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "tags", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -212,7 +209,7 @@ ActiveRecord::Schema.define(version: 20190330051946) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "votes", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "votes", id: :serial, force: :cascade do |t|
     t.string "votable_type"
     t.integer "votable_id"
     t.string "voter_type"
