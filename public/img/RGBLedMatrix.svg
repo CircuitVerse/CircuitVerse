@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="70" height="70" version="1.1">
+    <defs/>
+    <g fill="rgb(10, 10, 10)" stroke="rgb(50, 50, 50)">
+        <rect width="10" height="10" x="20.5" y="12.5"/>
+        <rect width="10" height="10" x="30.5" y="12.5"/>
+        <rect width="10" height="10" x="40.5" y="12.5"/>
+        <rect width="10" height="10" x="20.5" y="22.5"/>
+        <rect width="10" height="10" x="30.5" y="22.5"/>
+        <rect width="10" height="10" x="40.5" y="22.5"/>
+        <rect width="10" height="10" x="20.5" y="32.5"/>
+        <rect width="10" height="10" x="30.5" y="32.5"/>
+        <rect width="10" height="10" x="40.5" y="32.5"/>
+    </g>
+    <g fill="green">
+        <ellipse cx="25.2" cy="8" rx="3" ry="3"/>
+        <ellipse cx="35.2" cy="8" rx="3" ry="3"/>
+        <ellipse cx="45.2" cy="8" rx="3" ry="3"/>
+        <ellipse cx="16" cy="17" rx="3" ry="3"/>
+        <ellipse cx="16" cy="27" rx="3" ry="3"/>
+        <ellipse cx="16" cy="37" rx="3" ry="3"/>
+    </g>
+</svg>
