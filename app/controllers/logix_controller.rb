@@ -1,6 +1,8 @@
 class LogixController < ApplicationController
   # before_action :authenticate_user!
 
+  MAXIMUM_FEATURED_CIRCUITS = 4
+
   def index
     @projects = Project.select("id,author_id,image_preview,name")
                        .where(project_access_type: "Public", forked_project_id: nil)
@@ -12,7 +14,7 @@ class LogixController < ApplicationController
       format.js
     end
 
-    @featured_circuits = FeaturedCircuit.all.pluck(:project_id).take(4)
+    @featured_circuits = Project.joins(:featured_circuit).limit(MAXIMUM_FEATURED_CIRCUITS)
   end
 
   def gettingStarted

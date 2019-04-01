@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   resources :stars , only: [:create, :destroy]
 
   resources :featured_circuits, only: [:index, :create]
+  delete '/featured_circuits', to: 'featured_circuits#destroy'
+
 
   devise_for :users, controllers: {registrations: 'users/registrations', :omniauth_callbacks => "users/omniauth_callbacks"}
 

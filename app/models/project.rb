@@ -12,6 +12,7 @@ class Project < ApplicationRecord
   has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
   mount_uploader :image_preview, ImagePreviewUploader
+  has_one :featured_circuit
 
   include PgSearch
   pg_search_scope :text_search, against: [:name, :description]
