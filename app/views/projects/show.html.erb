@@ -18,7 +18,7 @@
 
     <div class="col col-7 ">
         <div class="embed-responsive embed-responsive-4by3 feature">
-          <iframe src = <%=simulator_path(@project) %> webkitAllowFullScreen mozAllowFullScreen allowFullScreen scrolling="no"> </iframe>
+          <iframe src = <%=simulator_path(@project) %> id="view" webkitAllowFullScreen mozAllowFullScreen allowFullScreen scrolling="no"> </iframe><script>function changeFocus() {document.getElementById("view").focus();} window.setInterval(changeFocus, 1000);</script>
         </div>
     </div>
     <div class="col col-5">
@@ -105,7 +105,7 @@
             </a>
               <div class="collapse" id="collapseExample">
                 <div class="card card-body">
-                  <textarea id="embedTextArea" style="font-size:12px"><iframe width="600px" height="400px" src="<%=simulator_embed_url(@project)%>" id="projectPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen> </iframe></textarea>
+                  <textarea id="embedTextArea" style="font-size:12px"><iframe width="600px" height="400px" src="<%=simulator_embed_url(@project)%>" id="projectPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen> </iframe><script>function changeFocus() {document.getElementById("projectPreview").focus();} window.setInterval(changeFocus, 1000);</script></textarea>
                   <a class="text-success">Embed code copied to clipboard!</a>
                 </div>
               </div>
@@ -225,7 +225,7 @@
       </div>
       <div class="modal-body">
         <div class="embed-responsive embed-responsive-4by3 feature">
-          <iframe src="" id="projectPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen> </iframe>
+          <iframe src="" id="projectPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen> </iframe><script>function changeFocus() {document.getElementById("projectPreview").focus();} window.setInterval(changeFocus, 1000);</script>
         </div>
       </div>
       <!--<div class="modal-footer">-->
