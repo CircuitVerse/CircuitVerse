@@ -176,8 +176,11 @@ function startListeners() {
             simulationArea.changeClockTime(prompt("Enter Time:"));
         }
         if ((e.keyCode == 108 || e.keyCode == 76) && simulationArea.lastSelected != undefined) {
-            if (simulationArea.lastSelected.setLabel !== undefined)
-                simulationArea.lastSelected.setLabel();
+            if (simulationArea.lastSelected.setLabel !== undefined){
+                var labl = prompt("Enter The Label : ",simulationArea.lastSelected.label);
+                if(labl)
+                    simulationArea.lastSelected.setLabel(labl);
+            }
         }
     })
 
