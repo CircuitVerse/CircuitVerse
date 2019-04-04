@@ -177,7 +177,7 @@ function startListeners() {
         }
         if ((e.keyCode == 108 || e.keyCode == 76) && simulationArea.lastSelected != undefined) {
             if (simulationArea.lastSelected.setLabel !== undefined){
-                var labl = prompt("Enter The Label : ",simulationArea.lastSelected.label);
+                var labl = prompt("Enter The Label : ", simulationArea.lastSelected.label);
                 if(labl)
                     simulationArea.lastSelected.setLabel(labl);
             }
