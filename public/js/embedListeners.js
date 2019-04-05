@@ -163,6 +163,9 @@ function startListeners() {
 
         scheduleUpdate(1);
     });
+    window.addEventListener('mousedown', function (e) {
+        this.focus();
+    });
 
     document.getElementById("simulationArea").addEventListener('mousewheel', MouseScroll);
     document.getElementById("simulationArea").addEventListener('DOMMouseScroll', MouseScroll);
