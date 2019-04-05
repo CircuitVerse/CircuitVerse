@@ -263,7 +263,7 @@ SubCircuit.prototype.reset = function() {
             }
         }
     }
-
+    var prevConn = this.outputNodes;
     this.outputNodes = []
     for (var i = 0; i < subcircuitScope.Output.length; i++) {
         var output = temp_map_out[subcircuitScope.Output[i].layoutProperties.id][0]
@@ -275,6 +275,21 @@ SubCircuit.prototype.reset = function() {
             this.outputNodes.push(a);
         }
     }
+
+    if (updateSubcircuit)
+        for (var i = 0; i < this.outputNodes.length; i++) {
+            prevConn[i].connections.forEach((val, _, __) => {
+                // if the node is a constant line just connect them
+                if (val.absX() == this.outputNodes[i].absX() || val.absY() == this.outputNodes[i].absY())
+                    this.outputNodes[i].connect(val);
+                else {
+                    // node are making some angle
+                    var n = new Node(val.x - this.x, this.outputNodes[i].y, 0, this, this.outputNodes[i].bitWidth);
+                    this.outputNodes[i].connect(n);
+                    n.connect(val);
+                }
+            });
+        }
 
     if (subcircuitScope.timeStamp > this.lastUpdated) {
         this.reBuildCircuit();
