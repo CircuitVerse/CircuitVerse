@@ -1,3 +1,10 @@
+.deleteOff{
+    color: red;
+    float: right;
+    cursor: pointer;
+    padding: 2px;
+}
+
 button:focus {
     outline: 0;
 }
