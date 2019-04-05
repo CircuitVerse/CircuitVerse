@@ -1,0 +1,5 @@
+$("#comment_<%= @comment.id.to_s %>_body_div").html("<%= j(
+  render partial: 'form',
+         locals: { comment: @comment }) %>");
+         
+<%= javascript_proc %>

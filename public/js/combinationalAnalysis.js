@@ -12,6 +12,7 @@ createCombinationalAnalysisPrompt=function(scope=globalScope){
     $('#combinationalAnalysis').empty();
     $('#combinationalAnalysis').append("<p>Enter Input names separated by spaces: <input id='inputNameList' type='text'  placeHolder='eg. A B C'></p>");
     $('#combinationalAnalysis').append("<p>Enter Output names separated by spaces: <input id='outputNameList' type='text'  placeHolder='eg. X Y Z'></p>");
+    $('#combinationalAnalysis').append("<p>Do you need a decimal column? <input id='decimalColumnBox' type='checkbox'></p>");
     $('#combinationalAnalysis').dialog({
         width:"auto",
       buttons: [
@@ -34,8 +35,11 @@ function createBooleanPrompt(inputListNames,outputListNames,scope=globalScope){
     inputListNames=inputListNames||(prompt("Enter inputs separated by space").split(' '));
     outputListNames=outputListNames||(prompt("Enter outputs separated by space").split(' '));
 
-    var s='<table>'
+    var s='<table>';
+    s+='<tbody style="display:block; max-height:70vh; overflow-y:scroll" >';
     s+='<tr>';
+    if($("#decimalColumnBox").is(":checked"))
+        s+='<th>'+'dec'+'</th>';
     for(var i=0;i<inputListNames.length;i++)
         s+='<th>'+inputListNames[i]+'</th>';
     for(var i=0;i<outputListNames.length;i++)
@@ -55,6 +59,8 @@ function createBooleanPrompt(inputListNames,outputListNames,scope=globalScope){
 
     for(var j=0;j<(1<<inputListNames.length);j++){
         s+='<tr>';
+        if($("#decimalColumnBox").is(":checked"))
+            s+='<td>'+j+'</td>';
         for(var i=0;i<inputListNames.length;i++){
             s+='<td>'+matrix[i][j]+'</td>';
         }
@@ -63,7 +69,7 @@ function createBooleanPrompt(inputListNames,outputListNames,scope=globalScope){
         }
         s+='</tr>';
     }
-
+    s+='</tbody>';
     s+='</table>';
     //console.log(s)
     $('#combinationalAnalysis').empty()

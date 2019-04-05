@@ -19,9 +19,35 @@ describe Users::LogixController, type: :request do
     get user_favourites_path(:id => @user.id)
     expect(response.status).to eq(200)
   end
-  it  'should get user groups' do
-    get user_groups_path(:id => @user.id)
-    expect(response.status).to eq(200)
+
+  describe "#groups" do
+    before do
+      sign_out @user
+    end
+
+    context "user logged in is admin" do
+      it "should get user groups" do
+        sign_in FactoryBot.create(:user, admin: true)
+        get user_groups_path(id: @user.id)
+        expect(response.status).to eq(200)
+      end
+    end
+
+    context "logged in user requests its own group" do
+      it "should get user groups" do
+        sign_in @user
+        get user_groups_path(id: @user.id)
+        expect(response.status).to eq(200)
+      end
+    end
+
+    context "logged in user requests some other user's groups" do
+      it "should not get groups" do
+        sign_in FactoryBot.create(:user)
+        get user_groups_path(id: @user.id)
+        expect(response.body).to eq("You are not authorized to do the requested operation")
+      end
+    end
   end
   it 'should get edit profile' do
     get profile_edit_path(:id => @user.id)
