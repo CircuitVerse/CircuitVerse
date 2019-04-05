@@ -48,9 +48,6 @@ gem 'rails_admin', '~> 1.2'
 # gem 'cancancan', '~>2.0'
 
 gem 'sidekiq'
-gem 'sidekiq-scheduler'
-gem 'sidekiq-unique-jobs'
-gem 'sinatra', require: nil
 # For home page pagination
 gem 'will_paginate', '~> 3.1.1'
 gem 'will_paginate-bootstrap'
