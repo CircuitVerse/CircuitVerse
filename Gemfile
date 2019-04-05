@@ -48,6 +48,9 @@ gem 'rails_admin', '~> 1.2'
 # gem 'cancancan', '~>2.0'
 
 gem 'sidekiq'
+
+gem 'pg_search'
+
 # For home page pagination
 gem 'will_paginate', '~> 3.1.1'
 gem 'will_paginate-bootstrap'
@@ -72,7 +75,6 @@ gem 'pundit'
 gem "pg", "~> 1.1.4"
 
 
-gem "pg", "~> 1.1.4"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

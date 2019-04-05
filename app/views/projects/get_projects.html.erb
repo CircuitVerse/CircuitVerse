@@ -7,7 +7,7 @@
       <div class="col-md-9">
         <h3 class="card-title"><%= project.name %></h3>
         <div class="description">
-          <%= project.description %>
+          <%= sanitize project.description %>
         </div>
         <div class="row mt-3">
           <div class="col-4">

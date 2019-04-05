@@ -622,7 +622,7 @@ JKflipFlop.prototype.customDraw = function() {
     ctx.font = "20px Georgia";
     ctx.fillStyle = "green";
     ctx.textAlign = "center";
-    fillText(ctx, this.state.toString(16), xx, yy + 5);
+    fillText(ctx, this.slaveState.toString(16), xx, yy + 5);
     ctx.fill();
 
 }

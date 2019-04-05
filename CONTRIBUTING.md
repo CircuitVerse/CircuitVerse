@@ -18,7 +18,7 @@ If you don't see your idea listed, do one of the following:
 
 ## Pull Request Process
 
-1. Create a branch. For example, if you are going to work on issue number #44(which is, say, a new feature for ‘forgot password’ management):
+1. Create a branch. For example, if you are going to work on issue number #44 (which is, say, a new feature for ‘forgot password’ management):
 
         git checkout -b forgot-password#44
 
@@ -29,10 +29,10 @@ If you don't see your idea listed, do one of the following:
 
 3. Develop the feature and push it to your local repo.
 
-4. Create Pull Request(PR). Make sure to comment the issue that your PR is supposed to solve.
+4. Create Pull Request (PR). Make sure to comment the issue that your PR is supposed to solve.
 
 ## Community
 
 Discussions about the CircuitVerse take place on the repository's [Issues](https://github.com/CircuitVerse/CircuitVerse/issues) and [Pull Requests](https://github.com/CircuitVerse/CircuitVerse/pulls) sections. Anybody is welcome to join these conversations. There is also a [chat room](https://gitter.im/CircuitVerse/community) for regular updates.
 
-We encourage people to talk on public platforms for the maximum participation and try to avoid private messages/conversations so whenever possible, do not take conversations to private channels. Keeping communication public means everybody can benefit and learn from the conversation.
+We encourage people to talk on public platforms for maximum participation. Whenever possible, avoid taking conversations to private channels. Keeping communication public means everybody can benefit and learn from the conversation.

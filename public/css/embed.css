@@ -117,7 +117,7 @@ button:focus {outline:0;}
 
 #elementName {
     position:absolute;
-    right: 6px; bottom: 6px;
+    left: 6px; bottom: 6px;
     background-color: white;
     z-index:101;
     color: black;
