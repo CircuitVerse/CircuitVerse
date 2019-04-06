@@ -256,13 +256,19 @@ ColorTTY.prototype.clearData = function(){
     this.screenCharacters = new Array(this.cols * this.rows);
 }
 ColorTTY.prototype.bufferFill = function(){
+	if(this.foregroundColor.value === undefined || this.backgroundColor.value === undefined 
+		|| this.asciiInp.value === undefined || this.yPosition.value === undefined 
+		|| this.xPosition.value === undefined){
+		showError('missing data!');
+		return;
+	}
     var correctedForeground = this.correctNumberOfBits(this.foregroundColor.value.toString(2));
     var correctedBackground = this.correctNumberOfBits(this.backgroundColor.value.toString(2));
     return {
-        character: String.fromCharCode(this.asciiInp.value),
-        foregroundColor: this.convertToHexColor(correctedForeground, this.colorBitWidth / 4),
-        backgroundColor: this.convertToHexColor(correctedBackground, this.colorBitWidth / 4),
-        position: this.xPosition.value * this.cols + this.yPosition.value
+		character: String.fromCharCode(this.asciiInp.value),
+		foregroundColor: this.convertToHexColor(correctedForeground, this.colorBitWidth / 4),
+		backgroundColor: this.convertToHexColor(correctedBackground, this.colorBitWidth / 4),
+		position: this.xPosition.value * this.cols + this.yPosition.value
     };
 }
 ColorTTY.prototype.configureNodes = function(halfHeight, halfWidth){
@@ -346,7 +352,7 @@ ColorTTY.prototype.correctNumberOfBits = function(str){
 /* 
     TODO:
     1- make svg more beautiful.                                              -- DONE
-    2- find out why zooming in/out doesn't update the ctx.rect() method. (because of absolute lengths)
+    2- find out why zooming in/out doesn't update the ctx.rect() method. (because of absolute lengths) -- DONE
     3- find the bug inside the char positioning.                             -- DONE
     4- make the color positioning approach the same as the char positioning. -- DONE
     5- refactor some of the large functions.                                 -- DONE
