@@ -5,6 +5,16 @@ services:
     environment:
       POSTGRES_DB: circuitverse_development
       POSTGRES_PASSWORD: postgres
+  sidekiq:
+    depends_on:
+      - db
+      - redis
+    build: .
+    command: bundle exec sidekiq -q default -q mailers -d
+    volumes:
+      - .:/circuitverse
+    environment:
+      REDIS_URL: "redis://redis:6379/0"
   web:
     build: .
     entrypoint: /circuitverse/bin/docker_run
@@ -15,6 +25,7 @@ services:
     depends_on:
       - db
       - redis
+      - sidekiq
     environment:
       REDIS_URL: "redis://redis:6379/0"
   redis:
