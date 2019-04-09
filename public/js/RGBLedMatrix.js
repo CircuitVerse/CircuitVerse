@@ -117,7 +117,7 @@ RGBLedMatrix.prototype.changeSize = function (rows, columns, ledSize, move) {
         node.y = node.lefty = i * ledHeight + nodeOffsetY;
     });
     while (this.rowNodes.length < rows) {
-        this.rowNodes.push(new Node(-halfWidth, this.rowNodes.length * ledHeight + nodeOffsetY, NODE_INPUT, this, 1));
+        this.rowNodes.push(new Node(-halfWidth, this.rowNodes.length * ledHeight + nodeOffsetY, NODE_INPUT, this, 1, "R" + this.rowNodes.length));
     }
 
     // Delete unused column nodes, reposition remaining nodes and add new nodes.
@@ -127,7 +127,7 @@ RGBLedMatrix.prototype.changeSize = function (rows, columns, ledSize, move) {
         node.y = node.lefty = -halfHeigth;
     });
     while (this.columnNodes.length < columns) {
-        this.columnNodes.push(new Node(this.columnNodes.length * ledWidth + nodeOffsetX, -halfHeigth, NODE_INPUT, this, 24));
+        this.columnNodes.push(new Node(this.columnNodes.length * ledWidth + nodeOffsetX, -halfHeigth, NODE_INPUT, this, 24, "C" + this.columnNodes.length));
     }
 
     // Delete unused color storage and add storage for new rows.
