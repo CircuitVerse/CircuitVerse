@@ -1,51 +1,61 @@
-function RGBLedMatrix(x, y, scope = globalScope, rows = 8, columns = 8, ledSize = 2, colors = []) {
-    CircuitElement.call(this, x, y, scope, "RIGHT", 8);
+function RGBLedMatrix(x, y, scope = globalScope, rows = 8, columns = 8, ledSize = 2, showGrid = true, colors = []) {
+    CircuitElement.call(this, x, y, scope, 'RIGHT', 8);
     this.fixedBitWidth = true;
     this.directionFixed = true;
     this.rectangleObject = true;
     this.alwaysResolve = true;
-    this.labelDirection = "UP";
+    this.labelDirection = 'UP';
     this.leftDimensionX = 0;
     this.upDimensionY = 0;
     this.rowNodes = [];
     this.columnNodes = [];
     this.colors = colors;
+    this.showGrid = showGrid;
     this.changeSize(rows, columns, ledSize, false);
 }
 RGBLedMatrix.prototype = Object.create(CircuitElement.prototype);
 RGBLedMatrix.prototype.constructor = RGBLedMatrix;
-RGBLedMatrix.prototype.tooltipText = "RGB Led Matrix"
+RGBLedMatrix.prototype.tooltipText = 'RGB Led Matrix';
 
 // Limit the size of the matrix otherwise the simulation starts to lag.
-// Perhaps we can improve painting to speed things up.
-RGBLedMatrix.prototype.maxRows = 64;
-RGBLedMatrix.prototype.maxColumns = 64;
+RGBLedMatrix.prototype.maxRows = 128;
+RGBLedMatrix.prototype.maxColumns = 128;
 
 // Let the user choose between 3 sizes of LEDs: small, medium and large.
 RGBLedMatrix.prototype.maxLedSize = 3;
 
 RGBLedMatrix.prototype.mutableProperties = {
-    "rows": {
-        name: "Rows",
-        type: "number",
+    rows: {
+        name: 'Rows',
+        type: 'number',
         max: RGBLedMatrix.prototype.maxRows,
         min: 1,
-        func: "changeRows",
+        func: 'changeRows',
     },
-    "columns": {
-        name: "Columns",
-        type: "number",
+    columns: {
+        name: 'Columns',
+        type: 'number',
         max: RGBLedMatrix.prototype.maxColumns,
         min: 1,
-        func: "changeColumns",
+        func: 'changeColumns',
     },
-    "ledSize": {
-        name: "LED Size",
-        type: "number",
+    ledSize: {
+        name: 'LED Size',
+        type: 'number',
         max: RGBLedMatrix.prototype.maxLedSize,
         min: 1,
-        func: "changeLedSize",
+        func: 'changeLedSize',
     },
+    showGrid: {
+        name: 'Toggle Grid',
+        type: 'button',
+        max: RGBLedMatrix.prototype.maxLedSize,
+        min: 1,
+        func: 'toggleGrid',
+    },
+}
+RGBLedMatrix.prototype.toggleGrid = function () {
+    this.showGrid = !this.showGrid;
 }
 RGBLedMatrix.prototype.changeRows = function (rows) {
     this.changeSize(rows, this.columns, this.ledSize, true);
@@ -139,7 +149,7 @@ RGBLedMatrix.prototype.customSave = function () {
     // Unlike a read LED matrix, we also persist the color of each pixel.
     // This allows circuit preview to show the colors at the time the simulation was saved.
     return {
-        constructorParamaters: [this.rows, this.columns, this.ledSize, this.colors],
+        constructorParamaters: [this.rows, this.columns, this.ledSize, this.showGrid, this.colors],
         nodes: {
             rowNodes: this.rowNodes.map(findNode),
             columnNodes: this.columnNodes.map(findNode),
@@ -148,7 +158,7 @@ RGBLedMatrix.prototype.customSave = function () {
 }
 RGBLedMatrix.prototype.resolve = function () {
     // Store the color of each pixel where the row is enabled and the column has a value.
-    // Unlike a real LED matrix, we will not "fade-out" a LED if it is not receiving input.
+    // Unlike a real LED matrix, we will not 'fade-out' a LED if it is not receiving input.
     for (var row = 0; row < this.rows; row++) {
         if (this.rowNodes[row].value === 1) {
             for (var column = 0; column < this.columns; column++) {
@@ -166,23 +176,51 @@ RGBLedMatrix.prototype.customDraw = function () {
     var dir = this.direction;
     var ledWidth = 10 * this.ledSize;
     var ledHeight = 10 * this.ledSize;
-    var offsetX = ledWidth / 2;
-    var offsetY = ledHeight / 2;
+    var top = this.rowNodes[0].y - ledHeight / 2;
+    var left = this.columnNodes[0].x - ledWidth / 2;
+    var width = this.columns * ledWidth;
+    var height = this.rows * ledHeight;
+    var bottom = top + height;
+    var right = left + width;
 
-    // TODO: optimize this drawing function, since it lags with large matrices.
+    ctx.beginPath();
+    ctx.strokeStyle = '#323232';
+    ctx.fillStyle = 'black';
+    ctx.lineWidth = correctWidth(1);
+    rect2(ctx, left, top, width, height, xx, yy, dir);
+    ctx.fill();
+    ctx.stroke();
 
-    for (var row = 0; row < this.rows; row++) {
-        var y = this.rowNodes[row].y - offsetY;
-        for (var column = 0; column < this.columns; column++) {
+    var [w, h] = rotate(ledWidth * globalScope.scale, ledHeight * globalScope.scale, dir);
+    var xoffset = Math.round(globalScope.ox + xx * globalScope.scale);
+    var yoffset = Math.round(globalScope.oy + yy * globalScope.scale);
+    for (var row = 0, y = top; y < bottom; row++ , y += ledHeight) {
+        for (var column = 0, x = left; x < right; column++ , x += ledWidth) {
             var color = this.colors[row][column] || 0;
-            var x = this.columnNodes[column].x - offsetX;
             ctx.beginPath();
-            ctx.strokeStyle = "#323232";
-            ctx.fillStyle = "rgb(" + ((color & 0xFF0000) >> 16) + "," + ((color & 0xFF00) >> 8) + "," + (color & 0xFF) + ")";
-            ctx.lineWidth = correctWidth(1);
-            rect2(ctx, x, y, ledWidth, ledHeight, xx, yy, dir);
+            ctx.fillStyle = 'rgb(' + ((color & 0xFF0000) >> 16) + ',' + ((color & 0xFF00) >> 8) + ',' + (color & 0xFF) + ')';
+
+            [x1, y1] = rotate(x, y, dir);
+            x1 = x1 * globalScope.scale;
+            y1 = y1 * globalScope.scale;
+            ctx.rect(xoffset + x1, yoffset + y1, w, h);
+
             ctx.fill();
-            ctx.stroke();
         }
+    }
+
+    if (this.showGrid) {
+        ctx.beginPath();
+        ctx.strokeStyle = '#323232';
+        ctx.lineWidth = correctWidth(1);
+        for (var x = left + ledWidth; x < right; x += ledWidth) {
+            moveTo(ctx, x, top, xx, yy, dir);
+            lineTo(ctx, x, bottom, xx, yy, dir);
+        }
+        for (var y = top + ledHeight; y < bottom; y += ledHeight) {
+            moveTo(ctx, left, y, xx, yy, dir);
+            lineTo(ctx, right, y, xx, yy, dir);
+        }
+        ctx.stroke();
     }
 }
