@@ -1,4 +1,14 @@
-function RGBLedMatrix(x, y, scope = globalScope, rows = 8, columns = 8, ledSize = 2, showGrid = true, colors = []) {
+function RGBLedMatrix(
+    x,
+    y,
+    scope = globalScope,
+    {
+        rows = 8,
+        columns = 8,
+        ledSize = 2,
+        showGrid = true,
+        colors = []
+    } = {}) {
     CircuitElement.call(this, x, y, scope, 'RIGHT', 8);
     this.fixedBitWidth = true;
     this.directionFixed = true;
@@ -149,7 +159,13 @@ RGBLedMatrix.prototype.customSave = function () {
     // Unlike a read LED matrix, we also persist the color of each pixel.
     // This allows circuit preview to show the colors at the time the simulation was saved.
     return {
-        constructorParamaters: [this.rows, this.columns, this.ledSize, this.showGrid, this.colors],
+        constructorParamaters: [{
+            rows: this.rows,
+            columns: this.columns,
+            ledSize: this.ledSize,
+            showGrid: this.showGrid,
+            colors: this.colors
+        }],
         nodes: {
             rowNodes: this.rowNodes.map(findNode),
             columnNodes: this.columnNodes.map(findNode),
