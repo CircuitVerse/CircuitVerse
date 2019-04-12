@@ -4,10 +4,10 @@
     <div class="col">
       <h1>Editing Group</h1>
 
-      <%= render 'form', group: @group %>
+      <%= render 'form', group: @group, url: group_path(@group) %>
 
       <%= link_to 'Show', @group %> |
-      <%= link_to 'Back', user_groups_path(current_user) %>
+      <%= link_to 'Back', user_groups_path(@user) %>
 
     </div>
 

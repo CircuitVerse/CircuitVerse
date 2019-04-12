@@ -2,7 +2,7 @@
   <div class="row feature">
 
     <div class="col">
-      <%= link_to 'New Group +', new_user_groups_path(@user), class: "btn btn-info" %>
+      <%= link_to 'New Group +', new_user_group_path(@user), class: "btn btn-info" %>
       <% if notice %>
           <p id="notice" class="alert alert-danger"><%= notice %></p>
         <% end %>
@@ -25,7 +25,7 @@
                   <td><%= group.mentor.name %></td>
                   <td><%= link_to 'Show', group %></td>
                   <%if group.mentor.id == @user.id %>
-                      <td><%= link_to 'Edit', edit_group_path(group) %></td>
+                      <td><%= link_to 'Edit', edit_user_group_path(@user, group) %></td>
                       <td><%= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
                   <%end%>
 
@@ -54,7 +54,7 @@
                   <td><%= group.name %></td>
                   <td><%= group.users.count %></td>
                   <td><%= link_to 'Show', group %></td>
-                  <td><%= link_to 'Edit', edit_group_path(group) %></td>
+                  <td><%= link_to 'Edit', edit_user_group_path(@user, group) %></td>
                   <td><%= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
                 </tr>
             <% end %>
