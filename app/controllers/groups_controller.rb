@@ -2,8 +2,8 @@ class GroupsController < ApplicationController
   before_action :set_group, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
   before_action :check_show_access, only: [:show, :edit, :update, :destroy]
-  before_action :check_edit_access, only: [:edit,:update, :destroy]
-  before_action :set_and_verify_user, only: [:create, :new, :edit]
+  before_action :check_edit_access, only: [:edit, :update, :destroy]
+  before_action :set_and_verify_user, only: [:create, :new, :edit, :show, :update, :destroy]
 
   # GET /groups
   # GET /groups.json
@@ -11,8 +11,8 @@ class GroupsController < ApplicationController
     @groups = Group.all
   end
 
-  # GET /groups/1
-  # GET /groups/1.json
+  # GET /users/:user_id/groups/1
+  # GET /users/:user_id/groups/1.json
   def show
     @group_member = @group.group_members.new
     @group.assignments.each do |assignment|
@@ -39,7 +39,8 @@ class GroupsController < ApplicationController
 
     respond_to do |format|
       if @group.save
-        format.html { redirect_to @group, notice: 'Group was successfully created.' }
+        format.html { redirect_to user_group_path(@user, @group), \
+          notice: "Group was successfully created." }
         format.json { render :show, status: :created, location: @group }
       else
         format.html { render :new }
@@ -48,12 +49,13 @@ class GroupsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /groups/1
-  # PATCH/PUT /groups/1.json
+  # PATCH/PUT /users/:user_id/groups/1
+  # PATCH/PUT /users/:user_id/groups/1.json
   def update
     respond_to do |format|
       if @group.update(group_params)
-        format.html { redirect_to @group, notice: 'Group was successfully updated.' }
+        format.html { redirect_to user_group_path(@user, @group), \
+          notice: "Group was successfully updated." }
         format.json { render :show, status: :ok, location: @group }
       else
         format.html { render :edit }
@@ -62,12 +64,13 @@ class GroupsController < ApplicationController
     end
   end
 
-  # DELETE /groups/1
-  # DELETE /groups/1.json
+  # DELETE /users/user_id/groups/1
+  # DELETE /users/user_id/groups/1.json
   def destroy
     @group.destroy
     respond_to do |format|
-      format.html { redirect_to user_groups_path(current_user), notice: 'Group was successfully destroyed.' }
+      format.html { redirect_to user_groups_path(@user), \
+        notice: "Group was successfully destroyed." }
       format.json { head :no_content }
     end
   end

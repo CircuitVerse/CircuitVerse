@@ -23,10 +23,10 @@
                 <tr>
                   <td><%= group.name %></td>
                   <td><%= group.mentor.name %></td>
-                  <td><%= link_to 'Show', group %></td>
+                  <td><%= link_to 'Show', user_group_path(@user, group) %></td>
                   <%if group.mentor.id == @user.id %>
                       <td><%= link_to 'Edit', edit_user_group_path(@user, group) %></td>
-                      <td><%= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                      <td><%= link_to 'Destroy', user_group_path(@user, group), method: :delete, data: { confirm: 'Are you sure?' } %></td>
                   <%end%>
 
                 </tr>
@@ -53,9 +53,9 @@
                 <tr>
                   <td><%= group.name %></td>
                   <td><%= group.users.count %></td>
-                  <td><%= link_to 'Show', group %></td>
+                  <td><%= link_to 'Show', user_group_path(@user, group) %></td>
                   <td><%= link_to 'Edit', edit_user_group_path(@user, group) %></td>
-                  <td><%= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                  <td><%= link_to 'Destroy', user_group_path(@user, group), method: :delete, data: { confirm: 'Are you sure?' } %></td>
                 </tr>
             <% end %>
             </tbody>

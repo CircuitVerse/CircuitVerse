@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   # resources :assignment_submissions
   resources :group_members ,only: [:create,:destroy]
-  resources :groups, except: [:new, :create, :edit] do
+  resources :groups, except: [:new, :create, :edit, :show, :update, :destroy] do
     resources :assignments
   end
 
@@ -73,7 +73,7 @@ Rails.application.routes.draw do
 
   resources :users do
     resources :projects, only: [:show, :edit, :update, :new, :create, :destroy]
-    resources :groups, only: [:create, :new, :edit]
+    resources :groups, only: [:create, :new, :edit, :show, :update, :destroy]
   end
 
 

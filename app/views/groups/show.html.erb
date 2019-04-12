@@ -164,9 +164,9 @@
         </tbody>
       </table>
       <% if policy(@group).admin_access? %>
-      <%= link_to 'Edit', edit_group_path(@group) %> |
+      <%= link_to 'Edit', edit_user_group_path(@user, @group) %> |
       <% end %>
-      <%= link_to 'Back', user_groups_path(current_user) %>
+      <%= link_to 'Back', user_groups_path(@user) %>
 
     </div>
 
