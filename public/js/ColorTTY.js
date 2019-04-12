@@ -210,7 +210,7 @@ ColorTTY.prototype.changeNumberOfRows = function(value){
     value = parseInt(value);
     if (!isNaN(value) && this.rows != value && value >= 8 && value <= 128 && value % 2 == 0) {
         this.rows = value;
-        this.xBitWidth = value / 2;
+        this.xBitWidth = this.whichMultipleOfTwo(value);
         this.elementHeight = ((this.characterHeight * this.rows) + 2) * 10;
         this.deleteAllNodes();
         this.configureNodes(this.elementHeight / 2, this.elementWidth / 2);
@@ -223,7 +223,7 @@ ColorTTY.prototype.changeNumberOfColumns = function(value){
     value = parseInt(value);
     if (!isNaN(value) && this.cols != value && value >= 8 && value <= 128 && value % 2 == 0) {
         this.cols = value;
-        this.ybitWidth = value / 2;
+        this.ybitWidth = this.whichMultipleOfTwo(value);
         this.elementWidth = ((this.characterWidth * this.cols) + 2) * 10;
         this.deleteAllNodes();
         this.configureNodes(this.elementHeight / 2, this.elementWidth / 2);
@@ -272,6 +272,7 @@ ColorTTY.prototype.bufferFill = function(){
     };
 }
 ColorTTY.prototype.configureNodes = function(halfHeight, halfWidth){
+    // Adding new nodes here, require adding them inside ColorTTY.prototype.deleteAllNodes()
     this.clockInp = new Node(-1 * halfWidth, halfHeight - 10, 0, this, 1, "Clock");
     this.asciiInp = new Node(-1 * halfWidth, halfHeight - 30, 0, this, 7,"Ascii Input");
     this.xPosition = new Node(-1 * halfWidth, halfHeight - 50, 0, this, this.xBitWidth, "X-axis position");
