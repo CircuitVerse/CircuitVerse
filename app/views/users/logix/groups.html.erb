@@ -2,7 +2,7 @@
   <div class="row feature">
 
     <div class="col">
-      <%= link_to 'New Group +', new_group_path, class: "btn btn-info" %>
+      <%= link_to 'New Group +', new_user_groups_path(@user), class: "btn btn-info" %>
       <% if notice %>
           <p id="notice" class="alert alert-danger"><%= notice %></p>
         <% end %>

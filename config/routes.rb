@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   # resources :assignment_submissions
   resources :group_members ,only: [:create,:destroy]
-  resources :groups do
+  resources :groups, except: [:new, :create] do
     resources :assignments
   end
 
@@ -53,7 +53,7 @@ Rails.application.routes.draw do
     get '/create_fork/:id', to: 'projects#create_fork',as: 'create_fork_project'
     get '/change_stars/:id', to: 'projects#change_stars', as: 'change_stars'
     get 'tags/:tag', to: 'projects#get_projects', as: 'tag'
-  end  
+  end
 
   mount Commontator::Engine => '/commontator'
 
@@ -73,6 +73,7 @@ Rails.application.routes.draw do
 
   resources :users do
     resources :projects, only: [:show, :edit, :update, :new, :create, :destroy]
+    resource :groups, only: [:create, :new]
   end
 
 

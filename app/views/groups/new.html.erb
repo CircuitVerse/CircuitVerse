@@ -4,9 +4,9 @@
     <div class="col">
       <h1>New Group</h1>
 
-      <%= render 'form', group: @group %>
+      <%= render 'form', group: @group, url: user_groups_path(@user) %>
 
-      <%= link_to 'Back', user_groups_path(current_user) %>
+      <%= link_to 'Back', user_groups_path(@user) %>
 
     </div>
 

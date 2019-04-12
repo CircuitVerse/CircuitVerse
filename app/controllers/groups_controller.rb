@@ -3,6 +3,7 @@ class GroupsController < ApplicationController
   before_action :authenticate_user!
   before_action :check_show_access, only: [:show, :edit, :update, :destroy]
   before_action :check_edit_access, only: [:edit,:update, :destroy]
+  before_action :set_and_verify_user, only: [:create, :new]
 
   # GET /groups
   # GET /groups.json
@@ -22,7 +23,7 @@ class GroupsController < ApplicationController
     end
   end
 
-  # GET /groups/new
+  # GET /users/:user_id/groups/new
   def new
     @group = Group.new
   end
@@ -31,10 +32,10 @@ class GroupsController < ApplicationController
   def edit
   end
 
-  # POST /groups
-  # POST /groups.json
+  # POST /users/:id/groups
+  # POST /users/:id/groups.json
   def create
-    @group = current_user.groups_mentored.new(group_params)
+    @group = @user.groups_mentored.new(group_params)
 
     respond_to do |format|
       if @group.save
@@ -72,6 +73,11 @@ class GroupsController < ApplicationController
   end
 
   private
+    def set_and_verify_user
+      @user = User.find(params[:user_id])
+      authorize @user, :groups?
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_group
       @group = Group.find(params[:id])
