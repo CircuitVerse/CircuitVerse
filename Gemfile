@@ -63,7 +63,6 @@ gem 'pundit'
 # for analytics
 gem 'ahoy_matey'
 
-
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
