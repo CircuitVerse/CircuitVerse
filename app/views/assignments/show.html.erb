@@ -30,7 +30,7 @@
         <p><%= @assignment.description.html_safe%></p><br>
       </p>
 
-      <%= link_to 'Back', group_path(@group) %>
+      <%= link_to 'Back', user_group_path(@group.mentor, @group) %>
 
       <%if policy(@assignment).admin_access? && @assignment.status!="closed"%>
 

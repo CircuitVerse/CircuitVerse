@@ -91,7 +91,8 @@ class AssignmentsController < ApplicationController
 
     respond_to do |format|
       if @assignment.save
-        format.html { redirect_to @group, notice: 'Assignment was successfully created.' }
+        format.html { redirect_to user_group_path(@group.mentor, @group), \
+          notice: "Assignment was successfully created." }
         format.json { render :show, status: :created, location: @assignment }
       else
         format.html { render :new }
@@ -103,7 +104,6 @@ class AssignmentsController < ApplicationController
   # PATCH/PUT /assignments/1
   # PATCH/PUT /assignments/1.json
   def update
-
     description = params["description"]
     params = assignment_params
     @assignment.description = description
@@ -111,7 +111,8 @@ class AssignmentsController < ApplicationController
 
     respond_to do |format|
       if @assignment.update(params)
-        format.html { redirect_to @group, notice: 'Assignment was successfully updated.' }
+        format.html { redirect_to user_group_path(@group.mentor, @group), \
+          notice: "Assignment was successfully updated." }
         format.json { render :show, status: :ok, location: @assignment }
       else
         format.html { render :edit }
@@ -125,7 +126,8 @@ class AssignmentsController < ApplicationController
   def destroy
     @assignment.destroy
     respond_to do |format|
-      format.html { redirect_to @group, notice: 'Assignment was successfully destroyed.' }
+      format.html { redirect_to user_group_path(@group.mentor, @group), \
+        notice: "Assignment was successfully destroyed." }
       format.json { head :no_content }
     end
   end

@@ -3,7 +3,7 @@ class GroupsController < ApplicationController
   before_action :authenticate_user!
   before_action :check_show_access, only: [:show, :edit, :update, :destroy]
   before_action :check_edit_access, only: [:edit, :update, :destroy]
-  before_action :set_and_verify_user, only: [:create, :new, :edit, :show, :update, :destroy]
+  before_action :set_and_verify_user, only: [:show, :create, :new, :edit, :update, :destroy]
 
   # GET /groups
   # GET /groups.json

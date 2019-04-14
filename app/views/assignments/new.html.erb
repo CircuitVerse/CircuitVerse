@@ -6,7 +6,7 @@
 
       <%= render 'form', assignment: @assignment , group:@group%>
 
-      <%= link_to 'Back', group_path(@group) %>
+      <%= link_to 'Back', user_group_path(@group.mentor, @group) %>
 
     </div>
 

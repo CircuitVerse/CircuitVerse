@@ -56,7 +56,8 @@ class GroupMembersController < ApplicationController
     notice = Utils.mail_notice(group_member_params[:emails], group_member_emails, newly_added)
 
     respond_to do |format|
-      format.html { redirect_to group_path(@group), notice: Utils.mail_notice(group_member_params[:emails], group_member_emails, newly_added)
+      format.html { redirect_to user_group_path(@group.mentor, @group), \
+        notice: Utils.mail_notice(group_member_params[:emails], group_member_emails, newly_added)
 }
     end
     # redirect_to group_path(@group)
@@ -93,7 +94,8 @@ class GroupMembersController < ApplicationController
 
     @group_member.destroy
     respond_to do |format|
-      format.html { redirect_to group_path(@group_member.group), notice: 'Group member was successfully destroyed.' }
+      format.html { redirect_to user_group_path(@group_member.group.mentor, @group_member.group), \
+        notice: "Group member was successfully destroyed." }
       format.json { head :no_content }
     end
   end
