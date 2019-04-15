@@ -17,8 +17,16 @@ function RGBLedMatrix(
     this.labelDirection = 'UP';
     this.leftDimensionX = 0;
     this.upDimensionY = 0;
-    this.rowNodes = [];
-    this.columnNodes = [];
+
+    // These pins provide bulk-editing of the colors
+    this.rowNodes = []; // 1-bit pin for each row
+    this.columnNodes = []; // 24-bit pin for each column
+
+    // These pins provide single-pixel editing
+    this.pixelIndexNode = new Node(-10, 0, NODE_INPUT, this, 1, "PIXEL");
+    this.colorNode = new Node(0, 0, NODE_INPUT, this, 24, "COLOR");
+    this.writeNode = new Node(10, 0, NODE_INPUT, this, 1, "WRITE");
+
     this.colors = colors;
     this.showGrid = showGrid;
     this.changeSize(rows, columns, ledSize, false);
@@ -147,6 +155,15 @@ RGBLedMatrix.prototype.changeSize = function (rows, columns, ledSize, move) {
         this.colors.push([]);
     }
 
+    // Reposition the single-pixel nodes
+    this.pixelIndexNode.bitWidth = Math.ceil(Math.log2(rows * columns));
+    this.pixelIndexNode.label = "PIXEL (" + this.pixelIndexNode.bitWidth + " bits)";
+    var singlePixelNodePadding = columns > 1 ? nodeOffsetX : nodeOffsetX - 10;
+    [this.pixelIndexNode, this.colorNode, this.writeNode].forEach((node, i) => {
+        node.x = node.leftx = i * 10 + singlePixelNodePadding;
+        node.y = node.lefty = halfHeigth;
+    });
+
     // Store the new values
     this.rows = rows;
     this.columns = columns;
@@ -169,6 +186,9 @@ RGBLedMatrix.prototype.customSave = function () {
         nodes: {
             rowNodes: this.rowNodes.map(findNode),
             columnNodes: this.columnNodes.map(findNode),
+            pixelIndexNode: findNode(this.pixelIndexNode),
+            colorNode: findNode(this.colorNode),
+            writeNode: findNode(this.writeNode),
         },
     }
 }
@@ -182,6 +202,18 @@ RGBLedMatrix.prototype.resolve = function () {
                     this.colors[row][column] = this.columnNodes[column].value;
                 }
             }
+        }
+    }
+
+    // We also allow the matrix to be updated pixel-by-pixel via the pixel/color/write pins.
+    if (this.writeNode.value == 1 &&
+        this.pixelIndexNode.value != undefined &&
+        this.colorNode.value != undefined) {
+        var colBits = Math.ceil(Math.log2(this.columns));
+        var col = this.pixelIndexNode.value & (Math.pow(2, colBits) - 1);
+        var row = this.pixelIndexNode.value >> colBits;
+        if (col < this.columns && row < this.rows) {
+            this.colors[row][col] = this.colorNode.value;
         }
     }
 }
