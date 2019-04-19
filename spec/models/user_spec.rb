@@ -14,7 +14,7 @@ RSpec.describe User, type: :model do
 
   describe "callbacks" do
     it "should send mail and invites on creation" do
-      expect_any_instance_of(User).to receive(:send_mail)
+      expect_any_instance_of(User).to receive(:send_welcome_mail)
       expect_any_instance_of(User).to receive(:check_group_invites)
       FactoryBot.create(:user)
     end
@@ -35,7 +35,7 @@ RSpec.describe User, type: :model do
 
     it "sends welcome mail" do
       expect {
-        @user.send_mail
+        @user.send(:send_welcome_mail)
       }.to have_enqueued_job.on_queue('mailers')
     end
 

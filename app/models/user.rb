@@ -16,15 +16,11 @@ class User < ApplicationRecord
   has_many :collaborations, dependent: :destroy
   has_many :collaborated_projects, source: 'project', through: :collaborations
 
-  after_commit :send_mail ,  on: :create
+  after_commit :send_welcome_mail ,  on: :create
   after_commit :check_group_invites, on: :create
 
   has_attached_file :profile_picture, styles: { medium: "205X240#", thumb: "100x100>" }, default_url: ":style/Default.jpg"
   validates_attachment_content_type :profile_picture, content_type: /\Aimage\/.*\z/
-
-  def send_mail
-    UserMailer.welcome_email(self).deliver_later
-  end
 
   def country_name
     country = ISO3166::Country[self.country]
@@ -51,5 +47,11 @@ class User < ApplicationRecord
         )
     end
     user
+  end
+
+  private
+
+  def send_welcome_mail
+    UserMailer.welcome_email(self).deliver_later
   end
 end
