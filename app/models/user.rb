@@ -26,11 +26,6 @@ class User < ApplicationRecord
   has_attached_file :profile_picture, styles: { medium: "205X240#", thumb: "100x100>" }, default_url: ":style/Default.jpg"
   validates_attachment_content_type :profile_picture, content_type: /\Aimage\/.*\z/
 
-  def country_name
-    country = ISO3166::Country[self.country]
-    country ? country.translations[I18n.locale.to_s] || country.name : "Not Entered"
-  end
-
   def create_members_from_invitations
     pending_invitations.reload.each do |invitation|
       GroupMember.where(group_id: invitation.group.id, user_id: self.id).first_or_create

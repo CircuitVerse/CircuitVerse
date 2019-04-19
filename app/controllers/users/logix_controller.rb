@@ -14,7 +14,7 @@ class Users::LogixController < ApplicationController
   end
 
   def profile
-    @profile = @user
+    @profile = ProfileDecorator.new(@user)
   end
 
   def edit
