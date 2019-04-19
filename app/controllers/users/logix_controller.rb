@@ -6,7 +6,6 @@ class Users::LogixController < ApplicationController
   before_action :set_user, except: [:typeahead_educational_institute]
 
   def index
-    @edit_access = user_signed_in? && UserPolicy.new(@user, current_user).edit?
   end
 
   def favourites

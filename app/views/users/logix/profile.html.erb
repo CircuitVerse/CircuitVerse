@@ -9,7 +9,7 @@
           <p><strong>Member since: </strong><%= @profile.member_since %> days</p>
           <p><strong>Educational Institution: </strong><%= @profile.educational_institute %></p>
           <p><strong>Country: </strong><%= @profile.country_name %></p>
-          <% if user_signed_in? and current_user.id == @profile.id %>
+          <% if policy(@user).edit? %>
             <p><a class="btn btn-secondary" href=<%= profile_edit_path(current_user) %> role="button">Edit </a></p>
           <% end %>
         </div>
