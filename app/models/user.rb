@@ -16,8 +16,10 @@ class User < ApplicationRecord
   has_many :collaborations, dependent: :destroy
   has_many :collaborated_projects, source: 'project', through: :collaborations
 
+  has_many :pending_invitations, foreign_key: :email, primary_key: :email
+
   after_commit :send_welcome_mail ,  on: :create
-  after_commit :check_group_invites, on: :create
+  after_commit :create_members_from_invitations, on: :create
 
   has_attached_file :profile_picture, styles: { medium: "205X240#", thumb: "100x100>" }, default_url: ":style/Default.jpg"
   validates_attachment_content_type :profile_picture, content_type: /\Aimage\/.*\z/
@@ -27,8 +29,8 @@ class User < ApplicationRecord
     country ? country.translations[I18n.locale.to_s] || country.name : "Not Entered"
   end
 
-  def check_group_invites
-    PendingInvitation.where(email:self.email).each do |invitation|
+  def create_members_from_invitations
+    pending_invitations.reload.each do |invitation|
       GroupMember.where(group_id:invitation.group.id,user_id:self.id).first_or_create
       invitation.destroy
     end
