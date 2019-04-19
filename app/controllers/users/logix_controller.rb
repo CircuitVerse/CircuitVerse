@@ -1,9 +1,12 @@
+# frozen_string_literal: true
+
 class Users::LogixController < ApplicationController
+  TYPEAHEAD_INSTITUTE_LIMIT = 50
   before_action :authenticate_user!, only: [:edit, :update, :groups]
   before_action :set_user, except: [:typeahead_educational_institute]
 
   def index
-    @edit_access = (user_signed_in? and current_user.id == @user.id)
+    @edit_access = user_signed_in? && UserPolicy.new(@user, current_user).edit?
   end
 
   def favourites
@@ -15,15 +18,16 @@ class Users::LogixController < ApplicationController
   end
 
   def edit
-
   end
 
   def typeahead_educational_institute
     query = params[:query]
-    educational_institute_list = User.where("educational_institute LIKE ?", "%#{query}%").distinct
+    educational_institute_list = User.where("educational_institute LIKE :query", query:  "%#{query}%")
+                                     .distinct
                                      .pluck(:educational_institute)
-    list_to_obj_array = educational_institute_list.map{|item| {name:item}}
-    render json: list_to_obj_array
+                                     .limit(TYPEAHEAD_INSTITUTE_LIMIT)
+    typeahead_array = educational_institute_list.map { |item| { name: item } }
+    render json: typeahead_array
   end
 
   def update
@@ -37,6 +41,8 @@ class Users::LogixController < ApplicationController
   def groups
     @user = authorize @user
   end
+
+  private
 
   def profile_params
     params.require(:user).permit(:name, :profile_picture, :country, :educational_institute)

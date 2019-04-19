@@ -11,4 +11,8 @@ class UserPolicy < Struct.new(:user, :requested_user)
   def groups?
     requested_user.id == user.id || user.admin?
   end
+
+  def edit?
+    requested_user.id == user.id
+  end
 end
