@@ -21,11 +21,11 @@ class Users::LogixController < ApplicationController
 
   def typeahead_educational_institute
     query = params[:query]
-    educational_institute_list = User.where("educational_institute LIKE :query", query:  "%#{query}%")
+    institute_list = User.where("educational_institute LIKE :query", query: "%#{query}%")
                                      .distinct
                                      .pluck(:educational_institute)
                                      .limit(TYPEAHEAD_INSTITUTE_LIMIT)
-    typeahead_array = educational_institute_list.map { |item| { name: item } }
+    typeahead_array = institute_list.map { |item| { name: item } }
     render json: typeahead_array
   end
 
@@ -43,12 +43,12 @@ class Users::LogixController < ApplicationController
 
   private
 
-  def profile_params
-    params.require(:user).permit(:name, :profile_picture, :country, :educational_institute)
-  end
+    def profile_params
+      params.require(:user).permit(:name, :profile_picture, :country, :educational_institute)
+    end
 
-  def set_user
-    @profile = current_user
-    @user = User.find(params[:id])
-  end
+    def set_user
+      @profile = current_user
+      @user = User.find(params[:id])
+    end
 end
