@@ -25,9 +25,9 @@ function RGBLedMatrix(
     this.columnColorNodes = []; // 24-bit pin for each column, on the top.
 
     // These pins provide single-pixel editing; these are on the right side.
-    this.pixelIndexNode = new Node(0, -10, NODE_INPUT, this, 1, "PIXEL");
-    this.colorNode = new Node(0, 0, NODE_INPUT, this, 24, "COLOR");
-    this.writeNode = new Node(0, 10, NODE_INPUT, this, 1, "WRITE");
+    this.colorNode = new Node(0, -10, NODE_INPUT, this, 24, "COLOR");
+    this.rowNode = new Node(0, 0, NODE_INPUT, this, 1, "ROW");
+    this.columnNode = new Node(0, 10, NODE_INPUT, this, 1, "COLUMN");
 
     this.colors = colors;
     this.showGrid = showGrid;
@@ -168,11 +168,13 @@ RGBLedMatrix.prototype.changeSize = function (rows, columns, ledSize, move) {
     }
 
     // Reposition the single-pixel nodes
-    this.pixelIndexNode.bitWidth = Math.ceil(Math.log2(rows * columns));
-    this.pixelIndexNode.label = "PIXEL (" + this.pixelIndexNode.bitWidth + " bits)";
+    this.rowNode.bitWidth = Math.ceil(Math.log2(rows));
+    this.rowNode.label = "ROW (" + this.rowNode.bitWidth + " bits)";
+    this.columnNode.bitWidth = Math.ceil(Math.log2(columns));
+    this.columnNode.label = "COLUMN (" + this.columnNode.bitWidth + " bits)";
     var singlePixelNodePadding = rows > 1 ? nodeOffsetY : nodeOffsetY - 10;
     var singlePixelNodeDistance = (rows <= 2) ? 10 : ledHeight;
-    [this.pixelIndexNode, this.colorNode, this.writeNode].forEach((node, i) => {
+    [this.colorNode, this.rowNode, this.columnNode].forEach((node, i) => {
         node.x = node.leftx = halfWidth;
         node.y = node.lefty = i * singlePixelNodeDistance + singlePixelNodePadding;
     });
@@ -200,9 +202,9 @@ RGBLedMatrix.prototype.customSave = function () {
             rowEnableNodes: this.rowEnableNodes.map(findNode),
             columnEnableNodes: this.columnEnableNodes.map(findNode),
             columnColorNodes: this.columnColorNodes.map(findNode),
-            pixelIndexNode: findNode(this.pixelIndexNode),
             colorNode: findNode(this.colorNode),
-            writeNode: findNode(this.writeNode),
+            rowNode: findNode(this.rowNode),
+            columnNode: findNode(this.columnNode),
         },
     }
 };
@@ -235,16 +237,14 @@ RGBLedMatrix.prototype.resolve = function () {
     }
 
     // Method 3: set pixel by write + pixel index + color pins.
-    var pixelIndexNodeValue = this.pixelIndexNode.value;
-    if (this.writeNode.value == 1 &&
-        pixelIndexNodeValue != undefined &&
-        hasColorValue) {
-        var colBits = Math.ceil(Math.log2(columns));
-        var col = pixelIndexNodeValue & (Math.pow(2, colBits) - 1);
-        var row = pixelIndexNodeValue >> colBits;
-        if (col < columns && row < rows) {
-            colors[row][col] = colorValue;
-        }
+    var rowNodeValue = this.rowNode.value;
+    var columnNodeValue = this.columnNode.value;
+    if (hasColorValue &&
+        rowNodeValue != undefined &&
+        columnNodeValue != undefined &&
+        rowNodeValue < rows &&
+        columnNodeValue < columns) {
+        colors[rowNodeValue][columnNodeValue] = colorValue;
     }
 };
 RGBLedMatrix.prototype.customDraw = function () {
