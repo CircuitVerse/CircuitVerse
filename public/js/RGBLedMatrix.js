@@ -237,14 +237,14 @@ RGBLedMatrix.prototype.resolve = function () {
     }
 
     // Method 3: set pixel by write + pixel index + color pins.
-    var rowNodeValue = this.rowNode.value;
-    var columnNodeValue = this.columnNode.value;
-    if (hasColorValue &&
-        rowNodeValue != undefined &&
-        columnNodeValue != undefined &&
-        rowNodeValue < rows &&
-        columnNodeValue < columns) {
-        colors[rowNodeValue][columnNodeValue] = colorValue;
+    var hasRowNodeValue = this.rowNode.value != undefined || rows == 1;
+    var hasColumnNodeValue = this.columnNode.value != undefined || columns == 1;
+    if (hasColorValue && hasRowNodeValue && hasColumnNodeValue) {
+        var rowNodeValue = this.rowNode.value || 0;
+        var columnNodeValue = this.columnNode.value || 0;
+        if (rowNodeValue < rows && columnNodeValue < columns) {
+            colors[rowNodeValue][columnNodeValue] = colorValue;
+        }
     }
 };
 RGBLedMatrix.prototype.customDraw = function () {
