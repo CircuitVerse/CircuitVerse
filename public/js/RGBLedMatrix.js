@@ -8,7 +8,7 @@ function RGBLedMatrix(
         ledSize = 2,
         showGrid = true,
         colors = [],
-    } = {}
+    } = {},
 ) {
     CircuitElement.call(this, x, y, scope, 'RIGHT', 8);
     this.fixedBitWidth = true;
@@ -25,9 +25,9 @@ function RGBLedMatrix(
     this.columnColorNodes = []; // 24-bit pin for each column, on the top.
 
     // These pins provide single-pixel editing; these are on the right side.
-    this.colorNode = new Node(0, -10, NODE_INPUT, this, 24, "COLOR");
-    this.rowNode = new Node(0, 0, NODE_INPUT, this, 1, "ROW");
-    this.columnNode = new Node(0, 10, NODE_INPUT, this, 1, "COLUMN");
+    this.colorNode = new Node(0, -10, NODE_INPUT, this, 24, 'COLOR');
+    this.rowNode = new Node(0, 0, NODE_INPUT, this, 1, 'ROW');
+    this.columnNode = new Node(0, 10, NODE_INPUT, this, 1, 'COLUMN');
 
     this.colors = colors;
     this.showGrid = showGrid;
@@ -137,7 +137,7 @@ RGBLedMatrix.prototype.changeSize = function (rows, columns, ledSize, move) {
         node.y = node.lefty = i * ledHeight + nodeOffsetY;
     });
     while (this.rowEnableNodes.length < rows) {
-        this.rowEnableNodes.push(new Node(-halfWidth, this.rowEnableNodes.length * ledHeight + nodeOffsetY, NODE_INPUT, this, 1, "R" + this.rowEnableNodes.length));
+        this.rowEnableNodes.push(new Node(-halfWidth, this.rowEnableNodes.length * ledHeight + nodeOffsetY, NODE_INPUT, this, 1, 'R' + this.rowEnableNodes.length));
     }
 
     // Delete unused column-enable nodes, reposition remaining nodes and add new nodes.
@@ -147,7 +147,7 @@ RGBLedMatrix.prototype.changeSize = function (rows, columns, ledSize, move) {
         node.y = node.lefty = halfHeight;
     });
     while (this.columnEnableNodes.length < columns) {
-        this.columnEnableNodes.push(new Node(this.columnEnableNodes.length * ledWidth + nodeOffsetX, halfHeight, NODE_INPUT, this, 1, "C" + this.columnEnableNodes.length));
+        this.columnEnableNodes.push(new Node(this.columnEnableNodes.length * ledWidth + nodeOffsetX, halfHeight, NODE_INPUT, this, 1, 'C' + this.columnEnableNodes.length));
     }
 
     // Delete unused column color nodes, reposition remaining nodes and add new nodes.
@@ -157,7 +157,7 @@ RGBLedMatrix.prototype.changeSize = function (rows, columns, ledSize, move) {
         node.y = node.lefty = -halfHeight;
     });
     while (this.columnColorNodes.length < columns) {
-        this.columnColorNodes.push(new Node(this.columnColorNodes.length * ledWidth + nodeOffsetX, -halfHeight, NODE_INPUT, this, 24, "CLR" + this.columnColorNodes.length));
+        this.columnColorNodes.push(new Node(this.columnColorNodes.length * ledWidth + nodeOffsetX, -halfHeight, NODE_INPUT, this, 24, 'CLR' + this.columnColorNodes.length));
     }
 
     // Delete unused color storage and add storage for new rows.
@@ -169,9 +169,9 @@ RGBLedMatrix.prototype.changeSize = function (rows, columns, ledSize, move) {
 
     // Reposition the single-pixel nodes
     this.rowNode.bitWidth = Math.ceil(Math.log2(rows));
-    this.rowNode.label = "ROW (" + this.rowNode.bitWidth + " bits)";
+    this.rowNode.label = 'ROW (' + this.rowNode.bitWidth + ' bits)';
     this.columnNode.bitWidth = Math.ceil(Math.log2(columns));
-    this.columnNode.label = "COLUMN (" + this.columnNode.bitWidth + " bits)";
+    this.columnNode.label = 'COLUMN (' + this.columnNode.bitWidth + ' bits)';
     var singlePixelNodePadding = rows > 1 ? nodeOffsetY : nodeOffsetY - 10;
     var singlePixelNodeDistance = (rows <= 2) ? 10 : ledHeight;
     [this.colorNode, this.rowNode, this.columnNode].forEach((node, i) => {
@@ -215,7 +215,7 @@ RGBLedMatrix.prototype.resolve = function () {
     var rows = this.rows;
     var columns = this.columns;
     var rowEnableNodes = this.rowEnableNodes;
-    var columnEnableNodes = this.columnEnableNodes
+    var columnEnableNodes = this.columnEnableNodes;
     var columnColorNodes = this.columnColorNodes;
     var colors = this.colors;
 
