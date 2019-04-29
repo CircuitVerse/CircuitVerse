@@ -25,6 +25,8 @@ describe ProjectPolicy do
       it "permits all" do
         permit_all
       end
+
+      it { should_not permit(:can_feature) }
     end
 
     context "for a visitor" do
@@ -39,6 +41,12 @@ describe ProjectPolicy do
       it "should not raise error for edit access" do
         check_auth_exception(subject, :edit_access)
       end
+    end
+
+    context "for admin" do
+      let(:user) { FactoryBot.create(:user, admin: true) }
+
+      it { should permit(:can_feature) }
     end
   end
 
@@ -63,6 +71,12 @@ describe ProjectPolicy do
       it "permits all" do
         permit_all
       end
+    end
+
+    context "for admin" do
+      let(:user) { FactoryBot.create(:user, admin: true) }
+
+      it { should_not permit(:can_feature) }
     end
 
     context "for a visitor" do
