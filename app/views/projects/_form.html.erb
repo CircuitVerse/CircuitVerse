@@ -1,6 +1,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 
-<% if policy(@project).admin? && @project.project_access_type == 'Public' %>
+<% if policy(@project).can_feature? %>
   <%= form_with(model: FeaturedCircuit.new, url: '/featured_circuits', multipart: true, id:"featuredCircuit") do |form| %>
     <%= form.hidden_field :project_id, value: @project.id %>
     <div class="field" style="margin-bottom: 8px;margin-top: 17px">
