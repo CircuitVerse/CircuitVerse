@@ -36,9 +36,9 @@ function createBooleanPrompt(inputListNames,outputListNames,scope=globalScope){
 
     inputListNames=inputListNames||(prompt("Enter inputs separated by commas").split(','));
     outputListNames=outputListNames||(prompt("Enter outputs separated by commas").split(','));
-    outputListNamesInteger=[]  
+    outputListNamesInteger=[];
     for (var i = 0; i < outputListNames.length; i++)
-        outputListNamesInteger[i] = 7*i + 13;  //assigning an integer to the value, 7*i + 13 is random
+        outputListNamesInteger[i] = 7*i + 13;//assigning an integer to the value, 7*i + 13 is random
 
     var s='<table>';
     s+='<tbody style="display:block; max-height:70vh; overflow-y:scroll" >';
