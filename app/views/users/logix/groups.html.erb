@@ -37,7 +37,7 @@
           <br>
       <% end %>
 
-      <% if @user.groups_mentored.count!=0 %>
+      <% if @groups_mentored.present? %>
           <h1>Groups you mentor: </h1>
           <table class="table">
             <thead>
@@ -49,10 +49,10 @@
             </thead>
 
             <tbody>
-            <% @user.groups_mentored.each do |group| %>
+            <% @groups_mentored.each do |group| %>
                 <tr>
                   <td><%= group.name %></td>
-                  <td><%= group.users.count %></td>
+                  <td><%= group.group_member_count %></td>
                   <td><%= link_to 'Show', group %></td>
                   <td><%= link_to 'Edit', edit_group_path(group) %></td>
                   <td><%= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
