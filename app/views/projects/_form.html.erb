@@ -1,4 +1,14 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+
+<% if policy(@project).can_feature? %>
+  <%= form_with(model: FeaturedCircuit.new, url: '/featured_circuits', multipart: true, id:"featuredCircuit") do |form| %>
+    <%= form.hidden_field :project_id, value: @project.id %>
+    <div class="field" style="margin-bottom: 8px;margin-top: 17px">
+        <span style="font-weight: 600"> Featured: </span> <%= form.check_box :featured, {checked: @project.featured?, style: 'margin-top: 0', id: 'featured_checkbox'} %>
+    </div>
+  <% end %>
+<% end %>
+
 <%= form_with(model: [ current_user, @project] , local: true, multipart: true, id:"projectForm") do |form| %>
   <% if project.errors.any? %>
     <div id="error_explanation">
@@ -24,7 +34,14 @@
 
 
   <div class="field">
-    <%= form.label :project_access_type %>
+    <%= form.label :project_access_type  do %>
+    Project access type
+    <% if @project.featured? %>
+      <span style="color: red">
+        * The project is featured. It will no longer be featured if public access is removed.
+      </span>
+    <% end %>
+  <% end %>
     <%= form.select :project_access_type, [["Public","Public"],["Private","Private"],["Limited access","Limited access"]], id: :project_project_access_type %>
   </div>
 
@@ -42,11 +59,30 @@
 
 
 <script>
-  function before_submit(){                     //add params before submission
+  function before_submit(){                     //add params before submission and submit both forms
     $('<input />').attr('type', 'hidden')
         .attr('name', 'description','tag_list')
         .attr('value', $("#editor").cleanHtml())
         .appendTo('#projectForm');
+
+        if($("#featuredCircuit")) {
+          $("#featuredCircuit").submit(function(e) {
+            e.preventDefault();
+
+            var form = $(this);
+            var url = form.attr('action');
+            var type = $("#featured_checkbox").is(":checked") ? "POST" : "DELETE";
+
+            $.ajax({
+                   type: type,
+                   url: url,
+                   data: form.serialize()
+            });
+          });
+
+          $("#featuredCircuit").submit();
+        }
+
     }
 
 </script>

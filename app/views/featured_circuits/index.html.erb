@@ -1,0 +1,27 @@
+<% content_for :title, "CircuitVerse - Editor Picks" %>
+    <div class="jumbotron">
+        <div class="container">
+            <div class="row">
+                <div class="col-9">
+                    <h1 class="display-3 ">Editor Picks</h1>
+                    <p>These circuits have been hand-picked by our authors for their awesomeness</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <% @projects.each do |project| -%>
+          <div class="row feature">
+                 <div class="col-12 col-md-8">
+                     <h3 class="card-title"><%= project.name %></h4>
+                     <p class="card-text"></p>
+                          <a class="btn btn-dark btn-lg" target="_blank" href="<%= user_project_url(project.author, project) %>" role="button">View Example &raquo;</a>
+                 </div>
+                 <div class="col">
+                     <img src="<%= project.image_preview.url %>" class="img-fluid img-thumbnail" alt="Responsive image">
+                 </div>
+          </div>
+          <br />
+        <% end -%>
+    </div>

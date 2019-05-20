@@ -159,7 +159,7 @@ function switchCircuit(id) {
     if (layoutMode)
         toggleLayoutMode();
 
-    globalScope.fixLayout();
+    // globalScope.fixLayout();
     scheduleBackup();
     if (id == globalScope.id) return;
     $('#' + globalScope.id).removeClass("current");
