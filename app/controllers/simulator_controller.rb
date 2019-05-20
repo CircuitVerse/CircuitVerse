@@ -47,7 +47,7 @@ class SimulatorController < ApplicationController
     image_file = return_image_file(params[:image])
 
     @project.image_preview = image_file
-    @project.name = params[:name]
+    @project.name = Utils.stripTags(params[:name])
     @project.save
 
     if check_to_delete(params[:image])
@@ -61,7 +61,7 @@ class SimulatorController < ApplicationController
   def create
     @project = Project.new
     @project.data = params[:data]
-    @project.name = params[:name]
+    @project.name = Utils.stripTags(params[:name])
     @project.author = current_user
 
     image_file = return_image_file(params[:image])
