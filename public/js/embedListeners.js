@@ -2,7 +2,7 @@
 // Refer listeners.js
 
 function startListeners() {
-    window.addEventListener('keyup', function(e) {
+    window.parent.addEventListener('keyup', function(e) {
         scheduleUpdate(1);
         if (e.keyCode == 16) {
             simulationArea.shiftDown = false;
@@ -85,7 +85,7 @@ function startListeners() {
 
 
     });
-    window.addEventListener('keydown', function(e) {
+    window.parent.addEventListener('keydown', function(e) {
 
         errorDetected = false;
         updateSimulation = true;

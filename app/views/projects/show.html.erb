@@ -274,3 +274,12 @@
         });
     }
 </script>
+<% if user_signed_in? %>
+<script src="https://goodwill.zense.co.in/packs/gratia.js"></script>
+<script>
+  var gratia = new window.Gratia({
+    from: '<%= profile_url(current_user) %>',
+    to: '<%= profile_url(@project.author) %>'
+  });
+</script>
+<% end %>

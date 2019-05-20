@@ -27,3 +27,21 @@
   float: none;
   margin: 0 auto;
 }
+
+/* CSS for the sponsor logos in the footer */
+#footer-logo-iiitb{
+  width: 85%;
+}
+
+#footer-logo-DO{
+  width: 100%;
+  padding-top: 8%;
+}
+
+#footer-logo-istudio{
+  width: 75%;
+}
+
+#footer-logo-zense{
+  width: 75%;
+}

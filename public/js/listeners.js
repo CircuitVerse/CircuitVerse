@@ -154,6 +154,12 @@ function startListeners() {
             e.preventDefault();
         }
 
+        // Detect Select all Shortcut
+        if (simulationArea.controlDown && (e.keyCode == 65 || e.keyCode == 97)) {
+            selectAll();
+            e.preventDefault();
+        }
+
         //change direction fns
         if ((e.keyCode == 37 || e.keyCode == 65)&& simulationArea.lastSelected != undefined) {
             simulationArea.lastSelected.newDirection("LEFT");
@@ -176,8 +182,11 @@ function startListeners() {
             simulationArea.changeClockTime(prompt("Enter Time:"));
         }
         if ((e.keyCode == 108 || e.keyCode == 76) && simulationArea.lastSelected != undefined) {
-            if (simulationArea.lastSelected.setLabel !== undefined)
-                simulationArea.lastSelected.setLabel();
+            if (simulationArea.lastSelected.setLabel !== undefined){
+                var labl = prompt("Enter The Label : ", simulationArea.lastSelected.label);
+                if(labl)
+                    simulationArea.lastSelected.setLabel(labl);
+            }
         }
     })
 
@@ -236,6 +245,7 @@ function startListeners() {
 
 
         var textToPutOnClipboard = copy(simulationArea.copyList, true);
+        localStorage.setItem('clipboardData', textToPutOnClipboard);
         e.preventDefault();
         if(textToPutOnClipboard==undefined)
             return;
@@ -254,6 +264,7 @@ function startListeners() {
         }
 
         var textToPutOnClipboard = copy(simulationArea.copyList);
+        localStorage.setItem('clipboardData', textToPutOnClipboard);
         e.preventDefault();
         if(textToPutOnClipboard==undefined)
             return;

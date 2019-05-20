@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # You should configure your model like this:
   # devise :omniauthable, omniauth_providers: [:twitter]
@@ -27,18 +29,18 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # end
 
   def facebook
-    generic_callback( 'facebook' )
+    generic_callback("facebook")
   end
 
   def google_oauth2
-    generic_callback( 'google' )
+    generic_callback("google")
   end
 
   def microsoft_office365
-      generic_callback( 'microsoft_office365' )
+    generic_callback("microsoft_office365")
   end
 
-  def generic_callback( provider )
+  def generic_callback(provider)
     @user = User.from_omniauth(request.env["omniauth.auth"])
     if @user.persisted?
       sign_in_and_redirect @user, event: :authentication
