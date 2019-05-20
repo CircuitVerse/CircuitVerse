@@ -2,7 +2,7 @@
 // Refer listeners.js
 
 function startListeners() {
-    window.parent.addEventListener('keyup', function(e) {
+    window.addEventListener('keyup', function (e) {
         scheduleUpdate(1);
         if (e.keyCode == 16) {
             simulationArea.shiftDown = false;
@@ -12,7 +12,7 @@ function startListeners() {
         }
     });
 
-    document.getElementById("simulationArea").addEventListener('mousedown', function(e) {
+    document.getElementById("simulationArea").addEventListener('mousedown', function (e) {
         errorDetected = false;
         updateSimulation = true;
         updatePosition = true;
@@ -60,7 +60,7 @@ function startListeners() {
         document.getElementById('elementName').innerHTML = '';
     });
 
-    window.addEventListener('mousemove', function(e) {
+    window.addEventListener('mousemove', function (e) {
 
         var rect = simulationArea.canvas.getBoundingClientRect();
         simulationArea.mouseRawX = (e.clientX - rect.left) * DPR;
@@ -74,7 +74,7 @@ function startListeners() {
         if (simulationArea.lastSelected == globalScope.root) {
             updateCanvas = true;
             var fn;
-            fn = function() {
+            fn = function () {
                 updateSelectionsAndPane();
             }
             scheduleUpdate(0, 20, fn);
@@ -85,7 +85,7 @@ function startListeners() {
 
 
     });
-    window.parent.addEventListener('keydown', function(e) {
+    window.addEventListener('keydown', function (e) {
 
         errorDetected = false;
         updateSimulation = true;
@@ -143,7 +143,7 @@ function startListeners() {
         }
 
     })
-    document.getElementById("simulationArea").addEventListener('dblclick', function(e) {
+    document.getElementById("simulationArea").addEventListener('dblclick', function (e) {
         scheduleUpdate(2);
         if (simulationArea.lastSelected && simulationArea.lastSelected.dblclick !== undefined) {
             simulationArea.lastSelected.dblclick();
@@ -151,7 +151,7 @@ function startListeners() {
     });
 
 
-    window.addEventListener('mouseup', function(e) {
+    window.addEventListener('mouseup', function (e) {
 
         simulationArea.mouseDown = false;
         errorDetected = false;
@@ -162,6 +162,9 @@ function startListeners() {
         wireToBeChecked = true;
 
         scheduleUpdate(1);
+    });
+    window.addEventListener('mousedown', function (e) {
+        this.focus();
     });
 
     document.getElementById("simulationArea").addEventListener('mousewheel', MouseScroll);
@@ -196,7 +199,7 @@ function startListeners() {
         update(); // Schedule update not working, this is INEFFICENT
     }
 
-    document.addEventListener('cut', function(e) {
+    document.addEventListener('cut', function (e) {
         simulationArea.copyList = simulationArea.multipleObjectSelections.slice();
         if (simulationArea.lastSelected && simulationArea.lastSelected !== simulationArea.root && !simulationArea.copyList.contains(simulationArea.lastSelected)) {
             simulationArea.copyList.push(simulationArea.lastSelected);
@@ -210,7 +213,7 @@ function startListeners() {
         }
         e.preventDefault();
     });
-    document.addEventListener('copy', function(e) {
+    document.addEventListener('copy', function (e) {
         simulationArea.copyList = simulationArea.multipleObjectSelections.slice();
         if (simulationArea.lastSelected && simulationArea.lastSelected !== simulationArea.root && !simulationArea.copyList.contains(simulationArea.lastSelected)) {
             simulationArea.copyList.push(simulationArea.lastSelected);
@@ -225,7 +228,7 @@ function startListeners() {
         e.preventDefault();
     });
 
-    document.addEventListener('paste', function(e) {
+    document.addEventListener('paste', function (e) {
         var data;
         if (isIe) {
             data = window.clipboardData.getData('Text');
