@@ -27,3 +27,8 @@ exclude_paths:
 - public/external/
 - test/
 - tmp/
+
+checks:
+  method-lines:
+      config:
+        threshold: 100 # prevent lint errors in js
