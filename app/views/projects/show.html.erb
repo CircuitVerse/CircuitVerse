@@ -279,7 +279,7 @@
 <script>
   var gratia = new window.Gratia({
     from: '<%= profile_url(current_user) %>',
-    to: '<%= profile_url(@project.author) %>'
+    to: <%= ([@project.author] + @project.collaborators ).map{ |c| profile_url(c) }.to_json.html_safe %>
   });
 </script>
 <% end %>
