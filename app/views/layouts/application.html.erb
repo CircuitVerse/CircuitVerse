@@ -45,7 +45,10 @@
 <%= yield %>
 
 <script type="text/javascript">
-  setTimeout(()=>document.querySelector(".alert").hide(), 3000);
+  //In this script tag we are checking alert's and if there is alert this code will be execute
+  if(document.querySelector(".alert")){
+   setTimeout(()=>document.querySelector(".alert").hide(), 3000);  
+  }
 </script>
 
 <!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->

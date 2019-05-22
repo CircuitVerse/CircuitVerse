@@ -751,6 +751,21 @@ createSaveAsImgPrompt = function(scope = globalScope) {
     });
 }
 
+// Function to delete offline project of selected id
+deleteOfflineProject = function (id) {
+    var projectList = JSON.parse(localStorage.getItem("projectList"));
+    var y = confirm("Are You Sure You Want To Delete Project " + projectList[id] + " ?");
+    if (y) {
+        delete projectList[id];
+        localStorage.removeItem(id);
+        localStorage.setItem("projectList", JSON.stringify(projectList));
+        $('#openProjectDialog').empty();
+        for (idd in projectList) {
+            $('#openProjectDialog').append('<label class="option"><input type="radio" name="projectId" value="' + idd + '" />' + projectList[idd] + '<i class="glyphicon glyphicon-trash deleteOff" onclick="deleteOfflineProject(\'' + idd + '\')"></i></label>');
+        }
+    }
+}
+
 // Prompt to restore from localStorage
 createOpenLocalPrompt = function() {
     $('#openProjectDialog').empty();
@@ -758,7 +773,7 @@ createOpenLocalPrompt = function() {
     var flag = true;
     for (id in projectList) {
         flag = false;
-        $('#openProjectDialog').append('<label class="option"><input type="radio" name="projectId" value="' + id + '" />' + projectList[id] + '</label>');
+        $('#openProjectDialog').append('<label class="option"><input type="radio" name="projectId" value="' + id + '" />' + projectList[id] + '<i class="glyphicon glyphicon-trash deleteOff" onclick="deleteOfflineProject(\'' + id + '\')"></i></label>');
     }
     if (flag) $('#openProjectDialog').append('<p>Looks like no circuit has been saved yet. Create a new one and save it!</p>')
     $('#openProjectDialog').dialog({

@@ -15,6 +15,7 @@ RSpec.describe Project, type: :model do
     it { should have_many(:stars) }
     it { should have_many(:collaborations) }
     it { should have_many(:collaborators) }
+    it { should have_one(:featured_circuit) }
   end
 
   describe "validity" do
@@ -96,6 +97,20 @@ RSpec.describe Project, type: :model do
         expect {
           @project.increase_views(@viewer)
         }.to change { @project.view }.by(1)
+      end
+    end
+
+    describe "#check_and_remove_featured" do
+      before do
+        @project = FactoryBot.create(:project, author: @user, project_access_type: "Public")
+        FactoryBot.create(:featured_circuit, project: @project)
+      end
+
+      it "should remove featured project if project access is not public" do
+        expect {
+          @project.project_access_type = "Private"
+          @project.save
+        }.to change { FeaturedCircuit.count }.by(-1)
       end
     end
   end

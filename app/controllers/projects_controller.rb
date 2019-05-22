@@ -13,7 +13,7 @@ class ProjectsController < ApplicationController
   end
   # GET /projects/tags/[tag]
   def get_projects
-    @projects = Project.tagged_with(params[:tag]).open
+    @projects = Project.tagged_with(params[:tag]).open.includes(:tags, :author)
   end
   # GET /projects/1
   # GET /projects/1.json
