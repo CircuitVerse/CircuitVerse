@@ -1,0 +1,45 @@
+
+<% content_for :title, "Your project is now featured!" %>
+
+<div style="background-color:transparent;">
+  <div style="Margin: 0 auto;min-width: 320px;max-width: 605px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: transparent;" class="block-grid ">
+    <div style="border-collapse: collapse;display: table;width: 100%;background-color:transparent;">
+      <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="background-color:transparent;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width: 605px;"><tr class="layout-full-width" style="background-color:transparent;"><![endif]-->
+
+      <!--[if (mso)|(IE)]><td align="center" width="605" style=" width:605px; padding-right: 0px; padding-left: 0px; padding-top:5px; padding-bottom:5px; border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent;" valign="top"><![endif]-->
+      <div class="col num12" style="min-width: 320px;max-width: 605px;display: table-cell;vertical-align: top;">
+        <div style="background-color: transparent; width: 100% !important;">
+          <!--[if (!mso)&(!IE)]><!--><div style="border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent; padding-top:5px; padding-bottom:5px; padding-right: 0px; padding-left: 0px;"><!--<![endif]-->
+
+
+          <div class="">
+            <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 15px; padding-left: 15px; padding-top: 15px; padding-bottom: 15px;"><![endif]-->
+            <div style="color:#134C75;font-family:'Bitter', Georgia, Times, 'Times New Roman', serif;line-height:180%; padding-right: 15px; padding-left: 15px; padding-top: 15px; padding-bottom: 15px;">
+              <div style="font-size:12px;line-height:22px;font-family:Bitter, Georgia, Times, 'Times New Roman', serif;color:#134C75;text-align:left;"><p style="margin: 0;font-size: 14px;line-height: 25px;text-align: center"><strong><span style="font-size: 28px; line-height: 50px;"><span style="line-height: 50px; font-size: 28px;"> <%=@project.name%></span> </span></strong></p></div>
+            </div>
+            <!--[if mso]></td></tr></table><![endif]-->
+          </div>
+
+
+          <div align="center" class="img-container center  autowidth  " style="padding-right: 0px;  padding-left: 0px;">
+            <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr style="line-height:0px;line-height:0px;"><td style="padding-right: 0px; padding-left: 0px;" align="center"><![endif]-->
+            <img class="center  autowidth " align="center" border="0" src="<%="https://circuitverse.org/#{@project.image_preview.url}"%>" alt="Image" title="Image" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: block !important;border: 0;height: auto;float: none;width: 100%;max-width: 285px" width="285">
+            <!--[if mso]></td></tr></table><![endif]-->
+          </div>
+
+
+
+
+          <div align="center" class="button-container center " style="padding-right: 10px; padding-left: 10px; padding-top:10px; padding-bottom:10px;">
+            <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top:10px; padding-bottom:10px;" align="center"><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="somewebsite.com" style="height:31pt; v-text-anchor:middle; width:98pt;" arcsize="10%" strokecolor="#3AAEE0" fillcolor="#3AAEE0"><w:anchorlock/><v:textbox inset="0,0,0,0"><center style="color:#ffffff; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:16px;"><![endif]-->
+            <a href="<%=user_project_url(@user,@project)%>" target="_blank" style="display: block;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #ffffff; background-color: #3AAEE0; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; max-width: 131px; width: 91px;width: auto; border-top: 0px solid transparent; border-right: 0px solid transparent; border-bottom: 0px solid transparent; border-left: 0px solid transparent; padding-top: 5px; padding-right: 20px; padding-bottom: 5px; padding-left: 20px; font-family: 'Open Sans', Helvetica, Arial, sans-serif;mso-border-alt: none">
+              <span style="font-family:'Open Sans', Helvetica, Arial, sans-serif;font-size:16px;line-height:32px;"> View Circuit</span>
+            </a>
+            <!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->
+          </div>
+          </div>
+          </div>
+          </div>
+          </div>
+          </div>
+          </div>

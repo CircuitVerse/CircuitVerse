@@ -17,6 +17,9 @@ Rails.application.routes.draw do
   end
   resources :stars , only: [:create, :destroy]
 
+  resources :featured_circuits, only: [:index, :create]
+  delete '/featured_circuits', to: 'featured_circuits#destroy'
+
 
   devise_for :users, controllers: {registrations: 'users/registrations', :omniauth_callbacks => "users/omniauth_callbacks"}
 
@@ -53,7 +56,7 @@ Rails.application.routes.draw do
     get '/create_fork/:id', to: 'projects#create_fork',as: 'create_fork_project'
     get '/change_stars/:id', to: 'projects#change_stars', as: 'change_stars'
     get 'tags/:tag', to: 'projects#get_projects', as: 'tag'
-  end  
+  end
 
   mount Commontator::Engine => '/commontator'
 
