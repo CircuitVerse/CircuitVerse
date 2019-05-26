@@ -27,10 +27,4 @@ module Utils
                "No valid Email(s) entered."
              end
   end
-
-  # To strip tags from input data
-  # @param input data string
-  def self.stripTags(input)
-    input.present? ? input.gsub(/(<([^>]+)>)/iu, "").strip() : nil
-  end
 end
