@@ -17,4 +17,9 @@ module SpecUtils
     sign_in user
     user
   end
+
+  def get_group_member(group, member = FactoryBot.create(:user))
+    FactoryBot.create(:group_member, user: member, group: group)
+    member
+  end
 end
