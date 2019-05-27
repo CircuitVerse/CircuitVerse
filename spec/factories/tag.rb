@@ -2,6 +2,6 @@
 
 FactoryBot.define do
   factory :tag do
-    tag { Faker.name }
+    name { Faker.name }
   end
 end
