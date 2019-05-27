@@ -1,10 +1,13 @@
 class ProjectsController < ApplicationController
+  include ActionView::Helpers::SanitizeHelper
+
   before_action :set_project, only: [:show, :edit, :update, :destroy, :create_fork, :change_stars]
   before_action :authenticate_user!, only: [:edit, :update, :destroy, :create_fork, :change_stars]
 
   before_action :check_access , only: [:edit, :update, :destroy]
   before_action :check_delete_access , only: [:destroy]
   before_action :check_view_access , only: [:show, :create_fork]
+  before_action :sanitize_name, only: [:create, :update]
 
   # GET /projects
   # GET /projects.json
@@ -137,4 +140,7 @@ class ProjectsController < ApplicationController
       params.require(:project).permit(:name, :project_access_type, :description, :tag_list, :tags)
     end
 
+    def sanitize_name
+      params[:project][:name] = sanitize(project_params[:name])
+    end
 end

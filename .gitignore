@@ -46,3 +46,4 @@ dump.rdb
 
 public/sitemap.xml.gz
 coverage
+.vscode

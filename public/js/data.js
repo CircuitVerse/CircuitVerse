@@ -2,6 +2,7 @@
 // Function creates button in tab, creates scope and switches to this circuit
 function newCircuit(name, id) {
     name = name || prompt("Enter circuit name:");
+    name = stripTags(name);
     if (!name) return;
     var scope = new Scope(name);
     if (id) scope.id = id;
@@ -24,11 +25,13 @@ function newCircuit(name, id) {
 
 
 function changeCircuitName(name, id = globalScope.id) {
+    name = stripTags(name);
     $('#' + id).html(name);
     scopeList[id].name = name;
 }
 
 function setProjectName(name) {
+    name = stripTags(name);
     projectName = name;
     $('#projectName').html(name);
 }
@@ -350,7 +353,8 @@ function generateSaveData(name) {
     data = {};
 
     // Prompts for name, defaults to Untitled
-    data["name"] = projectName || name || prompt("Enter Project Name:") || "Untitled";
+    name = projectName || name || prompt("Enter Project Name:") || "Untitled";
+    data["name"] = stripTags(name)
     projectName = data["name"];
     setProjectName(projectName)
 
