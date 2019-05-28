@@ -78,4 +78,115 @@ describe AssignmentsController, type: :request do
       expect(response.status).to eq(302)
     end
   end
+
+  describe "#update"  do
+    let(:update_params) do
+      {
+        assignment: {
+          description: "updated description"
+        }
+      }
+    end
+
+    context "mentor is signed in" do
+      before do
+        sign_in @mentor
+      end
+
+      it "updates the assignment" do
+        put group_assignment_path(@group, @assignment), params: update_params
+        @assignment.reload
+        expect(@assignment.description).to eq("updated description")
+      end
+    end
+
+    context "user is signed in" do
+      before do
+        sign_in FactoryBot.create(:user)
+      end
+
+      it "returns unauthorized error" do
+        put group_assignment_path(@group, @assignment), params: update_params
+        expect(response.body).to eq("You are not authorized to do the requested operation")
+      end
+    end
+  end
+
+  describe "#check_reopening_status" do
+    before do
+      sign_in @mentor
+    end
+
+    context "the project is forked" do
+      before do
+        @project = FactoryBot.create(:project, author: @member)
+        @forked_project = FactoryBot.create(:project,
+        author: @member, forked_project: @project, assignment:
+         @assignment, project_submission: true)
+      end
+
+      it "adds old project as assignment submission" do
+        put group_assignment_path(@group, @assignment), params: { assignment:
+          { description: "new description" } }
+        @project.reload
+        expect(Project.find_by(id: @forked_project.id)).to eq(nil)
+        expect(@project.assignment_id).to eq(@forked_project.assignment_id)
+      end
+    end
+
+    context "no forked project exists" do
+      before do
+        @project = FactoryBot.create(:project,
+        author: @member, assignment: @assignment, project_submission: true)
+      end
+
+      it "sets project submission to false" do
+        put group_assignment_path(@group, @assignment), params: { assignment:
+          { description: "new description" } }
+        @project.reload
+        expect(@project.project_submission).to eq(false)
+      end
+    end
+  end
+
+  describe "#reopen" do
+    before do
+      sign_in @mentor
+      @closed_assignment = FactoryBot.create(:assignment, group: @group, status: "closed")
+    end
+
+    it "changes status to open" do
+      expect(@closed_assignment.status).to eq("closed")
+      get reopen_group_assignment_path(@group, @closed_assignment)
+      @closed_assignment.reload
+      expect(@closed_assignment.status).to eq("open")
+    end
+  end
+
+  describe "#create" do
+    context "mentor is logged in" do
+      before do
+        sign_in @mentor
+      end
+
+      it "creates a new assignment" do
+        expect {
+          post group_assignments_path(@group), params: { assignment:
+            { description: "group assignment" } }
+        }.to change { Assignment.count }.by(1)
+      end
+    end
+
+    context "user other than the mentor is logged in" do
+      before do
+        sign_in FactoryBot.create(:user)
+      end
+
+      it "does not create assignment" do
+        expect {
+          post group_assignments_path(@assignment)
+        }.to change { Assignment.count }.by(0)
+      end
+    end
+  end
 end
