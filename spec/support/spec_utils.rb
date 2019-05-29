@@ -27,4 +27,13 @@ module SpecUtils
     expect(response.body).to eq("Not Authorized: Project has been moved or deleted. " \
       "If you are the owner of the project, Please check your project access privileges.")
   end
+
+  def file_like_object
+    dummy_file = Struct.new(:path) do
+      def write(data)
+      end
+    end
+
+    dummy_file.new(Faker::File.file_name)
+  end
 end
