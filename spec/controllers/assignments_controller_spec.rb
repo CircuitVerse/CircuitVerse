@@ -89,11 +89,8 @@ describe AssignmentsController, type: :request do
     end
 
     context "mentor is signed in" do
-      before do
-        sign_in @mentor
-      end
-
       it "updates the assignment" do
+        sign_in @mentor
         put group_assignment_path(@group, @assignment), params: update_params
         @assignment.reload
         expect(@assignment.description).to eq("updated description")
@@ -101,11 +98,8 @@ describe AssignmentsController, type: :request do
     end
 
     context "user is signed in" do
-      before do
-        sign_in FactoryBot.create(:user)
-      end
-
       it "returns unauthorized error" do
+        sign_in_random_user
         put group_assignment_path(@group, @assignment), params: update_params
         expect(response.body).to eq("You are not authorized to do the requested operation")
       end
@@ -165,11 +159,8 @@ describe AssignmentsController, type: :request do
 
   describe "#create" do
     context "mentor is logged in" do
-      before do
-        sign_in @mentor
-      end
-
       it "creates a new assignment" do
+        sign_in @mentor
         expect {
           post group_assignments_path(@group), params: { assignment:
             { description: "group assignment" } }
@@ -178,11 +169,8 @@ describe AssignmentsController, type: :request do
     end
 
     context "user other than the mentor is logged in" do
-      before do
-        sign_in FactoryBot.create(:user)
-      end
-
       it "does not create assignment" do
+        sign_in FactoryBot.create(:user)
         expect {
           post group_assignments_path(@assignment)
         }.to change { Assignment.count }.by(0)

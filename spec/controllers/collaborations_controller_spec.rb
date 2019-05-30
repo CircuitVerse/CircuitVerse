@@ -52,11 +52,8 @@ describe CollaborationsController, type: :request do
     end
 
     context "author of project is logged in" do
-      before do
-        sign_in @author
-      end
-
       it "destroys collaboration" do
+        sign_in @author
         expect {
           delete collaboration_path(@collaboration)
         }.to change { Collaboration.count }.by(-1)
@@ -88,11 +85,8 @@ describe CollaborationsController, type: :request do
     }
 
     context "author is signed in" do
-      before do
-        sign_in @author
-      end
-
       it "udpates the collaboration" do
+        sign_in @author
         put collaboration_path(@collaboration), params: update_params
         @collaboration.reload
         expect(@collaboration.project_id).to eq(@new_project.id)

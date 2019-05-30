@@ -173,11 +173,8 @@ describe ProjectsController, type: :request do
       end
 
       context "author is singed in" do
-        before do
-          sign_in @author
-        end
-
         it "destorys project" do
+          sign_in @author
           expect {
             delete user_project_path(@author, @project)
           }.to change { Project.count }.by(-1)

@@ -50,11 +50,8 @@ describe GroupMembersController, type: :request do
     end
 
     context "mentor is signed in" do
-      before do
-        sign_in @mentor
-      end
-
       it "destroys group member" do
+        sign_in @mentor
         expect {
           delete group_member_path(@group_member)
         }.to change { GroupMember.count }.by(-1)

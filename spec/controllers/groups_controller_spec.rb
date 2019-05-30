@@ -8,11 +8,8 @@ describe GroupsController, type: :request do
   end
 
   describe "#create" do
-    before do
-      sign_in @mentor
-    end
-
     it "creates a group" do
+      sign_in @mentor
       expect {
         post groups_path, params: { group: { name: "test group", mentor_id: @mentor.id } }
       }.to change { Group.count }.by(1)
@@ -25,11 +22,8 @@ describe GroupsController, type: :request do
     end
 
     context "mentor is signed_in" do
-      before do
-        sign_in @mentor
-      end
-
       it "destroys group" do
+        sign_in @mentor
         expect {
           delete group_path(@group)
         }.to change { Group.count }.by(-1)
@@ -79,11 +73,8 @@ describe GroupsController, type: :request do
     end
 
     context "mentor is signed in" do
-      before do
-        sign_in @mentor
-      end
-
       it "udpates group" do
+        sign_in @mentor
         put group_path(@group), params: { group: { name: "updated group" } }
         @group.reload
         expect(@group.name).to eq("updated group")

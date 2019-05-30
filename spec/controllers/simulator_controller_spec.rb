@@ -48,11 +48,8 @@ describe SimulatorController, type: :request do
       }
 
       context "author is signed in" do
-        before do
-          sign_in @user
-        end
-
         it "updates project" do
+          sign_in @user
           post "/simulator/update_data", params: update_params
           @project.reload
           expect(@project.name).to eq("Updated Name")
