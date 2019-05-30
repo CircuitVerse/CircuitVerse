@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190330200336) do
+ActiveRecord::Schema.define(version: 20190526125442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20190330200336) do
     t.datetime "updated_at", null: false
     t.bigint "group_id"
     t.string "status"
+    t.integer "grading_scale", default: 0
     t.index ["group_id"], name: "index_assignments_on_group_id"
   end
 
@@ -79,6 +80,19 @@ ActiveRecord::Schema.define(version: 20190330200336) do
     t.datetime "updated_at", null: false
     t.bigint "project_id"
     t.index ["project_id"], name: "index_featured_circuits_on_project_id"
+  end
+
+  create_table "grades", force: :cascade do |t|
+    t.string "grade"
+    t.integer "grading_scale"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "project_id"
+    t.bigint "user_id"
+    t.bigint "assignment_id"
+    t.index ["assignment_id"], name: "index_grades_on_assignment_id"
+    t.index ["project_id"], name: "index_grades_on_project_id"
+    t.index ["user_id"], name: "index_grades_on_user_id"
   end
 
   create_table "group_members", force: :cascade do |t|
@@ -196,6 +210,9 @@ ActiveRecord::Schema.define(version: 20190330200336) do
   add_foreign_key "collaborations", "projects"
   add_foreign_key "collaborations", "users"
   add_foreign_key "featured_circuits", "projects"
+  add_foreign_key "grades", "assignments"
+  add_foreign_key "grades", "projects"
+  add_foreign_key "grades", "users"
   add_foreign_key "group_members", "groups"
   add_foreign_key "group_members", "users"
   add_foreign_key "groups", "users", column: "mentor_id"

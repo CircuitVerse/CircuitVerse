@@ -13,6 +13,7 @@ class User < ApplicationRecord
   # has_many :assignments, foreign_key: 'mentor_id', dependent: :destroy
   has_many :group_members, dependent: :destroy
   has_many :groups, through: :group_members
+  has_many :grades
   acts_as_commontator
 
   has_many :collaborations, dependent: :destroy
