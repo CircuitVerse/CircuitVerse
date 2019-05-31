@@ -84,7 +84,6 @@ ActiveRecord::Schema.define(version: 20190526125442) do
 
   create_table "grades", force: :cascade do |t|
     t.string "grade"
-    t.integer "grading_scale"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "project_id"

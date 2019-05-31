@@ -2,7 +2,6 @@ class AddGrades < ActiveRecord::Migration[5.1]
   def change
     create_table :grades do |t|
       t.string :grade
-      t.integer :grading_scale
       t.timestamps
     end
 
