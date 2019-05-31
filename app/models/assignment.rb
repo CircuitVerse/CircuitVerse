@@ -11,6 +11,8 @@ class Assignment < ApplicationRecord
 
   has_many :grades
 
+  after_update :check_and_remove_grades?
+
   def send_new_assignment_mail
     self.group.group_members.each do |group_member|
       AssignmentMailer.new_assignment_email(group_member.user, self).deliver_later
@@ -36,6 +38,7 @@ class Assignment < ApplicationRecord
     end
   end
 
-
-
+  def graded?
+    grading_scale != "no_scale"
+  end
 end

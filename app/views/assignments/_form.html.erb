@@ -18,6 +18,11 @@
   </div>
 
   <div class="field">
+    <%= form.label :grading_scale %>
+    <%= form.select :grading_scale, [:no_scale, :letter, :percent] %>
+  </div>
+
+  <div class="field">
     <%= form.label :deadline %>
     <input class ="date" id="party" type="datetime-local" name="assignment[deadline]" min="<%= Time.now.strftime("%Y-%m-%dT%H:%M")%>" value="<%= assignment.deadline.strftime("%Y-%m-%dT%H:%M")%>">
   </div>

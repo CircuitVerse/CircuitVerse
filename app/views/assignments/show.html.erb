@@ -26,6 +26,15 @@
       </p>
 
       <p>
+        <strong> Graded: </strong>
+        <% if @assignment.graded? %>
+          Graded(<%= @assignment.grading_scale %>)
+        <% else %>
+          Not Graded
+        <% end %>
+      </p>
+
+      <p>
         <strong>Description:</strong>
         <p><%= @assignment.description.html_safe%></p><br>
       </p>
@@ -73,6 +82,13 @@
       <div class="embed-responsive embed-responsive-4by3 feature">
         <iframe src="" id="assignmentPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen> </iframe>
       </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-3">
+      Grade for <%= project.author.name %>
+    </div>
+    <div class="col-9">
     </div>
   </div>
   <%end%>

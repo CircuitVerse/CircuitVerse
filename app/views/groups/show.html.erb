@@ -112,6 +112,7 @@
           <th>Assignment</th>
           <th>DeadLine</th>
           <th>Preview</th>
+          <th> Graded </th>
           <th>Actions</th>
 
         </tr>
@@ -128,6 +129,13 @@
                 <% end %>
               </td>
               <td><%= link_to 'Show', group_assignment_path(@group,assignment) %></td>
+              <td>
+                <% if assignment.graded? %>
+                  Graded(<%= assignment.grading_scale %>)
+                <% else %>
+                  Not Graded
+                <% end %>
+              </td>
               <td>
                 <% if policy(@group).admin_access? %>
                   <% if assignment.status!="closed" %>
