@@ -7,6 +7,10 @@ Rails.application.routes.draw do
     resources :assignments
   end
 
+  resources :grades, only: [:create, :update]
+  delete '/grades', to: 'grades#destroy'
+
+
   scope '/groups' do
     get '/:id/assignments/WYSIWYG/index.css', to: redirect('/index.css')
     get '/:id/assignments/WYSIWYG/bootstrap-wysiwyg.js', to: redirect('/bootstrap-wysiwyg.js')
