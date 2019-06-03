@@ -14,16 +14,18 @@ class GradesController < ApplicationController
     @grade.assignment_id = grade_params[:assignment_id]
     @grade.user_id = current_user.id
 
-    @grade.save
+    render json: { error: "Grade is invalid" },
+      status: 400 unless @grade.save
   end
 
   def destroy
+    project_id = @grade&.project_id
     if @grade.present?
       authorize @grade, :mentor?
       @grade.destroy
     end
 
-    render json: {}, status: 200
+    render json: { project_id: project_id }, status: 200
   end
 
   private

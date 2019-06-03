@@ -70,7 +70,7 @@
         <div class="list-group" id="list-tab" role="tablist" id="submissionTable" style="max-height:600px;overflow:hidden;overflow-y:scroll">
 		  <% @project_order = @assignment.projects.sort_by {|p| p.author.name} %>
           <% @project_order.each do |project| %>
-              <a class="list-group-item list-group-item-action" id=<%= project.id%> ><%= project.author.name  %></a>
+              <a class="list-group-item list-group-item-action" id=<%= project.id%> data-grade=<%= project.grade&.grade.present? ? project.grade&.grade : "N.A." %> ><%= project.author.name  %></a>
           <%end%>
 
         </div>
@@ -82,15 +82,101 @@
       <div class="embed-responsive embed-responsive-4by3 feature">
         <iframe src="" id="assignmentPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen> </iframe>
       </div>
+      <% if @assignment.graded? %>
+        <div>
+          Grade: <span id="project-grade"> Select a project to grade </span>
+          <span id="project-grade-error"></span>
+        </div>
+      <% end %>
     </div>
   </div>
-  <div class="row">
-    <div class="col-3">
-      Grade for <%= project.author.name %>
+
+  <% if @assignment.graded? %>
+    <div class="row">
+      <div class="col-3">
+        Enter Grade:
+      </div>
+      <div class="col-9">
+        <%= form_with(model: Grade.new, multipart: true, id: "assignment-grade-form", url: "/grades") do |form| %>
+          <%= form.hidden_field :project_id, id: "assignment-project-id" %>
+          <%= form.hidden_field :assignment_id, value: @assignment.id %>
+          <% if @assignment.grading_scale == "percent" %>
+            <%= form.number_field :grade, id: "assignment-grade-grade", min: 0, max: 100 %>
+          <% elsif @assignment.grading_scale == "letter" %>
+            <%= form.text_field :grade, id: "assignment-grade-grade" %>
+          <% end %>
+        <% end %>
+        <%= button_tag 'Submit', id: "grade-form-submit" %>
+        <%= button_tag 'Remove', id: "grade-form-remove" %>
+      </div>
     </div>
-    <div class="col-9">
-    </div>
-  </div>
+    <script>
+      /*
+       Grading
+      */
+      let project_selected = false;
+      $(".list-group-item-action").on('click', function (e) {
+            e.preventDefault();
+            $("#assignment-project-id").val(e.currentTarget.id);
+            $("#project-grade").html($(e.currentTarget).attr("data-grade"));
+            $("#project-grade-error").html("");
+            project_selected = true;
+        });
+
+      $("#grade-form-remove").click(function(e) {
+        e.preventDefault();
+
+        var form = $("#assignment-grade-form");
+        var url = form.attr("action");
+
+        $.ajax({
+          type: "DELETE",
+          url: url,
+          data: form.serialize(),
+          success: function(data) {
+            if (data.project_id != null) {
+              $("#project-grade").html("N.A.");
+              $("#" + data.project_id).attr("data-grade", data.grade);
+            }
+          }
+
+        })
+      });
+
+      $("#grade-form-submit").click(function(e) {
+        e.preventDefault();
+
+        var form = $("#assignment-grade-form");
+        var type = $("#assignment-grade-grade").val() == "" ? "DELETE"  : "POST";
+        var url = form.attr("action");
+
+        $.ajax({
+          type: type,
+          url: url,
+          data: form.serialize(),
+          datatype: "json",
+          success: function(data) {
+            if(type == "POST") {
+              $("#project-grade").html(data.grade);
+              $("#" + data.project_id).attr("data-grade", data.grade);
+            } else if(type == "DELETE") {
+              if (data.project_id != null) {
+                $("#project-grade").html("N.A.");
+                $("#" + data.project_id).attr("data-grade", data.grade);
+              }
+            }
+
+            $("#project-grade-error").html("");
+            $("#assignment-grade-grade").val("");
+          },
+          error: function(data) {
+            $("#project-grade-error").html("* " + data.responseJSON.error);
+            $("#assignment-grade-grade").val("");
+          }
+        });
+      });
+    </script>
+  <% end %>
   <%end%>
   <br />
 
@@ -103,6 +189,4 @@
               this.innerHTML = formatDate(new Date(this.innerHTML), "dddd hh:mmTT zz, dd MMM yyyy")
           })})
   </script>
-
-
 </div>
