@@ -8,8 +8,6 @@ describe CollaborationsController, type: :request do
     @project = FactoryBot.create(:project, author: @author)
   end
 
-  # TODO - fix test
-  # Throws ActionController::UnknownFormat
   describe "#create" do
     before do
       @new_collaboration = FactoryBot.create(:user)
