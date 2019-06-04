@@ -25,7 +25,7 @@ class StarsController < ApplicationController
   # POST /stars.json
   def create
     @star = Star.new(star_params)
-
+    @star.save
     render plain: "Star added!"
     # respond_to do |format|
     #   if @star.save
