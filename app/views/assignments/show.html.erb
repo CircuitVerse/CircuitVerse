@@ -47,6 +47,10 @@
 
       <%end%>
 
+      <%if @assignment.graded? %>
+        <%= link_to 'Export', grades_to_csv_path(@assignment, format: :csv) %>
+      <%end%>
+
     </div>
 
 

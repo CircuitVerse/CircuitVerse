@@ -28,13 +28,16 @@ class GradesController < ApplicationController
     render json: { project_id: project_id }, status: 200
   end
 
+  def to_csv
+    respond_to do |format|
+      format.csv { send_data Grade.to_csv(params[:assignment_id]),
+        filename: "assignment-grades.csv" }
+    end
+  end
+
   private
     def grade_params
       params.require(:grade).permit(:project_id, :grade, :assignment_id)
-    end
-
-    def grade_udpate_params
-      params.require(:grade).permit(:grade, :user_id, :project_id)
     end
 
     def set_grade

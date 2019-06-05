@@ -27,4 +27,21 @@ class Grade < ApplicationRecord
         errors.add(:project, "is not a part of the assignment")
       end
     end
+
+    def self.to_csv(assignment_id)
+      attributes = %w[email name grade]
+      group_members = User.where(id: GroupMember.where(group_id:
+        Assignment.find_by(id: assignment_id)&.group_id).pluck(:user_id))
+
+      CSV.generate(headers: true) do |csv|
+        csv << attributes
+
+        group_members.each do |member|
+          submission = Project.find_by(author_id: member.id, assignment_id: assignment_id)
+          grade = Grade.find_by(project_id: submission.id)&.grade
+          grade = grade.present? ? grade : "N.A"
+          csv << [member.email, member.name, grade]
+        end
+      end
+    end
 end
