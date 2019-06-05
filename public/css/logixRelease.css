@@ -61,3 +61,28 @@ img{
         background-color: "transparent"
     }
 }
+
+#assignment-grade-form {
+    display: inline-block;
+    width: 50%;
+}
+
+#assignment-grade-grade {
+    width: 100%;
+}
+
+.error {
+    color: red;
+}
+
+.grade-container {
+    margin-top: 10px;
+}
+
+.bold {
+    font-weight: 600;
+}
+
+.grade-show-container {
+    margin-top: 17px;
+}
