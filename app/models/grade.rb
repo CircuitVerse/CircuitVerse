@@ -32,13 +32,15 @@ class Grade < ApplicationRecord
       attributes = %w[email name grade]
       group_members = User.where(id: GroupMember.where(group_id:
         Assignment.find_by(id: assignment_id)&.group_id).pluck(:user_id))
+      submissions = Project.where(assignment_id: assignment_id)&.includes(:grade, :author)
 
       CSV.generate(headers: true) do |csv|
         csv << attributes
 
         group_members.each do |member|
-          submission = Project.find_by(author_id: member.id, assignment_id: assignment_id)
-          grade = Grade.find_by(project_id: submission.id)&.grade
+          submission = submissions.find { |s| (s.author_id == member.id &&
+            s.assignment_id == assignment_id)}
+          grade = submission&.grade&.grade
           grade = grade.present? ? grade : "N.A"
           csv << [member.email, member.name, grade]
         end

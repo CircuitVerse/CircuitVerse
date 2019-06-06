@@ -72,7 +72,7 @@
     <div class="col-3">
       <div class="overflow:scroll">
         <div class="list-group" id="list-tab" role="tablist" id="submissionTable" style="max-height:600px;overflow:hidden;overflow-y:scroll">
-		  <% @project_order = @assignment.projects.sort_by {|p| p.author.name} %>
+		  <% @project_order = @assignment.projects.includes(:grade, :author).sort_by {|p| p.author.name} %>
           <% @project_order.each do |project| %>
               <a class="list-group-item list-group-item-action" id=<%= project.id%> data-grade=<%= project.grade&.grade.present? ? project.grade&.grade : "N.A." %> ><%= project.author.name  %></a>
           <%end%>
