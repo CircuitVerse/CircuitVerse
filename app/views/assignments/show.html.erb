@@ -36,7 +36,7 @@
 
       <p>
         <strong>Description:</strong>
-        <p><%= @assignment.description.html_safe%></p><br>
+        <p><%= @assignment.description&.html_safe%></p><br>
       </p>
 
       <%= link_to 'Back', group_path(@group) %>
@@ -47,7 +47,7 @@
 
       <%end%>
 
-      <%if @assignment.graded? %>
+      <%if policy(@assignment).admin_access? && @assignment.graded? && @assignment.deadline - Time.now < 0 %>
         <%= link_to 'Export', grades_to_csv_path(@assignment, format: :csv) %>
       <%end%>
 
@@ -89,27 +89,34 @@
     </div>
   </div>
 
-  <% if @assignment.graded? %>
+  <% if @assignment.graded? && @assignment.deadline - Time.now < 0 %>
     <div class="row grade-container">
       <div class="col-3">
         <span class="bold"> Enter Grade: </span>
         <span id="project-grade-error" class="error"></span>
         <div class = "grade-show-container">
-          <span class="bold"> Grade: </span><span id="project-grade"> Select a project to grade </span>
+          <span class="bold"> Grade: </span><span id="project-grade"> Select a project to view/add grade </span>
         </div>
       </div>
       <div class="col-9">
-        <%= form_with(model: Grade.new, multipart: true, id: "assignment-grade-form", url: "/grades") do |form| %>
-          <%= form.hidden_field :project_id, id: "assignment-project-id" %>
-          <%= form.hidden_field :assignment_id, value: @assignment.id %>
-          <% if @assignment.grading_scale == "percent" %>
-            <%= form.number_field :grade, id: "assignment-grade-grade", min: 0, max: 100 %>
-          <% elsif @assignment.grading_scale == "letter" %>
-            <%= form.text_field :grade, id: "assignment-grade-grade" %>
+        <% unless @assignment.grades_finalized %>
+          <%= form_with(model: Grade.new, multipart: true, id: "assignment-grade-form", url: "/grades") do |form| %>
+            <%= form.hidden_field :project_id, id: "assignment-project-id" %>
+            <%= form.hidden_field :assignment_id, value: @assignment.id %>
+            <% if @assignment.grading_scale == "percent" %>
+              <%= form.number_field :grade, id: "assignment-grade-grade", min: 0, max: 100 %>
+            <% elsif @assignment.grading_scale == "letter" %>
+              <%= form.text_field :grade, id: "assignment-grade-grade" %>
+            <% end %>
+            <div style="margin-top: 10px">
+              <%= button_tag 'Submit', id: "grade-form-submit" %>
+              <%= button_tag 'Remove', id: "grade-form-remove" %>
+              <%= button_tag 'Finalize Grades', id: "grade-form-finalized", data: { url: group_assignment_path(@assignment.group, @assignment) } %>
+            </div>
           <% end %>
+        <% else %>
+           Grades have been finalized!
         <% end %>
-        <%= button_tag 'Submit', id: "grade-form-submit" %>
-        <%= button_tag 'Remove', id: "grade-form-remove" %>
       </div>
     </div>
     <script src="/js/grading.js"> </script>

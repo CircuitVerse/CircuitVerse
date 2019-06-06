@@ -114,13 +114,15 @@
           <th>Preview</th>
           <th> Graded </th>
           <th>Actions</th>
-
+          <% unless policy(@group).admin_access? %>
+            <th>Grade</th>
+          <% end %>
         </tr>
         </thead>
 
         <tbody>
         <tbody>
-        <% @group.assignments.each do |assignment| %>
+        <% @group.assignments.includes(projects: :grade).each do |assignment| %>
             <tr>
               <td><%= assignment.name %></td>
               <td><div class="date"><%= assignment.deadline.strftime("%d %b,%Y %I:%M %p %Z") %></div>
@@ -146,7 +148,7 @@
                   <%= link_to 'Destroy', group_assignment_path(@group,assignment), method: :delete, data: { confirm: 'Are you sure?' } %>
                 <% else %>
 
-                    <% project_assignment=Project.find_by(author_id:current_user.id,assignment_id:assignment.id) %>
+                    <% project_assignment = assignment.projects.find { |p| p.author_id == current_user.id } %>
 
                     <% if(assignment.deadline > Time.now) %>
                         <% if project_assignment.nil?%>
@@ -166,7 +168,15 @@
 
 
               </td>
-
+              <% unless policy(@group).admin_access? %>
+                <td>
+                  <% if assignment.graded? && Time.now > assignment.deadline && assignment.grades_finalized? %>
+                    <%= project_assignment&.grade&.grade.present? ? project_assignment.grade.grade : "N.A." %>
+                  <% else %>
+                    N.A.
+                  <% end %>
+                </td>
+              <% end %>
             </tr>
         <% end %>
         </tbody>

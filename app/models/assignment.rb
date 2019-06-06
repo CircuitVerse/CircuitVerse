@@ -9,7 +9,7 @@ class Assignment < ApplicationRecord
 
   enum grading_scale: %i[no_scale letter percent]
 
-  has_many :grades
+  has_many :grades, dependent: :destroy
 
   def send_new_assignment_mail
     self.group.group_members.each do |group_member|

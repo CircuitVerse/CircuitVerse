@@ -41,6 +41,7 @@ class GradesController < ApplicationController
     end
 
     def set_grade
-      @grade = Grade.find_by(project_id: grade_params[:project_id])
+      @grade = Grade.find_by(project_id: grade_params[:project_id],
+       assignment_id: grade_params[:assignment_id])
     end
 end

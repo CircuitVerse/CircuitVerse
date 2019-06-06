@@ -27,6 +27,23 @@ $("#grade-form-remove").click((e) => {
     });
 });
 
+$("#grade-form-finalized").click((e) => {
+    e.preventDefault();
+
+    var url = $(e.currentTarget).data("url");
+
+    if (confirm("Do you want to finalize grades?")) {
+        $.ajax({
+            type: "PUT",
+            url: `${url}.json`,
+            data: { assignment: { grades_finalized: true } },
+            success: (data) => {
+                $("#assignment-grade-form").html("Grades have been finalized!");
+            },
+        });
+    }
+});
+
 $("#grade-form-submit").click((e) => {
     e.preventDefault();
 

@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20190526125442) do
     t.bigint "group_id"
     t.string "status"
     t.integer "grading_scale", default: 0
+    t.boolean "grades_finalized", default: false
     t.index ["group_id"], name: "index_assignments_on_group_id"
   end
 

@@ -9,6 +9,6 @@ class GradePolicy < ApplicationPolicy
   end
 
   def mentor?
-    grade.assignment&.group&.mentor_id == user.id
+    grade.assignment&.group&.mentor_id == user.id && !grade.assignment&.grades_finalized
   end
 end

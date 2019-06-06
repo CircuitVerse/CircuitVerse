@@ -12,7 +12,8 @@
         "no-unused-vars": 0,
         "max-lines-per-function": 0,
         "quotes": 0,
-        "object-shorthand": 0
+        "object-shorthand": 0,
+        "no-restricted-globals": 0
     }
 
 }

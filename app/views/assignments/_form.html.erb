@@ -17,10 +17,17 @@
     <%= form.text_field :name, id: :assignment_name %>
   </div>
 
-  <div class="field">
-    <%= form.label :grading_scale %>
-    <%= form.select :grading_scale, [:no_scale, :letter, :percent] %>
-  </div>
+  <% if allow_scale_change %>
+    <div class="field">
+      <span style="color: red"> * Cannot be changed once set </span>
+      <%= form.label :grading_scale %>
+      <%= form.select :grading_scale, [:no_scale, :letter, :percent] %>
+    </div>
+  <% else %>
+    <div class="field" style="margin-bottom: 10px">
+      Grading scale: <span style="font-style: italic"> <%= @assignment.grading_scale %> </span>
+    </div>
+  <% end %>
 
   <div class="field">
     <%= form.label :deadline %>
