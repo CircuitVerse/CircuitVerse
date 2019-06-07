@@ -48,6 +48,15 @@ describe GradesController, type: :request do
           expect(JSON.parse(response.body)["error"]).to eq("Grade is invalid")
         end
       end
+
+      context "grades have been finalized" do
+        it "throws unauthorized error" do
+          @assignment.grades_finalized = true
+          @assignment.save
+          post grades_path, params: create_params
+          expect(response.body).to eq("You are not authorized to do the requested operation")
+        end
+      end
     end
 
     context "some other user is signed in" do
@@ -63,7 +72,8 @@ describe GradesController, type: :request do
     let(:destroy_params) {
       {
         grade: {
-          project_id: @assignment_project.id
+          project_id: @assignment_project.id,
+          assignment_id: @assignment.id
         }
       }
     }
@@ -74,11 +84,25 @@ describe GradesController, type: :request do
     end
 
     context "mentor is logged in" do
-      it "destroys user" do
+      before do
         sign_in @mentor
-        expect {
+      end
+
+      context "grades have not been finalized" do
+        it "destroys grade" do
+          expect {
+            delete grades_path, params: destroy_params
+          }.to change { Grade.count }.by(-1)
+        end
+      end
+
+      context "grades have been finalized" do
+        it "throws unauthorized error" do
+          @assignment.grades_finalized = true
+          @assignment.save
           delete grades_path, params: destroy_params
-        }.to change { Grade.count }.by(-1)
+          expect(response.body).to eq("You are not authorized to do the requested operation")
+        end
       end
     end
 
@@ -89,6 +113,23 @@ describe GradesController, type: :request do
           delete grades_path, params: destroy_params
         }.to_not change { Grade.count }
         expect(response.body).to eq("You are not authorized to do the requested operation")
+      end
+    end
+  end
+
+  describe "#to_csv" do
+    before do
+      FactoryBot.create(:group_member, user: @assignment_project.author, group: @group)
+      @grade = FactoryBot.create(:grade, project: @assignment_project, grader: @mentor,
+        grade: "A", assignment: @assignment)
+    end
+
+    context "signed user is mentor" do
+      it "creates csv file for grades" do
+        sign_in @mentor
+        get grades_to_csv_path(@assignment, format: :csv)
+        expect(response.body).to include("#{@assignment_project.author.email}," +
+          "#{@assignment_project.author.name},#{@grade.grade}")
       end
     end
   end
