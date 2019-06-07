@@ -75,7 +75,7 @@ class AssignmentsController < ApplicationController
   def create
 
     description = params["description"]
-    params = assignment_create_params                  # dont name it as params as params and assignment_params are different
+    params = assignment_create_params
     # params[:deadline] = params[:deadline].to_time
 
 
