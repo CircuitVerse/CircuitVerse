@@ -32,7 +32,11 @@ class AssignmentPolicy < ApplicationPolicy
     true
   end
 
-  def can_export_grades?
+  def can_be_graded?
     admin_access? && assignment.graded? && assignment.deadline - Time.now < 0
+  end
+
+  def show_grades?
+    assignment.graded? && Time.now > assignment.deadline && assignment.grades_finalized?
   end
 end

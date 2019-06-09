@@ -17,6 +17,7 @@ class AssignmentsController < ApplicationController
   # GET /assignments/1.json
   def show
     authorize @assignment
+    @assignment = AssignmentDecorator.new(@assignment)
   end
 
   def start

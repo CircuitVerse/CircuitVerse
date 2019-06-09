@@ -39,4 +39,8 @@ class Assignment < ApplicationRecord
   def graded?
     grading_scale != "no_scale"
   end
+
+  def project_order
+    projects.includes(:grade, :author).sort_by { |p| p.author.name }
+  end
 end

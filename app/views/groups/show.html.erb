@@ -170,8 +170,8 @@
               </td>
               <% unless policy(@group).admin_access? %>
                 <td>
-                  <% if assignment.graded? && Time.now > assignment.deadline && assignment.grades_finalized? %>
-                    <%= project_assignment&.grade&.grade.present? ? project_assignment.grade.grade : "N.A." %>
+                  <% if policy(assignment).show_grades? %>
+                    <%= ProjectDecorator.new(project_assignment).grade_str %>
                   <% else %>
                     N.A.
                   <% end %>
