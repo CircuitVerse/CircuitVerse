@@ -48,31 +48,25 @@ $('#grade-form-submit').click((e) => {
     e.preventDefault();
 
     var form = $('#assignment-grade-form');
-    var type = $('#assignment-grade-grade').val() === '' ? 'DELETE' : 'POST';
+    var type = 'POST';
     var url = form.attr('action');
 
-    $.ajax({
-        type,
-        url,
-        data: form.serialize(),
-        datatype: 'json',
-        success: (data) => {
-            if (type === 'POST') {
+    if ($('#assignment-grade-grade').val() != '') {
+        $.ajax({
+            type,
+            url,
+            data: form.serialize(),
+            datatype: 'json',
+            success: (data) => {
                 $('#project-grade').html(data.grade);
                 $(`#${data.project_id}`).attr('data-grade', data.grade);
-            } else if (type === 'DELETE') {
-                if (data.project_id != null) {
-                    $('#project-grade').html('N.A.');
-                    $(`#${data.project_id}`).attr('data-grade', data.grade);
-                }
-            }
-
-            $('#project-grade-error').html('');
-            $('#assignment-grade-grade').val('');
-        },
-        error: (data) => {
-            $('#project-grade-error').html(`* ${data.responseJSON.error}`);
-            $('#assignment-grade-grade').val('');
-        },
-    });
+                $('#project-grade-error').html('');
+                $('#assignment-grade-grade').val('');
+            },
+            error: (data) => {
+                $('#project-grade-error').html(`* ${data.responseJSON.error}`);
+                $('#assignment-grade-grade').val('');
+            },
+        });
+    }
 });

@@ -131,13 +131,7 @@
                 <% end %>
               </td>
               <td><%= link_to 'Show', group_assignment_path(@group,assignment) %></td>
-              <td>
-                <% if assignment.graded? %>
-                  Graded(<%= assignment.grading_scale %>)
-                <% else %>
-                  Not Graded
-                <% end %>
-              </td>
+              <td> <%= AssignmentDecorator.new(assignment).graded %> </td>
               <td>
                 <% if policy(@group).admin_access? %>
                   <% if assignment.status!="closed" %>
