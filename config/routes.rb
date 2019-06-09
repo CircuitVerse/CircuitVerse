@@ -7,9 +7,13 @@ Rails.application.routes.draw do
     resources :assignments
   end
 
-  resources :grades, only: [:create, :update]
-  delete '/grades', to: 'grades#destroy'
-  get '/grades/to_csv/:assignment_id', to: 'grades#to_csv', as: 'grades_to_csv'
+  # grades
+  scope '/grades' do
+    post '/', to: 'grades#create', as: 'grades'
+    delete '/', to: 'grades#destroy'
+    get '/to_csv/:assignment_id', to: 'grades#to_csv', as: 'grades_to_csv'
+  end
+
 
   scope '/groups' do
     get '/:id/assignments/WYSIWYG/index.css', to: redirect('/index.css')

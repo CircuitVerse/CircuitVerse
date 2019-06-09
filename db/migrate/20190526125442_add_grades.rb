@@ -8,7 +8,5 @@ class AddGrades < ActiveRecord::Migration[5.1]
     add_reference :grades, :project, foreign_key: true, on_delete: :cascade
     add_reference :grades, :user, foreign_key: true
     add_reference :grades, :assignment, foreign_key: true, on_delete: :cascade
-    add_column :assignments, :grading_scale, :integer, default: 0
-    add_column :assignments, :grades_finalized, :boolean, default: false
   end
 end
