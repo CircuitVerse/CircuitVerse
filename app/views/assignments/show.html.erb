@@ -47,7 +47,7 @@
 
       <%end%>
 
-      <%if policy(@assignment).admin_access? && @assignment.graded? && @assignment.deadline - Time.now < 0 %>
+      <%if policy(@assignment).can_export_grades? %>
         <%= link_to 'Export', grades_to_csv_path(@assignment, format: :csv) %>
       <%end%>
 

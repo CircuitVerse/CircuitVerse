@@ -31,4 +31,8 @@ class AssignmentPolicy < ApplicationPolicy
     raise CustomAuthError.new("Project is already open") if assignment.status == "open"
     true
   end
+
+  def can_export_grades?
+    admin_access? && assignment.graded? && assignment.deadline - Time.now < 0
+  end
 end
