@@ -6,12 +6,24 @@ function toggleLayoutMode() {
         layoutMode = false;
         temp_buffer = undefined;
         $("#layoutDialog").fadeOut();
+        $('#subcircuitMenu').empty();
+        $('#subcircuitMenu').css('display', 'none');
+        $('#menu').css('display', 'block');
         globalScope.centerFocus(false);
         dots();
 
     } else {
         layoutMode = true;
         $("#layoutDialog").fadeIn();
+        $('#menu').css('display', 'none');
+        $('#subcircuitMenu').css('display', 'block');
+        fillSubcircuitElements();
+        $('#subcircuitMenu').accordion("refresh");
+        $('.draggableSubcircuitElement').draggable({
+            helper: "clone",
+            appendTo: "body",
+            zIndex: 100
+        });
         globalScope.ox = 0;
         globalScope.oy = 0;
         globalScope.scale = DPR * 1.3;
@@ -104,6 +116,8 @@ function layout_buffer(scope = globalScope) {
     for (var i = 0; i < scope.Output.length; i++)
         this.Output.push(new layoutNode(scope.Output[i].layoutProperties.x, scope.Output[i].layoutProperties.y, scope.Output[i].layoutProperties.id, scope.Output[i].label, xx, yy, scope.Output[i].type, scope.Output[i]))
 
+    // holds subcircuit elements
+    this.subElements = []; 
 }
 
 // Check if position is on the boundaries of subcircuit
@@ -126,6 +140,62 @@ layout_buffer.prototype.isNodeAt = function(x, y) {
 }
 
 // Function to render layout on screen
+//                   COMMENTED TO PRESERVE FROM CHANGES WHILE TESTING
+/* function renderLayout(scope = globalScope) {
+    if (!layoutMode) return;
+
+    var xx = temp_buffer.xx;
+    var yy = temp_buffer.yy;
+
+    var ctx = simulationArea.context;
+    simulationArea.clear();
+
+    ctx.strokeStyle = "black";
+    ctx.fillStyle = "white";
+    ctx.lineWidth = correctWidth(3);
+
+    // Draw base rectangle
+    ctx.beginPath();
+    rect2(ctx, 0, 0, temp_buffer.layout.width, temp_buffer.layout.height, xx, yy, "RIGHT");
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.textAlign = "center";
+    ctx.fillStyle = "black";
+    if(temp_buffer.layout.titleEnabled){
+        fillText(ctx, scope.name, temp_buffer.layout.title_x + xx, yy + temp_buffer.layout.title_y, 11);
+    }
+
+    // Draw labels
+    for (var i = 0; i < temp_buffer.Input.length; i++) {
+        if (!temp_buffer.Input[i].label) continue;
+        var info = determine_label(temp_buffer.Input[i].x, temp_buffer.Input[i].y, scope);
+        ctx.textAlign = info[0];
+        fillText(ctx, temp_buffer.Input[i].label, temp_buffer.Input[i].x + info[1] + xx, yy + temp_buffer.Input[i].y + info[2], 12);
+    }
+    for (var i = 0; i < temp_buffer.Output.length; i++) {
+        if (!temp_buffer.Output[i].label) continue;
+        var info = determine_label(temp_buffer.Output[i].x, temp_buffer.Output[i].y, scope);
+        ctx.textAlign = info[0];
+        fillText(ctx, temp_buffer.Output[i].label, temp_buffer.Output[i].x + info[1] + xx, yy + temp_buffer.Output[i].y + info[2], 12);
+    }
+    ctx.fill();
+
+    // Draw points
+    for (var i = 0; i < temp_buffer.Input.length; i++) {
+        temp_buffer.Input[i].draw()
+    }
+    for (var i = 0; i < temp_buffer.Output.length; i++) {
+        temp_buffer.Output[i].draw()
+    }
+
+    if (gridUpdate) {
+        gridUpdate = false;
+        dots();
+    }
+
+} */
 function renderLayout(scope = globalScope) {
     if (!layoutMode) return;
 
@@ -180,6 +250,22 @@ function renderLayout(scope = globalScope) {
         dots();
     }
 
+    // For layout mode testing
+    // Update UI position
+    for(let i = 0; i < temp_buffer.subElements.length; i++){
+        temp_buffer.subElements[i].update();
+        
+        // element nodes
+        for(let j = 0; j < temp_buffer.subElements[i].nodeList.length; j++)
+            temp_buffer.subElements[i].nodeList[j].update();
+    }
+    
+    // Render objects
+    for(let i = 0; i < temp_buffer.subElements.length; i++){
+        temp_buffer.subElements[i].draw();
+        for(let j = 0; j < temp_buffer.subElements[i].nodeList.length; j++)
+            temp_buffer.subElements[i].nodeList[j].draw();
+    }
 }
 
 // Helper function to reset all nodes to original default positions
