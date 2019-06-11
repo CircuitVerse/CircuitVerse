@@ -51,7 +51,7 @@ $('#grade-form-submit').click((e) => {
     var type = 'POST';
     var url = form.attr('action');
 
-    if ($('#assignment-grade-grade').val() != '') {
+    if ($('#assignment-grade-grade').val() !== '') {
         $.ajax({
             type,
             url,

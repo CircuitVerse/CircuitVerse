@@ -108,6 +108,9 @@
               <%= button_tag 'Remove', id: "grade-form-remove" %>
               <%= button_tag 'Finalize Grades', id: "grade-form-finalized", data: { url: group_assignment_path(@assignment.group, @assignment) } %>
             </div>
+            <div class="grade-form-help">
+              * <%= @assignment.grading_scale_str %>
+            </div>
           <% end %>
         <% else %>
            Grades have been finalized!

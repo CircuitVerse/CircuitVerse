@@ -86,3 +86,8 @@ img{
 .grade-show-container {
     margin-top: 17px;
 }
+
+.grade-form-help {
+    margin-top: 5px;
+    font-size: 12px;
+}
