@@ -1,3 +1,4 @@
+<link rel="stylesheet" type="text/css" href="/css/restrictedElements.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 <%= form_with(model: [group,@assignment], local: true, html: {onsubmit:"before_submit()"}, multipart: true ,id:"assignmentForm") do |form| %>
   <% if @assignment.errors.any? %>
@@ -49,12 +50,29 @@
     <%= render "wysiwyg/index" %>
   </div>
 
-  <div class="actions" >
+    <div class="field" style="margin-bottom: 8px;margin-top: 17px">
+        <span style="font-weight: 600"> Restrict elements: </span>  <%= check_box_tag "restrict-elements", "1", @assignment.elements_restricted?, id: "restrict-elements", style: "margin-top: 0" %>
+        <div class="restricted-elements-list">
+          <% CircuitElement.all.order("category").group_by(&:category).each do |category, elements| %>
+            <div class="circuit-element-category"> <%= category %> </div>
+            <% elements.each do |element| %>
+                <span class="circuit-element-container">
+                   <%= check_box_tag "assignment[circuit_element_ids][]", element.id, @circuit_element_ids&.include?(element.id), id: "restrict-element", style: "margin-top: 0" %>
+                   <span> <%= element.name %> </span>
+                </span>
+            <% end %>
+          <% end %>
+        </div>
+
+    </div>
+
+  <div class="actions" onclick="submit_restricted_elements()">
     <%= form.submit %>
   </div>
 <% end %>
 
 <script src="/js/time.js"></script>
+<script type="text/javascript" src="/js/restrict_elements.js"></script>
 <script>
     $(document).ready(function() {
         $('.date').each(

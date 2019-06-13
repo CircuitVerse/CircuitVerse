@@ -3,6 +3,7 @@ class Assignment < ApplicationRecord
   belongs_to :group
   has_many :projects, class_name: 'Project', foreign_key: 'assignment_id', dependent: :nullify
   has_and_belongs_to_many :circuit_elements
+  accepts_nested_attributes_for :circuit_elements
 
   after_commit :send_new_assignment_mail, on: :create
   after_commit :set_deadline_job
@@ -39,6 +40,10 @@ class Assignment < ApplicationRecord
 
   def graded?
     grading_scale != "no_scale"
+  end
+
+  def elements_restricted?
+    circuit_elements&.count != 0
   end
 
   def project_order

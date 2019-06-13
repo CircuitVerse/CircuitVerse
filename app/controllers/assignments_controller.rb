@@ -43,6 +43,7 @@ class AssignmentsController < ApplicationController
   # GET /assignments/1/edit
   def edit
     authorize @assignment
+    @circuit_element_ids = @assignment.circuit_elements.pluck(:id)
   end
 
   def reopen
