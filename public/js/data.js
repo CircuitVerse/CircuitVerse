@@ -182,6 +182,8 @@ function switchCircuit(id) {
     updateCanvas=true;
     scheduleUpdate();
 
+    // to update the restricted elements information
+    if(restrictedElements.length !== 0) updateRestrictedElementsList();
 }
 
 // Helper function to save canvas as image based on image type
@@ -281,6 +283,9 @@ function backUp(scope = globalScope) {
         if (scope[moduleList[i]].length)
             data[moduleList[i]] = scope[moduleList[i]].map(extract);
     }
+
+    // Adding restricted circuit elements used in the save data
+    data["restrictedCircuitElementsUsed"] = scope.restrictedCircuitElementsUsed;
 
     // Storing intermediate nodes (nodes in wires)
     data["nodes"] = []
@@ -548,6 +553,10 @@ function load(data) {
 
         // update and backup circuit once
         update(globalScope, true);
+
+        // Updating restricted element list initally on loading
+        if(restrictedElements.length !== 0) updateRestrictedElementsList();
+
         scheduleBackup();
 
     }
@@ -638,6 +647,7 @@ function download(filename, text) {
 function loadScope(scope, data) {
 
     var ML = moduleList.slice(); // Module List copy
+    scope.restrictedCircuitElementsUsed = data["restrictedCircuitElementsUsed"];
 
     // Load all nodes
     data["allNodes"].map(function(x) {

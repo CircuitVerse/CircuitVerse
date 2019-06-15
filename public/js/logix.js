@@ -87,6 +87,17 @@ function hideRestricted() {
     $('#restrictedDiv').addClass("display--none");
 }
 
+function updateRestrictedElementsList() {
+    const restrictedCircuitElementsUsed = globalScope.restrictedCircuitElementsUsed;
+    let restrictedStr = "";
+
+    restrictedCircuitElementsUsed.forEach((element) => {
+        restrictedStr += `${element}, `;
+    });
+
+    $("#restrictedElementsDiv--list").html(restrictedStr);
+}
+
 // Helper function to show message
 function showMessage(mes) {
     if (mes == prevShowMessage) return;
@@ -146,7 +157,7 @@ globalScope = undefined;
 // All circuits are stored in a scope
 
 function Scope(name = "localScope", id = undefined) {
-
+    this.restrictedCircuitElementsUsed = [];
     this.id = id || Math.floor((Math.random() * 100000000000) + 1);
     this.CircuitElement = [];
 

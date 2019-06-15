@@ -40,6 +40,15 @@ function startListeners() {
     });
     document.getElementById("simulationArea").addEventListener('mouseup', function(e) {
         if (simulationArea.lastSelected) simulationArea.lastSelected.newElement = false;
+        /*
+        handling restricted circuit elements
+        */
+
+        if(simulationArea.lastSelected && restrictedElements.includes(simulationArea.lastSelected.objectType)
+            && !globalScope.restrictedCircuitElementsUsed.includes(simulationArea.lastSelected.objectType)) {
+            globalScope.restrictedCircuitElementsUsed.push(simulationArea.lastSelected.objectType);
+            updateRestrictedElementsList();
+        }
     });
     window.addEventListener('mousemove', onMouseMove);
 

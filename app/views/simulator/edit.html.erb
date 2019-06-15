@@ -16,8 +16,8 @@
 
 <body onload="setup()">
 <script>
+    <% restricted_elements = CircuitElement.joins(:assignments).where(assignments: {id: @project.assignment_id} ).pluck(:name)%>
     <% if @project&.assignment_id.present? %>
-      <% restricted_elements = CircuitElement.joins(:assignments).where(assignments: {id: @project.assignment_id} ).pluck(:name)%>
       restrictedElements = <%= raw restricted_elements.to_json %>;
     <% else %>
       restrictedElements = [];
@@ -137,6 +137,12 @@
     <div class="simulation" id="simulation" >
       <div id="restrictedDiv" class="alert alert-danger display--none">
       </div>
+
+      <% if @project&.assignment_id.present? && restricted_elements.present? %>
+        <div id="restrictedElementsDiv" class="alert alert-danger">
+          <div> Restricted elements used: <span id="restrictedElementsDiv--list"> </span></div>
+        </div>
+      <% end %>
 
       <div id="MessageDiv">
       </div>

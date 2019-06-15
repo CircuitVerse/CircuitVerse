@@ -8,7 +8,14 @@
 </head>
 
 <body onload="setup()">
-
+<script>
+    <% restricted_elements = CircuitElement.joins(:assignments).where(assignments: {id: @project.assignment_id} ).pluck(:name)%>
+    <% if @project&.assignment_id.present? %>
+      restrictedElements = <%= raw restricted_elements.to_json %>;
+    <% else %>
+      restrictedElements = [];
+    <% end %>
+</script>
 <div>
 
     <div class="simulation" id="simulation" style="height:100%;width:100%">
@@ -16,6 +23,11 @@
         <div id="tabsBar" class="noSelect pointerCursor" style="position: absolute; left: 0; top: 0; z-index: 2">
           <!-- <div> Circuits: </div> -->
         </div>
+        <% if @project&.assignment_id.present? && restricted_elements.present? %>
+          <div id="restrictedElementsDiv" class="alert alert-danger">
+            <div> <span style="font-style: italic"> Restricted elements used: </span> <span id="restrictedElementsDiv--list"> </span></div>
+          </div>
+        <% end %>
         <div id="MessageDiv" >
 
         </div>
