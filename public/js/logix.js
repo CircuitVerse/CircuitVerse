@@ -76,6 +76,17 @@ function showError(error) {
     }, 1500);
 }
 
+function showRestricted() {
+    $('#restrictedDiv').removeClass("display--none");
+    // Show no help text for restricted elements
+    $("#Help").removeClass("show");
+    $('#restrictedDiv').html("The element has been restricted by mentor. Usage might lead to deduction in marks");
+}
+
+function hideRestricted() {
+    $('#restrictedDiv').addClass("display--none");
+}
+
 // Helper function to show message
 function showMessage(mes) {
     if (mes == prevShowMessage) return;
@@ -842,7 +853,7 @@ function selectAll(scope = globalScope){
             simulationArea.multipleObjectSelections.push(...scope[val]);
         }
     });
-    
+
     if(scope.nodes) {
         simulationArea.multipleObjectSelections.push(...scope.nodes);
     }

@@ -16,6 +16,12 @@
 
 <body onload="setup()">
 <script>
+    <% if @project&.assignment_id.present? %>
+      <% restricted_elements = CircuitElement.joins(:assignments).where(assignments: {id: @project.assignment_id} ).pluck(:name)%>
+      restrictedElements = <%= raw restricted_elements.to_json %>;
+    <% else %>
+      restrictedElements = [];
+    <% end %>
     userSignedIn = <%= user_signed_in? %>;
     logix_project_id = <%= @logix_project_id%>;
     projectName = "<%= @projectName%>"
@@ -129,6 +135,9 @@
       <!-- <div> Circuits: </div> -->
     </div>
     <div class="simulation" id="simulation" >
+      <div id="restrictedDiv" class="alert alert-danger display--none">
+      </div>
+
       <div id="MessageDiv">
       </div>
 
@@ -321,6 +330,7 @@
       //    });
   </script>
   <link rel="stylesheet" type="text/css" href="/css/UX.css"/>
+  <link rel="stylesheet" type="text/css" href="/css/restrictedElements.css"/>
   <!-- <script src="./SAP_DATA.js"></script> -->
   <script src="/js/utils.js"> </script>
   <script src="/js/engine.js"></script>

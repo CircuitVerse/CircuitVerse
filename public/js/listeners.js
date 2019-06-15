@@ -288,6 +288,15 @@ function startListeners() {
         e.preventDefault();
     });
 
+    restrictedElements.forEach((element) => {
+        $(`#${element}`).mouseover(() => {
+            showRestricted();
+        });
+
+        $(`#${element}`).mouseout(() => {
+            hideRestricted();
+        })
+    });
 }
 
 var isIe = (navigator.userAgent.toLowerCase().indexOf("msie") != -1 ||
