@@ -183,7 +183,7 @@ function switchCircuit(id) {
     scheduleUpdate();
 
     // to update the restricted elements information
-    if(restrictedElements.length !== 0) updateRestrictedElementsList();
+    updateRestrictedElementsList();
 }
 
 // Helper function to save canvas as image based on image type
@@ -220,6 +220,8 @@ function undo(scope = globalScope) {
     loading = false;
     forceResetNodes = true;
 
+    // Updated restricted elements
+    updateRestrictedElementsInScope();
 }
 
 //helper fn
@@ -555,7 +557,7 @@ function load(data) {
         update(globalScope, true);
 
         // Updating restricted element list initally on loading
-        if(restrictedElements.length !== 0) updateRestrictedElementsList();
+        updateRestrictedElementsList();
 
         scheduleBackup();
 

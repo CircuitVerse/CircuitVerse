@@ -88,6 +88,8 @@ function hideRestricted() {
 }
 
 function updateRestrictedElementsList() {
+    if(restrictedElements.length === 0) return;
+
     const restrictedCircuitElementsUsed = globalScope.restrictedCircuitElementsUsed;
     let restrictedStr = "";
 

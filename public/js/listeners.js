@@ -254,6 +254,10 @@ function startListeners() {
 
 
         var textToPutOnClipboard = copy(simulationArea.copyList, true);
+
+        // Updated restricted elements
+        updateRestrictedElementsInScope();
+
         localStorage.setItem('clipboardData', textToPutOnClipboard);
         e.preventDefault();
         if(textToPutOnClipboard==undefined)
@@ -273,6 +277,10 @@ function startListeners() {
         }
 
         var textToPutOnClipboard = copy(simulationArea.copyList);
+
+        // Updated restricted elements
+        updateRestrictedElementsInScope();
+
         localStorage.setItem('clipboardData', textToPutOnClipboard);
         e.preventDefault();
         if(textToPutOnClipboard==undefined)
@@ -294,6 +302,10 @@ function startListeners() {
         }
 
         paste(data);
+
+        // Updated restricted elements
+        updateRestrictedElementsInScope();
+
         e.preventDefault();
     });
 
@@ -398,6 +410,21 @@ function onMouseUp(e) {
 
 }
 
+function updateRestrictedElementsInScope(scope = globalScope) {
+    // Do nothing if no restricted elements
+    if(restrictedElements.length === 0) return;
+
+    let restrictedElementsUsed = [];
+    restrictedElements.forEach((element) => {
+        if(scope[element].length > 0) {
+            restrictedElementsUsed.push(element);
+        }
+    });
+
+    scope.restrictedCircuitElementsUsed = restrictedElementsUsed;
+    updateRestrictedElementsList();
+}
+
 function delete_selected(){
 
     $("input").blur();
@@ -407,4 +434,7 @@ function delete_selected(){
         if (!(simulationArea.multipleObjectSelections[i].objectType == "Node" && simulationArea.multipleObjectSelections[i].type != 2)) simulationArea.multipleObjectSelections[i].cleanDelete();
     }
     simulationArea.multipleObjectSelections = [];
+
+    // Updated restricted elements
+    updateRestrictedElementsInScope();
 }
