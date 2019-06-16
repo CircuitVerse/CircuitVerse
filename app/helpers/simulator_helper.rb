@@ -17,4 +17,30 @@ module SimulatorHelper
   def check_to_delete (data_url)
     !data_url["data:image/jpeg;base64,".length .. -1].to_s.empty?
   end
+
+  def sanitize_data(project, data)
+    return data unless project&.assignment_id.present? && data.present?
+
+    data = JSON.parse(data)
+    saved_restricted_elements = CircuitElement.joins(:assignments)
+      .where(assignments: { id: project.assignment_id }).pluck(:name)
+    scopes = data["scopes"]
+
+    parsed_scopes = scopes.reduce([]) do |new_scopes, scope|
+      restricted_elements_used = []
+
+      CircuitElement.all_element_list.each do |element|
+        if scope[element].present? && saved_restricted_elements.include?(element)
+          restricted_elements_used.push(element)
+        end
+      end
+
+      scope["restrictedCircuitElementsUsed"] = restricted_elements_used
+      new_scopes.push(scope)
+      new_scopes
+    end
+
+    data["scopes"] = parsed_scopes
+    data.to_json
+  end
 end

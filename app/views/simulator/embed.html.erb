@@ -5,11 +5,12 @@
  <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>-->
 <!--<script src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
 <!--<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>-->
+<link rel="stylesheet" type="text/css" href="/css/embed.css"/>
 </head>
 
 <body onload="setup()">
 <script>
-    <% restricted_elements = CircuitElement.joins(:assignments).where(assignments: {id: @project.assignment_id} ).pluck(:name)%>
+    <% restricted_elements = CircuitElement.joins(:assignments).where(assignments: {id: @project&.assignment_id} ).pluck(:name)%>
     <% if @project&.assignment_id.present? %>
       restrictedElements = <%= raw restricted_elements.to_json %>;
     <% else %>
@@ -98,7 +99,6 @@
         embed=true;
 
  </script>
-    <link rel="stylesheet" type="text/css" href="/css/embed.css"/>
  <script src="/js/engine.js"></script>
  <script src="/js/logix.js"></script>
  <script src="/js/Node.js"></script>

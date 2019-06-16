@@ -16,7 +16,7 @@
 
 <body onload="setup()">
 <script>
-    <% restricted_elements = CircuitElement.joins(:assignments).where(assignments: {id: @project.assignment_id} ).pluck(:name)%>
+    <% restricted_elements = CircuitElement.joins(:assignments).where(assignments: {id: @project&.assignment_id} ).pluck(:name)%>
     <% if @project&.assignment_id.present? %>
       restrictedElements = <%= raw restricted_elements.to_json %>;
     <% else %>

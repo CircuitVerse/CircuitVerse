@@ -35,6 +35,11 @@
         <p><%= @assignment.description&.html_safe%></p><br>
       </p>
 
+      <p>
+        <strong>Restricted Circuit Elements:</strong>
+        <p><% @assignment.circuit_elements.pluck(:name).each do |element| %> <%= element %>, <% end %> </p><br>
+      </p>
+
       <%= link_to 'Back', group_path(@group) %>
 
       <%if policy(@assignment).admin_access? && @assignment.status!="closed"%>
@@ -61,6 +66,11 @@
                 e.preventDefault()
                 $("#assignmentPreview").attr("src","/simulator/" + e.currentTarget.id );
                 $(this).tab('show')
+                var cssLink = document.createElement("link");
+                cssLink.href = '/css/embed.css';
+                cssLink.rel = 'stylesheet';
+                cssLink.type ='text/css';
+                frames['assignmentPreview'].document.head.appendChild(cssLink);
             })
         } );
     </script>
@@ -79,7 +89,7 @@
     <div class="col col-9">
 
       <div class="embed-responsive embed-responsive-4by3 feature">
-        <iframe src="" id="assignmentPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen> </iframe>
+        <iframe src="" name="assignmentPreview" id="assignmentPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen> </iframe>
       </div>
     </div>
   </div>
