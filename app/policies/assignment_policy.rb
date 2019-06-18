@@ -33,10 +33,10 @@ class AssignmentPolicy < ApplicationPolicy
   end
 
   def can_be_graded?
-    admin_access? && assignment.graded? && assignment.deadline - Time.now < 0
+    admin_access? && assignment.graded? && assignment.deadline - Time.current < 0
   end
 
   def show_grades?
-    assignment.graded? && Time.now > assignment.deadline && assignment.grades_finalized?
+    assignment.graded? && Time.current > assignment.deadline && assignment.grades_finalized?
   end
 end

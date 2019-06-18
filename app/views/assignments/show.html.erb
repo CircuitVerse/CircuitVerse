@@ -69,7 +69,7 @@
       <div class="overflow:scroll">
         <div class="list-group" id="list-tab" role="tablist" id="submissionTable" style="max-height:600px;overflow:hidden;overflow-y:scroll">
           <% @assignment.project_order.each do |project| %>
-              <a class="list-group-item list-group-item-action" id=<%= project.id%> data-grade=<%= ProjectDecorator.new(project).grade_str %> ><%= project.author.name  %></a>
+              <a class="list-group-item list-group-item-action" id=<%= project.id%> data-grade=<%= project.grade_str %> ><%= project.author.name  %></a>
           <%end%>
 
         </div>
