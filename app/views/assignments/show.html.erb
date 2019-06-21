@@ -26,8 +26,13 @@
       </p>
 
       <p>
+        <strong> Graded: </strong>
+        <%= @assignment.graded %>
+      </p>
+
+      <p>
         <strong>Description:</strong>
-        <p><%= @assignment.description.html_safe%></p><br>
+        <p><%= @assignment.description&.html_safe%></p><br>
       </p>
 
       <%= link_to 'Back', group_path(@group) %>
@@ -36,6 +41,10 @@
 
           <%=link_to 'Edit', edit_group_assignment_path(@group,@assignment) %>
 
+      <%end%>
+
+      <%if policy(@assignment).can_be_graded? %>
+        <%= link_to 'Export', grades_to_csv_path(@assignment, format: :csv) %>
       <%end%>
 
     </div>
@@ -59,9 +68,8 @@
     <div class="col-3">
       <div class="overflow:scroll">
         <div class="list-group" id="list-tab" role="tablist" id="submissionTable" style="max-height:600px;overflow:hidden;overflow-y:scroll">
-		  <% @project_order = @assignment.projects.sort_by {|p| p.author.name} %>
-          <% @project_order.each do |project| %>
-              <a class="list-group-item list-group-item-action" id=<%= project.id%> ><%= project.author.name  %></a>
+          <% @assignment.project_order.each do |project| %>
+              <a class="list-group-item list-group-item-action" id=<%= project.id%> data-grade=<%= project.grade_str %> ><%= project.author.name  %></a>
           <%end%>
 
         </div>
@@ -75,10 +83,43 @@
       </div>
     </div>
   </div>
-  <%end%>
-  <br />
 
-  <br />
+  <% if policy(@assignment).can_be_graded? %>
+    <div class="row grade-container">
+      <div class="col-3">
+        <span class="bold"> Enter Grade: </span>
+        <span id="project-grade-error" class="error"></span>
+        <div class = "grade-show-container">
+          <span class="bold"> Grade: </span><span id="project-grade"> Select a project to view/add grade </span>
+        </div>
+      </div>
+      <div class="col-9">
+        <% unless @assignment.grades_finalized %>
+          <%= form_with(model: Grade.new, multipart: true, id: "assignment-grade-form", url: "/grades") do |form| %>
+            <%= form.hidden_field :project_id, id: "assignment-project-id" %>
+            <%= form.hidden_field :assignment_id, value: @assignment.id %>
+            <% if @assignment.grading_scale == "percent" %>
+              <%= form.number_field :grade, id: "assignment-grade-grade", min: 0, max: 100 %>
+            <% elsif @assignment.grading_scale == "letter" %>
+              <%= form.text_field :grade, id: "assignment-grade-grade" %>
+            <% end %>
+            <div style="margin-top: 10px">
+              <%= button_tag 'Submit', id: "grade-form-submit" %>
+              <%= button_tag 'Remove', id: "grade-form-remove" %>
+              <%= button_tag 'Finalize Grades', id: "grade-form-finalized", data: { url: group_assignment_path(@assignment.group, @assignment) } %>
+            </div>
+            <div class="grade-form-help">
+              * <%= @assignment.grading_scale_str %>
+            </div>
+          <% end %>
+        <% else %>
+           Grades have been finalized!
+        <% end %>
+      </div>
+    </div>
+    <script src="/js/grading.js"> </script>
+  <% end %>
+  <%end%>
 
   <script src="/js/time.js"></script>
   <script>
@@ -87,6 +128,4 @@
               this.innerHTML = formatDate(new Date(this.innerHTML), "dddd hh:mmTT zz, dd MMM yyyy")
           })})
   </script>
-
-
 </div>

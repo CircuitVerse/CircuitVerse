@@ -7,6 +7,10 @@ class Assignment < ApplicationRecord
   after_commit :set_deadline_job
   after_commit :send_update_mail, on: :update
 
+  enum grading_scale: %i[no_scale letter percent]
+
+  has_many :grades, dependent: :destroy
+
   def send_new_assignment_mail
     self.group.group_members.each do |group_member|
       AssignmentMailer.new_assignment_email(group_member.user, self).deliver_later
@@ -32,6 +36,12 @@ class Assignment < ApplicationRecord
     end
   end
 
+  def graded?
+    grading_scale != "no_scale"
+  end
 
-
+  def project_order
+    projects.includes(:grade, :author).sort_by { |p| p.author.name }
+      .map { |project| ProjectDecorator.new(project) }
+  end
 end
