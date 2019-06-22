@@ -37,7 +37,7 @@
 
       <p>
         <strong>Restricted Circuit Elements:</strong>
-        <p><% @assignment.circuit_elements.pluck(:name).each do |element| %> <%= element %>, <% end %> </p><br>
+        <p> <%= @assignment.restricted_circuit_elements %> </p><br>
       </p>
 
       <%= link_to 'Back', group_path(@group) %>

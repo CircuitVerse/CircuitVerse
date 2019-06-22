@@ -97,6 +97,12 @@ function updateRestrictedElementsList() {
         restrictedStr += `${element}, `;
     });
 
+    if (restrictedStr === "") {
+        restrictedStr = "None";
+    } else {
+        restrictedStr = restrictedStr.slice(0, -2);
+    }
+
     $("#restrictedElementsDiv--list").html(restrictedStr);
 }
 

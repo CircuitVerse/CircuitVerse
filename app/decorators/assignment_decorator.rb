@@ -19,4 +19,13 @@ class AssignmentDecorator < SimpleDelegator
       "Assignment won't be graded"
     end
   end
+
+  def restricted_circuit_elements
+    restriced_elements_str = assignment.circuit_elements.pluck(:name).reduce("") do |str, element|
+      str += "#{element}, "
+      str
+    end
+
+    restriced_elements_str.present? ? restriced_elements_str.slice(0..-3) : "None"
+  end
 end
