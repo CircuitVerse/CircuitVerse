@@ -410,21 +410,6 @@ function onMouseUp(e) {
 
 }
 
-function updateRestrictedElementsInScope(scope = globalScope) {
-    // Do nothing if no restricted elements
-    if(restrictedElements.length === 0) return;
-
-    let restrictedElementsUsed = [];
-    restrictedElements.forEach((element) => {
-        if(scope[element].length > 0) {
-            restrictedElementsUsed.push(element);
-        }
-    });
-
-    scope.restrictedCircuitElementsUsed = restrictedElementsUsed;
-    updateRestrictedElementsList();
-}
-
 function delete_selected(){
 
     $("input").blur();

@@ -557,7 +557,7 @@ function load(data) {
         update(globalScope, true);
 
         // Updating restricted element list initally on loading
-        updateRestrictedElementsList();
+        updateRestrictedElementsInScope();
 
         scheduleBackup();
 

@@ -106,6 +106,22 @@ function updateRestrictedElementsList() {
     $("#restrictedElementsDiv--list").html(restrictedStr);
 }
 
+
+function updateRestrictedElementsInScope(scope = globalScope) {
+    // Do nothing if no restricted elements
+    if(restrictedElements.length === 0) return;
+
+    let restrictedElementsUsed = [];
+    restrictedElements.forEach((element) => {
+        if(scope[element].length > 0) {
+            restrictedElementsUsed.push(element);
+        }
+    });
+
+    scope.restrictedCircuitElementsUsed = restrictedElementsUsed;
+    updateRestrictedElementsList();
+}
+
 // Helper function to show message
 function showMessage(mes) {
     if (mes == prevShowMessage) return;
