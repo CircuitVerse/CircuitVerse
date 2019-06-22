@@ -37,4 +37,30 @@ describe SimulatorHelper do
       end
     end
   end
+
+  describe "#sanitize_data" do
+    let(:data) {
+      {
+        scopes: [
+          {
+            Element: [ { label: "label" } ]
+          }]
+      }
+    }
+
+    before do
+      group = FactoryBot.create(:group, mentor: FactoryBot.create(:user))
+      assignment = FactoryBot.create(:assignment, group: group)
+      assignment.circuit_elements << FactoryBot.create(:circuit_element, name: "Element")
+      @project = FactoryBot.create(:project,
+       author: FactoryBot.create(:user), assignment: assignment, data: "{}")
+      allow(CircuitElement).to receive(:all_element_list).and_return(["Element"])
+    end
+
+    it "sanitizes project data to populate restricted elements correctly" do
+      sanitized_data = sanitize_data(@project, data.to_json)
+      expect(JSON.parse(sanitized_data)["scopes"][0]["restrictedCircuitElementsUsed"])
+      .to eq(["Element"])
+    end
+  end
 end

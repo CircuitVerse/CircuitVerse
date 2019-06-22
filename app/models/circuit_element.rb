@@ -17,7 +17,7 @@ class CircuitElement < ApplicationRecord
     "SixteenSegDisplay", "SquareRGBLed", "RGBLedMatrix"]
   GATES = ["AndGate", "OrGate", "NotGate", "XorGate", "NandGate", "NorGate", "XnorGate"]
 
-  DECODERS_AND_MULTIPLEXERS = ["Multiplexer", "Demultiplexer", "BitSelector", "MSB", "LSB",
+  DECODERS_AND_PLEXERS = ["Multiplexer", "Demultiplexer", "BitSelector", "MSB", "LSB",
   "PriorityEncoder", "Decoder"]
 
   SEQUENTIAL_ELEMENTS = ["DflipFlop", "Dlatch", "TflipFlop", "JKflipFlop", "SRflipFlop", "TTY",
@@ -38,7 +38,7 @@ class CircuitElement < ApplicationRecord
     when "Gates"
       GATES
     when "Decoders & Plexers"
-      DECODERS_AND_MULTIPLEXERS
+      DECODERS_AND_PLEXERS
     when "Sequential Elements"
       SEQUENTIAL_ELEMENTS
     when "Test Bench"

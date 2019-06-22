@@ -24,7 +24,7 @@ module SimulatorHelper
     data = JSON.parse(data)
     saved_restricted_elements = CircuitElement.joins(:assignments)
       .where(assignments: { id: project.assignment_id }).pluck(:name)
-    scopes = data["scopes"]
+    scopes = data["scopes"] || []
 
     parsed_scopes = scopes.reduce([]) do |new_scopes, scope|
       restricted_elements_used = []
