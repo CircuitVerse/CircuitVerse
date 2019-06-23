@@ -64,11 +64,15 @@ img{
 
 #assignment-grade-form {
     display: inline-block;
-    width: 50%;
+    width: 100%;
 }
 
 #assignment-grade-grade {
-    width: 100%;
+    flex: 1;
+}
+
+#assignment-grade-remarks {
+    flex: 1;
 }
 
 .error {
@@ -90,4 +94,9 @@ img{
 .grade-form-help {
     margin-top: 5px;
     font-size: 12px;
+}
+
+.assignment-grade-inputs {
+    display: flex;
+    width: 100%;
 }
