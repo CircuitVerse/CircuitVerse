@@ -74,6 +74,26 @@ RSpec.describe Grade, type: :model do
           expect(@grade).to be_invalid
         end
       end
+
+      context "custom grading scale" do
+        before do
+          assignment = FactoryBot.create(:assignment, group: @group, grading_scale: :custom)
+          assignment_project = FactoryBot.create(:project, assignment: assignment,
+            author: FactoryBot.create(:user))
+          @grade = FactoryBot.build(:grade, project: assignment_project, grader: @mentor,
+            grade: "98", assignment: assignment)
+        end
+
+        it "validates all grades" do
+          expect(@grade).to be_valid
+          @grade.grade = "123"
+          expect(@grade).to be_valid
+          @grade.grade = "-1"
+          expect(@grade).to be_valid
+          @grade.grade = "A-"
+          expect(@grade).to be_valid
+        end
+      end
     end
 
     context "assignment and project" do

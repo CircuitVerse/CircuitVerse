@@ -18,7 +18,8 @@ describe GradesController, type: :request do
           project_id: @assignment_project.id,
           assignment_id: @assignment.id,
           user_id: @mentor.id,
-          grade: "A"
+          grade: "A",
+          remarks: "Some remarks"
         },
         format: :json
       }
@@ -34,7 +35,8 @@ describe GradesController, type: :request do
           expect {
             post grades_path, params: create_params
           }.to change { Grade.count }.by(1)
-          expect(JSON.parse(response.body).keys.sort).to eq(%w[assignment_id grade id project_id])
+          expect(JSON.parse(response.body).keys.sort).to eq(%w[assignment_id grade id project_id
+            remarks])
           expect(response.content_type).to eq("application/json")
         end
       end
@@ -121,7 +123,7 @@ describe GradesController, type: :request do
     before do
       FactoryBot.create(:group_member, user: @assignment_project.author, group: @group)
       @grade = FactoryBot.create(:grade, project: @assignment_project, grader: @mentor,
-        grade: "A", assignment: @assignment)
+        grade: "A", assignment: @assignment, remarks: "remarks")
     end
 
     context "signed user is mentor" do
@@ -129,7 +131,7 @@ describe GradesController, type: :request do
         sign_in @mentor
         get grades_to_csv_path(@assignment, format: :csv)
         expect(response.body).to include("#{@assignment_project.author.email}," +
-          "#{@assignment_project.author.name},#{@grade.grade}")
+          "#{@assignment_project.author.name},#{@grade.grade},#{@grade.remarks}")
       end
     end
   end
