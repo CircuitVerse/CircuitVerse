@@ -28,21 +28,6 @@ ActiveRecord::Schema.define(version: 20190623061901) do
     t.index ["group_id"], name: "index_assignments_on_group_id"
   end
 
-  create_table "assignments_circuit_elements", id: false, force: :cascade do |t|
-    t.bigint "circuit_element_id"
-    t.bigint "assignment_id"
-    t.index ["assignment_id"], name: "index_assignments_circuit_elements_on_assignment_id"
-    t.index ["circuit_element_id"], name: "index_assignments_circuit_elements_on_circuit_element_id"
-  end
-
-  create_table "circuit_elements", force: :cascade do |t|
-    t.string "name"
-    t.string "image"
-    t.integer "category"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "collaborations", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "project_id"

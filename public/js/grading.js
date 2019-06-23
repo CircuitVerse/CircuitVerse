@@ -61,11 +61,11 @@ $('#grade-form-submit').click((e) => {
             data: form.serialize(),
             datatype: 'json',
             success: (data) => {
-                const grade_remarks = data.remarks !== null ? data.remarks : "N.A.";
+                const gradeRemarks = data.remarks !== null ? data.remarks : 'N.A.';
                 $('#project-grade').html(data.grade);
-                $('#project-remarks').html(grade_remarks);
+                $('#project-remarks').html(gradeRemarks);
                 $(`#${data.project_id}`).attr('data-grade', data.grade);
-                $(`#${data.project_id}`).attr('data-remarks', grade_remarks);
+                $(`#${data.project_id}`).attr('data-remarks', gradeRemarks);
                 $('#project-grade-error').html('');
                 $('#assignment-grade-grade').val('');
                 $('#assignment-grade-remarks').val('');
