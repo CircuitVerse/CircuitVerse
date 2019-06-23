@@ -1,3 +1,4 @@
+<link rel="stylesheet" type="text/css" href="/css/tooltip.css">
 <div class="container">
   <div class="row feature">
 
@@ -164,8 +165,14 @@
               </td>
               <% unless policy(@group).admin_access? %>
                 <td>
-                  <% if policy(assignment).show_grades? %>
-                    <%= ProjectDecorator.new(project_assignment).grade_str %>
+                  <% if policy(assignment).show_grades? && project_assignment.present? %>
+                    <div class="tooltip-help">
+                      <%= ProjectDecorator.new(project_assignment).grade_str %>
+                      <div class="right-help">
+                        <%= ProjectDecorator.new(project_assignment).remarks_str %>
+                        <i> </i>
+                      </div>
+                    </div>
                   <% else %>
                     N.A.
                   <% end %>
