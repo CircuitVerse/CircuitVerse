@@ -20,6 +20,8 @@ class Grade < ApplicationRecord
                 grade&.match(LETTER_MATCH).present?
               when "percent"
                 grade&.match(PERCENT_MATCH).present?
+              when "custom"
+                true
       end
 
       errors.add(:grade, "Grade does not match scale or assignment cannot be graded") unless valid
