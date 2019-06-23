@@ -100,7 +100,7 @@
             <%= form.hidden_field :assignment_id, value: @assignment.id %>
             <% if @assignment.grading_scale == "percent" %>
               <%= form.number_field :grade, id: "assignment-grade-grade", min: 0, max: 100 %>
-            <% elsif @assignment.grading_scale == "letter" %>
+            <% elsif @assignment.grading_scale == "letter" || @assignment.grading_scale == "custom" %>
               <%= form.text_field :grade, id: "assignment-grade-grade" %>
             <% end %>
             <div style="margin-top: 10px">

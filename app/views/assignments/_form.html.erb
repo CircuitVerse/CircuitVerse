@@ -21,13 +21,14 @@
     <div class="field">
       <span style="color: red"> * Cannot be changed once set </span>
       <%= form.label :grading_scale %>
-      <%= form.select :grading_scale, [:no_scale, :letter, :percent] %>
+      <%= form.select :grading_scale, [:no_scale, :letter, :percent, :custom] %>
       <span style="margin-bottom: 2px">
         <div class="tooltip-help"> Help
           <div class="right-help">
             <div> <span style="font-style: italic"> percent </span>: Assignment can be graded on a scale of 1-100 </div>
             <div> <span style="font-style: italic"> letter </span>: Assignment can be graded with letters A-F </div>
             <div> <span style="font-style: italic"> no_scale </span>: Assignment won't be graded </div>
+            <div> <span style="font-style: italic"> custom </span>: Assignment can be graded as required </div>
             <i> </i>
           </div>
         </div>
