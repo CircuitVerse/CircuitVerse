@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class GradesController < ApplicationController
+  include ActionView::Helpers::SanitizeHelper
+
   before_action :authenticate_user!
   before_action :set_grade, only: [:create, :destroy]
 
@@ -9,10 +11,14 @@ class GradesController < ApplicationController
 
     authorize @grade, :mentor?
 
+    grade = sanitize grade_params[:grade].present? ? grade_params[:grade] : @grade.grade
+    remarks = sanitize grade_params[:remarks].present? ? grade_params[:remarks] : @grade.remarks
+
     @grade.project_id = grade_params[:project_id]
-    @grade.grade = grade_params[:grade]
+    @grade.grade = grade
     @grade.assignment_id = grade_params[:assignment_id]
     @grade.user_id = current_user.id
+    @grade.remarks = remarks
 
     render json: { error: "Grade is invalid" },
       status: 400 unless @grade.save
@@ -37,7 +43,7 @@ class GradesController < ApplicationController
 
   private
     def grade_params
-      params.require(:grade).permit(:project_id, :grade, :assignment_id)
+      params.require(:grade).permit(:project_id, :grade, :assignment_id, :remarks)
     end
 
     def set_grade

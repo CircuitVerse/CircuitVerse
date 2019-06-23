@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190609113412) do
+ActiveRecord::Schema.define(version: 20190623061901) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,21 @@ ActiveRecord::Schema.define(version: 20190609113412) do
     t.integer "grading_scale", default: 0
     t.boolean "grades_finalized", default: false
     t.index ["group_id"], name: "index_assignments_on_group_id"
+  end
+
+  create_table "assignments_circuit_elements", id: false, force: :cascade do |t|
+    t.bigint "circuit_element_id"
+    t.bigint "assignment_id"
+    t.index ["assignment_id"], name: "index_assignments_circuit_elements_on_assignment_id"
+    t.index ["circuit_element_id"], name: "index_assignments_circuit_elements_on_circuit_element_id"
+  end
+
+  create_table "circuit_elements", force: :cascade do |t|
+    t.string "name"
+    t.string "image"
+    t.integer "category"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "collaborations", force: :cascade do |t|
@@ -90,6 +105,7 @@ ActiveRecord::Schema.define(version: 20190609113412) do
     t.bigint "project_id"
     t.bigint "user_id"
     t.bigint "assignment_id"
+    t.string "remarks"
     t.index ["assignment_id"], name: "index_grades_on_assignment_id"
     t.index ["project_id"], name: "index_grades_on_project_id"
     t.index ["user_id"], name: "index_grades_on_user_id"

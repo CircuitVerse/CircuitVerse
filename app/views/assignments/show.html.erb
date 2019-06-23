@@ -69,7 +69,7 @@
       <div class="overflow:scroll">
         <div class="list-group" id="list-tab" role="tablist" id="submissionTable" style="max-height:600px;overflow:hidden;overflow-y:scroll">
           <% @assignment.project_order.each do |project| %>
-              <a class="list-group-item list-group-item-action" id=<%= project.id%> data-grade=<%= project.grade_str %> ><%= project.author.name  %></a>
+              <a class="list-group-item list-group-item-action" id=<%= project.id%> data-grade="<%= project.grade_str %>" data-remarks="<%= project.remarks_str %>"><%= project.author.name  %></a>
           <%end%>
 
         </div>
@@ -87,10 +87,10 @@
   <% if policy(@assignment).can_be_graded? %>
     <div class="row grade-container">
       <div class="col-3">
-        <span class="bold"> Enter Grade: </span>
+        <span class="bold"> Enter Grade & Remarks: </span>
         <span id="project-grade-error" class="error"></span>
         <div class = "grade-show-container">
-          <span class="bold"> Grade: </span><span id="project-grade"> Select a project to view/add grade </span>
+          <span class="bold"> Grade & Remarks: </span><span id="project-grade"> Select a project to view/add grade</span>,<span id="project-remarks">remarks</span>
         </div>
       </div>
       <div class="col-9">
@@ -98,11 +98,14 @@
           <%= form_with(model: Grade.new, multipart: true, id: "assignment-grade-form", url: "/grades") do |form| %>
             <%= form.hidden_field :project_id, id: "assignment-project-id" %>
             <%= form.hidden_field :assignment_id, value: @assignment.id %>
+            <div class="assignment-grade-inputs">
             <% if @assignment.grading_scale == "percent" %>
-              <%= form.number_field :grade, id: "assignment-grade-grade", min: 0, max: 100 %>
+              <%= form.number_field :grade, id: "assignment-grade-grade", min: 0, max: 100, placeholder: "Grades..." %>
             <% elsif @assignment.grading_scale == "letter" || @assignment.grading_scale == "custom" %>
-              <%= form.text_field :grade, id: "assignment-grade-grade" %>
+              <%= form.text_field :grade, id: "assignment-grade-grade", placeholder: "Grades..."%>
             <% end %>
+              <%= form.text_field :remarks, id: "assignment-grade-remarks", placeholder: "Remarks..." %>
+            </div>
             <div style="margin-top: 10px">
               <%= button_tag 'Submit', id: "grade-form-submit" %>
               <%= button_tag 'Remove', id: "grade-form-remove" %>
