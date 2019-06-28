@@ -10,11 +10,11 @@
 
 <body onload="setup()">
 <script>
-    <% restricted_elements = CircuitElement.joins(:assignments).where(assignments: {id: @project&.assignment_id} ).pluck(:name)%>
+    
     <% if @project&.assignment_id.present? %>
-      restrictedElements = <%= raw restricted_elements.to_json %>;
+     
     <% else %>
-      restrictedElements = [];
+     
     <% end %>
 </script>
 <div>
@@ -117,6 +117,7 @@
  <script src="/js/testBench.js"></script>
     <script src="/js/eventQueue.js"></script>
     <script src="/js/utils.js"> </script>
+    <script type="text/javascript" src="/js/metadata.json"></script>
 
 
 

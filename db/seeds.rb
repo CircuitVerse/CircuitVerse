@@ -6,6 +6,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+puts "Creating Users"
+
 User.create(name: 'Admin',
   email: 'admin@circuitverse.org',
   password: 'password',
@@ -14,8 +16,9 @@ User.create(name: 'Admin',
 users = User.create([{ name: 'user1',email: 'user1@circuitverse.org',password: 'password' },
   { name: 'user2',email: 'user2@circuitverse.org',password: 'password' }])
 
-# private,public,limited access
 
+# private,public,limited access
+puts "Creating Projects"
 projects = Project.create([{ name:'Private',
 author_id: users.first.id,
 project_access_type: 'Private',
@@ -28,7 +31,7 @@ project_access_type: 'Limited access',
 description: 'description' }])
 
 #examples
-
+puts "Creating Examples"
 Project.create([{ name:'Full Adder',
 author_id: users.first.id,
 data: File.read('db/examples/fullAdder.json'),
@@ -44,7 +47,7 @@ project_access_type: 'Public',
 description: 'description' }])
 
 #groups
-
+puts "Creating Groups"
 group = Group.create(name: 'group1',
   mentor_id: users.first.id,
 )
@@ -53,7 +56,7 @@ GroupMember.create(group_id: group.id,
 )
 
 #tags
-
+puts "Creating Tags"
 tag = Tag.create(name:"example")
 Tagging.create([{ tag_id: tag.id,
 project_id: projects.first.id },{ tag_id: tag.id,

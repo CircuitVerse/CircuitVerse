@@ -16,12 +16,6 @@
 
 <body onload="setup()">
 <script>
-    <% restricted_elements = CircuitElement.joins(:assignments).where(assignments: {id: @project&.assignment_id} ).pluck(:name)%>
-    <% if @project&.assignment_id.present? %>
-      restrictedElements = <%= raw restricted_elements.to_json %>;
-    <% else %>
-      restrictedElements = [];
-    <% end %>
     userSignedIn = <%= user_signed_in? %>;
     logix_project_id = <%= @logix_project_id%>;
     projectName = "<%= @projectName%>"
@@ -110,17 +104,7 @@
     <div class="modules noSelect defaultCursor" >
       <div id="modules-header">Circuit Elements</div>
       <div class="accordion" id="menu">
-        <% CircuitElement.all.order("category").group_by(&:category).each do |category, elements|%>
-          <div class="panelHeader"><%= category %> </div>
-            <div class="panel" style="overflow-y:hidden">
-          <% elements.each do |element| %>
-              <div class="icon logixModules" id="<%= element.name %>" >
-                <img src=<%= element.image.url %>>
-                <p class="img__description"> <%= element.name %></p>
-              </div>
-          <% end %>
-            </div>
-        <% end %>
+        
       </div>
     </div>
     <div class="moduleProperty effect1" id="moduleProperty">
@@ -359,6 +343,7 @@
   <script src="/js/layout.js"></script>
   <script src="/js/testBench.js"></script>
   <script src="/js/verilog.js"></script>
+  <script type="text/javascript" src="/js/metadata.json"></script>
   <% if @project.nil? or @project.assignment_id.nil? %>
     <script src="/js/combinationalAnalysis.js"></script>
       <script src="/js/Quin_McCluskey.js"></script>

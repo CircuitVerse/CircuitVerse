@@ -51,7 +51,7 @@
   </div>
 
     <div class="field" style="margin-bottom: 8px;margin-top: 17px">
-        <span style="font-weight: 600"> Restrict elements: </span>  <%= check_box_tag "restrict-elements", "1", @assignment.elements_restricted?, id: "restrict-elements", style: "margin-top: 0" %>
+        <span style="font-weight: 600"> Restrict elements: </span>  <%= check_box_tag "restrict-elements", "1", true, id: "restrict-elements", style: "margin-top: 0" %>
         <div class="restricted-elements-list">
           <% CircuitElement.all.order("category").group_by(&:category).each do |category, elements| %>
             <div class="circuit-element-category"> <%= category %> </div>

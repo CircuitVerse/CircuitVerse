@@ -42,10 +42,6 @@ class Assignment < ApplicationRecord
     grading_scale != "no_scale"
   end
 
-  def elements_restricted?
-    circuit_elements&.count != 0
-  end
-
   def project_order
     projects.includes(:grade, :author).sort_by { |p| p.author.name }
       .map { |project| ProjectDecorator.new(project) }

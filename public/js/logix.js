@@ -36,31 +36,79 @@ forceResetNodes = true; // FLag to reset all Nodes
 //Exact same name as object constructor
 //This list needs to be updated when new circuitselements are created
 
-circuitElementList = [
-    "Input", "Output", "NotGate", "OrGate", "AndGate", "NorGate", "NandGate", "XorGate", "XnorGate", "SevenSegDisplay", "SixteenSegDisplay", "HexDisplay",
-    "Multiplexer", "BitSelector", "Splitter", "Power", "Ground", "ConstantVal", "ControlledInverter", "TriState", "Adder", "Rom", "RAM", "EEPROM", "TflipFlop",
-    "JKflipFlop", "SRflipFlop", "DflipFlop", "TTY", "Keyboard", "Clock", "DigitalLed", "Stepper", "VariableLed", "RGBLed", "SquareRGBLed", "RGBLedMatrix", "Button", "Demultiplexer",
-    "Buffer", "SubCircuit", "Flag", "MSB", "LSB", "PriorityEncoder", "Tunnel", "ALU", "Decoder", "Random", "Counter", "Dlatch", "TB_Input", "TB_Output", "ForceGate",
-];
 
-annotationList = ["Text", "Rectangle", "Arrow"]
-moduleList = [...circuitElementList, ...annotationList]
+function setupElementLists() {
 
-updateOrder = ["wires", ...circuitElementList, "nodes", ...annotationList]; // Order of update
-renderOrder = [...(moduleList.slice().reverse()), "wires", "allNodes"]; // Order of render
+    $('#menu').empty();
 
-//Exact same name as object constructor
-// All the combinational modules which give rise to an value(independently)
+    window.circuitElementList = metadata.circuitElementList;
+    window.annotationList = metadata.annotationList;
+    window.inputList = metadata.inputList;
+    window.subCircuitInputList = metadata.subCircuitInputList;;
+    window.restrictedElements = ["Input"];
+    window.moduleList = [...circuitElementList, ...annotationList]
+    window.updateOrder = ["wires", ...circuitElementList, "nodes", ...annotationList]; // Order of update
+    window.renderOrder = [...(moduleList.slice().reverse()), "wires", "allNodes"]; // Order of render
+
+
+    function createIcon(element) {
+        return `<div class="icon logixModules" id="${element}" >
+            <img src= "/img/${element}.svg" >
+            <p class="img__description">${element}</p>    
+        </div>`;
+    }
+
+        let elementHierarchy = metadata.elementHierarchy;
+        for (category in elementHierarchy) {
+            let htmlIcons = '';
+
+            let categoryData = elementHierarchy[category];
+
+            for (let i = 0; i < categoryData.length; i++){
+                let element = categoryData[i];
+                htmlIcons += createIcon(element);
+            }
+                
+            let accordianData = `<div class="panelHeader">${category}</div>
+            <div class="panel" style="overflow-y:hidden">
+              ${htmlIcons}
+            </div>`;
+            
+            $('#menu').append(accordianData);
+            
+        }
+
+        
+
+}
+
+// setupElementLists()
+
+
+// circuitElementList = [
+//     "Input", "Output", "NotGate", "OrGate", "AndGate", "NorGate", "NandGate", "XorGate", "XnorGate", "SevenSegDisplay", "SixteenSegDisplay", "HexDisplay",
+//     "Multiplexer", "BitSelector", "Splitter", "Power", "Ground", "ConstantVal", "ControlledInverter", "TriState", "Adder", "Rom", "RAM", "EEPROM", "TflipFlop",
+//     "JKflipFlop", "SRflipFlop", "DflipFlop", "TTY", "Keyboard", "Clock", "DigitalLed", "Stepper", "VariableLed", "RGBLed", "SquareRGBLed", "RGBLedMatrix", "Button", "Demultiplexer",
+//     "Buffer", "SubCircuit", "Flag", "MSB", "LSB", "PriorityEncoder", "Tunnel", "ALU", "Decoder", "Random", "Counter", "Dlatch", "TB_Input", "TB_Output", "ForceGate",
+// ];
+
+// annotationList = ["Text", "Rectangle", "Arrow"]
+
+// moduleList = [...circuitElementList, ...annotationList]
+// updateOrder = ["wires", ...circuitElementList, "nodes", ...annotationList]; // Order of update
+// renderOrder = [...(moduleList.slice().reverse()), "wires", "allNodes"]; // Order of render
+
+// // Exact same name as object constructor
+// // All the combinational modules which give rise to an value(independently)
 
 // inputList = ["Random","Buffer", "Stepper", "Ground", "Power", "ConstantVal", "Input", "Clock", "Button","Dlatch","JKflipFlop","TflipFlop","SRflipFlop","DflipFlop"];
 // subCircuitInputList=["Clock", "Button","Buffer", "Stepper", "Ground", "Power", "ConstantVal","Dlatch","JKflipFlop","TflipFlop","SRflipFlop","DflipFlop"]
 
-inputList = ["Random", "Dlatch", "JKflipFlop", "TflipFlop", "SRflipFlop", "DflipFlop", "Buffer", "Stepper", "Ground", "Power", "ConstantVal", "Input", "Clock", "Button", "Counter"];
-subCircuitInputList = ["Random", "Dlatch", "JKflipFlop", "TflipFlop", "SRflipFlop", "DflipFlop", "Buffer", "Stepper", "Ground", "Power", "ConstantVal", "Clock", "Button", "Counter"];
+// inputList = ["Random", "Dlatch", "JKflipFlop", "TflipFlop", "SRflipFlop", "DflipFlop", "Buffer", "Stepper", "Ground", "Power", "ConstantVal", "Input", "Clock", "Button", "Counter"];
+// subCircuitInputList = ["Random", "Dlatch", "JKflipFlop", "TflipFlop", "SRflipFlop", "DflipFlop", "Buffer", "Stepper", "Ground", "Power", "ConstantVal", "Clock", "Button", "Counter"];
 
 //Scope object for each circuit level, globalScope for outer level
 scopeList = {};
-
 
 
 // Helper function to show error
@@ -316,7 +364,7 @@ Scope.prototype.centerFocus = function(zoomIn = true) {
 }
 
 //fn to setup environment
-function setup() {
+function setupEnvironment() {
 
     projectId = generateId();
     updateSimulation = true;
@@ -325,6 +373,16 @@ function setup() {
 
     data = {}
     resetup();
+}
+
+
+function setup() {
+
+    setupElementLists();
+    setupEnvironment();
+    if (!embed)
+        setupUI();
+    startListeners();
 
     // Load project data after 1 second - needs to be improved, delay needs to be eliminated
     setTimeout(function() {
@@ -371,7 +429,7 @@ function setup() {
         }
     }, 1000);
 
-    startListeners();
+    
 
 }
 

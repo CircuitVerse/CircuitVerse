@@ -57,7 +57,7 @@ function menuItemClicked(id) {
     }
 }
 
-$(document).ready(function () {
+function setupUI() {
     var ctxEl = document.getElementById('contextMenu');
     document.addEventListener('mousedown', (e) => {
         // Check if mouse is not inside the context menu and menu is visible
@@ -129,8 +129,7 @@ $(document).ready(function () {
     // });
     // $('#moduleProperty').draggable();
 
-}); // accordion
-
+}
 
 
 var prevPropertyObj = undefined;
