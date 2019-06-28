@@ -202,7 +202,7 @@ NandGate.prototype.customDraw = function () {
 
 
 function Multiplexer(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1, controlSignalSize = 1) {
-    // //console.log("HIT");
+
     // //console.log(x,y,scope,dir,bitWidth,controlSignalSize);
     CircuitElement.call(this, x, y, scope, dir, bitWidth);
 
@@ -1619,7 +1619,6 @@ Splitter.prototype.reset = function () {
 }
 Splitter.prototype.processVerilog = function () {
 
-    // console.log(this.inp1.verilogLabel +":"+ this.outputs[0].verilogLabel);
     if (this.inp1.verilogLabel != "" && this.outputs[0].verilogLabel == "") {
         var bitCount = 0;
         for (var i = 0; i < this.splitCount; i++) {
@@ -1640,7 +1639,6 @@ Splitter.prototype.processVerilog = function () {
         var label = "{" + this.outputs.map((x) => {
             return x.verilogLabel
         }).join(",") + "}";
-        // console.log("HIT",label)
         if (this.inp1.verilogLabel != label) {
             this.inp1.verilogLabel = label;
             this.scope.stack.push(this.inp1);
@@ -1801,7 +1799,6 @@ function get_next_position(x = 0, scope = globalScope) {
         if (scope.Output[i].layoutProperties.x == x)
             done[scope.Output[i].layoutProperties.y] = 1
 
-    // console.log(done)
     // return possible_y;
 
     while (done[possible_y] || done[possible_y + 10] || done[possible_y - 10])
@@ -2146,7 +2143,6 @@ ConstantVal.prototype.resolve = function () {
 }
 ConstantVal.prototype.dblclick = function () {
     this.state = prompt("Re enter the value") || "0";
-    console.log(this.state);
     this.newBitWidth(this.state.toString().length);
     //console.log(this.state, this.bitWidth);
 }
@@ -2427,13 +2423,12 @@ function Button(x, y, scope = globalScope, dir = "RIGHT") {
     this.wasClicked = false;
     this.rectangleObject = false;
     this.setDimensions(10, 10);
-
-
 }
 Button.prototype = Object.create(CircuitElement.prototype);
 Button.prototype.constructor = Button;
 Button.prototype.tooltipText = "Button ToolTip: High(1) when pressed and Low(0) when released."
 Button.prototype.propagationDelay = 0;
+Button.prototype.canShowInSubcircuit = true;
 Button.prototype.customSave = function () {
     var data = {
         nodes: {
@@ -2474,6 +2469,28 @@ Button.prototype.customDraw = function () {
     ctx.beginPath();
 
     drawCircle2(ctx, 0, 0, 12, xx, yy, this.direction);
+    ctx.stroke();
+
+    if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this))
+        ctx.fillStyle = "rgba(232, 13, 13,0.6)"
+
+    if (this.wasClicked)
+        ctx.fillStyle = "rgba(232, 13, 13,0.8)";
+    ctx.fill();
+}
+
+Button.prototype.layoutDraw = function () {
+    ctx = simulationArea.context;
+    var xx = this.subcircuitMetadata.x;
+    var yy = this.subcircuitMetadata.y;
+    ctx.fillStyle = "#ddd";
+
+    ctx.strokeStyle = "#353535";
+    ctx.lineWidth = correctWidth(3);
+
+    ctx.beginPath();
+
+    drawCircle2(ctx, 0, 0, 6, xx, yy, this.direction);
     ctx.stroke();
 
     if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this))
@@ -3375,8 +3392,6 @@ Tunnel.prototype.setBounds = function () {
     this.upDimensionY = Math.abs(-20 + yRotate);
     this.rightDimensionX = Math.abs(xRotate)
     this.downDimensionY = Math.abs(20 + yRotate);
-    console.log(this.leftDimensionX, this.upDimensionY, this.rightDimensionX, this.downDimensionY);
-
     // rect2(ctx, -120 + xRotate + this.xSize, -20 + yRotate, 120 - this.xSize, 40, xx, yy, "RIGHT");
 
 
@@ -3515,7 +3530,6 @@ Tunnel.prototype.customDraw = function () {
 }
 
 function ALU(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
-    // //console.log("HIT");
     // //console.log(x,y,scope,dir,bitWidth,controlSignalSize);
     CircuitElement.call(this, x, y, scope, dir, bitWidth);
     this.message = "ALU";

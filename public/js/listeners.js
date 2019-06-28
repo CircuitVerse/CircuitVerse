@@ -289,26 +289,26 @@ function startListeners() {
     });
     
     // 'drag and drop' event listener for subcircuit elements in layout mode 
-    $('#subcircuitMenu').on('dragstop', '.draggableSubcircuitElement', function(event, ui){
-        const sideBarWidth = $('#sideBar')[0].clientWidth;
-        let tempElement;
+    // $('#subcircuitMenu').on('dragstop', '.draggableSubcircuitElement', function(event, ui){
+    //     const sideBarWidth = $('#sideBar')[0].clientWidth;
+    //     let tempElement;
 
-        if( ui.position.top > 10 && ui.position.left > sideBarWidth){
-            // make a shallow copy of the element with the new coordinates
-            tempElement = jQuery.extend({}, globalScope[this.dataset.elementName][this.dataset.elementId]);
-            /*
-            Changing the coordinate doesn't work yet, nodes get far from element
-            tempElement.x = ui.position.left - sideBarWidth;
-            tempElement.y = ui.position.top;
-            for(let node of tempElement.nodeList){
-                node.x = ui.position.left - sideBarWidth;
-                node.y = ui.position.top
-            } */
+    //     if( ui.position.top > 10 && ui.position.left > sideBarWidth){
+    //         // make a shallow copy of the element with the new coordinates
+    //         tempElement = jQuery.extend({}, globalScope[this.dataset.elementName][this.dataset.elementId]);
+    //         /*
+    //         Changing the coordinate doesn't work yet, nodes get far from element
+    //         tempElement.x = ui.position.left - sideBarWidth;
+    //         tempElement.y = ui.position.top;
+    //         for(let node of tempElement.nodeList){
+    //             node.x = ui.position.left - sideBarWidth;
+    //             node.y = ui.position.top
+    //         } */
 
-            temp_buffer.subElements.push(tempElement);
-            this.parentElement.removeChild(this);
-        }
-    });
+    //         temp_buffer.subElements.push(tempElement);
+    //         this.parentElement.removeChild(this);
+    //     }
+    // });
 }
 
 var isIe = (navigator.userAgent.toLowerCase().indexOf("msie") != -1 ||

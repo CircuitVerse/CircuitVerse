@@ -7,7 +7,7 @@ var totalObjects = 0;
 function scheduleUpdate(count = 0, time = 100, fn) {
 
     if (lightMode) time *= 5;
-
+    
     if (count && !layoutMode) { // Force update
         update();
         for (var i = 0; i < count; i++)
@@ -341,7 +341,6 @@ function play(scope = globalScope, resetNodes = false) {
 
     // Check for TriState Contentions
     if (simulationArea.contentionPending.length) {
-        console.log(simulationArea.contentionPending)
         showError("Contention at TriState");
         forceResetNodes = true
         errorDetected = true;

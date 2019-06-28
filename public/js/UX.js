@@ -88,7 +88,6 @@ $(document).ready(function () {
     // });
 
     $('.logixModules').mousedown(function () {
-        //////console.log(smartDropXX,smartDropYY);
         if (simulationArea.lastSelected && simulationArea.lastSelected.newElement) simulationArea.lastSelected.delete();
         var obj = new window[this.id](); //(simulationArea.mouseX,simulationArea.mouseY);
         simulationArea.lastSelected = obj;
@@ -99,7 +98,10 @@ $(document).ready(function () {
             smartDropXX = 50;
             smartDropYY += 80;
         }
+
     });
+
+
     $('.logixButton').click(function () {
         window[this.id]();
     });
@@ -107,9 +109,7 @@ $(document).ready(function () {
 
 
     var iconList = $('.icon');
-    // //////console.log(iconList)
     for (var i = 0; i < iconList.length; i++) {
-        //////console.log(iconList[i].id);
         $(iconList[i]).append('<img src="/img/' + iconList[i].id + '.svg"/>');
         $(iconList[i]).append('<p class="img__description">' + iconList[i].id +
             '</p>');
@@ -122,7 +122,6 @@ $(document).ready(function () {
         if (!tooltipText) return;
         $("#Help").addClass("show");
         $("#Help").empty();
-        ////console.log("SHOWING")
         $("#Help").append(tooltipText);
     }); // code goes in document ready fn only
     $('.logixModules').mouseleave(function () {
@@ -221,7 +220,6 @@ function showProperties(obj) {
         $('#toolTipButton').hover(function () {
             $("#Help").addClass("show");
             $("#Help").empty();
-            ////console.log("SHOWING")
             $("#Help").append(tooltipText);
         }); // code goes in document ready fn only
         $('#toolTipButton').mouseleave(function () {
@@ -237,7 +235,6 @@ function showProperties(obj) {
 
     $(".objectPropertyAttribute").on("change keyup paste click", function () {
         // return;
-        //////console.log(this.name+":"+this.value);
 
 
         scheduleUpdate();
@@ -250,7 +247,6 @@ function showProperties(obj) {
     })
     $(".objectPropertyAttributeChecked").on("change keyup paste click", function () {
         // return;
-        //////console.log(this.name+":"+this.value);
 
 
 
@@ -282,27 +278,50 @@ function escapeHtml(unsafe) {
 }
 
 function fillSubcircuitElements() {
-    const subcircuitElements = [
-        "DigitalLed", "VariableLed", "RGBLed", "SquareRGBLed",
-        "SevenSegDisplay","HexDisplay",
-        "Button", "Random", "Counter"];
 
-    for(let el of subcircuitElements) {
-        if(globalScope[el].length === 0) continue;
+    $('#subcircuitMenu').empty();
+
+    for(let el of circuitElementList) {
+        if(!window[el].prototype.canShowInSubcircuit || globalScope[el].length === 0) continue;
         let tempHTML = '';
 
         // add a panel for each existing group
         tempHTML += `<div class="panelHeader">${el}s</div>`;
         tempHTML += `<div class="panel">`;
 
+        let available = false;
+
         // add an SVG for each element
         for(let i = 0; i < globalScope[el].length; i++){
-            tempHTML += `<div class="icon logixModules draggableSubcircuitElement" id="${el}-${i}" data-element-id="${i}" data-element-name="${el}">`;
-            tempHTML += `<img src= "/img/${el}.svg">`;
-            tempHTML += `<p class="img__description">${(globalScope[el][i].label !== "")? globalScope[el][i].label : 'unlabeled'}</p>`;
-            tempHTML += '</div>';
+            if (!globalScope[el][i].subcircuitMetadata.showInSubcircuit) {
+                tempHTML += `<div class="icon subcircuitModule" id="${el}-${i}" data-element-id="${i}" data-element-name="${el}">`;
+                tempHTML += `<img src= "/img/${el}.svg">`;
+                tempHTML += `<p class="img__description">${(globalScope[el][i].label !== "")? globalScope[el][i].label : 'unlabeled'}</p>`;
+                tempHTML += '</div>';
+                available = true;
+            }
+           
         }
         tempHTML += '</div>';
-        $('#subcircuitMenu').append(tempHTML);
+
+        if (available)
+            $('#subcircuitMenu').append(tempHTML);
     }
+
+    $('#subcircuitMenu').accordion("refresh");
+
+    $('.subcircuitModule').mousedown(function () {
+
+        let elementName = this.dataset.elementName;
+        let elementIndex = this.dataset.elementId;
+
+        let element = globalScope[elementName][elementIndex];
+        
+        element.subcircuitMetadata.showInSubcircuit = true;
+        element.newElement = true;
+        simulationArea.lastSelected = element;
+        this.parentElement.removeChild(this);
+        
+
+    });
 }
