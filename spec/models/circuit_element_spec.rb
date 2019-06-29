@@ -25,10 +25,6 @@ RSpec.describe CircuitElement, type: :model do
   let(:misc) { ["Flag", "Splitter", "Adder", "TriState", "Buffer", "ControlledInverter", "ALU",
    "Rectangle", "Arrow", "Text", "Tunnel"] }
 
-  describe "relations" do
-    it { should have_and_belong_to_many :assignments }
-  end
-
   describe "methods" do
     it "should return category wise element lists" do
       expect(described_class.element_list("Input").sort).to eq(input.sort)

@@ -50,8 +50,7 @@ describe SimulatorHelper do
 
     before do
       group = FactoryBot.create(:group, mentor: FactoryBot.create(:user))
-      assignment = FactoryBot.create(:assignment, group: group)
-      assignment.circuit_elements << FactoryBot.create(:circuit_element, name: "Element")
+      assignment = FactoryBot.create(:assignment, group: group, restrictions: ["Element"].to_json)
       @project = FactoryBot.create(:project,
        author: FactoryBot.create(:user), assignment: assignment, data: "{}")
       allow(CircuitElement).to receive(:all_element_list).and_return(["Element"])

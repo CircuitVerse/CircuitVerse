@@ -21,7 +21,7 @@ class AssignmentDecorator < SimpleDelegator
   end
 
   def restricted_circuit_elements
-    restriced_elements_str = assignment.circuit_elements.pluck(:name).reduce("") do |str, element|
+    restriced_elements_str = JSON.parse(assignment.restrictions).reduce("") do |str, element|
       str += "#{element}, "
       str
     end

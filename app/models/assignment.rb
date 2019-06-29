@@ -42,8 +42,8 @@ class Assignment < ApplicationRecord
     grading_scale != "no_scale"
   end
 
-  def elements_restricted? 
-    self.restrictions != '[]'
+  def elements_restricted?
+    self.restrictions != "[]"
   end
 
   def project_order

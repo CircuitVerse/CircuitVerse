@@ -22,15 +22,14 @@ module SimulatorHelper
     return data unless project&.assignment_id.present? && data.present?
 
     data = JSON.parse(data)
-    saved_restricted_elements = CircuitElement.joins(:assignments)
-      .where(assignments: { id: project.assignment_id }).pluck(:name)
+    saved_restricted_elements = JSON.parse(project.assignment.restrictions)
     scopes = data["scopes"] || []
 
     parsed_scopes = scopes.reduce([]) do |new_scopes, scope|
       restricted_elements_used = []
 
-      CircuitElement.all_element_list.each do |element|
-        if scope[element].present? && saved_restricted_elements.include?(element)
+      saved_restricted_elements.each do |element|
+        if scope[element].present?
           restricted_elements_used.push(element)
         end
       end

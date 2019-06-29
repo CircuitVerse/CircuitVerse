@@ -11,13 +11,13 @@ $(document).ready(() => {
     });
 
     $('#restrict-elements').trigger('change');
-    
+
     let restriction_map = {}
     let elementHierarchy = metadata.elementHierarchy;
     for (let i = 0; i < restrictions.length; i++)
         restriction_map[restrictions[i]] = true;
 
-    
+
     for (let category in elementHierarchy) {
         let elements = elementHierarchy[category];
         let html = `<div class="circuit-element-category"> ${category} </div>`;
@@ -30,8 +30,5 @@ $(document).ready(() => {
          </span>`
         }
         $('.restricted-elements-list').append(html);
-
     }
-
-
 });

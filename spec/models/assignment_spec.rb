@@ -9,7 +9,6 @@ RSpec.describe Assignment, type: :model do
   describe "associations" do
     it { should belong_to(:group) }
     it { should have_many(:projects) }
-    it { should have_and_belong_to_many(:circuit_elements) }
   end
 
   describe "callbacks", :focus do

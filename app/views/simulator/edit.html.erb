@@ -104,7 +104,7 @@
     <div class="modules noSelect defaultCursor" >
       <div id="modules-header">Circuit Elements</div>
       <div class="accordion" id="menu">
-        
+
       </div>
     </div>
     <div class="moduleProperty effect1" id="moduleProperty">
@@ -122,7 +122,7 @@
       <div id="restrictedDiv" class="alert alert-danger display--none">
       </div>
 
-      <% if @project&.assignment_id.present? && @project&.elements_restricted? %>
+      <% if @project&.assignment_id.present? && @project&.assignment&.elements_restricted? %>
         <div id="restrictedElementsDiv" class="alert alert-danger">
           <div> Restricted elements used: <span id="restrictedElementsDiv--list"> </span></div>
         </div>
