@@ -43,7 +43,6 @@ class AssignmentsController < ApplicationController
   # GET /assignments/1/edit
   def edit
     authorize @assignment
-    @circuit_element_ids = @assignment.circuit_elements.pluck(:id)
   end
 
   def reopen
@@ -144,13 +143,11 @@ class AssignmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def assignment_create_params
-      params.require(:assignment).permit(:name, :deadline, :description, :grading_scale,
-        circuit_element_ids: [])
+      params.require(:assignment).permit(:name, :deadline, :description, :grading_scale, :restrictions)
     end
 
     def assignment_update_params
-      params.require(:assignment).permit(:name, :deadline, :description, :grades_finalized,
-       circuit_element_ids: [])
+      params.require(:assignment).permit(:name, :deadline, :description, :grades_finalized, :restrictions)
     end
 
     def check_access

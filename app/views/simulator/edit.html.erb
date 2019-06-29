@@ -122,7 +122,7 @@
       <div id="restrictedDiv" class="alert alert-danger display--none">
       </div>
 
-      <% if @project&.assignment_id.present? && restricted_elements.present? %>
+      <% if @project&.assignment_id.present? && @project&.elements_restricted? %>
         <div id="restrictedElementsDiv" class="alert alert-danger">
           <div> Restricted elements used: <span id="restrictedElementsDiv--list"> </span></div>
         </div>
@@ -301,6 +301,12 @@
 
   <script>
       embed=false;
+
+      <% if @project&.assignment_id.present? %>
+        restrictedElements = JSON.parse('<%= raw @project&.assignment.restrictions %>');
+      <% else %>
+        restrictedElements = [];
+      <% end %>
   </script>
   <script src="/js/UX.js"></script>
 
@@ -348,7 +354,6 @@
     <script src="/js/combinationalAnalysis.js"></script>
       <script src="/js/Quin_McCluskey.js"></script>
   <%end%>
-
   <script src="/js/canvas2svg.js"></script>
 
 </body>

@@ -37,7 +37,7 @@
 
       <p>
         <strong>Restricted Circuit Elements:</strong>
-        <p> <%= @assignment.restricted_circuit_elements %> </p><br>
+        <p> <%= @assignment.restrictions == '[]'  ? 'None' : @assignment.restrictions %> </p><br>
       </p>
 
       <%= link_to 'Back', group_path(@group) %>

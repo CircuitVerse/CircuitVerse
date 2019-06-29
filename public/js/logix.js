@@ -44,8 +44,7 @@ function setupElementLists() {
     window.circuitElementList = metadata.circuitElementList;
     window.annotationList = metadata.annotationList;
     window.inputList = metadata.inputList;
-    window.subCircuitInputList = metadata.subCircuitInputList;;
-    window.restrictedElements = ["Input"];
+    window.subCircuitInputList = metadata.subCircuitInputList;
     window.moduleList = [...circuitElementList, ...annotationList]
     window.updateOrder = ["wires", ...circuitElementList, "nodes", ...annotationList]; // Order of update
     window.renderOrder = [...(moduleList.slice().reverse()), "wires", "allNodes"]; // Order of render
