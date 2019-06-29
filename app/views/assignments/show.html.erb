@@ -94,7 +94,6 @@
         </div>
       </div>
       <div class="col-9">
-        <% unless @assignment.grades_finalized %>
           <%= form_with(model: Grade.new, multipart: true, id: "assignment-grade-form", url: "/grades") do |form| %>
             <%= form.hidden_field :project_id, id: "assignment-project-id" %>
             <%= form.hidden_field :assignment_id, value: @assignment.id %>
@@ -109,15 +108,11 @@
             <div style="margin-top: 10px">
               <%= button_tag 'Submit', id: "grade-form-submit" %>
               <%= button_tag 'Remove', id: "grade-form-remove" %>
-              <%= button_tag 'Finalize Grades', id: "grade-form-finalized", data: { url: group_assignment_path(@assignment.group, @assignment) } %>
             </div>
             <div class="grade-form-help">
               * <%= @assignment.grading_scale_str %>
             </div>
           <% end %>
-        <% else %>
-           Grades have been finalized!
-        <% end %>
       </div>
     </div>
     <script src="/js/grading.js"> </script>
