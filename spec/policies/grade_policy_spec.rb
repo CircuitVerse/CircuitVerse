@@ -23,16 +23,16 @@ describe GradePolicy do
     it { should permit(:mentor) }
   end
 
-  context "user is mentor but grades have been finalized" do
-    let(:user) { @mentor }
+  # context "user is mentor but grades have been finalized" do
+  #   let(:user) { @mentor }
 
-    before do
-      @assignment.grades_finalized = true
-      @assignment.save
-    end
+  #   before do
+  #     @assignment.grades_finalized = true
+  #     @assignment.save
+  #   end
 
-    it { should_not permit(:mentor) }
-  end
+  #   it { should_not permit(:mentor) }
+  # end
 
   context "user is random" do
     let(:user) { FactoryBot.create(:user) }

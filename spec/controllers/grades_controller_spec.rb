@@ -51,14 +51,14 @@ describe GradesController, type: :request do
         end
       end
 
-      context "grades have been finalized" do
-        it "throws unauthorized error" do
-          @assignment.grades_finalized = true
-          @assignment.save
-          post grades_path, params: create_params
-          expect(response.body).to eq("You are not authorized to do the requested operation")
-        end
-      end
+      # context "grades have been finalized" do
+      #   it "throws unauthorized error" do
+      #     @assignment.grades_finalized = true
+      #     @assignment.save
+      #     post grades_path, params: create_params
+      #     expect(response.body).to eq("You are not authorized to do the requested operation")
+      #   end
+      # end
     end
 
     context "some other user is signed in" do
@@ -98,14 +98,14 @@ describe GradesController, type: :request do
         end
       end
 
-      context "grades have been finalized" do
-        it "throws unauthorized error" do
-          @assignment.grades_finalized = true
-          @assignment.save
-          delete grades_path, params: destroy_params
-          expect(response.body).to eq("You are not authorized to do the requested operation")
-        end
-      end
+      # context "grades have been finalized" do
+      #   it "throws unauthorized error" do
+      #     @assignment.grades_finalized = true
+      #     @assignment.save
+      #     delete grades_path, params: destroy_params
+      #     expect(response.body).to eq("You are not authorized to do the requested operation")
+      #   end
+      # end
     end
 
     context "user other than mentor is logged in" do
