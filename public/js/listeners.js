@@ -40,6 +40,15 @@ function startListeners() {
     });
     document.getElementById("simulationArea").addEventListener('mouseup', function(e) {
         if (simulationArea.lastSelected) simulationArea.lastSelected.newElement = false;
+        /*
+        handling restricted circuit elements
+        */
+
+        if(simulationArea.lastSelected && restrictedElements.includes(simulationArea.lastSelected.objectType)
+            && !globalScope.restrictedCircuitElementsUsed.includes(simulationArea.lastSelected.objectType)) {
+            globalScope.restrictedCircuitElementsUsed.push(simulationArea.lastSelected.objectType);
+            updateRestrictedElementsList();
+        }
     });
     window.addEventListener('mousemove', onMouseMove);
 
@@ -245,6 +254,10 @@ function startListeners() {
 
 
         var textToPutOnClipboard = copy(simulationArea.copyList, true);
+
+        // Updated restricted elements
+        updateRestrictedElementsInScope();
+
         localStorage.setItem('clipboardData', textToPutOnClipboard);
         e.preventDefault();
         if(textToPutOnClipboard==undefined)
@@ -264,6 +277,10 @@ function startListeners() {
         }
 
         var textToPutOnClipboard = copy(simulationArea.copyList);
+
+        // Updated restricted elements
+        updateRestrictedElementsInScope();
+
         localStorage.setItem('clipboardData', textToPutOnClipboard);
         e.preventDefault();
         if(textToPutOnClipboard==undefined)
@@ -285,30 +302,22 @@ function startListeners() {
         }
 
         paste(data);
+
+        // Updated restricted elements
+        updateRestrictedElementsInScope();
+
         e.preventDefault();
     });
-    
-    // 'drag and drop' event listener for subcircuit elements in layout mode 
-    // $('#subcircuitMenu').on('dragstop', '.draggableSubcircuitElement', function(event, ui){
-    //     const sideBarWidth = $('#sideBar')[0].clientWidth;
-    //     let tempElement;
 
-    //     if( ui.position.top > 10 && ui.position.left > sideBarWidth){
-    //         // make a shallow copy of the element with the new coordinates
-    //         tempElement = jQuery.extend({}, globalScope[this.dataset.elementName][this.dataset.elementId]);
-    //         /*
-    //         Changing the coordinate doesn't work yet, nodes get far from element
-    //         tempElement.x = ui.position.left - sideBarWidth;
-    //         tempElement.y = ui.position.top;
-    //         for(let node of tempElement.nodeList){
-    //             node.x = ui.position.left - sideBarWidth;
-    //             node.y = ui.position.top
-    //         } */
+    restrictedElements.forEach((element) => {
+        $(`#${element}`).mouseover(() => {
+            showRestricted();
+        });
 
-    //         temp_buffer.subElements.push(tempElement);
-    //         this.parentElement.removeChild(this);
-    //     }
-    // });
+        $(`#${element}`).mouseout(() => {
+            hideRestricted();
+        })
+    });
 }
 
 var isIe = (navigator.userAgent.toLowerCase().indexOf("msie") != -1 ||
@@ -410,4 +419,7 @@ function delete_selected(){
         if (!(simulationArea.multipleObjectSelections[i].objectType == "Node" && simulationArea.multipleObjectSelections[i].type != 2)) simulationArea.multipleObjectSelections[i].cleanDelete();
     }
     simulationArea.multipleObjectSelections = [];
+
+    // Updated restricted elements
+    updateRestrictedElementsInScope();
 }

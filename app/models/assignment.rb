@@ -2,10 +2,16 @@ class Assignment < ApplicationRecord
 
   belongs_to :group
   has_many :projects, class_name: 'Project', foreign_key: 'assignment_id', dependent: :nullify
+  has_and_belongs_to_many :circuit_elements
+  accepts_nested_attributes_for :circuit_elements
 
   after_commit :send_new_assignment_mail, on: :create
   after_commit :set_deadline_job
   after_commit :send_update_mail, on: :update
+
+  enum grading_scale: %i[no_scale letter percent custom]
+
+  has_many :grades, dependent: :destroy
 
   def send_new_assignment_mail
     self.group.group_members.each do |group_member|
@@ -32,6 +38,16 @@ class Assignment < ApplicationRecord
     end
   end
 
+  def graded?
+    grading_scale != "no_scale"
+  end
 
+  def elements_restricted?
+    self.restrictions != "[]"
+  end
 
+  def project_order
+    projects.includes(:grade, :author).sort_by { |p| p.author.name }
+      .map { |project| ProjectDecorator.new(project) }
+  end
 end

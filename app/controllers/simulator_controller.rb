@@ -44,7 +44,7 @@ class SimulatorController < ApplicationController
   end
 
   def update
-    @project.data = params[:data]
+    @project.data = sanitize_data(@project, params[:data])
 
     image_file = return_image_file(params[:image])
 
@@ -62,7 +62,7 @@ class SimulatorController < ApplicationController
 
   def create
     @project = Project.new
-    @project.data = params[:data]
+    @project.data = sanitize_data(@project, params[:data])
     @project.name = sanitize(params[:name])
     @project.author = current_user
 

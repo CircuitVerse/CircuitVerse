@@ -17,6 +17,7 @@ class AssignmentsController < ApplicationController
   # GET /assignments/1.json
   def show
     authorize @assignment
+    @assignment = AssignmentDecorator.new(@assignment)
   end
 
   def start
@@ -75,7 +76,7 @@ class AssignmentsController < ApplicationController
   def create
 
     description = params["description"]
-    params = assignment_params                  # dont name it as params as params and assignment_params are different
+    params = assignment_create_params
     # params[:deadline] = params[:deadline].to_time
 
 
@@ -105,14 +106,14 @@ class AssignmentsController < ApplicationController
   def update
 
     description = params["description"]
-    params = assignment_params
+    params = assignment_update_params
     @assignment.description = description
     # params[:deadline] = params[:deadline].to_time
 
     respond_to do |format|
       if @assignment.update(params)
         format.html { redirect_to @group, notice: 'Assignment was successfully updated.' }
-        format.json { render :show, status: :ok, location: @assignment }
+        format.json { render :show, status: :ok }
       else
         format.html { render :edit }
         format.json { render json: @assignment.errors, status: :unprocessable_entity }
@@ -141,7 +142,14 @@ class AssignmentsController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def assignment_params
+    def assignment_create_params
+      params.require(:assignment).permit(:name, :deadline, :description, :grading_scale,
+        :restrictions)
+    end
+
+    def assignment_update_params
+      params.require(:assignment).permit(:name, :deadline, :description,
+        :restrictions)
       params.require(:assignment).permit(:name, :deadline, :description)
     end
 

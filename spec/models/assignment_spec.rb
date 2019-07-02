@@ -46,5 +46,21 @@ RSpec.describe Assignment, type: :model do
         @assignment.set_deadline_job
       }.to have_enqueued_job(AssignmentDeadlineSubmissionJob).on_queue('default')
     end
+
+    describe "#project_order" do
+      before do
+        @projects = []
+
+        (1..3).each do
+          @projects << FactoryBot.create(:project, assignment: @assignment,
+            author: FactoryBot.create(:user))
+        end
+      end
+
+      it "gives sorted assignment projects" do
+        expect(@assignment.project_order.map { |p| p.author.name })
+        .to eq(@projects.map { |p| p.author.name }.sort)
+      end
+    end
   end
 end

@@ -1,3 +1,4 @@
+<link rel="stylesheet" type="text/css" href="/css/tooltip.css">
 <div class="container">
   <div class="row feature">
 
@@ -112,14 +113,17 @@
           <th>Assignment</th>
           <th>DeadLine</th>
           <th>Preview</th>
+          <th> Graded </th>
           <th>Actions</th>
-
+          <% unless policy(@group).admin_access? %>
+            <th>Grade</th>
+          <% end %>
         </tr>
         </thead>
 
         <tbody>
         <tbody>
-        <% @group.assignments.each do |assignment| %>
+        <% @group.assignments.includes(projects: :grade).each do |assignment| %>
             <tr>
               <td><%= assignment.name %></td>
               <td><div class="date"><%= assignment.deadline.strftime("%d %b,%Y %I:%M %p %Z") %></div>
@@ -128,6 +132,7 @@
                 <% end %>
               </td>
               <td><%= link_to 'Show', group_assignment_path(@group,assignment) %></td>
+              <td> <%= AssignmentDecorator.new(assignment).graded %> </td>
               <td>
                 <% if policy(@group).admin_access? %>
                   <% if assignment.status!="closed" %>
@@ -138,7 +143,7 @@
                   <%= link_to 'Destroy', group_assignment_path(@group,assignment), method: :delete, data: { confirm: 'Are you sure?' } %>
                 <% else %>
 
-                    <% project_assignment=Project.find_by(author_id:current_user.id,assignment_id:assignment.id) %>
+                    <% project_assignment = assignment.projects.find { |p| p.author_id == current_user.id } %>
 
                     <% if(assignment.deadline > Time.now) %>
                         <% if project_assignment.nil?%>
@@ -158,7 +163,21 @@
 
 
               </td>
-
+              <% unless policy(@group).admin_access? %>
+                <td>
+                  <% if policy(assignment).show_grades? && project_assignment.present? %>
+                    <div class="tooltip-help">
+                      <%= ProjectDecorator.new(project_assignment).grade_str %>
+                      <div class="right-help">
+                        <%= ProjectDecorator.new(project_assignment).remarks_str %>
+                        <i> </i>
+                      </div>
+                    </div>
+                  <% else %>
+                    N.A.
+                  <% end %>
+                </td>
+              <% end %>
             </tr>
         <% end %>
         </tbody>

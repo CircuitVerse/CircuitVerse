@@ -245,16 +245,6 @@ function renderLayout(scope = globalScope) {
         gridUpdate = false;
         dots();
     }
-
-    // For layout mode testing
-    // Update UI position
-    // for(let i = 0; i < temp_buffer.subElements.length; i++){
-    //     temp_buffer.subElements[i].update();
-        
-    //     // element nodes
-    //     for(let j = 0; j < temp_buffer.subElements[i].nodeList.length; j++)
-    //         temp_buffer.subElements[i].nodeList[j].update();
-    // }
     
     // Render objects
     

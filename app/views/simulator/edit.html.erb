@@ -100,95 +100,13 @@
 </nav>
 
 <div>
-  <div class="side left" id="sideBar" style="overflow-y: scroll;">
+    <div class="side left" id="sideBar" style="overflow-y: scroll;overflow-x: hidden">
     <div class="modules noSelect defaultCursor" >
       <div id="modules-header">Circuit Elements</div>
       <div class="accordion" id="subcircuitMenu" style="display:none;">
       </div>
       <div class="accordion" id="menu">
-        <div class="panelHeader">Input</div>
-        <div class="panel">
-          <div class="icon logixModules" id="Input" ></div>
-          <div class="icon logixModules" id="Button" ></div>
-          <div class="icon logixModules" id="Power" ></div>
-          <div class="icon logixModules" id="Ground" ></div>
-          <div class="icon logixModules" id="ConstantVal" ></div>
-          <div class="icon logixModules" id="Stepper" ></div>
-          <div class="icon logixModules" id="Random" ></div>
-          <div class="icon logixModules" id="Counter" ></div>
-        </div>
 
-        <div class="panelHeader">Output</div>
-        <div class="panel" style="overflow-y:hidden">
-          <div class="icon logixModules" id="Output" ></div>
-          <div class="icon logixModules" id="RGBLed" ></div>
-          <div class="icon logixModules" id="DigitalLed" ></div>
-          <div class="icon logixModules" id="VariableLed" ></div>
-          <div class="icon logixModules" id="HexDisplay" ></div>
-          <div class="icon logixModules" id="SevenSegDisplay" ></div>
-          <div class="icon logixModules" id="SixteenSegDisplay" ></div>
-          <div class="icon logixModules" id="SquareRGBLed" ></div>
-          <div class="icon logixModules" id="RGBLedMatrix" ></div>
-        </div>
-
-        <div class="panelHeader">Gates</div>
-        <div class="panel">
-          <div class="icon logixModules" id="AndGate" ></div>
-          <div class="icon logixModules" id="OrGate" ></div>
-          <div class="icon logixModules" id="NotGate" ></div>
-          <div class="icon logixModules" id="XorGate" ></div>
-          <div class="icon logixModules" id="NandGate" ></div>
-          <div class="icon logixModules" id="NorGate" ></div>
-          <div class="icon logixModules" id="XnorGate" ></div>
-        </div>
-
-        <div class="panelHeader">Decoders & Plexers</div>
-        <div class="panel">
-          <div class="icon logixModules" id="Multiplexer" ></div>
-          <div class="icon logixModules" id="Demultiplexer" ></div>
-          <div class="icon logixModules" id="BitSelector" ></div>
-          <div class="icon logixModules" id="MSB" ></div>
-          <div class="icon logixModules" id="LSB" ></div>
-          <div class="icon logixModules" id="PriorityEncoder" ></div>
-          <div class="icon logixModules" id="Decoder" ></div>
-        </div>
-
-        <div class="panelHeader">Sequential Elements</div>
-        <div class="panel">
-          <div class="icon logixModules" id="DflipFlop" ></div>
-          <div class="icon logixModules" id="Dlatch" ></div>
-          <div class="icon logixModules" id="TflipFlop" ></div>
-          <div class="icon logixModules" id="JKflipFlop" ></div>
-          <div class="icon logixModules" id="SRflipFlop" ></div>
-          <div class="icon logixModules" id="TTY" ></div>
-          <div class="icon logixModules" id="Keyboard" ></div>
-          <div class="icon logixModules" id="Clock" ></div>
-          <div class="icon logixModules" id="Rom" ></div>
-          <div class="icon logixModules" id="RAM" ></div>
-          <div class="icon logixModules" id="EEPROM" ></div>
-        </div>
-
-        <div class="panelHeader">Test Bench</div>
-        <div class="panel">
-          <div class="icon logixModules" id="TB_Input" ></div>
-          <div class="icon logixModules" id="TB_Output" ></div>
-          <div class="icon logixModules" id="ForceGate" ></div>
-
-        </div>
-        <div class="panelHeader">Misc</div>
-        <div class="panel">
-          <div class="icon logixModules" id="Flag" ></div>
-          <div class="icon logixModules" id="Splitter" ></div>
-          <div class="icon logixModules" id="Adder" ></div>
-          <div class="icon logixModules" id="TriState" ></div>
-          <div class="icon logixModules" id="Buffer" ></div>
-          <div class="icon logixModules" id="ControlledInverter" ></div>
-          <div class="icon logixModules" id="ALU" ></div>
-          <div class="icon logixModules" id="Rectangle" ></div>
-          <div class="icon logixModules" id="Arrow" ></div>
-          <div class="icon logixModules" id="Text" ></div>
-          <div class="icon logixModules" id="Tunnel" ></div>
-        </div>
       </div>
     </div>
     <div class="moduleProperty effect1" id="moduleProperty">
@@ -203,6 +121,15 @@
       <!-- <div> Circuits: </div> -->
     </div>
     <div class="simulation" id="simulation" >
+      <div id="restrictedDiv" class="alert alert-danger display--none">
+      </div>
+
+      <% if @project&.assignment_id.present? && @project&.assignment&.elements_restricted? %>
+        <div id="restrictedElementsDiv" class="alert alert-danger">
+          <div> Restricted elements used: <span id="restrictedElementsDiv--list"> </span></div>
+        </div>
+      <% end %>
+
       <div id="MessageDiv">
       </div>
 
@@ -369,6 +296,12 @@
 
   <script>
       embed=false;
+
+      <% if @project&.assignment_id.present? %>
+        restrictedElements = JSON.parse('<%= raw @project&.assignment.restrictions %>');
+      <% else %>
+        restrictedElements = [];
+      <% end %>
   </script>
   <script src="/js/UX.js"></script>
 
@@ -388,6 +321,7 @@
       //    });
   </script>
   <link rel="stylesheet" type="text/css" href="/css/UX.css"/>
+  <link rel="stylesheet" type="text/css" href="/css/restrictedElements.css"/>
   <!-- <script src="./SAP_DATA.js"></script> -->
   <script src="/js/utils.js"> </script>
   <script src="/js/engine.js"></script>
@@ -410,11 +344,11 @@
   <script src="/js/layout.js"></script>
   <script src="/js/testBench.js"></script>
   <script src="/js/verilog.js"></script>
+  <script type="text/javascript" src="/js/metadata.json"></script>
   <% if @project.nil? or @project.assignment_id.nil? %>
     <script src="/js/combinationalAnalysis.js"></script>
       <script src="/js/Quin_McCluskey.js"></script>
   <%end%>
-
   <script src="/js/canvas2svg.js"></script>
 
 </body>
