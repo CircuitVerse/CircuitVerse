@@ -17,6 +17,7 @@ describe SimulatorController, type: :request do
     describe "#create" do
       context "image is empty" do
         it "creates project with default image" do
+          expect_any_instance_of(SimulatorHelper).to receive(:sanitize_data)
           expect {
             post "/simulator/create_data", params: { image: "" }
           }.to change { Project.count }.by(1)
@@ -50,6 +51,7 @@ describe SimulatorController, type: :request do
       context "author is signed in" do
         it "updates project" do
           sign_in @user
+          expect_any_instance_of(SimulatorHelper).to receive(:sanitize_data)
           post "/simulator/update_data", params: update_params
           @project.reload
           expect(@project.name).to eq("Updated Name")

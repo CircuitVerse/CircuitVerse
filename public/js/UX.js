@@ -57,7 +57,7 @@ function menuItemClicked(id) {
     }
 }
 
-$(document).ready(function () {
+function setupUI() {
     var ctxEl = document.getElementById('contextMenu');
     document.addEventListener('mousedown', (e) => {
         // Check if mouse is not inside the context menu and menu is visible
@@ -106,16 +106,6 @@ $(document).ready(function () {
     // var dummyCounter=0;
 
 
-    var iconList = $('.icon');
-    // //////console.log(iconList)
-    for (var i = 0; i < iconList.length; i++) {
-        //////console.log(iconList[i].id);
-        $(iconList[i]).append('<img src="/img/' + iconList[i].id + '.svg"/>');
-        $(iconList[i]).append('<p class="img__description">' + iconList[i].id +
-            '</p>');
-        // $(iconList[i]).hover()
-
-    }
     $('.logixModules').hover(function () {
         // Tooltip can be statically defined in the prototype.
         var tooltipText = window[this.id].prototype.tooltipText;
@@ -139,8 +129,7 @@ $(document).ready(function () {
     // });
     // $('#moduleProperty').draggable();
 
-}); // accordion
-
+}
 
 
 var prevPropertyObj = undefined;

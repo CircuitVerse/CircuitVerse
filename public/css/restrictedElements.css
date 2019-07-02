@@ -1,0 +1,16 @@
+.display--none {
+    display:none;
+}
+
+.circuit-element-container {
+    padding: 0 3px;
+}
+
+.circuit-element-category {
+    font-weight: 500;
+    margin: 5px 0;
+}
+
+.restricted-elements-list {
+    margin: 10px 0 25px 0;
+}

@@ -21,4 +21,13 @@ class AssignmentDecorator < SimpleDelegator
       "Assignment can be graded as required"
     end
   end
+
+  def restricted_circuit_elements
+    restriced_elements_str = JSON.parse(assignment.restrictions).reduce("") do |str, element|
+      str += "#{element}, "
+      str
+    end
+
+    restriced_elements_str.present? ? restriced_elements_str.slice(0..-3) : "None"
+  end
 end

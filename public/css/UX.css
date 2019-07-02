@@ -359,6 +359,22 @@ body, html {
     overflow: hidden
 }
 
+#restrictedDiv {
+    position: absolute;
+    top: 10px;
+    margin-left: 10px;
+    width: 560px;
+    z-index: 100;
+}
+
+#restrictedElementsDiv {
+    position: absolute;
+    top: 90px;
+    right: 10px;
+    z-index: 100;
+    width: 200px;
+}
+
 #MessageDiv {
     position: absolute;
     margin-left: 30px;

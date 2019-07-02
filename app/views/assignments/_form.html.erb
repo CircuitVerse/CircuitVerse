@@ -1,4 +1,6 @@
+<link rel="stylesheet" type="text/css" href="/css/restrictedElements.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script src="/js/metadata.json"></script>
 <%= form_with(model: [group,@assignment], local: true, html: {onsubmit:"before_submit()"}, multipart: true ,id:"assignmentForm") do |form| %>
   <% if @assignment.errors.any? %>
     <div id="error_explanation">
@@ -50,13 +52,24 @@
     <%= render "wysiwyg/index" %>
   </div>
 
-  <div class="actions" >
+  <div class="field" style="margin-bottom: 8px;margin-top: 17px">
+    <span style="font-weight: 600"> Restrict elements: </span>  <%= check_box_tag "restrict-elements", "1", @assignment.elements_restricted?, id: "restrict-elements", style: "margin-top: 0" %>
+    <div class="restricted-elements-list">
+   
+    </div>
+  </div>
+   
+
+  <div class="actions">
     <%= form.submit %>
   </div>
 <% end %>
 
 <script src="/js/time.js"></script>
+<script type="text/javascript" src="/js/restrict_elements.js"></script>
 <script>
+
+    restrictions = JSON.parse('<%= raw @assignment.restrictions %>');
     $(document).ready(function() {
         $('.date').each(
             function () {
@@ -76,5 +89,26 @@
             .attr('name', 'description')
             .attr('value', $("#editor").cleanHtml())
             .appendTo('#assignmentForm');
+         
+        let updated_restrictions = [];
+        if ($('#restrict-elements').is(":checked")) {
+          let restricted_elements = $('.element-restiction');
+          for (let i = 0; i < restricted_elements.length; i++) {
+            let temp = $(restricted_elements[i]);
+            if (temp.is(":checked"))
+              updated_restrictions.push(temp.val())
+          }
+        }
+        updated_restrictions = JSON.stringify(updated_restrictions)
+
+        console.log(updated_restrictions)
+
+        $('<input />').attr('type', 'hidden')
+            .attr('name', 'assignment[restrictions]')
+            .attr('value', updated_restrictions)
+            .appendTo('#assignmentForm');
+
+        
     }
+   
 </script>
