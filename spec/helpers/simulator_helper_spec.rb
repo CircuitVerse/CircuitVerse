@@ -53,7 +53,6 @@ describe SimulatorHelper do
       assignment = FactoryBot.create(:assignment, group: group, restrictions: ["Element"].to_json)
       @project = FactoryBot.create(:project,
        author: FactoryBot.create(:user), assignment: assignment, data: "{}")
-      allow(CircuitElement).to receive(:all_element_list).and_return(["Element"])
     end
 
     it "sanitizes project data to populate restricted elements correctly" do
