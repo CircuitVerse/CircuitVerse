@@ -4,6 +4,9 @@
     border-bottom:1px dotted #666;
     text-align:left;
     cursor: pointer;
+}
+
+.assignment-tooltip {
     bottom: 5px;
     left: 10px;
 }

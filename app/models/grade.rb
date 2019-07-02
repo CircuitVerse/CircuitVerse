@@ -20,6 +20,8 @@ class Grade < ApplicationRecord
                 grade&.match(LETTER_MATCH).present?
               when "percent"
                 grade&.match(PERCENT_MATCH).present?
+              when "custom"
+                true
       end
 
       errors.add(:grade, "Grade does not match scale or assignment cannot be graded") unless valid
@@ -32,7 +34,7 @@ class Grade < ApplicationRecord
     end
 
     def self.to_csv(assignment_id)
-      attributes = %w[email name grade]
+      attributes = %w[email name grade remarks]
       group_members = User.joins(group_members: :assignments)
         .where(group_members: { assignments: { id: assignment_id } })
       submissions = Project.where(assignment_id: assignment_id)&.includes(:grade, :author)
@@ -44,8 +46,10 @@ class Grade < ApplicationRecord
           submission = submissions.find { |s| (s.author_id == member.id &&
             s.assignment_id == assignment_id)}
           grade = submission&.grade&.grade
+          remarks = submission&.grade&.remarks
           grade = grade.present? ? grade : "N.A"
-          csv << [member.email, member.name, grade]
+          remarks = remarks.present? ? remarks : "N.A"
+          csv << [member.email, member.name, grade, remarks]
         end
       end
     end

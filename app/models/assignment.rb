@@ -9,7 +9,7 @@ class Assignment < ApplicationRecord
   after_commit :set_deadline_job
   after_commit :send_update_mail, on: :update
 
-  enum grading_scale: %i[no_scale letter percent]
+  enum grading_scale: %i[no_scale letter percent custom]
 
   has_many :grades, dependent: :destroy
 

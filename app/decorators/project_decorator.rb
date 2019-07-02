@@ -8,4 +8,8 @@ class ProjectDecorator < SimpleDelegator
   def grade_str
     project.grade&.grade.present? ? project.grade&.grade : "N.A."
   end
+
+  def remarks_str
+    project.grade&.remarks.present? ? project.grade&.remarks : "N.A."
+  end
 end

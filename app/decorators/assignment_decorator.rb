@@ -17,6 +17,8 @@ class AssignmentDecorator < SimpleDelegator
       "Assignments can be graded on a scale of 1-100"
     when "no_scale"
       "Assignment won't be graded"
+    when "custom"
+      "Assignment can be graded as required"
     end
   end
 
