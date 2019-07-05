@@ -344,6 +344,7 @@ function Random(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
 }
 Random.prototype = Object.create(CircuitElement.prototype);
 Random.prototype.constructor = Random;
+Random.prototype.canShowInSubcircuit = true;
 Random.prototype.isResolvable = function() {
     if (this.clockInp.value != undefined && ( this.maxValue.value != undefined || this.maxValue.connections.length == 0 ) )
         return true;
