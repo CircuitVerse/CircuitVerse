@@ -28,6 +28,7 @@ function Counter(x, y, scope = globalScope, bitWidth = 8) {
 Counter.prototype = Object.create(CircuitElement.prototype);
 Counter.prototype.constructor = Counter;
 Counter.prototype.tooltipText = "Counter: a binary counter from zero to a given maximum value";
+Counter.prototype.canShowInSubcircuit = true;
 Counter.prototype.customSave = function () {
     return {
         nodes: {
@@ -98,4 +99,23 @@ Counter.prototype.customDraw = function () {
     lineTo(ctx, -15, 10, xx, yy, this.direction);
     lineTo(ctx, -20, 15, xx, yy, this.direction);
     ctx.stroke();
+}
+Counter.prototype.layoutDraw = function() {
+    var ctx = simulationArea.context;
+    var xx = this.subcircuitMetadata.x;
+    var yy = this.subcircuitMetadata.y;
+
+    ctx.beginPath();
+    ctx.font = "20px Georgia";
+    ctx.fillStyle = "green";
+    ctx.textAlign = "center";
+    fillText(ctx, '0', this.subcircuitMetadata.x, this.subcircuitMetadata.y + 5);
+    ctx.fill();
+
+    ctx.beginPath();
+    moveTo(ctx, -20, 5, xx, yy, this.direction);
+    lineTo(ctx, -15, 10, xx, yy, this.direction);
+    lineTo(ctx, -20, 15, xx, yy, this.direction);
+    ctx.stroke();
+    console.log('drawing');
 }

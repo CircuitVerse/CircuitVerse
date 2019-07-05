@@ -525,6 +525,7 @@ function SevenSegDisplay(x, y, scope = globalScope) {
 SevenSegDisplay.prototype = Object.create(CircuitElement.prototype);
 SevenSegDisplay.prototype.constructor = SevenSegDisplay;
 SevenSegDisplay.prototype.tooltipText = "Seven Display ToolTip: Consists of 7+1 single bit inputs."
+SevenSegDisplay.prototype.canShowInSubcircuit = true;
 SevenSegDisplay.prototype.customSave = function () {
     var data = {
 
@@ -591,6 +592,7 @@ function SixteenSegDisplay(x, y, scope = globalScope) {
 SixteenSegDisplay.prototype = Object.create(CircuitElement.prototype);
 SixteenSegDisplay.prototype.constructor = SixteenSegDisplay;
 SixteenSegDisplay.prototype.tooltipText = "Sixteen Display ToolTip: Consists of 16+1 bit inputs.";
+SixteenSegDisplay.prototype.canShowInSubcircuit = true;
 SixteenSegDisplay.prototype.customSave = function () {
     var data = {
         nodes: {
@@ -675,6 +677,7 @@ function HexDisplay(x, y, scope = globalScope) {
 HexDisplay.prototype = Object.create(CircuitElement.prototype);
 HexDisplay.prototype.constructor = HexDisplay;
 HexDisplay.prototype.tooltipText = "Hex Display ToolTip: Inputs a 4 Bit Hex number and displays it."
+HexDisplay.prototype.canShowInSubcircuit = true;
 HexDisplay.prototype.customSave = function () {
     var data = {
 
@@ -2300,6 +2303,7 @@ function DigitalLed(x, y, scope = globalScope, color = "Red") {
 DigitalLed.prototype = Object.create(CircuitElement.prototype);
 DigitalLed.prototype.constructor = DigitalLed;
 DigitalLed.prototype.tooltipText = "Digital Led ToolTip: Digital LED glows high when input is High(1)."
+DigitalLed.prototype.canShowInSubcircuit = true;
 DigitalLed.prototype.customSave = function () {
     var data = {
         constructorParamaters: [this.color],
@@ -2356,6 +2360,21 @@ DigitalLed.prototype.customDraw = function () {
     ctx.fill();
 
 }
+DigitalLed.prototype.layoutDraw = function() {
+    ctx = simulationArea.context;
+
+    var xx = this.subcircuitMetadata.x;
+    var yy = this.subcircuitMetadata.y;
+
+    ctx.strokeStyle = "#d3d4d5";
+    ctx.fillStyle = ["rgba(227,228,229,0.8)", this.actualColor][this.inp1.value || 0];
+    ctx.lineWidth = correctWidth(1);
+
+    drawCircle2(ctx, 0, 0, 6, xx, yy, this.direction);
+
+    if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = "rgba(255, 255, 32,0.8)";
+    ctx.fill();
+}
 
 function VariableLed(x, y, scope = globalScope) {
     // Calling base class constructor
@@ -2372,6 +2391,7 @@ function VariableLed(x, y, scope = globalScope) {
 VariableLed.prototype = Object.create(CircuitElement.prototype);
 VariableLed.prototype.constructor = VariableLed;
 VariableLed.prototype.tooltipText = "Variable Led ToolTip: Variable LED inputs an 8 bit value and glows with a proportional intensity."
+VariableLed.prototype.canShowInSubcircuit = true;
 VariableLed.prototype.customSave = function () {
     var data = {
         nodes: {
@@ -2414,6 +2434,24 @@ VariableLed.prototype.customDraw = function () {
     if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = "rgba(255, 255, 32,0.8)";
     ctx.fill();
 
+}
+
+VariableLed.prototype.layoutDraw = function() {
+    ctx = simulationArea.context;
+
+    var xx = this.subcircuitMetadata.x;
+    var yy = this.subcircuitMetadata.y;
+
+    var c = this.inp1.value;
+    var alpha = c / 255;
+    ctx.strokeStyle = "#090a0a";
+    ctx.fillStyle = ["rgba(255,29,43," + alpha + ")", "rgba(227, 228, 229, 0.8)"][(c === undefined || c == 0) + 0];
+    ctx.lineWidth = correctWidth(1);
+
+    drawCircle2(ctx, 0, 0, 6, xx, yy, this.direction);
+    
+    if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = "rgba(255, 255, 32,0.8)";
+    ctx.fill();
 }
 
 function Button(x, y, scope = globalScope, dir = "RIGHT") {
@@ -2522,6 +2560,7 @@ function RGBLed(x, y, scope = globalScope) {
 RGBLed.prototype = Object.create(CircuitElement.prototype);
 RGBLed.prototype.constructor = RGBLed;
 RGBLed.prototype.tooltipText = "RGB Led ToolTip: RGB Led inputs 8 bit values for the colors RED, GREEN and BLUE."
+RGBLed.prototype.canShowInSubcircuit = true;
 RGBLed.prototype.customSave = function () {
     var data = {
         nodes: {
@@ -2582,6 +2621,33 @@ RGBLed.prototype.customDraw = function () {
     ctx.fill();
 }
 
+RGBLed.prototype.layoutDraw = function() {
+    ctx = simulationArea.context;
+
+    var xx = this.subcircuitMetadata.x;
+    var yy = this.subcircuitMetadata.y;
+    var dimensionSize = 5;
+    // var size = this.subcircuitMetadata.size;
+    // if (size === "medium")
+    //      dimensionSize = 7;
+    // else if (size === "Large")
+    //      dimensionSize = 10;
+
+    var a = this.inp1.value;
+    var b = this.inp2.value;
+    var c = this.inp3.value;
+    ctx.strokeStyle = "#d3d4d5";
+    ctx.fillStyle = ["rgba(" + a + ", " + b + ", " + c + ", 0.8)", "rgba(227, 228, 229, 0.8)"][((a === undefined || b === undefined || c === undefined)) + 0]
+    //ctx.fillStyle = ["rgba(200, 200, 200, 0.3)","rgba(227, 228, 229, 0.8)"][((a === undefined || b === undefined || c === undefined) || (a == 0 && b == 0 && c == 0)) + 0];
+    ctx.lineWidth = correctWidth(1);
+
+    ctx.beginPath();
+    drawCircle2(ctx, 0, 0, dimensionSize, xx, yy, this.direction);           
+    ctx.stroke();
+    if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = "rgba(255, 255, 32,0.8)";
+    ctx.fill();
+}
+
 function SquareRGBLed(x, y, scope = globalScope, dir = "UP", pinLength = 1) {
     CircuitElement.call(this, x, y, scope, dir, 8);
     this.rectangleObject = false;
@@ -2628,6 +2694,7 @@ function SquareRGBLed(x, y, scope = globalScope, dir = "UP", pinLength = 1) {
 SquareRGBLed.prototype = Object.create(CircuitElement.prototype);
 SquareRGBLed.prototype.constructor = SquareRGBLed;
 SquareRGBLed.prototype.tooltipText = "Square RGB Led ToolTip: RGB Led inputs 8 bit values for the colors RED, GREEN and BLUE."
+SquareRGBLed.prototype.canShowInSubcircuit = true;
 SquareRGBLed.prototype.customSave = function () {
     var data = {
         constructorParamaters: [this.direction, this.pinLength],
@@ -2675,6 +2742,29 @@ SquareRGBLed.prototype.customDraw = function () {
     ctx.lineWidth = correctWidth(1);
     ctx.beginPath();
     rect2(ctx, -15, -15, 30, 30, xx, yy, this.direction);
+    ctx.stroke();
+
+    if ((this.hover && !simulationArea.shiftDown) ||
+        simulationArea.lastSelected == this ||
+        simulationArea.multipleObjectSelections.contains(this)) {
+        ctx.fillStyle = "rgba(255, 255, 32)";
+    }
+
+    ctx.fill();
+}
+SquareRGBLed.prototype.layoutDraw = function() {
+    var ctx = simulationArea.context;
+    var xx = this.subcircuitMetadata.x;
+    var yy = this.subcircuitMetadata.y;
+    var r = this.inp1.value;
+    var g = this.inp2.value;
+    var b = this.inp3.value;
+
+    ctx.strokeStyle = "#d3d4d5";
+    ctx.fillStyle = (r === undefined && g === undefined && b === undefined) ? "rgb(227, 228, 229)" : "rgb(" + (r || 0) + ", " + (g || 0) + ", " + (b || 0) + ")";
+    ctx.lineWidth = correctWidth(1);
+    ctx.beginPath();
+    rect2(ctx, 0, 0, 15, 15, xx, yy, this.direction);
     ctx.stroke();
 
     if ((this.hover && !simulationArea.shiftDown) ||
