@@ -406,6 +406,23 @@ Random.prototype.customDraw = function() {
 
 
 }
+Random.prototype.layoutDraw = function() {
+    var ctx = simulationArea.context;
+    var xx = this.subcircuitMetadata.x;
+    var yy = this.subcircuitMetadata.y;
+
+    ctx.beginPath();
+    ctx.font = "20px Georgia";
+    ctx.fillStyle = "green";
+    ctx.textAlign = "center";
+    fillText(ctx, this.currentRandomNo.toString(16), this.subcircuitMetadata.x + 10, this.subcircuitMetadata.y + 17);
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.lineWidth = correctWidth(1);
+    rect2(ctx, 0, 0, 20, 20, xx, yy, this.direction);
+    ctx.stroke();
+}
 
 function SRflipFlop(x, y, scope = globalScope, dir = "RIGHT") {
     CircuitElement.call(this, x, y, scope, dir, 1);

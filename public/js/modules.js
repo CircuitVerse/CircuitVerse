@@ -577,6 +577,46 @@ SevenSegDisplay.prototype.customDraw = function () {
     rect(ctx, xx + 22, yy + 42, 2, 2);
     ctx.stroke();
 }
+SevenSegDisplay.prototype.layoutDrawSegment = function (x1, y1, x2, y2, color) {
+    if (color == undefined) color = "lightgrey";
+    ctx = simulationArea.context;
+    ctx.beginPath();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = correctWidth(3);
+    xx = this.subcircuitMetadata.x;
+    yy = this.subcircuitMetadata.y;
+    moveTo(ctx, x1, y1, xx, yy, this.direction);
+    lineTo(ctx, x2, y2, xx, yy, this.direction);
+    ctx.closePath();
+    ctx.stroke();
+}
+
+SevenSegDisplay.prototype.layoutDraw = function () {
+    ctx = simulationArea.context;
+
+    var xx = this.subcircuitMetadata.x;
+    var yy = this.subcircuitMetadata.y;
+
+    this.layoutDrawSegment(10, -20, 10, -38, ["lightgrey", "red"][this.b.value]);
+    this.layoutDrawSegment(10, -17, 10, 1, ["lightgrey", "red"][this.c.value]);
+    this.layoutDrawSegment(-10, -20, -10, -38, ["lightgrey", "red"][this.f.value]);
+    this.layoutDrawSegment(-10, -17, -10, 1, ["lightgrey", "red"][this.e.value]);
+    this.layoutDrawSegment(-8, -38, 8, -38, ["lightgrey", "red"][this.a.value]);
+    this.layoutDrawSegment(-8, -18, 8, -18, ["lightgrey", "red"][this.g.value]);
+    this.layoutDrawSegment(-8, 1, 8, 1, ["lightgrey", "red"][this.d.value]);
+
+    ctx.beginPath();
+    var dotColor = ["lightgrey", "red"][this.dot.value] || "lightgrey"
+    ctx.strokeStyle = dotColor;
+    rect(ctx, xx + 13, yy + 5, 1, 1);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = correctWidth(1);
+    rect2(ctx, -15, -42, 33, 51, xx, yy, this.direction);
+    ctx.stroke();
+}
 
 function SixteenSegDisplay(x, y, scope = globalScope) {
     CircuitElement.call(this, x, y, scope, "RIGHT", 16);
@@ -661,6 +701,70 @@ SixteenSegDisplay.prototype.customDraw = function () {
     var dotColor = ["lightgrey", "red"][this.dot.value] || "lightgrey"
     ctx.strokeStyle = dotColor;
     rect(ctx, xx + 22, yy + 42, 2, 2);
+    ctx.stroke();
+}
+SixteenSegDisplay.prototype.layoutDrawSegment = function (x1, y1, x2, y2, color) {
+    if (color == undefined) color = "lightgrey";
+    ctx = simulationArea.context;
+    ctx.beginPath();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = correctWidth(3);
+    xx = this.subcircuitMetadata.x;
+    yy = this.subcircuitMetadata.y;
+    moveTo(ctx, x1, y1, xx, yy, this.direction);
+    lineTo(ctx, x2, y2, xx, yy, this.direction);
+    ctx.closePath();
+    ctx.stroke();
+}
+SixteenSegDisplay.prototype.layoutDrawSegmentSlant = function (x1, y1, x2, y2, color) {
+    if (color == undefined) color = "lightgrey";
+    ctx = simulationArea.context;
+    ctx.beginPath();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = correctWidth(2);
+    xx = this.subcircuitMetadata.x;
+    yy = this.subcircuitMetadata.y;
+    moveTo(ctx, x1, y1, xx, yy, this.direction);
+    lineTo(ctx, x2, y2, xx, yy, this.direction);
+    ctx.closePath();
+    ctx.stroke();
+}
+SixteenSegDisplay.prototype.layoutDraw = function () {
+    ctx = simulationArea.context;
+
+    var xx = this.subcircuitMetadata.x;
+    var yy = this.subcircuitMetadata.y;
+
+    var color = ["lightgrey", "red"];
+    var value = this.input1.value;
+
+    this.layoutDrawSegment(-10, -38, 0, -38, ["lightgrey", "red"][(value >> 15) & 1]);		//a1
+    this.layoutDrawSegment(10, -38, 0, -38, ["lightgrey", "red"][(value >> 14) & 1]);		//a2    
+    this.layoutDrawSegment(11.5, -19, 11.5, -36, ["lightgrey", "red"][(value >> 13) & 1]);	//b
+    this.layoutDrawSegment(11.5, 2, 11.5, -15, ["lightgrey", "red"][(value >> 12) & 1]);		//c
+    this.layoutDrawSegment(-10, 4, 0, 4, ["lightgrey", "red"][(value >> 11) & 1]);		//d1
+    this.layoutDrawSegment(10, 4, 0, 4, ["lightgrey", "red"][(value >> 10) & 1]);			//d2
+    this.layoutDrawSegment(-11.5, 2, -11.5, -15, ["lightgrey", "red"][(value >> 9) & 1]);	//e
+    this.layoutDrawSegment(-11.5, -36, -11.5, -19, ["lightgrey", "red"][(value >> 8) & 1]);	//f
+    this.layoutDrawSegment(-10, -17, 0, -17, ["lightgrey", "red"][(value >> 7) & 1]);			//g1
+    this.layoutDrawSegment(10, -17, 0, -17, ["lightgrey", "red"][(value >> 6) & 1]);			//g2
+    this.layoutDrawSegmentSlant(0, -17, -9, -36, ["lightgrey", "red"][(value >> 5) & 1]);	//h
+    this.layoutDrawSegment(0, -36, 0, -19, ["lightgrey", "red"][(value >> 4) & 1]);			//i
+    this.layoutDrawSegmentSlant(0, -17, 9, -36, ["lightgrey", "red"][(value >> 3) & 1]);		//j
+    this.layoutDrawSegmentSlant(0, -17, 9, 0, ["lightgrey", "red"][(value >> 2) & 1]);		//k
+    this.layoutDrawSegment(0, -17, 0, 2, ["lightgrey", "red"][(value >> 1) & 1]);			//l
+    this.layoutDrawSegmentSlant(0, -17, -9, 0, ["lightgrey", "red"][(value >> 0) & 1]);		//m
+
+    ctx.beginPath();
+    var dotColor = ["lightgrey", "red"][this.dot.value] || "lightgrey"
+    ctx.strokeStyle = dotColor;
+    rect(ctx, xx + 13, yy + 5, 1, 1);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = correctWidth(1);
+    rect2(ctx, -15, -42, 33, 51, xx, yy, this.direction);
     ctx.stroke();
 }
 
@@ -772,6 +876,95 @@ HexDisplay.prototype.customDraw = function () {
     this.customDrawSegment(-17, 0, 17, 0, ["lightgrey", "red"][g]);
     this.customDrawSegment(-15, 38, 17, 38, ["lightgrey", "red"][d]);
 
+}
+HexDisplay.prototype.layoutDrawSegment = function (x1, y1, x2, y2, color) {
+    if (color == undefined) color = "lightgrey";
+    ctx = simulationArea.context;
+    ctx.beginPath();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = correctWidth(3);
+    xx = this.subcircuitMetadata.x;
+    yy = this.subcircuitMetadata.y;
+
+    moveTo(ctx, x1, y1, xx, yy, this.direction);
+    lineTo(ctx, x2, y2, xx, yy, this.direction);
+    ctx.closePath();
+    ctx.stroke();
+}
+HexDisplay.prototype.layoutDraw = function () {
+    ctx = simulationArea.context;
+
+    var xx = this.subcircuitMetadata.x;
+    var yy = this.subcircuitMetadata.y;
+
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = correctWidth(3);
+    var a = b = c = d = e = f = g = 0;
+    switch (this.inp.value) {
+        case 0:
+            a = b = c = d = e = f = 1;
+            break;
+        case 1:
+            b = c = 1;
+            break;
+        case 2:
+            a = b = g = e = d = 1;
+            break;
+        case 3:
+            a = b = g = c = d = 1;
+            break;
+        case 4:
+            f = g = b = c = 1;
+            break;
+        case 5:
+            a = f = g = c = d = 1;
+            break;
+        case 6:
+            a = f = g = e = c = d = 1;
+            break;
+        case 7:
+            a = b = c = 1;
+            break;
+        case 8:
+            a = b = c = d = e = g = f = 1;
+            break;
+        case 9:
+            a = f = g = b = c = 1;
+            break;
+        case 0xA:
+            a = f = b = c = g = e = 1;
+            break;
+        case 0xB:
+            f = e = g = c = d = 1;
+            break;
+        case 0xC:
+            a = f = e = d = 1;
+            break;
+        case 0xD:
+            b = c = g = e = d = 1;
+            break;
+        case 0xE:
+            a = f = g = e = d = 1;
+            break;
+        case 0xF:
+            a = f = g = e = 1;
+            break;
+        default:
+
+    }
+    this.layoutDrawSegment(10, -20, 10, -38, ["lightgrey", "red"][b]);
+    this.layoutDrawSegment(10, -17, 10, 1, ["lightgrey", "red"][c]);
+    this.layoutDrawSegment(-10, -20, -10, -38, ["lightgrey", "red"][f]);
+    this.layoutDrawSegment(-10, -17, -10, 1, ["lightgrey", "red"][e]);
+    this.layoutDrawSegment(-8, -38, 8, -38, ["lightgrey", "red"][a]);
+    this.layoutDrawSegment(-8, -18, 8, -18, ["lightgrey", "red"][g]);
+    this.layoutDrawSegment(-8, 1, 8, 1, ["lightgrey", "red"][d]);
+
+    ctx.beginPath();
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = correctWidth(1);
+    rect2(ctx, -15, -42, 33, 51, xx, yy, this.direction);
+    ctx.stroke();
 }
 
 function OrGate(x, y, scope = globalScope, dir = "RIGHT", inputs = 2, bitWidth = 1) {
