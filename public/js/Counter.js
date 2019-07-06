@@ -109,13 +109,11 @@ Counter.prototype.layoutDraw = function() {
     ctx.font = "20px Georgia";
     ctx.fillStyle = "green";
     ctx.textAlign = "center";
-    fillText(ctx, '0', this.subcircuitMetadata.x, this.subcircuitMetadata.y + 5);
+    fillText(ctx, this.value.toString(16), this.subcircuitMetadata.x + 10, this.subcircuitMetadata.y + 17);
     ctx.fill();
 
     ctx.beginPath();
-    moveTo(ctx, -20, 5, xx, yy, this.direction);
-    lineTo(ctx, -15, 10, xx, yy, this.direction);
-    lineTo(ctx, -20, 15, xx, yy, this.direction);
+    ctx.lineWidth = correctWidth(1);
+    rect2(ctx, 0, 0, 20, 20, xx, yy, this.direction);
     ctx.stroke();
-    console.log('drawing');
 }
