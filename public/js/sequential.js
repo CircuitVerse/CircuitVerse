@@ -406,6 +406,12 @@ Random.prototype.customDraw = function() {
 
 
 }
+Random.prototype.layoutProperties = {
+    rightDimensionX : 20,
+    leftDimensionX : 0,
+    upDimensionY : 0,
+    downDimensionY: 20
+}
 Random.prototype.layoutDraw = function() {
     var ctx = simulationArea.context;
     var xx = this.subcircuitMetadata.x;
