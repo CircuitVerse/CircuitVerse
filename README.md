@@ -2,6 +2,7 @@
 
 [![Gitter](https://badges.gitter.im/CircuitVerse/community.svg)](https://gitter.im/CircuitVerse/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![CircleCI](https://circleci.com/gh/CircuitVerse/CircuitVerse.svg?style=svg)](https://circleci.com/gh/CircuitVerse/CircuitVerse)
+[![Coverage Status](https://coveralls.io/repos/github/CircuitVerse/CircuitVerse/badge.svg?branch=master)](https://coveralls.io/github/CircuitVerse/CircuitVerse?branch=master)
 
 [Join Mailing List](https://circuitverse.us20.list-manage.com/subscribe?u=89207abda49deef3ba56f1411&id=29473194d6)
 
