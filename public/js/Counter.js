@@ -100,7 +100,14 @@ Counter.prototype.customDraw = function () {
     lineTo(ctx, -20, 15, xx, yy, this.direction);
     ctx.stroke();
 }
+Counter.prototype.layoutProperties = {
+    rightDimensionX : 20,
+    leftDimensionX : 0,
+    upDimensionY : 0,
+    downDimensionY: 20
+}
 Counter.prototype.layoutDraw = function() {
+    console.log("Counter hover : ", this.hover);
     var ctx = simulationArea.context;
     var xx = this.subcircuitMetadata.x;
     var yy = this.subcircuitMetadata.y;
