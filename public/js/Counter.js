@@ -106,17 +106,16 @@ Counter.prototype.layoutProperties = {
     upDimensionY : 0,
     downDimensionY: 20
 }
-Counter.prototype.layoutDraw = function() {
-    console.log("Counter hover : ", this.hover);
+Counter.prototype.layoutDraw = function(xOffset = 0, yOffset = 0) {
     var ctx = simulationArea.context;
-    var xx = this.subcircuitMetadata.x;
-    var yy = this.subcircuitMetadata.y;
+    var xx = this.subcircuitMetadata.x + xOffset;
+    var yy = this.subcircuitMetadata.y + yOffset;
 
     ctx.beginPath();
     ctx.font = "20px Georgia";
     ctx.fillStyle = "green";
     ctx.textAlign = "center";
-    fillText(ctx, this.value.toString(16), this.subcircuitMetadata.x + 10, this.subcircuitMetadata.y + 17);
+    fillText(ctx, this.value.toString(16), xx + 10, yy + 17);
     ctx.fill();
 
     ctx.beginPath();

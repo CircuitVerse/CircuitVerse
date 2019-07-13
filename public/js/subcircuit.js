@@ -405,7 +405,7 @@ SubCircuit.prototype.customDraw = function() {
         
         for(let i = 0; i < subcircuitScope[el].length; i++){
             if (subcircuitScope[el][i].subcircuitMetadata.showInSubcircuit) {
-                subcircuitScope[el][i].layoutDraw();
+                subcircuitScope[el][i].layoutDraw(this.x, this.y);
             }
         }
     }
