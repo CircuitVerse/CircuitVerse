@@ -399,6 +399,17 @@ SubCircuit.prototype.customDraw = function() {
     for (var i = 0; i < this.outputNodes.length; i++)
         this.outputNodes[i].draw();
 
+    // draw subcircuitElements
+    for(let el of circuitElementList){
+        if(!window[el].prototype.canShowInSubcircuit || subcircuitScope[el].length === 0) continue;
+        
+        for(let i = 0; i < subcircuitScope[el].length; i++){
+            if (subcircuitScope[el][i].subcircuitMetadata.showInSubcircuit) {
+                subcircuitScope[el][i].layoutDraw();
+            }
+        }
+    }
+
 }
 SubCircuit.prototype.centerElement = true; // To center subcircuit when new
 
