@@ -1,6 +1,21 @@
-
-
 <% content_for :title, "CircuitVerse - Online Digital Logic Circuit Simulator" %>
+
+<% set_meta_tags twitter: {
+  card: "summary_large_image",
+  title: yield(:title),
+  description: Rails.configuration.site_description,
+  image: {
+    src: "#{Rails.configuration.site_url}img/logixBanner2.png"
+  }
+} %>
+
+<% set_meta_tags og: {
+  title: yield(:title),
+  image: "#{Rails.configuration.site_url}img/logixBanner2.png",
+  description: Rails.configuration.site_description,
+  type: "article",
+  site_name: Rails.configuration.site_name
+} %>
     <!-- Main jumbotron for a primary marketing message or call to action -->
 
 
