@@ -283,4 +283,19 @@
     tags: <%= @project.tag_list.to_json.html_safe %>
   });
 </script>
+
+<script type="application/ld+json">
+  {
+    "@context" : "http://schema.org",
+    "@type" : "Article",
+    "name" : "<%= @project.name %>",
+    "author" : {
+      "@type" : "Person",
+      "name" : "<%= @project.author.name %>"
+    },
+    "articleSection" : "Project",
+    "articleBody" : "<%= @project.description || " " %>"
+  }
+</script>
+
 <% end %>

@@ -143,6 +143,19 @@
     </script>
     <% end %>
 
+<script type="application/ld+json">
+  {
+    "@context" : "http://schema.org",
+    "@type" : "SoftwareApplication",
+    "name" : "<%= Rails.configuration.site_name %>",
+    "image" : "<%= Rails.configuration.site_image %>",
+    "url" : "<%= Rails.configuration.site_url %>",
+    "applicationCategory" : "<%= Rails.configuration.site_category %>",
+    "downloadUrl" : "<%= Rails.configuration.site_download_url %>"
+  }
+</script>
+
+
     <!-- /container -->
 
 

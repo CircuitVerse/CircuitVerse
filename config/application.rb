@@ -17,5 +17,13 @@ module Logix
 
     # configuring mailer previews directory
     config.action_mailer.preview_path = "#{Rails.root}/lib/mailer_previews"
+
+
+    # Site config
+    config.site_url = "https://circuitverse.org/"
+    config.site_name = "CircuitVerse"
+    config.site_category = "Digital Logic Circuits"
+    config.site_download_url = "https://circuitverse.org/simulator"
+    config.site_image = "https://circuitverse.org/img/circuitverse2.svg"
   end
 end
