@@ -2584,7 +2584,7 @@ DigitalLed.prototype.layoutDraw = function() {
     ctx.beginPath();
     drawCircle2(ctx, 0, 0, 6, xx, yy, this.direction);
     ctx.stroke();
-    console.log("hover Digital:" + this.hover);
+
     if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = "rgba(255, 255, 32,0.8)";
     ctx.fill();
 }
@@ -2663,7 +2663,7 @@ VariableLed.prototype.layoutDraw = function() {
     ctx.beginPath();
     drawCircle2(ctx, 0, 0, 6, xx, yy, this.direction);
     ctx.stroke();
-    console.log("hover Variable:" + this.hover);
+
     if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = "rgba(255, 255, 32,0.8)";
     ctx.fill();
 }
@@ -2854,7 +2854,7 @@ RGBLed.prototype.layoutDraw = function() {
     ctx.fillStyle = ["rgba(" + a + ", " + b + ", " + c + ", 0.8)", "rgba(227, 228, 229, 0.8)"][((a === undefined || b === undefined || c === undefined)) + 0]
     //ctx.fillStyle = ["rgba(200, 200, 200, 0.3)","rgba(227, 228, 229, 0.8)"][((a === undefined || b === undefined || c === undefined) || (a == 0 && b == 0 && c == 0)) + 0];
     ctx.lineWidth = correctWidth(1);
-    console.log("hover RGB:" + this.hover);
+
 
     ctx.beginPath();
     drawCircle2(ctx, 0, 0, dimensionSize, xx, yy, this.direction);           

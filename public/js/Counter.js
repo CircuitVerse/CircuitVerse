@@ -107,7 +107,6 @@ Counter.prototype.layoutProperties = {
     downDimensionY: 20
 }
 Counter.prototype.layoutDraw = function() {
-    console.log("Counter hover : ", this.hover);
     var ctx = simulationArea.context;
     var xx = this.subcircuitMetadata.x;
     var yy = this.subcircuitMetadata.y;
