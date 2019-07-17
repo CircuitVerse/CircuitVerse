@@ -401,11 +401,11 @@ SubCircuit.prototype.customDraw = function() {
 
     // draw subcircuitElements
     for(let el of circuitElementList){
-        if(!window[el].prototype.canShowInSubcircuit || subcircuitScope[el].length === 0) continue;
+        if(!window[el].prototype.canShowInSubcircuit || this.localScope[el].length === 0) continue;
         
-        for(let i = 0; i < subcircuitScope[el].length; i++){
-            if (subcircuitScope[el][i].subcircuitMetadata.showInSubcircuit) {
-                subcircuitScope[el][i].layoutDraw(this.x, this.y);
+        for(let i = 0; i < this.localScope[el].length; i++){
+            if (this.localScope[el][i].subcircuitMetadata.showInSubcircuit) {
+                this.localScope[el][i].layoutDraw(this.x, this.y);
             }
         }
     }
