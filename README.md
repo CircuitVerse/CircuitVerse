@@ -1,6 +1,6 @@
 # CircuitVerse
 
-[![Gitter](https://badges.gitter.im/CircuitVerse/community.svg)](https://gitter.im/CircuitVerse/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Slack](https://img.shields.io/badge/chat-on_slack-pink.svg)](https://join.slack.com/t/circuitverse-team/shared_invite/enQtNjc4MzcyNDE5OTA3LTdjYTM5NjFiZWZlZGI2MmU1MmYzYzczNmZlZDg5MjYxYmQ4ODRjMjQxM2UyMWI5ODUzODQzMDU2ZDEzNjI4NmE)
 [![CircleCI](https://circleci.com/gh/CircuitVerse/CircuitVerse.svg?style=svg)](https://circleci.com/gh/CircuitVerse/CircuitVerse)
 [![Coverage Status](https://coveralls.io/repos/github/CircuitVerse/CircuitVerse/badge.svg?branch=master)](https://coveralls.io/github/CircuitVerse/CircuitVerse?branch=master)
 
@@ -104,7 +104,7 @@ This repository contains the [Code of Conduct](./code-of-conduct.md) of [Circuit
 We would love to hear from you :smile:
 Here are links to our:
 
-[![Gitter](https://badges.gitter.im/CircuitVerse/community.svg)](https://gitter.im/CircuitVerse/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Slack](https://img.shields.io/badge/chat-on_slack-pink.svg)](https://join.slack.com/t/circuitverse-team/shared_invite/enQtNjc4MzcyNDE5OTA3LTdjYTM5NjFiZWZlZGI2MmU1MmYzYzczNmZlZDg5MjYxYmQ4ODRjMjQxM2UyMWI5ODUzODQzMDU2ZDEzNjI4NmE)
 
 [![Discord](https://img.shields.io/discord/552660710232948749.svg)](https://discord.gg/95x8H7b) - This is an official fan communication channel. Thanks to [@jbox1](https://github.com/jbox144) for this initiative.
 
