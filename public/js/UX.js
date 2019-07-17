@@ -155,7 +155,7 @@ function showProperties(obj) {
                     $('#moduleProperty-inner').append(s);
                 }
                 else if (obj.subcircuitMutableProperties[attr].type == "checkbox"){
-                    var s = "<p>" + prop.name + "<input class='objectPropertyAttribute' type='checkbox'  name='" + prop.func + "'></p>";
+                    var s = "<p>" + prop.name + "<label class='switch'> <input type='checkbox' " + ["", "checked"][obj.subcircuitMetadata.showLabelInSubcircuit + 0] + " class='objectPropertyAttributeChecked' name='" + prop.func + "'> <span class='slider'></span> </label></p>";
                     $('#moduleProperty-inner').append(s);
                 }
             }
