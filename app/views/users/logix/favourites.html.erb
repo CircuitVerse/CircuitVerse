@@ -1,6 +1,7 @@
 
 <% content_for :title, @user.name + " - Favourite Circuits" %>
-<% content_for :author_name, @user.name %>
+
+<% set_meta_tags author: @user.name %>
 
 <div class="container">
   <!--<%= link_to 'Back', all_users_path %>-->

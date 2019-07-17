@@ -22,8 +22,19 @@ SitemapGenerator::Sitemap.create do
   # Add all articles:
   #
 
-    User.find_each do |user|
-      add user_projects_path(user), :lastmod => user.current_sign_in_at
-    end
-end
+  User.find_each do |user|
+    add user_projects_path(user), lastmod: user.current_sign_in_at
+  end
 
+  Project.find_each do |project|
+    add user_project_path(project.author, project), lastmod: project.updated_at
+  end
+
+  add about_path
+  add featured_circuits_path
+  add simulator_new_path
+  add examples_path
+  add gettingStarted_path
+  add contribute_path
+  add teachers_path
+end

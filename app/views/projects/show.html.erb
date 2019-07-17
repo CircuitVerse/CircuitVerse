@@ -1,7 +1,23 @@
 <% content_for :title, @project.name %>
-<% content_for :author_name, @project.author.name %>
-<% content_for :page_description, @project.description %>
+<% content_for :description, @project.description %>
+<% set_meta_tags author: @project.author.name %>
 
+<% set_meta_tags twitter: {
+  card: "summary_large_image",
+  title: yield(:title),
+  description: @project.description,
+  image: {
+    src: "#{Rails.configuration.site_url}#{@project.image_preview}"
+  }
+} %>
+
+<% set_meta_tags og: {
+  title: yield(:title),
+  image: "#{Rails.configuration.site_url}#{@project.image_preview}",
+  description: @project.description,
+  type: "article",
+  site_name: Rails.configuration.site_name
+} %>
 
 <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -283,4 +299,19 @@
     tags: <%= @project.tag_list.to_json.html_safe %>
   });
 </script>
+
+<script type="application/ld+json">
+  {
+    "@context" : "http://schema.org",
+    "@type" : "Article",
+    "name" : "<%= @project.name %>",
+    "author" : {
+      "@type" : "Person",
+      "name" : "<%= @project.author.name %>"
+    },
+    "articleSection" : "Project",
+    "articleBody" : "<%= @project.description || " " %>"
+  }
+</script>
+
 <% end %>

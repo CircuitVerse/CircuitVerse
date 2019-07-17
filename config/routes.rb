@@ -14,6 +14,9 @@ Rails.application.routes.draw do
     get '/to_csv/:assignment_id', to: 'grades#to_csv', as: 'grades_to_csv'
   end
 
+  get "/404", to: "errors#not_found"
+  get "/422", to: "errors#unacceptable"
+  get "/500", to: "errors#internal_error"
 
   scope '/groups' do
     get '/:id/assignments/WYSIWYG/index.css', to: redirect('/index.css')
