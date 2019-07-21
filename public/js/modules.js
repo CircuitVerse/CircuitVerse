@@ -2966,6 +2966,12 @@ SquareRGBLed.prototype.customDraw = function () {
 
     ctx.fill();
 }
+SquareRGBLed.prototype.layoutProperties = {
+    rightDimensionX: 15,
+    leftDimensionX: 0,
+    upDimensionY: 15,
+    downDimensionY:0
+}
 SquareRGBLed.prototype.layoutDraw = function(xOffset = 0, yOffset = 0) {
     var ctx = simulationArea.context;
     var xx = this.subcircuitMetadata.x + xOffset;
