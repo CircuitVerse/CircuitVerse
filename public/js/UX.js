@@ -161,8 +161,9 @@ function showProperties(obj) {
             }
         }
         if (!obj.labelDirectionFixed) {
-            var s = $("<select class='objectPropertyAttribute' name='newLabelDirection'>" + "<option value='RIGHT' " + ["", "selected"][+(obj.labelDirection == "RIGHT")] + " >RIGHT</option><option value='DOWN' " + ["", "selected"][+(obj.labelDirection == "DOWN")] + " >DOWN</option><option value='LEFT' " + "<option value='RIGHT'" + ["", "selected"][+(obj.labelDirection == "LEFT")] + " >LEFT</option><option value='UP' " + "<option value='RIGHT'" + ["", "selected"][+(obj.labelDirection == "UP")] + " >UP</option>" + "</select>");
-            s.val(obj.labelDirection);
+            if(!obj.subcircuitMetadata.labelDirection) obj.subcircuitMetadata.labelDirection = obj.labelDirection;
+            var s = $("<select class='objectPropertyAttribute' name='newLabelDirection'>" + "<option value='RIGHT' " + ["", "selected"][+(obj.subcircuitMetadata.labelDirection == "RIGHT")] + " >RIGHT</option><option value='DOWN' " + ["", "selected"][+(obj.subcircuitMetadata.labelDirection == "DOWN")] + " >DOWN</option><option value='LEFT' " + "<option value='RIGHT'" + ["", "selected"][+(obj.subcircuitMetadata.labelDirection == "LEFT")] + " >LEFT</option><option value='UP' " + "<option value='RIGHT'" + ["", "selected"][+(obj.subcircuitMetadata.labelDirection == "UP")] + " >UP</option>" + "</select>");
+            s.val(obj.subcircuitMetadata.labelDirection);
             $('#moduleProperty-inner').append("<p>Label Direction: " + $(s).prop('outerHTML') + "</p>");
         }
     }else if (simulationArea.lastSelected === undefined || simulationArea.lastSelected.objectType == "Wire" || simulationArea.lastSelected.objectType == "CircuitElement" || simulationArea.lastSelected.objectType == "Node") {
@@ -269,10 +270,12 @@ function showProperties(obj) {
         scheduleUpdate();
         updateCanvas = true;
         wireToBeChecked = 1;
-        if (simulationArea.lastSelected && simulationArea.lastSelected[this.name])
+        if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]){       
             prevPropertyObj = simulationArea.lastSelected[this.name](this.value) || prevPropertyObj;
-        else
+            simulationArea.lastSelected[this.name](this.checked);
+        }else{
             window[this.name](this.checked);
+        }
     })
 }
 
