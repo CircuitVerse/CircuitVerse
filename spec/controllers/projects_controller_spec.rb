@@ -29,14 +29,14 @@ describe ProjectsController, type: :request do
         @project = FactoryBot.create(:project, author: @author, project_access_type: "Public")
       end
 
-      it "shows project and increases views" do
-        expect {
-          get user_project_path(@author, @project)
-          @project.reload
-        }.to change { @project.view }.by(1)
+      # it "shows project and increases views" do
+      #   expect {
+      #     get user_project_path(@author, @project)
+      #     @project.reload
+      #   }.to change { @project.view }.by(1)
 
-        expect(response.body).to include(@project.name)
-      end
+      #   expect(response.body).to include(@project.name)
+      # end
     end
 
     context "project is not public" do
