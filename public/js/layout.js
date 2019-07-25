@@ -138,63 +138,6 @@ layout_buffer.prototype.isNodeAt = function(x, y) {
     return false;
 }
 
-// Function to render layout on screen
-//                   COMMENTED TO PRESERVE FROM CHANGES WHILE TESTING
-/* function renderLayout(scope = globalScope) {
-    if (!layoutMode) return;
-
-    var xx = temp_buffer.xx;
-    var yy = temp_buffer.yy;
-
-    var ctx = simulationArea.context;
-    simulationArea.clear();
-
-    ctx.strokeStyle = "black";
-    ctx.fillStyle = "white";
-    ctx.lineWidth = correctWidth(3);
-
-    // Draw base rectangle
-    ctx.beginPath();
-    rect2(ctx, 0, 0, temp_buffer.layout.width, temp_buffer.layout.height, xx, yy, "RIGHT");
-    ctx.fill();
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.textAlign = "center";
-    ctx.fillStyle = "black";
-    if(temp_buffer.layout.titleEnabled){
-        fillText(ctx, scope.name, temp_buffer.layout.title_x + xx, yy + temp_buffer.layout.title_y, 11);
-    }
-
-    // Draw labels
-    for (var i = 0; i < temp_buffer.Input.length; i++) {
-        if (!temp_buffer.Input[i].label) continue;
-        var info = determine_label(temp_buffer.Input[i].x, temp_buffer.Input[i].y, scope);
-        ctx.textAlign = info[0];
-        fillText(ctx, temp_buffer.Input[i].label, temp_buffer.Input[i].x + info[1] + xx, yy + temp_buffer.Input[i].y + info[2], 12);
-    }
-    for (var i = 0; i < temp_buffer.Output.length; i++) {
-        if (!temp_buffer.Output[i].label) continue;
-        var info = determine_label(temp_buffer.Output[i].x, temp_buffer.Output[i].y, scope);
-        ctx.textAlign = info[0];
-        fillText(ctx, temp_buffer.Output[i].label, temp_buffer.Output[i].x + info[1] + xx, yy + temp_buffer.Output[i].y + info[2], 12);
-    }
-    ctx.fill();
-
-    // Draw points
-    for (var i = 0; i < temp_buffer.Input.length; i++) {
-        temp_buffer.Input[i].draw()
-    }
-    for (var i = 0; i < temp_buffer.Output.length; i++) {
-        temp_buffer.Output[i].draw()
-    }
-
-    if (gridUpdate) {
-        gridUpdate = false;
-        dots();
-    }
-
-} */
 function renderLayout(scope = globalScope) {
     if (!layoutMode) return;
 
@@ -223,13 +166,13 @@ function renderLayout(scope = globalScope) {
         if (!temp_buffer.Input[i].label) continue;
         var info = determine_label(temp_buffer.Input[i].x, temp_buffer.Input[i].y, scope);
         ctx.textAlign = info[0];
-        fillText(ctx, temp_buffer.Input[i].label, temp_buffer.Input[i].x + info[1] + xx, yy + temp_buffer.Input[i].y + info[2], 12);
+        fillText(ctx, temp_buffer.Input[i].label, temp_buffer.Input[i].x + info[1], temp_buffer.Input[i].y + info[2], 12);
     }
     for (var i = 0; i < temp_buffer.Output.length; i++) {
         if (!temp_buffer.Output[i].label) continue;
         var info = determine_label(temp_buffer.Output[i].x, temp_buffer.Output[i].y, scope);
         ctx.textAlign = info[0];
-        fillText(ctx, temp_buffer.Output[i].label, temp_buffer.Output[i].x + info[1] + xx, yy + temp_buffer.Output[i].y + info[2], 12);
+        fillText(ctx, temp_buffer.Output[i].label, temp_buffer.Output[i].x + info[1], temp_buffer.Output[i].y + info[2], 12);
     }
     ctx.fill();
 
