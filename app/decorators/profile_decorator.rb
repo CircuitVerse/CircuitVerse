@@ -17,4 +17,8 @@ class ProfileDecorator < SimpleDelegator
     country = ISO3166::Country[profile.country]
     country ? country.translations[I18n.locale.to_s] || country.name : "Not Entered"
   end
+
+  def mail_subscription
+    profile.subscribed? ? "Subscribed" : "Not Susbcribed"
+  end
 end
