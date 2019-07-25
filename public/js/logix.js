@@ -1489,6 +1489,11 @@ CircuitElement.prototype.layoutProperties = {
 // Default mutable properties in layout mode 
 // Should we define it for subcircuit elements only??
 CircuitElement.prototype.subcircuitMutableProperties = {
+    "label": {
+        name: "label: ",
+        type: "text",
+        func: "setLabel"
+    },
     "show label": {
         name: "show label ",
         type: "checkbox",
