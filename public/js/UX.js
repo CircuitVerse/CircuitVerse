@@ -140,7 +140,33 @@ function showProperties(obj) {
     hideProperties();
 
     prevPropertyObj = obj;
-    if (simulationArea.lastSelected === undefined || simulationArea.lastSelected.objectType == "Wire" || simulationArea.lastSelected.objectType == "CircuitElement" || simulationArea.lastSelected.objectType == "Node") {
+    if (layoutMode){ 
+        $('#moduleProperty').show();
+        $('#moduleProperty-inner').append("<div id='moduleProperty-header'>" + obj.objectType + "</div>");
+        if (obj.subcircuitMutableProperties) {
+            for (attr in obj.subcircuitMutableProperties) {
+                var prop = obj.subcircuitMutableProperties[attr];
+                if (obj.subcircuitMutableProperties[attr].type == "number") {
+                    var s = "<p>" + prop.name + "<input class='objectPropertyAttribute' type='number'  name='" + prop.func + "' min='" + (prop.min || 0) + "' max='" + (prop.max || 200) + "' value=" + obj[attr] + "></p>";
+                    $('#moduleProperty-inner').append(s);
+                }
+                else if (obj.subcircuitMutableProperties[attr].type == "text") {
+                    var s = "<p>" + prop.name + "<input class='objectPropertyAttribute' type='text'  name='" + prop.func + "' maxlength='" + (prop.maxlength || 200) + "' value=" + obj[attr] + "></p>";
+                    $('#moduleProperty-inner').append(s);
+                }
+                else if (obj.subcircuitMutableProperties[attr].type == "checkbox"){
+                    var s = "<p>" + prop.name + "<label class='switch'> <input type='checkbox' " + ["", "checked"][obj.subcircuitMetadata.showLabelInSubcircuit + 0] + " class='objectPropertyAttributeChecked' name='" + prop.func + "'> <span class='slider'></span> </label></p>";
+                    $('#moduleProperty-inner').append(s);
+                }
+            }
+        }
+        if (!obj.labelDirectionFixed) {
+            if(!obj.subcircuitMetadata.labelDirection) obj.subcircuitMetadata.labelDirection = obj.labelDirection;
+            var s = $("<select class='objectPropertyAttribute' name='newLabelDirection'>" + "<option value='RIGHT' " + ["", "selected"][+(obj.subcircuitMetadata.labelDirection == "RIGHT")] + " >RIGHT</option><option value='DOWN' " + ["", "selected"][+(obj.subcircuitMetadata.labelDirection == "DOWN")] + " >DOWN</option><option value='LEFT' " + "<option value='RIGHT'" + ["", "selected"][+(obj.subcircuitMetadata.labelDirection == "LEFT")] + " >LEFT</option><option value='UP' " + "<option value='RIGHT'" + ["", "selected"][+(obj.subcircuitMetadata.labelDirection == "UP")] + " >UP</option>" + "</select>");
+            s.val(obj.subcircuitMetadata.labelDirection);
+            $('#moduleProperty-inner').append("<p>Label Direction: " + $(s).prop('outerHTML') + "</p>");
+        }
+    }else if (simulationArea.lastSelected === undefined || simulationArea.lastSelected.objectType == "Wire" || simulationArea.lastSelected.objectType == "CircuitElement" || simulationArea.lastSelected.objectType == "Node") {
         $('#moduleProperty').show();
         $('#moduleProperty-inner').append("<div id='moduleProperty-header'>" + "Project Properties" + "</div>");
         $('#moduleProperty-inner').append("<p>Project : <input class='objectPropertyAttribute' type='text'  name='setProjectName'  value='" + (projectName || "Untitled") + "'></p>");
@@ -244,10 +270,12 @@ function showProperties(obj) {
         scheduleUpdate();
         updateCanvas = true;
         wireToBeChecked = 1;
-        if (simulationArea.lastSelected && simulationArea.lastSelected[this.name])
+        if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]){       
             prevPropertyObj = simulationArea.lastSelected[this.name](this.value) || prevPropertyObj;
-        else
+            simulationArea.lastSelected[this.name](this.checked);
+        }else{
             window[this.name](this.checked);
+        }
     })
 }
 

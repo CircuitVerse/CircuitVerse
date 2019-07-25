@@ -2584,7 +2584,7 @@ DigitalLed.prototype.layoutDraw = function(xOffset = 0, yOffset = 0) {
     ctx.beginPath();
     drawCircle2(ctx, 0, 0, 6, xx, yy, this.direction);
     ctx.stroke();
-    console.log("hover Digital:" + this.hover);
+
     if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = "rgba(255, 255, 32,0.8)";
     ctx.fill();
 }
@@ -2663,7 +2663,7 @@ VariableLed.prototype.layoutDraw = function(xOffset = 0, yOffset = 0) {
     ctx.beginPath();
     drawCircle2(ctx, 0, 0, 6, xx, yy, this.direction);
     ctx.stroke();
-    console.log("hover Variable:" + this.hover);
+
     if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = "rgba(255, 255, 32,0.8)";
     ctx.fill();
 }
@@ -2965,6 +2965,12 @@ SquareRGBLed.prototype.customDraw = function () {
     }
 
     ctx.fill();
+}
+SquareRGBLed.prototype.layoutProperties = {
+    rightDimensionX: 15,
+    leftDimensionX: 0,
+    upDimensionY: 15,
+    downDimensionY:0
 }
 SquareRGBLed.prototype.layoutDraw = function(xOffset = 0, yOffset = 0) {
     var ctx = simulationArea.context;

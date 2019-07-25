@@ -1014,6 +1014,8 @@ function CircuitElement(x, y, scope, dir, bitWidth) {
     if (this.canShowInSubcircuit) {
         this.subcircuitMetadata = {
             showInSubcircuit: false,
+            showLabelInSubcircuit: false,
+            labelDirection: this.labelDirection,
             x : 0,
             y : 0
         }
@@ -1413,7 +1415,10 @@ CircuitElement.prototype.newDirection = function(dir) {
 }
 
 CircuitElement.prototype.newLabelDirection = function(dir) {
-    this.labelDirection = dir;
+    if(layoutMode)
+        this.subcircuitMetadata.labelDirection = dir;
+    else
+        this.labelDirection = dir;
 }
 
 //Method to check if object can be resolved
@@ -1481,6 +1486,25 @@ CircuitElement.prototype.layoutProperties = {
     downDimensionY: 5
 };
 
+// Default mutable properties in layout mode 
+// Should we define it for subcircuit elements only??
+CircuitElement.prototype.subcircuitMutableProperties = {
+    "label": {
+        name: "label: ",
+        type: "text",
+        func: "setLabel"
+    },
+    "show label": {
+        name: "show label ",
+        type: "checkbox",
+        func: "toggleLabelInLayoutMode"
+    }
+}
+
+CircuitElement.prototype.toggleLabelInLayoutMode = function(val) {
+    this.subcircuitMetadata.showLabelInSubcircuit = val;
+}
+
 CircuitElement.prototype.isVerilogResolvable = function() {
 
     var backupValues = []
@@ -1541,8 +1565,45 @@ CircuitElement.prototype.generateVerilog = function() {
     return res;
 }
 
-CircuitElement.prototype.layoutDraw = function () {
+CircuitElement.prototype.drawLayoutMode = function (xOffset = 0, yOffset = 0) {
+    var ctx = simulationArea.context;
+    this.checkHover();
+    if (this.subcircuitMetadata.x * this.scope.scale + this.scope.ox < -this.layoutProperties.rightDimensionX * this.scope.scale - 00 || this.subcircuitMetadata.x * this.scope.scale + this.scope.ox > width + this.layoutProperties.leftDimensionX * this.scope.scale + 00 || this.subcircuitMetadata.y * this.scope.scale + this.scope.oy < -this.layoutProperties.downDimensionY * this.scope.scale - 00 || this.subcircuitMetadata.y * this.scope.scale + this.scope.oy > height + 00 + this.layoutProperties.upDimensionY * this.scope.scale) return;
 
+    if (this.subcircuitMetadata.showLabelInSubcircuit) {
+        var rX = this.layoutProperties.rightDimensionX;
+        var lX = this.layoutProperties.leftDimensionX;
+        var uY = this.layoutProperties.upDimensionY;
+        var dY = this.layoutProperties.downDimensionY;
+
+        // this.subcircuitMetadata.labelDirection
+        if (this.subcircuitMetadata.labelDirection == "LEFT") {
+            ctx.beginPath();
+            ctx.textAlign = "right";
+            ctx.fillStyle = "black";
+            fillText(ctx, this.label, this.subcircuitMetadata.x + xOffset - lX - 10, this.subcircuitMetadata.y + yOffset + 5, 10);
+            ctx.fill();
+        } else if (this.subcircuitMetadata.labelDirection == "RIGHT") {
+            ctx.beginPath();
+            ctx.textAlign = "left";
+            ctx.fillStyle = "black";
+            fillText(ctx, this.label, this.subcircuitMetadata.x + xOffset + rX + 10, this.subcircuitMetadata.y + yOffset + 5, 10);
+            ctx.fill();
+        } else if (this.subcircuitMetadata.labelDirection == "UP") {
+            ctx.beginPath();
+            ctx.textAlign = "center";
+            ctx.fillStyle = "black";
+            fillText(ctx, this.label, this.subcircuitMetadata.x + xOffset, this.subcircuitMetadata.y + yOffset + 5 - uY - 10, 10);
+            ctx.fill();
+        } else if (this.subcircuitMetadata.labelDirection == "DOWN") {
+            ctx.beginPath();
+            ctx.textAlign = "center";
+            ctx.fillStyle = "black";
+            fillText(ctx, this.label, this.subcircuitMetadata.x + xOffset, this.subcircuitMetadata.y + yOffset + 5 + dY + 10, 10);
+            ctx.fill();
+        }
+    }
+    this.layoutDraw(xOffset, yOffset);
 }
 
 CircuitElement.prototype.layoutUpdate = function () {
