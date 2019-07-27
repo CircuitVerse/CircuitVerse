@@ -61,13 +61,16 @@
             <p class="card-text">
               <strong>Author:</strong>
               <%= link_to @project.author.name, @project.author %>
-              </p>
-              <strong>Tags:</strong>
-              <p class="card-text">
-              <% @project.tags.each do |tag| %>
-                <%= link_to tag.name, tag_path(tag.name),{:style=>"background-color: #f1f1f1; color: #000000", :class=>"badge"} %>
-              <% end %>
             </p>
+            
+            <% if !@project.tags.empty? %>
+              <p class="card-text">
+                <strong>Tags:</strong>
+                  <% @project.tags.each do |tag| %>
+                    <%= link_to tag.name, tag_path(tag.name),{:style=>"background-color: #f1f1f1; color: #000000", :class=>"badge"} %>
+                  <% end %>
+              </p>
+            <% end %>
 
             <% if !@project.forked_project.nil? %>
                 <p class="card-text">
