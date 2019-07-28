@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 class UserMailer < ApplicationMailer
+  def custom_email(user, mail)
+    @user = user
+    @mail = mail
+    mail(to: user.email, subject: mail.subject)
+  end
+
   def welcome_email(user)
     @user = user
     @url = "CircuitVerse.org"

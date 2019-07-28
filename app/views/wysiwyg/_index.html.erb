@@ -91,10 +91,12 @@
     </div>
 
     <div id="editor">
-      <% if @project != nil%>
+      <% if @project.present? %>
         <%=raw @project.description%>
-      <% else %>
+      <% elsif @assignment.present? %>
           <%= raw @assignment.description%>
+      <% elsif @mail.present? %>
+          <%= raw @mail.content %>
       <% end %>
     </div>
   </div>
