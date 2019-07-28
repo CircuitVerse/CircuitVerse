@@ -1,0 +1,16 @@
+<%= form_with(model: CustomMail.new, local: true, multipart: true, id:"mailsForm") do |form| %>
+
+  <div class="field">
+    <%= form.label :subject %>
+    <%= form.text_field :subject %>
+  </div>
+
+  <div class="field" id="wysiwyg">
+    <%= form.label :content %><br>
+    <%= render "wysiwyg/index" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit() %>
+  </div>
+<% end %>

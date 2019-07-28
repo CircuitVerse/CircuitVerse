@@ -7,6 +7,9 @@ Rails.application.routes.draw do
     resources :assignments
   end
 
+  resource :custom_mails, only: [:new, :create] do
+  end
+
   # grades
   scope '/grades' do
     post '/', to: 'grades#create', as: 'grades'
