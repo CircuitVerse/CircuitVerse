@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   resources :collaborations
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  # require 'sidekiq/web'
+  # mount Sidekiq::Web => '/sidekiq'
   # resources :assignment_submissions
   resources :group_members ,only: [:create,:destroy]
   resources :groups do
@@ -8,6 +10,7 @@ Rails.application.routes.draw do
   end
 
   resources :custom_mails, only: [:new, :create, :edit, :show, :update]
+  get '/custom_mails/send_mail/:id', to: 'custom_mails#send_mail', as: 'send_custom_mail'
 
   # grades
   scope '/grades' do

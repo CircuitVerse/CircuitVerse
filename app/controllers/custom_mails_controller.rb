@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 class CustomMailsController < ApplicationController
+  include CustomMailsHelper
+
   before_action :authenticate_user!
   before_action :authorize_admin
-  before_action :set_mail, only: [:edit, :update, :show]
+  before_action :set_mail, only: [:edit, :update, :show, :send_mail]
 
   def show
   end
@@ -40,6 +42,12 @@ class CustomMailsController < ApplicationController
         format.json { render json: @mail.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def send_mail
+    send_mail_in_batches(@mail)
+
+    render html: "The mails were queued for sending!"
   end
 
   private
