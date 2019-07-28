@@ -1,0 +1,7 @@
+<link rel="stylesheet" type="text/css" href="/css/custom_mail.css">
+
+<div class="mail-preview-header">
+  <%= link_to 'Edit', edit_custom_mail_path(@mail) %>
+</div>
+
+<%= render file: "user_mailer/custom_email", layout: "layouts/mailer", mail: @mail %>
