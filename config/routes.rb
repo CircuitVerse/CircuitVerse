@@ -7,8 +7,7 @@ Rails.application.routes.draw do
     resources :assignments
   end
 
-  resource :custom_mails, only: [:new, :create] do
-  end
+  resources :custom_mails, only: [:new, :create, :edit, :show, :update]
 
   # grades
   scope '/grades' do

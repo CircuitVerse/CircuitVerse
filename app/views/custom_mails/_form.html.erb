@@ -1,4 +1,4 @@
-<%= form_with(model: CustomMail.new, local: true, multipart: true, id:"mailsForm") do |form| %>
+<%= form_with(model: custom_mail, local: true, multipart: true, id:"mailsForm") do |form| %>
 
   <div class="field">
     <%= form.label :subject %>
@@ -10,7 +10,16 @@
     <%= render "wysiwyg/index" %>
   </div>
 
-  <div class="actions">
+  <div class="actions" onclick="before_submit()">
     <%= form.submit() %>
   </div>
 <% end %>
+
+<script>
+  function before_submit() {
+  $('<input />').attr('type', 'hidden')
+    .attr('name', 'custom_mail[content]')
+    .attr('value', $("#editor").cleanHtml())
+    .appendTo('#mailsForm');
+  }
+</script>

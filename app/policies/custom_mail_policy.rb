@@ -7,8 +7,4 @@ class CustomMailPolicy < ApplicationPolicy
     @user = user
     @custom_mail = custom_mail
   end
-
-  def new?
-    admin?
-  end
 end
