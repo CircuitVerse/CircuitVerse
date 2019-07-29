@@ -1213,13 +1213,20 @@ CircuitElement.prototype.update = function() {
 
         update |= this.clicked;
     } else {
+        console.log("11");
         if (this.clicked) simulationArea.selected = false;
         this.clicked = false;
+        if(this.wasClicked && this.releaseClick) {
+            this.releaseClick();
+            console.log("el: ", this);
+        }
         this.wasClicked = false;
     }
 
     if (simulationArea.mouseDown && !this.wasClicked) {
+        console.log("22");
         if (this.clicked) {
+            console.log("33");
             this.wasClicked = true;
             if (this.click) this.click();
             if (simulationArea.shiftDown) {
