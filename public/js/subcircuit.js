@@ -290,6 +290,14 @@ SubCircuit.prototype.reset = function() {
 
 SubCircuit.prototype.click = function() {
     // this.id=prompt();
+    console.log("clicked");
+    this.wasClicked = true;
+}
+
+SubCircuit.prototype.releaseClick = function(){
+    console.log("release");
+    this.releaseClick = true;
+    this.wasClicked = false;
 }
 
 SubCircuit.prototype.addInputs = function() {
@@ -321,7 +329,12 @@ SubCircuit.prototype.saveObject = function() {
 
 SubCircuit.prototype.resolve = function() {
 
-
+    console.log("44");
+    if(this.localScope["Button"] != 0 && this.wasClicked){
+        console.log(simulationArea.mouseDownX);
+        console.log(this.localScope["Button"][0].subcircuitMetadata.x);
+        console.log(this.localScope["Button"][0].subcircuitMetadata.y);
+    }
     // deprecated
     // var subcircuitScope = this.localScope;//scopeList[this.id];
     // // this.scope.pending.clean(this); // To remove any pending instances
