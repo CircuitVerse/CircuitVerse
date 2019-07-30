@@ -31,6 +31,14 @@ describe CustomMailsController, type: :request do
       end
     end
 
+    describe "#show" do
+      it "should show the mail" do
+        get custom_mail_path(@mail)
+        expect(response.body).to include(@mail.subject)
+        expect(response.body).to include(@mail.content)
+      end
+    end
+
     describe "#update" do
       let(:update_params) do
         {

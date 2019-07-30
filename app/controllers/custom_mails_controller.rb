@@ -8,6 +8,7 @@ class CustomMailsController < ApplicationController
   before_action :set_mail, only: [:edit, :update, :show, :send_mail]
 
   def show
+    @user = current_user
   end
 
   def new

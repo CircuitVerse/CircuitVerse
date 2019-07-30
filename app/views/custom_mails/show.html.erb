@@ -5,4 +5,4 @@
   <%= link_to 'Send', send_custom_mail_path(@mail), class: "send-link" %>
 </div>
 
-<%= render file: "user_mailer/custom_email", layout: "layouts/mailer", mail: @mail %>
+<%= render file: "user_mailer/custom_email", layout: "layouts/mailer", mail: @mail, user: @user %>
