@@ -291,12 +291,24 @@ SubCircuit.prototype.reset = function() {
 SubCircuit.prototype.click = function() {
     // this.id=prompt();
     console.log("clicked");
+    // no need for this line as it is already true before function call inside CircuitElement.update
     this.wasClicked = true;
+    // pass click to button from here ??
+    console.log("44");
+    if(this.localScope["Button"] != 0 && this.wasClicked){
+        // simulationArea.mouseDownX =  this.x + this.localScope["Button"][0].subcircuitMetadata.x
+        console.log(simulationArea.mouseDownX);
+        console.log(simulationArea.mouseDownY);
+        console.log(this.x);
+        console.log(this.y);
+        console.log(this.localScope["Button"][0].subcircuitMetadata.x);
+        console.log(this.localScope["Button"][0].subcircuitMetadata.y);
+    }
 }
 
 SubCircuit.prototype.releaseClick = function(){
     console.log("release");
-    this.releaseClick = true;
+    // no need for this too ???
     this.wasClicked = false;
 }
 

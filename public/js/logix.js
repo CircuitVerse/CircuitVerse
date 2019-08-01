@@ -1213,12 +1213,13 @@ CircuitElement.prototype.update = function() {
 
         update |= this.clicked;
     } else {
-        console.log("11");
+        console.log("11:1");
+        console.log("rel:", this.releaseClick);
         if (this.clicked) simulationArea.selected = false;
         this.clicked = false;
-        if(this.wasClicked && this.releaseClick) {
-            this.releaseClick();
+        if(this.wasClicked && !this.clicked) { 
             console.log("el: ", this);
+            this.releaseClick();
         }
         this.wasClicked = false;
     }
@@ -1244,7 +1245,9 @@ CircuitElement.prototype.update = function() {
 
     return update;
 }
-
+CircuitElement.prototype.releaseClick = function() {
+    // no use, overridden by subcircuit class only
+}
 CircuitElement.prototype.fixDirection = function() {
     this.direction = fixDirection[this.direction] || this.direction;
     this.labelDirection = fixDirection[this.labelDirection] || this.labelDirection;
