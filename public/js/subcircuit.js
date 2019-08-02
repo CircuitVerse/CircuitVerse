@@ -290,7 +290,6 @@ SubCircuit.prototype.reset = function() {
 
 SubCircuit.prototype.click = function() {
     // this.id=prompt();
-    console.log("clicked");
     for(let i = 0; i < this.localScope["Button"].length; i++){
         if (simulationArea.mouseDownX === this.x + this.localScope["Button"][i].subcircuitMetadata.x 
             && simulationArea.mouseDownY === this.y + this.localScope["Button"][i].subcircuitMetadata.y){
@@ -301,7 +300,6 @@ SubCircuit.prototype.click = function() {
 }
 
 SubCircuit.prototype.releaseClick = function(){
-    console.log("release");
     this.localScope["Button"][this.lastClickedElement].wasClicked = false;
 }
 
