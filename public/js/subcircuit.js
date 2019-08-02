@@ -291,25 +291,18 @@ SubCircuit.prototype.reset = function() {
 SubCircuit.prototype.click = function() {
     // this.id=prompt();
     console.log("clicked");
-    // no need for this line as it is already true before function call inside CircuitElement.update
-    this.wasClicked = true;
-    // pass click to button from here ??
-    console.log("44");
-    if(this.localScope["Button"] != 0 && this.wasClicked){
-        // simulationArea.mouseDownX =  this.x + this.localScope["Button"][0].subcircuitMetadata.x
-        console.log(simulationArea.mouseDownX);
-        console.log(simulationArea.mouseDownY);
-        console.log(this.x);
-        console.log(this.y);
-        console.log(this.localScope["Button"][0].subcircuitMetadata.x);
-        console.log(this.localScope["Button"][0].subcircuitMetadata.y);
-    }
+    for(let i = 0; i < this.localScope["Button"].length; i++){
+        if (simulationArea.mouseDownX === this.x + this.localScope["Button"][i].subcircuitMetadata.x 
+            && simulationArea.mouseDownY === this.y + this.localScope["Button"][i].subcircuitMetadata.y){
+                this.lastClickedElement = i;
+                this.localScope["Button"][i].wasClicked = true;
+            }
+    }    
 }
 
 SubCircuit.prototype.releaseClick = function(){
     console.log("release");
-    // no need for this too ???
-    this.wasClicked = false;
+    this.localScope["Button"][this.lastClickedElement].wasClicked = false;
 }
 
 SubCircuit.prototype.addInputs = function() {
@@ -341,12 +334,7 @@ SubCircuit.prototype.saveObject = function() {
 
 SubCircuit.prototype.resolve = function() {
 
-    console.log("44");
-    if(this.localScope["Button"] != 0 && this.wasClicked){
-        console.log(simulationArea.mouseDownX);
-        console.log(this.localScope["Button"][0].subcircuitMetadata.x);
-        console.log(this.localScope["Button"][0].subcircuitMetadata.y);
-    }
+
     // deprecated
     // var subcircuitScope = this.localScope;//scopeList[this.id];
     // // this.scope.pending.clean(this); // To remove any pending instances

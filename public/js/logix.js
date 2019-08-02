@@ -1214,7 +1214,6 @@ CircuitElement.prototype.update = function() {
         update |= this.clicked;
     } else {
         console.log("11:1");
-        console.log("rel:", this.releaseClick);
         if (this.clicked) simulationArea.selected = false;
         this.clicked = false;
         if(this.wasClicked && !this.clicked) { 
