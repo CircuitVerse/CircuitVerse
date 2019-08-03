@@ -46,6 +46,9 @@ class CustomMailsController < ApplicationController
   end
 
   def send_mail
+    @mail.sent = true
+    @mail.save
+
     send_mail_in_batches(@mail)
 
     render html: "The mails were queued for sending!"

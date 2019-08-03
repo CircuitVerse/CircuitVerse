@@ -3,6 +3,7 @@ class AddMailsModel < ActiveRecord::Migration[5.1]
     create_table :custom_mails do |t|
       t.text :subject
       t.text :content
+      t.boolean :sent, default: false
       t.timestamps
     end
 

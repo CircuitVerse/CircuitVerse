@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 20190728103204) do
   create_table "custom_mails", force: :cascade do |t|
     t.text "subject"
     t.text "content"
+    t.boolean "sent", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
