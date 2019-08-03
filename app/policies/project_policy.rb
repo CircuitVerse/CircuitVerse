@@ -12,7 +12,7 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def can_feature?
-    user.admin? && project.project_access_type == "Public"
+    user.present? && user.admin? && project.project_access_type == "Public"
   end
 
   def user_access?
