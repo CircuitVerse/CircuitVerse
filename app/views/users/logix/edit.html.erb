@@ -27,6 +27,11 @@
           <p> <%= image_tag @profile.profile_picture.url(:thumb) %></p>
           <input type="file" class="form-control" id="profile_picture" name="user[profile_picture]" value="<%= @profile.profile_picture %>">
         </div>
+
+        <div class="field form-group">
+          <label for="profile_subscribed">Subscribed to mails: </label>
+          <%= f.check_box :subscribed, {checked: @profile.subscribed?, style: 'margin-top: 0', id: "profile_subscribed"} %>
+        </div>
         <button type="submit" class="btn btn-secondary">Save</button>
       <% end %>
 
