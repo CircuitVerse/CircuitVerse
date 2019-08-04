@@ -29,6 +29,6 @@ class UserMailer < ApplicationMailer
   def featured_circuit_email(user, project)
     @user = user
     @project = project
-    mail(to: @user.email, subject: "You project is now featured!")
+    mail(to: @user.email, subject: "Your project is now featured!")
   end
 end
