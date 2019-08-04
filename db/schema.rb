@@ -118,7 +118,23 @@ ActiveRecord::Schema.define(version: 20190628090620) do
   create_table "pending_invitations", force: :cascade do |t|
     t.bigint "group_id"
     t.string "email"
+    t.datetime "cr  create_table "subscriptions", force: :cascade do |t|
+    t.string "target_type", null: false
+    t.bigint "target_id", null: false
+    t.string "key", null: false
+    t.boolean "subscribing", default: true, null: false
+    t.boolean "subscribing_to_email", default: true, null: false
+    t.datetime "subscribed_at"
+    t.datetime "unsubscribed_at"
+    t.datetime "subscribed_to_email_at"
+    t.datetime "unsubscribed_to_email_at"
+    t.text "optional_targets"
     t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["key"], name: "index_subscriptions_on_key"
+    t.index ["target_type", "target_id", "key"], name: "index_subscriptions_on_target_type_and_target_id_and_key", unique: true
+    t.index ["target_type", "target_id"], name: "index_subscriptions_on_target_type_and_target_id"
+  endeated_at", null: false
     t.datetime "updated_at", null: false
     t.index ["group_id", "email"], name: "index_pending_invitations_on_group_id_and_email", unique: true
     t.index ["group_id"], name: "index_pending_invitations_on_group_id"
@@ -151,6 +167,7 @@ ActiveRecord::Schema.define(version: 20190628090620) do
     t.index ["user_id", "project_id"], name: "index_stars_on_user_id_and_project_id", unique: true
     t.index ["user_id"], name: "index_stars_on_user_id"
   end
+
 
   create_table "taggings", force: :cascade do |t|
     t.bigint "project_id"
