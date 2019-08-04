@@ -6,6 +6,17 @@ RSpec.describe UserMailer, type: :mailer do
   before do
     @user = FactoryBot.create(:user)
     @project = FactoryBot.create(:project, author: @user)
+    @mail = FactoryBot.create(:custom_mail, subject: "Test subject",
+      content: "Test content", sender: FactoryBot.create(:user))
+  end
+
+  describe "#custom_email" do
+    let(:mail) { UserMailer.custom_email(@user, @mail) }
+
+    it "sends custom mail" do
+      expect(mail.to).to eq([@user.email])
+      expect(mail.subject).to eq(@mail.subject)
+    end
   end
 
   describe "#welcome_email" do

@@ -1,11 +1,21 @@
 Rails.application.routes.draw do
   resources :collaborations
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+
+  require 'sidekiq/web'
+
+  authenticate :user, lambda { |u| u.admin? } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
+
   # resources :assignment_submissions
   resources :group_members ,only: [:create,:destroy]
   resources :groups do
     resources :assignments
   end
+
+  resources :custom_mails, only: [:new, :create, :edit, :show, :update]
+  get '/custom_mails/send_mail/:id', to: 'custom_mails#send_mail', as: 'send_custom_mail'
 
   # grades
   scope '/grades' do
