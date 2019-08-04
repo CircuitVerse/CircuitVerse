@@ -195,7 +195,7 @@ ActiveRecord::Schema.define(version: 20190728103204) do
     t.string "uid"
     t.string "profile_picture_file_name"
     t.string "profile_picture_content_type"
-    t.integer "profile_picture_file_size"
+    t.bigint "profile_picture_file_size"
     t.datetime "profile_picture_updated_at"
     t.boolean "admin", default: false
     t.string "country"
