@@ -14,7 +14,8 @@ class LogixController < ApplicationController
       format.js
     end
 
-    @featured_circuits = Project.joins(:featured_circuit).limit(MAXIMUM_FEATURED_CIRCUITS)
+    @featured_circuits = Project.joins(:featured_circuit).order("featured_circuits.created_at DESC")
+      .limit(MAXIMUM_FEATURED_CIRCUITS)
   end
 
   def gettingStarted
