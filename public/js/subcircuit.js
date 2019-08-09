@@ -299,6 +299,24 @@ SubCircuit.prototype.click = function() {
             var lX = this.layoutProperties.leftDimensionX;
             var uY = this.layoutProperties.upDimensionY;
             var dY = this.layoutProperties.downDimensionY;
+
+            if (!layoutMode && !this.directionFixed && !this.overrideDirectionRotation) {
+                if (this.direction == "LEFT") {
+                    lX = this.rightDimensionX;
+                    rX = this.leftDimensionX
+                } else if (this.direction == "DOWN") {
+                    lX = this.downDimensionY;
+                    rX = this.upDimensionY;
+                    uY = this.leftDimensionX;
+                    dY = this.rightDimensionX;
+                } else if (this.direction == "UP") {
+                    lX = this.downDimensionY;
+                    rX = this.upDimensionY;
+                    dY = this.leftDimensionX;
+                    uY = this.rightDimensionX;
+                }
+            }
+            
             if ((-lX <= mX && mX <= rX && -dY <= mY && mY <= uY)){
                     this.lastClickedElement = i;
                     this.localScope["Button"][i].wasClicked = true;
