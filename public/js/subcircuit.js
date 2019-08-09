@@ -291,16 +291,24 @@ SubCircuit.prototype.reset = function() {
 SubCircuit.prototype.click = function() {
     // this.id=prompt();
     for(let i = 0; i < this.localScope["Button"].length; i++){
-        if (simulationArea.mouseDownX === this.x + this.localScope["Button"][i].subcircuitMetadata.x 
-            && simulationArea.mouseDownY === this.y + this.localScope["Button"][i].subcircuitMetadata.y){
-                this.lastClickedElement = i;
-                this.localScope["Button"][i].wasClicked = true;
+        if (this.localScope["Button"][i].showInSubcircuit){
+            var mX = simulationArea.mouseXf - (this.x + this.localScope["Button"][i].subcircuitMetadata.x);
+            var mY = (this.y + this.localScope["Button"][i].subcircuitMetadata.y) - simulationArea.mouseYf;
+
+            var rX = this.layoutProperties.rightDimensionX;
+            var lX = this.layoutProperties.leftDimensionX;
+            var uY = this.layoutProperties.upDimensionY;
+            var dY = this.layoutProperties.downDimensionY;
+            if ((-lX <= mX && mX <= rX && -dY <= mY && mY <= uY)){
+                    this.lastClickedElement = i;
+                    this.localScope["Button"][i].wasClicked = true;
             }
+        }
     }    
 }
 
 SubCircuit.prototype.releaseClick = function(){
-    this.localScope["Button"][this.lastClickedElement].wasClicked = false;
+    if(this.lastClickedElement !== undefined) this.localScope["Button"][this.lastClickedElement].wasClicked = false;
 }
 
 SubCircuit.prototype.addInputs = function() {
