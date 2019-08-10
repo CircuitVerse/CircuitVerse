@@ -251,7 +251,13 @@ Commontator.configure do |config|
   # }
   # (defaults to the commontable's show url with an anchor pointing to the comment's div)
   config.comment_url_proc = ->(comment, app_routes) {
-    app_routes.polymorphic_url(comment.thread.commontable, anchor: "comment_#{comment.id}_div")
+    if comment.thread.commontable.class.name == "Project"
+      project = comment.thread.commontable
+      author = project.author
+      return "#{Rails.configuration.site_url}users/#{author.id}/projects/#{project.id}#comment_#{comment.id}_div"
+    else
+      return app_routes.polymorphic_url(comment.thread.commontable, anchor: "comment_#{comment.id}_div")
+    end
   }
 
   # mentions_enabled
