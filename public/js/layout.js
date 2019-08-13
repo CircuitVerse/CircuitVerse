@@ -351,8 +351,34 @@ function layoutNode(x, y, id, label = "", type, parent) {
     this.prev = 'a';
     this.count = 0;
     this.parent = parent;
-
+    this.objectType = "Layout Node";    
 }
+
+/* 
+When you click on a layoutNode in layout mode, the left panel shows a box with 'undefined'.
+This is mainly because layoutNode doesn't inherit from CircuitElement class.
+These lines repair it but produces other errors, the main fix is to make layoutNode inherit from CircuitElement.
+If you modified the code to make it inherit from circuitElement, remove this line "this.objectType = 'Layout Node';" from layout node constructor function
+layoutNode.prototype.canShowInSubcircuit = true;
+layoutNode.prototype.subcircuitMutableProperties = {
+    "label": {
+        name: "label: ",
+        type: "text",
+        func: "setLabel"
+    },
+    "show label": {
+        name: "show label ",
+        type: "checkbox",
+        func: "toggleLabelInLayoutMode"
+    }
+}
+layoutNode.prototype.subcircuitMetadata = {
+    showInSubcircuit: false,
+    showLabelInSubcircuit: false,
+    labelDirection: this.labelDirection,
+    x : 0,
+    y : 0
+} */
 
 layoutNode.prototype.absX = function() {
     return this.x;
