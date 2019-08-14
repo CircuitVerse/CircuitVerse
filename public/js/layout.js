@@ -206,7 +206,7 @@ function renderLayout(scope = globalScope) {
         for(let j = 0; j < globalScope[elementName].length; j++){
 
             if (globalScope[elementName][j].subcircuitMetadata.showInSubcircuit) {
-                globalScope[elementName][j].drawLayoutMode(this.x, this.y);
+                globalScope[elementName][j].drawLayoutMode();
             }
            
         }

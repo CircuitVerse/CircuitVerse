@@ -291,7 +291,7 @@ SubCircuit.prototype.reset = function() {
 SubCircuit.prototype.click = function() {
     // this.id=prompt();
     for(let i = 0; i < this.localScope["Button"].length; i++){
-        if (this.localScope["Button"][i].showInSubcircuit){
+        if (this.localScope["Button"][i].subcircuitMetadata.showInSubcircuit){
             var mX = simulationArea.mouseXf - (this.x + this.localScope["Button"][i].subcircuitMetadata.x);
             var mY = (this.y + this.localScope["Button"][i].subcircuitMetadata.y) - simulationArea.mouseYf;
 
