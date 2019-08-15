@@ -225,7 +225,8 @@ Commontator.configure do |config|
   #   "no-reply@#{Rails.application.class.parent.to_s.downcase}.com"
   # }
   config.email_from_proc = ->(thread) {
-    "no-reply@#{Rails.application.class.parent.to_s.downcase}.com"
+    # "no-reply@#{Rails.application.class.parent.to_s.downcase}.com"
+    return "#{ENV["CIRCUITVERSE_EMAIL_ID"]}"
   }
 
   # commontable_name_proc
