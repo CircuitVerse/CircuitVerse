@@ -165,8 +165,8 @@
       <% @project.collaborators.each do |user| %>
           <tr>
             <td><%= link_to user.name, user %></td>
-            <td><%= user.email %></td>
             <% if policy(@project).author_access? %>
+		<td><%= user.email %></td>
                 <td><%= link_to 'Remove', collaboration_path(Collaboration.find_by(user_id:user.id,project_id:@project.id)), method: :delete, data: { confirm: 'Are you sure?' } %></td>
             <% end %>
           </tr>
