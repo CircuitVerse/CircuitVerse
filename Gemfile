@@ -49,6 +49,7 @@ gem 'rails_admin', '~> 1.2'
 
 gem 'sidekiq'
 gem 'pg_search'
+gem 'sunspot_rails'
 
 # For home page pagination
 gem 'will_paginate', '~> 3.1.1'
@@ -103,6 +104,7 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'rails-erd'
   gem 'rubocop'
+  gem 'sunspot_solr'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
