@@ -47,23 +47,4 @@ describe LogixController, type: :request do
     get contribute_path
     expect(response.status).to eq(200)
   end
-
-  it "should get some results" do
-    FactoryBot.create(:project, name: "Full adder using basic gates", project_access_type: "Public")
-    FactoryBot.create(:project, name: "Half adder using basic gates", project_access_type: "Public")
-    FactoryBot.create(:project, name: "Full adder using half adder", project_access_type: "Public")
-    get search_path, params: { q: "basic gates" }
-    expect(response.status).to eq(200)
-    expect(response.body).to include "Full adder using basic gates"
-    expect(response.body).to include "Half adder using basic gates"
-    expect(response.body).not_to include "Full adder using half adder"
-  end
-
-  it "should get no results" do
-    FactoryBot.create(:project, name: "Full adder using basic gates", project_access_type: "Public")
-    get search_path, params: { q: "half adder" }
-    expect(response.status).to eq(200)
-    expect(response.body).not_to include "Full adder using basic gates"
-    expect(response.body).to include "No Results Found"
-  end
 end
