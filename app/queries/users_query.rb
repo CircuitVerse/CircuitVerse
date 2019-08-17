@@ -1,17 +1,16 @@
 # frozen_string_literal: true
 
-class ProjectsQuery
+class UsersQuery
   MAX_RESULTS_PER_PAGE = 5
 
   attr_reader :relation
 
-  def initialize(relation = Project.all)
+  def initialize(relation = User.all)
     @search = Search.new(relation)
   end
 
   def execute(query)
-    @search.call(query).includes(:author, :tags)
-      .select("id,author_id,image_preview,name,description,view")
+    @search.call(query)
   end
 
   def results(query_params)

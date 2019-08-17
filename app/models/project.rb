@@ -15,21 +15,20 @@ class Project < ApplicationRecord
   has_one :featured_circuit
   has_one :grade, dependent: :destroy
 
+  scope :public_and_not_forked, ->() { where(project_access_type: "Public", forked_project_id: nil) }
+
   include PgSearch
-  pg_search_scope :text_search, against: [:name, :description]
+  pg_search_scope :text_search, against: [:name, :description], associated_against: {
+    author: :name,
+    tags: :name
+  }
+
   after_update :check_and_remove_featured
 
   self.per_page = 8
 
   acts_as_commontable
   # after_commit :send_mail, on: :create
-  def self.search(query)
-    if query.present?
-      Project.text_search(query)
-    else
-      Project.all
-    end
-  end
 
   scope :open, -> { where(project_access_type: "Public") }
   def check_edit_access(user)
