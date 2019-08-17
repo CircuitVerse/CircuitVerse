@@ -1,15 +1,23 @@
 <link href="/css/search.css" rel="stylesheet">
-<% if @projects.empty? %>
-  <div class="jumbotron text-center">
-    <h2>No Results Found</h2>
+
+<%= render "logix_assets/search_bar", { resource: "Projects" } %>
+
+<% if @results.empty? %>
+  <div class="container">
+    <h4 class="results-head">No Results Found</h4>
   </div>
-<% end %>
+<% else %>
 <div class=""></div>
 <div class="container">
-  <% @projects.each do |project| %>
+  <% @results.each do |project| %>
     <div class="row feature m-4">
       <div class="col-md-9">
         <h3 class="card-title"><%= project.name %></h3>
+        <p class="card-text">
+          <% project.tags.each do |tag| %>
+            <%= link_to tag.name, tag_path(tag.name),{:style=>"background-color: #f1f1f1; color: #000000", :class=>"badge"} %>
+          <% end %>
+        </p>
         <div class="description"><%= sanitize project.description %></div>
         <div class="row mt-3">
           <div class="col-4">
@@ -39,5 +47,9 @@
       </div>
     </div>
   <% end %>
-  <%= will_paginate(@projects, renderer: SearchPaginateRenderer) %>
+  <% unless @results.empty? %>
+    <%= will_paginate(@results, renderer: SearchPaginateRenderer) %>
+  <% end %>
 </div>
+<% end %>
+

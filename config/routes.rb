@@ -28,6 +28,8 @@ Rails.application.routes.draw do
   get "/422", to: "errors#unacceptable"
   get "/500", to: "errors#internal_error"
 
+  get '/search', to: "search#search"
+
   scope '/groups' do
     get '/:id/assignments/WYSIWYG/index.css', to: redirect('/index.css')
     get '/:id/assignments/WYSIWYG/bootstrap-wysiwyg.js', to: redirect('/bootstrap-wysiwyg.js')
@@ -53,7 +55,6 @@ Rails.application.routes.draw do
   get  '/about', to:'logix#about'
   get  '/privacy', to:'logix#privacy'
   get  '/tos', to:'logix#tos'
-  get  '/search', to:'logix#search'
   get  '/teachers', to:'logix#teachers'
   get  '/contribute', to:'logix#contribute'
 
