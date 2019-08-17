@@ -7,10 +7,10 @@ module SearchHelper
     case resource
     when "Users"
       # User query
-      return UsersQuery.new.results(query_params), "/users/logix/search"
+      return UsersQuery.new(query_params).results, "/users/logix/search"
     when "Projects"
       # Project query
-      return ProjectsQuery.new(Project.public_and_not_forked).results(query_params),
+      return ProjectsQuery.new(query_params, Project.public_and_not_forked).results,
        "/projects/search"
     end
   end

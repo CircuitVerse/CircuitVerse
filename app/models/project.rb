@@ -15,13 +15,28 @@ class Project < ApplicationRecord
   has_one :featured_circuit
   has_one :grade, dependent: :destroy
 
-  scope :public_and_not_forked, ->() { where(project_access_type: "Public", forked_project_id: nil) }
+  scope :public_and_not_forked,
+  ->() { where(project_access_type: "Public", forked_project_id: nil) }
 
   include PgSearch
   pg_search_scope :text_search, against: [:name, :description], associated_against: {
     author: :name,
     tags: :name
   }
+
+  searchable do
+    text :name
+
+    text :description
+
+    text :author do
+      author.name
+    end
+
+    text :tags do
+      tags.map { |tag| tag.name }
+    end
+  end
 
   after_update :check_and_remove_featured
 

@@ -33,6 +33,12 @@ class User < ApplicationRecord
   include PgSearch
   pg_search_scope :text_search, against: [:name, :educational_institute, :country]
 
+  searchable do
+    text :name
+    text :educational_institute
+    text :country
+  end
+
 
   def create_members_from_invitations
     pending_invitations.reload.each do |invitation|
