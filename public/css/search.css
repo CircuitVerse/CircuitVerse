@@ -3,3 +3,69 @@
     justify-content: center;
     margin: 30px;
 }
+
+.results-head {
+    margin: 2rem 1rem 0 1.60rem;
+}
+
+.no-results {
+    margin-top: 2rem;
+    margin-left: 1.6rem;
+}
+
+.hide {
+    display: none;
+}
+
+.search-box-form {
+    display: flex;
+    margin-left: 1.50rem;
+    margin-right: 0.9rem;
+}
+
+.search-bar-input {
+    border-radius: 0 3px 3px 0;
+    outline: 0;
+    border: 1px solid rgba(0,0,0,.125);
+    padding: 0.5rem;
+    padding-left: 0.8rem;
+    width: 100%;
+    margin-right: 0.6rem;
+}
+
+.search-bar-select {
+    cursor: pointer;
+    width: 105px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 3px 0 0 3px;
+    border: 1px solid #ced4da;
+    background: url("/img/caret.jpg") 100% / 25% no-repeat #ddd;
+    padding: 0.8rem;
+    border: 1px solid rgba(0,0,0,.125);
+    font-size: 0.9rem;
+}
+
+.nav-search-form {
+    display: flex;
+}
+
+.nav-bar-search-select {
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 3px 0 0 3px;
+    border: 1px solid #ced4da;
+    background: url("/img/caret.jpg") 100% / 25% no-repeat #ddd;
+    font-size: 0.8rem;
+    padding-right: 1.6rem;
+}
+
+.nav-bar-search-input {
+    border-radius: 0 3px 3px 0;
+    outline: 0;
+    border: 0;
+    padding-left: 0.8rem;
+}

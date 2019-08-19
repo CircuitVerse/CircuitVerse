@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  require "pg_search"
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   has_many :projects,  foreign_key: "author_id", dependent: :destroy
@@ -28,6 +29,16 @@ class User < ApplicationRecord
   validates_attachment_content_type :profile_picture, content_type: /\Aimage\/.*\z/
 
   scope :subscribed, -> { where(subscribed: true) }
+
+  include PgSearch
+  pg_search_scope :text_search, against: [:name, :educational_institute, :country]
+
+  searchable do
+    text :name
+    text :educational_institute
+    text :country
+  end
+
 
   def create_members_from_invitations
     pending_invitations.reload.each do |invitation|

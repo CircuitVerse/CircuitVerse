@@ -1,0 +1,8 @@
+<div class="container">
+  <%= form_tag("/search", method: "get", id: 'search-box', class: 'search-box-form') do %>
+    <%= select_tag "resource", options_for_select([ "Users", "Projects" ], resource == "Projects" ? "Projects" : "Users"), class: "search-bar-select", id: "search_type"
+%>
+    <%= text_field_tag :q,params[:q],placeholder: 'Search',autocomplete:"off", class: "search-bar-input"  %>
+  <% end %>
+</div>
+<script type="text/javascript" src="/js/search.js"></script>

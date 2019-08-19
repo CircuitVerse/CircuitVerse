@@ -2,6 +2,7 @@
 
 class Users::LogixController < ApplicationController
   TYPEAHEAD_INSTITUTE_LIMIT = 50
+
   before_action :authenticate_user!, only: [:edit, :update, :groups]
   before_action :set_user, except: [:typeahead_educational_institute]
 
@@ -47,7 +48,6 @@ class Users::LogixController < ApplicationController
   end
 
   private
-
     def profile_params
       params.require(:user).permit(:name, :profile_picture, :country, :educational_institute,
        :subscribed)

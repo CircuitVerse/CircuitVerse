@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 describe Users::LogixController, type: :request do
   before do
     @user = FactoryBot.create(:user)
     sign_in @user
   end
-  it  'should get user projects' do
+  it "should get user projects" do
     get user_projects_path(:id => @user.id)
     expect(response.status).to eq(200)
   end
