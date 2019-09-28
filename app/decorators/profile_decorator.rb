@@ -19,6 +19,6 @@ class ProfileDecorator < SimpleDelegator
   end
 
   def mail_subscription
-    profile.subscribed? ? "Subscribed" : "Not Susbcribed"
+    profile.subscribed? ? "Subscribed" : "Not Subscribed"
   end
 end
