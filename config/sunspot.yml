@@ -8,6 +8,7 @@ production:
     # open_timeout: 0.5
 
 development:
+  disabled: <%= !(ENV["CIRCUITVERSE_USE_SOLR"] == "true") %>
   solr:
     hostname: localhost
     port: 8982
