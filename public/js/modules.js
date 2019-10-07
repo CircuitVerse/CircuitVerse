@@ -1053,7 +1053,7 @@ Text.prototype.customSave = function () {
     return data;
 }
 Text.prototype.keyDown = function (key) {
-    if(simulationArea.controlDown) return;
+    if (simulationArea.controlDown) return;
 
     if (key.length == 1) {
         if (this.label == "Enter Text Here")
