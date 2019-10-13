@@ -314,7 +314,7 @@ input, select {
     border-radius: 0.1em;
 }
 
-#tabsBar .circuits:hover {
+#tabsBar .circuits.h:hover {
     background-color: #00ace6;
     /*border: 1px solid #0099ff;*/
     transition-duration: 100ms

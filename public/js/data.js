@@ -1,3 +1,51 @@
+/* eslint-disable block-scoped-var */
+/** ************** Tabs Reodering ********************** */
+function TabsOnDrag(eve, el) {
+    var els = document.getElementsByClassName('circuits');
+    var newpos = -1;
+    var oldpos = -1;
+    var tmp = [];
+    for (let i = 0; i < els.length; ++i) {
+        if (els[i].id === el.id) {
+            oldpos = i;
+        }
+        var x = els[i].getBoundingClientRect();
+        if (x.left + x.width / 2 < eve.pageX) {
+            newpos = i;
+        }
+        tmp.push(els[i]);
+    }
+    if (newpos === -1) return;
+
+    if (newpos > oldpos) {
+        for (let i = oldpos; i < newpos; ++i) {
+            tmp[i] = tmp[i + 1];
+        }
+        tmp[newpos] = el;
+    }
+
+    if (oldpos > newpos) {
+        for (let i = oldpos; i > newpos; --i) {
+            tmp[i] = tmp[i - 1];
+        }
+        tmp[newpos] = el;
+    }
+
+    if (tmp.length !== els.length) return;
+
+    var tabBar = document.getElementById('tabsBar');
+    tabBar.innerHTML = '';
+    for (let i = 0; i < tmp.length; ++i) {
+        tabBar.appendChild(tmp[i]);
+    }
+}
+
+function TabsOnStart() {
+    $('.circuits').removeClass('h');
+}
+function TabsOnDragEnd() {
+    $('.circuits').addClass('h');
+}
 // Function to create new circuit
 // Function creates button in tab, creates scope and switches to this circuit
 function newCircuit(name, id) {
@@ -10,10 +58,11 @@ function newCircuit(name, id) {
     globalScope = scope;
 
     $('.circuits').removeClass("current");
-    $('#tabsBar').append("<div class='circuits toolbarButton current' id='" + scope.id + "'>" + name + "</div>");
-    $('.circuits').click(function() {
-        switchCircuit(this.id)
-    });
+
+    $('#tabsBar').append(
+        '<div draggable="true" class="circuits toolbarButton current h" id="' + scope.id + '" ondrag="TabsOnDrag(event,this)" ondragstart="TabsOnStart()" onclick="switchCircuit(this.id)" ondragend="TabsOnDragEnd()" >' + name + '</div>'
+    );
+
     if (!embed) {
         showProperties(scope.root);
     }
