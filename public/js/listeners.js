@@ -114,6 +114,7 @@ function startListeners() {
         }
 
         if (simulationArea.lastSelected && simulationArea.lastSelected.keyDown) {
+            if (simulationArea.controlDown) return;
             if (e.key.toString().length == 1 || e.key.toString() == "Backspace") {
                 simulationArea.lastSelected.keyDown(e.key.toString());
                 return;
@@ -122,6 +123,7 @@ function startListeners() {
         }
 
         if (simulationArea.lastSelected && simulationArea.lastSelected.keyDown2) {
+            if (simulationArea.controlDown) return;
             if (e.key.toString().length == 1) {
                 simulationArea.lastSelected.keyDown2(e.key.toString());
                 return;
@@ -130,6 +132,7 @@ function startListeners() {
         }
 
         if (simulationArea.lastSelected && simulationArea.lastSelected.keyDown3) {
+            if (simulationArea.controlDown) return;
             if (e.key.toString() != "Backspace" && e.key.toString() != "Delete") {
                 simulationArea.lastSelected.keyDown3(e.key.toString());
                 return;
