@@ -1,4 +1,5 @@
 production:
+  disabled: <%= !(ENV["CIRCUITVERSE_USE_SOLR"] == "true") %>
   solr:
     hostname: localhost
     port: 8983
@@ -16,6 +17,7 @@ development:
     path: /solr/development
 
 test:
+  disabled: <%= !(ENV["CIRCUITVERSE_USE_SOLR"] == "true") %>
   solr:
     hostname: localhost
     port: 8981
