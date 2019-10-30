@@ -22,14 +22,17 @@ class AssignmentsController < ApplicationController
 
   def start
     authorize @assignment
-    @project = current_user.projects.new
-    @project.name = current_user.name + "/" + @assignment.name
-    @project.assignment_id = @assignment.id
-    @project.project_access_type="Private"
-    @project.save
-    redirect_to user_project_path(current_user,@project)
-
-
+    if Project.find_by(author_id: current_user.id, assignment_id: @assignment.id).nil?
+      @project = current_user.projects.new
+      @project.name = current_user.name + "/" + @assignment.name
+      @project.assignment_id = @assignment.id
+      @project.project_access_type="Private"
+      @project.save
+      redirect_to user_project_path(current_user,@project)
+    else
+      @project = Project.find_by(author_id: current_user.id, assignment_id: @assignment.id)
+      redirect_to user_project_path(current_user,@project)
+    end
   end
 
   # GET /assignments/new

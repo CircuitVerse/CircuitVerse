@@ -19,8 +19,7 @@ class AssignmentPolicy < ApplicationPolicy
 
   def start?
     # assignment should not be closed and not submitted
-    assignment.status != "closed" \
-      && Project.find_by(author_id: user.id, assignment_id: assignment.id).nil?
+    assignment.status != "closed"
   end
 
   def edit?
