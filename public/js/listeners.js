@@ -2,7 +2,7 @@
 
 
 function startListeners() {
-    window.addEventListener('keyup', function(e) {
+    window.addEventListener('keyup', function (e) {
         scheduleUpdate(1);
         simulationArea.shiftDown = e.shiftKey;
         if (e.keyCode == 16) {
@@ -12,7 +12,7 @@ function startListeners() {
             simulationArea.controlDown = false;
         }
     });
-    document.getElementById("simulationArea").addEventListener('mousedown', function(e) {
+    document.getElementById("simulationArea").addEventListener('mousedown', function (e) {
 
         $("input").blur();
 
@@ -38,13 +38,13 @@ function startListeners() {
         scheduleUpdate(1);
         $('.dropdown.open').removeClass('open');
     });
-    document.getElementById("simulationArea").addEventListener('mouseup', function(e) {
+    document.getElementById("simulationArea").addEventListener('mouseup', function (e) {
         if (simulationArea.lastSelected) simulationArea.lastSelected.newElement = false;
         /*
         handling restricted circuit elements
         */
 
-        if(simulationArea.lastSelected && restrictedElements.includes(simulationArea.lastSelected.objectType)
+        if (simulationArea.lastSelected && restrictedElements.includes(simulationArea.lastSelected.objectType)
             && !globalScope.restrictedCircuitElementsUsed.includes(simulationArea.lastSelected.objectType)) {
             globalScope.restrictedCircuitElementsUsed.push(simulationArea.lastSelected.objectType);
             updateRestrictedElementsList();
@@ -53,8 +53,7 @@ function startListeners() {
     window.addEventListener('mousemove', onMouseMove);
 
 
-
-    window.addEventListener('keydown', function(e) {
+    window.addEventListener('keydown', function (e) {
 
         // If mouse is focusing on input element, then override any action
         // if($(':focus').length){
@@ -157,7 +156,7 @@ function startListeners() {
             save();
             e.preventDefault();
         }
-         // Detect offline save shortcut (CTRL+SHIFT+S)
+        // Detect offline save shortcut (CTRL+SHIFT+S)
         if (simulationArea.controlDown && e.keyCode == 83 && simulationArea.shiftDown) {
             saveOffline();
             e.preventDefault();
@@ -170,7 +169,7 @@ function startListeners() {
         }
 
         //change direction fns
-        if ((e.keyCode == 37 || e.keyCode == 65)&& simulationArea.lastSelected != undefined) {
+        if ((e.keyCode == 37 || e.keyCode == 65) && simulationArea.lastSelected != undefined) {
             simulationArea.lastSelected.newDirection("LEFT");
         }
         if ((e.keyCode == 38 || e.keyCode == 87) && simulationArea.lastSelected != undefined) {
@@ -191,15 +190,15 @@ function startListeners() {
             simulationArea.changeClockTime(prompt("Enter Time:"));
         }
         if ((e.keyCode == 108 || e.keyCode == 76) && simulationArea.lastSelected != undefined) {
-            if (simulationArea.lastSelected.setLabel !== undefined){
+            if (simulationArea.lastSelected.setLabel !== undefined) {
                 var labl = prompt("Enter The Label : ", simulationArea.lastSelected.label);
-                if(labl)
+                if (labl)
                     simulationArea.lastSelected.setLabel(labl);
             }
         }
     })
 
-    document.getElementById("simulationArea").addEventListener('dblclick', function(e) {
+    document.getElementById("simulationArea").addEventListener('dblclick', function (e) {
         scheduleUpdate(2);
         if (simulationArea.lastSelected && simulationArea.lastSelected.dblclick !== undefined) {
             simulationArea.lastSelected.dblclick();
@@ -212,7 +211,6 @@ function startListeners() {
     window.addEventListener('mouseup', onMouseUp);
 
 
-
     document.getElementById("simulationArea").addEventListener('mousewheel', MouseScroll);
     document.getElementById("simulationArea").addEventListener('DOMMouseScroll', MouseScroll);
 
@@ -221,32 +219,34 @@ function startListeners() {
 
         event.preventDefault()
         var deltaY = event.wheelDelta ? event.wheelDelta : -event.detail;
-        var scrolledUp = deltaY < 0;
-        var scrolledDown = deltaY > 0;
+        var scrolledUp = deltaY > 0;
+        var scrolledDown = deltaY < 0;
 
-        if (event.ctrlKey) {
-            if (scrolledUp && globalScope.scale > 0.5 * DPR) {
-                changeScale(-.1 * DPR);
-            }
-            if (scrolledDown && globalScope.scale < 4 * DPR) {
-                changeScale(.1 * DPR);
-            }
-        } else {
+        if (!event.ctrlKey) {
             if (scrolledUp && globalScope.scale < 4 * DPR) {
-                changeScale(.1 * DPR);
+                // zoom in
+                changeScale(0.1 * DPR);
             }
             if (scrolledDown && globalScope.scale > 0.5 * DPR) {
-                changeScale(-.1 * DPR);
+                changeScale(-0.1 * DPR);
+            }
+        } else {
+            if (scrolledDown && globalScope.scale < 4 * DPR) {
+                // Zoom in
+                changeScale(0.1 * DPR);
+            }
+            if (scrolledUp && globalScope.scale > 0.5 * DPR) {
+                changeScale(-0.1 * DPR);
             }
         }
 
         updateCanvas = true;
         gridUpdate = true;
-        if(layoutMode)layoutUpdate();
+        if (layoutMode) layoutUpdate();
         else update(); // Schedule update not working, this is INEFFICENT
     }
 
-    document.addEventListener('cut', function(e) {
+    document.addEventListener('cut', function (e) {
         simulationArea.copyList = simulationArea.multipleObjectSelections.slice();
         if (simulationArea.lastSelected && simulationArea.lastSelected !== simulationArea.root && !simulationArea.copyList.contains(simulationArea.lastSelected)) {
             simulationArea.copyList.push(simulationArea.lastSelected);
@@ -260,7 +260,7 @@ function startListeners() {
 
         localStorage.setItem('clipboardData', textToPutOnClipboard);
         e.preventDefault();
-        if(textToPutOnClipboard==undefined)
+        if (textToPutOnClipboard == undefined)
             return;
         if (isIe) {
             window.clipboardData.setData('Text', textToPutOnClipboard);
@@ -270,7 +270,7 @@ function startListeners() {
 
     });
 
-    document.addEventListener('copy', function(e) {
+    document.addEventListener('copy', function (e) {
         simulationArea.copyList = simulationArea.multipleObjectSelections.slice();
         if (simulationArea.lastSelected && simulationArea.lastSelected !== simulationArea.root && !simulationArea.copyList.contains(simulationArea.lastSelected)) {
             simulationArea.copyList.push(simulationArea.lastSelected);
@@ -283,7 +283,7 @@ function startListeners() {
 
         localStorage.setItem('clipboardData', textToPutOnClipboard);
         e.preventDefault();
-        if(textToPutOnClipboard==undefined)
+        if (textToPutOnClipboard == undefined)
             return;
         if (isIe) {
             window.clipboardData.setData('Text', textToPutOnClipboard);
@@ -293,7 +293,7 @@ function startListeners() {
 
     });
 
-    document.addEventListener('paste', function(e) {
+    document.addEventListener('paste', function (e) {
         var data;
         if (isIe) {
             data = window.clipboardData.getData('Text');
@@ -354,11 +354,11 @@ function onMouseMove(e) {
         var fn;
 
         if (simulationArea.lastSelected == globalScope.root) {
-            fn = function() {
+            fn = function () {
                 updateSelectionsAndPane();
             }
         } else {
-            fn = function() {
+            fn = function () {
                 if (simulationArea.lastSelected)
                     simulationArea.lastSelected.update();
             };
@@ -410,7 +410,7 @@ function onMouseUp(e) {
 
 }
 
-function delete_selected(){
+function delete_selected() {
 
     $("input").blur();
     hideProperties();
