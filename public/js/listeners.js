@@ -222,20 +222,18 @@ function startListeners() {
         var scrolledUp = deltaY > 0;
         var scrolledDown = deltaY < 0;
 
-        if (!event.ctrlKey) {
-            if (scrolledUp && globalScope.scale < 4 * DPR) {
-                // zoom in
-                changeScale(0.1 * DPR);
-            }
-            if (scrolledDown && globalScope.scale > 0.5 * DPR) {
-                changeScale(-0.1 * DPR);
-            }
-        } else {
+        if (event.ctrlKey) {
             if (scrolledDown && globalScope.scale < 4 * DPR) {
-                // Zoom in
                 changeScale(0.1 * DPR);
             }
             if (scrolledUp && globalScope.scale > 0.5 * DPR) {
+                changeScale(-0.1 * DPR);
+            }
+        } else {
+            if (scrolledUp && globalScope.scale < 4 * DPR) {
+                changeScale(0.1 * DPR);
+            }
+            if (scrolledDown && globalScope.scale > 0.5 * DPR) {
                 changeScale(-0.1 * DPR);
             }
         }
