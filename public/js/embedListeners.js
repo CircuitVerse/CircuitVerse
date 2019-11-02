@@ -178,9 +178,10 @@ function startListeners() {
         var scrolledUp = deltaY > 0;
         var scrolledDown = deltaY < 0;
 
-        if ((event.ctrlKey && scrolledDown || scrolledUp) && globalScope.scale < 4 * DPR) {
-            changeScale(0.1 * DPR);
-        }else if(globalScope.scale > 0.5 * DPR) {
+        if ((event.ctrlKey && scrolledDown || scrolledUp)) {
+            if (globalScope.scale < 4 * DPR)
+                changeScale(0.1 * DPR);
+        } else if (globalScope.scale > 0.5 * DPR) {
             changeScale(-0.1 * DPR);
         }
 
