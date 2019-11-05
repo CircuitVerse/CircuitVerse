@@ -6,6 +6,8 @@ ports:
     onOpen: open-preview
 tasks:
   - init: >
+      rvm install 2.5.1 &&
+      gem install bundler -v 1.17.3 &&
       cp config/database.example.yml config/database.yml &&
       createuser -s postgres &&
       (redis-server &) &&
