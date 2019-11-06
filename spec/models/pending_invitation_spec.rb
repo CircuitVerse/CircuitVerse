@@ -1,4 +1,6 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.describe PendingInvitation, type: :model do
   before do
@@ -18,11 +20,11 @@ RSpec.describe PendingInvitation, type: :model do
   end
 
   describe "public methods" do
-    it 'sends pending invitation mail' do
+    it "sends pending invitation mail" do
       invitation = FactoryBot.create(:pending_invitation, group: @group)
       expect {
         invitation.send_pending_invitation_mail
-      }.to have_enqueued_job.on_queue('mailers')
+      }.to have_enqueued_job.on_queue("mailers")
     end
   end
 end

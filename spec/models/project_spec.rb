@@ -1,4 +1,6 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.describe Project, type: :model do
   before do
@@ -22,7 +24,7 @@ RSpec.describe Project, type: :model do
     it "doesn't validate with public access type" do
       project = FactoryBot.build(:project, assignment: @assignment, author: @user)
       expect(project).to be_valid
-      project.project_access_type = 'Public'
+      project.project_access_type = "Public"
       expect(project).to be_invalid
     end
   end
@@ -30,18 +32,23 @@ RSpec.describe Project, type: :model do
   describe "public methods" do
     context "project submission is false" do
       before do
-        @project = FactoryBot.create(:project, assignment: @assignment, author: @user, project_submission: false)
+        @project = FactoryBot.create(
+          :project,
+          assignment: @assignment,
+          author: @user,
+          project_submission: false
+        )
       end
 
       describe "#send_mail" do
-        it 'sends new project mail' do
+        it "sends new project mail" do
           expect {
             @project.send_mail
-          }.to have_enqueued_job.on_queue('mailers')
+          }.to have_enqueued_job.on_queue("mailers")
         end
       end
 
-      describe '#check_edit_access #check_view_access #check_direct_view_access' do
+      describe "#check_edit_access #check_view_access #check_direct_view_access" do
         it "returns true for author" do
           expect(@project.check_edit_access(@user)).to be_truthy
           expect(@project.check_view_access(@user)).to be_truthy
@@ -66,21 +73,26 @@ RSpec.describe Project, type: :model do
       end
     end
 
-    context 'project submission is true' do
+    context "project submission is true" do
       before do
-        @project = FactoryBot.create(:project, assignment: @assignment, author: @user, project_submission: true)
+        @project = FactoryBot.create(
+          :project,
+          assignment: @assignment,
+          author: @user,
+          project_submission: true
+        )
       end
 
       describe "#send_mail" do
         it "doesn't send new project mail" do
           expect {
             @project.send_mail
-          }.to_not have_enqueued_job.on_queue('mailers')
+          }.to_not have_enqueued_job.on_queue("mailers")
         end
       end
 
       describe "#check_edit_access #check_direct_view_access" do
-        it 'returns false for edit and direct_view access' do
+        it "returns false for edit and direct_view access" do
           expect(@project.check_edit_access(@user)).to be_falsey
           expect(@project.check_direct_view_access(@user)).to be_falsey
         end
@@ -93,7 +105,7 @@ RSpec.describe Project, type: :model do
         @viewer = FactoryBot.create(:user)
       end
 
-      it 'increases the number of views' do
+      it "increases the number of views" do
         expect {
           @project.increase_views(@viewer)
         }.to change { @project.view }.by(1)
