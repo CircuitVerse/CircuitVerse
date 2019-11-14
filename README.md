@@ -42,12 +42,6 @@ Additional software:
 * Start Redis server process.
 * To start sidekiq: `bundle exec sidekiq -e development -q default -q mailers -d -L tmp/sidekiq.log` (In development)
 
-### Setup in cloud
-You can use gitpod to develop CircuitVerse in the cloud.
-
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/CircuitVerse/CircuitVerse)
-
-
 ## Running Tests
 
 Ensure all tests are passing locally before making a pull request. To run tests -
@@ -63,6 +57,18 @@ If you need to rebuild, run this before `docker-compose up`
 docker-compose down
 docker-compose build --no-cache
 ```
+
+### Setup in cloud
+You can use gitpod to develop CircuitVerse in the cloud.
+
+
+   1. Click on the gitpod toggle.
+   2. Wait for it to load, once done it will open in the same tab of your browser on the right hand side.
+
+
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/CircuitVerse/CircuitVerse)
+
 
 ## Developer Instructions
 Developers can quickly get started by setting up the dev environment using the instructions above. The database is seeded with the following admin account.
