@@ -32,8 +32,8 @@
   </div>
   
   <div class="comment_form_actions">
-    <%= f.submit t("commontator.comment.actions.#{comment.id.blank? ? 'create' : 'update'}") %>
-    <%= f.submit t('commontator.comment.actions.cancel'), name: 'cancel' %>
+    <%= f.submit t("commontator.comment.actions.#{comment.id.blank? ? 'create' : 'update'}"), class: "btn btn-primary" %>
+    <%= f.submit t('commontator.comment.actions.cancel'), name: 'cancel', class: "btn btn-primary" %>
   </div>
   
 <% end %>
