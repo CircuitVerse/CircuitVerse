@@ -66,7 +66,7 @@ docker-compose build --no-cache
 
 ## Developer Instructions
 Developers can quickly get started by setting up the dev environment using the instructions above. It is necessary to execute 
-'bundle exec rake db:seed' to seed the database with the admin account.
+'bundle exec rake db:seed' to populate the sample data and access admin account.
 The Admin Account credentials are as follows:  
 ```
 User: Admin
