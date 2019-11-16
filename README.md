@@ -59,16 +59,11 @@ docker-compose build --no-cache
 ```
 
 ### Setup in cloud
-You can use gitpod to develop CircuitVerse in the cloud.
-
-
-   1. Click on the gitpod toggle.
-   2. Wait for it to load, once done it will open in the same tab of your browser on the right hand side.
-
-
+You can use gitpod to develop CircuitVerse in the cloud by following the steps mentioned [Here](https://github.com/CircuitVerse/CircuitVerse/wiki/Development-on-Gitpod)
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/CircuitVerse/CircuitVerse)
 
+Pull Requests can be created by following these [Steps](https://github.com/CircuitVerse/CircuitVerse/wiki/Pull-Requests-using-Gitpod)
 
 ## Developer Instructions
 Developers can quickly get started by setting up the dev environment using the instructions above. The database is seeded with the following admin account.
