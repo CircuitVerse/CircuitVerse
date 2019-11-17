@@ -30,7 +30,7 @@ class User < ApplicationRecord
 
   scope :subscribed, -> { where(subscribed: true) }
 
-  include PgSearch
+  include PgSearch::Model
   pg_search_scope :text_search, against: [:name, :educational_institute, :country]
 
   searchable do
