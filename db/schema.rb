@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190314204600) do
+ActiveRecord::Schema.define(version: 20190804064213) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,9 @@ ActiveRecord::Schema.define(version: 20190314204600) do
     t.datetime "updated_at", null: false
     t.bigint "group_id"
     t.string "status"
+    t.integer "grading_scale", default: 0
+    t.boolean "grades_finalized", default: false
+    t.json "restrictions", default: "[]"
     t.index ["group_id"], name: "index_assignments_on_group_id"
   end
 
@@ -72,6 +75,36 @@ ActiveRecord::Schema.define(version: 20190314204600) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["commontable_id", "commontable_type"], name: "index_commontator_threads_on_c_id_and_c_type", unique: true
+  end
+
+  create_table "custom_mails", force: :cascade do |t|
+    t.text "subject"
+    t.text "content"
+    t.boolean "sent", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_custom_mails_on_user_id"
+  end
+
+  create_table "featured_circuits", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "project_id"
+    t.index ["project_id"], name: "index_featured_circuits_on_project_id"
+  end
+
+  create_table "grades", force: :cascade do |t|
+    t.string "grade"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "project_id"
+    t.bigint "user_id"
+    t.bigint "assignment_id"
+    t.string "remarks"
+    t.index ["assignment_id"], name: "index_grades_on_assignment_id"
+    t.index ["project_id"], name: "index_grades_on_project_id"
+    t.index ["user_id"], name: "index_grades_on_user_id"
   end
 
   create_table "group_members", force: :cascade do |t|
@@ -167,6 +200,7 @@ ActiveRecord::Schema.define(version: 20190314204600) do
     t.boolean "admin", default: false
     t.string "country"
     t.string "educational_institute"
+    t.boolean "subscribed", default: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -188,6 +222,11 @@ ActiveRecord::Schema.define(version: 20190314204600) do
   add_foreign_key "assignments", "groups"
   add_foreign_key "collaborations", "projects"
   add_foreign_key "collaborations", "users"
+  add_foreign_key "custom_mails", "users"
+  add_foreign_key "featured_circuits", "projects"
+  add_foreign_key "grades", "assignments"
+  add_foreign_key "grades", "projects"
+  add_foreign_key "grades", "users"
   add_foreign_key "group_members", "groups"
   add_foreign_key "group_members", "users"
   add_foreign_key "groups", "users", column: "mentor_id"

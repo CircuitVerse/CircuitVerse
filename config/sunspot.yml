@@ -1,0 +1,26 @@
+production:
+  disabled: <%= !(ENV["CIRCUITVERSE_USE_SOLR"] == "true") %>
+  solr:
+    hostname: localhost
+    port: 8983
+    log_level: WARNING
+    path: /solr/production
+    # read_timeout: 2
+    # open_timeout: 0.5
+
+development:
+  disabled: <%= !(ENV["CIRCUITVERSE_USE_SOLR"] == "true") %>
+  solr:
+    hostname: localhost
+    port: 8982
+    log_level: INFO
+    path: /solr/development
+
+test:
+  disabled: <%= !(ENV["CIRCUITVERSE_USE_SOLR"] == "true") %>
+  solr:
+    hostname: localhost
+    port: 8981
+    log_level: WARNING
+    path: /solr/test
+

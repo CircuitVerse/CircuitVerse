@@ -1,5 +1,7 @@
 class SimulatorController < ApplicationController
   include SimulatorHelper
+  include ActionView::Helpers::SanitizeHelper
+
   before_action :authenticate_user!, only: [:create, :update, :edit,:update_image]
   before_action :set_project, only: [:show, :embed, :embed, :update, :edit, :get_data,:update_image]
   before_action :check_view_access, only: [:show,:embed,:get_data]
@@ -42,12 +44,12 @@ class SimulatorController < ApplicationController
   end
 
   def update
-    @project.data = params[:data]
+    @project.data = sanitize_data(@project, params[:data])
 
     image_file = return_image_file(params[:image])
 
     @project.image_preview = image_file
-    @project.name = params[:name]
+    @project.name = sanitize(params[:name])
     @project.save
 
     if check_to_delete(params[:image])
@@ -60,8 +62,8 @@ class SimulatorController < ApplicationController
 
   def create
     @project = Project.new
-    @project.data = params[:data]
-    @project.name = params[:name]
+    @project.data = sanitize_data(@project, params[:data])
+    @project.name = sanitize(params[:name])
     @project.author = current_user
 
     image_file = return_image_file(params[:image])

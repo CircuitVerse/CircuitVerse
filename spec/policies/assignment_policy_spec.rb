@@ -15,6 +15,27 @@ describe AssignmentPolicy do
     let(:assignment) { FactoryBot.create(:assignment, group: @group) }
 
     it { should permit(:admin_access) }
+
+    context "assignment is graded and past deadline" do
+      let(:assignment) { FactoryBot.create(:assignment,
+        group: @group, grading_scale: :letter, deadline: Time.now - 1.days) }
+
+      it { should permit(:can_be_graded) }
+    end
+
+    context "assignment is ungraded" do
+      let(:assignment) { FactoryBot.create(:assignment, group: @group,
+        deadline: Time.now - 1.days, grading_scale: :no_scale) }
+
+      it { should_not permit(:can_be_graded) }
+    end
+
+    context "assignment is graded but deadline has not passed" do
+      let(:assignment) { FactoryBot.create(:assignment, group: @group,
+        deadline: Time.now + 1.days, grading_scale: :letter) }
+
+      it { should_not permit(:can_be_graded) }
+    end
   end
 
   context "user is a group member" do
@@ -23,6 +44,13 @@ describe AssignmentPolicy do
     before do
       @member = FactoryBot.create(:user)
       FactoryBot.create(:group_member, group: @group, user: @member)
+    end
+
+    context "assignment is graded and past deadline" do
+      let(:assignment) { FactoryBot.create(:assignment,
+        group: @group, grading_scale: :letter, deadline: Time.now - 1.days) }
+
+      it { should_not permit(:can_be_graded) }
     end
 
     context "assignment is open" do

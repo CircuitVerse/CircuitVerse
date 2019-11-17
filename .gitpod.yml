@@ -1,0 +1,26 @@
+image:
+  file: .gitpod.Dockerfile
+
+ports:
+  - port: 3000
+    onOpen: open-preview
+tasks:
+  - init: >
+      rvm autolibs disable &&
+      rvm install 2.6.5 &&
+      gem install bundler &&
+      cp config/database.example.yml config/database.yml &&
+      createuser -s postgres &&
+      (redis-server &) &&
+      bundle install --without production &&
+      rails db:create &&
+      rails db:schema:load &&
+      rails db:migrate &&
+      bundle exec rake sunspot:solr:start &&
+      rails db:seed
+    command: >
+      rails db:migrate &&
+      bundle exec rails server
+github:
+    prebuilds:
+        pullRequestsFromForks: true

@@ -1,11 +1,34 @@
 Rails.application.routes.draw do
   resources :collaborations
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+
+  require 'sidekiq/web'
+
+  authenticate :user, lambda { |u| u.admin? } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
+
   # resources :assignment_submissions
   resources :group_members ,only: [:create,:destroy]
   resources :groups do
     resources :assignments
   end
+
+  resources :custom_mails, only: [:new, :create, :edit, :show, :update]
+  get '/custom_mails/send_mail/:id', to: 'custom_mails#send_mail', as: 'send_custom_mail'
+
+  # grades
+  scope '/grades' do
+    post '/', to: 'grades#create', as: 'grades'
+    delete '/', to: 'grades#destroy'
+    get '/to_csv/:assignment_id', to: 'grades#to_csv', as: 'grades_to_csv'
+  end
+
+  get "/404", to: "errors#not_found"
+  get "/422", to: "errors#unacceptable"
+  get "/500", to: "errors#internal_error"
+
+  get '/search', to: "search#search"
 
   scope '/groups' do
     get '/:id/assignments/WYSIWYG/index.css', to: redirect('/index.css')
@@ -16,6 +39,9 @@ Rails.application.routes.draw do
     get '/:group_id/assignments/:id/start', to: 'assignments#start', as: 'assignment_start'
   end
   resources :stars , only: [:create, :destroy]
+
+  resources :featured_circuits, only: [:index, :create]
+  delete '/featured_circuits', to: 'featured_circuits#destroy'
 
 
   devise_for :users, controllers: {registrations: 'users/registrations', :omniauth_callbacks => "users/omniauth_callbacks"}
@@ -29,7 +55,6 @@ Rails.application.routes.draw do
   get  '/about', to:'logix#about'
   get  '/privacy', to:'logix#privacy'
   get  '/tos', to:'logix#tos'
-  get  '/search', to:'logix#search'
   get  '/teachers', to:'logix#teachers'
   get  '/contribute', to:'logix#contribute'
 
@@ -53,7 +78,7 @@ Rails.application.routes.draw do
     get '/create_fork/:id', to: 'projects#create_fork',as: 'create_fork_project'
     get '/change_stars/:id', to: 'projects#change_stars', as: 'change_stars'
     get 'tags/:tag', to: 'projects#get_projects', as: 'tag'
-  end  
+  end
 
   mount Commontator::Engine => '/commontator'
 

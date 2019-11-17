@@ -2,6 +2,7 @@
 // Function creates button in tab, creates scope and switches to this circuit
 function newCircuit(name, id) {
     name = name || prompt("Enter circuit name:");
+    name = stripTags(name);
     if (!name) return;
     var scope = new Scope(name);
     if (id) scope.id = id;
@@ -24,11 +25,13 @@ function newCircuit(name, id) {
 
 
 function changeCircuitName(name, id = globalScope.id) {
+    name = stripTags(name);
     $('#' + id).html(name);
     scopeList[id].name = name;
 }
 
 function setProjectName(name) {
+    name = stripTags(name);
     projectName = name;
     $('#projectName').html(name);
 }
@@ -179,6 +182,8 @@ function switchCircuit(id) {
     updateCanvas=true;
     scheduleUpdate();
 
+    // to update the restricted elements information
+    updateRestrictedElementsList();
 }
 
 // Helper function to save canvas as image based on image type
@@ -215,6 +220,8 @@ function undo(scope = globalScope) {
     loading = false;
     forceResetNodes = true;
 
+    // Updated restricted elements
+    updateRestrictedElementsInScope();
 }
 
 //helper fn
@@ -278,6 +285,9 @@ function backUp(scope = globalScope) {
         if (scope[moduleList[i]].length)
             data[moduleList[i]] = scope[moduleList[i]].map(extract);
     }
+
+    // Adding restricted circuit elements used in the save data
+    data["restrictedCircuitElementsUsed"] = scope.restrictedCircuitElementsUsed;
 
     // Storing intermediate nodes (nodes in wires)
     data["nodes"] = []
@@ -350,7 +360,8 @@ function generateSaveData(name) {
     data = {};
 
     // Prompts for name, defaults to Untitled
-    data["name"] = projectName || name || prompt("Enter Project Name:") || "Untitled";
+    name = projectName || name || prompt("Enter Project Name:") || "Untitled";
+    data["name"] = stripTags(name)
     projectName = data["name"];
     setProjectName(projectName)
 
@@ -544,6 +555,10 @@ function load(data) {
 
         // update and backup circuit once
         update(globalScope, true);
+
+        // Updating restricted element list initally on loading
+        updateRestrictedElementsInScope();
+
         scheduleBackup();
 
     }
@@ -634,6 +649,7 @@ function download(filename, text) {
 function loadScope(scope, data) {
 
     var ML = moduleList.slice(); // Module List copy
+    scope.restrictedCircuitElementsUsed = data["restrictedCircuitElementsUsed"];
 
     // Load all nodes
     data["allNodes"].map(function(x) {
@@ -751,6 +767,21 @@ createSaveAsImgPrompt = function(scope = globalScope) {
     });
 }
 
+// Function to delete offline project of selected id
+deleteOfflineProject = function (id) {
+    var projectList = JSON.parse(localStorage.getItem("projectList"));
+    var y = confirm("Are You Sure You Want To Delete Project " + projectList[id] + " ?");
+    if (y) {
+        delete projectList[id];
+        localStorage.removeItem(id);
+        localStorage.setItem("projectList", JSON.stringify(projectList));
+        $('#openProjectDialog').empty();
+        for (idd in projectList) {
+            $('#openProjectDialog').append('<label class="option"><input type="radio" name="projectId" value="' + idd + '" />' + projectList[idd] + '<i class="glyphicon glyphicon-trash deleteOff" onclick="deleteOfflineProject(\'' + idd + '\')"></i></label>');
+        }
+    }
+}
+
 // Prompt to restore from localStorage
 createOpenLocalPrompt = function() {
     $('#openProjectDialog').empty();
@@ -758,7 +789,7 @@ createOpenLocalPrompt = function() {
     var flag = true;
     for (id in projectList) {
         flag = false;
-        $('#openProjectDialog').append('<label class="option"><input type="radio" name="projectId" value="' + id + '" />' + projectList[id] + '</label>');
+        $('#openProjectDialog').append('<label class="option"><input type="radio" name="projectId" value="' + id + '" />' + projectList[id] + '<i class="glyphicon glyphicon-trash deleteOff" onclick="deleteOfflineProject(\'' + id + '\')"></i></label>');
     }
     if (flag) $('#openProjectDialog').append('<p>Looks like no circuit has been saved yet. Create a new one and save it!</p>')
     $('#openProjectDialog').dialog({

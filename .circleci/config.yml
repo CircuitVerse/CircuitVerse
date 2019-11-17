@@ -3,7 +3,7 @@ jobs: # a collection of steps
   build: # runs not using Workflows must have a `build` job as entry point
     parallelism: 1 # run three instances of this job in parallel
     docker: # run the steps with Docker
-      - image: circleci/ruby:2.5.3-node # ...with this image as the primary container; this is where all `steps` will run
+      - image: circleci/ruby:2.6.5-node # ...with this image as the primary container; this is where all `steps` will run
         environment: # environment variables for primary container
           BUNDLE_JOBS: 3
           BUNDLE_RETRY: 3
@@ -18,6 +18,11 @@ jobs: # a collection of steps
           POSTGRES_PASSWORD: ""
     steps: # a collection of executable commands
       - checkout # special step to check out source code to working directory
+
+      # Install bundler
+      - run:
+          name: Install bundler
+          command: gem install bundler
 
       # Which version of bundler?
       - run:
@@ -56,7 +61,7 @@ jobs: # a collection of steps
       - run:
           name: Run rspec in parallel
           command: |
-            bundle exec rspec --profile 10 \
+            COVERALLS_REPO_TOKEN=$COVERALLS_REPO_TOKEN bundle exec rspec --profile 10 \
                               --format RspecJunitFormatter \
                               --out test_results/rspec.xml \
                               --format progress \

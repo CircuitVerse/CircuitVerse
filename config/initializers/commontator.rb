@@ -123,7 +123,7 @@ Commontator.configure do |config|
   #   :l (only if it's the latest comment)
   #   :n (never)
   # Default: :l
-  config.comment_editing = :l
+  config.comment_editing = :a
 
   # comment_deletion
   # Type: Symbol
@@ -134,7 +134,7 @@ Commontator.configure do |config|
   #   :n (never)
   # Note: For moderators, see the next option
   # Default: :l
-  config.comment_deletion = :l
+  config.comment_deletion = :a
 
   # moderator_permissions
   # Type: Symbol
@@ -225,7 +225,8 @@ Commontator.configure do |config|
   #   "no-reply@#{Rails.application.class.parent.to_s.downcase}.com"
   # }
   config.email_from_proc = ->(thread) {
-    "no-reply@#{Rails.application.class.parent.to_s.downcase}.com"
+    # "no-reply@#{Rails.application.class.parent.to_s.downcase}.com"
+    return "#{ENV["CIRCUITVERSE_EMAIL_ID"]}"
   }
 
   # commontable_name_proc
@@ -251,7 +252,13 @@ Commontator.configure do |config|
   # }
   # (defaults to the commontable's show url with an anchor pointing to the comment's div)
   config.comment_url_proc = ->(comment, app_routes) {
-    app_routes.polymorphic_url(comment.thread.commontable, anchor: "comment_#{comment.id}_div")
+    if comment.thread.commontable.class.name == "Project"
+      project = comment.thread.commontable
+      author = project.author
+      return "#{Rails.configuration.site_url}users/#{author.id}/projects/#{project.id}#comment_#{comment.id}_div"
+    else
+      return app_routes.polymorphic_url(comment.thread.commontable, anchor: "comment_#{comment.id}_div")
+    end
   }
 
   # mentions_enabled

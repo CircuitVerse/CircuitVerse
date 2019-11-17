@@ -1,6 +1,7 @@
 
 <% content_for :title, @user.name + " - Favourite Circuits" %>
-<% content_for :author_name, @user.name %>
+
+<% set_meta_tags author: @user.name %>
 
 <div class="container">
   <!--<%= link_to 'Back', all_users_path %>-->
@@ -34,7 +35,7 @@
                   </style>
                   <a href=  "<%= user_project_path(@user,project) %>" class="btn btn-primary" target="_blank"> More </a>
                   <a href="#" id="<%=project.id%>" class="previewButton btn btn-primary" data-toggle="modal" data-target="#myModal"> View </a>
-                  <% if @edit_access %>
+                  <% if policy(project).user_access? %>
                       <a href=  "<%= simulator_edit_path(project) %>" class="btn btn-primary" target="_blank"> Launch </a>
                   <% else %>
                       <a href=  "<%= create_fork_project_path(project) %>" class="btn btn-primary" target="_blank"> Fork! </a>

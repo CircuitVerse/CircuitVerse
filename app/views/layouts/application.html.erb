@@ -4,13 +4,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="<%= yield(:page_description).presence || 'Explore Digital circuits online with CircuitVerse. With our easy to use simulator interface, you will be building circuits in no time.' %>">
+  <%= display_meta_tags description: yield(:description).presence  || Rails.configuration.site_description,
+  title: yield(:title).presence || 'CircuitVerse - Digital Circuit Simulator' %>
   <meta name="keywords" content="Digital circuits, logisim, online, educational platform, karnaugh map, kmap, electronic devices and circuits,digital electronics basics,introduction to digital electronics, simple electronics projects for students,electric circuit analysis, logic circuits, logic simulation, digital logic circuits, boolean logic">
-  <meta name="author" content="<%= yield(:author_name) %>">
   <link rel="icon" href="/img/favicon.ico">
   <!--<script src="https://use.fontawesome.com/86b18442ae.js"></script>-->
 
-  <title><%= yield(:title).presence || 'CircuitVerse - Digital Circuit Simulator' %></title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <!-- Bootstrap core CSS -->
 
@@ -45,7 +44,10 @@
 <%= yield %>
 
 <script type="text/javascript">
-  setTimeout(()=>document.querySelector(".alert").hide(), 3000);
+  //In this script tag we are checking alert's and if there is alert this code will be execute
+  if(document.querySelector(".alert")){
+   setTimeout(()=>document.querySelector(".alert").hide(), 3000);
+  }
 </script>
 
 <!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->
@@ -67,19 +69,23 @@
     <div class="row">
       <div class="col" style="text-align: center">
         <p style="text-align: center">Brought to you by</p>
-        <a href="https://www.iiitb.ac.in/"><img src="/img/iiitb.jpg" height="70px"></a>
+        <a href="https://www.iiitb.ac.in/"><img src="/img/iiitb.jpg" id="footer-logo-iiitb"></a>
       </div>
       <div class="col" style="text-align: center">
         <p style="text-align: center">Hosting Sponsor</p>
-        <a href="http://digitalocean.com/" ><img src="/img/DO.png" height="60px"></a>
+        <a href="http://digitalocean.com/" ><img src="/img/DO.png" id="footer-logo-DO"></a>
       </div>
-      <div class="col" style="text-align: center">
+
+      <!-- For breaking the line into two lines when the screen size is not big enough -->
+      <div class="d-block d-sm-none w-100"><br/></div>
+
+      <div class="col align-bottom" style="text-align: center">
         <p style="text-align: center">Marketed by</p>
-        <a href="http://www.iiitb.org/"><img src="/img/istudio.png" height="70px"></a>
+        <a href="http://www.iiitb.org/"><img src="/img/istudio.png" id="footer-logo-istudio"></a>
       </div>
       <div class="col" style="text-align: center">
         <p style="text-align: center">Developed by</p>
-        <a href="http://zense.co.in/"><img src="/img/zense.png" height="70px"></a>
+        <a href="http://zense.co.in/"><img src="/img/zense.png" id="footer-logo-zense"></a>
       </div>
 
       <!--<div class="col">-->

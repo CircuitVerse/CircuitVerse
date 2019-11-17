@@ -10,8 +10,9 @@ createCombinationalAnalysisPrompt=function(scope=globalScope){
     //console.log("Ya");
     scheduleBackup();
     $('#combinationalAnalysis').empty();
-    $('#combinationalAnalysis').append("<p>Enter Input names separated by spaces: <input id='inputNameList' type='text'  placeHolder='eg. A B C'></p>");
-    $('#combinationalAnalysis').append("<p>Enter Output names separated by spaces: <input id='outputNameList' type='text'  placeHolder='eg. X Y Z'></p>");
+    $('#combinationalAnalysis').append("<p>Enter Input names separated by commas: <input id='inputNameList' type='text'  placeHolder='eg. In A, In B'></p>");
+    $('#combinationalAnalysis').append("<p>Enter Output names separated by commas: <input id='outputNameList' type='text'  placeHolder='eg. Out X, Out Y'></p>");
+    $('#combinationalAnalysis').append("<p>Do you need a decimal column? <input id='decimalColumnBox' type='checkbox'></p>");
     $('#combinationalAnalysis').dialog({
         width:"auto",
       buttons: [
@@ -19,8 +20,10 @@ createCombinationalAnalysisPrompt=function(scope=globalScope){
           text: "Next",
           click: function() {
             // //console.log($("#inputNameList"),$("#inputNameList").val(),$("#inputNameList").html());
-            var inputList=$("#inputNameList").val().split(' ');
-            var outputList=$("#outputNameList").val().split(' ');
+            var inputList=$("#inputNameList").val().split(',');
+            var outputList=$("#outputNameList").val().split(',');
+            inputList = inputList.map( x => x.trim() );
+            outputList = outputList.map( x => x.trim() );
             $( this ).dialog( "close" );
             createBooleanPrompt(inputList,outputList,scope);
         },
@@ -31,12 +34,17 @@ createCombinationalAnalysisPrompt=function(scope=globalScope){
 }
 function createBooleanPrompt(inputListNames,outputListNames,scope=globalScope){
 
-    inputListNames=inputListNames||(prompt("Enter inputs separated by space").split(' '));
-    outputListNames=outputListNames||(prompt("Enter outputs separated by space").split(' '));
+    inputListNames=inputListNames||(prompt("Enter inputs separated by commas").split(','));
+    outputListNames=outputListNames||(prompt("Enter outputs separated by commas").split(','));
+    outputListNamesInteger=[];
+    for (var i = 0; i < outputListNames.length; i++)
+        outputListNamesInteger[i] = 7*i + 13;//assigning an integer to the value, 7*i + 13 is random
 
     var s='<table>';
     s+='<tbody style="display:block; max-height:70vh; overflow-y:scroll" >';
     s+='<tr>';
+    if($("#decimalColumnBox").is(":checked"))
+        s+='<th>'+'dec'+'</th>';
     for(var i=0;i<inputListNames.length;i++)
         s+='<th>'+inputListNames[i]+'</th>';
     for(var i=0;i<outputListNames.length;i++)
@@ -56,11 +64,14 @@ function createBooleanPrompt(inputListNames,outputListNames,scope=globalScope){
 
     for(var j=0;j<(1<<inputListNames.length);j++){
         s+='<tr>';
+        if($("#decimalColumnBox").is(":checked"))
+            s+='<td>'+j+'</td>';
         for(var i=0;i<inputListNames.length;i++){
             s+='<td>'+matrix[i][j]+'</td>';
         }
-        for(var i=0;i<outputListNames.length;i++){
-            s+='<td class ="output '+outputListNames[i]+'" id="'+j+'">'+'x'+'</td>';
+        for(var i=0;i<outputListNamesInteger.length;i++){
+            s+='<td class ="output '+outputListNamesInteger[i]+'" id="'+j+'">'+'x'+'</td>';
+            //using hash values as they'll be used in the generateBooleanTableData function
         }
         s+='</tr>';
     }
@@ -76,7 +87,8 @@ function createBooleanPrompt(inputListNames,outputListNames,scope=globalScope){
           text: "Generate Circuit",
           click: function() {
             $( this ).dialog( "close" );
-            var data = generateBooleanTableData(outputListNames);
+            var data = generateBooleanTableData(outputListNamesInteger);
+            //passing the hash values to avoid spaces being passed which is causing a problem
             minmizedCircuit = [];
             for(let output in data){
                 let temp = new BooleanMinimize(

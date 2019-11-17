@@ -5,10 +5,18 @@
  <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>-->
 <!--<script src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
 <!--<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>-->
+<link rel="stylesheet" type="text/css" href="/css/embed.css"/>
 </head>
 
 <body onload="setup()">
-
+<script>
+    
+    <% if @project&.assignment_id.present? %>
+     
+    <% else %>
+     
+    <% end %>
+</script>
 <div>
 
     <div class="simulation" id="simulation" style="height:100%;width:100%">
@@ -16,6 +24,11 @@
         <div id="tabsBar" class="noSelect pointerCursor" style="position: absolute; left: 0; top: 0; z-index: 2">
           <!-- <div> Circuits: </div> -->
         </div>
+        <% if @project&.assignment_id.present? && @project&.assignment.elements_restricted? %>
+          <div id="restrictedElementsDiv" class="alert alert-danger">
+            <div> <span style="font-style: italic"> Restricted elements used: </span> <span id="restrictedElementsDiv--list"> </span></div>
+          </div>
+        <% end %>
         <div id="MessageDiv" >
 
         </div>
@@ -84,15 +97,20 @@
 <script type="text/javascript">
     logix_project_id = <%= @logix_project_id%>
         embed=true;
+        <% if @project&.assignment_id.present? %>
+          restrictedElements = JSON.parse('<%= raw @project&.assignment.restrictions %>');
+        <% else %>
+          restrictedElements = [];
+        <% end %>
 
  </script>
-    <link rel="stylesheet" type="text/css" href="/css/embed.css"/>
  <script src="/js/engine.js"></script>
  <script src="/js/logix.js"></script>
  <script src="/js/Node.js"></script>
  <script src="/js/wire.js"></script>
  <script src="/js/subcircuit.js"></script>
  <script src="/js/modules.js"></script>
+ <script src="/js/RGBLedMatrix.js"></script>
  <script src="/js/sequential.js"></script>
  <script src="/js/ram.js"></script>
  <script src="/js/eeprom.js"></script>
@@ -103,6 +121,8 @@
  <script src="/js/embed.js"></script>
  <script src="/js/testBench.js"></script>
     <script src="/js/eventQueue.js"></script>
+    <script src="/js/utils.js"> </script>
+    <script type="text/javascript" src="/js/metadata.json"></script>
 
 
 

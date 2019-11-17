@@ -1,6 +1,21 @@
 
 <% content_for :title, @user.name + " - Circuits" %>
-<% content_for :author_name, @user.name %>
+<% set_meta_tags author: @user.name %>
+
+<% set_meta_tags twitter: {
+  card: "summary_large_image",
+  title: yield(:title),
+  image: {
+    src: "#{Rails.configuration.site_url}img/logixBanner2.png"
+  }
+} %>
+
+<% set_meta_tags og: {
+  title: yield(:title),
+  image: "#{Rails.configuration.site_url}img/logixBanner2.png",
+  type: "article",
+  site_name: Rails.configuration.site_name
+} %>
 
 <div class="container">
   <!--<%= link_to 'Back', all_users_path %>-->
@@ -63,6 +78,18 @@
 
   </div>
 </div>
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Article",
+  "name" : "<%= @user.name %> - Projects",
+  "author" : {
+    "@type" : "Person",
+    "name" : "<%= @user.name %>"
+  }
+}
+</script>
 
 <script>
     $( function() {

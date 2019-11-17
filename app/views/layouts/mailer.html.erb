@@ -465,7 +465,13 @@
               <div class="">
                 <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 30px; padding-left: 30px; padding-top: 25px; padding-bottom: 10px;"><![endif]-->
                 <div style="color:#134C75;font-family:'Open Sans', Helvetica, Arial, sans-serif;line-height:120%; padding-right: 30px; padding-left: 30px; padding-top: 25px; padding-bottom: 10px;">
-                  <div style="font-size:12px;line-height:14px;font-family:'Open Sans', Helvetica, Arial, sans-serif;color:#134C75;text-align:left;"><p style="margin: 0;font-size: 14px;line-height: 17px;text-align: center"><strong><span style="font-size: 18px; line-height: 21px;">Featured Examples</span></strong></p></div>
+                  <div style="font-size:12px;line-height:14px;font-family:'Open Sans', Helvetica, Arial, sans-serif;color:#134C75;text-align:left;"><p style="margin: 0;font-size: 14px;line-height: 17px;text-align: center"><strong><span style="font-size: 18px; line-height: 21px;">
+                  <% if yield(:title) == "Your project is now featured!" %>
+                    More Featured Examples
+                  <% else %>
+                    Featured Examples
+                  <% end %>
+                </span></strong></p></div>
                 </div>
                 <!--[if mso]></td></tr></table><![endif]-->
               </div>
@@ -474,7 +480,13 @@
               <div class="">
                 <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;"><![endif]-->
                 <div style="color:#7E7E7E;font-family:'Open Sans', Helvetica, Arial, sans-serif;line-height:150%; padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px;">
-                  <div style="font-size:12px;line-height:18px;color:#7E7E7E;font-family:'Open Sans', Helvetica, Arial, sans-serif;text-align:left;"><p style="margin: 0;font-size: 14px;line-height: 21px;text-align: center">Have a look at features examples to understand the platform quickly.</p></div>
+                  <div style="font-size:12px;line-height:18px;color:#7E7E7E;font-family:'Open Sans', Helvetica, Arial, sans-serif;text-align:left;"><p style="margin: 0;font-size: 14px;line-height: 21px;text-align: center">Have a look at featured examples
+                    <% if yield(:title) != "Your project is now featured!" %>
+                      to understand the platform quickly.
+                    <% else %>
+                      for more awesome work on the platform.
+                    <% end %>
+                </p></div>
                 </div>
                 <!--[if mso]></td></tr></table><![endif]-->
               </div>
@@ -824,7 +836,9 @@
               <div class="">
                 <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px;"><![endif]-->
                 <div style="color:#8F8F8F;font-family:'Open Sans', Helvetica, Arial, sans-serif;line-height:120%; padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px;">
-                  <div style="font-size:12px;line-height:14px;color:#8F8F8F;font-family:'Open Sans', Helvetica, Arial, sans-serif;text-align:left;"><p style="margin: 0;font-size: 11px;line-height: 14px"><span style="font-size: 11px; line-height: 13px;">Copyright © 2018 CircuitVerse, All rights reserved. For any issues, reach out to us <a style="color:#8F8F8F;text-decoration: underline;" title="support@circuitverse.org" href="mailto:support@circuitverse.org" data-mce-selected="1">support@circuitverse.org</a></span><br><span style="font-size: 11px; line-height: 13px;"></span><br></p></div>
+                  <div style="font-size:12px;line-height:14px;color:#8F8F8F;font-family:'Open Sans', Helvetica, Arial, sans-serif;text-align:left;"><p style="margin: 0;font-size: 11px;line-height: 14px"><span style="font-size: 11px; line-height: 13px;">Copyright © 2018 CircuitVerse, All rights reserved. For any issues, reach out to us <a style="color:#8F8F8F;text-decoration: underline;" title="support@circuitverse.org" href="mailto:support@circuitverse.org" data-mce-selected="1">support@circuitverse.org</a></span><br><span style="font-size: 11px; line-height: 13px;"></span><br>
+                  
+                  <% if @mail.present? %> <a style="color:#8F8F8F;text-decoration: underline;" title="Unsubscribe from emails" href="<%= "#{Rails.configuration.site_url}users/#{@user.id}/profile/edit" %>" data-mce-selected="1">Unsubscribe</a> <% end %> </p></div>
                 </div>
                 <!--[if mso]></td></tr></table><![endif]-->
               </div>

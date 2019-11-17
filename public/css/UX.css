@@ -1,3 +1,11 @@
+
+.deleteOff{
+    color: red;
+    float: right;
+    cursor: pointer;
+    padding: 2px;
+}
+
 #contextMenu{
 	width:150px;
 	visibility:hidden;
@@ -349,6 +357,22 @@ body, html {
     margin: 0;
     padding: 0;
     overflow: hidden
+}
+
+#restrictedDiv {
+    position: absolute;
+    top: 10px;
+    margin-left: 10px;
+    width: 560px;
+    z-index: 100;
+}
+
+#restrictedElementsDiv {
+    position: absolute;
+    top: 90px;
+    right: 10px;
+    z-index: 100;
+    width: 200px;
 }
 
 #MessageDiv {

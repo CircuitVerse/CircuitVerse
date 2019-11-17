@@ -1,3 +1,5 @@
+<% content_for :title, "CircuitVerse - #{@profile.name}" %>
+
 <div class="container">
   <div class="row feature">
 
@@ -6,24 +8,20 @@
       <div class="row">
         <div class="col-lg-8">
           <p><strong>Name: </strong><%= @profile.name %></p>
-          <p><strong>Member since: </strong><%= ((Time.now.to_i - @profile.created_at.to_i) / 1.day) %> days</p>
-          <p><strong>Educational Institution: </strong><%= @profile.educational_institute ? @profile.educational_institute : "Not Entered"  %></p>
+          <p><strong>Member since: </strong><%= @profile.member_since %> days</p>
+          <p><strong>Educational Institution: </strong><%= @profile.educational_institute %></p>
           <p><strong>Country: </strong><%= @profile.country_name %></p>
-          <% if user_signed_in? and current_user.id == @profile.id %>
+          <p><strong>Subscribed to mails: </strong><%= @profile.mail_subscription %></p>
+          <% if policy(@user).edit? %>
             <p><a class="btn btn-secondary" href=<%= profile_edit_path(current_user) %> role="button">Edit </a></p>
           <% end %>
         </div>
         <div class="col-lg-4">
-          <%= image_tag @profile.profile_picture.url(:medium), :style => "border: 2px solid black" %>
+          <%= image_tag @profile.profile_picture.url(:medium), style: "border: 2px solid black" %>
         </div>
       </div>
     </div>
-
-
   </div>
   <br/>
-
   <br/>
-
-
 </div>

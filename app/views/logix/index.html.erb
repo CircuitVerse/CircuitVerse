@@ -1,6 +1,21 @@
-
-
 <% content_for :title, "CircuitVerse - Online Digital Logic Circuit Simulator" %>
+
+<% set_meta_tags twitter: {
+  card: "summary_large_image",
+  title: yield(:title),
+  description: Rails.configuration.site_description,
+  image: {
+    src: "#{Rails.configuration.site_url}img/logixBanner2.png"
+  }
+} %>
+
+<% set_meta_tags og: {
+  title: yield(:title),
+  image: "#{Rails.configuration.site_url}img/logixBanner2.png",
+  description: Rails.configuration.site_description,
+  type: "article",
+  site_name: Rails.configuration.site_name
+} %>
     <!-- Main jumbotron for a primary marketing message or call to action -->
 
 
@@ -78,9 +93,8 @@
   <br>
   <div class="container">
     <% if Rails.env.production? %>
-    <h5 class="">Featured Circuits</h5>
+    <h5 class=""><a href="/examples" style="color:black;">Featured Examples</a></h5>
     <div class="row">
-     <!-- This is temporary, needs to replaced by a proper featured project management system  -->
       <% featured_ids=[247,248,252,67] %>
       <% featured_ids.each do |project_id| %>
           <% project = Project.find(project_id) %>
@@ -96,6 +110,21 @@
     </div>
     <br>
     <% end %>
+
+    <h5 class=""><a href="/featured_circuits" style="color: black;">Editor Picks</a></h5>
+    <div class="row">
+      <% @featured_circuits.each do |project| %>
+          <div class="col-sm-3">
+            <div class="card text-center " style="margin-top: 2rem">
+              <div class="card-header card-title">
+               <a href="<%= user_project_path(project.author_id, project) %>"><%=project.name %></a>
+              </div>
+              <a href="<%= user_project_path(project.author_id, project) %>" ><img class="card-img-top " src="<%= project.image_preview.url %>" alt="<%= project.name%>" ></a>
+            </div>
+          </div>
+      <% end %>
+    </div>
+    <br>
 
     <h5 class="" id="recent">Recent Circuits</h5>
     <div class="row">
@@ -128,6 +157,19 @@
         }
     </script>
     <% end %>
+
+<script type="application/ld+json">
+  {
+    "@context" : "http://schema.org",
+    "@type" : "SoftwareApplication",
+    "name" : "<%= Rails.configuration.site_name %>",
+    "image" : "<%= Rails.configuration.site_image %>",
+    "url" : "<%= Rails.configuration.site_url %>",
+    "applicationCategory" : "<%= Rails.configuration.site_category %>",
+    "downloadUrl" : "<%= Rails.configuration.site_download_url %>"
+  }
+</script>
+
 
     <!-- /container -->
 

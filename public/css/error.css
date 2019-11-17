@@ -1,0 +1,25 @@
+.oops {
+    font-size: 4rem;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.help-text {
+    margin-top: 1rem;
+    padding-left: 0.5rem;
+}
+
+.help-text-main {
+    font-size: 2rem;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.error-code {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    color: rgba(0, 0, 0, 0.5);
+    font-weight: 600;
+}
+
+.help-text-sub {
+    font-weight: 200;
+}

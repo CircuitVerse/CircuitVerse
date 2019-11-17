@@ -1,4 +1,6 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.describe Group, type: :model do
   before do
@@ -25,7 +27,7 @@ RSpec.describe Group, type: :model do
       group = FactoryBot.create(:group, mentor: @mentor)
       expect {
         group.send_creation_mail
-      }.to have_enqueued_job.on_queue('mailers')
+      }.to have_enqueued_job.on_queue("mailers")
     end
   end
 end

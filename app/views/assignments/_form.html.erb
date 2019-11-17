@@ -1,4 +1,6 @@
+<link rel="stylesheet" type="text/css" href="/css/restrictedElements.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script src="/js/metadata.json"></script>
 <%= form_with(model: [group,@assignment], local: true, html: {onsubmit:"before_submit()"}, multipart: true ,id:"assignmentForm") do |form| %>
   <% if @assignment.errors.any? %>
     <div id="error_explanation">
@@ -17,6 +19,29 @@
     <%= form.text_field :name, id: :assignment_name %>
   </div>
 
+  <% if @assignment.new_record? %>
+    <div class="field">
+      <span style="color: red"> * Cannot be changed once set </span>
+      <%= form.label :grading_scale %>
+      <%= form.select :grading_scale, [:no_scale, :letter, :percent, :custom] %>
+      <span style="margin-bottom: 2px">
+        <div class="tooltip-help assignment-tooltip"> Help
+          <div class="right-help">
+            <div> <span style="font-style: italic"> percent </span>: Assignment can be graded on a scale of 1-100 </div>
+            <div> <span style="font-style: italic"> letter </span>: Assignment can be graded with letters A-F </div>
+            <div> <span style="font-style: italic"> no_scale </span>: Assignment won't be graded </div>
+            <div> <span style="font-style: italic"> custom </span>: Assignment can be graded as required </div>
+            <i> </i>
+          </div>
+        </div>
+      </span>
+    </div>
+  <% else %>
+    <div class="field" style="margin-bottom: 10px">
+      Grading scale: <span style="font-style: italic"> <%= @assignment.grading_scale %> </span>
+    </div>
+  <% end %>
+
   <div class="field">
     <%= form.label :deadline %>
     <input class ="date" id="party" type="datetime-local" name="assignment[deadline]" min="<%= Time.now.strftime("%Y-%m-%dT%H:%M")%>" value="<%= assignment.deadline.strftime("%Y-%m-%dT%H:%M")%>">
@@ -27,13 +52,24 @@
     <%= render "wysiwyg/index" %>
   </div>
 
-  <div class="actions" >
+  <div class="field" style="margin-bottom: 8px;margin-top: 17px">
+    <span style="font-weight: 600"> Restrict elements: </span>  <%= check_box_tag "restrict-elements", "1", @assignment.elements_restricted?, id: "restrict-elements", style: "margin-top: 0" %>
+    <div class="restricted-elements-list">
+   
+    </div>
+  </div>
+   
+
+  <div class="actions">
     <%= form.submit %>
   </div>
 <% end %>
 
 <script src="/js/time.js"></script>
+<script type="text/javascript" src="/js/restrict_elements.js"></script>
 <script>
+
+    restrictions = JSON.parse('<%= raw @assignment.restrictions %>');
     $(document).ready(function() {
         $('.date').each(
             function () {
@@ -53,5 +89,26 @@
             .attr('name', 'description')
             .attr('value', $("#editor").cleanHtml())
             .appendTo('#assignmentForm');
+         
+        let updated_restrictions = [];
+        if ($('#restrict-elements').is(":checked")) {
+          let restricted_elements = $('.element-restiction');
+          for (let i = 0; i < restricted_elements.length; i++) {
+            let temp = $(restricted_elements[i]);
+            if (temp.is(":checked"))
+              updated_restrictions.push(temp.val())
+          }
+        }
+        updated_restrictions = JSON.stringify(updated_restrictions)
+
+        console.log(updated_restrictions)
+
+        $('<input />').attr('type', 'hidden')
+            .attr('name', 'assignment[restrictions]')
+            .attr('value', updated_restrictions)
+            .appendTo('#assignmentForm');
+
+        
     }
+   
 </script>

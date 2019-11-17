@@ -2,6 +2,8 @@ version: "2"
 plugins:
   rubocop:
     enabled: true
+    channel: rubocop-0-76
+
   eslint:
     enabled: true
     channel: "eslint-5"
@@ -27,3 +29,8 @@ exclude_paths:
 - public/external/
 - test/
 - tmp/
+
+checks:
+  method-lines:
+      config:
+        threshold: 100 # prevent lint errors in js

@@ -46,3 +46,11 @@ dump.rdb
 
 public/sitemap.xml.gz
 coverage
+.vscode
+
+solr/data
+solr/test/data
+solr/development/data
+solr/default/data
+solr/pids
+solr/*

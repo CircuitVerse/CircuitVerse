@@ -11,6 +11,10 @@ class ProjectPolicy < ApplicationPolicy
     @simulator_exception = CustomAuthException.new(simulator_error)
   end
 
+  def can_feature?
+    user.present? && user.admin? && project.project_access_type == "Public"
+  end
+
   def user_access?
     project.check_edit_access(user) || (user.present? && user.admin?)
   end

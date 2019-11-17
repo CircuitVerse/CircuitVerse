@@ -1,0 +1,55 @@
+<link href="/css/search.css" rel="stylesheet">
+
+<%= render "logix_assets/search_bar", { resource: "Projects" } %>
+
+<% if @results.empty? %>
+  <div class="container">
+    <h4 class="results-head">No Results Found</h4>
+  </div>
+<% else %>
+<div class=""></div>
+<div class="container">
+  <% @results.each do |project| %>
+    <div class="row feature m-4">
+      <div class="col-md-9">
+        <h3 class="card-title"><%= project.name %></h3>
+        <p class="card-text">
+          <% project.tags.each do |tag| %>
+            <%= link_to tag.name, tag_path(tag.name),{:style=>"background-color: #f1f1f1; color: #000000", :class=>"badge"} %>
+          <% end %>
+        </p>
+        <div class="description"><%= sanitize project.description %></div>
+        <div class="row mt-3">
+          <div class="col-4">
+            <div class="mt-3 mb-3">
+              <a class="btn btn-dark btn-md" target="_blank"
+                 href="<%= user_project_path(project.author, project) %>" role="button">View</a>
+            </div>
+          </div>
+          <div class="col-8 d-flex justify-content-end">
+            <div class="row">
+              <div class="col-sm-auto p-1">
+                <%= image_tag project.author.profile_picture.url(:medium),
+                              style: "height:60px;width:60px;",
+                              class: ' img-responsive thumbnail rounded-circle' %>
+              </div>
+              <div class="col p-3">
+                <small class="text-muted"><%= link_to project.author.name, project.author %></small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <img src="<%= project.image_preview.url %>" alt="<%= project.name %>" class="img-fluid img-thumbnail">
+        <br/>
+        <div align="center">No. of views =<%= project.view %></div>
+      </div>
+    </div>
+  <% end %>
+  <% unless @results.empty? %>
+    <%= will_paginate(@results, renderer: SearchPaginateRenderer) %>
+  <% end %>
+</div>
+<% end %>
+

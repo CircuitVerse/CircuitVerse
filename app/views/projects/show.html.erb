@@ -1,7 +1,23 @@
-<% content_for :title, @project.name %>
-<% content_for :author_name, @project.author.name %>
-<% content_for :page_description, @project.description %>
+<% content_for :title, "CircuitVerse - #{@project.name}" %>
+<% content_for :description, @project.description %>
+<% set_meta_tags author: @project.author.name %>
 
+<% set_meta_tags twitter: {
+  card: "summary_large_image",
+  title: yield(:title),
+  description: @project.description,
+  image: {
+    src: "#{Rails.configuration.site_url}#{@project.image_preview}"
+  }
+} %>
+
+<% set_meta_tags og: {
+  title: yield(:title),
+  image: "#{Rails.configuration.site_url}#{@project.image_preview}",
+  description: @project.description,
+  type: "article",
+  site_name: Rails.configuration.site_name
+} %>
 
 <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -18,7 +34,7 @@
 
     <div class="col col-7 ">
         <div class="embed-responsive embed-responsive-4by3 feature">
-          <iframe src = <%=simulator_path(@project) %> webkitAllowFullScreen mozAllowFullScreen allowFullScreen scrolling="no"> </iframe>
+          <iframe src = <%=simulator_path(@project) %> id="view" webkitAllowFullScreen mozAllowFullScreen allowFullScreen scrolling="no"> </iframe>
         </div>
     </div>
     <div class="col col-5">
@@ -45,13 +61,16 @@
             <p class="card-text">
               <strong>Author:</strong>
               <%= link_to @project.author.name, @project.author %>
-              </p>
-              <strong>Tags:</strong>
-              <p class="card-text">
-              <% @project.tags.each do |tag| %>
-                <%= link_to tag.name, tag_path(tag.name),{:style=>"background-color: #f1f1f1; color: #000000", :class=>"badge"} %>
-              <% end %>
             </p>
+
+            <% if !@project.tags.empty? %>
+              <p class="card-text">
+                <strong>Tags:</strong>
+                  <% @project.tags.each do |tag| %>
+                    <%= link_to tag.name, tag_path(tag.name),{:style=>"background-color: #f1f1f1; color: #000000", :class=>"badge"} %>
+                  <% end %>
+              </p>
+            <% end %>
 
             <% if !@project.forked_project.nil? %>
                 <p class="card-text">
@@ -111,7 +130,13 @@
               </div>
           <%end%>
 
-
+          <% if policy(@project).can_feature? %>
+            <%= link_to @project.featured? ? 'Unfeature' : 'Feature' , "" ,class: "card-link", id: 'feature-control', style: "margin-left: 10px" %>
+             <%= form_with(model: FeaturedCircuit.new, url: '/featured_circuits', multipart: true, id:"featuredCircuit", style: "display: none", local: true) do |form| %>
+              <%= form.hidden_field :project_id, value: @project.id %>
+              <%= form.hidden_field :featured, value: @project.featured? ? "0" : "1", id: "project-featured" %>
+            <% end %>
+          <% end %>
         </div>
       </div>
 
@@ -140,8 +165,8 @@
       <% @project.collaborators.each do |user| %>
           <tr>
             <td><%= link_to user.name, user %></td>
-            <td><%= user.email %></td>
             <% if policy(@project).author_access? %>
+		            <td><%= user.email %></td>
                 <td><%= link_to 'Remove', collaboration_path(Collaboration.find_by(user_id:user.id,project_id:@project.id)), method: :delete, data: { confirm: 'Are you sure?' } %></td>
             <% end %>
           </tr>
@@ -274,3 +299,61 @@
         });
     }
 </script>
+<% if user_signed_in? %>
+<script src="https://goodwill.zense.co.in/packs/gratia.js"></script>
+<script>
+  var gratia = new window.Gratia({
+    from: '<%= profile_url(current_user) %>',
+    to: <%= ([@project.author] + @project.collaborators ).map{ |c| profile_url(c) }.to_json.html_safe %>,
+    tags: <%= @project.tag_list.to_json.html_safe %>
+  });
+</script>
+
+<script>
+  if($("#featuredCircuit")) {
+      $("#featuredCircuit").submit(function(e) {
+        e.preventDefault();
+
+        var form = $(this);
+        var url = form.attr('action');
+        var type = $("#project-featured").val() === "1" ? "POST" : "DELETE";
+
+        $.ajax({
+          type: type,
+          url: url,
+          data: form.serialize(),
+          success: (data) => {
+            if(type === "POST") {
+              $("#feature-control").html("Unfeature");
+              $("#project-featured").val("0");
+            } else {
+              $("#feature-control").html("Feature");
+              $("#project-featured").val("1");
+            }
+
+          }
+        });
+      });
+
+      $("#feature-control").click((e) => {
+        e.preventDefault();
+        $("#featuredCircuit").submit();
+      })
+    }
+</script>
+
+<script type="application/ld+json">
+  {
+    "@context" : "http://schema.org",
+    "@type" : "Article",
+    "name" : "<%= @project.name %>",
+    "author" : {
+      "@type" : "Person",
+      "name" : "<%= @project.author.name %>"
+    },
+    "articleSection" : "Project",
+    "articleBody" : "<%= @project.description || " " %>"
+  }
+</script>
+
+<% end %>

@@ -12,21 +12,38 @@ class Project < ApplicationRecord
   has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
   mount_uploader :image_preview, ImagePreviewUploader
+  has_one :featured_circuit
+  has_one :grade, dependent: :destroy
+
+  scope :public_and_not_forked,
+  ->() { where(project_access_type: "Public", forked_project_id: nil) }
 
   include PgSearch
-  pg_search_scope :text_search, against: [:name, :description]
+  pg_search_scope :text_search, against: [:name, :description], associated_against: {
+    author: :name,
+    tags: :name
+  }
+
+  searchable do
+    text :name
+
+    text :description
+
+    text :author do
+      author.name
+    end
+
+    text :tags do
+      tags.map { |tag| tag.name }
+    end
+  end
+
+  after_update :check_and_remove_featured
 
   self.per_page = 8
 
   acts_as_commontable
   # after_commit :send_mail, on: :create
-  def self.search(query)
-    if query.present?
-      Project.text_search(query)
-    else
-      Project.all
-    end
-  end
 
   scope :open, -> { where(project_access_type: "Public") }
   def check_edit_access(user)
@@ -85,15 +102,26 @@ class Project < ApplicationRecord
   end
 
   def tag_list=(names)
-    self.tags = names.split(",").map do |n|
+    self.tags = names.split(",").map(&:strip).uniq.map do |n|
       Tag.where(name: n.strip).first_or_create!
     end
   end
+
+  def featured?
+    project_access_type == "Public" && FeaturedCircuit.exists?(project_id: id)
+  end
+
   validate :check_validity
   private
   def check_validity
     if project_access_type != "Private" and !assignment_id.nil?
       errors.add(:project_access_type, "Assignment has to be private")
+    end
+  end
+
+  def check_and_remove_featured
+    if saved_change_to_project_access_type? && saved_changes["project_access_type"][1] != "Public"
+      FeaturedCircuit.find_by(project_id: id)&.destroy
     end
   end
 

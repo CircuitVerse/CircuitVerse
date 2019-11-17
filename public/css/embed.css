@@ -216,3 +216,22 @@ button:focus {outline:0;}
         }
 }
 /* LOADING ICON CSS ENDS*/
+
+
+#restrictedElementsDiv {
+    position: absolute;
+    bottom: 10;
+    right: 2;
+    z-index: 100;
+    width: 215px;
+    font-size: 14px;
+    background-color: gainsboro;
+    border: 1px solid #0D3349;
+    opacity: .1;
+    padding: 3px 5px;
+}
+
+#restrictedElementsDiv:hover {
+    opacity: 1;
+    transition: .4s;
+}

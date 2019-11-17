@@ -17,7 +17,7 @@
                       </p>
                       <p>
                         Join our chat room @
-                        <a href="https://gitter.im/CircuitVerse/community" target="_blank">Gitter Channel</a>
+                        <a href="<%= Rails.configuration.slack_url %>" target="_blank"> Slack </a>
                       </p>
                 </div>
                 <div class="col">
@@ -30,44 +30,92 @@
 
 
     </div>
-    <div class="container">
-        <div class="row feature">
+   <div class="container" style="border:solid 1px #cecece">
+<div class="card-deck" >
 
-            <div class="col-6">
-              <h3 class="card-title">If you are a fan you can</h3>
-                 <ul>
-                     <li> Create amazing circuits and share on the platform</li>
-                     <li> Find and report bugs. Become a bug hunter</li>
-                     <li> Introduce the platform to your buddies</li>
+<div class="col-10 offset-1 col-sm-6 offset-sm-0 col-md-6 offset-md-0 col-lg-4 offset-lg-0 col-xl-4 " style="margin-top:20px;">
+<div class="card " style="max-width: 19rem ;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+    <div class="card-header" style="background-color:#C6CCCD; border-bottom-style:none">
+        <h5 class="card-title" ><center>If you are a fan you can</center></h5>
+    </div>
+    <div class="card-body" style="background-color:#DCE3E3; >
+            <ul class="list-group" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" >
+                    <li class="list-group-item" >Create amazing circuits and share on the platform</li>
+                    <li class="list-group-item" >Find and report bugs. Become a bug hunter</li>
+                    <li class="list-group-item" >Introduce the platform to your buddie</li>
+            </ul>
+    </div>
+</div>
+</div>
 
-                 </ul>
-                 <h4>If you are a developer you can</h4>
-                 <ul>
-                     <li>Contribute to the open source project</li>
-                     <li>Add new features and fix bugs</li>
-                 </ul>
-                 <h4>If you are an company/organization you can</h4>
-                 <ul>
-                     <li>Become a CircuitVerse Partner (see Patreon)</li>
-                     <li>Contact support for more details</li>
-                 </ul>
-            </div>
-           <div class="col-6">
-
-             <h4>If you are a teacher you can</h4>
-               <ul>
-                 <li> Introduce the platform to your students</li>
-                 <li> Promote the platform within your circles</li>
-                 <li> Create exciting educational content using CircuitVerse </li>
-               </ul>
-             <h4>If you have money to spare you can</h4>
-               <ul>
-                 <li> Become a patreon (recurring pledge)</li>
-                 <li> Donate via PayPal (one time)</li>
-               </ul>
-               <!--<img src="img/logix.png" class="img-fluid img-thumbnail" alt="Responsive image">-->
-           </div>
+<div class="col-10 offset-1 col-sm-6 offset-sm-0 col-md-6 offset-md-0 col-lg-4 offset-lg-0 col-xl-4" style="margin-top:20px;">
+<div class="card " style="max-width: 19rem ;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+        <div class="card-header" style="background-color:#C6CCCD; border-bottom-style:none">
+            <h5 class="card-title" ><center>If you are a developer you can</center></h5>
         </div>
+        <div class="card-body" style="background-color:#DCE3E3;">
+                <ul class="list-group" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" >
+                        <li class="list-group-item" >Contribute to the open source project</li>
+                        <li class="list-group-item" >Add new features to the CircuitVerse project</li>
+                        <li class="list-group-item" >Find and fix bugs to the CircuitVerse project</li>
+
+
+                </ul>
+        </div>
+    </div>
+</div>
+
+<div class="col-10 offset-1 col-sm-6 offset-sm-0 col-md-6 offset-md-0 col-lg-4 offset-lg-0 col-xl-4" style="margin-top:20px;">
+<div class="card " style="max-width: 19rem ;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+            <div class="card-header" style="background-color:#C6CCCD; border-bottom-style:none">
+                <h5 class="card-title" ><center>If you are a teacher you can</center></h5>
+            </div>
+            <div class="card-body" style="background-color:#DCE3E3;">
+                    <ul class="list-group" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" >
+                            <li class="list-group-item" >Introduce the platform to your students
+                                </li>
+                            <li class="list-group-item" >Promote the platform within your circles</li>
+                            <li class="list-group-item" ">Create exciting educational content using CircuitVerse</li>
+                    </ul>
+            </div>
+        </div>
+ </div>
+
+
+ <div class="col-10 offset-1 col-sm-6 offset-sm-0 col-md-6 offset-md-0 col-lg-4 offset-lg-0 offset-lg-2 col-xl-4" style="margin-top:20px;margin-bottom:20px;" >
+ <div class="card " style="max-width: 19rem ;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+        <div class="card-header" style="background-color:#C6CCCD; border-bottom-style:none">
+            <h5 class="card-title" ><center>If you are a company or organisation, you can</center></h5>
+        </div>
+        <div class="card-body" style="background-color:#DCE3E3;">
+                <ul class="list-group" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" >
+                        <li class="list-group-item" >Become a CircuitVerse Partner (see Patreon)</li>
+                        <li class="list-group-item" >Contact support for more details</li>
+
+                </ul>
+        </div>
+    </div>
+ </div>
+
+ <div class="col-10 offset-1 col-sm-8 offset-sm-2 col-md-6 offset-md-4 col-lg-4 offset-lg-0   col-xl-4" style="margin-top:20px; margin-bottom:20px;">
+ <div class="card " style="max-width: 19rem ;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+        <div class="card-header" style="background-color:#C6CCCD; border-bottom-style:none">
+            <h5 class="card-title" ><center>If you have enough money to spare</center></h5>
+        </div>
+        <div class="card-body" style="background-color:#DCE3E3;">
+                <ul class="list-group" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" >
+                        <li class="list-group-item" >Become a patreon (recurring pledge)</li>
+                        <li class="list-group-item" >Donate via PayPal <br>(one time)</li>
+
+                </ul>
+        </div>
+    </div>
+
+
+</div>
+  </div>
+
+
       <br />
         <div class="row center feature">
           <div class="col-4 text-center">
