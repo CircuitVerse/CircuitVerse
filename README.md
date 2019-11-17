@@ -8,7 +8,7 @@
 
 ## Versions
 
-- Ruby Version: ruby-2.5.1
+- Ruby Version: ruby-2.6.5
 - Rails Version: Rails 5.1.6
 - PostgreSQL Version: 9.5
 
@@ -30,7 +30,7 @@ Please go through the [Contribution Guidelines](CONTRIBUTING.md) before going fo
 
 **Note:** You might want to use the docker instructions if you do not want to setup your own environment.
 
-* Install ruby using RVM, use ruby-2.5.1
+* Install ruby using RVM, use ruby-2.6.5
 * Install Dependencies: `bundle install `
 * Configure your DB in config/database.yml, copy config/database.example.yml (Note : check for postgres password and update it in place of "postgres")
 * Create database: `rails db:create`
