@@ -7,8 +7,8 @@ ports:
 tasks:
   - init: >
       rvm autolibs disable &&
-      rvm install 2.5.1 &&
-      gem install bundler -v 1.17.3 &&
+      rvm install 2.6.5 &&
+      gem install bundler &&
       cp config/database.example.yml config/database.yml &&
       createuser -s postgres &&
       (redis-server &) &&

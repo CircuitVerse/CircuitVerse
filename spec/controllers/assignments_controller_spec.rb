@@ -47,7 +47,7 @@ describe AssignmentsController, type: :request do
       it "returns required json response" do
         get group_assignment_path(@group, @assignment), params: { format: :json }
         res = JSON.parse(response.body)
-        expect(response.content_type).to eq("application/json")
+        expect(response.content_type).to eq("application/json; charset=utf-8")
         expect(res.keys.sort).to eq(assignment_keys)
       end
     end
