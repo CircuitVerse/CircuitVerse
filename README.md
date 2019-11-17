@@ -65,9 +65,7 @@ docker-compose build --no-cache
 ```
 
 ## Developer Instructions
-Developers can quickly get started by setting up the dev environment using the instructions above. It is necessary to execute 
-'bundle exec rake db:seed' to populate the sample data and access admin account.
-The Admin Account credentials are as follows:  
+Developers can quickly get started by setting up the dev environment using the instructions above. To seed the database with some sample data, run 'bundle exec rake db:seed'. The admin credentials after seeding will be as follows:
 ```
 User: Admin
 Email: admin@circuitverse.org
