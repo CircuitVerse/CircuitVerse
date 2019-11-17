@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  layout "new_layout"
+
   include Pundit
   protect_from_forgery with: :exception
 
