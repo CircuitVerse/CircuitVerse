@@ -1,0 +1,31 @@
+version: '1.0.{build}'
+
+cache:
+  - vendor/bundle
+
+environment:
+  RAILS_ENV: test
+  PGHOST: 127.0.0.1
+  PGUSER: postgres
+  POSTGRES_DB: circuitverse_test
+  PGPASSWORD: Password12!
+services:
+  - postgresql95
+
+install:
+  - set PATH=C:\Ruby26\bin;%PATH%
+  - bundle config --local path vendor/bundle
+  - bundle install --with postgresql
+
+build: off
+
+before_test:
+  - ruby -v
+  - gem -v
+  - bundle -v
+  - copy config\database.example.yml config\database.yml
+  - ruby bin\rails db:setup
+
+
+test_script:
+  - bundle exec coveralls push
