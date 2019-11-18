@@ -1,0 +1,10 @@
+// Styles which overwrite the bootstrap styles to be included here.
+
+.btn-outline-success {
+  color: #1C1C1C;
+
+  &:hover {
+    color: #1C1C1C;
+    background-color: #ffffff;
+  }
+}

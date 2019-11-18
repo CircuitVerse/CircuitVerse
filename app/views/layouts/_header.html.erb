@@ -1,55 +1,38 @@
-<link href="/css/search.css" rel="stylesheet">
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark" style="padding-right:4.5em;padding-left:4.5em;">
-  <a class="navbar-brand" href="/"><img src="/img/circuitverse2.svg" alt="Logo" height="25px"></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg navbar-light bg-white">
+  <a class="navbar-brand" href="#">
+    <img src="/assets/v2/CircuitVerse.png"/>
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsedNavbar"
+    aria-controls="collapsedNavbar" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="/simulator">Simulator</a>
+
+  <div class="collapse navbar-collapse" id="collapsedNavbar">
+    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+      <li class="nav-item px-1">
+        <button class="btn btn-outline-success my-2 my-sm-0 rounded-0 simulator" type="submit">Simulator</button>
       </li>
-      <li class="nav-item">
-      <a class="nav-link" href="https://docs.circuitverse.org/">Getting Started</a>
+      <li class="nav-item px-1 active">
+        <a class="nav-link" href="#">Learn</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/features">Features</a>
+      <li class="nav-item px-1">
+        <a class="nav-link" href="#">Documentation</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/examples">Examples</a>
+      <li class="nav-item px-1">
+        <a class="nav-link" href="#">Examples</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/contribute">Contribute</a>
+      <li class="nav-item px-1">
+        <a class="nav-link" href="#">Contribute</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/teachers">Teachers</a>
+      <li class="nav-item px-1">
+        <a class="nav-link" href="#">Teachers</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/about">About</a>
+      <li class="nav-item px-1">
+        <a class="nav-link" href="#">About</a>
+      </li>
+      <li class="nav-item px-1">
+        <a class="nav-link" href="#">Login</a>
       </li>
     </ul>
-    <div class="form-inline my-2 my-lg-0" id="nav-search">
-      <%= form_tag("/search", method: "get", id: 'search-box', class: 'nav-search-form') do %>
-        <%= select_tag "resource", options_for_select([ "Users", "Projects" ], "Projects"), class: 'form-control nav-bar-search-select', id: "search_type" %>
-        <%= text_field_tag :q,params[:q],class:'form-control mr-sm-2',placeholder: 'Search',autocomplete:"off", class: "nav-bar-search-input"  %>
-      <% end %>
-    </div>
-    <div class="navbar-nav nav-item dropdown">
-      <%if user_signed_in? %>
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <%= current_user.name %>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href=<%=  profile_path(current_user) %>>Profile </a>
-          <a class="dropdown-item" href= <%=  user_path(current_user) %>>My Circuits</a>
-          <a class="dropdown-item" href= <%=  user_groups_path(current_user) %>>My Groups</a>
-          <a class="dropdown-item" href= <%=  user_favourites_path(current_user) %>>My Favourites</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" rel="nofollow" data-method="delete" href= <%= destroy_user_session_path%> >Sign Out</a>
-        </div>
-      <%else%>
-        <a class="navbar-nav nav-link" href=<%= new_user_session_path  %>> Sign in </a>
-      <%end %>
-    </div>
   </div>
 </nav>
