@@ -66,7 +66,7 @@ You can use gitpod to develop CircuitVerse in the cloud by following the steps m
 Pull Requests can be created by following these [Steps](https://github.com/CircuitVerse/CircuitVerse/wiki/Pull-Requests-using-Gitpod)
 
 ## Developer Instructions
-Developers can quickly get started by setting up the dev environment using the instructions above. The database is seeded with the following admin account.
+Developers can quickly get started by setting up the dev environment using the instructions above. To seed the database with some sample data, run 'bundle exec rake db:seed'. The admin credentials after seeding will be as follows:
 ```
 User: Admin
 Email: admin@circuitverse.org
