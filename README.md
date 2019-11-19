@@ -9,7 +9,7 @@
 ## Versions
 
 - Ruby Version: ruby-2.6.5
-- Rails Version: Rails 5.1.6
+- Rails Version: Rails 6.0.1
 - PostgreSQL Version: 9.5
 
 ## Cloning Instructions
