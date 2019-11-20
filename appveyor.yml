@@ -27,4 +27,4 @@ before_test:
 
 
 test_script:
-  - bundle exec rspec --format RspecJunitFormatter --out test_results/rspec.xml --format progress
+  - bundle exec rspec --format RspecJunitFormatter --out test_results/rspec.xml --format progress --tag ~@skip_windows
