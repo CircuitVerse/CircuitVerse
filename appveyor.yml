@@ -22,7 +22,8 @@ before_test:
   - gem -v
   - bundle -v
   - copy config\database.appveyor.yml config\database.yml
-  - ruby bin\rails db:setup
+  - ruby bin\rake db:create
+  - ruby bin\rails db:schema:load
 
 
 test_script:

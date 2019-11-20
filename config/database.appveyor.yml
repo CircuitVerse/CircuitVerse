@@ -15,3 +15,8 @@ default: &default
 test:
   <<: *default
   database: circuitverse_test
+
+development:
+  <<: *default
+  database: circuitverse_development
+
