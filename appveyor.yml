@@ -5,6 +5,8 @@ cache:
 
 environment:
   RAILS_ENV: test
+  COVERALLS_SERVICE_NAME: appveyor
+
 services:
   - postgresql95
 
