@@ -27,7 +27,7 @@ describe SimulatorController, type: :request do
         end
       end
 
-      context "there is image data" do
+      context "there is image data", :skip_windows do
         it "creates project with its own image file" do
           expect {
             post "/simulator/create_data", params: { image:
