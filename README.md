@@ -31,7 +31,8 @@ Please go through the [Contribution Guidelines](CONTRIBUTING.md) before going fo
 **Note:** You might want to use the docker instructions if you do not want to setup your own environment.
 
 * Install ruby using RVM, use ruby-2.6.5
-* Install Dependencies: `bundle install ` (Note: If you do not have bundler already installed , install it using `gem install bundler`)
+* Install bundler : `gem install bundler`
+* Install Dependencies: `bundle install`
 * Configure your DB in config/database.yml, copy config/database.example.yml (Note : check for postgres password and update it in place of "postgres")
 * Create database: `rails db:create`
 * Run Migrations: `rails db:migrate`
