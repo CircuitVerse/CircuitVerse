@@ -1,23 +1,76 @@
+<style type="text/css">
+  .custom-input,
+  select {
+    width: 60% !important;
+    background: transparent;
+    border: none;
+    color: #1C1C1C;
+    border-bottom: 1px solid #42B983;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-radius: 0;
+  }
 
-<div class="container">
-  <div class="row feature">
-    <div class="col-xs-10 col-lg-6 col-md-8 col-s-10 col-centered">
-      <h2>Forgot your password?</h2>
+  .custom-input:focus,
+  select:focus {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-bottom: 1px solid #42B983;
+  }
 
-      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-      <%= devise_error_messages! %>
+  .custom-input:-webkit-autofill,
+  .custom-input:-webkit-autofill:hover, 
+  .custom-input:-webkit-autofill:focus {
+    border-bottom: 1px solid #42B983;
+    -webkit-text-fill-color: #1C1C1C;
+    -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+</style>
+
+<div class="container-fluid">
+  <div class="row">
+
+    <div class="col-lg-6 col-md-4 middle-block">
+      <%= image_tag "SVGs/login.svg", :class => "center-block"%>
+      <div class="welcome-text">
+        <label>Welcome back to the Digital Circuit Universe!</label>
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-md-8 middle-block">
+      <div class="col-lg-10 col-md-10 center-block mt-2">
+        <h1 class="pb-3">Forgot your password?</h1>
+        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+        <%= devise_error_messages! %>
 
         <div class="field form-group">
-          <%= f.label :email %><br />
-          <%= f.email_field :email, class: 'form-control', autofocus: true, placeholder: 'Email'%>
+          <%= f.label :email, class:"label-text" %>
+          <div class="input-group">
+            <%= f.email_field :email, autofocus: true, class:"form-control custom-input"%>
+          </div>
         </div>
 
-        <div class="actions">
-          <%= f.submit "Send me reset password instructions", class: 'btn btn-primary' %>
+        <div class="field form-group mt-5">
+          <div class="input-group center-block">
+            <%= f.submit "Send password reset link" ,class:"btn custom-submit"%>
+            <%= link_to "Go to Login Page", new_session_path(resource_name) ,class:"link-text pl-3"%>
+          </div>
         </div>
-      <% end %>
 
-      <%= render "users/shared/links" %>
+        <div class="field form-group">
+          <div class="input-group center-block">
+            <span class="help-text"> New User? </span>
+            <%= link_to "Sign up", new_registration_path(resource_name) ,class:"link-text pl-1"%>
+          </div>
+        </div>
+
+        <div class="field form-group mt-5">
+          <%= render "users/shared/links" %>
+        </div>
+        <% end %>
+      </div>
     </div>
+
   </div>
 </div>

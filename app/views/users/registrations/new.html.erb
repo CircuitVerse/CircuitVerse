@@ -1,51 +1,136 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+<style type="text/css">
+  .custom-input,
+  select {
+    width: 60% !important;
+    background: transparent;
+    border: none;
+    color: #1C1C1C;
+    border-bottom: 1px solid #42B983;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-radius: 0;
+  }
 
-<div class="container">
-  <div class="row feature">
+  .custom-input:focus,
+  select:focus {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-bottom: 1px solid #42B983;
+  }
 
-    <div class="col-xs-10 col-lg-6 col-md-8 col-s-10 col-centered">
-      <h2>Sign up</h2>
+  .custom-input:-webkit-autofill,
+  .custom-input:-webkit-autofill:hover, 
+  .custom-input:-webkit-autofill:focus {
+    border-bottom: 1px solid #42B983;
+    -webkit-text-fill-color: #1C1C1C;
+    -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+    transition: background-color 5000s ease-in-out 0s;
+  }  
+</style>
 
-      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-          <%= devise_error_messages! %>
+<script type="text/javascript">
+  function toggleSignupPassword() {
+    if($('#signup-psw').attr("type") == "text"){
+      $('#signup-psw').attr('type', 'password')
+      $('#toggle-psw-icon').addClass( "fa-eye-slash" );
+      $('#toggle-psw-icon').removeClass( "fa-eye" );
+    }
+    else {
+      $('#signup-psw').attr('type', 'text')
+      $('#toggle-psw-icon').addClass( "fa-eye" );
+      $('#toggle-psw-icon').removeClass( "fa-eye-slash" );
+    }
+  }
 
-          <div class="field form-group">
-            <%= f.label :name %><br />
-            <%= f.text_field :name, autofocus: true ,class:"form-control", placeholder: 'Name'%>
-          </div>
+  function togglePasswordConfirm() {
+    if($('#signup-psw-confirm').attr("type") == "text"){
+      $('#signup-psw-confirm').attr('type', 'password')
+      $('#toggle-psw-cnf-icon').addClass( "fa-eye-slash" );
+      $('#toggle-psw-cnf-icon').removeClass( "fa-eye" );
+    }
+    else {
+      $('#signup-psw-confirm').attr('type', 'text')
+      $('#toggle-psw-cnf-icon').addClass( "fa-eye" );
+      $('#toggle-psw-cnf-icon').removeClass( "fa-eye-slash" );
+    }
+  }
+</script>
 
-          <div class="field form-group">
-            <%= f.label :email %><br />
-            <%= f.email_field :email, autofocus: true,class:"form-control", placeholder: 'Email'%>
-          </div>
+<div class="container-fluid">
+   <div class="row">
 
-          <div class="field form-group">
-            <%= f.label :password %>
-            <% if @minimum_password_length %>
-                <em>(<%= @minimum_password_length %> characters minimum)</em>
-            <% end %><br />
-            <%= f.password_field :password, autocomplete: "off",class:"form-control", placeholder: 'Password' %>
-          </div>
-
-          <div class="field form-group">
-            <%= f.label :password_confirmation %><br />
-            <%= f.password_field :password_confirmation, autocomplete: "off" ,class:"form-control", placeholder: 'Confirm Password'%>
-          </div>
-
-          <div class="actions">
-            <%= f.submit "Sign up",class:"btn btn-outline-info" %>
-          </div>
-      <% end %>
-
-      <%= render "users/shared/links" %>
+    <div class="col-lg-6 col-md-4 middle-block">
+      <%= image_tag "SVGs/signup.svg", :class => "center-block"%>
+      <div class="welcome-text">
+        <label>
+        	Get yourself registered to start away with saving circuits, building groups and much more!
+        </label>
+      </div>
     </div>
 
+    <div class="col-lg-6 col-md-8 middle-block">
+      <div class="col-lg-10 col-md-10 center-block">
+      	<h1 class="pb-3">Sign Up</h1>
+
+      	<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        	<%= devise_error_messages! %>
+
+
+        <div class="field form-group">
+          <%= f.label :name, class:"label-text" %>
+          <div class="input-group">
+            <%= f.text_field :name, autofocus: true ,class:"form-control custom-input"%>
+          </div>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :email, class:"label-text"%>
+          <div class="input-group">
+            <%= f.email_field :email, autofocus: true,class:"form-control custom-input"%>
+          </div>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :password, class:"label-text" %>
+          <% if @minimum_password_length %>
+            <em>(<%= @minimum_password_length %> characters minimum)</em>
+          <% end %>
+          <div class="input-group">
+          	<%= f.password_field :password, autocomplete: "off", class:"form-control custom-input", id:"signup-psw"%>
+          	<div class="input-group-addon" onclick="toggleSignupPassword()">
+              <i  class="fa fa-eye-slash password-icon" aria-hidden="true" id="toggle-psw-icon"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :password_confirmation, class:"label-text" %>
+          <div class="input-group">
+            <%= f.password_field :password_confirmation, autocomplete: "off" ,class:"form-control custom-input", id: 'signup-psw-confirm'%>
+            <div class="input-group-addon" onclick="togglePasswordConfirm()">
+              <i  class="fa fa-eye-slash password-icon" aria-hidden="true" id="toggle-psw-cnf-icon"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="field form-group mt-5">
+          <div class="input-group center-block">
+            <%= f.submit "Sign up" ,class:"btn custom-submit"%>
+            <span class="help-text"> Already Registered? </span>
+            <%= link_to "Log In", new_session_path(resource_name) ,class:"link-text pl-2"%>
+          </div>
+        </div>
+
+        <div class="field form-group mt-5">
+            <%= render "users/shared/links" %>
+        </div>
+      <% end %>
+      </div>
+    </div>
 
   </div>
-  <br />
-
-  <br />
-
-
-
 </div>
+
+
