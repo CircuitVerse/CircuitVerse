@@ -100,3 +100,70 @@ img{
     display: flex;
     width: 100%;
 }
+body{
+  overflow-x: hidden;
+}
+.intro{
+  padding-bottom: 50px;
+  margin-bottom: 20px;
+}
+h1{
+  text-align: center;
+  color: #026E59;
+  font-weight: 600;
+  font-size: 2rem;
+  padding-top: 50px;
+  padding-bottom: 10px;
+}
+.introl{
+  font-weight: 600;
+  text-align: center;
+  line-height: 0.2;
+  text-align-last: center;
+}
+@media only screen and  (max-width: 767px){
+ .introl{
+line-height: 1;
+}
+.box{
+  position: relative;
+  margin-left: 20%;
+  }
+}
+.intro{
+  margin-top: 80px;
+}
+.alternate{
+  background-color: #F5FFFA;
+
+}
+.benefits{
+  font-weight: 600;
+  padding-bottom: 20px;
+  text-align: center;
+  font-size: 1.5rem;
+}
+.change{
+  font-weight: 600;
+  margin-bottom: 15px;
+  margin-left: 20%;
+  margin-right: 10%;
+  font-size: 1.2rem;
+  font-family: 'Open Sans', sans-serif;
+  line-height: 1.2;
+}
+.new{
+  padding-top: 50px;
+}
+h6{
+  margin-left: 20%;
+  margin-right: 10%;
+  margin-bottom: 30px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.3;
+}
+.edit{
+  margin-top: 30px;
+padding-top: 50px;
+}
