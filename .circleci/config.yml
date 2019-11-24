@@ -40,6 +40,10 @@ jobs: # a collection of steps
           name: Bundle Install
           command: bundle install --with postgresql
 
+      - run: # Install JS dependencies
+          name: Yarn Install
+          command: yarn
+
       # Store bundle cache for Ruby dependencies
       - save_cache:
           key: circuiteverse-{{ checksum "Gemfile.lock" }}
