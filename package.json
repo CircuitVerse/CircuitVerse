@@ -15,7 +15,9 @@
     "eslint-plugin-react": "^7.12.4"
   },
   "dependencies": {
-    "opencollective-postinstall": "^2.0.2"
+    "bootstrap": "^4.3.1",
+    "opencollective-postinstall": "^2.0.2",
+    "popper.js": "^1.16.0"
   },
   "collective": {
     "type": "opencollective",
