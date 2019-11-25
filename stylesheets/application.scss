@@ -1,0 +1,21 @@
+@import 'theme';
+@import 'bootstrap/scss/bootstrap';
+@import 'commontator/application';
+@import 'bootstrap-typeahead-rails';
+@import 'footer';
+@import 'logixRelease';
+
+// #FIXME move these styles
+.alert {
+	width: 100%;
+}
+.foot {
+	bottom: 10px;
+	position: absolute;
+	width: 100%;
+}
+
+.col-centered {
+	float: none;
+	margin: 0 auto;
+}
