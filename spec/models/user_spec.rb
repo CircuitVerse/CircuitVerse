@@ -1,4 +1,6 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.describe User, type: :model do
   describe "associations" do
@@ -22,7 +24,8 @@ RSpec.describe User, type: :model do
 
   describe "validations" do
     it { should have_attached_file(:profile_picture) }
-    it { should validate_attachment_content_type(:profile_picture).allowing('image/png', 'image/jpeg', 'image/jpg') }
+    it { should validate_attachment_content_type(:profile_picture)
+                  .allowing("image/png", "image/jpeg", "image/jpg") }
   end
 
   describe "public methods" do
@@ -36,7 +39,7 @@ RSpec.describe User, type: :model do
     it "sends welcome mail" do
       expect {
         @user.send(:send_welcome_mail)
-      }.to have_enqueued_job.on_queue('mailers')
+      }.to have_enqueued_job.on_queue("mailers")
     end
 
     it "Create member records from invitations" do

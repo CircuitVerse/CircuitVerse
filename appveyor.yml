@@ -1,0 +1,31 @@
+version: '1.0.{build}'
+
+cache:
+  - vendor/bundle
+
+environment:
+  RAILS_ENV: test
+  COVERALLS_SERVICE_NAME: appveyor
+
+services:
+  - postgresql95
+
+install:
+  - set PATH=C:\Ruby26\bin;%PATH%
+  - bundle config --local path vendor/bundle
+  - bundle install --with postgresql
+  - yarn  
+
+build: off
+
+before_test:
+  - ruby -v
+  - gem -v
+  - bundle -v
+  - copy config\database.appveyor.yml config\database.yml
+  - ruby bin\rake db:create
+  - ruby bin\rails db:schema:load
+
+
+test_script:
+  - bundle exec rspec --format RspecJunitFormatter --out test_results/rspec.xml --format progress --tag ~@skip_windows

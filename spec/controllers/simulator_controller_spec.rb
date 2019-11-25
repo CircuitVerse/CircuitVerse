@@ -27,11 +27,11 @@ describe SimulatorController, type: :request do
         end
       end
 
-      context "there is image data" do
+      context "there is image data", :skip_windows do
         it "creates project with its own image file" do
           expect {
             post "/simulator/create_data", params: { image:
-              "data:image/jpeg;base64,#{Faker::Alphanumeric.alpha(20)}" }
+              "data:image/jpeg;base64,#{Faker::Alphanumeric.alpha(number: 20)}" }
           }.to change { Project.count }.by(1)
           created_project = Project.order("created_at").last
           expect(created_project.image_preview.path.split("/")[-1]).to start_with("preview_")

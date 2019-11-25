@@ -2,11 +2,15 @@ version: "2"
 plugins:
   rubocop:
     enabled: true
+    channel: rubocop-0-76
+
   eslint:
     enabled: true
     channel: "eslint-5"
     exclude_patterns:
       - "!public/js/"
+  scss-lint:
+    enabled: true
 
 ratings:
   paths:

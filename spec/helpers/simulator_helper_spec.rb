@@ -12,7 +12,7 @@ describe SimulatorHelper do
   describe "#check_to_delete" do
     it "give true for non empty images" do
       expect(check_to_delete(data_url(""))).to be false
-      expect(check_to_delete(data_url(Faker::Alphanumeric.alpha(20)))).to be true
+      expect(check_to_delete(data_url(Faker::Alphanumeric.alpha(number: 20)))).to be true
     end
   end
 

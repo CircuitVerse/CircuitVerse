@@ -6,10 +6,14 @@ ports:
     onOpen: open-preview
 tasks:
   - init: >
+      rvm autolibs disable &&
+      rvm install 2.6.5 &&
+      gem install bundler &&
       cp config/database.example.yml config/database.yml &&
       createuser -s postgres &&
       (redis-server &) &&
       bundle install --without production &&
+      yarn &&
       rails db:create &&
       rails db:schema:load &&
       rails db:migrate &&
