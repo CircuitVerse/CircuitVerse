@@ -45,3 +45,12 @@
 #footer-logo-zense{
   width: 75%;
 }
+
+.field-icon {
+  float: right;
+  margin-left: -25px;
+  margin-top: -25px;
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+}

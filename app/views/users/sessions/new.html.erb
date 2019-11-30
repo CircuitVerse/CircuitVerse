@@ -17,7 +17,8 @@
 
           <div class="field form-group">
             <%= f.label :password %><br />
-            <%= f.password_field :password, autocomplete: "off" ,class:"form-control", placeholder: 'Password'%>
+            <%= f.password_field :password, autocomplete: "off" ,class:"form-control", placeholder: 'Password', id: 'password' %>
+            <span class="fa fa-eye field-icon"></span>
           </div>
         </div>
 
@@ -47,3 +48,14 @@
   </div>
 
 </div>
+<script>
+  $(".field-icon").click(function() {
+    $(this).toggleClass("fa-eye fa-eye-slash");
+    var input = $('#password');
+    if (input.attr("type") == "password") {
+      input.attr("type", "text");
+    } else {
+      input.attr("type", "password");
+    }
+  });
+</script> 
