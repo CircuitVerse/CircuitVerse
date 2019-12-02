@@ -51,7 +51,14 @@
     display: flex;
 }
 
+@media (max-width: 350px) {
+    .navbar {
+        padding-left: 1.5em !important;
+    }
+}
+
 .nav-bar-search-select {
+    width: fit-content;
     cursor: pointer;
     -webkit-appearance: none;
     -moz-appearance: none;
