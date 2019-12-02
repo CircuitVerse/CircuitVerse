@@ -48,7 +48,7 @@ describe CustomMailsController, type: :request do
         }
       end
 
-      it "udpates mails" do
+      it "updates mails" do
         expect {
           put custom_mail_path(@mail), params: update_params
           @mail.reload

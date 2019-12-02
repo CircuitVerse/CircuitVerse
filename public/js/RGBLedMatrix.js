@@ -108,7 +108,7 @@ RGBLedMatrix.prototype.changeSize = function (rows, columns, ledSize, move) {
     // Depending on the size of the leds we need to add different paddings so position correctly.
     var padding = ledSize % 2 ? 5 : 10;
 
-    // The dimentions of the element, in canvas units.
+    // The dimensions of the element, in canvas units.
     var halfWidth = gridWidth / 2 + padding;
     var halfHeight = gridHeight / 2 + padding;
 

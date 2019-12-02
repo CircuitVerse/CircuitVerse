@@ -83,7 +83,7 @@ describe CollaborationsController, type: :request do
     }
 
     context "author is signed in" do
-      it "udpates the collaboration" do
+      it "updates the collaboration" do
         sign_in @author
         put collaboration_path(@collaboration), params: update_params
         @collaboration.reload

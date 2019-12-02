@@ -48,7 +48,7 @@ function clearProject() {
 // Function used to start a new project while prompting confirmation from the user
 function newProject(verify) {
 
-    if (verify || projectSaved || !checkToSave() || confirm("What you like to start a new project? Any unsaved chanegs will be lost.")) {
+    if (verify || projectSaved || !checkToSave() || confirm("What you like to start a new project? Any unsaved changes will be lost.")) {
         clearProject();
         localStorage.removeItem("recover");
         window.location = "/simulator";
@@ -152,7 +152,7 @@ function generateSvg() {
 
 }
 
-// Function used to change the current focussedCircuit
+// Function used to change the current focusedCircuit
 // Disables layoutMode if enabled
 // Changes UI tab etc
 // Sets flags to make updates, resets most of the things
@@ -325,7 +325,7 @@ function generateDependencyOrder() {
 
 function deleteCurrentCircuit() {
     if (Object.keys(scopeList).length <= 1) {
-        showError("Atleast 2 circuits need to be there in order to delete a circuit.")
+        showError("At least 2 circuits need to be there in order to delete a circuit.")
         return;
     }
     var dependencies = "";
@@ -349,7 +349,7 @@ function deleteCurrentCircuit() {
         $('#' + globalScope.id).remove()
         delete scopeList[globalScope.id]
         switchCircuit(Object.keys(scopeList)[0])
-        showMessage("Circuit was successfuly deleted")
+        showMessage("Circuit was successfully deleted")
     } else
         showMessage("Circuit was not deleted")
 }
@@ -401,7 +401,7 @@ function generateSaveData(name) {
     for (id in scopeList)
         saveScope(id);
 
-    //covnvert to text
+    //convert to text
     data = JSON.stringify(data);
     return data;
 }
@@ -409,7 +409,7 @@ function generateSaveData(name) {
 // Function that is used to save image for display in the website
 function generateImageForOnline() {
 
-    simulationArea.lastSelected = undefined; // Unsellect any selections
+    simulationArea.lastSelected = undefined; // Unselect any selections
 
     // Fix aspect ratio to 1.6
     if (width > height * 1.6) {
@@ -556,7 +556,7 @@ function load(data) {
         // update and backup circuit once
         update(globalScope, true);
 
-        // Updating restricted element list initally on loading
+        // Updating restricted element list initially on loading
         updateRestrictedElementsInScope();
 
         scheduleBackup();
@@ -671,7 +671,7 @@ function loadScope(scope, data) {
 
             } else {
 
-                // Load everything else similarily
+                // Load everything else similarly
                 for (var j = 0; j < data[ML[i]].length; j++) {
                     loadModule(data[ML[i]][j], scope);
                 }
@@ -721,7 +721,7 @@ function loadScope(scope, data) {
 }
 
 
-// This fn shouldnt ideally exist. But temporary fix
+// This fn shouldn't ideally exist. But temporary fix
 function removeBugNodes(scope = globalScope) {
     var x = scope.allNodes.length
     for (var i = 0; i < x; i++) {

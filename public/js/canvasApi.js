@@ -1,7 +1,7 @@
 
 // Function used to change the zoom level wrt to a point
 // fn to change scale (zoom) - It also shifts origin so that the position
-// of the object in focus doent change
+// of the object in focus doesn't change
 function changeScale(delta,xx,yy,method=1) {
 
 	// method = 3/2 - Zoom wrt center of screen
@@ -120,7 +120,7 @@ function dots(dots=true, transparentBackground=false,force=false) {
 // Helper canvas API starts here
 // All canvas functions are wrt to a center point (xx,yy),
 // direction is used to abstract rotation of everything by a certain angle
-// Posible values for direction = "RIGHT" (default), "LEFT", "UP", "DOWN"
+// Possible values for direction = "RIGHT" (default), "LEFT", "UP", "DOWN"
 
 function bezierCurveTo(x1, y1, x2, y2, x3, y3, xx, yy, dir) {
     [x1, y1] = rotate(x1, y1, dir);

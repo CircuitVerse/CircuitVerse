@@ -102,7 +102,7 @@ RSpec.describe Grade, type: :model do
             grade: "A", assignment: @assignment)
       end
 
-      it "valides assignment and project relations" do
+      it "validates assignment and project relations" do
         expect(@grade).to be_valid
         @assignment_project.assignment = FactoryBot.create(:assignment, group: @group)
         @assignment_project.save
