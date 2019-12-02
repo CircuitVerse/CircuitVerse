@@ -1,9 +1,17 @@
 // Function to create new circuit
 // Function creates button in tab, creates scope and switches to this circuit
+
+var circuitNames=[];
+
 function newCircuit(name, id) {
     name = name || prompt("Enter circuit name:");
     name = stripTags(name);
     if (!name) return;
+    if (circuitNames.includes(name)) {
+      alert("The circuit name \""+name+"\" is used.");
+      return;
+    }
+    circuitNames.push(name);
     var scope = new Scope(name);
     if (id) scope.id = id;
     scopeList[scope.id] = scope;
