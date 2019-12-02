@@ -8,7 +8,7 @@ function newCircuit(name, id) {
     name = stripTags(name);
     if (!name) return;
     if (circuitNames.includes(name)) {
-      alert("The circuit name \""+name+"\" is used.");
+      alert("The circuit name \"" + name + "\" is used.");
       return;
     }
     circuitNames.push(name);
