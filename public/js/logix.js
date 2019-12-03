@@ -53,7 +53,7 @@ function setupElementLists() {
     function createIcon(element) {
         return `<div class="icon logixModules" id="${element}" >
             <img src= "/img/${element}.svg" >
-            <p class="img__description">${element}</p>    
+            <p class="img__description">${element}</p>
         </div>`;
     }
 
@@ -67,17 +67,17 @@ function setupElementLists() {
                 let element = categoryData[i];
                 htmlIcons += createIcon(element);
             }
-                
+
             let accordianData = `<div class="panelHeader">${category}</div>
             <div class="panel" style="overflow-y:hidden">
               ${htmlIcons}
             </div>`;
-            
+
             $('#menu').append(accordianData);
-            
+
         }
 
-        
+
 
 }
 
@@ -428,7 +428,7 @@ function setup() {
         }
     }, 1000);
 
-    
+
 
 }
 
@@ -1456,12 +1456,11 @@ CircuitElement.prototype.isVerilogResolvable = function() {
 
 CircuitElement.prototype.removePropogation = function() {
     for (var i = 0; i < this.nodeList.length; i++) {
-        if (this.nodeList[i].type == NODE_OUTPUT) {
-            if (this.nodeList[i].value !== undefined) {
-                this.nodeList[i].value = undefined;
-                simulationArea.simulationQueue.add(this.nodeList[i]);
-            }
-        }
+        var node = this.nodeList[i];
+        if (node.type !== NODE_OUTPUT) continue;
+        if (node.value === undefined) continue;
+        this.nodeList[i].value = undefined;
+        simulationArea.simulationQueue.add(this.nodeList[i]);
     }
 }
 

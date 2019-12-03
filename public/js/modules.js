@@ -1513,7 +1513,7 @@ function Splitter(x, y, scope = globalScope, dir = "RIGHT", bitWidth = undefined
 
     this.bitWidthSplit = bitWidthSplit || prompt("Enter bitWidth Split").split(' ').filter(x => x != '').map(function(x) {
         return parseInt(x, 10)||1;
-      
+
     });
     this.splitCount = this.bitWidthSplit.length;
 
@@ -1546,29 +1546,18 @@ Splitter.prototype.customSave = function () {
     return data;
 }
 Splitter.prototype.removePropogation = function () {
-
-    if (this.inp1.value == undefined) {
-        let i = 0;
-
-        for (i = 0; i < this.outputs.length; i++) { // False Hit
-            if (this.outputs[i].value == undefined) return;
-        }
-
-        for (i = 0; i < this.outputs.length; i++) {
-            if (this.outputs[i].value !== undefined) {
-                this.outputs[i].value = undefined;
-                simulationArea.simulationQueue.add(this.outputs[i]);
-            }
+    if (this.inp1.value === undefined) {
+        for (let i = 0; i < this.outputs.length; i++) { // False Hit
+            if (this.outputs[i].value === undefined) return;
+            this.outputs[i].value = undefined;
+            simulationArea.simulationQueue.add(this.outputs[i]);
         }
     } else {
-        if (this.inp1.value !== undefined) {
-            this.inp1.value = undefined;
-            simulationArea.simulationQueue.add(this.inp1);
-        }
+        this.inp1.value = undefined;
+        simulationArea.simulationQueue.add(this.inp1);
     }
 
     this.prevInpValue = undefined;
-
 }
 Splitter.prototype.isResolvable = function () {
     var resolvable = false;
