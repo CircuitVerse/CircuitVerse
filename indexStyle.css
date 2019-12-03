@@ -1,0 +1,43 @@
+:root{
+    --padding: 10px;
+}
+
+body{
+    margin: 0px 0px 0px 0px;
+}
+
+
+
+#wrapper{
+    padding-right: var(--padding);
+    padding-left: var(--padding);
+    padding-bottom: var(--padding);
+    padding-top: var(--padding);
+
+    margin-left: calc(calc(80vw - 2*var(--padding)) / 2);
+    margin-top: 4vh;
+    width: fit-content;
+    height: fit-content;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+input{
+    display: block;
+    margin-top: 10px;
+    height: 4vh;
+    width: 20vw;
+}
+
+label{
+    font-weight: bold;
+}
+
+#hideOrShow{
+    padding-right: 10px;
+    background: url(Eye.png);
+    max-height: 1em;
+    float: right;
+    position: relative;
+    top: -30px;
+}
