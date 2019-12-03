@@ -243,7 +243,7 @@ function startListeners() {
         updateCanvas = true;
         gridUpdate = true;
         if(layoutMode)layoutUpdate();
-        else update(); // Schedule update not working, this is INEFFICENT
+        else update(); // Schedule update not working, this is INEFFICIENT
     }
 
     document.addEventListener('cut', function(e) {

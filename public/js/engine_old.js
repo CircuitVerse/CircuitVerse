@@ -309,7 +309,7 @@ function play(scope = globalScope, resetNodes = false) {
         // clearBuses(scope);
         for (var i = 0; i < scope.TriState.length; i++) {
             // console.log("HIT2",i);
-            scope.TriState[i].removePropogation();
+            scope.TriState[i].removePropagation();
         }
     }
 
@@ -343,7 +343,7 @@ function play(scope = globalScope, resetNodes = false) {
         if (scope.queue.length) {
             elem = scope.queue.dequeue();
             // if(elem.objectType=="TriState"){
-            //     // elem.removePropogation();
+            //     // elem.removePropagation();
             //     scope.pending.push(elem);
             //     continue;
             // }
@@ -392,11 +392,11 @@ function clearBuses(scope = globalScope) {
 
     for (var i = 0; i < scope.TriState.length; i++) {
         console.log("HIT2", i);
-        scope.TriState[i].removePropogation();
+        scope.TriState[i].removePropagation();
     }
     for (var i = 0; i < scope.Clock.length; i++) {
         console.log("HIT2", i);
-        scope.Clock[i].removePropogation();
+        scope.Clock[i].removePropagation();
     }
 
     // console.log(scope.stack);
@@ -410,7 +410,7 @@ function clearBuses(scope = globalScope) {
         if (scope.stack.length) {
             elem = scope.stack.pop();
             // if(elem.objectType=="TriState"){
-            //     // elem.removePropogation();
+            //     // elem.removePropagation();
             //     scope.pending.push(elem);
             //     continue;
             // }
