@@ -1,0 +1,101 @@
+<div class="fields_wrapper configured">
+  <div class="fields_title_wrapper">
+    <h3 class="fields_title">
+      <%= subscription.key %>
+    </h3>
+
+    <p>
+      <%= link_to "Notifications", notifications_path_for(subscription.target, option_params.merge(filtered_by_key: subscription.key)) %>
+    </p>
+  </div>
+
+  <div class="field_wrapper subscribing">
+    <div class="field_label">
+      <label>
+        Notification
+      </label>
+    </div>
+    <div class="field">
+      <div class="ui checkbox">
+        <% if subscription.subscribing? %>
+          <%= link_to unsubscribe_path_for(subscription, option_params), onclick: '$(this).find("input").prop("checked", false);$(this).parent().parent().parent().next().slideUp();;$(this).parent().parent().parent().next().next().slideUp();', method: :post, remote: true do %>
+            <%= check_box :subscribing, "", { checked: true }, "true", "false" %>
+            <div class="slider"></div>
+          <% end %>
+        <% else %>
+          <% if ActivityNotification.config.subscribe_as_default %>
+            <%= link_to subscribe_path_for(subscription, option_params), onclick: '$(this).find("input").prop("checked", true);$(this).parent().parent().parent().next().slideDown();$(this).parent().parent().parent().next().find("input").prop("checked", true);$(this).parent().parent().parent().next().next().slideDown();$(this).parent().parent().parent().next().next().find("input").prop("checked", true);', method: :post, remote: true do %>
+              <%= check_box :subscribing, "", { checked: false }, "true", "false" %>
+              <div class="slider"></div>
+            <% end %>
+          <% else %>
+            <%= link_to subscribe_path_for(subscription, option_params.merge(with_email_subscription: false)), onclick: '$(this).find("input").prop("checked", true);$(this).parent().parent().parent().next().slideDown();$(this).parent().parent().parent().next().next().slideDown();', method: :post, remote: true do %>
+              <%= check_box :subscribing, "", { checked: false }, "true", "false" %>
+              <div class="slider"></div>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="field_wrapper subscribing_to_email <%= "hidden" unless subscription.subscribing? %>">
+    <div class="field_label">
+      <label>
+        Email notification
+      </label>
+    </div>
+    <div class="field">
+      <div class="ui checkbox">
+        <% if subscription.subscribing_to_email? %>
+          <%= link_to unsubscribe_to_email_path_for(subscription, option_params), onclick: '$(this).find("input").prop("checked", false)', method: :post, remote: true do %>
+            <label>
+              <%= check_box :subscribing_to_email, "", { checked: true }, "true", "false" %>
+              <div class="slider"></div>
+            </label>
+          <% end %>
+        <% else %>
+          <%= link_to subscribe_to_email_path_for(subscription, option_params), onclick: '$(this).find("input").prop("checked", true)', method: :post, remote: true do %>
+            <label>
+              <%= check_box :subscribing_to_email, "", { checked: false }, "true", "false" %>
+              <div class="slider"></div>
+            </label>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="field_wrapper subscribing_to_optional_targets <%= "hidden" unless subscription.subscribing? %>">
+    <% subscription.optional_target_names.each do |optional_target_name| %>
+      <div class="field_label">
+        <label>
+          Optional tagret (<%= optional_target_name %>)
+        </label>
+      </div>
+      <div class="field">
+        <div class="ui checkbox">
+          <% if subscription.subscribing_to_optional_target?(optional_target_name) %>
+            <%= link_to unsubscribe_to_optional_target_path_for(subscription, option_params.merge(optional_target_name: optional_target_name)), onclick: '$(this).find("input").prop("checked", false)', method: :post, remote: true do %>
+              <label>
+                <%= check_box optional_target_name, "", { checked: true }, "true", "false" %>
+                <div class="slider"></div>
+              </label>
+            <% end %>
+          <% else %>
+            <%= link_to subscribe_to_optional_target_path_for(subscription, option_params.merge(optional_target_name: optional_target_name)), onclick: '$(this).find("input").prop("checked", true)', method: :post, remote: true do %>
+              <label>
+                <%= check_box optional_target_name, "", { checked: false }, "true", "false" %>
+                <div class="slider"></div>
+              </label>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="ui button">
+    <%= link_to "Destroy", subscription_path_for(subscription, option_params), method: :delete, remote: true, data: { confirm: "Are you sure?" }, class: "button" %>
+  </div>
+</div>

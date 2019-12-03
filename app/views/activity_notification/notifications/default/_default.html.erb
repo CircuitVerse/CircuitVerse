@@ -1,0 +1,172 @@
+<% content_for :notification_content, flush: true do %>
+  <% if notification.notifiable.present? %>
+    <div class='notification_list <%= notification.opened? ? "opened" : "unopened" %>'>
+      <div class="notification_list_cover"></div>
+      <div class="list_image"></div>
+      <div class="list_text_wrapper">
+        <p class="list_text">
+          <strong><%= notification.notifier.present? ? notification.notifier.printable_notifier_name : "Someone" %></strong>
+          <% if notification.group_member_notifier_exists? %>
+            <%= " and #{notification.group_member_notifier_count} other" %>
+            <%= notification.notifier.present? ? notification.notifier.printable_type.pluralize.downcase : "people" %>
+          <% end %>
+          <% if notification.group_member_exists? %>
+            <%= " #{notification.group_notification_count} #{notification.notifiable_type.humanize.pluralize.downcase} including" %>
+          <% end %>
+          <%= notification.notifiable.printable_notifiable_name(notification.target) %>
+          <%= "in #{notification.group.printable_group_name}" if notification.group.present? %>
+          <br>
+          <span><%= notification.created_at.strftime("%b %d %H:%M") %></span>
+        </p>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+<div class='<%= "notification_#{notification.id}" %>'>
+  <% if notification.unopened? %>
+    <%= link_to open_notification_path_for(notification, parameters.slice(:routing_scope, :devise_default_routes).merge(reload: false)), method: :post, remote: true, class: "unopened_wrapper" do %>
+      <div class="unopned_circle"></div>
+      <div class="unopned_description_wrapper">
+        <p class="unopned_description">Open</p>
+      </div>
+    <% end %>
+    <%= link_to open_notification_path_for(notification, parameters.slice(:routing_scope, :devise_default_routes).merge(move: true)), method: :post do %>
+      <%= yield :notification_content %>
+    <% end %>
+    <div class="unopened_wrapper"></div>
+  <% else %>
+    <%= link_to move_notification_path_for(notification, parameters.slice(:routing_scope, :devise_default_routes)) do %>
+      <%= yield :notification_content %>
+    <% end %>
+  <% end %>
+
+</div>
+
+<style>
+  /* unopned_circle */
+  .unopened_wrapper {
+    position: absolute;
+    margin-top: 20px;
+    margin-left: 56px;
+  }
+
+  .unopened_wrapper .unopned_circle {
+    display: block;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    border-radius: 50%;
+    background-color: #27a5eb;
+    z-index: 2;
+  }
+
+  .unopened_wrapper:hover > .unopned_description_wrapper {
+    display: block;
+  }
+
+  .unopened_wrapper .unopned_description_wrapper {
+    display: none;
+    position: absolute;
+    margin-top: 26px;
+    margin-left: -24px;
+  }
+
+  .unopened_wrapper .unopned_description_wrapper .unopned_description {
+    position: absolute;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 4px 12px;
+    z-index: 999;
+  }
+
+  .unopened_wrapper .unopned_description_wrapper .unopned_description:before {
+    border: solid transparent;
+    border-top-width: 0;
+    content: "";
+    display: block;
+    position: absolute;
+    width: 0;
+    left: 50%;
+    top: -5px;
+    margin-left: -5px;
+    height: 0;
+    border-width: 0 5px 5px 5px;
+    border-color: transparent transparent rgba(0, 0, 0, 0.8) transparent;
+    z-index: 0;
+  }
+
+  /* list */
+  .notification_list {
+    padding: 15px 10px;
+    position: relative;
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .notification_list.unopened {
+    background-color: #eeeff4;
+  }
+
+  .notification_list:hover {
+    background-color: #f8f9fb;
+  }
+
+  .notification_list:last-child {
+    border-bottom: none;
+  }
+
+  .notification_list:after {
+    content: "";
+    clear: both;
+    display: block;
+  }
+
+  .notification_list .notification_list_cover {
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+
+  }
+
+  .notification_list .list_image {
+    float: left;
+    width: 40px;
+    height: 40px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #979797;
+  }
+
+  .notification_list .list_text_wrapper {
+    float: left;
+    width: calc(100% - 60px);
+    margin-left: 20px;
+  }
+
+  .notification_list .list_text_wrapper .list_text {
+    color: #4f4f4f;
+    font-size: 14px;
+    line-height: 1.4;
+    margin-top: 0;
+    height: auto;
+    font-weight: normal;
+  }
+
+  .notification_list .list_text_wrapper .list_text strong {
+    font-weight: bold;
+  }
+
+  .notification_list .list_text_wrapper .list_text span {
+    color: #979797;
+    font-size: 13px;
+  }
+</style>

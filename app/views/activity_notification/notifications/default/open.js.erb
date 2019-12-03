@@ -1,0 +1,6 @@
+$(".notification_count").html("<span class=\"<%= "unopened" if @target.has_unopened_notifications?(@index_options) %>\"><%= @target.unopened_notification_count(@index_options) %></span>");
+<% if @index_options[:with_group_members] %>
+  $('<%= ".notification_#{@notification.id}" %>').html("<%= escape_javascript(render_notification(@notification, @index_options.slice(:routing_scope, :devise_default_routes).merge(fallback: :default_without_grouping, with_group_members: true))) %>");
+<% else %>
+  $('<%= ".notification_#{@notification.id}" %>').html("<%= escape_javascript(render_notification(@notification, @index_options.slice(:routing_scope, :devise_default_routes).merge(fallback: :default))) %>");
+<% end %>

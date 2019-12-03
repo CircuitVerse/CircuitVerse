@@ -16,3 +16,6 @@
 //= require jquery_ujs
 //= require commontator/application
 //= require bootstrap-typeahead-rails
+//= require bootstrap/dist/js/bootstrap.min.js
+//= require popper.js/dist/popper.min.js
+//= require serviceworker-companion

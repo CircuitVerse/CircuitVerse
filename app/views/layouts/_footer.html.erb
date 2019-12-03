@@ -1,0 +1,34 @@
+<div class="container" style="height:250px">
+  <!--This is to give space for footer-->
+</div>
+<div class="foot">
+  <hr>
+  <div class="container">
+    <div class="row">
+      <div class="col text-center">
+        <p class="text-center">Brought to you by</p>
+        <a href="https://www.iiitb.ac.in/">
+        <%= image_tag("footer/iiitb.jpg", class: "footer-logo-iiitb", alt: "iiitb Logo") %>
+      </div>
+      <div class="col text-center">
+        <p class="text-center">Hosting Sponsor</p>
+        <a href="http://digitalocean.com/">
+        <%= image_tag("footer/DO.png", class: "footer-logo-DO", alt: "DO Logo") %>
+      </div>
+
+      <!-- For breaking the line into two lines when the screen size is not big enough -->
+      <div class="d-block d-sm-none w-100"><br></div>
+
+      <div class="col align-bottom text-center">
+        <p class="text-center">Marketed by</p>
+        <a href="http://www.iiitb.org/">
+        <%= image_tag("footer/istudio.png", class: "footer-logo-istudio", alt: "istudio Logo") %>
+      </div>
+      <div class="col text-center">
+        <p class="text-center">Developed by</p>
+        <a href="http://zense.co.in/">
+        <%= image_tag("footer/zense.png", class: "footer-logo-zense", alt: "Zense Logo") %>
+      </div>
+    </div>
+  </div>
+</div>
