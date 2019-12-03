@@ -27,6 +27,11 @@ class User < ApplicationRecord
 
   has_attached_file :profile_picture, styles: { medium: "205X240#", thumb: "100x100>" }, default_url: ":style/Default.jpg"
   validates_attachment_content_type :profile_picture, content_type: /\Aimage\/.*\z/
+  attr_reader :name, :email
+
+  validates :name,  presence: true, length: { maximum: 50 }
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }
 
   scope :subscribed, -> { where(subscribed: true) }
 
