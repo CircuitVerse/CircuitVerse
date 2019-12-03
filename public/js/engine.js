@@ -303,7 +303,7 @@ function play(scope = globalScope, resetNodes = false) {
     //     // clearBuses(scope);
     //     for(var i=0;i<scope.TriState.length;i++) {
     //         // console.log("HIT2",i);
-    //         scope.TriState[i].removePropogation();
+    //         scope.TriState[i].removePropagation();
     //     }
     // }
 

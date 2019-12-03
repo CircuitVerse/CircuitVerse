@@ -125,3 +125,12 @@ img{
         margin-left: -4px;
     }
 }
+a.btn.btn-outline-primary {
+    margin-top: 10px;
+}
+
+a.btn.btn-outline-danger {
+    margin-top: 10px;
+}
+
+

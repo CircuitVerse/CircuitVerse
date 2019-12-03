@@ -53,31 +53,30 @@ function setupElementLists() {
     function createIcon(element) {
         return `<div class="icon logixModules" id="${element}" >
             <img src= "/img/${element}.svg" >
-            <p class="img__description">${element}</p>    
+            <p class="img__description">${element}</p>
         </div>`;
     }
 
-        let elementHierarchy = metadata.elementHierarchy;
-        for (category in elementHierarchy) {
-            let htmlIcons = '';
+    let elementHierarchy = metadata.elementHierarchy;
+    for (category in elementHierarchy) {
+        let htmlIcons = '';
 
-            let categoryData = elementHierarchy[category];
+        let categoryData = elementHierarchy[category];
 
-            for (let i = 0; i < categoryData.length; i++){
-                let element = categoryData[i];
-                htmlIcons += createIcon(element);
-            }
-                
-            let accordianData = `<div class="panelHeader">${category}</div>
+        for (let i = 0; i < categoryData.length; i++) {
+            let element = categoryData[i];
+            htmlIcons += createIcon(element);
+        }
+
+        let accordionData = `<div class="panelHeader">${category}</div>
             <div class="panel" style="overflow-y:hidden">
               ${htmlIcons}
             </div>`;
-            
-            $('#menu').append(accordianData);
-            
-        }
 
-        
+        $('#menu').append(accordionData);
+
+    }
+
 
 }
 
@@ -135,7 +134,7 @@ function hideRestricted() {
 }
 
 function updateRestrictedElementsList() {
-    if(restrictedElements.length === 0) return;
+    if (restrictedElements.length === 0) return;
 
     const restrictedCircuitElementsUsed = globalScope.restrictedCircuitElementsUsed;
     let restrictedStr = "";
@@ -156,11 +155,11 @@ function updateRestrictedElementsList() {
 
 function updateRestrictedElementsInScope(scope = globalScope) {
     // Do nothing if no restricted elements
-    if(restrictedElements.length === 0) return;
+    if (restrictedElements.length === 0) return;
 
     let restrictedElementsUsed = [];
     restrictedElements.forEach((element) => {
-        if(scope[element].length > 0) {
+        if (scope[element].length > 0) {
             restrictedElementsUsed.push(element);
         }
     });
@@ -260,7 +259,7 @@ function Scope(name = "localScope", id = undefined) {
         height: 40,
         title_x: 50,
         title_y: 13,
-        titleEnabled:true,
+        titleEnabled: true,
     }
 
 
@@ -298,7 +297,7 @@ Scope.prototype.addInputs = function() {
 
 }
 
-// Ticks clocks recursively -- needs to be deprecated and syncronize all clocks with a global clock
+// Ticks clocks recursively -- needs to be deprecated and synchronize all clocks with a global clock
 Scope.prototype.clockTick = function() {
     for (var i = 0; i < this.Clock.length; i++)
         this.Clock[i].toggleState(); //tick clock!
@@ -340,7 +339,7 @@ Scope.prototype.fixLayout = function() {
         this.layout.height = max_y + 10;
 }
 
-// Funciton which centers the circuit to the correct zoom level
+// Function which centers the circuit to the correct zoom level
 Scope.prototype.centerFocus = function(zoomIn = true) {
     if (layoutMode) return;
     findDimensions(this);
@@ -428,7 +427,6 @@ function setup() {
         }
     }, 1000);
 
-    
 
 }
 
@@ -494,7 +492,7 @@ function resetup() {
     }
 
     updateCanvas = true;
-    update(); // INEFFICENT, needs to be deprecated
+    update(); // INEFFICIENT, needs to be deprecated
     simulationArea.prevScale = 0;
     dots(true, false);
 }
@@ -919,6 +917,7 @@ function copy(copyList, cut = false) {
         data.scopes.push(backUp(scopeList[id]));
 
     }
+
     for (var i = 0; i < requiredDependencies.length; i++)
         saveScope(requiredDependencies[i]);
 
@@ -939,14 +938,14 @@ function copy(copyList, cut = false) {
 }
 
 // Function selects all the elements from the scope
-function selectAll(scope = globalScope){
-    circuitElementList.forEach((val,_,__)=>{
-        if(scope.hasOwnProperty(val)) {
+function selectAll(scope = globalScope) {
+    circuitElementList.forEach((val, _, __) => {
+        if (scope.hasOwnProperty(val)) {
             simulationArea.multipleObjectSelections.push(...scope[val]);
         }
     });
 
-    if(scope.nodes) {
+    if (scope.nodes) {
         simulationArea.multipleObjectSelections.push(...scope.nodes);
     }
 }
@@ -1091,11 +1090,11 @@ CircuitElement.prototype.checkHover = function() {
     }
 }
 
-//This sets the width and height of the element if its rectangluar
+//This sets the width and height of the element if its rectangular
 // and the reference point is at the center of the object.
 //width and height define the X and Y distance from the center.
 //Effectively HALF the actual width and height.
-// NOT OVERIDABLE
+// NOT OVERRIDABLE
 CircuitElement.prototype.setDimensions = function(width, height) {
     this.leftDimensionX = this.rightDimensionX = width;
     this.downDimensionY = this.upDimensionY = height;
@@ -1109,7 +1108,7 @@ CircuitElement.prototype.setHeight = function(height) {
 
 // The update method is used to change the parameters of the object on mouse click and hover.
 // Return Value: true if state has changed else false
-// NOT OVERIDABLE
+// NOT OVERRIDABLE
 
 // When true this.isHover() will not rotate bounds. To be used when bounds are set manually.
 CircuitElement.prototype.overrideDirectionRotation = false;
@@ -1214,7 +1213,7 @@ CircuitElement.prototype.fixDirection = function() {
 
 // The isHover method is used to check if the mouse is hovering over the object.
 // Return Value: true if mouse is hovering over object else false
-// NOT OVERIDABLE
+// NOT OVERRIDABLE
 CircuitElement.prototype.isHover = function() {
 
     var mX = simulationArea.mouseXf - this.x;
@@ -1252,13 +1251,13 @@ CircuitElement.prototype.setLabel = function(label) {
 CircuitElement.prototype.propagationDelayFixed = false;
 
 //Method that draws the outline of the module and calls draw function on module Nodes.
-//NOT OVERIDABLE
+//NOT OVERRIDABLE
 CircuitElement.prototype.draw = function() {
     var ctx = simulationArea.context;
     this.checkHover();
     if (this.x * this.scope.scale + this.scope.ox < -this.rightDimensionX * this.scope.scale - 00 || this.x * this.scope.scale + this.scope.ox > width + this.leftDimensionX * this.scope.scale + 00 || this.y * this.scope.scale + this.scope.oy < -this.downDimensionY * this.scope.scale - 00 || this.y * this.scope.scale + this.scope.oy > height + 00 + this.upDimensionY * this.scope.scale) return;
 
-    // Draws rectangle and highlighs
+    // Draws rectangle and highlights
     if (this.rectangleObject) {
         ctx.strokeStyle = "black";
         ctx.fillStyle = "white";
@@ -1454,7 +1453,7 @@ CircuitElement.prototype.isVerilogResolvable = function() {
     return res;
 }
 
-CircuitElement.prototype.removePropogation = function() {
+CircuitElement.prototype.removePropagation = function() {
     for (var i = 0; i < this.nodeList.length; i++) {
         if (this.nodeList[i].type == NODE_OUTPUT) {
             if (this.nodeList[i].value !== undefined) {

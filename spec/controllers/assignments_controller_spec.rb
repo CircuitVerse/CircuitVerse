@@ -13,7 +13,7 @@ describe AssignmentsController, type: :request do
 
   describe "#new" do
     context "user is not mentor" do
-      it "restrics access" do
+      it "restricts access" do
         sign_in FactoryBot.create(:user)
         get new_group_assignment_path(@group)
         expect(response.body).to include("You are not authorized to do the requested operation")
@@ -64,7 +64,7 @@ describe AssignmentsController, type: :request do
         FactoryBot.create(:project, assignment: @assignment, author: @member)
       end
 
-      it "restrics access" do
+      it "restricts access" do
         get assignment_start_path(@group, @closed_assignment)
         expect(response.body).to include("You are not authorized to do the requested operation")
 

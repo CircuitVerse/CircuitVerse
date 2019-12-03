@@ -172,8 +172,8 @@ describe ProjectsController, type: :request do
         @project = FactoryBot.create(:project, author: @author)
       end
 
-      context "author is singed in" do
-        it "destorys project" do
+      context "author is signed in" do
+        it "destroys project" do
           sign_in @author
           expect {
             delete user_project_path(@author, @project)
