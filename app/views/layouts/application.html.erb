@@ -1,42 +1,40 @@
 <!DOCTYPE html>
-
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <%= display_meta_tags description: yield(:description).presence  || Rails.configuration.site_description,
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <%= display_meta_tags description: yield(:description).presence  || Rails.configuration.site_description,
   title: yield(:title).presence || 'CircuitVerse - Digital Circuit Simulator' %>
-  <meta name="keywords" content="Digital circuits, logisim, online, educational platform, karnaugh map, kmap, electronic devices and circuits,digital electronics basics,introduction to digital electronics, simple electronics projects for students,electric circuit analysis, logic circuits, logic simulation, digital logic circuits, boolean logic">
-  <%= favicon_link_tag "favicon.ico" %>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-  <%= csrf_meta_tags %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112678513-1"></script>
-  <script>
+    <meta name="keywords" content="Digital circuits, logisim, online, educational platform, karnaugh map, kmap, electronic devices and circuits,digital electronics basics,introduction to digital electronics, simple electronics projects for students,electric circuit analysis, logic circuits, logic simulation, digital logic circuits, boolean logic">
+    <%= favicon_link_tag "favicon.ico" %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= csrf_meta_tags %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112678513-1"></script>
+    <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
+      
       gtag('config', 'UA-112678513-1');
       <% if current_user %>
       gtag('set', {'user_id': '<%= current_user.id %>'}); // Set the user ID using signed-in user_id.
       <% end %>
-  </script>
- </head>
- <body>
-  <%= render 'logix_assets/nav'%>
-  <%= yield %>
-
-   <script type="text/javascript">
-     //In this script tag we are checking alert's and if there is alert this code will be execute
-     if(document.querySelector(".alert")){
-       setTimeout(()=>document.querySelector(".alert").hide(), 3000);
-      }
+    </script>
+  </head>
+  <body>
+    <%= render 'logix_assets/nav'%>
+    <%= yield %>
+    <script type="text/javascript">
+      //In this script tag we are checking alert's and if there is alert this code will be execute
+      if(document.querySelector(".alert")){
+        setTimeout(()=>document.querySelector(".alert").hide(), 3000);
+       }
     </script>
     <div class="container" style="height:250px">
       <!--This is to give space for footer-->
     </div>
     <%= render 'layouts/footer' %>
- </body>
+  </body>
 </html>
