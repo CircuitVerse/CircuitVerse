@@ -4,7 +4,8 @@
 <title> CircuitVerse - Digital Simulator </title>
  <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>-->
 <!--<script src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
-<!--<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>-->
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" type="text/css" href="/css/embed.css"/>
 </head>
 
@@ -92,6 +93,29 @@
 
 </div>
 
+<div id="saveImageDialog" style="display:none;" title="Render Image">
+  <p>
+    <label class="option inline"><input type="radio" name="imgType" value="png" checked="checked" />PNG</label>
+    <label class="option inline"><input type="radio" name="imgType" value="jpeg" />JPEG</label>
+    <label class="option inline"> <input type="radio" name="imgType" value="svg" />SVG</label>
+    <label class="option inline"> <input type="radio" name="imgType" value="bmp" />BMP</label>
+    <label class="option inline"> <input type="radio" name="imgType" value="gif" />GIF</label>
+    <label class="option inline"> <input type="radio" name="imgType" value="tiff" />TIFF</label>
+  </p>
+  <p>
+    <label class="option inline"><input type="radio" name="view" value="full" /> Full Circuit View</label>
+    <label class="option inline"> <input type="radio" name="view" value="current" checked="checked" />Current View</label>
+  </p>
+  <p>
+    <label class="option inline"><input type="checkbox" name="transparent" value="transparent"/> Transparent Background</label>
+  </p>
+  <p>
+    Resolution:
+    <label class="option inline"> <input type="radio" name="resolution" value="1" checked="checked"  />1x</label>
+    <label class="option inline"><input type="radio" name="resolution" value="2"/> 2x</label>
+    <label class="option inline"> <input type="radio" name="resolution" value="4"/>4x</label>
+  </p>
+</div>
 
 <!-- <script src="/js/SAP_DATA.js"></script> -->
 <script type="text/javascript">
@@ -126,7 +150,7 @@
 
 
 
-<!-- <script src="/js/canvas2svg.js"></script> -->
+<script src="/js/canvas2svg.js"></script>
 
 
 </body>

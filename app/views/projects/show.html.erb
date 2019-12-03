@@ -129,6 +129,7 @@
                 </div>
               </div>
           <%end%>
+          <a class="card-link" style="margin-left: 10px" href="#" onclick='$("#view")[0].contentWindow.createSaveAsImgPrompt()' >Download&nbsp;Image</a>
 
           <% if policy(@project).can_feature? %>
             <%= link_to @project.featured? ? 'Unfeature' : 'Feature' , "" ,class: "card-link", id: 'feature-control', style: "margin-left: 10px" %>
