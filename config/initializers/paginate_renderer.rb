@@ -1,6 +1,6 @@
 class PaginateRenderer < WillPaginate::ActionView::LinkRenderer
   def container_attributes
-    {class: "pagination justify-content-center container"}
+    {class: "pagination justify-content-center"}
   end
 
   def page_number(page)
