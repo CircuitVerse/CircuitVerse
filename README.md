@@ -8,8 +8,8 @@
 
 ## Versions
 
-- Ruby Version: ruby-2.5.1
-- Rails Version: Rails 5.1.6
+- Ruby Version: ruby-2.6.5
+- Rails Version: Rails 6.0.1
 - PostgreSQL Version: 9.5
 
 ## Cloning Instructions
@@ -30,8 +30,9 @@ Please go through the [Contribution Guidelines](CONTRIBUTING.md) before going fo
 
 **Note:** You might want to use the docker instructions if you do not want to setup your own environment.
 
-* Install ruby using RVM, use ruby-2.5.1
-* Install Dependencies: `bundle install `
+* Install ruby using RVM, use ruby-2.6.5
+* Install bundler : `gem install bundler`
+* Install Dependencies: `bundle install`
 * Configure your DB in config/database.yml, copy config/database.example.yml (Note : check for postgres password and update it in place of "postgres")
 * Create database: `rails db:create`
 * Run Migrations: `rails db:migrate`
@@ -41,12 +42,6 @@ Additional software:
 * Install imagemagick
 * Start Redis server process.
 * To start sidekiq: `bundle exec sidekiq -e development -q default -q mailers -d -L tmp/sidekiq.log` (In development)
-
-### Setup in cloud
-You can use gitpod to develop CircuitVerse in the cloud.
-
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/CircuitVerse/CircuitVerse)
-
 
 ## Running Tests
 
@@ -64,8 +59,15 @@ docker-compose down
 docker-compose build --no-cache
 ```
 
+### Setup in cloud
+You can use gitpod to develop CircuitVerse in the cloud by following the steps mentioned [Here](https://github.com/CircuitVerse/CircuitVerse/wiki/Development-on-Gitpod)
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/CircuitVerse/CircuitVerse)
+
+Pull Requests can be created by following these [Steps](https://github.com/CircuitVerse/CircuitVerse/wiki/Pull-Requests-using-Gitpod)
+
 ## Developer Instructions
-Developers can quickly get started by setting up the dev environment using the instructions above. The database is seeded with the following admin account.
+Developers can quickly get started by setting up the dev environment using the instructions above. To seed the database with some sample data, run 'bundle exec rake db:seed'. The admin credentials after seeding will be as follows:
 ```
 User: Admin
 Email: admin@circuitverse.org

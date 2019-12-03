@@ -173,7 +173,7 @@ DflipFlop.prototype.resolve = function() {
         this.prevClockState = this.clockInp.value;
 
     }
-    else if (this.en.value == 1 || this.en.connections.length == 0) { // if(this.en.value==1) // Creating Infintite Loop, WHY ??
+    else if (this.en.value == 1 || this.en.connections.length == 0) { // if(this.en.value==1) // Creating Infinite Loop, WHY ??
 
         if (this.clockInp.value == this.prevClockState) {
             if (this.clockInp.value == 0 && this.dInp.value != undefined) {

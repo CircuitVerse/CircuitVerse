@@ -73,7 +73,7 @@ describe GroupsController, type: :request do
     end
 
     context "mentor is signed in" do
-      it "udpates group" do
+      it "updates group" do
         sign_in @mentor
         put group_path(@group), params: { group: { name: "updated group" } }
         @group.reload

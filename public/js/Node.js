@@ -246,12 +246,12 @@ Node.prototype.resolve = function() {
 
         if (this.type == NODE_INPUT) {
             if (this.parent.objectType == "Splitter") {
-                this.parent.removePropogation();
+                this.parent.removePropagation();
             } else
             if (this.parent.isResolvable())
                 simulationArea.simulationQueue.add(this.parent);
             else
-                this.parent.removePropogation();
+                this.parent.removePropagation();
 
 
         }

@@ -25,7 +25,7 @@ $(document).ready(() => {
             let element = elements[i];
             let checked = restriction_map[element] ? "checked" : "";
             html+= `<span class="circuit-element-container">
-            <input type="checkbox" class="element-restiction" value="${element}" style= "margin-top: 0" ${checked}>
+            <input type="checkbox" class="element-restriction" value="${element}" style= "margin-top: 0" ${checked}>
             <span> ${element} </span>
          </span>`
         }

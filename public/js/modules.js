@@ -1513,7 +1513,7 @@ function Splitter(x, y, scope = globalScope, dir = "RIGHT", bitWidth = undefined
 
     this.bitWidthSplit = bitWidthSplit || prompt("Enter bitWidth Split").split(' ').filter(x => x != '').map(function(x) {
         return parseInt(x, 10)||1;
-      
+
     });
     this.splitCount = this.bitWidthSplit.length;
 
@@ -1545,7 +1545,7 @@ Splitter.prototype.customSave = function () {
     }
     return data;
 }
-Splitter.prototype.removePropogation = function () {
+Splitter.prototype.removePropagation = function () {
 
     if (this.inp1.value == undefined) {
         let i = 0;

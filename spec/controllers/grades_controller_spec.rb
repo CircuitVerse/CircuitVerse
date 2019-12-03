@@ -37,7 +37,7 @@ describe GradesController, type: :request do
           }.to change { Grade.count }.by(1)
           expect(JSON.parse(response.body).keys.sort).to eq(%w[assignment_id grade id project_id
             remarks])
-          expect(response.content_type).to eq("application/json")
+          expect(response.content_type).to eq("application/json; charset=utf-8")
         end
       end
 

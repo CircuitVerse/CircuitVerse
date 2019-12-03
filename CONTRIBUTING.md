@@ -33,6 +33,6 @@ If you don't see your idea listed, do one of the following:
 
 ## Community
 
-Discussions about the CircuitVerse take place on the repository's [Issues](https://github.com/CircuitVerse/CircuitVerse/issues) and [Pull Requests](https://github.com/CircuitVerse/CircuitVerse/pulls) sections. Anybody is welcome to join these conversations. There is also a [chat room](https://gitter.im/CircuitVerse/community) for regular updates.
+Discussions about the CircuitVerse take place on the repository's [Issues](https://github.com/CircuitVerse/CircuitVerse/issues) and [Pull Requests](https://github.com/CircuitVerse/CircuitVerse/pulls) sections. Anybody is welcome to join these conversations. There is also a [chat room](https://join.slack.com/t/circuitverse-team/shared_invite/enQtNjc4MzcyNDE5OTA3LTdjYTM5NjFiZWZlZGI2MmU1MmYzYzczNmZlZDg5MjYxYmQ4ODRjMjQxM2UyMWI5ODUzODQzMDU2ZDEzNjI4NmE) for regular updates.
 
 We encourage people to talk on public platforms for maximum participation. Whenever possible, avoid taking conversations to private channels. Keeping communication public means everybody can benefit and learn from the conversation.
