@@ -9,7 +9,7 @@
                 <input type="text" id="inUsername">
                 <label for="formPassword">Password</label>
                 <input type="password" id="formPassword">
-                <img src="EyeClosed.png" id="hideOrShow" onclick="toggle()">
+                <img src="EyeClosed.png" id="hideOrShow" onclick="toggle()" alt="Reveal Password">
             </form>
         </div>
         
@@ -20,9 +20,11 @@
                 if(pass.type == "password"){
                     pass.type = "text";
                     icon.src = "Eye.png";
+                    icon.alt = "Reveal Password";
                 } else{
                     pass.type = "password";
                     icon.src = "EyeClosed.png";
+                    icon.alt = "Hide Password";
                 }
             }
         </script>
