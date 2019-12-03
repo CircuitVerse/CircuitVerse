@@ -1,34 +1,27 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-lg-6 col-md-6 middle-block">
-      <%= image_tag "SVGs/login.svg",alt: "login-theme", :class => "signup-cover center-block"%>
-      <div class="welcome-text">
-        <label>Welcome back to the Digital Circuit Universe!</label>
-      </div>
-    </div>
+<link rel="stylesheet" href="/css/showAndHidePasswordStyle.css">
+<script src="/js/passwordViewToggle.js"></script>
 
-    <div class="col-lg-6 col-md-6 middle-block">
-      <div class="form-container">
-        <h1 class="pb-3">Log In</h1>
-        <%= form_with(model: resource, as: resource_name, url: session_path(resource_name), local: true) do |f| %>
-        <% flash.each do |key, value| %>
-          <div class="alert alert-danger"><%= value %></div>
-        <% end %>
+<div class="container">
 
-        <div class="field form-group">
-          <%= f.label :email, class:"label-text" %>
-          <div class="input-group">
-            <%= f.email_field :email, autofocus: true, class:"form-control custom-input", placeholder: 'Email'%>
+  <div class="row feature">
+    <div class="col-xs-10 col-lg-6 col-md-8 col-s-10 col-centered" id="wrapper">
+
+        <div>
+          <h2>Log in</h2>
+          <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+               <% flash.each do |key, value| %>
+                <div class="alert alert-danger"><%= value %></div>
+          <% end %>
+          <div class="field form-group">
+            <%= f.label :email %><br />
+            <%= f.email_field :email, autofocus: true ,class:"form-control", placeholder: 'Email'%>
           </div>
         </div>
 
-        <div class="field form-group">
-          <%= f.label :password, class:"label-text" %>
-          <div class="input-group">
-            <%= f.password_field :password, autocomplete: "off" ,class:"form-control custom-input", placeholder: 'Password',  id:"password-input"%>
-            <div class="input-group-addon" onclick="toggleLoginPassword()">
-              <i  class="fa fa-eye-slash password-icon" aria-hidden="true" id="toggle-icon"></i>
-            </div>
+          <div class="field form-group">
+            <%= f.label :password %><br />
+            <%= f.password_field :password, autocomplete: "off" ,class:"form-control", placeholder: 'Password', id: 'formPassword' %>
+            <img id="hideOrShow" src="/img/EyeClosed.png" alt="Reveal Password" onclick="toggle()">
           </div>
         </div>
 

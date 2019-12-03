@@ -117,7 +117,7 @@
                 <% end %>
             <% end %>
           <%= link_to 'Fork', create_fork_project_path(@project), class: "card-link" %>
-            <%= link_to 'Back', user_path(@author), class: "card-link" %>
+          <a class="card-link" onclick="window.history.back();">Back</a>
           <% if @project.project_access_type != "Private" %>
             <a class="card-link" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" onclick="embed()" >
               Embed
