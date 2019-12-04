@@ -1,3 +1,12 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="js/scripts.js"></script>
+
+<script>
+  $(document).ready(function(){
+    $("#alertdiv").delay(10000).fadeOut(600);
+  });
+</script>
+
 <% content_for :title, "CircuitVerse - Online Digital Logic Circuit Simulator" %>
 
 <% set_meta_tags twitter: {
@@ -51,7 +60,7 @@
 
 
         <% if notice %>
-            <div class="row">
+            <div class="row" id='alertdiv'>
                 <div class="alert alert-success alert-dismissible container-fluid text-center">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                     <%= notice %>
