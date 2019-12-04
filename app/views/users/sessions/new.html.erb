@@ -18,6 +18,8 @@
           <div class="field form-group">
             <%= f.label :password %><br />
             <%= f.password_field :password, autocomplete: "off" ,class:"form-control", placeholder: 'Password'%>
+            <%= image_tag 'EyeClosed.png', id: 'hideOrShow', alt: "Reveal Password"%>
+            <%= javascript_include_tag "passwordViewToggle" %>
           </div>
         </div>
 
