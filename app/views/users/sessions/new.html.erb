@@ -1,49 +1,59 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-6 col-md-6 middle-block">
+      <%= image_tag "SVGs/login.svg",alt: "login-theme", :class => "signup-cover center-block"%>
+      <div class="welcome-text">
+        <label>Welcome back to the Digital Circuit Universe!</label>
+      </div>
+    </div>
 
-<div class="container">
+    <div class="col-lg-6 col-md-6 middle-block">
+      <div class="form-container">
+        <h1 class="pb-3">Log In</h1>
+        <%= form_with(model: resource, as: resource_name, url: session_path(resource_name), local: true) do |f| %>
+        <% flash.each do |key, value| %>
+          <div class="alert alert-danger"><%= value %></div>
+        <% end %>
 
-  <div class="row feature">
-    <div class="col-xs-10 col-lg-6 col-md-8 col-s-10 col-centered">
-
-        <div>
-          <h2>Log in</h2>
-          <%= form_with(model: resource, as: resource_name, url: session_path(resource_name), local: true) do |f| %>
-               <% flash.each do |key, value| %>
-                <div class="alert alert-danger"><%= value %></div>
-          <% end %>
-          <div class="field form-group">
-            <%= f.label :email %><br />
-            <%= f.email_field :email, autofocus: true ,class:"form-control", placeholder: 'Email'%>
+        <div class="field form-group">
+          <%= f.label :email, class:"label-text" %>
+          <div class="input-group">
+            <%= f.email_field :email, autofocus: true, class:"form-control custom-input"%>
           </div>
+        </div>
 
-          <div class="field form-group">
-            <%= f.label :password %><br />
-            <%= f.password_field :password, autocomplete: "off" ,class:"form-control", placeholder: 'Password'%>
+        <div class="field form-group">
+          <%= f.label :password, class:"label-text" %>
+          <div class="input-group">
+            <%= f.password_field :password, autocomplete: "off" ,class:"form-control custom-input", id:"password-input"%>
+            <div class="input-group-addon" onclick="toggleLoginPassword()">
+              <i  class="fa fa-eye-slash password-icon" aria-hidden="true" id="toggle-icon"></i>
+            </div>
           </div>
         </div>
 
         <% if devise_mapping.rememberable? -%>
-          <div class="field checkbox col-lg-6 col-sm-12 ">
+          <div class="field form-group">
             <%= f.check_box :remember_me %>
-            <%= f.label :remember_me %>
-
+            <%= f.label :remember_me ,class:"help-text" %>
           </div>
         <% end -%>
 
-        <div class="actions col-lg-6 col-sm-12">
-
-          <%= f.submit "Log in" ,class:"btn btn-outline-info"%>
-
-        <% end %>
+        <div class="field form-group">
+          <div class="input-group center-block">
+            <%= f.submit "Log in" ,class:"btn custom-submit"%>
+            <span class="help-text"> New User? </span>
+            <%= link_to "Sign up", new_registration_path(resource_name) ,class:"link-text pl-1"%>
+          </div>
         </div>
 
-        <%= render "users/shared/links" %>
-
+        <div class="field form-group mt-3">
+          <%= render "users/shared/links" %>
+        </div>
+        <% end %>
+      </div>
+    </div>
   </div>
-
-  <br />
-
-  <br />
-
-  </div>
-
 </div>
+
+<script src="/js/signup.js"></script>
