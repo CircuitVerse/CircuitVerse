@@ -1,0 +1,23 @@
+@import "theme";
+@import "bootstrap/scss/bootstrap.scss";
+@import "commontator/application";
+@import "bootstrap-typeahead-rails";
+@import "font-awesome/css/font-awesome.min.css";
+@import "footer";
+@import "signup";
+@import "logixRelease";
+
+// #FIXME move these styles
+.alert {
+  width: 100%;
+}
+.foot {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+}
+
+.col-centered {
+  float: none;
+  margin: 0 auto;
+}

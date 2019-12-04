@@ -1,0 +1,112 @@
+/*login/signup css starts*/
+.signup-cover {
+  max-width: 40%;
+}
+
+.form-container {
+  max-width: 60%;
+  margin-top:50px;
+  margin-left: 40px;
+}
+
+.middle-block {
+  display: table;
+  margin:auto;
+}
+
+.center-block {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.custom-submit {
+  color: #FFFFFF;
+  height: 51px;
+  font-size: 22px;
+  background: #42B983;
+  border-radius: 36px;
+  opacity: 1;
+  padding: 0 25px;
+  &:hover {
+    color: #FFFFFF;
+  }
+}
+
+.fa.password-icon {
+  cursor: pointer;
+  color: #42B983;
+  font-size: 30px;
+  background: transparent;
+  opacity: 1;
+}
+
+.label-text {
+  text-transform: uppercase;
+  text-align: left;
+  font-size: 20px;
+  letter-spacing: 0;
+  color: #1C1C1C;
+  opacity: 1;
+}
+
+.help-text {
+  padding-left: 15px;
+  padding-top: 10px;
+  text-align: left;
+  font-size: 20px;
+  letter-spacing: 0;
+  color: #091C13;
+}
+
+.link-text {
+  text-align: left;
+  padding-top: 10px;
+  text-decoration: underline;
+  font-size: 20px;
+  letter-spacing: 0;
+  color: #42B983;
+}
+
+.link-text:hover {
+  color: #42B983;
+}
+
+.welcome-text {
+  margin-top: 20px;
+  text-align: center;
+  font-size:25px;
+  letter-spacing: 0;
+  color: #091C13;
+  opacity: 1;
+}
+
+.form-control.custom-input,
+select {
+  font-size: 20px;
+  width: 60%;
+  background: transparent;
+  border: none;
+  color: #1C1C1C;
+  border-bottom: 1px solid #42B983;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.form-control.custom-input:focus,
+select:focus {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-bottom: 1px solid #42B983;
+}
+
+.custom-input:-webkit-autofill,
+.custom-input:-webkit-autofill:hover,
+.custom-input:-webkit-autofill:focus {
+  border-bottom: 1px solid #42B983;
+  -webkit-text-fill-color: #1C1C1C;
+  -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+/*login/signup css ends*/
