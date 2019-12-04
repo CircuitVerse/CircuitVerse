@@ -9,6 +9,7 @@
    avatar = Commontator.commontator_avatar(creator, self) || ''
 %>
 
+<% unless comment.is_deleted? %>
 <div id="comment_<%= comment.id.to_s %>_div" class="comment">
   <div id="comment_<%= comment.id.to_s %>_top_div" class="comment_div">
     <span id="comment_<%= comment.id.to_s %>_commontator_span" class="comment_commontator">
@@ -46,3 +47,4 @@
     </span>
   </div>
 </div>
+<% end %>

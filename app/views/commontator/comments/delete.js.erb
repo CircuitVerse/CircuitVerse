@@ -3,14 +3,19 @@ $("#comment_<%= @comment.id.to_s %>_body_div").html("<%= j(
 
 $("#comment_<%= @comment.id.to_s %>_updated_timestamp_span").html("<%= j(
   @comment.updated_timestamp) %>");
-                                                           
+
 $("#comment_<%= @comment.id.to_s %>_actions_span").html("<%= j(
   render partial: 'actions',
          locals: { comment: @comment,
                       user: @user }) %>");
-         
+
 $("#comment_<%= @comment.id %>_votes_span").html("<%= j(
   render partial: 'votes',
+         locals: { comment: @comment,
+                      user: @user }) %>");
+
+$("#comment_<%= @comment.id.to_s%>_div").html("<%= j(
+  render partial: 'show',
          locals: { comment: @comment,
                       user: @user }) %>");
 
