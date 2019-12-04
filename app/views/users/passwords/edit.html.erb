@@ -1,51 +1,21 @@
-<style type="text/css">
-  .custom-input,
-  select {
-    width: 60% !important;
-    background: transparent;
-    border: none;
-    color: #1C1C1C;
-    border-bottom: 1px solid #42B983;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    border-radius: 0;
-  }
-
-  .custom-input:focus,
-  select:focus {
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    border-bottom: 1px solid #42B983;
-  }
-
-  .custom-input:-webkit-autofill,
-  .custom-input:-webkit-autofill:hover, 
-  .custom-input:-webkit-autofill:focus {
-    border-bottom: 1px solid #42B983;
-    -webkit-text-fill-color: #1C1C1C;
-    -webkit-box-shadow: 0 0 0px 1000px #fff inset;
-    transition: background-color 5000s ease-in-out 0s;
-  }
-</style>
-
 <div class="container-fluid">
-  <div class="row">
+  <div class="row mt-5">
 
     <div class="col-lg-6 col-md-4 middle-block">
-      <%= image_tag "SVGs/login.svg", :class => "center-block"%>
+      <%= image_tag "SVGs/login.svg", alt: "login-logo", :class => "signup-cover center-block"%>
       <div class="welcome-text">
         <label>Welcome back to the Digital Circuit Universe!</label>
       </div>
     </div>
 
     <div class="col-lg-6 col-md-8 middle-block">
-      <div class="col-lg-10 col-md-10 center-block mt-2">
+      <div class="form-container">
         <h1 class="pb-3">Change your password</h1>
         <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
         <%= devise_error_messages! %>
         <%= f.hidden_field :reset_password_token %>
 
-        <div class="field">
+        <div class="field form-group">
           <%= f.label :password, class:"label-text"%>
           <% if @minimum_password_length %>
           <em>(<%= @minimum_password_length %> characters minimum)</em>
@@ -55,7 +25,7 @@
           </div>
         </div>
 
-        <div class="field">
+        <div class="field form-group">
           <%= f.label :password_confirmation, class:"label-text" %>
           <div class="input-group">
             <%= f.password_field :password_confirmation, autocomplete: "off", class:"form-control custom-input"%>
@@ -76,12 +46,11 @@
           </div>
         </div>
 
-        <div class="field form-group mt-5">
+        <div class="field form-group mt-3">
           <%= render "users/shared/links" %>
         </div>
         <% end %>
       </div>
     </div>
-
   </div>
 </div>

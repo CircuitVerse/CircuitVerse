@@ -1,65 +1,16 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-<style type="text/css">
-  .custom-input,
-  select {
-    width: 60% !important;
-    background: transparent;
-    border: none;
-    color: #1C1C1C;
-    border-bottom: 1px solid #42B983;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    border-radius: 0;
-  }
-
-  .custom-input:focus,
-  select:focus {
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    border-bottom: 1px solid #42B983;
-  }
-
-  .custom-input:-webkit-autofill,
-  .custom-input:-webkit-autofill:hover, 
-  .custom-input:-webkit-autofill:focus {
-    border-bottom: 1px solid #42B983;
-    -webkit-text-fill-color: #1C1C1C;
-    -webkit-box-shadow: 0 0 0px 1000px #fff inset;
-    transition: background-color 5000s ease-in-out 0s;
-  }  
-</style>
-
-<script type="text/javascript">
-  function togglePassword() {
-    if($('#password-input').attr("type") == "text"){
-      $('#password-input').attr('type', 'password')
-      $('#toggle-icon').addClass( "fa-eye-slash" );
-      $('#toggle-icon').removeClass( "fa-eye" );
-    }
-    else {
-      $('#password-input').attr('type', 'text')
-      $('#toggle-icon').addClass( "fa-eye" );
-      $('#toggle-icon').removeClass( "fa-eye-slash" );
-    }
-  }
-</script>
-
-
-
- <div class="container-fluid">
-   <div class="row">
-    <div class="col-lg-6 col-md-4 middle-block">
-      <%= image_tag "SVGs/login.svg", :class => "center-block"%>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-6 col-md-6 middle-block">
+      <%= image_tag "SVGs/login.svg",alt: "login-theme", :class => "signup-cover center-block"%>
       <div class="welcome-text">
         <label>Welcome back to the Digital Circuit Universe!</label>
       </div>
     </div>
 
-    <div class="col-lg-6 col-md-8 middle-block">
-      <div class="col-lg-10 col-md-10 center-block mt-2">
-      <h1 class="pb-3">Log In</h1>
-      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="col-lg-6 col-md-6 middle-block">
+      <div class="form-container">
+        <h1 class="pb-3">Log In</h1>
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
         <% flash.each do |key, value| %>
           <div class="alert alert-danger"><%= value %></div>
         <% end %>
@@ -75,7 +26,7 @@
           <%= f.label :password, class:"label-text" %>
           <div class="input-group">
             <%= f.password_field :password, autocomplete: "off" ,class:"form-control custom-input", id:"password-input"%>
-            <div class="input-group-addon" onclick="togglePassword()">
+            <div class="input-group-addon" onclick="toggleLoginPassword()">
               <i  class="fa fa-eye-slash password-icon" aria-hidden="true" id="toggle-icon"></i>
             </div>
           </div>
@@ -96,11 +47,14 @@
           </div>
         </div>
 
-        <div class="field form-group mt-5">
+        <div class="field form-group mt-3">
           <%= render "users/shared/links" %>
         </div>
-      <% end %>
-    </div>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="/js/signup.js"></script>
