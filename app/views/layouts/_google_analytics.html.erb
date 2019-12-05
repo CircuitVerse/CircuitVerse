@@ -1,0 +1,11 @@
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-112678513-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-112678513-1');
+  <% if (current_user) %>
+  gtag('set', { 'user_id': '<%= current_user.id %>' }); // Set the user ID using signed-in user_id.
+  <% end %>
+</script>
