@@ -1,0 +1,27 @@
+// All the custom class styles
+
+.simulator {
+  border: 2px solid $green;
+  font-weight: 500;
+  &:hover {
+    color: $color-hover;
+    background: $active-background;
+  }
+}
+
+.logo {
+  height: 25px;
+}
+
+.navbar-light .navbar-nav {
+  .nav-item {
+    .nav-link {
+      color: $primary;
+      font-weight: 500;
+    }
+
+    &.active {
+      border-bottom: 2px solid $green;
+    }
+  }
+}
