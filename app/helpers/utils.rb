@@ -5,7 +5,7 @@ module Utils
   # @return array of valid emails
   def self.parse_mails(mails)
     mails.split(/[\s,\,]/).select do |email|
-      email.present? && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.match(email)
+      email.present? && Devise::email_regexp.match(email)
     end.uniq
   end
 
