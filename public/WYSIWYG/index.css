@@ -5,7 +5,7 @@
 #editor {
 	max-height: 250px;
 	height: 250px;
-	width: 815px;
+	/*width: 815px;*/
 	background-color: white;
 	border-collapse: separate;
 	border: 1px solid rgb(204, 204, 204);
