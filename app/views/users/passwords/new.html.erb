@@ -4,7 +4,7 @@
     <div class="col-xs-10 col-lg-6 col-md-8 col-s-10 col-centered">
       <h2>Forgot your password?</h2>
 
-      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+      <%= form_with(model: resource, as: resource_name, url: password_path(resource_name), method: :post, local: true) do |f| %>
       <%= devise_error_messages! %>
 
         <div class="field form-group">

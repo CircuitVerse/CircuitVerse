@@ -6,7 +6,7 @@
 
         <div>
           <h2>Log in</h2>
-          <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <%= form_with(model: resource, as: resource_name, url: session_path(resource_name), local: true) do |f| %>
                <% flash.each do |key, value| %>
                 <div class="alert alert-danger"><%= value %></div>
           <% end %>
