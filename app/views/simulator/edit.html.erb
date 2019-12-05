@@ -167,12 +167,20 @@
             <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
           </button>
         </div>
-        <div class="sk-folding-cube loadingIcon" style="display:none;position:absolute; right:50%; bottom:50%; z-index:100">
-            <div class="sk-cube1 sk-cube"></div>
-            <div class="sk-cube2 sk-cube"></div>
-            <div class="sk-cube4 sk-cube"></div>
-            <div class="sk-cube3 sk-cube"></div>
+        <div class="loading-icon-container">
+          <svg width="512" height="512" viewBox="0 0 512 512" fill="none" id="loading-icon" xmlns="http://www.w3.org/2000/svg">
+            <rect width="512" height="512" fill="white"/>
+            <rect width="512" height="512" rx="48" fill="#1B1B1B"/>
+            <rect class="loading-icon-arm" x="203.526" y="371.303" width="40" height="230" transform="rotate(-130 203.526 371.303)" fill="white"/>
+            <path class="loading-icon-arm" d="M421.987 443.834L450.271 415.55L509.59 479.147L509.105 480.449L508.646 481.662L508.246 482.742L507.732 483.912L507.175 485.016L506.58 486.209L505.995 487.344L505.28 488.515L503.935 490.799L502.318 492.908L501.546 493.945L500.7 494.985L499.006 496.898L497.378 498.526L495.826 499.958L494.099 501.422L492.405 502.745L490.711 503.914L489.17 504.909L487.519 505.882L485.727 506.832L421.987 443.834Z" fill="white"/>
+            <circle class="loading-icon-hole" cx="160" cy="383.858" r="40" stroke="white" stroke-width="30"/>
+            <circle class="loading-icon-hole" cx="385" cy="188.141" r="40" stroke="white" stroke-width="30"/>
+            <circle class="loading-icon-hole" cx="154.16" cy="129.8" r="40" stroke="white" stroke-width="30"/>
+            <circle class="loading-icon-hole" cx="410" cy="400" r="40" stroke="white" stroke-width="30"/>
+            <path class="loading-icon-arm" d="M172.811 88.0782L277.687 -0.00385471L340 8.64183e-05L198.523 118.72L172.811 88.0782Z" fill="white"/>       
+          </svg>
         </div>
+
         <div style="position:absolute; right:60px; top:30px; z-index:100">
           <button type="button" class="btn zoomButton btn-lg" onclick="globalScope.centerFocus(false)">
             <span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span>

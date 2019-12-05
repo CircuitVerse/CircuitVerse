@@ -386,7 +386,7 @@ function setup() {
     // Load project data after 1 second - needs to be improved, delay needs to be eliminated
     setTimeout(function() {
         if (logix_project_id != 0) {
-            $('.loadingIcon').fadeIn();
+            $('.loading-icon-container').fadeIn();
             $.ajax({
                 url: '/simulator/get_data',
                 type: 'POST',
@@ -403,11 +403,11 @@ function setup() {
                         load(data);
                         simulationArea.changeClockTime(data["timePeriod"] || 500);
                     }
-                    $('.loadingIcon').fadeOut();
+                    $('.loading-icon-container').fadeOut();
                 },
                 failure: function() {
                     alert("Error: could not load ");
-                    $('.loadingIcon').fadeOut();
+                    $('.loading-icon-container').fadeOut();
                 }
             });
 
