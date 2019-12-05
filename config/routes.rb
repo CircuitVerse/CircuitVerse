@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   resources :custom_mails, only: [:new, :create, :edit, :show, :update]
   get '/custom_mails/send_mail/:id', to: 'custom_mails#send_mail', as: 'send_custom_mail'
+  get '/custom_mails/send_mail_to_self/:id', to: 'custom_mails#send_mail_self', as: 'send_custom_mail_self'
 
   # grades
   scope '/grades' do

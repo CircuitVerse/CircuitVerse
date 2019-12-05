@@ -3,6 +3,7 @@
 <div class="mail-preview-header">
   <%= link_to 'Edit', edit_custom_mail_path(@mail) %>
   <%= link_to 'Send', send_custom_mail_path(@mail), class: "send-link" %>
+  <%= link_to 'Send to self', send_custom_mail_self_path(@mail), class: "send-link" %>
   <span class="mail-status"> <%= @mail.sent? ? "Mail has been sent out" : "Mail has not been sent" %> </span>
 </div>
 

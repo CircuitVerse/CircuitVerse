@@ -5,7 +5,7 @@ class CustomMailsController < ApplicationController
 
   before_action :authenticate_user!
   before_action :authorize_admin
-  before_action :set_mail, only: [:edit, :update, :show, :send_mail]
+  before_action :set_mail, only: [:edit, :update, :show, :send_mail, :send_mail_self]
 
   def show
     @user = current_user
@@ -19,8 +19,8 @@ class CustomMailsController < ApplicationController
 
   def create
     @mail = CustomMail.new(subject: custom_mails_params[:subject],
-     content: custom_mails_params[:content],
-     sender: current_user)
+                           content: custom_mails_params[:content],
+                           sender: current_user)
 
     respond_to do |format|
       if @mail.save
@@ -54,7 +54,14 @@ class CustomMailsController < ApplicationController
     render html: "The mails were queued for sending!"
   end
 
+  def send_mail_self
+    send_mail_to_self(current_user, @mail)
+
+    render html: "A mail has been sent to your email!"
+  end
+
   private
+
     def authorize_admin
       authorize CustomMail.new, :admin?
     end
