@@ -4,16 +4,24 @@
 var circuitNames=[];
 var projectLoading=false;
 
+function checkExistingCircuit(name) {
+  if (circuitNames.includes(name) && !projectLoading) {
+    return true;
+  }
+  if (!circuitNames.includes(name)) {
+    circuitNames.push(name);
+  }
+  return false;
+}
+
 function newCircuit(name, id) {
     name = name || prompt("Enter circuit name:");
     name = stripTags(name);
     if (!name) return;
-    if (circuitNames.includes(name) && !projectLoading) {
+    existing=checkExistingCircuit(name);
+    if (existing) {
       alert("The circuit name \"" + name + "\" is used.");
       return;
-    }
-    if (!circuitNames.includes(name)) {
-      circuitNames.push(name);
     }
     var scope = new Scope(name);
     if (id) scope.id = id;
