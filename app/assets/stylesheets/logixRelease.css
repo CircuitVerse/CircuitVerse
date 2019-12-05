@@ -119,3 +119,37 @@ a.btn.btn-outline-primary {
 a.btn.btn-outline-danger {
     margin-top: 10px;
 }
+
+.pagination .page-link {
+    white-space: nowrap;
+}
+
+@media (max-width: 992px) {
+    .pagination-cont {
+        overflow-x: auto;
+        padding: 0;
+    }
+
+    .pagination {
+        overflow-x: visible;
+        max-width: none;
+        display: block;
+        padding: 0;
+        white-space: nowrap;
+    }
+
+    .pagination > * {
+        display: inline-block;
+        margin: 0;
+        margin-left: -4px;
+    }
+}
+a.btn.btn-outline-primary {
+    margin-top: 10px;
+}
+
+a.btn.btn-outline-danger {
+    margin-top: 10px;
+}
+
+
