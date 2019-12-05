@@ -58,15 +58,20 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.smtp_settings = {
-  :address              => 'smtp.yandex.com',
-  :port                 => 465,
-  :domain               => 'yandex.com',
-  :user_name            => ENV["CIRCUITVERSE_EMAIL_ID"],
-  :password             =>  ENV["CIRCUITVERSE_EMAIL_PASSWORD"],
-  :ssl                  => true,
-  :authentication       => :login,
-  :enable_starttls_auto => true,
-}
+    :address              => 'smtp.yandex.com',
+    :port                 => 465,
+    :domain               => 'yandex.com',
+    :user_name            => ENV["CIRCUITVERSE_EMAIL_ID"],
+    :password             =>  ENV["CIRCUITVERSE_EMAIL_PASSWORD"],
+    :ssl                  => true,
+    :authentication       => :login,
+    :enable_starttls_auto => true,
+  }
 
-Paperclip.options[:command_path] = "/usr/local/bin/"
+  Rails.application.configure do
+    # Whitelist gitpod domain in dev envionment
+    config.hosts << /.*\.gitpod\.io\Z/
+  end
+  
+  Paperclip.options[:command_path] = "/usr/local/bin/"
 end
