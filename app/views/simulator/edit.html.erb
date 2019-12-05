@@ -134,66 +134,67 @@
       <div class="canvasArea" id="canvasArea">
 
 
-        <canvas id="backgroundArea" style="position: absolute; left: 0; top: 0; z-index: 0; width:100%;height:100%"></canvas>
-        <canvas id="simulationArea" style="position: absolute; left: 0; top: 0; z-index: 1; width:100%;height:100%"></canvas>
-        <div id="plot" >
-          <canvas id="plotArea" style="position: absolute; left: 0; top: 0; z-index: 2"></canvas>
-        </div>
-        <div id="miniMap">
-          <canvas id="miniMapArea" style="position: absolute; left:0; top: 0; z-index: 3;"></canvas>
-        </div>
-
-
-        <div id="contextMenu" oncontextmenu="return false;">
-        <ul>
-          <li onclick="menuItemClicked(2)"><a>Paste</a></li>
-          <li onclick="menuItemClicked(0)"><a>Copy</a></li>
-          <li onclick="menuItemClicked(1)"><a>Cut</a></li>
-          <li onclick="menuItemClicked(3)"><a>Delete</a></li>
-          <li onclick="menuItemClicked(4)"><a>Undo</a></li>
-          <li onclick="menuItemClicked(5)"><a>New Circuit</a></li>
-          <li onclick="menuItemClicked(6)"><a>Insert SubCircuit</a></li>
-          <li onclick="menuItemClicked(7)"><a>Center Focus</a></li>
-        </ul>
+      <canvas id="backgroundArea" style="position: absolute; left: 0; top: 0; z-index: 0; width:100%;height:100%"></canvas>
+      <canvas id="simulationArea" style="position: absolute; left: 0; top: 0; z-index: 1; width:100%;height:100%"></canvas>
+      <div id="plot" >
+        <canvas id="plotArea" style="position: absolute; left: 0; top: 0; z-index: 2"></canvas>
+      </div>
+      <div id="miniMap">
+        <canvas id="miniMapArea" style="position: absolute; left:0; top: 0; z-index: 3;"></canvas>
       </div>
 
 
-        <div id="Help">
-          <!-- <canvas id="miniMapArea" style="position: absolute; left:0; top: 0; z-index: 2;"></canvas> -->
-        </div>
+      <div id="contextMenu" oncontextmenu="return false;">
+      <ul>
+        <li onclick="menuItemClicked(2)"><a>Paste</a></li>
+        <li onclick="menuItemClicked(0)"><a>Copy</a></li>
+        <li onclick="menuItemClicked(1)"><a>Cut</a></li>
+        <li onclick="menuItemClicked(3)"><a>Delete</a></li>
+        <li onclick="menuItemClicked(4)"><a>Undo</a></li>
+        <li onclick="menuItemClicked(5)"><a>New Circuit</a></li>
+        <li onclick="menuItemClicked(6)"><a>Insert SubCircuit</a></li>
+        <li onclick="menuItemClicked(7)"><a>Center Focus</a></li>
+      </ul>
+    </div>
 
-        <div style="position:absolute; right:30px; top:30px; z-index:100">
-          <button type="button" class="btn zoomButton btn-lg" onclick="changeScale(0.2,'zoomButton','zoomButton',2)">
-            <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
-          </button>
-        </div>
-        <div class="sk-folding-cube loadingIcon" style="display:none;position:absolute; right:50%; bottom:50%; z-index:100">
-            <div class="sk-cube1 sk-cube"></div>
-            <div class="sk-cube2 sk-cube"></div>
-            <div class="sk-cube4 sk-cube"></div>
-            <div class="sk-cube3 sk-cube"></div>
-        </div>
-        <div style="position:absolute; right:60px; top:30px; z-index:100">
-          <button type="button" class="btn zoomButton btn-lg" onclick="globalScope.centerFocus(false)">
-            <span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span>
-          </button>
-        </div>
-        <div style="position:absolute; right:90px; top:30px; z-index:100">
-          <button type="button" class="btn zoomButton btn-lg" onclick="changeScale(-0.2,'zoomButton','zoomButton',2)">
-            <span class="glyphicon glyphicon-zoom-out" aria-hidden="true"></span>
-          </button>
-        </div>
-        <div style="position:absolute; right:120px; top:30px; z-index:100">
-          <button type="button" class="btn zoomButton btn-lg" onclick="undo()">
-            <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
-          </button>
-        </div>
-        <div style="position:absolute; right:150px; top:30px; z-index:100">
-          <button type="button" class="btn zoomButton btn-lg" onclick="delete_selected()">
-            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-          </button>
-        </div>
 
+      <div id="Help">
+        <!-- <canvas id="miniMapArea" style="position: absolute; left:0; top: 0; z-index: 2;"></canvas> -->
+      </div>
+
+      <div style="position:absolute; right:30px; top:30px; z-index:100">
+        <button type="button" title='Zoom in' class="btn zoomButton btn-lg" onclick="changeScale(0.2,'zoomButton','zoomButton',2)">
+          <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
+        </button>
+      </div>
+      <div class="sk-folding-cube loadingIcon" style="display:none;position:absolute; right:50%; bottom:50%; z-index:100">
+          <div class="sk-cube1 sk-cube"></div>
+          <div class="sk-cube2 sk-cube"></div>
+          <div class="sk-cube4 sk-cube"></div>
+          <div class="sk-cube3 sk-cube"></div>
+      </div>
+      <div style="position:absolute; right:60px; top:30px; z-index:100">
+        <button type="button" title='Zoom scope' class="btn zoomButton btn-lg" onclick="globalScope.centerFocus(false)">
+          <span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span>
+        </button>
+      </div>
+      <div style="position:absolute; right:90px; top:30px; z-index:100">
+        <button type="button" title='Zoom out' class="btn zoomButton btn-lg" onclick="changeScale(-0.2,'zoomButton','zoomButton',2)">
+          <span class="glyphicon glyphicon-zoom-out" aria-hidden="true"></span>
+        </button>
+      </div>
+      <div style="position:absolute; right:120px; top:30px; z-index:100">
+        <button type="button" title='Undo' class="btn zoomButton btn-lg" onclick="undo()">
+          <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+        </button>
+      </div>
+
+      <div style="position:absolute; right:150px; top:30px; z-index:100" >
+        <button type="button" title='Delete Selected' class="btn zoomButton btn-lg" onclick="delete_selected()">
+          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        </button>
+      </div>
+        
 		<div id="layoutDialog" style="display:none" class="" title="Layout Options">
 
 			<div class="container">
