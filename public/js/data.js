@@ -2,16 +2,19 @@
 // Function creates button in tab, creates scope and switches to this circuit
 
 var circuitNames=[];
+var projectLoading=false;
 
 function newCircuit(name, id) {
     name = name || prompt("Enter circuit name:");
     name = stripTags(name);
     if (!name) return;
-    if (circuitNames.includes(name)) {
+    if (circuitNames.includes(name) && !projectLoading) {
       alert("The circuit name \"" + name + "\" is used.");
       return;
     }
-    circuitNames.push(name);
+    if (!circuitNames.includes(name)) {
+      circuitNames.push(name);
+    }
     var scope = new Scope(name);
     if (id) scope.id = id;
     scopeList[scope.id] = scope;
@@ -531,6 +534,7 @@ function load(data) {
         return;
     }
 
+    projectLoading=true;
     projectId = data.projectId;
     projectName = data.name;
 
@@ -588,6 +592,7 @@ function load(data) {
     gridUpdate = true
     scheduleUpdate();
 
+    projectLoading=false;
 
 }
 
