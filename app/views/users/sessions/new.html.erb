@@ -1,5 +1,6 @@
-<link rel="stylesheet" href="/css/loginStyle.css">
+<link rel="stylesheet" href="/css/showAndHidePasswordStyle.css">
 <script src="/js/passwordViewToggle.js"></script>
+
 <div class="container">
 
   <div class="row feature">
@@ -19,7 +20,7 @@
           <div class="field form-group">
             <%= f.label :password %><br />
             <%= f.password_field :password, autocomplete: "off" ,class:"form-control", placeholder: 'Password', id: 'formPassword' %>
-            <img src="/image/EyeClosed.png" alt="Reveal Password" onclick="toggle()">
+            <img id="hideOrShow" src="/img/EyeClosed.png" alt="Reveal Password" onclick="toggle()">
           </div>
         </div>
 
