@@ -3,11 +3,11 @@ function toggle() {
     var pass = document.getElementById('formPassword');
     if (pass.type === 'password') {
         pass.type = 'text';
-        icon.src = 'Eye.png';
+        icon.src = '/img/Eye.png';
         icon.alt = 'Hide Password';
     } else {
         pass.type = 'password';
-        icon.src = 'EyeClosed.png';
+        icon.src = '/img/EyeClosed.png';
         icon.alt = 'Reveal Password';
     }
 }
