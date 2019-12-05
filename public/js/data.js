@@ -359,6 +359,7 @@ function deleteCurrentCircuit() {
     if (confirmation) {
         $('#' + globalScope.id).remove()
         delete scopeList[globalScope.id]
+        delete circuitNames[circuitNames.indexOf(globalScope.name)]
         switchCircuit(Object.keys(scopeList)[0])
         showMessage("Circuit was successfuly deleted")
     } else
