@@ -3,7 +3,7 @@
     <div class="col-xs-10 col-lg-6 col-md-8 col-s-10 col-centered">
       <h2>Change your password</h2>
 
-      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+      <%= form_with(model: resource, as: resource_name, url: password_path(resource_name), method: :put, local: true) do |f| %>
         <%= devise_error_messages! %>
         <%= f.hidden_field :reset_password_token %>
 
