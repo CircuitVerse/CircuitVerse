@@ -1,6 +1,6 @@
 # Code of Conduct
 
-As contributors and maintainers of this project, and in the interest of fostering an open and welcoming community, we pledge to respect all people who contribute through reporting issues, posting feature requests, updating documentation, submitting pull requests or patches, and other activities.
+As contributors and maintainers of this project, and in the interest of fostering an open and welcoming community, we pledge to respect all people who contribute through reporting issues, to post feature requests, to update documentation, submitting pull requests or patches, and other activities.
 
 We are committed to making participation in this project a harassment-free experience for everyone, regardless of the level of experience, gender, gender identity and expression, sexual orientation, disability, personal appearance, body size, race, ethnicity, age, religion, or nationality.
 
@@ -17,9 +17,9 @@ Diversity and inclusion make the CircuitVerse community strong. We encourage par
 
 ## Unacceptable Behaviour
 
-Harassment may include but not limited to the following:
+Harassment may include but not limited to, the following:
 - Offensive, inappropriate, or unwanted comments related to gender, gender identity or expression, sexual orientation, disability, physical appearance, body size, race, ethnicity, national origin, religion, or age, or other protected categories under applicable law.
-- Visual harassment eg. sexual imagery or use of sexual language at Docker community events
+- Visual harassment, e.g. sexual imagery or use of sexual language at Docker community events
 - Disrespect towards differences of opinion
 - Deliberate intimidation, stalking, harassing photography or recording
 - Sustained disruption of talks or other events
