@@ -7,3 +7,7 @@ linters:
     rubocop_config:
       inherit_from:
         - .rubocop.yml
+      Style/FrozenStringLiteralComment:
+        Enabled: false
+      Metrics/LineLength:
+        Enabled: false
