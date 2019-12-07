@@ -1,4 +1,4 @@
-
+<script src="/js/registration.js"></script>
 
 <div class="container">
   <div class="row feature">
@@ -30,6 +30,32 @@
           <div class="field form-group">
             <%= f.label :password_confirmation %><br />
             <%= f.password_field :password_confirmation, autocomplete: "off" ,class:"form-control", placeholder: 'Confirm Password'%>
+          </div>
+
+          <div class="field form-group" id="divStudentTeacher">
+            <input class="btn btn-outline-info" id="schlStud" type="button" onclick="chooseStatus(0)" value="School Student" >
+            <input class="btn btn-outline-info" id="collegeStud" type="button" onclick="chooseStatus(1)" value="College Student" >
+            <input class="btn btn-outline-info" id="teach" type="button" onclick="chooseStatus(2)" value="Teacher" >
+            <input class="btn btn-outline-info" type="button" onclick="chooseStatus(-1)" value="Other">
+          </div>
+
+          <div class="field form-group" id="schoolStudentGrp" style="display: none;">
+            <label for="classYear1">Class Year</label>
+            <input class="form-control" id="classYear1" type="text" placeholder = "Class Year">
+            <label for="schoolName">School Name</label>
+            <input class="form-control" id="schoolName" type="text" placeholder = "School Name">
+          </div>
+
+          <div class="field form-group" id="collegeStudentGrp" style="display: none;">
+            <label for="classYear2">Class Year</label>
+            <input class="form-control" id="classYear2" type="text" placeholder = "Class Year">
+            <label for="fieldOfStudy">Branch Of Study</label>
+            <input class="form-control" id="fieldOfStudy" type="text" placeholder = "Branch of Study Details">
+          </div>
+
+          <div class="field form-group" id="teacherGrp" style="display: none;">
+            <label for="highestQual">Your Highest Qualificaton</label>
+            <input class="form-control" id="highestQual" type="text" placeholder = "Qualificaton">
           </div>
 
           <div class="actions">
