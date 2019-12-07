@@ -1,2 +1,8 @@
 erblint:
   enabled: true
+rubocop:
+  enabled: false
+eslint:
+  enabled: false
+scss:
+  enabled: false
