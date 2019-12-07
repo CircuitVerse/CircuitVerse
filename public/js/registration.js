@@ -11,9 +11,7 @@ function chooseStatus(index) {
     for (i = 0; i < arrayOfOptions.length; i++) {
         arrayOfOptions[i].style.display = 'none';
     }
-    if (index == -1){
-
-    } else{
+    if (index > -1) {
         arrayOfOptions[index].style.display = 'block';
     }
 }
