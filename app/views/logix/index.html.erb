@@ -1,3 +1,9 @@
+<script>
+  $(document).ready(function(){
+    $("#alertdiv").delay(5000).fadeOut(600);
+  });
+</script>
+
 <% content_for :title, "CircuitVerse - Online Digital Logic Circuit Simulator" %>
 
 <% set_meta_tags twitter: {
@@ -51,7 +57,7 @@
 
 
         <% if notice %>
-            <div class="row">
+            <div class="row" id='alertdiv'>
                 <div class="alert alert-success alert-dismissible container-fluid text-center">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                     <%= notice %>
@@ -140,7 +146,7 @@
       <% end %>
     </div>
     <br>
-    <div class"container">
+    <div class="container pagination-cont">
 <%= will_paginate @projects, renderer: PaginateRenderer %>
 
     </div>

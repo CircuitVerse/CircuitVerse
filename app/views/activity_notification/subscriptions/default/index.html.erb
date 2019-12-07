@@ -1,0 +1,201 @@
+<div class="subscription_wrapper">
+  <% unless @subscriptions.nil? %>
+    <div class="subscription_header">
+      <h1>Configured subscriptions</h1>
+    </div>
+    <div class="subscriptions" id="subscriptions">
+      <%= render 'subscriptions', subscriptions: @subscriptions, option_params: @index_options %>
+    </div>
+  <% end %>
+
+  <% unless @notification_keys.nil? %>
+    <div class="subscription_header">
+      <h1>Unconfigured notification keys</h1>
+    </div>
+    <div class="notification_keys" id="notification_keys">
+      <%= render 'notification_keys', target: @target, notification_keys: @notification_keys, option_params: @index_options %>
+    </div>
+  <% end %>
+
+  <div class="subscription_header">
+    <h1>Create a new subscription</h1>
+  </div>
+  <div class="subscription_form" id="subscription_form">
+    <%= render 'form', target: @target, option_params: @index_options %>
+  </div>
+</div>
+
+<style>
+  .fields_area {
+    border: 1px solid #e5e5e5;
+    width: 600px;
+    box-sizing: border-box;
+    margin-bottom: 30px;
+  }
+
+  .fields_area .fields_wrapper {
+    position: relative;
+    background-color: #fff;
+    padding: 20px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #e5e5e5;
+  }
+  .fields_area .fields_wrapper.configured {
+    background-color: #f8f9fb;
+  }
+
+  .fields_area .fields_wrapper:last-child {
+    border-bottom: none;
+  }
+
+  .fields_area .fields_wrapper .fields_title_wrapper {
+    margin-bottom: 16px;
+    border-bottom: none;
+  }
+
+  .fields_area .fields_wrapper .fields_title_wrapper .fields_title {
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .fields_area .fields_wrapper .fields_title_wrapper p {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+  }
+
+  .fields_area .fields_wrapper .field_wrapper {
+    margin-bottom: 16px;
+  }
+
+  .fields_area .fields_wrapper .field_wrapper:last-child {
+    margin-bottom: 0;
+  }
+
+  .fields_area .fields_wrapper .field_wrapper.hidden {
+    display: none;
+  }
+
+  .fields_area .fields_wrapper .field_wrapper .field_label {
+    margin-bottom: 8px;
+  }
+
+  .fields_area .fields_wrapper .field_wrapper .field_label label {
+    font-size: 14px;
+  }
+
+  .ui label {
+    font-size: 14px;
+  }
+
+  /* button */
+  .ui.button button,
+  .ui.button .button {
+    cursor: pointer;
+    color: #4f4f4f;
+    font-weight: bold;
+    font-size: 12px;
+    padding: 10px 14px;
+    margin-left: 10px;
+    border: 1px solid #e5e5e5;
+    background-color: #fafafa;
+  }
+
+  .ui.button button:first-child,
+  .ui.button .button:first-child {
+    margin-left: 0;
+  }
+
+  .ui.text_field input {
+    margin: 0;
+    outline: 0;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #e5e5e5;
+    border-radius: 3px;
+    box-shadow: 0 0 0 0 transparent inset;
+  }
+
+  /* checkbox */
+  .ui.checkbox {
+    position: relative;
+    left: 300px;
+    margin-top: -26px;
+    width: 40px;
+  }
+
+  .ui.checkbox input {
+    position: absolute;
+    margin-left: -9999px;
+    visibility: hidden;
+  }
+
+  .ui.checkbox .slider {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    user-select: none;
+
+    padding: 2px;
+    width: 36px;
+    height: 20px;
+    background-color: #dddddd;
+    border-radius: 20px;
+  }
+
+  .ui.checkbox .slider:before,
+  .ui.checkbox .slider:after {
+    display: block;
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    bottom: 1px;
+    content: "";
+  }
+
+  .ui.checkbox .slider:before {
+    right: 1px;
+    background-color: #f1f1f1;
+    border-radius: 20px;
+    transition: background 0.4s;
+  }
+
+  .ui.checkbox .slider:after {
+    width: 20px;
+    background-color: #fff;
+    border-radius: 100%;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+    transition: margin 0.4s;
+  }
+
+  .ui.checkbox input:checked + .slider:before {
+    background-color: #8ce196;
+  }
+
+  .ui.checkbox input:checked + .slider:after {
+    margin-left: 18px;
+  }
+</style>
+
+<script>
+  loadSubscription();
+  function loadSubscription() {
+    $(".field_wrapper.subscribing").find("input[type='checkbox']").change(function () {
+      $thisFieldWrapper = $(this).parent().parent().parent().parent();
+      if ($(this).prop('checked')) {
+        $thisFieldWrapper.next().slideDown();
+        $thisFieldWrapper.next().find("input[type='checkbox']").prop("checked", <%= ActivityNotification.config.subscribe_as_default %>);
+        $thisFieldWrapper.next().next().slideDown();
+        $thisFieldWrapper.next().next().find("input[type='checkbox']").prop("checked", <%= ActivityNotification.config.subscribe_as_default %>);
+      } else {
+        $thisFieldWrapper.next().slideUp();
+        $thisFieldWrapper.next().next().slideUp();
+        setTimeout(function () {
+          $thisFieldWrapper.next().find("input[type='checkbox']").prop("checked", false);
+          $thisFieldWrapper.next().next().find("input[type='checkbox']").prop("checked", false);
+        }, 400);
+      }
+    })
+  }
+</script>

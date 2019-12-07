@@ -21,8 +21,7 @@
   </div>
 <% end %>
 
-<%= form_for([commontator, thread, comment],
-             remote: !no_remote) do |f| %>
+<%= form_with(model: [commontator, thread, comment], local: no_remote) do |f| %>
 
   <%= hidden_field_tag :per_page, per_page %>
   

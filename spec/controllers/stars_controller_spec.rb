@@ -28,4 +28,21 @@ describe StarsController, type: :request do
       }.to change { Star.count }.by(-1)
     end
   end
+
+  describe "Activity Notification" do
+    it "creates notification when project is starred" do
+      @star = FactoryBot.create(:star, project: @project, user: @user)
+      @project_author = @project.author
+      expect(@project_author.notifications.unopened_only.count).to eq(0)
+
+      @star.notify :users
+
+      expect(@project_author.notifications.unopened_only.count).to eq(1)
+      expect(@project_author.notifications.unopened_only.latest.notifiable).to eq(@star)
+      expect(@star.printable_notifiable_name(@user))
+          .to eq("starred your project \"#{@project.name}\"")
+      expect(@star.star_notifiable_path)
+          .to eq("/users/#{@project_author.id}/projects/#{@project.id}")
+    end
+  end
 end

@@ -1,0 +1,17 @@
+<% icon_sizes = Rails.configuration.serviceworker.icon_sizes %>
+{
+  "name": "CircuitVerse",
+  "short_name": "CircuitVerse",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "<%= image_path "SVGs/logo_final.svg" %>",
+      "sizes": "301x271",
+      "type": "image/svg"
+    }
+  ],
+  "theme_color": "#000000",
+  "background_color": "#FFFFFF",
+  "display": "fullscreen",
+  "orientation": "portrait"
+}

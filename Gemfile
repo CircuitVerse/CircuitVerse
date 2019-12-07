@@ -15,7 +15,7 @@ gem 'omniauth-microsoft-office365'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0'
 # Use Puma as the app server
-gem 'puma', '~> 3.7'
+gem 'puma', '~> 3.12'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -76,6 +76,11 @@ gem "pg", "~> 1.1.4"
 
 gem 'meta-tags'
 
+# Notifications
+gem 'activity_notification'
+gem 'serviceworker-rails'
+gem 'webpush'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -84,7 +89,8 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'coveralls'
-  gem 'rubocop-rspec'
+  gem 'rubocop-rspec', require: false
+  gem 'erb_lint', require: false
 end
 
 group :test do

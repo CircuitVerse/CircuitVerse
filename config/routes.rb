@@ -59,6 +59,9 @@ Rails.application.routes.draw do
   get  '/contribute', to:'logix#contribute'
 
   #users
+
+  notify_to :users, controller: 'users/notifications'
+
   scope '/users' do
     get '/', to: 'welcome#all_user_index', as: 'all_users'
     get '/:id/profile', to: 'users/logix#profile', as: 'profile'
@@ -70,8 +73,11 @@ Rails.application.routes.draw do
     get '/:id/projects/:id/WYSIWYG/index.css', to: redirect('/index.css')
     get '/:id/projects/:id/WYSIWYG/bootstrap-wysiwyg.js', to: redirect('/bootstrap-wysiwyg.js')
     get '/educational_institute/typeahead/:query' => 'users/logix#typeahead_educational_institute'
+    get '/:id/notifications', to: 'users/notifications#index', as: 'notifications'
   end
 
+  post '/push/subscription/new', to: 'push_subscription#create'
+  post '/push/test', to: 'push_subscription#test'
 
   #projects
   scope '/projects' do

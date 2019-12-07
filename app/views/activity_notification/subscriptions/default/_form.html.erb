@@ -1,0 +1,52 @@
+<div class="fields_area">
+  <div class="fields_wrapper">
+    <%= form_for(ActivityNotification::Subscription.new, as: :subscription, url: subscriptions_url_for(target, option_params), data: { remote: true }) do |f| %>
+      <div class="field_wrapper">
+        <div class="field_label">
+          <%= f.label :key, "Notification key" %>
+        </div>
+        <div class="field">
+          <div class="ui text_field">
+            <%= f.text_field :key, placeholder: "Notification key" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="field_wrapper subscribing">
+        <div class="field_label">
+          <label>
+            Notification
+          </label>
+        </div>
+        <div class="field">
+          <div class="ui checkbox">
+            <label>
+              <%= f.check_box :subscribing, { checked: ActivityNotification.config.subscribe_as_default }, 'true', 'false' %>
+              <div class="slider"></div>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="field_wrapper subscribing_to_email <%= 'hidden' unless ActivityNotification.config.subscribe_as_default %>">
+        <div class="field_label">
+          <label>
+            Email notification
+          </label>
+        </div>
+        <div class="field">
+          <div class="ui checkbox">
+            <label>
+              <%= f.check_box :subscribing_to_email, { checked: ActivityNotification.config.subscribe_as_default }, 'true', 'false' %>
+              <div class="slider"></div>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="ui button">
+        <button type="submit">Create subscription</button>
+      </div>
+    <% end %>
+  </div>
+</div>

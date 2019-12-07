@@ -40,6 +40,10 @@ jobs: # a collection of steps
           name: Bundle Install
           command: bundle install --with postgresql
 
+      - run: # Install JS dependencies
+          name: Yarn Install
+          command: yarn
+
       # Store bundle cache for Ruby dependencies
       - save_cache:
           key: circuiteverse-{{ checksum "Gemfile.lock" }}
@@ -66,6 +70,7 @@ jobs: # a collection of steps
                               --out test_results/rspec.xml \
                               --format progress \
                               $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+
 
       # Save test results for timing analysis
       - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/

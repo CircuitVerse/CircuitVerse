@@ -1,0 +1,13 @@
+<% if subscriptions.present? %>
+  <div class="fields_area">
+    <% subscriptions.each do |subscription| %>
+      <%= render 'subscription', subscription: subscription, option_params: option_params %>
+    <% end %>
+  </div>
+<% else %>
+  <div class="fields_area">
+    <div class="fields_wrapper">
+      No subscriptions are available.
+    </div>
+  </div>
+<% end %>
