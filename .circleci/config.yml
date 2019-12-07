@@ -67,9 +67,6 @@ jobs: # a collection of steps
                               --format progress \
                               $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
 
-      - run:
-          name: Run Erb Lint
-          command: bundle exec erblint app/views
 
       # Save test results for timing analysis
       - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
