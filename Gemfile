@@ -84,7 +84,8 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'coveralls'
-  gem 'rubocop-rspec'
+  gem 'rubocop-rspec', require: false
+  gem 'erb_lint', require: false
 end
 
 group :test do
