@@ -21,16 +21,16 @@
 
   <% if @assignment.new_record? %>
     <div class="field">
-      <span style="color: red"> * Cannot be changed once set </span>
       <%= form.label :grading_scale %>
+      <p style="color: red"> * Cannot be changed once set </p>
       <%= form.select :grading_scale, [:no_scale, :letter, :percent, :custom] %>
       <span style="margin-bottom: 2px">
         <div class="tooltip-help assignment-tooltip"> Help
           <div class="right-help">
-            <div> <span style="font-style: italic"> percent </span>: Assignment can be graded on a scale of 1-100 </div>
-            <div> <span style="font-style: italic"> letter </span>: Assignment can be graded with letters A-F </div>
-            <div> <span style="font-style: italic"> no_scale </span>: Assignment won't be graded </div>
-            <div> <span style="font-style: italic"> custom </span>: Assignment can be graded as required </div>
+            <div> <span style="font-style: italic; font-weight:bold;"> Percent </span>: Assignment can be graded on a scale of 1-100 </div>
+            <div> <span style="font-style: italic; font-weight:bold;"> Letter </span>: Assignment can be graded with letters A-F </div>
+            <div> <span style="font-style: italic; font-weight:bold;"> No_scale </span>: Assignment will not be graded </div>
+            <div> <span style="font-style: italic; font-weight:bold;"> Custom </span>: Assignment can be graded as required </div>
             <i> </i>
           </div>
         </div>
