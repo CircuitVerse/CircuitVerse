@@ -1,6 +1,22 @@
+<head>
 <link rel="stylesheet" type="text/css" href="/css/restrictedElements.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 <script src="/js/metadata.json"></script>
+
+<style>
+#label {
+  color:black;
+}
+
+#label em {
+  color:red;
+}
+
+
+</style>
+
+</head>
+
 <%= form_with(model: [group,@assignment], local: true, html: {onsubmit:"before_submit()"}, multipart: true ,id:"assignmentForm") do |form| %>
   <% if @assignment.errors.any? %>
     <div id="error_explanation">
@@ -16,14 +32,13 @@
 
   <div class="field">
     <%= form.label :name %>
-    <%= form.text_field :name, id: :assignment_name %>
+    <%= form.text_field :name, id: :assignment_name, placeholder:"Enter assignment name" %>
   </div>
 
   <% if @assignment.new_record? %>
     <div class="field">
-      <%= form.label :grading_scale %>
-      <p style="color: red"> * Cannot be changed once set </p>
-      <%= form.select :grading_scale, [:no_scale, :letter, :percent, :custom] %>
+      <p id='label'>Grading Scale <em>* Cannot be changed once set<em> </p>
+      <%= form.select :grading_scale, [:no_scale, :letter, :percent, :custom]%>
       <span style="margin-bottom: 2px">
         <div class="tooltip-help assignment-tooltip"> Help
           <div class="right-help">
@@ -44,8 +59,9 @@
 
   <div class="field">
     <%= form.label :deadline %>
-    <input class ="date" id="party" type="datetime-local" name="assignment[deadline]" min="<%= Time.now.strftime("%Y-%m-%dT%H:%M")%>" value="<%= assignment.deadline.strftime("%Y-%m-%dT%H:%M")%>">
+    <input type="datetime-local" name="assignment[deadline]" min="<%= Time.now.strftime("%Y-%m-%dT%H:%M")%>" value="<%= assignment.deadline.strftime("%Y-%m-%dT%H:%M")%>">
   </div>
+
 
   <div class="field" id="wysiwyg">
     <%= form.label :description %><br>
@@ -63,7 +79,7 @@
   <div class="actions">
     <%= form.submit %>
   </div>
-<% end %>
+  <% end %>
 
 <script src="/js/time.js"></script>
 <script type="text/javascript" src="/js/restrict_elements.js"></script>
