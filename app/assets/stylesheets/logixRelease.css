@@ -21,33 +21,8 @@ p {
     top: 50%;
 }
 
-body {
-    padding-top: 100px;
-    min-height: 100vh;
-    position: relative;
-}
-@media (max-width: 979px) {
-    body {
-        padding-top: 100px;
-    }
-}
-
-.jumbotron {
-    margin-top: -50px;
-}
-
 img {
     max-width: 100%;
-}
-
-.footer {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    padding: 1rem;
-    /*background-color: #efefef;*/
-    text-align: center;
 }
 
 .noSelect {
