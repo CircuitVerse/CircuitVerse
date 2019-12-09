@@ -98,19 +98,31 @@ Additional instructions can be found [here](https://www.howtoforge.com/tutorial/
 
 Windows Subsystem for Linux (WSL) can be used to run a Linux instance within Windows. To setup WSL on Windows 10:
 
-* Enable developer mode (Settings > Update and Security > For Developers)
+* Enable developer mode (Windows Settings > Update and Security > For Developers)
+
+![image](https://user-images.githubusercontent.com/51863168/70480585-035e6f00-1ad8-11ea-874a-7a5fbbe872aa.png)  
 * Enable WSL feature (Control Panel > Programs > Turn Windows Features On or Off > check the Windows Subsystem for Linux feature), wait for it to install and then restart the computer
-* Go to Windows Store and install Ubuntu (or another distribution of your choice)
 
-Once installed, open a terminal and login to your account. Run the following in order:
+![image](https://user-images.githubusercontent.com/51863168/70480602-0fe2c780-1ad8-11ea-9257-63c0fad80930.png)
+* Go to Windows Store and install Ubuntu (or another distribution of your choice), found here https://aka.ms/wslstore
 
-* Update the package database: `sudo apt-get update`
+![image](https://user-images.githubusercontent.com/51863168/70480708-520c0900-1ad8-11ea-9192-1948afd84f97.png)
+
+Once installed, open a terminal and create a username and password for your account.
+
+![image](https://user-images.githubusercontent.com/51863168/70480697-4ae4fb00-1ad8-11ea-9ee3-07d0e6d6c077.png)
+
+Run the following in order:
+
+* Update the package database: `sudo apt-get update` (you will have to enter your password)
 * Install rvm, Ruby Version Manager: `sudo apt install gnupg2`
 * `gpg --keyserver hkp://pool.sks-keyservers.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB` 
 * `\curl -sSL https://get.rvm.io | bash -s stable`
 * `source ~/.rvm/scripts/rvm` 
 * Install Ruby: `rvm install 2.6.5` 
 *	Install Rails: `gem install rails -v 6.0.1` 
+
+You now have Ruby and Rails installed, and can continue with the rest of the instructions above as usual. 
 
 ## Production Specific Instructions
 
