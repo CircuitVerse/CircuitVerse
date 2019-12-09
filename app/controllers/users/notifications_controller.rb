@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Users::NotificationsController < ActivityNotification::NotificationsController
+  before_action :authenticate_user!
   # GET /:target_type/:target_id/notifications
   # def index
   #   super
@@ -37,11 +38,14 @@ class Users::NotificationsController < ActivityNotification::NotificationsContro
   #   super
   # end
 
-  # protected
+  protected
 
-  # def set_target
-  #   super
-  # end
+    def set_target
+      super
+      if @target != current_user
+        raise ApplicationPolicy::CustomAuthException.new "Wrong user"
+      end
+    end
 
   # def set_notification
   #   super

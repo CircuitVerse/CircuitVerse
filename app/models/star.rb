@@ -1,7 +1,7 @@
 # frozen_string_literal: true
+require "custom_optional_targets/web_push"
 
 class Star < ApplicationRecord
-  require "custom_optional_targets/web_push"
   belongs_to :user
   belongs_to :project
 

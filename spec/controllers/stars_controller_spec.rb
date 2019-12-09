@@ -37,8 +37,9 @@ describe StarsController, type: :request do
 
       @star.notify :users
 
-      expect(@project_author.notifications.unopened_only.count).to eq(1)
-      expect(@project_author.notifications.unopened_only.latest.notifiable).to eq(@star)
+      unopened_notifications = @project_author.notifications.unopened_only
+      expect(unopened_notifications.count).to eq(1)
+      expect(unopened_notifications.latest.notifiable).to eq(@star)
       expect(@star.printable_notifiable_name(@user))
           .to eq("starred your project \"#{@project.name}\"")
       expect(@star.star_notifiable_path)

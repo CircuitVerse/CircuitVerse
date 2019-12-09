@@ -3,7 +3,7 @@
     <h1>
       Notifications to <%= @target.printable_target_name %>
       <%= link_to open_all_notifications_path_for(@target, @index_options.slice(:routing_scope, :devise_default_routes)), method: :post, remote: true do %>
-        <span class="notification_count"><span class="<%= 'unopened' if @target.has_unopened_notifications?(@index_options) %>">
+        <span class="notification_count"><span class="<%= "unopened" if @target.has_unopened_notifications?(@index_options) %>">
           <%= @target.unopened_notification_count(@index_options) %>
         </span></span>
       <% end %>
@@ -22,9 +22,6 @@
     <% end %>
   </div>
 </div>
-<%#= render_notifications_of @target, @index_options.slice(:routing_scope, :devise_default_routes).merge(fallback: :default, index_content: :with_attributes) %>
-<%#= render_notifications_of @target, @index_options.slice(:routing_scope, :devise_default_routes).merge(fallback: :default, index_content: :unopened_with_attributes, reverse: true) %>
-<%#= render_notifications_of @target, @index_options.slice(:routing_scope, :devise_default_routes).merge(fallback: :default_without_grouping, index_content: :with_attributes, with_group_members: true) %>
 
 <style>
   .notification_wrapper {

@@ -21,14 +21,14 @@
         <div class="field">
           <div class="ui checkbox">
             <label>
-              <%= f.check_box :subscribing, { checked: ActivityNotification.config.subscribe_as_default }, 'true', 'false' %>
+              <%= f.check_box :subscribing, { checked: ActivityNotification.config.subscribe_as_default }, "true", "false" %>
               <div class="slider"></div>
             </label>
           </div>
         </div>
       </div>
 
-      <div class="field_wrapper subscribing_to_email <%= 'hidden' unless ActivityNotification.config.subscribe_as_default %>">
+      <div class="field_wrapper subscribing_to_email <%= "hidden" unless ActivityNotification.config.subscribe_as_default %>">
         <div class="field_label">
           <label>
             Email notification
@@ -37,7 +37,7 @@
         <div class="field">
           <div class="ui checkbox">
             <label>
-              <%= f.check_box :subscribing_to_email, { checked: ActivityNotification.config.subscribe_as_default }, 'true', 'false' %>
+              <%= f.check_box :subscribing_to_email, { checked: ActivityNotification.config.subscribe_as_default }, "true", "false" %>
               <div class="slider"></div>
             </label>
           </div>

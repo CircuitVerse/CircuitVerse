@@ -67,9 +67,9 @@ class User < ApplicationRecord
     user
   end
 
-  def send_push_notification(message)
+  def send_push_notification(message, url = "")
     self.push_subscriptions.each do |subscription|
-      subscription.send_push_notification(message)
+      subscription.send_push_notification(message, url)
     rescue Webpush::Unauthorized
       # Expired subscription, maybe user cleared browser data or revoked
       # notification permission

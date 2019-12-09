@@ -1,7 +1,7 @@
 <div class="notification_wrapper">
   <a class="dropdown_notification">
     <p class="notification_count" id="notification_count">
-      <span class="<%= 'unopened' if @target.has_unopened_notifications?(parameters) %>">
+      <span class="<%= "unopened" if @target.has_unopened_notifications?(parameters) %>">
         <%= @target.unopened_notification_count(parameters) %>
       </span>
     </p>

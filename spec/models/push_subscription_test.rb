@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require "test_helper"
+require "rails_helper"
 
-class PushSubscriptionTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+RSpec.describe PushSubscription, type: :model do
+  describe "associations" do
+    it { should belong_to(:user) }
+  end
 end

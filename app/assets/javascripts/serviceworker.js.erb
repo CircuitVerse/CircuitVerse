@@ -11,7 +11,9 @@ function onInstall(event) {
         // if you want to reference application.js from here
         '<%#= asset_path "application.js" %>',
 
-        '<%= asset_path "application.css" %>',
+        '<%= asset_path "application.scss" %>',
+
+        '<%= image_path "favicon.png" %>'
 
       ]);
     })
@@ -36,19 +38,27 @@ function onActivate(event) {
   );
 }
 
-self.addEventListener("push", (event) => {
+self.addEventListener("push", event => {
+  let data = JSON.parse(event.data.text());
   let title = "CircuitVerse";
-  let body = event.data.text();
+  let { body, url } = data
   console.log("Received message: ",body);
   // Prevent notifications being collapsed
   let tag = "circuitverse"+Math.random();
-  let icon = '<%= image_path "SVGs/logo_final.svg" %>';
+  let icon = '<%= image_path "favicon.png" %>';
 
   event.waitUntil(
-    self.registration.showNotification(title, { body, icon, tag })
+    self.registration.showNotification(title, { body, icon, tag, data: { url } })
   );
 });
 
+self.addEventListener('notificationclick', function(event) {
+  event.notification.close();
+  if (event.notification.data.url !== "") {
+    // Main body of notification was clicked
+    clients.openWindow(event.notification.data.url);
+  }
+}, false);
 
 // Borrowed from https://github.com/TalAter/UpUp
 function onFetch(event) {
@@ -67,4 +77,4 @@ function onFetch(event) {
 
 self.addEventListener('install', onInstall);
 self.addEventListener('activate', onActivate);
- self.addEventListener('fetch', onFetch);
+self.addEventListener('fetch', onFetch);

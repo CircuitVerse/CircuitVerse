@@ -5,10 +5,10 @@
       <div class="list_image"></div>
       <div class="list_text_wrapper">
         <p class="list_text">
-          <strong><%= notification.notifier.present? ? notification.notifier.printable_notifier_name : 'Someone' %></strong>
+          <strong><%= notification.notifier.present? ? notification.notifier.printable_notifier_name : "Someone" %></strong>
           <% if notification.group_member_notifier_exists? %>
             <%= " and #{notification.group_member_notifier_count} other" %>
-            <%= notification.notifier.present? ? notification.notifier.printable_type.pluralize.downcase : 'people' %>
+            <%= notification.notifier.present? ? notification.notifier.printable_type.pluralize.downcase : "people" %>
           <% end %>
           <% if notification.group_member_exists? %>
             <%= " #{notification.group_notification_count} #{notification.notifiable_type.humanize.pluralize.downcase} including" %>
@@ -40,16 +40,6 @@
       <%= yield :notification_content %>
     <% end %>
   <% end %>
-
-  <%#= link_to "Move", move_notification_path_for(notification, parameters.slice(:routing_scope, :devise_default_routes)) %>
-  <%# if notification.unopened? %>
-  <%#= link_to "Open and move (GET)", move_notification_path_for(notification, parameters.slice(:routing_scope, :devise_default_routes).merge(open: true)) %>
-  <%#= link_to "Open and move (POST)", open_notification_path_for(notification, parameters.slice(:routing_scope, :devise_default_routes).merge(move: true)), method: :post %>
-  <%#= link_to "Open", open_notification_path_for(notification, parameters.slice(:routing_scope, :devise_default_routes).merge(index_options: @index_options))), method: :post %>
-  <%#= link_to "Open (Ajax)", open_notification_path_for(notification, parameters.slice(:routing_scope, :devise_default_routes).merge(reload: false)), method: :post, remote: true %>
-  <%# end %>
-  <%#= link_to "Destroy", notification_path_for(notification, parameters.slice(:routing_scope, :devise_default_routes).merge(index_options: @index_options)), method: :delete %>
-  <%#= link_to "Destroy (Ajax)", notification_path_for(notification, parameters.slice(:routing_scope, :devise_default_routes).merge(reload: false)), method: :delete, remote: true %>
 
 </div>
 

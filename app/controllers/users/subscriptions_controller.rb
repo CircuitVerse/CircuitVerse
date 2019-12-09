@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Users::SubscriptionsController < ActivityNotification::SubscriptionsController
+  before_action :authenticate_user!
   # GET /:target_type/:target_id/subscriptions
   # def index
   #   super

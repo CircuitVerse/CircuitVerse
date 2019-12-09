@@ -33,7 +33,7 @@ ActivityNotification.configure do |config|
 
   # Configure the e-mail address which will be shown in ActivityNotification::Mailer,
   # note that it will be overwritten if you use your own mailer class with default "from" parameter.
-  config.mailer_sender = 'please-change-me-at-config-initializers-activity_notification@example.com'
+  config.mailer_sender = 'noreply@circuitverse.org'
 
   # Configure the class responsible to send e-mails.
   # config.mailer = "ActivityNotification::Mailer"
