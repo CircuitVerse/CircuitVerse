@@ -4,7 +4,8 @@
       <h1>Configured subscriptions</h1>
     </div>
     <div class="subscriptions" id="subscriptions">
-      <%= render 'subscriptions', subscriptions: @subscriptions, option_params: @index_options %>
+      <%= render "subscriptions", subscriptions: @subscriptions, option_params: @index_options
+ %>
     </div>
   <% end %>
 
@@ -13,7 +14,8 @@
       <h1>Unconfigured notification keys</h1>
     </div>
     <div class="notification_keys" id="notification_keys">
-      <%= render 'notification_keys', target: @target, notification_keys: @notification_keys, option_params: @index_options %>
+      <%= render "notification_keys", target: @target, notification_keys: @notification_keys, option_params: @index_options
+ %>
     </div>
   <% end %>
 
@@ -21,7 +23,8 @@
     <h1>Create a new subscription</h1>
   </div>
   <div class="subscription_form" id="subscription_form">
-    <%= render 'form', target: @target, option_params: @index_options %>
+    <%= render "form", target: @target, option_params: @index_options
+ %>
   </div>
 </div>
 
@@ -185,9 +188,11 @@
       $thisFieldWrapper = $(this).parent().parent().parent().parent();
       if ($(this).prop('checked')) {
         $thisFieldWrapper.next().slideDown();
-        $thisFieldWrapper.next().find("input[type='checkbox']").prop("checked", <%= ActivityNotification.config.subscribe_as_default %>);
+        $thisFieldWrapper.next().find("input[type='checkbox']").prop("checked", <%= ActivityNotification.config.subscribe_as_default
+ %>);
         $thisFieldWrapper.next().next().slideDown();
-        $thisFieldWrapper.next().next().find("input[type='checkbox']").prop("checked", <%= ActivityNotification.config.subscribe_as_default %>);
+        $thisFieldWrapper.next().next().find("input[type='checkbox']").prop("checked", <%= ActivityNotification.config.subscribe_as_default
+ %>);
       } else {
         $thisFieldWrapper.next().slideUp();
         $thisFieldWrapper.next().next().slideUp();

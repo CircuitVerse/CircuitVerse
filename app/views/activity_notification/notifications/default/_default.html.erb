@@ -1,43 +1,78 @@
-<% content_for :notification_content, flush: true do %>
+<% content_for :notification_content, flush: true
+
+
+ do %>
   <% if notification.notifiable.present? %>
-    <div class='notification_list <%= notification.opened? ? "opened" : "unopened" %>'>
+    <div class='notification_list <%= notification.opened? ? "opened" : "unopened"
+ %>'>
       <div class="notification_list_cover"></div>
       <div class="list_image"></div>
       <div class="list_text_wrapper">
         <p class="list_text">
-          <strong><%= notification.notifier.present? ? notification.notifier.printable_notifier_name : 'Someone' %></strong>
+          <strong><%= notification.notifier.present? ? notification.notifier.printable_notifier_name : "Someone"
+ %></strong>
           <% if notification.group_member_notifier_exists? %>
-            <%= " and #{notification.group_member_notifier_count} other" %>
-            <%= notification.notifier.present? ? notification.notifier.printable_type.pluralize.downcase : 'people' %>
+            <%= " and #{notification.group_member_notifier_count} other"
+ %>
+            <%= notification.notifier.present? ? notification.notifier.printable_type.pluralize.downcase : "people"
+ %>
           <% end %>
           <% if notification.group_member_exists? %>
-            <%= " #{notification.group_notification_count} #{notification.notifiable_type.humanize.pluralize.downcase} including" %>
+            <%= " #{notification.group_notification_count} #{notification.notifiable_type.humanize.pluralize.downcase} including"
+ %>
           <% end %>
-          <%= notification.notifiable.printable_notifiable_name(notification.target) %>
-          <%= "in #{notification.group.printable_group_name}" if notification.group.present? %>
+          <%= notification.notifiable.printable_notifiable_name(notification.target)
+ %>
+          <%= "in #{notification.group.printable_group_name}" if notification.group.present?
+ %>
           <br>
-          <span><%= notification.created_at.strftime("%b %d %H:%M") %></span>
+          <span><%= notification.created_at.strftime("%b %d %H:%M")
+ %></span>
         </p>
       </div>
     </div>
   <% end %>
 <% end %>
 
-<div class='<%= "notification_#{notification.id}" %>'>
+<div class='<%= "notification_#{notification.id}"
+ %>'>
   <% if notification.unopened? %>
-    <%= link_to open_notification_path_for(notification, parameters.slice(:routing_scope, :devise_default_routes).merge(reload: false)), method: :post, remote: true, class: "unopened_wrapper" do %>
+    <%= link_to open_notification_path_for(notification, parameters.slice(:routing_scope, :devise_default_routes).merge(reload: false)), method: :post, remote: true, class: "unopened_wrapper"
+
+
+
+
+
+
+ do %>
       <div class="unopned_circle"></div>
       <div class="unopned_description_wrapper">
         <p class="unopned_description">Open</p>
       </div>
     <% end %>
-    <%= link_to open_notification_path_for(notification, parameters.slice(:routing_scope, :devise_default_routes).merge(move: true)), method: :post do %>
-      <%= yield :notification_content %>
+    <%= link_to open_notification_path_for(notification, parameters.slice(:routing_scope, :devise_default_routes).merge(move: true)), method: :post
+
+
+
+
+
+
+ do %>
+      <%= yield :notification_content
+ %>
     <% end %>
     <div class="unopened_wrapper"></div>
   <% else %>
-    <%= link_to move_notification_path_for(notification, parameters.slice(:routing_scope, :devise_default_routes)) do %>
-      <%= yield :notification_content %>
+    <%= link_to move_notification_path_for(notification, parameters.slice(:routing_scope, :devise_default_routes))
+
+
+
+
+
+
+ do %>
+      <%= yield :notification_content
+ %>
     <% end %>
   <% end %>
 

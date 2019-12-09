@@ -1,11 +1,13 @@
-<% icon_sizes = Rails.configuration.serviceworker.icon_sizes %>
+<% icon_sizes = Rails.configuration.serviceworker.icon_sizes
+ %>
 {
   "name": "CircuitVerse",
   "short_name": "CircuitVerse",
   "start_url": "/",
   "icons": [
     {
-      "src": "<%= image_path "SVGs/logo_final.svg" %>",
+      "src": "<%= image_path "SVGs/logo_final.svg"
+ %>",
       "sizes": "301x271",
       "type": "image/svg"
     }

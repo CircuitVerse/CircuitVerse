@@ -11,7 +11,8 @@ function onInstall(event) {
         // if you want to reference application.js from here
         '<%#= asset_path "application.js" %>',
 
-        '<%= asset_path "application.css" %>',
+        '<%= asset_path "application.css"
+ %>',
 
       ]);
     })
@@ -42,13 +43,13 @@ self.addEventListener("push", (event) => {
   console.log("Received message: ",body);
   // Prevent notifications being collapsed
   let tag = "circuitverse"+Math.random();
-  let icon = '<%= image_path "SVGs/logo_final.svg" %>';
+  let icon = '<%= image_path "SVGs/logo_final.svg"
+ %>';
 
   event.waitUntil(
     self.registration.showNotification(title, { body, icon, tag })
   );
 });
-
 
 // Borrowed from https://github.com/TalAter/UpUp
 function onFetch(event) {

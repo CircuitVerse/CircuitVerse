@@ -6,14 +6,12 @@ class PushSubscriptionController < ApplicationController
   # POST /push/subscription/new
   def create
     @subscription = current_user.push_subscriptions.create(push_subscription_params)
-    respond_to do |format|
-      if @subscription.save
-        format.json { render json: {
-            status: "ok"
-        }, status: :created }
-      else
-        format.json { render json: @subscription.errors, status: :unprocessable_entity }
-      end
+    if @subscription.save
+      render json: {
+          status: "ok"
+      }, status: :created
+    else
+      render json: @subscription.errors, status: :unprocessable_entity
     end
   end
 

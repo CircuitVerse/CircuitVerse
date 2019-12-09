@@ -4,7 +4,8 @@
   </div>
   <div class="fields_area">
     <div class="subscription" id="subscription">
-      <%= render 'subscription', subscription: @subscription, option_params: @index_options %>
+      <%= render "subscription", subscription: @subscription, option_params: @index_options
+ %>
     </div>
   </div>
 </div>
@@ -165,9 +166,11 @@
       $thisFieldWrapper = $(this).parent().parent().parent().parent();
       if ($(this).prop('checked')) {
         $thisFieldWrapper.next().slideDown();
-        $thisFieldWrapper.next().find("input[type='checkbox']").prop("checked", <%= ActivityNotification.config.subscribe_as_default %>);
+        $thisFieldWrapper.next().find("input[type='checkbox']").prop("checked", <%= ActivityNotification.config.subscribe_as_default
+ %>);
         $thisFieldWrapper.next().next().slideDown();
-        $thisFieldWrapper.next().next().find("input[type='checkbox']").prop("checked", <%= ActivityNotification.config.subscribe_as_default %>);
+        $thisFieldWrapper.next().next().find("input[type='checkbox']").prop("checked", <%= ActivityNotification.config.subscribe_as_default
+ %>);
       } else {
         $thisFieldWrapper.next().slideUp();
         $thisFieldWrapper.next().next().slideUp();
@@ -179,4 +182,3 @@
     })
   }
 </script>
-
