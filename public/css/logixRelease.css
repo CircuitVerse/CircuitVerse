@@ -109,4 +109,10 @@ a.btn.btn-outline-danger {
     margin-top: 10px;
 }
 
+#error_explanation{
+    color: crimson;
+    background: #cea0a5;
+    border: 1px solid #86181d;
+    padding: 4px;
+    }
 
