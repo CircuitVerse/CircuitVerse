@@ -1,17 +1,17 @@
 ---
 name: Bug report
-about: Create a report to help us improve
+about: Found a bug? Please report it here!
 title: ''
 labels: ''
 assignees: ''
 
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+**What happened?**
+Please describe all symptoms of the bug.
 
 **To Reproduce**
-Steps to reproduce the behavior:
+Please list the steps you took to get to the bug.
 1. Go to '...'
 2. Click on '....'
 3. Scroll down to '....'
