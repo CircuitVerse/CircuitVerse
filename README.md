@@ -30,7 +30,7 @@ Please go through the [Contribution Guidelines](CONTRIBUTING.md) before going fo
 
 **Note:** You might want to use the docker instructions if you do not want to setup your own environment.
 
-* Install ruby using RVM, use ruby-2.6.5
+* Install ruby using RVM, use ruby-2.6.5 (see instructions below for how to do this on Windows using WSL) 
 * Install bundler : `gem install bundler`
 * Install Dependencies: `bundle install`
 * Configure your DB in config/database.yml, copy config/database.example.yml (Note : check for postgres password and update it in place of "postgres")
@@ -94,6 +94,23 @@ Additional instructions can be found [here](https://www.howtoforge.com/tutorial/
   ```
 - If you are facing errors running the `rails db:create` ensure that the socket file(i.e mysql.sock) is present in that location.   Some possible locations where it might be present is `/run/mysqld/mysqld.sock`  or `/var/lib/mysql/mysql.sock` and mention the exact location.
 
+## Ruby setup for Windows
+
+Windows Subsystem for Linux (WSL) can be used to run a Linux instance within Windows. To setup WSL on Windows 10:
+
+* Enable developer mode (Settings > Update and Security > For Developers)
+* Enable WSL feature (Control Panel > Programs > Turn Windows Features On or Off > check the Windows Subsystem for Linux feature), wait for it to install and then restart the computer
+* Go to Windows Store and install Ubuntu (or another distribution of your choice)
+
+Once installed, open a terminal and login to your account. Run the following in order:
+
+* Update the package database: `sudo apt-get update`
+* Install rvm, Ruby Version Manager: `sudo apt install gnupg2`
+* `gpg --keyserver hkp://pool.sks-keyservers.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB` 
+* `\curl -sSL https://get.rvm.io | bash -s stable`
+* `source ~/.rvm/scripts/rvm` 
+* Install Ruby: `rvm install 2.6.5` 
+*	Install Rails: `gem install rails -v 6.0.1` 
 
 ## Production Specific Instructions
 
