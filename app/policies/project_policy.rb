@@ -29,28 +29,27 @@ class ProjectPolicy < ApplicationPolicy
     true
   end
   
-   def check_edit_access(user)
+  def check_edit_access(user)
     @user_access =
-        ((!user.nil? and self.author_id == user.id and self.project_submission != true) \
-        or (!user.nil? and Collaboration.find_by(project_id:self.id,user_id:user.id)))
-
+        ((!user.nil? && self.author_id == user.id && self.project_submission != true) \
+        || (!user.nil? && Collaboration.find_by(project_id: self.id, user_id: user.id)))
   end
   
   def check_view_access(user)
     @user_access =
         (self.project_access_type != "Private" \
-        or (!user.nil? and self.author_id==user.id) \
-        or (!user.nil? and !self.assignment_id.nil? and self.assignment.group.mentor_id==user.id) \
-        or (!user.nil? and Collaboration.find_by(project_id:self.id,user_id:user.id)) \
-        or (!user.nil? and user.admin))
+        || (!user.nil? && self.author_id == user.id) \
+        || (!user.nil? && !self.assignment_id.nil? && self.assignment.group.mentor_id == user.id) \
+        || (!user.nil? && Collaboration.find_by(project_id: self.id, user_id: user.id)) \
+        || (!user.nil? && user.admin))
   end
 
   def check_direct_view_access(user)
     @user_access =
-        (self.project_access_type == "Public" or \
-        (self.project_submission == false and  !user.nil? and self.author_id==user.id) or \
-        (!user.nil? and Collaboration.find_by(project_id:self.id,user_id:user.id)) or \
-        (!user.nil? and user.admin))
+        (self.project_access_type == "Public" || \
+        (self.project_submission == false &&  !user.nil? && self.author_id == user.id) || \
+        (!user.nil? && Collaboration.find_by(project_id: self.id, user_id: user.id)) || \
+        (!user.nil? && user.admin))
   end
 
   def embed?
