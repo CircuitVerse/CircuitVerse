@@ -1,6 +1,6 @@
 ---
 Type: Bug Report
-About: Create a report to help us improve
+About: Found a bug? Please report it here!
 Title: ''
 Labels: ''
 Assignees: ''
@@ -14,6 +14,7 @@ A clear and concise description of what the bug is.
 Describe what components (such as login buttons etc.) are affected by the bug.
 
 **Steps To Reproduce:-**<br>
+Please list the steps you took to get to the bug.<br>
 1. Go to '...'
 2. Click on '....'
 3. Scroll down to '....'
