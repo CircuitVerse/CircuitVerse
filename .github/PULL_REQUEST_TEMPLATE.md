@@ -1,18 +1,23 @@
-# Issue #<NUMBER HERE>
-
-<OVERALL SUMMARY OF PULL REQUEST>
+#### Thank you for contributing to the CircuitVerse codebase! Please fill in the relevant fields below before submitting your pull request. :) ####
 
 
-### Describe the changes you have made in this PR -
 
+**Describe the changes you have made in this PR:-** 
 
-### Flags
-- <DESCRIBE ISSUES OR HOLDS FOR REVIEWERS>
+**Related Issue:-**<br>
+If there's a related issue, please reference the issue number below.<br>
+Fixes #___
 
-### Related Issues
-- Issue #<NUMBER HERE>
-- Pull Request #<NUMBER HERE>
+**What does this PR do?**<br>
+Please enter a short summary of what you did.
 
-### Screenshots of the changes (If any) -
+**Describe the changes this PR makes.**
+Please describe all commits included in this PR and what they do.
 
+**Screenshots of the changes (If any)**
+Please include any screenshots of the changes you have made.
 
+**Checklist**
+- [ ] Changes to the relevant documentation have also been made.
+- [ ] The changes have been tested thoroughly.
+- [ ] Local tests have been run, and have passed.
