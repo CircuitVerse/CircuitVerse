@@ -11,10 +11,10 @@ Fixes #___
 **What does this PR do?**<br>
 Please enter a short summary of what you did.
 
-**Describe the changes this PR makes.**
+**Describe the changes this PR makes.**<br>
 Please describe all commits included in this PR and what they do.
 
-**Screenshots of the changes (If any)**
+**Screenshots of the changes (If any)**<br>
 Please include any screenshots of the changes you have made.
 
 **Checklist**
