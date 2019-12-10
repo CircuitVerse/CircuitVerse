@@ -6,9 +6,12 @@ Labels: ''
 Assignees: ''
 
 ---
-
+ 
 **Describe the bug**
 A clear and concise description of what the bug is.
+
+**What is affected by this bug?**
+Describe what components (such as login buttons etc.) are affected by the bug.
 
 **Steps To Reproduce**
 
