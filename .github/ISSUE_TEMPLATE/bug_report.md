@@ -8,9 +8,9 @@ assignees: ''
 ---
 
 **What happened?**
-Please describe all symptoms of the bug.
+Please provide a clear and concise description of what the bug is.
 
-**To Reproduce**
+**Steps to Reproduce**
 Please list the steps you took to get to the bug.
 1. Go to '...'
 2. Click on '....'
