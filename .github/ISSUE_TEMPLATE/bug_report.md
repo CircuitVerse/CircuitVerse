@@ -7,8 +7,8 @@ Assignees: ''
 
 ---
  
-**Describe the bug:-**<br>
-A clear and concise description of what the bug is.
+**Please describe the bug:-**<br>
+Please provide a clear and concise description of what the bug is.
 
 **What is affected by this bug?**<br>
 Describe what components (such as login buttons etc.) are affected by the bug.
