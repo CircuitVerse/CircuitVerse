@@ -2,7 +2,8 @@
 
 <br> <br>
 
-**Describe the changes you have made in this PR:-** 
+**Describe the changes you have made in this PR:-**<br> 
+A clear and concise description of what the bug is.	Please describe all symptoms of the bug.
 
 **Related Issue:-**<br>
 If there's a related issue, please reference the issue number below.<br>
