@@ -28,6 +28,30 @@ class ProjectPolicy < ApplicationPolicy
     raise @simulator_exception unless project.check_view_access(user)
     true
   end
+  
+   def check_edit_access(user)
+    @user_access =
+        ((!user.nil? and self.author_id == user.id and self.project_submission != true) \
+        or (!user.nil? and Collaboration.find_by(project_id:self.id,user_id:user.id)))
+
+  end
+  
+  def check_view_access(user)
+    @user_access =
+        (self.project_access_type != "Private" \
+        or (!user.nil? and self.author_id==user.id) \
+        or (!user.nil? and !self.assignment_id.nil? and self.assignment.group.mentor_id==user.id) \
+        or (!user.nil? and Collaboration.find_by(project_id:self.id,user_id:user.id)) \
+        or (!user.nil? and user.admin))
+  end
+
+  def check_direct_view_access(user)
+    @user_access =
+        (self.project_access_type == "Public" or \
+        (self.project_submission == false and  !user.nil? and self.author_id==user.id) or \
+        (!user.nil? and Collaboration.find_by(project_id:self.id,user_id:user.id)) or \
+        (!user.nil? and user.admin))
+  end
 
   def embed?
     raise @simulator_exception unless project.project_access_type != "Private"
