@@ -122,6 +122,8 @@ Run the following in order:
 * Install Ruby: `rvm install 2.6.5` 
 *	Install Rails: `gem install rails -v 6.0.1` 
 
+A video of an installation using these instructions can be found here https://www.youtube.com/watch?v=bFxyUjrXyIE. 
+
 You now have Ruby and Rails installed, and can continue with the rest of the instructions above as usual. 
 
 ## Production Specific Instructions
