@@ -1,4 +1,4 @@
-<h2> Feature Request <h2>
+<h2> Feature Request </h2>
 
 
 **Is the feature request related to a problem? Please describe.**<br>
