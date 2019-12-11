@@ -3,7 +3,7 @@
 <br> <br>
 
 **Describe the changes you have made in this PR:-**<br> 
-A clear and concise description of what the bug is.	Please describe all symptoms of the bug.
+Please describe all commits included in this PR and what they do.
 
 **Related Issue:-**<br>
 If there's a related issue, please reference the issue number below.<br>
@@ -11,9 +11,6 @@ Fixes #___
 
 **What does this PR do?**<br>
 Please enter a short summary of what you did.
-
-**Describe the changes this PR makes.**<br>
-Please describe all commits included in this PR and what they do.
 
 **Screenshots of the changes (If any)**<br>
 Please include any screenshots of the changes you have made.
