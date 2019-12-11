@@ -21,8 +21,8 @@ If applicable, add screenshots to help explain your problem.
 
 **System Info (please fill in the following information):-**
  
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
+ - OS: [e.g. macOS]
+ - Browser [e.g. Google Chrome, Safari]
  - Version [e.g. 22]
 
 **Additional information:-**<br>
