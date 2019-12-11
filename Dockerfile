@@ -12,6 +12,7 @@ RUN wget -qO- https://deb.nodesource.com/setup_8.x | bash - && apt-get install -
 COPY Gemfile /circuitverse/Gemfile
 COPY Gemfile.lock /circuitverse/Gemfile.lock
 
+RUN gem install bundler
 RUN bundle install  --without production
 
 
