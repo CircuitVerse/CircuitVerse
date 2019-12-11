@@ -7,6 +7,7 @@ RSpec.describe Project, type: :model do
     @user = FactoryBot.create(:user)
     group = FactoryBot.create(:group, mentor: @user)
     @assignment = FactoryBot.create(:assignment, group: group)
+    @project_policy = FactoryBot.create(:project_policy)
   end
 
   describe "associations" do
