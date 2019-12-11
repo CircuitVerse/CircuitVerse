@@ -1,21 +1,21 @@
-#### Thank you for contributing to the CircuitVerse codebase! Please fill in the relevant fields below before submitting your pull request. :) ####
+#### Thanks for contributing to the CircuitVerse codebase! Make sure to fill the relevant fields below before submitting your pull request. :) ####
 
 <br> <br>
 
-**Describe the changes you have made in this PR:-**<br> 
-A clear and concise description of what the bug is. Please describe all symptoms of the bug.
+**Describe the current issue/bug/feature.**<br> 
+A short description of issue/bug/feature.
 
-**Related Issue:-**<br>
-If there's a related issue, please reference the issue number below.<br>
+**Corresponding Issue:-**<br>
+If there's a Corresponding Issue, please reference the issue number below.<br>
 Fixes #___
 
-**What does this PR do?**<br>
-Please enter a short summary of what you did.
+**Describe the changes made in the PR**<br>
+Please give a short summary of the changes performed.
 
 **Screenshots of the changes (If any)**<br>
-Please include any screenshots of the changes you have made.
+Please include the screenshots of the changes performed.
 
-**Checklist**
+**Additonal Information**
 - [ ] Changes to the relevant documentation have also been made.
 - [ ] The changes have been tested thoroughly.
 - [ ] Local tests have been run, and have passed.
