@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <style type="text/css">
+
+  </style>
+
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,24 +30,129 @@
   </p>
   <hr>
   <p>
-    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="" data-original-title="Tooltip on left">Tooltip on left</button>
-    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Tooltip on top">Tooltip on top</button>
-    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">Tooltip on bottom</button>
-    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="Tooltip on right">Tooltip on right</button>
-  </p>
+    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="<h3>Our Management</h3>" data-html="true" data-original-title="Tooltip on left" data-content="<b>Founded in 1930, our manpower around three 
+    hundred workforce expected to expand 
+    for thousand workforce in 2021.</b>" data-trigger="hover">Our Management</button>
+
+    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="<h3>Our Projects</h3>" data-trigger="hover" data-html="true" data-content="<div><b>1. 50 Million project with colombo Hilton with refurbishment of banquet furnishing product.</b></div> <div><b>2. 20 Million project of furnishing of flooring at Ahungalle triton Hotel</b></div>">Our Projects</button>
+    
+    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="<h3>Our Clientele</h3>" data-trigger="hover" data-html="true" data-content="</div><b>1. Colombo Hilton Hotel</b></div> <div><b>2. Triton Ahungalle</b></div> <div><b>3. Colombo BMICH</b></div> <div><b>4. Surfing Hotel Maldives</b></div> <div><b>5. Mermaid Hotel Maldives</b></div>">Our Clientele</button>
+    
+    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="<h3>Product Range</h3>" data-trigger="hover" data-content="<div><b>1. Living Room</b></div> <div><b>2. Dining Room</b></div> <div><b>3. Bed Room<br></div>" data-html="true">Product Range</button>
+</p>
 
 </div>
 
 <!-- JavaScript Includes -->
-<script src="../vendor/jquery.min.js"></script>
-<script src="../../transition.js"></script>
-<script src="../../tooltip.js"></script>
+<!--<script src="../vendor/jquery.min.js"></script>-->
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript" src="tooltip.js"></script>
+<!--<script src="../../transition.js"></script>
+<script src="../../tooltip.js"></script>-->
 
 <!-- JavaScript Test -->
 <script>
-$(function () {
-  $('[data-toggle="tooltip"]').tooltip()
-})
+/*$(function () {*/
+ $('[data-toggle="tooltip"]').popover();/*.tooltip()*/
+/*})*/
+
+// [data-toggle="tooltip"]
+</script>
+
+<script>
+var buttons, i;
+
+// this.buttons[0].onmouseover;
+buttons = this.document.getElementsByTagName('button');
+
+for(i = 0; i < 4; i++) {
+  this.buttons[i].style.transitionDelay = '0s';
+  this.buttons[i].style.transitionProperty = 'all';
+  this.buttons[i].style.transitionDuration = '0.9s';
+  this.buttons[i].style.trasitionTimingFunction = 'ease';
+  this.buttons[i].style.outlineWidth = '0px';
+}
+
+this.buttons[0].onmouseover = () => {
+this.buttons[1].style.opacity = '0.2';
+this.buttons[2].style.opacity = '0.2';
+this.buttons[3].style.opacity = '0.2';
+// this.buttons[0].style.backgroundColor = 'springgreen';
+}
+
+// this.buttons[0].onmouseout;
+this.buttons[0].onmouseout = () => {
+this.buttons[1].style.opacity = '';
+this.buttons[2].style.opacity = '';
+this.buttons[3].style.opacity = '';
+// this.buttons[0].style.backgroundColor = '';
+}
+
+// this.buttons[1].onmouseover;
+this.buttons[1].onmouseover = () => {
+this.buttons[0].style.opacity = '0.2';
+this.buttons[2].style.opacity = '0.2';
+this.buttons[3].style.opacity = '0.2';
+}
+
+// this.buttons[1].onmouseout;
+this.buttons[1].onmouseout = () => {
+this.buttons[0].style.opacity = '';
+this.buttons[2].style.opacity = '';
+this.buttons[3].style.opacity = '';
+}
+
+// this.button[2].onmouseover;
+this.buttons[2].onmouseover = () => {
+this.buttons[0].style.opacity = '0.2';
+this.buttons[1].style.opacity = '0.2';
+this.buttons[3].style.opacity = '0.2';
+}
+
+// this.buttons[2].onmouseout;
+this.buttons[2].onmouseout = () => {
+this.buttons[0].style.opacity = '';
+this.buttons[1].style.opacity = '';
+this.buttons[3].style.opacity = '';
+}
+
+// this.buttons[3].onmouseover;
+this.buttons[3].onmouseover = () => {
+this.buttons[0].style.opacity = '0.2';
+this.buttons[1].style.opacity = '0.2';
+this.buttons[2].style.opacity = '0.2';
+}
+
+// this.buttons[3].onmouseout;
+this.buttons[3].onmouseout = () => {
+this.buttons[0].style.opacity = '';
+this.buttons[1].style.opacity = '';
+this.buttons[2].style.opacity = '';
+}
+/*for(i = 0; i < 4; i++) {
+  this.buttons[i].onmouseover = (arg) => {
+    this.buttons[0].style.backgroundColor = 'tomato';
+  }
+  if(i === 1) {
+    this.buttons[i].onmouseover = (arg) => {
+    this.buttons[1].style.backgroundColor = 'tomato';
+    }
+  }
+  else if(i === 2) {
+    this.buttons[i].onmouseover = (arg) => {
+      this.buttons[2].style.backgroundColor = 'tomato';
+    }
+  }
+  else if(i === 3) {
+    this.buttons[i].onmouseover = (arg) => {
+      this.buttons[3].style.opacity = '0.5';
+    }
+  }
+  else {
+    // doNothing;
+  }
+}*/
+
 </script>
 
 </body>
