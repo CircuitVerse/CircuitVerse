@@ -11,8 +11,6 @@
 #label em {
   color:red;
 }
-
-
 </style>
 
 </head>
@@ -39,15 +37,13 @@
     <div class="field">
       <p id='label'>Grading Scale <em>* Cannot be changed once set<em> </p>
       <%= form.select :grading_scale, [:no_scale, :letter, :percent, :custom]%>
-      <span style="margin-bottom: 2px">
-        <div class="tooltip-help assignment-tooltip"> Help
-          <div class="right-help">
+      <span >
+        <div class="tooltip-help2 assignment-tooltip2" style="padding-bottom:8px"> 
             <div> <span style="font-style: italic; font-weight:bold;"> Percent </span>: Assignment can be graded on a scale of 1-100 </div>
             <div> <span style="font-style: italic; font-weight:bold;"> Letter </span>: Assignment can be graded with letters A-F </div>
             <div> <span style="font-style: italic; font-weight:bold;"> No_scale </span>: Assignment will not be graded </div>
             <div> <span style="font-style: italic; font-weight:bold;"> Custom </span>: Assignment can be graded as required </div>
             <i> </i>
-          </div>
         </div>
       </span>
     </div>
@@ -59,7 +55,7 @@
 
   <div class="field">
     <%= form.label :deadline %>
-    <input type="datetime-local" name="assignment[deadline]" min="<%= Time.now.strftime("%Y-%m-%dT%H:%M")%>" value="<%= assignment.deadline.strftime("%Y-%m-%dT%H:%M")%>">
+    <input type="datetime-local" name="assignment[deadline-date]" min="<%= Time.now.strftime("%Y-%m-%dT%H:%M")%>" value="<%= assignment.deadline.strftime("%Y-%m-%dT%H:%M")%>">
   </div>
 
 
@@ -79,7 +75,7 @@
   <div class="actions">
     <%= form.submit %>
   </div>
-  <% end %>
+  <% end %> 
 
 <script src="/js/time.js"></script>
 <script type="text/javascript" src="/js/restrict_elements.js"></script>
