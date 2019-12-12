@@ -3,7 +3,7 @@
 **What Happened?**<br>
 Please provide a clear and concise description of what the bug is.
 
-**Is this the first time you are experincing this issue?**<br>
+**Is this the first time you are experiencing this issue?**<br>
 Please explain if this bug is new, or existed earlier. 
 
 **What is affected by this bug?**<br>
