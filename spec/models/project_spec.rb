@@ -7,6 +7,7 @@ RSpec.describe Project, type: :model do
     @user = FactoryBot.create(:user)
     group = FactoryBot.create(:group, mentor: @user)
     @assignment = FactoryBot.create(:assignment, group: group)
+    @project_policy = FactoryBot.create(:project_policy)
   end
 
   describe "associations" do
@@ -50,25 +51,25 @@ RSpec.describe Project, type: :model do
 
       describe "#check_edit_access #check_view_access #check_direct_view_access" do
         it "returns true for author" do
-          expect(@project.check_edit_access(@user)).to be_truthy
-          expect(@project.check_view_access(@user)).to be_truthy
-          expect(@project.check_direct_view_access(@user)).to be_truthy
+          expect(@project_policy.check_edit_access(@user)).to be_truthy
+          expect(@project_policy.check_view_access(@user)).to be_truthy
+          expect(@project_policy.check_direct_view_access(@user)).to be_truthy
         end
 
         it "returns true for collaborator" do
           collaborator = FactoryBot.create(:user)
           FactoryBot.create(:collaboration, project: @project, user: collaborator)
 
-          expect(@project.check_edit_access(collaborator)).to be_truthy
-          expect(@project.check_view_access(collaborator)).to be_truthy
-          expect(@project.check_direct_view_access(collaborator)).to be_truthy
+          expect(@project_policy.check_edit_access(collaborator)).to be_truthy
+          expect(@project_policy.check_view_access(collaborator)).to be_truthy
+          expect(@project_policy.check_direct_view_access(collaborator)).to be_truthy
         end
 
         it "returns false otherwise" do
           user = FactoryBot.create(:user)
-          expect(@project.check_edit_access(user)).to be_falsey
-          expect(@project.check_view_access(user)).to be_falsey
-          expect(@project.check_direct_view_access(user)).to be_falsey
+          expect(@project_policy.check_edit_access(user)).to be_falsey
+          expect(@project_policy.check_view_access(user)).to be_falsey
+          expect(@project_policy.check_direct_view_access(user)).to be_falsey
         end
       end
     end
@@ -93,8 +94,8 @@ RSpec.describe Project, type: :model do
 
       describe "#check_edit_access #check_direct_view_access" do
         it "returns false for edit and direct_view access" do
-          expect(@project.check_edit_access(@user)).to be_falsey
-          expect(@project.check_direct_view_access(@user)).to be_falsey
+          expect(@project_policy.check_edit_access(@user)).to be_falsey
+          expect(@project_policy.check_direct_view_access(@user)).to be_falsey
         end
       end
     end
