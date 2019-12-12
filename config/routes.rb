@@ -30,7 +30,7 @@ Rails.application.routes.draw do
 
   get '/search', to: "search#search"
 
-  get '/about', to: "about#about"
+  get '/about', to: "about#index"
 
   scope '/groups' do
     get '/:id/assignments/WYSIWYG/index.css', to: redirect('/index.css')
