@@ -55,7 +55,7 @@
 
   <div class="field">
     <%= form.label :deadline %>
-    <input type="datetime-local" name="assignment[deadline-date]" min="<%= Time.now.strftime("%Y-%m-%dT%H:%M")%>" value="<%= assignment.deadline.strftime("%Y-%m-%dT%H:%M")%>">
+    <input type="datetime-local" name="assignment[deadline]" min="<%= Time.now.strftime("%Y-%m-%dT%H:%M")%>" value="<%= assignment.deadline.strftime("%Y-%m-%dT%H:%M")%>">
   </div>
 
 
