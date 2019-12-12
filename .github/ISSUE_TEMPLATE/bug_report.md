@@ -1,7 +1,10 @@
 <h2> Bug Report </h2>
  
-**Description of the bug:-**<br>
+**What Happened?**<br>
 Please provide a clear and concise description of what the bug is.
+
+**Is this the first time you are experincing this issue?**<br>
+Please explain if this bug is new, or existed earlier. 
 
 **What is affected by this bug?**<br>
 Describe what components (such as login buttons etc.) are affected by the bug.
