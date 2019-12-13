@@ -30,47 +30,45 @@ RSpec.describe Project, type: :model do
   end
 
   describe "public methods" do
-    describe ProjectPolicy do
-      subject(){ ProjectPolicy.new(user, project) }
-      context "project submission is false" do
-        before do
-          @project = FactoryBot.create(
-            :project,
-            assignment: @assignment,
-            author: @user,
-            project_submission: false
-          )
+    @project_policy = ProjectPolicy.new(user, project)
+    context "project submission is false" do
+      before do
+        @project = FactoryBot.create(
+          :project,
+          assignment: @assignment,
+          author: @user,
+          project_submission: false
+        )
+      end
+
+      describe "#send_mail" do
+        it "sends new project mail" do
+          expect {
+            @project.send_mail
+          }.to have_enqueued_job.on_queue("mailers")
+        end
+      end
+
+      describe "#check_edit_access #check_view_access #check_direct_view_access" do
+        it "returns true for author" do
+          expect(@project_policy.check_edit_access(@user)).to be_truthy
+          expect(@project_policy.check_view_access(@user)).to be_truthy
+          expect(@project_policy.check_direct_view_access(@user)).to be_truthy
         end
 
-        describe "#send_mail" do
-          it "sends new project mail" do
-            expect {
-              @project.send_mail
-            }.to have_enqueued_job.on_queue("mailers")
-          end
+        it "returns true for collaborator" do
+          collaborator = FactoryBot.create(:user)
+          FactoryBot.create(:collaboration, project: @project, user: collaborator)
+          expect(@project_policy.check_edit_access(collaborator)).to be_truthy
+          expect(@project_policy.check_view_access(collaborator)).to be_truthy
+          expect(@project_policy.check_direct_view_access(collaborator)).to be_truthy
         end
 
-        describe "#check_edit_access #check_view_access #check_direct_view_access" do
-          it "returns true for author" do
-            expect(ProjectPolicy.check_edit_access(@user)).to be_truthy
-            expect(ProjectPolicy.check_view_access(@user)).to be_truthy
-            expect(ProjectPolicy.check_direct_view_access(@user)).to be_truthy
-          end
-
-          it "returns true for collaborator" do
-            collaborator = FactoryBot.create(:user)
-            FactoryBot.create(:collaboration, project: @project, user: collaborator)
-            expect(ProjectPolicy.check_edit_access(collaborator)).to be_truthy
-            expect(ProjectPolicy.check_view_access(collaborator)).to be_truthy
-            expect(ProjectPolicy.check_direct_view_access(collaborator)).to be_truthy
-          end
-
-          it "returns false otherwise" do
-            user = FactoryBot.create(:user)
-            expect(ProjectPolicy.check_edit_access(user)).to be_falsey
-            expect(ProjectPolicy.check_view_access(user)).to be_falsey
-            expect(ProjectPolicy.check_direct_view_access(user)).to be_falsey
-          end
+        it "returns false otherwise" do
+          user = FactoryBot.create(:user)
+          expect(@project_policy.check_edit_access(user)).to be_falsey
+          expect(@project_policy.check_view_access(user)).to be_falsey
+          expect(@project_policy.check_direct_view_access(user)).to be_falsey
         end
       end
     end
