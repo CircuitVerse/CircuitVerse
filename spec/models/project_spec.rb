@@ -30,7 +30,6 @@ RSpec.describe Project, type: :model do
   end
 
   describe "public methods" do
-    @project_policy = ProjectPolicy.new(@user, project)
     context "project submission is false" do
       before do
         @project = FactoryBot.create(
@@ -40,6 +39,7 @@ RSpec.describe Project, type: :model do
           project_submission: false
         )
       end
+      @project_policy = ProjectPolicy.new(@user, @project)
 
       describe "#send_mail" do
         it "sends new project mail" do
