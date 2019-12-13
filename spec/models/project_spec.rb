@@ -51,9 +51,9 @@ RSpec.describe Project, type: :model do
 
       describe "#check_edit_access #check_view_access #check_direct_view_access" do
         it "returns true for author" do
-          expect(@project_policy.check_edit_access(@user)).to be_truthy
-          expect(@project_policy.check_view_access(@user)).to be_truthy
-          expect(@project_policy.check_direct_view_access(@user)).to be_truthy
+          expect(@project_policy.check_edit_access(user)).to be_truthy
+          expect(@project_policy.check_view_access(user)).to be_truthy
+          expect(@project_policy.check_direct_view_access(user)).to be_truthy
         end
 
         it "returns true for collaborator" do
@@ -93,8 +93,8 @@ RSpec.describe Project, type: :model do
 
       describe "#check_edit_access #check_direct_view_access" do
         it "returns false for edit and direct_view access" do
-          #expect(@project_policy.check_edit_access(@user)).to be_falsey
-          #expect(@project_policy.check_direct_view_access(@user)).to be_falsey
+          expect(@project_policy.check_edit_access(user)).to be_falsey
+          expect(@project_policy.check_direct_view_access(user)).to be_falsey
         end
       end
     end
