@@ -30,6 +30,8 @@ Rails.application.routes.draw do
 
   get '/search', to: "search#search"
 
+  resources :about, only: :index
+
   scope '/groups' do
     get '/:id/assignments/WYSIWYG/index.css', to: redirect('/index.css')
     get '/:id/assignments/WYSIWYG/bootstrap-wysiwyg.js', to: redirect('/bootstrap-wysiwyg.js')
@@ -52,7 +54,6 @@ Rails.application.routes.draw do
   get  '/gettingStarted', to:'logix#gettingStarted'
   get  '/examples', to:'logix#examples'
   get  '/features', to:'logix#features'
-  get  '/about', to:'logix#about'
   get  '/privacy', to:'logix#privacy'
   get  '/tos', to:'logix#tos'
   get  '/teachers', to:'logix#teachers'
