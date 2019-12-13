@@ -15,29 +15,6 @@ class ProjectPolicy < ApplicationPolicy
     user.present? && user.admin? && project.project_access_type == "Public"
   end
   
-  def check_edit_access(user)
-    @user_access =
-        ((!user.nil? && project.author_id == user.id && project.project_submission != true) \
-        || (!user.nil? && Collaboration.find_by(project_id: project.id, user_id: user.id)))
-  end
-  
-  def check_view_access(user)
-    @user_access =
-        (project.project_access_type != "Private" \
-        || (!user.nil? && project.author_id == user.id) \
-        || (!user.nil? && !project.assignment_id.nil? && project.assignment.group.mentor_id == user.id) \
-        || (!user.nil? && Collaboration.find_by(project_id: project.id, user_id: user.id)) \
-        || (!user.nil? && user.admin))
-  end
-
-  def check_direct_view_access(user)
-    @user_access =
-        (project.project_access_type == "Public" || \
-        (project.project_submission == false &&  !user.nil? && project.author_id == user.id) || \
-        (!user.nil? && Collaboration.find_by(project_id: project.id, user_id: user.id)) || \
-        (!user.nil? && user.admin))
-  end
-  
   def user_access?
     check_edit_access(user) || (user.present? && user.admin?)
   end
