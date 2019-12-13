@@ -7,7 +7,6 @@ RSpec.describe Project, type: :model do
     @user = FactoryBot.create(:user)
     group = FactoryBot.create(:group, mentor: @user)
     @assignment = FactoryBot.create(:assignment, group: group)
-    @project_policy = Project.new
   end
 
   describe "associations" do
@@ -31,47 +30,49 @@ RSpec.describe Project, type: :model do
   end
 
   describe "public methods" do
-    context "project submission is false" do
-      before do
-        @project = FactoryBot.create(
-          :project,
-          assignment: @assignment,
-          author: @user,
-          project_submission: false
-        )
-      end
-
-      describe "#send_mail" do
-        it "sends new project mail" do
-          expect {
-            @project.send_mail
-          }.to have_enqueued_job.on_queue("mailers")
-        end
-      end
-
-      describe "#check_edit_access #check_view_access #check_direct_view_access" do
-        it "returns true for author" do
-          authorize @project_policy
-          expect(@project_policy.check_edit_access(@user)).to be_truthy
-          expect(@project_policy.check_view_access(@user)).to be_truthy
-          expect(@project_policy.check_direct_view_access(@user)).to be_truthy
+    describe ProjectPolicy do
+      context "project submission is false" do
+        before do
+          @project = FactoryBot.create(
+            :project,
+            assignment: @assignment,
+            author: @user,
+            project_submission: false
+          )
         end
 
-        it "returns true for collaborator" do
-          collaborator = FactoryBot.create(:user)
-          FactoryBot.create(:collaboration, project: @project, user: collaborator)
-          authorize @project_policy
-          expect(@project_policy.check_edit_access(collaborator)).to be_truthy
-          expect(@project_policy.check_view_access(collaborator)).to be_truthy
-          expect(@project_policy.check_direct_view_access(collaborator)).to be_truthy
+        describe "#send_mail" do
+          it "sends new project mail" do
+            expect {
+              @project.send_mail
+            }.to have_enqueued_job.on_queue("mailers")
+          end
         end
 
-        it "returns false otherwise" do
-          user = FactoryBot.create(:user)
-          authorize @project_policy
-          expect(@project_policy.check_edit_access(user)).to be_falsey
-          expect(@project_policy.check_view_access(user)).to be_falsey
-          expect(@project_policy.check_direct_view_access(user)).to be_falsey
+        describe "#check_edit_access #check_view_access #check_direct_view_access" do
+          it "returns true for author" do
+            authorize @project_policy
+            expect(@project_policy.check_edit_access(@user)).to be_truthy
+            expect(@project_policy.check_view_access(@user)).to be_truthy
+            expect(@project_policy.check_direct_view_access(@user)).to be_truthy
+          end
+
+          it "returns true for collaborator" do
+            collaborator = FactoryBot.create(:user)
+            FactoryBot.create(:collaboration, project: @project, user: collaborator)
+            authorize @project_policy
+            expect(@project_policy.check_edit_access(collaborator)).to be_truthy
+            expect(@project_policy.check_view_access(collaborator)).to be_truthy
+            expect(@project_policy.check_direct_view_access(collaborator)).to be_truthy
+          end
+
+          it "returns false otherwise" do
+            user = FactoryBot.create(:user)
+            authorize @project_policy
+            expect(@project_policy.check_edit_access(user)).to be_falsey
+            expect(@project_policy.check_view_access(user)).to be_falsey
+            expect(@project_policy.check_direct_view_access(user)).to be_falsey
+          end
         end
       end
     end
