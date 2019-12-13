@@ -15,13 +15,13 @@ class ProjectPolicy < ApplicationPolicy
     user.present? && user.admin? && project.project_access_type == "Public"
   end
   
-  def self.check_edit_access(user)
+  def check_edit_access(user)
     @user_access =
         ((!user.nil? && project.author_id == user.id && project.project_submission != true) \
         || (!user.nil? && Collaboration.find_by(project_id: project.id, user_id: user.id)))
   end
   
-  def self.check_view_access(user)
+  def check_view_access(user)
     @user_access =
         (project.project_access_type != "Private" \
         || (!user.nil? && project.author_id == user.id) \
@@ -30,7 +30,7 @@ class ProjectPolicy < ApplicationPolicy
         || (!user.nil? && user.admin))
   end
 
-  def self.check_direct_view_access(user)
+  def check_direct_view_access(user)
     @user_access =
         (project.project_access_type == "Public" || \
         (project.project_submission == false &&  !user.nil? && project.author_id == user.id) || \
