@@ -31,7 +31,7 @@ RSpec.describe Project, type: :model do
 
   describe "public methods" do
     describe ProjectPolicy do
-      subject(:projPolicy){ ProjectPolicy.new(user, project) }
+      subject(){ ProjectPolicy.new(user, project) }
       context "project submission is false" do
         before do
           @project = FactoryBot.create(
@@ -52,24 +52,24 @@ RSpec.describe Project, type: :model do
 
         describe "#check_edit_access #check_view_access #check_direct_view_access" do
           it "returns true for author" do
-            expect(@projPolicy.check_edit_access(@user)).to be_truthy
-            expect(@projPolicy.check_view_access(@user)).to be_truthy
-            expect(@projPolicy.check_direct_view_access(@user)).to be_truthy
+            expect(ProjectPolicy.check_edit_access(@user)).to be_truthy
+            expect(ProjectPolicy.check_view_access(@user)).to be_truthy
+            expect(ProjectPolicy.check_direct_view_access(@user)).to be_truthy
           end
 
           it "returns true for collaborator" do
             collaborator = FactoryBot.create(:user)
             FactoryBot.create(:collaboration, project: @project, user: collaborator)
-            expect(@projPolicy.check_edit_access(collaborator)).to be_truthy
-            expect(@projPolicy.check_view_access(collaborator)).to be_truthy
-            expect(@projPolicy.check_direct_view_access(collaborator)).to be_truthy
+            expect(ProjectPolicy.check_edit_access(collaborator)).to be_truthy
+            expect(ProjectPolicy.check_view_access(collaborator)).to be_truthy
+            expect(ProjectPolicy.check_direct_view_access(collaborator)).to be_truthy
           end
 
           it "returns false otherwise" do
             user = FactoryBot.create(:user)
-            expect(@projPolicy.check_edit_access(user)).to be_falsey
-            expect(@projPolicy.check_view_access(user)).to be_falsey
-            expect(@projPolicy.check_direct_view_access(user)).to be_falsey
+            expect(ProjectPolicy.check_edit_access(user)).to be_falsey
+            expect(ProjectPolicy.check_view_access(user)).to be_falsey
+            expect(ProjectPolicy.check_direct_view_access(user)).to be_falsey
           end
         end
       end
