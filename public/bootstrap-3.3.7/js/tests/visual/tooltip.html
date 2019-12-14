@@ -2,12 +2,13 @@
 <html>
 <head>
   <style type="text/css">
-
   </style>
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,target-densitydpi=device-dpi, user-scalable=no" />-->
+    
   <title>Tooltip</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -26,19 +27,19 @@
     <h1>Tooltip <small>Bootstrap Visual Test</small></h1>
   </div>
 
-  <p class="muted" style="margin-bottom: 0;">Tight pants next level keffiyeh <a href="#" data-toggle="tooltip" title="" data-original-title="Default tooltip">you probably</a> haven't heard of them. Photo booth beard raw denim letterpress vegan messenger bag stumptown. Farm-to-table seitan, mcsweeney's fixie sustainable quinoa 8-bit american apparel <a href="#" data-toggle="tooltip" title="" data-original-title="Another tooltip">have a</a> terry richardson vinyl chambray. Beard stumptown, cardigans banh mi lomo thundercats. Tofu biodiesel williamsburg marfa, four loko mcsweeney's cleanse vegan chambray. A really ironic artisan <a href="#" data-toggle="tooltip" title="" data-original-title="Another one here too">whatever keytar</a>, scenester farm-to-table banksy Austin <a href="#" data-toggle="tooltip" title="" data-original-title="The last tip!">twitter handle</a> freegan cred raw denim single-origin coffee viral.
+  <p class="muted" style="margin-bottom: 0;">Tight pants next level keffiyeh <a href="#" data-toggle="tooltip" title="Raw materials" data-original-title="Default tooltip" data-trigger="hover" data-placement="bottom">you probably</a> haven't heard of them. Photo booth beard raw denim letterpress vegan messenger bag stumptown. Farm-to-table seitan, mcsweeney's fixie sustainable quinoa 8-bit american apparel <a href="#" data-toggle="tooltip" title="Specific" data-original-title="Another tooltip" data-trigger="hover" data-placement="bottom">have a</a> terry richardson vinyl chambray. Beard stumptown, cardigans banh mi lomo thundercats. Tofu biodiesel williamsburg marfa, four loko mcsweeney's cleanse vegan chambray. A really ironic artisan <a href="#" data-toggle="tooltip" title="International brand" data-original-title="Another one here too" data-trigger="hover" data-placement="bottom">whatever keytar</a>, scenester farm-to-table banksy Austin <a href="#" data-toggle="tooltip" title="The posh and images" data-original-title="The last tip!" data-trigger="hover" data-placement="bottom">twitter handle</a> freegan cred raw denim single-origin coffee viral.
   </p>
   <hr>
   <p>
-    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="<h3>Our Management</h3>" data-html="true" data-original-title="Tooltip on left" data-content="<b>Founded in 1930, our manpower around three 
+    <button type="button" class="btn btn-default" data-toggle="popover" data-placement="bottom" title="<h3>Our Management</h3>" data-html="true" data-original-title="Tooltip on left" data-content="<b>Founded in 1930, our manpower around three 
     hundred workforce expected to expand 
     for thousand workforce in 2021.</b>" data-trigger="hover">Our Management</button>
 
-    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="<h3>Our Projects</h3>" data-trigger="hover" data-html="true" data-content="<div><b>1. 50 Million project with colombo Hilton with refurbishment of banquet furnishing product.</b></div> <div><b>2. 20 Million project of furnishing of flooring at Ahungalle triton Hotel</b></div>">Our Projects</button>
+    <button type="button" class="btn btn-default" data-toggle="popover" data-placement="bottom" title="<h3>Our Projects</h3>" data-trigger="hover" data-html="true" data-content="<div><b>1. 50 Million project with colombo Hilton with refurbishment of banquet furnishing product.</b></div> <div><b>2. 20 Million project of furnishing of flooring at Ahungalle triton Hotel</b></div>">Our Projects</button>
     
-    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="<h3>Our Clientele</h3>" data-trigger="hover" data-html="true" data-content="</div><b>1. Colombo Hilton Hotel</b></div> <div><b>2. Triton Ahungalle</b></div> <div><b>3. Colombo BMICH</b></div> <div><b>4. Surfing Hotel Maldives</b></div> <div><b>5. Mermaid Hotel Maldives</b></div>">Our Clientele</button>
+    <button type="button" class="btn btn-default" data-toggle="popover" data-placement="bottom" title="<h3>Our Clientele</h3>" data-trigger="hover" data-html="true" data-content="<div><b>1. Colombo Hilton Hotel</b></div> <div><b>2. Triton Ahungalle</b></div> <div><b>3. Colombo BMICH</b></div> <div><b>4. Surfing Hotel Maldives</b></div> <div><b>5. Mermaid Hotel Maldives</b></div>">Our Clientele</button>
     
-    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="<h3>Product Range</h3>" data-trigger="hover" data-content="<div><b>1. Living Room</b></div> <div><b>2. Dining Room</b></div> <div><b>3. Bed Room<br></div>" data-html="true">Product Range</button>
+    <button type="button" class="btn btn-default" data-toggle="popover" data-placement="bottom" title="<h3>Product Range</h3>" data-trigger="hover" data-content="<div><b>1. Living Room</b></div> <div><b>2. Dining Room</b></div> <div><b>3. Bed Room<br></div>" data-html="true">Product Range</button>
 </p>
 
 </div>
@@ -46,114 +47,20 @@
 <!-- JavaScript Includes -->
 <!--<script src="../vendor/jquery.min.js"></script>-->
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script type="text/javascript" src="tooltip.js"></script>
+<script type="text/javascript" src="https://www.creative-tim.com/assets/creative-tim/creative-tim-product-page-e13479ad985cb12dd6250720fad7d4ee1107588d8dcbc867d0da0ed221e25e9d.js"></script>
 <!--<script src="../../transition.js"></script>
 <script src="../../tooltip.js"></script>-->
 
 <!-- JavaScript Test -->
 <script>
 /*$(function () {*/
- $('[data-toggle="tooltip"]').popover();/*.tooltip()*/
+ $('[data-toggle="popover"]').popover();/*.tooltip()*/
+ $('[data-toggle="tooltip"]').tooltip();
 /*})*/
 
 // [data-toggle="tooltip"]
 </script>
-
-<script>
-var buttons, i;
-
-// this.buttons[0].onmouseover;
-buttons = this.document.getElementsByTagName('button');
-
-for(i = 0; i < 4; i++) {
-  this.buttons[i].style.transitionDelay = '0s';
-  this.buttons[i].style.transitionProperty = 'all';
-  this.buttons[i].style.transitionDuration = '0.9s';
-  this.buttons[i].style.trasitionTimingFunction = 'ease';
-  this.buttons[i].style.outlineWidth = '0px';
-}
-
-this.buttons[0].onmouseover = () => {
-this.buttons[1].style.opacity = '0.2';
-this.buttons[2].style.opacity = '0.2';
-this.buttons[3].style.opacity = '0.2';
-// this.buttons[0].style.backgroundColor = 'springgreen';
-}
-
-// this.buttons[0].onmouseout;
-this.buttons[0].onmouseout = () => {
-this.buttons[1].style.opacity = '';
-this.buttons[2].style.opacity = '';
-this.buttons[3].style.opacity = '';
-// this.buttons[0].style.backgroundColor = '';
-}
-
-// this.buttons[1].onmouseover;
-this.buttons[1].onmouseover = () => {
-this.buttons[0].style.opacity = '0.2';
-this.buttons[2].style.opacity = '0.2';
-this.buttons[3].style.opacity = '0.2';
-}
-
-// this.buttons[1].onmouseout;
-this.buttons[1].onmouseout = () => {
-this.buttons[0].style.opacity = '';
-this.buttons[2].style.opacity = '';
-this.buttons[3].style.opacity = '';
-}
-
-// this.button[2].onmouseover;
-this.buttons[2].onmouseover = () => {
-this.buttons[0].style.opacity = '0.2';
-this.buttons[1].style.opacity = '0.2';
-this.buttons[3].style.opacity = '0.2';
-}
-
-// this.buttons[2].onmouseout;
-this.buttons[2].onmouseout = () => {
-this.buttons[0].style.opacity = '';
-this.buttons[1].style.opacity = '';
-this.buttons[3].style.opacity = '';
-}
-
-// this.buttons[3].onmouseover;
-this.buttons[3].onmouseover = () => {
-this.buttons[0].style.opacity = '0.2';
-this.buttons[1].style.opacity = '0.2';
-this.buttons[2].style.opacity = '0.2';
-}
-
-// this.buttons[3].onmouseout;
-this.buttons[3].onmouseout = () => {
-this.buttons[0].style.opacity = '';
-this.buttons[1].style.opacity = '';
-this.buttons[2].style.opacity = '';
-}
-/*for(i = 0; i < 4; i++) {
-  this.buttons[i].onmouseover = (arg) => {
-    this.buttons[0].style.backgroundColor = 'tomato';
-  }
-  if(i === 1) {
-    this.buttons[i].onmouseover = (arg) => {
-    this.buttons[1].style.backgroundColor = 'tomato';
-    }
-  }
-  else if(i === 2) {
-    this.buttons[i].onmouseover = (arg) => {
-      this.buttons[2].style.backgroundColor = 'tomato';
-    }
-  }
-  else if(i === 3) {
-    this.buttons[i].onmouseover = (arg) => {
-      this.buttons[3].style.opacity = '0.5';
-    }
-  }
-  else {
-    // doNothing;
-  }
-}*/
-
-</script>
+<script type="text/javascript" src="functions.js"></script>
 
 </body>
 </html>
