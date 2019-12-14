@@ -55,7 +55,7 @@ window.buttons[0].style.opacity = '0.2';
 window.buttons[2].style.opacity = '0.2';
 window.buttons[3].style.opacity = '0.2';
 window.buttons[1].style.backgroundColor = 'springgreen';
-window.body.backgroundImage = 'url(\'paper1.jpg\')'
+window.body.backgroundImage = 'url(\'paper1.jpg\')';
 };
 
 // this.buttons[1].onmouseout;
@@ -211,7 +211,7 @@ window.buttons[0].style.opacity = '0.2';
 window.buttons[2].style.opacity = '0.2';
 window.buttons[3].style.opacity = '0.2';
 window.buttons[1].style.backgroundColor = 'springgreen';
-window.body.backgroundImage = 'url(\'paper1.jpg\')'
+window.body.backgroundImage = 'url(\'paper1.jpg\')';
 };
 
 // this.buttons[1].onmouseout;
