@@ -44,7 +44,7 @@ verilog={
         output+=this.generateInputList(scope);
         output+=this.generateOutputList(scope);
         var res=this.processGraph(scope);
-        for (bitWidth in scope.verilogWireList){
+        for (var bitWidth in scope.verilogWireList){
             if(bitWidth==1)
                 output+="wire "+ scope.verilogWireList[bitWidth].join(",") + ";\n";
             else
@@ -68,7 +68,7 @@ verilog={
             }
         }
         var stepCount = 0;
-        var elem = undefined;
+        var elem;
 
         var order=[];
 
@@ -91,7 +91,7 @@ verilog={
                 return;
             }
         }
-        for(var i=0;i<order.length;i++)
+        for(i = 0;i<order.length;i++)
             res += order[i].generateVerilog() + "\n";
         return res;
     },
@@ -101,32 +101,33 @@ verilog={
             scope.allNodes[i].verilogLabel="";
         }
     },
-    getReady: function(scope=globalScope){
-        for(var i=0;i<scope.Input.length;i++){
+    getReady: function(scope){
+        scope = globalScope;
+        for(i = 0;i<scope.Input.length;i++){
             if(scope.Input[i].label=="")
                 scope.Input[i].label="Inp_"+i;
             else
-                scope.Input[i].label=this.fixName(scope.Input[i].label)
+                scope.Input[i].label=this.fixName(scope.Input[i].label);
 
             scope.Input[i].output1.verilogLabel=scope.Input[i].label;
         }
 
-        for(var i=0;i<scope.ConstantVal.length;i++){
+        for(i = 0;i<scope.ConstantVal.length;i++){
             if(scope.ConstantVal[i].label=="")
                 scope.ConstantVal[i].label="Constant_"+i;
             else
-                scope.ConstantVal[i].label=this.fixName(scope.ConstantVal[i].label)
+                scope.ConstantVal[i].label=this.fixName(scope.ConstantVal[i].label);
 
             scope.ConstantVal[i].output1.verilogLabel=scope.ConstantVal[i].label;
         }
-        for(var i=0;i<scope.Output.length;i++){
+        for(i = 0;i<scope.Output.length;i++){
             if(scope.Output[i].label=="")
                 scope.Output[i].label="Out_"+i;
             else
-                scope.Output[i].label=this.fixName(scope.Output[i].label)
+                scope.Output[i].label=this.fixName(scope.Output[i].label);
         }
 
-        for(var i=0;i<moduleList.length;i++){
+        for(i = 0;i<moduleList.length;i++){
             var m = moduleList[i];
             for(var j=0;j<scope[m].length;j++){
                 scope[m][j].verilogLabel = this.fixName(scope[m][j].label) || (scope[m][j].verilogName()+"_"+j);
@@ -134,12 +135,13 @@ verilog={
         }
 
     },
-    generateHeader:function(scope=globalScope){
-        return "module "+this.fixName(scope.name)+" (" + scope.Input.map(function(x){return x.label}).join(",") + ","+scope.Output.map(function(x){return x.label}).join(",")  +");\n";
+    generateHeader:function(scope){
+        scope = globalScope;
+        return "module " + this.fixName(scope.name)+" (" + scope.Input.map(function(x){return x.label}).join(",") + ","+scope.Output.map(function(x){return x.label}).join(",")  +");\n";
     },
-    generateInputList:function(scope=globalScope){
-
-        var inputs={}
+    generateInputList:function(scope){
+        scope = globalScope;
+        var inputs={};
         for(var i=0;i<scope.Input.length;i++){
             if(inputs[scope.Input[i].bitWidth])
                 inputs[scope.Input[i].bitWidth].push(scope.Input[i].label);
@@ -147,7 +149,7 @@ verilog={
                 inputs[scope.Input[i].bitWidth] = [scope.Input[i].label];
         }
         var res="";
-        for (bitWidth in inputs){
+        for (var bitWidth in inputs){
             if(bitWidth==1)
                 res+="input "+ inputs[1].join(",") + ";\n";
             else
@@ -156,8 +158,9 @@ verilog={
 
         return res;
     },
-    generateOutputList:function(scope=globalScope){
-        var outputs={}
+    generateOutputList:function(scope){
+        scope = globalScope;
+        var outputs={};
         for(var i=0;i<scope.Output.length;i++){
             if(outputs[scope.Output[i].bitWidth])
                 outputs[scope.Output[i].bitWidth].push(scope.Output[i].label);
@@ -165,7 +168,7 @@ verilog={
                 outputs[scope.Output[i].bitWidth] = [scope.Output[i].label];
         }
         var res="";
-        for (bitWidth in outputs){
+        for (var bitWidth in outputs){
             if(bitWidth==1)
                 res+="output "+ outputs[1].join(",") + ";\n";
             else
@@ -179,4 +182,4 @@ verilog={
     }
 
 
-}
+};

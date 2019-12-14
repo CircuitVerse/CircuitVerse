@@ -24,19 +24,19 @@ Wire.prototype.updateData = function() {
     this.x2 = this.node2.absX();
     this.y2 = this.node2.absY();
     if (this.x1 == this.x2) this.type = "vertical";
-}
+};
 
 Wire.prototype.updateScope=function(scope){
     this.scope=scope;
     this.checkConnections();
-}
+};
 
 //to check if nodes are disconnected
 Wire.prototype.checkConnections = function() {
     var check = this.node1.deleted||this.node2.deleted||!this.node1.connections.contains(this.node2) || !this.node2.connections.contains(this.node1);
     if (check) this.delete();
     return check;
-}
+};
 
 
 Wire.prototype.update = function() {
@@ -85,31 +85,31 @@ Wire.prototype.update = function() {
         if (this.type == "horizontal") {
             if (this.node1.absY() != this.y1) {
                 // if(this.checkConnections()){this.delete();return;}
-                var n = new Node(this.node1.absX(), this.y1, 2, this.scope.root);
+                n = new Node(this.node1.absX(), this.y1, 2, this.scope.root);
                 this.converge(n);
                 updated = true;
             } else if (this.node2.absY() != this.y2) {
                 // if(this.checkConnections()){this.delete();return;}
-                var n = new Node(this.node2.absX(), this.y2, 2, this.scope.root);
+                n = new Node(this.node2.absX(), this.y2, 2, this.scope.root);
                 this.converge(n);
                 updated = true;
             }
         } else if (this.type == "vertical") {
             if (this.node1.absX() != this.x1) {
                 // if(this.checkConnections()){this.delete();return;}
-                var n = new Node(this.x1, this.node1.absY(), 2, this.scope.root);
+                n = new Node(this.x1, this.node1.absY(), 2, this.scope.root);
                 this.converge(n);
                 updated = true;
             } else if (this.node2.absX() != this.x2) {
                 // if(this.checkConnections()){this.delete();return;}
-                var n = new Node(this.x2, this.node2.absY(), 2, this.scope.root);
+                n = new Node(this.x2, this.node2.absY(), 2, this.scope.root);
                 this.converge(n);
                 updated = true;
             }
         }
     }
     return updated;
-}
+};
 Wire.prototype.draw = function() {
 
 // for calculating min-max Width,min-max Height
@@ -127,12 +127,12 @@ Wire.prototype.draw = function() {
         color = "black";
     drawLine(ctx, this.node1.absX(), this.node1.absY(), this.node2.absX(), this.node2.absY(), color, 3);
 
-}
+};
 
 // checks if node lies on wire
 Wire.prototype.checkConvergence = function(n) {
     return this.checkWithin(n.absX(), n.absY());
-}
+};
 // fn checks if coordinate lies on wire
 Wire.prototype.checkWithin = function(x, y) {
     if ((this.type == "horizontal") && (this.node1.absX() < this.node2.absX()) && (x > this.node1.absX()) && (x < this.node2.absX()) && (y === this.node2.absY()))
@@ -142,17 +142,17 @@ Wire.prototype.checkWithin = function(x, y) {
     else if ((this.type == 'vertical') && (this.node1.absY() < this.node2.absY()) && (y > this.node1.absY()) && (y < this.node2.absY()) && (x === this.node2.absX()))
         return true;
     else if ((this.type == 'vertical') && (this.node1.absY() > this.node2.absY()) && (y < this.node1.absY()) && (y > this.node2.absY()) && (x === this.node2.absX()))
-        return true
+        return true;
     return false;
 
-}
+};
 
 //add intermediate node between these 2 nodes
 Wire.prototype.converge = function(n) {
     this.node1.connect(n);
     this.node2.connect(n);
     this.delete();
-}
+};
 
 
 Wire.prototype.delete = function() {
@@ -163,4 +163,4 @@ Wire.prototype.delete = function() {
     this.scope.wires.clean(this);
     this.node1.checkDeleted();
     this.node2.checkDeleted();
-}
+};
