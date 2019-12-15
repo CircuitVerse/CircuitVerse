@@ -116,13 +116,4 @@ a.btn.btn-outline-danger {
     margin-top: 10px;
 }
 
-#error_explanation{
-    color: red;
-    background: #f0f0f0;
-    border: 1px solid #86181d;
-    padding: 4px;
-}
 
-#error_explanation h2{
-    font-size: 1.25rem;
-}
