@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     resources :assignments
   end
 
-  resources :custom_mails, only: [:index, :new, :create, :edit, :show, :update]
+  resources :custom_mails, only: %i(index new create edit show update)
   get '/custom_mails/send_mail/:id', to: 'custom_mails#send_mail', as: 'send_custom_mail'
 
   # grades
