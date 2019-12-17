@@ -71,7 +71,7 @@ describe CustomMailsController, type: :request do
 
     describe "#index" do
       it "shows the list of custom views" do
-        get custom_mail_path(@mail)
+        get custom_mails_path(@mail)
         expect(response.status).to eq(200)
         expect(response.body).to include(@mail.subject)
       end
