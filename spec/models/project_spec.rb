@@ -47,6 +47,7 @@ RSpec.describe Project, type: :model do
           }.to have_enqueued_job.on_queue("mailers")
         end
       end
+    end
 
     context "project submission is true" do
       before do
@@ -65,6 +66,7 @@ RSpec.describe Project, type: :model do
           }.to_not have_enqueued_job.on_queue("mailers")
         end
       end
+    end
 
     describe "#increase_views" do
       before do
@@ -92,5 +94,5 @@ RSpec.describe Project, type: :model do
         }.to change { FeaturedCircuit.count }.by(-1)
       end
     end
-
+  end
 end
