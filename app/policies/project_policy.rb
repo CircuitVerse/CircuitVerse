@@ -24,10 +24,9 @@ class ProjectPolicy < ApplicationPolicy
     || (!user.nil? && user.admin))
   end
 
-
   def check_direct_view_access?
     (project.project_access_type == "Public"  \
-    || (project.project_submission == false &&  !user.nil? && project.author_id == user.id) \
+    || (project.project_submission == false && !user.nil? && project.author_id == user.id) \
     || (!user.nil? && Collaboration.find_by(project_id: project.id, user_id: user.id)) \
     || (!user.nil? && user.admin))
   end
