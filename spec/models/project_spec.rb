@@ -92,5 +92,5 @@ RSpec.describe Project, type: :model do
         }.to change { FeaturedCircuit.count }.by(-1)
       end
     end
-  end
+
 end
