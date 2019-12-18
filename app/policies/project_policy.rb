@@ -53,6 +53,7 @@ class ProjectPolicy < ApplicationPolicy
   def direct_view_access?
     raise @simulator_exception unless check_direct_view_access?
     true
+  end
 
   def embed?
     raise @simulator_exception unless project.project_access_type != "Private"
