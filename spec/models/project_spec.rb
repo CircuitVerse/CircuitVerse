@@ -48,31 +48,6 @@ RSpec.describe Project, type: :model do
         end
       end
 
-      describe "#check_edit_access #check_view_access #check_direct_view_access" do
-        it "returns true for author" do
-          expect(@project.check_edit_access(@user)).to be_truthy
-          expect(@project.check_view_access(@user)).to be_truthy
-          expect(@project.check_direct_view_access(@user)).to be_truthy
-        end
-
-        it "returns true for collaborator" do
-          collaborator = FactoryBot.create(:user)
-          FactoryBot.create(:collaboration, project: @project, user: collaborator)
-
-          expect(@project.check_edit_access(collaborator)).to be_truthy
-          expect(@project.check_view_access(collaborator)).to be_truthy
-          expect(@project.check_direct_view_access(collaborator)).to be_truthy
-        end
-
-        it "returns false otherwise" do
-          user = FactoryBot.create(:user)
-          expect(@project.check_edit_access(user)).to be_falsey
-          expect(@project.check_view_access(user)).to be_falsey
-          expect(@project.check_direct_view_access(user)).to be_falsey
-        end
-      end
-    end
-
     context "project submission is true" do
       before do
         @project = FactoryBot.create(
@@ -90,14 +65,6 @@ RSpec.describe Project, type: :model do
           }.to_not have_enqueued_job.on_queue("mailers")
         end
       end
-
-      describe "#check_edit_access #check_direct_view_access" do
-        it "returns false for edit and direct_view access" do
-          expect(@project.check_edit_access(@user)).to be_falsey
-          expect(@project.check_direct_view_access(@user)).to be_falsey
-        end
-      end
-    end
 
     describe "#increase_views" do
       before do
