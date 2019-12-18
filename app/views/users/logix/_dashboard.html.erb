@@ -24,7 +24,7 @@
               <% if policy(project).user_access? %>
                   <a href=  "<%= simulator_edit_path(project) %>" class="btn btn-primary" target="_blank"> Launch </a>
               <% else %>
-                  <a href=  "<%= create_fork_project_path(project) %>" class="btn btn-primary" target="_blank"> Fork! </a>
+                  <a href=  "<%= create_fork_project_path(project) %>" class="btn btn-primary" target="_blank" title="Create a copy and start editing"> Fork! </a>
               <% end %>
             </div>
           </div>
