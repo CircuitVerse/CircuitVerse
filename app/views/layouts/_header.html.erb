@@ -3,7 +3,7 @@
     <%= image_tag("CircuitVerse.png", class: "logo", alt: "CircuitVerse Logo") %>
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsedNavbar"
-    aria-controls="collapsedNavbar" aria-expanded="false" aria-label="Toggle navigation">
+          aria-controls="collapsedNavbar" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
@@ -30,9 +30,17 @@
       <li class="nav-item px-2">
         <a class="nav-link text-dark" href="#">About</a>
       </li>
-      <li class="nav-item px-2">
-        <a class="nav-link text-dark" href="#">Login</a>
-      </li>
+      <% if user_signed_in? %>
+        <li class="nav-item px-2">
+          <a class="nav-link text-dark" href="<%= notifications_path(current_user) %>">
+            Notifications
+          </a>
+        </li>
+      <% else %>
+        <li class="nav-item px-2">
+          <a class="nav-link text-dark" href="/users/sign_in">Login</a>
+        </li>
+      <% end %>
     </ul>
   </div>
 </nav>
