@@ -92,6 +92,7 @@ group :test do
   gem 'rspec-rails', '~> 3.8'
   gem "rspec_junit_formatter"
   gem 'selenium-webdriver'
+  gem 'webdrivers', '~> 4.0'
   gem 'capybara', '~> 2.13'
   gem 'shoulda-matchers'
 end
