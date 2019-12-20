@@ -48,6 +48,8 @@ Additional software:
 Ensure all tests are passing locally before making a pull request. To run tests -
 * `bundle exec rspec` or `bin/rake spec:all`
 
+**Note:** To pass Systems Tests you need [Chrome Browser](https://www.google.com/chrome/browser/desktop/index.html) installed
+
 ## Docker Instructions
 
 * Install docker and docker-compose
