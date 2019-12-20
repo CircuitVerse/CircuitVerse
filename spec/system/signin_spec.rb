@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Sign In", type: :system do
+describe "Sing In", type: :system do
   before do
     driven_by(:selenium)
     @user = FactoryBot.create(:user)
