@@ -33,14 +33,17 @@ Please go through the [Contribution Guidelines](CONTRIBUTING.md) before going fo
 * Install ruby using RVM, use ruby-2.6.5
 * Install bundler : `gem install bundler`
 * Install Dependencies: `bundle install`
-* Configure your DB in config/database.yml, copy config/database.example.yml (Note : check for postgres password and update it in place of "postgres")
+* Install postgreSQL 9.5: 
+   * for Linux use official installation instructions on the postgres website (e.g for Ubuntu https://www.postgresql.org/download/linux/ubuntu/) and then set a password for the default user postgres with `sudo passwd postgres`
+   * if using WSL, install on the Windows host (https://www.postgresql.org/download/windows/) and follow the installer through to create a password
+* Create a copy of config/database.example.yml and rename it config/database.yml to configure your database, update the password (set as "postgres") with the password you just set
 * Create database: `rails db:create`
 * Run Migrations: `rails db:migrate`
 * At this point, local development can be started with ```rails s -b 127.0.0.1 -p 8080```
 
 Additional software:
 * Install imagemagick
-* Start Redis server process.
+* Install redis server (https://redis.io/topics/quickstart) and start the server with `redis-server` (you have to start the server each time to run the project)
 * To start sidekiq: `bundle exec sidekiq -e development -q default -q mailers -d -L tmp/sidekiq.log` (In development)
 
 ## Running Tests
