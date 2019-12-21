@@ -17,6 +17,12 @@ class Users::LogixController < ApplicationController
     @profile = ProfileDecorator.new(@user)
   end
 
+  def delete_profile_picture
+    @user.profile_picture = nil
+    @user.save
+    redirect_to profile_path
+  end
+
   def edit
   end
 

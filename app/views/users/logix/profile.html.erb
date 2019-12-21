@@ -17,7 +17,8 @@
           <% end %>
         </div>
         <div class="col-lg-4">
-          <%= image_tag @profile.profile_picture.url(:medium), style: "border: 2px solid black" %>
+          <%= image_tag @profile.profile_picture.url(:medium), style: "border: 2px solid black; margin-bottom:20px" %>
+          <%= button_to 'Delete Profile Picture', delete_profile_picture_path(current_user), data: {confirm: 'Are you sure?'}, class: "btn btn-secondary" %>
         </div>
       </div>
     </div>
