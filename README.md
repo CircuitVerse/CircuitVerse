@@ -59,6 +59,8 @@ docker-compose down
 docker-compose build --no-cache
 ```
 
+The following video could also help: https://www.youtube.com/watch?v=F-XIDfTZmsA
+
 ### Setup in cloud
 You can use gitpod to develop CircuitVerse in the cloud by following the steps mentioned [Here](https://github.com/CircuitVerse/CircuitVerse/wiki/Development-on-Gitpod)
 
