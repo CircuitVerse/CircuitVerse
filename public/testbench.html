@@ -153,36 +153,70 @@ var data={n:0,inputs:[],outputs:[]}
     }
 
     function generateTestData(){
-        var data = $('table').tableToJSON({allowHTML:true,ignoreColumns:[0]});
-        var type={};
-        i=0;
-        var attrs=[]
-        for (attr in data[0]){
-            attrs.push(attr);
-        }
-        for(var j=0;j<no_inps;j++){
-            type[attrs[i]]="inputs";
-            i++;
-        }
-        for(var j=0;j<no_outs;j++){
-            type[attrs[i]]="outputs";
-            i++;
-        }
-        var testData={n:data.length-1,inputs:[],outputs:[]}
-        console.log(attrs)
-        var d={}
-        for(attr in data[0]){
-            d[attr]= {bitWidth:data[0][attr],label:attr,values:[]}
-        }
-        for(var i=1;i<data.length;i++){
-            for (attr in data[i]){
-                d[attr].values.push(data[i][attr])
+        var thUnits = document.getElementById("testBenchTable").getElementsByTagName('th');
+        var tdUnits = document.getElementById("testBenchTable").getElementsByTagName('td');
+
+        var isInput = [];
+        var labels = [];
+        var bitWidths = [];
+        var values = [];
+        var rawValueLocation = [];
+        var nVal = 0;
+        var testData = {};
+
+        for(var a = 0; a < thUnits.length; a++){
+            if(a > 0){
+                if(a <= no_inps){
+                    isInput.push(true);
+                } else{
+                    isInput.push(false);
+                }
+                labels.push(thUnits[a].innerHTML);
+                bitWidths.push(tdUnits[a].innerHTML);
+                if(a == 1){
+                    for(var b = 0; b <= tdUnits.length/thUnits.length; b++){
+                        if(b*thUnits.length > thUnits.length-1){
+                            rawValueLocation.push(b*thUnits.length);
+                        }
+                    }
+                }
             }
         }
-        for(var i=0;i<attrs.length;i++){
-            var attr=attrs[i];
-            testData[type[attr]].push(d[attr]);
+
+        for(var a = 0; a < thUnits.length-1; a++){
+            var tmpArr = [];
+            for(var b = 0; b < rawValueLocation.length; b++){
+                if(rawValueLocation[b] > thUnits.length){
+                    tmpArr.push(tdUnits[rawValueLocation[b]-(1*a)-1].innerHTML);
+                }
+            }
+            values.push(tmpArr);
         }
+        values = values.reverse();
+
+        if(typeof values[0] === "undefined"){
+            nVal = 0;
+        } else{
+            nVal = values[0].length;
+        }
+
+        testData["n"] = nVal;
+        testData["inputs"] = [];
+        testData["outputs"] = [];
+
+        for(var a = 0; a < isInput.length; a++){
+            var objectInfo = {};
+            objectInfo["bitWidth"] = bitWidths[a];
+            objectInfo["label"] = labels[a];
+            objectInfo["values"] = values[a];
+
+            if(isInput[a]){
+                testData["inputs"].push(objectInfo);
+            } else{
+                testData["outputs"].push(objectInfo);
+            }
+        }
+
         return testData;
     }
 
