@@ -63,6 +63,15 @@
     .inp{
         bgcolor:"red";
     }
+
+    .del-col{
+        float: right;
+    }
+
+    .del-case {
+        float:right;
+    }
+
 </style>
 
 <script>
@@ -105,9 +114,9 @@ var data={n:0,inputs:[],outputs:[]}
         var s='<tr>';
         s+='<th >Label</th>'
         for(var i=0;i<data.inputs.length;i++)
-            s+='<th bgcolor="#aaF">' + data.inputs[i].label +'</th>'
+            s+='<th bgcolor="#aaF">' + data.inputs[i].label +'<button contenteditable="false" class="del-col" onclick="delInpButton(event)">-</button></th>'
         for(var i=0;i<data.outputs.length;i++)
-            s+='<th bgcolor="#aFa">' + data.outputs[i].label +'</th>'
+            s+='<th bgcolor="#aFa">' + data.outputs[i].label +'<button contenteditable="false" class="del-col" onclick="delOutputButton(event)">-</button></th>'
         s+="</tr>";
 
 //        s+='<th>INPUT</th>'.repeat(data.inputs.length)
@@ -130,7 +139,7 @@ var data={n:0,inputs:[],outputs:[]}
         var s='';
         for(var i=0;i<data.n;i++){
             s+='<tr>';
-            s+='<td >'+(i+1)+'</td>'
+            s+='<td >'+(i+1)+'<button contenteditable="false" class="del-case" onclick="delCaseButton(event)">-</button></td>'
             for(var j=0;j<data.inputs.length;j++)
                 s+='<td >' + data.inputs[j].values[i] +'</td>'
             for(var j=0;j<data.outputs.length;j++)
@@ -143,7 +152,6 @@ var data={n:0,inputs:[],outputs:[]}
 
 
     function loadData(data=data){
-
         $("#testBenchTable").empty();
         $("#testBenchTable").append(title(data));
         $("#testBenchTable").append(labels(data));
@@ -154,12 +162,17 @@ var data={n:0,inputs:[],outputs:[]}
 
     function generateTestData(){
         var data = $('table').tableToJSON({allowHTML:true,ignoreColumns:[0]});
+        data = JSON.parse(JSON.stringify(data).replace(/<button contenteditable=\\"false\\" class=\\"del-col\\" onclick=\\"delInpButton\(event\)\\">-<\/button>/g, ``)); // remove button code            
+        data = JSON.parse(JSON.stringify(data).replace(/<button contenteditable=\\"false\\" class=\\"del-col\\" onclick=\\"delOutputButton\(event\)\\">-<\/button>/g, ``)); // remove button code
+        data = JSON.parse(JSON.stringify(data).replace(/<button contenteditable=\\"false\\" class=\\"del-case\\" onclick=\\"delCaseButton\(event\)\\">-<\/button>/g, ``)); // remove button code
+
         var type={};
         i=0;
         var attrs=[]
         for (attr in data[0]){
             attrs.push(attr);
         }
+        
         for(var j=0;j<no_inps;j++){
             type[attrs[i]]="inputs";
             i++;
@@ -169,7 +182,6 @@ var data={n:0,inputs:[],outputs:[]}
             i++;
         }
         var testData={n:data.length-1,inputs:[],outputs:[]}
-        console.log(attrs)
         var d={}
         for(attr in data[0]){
             d[attr]= {bitWidth:data[0][attr],label:attr,values:[]}
@@ -187,12 +199,50 @@ var data={n:0,inputs:[],outputs:[]}
     }
 
     function addInp(data){
-        data.inputs.push( { label:"inp"+(data.inputs.length+1),bitWidth:1,values:Array.from(Array(data.n), () => "0") })
+
+        var fitregex = data.inputs.filter(obj => /inp\d+/g.test(obj.label) )
+        if (fitregex.length > 0) {
+            var labels = fitregex.map(function(obj){ 
+                return parseInt(obj.label.match(/inp(\d+)/)[1]); 
+            }); // get the highest number out of all the labels with inp(digit) to set the new col to 1 above, prevents issues with deleted cols
+            data.inputs.push( { label:"inp"+(Math.max(...labels)+1),bitWidth:"1",values:Array.from(Array(data.n), () => "0") })
+        } else {
+            data.inputs.push( { label:"inp"+(data.inputs.length+1),bitWidth:"1",values:Array.from(Array(data.n), () => "0") })
+
+        }       
         return data;
     }
-    function addOutput(data){
-        data.outputs.push( { label:"out"+(data.outputs.length+1),bitWidth:1,values:Array.from(Array(data.n), () => "0") })
+
+    function delInp(data, i){
+
+        data.inputs.splice(i-1, 1);
+        no_inps--;
         return data;
+
+    }
+
+    function delOutput(data, i) {
+        
+        i = i-data.inputs.length; // adjust for input columns being before output ones 
+        data.outputs.splice(i-1, 1);
+        no_outs--;
+        return data;
+    }
+
+    function addOutput(data){
+
+        var fitregex = data.outputs.filter(obj => /output\d+/g.test(obj.label) )
+        if (fitregex.length > 0) {
+            var labels = fitregex.map(function(obj){ 
+                return parseInt(obj.label.match(/output(\d+)/)[1]); 
+            }); // get the highest number out of all the labels with output(digit) to set the new col to 1 above, prevents issues with deleted cols
+            data.outputs.push( { label:"output"+(Math.max(...labels)+1),bitWidth:"1",values:Array.from(Array(data.n), () => "0") })
+        } else {
+            data.outputs.push( { label:"output"+(data.outputs.length+1),bitWidth:"1",values:Array.from(Array(data.n), () => "0") })
+
+        }       
+        return data;
+
     }
     function addCase(data){
         for(var i=0;i<data.inputs.length;i++){
@@ -205,9 +255,19 @@ var data={n:0,inputs:[],outputs:[]}
         return data;
     }
 
-    loadData(data);
-    console.log(generateTestData());
+    function delCase(data, index) {
+        for(var i=0;i<data.inputs.length;i++){
+            data.inputs[i].values.splice(index-2, 1);
+        }
+        for(var i=0;i<data.outputs.length;i++){
+            data.outputs[i].values.splice(index-2, 1);
+        }
+        
+        data.n--;
+        return data;
+    }
 
+    loadData(data);
 
     function addInpButton(){
         loadData(addInp(generateTestData()));
@@ -215,8 +275,22 @@ var data={n:0,inputs:[],outputs:[]}
     function addOutputButton(){
         loadData(addOutput(generateTestData()));
     }
+    
+    function delInpButton(e){
+        index = e.target.parentNode.cellIndex; // get the index of the input column
+        loadData(delInp(generateTestData(), index));
+    }
+    function delOutputButton(e){
+        index = e.target.parentNode.cellIndex; // get the index of the output column
+        loadData(delOutput(generateTestData(), index));
+    }
+
     function addCaseButton(){
         loadData(addCase(generateTestData()));
+    }
+    function delCaseButton(e){
+        index = e.target.parentNode.parentNode.rowIndex;
+        loadData(delCase(generateTestData(), index));
     }
 
     function generateDataAndCopyButton(){
