@@ -69,3 +69,7 @@
     border: 0;
     padding-left: 0.8rem;
 }
+
+.navbar-brand img {
+max-width =100%;
+}
