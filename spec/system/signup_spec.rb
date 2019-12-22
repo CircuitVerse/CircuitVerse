@@ -43,7 +43,7 @@ describe "Sign up", type: :system do
     expect(page).to have_text("Password is too short (minimum is 6 characters)")
   end
 
-  it "should not sign-up when password confirmation is empty/does not match password" do 
+  it "should not sign-up when password confirmation is empty" do 
     fill_in "Name", with: 'user1'
     fill_in "Email", with: 'user1@example.com'
     fill_in "Password", with: 'secret'
