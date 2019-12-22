@@ -33,6 +33,15 @@ it "should not sign-up when email is empty" do
 
     expect(page).to have_text("Email can't be blank")
   end
+ 
+it "should not sign-up when password is less than 6 characters" do   
+    fill_in 'Name', with: 'user1'
+    fill_in "Password", with: 'secr'
+    fill_in 'Password confirmation', with: 'secr'
+    click_button "Sign up"
+
+    expect(page).to have_text("Password is too short (minimum is 6 characters)")
+  end
 
 it "should not sign-up when password confirmation is empty/does not match password" do 
     fill_in 'Name', with: 'user1'
