@@ -63,4 +63,16 @@ describe Users::LogixController, type: :request do
     expect(@user.country).to eq("IN")
     expect(@user.educational_institute).to eq("MAIT")
   end
+  it "should delete user profile picture" do
+    post delete_profile_picture_path(@user)
+    expect(response).to redirect_to(profile_path)
+    expect(@user.profile_picture.exists?).to eq(false)
+  end
+
+=begin
+    it "profile picture should exist in test user object before deleted" do
+      expect(@user.profile_picture.exists?).to eq(true)
+    end
+=end
+
 end
