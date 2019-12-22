@@ -167,12 +167,29 @@
             <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
           </button>
         </div>
-        <div class="sk-folding-cube loadingIcon" style="display:none;position:absolute; right:50%; bottom:50%; z-index:100">
-            <div class="sk-cube1 sk-cube"></div>
-            <div class="sk-cube2 sk-cube"></div>
-            <div class="sk-cube4 sk-cube"></div>
-            <div class="sk-cube3 sk-cube"></div>
+        <div class="loader-container">
+        <div class="outer-box">
+            <div class="inner-box">
+                    <div>
+                        <div class="rect2 third-arm"></div>
+                        <div class="rect first-arm"></div>
+                        <div class="rect1 second-arm"></div>
+                    </div>
+                    <div>
+                        <div class="circles first-arm"></div>
+                        <div class="circles third-arm"></div>
+                        <div class="circles second-arm"></div>
+                        <div class="circles second-arm"></div>
+                    </div>
+                    <div>
+                        <div class="circ"></div>
+                        <div class="circ"></div>
+                        <div class="circ"></div>
+                        <div class="circ"></div>
+                    </div>
+            </div>
         </div>
+    </div>
         <div style="position:absolute; right:60px; top:30px; z-index:100">
           <button type="button" class="btn zoomButton btn-lg" onclick="globalScope.centerFocus(false)">
             <span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span>

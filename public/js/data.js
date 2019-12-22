@@ -435,7 +435,7 @@ function generateImageForOnline() {
 function save() {
     projectSaved = true;
 
-    $('.loadingIcon').fadeIn();
+    $('.loader-container').fadeIn();
     var data = generateSaveData();
 
     if (!userSignedIn) {
@@ -499,12 +499,12 @@ function save() {
             },
             success: function(response) {
                 showMessage("We have saved your project: " + projectName + " in our servers.")
-                $('.loadingIcon').fadeOut();
+                $('.loader-container').fadeOut();
                 localStorage.removeItem("recover");
             },
             failure: function(err) {
                 showMessage("There was an error, we couldn't save to our servers")
-                $('.loadingIcon').fadeOut();
+                $('.loader-container').fadeOut();
             }
         });
     }

@@ -825,104 +825,142 @@ div.icon img {
 
 /* LOADING ICON CSS STARTS*/
 
-.sk-folding-cube {
-    margin: 20px auto;
-    width: 40px;
-    height: 40px;
-    position: relative;
-    -webkit-transform: rotateZ(45deg);
+
+.loader-container {
+    position: absolute;
+    display: none; 
+    width: 320px;
+    height: 320px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+.outer-box {
+    position: absolute;
+    background: transparent;
+    width: inherit;
+    height: inherit;
+}
+.inner-box {
+    position: absolute;
+    width: 100%;
+    stroke-width: 100%;
+    height: 100%;
+    background: #000;
+    border-radius: 5%;
+    overflow: hidden;
+
+}
+.rect {
+    position: absolute;
+    top: 82.69%;
+    left: 65%;
+    width: 44.23%;
+    height: 7.69%;
+    background: none;
     transform: rotateZ(45deg);
 }
-
-.sk-folding-cube .sk-cube {
-    float: left;
-    width: 50%;
-    height: 50%;
-    position: relative;
-    -webkit-transform: scale(1.1);
-    -ms-transform: scale(1.1);
-    transform: scale(1.1);
-}
-
-.sk-folding-cube .sk-cube:before {
-    content: '';
+.rect1 {
+    stroke: #fff;
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #09f;
-    -webkit-animation: sk-foldCubeAngle 2.4s infinite linear both;
-    animation: sk-foldCubeAngle 2.4s infinite linear both;
-    -webkit-transform-origin: 100% 100%;
-    -ms-transform-origin: 100% 100%;
-    transform-origin: 100% 100%;
+    max-width: inherit;
+    max-height: inherit;
+    top: 47%;
+    left: 24%;
+    width: 48.07%;
+    height: 7.69%;
+    background: none;
+    color: #fff;
+    transform: rotateZ(135deg);
 }
-
-.sk-folding-cube .sk-cube2 {
-    -webkit-transform: scale(1.1) rotateZ(90deg);
-    transform: scale(1.1) rotateZ(90deg);
+.rect2 {
+    position: absolute;
+    top: 5%;
+    left: 28%;
+    width: 32.67%;
+    height: 7.69%;
+    max-width: inherit;
+    max-height: inherit;
+    background: none;
+    color: #fff;
+    transform: rotateZ(135deg);
 }
-
-.sk-folding-cube .sk-cube3 {
-    -webkit-transform: scale(1.1) rotateZ(180deg);
-    transform: scale(1.1) rotateZ(180deg);
+.circles {
+    border-radius: 50%;
+    position: absolute;
+    width: 23.07%;
+    height: 23.07%;
+    top: 60%;
+    left: 60%;
+    background: none;
+    color: #fff;
 }
-
-.sk-folding-cube .sk-cube4 {
-    -webkit-transform: scale(1.1) rotateZ(270deg);
-    transform: scale(1.1) rotateZ(270deg);
+.circles:nth-of-type(2){
+    top: 15%;
+    left: 15%; 
 }
-
-.sk-folding-cube .sk-cube2:before {
-    -webkit-animation-delay: 0.3s;
-    animation-delay: 0.3s;
+.circles:nth-of-type(3){
+    top: 60%;
+    left: 15%;
 }
-
-.sk-folding-cube .sk-cube3:before {
-    -webkit-animation-delay: 0.6s;
-    animation-delay: 0.6s;
+.circles:nth-of-type(4){
+    top: 15%;
+    left: 60%;   
 }
+.circ
+{
+    border-radius: 50%;
+    position: absolute;
+    width: 7.69%;
+    height: 7.69%;
+    top: 68%;
+    left: 68%;
+    background: #000;
+    color: #fff;
+}  
+.circ:nth-of-type(2)
+{
+    top: 23%;
+    left: 23%;
 
-.sk-folding-cube .sk-cube4:before {
-    -webkit-animation-delay: 0.9s;
-    animation-delay: 0.9s;
 }
-
-@-webkit-keyframes sk-foldCubeAngle {
-    0%, 10% {
-        -webkit-transform: perspective(140px) rotateX(-180deg);
-        transform: perspective(140px) rotateX(-180deg);
-        opacity: 0;
-    }
-    25%, 75% {
-        -webkit-transform: perspective(140px) rotateX(0deg);
-        transform: perspective(140px) rotateX(0deg);
-        opacity: 1;
-    }
-    90%, 100% {
-        -webkit-transform: perspective(140px) rotateY(180deg);
-        transform: perspective(140px) rotateY(180deg);
-        opacity: 0;
-    }
+.circ:nth-of-type(3)
+{
+    top: 68%;
+    left: 23%;
 }
-
-@keyframes sk-foldCubeAngle {
-    0%, 10% {
-        -webkit-transform: perspective(140px) rotateX(-180deg);
-        transform: perspective(140px) rotateX(-180deg);
-        opacity: 0;
-    }
-    25%, 75% {
-        -webkit-transform: perspective(140px) rotateX(0deg);
-        transform: perspective(140px) rotateX(0deg);
-        opacity: 1;
-    }
-    90%, 100% {
-        -webkit-transform: perspective(140px) rotateY(180deg);
-        transform: perspective(140px) rotateY(180deg);
-        opacity: 0;
-    }
+.circ:nth-of-type(4)
+{
+    top: 23%;
+    left: 68%;
+}
+.first-arm {
+    animation: first-anim 3s infinite ease-out;
+    -webkit-animation: first-anim 3s infinite ease-out;
+    animation-delay: 80ms;
+    -webkit-animation-delay: 80ms;
+}
+.third-arm {
+    animation: first-anim 3s infinite ease-out;
+    -webkit-animation: first-anim 3s infinite ease-out;
+    animation-delay: 100ms;
+    -webkit-animation-delay: 100ms;
+}
+.second-arm {
+    animation: first-anim 3s infinite ease-out;
+    -webkit-animation: first-anim 3s infinite ease-out;
+    animation-delay: 120ms;
+    -webkit-animation-delay: 120ms;
+}
+@keyframes first-anim {
+    0% { background: white; }
+    20% {background: lightblue; transform: perspective(320px) rotateX(30deg);}
+    30% {background: lightblue; transform: perspective(320px) rotateX(30deg);}
+    40% { background: #0f45aa; transform: perspective(640px) rotateX(90deg); }
+    60% {background: lightblue; transform: perspective(320px) rotateX(30deg);}   
+    70% { background: white; }
+    80% { background: white; }    
+    100% { background: white; }
 }
 
 /* LOADING ICON CSS ENDS*/

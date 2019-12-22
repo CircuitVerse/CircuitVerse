@@ -402,11 +402,11 @@ function setup() {
                         load(data);
                         simulationArea.changeClockTime(data["timePeriod"] || 500);
                     }
-                    $('.loadingIcon').fadeOut();
+                    $('.loader-container').fadeOut();
                 },
                 failure: function() {
                     alert("Error: could not load ");
-                    $('.loadingIcon').fadeOut();
+                    $('.loader-container').fadeOut();
                 }
             });
 
