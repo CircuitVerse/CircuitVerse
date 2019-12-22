@@ -6,7 +6,7 @@
 
       <h2>Profile</h2>
 
-      <%= form_for @profile, html: {multipart: true}, url: {action: "update"} do |f| %>
+      <%= form_with model: @profile, multipart: true, url: { action: "update" }, local: true do |f| %>
         <div class="field form-group">
           <%= f.label :name %><br>
           <%= f.text_field :name, required: true, class:"form-control" %>

@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     resources :assignments
   end
 
-  resources :custom_mails, only: [:new, :create, :edit, :show, :update]
+  resources :custom_mails, only: %i[index new create edit show update]
   get '/custom_mails/send_mail/:id', to: 'custom_mails#send_mail', as: 'send_custom_mail'
 
   # grades
@@ -29,6 +29,8 @@ Rails.application.routes.draw do
   get "/500", to: "errors#internal_error"
 
   get '/search', to: "search#search"
+
+  resources :about, only: :index
 
   scope '/groups' do
     get '/:id/assignments/WYSIWYG/index.css', to: redirect('/index.css')
@@ -52,7 +54,6 @@ Rails.application.routes.draw do
   get  '/gettingStarted', to:'logix#gettingStarted'
   get  '/examples', to:'logix#examples'
   get  '/features', to:'logix#features'
-  get  '/about', to:'logix#about'
   get  '/privacy', to:'logix#privacy'
   get  '/tos', to:'logix#tos'
   get  '/teachers', to:'logix#teachers'

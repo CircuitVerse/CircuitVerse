@@ -68,6 +68,14 @@ describe CustomMailsController, type: :request do
         expect(response.body).to eq("The mails were queued for sending!")
       end
     end
+
+    describe "#index" do
+      it "shows the list of custom views" do
+        get custom_mails_path(@mail)
+        expect(response.status).to eq(200)
+        expect(response.body).to include(@mail.subject)
+      end
+    end
   end
 
   context "user is not admin" do

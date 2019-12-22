@@ -7,6 +7,11 @@ class CustomMailsController < ApplicationController
   before_action :authorize_admin
   before_action :set_mail, only: [:edit, :update, :show, :send_mail]
 
+  def index
+    @user = current_user
+    @mails = CustomMail.all
+  end
+
   def show
     @user = current_user
   end
