@@ -68,7 +68,7 @@ describe Users::LogixController, type: :request do
     expect(response).to redirect_to(profile_path)
     expect(@user.profile_picture.exists?).to eq(false)
   end
-#    it "profile picture should exist in test user object before deleted" do
-#      expect(@user.profile_picture.exists?).to eq(true)
-#    end
 end
+#it "profile picture should exist in test user object before deleted" do
+# expect(@user.profile_picture.exists?).to eq(true)
+#end
