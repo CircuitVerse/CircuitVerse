@@ -1,11 +1,11 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 describe "Sign up", type: :system do
   before do
     driven_by(:selenium)
   end
-
 
 before(:each) do
     visit "/users/sign_up"
@@ -61,5 +61,4 @@ it "should sign-up when valid credentials" do
 
     expect(page).to have_text("Welcome! You have signed up successfully.")
   end
-
 end
