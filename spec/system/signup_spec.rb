@@ -25,7 +25,7 @@ describe "Sign up", type: :system do
     expect(page).to have_text("Password can't be blank")
   end
 
-  it "should not sign-up when email is empty" do   
+  it "should not sign-up when email is empty" do
     fill_in "Name", with: "user1"
     fill_in "Password", with: "secret"
     fill_in "Password confirmation", with: "secret"
@@ -33,8 +33,8 @@ describe "Sign up", type: :system do
 
     expect(page).to have_text("Email can't be blank")
   end
- 
-  it "should not sign-up when password is less than 6 characters" do   
+
+  it "should not sign-up when password is less than 6 characters" do
     fill_in "Name", with: "user1"
     fill_in "Password", with: "secr"
     fill_in "Password confirmation", with: "secr"
@@ -43,7 +43,7 @@ describe "Sign up", type: :system do
     expect(page).to have_text("Password is too short (minimum is 6 characters)")
   end
 
-  it "should not sign-up when password confirmation is empty" do 
+  it "should not sign-up when password confirmation is empty" do
     fill_in "Name", with: "user1"
     fill_in "Email", with: "user1@example.com"
     fill_in "Password", with: "secret"
