@@ -7,17 +7,17 @@ describe "Sign up", type: :system do
     driven_by(:selenium)
   end
 
-before(:each) do
+  before(:each) do
     visit "/users/sign_up"
   end
 
-it "should not sign-up when no credentials" do
+  it "should not sign-up when no credentials" do
     click_button "Sign up"
 
     expect(page).to have_text("2 errors prohibited this user from being saved:")
   end
 
-it "should not sign-up when password is empty" do
+  it "should not sign-up when password is empty" do
     fill_in "Name", with: 'user1'
     fill_in "Email", with: 'user1@example.com'
     click_button "Sign up"
@@ -25,7 +25,7 @@ it "should not sign-up when password is empty" do
     expect(page).to have_text("Password can't be blank")
   end
 
-it "should not sign-up when email is empty" do   
+  it "should not sign-up when email is empty" do   
     fill_in "Name", with: 'user1'
     fill_in "Password", with: 'secret'
     fill_in "Password confirmation", with: 'secret'
@@ -34,7 +34,7 @@ it "should not sign-up when email is empty" do
     expect(page).to have_text("Email can't be blank")
   end
  
-it "should not sign-up when password is less than 6 characters" do   
+  it "should not sign-up when password is less than 6 characters" do   
     fill_in "Name", with: 'user1'
     fill_in "Password", with: 'secr'
     fill_in 'Password confirmation', with: 'secr'
@@ -43,7 +43,7 @@ it "should not sign-up when password is less than 6 characters" do
     expect(page).to have_text("Password is too short (minimum is 6 characters)")
   end
 
-it "should not sign-up when password confirmation is empty/does not match password" do 
+  it "should not sign-up when password confirmation is empty/does not match password" do 
     fill_in "Name", with: 'user1'
     fill_in "Email", with: 'user1@example.com'
     fill_in "Password", with: 'secret'
@@ -52,7 +52,7 @@ it "should not sign-up when password confirmation is empty/does not match passwo
     expect(page).to have_text("Password confirmation doesn't match Password")
   end
 
-it "should sign-up when valid credentials" do
+  it "should sign-up when valid credentials" do
     fill_in "Name", with: 'user1'
     fill_in "Email", with: 'user1@example.com'
     fill_in "Password", with: 'secret'
