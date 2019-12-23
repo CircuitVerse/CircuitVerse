@@ -1,46 +1,24 @@
-<html>
-<head>
-  <title>CircuitVerse - Digital Simulator</title>
-</head>
-
+<% content_for(:html_title) { 'CircuitVerse - Digital Simulator' } %>
 <!--Displays the loading screen  -->
 <script src="/js/pace.js"></script>
-
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-
 <!-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384&#45;BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
-<body onload="setup()">
-<script>
+<div>
+  <script>
     userSignedIn = <%= user_signed_in? %>;
     logix_project_id = <%= @logix_project_id%>;
     projectName = "<%= @projectName%>"
-</script>
-<nav class="navbar navbar-default toolbar navbar-inverse">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="/">CircuitVerse</a>
-    </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
+  </script>
+  <nav class="navbar navbar-expand-lg toolbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">CircuitVerse</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" 
+                                               data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
+                                               aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav noSelect pointerCursor" id="toolbar">
-
-
-
-
-
+      <ul class="navbar-nav mr-auto noSelect pointerCursor" id="toolbar">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Project<span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -59,52 +37,46 @@
             <li class="toolbarButton logixButton" id="createSubCircuitPrompt"><a>Insert SubCircuit</a></li>
           </ul>
         </li>
-        </li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tools<span class="caret"></span></a>
+      </li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tools<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li class="toolbarButton logixButton" id="createCombinationalAnalysisPrompt"><a>Combinational Analysis</a></li>
+          <li class="toolbarButton logixButton" id="startPlot"><a>Start Plot</a></li>
+          <li class="toolbarButton logixButton" id="createSaveAsImgPrompt" ><a>Download Image</a></li>
+        </ul>
+      </li>
+      <li class="">
+        <a href="https://docs.circuitverse.org"  target="_blank" role="button" aria-haspopup="true" aria-expanded="false">Help</a>
+      </li>
+    </ul>
+    <span class="projectName noSelect defaultCursor font-weight-bold" id="projectName">
+      Untitled
+    </span>
+    <ul class="nav navbar-nav noSelect pointerCursor pull-right">
+      <li class="dropdown pull-right">
+        <%if user_signed_in? %>
+          <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %><span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li class="toolbarButton logixButton" id="createCombinationalAnalysisPrompt"><a>Combinational Analysis</a></li>
-            <li class="toolbarButton logixButton" id="startPlot"><a>Start Plot</a></li>
-            <li class="toolbarButton logixButton" id="createSaveAsImgPrompt" ><a>Download Image</a></li>
+            <li class="toolbarButton" ><a href=<%=  profile_path(current_user) %>>Profile</a></li>
+            <li class="toolbarButton" ><a href= <%=  user_path(current_user) %>>My circuits</a></li>
+            <li class="toolbarButton" ><a href= <%=  user_groups_path(current_user) %>>My groups</a></li>
+            <div class="dropdown-divider"></div>
+            <li class="toolbarButton" ><a rel="nofollow" data-method="delete" href= <%= destroy_user_session_path%> >Sign out</a></li>
           </ul>
-        </li>
-        <li class="">
-          <a href="https://docs.circuitverse.org"  target="_blank" role="button" aria-haspopup="true" aria-expanded="false">Help</a>
-        </li>
-
-
-
-      </ul>
-      <span class="projectName noSelect defaultCursor font-weight-bold" id="projectName">
-                        Untitled
-                    </span>
-      <ul class="nav navbar-nav noSelect pointerCursor pull-right">
-        <li class="dropdown pull-right">
-          <%if user_signed_in? %>
-              <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %><span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li class="toolbarButton" ><a href=<%=  profile_path(current_user) %>>Profile</a></li>
-                <li class="toolbarButton" ><a href= <%=  user_path(current_user) %>>My circuits</a></li>
-                <li class="toolbarButton" ><a href= <%=  user_groups_path(current_user) %>>My groups</a></li>
-                <div class="dropdown-divider"></div>
-                <li class="toolbarButton" ><a rel="nofollow" data-method="delete" href= <%= destroy_user_session_path%> >Sign out</a></li>
-              </ul>
-          <%else%>
-              <a class="navbar-nav nav-link" href=<%= new_user_session_path  %>> Sign in </a>
-          <%end %>
-        </li>
-      </ul>
-
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+        <%else%>
+          <a class="navbar-nav nav-link" href=<%= new_user_session_path  %>> Sign in </a>
+        <%end %>
+      </li>
+    </ul>
+  </div>
+  <!-- /.navbar-collapse -->
 </nav>
-
 <div>
-    <div class="side left" id="sideBar" style="overflow-y: scroll;overflow-x: hidden">
+  <div class="side left" id="sideBar" style="overflow-y: scroll;overflow-x: hidden">
     <div class="modules noSelect defaultCursor" >
       <div id="modules-header">Circuit Elements</div>
       <div class="accordion" id="menu">
-
       </div>
     </div>
     <div class="moduleProperty effect1" id="moduleProperty">
@@ -113,7 +85,6 @@
       <!-- <div id="moduleProperty-toolTip"></div> -->
     </div>
   </div>
-
   <div class="rightPanel">
     <div id="tabsBar" class="noSelect pointerCursor">
       <!-- <div> Circuits: </div> -->
@@ -121,19 +92,14 @@
     <div class="simulation" id="simulation" >
       <div id="restrictedDiv" class="alert alert-danger display--none">
       </div>
-
       <% if @project&.assignment_id.present? && @project&.assignment&.elements_restricted? %>
         <div id="restrictedElementsDiv" class="alert alert-danger">
           <div> Restricted elements used: <span id="restrictedElementsDiv--list"> </span></div>
         </div>
       <% end %>
-
       <div id="MessageDiv">
       </div>
-
       <div class="canvasArea" id="canvasArea">
-
-
         <canvas id="backgroundArea" style="position: absolute; left: 0; top: 0; z-index: 0; width:100%;height:100%"></canvas>
         <canvas id="simulationArea" style="position: absolute; left: 0; top: 0; z-index: 1; width:100%;height:100%"></canvas>
         <div id="plot" >
@@ -142,31 +108,27 @@
         <div id="miniMap">
           <canvas id="miniMapArea" style="position: absolute; left:0; top: 0; z-index: 3;"></canvas>
         </div>
-
-
         <div id="contextMenu" oncontextmenu="return false;">
-        <ul>
-          <li onclick="menuItemClicked(2)"><a>Paste</a></li>
-          <li onclick="menuItemClicked(0)"><a>Copy</a></li>
-          <li onclick="menuItemClicked(1)"><a>Cut</a></li>
-          <li onclick="menuItemClicked(3)"><a>Delete</a></li>
-          <li onclick="menuItemClicked(4)"><a>Undo</a></li>
-          <li onclick="menuItemClicked(5)"><a>New Circuit</a></li>
-          <li onclick="menuItemClicked(6)"><a>Insert SubCircuit</a></li>
-          <li onclick="menuItemClicked(7)"><a>Center Focus</a></li>
-        </ul>
-      </div>
-
-
+          <ul>
+            <li onclick="menuItemClicked(2)"><a>Paste</a></li>
+            <li onclick="menuItemClicked(0)"><a>Copy</a></li>
+            <li onclick="menuItemClicked(1)"><a>Cut</a></li>
+            <li onclick="menuItemClicked(3)"><a>Delete</a></li>
+            <li onclick="menuItemClicked(4)"><a>Undo</a></li>
+            <li onclick="menuItemClicked(5)"><a>New Circuit</a></li>
+            <li onclick="menuItemClicked(6)"><a>Insert SubCircuit</a></li>
+            <li onclick="menuItemClicked(7)"><a>Center Focus</a></li>
+          </ul>
+        </div>
         <div id="Help">
           <!-- <canvas id="miniMapArea" style="position: absolute; left:0; top: 0; z-index: 2;"></canvas> -->
         </div>
-
         <div style="position:absolute; right:30px; top:30px; z-index:100">
           <button type="button" class="btn zoomButton btn-lg" onclick="changeScale(0.2,'zoomButton','zoomButton',2)">
             <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
           </button>
         </div>
+<<<<<<< new02
         <div class="loader-container">
         <div class="outer-box">
             <div class="inner-box">
@@ -188,6 +150,13 @@
                         <div class="circ"></div>
                     </div>
             </div>
+=======
+        <div class="sk-folding-cube loadingIcon" style="display:none;position:absolute; right:50%; bottom:50%; z-index:100">
+          <div class="sk-cube1 sk-cube"></div>
+          <div class="sk-cube2 sk-cube"></div>
+          <div class="sk-cube4 sk-cube"></div>
+          <div class="sk-cube3 sk-cube"></div>
+>>>>>>> master
         </div>
     </div>
         <div style="position:absolute; right:60px; top:30px; z-index:100">
@@ -210,83 +179,68 @@
             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
           </button>
         </div>
-
-		<div id="layoutDialog" style="display:none" class="" title="Layout Options">
-
-			<div class="container">
-				<div class="panel-heading">Layout options</div>
-				<div class="">
-						Width:<button type="button" class="btn zoomButton btn-lg" onclick="decreaseLayoutWidth()">
-							<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-							</button>
-							<button type="button" class="btn zoomButton btn-lg" onclick="increaseLayoutWidth()">
-								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-							</button>
-				</div>
-				<div class="">
-						Height:<button type="button" class="btn zoomButton btn-lg" onclick="decreaseLayoutHeight()">
-							<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-							</button>
-							<button type="button" class="btn zoomButton btn-lg" onclick="increaseLayoutHeight()">
-								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-							</button>
-				</div>
-				<div class="">
-						Reset all nodes:
-							<button type="button" class="btn zoomButton btn-lg" onclick="layoutResetNodes()">
-								<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
-							</button>
-				</div>
-				<div class="">
-						Title:
-							<button type="button" class="btn zoomButton btn-lg" onclick="layoutTitleUp()">
-								<span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
-							</button>
-							<button type="button" class="btn zoomButton btn-lg" onclick="layoutTitleDown()">
-								<span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
-							</button>
-							<button type="button" class="btn zoomButton btn-lg" onclick="layoutTitleLeft()">
-								<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
-							</button>
-							<button type="button" class="btn zoomButton btn-lg" onclick="layoutTitleRight()">
-								<span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
-							</button>
-
-				</div>
-                <div class="">
-                    <p>Title Enabled : <label class='switch'> <input type='checkbox' checked id="toggleLayoutTitle" onclick="toggleLayoutTitle()"> <span class='slider2'></span> </label></p>
-                </div>
-
-				<div class="">
-						Save:
-							<button type="button" class="btn zoomButton btn-lg" onclick="saveLayout()">
-								<span class="glyphicon glyphicon glyphicon-ok" aria-hidden="true"></span>
-							</button>
-						Cancel:
-							<button type="button" class="btn zoomButton btn-lg" onclick="cancelLayout()">
-								<span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span>
-							</button>
-				</div>
-			</div>
-
-		</div>
+        <div id="layoutDialog" style="display:none" class="" title="Layout Options">
+          <div class="container">
+            <div class="panel-heading">Layout options</div>
+            <div class="">
+              Width:<button type="button" class="btn zoomButton btn-lg" onclick="decreaseLayoutWidth()">
+                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+              </button>
+              <button type="button" class="btn zoomButton btn-lg" onclick="increaseLayoutWidth()">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+              </button>
+            </div>
+            <div class="">
+              Height:<button type="button" class="btn zoomButton btn-lg" onclick="decreaseLayoutHeight()">
+                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+              </button>
+              <button type="button" class="btn zoomButton btn-lg" onclick="increaseLayoutHeight()">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+              </button>
+            </div>
+            <div class="">
+              Reset all nodes:
+              <button type="button" class="btn zoomButton btn-lg" onclick="layoutResetNodes()">
+                <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+              </button>
+            </div>
+            <div class="">
+              Title:
+              <button type="button" class="btn zoomButton btn-lg" onclick="layoutTitleUp()">
+                <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+              </button>
+              <button type="button" class="btn zoomButton btn-lg" onclick="layoutTitleDown()">
+                <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+              </button>
+              <button type="button" class="btn zoomButton btn-lg" onclick="layoutTitleLeft()">
+                <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+              </button>
+              <button type="button" class="btn zoomButton btn-lg" onclick="layoutTitleRight()">
+                <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+              </button>
+            </div>
+            <div class="">
+              <p>Title Enabled : <label class='switch'> <input type='checkbox' checked id="toggleLayoutTitle" onclick="toggleLayoutTitle()"> <span class='slider2'></span> </label></p>
+            </div>
+            <div class="">
+              Save:
+              <button type="button" class="btn zoomButton btn-lg" onclick="saveLayout()">
+                <span class="glyphicon glyphicon glyphicon-ok" aria-hidden="true"></span>
+              </button>
+              Cancel:
+              <button type="button" class="btn zoomButton btn-lg" onclick="cancelLayout()">
+                <span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-
-
-
-
     </div>
-
-
-
     <div id="combinationalAnalysis"  style="display:none;" title="BooleanLogicTable"></div>
     <div id="insertSubcircuitDialog" style="display:none;"  title="Insert SubCircuit"></div>
     <div id="openProjectDialog" style="display:none;"  title="Open Project"></div>
-
-
-
-  </div><!-- Right panel -->
-
+  </div>
+  <!-- Right panel -->
   <div id="saveImageDialog" style="display:none;" title="Render Image">
     <p>
       <label class="option inline"><input type="radio" name="imgType" value="png" checked="checked" />PNG</label>
@@ -310,42 +264,36 @@
       <label class="option inline"> <input type="radio" name="resolution" value="4"/>4x</label>
     </p>
   </div>
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
   <script>
-      embed=false;
-
-      <% if @project&.assignment_id.present? %>
-        restrictedElements = JSON.parse('<%= raw @project&.assignment.restrictions %>');
-      <% else %>
-        restrictedElements = [];
-      <% end %>
+    document.addEventListener('DOMContentLoaded', function() {
+      setup()
+     }, false);
+    embed=false;
+    
+    <% if @project&.assignment_id.present? %>
+      restrictedElements = JSON.parse('<%= raw @project&.assignment.restrictions %>');
+    <% else %>
+      restrictedElements = [];
+    <% end %>
   </script>
   <script src="/js/UX.js"></script>
-
-
-
   <!-- on hover for dropdowns -->
   <script>
-
-      $('.dropdown-toggle').hover( function() {
-
-          $('.dropdown.open').removeClass('open');
-          $(this).parent('.dropdown').addClass('open');
-      });
-      //    $('.dropdown-toggle').onClick( function() {
-      //
-      //      $(this).parent('.dropdown').addClass('open');
-      //    });
+    $('.dropdown-toggle').hover( function() {
+    
+        $('.dropdown.open').removeClass('open');
+        $(this).parent('.dropdown').addClass('open');
+    });
+    //    $('.dropdown-toggle').onClick( function() {
+    //
+    //      $(this).parent('.dropdown').addClass('open');
+    //    });
   </script>
   <link rel="stylesheet" type="text/css" href="/css/UX.css"/>
   <link rel="stylesheet" type="text/css" href="/css/restrictedElements.css"/>
   <!-- <script src="./SAP_DATA.js"></script> -->
-  <script src="/js/utils.js"> </script>
+  <script src="/js/utils.js"></script>
   <script src="/js/engine.js"></script>
   <script src="/js/logix.js"></script>
   <script src="/js/Plot.js"></script>
@@ -369,9 +317,7 @@
   <script type="text/javascript" src="/js/metadata.json"></script>
   <% if @project.nil? or @project.assignment_id.nil? %>
     <script src="/js/combinationalAnalysis.js"></script>
-      <script src="/js/Quin_McCluskey.js"></script>
+    <script src="/js/Quin_McCluskey.js"></script>
   <%end%>
-  <script src="/js/canvas2svg.js"></script>
-
-</body>
-</html>
+ <script src="/js/canvas2svg.js"></script>
+<div>
