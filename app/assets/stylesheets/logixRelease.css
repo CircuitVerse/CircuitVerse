@@ -5,53 +5,32 @@
   }
 }
 
-p{
+p {
     text-align: justify;
 }
 
-.feature{
-    border:1px solid rgba(0,0,0,.125);
-    padding:  1.25rem;
+.feature {
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    padding: 1.25rem;
     border-radius: 0.25em;
 }
 
-.gif-box{
-	position:absolute;
-	text-align: center;
-	top: 50%;
-}
-
-body {
-    padding-top: 100px;
-    min-height: 100vh;
-    position:relative;
-}
-@media (max-width: 979px) {
-    body {
-        padding-top: 100px;
-    }
-}
-
-.jumbotron{
-    margin-top:-50px;
-}
-
-img{
-    max-width: 100%
-}
-
-.footer{
+.gif-box {
     position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    padding: 1rem;
-    /*background-color: #efefef;*/
     text-align: center;
+    top: 50%;
+}
+
+img {
+    max-width: 100%;
 }
 
 .noSelect {
-    -moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -o-user-select: none;
 }
 .pointerCursor {
     cursor: pointer;
@@ -60,12 +39,12 @@ img{
     cursor: default;
 }
 
-@media only screen and (max-width: 700px){
+@media only screen and (max-width: 700px) {
     body {
         padding-bottom: 250px;
     }
-    .foot{
-        background-color: "transparent"
+    .foot {
+        background-color: "transparent";
     }
 }
 
@@ -116,13 +95,45 @@ a.btn.btn-outline-danger {
     margin-top: 10px;
 }
 
-#error_explanation{
+#error_explanation {
     color: red;
     background: #f0f0f0;
     border: 1px solid #86181d;
     padding: 4px;
 }
 
-#error_explanation h2{
+#error_explanation h2 {
     font-size: 1.25rem;
+}
+
+.pagination .page-link {
+    white-space: nowrap;
+}
+
+@media (max-width: 992px) {
+    .pagination-cont {
+        overflow-x: auto;
+        padding: 0;
+    }
+
+    .pagination {
+        overflow-x: visible;
+        max-width: none;
+        display: block;
+        padding: 0;
+        white-space: nowrap;
+    }
+
+    .pagination > * {
+        display: inline-block;
+        margin: 0;
+        margin-left: -4px;
+    }
+}
+a.btn.btn-outline-primary {
+    margin-top: 10px;
+}
+
+a.btn.btn-outline-danger {
+    margin-top: 10px;
 }

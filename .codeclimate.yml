@@ -9,6 +9,8 @@ plugins:
     channel: "eslint-5"
     exclude_patterns:
       - "!public/js/"
+  scss-lint:
+    enabled: true
 
 ratings:
   paths:

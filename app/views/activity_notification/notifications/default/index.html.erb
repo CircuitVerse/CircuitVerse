@@ -1,0 +1,42 @@
+<div class="notification_wrapper">
+  <div class="notification_header">
+    <h1>
+      Notifications to <%= @target.printable_target_name %>
+      <%= link_to open_all_notifications_path_for(@target, @index_options.slice(:routing_scope, :devise_default_routes)), method: :post, remote: true do %>
+        <span class="notification_count"><span class="<%= "unopened" if @target.has_unopened_notifications?(@index_options) %>">
+          <%= @target.unopened_notification_count(@index_options) %>
+        </span></span>
+      <% end %>
+    </h1>
+    <div>
+      Browser notifications are <strong id="browser-notifications-status">disabled</strong>&nbsp;&nbsp;
+      <button class="btn btn-green" id="browser-notifications-permission-request">Enable</button>
+    </div>
+  </div>
+  <div class="notifications">
+    <% if @index_options[:with_group_members] %>
+      <%= render_notification @notifications, @index_options.slice(:routing_scope, :devise_default_routes).merge(fallback: :default_without_grouping, with_group_members: true) %>
+    <% else %>
+      <%= render_notification @notifications, @index_options.slice(:routing_scope, :devise_default_routes).merge(fallback: :default) %>
+      <%#= render_notification @notifications, @index_options.slice(:routing_scope, :devise_default_routes).merge(fallback: :text) %>
+    <% end %>
+  </div>
+</div>
+
+<style>
+  .notification_wrapper {
+    padding-left: 20px;
+  }
+  .notification_wrapper .notification_header h1 span span{
+    color: #fff;
+    background-color: #e5e5e5;
+    border-radius: 4px;
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+  .notification_wrapper .notification_header h1 span span.unopened{
+    background-color: #f87880;
+  }
+</style>
+
+<%= javascript_include_tag "webpush" %>
