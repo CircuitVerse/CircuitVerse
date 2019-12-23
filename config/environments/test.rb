@@ -40,5 +40,6 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
-  config.vapid_public_key = "BEdmrrlB8FEHyvVKkzLaUPTQpIIPjqYB9A8fitbhDz-ZBgpbY3wYL1VY9M0Kz3vPVbRRQONpTXGYIioKullYZf4="
+  config.vapid_public_key = "BP0eSFqHWrs8xtF96UegaSl5rZJDbPkRen_9oQPZfq9q6iFmbwuELSKqm89qydRcG_F5xSsavxvbGyh_ci9_SQM="
+  config.vapid_private_key = "uGNkt259yGQDgGQYP1R4r3q1vTKkCddZe3rImyZvM4w="
 end

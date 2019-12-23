@@ -9,15 +9,15 @@ class PushSubscription < ApplicationRecord
         url: url
     }
     Webpush.payload_send(
-        message: JSON.generate(payload),
-        endpoint: self[:endpoint],
-        p256dh: self[:p256dh],
-        auth: self[:auth],
-        vapid: {
-            subject: "mailto:support@circuitverse.org",
-            public_key: ENV["VAPID_PUBLIC_KEY"],
-            private_key: ENV["VAPID_PRIVATE_KEY"]
-        }
+      message: JSON.generate(payload),
+      endpoint: self[:endpoint],
+      p256dh: self[:p256dh],
+      auth: self[:auth],
+      vapid: {
+          subject: "mailto:support@circuitverse.org",
+          public_key: Rails.application.config.vapid_public_key,
+          private_key: Rails.application.config.vapid_private_key
+      }
     )
   end
 end

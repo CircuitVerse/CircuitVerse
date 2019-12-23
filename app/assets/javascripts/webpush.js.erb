@@ -1,8 +1,5 @@
-<% ENV["VAPID_PUBLIC_KEY"] = ENV["VAPID_PUBLIC_KEY"] ||
-  Rails.application.config.vapid_public_key %>
-
 function subscribe() {
-  const vapidPublicKey = new Uint8Array(<%= Base64.urlsafe_decode64(ENV["VAPID_PUBLIC_KEY"]).bytes %>);
+  const vapidPublicKey = new Uint8Array(<%= Base64.urlsafe_decode64(Rails.application.config.vapid_public_key).bytes %>);
   navigator.serviceWorker.ready.then(registration => {
     registration.pushManager
       .subscribe({

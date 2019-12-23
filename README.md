@@ -38,6 +38,16 @@ Please go through the [Contribution Guidelines](CONTRIBUTING.md) before going fo
 * Run Migrations: `rails db:migrate`
 * At this point, local development can be started with ```rails s -b 127.0.0.1 -p 8080```
 
+### Additional setup instructions
+[Yarn](https://yarnpkg.com/lang/en/) is a package manager for the JavaScript ecosystem.
+CircuitVerse uses Yarn for frontend package and asset management.
+
+If you encounter the following error,
+```
+Error: File to import not found or unreadable: bootstrap/scss/bootstrap.scss
+```
+run `yarn` to install frontend dependencies
+
 Additional software:
 * Install imagemagick
 * Start Redis server process.
