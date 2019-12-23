@@ -55,3 +55,6 @@ solr/development/data
 solr/default/data
 solr/pids
 solr/*
+
+# Active storage data directory
+storage

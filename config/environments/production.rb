@@ -104,7 +104,6 @@ Rails.application.configure do
   end
 
 
-  Paperclip.options[:command_path] = "/usr/bin/"
   config.active_job.queue_adapter = :sidekiq
 
   # Do not dump schema after migrations.
@@ -134,4 +133,5 @@ Rails.application.configure do
   # Required
 #   config.logstash.type = :tcp
   # Logstash settings end here
+  config.active_storage.service = :local
 end

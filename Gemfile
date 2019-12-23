@@ -5,7 +5,6 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem "paperclip", ">= 5.2.0"
 gem 'hirb'
 gem 'acts_as_votable','~> 0.12.0'
 gem 'omniauth'
@@ -41,11 +40,10 @@ gem 'jquery-rails'
 
 # gem 'acts_as_votable', '~> 0.11.1'
 
-gem 'carrierwave', '~> 1.0'
-
 gem 'rails_admin', '~> 2.0'
 
 # gem 'cancancan', '~>2.0'
+gem 'image_processing', '~> 1.2'
 
 gem 'sidekiq'
 gem 'pg_search'

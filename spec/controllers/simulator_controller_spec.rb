@@ -23,7 +23,7 @@ describe SimulatorController, type: :request do
           }.to change { Project.count }.by(1)
           expect(response.status).to eq(302)
           created_project = Project.order("created_at").last
-          expect(created_project.image_preview.path.split("/")[-1]).to eq("default.png")
+          expect(created_project.image_preview.attached?).to be_truthy
         end
       end
 
@@ -34,7 +34,7 @@ describe SimulatorController, type: :request do
               "data:image/jpeg;base64,#{Faker::Alphanumeric.alpha(number: 20)}" }
           }.to change { Project.count }.by(1)
           created_project = Project.order("created_at").last
-          expect(created_project.image_preview.path.split("/")[-1]).to start_with("preview_")
+          expect(created_project.image_preview.attached?).to be_truthy
         end
       end
     end

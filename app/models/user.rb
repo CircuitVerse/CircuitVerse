@@ -28,8 +28,8 @@ class User < ApplicationRecord
   after_commit :send_welcome_mail,  on: :create
   after_commit :create_members_from_invitations, on: :create
 
-  has_attached_file :profile_picture, styles: { medium: "205X240#", thumb: "100x100>" }, default_url: ":style/Default.jpg"
-  validates_attachment_content_type :profile_picture, content_type: /\Aimage\/.*\z/
+  has_one_attached :profile_picture
+  validate :profile_picture_validation
 
   scope :subscribed, -> { where(subscribed: true) }
 
@@ -44,6 +44,15 @@ class User < ApplicationRecord
 
   acts_as_target printable_name: :name, email: :email
   acts_as_notifier printable_name: :name
+
+  def profile_picture_validation
+    if profile_picture.attached?
+      unless profile_picture.content_type.in?(%w(image/png image/jpg image/jpeg))
+        self.profile_picture = nil
+        raise "Wrong format"
+      end
+    end
+  end
 
   def create_members_from_invitations
     pending_invitations.reload.each do |invitation|

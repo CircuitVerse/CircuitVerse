@@ -109,7 +109,7 @@
               <div class="card-header card-title">
                <a href="<%= user_project_path(project.author_id,project) %>"><%=project.name %></a>
               </div>
-              <a href="<%= user_project_path(project.author_id,project) %>" ><img class="card-img-top " src="<%= project.image_preview.url %>" alt="<%= project.name%>" ></a>
+              <a href="<%= user_project_path(project.author_id,project) %>" ><img class="card-img-top " src="<%= image_preview_url(project) %>" alt="<%= project.name%>" ></a>
             </div>
           </div>
       <% end %>
@@ -125,7 +125,7 @@
               <div class="card-header card-title">
                <a href="<%= user_project_path(project.author_id, project) %>"><%=project.name %></a>
               </div>
-              <a href="<%= user_project_path(project.author_id, project) %>" ><img class="card-img-top " src="<%= project.image_preview.url %>" alt="<%= project.name%>" ></a>
+              <a href="<%= user_project_path(project.author_id,project) %>" ><img class="card-img-top " src="<%= image_preview_url(project) %>" alt="<%= project.name%>" ></a>
             </div>
           </div>
       <% end %>
@@ -140,7 +140,7 @@
               <div class="card-header card-title">
                <a href="<%= user_project_path(project.author_id,project) %>"><%=project.name %></a>
               </div>
-              <a href="<%= user_project_path(project.author_id,project) %>" ><img class="card-img-top " src="<%= project.image_preview.url %>" alt="<%= project.name%>" ></a>
+              <a href="<%= user_project_path(project.author_id,project) %>" ><img class="card-img-top " src="<%= image_preview_url(project) %>" alt="<%= project.name%>" ></a>
             </div>
           </div>
       <% end %>

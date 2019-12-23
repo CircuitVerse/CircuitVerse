@@ -63,10 +63,10 @@ Commontator.configure do |config|
   #   view.commontator_gravatar_image_tag(user, 1, s: 60, d: 'mm')
   # }
   config.user_avatar_proc = ->(user, view) {
-    # image_tag(user.profile_picture.url(:thumb), { alt: user.name,
+    # image_tag(profile_picture_url_thumb(user), { alt: user.name,
     #                  title: user.name,
     #                  border: 1 })
-    return ActionController::Base.helpers.image_tag(user.profile_picture.url(:thumb));
+    return ActionController::Base.helpers.image_tag(profile_picture_url_thumb(user));
     # puts view.commontator_gravatar_image_tag(user, 1, s: 60, d: 'mm')
     # view.commontator_gravatar_image_tag(user, 1, s: 60, d: 'mm')
   }

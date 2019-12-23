@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class UserMailer < ApplicationMailer
+  helper :projects
+
   def custom_email(user, mail)
     @user = user
     @mail = mail

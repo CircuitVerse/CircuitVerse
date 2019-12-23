@@ -73,5 +73,5 @@ Rails.application.configure do
     config.hosts << /.*\.gitpod\.io\Z/
   end
 
-  Paperclip.options[:command_path] = "/usr/local/bin/"
+  config.active_storage.service = :local
 end

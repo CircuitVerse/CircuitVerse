@@ -18,7 +18,7 @@
           <div class="col-8 d-flex justify-content-end">
             <div class="row">
               <div class="col-sm-auto p-1">
-                <%= image_tag project.author.profile_picture.url(:medium) , :style => "height:60px;width:60px;", :class => ' img-responsive thumbnail rounded-circle'%>
+                <%= image_tag profile_picture_url_medium(project.author) , :style => "height:60px;width:60px;", :class => ' img-responsive thumbnail rounded-circle'%>
               </div>
               <div class="col p-3">
                 <small class="text-muted"><%= link_to project.author.name, project.author %></small>
@@ -31,7 +31,7 @@
         </div>
       </div>
       <div class="col-md-3">
-        <img src="<%= project.image_preview.url %>" alt="<%= project.name %>" class="img-fluid img-thumbnail">
+        <img src="<%= image_preview_url(project) %>" alt="<%= project.name %>" class="img-fluid img-thumbnail">
       </div>
     </div>
   <% end %>

@@ -23,9 +23,21 @@ RSpec.describe User, type: :model do
   end
 
   describe "validations" do
-    it { should have_attached_file(:profile_picture) }
-    it { should validate_attachment_content_type(:profile_picture)
-                  .allowing("image/png", "image/jpeg", "image/jpg") }
+    before do
+      @user = FactoryBot.create(:user)
+      @user.profile_picture.attach(
+        io: File.open("public/img/default.png", "rb"),
+        filename: "default.png"
+      )
+    end
+    it "has a profile picture storage field" do
+      expect(@user.profile_picture.attached?).to be_truthy
+    end
+    it "only allows images to be attached" do
+      expect { @user.profile_picture.attach(
+        io: File.open("Gemfile", "rb"), filename: "Gemfile"
+      ) }.to raise_error("Wrong format")
+    end
   end
 
   describe "public methods" do
@@ -46,7 +58,7 @@ RSpec.describe User, type: :model do
       expect {
         @user.create_members_from_invitations
       }.to change { PendingInvitation.count }.by(-1)
-       .and change { GroupMember.count }.by(1)
+               .and change { GroupMember.count }.by(1)
     end
   end
 end

@@ -24,8 +24,8 @@
 
         <div class="form-group">
           <label for="profile_picture">Profile Picture:</label>
-          <p> <%= image_tag @profile.profile_picture.url(:thumb) %></p>
-          <input type="file" class="form-control" id="profile_picture" name="user[profile_picture]" value="<%= @profile.profile_picture %>">
+          <p> <%= image_tag profile_picture_url_thumb(@profile) %></p>
+          <input type="file" class="form-control" id="profile_picture" name="user[profile_picture]" value="<%= profile_picture_url_thumb(@profile) %>">
         </div>
 
         <div class="field form-group">

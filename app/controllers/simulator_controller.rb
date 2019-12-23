@@ -48,7 +48,10 @@ class SimulatorController < ApplicationController
 
     image_file = return_image_file(params[:image])
 
-    @project.image_preview = image_file
+    @project.image_preview.attach(
+      io: File.open(image_file.path, "rb"),
+      filename: File.basename(image_file)
+    )
     @project.name = sanitize(params[:name])
     @project.save
 
@@ -68,7 +71,10 @@ class SimulatorController < ApplicationController
 
     image_file = return_image_file(params[:image])
 
-    @project.image_preview = image_file
+    @project.image_preview.attach(
+      io: File.open(image_file.path, "rb"),
+      filename: File.basename(image_file)
+    )
     @project.save
 
     if check_to_delete(params[:image])
