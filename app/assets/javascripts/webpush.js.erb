@@ -1,0 +1,46 @@
+<% ENV["VAPID_PUBLIC_KEY"] = ENV["VAPID_PUBLIC_KEY"] ||
+  Rails.application.config.vapid_public_key %>
+
+function subscribe() {
+  const vapidPublicKey = new Uint8Array(<%= Base64.urlsafe_decode64(ENV["VAPID_PUBLIC_KEY"]).bytes %>);
+  navigator.serviceWorker.ready.then(registration => {
+    registration.pushManager
+      .subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: vapidPublicKey
+      }).then(sub => {
+        const subscription = sub.toJSON()
+        $.post("/push/subscription/new", {
+          push_subscription: {
+            endpoint: subscription.endpoint,
+            auth: subscription.keys.auth,
+            p256dh: subscription.keys.p256dh
+          }
+        });
+      checkPermissions();
+    });
+  });
+}
+function subscribeOrTest() {
+  if (Notification.permission === "granted") testWebPush()
+  else subscribe()
+}
+
+function testWebPush() {
+  $.post("/push/test",{push:{message:"CircuitVerse push notifications test!"}});
+}
+
+function checkPermissions() {
+  if (Notification.permission === "granted") {
+    document.getElementById("browser-notifications-status").innerText = "enabled!";
+    document.getElementById("browser-notifications-permission-request").innerText = "Test!";
+  } else {
+    document.getElementById("browser-notifications-status").innerText = "disabled!";
+    document.getElementById("browser-notifications-permission-request").innerText = "Enable!";
+  }
+}
+
+if (document.getElementById("browser-notifications-status") != null){
+  checkPermissions();
+  document.getElementById("browser-notifications-permission-request").addEventListener("click", subscribeOrTest);
+}
