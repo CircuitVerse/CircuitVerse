@@ -843,7 +843,6 @@ div.icon img {
     top: 50%;
     transform: translate(-50%,-50%);
 }
-<<<<<<< new02
 .outer-box {
     position: absolute;
     background: transparent;
@@ -851,11 +850,6 @@ div.icon img {
     height: inherit;
 }
 .inner-box {
-=======
-
-.sk-folding-cube .sk-cube:before {
-    content: "";
->>>>>>> master
     position: absolute;
     width: 100%;
     stroke-width: 100%;
@@ -913,7 +907,6 @@ div.icon img {
     top: 15%;
     left: 15%; 
 }
-<<<<<<< new02
 .circles:nth-of-type(3){
     top: 60%;
     left: 15%;
@@ -976,49 +969,6 @@ div.icon img {
     70% { background: white; }
     80% { background: white; }    
     100% { background: white; }
-=======
-
-@-webkit-keyframes sk-foldCubeAngle {
-    0%,
-    10% {
-        -webkit-transform: perspective(140px) rotateX(-180deg);
-        transform: perspective(140px) rotateX(-180deg);
-        opacity: 0;
-    }
-    25%,
-    75% {
-        -webkit-transform: perspective(140px) rotateX(0deg);
-        transform: perspective(140px) rotateX(0deg);
-        opacity: 1;
-    }
-    90%,
-    100% {
-        -webkit-transform: perspective(140px) rotateY(180deg);
-        transform: perspective(140px) rotateY(180deg);
-        opacity: 0;
-    }
-}
-
-@keyframes sk-foldCubeAngle {
-    0%,
-    10% {
-        -webkit-transform: perspective(140px) rotateX(-180deg);
-        transform: perspective(140px) rotateX(-180deg);
-        opacity: 0;
-    }
-    25%,
-    75% {
-        -webkit-transform: perspective(140px) rotateX(0deg);
-        transform: perspective(140px) rotateX(0deg);
-        opacity: 1;
-    }
-    90%,
-    100% {
-        -webkit-transform: perspective(140px) rotateY(180deg);
-        transform: perspective(140px) rotateY(180deg);
-        opacity: 0;
-    }
->>>>>>> master
 }
 
 /* LOADING ICON CSS ENDS*/
