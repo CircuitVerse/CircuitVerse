@@ -68,6 +68,9 @@ Rails.application.configure do
     :enable_starttls_auto => true,
   }
 
+  config.vapid_public_key = ENV["VAPID_PUBLIC_KEY"] || "BGxnigbQCa435vZ8_3uFdqLC0XJHXtONgEdI-ydMMs0JaBsnpUfLxR1UDagq6_cDwHyhqjw77tTlp0ULZkx8Xos="
+  config.vapid_private_key = ENV["VAPID_PRIVATE_KEY"] || "FkEMkOQHvMybUlCGH-DsOljTJlLzYGb3xEYsFY5Roxk="
+
   Rails.application.configure do
     # Whitelist gitpod domain in dev envionment
     config.hosts << /.*\.gitpod\.io\Z/
