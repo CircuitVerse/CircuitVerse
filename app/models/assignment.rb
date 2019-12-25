@@ -32,6 +32,7 @@ class Assignment < ApplicationRecord
         AssignmentDeadlineSubmissionJob.set(wait: ((self.deadline - Time.now)/60).minute).perform_later(self.id)
       else
        AssignmentDeadlineSubmissionJob.perform_later(self.id)
+       AssignmentMailer.deadline_assignment_email(self).deliver_later
       end
     end
   end
