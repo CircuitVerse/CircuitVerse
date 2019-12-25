@@ -12,7 +12,7 @@ class AssignmentMailer < ApplicationMailer
   end
   def deadline_assignment_email(assignment)
     @assignment = assignment
-    @user = User.find_by(id:Group.find_by(id:@assignment.group_id).mentor_id).name
+    @user = User.find_by(id:Group.find_by(id:@assignment.group_id).mentor_id)
     mail(to: (@user.email), subject: "Assignment has reached the deadline in " +  Group.find_by(id:(@assignment.group_id)).name )
   end
 end
