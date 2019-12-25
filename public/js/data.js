@@ -319,14 +319,13 @@ function generateDependencyOrder() {
 }
 
 // Deletes the current circuit
-// Ensures that at least one circuit is there
+// Ensures that at least one circuit is there, if not redirect to homepage
 // Ensures that no circuit depends on the current circuit
 // Switched to a random circuit
 
 function deleteCurrentCircuit() {
     if (Object.keys(scopeList).length <= 1) {
-        showError("At least 2 circuits need to be there in order to delete a circuit.")
-        return;
+        document.location.href = "/";
     }
     var dependencies = "";
     for (id in scopeList) {
