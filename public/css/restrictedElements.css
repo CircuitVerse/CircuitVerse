@@ -8,7 +8,8 @@
 
 .circuit-element-category {
     font-weight: 500;
-    margin: 5px 0;
+    margin: 20px 0 5px 0;
+    border-bottom: 1px solid #42B983;
 }
 
 .restricted-elements-list {

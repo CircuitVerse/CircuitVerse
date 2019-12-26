@@ -19,44 +19,42 @@
     <%= form.text_field :name, id: :assignment_name %>
   </div>
 
-  <% if @assignment.new_record? %>
-    <div class="field">
-      <span style="color: red"> * Cannot be changed once set </span>
-      <%= form.label :grading_scale %>
-      <%= form.select :grading_scale, [:no_scale, :letter, :percent, :custom] %>
-      <span style="margin-bottom: 2px">
-        <div class="tooltip-help assignment-tooltip"> Help
-          <div class="right-help">
-            <div> <span style="font-style: italic"> percent </span>: Assignment can be graded on a scale of 1-100 </div>
-            <div> <span style="font-style: italic"> letter </span>: Assignment can be graded with letters A-F </div>
-            <div> <span style="font-style: italic"> no_scale </span>: Assignment won't be graded </div>
-            <div> <span style="font-style: italic"> custom </span>: Assignment can be graded as required </div>
-            <i> </i>
-          </div>
-        </div>
-      </span>
-    </div>
-  <% else %>
-    <div class="field" style="margin-bottom: 10px">
-      Grading scale: <span style="font-style: italic"> <%= @assignment.grading_scale %> </span>
-    </div>
-  <% end %>
+  <div class="field" id="wysiwyg">
+    <%= render "wysiwyg/index" %>
+  </div>
 
   <div class="field">
     <%= form.label :deadline %>
     <input class ="date" id="party" type="datetime-local" name="assignment[deadline]" min="<%= Time.now.strftime("%Y-%m-%dT%H:%M")%>" value="<%= assignment.deadline.strftime("%Y-%m-%dT%H:%M")%>">
   </div>
 
-  <div class="field" id="wysiwyg">
-    <%= form.label :description %><br>
-    <%= render "wysiwyg/index" %>
-  </div>
-
-  <div class="field" style="margin-bottom: 8px;margin-top: 17px">
-    <span style="font-weight: 600"> Restrict elements: </span>  <%= check_box_tag "restrict-elements", "1", @assignment.elements_restricted?, id: "restrict-elements", style: "margin-top: 0" %>
-    <div class="restricted-elements-list">
-
+  <% if @assignment.new_record? %>
+    <div class="field">
+      <%= form.label :grading_scale %>*
+      <%= form.select :grading_scale, [["No Grade", :no_scale], ["Letter", :letter], ["Percent", :percent], ["Custom", :custom]] %>
+      <span style="margin-bottom: 2px">
+        <div class="tooltip-help assignment-tooltip"> Help
+          <div class="right-help">
+            <div> <span style="font-style: italic"> Percent </span>: Assignment can be graded on a scale of 1-100 </div>
+            <div> <span style="font-style: italic"> Letter </span>: Assignment can be graded with letters A-F </div>
+            <div> <span style="font-style: italic"> No Grade </span>: Assignment won't be graded </div>
+            <div> <span style="font-style: italic"> Custom </span>: Assignment can be graded as required </div>
+            <i> </i>
+          </div>
+        </div>
+      </span>
+      <div>* Grading Scale cannot be changed once set</div>
     </div>
+  <% else %>
+    <div class="field">
+      Grading scale: <%= AssignmentDecorator.new(@assignment).graded %> <span style="font-style: italic"> (Cannot be edited) </span>
+    </div>
+  <% end %>
+  
+  <h3 style="margin-top: 20px;"> Elements Restriction </h3>
+  <div class="field" style="margin-bottom: 15px;">
+    <span style="font-weight: 600"> Enable elements restriction: </span>  <%= check_box_tag "restrict-elements", "1", @assignment.elements_restricted?, id: "restrict-elements", style: "margin-top: 0" %>
+    <div class="restricted-elements-list"> <!-- Operated by script --> </div>
   </div>
 
 
