@@ -11,7 +11,6 @@ class AssignmentDeadlineSubmissionJob < ApplicationJob
     end
 
     assignment.with_lock do
-
       if(assignment.nil? or assignment.status == "closed")
         return
       end
@@ -39,10 +38,7 @@ class AssignmentDeadlineSubmissionJob < ApplicationJob
           @asgn = @asgnMail.deadline_assignment_email(@asign, @proj_s, @proj_ns)
           @asgn.deliver_later
         end
-
       end
-
     end
-
   end
 end
