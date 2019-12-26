@@ -40,12 +40,9 @@ class AssignmentDeadlineSubmissionJob < ApplicationJob
           @asgn.deliver_later
         end
 
-
       end
 
     end
-
-
 
   end
 end
