@@ -17,7 +17,7 @@ class AssignmentMailer < ApplicationMailer
     @proj_ns = proj_ns
     @user = User.find_by(id: Group.find_by(id: @assignment.group_id).mentor_id)
     @grp_name = Group.find_by(id: @assignment.group_id).name
-    @sbj = "Assignment has reached the deadline in " + @grp_name
+    @sbj = 'Assignment has reached the deadline in ' + @grp_name
     mail(to: @user.email, subject: @sbj)
   end
 end

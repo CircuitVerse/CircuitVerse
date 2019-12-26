@@ -20,7 +20,7 @@ class AssignmentDeadlineSubmissionJob < ApplicationJob
         if assignment.status == 'open'
           assignment.projects.each do |proj|
             if proj.project_submission == false
-              @proj_ns = @proj_ns + 1
+              @proj_ns += 1
               submission = proj.dup
               submission.project_submission=true
               submission.forked_project_id = proj.id
@@ -28,7 +28,7 @@ class AssignmentDeadlineSubmissionJob < ApplicationJob
               proj.save!
               submission.save!
             else
-              @proj_s = @proj_s + 1
+              @proj_s += 1
             end
           end
           assignment.status = 'closed'
