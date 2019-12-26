@@ -25,7 +25,7 @@
 
   <div class="field">
     <%= form.label :deadline %>
-    <input class ="date" id="party" type="datetime-local" name="assignment[deadline]" min="<%= Time.now.strftime("%Y-%m-%dT%H:%M")%>" value="<%= assignment.deadline.strftime("%Y-%m-%dT%H:%M")%>">
+    <input class ="date" id="party" type="datetime-local" name="assignment[deadline]" min="<%= Time.now.strftime("%Y-%m-%dT%H:%M") %>" value="<%= assignment.deadline.strftime("%Y-%m-%dT%H:%M") %>">
   </div>
 
   <% if @assignment.new_record? %>
@@ -50,13 +50,12 @@
       Grading scale: <%= AssignmentDecorator.new(@assignment).graded %> <span style="font-style: italic"> (Cannot be edited) </span>
     </div>
   <% end %>
-  
+
   <h3 style="margin-top: 20px;"> Elements Restriction </h3>
   <div class="field" style="margin-bottom: 15px;">
     <span style="font-weight: 600"> Enable elements restriction: </span>  <%= check_box_tag "restrict-elements", "1", @assignment.elements_restricted?, id: "restrict-elements", style: "margin-top: 0" %>
     <div class="restricted-elements-list"> <!-- Operated by script --> </div>
   </div>
-
 
   <div class="actions">
     <%= form.submit %>
