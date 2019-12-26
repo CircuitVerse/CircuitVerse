@@ -6,9 +6,9 @@
   <body>
     <h1>The Deadline of <%= @assignment.name %> Has Been Reached</h1>
     <h2>Students who submitted the assignment:</h2>
-    <%=projectsSubmitted%>
+    #<%=projectsSubmitted%>
     <h2>Students who have not submitted the assignment:</h2>
-    <%=projectsNotSubmitted%>
+    #<%=projectsNotSubmitted%>
 
     <p>
       The deadline of assignment <%=@assignment.name%> in <%=Group.find_by(id:@assignment.group_id).name%> has been reached.<br>
