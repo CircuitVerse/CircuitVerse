@@ -3,8 +3,8 @@ class AssignmentDeadlineSubmissionJob < ApplicationJob
 
   def perform(assignment_id)
     assignment = Assignment.find_by(id:assignment_id)
-    @proj_s = 0
-    @proj_ns = 0
+    @projects_submitted = 0
+    @projects_not_submitted = 0
 
     if(assignment.nil? or assignment.status == "closed")
       return
@@ -20,7 +20,7 @@ class AssignmentDeadlineSubmissionJob < ApplicationJob
         if assignment.status == 'open'
           assignment.projects.each do |proj|
             if proj.project_submission == false
-              @proj_ns += 1
+              @projects_not_submitted += 1
               submission = proj.dup
               submission.project_submission=true
               submission.forked_project_id = proj.id
@@ -28,14 +28,14 @@ class AssignmentDeadlineSubmissionJob < ApplicationJob
               proj.save!
               submission.save!
             else
-              @proj_s += 1
+              @projects_submitted += 1
             end
           end
           assignment.status = 'closed'
           assignment.save!
           @asign = assignment
           @asg_mail = AssignmentMailer
-          @asgn = @asg_mail.deadline_assignment_email(@asign, @proj_s, @proj_ns)
+          @asgn = @asg_mail.deadline_assignment_email(@asign, @projects_submitted, @projects_not_submitted)
           @asgn.deliver_later
         end
       end
