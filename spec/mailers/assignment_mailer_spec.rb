@@ -34,8 +34,8 @@ RSpec.describe AssignmentMailer, type: :mailer do
     let(:mail) {@dl}
 
     it "sends update assignment link" do
-      @mentorGrp = Group.find_by(id: @assignment.group_id)
-      @mentor = User.find_by(id: @mentorGrp.mentor_id)
+      @mentor_grp = Group.find_by(id: @assignment.group_id)
+      @mentor = User.find_by(id: @mentor_grp.mentor_id)
       expect(mail.to).to eq([@mentor.email])
       expect(mail.subject).to eq("Assignment has reached the deadline in #{@group.name}")
     end
