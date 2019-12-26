@@ -28,10 +28,8 @@ RSpec.describe AssignmentMailer, type: :mailer do
   end
 
   describe "#deadline_assignment_email" do
-    @proj_s = @proj_submitted
-    @proj_ns = @proj_not_submitted
     @dl = AssignmentMailer.deadline_assignment_email(@assignment, @proj_s, @proj_ns)
-    let(:mail) {@dl}
+    let(:mail) { @dl }
 
     it "sends update assignment link" do
       @mentor_grp = Group.find_by(id: @assignment.group_id)
