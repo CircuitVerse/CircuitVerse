@@ -182,6 +182,20 @@
         <% end %>
         </tbody>
       </table>
+      
+          <h6>Note:</h6>
+          <ul>
+            <% if policy(@group).admin_access? %>
+              <li> You can add students by clicking on the <b>Add member</b> button.</li>
+              <li> Assignments can be added using the <b>Add new Assignment</b> button. </li>
+              <li> To see the students work in each assignment, click on <b>Show</b> button corresponding to an Assignment. </li>
+            <% else %>
+              <li> To work on your assignment, click on the <b>start working</b> button beside the corresponding assignment and Launch the Simulator.</li>
+              <li> After completing your assignment on the simulator, save your work. There’s no separate option to submit your assignment. Your work gets automatically submitted and you can continue to update your work till the deadline.</li>
+            <% end %>
+              <li> Collaborators can be added in case of group tasks where all the collaborators can work on the same project.</li>
+         </ul>
+      
       <% if policy(@group).admin_access? %>
       <%= link_to 'Edit', edit_group_path(@group) %> |
       <% end %>

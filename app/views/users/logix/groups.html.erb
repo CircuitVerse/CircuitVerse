@@ -2,6 +2,11 @@
   <div class="row feature">
 
     <div class="col">
+         <p> <b>Groups</b> is a versatile feature of CircuitVerse which helps teachers to manage class assignments with ease. Teachers can add students to groups, post assignments with deadlines and also grade the assignments using the built-in preview.</p>
+      <% if @groups_mentored.blank? %>
+         <p> Click on <b>New Group</b> to create a group.</p>
+      <% end %>
+      
       <%= link_to 'New Group +', new_group_path, class: "btn btn-info" %>
       <% if notice %>
           <p id="notice" class="alert alert-danger"><%= notice %></p>
