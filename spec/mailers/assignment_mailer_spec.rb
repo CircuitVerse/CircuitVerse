@@ -28,7 +28,7 @@ RSpec.describe AssignmentMailer, type: :mailer do
   end
 
   describe "#deadline_assignment_email" do
-    let(:mail) { AssignmentMailer.deadline_assignment_email(@assignment) }
+    let(:mail) { AssignmentMailer.deadline_assignment_email(@assignment, @projectsSubmitted, @projectsNotSubmitted) }
 
     it "sends update assignment link" do
       expect(mail.to).to eq([User.find_by(id:Group.find_by(id:@assignment.group_id).mentor_id).email])
