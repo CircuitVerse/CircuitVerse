@@ -1,4 +1,4 @@
-/*jshint esversion: 6 */
+/* jshint esversion: 6 */
 
 $(document).ready(() => {
     // remove search in nav bar on the search page
@@ -10,7 +10,7 @@ $(document).ready(() => {
     var searchText = $('.search-bar-input').val().trim();
 
     if (searchText !== '') {
-        $('.feature').find('p, .card-title, .card-text, .description, .text-muted').each(function () {
+        $('.feature').find('p, .card-title, .card-text, .description, .text-muted').each(function highlight () {
             // Loop over each result
             var text = $(this).html();
 
@@ -22,13 +22,12 @@ $(document).ready(() => {
 
                 if (occurence === -1) {
                     loop = false;
-                }
-                else {
+                } else {
                     text = `${text.substring(0, occurence)}<span class="search-match">${text.substring(occurence, occurence + searchText.length)}</span>${text.substring(occurence + searchText.length)}`;
                 }
                 currentPos += 34 + searchText.length;
             }
-      
+
             $(this).html(text);
         });
     }
