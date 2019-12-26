@@ -10,7 +10,7 @@ $(document).ready(() => {
     var searchText = $('.search-bar-input').val().trim();
 
     if (searchText !== '') {
-        $('.feature').find('p, .card-title, .card-text, .description, .text-muted').each(function highlight () {
+        $('.feature').find('p, .card-title, .card-text, .description, .text-muted').each(function highlight() {
             // Loop over each result
             var text = $(this).html();
 
