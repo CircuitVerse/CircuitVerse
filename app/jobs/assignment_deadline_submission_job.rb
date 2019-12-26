@@ -34,7 +34,12 @@ class AssignmentDeadlineSubmissionJob < ApplicationJob
           end
           assignment.status = 'closed'
           assignment.save!
-          AssignmentMailer.deadline_assignment_email(assignment, @projectsSubmitted, @projectsNotSubmitted).deliver_later
+          @asign = assignment
+          @proj_s = @projectsSubmitted
+          @proj_ns = @projectsNotSubmitted
+          @asgnMail = AssignmentMailer
+          @asgn = @asgnMail.deadline_assignment_email(@asign, @proj_s, @proj_ns)
+          @asgn.deliver_later
         end
 
 
