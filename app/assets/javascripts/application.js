@@ -19,3 +19,5 @@
 //= require bootstrap/dist/js/bootstrap.min.js
 //= require popper.js/dist/popper.min.js
 //= require serviceworker-companion
+//= require moment
+//= require tempusdominus-bootstrap-4.js
