@@ -1,4 +1,4 @@
-$(document).ready(() => {
+function loadRestrictions(restrictions) {
     $('#restrict-elements').change((e) => {
         e.preventDefault();
         const radio = $(e.currentTarget);
@@ -31,4 +31,4 @@ $(document).ready(() => {
         }
         $('.restricted-elements-list').append(html);
     }
-});
+};

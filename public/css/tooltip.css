@@ -9,6 +9,7 @@
 .assignment-tooltip {
     bottom: 5px;
     left: 10px;
+    margin-bottom: 2px;
 }
 
 .tooltip-help .right-help {
