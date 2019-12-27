@@ -5,8 +5,8 @@
   </head>
   <body>
     <h1>The Deadline of <%= @assignment.name %> Has Been Reached</h1>
-    <h2>Students who submitted the assignment: <%= @projectsSubmitted%></h2>
-    <h2>Students who have not submitted the assignment: <%= @projectsNotSubmitted%></h2>
+    <h2>Students who submitted the assignment: <%= @projects_submitted%></h2>
+    <h2>Students who have not submitted the assignment: <%= @projects_not_submitted%></h2>
 
     <p>
       The deadline of assignment <%=@assignment.name%> in <%=Group.find_by(id:@assignment.group_id).name%> has been reached.<br>
