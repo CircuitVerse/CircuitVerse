@@ -31,11 +31,11 @@ RSpec.describe AssignmentMailer, type: :mailer do
     let(:mail) { AssignmentMailer.deadline_assignment_email(@assignment, @projects_submitted, @projects_not_submitted) }
 
     it 'sends update assignment link' do
-      @mentor_grp = Group.find_by(id: @assignment.group_id)
-      @mentor = User.find_by(id: @mentor_grp.mentor_id)
+      @group = Group.find_by(id: @assignment.group_id)
+      @mentor = User.find_by(id: @group.mentor_id)
       expect(mail.to).to eq([@mentor.email])
-      @eq_str = "Assignment has reached the deadline in #{@group.name}"
-      expect(mail.subject).to eq(@eq_str)
+      @eq_string = "Assignment has reached the deadline in #{@group.name}"
+      expect(mail.subject).to eq(@eq_string)
     end
   end
 end
