@@ -25,7 +25,7 @@
 
   <div id="deadline-field" class="form-group">
     <%= form.label :deadline %>
-    <input id="datetimepicker" type="text" class="form-control">
+    <input id="deadlinePicker" name="assignment[deadline]" type="text" class="form-control">
   </div>
 
   <div id="grade-field" class="form-group">
@@ -70,7 +70,7 @@
   })
   
   function loadDeadlinePicker() {
-    $('#datetimepicker').datetimepicker({
+    $('#deadlinePicker').datetimepicker({
       format: 'd/m/Y H:i',
       minDate: formatDate(new Date(),'d/m/Y'),
       validateOnBlur: true,
@@ -98,6 +98,14 @@
   function beforeSubmit() {
       cleanEditor()
       generateRestricitons()
+      generateDate()
+  }
+  function generateDate()
+  {
+    let pickerDate = new Date($('#deadlinePicker').val())
+    const pickerUnix = pickerDate.getTime();
+    const pickerUnixWithTimezone = new Date(pickerUnix + new Date().getTimezoneOffset()*60*1000)
+    $('#deadlinePicker').val(formatDate(pickerUnixWithTimezone,"yyyy-dd-MMTHH:mm"))
   }
   function cleanEditor() {
     $('<input />').attr('type', 'hidden')
@@ -115,12 +123,10 @@
           updated_restrictions.push(temp.val())
       }
     }
-    alert(JSON.stringify(updated_restrictions))
     $('<input />').attr('type', 'hidden')
         .attr('name', 'assignment[restrictions]')
         .attr('value', JSON.stringify(updated_restrictions))
         .appendTo('#assignmentForm');
-    alert()
   }
 
 </script>
