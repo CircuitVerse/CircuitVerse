@@ -27,7 +27,7 @@ RSpec.describe AssignmentMailer, type: :mailer do
     end
   end
 
-  describe '#deadline_assignment_email' do
+  describe "#deadline_assignment_email" do
     let(:mail) { AssignmentMailer.deadline_assignment_email(@assignment, @projects_submitted, @projects_not_submitted) }
 
     it "sends update assignment link" do
