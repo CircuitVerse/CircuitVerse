@@ -37,10 +37,6 @@ gem 'commontator', '~> 5.0.0'
 # To generate sitemap.xml
 gem 'sitemap_generator'
 
-# For assigment datepicker
-gem 'momentjs-rails', '>= 2.9.0'
-gem 'bootstrap4-datetime-picker-rails'
-
 gem 'jquery-rails'
 
 # gem 'acts_as_votable', '~> 0.11.1'

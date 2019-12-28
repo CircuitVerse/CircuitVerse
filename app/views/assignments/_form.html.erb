@@ -1,5 +1,5 @@
 <link rel="stylesheet" type="text/css" href="/css/restrictedElements.css">
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 <script src="/js/metadata.json"></script>
 <%= form_with(model: [group,@assignment], local: true, html: {onsubmit:"beforeSubmit()"}, multipart: true ,id:"assignmentForm") do |form| %>
   <% if @assignment.errors.any? %>
@@ -16,7 +16,7 @@
 
   <div id="name-field" class="field">
     <%= form.label :name %>
-    <%= form.text_field :name, id: :assignment_name, class: 'form-control'%>
+    <%= form.text_field :name, id: :assignment_name %>
   </div>
 
   <div id="wysiwyg" class="field">
@@ -25,12 +25,7 @@
 
   <div id="deadline-field" class="field">
     <%= form.label :deadline %>
-    <div class="input-group date" id="deadlinePicker" data-target-input="nearest">
-      <input type="text" class="form-control datetimepicker-input" data-target="#deadlinePicker"/>
-      <div class="input-group-append" data-target="#deadlinePicker" data-toggle="datetimepicker">
-          <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-      </div>
-    </div>
+    <input class ="date" id="party" type="datetime-local" name="assignment[deadline]" min="<%= Time.now.strftime("%Y-%m-%dT%H:%M") %>" value="<%= assignment.deadline.strftime("%Y-%m-%dT%H:%M") %>">
   </div>
 
   <div id="grade-field" class="field">
@@ -69,9 +64,19 @@
 <script type="text/javascript">
   $(document).ready(function() {
     loadRestrictions(JSON.parse('<%= raw @assignment.restrictions %>'));
+    $('.date').each(
+      function () {
+          this.value = formatDate(new Date(new Date(this.value) + " UTC"),"yyyy-MM-ddTHH:mm")
+      }
+    )
   })
 
   function beforeSubmit() {
+    $('.date').each(
+      function () {
+        this.value = formatDate(new Date(new Date(this.value).getTime() + new Date().getTimezoneOffset()*60*1000),"yyyy-MM-ddTHH:mm")
+      }
+    )
       cleanEditor()
       generateRestricitons()
   }
