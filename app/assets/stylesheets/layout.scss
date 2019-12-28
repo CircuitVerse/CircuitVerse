@@ -24,6 +24,22 @@
       border-bottom: 2px solid $green;
     }
   }
+  .nav-social-icons {
+    display:  flex;
+    align-items: center;
+
+    a {
+      padding: 0rem 0.3rem 0rem 0.3rem;
+    }
+
+    img {
+      margin: 0;
+      padding: 0;
+      height: 2.3rem;
+      width: 2.3rem;
+      object-fit: contain;
+    }
+  }
 }
 
 .footer-logo-iiitb {
