@@ -78,6 +78,12 @@ You can use gitpod to develop CircuitVerse in the cloud by following the steps m
 
 Pull Requests can be created by following these [Steps](https://github.com/CircuitVerse/CircuitVerse/wiki/Pull-Requests-using-Gitpod)
 
+## Adding Environment Variables
+* Make the following changes in your Google, Facebook app:
+1.  If you are running the application locally, update the site url field with ``http://localhost:8080``.
+2.  If you are running the application in gitpod, update the site url field with gitpod url.
+*  Configure your env in .env, copy .env.example ( Note: check for the ``id`` and ``secret`` in your Google, Facebook app and update it in its respective place. )
+
 ## Developer Instructions
 Developers can quickly get started by setting up the dev environment using the instructions above. To seed the database with some sample data, run 'bundle exec rake db:seed'. The admin credentials after seeding will be as follows:
 ```
