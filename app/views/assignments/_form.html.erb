@@ -14,24 +14,24 @@
     </div>
   <% end %>
 
-  <div id="name-field" class="field">
+  <div id="name-field" class="form-group">
     <%= form.label :name %>
-    <%= form.text_field :name, id: :assignment_name %>
+    <%= form.text_field :name, id: :assignment_name, class: 'form-control'%>
   </div>
 
-  <div id="wysiwyg" class="field">
+  <div id="wysiwyg" class="form-group">
     <%= render "wysiwyg/index" %>
   </div>
 
-  <div id="deadline-field" class="field">
+  <div id="deadline-field" class="form-group">
     <%= form.label :deadline %>
-    <input id="datetimepicker" type="text">
+    <input id="datetimepicker" type="text" class="form-control">
   </div>
 
-  <div id="grade-field" class="field">
+  <div id="grade-field" class="form-group">
     <% if @assignment.new_record? %>
       <%= form.label :grading_scale %>*
-      <%= form.select :grading_scale, [["No Grade", :no_scale], ["Letter", :letter], ["Percent", :percent], ["Custom", :custom]] %>
+
       <div class="tooltip-help assignment-tooltip"> Help
         <div class="right-help">
           <div> <span style="font-style: italic"> Percent </span>: Assignment can be graded on a scale of 1-100 </div>
@@ -40,6 +40,8 @@
           <div> <span style="font-style: italic"> Custom </span>: Assignment can be graded as required </div>
         </div>
       </div>
+      
+      <%= form.select :grading_scale, [["No Grade", :no_scale], ["Letter", :letter], ["Percent", :percent], ["Custom", :custom]], {}, class: 'form-control' %>
       <div>* Grading Scale cannot be changed once set</div>
     <% else %>
       <%= form.label :grading_scale %>
@@ -49,13 +51,13 @@
 
   <h3 style="margin-top: 15px;"> Elements Restriction </h3>
 
-  <div id="restrictions-field" class="field" style="margin-bottom: 15px;">
+  <div id="restrictions-field" class="form-group " style="margin-bottom: 15px;">
     <span style="font-weight: 600"> Enable elements restriction: </span>  <%= check_box_tag "restrict-elements", "1", @assignment.elements_restricted?, id: "restrict-elements", style: "margin-top: 0" %>
     <div class="restricted-elements-list"> <!-- Operated by script --> </div>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="actions form-group">
+    <%= form.submit class: 'btn btn-primary'%>
   </div>
 <% end %>
 
@@ -64,14 +66,39 @@
 <script type="text/javascript">
   $(document).ready(function() {
     loadRestrictions(JSON.parse('<%= raw @assignment.restrictions %>'));
-    $('#datetimepicker').datetimepicker();
+    loadDeadlinePicker()
   })
+  
+  function loadDeadlinePicker() {
+    $('#datetimepicker').datetimepicker({
+      format: 'd/m/Y H:i',
+      minDate: formatDate(new Date(),'d/m/Y'),
+      validateOnBlur: true,
+      step: 30,
+      value: defaultAssignmentDate()
+    });
+  }
+  function defaultAssignmentDate() {
+    let date = new Date()
+    date.setDate(date.getDate() + 7)
+    date = formatDate(date,'d/M/y')
+
+    let hour = formatDate(new Date(),'H')
+    let minutes = formatDate(new Date(),'m')
+    if(minutes < 30) {
+      minutes = 30;
+    }
+    else {
+      minutes = '00'
+      hour++
+    }
+    return date + ' ' + hour + ':' + minutes;
+  }
 
   function beforeSubmit() {
       cleanEditor()
       generateRestricitons()
   }
-
   function cleanEditor() {
     $('<input />').attr('type', 'hidden')
       .attr('name', 'description')
