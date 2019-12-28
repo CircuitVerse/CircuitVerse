@@ -15,7 +15,7 @@
   <% end %>
 
   <div id="name-field" class="form-group">
-    <%= form.label :name %>
+    <%= form.label :deadline %>
     <%= form.text_field :name, id: :assignment_name, class: 'form-control'%>
   </div>
 
@@ -24,8 +24,8 @@
   </div>
 
   <div id="deadline-field" class="form-group">
-    <%= form.label :deadline %>
-    <input id="deadlinePicker" name="assignment[deadline]" type="text" class="form-control">
+    <%= form.label :deadlinePicker %>
+    <input id="assignment_deadlinePicker" name="assignment[deadline]" type="text" class="form-control">
   </div>
 
   <div id="grade-field" class="form-group">
@@ -70,7 +70,7 @@
   })
   
   function loadDeadlinePicker() {
-    $('#deadlinePicker').datetimepicker({
+    $('#assignment_deadlinePicker').datetimepicker({
       format: 'd/m/Y H:i',
       minDate: formatDate(new Date(),'d/m/Y'),
       validateOnBlur: true,
@@ -102,10 +102,10 @@
   }
   function generateDate()
   {
-    let pickerDate = new Date($('#deadlinePicker').val())
+    let pickerDate = new Date($('#assignment_deadlinePicker').val())
     const pickerUnix = pickerDate.getTime();
     const pickerUnixWithTimezone = new Date(pickerUnix + new Date().getTimezoneOffset()*60*1000)
-    $('#deadlinePicker').val(formatDate(pickerUnixWithTimezone,"yyyy-dd-MMTHH:mm"))
+    $('#assignment_deadlinePicker').val(formatDate(pickerUnixWithTimezone,"yyyy-dd-MMTHH:mm"))
   }
   function cleanEditor() {
     $('<input />').attr('type', 'hidden')
