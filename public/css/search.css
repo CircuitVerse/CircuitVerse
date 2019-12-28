@@ -29,16 +29,17 @@
 
 .search-bar-select {
     cursor: pointer;
-    width: 105px;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
     border-radius: 3px 0 0 3px;
     border: 1px solid #ced4da;
-    background: url("/img/caret.jpg") 100% / 25% no-repeat #ddd;
-    padding: 0.8rem;
     border: 1px solid rgba(0,0,0,.125);
     font-size: 0.9rem;
+}
+
+.search-bar-select .dropdown-toggle {
+    width: 105px;
 }
 
 .nav-search-form {
@@ -52,9 +53,11 @@
     appearance: none;
     border-radius: 3px 0 0 3px;
     border: 1px solid #ced4da;
-    background: url("/img/caret.jpg") 100% / 25% no-repeat #ddd;
     font-size: 0.8rem;
-    padding-right: 1.6rem;
+}
+
+.nav-bar-search-select .dropdown-toggle {
+    width: 100px;
 }
 
 .nav-bar-search-input {

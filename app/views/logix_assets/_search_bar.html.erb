@@ -1,8 +1,17 @@
 <div class="container">
-  <%= form_tag("/search", method: "get", id: 'search-box', class: 'search-box-form') do %>
-    <%= select_tag "resource", options_for_select([ "Users", "Projects" ], resource == "Projects" ? "Projects" : "Users"), class: "search-bar-select", id: "search_type"
-%>
-    <%= text_field_tag :q,params[:q],placeholder: 'Search',autocomplete:"off", class: "search-bar-input"  %>
+  <%= form_tag("/search", method: "get", id: 'search-box', class: 'nav-search-form') do %>
+    <div class="dropdown show search-bar-select">
+      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownSearchMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Projects
+        <span class="caret"></span>
+      </a>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <a class="dropdown-item" href="#">Projects</a>
+        <a class="dropdown-item" href="#">Users</a>
+      </div>
+      <input type="hidden" aria-hidden=true name="resource" value="Projects">
+    </div>
+    <%= text_field_tag :q,params[:q],class:'form-control mr-sm-2',placeholder: 'Search',autocomplete:"off", class: "search-bar-input" %>
   <% end %>
 </div>
 <script type="text/javascript" src="/js/search.js"></script>

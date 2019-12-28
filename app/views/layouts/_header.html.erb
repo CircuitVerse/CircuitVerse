@@ -1,3 +1,5 @@
+<link href="/css/search.css" rel="stylesheet">
+<script src="/js/search.js"></script>
 <nav class="navbar navbar-expand-lg navbar-light bg-white">
   <a class="navbar-brand" href="#">
     <%= image_tag("CircuitVerse.png", class: "logo", alt: "CircuitVerse Logo") %>
@@ -42,5 +44,21 @@
         </li>
       <% end %>
     </ul>
+    <div class="form-inline my-2 my-lg-0" id="nav-search">
+      <%= form_tag("/search", method: "get", id: 'search-box', class: 'nav-search-form') do %>
+        <div class="dropdown show nav-bar-search-select">
+          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownSearchMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Projects
+            <span class="caret"></span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" href="#">Projects</a>
+            <a class="dropdown-item" href="#">Users</a>
+          </div>
+          <input type="hidden" aria-hidden=true name="resource" value="Projects">
+        </div>
+        <%= text_field_tag :q,params[:q],class:'form-control mr-sm-2',placeholder: 'Search',autocomplete:"off", class: "nav-bar-search-input" %>
+      <% end %>
+    </div>
   </div>
 </nav>
