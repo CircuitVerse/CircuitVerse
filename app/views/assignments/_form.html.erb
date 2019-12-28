@@ -16,7 +16,7 @@
 
   <div id="name-field" class="form-group">
     <%= form.label :deadline %>
-    <%= form.text_field :name, id: :assignment_name, class: 'form-control'%>
+    <%= form.text_field :name, id: :assignment_name, class: 'form-control' %>
   </div>
 
   <div id="wysiwyg" class="form-group">
@@ -40,7 +40,7 @@
           <div> <span style="font-style: italic"> Custom </span>: Assignment can be graded as required </div>
         </div>
       </div>
-      
+
       <%= form.select :grading_scale, [["No Grade", :no_scale], ["Letter", :letter], ["Percent", :percent], ["Custom", :custom]], {}, class: 'form-control' %>
       <div>* Grading Scale cannot be changed once set</div>
     <% else %>
@@ -68,7 +68,7 @@
     loadRestrictions(JSON.parse('<%= raw @assignment.restrictions %>'));
     loadDeadlinePicker()
   })
-  
+
   function loadDeadlinePicker() {
     $('#assignment_deadline').datetimepicker({
       format: 'd/m/Y H:i',
@@ -130,5 +130,5 @@
   }
 
 </script>
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.4.5/jquery.datetimepicker.min.css"/ >
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.4.5/jquery.datetimepicker.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.4.5/jquery.datetimepicker.min.js"></script>

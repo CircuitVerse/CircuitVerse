@@ -31,4 +31,4 @@ function loadRestrictions(restrictions) {
         }
         $('.restricted-elements-list').append(html);
     }
-};
+}
