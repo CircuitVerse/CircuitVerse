@@ -25,7 +25,7 @@
 
   <div id="deadline-field" class="field">
     <%= form.label :deadline %>
-    <input class ="date" id="party" type="datetime-local" name="assignment[deadline]" min="<%= Time.now.strftime("%Y-%m-%dT%H:%M") %>" value="<%= assignment.deadline.strftime("%Y-%m-%dT%H:%M") %>">
+    <input id="datetimepicker" type="text">
   </div>
 
   <div id="grade-field" class="field">
@@ -64,19 +64,10 @@
 <script type="text/javascript">
   $(document).ready(function() {
     loadRestrictions(JSON.parse('<%= raw @assignment.restrictions %>'));
-    $('.date').each(
-      function () {
-          this.value = formatDate(new Date(new Date(this.value) + " UTC"),"yyyy-MM-ddTHH:mm")
-      }
-    )
+    $('#datetimepicker').datetimepicker();
   })
 
   function beforeSubmit() {
-    $('.date').each(
-      function () {
-        this.value = formatDate(new Date(new Date(this.value).getTime() + new Date().getTimezoneOffset()*60*1000),"yyyy-MM-ddTHH:mm")
-      }
-    )
       cleanEditor()
       generateRestricitons()
   }
@@ -106,3 +97,5 @@
   }
 
 </script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.4.5/jquery.datetimepicker.min.css"/ >
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.4.5/jquery.datetimepicker.min.js"></script>
