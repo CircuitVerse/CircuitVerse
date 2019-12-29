@@ -24,7 +24,7 @@
   </div>
 
   <div id="deadline-field" class="form-group">
-    <%= form.label :deadline %>
+    <%= form.label :deadline %> <span id='remaining-time'><b>(something went wrong when loading script)</b></span>
     <input id="assignment_deadline" name="assignment[deadline]" type="text" class="form-control">
   </div>
 
@@ -66,46 +66,64 @@
 <script type="text/javascript">
   $(document).ready(function() {
     loadRestrictions(JSON.parse('<%= raw @assignment.restrictions %>'));
-    loadDeadlinePicker()
+    loadDeadlinePicker();
   })
 
   function loadDeadlinePicker() {
     $('#assignment_deadline').datetimepicker({
       format: 'd/m/Y H:i',
       minDate: formatDate(new Date(),'d/m/Y'),
-      validateOnBlur: true,
+      validateOnBlur: false,
       step: 30,
       value: defaultAssignmentDate()
     });
+    $('#assignment_deadline').change(function()
+    {
+      const newDate = Date.parseDate($('#assignment_deadline').val(),'d/m/Y H:i');
+      const remainingTimeLabel = $('#remaining-time');
+      const remainingSeconds = (newDate - Date.now()) / 1000;
+
+      console.log(newDate);
+      if(newDate == null || remainingSeconds <= 0){
+        $('#assignment_deadline').datetimepicker({value: defaultAssignmentDate()});
+        $('#assignment_deadline').change();
+        return;
+      }
+      $('#assignment_deadline').datetimepicker({value: newDate});
+      updateRemainingTime(remainingTimeLabel,newDate);
+    });
+    $('#assignment_deadline').change();
+  }
+  function updateRemainingTime(label,toDate) {
+    const timeString = convertSecondsToReadableString((toDate - Date.now()) / 1000);
+    label.html(`(Time remaining: ${timeString})`);
   }
   function defaultAssignmentDate() {
-    let date = new Date()
-    date.setDate(date.getDate() + 7)
-    date = formatDate(date,'d/M/y')
+    let date = new Date();
+    date.setDate(date.getDate() + 7);
+    date = formatDate(date,'d/M/y');
 
-    let hour = formatDate(new Date(),'H')
-    let minutes = formatDate(new Date(),'m')
+    let hour = formatDate(new Date(),'H');
+    let minutes = formatDate(new Date(),'m');
     if(minutes < 30) {
-      minutes = 30;
+      minutes = 30;;
     }
     else {
-      minutes = '00'
-      hour++
+      minutes = '00';
+      hour++;
     }
     return date + ' ' + hour + ':' + minutes;
   }
-
   function beforeSubmit() {
-      cleanEditor()
-      generateRestricitons()
-      generateDate()
+      cleanEditor();
+      generateRestricitons();
+      generateDate();
   }
-  function generateDate()
-  {
-    let pickerDate = new Date($('#assignment_deadline').val())
+  function generateDate() {
+    let pickerDate = new Date($('#assignment_deadline').val());
     const pickerUnix = pickerDate.getTime();
-    const pickerUnixWithTimezone = new Date(pickerUnix + new Date().getTimezoneOffset()*60*1000)
-    $('#assignment_deadline').val(formatDate(pickerUnixWithTimezone,"yyyy-dd-MMTHH:mm"))
+    const pickerUnixWithTimezone = new Date(pickerUnix + new Date().getTimezoneOffset()*60*1000);
+    $('#assignment_deadline').val(formatDate(pickerUnixWithTimezone,"yyyy-dd-MMTHH:mm"));
   }
   function cleanEditor() {
     $('<input />').attr('type', 'hidden')
@@ -120,7 +138,7 @@
       for (let i = 0; i < restricted_elements.length; i++) {
         let temp = $(restricted_elements[i]);
         if (temp.is(":checked"))
-          updated_restrictions.push(temp.val())
+          updated_restrictions.push(temp.val());
       }
     }
     $('<input />').attr('type', 'hidden')

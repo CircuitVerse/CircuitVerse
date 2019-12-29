@@ -1,5 +1,3 @@
-
-
 function formatDate(date, format, utc) {
     var MMMM = ["\x00", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     var MMM = ["\x01", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -86,8 +84,21 @@ function formatDate(date, format, utc) {
 
 
     return format;
-};
+}
 
 function getTimeZoneName(){
-    return new Date().toString().split("(")[1].slice(0,-1)
+    return new Date().toString().split("(")[1].slice(0,-1);
+}
+
+function convertSecondsToReadableString(input) {
+    if(input <= 0) return 'past';
+
+    const daySeconds = 86400;
+    const hourSeconds = 3600;
+    const minuteSeconds = 60;
+
+    const days = Math.floor(input / daySeconds);
+    const hours = Math.floor((input - days * daySeconds) / hourSeconds);
+    const minutes = Math.floor((input - (days * daySeconds + hours * hourSeconds)) / minuteSeconds);
+    return `${days} days, ${hours} hours, ${minutes} minutes`;
 }
