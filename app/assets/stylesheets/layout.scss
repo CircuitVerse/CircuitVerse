@@ -27,17 +27,19 @@
   .nav-social-icons {
     align-items: center;
     display: flex;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
 
     a {
       padding: 0 .3rem;
     }
 
     img {
-      height: 2.3rem;
+      height: 1.9rem;
       margin: 0;
       object-fit: contain;
       padding: 0;
-      width: 2.3rem;
+      width: 1.9rem;
     }
   }
 }
