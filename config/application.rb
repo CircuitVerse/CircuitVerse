@@ -17,7 +17,7 @@ module Logix
 
     # configuring mailer previews directory
     config.action_mailer.preview_path = "#{Rails.root}/lib/mailer_previews"
-
+    config.middleware.insert_after ActionDispatch::Static, Rack::Deflater
 
     # Site config
     config.site_url = "https://circuitverse.org/"

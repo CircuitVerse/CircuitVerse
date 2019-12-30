@@ -11,7 +11,7 @@
   </thead>
 
   <tbody>
-    <% User.all.each do |user| %>
+    <% User.all.find_each do |user| %>
       <tr>
         <td><%= link_to user.name, user_profile_index_path(user) %></td>
         <td><%= user.age %></td>
