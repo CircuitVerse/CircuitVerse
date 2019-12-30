@@ -12,6 +12,7 @@ gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-facebook'
 gem 'omniauth-microsoft-office365'
+gem 'omniauth-github'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0'
 # Use Puma as the app server
