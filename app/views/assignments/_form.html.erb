@@ -61,7 +61,7 @@
 <% end %>
 
 <script type="text/javascript" src="/js/time.js"></script>
-<script type="text/javascript" src="/js/restrict_elements.js"></script>
+<script type="text/javascript" src="/js/restrictElements.js"></script>
 <script type="text/javascript">
   $(document).ready(function() {
     loadRestrictions(JSON.parse('<%= raw @assignment.restrictions %>'));
@@ -82,7 +82,6 @@
       const remainingTimeLabel = $('#remaining-time');
       const remainingSeconds = (newDate - Date.now()) / 1000;
 
-      console.log(newDate);
       if(newDate == null || remainingSeconds <= 0){
         $('#assignment_deadline').datetimepicker({value: defaultAssignmentDate()});
         $('#assignment_deadline').change();
