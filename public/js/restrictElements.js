@@ -35,15 +35,30 @@ function _loadHtml(elementHierarchy, restrictionMap)
 {
   for (let category in elementHierarchy) {
     let elements = elementHierarchy[category];
-    let html = `<div class="circuit-element-category"> ${category} </div>`;
-    for (let i = 0; i < elements.length; i++) {
-      let element = elements[i];
-      let checked = restrictionMap[element] ? "checked" : "";
-      html+= `<span class="circuit-element-container">
-      <input type="checkbox" class="element-restriction" value="${element}" style= "margin-top: 0" ${checked}>
-      <span> ${element} </span>
-      </span>`
-    }
+
+    let html = _generateRow(category, elements, restrictionMap)
     $('.restricted-elements-list').append(html);
   }
+}
+function _generateRow(name, elements, restrictionMap) {
+  let html = _htmlRowName(name);
+  for (let i = 0; i < elements.length; i++) {
+    let element = elements[i];
+    let checked = restrictionMap[element] ? "checked" : "";
+    html += _htmlInlineCheckbox(element,checked);
+  }
+  return html;
+}
+
+function _htmlRowName(name) {
+  return `<div class="circuit-element-category"> ${name} </div>`
+}
+
+function _htmlInlineCheckbox(elementName,checked) {
+  return `
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" type="checkbox" class='element-restriction' id="checkbox-${elementName}" value="${elementName} ${checked}">
+    <label class="form-check-label" for="checkbox-${elementName}">${elementName}</label>
+  </div>
+  `
 }
