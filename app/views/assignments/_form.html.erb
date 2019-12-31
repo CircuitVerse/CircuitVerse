@@ -15,23 +15,24 @@
   <% end %>
 
   <div id="name-field" class="form-group">
-    <%= form.label :name %>
+    <%= form.label :name, class:'bold' %>
     <%= form.text_field :name, id: :assignment_name, class: 'form-control' %>
   </div>
 
   <div id="wysiwyg" class="form-group">
+    <!--<%= form.label :description %>-->
     <%= render "wysiwyg/index" %>
   </div>
 
   <div id="deadline-field" class="form-group">
-    <%= form.label :deadline %> <span id='remaining-time'><b>(something went wrong when loading script)</b></span>
+    <%= form.label :deadline, class:'bold' %> <span id='remaining-time'><b>(something went wrong when loading script)</b></span>
     <input id="assignment_deadline" name="assignment[deadline]" type="text" class="form-control">
   </div>
 
   <div id="grade-field" class="form-group">
+    <%= form.label :grading_scale, class:'bold' %>
     <% if @assignment.new_record? %>
-      <%= form.label :grading_scale %>*
-
+      <span> Cannot be changed once set</span>
       <div class="tooltip-help assignment-tooltip"> Help
         <div class="right-help">
           <div> <span style="font-style: italic"> Percent </span>: Assignment can be graded on a scale of 1-100 </div>
@@ -42,10 +43,8 @@
       </div>
 
       <%= form.select :grading_scale, [["No Grade", :no_scale], ["Letter", :letter], ["Percent", :percent], ["Custom", :custom]], {}, class: 'form-control' %>
-      <div>* Grading Scale cannot be changed once set</div>
     <% else %>
-      <%= form.label :grading_scale %>
-      <%= AssignmentDecorator.new(@assignment).graded %> <span style="font-style: italic"> (Cannot be edited) </span>
+      <%= AssignmentDecorator.new(@assignment).graded %> - Cannot be edited
     <% end %>
   </div>
 
@@ -96,7 +95,7 @@
   }
   function updateRemainingTime(label,toDate) {
     const timeString = convertSecondsToReadableString((toDate - Date.now()) / 1000);
-    label.html(`(Time remaining: ${timeString})`);
+    label.html(`Time remaining: ${timeString}`);
   }
   function defaultAssignmentDate() {
     let date = new Date();
