@@ -24,7 +24,7 @@ function _htmlRowName(name) {
     return `<div class="circuit-element-category"> ${name} </div>`;
 }
 
-function _htmlInlineCheckbox(elementName,checked) {
+function _htmlInlineCheckbox(elementName, checked) {
     return `
     <div class="form-check form-check-inline">
         <input class="form-check-input" type="checkbox" class='element-restriction' id="checkbox-${elementName}" value="${elementName} ${checked}">
@@ -36,8 +36,8 @@ function _generateRow(name, elements, restrictionMap) {
     let html = _htmlRowName(name);
     for (let i = 0; i < elements.length; i++) {
         const element = elements[i];
-        const checked = restrictionMap[element] ? "checked" : "";
-        html += _htmlInlineCheckbox(element,checked);
+        const checked = restrictionMap[element] ? 'checked' : '';
+        html += _htmlInlineCheckbox(element, checked);
     }
     return html;
 }
