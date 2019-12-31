@@ -43,7 +43,8 @@ function _generateRow(name, elements, restrictionMap) {
 }
 
 function _loadHtml(elementHierarchy, restrictionMap) {
-    for (const category of Object.entries(elementHierarchy)) {
+    for (let i = 0; i < Object.entries(elementHierarchy).length; i++) {
+        const category = Object.entries(elementHierarchy)[i];
         const html = _generateRow(category[0], category[1], restrictionMap);
         $('.restricted-elements-list').append(html);
     }
@@ -54,6 +55,6 @@ function loadRestrictions(restrictions) {
 
     const elementHierarchy = metadata.elementHierarchy;
     const restrictionMap = _restrictionsMap(restrictions);
-  
-    _loadHtml(elementHierarchy,restrictionMap);
+
+    _loadHtml(elementHierarchy, restrictionMap);
 }
