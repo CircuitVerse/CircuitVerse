@@ -30,9 +30,6 @@ class LogixController < ApplicationController
   def all_user_index
   end
 
-  def privacy
-  end
-
   def tos
   end
 
