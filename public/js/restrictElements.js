@@ -1,5 +1,4 @@
-function _handleMainCheckbox()
-{
+function _handleMainCheckbox() {
     $('#restrict-elements').change((e) => {
         e.preventDefault();
         const radio = $(e.currentTarget);
@@ -13,22 +12,17 @@ function _handleMainCheckbox()
     $('#restrict-elements').trigger('change');
 }
 
-function _restrictionsMap(restrictions)
-{
-    let map = {};
-    for (let i = 0; i < restrictions.length; i++)
-    {
+function _restrictionsMap(restrictions) {
+    const map = {};
+    for (let i = 0; i < restrictions.length; i++) {
         map[restrictions[i]] = true;
     }
     return map;
 }
 
-function _loadHtml(elementHierarchy, restrictionMap)
-{
-    for (let category in elementHierarchy) {
-        let elements = elementHierarchy[category];
-
-        let html = _generateRow(category, elements, restrictionMap)
+function _loadHtml(elementHierarchy, restrictionMap) {
+    for (let category of Object.entries(elementHierarchy)) {
+        let html = _generateRow(category[0], category[1], restrictionMap)
         $('.restricted-elements-list').append(html);
     }
 }
