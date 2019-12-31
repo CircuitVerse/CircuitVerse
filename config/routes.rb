@@ -55,7 +55,7 @@ Rails.application.routes.draw do
   get  '/gettingStarted', to:'logix#gettingStarted'
   get  '/examples', to:'logix#examples'
   get  '/features', to:'logix#features'
-  get  '/privacy', to:'logix#privacy'
+  get  '/privacy', to:'privacy#privacy'
   get  '/tos', to:'logix#tos'
   get  '/teachers', to:'logix#teachers'
   get  '/contribute', to:'logix#contribute'
