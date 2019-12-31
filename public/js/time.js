@@ -91,7 +91,7 @@ function getTimeZoneName(){
 }
 
 function convertSecondsToReadableString(input) {
-    if(input <= 0) return 'past';
+    if (input <= 0) return 'past';
 
     const daySeconds = 86400;
     const hourSeconds = 3600;
