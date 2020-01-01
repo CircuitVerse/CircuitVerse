@@ -18,9 +18,8 @@ class Users::LogixController < ApplicationController
   end
 
   def delete_profile_picture
-    @user.profile_picture = nil
-    @user.save
-    redirect_to profile_path
+    @profile.update_attribute(:profile_picture, nil);
+    redirect_to profile_path(current_user)
   end
 
   def edit

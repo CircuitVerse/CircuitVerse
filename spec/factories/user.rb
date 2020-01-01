@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+include ActionDispatch::TestProcess
 
 FactoryBot.define do
   factory :user do
@@ -6,6 +7,6 @@ FactoryBot.define do
     password { Faker::Alphanumeric.alphanumeric number: 10 }
     name { Faker::Name.name }
     admin { false }
-    profile_picture { File.open("public/img/test_profilepicture.PNG") }
+    profile_picture { fixture_file_upload(Rails.root.join('spec', 'assets', 'test_profilepicture.png'), 'image/png') }
   end
 end

@@ -69,6 +69,3 @@ describe Users::LogixController, type: :request do
     expect(@user.profile_picture.exists?).to eq(false)
   end
 end
-#it "profile picture should exist in test user object before deleted" do
-# expect(@user.profile_picture.exists?).to eq(true)
-#end
