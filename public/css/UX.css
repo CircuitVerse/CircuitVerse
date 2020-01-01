@@ -1,49 +1,48 @@
-
-.deleteOff{
+.deleteOff {
     color: red;
     float: right;
     cursor: pointer;
     padding: 2px;
 }
 
-#contextMenu{
-	width:150px;
-	visibility:hidden;
-	box-shadow:0px 2px 7px rgba(0,0,0,0.2);
-	border:1px solid rgba(0,0,0,0.2);
-	position:fixed;
-	z-index:100;
-	background:#fff;
-	opacity:0;
-	top:100;
-	left:100;
-    cursor:pointer;
-    color:#000;
-	padding-bottom:4px;
-	padding-top:4px;
-	transition:opacity 0.2s ease-in-out;
-	user-select:none;
+#contextMenu {
+    width: 150px;
+    visibility: hidden;
+    box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    position: fixed;
+    z-index: 100;
+    background: #fff;
+    opacity: 0;
+    top: 100;
+    left: 100;
+    cursor: pointer;
+    color: #000;
+    padding-bottom: 4px;
+    padding-top: 4px;
+    transition: opacity 0.2s ease-in-out;
+    user-select: none;
 }
 
-#contextMenu ul{
+#contextMenu ul {
     margin: 0;
     padding: 0;
-	font: 16px sans-serif;
+    font: 16px sans-serif;
 }
 
-#contextMenu ul li{
-	list-style:none;
-	padding:8px;
-	padding-left:20px;
+#contextMenu ul li {
+    list-style: none;
+    padding: 8px;
+    padding-left: 20px;
 }
 
-#contextMenu ul li a{
-    text-decoration:none;
-    color:#000 !important;
+#contextMenu ul li a {
+    text-decoration: none;
+    color: #000 !important;
 }
 
-#contextMenu ul li:hover{
-	background:rgba(0,0,0,.1);
+#contextMenu ul li:hover {
+    background: rgba(0, 0, 0, 0.1);
 }
 
 button:focus {
@@ -71,8 +70,8 @@ button:focus {
     margin: 3px;
 }
 
-.pannel-heading{
-	background-color: #f5f5f5
+.pannel-heading {
+    background-color: #f5f5f5;
 }
 
 #layoutDialog {
@@ -82,9 +81,9 @@ button:focus {
     z-index: 101;
     width: 200px;
     height: 230px;
-	border: 1px solid grey;
-	border-radius: 2px;
-	background-color: white;
+    border: 1px solid grey;
+    border-radius: 2px;
+    background-color: white;
     overflow-x: hidden;
 }
 
@@ -112,17 +111,17 @@ button:focus {
     border-color: #0099ff;
 }
 
-input[type=radio]:checked~label {
-    color: #0DFF92;
+input[type="radio"]:checked ~ label {
+    color: #0dff92;
 }
 
-.option input[type=radio] {
+.option input[type="radio"] {
     margin-right: 5px;
     /*position: absolute;*/
     visibility: hidden;
 }
 
-.option input[type=radio]:checked {
+.option input[type="radio"]:checked {
     /*position: absolute;*/
     visibility: visible;
 }
@@ -169,12 +168,12 @@ input[type=radio]:checked~label {
     height: 100%;
 }
 
-#container>div {
+#container > div {
     display: table-row;
     height: 0;
 }
 
-#container>div.fill {
+#container > div.fill {
     height: auto;
 }
 
@@ -255,22 +254,27 @@ input[type=radio]:checked~label {
     margin-bottom: 0.5em;
 }
 
-#moduleProperty-inner>p {
+#moduleProperty-inner > p {
     margin: 0;
     margin-top: 0.2em;
 }
 
-input, select {
+input,
+select {
     padding: 0.25rem;
 }
 
-.moduleProperty input, .moduleProperty select {
+.moduleProperty input,
+.moduleProperty select {
     background-color: #333;
     border: none;
     border-bottom: 2px solid #ccc;
 }
 
-.moduleProperty input:active, .moduleProperty input:focus, .moduleProperty select:active, .moduleProperty select:focus {
+.moduleProperty input:active,
+.moduleProperty input:focus,
+.moduleProperty select:active,
+.moduleProperty select:focus {
     border-bottom: 2px solid #0099ff;
 }
 
@@ -317,7 +321,7 @@ input, select {
 #tabsBar .circuits:hover {
     background-color: #00ace6;
     /*border: 1px solid #0099ff;*/
-    transition-duration: 100ms
+    transition-duration: 100ms;
 }
 
 #tabsBar .current {
@@ -326,7 +330,8 @@ input, select {
     border: 1px solid #0099ff;
 }
 
-th, td {
+th,
+td {
     padding-left: 15px;
     padding-right: 15px;
     text-align: left;
@@ -351,12 +356,13 @@ table {
     user-select: none;
 }
 
-body, html {
+body,
+html {
     width: 100%;
     height: 100%;
     margin: 0;
     padding: 0;
-    overflow: hidden
+    overflow: hidden;
 }
 
 #restrictedDiv {
@@ -456,8 +462,8 @@ body, html {
     right: 0;
     bottom: -2;
     background-color: #ccc;
-    -webkit-transition: .4s;
-    transition: .4s;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
 }
 
 .slider:before {
@@ -468,19 +474,19 @@ body, html {
     left: 0px;
     bottom: 0px;
     background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
 }
 
-input:checked+.slider {
-    background-color: #2196F3;
+input:checked + .slider {
+    background-color: #2196f3;
 }
 
-input:focus+.slider {
-    box-shadow: 0 0 1px #2196F3;
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196f3;
 }
 
-input:checked+.slider:before {
+input:checked + .slider:before {
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
     transform: translateX(26px);
@@ -506,8 +512,8 @@ input:checked+.slider:before {
     bottom: -2;
     /* border: 1px solid black; */
     background-color: #ccc;
-    -webkit-transition: .4s;
-    transition: .4s;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
 }
 
 .slider2:before {
@@ -518,19 +524,19 @@ input:checked+.slider:before {
     left: 0px;
     bottom: 0px;
     background-color: #aaa;
-    -webkit-transition: .4s;
-    transition: .4s;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
 }
 
-input:checked+.slider2 {
-    background-color: #2196F3;
+input:checked + .slider2 {
+    background-color: #2196f3;
 }
 
-input:focus+.slider2 {
-    box-shadow: 0 0 1px #2196F3;
+input:focus + .slider2 {
+    box-shadow: 0 0 1px #2196f3;
 }
 
-input:checked+.slider2:before {
+input:checked + .slider2:before {
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
     transform: translateX(26px);
@@ -612,7 +618,7 @@ div.icon img {
     /*margin: auto;*/
     width: 100%;
     /*height:100%;*/
-    display: inline-block
+    display: inline-block;
 }
 
 .img__description {
@@ -631,7 +637,7 @@ div.icon img {
     border-bottom-right-radius: 2px;
     opacity: 0;
     /* transition effect. not necessary */
-    transition: opacity .2s, visibility .2s;
+    transition: opacity 0.2s, visibility 0.2s;
 }
 
 .icon:hover .img__description {
@@ -763,17 +769,17 @@ div.icon img {
     border-top: none;
 }
 
-.navbar-nav>li>a {
+.navbar-nav > li > a {
     padding: 7px 15px;
 }
 
-.dropdown-menu>li>a {
-    color: #939393;
+.dropdown-menu > li > a {
+    color: #939393 !important;
     padding: 3px 14px;
 }
 
-.dropdown-menu>li>a:hover {
-    color: #4db8ff;
+.dropdown-menu > li > a:hover {
+    color: #4db8ff !important;
     background-color: black;
 }
 
@@ -799,22 +805,24 @@ div.icon img {
 }
 
 .ui-dialog-titlebar-close {
-    background-image: url('../img/cross.png');
+    background-image: url("../img/cross.png");
     position: absolute;
-	right: .3em;
-	top: 50%;
-	width: 21px;
-	margin: -10px 0 0 0;
-	padding: 1px;
-	height: 20px;
+    right: 0.3em;
+    top: 50%;
+    width: 21px;
+    margin: -10px 0 0 0;
+    padding: 1px;
+    height: 20px;
 }
 
-.ui-icon-close{background-position:-80px -128px}
+.ui-icon-close {
+    background-position: -80px -128px;
+}
 
 .ui-dialog .ui-dialog-buttonpane button {
     background-color: #004280;
     border: 1px solid #09f;
-    color: white
+    color: white;
 }
 
 .navbar .nav.pull-right {
@@ -845,7 +853,7 @@ div.icon img {
 }
 
 .sk-folding-cube .sk-cube:before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -890,17 +898,20 @@ div.icon img {
 }
 
 @-webkit-keyframes sk-foldCubeAngle {
-    0%, 10% {
+    0%,
+    10% {
         -webkit-transform: perspective(140px) rotateX(-180deg);
         transform: perspective(140px) rotateX(-180deg);
         opacity: 0;
     }
-    25%, 75% {
+    25%,
+    75% {
         -webkit-transform: perspective(140px) rotateX(0deg);
         transform: perspective(140px) rotateX(0deg);
         opacity: 1;
     }
-    90%, 100% {
+    90%,
+    100% {
         -webkit-transform: perspective(140px) rotateY(180deg);
         transform: perspective(140px) rotateY(180deg);
         opacity: 0;
@@ -908,17 +919,20 @@ div.icon img {
 }
 
 @keyframes sk-foldCubeAngle {
-    0%, 10% {
+    0%,
+    10% {
         -webkit-transform: perspective(140px) rotateX(-180deg);
         transform: perspective(140px) rotateX(-180deg);
         opacity: 0;
     }
-    25%, 75% {
+    25%,
+    75% {
         -webkit-transform: perspective(140px) rotateX(0deg);
         transform: perspective(140px) rotateX(0deg);
         opacity: 1;
     }
-    90%, 100% {
+    90%,
+    100% {
         -webkit-transform: perspective(140px) rotateY(180deg);
         transform: perspective(140px) rotateY(180deg);
         opacity: 0;

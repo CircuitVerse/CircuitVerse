@@ -1,0 +1,23 @@
+<div class="notification_wrapper">
+  <div class="notification_header">
+    <h1>Notification to <%= @target.printable_target_name %></h1>
+  </div>
+  <ul>
+    <div class="notifications">
+      <%= render_notification @notification, @index_options.slice(:routing_scope, :devise_default_routes).merge(fallback: :default) %>
+    </div>
+  </ul>
+</div>
+
+<style>
+  .notification_wrapper .notification_header h1 span span{
+    color: #fff;
+    background-color: #e5e5e5;
+    border-radius: 4px;
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+  .notification_wrapper .notification_header h1 span span.unopened{
+    background-color: #f87880;
+  }
+</style>

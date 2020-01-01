@@ -97,6 +97,9 @@ Rails.application.configure do
      :enable_starttls_auto => true,
  }
 
+  config.vapid_public_key = ENV["VAPID_PUBLIC_KEY"]
+  config.vapid_private_key = ENV["VAPID_PRIVATE_KEY"]
+
   if ENV["RAILS_LOG_TO_STDOUT"].present?
     logger           = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
