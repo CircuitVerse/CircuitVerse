@@ -1,0 +1,139 @@
+@media only screen and (max-width: 480px) {
+  /* For mobile phones: */
+  [class*="display-4"] {
+    padding-top:10px;
+  }
+}
+
+p {
+    text-align: justify;
+}
+
+.feature {
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    padding: 1.25rem;
+    border-radius: 0.25em;
+}
+
+.gif-box {
+    position: absolute;
+    text-align: center;
+    top: 50%;
+}
+
+img {
+    max-width: 100%;
+}
+
+.noSelect {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -o-user-select: none;
+}
+.pointerCursor {
+    cursor: pointer;
+}
+.defaultCursor {
+    cursor: default;
+}
+
+@media only screen and (max-width: 700px) {
+    body {
+        padding-bottom: 250px;
+    }
+    .foot {
+        background-color: "transparent";
+    }
+}
+
+#assignment-grade-form {
+    display: inline-block;
+    width: 100%;
+}
+
+#assignment-grade-grade {
+    flex: 1;
+}
+
+#assignment-grade-remarks {
+    flex: 1;
+}
+
+.error {
+    color: red;
+}
+
+.grade-container {
+    margin-top: 10px;
+}
+
+.bold {
+    font-weight: 600;
+}
+
+.grade-show-container {
+    margin-top: 17px;
+}
+
+.grade-form-help {
+    margin-top: 5px;
+    font-size: 12px;
+}
+
+.assignment-grade-inputs {
+    display: flex;
+    width: 100%;
+}
+
+a.btn.btn-outline-primary {
+    margin-top: 10px;
+}
+
+a.btn.btn-outline-danger {
+    margin-top: 10px;
+}
+
+#error_explanation {
+    color: red;
+    background: #f0f0f0;
+    border: 1px solid #86181d;
+    padding: 4px;
+}
+
+#error_explanation h2 {
+    font-size: 1.25rem;
+}
+
+.pagination .page-link {
+    white-space: nowrap;
+}
+
+@media (max-width: 992px) {
+    .pagination-cont {
+        overflow-x: auto;
+        padding: 0;
+    }
+
+    .pagination {
+        overflow-x: visible;
+        max-width: none;
+        display: block;
+        padding: 0;
+        white-space: nowrap;
+    }
+
+    .pagination > * {
+        display: inline-block;
+        margin: 0;
+        margin-left: -4px;
+    }
+}
+a.btn.btn-outline-primary {
+    margin-top: 10px;
+}
+
+a.btn.btn-outline-danger {
+    margin-top: 10px;
+}

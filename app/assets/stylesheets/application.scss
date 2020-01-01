@@ -1,0 +1,18 @@
+@import "theme";
+@import "bootstrap/scss/bootstrap.scss";
+@import "commontator/application";
+@import "bootstrap-typeahead-rails";
+@import "font-awesome/css/font-awesome.min.css";
+@import "signup";
+@import "logixRelease";
+@import "layout";
+
+// #FIXME move these styles
+.alert {
+  width: 100%;
+}
+
+.col-centered {
+  float: none;
+  margin: 0 auto;
+}

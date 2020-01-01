@@ -8,4 +8,8 @@ module CustomMailsHelper
       UserMailer.custom_email(user, mail).deliver_later
     end
   end
+
+  def send_mail_to_self(user, mail)
+    UserMailer.custom_email(user, mail).deliver_later
+  end
 end

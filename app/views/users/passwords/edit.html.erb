@@ -1,30 +1,56 @@
-<div class="container">
-  <div class="row feature">
-    <div class="col-xs-10 col-lg-6 col-md-8 col-s-10 col-centered">
-      <h2>Change your password</h2>
+<div class="container-fluid">
+  <div class="row mt-5">
 
-      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+    <div class="col-lg-6 col-md-4 middle-block">
+      <%= image_tag "SVGs/login.svg", alt: "login-logo", :class => "signup-cover center-block"%>
+      <div class="welcome-text">
+        <label>Welcome back to the Digital Circuit Universe!</label>
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-md-8 middle-block">
+      <div class="form-container">
+        <h1 class="pb-3">Change your password</h1>
+        <%= form_with(model: resource, as: resource_name, url: password_path(resource_name), method: :put, local: true) do |f| %>
         <%= devise_error_messages! %>
         <%= f.hidden_field :reset_password_token %>
 
-        <div class="field">
-          <%= f.label :password, "New password" %><br />
+        <div class="field form-group">
+          <%= f.label :password, class:"label-text"%>
           <% if @minimum_password_length %>
-            <em>(<%= @minimum_password_length %> characters minimum)</em><br />
+          <em>(<%= @minimum_password_length %> characters minimum)</em>
           <% end %>
-          <%= f.password_field :password, autofocus: true, autocomplete: "off", placeholder: 'New Password' %>
+          <div class="input-group">
+            <%= f.password_field :password, autofocus: true, autocomplete: "off", class:"form-control custom-input"%>
+          </div>
         </div>
 
-        <div class="field">
-          <%= f.label :password_confirmation, "Confirm new password" %><br />
-          <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: 'Confirm New Password' %>
+        <div class="field form-group">
+          <%= f.label :password_confirmation, class:"label-text" %>
+          <div class="input-group">
+            <%= f.password_field :password_confirmation, autocomplete: "off", class:"form-control custom-input"%>
+          </div>
         </div>
 
-        <div class="actions">
-          <%= f.submit "Change my password" %>
+        <div class="field form-group mt-5">
+          <div class="input-group center-block">
+            <%= f.submit "Change my password" ,class:"btn custom-submit"%>
+            <%= link_to "Go to Login Page", new_session_path(resource_name) ,class:"link-text pl-3"%>
+          </div>
         </div>
-      <% end %>
-      <%= render "users/shared/links" %>
+
+        <div class="field form-group">
+          <div class="input-group center-block">
+            <span class="help-text"> New User? </span>
+            <%= link_to "Sign up", new_registration_path(resource_name) ,class:"link-text pl-1"%>
+          </div>
+        </div>
+
+        <div class="field form-group mt-3">
+          <%= render "users/shared/links" %>
+        </div>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

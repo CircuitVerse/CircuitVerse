@@ -35,30 +35,30 @@
 
     </ul>
     <div class="form-inline my-2 my-lg-0" id="nav-search">
-      <%= form_tag("/search", method: "get", id: 'search-box', class: 'nav-search-form') do %>
-      <%= select_tag "resource", options_for_select([ "Users", "Projects" ], "Projects"), class: 'form-control nav-bar-search-select', id: "search_type"
-%>
-        <%= text_field_tag :q,params[:q],class:'form-control mr-sm-2',placeholder: 'Search',autocomplete:"off", class: "nav-bar-search-input"  %>
+      <%= form_tag("/search", method: "get", id: "search-box", class: "nav-search-form") do %>
+      <%= select_tag "resource", options_for_select([ "Users", "Projects" ], "Projects"), class: "form-control nav-bar-search-select", id: "search_type" %>
+        <%= text_field_tag :q, params[:q], class: "form-control mr-sm-2", placeholder: "Search", autocomplete: "off", class: "nav-bar-search-input" %>
       <% end %>
     </div>
     <div class="navbar-nav nav-item dropdown">
-      <%if user_signed_in? %>
+      <% if user_signed_in? %>
       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <%= current_user.name %>
       </a>
 
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href=<%=  profile_path(current_user) %>>Profile </a>
-          <a class="dropdown-item" href= <%=  user_path(current_user) %>>My Circuits</a>
-          <a class="dropdown-item" href= <%=  user_groups_path(current_user) %>>My Groups</a>
-          <a class="dropdown-item" href= <%=  user_favourites_path(current_user) %>>My Favourites</a>
+          <a class="dropdown-item" href=<%= profile_path(current_user) %>>Profile </a>
+          <a class="dropdown-item" href=<%= notifications_path(current_user) %>>Notifications </a>
+          <a class="dropdown-item" href=<%= user_path(current_user) %>>My Circuits</a>
+          <a class="dropdown-item" href=<%= user_groups_path(current_user) %>>My Groups</a>
+          <a class="dropdown-item" href=<%= user_favourites_path(current_user) %>>My Favourites</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" rel="nofollow" data-method="delete" href= <%= destroy_user_session_path%> >Sign Out</a>
+          <a class="dropdown-item" rel="nofollow" data-method="delete" href=<%= destroy_user_session_pat %>>Sign Out</a>
 
         </div>
-      <%else%>
-          <a class="navbar-nav nav-link" href=<%= new_user_session_path  %>> Sign in </a>
-      <%end %>
+      <% else %>
+          <a class="navbar-nav nav-link" href=<%= new_user_session_path %>> Sign in </a>
+      <% end %>
     </div>
 
   </div>
