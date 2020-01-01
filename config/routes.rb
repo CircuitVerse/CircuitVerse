@@ -14,8 +14,9 @@ Rails.application.routes.draw do
     resources :assignments
   end
 
-  resources :custom_mails, only: [:new, :create, :edit, :show, :update]
+  resources :custom_mails, only: %i[index new create edit show update]
   get '/custom_mails/send_mail/:id', to: 'custom_mails#send_mail', as: 'send_custom_mail'
+  get '/custom_mails/send_mail_to_self/:id', to: 'custom_mails#send_mail_self', as: 'send_custom_mail_self'
 
   # grades
   scope '/grades' do
@@ -29,6 +30,8 @@ Rails.application.routes.draw do
   get "/500", to: "errors#internal_error"
 
   get '/search', to: "search#search"
+
+  resources :about, only: :index
 
   scope '/groups' do
     get '/:id/assignments/WYSIWYG/index.css', to: redirect('/index.css')
@@ -52,13 +55,15 @@ Rails.application.routes.draw do
   get  '/gettingStarted', to:'logix#gettingStarted'
   get  '/examples', to:'logix#examples'
   get  '/features', to:'logix#features'
-  get  '/about', to:'logix#about'
   get  '/privacy', to:'logix#privacy'
   get  '/tos', to:'logix#tos'
   get  '/teachers', to:'logix#teachers'
   get  '/contribute', to:'logix#contribute'
 
   #users
+
+  notify_to :users, controller: 'users/notifications'
+
   scope '/users' do
     get '/', to: 'welcome#all_user_index', as: 'all_users'
     get '/:id/profile', to: 'users/logix#profile', as: 'profile'
@@ -70,8 +75,11 @@ Rails.application.routes.draw do
     get '/:id/projects/:id/WYSIWYG/index.css', to: redirect('/index.css')
     get '/:id/projects/:id/WYSIWYG/bootstrap-wysiwyg.js', to: redirect('/bootstrap-wysiwyg.js')
     get '/educational_institute/typeahead/:query' => 'users/logix#typeahead_educational_institute'
+    get '/:id/notifications', to: 'users/notifications#index', as: 'notifications'
   end
 
+  post '/push/subscription/new', to: 'push_subscription#create'
+  post '/push/test', to: 'push_subscription#test'
 
   #projects
   scope '/projects' do

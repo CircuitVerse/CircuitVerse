@@ -1,0 +1,129 @@
+<div class="notification_wrapper">
+  <a class="dropdown_notification">
+    <p class="notification_count" id="notification_count">
+      <span class="<%= "unopened" if @target.has_unopened_notifications?(parameters) %>">
+        <%= @target.unopened_notification_count(parameters) %>
+      </span>
+    </p>
+  </a>
+  <div class="notification_list_wrapper">
+    <div class="notification_header_wrapper">
+      <p class="notification_header_title">
+        Notifications
+      </p>
+      <p class="notification_header_menu">
+        <%= link_to "Open all", open_all_notifications_path_for(@target, parameters.slice(:routing_scope, :devise_default_routes)), method: :post, remote: true %>
+        <% if @target.class.subscription_enabled? %>
+          <%= link_to "Subscriptions", subscriptions_path_for(@target, parameters.slice(:routing_scope, :devise_default_routes)) %>
+        <% end %>
+      </p>
+    </div>
+    <div class="notifications">
+      <%= yield :notification_index %>
+    </div>
+    <%= link_to notifications_path_for(@target, parameters.slice(:routing_scope, :devise_default_routes)) do %>
+      <div class="notification_link_wrapper">
+        <p class="notification_link">
+          See notifications
+        </p>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<style>
+  .notification_wrapper {
+    margin-left: 20px;
+    margin-right: 10px;
+    float: left;
+    position: relative;
+  }
+  .notification_wrapper .dropdown_notification{
+    cursor: pointer;
+  }
+  .notification_wrapper .dropdown_notification .notification_count span{
+    color: #fff;
+    background-color: #e5e5e5;
+    border-radius: 4px;
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+  .notification_wrapper .dropdown_notification .notification_count span.unopened{
+    background-color: #f87880;
+  }
+  .notification_wrapper.open .notification_list_wrapper {
+    display: block;
+  }
+  .notification_wrapper .notification_list_wrapper {
+    display: none;
+    z-index: 999;
+    width: 330px;
+    height: 500px;
+    border: 1px solid #e5e5e5;
+    position: absolute;
+    top: calc(100% + 20px);
+    right: -10px;
+    background-color: #fff;
+  }
+  .notification_wrapper .notification_list_wrapper .notification_header_wrapper {
+    position: relative;
+    width: 330px;
+    height: 37px;
+    border-bottom: 1px solid #e5e5e5;
+    box-sizing: border-box;
+    background-color: #fff;
+  }
+  .notification_wrapper .notification_list_wrapper .notification_header_wrapper .notification_header_title {
+    position: absolute;
+    top: 4px;
+    left: 10px;
+    font-size: 14px;
+  }
+  .notification_wrapper .notification_list_wrapper .notification_header_wrapper .notification_header_menu {
+    position: absolute;
+    top: 4px;
+    right: 10px;
+    font-size: 14px;
+  }
+
+  .notification_wrapper .notification_list_wrapper .notifications {
+    position: relative;
+    width: 330px;
+    height: calc(500px - 37px - 37px);
+    overflow: scroll;
+  }
+  .notification_wrapper .notification_list_wrapper .notification_link_wrapper{
+    position: absolute;
+    bottom: 0;
+    width: 330px;
+    height: 26px;
+    border-top: 1px solid #e5e5e5;
+    padding: 4px 0 8px 0;
+    text-align: center;
+    background-color: #fff;
+    z-index: 2;
+  }
+  .notification_wrapper .notification_list_wrapper .notification_link_wrapper:hover{
+    background-color: #f8f9fb;
+  }
+  .notification_wrapper .notification_list_wrapper .notification_link_wrapper .notification_link{
+    text-align: center;
+    font-size: 14px;
+  }
+</style>
+
+<script>
+  $(document).click(function(e){
+      if( !$(e.target).is(".notification_list_cover") && !$(e.target).is(".notification_wrapper a") ){
+        if($(".notification_wrapper").hasClass("open") && !$(".notification_wrapper").hasClass("opened")){
+          $(".notification_wrapper").addClass("opened");
+        }else if($(".notification_wrapper").hasClass("opened")){
+          $(".notification_wrapper").removeClass("open").removeClass("opened");
+        }
+      }
+  });
+
+  $(".dropdown_notification").click(function(){
+    $(this).parent().toggleClass("open");
+  });
+</script>

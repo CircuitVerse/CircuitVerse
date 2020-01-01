@@ -9,6 +9,7 @@ describe ProjectPolicy do
     should permit(:user_access)
     should permit(:edit_access)
     should permit(:view_access)
+    should permit(:direct_view_access)
     should permit(:create_fork)
     should permit(:author_access)
   end
@@ -33,12 +34,13 @@ describe ProjectPolicy do
       let(:user) { FactoryBot.create(:user) }
 
       it { should permit(:view_access) }
+      it { should permit(:direct_view_access) }
       it { should permit(:create_fork) }
       it { should permit(:embed) }
       it { should_not permit(:author_access) }
       it { should_not permit(:user_access) }
 
-      it "should not raise error for edit access" do
+      it "should raise error for edit access" do
         check_auth_exception(subject, :edit_access)
       end
     end
@@ -63,6 +65,20 @@ describe ProjectPolicy do
     it { should_not permit(:create_fork) }
   end
 
+  context "project is assignment submission" do
+    let(:user) { FactoryBot.create(:user) }
+    let(:project) { FactoryBot.create(:project, author: user) }
+
+    before do
+      project.project_submission = true
+    end
+
+    it { should permit(:view_access) }
+    it "should raise error for edit access" do
+      check_auth_exception(subject, :edit_access)
+    end
+  end
+
   context "project is private" do
     let(:project) { FactoryBot.create(:project, author: @author, project_access_type: "Private") }
 
@@ -85,6 +101,7 @@ describe ProjectPolicy do
       it "should raise error" do
         check_auth_exception(subject, :edit_access)
         check_auth_exception(subject, :view_access)
+        check_auth_exception(subject, :direct_view_access)
         check_auth_exception(subject, :embed)
       end
     end

@@ -47,6 +47,7 @@ class ProjectsController < ApplicationController
       @star.user_id = current_user.id
       @star.project_id = @project.id
       @star.save
+      @star.notify :users
       render :js => "2"
     end
 
