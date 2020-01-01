@@ -13,6 +13,7 @@ tasks:
       createuser -s postgres &&
       (redis-server &) &&
       bundle install --without production &&
+      yarn &&
       rails db:create &&
       rails db:schema:load &&
       rails db:migrate &&

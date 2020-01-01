@@ -1,0 +1,80 @@
+<% if notification_keys.present? %>
+  <div class="fields_area">
+    <% notification_keys.each do |key| %>
+      <div class="fields_wrapper">
+        <%= form_for(ActivityNotification::Subscription.new, as: :subscription, url: subscriptions_url_for(target, option_params), data: { remote: true }) do |f| %>
+          <%= f.hidden_field :key, value: key %>
+          <div class="fields_title_wrapper">
+            <h3 class="fields_title">
+              <%= key %>
+            </h3>
+            <p>
+              <%= link_to "Notifications", notifications_path_for(target, option_params.merge(filtered_by_key: key)) %>
+            </p>
+          </div>
+          <div class="field_wrapper subscribing">
+            <div class="field_label">
+              <label>
+                Notification
+              </label>
+            </div>
+
+            <div class="field">
+              <div class="ui checkbox">
+                <label>
+                  <%= f.check_box :subscribing, { checked: ActivityNotification.config.subscribe_as_default }, "true", "false" %>
+                  <div class="slider"></div>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="field_wrapper subscribing_to_email <%= "hidden" unless ActivityNotification.config.subscribe_as_default %>">
+            <div class="field_label">
+              <label>
+                Email notification
+              </label>
+            </div>
+            <div class="field">
+              <div class="ui checkbox">
+                <label>
+                  <%= f.check_box :subscribing_to_email, { checked: ActivityNotification.config.subscribe_as_default }, "true", "false" %>
+                  <div class="slider"></div>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="field_wrapper subscribing_to_optional_targets <%= "hidden" unless ActivityNotification.config.subscribe_as_default %>">
+            <% target.notifications.filtered_by_key(key).latest.optional_target_names.each do |optional_target_name| %>
+              <div class="field_label">
+                <label>
+                  Optional tagret (<%= optional_target_name %>)
+                </label>
+              </div>
+              <div class="field">
+                <div class="ui checkbox">
+                  <label>
+                    <%= hidden_field_tag "subscription[optional_targets][#{ActivityNotification::Subscription.to_optional_target_key(optional_target_name)}]", "false" %>
+                    <%= check_box_tag "subscription[optional_targets][#{ActivityNotification::Subscription.to_optional_target_key(optional_target_name)}]", "true", ActivityNotification.config.subscribe_as_default %>
+                    <div class="slider"></div>
+                  </label>
+                </div>
+              </div>
+            <% end %>
+          </div>
+
+          <div class="ui button">
+            <button type="submit">Configure subscription</button>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="fields_area">
+    <div class="fields_wrapper">
+      No notification keys are available.
+    </div>
+  </div>
+<% end %>

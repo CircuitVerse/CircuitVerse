@@ -1,105 +1,34 @@
 <!DOCTYPE html>
-
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <%= display_meta_tags description: yield(:description).presence  || Rails.configuration.site_description,
-  title: yield(:title).presence || 'CircuitVerse - Digital Circuit Simulator' %>
-  <meta name="keywords" content="Digital circuits, logisim, online, educational platform, karnaugh map, kmap, electronic devices and circuits,digital electronics basics,introduction to digital electronics, simple electronics projects for students,electric circuit analysis, logic circuits, logic simulation, digital logic circuits, boolean logic">
-  <link rel="icon" href="/img/favicon.ico">
-  <!--<script src="https://use.fontawesome.com/86b18442ae.js"></script>-->
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <%= display_meta_tags description: yield(:description).presence  || Rails.configuration.site_description,
+    title: yield(:title).presence || 'CircuitVerse - Digital Circuit Simulator' %>
+    <meta name="keywords"
+      content="Digital circuits, logisim, online, educational platform, karnaugh map, kmap, electronic devices and circuits,digital electronics basics,introduction to digital electronics, simple electronics projects for students,electric circuit analysis, logic circuits, logic simulation, digital logic circuits, boolean logic">
+    <%= favicon_link_tag 'favicon.ico' %>
 
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-  <!-- Bootstrap core CSS -->
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous"> -->
-  <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
-  <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
+    <%= csrf_meta_tags %>
 
-  <!-- Custom styles for this template -->
-  <link href="/css/logixRelease.css" rel="stylesheet">
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
-  <%= csrf_meta_tags %>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <%= render "layouts/google_analytics" %>
+  </head>
 
-  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112678513-1"></script>
-  <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+  <body>
+    <%= render "layouts/header" %>
+    <%= yield %>
+    <%= render "layouts/footer" %>
 
-      gtag('config', 'UA-112678513-1');
-      <% if current_user %>
-      gtag('set', {'user_id': '<%= current_user.id %>'}); // Set the user ID using signed-in user_id.
-      <% end %>
-  </script>
-
-</head>
-
-<body>
-<%= render 'logix_assets/nav'%>
-<%= yield %>
-
-<script type="text/javascript">
-  //In this script tag we are checking alert's and if there is alert this code will be execute
-  if(document.querySelector(".alert")){
-   setTimeout(()=>document.querySelector(".alert").hide(), 3000);
-  }
-</script>
-
-<!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js" integrity="sha256-pS96pU17yq+gVu4KBQJi38VpSuKN7otMrDQprzf/DWY=" crossorigin="anonymous"></script>
-
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-<div class="container" style="height:250px">
-<!--This is to give space for footer-->
-</div>
-
-<!--<<<<<<< Updated upstream-->
-<!--<div class="" style="position:relative;margin-bottom:10px;margin-top:20px;width:100%">-->
-<!--=======-->
-<div class="foot">
-<!--&gt;>>>>>> Stashed changes-->
-  <hr>
-  <div class="container">
-    <div class="row">
-      <div class="col" style="text-align: center">
-        <p style="text-align: center">Brought to you by</p>
-        <a href="https://www.iiitb.ac.in/"><img src="/img/iiitb.jpg" id="footer-logo-iiitb"></a>
-      </div>
-      <div class="col" style="text-align: center">
-        <p style="text-align: center">Hosting Sponsor</p>
-        <a href="http://digitalocean.com/" ><img src="/img/DO.png" id="footer-logo-DO"></a>
-      </div>
-
-      <!-- For breaking the line into two lines when the screen size is not big enough -->
-      <div class="d-block d-sm-none w-100"><br/></div>
-
-      <div class="col align-bottom" style="text-align: center">
-        <p style="text-align: center">Marketed by</p>
-        <a href="http://www.iiitb.org/"><img src="/img/istudio.png" id="footer-logo-istudio"></a>
-      </div>
-      <div class="col" style="text-align: center">
-        <p style="text-align: center">Developed by</p>
-        <a href="http://zense.co.in/"><img src="/img/zense.png" id="footer-logo-zense"></a>
-      </div>
-
-      <!--<div class="col">-->
-        <!---->
-      <!--</div>-->
-    </div>
-    <!--<p text-aligh>&copy; CircuitVerse Team 2018</p>-->
-
-
-  </div>
-
-</div>
-
-</body>
-
-
+    <script type="text/javascript">
+      // In this script tag we are checking alert's and if there is alert this code will be execute
+      if (document.querySelector(".alert")) {
+        setTimeout(() => document.querySelector(".alert").hide(), 3000);
+      }
+    </script>
+  </body>
 </html>
