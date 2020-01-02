@@ -23,11 +23,6 @@ describe LogixController, type: :request do
     expect(response.status).to eq(200)
   end
 
-  it "should get privacy page" do
-    get privacy_path
-    expect(response.status).to eq(200)
-  end
-
   it "should get tos page" do
     get tos_path
     expect(response.status).to eq(200)

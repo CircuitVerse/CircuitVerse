@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   get '/search', to: "search#search"
 
   resources :about, only: :index
+  resources :privacy, only: :index
 
   scope '/groups' do
     get '/:id/assignments/WYSIWYG/index.css', to: redirect('/index.css')
