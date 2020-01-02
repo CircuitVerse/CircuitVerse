@@ -777,7 +777,7 @@ deleteOfflineProject = function (id) {
         localStorage.setItem("projectList", JSON.stringify(projectList));
         $('#openProjectDialog').empty();
         for (idd in projectList) {
-            $('#openProjectDialog').append('<label class="option"><input type="radio" name="projectId" value="' + idd + '" />' + projectList[idd] + '<i class="fa fa-times deleteOfflineProject onclick="deleteOfflineProject(\'' + idd + '\')"></i></label>');
+            $('#openProjectDialog').append('<label class="option"><input type="radio" name="projectId" value="' + idd + '" />' + projectList[idd] + '<i class="fa fa-times deleteOfflineProject" onclick="deleteOfflineProject(\'' + idd + '\')"></i></label>');
         }
     }
 }
@@ -789,7 +789,7 @@ createOpenLocalPrompt = function() {
     var flag = true;
     for (id in projectList) {
         flag = false;
-        $('#openProjectDialog').append('<label class="option"><input type="radio" name="projectId" value="' + id + '" />' + projectList[id] + '<i class="fa fa-times deleteOfflineProject onclick="deleteOfflineProject(\'' + id + '\')"></i></label>');
+        $('#openProjectDialog').append('<label class="option"><input type="radio" name="projectId" value="' + id + '" />' + projectList[id] + '<i class="fa fa-times deleteOfflineProject" onclick="deleteOfflineProject(\'' + id + '\')"></i></label>');
     }
     if (flag) $('#openProjectDialog').append('<p>Looks like no circuit has been saved yet. Create a new one and save it!</p>')
     $('#openProjectDialog').dialog({
