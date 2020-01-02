@@ -108,8 +108,14 @@ Rails.application.routes.draw do
     resources :projects, only: [:show, :edit, :update, :new, :create, :destroy]
   end
 
-
-
+  #redirects
+  get '/facebook', to: redirect('https://www.facebook.com/CircuitVerse')
+  get '/twitter', to: redirect('https://www.twitter.com/CircuitVerse')
+  get '/slack', to: redirect('https://join.slack.com/t/circuitverse-team/shared_invite/enQtNjc4MzcyNDE5OTA3LTdjYTM5NjFiZWZlZGI2MmU1MmYzYzczNmZlZDg5MjYxYmQ4ODRjMjQxM2UyMWI5ODUzODQzMDU2ZDEzNjI4NmE')
+  get '/discord', to: redirect('https://discord.gg/8G6TpmM')
+  get '/github', to: redirect('https://github.com/CircuitVerse')
+  get '/learn', to: redirect('https://learn.circuitverse.org')
+  get '/docs', to: redirect('https://docs.circuitverse.org')
 
   # get 'comments/create_reply/:id', to: 'comments#create_reply', as: 'reply_comment'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
