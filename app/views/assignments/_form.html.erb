@@ -15,14 +15,14 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :name %>
+    <%= form.label :name %><br>
     <%= form.text_field :name, id: :assignment_name %>
   </div>
 
   <% if @assignment.new_record? %>
     <div class="field">
-      <span style="color: red"> * Cannot be changed once set </span>
-      <%= form.label :grading_scale %>
+      <span style="color: red"> * Cannot be changed once set </span><br>
+      <%= form.label :grading_scale %><br>
       <%= form.select :grading_scale, [:no_scale, :letter, :percent, :custom] %>
       <span style="margin-bottom: 2px">
         <div class="tooltip-help assignment-tooltip"> Help
@@ -43,7 +43,7 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :deadline %>
+    <%= form.label :deadline %><br>
     <input class ="date" id="party" type="datetime-local" name="assignment[deadline]" min="<%= Time.now.strftime("%Y-%m-%dT%H:%M")%>" value="<%= assignment.deadline.strftime("%Y-%m-%dT%H:%M")%>">
   </div>
 
