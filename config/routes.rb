@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   get '/search', to: "search#search"
 
   resources :about, only: :index
+  resources :privacy, only: :index
 
   scope '/groups' do
     get '/:id/assignments/WYSIWYG/index.css', to: redirect('/index.css')
@@ -55,7 +56,6 @@ Rails.application.routes.draw do
   get  '/gettingStarted', to:'logix#gettingStarted'
   get  '/examples', to:'logix#examples'
   get  '/features', to:'logix#features'
-  get  '/privacy', to:'logix#privacy'
   get  '/tos', to:'logix#tos'
   get  '/teachers', to:'logix#teachers'
   get  '/contribute', to:'logix#contribute'
