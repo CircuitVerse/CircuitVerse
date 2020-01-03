@@ -16,9 +16,12 @@
         We decided to disable it cause it was hard to use on small screens.
         Sorry for the inconvenience
         </p>
-        <button type="button" class="btn btn-primary btn-lg btn-block">Go back</button>
-        <div class='text-center'><a class='font-weight-light' style='color:inherit;'>Continue anyway</a><div>
+        <button id='go-back-button' type="button" class="btn btn-primary btn-lg btn-block">Go back</button>
+        <div class='text-center'><a id='continue-anyway' lass='font-weight-light' style='color:inherit;'>Continue anyway</a><div>
       </div>
     </div>
   </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+<script type='text/javascript' src='/js/disableMobileSimulator.js'></script>
+<script> loadSimulatorDisabledPage() </script>
