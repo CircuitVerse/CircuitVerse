@@ -53,7 +53,7 @@ function _loadHtml(elementHierarchy, restrictionMap) {
 function loadRestrictions(restrictions) {
     _handleMainCheckbox();
 
-    const elementHierarchy = metadata.elementHierarchy;
+    const { elementHierarchy } = metadata
     const restrictionMap = _restrictionsMap(restrictions);
 
     _loadHtml(elementHierarchy, restrictionMap);
