@@ -6,7 +6,7 @@ window.isMobile = function() {
 
 function runSimulatorCheck() {
     if(window.isMobile() && !Cookies.get('disableMobileCheck')) {
-        window.location.href = '/simulator/mobile_disabled'
+        window.location.href = '/simulator/mobile_disabled';
     }
 }
 function loadSimulatorDisabledPage() {
