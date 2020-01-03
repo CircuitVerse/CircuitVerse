@@ -13,7 +13,7 @@ class SimulatorController < ApplicationController
   end
 
   def mobile_disabled
-    render layout: 'application'
+    render layout: "application"
   end
 
   def show
