@@ -768,16 +768,16 @@ createSaveAsImgPrompt = function(scope = globalScope) {
 }
 
 // Function to delete offline project of selected id
-deleteOfflineProject = function (id) {
+deleteOfflineProject = function (projectId) {
     var projectList = JSON.parse(localStorage.getItem("projectList"));
-    var y = confirm("Are You Sure You Want To Delete Project " + projectList[id] + " ?");
-    if (y) {
-        delete projectList[id];
-        localStorage.removeItem(id);
+    var confirmation = confirm("Are You Sure You Want To Delete Project " + projectList[projectId] + " ?");
+    if (confirmation) {
+        delete projectList[projectId];
+        localStorage.removeItem(projectId);
         localStorage.setItem("projectList", JSON.stringify(projectList));
         $('#openProjectDialog').empty();
-        for (idd in projectList) {
-            $('#openProjectDialog').append('<label class="option"><input type="radio" name="projectId" value="' + idd + '" />' + projectList[idd] + '<i class="fa fa-times deleteOfflineProject" onclick="deleteOfflineProject(\'' + idd + '\')"></i></label>');
+        for (id in projectList) {
+            $('#openProjectDialog').append('<label class="option"><input type="radio" name="projectId" value="' + id + '" />' + projectList[id] + '<i class="fa fa-times deleteOfflineProject" onclick="deleteOfflineProject(\'' + id + '\')"></i></label>');
         }
     }
 }
