@@ -38,13 +38,13 @@
          </a>
 
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href=<%= profile_path(current_user) %>>Profile </a>
-          <a class="dropdown-item" href=<%= notifications_path(current_user) %>>Notifications </a>
-          <a class="dropdown-item" href=<%= user_path(current_user) %>>My Circuits</a>
-          <a class="dropdown-item" href=<%= user_groups_path(current_user) %>>My Groups</a>
-          <a class="dropdown-item" href=<%= user_favourites_path(current_user) %>>My Favourites</a>
+          <a class="dropdown-item" href="<%= profile_path(current_user) %>">Profile </a>
+          <a class="dropdown-item" href="<%= notifications_path(current_user) %>">Notifications </a>
+          <a class="dropdown-item" href="<%= user_path(current_user) %>">My Circuits</a>
+          <a class="dropdown-item" href="<%= user_groups_path(current_user) %>">My Groups</a>
+          <a class="dropdown-item" href="<%= user_favourites_path(current_user) %>">My Favourites</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" rel="nofollow" data-method="delete" href=<%= destroy_user_session_path %>>Sign Out</a>
+          <a class="dropdown-item" rel="nofollow" data-method="delete" href="<%= destroy_user_session_path %>">Sign Out</a>
 
         </div>
         </li>
