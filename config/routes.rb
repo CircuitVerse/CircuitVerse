@@ -92,6 +92,7 @@ Rails.application.routes.draw do
 
   #simulator
   scope '/simulator' do
+    get '/mobile_disabled', to: 'simulator#mobile_disabled'
     get '/:id', to: 'simulator#show', as: 'simulator'
     get '/edit/:id', to: 'simulator#edit', as: 'simulator_edit'
     post '/get_data', to: 'simulator#get_data'

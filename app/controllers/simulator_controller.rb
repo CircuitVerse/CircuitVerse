@@ -12,6 +12,10 @@ class SimulatorController < ApplicationController
     ProjectPolicy
   end
 
+  def mobile_disabled
+    render 'mobile_disabled'
+  end
+
   def show
     @logix_project_id = params[:id]
     @external_embed = false
