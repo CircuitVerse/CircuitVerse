@@ -1021,7 +1021,7 @@ ForceGate.prototype.customDraw = function () {
 }
 
 
-function Text(x, y, scope = globalScope, label = "") {
+function Text(x, y, scope = globalScope, label = "", fontSize = 14) {
 
     CircuitElement.call(this, x, y, scope, "RIGHT", 1);
     // this.setDimensions(15, 15);
@@ -1030,6 +1030,7 @@ function Text(x, y, scope = globalScope, label = "") {
     this.labelDirectionFixed = true;
     this.setHeight(10);
     this.setLabel(label);
+    this.setFontSize(fontSize);
 
 
 
@@ -1041,14 +1042,23 @@ Text.prototype.setLabel = function (str = "") {
 
     this.label = str;
     ctx = simulationArea.context;
-    ctx.font = 14 + "px Georgia";
+    ctx.font = this.fontSize + "px Georgia";
     this.leftDimensionX = 10;
     this.rightDimensionX = ctx.measureText(this.label).width + 10;
     //console.log(this.leftDimensionX,this.rightDimensionX,ctx.measureText(this.label))
 }
+
+Text.prototype.setFontSize = function (fontSize = 14) {
+    this.fontSize = fontSize;
+    ctx = simulationArea.context;
+    ctx.font = this.fontSize + "px Georgia";
+    this.leftDimensionX = 10;
+    this.rightDimensionX = ctx.measureText(this.label).width + 10;
+}
+
 Text.prototype.customSave = function () {
     var data = {
-        constructorParamaters: [this.label],
+        constructorParamaters: [this.label, this.fontSize],
     }
     return data;
 }
@@ -1067,6 +1077,17 @@ Text.prototype.keyDown = function (key) {
             this.setLabel(this.label.slice(0, -1));
     }
 }
+
+Text.prototype.mutableProperties = {
+    "fontSize": {
+        name: "Font size: ",
+        type: "number",
+        max: "84",
+        min: "14",
+        func: "setFontSize",
+    }
+}
+
 Text.prototype.draw = function () {
 
     if (this.label.length == 0 && simulationArea.lastSelected != this) this.delete();
@@ -1083,7 +1104,10 @@ Text.prototype.draw = function () {
     if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) {
         ctx.beginPath();
         ctx.fillStyle = "white";
-        rect2(ctx, -this.leftDimensionX, -this.upDimensionY, this.leftDimensionX + this.rightDimensionX, this.upDimensionY + this.downDimensionY, this.x, this.y, "RIGHT");
+        var magicDimenstion = this.fontSize - 14;
+        rect2(ctx, -this.leftDimensionX, -this.upDimensionY - magicDimenstion,
+            this.leftDimensionX + this.rightDimensionX,
+            this.upDimensionY + this.downDimensionY + magicDimenstion, this.x, this.y, "RIGHT");
         ctx.fillStyle = "rgba(255, 255, 32,0.1)";
         ctx.fill();
         ctx.stroke();
@@ -1091,7 +1115,7 @@ Text.prototype.draw = function () {
     ctx.beginPath();
     ctx.textAlign = "left";
     ctx.fillStyle = "black"
-    fillText(ctx, this.label, xx, yy + 5, 14);
+    fillText(ctx, this.label, xx, yy + 5, this.fontSize);
     ctx.fill();
 
 }
