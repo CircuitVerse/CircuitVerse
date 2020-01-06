@@ -8,7 +8,7 @@ describe "Assignments", type: :system do
     @group = FactoryBot.create(:group, mentor: @mentor)
   end
 
-  it 'should create assigment' do
+  it 'should create assignment' do
     sign_in @mentor
     visit new_group_assignment_path(@group)
     
@@ -25,7 +25,7 @@ describe "Assignments", type: :system do
     expect(page).to have_text(deadline.strftime("%d %b,%Y"))
   end
 
-  it 'should edit assigment' do
+  it 'should edit assignment' do
     sign_in @mentor
     @assignment = FactoryBot.create(:assignment, group: @group)
     visit edit_group_assignment_path(@group,@assignment)
