@@ -226,6 +226,7 @@ input[type="radio"]:checked ~ label {
     color: #fff;
     /*padding-bottom: 2em;*/
     margin-top: 1em;
+    margin-bottom: 3em;
 }
 
 #moduleProperty-inner {
@@ -256,7 +257,8 @@ input[type="radio"]:checked ~ label {
 
 #moduleProperty-inner > p {
     margin: 0;
-    margin-top: 0.2em;
+    margin-top: 0.4em;
+    text-align: left;
 }
 
 input,
@@ -268,7 +270,13 @@ select {
 .moduleProperty select {
     background-color: #333;
     border: none;
+    color: #fff;
     border-bottom: 2px solid #ccc;
+}
+
+.moduleProperty button {
+    margin-top: 0.1rem;
+    padding: 0.3rem 0.38rem;
 }
 
 .moduleProperty input:active,
@@ -767,20 +775,24 @@ div.icon img {
     background-color: black;
     border: 1px solid #09f;
     border-top: none;
+    list-style-position: inside;
+    text-indent: -0.3rem;
 }
 
 .navbar-nav > li > a {
     padding: 7px 15px;
 }
 
+.dropdown-menu > li {
+    padding-left: 16px;
+}
 .dropdown-menu > li > a {
     color: #939393 !important;
-    padding: 3px 14px;
+    padding: 3px 0px;
 }
 
 .dropdown-menu > li > a:hover {
     color: #4db8ff !important;
-    background-color: black;
 }
 
 .ui-dialog {
