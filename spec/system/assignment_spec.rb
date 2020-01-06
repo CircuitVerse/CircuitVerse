@@ -19,13 +19,13 @@ describe "Assignments", type: :system do
       deadline = Faker::Date.forward(days: 7)
       description = Faker::Lorem.sentence
 
-      fill_assignments(name, deadline ,description ,grading: true)
+      fill_assignments(name, deadline ,description, grading: true)
 
       click_button "Create Assignment"
 
       expect(page).to have_text("Assignment was successfully created.")
       expect(page).to have_text(name)
-      #expect(page).to have_text(deadline.strftime("%d %b,%Y"))
+      # expect(page).to have_text(deadline.strftime("%d %b,%Y"))
     end
 
     it 'should edit assignment' do
@@ -43,7 +43,7 @@ describe "Assignments", type: :system do
 
       expect(page).to have_text("Assignment was successfully updated.")
       expect(page).to have_text(name)
-      #expect(page).to have_text(deadline.strftime("%d %b,%Y"))
+      # expect(page).to have_text(deadline.strftime("%d %b,%Y"))
     end
   end
   
@@ -76,7 +76,7 @@ describe "Assignments", type: :system do
     find(editor).send_keys with
   end
 
-  def fill_in_deadline(field,date:)
+  def fill_in_deadline(field, date:)
     # TODO: will be changed when #778 will be merged
   end
 end
