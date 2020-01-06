@@ -16,22 +16,46 @@ describe "Assignments", type: :system do
     deadline = Faker::Date.forward(days: 7)
     description = Faker::Lorem.sentence
 
-    fill_in "Name", with: name
-    fill_in_deadline "#party", date: deadline # TODO: will be changed when #778 will be merged
-    fill_in_editor "#editor", with: description
-    select 'percent', from: 'assignment_grading_scale'
-
-    # TODO: not impelemented cause #778 is not merged
-    # check 'restrict-elements'
-    # check 'checkbox-Input'
-    # check 'checkbox-Button'
-    # check 'checkbox-Power'
+    fill_assignments(name,deadline,description,grading: true)
 
     click_button "Create Assignment"
 
     expect(page).to have_text("Assignment was successfully created.")
     expect(page).to have_text(name)
     expect(page).to have_text(deadline.strftime("%d %b,%Y"))
+  end
+
+  it 'should edit assigment' do
+    sign_in @mentor
+    @assignment = FactoryBot.create(:assignment, group: @group)
+    visit edit_group_assignment_path(@group,@assignment)
+    
+    name = Faker::Lorem.word
+    deadline = Faker::Date.forward(days: 7)
+    description = Faker::Lorem.sentence
+
+    fill_assignments(name,deadline,description,grading: false)
+
+    click_button "Update Assignment"
+
+    expect(page).to have_text("Assignment was successfully updated.")
+    expect(page).to have_text(name)
+    expect(page).to have_text(deadline.strftime("%d %b,%Y"))
+  end
+
+  def fill_assignments(name,deadline,description,grading:)
+    fill_in "Name", with: name
+    fill_in_deadline "#party", date: deadline # TODO: will be changed when #778 will be merged
+    fill_in_editor "#editor", with: description
+    if :grading == true then
+      select 'percent', from: 'assignment_grading_scale'
+    end
+
+    # TODO: not impelemented cause #778 is not merged
+    # check 'restrict-elements'
+    # check 'checkbox-Input'
+    # check 'checkbox-Button'
+    # check 'checkbox-Power'
   end
 
   def fill_in_editor(editor, with:)
