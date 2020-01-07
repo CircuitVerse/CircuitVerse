@@ -1,5 +1,6 @@
 class Project < ApplicationRecord
   require "pg_search"
+  require "custom_optional_targets/web_push"
   belongs_to :author, class_name: 'User'
   has_many :forks , class_name: 'Project', foreign_key: 'forked_project_id', dependent: :nullify
   belongs_to :forked_project , class_name: 'Project' , optional: true
@@ -67,6 +68,24 @@ class Project < ApplicationRecord
         UserMailer.forked_project_email(self.author,self.forked_project,self).deliver_later
       end
     end
+  end
+
+  acts_as_notifiable :users,
+                     # Notification targets as :targets is a necessary option
+                     targets: ->(project, key) {
+                       [project.forked_project.author]
+                     },
+                     notifier: :author,
+                     printable_name: ->(project) {
+                       "forked your project \"#{project.name}\""
+                     },
+                     notifiable_path: :project_notifiable_path,
+                     optional_targets: {
+                         CustomOptionalTarget::WebPush => {}
+                     }
+
+  def project_notifiable_path
+    user_project_path(self.forked_project.author, self.forked_project)
   end
 
   def self.tagged_with(name)
