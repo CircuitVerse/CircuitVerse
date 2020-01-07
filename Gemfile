@@ -5,6 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem 'language_filter'
 gem "paperclip", ">= 5.2.0"
 gem 'hirb'
 gem 'acts_as_votable','~> 0.12.0'

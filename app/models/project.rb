@@ -88,11 +88,21 @@ class Project < ApplicationRecord
   end
 
   validate :check_validity
+  validate :clean_description
   private
   def check_validity
     if project_access_type != "Private" and !assignment_id.nil?
       errors.add(:project_access_type, "Assignment has to be private")
     end
+  end
+
+  def clean_description
+    profanity_filter = LanguageFilter::Filter.new matchlist: :profanity
+    return nil unless profanity_filter.match? description
+    errors.add(
+      :description,
+      "contains inappropriate language: #{profanity_filter.matched(description).join(', ')}"
+    )
   end
 
   def check_and_remove_featured
