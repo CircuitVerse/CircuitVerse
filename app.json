@@ -5,8 +5,7 @@
   "repository": "https://github.com/CircuitVerse/CircuitVerse",
   "logo": "https://circuitverse.org/img/circuitverse_black.svg",
   "keywords": ["CircuitVerse", "Circuits", "Simulator", "Open source", "online educational platform", "Logic Circuits"],
-  "buildpacks": [
-   { "url": "heroku/nodejs" },
-   { "url": "heroku/ruby" }
-   ]
+  "engines": {
+    "yarn": "1.21.1"
+  }
 }
