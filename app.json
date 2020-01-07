@@ -1,0 +1,8 @@
+{
+  "name": "CircuitVerse",
+  "description": "CircuitVerse is an open source logic circuit simulator. It aims to provide a platform where circuits can be designed and simulated using a graphical user interface.",
+  "website": "https://circuitverse.org/",
+  "repository": "https://github.com/CircuitVerse/CircuitVerse",
+  "logo": "https://circuitverse.org/img/circuitverse_black.svg",
+  "keywords": ["CircuitVerse", "Circuits", "Simulator", "Open source", "online educational platform", "Logic Circuits"]
+}
