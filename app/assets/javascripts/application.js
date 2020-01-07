@@ -19,3 +19,5 @@
 //= require bootstrap/dist/js/bootstrap.min.js
 //= require popper.js/dist/popper.min.js
 //= require serviceworker-companion
+//= require restrictElements.js
+//= require time.js
