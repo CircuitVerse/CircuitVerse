@@ -79,7 +79,7 @@ You can use gitpod to develop CircuitVerse in the cloud by following the steps m
 Pull Requests can be created by following these [Steps](https://github.com/CircuitVerse/CircuitVerse/wiki/Pull-Requests-using-Gitpod)
 
 ### Setup in Heroku
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/CircuitVerse/CircuitVerse)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/NumberC/CircuitVerse/tree/HerokuBtn)
 
 ## Adding Environment Variables
 * Make the following changes in your Google, Facebook app:
