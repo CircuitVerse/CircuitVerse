@@ -25,7 +25,7 @@ describe "Assignments", type: :system do
 
       expect(page).to have_text("Assignment was successfully created.")
       expect(page).to have_text(name)
-      # expect(page).to have_text(deadline.strftime("%d %b,%Y"))
+      expect(page).to have_text(deadline.strftime("%d %b,%Y"))
     end
 
     it "should be able to edit assignment" do
@@ -43,7 +43,7 @@ describe "Assignments", type: :system do
 
       expect(page).to have_text("Assignment was successfully updated.")
       expect(page).to have_text(name)
-      # expect(page).to have_text(deadline.strftime("%d %b,%Y"))
+      expect(page).to have_text(deadline.strftime("%d %b,%Y"))
     end
   end
 
@@ -59,8 +59,9 @@ describe "Assignments", type: :system do
 
   def fill_assignments(name, deadline, description, grading:)
     fill_in "Name", with: name
-    # fill_in_deadline "#party", date: deadline TODO: will be changed when #778 will be merged
+    fill_in "Deadline", with: deadline.strftime("%d/%m/%Y %H:%M")
     fill_in_editor "#editor", with: description
+
     if :grading == true then
       select "percent", from: "assignment_grading_scale"
     end
@@ -74,9 +75,5 @@ describe "Assignments", type: :system do
 
   def fill_in_editor(editor, with:)
     find(editor).send_keys with
-  end
-
-  def fill_in_deadline(field, date:)
-    # TODO: will be changed when #778 will be merged
   end
 end
