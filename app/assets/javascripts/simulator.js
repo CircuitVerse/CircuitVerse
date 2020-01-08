@@ -11,10 +11,7 @@
 // about supported directives.
 //
 //= require rails-ujs
-//= require_tree .
 //= require jquery
 //= require jquery_ujs
-//= require bootstrap-typeahead-rails
 //= require bootstrap/dist/js/bootstrap.min.js
 //= require popper.js/dist/popper.min.js
-//= require serviceworker-companion
