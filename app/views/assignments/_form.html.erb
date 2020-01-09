@@ -116,10 +116,11 @@
       generateDate();
   }
   function generateDate() {
-    let pickerDate = new Date($('#assignment_deadline').val());
+    const splittedDate = $('#assignment_deadline').val().split(/[\s,/:]+/)
+    let pickerDate = new Date(splittedDate[2], splittedDate[1]-1, splittedDate[0], splittedDate[3], splittedDate[4]);
     const pickerUnix = pickerDate.getTime();
     const pickerUnixWithTimezone = new Date(pickerUnix + new Date().getTimezoneOffset()*60*1000);
-    $('#assignment_deadline').val(formatDate(pickerUnixWithTimezone,"yyyy-dd-MMTHH:mm"));
+    $('#assignment_deadline').val(formatDate(pickerUnixWithTimezone,"yyyy-MM-ddTHH:mm"));
   }
   function cleanEditor() {
     $('<input />').attr('type', 'hidden')
