@@ -27,7 +27,7 @@ function htmlRowName(name) {
 function htmlInlineCheckbox(elementName, checked) {
     return `
     <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" class='element-restriction' id="checkbox-${elementName}" value="${elementName} ${checked}">
+        <input class="form-check-input element-restriction" type="checkbox" id="checkbox-${elementName}" value="${elementName}" ${checked}>
         <label class="form-check-label" for="checkbox-${elementName}">${elementName}</label>
     </div>`;
 }
