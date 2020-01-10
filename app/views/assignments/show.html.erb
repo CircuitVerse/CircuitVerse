@@ -30,10 +30,12 @@
         <%= @assignment.graded %>
       </p>
 
+     <% if @assignment.restricted_circuit_elements != "None" %>
       <p>
         <strong>Description:</strong>
         <p><%= @assignment.description&.html_safe%></p><br>
       </p>
+    <% end %>
 
       <p>
         <strong>Restricted Circuit Elements:</strong>
