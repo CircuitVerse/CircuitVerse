@@ -2,24 +2,16 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-$green: #42b983;
-$teal: #026e57;
-$gray-100: #f9fffc;
+@import 'theme';
+
 $gray-dark: #b9b9b9;
 $blue: #337ab7;
 $primary: $gray-dark;
 $secondary: $blue;
-$border-radius: .3rem;
-$font-familiy-sans-serif: 'Open Sans', 'Noto Sans';
-$input-btn-focus-width: .2rem;
-$color-hover: $green;
-$active-background: #fff;
-$active-border: $teal;
 
 @import 'bootstrap/scss/bootstrap';
 @import 'layout';
 
-// #FIXME move these styles
 .alert {
   width: 100%;
 }
