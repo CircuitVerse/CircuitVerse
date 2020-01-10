@@ -2,15 +2,12 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-@import 'theme';
-
 $gray-dark: #b9b9b9;
 $blue: #337ab7;
 $primary: $gray-dark;
 $secondary: $blue;
 
 @import 'bootstrap/scss/bootstrap';
-@import 'layout';
 
 .alert {
   width: 100%;
