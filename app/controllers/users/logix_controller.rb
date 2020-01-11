@@ -2,7 +2,7 @@
 
 class Users::LogixController < ApplicationController
   TYPEAHEAD_INSTITUTE_LIMIT = 50
-  
+
   include UsersLogixHelper
 
   before_action :authenticate_user!, only: [:edit, :update, :groups]
