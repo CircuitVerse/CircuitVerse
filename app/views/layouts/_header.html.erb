@@ -31,10 +31,22 @@
         <a class="nav-link text-dark" href="#">About</a>
       </li>
       <% if user_signed_in? %>
+       <div class="navbar-nav nav-item dropdown">
         <li class="nav-item px-2">
-          <a class="nav-link text-dark" href="<%= notifications_path(current_user) %>">
-            Notifications
-          </a>
+          <a class="nav-link text-dark dropdown-toggle" style="cursor: pointer;" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= current_user.name %>
+         </a>
+
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="<%= profile_path(current_user) %>">Profile </a>
+          <a class="dropdown-item" href="<%= notifications_path(current_user) %>">Notifications </a>
+          <a class="dropdown-item" href="<%= user_path(current_user) %>">My Circuits</a>
+          <a class="dropdown-item" href="<%= user_groups_path(current_user) %>">My Groups</a>
+          <a class="dropdown-item" href="<%= user_favourites_path(current_user) %>">My Favourites</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" rel="nofollow" data-method="delete" href="<%= destroy_user_session_path %>">Sign Out</a>
+
+        </div>
         </li>
       <% else %>
         <li class="nav-item px-2">
