@@ -58,6 +58,7 @@ gem 'will_paginate', '~> 3.1.1'
 gem 'will_paginate-bootstrap'
 
 gem 'country_select', '~> 4.0'
+gem 'geocoder'
 gem 'bootstrap-typeahead-rails'
 
 # for authorization layer

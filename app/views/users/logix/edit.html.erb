@@ -14,7 +14,7 @@
 
         <div class="field form-group">
           <%= f.label :country %><br/>
-          <%= f.country_select :country, { priority_countries: ["IN"] }, { class: "form-control" } %>
+          <%= f.country_select :country, { include_blank: 'Prefer Not To Enter', priority_countries: get_priority_countries() }, { class: "form-control" } %>
         </div>
 
         <div class="field form-group ">
