@@ -121,6 +121,12 @@ RAILS_ENV=production bundle exec rake assets:precompile
 bundle exec sidekiq -e production -q default -q mailers -d -L tmp/sidekiq.log` (In production)
 ```
 
+### Running production with Docker
+Run the following command to start CircuitVerse on port 3000 in Docker:
+```shell script
+sudo docker-compose -f docker-compose-prod.yml up
+```
+
 ## Code of Conduct
 
 This repository contains the [Code of Conduct](./code-of-conduct.md) of [CircuitVerse](https://circuitverse.org) Community.
