@@ -1,12 +1,9 @@
 # frozen_string_literal: true
-# https://github.com/nanoc/nanoc/commit/f41a25626df915415c720f1c6278fe5b7a51ba10
-loader = Zeitwerk::Loader.new
-loader.push_dir(__dir__ + '/..')
-loader.ignore(__dir__ + '/..')
-loader.setup
-loader.eager_load
   
 module CustomOptionalTarget
+  module WebPush
+    #this exists to get rid of Zeitwerk errors
+  end
   class WebPush < ActivityNotification::OptionalTarget::Base
     def initialize_target(options = {})
     end
