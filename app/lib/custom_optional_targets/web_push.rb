@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+require "zeitwerk"
+
 
 module CustomOptionalTarget
   class WebPush < ActivityNotification::OptionalTarget::Base
