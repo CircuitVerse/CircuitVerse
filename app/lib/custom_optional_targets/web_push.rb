@@ -1,9 +1,6 @@
 # frozen_string_literal: true
   
 module CustomOptionalTarget
-  module WebPush
-    #this exists to get rid of Zeitwerk errors
-  end
   class WebPush < ActivityNotification::OptionalTarget::Base
     def initialize_target(options = {})
     end
