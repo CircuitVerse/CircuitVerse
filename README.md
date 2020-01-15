@@ -121,6 +121,11 @@ RAILS_ENV=production bundle exec rake assets:precompile
 bundle exec sidekiq -e production -q default -q mailers -d -L tmp/sidekiq.log` (In production)
 ```
 
+### Production Docker Instructions
+```
+docker-compose -f docker-compose.prod.yml up
+```
+
 ## Code of Conduct
 
 This repository contains the [Code of Conduct](./code-of-conduct.md) of [CircuitVerse](https://circuitverse.org) Community.
