@@ -30,7 +30,7 @@ services:
       - sidekiq
     environment:
       REDIS_URL: "redis://redis:6379/0"
-      CIRCUITVERSE_USE_SOLR: "false"
+      CIRCUITVERSE_USE_SOLR: "true"
   redis:
     image: redis
 # volumes:
