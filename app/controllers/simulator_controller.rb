@@ -15,7 +15,7 @@ class SimulatorController < ApplicationController
   def show
     @logix_project_id = params[:id]
     @external_embed = false
-    render 'embed'
+    render 'embed', layout: false
   end
 
   def edit
@@ -30,7 +30,7 @@ class SimulatorController < ApplicationController
     @project = Project.find(params[:id])
     @author = @project.author_id
     @external_embed = true
-    render 'embed'
+    render 'embed', layout: false
   end
 
   def get_data
@@ -40,7 +40,7 @@ class SimulatorController < ApplicationController
   def new
     @logix_project_id = 0
     @projectName = ""
-    render "edit"
+    render "edit", layout: false
   end
 
   def update

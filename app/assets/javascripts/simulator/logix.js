@@ -115,7 +115,7 @@ function showError(error) {
     if (error == prevErrorMessage) return;
     prevErrorMessage = error;
     var id = Math.floor(Math.random() * 10000);
-    $('#MessageDiv').append("<div class='alert alert-danger' role='alert' id='" + id + "'> " + error + "</div>");
+    $('#message-div').append("<div class='alert alert-danger' role='alert' id='" + id + "'> " + error + "</div>");
     setTimeout(function() {
         prevErrorMessage = undefined;
         $('#' + id).fadeOut();
@@ -173,7 +173,7 @@ function showMessage(mes) {
     if (mes == prevShowMessage) return;
     prevShowMessage = mes
     var id = Math.floor(Math.random() * 10000);
-    $('#MessageDiv').append("<div class='alert alert-success' role='alert' id='" + id + "'> " + mes + "</div>");
+    $('#message-div').append("<div class='alert alert-success' role='alert' id='" + id + "'> " + mes + "</div>");
     setTimeout(function() {
         prevShowMessage = undefined;
         $('#' + id).fadeOut()
