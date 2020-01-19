@@ -75,7 +75,15 @@ function setupUI() {
 
     $("#sideBar").resizable({
         handles: 'e',
-        // minWidth:270,
+        minWidth: 5,
+        stop() {
+            if ($("#sideBar").width() < 32) {
+                document.getElementById("reSizeSideBar").removeAttribute('style');
+            }
+            else if ($("#sideBar").width() >= 32) {
+                document.getElementById("reSizeSideBar").style = "display: none";
+            }
+        }
     });
     $("#menu").accordion({
         collapsible: true,
@@ -86,6 +94,13 @@ function setupUI() {
     // handles: 'n',
     //     // minHeight:200,
     // });
+
+    $('#reSizeSideBar').click(function () {
+        document.getElementById("sideBar").removeAttribute('style');
+        document.getElementById("sideBar").style = "overflow: hidden scroll;overflow-x: hidden;overflow-y: scroll;";
+        document.getElementById("reSizeSideBar").style = "display: none;";
+        resetup();
+    });
 
     $('.logixModules').mousedown(function () {
         //////console.log(smartDropXX,smartDropYY);
