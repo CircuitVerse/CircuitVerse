@@ -1,7 +1,7 @@
 <div class="container feature">
-<h1>New Project</h1>
+  <h1 style="margin-bottom: 15px;">New project</h1> <!-- if needed add any subtitle by <small> inside h1 -->
 
-<%= render 'form', project: @project %>
+  <%= render 'form', project: @project %>
 
-<%= link_to 'Back', user_path(current_user) %>
+  <%= link_to 'Back', user_path(current_user) %>
 </div>
