@@ -45,7 +45,7 @@
   </div>
 
 
-  <div class="actions form-group" onclick="before_submit()">
+  <div class="actions form-group" onclick="beforeSubmit()">
     <%= form.submit class: 'btn btn-primary' %>
   </div>
 
@@ -53,30 +53,31 @@
 
 
 <script>
-  function before_submit(){                     //add params before submission and submit both forms
+  function beforeSubmit() {
+    generateFeaturedCircuit()
+    generateEditor()
+  }
+    
+  function generateEditor() {
     $('<input />').attr('type', 'hidden')
-        .attr('name', 'description','tag_list')
-        .attr('value', $("#editor").cleanHtml())
-        .appendTo('#projectForm');
+      .attr('name', 'description')
+      .attr('value', $("#editor").cleanHtml())
+      .appendTo('#projectForm');
+  }
 
-        if($("#featuredCircuit")) {
-          $("#featuredCircuit").submit(function(e) {
-            e.preventDefault();
+  function generateFeaturedCircuit() {
+    const canFeature = $("#featuredCircuit") != undefined
+    if(!canFeature) return;
 
-            var form = $(this);
-            var url = form.attr('action');
-            var type = $("#featured_checkbox").is(":checked") ? "POST" : "DELETE";
-
-            $.ajax({
-                   type: type,
-                   url: url,
-                   data: form.serialize()
-            });
-          });
-          
-
-          $("#featuredCircuit").submit();
-        }
-
-    }
+    $("#featuredCircuit").submit(function(e) {
+      e.preventDefault();
+      var form = $(this);
+      $.ajax({
+              type: $("#featured_checkbox").is(":checked") ? "POST" : "DELETE",
+              url: form.attr('action'),
+              data: form.serialize()
+      });
+    });
+    $("#featuredCircuit").submit();
+  }
 </script>
