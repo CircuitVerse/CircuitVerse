@@ -45,9 +45,9 @@
     <%= form.select :project_access_type, [["Public","Public"],["Private","Private"],["Limited access","Limited access"]], id: :project_project_access_type %>
   </div>
 
-  <div class="field" id="wysiwyg">
+  <div class="field" id="description">
     <%= form.label :description %><br>
-    <%= render "wysiwyg/index" %>
+    <%= render "editor/index" %>
   </div>
 
 
