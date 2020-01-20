@@ -10,7 +10,7 @@
   <div class="collapse navbar-collapse" id="collapsedNavbar">
     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
       <li class="nav-item px-2">
-        <a class="btn btn-outline-success my-2 my-sm-0 rounded-0 simulator text-dark" href="/simulator">Simulator</button>
+        <a class="btn btn-outline-success rounded-0 simulator text-dark" href="/simulator">Simulator</a>
       </li>
       <li class="nav-item px-2">
         <a class="nav-link text-dark" href="https://learn.circuitverse.org/">Learn</a>
@@ -18,17 +18,17 @@
       <li class="nav-item px-2">
         <a class="nav-link text-dark" href="https://docs.circuitverse.org/">Documentation</a>
       </li>
-      <li class="nav-item px-2">
-        <a class="nav-link text-dark <%= request.path == '/examples' ? 'active' : '' %>" href="/examples">Examples</a>
+      <li class="nav-item px-2 <%= request.path == '/examples' ? 'active' : '' %>">
+        <a class="nav-link text-dark" href="/examples">Examples</a>
       </li>
-      <li class="nav-item px-2">
-        <a class="nav-link text-dark <%= request.path == '/contribute' ? 'active' : '' %>" href="/contribute">Contribute</a>
+      <li class="nav-item px-2 <%= request.path == '/contribute' ? 'active' : '' %>">
+        <a class="nav-link text-dark" href="/contribute">Contribute</a>
       </li>
-      <li class="nav-item px-2">
-        <a class="nav-link text-dark <%= request.path == '/teachers' ? 'active' : '' %>" href="/teachers">Teachers</a>
+      <li class="nav-item px-2 <%= request.path == '/teachers' ? 'active' : '' %>">
+        <a class="nav-link text-dark" href="/teachers">Teachers</a>
       </li>
-      <li class="nav-item px-2">
-        <a class="nav-link text-dark <%= request.path == '/about' ? 'active' : '' %>" href="/about">About</a>
+      <li class="nav-item px-2 <%= request.path == '/about' ? 'active' : '' %>">
+        <a class="nav-link text-dark" href="/about">About</a>
       </li>
       <% if user_signed_in? %>
        <div class="navbar-nav nav-item dropdown">
