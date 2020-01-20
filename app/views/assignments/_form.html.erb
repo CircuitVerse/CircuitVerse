@@ -20,7 +20,7 @@
 
   <div id="description" class="form-group">
     <!--<%= form.label :description %>-->
-    <%= render "editor/index" %>
+    <%= render :partial => 'editor/index', :locals => {:content => @assignment.description} %>
   </div>
 
   <div id="deadline-field" class="form-group">

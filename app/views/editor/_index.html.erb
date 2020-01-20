@@ -1,9 +1,13 @@
-<textarea id="trumbowyg">
-  Insert text here...
-</textarea>
+<textarea id="trumbowyg"> <%= content %> </textarea>
 
-<script>
-  $('#trumbowyg').trumbowyg({
-
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#trumbowyg').trumbowyg({
+      svgPath: "https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.20.0/ui/icons.svg"
+    });
   });
+  $.fn.cleanHtml = function () {
+      var html = $('#trumbowyg').trumbowyg('html');
+      return html && html.replace(/(<br>|\s|<div><br><\/div>|&nbsp;)*$/, '');
+    };
 </script>
