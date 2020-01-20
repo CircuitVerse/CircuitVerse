@@ -1,0 +1,13 @@
+.trumbowyg-button-pane button .trumbowyg-active,
+.trumbowyg-button-pane button:not(.trumbowyg-disable):focus,
+.trumbowyg-button-pane button:not(.trumbowyg-disable):hover {
+  background-color: #56c292 !important;
+  outline: 0;
+}
+
+button:not(.trumbowyg-disable):hover,
+button:not(.trumbowyg-disable):focus,
+button.trumbowyg-active {
+  background-color: inherit !important;
+  outline: none;
+}

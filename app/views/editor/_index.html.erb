@@ -1,0 +1,30 @@
+<textarea id="trumbowyg"> <%= content %> </textarea>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#trumbowyg').trumbowyg({
+      svgPath: "https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.20.0/ui/icons.svg",
+      btns: [
+        ['simpleFormatting'],
+        ['strong', 'em', 'del'],
+        ['undo', 'redo'], // Only supported in Blink browsers
+        ['link'],
+        ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+        ['unorderedList', 'orderedList'],
+        ['horizontalRule'],
+        ['removeformat']
+      ],
+      btnsDef: {
+        simpleFormatting: {
+          dropdown: ['p', 'h1', 'h2'],
+          title: 'Formatting',
+          ico: 'p'
+        }
+      }
+    });
+  });
+  $.fn.cleanHtml = function () {
+      var html = $('#trumbowyg').trumbowyg('html');
+      return html && html.replace(/(<br>|\s|<div><br><\/div>|&nbsp;)*$/, '');
+    };
+</script>
