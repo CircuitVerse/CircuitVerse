@@ -7,7 +7,7 @@
 
   <div class="field" id="description">
     <%= form.label :content %><br>
-    <%= render "editor/index" %>
+    <%= render :partial => 'editor/index', :locals => {:content => @mail.content} %>
   </div>
 
   <div class="actions" onclick="before_submit()">
