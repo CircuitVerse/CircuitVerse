@@ -1,5 +1,3 @@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-
 <% if policy(@project).can_feature? %>
   <%= form_with(model: FeaturedCircuit.new, url: '/featured_circuits', multipart: true, id:"featuredCircuit") do |form| %>
     <%= form.hidden_field :project_id, value: @project.id %>
@@ -45,9 +43,9 @@
     <%= form.select :project_access_type, [["Public","Public"],["Private","Private"],["Limited access","Limited access"]], id: :project_project_access_type %>
   </div>
 
-  <div class="field" id="wysiwyg">
+  <div class="field" id="description">
     <%= form.label :description %><br>
-    <%= render "wysiwyg/index" %>
+    <%= render :partial => 'editor/index', :locals => {:content => @project.description} %>
   </div>
 
 
@@ -62,7 +60,7 @@
   function before_submit(){                     //add params before submission and submit both forms
     $('<input />').attr('type', 'hidden')
         .attr('name', 'description','tag_list')
-        .attr('value', $("#editor").cleanHtml())
+        .attr('value', $("#trumbowyg-editor").cleanHtml())
         .appendTo('#projectForm');
 
         if($("#featuredCircuit")) {
