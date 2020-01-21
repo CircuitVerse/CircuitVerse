@@ -60,7 +60,7 @@
   function before_submit(){                     //add params before submission and submit both forms
     $('<input />').attr('type', 'hidden')
         .attr('name', 'description','tag_list')
-        .attr('value', $("#editor").cleanHtml())
+        .attr('value', $("#trumbowyg-editor").cleanHtml())
         .appendTo('#projectForm');
 
         if($("#featuredCircuit")) {

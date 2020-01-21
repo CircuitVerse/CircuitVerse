@@ -124,7 +124,7 @@
   function cleanEditor() {
     $('<input />').attr('type', 'hidden')
       .attr('name', 'description')
-      .attr('value', $("#editor").cleanHtml())
+      .attr('value', $("#trumbowyg-editor").cleanHtml())
       .appendTo('#assignmentForm');
   }
   function generateRestricitons() {
