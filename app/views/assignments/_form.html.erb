@@ -1,4 +1,5 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+
 <script src="/js/metadata.json"></script>
 <%= form_with(model: [group,@assignment], local: true, html: {onsubmit:"beforeSubmit()"}, multipart: true ,id:"assignmentForm") do |form| %>
   <% if @assignment.errors.any? %>
@@ -18,9 +19,9 @@
     <%= form.text_field :name, id: :assignment_name, class: 'form-control' %>
   </div>
 
-  <div id="wysiwyg" class="form-group">
+  <div id="description" class="form-group">
     <!--<%= form.label :description %>-->
-    <%= render "wysiwyg/index" %>
+    <%= render :partial => 'editor/index', :locals => {:content => @assignment.description} %>
   </div>
 
   <div id="deadline-field" class="form-group">
@@ -124,7 +125,7 @@
   function cleanEditor() {
     $('<input />').attr('type', 'hidden')
       .attr('name', 'description')
-      .attr('value', $("#editor").cleanHtml())
+      .attr('value', $("#trumbowyg-editor").cleanHtml())
       .appendTo('#assignmentForm');
   }
   function generateRestricitons() {

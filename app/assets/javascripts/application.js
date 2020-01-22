@@ -19,3 +19,4 @@
 //= require serviceworker-companion
 //= require restrictElements.js
 //= require time.js
+//= require trumbowyg/dist/trumbowyg.min.js
