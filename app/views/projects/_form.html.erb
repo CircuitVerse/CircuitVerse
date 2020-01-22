@@ -39,9 +39,9 @@
     <%= form.select :project_access_type, [["Public","Public"],["Private","Private"],["Limited access","Limited access"]], {},  class: 'form-control' %>
   </div>
 
-  <div class="form-group" id="wysiwyg">
-    <!--<%= form.label :description %>-->
-    <%= render "wysiwyg/index" %>
+  <div class="field" id="description">
+    <%= form.label :description %><br>
+    <%= render :partial => 'editor/index', :locals => {:content => @project.description} %>
   </div>
 
 
