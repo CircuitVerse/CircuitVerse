@@ -54,6 +54,8 @@
             <r id="star_count" style="font-size:20px" class="noSelect"><%= @project.stars.count %></r>&ensp;&ensp;&ensp;
             <i class="fa fa-eye fa-2x" aria-hidden="true" style="font-size:24px;font-weight: bold">&ensp;</i>
             <r id="star_count" style="font-size:20px" class="noSelect"><%= @project.view %></r>&ensp;&ensp;&ensp;
+            <i class="fa fa-code-fork fa-2x" aria-hidden="true" style="font-size:24px;font-weight: bold">&ensp;</i>
+            <r id="star_count" style="font-size:20px" class="noSelect"><%= @project.forks.count %></r>&ensp;&ensp;
             </span>
         </div>
         <ul class="list-group list-group-flush">
@@ -116,7 +118,9 @@
                   <%= link_to 'Delete',user_project_path(@author,@project), method: :delete, data: { confirm: 'Are you sure?' }, class: "card-link" %>
                 <% end %>
             <% end %>
-          <%= link_to 'Fork', create_fork_project_path(@project), class: "card-link" %>
+          <% if @project.author_id != current_user&.id %>
+            <%= link_to 'Fork', create_fork_project_path(@project), class: "card-link" %>
+          <% end %>
             <%= link_to 'Back', user_path(@author), class: "card-link" %>
           <% if @project.project_access_type != "Private" %>
             <a class="card-link" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" onclick="embed()" >

@@ -1,76 +1,67 @@
 <% content_for :title, "CircuitVerse - About us" %>
-    <!-- Main jumbotron for a primary marketing message or call to action -->
 
-    <div class="jumbotron">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 col-lg-8">
-                    <h1 class="display-4 ">CircuitVerse - About</h1>
-
-                    <p>CircuitVerse is a product developed by students at IIIT-Bangalore. It aims to provide a platform where circuits can be designed and simulated using a graphical user interface.
-                      While users can design complete CPU implementations within the simulator, the software is designed primarily for educational use.
-                      CircuitVerse is an opensource project with an active community. Checkout the contribute page for more detail.
-                    </p>
-                    <!--<p class="text-info">CircuitVerse.org is a non-profit organisation currently supported by IIIT-Bangalore</p>-->
-                    <!-- <p><a class="btn btn-dark btn-lg" href="#" role="button">Launch Simulator &raquo;</a></p> -->
-                     <p><a class="" href="/tos" role="button">Terms Of Service</a> |
-                     <a class="" href="/privacy" role="button">Privacy Policy</a></p>
-                      <p>
-                        Contact us @
-                        <a href="mailto:support@circuitverse.org" target="_top">support@circuitverse.org</a>
-                      </p>
-                      <p>
-                        Join our chat room @
-                        <a href="<%= Rails.configuration.slack_url %>" target="_blank">Slack</a>
-                      </p>
-                </div>
-                <div class="col">
-                    <img src="img/logixBanner.png" class="img-fluid img-thumbnail" alt="Responsive image">
-                </div>
-
-
-            </div>
-        </div>
-
-
-    </div>
     <div class="container">
-        <div class="row feature">
-
-            <div class="col-6">
-              <h3 class="card-title">Developer Team</h3>
-                 <h4>Core Team</h4>
-                 <ul>
-                     <li><a href="https://satu0king.github.io" target="_blank">Satvik Ramaprasad (Product Manager)</a> </li>
-                     <li>Biswesh Mohapatra (Lead Developer) </li>
-                     <li>Aditya Hegde (SEO and Infrastructure Manager) </li>
-
-                 </ul>
-                 <h4>Extended Team</h4>
-                 <ul>
-                     <li><a href="https://www.linkedin.com/in/vibhavagarwal5/" target="_blank">Vibhav Agarwal (Module Developer) </a></li>
-                     <li>Abhishek Krishna (UI Designer and consultant) </li>
-                     <li>Aniruddha Mysore (UI Designer and consultant) </li>
-                     <li>Shreyas Gupta (Logo Designer) </li>
-                 </ul>
-            </div>
-           <div class="col-10">
-
-             <h4>Mentors</h4>
-
-               <ul>
-                 <li>Prof. Subhajit Sen (Domain Expert) </li>
-                 <li>Ramesh Sundararaman (Brand Advisor)</li>
-                 <li>Vikas Yadav (Technical Advisor) </li>
-                 <li>Gaurav Koley (Technical Advisor)</li>
-               </ul>
-
-               <!--<img src="img/logix.png" class="img-fluid img-thumbnail" alt="Responsive image">-->
-           </div>
+      <div class="row row-about">
+        <div class="col-xs col-sm col-md col-lg">
+          <h1 class="heading">ABOUT</h1>
+            <h5>Learn about the awesome people behind CircuitVerse</h5>
+            <p id="about">CircuitVerse is a product developed by students at IIIT-Bangalore. It aims to provide a platform where circuits can be designed and simulated using a graphical user interface. While users can design complete CPU implementations within the simulator, the software is designed primarily for educational use. CircuitVerse is an opensource project with an active community. Checkout the contribute page for more detail.</p>
+          </div>
         </div>
-        <br />
-        <br />
-
-
-
-    </div>
+        <div class="col-xs col-sm col-md col-lg">
+          <button type="button" class="btn btn-about" onclick="window.location.href = '/tos';">Terms of Service</button>
+          <button type="button" class="btn btn-about" onclick="window.location.href = '/privacy';">Privacy Policy</button>
+        </div>
+        <div class="row row-about">
+          <div class="col-xs col-sm col-md col-lg">
+            <div class="contact">
+              <img src="/assets/SVGs/email.svg" alt="" height="60px" width="60px">
+              <h6>Email us at</h6>
+              <p id="tab"><a href="mailto:support@circuitverse.org">support@circuitverse.org</a> </p>
+            </div>
+            <div class="contact">
+              <img src="/assets/SVGs/slack.svg" alt="" height="60px" width="60px">
+              <h6>Join and chat with us at</h6>
+              <p id="tab"><a href="<%= Rails.configuration.slack_url %>">Slack Channel</a> </p>
+            </div>
+          </div>
+        </div>
+        <hr/>
+      <div class="row row-about">
+        <div class="col-xs col-sm col-md col-lg">
+          <div class="team-heading">
+            <h2>OUR TEAM</h2>
+          </div></div></div>
+          <div class="row row-about">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+              <div class="card card-about">
+                <div class="card-header team">
+                  <h5>Core Team</h5>
+                </div>
+                <div class="card-body cardbody-about">
+                  <p><a href="https://satu0king.github.io" target="_blank">Satvik Ramaprasad <br>(Product Manager)</a> <br> <hr/>Biswesh Mohapatra <br>(Lead Developer) <br> <hr/>Aditya Hegde <br>(SEO and Infrastructure Manager)</p>
+                </div>
+              </div>
+            </div>
+              <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                <div class="card card-about">
+                  <div class="card-header team">
+                    <h5>Extended Team</h5>
+                  </div>
+                  <div class="card-body cardbody-about">
+                    <p><a href="https://www.linkedin.com/in/vibhavagarwal5/" target="_blank">Vibhav Agarwal <br>(Module Developer)</a> <br> <hr/>Abhishek Krishna <br>(UI Designer and consultant) <br> <hr/>Aniruddha Mysore <br>(UI Designer and consultant) <br> <hr/>Shreyas Gupta <br>(Logo Designer) </p>
+                  </div>
+                </div>
+              </div>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                  <div class="card card-about">
+                    <div class="card-header team">
+                      <h5>Mentors</h5>
+                    </div>
+                    <div class="card-body cardbody-about">
+                      <p>Prof. Subhajit Sen <br>(Domain Expert) <br> <hr/>Ramesh Sundararaman <br>(Brand Advisor) <br> <hr/>Vikas Yadav <br>(Technical Advisor)<br> <hr/>Gaurav Koley <br>(Technical Advisor) </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
