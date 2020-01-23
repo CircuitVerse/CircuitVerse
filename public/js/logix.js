@@ -36,7 +36,6 @@ forceResetNodes = true; // FLag to reset all Nodes
 //Exact same name as object constructor
 //This list needs to be updated when new circuitselements are created
 
-
 function setupElementLists() {
 
     $('#menu').empty();
@@ -76,8 +75,50 @@ function setupElementLists() {
         $('#menu').append(accordionData);
 
     }
+}
 
+function searchResults(inBox){
+    var options = document.getElementsByClassName("icon logixModules");
+    var searchQuery = inBox.value;
+    var resultsDiv = document.getElementById("searchResults");
+    var menu = document.getElementById("menu");
+    resultsDiv.innerHTML = "";
+    var innerResultContents = resultsDiv.innerHTML;
+    if(searchQuery == ""){
+        resultsDiv.innerHTML="";
+        menu.style.display = "";
+    } else{
+        for(var i = 0; i < options.length; i++){
+            if(options[i].id.includes(searchQuery)){
+                innerResultContents = innerResultContents + options[i].outerHTML;
+            }
+        }
+        menu.style.display = "none";
+        resultsDiv.innerHTML = innerResultContents;
+        if(innerResultContents == ""){
+            resultsDiv.innerHTML = '<p style="text-align: center;">No Results</p>';
+        }
+        resetupBtns();
+    }
+}
 
+function resetupBtns(){
+    $('.logixModules').mousedown(function () {
+        //////console.log(smartDropXX,smartDropYY);
+        if (simulationArea.lastSelected && simulationArea.lastSelected.newElement) simulationArea.lastSelected.delete();
+        var obj = new window[this.id](); //(simulationArea.mouseX,simulationArea.mouseY);
+        simulationArea.lastSelected = obj;
+        // simulationArea.lastSelected=obj;
+        // simulationArea.mouseDown=true;
+        smartDropXX += 70;
+        if (smartDropXX / globalScope.scale > width) {
+            smartDropXX = 50;
+            smartDropYY += 80;
+        }
+    });
+    $('.logixButton').click(function () {
+        window[this.id]();
+    });
 }
 
 // setupElementLists()
