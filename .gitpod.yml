@@ -9,6 +9,7 @@ tasks:
       rvm autolibs disable &&
       rvm install 2.6.5 &&
       gem install bundler &&
+      gem install rails &&
       cp config/database.example.yml config/database.yml &&
       createuser -s postgres &&
       (redis-server &) &&
