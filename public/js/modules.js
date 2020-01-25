@@ -2947,7 +2947,7 @@ function Flag(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1, identifier
 Flag.prototype = Object.create(CircuitElement.prototype);
 Flag.prototype.constructor = Flag;
 Flag.prototype.tooltipText = "FLag ToolTip: Use this for debugging and plotting."
-Flag.prototype.helplink =  "https://docs.circuitverse.org/#/miscellaneous?id=tunnel";
+Flag.prototype.helplink = "https://docs.circuitverse.org/#/miscellaneous?id=tunnel";
 Flag.prototype.setPlotValue = function () {
     var time = plotArea.stopWatch.ElapsedMilliseconds;
 
