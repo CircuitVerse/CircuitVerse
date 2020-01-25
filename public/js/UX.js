@@ -217,11 +217,10 @@ function showProperties(obj) {
             $("#Help").removeClass("show");
         });
 
-        $('#toolTipButton').click( function() {
-        var helplink = obj && (obj.helplink);
-        window.open(helplink);
-        }
-        );
+        $('#toolTipButton').click(function() {
+            var helplink = obj && (obj.helplink);
+            window.open(helplink);
+        });
     }
 
 
