@@ -206,7 +206,7 @@ function showProperties(obj) {
     // Tooltip can be defined in the prototype or the object itself, in addition to help map.
     var tooltipText = obj && (obj.tooltipText);
     if (tooltipText) {
-        $('#moduleProperty-inner').append('<p><button id="toolTipButton" class="btn btn-primary btn-xs" type="button" >CircuitVerse Help</button></p>');
+        $('#moduleProperty-inner').append('<p><button id="toolTipButton" class="btn btn-primary btn-xs" type="button" >CircuitVerse Help &#9432</button></p>');
         $('#toolTipButton').hover(function () {
             $("#Help").addClass("show");
             $("#Help").empty();
