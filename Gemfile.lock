@@ -78,6 +78,8 @@ GEM
       parser (>= 2.4)
       smart_properties
     bindex (0.8.1)
+    bootsnap (1.4.5)
+      msgpack (~> 1.0)
     bootstrap-typeahead-rails (0.10.5.1)
       railties (>= 3.0)
     builder (3.2.3)
@@ -131,6 +133,7 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.3)
     docile (1.3.2)
+    dotenv (2.2.2)
     erb_lint (0.0.30)
       activesupport
       better_html (~> 1.0.7)
@@ -151,6 +154,7 @@ GEM
       multipart-post (>= 1.2, < 3)
     ffi (1.11.2)
     ffi (1.11.2-x64-mingw32)
+    geocoder (1.6.0)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     haml (5.1.2)
@@ -186,6 +190,7 @@ GEM
       activerecord
       kaminari-core (= 1.1.1)
     kaminari-core (1.1.1)
+    language_filter (0.3.01)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -207,6 +212,7 @@ GEM
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.13.0)
+    msgpack (1.3.1-x64-mingw32)
     multi_json (1.14.1)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
@@ -227,6 +233,9 @@ GEM
       rack (>= 1.6.2, < 3)
     omniauth-facebook (5.0.0)
       omniauth-oauth2 (~> 1.2)
+    omniauth-github (1.3.0)
+      omniauth (~> 1.5)
+      omniauth-oauth2 (>= 1.4.0, < 2.0)
     omniauth-google-oauth2 (0.8.0)
       jwt (>= 2.0)
       omniauth (>= 1.1.1)
@@ -447,6 +456,10 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
+    webdrivers (4.2.0)
+      nokogiri (~> 1.6)
+      rubyzip (>= 1.3.0)
+      selenium-webdriver (>= 3.0, < 4.0)
     webpush (1.0.0)
       hkdf (~> 0.2)
       jwt (~> 2.0)
@@ -467,6 +480,7 @@ PLATFORMS
 DEPENDENCIES
   activity_notification
   acts_as_votable (~> 0.12.0)
+  bootsnap
   bootstrap-typeahead-rails
   byebug
   capybara (~> 2.13)
@@ -476,16 +490,20 @@ DEPENDENCIES
   country_select (~> 4.0)
   coveralls
   devise
+  dotenv (~> 2.2.1)
   erb_lint
   factory_bot_rails
   faker
+  geocoder
   hirb
   jbuilder (~> 2.5)
   jquery-rails
+  language_filter
   listen (>= 3.0.5, < 3.2)
   meta-tags
   omniauth
   omniauth-facebook
+  omniauth-github
   omniauth-google-oauth2
   omniauth-microsoft-office365
   paperclip (>= 5.2.0)
@@ -515,6 +533,7 @@ DEPENDENCIES
   tzinfo-data
   uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
+  webdrivers (~> 4.0)
   webpush
   will_paginate (~> 3.1.1)
   will_paginate-bootstrap

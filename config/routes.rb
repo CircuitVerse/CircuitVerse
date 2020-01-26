@@ -32,12 +32,9 @@ Rails.application.routes.draw do
   get '/search', to: "search#search"
 
   resources :about, only: :index
+  resources :privacy, only: :index
 
   scope '/groups' do
-    get '/:id/assignments/WYSIWYG/index.css', to: redirect('/index.css')
-    get '/:id/assignments/WYSIWYG/bootstrap-wysiwyg.js', to: redirect('/bootstrap-wysiwyg.js')
-    get '/:id/assignments/:id/WYSIWYG/index.css', to: redirect('/index.css')      # in case of editing
-    get '/:id/assignments/:id/WYSIWYG/bootstrap-wysiwyg.js', to: redirect('/bootstrap-wysiwyg.js')   # in case of editing
     get '/:group_id/assignments/:id/reopen', to: 'assignments#reopen', as: 'reopen_group_assignment'
     get '/:group_id/assignments/:id/start', to: 'assignments#start', as: 'assignment_start'
   end
@@ -55,7 +52,6 @@ Rails.application.routes.draw do
   get  '/gettingStarted', to:'logix#gettingStarted'
   get  '/examples', to:'logix#examples'
   get  '/features', to:'logix#features'
-  get  '/privacy', to:'logix#privacy'
   get  '/tos', to:'logix#tos'
   get  '/teachers', to:'logix#teachers'
   get  '/contribute', to:'logix#contribute'
@@ -72,8 +68,6 @@ Rails.application.routes.draw do
     get '/:id/groups', to: 'users/logix#groups', as: 'user_groups'
     get '/:id/', to: 'users/logix#index', as: 'user_projects'
     get '/:id/favourites', to: 'users/logix#favourites', as: 'user_favourites'
-    get '/:id/projects/:id/WYSIWYG/index.css', to: redirect('/index.css')
-    get '/:id/projects/:id/WYSIWYG/bootstrap-wysiwyg.js', to: redirect('/bootstrap-wysiwyg.js')
     get '/educational_institute/typeahead/:query' => 'users/logix#typeahead_educational_institute'
     get '/:id/notifications', to: 'users/notifications#index', as: 'notifications'
   end
@@ -108,8 +102,14 @@ Rails.application.routes.draw do
     resources :projects, only: [:show, :edit, :update, :new, :create, :destroy]
   end
 
-
-
+  #redirects
+  get '/facebook', to: redirect('https://www.facebook.com/CircuitVerse')
+  get '/twitter', to: redirect('https://www.twitter.com/CircuitVerse')
+  get '/slack', to: redirect('https://join.slack.com/t/circuitverse-team/shared_invite/enQtNjc4MzcyNDE5OTA3LTdjYTM5NjFiZWZlZGI2MmU1MmYzYzczNmZlZDg5MjYxYmQ4ODRjMjQxM2UyMWI5ODUzODQzMDU2ZDEzNjI4NmE')
+  get '/discord', to: redirect('https://discord.gg/8G6TpmM')
+  get '/github', to: redirect('https://github.com/CircuitVerse')
+  get '/learn', to: redirect('https://learn.circuitverse.org')
+  get '/docs', to: redirect('https://docs.circuitverse.org')
 
   # get 'comments/create_reply/:id', to: 'comments#create_reply', as: 'reply_comment'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

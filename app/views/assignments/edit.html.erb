@@ -1,24 +1,12 @@
 <div class="container">
   <div class="row feature">
-
     <div class="col">
-
-      <h1>Editing Assignment</h1>
-
+      <h1 style="margin-bottom: 15px;">Editing Assignment <small><%= @group.name %></small></h1>
 
       <%= render 'form', assignment: @assignment , group:@group %>
 
       <%= link_to 'Back', group_path(@group) %>
-
     </div>
-
-
   </div>
-  <br />
-
-  <br />
-
-
-
 </div>
 

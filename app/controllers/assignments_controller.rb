@@ -150,7 +150,6 @@ class AssignmentsController < ApplicationController
     def assignment_update_params
       params.require(:assignment).permit(:name, :deadline, :description,
         :restrictions)
-      params.require(:assignment).permit(:name, :deadline, :description)
     end
 
     def check_access

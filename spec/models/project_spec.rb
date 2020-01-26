@@ -27,6 +27,12 @@ RSpec.describe Project, type: :model do
       project.project_access_type = "Public"
       expect(project).to be_invalid
     end
+    it "doesn't allow profanities in description" do
+      project = FactoryBot.build(:project, assignment: @assignment, author: @user)
+      expect(project).to be_valid
+      project.description = "Ass"
+      expect(project).to be_invalid
+    end
   end
 
   describe "public methods" do

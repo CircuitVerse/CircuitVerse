@@ -5,9 +5,9 @@
     <%= form.text_field :subject %>
   </div>
 
-  <div class="field" id="wysiwyg">
+  <div class="field" id="description">
     <%= form.label :content %><br>
-    <%= render "wysiwyg/index" %>
+    <%= render :partial => 'editor/index', :locals => {:content => @mail.content} %>
   </div>
 
   <div class="actions" onclick="before_submit()">
@@ -19,7 +19,7 @@
   function before_submit() {
   $('<input />').attr('type', 'hidden')
     .attr('name', 'custom_mail[content]')
-    .attr('value', $("#editor").cleanHtml())
+    .attr('value', $("#trumbowyg-editor").cleanHtml())
     .appendTo('#mailsForm');
   }
 </script>
