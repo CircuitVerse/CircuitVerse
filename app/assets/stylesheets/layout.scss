@@ -24,39 +24,30 @@
       border-bottom: 2px solid $green;
     }
   }
-  .nav-social-icons {
-    align-items: center;
-    display: flex;
-    padding-bottom: .5rem;
-    padding-top: .5rem;
-
-    a {
-      padding: 0 .3rem;
-    }
-
-    img {
-      height: 1.9rem;
-      margin: 0;
-      object-fit: contain;
-      padding: 0;
-      width: 1.9rem;
-    }
-  }
 }
 
-.footer-logo-iiitb {
-  width: 85%;
+.empty-div {
+  height: 250px;
 }
 
-.footer-logo-DO {
-  width: 100%;
-  padding-top: 8%;
+.page-footer {
+  background: #1c1c1c;
 }
 
-.footer-logo-istudio {
-  width: 75%;
+.footer-logo {
+  width: 80%;
 }
 
-.footer-logo-zense {
-  width: 75%;
+.footer-social-icon {
+  width: 32px;
+}
+
+.footer-social {
+  margin-bottom: unset;
+}
+
+.copyright {
+  font-size: small;
+  white-space: nowrap;
+  overflow: visible;
 }
