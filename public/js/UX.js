@@ -217,7 +217,7 @@ function showProperties(obj) {
             $("#Help").removeClass("show");
         });
 
-        $('#toolTipButton').click(function () {
+        $('#toolTipButton').click(function () {  //redirects to obj's specific help page 
             var helplink = obj && (obj.helplink);
             window.open(helplink);
         });
