@@ -1,10 +1,10 @@
 # CircuitVerse
 ![The CircuitVerse logo](/public/img/circuitverse_black.svg)
-[![Financial Contributors on Open Collective](https://opencollective.com/CircuitVerse/all/badge.svg?label=financial+contributors)](https://opencollective.com/CircuitVerse) 
-[![CircleCI Status](https://img.shields.io/circleci/build/github/CircuitVerse/CircuitVerse/master?label=circleci)](https://circleci.com/gh/CircuitVerse/CircuitVerse)
-[![Coveralls Coverage Status](https://img.shields.io/coveralls/github/CircuitVerse/CircuitVerse/master?label=coveralls)](https://coveralls.io/github/CircuitVerse/CircuitVerse?branch=master)
-[![Slack](https://img.shields.io/badge/chat-on_slack-purple.svg)](https://join.slack.com/t/circuitverse-team/shared_invite/enQtNjc4MzcyNDE5OTA3LTdjYTM5NjFiZWZlZGI2MmU1MmYzYzczNmZlZDg5MjYxYmQ4ODRjMjQxM2UyMWI5ODUzODQzMDU2ZDEzNjI4NmE)
-[![Mailing List](https://img.shields.io/badge/mailing_list-join-orange.svg)](https://circuitverse.us20.list-manage.com/subscribe?u=89207abda49deef3ba56f1411&id=29473194d6)
+[![Financial Contributors on Open Collective](https://opencollective.com/CircuitVerse/all/badge.svg?label=Financial+Contributors&style=for-the-badge&logo=open+collective)](https://opencollective.com/CircuitVerse) 
+[![CircleCI Status](https://img.shields.io/circleci/build/github/CircuitVerse/CircuitVerse/master?label=circleci&style=for-the-badge&logo=circleci)](https://circleci.com/gh/CircuitVerse/CircuitVerse)
+[![Coveralls Coverage Status](https://img.shields.io/coveralls/github/CircuitVerse/CircuitVerse/master?label=coveralls&style=for-the-badge&logo=coveralls)](https://coveralls.io/github/CircuitVerse/CircuitVerse?branch=master)
+[![Slack](https://img.shields.io/badge/chat-on_slack-purple.svg?style=for-the-badge&logo=slack)](https://join.slack.com/t/circuitverse-team/shared_invite/enQtNjc4MzcyNDE5OTA3LTdjYTM5NjFiZWZlZGI2MmU1MmYzYzczNmZlZDg5MjYxYmQ4ODRjMjQxM2UyMWI5ODUzODQzMDU2ZDEzNjI4NmE)
+[![Mailing List](https://img.shields.io/badge/mailing_list-join-orange.svg?style=for-the-badge)](https://circuitverse.us20.list-manage.com/subscribe?u=89207abda49deef3ba56f1411&id=29473194d6)
 
 -----
 
@@ -13,7 +13,8 @@
 ## Community
 We would love to hear from you! We communicate on the following platforms:
 
-[![Slack](https://img.shields.io/badge/chat-on_slack-purple.svg)](https://join.slack.com/t/circuitverse-team/shared_invite/enQtNjc4MzcyNDE5OTA3LTdjYTM5NjFiZWZlZGI2MmU1MmYzYzczNmZlZDg5MjYxYmQ4ODRjMjQxM2UyMWI5ODUzODQzMDU2ZDEzNjI4NmE)  [![Discord](https://img.shields.io/badge/chat-on_discord-blue.svg)](https://discord.gg/95x8H7b)
+[![Slack](https://img.shields.io/badge/chat-on_slack-purple.svg?style=for-the-badge&logo=slack)](https://join.slack.com/t/circuitverse-team/shared_invite/enQtNjc4MzcyNDE5OTA3LTdjYTM5NjFiZWZlZGI2MmU1MmYzYzczNmZlZDg5MjYxYmQ4ODRjMjQxM2UyMWI5ODUzODQzMDU2ZDEzNjI4NmE)
+[![Discord](https://img.shields.io/badge/chat-on_discord-blue.svg?style=for-the-badge&logo=discord)](https://discord.gg/95x8H7b)
 
 ## Code of Conduct
 We follow the [Code of Conduct](code-of-conduct.md) of the [CircuitVerse](https://circuitverse.org) Community.
