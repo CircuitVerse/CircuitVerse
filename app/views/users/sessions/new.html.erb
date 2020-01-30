@@ -33,8 +33,8 @@
         </div>
 
         <% if devise_mapping.rememberable? -%>
-          <div class="field form-group custom-control">
-            <%= f.check_box :remember_me ,class:"" %>
+          <div class="field form-group custom-control checkbox">
+            <%= f.check_box :remember_me ,class:"custom-checkbox" %>
             <%= f.label :remember_me ,class:"help-text" %>
           </div>
         <% end -%>
