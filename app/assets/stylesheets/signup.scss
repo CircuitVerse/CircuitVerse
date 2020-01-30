@@ -81,7 +81,7 @@
   opacity: 1;
 }
 
-.form-control.custom-input,
+.form-control,
 select {
   font-size: 20px;
   width: 60%;
@@ -92,6 +92,18 @@ select {
   -webkit-box-shadow: none;
   box-shadow: none;
   border-radius: 0;
+}
+
+.custom-input {
+    font-size: 20px;
+    width: calc(100% - 40px);
+    background: transparent;
+    border: none;
+    color: #1C1C1C;
+    border-bottom: 1px solid #42B983;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-radius: 0;
 }
 
 .form-control.custom-input:focus,
@@ -108,5 +120,23 @@ select:focus {
   -webkit-text-fill-color: #1C1C1C;
   -webkit-box-shadow: 0 0 0px 1000px #fff inset;
   transition: background-color 5000s ease-in-out 0s;
+}
+
+textarea:hover,
+input:hover,
+textarea:active,
+input:active,
+textarea:focus,
+input:focus,
+button:focus,
+button:active,
+button:hover,
+label:focus,
+.btn:active,
+.btn.active
+{
+    outline:0px !important;
+    -webkit-appearance:none;
+    box-shadow: none !important;
 }
 /*login/signup css ends*/

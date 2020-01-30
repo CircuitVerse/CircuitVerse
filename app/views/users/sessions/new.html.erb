@@ -17,15 +17,15 @@
 
         <div class="field form-group">
           <%= f.label :email, class:"label-text" %>
-          <div class="input-group">
-            <%= f.email_field :email, autofocus: true, class:"form-control custom-input", placeholder: 'Email'%>
+          <div class="input-group form-control custom-input">
+            <%= f.email_field :email, autofocus: true, class:"border-0 custom-input", placeholder: 'Email'%>
           </div>
         </div>
 
         <div class="field form-group">
           <%= f.label :password, class:"label-text" %>
-          <div class="input-group">
-            <%= f.password_field :password, autocomplete: "off" ,class:"form-control custom-input", placeholder: 'Password',  id:"password-input"%>
+          <div class="input-group form-control custom-input">
+            <%= f.password_field :password, autocomplete: "off" ,class:"border-0 custom-input", placeholder: 'Password',  id:"password-input"%>
             <div class="input-group-addon" onclick="toggleLoginPassword()">
               <i  class="fa fa-eye-slash password-icon" aria-hidden="true" id="toggle-icon"></i>
             </div>
@@ -33,8 +33,8 @@
         </div>
 
         <% if devise_mapping.rememberable? -%>
-          <div class="field form-group">
-            <%= f.check_box :remember_me %>
+          <div class="field form-group custom-control">
+            <%= f.check_box :remember_me ,class:"" %>
             <%= f.label :remember_me ,class:"help-text" %>
           </div>
         <% end -%>
