@@ -95,15 +95,15 @@ select {
 }
 
 .custom-input {
-    font-size: 20px;
-    width: calc(100% - 40px);
-    background: transparent;
-    border: none;
-    color: #1C1C1C;
-    border-bottom: 1px solid #42B983;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    border-radius: 0;
+  font-size: 20px;
+  width: calc(100% - 40px);
+  background: transparent;
+  border: none;
+  color: #1C1C1C;
+  border-bottom: 1px solid #42B983;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-radius: 0;
 }
 
 .form-control.custom-input:focus,
@@ -124,8 +124,7 @@ select:focus {
 
 input:hover,
 input:active,
-input:focus
-{
+input:focus {
     outline:0px !important;
     -webkit-appearance:none;
     box-shadow: none !important;
