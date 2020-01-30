@@ -122,24 +122,16 @@ select:focus {
   transition: background-color 5000s ease-in-out 0s;
 }
 
-textarea:hover,
 input:hover,
-textarea:active,
 input:active,
-textarea:focus,
-input:focus,
-button:focus,
-button:active,
-button:hover,
-label:focus,
-.btn:active,
-.btn.active
+input:focus
 {
     outline:0px !important;
     -webkit-appearance:none;
     box-shadow: none !important;
 }
 
+/* CSS for custom checkbox */
 .checkbox {
   padding-left: 20px;
   position: relative;
