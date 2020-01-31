@@ -216,8 +216,8 @@ function showProperties(obj) {
         $('#toolTipButton').mouseleave(function () {
             $("#Help").removeClass("show");
         });
-
-        $('#toolTipButton').click(function () {  //redirects to obj's specific help page 
+        //redirects to obj's specific help page
+        $('#toolTipButton').click(function () {
             var helplink = obj && (obj.helplink);
             window.open(helplink);
         });
