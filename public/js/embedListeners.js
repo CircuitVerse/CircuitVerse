@@ -175,8 +175,8 @@ function startListeners() {
 
         event.preventDefault()
         var deltaY = event.wheelDelta ? event.wheelDelta : -event.detail;
-        var scrolledUp = deltaY < 0;
-        var scrolledDown = deltaY > 0;
+        var scrolledDown = deltaY < 0;
+        var scrolledUp = deltaY > 0;
 
         if (event.ctrlKey) {
             if (scrolledUp && globalScope.scale > 0.5 * DPR) {
