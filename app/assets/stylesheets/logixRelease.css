@@ -9,6 +9,128 @@ p {
     text-align: justify;
 }
 
+
+
+/*  Style for jumbotron*/
+
+.jumbotron1{
+    background-color: white;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    margin-bottom: 0px;
+    padding:30px;
+}
+
+.jumbotron1 h1 {
+    
+    font-size: 2.5em;
+    font-weight: 500;
+    color: #026E57;
+    text-align: center;
+
+}
+
+
+.jumbotron1 p {
+    
+    font-size: 20px;
+    font-family: Open Sans;
+    text-align: center;
+
+
+}
+
+
+
+.btn-lg1.grid{
+    color: white;
+    background-color: #42B983;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    font-size: .8em;
+    padding: 10px;
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-right: 0px;  
+}
+
+
+/* Styling for buttons out of grid*/
+
+
+.btn-lg1{
+    color: white;
+    background-color: #42B983;
+    border-radius: 30px;
+    margin-bottom: 50px;
+    font-size: 1.1em;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-top: 0;
+    margin-left: 30px;
+    margin-right: 30px;
+    
+
+}
+.btn-lg1.white{
+    background-color: white;
+    color: black;
+    }
+
+.btn-lg1.white:hover{
+    background-color: #42B983;
+    color: white;
+}
+
+
+/* Styling for grid*/
+
+.contain{
+    padding: 30px;
+    padding-top: 50px;
+    background-color: #F9FFFC ;
+    position: relative;
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto; 
+    font-family: Open Sans;
+}
+.grid-cell{
+    border: 1px solid #026E57;
+    margin-top: 5px;
+
+    position: relative;
+    background-color: white;
+    margin-bottom: 60px;
+}
+
+.grid_image{
+    padding: 10px;    
+    background-color: white;
+
+}
+.grid_content {
+    font-size: 1.2em;
+    position: relative;
+
+}
+
+.grid_content > .card-title{
+    font-size: .8em;
+    text-align: center;
+    margin: 5px;
+
+}
+
+
+
+
+
+
+
 .feature {
     border: 1px solid rgba(0, 0, 0, 0.125);
     padding: 1.25rem;
@@ -102,6 +224,7 @@ a.btn.btn-outline-danger {
     padding: 4px;
 }
 
+
 #error_explanation h2 {
     font-size: 1.25rem;
 }
@@ -118,7 +241,7 @@ a.btn.btn-outline-danger {
 
     .pagination {
         overflow-x: visible;
-        max-width: none;
+        max-width: 100%;
         display: block;
         padding: 0;
         white-space: nowrap;
@@ -136,4 +259,178 @@ a.btn.btn-outline-primary {
 
 a.btn.btn-outline-danger {
     margin-top: 10px;
+}
+
+.pagination
+{
+    display:flex;
+    justify-content:center;
+    margin:30px
+}
+.results-head
+{
+    margin:2rem 1rem 0 1.6rem
+}
+.no-results
+{
+    margin-top:2rem;
+    margin-left:1.6rem
+}
+.hide
+{
+    display:none
+}
+.search-box-form
+{
+    display:flex;
+    margin-left:1.5rem;
+    margin-right:.9rem;
+    border-radius: 0px;
+}
+.search-bar-input
+{
+    border-radius:0px;
+    outline:0;
+    border:1px solid #42B983;
+    
+    padding:.5rem;
+    padding-left:.8rem;
+    width:100%;
+    margin-right:.6rem
+}
+.search-bar-select
+{
+    cursor:pointer;
+    width:105px;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
+    border-radius:0px;
+    border:1px solid #ced4da;
+    background:url("/img/caret.jpg") 100%/25% no-repeat;
+    background-color: #42B983;
+    padding:.8rem;
+    border:1px solid #42B983;
+    font-size:.9rem
+}
+.nav-search-form
+{
+    display:flex
+}
+.nav-bar-search-select
+{
+    cursor:pointer;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
+    border-radius:0px;
+    
+    /*background:url("/img/caret.jpg") 100%/25% no-repeat #ddd;*/
+    background-color: white;
+    font-size:.8rem;
+    padding-right:1.6rem
+}
+.nav-bar-search-input
+{
+    
+    border-radius:30px;
+    outline:0;
+    border:0;
+    padding-left:.8rem
+}
+#nav-searcher{
+    position: relative;
+    margin-bottom: 40px;
+    margin-left: auto;
+    margin-right: auto; 
+}
+@media (max-width:376px)
+{
+    .nav-bar-search-input.nav1{
+    width: 120px;
+    font-size: .7em;
+
+    }
+}
+
+
+
+
+
+.search_search{
+    position: relative;
+    border:1px solid #026E57;
+    border-radius: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+}
+
+
+
+.hg1{
+    width: 39.6px;
+    height: 33.2px;            
+    position: absolute;
+    border-radius: 30px;
+    top: 0;
+    left: 0;
+    background-color: white;
+    z-index: 9;
+
+
+}
+
+#search_type{
+    height: 33.2;
+    width: 39.6;
+    
+}
+
+#search_type.form-control{
+    border-radius: 30px;
+}
+
+.float{
+    float: right;
+}
+
+.fa {
+    text-align: center;
+    position: relative;
+    top:4px;
+    left: 8px;
+
+}
+
+
+
+
+
+
+
+
+
+/* Utility Functions*/
+
+
+
+
+.center{
+   text-align: center;
+
+
+}
+
+
+.margin{
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+ 
+
+.margin-right{
+    margin-right: 50px;
+    border-radius:30px;
 }
