@@ -79,12 +79,14 @@ input:checked + .slider:before {
     border: 1px solid #111;
     /*border-radius: 0.1em;*/
     display: inline-block;
+    height: 25px;
 
 
 }
 button:focus {outline:0;}
 #tabsBar .circuits:hover {
     background-color: lightgray;
+    height: 25px;
     /*border: 1px solid #0099ff;*/
     transition-duration: 100ms
 
@@ -93,6 +95,7 @@ button:focus {outline:0;}
     /*background-color: #0086b3;*/
     color:white;
     background-color: grey;
+    height: 25px;
     transition-duration: 100ms
     /*border: 1px solid #0099ff;*/
 
