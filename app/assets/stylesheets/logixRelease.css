@@ -9,8 +9,6 @@ p {
     text-align: justify;
 }
 
-
-
 /*  Style for jumbotron*/
 
 .jumbotron1{
@@ -22,64 +20,43 @@ p {
     padding:30px;
 }
 
-.jumbotron1 h1 {
-    
+.jumbotron1 h1 {    
     font-size: 2.5em;
     font-weight: 500;
     color: #026E57;
     text-align: center;
-
 }
 
-
-.jumbotron1 p {
-    
+.jumbotron1 p {    
     font-size: 20px;
     font-family: Open Sans;
     text-align: center;
-
-
 }
-
-
 
 .btn-lg11.grid{
     color: white;
     background-color: #42B983;
-    border-radius: 4px;
-    
+    border-radius: 4px;    
     font-size: .8em;
     padding-top:  5px;
     padding-bottom: 5px;
     padding-left: 10px;
     padding-right: 10px;
-
-    
-    
-    
-    
 }
 
 .btn-lg11.grid:hover{
-
     color: black;
-
 }
 
-
 #pp{
-
    position: absolute;
    top: 9px;
    right: 40px;
    padding:0;
    margin: 0;
-
 }
 
-
 /* Styling for buttons out of grid*/
-
 
 .btn-lg1{
     color: white;
@@ -94,19 +71,17 @@ p {
     margin-top: 0;
     margin-left: 40px;
     margin-right: 40px;
-    
-
 }
+
 .btn-lg1.white{
     background-color: #F9FFFC;
     color: black;
-    }
+}
 
 .btn-lg1.white:hover{
     background-color: #42B983;
     color: white;
 }
-
 
 /* Styling for grid*/
 
@@ -120,10 +95,10 @@ p {
     margin-right: auto; 
     font-family: Open Sans;
 }
+
 .grid-cell{
     border: 1px solid #026E57;
     margin-top: 5px;
-
     position: relative;
     background-color: white;
     margin-bottom: 60px;
@@ -132,12 +107,11 @@ p {
 .grid_image{
     padding: 10px;    
     background-color: white;
-
 }
+
 .grid_content {
     font-size: 1.2em;
     position: relative;
-
 }
 
 .grid_content > .card-title{
@@ -145,13 +119,128 @@ p {
     text-align: left;
     margin: 12px;
     margin-top: 8px;
-
-
 }
 
 .clearfix {
   overflow: auto;
 }
+
+.nav-search-form
+{
+    display:flex;
+    position: relative;
+    border:1px solid #026E57;
+    border-radius: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+}
+
+.nav-bar-search-input
+{    
+    border-radius:30px;
+    outline:0;
+    border:0;
+    padding-left:.8rem;    
+}
+
+#nav-searcher{
+    position: relative;
+    margin-bottom: 40px;
+    margin-left: auto;
+    margin-right: auto; 
+}
+
+@media (max-width:376px)
+{
+    .nav-bar-search-input.nav1{
+    width: 120px;
+    font-size: .7em;
+
+    }
+}
+.hg1{
+    width: 39.6px;
+    height: 33.2px;            
+    position: absolute;
+    border-radius: 30px;
+    top: 0;
+    left: 0;
+    background-color: white;
+    z-index: 9;
+}
+
+#search_type{
+    height: 33.2;
+    width: 39.6;
+    border-radius: 30px;
+    cursor:pointer;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
+    border-radius:30px;
+    /*background:url("/img/caret.jpg") 100%/25% no-repeat #ddd;*/
+    background-color: white;
+    font-size:.8rem;
+    padding-right:1.6rem
+}
+
+.float{
+    float: right;
+}
+
+.fa {
+    text-align: center;
+    position: relative;
+    top:4px;
+    left: 8px;
+}
+
+/* Utility Functions*/
+
+.center{
+   text-align: center;
+}
+
+.margin{
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+} 
+
+.margin-right{
+    margin-right: 50px;
+    border-radius:30px;
+}
+
+@media (max-width: 830px){
+    #pp{
+        position: absolute;
+        margin-bottom: 30px;
+        text-align: center;
+        font-size: .8em;
+    }
+    .grid_content > .card-title{
+        text-align: left;
+        font-size: .5em;
+        margin-right: 5px;
+    }
+}
+@media (max-width: 767px){
+    #pp{
+        position: relative;
+        margin-bottom: 30px;
+        text-align: center;
+        font-size: 1em;
+        top:8px;
+        left: 0px;
+    }
+    .grid_content > .card-title{
+        text-align: center;
+        font-size: 1em;
+    }
+}
+
 
 
 
@@ -250,7 +339,6 @@ a.btn.btn-outline-danger {
     padding: 4px;
 }
 
-
 #error_explanation h2 {
     font-size: 1.25rem;
 }
@@ -267,7 +355,7 @@ a.btn.btn-outline-danger {
 
     .pagination {
         overflow-x: visible;
-        max-width: 100%;
+        max-width: none;
         display: block;
         padding: 0;
         white-space: nowrap;
@@ -286,222 +374,3 @@ a.btn.btn-outline-primary {
 a.btn.btn-outline-danger {
     margin-top: 10px;
 }
-
-.pagination
-{
-    display:flex;
-    justify-content:center;
-    margin:30px
-}
-.results-head
-{
-    margin:2rem 1rem 0 1.6rem
-}
-.no-results
-{
-    margin-top:2rem;
-    margin-left:1.6rem
-}
-.hide
-{
-    display:none
-}
-.search-box-form
-{
-    display:flex;
-    margin-left:1.5rem;
-    margin-right:.9rem;
-    border-radius:30px;
-}
-.search-bar-input
-{
-    border-radius:30px;
-    outline:0;
-    border:1px solid #42B983;
-    border-radius: 30px;
-    padding:.5rem;
-    padding-left:.8rem;
-    width:100%;
-    margin-right:.6rem
-}
-.search-bar-select
-{
-    cursor:pointer;
-    width:105px;
-    -webkit-appearance:none;
-    -moz-appearance:none;
-    appearance:none;
-    border-radius:30px;
-    border:1px solid #ced4da;
-    background:url("/img/caret.jpg") 100%/25% no-repeat;
-    background-color: #42B983;
-    padding:.8rem;
-    border:1px solid #42B983;
-    font-size:.9rem
-}
-.nav-search-form
-{
-    display:flex
-}
-.nav-bar-search-select
-{
-    cursor:pointer;
-    -webkit-appearance:none;
-    -moz-appearance:none;
-    appearance:none;
-    border-radius:30px;
-    
-    /*background:url("/img/caret.jpg") 100%/25% no-repeat #ddd;*/
-    background-color: white;
-    font-size:.8rem;
-    padding-right:1.6rem
-}
-.nav-bar-search-input
-{
-    
-    border-radius:30px;
-    outline:0;
-    border:0;
-    padding-left:.8rem;
-    
-}
-#nav-searcher{
-    position: relative;
-    margin-bottom: 40px;
-    margin-left: auto;
-    margin-right: auto; 
-}
-@media (max-width:376px)
-{
-    .nav-bar-search-input.nav1{
-    width: 120px;
-    font-size: .7em;
-
-    }
-}
-
-
-
-
-
-.search_search{
-    position: relative;
-    border:1px solid #026E57;
-    border-radius: 30px;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: white;
-}
-
-
-
-.hg1{
-    width: 39.6px;
-    height: 33.2px;            
-    position: absolute;
-    border-radius: 30px;
-    top: 0;
-    left: 0;
-    background-color: white;
-    z-index: 9;
-
-
-}
-
-#search_type{
-    height: 33.2;
-    width: 39.6;
-    border-radius: 30px;
-}
-
-.float{
-    float: right;
-}
-
-.fa {
-    text-align: center;
-    position: relative;
-    top:4px;
-    left: 8px;
-
-}
-
-
-
-
-
-
-
-
-
-/* Utility Functions*/
-
-
-
-
-.center{
-   text-align: center;
-
-
-}
-
-
-.margin{
-    margin-top: 5px;
-    margin-left: 5px;
-    margin-right: 5px;
-}
- 
-
-.margin-right{
-    margin-right: 50px;
-    border-radius:30px;
-}
-
-@media (max-width: 830px){
-
-
-
-
-#pp{
-    position: absolute;
-    margin-bottom: 30px;
-    text-align: center;
-    font-size: .8em;
-
-}
-
-.grid_content > .card-title{
-    text-align: left;
-    font-size: .5em;
-
-}
-
-
-}
-
-@media (max-width: 767px){
-
-
-
-
-#pp{
-    position: relative;
-    margin-bottom: 30px;
-    text-align: center;
-    font-size: 1em;
-    top:8px;
-    left: 0px;
-
-}
-
-.grid_content > .card-title{
-    text-align: center;
-    font-size: 1em;
-
-}
-
-
-}
-
-
