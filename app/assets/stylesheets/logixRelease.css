@@ -43,16 +43,38 @@ p {
 
 
 
-.btn-lg1.grid{
+.btn-lg11.grid{
     color: white;
     background-color: #42B983;
-    border-radius: 20px;
-    margin-bottom: 20px;
+    border-radius: 4px;
+    
     font-size: .8em;
-    padding: 10px;
-    margin-top: 0px;
-    margin-left: 0px;
-    margin-right: 0px;  
+    padding-top:  5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    
+    
+    
+    
+}
+
+.btn-lg11.grid:hover{
+
+    color: black;
+
+}
+
+
+#pp{
+
+   position: absolute;
+   top: 9px;
+   right: 40px;
+   padding:0;
+   margin: 0;
+
 }
 
 
@@ -64,19 +86,19 @@ p {
     background-color: #42B983;
     border-radius: 30px;
     margin-bottom: 50px;
-    font-size: 1.1em;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 30px;
-    padding-right: 30px;
+    font-size: 1em;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 18px;
+    padding-right: 18px;
     margin-top: 0;
-    margin-left: 30px;
-    margin-right: 30px;
+    margin-left: 40px;
+    margin-right: 40px;
     
 
 }
 .btn-lg1.white{
-    background-color: white;
+    background-color: #F9FFFC;
     color: black;
     }
 
@@ -120,12 +142,16 @@ p {
 
 .grid_content > .card-title{
     font-size: .8em;
-    text-align: center;
-    margin: 5px;
+    text-align: left;
+    margin: 12px;
+    margin-top: 8px;
+
 
 }
 
-
+.clearfix {
+  overflow: auto;
+}
 
 
 
@@ -285,14 +311,14 @@ a.btn.btn-outline-danger {
     display:flex;
     margin-left:1.5rem;
     margin-right:.9rem;
-    border-radius: 0px;
+    border-radius:30px;
 }
 .search-bar-input
 {
-    border-radius:0px;
+    border-radius:30px;
     outline:0;
     border:1px solid #42B983;
-    
+    border-radius: 30px;
     padding:.5rem;
     padding-left:.8rem;
     width:100%;
@@ -305,7 +331,7 @@ a.btn.btn-outline-danger {
     -webkit-appearance:none;
     -moz-appearance:none;
     appearance:none;
-    border-radius:0px;
+    border-radius:30px;
     border:1px solid #ced4da;
     background:url("/img/caret.jpg") 100%/25% no-repeat;
     background-color: #42B983;
@@ -323,7 +349,7 @@ a.btn.btn-outline-danger {
     -webkit-appearance:none;
     -moz-appearance:none;
     appearance:none;
-    border-radius:0px;
+    border-radius:30px;
     
     /*background:url("/img/caret.jpg") 100%/25% no-repeat #ddd;*/
     background-color: white;
@@ -336,7 +362,8 @@ a.btn.btn-outline-danger {
     border-radius:30px;
     outline:0;
     border:0;
-    padding-left:.8rem
+    padding-left:.8rem;
+    
 }
 #nav-searcher{
     position: relative;
@@ -384,10 +411,6 @@ a.btn.btn-outline-danger {
 #search_type{
     height: 33.2;
     width: 39.6;
-    
-}
-
-#search_type.form-control{
     border-radius: 30px;
 }
 
@@ -434,3 +457,51 @@ a.btn.btn-outline-danger {
     margin-right: 50px;
     border-radius:30px;
 }
+
+@media (max-width: 830px){
+
+
+
+
+#pp{
+    position: absolute;
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: .8em;
+
+}
+
+.grid_content > .card-title{
+    text-align: left;
+    font-size: .5em;
+
+}
+
+
+}
+
+@media (max-width: 767px){
+
+
+
+
+#pp{
+    position: relative;
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 1em;
+    top:8px;
+    left: 0px;
+
+}
+
+.grid_content > .card-title{
+    text-align: center;
+    font-size: 1em;
+
+}
+
+
+}
+
+
