@@ -806,7 +806,6 @@ createOpenLocalPrompt = function() {
     });
 
 }
-
 // Prompt to create subcircuit, shows list of circuits which dont depend on the current circuit
 createSubCircuitPrompt = function(scope = globalScope) {
     $('#insertSubcircuitDialog').empty();
