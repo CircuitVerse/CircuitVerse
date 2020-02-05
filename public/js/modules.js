@@ -2296,8 +2296,8 @@ function DigitalLed(x, y, scope = globalScope, color = "Red") {
     this.directionFixed = true;
     this.fixedBitWidth = true;
     this.color = color;
-    var temp = colorToRGBA(this.color)
-    this.actualColor = "rgba(" + temp[0] + "," + temp[1] + "," + temp[2] + "," + 0.8 + ")";
+    //var temp = colorToRGBA(this.color)
+    //this.actualColor = "rgba(" + temp[0] + "," + temp[1] + "," + temp[2] + "," + 0.8 + ")";
 
 
 }
@@ -2316,15 +2316,15 @@ DigitalLed.prototype.customSave = function () {
 DigitalLed.prototype.mutableProperties = {
     "color": {
         name: "Color: ",
-        type: "text",
+        type: "color",
         func: "changeColor",
     },
 }
 DigitalLed.prototype.changeColor = function (value) {
     if (validColor(value)) {
         this.color = value;
-        var temp = colorToRGBA(this.color)
-        this.actualColor = "rgba(" + temp[0] + "," + temp[1] + "," + temp[2] + "," + 0.8 + ")";
+        //var temp = colorToRGBA(this.color)
+        //this.actualColor = "rgba(" + temp[0] + "," + temp[1] + "," + temp[2] + "," + 0.8 + ")";
     }
 
 }
