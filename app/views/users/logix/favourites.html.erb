@@ -8,8 +8,12 @@
   <div class ="row">
     <h2 class="card-title">Favourite Projects</h2>
   </div>
-
-  <div class="row ">
+  <% if @user.rated_projects.blank? %>
+      <div class ="favblank">
+        <h5>There are no favourites to show.</h5>
+      </div>
+    <% end %>
+    <div class="row ">
 
 
     <% @projects.each do |project| %>
