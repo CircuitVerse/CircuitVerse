@@ -37,11 +37,12 @@ function setProjectName(name) {
 }
 
 function clearProject() {
+    if (verify || confirm("What you like to start a new project? Any unsaved changes will be lost.")){
     globalScope = undefined;
     scopeList = {};
     $('.circuits').remove();
     newCircuit("main");
-    showMessage("Your project is as good as new!");
+    showMessage("Your project is as good as new!");}
 
 }
 
