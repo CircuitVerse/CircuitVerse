@@ -37,12 +37,13 @@ function setProjectName(name) {
 }
 
 function clearProject() {
-    globalScope = undefined;
-    scopeList = {};
-    $('.circuits').remove();
-    newCircuit("main");
-    showMessage("Your project is as good as new!");
-
+    if(confirm("Are you Sure")){
+        globalScope = undefined;
+        scopeList = {};
+        $('.circuits').remove();
+        newCircuit("main");
+        showMessage("Your project is as good as new!");
+    }
 }
 
 // Function used to start a new project while prompting confirmation from the user
