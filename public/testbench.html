@@ -1,11 +1,46 @@
-<button onclick="addInpButton()">Add Input </button>
-<button onclick="addOutputButton()">Add Output </button>
-<button onclick="addCaseButton()">Add Case </button>
-<button onclick="generateDataAndCopyButton()">GenerateData And Copy to Clipboard</button>
-<button onclick="loadDataButton()">Load Data</button>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
-<script src="https://www.github.developerdan.com/table-to-json/javascripts/jquery.tabletojson.min.js"></script>
-<table style="width:100%" contenteditable="true" id="testBenchTable">
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Testbench</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+<style>
+    table, th, td {
+        border: 1px solid lightblue;
+        border-collapse: collapse;  
+    }
+    th, td {
+        padding: 15px;
+    }
+    th {
+        text-align: left;
+    }
+    table {
+        border-spacing: 15px;
+    }
+    .inp{
+        bgcolor:"red";
+    }
+</style>
+</head>
+<body>
+    <div class="container my-3">
+  <div class="row">
+    <div class="col-sm-2"><button type="button" onclick="addInpButton()" class="btn btn-primary">Add Input</button></div>
+    <div class="col-sm-2"><button type="button" onclick="addOutputButton()" class="btn btn-primary">Add Output</button></div>
+    <div class="col-sm-2"><button type="button" onclick="addCaseButton()" class="btn btn-primary">Add Case</button></div>
+    <div class="col-sm-4"><button type="button"  onclick="generateDataAndCopyButton()" class="btn btn-primary">GenerateData And Copy to Clipboard</button></div>
+    <div class="col-sm-2"><button type="button"  onclick="loadDataButton()" class="btn btn-primary">Load Data</button></div>
+ </div>
+
+ 
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+   <script src="https://www.github.developerdan.com/table-to-json/javascripts/jquery.tabletojson.min.js"></script>
+
+   <table style="width:100%" contenteditable="true" id="testBenchTable">
     <tr>
         <th colspan="3">INPUTS</th>
         <th colspan="3">OUTPUTS</th>
@@ -36,36 +71,14 @@
     </tr>
 </table>
 
-<div id="testDataDiv" style="font-size:16px;width:600px,height:300px" >
-    <textarea id="testData" cols="100" >
-        </textarea>
+<div class="form-group" id="testDataDiv >
+    <textarea class="form-control my-3 primary"  id="id="testData" rows="2"></textarea>
     <p>Data Copied successfully</p>
-</div>
+  </div>
+ </div>
 
 
-
-
-<style>
-    table, th, td {
-        border: 1px solid black;
-        border-collapse: collapse;
-    }
-    th, td {
-        padding: 15px;
-    }
-    th {
-        text-align: left;
-    }
-    table {
-        border-spacing: 5px;
-    }
-
-    .inp{
-        bgcolor:"red";
-    }
-</style>
-
-<script>
+ <script>
 
 //    var data={
 //        "n":3,
@@ -232,4 +245,9 @@ var data={n:0,inputs:[],outputs:[]}
 
     $("#testDataDiv").hide();
 </script>
+
+</body>
+</html>
+
+
 
