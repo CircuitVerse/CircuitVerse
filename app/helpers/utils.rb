@@ -6,7 +6,7 @@ module Utils
   def self.parse_mails(mails)
     mails.split(/[\s,\,]/).select do |email|
       email.present? && URI::MailTo::EMAIL_REGEXP.match(email)
-    end.uniq
+    end.uniq.map(&:downcase)
   end
 
   # Forms notice string for given email input
