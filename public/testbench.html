@@ -8,18 +8,23 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
 <style>
+
     table, th, td {
-        border: 1px solid lightblue;
+        border: 1px solid green;
         border-collapse: collapse;  
+        padding: 15px;
     }
     th, td {
         padding: 15px;
+        top:50%;
     }
     th {
         text-align: left;
+        padding: 10px;
     }
     table {
         border-spacing: 15px;
+        top:50%;
     }
     .inp{
         bgcolor:"red";
@@ -29,17 +34,17 @@
 <body>
     <div class="container my-3">
   <div class="row">
-    <div class="col-sm-2"><button type="button" onclick="addInpButton()" class="btn btn-primary">Add Input</button></div>
-    <div class="col-sm-2"><button type="button" onclick="addOutputButton()" class="btn btn-primary">Add Output</button></div>
-    <div class="col-sm-2"><button type="button" onclick="addCaseButton()" class="btn btn-primary">Add Case</button></div>
-    <div class="col-sm-4"><button type="button"  onclick="generateDataAndCopyButton()" class="btn btn-primary">GenerateData And Copy to Clipboard</button></div>
-    <div class="col-sm-2"><button type="button"  onclick="loadDataButton()" class="btn btn-primary">Load Data</button></div>
+    <div class="col-sm-2"><button type="button" onclick="addInpButton()" class="btn btn-success">Add Input</button></div>
+    <div class="col-sm-2"><button type="button" onclick="addOutputButton()" class="btn btn-success">Add Output</button></div>
+    <div class="col-sm-2"><button type="button" onclick="addCaseButton()" class="btn btn-success">Add Case</button></div>
+    <div class="col-sm-4"><button type="button"  onclick="generateDataAndCopyButton()" class="btn btn-success">GenerateData And Copy to Clipboard</button></div>
+    <div class="col-sm-2"><button type="button"  onclick="loadDataButton()" class="btn btn-success">Load Data</button></div>
  </div>
 
  
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
    <script src="https://www.github.developerdan.com/table-to-json/javascripts/jquery.tabletojson.min.js"></script>
-
+ <div class="container my-3">
    <table style="width:100%" contenteditable="true" id="testBenchTable">
     <tr>
         <th colspan="3">INPUTS</th>
@@ -70,12 +75,15 @@
         <td>94</td>
     </tr>
 </table>
+</div>
 
-<div class="form-group" id="testDataDiv >
-    <textarea class="form-control my-3 primary"  id="id="testData" rows="2"></textarea>
+<center>
+<div class="form-group" id="testDataDiv">
+    <textarea class="form-control my-3 success" id="testData" rows="2"></textarea>
     <p>Data Copied successfully</p>
   </div>
- </div>
+    </div>
+ </center>
 
 
  <script>
@@ -245,9 +253,9 @@ var data={n:0,inputs:[],outputs:[]}
 
     $("#testDataDiv").hide();
 </script>
-
 </body>
 </html>
+
 
 
 
