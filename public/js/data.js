@@ -13,7 +13,7 @@ function newCircuit(name, id) {
     $('.circuits').removeClass("current");
     $('#tabsBar').append("<span class='circuits toolbarButton current ' id='staticname'>" + title + " </span>");
     $('#tabsBar').append("<a id='circlink' href='javascript::void(0)'><span class='circuits toolbarButton current ' id='" + scope.id + "'>" + name + "</span></a>");
-    $( "#circlink" ).click(function( event ) {
+    $("#circlink").click(function(event) {
     document.getElementById("circname").focus();
     });
     $('.circuits').click(function() {
@@ -369,7 +369,7 @@ function generateSaveData(name) {
     data["name"] = stripTags(name)
     projectName = data["name"];
     setProjectName(projectName);
-    $( "proj" ).click(function( event ) {
+    $("proj").click(function(event) {
         document.getElementById("projname").focus();
     });
 
