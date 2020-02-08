@@ -1,6 +1,7 @@
 // Function to create new circuit
 // Function creates button in tab, creates scope and switches to this circuit
 function newCircuit(name, id) {
+    title = "Circuit Name : ";
     name = name || prompt("Enter circuit name:");
     name = stripTags(name);
     if (!name) return;
@@ -10,9 +11,13 @@ function newCircuit(name, id) {
     globalScope = scope;
 
     $('.circuits').removeClass("current");
+    $('#tabsBar').append("<span class='circuits toolbarButton current ' id='staticname'>" + title + " </span>");
     $('#tabsBar').append("<a id='circlink' href='javascript::void(0)'><span class='circuits toolbarButton current ' id='" + scope.id + "'>" + name + "</span></a>");
-    $("circlink").click(function(event) {
+    $( "#circlink" ).click(function( event ) {
     document.getElementById("circname").focus();
+    });
+    $('.circuits').click(function() {
+        switchCircuit(this.id)
     });
     if (!embed) {
         showProperties(scope.root);
@@ -363,7 +368,10 @@ function generateSaveData(name) {
     name = projectName || name || prompt("Enter Project Name:") || "Untitled";
     data["name"] = stripTags(name)
     projectName = data["name"];
-    setProjectName(projectName)
+    setProjectName(projectName);
+    $( "proj" ).click(function( event ) {
+        document.getElementById("projname").focus();
+    });
 
     // Save project details
     data["timePeriod"] = simulationArea.timePeriod;
