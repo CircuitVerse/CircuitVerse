@@ -776,6 +776,7 @@ div.icon img {
 .dropdown-menu > li > a {
     color: #939393 !important;
     padding: 3px 14px;
+    display: inline-block;
 }
 
 .dropdown-menu > li > a:hover {
