@@ -10,9 +10,9 @@ function newCircuit(name, id) {
     globalScope = scope;
 
     $('.circuits').removeClass("current");
-    $('#tabsBar').append("<div class='circuits toolbarButton current' id='" + scope.id + "'>" + name + "</div>");
-    $('.circuits').click(function() {
-        switchCircuit(this.id)
+    $('#tabsBar').append("<a id='circlink' href='javascript::void(0)'><span class='circuits toolbarButton current ' id='" + scope.id + "'>" + name + "</span></a>");
+    $( "a" ).click(function( event ) {
+    document.getElementById("circname").focus();
     });
     if (!embed) {
         showProperties(scope.root);
