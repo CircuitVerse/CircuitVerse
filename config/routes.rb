@@ -62,11 +62,11 @@ Rails.application.routes.draw do
 
   scope '/users' do
     get '/', to: 'welcome#all_user_index', as: 'all_users'
-    get '/:id/profile', to: 'users/logix#profile', as: 'profile'
-    get '/:id/profile/edit', to: 'users/logix#edit', as: 'profile_edit'
+    get '/:id/', to: 'users/logix#profile', as: 'profile'
+    get '/:id/edit', to: 'users/logix#edit', as: 'profile_edit'
     patch '/:id/update', to: 'users/logix#update', as: 'profile_update'
     get '/:id/groups', to: 'users/logix#groups', as: 'user_groups'
-    get '/:id/', to: 'users/logix#index', as: 'user_projects'
+    get '/:id/projects', to: 'users/logix#index', as: 'user_projects'
     get '/:id/favourites', to: 'users/logix#favourites', as: 'user_favourites'
     get '/educational_institute/typeahead/:query' => 'users/logix#typeahead_educational_institute'
     get '/:id/notifications', to: 'users/notifications#index', as: 'notifications'
