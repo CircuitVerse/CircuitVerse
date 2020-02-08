@@ -11,7 +11,7 @@ function newCircuit(name, id) {
 
     $('.circuits').removeClass("current");
     $('#tabsBar').append("<a id='circlink' href='javascript::void(0)'><span class='circuits toolbarButton current ' id='" + scope.id + "'>" + name + "</span></a>");
-    $( "a" ).click(function( event ) {
+    $("circlink").click(function(event) {
     document.getElementById("circname").focus();
     });
     if (!embed) {
