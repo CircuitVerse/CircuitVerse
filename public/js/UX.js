@@ -142,8 +142,8 @@ function showProperties(obj) {
     if (simulationArea.lastSelected === undefined || simulationArea.lastSelected.objectType == "Wire" || simulationArea.lastSelected.objectType == "CircuitElement" || simulationArea.lastSelected.objectType == "Node") {
         $('#moduleProperty').show();
         $('#moduleProperty-inner').append("<div id='moduleProperty-header'>" + "Project Properties" + "</div>");
-        $('#moduleProperty-inner').append("<p>Project : <input class='objectPropertyAttribute' type='text'  name='setProjectName'  value='" + (projectName || "Untitled") + "'></p>");
-        $('#moduleProperty-inner').append("<p>Circuit : <input class='objectPropertyAttribute'  id='circname' type='text'  name='changeCircuitName'  value='" + (globalScope.name || "Untitled") + "'></p>");
+        $('#moduleProperty-inner').append("<p>Project : <input class='objectPropertyAttribute' type='text' id='projname' name='setProjectName'  value='" + (projectName || "Untitled") + "'></p>");
+        $('#moduleProperty-inner').append("<p>Circuit : <input class='objectPropertyAttribute' type='text' id='circname' name='changeCircuitName'  value='" + (globalScope.name || "Untitled") + "'></p>");
         $('#moduleProperty-inner').append("<p>Clock Time : <input class='objectPropertyAttribute' min='50' type='number' style='width:100px' step='10' name='changeClockTime'  value='" + (simulationArea.timePeriod) + "'>ms</p>");
         $('#moduleProperty-inner').append("<p>Clock Enabled : <label class='switch'> <input type='checkbox' " + ["", "checked"][simulationArea.clockEnabled + 0] + " class='objectPropertyAttributeChecked' name='changeClockEnable' > <span class='slider'></span> </label></p>");
         $('#moduleProperty-inner').append("<p>Lite Mode : <label class='switch'> <input type='checkbox' " + ["", "checked"][lightMode + 0] + " class='objectPropertyAttributeChecked' name='changeLightMode' > <span class='slider'></span> </label></p>");
