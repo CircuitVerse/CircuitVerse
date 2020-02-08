@@ -9,15 +9,20 @@
     userSignedIn = <%= user_signed_in? %>;
     logix_project_id = <%= @logix_project_id%>;
     projectName = "<%= @projectName%>"
+
+    focusMethod = function getFocus() {
+    document.getElementById("projname").focus();
+    }
+
   </script>
   <nav class="navbar navbar-expand-lg toolbar navbar-dark bg-dark">
     <a class="navbar-brand" href="/">CircuitVerse</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" 
-                                               data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
+    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                               data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                                                aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
       <ul class="navbar-nav mr-auto noSelect pointerCursor" id="toolbar">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Project<span class="caret"></span></a>
@@ -51,8 +56,9 @@
       </li>
     </ul>
     <span class="projectName noSelect defaultCursor font-weight-bold" id="projectName">
-      Untitled
+    <a id="proj" href='javascript::void(0)' onclick="focusMethod()">Untitled</a>
     </span>
+
     <ul class="nav navbar-nav noSelect pointerCursor pull-right">
       <li class="dropdown pull-right">
         <%if user_signed_in? %>
@@ -245,7 +251,7 @@
       setup()
      }, false);
     embed=false;
-    
+
     <% if @project&.assignment_id.present? %>
       restrictedElements = JSON.parse('<%= raw @project&.assignment.restrictions %>');
     <% else %>
@@ -256,7 +262,7 @@
   <!-- on hover for dropdowns -->
   <script>
     $('.dropdown-toggle').hover( function() {
-    
+
         $('.dropdown.open').removeClass('open');
         $(this).parent('.dropdown').addClass('open');
     });
