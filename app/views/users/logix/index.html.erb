@@ -31,7 +31,6 @@
   <div class ="row">
     <h2 class="card-title"><%= @user.name %> - Projects | <a href= "<%= profile_path(@user) %>" target="_blank"> View Profile </a> | <a href= "<%= user_favourites_path(@user) %>" target="_blank"> View Favourites</a>| <a href= "/simulator" target="_blank">Create Project</a></h2>
   </div>
-  
   <div class="row">
     <%= render partial: "dashboard" , locals: {projects: @user.projects} %>
   </div>
