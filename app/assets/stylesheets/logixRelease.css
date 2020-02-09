@@ -137,3 +137,21 @@ a.btn.btn-outline-primary {
 a.btn.btn-outline-danger {
     margin-top: 10px;
 }
+
+.heading-profile {
+  color: $teal;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+#profile-details {
+  padding-top: 30px;
+}
+
+#profile-details > p {
+  font-size: 20px;
+}
+
+.profile-background {
+  background-color: #fcfcfc
+}

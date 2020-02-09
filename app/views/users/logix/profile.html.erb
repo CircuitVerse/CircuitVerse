@@ -2,22 +2,22 @@
 
     <div class="container">
       <div class="row row-about">
-        <h1 id="heading-profile" class="heading">User Profile</h1>
-      </div>
-      <div class="row">
-        <div class="col-xs col-sm-12 col-md col-lg-4">
-        <%= image_tag @profile.profile_picture.url(:medium), style: "border: 0px; border-radius: 50%; margin: 30px;" %>
+        <div class="col-xs col-sm col-md col-lg">
+          <h1 class="heading-profile">User Profile</h1>
         </div>
-        <div  id="profile-details" class="col-xs col-sm-12 col-md col-lg-7">
-          <h3><%= @profile.name %></h3> <hr>
-          <h4>Member Since</h4>
-          <p><%= @profile.member_since %></p>
-          <h4>Educational Institution</h4>
-          <p><%= @profile.educational_institute %></p>
-          <h4>Country</h4>
-          <p><%= @profile.country_name %></p>
-          <h4>Subscribed to mails ?</h4>
-          <p><%= @profile.mail_subscription %></p>
+      </div>
+      <div class="row profile-background">
+        <div class="col-xs col-sm-12 col-md col-lg-6">
+          <div class="row-about">
+            <%= image_tag @profile.profile_picture.url(:medium), style: "width: 150px; height: 150px; border: 0px; margin: 30px;" %>
+            <h3><%= @profile.name %></h3>
+          </div>
+        </div>
+        <div id="profile-details" class="col-xs col-sm-12 col-md col-lg-6">
+          <p><strong>Member Since: </strong><%= @profile.member_since %> days</p>
+          <p><strong>Educational Institution: </strong><%= @profile.educational_institute %></p>
+          <p><strong>Country: </strong><%= @profile.country_name %></p>
+          <p><strong>Subscribed to mails: </strong><%= @profile.mail_subscription %></p>
           <% if policy(@user).edit? %>
             <a class="btn btn-about" href=<%= profile_edit_path(current_user) %> role="button">Edit Details</a>
           <% end %>
