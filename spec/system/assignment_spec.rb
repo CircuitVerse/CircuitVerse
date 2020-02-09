@@ -63,7 +63,7 @@ describe "Assignments", type: :system do
     fill_in "Deadline", with: deadline.strftime("%d/%m/%Y 12:00")
     sleep 0.1
     find("#assignment_deadline").send_keys :enter
-    fill_in_editor "#editor", with: description
+    fill_in_editor ".trumbowyg-editor", with: description
 
     if :grading == true then
       select "percent", from: "assignment_grading_scale"
