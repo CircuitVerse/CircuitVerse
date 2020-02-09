@@ -17,7 +17,7 @@
             method: :put,
             remote: true do %>
         <%= image_submit_tag "commontator/upvote.png",
-              onmouseover: "this.src='#{image_path("commontator/upvote_hover.png")}'",
+              onmouseover: "this.src='#{image_path("commontator/upvote_hover.png", data: {title: 'Upvote'})}'",
               onmouseout: "this.src='#{image_path("commontator/upvote.png")}'" %>
       <% end %>
     <% elsif can_vote %>
@@ -25,7 +25,7 @@
             method: :put,
             remote: true do %>
         <%= image_submit_tag "commontator/upvote_active.png",
-              onmouseover: "this.src='#{image_path("commontator/upvote.png")}'",
+              onmouseover: "this.src='#{image_path("commontator/upvote.png", data: {title: 'Upvote'})}'",
               onmouseout: "this.src='#{image_path("commontator/upvote_active.png")}'"
         %>
       <% end %>
@@ -48,7 +48,7 @@
             method: :put,
             remote: true do %>
         <%= image_submit_tag "commontator/downvote.png",
-              onmouseover: "this.src='#{image_path("commontator/downvote_hover.png")}'",
+              onmouseover: "this.src='#{image_path("commontator/downvote_hover.png", data: {title: 'Downvote'})}'",
               onmouseout: "this.src='#{image_path("commontator/downvote.png")}'" %>
       <% end %>
     <% elsif can_vote %>
@@ -56,7 +56,7 @@
             method: :put,
             remote: true do %>
         <%= image_submit_tag "commontator/downvote_active.png",
-              onmouseover: "this.src='#{image_path("commontator/downvote.png")}'",
+              onmouseover: "this.src='#{image_path("commontator/downvote.png", data: {title: 'Downvote'})}'",
               onmouseout: "this.src='#{image_path("commontator/downvote_active.png")}'"
         %>
       <% end %>
