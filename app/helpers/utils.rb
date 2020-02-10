@@ -8,7 +8,7 @@ module Utils
       email.present? && Devise.email_regexp.match?(email)
     end.uniq
   end
-
+  
   # Forms notice string for given email input
   # @param input_mails string of emails entered
   # @param parsed_mails array of valid emails
