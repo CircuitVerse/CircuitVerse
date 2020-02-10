@@ -1,3 +1,5 @@
+/* jshint esversion: 6 */
+
 function constructNodeConnections(node, data) {
     for (let i = 0; i < data.connections.length; i++) if (!node.connections.contains(node.scope.allNodes[data.connections[i]])) node.connect(node.scope.allNodes[data.connections[i]]);
 }
