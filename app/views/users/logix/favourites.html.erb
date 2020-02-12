@@ -14,7 +14,7 @@
 
     <% @projects.each do |project| %>
 
-        <%if project.check_direct_view_access(current_user) %>
+        <% if policy(project).check_direct_view_access? %>
             <div class="col-sm-4">
               <div class="card text-center " style="margin-top: 2rem">
                 <div class="card-header card-title">
