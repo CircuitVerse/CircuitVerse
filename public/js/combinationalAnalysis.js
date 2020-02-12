@@ -106,21 +106,17 @@ function createBooleanPrompt(inputListNames,outputListNames,scope=globalScope){
         text: "Download",
         click: function() {
            var sTable = document.getElementById('combinationalAnalysis').innerHTML;
-           var style = "<style>";
-           style = style + "table {font: 20px Calibri;}";
-           style = style + "table, th, td {border: solid 1px #DDD;";
-           style = style + "padding: 2px 3px;text-align: center;}";
-           style = style + "</style>";
+           var style = "<style> table {font: 20px Calibri;} table, th, td {border: solid 1px #DDD;} padding: 2px 3px;text-align: center;} </style>";
            var win = window.open('', '', 'height=700,width=700');
            win.document.write('<html><head>');
-           win.document.write('<title>Boolean Logic Table</title>');   
-           win.document.write(style);          
+           win.document.write('<title>Boolean Logic Table</title>');
+           win.document.write(style);
            win.document.write('</head>');
            win.document.write('<body>');
-           win.document.write('<center>'+sTable+'</center>');        
+           win.document.write('<center>'+sTable+'</center>');
            win.document.write('</body></html>');
-           win.document.close(); 	
-           win.print();    
+           win.document.close();
+           win.print();
           },
         },
       ]
