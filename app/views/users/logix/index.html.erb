@@ -32,6 +32,11 @@
   <div class ="row">
     <h2 class="card-title"><%= @user.name %> - Projects | <a href=  "<%= profile_path(@user) %>"> View Profile </a> | <a href=  "<%= user_favourites_path(@user) %>"> View Favourites </a> </h2>
   </div>
+  <% if @user.projects.blank? %>
+    <div class ="noprojects">
+      <h5>You dont have any projects. Create one <%= link_to 'here', simulator_new_url %></h5>
+    </div>
+  <% end %>
 
   <div class="row">
     <%= render partial: "dashboard" , locals: {projects: @user.projects} %>
