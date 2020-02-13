@@ -118,6 +118,7 @@ group :development do
   gem 'rubocop'
   gem 'dotenv', '~> 2.2.1'
   gem 'sunspot_solr'
+  gem "mailcatcher"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
