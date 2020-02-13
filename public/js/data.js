@@ -4,25 +4,44 @@ function newCircuit(name, id) {
     name = name || prompt("Enter circuit name:");
     name = stripTags(name);
     if (!name) return;
-    var scope = new Scope(name);
-    if (id) scope.id = id;
-    scopeList[scope.id] = scope;
-    globalScope = scope;
+    else if (name.length <=18) {
+      var scope = new Scope(name);
+      if (id) scope.id = id;
+      scopeList[scope.id] = scope;
+      globalScope = scope;
 
-    $('.circuits').removeClass("current");
-    $('#tabsBar').append("<div class='circuits toolbarButton current' id='" + scope.id + "'>" + name + "</div>");
-    $('.circuits').click(function() {
-        switchCircuit(this.id)
-    });
-    if (!embed) {
-        showProperties(scope.root);
+      $('.circuits').removeClass("current");
+      $('#tabsBar').append("<div class='circuits toolbarButton current' id='" + scope.id + "'>" + name + "</div>");
+      $('.circuits').click(function() {
+          switchCircuit(this.id)
+      });
+      if (!embed) {
+          showProperties(scope.root);
+      }
+
+      dots(true, false);
     }
+    else{
+     name = prompt("Enter circuit name between length 1 to 36:");
+     name = stripTags(name);
+     var scope = new Scope(name);
+     if (id) scope.id = id;
+     scopeList[scope.id] = scope;
+     globalScope = scope;
 
-    dots(true, false);
+     $('.circuits').removeClass("current");
+     $('#tabsBar').append("<div class='circuits toolbarButton current' id='" + scope.id + "'>" + name + "</div>");
+     $('.circuits').click(function() {
+         switchCircuit(this.id)
+     });
+     if (!embed) {
+         showProperties(scope.root);
+     }
 
+     dots(true, false);
+    }
     return scope;
 }
-
 
 function changeCircuitName(name, id = globalScope.id) {
     name = stripTags(name);
