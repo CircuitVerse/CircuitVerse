@@ -29,7 +29,7 @@
       </div>
   <% end %>
   <div class ="row">
-    <h2 class="card-title"><%= @user.name %> - Projects | <a href= "<%= profile_path(@user) %>"> View Profile </a> | <a href= "<%= user_favourites_path(@user) %>"> View Favourites</a>| <a href= "/simulator" >Create Project</a></h2>
+    <h2 class="card-title"><%= @user.name %> - Projects | <a href= "<%= profile_path(@user) %>"> View Profile </a> | <a href= "<%= user_favourites_path(@user) %>"> View Favourites</a> | <%= link_to 'Create Project', simulator_new_url %></h2>
   </div>
   <% if @user.projects.blank? %>
     <div class ="noprojects">
