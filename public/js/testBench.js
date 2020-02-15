@@ -21,7 +21,7 @@ function TB_Input(x, y, scope = globalScope, dir = "RIGHT",  identifier, testDat
 }
 TB_Input.prototype = Object.create(CircuitElement.prototype);
 TB_Input.prototype.constructor = TB_Input;
-TB_Input.prototype.tooltipText  = "Test Bench Input Selected";
+TB_Input.prototype.tooltipText = "Test Bench Input Selected";
 TB_Input.prototype.centerElement = true;
 TB_Input.prototype.dblclick=function(){
     this.testData=JSON.parse(prompt("Enter TestBench Json"));
@@ -291,7 +291,7 @@ function TB_Output(x, y, scope = globalScope, dir = "RIGHT",  identifier) {
 
 TB_Output.prototype = Object.create(CircuitElement.prototype);
 TB_Output.prototype.constructor = TB_Output;
-TB_Output.prototype.tooltipText  = "Test Bench Output Selected";
+TB_Output.prototype.tooltipText = "Test Bench Output Selected";
 TB_Output.prototype.centerElement = true;
 // TB_Output.prototype.dblclick=function(){
 //     this.testData=JSON.parse(prompt("Enter TestBench Json"));
