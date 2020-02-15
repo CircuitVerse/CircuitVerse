@@ -426,7 +426,7 @@ Node.prototype.update = function() {
         simulationArea.hover = this;
     }
 
-    if (simulationArea.mouseDown && ((this.hover && !simulationArea.selected) || simulationArea.lastSelected == this)) {
+    if (simulationArea.mouseDown && ((this.hover && !simulationArea.selected) || simulationArea.lastSelected == this || simulationArea.hover == this)) {
         simulationArea.selected = true;
         simulationArea.lastSelected = this;
         this.clicked = true;

@@ -1159,7 +1159,7 @@ CircuitElement.prototype.update = function() {
         this.hover = false;
     }
 
-    if (simulationArea.mouseDown && (this.clicked)) {
+    if (simulationArea.mouseDown && (this.clicked) && simulationArea.lastSelected == this) {
 
         this.drag();
         if (!simulationArea.shiftDown && simulationArea.multipleObjectSelections.contains(this)) {
