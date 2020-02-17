@@ -137,3 +137,26 @@ a.btn.btn-outline-primary {
 a.btn.btn-outline-danger {
     margin-top: 10px;
 }
+
+.btn-favourite{
+    display: inline;
+    float:right;
+}
+
+.username{
+  display: inline;
+}
+
+.card-userprojects{
+  border: 2px solid $green;
+  margin-top: 2rem;
+}
+
+.card-header-userprojects{
+  background-color: $green;
+  color: $white;
+}
+
+.card-footer-userprojects{
+  background-color: $white;
+}
