@@ -7,7 +7,7 @@ module SimulatorHelper
 
     else
       jpeg       = Base64.decode64(str)
-      image_file = File.new("preview_#{Time.now.getutc.strftime('%Y%m%dT%H%M%S')}.jpeg", "wb")
+      image_file = File.new("preview_#{Time.now.getutc.strftime('%Y%m%dT%H%M%S')}.jpeg", "w+b")
       image_file.write(jpeg)
     end
 
