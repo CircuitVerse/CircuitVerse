@@ -10,7 +10,7 @@ p {
 }
 
 .feature {
-    border: 1px solid rgba(0, 0, 0, 0.125);
+    border: 2px solid $green;
     padding: 1.25rem;
     border-radius: 0.25em;
 }
@@ -159,4 +159,14 @@ a.btn.btn-outline-danger {
 
 .card-footer-userprojects{
   background-color: $white;
+}
+
+.modal-header-userprojects{
+  background-color: $green;
+  color: $white;
+}
+
+.close-modal{
+  color: $white;
+  opacity: 1;
 }
