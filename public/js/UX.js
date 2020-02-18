@@ -227,8 +227,8 @@ function showProperties(obj) {
     $(".objectPropertyAttribute").on("change keyup paste click", function () {
         // return;
         //////console.log(this.name+":"+this.value);
-        if(parseInt($('input[name=newBitWidth]').val()) > parseInt($('input[name=newBitWidth]').attr("max"))){
-            $('input[name=newBitWidth]').val(parseInt($('input[name=newBitWidth]').attr("max")));
+        if (parseInt($('input[name=newBitWidth]').val(), 10) > parseInt($('input[name=newBitWidth]').attr("max"), 10)) {
+            $('input[name=newBitWidth]').val(parseInt($('input[name=newBitWidth]').attr("max"), 10));
             showError("Max BitWidth: " + $('input[name=newBitWidth]').attr("max"));
         }
 
