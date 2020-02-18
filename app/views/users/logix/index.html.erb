@@ -37,7 +37,13 @@
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
       <a class="btn btn-about btn-favourite" href="<%= user_favourites_path(@user)%>">View Favourites</a>
     </div>
+
   </div>
+  <% if @user.projects.blank? %>
+    <div class ="noprojects">
+      <h5>You dont have any projects. Create one <%= link_to 'here', simulator_new_url %></h5>
+    </div>
+  <% end %>
 
   <div class="row">
     <%= render partial: "dashboard" , locals: {projects: @user.projects} %>
