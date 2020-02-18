@@ -9,6 +9,12 @@
     <h1 class="heading">Favourite Projects</h1>
   </div>
 
+  <% if @user.rated_projects.blank? %>
+    <div class ="favblank">
+      <h5>There are no favourites to show.</h5>
+    </div>
+  <% end %>
+
   <div class="row ">
     <% projects.each do |project| %>
 
@@ -16,20 +22,6 @@
             <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
               <div class="card text-center card-userprojects">
                 <div class="card-header card-header-userprojects">
-  <% if @user.rated_projects.blank? %>
-      <div class ="favblank">
-        <h5>There are no favourites to show.</h5>
-      </div>
-    <% end %>
-    <div class="row ">
-
-
-    <% @projects.each do |project| %>
-
-        <% if policy(project).check_direct_view_access? %>
-            <div class="col-sm-4">
-              <div class="card text-center " style="margin-top: 2rem">
-                <div class="card-header card-title">
                   <%= project.name %>
                   <%if !project.assignment_id.nil?%>
                       <span class="badge badge-dark">Assignment</span>
@@ -50,9 +42,9 @@
               </div>
             </div>
         <%end%>
+
     <% end %>
-  </div>
-</div>
+
 <br>
 
 <div id="myModal" class="modal fade" role="dialog">
