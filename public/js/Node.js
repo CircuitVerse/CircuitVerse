@@ -212,6 +212,14 @@ Node.prototype.connect = function(n) {
     updateSimulation = true;
     scheduleUpdate();
 }
+Node.prototype.disconnectWire = function(n) {
+    //searches for the wire which connects this-obj and node-obj and deletes it
+    for (var i = this.parent.scope.wires.length - 1; i >= 0; i--){
+        if((this.parent.scope.wires[i].node1 === this) && (this.parent.scope.wires[i].node2 === n)){
+            this.parent.scope.wires[i].delete();
+        }
+    }
+}
 Node.prototype.connectWireLess = function(n) {
 
     if (n == this) return;
@@ -304,7 +312,15 @@ Node.prototype.resolve = function() {
             } else {
                 this.highlighted = true;
                 node.highlighted = true;
-                showError("BitWidth Error: " + this.bitWidth + " and " + node.bitWidth);
+                // if direct conn then show this.parent's obj type else it is a wire, show node's parent objtye ; And delete the latest wire connection made
+                obt = null;
+                if(this.parent.objectType == "CircuitElement"){
+                    obt = "Wire";
+                } else {
+                    obt = this.parent.objectType;
+                }
+                showError("BitWidth Error: " + obt + ": " + this.bitWidth + " and " + node.parent.objectType + ": " + node.bitWidth);
+                this.disconnectWire(node);
             }
         }
     }
