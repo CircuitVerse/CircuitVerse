@@ -23,7 +23,7 @@
               <div class="card text-center card-userprojects">
                 <div class="card-header card-header-userprojects">
                   <%= project.name %>
-                  <%if !project.assignment_id.nil? %>
+                  <% if !project.assignment_id.nil? %>
                       <span class="badge badge-dark">Assignment</span>
                   <% end %>
                   <span class="badge badge-dark"><%= project.project_access_type %></span>
