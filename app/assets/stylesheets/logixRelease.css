@@ -178,6 +178,7 @@ a.btn.btn-outline-danger {
   border: 1.5px solid black;
   border-radius: 8px;
   padding: 4px;
+  box-shadow: 3px 3px 6px $shadow-black
 }
 .patreon > img{
   width: 160px;
