@@ -31,7 +31,7 @@
 
   <div class ="row">
     <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-      <%= image_tag @user.profile_picture.url(:medium), style: "width: 100px; height: 100px; border: 0px; margin: 10px;" %>
+      <%= image_tag @user.profile_picture.url(:medium), style: "width: 100px; height: 100px; border: 0px; margin: 10px;" alt: @user.name %>
       <h1 class="username"><%= @user.name %></h1>
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
@@ -54,7 +54,7 @@
   <% if collaborated_projects.count >0 %>
       <br>
     <div class ="row row-about">
-      <h1 class="heading">Collaborated Projects</h1>
+      <h1>Collaborated Projects</h1>
     </div>
 
     <div class="row">
@@ -78,7 +78,7 @@
         <button type="button" class="close close-modal" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
-        <div class="embed-responsive embed-responsive-4by3 feature">
+        <div class="embed-responsive embed-responsive-4by3 feature feature-preview">
           <iframe src="" id="projectPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen> </iframe>
         </div>
       </div>

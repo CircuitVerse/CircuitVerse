@@ -10,7 +10,7 @@ p {
 }
 
 .feature {
-    border: 2px solid $green;
+    border: 1px solid rgba(0, 0, 0, 0.125);
     padding: 1.25rem;
     border-radius: 0.25em;
 }
@@ -162,4 +162,10 @@ a.btn.btn-outline-danger {
 .close-modal{
   color: $white;
   opacity: 1;
+}
+
+.feature-preview{
+    border: 2px solid $green;
+    padding: 1.25rem;
+    border-radius: 0.25em;
 }
