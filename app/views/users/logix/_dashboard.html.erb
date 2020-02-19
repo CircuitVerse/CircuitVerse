@@ -5,24 +5,24 @@
           <div class="card text-center card-userprojects">
             <div class="card-header card-header-userprojects">
               <%= project.name %>
-              <%if !project.assignment_id.nil?%>
+              <% if !project.assignment_id.nil? %>
                   <span class="badge badge-dark">Assignment</span>
-              <%end%>
-              <span class="badge badge-dark"><%= project.project_access_type%></span>
+              <% end %>
+              <span class="badge badge-dark"><%= project.project_access_type %></span>
 
             </div>
-            <img class="card-img-top" src="<%= project.image_preview.url %>" alt="<%= project.name%>" >
+            <img class="card-img-top" src="<%= project.image_preview.url %>" alt="<%= project.name %>" >
             <div class="card-footer card-footer-userprojects">
               <% if policy(project).user_access? %>
-                  <a href= "<%= simulator_edit_path(project) %>" class="btn btn-about" target="_blank">Launch</a>
+                  <a href="<%= simulator_edit_path(project) %>" class="btn btn-about" target="_blank">Launch</a>
               <% else %>
-                  <a href= "<%= create_fork_project_path(project) %>" class="btn btn-about" target="_blank">Fork</a>
+                  <a href="<%= create_fork_project_path(project) %>" class="btn btn-about" target="_blank">Fork</a>
               <% end %>
-              <a href="#" id="<%=project.id%>" class="previewButton btn btn-about" data-toggle="modal" data-target="#myModal">View</a>
+              <a href="#" id="<%= project.id %>" class="previewButton btn btn-about" data-toggle="modal" data-target="#myModal">View</a>
               <a href="<%= user_project_path(@user,project) %>" class="btn btn-about" target="_blank">More</a>
             </div>
           </div>
         </div>
-    <%end%>
+    <% end %>
 
 <% end %>

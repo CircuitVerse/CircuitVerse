@@ -35,7 +35,7 @@
       <h1 class="username"><%= @user.name %></h1>
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-      <a class="btn btn-about btn-favourite" href="<%= user_favourites_path(@user)%>">View Favourites</a>
+      <a class="btn btn-about btn-favourite" href="<%= user_favourites_path(@user) %>">View Favourites</a>
     </div>
 
   </div>
@@ -60,7 +60,7 @@
     <div class="row">
       <%= render partial: "dashboard" , locals: {projects: collaborated_projects} %>
     </div>
-  <%end %>
+  <% end %>
 
 </div>
 
