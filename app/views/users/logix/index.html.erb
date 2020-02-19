@@ -31,7 +31,7 @@
 
   <div class ="row">
     <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-      <%= image_tag @user.profile_picture.url(:medium), style: "width: 100px; height: 100px; border: 0px; margin: 10px;" alt: "<%= @user.name %>"%>
+      <%= image_tag @user.profile_picture.url(:medium), style: "width: 100px; height: 100px; border: 0px; margin: 10px;" alt: "@user.name"%>
       <h1 class="username"><%= @user.name %></h1>
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
