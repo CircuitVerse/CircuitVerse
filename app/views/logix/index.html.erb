@@ -105,7 +105,7 @@
       <% featured_ids.each do |project_id| %>
           <% project = Project.find(project_id) %>
           <div class="col-sm-3">
-            <div class="card text-center " style="margin-top: 2rem">
+            <div class="card text-center card-shadow" style="margin-top: 2rem">
               <div class="card-header card-title">
                <a href="<%= user_project_path(project.author_id,project) %>"><%=project.name %></a>
               </div>
@@ -121,7 +121,7 @@
     <div class="row">
       <% @featured_circuits.each do |project| %>
           <div class="col-sm-3">
-            <div class="card text-center " style="margin-top: 2rem">
+            <div class="card text-center card-shadow" style="margin-top: 2rem">
               <div class="card-header card-title">
                <a href="<%= user_project_path(project.author_id, project) %>"><%=project.name %></a>
               </div>
@@ -136,7 +136,7 @@
     <div class="row">
       <% @projects.each do |project| %>
           <div class="col-sm-3">
-            <div class="card text-center " style="margin-top: 2rem">
+            <div class="card text-center card-shadow" style="margin-top: 2rem">
               <div class="card-header card-title">
                <a href="<%= user_project_path(project.author_id,project) %>"><%=project.name %></a>
               </div>

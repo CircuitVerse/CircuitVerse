@@ -130,3 +130,7 @@ a.btn.btn-outline-primary {
 a.btn.btn-outline-danger {
     margin-top: 10px;
 }
+
+.card-shadow:hover {
+    box-shadow: 4px 4px #dfdfdf;
+}
