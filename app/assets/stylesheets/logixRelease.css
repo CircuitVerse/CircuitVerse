@@ -143,6 +143,31 @@
     position: relative;
     top:4px;
     left: 8px;
+    top: 50%;
+}
+img {
+    max-width: 100%;
+}
+
+.noSelect {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -o-user-select: none;
+}
+
+.pointerCursor {
+    cursor: pointer;
+}
+
+.defaultCursor {
+    cursor: default;
+}
+
+#assignment-grade-form {
+    display: inline-block;
+    width: 100%;
 }
 /* Utility Functions*/
 .page_mid{
