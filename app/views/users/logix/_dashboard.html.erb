@@ -22,9 +22,9 @@
               <a href=  "<%= user_project_path(@user,project) %>" class="btn btn-primary"> More </a>
               <a href="#" id="<%=project.id%>" class="previewButton btn btn-primary" data-toggle="modal" data-target="#myModal"> View </a>
               <% if policy(project).user_access? %>
-                <a href=  "<%= simulator_edit_path(project) %>" class="btn btn-primary"> Launch </a>
+                  <a href=  "<%= simulator_edit_path(project) %>" class="btn btn-primary"> Launch </a>
               <% else %>
-                <a href=  "<%= create_fork_project_path(project) %>" class="btn btn-primary"> Fork! </a>
+                  <a href=  "<%= create_fork_project_path(project) %>" class="btn btn-primary"> Fork! </a>
               <% end %>
             </div>
           </div>

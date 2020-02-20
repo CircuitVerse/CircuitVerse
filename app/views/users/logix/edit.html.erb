@@ -24,7 +24,7 @@
 
         <div class="form-group">
           <label for="profile_picture">Profile Picture:</label>
-          <p><%= image_tag @profile.profile_picture.url(:thumb), id:'imgedit', height:'160', width:'155' %></p>
+          <p> <%= image_tag @profile.profile_picture.url(:thumb), id:'imgedit', height:'160', width:'155' %></p>
           <input type="file" class="form-control" id="profile_picture" name="user[profile_picture]" onchange="readURL(this);" value="<%= @profile.profile_picture %>">
         </div>
 
