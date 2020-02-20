@@ -35,10 +35,12 @@
         <p><%= @assignment.description&.html_safe%></p><br>
       </p>
 
+    <% if @assignment.restricted_circuit_elements != "None" %>
       <p>
         <strong>Restricted Circuit Elements:</strong>
         <p> <%= @assignment.restricted_circuit_elements %> </p><br>
       </p>
+   <% end %>
 
       <%= link_to 'Back', group_path(@group) %>
 
@@ -129,7 +131,6 @@
   <% end %>
   <%end%>
 
-  <script src="/js/time.js"></script>
   <script>
       $(document).ready(function() {
           $('.date').each(function(){

@@ -1,34 +1,98 @@
-<div class="container" style="height:250px">
-  <!--This is to give space for footer-->
+<div class="container empty-div">
 </div>
-<div class="foot">
-  <hr>
-  <div class="container">
-    <div class="row">
-      <div class="col text-center">
-        <p class="text-center">Brought to you by</p>
-        <a href="https://www.iiitb.ac.in/">
-        <%= image_tag("footer/iiitb.jpg", class: "footer-logo-iiitb", alt: "iiitb Logo") %>
+<div class="text-white">
+  <div class="p-2 container-fluid" style="background: #1c1c1c;">
+    <div class="row mt-3 p-3 text-left">
+      <div class=" col-md-3 col-lg-3 col-xl-3 mb-3">
+        <div class="row">
+          <div>
+            <a href="https://circuitverse.org">
+              <%= image_tag("CircuitVerse.png", class: "", alt: "CircuitVerse logo") %>
+            </a>
+          </div>
+          <div class="d-block d-md-none w-100"></div>
+          <div class="pt-3">
+            <table class="w-100">
+              <tr>
+                <p class="mt-2 footer-social">Follow us on:</p>
+              </tr>
+              <tr>
+                <td class="">
+                  <a class="" href="https://circuitverse.org/facebook" target="_blank"><%= image_tag("logos/facebook-logo.png", class: "footer-social-icon pt-2", alt: "Facebook logo") %></a>
+                <td class="">
+                  <a class="" href="https://circuitverse.org/twitter" target="_blank"><%= image_tag("logos/twitter-logo.png", class: "footer-social-icon pt-2", alt: "Twitter logo") %></a>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="d-none d-xl-block d-md-block d-lg-block copyright pt-5">Copyright © <script type="text/javascript"> document.write(new Date().getFullYear()); </script> CircuitVerse, All rights reserved.</div>
       </div>
-      <div class="col text-center">
-        <p class="text-center">Hosting Sponsor</p>
-        <a href="http://digitalocean.com/">
-        <%= image_tag("footer/DO.png", class: "footer-logo-DO", alt: "DO Logo") %>
+      <div class="d-block d-sm-none w-100">
+      <br>
       </div>
-
-      <!-- For breaking the line into two lines when the screen size is not big enough -->
-      <div class="d-block d-sm-none w-100"><br></div>
-
-      <div class="col align-bottom text-center">
-        <p class="text-center">Marketed by</p>
-        <a href="http://www.iiitb.org/">
-        <%= image_tag("footer/istudio.png", class: "footer-logo-istudio", alt: "istudio Logo") %>
+      <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mx-auto mb-4">
+        <table class="w-100">
+          <tr>
+            <th class="p-1">Circuits</th>
+            <th class="p-1">Info</th>
+          </tr>
+          <tr>
+            <td><a class="text-white" href="https://circuitverse.org/simulator">Simulator</a></td>
+            <td><a class="text-white" href="https://docs.circuitverse.org/#/">Documentation</a></td>
+          </tr>
+          <tr>
+            <td><a class="text-white" href="https://learn.circuitverse.org/">Learn</a></td>
+            <td><a class="text-white" href="https://circuitverse.org/contribute">Contribute</a></td>
+          </tr>
+          <tr>
+            <td><a class="text-white" href="https://circuitverse.org/examples">Examples</a></td>
+            <td><a class="text-white" href="https://circuitverse.org/teachers">Teachers</a></td>
+          </tr>
+          <tr>
+            <td><a class="text-white" href="https://circuitverse.org/users/sign_in">Login</a></td>
+            <td><a class="text-white" href="https://circuitverse.org/about">About</a></td>
+          </tr>
+        </table>
       </div>
-      <div class="col text-center">
-        <p class="text-center">Developed by</p>
-        <a href="http://zense.co.in/">
-        <%= image_tag("footer/zense.png", class: "footer-logo-zense", alt: "Zense Logo") %>
+      <div class="col-sm-6 col-md-5 col-lg-5 col-xl-5 mx-auto mb-4">
+        <table class="w-100 small">
+          <tr>
+            <td>Brought to you by:</td>
+            <td>Hosting sponsor:</td>
+          </tr>
+          <tr>
+            <td class="p-1">
+              <a href="https://www.iiitb.ac.in/">
+                <%= image_tag("footer/iiitb.png", class: "footer-logo", alt: "iiitb Logo") %>
+              </a>
+            </td>
+            <td class="p-1">
+              <a href="http://digitalocean.com/">
+                <%= image_tag("footer/DO.png", class: "footer-logo", alt: "DO Logo") %>
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td>Marketed by:</td>
+            <td>Developed by:</td>
+          </tr>
+          <tr>
+            <td class="p-1">
+              <a href="http://www.iiitb.org/">
+                <%= image_tag("footer/istudio.png", class: "footer-logo", alt: "istudio Logo") %>
+              </a>
+            </td>
+            <td class="p-1">
+              <a href="http://zense.co.in/">
+                <%= image_tag("footer/zense.png", class: "footer-logo", alt: "Zense Logo") %>
+              </a>
+            </td>
+          </tr>
+        </table>
       </div>
+      <div class="d-none d-sm-block d-md-none copyright pl-3">Copyright © <script type="text/javascript"> document.write(new Date().getFullYear()); </script> CircuitVerse, All rights reserved.</div>
+      <div class="d-block d-sm-none copyright pl-3">Copyright © <script type="text/javascript"> document.write(new Date().getFullYear()); </script> CircuitVerse, All rights reserved.</div>
     </div>
   </div>
 </div>

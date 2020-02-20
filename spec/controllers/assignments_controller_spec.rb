@@ -163,7 +163,7 @@ describe AssignmentsController, type: :request do
         sign_in @mentor
         expect {
           post group_assignments_path(@group), params: { assignment:
-            { description: "group assignment" } }
+            { description: "group assignment", name: "Test Name" } }
         }.to change { Assignment.count }.by(1)
       end
     end

@@ -14,7 +14,7 @@
 
         <div class="field form-group">
           <%= f.label :country %><br/>
-          <%= f.country_select :country, { priority_countries: ["IN"] }, { class: "form-control" } %>
+          <%= f.country_select :country, { include_blank: 'Prefer Not To Enter', priority_countries: get_priority_countries() }, { class: "form-control" } %>
         </div>
 
         <div class="field form-group ">
@@ -24,8 +24,8 @@
 
         <div class="form-group">
           <label for="profile_picture">Profile Picture:</label>
-          <p> <%= image_tag @profile.profile_picture.url(:thumb) %></p>
-          <input type="file" class="form-control" id="profile_picture" name="user[profile_picture]" value="<%= @profile.profile_picture %>">
+          <p> <%= image_tag @profile.profile_picture.url(:thumb), id:'imgedit', height:'160', width:'155' %></p>
+          <input type="file" class="form-control" id="profile_picture" name="user[profile_picture]" onchange="readURL(this);" value="<%= @profile.profile_picture %>">
         </div>
 
         <div class="field form-group">
@@ -44,6 +44,18 @@
 
   </div>
 </div>
+<script>
+function readURL(input) {
+     if (input.files && input.files[0]) {
+       var reader = new FileReader();
+       reader.onload = function (e) {
+           $('#imgedit')
+               .attr('src', e.target.result);
+       };
+       reader.readAsDataURL(input.files[0]);
+   }
+}
+</script>
 <script>
     var searchSelector = 'input.typeahead';
     var bloodhound = new Bloodhound({

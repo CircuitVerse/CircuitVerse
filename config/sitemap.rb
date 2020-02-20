@@ -35,6 +35,7 @@ SitemapGenerator::Sitemap.create do
   add simulator_new_path
   add examples_path
   add gettingStarted_path
+  add privacy_index_path
   add contribute_path
   add teachers_path
 end

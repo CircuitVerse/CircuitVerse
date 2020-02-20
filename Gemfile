@@ -5,6 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem 'language_filter'
 gem "paperclip", ">= 5.2.0"
 gem 'hirb'
 gem 'acts_as_votable','~> 0.12.0'
@@ -12,6 +13,7 @@ gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-facebook'
 gem 'omniauth-microsoft-office365'
+gem 'omniauth-github'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0'
 # Use Puma as the app server
@@ -56,6 +58,7 @@ gem 'will_paginate', '~> 3.1.1'
 gem 'will_paginate-bootstrap'
 
 gem 'country_select', '~> 4.0'
+gem 'geocoder'
 gem 'bootstrap-typeahead-rails'
 
 # for authorization layer
@@ -80,6 +83,8 @@ gem 'meta-tags'
 gem 'activity_notification'
 gem 'serviceworker-rails'
 gem 'webpush'
+
+gem 'bootsnap', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -113,6 +118,7 @@ group :development do
   gem 'rubocop'
   gem 'dotenv', '~> 2.2.1'
   gem 'sunspot_solr'
+  gem "mailcatcher"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

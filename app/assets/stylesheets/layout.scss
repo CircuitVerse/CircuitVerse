@@ -1,4 +1,9 @@
 // All the custom class styles
+.noprojects {
+  left: 30%;
+  position: absolute;
+  top: 30%;
+}
 
 .simulator {
   border: 2px solid $green;
@@ -26,19 +31,30 @@
   }
 }
 
-.footer-logo-iiitb {
-  width: 85%;
+.empty-div {
+  height: 250px;
 }
 
-.footer-logo-DO {
-  width: 100%;
-  padding-top: 8%;
+.footer-logo {
+  width: 80%;
 }
 
-.footer-logo-istudio {
-  width: 75%;
+.footer-social-icon {
+  width: 32px;
 }
 
-.footer-logo-zense {
-  width: 75%;
+.footer-social {
+  margin-bottom: unset;
+}
+
+.copyright {
+  font-size: small;
+  overflow: visible;
+  white-space: nowrap;
+}
+
+.favblank {
+  left: 40%;
+  position: absolute;
+  top: 35%;
 }
