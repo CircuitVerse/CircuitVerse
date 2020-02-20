@@ -1,5 +1,6 @@
 erblint:
   enabled: true
+  config_file: .erb-lint.yml
 rubocop:
   enabled: false
 eslint:
