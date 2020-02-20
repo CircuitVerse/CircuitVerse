@@ -138,11 +138,13 @@ a.btn.btn-outline-danger {
 
 .username{
   display: inline;
+  margin-left: 10px;
 }
 
 .card-userprojects{
   border: 2px solid $green;
   margin-top: 2rem;
+  border-radius: 0;
 }
 
 .card-header-userprojects{
@@ -151,12 +153,20 @@ a.btn.btn-outline-danger {
 }
 
 .card-footer-userprojects{
+  border-top: 1.5px solid $green;
   background-color: $white;
+}
+.cardname{
+  display: inline;
 }
 
 .modal-header-userprojects{
   background-color: $green;
   color: $white;
+}
+
+.modal-footer-userprojects{
+  border: 0px;
 }
 
 .close-modal{
@@ -168,4 +178,10 @@ a.btn.btn-outline-danger {
     border: 2px solid $green;
     padding: 1.25rem;
     border-radius: 0.25em;
+}
+
+.btn-userprojects{
+  background-color: $green;
+  color: white;
+  margin: 2px;
 }

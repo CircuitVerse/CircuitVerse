@@ -67,7 +67,8 @@
 <br>
 
 
-
+<% @user.projects.each do |project| %>
+<% if policy(project).check_direct_view_access? %>
 <div id="myModal" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg">
 
@@ -82,10 +83,20 @@
           <iframe src="" id="projectPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen> </iframe>
         </div>
       </div>
+      <div class="modal-footer modal-footer-userprojects">
+        <% if policy(project).user_access? %>
+                  <a href="<%= simulator_edit_path(project) %>" class="btn btn-about btn-userprojects" target="_blank">Launch</a>
+              <% else %>
+                  <a href="<%= create_fork_project_path(project) %>" class="btn btn-about btn-userprojects" target="_blank">Fork</a>
+              <% end %>
+              <a href="<%= user_project_path(@user,project) %>" class="btn btn-about btn-userprojects" target="_blank">More</a>
+      </div>
     </div>
 
   </div>
 </div>
+<% end %>
+<% end %>
 
 <script type="application/ld+json">
 {
