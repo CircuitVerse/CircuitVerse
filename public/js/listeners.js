@@ -193,7 +193,7 @@ function startListeners() {
                     direction = "DOWN";
                     break;
 
-                defualt:
+                default:
                     break;
             }
             if (direction !== ""){
