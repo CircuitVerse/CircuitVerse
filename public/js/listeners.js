@@ -192,6 +192,9 @@ function startListeners() {
                 case 83:
                     direction = "DOWN";
                     break;
+
+                defualt:
+                    break;
             }
             if (direction !== ""){
                 simulationArea.lastSelected.newDirection(direction);
