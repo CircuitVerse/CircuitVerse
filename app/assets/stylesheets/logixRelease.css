@@ -131,7 +131,10 @@ a.btn.btn-outline-danger {
     margin-top: 10px;
 }
 
+.card-shadow {
+    transition: box-shadow 0.4s ease-in;
+}
+
 .card-shadow:hover {
     box-shadow: 4px 4px #dfdfdf;
-    transition: box-shadow 0.4s ease-in;
 }
