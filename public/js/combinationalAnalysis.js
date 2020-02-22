@@ -91,11 +91,10 @@ function createBooleanPrompt(inputListNames,outputListNames,scope=globalScope){
             //checking for Dont Care's in the table
             var a = 13; //key where the values are stored
             var flag = 0; //to indicate error
-            while(!flag){
+            while(!flag) {
                 flag = 1;
                 for(i=0; i<Object.keys(data).length; i++) {
                     if(data[a]['x'].length != 0 && flag) { //to see if there are any don't cares
-                        console.log("Error: Dont cares present");
                         alert("Don't leave any X's in the table");
                         flag = 0;
                     }
