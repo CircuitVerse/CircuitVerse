@@ -77,7 +77,6 @@ function createBooleanPrompt(inputListNames,outputListNames,scope=globalScope){
     }
     s+='</tbody>';
     s+='</table>';
-    //console.log(s)
     $('#combinationalAnalysis').empty()
     $('#combinationalAnalysis').append(s)
     $('#combinationalAnalysis').dialog({
@@ -86,9 +85,25 @@ function createBooleanPrompt(inputListNames,outputListNames,scope=globalScope){
         {
           text: "Generate Circuit",
           click: function() {
-            $( this ).dialog( "close" );
             var data = generateBooleanTableData(outputListNamesInteger);
             //passing the hash values to avoid spaces being passed which is causing a problem
+
+            //checking for Dont Care's in the table
+            var a = 13; //key where the values are stored
+            var flag = 0; //to indicate error
+            while(!flag){
+                flag = 1;
+                for(i=0; i<Object.keys(data).length; i++) {
+                    if(data[a]['x'].length != 0 && flag) { //to see if there are any don't cares
+                        console.log("Error: Dont cares present");
+                        alert("Don't leave any X's in the table");
+                        flag = 0;
+                    }
+                    a += 7;
+                }
+            }
+
+            $( this ).dialog( "close" );
             minmizedCircuit = [];
             for(let output in data){
                 let temp = new BooleanMinimize(
@@ -99,7 +114,7 @@ function createBooleanPrompt(inputListNames,outputListNames,scope=globalScope){
                 minmizedCircuit.push(temp.result);
             }
             // //console.log(dataSample);
-            drawCombinationalAnalysis(minmizedCircuit,inputListNames,outputListNames,scope)
+            drawCombinationalAnalysis(minmizedCircuit,inputListNames,outputListNames,scope);
         },
 
         }
