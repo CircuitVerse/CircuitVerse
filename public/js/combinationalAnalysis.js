@@ -95,7 +95,7 @@ function createBooleanPrompt(inputListNames,outputListNames,scope=globalScope){
                 flag = 1;
                 for(i=0; i<Object.keys(data).length; i++) {
                     if(data[a]['x'].length != 0 && flag) { //to see if there are any don't cares
-                        alert("Don't leave any X's in the table");
+                        alert("Don't leave any X's in the table"); // eslint-disable-line no-alert
                         flag = 0;
                     }
                     a += 7;
