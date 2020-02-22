@@ -442,7 +442,8 @@ function save() {
         // user not signed in, save locally temporarily and force user to sign in
         localStorage.setItem("recover_login", data);
         // Asking user whether they want to login.
-        confirm("You have to login to save the project, you will be redirected to the login page.") ? window.location.href = "/users/sign_in" : $('.loadingIcon').fadeOut();
+        if(confirm("You have to login to save the project, you will be redirected to the login page.")) window.location.href = "/users/sign_in" 
+        else $('.loadingIcon').fadeOut();
     } else if (logix_project_id == 0) {
 
         // Create new project - this part needs to be improved and optimised
