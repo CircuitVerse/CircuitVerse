@@ -5,10 +5,6 @@
   }
 }
 
-p {
-    text-align: justify;
-}
-
 .feature {
     border: 1px solid rgba(0, 0, 0, 0.125);
     padding: 1.25rem;
@@ -19,10 +15,6 @@ p {
     position: absolute;
     text-align: center;
     top: 50%;
-}
-
-img {
-    max-width: 100%;
 }
 
 .noSelect {
@@ -171,9 +163,41 @@ a.btn.btn-outline-danger {
   border: 1.5px solid black;
   border-radius: 8px;
   padding: 4px;
-  box-shadow: 3px 3px 6px $shadow-black
+  box-shadow: 3px 3px 6px $shadow-black;
 }
 .patreon > img{
   width: 160px;
   height: 70px;
+}
+
+#teacher_heading{
+  max-width: 768px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 35px;
+}
+
+#teacher_benefit{
+  margin-bottom: 20px;
+}
+
+.container-fluid_teachers{
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.container-fluid_teachersbackground{
+  background-color: $gray-100;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+.image_teachers{
+  max-height: 100%;
+  max-width: 100%;
+  margin-left: 20px;
+  border: 1px solid $slight-gray;
+}
+
+.subheading_teachers{
+  text-align:left;
 }
