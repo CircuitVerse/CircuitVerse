@@ -215,9 +215,11 @@ img {
     padding-top:10px;
   }
 }
+
 @media (max-width:376px){
     .nav-bar-search-input.nav1{
     width: 120px;
     font-size: .7em;
     }
 }
+
