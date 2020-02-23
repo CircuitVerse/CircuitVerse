@@ -139,7 +139,6 @@ a.btn.btn-outline-danger {
 }
 
 .heading-profile {
-  color: $teal;
   margin-top: 40px;
   margin-bottom: 40px;
 }
@@ -153,5 +152,9 @@ a.btn.btn-outline-danger {
 }
 
 .profile-background {
-  background-color: #fcfcfc
+  background-color: #fcfcfc;
+  padding: 10px 0 25px 0;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
 }
