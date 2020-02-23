@@ -185,6 +185,7 @@ a.btn.btn-outline-danger {
   background-color: $green;
   color: white;
   margin: 2px;
+}
 
 .card-contribute{
   display: inline-block;
