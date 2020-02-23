@@ -1,5 +1,5 @@
 /*  Style for jumbotron*/
-.jumbotron1{
+.jumbotron_examples{
     background-color: white;
     margin-left: auto;
     margin-right: auto;
@@ -12,13 +12,11 @@
     font-size: 2.5em;
     font-weight: 500;
     color: #026E57;
-    text-align: center;
-    
+    text-align: center;    
 }
 .jumbotron1 p{
     font-size: 20px;
 }
-
 #pp{
    position: absolute;
    top: 9px;
@@ -62,7 +60,6 @@
 .styled_btn1:hover{
     color: black;
 }
-
 /* Styling for grid*/
 .contain{
     padding: 30px;
@@ -96,7 +93,6 @@
     margin-top: 8px;
 }
 /*styling for search*/
-
 .nav-search-form{
     display:flex;
     position: relative;
@@ -142,12 +138,36 @@
     font-size:.8rem;
     padding-right:1.6rem;
 }
-
 .fa{
     text-align: center;
     position: relative;
     top:4px;
     left: 8px;
+    
+}
+img {
+    max-width: 100%;
+}
+
+.noSelect {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -o-user-select: none;
+}
+
+.pointerCursor {
+    cursor: pointer;
+}
+
+.defaultCursor {
+    cursor: default;
+}
+
+#assignment-grade-form {
+    display: inline-block;
+    width: 100%;
 }
 /* Utility Functions*/
 .page_mid{
@@ -201,6 +221,3 @@
     font-size: .7em;
     }
 }
-
-
-
