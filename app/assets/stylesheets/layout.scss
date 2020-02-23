@@ -1,4 +1,28 @@
 // All the custom class styles
+.thread{
+  display: block !important;
+}
+
+.thread_header{
+  display:block;
+}
+
+.thread_subscription{
+  display:inline;
+}
+
+.thread_show{
+  display:none
+}
+
+.thread_actions{
+  float:right;
+}
+
+.thread_hide{
+  display:inline;
+}
+
 .noprojects {
   left: 30%;
   position: absolute;
