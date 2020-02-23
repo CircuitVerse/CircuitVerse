@@ -49,7 +49,7 @@
 
 <br>
 
-<% @projects.each do |project| %>
+<% @user.projects.each do |project| %>
 <% if policy(project).check_direct_view_access? %>
 <div id="myModal" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg">
