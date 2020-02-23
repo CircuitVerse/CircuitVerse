@@ -131,6 +131,7 @@ a.btn.btn-outline-danger {
     margin-top: 10px;
 }
 
+/* New UI */
 .btn-favourite{
     display: inline;
     float:right;
@@ -184,4 +185,49 @@ a.btn.btn-outline-danger {
   background-color: $green;
   color: white;
   margin: 2px;
+
+.card-contribute{
+  display: inline-block;
+  width: 300px;
+  border: 0px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.cardimage-contribute{
+  width: 150px;
+  height: 150px;
+}
+
+.cardbody-contribute > h3{
+  text-align: center;
+}
+.cardbody-contribute > ul{
+  text-align: left;
+}
+
+.contribute-pay {
+  display: inline-block;
+  width: 200px;
+  height: 100px;
+  margin-top: 50px;
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.contribute-pay > p{
+  font-weight: 550;
+}
+
+.patreon{
+  border: 1.5px solid black;
+  border-radius: 8px;
+  padding: 4px;
+  box-shadow: 3px 3px 6px $shadow-black
+}
+.patreon > img{
+  width: 160px;
+  height: 70px;
 }

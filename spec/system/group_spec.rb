@@ -26,6 +26,13 @@ describe "Group management", type: :system do
     expect(page).to have_text("Group was successfully created.")
   end
 
+  it "should not create a group when name is blank" do
+    visit "/groups/new"
+    fill_in "group[name]", with: ""
+    click_button "Create Group"
+
+    expect(page).to have_text("Name is too short (minimum is 1 character)")
+  end
 
   it "should add a member to the group" do
     visit "/groups/#{@group.id}"

@@ -1,5 +1,5 @@
 class Assignment < ApplicationRecord
-
+  validates :name, length: { minimum: 1 }
   belongs_to :group
   has_many :projects, class_name: 'Project', foreign_key: 'assignment_id', dependent: :nullify
 

@@ -1,4 +1,5 @@
 class Group < ApplicationRecord
+  validates :name, length: { minimum: 1 }
   belongs_to :mentor, class_name: 'User'
   has_many :group_members, dependent: :destroy
   has_many :users, through: :group_members
