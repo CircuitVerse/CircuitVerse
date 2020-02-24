@@ -12,8 +12,8 @@
   </script>
   <nav class="navbar navbar-expand-lg toolbar navbar-dark bg-dark">
     <a class="navbar-brand" href="/">CircuitVerse</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" 
-                                               data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
+    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                               data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                                                aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -42,6 +42,7 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tools<span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li class="toolbarButton logixButton" id="createCombinationalAnalysisPrompt"><a>Combinational Analysis</a></li>
+	  <li class="toolbarButton logixButton" id="truthTablePrompt"><a>Generate Truth Talble</a></li>
           <li class="toolbarButton logixButton" id="startPlot"><a>Start Plot</a></li>
           <li class="toolbarButton logixButton" id="createSaveAsImgPrompt" ><a>Download Image</a></li>
         </ul>
@@ -212,6 +213,7 @@
       </div>
     </div>
     <div id="combinationalAnalysis"  style="display:none;" title="BooleanLogicTable"></div>
+    <div id="truthTable"  style="display:none;" title="Truth Table"></div>
     <div id="insertSubcircuitDialog" style="display:none;"  title="Insert SubCircuit"></div>
     <div id="openProjectDialog" style="display:none;"  title="Open Project"></div>
   </div>
@@ -245,7 +247,7 @@
       setup()
      }, false);
     embed=false;
-    
+
     <% if @project&.assignment_id.present? %>
       restrictedElements = JSON.parse('<%= raw @project&.assignment.restrictions %>');
     <% else %>
@@ -256,7 +258,7 @@
   <!-- on hover for dropdowns -->
   <script>
     $('.dropdown-toggle').hover( function() {
-    
+
         $('.dropdown.open').removeClass('open');
         $(this).parent('.dropdown').addClass('open');
     });
@@ -288,10 +290,12 @@
   <script src="/js/miniMap.js"></script>
   <script src="/js/layout.js"></script>
   <script src="/js/testBench.js"></script>
+  <script src="/js/truthTable.js"></script>
   <script src="/js/verilog.js"></script>
   <script type="text/javascript" src="/js/metadata.json"></script>
   <% if @project.nil? or @project.assignment_id.nil? %>
     <script src="/js/combinationalAnalysis.js"></script>
+
     <script src="/js/Quin_McCluskey.js"></script>
   <%end%>
  <script src="/js/canvas2svg.js"></script>
