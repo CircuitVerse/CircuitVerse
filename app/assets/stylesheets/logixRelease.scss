@@ -1,5 +1,5 @@
 @media only screen and (max-width: 480px) {
-	/* For mobile phones: */
+	// For mobile phones: 
 	[class*="display-4"] {
 	padding-top:10px;
 	}
@@ -107,20 +107,18 @@ a.btn.btn-outline-danger {
 	.pagination-cont {
 	overflow-x: auto;
 	padding: 0;
-}
-
-.pagination {
-	overflow-x: visible;
-	max-width: none;
-	display: block;
-	padding: 0;
-	white-space: nowrap;
-}
-
-.pagination > * {
-	display: inline-block;
-	margin: 0;
-	margin-left: -4px;
+	}
+	.pagination {
+		overflow-x: visible;
+		max-width: none;
+		display: block;
+		padding: 0;
+		white-space: nowrap;
+	}
+	.pagination > * {
+		display: inline-block;
+		margin: 0;
+		margin-left: -4px;
 	}
 }
 a.btn.btn-outline-primary {
@@ -131,7 +129,7 @@ a.btn.btn-outline-danger {
 	margin-top: 10px;
 }
 
-/* New UI */
+// New UI 
 .btn-favourite{
 	display: inline;
 	float: right;
@@ -239,30 +237,39 @@ a.btn.btn-outline-danger {
 
 
 
-/*New UI*/
+//New UI
+
+
+// color variables
+
+$color-teal: #42B983;
+$color-white: #FFFFFF;
+$color-darkgreen: #026E57;
+$color-cream: #F9FFFC;
+$color-black: #000000;
 
 
 
 
 
-
-/*  Style for jumbotron*/
+//  Style for jumbotron
 .jumbotron_examples{
-	background-color: white;
+	background-color: $color-white;
+	font-family: Open Sans;
+	margin-bottom: 0px;
 	margin-left: auto;
 	margin-right: auto;
+	padding: 30px;
 	text-align: center;
-	margin-bottom: 0px;
-	padding:30px;
-	font-family: Open Sans;
 }
-.jumbotron1 h1{
+.heading_examples{
+	color: $color-darkgreen;
+	font-family: Open Sans;
 	font-size: 2.5em;
-	font-weight: 500;
-	color: #026E57;
+	font-weight: 500;	
 	text-align: center;    
 }
-.jumbotron1 p{
+.content_examples{
 	font-size: 20px;
 }
 #pp{
@@ -272,10 +279,10 @@ a.btn.btn-outline-danger {
 	padding:0;
 	margin: 0;
 }
-/* Styling for buttons*/
+// Styling for buttons
 .styled_btn{
-	color: white;
-	background-color: #42B983;
+	color: $color-white;
+	background-color: $color-teal;
 	border-radius: 30px;
 	margin-bottom: 50px;
 	font-size: 1em;
@@ -288,16 +295,16 @@ a.btn.btn-outline-danger {
 	margin-right: 40px;
 }
 .styled_btn.white{
-	background-color: #F9FFFC;
-	color: black;
+	background-color: $color-cream;
+	color: $color-black;
 }
 .styled_btn.white:hover{
-	background-color: #42B983;
-	color: white;
+	background-color: $color-teal;
+	color: $color-white;
 }
 .styled_btn1{
-	color: white;
-	background-color: #42B983;
+	color: $color-white;
+	background-color: $color-teal;
 	border-radius: 4px;
 	font-size: .8em;
 	padding-top: 5px;
@@ -306,13 +313,13 @@ a.btn.btn-outline-danger {
 	padding-right: 10px;
 }
 .styled_btn1:hover{
-	color: black;
+	color: $color-black;
 }
-/* Styling for grid*/
+// Styling for grid
 .contain{
 	padding: 30px;
 	padding-top: 50px;
-	background-color: #F9FFFC;
+	background-color: $color-cream;
 	position: relative;
 	width: 85%;
 	margin-left: auto;
@@ -320,15 +327,15 @@ a.btn.btn-outline-danger {
 	font-family: Open Sans;
 }
 .grid-cell{
-	border: 1px solid #026E57;
+	border: 1px solid $color-darkgreen;
 	margin-top: 5px;
 	position: relative;
-	background-color: white;
+	background-color: $color-white;
 	margin-bottom: 60px;
 }
 .grid_image{
 	padding: 10px;
-	background-color: white;
+	background-color: $color-white;
 }
 .grid_content{
 	font-size: 1.2em;
@@ -344,11 +351,11 @@ a.btn.btn-outline-danger {
 .nav-search-form{
 	display:flex;
 	position: relative;
-	border:1px solid #026E57;
+	border:1px solid $color-darkgreen;
 	border-radius: 30px;
 	margin-left: auto;
 	margin-right: auto;
-	background-color: white;
+	background-color: $color-white;
 }
 .nav-bar-search-input{
 	border-radius:30px;
@@ -369,7 +376,7 @@ a.btn.btn-outline-danger {
 	border-radius: 30px;
 	top: 0;
 	left: 0;
-	background-color: white;
+	background-color: $color-white;
 	z-index: 9;
 }
 #search_type{
@@ -382,7 +389,7 @@ a.btn.btn-outline-danger {
 	appearance:none;
 	border-radius:30px;
 	/*background:url("/img/caret.jpg") 100%/25% no-repeat #ddd;*/
-	background-color: white;
+	background-color: $color-white;
 	font-size:.8rem;
 	padding-right:1.6rem;
 }
@@ -416,7 +423,7 @@ img {
 	display: inline-block;
 	width: 100%;
 }
-/* Utility Functions*/
+// Utility Functions
 .page_mid{
 	text-align: center;
 }
