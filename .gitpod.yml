@@ -12,15 +12,23 @@ tasks:
       cp config/database.example.yml config/database.yml &&
       createuser -s postgres &&
       (redis-server &) &&
-      bundle install --without production &&
+      bundle install --without production --path vendor/bundle &&
       yarn &&
-      rails db:create &&
-      rails db:schema:load &&
-      rails db:migrate &&
+      bundle exec rails db:create &&
+      bundle exec rails db:schema:load &&
+      bundle exec rails db:migrate &&
       bundle exec rake sunspot:solr:start &&
-      rails db:seed
+      bundle exec rails db:seed
     command: >
-      rails db:migrate &&
+      createuser -s postgres &&
+      (redis-server &) &&
+      bundle install --without production --path vendor/bundle &&
+      yarn &&
+      bundle exec rails db:create &&
+      bundle exec rails db:schema:load &&
+      bundle exec rails db:migrate &&
+      bundle exec rake sunspot:solr:start &&
+      bundle exec rails db:seed &&
       bundle exec rails server
 github:
     prebuilds:

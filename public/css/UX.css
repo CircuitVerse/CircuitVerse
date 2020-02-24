@@ -68,6 +68,8 @@ button:focus {
     padding: 5px;
     width: 200px;
     margin: 3px;
+    word-wrap:break-word;
+    overflow-x:hidden;
 }
 
 .pannel-heading {
@@ -93,7 +95,7 @@ button:focus {
     margin: 0 auto;
     text-align: center;
     font-size: 1.4em;
-    position: absolute;
+    position: static;
     left: 50%;
     display: block;
     width: 500px;
