@@ -134,7 +134,7 @@ a.btn.btn-outline-danger {
 /* New UI */
 .btn-favourite{
   display: inline;
-  float:right;
+  float: right;
 }
 
 .username{
@@ -144,8 +144,8 @@ a.btn.btn-outline-danger {
 
 .card-userprojects{
   border: 2px solid $green;
-  margin-top: 2rem;
   border-radius: 0;
+  margin-top: 2rem;
 }
 
 .card-header-userprojects{
@@ -154,8 +154,8 @@ a.btn.btn-outline-danger {
 }
 
 .card-footer-userprojects{
-  border-top: 1.5px solid $green;
   background-color: $white;
+  border-top: 1.5px solid $green;
 }
 
 .cardname{
@@ -184,7 +184,7 @@ a.btn.btn-outline-danger {
 
 .btn-userprojects{
   background-color: $green;
-  color: white;
+  color: $white;
   margin: 2px;
 }
 
