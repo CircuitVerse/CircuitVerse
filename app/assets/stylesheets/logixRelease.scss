@@ -132,6 +132,62 @@ a.btn.btn-outline-danger {
 }
 
 /* New UI */
+.btn-favourite{
+  display: inline;
+  float: right;
+}
+
+.username{
+  display: inline;
+  margin-left: 10px;
+}
+
+.card-userprojects{
+  border: 2px solid $green;
+  border-radius: 0;
+  margin-top: 2rem;
+}
+
+.card-header-userprojects{
+  background-color: $green;
+  color: $white;
+}
+
+.card-footer-userprojects{
+  background-color: $white;
+  border-top: 1.5px solid $green;
+}
+
+.cardname{
+  display: inline;
+}
+
+.modal-header-userprojects{
+  background-color: $green;
+  color: $white;
+}
+
+.modal-footer-userprojects{
+  border: 0px;
+}
+
+.close-modal{
+  color: $white;
+  opacity: 1;
+}
+
+.feature-preview{
+  border: 2px solid $green;
+  padding: 1.25rem;
+  border-radius: 0.25em;
+}
+
+.btn-userprojects{
+  background-color: $green;
+  color: $white;
+  margin: 2px;
+}
+
 .card-contribute{
   display: inline-block;
   width: 300px;
@@ -148,11 +204,12 @@ a.btn.btn-outline-danger {
 .cardbody-contribute > h3{
   text-align: center;
 }
+
 .cardbody-contribute > ul{
   text-align: left;
 }
 
-.contribute-pay {
+.contribute-pay{
   display: inline-block;
   width: 200px;
   height: 100px;
@@ -171,8 +228,9 @@ a.btn.btn-outline-danger {
   border: 1.5px solid black;
   border-radius: 8px;
   padding: 4px;
-  box-shadow: 3px 3px 6px $shadow-black
+  box-shadow: 3px 3px 6px $shadow-black;
 }
+
 .patreon > img{
   width: 160px;
   height: 70px;
