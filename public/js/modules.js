@@ -52,9 +52,9 @@ function AndGate(x, y, scope = globalScope, dir = "RIGHT", inputLength = 2, bitW
 
 AndGate.prototype = Object.create(CircuitElement.prototype);
 AndGate.prototype.constructor = AndGate;
+AndGate.prototype.tooltipText = "And Gate Tooltip : Implements logical conjunction";
 AndGate.prototype.alwaysResolve = true;
 AndGate.prototype.verilogType = "and";
-
 AndGate.prototype.changeInputSize = changeInputSize;
 //fn to create save Json Data of object
 AndGate.prototype.customSave = function () {
@@ -145,6 +145,7 @@ function NandGate(x, y, scope = globalScope, dir = "RIGHT", inputLength = 2, bit
 }
 NandGate.prototype = Object.create(CircuitElement.prototype);
 NandGate.prototype.constructor = NandGate;
+NandGate.prototype.tooltipText = "Nand Gate ToolTip : Combination of AND and NOT gates";
 NandGate.prototype.alwaysResolve = true;
 NandGate.prototype.changeInputSize = changeInputSize;
 NandGate.prototype.verilogType = "nand";
@@ -234,6 +235,7 @@ function Multiplexer(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1, con
 }
 Multiplexer.prototype = Object.create(CircuitElement.prototype);
 Multiplexer.prototype.constructor = Multiplexer;
+Multiplexer.prototype.tooltipText = "Multiplexer ToolTip : Multiple inputs and a single line output.";
 Multiplexer.prototype.changeControlSignalSize = function (size) {
     if (size == undefined || size < 1 || size > 32) return;
     if (this.controlSignalSize == size) return;
@@ -363,6 +365,7 @@ function XorGate(x, y, scope = globalScope, dir = "RIGHT", inputs = 2, bitWidth 
 
 XorGate.prototype = Object.create(CircuitElement.prototype);
 XorGate.prototype.constructor = XorGate;
+XorGate.prototype.tooltipText = "Xor Gate Tooltip : Implements an exclusive OR.";
 XorGate.prototype.alwaysResolve = true;
 
 XorGate.prototype.changeInputSize = changeInputSize;
@@ -451,7 +454,7 @@ function XnorGate(x, y, scope = globalScope, dir = "RIGHT", inputs = 2, bitWidth
 XnorGate.prototype = Object.create(CircuitElement.prototype);
 XnorGate.prototype.constructor = XnorGate;
 XnorGate.prototype.alwaysResolve = true;
-
+XnorGate.prototype.tooltipText = "Xnor Gate ToolTip : Logical complement of the XOR gate";
 XnorGate.prototype.changeInputSize = changeInputSize;
 XnorGate.prototype.verilogType = "xnor";
 XnorGate.prototype.customSave = function () {
@@ -820,6 +823,7 @@ function OrGate(x, y, scope = globalScope, dir = "RIGHT", inputs = 2, bitWidth =
 }
 OrGate.prototype = Object.create(CircuitElement.prototype);
 OrGate.prototype.constructor = OrGate;
+OrGate.prototype.tooltipText = "Or Gate Tooltip : Implements logical disjunction";
 OrGate.prototype.changeInputSize = changeInputSize;
 OrGate.prototype.alwaysResolve = true;
 OrGate.prototype.verilogType = "or";
@@ -927,6 +931,7 @@ function NotGate(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
 }
 NotGate.prototype = Object.create(CircuitElement.prototype);
 NotGate.prototype.constructor = NotGate;
+NotGate.prototype.tooltipText = "Not Gate Tooltip : Inverts the input digital signal.";
 NotGate.prototype.customSave = function () {
     var data = {
         constructorParamaters: [this.direction, this.bitWidth],
@@ -981,6 +986,7 @@ function ForceGate(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
 }
 ForceGate.prototype = Object.create(CircuitElement.prototype);
 ForceGate.prototype.constructor = ForceGate;
+ForceGate.prototype.tooltipText = "Force Gate ToolTip : ForceGate Selected.";
 ForceGate.prototype.isResolvable = function () {
     return (this.inp1.value != undefined || this.inp2.value != undefined)
 }
@@ -1109,6 +1115,7 @@ function TriState(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
 }
 TriState.prototype = Object.create(CircuitElement.prototype);
 TriState.prototype.constructor = TriState;
+TriState.prototype.tooltipText = "TriState ToolTip : Effectively removes the output from the circuit.";
 // TriState.prototype.propagationDelay=10000;
 TriState.prototype.customSave = function () {
     var data = {
@@ -1184,6 +1191,7 @@ function Buffer(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
 }
 Buffer.prototype = Object.create(CircuitElement.prototype);
 Buffer.prototype.constructor = Buffer;
+Buffer.prototype.tooltipText = "Buffer ToolTip : Isolate the input from the output.";
 Buffer.prototype.customSave = function () {
     var data = {
         constructorParamaters: [this.direction, this.bitWidth],
@@ -1248,6 +1256,7 @@ function ControlledInverter(x, y, scope = globalScope, dir = "RIGHT", bitWidth =
 }
 ControlledInverter.prototype = Object.create(CircuitElement.prototype);
 ControlledInverter.prototype.constructor = ControlledInverter;
+ControlledInverter.prototype.tooltipText = "Controlled Inverter ToolTip : Controlled buffer and NOT gate.";
 ControlledInverter.prototype.customSave = function () {
     var data = {
         constructorParamaters: [this.direction, this.bitWidth],
@@ -1315,6 +1324,7 @@ function Adder(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
 }
 Adder.prototype = Object.create(CircuitElement.prototype);
 Adder.prototype.constructor = Adder;
+Adder.prototype.tooltipText = "Adder ToolTip : Performs addition of numbers.";
 Adder.prototype.customSave = function () {
     var data = {
         constructorParamaters: [this.direction, this.bitWidth],
@@ -1372,6 +1382,7 @@ function Rom(x, y, scope = globalScope, data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 }
 Rom.prototype = Object.create(CircuitElement.prototype);
 Rom.prototype.constructor = Rom;
+Rom.prototype.tooltipText = "Read-only memory";
 Rom.prototype.isResolvable = function () {
     if ((this.en.value == 1 || this.en.connections.length == 0) && this.memAddr.value != undefined) return true;
     return false;
@@ -2049,6 +2060,7 @@ function BitSelector(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 2, sel
 }
 BitSelector.prototype = Object.create(CircuitElement.prototype);
 BitSelector.prototype.constructor = BitSelector;
+BitSelector.prototype.tooltipText = "BitSelector ToolTip : Divides input bits into several equal-sized groups.";
 BitSelector.prototype.changeSelectorBitWidth = function (size) {
     if (size == undefined || size < 1 || size > 32) return;
     this.selectorBitWidth = size;
@@ -2240,6 +2252,7 @@ function NorGate(x, y, scope = globalScope, dir = "RIGHT", inputs = 2, bitWidth 
 }
 NorGate.prototype = Object.create(CircuitElement.prototype);
 NorGate.prototype.constructor = NorGate;
+NorGate.prototype.tooltipText = "Nor Gate ToolTip : Combination of OR gate and NOT gate.";
 NorGate.prototype.alwaysResolve = true;
 NorGate.prototype.changeInputSize = changeInputSize;
 NorGate.prototype.verilogType = "nor";
@@ -2724,6 +2737,7 @@ function Demultiplexer(x, y, scope = globalScope, dir = "LEFT", bitWidth = 1, co
 }
 Demultiplexer.prototype = Object.create(CircuitElement.prototype);
 Demultiplexer.prototype.constructor = Demultiplexer;
+Demultiplexer.prototype.tooltipText = "DeMultiplexer ToolTip : Multiple outputs and a single line input.";
 Demultiplexer.prototype.customSave = function () {
     var data = {
         constructorParamaters: [this.direction, this.bitWidth, this.controlSignalSize],
@@ -2850,6 +2864,7 @@ function Decoder(x, y, scope = globalScope, dir = "LEFT", bitWidth = 1) {
 }
 Decoder.prototype = Object.create(CircuitElement.prototype);
 Decoder.prototype.constructor = Decoder;
+Decoder.prototype.tooltipText = "Decoder ToolTip : Converts coded inputs into coded outputs.";
 Decoder.prototype.customSave = function () {
     var data = {
         constructorParamaters: [this.direction, this.bitWidth],
@@ -3055,6 +3070,7 @@ function MSB(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
 }
 MSB.prototype = Object.create(CircuitElement.prototype);
 MSB.prototype.constructor = MSB;
+MSB.prototype.tooltipText = "MSB ToolTip : The most significant bit or the high-order bit.";
 MSB.prototype.customSave = function () {
     var data = {
 
@@ -3137,6 +3153,7 @@ function LSB(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
 }
 LSB.prototype = Object.create(CircuitElement.prototype);
 LSB.prototype.constructor = LSB;
+LSB.prototype.tooltipText = "LSB ToolTip : The least significant bit or the low-order bit.";
 LSB.prototype.customSave = function () {
     var data = {
 
@@ -3240,6 +3257,7 @@ function PriorityEncoder(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1)
 }
 PriorityEncoder.prototype = Object.create(CircuitElement.prototype);
 PriorityEncoder.prototype.constructor = PriorityEncoder;
+PriorityEncoder.prototype.tooltipText = "Priority Encoder ToolTip : Compresses binary inputs into a smaller number of outputs.";
 PriorityEncoder.prototype.customSave = function () {
     var data = {
 
@@ -3347,6 +3365,7 @@ function Tunnel(x, y, scope = globalScope, dir = "LEFT", bitWidth = 1, identifie
 }
 Tunnel.prototype = Object.create(CircuitElement.prototype);
 Tunnel.prototype.constructor = Tunnel;
+Tunnel.prototype.tooltipText = "Tunnel ToolTip : Tunnel Selected.";
 Tunnel.prototype.newDirection = function (dir) {
     if (this.direction == dir) return;
     this.direction = dir;
@@ -3664,6 +3683,7 @@ function Rectangle(x, y, scope = globalScope, rows = 15, cols = 20) {
 }
 Rectangle.prototype = Object.create(CircuitElement.prototype);
 Rectangle.prototype.constructor = Rectangle;
+Rectangle.prototype.tooltipText = "Rectangle ToolTip : Used to Box the Circuit or area you want to highlight.";
 Rectangle.prototype.changeRowSize = function (size) {
     if (size == undefined || size < 5 || size > 1000) return;
     if (this.rows == size) return;
@@ -3751,6 +3771,7 @@ function Arrow(x, y, scope = globalScope, dir = "RIGHT") {
 }
 Arrow.prototype = Object.create(CircuitElement.prototype);
 Arrow.prototype.constructor = Arrow;
+Arrow.prototype.tooltipText = "Arrow ToolTip : Arrow Selected.";
 Arrow.prototype.customSave = function () {
     var data = {
         constructorParamaters: [this.direction],
