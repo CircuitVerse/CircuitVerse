@@ -454,12 +454,12 @@ $color-black: #000;
 
 @media (max-width: 767px) {
 	.pp {
-		position: relative;
-		margin-bottom: 30px;
-		text-align: center;
 		font-size: 1em;
-		top: 8px;
 		left: 0px;
+		margin-bottom: 30px;
+		position: relative;		
+		text-align: center;
+		top: 8px;		
 	}
 
 	.grid-content > .grid-title {
@@ -474,6 +474,7 @@ $color-black: #000;
 		padding-top:10px;
 	}
 }
+
 @media (max-width:376px) {
 	.nav-bar-search-input.nav1 {
 	font-size: .7em;
