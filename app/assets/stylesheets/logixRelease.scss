@@ -1,5 +1,5 @@
 @media only screen and (max-width: 480px) {
-	// For mobile phones: 
+	// For mobile phones:
 	[class*="display-4"] {
 	padding-top:10px;
 	}
@@ -108,6 +108,7 @@ a.btn.btn-outline-danger {
 	overflow-x: auto;
 	padding: 0;
 	}
+
 	.pagination {
 		overflow-x: visible;
 		max-width: none;
@@ -115,6 +116,7 @@ a.btn.btn-outline-danger {
 		padding: 0;
 		white-space: nowrap;
 	}
+
 	.pagination > * {
 		display: inline-block;
 		margin: 0;
@@ -129,7 +131,7 @@ a.btn.btn-outline-danger {
 	margin-top: 10px;
 }
 
-// New UI 
+// New UI
 .btn-favourite{
 	display: inline;
 	float: right;
@@ -242,10 +244,10 @@ a.btn.btn-outline-danger {
 
 // color variables
 
-$color-teal: #42B983;
-$color-white: #FFFFFF;
-$color-darkgreen: #026E57;
-$color-cream: #F9FFFC;
+$color-teal: #42b983;
+$color-white: #ffffff;
+$color-darkgreen: #026e57;
+$color-cream: #f9fffc;
 $color-black: #000000;
 
 
@@ -266,34 +268,38 @@ $color-black: #000000;
 	color: $color-darkgreen;
 	font-family: Open Sans;
 	font-size: 2.5em;
-	font-weight: 500;	
-	text-align: center;    
+	font-weight: 500;
+	text-align: center;
 }
 .content_examples{
 	font-size: 20px;
 }
-#pp{
-	position: absolute;
-	top: 9px;
-	right: 40px;
-	padding:0;
+.pp {
 	margin: 0;
+	padding: 0;
+	position: absolute;
+	right: 40px;
+	top: 5px;
 }
+
 // Styling for buttons
+
 .styled_btn{
-	color: $color-white;
 	background-color: $color-teal;
 	border-radius: 30px;
-	margin-bottom: 50px;
+	color: $color-white;
 	font-size: 1em;
-	padding-top: 6px;
+	
+	margin-bottom: 50px;
+	margin-left: 40px;
+	margin-right: 40px;
+	margin-top: 0;
 	padding-bottom: 6px;
 	padding-left: 18px;
 	padding-right: 18px;
-	margin-top: 0;
-	margin-left: 40px;
-	margin-right: 40px;
+	padding-top: 6px;	
 }
+
 .styled_btn.white{
 	background-color: $color-cream;
 	color: $color-black;
@@ -303,105 +309,101 @@ $color-black: #000000;
 	color: $color-white;
 }
 .styled_btn1{
-	color: $color-white;
 	background-color: $color-teal;
 	border-radius: 4px;
+	color: $color-white;	
 	font-size: .8em;
-	padding-top: 5px;
 	padding-bottom: 5px;
 	padding-left: 10px;
 	padding-right: 10px;
+	padding-top: 5px;	
 }
 .styled_btn1:hover{
 	color: $color-black;
 }
 // Styling for grid
 .contain{
-	padding: 30px;
-	padding-top: 50px;
 	background-color: $color-cream;
-	position: relative;
-	width: 85%;
+	font-family: Open Sans;
 	margin-left: auto;
 	margin-right: auto;
-	font-family: Open Sans;
+	padding: 30px;
+	padding-top: 50px;	
+	position: relative;
+	width: 85%;	
 }
 .grid-cell{
-	border: 1px solid $color-darkgreen;
-	margin-top: 5px;
-	position: relative;
 	background-color: $color-white;
+	border: 1px solid $color-darkgreen;
 	margin-bottom: 60px;
+	margin-top: 5px;
+	position: relative;	
 }
 .grid_image{
-	padding: 10px;
 	background-color: $color-white;
+	padding: 10px;	
 }
-.grid_content{
+.grid-content{
 	font-size: 1.2em;
 	position: relative;
 }
-.grid_content > .grid-title{
+.grid-content > .grid-title{
 	font-size: .8em;
-	text-align: left;
 	margin: 12px;
 	margin-top: 8px;
+	text-align: left;	
 }
-/*styling for search*/
+//styling for search
 .nav-search-form{
-	display:flex;
-	position: relative;
-	border:1px solid $color-darkgreen;
+	background-color: $color-white;
+	border: 1px solid $color-darkgreen;
 	border-radius: 30px;
+	display: flex;
 	margin-left: auto;
 	margin-right: auto;
-	background-color: $color-white;
+	position: relative;	
 }
 .nav-bar-search-input{
-	border-radius:30px;
-	outline:0;
-	border:0;
-	padding-left:.8rem;
+	border: 0;
+	border-radius: 30px;
+	outline: 0;	
+	padding-left: .8rem;
 }
-#ns{
-	position: relative;
+#ns {
 	margin-bottom: 40px;
 	margin-left: auto;
 	margin-right: auto;
+	position: relative;	
 }
 .search_logo{
-	width: 39.6px;
-	height: 33.2px;
-	position: absolute;
-	border-radius: 30px;
-	top: 0;
-	left: 0;
 	background-color: $color-white;
+	border-radius: 30px;
+	height: 33.2px;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 39.6px;	
 	z-index: 9;
 }
-#search_type{
-	height: 33.2;
-	width: 39.6;
-	border-radius: 30px;
-	cursor:pointer;
-	-webkit-appearance:none;
-	-moz-appearance:none;
-	appearance:none;
-	border-radius:30px;
-	/*background:url("/img/caret.jpg") 100%/25% no-repeat #ddd;*/
+#search_type {
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	appearance: none;
 	background-color: $color-white;
-	font-size:.8rem;
-	padding-right:1.6rem;
+	border-radius: 30px;
+	cursor: pointer;
+	font-size: .8rem;	
+	height: 33.2;
+	padding-right: 1.6rem;
+	width: 39.6;	
 }
 .fa{
-	text-align: center;
-	position: relative;
-	top:4px;
 	left: 8px;
+	position: relative;
+	text-align: center;	
+	top: 4px;	
 }
-img {
-	max-width: 100%;
-}
+
 
 .noSelect {
 	-moz-user-select: none;
@@ -433,24 +435,25 @@ img {
 	margin-right: 5px;
 }
 .margin-right{
-	margin-right: 50px;
-	border-radius:30px;
+	border-radius: 30px;
+	margin-right: 50px;	
 }
-@media (max-width: 830px){
-	#pp{
-		position: absolute;
-		margin-bottom: 30px;
-		text-align: center;
+@media (max-width: 830px) {
+	.pp {
 		font-size: .8em;
+		margin-bottom: 30px;
+		position: absolute;		
+		text-align: center;		
 	}
-	.grid_content > .grid-title{
-		text-align: left;
+
+	.grid-content > .grid-title {
 		font-size: .5em;
 		margin-right: 5px;
+		text-align: left;		
 		}
 }
-@media (max-width: 767px){
-	#pp{
+@media (max-width: 767px) {
+	.pp {
 		position: relative;
 		margin-bottom: 30px;
 		text-align: center;
@@ -458,19 +461,20 @@ img {
 		top:8px;
 		left: 0px;
 	}
-	.grid_content > .grid-title{
+
+	.grid-content > .grid-title {
 		text-align: center;
 		font-size: 1em;
 	}
 }
-@media only screen and (max-width: 480px){
-	/* For mobile phones: */
-	[class*="display-4"]{
+@media only screen and (max-width: 480px) {
+	// For mobile phones:
+	[class*="display-4"] {
 		padding-top:10px;
 	}
 }
-@media (max-width:376px){
-	.nav-bar-search-input.nav1{
+@media (max-width:376px) {
+	.nav-bar-search-input.nav1 {
 	width: 120px;
 	font-size: .7em;
 	}
