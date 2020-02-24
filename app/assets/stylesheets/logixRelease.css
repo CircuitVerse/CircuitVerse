@@ -214,6 +214,7 @@ img {
   [class*="display-4"]{
     padding-top:10px;
   }
+
 }
 @media (max-width:376px){
     .nav-bar-search-input.nav1{
@@ -221,3 +222,4 @@ img {
     font-size: .7em;
     }
 }
+

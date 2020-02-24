@@ -6,3 +6,5 @@ eslint:
   enabled: false
 scss:
   enabled: false
+jshint:
+  enabled: false
