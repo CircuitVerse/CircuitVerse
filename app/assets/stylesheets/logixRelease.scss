@@ -146,11 +146,11 @@ a.btn.btn-outline-danger {
 }
 
 .profile-background {
-  background-color: #fcfcfc;
-  padding: 10px 0 25px 0;
-  max-width: 900px;
+  background-color: $slightblack;
   margin-left: auto;
   margin-right: auto;
+  max-width: 900px;
+  padding: 10px 0 25px;
 }
 
 .btn-favourite{
