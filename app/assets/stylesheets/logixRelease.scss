@@ -228,34 +228,35 @@ a.btn.btn-outline-danger {
   height: 70px;
 }
 
-#teacher_heading{
-  max-width: 768px;
+#teacher_heading {
+  margin-bottom: 35px;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 35px;
+  max-width: 768px;
 }
 
-#teacher_benefit{
+#teacher_benefit {
   margin-bottom: 20px;
 }
 
 .container-fluid_teachers{
-  padding-top: 40px;
   padding-bottom: 40px;
+  padding-top: 40px;
 }
 
 .container-fluid_teachersbackground{
   background-color: $gray-100;
-  padding-top: 40px;
   padding-bottom: 40px;
+  padding-top: 40px;
 }
+
 .image_teachers{
+  border: 1px solid $slight-gray;
+  margin-left: 20px;
   max-height: 100%;
   max-width: 100%;
-  margin-left: 20px;
-  border: 1px solid $slight-gray;
 }
 
 .subheading_teachers{
-  text-align:left;
+  text-align: left;
 }
