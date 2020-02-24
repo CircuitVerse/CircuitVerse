@@ -1,13 +1,12 @@
 // All the custom class styles
-
 .ui-widget.ui-widget-content {
-   height: 60% !important;
+  height: 60% !important;
 }
 
 #insertSubcircuitDialog {
-   overflow-y: scroll;
-   max-height: 70% !important;
-   min-height: 70% !important;
+  max-height: 70% !important;
+  min-height: 70% !important;
+  overflow-y: scroll;
 }
 .noprojects {
   left: 30%;
