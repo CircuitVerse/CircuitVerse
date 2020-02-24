@@ -133,8 +133,8 @@ a.btn.btn-outline-danger {
 
 /* New UI */
 .btn-favourite{
-    display: inline;
-    float:right;
+  display: inline;
+  float:right;
 }
 
 .username{
@@ -157,6 +157,7 @@ a.btn.btn-outline-danger {
   border-top: 1.5px solid $green;
   background-color: $white;
 }
+
 .cardname{
   display: inline;
 }
@@ -176,9 +177,9 @@ a.btn.btn-outline-danger {
 }
 
 .feature-preview{
-    border: 2px solid $green;
-    padding: 1.25rem;
-    border-radius: 0.25em;
+  border: 2px solid $green;
+  padding: 1.25rem;
+  border-radius: 0.25em;
 }
 
 .btn-userprojects{
@@ -203,11 +204,12 @@ a.btn.btn-outline-danger {
 .cardbody-contribute > h3{
   text-align: center;
 }
+
 .cardbody-contribute > ul{
   text-align: left;
 }
 
-.contribute-pay {
+.contribute-pay{
   display: inline-block;
   width: 200px;
   height: 100px;
@@ -226,8 +228,9 @@ a.btn.btn-outline-danger {
   border: 1.5px solid black;
   border-radius: 8px;
   padding: 4px;
-  box-shadow: 3px 3px 6px $shadow-black
+  box-shadow: 3px 3px 6px $shadow-black;
 }
+
 .patreon > img{
   width: 160px;
   height: 70px;
