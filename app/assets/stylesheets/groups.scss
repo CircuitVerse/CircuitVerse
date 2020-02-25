@@ -1,60 +1,60 @@
 .row-group {
-  text-align: center;
   margin-left: auto;
   margin-right: auto;
   max-width: 1344px;
+  text-align: center;
 }
 
 .heading-group {
   color: $black;
-  margin-top: 30px;
   font-weight: bold;
+  margin-top: 30px;
 }
 
 .btn-group {
-  color: $white;
-  border-radius: 40px;
   background-color: $green;
+  border-radius: 40px;
+  color: $white;
   margin: 10px;
   padding: 10px 40px;
 }
 
 .btn-group:hover {
-  color: $green;
   background-color: $white;
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 15px $shadow-black;
+  color: $green;
 }
 
 .card {
-  width: 300px;
-  padding: 15px;
-  margin: 10px 20px;
-  display: flex;
   background-color: $lightgrey;
-  box-shadow: 0px 2px 7px $shadow-black;
   border-radius: 3px;
+  box-shadow: 0 2px 7px $shadow-black;
+  display: flex;
+  margin: 10px 20px;
+  padding: 15px;
+  width: 300px;
 }
 
 .btn {
-  padding: 2px 10px;
-  margin: 5px;
   color: $black;
   font-size: x-small;
+  margin: 5px;
+  padding: 2px 10px;
 }
 
 .mentor-card-group {
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
   border-top: 10px solid $teal;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .btn-mentor-group {
-  padding: 10px;
+  align-items: center;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  align-items: center;
+  padding: 10px;
 }
 
 .btn-view {
@@ -63,46 +63,46 @@
 
 .btn-view:hover {
   background-color: $green;
-  color: white;
+  color: $white;
 }
 
 .btn-edit {
-  border: 1px solid blue;
+  border: 1px solid $blue;
 }
 
 .btn-edit:hover {
-  background-color: blue;
-  color: white;
+  background-color: $blue;
+  color: $white;
 }
 
 .btn-delete {
-  border: 1px solid red;
+  border: 1px solid $danger;
 }
 
 .btn-delete:hover {
-  background-color: red;
-  color: white;
+  background-color: $danger;
+  color: $white;
 }
 
 .in-card-group {
-  flex-direction: row;
-  justify-content: space-around;
   align-items: center;
   border-left: 10px solid $teal;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
 .in-card-name-member {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
 }
 
 .in-card-view {
   background-color: $teal;
-  color: white;
   border-radius: 2px;
-  padding: 0px 10px;
+  color: $white;
+  padding: 0 10px;
 }
 
 .in-card-view:hover {
