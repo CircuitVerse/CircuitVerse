@@ -1,27 +1,26 @@
 <% content_for :title, "CircuitVerse - #{@profile.name}" %>
 
-<div class="container">
-  <div class="row feature">
-
     <div class="container">
-      <h2>Profile</h2>
-      <div class="row">
-        <div class="col-lg-8">
-          <p><strong>Name: </strong><%= @profile.name %></p>
-          <p><strong>Member since: </strong><%= @profile.member_since %> days</p>
+      <div class="row row-about">
+        <div class="col-xs col-sm col-md col-lg">
+          <h1 class="heading-profile">User Profile</h1>
+        </div>
+      </div>
+      <div class="row profile-background">
+        <div class="col-xs col-sm-12 col-md col-lg-6">
+          <div class="row-about">
+            <%= image_tag @profile.profile_picture.url(:medium, alt: "@user.name"), style: "width: 150px; height: 150px; border: 0px; margin: 30px 30px 20px 30px;" %>
+            <h3><%= @profile.name %></h3>
+          </div>
+        </div>
+        <div id="profile-details" class="col-xs col-sm-12 col-md col-lg-6">
+          <p><strong>Member Since: </strong><%= @profile.member_since %> days</p>
           <p><strong>Educational Institution: </strong><%= @profile.educational_institute %></p>
           <p><strong>Country: </strong><%= @profile.country_name %></p>
           <p><strong>Subscribed to mails: </strong><%= @profile.mail_subscription %></p>
           <% if policy(@user).edit? %>
-            <p><a class="btn btn-secondary" href=<%= profile_edit_path(current_user) %> role="button">Edit </a></p>
+            <a class="btn btn-about" href=<%= profile_edit_path(current_user) %> role="button">Edit Details</a>
           <% end %>
         </div>
-        <div class="col-lg-4">
-          <%= image_tag @profile.profile_picture.url(:medium), style: "border: 2px solid black" %>
         </div>
-      </div>
     </div>
-  </div>
-  <br/>
-  <br/>
-</div>

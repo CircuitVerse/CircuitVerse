@@ -21,6 +21,7 @@ function TB_Input(x, y, scope = globalScope, dir = "RIGHT",  identifier, testDat
 }
 TB_Input.prototype = Object.create(CircuitElement.prototype);
 TB_Input.prototype.constructor = TB_Input;
+TB_Input.prototype.tooltipText = "Test Bench Input Selected";
 TB_Input.prototype.centerElement = true;
 TB_Input.prototype.dblclick=function(){
     this.testData=JSON.parse(prompt("Enter TestBench Json"));
@@ -42,6 +43,7 @@ TB_Input.prototype.setup=function(){
     this.deleteNodes();
     this.nodeList = []
     this.nodeList.push(this.clockInp);
+    this.testData = this.testData || { "inputs": [], "outputs": [], "n": 0 };
     // this.clockInp = new Node(0,20, 0,this,1);
 
     this.setDimensions();
@@ -290,6 +292,7 @@ function TB_Output(x, y, scope = globalScope, dir = "RIGHT",  identifier) {
 
 TB_Output.prototype = Object.create(CircuitElement.prototype);
 TB_Output.prototype.constructor = TB_Output;
+TB_Output.prototype.tooltipText = "Test Bench Output Selected";
 TB_Output.prototype.centerElement = true;
 // TB_Output.prototype.dblclick=function(){
 //     this.testData=JSON.parse(prompt("Enter TestBench Json"));

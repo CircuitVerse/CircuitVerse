@@ -68,6 +68,8 @@ button:focus {
     padding: 5px;
     width: 200px;
     margin: 3px;
+    word-wrap:break-word;
+    overflow-x:hidden;
 }
 
 .pannel-heading {
