@@ -15,11 +15,11 @@
       <% @groups_mentored.each do |group| %>
         <div class="card mentor-card-group">
           <div style="font-size: 30px; font-weight: bold"><%= group.name %></div>
-          <div style="font-size: 18px"> Total Members: <%=group.group_member_count %></div>
+          <div style="font-size: 18px"> Total Members: <%= group.group_member_count %></div>
           <div class="btn-mentor-group">
-            <%= link_to 'View', group, class: "btn btn-view"%>
-            <%= link_to 'Edit', edit_group_path(group), class: "btn btn-edit"%>
-            <%= link_to 'Delete', group, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-delete"%>
+            <%= link_to 'View', group, class: "btn btn-view" %>
+            <%= link_to 'Edit', edit_group_path(group), class: "btn btn-edit" %>
+            <%= link_to 'Delete', group, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-delete" %>
           </div>
         </div>
       <% end %>
@@ -33,9 +33,9 @@
         <div class="card in-card-group">
           <div class="in-card-name-member">
             <div style="font-size: 30px; font-weight: bold"><%= group.name %></div>
-            <div style="font-size: 18px"> Total Members: <%=group.group_member_count %></div>
+            <div style="font-size: 18px"> Total Members: <%= group.group_member_count %></div>
           </div>
-          <%= link_to 'View', group, class: "in-card-view"%>
+          <%= link_to 'View', group, class: "in-card-view" %>
         </div>
       <% end %>
     </div>
