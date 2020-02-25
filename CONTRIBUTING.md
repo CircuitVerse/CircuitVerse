@@ -5,11 +5,11 @@
 
 ## How to Contribute
 
-When you are ready to start work on a issue:
+When you are ready to start work on an issue:
 
 - Let us know by leaving a comment on the issue. (Also let us know later if you are no longer working on it.)
 
-- Once you are assigned the issue (or you have claimed the issue) only then proceed to making the Pull Request. This will help avoid multiple PRs pertaining to the same issue.
+- Once you are assigned the issue (or you have claimed the issue) only then proceed to making the Pull Request (PR). This will help avoid multiple PR's pertaining to the same issue.
 
 If you don't see your idea listed, do one of the following:
 

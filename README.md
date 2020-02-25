@@ -17,7 +17,7 @@
 - `git clone https://github.com/CircuitVerse/CircuitVerse.git` this repository
 - `cd CircuitVerse`
 
-**Note :** If you want to contribute, first fork the original repository and clone the forked repository into your local machine followed by ```cd``` into the directory
+**Note :** If you want to contribute, first fork the original repository and clone the forked repository into your local machine followed by ```cd``` into the directory.
 
 ```sh
 git clone https://github.com/<username>/CircuitVerse.git
@@ -26,7 +26,7 @@ cd CircuitVerse
 
 ## Setup Instructions
 
-Please go through the [Contribution Guidelines](CONTRIBUTING.md) before going forward with any development. This helps us keep the process streamlined and results in better PRs
+Please go through the [Contribution Guidelines](CONTRIBUTING.md) before going forward with any development. This helps us keep the process streamlined and results in better PRs.
 
 **Note:** You might want to use the docker instructions if you do not want to setup your own environment.
 
@@ -46,7 +46,7 @@ If you encounter the following error,
 ```
 Error: File to import not found or unreadable: bootstrap/scss/bootstrap.scss
 ```
-run `yarn` to install frontend dependencies
+run `yarn` to install frontend dependencies.
 
 Additional software:
 * Install imagemagick
@@ -55,10 +55,10 @@ Additional software:
 
 ## Running Tests
 
-Ensure all tests are passing locally before making a pull request. To run tests -
+Ensure all tests are passing locally before making a pull request. To run tests :
 * `bundle exec rspec` or `bin/rake spec:all`
 
-**Note:** To pass Systems Tests you need [Chrome Browser](https://www.google.com/chrome/browser/desktop/index.html) installed
+**Note:** To pass Systems Tests you need [Chrome Browser](https://www.google.com/chrome/browser/desktop/index.html) installed.
 
 ## Docker Instructions
 
@@ -128,11 +128,11 @@ This repository contains the [Code of Conduct](./code-of-conduct.md) of [Circuit
 ## CircuitVerse Community
 
 We would love to hear from you :smile:
-Here are links to our:
+Here are links to our communication channels:
 
-[![Slack](https://img.shields.io/badge/chat-on_slack-pink.svg)](https://join.slack.com/t/circuitverse-team/shared_invite/enQtNjc4MzcyNDE5OTA3LTdjYTM5NjFiZWZlZGI2MmU1MmYzYzczNmZlZDg5MjYxYmQ4ODRjMjQxM2UyMWI5ODUzODQzMDU2ZDEzNjI4NmE)
+[![Slack](https://img.shields.io/badge/chat-on_slack-pink.svg)](https://join.slack.com/t/circuitverse-team/shared_invite/enQtNjc4MzcyNDE5OTA3LTdjYTM5NjFiZWZlZGI2MmU1MmYzYzczNmZlZDg5MjYxYmQ4ODRjMjQxM2UyMWI5ODUzODQzMDU2ZDEzNjI4NmE) Channel on Slack.
 
-[![Discord](https://img.shields.io/discord/552660710232948749.svg)](https://discord.gg/95x8H7b) - This is an official fan communication channel. Thanks to [@jbox1](https://github.com/jbox144) for this initiative.
+[![Discord](https://img.shields.io/discord/552660710232948749.svg)](https://discord.gg/95x8H7b) Channel on Discord (official fan communication). Thanks to [@jbox1](https://github.com/jbox144) for this initiative.
 
 ## Contributors
 
