@@ -58,3 +58,153 @@
   position: absolute;
   top: 35%;
 }
+
+.thread {
+    display: block!important;
+}
+
+.thread .commontator_hidden {
+    display: none;
+}
+
+.thread_actions {
+    float: right;
+}
+
+.thread_header {
+    font-size: 20px;
+    font-style: normal;
+    font-weight: bold;
+    margin-top: 25px;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.thread_reply {
+    font-size: 15px;
+}
+
+.comment {
+    font-size: 12px;
+    font-weight: 400;
+    font-style: normal;
+    margin-top: 35px;
+    margin-bottom: 35px;
+    padding-left: 15px;
+    color: #000;
+    border-color: white;
+    background-color: #fff;
+    clear: both;
+}
+
+.comment_div_style {
+    clear: both;
+    font-size: 14px;
+}
+
+.comment_form_field textarea {
+    padding: 0px;
+    width: 100%;
+}
+
+.comment_body {
+    padding-top: 3px;
+}
+
+.comment_body p {
+    margin: 0;
+    overflow: hidden;
+}
+
+.comment_votes {
+    float: right;
+    text-align: center;
+    height: 40px;
+    width: 40px;
+}
+
+.comment_votes form {
+    margin: 0;
+}
+
+.comment_avatar {
+    float: left;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    height: 30px;
+    width: 30px;
+}
+
+.comment_name {
+    font-weight: bold;
+}
+
+.thread .mentions-input-box .mentions {
+    left: -2px!important;
+    top: -2px!important;
+}
+
+.mentions-input-box .mentions {
+    position: absolute;
+    left: 1px;
+    right: 0;
+    top: 1px;
+    bottom: 0;
+    padding: 9px;
+    color: #fff;
+    overflow: hidden;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.mentions-input-box textarea {
+    overflow: hidden;
+    background: 0 0;
+    position: relative;
+    resize: none;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.mentions-input-box .mentions-autocomplete-list {
+    display: none;
+    background: #fff;
+    border: 1px solid #b2b2b2;
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 10000;
+    margin-top: -2px;
+    border-radius: 5px;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    -webkit-box-shadow: 0 2px 5px rgba(0,0,0,.148438);
+    -moz-box-shadow: 0 2px 5px rgba(0,0,0,.148438);
+    box-shadow: 0 2px 5px rgba(0,0,0,.148438);
+}
+
+.comment_upvote {
+    display: block;
+    height: 18px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.comment_downvote {
+    display: block;
+    height: 18px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 15px;
+}
+
+.comment_commontator a {
+    color: black;
+    font-weight: bold;
+}
+
+.comment_actions_link a {
+    color: black;
+    text-decoration: underline;
+}
