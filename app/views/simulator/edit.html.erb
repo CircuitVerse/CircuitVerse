@@ -4,6 +4,7 @@
 <!-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384&#45;BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/introjs.css">  
 <div>
   <script>
     userSignedIn = <%= user_signed_in? %>;
@@ -47,25 +48,36 @@
         </ul>
       </li>
       <li class="">
-        <a href="https://docs.circuitverse.org"  target="_blank" role="button" aria-haspopup="true" aria-expanded="false">Help</a>
+        <a href="https://docs.circuitverse.org"  data-step = '3' data-intro = 'Click here for detailed documentation' target="_blank" role="button" aria-haspopup="true" aria-expanded="false">Help</a>
       </li>
+      <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Project<span class="caret"></span></a>
+      <ul class="dropdown-menu">
+        <li class="toolbarButton logixButton"><a class="c-button c-button--outline" onclick="introJs().start();">Step-By-Step</a></li>
+        <li class="toolbarButton logixButton"><button style="margin:15px;" class="vpop c-button c-button--outline" data-type="youtube" data-id="6xcG6ttMDVY" data-autoplay='true'>Video Tutorial</button></li>
+       
+      </ul>
+    </li>
     </ul>
-    <span class="projectName noSelect defaultCursor font-weight-bold" id="projectName">
+    <span class="projectName noSelect defaultCursor font-weight-bold" id="projectName" data-step = '4' data-intro='Set a suitable title for your Project' >
       Untitled
     </span>
+    
+    
     <ul class="nav navbar-nav noSelect pointerCursor pull-right">
       <li class="dropdown pull-right">
         <%if user_signed_in? %>
-          <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %><span class="caret"></span></a>
+          <a data-step = '5' data-intro = 'Sign-In and Save Your Project' href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %><span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li class="toolbarButton" ><a href=<%=  profile_path(current_user) %>>Profile</a></li>
             <li class="toolbarButton" ><a href= <%=  user_path(current_user) %>>My circuits</a></li>
             <li class="toolbarButton" ><a href= <%=  user_groups_path(current_user) %>>My groups</a></li>
             <div class="dropdown-divider"></div>
+            
             <li class="toolbarButton" ><a rel="nofollow" data-method="delete" href= <%= destroy_user_session_path%> >Sign out</a></li>
           </ul>
         <%else%>
-          <a class="navbar-nav nav-link" href=<%= new_user_session_path  %>> Sign in </a>
+          <a data-step = '5' data-intro = 'Sign-In and Save Your Project' class="navbar-nav nav-link" href=<%= new_user_session_path  %>> Sign in </a>
         <%end %>
       </li>
     </ul>
@@ -76,12 +88,13 @@
   <div class="side left" id="sideBar" style="overflow-y: scroll;overflow-x: hidden">
     <div class="modules noSelect defaultCursor" >
       <div id="modules-header">Circuit Elements</div>
-      <div class="accordion" id="menu">
+      <div data-step = "1" data-intro = "Here, You can add different kinds of I/O elements to your circuit.
+      Usage : Select an element and drop it as per requirement on your Canvas" class="accordion" id="menu">
       </div>
     </div>
     <div class="moduleProperty effect1" id="moduleProperty">
       <div id="moduleProperty-title" class="noSelect pointerCursor">Properties</div>
-      <div id="moduleProperty-inner"></div>
+      <div data-step = "2" data-intro = "Here, you can set Properties to your Circuit elements and to your Project" id="moduleProperty-inner"></div>
       <!-- <div id="moduleProperty-toolTip"></div> -->
     </div>
   </div>
@@ -264,8 +277,18 @@
     //
     //      $(this).parent('.dropdown').addClass('open');
     //    });
-  </script>
-  <link rel="stylesheet" type="text/css" href="/css/UX.css"/>
+ </script>
+ <div id="video-popup-overlay"></div>
+
+<div id="video-popup-container">
+  <div id="video-popup-close" class="fade">&#10006;</div>
+  <div id="video-popup-iframe-container">
+    <iframe id="video-popup-iframe" src="" width="100%" height="100%" frameborder="0"></iframe>
+  </div>
+</div> 
+ 
+ 
+ <link rel="stylesheet" type="text/css" href="/css/UX.css"/>
   <link rel="stylesheet" type="text/css" href="/css/restrictedElements.css"/>
   <!-- <script src="./SAP_DATA.js"></script> -->
   <script src="/js/utils.js"></script>
@@ -295,4 +318,5 @@
     <script src="/js/Quin_McCluskey.js"></script>
   <%end%>
  <script src="/js/canvas2svg.js"></script>
-<div>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/intro.js"></script>      
+ <div>

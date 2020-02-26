@@ -1,4 +1,111 @@
-.deleteOff {
+#video-popup-container {
+    display:none;
+    position: fixed;
+    z-index: 996;
+    width: 60%;
+    left: 50%;
+    margin-left: -30%;
+    top: 20%;
+    background-color: #fff;
+  }
+  
+  #video-popup-close {
+    cursor: pointer;
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    z-index: 998;
+    width: 25px;
+    height: 25px;
+    border-radius: 25px;
+    text-align: center;
+    font-size: 12px;
+    background-color: #000;
+    line-height: 25px;
+    color: #fff;
+  }
+  
+  #video-popup-iframe-container {
+    position: absolute;
+    z-index: 997;
+    width: 100%;
+    padding-bottom: 56.25%;
+    border: 2px solid #000;
+    border-radius: 2px;
+    background-color: #000;
+  }
+  
+  #video-popup-iframe {
+    z-index: 999;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-color: #000;
+  }
+  
+  #video-popup-overlay {
+    display: none;
+    position: fixed;
+    z-index: 995;
+    top: 0;
+    background-color: #000;
+    opacity: 0.8;
+    width: 100%;
+    height: 100%;
+  }
+  
+  #video-popup-close:hover {
+    color: #DE0023;
+  }
+
+  .c-button
+  {
+      font-family: "Open Sans", Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 20px;
+  
+      position: relative;
+  
+      display: inline-block;
+  
+      box-sizing: border-box;
+      min-height: 34px;
+      padding: 6px 12px;
+  
+      cursor: pointer;
+      user-select: none;
+      transition: background-color .25s ease, border-color .25s ease, color .25s ease;
+      text-align: center;
+      vertical-align: middle;
+      white-space: normal;
+      text-decoration: none;
+  
+      color: #fff;
+      border: 1px solid #434a54;
+      border-radius: 3px;
+      background: #656d78;
+  
+      -webkit-appearance: none;
+  }
+
+  .c-button--outline
+{
+    color: #434a54;
+    border-color: #434a54;
+    background-color: transparent;
+}
+.c-button--outline:hover
+{
+    color: #fff;
+    border-color: #434a54;
+    background-color: #434a54;
+}
+
+
+  .deleteOff {
     color: red;
     float: right;
     cursor: pointer;
