@@ -23,23 +23,28 @@
   background-color: $white;
   box-shadow: 0 8px 15px $shadow-black;
   color: $green;
+  text-decoration: none;
 }
 
-.card {
+.card-group {
   background-color: $lightgrey;
   border-radius: 3px;
   box-shadow: 0 2px 7px $shadow-black;
   display: flex;
-  margin: 10px 20px;
+  margin: 10px;
   padding: 15px;
-  width: 300px;
 }
 
-.btn {
+.btn-card {
+  border-radius: 2px;
   color: $black;
   font-size: x-small;
   margin: 5px;
-  padding: 2px 10px;
+  padding: 2px 20px;
+}
+
+.btn-card:hover {
+  text-decoration: none;
 }
 
 .mentor-card-group {
@@ -108,4 +113,14 @@
 .in-card-view:hover {
   background-color: $white;
   color: $teal;
+  text-decoration: none;
+}
+
+.group-name {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.group-member-count {
+  font-size: 18px;
 }
