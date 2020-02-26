@@ -7,6 +7,7 @@
    no_remote ||= false
 %>
 
+
 <% config = comment.thread.config %>
 
 <% if comment.errors.any? %>
@@ -24,15 +25,15 @@
 <%= form_with(model: [commontator, thread, comment], local: no_remote) do |f| %>
 
   <%= hidden_field_tag :per_page, per_page %>
-  
+
   <div class="comment_form_field">
     <%= f.text_area :body, rows: '7' %>
     <%= javascript_tag('Commontator.initMentions()') if Commontator.mentions_enabled %>
   </div>
-  
+
   <div class="comment_form_actions">
     <%= f.submit t("commontator.comment.actions.#{comment.id.blank? ? 'create' : 'update'}") %>
     <%= f.submit t('commontator.comment.actions.cancel'), name: 'cancel' %>
   </div>
-  
+
 <% end %>
