@@ -19,22 +19,6 @@
 
 <span id="thread_<%= thread.id %>_span" class="thread_span">
   <span id="thread_<%= thread.id.to_s %>_actions_span" class="thread_actions">
-    <span id="thread_<%= thread.id.to_s %>_hide_span" class="thread_hide commontator_hidden">
-      <%= link_to t('commontator.thread.actions.hide'),
-                  '#',
-                  id: "thread_#{thread.id.to_s}_hide_link",
-                  class: "thread_hide_link" %>
-    </span>
-
-    &nbsp;
-
-    <% if can_subscribe %>
-      <span id="thread_<%= thread.id.to_s %>_subscription_span" class="thread_subscription">
-        <%= render partial: 'commontator/subscriptions/link',
-                   locals: { thread: thread,
-                                user: user } %>
-      </span>
-    <% end %>
 
     &nbsp;
 
