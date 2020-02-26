@@ -9,10 +9,46 @@ p {
     text-align: justify;
 }
 
-.feature {
+.feature_post {
+    border: 1.5px solid #cbcbcb;
+    padding: 0.6rem 0.4rem;
+}
+
+.iframe-box {
     border: 1px solid rgba(0, 0, 0, 0.125);
-    padding: 1.25rem;
-    border-radius: 0.25em;
+    border-radius: 0.25rem;
+    padding: 0.4rem;
+}
+
+.container-in {
+    padding-top: 50px;
+}
+
+.card-body_post {
+    text-decoration: none;
+    border: 0px;
+    padding: 25px;
+}
+
+.btn_post {
+    height: 28px;
+    font-size: 13px;
+    margin-left: 0px;
+}
+
+.fa_post {
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: 13px;
+}
+
+a {
+    color : #0082ff;
+}
+
+.btnself_post {
+    border: 1.5px solid #2f8875;
+    background-color: white;
+    color: black;
 }
 
 .gif-box {
@@ -129,8 +165,4 @@ a.btn.btn-outline-primary {
 
 a.btn.btn-outline-danger {
     margin-top: 10px;
-}
-
-.card-shadow:hover {
-    box-shadow: 4px 4px #dfdfdf;
 }
