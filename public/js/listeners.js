@@ -144,7 +144,7 @@ function startListeners() {
             }
         }
 
-        if (e.keyCode == 8 || e.key == "Delete") {
+        if (e.key == "Delete") {
             delete_selected();
         }
 
