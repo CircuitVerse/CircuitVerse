@@ -36,11 +36,16 @@
 }
 
 .btn-card {
+  align-items: center;
   border-radius: 2px;
   color: $black;
+  display: flex;
   font-size: x-small;
+  flex-direction: row;
+  justify-content: center;
   margin: 5px;
-  padding: 2px 20px;
+  padding: 2px;
+  width: 75px;
 }
 
 .btn-card:hover {
