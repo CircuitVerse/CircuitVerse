@@ -318,25 +318,7 @@ img.resize{
 
 
 
-/*  Style for jumbotron*/
-.jumbotron_examples{
-  background-color: white;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  margin-bottom: 0px;
-  padding:30px;
-  font-family: Open Sans;
-}
-.jumbotron1 h1{
-  font-size: 2.5em;
-  font-weight: 500;
-  color: #026E57;
-  text-align: center;    
-}
-.jumbotron1 p{
-  font-size: 20px;
-}
+
 .pp{
  position: absolute;
  top: 30%;
@@ -442,109 +424,7 @@ img.resize{
   margin: 12px;
   margin-top: 8px;
 }
-/*styling for search*/
-.nav-search-form{
-  display:flex;
-  position: relative;
-  border:1px solid #026E57;
-  border-radius: 30px;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: white;
-}
-.nav-bar-search-input{
-  border-radius:30px;
-  outline:0;
-  border:0;
-  padding-left:.8rem;
-}
-#ns{
-  position: relative;
-  margin-bottom: 40px;
-  margin-left: auto;
-  margin-right: auto;
-}
-.search_logo{
-  width: 39.6px;
-  height: 33.2px;
-  position: absolute;
-  border-radius: 30px;
-  top: 0;
-  left: 0;
-  background-color: white;
-  z-index: 9;
-}
-#search_type{
-  height: 33.2;
-  width: 39.6;
-  border-radius: 30px;
-  cursor:pointer;
-  -webkit-appearance:none;
-  -moz-appearance:none;
-  appearance:none;
-  border-radius:30px;
-  /*background:url("/img/caret.jpg") 100%/25% no-repeat #ddd;*/
-  background-color: white;
-  font-size:.8rem;
-  padding-right:1.6rem;
-}
-.fa{
-  text-align: center;
-  position: relative;
-  top:4px;
-  left: 8px;
-  
-}
-img {
-  max-width: 100%;
-}
 
-.noSelect {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -o-user-select: none;
-}
-
-.pointerCursor {
-  cursor: pointer;
-}
-
-.defaultCursor {
-  cursor: default;
-}
-
-#assignment-grade-form {
-  display: inline-block;
-  width: 100%;
-}
-/* Utility Functions*/
-.page_mid{
- text-align: center;
-}
-.margin{
-  margin-top: 5px;
-  margin-left: 5px;
-  margin-right: 5px;
-}
-.margin-right{
-  margin-right: 50px;
-  border-radius:30px;
-}
-@media (max-width: 830px){
-  .pp{
-    position: absolute;
-    margin-bottom: 30px;
-    text-align: center;
-    font-size: .8em;
-  }
-  .grid_content > .grid-title{
-    text-align: left;
-    font-size: .5em;
-    margin-right: 5px;
-  }
-}
 @media (max-width: 767px){
   .pp{
     position: relative;
@@ -566,12 +446,6 @@ img {
   }
 }
 
-@media (max-width:376px) {
-  .nav-bar-search-input.nav1{
-    width: 120px;
-    font-size: .7em;
-  }
-}
 
 @media (max-width: 576px)  {
   .row_homepage {
