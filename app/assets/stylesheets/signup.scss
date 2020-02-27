@@ -7,16 +7,16 @@
 }
 
 .form-container {
-  max-width: 80%;
-  margin-top:30px;
   margin-left: 40px;
+  margin-top: 30px;
+  max-width: 80%;
 }
 
 .center-block {
   display: block;
-  text-align: center;
-  margin-right: auto;
   margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 
 .custom-submit {
@@ -46,11 +46,12 @@
 }
 
 .link-text {
+  color: $green;
+  font-weight: 600;
   padding-left: 5px;
   padding-top: 10px;
-  font-weight: 600;
   text-decoration: underline;
-  color: $green;
+
 }
 
 .form-control.custom-input,
@@ -72,9 +73,9 @@ select {
   transition: background-color 5000s ease-in-out 0s;
 }
 
-.ml-1{
-  margin-top: 8px;
+.ml-1 {
   height: 40px;
+  margin-top: 8px;
   width: 40px;
 }
 /*login/signup css ends*/

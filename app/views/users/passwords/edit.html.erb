@@ -12,7 +12,7 @@
         <%= devise_error_messages! %>
         <%= f.hidden_field :reset_password_token %>
 
-        <div class="form-group">
+        <div class="field form-group">
           <%= f.label :password, class:"label-text"%>
           <% if @minimum_password_length %>
           <span>(Minimum <%= @minimum_password_length %> characters)</span>
@@ -22,28 +22,28 @@
           </div>
         </div>
 
-        <div class="form-group">
+        <div class="field form-group">
           <%= f.label :password_confirmation, class:"label-text" %>
           <div class="input-group">
             <%= f.password_field :password_confirmation, autocomplete: "off", class:"form-control custom-input" %>
           </div>
         </div>
 
-        <div class="form-group mt-4">
+        <div class="field form-group mt-4">
           <div class="input-group">
             <%= f.submit "Change my password" ,class:"btn btn-about custom-submit" %>
             <%= link_to "Go to Login Page", new_session_path(resource_name) ,class:"link-text pl-3" %>
           </div>
         </div>
 
-        <div class="form-group">
+        <div class="field form-group">
           <div class="input-group">
             <span class="help-text"> New User? </span>
             <%= link_to "Sign up", new_registration_path(resource_name) ,class:"link-text pl-1" %>
           </div>
         </div>
 
-        <div class="form-group mt-3">
+        <div class="field form-group mt-3">
           <%= render "users/shared/links" %>
         </div>
         <% end %>
