@@ -1,47 +1,57 @@
 <link href="/css/typeahead.min.css" rel="stylesheet">
+
+<div class="container my-4 text-center">
+
+  <h1>EDIT PROFILE</h1>
+   <div class="container my-5 text-center">
+  <h4> Fields marked withare<span class="required">*</span> mandatory</h4>
+   </div>
+</div>
+
 <div class="container">
-  <div class="row feature">
+  <div class="row">
 
     <div class="container">
 
-      <h2>Profile</h2>
-
+   
       <%= form_with model: @profile, multipart: true, url: { action: "update" }, local: true do |f| %>
         <div class="field form-group">
-          <%= f.label :name %><br>
-          <%= f.text_field :name, required: true, class:"form-control" %>
+         <%= f.label :name, { class: 'boldtext'} %><span class="required">*</span><br>
+          <%= f.text_field :name, required: true, class:"form-control  bordertextfeild " %>
+        </div>
+        
+        <div class="form-group">
+          <label for="profile_picture" class="boldtext" >Profile Picture:</label>
+          <p> <%= image_tag @profile.profile_picture.url(:thumb), id:'imgedit', height:'160', width:'155' %></p>
+          <label for="profile_picture" class="custom-file-upload boldtext">
+            Choose File
+            <input type="file" class="filebtn" id="profile_picture" name="user[profile_picture]" onchange="readURL(this);" value="<%= @profile.profile_picture %>">
+          </label>
         </div>
 
+        
+
         <div class="field form-group">
-          <%= f.label :country %><br/>
-          <%= f.country_select :country, { include_blank: 'Prefer Not To Enter', priority_countries: get_priority_countries() }, { class: "form-control" } %>
+         <%= f.label :country, { class: 'boldtext'} %><br/>
+          <%= f.country_select :country, { include_blank: 'Prefer Not To Enter', priority_countries: get_priority_countries() }, { class: "form-control bordertextfeildtop" } %>
         </div>
 
         <div class="field form-group ">
-          <%= f.label :educational_institute %><br/>
-          <%= f.text_field :educational_institute,{ class: "typeahead form form-group form-control",autocomplete:"off" } %>
+          <%= f.label :educational_institute , { class: 'boldtext'} %><br/>
+          <%= f.text_field :educational_institute,{ class: "typeahead form form-group form-control bordertextfeild",autocomplete:"off" } %>
         </div>
-
-        <div class="form-group">
-          <label for="profile_picture">Profile Picture:</label>
-          <p> <%= image_tag @profile.profile_picture.url(:thumb), id:'imgedit', height:'160', width:'155' %></p>
-          <input type="file" class="form-control" id="profile_picture" name="user[profile_picture]" onchange="readURL(this);" value="<%= @profile.profile_picture %>">
-        </div>
-
+       
         <div class="field form-group">
-          <label for="profile_subscribed">Subscribed to mails: </label>
-          <%= f.check_box :subscribed, {checked: @profile.subscribed?, style: 'margin-top: 0', id: "profile_subscribed"} %>
+         <label for="profile_subscribed" class="boldtext" >Subscribed to mails: </label>
+          <%= f.check_box :subscribed, {checked: @profile.subscribed?, style: 'margin-top: 0;width: 20px;height: 20px;' , id: "profile_subscribed"}%>
+           
         </div>
-        <button type="submit" class="btn btn-secondary">Save</button>
+        <button type="submit" class="btn btn-success rounded-0 ">Save</button>
       <% end %>
-
 
     </div>
     <br/>
-
     <br/>
-
-
   </div>
 </div>
 <script>
@@ -72,3 +82,4 @@ function readURL(input) {
         source: bloodhound.ttAdapter()
     });
 </script>
+
