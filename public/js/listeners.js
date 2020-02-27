@@ -52,7 +52,11 @@ function startListeners() {
     });
     window.addEventListener('mousemove', onMouseMove);
 
-
+    window.addEventListener('copy', (event) => {
+        const selection = document.getSelection();
+        event.clipboardData.setData('text/plain', selection.toString());
+        event.preventDefault();
+    });
 
     window.addEventListener('keydown', function(e) {
 
@@ -102,16 +106,16 @@ function startListeners() {
         wireToBeChecked = 1;
 
         // Needs to be deprecated, moved to more recent listeners
-        if (simulationArea.controlDown && (e.key == "C" || e.key == "c")) {
+       // if (simulationArea.controlDown && (e.key == "C" || e.key == "c")) {
             //    simulationArea.copyList=simulationArea.multipleObjectSelections.slice();
             //    if(simulationArea.lastSelected&&simulationArea.lastSelected!==simulationArea.root&&!simulationArea.copyList.contains(simulationArea.lastSelected)){
             //        simulationArea.copyList.push(simulationArea.lastSelected);
             //    }
             //    copy(simulationArea.copyList);
-        }
-        if (simulationArea.controlDown && (e.key == "V" || e.key == "v")) {
+       // }
+       // if (simulationArea.controlDown && (e.key == "V" || e.key == "v")) {
             //    paste(simulationArea.copyData);
-        }
+       // }
 
         if (simulationArea.lastSelected && simulationArea.lastSelected.keyDown) {
             if (e.key.toString().length == 1 || e.key.toString() == "Backspace") {
