@@ -85,16 +85,16 @@
 }
 
 .comment {
-  background-color: #fff;
-  border-color: #ffffff;
+  background-color: $white;
+  border-color: $white;
   clear: both;
-  color: #000;
+  color: $black;
   font-size: 12px;
   font-weight: 400;
   font-style: normal;
   margin-top: 35px;
   margin-bottom: 35px;
-  padding-left: 15px;  
+  padding-left: 15px;
 }
 
 .comment_div_style {
@@ -146,7 +146,7 @@
 
 .mentions-input-box .mentions {
   bottom: 0;
-  color: #fff;
+  color: $white;
   left: 1px;
   overflow: hidden;
   padding: 9px;
@@ -169,8 +169,8 @@
 
 .mentions-input-box .mentions-autocomplete-list {
   display: none;
-  background: #fff;
-  border: 1px solid #b2b2b2;
+  background: $white;
+  border: 1px solid $borderColor;
   position: absolute;
   left: 0;
   right: 0;
@@ -179,9 +179,9 @@
   border-radius: 5px;
   border-top-right-radius: 0;
   border-top-left-radius: 0;
-  -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, .148438);
-  -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, .148438);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, .148438);
+  -webkit-box-shadow: 0 2px 5px $featurePostBorder;
+  -moz-box-shadow: 0 2px 5px $featurePostBorder;
+  box-shadow: 0 2px 5px $featurePostBorder;
 }
 
 .comment_upvote {
@@ -200,11 +200,11 @@
 }
 
 .comment_commontator a {
-  color: #000000;
+  color: $black;
   font-weight: bold;
 }
 
 .comment_actions_link a {
-  color: #000000;
+  color: $black;
   text-decoration: underline;
 }
