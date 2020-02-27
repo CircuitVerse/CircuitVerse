@@ -1,13 +1,11 @@
-<div class="container-fluid">
+<div class="container">
   <div class="row">
-    <div class="col-lg-6 col-md-6 middle-block">
-      <%= image_tag "SVGs/login.svg",alt: "login-theme", :class => "signup-cover center-block"%>
-      <div class="welcome-text">
-        <label>Welcome back to the Digital Circuit Universe!</label>
-      </div>
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 center-block">
+      <%= image_tag "SVGs/login.svg", alt: "login-theme", :class => "signup-cover center-block" %>
+      <h5>Welcome back to the Digital Circuit Universe!</h5>
     </div>
 
-    <div class="col-lg-6 col-md-6 middle-block">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
       <div class="form-container">
         <h1 class="pb-3">Log In</h1>
         <%= form_with(model: resource, as: resource_name, url: session_path(resource_name), local: true) do |f| %>
@@ -15,17 +13,17 @@
           <div class="alert alert-danger"><%= value %></div>
         <% end %>
 
-        <div class="field form-group">
+        <div class="form-group">
           <%= f.label :email, class:"label-text" %>
           <div class="input-group">
-            <%= f.email_field :email, autofocus: true, class:"form-control custom-input", placeholder: 'Email'%>
+            <%= f.email_field :email, autofocus: true, class:"form-control custom-input" %>
           </div>
         </div>
 
-        <div class="field form-group">
+        <div class="form-group">
           <%= f.label :password, class:"label-text" %>
           <div class="input-group">
-            <%= f.password_field :password, autocomplete: "off" ,class:"form-control custom-input", placeholder: 'Password',  id:"password-input"%>
+            <%= f.password_field :password, autocomplete: "off" ,class:"form-control custom-input", id:"password-input" %>
             <div class="input-group-addon" onclick="toggleLoginPassword()">
               <i  class="fa fa-eye-slash password-icon" aria-hidden="true" id="toggle-icon"></i>
             </div>
@@ -33,21 +31,21 @@
         </div>
 
         <% if devise_mapping.rememberable? -%>
-          <div class="field form-group">
+          <div class="form-group">
             <%= f.check_box :remember_me %>
             <%= f.label :remember_me ,class:"help-text" %>
           </div>
         <% end -%>
 
-        <div class="field form-group">
-          <div class="input-group center-block">
-            <%= f.submit "Log in" ,class:"btn custom-submit"%>
+        <div class="form-group">
+          <div class="input-group">
+            <%= f.submit "Log in" ,class:"btn btn-about custom-submit" %>
             <span class="help-text"> New User? </span>
-            <%= link_to "Sign up", new_registration_path(resource_name) ,class:"link-text pl-1"%>
+            <%= link_to "Sign up", new_registration_path(resource_name) ,class:"link-text pl-1" %>
           </div>
         </div>
 
-        <div class="field form-group mt-3">
+        <div class="form-group mt-3">
           <%= render "users/shared/links" %>
         </div>
         <% end %>
