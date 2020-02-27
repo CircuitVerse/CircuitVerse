@@ -1,4 +1,81 @@
 // All the custom class styles
+
+@media (max-width: 768px) { 
+
+  .aligncenter {  
+    padding-left: 0em !important;
+    margin-left: 0em !important; 
+  }
+ 
+ }
+
+
+@media (max-width: 576px) { 
+
+  .aligncenter {  
+    padding-left: 0em !important;
+    margin-left: 0em !important; 
+  }
+
+ }
+
+.aligncenter {  
+  padding-left: 3em;
+  margin-left: 3em; ;
+  
+}
+
+#profile {
+  border: none;
+  background-color: #fcfcfc;
+}
+
+#profile input[type="text"], select {
+  width: 100%;
+  height: 50px !important;
+}
+
+
+
+.btn-about {
+  background-color:green ;
+  
+}
+.btn-about:hover {
+  color: black !important;
+  border: 1px green solid;
+
+}
+
+.required {
+  color: red;
+  font-size: 30px;
+}
+
+.bordertextfeild {
+  border-radius: 0px;
+  border: 1px solid $green;
+}
+
+.boldtext {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.custom-file-upload {
+  text-align: center;
+  background-color: white;
+  width: 155px;
+  border: 1px solid $green;
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.filebtn {
+  display: none;
+}
 .noprojects {
   left: 30%;
   position: absolute;
