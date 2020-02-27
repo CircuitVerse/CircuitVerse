@@ -6,7 +6,7 @@
 }
 
 .feature {
-    border: 1px solid rgba(0, 0, 0, 0.125);
+    border: 1px solid $featurePostBorder;
     padding: 1.25rem;
     border-radius: 0.25em;
 }
@@ -238,7 +238,7 @@ a.btn.btn-outline-danger {
 }
 
 .patreon{
-  border: 1.5px solid black;
+  border: 1.5px solid $black;
   border-radius: 8px;
   padding: 4px;
   box-shadow: 3px 3px 6px $shadow-black;
@@ -283,14 +283,14 @@ a.btn.btn-outline-danger {
 }
 
 .feature-post {
-    border: 1.5px solid #cbcbcb;
-    padding: 0.6rem 0.4rem;
+    border: 1.5px solid $featurePostBorder;
+    padding: .6rem .4rem;
 }
 
 .iframe-box {
-    border: 1px solid rgba(0, 0, 0, 0.125);
-    border-radius: 0.25rem;
-    padding: 0.4rem;
+    border: 1px solid $iframeBorder;
+    border-radius: .25rem;
+    padding: .4rem;
 }
 
 .container-in {
@@ -299,14 +299,14 @@ a.btn.btn-outline-danger {
 
 .card-body-post {
     text-decoration: none;
-    border: 0px;
+    border: 0;
     padding: 25px;
 }
 
 .btn-post {
     height: 28px;
     font-size: 13px;
-    margin-left: 0px;
+    margin-left: 0;
 }
 
 .fa-post {
@@ -315,11 +315,11 @@ a.btn.btn-outline-danger {
 }
 
 a {
-    color : #0082ff;
+    color: $aColor;
 }
 
 .btnself-post {
-    border: 1.5px solid #2f8875;
-    background-color: white;
-    color: black;
+    border: 1.5px solid $btnselfBorder;
+    background-color: $white;
+    color: $black;
 }
