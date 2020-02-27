@@ -279,6 +279,11 @@ function renderCanvas(scope) {
         ctx.stroke();
         ctx.fill();
     }
+    if (simulationArea.hover != undefined) {
+        simulationArea.canvas.style.cursor = "pointer";
+    } else {
+        simulationArea.canvas.style.cursor = "default";
+    }
 
 }
 
