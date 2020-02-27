@@ -285,45 +285,54 @@ a.btn.btn-outline-danger {
 // New UI Homepage
 
 
-.block_index{
-    width: 85%;
-    padding: 30px;
-    padding-top: 50px;
-    background-color: white ;
-    position: relative;
 
-    margin-left: auto;
-    margin-right: auto; 
-    font-family: Open Sans;
-    margin-top: 80px;
+// color variables
 
+$color-teal: #42b983;
+$color-white: #fff;
+$color-darkgreen: #026e57;
+$color-cream: #f9fffc;
+$color-black: #000;
+
+
+
+
+
+.block_index {
+  background-color: white;
+  font-family: Open Sans;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 80px;
+  padding: 30px;
+  padding-top: 50px;
+  position: relative;
+  width: 85%;
 }
 
-.block_index h1{
-    font-size: 35px;
-    font-family: Yu Gothic UI;
-    font-weight: 450;
-    margin-bottom: 25px;
+.block_index h1 {
+  font-family: Yu Gothic UI;
+  font-size: 35px;
+  font-weight: 450;
+  margin-bottom: 25px;
 }
 
-.block_index p{
-    font-size: 18px;
-    font-family: Yu Gothic UI;
-    font-weight: 450;
-    margin-bottom: 35px;
-    
+.block_index p {
+  font-family: Yu Gothic UI;
+  font-size: 18px;
+  font-weight: 450;
+  margin-bottom: 35px;
 }
 
 
-.btn-lg1{
-    color: white;
-    background-color: #42B983;
-    border-radius: 30px;
-    margin-bottom: 50px;
-    font-size: 1em;
-    padding-top: 12px;
-    padding-bottom: 12px;
-    
+.btn-lg1 {
+  background-color: #42B983;
+  border-radius: 30px;
+  color: white;
+  font-size: 1em;
+  margin-bottom: 50px;
+  padding-bottom: 12px;
+  padding-top: 12px;
 }
 
 .btn-lg1.white{
@@ -331,16 +340,14 @@ a.btn.btn-outline-danger {
     color: green;
 }
 
-.btn-lg11{
-    border-radius: 4px;
-    border-color: green;
-    margin-right: 10px;
-    
-    font-size: 1em;
-    padding-top: 12px;
-    padding-bottom: 12px;
-    margin-top: 15px;
-    
+.btn-lg11 {
+  border-color: green;
+  border-radius: 4px;
+  font-size: 1em;
+  margin-right: 10px;
+  margin-top: 15px;
+  padding-bottom: 12px;
+  padding-top: 12px;    
 }
 
 .block_index.green{
@@ -359,37 +366,35 @@ a.btn.btn-outline-danger {
 
 
 
-.center{
-    margin-right: auto;
-    margin-left: auto;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    text-align: center;
+.center {
+  margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  text-align: center;
 }
 
-.center_left{
-    margin-right: 0;
-    margin-left: auto;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    text-align: center;
-    padding-right: 220px;
-    padding-left: 0px;
-
+.centerleft {
+  margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: 0;
+  margin-top: 10px;
+  padding-left: 0px;
+  padding-right: 220px;
+  text-align: center;
 }
-.center_right{
-    margin-right: auto;
-    margin-left: 0;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    text-align: center;
-    padding-left: 220px;
-    padding-right: 0px;
-
+.centerright {
+  margin-bottom: 10px;
+  margin-left: 0;
+  margin-right: auto;
+  margin-top: 10px;
+  padding-left: 220px;
+  padding-right: 0px;
+  text-align: center;
 }
-img.resize{
-    width: 220px;
-    height:220px;
+img.resize {
+  height: 220px;
+  width: 220px;    
 }
 
 .cell_head{
@@ -400,77 +405,66 @@ img.resize{
     font-weight: 400;
 }
 
-@media (max-width: 1200px) and (min-width: 768px){
-    .center_left{
-        
-        margin-top: 10px;
-        margin-bottom: 10px;
-        text-align: center;
-        padding-right: 100px;
-        padding-left: 0px;
+@media (max-width: 1200px) and (min-width: 768px) {
 
+  .centerleft {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding-left: 0px;
+    padding-right: 100px;
+    text-align: center;        
     }
-    .center_right{
-        margin-right: auto;
-        margin-left: 0;
-        margin-top: 10px;
-        margin-bottom: 10px;
-        text-align: center;
-        padding-left: 100px;
-        padding-right: 0px;
 
+  .centerright {
+    margin-bottom: 10px;
+    margin-left: 0;
+    margin-right: auto;
+    margin-top: 10px;
+    padding-left: 100px;
+    padding-right: 0px;
+    text-align: center;
     }
-    img.resize{
-        width: 180px;
-        height:180px;
+
+    img.resize {
+      height: 180px;
+      width: 180px;        
     }
+
 }
 
 @media (max-width: 768px) {
-    .center_left{
-        
-        margin-top: 10px;
-        margin-bottom: 10px;
-        text-align: center;
-        padding-right: 0px;
-        padding-left: 0px;
 
-
+    .centerleft {
+      margin-bottom: 10px;
+      margin-top: 10px;
+      padding-left: 0px;
+      padding-right: 0px;
+      text-align: center;
     }
-    .center_right{
-        margin-right: auto;
-        margin-left: 0;
-        margin-top: 10px;
-        margin-bottom: 10px;
-        text-align: center;
-        padding-left: 0px;
-        padding-right: 0px;
 
-        
+    .centerright {
+      margin-bottom: 10px;
+      margin-left: 0;
+      margin-right: auto;
+      margin-top: 10px;
+      padding-left: 0px;
+      padding-right: 0px;
+      text-align: center;
+    }
 
+    img.resize {
+      height: 180px;
+      width: 180px;
     }
-    img.resize{
-        width: 180px;
-        height:180px;
-    }
+
 }
 
-
-
-/*New UI*/
-
-
-
-
-
-
-
-.pp{
- position: absolute;
- top: 30%;
- right: 40px;
- padding:0;
- margin: 0;
+.pp {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  right: 40px;
+  top: 30%;
 }
 .row_homepage {
   
@@ -478,87 +472,85 @@ img.resize{
   width: 100%;
 }
 .hp {
-  margin-bottom: 50px;
   font-size: 1.5em;
   font-weight: 500;
+  margin-bottom: 50px;  
 }
 .f_right {
+  bottom: 240px;
   float: right;
   position: relative;
-  text-align: center;
-  bottom: 240px;
   right: 2em;
-  
-
+  text-align: center;
 }
-.noner{
-  display:none;
+.noner {
+  display: none;
 }
 .inline_block {
   display: inline-block;
 }
 
-/* Styling for buttons*/
+// Styling for buttons
+
 .styled_btn{
-  color: white;
-  background-color: #42B983;
+  background-color: $color-teal;
   border-radius: 30px;
-  margin-bottom: 50px;
+  color: $color-white;
   font-size: 1em;
-  padding-top: 6px;
+  margin-bottom: 50px;
+  margin-left: 40px;
+  margin-right: 40px;
+  margin-top: 0;
   padding-bottom: 6px;
   padding-left: 18px;
   padding-right: 18px;
-  margin-top: 0;
-  margin-left: 40px;
-  margin-right: 40px;
-  width: 5px;
-  height: 5px;
+  padding-top: 6px;
 }
+
 .styled_btn.white{
-  background-color: #F9FFFC;
-  color: black;
+  background-color: $color-cream;
+  color: $color-black;
 }
 .styled_btn.white:hover{
-  background-color: #42B983;
-  color: white;
+  background-color: $color-teal;
+  color: $color-white;
 }
 .styled_btn1{
-  color: white;
-  background-color: #42B983;
+  background-color: $color-teal;
   border-radius: 4px;
+  color: $color-white;
   font-size: .8em;
-  padding-top: 5px;
   padding-bottom: 5px;
   padding-left: 10px;
   padding-right: 10px;
+  padding-top: 5px;
   position: relative;
   bottom: 8px;
 }
 .styled_btn1:hover{
-  color: black;
+  color: $color-black;
 }
-/* Styling for grid*/
+// Styling for grid
 .contain{
-  padding: 30px;
-  padding-top: 50px;
   background-color: #F9FFFC;
-  position: relative;
-  width: 85%;
+  font-family: Open Sans;
   margin-left: auto;
   margin-right: auto;
-  font-family: Open Sans;
+  padding: 30px;
+  padding-top: 50px;
+  position: relative;
+  width: 85%;  
 }
 .grid-cell{
-  border: 1px solid #026E57;
-  margin-top: 5px;
-  position: relative;
   background-color: white;
+  border: 1px solid #026E57;
   margin-bottom: 60px;
+  margin-top: 5px;
+  position: relative;  
 }
 .grid_image{
-  padding: 10px;
   background-color: white;
+  padding: 10px; 
 }
 .grid_content{
   font-size: 1.2em;
@@ -566,9 +558,9 @@ img.resize{
 }
 .grid_content > .grid-title{
   font-size: .8em;
-  text-align: left;
   margin: 12px;
   margin-top: 8px;
+  text-align: left;  
 }
 
 
@@ -578,9 +570,9 @@ img {
 }
 
 
-/* Utility Functions*/
+// Utility Functions
 .page_mid{
- text-align: center;
+  text-align: center;
 }
 .margin{
   margin-top: 5px;
@@ -588,34 +580,37 @@ img {
   margin-right: 5px;
 }
 .margin-right{
+  border-radius: 30px;
   margin-right: 50px;
-  border-radius:30px;
 }
-@media (max-width: 830px){
-  .pp{
-    position: absolute;
-    margin-bottom: 30px;
-    text-align: center;
+@media (max-width: 830px) {
+  .pp {
     font-size: .8em;
+    margin-bottom: 30px;
+    position: absolute;
+    text-align: center;
   }
-  .grid_content > .grid-title{
-    text-align: left;
+
+  .grid-content > .grid-title {
     font-size: .5em;
     margin-right: 5px;
-  }
+    text-align: left;
+    }
 }
-@media (max-width: 767px){
-  .pp{
-    position: relative;
-    margin-bottom: 30px;
-    text-align: center;
+
+@media (max-width: 767px) {
+  .pp {
     font-size: 1em;
-    top:8px;
     left: 0px;
-  }
-  .grid_content > .grid-title{
+    margin-bottom: 30px;
+    position: relative;
     text-align: center;
+    top: 8px;
+  }
+
+  .grid-content > .grid-title {
     font-size: 1em;
+    text-align: center;
   }
 }
 
@@ -623,7 +618,7 @@ img {
   .row_homepage {
     padding: 0px;
   }
-  .inline_block{
+  .inline_block {
     text-align: center;
     display: block;
     width: 100%;
@@ -631,13 +626,14 @@ img {
     left: -80px;
     top: 0px;
   }
-  .styled_btn1{
-    font-size: .7em;
-    bottom: 20px;
 
+  .styled_btn1 {
+    bottom: 20px;
+    font-size: .7em;   
   }
-  .circuitname.grid-title{
-    font-size: 0.7em;  
+
+  .circuitname.grid-title {
+    font-size: 0.7em;
   }
   .f_right {
       bottom: 20px;
@@ -650,14 +646,17 @@ img {
 }
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) and (max-width: 767px)  {
+
   .row_homepage {
     padding: 0px;
   }
+
   .inline_block{
     text-align: center;
     display: block;
     width: 70%;
   }
+
   .f_right {
     bottom: 20px;
     float: none;
@@ -665,32 +664,39 @@ img {
     left: 0%;
 
   }
+
 }
 
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) and (max-width: 991px) {
-  .styled_btn1{
+
+  .styled_btn1 {
     font-size: .3em;
     bottom: 20px;
-
   }
-  .circuitname.grid-title{
+
+  .circuitname.grid-title {
     font-size: .3em;
   }
+
   .f_right {
     bottom: 160px;
   }
+
 }
 
 // Large devices (desktops, 992px and up)
 @media (min-width: 992px) and (max-width: 1199px) {
-  .styled_btn1{
+
+  .styled_btn1 {
     font-size: .5em;
     bottom: 20px;
   }
-  .circuitname.grid-title{
+
+  .circuitname.grid-title {
     font-size: .5em;
   }
+
   .f_right {
     bottom: 200px;
   }
@@ -699,11 +705,13 @@ img {
 
 // Extra large devices (large desktops, 1200px and up)
 @media (min-width: 1200px) {
-  .styled_btn1{
+
+  .styled_btn1 {
     font-size: .6em;
     bottom: 20px;
   }
-  .circuitname.grid-title{
+
+  .circuitname.grid-title {
     font-size: 0.8em;  
   }
   
