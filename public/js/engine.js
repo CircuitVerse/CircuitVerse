@@ -280,10 +280,12 @@ function renderCanvas(scope) {
         ctx.fill();
     }
     if (simulationArea.hover != undefined) {
-        simulationArea.canvas.style.cursor = "pointer";
-    } else {
-        simulationArea.canvas.style.cursor = "default";
-    }
+		simulationArea.canvas.style.cursor = "pointer";
+	}else if (simulationArea.mouseDown) {
+		simulationArea.canvas.style.cursor = 'grabbing';
+	}else {
+		simulationArea.canvas.style.cursor = 'default';
+	}
 
 }
 
