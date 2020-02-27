@@ -16,14 +16,14 @@
         <div class="field form-group">
           <%= f.label :email, class:"label-text" %>
           <div class="input-group">
-            <%= f.email_field :email, autofocus: true, class:"form-control custom-input" %>
+            <%= f.email_field :email, autofocus: true, class:"form-control custom-input", placeholder: 'Email' %>
           </div>
         </div>
 
         <div class="field form-group">
           <%= f.label :password, class:"label-text" %>
           <div class="input-group">
-            <%= f.password_field :password, autocomplete: "off" ,class:"form-control custom-input", id:"password-input" %>
+            <%= f.password_field :password, autocomplete: "off" ,class:"form-control custom-input", id:"password-input", placeholder: 'Password' %>
             <div class="input-group-addon" onclick="toggleLoginPassword()">
               <i class="fa fa-eye-slash password-icon" aria-hidden="true" id="toggle-icon"></i>
             </div>
