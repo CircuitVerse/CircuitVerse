@@ -5,7 +5,7 @@
 
 ## How to Contribute
 
-When you are ready to start work on a issue:
+When you are ready to start work on an issue:
 
 - Let us know by leaving a comment on the issue. (Also let us know later if you are no longer working on it.)
 
