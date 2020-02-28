@@ -5,34 +5,32 @@
   position: relative;
   top: -7px;
   left: 4px;
-  border-radius:5px;
-  background-color: #026e57	;
-  border: none;
-  color: white;
+  border-radius: 5px;
+  background-color: #026e57;
+  border: 0;
+  color: #ffffff;
   padding: 8px 8px;
-  font-size: 16px!important ;
-  cursor: pointer;
-  
-}
+  font-size: 16px!important;
+  cursor: pointer;}
 .editlink:hover {
   position: relative;
   top: -7px;
   left: 4px;
-  border-radius:5px;
+  border-radius: 5px;
   background-color: #026e57	;
-  border: none;
-  color: white;
+  border: 0;
+  color: #ffffff;
   padding: 8px 8px;
   font-size: 16px;
   cursor: pointer;
-  text-decoration:none;
+  text-decoration: none;
 }
 .addmem {
-  border-radius:15px;
+  border-radius: 15px;
   background-color: #42b983	;
-  border: none;
-  color: white;
-  text-decoration:none;
+  border: 0;
+  color: #ffffff;
+  text-decoration: 0;
   padding: 12px 34px;
   font-size: 16px;
   cursor: pointer;
@@ -40,137 +38,128 @@
   
 }
 .addmem:hover {
-  border-radius:15px;
+  border-radius: 15px;
   background-color: #42b983 !important;
-  border: none;
-  color: white;
+  border: 0;
+  color: #ffffff;
   padding: 12px 34px;
   font-size: 16px;
   cursor: pointer;
-  text-decoration:none;
+  text-decoration: 0;
 }
 .view {
-  
-  border-radius:5px;
+  border-radius: 5px;
   background-color: #42b983	;
-  border: none;
-  color: white;
+  border: 0;
+  color: #ffffff;
   padding: 2px 12px;
   font-size: 16px;
   cursor: pointer;
-  text-decoration:none;
-  float:left;
-  margin:5px;
-  
+  text-decoration: 0;
+  float: left;
+  margin: 5px;
 }
 .view:hover{
-  text-decoration:none;
-  color:white;
+  text-decoration: 0;
+  color: #ffffff;
 }
 .EditReopen {
-  
-  border-radius:5px;
+  border-radius: 5px;
   background-color: #71cac8	;
-  border: none;
-  color: white;
+  border: 0;
+  color: #ffffff;
   padding: 2px 12px;
   font-size: 16px;
   cursor: pointer;
-  text-decoration:none;
-  float:left;
-  margin: 5px;
-  
+  text-decoration: 0;
+  float: left;
+  margin: 5px; 
 }
 .EditReopen:hover{
-  text-decoration:none;
-  color:white;
+  text-decoration: 0;
+  color: #ffffff;
 }
 .del {
-  
-  border-radius:5px;
+  border-radius: 5px;
   background-color: #ff5959	;
-  border: none;
-  color: white;
+  border: 0;
+  color: #ffffff;
   padding: 2px 12px;
   font-size: 16px;
   cursor: pointer;
-  text-decoration:none;
+  text-decoration: 0;
   float:left;
   margin: 5px;
   
 }
 .del:hover{
-  text-decoration:none;
-  color:white;
+  text-decoration: 0;
+  color: #ffffff;
 }
 .arows{
   background-color:#f8fffc;
-  border-color:solid #bcdbd3;
+  border-color: solid #bcdbd3;
 }
 .row3:after {
   content: "";
   display: table;
   clear: both;
-  overflow:hidden;
-  
+  overflow: hidden;
 }
 .column3 {
   float: left;
   width: 32.8%;
   padding: 10px;
-  overflow:hidden;
+  overflow: hidden;
   background-color:#f8fffc;
   border: 1px solid #bcdbd3;
   margin: 2px;
 }
 .memname{
-  color:black;
-  font-size:18px;
+  color: #000000;
+  font-size: 18px;
 }
 .memname:hover{
-  color:black;
-  font-size:18px;
-  text-decoration:none;
+  color: #000000;
+  font-size: 18px;
+  text-decoration: 0;
 }
 .removerel{
-  border-radius:5px;
+  border-radius: 5px;
   background-color: #ff5959	;
-  border: none;
-  color: white !important;
+  border: 0;
+  color: #ffffff !important;
   padding: 2px 12px;
   font-size: 16px;
   cursor: pointer;
-  text-decoration:none;
-  position:relative;
-  float:right;
-  
-  overflow:hidden;
-
+  text-decoration: 0;
+  position: relative;
+  float: right;
+  overflow: hidden;
 }
 .removerel:hover{
-  text-decoration:none;
-  color:white;
+  text-decoration: 0;
+  color: #ffffff;
 }
 .back {
-  text-align:center;
-  border-radius:15px;
+  text-align: center;
+  border-radius: 15px;
   background-color: #42b983	;
-  border: none;
-  color: white;
-  text-decoration:none;
+  border: 0;
+  color: #ffffff;
+  text-decoration: 0;
   padding: 12px 34px;
   font-size: 16px;
   cursor: pointer;
-  
 }
 .back:hover {
-  text-align:center;
-  border-radius:15px;
+  text-align: center;
+  border-radius: 15px;
   background-color: #42b983	;
-  border: none;
-  color: white;
+  border: 0;
+  color: #ffffff;
   padding: 12px 34px;
   font-size: 16px;
   cursor: pointer;
-  text-decoration:none;
+  text-decoration: 0;
 }
