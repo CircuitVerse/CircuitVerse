@@ -1,3 +1,176 @@
 // Place all the styles related to the group_members controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.editlink {
+  position: relative;
+  top: -7px;
+  left: 4px;
+  border-radius:5px;
+  background-color: #026e57	;
+  border: none;
+  color: white;
+  padding: 8px 8px;
+  font-size: 16px!important ;
+  cursor: pointer;
+  
+}
+.editlink:hover {
+  position: relative;
+  top: -7px;
+  left: 4px;
+  border-radius:5px;
+  background-color: #026e57	;
+  border: none;
+  color: white;
+  padding: 8px 8px;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration:none;
+}
+.addmem {
+  border-radius:15px;
+  background-color: #42b983	;
+  border: none;
+  color: white;
+  text-decoration:none;
+  padding: 12px 34px;
+  font-size: 16px;
+  cursor: pointer;
+  
+  
+}
+.addmem:hover {
+  border-radius:15px;
+  background-color: #42b983 !important;
+  border: none;
+  color: white;
+  padding: 12px 34px;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration:none;
+}
+.view {
+  
+  border-radius:5px;
+  background-color: #42b983	;
+  border: none;
+  color: white;
+  padding: 2px 12px;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration:none;
+  float:left;
+  margin:5px;
+  
+}
+.view:hover{
+  text-decoration:none;
+  color:white;
+}
+.EditReopen {
+  
+  border-radius:5px;
+  background-color: #71cac8	;
+  border: none;
+  color: white;
+  padding: 2px 12px;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration:none;
+  float:left;
+  margin: 5px;
+  
+}
+.EditReopen:hover{
+  text-decoration:none;
+  color:white;
+}
+.del {
+  
+  border-radius:5px;
+  background-color: #ff5959	;
+  border: none;
+  color: white;
+  padding: 2px 12px;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration:none;
+  float:left;
+  margin: 5px;
+  
+}
+.del:hover{
+  text-decoration:none;
+  color:white;
+}
+.arows{
+  background-color:#f8fffc;
+  border-color:solid #bcdbd3;
+}
+.row3:after {
+  content: "";
+  display: table;
+  clear: both;
+  overflow:hidden;
+  
+}
+.column3 {
+  float: left;
+  width: 32.8%;
+  padding: 10px;
+  overflow:hidden;
+  background-color:#f8fffc;
+  border: 1px solid #bcdbd3;
+  margin: 2px;
+}
+.memname{
+  color:black;
+  font-size:18px;
+}
+.memname:hover{
+  color:black;
+  font-size:18px;
+  text-decoration:none;
+}
+.removerel{
+  border-radius:5px;
+  background-color: #ff5959	;
+  border: none;
+  color: white !important;
+  padding: 2px 12px;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration:none;
+  position:relative;
+  float:right;
+  
+  overflow:hidden;
+
+}
+.removerel:hover{
+  text-decoration:none;
+  color:white;
+}
+.back {
+  text-align:center;
+  border-radius:15px;
+  background-color: #42b983	;
+  border: none;
+  color: white;
+  text-decoration:none;
+  padding: 12px 34px;
+  font-size: 16px;
+  cursor: pointer;
+  
+}
+.back:hover {
+  text-align:center;
+  border-radius:15px;
+  background-color: #42b983	;
+  border: none;
+  color: white;
+  padding: 12px 34px;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration:none;
+}
