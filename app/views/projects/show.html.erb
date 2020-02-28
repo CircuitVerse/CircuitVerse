@@ -77,7 +77,7 @@
           <% if user_signed_in? %>
           <i id="toggleStarButton" class="fa fa-star-o btn btn-primary fa-post btn-post noSelect" aria-hidden="true" style="font-size:13px;margin:0px;" style=<%= Star.find_by(user_id: current_user.id, project_id: @project.id).nil? ? "color:white" : "color:orange" %> onclick="toggleStar()"></i>
           <% else %>
-          <i class="fa fa-star-o btn btn-primary fa-post btn-post noSelect" aria-hidden="true" style="color:orange" ></i>
+          <i class="fa fa-star-o btn btn-primary fa-post btn-post noSelect" aria-hidden="true" style="color:orange"></i>
           <% end %>
           <% end %>
           <% if policy(@project).author_access? %>
