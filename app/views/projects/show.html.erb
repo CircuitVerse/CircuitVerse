@@ -65,38 +65,38 @@
             <strong>Project access type: </strong>
             <%= @project.project_access_type %>
             <br>
-            <%if !@project.description.nil? %>
+            <% if !@project.description.nil? %>
             <b>Description:</b>
-            <%= sanitize@project.description%>
-            <%end%>
+            <%= sanitize@project.description %>
+            <% end %>
             <% if policy(@project).user_access? %>
             <br>
           <hr>
-          <a href="#>" class="btn btn-primary fa-post btn-post" id="<%= @project.id %>" data-toggle="modal" data-target="#myModal" , style: "margin:0px;">Preview</a>
+          <a href="#>" class="btn btn-primary fa-post btn-post" id="<%= @project.id %>" data-toggle="modal" data-target="#myModal" style="margin:0px;">Preview</a>
           <a href="<%= simulator_edit_path(@project) %>" class="card-link btn btn-primary btn-post fa-post" target="_blank">Launch simulator</a>
           <% if user_signed_in? %>
           <i id="toggleStarButton" class="fa fa-star-o btn btn-primary fa-post btn-post noSelect" aria-hidden="true" style="font-size:13px;margin:0px;" style=<%= Star.find_by(user_id: current_user.id, project_id: @project.id).nil? ? "color:white" : "color:orange" %> onclick="toggleStar()"></i>
-          <% else%>
-          <i  class="fa fa-star-o btn btn-primary fa-post btn-post noSelect" aria-hidden="true" style="color:orange" ></i>
+          <% else %>
+          <i class="fa fa-star-o btn btn-primary fa-post btn-post noSelect" aria-hidden="true" style="color:orange" ></i>
           <% end %>
           <% end %>
           <% if policy(@project).author_access? %>
           <p></p>
           <span style="font-weight:bold;">+</span><a href="#>" id="<%= @project.id %>" data-toggle="modal" data-target="#collaboratorModal" style="text-decoration:underline;color:black;font-size:13px;font-weight:bold;"> Add a Collaborator</a>
           <br>
-          <%end %>
+          <% end %>
           </p>
           <hr>
           <% if policy(@project).user_access? %>
           <% if @project.author_id == current_user&.id %>
-          <%= link_to ' Edit', edit_user_project_path(@author, @project), class: "fa-pencil btn btn-primary btn-post fa-post card-link btnself-post", style: "margin:0px;"%>
+          <%= link_to ' Edit', edit_user_project_path(@author, @project), class: "fa-pencil btn btn-primary btn-post fa-post card-link btnself-post", style: "margin:0px;" %>
           <% if policy(@project).author_access?  %>
-          <%= link_to ' Delete',user_project_path(@author,@project), method: :delete, data: { confirm: 'Are you sure?' }, class: "fa-trash card-link btn btn-primary btn-post fa-post btnself-post" , style: "margin:0px;"%>
+          <%= link_to ' Delete',user_project_path(@author,@project), method: :delete, data: { confirm: 'Are you sure?' }, class: "fa-trash card-link btn btn-primary btn-post fa-post btnself-post" , style: "margin:0px;" %>
           <% end %>
           <% else %>
-          <%= link_to ' Edit', edit_user_project_path(@author, @project), class: "fa-pencil btn btn-primary btn-post fa-post card-link", style: "margin:0px;"%>
+          <%= link_to ' Edit', edit_user_project_path(@author, @project), class: "fa-pencil btn btn-primary btn-post fa-post card-link", style: "margin:0px;" %>
           <% if policy(@project).author_access?  %>
-          <%= link_to ' Delete',user_project_path(@author,@project), method: :delete, data: { confirm: 'Are you sure?' }, class: "fa-trash card-link btn btn-primary btn-post fa-post" , style: "margin:0px;"%>
+          <%= link_to ' Delete',user_project_path(@author,@project), method: :delete, data: { confirm: 'Are you sure?' }, class: "fa-trash card-link btn btn-primary btn-post fa-post" , style: "margin:0px;" %>
           <% end %>
           <% end %>
           <% end %>
@@ -115,17 +115,17 @@
           <% end %>
           <div class="collapse" id="collapseExample">
             <div class="card card-body">
-              <textarea id="embedTextArea" style="font-size:12px"><iframe width="600px" height="400px" src="<%=simulator_embed_url(@project)%>" id="projectPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen> </iframe></textarea>
+              <textarea id="embedTextArea" style="font-size:12px"><iframe width="600px" height="400px" src="<%= simulator_embed_url(@project) %>" id="projectPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen> </iframe></textarea>
               <a class="text-success" style="margin:0px;">Embed code copied to clipboard!</a>
             </div>
           </div>
           <% end %>
           <% if !policy(@project).user_access? %>
-          <a href="#>" class="btn btn-primary fa-post btn-post" id="<%=@project.id%>" data-toggle="modal" data-target="#myModal"  style="margin:0px;">Preview</a>
+          <a href="#>" class="btn btn-primary fa-post btn-post" id="<%= @project.id %>" data-toggle="modal" data-target="#myModal" style="margin:0px;">Preview</a>
           <% if user_signed_in? %>
           <i id="toggleStarButton" class="fa fa-star-o btn btn-primary fa-post btn-post noSelect" aria-hidden="true" style="font-size:13px;margin:0px;" style=<%= Star.find_by(user_id: current_user.id, project_id: @project.id).nil? ? "color:white" : "color:orange" %> onclick="toggleStar()"></i>
           <% else %>
-          <i class="fa-star-o btn btn-primary fa-post btn-post noSelect" aria-hidden="true" ></i>
+          <i class="fa-star-o btn btn-primary fa-post btn-post noSelect" aria-hidden="true"></i>
           <% end %>
           <% end %>
         </div>
@@ -241,7 +241,7 @@
   } );
   function toggleStar(toggle) {
       $.ajax({
-          url: "<%=change_stars_path(@project)%>",
+          url: "<%= change_stars_path(@project) %>",
           type: 'GET',
           beforeSend: function (xhr) {
               xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
