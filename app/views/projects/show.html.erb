@@ -27,15 +27,15 @@
     </div>
   </div>
   <% end %>
-  <div class="row">
-    <div class="col col-7 feature-post">
+  <div class="row" style="margin: 10px;">
+    <div class="col col-md-7 col-12 feature-post">
       <div class=" iframe-box">
         <div class="embed-responsive embed-responsive-4by3">
           <iframe src = <%=simulator_path(@project) %> id="view" webkitAllowFullScreen mozAllowFullScreen allowFullScreen scrolling="no"> </iframe>
         </div>
       </div>
     </div>
-    <div class="col col-5">
+    <div class="col col-md-5 col-12">
       <div class="card" style="border:0;">
         <div class="card-header text-center h5 text-capitalize team">
           <%= @project.name %>
@@ -70,8 +70,8 @@
             <%= sanitize@project.description %>
             <% end %>
             <% if policy(@project).user_access? %>
-          <br>
-          <hr>
+            <br>
+            <hr>
           <a href="#>" class="btn btn-primary fa-post btn-post" id="<%= @project.id %>" data-toggle="modal" data-target="#myModal" style="margin:0px;">Preview</a>
           <a href="<%= simulator_edit_path(@project) %>" class="card-link btn btn-primary btn-post fa-post" target="_blank">Launch simulator</a>
           <% if user_signed_in? %>
@@ -115,7 +115,7 @@
           <% end %>
           <div class="collapse" id="collapseExample">
             <div class="card card-body">
-              <textarea id="embedTextArea" style="font-size:12px"><iframe width="600px" height="400px" src="<%= simulator_embed_url(@project) %>" id="projectPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen> </iframe></textarea>
+              <textarea id="embedTextArea" style="font-size:12px"><iframe width="600px" height="400px" src="<%= simulator_embed_url(@project) %>" id="projectPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen></iframe></textarea>
               <a class="text-success" style="margin:0px;">Embed code copied to clipboard!</a>
             </div>
           </div>
