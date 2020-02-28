@@ -6,7 +6,7 @@
 }
 
 .feature {
-    border: 1px solid rgba(0, 0, 0, 0.125);
+    border: 1px solid $featurePostBorder;
     padding: 1.25rem;
     border-radius: 0.25em;
 }
@@ -238,7 +238,7 @@ a.btn.btn-outline-danger {
 }
 
 .patreon{
-  border: 1.5px solid black;
+  border: 1.5px solid $black;
   border-radius: 8px;
   padding: 4px;
   box-shadow: 3px 3px 6px $shadow-black;
@@ -280,4 +280,46 @@ a.btn.btn-outline-danger {
 
 .subheading_teachers{
   text-align: left;
+}
+
+.feature-post {
+    border: 1.5px solid $featurePostBorder;
+    padding: .6rem .4rem;
+}
+
+.iframe-box {
+    border: 1px solid $iframeBorder;
+    border-radius: .25rem;
+    padding: .4rem;
+}
+
+.container-in {
+    padding-top: 50px;
+}
+
+.card-body-post {
+    text-decoration: none;
+    border: 0;
+    padding: 25px;
+}
+
+.btn-post {
+    height: 28px;
+    font-size: 13px;
+    margin-left: 0;
+}
+
+.fa-post {
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: 13px;
+}
+
+a {
+    color: $aColor;
+}
+
+.btnself-post {
+    border: 1.5px solid $btnselfBorder;
+    background-color: $white;
+    color: $black;
 }
