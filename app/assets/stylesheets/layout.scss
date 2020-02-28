@@ -1,21 +1,21 @@
 // All the custom class styles
-@media (max-width: 768px) { 
-   .aligncenter {
+@media(max-width: 768px) {
+  .aligncenter {
      margin-left: 0em !important; 
      padding-left: 0em !important;
   }
  }
 
-@media (max-width: 576px) { 
+@media(max-width: 576px) {
   .aligncenter {
-    margin-left: 0em !important;
-    padding-left: 0em !important; 
+     margin-left: 0em !important;
+     padding-left: 0em !important; 
   }
  }
 
-.aligncenter {  
-  padding-left: 3em;
+.aligncenter { 
   margin-left: 3em;
+  padding-left: 3em;
 }
 
 #profile {
@@ -29,16 +29,16 @@
 }
 
 .btn-about {
-  background-color:green ;
+  background-color: $green;
 }
 
 .btn-about:hover {
   color: black !important;
-  border: 1px green solid;
+  border: 1px $green solid;
 }
 
 .required {
-  color: red;
+  color: #FF0000;
   font-size: 30px;
 }
 
@@ -54,7 +54,7 @@
 
 .custom-file-upload {
   text-align: center;
-  background-color: white;
+  background-color: #FFFFFF;
   width: 155px;
   border: 1px solid $green;
   display: inline-block;
@@ -66,6 +66,7 @@
 .filebtn {
   display: none;
 }
+
 .noprojects {
   left: 30%;
   position: absolute;
