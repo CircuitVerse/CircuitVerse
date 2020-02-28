@@ -6,7 +6,7 @@
 }
 
 .feature {
-    border: 1px solid $featurePostBorder;
+    border: 1px solid $featurepostborder;
     padding: 1.25rem;
     border-radius: 0.25em;
 }
@@ -283,12 +283,12 @@ a.btn.btn-outline-danger {
 }
 
 .feature-post {
-    border: 1.5px solid $featurePostBorder;
+    border: 1.5px solid $featurepostborder;
     padding: .6rem .4rem;
 }
 
 .iframe-box {
-    border: 1px solid $iframeBorder;
+    border: 1px solid $iframeborder;
     border-radius: .25rem;
     padding: .4rem;
 }
@@ -315,11 +315,11 @@ a.btn.btn-outline-danger {
 }
 
 a {
-    color: $aColor;
+    color: $acolor;
 }
 
 .btnself-post {
-    border: 1.5px solid $btnselfBorder;
+    border: 1.5px solid $btnselfborder;
     background-color: $white;
     color: $black;
 }
