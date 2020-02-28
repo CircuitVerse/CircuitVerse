@@ -2,12 +2,12 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .editlink {
-  background-color: #026e57;
+  background-color: $teal;
   border: 0;
   border-radius: 5px;
   color: #fff;
   cursor: pointer;
-  font-size: 16px!important;
+  font-size: 16px !important;
   left: 4px;
   padding: 8px 8px;
   position: relative;
@@ -19,7 +19,7 @@
   color: #fff;
   cursor: pointer;
   font-size: 16px;
-  left: 4px; 
+  left: 4px;
   padding: 8px 8px;
   position: relative;
   text-decoration: none;
@@ -30,12 +30,12 @@
   border: 0;
   border-radius: 15px;
   color: #fff;
-  cursor: pointer; 
+  cursor: pointer;
   font-size: 16px;
   padding: 12px 34px;
 }
 .addmem:hover {
-  background-color: #42b983!important;
+  background-color: #42b983 !important;
   border: 0;
   border-radius: 15px;
   color: #fff;
@@ -47,11 +47,11 @@
 .view {
   background-color: #42b983;
   border: 0;
-  border-radius: 5px; 
+  border-radius: 5px;
   color: #fff;
   cursor: pointer;
-  float: left; 
-  font-size: 16px; 
+  float: left;
+  font-size: 16px;
   margin: 5px;
   padding: 2px 12px;
   text-decoration: 0;
@@ -64,8 +64,8 @@
   background-color: #71cac8;
   border: 0;
   border-radius: 5px;
-  cursor: pointer;
   color: #fff;
+  cursor: pointer;
   float: left;
   font-size: 16px;
   margin: 5px;
@@ -82,7 +82,7 @@
   border-radius: 5px;
   color: #fff;
   cursor: pointer;
-  float:left;
+  float: left;
   font-size: 16px;
   margin: 5px;
   padding: 2px 12px;
@@ -93,7 +93,7 @@
   text-decoration: none;
 }
 .arows {
-  background-color:#f8fffc;
+  background-color: #f8fffc;
   border-color: solid #bcdbd3;
 }
 .row3:after {
@@ -103,7 +103,7 @@
   overflow: hidden;
 }
 .column3 {
-  background-color:#f8fffc;
+  background-color: #f8fffc;
   border: 1px solid #bcdbd3;
   float: left;
   margin: 2px;
@@ -124,7 +124,7 @@
   background-color: #ff5959;
   border: 0;
   border-radius: 5px;
-  color: #fff!important;
+  color: #fff !important;
   cursor: pointer;
   float: right;
   font-size: 16px;
@@ -144,15 +144,15 @@
   color: #fff;
   cursor: pointer;
   font-size: 16px;
-  padding: 12px 34px; 
+  padding: 12px 34px;
   text-align: center;
-  text-decoration: 0; 
+  text-decoration: 0;
 }
 .back:hover {
   border: 0;
   border-radius: 15px;
-  cursor: pointer;
   color: #fff;
+  cursor: pointer;
   font-size: 16px;
   padding: 12px 34px;
   text-align: center;
