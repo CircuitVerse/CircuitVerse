@@ -97,9 +97,9 @@
 
    <% if policy(@project).user_access? %>
     <% if @project.author_id == current_user&.id %>
-     <%= link_to ' Edit', edit_user_project_path(@author, @project), class: "fa-pencil btn btn-primary btn-post fa-post card-link btnself_post", style: "margin:0px;"%>
+     <%= link_to ' Edit', edit_user_project_path(@author, @project), class: "fa-pencil btn btn-primary btn-post fa-post card-link btnself-post", style: "margin:0px;"%>
      <% if policy(@project).author_access?  %>
-      <%= link_to ' Delete',user_project_path(@author,@project), method: :delete, data: { confirm: 'Are you sure?' }, class: "fa-trash card-link btn btn-primary btn-post fa-post btnself_post" , style: "margin:0px;"%>
+      <%= link_to ' Delete',user_project_path(@author,@project), method: :delete, data: { confirm: 'Are you sure?' }, class: "fa-trash card-link btn btn-primary btn-post fa-post btnself-post" , style: "margin:0px;"%>
      <% end %>
     <% else %>
     <%= link_to ' Edit', edit_user_project_path(@author, @project), class: "fa-pencil btn btn-primary btn-post fa-post card-link", style: "margin:0px;"%>
@@ -119,7 +119,7 @@
      <span class="btn-post fa-post fa-code" , style: "margin:0px;"></span> Embed
     </a>
    <% else %>
-    <a class="btn btn-primary btn-post fa-post btnself_post" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" onclick="embed()" >
+    <a class="btn btn-primary btn-post fa-post btnself-post" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" onclick="embed()" >
      <span class="btn-post fa-post fa-code" , style: "margin:0px;"></span> Embed
     </a>
    <% end %>
