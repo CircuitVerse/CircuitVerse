@@ -7,7 +7,7 @@
   border-radius: 5px;
   color: #fff;
   cursor: pointer;
-  font-size: 16px !important;
+  font-size: 16px;
   left: 4px;
   padding: 8px 8px;
   position: relative;
@@ -16,7 +16,7 @@
 .editlink:hover {
   border: 0;
   border-radius: 5px;
-  color: #fff;
+  color: $white;
   cursor: pointer;
   font-size: 16px;
   left: 4px;
@@ -29,16 +29,16 @@
   background-color: #42b983;
   border: 0;
   border-radius: 15px;
-  color: #fff;
+  color: $white;
   cursor: pointer;
   font-size: 16px;
   padding: 12px 34px;
 }
 .addmem:hover {
-  background-color: #42b983 !important;
+  background-color: #42b983;
   border: 0;
   border-radius: 15px;
-  color: #fff;
+  color: $white;
   cursor: pointer;
   font-size: 16px;
   padding: 12px 34px;
@@ -48,7 +48,7 @@
   background-color: #42b983;
   border: 0;
   border-radius: 5px;
-  color: #fff;
+  color: $white;
   cursor: pointer;
   float: left;
   font-size: 16px;
@@ -57,14 +57,14 @@
   text-decoration: 0;
 }
 .view:hover {
-  color: #fff;
+  color: $white;
   text-decoration: none;
 }
 .EditReopen {
   background-color: #71cac8;
   border: 0;
   border-radius: 5px;
-  color: #fff;
+  color: $white;
   cursor: pointer;
   float: left;
   font-size: 16px;
@@ -73,14 +73,14 @@
   text-decoration: 0;
 }
 .EditReopen:hover {
-  color: #fff;
+  color: $white;
   text-decoration: none;
 }
 .del {
   background-color: #ff5959;
   border: 0;
   border-radius: 5px;
-  color: #fff;
+  color: $white;
   cursor: pointer;
   float: left;
   font-size: 16px;
@@ -89,7 +89,7 @@
   text-decoration: 0;
 }
 .del:hover {
-  color: #fff;
+  color: $white;
   text-decoration: none;
 }
 .arows {
@@ -112,11 +112,11 @@
   width: 32.8%;
 }
 .memname {
-  color: #000;
+  color: $black;
   font-size: 18px;
 }
 .memname:hover {
-  color: #000;
+  color: $black;
   font-size: 18px;
   text-decoration: none;
 }
@@ -124,7 +124,7 @@
   background-color: #ff5959;
   border: 0;
   border-radius: 5px;
-  color: #fff !important;
+  color: $white;
   cursor: pointer;
   float: right;
   font-size: 16px;
@@ -134,14 +134,14 @@
   text-decoration: 0;
 }
 .removerel:hover {
-  color: #fff;
+  color: $white;
   text-decoration: none;
 }
 .back {
   background-color: #42b983;
   border: 0;
   border-radius: 15px;
-  color: #fff;
+  color: $white;
   cursor: pointer;
   font-size: 16px;
   padding: 12px 34px;
@@ -151,7 +151,7 @@
 .back:hover {
   border: 0;
   border-radius: 15px;
-  color: #fff;
+  color: $white;
   cursor: pointer;
   font-size: 16px;
   padding: 12px 34px;
