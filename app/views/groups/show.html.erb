@@ -44,7 +44,7 @@
   position: absolute;
   right: 4px; 
   border-radius:15px;
-  background-color: #42b983	;
+  background-color: #42b983 !important;
   border: none;
   color: white;
   padding: 12px 34px;
@@ -197,7 +197,7 @@
 
       <br>
       <br>
-      <h3>Members <a style="color:white;" class="addmem" data-toggle="modal" data-target="#myModal">+ Add member</a></h3>
+      <h3>Members <button type="button" style="color:white; background-color:#42b983 !important;" class="addmem" data-toggle="modal" data-target="#myModal">Add member</button></h3>
       <br>
       <div class="row3">
         <% @group.users.each do |user| %>
@@ -297,13 +297,13 @@
               
               <td>
                 <% if policy(@group).admin_access? %>
-                  <%= link_to 'View', group_assignment_path(@group,assignment), class:"view" %>
+                  <%= link_to 'Show', group_assignment_path(@group,assignment), class:"view" %>
                   <% if assignment.status!="closed" %>
                     <%= link_to 'Edit', edit_group_assignment_path(@group,assignment), class:"EditReopen" %>
                   <% else %>
                     <%= link_to 'Reopen', reopen_group_assignment_path(@group,assignment), class:"EditReopen" %>
                   <% end %>
-                  <%= link_to 'Delete', group_assignment_path(@group,assignment),class:"del", method: :delete, data: { confirm: 'Are you sure?' } %>
+                  <%= link_to 'Destroy', group_assignment_path(@group,assignment),class:"del", method: :delete, data: { confirm: 'Are you sure?' } %>
                 <% else %>
 
                     <% project_assignment = assignment.projects.find { |p| p.author_id == current_user.id } %>
