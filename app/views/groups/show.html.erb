@@ -1,57 +1,217 @@
 <link rel="stylesheet" type="text/css" href="/css/tooltip.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.editlink {
+  position: relative;
+  top: -7px;
+  left: 4px;
+  border-radius:5px;
+  background-color: #026e57	;
+  border: none;
+  color: white;
+  padding: 8px 8px;
+  font-size: 16px;
+  cursor: pointer;
+  
+}
+.editlink:hover {
+  position: relative;
+  top: -7px;
+  left: 4px;
+  border-radius:5px;
+  background-color: #026e57	;
+  border: none;
+  color: white;
+  padding: 8px 8px;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration:none;
+}
+.addmem {
+  position: absolute;
+  right: 4px; 
+  border-radius:15px;
+  background-color: #42b983	;
+  border: none;
+  color: white;
+  text-decoration:none;
+  padding: 12px 34px;
+  font-size: 16px;
+  cursor: pointer;
+  
+}
+.addmem:hover {
+  position: absolute;
+  right: 4px; 
+  border-radius:15px;
+  background-color: #42b983	;
+  border: none;
+  color: white;
+  padding: 12px 34px;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration:none;
+}
+.view {
+  
+  border-radius:5px;
+  background-color: #42b983	;
+  border: none;
+  color: white;
+  padding: 2px 12px;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration:none;
+  
+}
+.view:hover{
+  text-decoration:none;
+  color:white;
+}
+.EditReopen {
+  
+  border-radius:5px;
+  background-color: #71cac8	;
+  border: none;
+  color: white;
+  padding: 2px 12px;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration:none;
+  
+}
+.EditReopen:hover{
+  text-decoration:none;
+  color:white;
+}
+.del {
+  
+  border-radius:5px;
+  background-color: #ff5959	;
+  border: none;
+  color: white;
+  padding: 2px 12px;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration:none;
+  
+}
+.del:hover{
+  text-decoration:none;
+  color:white;
+}
+.arows{
+  background-color:#f8fffc;
+  border-color:solid #bcdbd3;
+  
+  
+  
+
+}
+.row3:after {
+  content: "";
+  display: table;
+  clear: both;
+  overflow:hidden;
+  
+}
+.column3 {
+  float: left;
+  width: 32.8%;
+  padding: 10px;
+  overflow:hidden;
+  background-color:#f8fffc;
+  border: 1px solid #bcdbd3;
+  margin: 2px;
+}
+.memname{
+  color:black;
+  font-size:18px;
+}
+.memname:hover{
+  color:black;
+  font-size:18px;
+  text-decoration:none;
+}
+.removerel{
+  border-radius:5px;
+  background-color: #ff5959	;
+  border: none;
+  color: white;
+  padding: 2px 12px;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration:none;
+  position:relative;
+  float:right;
+  top:7px;
+  overflow:hidden;
+
+}
+.removerel:hover{
+  text-decoration:none;
+  color:white;
+}
+.back {
+  text-align:center;
+  border-radius:15px;
+  background-color: #42b983	;
+  border: none;
+  color: white;
+  text-decoration:none;
+  padding: 12px 34px;
+  font-size: 16px;
+  cursor: pointer;
+  
+}
+.back:hover {
+  text-align:center
+  border-radius:15px;
+  background-color: #42b983	;
+  border: none;
+  color: white;
+  padding: 12px 34px;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration:none;
+}
+
+</style>
 <div class="container">
   <div class="row feature">
-
     <div class="col">
-
       <% if notice %>
         <p id="notice" class="alert alert-success"><%= notice %></p>
       <% end %>
-
       <p>
-        <strong>Name:</strong>
+        <h1 style="text-align:center">
         <%= @group.name %>
+        <%= link_to ' Edit Name', edit_group_path(@group), class:"editlink fa fa-pencil" %></h1>        
       </p>
-
       <p>
+      <center style="font-size:25px">
         <strong>Mentor:</strong>
-        <%= @group.mentor.name %>
+        <%= @group.mentor.name %></center>
       </p>
 
 
-
-      <h3>Group members</h3>
-        <div style="max-height:400px;overflow:hidden;overflow-y:scroll" >
-          <table class="table">
-            <!--<thead>-->
-            <!--<tr>-->
-              <!--<th>Group members</th>-->
-              <!--<th>Email IDs</th>-->
-              <!--<th>Action</th>-->
-
-            <!--</tr>-->
-            <!--</thead>-->
-
-            <tbody>
-
-            <% @group.users.each do |user| %>
-                <tr>
-                  <td><%= link_to user.name, user %></td>
-                  <td><%= user.email %></td>
-                  <% if policy(@group).admin_access? %>
-                      <td><%= link_to 'Remove', group_member_path(GroupMember.find_by(user_id:user.id,group_id:@group.id)), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-                  <% end %>
-                </tr>
-            <% end %>
-
-            <tbody/>
-          </table>
-
+      <br>
+      <br>
+      <h3>Members <btn class="addmem" data-toggle="modal" data-target="#myModal">+ Add member</btn></h3>
+      <br>
+      <div class="row3">
+        <% @group.users.each do |user| %>
+          <div class="column3">
+          <%= link_to " "+user.name, user, class: "fa fa-user memname " %>
+          <% if policy(@group).admin_access? %>
+              <%= link_to 'Remove', group_member_path(GroupMember.find_by(user_id:user.id,group_id:@group.id)), method: :delete, data: { confirm: 'Are you sure?' }, class:"removerel" %>
+              <% end %>
+          <br>
+          <%= user.email %>
+          </div>
+          <% end %>
+          
       </div>
-
-
-
-
       <div id="myModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
 
@@ -60,7 +220,6 @@
             <div class="modal-header">
               <h4 class="modal-title">Add members</h4>
               <button type="button" class="close" data-dismiss="modal">&times;</button>
-
             </div>
             <div class="modal-body">
               <p>Enter Email IDs separated by commas/spaces or in separate lines. If users are not registered, an email ID will be sent requesting them to sign up.</p>
@@ -100,20 +259,23 @@
       </div>
 
       <% if policy(@group).admin_access? %>
-          <button type="button" class="btn btn-secondary btn-info" data-toggle="modal" data-target="#myModal">Add member</button>
-            <%= link_to 'Add new assignment', new_group_assignment_path(@group), class: "btn btn-info" %>
+
+            <br>
+            <br>
+            <h3>Assignment
+            <%= link_to 'Add new assignment', new_group_assignment_path(@group), class: "addmem" %></h3>
           <br>
           <br>
       <%end%>
 
 
-      <table class="table">
+      <table class="table" style="border-collapse: collapse; border-spacing: 0 1em; ">
         <thead>
         <tr>
-          <th>Assignment</th>
+          <th>Name</th>
           <th>DeadLine</th>
-          <th>Preview</th>
-          <th> Graded </th>
+          <th>Grading</th>
+          
           <th>Actions</th>
           <% unless policy(@group).admin_access? %>
             <th>Grade</th>
@@ -124,23 +286,24 @@
         <tbody>
         <tbody>
         <% @group.assignments.includes(projects: :grade).each do |assignment| %>
-            <tr>
+            <tr class="arows" >
               <td><%= assignment.name %></td>
               <td><div class="date"><%= assignment.deadline.strftime("%d %b,%Y %I:%M %p %Z") %></div>
                 <% if(assignment.deadline > Time.now) %>
                 <p> <strong>Time remaining: </strong><%=(( assignment.deadline.to_i - Time.now.to_i)/1.day)%> days,  <%=(( assignment.deadline.to_i- Time.now.to_i)/1.hour)%24%> hours, <%=(( assignment.deadline.to_i- Time.now.to_i)/1.minute)%60%> minutes</p>
                 <% end %>
               </td>
-              <td><%= link_to 'Show', group_assignment_path(@group,assignment) %></td>
               <td> <%= AssignmentDecorator.new(assignment).graded %> </td>
+              
               <td>
                 <% if policy(@group).admin_access? %>
+                  <%= link_to 'View', group_assignment_path(@group,assignment), class:"view" %>
                   <% if assignment.status!="closed" %>
-                    <%= link_to 'Edit', edit_group_assignment_path(@group,assignment) %>
+                    <%= link_to 'Edit', edit_group_assignment_path(@group,assignment), class:"EditReopen" %>
                   <% else %>
-                    <%= link_to 'Reopen', reopen_group_assignment_path(@group,assignment) %>
+                    <%= link_to 'Reopen', reopen_group_assignment_path(@group,assignment), class:"EditReopen" %>
                   <% end %>
-                  <%= link_to 'Destroy', group_assignment_path(@group,assignment), method: :delete, data: { confirm: 'Are you sure?' } %>
+                  <%= link_to 'Delete', group_assignment_path(@group,assignment),class:"del", method: :delete, data: { confirm: 'Are you sure?' } %>
                 <% else %>
 
                     <% project_assignment = assignment.projects.find { |p| p.author_id == current_user.id } %>
@@ -182,19 +345,13 @@
         <% end %>
         </tbody>
       </table>
-      <% if policy(@group).admin_access? %>
-      <%= link_to 'Edit', edit_group_path(@group) %> |
+      <% if policy(@group).admin_access? %>      
       <% end %>
-      <%= link_to 'Back', user_groups_path(current_user) %>
-
+      <%= link_to 'Back', user_groups_path(current_user) ,class:"back" %>
     </div>
-
-
   </div>
   <br />
-
   <br />
-
   <script>
       $(document).ready(function() {
 
@@ -205,3 +362,4 @@
   </script>
 
 </div>
+
