@@ -1,80 +1,54 @@
 <div class="container">
-  <div class="row feature">
-
-    <div class="col">
-      <%= link_to 'New Group +', new_group_path, class: "btn btn-info" %>
+  <div class="row row-group">
+    <div class="col-xs col-sm col-md col-lg">
+      <h2 class="heading-group">GROUPS</h2>
+      <%= link_to '+ Make New Group', new_group_path, class: "btn-group" %>
       <% if notice %>
           <p id="notice" class="alert alert-danger"><%= notice %></p>
-        <% end %>
-
-      <% if @user.groups.count!=0 %>
-          <h1>Groups you belong to: </h1>
-          <table class="table">
-            <thead>
-            <tr>
-              <th>Name</th>
-              <th>Mentor</th>
-              <th colspan="3"></th>
-            </tr>
-            </thead>
-
-            <tbody>
-            <% @user.groups.each do |group| %>
-                <tr>
-                  <td><%= group.name %></td>
-                  <td><%= group.mentor.name %></td>
-                  <td><%= link_to 'Show', group %></td>
-                  <%if group.mentor.id == @user.id %>
-                      <td><%= link_to 'Edit', edit_group_path(group) %></td>
-                      <td><%= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-                  <%end%>
-
-                </tr>
-            <% end %>
-            </tbody>
-          </table>
-
-          <br>
       <% end %>
-
-      <% if @groups_mentored.present? %>
-          <h1>Groups you mentor: </h1>
-          <table class="table">
-            <thead>
-            <tr>
-              <th>Name</th>
-              <th>Member Count</th>
-              <th colspan="3">Actions</th>
-            </tr>
-            </thead>
-
-            <tbody>
-            <% @groups_mentored.each do |group| %>
-                <tr>
-                  <td><%= group.name %></td>
-                  <td><%= group.group_member_count %></td>
-                  <td><%= link_to 'Show', group %></td>
-                  <td><%= link_to 'Edit', edit_group_path(group) %></td>
-                  <td><%= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-                </tr>
-            <% end %>
-            </tbody>
-          </table>
-
-          <br>
-      <% end %>
-
-
-
     </div>
-
-
   </div>
-  <br />
-
-  <br />
-
-
-
+  <br>
+  <% if @groups_mentored.present? %>
+    <h4 class="heading-group">GROUPS YOU MENTOR: </h4>
+    <div class="row">
+      <% @groups_mentored.each do |group| %>
+        <div class="col-lg-4 col-md-6 col-xs-12">
+          <div class="card-group mentor-card-group">
+            <div class="group-name"><%= group.name %></div>
+            <div class="group-member-count"> Total Members: <%= group.group_member_count %></div>
+            <div class="btn-mentor-group">
+              <%= link_to group, class: "btn-card btn-view" do %>
+                <%= image_tag("/assets/SVGs/view.svg", alt: "View", height: "15", width: "15", hspace: "2") %> View
+              <% end %>
+              <%= link_to edit_group_path(group), class: "btn-card btn-edit" do %>
+                <%= image_tag("/assets/SVGs/edit.svg", alt: "Edit", height: "15", width: "15", hspace: "2") %> Edit
+              <% end %>
+              <%= link_to group, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn-card btn-delete" do %>
+                <%= image_tag("/assets/SVGs/delete.svg", alt: "Delete", height: "15", width: "15", hspace: "2") %> Delete
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+  <br>
+  <% if @user.groups.count!=0 %>
+    <h4 class="heading-group">GROUPS YOU'RE IN: </h4>
+    <div class="row">
+      <% @groups_mentored.each do |group| %>
+        <div class="col-lg-4 col-md-6 col-xs-12">
+          <div class="card-group in-card-group">
+            <div class="in-card-name-member">
+              <div class="group-name"><%= group.name %></div>
+              <div class="group-member-count"> Total Members: <%= group.group_member_count %></div>
+            </div>
+            <%= link_to 'View', group, class: "in-card-view" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 </div>
 
