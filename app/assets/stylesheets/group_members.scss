@@ -2,164 +2,159 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .editlink {
-  position: relative;
-  top: -7px;
-  left: 4px;
-  border-radius: 5px;
   background-color: #026e57;
   border: 0;
-  color: #ffffff;
-  padding: 8px 8px;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
   font-size: 16px!important;
-  cursor: pointer;}
-.editlink:hover {
+  left: 4px;
+  padding: 8px 8px;
   position: relative;
   top: -7px;
-  left: 4px;
-  border-radius: 5px;
-  background-color: #026e57	;
+}
+.editlink:hover {
   border: 0;
-  color: #ffffff;
-  padding: 8px 8px;
-  font-size: 16px;
+  border-radius: 5px;
+  color: #fff;
   cursor: pointer;
+  font-size: 16px;
+  left: 4px; 
+  padding: 8px 8px;
+  position: relative;
   text-decoration: none;
+  top: -7px;
 }
 .addmem {
-  border-radius: 15px;
-  background-color: #42b983	;
+  background-color: #42b983;
   border: 0;
-  color: #ffffff;
-  text-decoration: 0;
-  padding: 12px 34px;
+  border-radius: 15px;
+  color: #fff;
+  cursor: pointer; 
   font-size: 16px;
-  cursor: pointer;
-  
-  
+  padding: 12px 34px;
 }
 .addmem:hover {
-  border-radius: 15px;
-  background-color: #42b983 !important;
+  background-color: #42b983!important;
   border: 0;
-  color: #ffffff;
-  padding: 12px 34px;
-  font-size: 16px;
+  border-radius: 15px;
+  color: #fff;
   cursor: pointer;
-  text-decoration: 0;
+  font-size: 16px;
+  padding: 12px 34px;
+  text-decoration: none;
 }
 .view {
-  border-radius: 5px;
-  background-color: #42b983	;
+  background-color: #42b983;
   border: 0;
-  color: #ffffff;
-  padding: 2px 12px;
-  font-size: 16px;
+  border-radius: 5px; 
+  color: #fff;
   cursor: pointer;
-  text-decoration: 0;
-  float: left;
+  float: left; 
+  font-size: 16px; 
   margin: 5px;
-}
-.view:hover{
+  padding: 2px 12px;
   text-decoration: 0;
-  color: #ffffff;
+}
+.view:hover {
+  color: #fff;
+  text-decoration: none;
 }
 .EditReopen {
-  border-radius: 5px;
-  background-color: #71cac8	;
+  background-color: #71cac8;
   border: 0;
-  color: #ffffff;
-  padding: 2px 12px;
-  font-size: 16px;
+  border-radius: 5px;
   cursor: pointer;
-  text-decoration: 0;
+  color: #fff;
   float: left;
-  margin: 5px; 
-}
-.EditReopen:hover{
+  font-size: 16px;
+  margin: 5px;
+  padding: 2px 12px;
   text-decoration: 0;
-  color: #ffffff;
+}
+.EditReopen:hover {
+  color: #fff;
+  text-decoration: none;
 }
 .del {
-  border-radius: 5px;
-  background-color: #ff5959	;
+  background-color: #ff5959;
   border: 0;
-  color: #ffffff;
-  padding: 2px 12px;
-  font-size: 16px;
+  border-radius: 5px;
+  color: #fff;
   cursor: pointer;
-  text-decoration: 0;
   float:left;
+  font-size: 16px;
   margin: 5px;
-  
-}
-.del:hover{
+  padding: 2px 12px;
   text-decoration: 0;
-  color: #ffffff;
 }
-.arows{
+.del:hover {
+  color: #fff;
+  text-decoration: none;
+}
+.arows {
   background-color:#f8fffc;
   border-color: solid #bcdbd3;
 }
 .row3:after {
+  clear: both;
   content: "";
   display: table;
-  clear: both;
   overflow: hidden;
 }
 .column3 {
-  float: left;
-  width: 32.8%;
-  padding: 10px;
-  overflow: hidden;
   background-color:#f8fffc;
   border: 1px solid #bcdbd3;
+  float: left;
   margin: 2px;
-}
-.memname{
-  color: #000000;
-  font-size: 18px;
-}
-.memname:hover{
-  color: #000000;
-  font-size: 18px;
-  text-decoration: 0;
-}
-.removerel{
-  border-radius: 5px;
-  background-color: #ff5959	;
-  border: 0;
-  color: #ffffff !important;
-  padding: 2px 12px;
-  font-size: 16px;
-  cursor: pointer;
-  text-decoration: 0;
-  position: relative;
-  float: right;
   overflow: hidden;
+  padding: 10px;
+  width: 32.8%;
 }
-.removerel:hover{
+.memname {
+  color: #000;
+  font-size: 18px;
+}
+.memname:hover {
+  color: #000;
+  font-size: 18px;
+  text-decoration: none;
+}
+.removerel {
+  background-color: #ff5959;
+  border: 0;
+  border-radius: 5px;
+  color: #fff!important;
+  cursor: pointer;
+  float: right;
+  font-size: 16px;
+  overflow: hidden;
+  padding: 2px 12px;
+  position: relative;
   text-decoration: 0;
-  color: #ffffff;
+}
+.removerel:hover {
+  color: #fff;
+  text-decoration: none;
 }
 .back {
-  text-align: center;
-  border-radius: 15px;
-  background-color: #42b983	;
+  background-color: #42b983;
   border: 0;
-  color: #ffffff;
-  text-decoration: 0;
-  padding: 12px 34px;
-  font-size: 16px;
+  border-radius: 15px;
+  color: #fff;
   cursor: pointer;
+  font-size: 16px;
+  padding: 12px 34px; 
+  text-align: center;
+  text-decoration: 0; 
 }
 .back:hover {
-  text-align: center;
-  border-radius: 15px;
-  background-color: #42b983	;
   border: 0;
-  color: #ffffff;
-  padding: 12px 34px;
-  font-size: 16px;
+  border-radius: 15px;
   cursor: pointer;
-  text-decoration: 0;
+  color: #fff;
+  font-size: 16px;
+  padding: 12px 34px;
+  text-align: center;
+  text-decoration: none;
 }
