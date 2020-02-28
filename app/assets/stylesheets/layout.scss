@@ -1,28 +1,21 @@
 // All the custom class styles
-
 @media (max-width: 768px) { 
-
-  .aligncenter {  
-    padding-left: 0em !important;
-    margin-left: 0em !important; 
+   .aligncenter {
+     margin-left: 0em !important; 
+     padding-left: 0em !important;
   }
- 
  }
 
-
 @media (max-width: 576px) { 
-
-  .aligncenter {  
-    padding-left: 0em !important;
-    margin-left: 0em !important; 
+  .aligncenter {
+    margin-left: 0em !important;
+    padding-left: 0em !important; 
   }
-
  }
 
 .aligncenter {  
   padding-left: 3em;
-  margin-left: 3em; ;
-  
+  margin-left: 3em;
 }
 
 #profile {
@@ -35,16 +28,13 @@
   height: 50px !important;
 }
 
-
-
 .btn-about {
   background-color:green ;
-  
 }
+
 .btn-about:hover {
   color: black !important;
   border: 1px green solid;
-
 }
 
 .required {
