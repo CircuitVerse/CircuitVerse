@@ -298,14 +298,14 @@ a.btn.btn-outline-danger {
 }
 
 .card-body-post {
-    text-decoration: none;
     border: 0;
     padding: 25px;
+    text-decoration: none;
 }
 
 .btn-post {
-    height: 28px;
     font-size: 13px;
+    height: 28px;
     margin-left: 0;
 }
 
@@ -319,7 +319,7 @@ a {
 }
 
 .btnself-post {
-    border: 1.5px solid $btnselfborder;
     background-color: $white;
+    border: 1.5px solid $btnselfborder;
     color: $black;
 }
