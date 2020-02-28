@@ -1,15 +1,15 @@
 // All the custom class styles
 @media(max-width: 768px) {
   .aligncenter {
-     margin-left: 0em !important; 
-     padding-left: 0em !important;
+    margin-left: 0em !important; 
+    padding-left: 0em !important;
   }
  }
 
 @media(max-width: 576px) {
   .aligncenter {
-     margin-left: 0em !important;
-     padding-left: 0em !important; 
+    margin-left: 0em !important;
+    padding-left: 0em !important; 
   }
  }
 
@@ -19,13 +19,13 @@
 }
 
 #profile {
-  border: none;
   background-color: #fcfcfc;
+  border: 0;
 }
 
 #profile input[type="text"], select {
-  width: 100%;
   height: 50px !important;
+  width: 100%;
 }
 
 .btn-about {
@@ -33,7 +33,7 @@
 }
 
 .btn-about:hover {
-  color: black !important;
+  color: #000000 !important;
   border: 1px $green solid;
 }
 
