@@ -71,7 +71,7 @@
             <% end %>
             <% if policy(@project).user_access? %>
             <br>
-          <hr>
+            <hr>
           <a href="#>" class="btn btn-primary fa-post btn-post" id="<%= @project.id %>" data-toggle="modal" data-target="#myModal" style="margin:0px;">Preview</a>
           <a href="<%= simulator_edit_path(@project) %>" class="card-link btn btn-primary btn-post fa-post" target="_blank">Launch simulator</a>
           <% if user_signed_in? %>
@@ -90,12 +90,12 @@
           <% if policy(@project).user_access? %>
           <% if @project.author_id == current_user&.id %>
           <%= link_to ' Edit', edit_user_project_path(@author, @project), class: "fa-pencil btn btn-primary btn-post fa-post card-link btnself-post", style: "margin:0px;" %>
-          <% if policy(@project).author_access?  %>
+          <% if policy(@project).author_access? %>
           <%= link_to ' Delete',user_project_path(@author,@project), method: :delete, data: { confirm: 'Are you sure?' }, class: "fa-trash card-link btn btn-primary btn-post fa-post btnself-post" , style: "margin:0px;" %>
           <% end %>
           <% else %>
           <%= link_to ' Edit', edit_user_project_path(@author, @project), class: "fa-pencil btn btn-primary btn-post fa-post card-link", style: "margin:0px;" %>
-          <% if policy(@project).author_access?  %>
+          <% if policy(@project).author_access? %>
           <%= link_to ' Delete',user_project_path(@author,@project), method: :delete, data: { confirm: 'Are you sure?' }, class: "fa-trash card-link btn btn-primary btn-post fa-post" , style: "margin:0px;" %>
           <% end %>
           <% end %>
