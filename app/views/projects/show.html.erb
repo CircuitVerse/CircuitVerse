@@ -70,8 +70,8 @@
             <%= sanitize@project.description %>
             <% end %>
             <% if policy(@project).user_access? %>
-            <br>
-            <hr>
+          <br>
+          <hr>
           <a href="#>" class="btn btn-primary fa-post btn-post" id="<%= @project.id %>" data-toggle="modal" data-target="#myModal" style="margin:0px;">Preview</a>
           <a href="<%= simulator_edit_path(@project) %>" class="card-link btn btn-primary btn-post fa-post" target="_blank">Launch simulator</a>
           <% if user_signed_in? %>
