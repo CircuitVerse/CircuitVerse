@@ -1,180 +1,6 @@
 <link rel="stylesheet" type="text/css" href="/css/tooltip.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
-.editlink {
-  position: relative;
-  top: -7px;
-  left: 4px;
-  border-radius:5px;
-  background-color: #026e57	;
-  border: none;
-  color: white;
-  padding: 8px 8px;
-  font-size: 16px;
-  cursor: pointer;
-  
-}
-.editlink:hover {
-  position: relative;
-  top: -7px;
-  left: 4px;
-  border-radius:5px;
-  background-color: #026e57	;
-  border: none;
-  color: white;
-  padding: 8px 8px;
-  font-size: 16px;
-  cursor: pointer;
-  text-decoration:none;
-}
-.addmem {
-  position: absolute;
-  right: 4px; 
-  border-radius:15px;
-  background-color: #42b983	;
-  border: none;
-  color: white;
-  text-decoration:none;
-  padding: 12px 34px;
-  font-size: 16px;
-  cursor: pointer;
-  
-}
-.addmem:hover {
-  position: absolute;
-  right: 4px; 
-  border-radius:15px;
-  background-color: #42b983 !important;
-  border: none;
-  color: white;
-  padding: 12px 34px;
-  font-size: 16px;
-  cursor: pointer;
-  text-decoration:none;
-}
-.view {
-  
-  border-radius:5px;
-  background-color: #42b983	;
-  border: none;
-  color: white;
-  padding: 2px 12px;
-  font-size: 16px;
-  cursor: pointer;
-  text-decoration:none;
-  
-}
-.view:hover{
-  text-decoration:none;
-  color:white;
-}
-.EditReopen {
-  
-  border-radius:5px;
-  background-color: #71cac8	;
-  border: none;
-  color: white;
-  padding: 2px 12px;
-  font-size: 16px;
-  cursor: pointer;
-  text-decoration:none;
-  
-}
-.EditReopen:hover{
-  text-decoration:none;
-  color:white;
-}
-.del {
-  
-  border-radius:5px;
-  background-color: #ff5959	;
-  border: none;
-  color: white;
-  padding: 2px 12px;
-  font-size: 16px;
-  cursor: pointer;
-  text-decoration:none;
-  
-}
-.del:hover{
-  text-decoration:none;
-  color:white;
-}
-.arows{
-  background-color:#f8fffc;
-  border-color:solid #bcdbd3;
-  
-  
-  
-
-}
-.row3:after {
-  content: "";
-  display: table;
-  clear: both;
-  overflow:hidden;
-  
-}
-.column3 {
-  float: left;
-  width: 32.8%;
-  padding: 10px;
-  overflow:hidden;
-  background-color:#f8fffc;
-  border: 1px solid #bcdbd3;
-  margin: 2px;
-}
-.memname{
-  color:black;
-  font-size:18px;
-}
-.memname:hover{
-  color:black;
-  font-size:18px;
-  text-decoration:none;
-}
-.removerel{
-  border-radius:5px;
-  background-color: #ff5959	;
-  border: none;
-  color: white;
-  padding: 2px 12px;
-  font-size: 16px;
-  cursor: pointer;
-  text-decoration:none;
-  position:relative;
-  float:right;
-  top:7px;
-  overflow:hidden;
-
-}
-.removerel:hover{
-  text-decoration:none;
-  color:white;
-}
-.back {
-  text-align:center;
-  border-radius:15px;
-  background-color: #42b983	;
-  border: none;
-  color: white;
-  text-decoration:none;
-  padding: 12px 34px;
-  font-size: 16px;
-  cursor: pointer;
-  
-}
-.back:hover {
-  text-align:center
-  border-radius:15px;
-  background-color: #42b983	;
-  border: none;
-  color: white;
-  padding: 12px 34px;
-  font-size: 16px;
-  cursor: pointer;
-  text-decoration:none;
-}
 
 </style>
 <div class="container">
@@ -183,38 +9,36 @@
       <% if notice %>
         <p id="notice" class="alert alert-success"><%= notice %></p>
       <% end %>
-      <p>
+        <p>
         <h1 style="text-align:center">
         <%= @group.name %>
         <%= link_to ' Edit Name', edit_group_path(@group), class:"editlink fa fa-pencil" %></h1>        
-      </p>
+        </p>
       <p>
       <center style="font-size:25px">
         <strong>Mentor:</strong>
         <%= @group.mentor.name %></center>
       </p>
-
-
       <br>
       <br>
-      <h3>Members <button type="button" style="color:white; background-color:#42b983 !important;" class="addmem" data-toggle="modal" data-target="#myModal">Add member</button></h3>
-      <br>
-      <div class="row3">
+      <h3>Members </h3>
+      <button type="button" style="color:white; background-color:#42b983 !important;" class="float-sm-left float-md-right float-lg-right float-xl-right addmem" data-toggle="modal" data-target="#myModal">Add member</button>
+      <br><br><br> 
+      <div class="row">
         <% @group.users.each do |user| %>
-          <div class="column3">
-          <%= link_to " "+user.name, user, class: "fa fa-user memname " %>
-          <% if policy(@group).admin_access? %>
+          <div class="card text-white mb-3" style="max-width: 18rem; background-color:#f8fffc; border: 1px solid #bcdbd3; margin:2px; ">
+              <div class="card-body">
+              <p><%= link_to " "+user.name, user, class: "fa fa-user memname card-text " %> <% if policy(@group).admin_access? %>
               <%= link_to 'Remove', group_member_path(GroupMember.find_by(user_id:user.id,group_id:@group.id)), method: :delete, data: { confirm: 'Are you sure?' }, class:"removerel" %>
-              <% end %>
-          <br>
-          <%= user.email %>
-          </div>
+              <% end %></p>
+              <p class="card-text" style="color:black;" ><%= user.email %></p>
+              
+              </div>
+              </div>
           <% end %>
-          
       </div>
       <div id="myModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
-
           <!-- Modal content-->
           <div class="modal-content">
             <div class="modal-header">
@@ -227,7 +51,6 @@
                   <% if @group_member.errors.any? %>
                       <div id="error_explanation">
                         <h2><%= pluralize(group_member.errors.count, "error") %> prohibited this group_member from being saved:</h2>
-
                         <ul>
                           <% @group_member.errors.full_messages.each do |message| %>
                               <li><%= message %></li>
@@ -235,16 +58,13 @@
                         </ul>
                       </div>
                   <% end %>
-
                   <div class="field">
                     <%= form.hidden_field :group_id, id: :group_member_group_id %>
                   </div>
-
                   <div class="form-group">
                     <label for="Email Ids">Email IDs:</label>
                     <textarea class="form-control" rows="5" id="emails" name="group_member[emails]"></textarea>
                   </div>
-
                   <div class="actions modal-footer">
                     <%= form.submit "Add members", class: 'btn btn-secondary' %>
                   </div>
@@ -254,21 +74,17 @@
               <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">close</button>-->
             <!--</div>-->
           </div>
-
         </div>
       </div>
-
       <% if policy(@group).admin_access? %>
-
             <br>
             <br>
-            <h3>Assignment
-            <%= link_to 'Add new assignment', new_group_assignment_path(@group), class: "addmem" %></h3>
+            <h3>Assignment</h3>
+            <%= link_to 'Add new assignment', new_group_assignment_path(@group), class: " float-sm-left float-md-right float-lg-right float-xl-right addmem" %>
+          <br>
           <br>
           <br>
       <%end%>
-
-
       <table class="table" style="border-collapse: collapse; border-spacing: 0 1em; ">
         <thead>
         <tr>
@@ -282,7 +98,6 @@
           <% end %>
         </tr>
         </thead>
-
         <tbody>
         <tbody>
         <% @group.assignments.includes(projects: :grade).each do |assignment| %>
@@ -293,8 +108,7 @@
                 <p> <strong>Time remaining: </strong><%=(( assignment.deadline.to_i - Time.now.to_i)/1.day)%> days,  <%=(( assignment.deadline.to_i- Time.now.to_i)/1.hour)%24%> hours, <%=(( assignment.deadline.to_i- Time.now.to_i)/1.minute)%60%> minutes</p>
                 <% end %>
               </td>
-              <td> <%= AssignmentDecorator.new(assignment).graded %> </td>
-              
+              <td> <%= AssignmentDecorator.new(assignment).graded %> </td>              
               <td>
                 <% if policy(@group).admin_access? %>
                   <%= link_to 'Show', group_assignment_path(@group,assignment), class:"view" %>
@@ -305,9 +119,7 @@
                   <% end %>
                   <%= link_to 'Destroy', group_assignment_path(@group,assignment),class:"del", method: :delete, data: { confirm: 'Are you sure?' } %>
                 <% else %>
-
                     <% project_assignment = assignment.projects.find { |p| p.author_id == current_user.id } %>
-
                     <% if(assignment.deadline > Time.now) %>
                         <% if project_assignment.nil?%>
                             <%= link_to 'Start Working', assignment_start_path(@group,assignment) %>
@@ -321,10 +133,7 @@
                             <%= link_to 'View your submission', user_project_path(current_user,project_assignment) %>
                         <% end %>
                     <% end %>
-
               <% end %>
-
-
               </td>
               <% unless policy(@group).admin_access? %>
                 <td>
@@ -354,11 +163,9 @@
   <br />
   <script>
       $(document).ready(function() {
-
           $('.date').each(function(){
               this.innerHTML = formatDate(new Date(this.innerHTML), "dddd hh:mmTT zz, dd MMM yyyy")
           })
       })
   </script>
-
 </div>
