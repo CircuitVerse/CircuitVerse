@@ -28,13 +28,13 @@
   width: 100%;
 }
 
-.btn-about {
-  background-color: $green;
+.btn-secondary:hover {
+  border: 2px solid $green;
 }
 
-.btn-about:hover {
-  color: #000000 !important;
-  border: 1px $green solid;
+.btn-secondary {
+  background-color: $green;
+  color: #FFFFFF;
 }
 
 .required {
