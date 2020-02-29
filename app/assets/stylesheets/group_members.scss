@@ -15,6 +15,14 @@
 
 }
 
+.card-mem {
+  background-color: $gray-100;
+  border: 1px solid $green-border;
+  margin: 2px;
+  max-width: 18rem;
+
+}
+
 .editlink:hover {
   border: 0;
   border-radius: 5px;
@@ -29,6 +37,7 @@
 }
 
 .addmem {
+  background-color: $green;
   border: 0;
   border-radius: 15px;
   color: $white;
@@ -52,6 +61,7 @@
 }
 
 .view {
+  background-color: $green;
   border: 0;
   border-radius: 5px;
   color: $white;
@@ -74,6 +84,7 @@
 }
 
 .editreopen {
+  background-color: $mint-green;
   border: 0;
   border-radius: 5px;
   color: $white;
@@ -96,6 +107,7 @@
 }
 
 .del {
+  background-color: $red;
   border: 0;
   border-radius: 5px;
   color: $white;
@@ -130,6 +142,7 @@
 }
 
 .removerel {
+  background-color: $red;
   border: 0;
   border-radius: 5px;
   color: $white;
@@ -180,4 +193,14 @@
   text-align: center;
   text-decoration: none;
 
+}
+
+.assignment-table {
+  border-collapse: collapse;
+  border-spacing: 0 1em;
+}
+
+.assignment-rows {
+  background-color: #f8fffc;
+  border-color: solid #bcdbd3;
 }
