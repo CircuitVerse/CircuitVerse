@@ -6,9 +6,23 @@
 }
 
 .feature {
+    margin-top: 40px;
     border: 1px solid rgba(0, 0, 0, 0.125);
     padding: 1.25rem;
+    height: 200px;
     border-radius: 0.25em;
+    margin-bottom: 20px;
+
+}
+.field{
+    display: flex;
+    justify-content:center;
+    align-items:center;
+
+
+}
+.empty-div{
+height:250px;
 }
 
 .gif-box {
@@ -280,4 +294,18 @@ a.btn.btn-outline-danger {
 
 .subheading_teachers{
   text-align: left;
+}
+.edit_name{
+    padding-top: 50px;
+font-size: 2rem;
+font-weight: 200;
+}
+.name-group{
+font-weight:200;
+font-size:1.2rem;
+ width:200px;
+ height: 100%;
+margin-top:10px;
+margin-right:8px;
+
 }
