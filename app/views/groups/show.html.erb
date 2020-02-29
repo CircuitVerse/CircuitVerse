@@ -100,7 +100,7 @@
         <tbody>
         <tbody>
         <% @group.assignments.includes(projects: :grade).each do |assignment| %>
-            <tr class="arows" style="background-color: #f8fffc;" >
+            <tr class="arows" style="background-color: #f8fffc;border-color: solid #bcdbd3;" >
               <td><%= assignment.name %></td>
               <td><div class="date"><%= assignment.deadline.strftime("%d %b,%Y %I:%M %p %Z") %></div>
                 <% if(assignment.deadline > Time.now) %>
