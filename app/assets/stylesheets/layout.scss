@@ -1,4 +1,98 @@
 // All the custom class styles
+.noborder{
+  border: 0px solid rgba(0,0,0,0.125);
+  border-radius: 0px;
+}
+
+.astrikstyle {
+  font-size: 10px;
+  color: red;
+ }
+ 
+.aligncenter { 
+  padding-left: 3em;
+  margin-left: 3em; 
+}
+
+.btn-secondary:hover {
+  border: 2px solid $green;
+}
+
+.btn-secondary {
+  background-color: $green;
+  color: #FFFFFF;
+  width: 12%;
+}
+
+@media (max-width: 768px) { 
+  .aligncenter {  
+    padding-left: 0 ;
+    margin-left: 0 ;
+  }
+  .btn-secondary{
+    width: 20% ;
+  }
+
+ }
+
+@media (max-width: 576px) { 
+  .aligncenter {  
+    padding-left: 0 ;
+    margin-left: 0 ; 
+  }
+  .btn-secondary{
+    width: 30% ;
+  }
+  
+ }
+
+@media (max-width: 568px) {
+  .aligncenter {
+    padding-left: 0 ;
+    margin-left: 0 ; 
+  }
+  .btn-secondary{
+    width: 40% ;
+  }
+ }
+
+.profile {
+  border: 0;
+  background-color: $slightblack;
+}
+
+.required {
+  color: $danger;
+  font-size: 30px;
+}
+
+.bordertextfeild {
+  border-radius: 0px;
+  border: 1px solid $green;
+  width: 100%;
+  height: 50px;
+}
+
+.boldtext {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.custom-file-upload {
+  text-align: center;
+  background-color: $active-background;
+  width: 155px;
+  border: 1px solid $green;
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.filebtn {
+  display: none;
+}
+
 .noprojects {
   left: 30%;
   position: absolute;
