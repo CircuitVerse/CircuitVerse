@@ -12,6 +12,7 @@
   padding: 8px;
   position: relative;
   top: -7px;
+
 }
 .editlink:hover {
   border: 0;
@@ -23,6 +24,7 @@
   position: relative;
   text-decoration: none;
   top: -7px;
+
 }
 .addmem {
   border: 0;
@@ -34,6 +36,7 @@
   padding-left: 34px;
   padding-right: 34px;
   padding-top: 12px;
+
 }
 .addmem:hover {
   border: 0;
@@ -42,6 +45,7 @@
   cursor: pointer;
   font-size: 16px;
   text-decoration: none;
+
 }
 .view {
   border: 0;
@@ -56,10 +60,12 @@
   padding-right: 12px;
   padding-top: 2px;
   text-decoration: 0;
+
 }
 .view:hover {
   color: $white;
   text-decoration: none;
+
 }
 .editreopen {
   border: 0;
@@ -74,10 +80,12 @@
   padding-right: 12px;
   padding-top: 2px;
   text-decoration: 0;
+
 }
 .editreopen:hover {
   color: $white;
   text-decoration: none;
+
 }
 .del {
   border: 0;
@@ -92,6 +100,7 @@
   padding-right: 12px;
   padding-top: 2px;
   text-decoration: 0;
+
 }
 .del:hover {
   color: $white;
@@ -100,11 +109,13 @@
 .memname {
   color: $black;
   font-size: 18px;
+
 }
 .memname:hover {
   color: $black;
   font-size: 18px;
   text-decoration: none;
+
 }
 .removerel {
   border: 0;
@@ -120,10 +131,12 @@
   padding-top: 2px;
   position: relative;
   text-decoration: 0;
+
 }
 .removerel:hover {
   color: $white;
   text-decoration: none;
+
 }
 .back {
   border: 0;
@@ -137,6 +150,7 @@
   padding-top: 12px;
   text-align: center;
   text-decoration: 0;
+
 }
 .back:hover {
   border: 0;
@@ -150,5 +164,5 @@
   padding-top: 12px;
   text-align: center;
   text-decoration: none;
-  
+
 }
