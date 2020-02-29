@@ -1,17 +1,17 @@
 // All the custom class styles
-.noborder{
-  border: 0px solid rgba(0,0,0,0.125);
-  border-radius: 0px;
+.noborder {
+  border: 0;
+  border-radius: 0;
 }
 
 .astrikstyle {
+  color: $danger;
   font-size: 10px;
-  color: red;
- }
- 
+}
+
 .aligncenter { 
-  padding-left: 3em;
-  margin-left: 3em; 
+  margin-left: 3em;
+  padding-left: 3em; 
 }
 
 .btn-secondary:hover {
@@ -20,41 +20,39 @@
 
 .btn-secondary {
   background-color: $green;
-  color: #FFFFFF;
+  color: $pure-white;
   width: 12%;
 }
 
-@media (max-width: 768px) { 
-  .aligncenter {  
-    padding-left: 0 ;
-    margin-left: 0 ;
-  }
-  .btn-secondary{
-    width: 20% ;
-  }
-
- }
+@media(max-width: 768px) { 
+.aligncenter {
+  margin-left: 0;
+  padding-left: 0;
+}
+.btn-secondary{
+  width: 20%;
+}
+}
 
 @media (max-width: 576px) { 
-  .aligncenter {  
-    padding-left: 0 ;
-    margin-left: 0 ; 
-  }
-  .btn-secondary{
-    width: 30% ;
-  }
-  
- }
+.aligncenter {  
+  margin-left: 0;
+  padding-left: 0; 
+}
+.btn-secondary{
+    width: 30%;
+}
+}
 
 @media (max-width: 568px) {
-  .aligncenter {
-    padding-left: 0 ;
-    margin-left: 0 ; 
-  }
-  .btn-secondary{
-    width: 40% ;
-  }
- }
+.aligncenter {
+  margin-left: 0;
+  padding-left: 0; 
+}
+.btn-secondary {
+  width: 40%;
+}
+}
 
 .profile {
   border: 0;
@@ -67,7 +65,7 @@
 }
 
 .bordertextfeild {
-  border-radius: 0px;
+  border-radius: 0;
   border: 1px solid $green;
   width: 100%;
   height: 50px;
