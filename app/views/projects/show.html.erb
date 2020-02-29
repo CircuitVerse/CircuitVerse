@@ -1,3 +1,4 @@
+  
 <% content_for :title, "CircuitVerse - #{@project.name}" %>
 <% content_for :description, @project.description %>
 <% set_meta_tags author: @project.author.name %>
@@ -47,71 +48,71 @@
         </span>
         <div class="card-body-post">
           <p style="line-height:32px;">
-            <strong>Author:  </strong>
-            <%= link_to @project.author.name, @project.author %>
+          <strong>Author:  </strong>
+          <%= link_to @project.author.name, @project.author %>
             <br>
             <% if !@project.tags.empty? %>
-            <strong>Tags:</strong>
+              <strong>Tags:</strong>
             <% @project.tags.each do |tag| %>
-            <%= link_to tag.name, tag_path(tag.name),{:style=>"background-color: #f1f1f1; color: #000000", :class=>"badge"} %>
+              <%= link_to tag.name, tag_path(tag.name),{:style=>"background-color: #f1f1f1; color: #000000", :class=>"badge"} %>
             <% end %>
             <br>
-            <% end %>
-            <% if !@project.forked_project.nil? %>
+          <% end %>
+          <% if !@project.forked_project.nil? %>
             <strong>Forked project:</strong>
             <%= link_to @project.forked_project.author.name+"/"+@project.forked_project.name , user_project_path(@project.forked_project.author,@project.forked_project) %>
-            <br>
+              <br>
             <% end %>
             <strong>Project access type: </strong>
             <%= @project.project_access_type %>
             <br>
             <% if !@project.description.nil? %>
-            <b>Description:</b>
-            <%= sanitize@project.description %>
+              <b>Description:</b>
+              <%= sanitize@project.description %>
             <% end %>
             <% if policy(@project).user_access? %>
-            <br>
+              <br>
+              <hr>
+              <a href="#>" class="btn btn-primary fa-post btn-post" id="<%= @project.id %>" data-toggle="modal" data-target="#myModal" style="margin:0px;">Preview</a>
+              <a href="<%= simulator_edit_path(@project) %>" class="card-link btn btn-primary btn-post fa-post" target="_blank">Launch simulator</a>
+              <% if user_signed_in? %>
+                <i id="toggleStarButton" class="fa fa-star-o btn btn-primary fa-post btn-post noSelect" aria-hidden="true" style="font-size:13px;margin:0px;" style=<%= Star.find_by(user_id: current_user.id, project_id: @project.id).nil? ? "color:white" : "color:orange" %> onclick="toggleStar()"></i>
+              <% else %>
+                <i class="fa fa-star-o btn btn-primary fa-post btn-post noSelect" aria-hidden="true" style="color:orange"></i>
+              <% end %>
+            <% end %>
+            <% if policy(@project).author_access? %>
+              <p></p>
+              <span style="font-weight:bold;">+</span><a href="#>" id="<%= @project.id %>" data-toggle="modal" data-target="#collaboratorModal" style="text-decoration:underline;color:black;font-size:13px;font-weight:bold;"> Add a Collaborator</a>
+              <br>
+            <% end %>
+            </p>
             <hr>
-          <a href="#>" class="btn btn-primary fa-post btn-post" id="<%= @project.id %>" data-toggle="modal" data-target="#myModal" style="margin:0px;">Preview</a>
-          <a href="<%= simulator_edit_path(@project) %>" class="card-link btn btn-primary btn-post fa-post" target="_blank">Launch simulator</a>
-          <% if user_signed_in? %>
-          <i id="toggleStarButton" class="fa fa-star-o btn btn-primary fa-post btn-post noSelect" aria-hidden="true" style="font-size:13px;margin:0px;" style=<%= Star.find_by(user_id: current_user.id, project_id: @project.id).nil? ? "color:white" : "color:orange" %> onclick="toggleStar()"></i>
-          <% else %>
-          <i class="fa fa-star-o btn btn-primary fa-post btn-post noSelect" aria-hidden="true" style="color:orange"></i>
-          <% end %>
-          <% end %>
-          <% if policy(@project).author_access? %>
-          <p></p>
-          <span style="font-weight:bold;">+</span><a href="#>" id="<%= @project.id %>" data-toggle="modal" data-target="#collaboratorModal" style="text-decoration:underline;color:black;font-size:13px;font-weight:bold;"> Add a Collaborator</a>
-          <br>
-          <% end %>
-          </p>
-          <hr>
-          <% if policy(@project).user_access? %>
-          <% if @project.author_id == current_user&.id %>
-          <%= link_to ' Edit', edit_user_project_path(@author, @project), class: "fa-pencil btn btn-primary btn-post fa-post card-link btnself-post", style: "margin:0px;" %>
-          <% if policy(@project).author_access? %>
-          <%= link_to ' Delete',user_project_path(@author,@project), method: :delete, data: { confirm: 'Are you sure?' }, class: "fa-trash card-link btn btn-primary btn-post fa-post btnself-post" , style: "margin:0px;" %>
-          <% end %>
-          <% else %>
-          <%= link_to ' Edit', edit_user_project_path(@author, @project), class: "fa-pencil btn btn-primary btn-post fa-post card-link", style: "margin:0px;" %>
-          <% if policy(@project).author_access? %>
-          <%= link_to ' Delete',user_project_path(@author,@project), method: :delete, data: { confirm: 'Are you sure?' }, class: "fa-trash card-link btn btn-primary btn-post fa-post" , style: "margin:0px;" %>
-          <% end %>
-          <% end %>
-          <% end %>
+            <% if policy(@project).user_access? %>
+              <% if @project.author_id == current_user&.id %>
+                <%= link_to ' Edit', edit_user_project_path(@author, @project), class: "fa-pencil btn btn-primary btn-post fa-post card-link btnself-post", style: "margin:0px;" %>
+                <% if policy(@project).author_access? %>
+                  <%= link_to ' Delete',user_project_path(@author,@project), method: :delete, data: { confirm: 'Are you sure?' }, class: "fa-trash card-link btn btn-primary btn-post fa-post btnself-post" , style: "margin:0px;" %>
+                <% end %>
+              <% else %>
+                <%= link_to ' Edit', edit_user_project_path(@author, @project), class: "fa-pencil btn btn-primary btn-post fa-post card-link", style: "margin:0px;" %>
+                <% if policy(@project).author_access? %>
+                  <%= link_to ' Delete',user_project_path(@author,@project), method: :delete, data: { confirm: 'Are you sure?' }, class: "fa-trash card-link btn btn-primary btn-post fa-post" , style: "margin:0px;" %>
+                <% end %>
+              <% end %>
+            <% end %>
           <% if @project.author_id != current_user&.id %>
-          <%= link_to ' Fork', create_fork_project_path(@project), class: "card-link btn btn-primary btn-post fa-post fa-code-fork" , style: "margin:0px;" %>
+            <%= link_to ' Fork', create_fork_project_path(@project), class: "card-link btn btn-primary btn-post fa-post fa-code-fork" , style: "margin:0px;" %>
           <% end %>
           <% if @project.project_access_type != "Private" %>
-          <% if @project.author_id != current_user&.id %>
-          <a class="btn btn-primary btn-post fa-post" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" onclick="embed()">
-          <span class="btn-post fa-post fa-code" style="margin:0px;"></span> Embed
-          </a>
+            <% if @project.author_id != current_user&.id %>
+            <a class="btn btn-primary btn-post fa-post" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" onclick="embed()">
+            <span class="btn-post fa-post fa-code" style="margin:0px;"></span> Embed
+            </a>
           <% else %>
-          <a class="btn btn-primary btn-post fa-post btnself-post" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" onclick="embed()">
-          <span class="btn-post fa-post fa-code" style="margin:0px;"></span> Embed
-          </a>
+            <a class="btn btn-primary btn-post fa-post btnself-post" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" onclick="embed()">
+            <span class="btn-post fa-post fa-code" style="margin:0px;"></span> Embed
+            </a>
           <% end %>
           <div class="collapse" id="collapseExample">
             <div class="card card-body">
@@ -119,15 +120,15 @@
               <a class="text-success" style="margin:0px;">Embed code copied to clipboard!</a>
             </div>
           </div>
-          <% end %>
-          <% if !policy(@project).user_access? %>
+        <% end %>
+        <% if !policy(@project).user_access? %>
           <a href="#>" class="btn btn-primary fa-post btn-post" id="<%= @project.id %>" data-toggle="modal" data-target="#myModal" style="margin:0px;">Preview</a>
           <% if user_signed_in? %>
-          <i id="toggleStarButton" class="fa fa-star-o btn btn-primary fa-post btn-post noSelect" aria-hidden="true" style="font-size:13px;margin:0px;" style=<%= Star.find_by(user_id: current_user.id, project_id: @project.id).nil? ? "color:white" : "color:orange" %> onclick="toggleStar()"></i>
+            <i id="toggleStarButton" class="fa fa-star-o btn btn-primary fa-post btn-post noSelect" aria-hidden="true" style="font-size:13px;margin:0px;" style=<%= Star.find_by(user_id: current_user.id, project_id: @project.id).nil? ? "color:white" : "color:orange" %> onclick="toggleStar()"></i>
           <% else %>
-          <i class="fa-star-o btn btn-primary fa-post btn-post noSelect" aria-hidden="true"></i>
+            <i class="fa-star-o btn btn-primary fa-post btn-post noSelect" aria-hidden="true"></i>
           <% end %>
-          <% end %>
+        <% end %>
         </div>
       </div>
     </div>
@@ -150,8 +151,8 @@
         <tr>
           <td><%= link_to user.name, user %></td>
           <% if policy(@project).author_access? %>
-          <td><%= user.email %></td>
-          <td><%= link_to 'Remove', collaboration_path(Collaboration.find_by(user_id:user.id,project_id:@project.id)), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td><%= user.email %></td>
+            <td><%= link_to 'Remove', collaboration_path(Collaboration.find_by(user_id:user.id,project_id:@project.id)), method: :delete, data: { confirm: 'Are you sure?' } %></td>
           <% end %>
         </tr>
         <% end %>
@@ -173,14 +174,14 @@
           </p>
           <%= form_with(model: @collaboration, local: true) do |form| %>
           <% if @collaboration.errors.any? %>
-          <div id="error_explanation">
-            <h2><%= pluralize(collaboration.errors.count, "error") %> prohibited this group_member from being saved:</h2>
-            <ul>
+            <div id="error_explanation">
+              <h2><%= pluralize(collaboration.errors.count, "error") %> prohibited this group_member from being saved:</h2>
+              <ul>
               <% @collaborator.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
+                <li><%= message %></li>
               <% end %>
-            </ul>
-          </div>
+              </ul>
+            </div>
           <% end %>
           <div class="field">
             <%= form.hidden_field :project_id, id: :collaboration_project_id %>
