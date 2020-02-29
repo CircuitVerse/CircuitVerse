@@ -1,18 +1,23 @@
+ <h1 style="text-align: center" class="edit_name">EDIT GROUP NAME</h1>
 <div class="container">
   <div class="row feature">
 
     <div class="col col-xs-10 col-lg-6 col-md-8 col-s-10 col-centered">
-      <h1>Editing Group</h1>
+
 
       <%= render 'form', group: @group %>
 
-      <%= link_to 'Show', @group %> |
-      <%= link_to 'Back', user_groups_path(current_user) %>
+
 
     </div>
 
 
+
   </div>
+  <div class="button-group">
+   <button class="btn-view" ><%= link_to 'View', @group %></button>
+     <button class="btn-del"><%= link_to 'Delete', user_groups_path(current_user) %></button>
+     </div>
   <br />
 
   <br />
