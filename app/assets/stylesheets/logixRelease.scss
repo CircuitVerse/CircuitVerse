@@ -316,11 +316,11 @@ a.btn.btn-outline-danger {
 }
 
 a {
-    color: $acolor;
+    color: $link-color;
 }
 
 .btnself-post {
     background-color: $white;
-    border: 1.5px solid $btnselfborder;
+    border: 1.5px solid $button-border-color;
     color: $black;
 }
