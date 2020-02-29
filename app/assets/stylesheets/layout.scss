@@ -9,9 +9,9 @@
   font-size: 10px;
 }
 
-.aligncenter { 
+.aligncenter {
   margin-left: 3em;
-  padding-left: 3em; 
+  padding-left: 3em;
 }
 
 .btn-secondary:hover {
@@ -25,38 +25,38 @@
 }
 
 @media(max-width: 768px) { 
-.aligncenter {
-  margin-left: 0;
-  padding-left: 0;
-}
-.btn-secondary{
-  width: 20%;
-}
+  .aligncenter {
+    margin-left: 0;
+    padding-left: 0;
+  }
+  .btn-secondary {
+    width: 20%;
+  }
 }
 
-@media (max-width: 576px) { 
-.aligncenter {  
-  margin-left: 0;
-  padding-left: 0; 
-}
-.btn-secondary{
+@media(max-width: 576px) {
+  .aligncenter {
+    margin-left: 0;
+    padding-left: 0;
+  }
+  .btn-secondary {
     width: 30%;
-}
+  }
 }
 
-@media (max-width: 568px) {
-.aligncenter {
-  margin-left: 0;
-  padding-left: 0; 
-}
-.btn-secondary {
-  width: 40%;
-}
+@media(max-width: 568px) {
+  .aligncenter {
+    margin-left: 0;
+    padding-left: 0;
+  }
+  .btn-secondary {
+    width: 40%;
+  }
 }
 
 .profile {
-  border: 0;
   background-color: $slightblack;
+  border: 0;
 }
 
 .required {
@@ -65,26 +65,26 @@
 }
 
 .bordertextfeild {
-  border-radius: 0;
   border: 1px solid $green;
-  width: 100%;
+  border-radius: 0;
   height: 50px;
+  width: 100%;
 }
 
 .boldtext {
-  font-weight: bold;
   font-size: 20px;
+  font-weight: bold;
 }
 
 .custom-file-upload {
-  text-align: center;
   background-color: $active-background;
-  width: 155px;
   border: 1px solid $green;
-  display: inline-block;
-  padding: 6px 12px;
   border-radius: 6px;
   cursor: pointer;
+  display: inline-block;
+  padding: 6px 12px;
+  text-align: center;
+  width: 155px;
 }
 
 .filebtn {
