@@ -8,7 +8,7 @@
         <p>
         <h1 style="text-align:center">
         <%= @group.name %>
-        <%= link_to ' Edit Name', edit_group_path(@group), class:"editlink fa fa-pencil", style:"font-size:16px;" %></h1>        
+        <%= link_to ' Edit Name', edit_group_path(@group), class:"editlink fa fa-pencil" %></h1>        
         </p>
       <p>
       <center style="font-size:25px">
@@ -18,16 +18,16 @@
       <br>
       <br>
       <h3>Members </h3>
-      <button type="button" style="color:white; background-color:#42b983 !important;" class="float-sm-left float-md-right float-lg-right float-xl-right addmem" data-toggle="modal" data-target="#myModal">Add member</button>
+      <button type="button" class="float-sm-left float-md-right float-lg-right float-xl-right addmem text-white" style="background-color:#42b983!important;" data-toggle="modal" data-target="#myModal">Add member</button>
       <br><br><br> 
       <div class="row">
         <% @group.users.each do |user| %>
-          <div class="card text-white mb-3" style="max-width: 18rem; background-color:#f8fffc; border: 1px solid #bcdbd3; margin:2px; ">
+          <div class="card text-white mb-3 card-mem">
               <div class="card-body">
               <p><%= link_to " "+user.name, user, class: "fa fa-user memname card-text " %> <% if policy(@group).admin_access? %>
-              <%= link_to 'Remove', group_member_path(GroupMember.find_by(user_id:user.id,group_id:@group.id)), method: :delete, data: { confirm: 'Are you sure?' }, class:"removerel", style:"color: white; background-color: #ff5959; " %>
+              <%= link_to 'Remove', group_member_path(GroupMember.find_by(user_id:user.id,group_id:@group.id)), method: :delete, data: { confirm: 'Are you sure?' }, class:"removerel text-white" %>
               <% end %></p>
-              <p class="card-text" style="color:black;" ><%= user.email %></p>
+              <p class="card-text text-body"><%= user.email %></p>
               </div>
               </div>
           <% end %>
@@ -75,12 +75,12 @@
             <br>
             <br>
             <h3>Assignment</h3>
-            <%= link_to 'Add new assignment', new_group_assignment_path(@group), class: " float-sm-left float-md-right float-lg-right float-xl-right addmem", style:"color:white; background-color: #42b983;" %>
+            <%= link_to 'Add new assignment', new_group_assignment_path(@group), class: " float-sm-left float-md-right float-lg-right float-xl-right addmem text-white" %>
           <br>
           <br>
           <br>
       <%end%>
-      <table class="table" style="border-collapse: collapse; border-spacing: 0 1em; ">
+      <table class="table assignment-table">
         <thead>
         <tr>
           <th>Name</th>
@@ -96,7 +96,7 @@
         <tbody>
         <tbody>
         <% @group.assignments.includes(projects: :grade).each do |assignment| %>
-            <tr style="background-color: #f8fffc;border-color: solid #bcdbd3;" >
+            <tr class="assignment-rows" >
               <td><%= assignment.name %></td>
               <td><div class="date"><%= assignment.deadline.strftime("%d %b,%Y %I:%M %p %Z") %></div>
                 <% if(assignment.deadline > Time.now) %>
@@ -106,13 +106,13 @@
               <td> <%= AssignmentDecorator.new(assignment).graded %> </td>              
               <td>
                 <% if policy(@group).admin_access? %>
-                  <%= link_to 'Show', group_assignment_path(@group,assignment), style:"background-color: #42b983;", class:"view" %>
+                  <%= link_to 'Show', group_assignment_path(@group,assignment), class:"view" %>
                   <% if assignment.status!="closed" %>
-                    <%= link_to 'Edit', edit_group_assignment_path(@group,assignment), style:"background-color: #71cac8;", class:"editreopen" %>
+                    <%= link_to 'Edit', edit_group_assignment_path(@group,assignment), class:"editreopen" %>
                   <% else %>
-                    <%= link_to 'Reopen', reopen_group_assignment_path(@group,assignment), style:"background-color: #71cac8;", class:"editreopen" %>
+                    <%= link_to 'Reopen', reopen_group_assignment_path(@group,assignment), class:"editreopen" %>
                   <% end %>
-                  <%= link_to 'Destroy', group_assignment_path(@group,assignment), style:"background-color:#ff5959;",class:"del", method: :delete, data: { confirm: 'Are you sure?' } %>
+                  <%= link_to 'Destroy', group_assignment_path(@group,assignment),class:"del", method: :delete, data: { confirm: 'Are you sure?' } %>
                 <% else %>
                     <% project_assignment = assignment.projects.find { |p| p.author_id == current_user.id } %>
                     <% if(assignment.deadline > Time.now) %>
