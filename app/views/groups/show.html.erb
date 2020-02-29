@@ -25,7 +25,7 @@
           <div class="card text-white mb-3" style="max-width: 18rem; background-color:#f8fffc; border: 1px solid #bcdbd3; margin:2px; ">
               <div class="card-body">
               <p><%= link_to " "+user.name, user, class: "fa fa-user memname card-text " %> <% if policy(@group).admin_access? %>
-              <%= link_to 'Remove', group_member_path(GroupMember.find_by(user_id:user.id,group_id:@group.id)), method: :delete, data: { confirm: 'Are you sure?' }, class:"removerel", style:"color: white; background-color: #ff5959; "  %>
+              <%= link_to 'Remove', group_member_path(GroupMember.find_by(user_id:user.id,group_id:@group.id)), method: :delete, data: { confirm: 'Are you sure?' }, class:"removerel", style:"color: white; background-color: #ff5959; " %>
               <% end %></p>
               <p class="card-text" style="color:black;" ><%= user.email %></p>
               </div>
@@ -96,7 +96,7 @@
         <tbody>
         <tbody>
         <% @group.assignments.includes(projects: :grade).each do |assignment| %>
-            <tr class="arows" style="background-color: #f8fffc;border-color: solid #bcdbd3;" >
+            <tr style="background-color: #f8fffc;border-color: solid #bcdbd3;" >
               <td><%= assignment.name %></td>
               <td><div class="date"><%= assignment.deadline.strftime("%d %b,%Y %I:%M %p %Z") %></div>
                 <% if(assignment.deadline > Time.now) %>
