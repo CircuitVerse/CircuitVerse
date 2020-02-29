@@ -9,7 +9,7 @@
   cursor: pointer;
   font-size: 16px;
   left: 4px;
-  padding: 8px 8px;
+  padding: 8px;
   position: relative;
   top: -7px;
 }
@@ -20,7 +20,6 @@
   cursor: pointer;
   font-size: 16px;
   left: 4px;
-  padding: 8px 8px;
   position: relative;
   text-decoration: none;
   top: -7px;
@@ -31,7 +30,10 @@
   color: $white;
   cursor: pointer;
   font-size: 16px;
-  padding: 12px 34px;
+  padding-bottom: 12px;
+  padding-left: 34px;
+  padding-right: 34px;
+  padding-top: 12px;
 }
 .addmem:hover {
   border: 0;
@@ -39,7 +41,6 @@
   color: $white;
   cursor: pointer;
   font-size: 16px;
-  padding: 12px 34px;
   text-decoration: none;
 }
 .view {
@@ -50,7 +51,10 @@
   float: left;
   font-size: 16px;
   margin: 5px;
-  padding: 2px 12px;
+  padding-bottom: 2px;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 2px;
   text-decoration: 0;
 }
 .view:hover {
@@ -65,10 +69,13 @@
   float: left;
   font-size: 16px;
   margin: 5px;
-  padding: 2px 12px;
+  padding-bottom: 2px;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 2px;
   text-decoration: 0;
 }
-.EditReopen:hover {
+.editreopen:hover {
   color: $white;
   text-decoration: none;
 }
@@ -80,15 +87,15 @@
   float: left;
   font-size: 16px;
   margin: 5px;
-  padding: 2px 12px;
+  padding-bottom: 2px;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 2px;
   text-decoration: 0;
 }
 .del:hover {
   color: $white;
   text-decoration: none;
-}
-.arows {
-  border-color: solid #bcdbd3;
 }
 .memname {
   color: $black;
@@ -107,7 +114,10 @@
   float: right;
   font-size: 16px;
   overflow: hidden;
-  padding: 2px 12px;
+  padding-bottom: 2px;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 2px;
   position: relative;
   text-decoration: 0;
 }
@@ -121,7 +131,10 @@
   color: $white;
   cursor: pointer;
   font-size: 16px;
-  padding: 12px 34px;
+  padding-bottom: 12px;
+  padding-left: 34px;
+  padding-right: 34px;
+  padding-top: 12px;
   text-align: center;
   text-decoration: 0;
 }
@@ -131,7 +144,11 @@
   color: $white;
   cursor: pointer;
   font-size: 16px;
-  padding: 12px 34px;
+  padding-bottom: 12px;
+  padding-left: 34px;
+  padding-right: 34px;
+  padding-top: 12px;
   text-align: center;
   text-decoration: none;
+  
 }
