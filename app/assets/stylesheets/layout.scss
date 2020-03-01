@@ -15,7 +15,7 @@
 }
 
 .logo {
-  height: 25px;
+  height: 60px;
 }
 
 .navbar-light .navbar-nav {
@@ -57,4 +57,9 @@
   left: 40%;
   position: absolute;
   top: 35%;
+}
+
+.dropdown-item:hover {
+  color: $white;
+  background-color: $green;
 }
