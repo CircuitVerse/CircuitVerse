@@ -33,7 +33,7 @@ Please go through the [Contribution Guidelines](CONTRIBUTING.md) before going fo
 * Install ruby using RVM, use ruby-2.6.5
 * Install bundler : `gem install bundler`
 * Install Dependencies: `bundle install`
-* Configure your DB in config/database.yml, copy config/database.example.yml (Note : check for postgres password and update it in place of "postgres")
+* Configure your DB in config/database.yml, create a copy of config/database.example.yml & rename it to database.yml (Note : check for postgres password and update it in place of "postgres")
 * Create database: `rails db:create`
 * Run Migrations: `rails db:migrate`
 * At this point, local development can be started with ```rails s -b 127.0.0.1 -p 8080```
