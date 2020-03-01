@@ -15,33 +15,10 @@
   padding-left: 3em;
 }
 
-
-
 .btn-secondary-profile-page {
   background-color: $green;
   color: $pure-white;
   padding: .5em 3em;
-}
-
-@media(max-width: 768px) {
-  .aligncenter {
-    margin-left: 0;
-    padding-left: 0;
-  }
-}
-
-@media(max-width: 576px) {
-  .aligncenter {
-    margin-left: 0;
-    padding-left: 0;
-  }
-}
-
-@media(max-width: 568px) {
-  .aligncenter {
-    margin-left: 0;
-    padding-left: 0;
-  }
 }
 
 .profile {
