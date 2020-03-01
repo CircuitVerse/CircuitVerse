@@ -16,7 +16,7 @@
       <%= form_with model: @profile, multipart: true, url: { action: "update" }, class: "aligncenter", local: true do |f| %>
         <div class="field form-group ">
           <%= f.label :name, { class: 'boldtext'} %><sup><i class="fa fa-asterisk astrikstyle" ></i></sup><br>
-          <%= f.text_field :name, required: true, class:"form-control  rounded-0 border-success", style:"width:100%;height:50px" %>
+          <%= f.text_field :name, required: true, class:"form-control  rounded-0 border-success", style:"width:100%; height:50px" %>
          </div>
         
         <div class="form-group">
@@ -35,7 +35,7 @@
 
         <div class="field form-group">
           <%= f.label :educational_institute , { class: 'boldtex'} %><span> [Optional]</span><br/>
-          <%= f.text_field :educational_institute,{ class: "typeahead form form-group form-control  rounded-0 border-success", style:"width:100%; height:50px"",autocomplete:"off" } %>
+          <%= f.text_field :educational_institute,{ class: "typeahead form form-group form-control rounded-0 border-success", style:"width:100%; height:50px",autocomplete:"off" } %>
         </div>
        
         <div class="field form-group ">
