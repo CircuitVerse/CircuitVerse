@@ -6,7 +6,7 @@
 
 <div class="container profile">
 
-  <div class="row feature noborder">
+  <div class="row noborder">
   
      <div class="container my-3 text-center">
        <h4> Fields marked with <sup><i class="fa fa-asterisk astrikstyle"></i></sup> are mandatory</h4>
@@ -16,7 +16,7 @@
       <%= form_with model: @profile, multipart: true, url: { action: "update" }, class: "aligncenter", local: true do |f| %>
         <div class="field form-group ">
           <%= f.label :name, { class: 'boldtext'} %><sup><i class="fa fa-asterisk astrikstyle" ></i></sup><br>
-          <%= f.text_field :name, required: true, class:"form-control  bordertextfeild" %>
+          <%= f.text_field :name, required: true, class:"form-control  rounded-0 border-success", style:"width:100%;height:50px" %>
          </div>
         
         <div class="form-group">
@@ -30,12 +30,12 @@
 
         <div class="field form-group">
          <%= f.label :country, { class: 'boldtext'} %><span> [Optional]</span><br/>
-          <%= f.country_select :country, { include_blank: 'Prefer Not To Enter', priority_countries: get_priority_countries() }, { class: "form-control bordertextfeild" } %>
+          <%= f.country_select :country, { include_blank: 'Prefer Not To Enter', priority_countries: get_priority_countries() }, { class: "form-control rounded-0 border-success", style:"width:100%; height:50px" } %>
         </div>
 
         <div class="field form-group">
           <%= f.label :educational_institute , { class: 'boldtex'} %><span> [Optional]</span><br/>
-          <%= f.text_field :educational_institute,{ class: "typeahead form form-group form-control bordertextfeild",autocomplete:"off" } %>
+          <%= f.text_field :educational_institute,{ class: "typeahead form form-group form-control  rounded-0 border-success", style:"width:100%; height:50px"",autocomplete:"off" } %>
         </div>
        
         <div class="field form-group ">
@@ -44,7 +44,7 @@
           </label>
         </div>
 
-         <button type="submit" class="btn btn-secondary btn-lg rounded-0">Save</button>
+         <button type="submit" class="btn btn-secondary btn-secondary-profile-page rounded-0">Save</button>
       <% end %>
 
     </div>
