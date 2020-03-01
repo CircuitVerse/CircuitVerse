@@ -8,7 +8,7 @@
         <p>
         <h1 style="text-align:center">
         <%= @group.name %>
-        <%= link_to ' Edit Name', edit_group_path(@group), class:"editlink fa fa-pencil" %></h1>        
+        <%= link_to ' Edit Name', edit_group_path(@group), class:"editlink fa fa-pencil" %></h1>
         </p>
       <p>
       <center style="font-size:25px">
@@ -19,7 +19,7 @@
       <br>
       <h3>Members </h3>
       <button type="button" class="float-sm-left float-md-right float-lg-right float-xl-right addmem text-white" data-toggle="modal" data-target="#myModal">Add member</button>
-      <br><br><br> 
+      <br><br><br>
       <div class="row">
         <% @group.users.each do |user| %>
           <div class="card text-white mb-3 card-mem">
@@ -86,7 +86,6 @@
           <th>Name</th>
           <th>DeadLine</th>
           <th>Grading</th>
-          
           <th>Actions</th>
           <% unless policy(@group).admin_access? %>
             <th>Grade</th>
@@ -96,14 +95,14 @@
         <tbody>
         <tbody>
         <% @group.assignments.includes(projects: :grade).each do |assignment| %>
-            <tr class="assignment-rows" >
+            <tr class="assignment-rows">
               <td><%= assignment.name %></td>
               <td><div class="date"><%= assignment.deadline.strftime("%d %b,%Y %I:%M %p %Z") %></div>
                 <% if(assignment.deadline > Time.now) %>
                 <p> <strong>Time remaining: </strong><%=(( assignment.deadline.to_i - Time.now.to_i)/1.day)%> days,  <%=(( assignment.deadline.to_i- Time.now.to_i)/1.hour)%24%> hours, <%=(( assignment.deadline.to_i- Time.now.to_i)/1.minute)%60%> minutes</p>
                 <% end %>
               </td>
-              <td> <%= AssignmentDecorator.new(assignment).graded %> </td>              
+              <td> <%= AssignmentDecorator.new(assignment).graded %> </td>
               <td>
                 <% if policy(@group).admin_access? %>
                   <%= link_to 'Show', group_assignment_path(@group,assignment), class:"view" %>
@@ -149,7 +148,7 @@
         <% end %>
         </tbody>
       </table>
-      <% if policy(@group).admin_access? %>      
+      <% if policy(@group).admin_access? %>
       <% end %>
       <%= link_to 'Back', user_groups_path(current_user) ,class:"back", style:"background-color: #42b983;" %>
     </div>
