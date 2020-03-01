@@ -14,23 +14,18 @@
   padding-left: 3em;
 }
 
-.btn-secondary:hover {
-  border: 2px solid $green;
-}
 
-.btn-secondary {
+
+.btn-secondary-profile-page {
   background-color: $green;
   color: $pure-white;
-  width: 12%;
+  padding: 0.5em 3em;
 }
 
 @media(max-width: 768px) {
   .aligncenter {
     margin-left: 0;
     padding-left: 0;
-  }
-  .btn-secondary {
-    width: 20%;
   }
 }
 
@@ -39,18 +34,12 @@
     margin-left: 0;
     padding-left: 0;
   }
-  .btn-secondary {
-    width: 30%;
-  }
 }
 
 @media(max-width: 568px) {
   .aligncenter {
     margin-left: 0;
     padding-left: 0;
-  }
-  .btn-secondary {
-    width: 40%;
   }
 }
 
@@ -62,13 +51,6 @@
 .required {
   color: $danger;
   font-size: 30px;
-}
-
-.bordertextfeild {
-  border: 1px solid $green;
-  border-radius: 0;
-  height: 50px;
-  width: 100%;
 }
 
 .boldtext {
