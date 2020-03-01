@@ -2,5 +2,6 @@
 
 FactoryBot.define do
   factory :group do
+    name { "Test Name" }
   end
 end

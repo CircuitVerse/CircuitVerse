@@ -1,14 +1,15 @@
 @import "theme";
 @import "bootstrap/scss/bootstrap.scss";
 @import "commontator/application";
-@import "bootstrap-typeahead-rails";
-@import "font-awesome/css/font-awesome.min.css";
-@import "signup";
-@import "logixRelease";
-@import "layout";
-@import "about";
-@import "editor";
-@import "trumbowyg/dist/ui/trumbowyg.min.css";
+@import 'bootstrap-typeahead-rails';
+@import 'font-awesome/css/font-awesome.min.css';
+@import 'signup';
+@import 'logixRelease';
+@import 'layout';
+@import 'about';
+@import 'editor';
+@import 'groups';
+@import 'trumbowyg/dist/ui/trumbowyg.min.css';
 
 // #FIXME move these styles
 .alert {

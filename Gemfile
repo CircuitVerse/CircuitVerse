@@ -84,6 +84,8 @@ gem 'activity_notification'
 gem 'serviceworker-rails'
 gem 'webpush'
 
+gem 'webpacker', '~> 4.x'
+
 gem 'bootsnap', require: false
 
 group :development, :test do

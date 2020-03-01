@@ -8,13 +8,14 @@
     "postinstall": "opencollective-postinstall || true"
   },
   "devDependencies": {
-    "eslint": "^5.15.1",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-plugin-import": "^2.16.0",
-    "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-react": "^7.12.4"
+    "eslint": "^6.0.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.20.0",
+    "expose-loader": "^0.7.5",
+    "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
+    "@rails/webpacker": "4.2.2",
     "bootstrap": "^4.3.1",
     "font-awesome": "^4.7.0",
     "opencollective-postinstall": "^2.0.2",

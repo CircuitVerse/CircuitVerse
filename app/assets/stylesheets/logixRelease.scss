@@ -1,0 +1,283 @@
+@media only screen and (max-width: 480px) {
+  /* For mobile phones: */
+  [class*="display-4"] {
+    padding-top:10px;
+  }
+}
+
+.feature {
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    padding: 1.25rem;
+    border-radius: 0.25em;
+}
+
+.gif-box {
+    position: absolute;
+    text-align: center;
+    top: 50%;
+}
+
+.noSelect {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -o-user-select: none;
+}
+
+.pointerCursor {
+    cursor: pointer;
+}
+
+.defaultCursor {
+    cursor: default;
+}
+
+#assignment-grade-form {
+    display: inline-block;
+    width: 100%;
+}
+
+#assignment-grade-grade {
+    flex: 1;
+}
+
+#assignment-grade-remarks {
+    flex: 1;
+}
+
+.error {
+    color: red;
+}
+
+.grade-container {
+    margin-top: 10px;
+}
+
+.bold {
+    font-weight: 600;
+}
+
+.grade-show-container {
+    margin-top: 17px;
+}
+
+.grade-form-help {
+    margin-top: 5px;
+    font-size: 12px;
+}
+
+.assignment-grade-inputs {
+    display: flex;
+    width: 100%;
+}
+
+a.btn.btn-outline-primary {
+    margin-top: 10px;
+}
+
+a.btn.btn-outline-danger {
+    margin-top: 10px;
+}
+
+#error_explanation {
+    color: red;
+    background: #f0f0f0;
+    border: 1px solid #86181d;
+    padding: 4px;
+}
+
+#error_explanation h2 {
+    font-size: 1.25rem;
+}
+
+.pagination .page-link {
+    white-space: nowrap;
+}
+
+@media (max-width: 992px) {
+    .pagination-cont {
+        overflow-x: auto;
+        padding: 0;
+    }
+
+    .pagination {
+        overflow-x: visible;
+        max-width: none;
+        display: block;
+        padding: 0;
+        white-space: nowrap;
+    }
+
+    .pagination > * {
+        display: inline-block;
+        margin: 0;
+        margin-left: -4px;
+    }
+}
+a.btn.btn-outline-primary {
+    margin-top: 10px;
+}
+
+a.btn.btn-outline-danger {
+    margin-top: 10px;
+}
+
+/* New UI */
+.heading-profile {
+  margin-bottom: 40px;
+  margin-top: 40px;
+}
+
+#profile-details {
+  padding-top: 30px;
+}
+
+#profile-details > p {
+  font-size: 20px;
+}
+
+.profile-background {
+  background-color: $slightblack;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 900px;
+  padding: 10px 0 25px;
+}
+
+.btn-favourite{
+  display: inline;
+  float: right;
+}
+
+.username{
+  display: inline;
+  margin-left: 10px;
+}
+
+.card-userprojects{
+  border: 2px solid $green;
+  border-radius: 0;
+  margin-top: 2rem;
+}
+
+.card-header-userprojects{
+  background-color: $green;
+  color: $white;
+}
+
+.card-footer-userprojects{
+  background-color: $white;
+  border-top: 1.5px solid $green;
+}
+
+.cardname{
+  display: inline;
+}
+
+.modal-header-userprojects{
+  background-color: $green;
+  color: $white;
+}
+
+.modal-footer-userprojects{
+  border: 0px;
+}
+
+.close-modal{
+  color: $white;
+  opacity: 1;
+}
+
+.feature-preview{
+  border: 2px solid $green;
+  padding: 1.25rem;
+  border-radius: 0.25em;
+}
+
+.btn-userprojects{
+  background-color: $green;
+  color: $white;
+  margin: 2px;
+}
+
+.card-contribute{
+  display: inline-block;
+  width: 300px;
+  border: 0px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.cardimage-contribute{
+  width: 150px;
+  height: 150px;
+}
+
+.cardbody-contribute > h3{
+  text-align: center;
+}
+
+.cardbody-contribute > ul{
+  text-align: left;
+}
+
+.contribute-pay{
+  display: inline-block;
+  width: 200px;
+  height: 100px;
+  margin-top: 50px;
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.contribute-pay > p{
+  font-weight: 550;
+}
+
+.patreon{
+  border: 1.5px solid black;
+  border-radius: 8px;
+  padding: 4px;
+  box-shadow: 3px 3px 6px $shadow-black;
+}
+
+.patreon > img{
+  width: 160px;
+  height: 70px;
+}
+
+#teacher_heading {
+  margin-bottom: 35px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 768px;
+}
+
+#teacher_benefit {
+  margin-bottom: 20px;
+}
+
+.container-fluid_teachers{
+  padding-bottom: 40px;
+  padding-top: 40px;
+}
+
+.container-fluid_teachersbackground{
+  background-color: $gray-100;
+  padding-bottom: 40px;
+  padding-top: 40px;
+}
+
+.image_teachers{
+  border: 1px solid $slight-gray;
+  margin-left: 20px;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.subheading_teachers{
+  text-align: left;
+}
