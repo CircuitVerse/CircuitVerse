@@ -28,6 +28,14 @@
     <!-- <div class="col">
         <img src="img/logixBanner.png" class="img-fluid img-thumbnail" alt="Responsive image">
     </div> -->
+    <% if notice %>
+    <div class="row" id='alertdiv'>
+      <div class="alert alert-success alert-dismissible container-fluid text-center">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <%= notice %>
+      </div>
+    </div>
+    <% end %>
     <div class="container">
       <div class="row row_homepage">
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">

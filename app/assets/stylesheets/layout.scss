@@ -18,6 +18,10 @@
   height: 60px;
 }
 
+.logo-bottom {
+  max-height: 80px;
+}
+
 .navbar-light .navbar-nav {
   .nav-item {
     .nav-link {
@@ -60,6 +64,6 @@
 }
 
 .dropdown-item:hover {
-  color: $white;
   background-color: $green;
+  color: $white;
 }
