@@ -13,7 +13,9 @@
      </div>
      
     <div class="container px-5">
-      <%= form_with model: @profile, multipart: true, url: { action: "update" }, class: "aligncenter", local: true do |f| %>
+      <div class="row">
+        <div class="col-12">
+      <%= form_with model: @profile, multipart: true, url: { action: "update" }, local: true do |f| %>
         <div class="field form-group ">
           <%= f.label :name, { class: 'boldtext'} %><sup><i class="fa fa-asterisk astrikstyle" ></i></sup><br>
           <%= f.text_field :name, required: true, class:"form-control  rounded-0 border-success", style:"width:100%; height:50px" %>
@@ -47,6 +49,8 @@
          <button type="submit" class="btn btn-secondary btn-secondary-profile-page rounded-0">Save</button>
       <% end %>
 
+    </div>
+     </div>
     </div>
     <br/>
     <br/>
