@@ -6,7 +6,7 @@ plugins:
 
   eslint:
     enabled: true
-    channel: "eslint-5"
+    channel: "eslint-6"
     exclude_patterns:
       - "!public/js/"
   scss-lint:

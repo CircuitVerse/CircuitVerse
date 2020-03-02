@@ -5,78 +5,78 @@
 
 <div class="container">
   <!--<%= link_to 'Back', all_users_path %>-->
-  <div class ="row">
-    <h2 class="card-title">Favourite Projects</h2>
+  <div class ="row row-about">
+    <h1>Favourite Projects</h1>
   </div>
 
-  <div class="row ">
+  <% if @user.rated_projects.blank? %>
+    <div class ="favblank">
+      <h5>There are no favourites to show.</h5>
+    </div>
+  <% end %>
 
-
+  <div class="row">
     <% @projects.each do |project| %>
 
-        <%if project.check_direct_view_access(current_user) %>
-            <div class="col-sm-4">
-              <div class="card text-center " style="margin-top: 2rem">
-                <div class="card-header card-title">
-                  <%= project.name %>
-                  <%if !project.assignment_id.nil?%>
-                      <span class="badge badge-primary">Assignment</span>
-                  <%end%>
-
-                  <span class="badge badge-secondary"><%= project.project_access_type%></span>
-
-                </div>
-                <img class="card-img-top " src="<%= project.image_preview.url %>" alt="<%= project.name%>" >
-                <div class="card-footer ">
-                  <style>
-                    .btn {
-                      margin-top: 5px;
-                    }
-                  </style>
-                  <a href=  "<%= user_project_path(@user,project) %>" class="btn btn-primary" target="_blank"> More </a>
-                  <a href="#" id="<%=project.id%>" class="previewButton btn btn-primary" data-toggle="modal" data-target="#myModal"> View </a>
-                  <% if policy(project).user_access? %>
-                      <a href=  "<%= simulator_edit_path(project) %>" class="btn btn-primary" target="_blank"> Launch </a>
-                  <% else %>
-                      <a href=  "<%= create_fork_project_path(project) %>" class="btn btn-primary" target="_blank"> Fork! </a>
-                  <% end %>
-                </div>
-              </div>
+      <% if policy(project).check_direct_view_access? %>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+          <div class="card text-center card-userprojects">
+            <div class="card-header card-header-userprojects">
+              <h3 class="cardname"><%= project.name %></h3>
+              <% if !project.assignment_id.nil? %>
+                <span class="badge badge-dark">Assignment</span>
+              <% end %>
+                <span class="badge badge-dark"><%= project.project_access_type %></span>
             </div>
-        <%end%>
-
+            <img class="card-img-top" src="<%= project.image_preview.url %>" alt="<%= project.name %>" >
+            <div class="card-footer card-footer-userprojects">
+              <% if policy(project).user_access? %>
+                <a href="<%= simulator_edit_path(project) %>" class="btn btn-about" target="_blank">Launch</a>
+              <% else %>
+                <a href="<%= create_fork_project_path(project) %>" class="btn btn-about" target="_blank">Fork</a>
+              <% end %>
+              <a href="#" id="<%= project.id %>" class="previewButton btn btn-about" data-toggle="modal" data-target="#myModal">View</a>
+              <a href="<%= user_project_path(@user,project) %>" class="btn btn-about" target="_blank">More</a>
+            </div>
+          </div>
+        </div>
+      <% end %>
     <% end %>
-
   </div>
-
 </div>
 
 <br>
 
-
-
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-lg">
+<% @user.projects.each do |project| %>
+  <% if policy(project).check_direct_view_access? %>
+    <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-lg">
 
     <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Project Preview</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-
-      </div>
-      <div class="modal-body">
-        <div class="embed-responsive embed-responsive-4by3 feature">
-          <iframe src="" id="projectPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen> </iframe>
+        <div class="modal-content">
+          <div class="modal-header modal-header-userprojects">
+            <h4 class="modal-title">Project Preview</h4>
+            <button type="button" class="close close-modal" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div class="embed-responsive embed-responsive-4by3 feature feature-preview">
+              <iframe src="" id="projectPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen> </iframe>
+            </div>
+          </div>
+          <div class="modal-footer modal-footer-userprojects">
+            <% if policy(project).user_access? %>
+              <a href="<%= simulator_edit_path(project) %>" class="btn btn-userprojects" target="_blank">Launch</a>
+            <% else %>
+              <a href="<%= create_fork_project_path(project) %>" class="btn btn-userprojects" target="_blank">Fork</a>
+            <% end %>
+              <a href="<%= user_project_path(@user,project) %>" class="btn btn-userprojects" target="_blank">More</a>
+          </div>
         </div>
-      </div>
-      <!--<div class="modal-footer">-->
-      <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">close</button>-->
-      <!--</div>-->
-    </div>
 
-  </div>
-</div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
 
 <script>
     $( function() {

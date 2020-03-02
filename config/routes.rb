@@ -35,10 +35,6 @@ Rails.application.routes.draw do
   resources :privacy, only: :index
 
   scope '/groups' do
-    get '/:id/assignments/WYSIWYG/index.css', to: redirect('/index.css')
-    get '/:id/assignments/WYSIWYG/bootstrap-wysiwyg.js', to: redirect('/bootstrap-wysiwyg.js')
-    get '/:id/assignments/:id/WYSIWYG/index.css', to: redirect('/index.css')      # in case of editing
-    get '/:id/assignments/:id/WYSIWYG/bootstrap-wysiwyg.js', to: redirect('/bootstrap-wysiwyg.js')   # in case of editing
     get '/:group_id/assignments/:id/reopen', to: 'assignments#reopen', as: 'reopen_group_assignment'
     get '/:group_id/assignments/:id/start', to: 'assignments#start', as: 'assignment_start'
   end
@@ -72,8 +68,6 @@ Rails.application.routes.draw do
     get '/:id/groups', to: 'users/logix#groups', as: 'user_groups'
     get '/:id/', to: 'users/logix#index', as: 'user_projects'
     get '/:id/favourites', to: 'users/logix#favourites', as: 'user_favourites'
-    get '/:id/projects/:id/WYSIWYG/index.css', to: redirect('/index.css')
-    get '/:id/projects/:id/WYSIWYG/bootstrap-wysiwyg.js', to: redirect('/bootstrap-wysiwyg.js')
     get '/educational_institute/typeahead/:query' => 'users/logix#typeahead_educational_institute'
     get '/:id/notifications', to: 'users/notifications#index', as: 'notifications'
   end

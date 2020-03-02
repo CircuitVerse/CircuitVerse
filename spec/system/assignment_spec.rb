@@ -28,6 +28,20 @@ describe "Assignments", type: :system do
       check_show_page(name, deadline, description, "Input, Button, Power")
     end
 
+    it "should not create assignment when name is blank" do
+      sign_in @mentor
+      visit new_group_assignment_path(@group)
+
+      name = nil
+      deadline = Faker::Date.forward(days: 23)
+      description = Faker::Lorem.sentence
+
+      fill_assignments(name, deadline, description, grading: true)
+
+      click_button "Create Assignment"
+      expect(page).to have_text("Name is too short (minimum is 1 character)")
+    end
+
     it "should be able to edit assignment" do
       sign_in @mentor
       @assignment = FactoryBot.create(:assignment, group: @group)
@@ -63,7 +77,7 @@ describe "Assignments", type: :system do
     fill_in "Deadline", with: deadline.strftime("%d/%m/%Y 12:00")
     sleep 0.1
     find("#assignment_deadline").send_keys :enter
-    fill_in_editor "#editor", with: description
+    fill_in_editor ".trumbowyg-editor", with: description
 
     if :grading == true then
       select "percent", from: "assignment_grading_scale"

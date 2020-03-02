@@ -1,3 +1,131 @@
-// Place all the styles related to the groups controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.row-group {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1344px;
+  text-align: center;
+}
+
+.heading-group {
+  color: $black;
+  margin-top: 30px;
+}
+
+.btn-group {
+  background-color: $green;
+  border-radius: 40px;
+  color: $white;
+  margin: 10px;
+  padding: 10px 40px;
+}
+
+.btn-group:hover {
+  background-color: $white;
+  box-shadow: 0 8px 15px $shadow-black;
+  color: $green;
+  text-decoration: none;
+}
+
+.card-group {
+  background-color: $lightgrey;
+  border-radius: 3px;
+  box-shadow: 0 2px 7px $shadow-black;
+  display: flex;
+  margin: 15px 0;
+  padding: 10px;
+}
+
+.btn-card {
+  align-items: center;
+  border-radius: 2px;
+  color: $black;
+  display: flex;
+  flex-direction: row;
+  font-size: x-small;
+  justify-content: center;
+  margin: 5px;
+  padding: 5px;
+  width: 75px;
+}
+
+.btn-card:hover {
+  text-decoration: none;
+}
+
+.mentor-card-group {
+  align-items: center;
+  border-top: 10px solid $teal;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.btn-mentor-group {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 10px;
+}
+
+.btn-view {
+  border: 1px solid $green;
+}
+
+.btn-view:hover {
+  background-color: $green;
+  color: $white;
+}
+
+.btn-edit {
+  border: 1px solid $blue;
+}
+
+.btn-edit:hover {
+  background-color: $blue;
+  color: $white;
+}
+
+.btn-delete {
+  border: 1px solid $danger;
+}
+
+.btn-delete:hover {
+  background-color: $danger;
+  color: $white;
+}
+
+.in-card-group {
+  align-items: center;
+  border-left: 10px solid $teal;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.in-card-name-member {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.in-card-view {
+  background-color: $teal;
+  border-radius: 2px;
+  color: $white;
+  margin: 10px;
+  padding: 2px 15px;
+}
+
+.in-card-view:hover {
+  background-color: $white;
+  color: $teal;
+  text-decoration: none;
+}
+
+.group-name {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.group-member-count {
+  font-size: 18px;
+}
