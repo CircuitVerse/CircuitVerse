@@ -1,18 +1,7 @@
 // All the custom class styles
-.noborder {
-  border: 0;
-  border-radius: 0;
-  padding: 1.25rem;
-}
-
-.astrikstyle {
+.edit-profile-page-astrikstyle {
   color: $danger;
   font-size: 10px;
-}
-
-.aligncenter {
-  margin-left: 3em;
-  padding-left: 3em;
 }
 
 .btn-secondary-profile-page {
@@ -21,19 +10,8 @@
   padding: .5em 3em;
 }
 
-.profile {
+.edit-profile-page-bg{
   background-color: $slightblack;
-  border: 0;
-}
-
-.required {
-  color: $danger;
-  font-size: 30px;
-}
-
-.boldtext {
-  font-size: 20px;
-  font-weight: bold;
 }
 
 .custom-file-upload {
@@ -47,7 +25,7 @@
   width: 155px;
 }
 
-.filebtn {
+.file-button {
   display: none;
 }
 
