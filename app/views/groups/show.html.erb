@@ -18,7 +18,7 @@
       <br>
       <br>
       <h3>Members </h3>
-      <button type="button" class="float-sm-left float-md-right float-lg-right float-xl-right add-member text-white" data-toggle="modal" data-target="#adding-members">Add member</button>
+      <button type="button" class="float-sm-left float-md-right float-lg-right float-xl-right add-member text-white" data-toggle="modal" data-target="#myModal">Add member</button>
       <br><br><br>
       <div class="row">
         <% @group.users.each do |user| %>
@@ -32,7 +32,7 @@
               </div>
           <% end %>
       </div>
-      <div id="adding-members" class="modal fade" role="dialog">
+      <div id="myModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
           <!-- Modal content-->
           <div class="modal-content">
