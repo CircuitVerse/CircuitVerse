@@ -1,29 +1,14 @@
 // Place all the styles related to the group_members controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.group-name-editlink {
-  background-color: $teal;
-  border: 0;
-  border-radius: 5px;
-  color: $white;
-  cursor: pointer;
-  font-size: 16px;
-  left: 4px;
-  padding: 8px;
-  position: relative;
-  top: -7px;
-
-}
-
 .card-member {
   background-color: $gray-100;
   border: 1px solid $green-border;
   margin: 2px;
   max-width: 18rem;
-
 }
 
-.group-name-editlink {
+.group-name-editlink{
   &:hover {
     border: 0;
     border-radius: 5px;
@@ -36,20 +21,16 @@
     top: -7px;
     }
 
-}
-
-.add-member {
-  background-color: $green;
+  background-color: $teal;
   border: 0;
-  border-radius: 15px;
+  border-radius: 5px;
   color: $white;
   cursor: pointer;
   font-size: 16px;
-  padding-bottom: 12px;
-  padding-left: 34px;
-  padding-right: 34px;
-  padding-top: 12px;
-
+  left: 4px;
+  padding: 8px;
+  position: relative;
+  top: -7px;
 }
 
 .add-member {
@@ -62,9 +43,24 @@
     text-decoration: none;
   }
 
+  background-color: $green;
+  border: 0;
+  border-radius: 15px;
+  color: $white;
+  cursor: pointer;
+  font-size: 16px;
+  padding-bottom: 12px;
+  padding-left: 34px;
+  padding-right: 34px;
+  padding-top: 12px;
 }
 
 .assignment-view {
+  &:hover {
+    color: $white;
+    text-decoration: none;
+  }
+
   background-color: $green;
   border: 0;
   border-radius: 5px;
@@ -81,15 +77,12 @@
 
 }
 
-.assignment-view {
+.assignment-edit-reopen {
   &:hover {
     color: $white;
     text-decoration: none;
   }
 
-}
-
-.assignment-edit-reopen {
   background-color: $mint-green;
   border: 0;
   border-radius: 5px;
@@ -106,15 +99,13 @@
 
 }
 
-.assignment-edit-reopen {
+
+.assignment-delete {
   &:hover {
     color: $white;
     text-decoration: none;
   }
 
-}
-
-.assignment-delete {
   background-color: $red;
   border: 0;
   border-radius: 5px;
@@ -128,21 +119,6 @@
   padding-right: 12px;
   padding-top: 2px;
   text-decoration: 0;
-
-}
-
-.assignment-delete {
-  &:hover {
-    color: $white;
-    text-decoration: none;
-  }
-
-}
-
-.card-member-name {
-  color: $black;
-  font-size: 18px;
-
 }
 
 .card-member-name {
@@ -151,9 +127,17 @@
     font-size: 18px;
     text-decoration: none;
   }
+
+  color: $black;
+  font-size: 18px;
 }
 
 .card-member-remove {
+  &:hover {
+    color: $white;
+    text-decoration: none;
+  }
+
   background-color: $red;
   border: 0;
   border-radius: 5px;
@@ -168,29 +152,6 @@
   padding-top: 2px;
   position: relative;
   text-decoration: 0;
-
-}
-
-.card-member-remove {
-  &:hover {
-    color: $white;
-    text-decoration: none;
-  }
-}
-
-.group-discription-back {
-  border: 0;
-  border-radius: 15px;
-  color: $white;
-  cursor: pointer;
-  font-size: 16px;
-  padding-bottom: 12px;
-  padding-left: 34px;
-  padding-right: 34px;
-  padding-top: 12px;
-  text-align: center;
-  text-decoration: 0;
-
 }
 
 .group-discription-back {
@@ -207,6 +168,18 @@
     text-align: center;
     text-decoration: none;
   }
+
+  border: 0;
+  border-radius: 15px;
+  color: $white;
+  cursor: pointer;
+  font-size: 16px;
+  padding-bottom: 12px;
+  padding-left: 34px;
+  padding-right: 34px;
+  padding-top: 12px;
+  text-align: center;
+  text-decoration: 0;
 }
 
 .assignment-table {
