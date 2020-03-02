@@ -59,7 +59,7 @@ select {
   font-size: 20px;
   max-width: 80%;
   border: none;
-  border-bottom: 1px solid #42B983;
+  border-bottom: 1px solid $green;
   box-shadow: none;
   border-radius: 0;
 }
@@ -67,9 +67,9 @@ select {
 .custom-input:-webkit-autofill,
 .custom-input:-webkit-autofill:hover,
 .custom-input:-webkit-autofill:focus {
-  border-bottom: 1px solid #42B983;
+  border-bottom: 1px solid $green;
   -webkit-text-fill-color: #1C1C1C;
-  -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+  -webkit-box-shadow: 0 0 0px 1000px $white inset;
   transition: background-color 5000s ease-in-out 0s;
 }
 

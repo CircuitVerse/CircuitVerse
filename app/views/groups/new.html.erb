@@ -6,9 +6,9 @@
       More information can be found <a href="https://circuitverse.org/features">here</a>, and the documentation <a href="https://docs.circuitverse.org/#/groups">here</a>.
       </p>
       <%= render 'form', group: @group %>
-      <u>
-        <%= link_to 'Back', user_groups_path(current_user) %>
-      </u>
+        <%= link_to user_groups_path(current_user) do %>
+          <%= button_tag 'Back', class: 'm-2 btn text-success float-left mt-4 ml-2 underline' %>
+        <% end %>
     </div>
   </div>
   <br>

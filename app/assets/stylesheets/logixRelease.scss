@@ -8,7 +8,7 @@
 .feature {
     border: 1px solid rgba(0, 0, 0, 0.125);
     padding: 1.25rem;
-    border-radius: 0.25em;
+    border-radius: .25em;
 }
 
 .gif-box {
@@ -17,7 +17,7 @@
     top: 50%;
 }
 
-.field{
+.field {
   align-items: center;
   display: flex;
   justify-content: center;
@@ -53,7 +53,7 @@
 }
 
 .error {
-    color: red;
+    color: $red;
 }
 
 .grade-container {
@@ -87,7 +87,7 @@ a.btn.btn-outline-danger {
 }
 
 #error_explanation {
-    color: red;
+    color: $red;
     background: #f0f0f0;
     border: 1px solid #86181d;
     padding: 4px;
@@ -198,7 +198,7 @@ a.btn.btn-outline-danger {
 .feature-preview{
   border: 2px solid $green;
   padding: 1.25rem;
-  border-radius: 0.25em;
+  border-radius: .25em;
 }
 
 .btn-userprojects{
@@ -244,7 +244,7 @@ a.btn.btn-outline-danger {
 }
 
 .patreon{
-  border: 1.5px solid black;
+  border: 1.5px solid $black;
   border-radius: 8px;
   padding: 4px;
   box-shadow: 3px 3px 6px $shadow-black;
@@ -297,9 +297,14 @@ a.btn.btn-outline-danger {
   width: 220px;
 }
 
-.edit_name{
+.edit-name{
   font-size: 2rem;
   font-weight: 500;
   padding-bottom: 20px;
   padding-top: 50px;
+}
+
+.underline {
+  text-decoration: underline;
+  display: inline-block;
 }
