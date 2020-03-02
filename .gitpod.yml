@@ -34,42 +34,6 @@ github:
     prebuilds:
         pullRequestsFromForks: true
 
-image:
-  file: .gitpod.Dockerfile
-
-ports:
-  - port: 3000
-    onOpen: open-preview
-tasks:
-  - init: >
-      rvm autolibs disable &&
-      rvm install 2.6.5 &&
-      gem install bundler &&
-      cp config/database.example.yml config/database.yml &&
-      createuser -s postgres &&
-      (redis-server &) &&
-      bundle install --without production --path vendor/bundle &&
-      yarn &&
-      bundle exec rails db:create &&
-      bundle exec rails db:schema:load &&
-      bundle exec rails db:migrate &&
-      bundle exec rake sunspot:solr:start &&
-      bundle exec rails db:seed
-    command: >
-      createuser -s postgres &&
-      (redis-server &) &&
-      bundle install --without production --path vendor/bundle &&
-      yarn &&
-      bundle exec rails db:create &&
-      bundle exec rails db:schema:load &&
-      bundle exec rails db:migrate &&
-      bundle exec rake sunspot:solr:start &&
-      bundle exec rails db:seed &&
-      bundle exec rails server
-github:
-    prebuilds:
-        pullRequestsFromForks: true
-
 vscode:
   extensions:
     - dbaeumer.vscode-eslint@2.1.1:DO6k4GCpqhwZcKo+jY9xjQ==
