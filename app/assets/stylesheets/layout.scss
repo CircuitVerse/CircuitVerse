@@ -1,4 +1,19 @@
 // All the custom class styles
+.custom-file-upload {
+  background-color: $active-background;
+  border: 1px solid $green;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-block;
+  padding: 6px 12px;
+  text-align: center;
+  width: 155px;
+}
+
+.file-button {
+  display: none;
+}
+
 .noprojects {
   left: 30%;
   position: absolute;
