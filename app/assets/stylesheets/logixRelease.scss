@@ -17,6 +17,12 @@
     top: 50%;
 }
 
+.field{
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
 .noSelect {
     -moz-user-select: none;
     -webkit-user-select: none;
@@ -280,4 +286,20 @@ a.btn.btn-outline-danger {
 
 .subheading_teachers{
   text-align: left;
+}
+
+.name-group{
+  font-size: 1.2rem;
+  font-weight: 500;
+  height: 100%;
+  margin-right: 12px;
+  margin-top: 10px;
+  width: 220px;
+}
+
+.edit_name{
+  font-size: 2rem;
+  font-weight: 500;
+  padding-bottom: 20px;
+  padding-top: 50px;
 }
