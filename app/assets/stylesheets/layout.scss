@@ -81,7 +81,9 @@
   top: 35%;
 }
 
-.dropdown-item:hover {
-  background-color: $green;
-  color: $white;
+.dropdown-item {
+  &:hover {
+    background-color: $green;
+    color: $white;
+  }
 }

@@ -12,11 +12,6 @@
   padding: 10px 20px;
 }
 
-.btn-homepage:hover {
-  background-color: $white;
-  color: $black;
-}
-
 .a-homepage {
   color: $teal;
   margin-left: 15px;
@@ -32,10 +27,9 @@
   border: 2px solid $teal;
   border-radius: 5px;
   margin: 10px;
-}
-
-.btn-homepage2:hover {
-  box-shadow: 0 7px 7px $shadow-black;
+  &:hover {
+    box-shadow: 0 7px 7px $shadow-black;
+  }
 }
 
 .row-homepage-middle {
