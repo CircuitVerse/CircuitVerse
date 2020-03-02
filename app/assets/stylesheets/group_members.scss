@@ -19,6 +19,7 @@
   padding: 8px;
   position: relative;
   top: -7px;
+  
   &:hover {
     border: 0;
     border-radius: 5px;
@@ -30,7 +31,6 @@
     text-decoration: none;
     top: -7px;
     }
-
 }
 
 .add-member {
@@ -44,6 +44,7 @@
   padding-left: 34px;
   padding-right: 34px;
   padding-top: 12px;
+
   &:hover {
     border: 0;
     border-radius: 15px;
@@ -52,7 +53,6 @@
     font-size: 16px;
     text-decoration: none;
   }
-
 }
 
 .assignment-view {
@@ -69,11 +69,11 @@
   padding-right: 12px;
   padding-top: 2px;
   text-decoration: 0;
+
   &:hover {
     color: $white;
     text-decoration: none;
   }
-
 }
 
 .assignment-edit-reopen {
@@ -90,11 +90,11 @@
   padding-right: 12px;
   padding-top: 2px;
   text-decoration: 0;
+
   &:hover {
     color: $white;
     text-decoration: none;
   }
-
 }
 
 
@@ -112,22 +112,22 @@
   padding-right: 12px;
   padding-top: 2px;
   text-decoration: 0;
+
   &:hover {
     color: $white;
     text-decoration: none;
   }
-
 }
 
 .card-member-name {
   color: $black;
   font-size: 18px;
+
   &:hover {
     color: $black;
     font-size: 18px;
     text-decoration: none;
   }
-
 }
 
 .card-member-remove {
@@ -145,11 +145,11 @@
   padding-top: 2px;
   position: relative;
   text-decoration: 0;
+
   &:hover {
     color: $white;
     text-decoration: none;
   }
-
 }
 
 .group-discription-back {
@@ -164,6 +164,7 @@
   padding-top: 12px;
   text-align: center;
   text-decoration: 0;
+
   &:hover {
     border: 0;
     border-radius: 15px;
@@ -177,7 +178,6 @@
     text-align: center;
     text-decoration: none;
   }
-
 }
 
 .assignment-table {
