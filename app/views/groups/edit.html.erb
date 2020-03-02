@@ -1,23 +1,19 @@
-<div class="container">
-  <div class="row feature">
-
+<h1 class="edit_name text-center">EDIT GROUP NAME</h1>
+<div class="container profile-background">
+  <div class="row p-4 center-block">
     <div class="col col-xs-10 col-lg-6 col-md-8 col-s-10 col-centered">
-      <h1>Editing Group</h1>
-
       <%= render 'form', group: @group %>
-
-      <%= link_to 'Show', @group %> |
-      <%= link_to 'Back', user_groups_path(current_user) %>
-
     </div>
-
-
   </div>
-  <br />
-
-  <br />
-
-
-
+  <hr class="w-75">
+  <div class="button-group center-block">
+    <%= link_to @group do %>
+      <button class="btn-view m-2 btn"> <svg class="pr-1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"> <path d="M15 12c0 1.654-1.346 3-3 3s-3-1.346-3-3 1.346-3 3-3 3 1.346 3 3zm9-.449s-4.252 7.449-11.985 7.449c-7.18 0-12.015-7.449-12.015-7.449s4.446-6.551 12.015-6.551c7.694 0 11.985 6.551 11.985 6.551zm-7 .449c0-2.761-2.238-5-5-5-2.761 0-5 2.239-5 5 0 2.762 2.239 5 5 5 2.762 0 5-2.238 5-5z"/> </svg> View</button>
+    <% end %>
+    <%= link_to user_groups_path(current_user) do %>
+      <button class="btn-delete m-2 btn"> <svg class="pr-1" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"> <path d="M3 6v18h18v-18h-18zm19-4v2h-20v-2h5.711c.9 0 1.631-1.099 1.631-2h5.315c0 .901.731 2 1.631 2h5.712z"/> </svg> Delete</button>
+    <% end %>
+  </div>
+  <br>
+  <br>
 </div>
-
