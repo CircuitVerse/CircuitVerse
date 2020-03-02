@@ -16,13 +16,13 @@
   color: $white;
   margin: 10px;
   padding: 10px 40px;
-}
 
-.btn-group:hover {
-  background-color: $white;
-  box-shadow: 0 8px 15px $shadow-black;
-  color: $green;
-  text-decoration: none;
+  &:hover {
+    background-color: $white;
+    box-shadow: 0 8px 15px $shadow-black;
+    color: $green;
+    text-decoration: none;
+  }
 }
 
 .card-group {
@@ -45,10 +45,10 @@
   margin: 5px;
   padding: 5px;
   width: 75px;
-}
 
-.btn-card:hover {
-  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
 }
 
 .mentor-card-group {
@@ -67,30 +67,30 @@
 }
 
 .btn-view {
-  border: 1px solid $green;
-}
+  border: 2px solid $green;
 
-.btn-view:hover {
-  background-color: $green;
-  color: $white;
+  &:hover {
+    background-color: $green;
+    color: $white;
+  }
 }
 
 .btn-edit {
-  border: 1px solid $blue;
-}
+  border: 2px solid $blue;
 
-.btn-edit:hover {
-  background-color: $blue;
-  color: $white;
+  &:hover {
+    background-color: $blue;
+    color: $white;
+  }
 }
 
 .btn-delete {
-  border: 1px solid $danger;
-}
+  border: 2px solid $danger;
 
-.btn-delete:hover {
-  background-color: $danger;
-  color: $white;
+  &:hover {
+    background-color: $danger;
+    color: $white;
+  }
 }
 
 .in-card-group {
@@ -113,12 +113,12 @@
   color: $white;
   margin: 10px;
   padding: 2px 15px;
-}
 
-.in-card-view:hover {
-  background-color: $white;
-  color: $teal;
-  text-decoration: none;
+  &:hover {
+    background-color: $white;
+    color: $teal;
+    text-decoration: none;
+  }
 }
 
 .group-name {
@@ -128,4 +128,10 @@
 
 .group-member-count {
   font-size: 18px;
+}
+
+.group-input-name {
+  background: $white 0% 0% no-repeat padding-box;
+  border: 1px solid $green;
+  border-radius: 0;
 }
