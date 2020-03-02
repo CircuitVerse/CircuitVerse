@@ -9,6 +9,16 @@
 }
 
 .group-name-editlink{
+  background-color: $teal;
+  border: 0;
+  border-radius: 5px;
+  color: $white;
+  cursor: pointer;
+  font-size: 16px;
+  left: 4px;
+  padding: 8px;
+  position: relative;
+  top: -7px;
   &:hover {
     border: 0;
     border-radius: 5px;
@@ -21,28 +31,9 @@
     top: -7px;
     }
 
-  background-color: $teal;
-  border: 0;
-  border-radius: 5px;
-  color: $white;
-  cursor: pointer;
-  font-size: 16px;
-  left: 4px;
-  padding: 8px;
-  position: relative;
-  top: -7px;
 }
 
 .add-member {
-  &:hover {
-    border: 0;
-    border-radius: 15px;
-    color: $white;
-    cursor: pointer;
-    font-size: 16px;
-    text-decoration: none;
-  }
-
   background-color: $green;
   border: 0;
   border-radius: 15px;
@@ -53,14 +44,18 @@
   padding-left: 34px;
   padding-right: 34px;
   padding-top: 12px;
-}
-
-.assignment-view {
   &:hover {
+    border: 0;
+    border-radius: 15px;
     color: $white;
+    cursor: pointer;
+    font-size: 16px;
     text-decoration: none;
   }
 
+}
+
+.assignment-view {
   background-color: $green;
   border: 0;
   border-radius: 5px;
@@ -74,15 +69,14 @@
   padding-right: 12px;
   padding-top: 2px;
   text-decoration: 0;
-
-}
-
-.assignment-edit-reopen {
   &:hover {
     color: $white;
     text-decoration: none;
   }
 
+}
+
+.assignment-edit-reopen {
   background-color: $mint-green;
   border: 0;
   border-radius: 5px;
@@ -96,16 +90,15 @@
   padding-right: 12px;
   padding-top: 2px;
   text-decoration: 0;
-
-}
-
-
-.assignment-delete {
   &:hover {
     color: $white;
     text-decoration: none;
   }
 
+}
+
+
+.assignment-delete {
   background-color: $red;
   border: 0;
   border-radius: 5px;
@@ -119,25 +112,25 @@
   padding-right: 12px;
   padding-top: 2px;
   text-decoration: 0;
+  &:hover {
+    color: $white;
+    text-decoration: none;
+  }
+
 }
 
 .card-member-name {
+  color: $black;
+  font-size: 18px;
   &:hover {
     color: $black;
     font-size: 18px;
     text-decoration: none;
   }
 
-  color: $black;
-  font-size: 18px;
 }
 
 .card-member-remove {
-  &:hover {
-    color: $white;
-    text-decoration: none;
-  }
-
   background-color: $red;
   border: 0;
   border-radius: 5px;
@@ -152,9 +145,25 @@
   padding-top: 2px;
   position: relative;
   text-decoration: 0;
+  &:hover {
+    color: $white;
+    text-decoration: none;
+  }
+
 }
 
 .group-discription-back {
+  border: 0;
+  border-radius: 15px;
+  color: $white;
+  cursor: pointer;
+  font-size: 16px;
+  padding-bottom: 12px;
+  padding-left: 34px;
+  padding-right: 34px;
+  padding-top: 12px;
+  text-align: center;
+  text-decoration: 0;
   &:hover {
     border: 0;
     border-radius: 15px;
@@ -169,17 +178,6 @@
     text-decoration: none;
   }
 
-  border: 0;
-  border-radius: 15px;
-  color: $white;
-  cursor: pointer;
-  font-size: 16px;
-  padding-bottom: 12px;
-  padding-left: 34px;
-  padding-right: 34px;
-  padding-top: 12px;
-  text-align: center;
-  text-decoration: 0;
 }
 
 .assignment-table {
