@@ -36,7 +36,7 @@ Please go through the [Contribution Guidelines](CONTRIBUTING.md) before going fo
 * Configure your DB in config/database.yml, copy config/database.example.yml (Note : check for postgres password and update it in place of "postgres")
 * Create database: `rails db:create`
 * Run Migrations: `rails db:migrate`
-* At this point, local development can be started with ```rails s -b 127.0.0.1 -p 8080```
+* At this point, local development can be started with ```rails s -b 127.0.0.1```
 
 ### Additional setup instructions
 [Yarn](https://yarnpkg.com/lang/en/) is a package manager for the JavaScript ecosystem.
@@ -80,7 +80,7 @@ Pull Requests can be created by following these [Steps](https://github.com/Circu
 
 ## Adding Environment Variables
 * Make the following changes in your Google, Facebook, Github app:
-1.  If you are running the application locally, update the site url field with ``http://localhost:8080`` and callback url field with ``http://localhost:3000/users/auth/(google or facebook or github)/callback``.
+1.  If you are running the application locally, update the site url field with ``http://localhost:3000`` and callback url field with ``http://localhost:3000/users/auth/(google or facebook or github)/callback``.
 2.  If you are running the application in gitpod, update the site url field with ``gitpod url`` and callback url field with ```gitpod url/users/auth/(google or facebook or github)/callback``.
 * Configure your env in .env, copy .env.example ( Note: check for the ``id`` and ``secret`` in your Google, Facebook, Github app and update it in its respective place. )
 * After adding environment variables run ``dotenv rails server`` to start the application.
