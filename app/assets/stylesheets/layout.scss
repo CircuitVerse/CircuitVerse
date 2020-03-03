@@ -1,4 +1,19 @@
 // All the custom class styles
+.custom-file-upload {
+  background-color: $active-background;
+  border: 1px solid $green;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-block;
+  padding: 6px 12px;
+  text-align: center;
+  width: 155px;
+}
+
+.file-button {
+  display: none;
+}
+
 .noprojects {
   left: 30%;
   position: absolute;
@@ -15,7 +30,11 @@
 }
 
 .logo {
-  height: 25px;
+  height: 60px;
+}
+
+.logo-bottom {
+  max-height: 80px;
 }
 
 .navbar-light .navbar-nav {
@@ -40,11 +59,14 @@
 }
 
 .footer-social-icon {
+  margin-left: 15px;
   width: 32px;
+
 }
 
 .footer-social {
   margin-bottom: unset;
+  margin-left: 15px;
 }
 
 .copyright {
@@ -57,4 +79,11 @@
   left: 40%;
   position: absolute;
   top: 35%;
+}
+
+.dropdown-item {
+  &:hover {
+    background-color: $green;
+    color: $white;
+  }
 }
