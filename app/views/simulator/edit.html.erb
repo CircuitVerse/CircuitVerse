@@ -1,13 +1,14 @@
-<% content_for(:html_title) { 'CircuitVerse - Digital Simulator' } %>
+<% content_for(:html_title) { "CircuitVerse - Digital Simulator" } %>
+
 <!--Displays the loading screen  -->
 <script src="/js/pace.js"></script>
 <!-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384&#45;BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script>
-  userSignedIn = <%= user_signed_in? %>;
-  logix_project_id = <%= @logix_project_id %>;
-  projectName = "<%= @projectName %>"
+  userSignedIn = <%= user_signed_in?.to_json %>;
+  logix_project_id = <%= @logix_project_id.to_json %>;
+  projectName = "<%= @projectName.to_json %>"
 </script>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="/">CircuitVerse</a>
@@ -54,14 +55,14 @@
         <% if user_signed_in? %>
           <a href="#" class="dropdown-toggle text-light" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %><span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href=<%= profile_path(current_user) %>>Profile</a></li>
-            <li><a class="dropdown-item" href=<%= user_path(current_user) %>>My circuits</a></li>
-            <li><a class="dropdown-item" href=<%= user_groups_path(current_user) %>>My groups</a></li>
+            <li><a class="dropdown-item" href="<%= profile_path(current_user) %>">Profile</a></li>
+            <li><a class="dropdown-item" href="<%= user_path(current_user) %>">My circuits</a></li>
+            <li><a class="dropdown-item" href="<%= user_groups_path(current_user) %>">My groups</a></li>
             <div class="dropdown-divider"></div>
-            <li><a class="dropdown-item" rel="nofollow" data-method="delete" href=<%= destroy_user_session_path %>>Sign out</a></li>
+            <li><a class="dropdown-item" rel="nofollow" data-method="delete" href="<%= destroy_user_session_path %>">Sign out</a></li>
           </ul>
         <% else %>
-          <a class="navbar-nav nav-link" href=<%= new_user_session_path %>> Sign in </a>
+          <a class="navbar-nav nav-link" href="<%= new_user_session_path %>"> Sign in </a>
         <% end %>
       </li>
     </ul>
@@ -186,7 +187,7 @@
                   <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
                 </button>
                 <button type="button" class="btn zoomButton btn-lg" onclick="layoutTitleLeft()">
-                  <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+                  <span class="glyphicon glyphicon-arrow-left" aria-hidden="thrrue"></span>
                 </button>
                 <button type="button" class="btn zoomButton btn-lg" onclick="layoutTitleRight()">
                   <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
@@ -298,3 +299,4 @@
     <% end %>
     <script src="/js/canvas2svg.js"></script>
     <div>
+   
