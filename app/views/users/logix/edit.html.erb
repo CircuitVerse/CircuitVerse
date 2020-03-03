@@ -45,8 +45,8 @@
           <%= f.check_box :subscribed, {checked: @profile.subscribed?, style: 'margin-top: 0;width: 20px;height: 20px;' , id: "profile_subscribed"} %>
           </label>
         </div>
-
-         <button type="submit" class="btn btn-secondary btn-secondary-profile-page rounded-0">Save</button>
+         <a class="btn btn-secondary btn-secondary-profile-page rounded-0 float-left" href="<%= profile_path(current_user) %>">Back </a>
+         <button type="submit" class="btn btn-secondary btn-secondary-profile-page rounded-0 float-sm-left float-md-right float-lg-right float-xl-right">Save</button>
       <% end %>
 
     </div>
