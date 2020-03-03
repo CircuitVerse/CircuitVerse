@@ -30,7 +30,7 @@ You will also need the required software, detailed above. `Redis` and `PostgreSQ
 1. Install bundler : `gem install bundler`
 2. Install dependencies: `bundle install`
 3. Install Yarn dependencies: `yarn`
-4. Configure your PostgreSQL database in `config/database.yml` (copy `config/database.example.yml` for the template) 
+4. Configure your PostgreSQL database by running this command `cp config/database.example.yml config/database.yml` 
      * **Note:** The Postgres credentials need to be updated to your currently running database
 5. Create database: `rails db:create`
 6. Run migrations: `rails db:migrate`
