@@ -131,7 +131,7 @@ a.btn.btn-outline-danger {
 }
 
 
-// New UI 
+// New UI
 .heading-profile {
   margin-bottom: 40px;
   margin-top: 40px;
@@ -288,6 +288,7 @@ $color-black: #000;
 	padding: 30px;
 	text-align: center;
 }
+
 .heading_examples{
 	color: $color-darkgreen;
 	font-family: Open Sans;
@@ -295,9 +296,11 @@ $color-black: #000;
 	font-weight: 500;
 	text-align: center;
 }
+
 .content_examples{
 	font-size: 20px;
 }
+
 .pp {
 	margin: 0;
 	padding: 0;
@@ -327,10 +330,12 @@ $color-black: #000;
 	background-color: $color-cream;
 	color: $color-black;
 }
+
 .styled_btn.white:hover{
 	background-color: $color-teal;
 	color: $color-white;
 }
+
 .styled_btn1{
 	background-color: $color-teal;
 	border-radius: 4px;
@@ -342,10 +347,13 @@ $color-black: #000;
 	padding-right: 7px;
 	padding-top: 4px;
 }
+
 .styled_btn1:hover{
 	color: $color-black;
 }
+
 // Styling for grid
+
 .container_examples{
 	background-color: $color-cream;
 	font-family: Open Sans;
@@ -356,31 +364,33 @@ $color-black: #000;
 	position: relative;
 	width: 90%;
 }
+
 .grid-cell{
 	background-color: $color-white;
 	border: 1px solid $color-darkgreen;
-	margin-bottom: 60px;	
+	margin-bottom: 60px;
 	margin-top: 5px;
 	position: relative;
 	max-width: 90%;
-
 }
+
 .grid_image{
 	background-color: $color-white;
 	padding-top: 10px;
-
 }
+
 .grid-content{
 	font-size: 1.2em;
-	position: relative;
-	
+	position: relative;	
 }
+
 .grid-content > .grid-title{
 	font-size: .8em;
-	margin-top: 10px;
-	
+	margin-top: 10px;	
 }
+
 //styling for search
+
 .nav-search-form{
 	background-color: $color-white;
 	border: 1px solid $color-darkgreen;
@@ -390,18 +400,21 @@ $color-black: #000;
 	margin-right: auto;
 	position: relative;
 }
+
 .nav-bar-search-input{
 	border: 0;
 	border-radius: 30px;
 	outline: 0;
 	padding-left: .8rem;
 }
+
 #ns {
 	margin-bottom: 40px;
 	margin-left: auto;
 	margin-right: auto;
 	position: relative;
 }
+
 .search_logo{
 	background-color: $color-white;
 	border-radius: 30px;
@@ -412,6 +425,7 @@ $color-black: #000;
 	width: 39.6px;
 	z-index: 9;
 }
+
 #search_type {
 	-moz-appearance: none;
 	-webkit-appearance: none;
@@ -424,13 +438,13 @@ $color-black: #000;
 	padding-right: 1.6rem;
 	width: 39.6;
 }
+
 .fa{
 	left: 8px;
 	position: relative;
 	text-align: center;
 	top: 4px;
 }
-
 
 .noSelect {
 	-moz-user-select: none;
@@ -453,19 +467,24 @@ $color-black: #000;
 	display: inline-block;
 	width: 100%;
 }
+
 // Utility Functions
+
 .page_mid{
 	text-align: center;
 }
+
 .margin{
 	margin-top: 5px;
 	margin-left: 5px;
 	margin-right: 5px;
 }
+
 .margin-right{
 	border-radius: 30px;
 	margin-right: 50px;
 }
+
 @media (max-width: 830px) {
 	.pp {
 		font-size: .8em;
@@ -500,7 +519,7 @@ $color-black: #000;
 @media only screen and (max-width: 480px) {
 	// For mobile phones:
 	[class*="display-4"] {
-		padding-top:10px;
+		padding-top: 10px;
 	}
 }
 
@@ -569,4 +588,3 @@ $color-black: #000;
   display: inline-block;
   text-decoration: underline;
 }
-
