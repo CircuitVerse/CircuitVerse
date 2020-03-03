@@ -8,6 +8,11 @@
 - [Yarn](https://yarnpkg.com/)
 - [Redis](https://redis.io/)
 - [ImageMagick](https://imagemagick.org/)
+
+# Versions
+- Ruby Version: ruby-2.6.5
+- Rails Version: Rails 6.0.1
+- PostgreSQL Version: 9.5
   
 ## Cloning From GitHub
 To clone the repository, either use the Git GUI if you have one installed or enter the following commands:
@@ -27,17 +32,32 @@ You will also need the required software, detailed above. `Redis` and `PostgreSQ
 
 **Note:** You might want to use the docker instructions if you do not want to setup your own environment.
 
+1. Install ruby using RVM, use ruby-2.6.5
 1. Install bundler : `gem install bundler`
-2. Install dependencies: `bundle install`
-3. Install Yarn dependencies: `yarn`
-4. Configure your PostgreSQL database in `config/database.yml` (copy `config/database.example.yml` for the template) 
+1. Install dependencies: `bundle install`
+1. Install Yarn dependencies: `yarn`
+1. Configure your PostgreSQL database in `config/database.yml` (copy `config/database.example.yml` for the template) 
      * **Note:** The Postgres credentials need to be updated to your currently running database
-5. Create database: `rails db:create`
-6. Run migrations: `rails db:migrate`
-7. Start Sidekiq: `bundle exec sidekiq -e development -q default -q mailers -d -L tmp/sidekiq.log` (currently in development)
+1. Create database: `rails db:create`
+1. Run migrations: `rails db:migrate`
+1. Start Sidekiq: `bundle exec sidekiq -e development -q default -q mailers -d -L tmp/sidekiq.log` (currently in development)
 
 Then, local development can be started with `rails s -b 127.0.0.1 -p 8080`. Navigate to `127.0.0.1:8080` in your web browser to access the website.
 
+### Additional setup instructions
+[Yarn](https://yarnpkg.com/lang/en/) is a package manager for the JavaScript ecosystem.
+CircuitVerse uses Yarn for frontend package and asset management.
+
+If you encounter the following error,
+```
+Error: File to import not found or unreadable: bootstrap/scss/bootstrap.scss
+```
+run `yarn` to install frontend dependencies
+
+Additional software:
+* Install imagemagick
+* Start Redis server process.
+* To start sidekiq: `bundle exec sidekiq -e development -q default -q mailers -d -L tmp/sidekiq.log` (In development)
 
 ### Development
 Developers can quickly get started by setting up the dev environment using the instructions above. To seed the database with some sample data, run `bundle exec rake db:seed`. The admin credentials after seeding will be:
@@ -48,6 +68,7 @@ Password: password
 ```
 
 For debugging include `binding.pry` anywhere inside the code to open the `pry` console.
+
 
 ### Production
 The following commands should be run for production
