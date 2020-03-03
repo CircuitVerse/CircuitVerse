@@ -51,7 +51,7 @@
 }
 
 .empty-div {
-  height: 450px;
+  height: 250px;
 }
 
 .footer-logo {
@@ -76,9 +76,10 @@
 }
 
 .favblank {
-  left: 40%;
-  position: absolute;
-  top: 35%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
 }
 
 .dropdown-item {
