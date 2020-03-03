@@ -1,18 +1,8 @@
-@media only screen and (max-width: 480px) {
-	// For mobile phones:
-	[class*="display-4"] {
-	padding-top:10px;
-	}
-}
-
-p {
-	text-align: justify;
-}
 
 .feature {
-	border: 1px solid rgba(0, 0, 0, 0.125);
-	padding: 1.25rem;
-	border-radius: 0.25em;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    padding: 1.25rem;
+    border-radius: .25em;
 }
 
 .gif-box {
@@ -21,8 +11,15 @@ p {
 	top: 50%;
 }
 
+
 img {
 	max-width: 100%;
+}
+
+.label-field {
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }
 
 .noSelect {
@@ -55,7 +52,7 @@ img {
 }
 
 .error {
-	color: red;
+    color: $red;
 }
 
 .grade-container {
@@ -89,14 +86,15 @@ a.btn.btn-outline-danger {
 }
 
 #error_explanation {
-	color: red;
-	background: #f0f0f0;
-	border: 1px solid #86181d;
-	padding: 4px;
-}
+    background: #f0f0f0;
+    border: 1px solid #86181d;
+    color: $red;
+    padding: 4px;
 
-#error_explanation h2 {
-	font-size: 1.25rem;
+    h2 {
+      font-size: 1.25rem;
+  }
+
 }
 
 .pagination .page-link {
@@ -123,6 +121,7 @@ a.btn.btn-outline-danger {
 		margin-left: -4px;
 	}
 }
+
 a.btn.btn-outline-primary {
 	margin-top: 10px;
 }
@@ -131,7 +130,30 @@ a.btn.btn-outline-danger {
 	margin-top: 10px;
 }
 
-// New UI
+
+// New UI 
+.heading-profile {
+  margin-bottom: 40px;
+  margin-top: 40px;
+}
+
+#profile-details {
+  padding-top: 30px;
+}
+
+#profile-details > p {
+  font-size: 20px;
+}
+
+.profile-background {
+  background-color: $slightblack;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 900px;
+  padding: 10px 0 25px;
+}
+
+
 .btn-favourite{
 	display: inline;
 	float: right;
@@ -177,9 +199,11 @@ a.btn.btn-outline-danger {
 }
 
 .feature-preview{
-	border: 2px solid $green;
-	padding: 1.25rem;
-	border-radius: 0.25em;
+
+  border: 2px solid $green;
+  padding: 1.25rem;
+  border-radius: .25em;
+
 }
 
 .btn-userprojects{
@@ -225,10 +249,10 @@ a.btn.btn-outline-danger {
 }
 
 .patreon{
-	border: 1.5px solid black;
-	border-radius: 8px;
-	padding: 4px;
-	box-shadow: 3px 3px 6px $shadow-black;
+  border: 1.5px solid $black;
+  border-radius: 8px;
+  padding: 4px;
+  box-shadow: 3px 3px 6px $shadow-black;
 }
 
 .patreon > img{
@@ -420,6 +444,7 @@ $color-black: #000;
 	cursor: pointer;
 }
 
+
 .defaultCursor {
 	cursor: default;
 }
@@ -484,5 +509,64 @@ $color-black: #000;
 	font-size: .7em;
 	width: 120px;
 	}
+}
+
+
+#teacher_heading {
+  margin-bottom: 35px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 768px;
+}
+
+#teacher_benefit {
+  margin-bottom: 20px;
+}
+
+.container-fluid_teachers{
+  padding-bottom: 40px;
+  padding-top: 40px;
+}
+
+.container-fluid_teachersbackground{
+  background-color: $gray-100;
+  padding-bottom: 40px;
+  padding-top: 40px;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.image_teachers{
+  border: 1px solid $slight-gray;
+  margin-left: 20px;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.subheading_teachers{
+  text-align: left;
+}
+
+.name-group{
+  font-size: 1.2rem;
+  font-weight: 500;
+  height: 100%;
+  margin-right: 12px;
+  margin-top: 10px;
+  width: 220px;
+}
+
+.edit-name{
+  font-size: 2rem;
+  font-weight: 500;
+  padding-bottom: 20px;
+  padding-top: 50px;
+}
+
+.underline {
+  display: inline-block;
+  text-decoration: underline;
 }
 

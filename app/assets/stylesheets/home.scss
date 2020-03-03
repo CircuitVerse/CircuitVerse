@@ -1,0 +1,91 @@
+// Home page New UI
+.row-homepage {
+  margin-bottom: 40px;
+  margin-top: 70px;
+}
+
+.btn-homepage {
+  background-color: $green;
+  border-radius: 36px;
+  color: $white;
+  padding: 10px 20px;
+}
+
+.a-homepage {
+  color: $teal;
+  margin-left: 15px;
+  text-decoration: underline;
+}
+
+.a-homepage:hover {
+  color: $green;
+  text-decoration: none;
+}
+
+.btn-homepage2 {
+  border: 2px solid $teal;
+  border-radius: 5px;
+  margin: 10px;
+
+  &:hover {
+    box-shadow: 0 7px 7px $shadow-black;
+  }
+}
+
+.row-homepage-middle {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+  text-align: center;
+}
+
+.card-homepage {
+  border: 0;
+  display: inline-block;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  max-width: 350px;
+}
+
+.card-homepage-example {
+  border: 1px solid $green;
+  border-radius: 0;
+  display: inline-block;
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+
+.card-img-homepage-example {
+  max-height: 160px;
+}
+
+.homepage-example-p {
+  display: inline-block;
+  float: left;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.homepage-example-button {
+  float: right;
+  margin-bottom: 15px;
+}
+
+.card-footer-homepage-example {
+  background-color: $white;
+}
+
+.row-featured-examples {
+  background-color: $green;
+}
+
+.btn-right {
+  float: right;
+}
+
+.homepage-cover {
+  margin-bottom: 15px;
+  margin-top: 30px;
+  max-height: 700px;
+  max-width: 100%;
+}
