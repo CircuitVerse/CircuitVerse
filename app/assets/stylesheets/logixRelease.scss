@@ -278,7 +278,7 @@ $color-black: #000;
 	margin: 0;
 	padding: 0;
 	position: absolute;
-	right: 40px;
+	right: 20px;
 	top: 5px;
 }
 
@@ -312,16 +312,17 @@ $color-black: #000;
 	border-radius: 4px;
 	color: $color-white;
 	font-size: .8em;
-	padding-bottom: 5px;
-	padding-left: 10px;
-	padding-right: 10px;
-	padding-top: 5px;
+	margin-top: 6px;
+	padding-bottom: 4px;
+	padding-left: 7px;
+	padding-right: 7px;
+	padding-top: 4px;
 }
 .styled_btn1:hover{
 	color: $color-black;
 }
 // Styling for grid
-.contain{
+.container_examples{
 	background-color: $color-cream;
 	font-family: Open Sans;
 	margin-left: auto;
@@ -329,28 +330,31 @@ $color-black: #000;
 	padding: 30px;
 	padding-top: 50px;
 	position: relative;
-	width: 85%;
+	width: 90%;
 }
 .grid-cell{
 	background-color: $color-white;
 	border: 1px solid $color-darkgreen;
-	margin-bottom: 60px;
+	margin-bottom: 60px;	
 	margin-top: 5px;
 	position: relative;
+	max-width: 90%;
+
 }
 .grid_image{
 	background-color: $color-white;
-	padding: 10px;
+	padding-top: 10px;
+
 }
 .grid-content{
 	font-size: 1.2em;
 	position: relative;
+	
 }
 .grid-content > .grid-title{
 	font-size: .8em;
-	margin: 12px;
-	margin-top: 8px;
-	text-align: left;
+	margin-top: 10px;
+	
 }
 //styling for search
 .nav-search-form{
