@@ -9,10 +9,10 @@
 @import 'about';
 @import 'editor';
 @import 'groups';
-@import 'trumbowyg/dist/ui/trumbowyg.min.css';
+@import 'group_members';
 @import 'profile';
 @import 'home';
-
+@import 'trumbowyg/dist/ui/trumbowyg.min.css';
 // #FIXME move these styles
 .alert {
   width: 100%;
