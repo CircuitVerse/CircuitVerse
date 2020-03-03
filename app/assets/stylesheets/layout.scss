@@ -76,9 +76,10 @@
 }
 
 .favblank {
-  left: 40%;
-  position: absolute;
-  top: 35%;
+  align-items: center;
+  display: flex;
+  height: 300px;
+  justify-content: center;
 }
 
 .dropdown-item {
