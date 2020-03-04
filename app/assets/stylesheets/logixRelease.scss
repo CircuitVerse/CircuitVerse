@@ -1,5 +1,5 @@
 .feature {
-    border: 1px solid $featurepostborder;
+    border: 1px solid rgba(0, 0, 0, 0.125);
     padding: 1.25rem;
     border-radius: .25em;
 }
@@ -286,6 +286,27 @@ a.btn.btn-outline-danger {
   text-align: left;
 }
 
+.name-group{
+  font-size: 1.2rem;
+  font-weight: 500;
+  height: 100%;
+  margin-right: 12px;
+  margin-top: 10px;
+  width: 220px;
+}
+
+.edit-name{
+  font-size: 2rem;
+  font-weight: 500;
+  padding-bottom: 20px;
+  padding-top: 50px;
+}
+
+.underline {
+  display: inline-block;
+  text-decoration: underline;
+}
+
 .feature-post {
   border: 1.5px solid $featurepostborder;
   margin-bottom: 10px;
@@ -327,25 +348,4 @@ a {
   background-color: $white;
   border: 1.5px solid $button-border-color;
   color: $black;
-}
-
-.name-group{
-  font-size: 1.2rem;
-  font-weight: 500;
-  height: 100%;
-  margin-right: 12px;
-  margin-top: 10px;
-  width: 220px;
-}
-
-.edit-name{
-  font-size: 2rem;
-  font-weight: 500;
-  padding-bottom: 20px;
-  padding-top: 50px;
-}
-
-.underline {
-  display: inline-block;
-  text-decoration: underline;
 }
