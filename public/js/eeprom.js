@@ -43,11 +43,11 @@ EEPROM.prototype.customSave = function () {
     saveInfo.constructorParamaters.push(data);
     return saveInfo;
 }
-EEPROM.prototype.dblclick = function() { //entering data in EEROM
+EEPROM.prototype.dblclick = function () { // entering data in EEROM
     temp = prompt("Enter data").replace(/[^(0|1)]/g,"").match(/.{1,2}/g).map(function (x) {
         return parseInt(x, 16);
-    });  
-    for(var i = 0; i < this.data.length && i < temp.length; i++){
+    });
+    for (var i = 0; i < this.data.length && i < temp.length; i++){
         this.data[i] = temp[i];
     }
 }
