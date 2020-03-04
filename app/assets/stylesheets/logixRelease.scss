@@ -146,7 +146,7 @@ a.btn.btn-outline-danger {
 }
 
 .profile-background {
-  background-color: black;
+  background-color: $black;
   margin-left: auto;
   margin-right: auto;
   max-width: 900px;
@@ -266,84 +266,69 @@ a.btn.btn-outline-danger {
 //New UI
 
 
-// color variables
-
-$color-teal: #42b983;
-$color-white: #fff;
-$color-darkgreen: #026e57;
-$color-cream: #f9fffc;
-$color-black: #000;
-
-
 
 .heading {
-  color: #026e57;
-  margin-top: 40px;
+  color: $teal;
   margin-bottom: 10px;
+  margin-top: 40px;
 }
 
 .row-examples {
-  text-align: center;
   margin-left: auto;
   margin-right: auto;
   max-width: 1344px;
+  text-align: center;
 }
 
 .btn-examples{
 	background-color: $green;
-  	color: white;
-  	transition: all 0.3s ease 0s;
+	border-radius: 30px;
+  	color: $white;
+  	margin: 30px 10px;
   	text-align: justify;
-  	margin: 30px 10px 30px 10px;
-  	border-radius: 30px;
+  	transition: all .3s ease 0s;
 }
 
 .btn-examples-view{
   background-color: $green;
-  color: white;
-  transition: all 0.3s ease 0s;
-  text-align: justify;
+  color: $white;
+  float: right;
+  font-size: 12px;
   margin-bottom: 12px;
   margin-top: 12px;
   padding-bottom: 4px;
   padding-left: 6px;
   padding-right: 6px;
   padding-top: 4px;
-  font-size: 12px;
-  
-  float: right;
-}
+  text-align: justify;
+  transition: all 0.3s ease 0s;
+ }
 
 .btn-examples:hover{
-  color:white;
+  color: $white;
   background-color: $teal;
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 8px 15px $shadow-black;
   transform: translateY(-7px);
 }
-
-
 
 // Styling for grid
 
 .container-examples{
-	background-color: $color-cream;
+	background-color: $gray-100;
 	font-family: Open Sans;
 	padding-top: 50px;
-	
 }
 
 .grid-cell{
-	background-color: $color-white;
-	border: 1px solid $color-darkgreen;
+	background-color: $white;
+	border: 1px solid $teal;
 	margin-bottom: 60px;
 	margin-top: 5px;
 	max-width: 90%;
-	
 }
 
 .grid-image{
-	background-color: $color-white;
-	
+	background-color: $white;
 }
 
 .grid-content{
@@ -352,7 +337,7 @@ $color-black: #000;
 }
 .grid-title{
 	font-family: Open Sans;
-	font-size: 0.7em;
+	font-size: .7em;
 	font-weight: 500;
 	margin-bottom: 10px;
 	margin-left: 10px;
@@ -365,8 +350,8 @@ $color-black: #000;
 //styling for search
 
 .nav-search-form{
-	background-color: $color-white;
-	border: 1px solid $color-darkgreen;
+	background-color: $white;
+	border: 1px solid $teal;
 	border-radius: 30px;
 	display: flex;
 	margin-left: auto;
@@ -389,7 +374,7 @@ $color-black: #000;
 }
 
 .search-logo{
-	background-color: $color-white;
+	background-color: $white;
 	border-radius: 30px;
 	height: 33.2px;
 	left: 0;
@@ -403,7 +388,7 @@ $color-black: #000;
 	-moz-appearance: none;
 	-webkit-appearance: none;
 	appearance: none;
-	background-color: $color-white;
+	background-color: $white;
 	border-radius: 30px;
 	cursor: pointer;
 	font-size: .8rem;
@@ -471,7 +456,7 @@ $color-black: #000;
 }
 
 .image_teachers{
-  border: 1px solid gray;
+  border: 1px solid $slight-gray;
   margin-left: 20px;
   max-height: 100%;
   max-width: 100%;
