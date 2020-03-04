@@ -146,7 +146,7 @@ a.btn.btn-outline-danger {
 }
 
 .profile-background {
-  background-color: $slightblack;
+  background-color: black;
   margin-left: auto;
   margin-right: auto;
   max-width: 900px;
@@ -276,93 +276,60 @@ $color-black: #000;
 
 
 
-
-
-//  Style for jumbotron
-.jumbotron_examples{
-	background-color: $color-white;
-	font-family: Open Sans;
-	margin-bottom: 0px;
-	margin-left: auto;
-	margin-right: auto;
-	padding: 30px;
-	text-align: center;
+.heading {
+  color: #026e57;
+  margin-top: 40px;
+  margin-bottom: 10px;
 }
 
-.heading_examples{
-	color: $color-darkgreen;
-	font-family: Open Sans;
-	font-size: 2.5em;
-	font-weight: 500;
-	text-align: center;
+.row-examples {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1344px;
 }
 
-.content_examples{
-	font-size: 20px;
+.btn-examples{
+	background-color: $green;
+  	color: white;
+  	transition: all 0.3s ease 0s;
+  	text-align: justify;
+  	margin: 30px 10px 30px 10px;
+  	border-radius: 30px;
 }
 
-.pp {
-	margin: 0;
-	padding: 0;
-	position: absolute;
-	right: 20px;
-	top: 5px;
+.btn-examples-view{
+  background-color: $green;
+  color: white;
+  transition: all 0.3s ease 0s;
+  text-align: justify;
+  margin-bottom: 12px;
+  margin-top: 12px;
+  padding-bottom: 4px;
+  padding-left: 6px;
+  padding-right: 6px;
+  padding-top: 4px;
+  font-size: 12px;
+  
+  float: right;
 }
 
-// Styling for buttons
-
-.styled_btn{
-	background-color: $color-teal;
-	border-radius: 30px;
-	color: $color-white;
-	font-size: 1em;
-	margin-bottom: 50px;
-	margin-left: 40px;
-	margin-right: 40px;
-	margin-top: 0;
-	padding-bottom: 6px;
-	padding-left: 18px;
-	padding-right: 18px;
-	padding-top: 6px;
+.btn-examples:hover{
+  color:white;
+  background-color: $teal;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transform: translateY(-7px);
 }
 
-.styled_btn.white{
-	background-color: $color-cream;
-	color: $color-black;
-}
 
-.styled_btn.white:hover{
-	background-color: $color-teal;
-	color: $color-white;
-}
-
-.styled_btn1{
-	background-color: $color-teal;
-	border-radius: 4px;
-	color: $color-white;
-	font-size: .8em;
-	margin-top: 6px;
-	padding-bottom: 4px;
-	padding-left: 7px;
-	padding-right: 7px;
-	padding-top: 4px;
-}
-
-.styled_btn1:hover{
-	color: $color-black;
-}
 
 // Styling for grid
 
-.container_examples{
+.container-examples{
 	background-color: $color-cream;
 	font-family: Open Sans;
-	margin-left: auto;
-	margin-right: auto;
-	padding: 30px;
 	padding-top: 50px;
-	position: relative;
-	width: 90%;
+	
 }
 
 .grid-cell{
@@ -371,22 +338,28 @@ $color-black: #000;
 	margin-bottom: 60px;
 	margin-top: 5px;
 	max-width: 90%;
-	position: relative;
+	
 }
 
-.grid_image{
+.grid-image{
 	background-color: $color-white;
-	padding-top: 10px;
+	
 }
 
 .grid-content{
 	font-size: 1.2em;
-	position: relative;
+	
 }
-
-.grid-content > .grid-title{
-	font-size: .8em;
+.grid-title{
+	font-family: Open Sans;
+	font-size: 0.7em;
+	font-weight: 500;
+	margin-bottom: 10px;
+	margin-left: 10px;
 	margin-top: 10px;
+	padding: 0px;
+	text-align: left;
+
 }
 
 //styling for search
@@ -415,7 +388,7 @@ $color-black: #000;
 	position: relative;
 }
 
-.search_logo{
+.search-logo{
 	background-color: $color-white;
 	border-radius: 30px;
 	height: 33.2px;
@@ -468,67 +441,7 @@ $color-black: #000;
 	width: 100%;
 }
 
-// Utility Functions
 
-.page_mid{
-	text-align: center;
-}
-
-.margin{
-	margin-top: 5px;
-	margin-left: 5px;
-	margin-right: 5px;
-}
-
-.margin-right{
-	border-radius: 30px;
-	margin-right: 50px;
-}
-
-@media (max-width: 830px) {
-	.pp {
-		font-size: .8em;
-		margin-bottom: 30px;
-		position: absolute;
-		text-align: center;
-	}
-
-	.grid-content > .grid-title {
-		font-size: .5em;
-		margin-right: 5px;
-		text-align: left;
-		}
-}
-
-@media (max-width: 767px) {
-	.pp {
-		font-size: 1em;
-		left: 0px;
-		margin-bottom: 30px;
-		position: relative;
-		text-align: center;
-		top: 8px;
-	}
-
-	.grid-content > .grid-title {
-		font-size: 1em;
-		text-align: center;
-	}
-}
-
-@media only screen and (max-width: 480px) {
-	// For mobile phones:
-	[class*="display-4"] {
-		padding-top: 10px;
-	}
-}
-
-@media (max-width:376px) {
-	.nav-bar-search-input.nav1 {
-	font-size: .7em;
-	width: 120px;
-	}
-}
 
 
 #teacher_heading {
@@ -558,7 +471,7 @@ $color-black: #000;
 }
 
 .image_teachers{
-  border: 1px solid $slight-gray;
+  border: 1px solid gray;
   margin-left: 20px;
   max-height: 100%;
   max-width: 100%;
