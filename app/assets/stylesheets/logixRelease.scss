@@ -1,20 +1,19 @@
-@media only screen and (max-width: 480px) {
-  /* For mobile phones: */
-  [class*="display-4"] {
-    padding-top:10px;
-  }
-}
-
 .feature {
     border: 1px solid $featurepostborder;
     padding: 1.25rem;
-    border-radius: 0.25em;
+    border-radius: .25em;
 }
 
 .gif-box {
     position: absolute;
     text-align: center;
     top: 50%;
+}
+
+.label-field {
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }
 
 .noSelect {
@@ -47,7 +46,7 @@
 }
 
 .error {
-    color: red;
+    color: $red;
 }
 
 .grade-container {
@@ -81,14 +80,14 @@ a.btn.btn-outline-danger {
 }
 
 #error_explanation {
-    color: red;
     background: #f0f0f0;
     border: 1px solid #86181d;
+    color: $red;
     padding: 4px;
-}
 
-#error_explanation h2 {
-    font-size: 1.25rem;
+    h2 {
+      font-size: 1.25rem;
+  }
 }
 
 .pagination .page-link {
@@ -115,6 +114,7 @@ a.btn.btn-outline-danger {
         margin-left: -4px;
     }
 }
+
 a.btn.btn-outline-primary {
     margin-top: 10px;
 }
@@ -192,7 +192,7 @@ a.btn.btn-outline-danger {
 .feature-preview{
   border: 2px solid $green;
   padding: 1.25rem;
-  border-radius: 0.25em;
+  border-radius: .25em;
 }
 
 .btn-userprojects{
@@ -271,6 +271,10 @@ a.btn.btn-outline-danger {
   padding-top: 40px;
 }
 
+.align-center {
+  align-items: center;
+}
+
 .image_teachers{
   border: 1px solid $slight-gray;
   margin-left: 20px;
@@ -283,44 +287,65 @@ a.btn.btn-outline-danger {
 }
 
 .feature-post {
-    border: 1.5px solid $featurepostborder;
-    margin-bottom: 10px;
-    padding: .6rem .4rem;
+  border: 1.5px solid $featurepostborder;
+  margin-bottom: 10px;
+  padding: .6rem .4rem;
 }
 
 .iframe-box {
-    border: 1px solid $iframeborder;
-    border-radius: .25rem;
-    padding: .4rem;
+  border: 1px solid $iframeborder;
+  border-radius: .25rem;
+  padding: .4rem;
 }
 
 .container-in {
-    padding-top: 50px;
+  padding-top: 50px;
 }
 
 .card-body-post {
-    border: 0;
-    padding: 25px;
-    text-decoration: none;
+  border: 0;
+  padding: 25px;
+  text-decoration: none;
 }
 
 .btn-post {
-    font-size: 13px;
-    height: 28px;
-    margin: 5px 5px 5px 0;
+  font-size: 13px;
+  height: 28px;
+  margin: 5px 5px 5px 0;
 }
 
 .fa-post {
-    font: normal normal normal 14px/1 FontAwesome;
-    font-size: 13px;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: 13px;
 }
 
 a {
-    color: $link-color;
+  color: $link-color;
 }
 
 .btnself-post {
-    background-color: $white;
-    border: 1.5px solid $button-border-color;
-    color: $black;
+  background-color: $white;
+  border: 1.5px solid $button-border-color;
+  color: $black;
+}
+
+.name-group{
+  font-size: 1.2rem;
+  font-weight: 500;
+  height: 100%;
+  margin-right: 12px;
+  margin-top: 10px;
+  width: 220px;
+}
+
+.edit-name{
+  font-size: 2rem;
+  font-weight: 500;
+  padding-bottom: 20px;
+  padding-top: 50px;
+}
+
+.underline {
+  display: inline-block;
+  text-decoration: underline;
 }
