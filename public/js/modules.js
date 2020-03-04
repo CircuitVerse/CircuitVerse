@@ -1397,6 +1397,15 @@ Rom.prototype.findPos = function () {
 Rom.prototype.click = function () { // toggle
     this.selectedIndex = this.findPos();
 }
+
+Rom.prototype.dblclick = function() { // entering data in ROM
+    temp = prompt("Enter data").replace(/[^(0|1)]/g,"").match(/.{1,2}/g).map(function (x) {
+        return parseInt(x, 16);
+    });  
+    for(var i = 0; i < 16 && i < temp.length; i++){
+        this.data[i] = temp[i];
+    }
+}
 Rom.prototype.keyDown = function (key) {
     if (key == "Backspace") this.delete();
     if (this.selectedIndex == undefined) return;
