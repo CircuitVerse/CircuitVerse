@@ -84,6 +84,8 @@ gem 'activity_notification'
 gem 'serviceworker-rails'
 gem 'webpush'
 
+gem 'webpacker', '~> 4.x'
+
 gem 'bootsnap', require: false
 
 group :development, :test do
@@ -95,6 +97,8 @@ group :development, :test do
   gem 'faker'
   gem 'coveralls'
   gem 'rubocop-rspec', require: false
+  gem 'rubocop-rails', require: false
+  gem 'rubocop-performance', require: false
   gem 'erb_lint', require: false
 end
 
@@ -118,7 +122,6 @@ group :development do
   gem 'rubocop'
   gem 'dotenv', '~> 2.2.1'
   gem 'sunspot_solr'
-  gem "mailcatcher"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
