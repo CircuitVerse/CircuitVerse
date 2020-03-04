@@ -2,7 +2,7 @@
 <script src="/js/metadata.json"></script>
 <%= form_with(model: [group,@assignment], local: true, html: {onsubmit:"beforeSubmit()"}, multipart: true ,id:"assignmentForm") do |form| %>
   <% if @assignment.errors.any? %>
-    <div id="error_explanation">
+    <div id="error-explanation">
       <h2><%= pluralize(@assignment.errors.count, "error") %> prohibited this assignment from being saved:</h2>
 
       <ul>

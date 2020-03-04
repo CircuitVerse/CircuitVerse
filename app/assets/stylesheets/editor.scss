@@ -1,7 +1,8 @@
+// scss-lint:disable QualifyingElement, ImportantRule
 .trumbowyg-button-pane button .trumbowyg-active,
 .trumbowyg-button-pane button:not(.trumbowyg-disable):focus,
 .trumbowyg-button-pane button:not(.trumbowyg-disable):hover {
-  background-color: #56c292 !important;
+  background-color: $editor-bg !important;
   outline: 0;
 }
 

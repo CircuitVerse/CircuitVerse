@@ -10,7 +10,7 @@
 <% config = comment.thread.config %>
 
 <% if comment.errors.any? %>
-  <div class="comment_error_explanation">
+  <div class="comment_error-explanation">
     <h3><%= t "commontator.comment.errors.#{comment.id.blank? ? 'create' : 'update'}" %></h3>
 
     <ul>

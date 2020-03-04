@@ -22,8 +22,8 @@ Commontator.configure do |config|
   # Objects visible in view templates can be accessed
   # through the view object (for example, view.flash)
   # However, the view does not include the main application's helpers
-  # Default: ->(view) { '$("#error_explanation").remove();' }
-  config.javascript_proc = ->(view) { '$("#error_explanation").remove();' }
+  # Default: ->(view) { '$("#error-explanation").remove();' }
+  config.javascript_proc = ->(view) { '$("#error-explanation").remove();' }
 
 
   # User (acts_as_commontator) Configuration

@@ -148,7 +148,7 @@ input[type="radio"]:checked ~ label {
     /*background-image: url("./ui-icons_white_256x240.png");*/
 }
 
-.noSelect {
+.no-select {
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
@@ -156,11 +156,11 @@ input[type="radio"]:checked ~ label {
     -o-user-select: none;
 }
 
-.pointerCursor {
+.pointer-cursor {
     cursor: pointer;
 }
 
-.defaultCursor {
+.default-cursor {
     cursor: default;
 }
 
@@ -222,7 +222,7 @@ input[type="radio"]:checked ~ label {
 
 /* MODULES */
 
-.moduleProperty {
+.module-property {
     display: none;
     background-color: #333;
     color: #fff;
@@ -230,19 +230,19 @@ input[type="radio"]:checked ~ label {
     margin-top: 1em;
 }
 
-#moduleProperty-inner {
+#module-property-inner {
     border: 1px solid #0099ff;
     padding: 1em;
     /*margin-bottom: 1em;*/
 }
 
-#moduleProperty-toolTip {
+#module-property-toolTip {
     padding: 10px;
     /*font-size: 1.1em;*/
     color: #0099ff;
 }
 
-#moduleProperty-title {
+#module-property-title {
     text-transform: uppercase;
     font-size: 1.3em;
     color: #0099ff;
@@ -250,13 +250,13 @@ input[type="radio"]:checked ~ label {
     text-align: center;
 }
 
-#moduleProperty-header {
+#module-property-header {
     font-size: 1.1em;
     text-transform: uppercase;
     margin-bottom: 0.5em;
 }
 
-#moduleProperty-inner > p {
+#module-property-inner > p {
     margin: 0;
     margin-top: 0.2em;
 }
@@ -266,17 +266,17 @@ select {
     padding: 0.25rem;
 }
 
-.moduleProperty input,
-.moduleProperty select {
+.module-property input,
+.module-property select {
     background-color: #333;
     border: none;
     border-bottom: 2px solid #ccc;
 }
 
-.moduleProperty input:active,
-.moduleProperty input:focus,
-.moduleProperty select:active,
-.moduleProperty select:focus {
+.module-property input:active,
+.module-property input:focus,
+.module-property select:active,
+.module-property select:focus {
     border-bottom: 2px solid #0099ff;
 }
 

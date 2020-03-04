@@ -98,13 +98,13 @@ button:focus {outline:0;}
 
 
 }
-.noSelect {
+.no-select {
     -moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;
 }
-.pointerCursor {
+.pointer-cursor {
     cursor: pointer;
 }
-.defaultCursor {
+.default-cursor {
     cursor: default;
 }
 .simulation{

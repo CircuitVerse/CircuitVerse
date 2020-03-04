@@ -44,7 +44,7 @@
               <p>Enter Email IDs separated by commas/spaces or in separate lines. If users are not registered, an email ID will be sent requesting them to sign up.</p>
               <%= form_with(model: @group_member, local: true) do |form| %>
                   <% if @group_member.errors.any? %>
-                      <div id="error_explanation">
+                      <div id="error-explanation">
                         <h2><%= pluralize(group_member.errors.count, "error") %> prohibited this group_member from being saved:</h2>
                         <ul>
                           <% @group_member.errors.full_messages.each do |message| %>

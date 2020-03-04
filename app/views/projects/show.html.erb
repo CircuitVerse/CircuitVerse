@@ -42,20 +42,20 @@
       <div class="card h-100">
         <div class="card-header text-center font-weight-bold text-capitalize">
           <%= @project.name %>  &ensp;  &ensp;  &ensp;  &ensp; &ensp; &ensp; &ensp; &ensp;
-          <span class="badge badge-secondary noSelect">
+          <span class="badge badge-secondary no-select">
             &ensp;&ensp;
             <% if user_signed_in? %>
-                <i id="toggleStarButton" class="fa fa-star fa-2x noSelect" aria-hidden="true" style=<%= Star.find_by(user_id: current_user.id, project_id: @project.id).nil? ? "color:white" : "color:orange" %> onclick="toggleStar()"></i>
+                <i id="toggleStarButton" class="fa fa-star fa-2x no-select" aria-hidden="true" style=<%= Star.find_by(user_id: current_user.id, project_id: @project.id).nil? ? "color:white" : "color:orange" %> onclick="toggleStar()"></i>
                 &ensp;
             <% else%>
-                <i  class="fa fa-star fa-2x noSelect" aria-hidden="true" style="color:orange" ></i>
+                <i  class="fa fa-star fa-2x no-select" aria-hidden="true" style="color:orange" ></i>
                 &ensp;
             <% end %>
-            <r id="star_count" style="font-size:20px" class="noSelect"><%= @project.stars.count %></r>&ensp;&ensp;&ensp;
+            <r id="star_count" style="font-size:20px" class="no-select"><%= @project.stars.count %></r>&ensp;&ensp;&ensp;
             <i class="fa fa-eye fa-2x" aria-hidden="true" style="font-size:24px;font-weight: bold">&ensp;</i>
-            <r id="star_count" style="font-size:20px" class="noSelect"><%= @project.view %></r>&ensp;&ensp;&ensp;
+            <r id="star_count" style="font-size:20px" class="no-select"><%= @project.view %></r>&ensp;&ensp;&ensp;
             <i class="fa fa-code-fork fa-2x" aria-hidden="true" style="font-size:24px;font-weight: bold">&ensp;</i>
-            <r id="star_count" style="font-size:20px" class="noSelect"><%= @project.forks.count %></r>&ensp;&ensp;
+            <r id="star_count" style="font-size:20px" class="no-select"><%= @project.forks.count %></r>&ensp;&ensp;
             </span>
         </div>
         <ul class="list-group list-group-flush">
@@ -200,7 +200,7 @@
             Note that collaboration is not real time as of now. Every save overwites the previous data.</p>
           <%= form_with(model: @collaboration, local: true) do |form| %>
               <% if @collaboration.errors.any? %>
-                  <div id="error_explanation">
+                  <div id="error-explanation">
                     <h2><%= pluralize(collaboration.errors.count, "error") %> prohibited this group_member from being saved:</h2>
 
                     <ul>

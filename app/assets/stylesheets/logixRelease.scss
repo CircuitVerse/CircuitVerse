@@ -1,13 +1,14 @@
+// scss-lint:disable VendorPrefix, IdSelector, QualifyingElement
 .feature {
-    border: 1px solid rgba(0, 0, 0, 0.125);
-    padding: 1.25rem;
-    border-radius: .25em;
+  border: 1px solid $feature-border;
+  border-radius: .25em;
+  padding: 1.25rem;
 }
 
 .gif-box {
-    position: absolute;
-    text-align: center;
-    top: 50%;
+  position: absolute;
+  text-align: center;
+  top: 50%;
 }
 
 .label-field {
@@ -16,114 +17,106 @@
   justify-content: center;
 }
 
-.noSelect {
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    -o-user-select: none;
+.no-select {
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
-.pointerCursor {
-    cursor: pointer;
+.pointer-cursor {
+  cursor: pointer;
 }
 
-.defaultCursor {
-    cursor: default;
+.default-cursor {
+  cursor: default;
 }
 
 #assignment-grade-form {
-    display: inline-block;
-    width: 100%;
+  display: inline-block;
+  width: 100%;
 }
 
 #assignment-grade-grade {
-    flex: 1;
+  flex: 1;
 }
 
 #assignment-grade-remarks {
-    flex: 1;
+  flex: 1;
 }
 
 .error {
-    color: $red;
+  color: $red;
 }
 
 .grade-container {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 .bold {
-    font-weight: 600;
+  font-weight: 600;
 }
 
 .grade-show-container {
-    margin-top: 17px;
+  margin-top: 17px;
 }
 
 .grade-form-help {
-    margin-top: 5px;
-    font-size: 12px;
+  font-size: 12px;
+  margin-top: 5px;
 }
 
 .assignment-grade-inputs {
-    display: flex;
-    width: 100%;
+  display: flex;
+  width: 100%;
 }
 
 a.btn.btn-outline-primary {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 a.btn.btn-outline-danger {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
-#error_explanation {
-    background: #f0f0f0;
-    border: 1px solid #86181d;
-    color: $red;
-    padding: 4px;
+#error-explanation {
+  background: $error-explanation-bg;
+  border: 1px solid $error-explanation-border;
+  color: $red;
+  padding: 4px;
 
-    h2 {
-      font-size: 1.25rem;
+  h2 {
+    font-size: 1.25rem;
   }
 }
 
 .pagination .page-link {
-    white-space: nowrap;
+  white-space: nowrap;
 }
 
 @media (max-width: 992px) {
-    .pagination-cont {
-        overflow-x: auto;
-        padding: 0;
-    }
+  .pagination-cont {
+    overflow-x: auto;
+    padding: 0;
+  }
 
-    .pagination {
-        overflow-x: visible;
-        max-width: none;
-        display: block;
-        padding: 0;
-        white-space: nowrap;
-    }
+  .pagination {
+    display: block;
+    max-width: none;
+    overflow-x: visible;
+    padding: 0;
+    white-space: nowrap;
+  }
 
-    .pagination > * {
-        display: inline-block;
-        margin: 0;
-        margin-left: -4px;
-    }
+  .pagination > * {
+    display: inline-block;
+    margin: 0;
+    margin-left: -4px;
+  }
 }
 
-a.btn.btn-outline-primary {
-    margin-top: 10px;
-}
-
-a.btn.btn-outline-danger {
-    margin-top: 10px;
-}
-
-/* New UI */
+// New UI
 .heading-profile {
   margin-bottom: 40px;
   margin-top: 40px;
@@ -131,10 +124,10 @@ a.btn.btn-outline-danger {
 
 #profile-details {
   padding-top: 30px;
-}
 
-#profile-details > p {
-  font-size: 20px;
+  p {
+    font-size: 20px;
+  }
 }
 
 .profile-background {
@@ -145,127 +138,127 @@ a.btn.btn-outline-danger {
   padding: 10px 0 25px;
 }
 
-.btn-favourite{
+.btn-favourite {
   display: inline;
-  float: right;
+  //float: right;
 }
 
-.username{
+.username {
   display: inline;
   margin-left: 10px;
 }
 
-.card-userprojects{
+.card-userprojects {
   border: 2px solid $green;
   border-radius: 0;
   margin-top: 2rem;
 }
 
-.card-header-userprojects{
+.card-header-userprojects {
   background-color: $green;
   color: $white;
 }
 
-.card-footer-userprojects{
+.card-footer-userprojects {
   background-color: $white;
   border-top: 1.5px solid $green;
 }
 
-.cardname{
+.cardname {
   display: inline;
 }
 
-.modal-header-userprojects{
+.modal-header-userprojects {
   background-color: $green;
   color: $white;
 }
 
-.modal-footer-userprojects{
-  border: 0px;
+.modal-footer-userprojects {
+  border: 0;
 }
 
-.close-modal{
+.close-modal {
   color: $white;
   opacity: 1;
 }
 
-.feature-preview{
+.feature-preview {
   border: 2px solid $green;
-  padding: 1.25rem;
   border-radius: .25em;
+  padding: 1.25rem;
 }
 
-.btn-userprojects{
+.btn-userprojectsm {
   background-color: $green;
   color: $white;
   margin: 2px;
 }
 
-.card-contribute{
+.card-contribute {
+  border: 0;
   display: inline-block;
-  width: 300px;
-  border: 0px;
-  margin-top: 30px;
   margin-bottom: 30px;
+  margin-top: 30px;
+  width: 300px;
 }
 
-.cardimage-contribute{
-  width: 150px;
+.cardimage-contribute {
   height: 150px;
+  width: 150px;
 }
 
-.cardbody-contribute > h3{
+.cardbody-contribute > h3 {
   text-align: center;
 }
 
-.cardbody-contribute > ul{
+.cardbody-contribute > ul {
   text-align: left;
 }
 
-.contribute-pay{
+.contribute-pay {
   display: inline-block;
-  width: 200px;
   height: 100px;
-  margin-top: 50px;
+  margin-bottom: 40px;
   margin-left: 30px;
   margin-right: 30px;
-  margin-bottom: 40px;
+  margin-top: 50px;
   text-align: center;
+  width: 200px;
+
+  p {
+    font-weight: 550;
+  }
 }
 
-.contribute-pay > p{
-  font-weight: 550;
-}
-
-.patreon{
+.patreon {
   border: 1.5px solid $black;
   border-radius: 8px;
-  padding: 4px;
   box-shadow: 3px 3px 6px $shadow-black;
+  padding: 4px;
+
+  img {
+    height: 70px;
+    width: 160px;
+  }
 }
 
-.patreon > img{
-  width: 160px;
-  height: 70px;
-}
-
-#teacher_heading {
+#teacher-heading {
   margin-bottom: 35px;
   margin-left: auto;
   margin-right: auto;
   max-width: 768px;
 }
 
-#teacher_benefit {
+#teacher-benefit {
   margin-bottom: 20px;
 }
 
-.container-fluid_teachers{
+.container-fluid-teachers {
   padding-bottom: 40px;
   padding-top: 40px;
 }
 
-.container-fluid_teachersbackground{
+.container-fluid-teachersbackground {
   background-color: $gray-100;
   padding-bottom: 40px;
   padding-top: 40px;
@@ -275,18 +268,18 @@ a.btn.btn-outline-danger {
   align-items: center;
 }
 
-.image_teachers{
+.image-teachers {
   border: 1px solid $slight-gray;
   margin-left: 20px;
   max-height: 100%;
   max-width: 100%;
 }
 
-.subheading_teachers{
+.subheading-teachers {
   text-align: left;
 }
 
-.name-group{
+.name-group {
   font-size: 1.2rem;
   font-weight: 500;
   height: 100%;
@@ -295,7 +288,7 @@ a.btn.btn-outline-danger {
   width: 220px;
 }
 
-.edit-name{
+.edit-name {
   font-size: 2rem;
   font-weight: 500;
   padding-bottom: 20px;

@@ -23,9 +23,10 @@
 .simulator {
   border: 2px solid $green;
   font-weight: 500;
+
   &:hover {
-    color: $color-hover;
     background: $active-background;
+    color: $color-hover;
   }
 }
 
@@ -37,6 +38,7 @@
   max-height: 80px;
 }
 
+// scss-lint:disable SelectorDepth
 .navbar-light .navbar-nav {
   .nav-item {
     .nav-link {
