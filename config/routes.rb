@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   get '/custom_mails/send_mail/:id', to: 'custom_mails#send_mail', as: 'send_custom_mail'
   get '/custom_mails/send_mail_to_self/:id', to: 'custom_mails#send_mail_self', as: 'send_custom_mail_self'
 
-  # grades
+  # grades 
   scope '/grades' do
     post '/', to: 'grades#create', as: 'grades'
     delete '/', to: 'grades#destroy'

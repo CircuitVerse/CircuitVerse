@@ -2,3 +2,7 @@
 function stripTags(string="") {
     return string.replace(/(<([^>]+)>)/ig, '').trim();
 }
+
+
+
+
