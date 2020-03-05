@@ -45,7 +45,7 @@
         </ul>
       </li>
       <li class="">
-        <a href="https://docs.circuitverse.org" data-step = '3' data-intro = 'Click here for detailed documentation' class="text-light" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">Help</a>
+        <a href="https://docs.circuitverse.org" data-step='3' data-intro='Click here for detailed documentation' class="text-light" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">Help</a>
       <li class="dropdown"> 
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Guide<span class="caret"></span></a>
         <ul class="dropdown-menu">
@@ -54,13 +54,13 @@
       </li>
       </li>
     </ul>
-    <span data-step = '4' data-intro='Set a suitable title for your Project'class="projectName noSelect defaultCursor font-weight-bold" id="projectName">
+    <span data-step='4' data-intro='Set a suitable title for your Project'class="projectName noSelect defaultCursor font-weight-bold" id="projectName">
       Untitled
     </span>
     <ul class="nav navbar-nav noSelect pointerCursor pull-right">
       <li class="dropdown pull-right">
         <% if user_signed_in? %>
-          <a data-step = '5' data-intro = 'Sign-In and Save Your Project' href="#" class="dropdown-toggle text-light" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %><span class="caret"></span></a>
+          <a data-step='5' data-intro='Sign-In and Save Your Project' href="#" class="dropdown-toggle text-light" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %><span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="<%= profile_path(current_user) %>">Profile</a></li>
             <li><a class="dropdown-item" href="<%= user_path(current_user) %>">My circuits</a></li>
@@ -69,7 +69,7 @@
             <li><a class="dropdown-item" rel="nofollow" data-method="delete" href="<%= destroy_user_session_path %>">Sign out</a></li>
           </ul>
         <% else %>
-          <a class="navbar-nav nav-link" href="<%= new_user_session_path %>" data-step = '5' data-intro = 'Sign-In and Save Your Project'> Sign in </a>
+          <a class="navbar-nav nav-link" href="<%= new_user_session_path %>" data-step='5' data-intro='Sign-In and Save Your Project'> Sign in </a>
         <% end %>
       </li>
     </ul>
@@ -80,13 +80,13 @@
     <div class="side left" id="sideBar" style="overflow-y: scroll;overflow-x: hidden">
       <div class="modules noSelect defaultCursor">
         <div id="modules-header">Circuit Elements</div>
-        <div data-step = "1" data-intro = "Here, You can add different kinds of I/O elements to your circuit.
+        <div data-step="1" data-intro="Here, You can add different kinds of I/O elements to your circuit.
       Usage : Select an element and drop it as per requirement on your Canvas" class="accordion" id="menu">
         </div>
       </div>
       <div class="moduleProperty effect1" id="moduleProperty">
-        <div  id="moduleProperty-title" class="noSelect pointerCursor">Properties</div>
-        <div data-step = "2" data-intro = "Here, you can set Properties to your Circuit elements and to your Project" id="moduleProperty-inner"></div>
+        <div id="moduleProperty-title" class="noSelect pointerCursor">Properties</div>
+        <div data-step="2" data-intro="Here, you can set Properties to your Circuit elements and to your Project" id="moduleProperty-inner"></div>
         <!-- <div id="moduleProperty-toolTip"></div> -->
       </div>
     </div>
@@ -313,3 +313,4 @@
      introJs().start();
    }
   </script>
+  

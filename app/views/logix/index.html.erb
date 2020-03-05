@@ -42,7 +42,7 @@
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
           <h1>Dive into the world of Logic Circuits for free!</h1> <br>
           <p>From simple gates to complex sequential circuits, plot timing diagrams, automatic circuit generation, explore standard ICs, and much more</p>
-          <button type="button"  class="btn btn-homepage btn-about" onclick="clickCounter(); ">Launch Simulator</button>
+          <button type="button" class="btn btn-homepage btn-about" onclick="clickCounter(); ">Launch Simulator</button>
           <a href="https://learn.circuitverse.org/" class="a-homepage">Learn Logic Design</a>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
@@ -180,8 +180,7 @@ function clickCounter() {
         localStorage.clickcount = Number(localStorage.clickcount)+1;
       } else {
         localStorage.clickcount = 1;
-
-        }
+      }
     } 
     window.location.href = '/simulator'; 
   }</script>
