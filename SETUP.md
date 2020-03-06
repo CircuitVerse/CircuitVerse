@@ -1,6 +1,13 @@
 # Setting up CircuitVerse
 [Back to `README.md`](README.md)
 
+## Setting up on cloud with Gitpod
+[Gitpod](https://www.gitpod.io/) can be used to develop CircuitVerse in the cloud. Instructions are available in our [wiki](https://github.com/CircuitVerse/CircuitVerse/wiki/Development-on-Gitpod). Pull requests can be created in Gitpod by following these [steps](https://github.com/CircuitVerse/CircuitVerse/wiki/Pull-Requests-using-Gitpod)
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/CircuitVerse/CircuitVerse)
+
+## Setting up development environment on local machine
+
 ## Required Software
 - [Git](https://git-scm.com/) - using a GUI such as [SourceTree](https://www.sourcetreeapp.com/) or [GitHub Desktop](https://desktop.github.com/) can help
 - [Ruby on Rails](https://rubyonrails.org/)
@@ -110,10 +117,6 @@ Before making a pull request, it is a good idea to check that all tests are pass
 * Run `docker-compose down` to stop the instance
 * Run `docker-compose build --no-cache` to rebuild the instance (make sure the instance is not running first)
 
-## Gitpod Instructions
-[Gitpod](https://www.gitpod.io/) can be used to develop CircuitVerse in the cloud. Instructions are available in our [wiki](https://github.com/CircuitVerse/CircuitVerse/wiki/Development-on-Gitpod). Pull requests can be created in Gitpod by following these [steps](https://github.com/CircuitVerse/CircuitVerse/wiki/Pull-Requests-using-Gitpod)
-
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/CircuitVerse/CircuitVerse)
 
 ## Configuring Third Party Services
 Follow these instructions if you would like to link `Google`, `Facebook` or `GitHub` to your CircuitVerse instance:
