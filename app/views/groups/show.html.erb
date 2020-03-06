@@ -20,6 +20,11 @@
       <h3>Members </h3>
       <button type="button" class="float-sm-left float-md-right float-lg-right float-xl-right add-member text-white" data-toggle="modal" data-target="#myModal">Add member</button>
       <br><br><br>
+      <% if @group.users.blank? %>
+      <div class="container h5 text-center">
+         No Members in the group,Add members
+      </div>
+      <% else %>
       <div class="row">
         <% @group.users.each do |user| %>
           <div class="card text-white mb-3 card-member">
@@ -32,6 +37,7 @@
               </div>
           <% end %>
       </div>
+     <% end %>
       <div id="myModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
           <!-- Modal content-->
@@ -92,6 +98,11 @@
           <% end %>
         </tr>
         </thead>
+       <% if @group.assignments.blank? %>
+       <div class="container h5 text-center">
+         You don't have any Assignments,Add Assignments 
+       </div>
+       <% else %>
         <tbody>
         <tbody>
         <% @group.assignments.includes(projects: :grade).each do |assignment| %>
@@ -148,6 +159,7 @@
         <% end %>
         </tbody>
       </table>
+    <% end %>
       <% if policy(@group).admin_access? %>
       <% end %>
       <%= link_to 'Back', user_groups_path(current_user) ,class:"group-discription-back", style:"background-color: #42b983;" %>
