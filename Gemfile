@@ -84,6 +84,8 @@ gem 'activity_notification'
 gem 'serviceworker-rails'
 gem 'webpush'
 
+gem 'webpacker', '~> 4.x'
+
 gem 'bootsnap', require: false
 
 group :development, :test do
@@ -95,6 +97,8 @@ group :development, :test do
   gem 'faker'
   gem 'coveralls'
   gem 'rubocop-rspec', require: false
+  gem 'rubocop-rails', require: false
+  gem 'rubocop-performance', require: false
   gem 'erb_lint', require: false
 end
 

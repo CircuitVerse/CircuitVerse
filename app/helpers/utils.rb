@@ -5,7 +5,7 @@ module Utils
   # @return array of valid emails
   def self.parse_mails(mails)
     mails.split(/[\s,\,]/).select do |email|
-      email.present? && URI::MailTo::EMAIL_REGEXP.match(email)
+      email.present? && Devise.email_regexp.match?(email)
     end.uniq
   end
 
