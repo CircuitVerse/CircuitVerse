@@ -93,7 +93,7 @@ button:focus {
     margin: 0 auto;
     text-align: center;
     font-size: 1.4em;
-    position: static;
+    position: absolute;
     left: 50%;
     display: block;
     width: 500px;
