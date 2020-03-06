@@ -89,6 +89,13 @@ button:focus {
     overflow-x: hidden;
 }
 
+@media only screen and (max-width: 1366px) {
+  #projectName{
+    position: absolute;
+    padding-bottom: 10px;
+  }
+}
+
 .projectName {
     /*margin:3px;*/
     color: #0099ff;
