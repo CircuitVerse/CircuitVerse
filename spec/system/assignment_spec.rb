@@ -75,6 +75,7 @@ describe "Assignments", type: :system do
   def fill_assignments(name, deadline, description, grading:)
     fill_in "Name", with: name
     fill_in "Deadline", with: deadline.strftime("%d/%m/%Y 12:00")
+    sleep(0.3)
     find("#assignment_deadline", visible: true).send_keys :enter
     fill_in_editor ".trumbowyg-editor", with: description
 
