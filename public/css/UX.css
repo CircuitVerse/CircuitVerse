@@ -68,6 +68,8 @@ button:focus {
     padding: 5px;
     width: 200px;
     margin: 3px;
+    word-wrap:break-word;
+    overflow-x:hidden;
 }
 
 .pannel-heading {
@@ -828,7 +830,7 @@ div.icon img {
 .navbar .nav.pull-right {
     float: right;
     margin-right: 10px;
-    /*set margin this way in your custom styesheet*/
+    /*set margin this way in your custom stylesheet*/
 }
 
 /* LOADING ICON CSS STARTS*/

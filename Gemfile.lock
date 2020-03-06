@@ -212,15 +212,16 @@ GEM
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.13.0)
+    msgpack (1.3.1)
     msgpack (1.3.1-x64-mingw32)
     multi_json (1.14.1)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
     nested_form (0.3.2)
     nio4r (2.5.2)
-    nokogiri (1.10.5)
+    nokogiri (1.10.8)
       mini_portile2 (~> 2.4.0)
-    nokogiri (1.10.5-x64-mingw32)
+    nokogiri (1.10.8-x64-mingw32)
       mini_portile2 (~> 2.4.0)
     oauth2 (1.4.2)
       faraday (>= 0.8, < 2.0)
@@ -268,7 +269,7 @@ GEM
     pry-rails (0.3.9)
       pry (>= 0.10.4)
     public_suffix (4.0.1)
-    puma (3.12.2)
+    puma (3.12.4)
     pundit (2.1.0)
       activesupport (>= 3.0.0)
     rack (2.0.8)
@@ -276,6 +277,8 @@ GEM
       nokogiri (~> 1.5)
       rack (>= 1.1)
     rack-protection (2.0.7)
+      rack
+    rack-proxy (0.6.5)
       rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -361,6 +364,11 @@ GEM
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 1.7)
+    rubocop-performance (1.5.2)
+      rubocop (>= 0.71.0)
+    rubocop-rails (2.4.2)
+      rack (>= 1.1)
+      rubocop (>= 0.72.0)
     rubocop-rspec (1.36.0)
       rubocop (>= 0.68.1)
     ruby-graphviz (1.2.4)
@@ -460,6 +468,10 @@ GEM
       nokogiri (~> 1.6)
       rubyzip (>= 1.3.0)
       selenium-webdriver (>= 3.0, < 4.0)
+    webpacker (4.2.2)
+      activesupport (>= 4.2)
+      rack-proxy (>= 0.6.1)
+      railties (>= 4.2)
     webpush (1.0.0)
       hkdf (~> 0.2)
       jwt (~> 2.0)
@@ -518,6 +530,8 @@ DEPENDENCIES
   rspec-rails (~> 3.8)
   rspec_junit_formatter
   rubocop
+  rubocop-performance
+  rubocop-rails
   rubocop-rspec
   sass-rails (~> 5.0)
   selenium-webdriver
@@ -534,6 +548,7 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
   webdrivers (~> 4.0)
+  webpacker (~> 4.x)
   webpush
   will_paginate (~> 3.1.1)
   will_paginate-bootstrap
