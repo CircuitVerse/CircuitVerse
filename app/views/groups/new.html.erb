@@ -1,26 +1,16 @@
-<div class="container">
-  <div class="row feature">
-
-    <div class="col col-xs-10 col-lg-6 col-md-8 col-s-10 col-centered">
-      
-    <h1>New Group</h1>
-
-    <p>Groups can be used by mentors to set projects for and give grades to students.
+<div class="container pb-5 text-center">
+  <h1 class="edit_name">NEW GROUP</h1>
+  <div class="row profile-background pb-5">
+    <div class="p-4 center-block col col-xs-10 col-lg-6 col-md-8 col-s-10 col-centered">
+      <p>Groups can be used by mentors to set projects for and give grades to students.
       More information can be found <a href="https://circuitverse.org/features">here</a>, and the documentation <a href="https://docs.circuitverse.org/#/groups">here</a>.
-    </p>
-
+      </p>
       <%= render 'form', group: @group %>
-
-      <%= link_to 'Back', user_groups_path(current_user) %>
-
+        <%= link_to user_groups_path(current_user) do %>
+          <%= button_tag 'Back', class: 'm-2 btn text-success float-left mt-4 ml-2 underline' %>
+        <% end %>
     </div>
-
-
   </div>
-  <br />
-
-  <br />
-
-
-
+  <br>
+  <br>
 </div>
