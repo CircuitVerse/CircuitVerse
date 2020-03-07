@@ -85,8 +85,8 @@ a.btn.btn-outline-danger {
   color: $red;
   padding: 4px;
 
-    h2 {
-      font-size: 1.25rem;
+  h2 {
+    font-size: 1.25rem;
   }
 }
 
@@ -95,24 +95,24 @@ a.btn.btn-outline-danger {
 }
 
 @media (max-width: 992px) {
-    .pagination-cont {
-        overflow-x: auto;
-        padding: 0;
-    }
+  .pagination-cont {
+    overflow-x: auto;
+    padding: 0;
+  }
 
-    .pagination {
-        overflow-x: visible;
-        max-width: none;
-        display: block;
-        padding: 0;
-        white-space: nowrap;
-    }
+  .pagination {
+    overflow-x: visible;
+    max-width: none;
+    display: block;
+    padding: 0;
+    white-space: nowrap;
+  }
 
-    .pagination > * {
-        display: inline-block;
-        margin: 0;
-        margin-left: -4px;
-    }
+  .pagination > * {
+    display: inline-block;
+    margin: 0;
+    margin-left: -4px;
+  }
 }
 
 a.btn.btn-outline-primary {
@@ -349,3 +349,147 @@ a {
   border: 1.5px solid $button-border-color;
   color: $black;
 }
+
+// New UI Example Page
+
+.heading {
+  color: $teal;
+  margin-bottom: 10px;
+  margin-top: 40px;
+}
+
+.row-examples {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1344px;
+  text-align: center;
+}
+
+.btn-examples{
+  background-color: $green;
+  border-radius: 30px;
+  color: $white;
+  margin: 30px 10px;
+  text-align: justify;
+  transition: all .3s ease 0s;
+}
+
+.btn-examples-view{
+  background-color: $green;
+  color: $white;
+  float: right;
+  font-size: 12px;
+  margin-bottom: 12px;
+  margin-top: 12px;
+  padding-bottom: 4px;
+  padding-left: 6px;
+  padding-right: 6px;
+  padding-top: 4px;
+  text-align: justify;
+  transition: all .3s ease 0s;
+}
+
+.btn-examples:hover{
+  background-color: $teal;
+  box-shadow: 0px 8px 15px $shadow-black;
+  color: $white;
+  transform: translateY(-7px);
+}
+
+// Styling for grid
+
+.container-examples{
+  background-color: $gray-100;
+  font-family: Open Sans;
+  padding-top: 50px;
+}
+
+.grid-cell{
+  background-color: $white;
+  border: 1px solid $teal;
+  margin-bottom: 60px;
+  margin-top: 5px;
+  max-width: 90%;
+}
+
+.grid-image{
+  background-color: $white;
+}
+
+.grid-content{
+  font-size: 1.2em;
+}
+
+.grid-title{
+  font-family: Open Sans;
+  font-size: .7em;
+  font-weight: 500;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  margin-top: 10px;
+  padding: 0px;
+  text-align: left;
+
+}
+
+//styling for search
+
+.nav-search-form{
+  background-color: $white;
+  border: 1px solid $teal;
+  border-radius: 30px;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+}
+
+.nav-bar-search-input{
+  border: 0;
+  border-radius: 30px;
+  outline: 0;
+  padding-left: .8rem;
+}
+
+#ns {
+  margin-bottom: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+}
+
+.search-logo{
+  background-color: $white;
+  border-radius: 30px;
+  height: 33.2px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 39.6px;
+  z-index: 9;
+}
+
+#search_type {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: $white;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: .8rem;
+  height: 33.2;
+  padding-right: 1.6rem;
+  width: 39.6;
+}
+
+.fa{
+  left: 8px;
+  position: relative;
+  text-align: center;
+  top: 4px;
+}
+
+.max-width {
+  max-width: 100%;
+}
+

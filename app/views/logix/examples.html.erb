@@ -1,101 +1,104 @@
 <% content_for :title, "CircuitVerse - Examples" %>
-    <!-- Main jumbotron for a primary marketing message or call to action -->
-
-    <div class="jumbotron">
-        <div class="container">
-            <div class="row">
-                <div class="col-9">
-                    <h1 class="display-3 ">Example Projects</h1>
-                    <p>Check out these cool examples to learn how CircuitVerse works.</p>
-                </div>
-
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="container">
+  <div class="row row-examples">
+    <div class="col-xs col-sm col-md col-lg">
+      <h1 class="heading">Examples</h1>
+      <h5>Learn and get inspired from the best examples and users</h5>
+    </div>
+  </div>
+  <div class="row row-examples justify-content-around">
+    <div class="col-xs col-sm col-md col-lg">
+      <a type="button" class="btn btn-examples" href="#">Example Projects</a>
+      <a type="button" class="btn btn-examples" href="#">Top Users</a>
+    </div>
+  </div>
+  <div class="row row-examples">
+    <div class="col-xs col-sm col-md col-lg container-examples">
+      <div class="form-inline" id="ns">
+        <form id="search-box" class="nav-search-form search_search" action="/search" accept-charset="UTF-8" method="get">
+          <label for="search_type"></label>
+          <select name="resource" id="search_type" class="form-control nav-bar-search-select ">
+            <option type="submit" selected="selected" value="Projects">
+            </option>
+          </select>
+          <div class="search-logo">
+            <i class="fa fa-search"></i>
+          </div>
+          <label for="q"></label>
+          <input type="text" name="q" id="q" class="nav-bar-search-input nav1" placeholder="Search a project" autocomplete="off">
+        </form>
+      </div>
+      <div class="row justify-content-around align-items-center">
+        <div class="col-md-3 col-lg-3 grid-cell">
+          <div class="row grid-image">
+            <img src="img/fullAdder.png" class="border max-width" alt="Responsive image">
+          </div>
+          <div class="row justify-content-between grid-content">
+            <div class="grid-title col-lg-8 col-md-8 col-sm-8 col-xs-8">Full Adder from 2 Half Adders</div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+              <a class="btn btn-examples-view" target="_blank" href="https://circuitverse.org/users/3/projects/247" role="button">View</a>
             </div>
+          </div>
         </div>
-
-
+        <div class="col-md-3 col-lg-3 grid-cell">
+          <div class="row grid-image">
+            <img src="img/RippleCarry.jpeg" class="border max-width" alt="Responsive image">
+          </div>
+          <div class="row justify-content-between grid-content">
+            <div class="grid-title col-lg-8 col-md-8 col-xs-8">16 Bit Ripple Carry Adder</div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+              <a class="btn btn-examples-view" target="_blank" href="https://circuitverse.org/users/3/projects/248" role="button">View</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-lg-3 grid-cell">
+          <div class="row grid-image">
+            <img src="img/AsyncCounter.jpeg" class="border max-width" alt="Responsive image">
+          </div>
+          <div class="row justify-content-between grid-content">
+            <div class="grid-title col-lg-8 col-md-8 col-xs-8">Asynchronous Counter</div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+              <a class="btn btn-examples-view" target="_blank" href="https://circuitverse.org/users/3/projects/249" role="button">View</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-around align-items-center">
+        <div class="col-md-3 col-lg-3 grid-cell">
+          <div class="row grid-image">
+            <img src="img/FlipFlop.jpeg" class="border max-width" alt="Responsive image">
+          </div>
+          <div class="row justify-content-between grid-content">
+            <div class="grid-title col-lg-8 col-md-8 col-xs-8">Flip-Flop</div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+              <a class="btn btn-examples-view" target="_blank" href="https://circuitverse.org/users/3/projects/251" role="button">View</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-lg-3 grid-cell">
+          <div class="row grid-image">
+            <img src="img/Keyboard.jpeg" class="border max-width" alt="Responsive image">
+          </div>
+          <div class="row justify-content-between grid-content">
+            <div class="grid-title col-lg-8 col-md-8 col-xs-8">Keyboard</div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+              <a class="btn btn-examples-view" target="_blank" href="https://circuitverse.org/users/3/projects/250" role="button">View</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-lg-3 grid-cell">
+          <div class="row grid-image">
+            <img src="img/ALU.png" class="border max-width" alt="Responsive image">
+          </div>
+          <div class="row justify-content-between grid-content">
+            <div class="grid-title col-lg-8 col-md-8 col-xs-8">ALU 74LS181 by Ananth Shreekumar</div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+              <a class="btn btn-examples-view" target="_blank" href="https://circuitverse.org/users/3/projects/252" role="button">View</a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="container">
-        <div class="row feature">
-                 <div class="col-12 col-md-8">
-                     <h3 class="card-title">Full Adder from 2-Half Adders</h4>
-                     <p class="card-text"></p>
-                          <a class="btn btn-dark btn-lg" target="_blank" href="https://circuitverse.org/users/3/projects/247" role="button">View Example &raquo;</a>
-                 </div>
-                 <div class="col">
-                     <img src="img/fullAdder.png" class="img-fluid img-thumbnail" alt="Responsive image">
-                 </div>
-        </div>
-        <br />
-        <div class="row feature">
-                 <div class="col-12 col-md-8">
-                     <h3 class="card-title">16 Bit ripple carry adder</h4>
-                     <p class="card-text"></p>
-                          <a class="btn btn-dark btn-lg" target="_blank" href="https://circuitverse.org/users/3/projects/248" role="button">View Example &raquo;</a>
-                 </div>
-                 <div class="col">
-                     <img src="img/RippleCarry.jpeg" class="img-fluid img-thumbnail" alt="Responsive image">
-                 </div>
-        </div>
-        <br />
-        <div class="row feature">
-                 <div class="col-12 col-md-8">
-                     <h3 class="card-title">Asynchronous Counter</h4>
-                     <p class="card-text"></p>
-                          <a class="btn btn-dark btn-lg" target="_blank" href="https://circuitverse.org/users/3/projects/249" role="button">View Example &raquo;</a>
-                 </div>
-                 <div class="col">
-                     <img src="img/AsyncCounter.jpeg" class="img-fluid img-thumbnail" alt="Responsive image">
-                 </div>
-        </div>
-        <br />
-        <div class="row feature">
-                 <div class="col-12 col-md-8">
-                     <h3 class="card-title">Keyboard</h4>
-                     <p class="card-text"></p>
-                          <a class="btn btn-dark btn-lg" target="_blank"  href="https://circuitverse.org/users/3/projects/250" role="button">View Example &raquo;</a>
-                 </div>
-                 <div class="col">
-                     <img src="img/Keyboard.jpeg" class="img-fluid img-thumbnail" alt="Responsive image">
-                 </div>
-        </div>
-        <br />
-        <div class="row feature">
-                 <div class="col-12 col-md-8">
-                     <h3 class="card-title">FlipFlop</h4>
-                     <p class="card-text"></p>
-                          <a class="btn btn-dark btn-lg" target="_blank"  href="https://circuitverse.org/users/3/projects/251" role="button">View Example &raquo;</a>
-                 </div>
-                 <div class="col">
-                     <img src="img/FlipFlop.jpeg" class="img-fluid img-thumbnail" alt="Responsive image">
-                 </div>
-        </div>
-        <br />
-
-        <div class="row feature">
-                 <div class="col-12 col-md-8">
-                     <h3 class="card-title">ALU 74LS181 by Ananth Shreekumar</h4>
-                     <p class="card-text"></p>
-                          <a class="btn btn-dark btn-lg" target="_blank" href="https://circuitverse.org/users/126/projects/252" role="button">View Example &raquo;</a>
-                 </div>
-                 <div class="col">
-                     <img src="img/ALU.png" class="img-fluid img-thumbnail" alt="Responsive image">
-                 </div>
-        </div>
-        <br />
-
-        <div class="row feature">
-                 <div class="col-12 col-md-8">
-                     <h3 class="card-title">SAP-1</h4>
-                     <p class="card-text">SAP-1 short for simple as possible computer is a 8 Bit computer. It can perform simple operations like Addition and Subtraction.</p>
-                          <a class="btn btn-dark btn-lg" target="_blank"  href="https://circuitverse.org/users/3/projects/67" role="button">View Example &raquo;</a>
-                 </div>
-                 <div class="col">
-                     <img src="img/SAP.jpeg" class="img-fluid img-thumbnail" alt="Responsive image">
-                 </div>
-        </div>
-        <br />
-
-
-
-
-    </div>
+  </div>
+</div>
