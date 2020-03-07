@@ -3,6 +3,11 @@
     padding: 1.25rem;
     border-radius: .25em;
 }
+@media (max-width: 767px){
+  .feature{
+    flex-direction: column-reverse;
+  }
+}
 
 .gif-box {
     position: absolute;
