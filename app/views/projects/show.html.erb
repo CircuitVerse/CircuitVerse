@@ -40,11 +40,23 @@
         <div class="card-header text-center h5 text-capitalize team">
           <%= @project.name %>
         </div>
-        <span class="badge badge-secondary noSelect font-weight-normal text-right" style="margin:5px;">
+      <div>
+        <span class="badge badge-secondary noSelect font-weight-normal text-left" style="margin:5px;display:inline;">
+          <i class="fa fa-star" aria-hidden="true">&ensp;</i>
+          <r id="star_count" style="font-size:12px" class="noSelect"><%= @project.stars.count %></r>
+          &nbsp;Stars
+        </span>
+        <span class="badge badge-secondary noSelect font-weight-normal text-center" style="margin:5px;display:inline;">
+          <i class="fa fa-code-fork" aria-hidden="true">&nbsp;</i>
+          <r id="star_count" style="font-size:12px" class="noSelect"><%= @project.forks.count %></r>
+          &nbsp;Forks
+        </span>
+        <span class="badge badge-secondary noSelect font-weight-normal text-right" style="margin:5px;display:inline">
           <i class="fa fa-eye" aria-hidden="true">&ensp;</i>
           <r id="star_count" style="font-size:12px" class="noSelect"><%= @project.view %></r>
           &nbsp;Views
         </span>
+      </div>
         <div class="card-body-post">
           <p style="line-height:32px;">
           <strong>Author:  </strong>
@@ -72,7 +84,7 @@
             <% if policy(@project).user_access? %>
               <br>
               <hr>
-              <a href="#>" class="btn btn-primary fa-post btn-post" id="<%= @project.id %>" data-toggle="modal" data-target="#myModal" style="margin:0px;">Preview</a>
+              <a href="#>" class="btn btn-primary fa-post btn-post previewButton" id="<%= @project.id %>" data-toggle="modal" data-target="#myModal" style="margin:0px;">Preview</a>
               <a href="<%= simulator_edit_path(@project) %>" class="card-link btn btn-primary btn-post fa-post" target="_blank">Launch simulator</a>
               <% if user_signed_in? %>
                 <i id="toggleStarButton" class="fa fa-star-o btn btn-primary fa-post btn-post noSelect" aria-hidden="true" style="font-size:13px;margin:0px;" style=<%= Star.find_by(user_id: current_user.id, project_id: @project.id).nil? ? "color:white" : "color:orange" %> onclick="toggleStar()"></i>
@@ -82,7 +94,7 @@
             <% end %>
             <% if policy(@project).author_access? %>
               <p></p>
-              <span style="font-weight:bold;">+</span><a href="#>" id="<%= @project.id %>" data-toggle="modal" data-target="#collaboratorModal" style="text-decoration:underline;color:black;font-size:13px;font-weight:bold;"> Add a Collaborator</a>
+              <span style="font-weight:bold;">+</span><a href="#>" class="collaboratorButton" id="<%= @project.id %>" data-toggle="modal" data-target="#collaboratorModal" style="text-decoration:underline;color:black;font-size:13px;font-weight:bold;"> Add a Collaborator</a>
               <br>
             <% end %>
             </p>
@@ -103,6 +115,7 @@
           <% if @project.author_id != current_user&.id %>
             <%= link_to ' Fork', create_fork_project_path(@project), class: "card-link btn btn-primary btn-post fa-post fa-code-fork" , style: "margin:0px;" %>
           <% end %>
+          <%= link_to 'Back', user_path(@author), class: "card-link btn btn-primary btn-post fa-post btnself-post", style: "margin:0px;" %>
           <% if @project.project_access_type != "Private" %>
             <% if @project.author_id != current_user&.id %>
             <a class="btn btn-primary btn-post fa-post" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" onclick="embed()">
@@ -121,7 +134,7 @@
           </div>
         <% end %>
         <% if !policy(@project).user_access? %>
-          <a href="#>" class="btn btn-primary fa-post btn-post" id="<%= @project.id %>" data-toggle="modal" data-target="#myModal" style="margin:0px;">Preview</a>
+          <a href="#>" class="btn btn-primary fa-post btn-post previewButton" id="<%= @project.id %>" data-toggle="modal" data-target="#myModal" style="margin:0px;">Preview</a>
           <% if user_signed_in? %>
             <i id="toggleStarButton" class="fa fa-star-o btn btn-primary fa-post btn-post noSelect" aria-hidden="true" style="font-size:13px;margin:0px;" style=<%= Star.find_by(user_id: current_user.id, project_id: @project.id).nil? ? "color:white" : "color:orange" %> onclick="toggleStar()"></i>
           <% else %>
@@ -207,12 +220,12 @@
   <div class="modal-dialog modal-lg">
     <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header modal-header-userprojects">
         <h4 class="modal-title">Project Preview</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="close close-modal" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
-        <div class="embed-responsive embed-responsive-4by3 feature">
+        <div class="embed-responsive embed-responsive-4by3 feature feature-preview">
           <iframe src="" id="projectPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen> </iframe>
         </div>
       </div>
