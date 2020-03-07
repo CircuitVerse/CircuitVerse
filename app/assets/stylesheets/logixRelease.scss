@@ -1,13 +1,13 @@
 .feature {
-    border: 1px solid rgba(0, 0, 0, 0.125);
-    padding: 1.25rem;
-    border-radius: .25em;
+  border: 1px solid $featurepostborder;
+  border-radius: .25em;
+  padding: 1.25rem;
 }
 
 .gif-box {
-    position: absolute;
-    text-align: center;
-    top: 50%;
+  position: absolute;
+  text-align: center;
+  top: 50%;
 }
 
 .label-field {
@@ -17,73 +17,73 @@
 }
 
 .noSelect {
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    -o-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .pointerCursor {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .defaultCursor {
-    cursor: default;
+  cursor: default;
 }
 
 #assignment-grade-form {
-    display: inline-block;
-    width: 100%;
+  display: inline-block;
+  width: 100%;
 }
 
 #assignment-grade-grade {
-    flex: 1;
+  flex: 1;
 }
 
 #assignment-grade-remarks {
-    flex: 1;
+  flex: 1;
 }
 
 .error {
-    color: $red;
+  color: $red;
 }
 
 .grade-container {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 .bold {
-    font-weight: 600;
+  font-weight: 600;
 }
 
 .grade-show-container {
-    margin-top: 17px;
+  margin-top: 17px;
 }
 
 .grade-form-help {
-    margin-top: 5px;
-    font-size: 12px;
+  font-size: 12px;
+  margin-top: 5px;
 }
 
 .assignment-grade-inputs {
-    display: flex;
-    width: 100%;
+  display: flex;
+  width: 100%;
 }
 
 a.btn.btn-outline-primary {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 a.btn.btn-outline-danger {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 #error_explanation {
-    background: #f0f0f0;
-    border: 1px solid #86181d;
-    color: $red;
-    padding: 4px;
+  background: #f0f0f0;
+  border: 1px solid #86181d;
+  color: $red;
+  padding: 4px;
 
     h2 {
       font-size: 1.25rem;
@@ -91,7 +91,7 @@ a.btn.btn-outline-danger {
 }
 
 .pagination .page-link {
-    white-space: nowrap;
+  white-space: nowrap;
 }
 
 @media (max-width: 992px) {
@@ -116,11 +116,11 @@ a.btn.btn-outline-danger {
 }
 
 a.btn.btn-outline-primary {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 a.btn.btn-outline-danger {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 /* New UI */
@@ -145,63 +145,63 @@ a.btn.btn-outline-danger {
   padding: 10px 0 25px;
 }
 
-.btn-favourite{
+.btn-favourite {
   display: inline;
   float: right;
 }
 
-.username{
+.username {
   display: inline;
   margin-left: 10px;
 }
 
-.card-userprojects{
+.card-userprojects {
   border: 2px solid $green;
   border-radius: 0;
   margin-top: 2rem;
 }
 
-.card-header-userprojects{
+.card-header-userprojects {
   background-color: $green;
   color: $white;
 }
 
-.card-footer-userprojects{
+.card-footer-userprojects {
   background-color: $white;
   border-top: 1.5px solid $green;
 }
 
-.cardname{
+.cardname {
   display: inline;
 }
 
-.modal-header-userprojects{
+.modal-header-userprojects {
   background-color: $green;
   color: $white;
 }
 
-.modal-footer-userprojects{
+.modal-footer-userprojects {
   border: 0px;
 }
 
-.close-modal{
+.close-modal {
   color: $white;
   opacity: 1;
 }
 
-.feature-preview{
+.feature-preview {
   border: 2px solid $green;
   padding: 1.25rem;
   border-radius: .25em;
 }
 
-.btn-userprojects{
+.btn-userprojects {
   background-color: $green;
   color: $white;
   margin: 2px;
 }
 
-.card-contribute{
+.card-contribute {
   display: inline-block;
   width: 300px;
   border: 0px;
@@ -209,20 +209,20 @@ a.btn.btn-outline-danger {
   margin-bottom: 30px;
 }
 
-.cardimage-contribute{
+.cardimage-contribute {
   width: 150px;
   height: 150px;
 }
 
-.cardbody-contribute > h3{
+.cardbody-contribute > h3 {
   text-align: center;
 }
 
-.cardbody-contribute > ul{
+.cardbody-contribute > ul {
   text-align: left;
 }
 
-.contribute-pay{
+.contribute-pay {
   display: inline-block;
   width: 200px;
   height: 100px;
@@ -233,18 +233,18 @@ a.btn.btn-outline-danger {
   text-align: center;
 }
 
-.contribute-pay > p{
+.contribute-pay > p {
   font-weight: 550;
 }
 
-.patreon{
+.patreon {
   border: 1.5px solid $black;
   border-radius: 8px;
   padding: 4px;
   box-shadow: 3px 3px 6px $shadow-black;
 }
 
-.patreon > img{
+.patreon > img {
   width: 160px;
   height: 70px;
 }
@@ -275,18 +275,18 @@ a.btn.btn-outline-danger {
   align-items: center;
 }
 
-.image_teachers{
+.image_teachers {
   border: 1px solid $slight-gray;
   margin-left: 20px;
   max-height: 100%;
   max-width: 100%;
 }
 
-.subheading_teachers{
+.subheading_teachers {
   text-align: left;
 }
 
-.name-group{
+.name-group {
   font-size: 1.2rem;
   font-weight: 500;
   height: 100%;
@@ -295,7 +295,7 @@ a.btn.btn-outline-danger {
   width: 220px;
 }
 
-.edit-name{
+.edit-name {
   font-size: 2rem;
   font-weight: 500;
   padding-bottom: 20px;
@@ -305,4 +305,47 @@ a.btn.btn-outline-danger {
 .underline {
   display: inline-block;
   text-decoration: underline;
+}
+
+.feature-post {
+  border: 1.5px solid $featurepostborder;
+  margin-bottom: 10px;
+  padding: .6rem .4rem;
+}
+
+.iframe-box {
+  border: 1px solid $iframeborder;
+  border-radius: .25rem;
+  padding: .4rem;
+}
+
+.container-in {
+  padding-top: 50px;
+}
+
+.card-body-post {
+  border: 0;
+  padding: 25px;
+  text-decoration: none;
+}
+
+.btn-post {
+  font-size: 13px;
+  height: 28px;
+  margin: 5px 5px 5px 0;
+}
+
+.fa-post {
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: 13px;
+}
+
+a {
+  color: $link-color;
+}
+
+.btnself-post {
+  background-color: $white;
+  border: 1.5px solid $button-border-color;
+  color: $black;
 }
