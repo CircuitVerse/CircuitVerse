@@ -22,7 +22,7 @@
       <br><br><br>
       <% if @group.users.blank? %>
       <div class="container h5 text-center">
-         No Members in the group,Add members
+         There are currently no members in this group.
       </div>
       <% else %>
       <div class="row">
@@ -100,7 +100,7 @@
         </thead>
        <% if @group.assignments.blank? %>
        <div class="container h5 text-center">
-         You don't have any Assignments,Add Assignments 
+         You haven't added any assignments yet!
        </div>
        <% else %>
         <tbody>
