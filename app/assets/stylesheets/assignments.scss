@@ -1,3 +1,36 @@
-// Place all the styles related to the Assignments controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+#submissionTable {
+  border: 1px solid $green;
+  border-right: 0;
+  overflow: auto;
+}
+
+.list-submission {
+  &:hover {
+    background-color: $green;
+    color: $white;
+  }
+}
+
+.col-3-submissionList {
+  margin-right: 0;
+}
+
+.col-9-submissionList {
+  border: 1px solid #green;
+  border-left: 0;
+  margin-left: 0;
+}
+
+.grade-container {
+  border: 1px solid #green;
+  margin-top: 10px;
+}
+
+.grade-form-help {
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.assignment-grade-inputs {
+  width: 100%;
+}
