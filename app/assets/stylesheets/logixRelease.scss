@@ -1,7 +1,7 @@
 .feature {
   border: 1px solid $featurepostborder;
-  padding: 1.25rem;
   border-radius: .25em;
+  padding: 1.25rem;
 }
 
 .gif-box {
@@ -18,10 +18,10 @@
 
 .noSelect {
   -moz-user-select: none;
-  -webkit-user-select: none;
   -ms-user-select: none;
-  user-select: none;
   -o-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .pointerCursor {
@@ -62,8 +62,8 @@
 }
 
 .grade-form-help {
-  margin-top: 5px;
   font-size: 12px;
+  margin-top: 5px;
 }
 
 .assignment-grade-inputs {
