@@ -1,7 +1,8 @@
-#submissionTable {
+.submission-table {
   border: 1px solid $green;
   border-right: 0;
   overflow: auto;
+  max-height: 600px;
 }
 
 .list-submission {
@@ -11,11 +12,11 @@
   }
 }
 
-.col-3-submissionList {
+.col-3-submission-list {
   margin-right: 0;
 }
 
-.col-9-submissionList {
+.col-9-submission-list {
   border: 1px solid #green;
   border-left: 0;
   margin-left: 0;

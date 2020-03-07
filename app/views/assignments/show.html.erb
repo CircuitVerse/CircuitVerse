@@ -11,14 +11,14 @@
       <p><strong>Group: </strong><%= @assignment.group.name %></p>
       <p><strong>Deadline: </strong><%= @assignment.deadline.strftime("%d %b,%Y %I:%M %p %Z") %></p>
       <% if(@assignment.deadline > Time.now) %>
-        <p><strong>Time Remaining: </strong><%=(( @assignment.deadline.to_i - Time.now.to_i)/1.day)%> days <%=(( @assignment.deadline.to_i- Time.now.to_i)/1.hour)%24%> hours <%=(( @assignment.deadline.to_i- Time.now.to_i)/1.minute)%60%> minutes</p>
+        <p><strong>Time Remaining: </strong><%= (( @assignment.deadline.to_i - Time.now.to_i)/1.day) %> days <%= (( @assignment.deadline.to_i- Time.now.to_i)/1.hour)%24 %> hours <%= (( @assignment.deadline.to_i- Time.now.to_i)/1.minute)%60 %> minutes</p>
       <% end %>
       <p><strong>Graded: </strong><%= @assignment.graded %></p>
-      <p><strong>Description: </strong><%= @assignment.description&.html_safe%></p>
+      <p><strong>Description: </strong><%= @assignment.description&.html_safe %></p>
       <% if @assignment.restricted_circuit_elements != "None" %>
         <p><strong>Restricted Circuited Elements: </strong><%= @assignment.restricted_circuit_elements %></p>
       <% end %>
-      <%if policy(@assignment).admin_access? && @assignment.status!="closed"%>
+      <%if policy(@assignment).admin_access? && @assignment.status!="closed" %>
       <%= link_to edit_group_assignment_path(@group,@assignment), class: "btn-card btn-edit" do %>
         <%= image_tag("/assets/SVGs/edit.svg", alt: "Edit", height: "15", width: "15", hspace: "2") %><span><p>Edit</p></span>
       <% end %>
@@ -26,7 +26,7 @@
       <%= link_to 'Back', group_path(@group), class: "a-homepage" %>
       <%if policy(@assignment).can_be_graded? %>
         <%= link_to 'Export', grades_to_csv_path(@assignment, format: :csv), class: "a-homepage" %>
-      <%end%>
+      <% end %>
     </div>
   </div>
   <hr>
@@ -49,14 +49,14 @@
         })
       });
     </script>
-    <div class="col-3 col-3-submissionList">
-      <div class="list-group" id="list-tab" role="tablist" id="submissionTable" style="max-height:600px;overflow:hidden;overflow-y:scroll">
+    <div class="col-3 col-3-submission-list">
+      <div class="list-group" id="list-tab" role="tablist" id="submission-table">
         <% @assignment.project_order.each do |project| %>
-          <a class="list-group-item list-submission" id=<%= project.id%> data-grade="<%= project.grade_str %>" data-remarks="<%= project.remarks_str %>"><%= project.author.name  %></a>
-        <%end%>
+          <a class="list-group-item list-submission" id=<%= project.id %> data-grade="<%= project.grade_str %>" data-remarks="<%= project.remarks_str %>"><%= project.author.name %></a>
+        <% end %>
       </div>
     </div>
-    <div class="col-9 col-9-submissionList">
+    <div class="col-9 col-9-submission-list">
       <div class="embed-responsive embed-responsive-4by3 feature">
         <iframe src="" name="assignmentPreview" id="assignmentPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen> </iframe>
       </div>
@@ -67,7 +67,7 @@
       <h3>Grades & Remarks</h3>
       <span id="project-grade-error" class="error"></span>
       <div class="col-4">
-        <%= form_with(model: Grade.new, multipart: true,- url: "/grades") do |form| %>
+        <%= form_with(model: Grade.new, multipart: true, url: "/grades") do |form| %>
           <%= form.hidden_field :project_id, id: "assignment-project-id" %>
           <%= form.hidden_field :assignment_id, value: @assignment.id %>
           <h4>Grade</h4>
