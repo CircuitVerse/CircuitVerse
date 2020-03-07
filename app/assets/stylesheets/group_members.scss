@@ -5,7 +5,6 @@
   background-color: $gray-100;
   border: 1px solid $green-border;
   margin: 2px;
-  max-width: 18rem;
 }
 
 .group-name-editlink {
@@ -30,13 +29,13 @@
     position: relative;
     text-decoration: none;
     top: -7px;
-    }
+  }
 }
 
 .add-member {
   background-color: $green;
   border: 0;
-  border-radius: 15px;
+  border-radius: 25px;
   color: $white;
   cursor: pointer;
   font-size: 16px;
@@ -47,7 +46,7 @@
 
   &:hover {
     border: 0;
-    border-radius: 15px;
+    border-radius: 25px;
     color: $white;
     cursor: pointer;
     font-size: 16px;
@@ -96,7 +95,6 @@
     text-decoration: none;
   }
 }
-
 
 .assignment-delete {
   background-color: $red;
@@ -154,7 +152,7 @@
 
 .group-discription-back {
   border: 0;
-  border-radius: 15px;
+  border-radius: 25px;
   color: $white;
   cursor: pointer;
   font-size: 16px;
@@ -188,4 +186,8 @@
 .assignment-rows {
   background-color: $gray-100;
   border-color: solid $green-border;
+}
+
+.add-member-heading {
+  display: inline;
 }
