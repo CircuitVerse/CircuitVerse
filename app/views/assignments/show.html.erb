@@ -9,7 +9,7 @@
       <p id="notice"><%= notice %></p>
       <p><strong>Name: </strong><%= @assignment.name %></p>
       <p><strong>Group: </strong><%= @assignment.group.name %></p>
-      <p><strong>Deadline: </strong><%= @assignment.deadline.strftime("%d %b,%Y %I:%M %p %Z") %></p>
+      <p><strong>Deadline: </strong><%= @assignment.deadline.strftime("%d %b %Y %I:%M %p %Z") %></p>
       <% if(@assignment.deadline > Time.now) %>
         <p><strong>Time Remaining: </strong><%= (( @assignment.deadline.to_i - Time.now.to_i)/1.day) %> days <%= (( @assignment.deadline.to_i- Time.now.to_i)/1.hour)%24 %> hours <%= (( @assignment.deadline.to_i- Time.now.to_i)/1.minute)%60 %> minutes</p>
       <% end %>
@@ -18,19 +18,19 @@
       <% if @assignment.restricted_circuit_elements != "None" %>
         <p><strong>Restricted Circuited Elements: </strong><%= @assignment.restricted_circuit_elements %></p>
       <% end %>
-      <%if policy(@assignment).admin_access? && @assignment.status!="closed" %>
+      <% if policy(@assignment).admin_access? && @assignment.status!="closed" %>
       <%= link_to edit_group_assignment_path(@group,@assignment), class: "btn-card btn-edit" do %>
         <%= image_tag("/assets/SVGs/edit.svg", alt: "Edit", height: "15", width: "15", hspace: "2") %><span><p>Edit</p></span>
       <% end %>
       <% end %>
       <%= link_to 'Back', group_path(@group), class: "a-homepage" %>
-      <%if policy(@assignment).can_be_graded? %>
+      <% if policy(@assignment).can_be_graded? %>
         <%= link_to 'Export', grades_to_csv_path(@assignment, format: :csv), class: "a-homepage" %>
       <% end %>
     </div>
   </div>
   <hr>
-  <%if policy(@assignment).admin_access? %>
+  <% if policy(@assignment).admin_access? %>
   <div class="row profile-background">
 
   </div>
@@ -74,7 +74,7 @@
           <div class="assignment-grade-inputs">
             <% if @assignment.grading_scale == "percent" %>
               <%= form.number_field :grade, min: 0, max: 100, placeholder: "Grades...", class: "rounded-0 border-success" %>
-            <% elsif @assignment.grading_scale == "letter" || @assignment.grading_scale == "custom" %>
+            <% elseif @assignment.grading_scale == "letter" || @assignment.grading_scale == "custom" %>
               <%= form.text_field :grade, placeholder: "Grades...", class: "rounded-0 border-success" %>
             <% end %>
           </div>
