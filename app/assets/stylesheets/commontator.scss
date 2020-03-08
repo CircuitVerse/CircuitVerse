@@ -15,8 +15,8 @@
   font-size: 20px;
   font-style: normal;
   font-weight: bold;
-  margin-top: 25px;
   margin-bottom: 5px;
+  margin-top: 25px;
 }
 
 .thread_reply {
@@ -24,15 +24,15 @@
 }
 
 .comment {
-  background-color: #fff;
-  border-color: #ffffff;
+  background-color: $white;
+  border-color: $white;
   clear: both;
-  color: #000;
+  color: $black;
   font-size: 12px;
-  font-weight: 400;
   font-style: normal;
-  margin-top: 15px;
+  font-weight: 400;
   margin-bottom: 15px;
+  margin-top: 15px;
   padding-left: 15px;
 }
 
@@ -42,7 +42,7 @@
 }
 
 .comment_form_field {
-  border: 1.5px solid #6daa9d;
+  border: 1.5px solid $comment-form-field-border;
   margin-left: 15px;
   margin-top: 25px;
   padding: 5px;
@@ -50,7 +50,7 @@
 }
 
 .comment_form_field textarea {
-  background-color: #f1f1f1;
+  background-color: $comment-form-field-textarea-background;
   border: 0;
   font-size: 12px;
   height: 30px;
@@ -71,7 +71,7 @@
 }
 
 .comment_vote_count {
-    float: right;
+  float: right;
 }
 
 .comment_votes form {
@@ -95,7 +95,7 @@
 
 .mentions-input-box .mentions {
   bottom: 0;
-  color: #fff;
+  color: $white;
   left: 1px;
   overflow: hidden;
   padding: 9px;
@@ -107,29 +107,12 @@
 }
 
 .mentions-input-box textarea {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
   overflow: hidden;
   position: relative;
   resize: none;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-.mentions-input-box .mentions-autocomplete-list {
-  display: none;
-  background: #fff;
-  border: 1px solid #b2b2b2;
-  position: absolute;
-  left: 0;
-  right: 0;
-  z-index: 10000;
-  margin-top: -2px;
-  border-radius: 5px;
-  border-top-right-radius: 0;
-  border-top-left-radius: 0;
-  -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, .148438);
-  -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, .148438);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, .148438);
 }
 
 .comment_upvote {
@@ -146,19 +129,19 @@
 }
 
 .comment_upvote img {
-    height: 13px;
+  height: 13px;
 }
 
 .comment_downvote img {
-    height: 13px;
+  height: 13px;
 }
 
 .comment_commontator a {
-  color: #000000;
+  color: $black;
   font-weight: bold;
 }
 
 .comment_actions_link a {
-  color: #000000;
+  color: $black;
   text-decoration: underline;
 }
