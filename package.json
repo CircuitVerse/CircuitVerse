@@ -18,6 +18,7 @@
     "@rails/webpacker": "4.2.2",
     "bootstrap": "^4.3.1",
     "font-awesome": "^4.7.0",
+    "jquery": "^3.4.1",
     "opencollective-postinstall": "^2.0.2",
     "popper.js": "^1.16.0",
     "trumbowyg": "^2.21.0"
