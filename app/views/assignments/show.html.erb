@@ -90,7 +90,6 @@
           <h4>Remarks</h4>
           <%= form.text_field :remarks, placeholder: "Remarks...", class: "rounded-0 border-success" %>
         </div>
-      </div>
       <div class="row profile-background">
         <%= button_tag 'Submit', id: "grade-form-submit", class: "btn btn-about" %>
         <div class="grade-form-help">
@@ -100,6 +99,21 @@
       </div>
         <% end %>
       <% end %>
+      </div>
+      <div class="row profile-background grade-container">
+        <div class="col-4">
+          <h4>Grade</h4>
+          <span id="project-grade"></span>
+        </div>
+        <div class="col-8">
+          <h4>Remarks</h4>
+          <span id="project-remarks"></span>
+        </div>
+        <div class="row profile-background">
+          <%= button_tag 'Remove', id: "grade-form-remove", class: "btn btn-about" %>
+          <% end %>
+        </div>
+      </div>
     <% end %>
     <script src="/js/grading.js"> </script>
     <script>
