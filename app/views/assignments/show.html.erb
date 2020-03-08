@@ -19,7 +19,7 @@
         <p><strong>Restricted Circuited Elements: </strong><%= @assignment.restricted_circuit_elements %></p>
       <% end %>
       <% if policy(@assignment).admin_access? && @assignment.status!="closed" %>
-      <%= link_to edit_group_assignment_path(@group,@assignment), class: "btn-card btn-edit btn-assignment-show" do %>
+      <%= link_to edit_group_assignment_path(@group,@assignment), class: "btn btn-edit btn-assignment-show" do %>
         <%= image_tag("/assets/SVGs/edit.svg", alt: "Edit", height: "15", width: "30") %>Edit
       <% end %>
       <% end %>
