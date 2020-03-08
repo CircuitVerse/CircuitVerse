@@ -9,7 +9,6 @@
 
 .group-name-editlink {
   background-color: $teal;
-  border: 0;
   border-radius: 5px;
   color: $white;
   cursor: pointer;
@@ -20,15 +19,8 @@
   top: -7px;
 
   &:hover {
-    border: 0;
-    border-radius: 5px;
     color: $white;
-    cursor: pointer;
-    font-size: 16px;
-    left: 4px;
-    position: relative;
     text-decoration: none;
-    top: -7px;
   }
 }
 
@@ -39,34 +31,23 @@
   color: $white;
   cursor: pointer;
   font-size: 16px;
-  padding-bottom: 12px;
-  padding-left: 34px;
-  padding-right: 34px;
-  padding-top: 12px;
+  padding: 12px 34px;
 
   &:hover {
-    border: 0;
-    border-radius: 25px;
     color: $white;
-    cursor: pointer;
-    font-size: 16px;
     text-decoration: none;
   }
 }
 
 .assignment-view {
   background-color: $green;
-  border: 0;
   border-radius: 5px;
   color: $white;
   cursor: pointer;
   float: left;
   font-size: 16px;
   margin: 5px;
-  padding-bottom: 2px;
-  padding-left: 12px;
-  padding-right: 12px;
-  padding-top: 2px;
+  padding: 2px 12px;
   text-decoration: 0;
 
   &:hover {
@@ -77,18 +58,14 @@
 
 .assignment-edit-reopen {
   background-color: $mint-green;
-  border: 0;
   border-radius: 5px;
   color: $white;
   cursor: pointer;
   float: left;
   font-size: 16px;
   margin: 5px;
-  padding-bottom: 2px;
-  padding-left: 12px;
-  padding-right: 12px;
-  padding-top: 2px;
-  text-decoration: 0;
+  padding: 2px 12px;
+  text-decoration: none;
 
   &:hover {
     color: $white;
@@ -98,18 +75,14 @@
 
 .assignment-delete {
   background-color: $red;
-  border: 0;
   border-radius: 5px;
   color: $white;
   cursor: pointer;
   float: left;
   font-size: 16px;
   margin: 5px;
-  padding-bottom: 2px;
-  padding-left: 12px;
-  padding-right: 12px;
-  padding-top: 2px;
-  text-decoration: 0;
+  padding: 2px 12px;
+  text-decoration: none;
 
   &:hover {
     color: $white;
@@ -130,17 +103,13 @@
 
 .card-member-remove {
   background-color: $red;
-  border: 0;
   border-radius: 5px;
   color: $white;
   cursor: pointer;
   float: right;
   font-size: 16px;
   overflow: hidden;
-  padding-bottom: 2px;
-  padding-left: 12px;
-  padding-right: 12px;
-  padding-top: 2px;
+  padding: 2px 12px;
   position: relative;
   text-decoration: 0;
 
@@ -150,30 +119,19 @@
   }
 }
 
-.group-discription-back {
-  border: 0;
+.group-description-back {
   border-radius: 25px;
   color: $white;
   cursor: pointer;
+  display: block;
+  float: left;
   font-size: 16px;
-  padding-bottom: 12px;
-  padding-left: 34px;
-  padding-right: 34px;
-  padding-top: 12px;
+  padding: 12px 34px;
   text-align: center;
-  text-decoration: 0;
+  text-decoration: none;
 
   &:hover {
-    border: 0;
-    border-radius: 15px;
     color: $white;
-    cursor: pointer;
-    font-size: 16px;
-    padding-bottom: 12px;
-    padding-left: 34px;
-    padding-right: 34px;
-    padding-top: 12px;
-    text-align: center;
     text-decoration: none;
   }
 }
