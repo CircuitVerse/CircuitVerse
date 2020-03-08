@@ -19,8 +19,8 @@
         <p><strong>Restricted Circuited Elements: </strong><%= @assignment.restricted_circuit_elements %></p>
       <% end %>
       <% if policy(@assignment).admin_access? && @assignment.status!="closed" %>
-      <%= link_to edit_group_assignment_path(@group,@assignment), class: "btn-card btn-edit" do %>
-        <%= image_tag("/assets/SVGs/edit.svg", alt: "Edit", height: "15", width: "15", hspace: "2") %><span><p>Edit</p></span>
+      <%= link_to edit_group_assignment_path(@group,@assignment), class: "btn-card btn-edit btn-assignment-show" do %>
+        <%= image_tag("/assets/SVGs/edit.svg", alt: "Edit", height: "15", width: "30") %>Edit
       <% end %>
       <% end %>
       <%= link_to 'Back', group_path(@group), class: "a-homepage" %>
@@ -28,13 +28,15 @@
         <%= link_to 'Export', grades_to_csv_path(@assignment, format: :csv), class: "a-homepage" %>
       <% end %>
     </div>
+    <hr>
   </div>
-  <hr>
   <% if policy(@assignment).admin_access? %>
   <div class="row profile-background">
-
+    <div class="col-12">
+      <h2>Submissions :</h2>
+    </div>
   </div>
-  <div class="row">
+  <div class="row profile-background">
     <script>
       $( function() {
         $('.list-group-item-action').on('click', function (e) {
@@ -49,21 +51,26 @@
         })
       });
     </script>
+    <% if @assignment.project_order.blank? %>
+    <div class="col-12 div-no-submission">
+      <h3>No submissions yet!</h3>
+    </div>
+    <% else %>
     <div class="col-3 col-3-submission-list">
-      <div class="list-group" id="list-tab" role="tablist" id="submission-table">
+      <div class="list-group submission-table" id="list-tab" role="tablist">
         <% @assignment.project_order.each do |project| %>
           <a class="list-group-item list-submission" id=<%= project.id %> data-grade="<%= project.grade_str %>" data-remarks="<%= project.remarks_str %>"><%= project.author.name %></a>
         <% end %>
       </div>
     </div>
     <div class="col-9 col-9-submission-list">
-      <div class="embed-responsive embed-responsive-4by3 feature">
+      <div class="embed-responsive embed-responsive-4by3">
         <iframe src="" name="assignmentPreview" id="assignmentPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen> </iframe>
       </div>
     </div>
   </div>
   <% if policy(@assignment).can_be_graded? %>
-    <div class="row grade-container">
+    <div class="row profile-background grade-container">
       <h3>Grades & Remarks</h3>
       <span id="project-grade-error" class="error"></span>
       <div class="col-4">
@@ -84,7 +91,7 @@
           <%= form.text_field :remarks, placeholder: "Remarks...", class: "rounded-0 border-success" %>
         </div>
       </div>
-      <div class="row">
+      <div class="row profile-background">
         <%= button_tag 'Submit', id: "grade-form-submit", class: "btn btn-about" %>
         <div class="grade-form-help">
           <%= @assignment.grading_scale_str %>
@@ -93,6 +100,7 @@
       </div>
         <% end %>
       <% end %>
+    <% end %>
     <script src="/js/grading.js"> </script>
     <script>
         $(document).ready(function() {

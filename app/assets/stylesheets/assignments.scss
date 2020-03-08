@@ -1,6 +1,7 @@
 .submission-table {
   border: 1px solid $green;
   border-right: 0;
+  border-bottom: 0;
   max-height: 600px;
   overflow: auto;
 }
@@ -14,16 +15,19 @@
 
 .col-3-submission-list {
   margin-right: 0;
+  padding-right: 0;
 }
 
 .col-9-submission-list {
-  border: 1px solid #green;
+  border: 1px solid $green;
   border-left: 0;
   margin-left: 0;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .grade-container {
-  border: 1px solid #green;
+  border: 1px solid $green;
   margin-top: 10px;
 }
 
@@ -34,4 +38,13 @@
 
 .assignment-grade-inputs {
   width: 100%;
+}
+
+.btn-assignment-show {
+    padding-left : 0;
+}
+
+.div-no-submission {
+  border: 1px solid $green;
+  padding : 15px;
 }
