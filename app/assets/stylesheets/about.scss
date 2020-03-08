@@ -1,82 +1,81 @@
-
 * {
   box-sizing: border-box;
 }
- 
+
 .row-about {
- 
   text-align: center;
   margin: auto;
-  max-width:1344px;
+  max-width: 1344px;
 }
 #about {
   text-align: justify;
   margin: 30px 0 30px 0;
 }
- 
+
 .heading {
   color: $teal;
   // font-family: 'Open Sans';
   margin-top: 40px;
   margin-bottom: 10px;
 }
- 
-#tab a, .card-body a{
+
+#tab a,
+.card-body a {
   text-decoration: none;
   color: $black;
 }
- 
-.btn-about{
+
+.btn-about {
   background-color: $green;
   color: white;
   transition: all 0.3s ease 0s;
   margin: 5px 8px;
 }
- 
-.btn-about:hover{
-  color:white;
+
+.btn-about:hover {
+  color: white;
   background-color: $teal;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
   transform: translateY(-7px);
 }
- 
-.contact{
+
+.contact {
   display: inline-block;
   background-color: $gray-100;
   box-shadow: 0px 2px 8px $shadow-black;
   opacity: 0.89;
   height: 89px;
   width: 300px;
-  margin-left :7px ;
-  margin-right :7px ;
+  margin-left: 7px;
+  margin-right: 7px;
   padding: 15px;
   border-radius: 3px;
-} 
+}
 
 .contact img {
   float: left;
 }
- 
+
 #tab {
   text-align: center;
 }
- 
+
 .team-heading h2 {
   justify-content: center;
 }
- 
-.card-about{
+
+.card-about {
   display: inline-block;
   width: 250px;
   background-color: $lightgrey;
-  margin: 18px 15px ;
+  margin: 18px 15px;
 }
- 
-.cardbody-about p{
+
+.cardbody-about p {
   text-align: center;
 }
- 
-.team{
+
+.team {
   background-color: $green;
   opacity: 1;
   color: white;
