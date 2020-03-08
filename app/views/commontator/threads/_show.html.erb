@@ -18,6 +18,7 @@
 </span>
 
 <span id="thread_<%= thread.id %>_span" class="thread_span">
+  <!--
   <span id="thread_<%= thread.id.to_s %>_actions_span" class="thread_actions">
     <span id="thread_<%= thread.id.to_s %>_hide_span" class="thread_hide commontator_hidden">
       <%= link_to t('commontator.thread.actions.hide'),
@@ -62,6 +63,7 @@
                   remote: true %>
     <% end %>
   </span>
+  -->
 
   <span id="thread_<%= thread.id.to_s %>_header_span" class="thread_header">
     <%= t "commontator.thread.status.#{thread.is_closed? ? 'closed' : 'open'}",
@@ -69,6 +71,11 @@
   </span>
 
   <% if thread.config.comment_order == :l %>
+    <%= render partial: 'commontator/threads/reply',
+               locals: { thread: thread, user: user, per_page: per_page } %>
+  <% end %>
+
+  <% if thread.config.comment_order != :l %>
     <%= render partial: 'commontator/threads/reply',
                locals: { thread: thread, user: user, per_page: per_page } %>
   <% end %>
@@ -104,11 +111,6 @@
                                        per_page: per_page } %>
       </div>
     </div>
-  <% end %>
-
-  <% if thread.config.comment_order != :l %>
-    <%= render partial: 'commontator/threads/reply',
-               locals: { thread: thread, user: user, per_page: per_page } %>
   <% end %>
 </span>
 
