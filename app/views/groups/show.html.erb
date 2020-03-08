@@ -18,7 +18,7 @@
         <h3 class="add-member-heading">Members</h3>
         <button type="button" class="add-member" data-toggle="modal" data-target="#myModal">+ Add member</button>
       </div>
-      <br><br>
+      <br>
       <div class="row">
         <% @group.users.each do |user| %>
           <div class="col-lg-4 col-md-6 col-xs-12">
@@ -75,10 +75,10 @@
       <% if policy(@group).admin_access? %>
         <br><br>
         <div class="d-flex flex-sm-column flex-md-row align-items-sm-center justify-content-md-between">
-          <h3 class="add-member-heading">Assignment</h3>
+          <h3 class="add-member-heading">Assignments</h3>
           <%= link_to '+ Add new assignment', new_group_assignment_path(@group), class: "add-member" %>
         </div>
-        <br><br>
+        <br>
       <%end%>
       <table class="table assignment-table">
         <thead>
@@ -149,7 +149,7 @@
       </table>
       <% if policy(@group).admin_access? %>
       <% end %>
-      <%= link_to 'Back', user_groups_path(current_user) ,class:"group-discription-back", style:"background-color: #42b983;" %>
+      <%= link_to 'Back', user_groups_path(current_user) ,class:"group-description-back", style:"background-color: #42b983;" %>
     </div>
   </div>
   <script>
