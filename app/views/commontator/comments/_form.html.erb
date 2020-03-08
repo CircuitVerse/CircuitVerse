@@ -7,6 +7,12 @@
    no_remote ||= false
 %>
 
+<% creator = comment.creator
+   name = Commontator.commontator_name(creator) || ''
+   link = Commontator.commontator_link(creator, main_app) || ''
+   avatar = Commontator.commontator_avatar(creator, self) || ''
+%>
+
 <% config = comment.thread.config %>
 
 <% if comment.errors.any? %>
@@ -24,15 +30,23 @@
 <%= form_with(model: [commontator, thread, comment], local: no_remote) do |f| %>
 
   <%= hidden_field_tag :per_page, per_page %>
-  
-  <div class="comment_form_field">
-    <%= f.text_area :body, rows: '7' %>
-    <%= javascript_tag('Commontator.initMentions()') if Commontator.mentions_enabled %>
+
+  <div class="comment_form_field row">
+    <div class="col-12">
+      <span id="comment_<%= comment.id.to_s %>_avatar_span" class="comment_avatar">
+          <%= avatar %>
+      </span>
+      <span id="comment_<%= comment.id.to_s %>_commontator_span" class="comment_commontator" >
+            <%= link.blank? ? name : link_to(name, link) %>
+      </span>
+    </div>
+    <div class="col-11" style="padding-right:0;">
+      <%= f.text_area :body, rows: '7' , placeholder: "Write a comment..." %>
+      <%= javascript_tag('Commontator.initMentions()') if Commontator.mentions_enabled %>
+    </div>
+    <div class="col-1" style="padding-right:0;">
+      <%= f.submit t("commontator.comment.actions.#{comment.id.blank? ? 'create' : 'update'}") , value: "Send" , class:"btn btn-primary btn-post fa-post" , style: "margin:0;font-size: 15px;height:28px;" %>
+    </div>
   </div>
-  
-  <div class="comment_form_actions">
-    <%= f.submit t("commontator.comment.actions.#{comment.id.blank? ? 'create' : 'update'}") %>
-    <%= f.submit t('commontator.comment.actions.cancel'), name: 'cancel' %>
-  </div>
-  
+
 <% end %>
