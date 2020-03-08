@@ -3,14 +3,14 @@
     <h1>
       Notifications to <%= @target.printable_target_name %>
       <%= link_to open_all_notifications_path_for(@target, @index_options.slice(:routing_scope, :devise_default_routes)), method: :post, remote: true do %>
-        <span class="notification_count"><span class="<%= "unopened" if @target.has_unopened_notifications?(@index_options) %>">
+        <span class="notification_count" style="display: table-caption;"><span class="<%= "unopened" if @target.has_unopened_notifications?(@index_options) %>">
           <%= @target.unopened_notification_count(@index_options) %>
         </span></span>
       <% end %>
     </h1>
-    <div>
-      Browser notifications are <strong id="browser-notifications-status">disabled</strong>&nbsp;&nbsp;
-      <button class="btn btn-green" id="browser-notifications-permission-request">Enable</button>
+    <div class="d-flex align-items-center justify-content-center" style="height: 350px;">
+       Browser notifications are:&nbsp;<strong id="browser-notifications-status">disabled</strong>&nbsp;&nbsp;
+      <button class="btn btn-success" id="browser-notifications-permission-request">Enable</button>
     </div>
   </div>
   <div class="notifications">
