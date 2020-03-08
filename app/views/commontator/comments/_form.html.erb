@@ -10,8 +10,7 @@
 <% creator = comment.creator
    name = Commontator.commontator_name(creator) || ''
    link = Commontator.commontator_link(creator, main_app) || ''
-   avatar = Commontator.commontator_avatar(creator, self) || ''
-%>
+   avatar = Commontator.commontator_avatar(creator, self) || '' %>
 
 <% config = comment.thread.config %>
 
@@ -34,10 +33,10 @@
   <div class="comment_form_field row">
     <div class="col-12">
       <span id="comment_<%= comment.id.to_s %>_avatar_span" class="comment_avatar">
-          <%= avatar %>
+        <%= avatar %>
       </span>
       <span id="comment_<%= comment.id.to_s %>_commontator_span" class="comment_commontator" >
-            <%= link.blank? ? name : link_to(name, link) %>
+        <%= link.blank? ? name : link_to(name, link) %>
       </span>
     </div>
     <div class="col-11" style="padding-right:0;">
