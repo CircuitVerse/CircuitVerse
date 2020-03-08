@@ -9,40 +9,46 @@
    avatar = Commontator.commontator_avatar(creator, self) || ''
 %>
 
-<div id="comment_<%= comment.id.to_s %>_div" class="comment">
-  <div id="comment_<%= comment.id.to_s %>_top_div" class="comment_div">
-    <span id="comment_<%= comment.id.to_s %>_commontator_span" class="comment_commontator">
-      <%= link.blank? ? name : link_to(name, link) %>
-    </span>
-    <span id="comment_<%= comment.id.to_s %>_actions_span" class="comment_actions">
-      <%= render partial: 'commontator/comments/actions',
-                 locals: { comment: comment,
-                              user: user } %>
-    </span>
-  </div>
-  <div id="comment_<%= comment.id.to_s %>_middle_div" class="comment_div">
-    <span id="comment_<%= comment.id.to_s %>_avatar_span" class="comment_avatar">
-      <%= avatar %>
-    </span>
-    <span id="comment_<%= comment.id.to_s %>_votes_span" class="comment_votes">
-      <%= render partial: 'commontator/comments/votes',
-                 locals: { comment: comment,
-                              user: user } %>
-    </span>
-    <div id="comment_<%= comment.id.to_s %>_body_div" class="comment_body">
+<div id="comment_<%= comment.id.to_s %>_div" class="comment row">
+  <div class="col-11">
+    <div id="comment_<%= comment.id.to_s %>_top_div" class="row comment_div">
+      <span id="comment_<%= comment.id.to_s %>_avatar_span" class="comment_avatar">
+        <%= avatar %>
+      </span>
+      <div id="comment_<%= comment.id.to_s %>_body_div" class="comment_body" style="padding: 6px;">
+        <span id="comment_<%= comment.id.to_s %>_commontator_span" class="comment_commontator">
+          <%= link.blank? ? name : link_to(name, link) %>
+        </span>
+        &ensp;
+        <span id="comment_<%= comment.id.to_s %>_created_timestamp_span" class="comment_timestamp">
+          <%= comment.created_timestamp %>
+        </span>
+        <span id="comment_<%= comment.id.to_s %>_updated_timestamp_span" class="comment_timestamp" style="margin-left:10px;">
+        <% if comment.is_modified? %>
+        &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;<%= comment.updated_timestamp %>
+        <% end %>
+        </span>
+      </div>
+    </div>
+    <div id="comment_<%= comment.id.to_s %>_middle_div" class="row comment_div">
       <%= render partial: 'commontator/comments/body',
-                 locals: { comment: comment } %>
+                  locals: { comment: comment } %>
     </div>
   </div>
-  <div id="comment_<%= comment.id.to_s %>_bottom_div" class="comment_div">
-    <span id="comment_<%= comment.id.to_s %>_created_timestamp_span" class="comment_timestamp">
-      <%= comment.created_timestamp %>
-    </span>
-    <br/>
-    <span id="comment_<%= comment.id.to_s %>_updated_timestamp_span" class="comment_timestamp">
-    <% if comment.is_modified? %>
-      <%= comment.updated_timestamp %>
+  <div class="col-1" style="padding: 0px;">
+    <% if @project.author_id != current_user&.id %>
+      <span id="comment_<%= comment.id.to_s %>_votes_span" class="comment_votes">
+          <%= render partial: 'commontator/comments/votes',
+                    locals: { comment: comment,
+                                  user: user } %>
+      </span>
     <% end %>
-    </span>
+    <% if @project.author_id == current_user&.id %>
+      <span id="comment_<%= comment.id.to_s %>_actions_span" class="comment_actions comment_actions_link" style="float:right;margin-top:10px;font-weight:normal;">
+      <%= render partial: 'commontator/comments/actions',
+                  locals: { comment: comment,
+                                user: user } %>
+      </span>
+    <% end %>
   </div>
 </div>
