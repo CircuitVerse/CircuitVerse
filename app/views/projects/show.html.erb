@@ -84,7 +84,6 @@
             <% if policy(@project).user_access? %>
               <br>
               <hr>
-              <a href="#>" class="btn btn-primary fa-post btn-post previewButton" id="<%= @project.id %>" data-toggle="modal" data-target="#myModal" style="margin:0px;">Preview</a>
               <a href="<%= simulator_edit_path(@project) %>" class="card-link btn btn-primary btn-post fa-post" target="_blank">Launch simulator</a>
               <% if user_signed_in? %>
                 <i id="toggleStarButton" class="fa fa-star-o btn btn-primary fa-post btn-post noSelect" aria-hidden="true" style="font-size:13px;margin:0px;" style=<%= Star.find_by(user_id: current_user.id, project_id: @project.id).nil? ? "color:white" : "color:orange" %> onclick="toggleStar()"></i>
@@ -115,7 +114,6 @@
           <% if @project.author_id != current_user&.id %>
             <%= link_to ' Fork', create_fork_project_path(@project), class: "card-link btn btn-primary btn-post fa-post fa-code-fork" , style: "margin:0px;" %>
           <% end %>
-          <%= link_to 'Back', user_path(@author), class: "card-link btn btn-primary btn-post fa-post btnself-post", style: "margin:0px;" %>
           <% if @project.project_access_type != "Private" %>
             <% if @project.author_id != current_user&.id %>
             <a class="btn btn-primary btn-post fa-post" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" onclick="embed()">
@@ -126,6 +124,7 @@
             <span class="btn-post fa-post fa-code" style="margin:0px;"></span> Embed
             </a>
           <% end %>
+          <%= link_to 'Back', user_path(@author), class: "btn underline text-success", style: "margin:0px;" %>
           <div class="collapse" id="collapseExample">
             <div class="card card-body">
               <textarea id="embedTextArea" style="font-size:12px"><iframe width="600px" height="400px" src="<%= simulator_embed_url(@project) %>" id="projectPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen></iframe></textarea>
@@ -134,7 +133,6 @@
           </div>
         <% end %>
         <% if !policy(@project).user_access? %>
-          <a href="#>" class="btn btn-primary fa-post btn-post previewButton" id="<%= @project.id %>" data-toggle="modal" data-target="#myModal" style="margin:0px;">Preview</a>
           <% if user_signed_in? %>
             <i id="toggleStarButton" class="fa fa-star-o btn btn-primary fa-post btn-post noSelect" aria-hidden="true" style="font-size:13px;margin:0px;" style=<%= Star.find_by(user_id: current_user.id, project_id: @project.id).nil? ? "color:white" : "color:orange" %> onclick="toggleStar()"></i>
           <% else %>
@@ -216,25 +214,6 @@
   <%= commontator_thread(@project) %>
 </div>
 </p>
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-lg">
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header modal-header-userprojects">
-        <h4 class="modal-title">Project Preview</h4>
-        <button type="button" class="close close-modal" data-dismiss="modal">&times;</button>
-      </div>
-      <div class="modal-body">
-        <div class="embed-responsive embed-responsive-4by3 feature feature-preview">
-          <iframe src="" id="projectPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen> </iframe>
-        </div>
-      </div>
-      <!--<div class="modal-footer">-->
-      <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">close</button>-->
-      <!--</div>-->
-    </div>
-  </div>
-</div>
 <script>
   function embed() {
       setTimeout(function(){$("#embedTextArea").select();document.execCommand("copy")},100) ;
@@ -242,11 +221,6 @@
   //        $("#embedTextArea").copy();
   }
   $( function() {
-      $('.previewButton').on('click', function (e) {
-          e.preventDefault()
-          $("#projectPreview").attr("src","/simulator/" + e.currentTarget.id );
-          $("#myModal").tab('show')
-      })
       $('.collaboratorButton').on('click', function (e) {
           e.preventDefault()
           $("#collaboratorModel").tab('show')
