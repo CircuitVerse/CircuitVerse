@@ -11,12 +11,12 @@
 
 <div id="comment_<%= comment.id.to_s %>_div" class="comment row">
   <div class="col-11">
-    <div id="comment_<%= comment.id.to_s %>_top_div" class="row comment_div">
-      <span id="comment_<%= comment.id.to_s %>_avatar_span" class="comment_avatar">
+    <div id="comment_<%= comment.id.to_s %>_top_div" class="row comment-div">
+      <span id="comment_<%= comment.id.to_s %>_avatar_span" class="comment-avatar comment_avatar">
         <%= avatar %>
       </span>
-      <div id="comment_<%= comment.id.to_s %>_body_div" class="comment_body" style="padding: 8px 6px 6px 6px;">
-        <span id="comment_<%= comment.id.to_s %>_commontator_span" class="comment_commontator">
+      <div id="comment_<%= comment.id.to_s %>_body_div" class="comment-body" style="padding: 8px 6px 6px 6px;">
+        <span id="comment_<%= comment.id.to_s %>_commontator_span" class="comment-commontator">
           <%= link.blank? ? name : link_to(name, link) %>
         </span>
         &ensp;
@@ -30,21 +30,21 @@
         </span>
       </div>
     </div>
-    <div id="comment_<%= comment.id.to_s %>_middle_div" class="row comment_div">
+    <div id="comment_<%= comment.id.to_s %>_middle_div" class="row comment-div">
       <%= render partial: 'commontator/comments/body',
                   locals: { comment: comment } %>
     </div>
   </div>
   <div class="col-1" style="padding: 0px;">
     <% if @project.author_id != current_user&.id %>
-      <span id="comment_<%= comment.id.to_s %>_votes_span" class="comment_votes">
+      <span id="comment_<%= comment.id.to_s %>_votes_span" class="comment-votes comment_votes">
           <%= render partial: 'commontator/comments/votes',
                     locals: { comment: comment,
                                   user: user } %>
       </span>
     <% end %>
     <% if @project.author_id == current_user&.id %>
-      <span id="comment_<%= comment.id.to_s %>_actions_span" class="comment_actions comment_actions_link" style="float:right;margin-top:10px;font-weight:normal;">
+      <span id="comment_<%= comment.id.to_s %>_actions_span" class="comment_actions comment-actions-link" style="float:right;margin-top:10px;font-weight:normal;">
       <%= render partial: 'commontator/comments/actions',
                   locals: { comment: comment,
                                 user: user } %>
