@@ -35,14 +35,14 @@
   </span>
   <% end %>
 
-  <span id="comment_<%= comment.id %>_vote_count_span" class="comment_vote_count">
+  <span id="comment_<%= comment.id %>_vote_count_span" class="comment-vote-count comment_vote_count">
     <% config = comment.thread.config %>
     <%= config.vote_count_proc.call(comment.thread,
           comment.get_upvotes.size, comment.get_downvotes.size) %>
   </span>
 
   <% if comment_voting == :ld %>
-  <span id="comment_<%= comment.id %>_downvote_span" class="comment_downvote">
+  <span id="comment_<%= comment.id %>_downvote_span" class="comment-downvote comment_downvote">
     <% if can_vote && (vote.blank? || vote.vote_flag) %>
       <%= form_tag commontator.downvote_comment_path(comment),
             method: :put,
