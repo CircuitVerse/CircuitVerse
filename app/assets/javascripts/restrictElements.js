@@ -1,7 +1,7 @@
 function handleMainCheckbox() {
-    $('#restrict-elements').change((e) => {
+    $('#restrict-elements').change(function (e) {
         e.preventDefault();
-        const radio = $(e.currentTarget);
+        var radio = $(e.currentTarget);
 
         if (radio.is(':checked')) {
             $('.restricted-elements-list').removeClass('display--none');
@@ -13,39 +13,43 @@ function handleMainCheckbox() {
 }
 
 function restrictionsMap(restrictions) {
-    const map = {};
-    for (let i = 0; i < restrictions.length; i++) {
+    var map = {};
+    for (var i = 0; i < restrictions.length; i++) {
         map[restrictions[i]] = true;
     }
     return map;
 }
 
 function htmlRowName(name) {
-    return `<div class="circuit-element-category"> ${name} </div>`;
+    return "<div class=\"circuit-element-category\"> ".concat(name, " </div>");
 }
 
 function htmlInlineCheckbox(elementName, checked) {
-    return `
-    <div class="form-check form-check-inline">
-        <input class="form-check-input element-restriction" type="checkbox" id="checkbox-${elementName}" value="${elementName}" ${checked}>
-        <label class="form-check-label" for="checkbox-${elementName}">${elementName}</label>
-    </div>`;
+   return '\n    <div class="form-check form-check-inline">\n        <input class="form-check-input element-restriction" type="checkbox" id="checkbox-'
+     .concat(elementName, '" value="')
+     .concat(elementName, '" ')
+     .concat(
+       checked,
+       '>\n        <label class="form-check-label" for="checkbox-'
+     )
+     .concat(elementName, '">')
+     .concat(elementName, "</label>\n    </div>");
 }
 
 function generateRow(name, elements, restrictionMap) {
-    let html = htmlRowName(name);
-    for (let i = 0; i < elements.length; i++) {
-        const element = elements[i];
-        const checked = restrictionMap[element] ? 'checked' : '';
+    var html = htmlRowName(name);
+    for (var i = 0; i < elements.length; i++) {
+        var element = elements[i];
+        var checked = restrictionMap[element] ? 'checked' : '';
         html += htmlInlineCheckbox(element, checked);
     }
     return html;
 }
 
 function loadHtml(elementHierarchy, restrictionMap) {
-    for (let i = 0; i < Object.entries(elementHierarchy).length; i++) {
-        const category = Object.entries(elementHierarchy)[i];
-        const html = generateRow(category[0], category[1], restrictionMap);
+    for (var i = 0; i < Object.entries(elementHierarchy).length; i++) {
+        var category = Object.entries(elementHierarchy)[i];
+        var html = generateRow(category[0], category[1], restrictionMap);
         $('.restricted-elements-list').append(html);
     }
 }
@@ -53,8 +57,9 @@ function loadHtml(elementHierarchy, restrictionMap) {
 function loadRestrictions(restrictions) {
     handleMainCheckbox();
 
-    const { elementHierarchy } = metadata;
-    const restrictionMap = restrictionsMap(restrictions);
+    var _metadata = metadata,
+        elementHierarchy = _metadata.elementHierarchy;
+    var restrictionMap = restrictionsMap(restrictions);
 
     loadHtml(elementHierarchy, restrictionMap);
 }
