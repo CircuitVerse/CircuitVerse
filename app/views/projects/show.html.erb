@@ -40,18 +40,13 @@
         <div class="card-header text-center h5 text-capitalize team">
           <%= @project.name %>
         </div>
-      <div>
-        <span class="badge badge-secondary noSelect font-weight-normal text-left" style="margin:5px;display:inline;">
+      <div style="text-align:right">
+        <span class="badge badge-secondary noSelect font-weight-normal" style="margin:5px;display:inline;">
           <i class="fa fa-star" aria-hidden="true">&ensp;</i>
           <r id="star_count" style="font-size:12px" class="noSelect"><%= @project.stars.count %></r>
           &nbsp;Stars
         </span>
-        <span class="badge badge-secondary noSelect font-weight-normal text-center" style="margin:5px;display:inline;">
-          <i class="fa fa-code-fork" aria-hidden="true">&nbsp;</i>
-          <r id="star_count" style="font-size:12px" class="noSelect"><%= @project.forks.count %></r>
-          &nbsp;Forks
-        </span>
-        <span class="badge badge-secondary noSelect font-weight-normal text-right" style="margin:5px;display:inline">
+        <span class="badge badge-secondary noSelect font-weight-normal" style="margin:5px;display:inline">
           <i class="fa fa-eye" aria-hidden="true">&ensp;</i>
           <r id="star_count" style="font-size:12px" class="noSelect"><%= @project.view %></r>
           &nbsp;Views
