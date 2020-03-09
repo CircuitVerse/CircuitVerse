@@ -25,7 +25,7 @@ function scheduleUpdate(count = 0, time = 100, fn) {
 
     // Call a function before update ..
     if (fn)
-        setTimeout(function() {
+        setTimeout(function () {
             fn();
             update();
         }, time);
@@ -278,6 +278,13 @@ function renderCanvas(scope) {
         rect2(ctx, simulationArea.mouseDownX, simulationArea.mouseDownY, simulationArea.mouseX - simulationArea.mouseDownX, simulationArea.mouseY - simulationArea.mouseDownY, 0, 0, "RIGHT");
         ctx.stroke();
         ctx.fill();
+    }
+    if (simulationArea.hover != undefined) {
+        simulationArea.canvas.style.cursor = "pointer";
+    } else if (simulationArea.mouseDown) {
+        simulationArea.canvas.style.cursor = 'grabbing';
+    } else {
+        simulationArea.canvas.style.cursor = 'default';
     }
 
 }
