@@ -242,6 +242,11 @@ a.btn.btn-outline-danger {
   border-radius: 8px;
   padding: 4px;
   box-shadow: 3px 3px 6px $shadow-black;
+  transition: box-shadow 0.2s ease-in;
+}
+
+.patreon:hover {
+ box-shadow: 0px 9px 9px $shadow-black;
 }
 
 .patreon > img {
