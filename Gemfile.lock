@@ -154,6 +154,8 @@ GEM
       multipart-post (>= 1.2, < 3)
     ffi (1.11.2)
     ffi (1.11.2-x64-mingw32)
+    font-awesome-sass (5.12.0)
+      sassc (>= 1.11)
     geocoder (1.6.0)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
@@ -506,6 +508,7 @@ DEPENDENCIES
   erb_lint
   factory_bot_rails
   faker
+  font-awesome-sass (~> 5.12.0)
   geocoder
   hirb
   jbuilder (~> 2.5)
