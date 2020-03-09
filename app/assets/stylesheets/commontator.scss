@@ -40,14 +40,14 @@
   margin-top: 25px;
   padding: 5px;
   padding-bottom: 10px;
-}
 
-.comment-form-field textarea {
-  background-color: $comment-form-field-textarea-background;
-  border: 0;
-  font-size: 12px;
-  height: 30px;
-  padding: 5px;
+  textarea {
+    background-color: $comment-form-field-textarea-background;
+    border: 0;
+    font-size: 12px;
+    height: 30px;
+    padding: 5px;
+  }
 }
 
 ::placeholder {
@@ -57,23 +57,21 @@
 
 .comment-body {
   padding-top: 3px;
-}
-
-.comment-body p {
-  margin: 0;
-  overflow: hidden;
+  p {
+    margin: 0;
+    overflow: hidden;
+  }
 }
 
 .comment-votes {
   text-align: center;
+  form {
+    margin: 0;
+  }
 }
 
 .comment-vote-count {
   float: right;
-}
-
-.comment-votes form {
-  margin: 0;
 }
 
 .comment-avatar img {
@@ -86,43 +84,23 @@
   font-weight: bold;
 }
 
-.thread .mentions-input-box .mentions {
-  left: -2px;
-  top: -2px;
-}
-
-.mentions-input-box .mentions {
-  bottom: 0;
-  color: $white;
-  left: 1px;
-  overflow: hidden;
-  padding: 9px;
-  position: absolute;
-  right: 0;
-  top: 1px;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-}
-
 .comment_upvote {
   display: block;
   height: 12px;
   margin: 0;
   margin-bottom: 6px;
+  img {
+    height: 13px;
+  }
 }
 
 .comment-downvote {
   display: block;
   height: 12px;
   margin: 0;
-}
-
-.comment_upvote img {
-  height: 13px;
-}
-
-.comment-downvote img {
-  height: 13px;
+  img {
+    height: 13px;
+  }
 }
 
 .comment-commontator a {
