@@ -100,7 +100,7 @@
             <td><%= assignment.name %></td>
             <td><div class="date"><%= assignment.deadline.strftime("%d %b,%Y %I:%M %p %Z") %></div>
               <% if(assignment.deadline > Time.now) %>
-              <p> <strong>Time remaining: </strong><%= (( assignment.deadline.to_i - Time.now.to_i)/1.day) %> days,  <%= (( assignment.deadline.to_i- Time.now.to_i)/1.hour)%24 %> hours, <%=(( assignment.deadline.to_i- Time.now.to_i)/1.minute)%60%> minutes</p>
+              <p> <strong>Time remaining: </strong><%= (( assignment.deadline.to_i - Time.now.to_i)/1.day) %> days,  <%= (( assignment.deadline.to_i- Time.now.to_i)/1.hour)%24 %> hours, <%= (( assignment.deadline.to_i- Time.now.to_i)/1.minute)%60 %> minutes</p>
               <% end %>
             </td>
             <td> <%= AssignmentDecorator.new(assignment).graded %> </td>
