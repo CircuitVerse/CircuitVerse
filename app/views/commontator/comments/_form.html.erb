@@ -35,9 +35,11 @@
       <span id="comment_<%= comment.id.to_s %>_avatar_span" class="comment_avatar">
         <%= avatar %>
       </span>
-      <span id="comment_<%= comment.id.to_s %>_commontator_span" class="comment_commontator" >
+      <div style="margin-top: 5px;">
+      <span id="comment_<%= comment.id.to_s %>_commontator_span" class="comment_commontator" style="font-weight:normal;font-size:12px;">
         <%= link.blank? ? name : link_to(name, link) %>
       </span>
+      </div>
     </div>
     <div class="col-11" style="padding-right:0;">
       <%= f.text_area :body, rows: '7' , placeholder: "Write a comment..." %>
