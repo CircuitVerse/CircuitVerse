@@ -2,15 +2,7 @@
   display: block;
 }
 
-.thread .commontator_hidden {
-  display: none;
-}
-
-.thread_actions {
-  float: right;
-}
-
-.thread_header {
+.thread-header {
   display: block;
   font-size: 20px;
   font-style: normal;
@@ -19,7 +11,7 @@
   margin-top: 25px;
 }
 
-.thread_reply {
+.thread-reply {
   font-size: 15px;
 }
 
@@ -36,12 +28,12 @@
   padding-left: 15px;
 }
 
-.comment_div {
+.comment-div {
   padding-left: 15px;
   vertical-align: middle;
 }
 
-.comment_form_field {
+.comment-form-field {
   border: 1.5px solid $comment-form-field-border;
   box-shadow: $shadow-grey 0 1.3px;
   margin-left: 1px;
@@ -50,7 +42,7 @@
   padding-bottom: 10px;
 }
 
-.comment_form_field textarea {
+.comment-form-field textarea {
   background-color: $comment-form-field-textarea-background;
   border: 0;
   font-size: 12px;
@@ -63,34 +55,34 @@
   opacity: 1;
 }
 
-.comment_body {
+.comment-body {
   padding-top: 3px;
 }
 
-.comment_body p {
+.comment-body p {
   margin: 0;
   overflow: hidden;
 }
 
-.comment_votes {
+.comment-votes {
   text-align: center;
 }
 
-.comment_vote_count {
+.comment-vote-count {
   float: right;
 }
 
-.comment_votes form {
+.comment-votes form {
   margin: 0;
 }
 
-.comment_avatar img {
+.comment-avatar img {
   float: left;
   height: 25px;
   width: 28px;
 }
 
-.comment_name {
+.comment-name {
   font-weight: bold;
 }
 
@@ -128,7 +120,7 @@
   margin-bottom: 6px;
 }
 
-.comment_downvote {
+.comment-downvote {
   display: block;
   height: 12px;
   margin: 0;
@@ -138,16 +130,16 @@
   height: 13px;
 }
 
-.comment_downvote img {
+.comment-downvote img {
   height: 13px;
 }
 
-.comment_commontator a {
+.comment-commontator a {
   color: $black;
   font-weight: bold;
 }
 
-.comment_actions_link a {
+.comment-actions-link a {
   color: $black;
   text-decoration: underline;
 }
