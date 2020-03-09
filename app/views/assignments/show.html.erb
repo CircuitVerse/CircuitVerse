@@ -19,13 +19,13 @@
         <p><strong>Restricted Circuited Elements: </strong><%= @assignment.restricted_circuit_elements %></p>
       <% end %>
       <% if policy(@assignment).admin_access? && @assignment.status!="closed" %>
-      <%= link_to edit_group_assignment_path(@group,@assignment), class: "btn btn-edit btn-assignment-show" do %>
-        <%= image_tag("/assets/SVGs/edit.svg", alt: "Edit", height: "15", width: "30") %>Edit
-      <% end %>
+        <%= link_to edit_group_assignment_path(@group, @assignment), class: "btn btn-edit btn-assignment-show" do %>
+          <%= image_tag("/assets/SVGs/edit.svg", alt: "Edit", height: "15", width: "30") %> Edit
+        <% end %>
       <% end %>
       <%= link_to 'Back', group_path(@group), class: "a-homepage" %>
       <% if policy(@assignment).can_be_graded? %>
-        <%= link_to 'Export', grades_to_csv_path(@assignment, format: :csv), class: "a-homepage" %>
+        <%= link_to 'Export', grades_to_csv_path(@assignment, format: "csv"), class: "a-homepage" %>
       <% end %>
     </div>
     <hr>
@@ -59,7 +59,7 @@
     <div class="col-3 col-3-submission-list">
       <div class="list-group submission-table" id="list-tab" role="tablist">
         <% @assignment.project_order.each do |project| %>
-          <a class="list-group-item list-submission" id=<%= project.id %> data-grade="<%= project.grade_str %>" data-remarks="<%= project.remarks_str %>"><%= project.author.name %></a>
+          <a class="list-group-item list-submission" id="<%= project.id %>" data-grade="<%= project.grade_str %>" data-remarks="<%= project.remarks_str %>"><%= project.author.name %></a>
         <% end %>
       </div>
     </div>
@@ -113,7 +113,6 @@
         </div>
       </div>
       <% end %>
-    <% end %>
     <% end %>
     <script src="/js/grading.js"> </script>
     <script>
