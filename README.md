@@ -18,14 +18,13 @@ We would love to hear from you! We communicate on the following platforms:
 We follow the [Code of Conduct](code-of-conduct.md) of the [CircuitVerse](https://circuitverse.org) Community.
 
 ## Setup
-[See `SETUP.md` for more information on setup](SETUP.md)
+See [`SETUP.md`](SETUP.md) for more information on setting up CircuitVerse codebase.
 
 ## Contributing
-[See `CONTRIBUTING.md` for more information on contributing](CONTRIBUTING.md)
+See [`CONTRIBUTING.md`](CONTRIBUTING.md) for more information on contributing to CircuitVerse.
 
 ## Required Software
-(See [setup](SETUP.md) for more information on setup.)
-- [Git](https://git-scm.com/) - using a GUI such as [SourceTree](https://www.sourcetreeapp.com/) or [GitHub Desktop](https://desktop.github.com/) can help
+- [Git](https://git-scm.com/) - using a GUI such as [SourceTree](https://www.sourcetreeapp.com/) or [GitHub Desktop](https://desktop.github.com/) can help.
 - [Ruby on Rails](https://rubyonrails.org/)
 - [PostgreSQL](https://www.postgresql.org/)
 - [Yarn](https://yarnpkg.com/)
@@ -33,7 +32,4 @@ We follow the [Code of Conduct](code-of-conduct.md) of the [CircuitVerse](https:
 - [ImageMagick](https://imagemagick.org/)
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) for details.
-
-
-
+This project is licensed under the [MIT License](LICENSE).
