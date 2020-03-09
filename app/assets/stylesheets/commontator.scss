@@ -34,19 +34,21 @@
   margin-bottom: 15px;
   margin-top: 15px;
   padding-left: 15px;
+  background-color: $comment-div-background;
 }
 
 .comment_div {
-  padding-left: 20px;
+  padding-left: 15px;
   vertical-align: middle;
 }
 
 .comment_form_field {
   border: 1.5px solid $comment-form-field-border;
-  margin-left: 15px;
+  margin-left: 1px;
   margin-top: 25px;
   padding: 5px;
   padding-bottom: 10px;
+  box-shadow: $shadow-grey 0 1.3px;
 }
 
 .comment_form_field textarea {
@@ -55,6 +57,11 @@
   font-size: 12px;
   height: 30px;
   padding: 5px;
+}
+
+::placeholder {
+  color: $placeholder-color;
+  opacity: 1;
 }
 
 .comment_body {
