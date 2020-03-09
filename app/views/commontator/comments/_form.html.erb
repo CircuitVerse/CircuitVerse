@@ -30,19 +30,19 @@
 
   <%= hidden_field_tag :per_page, per_page %>
 
-  <div class="comment_form_field row">
+  <div class="comment-form-field comment_form_field row">
     <div class="col-12">
-      <span id="comment_<%= comment.id.to_s %>_avatar_span" class="comment_avatar">
+      <span id="comment_<%= comment.id.to_s %>_avatar_span" class="comment-avatar comment_avatar">
         <%= avatar %>
       </span>
       <div style="margin-top: 5px;">
-      <span id="comment_<%= comment.id.to_s %>_commontator_span" class="comment_commontator" style="font-weight:normal;font-size:12px;">
+      <span id="comment_<%= comment.id.to_s %>_commontator_span" class="comment-commontator comment_commontator" style="font-weight:normal;font-size:12px;">
         <%= link.blank? ? name : link_to(name, link) %>
       </span>
       </div>
     </div>
     <div class="col-11" style="padding-right:0;">
-      <%= f.text_area :body, rows: '7' , placeholder: "Write a comment..." %>
+      <%= f.text_area :body, rows: '7' , placeholder: "Write a comment..." , class: "comment-body"%>
       <%= javascript_tag('Commontator.initMentions()') if Commontator.mentions_enabled %>
     </div>
     <div class="col-1" style="padding-right:0;">
