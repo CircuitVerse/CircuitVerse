@@ -2,7 +2,6 @@
   <% if group.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(group.errors.count, "error") %> prohibited this group from being saved:</h2>
-
       <ul>
       <% group.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -10,14 +9,11 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field form-group">
-    <%= form.label :name %>
-    <%= form.text_field :name, id: :group_name, class: 'form-control' %>
+  <div class="label-field">
+    <%= form.label :name, "GROUP NAME:", class: 'name-group' %>
+    <%= form.text_field :name, id: :group_name, class: 'form-control group-input-name' %>
   </div>
-
-
-  <div class="actions form-group">
-    <%= form.submit "Create Group", class: 'btn btn-primary' %>
+  <div class="actions form-group text-center pt-4 pl-5 ml-5 float-left">
+    <%= form.submit 'Save', class: 'btn btn-primary custom-submit ml-5' %>
   </div>
 <% end %>
