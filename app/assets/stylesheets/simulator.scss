@@ -2,7 +2,8 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import 'bootstrap/scss/bootstrap';
-@import 'font-awesome/css/font-awesome.min.css';
+@import "font-awesome-sprockets";
+@import "font-awesome";
 
 .moduleProperty input {
   color: #fff;
