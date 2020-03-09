@@ -2,7 +2,8 @@
 @import "bootstrap/scss/bootstrap.scss";
 @import "commontator/application.css";
 @import 'bootstrap-typeahead-rails';
-@import 'font-awesome/css/font-awesome.min.css';
+@import "font-awesome-sprockets";
+@import "font-awesome";
 @import 'signup';
 @import 'logixRelease';
 @import 'layout';
