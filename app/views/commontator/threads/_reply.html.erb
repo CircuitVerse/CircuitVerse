@@ -5,7 +5,7 @@
 
    hidden_class = @new_comment.nil? ? ' commontator_hidden' : '' %>
 
-<div id="thread_<%= thread.id %>_reply" class="thread_reply">
+<div id="thread_<%= thread.id %>_reply" class="thread-reply">
   <% if thread.is_closed? %>
     <p><%= t 'commontator.thread.status.cannot_post' %></p>
   <% elsif !user %>
