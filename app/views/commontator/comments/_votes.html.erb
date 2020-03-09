@@ -11,7 +11,7 @@
   <% if comment_voting == :ld || comment_voting == :l %>
   <% vtype = (comment_voting == :ld) ? 'upvote' : 'like' %>
   <span id="comment_<%= comment.id %>_<%= vtype %>_span"
-        class="comment_<%= vtype %>">
+        class="comment_<%= vtype %> comment-upvote">
     <% if can_vote && (vote.blank? || !vote.vote_flag) %>
       <%= form_tag commontator.upvote_comment_path(comment),
             method: :put,
