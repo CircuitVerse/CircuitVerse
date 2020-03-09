@@ -50,7 +50,7 @@
       Untitled
     </span>
     <ul class="nav navbar-nav noSelect pointerCursor">
-      <li class="dropdown pull-right">
+      <li class="dropdown">
         <% if user_signed_in? %>
           <a href="#" class="dropdown-toggle text-light" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %><span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -61,7 +61,7 @@
             <li><a class="dropdown-item" rel="nofollow" data-method="delete" href=<%= destroy_user_session_path %>>Sign out</a></li>
           </ul>
         <% else %>
-          <a class="navbar-nav nav-link" href=<%= new_user_session_path %>> Sign in </a>
+          <a class="navbar-nav nav-link ml-3" href=<%= new_user_session_path %>> Sign in </a>
         <% end %>
       </li>
     </ul>
