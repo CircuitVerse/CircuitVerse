@@ -25,15 +25,15 @@ function htmlRowName(name) {
 }
 
 function htmlInlineCheckbox(elementName, checked) {
-   return '\n    <div class="form-check form-check-inline">\n        <input class="form-check-input element-restriction" type="checkbox" id="checkbox-'
-     .concat(elementName, '" value="')
-     .concat(elementName, '" ')
-     .concat(
-       checked,
-       '>\n        <label class="form-check-label" for="checkbox-'
-     )
-     .concat(elementName, '">')
-     .concat(elementName, "</label>\n    </div>");
+    return '\n    <div class="form-check form-check-inline">\n        <input class="form-check-input element-restriction" type="checkbox" id="checkbox-'
+      .concat(elementName, '" value="')
+      .concat(elementName, '" ')
+      .concat(
+        checked,
+        '>\n        <label class="form-check-label" for="checkbox-'
+      )
+      .concat(elementName, '">')
+      .concat(elementName, "</label>\n    </div>");
 }
 
 function generateRow(name, elements, restrictionMap) {
