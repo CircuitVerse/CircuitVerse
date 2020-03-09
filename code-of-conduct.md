@@ -31,7 +31,7 @@ Harassment may include but not limited to the following:
 
 Portions derived from the [Slack Developer Community Code of Conduct][1], [The Ada Initiative][2], [geekfeminism.org][3], [Drupal Events][4], and [Code of Conduct Contributor Covenant][6].
 
-This work is licensed under the [MIT License][5].
+This project is licensed under the [MIT License][5].
 
 [1]: https://api.slack.com/docs/community-code-of-conduct
 [2]: https://adainitiative.org/2014/02/18/howto-design-a-code-of-conduct-for-your-community/
