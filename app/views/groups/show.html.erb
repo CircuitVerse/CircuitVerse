@@ -1,156 +1,157 @@
-<link rel="stylesheet" type="text/css" href="/css/tooltip.css">
-<div class="container">
-  <div class="row feature">
-    <div class="col">
-      <% if notice %>
-        <p id="notice" class="alert alert-success"><%= notice %></p>
-      <% end %>
-      <h1 style="text-align:center">
-        <%= @group.name %>
-        <%= link_to ' Edit Name', edit_group_path(@group), class:"group-name-editlink fa fa-pencil" %>
-      </h1>
-      <div style="font-size:25px; text-align:center;">
-        <strong>Mentor:</strong>
-        <%= @group.mentor.name %>
-      </div>
-      <br><br>
-      <div class="d-flex flex-sm-column flex-md-row align-items-sm-center justify-content-md-between">
-        <h3 class="add-member-heading">Members</h3>
-        <button type="button" class="add-member" data-toggle="modal" data-target="#myModal">+ Add member</button>
-      </div>
-      <br>
-      <div class="row">
-        <% @group.users.each do |user| %>
-          <div class="col-lg-4 col-md-6 col-xs-12">
-            <div class="card text-white mb-3 card-member">
-              <div class="card-body">
-                <p><%= link_to " "+user.name, user, class: "fa fa-user card-member-name card-text " %> <% if policy(@group).admin_access? %>
-                <%= link_to 'Remove', group_member_path(GroupMember.find_by(user_id:user.id,group_id:@group.id)), method: :delete, data: { confirm: 'Are you sure?' }, class:"card-member-remove text-white" %>
-                <% end %></p>
-                <p class="card-text text-body"><%= user.email %></p>
-              </div>
-            </div>
-          </div>
-        <% end %>
-      </div>
-      <div id="myModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-          <!-- Modal content-->
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Add members</h4>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-              <p>Enter Email IDs separated by commas/spaces or in separate lines. If users are not registered, an email ID will be sent requesting them to sign up.</p>
-              <%= form_with(model: @group_member, local: true) do |form| %>
-                <% if @group_member.errors.any? %>
-                  <div id="error_explanation">
-                    <h2><%= pluralize(group_member.errors.count, "error") %> prohibited this group_member from being saved:</h2>
-                    <ul>
-                      <% @group_member.errors.full_messages.each do |message| %>
-                          <li><%= message %></li>
-                      <% end %>
-                    </ul>
-                  </div>
-                <% end %>
-                <div class="field">
-                  <%= form.hidden_field :group_id, id: :group_member_group_id %>
-                </div>
-                <div class="form-group">
-                  <label for="emails">Email IDs:</label>
-                  <textarea class="form-control" rows="5" id="emails" name="group_member[emails]"></textarea>
-                </div>
-                <div class="actions modal-footer">
-                  <%= form.submit "Add members", class: 'btn btn-secondary' %>
-                </div>
-              <% end %>
-            </div>
-            <!--<div class="modal-footer">-->
-              <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">close</button>-->
-            <!--</div>-->
-          </div>
-        </div>
-      </div>
-      <% if policy(@group).admin_access? %>
-        <br><br>
-        <div class="d-flex flex-sm-column flex-md-row align-items-sm-center justify-content-md-between">
-          <h3 class="add-member-heading">Assignments</h3>
-          <%= link_to '+ Add new assignment', new_group_assignment_path(@group), class: "add-member" %>
-        </div>
-        <br>
-      <%end%>
-      <table class="table assignment-table">
-        <thead>
-        <tr>
-          <th>Name</th>
-          <th>DeadLine</th>
-          <th>Grading</th>
-          <th>Actions</th>
-          <% unless policy(@group).admin_access? %>
-            <th>Grade</th>
-          <% end %>
-        </tr>
-        </thead>
-        <tbody>
-          <% @group.assignments.includes(projects: :grade).each do |assignment| %>
-            <tr class="assignment-rows">
-              <td><%= assignment.name %></td>
-              <td><div class="date"><%= assignment.deadline.strftime("%d %b,%Y %I:%M %p %Z") %></div>
-                <% if(assignment.deadline > Time.now) %>
-                <p> <strong>Time remaining: </strong><%=(( assignment.deadline.to_i - Time.now.to_i)/1.day)%> days,  <%=(( assignment.deadline.to_i- Time.now.to_i)/1.hour)%24%> hours, <%=(( assignment.deadline.to_i- Time.now.to_i)/1.minute)%60%> minutes</p>
-                <% end %>
-              </td>
-              <td> <%= AssignmentDecorator.new(assignment).graded %> </td>
-              <td>
-                <% if policy(@group).admin_access? %>
-                  <%= link_to 'Show', group_assignment_path(@group,assignment), class:"assignment-view" %>
-                  <% if assignment.status!="closed" %>
-                    <%= link_to 'Edit', edit_group_assignment_path(@group,assignment), class:"assignment-edit-reopen" %>
-                  <% else %>
-                    <%= link_to 'Reopen', reopen_group_assignment_path(@group,assignment), class:"assignment-edit-reopen" %>
-                  <% end %>
-                  <%= link_to 'Destroy', group_assignment_path(@group,assignment),class:"assignment-delete", method: :delete, data: { confirm: 'Are you sure?' } %>
-                <% else %>
-                    <% project_assignment = assignment.projects.find { |p| p.author_id == current_user.id } %>
-                    <% if(assignment.deadline > Time.now) %>
-                        <% if project_assignment.nil?%>
-                            <%= link_to 'Start Working', assignment_start_path(@group,assignment) %>
-                        <% else %>
-                            <%= link_to 'View your work', user_project_path(current_user,project_assignment) %>
-                        <% end %>
-                    <% else %>
-                        <% if project_assignment.nil?%>
-                            Not submitted!
-                        <% else %>
-                            <%= link_to 'View your submission', user_project_path(current_user,project_assignment) %>
-                        <% end %>
-                    <% end %>
-              <% end %>
-              </td>
-              <% unless policy(@group).admin_access? %>
-                <td>
-                  <% if policy(assignment).show_grades? && project_assignment.present? %>
-                    <div class="tooltip-help">
-                      <%= ProjectDecorator.new(project_assignment).grade_str %>
-                      <div class="right-help">
-                        <%= ProjectDecorator.new(project_assignment).remarks_str %>
-                        <i> </i>
-                      </div>
-                    </div>
-                  <% else %>
-                    N.A.
-                  <% end %>
-                </td>
-              <% end %>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-      <% if policy(@group).admin_access? %>
-      <% end %>
-      <%= link_to 'Back', user_groups_path(current_user) ,class:"group-description-back", style:"background-color: #42b983;" %>
+<div class="container p-4">
+  <div class="col">
+    <% if notice %>
+      <p id="notice" class="alert alert-success"><%= notice %></p>
+    <% end %>
+    <h1 style="text-align:center">
+      <%= @group.name %>
+      <%= link_to ' Edit Name', edit_group_path(@group), class:"group-name-editlink fa fa-pencil" %>
+    </h1>
+    <div style="font-size:25px; text-align:center;">
+      <strong>Mentor:</strong>
+      <%= @group.mentor.name %>
     </div>
+    <br><br>
+    <div class="d-flex flex-column flex-md-row align-items-center justify-content-md-between">
+      <h3 class="add-member-heading">MEMBERS</h3>
+      <button type="button" class="add-member" data-toggle="modal" data-target="#myModal">+ Add Members</button>
+    </div>
+    <hr>
+    <div class="row">
+      <% @group.users.each do |user| %>
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="card-member d-flex flex-row justify-content-between align-items-center">
+            <div class="d-flex flex-column">
+              <div class="d-flex flex-row align-items-center">
+                <div class="fa fa-user">&nbsp</div>
+                <%= link_to user.name, user, class: "card-member-name" %>
+              </div>
+              <div class="card-member-email"><%= user.email %></div>
+            </div>
+            <% if policy(@group).admin_access? %>
+              <%= link_to 'Remove', group_member_path(GroupMember.find_by(user_id:user.id,group_id:@group.id)), method: :delete, data: { confirm: 'Are you sure?' }, class:"card-member-remove text-white" %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Add members</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <p>Enter Email IDs separated by commas/spaces or in separate lines. If users are not registered, an email ID will be sent requesting them to sign up.</p>
+            <%= form_with(model: @group_member, local: true) do |form| %>
+              <% if @group_member.errors.any? %>
+                <div id="error_explanation">
+                  <h2><%= pluralize(group_member.errors.count, "error") %> prohibited this group_member from being saved:</h2>
+                  <ul>
+                    <% @group_member.errors.full_messages.each do |message| %>
+                        <li><%= message %></li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
+              <div class="field">
+                <%= form.hidden_field :group_id, id: :group_member_group_id %>
+              </div>
+              <div class="form-group">
+                <label for="emails">Email IDs:</label>
+                <textarea class="form-control" rows="5" id="emails" name="group_member[emails]"></textarea>
+              </div>
+              <div class="actions modal-footer">
+                <%= form.submit "Add members", class: 'btn btn-secondary' %>
+              </div>
+            <% end %>
+          </div>
+          <!--<div class="modal-footer">-->
+            <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">close</button>-->
+          <!--</div>-->
+        </div>
+      </div>
+    </div>
+    <% if policy(@group).admin_access? %>
+      <br><br>
+      <div class="d-flex flex-column flex-md-row align-items-center justify-content-md-between">
+        <h3 class="add-member-heading">ASSIGNMENTS</h3>
+        <%= link_to '+ Add new assignment', new_group_assignment_path(@group), class: "add-member" %>
+      </div>
+      <hr>
+    <% end %>
+    <table class="table assignment-table table-borderless">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>DeadLine</th>
+        <th>Grading</th>
+        <th>Actions</th>
+        <% unless policy(@group).admin_access? %>
+          <th>Grade</th>
+        <% end %>
+      </tr>
+      </thead>
+      <tbody>
+        <% @group.assignments.includes(projects: :grade).each do |assignment| %>
+          <tr class="assignment-rows">
+            <td><%= assignment.name %></td>
+            <td><div class="date"><%= assignment.deadline.strftime("%d %b,%Y %I:%M %p %Z") %></div>
+              <% if(assignment.deadline > Time.now) %>
+              <p> <strong>Time remaining: </strong><%= (( assignment.deadline.to_i - Time.now.to_i)/1.day) %> days,  <%= (( assignment.deadline.to_i- Time.now.to_i)/1.hour)%24 %> hours, <%=(( assignment.deadline.to_i- Time.now.to_i)/1.minute)%60%> minutes</p>
+              <% end %>
+            </td>
+            <td> <%= AssignmentDecorator.new(assignment).graded %> </td>
+            <td>
+              <% if policy(@group).admin_access? %>
+                <%= link_to 'Show', group_assignment_path(@group,assignment), class:"assignment-view" %>
+                <% if assignment.status!="closed" %>
+                  <%= link_to 'Edit', edit_group_assignment_path(@group,assignment), class:"assignment-edit-reopen" %>
+                <% else %>
+                  <%= link_to 'Reopen', reopen_group_assignment_path(@group,assignment), class:"assignment-edit-reopen" %>
+                <% end %>
+                <%= link_to 'Destroy', group_assignment_path(@group,assignment),class:"assignment-delete", method: :delete, data: { confirm: 'Are you sure?' } %>
+              <% else %>
+                  <% project_assignment = assignment.projects.find { |p| p.author_id == current_user.id } %>
+                  <% if(assignment.deadline > Time.now) %>
+                      <% if project_assignment.nil? %>
+                          <%= link_to 'Start Working', assignment_start_path(@group,assignment) %>
+                      <% else %>
+                          <%= link_to 'View your work', user_project_path(current_user,project_assignment) %>
+                      <% end %>
+                  <% else %>
+                      <% if project_assignment.nil? %>
+                          Not submitted!
+                      <% else %>
+                          <%= link_to 'View your submission', user_project_path(current_user,project_assignment) %>
+                      <% end %>
+                  <% end %>
+            <% end %>
+            </td>
+            <% unless policy(@group).admin_access? %>
+              <td>
+                <% if policy(assignment).show_grades? && project_assignment.present? %>
+                  <div class="tooltip-help">
+                    <%= ProjectDecorator.new(project_assignment).grade_str %>
+                    <div class="right-help">
+                      <%= ProjectDecorator.new(project_assignment).remarks_str %>
+                      <i> </i>
+                    </div>
+                  </div>
+                <% else %>
+                  N.A.
+                <% end %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <% if policy(@group).admin_access? %>
+    <% end %>
+    <%= link_to 'Back', user_groups_path(current_user) ,class:"group-description-back", style:"background-color: #42b983;" %>
   </div>
   <script>
       $(document).ready(function() {
