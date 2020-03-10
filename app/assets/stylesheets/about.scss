@@ -29,26 +29,26 @@
 .btn-about {
   background-color: $green;
   color: white;
-  transition: all 0.3s ease 0s;
+  transition: all .3s ease 0s;
   margin: 5px;
 }
 
 .btn-about:hover {
   color: white;
   background-color: $teal;
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, .1);
   transform: translateY(-7px);
 }
 
 .contact-container {
-  margin-top: 10px;
   margin-bottom: 30px;
+  margin-top: 10px;
 }
 
 .contact {
   display: inline-block;
   background-color: $gray-100;
-  opacity: 0.89;
+  opacity: .89;
   height: 89px;
   width: 300px;
   margin-top: 15px;
@@ -58,13 +58,15 @@
   padding: 15px;
   cursor: pointer;
   border-radius: 4px;
-  box-shadow: 2px 1px 10px 0px #e1e1e1;
-  transition: all 0.3s ease;
-  border: 1px solid #ddd;
+  box-shadow: 2px 1px 10px 0 $white-shadow;
+  transition: all .3s ease;
+  border: 1px solid $featurepostborder;
+
 }
+
 .contact:hover {
   background-color: $gray-200;
-  box-shadow: 0px 0px 10px 0px rgba(180, 180, 180, 0.15);
+  box-shadow: 0px 0px 10px 0px $lite-shadow;
 }
 
 .contact img {

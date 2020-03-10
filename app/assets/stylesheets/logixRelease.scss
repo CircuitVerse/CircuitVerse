@@ -1,6 +1,6 @@
 .feature {
   border: 1px solid $featurepostborder;
-  border-radius: 0.25em;
+  border-radius: .25em;
   padding: 1.25rem;
 }
 
@@ -150,7 +150,7 @@ a.btn.btn-outline-danger {
 }
 
 .modal-footer-userprojects {
-  border: 0px;
+  border: 0;
 }
 
 .close-modal {
@@ -161,7 +161,7 @@ a.btn.btn-outline-danger {
 .feature-preview {
   border: 2px solid $green;
   padding: 1.25rem;
-  border-radius: 0.25em;
+  border-radius: .25em;
 }
 
 .btn-userprojects {
@@ -171,24 +171,26 @@ a.btn.btn-outline-danger {
 }
 
 .sink-onhover {
-  border: 1px solid #ccc;
-  box-shadow: 2px 1px 10px 0px #e1e1e1;
-  transition: all 0.3s ease;
-  background-color: #fff;
+  background-color: $white;
+  border: 1px solid $featurepostborder;
+  box-shadow: 2px 1px 10px 0 $white-shadow;
+  transition: all .3s ease;
+
 }
 
 .card-contribute {
   display: inline-block;
   width: 300px;
-  border: 0px;
   margin-top: 30px;
   margin-bottom: 30px;
   padding: 25px 5px;
-  border: 0.7px solid #ddd;
+  border: .7px solid $featurepostborder;
+
 }
 .sink-onhover:hover {
-  background-color: #fcfcfc;
-  box-shadow: 0px 0px 10px 0px rgba(180, 180, 180, 0.15);
+  background-color: $white-background;
+  box-shadow:0 0 10px 0 $lite-shadow;
+
 }
 
 .cardimage-contribute {
@@ -203,6 +205,7 @@ a.btn.btn-outline-danger {
 
 .cardbody-contribute > ul {
   text-align: left;
+  
 }
 .contribute-pay-container {
   margin: 15px;
@@ -294,13 +297,13 @@ a.btn.btn-outline-danger {
 .feature-post {
   border: 1.5px solid $featurepostborder;
   margin-bottom: 10px;
-  padding: 0.6rem 0.4rem;
+  padding: .6rem .4rem;
 }
 
 .iframe-box {
   border: 1px solid $iframeborder;
-  border-radius: 0.25rem;
-  padding: 0.4rem;
+  border-radius: .25rem;
+  padding: .4rem;
 }
 
 .container-in {
