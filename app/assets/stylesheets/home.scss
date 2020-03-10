@@ -26,6 +26,8 @@
   border: 2px solid $teal;
   border-radius: 5px;
   margin: 10px;
+  margin-left: 18px;
+  margin-right: 18px;
 
   &:hover {
     box-shadow: 0 7px 7px $shadow-black;
@@ -94,5 +96,6 @@
   .row1 {
     display: flex;
     justify-content: center;
+    margin-bottom: 25px;
 }
 }
