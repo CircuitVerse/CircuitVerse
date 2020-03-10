@@ -51,7 +51,7 @@ function setupElementLists() {
 
 
     function createIcon(element) {
-        return `<div class="icon logixModules" id="${element}" >
+        return `<div class="icon logixModules pointerCursor" id="${element}" >
             <%= image_tag "/img/${element}.svg" , alt: "" %>
             <p class="img__description">${element}</p>
         </div>`;
