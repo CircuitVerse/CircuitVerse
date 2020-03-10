@@ -1,8 +1,9 @@
 @import "theme";
-@import "bootstrap/scss/bootstrap.scss";
+@import "bootstrap/scss/bootstrap";
 @import "commontator/application.css";
 @import 'bootstrap-typeahead-rails';
-@import 'font-awesome/css/font-awesome.min.css';
+@import "font-awesome-sprockets";
+@import "font-awesome";
 @import 'signup';
 @import 'logixRelease';
 @import 'layout';
@@ -14,6 +15,9 @@
 @import 'home';
 @import 'contribute';
 @import 'trumbowyg/dist/ui/trumbowyg.min.css';
+@import 'assignments';
+@import 'trumbowyg/dist/ui/trumbowyg.min';
+
 // #FIXME move these styles
 .alert {
   width: 100%;
