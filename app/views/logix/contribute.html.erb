@@ -11,18 +11,18 @@
         </div>
 
         <div class="row row-about">
-          <div class="col-xs col-sm col-md col-lg">
-            <div class="contact" onclick="window.location.href='mailto:support@circuitverse.org';">
+          <div class="col-xs col-sm col-md col-lg   contact-container">
+            <div class="contact " onclick="window.location.href='mailto:support@circuitverse.org';">
               <img src="/assets/SVGs/email.svg" alt="" height="60px" width="60px">
               <h6>Email us at</h6>
               <p id="tab">support@circuitverse.org</p>
             </div>
-            <div class="contact" onclick="window.location.href='<%= Rails.configuration.slack_url %>';">
+            <div class="contact " onclick="window.location.href='<%= Rails.configuration.slack_url %>';">
               <img src="/assets/SVGs/slack.svg" alt="" height="60px" width="60px">
               <h6>Join and chat with us at</h6>
               <p id="tab">Slack Channel</p>
             </div>
-            <div class="contact" onclick="window.location.href='https://github.com/CircuitVerse';">
+            <div class="contact " onclick="window.location.href='https://github.com/CircuitVerse';">
               <img src="/assets/SVGs/github.svg" alt="" height="60px" width="60px">
               <h6>Contribute to Open Source</h6>
               <p id="tab">Github</p>
@@ -40,7 +40,7 @@
       </div>
           <div class="row row-about">
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-              <div class="card card-contribute">
+              <div class="card card-contribute sink-onhover">
                 <img class="card-img-top cardimage-contribute" src="/assets/SVGs/student.svg" alt="">
                 <div class="card-body cardbody-contribute">
                   <h3 class="card-title" >I am a Student</h3>
@@ -53,7 +53,7 @@
               </div>
             </div>
               <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-                <div class="card card-contribute">
+                <div class="card card-contribute sink-onhover">
                   <img class="card-img-top cardimage-contribute" src="/assets/SVGs/professor.svg" alt="">
                   <div class="card-body cardbody-contribute">
                     <h3 class="card-title" >I am a Teacher</h3>
@@ -66,7 +66,7 @@
                 </div>
               </div>
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-                  <div class="card card-contribute">
+                  <div class="card card-contribute sink-onhover">
                     <img class="card-img-top cardimage-contribute" src="/assets/SVGs/coder.svg" alt="">
                     <div class="card-body cardbody-contribute">
                       <h3 class="card-title" >I am a Developer</h3>
@@ -80,11 +80,11 @@
                 </div>
               </div>
                 <div class="row row-about">
-                  <div class="col-xs col-sm col-md col-lg">
+                  <div class="col-xs col-sm col-md col-lg contribute-pay-container">
                     <div class="contribute-pay">
                       <p>Become a Patreon</p>
                         <a href="https://www.patreon.com/CircuitVerse">
-                          <div class="patreon">
+                          <div class="patreon sink-onhover">
                             <img class="contact-contribute" src="/assets/logos/patreon-logo.png" alt="">
                           </div>
                         </a>
@@ -92,7 +92,7 @@
                     <div class="contribute-pay">
                       <p>Donate through PayPal</p>
                         <a href="https://www.paypal.me/satviksr">
-                          <div class="patreon">
+                          <div class="patreon sink-onhover">
                             <img class="contact-contribute" src="/assets/logos/paypal-logo.jpg" alt="">
                           </div>
                         </a>
