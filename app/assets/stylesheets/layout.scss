@@ -50,6 +50,28 @@
   }
 }
 
+.nav-link-ltr {
+  color: #031D44;
+  display: inline-block;
+  position: relative;
+}
+
+.nav-link-ltr::before {
+  width: 0%;
+  bottom: -2px;
+  left: 0;
+  transition: 300ms;
+  height: 2px;
+  content: "";
+  position: absolute;
+  background-color: $green;
+}
+
+.nav-link-ltr:hover::before {
+  width: 100%;
+  opacity: 1;
+}
+
 .empty-div {
   height: 250px;
 }
@@ -61,7 +83,6 @@
 .footer-social-icon {
   margin-left: 15px;
   width: 32px;
-
 }
 
 .footer-social {
