@@ -30,7 +30,11 @@
 }
 
 .logo {
-  height: 25px;
+  height: 60px;
+}
+
+.logo-bottom {
+  max-height: 80px;
 }
 
 .navbar-light .navbar-nav {
@@ -55,11 +59,14 @@
 }
 
 .footer-social-icon {
+  margin-left: 15px;
   width: 32px;
+
 }
 
 .footer-social {
   margin-bottom: unset;
+  margin-left: 15px;
 }
 
 .copyright {
@@ -69,7 +76,15 @@
 }
 
 .favblank {
-  left: 40%;
-  position: absolute;
-  top: 35%;
+  align-items: center;
+  display: flex;
+  height: 300px;
+  justify-content: center;
+}
+
+.dropdown-item {
+  &:hover {
+    background-color: $green;
+    color: $white;
+  }
 }
