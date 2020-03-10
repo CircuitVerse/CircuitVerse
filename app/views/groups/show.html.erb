@@ -86,6 +86,11 @@
           <br>
           <br>
       <%end%>
+      <% if @group.assignments.blank? %>
+       <div class="container h5 text-center">
+         You haven't added any assignments yet!
+       </div>
+      <% else %>
       <table class="table assignment-table">
         <thead>
         <tr>
@@ -98,11 +103,6 @@
           <% end %>
         </tr>
         </thead>
-       <% if @group.assignments.blank? %>
-       <div class="container h5 text-center">
-         You haven't added any assignments yet!
-       </div>
-       <% else %>
         <tbody>
         <tbody>
         <% @group.assignments.includes(projects: :grade).each do |assignment| %>
