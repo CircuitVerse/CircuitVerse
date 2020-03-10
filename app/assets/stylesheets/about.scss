@@ -53,7 +53,13 @@
   margin-top: 50px;
   opacity: .89;
   padding: 15px;
-  width: 300px;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease-in;
+}
+
+.contact:hover {
+ box-shadow: 0 7px 7px $shadow-black;
+}
 
   img {
     float: left;

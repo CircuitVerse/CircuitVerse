@@ -1,6 +1,6 @@
 // scss-lint:disable VendorPrefix, IdSelector, QualifyingElement
 .feature {
-  border: 1px solid $feature-border;
+  border: 1px solid $featurepostborder;
   border-radius: .25em;
   padding: 1.25rem;
 }
@@ -17,7 +17,11 @@
   justify-content: center;
 }
 
+<<<<<<< HEAD
 .no-select {
+=======
+.noSelect {
+>>>>>>> 95c7202f60c7a03bcf02d396e9bae0d43f00dbdb
   -moz-user-select: none;
   -ms-user-select: none;
   -o-user-select: none;
@@ -25,6 +29,7 @@
   user-select: none;
 }
 
+<<<<<<< HEAD
 .pointer-cursor {
   cursor: pointer;
 }
@@ -44,18 +49,30 @@
 
 #assignment-grade-remarks {
   flex: 1;
+=======
+.pointerCursor {
+  cursor: pointer;
+}
+
+.defaultCursor {
+  cursor: default;
+>>>>>>> 95c7202f60c7a03bcf02d396e9bae0d43f00dbdb
 }
 
 .error {
   color: $red;
+<<<<<<< HEAD
 }
 
 .grade-container {
   margin-top: 10px;
+=======
+>>>>>>> 95c7202f60c7a03bcf02d396e9bae0d43f00dbdb
 }
 
 .bold {
   font-weight: 600;
+<<<<<<< HEAD
 }
 
 .grade-show-container {
@@ -70,6 +87,8 @@
 .assignment-grade-inputs {
   display: flex;
   width: 100%;
+=======
+>>>>>>> 95c7202f60c7a03bcf02d396e9bae0d43f00dbdb
 }
 
 a.btn.btn-outline-primary {
@@ -80,9 +99,15 @@ a.btn.btn-outline-danger {
   margin-top: 10px;
 }
 
+<<<<<<< HEAD
 #error-explanation {
   background: $error-explanation-bg;
   border: 1px solid $error-explanation-border;
+=======
+#error_explanation {
+  background: #f0f0f0;
+  border: 1px solid #86181d;
+>>>>>>> 95c7202f60c7a03bcf02d396e9bae0d43f00dbdb
   color: $red;
   padding: 4px;
 
@@ -101,6 +126,7 @@ a.btn.btn-outline-danger {
     padding: 0;
   }
 
+<<<<<<< HEAD
   .pagination {
     display: block;
     max-width: none;
@@ -114,6 +140,14 @@ a.btn.btn-outline-danger {
     margin: 0;
     margin-left: -4px;
   }
+=======
+a.btn.btn-outline-primary {
+  margin-top: 10px;
+}
+
+a.btn.btn-outline-danger {
+  margin-top: 10px;
+>>>>>>> 95c7202f60c7a03bcf02d396e9bae0d43f00dbdb
 }
 
 // New UI
@@ -174,7 +208,11 @@ a.btn.btn-outline-danger {
 }
 
 .modal-footer-userprojects {
+<<<<<<< HEAD
   border: 0;
+=======
+  border: 0px;
+>>>>>>> 95c7202f60c7a03bcf02d396e9bae0d43f00dbdb
 }
 
 .close-modal {
@@ -188,14 +226,21 @@ a.btn.btn-outline-danger {
   padding: 1.25rem;
 }
 
+<<<<<<< HEAD
 .btn-userprojectsm {
+=======
+.btn-userprojects {
+>>>>>>> 95c7202f60c7a03bcf02d396e9bae0d43f00dbdb
   background-color: $green;
   color: $white;
   margin: 2px;
 }
 
 .card-contribute {
+<<<<<<< HEAD
   border: 0;
+=======
+>>>>>>> 95c7202f60c7a03bcf02d396e9bae0d43f00dbdb
   display: inline-block;
   margin-bottom: 30px;
   margin-top: 30px;
@@ -203,6 +248,10 @@ a.btn.btn-outline-danger {
 }
 
 .cardimage-contribute {
+<<<<<<< HEAD
+=======
+  width: 150px;
+>>>>>>> 95c7202f60c7a03bcf02d396e9bae0d43f00dbdb
   height: 150px;
   width: 150px;
 }
@@ -225,9 +274,14 @@ a.btn.btn-outline-danger {
   text-align: center;
   width: 200px;
 
+<<<<<<< HEAD
   p {
     font-weight: 550;
   }
+=======
+.contribute-pay > p {
+  font-weight: 550;
+>>>>>>> 95c7202f60c7a03bcf02d396e9bae0d43f00dbdb
 }
 
 .patreon {
@@ -236,10 +290,16 @@ a.btn.btn-outline-danger {
   box-shadow: 3px 3px 6px $shadow-black;
   padding: 4px;
 
+<<<<<<< HEAD
   img {
     height: 70px;
     width: 160px;
   }
+=======
+.patreon > img {
+  width: 160px;
+  height: 70px;
+>>>>>>> 95c7202f60c7a03bcf02d396e9bae0d43f00dbdb
 }
 
 #teacher-heading {
@@ -268,14 +328,22 @@ a.btn.btn-outline-danger {
   align-items: center;
 }
 
+<<<<<<< HEAD
 .image-teachers {
+=======
+.image_teachers {
+>>>>>>> 95c7202f60c7a03bcf02d396e9bae0d43f00dbdb
   border: 1px solid $slight-gray;
   margin-left: 20px;
   max-height: 100%;
   max-width: 100%;
 }
 
+<<<<<<< HEAD
 .subheading-teachers {
+=======
+.subheading_teachers {
+>>>>>>> 95c7202f60c7a03bcf02d396e9bae0d43f00dbdb
   text-align: left;
 }
 
@@ -298,4 +366,47 @@ a.btn.btn-outline-danger {
 .underline {
   display: inline-block;
   text-decoration: underline;
+}
+
+.feature-post {
+  border: 1.5px solid $featurepostborder;
+  margin-bottom: 10px;
+  padding: .6rem .4rem;
+}
+
+.iframe-box {
+  border: 1px solid $iframeborder;
+  border-radius: .25rem;
+  padding: .4rem;
+}
+
+.container-in {
+  padding-top: 50px;
+}
+
+.card-body-post {
+  border: 0;
+  padding: 25px;
+  text-decoration: none;
+}
+
+.btn-post {
+  font-size: 13px;
+  height: 28px;
+  margin: 5px 5px 5px 0;
+}
+
+.fa-post {
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: 13px;
+}
+
+a {
+  color: $link-color;
+}
+
+.btnself-post {
+  background-color: $white;
+  border: 1.5px solid $button-border-color;
+  color: $black;
 }

@@ -46,6 +46,12 @@
   padding-top: 10px;
 }
 
+.social-links {
+  &:hover {
+    opacity: .7;
+  }
+}
+
 .link-text {
   color: $green;
   font-weight: 600;
