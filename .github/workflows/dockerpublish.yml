@@ -13,6 +13,6 @@ jobs:
 
       - name: Run docker compose
         run: |
-          docker-compose up
+          docker-compose up --build
 
  
