@@ -19,13 +19,13 @@
             <div class="group-member-count"> Total Members: <%= group.group_member_count %></div>
             <div class="btn-mentor-group">
               <%= link_to group, class: "btn-card btn-view" do %>
-                <%= image_tag("/assets/SVGs/view.svg", alt: "View", height: "15", width: "15", hspace: "2") %> View
+                <%= image_tag("SVGs/view.svg", alt: "View", height: "15", width: "15", hspace: "2") %> View
               <% end %>
               <%= link_to edit_group_path(group), class: "btn-card btn-edit" do %>
-                <%= image_tag("/assets/SVGs/edit.svg", alt: "Edit", height: "15", width: "15", hspace: "2") %> Edit
+                <%= image_tag("SVGs/edit.svg", alt: "Edit", height: "15", width: "15", hspace: "2") %> Edit
               <% end %>
               <%= link_to group, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn-card btn-delete" do %>
-                <%= image_tag("/assets/SVGs/delete.svg", alt: "Delete", height: "15", width: "15", hspace: "2") %> Delete
+                <%= image_tag("SVGs/delete.svg", alt: "Delete", height: "15", width: "15", hspace: "2") %> Delete
               <% end %>
             </div>
           </div>
