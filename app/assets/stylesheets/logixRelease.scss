@@ -169,3 +169,104 @@ a.btn.btn-outline-danger {
   color: $white;
   margin: 2px;
 }
+
+#teacher_heading {
+  margin-bottom: 35px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 768px;
+}
+
+#teacher_benefit {
+  margin-bottom: 20px;
+}
+
+.container-fluid_teachers{
+  padding-bottom: 40px;
+  padding-top: 40px;
+}
+
+.container-fluid_teachersbackground{
+  background-color: $gray-100;
+  padding-bottom: 40px;
+  padding-top: 40px;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.image_teachers {
+  border: 1px solid $slight-gray;
+  margin-left: 20px;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.subheading_teachers {
+  text-align: left;
+}
+
+.name-group {
+  font-size: 1.2rem;
+  font-weight: 500;
+  height: 100%;
+  margin-right: 12px;
+  margin-top: 10px;
+  width: 220px;
+}
+
+.edit-name {
+  font-size: 2rem;
+  font-weight: 500;
+  padding-bottom: 20px;
+  padding-top: 50px;
+}
+
+.underline {
+  display: inline-block;
+  text-decoration: underline;
+}
+
+.feature-post {
+  border: 1.5px solid $featurepostborder;
+  margin-bottom: 10px;
+  padding: .6rem .4rem;
+}
+
+.iframe-box {
+  border: 1px solid $iframeborder;
+  border-radius: .25rem;
+  padding: .4rem;
+}
+
+.container-in {
+  padding-top: 50px;
+}
+
+.card-body-post {
+  border: 0;
+  padding: 25px;
+  text-decoration: none;
+}
+
+.btn-post {
+  font-size: 13px;
+  height: 28px;
+  margin: 5px 5px 5px 0;
+}
+
+.fa-post {
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: 13px;
+}
+
+a {
+  color: $link-color;
+}
+
+.btnself-post {
+  background-color: $white;
+  border: 1.5px solid $button-border-color;
+  color: $black;
+}
