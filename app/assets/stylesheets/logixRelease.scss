@@ -243,6 +243,7 @@ a.btn.btn-outline-danger {
   padding: 4px;
   box-shadow: 3px 3px 6px $shadow-black;
   transition: box-shadow .2s ease-in;
+  
   &:hover {
     box-shadow: 0px 9px 9px $shadow-black;
   }
