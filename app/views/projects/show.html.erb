@@ -95,28 +95,28 @@
             <hr>
             <% if policy(@project).user_access? %>
               <% if @project.author_id == current_user&.id %>
-                <%= link_to ' Edit', edit_user_project_path(@author, @project), class: "fa-pencil btn btn-primary btn-post fa-post card-link btnself-post", style: "margin:0px;" %>
+                <%= link_to ' Edit', edit_user_project_path(@author, @project), class: "fa fa-pencil btn btn-primary btn-post fa-post card-link btnself-post", style: "margin:0px;" %>
                 <% if policy(@project).author_access? %>
-                  <%= link_to ' Delete',user_project_path(@author,@project), method: :delete, data: { confirm: 'Are you sure?' }, class: "fa-trash card-link btn btn-primary btn-post fa-post btnself-post" , style: "margin:0px;" %>
+                  <%= link_to ' Delete',user_project_path(@author,@project), method: :delete, data: { confirm: 'Are you sure?' }, class: "fa fa-trash card-link btn btn-primary btn-post fa-post btnself-post" , style: "margin:0px;" %>
                 <% end %>
               <% else %>
-                <%= link_to ' Edit', edit_user_project_path(@author, @project), class: "fa-pencil btn btn-primary btn-post fa-post card-link", style: "margin:0px;" %>
+                <%= link_to ' Edit', edit_user_project_path(@author, @project), class: "fa fa-pencil btn btn-primary btn-post fa-post card-link", style: "margin:0px;" %>
                 <% if policy(@project).author_access? %>
-                  <%= link_to ' Delete',user_project_path(@author,@project), method: :delete, data: { confirm: 'Are you sure?' }, class: "fa-trash card-link btn btn-primary btn-post fa-post" , style: "margin:0px;" %>
+                  <%= link_to ' Delete',user_project_path(@author,@project), method: :delete, data: { confirm: 'Are you sure?' }, class: "fa fa-trash card-link btn btn-primary btn-post fa-post" , style: "margin:0px;" %>
                 <% end %>
               <% end %>
             <% end %>
           <% if @project.author_id != current_user&.id %>
-            <%= link_to ' Fork', create_fork_project_path(@project), class: "card-link btn btn-primary btn-post fa-post fa-code-fork" , style: "margin:0px;" %>
+            <%= link_to ' Fork', create_fork_project_path(@project), class: "card-link btn btn-primary btn-post fa-post fa fa-code-fork" , style: "margin:0px;" %>
           <% end %>
           <% if @project.project_access_type != "Private" %>
             <% if @project.author_id != current_user&.id %>
-            <a class="btn btn-primary btn-post fa-post" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" onclick="embed()">
-            <span class="btn-post fa-post fa-code" style="margin:0px;"></span> Embed
+            <a class="fa fa-code btn btn-primary btn-post fa-post" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" onclick="embed()">
+            Embed
             </a>
           <% else %>
-            <a class="btn btn-primary btn-post fa-post btnself-post" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" onclick="embed()">
-            <span class="btn-post fa-post fa-code" style="margin:0px;"></span> Embed
+            <a class="fa fa-code btn btn-primary btn-post fa-post btnself-post" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" onclick="embed()">
+             Embed
             </a>
           <% end %>
           <%= link_to 'Back', user_path(@author), class: "btn underline text-success", style: "margin:0px;" %>
