@@ -1,6 +1,6 @@
 .feature {
   border: 1px solid $featurepostborder;
-  border-radius: 0.25em;
+  border-radius: .25em;
   padding: 1.25rem;
 }
 
@@ -151,7 +151,7 @@ a.btn.btn-outline-danger {
 .feature-preview {
   border: 2px solid $green;
   padding: 1.25rem;
-  border-radius: 0.25em;
+  border-radius: .25em;
 }
 
 .btn-userprojects {
@@ -269,13 +269,13 @@ a.btn.btn-outline-danger {
 .feature-post {
   border: 1.5px solid $featurepostborder;
   margin-bottom: 10px;
-  padding: 0.6rem 0.4rem;
+  padding: .6rem .4rem;
 }
 
 .iframe-box {
   border: 1px solid $iframeborder;
-  border-radius: 0.25rem;
-  padding: 0.4rem;
+  border-radius: .25rem;
+  padding: .4rem;
 }
 
 .container-in {
