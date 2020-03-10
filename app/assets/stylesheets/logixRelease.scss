@@ -173,9 +173,10 @@ a.btn.btn-outline-danger {
 .card-contribute {
   display: inline-block;
   width: 300px;
-  border: 0px;
   margin-top: 30px;
   margin-bottom: 30px;
+  border: .8px solid $featurepostborder;
+  padding: 20px 0;
 }
 
 .cardimage-contribute {
