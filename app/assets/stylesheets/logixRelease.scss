@@ -232,12 +232,10 @@ a.btn.btn-outline-danger {
 .container-fluid_teachers{
   padding-bottom: 40px;
   padding-top: 40px;
+  border-bottom: 1px solid $featurepostborder;
 }
-
-.container-fluid_teachersbackground{
+.container-fluid_teachers:nth-child(even){
   background-color: $gray-100;
-  padding-bottom: 40px;
-  padding-top: 40px;
 }
 
 .align-center {
