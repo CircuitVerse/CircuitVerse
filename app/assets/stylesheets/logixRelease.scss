@@ -318,3 +318,15 @@ a {
   border: 1.5px solid $button-border-color;
   color: $black;
 }
+
+.sink-onhover {
+  background-color: $white;
+  border: .8px solid #f1f1f1;
+  box-shadow: 2px 1px 10px 0 $white-shadow;
+  transition: all .3s ease;
+}
+
+.sink-onhover:hover {
+  background-color: #fafafa;
+  box-shadow: 0 0 10px 0 rgba(180, 180, 180, .15);
+}	
