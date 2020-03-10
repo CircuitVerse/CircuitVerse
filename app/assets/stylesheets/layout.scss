@@ -14,10 +14,9 @@
   display: none;
 }
 
-.noprojects {
-  left: 30%;
-  position: absolute;
-  top: 30%;
+.no-projects {
+  padding-top: 50px;
+  text-align: center;
 }
 
 .simulator {
@@ -61,7 +60,6 @@
 .footer-social-icon {
   margin-left: 15px;
   width: 32px;
-
 }
 
 .footer-social {
