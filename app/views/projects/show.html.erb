@@ -119,7 +119,6 @@
              Embed
             </a>
           <% end %>
-          <%= link_to 'Back', user_path(@author), class: "btn underline text-success", style: "margin:0px;" %>
           <div class="collapse" id="collapseExample">
             <div class="card card-body">
               <textarea id="embedTextArea" style="font-size:12px"><iframe width="600px" height="400px" src="<%= simulator_embed_url(@project) %>" id="projectPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen></iframe></textarea>
@@ -131,9 +130,10 @@
           <% if user_signed_in? %>
             <i id="toggleStarButton" class="fa fa-star-o btn btn-primary fa-post btn-post noSelect" aria-hidden="true" style="font-size:13px;margin:0px;" style=<%= Star.find_by(user_id: current_user.id, project_id: @project.id).nil? ? "color:white" : "color:orange" %> onclick="toggleStar()"></i>
           <% else %>
-            <i class="fa-star-o btn btn-primary fa-post btn-post noSelect" aria-hidden="true"></i>
+            <i class="fa fa-star-o btn btn-primary fa-post btn-post noSelect" aria-hidden="true"></i>
           <% end %>
         <% end %>
+        <%= link_to 'Back', user_path(@author), class: "btn underline text-success", style: "margin:0px;" %>
         </div>
       </div>
     </div>
