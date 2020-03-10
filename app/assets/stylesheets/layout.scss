@@ -89,8 +89,8 @@
   }
 }
 
-.button {
-  border: 2px solid #42b983;
+.simulatorButton {
+  border: 2px solid $green;
   box-sizing: border-box;
   cursor: pointer;
   float: left;
@@ -99,11 +99,11 @@
   overflow: hidden;
   position: relative;
   text-align: center;
-  width: 120px;  
+  width: 120px;
 }
 
-.button a {
-  color: #343a40;
+.simulatorButton a {
+  color: $primary;
   display: block;
   font-family: arial;
   font-size: 16px;
@@ -116,7 +116,7 @@
 }
 
 .effect {
-  background: #42b983;
+  background: $green;
   height: 50px;
   left: -140px;
   position: absolute;
@@ -125,10 +125,10 @@
   z-index: 1;
 }
 
-.button:hover .effect {
+.simulatorButton:hover .effect {
   left: 0;
 }
 
-.button:hover a {
-  color: #fff;
+.simulatorButton:hover a {
+  color: $white;
 }
