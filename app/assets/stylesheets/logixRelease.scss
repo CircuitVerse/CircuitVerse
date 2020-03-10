@@ -175,7 +175,6 @@ a.btn.btn-outline-danger {
   border: 1px solid $featurepostborder;
   box-shadow: 2px 1px 10px 0 $white-shadow;
   transition: all .3s ease;
-
 }
 
 .card-contribute {
@@ -185,12 +184,11 @@ a.btn.btn-outline-danger {
   margin-bottom: 30px;
   padding: 25px 5px;
   border: .7px solid $featurepostborder;
-
 }
+
 .sink-onhover:hover {
   background-color: $white-background;
-  box-shadow:0 0 10px 0 $lite-shadow;
-
+  box-shadow: 0 0 10px 0 $lite-shadow;
 }
 
 .cardimage-contribute {
@@ -199,14 +197,14 @@ a.btn.btn-outline-danger {
 }
 
 .cardbody-contribute > h3 {
-  text-align: center;
   margin-bottom: 25px;
+  text-align: center;
 }
 
 .cardbody-contribute > ul {
   text-align: left;
-  
 }
+
 .contribute-pay-container {
   margin: 15px;
 }
