@@ -69,7 +69,7 @@ function setupElementLists() {
         }
 
         let accordionData = `<div class="panelHeader">${category}</div>
-            <div class="panel" style="overflow-y:hidden">
+            <div class="panel" style="overflow-y:hidden;">
               ${htmlIcons}
             </div>`;
 
