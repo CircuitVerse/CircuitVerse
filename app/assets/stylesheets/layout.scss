@@ -90,38 +90,38 @@
 }
 
 .button {
-  width: 120px;
-  height: 50px;
   border: 2px solid #42b983;
-  float: left;
-  text-align: center;
-  cursor: pointer;
-  position: relative;
   box-sizing: border-box;
-  overflow: hidden;
+  cursor: pointer;
+  float: left;
+  height: 50px;
   margin: 0;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  width: 120px;  
 }
 
 .button a {
+  color: #343a40;
   display: block;
-  font-family:arial;
+  font-family: arial;
   font-size: 16px;
   font-weight: 600;
-  color:#343a40;
-  text-decoration: none;
   line-height: 50px;
-  transition: all 0.5s ease;
-  z-index: 2;
   position: relative;
+  text-decoration: none;
+  transition: all .5s ease;
+  z-index: 2;
 }
 
 .effect {
-  width: 140px;
+  background: #42b983;
   height: 50px;
   left: -140px;
-  background:#42b983;
   position: absolute;
-  transition: all 0.5s ease;
+  transition: all .5s ease;
+  width: 140px;
   z-index: 1;
 }
 
@@ -130,5 +130,5 @@
 }
 
 .button:hover a {
-  color:#fff;
+  color: #fff;
 }
