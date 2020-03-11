@@ -5,7 +5,7 @@
 function newCircuit(name, id) {
     if(name != "Main"){
     $('#newcircuitcreate').empty();
-    $('#newcircuitcreate').append("<p>Enter Circuit Name: <input id='newname' type='text'></p>");
+    $('#newcircuitcreate').append("<label id='newname' class='text-secondary'> Enter Circuit Name: </label> <input id='newname' type='text'>");
     $('#newcircuitcreate').dialog({
         width: "auto",
         buttons: [
