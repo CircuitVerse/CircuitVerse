@@ -96,6 +96,7 @@
   float: left;
   height: 36px;
   margin: 0;
+  margin-top: 2px;
   overflow: hidden;
   position: relative;
   text-align: center;
@@ -104,11 +105,11 @@
   a {
     color: $primary;
     display: block;
-    font-family: arial;
     font-size: 16px;
     font-weight: 600;
-    line-height: 36px;
+    line-height: 32px;
     position: relative;
+    padding-bottom: 2px;
     text-decoration: none;
     transition: all .5s ease;
     z-index: 2;
@@ -117,11 +118,11 @@
 
 .effect {
   background: $green;
-  height: 50px;
+  height: 36px;
   left: -140px;
   position: absolute;
   transition: all .5s ease;
-  width: 140px;
+  width: 94px;
   z-index: 1;
 }
 
