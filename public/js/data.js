@@ -1,14 +1,46 @@
 // Function to create new circuit
 // Function creates button in tab, creates scope and switches to this circuit
+
+
 function newCircuit(name, id) {
-    name = name || prompt("Enter circuit name:");
+    if(name!="Main"){
+    $('#newcircuitcreate').empty();
+    $('#newcircuitcreate').append("<p>Enter Circuit Name: <input id='newname' type='text'></p>");
+    $('#newcircuitcreate').dialog({
+        width: "auto",
+        buttons: [
+            {
+                text: "Create",
+                click: function () {
+                    name = $("#newname").val();
+                    $(this).dialog("close");
+                    name = stripTags(name);
+                    if (!name) return;
+                    var scope = new Scope(name);
+                    if (id) scope.id = id;
+                    scopeList[scope.id] = scope;
+                    globalScope = scope;
+
+                    $('.circuits').removeClass("current");
+                    $('#tabsBar').append("<div class='circuits toolbarButton current' id='" + scope.id + "'>" + name + "</div>");
+                    $('.circuits').click(function () {
+                        switchCircuit(this.id)
+                    });
+                    if (!embed) {
+                        showProperties(scope.root);
+                    }
+                    dots(true, false);
+                    return scope;
+                },
+            }
+        ]
+    });} else {
     name = stripTags(name);
     if (!name) return;
     var scope = new Scope(name);
     if (id) scope.id = id;
     scopeList[scope.id] = scope;
     globalScope = scope;
-
     $('.circuits').removeClass("current");
     $('#tabsBar').append("<div class='circuits toolbarButton current' id='" + scope.id + "'>" + name + "</div>");
     $('.circuits').click(function() {
@@ -21,6 +53,7 @@ function newCircuit(name, id) {
     dots(true, false);
 
     return scope;
+}
 }
 
 
