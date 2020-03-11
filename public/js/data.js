@@ -25,6 +25,9 @@ function newCircuit(name, id) {
 
 
 function changeCircuitName(name, id = globalScope.id) {
+      if(name == "") {
+        name = "Empty";
+      }
     name = stripTags(name);
     $('#' + id).html(name);
     scopeList[id].name = name;
