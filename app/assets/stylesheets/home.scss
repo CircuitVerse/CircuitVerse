@@ -28,14 +28,18 @@
   border-radius: 5px;
   margin: 10px;
   transition: all ease .4s;
+  
   &:hover {
     box-shadow: 0 7px 7px $shadow-black;
   }
+  
 }
-.btn-homepage2:hover{
+
+.btn-homepage2:hover {
   background-color: $teal;
-  color:$white
+  color: $white;
 }
+
 .row-homepage-middle {
   margin-left: auto;
   margin-right: auto;
