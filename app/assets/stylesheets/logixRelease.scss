@@ -229,12 +229,13 @@ a.btn.btn-outline-danger {
   margin-bottom: 20px;
 }
 
-.container-fluid_teachers{
+.container-fluid_teachers {
   padding-bottom: 40px;
-  padding-top: 40px;
   border-bottom: 1px solid $featurepostborder;
+  padding-top: 40px;
 }
-.container-fluid_teachers:nth-child(even){
+
+.container-fluid_teachers:nth-child(even) {
   background-color: $gray-100;
 }
 
