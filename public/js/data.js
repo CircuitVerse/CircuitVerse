@@ -3,7 +3,7 @@
 
 
 function newCircuit(name, id) {
-    if(name!="Main"){
+    if(name != "Main"){
     $('#newcircuitcreate').empty();
     $('#newcircuitcreate').append("<p>Enter Circuit Name: <input id='newname' type='text'></p>");
     $('#newcircuitcreate').dialog({
@@ -20,7 +20,6 @@ function newCircuit(name, id) {
                     if (id) scope.id = id;
                     scopeList[scope.id] = scope;
                     globalScope = scope;
-
                     $('.circuits').removeClass("current");
                     $('#tabsBar').append("<div class='circuits toolbarButton current' id='" + scope.id + "'>" + name + "</div>");
                     $('.circuits').click(function () {
@@ -34,7 +33,8 @@ function newCircuit(name, id) {
                 },
             }
         ]
-    });} else {
+    });
+    } else {
     name = stripTags(name);
     if (!name) return;
     var scope = new Scope(name);
@@ -53,7 +53,7 @@ function newCircuit(name, id) {
     dots(true, false);
 
     return scope;
-}
+    }
 }
 
 
