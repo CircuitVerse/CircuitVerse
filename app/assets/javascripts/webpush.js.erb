@@ -1,12 +1,12 @@
 function subscribe() {
-  const vapidPublicKey = new Uint8Array(<%= Base64.urlsafe_decode64(Rails.application.config.vapid_public_key).bytes %>);
-  navigator.serviceWorker.ready.then(registration => {
+  var vapidPublicKey = new Uint8Array(<%= Base64.urlsafe_decode64(Rails.application.config.vapid_public_key).bytes %>);
+  navigator.serviceWorker.ready.then(function (registration) {
     registration.pushManager
       .subscribe({
         userVisibleOnly: true,
         applicationServerKey: vapidPublicKey
-      }).then(sub => {
-        const subscription = sub.toJSON()
+      }).then(function (sub) {
+        var subscription = sub.toJSON()
         $.post("/push/subscription/new", {
           push_subscription: {
             endpoint: subscription.endpoint,

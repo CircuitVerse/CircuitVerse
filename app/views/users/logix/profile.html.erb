@@ -19,7 +19,7 @@
           <p><strong>Country: </strong><%= @profile.country_name %></p>
           <p><strong>Subscribed to mails: </strong><%= @profile.mail_subscription %></p>
           <% if policy(@user).edit? %>
-            <a class="btn btn-about" href=<%= profile_edit_path(current_user) %> role="button">Edit Details</a>
+            <a class="btn btn-about mx-0 my-2" href=<%= profile_edit_path(current_user) %> role="button">Edit Details</a>
           <% end %>
         </div>
         </div>
