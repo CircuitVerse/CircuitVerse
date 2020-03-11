@@ -82,7 +82,6 @@ function clearProject() {
 function newProject(verify) {
 
     if (verify || projectSaved || !checkToSave() || confirm("What you like to start a new project? Any unsaved changes will be lost.")) {
-        clearProject();
         localStorage.removeItem("recover");
         window.location = "/simulator";
 
