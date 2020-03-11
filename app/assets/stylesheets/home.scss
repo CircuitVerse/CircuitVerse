@@ -41,52 +41,58 @@
 }
 
 .card-homepage {
+  border-top: 3px solid;
   display: inline-block;
   margin-bottom: 30px;
   margin-top: 30px;
   max-width: 350px;
   min-height: 344px;
   padding: 10px 5px;
-  border-top: 3px solid;
 }
 
-.card-homepage-export{
-  border-top-color: #2c768f;
-}
-.card-homepage-export:hover{
-  color: white;
-  background-color:#2c768f;
+.card-homepage-export {
+  border-top-color: $f-cyan;
 }
 
-.card-homepage-combinational{
-  border-top-color:  #2c8f76 ;
-}
-.card-homepage-combinational:hover{
-  color:white;
-  background-color:#2c8f76 ;
+.card-homepage-export:hover {
+  color: $white;
+  background-color: $f-cyan;
 }
 
+.card-homepage-combinational {
+  border-top-color: $f-teal;
+}
 
-.card-homepage-Embed{
-  border-top-color:  #56565a ;
+.card-homepage-combinational:hover {
+  color:$white;
+  background-color: $f-teal;
 }
-.card-homepage-Embed:hover{
-  color:white;
-  background-color: #56565a;
+
+.card-homepage-Embed {
+  border-top-color: $f-gray;
 }
-.card-homepage-subCircuit{
-  border-top-color: #221186;
+
+.card-homepage-Embed:hover {
+  color:$white;
+  background-color: $f-gray;
 }
-.card-homepage-subCircuit:hover{
-  color:white;
-  background-color: #221186;
+
+.card-homepage-subCircuit {
+  border-top-color: $f-blue;
 }
-.card-homepage-buses{
-  border-top-color: #a50000;
+
+.card-homepage-subCircuit:hover {
+  color:$white;
+  background-color: $f-blue;
 }
-.card-homepage-buses:hover{
-  color:white;
-  background-color: #a50000;
+
+.card-homepage-buses {
+  border-top-color: $f-red;
+}
+
+.card-homepage-buses:hover {
+  color:$white;
+  background-color: $f-red;
 }
 
 .card-homepage-example {
