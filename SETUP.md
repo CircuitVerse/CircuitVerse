@@ -119,8 +119,8 @@ Before making a pull request, it is a good idea to check that all tests are pass
 
 
 ## Configuring Third Party Services
-Following these instructions if you would like to link `Google`, `Facebook` or `GitHub` to your CircuitVerse instance:
-1. First create a Google, Facebook or Github app by follow this [wiki](https://github.com/CircuitVerse/CircuitVerse/wiki/Create-Apps).
+Follow these instructions if you would like to link `Google`, `Facebook` or `GitHub` to your CircuitVerse instance:
+1. First create a Google, Facebook or Github app by following this [wiki](https://github.com/CircuitVerse/CircuitVerse/wiki/Create-Apps).
 2. Make the following changes in your Google, Facebook or Github app:
    1.  Update the `site url` field with the URL of your instance, and update the `callback url` field with `<url>/users/auth/google`, `<url>/users/auth/facebook` or `<url>/users/auth/github` respectively.
 3. Configure your `id` and `secret` environment variables in `.env`. If `.env` does not exist, copy the template from `.env.example`.
