@@ -90,3 +90,18 @@
   max-height: 700px;
   max-width: 100%;
 }
+
+@media (max-width:765px) {
+  .button-homepage {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+  }
+}
+
+@media (max-width:765px) {
+  .btn-homepage2 {
+    margin-left: 18px;
+    margin-right: 18px;
+  }
+}

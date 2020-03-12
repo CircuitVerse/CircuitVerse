@@ -99,3 +99,19 @@
   opacity: 1;
   color: white;
 }
+
+@media (max-width:350px) {
+  .about-card-image {
+    display: none;
+  }
+
+  .contact {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    width: 230px;
+  }
+
+  .card-about {
+    margin: 30px 8px;
+  }
+}
