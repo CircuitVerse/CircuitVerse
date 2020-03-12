@@ -18,7 +18,7 @@
       <br>
       <br>
       <h3>Members </h3>
-      <button type="button" class="float-sm-left float-md-right float-lg-right float-xl-right add-member text-white" data-toggle="modal" data-target="#myModal">Add member</button>
+      <button type="button" class="float-sm-left float-md-right float-lg-right float-xl-right add-member text-white btn-about" data-toggle="modal" data-target="#myModal">Add member</button>
       <br><br><br>
       <% if @group.users.blank? %>
       <div class="container h5 text-center">
@@ -81,11 +81,16 @@
             <br>
             <br>
             <h3>Assignment</h3>
-            <%= link_to 'Add new assignment', new_group_assignment_path(@group), class: " float-sm-left float-md-right float-lg-right float-xl-right add-member text-white" %>
+            <%= link_to 'Add new assignment', new_group_assignment_path(@group), class: " float-sm-left float-md-right float-lg-right float-xl-right add-member text-white btn-about" %>
           <br>
           <br>
           <br>
       <%end%>
+      <% if @group.assignments.blank? %>
+       <div class="container h5 text-center">
+         You haven't added any assignments yet!
+       </div>
+      <% else %>
       <table class="table assignment-table">
         <thead>
         <tr>
@@ -98,11 +103,6 @@
           <% end %>
         </tr>
         </thead>
-       <% if @group.assignments.blank? %>
-       <div class="container h5 text-center">
-         You haven't added any assignments yet!
-       </div>
-       <% else %>
         <tbody>
         <tbody>
         <% @group.assignments.includes(projects: :grade).each do |assignment| %>
@@ -162,7 +162,7 @@
     <% end %>
       <% if policy(@group).admin_access? %>
       <% end %>
-      <%= link_to 'Back', user_groups_path(current_user) ,class:"group-discription-back", style:"background-color: #42b983;" %>
+      <%= link_to 'Back', user_groups_path(current_user) ,class:"group-discription-back btn-about" %>
     </div>
   </div>
   <br />
