@@ -521,15 +521,12 @@ function saveonlinedialogbox(name) {
                         afterdialogboxsave("Untitled");
                     }
                 },
+                
             },
         ],
         close: function() {
             $(this).dialog("close");
-            if(name == "") {
-                afterdialogboxsave("Untitled");
-            } else {
-                afterdialogboxsave(name);
-            }
+            $('.loadingIcon').fadeOut();
         }
     });
 }
