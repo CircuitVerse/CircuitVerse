@@ -384,131 +384,12 @@ function deleteCurrentCircuit() {
         showMessage("Circuit was not deleted")
 }
 
-function saveonlinedialogbox() {
-    $('#saveonline').empty();
-    $('#saveonline').append("<p>Enter Project Name: <input id='projectname' type='text'></p>");
-    $('#saveonline').dialog({
-        width: "auto",
-        buttons: [
-            {
-                text: "Create",
-                click: function () {
-                    name = $("#projectname").val();
-                    $(this).dialog("close");
-                    if(name != "") {
-                        afterdialogboxsave(name);
-                    }
-                    else {
-                        afterdialogboxsave("Untitled");
-                    }
-                },
-            },
-        ],
-        close: function() {
-            $(this).dialog("close");
-            if(name == "") {
-                afterdialogboxsave("Untitled");
-            }
-            else {
-                afterdialogboxsave(name);
-            }
-        }
-    });
-}
-// Generates JSON of the entire project
-function generateSaveData(name) {
-    data = {};
-    // Prompts for name, defaults to Untitled
-    if(projectName) {
-        afterdialogboxsave(projectName);
-    }
-    else if(name) {
-        afterdialogboxsave(name);
-    }
-    else {
-    name = saveonlinedialogbox();
-    }
-}
-
-function afterdialogboxsave(name) {
-    data["name"] = stripTags(name)
-    projectName = data["name"];
-    setProjectName(projectName)
-    // Save project details
-    data["timePeriod"] = simulationArea.timePeriod;
-    data["clockEnabled"] = simulationArea.clockEnabled;
-    data["projectId"] = projectId;
-    data["focussedCircuit"] = globalScope.id;
-
-    // Project Circuits, each scope is one circuit
-    data.scopes = []
-    var dependencyList = {};
-    var completed = {};
-
-    // Getting list of dependencies for each circuit
-    for (id in scopeList)
-        dependencyList[id] = scopeList[id].getDependencies();
-
-    // Helper function to save Scope
-    // Recursively saves inner subcircuits first, before saving parent circuits
-    function saveScope(id) {
-        if (completed[id]) return;
-
-        for (var i = 0; i < dependencyList[id].length; i++) // Save inner subcircuits
-            saveScope(dependencyList[id][i]);
-
-        completed[id] = true;
-        update(scopeList[id], true); // For any pending integrity checks on subcircuits
-        data.scopes.push(backUp(scopeList[id]));
-    }
-
-    // Save all circuits
-    for (id in scopeList)
-        saveScope(id);
-
-    //convert to text
-    data = JSON.stringify(data);
-    aftersave(data);
-}
-
-// Function that is used to save image for display in the website
-function generateImageForOnline() {
-
-    simulationArea.lastSelected = undefined; // Unselect any selections
-
-    // Fix aspect ratio to 1.6
-    if (width > height * 1.6) {
-        height = width / 1.6;
-    } else {
-        width = height * 1.6;
-    }
-
-    // Center circuits
-    globalScope.centerFocus();
-
-    // Ensure image is approximately 700 x 440
-    resolution = Math.min(700 / (simulationArea.maxWidth - simulationArea.minWidth), 440 / (simulationArea.maxHeight - simulationArea.minHeight));
-
-    data = generateImage("jpeg", "current", false, resolution, download = false);
-
-    // Restores Focus
-    globalScope.centerFocus(false);
-    return data;
-}
-
-// Function to save data online
-function save() {
-    projectSaved = true;
-    $('.loadingIcon').fadeIn();
-    var data = generateSaveData();
-}
-
-function aftersave(data){
+function aftersave(data) {
     if (!userSignedIn) {
         // user not signed in, save locally temporarily and force user to sign in
         localStorage.setItem("recover_login", data);
         // Asking user whether they want to login.
-        if(confirm("You have to login to save the project, you will be redirected to the login page.")) window.location.href = "/users/sign_in";
+        if (confirm("You have to login to save the project, you will be redirected to the login page.")) window.location.href = "/users/sign_in";
         else $('.loadingIcon').fadeOut();
     } else if (logix_project_id == 0) {
 
@@ -555,7 +436,7 @@ function aftersave(data){
         $.ajax({
             url: '/simulator/update_data',
             type: 'POST',
-            beforeSend: function(xhr) {
+            beforeSend: function (xhr) {
                 xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
             },
             data: {
@@ -564,12 +445,12 @@ function aftersave(data){
                 "image": generateImageForOnline(),
                 name: projectName
             },
-            success: function(response) {
+            success: function (response) {
                 showMessage("We have saved your project: " + projectName + " in our servers.")
                 $('.loadingIcon').fadeOut();
                 localStorage.removeItem("recover");
             },
-            failure: function(err) {
+            failure: function (err) {
                 showMessage("There was an error, we couldn't save to our servers")
                 $('.loadingIcon').fadeOut();
             }
@@ -579,6 +460,125 @@ function aftersave(data){
     // Restore everything
     resetup();
 
+}
+
+function afterdialogboxsave(name) {
+    data["name"] = stripTags(name)
+    projectName = data["name"];
+    setProjectName(projectName)
+    // Save project details
+    data["timePeriod"] = simulationArea.timePeriod;
+    data["clockEnabled"] = simulationArea.clockEnabled;
+    data["projectId"] = projectId;
+    data["focussedCircuit"] = globalScope.id;
+
+    // Project Circuits, each scope is one circuit
+    data.scopes = []
+    var dependencyList = {};
+    var completed = {};
+
+    // Getting list of dependencies for each circuit
+    for (id in scopeList)
+        dependencyList[id] = scopeList[id].getDependencies();
+
+    // Helper function to save Scope
+    // Recursively saves inner subcircuits first, before saving parent circuits
+    function saveScope(id) {
+        if (completed[id]) return;
+
+        for (var i = 0; i < dependencyList[id].length; i++) // Save inner subcircuits
+            saveScope(dependencyList[id][i]);
+
+        completed[id] = true;
+        update(scopeList[id], true); // For any pending integrity checks on subcircuits
+        data.scopes.push(backUp(scopeList[id]));
+    }
+
+    // Save all circuits
+    for (id in scopeList)
+        saveScope(id);
+
+    //convert to text
+    data = JSON.stringify(data);
+    aftersave(data);
+}
+
+function saveonlinedialogbox() {
+    $('#saveonline').empty();
+    $('#saveonline').append("<p>Enter Project Name: <input id='projectname' type='text'></p>");
+    $('#saveonline').dialog({
+        width: "auto",
+        buttons: [
+            {
+                text: "Create",
+                click: function () {
+                    name = $("#projectname").val();
+                    $(this).dialog("close");
+                    if(name != "") {
+                        afterdialogboxsave(name);
+                    }
+                    else {
+                        afterdialogboxsave("Untitled");
+                    }
+                },
+            },
+        ],
+        close: function() {
+            $(this).dialog("close");
+            if(name == "") {
+                afterdialogboxsave("Untitled");
+            }
+            else {
+                afterdialogboxsave(name);
+            }
+        }
+    });
+}
+// Generates JSON of the entire project
+function generateSaveData(name) {
+    data = {};
+    // Prompts for name, defaults to Untitled
+    if(projectName) {
+        afterdialogboxsave(projectName);
+    }
+    else if(name) {
+        afterdialogboxsave(name);
+    }
+    else {
+    name = saveonlinedialogbox();
+    }
+}
+
+// Function that is used to save image for display in the website
+function generateImageForOnline() {
+
+    simulationArea.lastSelected = undefined; // Unselect any selections
+
+    // Fix aspect ratio to 1.6
+    if (width > height * 1.6) {
+        height = width / 1.6;
+    } else {
+        width = height * 1.6;
+    }
+
+    // Center circuits
+    globalScope.centerFocus();
+
+    // Ensure image is approximately 700 x 440
+    resolution = Math.min(700 / (simulationArea.maxWidth - simulationArea.minWidth), 440 / (simulationArea.maxHeight - simulationArea.minHeight));
+
+    data = generateImage("jpeg", "current", false, resolution, download = false);
+
+    // Restores Focus
+    globalScope.centerFocus(false);
+    return data;
+}
+
+// Function to save data online
+function save() {
+    projectSaved = true;
+    $('.loadingIcon').fadeIn();
+    var data = generateSaveData();
 }
 
 // Function to load project from data
