@@ -279,6 +279,13 @@ function renderCanvas(scope) {
         ctx.stroke();
         ctx.fill();
     }
+    if (simulationArea.hover != undefined) {
+        simulationArea.canvas.style.cursor = "pointer";
+    } else if (simulationArea.mouseDown) {
+        simulationArea.canvas.style.cursor = 'grabbing';
+    } else {
+        simulationArea.canvas.style.cursor = 'default';
+    }
 
 }
 
