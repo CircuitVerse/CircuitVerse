@@ -69,10 +69,17 @@
   margin-left: 15px;
 }
 
-.copyright {
+footer {
+  position: relative;
+  width: 100%;
+}
+
+p.copyright {
+  position: absolute;
+  width: 100%;
   font-size: small;
-  overflow: visible;
-  white-space: nowrap;
+  text-align: left;
+  bottom: 0;
 }
 
 .favblank {
@@ -86,5 +93,11 @@
   &:hover {
     background-color: $green;
     color: $white;
+  }
+}
+
+@media (max-width: 723px) {
+  footer {
+    padding-top: 40px;
   }
 }
