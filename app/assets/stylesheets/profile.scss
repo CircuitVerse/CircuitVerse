@@ -7,7 +7,7 @@
   width: 100%;
 }
 
-@media(max-width: 568px) {
+@media (max-width:568px) {
   .container-padding {
     padding-left: 0;
   }
@@ -17,7 +17,7 @@
   }
 }
 
-@media(max-width: 576px) { 
+@media (max-width:576px) { 
   .container-padding {
     padding-left: 0;
   }
@@ -26,8 +26,7 @@
     width: 275px;
   }
 }
-
-@media(max-width: 768px) { 
+@media (max-width:768px) { 
   .container-padding {
     padding-left: 0;
   }
