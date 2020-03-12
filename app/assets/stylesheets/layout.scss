@@ -93,12 +93,12 @@ footer {
   width: 100%;
 }
 
-p.copyright {
-  position: absolute;
-  width: 100%;
-  font-size: small;
-  text-align: left;
+.copyright {
   bottom: 0;
+  font-size: small;
+  position: absolute;
+  text-align: left;
+  width: 100%;
 }
 
 .favblank {
