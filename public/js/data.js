@@ -521,7 +521,6 @@ function saveonlinedialogbox(name) {
                         afterdialogboxsave("Untitled");
                     }
                 },
-                
             },
         ],
         close: function() {
