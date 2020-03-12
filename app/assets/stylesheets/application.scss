@@ -1,5 +1,5 @@
 @import "theme";
-@import "bootstrap/scss/bootstrap.scss";
+@import "bootstrap/scss/bootstrap";
 @import "commontator/application.css";
 @import 'bootstrap-typeahead-rails';
 @import "font-awesome-sprockets";
@@ -13,8 +13,9 @@
 @import 'group_members';
 @import 'profile';
 @import 'home';
+@import 'contribute';
 @import 'assignments';
-@import 'trumbowyg/dist/ui/trumbowyg.min.css';
+@import 'trumbowyg/dist/ui/trumbowyg.min';
 // #FIXME move these styles
 .alert {
   width: 100%;

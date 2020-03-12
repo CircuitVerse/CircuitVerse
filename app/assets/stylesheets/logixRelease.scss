@@ -54,8 +54,8 @@ a.btn.btn-outline-danger {
   color: $red;
   padding: 4px;
 
-    h2 {
-      font-size: 1.25rem;
+  h2 {
+    font-size: 1.25rem;
   }
 }
 
@@ -64,24 +64,24 @@ a.btn.btn-outline-danger {
 }
 
 @media (max-width: 992px) {
-    .pagination-cont {
-        overflow-x: auto;
-        padding: 0;
-    }
+  .pagination-cont {
+    overflow-x: auto;
+    padding: 0;
+  }
 
-    .pagination {
-        overflow-x: visible;
-        max-width: none;
-        display: block;
-        padding: 0;
-        white-space: nowrap;
-    }
+  .pagination {
+    overflow-x: visible;
+    max-width: none;
+    display: block;
+    padding: 0;
+    white-space: nowrap;
+  }
 
-    .pagination > * {
-        display: inline-block;
-        margin: 0;
-        margin-left: -4px;
-    }
+  .pagination > * {
+    display: inline-block;
+    margin: 0;
+    margin-left: -4px;
+  }
 }
 
 a.btn.btn-outline-primary {
@@ -170,54 +170,6 @@ a.btn.btn-outline-danger {
   margin: 2px;
 }
 
-.card-contribute {
-  display: inline-block;
-  width: 300px;
-  border: 0px;
-  margin-top: 30px;
-  margin-bottom: 30px;
-}
-
-.cardimage-contribute {
-  width: 150px;
-  height: 150px;
-}
-
-.cardbody-contribute > h3 {
-  text-align: center;
-}
-
-.cardbody-contribute > ul {
-  text-align: left;
-}
-
-.contribute-pay {
-  display: inline-block;
-  width: 200px;
-  height: 100px;
-  margin-top: 50px;
-  margin-left: 30px;
-  margin-right: 30px;
-  margin-bottom: 40px;
-  text-align: center;
-}
-
-.contribute-pay > p {
-  font-weight: 550;
-}
-
-.patreon {
-  border: 1.5px solid $black;
-  border-radius: 8px;
-  padding: 4px;
-  box-shadow: 3px 3px 6px $shadow-black;
-}
-
-.patreon > img {
-  width: 160px;
-  height: 70px;
-}
-
 #teacher_heading {
   margin-bottom: 35px;
   margin-left: auto;
@@ -229,15 +181,13 @@ a.btn.btn-outline-danger {
   margin-bottom: 20px;
 }
 
-.container-fluid_teachers{
-  padding-bottom: 40px;
-  padding-top: 40px;
+.container-fluid_teachers {
+  padding: 40px 0;
 }
 
-.container-fluid_teachersbackground{
+.container-fluid_teachersbackground {
   background-color: $gray-100;
-  padding-bottom: 40px;
-  padding-top: 40px;
+  padding: 40px 0;
 }
 
 .align-center {
@@ -246,7 +196,6 @@ a.btn.btn-outline-danger {
 
 .image_teachers {
   border: 1px solid $slight-gray;
-  margin-left: 20px;
   max-height: 100%;
   max-width: 100%;
 }
