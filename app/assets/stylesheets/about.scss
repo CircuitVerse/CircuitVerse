@@ -26,26 +26,26 @@
   color: $black;
 }
 
-.btn-about{
+.btn-about { 
   background-color: $green;
   color: white;
   transition: all 0.3s ease 0s;
   margin: 5px;
+
+  &:hover {
+    color:white;
+    background-color: $teal;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-7px);
+  }
 }
 
-.btn-about:hover{
-  color:white;
-  background-color: $teal;
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-  transform: translateY(-7px);
-}
-
-.contact-container{
+.contact-container {
   margin-bottom: 30px;
   margin-top: 20px;
 }
 
-.contact{
+.contact {
   display: inline-block;
   background-color: $gray-100;
   box-shadow: 0px 2px 7px $shadow-black;
