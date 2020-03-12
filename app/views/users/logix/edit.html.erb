@@ -12,13 +12,13 @@
        <h4> Fields marked with <sup><i class="fa fa-asterisk edit-profile-page-astrikstyle"></i></sup> are mandatory</h4>
      </div>
      
-    <div class="container px-5">
-      <div class="container">
+    <div class="container container-padding">
+      <div class="container container-padding">
         <div class="col-12">
       <%= form_with model: @profile, multipart: true, url: { action: "update" }, local: true do |f| %>
         <div class="field form-group ">
           <%= f.label :name, { class: 'h4 font-weight-bold'} %><sup><i class="fa fa-asterisk edit-profile-page-astrikstyle" ></i></sup><br>
-          <%= f.text_field :name, required: true, class:"form-control  rounded-0 border-success", style:"width:100%; height:50px" %>
+          <%= f.text_field :name, required: true, class:"form-control  rounded-0 border-success profile-text-feild" %>
          </div>
         
         <div class="form-group">
@@ -32,12 +32,12 @@
 
         <div class="field form-group">
          <%= f.label :country, { class: 'h4 font-weight-bold'} %><span> [Optional]</span><br/>
-          <%= f.country_select :country, { include_blank: 'Prefer Not To Enter', priority_countries: get_priority_countries() }, { class: "form-control rounded-0 border-success", style:"width:100%; height:50px" } %>
+          <%= f.country_select :country, { include_blank: 'Prefer Not To Enter', priority_countries: get_priority_countries() }, { class: "form-control rounded-0 border-success profile-text-feild" } %>
         </div>
 
         <div class="field form-group">
           <%= f.label :educational_institute , { class: 'h4 font-weight-bold'} %><span> [Optional]</span><br/>
-          <%= f.text_field :educational_institute,{ class: "typeahead form form-group form-control rounded-0 border-success", style:"width:100%; height:50px",autocomplete:"off" } %>
+          <%= f.text_field :educational_institute,{ class: "form form-group form-control rounded-0 border-success profile-text-feild",autocomplete:"off" } %>
         </div>
        
         <div class="field form-group ">
