@@ -8,9 +8,9 @@
   background-color: $green;
   border-radius: 36px;
   color: $white;
+  margin-left: -2px;
   padding: 6px 19px 9px;
   text-align: center;
-  margin-left: -2px;
 }
 
 .a-homepage {
@@ -27,8 +27,8 @@
 .btn-homepage2 {
   border: 1.6px solid $teal;
   border-radius: 5px;
-  margin: 10px;
   box-shadow: 0 2px 7px $shadow-black;
+  margin: 10px;
 
   &:hover {
     background-color: $teal;
