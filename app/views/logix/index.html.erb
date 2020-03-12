@@ -48,7 +48,7 @@
           <%= image_tag "homepage/new_homepage_sketch.png", alt: "HomepageSketch", :class => "homepage-cover center-block" %>
         </div>
       </div>
-      <div class="row">
+      <div class="row button-homepage">
         <button type="button" class="btn btn-homepage2" onclick="window.location.href = '/teachers';">For Teachers</button>
         <button type="button" class="btn btn-homepage2" onclick="window.location.href = '/contribute';">For Contributors</button>
       </div>
@@ -63,7 +63,7 @@
         <div class="row row-homepage-middle">
           <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
             <div class="card card-homepage-example">
-              <%= image_tag "/assets/homepage/rippleCarry.jpg", alt: "Ripple Carry", :class => "card-img-top card-img-homepage-example" %>
+              <%= image_tag "homepage/rippleCarry.jpg", alt: "Ripple Carry", :class => "card-img-top card-img-homepage-example" %>
               <div class="card-footer card-footer-homepage-example">
                 <p class="homepage-example-p">16-bit Ripple Carry Adder</p>
                 <button type="button" class="btn btn-about homepage-example-button" onclick="window.location.href = 'https://circuitverse.org/users/3/projects/248';">View</button>
@@ -72,7 +72,7 @@
           </div>
           <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
             <div class="card card-homepage-example">
-              <%= image_tag "/assets/homepage/sap.jpg", alt: "SAP-1", :class => "card-img-top card-img-homepage-example" %>
+              <%= image_tag "homepage/sap.jpg", alt: "SAP-1", :class => "card-img-top card-img-homepage-example" %>
               <div class="card-footer card-footer-homepage-example">
                 <p class="homepage-example-p">SAP-1</p>
                 <button type="button" class="btn btn-about homepage-example-button" onclick="window.location.href = 'https://circuitverse.org/users/3/projects/67';">View</button>
@@ -81,7 +81,7 @@
           </div>
           <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
             <div class="card card-homepage-example">
-              <%= image_tag "/assets/homepage/fullAdder.png", alt: "Full Adder", :class => "card-img-top card-img-homepage-example" %>
+              <%= image_tag "homepage/fullAdder.png", alt: "Full Adder", :class => "card-img-top card-img-homepage-example" %>
               <div class="card-footer card-footer-homepage-example">
                 <p class="homepage-example-p">Full Adder from 2 Half Adders</p>
                 <button type="button" class="btn btn-about homepage-example-button" onclick="window.location.href = 'https://circuitverse.org/users/3/projects/247';">View</button>
@@ -90,8 +90,8 @@
           </div>
         </div>
         <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-              <button type="button" class="btn btn-homepage btn-right btn-about" onclick="window.location.href = '/examples';">Explore More</button>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center">
+              <button type="button" class="btn btn-homepage btn-about " onclick="window.location.href = '/examples';">Explore More</button>
             </div>
         </div>
       </div>
@@ -106,7 +106,7 @@
       <div class="row row-homepage-middle">
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
           <div class="card card-homepage">
-            <%= image_tag "/assets/homepage/export-hd.png", alt: "Export HD", :class => "card-img-top cardimage-contribute" %>
+            <%= image_tag "homepage/export-hd.png", alt: "Export HD", :class => "card-img-top cardimage-contribute" %>
             <div class="card-body">
               <h5 class="card-title">Export High-Resolution Images</h5>
               <p class="card-text">CircuitVerse can export high resolution images in multiple formats including SVG.</p>
@@ -115,7 +115,7 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
           <div class="card card-homepage">
-            <%= image_tag "/assets/homepage/combinations analysis.png", alt: "Combinational Analysis", :class => "card-img-top cardimage-contribute" %>
+            <%= image_tag "homepage/combinations analysis.png", alt: "Combinational Analysis", :class => "card-img-top cardimage-contribute" %>
             <div class="card-body">
               <h5 class="card-title">Combinational Analysis</h5>
               <p class="card-text">Automatically generate circuit based on truth table data. This is great to create complex logic circuits and can be easily be made into a subcircuit.</p>
@@ -124,7 +124,7 @@
         </div>
         <div class="col-xs-12 col-s-12 col-md-4 col-lg-4">
           <div class="card card-homepage">
-            <%= image_tag "/assets/homepage/embed.png", alt: "Embed", :class => "card-img-top cardimage-contribute" %>
+            <%= image_tag "homepage/embed.png", alt: "Embed", :class => "card-img-top cardimage-contribute" %>
             <div class="card-body">
               <h5 class="card-title">Embed in Blogs</h5>
               <p class="card-text">Since CircuitVerse is built in HTML5, an iFrame can be generated for each project allowing the user to embed it almost anywhere.</p>
@@ -133,7 +133,7 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
           <div class="card card-homepage">
-            <%= image_tag "/assets/homepage/sub-circuit.png", alt: "Sub Circuit", :class => "card-img-top cardimage-contribute" %>
+            <%= image_tag "homepage/sub-circuit.png", alt: "Sub Circuit", :class => "card-img-top cardimage-contribute" %>
             <div class="card-body">
               <h5 class="card-title">Use Sub circuits</h5>
               <p class="card-text">Create subcircuits once and use them repeatedly. This allows easier and more structured design.</p>
@@ -142,7 +142,7 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
           <div class="card card-homepage">
-            <%= image_tag "/assets/homepage/multi-bit-bus.png", alt: "Multi Bit Bus", :class => "card-img-top cardimage-contribute" %>
+            <%= image_tag "homepage/multi-bit-bus.png", alt: "Multi Bit Bus", :class => "card-img-top cardimage-contribute" %>
             <div class="card-body">
               <h5 class="card-title">Multi Bit Buses and components</h5>
               <p class="card-text">CircuitVerse supports multi bit wires, this means circuit design is easier, faster and uncluttered.</p>

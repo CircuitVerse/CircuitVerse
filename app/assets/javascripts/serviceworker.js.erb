@@ -31,28 +31,36 @@ function onActivate(event) {
           // the whole origin
           return cacheName.indexOf(CACHE_VERSION) !== 0;
         }).map(function(cacheName) {
-          return caches.delete(cacheName);
+          return caches.devare(cacheName);
         })
       );
     })
   );
 }
 
-self.addEventListener("push", event => {
-  let data = JSON.parse(event.data.text());
-  let title = "CircuitVerse";
-  let { body, url } = data
+self.addEventListener("push", function (event) {
+  var data = JSON.parse(event.data.text());
+  var title = "CircuitVerse";
+  var body = data.body,
+      url = data.url;
   console.log("Received message: ",body);
   // Prevent notifications being collapsed
-  let tag = "circuitverse"+Math.random();
-  let icon = '<%= image_path "favicon.png" %>';
+  var tag = "circuitverse"+Math.random();
+  var icon = '<%= image_path "favicon.png" %>';
 
   event.waitUntil(
-    self.registration.showNotification(title, { body, icon, tag, data: { url } })
+    self.registration.showNotification(title, {
+    body: body,
+    icon: icon,
+    tag: tag,
+    data: {
+      url: url
+    }
+   })
   );
 });
 
-self.addEventListener('notificationclick', function(event) {
+self.addEventListener('notificationclick', function (event) {
   event.notification.close();
   if (event.notification.data.url !== "") {
     // Main body of notification was clicked
