@@ -50,6 +50,26 @@
   }
 }
 
+.navbar-nav {
+  .nav-link {
+    position: relative;
+    &::before {
+      background-color: $green;
+      bottom: -2px;
+      content: '';
+      height: 2px;
+      left: 0;
+      position: absolute;
+      transition: 300ms;
+      width: 0;
+    }
+    &:hover::before {
+      opacity: 1;
+      width: 100%;
+    }
+  }
+}
+
 .empty-div {
   height: 250px;
 }
@@ -61,7 +81,6 @@
 .footer-social-icon {
   margin-left: 15px;
   width: 32px;
-
 }
 
 .footer-social {
