@@ -98,10 +98,17 @@
   .button-homepage {
     display: flex;
     justify-content: center;
-    margin-bottom: 25px;
+    margin-bottom: 25px ;
+
   }
 
   .homepage-cover {
     margin: 20px 0;
+  }
+}
+
+@media (max-width:1200px) and (min-width:765px){
+  .button-homepage {
+    margin-top: 100px;
   }
 }
