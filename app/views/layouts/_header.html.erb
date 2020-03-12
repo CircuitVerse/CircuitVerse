@@ -13,27 +13,27 @@
         <a class="btn btn-outline-success rounded-0 simulator text-dark " href="/simulator">Simulator</a>
       </li>
       <li class="nav-item px-2">
-        <a class="nav-link text-dark nav-link-ltr" href="https://learn.circuitverse.org/">Learn</a>
+        <a class="nav-link text-dark" href="https://learn.circuitverse.org/">Learn</a>
       </li>
       <li class="nav-item px-2">
-        <a class="nav-link text-dark nav-link-ltr" href="https://docs.circuitverse.org/">Documentation</a>
+        <a class="nav-link text-dark" href="https://docs.circuitverse.org/">Documentation</a>
       </li>
       <li class="nav-item px-2 <%= request.path == '/examples' ? 'active' : '' %>">
-        <a class="nav-link text-dark nav-link-ltr" href="/examples">Examples</a>
+        <a class="nav-link text-dark" href="/examples">Examples</a>
       </li>
       <li class="nav-item px-2 <%= request.path == '/contribute' ? 'active' : '' %>">
-        <a class="nav-link text-dark nav-link-ltr" href="/contribute">Contribute</a>
+        <a class="nav-link text-dark" href="/contribute">Contribute</a>
       </li>
       <li class="nav-item px-2 <%= request.path == '/teachers' ? 'active' : '' %>">
-        <a class="nav-link text-dark nav-link-ltr" href="/teachers">Teachers</a>
+        <a class="nav-link text-dark" href="/teachers">Teachers</a>
       </li>
       <li class="nav-item px-2 <%= request.path == '/about' ? 'active' : '' %>">
-        <a class="nav-link text-dark nav-link-ltr" href="/about">About</a>
+        <a class="nav-link text-dark" href="/about">About</a>
       </li>
       <% if user_signed_in? %>
        <div class="navbar-nav nav-item dropdown">
         <li class="nav-item px-2">
-          <a class="nav-link text-dark dropdown-toggle nav-link-ltr" style="cursor: pointer;" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link text-dark dropdown-toggle" style="cursor: pointer;" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <%= current_user.name %>
          </a>
 
@@ -50,7 +50,7 @@
         </li>
       <% else %>
         <li class="nav-item px-2 <%= request.path == '/users/sign_in' ? 'active' : '' %>">
-          <a class="nav-link text-dark nav-link-ltr" href="/users/sign_in">Login</a>
+          <a class="nav-link text-dark" href="/users/sign_in">Login</a>
         </li>
       <% end %>
     </ul>
