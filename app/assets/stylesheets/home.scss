@@ -24,12 +24,16 @@
 }
 
 .btn-homepage2 {
-  border: 2px solid $teal;
+  border: 1.6px solid $teal;
   border-radius: 5px;
   margin: 10px;
+  box-shadow: 0px 2px 7px $shadow-black;
 
   &:hover {
-    box-shadow: 0 7px 7px $shadow-black;
+  box-shadow: 0 7px 7px $white;
+
+    background-color: $teal;
+    color: $white;
   }
 }
 
