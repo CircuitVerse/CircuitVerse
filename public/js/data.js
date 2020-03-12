@@ -396,18 +396,17 @@ function saveonlinedialogbox() {
                     name = $("#projectname").val();
                     $(this).dialog("close");
                     if(name != "") {
-                    afterdialogboxsave(name);
+                        afterdialogboxsave(name);
                     }
                     else {
                         afterdialogboxsave("Untitled");
                     }
                 },
             },
-        
         ],
         close: function() {
             $(this).dialog("close");
-            if (name == "") {
+            if(name == "") {
                 afterdialogboxsave("Untitled");
             }
             else {
@@ -420,22 +419,21 @@ function saveonlinedialogbox() {
 function generateSaveData(name) {
     data = {};
     // Prompts for name, defaults to Untitled
-    if(projectName){
+    if(projectName) {
         afterdialogboxsave(projectName);
     }
-    else if(name){
+    else if(name) {
         afterdialogboxsave(name);
     }
-    else{
+    else {
     name = saveonlinedialogbox();
     }
 }
 
-function afterdialogboxsave(name) {   
+function afterdialogboxsave(name) {
     data["name"] = stripTags(name)
     projectName = data["name"];
     setProjectName(projectName)
-
     // Save project details
     data["timePeriod"] = simulationArea.timePeriod;
     data["clockEnabled"] = simulationArea.clockEnabled;
@@ -461,7 +459,7 @@ function afterdialogboxsave(name) {
 
         completed[id] = true;
         update(scopeList[id], true); // For any pending integrity checks on subcircuits
-        data.scopes.push(backUp(scopeList[id]));      
+        data.scopes.push(backUp(scopeList[id]));
     }
 
     // Save all circuits
