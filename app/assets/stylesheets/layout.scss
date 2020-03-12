@@ -45,7 +45,9 @@
     }
 
     &.active {
-      border-bottom: 2px solid $green;
+      a {
+        color: $primary !important;
+      }
     }
   }
 }
