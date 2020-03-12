@@ -503,7 +503,7 @@ function afterdialogboxsave(name) {
     aftersave(data);
 }
 
-function saveonlinedialogbox() {
+function saveonlinedialogbox(name) {
     $('#saveonline').empty();
     $('#saveonline').append("<p>Enter Project Name: <input id='projectname' type='text'></p>");
     $('#saveonline').dialog({
@@ -542,7 +542,7 @@ function generateSaveData(name) {
     } else if(name) {
         afterdialogboxsave(name);
     } else {
-    name = saveonlinedialogbox();
+    name = saveonlinedialogbox(name);
     }
 }
 
