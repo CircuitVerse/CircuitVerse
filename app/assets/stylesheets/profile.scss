@@ -3,17 +3,18 @@
 }
 
 .profile-text-feild {
-  width: 100%;
   height: 50px;
+  width: 100%;
 }
 
 @media (max-width: 568px) {
   .container-padding {
     padding-left: 0;
   }
-  .profile_text_feild {
-    width: 250x;
+  
+  .profile-text-feild {
     height: 40px;
+    width: 250px;
   }
 }
 
@@ -21,20 +22,21 @@
   .container-padding {
     padding-left: 0;
   }
+  
   .profile-text-feild {
-    width: 275px;
     height: 40px;
+    width: 275px;
   }
 }
-
 
 @media (max-width: 768px) { 
   .container-padding {
     padding-left: 0;
   }
+  
   .profile-text-feild {
-    width: 275px;
     height: 40px;
+    width: 275px;
   }
 }
 
