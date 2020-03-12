@@ -24,25 +24,26 @@
 <div class="field form-group">
   <div class="input-group">
     <span class="help-text mt-2 mr-2">Log In With:</span>
-    <a href="/users/auth/google_oauth2">
-      <%= image_tag "SVGs/google-plus.svg", alt: "google-icon", :class => "center-block ml-1 mr-1" %>
-    </a>
-    <a href="/users/auth/facebook">
-      <%= image_tag "SVGs/facebook.svg",alt: "facebook-icon", :class => "center-block ml-1 mr-1" %>
-    </a>
-    <a href="/users/auth/github">
-      <%= image_tag "SVGs/github.svg",alt: "github-icon", :class => "center-block ml-1 mr-1" %>
-    </a>
+    <div class="d-flex">
+      <a href="/users/auth/google_oauth2">
+        <%= image_tag "SVGs/google-plus.svg", alt: "google-icon", :class => "center-block ml-1 mr-1" %>
+      </a>
+      <a href="/users/auth/facebook">
+        <%= image_tag "SVGs/facebook.svg",alt: "facebook-icon", :class => "center-block ml-1 mr-1" %>
+      </a>
+      <a href="/users/auth/github">
+        <%= image_tag "SVGs/github.svg",alt: "github-icon", :class => "center-block ml-1 mr-1" %>
+      </a>
+    </div>
   </div>
 </div>
 
 <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
   <div class="field form-group">
     <div class="input-group">
-      <span class="help-text">Forgot password?</span>
       <div class="input-group-addon pt-2" onclick="togglePassword()">
         <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
-        <%= link_to "Reset your Password", new_password_path(resource_name),class:"link-text pl-1" %>
+        <%= link_to "Forgot Password", new_password_path(resource_name),class:"link-text pl-1" %>
         <% end -%>
       </div>
     </div>

@@ -2,7 +2,7 @@
   <div class="row mt-5">
 
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 center-block">
-      <%= image_tag "SVGs/login.svg", alt: "login-logo", :class => "signup-cover center-block" %>
+      <%= image_tag "SVGs/login.svg", alt: "login-logo", :class => "signup-cover center-block d-none d-md-block" %>
       <h5>Welcome back to the Digital Circuit Universe!</h5>
     </div>
 
@@ -20,7 +20,7 @@
         </div>
 
         <div class="field form-group mt-4">
-          <div class="input-group">
+          <div class="input-group send-button">
             <%= f.submit "Send password reset link" ,class:"btn btn-about custom-submit" %>
             <%= link_to "Go to Login Page", new_session_path(resource_name) ,class:"link-text pl-3" %>
           </div>
