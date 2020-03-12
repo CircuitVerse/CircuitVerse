@@ -8,7 +8,8 @@
   background-color: $green;
   border-radius: 36px;
   color: $white;
-  padding: 10px 20px;
+  padding: 7px 20px;
+  text-align: center;
 }
 
 .a-homepage {
@@ -88,4 +89,19 @@
   margin-top: 30px;
   max-height: 700px;
   max-width: 100%;
+}
+
+@media (max-width:765px) {
+  .button-homepage {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+  }
+}
+
+@media (max-width:765px) {
+  .btn-homepage2 {
+    margin-left: 18px;
+    margin-right: 18px;
+  }
 }
