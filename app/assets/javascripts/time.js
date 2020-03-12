@@ -93,12 +93,12 @@ function getTimeZoneName(){
 function convertSecondsToReadableString(input) {
     if (input <= 0) return 'past';
 
-    const daySeconds = 86400;
-    const hourSeconds = 3600;
-    const minuteSeconds = 60;
+    var daySeconds = 86400;
+    var hourSeconds = 3600;
+    var minuteSeconds = 60;
 
-    const days = Math.floor(input / daySeconds);
-    const hours = Math.floor((input - days * daySeconds) / hourSeconds);
-    const minutes = Math.floor((input - (days * daySeconds + hours * hourSeconds)) / minuteSeconds);
-    return `${days} days, ${hours} hours, ${minutes} minutes`;
+    var days = Math.floor(input / daySeconds);
+    var hours = Math.floor((input - days * daySeconds) / hourSeconds);
+    var minutes = Math.floor((input - (days * daySeconds + hours * hourSeconds)) / minuteSeconds);
+    return "".concat(days, " days, ").concat(hours, " hours, ").concat(minutes, " minutes");
 }
