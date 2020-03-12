@@ -514,10 +514,10 @@ function saveonlinedialogbox() {
                 click: function () {
                     name = $("#projectname").val();
                     $(this).dialog("close");
+
                     if(name != "") {
                         afterdialogboxsave(name);
-                    }
-                    else {
+                    } else {
                         afterdialogboxsave("Untitled");
                     }
                 },
@@ -527,8 +527,7 @@ function saveonlinedialogbox() {
             $(this).dialog("close");
             if(name == "") {
                 afterdialogboxsave("Untitled");
-            }
-            else {
+            } else {
                 afterdialogboxsave(name);
             }
         }
@@ -540,11 +539,9 @@ function generateSaveData(name) {
     // Prompts for name, defaults to Untitled
     if(projectName) {
         afterdialogboxsave(projectName);
-    }
-    else if(name) {
+    } else if(name) {
         afterdialogboxsave(name);
-    }
-    else {
+    } else {
     name = saveonlinedialogbox();
     }
 }
