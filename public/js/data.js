@@ -49,9 +49,7 @@ function newCircuit(name, id) {
     if (!embed) {
         showProperties(scope.root);
     }
-
     dots(true, false);
-
     return scope;
     }
 }
@@ -386,13 +384,54 @@ function deleteCurrentCircuit() {
         showMessage("Circuit was not deleted")
 }
 
+function saveonlinedialogbox() {
+    $('#saveonline').empty();
+    $('#saveonline').append("<p>Enter Project Name: <input id='projectname' type='text'></p>");
+    $('#saveonline').dialog({
+        width: "auto",
+        buttons: [
+            {
+                text: "Create",
+                click: function () {
+                    name = $("#projectname").val();
+                    $(this).dialog("close");
+                    if(name != "") {
+                    afterdialogboxsave(name);
+                    }
+                    else {
+                        afterdialogboxsave("Untitled");
+                    }
+                },
+            },
+        
+        ],
+        close: function() {
+            $(this).dialog("close");
+            if (name == "") {
+                afterdialogboxsave("Untitled");
+            }
+            else {
+                afterdialogboxsave(name);
+            }
+        }
+    });
+}
 // Generates JSON of the entire project
 function generateSaveData(name) {
-
     data = {};
-
     // Prompts for name, defaults to Untitled
-    name = projectName || name || prompt("Enter Project Name:") || "Untitled";
+    if(projectName){
+        afterdialogboxsave(projectName);
+    }
+    else if(name){
+        afterdialogboxsave(name);
+    }
+    else{
+    name = saveonlinedialogbox();
+    }
+}
+
+function afterdialogboxsave(name) {   
     data["name"] = stripTags(name)
     projectName = data["name"];
     setProjectName(projectName)
@@ -415,18 +454,14 @@ function generateSaveData(name) {
     // Helper function to save Scope
     // Recursively saves inner subcircuits first, before saving parent circuits
     function saveScope(id) {
-
         if (completed[id]) return;
 
         for (var i = 0; i < dependencyList[id].length; i++) // Save inner subcircuits
             saveScope(dependencyList[id][i]);
 
         completed[id] = true;
-
         update(scopeList[id], true); // For any pending integrity checks on subcircuits
-
-        data.scopes.push(backUp(scopeList[id]));
-
+        data.scopes.push(backUp(scopeList[id]));      
     }
 
     // Save all circuits
@@ -435,7 +470,7 @@ function generateSaveData(name) {
 
     //convert to text
     data = JSON.stringify(data);
-    return data;
+    aftersave(data);
 }
 
 // Function that is used to save image for display in the website
@@ -466,10 +501,11 @@ function generateImageForOnline() {
 // Function to save data online
 function save() {
     projectSaved = true;
-
     $('.loadingIcon').fadeIn();
     var data = generateSaveData();
+}
 
+function aftersave(data){
     if (!userSignedIn) {
         // user not signed in, save locally temporarily and force user to sign in
         localStorage.setItem("recover_login", data);
