@@ -52,8 +52,12 @@
               <td><a class="text-white" href="/teachers">Teachers</a></td>
             </tr>
             <tr>
-              <td><a class="text-white" href="/users/sign_in">Login</a></td>
-              <td><a class="text-white" href="/about">About</a></td>
+              <% if user_signed_in? %>
+                <td><a class="text-white" data-method="delete" href="<%= destroy_user_session_path %>">Sign Out</a></td>
+              <% else %>
+                <td><a class="text-white" href="/users/sign_in">Login</a></td>
+              <% end %>
+                <td><a class="text-white" href="/about">About</a></td>
             </tr>
           </table>
         </div>
