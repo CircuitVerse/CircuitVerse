@@ -8,7 +8,7 @@
         <p>
         <h1 style="text-align:center">
         <%= @group.name %>
-        <%= link_to ' Edit Name', edit_group_path(@group), class:"group-name-editlink fa fa-pencil" %></h1>
+        <%= link_to ' Edit Name', edit_group_path(@group), class:"group-name-editlink" %></h1>
         </p>
       <p>
       <center style="font-size:25px">
@@ -162,7 +162,7 @@
     <% end %>
       <% if policy(@group).admin_access? %>
       <% end %>
-      <%= link_to 'Back', user_groups_path(current_user) ,class:"group-discription-back btn-about" %>
+      <%= link_to 'Back', user_groups_path(current_user) ,class:"btn underline text-success" %>
     </div>
   </div>
   <br />
