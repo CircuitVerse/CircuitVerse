@@ -17,12 +17,12 @@
               <h6>Email us at</h6>
               <p id="tab">support@circuitverse.org</p>
             </div>
-            <div class="contact" onclick="window.location.href='<%= Rails.configuration.slack_url %>';">
+            <div class="contact" onclick="window.open('<%= Rails.configuration.slack_url %>')">
               <%= image_tag "SVGs/slack.svg", alt: "", height: '60', width: '60', class: 'about-card-image' %>
               <h6>Join and chat with us at</h6>
               <p id="tab">Slack Channel</p>
             </div>
-            <div class="contact" onclick="window.location.href='https://github.com/CircuitVerse';">
+            <div class="contact" onclick="window.open('https://github.com/CircuitVerse')">
               <%= image_tag "SVGs/github.svg", alt: "", height: '60', width: '60', class: 'about-card-image' %>
               <h6>Contribute to Open Source</h6>
               <p id="tab">Github</p>
