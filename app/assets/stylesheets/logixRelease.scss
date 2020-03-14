@@ -172,8 +172,8 @@ a.btn.btn-outline-danger {
 
 .card-contribute {
   display: inline-block;
-  margin-top: 30px;
   margin-bottom: 30px;
+  margin-top: 30px;
   padding: 20px 0;
   width: 300px;
 }
@@ -202,7 +202,7 @@ a.btn.btn-outline-danger {
   width: 200px; 
   
   & > p {
-  font-weight: 550;
+    font-weight: 550;
   }
 }
 
@@ -211,6 +211,7 @@ a.btn.btn-outline-danger {
   border-radius: 8px;
   box-shadow: 3px 3px 6px $shadow-black;
   padding: 4px;
+  
   & > img {
     height: 70px;
     width: 160px;
