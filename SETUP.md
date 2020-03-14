@@ -2,14 +2,14 @@
 [Back to `README.md`](README.md)
 
 ## Setting up on cloud with Gitpod
-[Gitpod](https://www.gitpod.io/) can be used to develop CircuitVerse in the cloud. Instructions are available in our [wiki](https://github.com/CircuitVerse/CircuitVerse/wiki/Development-on-Gitpod). Pull requests can be created in Gitpod by following these [steps](https://github.com/CircuitVerse/CircuitVerse/wiki/Pull-Requests-using-Gitpod)
+[Gitpod](https://www.gitpod.io/) can be used to develop CircuitVerse in the cloud. Instructions are available in our [wiki](https://github.com/CircuitVerse/CircuitVerse/wiki/Development-on-Gitpod). Pull requests can be created in Gitpod by following these [steps](https://github.com/CircuitVerse/CircuitVerse/wiki/Pull-Requests-using-Gitpod).
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/CircuitVerse/CircuitVerse)
 
 ## Setting up development environment on local machine
 
 ## Required Software
-- [Git](https://git-scm.com/) - using a GUI such as [SourceTree](https://www.sourcetreeapp.com/) or [GitHub Desktop](https://desktop.github.com/) can help
+- [Git](https://git-scm.com/) - using a GUI such as [SourceTree](https://www.sourcetreeapp.com/) or [GitHub Desktop](https://desktop.github.com/) can help.
 - [Ruby on Rails](https://rubyonrails.org/)
 - [PostgreSQL](https://www.postgresql.org/)
 - [Yarn](https://yarnpkg.com/)
@@ -78,7 +78,7 @@ For debugging include `binding.pry` anywhere inside the code to open the `pry` c
 
 
 ### Production
-The following commands should be run for production
+The following commands should be run for production:
 ```
 bundle install --with pg --without development test
 RAILS_ENV=production bundle exec rake assets:precompile
@@ -92,7 +92,7 @@ Additional instructions can be found [here](https://www.howtoforge.com/tutorial/
 
   - Removing RVM
     ```
-    sudo apt-get --purge remove ruby-rvm` <br />
+    sudo apt-get --purge remove ruby-rvm
     sudo rm -rf /usr/share/ruby-rvm /etc/rvmrc /etc/profile.d/rvm.sh
     ```
   - Installing new version of RVM
@@ -105,12 +105,12 @@ Additional instructions can be found [here](https://www.howtoforge.com/tutorial/
 ## Running Tests
 Before making a pull request, it is a good idea to check that all tests are passing locally. To run the system tests, run `bundle exec rspec` or `bin/rake spec:all`
 
-**Note:** To pass the system tests, you need the [Chrome Browser](https://www.google.com/chrome/) installed
+**Note:** To pass the system tests, you need the [Chrome Browser](https://www.google.com/chrome/) installed.
 
 ## Docker Instructions
 [Docker](https://www.docker.com/) creates a virtual machine on your PC, which negates the need to install other software or issue the setup instructions manually. This is optional.
 
-**Note:** Docker will not run on Windows 10 Home Edition
+**Note:** Docker will not run on Windows 10 Home Edition.
 
 ### Usage
 * Run `docker-compose up` to run the instance 

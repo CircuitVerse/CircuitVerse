@@ -1,140 +1,134 @@
-<div class="container feature">
-  <div class="row">
-
-    <div class="col">
-
-      <p id="notice"><%= notice %></p>
-
-      <p>
-        <strong>Name:</strong>
-        <%= @assignment.name %>
-      </p>
-
-      <p>
-        <strong>Group:</strong>
-        <%= @assignment.group.name %>
-      </p>
-
-      <p>
-        <strong>Deadline:</strong>
-        <div class="date">
-          <%= @assignment.deadline.strftime("%d %b,%Y %I:%M %p %Z") %>
-        </div>
-        <% if(@assignment.deadline > Time.now) %>
-          <p> <strong>Time remaining: </strong><%=(( @assignment.deadline.to_i - Time.now.to_i)/1.day)%> days,  <%=(( @assignment.deadline.to_i- Time.now.to_i)/1.hour)%24%> hours, <%=(( @assignment.deadline.to_i- Time.now.to_i)/1.minute)%60%> minutes</p>
-      <% end %>
-      </p>
-
-      <p>
-        <strong> Graded: </strong>
-        <%= @assignment.graded %>
-      </p>
-
-      <p>
-        <strong>Description:</strong>
-        <p><%= @assignment.description&.html_safe%></p><br>
-      </p>
-
-    <% if @assignment.restricted_circuit_elements != "None" %>
-      <p>
-        <strong>Restricted Circuit Elements:</strong>
-        <p> <%= @assignment.restricted_circuit_elements %> </p><br>
-      </p>
-   <% end %>
-
-      <%= link_to 'Back', group_path(@group) %>
-
-      <%if policy(@assignment).admin_access? && @assignment.status!="closed"%>
-
-          <%=link_to 'Edit', edit_group_assignment_path(@group,@assignment) %>
-
-      <%end%>
-
-      <%if policy(@assignment).can_be_graded? %>
-        <%= link_to 'Export', grades_to_csv_path(@assignment, format: :csv) %>
-      <%end%>
-
+<div class="container">
+  <div class="row row-about">
+    <div class="col-xs col-sm col-md col-lg">
+      <h1 class="heading-profile">ASSIGNMENT DETAILS</h1>
     </div>
-
-
   </div>
-  <hr>
-  <%if policy(@assignment).admin_access? %>
-  <div class="row">
-
-    <script>
-        $( function() {
-            $('.list-group-item-action').on('click', function (e) {
-                e.preventDefault()
-                $("#assignmentPreview").attr("src","/simulator/" + e.currentTarget.id );
-                $(this).tab('show')
-                var cssLink = document.createElement("link");
-                cssLink.href = '/css/embed.css';
-                cssLink.rel = 'stylesheet';
-                cssLink.type ='text/css';
-                frames['assignmentPreview'].document.head.appendChild(cssLink);
-            })
-        } );
-    </script>
-
-    <div class="col-3">
-      <div class="overflow:scroll">
-        <div class="list-group" id="list-tab" role="tablist" id="submissionTable" style="max-height:600px;overflow:hidden;overflow-y:scroll">
-          <% @assignment.project_order.each do |project| %>
-              <a class="list-group-item list-group-item-action" id=<%= project.id%> data-grade="<%= project.grade_str %>" data-remarks="<%= project.remarks_str %>"><%= project.author.name  %></a>
-          <%end%>
-
-        </div>
-      </div>
-
+  <div class="row profile-background">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <p id="notice"><%= notice %></p>
+      <p><strong>Name: </strong><%= @assignment.name %></p>
+      <p><strong>Group: </strong><%= @assignment.group.name %></p>
+      <p><strong>Deadline: </strong><%= @assignment.deadline.strftime("%d %b %Y %I:%M %p %Z") %></p>
+      <% if(@assignment.deadline > Time.now) %>
+        <p><strong>Time Remaining: </strong><%= (( @assignment.deadline.to_i - Time.now.to_i)/1.day) %> days <%= (( @assignment.deadline.to_i- Time.now.to_i)/1.hour)%24 %> hours <%= (( @assignment.deadline.to_i- Time.now.to_i)/1.minute)%60 %> minutes</p>
+      <% end %>
+      <p><strong>Graded: </strong><%= @assignment.graded %></p>
+      <p><strong>Description: </strong><%= @assignment.description&.html_safe %></p>
+      <% if @assignment.restricted_circuit_elements != "None" %>
+        <p><strong>Restricted Circuited Elements: </strong><%= @assignment.restricted_circuit_elements %></p>
+      <% end %>
+      <% if policy(@assignment).admin_access? && @assignment.status!="closed" %>
+        <%= link_to edit_group_assignment_path(@group, @assignment), class: "btn btn-edit btn-assignment-show" do %>
+          <%= image_tag("SVGs/edit.svg", alt: "Edit", height: "15", width: "30") %> Edit
+        <% end %>
+      <% end %>
+      <% if policy(@assignment).can_be_graded? %>
+        <%= link_to 'Export', grades_to_csv_path(@assignment, format: "csv"), class: "a-homepage" %>
+      <% end %>
+      <%= link_to 'Back', group_path(@group), class: "a-homepage" %>
     </div>
-    <div class="col col-9">
-
-      <div class="embed-responsive embed-responsive-4by3 feature">
+    <hr>
+  </div>
+  <% if policy(@assignment).admin_access? %>
+  <div class="row profile-background">
+    <div class="col-12">
+      <h2>Submissions :</h2>
+    </div>
+  </div>
+  <div class="row profile-background">
+    <script>
+      $( function() {
+        $('.list-group-item-action').on('click', function (e) {
+          e.preventDefault()
+          $("#assignmentPreview").attr("src","/simulator/" + e.currentTarget.id );
+          $(this).tab('show')
+          var cssLink = document.createElement("link");
+          cssLink.href = '/css/embed.css';
+          cssLink.rel = 'stylesheet';
+          cssLink.type ='text/css';
+          frames['assignmentPreview'].document.head.appendChild(cssLink);
+        })
+      });
+    </script>
+    <% if @assignment.project_order.blank? %>
+    <div class="col-12 div-no-submission">
+      <h3>No submissions yet!</h3>
+    </div>
+    <% else %>
+    <div class="col-3 col-3-submission-list">
+      <div class="list-group submission-table" id="list-tab" role="tablist">
+        <% @assignment.project_order.each do |project| %>
+          <a class="list-group-item list-group-item-action list-submission" id="<%= project.id %>" data-grade="<%= project.grade_str %>" data-remarks="<%= project.remarks_str %>"><%= project.author.name %></a>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-9 col-9-submission-list">
+      <div class="embed-responsive embed-responsive-4by3">
         <iframe src="" name="assignmentPreview" id="assignmentPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen> </iframe>
       </div>
     </div>
   </div>
-
   <% if policy(@assignment).can_be_graded? %>
-    <div class="row grade-container">
-      <div class="col-3">
-        <span class="bold"> Enter Grade & Remarks: </span>
-        <span id="project-grade-error" class="error"></span>
-        <div class = "grade-show-container">
-          <span class="bold"> Grade & Remarks: </span><span id="project-grade"> Select a project to view/add grade</span>,<span id="project-remarks">remarks</span>
+    <div class="profile-background grade-container px-3">
+      <h3>Grades & Remarks</h3>
+      <span id="project-grade-error" class="error"></span>
+      <div class="col-8">
+        <%= form_with(model: Grade.new, multipart: true,id:"assignment-grade-form",url: "/grades") do |form| %>
+          <%= form.hidden_field :project_id, id: "assignment-project-id" %>
+          <%= form.hidden_field :assignment_id, value: @assignment.id %>
+          <div class="row">
+          <div class="col-6 assignment-grade-inputs">
+            <h4>Grade</h4>
+            <% if @assignment.grading_scale == "percent" %>
+              <%= form.number_field :grade,id: "assignment-grade-grade", min: 0, max: 100, placeholder: "Grades...", class: "form-control rounded-0 border-success",style:"width: 100%;height: 40px;" %>
+            <% elsif @assignment.grading_scale == "letter" || @assignment.grading_scale == "custom" %>
+              <%= form.text_field :grade,id: "assignment-grade-grade", placeholder: "Grades...", class: "form-control rounded-0 border-success",style:"width: 100%;height: 40px;" %>
+            <% end %>
+          </div>
+            <div class="col-6">
+          <h4>Remarks</h4>
+          <%= form.text_field :remarks,id: "assignment-grade-remarks", placeholder: "Remarks...", class: "form-control rounded-0 border-success",style:"width: 100%;height: 40px;"%>
+        </div>
         </div>
       </div>
-      <div class="col-9">
-          <%= form_with(model: Grade.new, multipart: true, id: "assignment-grade-form", url: "/grades") do |form| %>
-            <%= form.hidden_field :project_id, id: "assignment-project-id" %>
-            <%= form.hidden_field :assignment_id, value: @assignment.id %>
-            <div class="assignment-grade-inputs">
-            <% if @assignment.grading_scale == "percent" %>
-              <%= form.number_field :grade, id: "assignment-grade-grade", min: 0, max: 100, placeholder: "Grades..." %>
-            <% elsif @assignment.grading_scale == "letter" || @assignment.grading_scale == "custom" %>
-              <%= form.text_field :grade, id: "assignment-grade-grade", placeholder: "Grades..."%>
+      <div class="row profile-background px-2">
+        <div class="col-0">
+          <button name="button" type="submit" id="grade-form-submit" class="btn btn-about">Submit</button>
+       </div>
+       <div>
+          <div class="col-8">
+           <div class="grade-form-help ">
+              Assignments can be graded with any of letters A/B/C/D/E/F
+          </div>
             <% end %>
-              <%= form.text_field :remarks, id: "assignment-grade-remarks", placeholder: "Remarks..." %>
-            </div>
-            <div style="margin-top: 10px">
-              <%= button_tag 'Submit', id: "grade-form-submit" %>
-              <%= button_tag 'Remove', id: "grade-form-remove" %>
-            </div>
-            <div class="grade-form-help">
-              * <%= @assignment.grading_scale_str %>
-            </div>
-          <% end %>
+           </div>
+        </div>
       </div>
+  </div>
+      <div class="row profile-background grade-container">
+        <div class="col-4">
+          <h4>Grade</h4>
+          <span id="project-grade"></span>
+        </div>
+        <div class="col-8">
+          <h4>Remarks</h4>
+          <span id="project-remarks"></span>
+        </div>
+        <div class="container px-2">
+          <%= button_tag 'Remove', id: "grade-form-remove", class: "btn btn-about bg-danger" %>
+          <% end %>
+        </div>
     </div>
-    <script src="/js/grading.js"> </script>
   <% end %>
-  <%end%>
+    <% end %>
+    <script src="/js/grading.js"> </script>
+    <script>
+        $(document).ready(function() {
+            $('.date').each(function(){
+                this.innerHTML = formatDate(new Date(this.innerHTML), "dddd hh:mmTT zz, dd MMM yyyy")
+            })})
+    </script>
 
-  <script>
-      $(document).ready(function() {
-          $('.date').each(function(){
-              this.innerHTML = formatDate(new Date(this.innerHTML), "dddd hh:mmTT zz, dd MMM yyyy")
-          })})
-  </script>
+</div>
 </div>

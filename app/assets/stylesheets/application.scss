@@ -1,8 +1,13 @@
 @import "theme";
+<<<<<<< HEAD
 @import "bootstrap/scss/bootstrap.scss";
+=======
+@import "bootstrap/scss/bootstrap";
+>>>>>>> 698d200... changed pixelated no-profile-pic, temporary fix to checkbox
 @import "commontator/application";
 @import 'bootstrap-typeahead-rails';
-@import 'font-awesome/css/font-awesome.min.css';
+@import "font-awesome-sprockets";
+@import "font-awesome";
 @import 'signup';
 @import 'logixRelease';
 @import 'layout';
@@ -12,7 +17,10 @@
 @import 'group_members';
 @import 'profile';
 @import 'home';
-@import 'trumbowyg/dist/ui/trumbowyg.min.css';
+@import 'contribute';
+@import 'assignments';
+@import 'trumbowyg/dist/ui/trumbowyg.min';
+@import 'examples';
 // #FIXME move these styles
 .alert {
   width: 100%;
