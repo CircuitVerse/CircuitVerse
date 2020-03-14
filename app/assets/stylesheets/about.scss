@@ -21,7 +21,7 @@
   margin-bottom: 10px;
 }
 
-#tab a, .card-body a{
+#tab a, .card-body a {
   text-decoration: none;
   color: $black;
 }
@@ -31,7 +31,6 @@
   color: white;
   transition: all 0.3s ease 0s;
   margin: 5px;
-
   &:hover {
     color:white;
     background-color: $teal;
