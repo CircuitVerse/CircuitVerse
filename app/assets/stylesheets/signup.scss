@@ -62,12 +62,12 @@
 
 .form-control.custom-input,
 select {
-  font-size: 1.25rem;
-  max-width: 80%;
   border: none;
   border-bottom: 1px solid #42B983;
-  box-shadow: none;
   border-radius: 0;
+  box-shadow: none;
+  font-size: 1.25rem;
+  max-width: 80%;
 }
 
 .custom-input:-webkit-autofill,
