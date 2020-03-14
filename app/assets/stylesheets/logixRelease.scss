@@ -172,15 +172,15 @@ a.btn.btn-outline-danger {
 
 .card-contribute {
   display: inline-block;
-  width: 300px;
   margin-top: 30px;
   margin-bottom: 30px;
   padding: 20px 0;
+  width: 300px;
 }
 
 .cardimage-contribute {
-  width: 150px;
   height: 150px;
+  width: 150px;
 }
 
 .cardbody-contribute > h3 {
@@ -193,29 +193,28 @@ a.btn.btn-outline-danger {
 
 .contribute-pay {
   display: inline-block;
-  width: 200px;
   height: 100px;
-  margin-top: 27px;
+  margin-bottom: 27px;
   margin-left: 30px;
   margin-right: 30px;
-  margin-bottom: 27px;
-  text-align: center;
-}
-
-.contribute-pay > p {
+  margin-top: 27px;
+  text-align: center; 
+  width: 200px; 
+  
+  & > p {
   font-weight: 550;
+  }
 }
 
 .patreon {
   border: 1.5px solid $black;
   border-radius: 8px;
-  padding: 4px;
   box-shadow: 3px 3px 6px $shadow-black;
-}
-
-.patreon > img {
-  width: 160px;
-  height: 70px;
+  padding: 4px;
+  & > img {
+    height: 70px;
+    width: 160px;
+  }
 }
 
 #teacher_heading {
