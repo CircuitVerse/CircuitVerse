@@ -17,12 +17,12 @@
         <div class="col-12">
       <%= form_with model: @profile, multipart: true, url: { action: "update" }, local: true do |f| %>
         <div class="field form-group ">
-          <%= f.label :name, { class: 'h5 font-weight-bold'} %><sup><i class="fa fa-asterisk edit-profile-page-astrikstyle" ></i></sup><br>
+          <p class="edit-profile-font"><strong><%= f.label :name %></strong><sup><i class="fa fa-asterisk edit-profile-page-astrikstyle" ></i></sup></p>
           <%= f.text_field :name, required: true, class:"form-control  rounded-0 border-success profile-text-feild" %>
          </div>
         
         <div class="form-group">
-          <label class="h5 font-weight-bold" >Profile Picture:</label>
+          <p  class="edit-profile-font"><strong><label>Profile Picture:</label></strong></p>
           <p> <%= image_tag @profile.profile_picture.url(:thumb), id:'imgedit', height:'160', width:'155',alt:'Your Profile' %></p>
           <label for="profile_picture" class="custom-file-upload h5 font-weight-bold">
             Choose File
@@ -31,19 +31,19 @@
           </div>
 
         <div class="field form-group">
-         <%= f.label :country, { class: 'h5 font-weight-bold'} %><span> [Optional]</span><br/>
+         <p class="edit-profile-font"><strong><%= f.label :country %></strong>&nbsp<span class="edit-profile-span-font">[Optional]</span></p>
           <%= f.country_select :country, { include_blank: 'Prefer Not To Enter', priority_countries: get_priority_countries() }, { class: "form-control rounded-0 border-success profile-text-feild" } %>
         </div>
 
         <div class="field form-group">
-          <%= f.label :educational_institute , { class: 'h5 font-weight-bold'} %><span> [Optional]</span><br/>
+          <p  class="edit-profile-font"><strong><%= f.label :educational_institute %></strong>&nbsp<span class="edit-profile-span-font"> [Optional]</span></p>
           <%= f.text_field :educational_institute,{ class: "typeahead form form-group form-control rounded-0 border-success profile-text-feild",autocomplete:"off" } %>
         </div>
        
         <div class="field form-group ">
-          <label for="profile_subscribed" class="h5 font-weight-bold " >Subscribed to mails: 
-          <%= f.check_box :subscribed, {checked: @profile.subscribed?, style: 'margin-top: 0;width: 20px;height: 20px;' , id: "profile_subscribed"} %>
-          </label>
+          <p class="edit-profile-font"><strong><label for="profile_subscribed">Subscribed to mails: 
+          <%= f.check_box :subscribed, {checked: @profile.subscribed?, style:'margin-top: 0;width: 20px;height: 20px;' , id: "profile_subscribed"} %>
+          </label></strong></p>
         </div>
 
          <button type="submit" class="btn btn-secondary btn-secondary-profile-page rounded-0 float-left ">Save</button>
@@ -86,4 +86,3 @@ function readURL(input) {
         source: bloodhound.ttAdapter()
     });
 </script>
-
