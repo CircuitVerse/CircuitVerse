@@ -28,13 +28,13 @@
 .fa.password-icon {
   cursor: pointer;
   color: $green;
-  font-size: 30px;
+  font-size: 1.875rem;
   background: transparent;
 }
 
 .label-text {
   text-transform: uppercase;
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 600;
   margin-top: 15px;
 }
@@ -62,7 +62,7 @@
 
 .form-control.custom-input,
 select {
-  font-size: 20px;
+  font-size: 1.25rem;
   max-width: 80%;
   border: none;
   border-bottom: 1px solid #42B983;

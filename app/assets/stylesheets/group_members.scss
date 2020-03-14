@@ -14,7 +14,7 @@
   border-radius: 5px;
   color: $white;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 1.125rem;
   left: 4px;
   padding: 8px;
   position: relative;
@@ -32,7 +32,7 @@
   border-radius: 25px;
   color: $white;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 1.125rem;
   padding: 12px 34px;
 
   &:hover {
@@ -47,7 +47,7 @@
   color: $white;
   cursor: pointer;
   float: left;
-  font-size: 16px;
+  font-size: 1rem;
   margin: 5px;
   padding: 2px 12px;
   text-decoration: 0;
@@ -64,7 +64,7 @@
   color: $white;
   cursor: pointer;
   float: left;
-  font-size: 16px;
+  font-size: 1rem;
   margin: 5px;
   padding: 2px 12px;
   text-decoration: none;
@@ -81,7 +81,7 @@
   color: $white;
   cursor: pointer;
   float: left;
-  font-size: 16px;
+  font-size: 1rem;
   margin: 5px;
   padding: 2px 12px;
   text-decoration: none;
@@ -94,7 +94,7 @@
 
 .card-member-name {
   color: $black;
-  font-size: 20px;
+  font-size: 1.25rem;
 
   &:hover {
     color: $black;
@@ -104,7 +104,7 @@
 
 .card-member-email {
   color: $black;
-  font-size: 18px;
+  font-size: 1.125rem;
   letter-spacing: 1px;
   margin-top: 2px;
 }
@@ -113,7 +113,7 @@
   background-color: $red;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 15px;
+  font-size: 0.9375rem;
   overflow: hidden;
   padding: 2px 5px;
 
@@ -129,7 +129,7 @@
   cursor: pointer;
   display: block;
   float: left;
-  font-size: 16px;
+  font-size: 1rem;
   padding: 12px 34px;
   text-align: center;
   text-decoration: none;
