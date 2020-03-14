@@ -1,5 +1,12 @@
 // Most Listeners are stored here
 
+console.log("hello from listener")
+window.addEventListener('touchstart',(f)=>console.log("toutched" , f))
+window.addEventListener('touchend',(f)=>console.log("toutched end" , f))
+window.addEventListener('touchmove',(f)=>console.log("moved" , f))
+window.addEventListener('touchcancel',(f)=>console.log("cancel toutch" , f))
+
+
 
 function startListeners() {
     window.addEventListener('keyup', function(e) {
@@ -12,6 +19,7 @@ function startListeners() {
             simulationArea.controlDown = false;
         }
     });
+
     document.getElementById("simulationArea").addEventListener('mousedown', function(e) {
 
         $("input").blur();
@@ -38,6 +46,7 @@ function startListeners() {
         scheduleUpdate(1);
         $('.dropdown.open').removeClass('open');
     });
+
     document.getElementById("simulationArea").addEventListener('mouseup', function(e) {
         if (simulationArea.lastSelected) simulationArea.lastSelected.newElement = false;
         /*
@@ -200,6 +209,7 @@ function startListeners() {
     })
 
     document.getElementById("simulationArea").addEventListener('dblclick', function(e) {
+        console.log("double clicked!!!")
         scheduleUpdate(2);
         if (simulationArea.lastSelected && simulationArea.lastSelected.dblclick !== undefined) {
             simulationArea.lastSelected.dblclick();

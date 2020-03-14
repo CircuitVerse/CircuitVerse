@@ -15,12 +15,12 @@
         <div class="row row-about">
           <div class="col-xs col-sm col-md col-lg">
             <div class="contact" onclick="window.location.href='mailto:support@circuitverse.org';">
-              <%= image_tag "SVGs/email.svg", height: '60', width: '60', alt: "" %>
+              <%= image_tag "SVGs/email.svg", height: '60', width: '60', alt: "", class: 'about-card-image' %>
               <h6>Email us at</h6>
               <p id="tab">support@circuitverse.org</p>
             </div>
             <div class="contact" onclick="window.location.href='<%= Rails.configuration.slack_url %>';">
-              <%= image_tag "SVGs/slack.svg", height: '60', width: '60', alt: "" %>
+              <%= image_tag "SVGs/slack.svg", height: '60', width: '60', alt: "", class: 'about-card-image' %>
               <h6>Join and chat with us at</h6>
               <p id="tab">Slack Channel</p>
             </div>
