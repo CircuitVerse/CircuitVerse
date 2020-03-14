@@ -200,8 +200,7 @@ a.btn.btn-outline-danger {
   margin-top: 27px;
   text-align: center; 
   width: 200px; 
-  
-  & > p {
+  p {
     font-weight: 550;
   }
 
@@ -212,8 +211,7 @@ a.btn.btn-outline-danger {
   border-radius: 8px;
   box-shadow: 3px 3px 6px $shadow-black;
   padding: 4px;
-  
-  & > img {
+  img {
     height: 70px;
     width: 160px;
   }
