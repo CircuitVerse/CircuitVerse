@@ -5,7 +5,9 @@
     <% end %>
     <h1 style="text-align:center">
       <%= @group.name %>
+      <% if policy(@group).admin_access? %>
       <%= link_to ' Edit Name', edit_group_path(@group), class:"group-name-editlink fa fa-pencil" %>
+      <% end %>
     </h1>
     <div style="font-size:25px; text-align:center;">
       <strong>Mentor:</strong>
@@ -14,7 +16,9 @@
     <br><br>
     <div class="d-flex flex-column flex-md-row align-items-center justify-content-md-between">
       <h3 class="add-member-heading">MEMBERS</h3>
+      <% if policy(@group).admin_access? %>
       <button type="button" class="add-member" data-toggle="modal" data-target="#myModal">+ Add Members</button>
+      <% end %>
     </div>
     <hr>
     <div class="row">
@@ -74,14 +78,14 @@
         </div>
       </div>
     </div>
-    <% if policy(@group).admin_access? %>
       <br><br>
       <div class="d-flex flex-column flex-md-row align-items-center justify-content-md-between">
         <h3 class="add-member-heading">ASSIGNMENTS</h3>
+        <% if policy(@group).admin_access? %>
         <%= link_to '+ Add new assignment', new_group_assignment_path(@group), class: "add-member" %>
+        <% end %>
       </div>
       <hr>
-    <% end %>
     <table class="table assignment-table table-borderless">
       <thead>
       <tr>
