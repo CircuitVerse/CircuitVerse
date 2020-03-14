@@ -5,7 +5,7 @@
     <% end %>
     <h1 style="text-align:center">
       <%= @group.name %>
-      <%= link_to ' Edit Name', edit_group_path(@group), class:"group-name-editlink fa fa-pencil" %>
+      <%= link_to ' Edit Name', edit_group_path(@group), class:"group-name-editlink" %>
     </h1>
     <div style="font-size:25px; text-align:center;">
       <strong>Mentor:</strong>
@@ -151,7 +151,7 @@
     </table>
     <% if policy(@group).admin_access? %>
     <% end %>
-    <%= link_to 'Back', user_groups_path(current_user) ,class:"group-description-back", style:"background-color: #42b983;" %>
+    <%= link_to 'Back', user_groups_path(current_user) ,class:"btn underline text-success" %>
   </div>
   <script>
       $(document).ready(function() {
