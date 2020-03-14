@@ -1,8 +1,9 @@
 @import "theme";
-@import "bootstrap/scss/bootstrap.scss";
-@import "commontator/application.css";
+@import "bootstrap/scss/bootstrap";
+@import "commontator/application";
 @import 'bootstrap-typeahead-rails';
-@import 'font-awesome/css/font-awesome.min.css';
+@import "font-awesome-sprockets";
+@import "font-awesome";
 @import 'signup';
 @import 'logixRelease';
 @import 'layout';
@@ -12,7 +13,10 @@
 @import 'group_members';
 @import 'profile';
 @import 'home';
-@import 'trumbowyg/dist/ui/trumbowyg.min.css';
+@import 'contribute';
+@import 'assignments';
+@import 'trumbowyg/dist/ui/trumbowyg.min';
+@import 'examples';
 // #FIXME move these styles
 .alert {
   width: 100%;

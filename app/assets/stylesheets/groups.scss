@@ -18,9 +18,6 @@
   padding: 10px 40px;
 
   &:hover {
-    background-color: $white;
-    box-shadow: 0 8px 15px $shadow-black;
-    color: $green;
     text-decoration: none;
   }
 }
@@ -131,7 +128,6 @@
 }
 
 .group-input-name {
-  background: $white 0% 0% no-repeat padding-box;
   border: 1px solid $green;
   border-radius: 0;
 }

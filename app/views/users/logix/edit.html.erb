@@ -23,7 +23,7 @@
         
         <div class="form-group">
           <label class="h4 font-weight-bold" >Profile Picture:</label>
-          <p> <%= image_tag @profile.profile_picture.url(:thumb), id:'imgedit', height:'160', width:'155',alt:'Your Profile' %></p>
+          <p> <%= image_tag @profile.profile_picture.url(:thumb), id:'imgedit', height:'auto', width:'155',alt:'Your Profile' %></p>
           <label for="profile_picture" class="custom-file-upload h5 font-weight-bold">
             Choose File
           </label>
@@ -42,12 +42,12 @@
        
         <div class="field form-group ">
           <label for="profile_subscribed" class="h4 font-weight-bold " >Subscribed to mails: 
-          <%= f.check_box :subscribed, {checked: @profile.subscribed?, style: 'margin-top: 0;width: 20px;height: 20px;' , id: "profile_subscribed"} %>
+          <%= f.check_box :subscribed, {checked: @profile.subscribed?, id: "profile_subscribed"} %>
           </label>
         </div>
 
          <button type="submit" class="btn btn-secondary btn-secondary-profile-page rounded-0 float-left ">Save</button>
-         <a class="btn btn-secondary-to-profile-page rounded-0 float-left " href="<%= profile_path(current_user) %>">Back </a>
+         <a class="btn btn-secondary-to-profile-page rounded-0 float-left" href="<%= profile_path(current_user) %>">Back</a>
       <% end %>
 
     </div>
