@@ -17,12 +17,12 @@
         <div class="col-12">
       <%= form_with model: @profile, multipart: true, url: { action: "update" }, local: true do |f| %>
         <div class="field form-group ">
-          <%= f.label :name, { class: 'h4 font-weight-bold'} %><sup><i class="fa fa-asterisk edit-profile-page-astrikstyle" ></i></sup><br>
+          <%= f.label :name, { class: 'h5 font-weight-bold'} %><sup><i class="fa fa-asterisk edit-profile-page-astrikstyle" ></i></sup><br>
           <%= f.text_field :name, required: true, class:"form-control  rounded-0 border-success profile-text-feild" %>
          </div>
         
         <div class="form-group">
-          <label class="h4 font-weight-bold" >Profile Picture:</label>
+          <label class="h5 font-weight-bold" >Profile Picture:</label>
           <p> <%= image_tag @profile.profile_picture.url(:thumb), id:'imgedit', height:'160', width:'155',alt:'Your Profile' %></p>
           <label for="profile_picture" class="custom-file-upload h5 font-weight-bold">
             Choose File
@@ -31,17 +31,17 @@
           </div>
 
         <div class="field form-group">
-         <%= f.label :country, { class: 'h4 font-weight-bold'} %><span> [Optional]</span><br/>
+         <%= f.label :country, { class: 'h5 font-weight-bold'} %><span> [Optional]</span><br/>
           <%= f.country_select :country, { include_blank: 'Prefer Not To Enter', priority_countries: get_priority_countries() }, { class: "form-control rounded-0 border-success profile-text-feild" } %>
         </div>
 
         <div class="field form-group">
-          <%= f.label :educational_institute , { class: 'h4 font-weight-bold'} %><span> [Optional]</span><br/>
-          <%= f.text_field :educational_institute,{ class: "form form-group form-control rounded-0 border-success profile-text-feild",autocomplete:"off" } %>
+          <%= f.label :educational_institute , { class: 'h5 font-weight-bold'} %><span> [Optional]</span><br/>
+          <%= f.text_field :educational_institute,{ class: "typeahead form form-group form-control rounded-0 border-success profile-text-feild",autocomplete:"off" } %>
         </div>
        
         <div class="field form-group ">
-          <label for="profile_subscribed" class="h4 font-weight-bold " >Subscribed to mails: 
+          <label for="profile_subscribed" class="h5 font-weight-bold " >Subscribed to mails: 
           <%= f.check_box :subscribed, {checked: @profile.subscribed?, style: 'margin-top: 0;width: 20px;height: 20px;' , id: "profile_subscribed"} %>
           </label>
         </div>
