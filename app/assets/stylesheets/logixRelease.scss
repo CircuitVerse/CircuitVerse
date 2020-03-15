@@ -10,12 +10,6 @@
   top: 50%;
 }
 
-.label-field {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-}
-
 .noSelect {
   -moz-user-select: none;
   -ms-user-select: none;
@@ -52,7 +46,6 @@ a.btn.btn-outline-danger {
   background: #f0f0f0;
   border: 1px solid #86181d;
   color: $red;
-  padding: 4px;
 
   h2 {
     font-size: 1.25rem;
@@ -196,11 +189,7 @@ a.btn.btn-outline-danger {
 
 .name-group {
   font-size: 1.2rem;
-  font-weight: 500;
-  height: 100%;
-  margin-right: 12px;
-  margin-top: 10px;
-  width: 220px;
+  margin: 0;
 }
 
 .edit-name {
