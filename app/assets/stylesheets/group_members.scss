@@ -152,3 +152,9 @@
 .add-member-heading {
   display: inline;
 }
+
+.auto-scroll-members
+{
+    max-height: 525px;
+    overflow-y: auto;
+}
