@@ -6,7 +6,26 @@
 .btn-secondary-profile-page {
   background-color: $green;
   color: $pure-white;
+  margin-bottom: 4px;
+  margin-left: 4px;
+  margin-right: 4px;
+  margin-top: 4px;
   padding: .5em 3em;
+}
+
+.btn-secondary-to-profile-page {
+  color: $teal;
+  margin-bottom: 4px;
+  margin-left: 4px;
+  margin-right: 4px;
+  margin-top: 4px;
+  padding: .5em 3em;
+  text-decoration: underline;
+
+  &:hover {
+    color: $green;
+    text-decoration: none;
+  }
 }
 
 .edit-profile-page-bg {
