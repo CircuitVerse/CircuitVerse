@@ -23,7 +23,8 @@
 .btn-homepage2 {
   border: 1.6px solid $teal;
   border-radius: 5px;
-  margin: 0 7px;
+  box-shadow: 0 2px 7px $shadow-black;
+  margin: 10px 0 10px 15px;
 
   &:hover {
     background-color: $teal;
@@ -84,7 +85,6 @@
 }
 
 .homepage-cover {
-  margin-top: -60px;
   max-height: 700px;
   max-width: 100%;
 }
