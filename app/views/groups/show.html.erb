@@ -24,9 +24,9 @@
     <div class="row auto-scroll-members">
       <% @group.users.each do |user| %>
         <div class="col-12 col-md-6 col-lg-4">
-          <div class="card-member scroll-members-card d-flex flex-column flex-sm-row justify-content-between align-items-center">
-            <div class="d-flex flex-column align-content-center align-items-sm-start">
-              <div class="d-flex flex-row ">
+          <div class="card-member d-flex flex-column flex-sm-row justify-content-between align-items-center">
+            <div class="d-flex flex-column align-items-center align-items-sm-start">
+              <div class="d-flex flex-row justify-content-between">
                 <div class="fa fa-user mt-2">&nbsp</div>
                 <%= link_to user.name, user, class: " card-member-name" %>
               </div>
