@@ -41,7 +41,7 @@
 
   <% if @user.projects.blank? %>
     <div class ="no-projects px-4">
-      <h5>You don't have any projects. Create one <%= link_to 'here', simulator_new_url %></h5>
+      <h5>You don't have any projects. Create one <%= link_to 'here', simulator_new_url, class: 'no-projects-here' %></h5>
     </div>
   <% end %>
 
