@@ -6,7 +6,7 @@ module Utils
   def self.parse_mails(mails)
     mails.split(/[\s,\,]/).select do |email|
       email.present? && Devise.email_regexp.match?(email)
-    end.uniq
+    end.uniq.map(&:downcase)
   end
 
   # Forms notice string for given email input
