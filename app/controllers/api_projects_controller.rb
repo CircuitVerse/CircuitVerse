@@ -2,12 +2,12 @@ class ApiProjectsController < ApplicationController
 
   def index
     @projects = Project.where(project_access_type: "Public")
-    render json: @projects
+    render :json => @projects, :include => {:author => {:only => [:name, :email]}}
   end
 
   def show
     @project = Project.find(params[:id])
-    render json: @project
+    render :json => @project, :include => {:author => {:only => [:name, :email]}}
   end
 
 end
