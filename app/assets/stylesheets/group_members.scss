@@ -95,6 +95,9 @@
 .card-member-name {
   color: $black;
   font-size: 20px;
+  max-width: 175px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   &:hover {
     color: $black;
@@ -107,6 +110,9 @@
   font-size: 18px;
   letter-spacing: 1px;
   margin-top: 2px;
+  max-width: 175px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .card-member-remove {
@@ -151,4 +157,14 @@
 
 .add-member-heading {
   display: inline;
+}
+
+.auto-scroll-members {
+  max-height: 525px;
+  overflow-y: auto;
+}
+
+.scroll-members-card {
+  max-height: 125px;
+  overflow-y: scroll;
 }
