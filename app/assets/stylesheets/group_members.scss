@@ -153,13 +153,12 @@
   display: inline;
 }
 
-.auto-scroll-members
-{
-    max-height: 525px;
-    overflow-y: auto;
+.auto-scroll-members {
+  max-height: 525px;
+  overflow-y: auto;
 }
-.scroll-members-card
-{
-    max-height: 125px;
-    overflow-y: scroll;
+
+.scroll-members-card {
+  max-height: 125px;
+  overflow-y: scroll;
 }
