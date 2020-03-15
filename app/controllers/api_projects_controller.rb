@@ -1,7 +1,7 @@
 class ApiProjectsController < ApplicationController
 
   def index
-    @projects = Project.find_by(project_access_type: "Public")
+    @projects = Project.where(project_access_type: "Public")
     render json: @projects
   end
 
