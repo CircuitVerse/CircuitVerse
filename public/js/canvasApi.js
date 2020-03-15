@@ -7,7 +7,6 @@ function changeScale(delta,xx,yy,method=1) {
 	// method = 3/2 - Zoom wrt center of screen
 	// method = 1 - Zoom wrt position of mouse
 	// Otherwise zoom wrt to selected object
-    console.log('hello, chutiyapa');
     if(method==3){
         xx =(width/2 - globalScope.ox) / globalScope.scale
         yy = (height/2 - globalScope.oy) / globalScope.scale
