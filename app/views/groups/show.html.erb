@@ -5,7 +5,9 @@
     <% end %>
     <h1 style="text-align:center">
       <%= @group.name %>
+      <% if policy(@group).admin_access? %>
       <%= link_to ' Edit Name', edit_group_path(@group), class:"group-name-editlink" %>
+      <% end %>
     </h1>
     <div style="font-size:25px; text-align:center;">
       <strong>Mentor:</strong>
@@ -14,22 +16,24 @@
     <br><br>
     <div class="d-flex flex-column flex-md-row align-items-center justify-content-md-between">
       <h3 class="add-member-heading">MEMBERS</h3>
+      <% if policy(@group).admin_access? %>
       <button type="button" class="add-member" data-toggle="modal" data-target="#myModal">+ Add Members</button>
+      <% end %>
     </div>
     <hr>
-    <div class="row">
+    <div class="row auto-scroll-members">
       <% @group.users.each do |user| %>
         <div class="col-12 col-md-6 col-lg-4">
           <div class="card-member d-flex flex-column flex-sm-row justify-content-between align-items-center">
             <div class="d-flex flex-column align-items-center align-items-sm-start">
-              <div class="d-flex flex-row align-items-center">
-                <div class="fa fa-user">&nbsp</div>
-                <%= link_to user.name, user, class: "card-member-name" %>
+              <div class="d-flex flex-row justify-content-between">
+                <div class="fa fa-user mt-2">&nbsp</div>
+                <%= link_to user.name, user, class: " card-member-name" %>
               </div>
               <div class="card-member-email"><%= user.email %></div>
             </div>
             <% if policy(@group).admin_access? %>
-              <%= link_to 'Remove', group_member_path(GroupMember.find_by(user_id:user.id,group_id:@group.id)), method: :delete, data: { confirm: 'Are you sure?' }, class:"card-member-remove text-white mt-1 mt-sm-0" %>
+              <%= link_to 'Remove', group_member_path(GroupMember.find_by(user_id:user.id,group_id:@group.id)), method: :delete, data: { confirm: 'Are you sure?' }, class:"card-member-remove text-white  mt-1 mt-sm-0" %>
             <% end %>
           </div>
         </div>
@@ -74,14 +78,14 @@
         </div>
       </div>
     </div>
-    <% if policy(@group).admin_access? %>
       <br><br>
       <div class="d-flex flex-column flex-md-row align-items-center justify-content-md-between">
         <h3 class="add-member-heading">ASSIGNMENTS</h3>
+        <% if policy(@group).admin_access? %>
         <%= link_to '+ Add new assignment', new_group_assignment_path(@group), class: "add-member" %>
+        <% end %>
       </div>
       <hr>
-    <% end %>
     <table class="table assignment-table table-borderless">
       <thead>
       <tr>
@@ -151,7 +155,7 @@
     </table>
     <% if policy(@group).admin_access? %>
     <% end %>
-    <%= link_to 'Back', user_groups_path(current_user) ,class:"btn underline text-success" %>
+    <%= link_to 'Back', user_groups_path(current_user) ,class:"btn underline text-success", style:"background-color: #42b983;" %>
   </div>
   <script>
       $(document).ready(function() {
