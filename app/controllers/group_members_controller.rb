@@ -44,11 +44,15 @@ class GroupMembersController < ApplicationController
         PendingInvitation.where(group_id:@group.id,email:email).first_or_create
         # @group.pending_invitations.create(email:email)
       else
-        GroupMember.where(group_id:@group.id,user_id:user.id).first_or_create
+        if @group.mentor_id.eql? user.id
+          
+        else
+          GroupMember.where(group_id:@group.id,user_id:user.id).first_or_create
+          # group_member = @group.group_members.new
+          # group_member.user_id = user.id
+          # group_member.save
+        end
 
-        # group_member = @group.group_members.new
-        # group_member.user_id = user.id
-        # group_member.save
       end
 
     end
