@@ -47,11 +47,11 @@
   box-shadow: 0 2px 7px $shadow-black;
   display: inline-block;
   height: 89px;
-  margin-bottom: 40px;
+  margin-top: 50px;
   margin-left: 7px;
   margin-right: 7px;
-  margin-top: 50px;
-  opacity: .89;
+  margin-bottom: 40px;
+  width: 300px;
   padding: 15px;
   cursor: pointer;
   transition: box-shadow 0.2s ease-in;
@@ -64,7 +64,7 @@
   img {
     float: left;
   }
-}
+
 
 #tab {
   text-align: center;
@@ -94,4 +94,20 @@
   background-color: $green;
   color: $white;
   opacity: 1;
+}
+
+@media (max-width:350px) {
+  .about-card-image {
+    display: none;
+  }
+
+  .contact {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    width: 230px;
+  }
+
+  .card-about {
+    margin: 30px 8px;
+  }
 }
