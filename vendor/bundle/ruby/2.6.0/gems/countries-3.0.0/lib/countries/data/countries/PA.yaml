@@ -1,0 +1,49 @@
+---
+PA:
+  continent: North America
+  alpha2: PA
+  alpha3: PAN
+  alt_currency: USD
+  country_code: '507'
+  international_prefix: '00'
+  ioc: PAN
+  gec: PM
+  name: Panama
+  national_destination_code_lengths:
+  - 2
+  national_number_lengths:
+  - 7
+  national_prefix: None
+  number: '591'
+  region: Americas
+  subregion: Central America
+  world_region: AMER
+  un_locode: PA
+  nationality: Panamanian
+  postal_code: false
+  unofficial_names:
+  - Panama
+  - Panamá
+  - パナマ
+  languages_official:
+  - es
+  languages_spoken:
+  - es
+  geo:
+    latitude: 8.537981
+    latitude_dec: '8.646247863769531'
+    longitude: -80.782127
+    longitude_dec: "-80.50607299804688"
+    max_latitude: 9.7145001
+    max_longitude: -77.15848799999999
+    min_latitude: 7.0409
+    min_longitude: -83.05224109999999
+    bounds:
+      northeast:
+        lat: 9.7145001
+        lng: -77.15848799999999
+      southwest:
+        lat: 7.0409
+        lng: -83.05224109999999
+  currency_code: PAB
+  start_of_week: monday

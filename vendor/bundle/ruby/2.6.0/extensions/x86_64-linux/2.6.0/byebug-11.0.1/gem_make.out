@@ -1,0 +1,19 @@
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/2.6.0/gems/byebug-11.0.1/ext/byebug
+/home/gitpod/.rvm/rubies/ruby-2.6.5/bin/ruby -I /home/gitpod/.rvm/rubies/ruby-2.6.5/lib/ruby/site_ruby/2.6.0 -r ./siteconf20200314-14878-1m30xht.rb extconf.rb
+creating Makefile
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/2.6.0/gems/byebug-11.0.1/ext/byebug
+make "DESTDIR=" clean
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/2.6.0/gems/byebug-11.0.1/ext/byebug
+make "DESTDIR="
+compiling breakpoint.c
+compiling byebug.c
+compiling context.c
+compiling locker.c
+compiling threads.c
+linking shared-object byebug/byebug.so
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/2.6.0/gems/byebug-11.0.1/ext/byebug
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 byebug.so ./.gem.20200314-14878-15zt0mf/byebug

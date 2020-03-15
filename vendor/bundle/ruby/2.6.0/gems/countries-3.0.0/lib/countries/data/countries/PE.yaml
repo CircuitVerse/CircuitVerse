@@ -1,0 +1,50 @@
+---
+PE:
+  continent: South America
+  alpha2: PE
+  alpha3: PER
+  country_code: '51'
+  international_prefix: '00'
+  ioc: PER
+  gec: PE
+  name: Peru
+  national_destination_code_lengths:
+  - 2
+  national_number_lengths:
+  - 8
+  - 9
+  national_prefix: '0'
+  number: '604'
+  region: Americas
+  subregion: South America
+  world_region: AMER
+  un_locode: PE
+  nationality: Peruvian
+  postal_code: true
+  unofficial_names:
+  - Peru
+  - Pérou
+  - Perú
+  - ペルー
+  languages_official:
+  - es
+  languages_spoken:
+  - es
+  geo:
+    latitude: -9.189967
+    latitude_dec: "-9.212532997131348"
+    longitude: -75.015152
+    longitude_dec: "-74.422119140625"
+    max_latitude: -0.038777
+    max_longitude: -68.652329
+    min_latitude: -18.4483
+    min_longitude: -81.3867001
+    bounds:
+      northeast:
+        lat: -0.038777
+        lng: -68.652329
+      southwest:
+        lat: -18.4483
+        lng: -81.3867001
+  currency_code: PEN
+  start_of_week: monday

@@ -1,0 +1,62 @@
+---
+LT:
+  continent: Europe
+  alpha2: LT
+  alpha3: LTU
+  country_code: '370'
+  international_prefix: '00'
+  ioc: LTU
+  gec: LH
+  name: Lithuania
+  national_destination_code_lengths:
+  - 2
+  national_number_lengths:
+  - 8
+  national_prefix: '8'
+  number: '440'
+  region: Europe
+  subregion: Northern Europe
+  world_region: EMEA
+  un_locode: LT
+  nationality: Lithuanian
+  eu_member: true
+  eea_member: true
+  vat_rates:
+    standard: 21
+    reduced:
+    - 5
+    - 9
+    super_reduced: 
+    parking: 
+  postal_code: true
+  unofficial_names:
+  - Lithuania
+  - Litauen
+  - Lituanie
+  - Lituania
+  - リトアニア
+  - Litouwen
+  - Літва
+  - Lietuva
+  languages_official:
+  - lt
+  languages_spoken:
+  - lt
+  geo:
+    latitude: 55.169438
+    latitude_dec: '55.33871841430664'
+    longitude: 23.881275
+    longitude_dec: '23.87092399597168'
+    max_latitude: 56.45032089999999
+    max_longitude: 26.8355913
+    min_latitude: 53.89687869999999
+    min_longitude: 20.931
+    bounds:
+      northeast:
+        lat: 56.45032089999999
+        lng: 26.8355913
+      southwest:
+        lat: 53.89687869999999
+        lng: 20.931
+  currency_code: EUR
+  start_of_week: monday

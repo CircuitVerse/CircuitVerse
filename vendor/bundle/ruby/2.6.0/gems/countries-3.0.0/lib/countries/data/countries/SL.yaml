@@ -1,0 +1,47 @@
+---
+SL:
+  continent: Africa
+  alpha2: SL
+  alpha3: SLE
+  country_code: '232'
+  international_prefix: '00'
+  ioc: SLE
+  gec: SL
+  name: Sierra Leone
+  national_destination_code_lengths:
+  - 2
+  national_number_lengths:
+  - 8
+  national_prefix: '0'
+  number: '694'
+  region: Africa
+  subregion: Western Africa
+  world_region: EMEA
+  un_locode: SL
+  nationality: Sierra Leonean
+  postal_code: false
+  unofficial_names:
+  - Sierra Leone
+  - シエラレオネ
+  languages_official:
+  - en
+  languages_spoken:
+  - en
+  geo:
+    latitude: 8.460555
+    latitude_dec: '8.521441459655762'
+    longitude: -11.779889
+    longitude_dec: "-11.843890190124512"
+    max_latitude: 9.9999737
+    max_longitude: -10.271683
+    min_latitude: 6.8446
+    min_longitude: -13.4032999
+    bounds:
+      northeast:
+        lat: 9.9999737
+        lng: -10.271683
+      southwest:
+        lat: 6.8446
+        lng: -13.4032999
+  currency_code: SLL
+  start_of_week: monday

@@ -1,0 +1,48 @@
+---
+SV:
+  continent: North America
+  alpha2: SV
+  alpha3: SLV
+  country_code: '503'
+  international_prefix: '00'
+  ioc: ESA
+  gec: ES
+  name: El Salvador
+  national_destination_code_lengths:
+  - 2
+  national_number_lengths:
+  - 8
+  national_prefix: None
+  number: '222'
+  region: Americas
+  subregion: Central America
+  world_region: AMER
+  un_locode: SV
+  nationality: Salvadoran
+  postal_code: true
+  unofficial_names:
+  - El Salvador
+  - Salvador
+  - エルサルバドル
+  languages_official:
+  - es
+  languages_spoken:
+  - es
+  geo:
+    latitude: 13.794185
+    latitude_dec: '13.671636581420898'
+    longitude: -88.89653
+    longitude_dec: "-88.86363220214844"
+    max_latitude: 14.4505567
+    max_longitude: -87.6682
+    min_latitude: 13.0473999
+    min_longitude: -90.19229999999999
+    bounds:
+      northeast:
+        lat: 14.4505567
+        lng: -87.6682
+      southwest:
+        lat: 13.0473999
+        lng: -90.19229999999999
+  currency_code: USD
+  start_of_week: monday

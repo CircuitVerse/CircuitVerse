@@ -1,0 +1,14 @@
+inherit_from:
+  - ../.rubocop.yml
+
+Metrics/LineLength:
+  Enabled: false
+
+Lint/HandleExceptions:
+  Enabled: false
+
+Lint/UselessAssignment:
+  Enabled: false
+
+Style/BlockDelimiters:
+  Enabled: false

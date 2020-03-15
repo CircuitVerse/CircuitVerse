@@ -1,0 +1,28 @@
+language: ruby
+cache:
+  bundler: true
+  yarn: true
+  directories:
+    - node_modules
+rvm:
+  - 2.4
+  - 2.5
+  - 2.6
+before_install:
+  - gem uninstall -v '>= 2' -i $(rvm gemdir)@global -ax bundler || true
+  - gem install bundler -v '< 2'
+install:
+  - bundle install --path vendor/bundle
+  - cd test/sample && yarn install && cd -
+gemfile:
+  - gemfiles/rails_3.2.gemfile
+  - gemfiles/rails_4.2.gemfile
+  - gemfiles/rails_5.0.gemfile
+  - gemfiles/rails_5.1.gemfile
+  - gemfiles/rails_3.2.gemfile
+matrix:
+  exclude:
+  - rvm: 2.6
+    gemfile: gemfiles/rails_3.2.gemfile
+script:
+  - bundle exec rake

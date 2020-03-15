@@ -1,0 +1,46 @@
+---
+AQ:
+  continent: Antarctica
+  alpha2: AQ
+  alpha3: ATA
+  country_code: '672'
+  international_prefix: ''
+  ioc: 
+  gec: AY
+  name: Antarctica
+  national_destination_code_lengths: []
+  national_number_lengths: []
+  national_prefix: ''
+  world_region: AMER
+  number: '010'
+  region: ''
+  subregion: ''
+  un_locode: AQ
+  nationality: ''
+  postal_code: true
+  unofficial_names:
+  - Antarctica
+  - Antarktis
+  - Antarctique
+  - Antártida
+  - 南極
+  languages_official: []
+  languages_spoken: []
+  geo:
+    latitude: -75.250973
+    latitude_dec: "-82.862752"
+    longitude: -0.071389
+    longitude_dec: "-135.0"
+    max_latitude: -60.1086999
+    max_longitude: 180
+    min_latitude: -90
+    min_longitude: -180
+    bounds:
+      northeast:
+        lat: -60.1086999
+        lng: 180
+      southwest:
+        lat: -90
+        lng: -180
+  currency_code: USD
+  start_of_week: monday

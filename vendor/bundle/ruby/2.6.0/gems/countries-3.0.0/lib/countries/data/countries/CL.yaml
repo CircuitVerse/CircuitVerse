@@ -1,0 +1,49 @@
+---
+CL:
+  continent: South America
+  alpha2: CL
+  alpha3: CHL
+  country_code: '56'
+  international_prefix: '00'
+  ioc: CHI
+  gec: CI
+  name: Chile
+  national_destination_code_lengths:
+  - 2
+  national_number_lengths:
+  - 8
+  - 9
+  national_prefix: '0'
+  number: '152'
+  region: Americas
+  subregion: South America
+  world_region: AMER
+  un_locode: CL
+  nationality: Chilean
+  postal_code: true
+  unofficial_names:
+  - Chile
+  - チリ
+  - Chili
+  languages_official:
+  - es
+  languages_spoken:
+  - es
+  geo:
+    latitude: -35.675147
+    latitude_dec: "-35.78622817993164"
+    longitude: -71.542969
+    longitude_dec: "-71.67467498779297"
+    max_latitude: -17.4983293
+    max_longitude: -66.3327
+    min_latitude: -56.1455
+    min_longitude: -110.0281
+    bounds:
+      northeast:
+        lat: -17.4983293
+        lng: -66.3327
+      southwest:
+        lat: -56.1455
+        lng: -110.0281
+  currency_code: CLP
+  start_of_week: monday

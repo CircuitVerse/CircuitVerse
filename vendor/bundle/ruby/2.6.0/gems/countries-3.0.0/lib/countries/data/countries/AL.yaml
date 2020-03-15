@@ -1,0 +1,52 @@
+---
+AL:
+  continent: Europe
+  alpha2: AL
+  alpha3: ALB
+  country_code: '355'
+  international_prefix: '00'
+  ioc: ALB
+  gec: AL
+  name: Albania
+  national_destination_code_lengths:
+  - 2
+  national_number_lengths:
+  - 7
+  - 8
+  - 9
+  national_prefix: '0'
+  number: 008
+  region: Europe
+  subregion: Southern Europe
+  world_region: EMEA
+  un_locode: AL
+  nationality: Albanian
+  postal_code: true
+  unofficial_names:
+  - Albania
+  - Albanien
+  - Albanie
+  - アルバニア
+  - Albanië
+  languages_official:
+  - sq
+  languages_spoken:
+  - sq
+  geo:
+    latitude: 41.153332
+    latitude_dec: '41.11113357543945'
+    longitude: 20.168331
+    longitude_dec: '20.02745246887207'
+    max_latitude: 42.6610819
+    max_longitude: 21.0572394
+    min_latitude: 39.6447296
+    min_longitude: 19.1217
+    bounds:
+      northeast:
+        lat: 42.6610819
+        lng: 21.0572394
+      southwest:
+        lat: 39.6447296
+        lng: 19.1217
+  currency_code: ALL
+  start_of_week: monday

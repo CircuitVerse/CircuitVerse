@@ -1,0 +1,24 @@
+PATH
+  remote: .
+  specs:
+    html_tokenizer (0.0.7)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    minitest (5.9.0)
+    rake (12.3.0)
+    rake-compiler (0.9.9)
+      rake
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  html_tokenizer!
+  minitest
+  rake
+  rake-compiler
+
+BUNDLED WITH
+   1.16.1

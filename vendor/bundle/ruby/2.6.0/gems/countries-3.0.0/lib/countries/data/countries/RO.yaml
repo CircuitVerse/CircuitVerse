@@ -1,0 +1,65 @@
+---
+RO:
+  continent: Europe
+  address_format: |-
+    {{recipient}}
+    {{street}}
+    {{postalcode}} {{city}}
+    {{country}}
+  alpha2: RO
+  alpha3: ROU
+  country_code: '40'
+  international_prefix: '00'
+  ioc: ROU
+  gec: RO
+  name: Romania
+  national_destination_code_lengths:
+  - 2
+  national_number_lengths:
+  - 9
+  national_prefix: '0'
+  number: '642'
+  region: Europe
+  subregion: Eastern Europe
+  world_region: EMEA
+  un_locode: RO
+  nationality: Romanian
+  eu_member: true
+  eea_member: true
+  vat_rates:
+    standard: 19
+    reduced:
+    - 5
+    - 9
+    super_reduced: 
+    parking: 
+  postal_code: true
+  unofficial_names:
+  - Romania
+  - Rumänien
+  - Roumanie
+  - Rumania
+  - ルーマニア
+  - Roemenië
+  languages_official:
+  - ro
+  languages_spoken:
+  - ro
+  geo:
+    latitude: 45.943161
+    latitude_dec: '45.83774185180664'
+    longitude: 24.96676
+    longitude_dec: '25.005935668945312'
+    max_latitude: 48.265274
+    max_longitude: 29.77839999999999
+    min_latitude: 43.6186193
+    min_longitude: 20.2617593
+    bounds:
+      northeast:
+        lat: 48.265274
+        lng: 29.77839999999999
+      southwest:
+        lat: 43.6186193
+        lng: 20.2617593
+  currency_code: RON
+  start_of_week: monday

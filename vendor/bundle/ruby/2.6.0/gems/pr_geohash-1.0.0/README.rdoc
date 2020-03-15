@@ -1,0 +1,98 @@
+= pr_geohash
+
+* http://github.com/masuidrive/pr_geohash
+
+
+== DESCRIPTION:
+
+GeoHash encode/decode library for pure Ruby.
+
+It's implementation of http://en.wikipedia.org/wiki/Geohash
+
+
+== FEATURES
+
+* Encode/decode geohash
+* Calculate adjacent geohash
+* Tested with Ruby 1.8.7 and JRuby 1.3.1
+
+
+== SYNOPSIS:
+
+  require "rubyforge"
+  require "pr_geohash"
+  
+  #########
+  # Encode latitude and longitude into geohash
+  
+  GeoHash.encode(47.6062095, -122.3320708)
+  # => "c23nb62w20st"
+  
+  GeoHash.encode(47.6062095, -122.3320708, 6)
+  # => "c23nb6"
+  
+  
+  #########
+  # Decode from geohash
+  
+  GeoHash.decode("c23nb6")
+  # => [[47.603759765625, -122.332763671875], [47.6092529296875, -122.32177734375]]
+  
+  
+  #########
+  # Calculate adjacent geohash
+  
+  GeoHash.neighbors("xn774c")
+  # => ["xn774f", "xn7754", "xn7751", "xn7750", "xn774b", "xn7748", "xn7749", "xn774d"]
+  
+  =begin
+  +--------+--------+--------+
+  | xn774d | xn774f | xn7754 |
+  +--------+--------+--------+
+  | xn7749 | xn774c | xn7751 |
+  +--------+--------+--------+
+  | xn7748 | xn774b | xn7750 |
+  +--------+--------+--------+
+  =end
+
+
+== INSTALL:
+
+* sudo gem install pr_geohash
+
+
+== LICENSE:
+
+(The MIT License)
+
+Copyright (c) 2009 {Yuichiro MASUI}[http://masuidrive.jp]
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+=== Based library is
+
+http://github.com/davetroy/geohash-js/blob/master/geohash.js
+
+Geohash library for Javascript
+
+Copyright (c) 2008 David Troy, Roundhouse Technologies LLC
+
+Distributed under the MIT License

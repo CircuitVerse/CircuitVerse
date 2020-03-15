@@ -1,0 +1,69 @@
+---
+GB:
+  continent: Europe
+  address_format: |-
+    {{recipient}}
+    {{street}}
+    {{city}}
+    {{region}}
+    {{postalcode}}
+    {{country}}
+  alpha2: GB
+  alpha3: GBR
+  country_code: '44'
+  international_prefix: '00'
+  ioc: GBR
+  gec: UK
+  name: United Kingdom of Great Britain and Northern Ireland
+  national_destination_code_lengths:
+  - 2
+  national_number_lengths:
+  - 10
+  - 11
+  national_prefix: '0'
+  number: '826'
+  region: Europe
+  subregion: Northern Europe
+  world_region: EMEA
+  un_locode: GB
+  nationality: British
+  eu_member: true
+  eea_member: true
+  vat_rates:
+    standard: 20
+    reduced:
+    - 5
+    super_reduced: 
+    parking: 
+  postal_code: true
+  unofficial_names:
+  - United Kingdom
+  - Vereinigtes Königreich
+  - Royaume-Uni
+  - Reino Unido
+  - イギリス
+  - Verenigd Koninkrijk
+  - Great Britain (UK)
+  - Великобритания
+  languages_official:
+  - en
+  languages_spoken:
+  - en
+  geo:
+    latitude: 55.378051
+    latitude_dec: '54.56088638305664'
+    longitude: -3.435973
+    longitude_dec: "-2.2125117778778076"
+    max_latitude: 60.91569999999999
+    max_longitude: 33.9165549
+    min_latitude: 34.5614
+    min_longitude: -8.8988999
+    bounds:
+      northeast:
+        lat: 60.91569999999999
+        lng: 33.9165549
+      southwest:
+        lat: 34.5614
+        lng: -8.8988999
+  currency_code: GBP
+  start_of_week: monday

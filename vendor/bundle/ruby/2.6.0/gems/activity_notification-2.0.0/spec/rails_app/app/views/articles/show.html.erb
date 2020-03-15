@@ -1,0 +1,49 @@
+<section>
+  <h1><%= @article.title %></h1>
+  <p><%= @article.body %></p>
+  <div class="list_wrapper">
+    <div class="list_image"></div>
+    <div class="list_description_wrapper">
+      <p class="list_description">
+        <span><%= @article.user.name %></span> · <%= @article.created_at.strftime("%b %d %H:%M") %><br>
+      </p>
+      <div class="list_button_wrapper">
+        <%= link_to 'Edit Article', edit_article_path(@article), class: "gray_button" %>
+        <%= link_to 'Destroy Article', @article, method: :delete, data: { confirm: 'Are you sure?' }, class: "gray_button" %>
+      </div>
+    </div>
+  </div>
+  <h2>Listing Comments</h2>
+  <% @article.comments.includes(:user).each do |comment| %>
+    <div class="list_wrapper">
+      <div class="list_image"></div>
+      <div class="list_description_wrapper">
+        <p class="list_description">
+          <span><%= comment.user.name %></span> · <%= comment.created_at.strftime("%b %d %H:%M") %><br>
+          <%= comment.body %>
+        </p>
+        <div class="list_button_wrapper">
+          <% if user_signed_in? and (comment.author?(current_user) or current_user.admin?) %>
+            <%= link_to 'Destroy Comment', comment, method: :delete, data: { confirm: 'Are you sure?' }, class: "gray_button" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <% if user_signed_in? %>
+    <%= form_for(@comment) do |f| %>
+      <%= f.hidden_field :article_id, value: @article.id %>
+        <div class="textarea_wrapper">
+          <%= f.text_area :body, placeholder: "Write a comment..." %>
+        </div>
+        <div class="submit_button_wrapper">
+          <button class="green_button" type="submit">
+            Create Comment
+          </button>
+      </div>
+    <% end %>
+  <% end %>
+  <div class="left_button_wrapper">
+    <%= link_to 'Back', articles_path, class: "gray_button" %>
+  </div>
+</section>

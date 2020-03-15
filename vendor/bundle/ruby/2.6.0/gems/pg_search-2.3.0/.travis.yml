@@ -1,0 +1,50 @@
+language: ruby
+sudo: false
+bundler_args: --binstubs
+cache: bundler
+
+rvm:
+  - 2.6.3
+  - 2.5.5
+  - 2.4.6
+  - jruby-9.2.6.0
+
+env:
+  global:
+    - CC_TEST_REPORTER_ID=0a0e3e45118bc447e677d52c21d056a5471c4921d54f96ed7b2550d9fc5043ea
+  matrix:
+    - ACTIVE_RECORD_BRANCH="master"
+    - ACTIVE_RECORD_BRANCH="5-2-stable"
+    - ACTIVE_RECORD_VERSION="~> 6.0.0.beta1"
+    - ACTIVE_RECORD_VERSION="~> 5.2.0"
+    - ACTIVE_RECORD_VERSION="~> 5.1.0"
+    - ACTIVE_RECORD_VERSION="~> 5.0.0"
+    - ACTIVE_RECORD_VERSION="~> 4.2.9"
+
+matrix:
+  allow_failures:
+    - env: ACTIVE_RECORD_BRANCH="master"
+    - env: ACTIVE_RECORD_BRANCH="5-2-stable"
+    - env: ACTIVE_RECORD_VERSION="~> 6.0.0.beta1"
+  exclude:
+    - rvm: 2.4.6
+      env: ACTIVE_RECORD_BRANCH="master"
+    - rvm: jruby-9.2.6.0
+      env: ACTIVE_RECORD_VERSION="~> 4.2.9"
+    - rvm: 2.4.5
+      env: ACTIVE_RECORD_VERSION="~> 6.0.0.beta1"
+
+before_script:
+  - psql --version
+  - psql -c 'create database pg_search_test;' -U postgres >/dev/null
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+
+script: bin/rake
+
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+
+addons:
+  postgresql: "9.6"

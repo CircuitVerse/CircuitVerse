@@ -1,0 +1,52 @@
+---
+SO:
+  continent: Africa
+  alpha2: SO
+  alpha3: SOM
+  country_code: '252'
+  international_prefix: '00'
+  ioc: SOM
+  gec: SO
+  name: Somalia
+  national_destination_code_lengths:
+  - 2
+  national_number_lengths:
+  - 7
+  - 8
+  national_prefix: None
+  number: '706'
+  region: Africa
+  subregion: Eastern Africa
+  world_region: EMEA
+  un_locode: SO
+  nationality: Somali
+  postal_code: false
+  unofficial_names:
+  - Somalia
+  - الصومال
+  - ソマリア
+  - Somalië
+  languages_official:
+  - so
+  - ar
+  languages_spoken:
+  - so
+  - ar
+  geo:
+    latitude: 5.152149
+    latitude_dec: '5.948267459869385'
+    longitude: 46.199616
+    longitude_dec: '47.47360610961914'
+    max_latitude: 12.3615
+    max_longitude: 51.6138
+    min_latitude: -1.8673
+    min_longitude: 40.994373
+    bounds:
+      northeast:
+        lat: 12.3615
+        lng: 51.6138
+      southwest:
+        lat: -1.8673
+        lng: 40.994373
+  currency_code: SOS
+  start_of_week: monday

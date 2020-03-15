@@ -1,0 +1,56 @@
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/2.6.0/gems/puma-3.12.4/ext/puma_http11
+/home/gitpod/.rvm/rubies/ruby-2.6.5/bin/ruby -I /home/gitpod/.rvm/rubies/ruby-2.6.5/lib/ruby/site_ruby/2.6.0 -r ./siteconf20200314-14878-6qnr0x.rb extconf.rb
+checking for BIO_read() in -lcrypto... yes
+checking for SSL_CTX_new() in -lssl... yes
+checking for openssl/bio.h... yes
+creating Makefile
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/2.6.0/gems/puma-3.12.4/ext/puma_http11
+make "DESTDIR=" clean
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/2.6.0/gems/puma-3.12.4/ext/puma_http11
+make "DESTDIR="
+compiling http11_parser.c
+compiling io_buffer.c
+compiling mini_ssl.c
+mini_ssl.c: In function ‘get_dh1024’:
+mini_ssl.c:100:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+   BIGNUM *p, *g;
+   ^~~~~~
+mini_ssl.c: In function ‘engine_init_server’:
+mini_ssl.c:153:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+   ID sym_cert = rb_intern("cert");
+   ^~
+mini_ssl.c:158:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+   ID sym_ca = rb_intern("ca");
+   ^~
+mini_ssl.c:189:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+   DH *dh = get_dh1024();
+   ^~
+mini_ssl.c:193:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+   EC_KEY *ecdh = EC_KEY_new_by_curve_name(NID_secp521r1);
+   ^~~~~~
+mini_ssl.c: In function ‘engine_init_client’:
+mini_ssl.c:220:3: warning: ‘DTLSv1_method’ is deprecated [-Wdeprecated-declarations]
+   conn->ctx = SSL_CTX_new(DTLSv1_method());
+   ^~~~
+In file included from /usr/include/openssl/e_os2.h:13,
+                 from /usr/include/openssl/bio.h:13,
+                 from mini_ssl.c:14:
+/usr/include/openssl/ssl.h:1895:1: note: declared here
+ DEPRECATEDIN_1_1_0(__owur const SSL_METHOD *DTLSv1_method(void)) /* DTLSv1.0 */
+ ^~~~~~~~~~~~~~~~~~
+mini_ssl.c: In function ‘raise_error’:
+mini_ssl.c:250:6: warning: function might be candidate for attribute ‘noreturn’ [-Wsuggest-attribute=noreturn]
+ void raise_error(SSL* ssl, int result) {
+      ^~~~~~~~~~~
+mini_ssl.c: At top level:
+cc1: warning: unrecognized command line option ‘-Wno-self-assign’
+cc1: warning: unrecognized command line option ‘-Wno-parentheses-equality’
+cc1: warning: unrecognized command line option ‘-Wno-constant-logical-operand’
+compiling puma_http11.c
+linking shared-object puma/puma_http11.so
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/2.6.0/gems/puma-3.12.4/ext/puma_http11
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 puma_http11.so ./.gem.20200314-14878-vwtzrc/puma

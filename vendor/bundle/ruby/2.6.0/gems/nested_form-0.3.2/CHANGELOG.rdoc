@@ -1,0 +1,100 @@
+0.3.2 (April 5, 2013)
+
+* Render blueprints inside form (thanks taavo)
+
+* Make generated ids easily overridable in jQuery version (thanks ghostganz)
+
+* Support `nested_wrapper` option as an alternative to `wrapper` option in
+order to maintain compatibility with `simple_fields_for` helper (#219)
+
+* Allow DOM target to be specified when adding new nested form elements
+(thanks mhuggins)
+
+* Fix "has_one => has_many => has_many" name generation (thanks kevinrood and
+basvanwesting)
+
+0.3.1 (November 5, 2012)
+
+* Raise ArgumentError when accepts_nested_attributes_for is missing
+
+* Fix wrapper element disabling feature (#202 and #214)
+
+0.3.0 (October 23, 2012)
+
+* Fix issue when deeply nested and first level only has a select input (thanks eric88)
+
+* Fix context getting for input names with an underscore (thanks kevinrood)
+
+* Add option to toggle wrapper div behavior with <tt>wrapper</tt> option in <tt>fields_for</tt> helper
+
+* Ability to set object for blueprint using <tt>model_object</tt> option in <tt>link_to_add</tt> helper (thanks Baltazore)
+
+* Support for FormtasticBootstrapBuilder (thanks rvanlieshout)
+
+* Store blueprint html in data-blueprint attribute
+
+* Add the <tt>marked_for_destruction</tt> class on the div if the object is marked for destruction
+
+* Add parent association name to the blueprint div id
+
+0.2.3 (August 23, 2012)
+
+* Fix selector for deeply nested forms (thanks groe)
+
+* Fix association detection in #link_to remove (thanks nashbridges)
+
+* Add nested:fieldRemoved:type event (thanks nashbridges)
+
+* Add events for Prototype (thanks nashbridges)
+
+* Element.up() is the proper Prototype counter part to jQuery's closest() (thanks clemens)
+
+0.2.2 (July 9, 2012)
+
+* Make deeply-nested form working in jruby and rubinius
+
+* Revert the "context" selector changes from 0.2.1 in order to work with jQuery 1.7.2
+
+0.2.1 (June 4, 2012)
+
+* Added Travis integration (thanks fxposter)
+
+* Make the "context" selector stricter, to work with deeply-nested forms. (thanks groe and nickhoffman)
+
+* Include vendor folder in the gem for Rails 3.1 asset support (thanks dmarkow)
+
+
+0.2.0 (February 7, 2012)
+
+* Integration tests (thanks fxposter) - issue #58
+
+* Improved simple_form and 3.1 support (thanks fxposter)
+
+* nested:fieldAdded event includes the newly added field (thanks harrigan)
+
+* other minor bug fixes
+
+
+0.1.1 (April 23, 2011)
+
+* Support HTML options and block in add/remove link - issue #31
+
+* Added new RegEx to generate new objects IDs correctly - issue #26 and issue #30
+
+
+0.1.0 (March 26, 2011)
+
+* Prefix new records with "new_" so there's no possible conflict with existing records - issue #21
+
+* Add support for _fields partial if no block is passed in to fields_for
+
+* Use the $-jquery-function only inside the jQuery scope (thanks nhocki)
+
+* Triggers nested:fieldAdded and nested:fieldRemoved events (thanks pirelenito)
+
+* Fixed JavaScript bug for nested attributes in has_one association (thanks pirelenito)
+
+
+0.0.0 (February 17, 2011)
+
+* Initial release

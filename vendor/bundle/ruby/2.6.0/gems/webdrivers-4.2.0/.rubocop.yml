@@ -1,0 +1,47 @@
+AllCops:
+  TargetRubyVersion: 2.4.6
+
+require:
+  - rubocop-rspec
+  - rubocop-performance
+
+Layout/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: no_space
+
+Layout/EndOfLine:
+  EnforcedStyle: lf
+
+Metrics/LineLength:
+  Max: 120
+  IgnoredPatterns:
+    - '\s+# rubocop:disable'
+
+Metrics/MethodLength:
+  Max: 20
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+    - 'lib/webdrivers/tasks/*.rake'
+
+Metrics/ClassLength:
+  Max: 116
+  Exclude:
+    - 'lib/webdrivers/system.rb'
+
+Metrics/CyclomaticComplexity:
+  Max: 8
+
+Metrics/AbcSize:
+  Max: 16
+  Exclude:
+    - 'lib/webdrivers/chromedriver.rb'
+
+Style/Documentation:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false

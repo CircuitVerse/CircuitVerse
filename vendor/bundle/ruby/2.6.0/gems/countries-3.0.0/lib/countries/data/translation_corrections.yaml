@@ -1,0 +1,32 @@
+# Contains fixes for upstream pkg-iso-codes
+# Any change here should have an upstream bug report
+# https://alioth.debian.org/projects/pkg-iso-codes/
+#
+# These changes are applied during `rake update_cache`
+#
+# Ex:
+#
+# locale:
+#   alpha2: localized_name
+#
+---
+oc:
+  US: USA
+ar:
+  PS: "فلسطين"
+  SA: "السعودية"
+  AE: "الإمارات العربيّة المتّحدة"
+  SD: "السودان"
+  SO: "الصومال‎"
+  SY: "سوريا"
+  BQ: "بونير، سينت أوستاتيوس وسابا"
+  CW: "كوراساو"
+zh:
+  KH: '柬埔寨'
+fa:
+  IR: "ایران"
+he:
+  PS: "פלסטין, מדינת"
+  VI: "איי הבתולה (ארה)"
+sv:
+  GB: "Storbritannien"

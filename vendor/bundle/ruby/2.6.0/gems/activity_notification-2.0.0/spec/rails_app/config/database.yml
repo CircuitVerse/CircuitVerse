@@ -1,0 +1,36 @@
+sqlite: &sqlite
+  adapter: sqlite3
+  database: <%= Rails.env.test? ? '":memory:"' : "db/#{Rails.env}.sqlite3" %>
+
+mysql: &mysql
+  adapter: mysql2
+  database: activity_notification_<%= Rails.env %>
+  username: root
+  password:
+  encoding: utf8
+
+postgresql: &postgresql
+  adapter: postgresql
+  database: activity_notification_<%= Rails.env %>
+  username: postgres
+  password:
+  min_messages: ERROR
+
+mongodb: &mongodb
+  adapter: sqlite3
+  database: <%= Rails.env.test? ? '":memory:"' : "db/#{Rails.env}.sqlite3" %>
+
+default: &default
+  pool: 5
+  timeout: 5000
+  host: localhost
+  <<: *<%= ENV['AN_TEST_DB'].blank? ? "sqlite" : ENV['AN_TEST_DB'] %>
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default

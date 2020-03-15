@@ -1,0 +1,20 @@
+<%= remotipart_response do %>
+  <% unless @comment.errors.any? %>
+    $('#comments').append( '<%= escape_javascript(
+      render @comment
+    ) %>' );
+    $('#new-comment-form-container').find('input:not(:submit),select,textarea').val('');
+    <% if request.put? %>
+        $('#comments').after('PUT request!');
+    <% end %>
+  <% else %>
+    var $form = $('#new_comment'),
+        $errorDiv = $('<div id="error_explanation">'),
+        $errorList = $('<ul>');
+    <% @comment.errors.full_messages.each do |msg| %>
+      $errorList.append('<li><%= escape_javascript msg %></li>');
+    <% end %>
+    $form.find('#error_explanation').remove();
+    $form.prepend($errorDiv.append($errorList));
+  <% end %>
+<% end %>

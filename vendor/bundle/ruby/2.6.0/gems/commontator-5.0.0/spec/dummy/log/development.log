@@ -1,0 +1,413 @@
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (2.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to InstallCommontator (0)
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (1.5ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to InstallCommontator (0)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "commontator_comments" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "creator_type" varchar, "creator_id" integer, "editor_type" varchar, "editor_id" integer, "thread_id" integer NOT NULL, "body" text NOT NULL, "deleted_at" datetime, "cached_votes_up" integer DEFAULT 0, "cached_votes_down" integer DEFAULT 0, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_commontator_comments_on_c_id_and_c_type_and_t_id" ON "commontator_comments" ("creator_id", "creator_type", "thread_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_commontator_comments_on_c_id_and_c_type_and_t_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_commontator_comments_on_c_id_and_c_type_and_t_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_commontator_comments_on_thread_id_and_created_at" ON "commontator_comments" ("thread_id", "created_at")[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_commontator_comments_on_thread_id_and_created_at' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_commontator_comments_on_thread_id_and_created_at' AND type='index'
+[0m
+  [1m[35m (0.0ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_commontator_comments_on_c_id_and_c_type_and_t_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_commontator_comments_on_c_id_and_c_type_and_t_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_commontator_comments_on_cached_votes_up" ON "commontator_comments" ("cached_votes_up")[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_commontator_comments_on_cached_votes_up' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_commontator_comments_on_cached_votes_up' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_commontator_comments_on_thread_id_and_created_at' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_commontator_comments_on_thread_id_and_created_at' AND type='index'
+[0m
+  [1m[35m (0.0ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_commontator_comments_on_c_id_and_c_type_and_t_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_commontator_comments_on_c_id_and_c_type_and_t_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_commontator_comments_on_cached_votes_down" ON "commontator_comments" ("cached_votes_down")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "commontator_subscriptions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "subscriber_type" varchar NOT NULL, "subscriber_id" integer NOT NULL, "thread_id" integer NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_commontator_subscriptions_on_s_id_and_s_type_and_t_id" ON "commontator_subscriptions" ("subscriber_id", "subscriber_type", "thread_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_commontator_subscriptions_on_s_id_and_s_type_and_t_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_commontator_subscriptions_on_s_id_and_s_type_and_t_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_commontator_subscriptions_on_thread_id" ON "commontator_subscriptions" ("thread_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "commontator_threads" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "commontable_type" varchar, "commontable_id" integer, "closed_at" datetime, "closer_type" varchar, "closer_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_commontator_threads_on_c_id_and_c_type" ON "commontator_threads" ("commontable_id", "commontable_type")[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "0"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateDummyModels (1)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "dummy_models" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "1"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateDummyUsers (2)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "dummy_users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "2"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+Migrating to ActsAsVotableMigration (3)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "votes" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "votable_type" varchar, "votable_id" integer, "voter_type" varchar, "voter_id" integer, "vote_flag" boolean, "vote_scope" varchar, "vote_weight" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE  INDEX "index_votes_on_votable_type_and_votable_id" ON "votes" ("votable_type", "votable_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_votes_on_votable_type_and_votable_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_votes_on_votable_type_and_votable_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_votes_on_voter_type_and_voter_id" ON "votes" ("voter_type", "voter_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_votes_on_voter_type_and_voter_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_votes_on_voter_type_and_voter_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_votes_on_votable_type_and_votable_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_votes_on_votable_type_and_votable_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_votes_on_voter_id_and_voter_type_and_vote_scope" ON "votes" ("voter_id", "voter_type", "vote_scope")[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_votes_on_voter_id_and_voter_type_and_vote_scope' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_votes_on_voter_id_and_voter_type_and_vote_scope' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_votes_on_voter_type_and_voter_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_votes_on_voter_type_and_voter_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_votes_on_votable_type_and_votable_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_votes_on_votable_type_and_votable_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_votes_on_votable_id_and_votable_type_and_vote_scope" ON "votes" ("votable_id", "votable_type", "vote_scope")[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "3"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2017-09-22 21:24:05.879892"], ["updated_at", "2017-09-22 21:24:05.879892"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_commontator_comments_on_cached_votes_down' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_commontator_comments_on_cached_votes_down' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_commontator_comments_on_cached_votes_up' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_commontator_comments_on_cached_votes_up' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_commontator_comments_on_thread_id_and_created_at' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_commontator_comments_on_thread_id_and_created_at' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_commontator_comments_on_c_id_and_c_type_and_t_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_commontator_comments_on_c_id_and_c_type_and_t_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_commontator_subscriptions_on_thread_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_commontator_subscriptions_on_thread_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_commontator_subscriptions_on_s_id_and_s_type_and_t_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_commontator_subscriptions_on_s_id_and_s_type_and_t_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_commontator_threads_on_c_id_and_c_type' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_commontator_threads_on_c_id_and_c_type' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_votes_on_votable_id_and_votable_type_and_vote_scope' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_votes_on_votable_id_and_votable_type_and_vote_scope' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_votes_on_voter_id_and_voter_type_and_vote_scope' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_votes_on_voter_id_and_voter_type_and_vote_scope' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_votes_on_voter_type_and_voter_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_votes_on_voter_type_and_voter_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_votes_on_votable_type_and_votable_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_votes_on_votable_type_and_votable_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Commontator::SubscriptionsMailer#comment_created: processed outbound mail in 0.3ms
+[ActiveJob] Enqueued ActionMailer::DeliveryJob (Job ID: edbdc44e-6973-432a-b4b2-10a96427e943) to Async(mailers) with arguments: "Commontator::SubscriptionsMailer", "comment_created", "deliver_now", nil, nil
+[ActiveJob] [ActionMailer::DeliveryJob] [edbdc44e-6973-432a-b4b2-10a96427e943] Performing ActionMailer::DeliveryJob (Job ID: edbdc44e-6973-432a-b4b2-10a96427e943) from Async(mailers) with arguments: "Commontator::SubscriptionsMailer", "comment_created", "deliver_now", nil, nil
+[ActiveJob] [ActionMailer::DeliveryJob] [edbdc44e-6973-432a-b4b2-10a96427e943] Commontator::SubscriptionsMailer#comment_created: processed outbound mail in 0.2ms
+[ActiveJob] [ActionMailer::DeliveryJob] [edbdc44e-6973-432a-b4b2-10a96427e943] Error performing ActionMailer::DeliveryJob (Job ID: edbdc44e-6973-432a-b4b2-10a96427e943) from Async(mailers) in 7.57ms: NoMethodError (undefined method `thread' for nil:NilClass):
+/Users/dante/Desktop/commontator/app/mailers/commontator/subscriptions_mailer.rb:20:in `setup_variables'
+/Users/dante/Desktop/commontator/app/mailers/commontator/subscriptions_mailer.rb:4:in `comment_created'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/actionpack-5.1.4/lib/abstract_controller/base.rb:186:in `process_action'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/actionpack-5.1.4/lib/abstract_controller/callbacks.rb:20:in `block in process_action'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/callbacks.rb:97:in `run_callbacks'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/actionpack-5.1.4/lib/abstract_controller/callbacks.rb:19:in `process_action'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/actionpack-5.1.4/lib/abstract_controller/base.rb:124:in `process'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/actionmailer-5.1.4/lib/action_mailer/rescuable.rb:23:in `block in process'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/actionmailer-5.1.4/lib/action_mailer/rescuable.rb:15:in `handle_exceptions'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/actionmailer-5.1.4/lib/action_mailer/rescuable.rb:22:in `process'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/actionview-5.1.4/lib/action_view/rendering.rb:30:in `process'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/actionmailer-5.1.4/lib/action_mailer/base.rb:609:in `block in process'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/notifications.rb:166:in `block in instrument'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/notifications.rb:166:in `instrument'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/actionmailer-5.1.4/lib/action_mailer/base.rb:608:in `process'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/actionmailer-5.1.4/lib/action_mailer/message_delivery.rb:105:in `block in processed_mailer'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/actionmailer-5.1.4/lib/action_mailer/message_delivery.rb:104:in `tap'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/actionmailer-5.1.4/lib/action_mailer/message_delivery.rb:104:in `processed_mailer'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/actionmailer-5.1.4/lib/action_mailer/message_delivery.rb:95:in `deliver_now'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/actionmailer-5.1.4/lib/action_mailer/delivery_job.rb:14:in `perform'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activejob-5.1.4/lib/active_job/execution.rb:37:in `block in perform_now'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/callbacks.rb:108:in `block in run_callbacks'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/i18n-0.8.6/lib/i18n.rb:257:in `with_locale'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activejob-5.1.4/lib/active_job/translation.rb:7:in `block (2 levels) in <module:Translation>'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/callbacks.rb:117:in `instance_exec'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/callbacks.rb:117:in `block in run_callbacks'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activejob-5.1.4/lib/active_job/logging.rb:24:in `call'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activejob-5.1.4/lib/active_job/logging.rb:24:in `block (4 levels) in <module:Logging>'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/notifications.rb:166:in `block in instrument'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/notifications.rb:166:in `instrument'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activejob-5.1.4/lib/active_job/logging.rb:23:in `block (3 levels) in <module:Logging>'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activejob-5.1.4/lib/active_job/logging.rb:44:in `block in tag_logger'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/tagged_logging.rb:69:in `block in tagged'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/tagged_logging.rb:26:in `tagged'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/tagged_logging.rb:69:in `tagged'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activejob-5.1.4/lib/active_job/logging.rb:44:in `tag_logger'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activejob-5.1.4/lib/active_job/logging.rb:20:in `block (2 levels) in <module:Logging>'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/callbacks.rb:117:in `instance_exec'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/callbacks.rb:117:in `block in run_callbacks'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/callbacks.rb:135:in `call'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/callbacks.rb:135:in `run_callbacks'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activejob-5.1.4/lib/active_job/execution.rb:33:in `perform_now'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activejob-5.1.4/lib/active_job/execution.rb:22:in `block in execute'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/callbacks.rb:108:in `block in run_callbacks'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activejob-5.1.4/lib/active_job/railtie.rb:26:in `call'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activejob-5.1.4/lib/active_job/railtie.rb:26:in `block (4 levels) in <class:Railtie>'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/execution_wrapper.rb:85:in `wrap'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/reloader.rb:68:in `block in wrap'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/execution_wrapper.rb:85:in `wrap'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/reloader.rb:67:in `wrap'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activejob-5.1.4/lib/active_job/railtie.rb:25:in `block (3 levels) in <class:Railtie>'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/callbacks.rb:117:in `instance_exec'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/callbacks.rb:117:in `block in run_callbacks'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/callbacks.rb:135:in `call'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/callbacks.rb:135:in `run_callbacks'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activejob-5.1.4/lib/active_job/execution.rb:20:in `execute'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activejob-5.1.4/lib/active_job/queue_adapters/async_adapter.rb:68:in `perform'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/concurrent-ruby-1.0.5/lib/concurrent/executor/ruby_thread_pool_executor.rb:348:in `call'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/concurrent-ruby-1.0.5/lib/concurrent/executor/ruby_thread_pool_executor.rb:348:in `run_task'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/concurrent-ruby-1.0.5/lib/concurrent/executor/ruby_thread_pool_executor.rb:337:in `block (3 levels) in create_worker'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/concurrent-ruby-1.0.5/lib/concurrent/executor/ruby_thread_pool_executor.rb:320:in `loop'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/concurrent-ruby-1.0.5/lib/concurrent/executor/ruby_thread_pool_executor.rb:320:in `block (2 levels) in create_worker'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/concurrent-ruby-1.0.5/lib/concurrent/executor/ruby_thread_pool_executor.rb:319:in `catch'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/concurrent-ruby-1.0.5/lib/concurrent/executor/ruby_thread_pool_executor.rb:319:in `block in create_worker'
+[ActiveJob] Enqueued ActionMailer::DeliveryJob (Job ID: 40ae8cc2-87ab-4444-8a7b-2f9cf0cb4670) to Async(mailers) with arguments: "Commontator::SubscriptionsMailer", "comment_created", "deliver_now", nil, nil
+[ActiveJob] [ActionMailer::DeliveryJob] [40ae8cc2-87ab-4444-8a7b-2f9cf0cb4670] Performing ActionMailer::DeliveryJob (Job ID: 40ae8cc2-87ab-4444-8a7b-2f9cf0cb4670) from Async(mailers) with arguments: "Commontator::SubscriptionsMailer", "comment_created", "deliver_now", nil, nil
+[ActiveJob] [ActionMailer::DeliveryJob] [40ae8cc2-87ab-4444-8a7b-2f9cf0cb4670] Commontator::SubscriptionsMailer#comment_created: processed outbound mail in 0.3ms
+[ActiveJob] [ActionMailer::DeliveryJob] [40ae8cc2-87ab-4444-8a7b-2f9cf0cb4670] Error performing ActionMailer::DeliveryJob (Job ID: 40ae8cc2-87ab-4444-8a7b-2f9cf0cb4670) from Async(mailers) in 7.95ms: NoMethodError (undefined method `thread' for nil:NilClass):
+/Users/dante/Desktop/commontator/app/mailers/commontator/subscriptions_mailer.rb:22:in `setup_variables'
+/Users/dante/Desktop/commontator/app/mailers/commontator/subscriptions_mailer.rb:4:in `comment_created'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/actionpack-5.1.4/lib/abstract_controller/base.rb:186:in `process_action'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/actionpack-5.1.4/lib/abstract_controller/callbacks.rb:20:in `block in process_action'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/callbacks.rb:97:in `run_callbacks'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/actionpack-5.1.4/lib/abstract_controller/callbacks.rb:19:in `process_action'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/actionpack-5.1.4/lib/abstract_controller/base.rb:124:in `process'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/actionmailer-5.1.4/lib/action_mailer/rescuable.rb:23:in `block in process'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/actionmailer-5.1.4/lib/action_mailer/rescuable.rb:15:in `handle_exceptions'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/actionmailer-5.1.4/lib/action_mailer/rescuable.rb:22:in `process'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/actionview-5.1.4/lib/action_view/rendering.rb:30:in `process'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/actionmailer-5.1.4/lib/action_mailer/base.rb:609:in `block in process'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/notifications.rb:166:in `block in instrument'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/notifications.rb:166:in `instrument'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/actionmailer-5.1.4/lib/action_mailer/base.rb:608:in `process'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/actionmailer-5.1.4/lib/action_mailer/message_delivery.rb:105:in `block in processed_mailer'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/actionmailer-5.1.4/lib/action_mailer/message_delivery.rb:104:in `tap'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/actionmailer-5.1.4/lib/action_mailer/message_delivery.rb:104:in `processed_mailer'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/actionmailer-5.1.4/lib/action_mailer/message_delivery.rb:95:in `deliver_now'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/actionmailer-5.1.4/lib/action_mailer/delivery_job.rb:14:in `perform'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activejob-5.1.4/lib/active_job/execution.rb:37:in `block in perform_now'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/callbacks.rb:108:in `block in run_callbacks'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/i18n-0.8.6/lib/i18n.rb:257:in `with_locale'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activejob-5.1.4/lib/active_job/translation.rb:7:in `block (2 levels) in <module:Translation>'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/callbacks.rb:117:in `instance_exec'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/callbacks.rb:117:in `block in run_callbacks'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activejob-5.1.4/lib/active_job/logging.rb:24:in `call'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activejob-5.1.4/lib/active_job/logging.rb:24:in `block (4 levels) in <module:Logging>'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/notifications.rb:166:in `block in instrument'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/notifications.rb:166:in `instrument'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activejob-5.1.4/lib/active_job/logging.rb:23:in `block (3 levels) in <module:Logging>'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activejob-5.1.4/lib/active_job/logging.rb:44:in `block in tag_logger'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/tagged_logging.rb:69:in `block in tagged'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/tagged_logging.rb:26:in `tagged'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/tagged_logging.rb:69:in `tagged'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activejob-5.1.4/lib/active_job/logging.rb:44:in `tag_logger'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activejob-5.1.4/lib/active_job/logging.rb:20:in `block (2 levels) in <module:Logging>'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/callbacks.rb:117:in `instance_exec'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/callbacks.rb:117:in `block in run_callbacks'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/callbacks.rb:135:in `call'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/callbacks.rb:135:in `run_callbacks'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activejob-5.1.4/lib/active_job/execution.rb:33:in `perform_now'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activejob-5.1.4/lib/active_job/execution.rb:22:in `block in execute'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/callbacks.rb:108:in `block in run_callbacks'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activejob-5.1.4/lib/active_job/railtie.rb:26:in `call'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activejob-5.1.4/lib/active_job/railtie.rb:26:in `block (4 levels) in <class:Railtie>'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/execution_wrapper.rb:85:in `wrap'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/reloader.rb:68:in `block in wrap'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/execution_wrapper.rb:85:in `wrap'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/reloader.rb:67:in `wrap'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activejob-5.1.4/lib/active_job/railtie.rb:25:in `block (3 levels) in <class:Railtie>'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/callbacks.rb:117:in `instance_exec'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/callbacks.rb:117:in `block in run_callbacks'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/callbacks.rb:135:in `call'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-5.1.4/lib/active_support/callbacks.rb:135:in `run_callbacks'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activejob-5.1.4/lib/active_job/execution.rb:20:in `execute'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activejob-5.1.4/lib/active_job/queue_adapters/async_adapter.rb:68:in `perform'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/concurrent-ruby-1.0.5/lib/concurrent/executor/ruby_thread_pool_executor.rb:348:in `call'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/concurrent-ruby-1.0.5/lib/concurrent/executor/ruby_thread_pool_executor.rb:348:in `run_task'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/concurrent-ruby-1.0.5/lib/concurrent/executor/ruby_thread_pool_executor.rb:337:in `block (3 levels) in create_worker'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/concurrent-ruby-1.0.5/lib/concurrent/executor/ruby_thread_pool_executor.rb:320:in `loop'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/concurrent-ruby-1.0.5/lib/concurrent/executor/ruby_thread_pool_executor.rb:320:in `block (2 levels) in create_worker'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/concurrent-ruby-1.0.5/lib/concurrent/executor/ruby_thread_pool_executor.rb:319:in `catch'
+/Users/dante/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/concurrent-ruby-1.0.5/lib/concurrent/executor/ruby_thread_pool_executor.rb:319:in `block in create_worker'
+Sent mail to  (9.5ms)
+Date: Mon, 23 Oct 2017 10:01:05 -0500
+Message-ID: <59ee0431dcf39_44c3fc65985e1d43092d@Dantes-MacBook-Pro.local.mail>
+Subject: test
+Mime-Version: 1.0
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+
+Sent mail to  (1.6ms)
+Date: Mon, 23 Oct 2017 10:05:12 -0500
+Message-ID: <59ee05282a845_44c3fc65985e1d43102f@Dantes-MacBook-Pro.local.mail>
+Subject: test
+Mime-Version: 1.0
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+
+Sent mail to  (1.7ms)
+Date: Mon, 23 Oct 2017 10:05:23 -0500
+Message-ID: <59ee05337c725_44c3fc65985e1d4311bf@Dantes-MacBook-Pro.local.mail>
+Subject: test
+Mime-Version: 1.0
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+

@@ -1,0 +1,21 @@
+source 'https://rubygems.org'
+
+gemspec path: '../'
+
+gem 'rails', '~> 6.0.0.rc2'
+
+group :development do
+  gem 'bullet'
+end
+
+group :test do
+  #TODO https://github.com/rails/rails/issues/35417
+  gem 'rspec-rails', git: 'https://github.com/rspec/rspec-rails', branch: '4-0-dev'
+
+  gem 'rails-controller-testing'
+  gem 'ammeter'
+  gem 'timecop'
+  gem 'coveralls', require: false
+end
+
+gem 'dotenv-rails', groups: [:development, :test]

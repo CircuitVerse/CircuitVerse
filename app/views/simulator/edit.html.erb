@@ -45,6 +45,12 @@
       <li class="">
         <a href="https://docs.circuitverse.org" class="text-light" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">Help</a>
       </li>
+
+      <!-- <li class="invert" onclick="colorChange()">
+          <i class="fa">&#xf0eb;</i>
+      </li> -->
+
+
     </ul>
     <span class="projectName noSelect defaultCursor font-weight-bold" id="projectName">
       Untitled
@@ -119,8 +125,15 @@
           <div id="Help">
             <!-- <canvas id="miniMapArea" style="position: absolute; left:0; top: 0; z-index: 2;"></canvas> -->
           </div>
+
           <div style="position:absolute; right:30px; top:30px; z-index:100">
-            <button type="button" class="btn zoomButton btn-lg" onclick="changeScale(0.2,'zoomButton','zoomButton',2)">              
+            <button type="button" class="btn zoomButton btn-lg" onclick="colorChange()">
+              <span class="fa" aria-hidden="true" title="Invert Colors">&#xf0eb;</span>
+            </button>
+          </div>
+
+          <div style="position:absolute; right:60px; top:30px; z-index:100">
+            <button type="button" class="btn zoomButton btn-lg" onclick="changeScale(0.2,'zoomButton','zoomButton',2)">
               <span class="fa fa-search-plus" aria-hidden="true" title="Zoom In"></span>
             </button>
           </div>
@@ -130,22 +143,22 @@
             <div class="sk-cube4 sk-cube"></div>
             <div class="sk-cube3 sk-cube"></div>
           </div>
-          <div style="position:absolute; right:60px; top:30px; z-index:100">
+          <div style="position:absolute; right:90px; top:30px; z-index:100">
             <button type="button" class="btn zoomButton btn-lg" onclick="globalScope.centerFocus(false)">
               <span class="fa fa-crosshairs" aria-hidden="true" title="Zoom To Fit"></span>
             </button>
           </div>
-          <div style="position:absolute; right:90px; top:30px; z-index:100">
+          <div style="position:absolute; right:120px; top:30px; z-index:100">
             <button type="button" class="btn zoomButton btn-lg" onclick="changeScale(-0.2,'zoomButton','zoomButton',2)">
               <span class="fa fa-search-minus" aria-hidden="true" title="Zoom Out"></span>
             </button>
           </div>
-          <div style="position:absolute; right:120px; top:30px; z-index:100">
+          <div style="position:absolute; right:150px; top:30px; z-index:100">
             <button type="button" class="btn zoomButton btn-lg" onclick="undo()">
               <span class="fa fa-redo" aria-hidden="true" title="Undo"></span>
             </button>
           </div>
-          <div style="position:absolute; right:150px; top:30px; z-index:100">
+          <div style="position:absolute; right:180px; top:30px; z-index:100">
             <button type="button" class="btn zoomButton btn-lg" onclick="delete_selected()">
               <span class="fas fa-times" aria-hidden="true" title="Delete"></span>
             </button>
@@ -291,6 +304,7 @@
     <script src="/js/layout.js"></script>
     <script src="/js/testBench.js"></script>
     <script src="/js/verilog.js"></script>
+    <script src="/js/changeColor.js"></script>
     <script type="text/javascript" src="/js/metadata.json"></script>
     <% if @project.nil? or @project.assignment_id.nil? %>
       <script src="/js/combinationalAnalysis.js"></script>

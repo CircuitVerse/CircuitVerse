@@ -8,6 +8,10 @@ Bundler.require(*Rails.groups)
 
 module Logix
   class Application < Rails::Application
+
+    #config.web_console.whitelisted_ips = '10.0.0.0/32';
+    #config.web_console.whiny_requests = false;
+
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
 

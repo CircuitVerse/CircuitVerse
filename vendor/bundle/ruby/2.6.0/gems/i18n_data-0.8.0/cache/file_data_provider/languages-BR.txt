@@ -1,0 +1,185 @@
+AA;;Afar
+AB;;Abkhazieg
+AF;;Afrikaans
+AK;;Akan
+SQ;;Albaneg
+AM;;Amhareg
+AR;;Arabeg
+AN;;Aragonese
+HY;;Armenieg
+AS;;Assamese
+AV;;Avareg
+AE;;Avestan
+AY;;Aymara
+AZ;;Azeri
+BA;;Bashkir
+BM;;Bambara
+EU;;Euskareg
+BE;;Belaruseg
+BN;;Bengali
+BH;;Yezhoù banda
+BI;;Bislama
+BS;;Bosneg
+BR;;Brezhoneg
+BG;;Bulgareg
+MY;;Burmese
+CA;;Catalan; Valencian
+CH;;Chamorro
+CE;;Tchetcheneg
+ZH;;Sinaeg
+CU;;Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic
+CV;;Chuvash
+KW;;Kerneveureg
+CO;;Korseg
+CR;;Kri
+CS;;Tchekeg
+DA;;Daneg
+DV;;Divehi; Dhivehi; Maldivian
+NL;;Dutch; Flemish
+DZ;;Dzongkha
+EN;;Saozneg
+EO;;Esperanteg
+ET;;Estoneg
+EE;;Ewe
+FO;;Faroese
+FJ;;Fijian
+FI;;Finneg
+FR;;Galleg
+FY;;Yezhoù Frizek ar reter
+FF;;Fulah
+KA;;Jorjianeg
+DE;;Alamaneg
+GD;;Gaelic; Scottish Gaelic
+GA;;Iwerzhoneg
+GL;;Galisianeg
+GV;;Manx
+EL;;Greek, Modern (1453-)
+GN;;Guarani
+GU;;Gujarati
+HT;;Haitian; Haitian Creole
+HA;;Hausa
+HE;;Hebreeg
+HZ;;Herero
+HI;;Hindi
+HO;;Hiri Motu
+HR;;Kroateg
+HU;;Hungareg
+IG;;Igbo
+IS;;Islandeg
+IO;;Ido
+II;;Yi Sichuan
+IU;;Inuktitut
+IE;;Interlingue; Occidental
+IA;;Interlingua (Yezh Skoazeller Etrebroadel)
+ID;;Indoneseg
+IK;;Inupiaq
+IT;;Italianeg
+JV;;Javaneg
+JA;;Japaneg
+KL;;Kalaallisut; Greenlandic
+KN;;Kannada
+KS;;Kashmiri
+KR;;Kanouri
+KK;;Kazakh
+KM;;Central Khmer
+KI;;Kikuyu; Gikuyu
+RW;;Kinyarwanda
+KY;;Kirghiz; Kyrgyz
+KV;;Komi
+KG;;Kongo
+KO;;Koreeg
+KJ;;Kuanyama; Kwanyama
+KU;;Kurdeg
+LO;;Lao
+LA;;Latin
+LV;;Latvieg
+LI;;Limburgan; Limburger; Limburgish
+LN;;Lingala
+LT;;Lituaneg
+LB;;Luxembourgish; Letzeburgesch
+LU;;Luba-Katanga
+LG;;Ganda
+MK;;Makedoneg
+MH;;Marshall
+ML;;Malayalam
+MI;;Maorieg
+MR;;Maratieg
+MS;;Malay
+MG;;Malagasy
+MT;;Malteg
+MO;;moldovat
+MN;;Mongoleg
+NA;;Nauru
+NV;;Navajo; Navaho
+NR;;Ndebele, South; South Ndebele
+ND;;Ndebele, North; North Ndebele
+NG;;Ndonga
+NE;;Nepali
+NN;;Norvegeg Nynorsk
+NB;;Bokmål, Norwegian; Norwegian Bokmål
+NO;;Norvegieg
+NY;;Tchitcheweg
+OC;;Occitan (post 1500)
+OJ;;Ojibwa
+OR;;Oriya
+OM;;Oromo
+OS;;Oseteg
+PA;;Panjabi; Punjabi
+FA;;Perseg; Farsi
+PI;;Pali
+PL;;Poloneg
+PT;;Portugaleg
+PS;;Pushto; Pashto
+QU;;Quechua
+RM;;Romañcheg
+RO;;Roumaneg
+RN;;Rundi
+RU;;Rusianeg
+SG;;Sango
+SA;;Sanskrit
+SI;;Singhaleg
+SK;;Sloveg
+SL;;Slovenieg
+SE;;Northern Sami
+SM;;Samoan
+SN;;Chona
+SD;;Sindhi
+SO;;Somali
+ST;;Sotho, Southern
+ES;;Spanish; Castilian
+SC;;Sardeg
+SR;;Serbeg
+SS;;Swati
+SU;;Sundanese
+SW;;Swahili
+SV;;Svedeg
+TY;;Tahitianeg
+TA;;Tamouleg
+TT;;Tatar
+TE;;Telugu
+TG;;Tadjik
+TL;;Tagalog
+TH;;Thai
+BO;;Tibetan
+TI;;Tigrinyaeg
+TO;;Tonga (Tonga Islands)
+TN;;Tswana
+TS;;Tsonga
+TK;;Turkmen
+TR;;Turkeg
+TW;;Twi
+UG;;Uighur; Uyghur
+UK;;Ukrenieg
+UR;;Urdu
+UZ;;Uzbek
+VE;;Venda
+VI;;Vietnameg
+VO;;Volapük
+CY;;Kembraeg
+WA;;Walloneg
+WO;;Wolof
+XH;;C'hsosa
+YI;;Yiddish
+YO;;Yoruba
+ZA;;Zhuang; Chuang
+ZU;;Zouloueg

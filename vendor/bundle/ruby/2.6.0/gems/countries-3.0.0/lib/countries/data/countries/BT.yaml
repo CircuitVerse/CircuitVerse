@@ -1,0 +1,50 @@
+---
+BT:
+  continent: Asia
+  alpha2: BT
+  alpha3: BTN
+  country_code: '975'
+  international_prefix: '00'
+  ioc: BHU
+  gec: BT
+  name: Bhutan
+  national_destination_code_lengths:
+  - 2
+  national_number_lengths:
+  - 7
+  - 8
+  national_prefix: None
+  number: '064'
+  region: Asia
+  subregion: Southern Asia
+  world_region: APAC
+  un_locode: BT
+  nationality: Bhutanese
+  postal_code: true
+  unofficial_names:
+  - Bhutan
+  - Bhoutan
+  - Bután
+  - ブータン
+  languages_official:
+  - dz
+  languages_spoken:
+  - dz
+  geo:
+    latitude: 27.514162
+    latitude_dec: '27.416879653930664'
+    longitude: 90.433601
+    longitude_dec: '90.43476104736328'
+    max_latitude: 28.360825
+    max_longitude: 92.12523209999999
+    min_latitude: 26.702016
+    min_longitude: 88.74647350000001
+    bounds:
+      northeast:
+        lat: 28.360825
+        lng: 92.12523209999999
+      southwest:
+        lat: 26.702016
+        lng: 88.74647350000001
+  currency_code: BTN
+  start_of_week: monday

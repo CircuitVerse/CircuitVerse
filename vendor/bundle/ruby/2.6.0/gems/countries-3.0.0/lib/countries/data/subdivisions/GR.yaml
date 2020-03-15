@@ -1,0 +1,1321 @@
+---
+'01':
+  unofficial_names:
+  - Aetolia and Acarnania
+  - Áitoloakarnanía
+  translations:
+    en: Aetolia-Acarnania
+  geo:
+    latitude: 38.7084386
+    longitude: 21.3798928
+    min_latitude: 38.2958296
+    min_longitude: 20.7186278
+    max_latitude: 39.1746625
+    max_longitude: 22.0265431
+  name: Aitolia-Akarnania
+'03':
+  unofficial_names:
+  - Boeotia
+  translations:
+    en: Boeotia
+  geo:
+    latitude: 38.3663664
+    longitude: 23.0965064
+    min_latitude: 38.1352475
+    min_longitude: 22.4874603
+    max_latitude: 38.5958614
+    max_longitude: 23.6925946
+  name: Voiotia
+'04':
+  unofficial_names:
+  - Euboea
+  - Evvoia
+  translations:
+    en: Euboea
+  geo:
+    latitude: 38.5236036
+    longitude: 23.8584737
+    min_latitude: 37.9311267
+    min_longitude: 22.8111273
+    max_latitude: 39.0505681
+    max_longitude: 24.685908
+  name: Evvoia
+'05':
+  unofficial_names:
+  - Evrytania
+  translations:
+    en: Evritania
+  geo:
+    latitude: 39.0032334
+    longitude: 21.7137694
+    min_latitude: 38.6749916
+    min_longitude: 21.3743805
+    max_latitude: 39.2567999
+    max_longitude: 21.9463558
+  name: Evrytania
+'06':
+  unofficial_names:
+  - Phtiotis
+  translations:
+    en: Phthiotis
+  geo:
+    latitude: 38.999785
+    longitude: 22.3337769
+    min_latitude: 38.4993247
+    min_longitude: 21.8260028
+    max_latitude: 39.273223
+    max_longitude: 23.3779269
+  name: Fthiotis
+'07':
+  unofficial_names:
+  - Phocis
+  - Phokis
+  translations:
+    en: Phocis
+  geo:
+    latitude: 38.5598641
+    longitude: 22.1430215
+    min_latitude: 38.2781703
+    min_longitude: 21.8534652
+    max_latitude: 38.8075967
+    max_longitude: 22.6290539
+  name: Fokis
+'11':
+  unofficial_names: Argolis
+  translations:
+    en: Argolis
+  geo:
+    latitude: 37.6525404
+    longitude: 22.858217
+    min_latitude: 37.2851476
+    min_longitude: 22.3910963
+    max_latitude: 37.8607841
+    max_longitude: 23.4546164
+  name: Argolis
+'12':
+  unofficial_names:
+  - Arcadia
+  translations:
+    en: Arcadia
+  geo:
+    latitude: 37.5557825
+    longitude: 22.3337769
+    min_latitude: 36.9934448
+    min_longitude: 21.7909335
+    max_latitude: 37.8653285
+    max_longitude: 22.9852154
+  name: Arkadia
+'13':
+  unofficial_names:
+  - Achaia
+  - Akhaia
+  translations:
+    en: Achaea
+  geo:
+    latitude: 38.1158729
+    longitude: 21.9522491
+    min_latitude: 37.7799521
+    min_longitude: 21.3506248
+    max_latitude: 38.34114890000001
+    max_longitude: 22.3801523
+  name: Achaïa
+'14':
+  unofficial_names:
+  - Elia
+  translations:
+    en: Ilia
+  geo:
+    latitude: 37.7045099
+    longitude: 21.5706786
+    min_latitude: 37.3749783
+    min_longitude: 21.105044
+    max_latitude: 38.1042772
+    max_longitude: 21.9993968
+  name: Ileia
+'15':
+  unofficial_names:
+  - Corinth
+  - Korinth
+  - Kórinthos
+  translations:
+    en: Corinthia
+  geo:
+    latitude: 38.0022977
+    longitude: 22.5245093
+    min_latitude: 37.7019616
+    min_longitude: 22.2184583
+    max_latitude: 38.1430037
+    max_longitude: 23.1795243
+  name: Korinthia
+'16':
+  unofficial_names:
+  - Laconia
+  translations:
+    en: Laconia
+  geo:
+    latitude: 37.0299087
+    longitude: 22.5245093
+    min_latitude: 36.3853558
+    min_longitude: 22.2207465
+    max_latitude: 37.3358025
+    max_longitude: 23.2021446
+  name: Lakonia
+'17':
+  unofficial_names:
+  - Messenia
+  translations:
+    en: Messenia
+  geo:
+    latitude: 37.1424653
+    longitude: 21.9522491
+    min_latitude: 36.6719964
+    min_longitude: 21.5389289
+    max_latitude: 37.485153
+    max_longitude: 22.4019497
+  name: Messinia
+'21':
+  unofficial_names:
+  - Zakynthos
+  - Zante
+  - Zanti
+  translations:
+    en: Zakynthos
+  geo:
+    latitude: 37.7881604
+    longitude: 20.8988271
+    min_latitude: 37.7663048
+    min_longitude: 20.8897211
+    max_latitude: 37.8013779
+    max_longitude: 20.9082835
+  name: Zakynthos
+'22':
+  unofficial_names:
+  - Corfu
+  - Kerkyra
+  - Korfu
+  translations:
+    en: Corfu
+  geo:
+    latitude: 39.6249838
+    longitude: 19.9223461
+    min_latitude: 39.5897896
+    min_longitude: 19.8859891
+    max_latitude: 39.6335922
+    max_longitude: 19.9329883
+  name: Kerkyra
+'23':
+  unofficial_names:
+  - Cephalonia
+  - Kefallinia
+  translations:
+    en: Kefalonia
+  geo:
+    latitude: 38.1753675
+    longitude: 20.5692179
+    min_latitude: 38.056728
+    min_longitude: 20.3367466
+    max_latitude: 38.4754656
+    max_longitude: 20.8160654
+  name: Kefallinia
+'24':
+  unofficial_names:
+  - Leucas
+  - Levkáda
+  - Santa Maura
+  translations:
+    en: Lefkada
+  geo:
+    latitude: 38.7066464
+    longitude: 20.64073
+    min_latitude: 38.5607572
+    min_longitude: 20.5409505
+    max_latitude: 38.8523758
+    max_longitude: 20.7331319
+  name: Lefkas
+'31':
+  unofficial_names: Arta
+  translations:
+    en: Arta
+  geo:
+    latitude: 39.1582421
+    longitude: 20.9876839
+    min_latitude: 39.1465116
+    min_longitude: 20.975572
+    max_latitude: 39.1668764
+    max_longitude: 20.9993676
+  name: Arta
+'32':
+  unofficial_names: Thesprotia
+  translations:
+    en: Thesprotia
+  geo:
+    latitude: 39.4935011
+    longitude: 20.3785438
+    min_latitude: 39.2733226
+    min_longitude: 20.0086771
+    max_latitude: 39.8163986
+    max_longitude: 20.682334
+  name: Thesprotia
+'33':
+  unofficial_names:
+  - Yannina
+  translations:
+    en: Ioannina
+  geo:
+    latitude: 39.66502880000001
+    longitude: 20.8537466
+    min_latitude: 39.63826
+    min_longitude: 20.8218806
+    max_latitude: 39.6887974
+    max_longitude: 20.8724933
+  name: Ioannina
+'34':
+  unofficial_names: Preveza
+  translations:
+    en: Preveza
+  geo:
+    latitude: 38.9592649
+    longitude: 20.7517155
+    min_latitude: 38.9444954
+    min_longitude: 20.7315499
+    max_latitude: 38.9759537
+    max_longitude: 20.758962
+  name: Preveza
+'41':
+  unofficial_names: Karditsa
+  translations:
+    en: Karditsa
+  geo:
+    latitude: 39.3640258
+    longitude: 21.9214049
+    min_latitude: 39.3487503
+    min_longitude: 21.8997222
+    max_latitude: 39.3806683
+    max_longitude: 21.93962
+  name: Karditsa
+'42':
+  unofficial_names:
+  - Larissa
+  translations:
+    en: Larissa
+  geo:
+    latitude: 39.63902239999999
+    longitude: 22.4191254
+    min_latitude: 39.5973394
+    min_longitude: 22.3851797
+    max_latitude: 39.66467799999999
+    max_longitude: 22.4631126
+  name: Larisa
+'43':
+  unofficial_names:
+  - Magnesia
+  - Magnessia
+  translations:
+    en: Magnesia
+  geo:
+    latitude: 39.2686199
+    longitude: 22.762883
+    min_latitude: 38.969701
+    min_longitude: 22.4907616
+    max_latitude: 39.6028892
+    max_longitude: 23.351096
+  name: Magnisia
+'44':
+  unofficial_names:
+  - Trikala
+  - Trikkala
+  translations:
+    en: Trikala
+  geo:
+    latitude: 39.5557317
+    longitude: 21.7678951
+    min_latitude: 39.528989
+    min_longitude: 21.7456236
+    max_latitude: 39.5778757
+    max_longitude: 21.8004941
+  name: Trikala
+'51':
+  unofficial_names: Grevena
+  translations:
+    en: Grevena
+  geo:
+    latitude: 40.0837626
+    longitude: 21.4273299
+    min_latitude: 40.072002
+    min_longitude: 21.4124213
+    max_latitude: 40.0934072
+    max_longitude: 21.4476789
+  name: Grevena
+'52':
+  unofficial_names: Drama
+  translations:
+    en: Drama
+  geo:
+    latitude: 41.149001
+    longitude: 24.1470796
+    min_latitude: 41.133406
+    min_longitude: 24.1154805
+    max_latitude: 41.162381
+    max_longitude: 24.1691269
+  name: Drama
+'53':
+  unofficial_names: Imathia
+  translations:
+    en: Imathia
+  geo:
+    latitude: 40.60600669999999
+    longitude: 22.1430215
+    min_latitude: 40.3001831
+    min_longitude: 21.8819464
+    max_latitude: 40.734296
+    max_longitude: 22.6815765
+  name: Imathia
+'54':
+  unofficial_names:
+  - Salonika
+  - Salonike
+  - Saloniki
+  - Thessalonike
+  translations:
+    en: Thessaloniki
+  geo:
+    latitude: 40.6400629
+    longitude: 22.9444191
+    min_latitude: 40.5863402
+    min_longitude: 22.9019833
+    max_latitude: 40.6560448
+    max_longitude: 22.9900712
+  name: Thessaloniki
+'55':
+  unofficial_names:
+  - Cavalla
+  - Kaválla
+  translations:
+    en: Kavala
+  geo:
+    latitude: 40.937607
+    longitude: 24.412866
+    min_latitude: 40.9186182
+    min_longitude: 24.3727195
+    max_latitude: 40.9551573
+    max_longitude: 24.4424248
+  name: Kavalla
+'56':
+  unofficial_names: Kastoria
+  translations:
+    en: Kastoria
+  geo:
+    latitude: 40.5192691
+    longitude: 21.2687171
+    min_latitude: 40.5064467
+    min_longitude: 21.2481123
+    max_latitude: 40.5273709
+    max_longitude: 21.2782019
+  name: Kastoria
+'57':
+  unofficial_names: Kilkis
+  translations:
+    en: Kilkis
+  geo:
+    latitude: 40.99370709999999
+    longitude: 22.8753674
+    min_latitude: 40.9809255
+    min_longitude: 22.8630763
+    max_latitude: 41.0049011
+    max_longitude: 22.8868592
+  name: Kilkis
+'58':
+  unofficial_names: Kozani
+  translations:
+    en: Kozani
+  geo:
+    latitude: 40.3005808
+    longitude: 21.7898132
+    min_latitude: 40.2863327
+    min_longitude: 21.7751894
+    max_latitude: 40.3117685
+    max_longitude: 21.8067249
+  name: Kozani
+'59':
+  unofficial_names: Pella
+  translations:
+    en: Pella
+  geo:
+    latitude: 40.7632436
+    longitude: 22.5260527
+    min_latitude: 40.7564752
+    min_longitude: 22.5207586
+    max_latitude: 40.7662261
+    max_longitude: 22.531415
+  name: Pella
+'61':
+  unofficial_names: Pieria
+  translations:
+    en: Pieria
+  geo:
+    latitude: 40.26690990000001
+    longitude: 22.4768287
+    min_latitude: 39.9465392
+    min_longitude: 22.103385
+    max_latitude: 40.5484279
+    max_longitude: 22.6784513
+  name: Pieria
+'62':
+  unofficial_names:
+  - Serres
+  translations:
+    en: Serres
+  geo:
+    latitude: 41.090923
+    longitude: 23.5413198
+    min_latitude: 41.0736347
+    min_longitude: 23.5238672
+    max_latitude: 41.0995376
+    max_longitude: 23.5722419
+  name: Serrai
+'63':
+  unofficial_names: Florina
+  translations:
+    en: Florina
+  geo:
+    latitude: 40.78452619999999
+    longitude: 21.4131222
+    min_latitude: 40.7736395
+    min_longitude: 21.3817426
+    max_latitude: 40.7941675
+    max_longitude: 21.4287362
+  name: Florina
+'64':
+  unofficial_names:
+  - Chalcidice
+  - Khalkikdiki
+  translations:
+    en: Chalkidiki
+  geo:
+    latitude: 40.3694997
+    longitude: 23.287085
+    min_latitude: 39.9076082
+    min_longitude: 23.0049865
+    max_latitude: 40.6426162
+    max_longitude: 24.3309672
+  name: Chalkidiki
+'69':
+  unofficial_names:
+  - Aghion Oros
+  - Agion Oros
+  - Akte
+  - Aktí
+  - Athos
+  - Mount Athos
+  translations:
+    en: Mount Athos
+    af: Berg Athos
+    ar: جبل آثوس
+    az: Afon
+    be: Гара Афон
+    bg: Атон
+    ca: Athos
+    cs: Athos
+    da: Athos
+    de: Athos
+    el: Άγιο Όρος
+    es: Monte Athos
+    et: Áthos
+    eu: Athos
+    fa: کوه آثوس
+    fi: Athos
+    fr: Aktè
+    gl: Monte Athos
+    he: הר אתוס
+    hr: Sveta Gora
+    hu: Athosz-hegy
+    hy: Աֆոն
+    id: Gunung Athos
+    is: Aþos
+    it: Monte Athos
+    ja: アトス山
+    ka: აიონ-ოროსი
+    ko: 아토스 산
+    lt: Atonas
+    lv: Ajonora
+    ml: മൗണ്ട് ആഥോസ്
+    nb: Athos
+    nl: Oros Athos
+    pl: Athos
+    pt: Monte Atos
+    ro: Muntele Athos
+    ru: Афон
+    sk: Athos
+    sr: Света гора
+    sv: Athos
+    th: เขาแอทอส
+    tr: Aynoroz
+    uk: Афон
+    ur: کوہ آتھوس
+    vi: Núi Athos
+    zh: 阿索斯山
+  geo:
+    latitude: 40.2644928
+    longitude: 24.2152731
+    min_latitude: 40.11453119999999
+    min_longitude: 23.993087
+    max_latitude: 40.451581
+    max_longitude: 24.3991418
+  name: Agio Oros
+'71':
+  unofficial_names: Evros
+  translations:
+    en: Evros
+  geo:
+    latitude: 41.2443761
+    longitude: 26.1359431
+    min_latitude: 40.3922362
+    min_longitude: 25.4433186
+    max_latitude: 41.7490577
+    max_longitude: 26.63482
+  name: Evros
+'72':
+  unofficial_names: Xanthi
+  translations:
+    en: Xanthi
+  geo:
+    latitude: 41.1300361
+    longitude: 24.8864902
+    min_latitude: 41.1240364
+    min_longitude: 24.8729232
+    max_latitude: 41.1469748
+    max_longitude: 24.9013272
+  name: Xanthi
+'73':
+  unofficial_names:
+  - Rhodope
+  translations:
+    en: Rhodope
+  geo:
+    latitude: 41.0795681
+    longitude: 25.5681084
+    min_latitude: 40.8573264
+    min_longitude: 25.0462171
+    max_latitude: 41.3476982
+    max_longitude: 25.9628848
+  name: Rodopi
+'81':
+  unofficial_names:
+  - Dodecanese
+  - Dodekanes
+  translations:
+    en: Dodecanese
+  geo:
+    latitude: 36
+    longitude: 27
+    min_latitude: 
+    min_longitude: 
+    max_latitude: 
+    max_longitude: 
+  name: Dodekanisos
+'82':
+  unofficial_names:
+  - Cyclades
+  - Kykladen
+  translations:
+    en: Cyclades
+  geo:
+    latitude: 37.007359
+    longitude: 25.2573062
+    min_latitude: 36.3321034
+    min_longitude: 24.2644196
+    max_latitude: 37.9996455
+    max_longitude: 26.0861299
+  name: Kyklades
+'83':
+  unofficial_names:
+  - Lesbos
+  translations:
+    en: Lesbos
+  geo:
+    latitude: 39.2645095
+    longitude: 26.2777073
+    min_latitude: 38.9617824
+    min_longitude: 25.8315604
+    max_latitude: 39.3901867
+    max_longitude: 26.6158545
+  name: Lesvos
+'84':
+  unofficial_names: Samos
+  translations:
+    en: Samos
+  geo:
+    latitude: 37.7547857
+    longitude: 26.9777701
+    min_latitude: 37.6361979
+    min_longitude: 26.5660585
+    max_latitude: 37.8131289
+    max_longitude: 27.0697659
+  name: Samos
+'85':
+  unofficial_names:
+  - Chios
+  - Khios
+  translations:
+    en: Chios
+  geo:
+    latitude: 38.3709813
+    longitude: 26.1363457
+    min_latitude: 38.3508285
+    min_longitude: 26.1163861
+    max_latitude: 38.3980793
+    max_longitude: 26.1448242
+  name: Chios
+'91':
+  unofficial_names:
+  - Candia
+  - Herakleion
+  - Heraklion
+  - Iraclion
+  - Iraklio
+  translations:
+    en: Heraklion region
+  geo:
+    latitude: 35.3387006
+    longitude: 25.1443698
+    min_latitude: 34.9194342
+    min_longitude: 24.7224739
+    max_latitude: 35.46693610000001
+    max_longitude: 25.5503886
+  name: Irakleion
+'92':
+  unofficial_names:
+  - Lassithi
+  translations:
+    en: Lasithi
+  geo:
+    latitude: 35.0811693
+    longitude: 25.7101789
+    min_latitude: 34.8653602
+    min_longitude: 25.3984683
+    max_latitude: 35.3838124
+    max_longitude: 26.352476
+  name: Lasithion
+'93':
+  unofficial_names: Rethymnon
+  translations:
+    en: Rethymno
+  geo:
+    latitude: 35.3643615
+    longitude: 24.4821552
+    min_latitude: 35.3543527
+    min_longitude: 24.452042
+    max_latitude: 35.3739755
+    max_longitude: 24.5385319
+  name: Rethymnon
+'94':
+  unofficial_names:
+  - Canea
+  - Chania
+  - Khaniá
+  - La Canée
+  translations:
+    en: Chania
+  geo:
+    latitude: 35.5138298
+    longitude: 24.0180367
+    min_latitude: 35.4916505
+    min_longitude: 23.9921734
+    max_latitude: 35.5234575
+    max_longitude: 24.0573066
+  name: Chania
+A1:
+  unofficial_names:
+  - Attica
+  - Attika
+  translations:
+    en: Attica Department
+  geo:
+    latitude: 38.0457568
+    longitude: 23.8584737
+    min_latitude: 35.8223934
+    min_longitude: 22.8912482
+    max_latitude: 38.34097939999999
+    max_longitude: 24.1047417
+  name: Attiki
+A:
+  translations:
+    ar: مقدونيا الشرقية وتراقيا
+    az: Şərqi Makedoniya və Trakya
+    be: Усходняя Македонія і Фракія
+    bg: Източна Македония и Тракия
+    bn: পূর্ব ম্যাসেডোনিয়া এবং থ্রেস
+    ca: Macedònia Oriental i Tràcia
+    cs: Východní Makedonie a Thrákie
+    da: Østmakedonien og Thrakien
+    de: Ostmakedonien und Thrakien
+    el: Περιφέρεια Ανατολικής Μακεδονίας και Θράκης
+    en: East Macedonia and Thrace
+    es: Macedonia Oriental y Tracia
+    et: Ida-Makedoonia ja Traakia
+    eu: Ekialdeko Mazedonia eta Trazia
+    fa: مقدونیه شرقی و تراکیه
+    fi: Itä-Makedonia ja Traakia
+    fr: Macédoine-Orientale-et-Thrace
+    gl: Macedonia Oriental e Tracia
+    gu: ઇસ્ટ મેસેડોનિયા એન્ડ થ્રેસ
+    he: מזרח מקדוניה ותראקיה
+    hi: पूर्वी मैसेडोनिया और थ्रेस
+    hr: Periferija Istočna Makedonija i Trakija
+    hu: Kelet-Makedónia és Thrákia
+    hy: Արևելյան Մակեդոնիա և Թրակիա
+    id: Makedonia Timur dan Trasia
+    it: Macedonia Orientale e Tracia
+    ja: 東マケドニア・トラキア
+    ka: აღმოსავლეთი მაკედონია და თრაკია
+    kn: ಈಸ್ಟ್ ಮೆಸಿಡೋನಿಯಾ ಮತ್ತು ಥ್ರೇಸ್
+    ko: 동마케도니아 트라키 주
+    lt: Rytų Makedonijos ir Trakijos periferija
+    mr: ईस्ट मॅसिडोनिया अँड थ्रेस
+    ms: East Macedonia and Thrace
+    nb: Øst-Makedonia og Thrakia
+    nl: Oost-Macedonië en Thracië
+    pl: Region Macedonia Wschodnia i Tracja
+    pt: Macedônia Oriental e Trácia
+    ro: Macedonia de Est și Tracia
+    ru: Восточная Македония и Фракия
+    si: නැගෙනහිර මැසිඩෝනියා සහ ත්රේස්
+    sk: Východná Makedónia a Trácia
+    sr: Периферија Источна Македонија и Тракија
+    sv: Östra Makedonien och Thrakien
+    ta: கிழக்கு மாசிடோனியா அண்ட் த்ராஸ்
+    te: తూర్పు మెసడోనియా మరియు త్రేస్
+    th: มาซิโดเนียตะวันออกและเทรซ
+    tr: Doğu Makedonya ve Trakya
+    uk: Східна Македонія та Фракія
+    ur: مشرقی مقدونیہ اور تھریس
+    vi: Đông Macedonia và Thrace
+B:
+  translations:
+    ar: مقدونيا الوسطى
+    az: Orta Makedoniya
+    be: Цэнтральная Македонія
+    bg: Централна Македония
+    bn: সেন্ট্রাল মেসিডোনিয়া অঞ্চল
+    ca: Macedònia Central
+    cs: Střední Makedonie
+    da: Central Macedonia Region
+    de: Zentralmakedonien
+    el: Κεντρική Μακεδονία
+    en: Central Macedonia
+    es: Macedonia Central
+    et: Kesk-Makedoonia
+    eu: Erdialdeko Mazedonia
+    fa: مقدونیه مرکزی
+    fi: Keski-Makedonia
+    fr: Macédoine-Centrale
+    gl: Macedonia Central
+    gu: સેન્ટ્રલ મેસેડોનિયા પ્રદેશ
+    he: מרכז מקדוניה
+    hi: केंद्रीय मैसेडोनिया क्षेत्र
+    hr: Periferija Središnja Makedonija
+    hu: Közép-Makedónia
+    hy: Կենտրոնական Մակեդոնիա
+    id: Makedonia Tengah
+    it: Macedonia Centrale
+    ja: 中央マケドニア
+    ka: ცენტრალური მაკედონია
+    kn: ಮಧ್ಯ ಮಾಸೆಡೋನಿಯಾ ಪ್ರದೇಶ
+    ko: 중앙마케도니아 주
+    lt: Centrinės Makedonijos periferija
+    mr: मध्यवर्ती मॅसिडोनिया प्रदेश
+    ms: Macedonia Tengah
+    nb: Sentral-Makedonia
+    nl: Centraal-Macedonië
+    pl: Region Macedonia Środkowa
+    pt: Macedônia Central
+    ro: Macedonia Centrală
+    ru: Центральная Македония
+    si: මධ්‍යම මැසිඩෝනියා පළාත
+    sk: Stredná Makedónia
+    sr: Периферија Средишња Македонија
+    sv: Mellersta Makedonien
+    ta: சென்ட்ரல் மாசிடோனியா பகுதி
+    te: సెంట్రల్ మాసెడోనియా ప్రాంతం
+    th: มาเกโดเนียกลาง
+    tr: Orta Makedonya
+    uk: Центральна Македонія
+    ur: وسطی مقدونیہ
+    vi: Trung Macedonia
+C:
+  translations:
+    ar: مقدونيا الغربية
+    az: Qərbi Makedoniya
+    be: Заходняя Македонія
+    bg: Западна Македония
+    bn: ওয়েস্ট মেসিডোনিয়া অঞ্চল
+    ca: Macedònia Occidental
+    cs: Západní Makedonie
+    da: West Macedonia Region
+    de: Westmakedonien
+    el: Περιφέρεια Δυτικής Μακεδονίας
+    en: West Macedonia
+    es: Macedonia Occidental
+    et: Lääne-Makedoonia
+    eu: Mendebaldeko Mazedonia
+    fa: مقدونیه غربی
+    fi: Länsi-Makedonia
+    fr: Macédoine-Occidentale
+    gl: Macedonia Occidental
+    gu: પશ્ચિમ મેસેડોનિયા પ્રદેશ
+    he: מערב מקדוניה
+    hi: पश्चिमी मैसेडोनिया क्षेत्र
+    hr: Periferija Zapadna Makedonija
+    hu: Nyugat-Makedónia
+    id: Makedonia Barat
+    it: Macedonia Occidentale
+    ja: 西マケドニア
+    ka: დასავლეთი მაკედონია
+    kn: ಪಶ್ಚಿಮ ಮಾಸೆಡೋನಿಯಾ ಪ್ರದೇಶ
+    ko: 서마케도니아 주
+    lt: Vakarų Makedonijos periferija
+    mr: वेस्ट मॅसेडोनिया प्रदेश
+    ms: West Macedonia Region
+    nb: Vest-Makedonia
+    nl: West-Macedonië
+    pl: Region Macedonia Zachodnia
+    pt: Macedônia Ocidental
+    ro: Macedonia de Vest
+    ru: Западная Македония
+    si: බටහිර මැසිඩෝනියා පළාත
+    sk: Západná Makedónia
+    sr: Периферија Западна Македонија
+    sv: Västra Makedonien
+    ta: மேற்கு மாசிடோனியா பகுதி
+    te: పశ్చిమ మెసిడోనియా ప్రాంతం
+    th: เวส มาซิโดเนีย
+    tr: Batı Makedonya
+    uk: Західна Македонія
+    ur: مغربی مقدونیہ
+    vi: Tây Macedonia
+D:
+  translations:
+    ar: إبيروس
+    be: Эпір
+    bg: Епир
+    bn: এপিরাস অঞ্চল
+    ca: Regne de l’Epir
+    cs: Epirus
+    da: Epirus Region
+    de: Epirus
+    el: Περιφέρεια Ηπείρου
+    en: Epirus
+    es: Epiro
+    et: Ípeiros
+    eu: Epiro
+    fa: ایپیروس
+    fi: Epeiros
+    fr: Épire (périphérie)
+    gl: Épiro
+    gu: એપિરસસ પ્રદેશ
+    he: אפירוס
+    hi: एपिरस क्षेत्र
+    hr: Periferija Epir
+    hu: Epirusz
+    hy: Էպիրուս
+    id: Epirus
+    it: Epiro
+    ja: イピロス
+    ka: ეპირი
+    kn: ಎಪಿರಸ್ ಪ್ರದೇಶ
+    ko: 이피로스 주
+    lt: Epyro periferija
+    mr: एपिअरस प्रदेश
+    ms: Epirus
+    nb: Epirus
+    nl: Epirus
+    pl: Epir
+    pt: Epiro
+    ro: Epir
+    ru: Эпир
+    si: එපිරස් කලාපය
+    sk: Epirus
+    sl: Čamerija
+    sr: Периферија Епир
+    sv: Epirus
+    ta: எபிரோஸ் பகுதி
+    te: ఎపిరస్ ప్రాంతం
+    th: อิไพรัส
+    tr: Epir
+    uk: Епір
+    ur: اپیروس (علاقہ)
+    vi: Epirus
+E:
+  translations:
+    ar: ثيساليا
+    be: Фесалія
+    bg: Тесалия
+    bn: থেসালি
+    ca: Tessàlia
+    cs: Thesálie
+    da: Thessaly
+    de: Thessalien
+    el: Θεσσαλία
+    en: Thessaly
+    es: Tesalia
+    et: Tessaalia piirkond
+    eu: Tesalia
+    fa: تسالی
+    fi: Thessalia
+    fr: Thessalie
+    gl: Tesalia
+    gu: થેસાલી
+    he: תסליה
+    hi: थेसली
+    hr: Tesalija
+    hu: Thesszália
+    hy: Թեսալիա
+    id: Thessalia
+    is: Þessalía
+    it: Tessaglia
+    ja: テッサリア
+    ka: თესალია
+    kn: ಥೆಸ್ಸಲಿ
+    ko: 테살리아
+    lt: Tesalija
+    mr: थिसलीस
+    ms: Thessaly
+    nb: Thessalia
+    nl: Thessalië
+    pl: Tesalia
+    pt: Tessália
+    ro: Tesalia
+    ru: Фессалия
+    si: තෙසලේ
+    sk: Tesália
+    sl: Tesalija
+    sr: Тесалија
+    sv: Thessalien
+    ta: தெஸ்ஸாலி
+    te: తెసాలీ
+    th: เทสซาลี
+    tr: Tesalya
+    uk: Фессалія
+    ur: ثیسالیا
+    vi: Thessaly
+F:
+  translations:
+    ar: الجزر الأيونية
+    be: Перыферыя Іанічныя астравы
+    cs: Jónské ostrovy (kraj)
+    de: Ionische Inseln
+    el: Περιφέρεια Ιονίων Νήσων
+    en: Ionian Islands
+    es: Periferia de Islas Jónicas
+    et: Joonia saarte piirkond
+    fa: استان جزایر ایونی
+    fi: Jooniansaaret
+    fr: Îles Ioniennes (périphérie)
+    he: האיים היוניים
+    hr: Periferija Jonski otoci
+    hy: Հոնիական կղզիներ
+    it: Isole Ionie
+    lt: Jonijos salų periferija
+    nb: De joniske øyer
+    nl: Ionian Islands Region
+    pl: Region Wyspy Jońskie
+    pt: Ilhas Jónicas
+    ru: периферия Ионические острова
+    sr: Периферија Јонска острва
+    uk: Іонічні острови
+    ur: ایونی جزائر (علاقہ)
+G:
+  translations:
+    ar: غرب اليونان
+    be: Заходняя Грэцыя
+    bg: Западна Гърция
+    bn: ওয়েস্ট গ্রীস অঞ্চল
+    ca: Grècia Occidental
+    cs: Západní Řecko
+    da: West Greece Region
+    de: Westgriechenland
+    el: Περιφέρεια Δυτικής Ελλάδας
+    en: West Greece
+    es: Grecia Occidental
+    et: Lääne-Kreeka piirkond
+    fa: یونان غربی
+    fi: Länsi-Kreikka
+    fr: Grèce-Occidentale
+    gl: Grecia Occidental
+    gu: પશ્ચિમ ગ્રીસ પ્રદેશ
+    he: מערב יוון
+    hi: पश्चिमी ग्रीस क्षेत्र
+    hr: Periferija Zapadna Grčka
+    hu: Nyugat-Görögország
+    hy: Արևմտյան Հունաստան
+    id: Yunani Barat
+    it: Grecia Occidentale
+    ja: 西ギリシャ
+    ka: დასავლეთი საბერძნეთი
+    kn: ಪಶ್ಚಿಮ ಗ್ರೀಸ್ ಪ್ರದೇಶ
+    ko: 서그리스 주
+    lt: Vakarų Graikijos periferija
+    mr: वेस्ट ग्रीस प्रदेश
+    ms: West Greece Region
+    nb: Vest-Hellas
+    nl: West-Griekenland
+    pl: Region Grecja Zachodnia
+    pt: Grécia Ocidental
+    ro: Grecia de Vest
+    ru: Западная Греция
+    si: වෙස්ට් ග්‍රීස් කලාපය
+    sk: Západné Grécko
+    sr: Периферија Западна Грчка
+    sv: Västra Grekland
+    ta: மேற்கு கிரீஸ் பகுதி
+    te: పశ్చిమ గ్రీస్ ప్రాంతం
+    th: เวสเทิร์กรีซ
+    tr: Batı Yunanistan
+    uk: Західна Греція
+    ur: مغربی یونان
+    vi: Tây Hy Lạp
+H:
+  translations:
+    ar: وسط اليونان
+    be: Цэнтральная Грэцыя
+    bg: Централна Гърция
+    ca: Grècia Central
+    cs: Střední Řecko
+    de: Mittelgriechenland
+    el: Περιφέρεια Στερεάς Ελλάδας
+    en: Central Greece
+    es: Grecia Central
+    et: Kesk-Kreeka piirkond
+    eu: Erdialdeko Grezia
+    fa: یونان مرکزی
+    fi: Keski-Kreikka
+    fr: Grèce-Centrale
+    gl: Grecia Central
+    he: מרכז יוון
+    hr: Periferija Središnja Grčka
+    hu: Közép-Görögország
+    hy: Կենտրոնական Հունաստան
+    id: Yunani Tengah
+    it: Grecia Centrale
+    ja: 中央ギリシャ
+    ko: 중앙그리스 주
+    lt: Centrinės Graikijos periferija
+    nb: Sentral-Hellas
+    nl: Centraal-Griekenland
+    pl: Region Grecja Środkowa
+    pt: Grécia Central
+    ro: Grecia Centrală
+    ru: Центральная Греция
+    sr: Периферија Средишња Грчка
+    sv: Grekiska fastlandet
+    tr: Orta Yunanistan
+    uk: Центральна Греція
+    ur: وسطی یونان (علاقہ)
+    vi: Trung Hy Lạp
+I:
+  translations:
+    ar: أتيكا
+    be: Атыка
+    bn: আটিকা অঞ্চল
+    ca: Àtica
+    cs: Attika (kraj)
+    da: Attica Region
+    de: Attika
+    el: Αττική
+    en: Attica
+    es: Región Attica
+    et: Atika piirkond
+    fa: آتیک (ناحیه)
+    fi: Attican maakunta
+    fr: Attique (périphérie)
+    gl: Periferia de Ática
+    gu: અટીકા પ્રદેશ
+    hi: अटिका क्षेत्र
+    hr: Periferija Atika
+    hy: Ատիկա
+    id: Wilayah Attica
+    it: Attica
+    ja: アッティキ
+    ka: ატიკა
+    kn: ಅಟ್ಟಿಕಾ ಪ್ರದೇಶ
+    ko: 아티카 주
+    lt: Atikos periferija
+    mr: अटिका प्रदेश
+    ms: Attica Region
+    nb: Attica region
+    nl: Attica
+    pl: Region Attyka
+    pt: Região Attica
+    ru: Аттика
+    si: අට්ටිකා කලාපය
+    sk: Atika
+    sl: Atika
+    sr: Периферија Атика
+    sv: Attica (region)
+    ta: அட்டிகா பகுதி
+    te: అట్టికా ప్రాంతం
+    th: ภูมิภาคอัตติกะ
+    tr: Attika
+    uk: периферія Аттика
+    ur: اتیکا (علاقہ)
+    vi: Khu vực Attica
+J:
+  translations:
+    ar: بيلوبونيز
+    be: Акруга Пелапанес
+    bg: Пелопонес
+    bn: পেলোপোনেসে অঞ্চল
+    ca: Regió del Peloponès
+    cs: Peloponés
+    da: Peloponnese Region
+    de: Peloponnes
+    el: Περιφέρεια Πελοποννήσου
+    en: Peloponnese
+    es: Periferia de Peloponeso
+    et: Peloponnesose piirkond
+    fa: استان پلپونز
+    fi: Peloponnesos
+    fr: Péloponnèse (périphérie)
+    gu: પેલોપોનિસિ પ્રદેશ
+    he: פלופונסוס
+    hi: पेलोपोनीज़ प्रदेश
+    hr: Periferija Peloponez
+    hu: Peloponnészosz
+    id: Peloponnesa
+    it: Peloponneso
+    ja: ペロポネソス
+    ka: პელოპონესის პერიფერია
+    kn: ಪೆಲೋಪೋನೀಸ್ ಪ್ರದೇಶ
+    ko: 펠로폰네소스 주
+    lt: Peloponeso periferija
+    mr: पेलोपोनिस प्रदेश
+    ms: Peloponnesa
+    nb: Peloponnes
+    nl: Peloponnesos
+    pl: Region Peloponez
+    pt: Região de Peloponnes
+    ru: Пелопоннес
+    si: පෙලොපොනිස් කලාපය
+    sr: Периферија Пелопонез
+    sv: Peloponnesos
+    ta: பெலோபொன்னெஸ் பகுதி
+    te: పెలెపోనెసీ ప్రాంతం
+    th: เขตเพโลพอนเนส
+    tr: Mora
+    uk: Пелопоннес
+    ur: پیلوپونیز (علاقہ)
+    vi: Khu vực Peloponnese
+K:
+  translations:
+    ar: شمال إيجة
+    be: Паўночныя Эгейскія астравы
+    bg: Северен Егей
+    bn: নর্থ এজিয়ান অঞ্চল
+    ca: Egeu Septentrional
+    cs: Severní Egeis
+    da: North Aegean Region
+    de: Nördliche Ägäis
+    el: Περιφέρεια Βορείου Αιγαίου
+    en: North Aegean
+    es: Egeo Septentrional
+    et: Põhja-Egeus
+    fa: استان اژه شمالی
+    fi: Pohjois-Egean saaret
+    fr: Égée-Septentrionale
+    gl: Exeo Setentrional
+    gu: ઉત્તર એજીયન પ્રદેશ
+    he: צפון הים האגאי
+    hi: उत्तरी एजियन क्षेत्र
+    hr: Periferija Sjeverni Egej
+    hu: Észak-Égei-szigetek
+    hy: Հյուսիսային Եգեյան կղզիներ
+    id: Aegea Utara
+    it: Egeo Settentrionale
+    ja: 北エーゲ
+    ka: ჩრდილოეთ ეგეოსის კუნძულები
+    kn: ಉತ್ತರ ಏಜಿಯನ್ ಪ್ರದೇಶ
+    ko: 북에게 주
+    lt: Šiaurės Egėjo periferija
+    mr: नॉर्थ एजियन प्रदेश
+    ms: Aegea Utara
+    nb: Nordlige egeiske øyer
+    nl: Noord-Egeïsche Eilanden
+    pl: Region Wyspy Egejskie Północne
+    pt: Egeu Setentrional
+    ro: Egeea de Nord
+    ru: Северные Эгейские острова
+    si: උතුරු එයිජියන් කලාපය
+    sr: Периферија Северни Егеј
+    sv: Nordegeiska öarna
+    ta: வடக்கு ஏகன் பகுதி
+    te: ఉత్తర ఏజియన్ ప్రాంతం
+    th: อีเจียนเหนือ
+    tr: Kuzey Ege
+    uk: Північні Егейські острови
+    ur: شمالی ایجیئن
+    vi: Bắc Aegea
+L:
+  translations:
+    ar: جنوب إيجة
+    be: Паўднёвыя Эгейскія астравы
+    bg: Южен Егей
+    bn: দক্ষিণ এজিয়েন
+    ca: Egeu Meridional
+    cs: Jižní Egeis
+    da: South Aegean
+    de: Südliche Ägäis
+    el: Περιφέρεια Νοτίου Αιγαίου
+    en: South Aegean
+    es: Egeo Meridional
+    et: Lõuna-Egeus
+    fa: استان اژه جنوبی
+    fi: Etelä-Egean saaret
+    fr: Égée-Méridionale
+    gl: Exeo Meridional
+    gu: સાઉથ એજીયન
+    he: דרום הים האגאי
+    hi: दक्षिण एजियन
+    hr: Periferija Južni Egej
+    hu: Dél-Égei-szigetek
+    hy: Հարավային Եգեյան կղզիներ
+    id: Aegea Selatan
+    it: Egeo Meridionale
+    ja: 南エーゲ
+    ka: სამხრეთ ეგეოსის კუნძულები
+    kn: ದಕ್ಷಿಣ ಏಜಿಯನ್
+    ko: 남에게 주
+    lt: Pietų Egėjo periferija
+    mr: दक्षिण एजियन
+    ms: Aegea Selatan
+    nb: Sørlige egeiske øyer
+    nl: Zuid-Egeïsche Eilanden
+    pl: Region Wyspy Egejskie Południowe
+    pt: Egeu Meridional
+    ro: Egeea de Sud
+    ru: Южные Эгейские острова
+    si: දකුණු අයිජියන්
+    sr: Периферија Јужни Егеј
+    sv: Sydegeiska öarna
+    ta: தெற்கு ஏஜென்
+    te: దక్షిణ ఆగియాన్
+    th: เซาร์ทอีเจียน
+    tr: Güney Ege
+    uk: Південні Егейські острови
+    ur: جنوبی ایجیئن
+    vi: Nam Aegea
+M:
+  translations:
+    be: Акруга Крыт
+    ca: Regió de Creta
+    cs: Kréta
+    el: Περιφέρεια Κρήτης
+    en: Crete
+    es: Periferia de Creta
+    et: Kreeta piirkond
+    fi: Kreeta
+    fr: Crète (périphérie)
+    hr: Periferija Kreta
+    nl: Kreta
+    pl: Region Kreta
+    ru: Крит
+    sr: Периферија Крит

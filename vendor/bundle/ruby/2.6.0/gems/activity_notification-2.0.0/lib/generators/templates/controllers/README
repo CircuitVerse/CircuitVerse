@@ -1,0 +1,13 @@
+===============================================================================
+
+Some setup you must do manually if you haven't yet:
+
+  Ensure you have overridden routes for generated controllers in your routes.rb.
+  For example:
+
+    Rails.application.routes.draw do
+      notify_to :users,                       controller: 'users/notifications'
+      notify_to :admins, with_devise: :users, controller: 'admins/notifications_with_devise'
+    end
+
+===============================================================================

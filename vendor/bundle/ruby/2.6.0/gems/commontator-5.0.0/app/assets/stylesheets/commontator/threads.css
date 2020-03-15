@@ -1,0 +1,71 @@
+.thread {
+  display: block !important;
+}
+
+.thread .commontator_hidden {
+  display: none;
+}
+
+.thread_actions {
+  float: right;
+}
+
+.thread_header {
+  font-size: 16px;
+  font-weight: bold;
+  font-style: normal;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  display: block;
+}
+
+/* Modified from:
+http://www.strangerstudios.com/sandbox/pagination/diggstyle.php */
+.thread_page_entries_info {
+	margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.thread_will_paginate {
+	margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.thread_pagination a {
+	padding: 2px 5px 2px 5px;
+	margin-right: 4px;
+	border: 1px solid #999;
+	
+	text-decoration: none;
+	color: #666;
+}
+
+.thread_pagination a:hover,
+.thread_pagination a:active {
+	border: 1px solid #555;
+
+	color: #000;
+}
+
+.thread_pagination em {
+	padding: 2px 5px 2px 5px;
+	margin-right: 4px;
+  border: 1px solid #555;
+
+  font-weight: bold;
+  background-color: #555;
+  color: #FFF;
+}
+
+.thread_pagination span {
+  padding: 2px 5px 2px 5px;
+	margin-right: 4px;
+  border: 1px solid #EEE;
+
+  color: #DDD;
+}
+
+.thread .mentions-input-box .mentions {
+  left: -2px !important;
+  top: -2px !important;
+}

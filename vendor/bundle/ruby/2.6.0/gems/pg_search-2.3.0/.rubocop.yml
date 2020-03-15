@@ -1,0 +1,56 @@
+require: rubocop-performance
+
+AllCops:
+  TargetRubyVersion: 2.4
+  Exclude:
+    - bin/**/*
+    - vendor/**/*
+
+Style/StringLiterals:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 120
+
+Metrics/MethodLength:
+  Max: 21
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*
+
+Layout/AlignParameters:
+  EnforcedStyle: with_fixed_indentation
+
+Style/NumericPredicate:
+  Enabled: false
+
+Style/PercentLiteralDelimiters:
+  PreferredDelimiters:
+    '%w': '[]'
+    '%W': '[]'
+
+Style/GuardClause:
+  Enabled: false
+
+Naming/VariableNumber:
+  EnforcedStyle: snake_case
+
+Bundler/OrderedGems:
+  Enabled: false
+
+Bundler/DuplicatedGem:
+  Enabled: false
+
+Style/EmptyMethod:
+  EnforcedStyle: expanded
+  
+Layout/IndentFirstArrayElement:
+  EnforcedStyle: consistent
+
+Style/Documentation:
+  Enabled: false
+
+Style/WordArray:
+  EnforcedStyle: percent
+  MinSize: 3

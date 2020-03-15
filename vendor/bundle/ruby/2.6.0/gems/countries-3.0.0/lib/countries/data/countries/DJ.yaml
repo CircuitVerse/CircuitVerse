@@ -1,0 +1,51 @@
+---
+DJ:
+  continent: Africa
+  alpha2: DJ
+  alpha3: DJI
+  country_code: '253'
+  international_prefix: '00'
+  ioc: DJI
+  gec: DJ
+  name: Djibouti
+  national_destination_code_lengths:
+  - 2
+  national_number_lengths:
+  - 6
+  national_prefix: None
+  number: '262'
+  region: Africa
+  subregion: Eastern Africa
+  world_region: EMEA
+  un_locode: DJ
+  nationality: Djibouti
+  postal_code: false
+  unofficial_names:
+  - Djibouti
+  - جيبوتي
+  - Dschibuti
+  - ジブチ
+  languages_official:
+  - ar
+  - fr
+  languages_spoken:
+  - ar
+  - fr
+  geo:
+    latitude: 11.825138
+    latitude_dec: '11.742591857910156'
+    longitude: 42.590275
+    longitude_dec: '42.63182830810547'
+    max_latitude: 12.7136973
+    max_longitude: 43.4839
+    min_latitude: 10.9319439
+    min_longitude: 41.759722
+    bounds:
+      northeast:
+        lat: 12.7136973
+        lng: 43.4839
+      southwest:
+        lat: 10.9319439
+        lng: 41.759722
+  currency_code: DJF
+  start_of_week: monday

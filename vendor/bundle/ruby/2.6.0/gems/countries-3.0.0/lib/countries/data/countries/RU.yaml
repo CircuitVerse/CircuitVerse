@@ -1,0 +1,58 @@
+---
+RU:
+  continent: Europe
+  address_format: |-
+    {{recipient}}
+    {{postalcode}} {{city}}
+    {{street}}
+    {{country}}
+  alpha2: RU
+  alpha3: RUS
+  country_code: '7'
+  international_prefix: '810'
+  ioc: RUS
+  gec: RS
+  name: Russian Federation
+  national_destination_code_lengths:
+  - 3
+  national_number_lengths:
+  - 10
+  national_prefix: '8'
+  number: '643'
+  region: Europe
+  subregion: Eastern Europe
+  world_region: EMEA
+  un_locode: RU
+  nationality: Russian
+  postal_code: true
+  unofficial_names:
+  - Russia
+  - Russland
+  - Russie
+  - Rusia
+  - ロシア連邦
+  - Rusland
+  - Россия
+  - Расія
+  languages_official:
+  - ru
+  languages_spoken:
+  - ru
+  geo:
+    latitude: 61.52401
+    latitude_dec: '63.125186920166016'
+    longitude: 105.318756
+    longitude_dec: '103.75398254394531'
+    max_latitude: 82.1673907
+    max_longitude: -168.9778799
+    min_latitude: 41.185353
+    min_longitude: 19.6160999
+    bounds:
+      northeast:
+        lat: 82.1673907
+        lng: -168.9778799
+      southwest:
+        lat: 41.185353
+        lng: 19.6160999
+  currency_code: RUB
+  start_of_week: monday

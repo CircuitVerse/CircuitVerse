@@ -1,0 +1,59 @@
+---
+SA:
+  continent: Asia
+  address_format: |-
+    {{recipient}}
+    {{street}}
+    {{postalcode}} {{city}}
+    {{country}}
+  alpha2: SA
+  alpha3: SAU
+  country_code: '966'
+  international_prefix: '00'
+  ioc: KSA
+  gec: SA
+  name: Saudi Arabia
+  national_destination_code_lengths:
+  - 2
+  national_number_lengths:
+  - 8
+  - 9
+  national_prefix: '0'
+  number: '682'
+  region: Asia
+  subregion: Western Asia
+  world_region: EMEA
+  un_locode: SA
+  nationality: Saudi Arabian
+  postal_code: false
+  unofficial_names:
+  - Saudi Arabia
+  - Kingdom of Saudi Arabia
+  - السعودية
+  - Saudi-Arabien
+  - Arabie Saoudite
+  - Arabia Saudí
+  - サウジアラビア
+  - Saoedi-Arabië
+  languages_official:
+  - ar
+  languages_spoken:
+  - ar
+  geo:
+    latitude: 23.885942
+    latitude_dec: '23.994726181030273'
+    longitude: 45.079162
+    longitude_dec: '44.4013557434082'
+    max_latitude: 32.154284
+    max_longitude: 55.6666999
+    min_latitude: 16.0036
+    min_longitude: 34.5299999
+    bounds:
+      northeast:
+        lat: 32.154284
+        lng: 55.6666999
+      southwest:
+        lat: 16.0036
+        lng: 34.5299999
+  currency_code: SAR
+  start_of_week: sunday

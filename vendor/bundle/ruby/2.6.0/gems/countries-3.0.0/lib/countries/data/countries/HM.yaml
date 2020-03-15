@@ -1,0 +1,48 @@
+---
+HM:
+  continent: Antarctica
+  alpha2: HM
+  alpha3: HMD
+  country_code: ''
+  international_prefix: ''
+  ioc: 
+  gec: HM
+  name: Heard Island and McDonald Islands
+  national_destination_code_lengths: []
+  national_number_lengths: []
+  national_prefix: ''
+  number: '334'
+  region: ''
+  subregion: ''
+  un_locode: HM
+  nationality: Heard and McDonald Islander
+  postal_code: true
+  world_region: APAC
+  unofficial_names:
+  - Heard and McDonald Islands
+  - Heard und die McDonaldinseln
+  - ハード島とマクドナルド諸島
+  - Heard- en McDonaldeilanden
+  - Heard Island and McDonald Islands
+  languages_official:
+  - en
+  languages_spoken:
+  - en
+  geo:
+    latitude: -53.08181
+    latitude_dec: "-53.080108642578125"
+    longitude: 73.50415799999999
+    longitude_dec: '73.56218719482422'
+    max_latitude: -52.9609444
+    max_longitude: 73.7792016
+    min_latitude: -53.19168759999999
+    min_longitude: 73.25065599999999
+    bounds:
+      northeast:
+        lat: -52.9609444
+        lng: 73.7792016
+      southwest:
+        lat: -53.19168759999999
+        lng: 73.25065599999999
+  currency_code: AUD
+  start_of_week: monday

@@ -1,0 +1,64 @@
+---
+SK:
+  continent: Europe
+  address_format: |-
+    {{recipient}}
+    {{street}}
+    {{postalcode}} {{city}}
+    {{country}}
+  alpha2: SK
+  alpha3: SVK
+  country_code: '421'
+  international_prefix: '00'
+  ioc: SVK
+  gec: LO
+  name: Slovakia
+  national_destination_code_lengths:
+  - 2
+  national_number_lengths:
+  - 9
+  national_prefix: '0'
+  number: '703'
+  region: Europe
+  subregion: Eastern Europe
+  world_region: EMEA
+  un_locode: SK
+  nationality: Slovak
+  eu_member: true
+  eea_member: true
+  vat_rates:
+    standard: 20
+    reduced:
+    - 10
+    super_reduced: 
+    parking: 
+  postal_code: true
+  unofficial_names:
+  - Slovakia
+  - Slowakei
+  - Slovaquie
+  - República Eslovaca
+  - スロバキア
+  - Slowakije
+  languages_official:
+  - sk
+  languages_spoken:
+  - sk
+  geo:
+    latitude: 48.669026
+    latitude_dec: '48.70748519897461'
+    longitude: 19.699024
+    longitude_dec: '19.48488998413086'
+    max_latitude: 49.61380510000001
+    max_longitude: 22.5589339
+    min_latitude: 47.731159
+    min_longitude: 16.8331821
+    bounds:
+      northeast:
+        lat: 49.61380510000001
+        lng: 22.5589339
+      southwest:
+        lat: 47.731159
+        lng: 16.8331821
+  currency_code: EUR
+  start_of_week: monday

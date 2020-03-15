@@ -1,0 +1,53 @@
+---
+RW:
+  continent: Africa
+  alpha2: RW
+  alpha3: RWA
+  country_code: '250'
+  international_prefix: '00'
+  ioc: RWA
+  gec: RW
+  name: Rwanda
+  national_destination_code_lengths:
+  - 2
+  national_number_lengths:
+  - 8
+  - 9
+  national_prefix: '0'
+  number: '646'
+  region: Africa
+  subregion: Eastern Africa
+  world_region: EMEA
+  un_locode: RW
+  nationality: Rwandan
+  postal_code: false
+  unofficial_names:
+  - Rwanda
+  - Ruanda
+  - ルワンダ
+  languages_official:
+  - rw
+  - en
+  - fr
+  languages_spoken:
+  - rw
+  - en
+  - fr
+  geo:
+    latitude: -1.940278
+    latitude_dec: "-1.9999498128890991"
+    longitude: 29.873888
+    longitude_dec: '29.926057815551758'
+    max_latitude: -1.0473753
+    max_longitude: 30.8991179
+    min_latitude: -2.8399383
+    min_longitude: 28.861754
+    bounds:
+      northeast:
+        lat: -1.0473753
+        lng: 30.8991179
+      southwest:
+        lat: -2.8399383
+        lng: 28.861754
+  currency_code: RWF
+  start_of_week: monday

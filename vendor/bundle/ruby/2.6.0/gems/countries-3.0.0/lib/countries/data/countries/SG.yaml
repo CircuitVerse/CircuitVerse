@@ -1,0 +1,59 @@
+---
+SG:
+  continent: Asia
+  address_format: |-
+    {{recipient}}
+    {{street}}
+    {{city}} {{postalcode}}
+    {{country}}
+  alpha2: SG
+  alpha3: SGP
+  country_code: '65'
+  international_prefix: '001'
+  ioc: SGP
+  gec: SN
+  name: Singapore
+  national_destination_code_lengths:
+  - 2
+  national_number_lengths:
+  - 8
+  - 9
+  national_prefix: None
+  number: '702'
+  region: Asia
+  subregion: South-Eastern Asia
+  world_region: APAC
+  un_locode: SG
+  nationality: Singaporean
+  postal_code: true
+  unofficial_names:
+  - Singapore
+  - Singapur
+  - Singapour
+  - シンガポール
+  languages_official:
+  - en
+  - ms
+  - ta
+  languages_spoken:
+  - en
+  - ms
+  - ta
+  geo:
+    latitude: 1.352083
+    latitude_dec: '1.3219958543777466'
+    longitude: 103.819836
+    longitude_dec: '103.8205337524414'
+    max_latitude: 1.4784001
+    max_longitude: 104.0945001
+    min_latitude: 1.1496
+    min_longitude: 103.594
+    bounds:
+      northeast:
+        lat: 1.4784001
+        lng: 104.0945001
+      southwest:
+        lat: 1.1496
+        lng: 103.594
+  currency_code: SGD
+  start_of_week: monday

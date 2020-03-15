@@ -1,0 +1,185 @@
+AA;;Affareg
+AB;;Abcaseg
+AF;;Affricaneg
+AK;;Abcaseg
+SQ;;Albaneg
+AM;;Amhareg
+AR;;Arabeg
+AN;;Ffaröeg
+HY;;Armeneg
+AS;;Asameg
+AV;;Amhareg
+AE;;Avestan
+AY;;Aimareg
+AZ;;Aserbaijani
+BA;;Bashgireg
+BM;;Aimareg
+EU;;Basgeg
+BE;;Belarwseg
+BN;;Bengaleg
+BH;;Malagasi
+BI;;Bislama
+BS;;Rwmaneg
+BR;;Llydaweg
+BG;;Bwlgareg
+MY;;Byrmaneg
+CA;;Catalan; Valencian
+CH;;Chamorro
+CE;;Tsieceg
+ZH;;Tsieinëeg
+CU;;Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic
+CV;;Chuvash
+KW;;Cernyweg
+CO;;Corseg
+CR;;Groeg
+CS;;Tsieceg
+DA;;Daneg
+DV;;Divehi; Dhivehi; Maldivian
+NL;;Dutch; Flemish
+DZ;;Dsonca
+EN;;Saesneg
+EO;;Esperanto
+ET;;Estoneg
+EE;;Ewe
+FO;;Ffaröeg
+FJ;;Ffijïeg
+FI;;Ffinneg
+FR;;Ffrangeg
+FY;;Ffriseg
+FF;;Fulah
+KA;;Georgeg
+DE;;Almaeneg
+GD;;Gaeleg yr Alban
+GA;;Gwyddeleg
+GL;;Galiseg
+GV;;Manaweg
+EL;;Greek, Modern (1453-)
+GN;;Gwarani
+GU;;Gwjwrati
+HT;;Haitian; Haitian Creole
+HA;;Hawsa
+HE;;Hebraeg
+HZ;;Hebraeg
+HI;;Hindi
+HO;;Hindi
+HR;;Croateg
+HU;;Hwngareg
+IG;;Igbo
+IS;;Islandeg
+IO;;Ido
+II;;Lithwaneg
+IU;;Inwctitwt
+IE;;Interlingue
+IA;;Interlingua (International Auxiliary Language Association)
+ID;;Indoneseg
+IK;;Inwpiac
+IT;;Eidaleg
+JV;;Jafaneg
+JA;;Siapaneg
+KL;;Kalaallisut; Greenlandic
+KN;;Canareg
+KS;;Cashmireg
+KR;;Cwrdeg
+KK;;Cazacheg
+KM;;Central Khmer
+KI;;Kikuyu; Gikuyu
+RW;;Ciniarwanda
+KY;;Cirgiseg
+KV;;Somalieg
+KG;;Sango
+KO;;Corëeg
+KJ;;Canareg
+KU;;Cwrdeg
+LO;;Laoeg
+LA;;Lladin
+LV;;Latfieg
+LI;;Limburgan; Limburger; Limburgish
+LN;;Lingala
+LT;;Lithwaneg
+LB;;Lwcsembwrgeg
+LU;;Luba-Katanga
+LG;;Canareg
+MK;;Macedoneg
+MH;;Malteg
+ML;;Malaialameg
+MI;;Maori
+MR;;Marati
+MS;;Malaieg
+MG;;Malagasi
+MT;;Malteg
+MO;;Moldafeg
+MN;;Mongoleg
+NA;;Nawrŵeg
+NV;;Navajo; Navaho
+NR;;Ndebele, South; South Ndebele
+ND;;Ndebele, North; North Ndebele
+NG;;Tsongeg
+NE;;Nepaleg
+NN;;Norwyeg
+NB;;Bokmål, Norwegian; Norwegian Bokmål
+NO;;Norwyeg
+NY;;Chichewa; Chewa; Nyanja
+OC;;Occitan (post 1500)
+OJ;;Ojibwa
+OR;;Orïa
+OM;;Oromo
+OS;;Rwsieg
+PA;;Pwnjabeg
+FA;;Perseg
+PI;;Somalieg
+PL;;Pwyleg
+PT;;Portiwgaleg
+PS;;Pwshtw
+QU;;Cetshwa
+RM;;Rwmaneg
+RO;;Rwmaneg
+RN;;Rwndi
+RU;;Rwsieg
+SG;;Sango
+SA;;Sansgrit
+SI;;Sinhala
+SK;;Slofaceg
+SL;;Slofeneg
+SE;;Northern Sami
+SM;;Samöeg
+SN;;Shona
+SD;;Sindhi
+SO;;Somalieg
+ST;;Sotho, Southern
+ES;;Spanish; Castilian
+SC;;Macedoneg
+SR;;Serbeg
+SS;;Swati
+SU;;Swndaneg
+SW;;Swahili
+SV;;Swedeg
+TY;;Latfieg
+TA;;Tamileg
+TT;;Tatareg
+TE;;Telwgw
+TG;;Tajiceg
+TL;;Tagalog
+TH;;Tai
+BO;;Tibeteg
+TI;;Tigris
+TO;;Tonga (Tonga Islands)
+TN;;Tswana
+TS;;Tsongeg
+TK;;Tyrcmeneg
+TR;;Tyrceg
+TW;;Twi
+UG;;Wigwreg
+UK;;Wcreineg
+UR;;Wrdw
+UZ;;Wsbeceg
+VE;;Venda
+VI;;Fietnameg
+VO;;Volapuk
+CY;;Cymraeg
+WA;;Walloon
+WO;;Woloff
+XH;;Xhosa
+YI;;Iddeweg
+YO;;Iorwba
+ZA;;Shwangeg
+ZU;;Zwlw

@@ -1,0 +1,45 @@
+build: off
+cache:
+  - vendor/bundle
+image:
+  - Visual Studio 2017
+environment:
+  matrix:
+    - RUBY_VERSION: Ruby24
+      RUBY_BIN: ruby
+      RAKE_TASK: spec
+      SCRIPT_CONTEXT: bundle exec
+    - RUBY_VERSION: Ruby24
+      RUBY_BIN: ruby
+      RAKE_TASK: rubocop
+      SCRIPT_CONTEXT: bundle exec
+    - RUBY_VERSION: Ruby25
+      RUBY_BIN: ruby
+      RAKE_TASK: spec
+      SCRIPT_CONTEXT: bundle exec
+    - RUBY_VERSION: Ruby26
+      RUBY_BIN: ruby
+      RAKE_TASK: spec
+      SCRIPT_CONTEXT: bundle exec
+    - RUBY_VERSION: jruby-9.2.9.0
+      RUBY_BIN: jruby
+      RAKE_TASK: spec
+      SCRIPT_CONTEXT: jruby -G -S
+    - RUBY_VERSION: Ruby26
+      RUBY_BIN: ruby
+      RAKE_TASK: spec
+      SCRIPT_CONTEXT: bundle exec
+      BUNDLE_GEMFILE: gemfiles/Gemfile.edge
+install:
+  - ps: if ($env:RUBY_BIN -eq 'jruby') { support\install_jruby.ps1 }
+  - ps: support\install_msedge.ps1
+  - set PATH=C:\%RUBY_VERSION%\bin;%PATH%
+  - '%RUBY_BIN% -S gem update --system'
+  - '%RUBY_BIN% -S gem install bundler'
+  - '%RUBY_BIN% -S bundle install'
+before_test:
+  - '%RUBY_BIN% -v'
+  - '%RUBY_BIN% -S gem -v'
+  - '%RUBY_BIN% -S bundle -v'
+test_script:
+  - '%SCRIPT_CONTEXT% rake %RAKE_TASK%'

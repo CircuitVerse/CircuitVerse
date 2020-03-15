@@ -1,0 +1,64 @@
+---
+SI:
+  continent: Europe
+  address_format: |-
+    {{recipient}}
+    {{street}}
+    {{postalcode}} {{city}}
+    {{country}}
+  alpha2: SI
+  alpha3: SVN
+  country_code: '386'
+  international_prefix: '00'
+  ioc: SLO
+  gec: SI
+  name: Slovenia
+  national_destination_code_lengths:
+  - 2
+  national_number_lengths:
+  - 8
+  national_prefix: '0'
+  number: '705'
+  region: Europe
+  subregion: Southern Europe
+  world_region: EMEA
+  un_locode: SI
+  nationality: Slovene
+  eu_member: true
+  eea_member: true
+  vat_rates:
+    standard: 22
+    reduced:
+    - 9.5
+    super_reduced: 
+    parking: 
+  postal_code: true
+  unofficial_names:
+  - Slovenia
+  - Slowenien
+  - Slovénie
+  - Eslovenia
+  - スロベニア
+  - Slovenië
+  languages_official:
+  - sl
+  languages_spoken:
+  - sl
+  geo:
+    latitude: 46.151241
+    latitude_dec: '46.1202392578125'
+    longitude: 14.995463
+    longitude_dec: '14.820664405822754'
+    max_latitude: 46.876659
+    max_longitude: 16.6107039
+    min_latitude: 45.4218356
+    min_longitude: 13.3753355
+    bounds:
+      northeast:
+        lat: 46.876659
+        lng: 16.6107039
+      southwest:
+        lat: 45.4218356
+        lng: 13.3753355
+  currency_code: EUR
+  start_of_week: monday

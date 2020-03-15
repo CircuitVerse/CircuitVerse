@@ -1,0 +1,185 @@
+AA;;Afar
+AB;;Abchasisch
+AF;;Afrikaans
+AK;;Akan
+SQ;;Albanisch
+AM;;Amharisch
+AR;;Arabisch
+AN;;Aragonesisch
+HY;;Armenisch
+AS;;Assamesisch
+AV;;Awarisch
+AE;;Avestisch
+AY;;Aymara
+AZ;;Aserbaidschanisch
+BA;;Baschkirisch
+BM;;Bambara
+EU;;Baskisch
+BE;;Weißrussisch
+BN;;Bengalisch
+BH;;Bihari-Sprachen
+BI;;Bislama
+BS;;Bosnisch
+BR;;Bretonisch
+BG;;Bulgarisch
+MY;;Burmesisch
+CA;;Katalanisch; Valencia
+CH;;Chamorro
+CE;;Tschetschenisch
+ZH;;Chinesisch
+CU;;Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic
+CV;;Tschuwaschisch
+KW;;Kornisch
+CO;;Korsisch
+CR;;Cree
+CS;;Tschechisch
+DA;;Dänisch
+DV;;Dhivehi
+NL;;Niederländisch; Flämisch
+DZ;;Dzongkha
+EN;;Englisch
+EO;;Esperanto
+ET;;Estnisch
+EE;;Ewe-Sprache
+FO;;Färöisch
+FJ;;Fidschianisch
+FI;;Finnisch
+FR;;Französisch
+FY;;Westfriesisch
+FF;;Ful
+KA;;Georgisch
+DE;;Deutsch
+GD;;Gälisch; Schottisches Gälisch
+GA;;Irisch
+GL;;Galizisch
+GV;;Manx
+EL;;Neugriechisch (ab 1453)
+GN;;Guaraní
+GU;;Gujarati
+HT;;Haitianisch; Haitianisches Kreolisch
+HA;;Haussa
+HE;;Hebräisch
+HZ;;Herero
+HI;;Hindi
+HO;;Hiri-Motu
+HR;;Kroatisch
+HU;;Ungarisch
+IG;;Ibo
+IS;;Isländisch
+IO;;Ido
+II;;Sichuan Yi; Nuosu
+IU;;Inuktitut
+IE;;Interlingua
+IA;;Interlingua (Internationale Hilfssprachen-Vereinigung)
+ID;;Indonesisch
+IK;;Inupiaq
+IT;;Italienisch
+JV;;Javanisch
+JA;;Japanisch
+KL;;Kalaallisut; Grönländisch
+KN;;Kannada
+KS;;Kaschmirisch
+KR;;Kanuri
+KK;;Kasachisch
+KM;;Khmer-Sprache
+KI;;Kikuyu
+RW;;Kinyarwanda
+KY;;Kirgisisch
+KV;;Komi
+KG;;Kongo
+KO;;Koreanisch
+KJ;;Kwanyama
+KU;;Kurdisch
+LO;;Laotisch
+LA;;Lateinisch
+LV;;Lettisch
+LI;;Limburgisch
+LN;;Lingala
+LT;;Litauisch
+LB;;Luxemburgisch; Lëtzebuergesch
+LU;;Luba-Katanga
+LG;;Ganda
+MK;;Makedonisch
+MH;;Marschallesisch
+ML;;Malayalam
+MI;;Maori
+MR;;Marathi
+MS;;Malaiisch
+MG;;Malagasi
+MT;;Maltesisch
+MO;;Moldawisch
+MN;;Mongolisch
+NA;;Nauruisch
+NV;;Navajo
+NR;;Süd-Ndebele
+ND;;Nord-Ndebele
+NG;;Ndonga
+NE;;Nepali
+NN;;Neu-Norwegisch
+NB;;Norwegisch (Bokmål)
+NO;;Norwegisch
+NY;;Chichewa; Chewa; Nyanja
+OC;;Okzitanisch (nach 1500)
+OJ;;Ojibwa
+OR;;Orija
+OM;;Oromo
+OS;;Ossetisch
+PA;;Panjabi
+FA;;Persisch
+PI;;Pali
+PL;;Polnisch
+PT;;Portugiesisch
+PS;;Paschtunisch
+QU;;Quechua
+RM;;Bündnerromanisch
+RO;;Rumänisch
+RN;;Kirundi
+RU;;Russisch
+SG;;Sango
+SA;;Sanskrit
+SI;;Singhalesisch
+SK;;Slowakisch
+SL;;Slowenisch
+SE;;Samisch (Nord)
+SM;;Samoanisch
+SN;;Schona
+SD;;Sindhi
+SO;;Somali
+ST;;Sotho (Süd)
+ES;;Spanisch (Kastilisch)
+SC;;Sardisch
+SR;;Serbisch
+SS;;Swazi
+SU;;Sundanesisch
+SW;;Suaheli; Swaheli
+SV;;Schwedisch
+TY;;Tahitisch
+TA;;Tamilisch
+TT;;Tatarisch
+TE;;Telugu
+TG;;Tadschikisch
+TL;;Tagalog
+TH;;Thai
+BO;;Tibetisch
+TI;;Tigrinja
+TO;;Tonga (Tonga-Inseln)
+TN;;Tswana
+TS;;Tsonga
+TK;;Turkmenisch
+TR;;Türkisch
+TW;;Twi
+UG;;Uigurisch
+UK;;Ukrainisch
+UR;;Urdu
+UZ;;Usbekisch
+VE;;Venda
+VI;;Vietnamesisch
+VO;;Volapük
+CY;;Walisisch
+WA;;Wallonisch
+WO;;Wolof
+XH;;Xhosa
+YI;;Jiddisch
+YO;;Joruba
+ZA;;Zhuang
+ZU;;Zulu

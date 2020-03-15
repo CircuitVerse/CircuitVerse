@@ -1,0 +1,185 @@
+AA;;Афарча
+AB;;Абхазча
+AF;;Африканча
+AK;;Akan
+SQ;;Албанча
+AM;;Амһарча
+AR;;Гәрәпчә
+AN;;Aragonese
+HY;;Әрмәнчә
+AS;;Ассамесчә
+AV;;Avaric
+AE;;Авестанча
+AY;;Аймарча
+AZ;;Әзерчә
+BA;;Башкортча
+BM;;Bambara
+EU;;Баскча
+BE;;Беларусча
+BN;;Бенgалча
+BH;;Госман телләре
+BI;;Бисламача
+BS;;Босничә
+BR;;Бретонча
+BG;;Булgарча
+MY;;Бурмесчә
+CA;;Catalan; Valencian
+CH;;Чаморроча
+CE;;Чәчәнчә
+ZH;;Чинчә
+CU;;Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic
+CV;;Чуаща
+KW;;Корнищә
+CO;;Корсикча
+CR;;Cree
+CS;;Чехчә
+DA;;Данча
+DV;;Divehi; Dhivehi; Maldivian
+NL;;Dutch; Flemish
+DZ;;Дзонgхача
+EN;;İнgлизчә
+EO;;Есперанто
+ET;;Естонча
+EE;;Ewe
+FO;;Фаросча
+FJ;;Фижичә
+FI;;Финчә
+FR;;Франсча
+FY;;Фрисчә
+FF;;Fulah
+KA;;Gөрҗечә
+DE;;Алманча
+GD;;Gaelic; Scottish Gaelic
+GA;;İрищә
+GL;;Gалисчә
+GV;;Манксча
+EL;;Greek, Modern (1453-)
+GN;;Gуаранча
+GU;;Gужаратча
+HT;;Haitian; Haitian Creole
+HA;;Һаусча
+HE;;Йәһүдчә
+HZ;;Һерероча
+HI;;Һиндчә
+HO;;Hiri Motu
+HR;;Кроатча
+HU;;Маҗарча
+IG;;Igbo
+IS;;İсландча
+IO;;İдоча
+II;;Sichuan Yi; Nuosu
+IU;;İнуктитутча
+IE;;İнтерлинgуе
+IA;;Interlingua (International Auxiliary Language Association)
+ID;;İндонесчә
+IK;;İнупиакча
+IT;;İталча
+JV;;Жавача
+JA;;Жапанча
+KL;;Kalaallisut; Greenlandic
+KN;;Каннадча
+KS;;Кашмирчә
+KR;;Kanuri
+KK;;Казакча
+KM;;Central Khmer
+KI;;Кикуюча
+RW;;Кинярвандача
+KY;;Кыргызча
+KV;;Комичә
+KG;;Kongo
+KO;;Корейчә
+KJ;;Kuanyama; Kwanyama
+KU;;Көрдчә
+LO;;Лаоча
+LA;;Латынча
+LV;;Латча
+LI;;Limburgan; Limburger; Limburgish
+LN;;Линgалача
+LT;;Литчә
+LB;;Лүксембурgча
+LU;;Luba-Katanga
+LG;;Ganda
+MK;;Македонча
+MH;;Маршаллча
+ML;;Малаяламча
+MI;;Маорича
+MR;;Маратча
+MS;;Малайча
+MG;;Малаgасча
+MT;;Малтесчә
+MO;;Молдавча
+MN;;Моголча
+NA;;Науруча
+NV;;Navajo; Navaho
+NR;;Ндебелечә, Көняк
+ND;;Ндебелечә, Төняк
+NG;;Ндонgача
+NE;;Непалча
+NN;;Норвежчә (Нйнорск)
+NB;;Bokmål, Norwegian; Norwegian Bokmål
+NO;;Норвежчә
+NY;;Chichewa; Chewa; Nyanja
+OC;;Occitan (post 1500)
+OJ;;Ojibwa
+OR;;Орияча
+OM;;Оромоча
+OS;;Оссетинчә
+PA;;Пунжабча
+FA;;Фарсыча
+PI;;Палчә
+PL;;Полча
+PT;;Портуgалча
+PS;;Пушту Фарсычасы
+QU;;Куечуача
+RM;;Романча
+RO;;Романча
+RN;;Рундчә
+RU;;Урысча
+SG;;Санgоча
+SA;;Санскритчә
+SI;;Sinhala; Sinhalese
+SK;;Словакча
+SL;;Словенчә
+SE;;Төняк Сами
+SM;;Самоача
+SN;;Шонача
+SD;;Синдиһчә
+SO;;Сомаличә
+ST;;Сотһоча, Көняк
+ES;;Spanish; Castilian
+SC;;Сардинчә
+SR;;Сербчә
+SS;;Сватча
+SU;;Сунданесчә
+SW;;Сваһиличә
+SV;;İсвәҗчә
+TY;;Таһитчә
+TA;;Тамилча
+TT;;Татарча
+TE;;Телуgуча
+TG;;Тажыкча
+TL;;Таgалоgча
+TH;;Тайча
+BO;;Тибетчә
+TI;;Тиgриняча
+TO;;Tonga (Tonga Islands)
+TN;;Цванача
+TS;;Цонgача
+TK;;Төрекмәнчә
+TR;;Төрекчә
+TW;;Твичә
+UG;;Уйгурча
+UK;;Украинча
+UR;;Урдуча
+UZ;;Үзбәкчә
+VE;;Вендача
+VI;;Виетнамча
+VO;;Волапүкчә
+CY;;Велщә
+WA;;Валонча
+WO;;Волофча
+XH;;Хосача
+YI;;Йидиш
+YO;;Ёрубача
+ZA;;Zhuang; Chuang
+ZU;;Зулуча

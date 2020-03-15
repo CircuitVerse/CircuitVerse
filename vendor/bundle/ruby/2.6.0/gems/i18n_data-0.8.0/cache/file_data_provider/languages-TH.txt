@@ -1,0 +1,185 @@
+AA;;อาฟา
+AB;;แอบกาเซีย
+AF;;แอฟริกา
+AK;;Akan
+SQ;;แอลเบเนีย
+AM;;อัมฮาริก
+AR;;อารบิก
+AN;;Aragonese
+HY;;อาร์เมเนีย
+AS;;อัสสมี
+AV;;Avaric
+AE;;อเวสตะ
+AY;;ไอมารา
+AZ;;อาเซอร์ไบจาน
+BA;;บาสช์กีร์
+BM;;Bambara
+EU;;แบ็ซค์
+BE;;เบลารุส
+BN;;เบ็งกาลี
+BH;;กลุ่มภาษาพิหารี
+BI;;บิสลามา
+BS;;บอสเนีย
+BR;;เบรตัน
+BG;;บัลแกเรีย
+MY;;พม่า
+CA;;คาตะลาน; บาเลนเซีย
+CH;;Chamorro
+CE;;เชเชน
+ZH;;จีน
+CU;;Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic
+CV;;Chuvash
+KW;;Cornish
+CO;;Corsican
+CR;;Cree
+CS;;เช็ก
+DA;;เดนมาร์ก
+DV;;ทิเวหี; มัลดีฟส์
+NL;;Dutch; Flemish
+DZ;;ภูฏาน
+EN;;อังกฤษ
+EO;;เอสเปอรันโต
+ET;;เอสโตเนีย
+EE;;Ewe
+FO;;แฟโร
+FJ;;ฟิจิ
+FI;;ฟินแลนด์
+FR;;ฝรั่งเศส
+FY;;Western Frisian
+FF;;Fulah
+KA;;จอร์เจีย
+DE;;เยอรมัน
+GD;;Gaelic; Scottish Gaelic
+GA;;ไอริช
+GL;;กาลิเซีย
+GV;;Manx
+EL;;กรีกสมัยใหม่ (1453-)
+GN;;Guarani
+GU;;คุชราตี
+HT;;เฮติ; ลูกผสมเฮติ
+HA;;โฮซา
+HE;;ฮีบรู
+HZ;;เฮเรโร
+HI;;ฮินดี
+HO;;Hiri Motu
+HR;;โครเอเชีย
+HU;;ฮังการี
+IG;;Igbo
+IS;;ไอซ์แลนด์
+IO;;อีโด
+II;;อี้เสฉวน; นอซู
+IU;;อินุกติตุต
+IE;;อินเทอร์ลิงก์; ออกซิเดนทัล (อัสดงคต)
+IA;;อินเทอร์ลิงกวา (องค์การภาษาช่วยสื่อสารนานาชาติ)
+ID;;อินโดนีเซีย
+IK;;อินุเปียก
+IT;;อิตาลี
+JV;;ชวา
+JA;;ญี่ปุ่น
+KL;;Kalaallisut; Greenlandic
+KN;;กัณณาท
+KS;;กัศมีรี
+KR;;Kanuri
+KK;;คาซัคสถาน
+KM;;เขมรกลาง
+KI;;Kikuyu; Gikuyu
+RW;;คินยารวันดา
+KY;;คีร์กีซสถาน
+KV;;Komi
+KG;;คองโก
+KO;;เกาหลี
+KJ;;Kuanyama; Kwanyama
+KU;;เคิร์ด
+LO;;ลาว
+LA;;ละติน
+LV;;ลัตเวีย
+LI;;Limburgan; Limburger; Limburgish
+LN;;ลิงกาลา
+LT;;ลิทัวเนีย
+LB;;ลักเซมเบิร์ก
+LU;;Luba-Katanga
+LG;;Ganda
+MK;;มาซิโดเนีย
+MH;;มาร์แชลล์
+ML;;มลยาฬัม
+MI;;เมารี
+MR;;มราฐี
+MS;;มลายู
+MG;;มาลากาซี
+MT;;มอลตา
+MO;;มอลโดวา
+MN;;มองโกเลีย
+NA;;นาอูรู
+NV;;นาวาโฮ
+NR;;Ndebele, South; South Ndebele
+ND;;Ndebele, North; North Ndebele
+NG;;Ndonga
+NE;;เนปาล
+NN;;นอร์เวย์ (นีนอร์สก์)
+NB;;นอร์เวย์ (บุคมอล)
+NO;;นอร์เวย์
+NY;;Chichewa; Chewa; Nyanja
+OC;;ออกซิตัน (หลัง 1500)
+OJ;;โอจิบเว
+OR;;โอริยา
+OM;;โอโรโม
+OS;;Ossetian; Ossetic
+PA;;ปัญจาบี
+FA;;เปอร์เซีย
+PI;;บาลี
+PL;;โปแลนด์
+PT;;โปรตุเกส
+PS;;พาชโต
+QU;;เกชัว
+RM;;Romansh
+RO;;โรมาเนีย
+RN;;รุนดี
+RU;;รัสเซีย
+SG;;ซังโก
+SA;;สันสกฤต
+SI;;สิงหล
+SK;;สโลวัก
+SL;;สโลวีเนีย
+SE;;ซามิเหนือ
+SM;;ซามัว
+SN;;Shona
+SD;;สินธี
+SO;;โซมาเลีย
+ST;;ซูทูใต้
+ES;;สเปนคัสติเลียน
+SC;;ซาร์ดิเนีย
+SR;;เซอร์เบีย
+SS;;สวาตี
+SU;;ซุนดา
+SW;;สวาฮีลี
+SV;;สวีเดน
+TY;;ตาฮิติ
+TA;;ทมิฬ
+TT;;ตาด
+TE;;เตลุคู
+TG;;ทาจิกิสถาน
+TL;;ตากาล็อก
+TH;;ไทย
+BO;;ทิเบต
+TI;;ทีกรินยา
+TO;;ตองกา (หมู่เกาะตองกา)
+TN;;เซตสวานา
+TS;;ซองกา
+TK;;เติร์กเมนิสถาน
+TR;;ตุรกี
+TW;;จวี
+UG;;อุยกูร์
+UK;;ยูเครน
+UR;;อูรดู
+UZ;;อุซเบกิสถาน
+VE;;Venda
+VI;;เวียดนาม
+VO;;Volapük
+CY;;เวลส์
+WA;;วอลลูน
+WO;;โวลอฟ
+XH;;คอซา
+YI;;ยิดดิช
+YO;;โยรูบา
+ZA;;จ้วง
+ZU;;ซูลู

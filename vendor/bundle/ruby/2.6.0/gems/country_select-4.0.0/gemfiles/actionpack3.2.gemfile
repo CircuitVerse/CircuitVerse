@@ -1,0 +1,11 @@
+source "https://rubygems.org"
+
+gemspec :path => "../"
+
+gem "actionpack", "~> 3.2.17"
+
+platforms :rbx do
+  gem "racc"
+  gem "rubysl", "~> 2.0"
+  gem "psych"
+end

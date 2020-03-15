@@ -1,0 +1,21 @@
+language: ruby
+sudo: false
+
+os:
+  - linux
+  - osx
+
+rvm:
+  - ruby-2.4
+  - ruby-2.5
+  - ruby-head
+
+matrix:
+  allow_failures:
+    - rvm: ruby-head
+  include:
+    - rvm: jruby
+      os: linux
+      env: MINIMAL_SUPPORT=1
+
+script: bin/ci

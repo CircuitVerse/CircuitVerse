@@ -1,0 +1,185 @@
+AA;;afarščina
+AB;;abhaščina
+AF;;afrikanščina
+AK;;akanščina
+SQ;;albanščina
+AM;;amharščina
+AR;;arabščina
+AN;;aragonščina
+HY;;armenščina
+AS;;asamščina
+AV;;avarščina
+AE;;avestščina
+AY;;ajmarščina
+AZ;;azerbajdžanščina,azerščina
+BA;;baškirščina
+BM;;bambarščina
+EU;;baskovščina
+BE;;beloruščina
+BN;;bengalščina
+BH;;biharski jeziki
+BI;;bislamščina
+BS;;bošnjaščina
+BR;;bretonščina
+BG;;bolgarščina
+MY;;burmanščina
+CA;;katalonščina
+CH;;čamorščina
+CE;;čečenščina
+ZH;;kitajščina
+CU;;Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic
+CV;;čuvaščina
+KW;;kornijščina
+CO;;korzijščina
+CR;;krijščina
+CS;;češčina
+DA;;danščina
+DV;;diveščina
+NL;;nizozemščina; flamščina
+DZ;;dzonka
+EN;;angleščina
+EO;;esperanto
+ET;;estonščina
+EE;;evenščina
+FO;;ferščina
+FJ;;fidžijščina
+FI;;finščina
+FR;;francoščina
+FY;;zahodna frizijščina
+FF;;fulščina
+KA;;gruzinščina
+DE;;nemščina
+GD;;gelščina, škotska gelščina
+GA;;irščina
+GL;;galicijščina
+GV;;manska gelščina
+EL;;grščina (1453-)
+GN;;gvaranijščina
+GU;;gudžaratščina
+HT;;haitijska kreolščina
+HA;;havščina
+HE;;hebrejščina
+HZ;;herero
+HI;;hindijščina
+HO;;hiri motu
+HR;;hrvaščina
+HU;;madžarščina
+IG;;igboščina
+IS;;islandščina
+IO;;ido
+II;;sečuanski ji
+IU;;inuktituščina
+IE;;interlingve
+IA;;interlingva (Mednarodna zveza za pomožne jezike)
+ID;;indonezijščina
+IK;;inupiaščina
+IT;;italijanščina
+JV;;javanščina
+JA;;japonščina
+KL;;grenlandščina
+KN;;kanareščina
+KS;;kašmirščina
+KR;;kanurščina
+KK;;kazaščina
+KM;;kmerščina
+KI;;kikujščina
+RW;;ruandščina
+KY;;kirgiščina
+KV;;komijščina
+KG;;kongovščina
+KO;;korejščina
+KJ;;kvanjama
+KU;;kurdščina
+LO;;laoščina
+LA;;latinščina
+LV;;latvijščina
+LI;;limburščina
+LN;;lingala
+LT;;litovščina
+LB;;luksemburščina
+LU;;lubakatangščina
+LG;;ganda
+MK;;makedonščina
+MH;;maršalščina
+ML;;malajalščina
+MI;;maorščina
+MR;;maratščina
+MS;;malajščina
+MG;;malgaščina
+MT;;malteščina
+MO;;moldavščina
+MN;;mongolščina
+NA;;naurujščina
+NV;;navaščina
+NR;;južna ndebelščina
+ND;;severna ndebelščina
+NG;;ndongščina
+NE;;nepalščina
+NN;;novonorveščina
+NB;;knjižna norveščina
+NO;;norveščina
+NY;;čevščina; njanščina
+OC;;okcitanščina (1500-)
+OJ;;anašinabščina
+OR;;orijščina
+OM;;oromščina
+OS;;osetinščina
+PA;;pandžabščina
+FA;;perzijščina
+PI;;pali
+PL;;poljščina
+PT;;portugalščina
+PS;;paštunščina
+QU;;kečvanščina
+RM;;retoromanščina
+RO;;romunščina
+RN;;rundščina
+RU;;ruščina
+SG;;sango
+SA;;sanskrt
+SI;;singalščina
+SK;;slovaščina
+SL;;slovenščina
+SE;;severna samijščina
+SM;;samoanščina
+SN;;šonščina
+SD;;sindščina
+SO;;somalijščina
+ST;;južna sotščina
+ES;;španščina; kastiljščina
+SC;;sardinščina
+SR;;srbščina
+SS;;svazijščina
+SU;;sundščina
+SW;;svahilščina
+SV;;švedščina
+TY;;tahitijščina
+TA;;tamilščina
+TT;;tatarščina
+TE;;teluščina
+TG;;tadžiščina
+TL;;tagaloščina
+TH;;tajščina
+BO;;tibetanščina
+TI;;tigrajščina
+TO;;tonganščina
+TN;;cvanščina
+TS;;congščina
+TK;;turkmenščina
+TR;;turščina
+TW;;tvi
+UG;;ujgurščina
+UK;;ukrajinščina
+UR;;urdu
+UZ;;uzbeščina
+VE;;vendščina
+VI;;vietnamščina
+VO;;volapuk
+CY;;valižanščina
+WA;;valonščina
+WO;;volofščina
+XH;;koščina
+YI;;jidiš
+YO;;jorubščina
+ZA;;džuanščina
+ZU;;zulujščina

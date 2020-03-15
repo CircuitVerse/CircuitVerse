@@ -1,0 +1,169 @@
+= Remotipart: Rails jQuery File Uploads
+
+{<img src="https://badge.fury.io/rb/remotipart.svg" alt="Gem Version" />}[https://badge.fury.io/rb/remotipart]
+{<img src="https://travis-ci.com/JangoSteve/remotipart.svg?branch=master" alt="Build Status" />}[https://travis-ci.com/JangoSteve/remotipart]
+{<img src="https://codeclimate.com/github/JangoSteve/remotipart/badges/gpa.svg" />}[https://codeclimate.com/github/JangoSteve/remotipart]
+
+Remotipart is a Ruby on Rails gem enabling AJAX file uploads with jQuery in Rails 3 and Rails 4 remote forms.
+This gem augments the native Rails jQuery remote form functionality enabling asynchronous file uploads with little to no modification to your application.
+
+* {Homepage and Demos}[http://www.alfajango.com/blog/remotipart-rails-gem/]
+* {How AJAX File Uploads Work}[http://www.alfajango.com/blog/ajax-file-uploads-with-the-iframe-method/]
+
+== Dependencies
+
+* {Rails 3 or Rails 4}[http://github.com/rails/rails]
+* {The jquery-rails gem}[http://rubygems.org/gems/jquery-rails]
+
+<em>The jquery-rails gem is included in Rails 3 and Rails 4 by default, and installs {jQuery}[http://jquery.com] and the {Rails jQuery UJS driver (jquery-ujs)}[https://github.com/rails/jquery-ujs]</em>
+
+== Installation
+
+<b>Your app should be using jquery-rails gem v2.3.0 or above.</b>
+
+If you're using an old version of the jquery-rails gem,
+make sure you have a supported jquery-ujs (rails.js or jquery_ujs.js) version from {VERSION_COMPATIBILITY}[https://github.com/JangoSteve/remotipart/blob/master/VERSION_COMPATIBILITY.rdoc].
+
+[1.]
+  Install the Remotipart gem
+
+  * Add this line to your GEMFILE (use the appropriate version from the compatibilty chart if needed)
+
+   gem 'remotipart', '~> 1.2'
+
+  * And run
+
+   bundle install
+
+=== Rails 3.1 and Rails 4
+
+[2.]
+  The necessary js files will automatically be added to the asset pipeline, so add the following to app/assets/javascripts/application.js (right after <tt>//= require jquery_ujs</tt>):
+
+   //= require jquery.remotipart
+
+=== Rails 3.0
+
+[2.]
+  Run the Remotipart install generator to add jquery.iframe-transport.js and jquery.remotipart.js to public/javascripts/
+
+   rails g remotipart:install
+
+[3.]
+  The necessary js files will be added to your app's javascript <tt>:defaults</tt>, so make sure the following is in your application layout:
+
+   <%= javascript_include_tag :defaults %>
+
+== Usage
+
+* For multipart / forms with file inputs, set your form_for to remote as you would for a normal ajax form:
+   :remote => true
+* When Javascript is enabled in the user's browser, the form, including the file, will be submitted asynchronously to your controller with:
+   :format => 'js'
+* If you need to determine if a particular request was made via a remotipart-enabled form...
+  * from your Rails controller or view:
+
+      if remotipart_submitted?
+  * from your javascript:
+
+      $(form).bind("ajax:success", function(){
+        if ( $(this).data('remotipartSubmitted') )
+      });
+* If you want to be notified when the upload is complete (which can be either success or error)
+  * from your javascript:
+
+      $(form).on("ajax:remotipartComplete", function(e, data){
+        console.log(e, data)
+      });
+      
+=== Example
+
+<tt>sample_layout.html.erb</tt>
+  <%= form_for @sample, :html => { :multipart => true }, :remote => true do |f| %>
+    <div class="field">
+      <%= f.label :file %>
+      <%= f.file_field :file %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
+
+<tt>sample_controller.rb</tt>
+  def create
+    respond_to do |format|
+      if @sample.save
+        format.js
+      end
+    end
+  end
+
+<tt>create.js.erb</tt>
+  // Display a Javascript alert
+  alert('success!');
+  <% if remotipart_submitted? %>
+    alert('submitted via remotipart')
+  <% else %>
+    alert('submitted via native jquery-ujs')
+  <% end %>
+
+The content type requested from the application can be overridden via the <tt>data-type</tt> HTML5 attribute:
+
+<tt>sample_layout2.html.erb</tt>
+  <%= form_for @sample, :html => { :multipart => true }, :remote => true, :data => { :type => :html } do |f| %>
+    <div class="field">
+      <%= f.label :file %>
+      <%= f.file_field :file %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
+
+In this case, the application should serve HTML using a <tt>create.html.erb</tt> template instead of JavaScript.
+
+== Note on Patches/Pull Requests
+
+<b>If you have a general improvement, optimization, or refactoring, please {read this first}[https://github.com/formasfunction/remotipart/wiki/Refactoring-and-Improving-Remotipart].</b>
+
+* Fork the project.
+* Make your feature addition or bug fix.
+* Add tests for it. This is important so I don't break it in a
+  future version unintentionally.
+* Commit, do not mess with rakefile, version, or history.
+  (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
+* Send me a pull request. Bonus points for topic branches.
+
+== Tests
+
+Because of the nature of AJAX file uploads and certain browser restrictions, we could not simply create unit tests (using qunit or jasmine)
+to test the file upload functionality of remotipart (since the browsers running those test suites won't allow us to set the target of a file
+upload input using javascript). So, instead we created a demo Rails app using remotipart with all remotipart functionality tested using RSpec and Capybara.
+
+* {Demo Rails App with Tests}[https://github.com/JangoSteve/Rails-jQuery-Demo/tree/remotipart]
+  * {Tests}[https://github.com/JangoSteve/Rails-jQuery-Demo/blob/master/spec/features/comments_spec.rb]
+
+To run tests:
+
+Clone the remotipart branch of the demo app
+  git clone -b remotipart git://github.com/JangoSteve/Rails-jQuery-Demo.git
+
+Install the dependencies
+  bundle install
+
+Run the tests
+  bundle exec rspec spec/
+
+If you need to test your own changes to remotipart, just update the Gemfile with your own fork/branch of remotipart:
+
+  gem 'remotipart', :git => 'git://github.com/MY_FORK/remotipart.git', :branch => 'MY_BRANCH'
+
+== Special Thanks
+
+Thank you to Greg Leppert for writing the original version of this gem and providing inspiration for the gem in its current incarnation.
+
+Thank you to {Adam Kerr}[https://github.com/ajrkerr] for helping move over to the simpler jQuery 1.6-compatible iframe-transport.js and for helping write the rack middleware, making remotipart even easier to use in Rails.
+
+== Copyright
+
+Copyright (c) 2013 {Steve Schwartz}[https://github.com/JangoSteve], {Greg Leppert}[https://github.com/leppert]. See LICENSE for details.

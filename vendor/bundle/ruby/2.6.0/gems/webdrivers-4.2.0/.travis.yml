@@ -1,0 +1,41 @@
+language: ruby
+cache: bundler
+addons:
+  apt:
+    packages:
+      - chromium-browser
+      - libgconf-2-4
+  chrome: stable
+script: bundle exec rake $RAKE_TASK
+before_install:
+  - gem update --system
+  - gem update bundler
+matrix:
+  include:
+    - rvm: 2.6.3
+      env: RAKE_TASK=spec
+    - rvm: 2.5.5
+      env: RAKE_TASK=spec
+    - rvm: 2.4.6
+      env: RAKE_TASK=spec
+    - rvm: 2.4.6
+      os: osx
+      env: RAKE_TASK=spec
+    - rvm: 2.4.6
+      env: RAKE_TASK=rubocop
+    - rvm: jruby-9.2.9.0
+      jdk: openjdk8
+      env: RAKE_TASK=spec
+    - rvm: 2.7
+      env: RAKE_TASK=spec
+      gemfile: gemfiles/Gemfile.edge
+      os: osx
+      osx_image: xcode11.3
+      addons:
+        chrome: stable
+        homebrew:
+          taps: homebrew/cask-versions
+          casks:
+            - microsoft-edge-beta
+  allow_failures:
+    - gemfile: gemfiles/Gemfile.edge

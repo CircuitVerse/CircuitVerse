@@ -1,0 +1,10 @@
+===============================================================================
+
+Some setup you must do manually if you haven't yet:
+
+  Ensure you have configured model name in your initializer activity_notification.rb.
+  For example:
+
+    #TODO
+
+===============================================================================

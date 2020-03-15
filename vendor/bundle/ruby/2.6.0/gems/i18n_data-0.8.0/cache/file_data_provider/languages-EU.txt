@@ -1,0 +1,185 @@
+AA;;Afarera
+AB;;Abkhaziera
+AF;;Afrikaans
+AK;;Akanera
+SQ;;Albaniera
+AM;;Amharera
+AR;;Arabiera
+AN;;Aragoiera
+HY;;Armeniera
+AS;;Assamera
+AV;;Arabiera
+AE;;Avestanera
+AY;;Aimara
+AZ;;Azerbaijanera
+BA;;Bashkiriera
+BM;;Bambara
+EU;;Euskara
+BE;;Bielorrusiera
+BN;;Bengalera
+BH;;Tupi hizkuntzak
+BI;;Bislama
+BS;;Bosniera
+BR;;Bretoiera
+BG;;Bulgariera
+MY;;Birmaniera
+CA;;Katalana
+CH;;Chamorroera
+CE;;Txetxeniera
+ZH;;Txinera
+CU;;Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic
+CV;;Chuvash
+KW;;Kornubiera
+CO;;Korsikera
+CR;;Cree
+CS;;Txekiera
+DA;;Daniera
+DV;;Maldiviera
+NL;;Nederlandera; flandesera
+DZ;;Dzongkha
+EN;;Ingelesa
+EO;;Esperantoa
+ET;;Estoniera
+EE;;Ewe
+FO;;Faroera
+FJ;;Fijian
+FI;;Finlandiera
+FR;;Frantsesa
+FY;;Mendebaldeko frisiera
+FF;;Fulah
+KA;;Georgiera
+DE;;Alemana
+GD;;Gaelikoa; eskoziar gaelikoa
+GA;;Irlandera
+GL;;Galiziera
+GV;;Manxera [Manx-eko gaelikoa]
+EL;;Greko modernoa (1453tik aurrera)
+GN;;Guaraniera
+GU;;Gujeratera
+HT;;Haitiera, haitiar kreolera
+HA;;Hausa
+HE;;Hebreera
+HZ;;Herero
+HI;;Hindi
+HO;;Hiri Motu
+HR;;Kroaziera
+HU;;Hungariera
+IG;;Igboera
+IS;;Islandiera
+IO;;Ido
+II;;Sichuan Yi; Nuosu
+IU;;Inuktitut
+IE;;Interlingue; medebalekoa
+IA;;Interlingua (IALAren nazioarteko hizkuntza)
+ID;;Indonesiera
+IK;;Inupiaq
+IT;;Italiera
+JV;;Javanera
+JA;;Japoniera
+KL;;Groenlandiera
+KN;;Kannada
+KS;;Kaxmirera
+KR;;Kanuri
+KK;;Kazakhera
+KM;;Erdiko khmer
+KI;;Kikuyu; Gikuyu
+RW;;Kinyaruanda
+KY;;Kirgizera
+KV;;Komeera
+KG;;Kongo
+KO;;Koreera
+KJ;;Kuanyama; Kwanyama
+KU;;Kurduera
+LO;;Laosera
+LA;;Latina
+LV;;Letoniera
+LI;;Limburgan; Limburger; Limburgish
+LN;;Lingala
+LT;;Lituaniera
+LB;;Luxenburgera
+LU;;Luba-Katanga
+LG;;Ganda
+MK;;Mazedoniera
+MH;;Marshallera
+ML;;Malayalamera
+MI;;Maoria
+MR;;Marathera
+MS;;Malaysiera
+MG;;Malgaxea
+MT;;Maltera
+MO;;Moldaviera
+MN;;Mongoliera
+NA;;Nauruera
+NV;;Navajo; Navaho
+NR;;Hegoaldeko ndebelera
+ND;;Iparraldeko ndebelera
+NG;;Ndonga
+NE;;Nepalera
+NN;;Norvegiera (Nynorsk)
+NB;;Bokmål, Norwegian; Norwegian Bokmål
+NO;;Norvegiera
+NY;;Chichewa; Chewa; Nyanja
+OC;;Okzitaniera (1500 ondorengoa); Probentzera
+OJ;;Ojibwa
+OR;;Oriya
+OM;;Oromoera
+OS;;Osetiera
+PA;;Punjabera
+FA;;Persiera
+PI;;Pali
+PL;;Poloniera
+PT;;Portugesa
+PS;;Paxtuera
+QU;;Kitxua
+RM;;Romansh
+RO;;Errumaniera
+RN;;Rundi
+RU;;Errusiera
+SG;;Sango
+SA;;Sanskritoa
+SI;;Sinhala
+SK;;Eslovakiera
+SL;;Esloveniera
+SE;;Iparraldeko samiera
+SM;;Samoera
+SN;;Shona
+SD;;Sindhi
+SO;;Somaliera
+ST;;Hegoaldeko sothoera
+ES;;Espainola; gaztelania
+SC;;Sardiniera
+SR;;Serbiera
+SS;;Swati
+SU;;Sudanera
+SW;;Swahilia
+SV;;Suediera
+TY;;Tahitiera
+TA;;Tamil-a
+TT;;Tatariera
+TE;;Telugu-a
+TG;;Tadjikera
+TL;;Tagalo-a
+TH;;Thailandiera
+BO;;Tibetera
+TI;;Tigrinya
+TO;;Tongera (Tonga uharteak)
+TN;;Tswana
+TS;;Tsonga
+TK;;Turkmeniera
+TR;;Turkiera
+TW;;Twi
+UG;;Uighurera
+UK;;Ukrainiera
+UR;;Urdu-a
+UZ;;Uzbekera
+VE;;Venda
+VI;;Vietnamera
+VO;;Volapük-a
+CY;;Galesera
+WA;;Waloiera
+WO;;Wolofera
+XH;;Xhosa
+YI;;Jidish
+YO;;Jorubera
+ZA;;Zhuang; Chuang
+ZU;;Zuluera

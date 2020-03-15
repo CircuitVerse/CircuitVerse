@@ -1,0 +1,6 @@
+$("#thread_<%= @thread.id.to_s %>_subscription_span").html("<%= escape_javascript(
+  render partial: 'link',
+         locals: { thread: @thread,
+                      user: @user }) %>");
+
+<%= javascript_proc %>

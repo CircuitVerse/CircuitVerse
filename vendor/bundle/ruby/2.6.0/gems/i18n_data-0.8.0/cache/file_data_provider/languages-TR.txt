@@ -1,0 +1,185 @@
+AA;;Afar
+AB;;Abhazca
+AF;;Afrikanca
+AK;;Akanca (Afrika dili)
+SQ;;Arnavutça
+AM;;Etiyopyaca
+AR;;Arapça
+AN;;Aragonca (İspanya)
+HY;;Ermenice
+AS;;Assamese (Hindistan)
+AV;;Avarca
+AE;;Avestan (Eski İran)
+AY;;Aymara (Güney Amerika)
+AZ;;Azerice
+BA;;Başkırca
+BM;;Bambara (Mali)
+EU;;Baskça
+BE;;Belarusça
+BN;;Bengalce
+BH;;Bihari dilleri
+BI;;Bislama (Vanuatu; Kuzey Pasifik)
+BS;;Boşnakça
+BR;;Bretonca
+BG;;Bulgarca
+MY;;Burmaca
+CA;;Katalanca; Valensiyaca
+CH;;Chamorro (Guam adaları)
+CE;;Çeçence
+ZH;;Çince
+CU;;Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic
+CV;;Çuvaş (Türkçe)
+KW;;Cornish (Kelt)
+CO;;Korsikaca
+CR;;Cree (Kuzey Amerika yerlileri)
+CS;;Çekçe
+DA;;Danca
+DV;;Divehi; Dhivehi; Maldivian
+NL;;Felemenkçe; Flamanca
+DZ;;Dzongkha (Butan)
+EN;;İngilizce
+EO;;Esperanto
+ET;;Estonca
+EE;;Ewe
+FO;;Faroece
+FJ;;Fiji dili
+FI;;Fince
+FR;;Fransızca
+FY;;Batı Frizyeli Dili
+FF;;Fulah
+KA;;Gürcüce
+DE;;Almanca
+GD;;Keltçe; İskoçya Keltçesi
+GA;;İrlandaca
+GL;;Galiçya dili
+GV;;Manx (Galler)
+EL;;Yunanca, Çağdaş (1453-)
+GN;;Guarani (Paraguay)
+GU;;Gujarati (Hindistan)
+HT;;Haiti dili
+HA;;Hausa
+HE;;İbranice
+HZ;;Herero
+HI;;Hintçe
+HO;;Hiri Motu
+HR;;Hırvatça
+HU;;Macarca
+IG;;Igbo
+IS;;İzlandaca
+IO;;Ido
+II;;Sichuan Yi; Nuosu
+IU;;Inuktitut
+IE;;Yapay dil; Batıya özgün
+IA;;Interlingua (International Auxiliary Language Association)
+ID;;Endonezce
+IK;;Inupiaq
+IT;;İtalyanca
+JV;;Javanese
+JA;;Japonca
+KL;;Kalaallisut; Grönlandca
+KN;;Kannada
+KS;;Keşmirce
+KR;;Kanuri
+KK;;Kazak Dili
+KM;;Merkez Khmer
+KI;;Kikuyu; Gikuyu
+RW;;Kinyarwanda
+KY;;Kirghiz; Kyrgyz
+KV;;Komi
+KG;;Kongo
+KO;;Korece
+KJ;;Kuanyama; Kwanyama
+KU;;Kürtçe
+LO;;Laos Dili
+LA;;Latince
+LV;;Letonca
+LI;;Limburgan; Limburger; Limburgish
+LN;;Lingala
+LT;;Litvanca
+LB;;Luxembourgish; Letzeburgesch
+LU;;Luba-Katanga
+LG;;Ganda
+MK;;Makedonca
+MH;;Marshallese
+ML;;Malayalam
+MI;;Maori
+MR;;Marathi
+MS;;Malayca
+MG;;Malagasy
+MT;;Maltaca
+MO;;Moldavya Dili
+MN;;Moğol Dili
+NA;;Nauru
+NV;;Navajo; Navaho
+NR;;Ndebele, Güney; Güney Ndebelecesi
+ND;;Ndebele, Kuzey; Kuzey Ndebelecesi
+NG;;Ndonga
+NE;;Nepalce
+NN;;Halk Norveççesi; Halk, Norveççe
+NB;;Kitap, Norveççe; Kitap Norveççesi
+NO;;Norveççe
+NY;;Chichewa; Chewa; Nyanja
+OC;;Occitan (post 1500)
+OJ;;Ojibwa
+OR;;Oriya
+OM;;Oromo
+OS;;Ossetian; Ossetic
+PA;;Panjabi; Punjabi
+FA;;Farsça
+PI;;Pali
+PL;;Lehçe
+PT;;Portekizce
+PS;;Pushto; Pashto
+QU;;Quechua
+RM;;Romansh
+RO;;Romence
+RN;;Kirundi
+RU;;Rusça
+SG;;Sangho
+SA;;Sanskrit
+SI;;Sinhala; Sinhalese
+SK;;Slovakça
+SL;;Slovence
+SE;;Kuzey Sami
+SM;;Samoa Dili
+SN;;Shona
+SD;;Sindhi
+SO;;Somali Dili
+ST;;Sesotho
+ES;;İspanyolca; Kastilyaca
+SC;;Sardince
+SR;;Sırpça
+SS;;Siswati
+SU;;Sudan Dili
+SW;;Swahili
+SV;;İsveçce
+TY;;Tahitice
+TA;;Tamilce
+TT;;Tatarca
+TE;;Telugu
+TG;;Tacikçe
+TL;;Tagalog
+TH;;Taylandça
+BO;;Tibetçe
+TI;;Tigrinya
+TO;;Tonga
+TN;;Setswana
+TS;;Tsonga
+TK;;Türkmence
+TR;;Türkçe
+TW;;Twi
+UG;;Uygur; Uygurca
+UK;;Ukraynaca
+UR;;Urduca
+UZ;;Özbekçe
+VE;;Venda
+VI;;Vietnamca
+VO;;Volapük
+CY;;Gal Dili
+WA;;Valonca
+WO;;Wolof
+XH;;Xhosa
+YI;;Yiddiş
+YO;;Yoruba
+ZA;;Zhuang; Chuang
+ZU;;Zulu

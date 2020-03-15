@@ -1,0 +1,40 @@
+<%= form_for(@comment, :remote => (params[:action] == 'new' ? true : false)) do |f| %>
+  <% if @comment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+
+      <ul>
+      <% @comment.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <fieldset>
+    <legend class='required'>
+      Required fields
+    </legend>
+    <div class="field">
+      <%= f.label :subject, :class => 'required' %><br />
+      <%= f.text_field :subject, :required => true %>
+    </div>
+    <div class="field">
+      <%= f.label :body, :class => 'required' %><br />
+      <%= f.text_area :body, :required => true %>
+    </div>
+    <% if params[:attachment] %>
+      <div class="field">
+        <%= f.label :attachment %><br />
+        <%= f.file_field :attachment %>
+      </div>
+      <div class="field">
+        <%= f.label :other_attachment %><br />
+        <%= f.file_field :other_attachment %>
+      </div>
+    <% end %>
+    </fieldset>
+  <div class="actions">
+    <%= f.submit :data => {disable_with: "Submitting..."} %>
+  </div>
+<% end %>

@@ -1,0 +1,4 @@
+bootstrap-typeahead-src
+*.gem
+Gemfile.lock
+bootstrap-typeahead-css-src

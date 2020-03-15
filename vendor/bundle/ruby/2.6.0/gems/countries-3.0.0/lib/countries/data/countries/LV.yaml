@@ -1,0 +1,59 @@
+---
+LV:
+  continent: Europe
+  alpha2: LV
+  alpha3: LVA
+  country_code: '371'
+  international_prefix: '00'
+  ioc: LAT
+  gec: LG
+  name: Latvia
+  national_destination_code_lengths:
+  - 2
+  national_number_lengths:
+  - 8
+  national_prefix: '8'
+  number: '428'
+  region: Europe
+  subregion: Northern Europe
+  world_region: EMEA
+  un_locode: LV
+  nationality: Latvian
+  eu_member: true
+  eea_member: true
+  vat_rates:
+    standard: 21
+    reduced:
+    - 12
+    super_reduced: 
+    parking: 
+  postal_code: true
+  unofficial_names:
+  - Latvia
+  - Lettland
+  - Lettonie
+  - Letonia
+  - ラトビア
+  - Letland
+  languages_official:
+  - lv
+  languages_spoken:
+  - lv
+  geo:
+    latitude: 56.879635
+    latitude_dec: '56.86873245239258'
+    longitude: 24.603189
+    longitude_dec: '24.84024429321289'
+    max_latitude: 58.0855688
+    max_longitude: 28.2414029
+    min_latitude: 55.6747769
+    min_longitude: 20.8465998
+    bounds:
+      northeast:
+        lat: 58.0855688
+        lng: 28.2414029
+      southwest:
+        lat: 55.6747769
+        lng: 20.8465998
+  currency_code: EUR
+  start_of_week: monday

@@ -1,0 +1,39 @@
+---
+P:
+  unofficial_names: Príncipe
+  translations:
+    en: Príncipe
+    ca: Regió Autònoma de Príncipe
+    fi: Príncipe
+    fr: province de Principe
+    it: Provincia di Príncipe
+    ja: プリンシペ州
+    nb: Príncipe
+    pt: Príncipe
+    ur: پرنسپے صوبہ
+  geo:
+    latitude: 1.6139381
+    longitude: 7.4056928
+    min_latitude: 1.35852
+    min_longitude: 7.2647591
+    max_latitude: 1.6929356
+    max_longitude: 7.462463499999999
+  name: Príncipe
+S:
+  unofficial_names: São Tomé
+  translations:
+    en: São Tomé
+    ca: Província de São Tomé
+    fr: province de Sao Tomé
+    it: Provincia di São Tomé
+    ja: サントメ州
+    nb: São Tomé
+    ru: провинция Сан-Томе
+  geo:
+    latitude: 0.3301924
+    longitude: 6.733343
+    min_latitude: 0.2995513
+    min_longitude: 6.7015236
+    max_latitude: 0.3843648000000001
+    max_longitude: 6.7529951
+  name: São Tomé

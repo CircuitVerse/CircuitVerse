@@ -1,0 +1,185 @@
+AA;;Afar
+AB;;Abgasies
+AF;;Afrikaans
+AK;;Akan
+SQ;;Albanees
+AM;;Amharies
+AR;;Arabies
+AN;;Aragonees
+HY;;Armeens
+AS;;Assamese
+AV;;Amharies
+AE;;Avestan
+AY;;Aymara
+AZ;;Azerbaidjans
+BA;;Basjkirs
+BM;;Aymara
+EU;;Baskies
+BE;;Belo-Russies
+BN;;Bengalees
+BH;;Koreaans
+BI;;Bislamees
+BS;;Bosnies
+BR;;Bretons
+BG;;Bulgaars
+MY;;Burmees
+CA;;Katalaans
+CH;;Chamorro
+CE;;Tsjeggies
+ZH;;Sjinees
+CU;;Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic
+CV;;Chuvash
+KW;;Kornies
+CO;;Korsikaans
+CR;;Grieks
+CS;;Tsjeggies
+DA;;Deens
+DV;;Divehi; Dhivehi; Maldivian
+NL;;Nederlands
+DZ;;Bhoetaans
+EN;;Engels
+EO;;Esperanto
+ET;;Estlands
+EE;;Ewe
+FO;;Faroees
+FJ;;Fidjies
+FI;;Fins
+FR;;Frans
+FY;;Wes-Fries
+FF;;Fulah
+KA;;Georgies
+DE;;Duits
+GD;;Skotse Gaelies
+GA;;Iers
+GL;;Galisies
+GV;;Manx
+EL;;Greek, Modern (1453-)
+GN;;Guarani
+GU;;Goedjarati
+HT;;Haitian; Haitian Creole
+HA;;Hausa
+HE;;Hebreeus
+HZ;;Herero
+HI;;Hindi
+HO;;Hindi
+HR;;Kroaties
+HU;;Hongaars
+IG;;Igbo
+IS;;Yslands
+IO;;Ido
+II;;Litaus
+IU;;Innuïties
+IE;;Interlingue
+IA;;Interlingua (International Auxiliary Language Association)
+ID;;Indonesies
+IK;;Inupiak
+IT;;Italiaans
+JV;;Javanees
+JA;;Japannees
+KL;;Kalaallisut; Greenlandic
+KN;;Kannada
+KS;;Kasjmiri
+KR;;Koerdies
+KK;;Kazak
+KM;;Central Khmer
+KI;;Kikuyu; Gikuyu
+RW;;Kinyarwanda
+KY;;Kirgisies
+KV;;Somalees
+KG;;Sangro
+KO;;Koreaans
+KJ;;Kannada
+KU;;Koerdies
+LO;;Lao
+LA;;Latyn
+LV;;Letties
+LI;;Limburgs
+LN;;Lingalees
+LT;;Litaus
+LB;;Luxemburgs
+LU;;Luba-Katanga
+LG;;Kannada
+MK;;Masedonies
+MH;;Maltees
+ML;;Malabaars
+MI;;Maori
+MR;;Marafi
+MS;;Maleis
+MG;;Malagassies
+MT;;Maltees
+MO;;Moldawies
+MN;;Mongools
+NA;;Nauru
+NV;;Navajo; Navaho
+NR;;Ndebele, South; South Ndebele
+ND;;Ndebele, North; North Ndebele
+NG;;Ndonga
+NE;;Nepalees
+NN;;Noorweegse Nynorsk
+NB;;Bokmål, Norwegian; Norwegian Bokmål
+NO;;Noorweegs
+NY;;Chichewa; Chewa; Nyanja
+OC;;Occitan (post 1500)
+OJ;;Ojibwa
+OR;;Oria
+OM;;Oromees
+OS;;Russies
+PA;;Punjabies
+FA;;Persies
+PI;;Somalees
+PL;;Pools
+PT;;Portugees
+PS;;Pasjtoe
+QU;;Quechua
+RM;;Reto-Romaans
+RO;;Roemeens
+RN;;Rundi
+RU;;Russies
+SG;;Sangro
+SA;;Sanskrit
+SI;;Singalees
+SK;;Slowaaks
+SL;;Sloweens
+SE;;Noord-Sami
+SM;;Samoaans
+SN;;Shona
+SD;;Sindhi
+SO;;Somali
+ST;;Sotho, Suid-
+ES;;Spaans
+SC;;Sardinies
+SR;;Serwies
+SS;;Swati
+SU;;Soedanees
+SW;;Swahili
+SV;;Sweeds
+TY;;Letties
+TA;;Tamil
+TT;;Tartaars
+TE;;Teloegoe
+TG;;Tadjikistans
+TL;;Tagalog
+TH;;Thai
+BO;;Tibettaans
+TI;;Tigris
+TO;;Tonga (Tonga Islands)
+TN;;Tswana
+TS;;Tsonga
+TK;;Turkmeens
+TR;;Turks
+TW;;Twi
+UG;;Oeigoers
+UK;;Oekraïens
+UR;;Oerdoe
+UZ;;Oezbekies
+VE;;Venda
+VI;;Viëtnamees
+VO;;Volapük
+CY;;Wallies
+WA;;walloonse
+WO;;Wolof
+XH;;Xhosa
+YI;;Jiddisj
+YO;;Joroeba
+ZA;;Zhuang
+ZU;;Zoeloe

@@ -1,0 +1,185 @@
+AA;;Afar, Hamitisch
+AB;;Abchazisch
+AF;;Afrikaans
+AK;;Akaans
+SQ;;Albanees
+AM;;Amhaars, Amharisch
+AR;;Arabisch
+AN;;Aragonees
+HY;;Armeens
+AS;;Assamees, Assami
+AV;;Avaars, Awari
+AE;;Avestisch
+AY;;Aymara
+AZ;;Azeri, Azerbeidzjaans
+BA;;Basjkiers, Basjkirisch
+BM;;Bambara
+EU;;Baskisch
+BE;;Wit-Russisch, Belarussisch
+BN;;Bengaals
+BH;;Bihari-talen
+BI;;Bislama
+BS;;Bosnisch
+BR;;Bretons, Bretoens
+BG;;Bulgaars
+MY;;Burmees
+CA;;Catalaans; Valenciaans
+CH;;Chamorro
+CE;;Tsjetsjeens
+ZH;;Chinees
+CU;;Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic
+CV;;Tsjoevasjisch
+KW;;Cornish
+CO;;Corsicaans
+CR;;Cree
+CS;;Tsjechisch
+DA;;Deens
+DV;;Divehi; Maldiviaans
+NL;;Nederlands
+DZ;;Dzongkha
+EN;;Engels
+EO;;Esperanto
+ET;;Estlands
+EE;;Ewe
+FO;;Faeröers
+FJ;;Fijisch
+FI;;Fins
+FR;;Frans
+FY;;Fries
+FF;;Fulah
+KA;;Georgisch
+DE;;Duits
+GD;;Gaelisch; Schots
+GA;;Iers
+GL;;Galiciaans
+GV;;Manx
+EL;;Grieks, Modern (vanaf 1453)
+GN;;Guarani
+GU;;Gujarati
+HT;;Haïtiaans; Haïtiaans Creools
+HA;;Hausa
+HE;;Hebreeuws
+HZ;;Herero
+HI;;Hindi
+HO;;Hiri Motu
+HR;;Kroatisch
+HU;;Hongaars
+IG;;Igbo
+IS;;IJslands
+IO;;Ido
+II;;Sitsjuan Yi; Nuosu
+IU;;Inuktitut
+IE;;Interlingue; Occidental
+IA;;Interlingua (International Auxiliary Language Association)
+ID;;Indonesisch
+IK;;Inupiak
+IT;;Italiaans
+JV;;Javaans
+JA;;Japans
+KL;;Kalaallisut; Groenlands
+KN;;Kannada, Kanarees
+KS;;Kashmiri
+KR;;Kanuri
+KK;;Kazachs
+KM;;Centraal Khmer
+KI;;Kikuyu; Gikuyu
+RW;;Kinyarwanda
+KY;;Kirgizisch
+KV;;Komi
+KG;;Kongo
+KO;;Koreaans
+KJ;;Kuanyama; Kwanyama
+KU;;Koerdisch
+LO;;Lao
+LA;;Latijn
+LV;;Lets
+LI;;Limburgs
+LN;;Lingala
+LT;;Litouws
+LB;;Luxemburgs; Lëtzebuergesch
+LU;;Luba-Katanga
+LG;;Ganda
+MK;;Macedonisch
+MH;;Marshallees
+ML;;Malayalam
+MI;;Maori
+MR;;Marathi
+MS;;Maleis
+MG;;Malagassisch
+MT;;Maltees
+MO;;Moldavisch
+MN;;Mongools
+NA;;Nauruaans
+NV;;Navajo; Navaho
+NR;;Ndbele, Zuid; Zuid-Ndebele
+ND;;Ndbele, Noord; Noord-Ndebele
+NG;;Ndonga
+NE;;Nepalees
+NN;;Nynorsk-Noors; Noors, Nynorsk
+NB;;Bokmål, Noors; Noors Bokmål
+NO;;Noors
+NY;;Tsjewa; Tsjitsjewa; Nyanja
+OC;;Occitaans (na 1500)
+OJ;;Ojibwa
+OR;;Oriya
+OM;;Oromo
+OS;;Ossetisch, Osseets
+PA;;Panjabi; Punjabi
+FA;;Perzisch
+PI;;Pali
+PL;;Pools
+PT;;Portugees
+PS;;Pasjtoe
+QU;;Quechua
+RM;;Romaans
+RO;;Roemeens
+RN;;Rundi
+RU;;Russisch
+SG;;Sangho
+SA;;Sanskriet
+SI;;Sinhala; Sinhalees
+SK;;Slovaaks, Slowaaks
+SL;;Sloveens
+SE;;Noord-Sami
+SM;;Samoaans
+SN;;Shona
+SD;;Sindhi
+SO;;Somali
+ST;;Zuid-Sothaans
+ES;;Spaans; Castiliaans
+SC;;Sardijns
+SR;;Servisch
+SS;;Swati
+SU;;Soendanees, Sundanees
+SW;;Swahili
+SV;;Zweeds
+TY;;Tahitisch
+TA;;Tamil
+TT;;Tatar
+TE;;Telugu
+TG;;Tadzjieks
+TL;;Tagalog
+TH;;Thai
+BO;;Tibetaans
+TI;;Tigrinya
+TO;;Tonga (Tonga-eilanden)
+TN;;Tswana
+TS;;Tsonga
+TK;;Turkmeens
+TR;;Turks
+TW;;Twi
+UG;;Oeigoers; Oejgoers
+UK;;Oekraïens
+UR;;Urdu
+UZ;;Oezbeeks
+VE;;Venda
+VI;;Vietnamees
+VO;;Volapük
+CY;;Welsh
+WA;;Waals
+WO;;Wolof
+XH;;Xhosa
+YI;;Jiddisch
+YO;;Yoruba
+ZA;;Zhuang; Chuang
+ZU;;Zoeloe

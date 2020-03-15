@@ -1,0 +1,185 @@
+AA;;Tiếng A-pha
+AB;;Tiếng Ap-kha-xi-a
+AF;;Tiếng Hoà Lan Nam Phi
+AK;;Tiếng A-can
+SQ;;Tiếng An-ba-ni
+AM;;Tiếng Am-ha-ri
+AR;;Tiếng A Rập
+AN;;Tiếng A-ra-gon
+HY;;Tiếng Ác-mê-ni
+AS;;Tiếng A-xam
+AV;;Tiếng A-va-ric
+AE;;Tiếng A-ve-x-tanh
+AY;;Tiếng Ai-ma-ra
+AZ;;Tiếng A-xợ-bai-gianh
+BA;;Tiếng Ba-x-kia
+BM;;Tiếng Bam-ba-ra
+EU;;Tiếng Baxcơ
+BE;;Tiếng Be-la-ruxợ
+BN;;Tiếng Băng Gan
+BH;;Hệ ngôn ngữ Bihari
+BI;;Tiếng Bix-la-ma
+BS;;Tiếng Bô-xni-a
+BR;;Tiếng Boue-ton (Pháp)
+BG;;Tiếng Bảo Gai Lơi
+MY;;Tiếng Miến Điện
+CA;;Tiếng Ca-ta-lan
+CH;;Tiếng Cha-mo-ro
+CE;;Tiếng Che-chẹnh
+ZH;;Tiếng Trung Quốc
+CU;;Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic
+CV;;Tiếng Chu-vas
+KW;;Tiếng Khoanh-uoănh
+CO;;Tiếng Coa-si-ca
+CR;;Tiếng Cợ-ri
+CS;;Tiếng Séc
+DA;;Tiếng Đan Mạch
+DV;;Tiếng Đi-ve-hi
+NL;;Tiếng Hoà Lan; Tiếng Ph-le-mi
+DZ;;Tiếng Đ-xong-kha
+EN;;Tiếng Anh
+EO;;Tiếng E-x-pê-ran-tô
+ET;;Tiếng E-x-tô-ni-a
+EE;;Tiếng E-oue
+FO;;Tiếng Pha-rô
+FJ;;Tiếng Phi-gi
+FI;;Tiếng Phần Lan
+FR;;Tiếng Pháp
+FY;;Tiếng Tây Phợ-ri-xi
+FF;;Tiếng Phu-la
+KA;;Tiếng Gi-oa-gi-a
+DE;;Tiếng Đức
+GD;;Tiếng Xen-tơ, Ê-cốt
+GA;;Tiếng Ái Nhĩ Lan
+GL;;Tiếng Ga-li-xi
+GV;;Tiếng Man-khơ-x
+EL;;Tiếng Hy Lạp, Cận Đại (từ năm 1453)
+GN;;Tiếng Gua-ra-ni
+GU;;Tiếng Gu-gia-ra-ti
+HT;;Tiếng Hai-ti
+HA;;Tiếng Hau-xa
+HE;;Tiếng Do Thái
+HZ;;Tiếng He-re-rô
+HI;;Tiếng Hin-đi
+HO;;Tiếng Mo-tu
+HR;;Tiếng Cợ-rô-áth
+HU;;Tiếng Hung Gia Lợi
+IG;;Tiếng Ic-bô
+IS;;Tiếng Băng Đảo
+IO;;Tiếng I-đo
+II;;Sichuan Yi; Nuosu
+IU;;Tiếng I-nuc-ti-tuc
+IE;;Ngôn ngữ lẫn nhau In-tơ-ling; Phương Tây
+IA;;Ngôn ngữ lẫn nhau In-tơ-lin-gua (Liên Hiệp Ngôn Ngữ Bổ Trợ Quốc Tế)
+ID;;Tiếng Nam Dương
+IK;;Tiếng In-u-pi-ac
+IT;;Tiếng Ý
+JV;;Tiếng Gia-va
+JA;;Tiếng Nhật
+KL;;Tiếng Đảo Băng
+KN;;Tiếng Kan-na-đa
+KS;;Tiếng Ca-s-mi-ri
+KR;;Tiếng Ca-nu-ri
+KK;;Tiếng Ca-xakh
+KM;;Tiếng Khơ-me miền Trung
+KI;;Tiếng Khi-ku-iu
+RW;;Tiếng Kin-ia-ouanh-đa
+KY;;Tiếng Khia-ki-xơ
+KV;;Tiếng Kô-mi
+KG;;Tiếng Kon-gô
+KO;;Tiếng Hàn
+KJ;;Tiếng Kou-an-i-am-a
+KU;;Tiếng Kurd
+LO;;Tiếng Lào
+LA;;Tiếng La-tinh
+LV;;Tiếng Lát-vi-a
+LI;;Tiếng Lim-bua-ga
+LN;;Tiếng Lin-ga-la
+LT;;Tiếng Li-tu-a-ni
+LB;;Tiếng Lục Xâm Bảo
+LU;;Tiếng Lu-ba-Ka-tan-ga
+LG;;Tiếng Gan-đa
+MK;;Tiếng Ma-xê-đô-ni
+MH;;Tiếng Ma-san
+ML;;Tiếng Ma-lay-am
+MI;;Tiếng Mao-ri
+MR;;Tiếng Ma-ra-ti
+MS;;Tiếng Mã lai
+MG;;Tiếng Ma-la-ga-si
+MT;;Tiếng Mantơ
+MO;;Tiếng Mon-đa-vi
+MN;;Tiếng Mông Cổ
+NA;;Tiếng Nau-ru
+NV;;Tiếng Na-va-hô
+NR;;Tiếng Nam N-đe-be-lê
+ND;;Tiếng Bắc N-đe-be-lê
+NG;;Tiếng N-đon-ga
+NE;;Tiếng Nê-pan
+NN;;Tiếng Na Uy (Ni-noa-x-kh)
+NB;;Na Uy (Bóc-man)
+NO;;Tiếng Na Uy
+NY;;Tiếng Chi-che-oua
+OC;;Tiếng Oc-xi-tan (từ năm 1500)
+OJ;;Tiếng O-gip-oua
+OR;;Tiếng O-ri-a
+OM;;Tiếng O-ro-mô
+OS;;Tiếng O-set
+PA;;Tiếng Pun-gia-bi
+FA;;Tiếng Ba Tư
+PI;;Tiếng Pa-li
+PL;;Tiếng Ba Lan
+PT;;Tiếng Bồ Đào Nha
+PS;;Tiếng Pu-s-tô
+QU;;Tiếng Cue-chu-a
+RM;;Tiếng Gip-xi (Romansh)
+RO;;Tiếng Lỗ Má Ni
+RN;;Tiếng Run-đi
+RU;;Tiếng Nga
+SG;;Tiếng Xan-gô
+SA;;Tiếng Phạn
+SI;;Tiếng Xin-ha-la
+SK;;Tiếng Xlô-vác
+SL;;Tiếng Xlô-ven
+SE;;Tiếng Bắc Xa-mi
+SM;;Tiếng Xa-mô-a
+SN;;Tiếng Sô-na
+SD;;Tiếng Xin-đi
+SO;;Tiếng Xô-ma-li
+ST;;Tiếng Nam Xo-tô
+ES;;Tiếng Tây Ban Nhà kiểu Cax-ti-le
+SC;;Tiếng Xă-đi-ni-a
+SR;;Tiếng Xéc bi
+SS;;Tiếng Xoua-thi
+SU;;Tiếng Xunh-đan
+SW;;Tiếng Xoua-hi-li
+SV;;Tiếng Thuỵ Điển
+TY;;Tiếng Ta-hi-ti
+TA;;Tiếng Ta-min
+TT;;Tiếng Tác-ta
+TE;;Tiếng Te-lu-gu
+TG;;Tiếng Ta-gíc
+TL;;Tiếng Ta-ga-lọc
+TH;;Tiếng Thái
+BO;;Tiếng Tây Tạng
+TI;;Tiếng Thi-gơ-rin-ya
+TO;;Tiếng Ton-ga (Quần đảo Ton-ga)
+TN;;Tiếng T-xoua-na
+TS;;Tiếng T-xong-ga
+TK;;Tiếng Thổ-kh-men
+TR;;Tiếng Thổ Nhĩ Kỳ
+TW;;Tiếng Toui
+UG;;Tiếng Ui-gua
+UK;;Tiếng U-cợ-rainh
+UR;;Tiếng Ua-đu
+UZ;;Tiếng U-x-bếkh
+VE;;Tiếng Ven-đa
+VI;;Tiếng Việt
+VO;;Tiếng Vo-la-puk
+CY;;Tiếng Oue-l-s
+WA;;Tiếng Oua-lunh
+WO;;Tiếng Ou-o-lo-v
+XH;;Tiếng X-hô-xa
+YI;;Tiếng Y-đit
+YO;;Tiếng Yo-ru-ba
+ZA;;Tiếng Xuang; Tiếng Chuang
+ZU;;Tiếng Xu-lu

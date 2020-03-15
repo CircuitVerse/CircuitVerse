@@ -1,0 +1,65 @@
+---
+IS:
+  continent: Europe
+  address_format: |-
+    {{recipient}}
+    {{street}}
+    {{postalcode}} {{city}}
+    {{country}}
+  alpha2: IS
+  alpha3: ISL
+  country_code: '354'
+  international_prefix: '00'
+  ioc: ISL
+  gec: IC
+  name: Iceland
+  national_destination_code_lengths:
+  - 2
+  national_number_lengths:
+  - 7
+  - 8
+  - 9
+  national_prefix: '0'
+  number: '352'
+  region: Europe
+  subregion: Northern Europe
+  world_region: EMEA
+  un_locode: IS
+  nationality: Icelander
+  eea_member: true
+  vat_rates:
+    standard: 24
+    reduced:
+      - 11
+    super_reduced: 
+    parking: 
+  postal_code: true
+  unofficial_names:
+  - Iceland
+  - Island
+  - Islande
+  - Islandia
+  - アイスランド
+  - IJsland
+  languages_official:
+  - is
+  languages_spoken:
+  - is
+  geo:
+    latitude: 64.963051
+    latitude_dec: '64.9285659790039'
+    longitude: -19.020835
+    longitude_dec: "-18.961700439453125"
+    max_latitude: 67.2466
+    max_longitude: -12.2388001
+    min_latitude: 62.4819
+    min_longitude: -26.2572998
+    bounds:
+      northeast:
+        lat: 67.2466
+        lng: -12.2388001
+      southwest:
+        lat: 62.4819
+        lng: -26.2572998
+  currency_code: ISK
+  start_of_week: monday

@@ -1,0 +1,47 @@
+---
+AO:
+  continent: Africa
+  alpha2: AO
+  alpha3: AGO
+  country_code: '244'
+  international_prefix: '00'
+  ioc: ANG
+  gec: AO
+  name: Angola
+  national_destination_code_lengths:
+  - 2
+  national_number_lengths:
+  - 9
+  national_prefix: '0'
+  number: '024'
+  region: Africa
+  subregion: Middle Africa
+  world_region: EMEA
+  un_locode: AO
+  nationality: Angolan
+  postal_code: false
+  unofficial_names:
+  - Angola
+  - アンゴラ
+  languages_official:
+  - pt
+  languages_spoken:
+  - pt
+  geo:
+    latitude: 47.516231
+    latitude_dec: "-12.333555221557617"
+    longitude: 14.550072
+    longitude_dec: '17.539464950561523'
+    max_latitude: 49.0206081
+    max_longitude: 17.1606861
+    min_latitude: 46.37233579999999
+    min_longitude: 9.530783399999999
+    bounds:
+      northeast:
+        lat: 49.0206081
+        lng: 17.1606861
+      southwest:
+        lat: 46.37233579999999
+        lng: 9.530783399999999
+  currency_code: AOA
+  start_of_week: monday

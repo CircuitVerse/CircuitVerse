@@ -1,0 +1,47 @@
+---
+TG:
+  continent: Africa
+  alpha2: TG
+  alpha3: TGO
+  country_code: '228'
+  international_prefix: '00'
+  ioc: TOG
+  gec: TO
+  name: Togo
+  national_destination_code_lengths:
+  - 2
+  national_number_lengths:
+  - 7
+  national_prefix: None
+  number: '768'
+  region: Africa
+  subregion: Western Africa
+  world_region: EMEA
+  un_locode: TG
+  nationality: Togolese
+  postal_code: true
+  unofficial_names:
+  - Togo
+  - トーゴ
+  languages_official:
+  - fr
+  languages_spoken:
+  - fr
+  geo:
+    latitude: 8.619543
+    latitude_dec: '8.513226509094238'
+    longitude: 0.824782
+    longitude_dec: '0.9800975322723389'
+    max_latitude: 11.1404963
+    max_longitude: 1.8088218
+    min_latitude: 6.0812
+    min_longitude: -0.144042
+    bounds:
+      northeast:
+        lat: 11.1404963
+        lng: 1.8088218
+      southwest:
+        lat: 6.0812
+        lng: -0.144042
+  currency_code: XOF
+  start_of_week: monday

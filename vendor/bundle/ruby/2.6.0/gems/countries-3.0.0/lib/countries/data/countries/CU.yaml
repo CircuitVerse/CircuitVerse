@@ -1,0 +1,48 @@
+---
+CU:
+  continent: North America
+  alpha2: CU
+  alpha3: CUB
+  country_code: '53'
+  international_prefix: '119'
+  ioc: CUB
+  gec: CU
+  name: Cuba
+  national_destination_code_lengths:
+  - 2
+  national_number_lengths:
+  - 8
+  national_prefix: '0'
+  number: '192'
+  region: Americas
+  subregion: Caribbean
+  world_region: AMER
+  un_locode: CU
+  nationality: Cuban
+  postal_code: true
+  unofficial_names:
+  - Cuba
+  - Kuba
+  - キューバ
+  languages_official:
+  - es
+  languages_spoken:
+  - es
+  geo:
+    latitude: 21.521757
+    latitude_dec: '22.066335678100586'
+    longitude: -77.781167
+    longitude_dec: "-79.4531478881836"
+    max_latitude: 23.3776001
+    max_longitude: -73.9545
+    min_latitude: 19.6529001
+    min_longitude: -85.1715001
+    bounds:
+      northeast:
+        lat: 23.3776001
+        lng: -73.9545
+      southwest:
+        lat: 19.6529001
+        lng: -85.1715001
+  currency_code: CUP
+  start_of_week: monday

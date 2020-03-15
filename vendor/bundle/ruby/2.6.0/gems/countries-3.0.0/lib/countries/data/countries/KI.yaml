@@ -1,0 +1,47 @@
+---
+KI:
+  continent: Australia
+  alpha2: KI
+  alpha3: KIR
+  country_code: '686'
+  international_prefix: '00'
+  ioc: KIR
+  gec: KR
+  name: Kiribati
+  national_destination_code_lengths:
+  - 2
+  national_number_lengths:
+  - 5
+  national_prefix: None
+  number: '296'
+  region: Oceania
+  subregion: Micronesia
+  world_region: APAC
+  un_locode: KI
+  nationality: I-Kiribati
+  postal_code: false
+  unofficial_names:
+  - Kiribati
+  - キリバス
+  languages_official:
+  - en
+  languages_spoken:
+  - en
+  geo:
+    latitude: 1.8708833
+    latitude_dec: '1.842833161354065'
+    longitude: -157.3630262
+    longitude_dec: "-157.6758270263672"
+    max_latitude: 5.4082108
+    max_longitude: -144.2285156
+    min_latitude: -14.0939572
+    min_longitude: 168.8818359
+    bounds:
+      northeast:
+        lat: 5.4082108
+        lng: -144.2285156
+      southwest:
+        lat: -14.0939572
+        lng: 168.8818359
+  currency_code: AUD
+  start_of_week: monday

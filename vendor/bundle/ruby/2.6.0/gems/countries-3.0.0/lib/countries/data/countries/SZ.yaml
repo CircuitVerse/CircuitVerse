@@ -1,0 +1,51 @@
+---
+SZ:
+  continent: Africa
+  alpha2: SZ
+  alpha3: SWZ
+  country_code: '268'
+  international_prefix: '00'
+  ioc: SWZ
+  gec: WZ
+  name: Swaziland
+  national_destination_code_lengths:
+  - 2
+  national_number_lengths:
+  - 7
+  national_prefix: None
+  number: '748'
+  region: Africa
+  subregion: Southern Africa
+  world_region: EMEA
+  un_locode: SZ
+  nationality: Swazi
+  postal_code: true
+  unofficial_names:
+  - Swaziland
+  - Swasiland
+  - Suazilandia
+  - スワジランド
+  languages_official:
+  - en
+  - ss
+  languages_spoken:
+  - en
+  - ss
+  geo:
+    latitude: -26.522503
+    latitude_dec: "-26.565134048461914"
+    longitude: 31.465866
+    longitude_dec: '31.49811363220215'
+    max_latitude: -25.71792
+    max_longitude: 32.1349067
+    min_latitude: -27.317402
+    min_longitude: 30.79064
+    bounds:
+      northeast:
+        lat: -25.71792
+        lng: 32.1349067
+      southwest:
+        lat: -27.317402
+        lng: 30.79064
+  currency_code: SZL
+  start_of_week: monday
