@@ -114,12 +114,12 @@ Rails.application.routes.draw do
   # get 'comments/create_reply/:id', to: 'comments#create_reply', as: 'reply_comment'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  scope '/api' do
-    scope '/v0' do
+  namespace :api do
+    namespace :v0 do
       scope '/projects' do
-        get '/' => 'api_projects#index'
+        get '/', to: 'projects#index'
         scope '/:id' do
-          get '/' => 'api_projects#show'
+          get '/', to: 'projects#show'
         end
       end
     end
