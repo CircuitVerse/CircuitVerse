@@ -83,6 +83,7 @@ gem 'meta-tags'
 gem 'activity_notification'
 gem 'serviceworker-rails'
 gem 'webpush'
+gem 'fast_jsonapi'
 
 gem 'webpacker', '~> 4.x'
 
