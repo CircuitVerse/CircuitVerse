@@ -29,19 +29,21 @@
     </div>
   <% end %>
 
-  <div class ="row">
-    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+
+  <div class ="d-flex flex-column align-items-center flex-md-row justify-content-md-between align-items-md-center">
+    <div class="d-flex flex-row justify-content-center align-items-center">
       <%= image_tag @user.profile_picture.url(:medium, alt: "@user.name"), style: "width: 100px; height: 100px; border: 0px; margin: 10px; object-fit: cover; border-radius: 50%;" %>
-      <h1 class="username"><%= @user.name %></h1>
+      <h2 class="p-4"><%= @user.name %></h2>
+      
     </div>
-    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-      <a class="btn btn-about btn-favourite" href="<%= user_favourites_path(@user) %>">View Favourites</a>
+    <div class="">
+      <a class="btn btn-about my-4 my-md-0" href="<%= user_favourites_path(@user) %>">View Favourites</a>
     </div>
   </div>
 
   <% if @user.projects.blank? %>
-    <div class ="noprojects">
-      <h5>You dont have any projects. Create one <%= link_to 'here', simulator_new_url %></h5>
+    <div class ="no-projects px-4">
+      <h5>You don't have any projects. Create one <%= link_to 'here', simulator_new_url, class: 'no-projects-here' %></h5>
     </div>
   <% end %>
 
