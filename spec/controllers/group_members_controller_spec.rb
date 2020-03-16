@@ -14,7 +14,8 @@ describe GroupMembersController, type: :request do
         group_member: {
           group_id: @group.id,
           emails: "#{@already_present.email}
-           #{FactoryBot.create(:user).email} #{Faker::Internet.email}"
+           #{FactoryBot.create(:user).email} #{Faker::Internet.email}
+           #{@mentor.email}"
         }
       }
     }
@@ -26,7 +27,8 @@ describe GroupMembersController, type: :request do
     end
 
     context "mentor is logged in" do
-      it "creates members that are not present and pending invitations for others" do
+      it "creates members that are not present, pending invitations for others" + \
+       "and mentor should not be able to add himself as member" do
         expect {
           post group_members_path, params: create_params
         }.to change { GroupMember.count }.by(1)
