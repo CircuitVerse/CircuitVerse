@@ -8,5 +8,4 @@ class AssignmentMailerPreview < ActionMailer::Preview
   def update_assignment_email
     AssignmentMailer.update_assignment_email(User.first, Assignment.first)
   end
-
 end

@@ -22,5 +22,4 @@ class UserMailerPreview < ActionMailer::Preview
   def forked_project_email
     UserMailer.forked_project_email(User.first, Project.first, Project.second)
   end
-
 end
