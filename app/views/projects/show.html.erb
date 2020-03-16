@@ -41,14 +41,14 @@
           <%= @project.name %>
         </div>
       <div style="text-align:right">
-        <span class="badge badge-secondary noSelect font-weight-normal" style="margin:5px;display:inline;">
+        <span class="badge badge-secondary no-select font-weight-normal" style="margin:5px;display:inline;">
           <i class="fa fa-star" aria-hidden="true">&ensp;</i>
-          <r id="star_count" style="font-size:12px" class="noSelect"><%= @project.stars.count %></r>
+          <r id="star_count" style="font-size:12px" class="no-select"><%= @project.stars.count %></r>
           &nbsp;Stars
         </span>
-        <span class="badge badge-secondary noSelect font-weight-normal" style="margin:5px;display:inline">
+        <span class="badge badge-secondary no-select font-weight-normal" style="margin:5px;display:inline">
           <i class="fa fa-eye" aria-hidden="true">&ensp;</i>
-          <r id="star_count" style="font-size:12px" class="noSelect"><%= @project.view %></r>
+          <r id="star_count" style="font-size:12px" class="no-select"><%= @project.view %></r>
           &nbsp;Views
         </span>
       </div>
@@ -81,9 +81,9 @@
               <hr>
               <a href="<%= simulator_edit_path(@project) %>" class="card-link btn btn-primary btn-post fa-post" target="_blank">Launch simulator</a>
               <% if user_signed_in? %>
-                <i id="toggleStarButton" class="fa fa-star-o btn btn-primary fa-post btn-post noSelect" aria-hidden="true" style="font-size:13px;margin:0px;" style=<%= Star.find_by(user_id: current_user.id, project_id: @project.id).nil? ? "color:white" : "color:orange" %> onclick="toggleStar()"></i>
+                <i id="toggleStarButton" class="fa fa-star-o btn btn-primary fa-post btn-post no-select" aria-hidden="true" style="font-size:13px;margin:0px;" style=<%= Star.find_by(user_id: current_user.id, project_id: @project.id).nil? ? "color:white" : "color:orange" %> onclick="toggleStar()"></i>
               <% else %>
-                <i class="fa fa-star-o btn btn-primary fa-post btn-post noSelect" aria-hidden="true" style="color:orange"></i>
+                <i class="fa fa-star-o btn btn-primary fa-post btn-post no-select" aria-hidden="true" style="color:orange"></i>
               <% end %>
             <% end %>
             <% if policy(@project).author_access? %>
@@ -128,9 +128,9 @@
         <% end %>
         <% if !policy(@project).user_access? %>
           <% if user_signed_in? %>
-            <i id="toggleStarButton" class="fa fa-star-o btn btn-primary fa-post btn-post noSelect" aria-hidden="true" style="font-size:13px;margin:0px;" style=<%= Star.find_by(user_id: current_user.id, project_id: @project.id).nil? ? "color:white" : "color:orange" %> onclick="toggleStar()"></i>
+            <i id="toggleStarButton" class="fa fa-star-o btn btn-primary fa-post btn-post no-select" aria-hidden="true" style="font-size:13px;margin:0px;" style=<%= Star.find_by(user_id: current_user.id, project_id: @project.id).nil? ? "color:white" : "color:orange" %> onclick="toggleStar()"></i>
           <% else %>
-            <i class="fa fa-star-o btn btn-primary fa-post btn-post noSelect" aria-hidden="true"></i>
+            <i class="fa fa-star-o btn btn-primary fa-post btn-post no-select" aria-hidden="true"></i>
           <% end %>
         <% end %>
         <%= link_to 'Back', user_path(@author), class: "btn underline text-success", style: "margin:0px;" %>
