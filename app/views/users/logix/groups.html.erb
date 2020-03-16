@@ -37,12 +37,11 @@
   <% if @user.groups.count!=0 %>
     <h4 class="heading-group">GROUPS YOU'RE IN: </h4>
     <div class="row">
-      <% @groups_mentored.each do |group| %>
+      <% @user.groups.each do |group| %>
         <div class="col-lg-4 col-md-6 col-xs-12">
           <div class="card-group in-card-group">
             <div class="in-card-name-member">
               <div class="group-name"><%= group.name %></div>
-              <div class="group-member-count"> Total Members: <%= group.group_member_count %></div>
             </div>
             <%= link_to 'View', group, class: "in-card-view" %>
           </div>

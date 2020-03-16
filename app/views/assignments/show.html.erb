@@ -20,13 +20,13 @@
       <% end %>
       <% if policy(@assignment).admin_access? && @assignment.status!="closed" %>
         <%= link_to edit_group_assignment_path(@group, @assignment), class: "btn btn-edit btn-assignment-show" do %>
-          <%= image_tag("/assets/SVGs/edit.svg", alt: "Edit", height: "15", width: "30") %> Edit
+          <%= image_tag("SVGs/edit.svg", alt: "Edit", height: "15", width: "30") %> Edit
         <% end %>
       <% end %>
-      <%= link_to 'Back', group_path(@group), class: "a-homepage" %>
       <% if policy(@assignment).can_be_graded? %>
         <%= link_to 'Export', grades_to_csv_path(@assignment, format: "csv"), class: "a-homepage" %>
       <% end %>
+      <%= link_to 'Back', group_path(@group), class: "a-homepage" %>
     </div>
     <hr>
   </div>

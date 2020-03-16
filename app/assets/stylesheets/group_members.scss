@@ -4,70 +4,52 @@
 .card-member {
   background-color: $gray-100;
   border: 1px solid $green-border;
-  margin: 2px;
-  max-width: 18rem;
+  border-radius: 2px;
+  margin-top: 8px;
+  padding: 18px 14px;
 }
 
 .group-name-editlink {
   background-color: $teal;
-  border: 0;
   border-radius: 5px;
   color: $white;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 18px;
   left: 4px;
   padding: 8px;
   position: relative;
   top: -7px;
 
   &:hover {
-    border: 0;
-    border-radius: 5px;
     color: $white;
-    cursor: pointer;
-    font-size: 16px;
-    left: 4px;
-    position: relative;
     text-decoration: none;
-    top: -7px;
-    }
+  }
 }
 
 .add-member {
   background-color: $green;
   border: 0;
-  border-radius: 15px;
+  border-radius: 25px;
   color: $white;
   cursor: pointer;
-  font-size: 16px;
-  padding-bottom: 12px;
-  padding-left: 34px;
-  padding-right: 34px;
-  padding-top: 12px;
+  font-size: 18px;
+  padding: 12px 34px;
 
   &:hover {
-    border: 0;
-    border-radius: 15px;
     color: $white;
-    cursor: pointer;
-    font-size: 16px;
     text-decoration: none;
   }
 }
 
 .assignment-view {
   background-color: $green;
-  border: 0;
   border-radius: 5px;
   color: $white;
   cursor: pointer;
   float: left;
   font-size: 16px;
   margin: 5px;
-  padding-bottom: 2px;
-  padding-left: 12px;
-  padding-right: 12px;
-  padding-top: 2px;
+  padding: 2px 12px;
   text-decoration: 0;
 
   &:hover {
@@ -78,18 +60,14 @@
 
 .assignment-edit-reopen {
   background-color: $mint-green;
-  border: 0;
   border-radius: 5px;
   color: $white;
   cursor: pointer;
   float: left;
   font-size: 16px;
   margin: 5px;
-  padding-bottom: 2px;
-  padding-left: 12px;
-  padding-right: 12px;
-  padding-top: 2px;
-  text-decoration: 0;
+  padding: 2px 12px;
+  text-decoration: none;
 
   &:hover {
     color: $white;
@@ -97,21 +75,16 @@
   }
 }
 
-
 .assignment-delete {
   background-color: $red;
-  border: 0;
   border-radius: 5px;
   color: $white;
   cursor: pointer;
   float: left;
   font-size: 16px;
   margin: 5px;
-  padding-bottom: 2px;
-  padding-left: 12px;
-  padding-right: 12px;
-  padding-top: 2px;
-  text-decoration: 0;
+  padding: 2px 12px;
+  text-decoration: none;
 
   &:hover {
     color: $white;
@@ -121,30 +94,34 @@
 
 .card-member-name {
   color: $black;
-  font-size: 18px;
+  font-size: 20px;
+  max-width: 175px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   &:hover {
     color: $black;
-    font-size: 18px;
     text-decoration: none;
   }
+}
+
+.card-member-email {
+  color: $black;
+  font-size: 18px;
+  letter-spacing: 1px;
+  margin-top: 2px;
+  max-width: 175px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .card-member-remove {
   background-color: $red;
-  border: 0;
-  border-radius: 5px;
-  color: $white;
+  border-radius: 4px;
   cursor: pointer;
-  float: right;
-  font-size: 16px;
+  font-size: 15px;
   overflow: hidden;
-  padding-bottom: 2px;
-  padding-left: 12px;
-  padding-right: 12px;
-  padding-top: 2px;
-  position: relative;
-  text-decoration: 0;
+  padding: 2px 5px;
 
   &:hover {
     color: $white;
@@ -152,40 +129,42 @@
   }
 }
 
-.group-discription-back {
-  border: 0;
-  border-radius: 15px;
+.group-description-back {
+  border-radius: 25px;
   color: $white;
   cursor: pointer;
+  display: block;
+  float: left;
   font-size: 16px;
-  padding-bottom: 12px;
-  padding-left: 34px;
-  padding-right: 34px;
-  padding-top: 12px;
+  padding: 12px 34px;
   text-align: center;
-  text-decoration: 0;
+  text-decoration: none;
 
   &:hover {
-    border: 0;
-    border-radius: 15px;
     color: $white;
-    cursor: pointer;
-    font-size: 16px;
-    padding-bottom: 12px;
-    padding-left: 34px;
-    padding-right: 34px;
-    padding-top: 12px;
-    text-align: center;
     text-decoration: none;
   }
 }
 
 .assignment-table {
   border-collapse: collapse;
-  border-spacing: 0 1em;
 }
 
 .assignment-rows {
   background-color: $gray-100;
-  border-color: solid $green-border;
+  border: 1px solid $green-border;
+}
+
+.add-member-heading {
+  display: inline;
+}
+
+.auto-scroll-members {
+  max-height: 525px;
+  overflow-y: auto;
+}
+
+.scroll-members-card {
+  max-height: 125px;
+  overflow-y: scroll;
 }
