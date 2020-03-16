@@ -14,10 +14,13 @@
   display: none;
 }
 
-.noprojects {
-  left: 30%;
-  position: absolute;
-  top: 30%;
+.no-projects {
+  padding-top: 20px;
+  text-align: center;
+}
+
+.no-projects-here {
+  color: $primary;
 }
 
 .simulator {
