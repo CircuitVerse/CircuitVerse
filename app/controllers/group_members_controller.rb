@@ -37,6 +37,9 @@ class GroupMembersController < ApplicationController
     present_members = User.where(id: @group.group_members.pluck(:user_id)).pluck(:email)
     newly_added = group_member_emails - present_members
 
+    # Keeps track if the parsed emails contains the mentor's email..
+    is_group_mentor = false
+
     newly_added.each do |email|
       email = email.strip
       user = User.find_by(email: email)
@@ -45,7 +48,7 @@ class GroupMembersController < ApplicationController
         # @group.pending_invitations.create(email:email)
       else
         if @group.mentor_id.eql? user.id
-          
+          is_group_mentor = true
         else
           GroupMember.where(group_id:@group.id,user_id:user.id).first_or_create
           # group_member = @group.group_members.new
@@ -58,9 +61,10 @@ class GroupMembersController < ApplicationController
     end
 
     notice = Utils.mail_notice(group_member_params[:emails], group_member_emails, newly_added)
+    notice += (is_group_mentor ? " Mentor cannot be added as a member to the same group" : "")
 
     respond_to do |format|
-      format.html { redirect_to group_path(@group), notice: Utils.mail_notice(group_member_params[:emails], group_member_emails, newly_added)
+      format.html { redirect_to group_path(@group), notice: notice
 }
     end
     # redirect_to group_path(@group)
