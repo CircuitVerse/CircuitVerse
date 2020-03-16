@@ -290,7 +290,16 @@ function startListeners() {
         } else {
             e.clipboardData.setData('text/plain', textToPutOnClipboard);
         }
+        // since the 'textToPutOnClipboard' variable is a string, we need to
+        // parse it as a JSON
+        const clipboardDataObject = JSON.parse(textToPutOnClipboard);
+        const objectKeys = Object.keys(clipboardDataObject);
 
+        // the id of the element to be copied would be the key after the key
+        // 'name'
+        const elementId = objectKeys[objectKeys.indexOf('name') + 1]
+        const obj = new window[elementId]();
+        simulationArea.lastSelected = obj;
     });
 
     document.addEventListener('paste', function(e) {
