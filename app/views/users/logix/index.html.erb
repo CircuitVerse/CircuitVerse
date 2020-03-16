@@ -29,14 +29,17 @@
     </div>
   <% end %>
 
-  <div class ="row">
-    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-      <%= image_tag @user.profile_picture.url(:medium, alt: "@user.name"), style: "width: 100px; height: 100px; border: 0px; margin: 10px;" %>
-      <h1 class="username"><%= @user.name %></h1>
+  <div class ="row mt-4">
+    <div class="col-sm-12">
+      <%= image_tag @user.profile_picture.url(:medium, alt: "@user.name"), style: "width: 100px;height: 100px;border: 0px;margin: 10px;border-radius: 50%;"  %>
     </div>
-    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-      <a class="btn btn-about btn-favourite" href="<%= user_favourites_path(@user) %>">View Favourites</a>
+  </div>
+
+  <div class="row justify-content-center mt-2 mb-4">
+    <div class=" col-sm-12">
+      <h3 class="mb-2"><%= @user.name %></h3>
     </div>
+    <a class="btn btn-about btn-favourite  m-2" href="<%= user_favourites_path(@user) %>">View Favourites</a>
   </div>
 
   <% if @user.projects.blank? %>
