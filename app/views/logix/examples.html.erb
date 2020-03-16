@@ -8,7 +8,7 @@
     </div>
   </div>
   <div class="row row-examplepage justify-content-around mx-auto text-center mb-3">
-    <div class="col-xs col-sm col-md col-lg mt-3">
+    <div class="col-xs col-sm col-md col-lg my-5">
       <a type="button" class="btn btn-examplepage my-3" href="#">Example Projects</a>
       <a type="button" class="btn btn-examplepage-light mx-4" data-toggle="modal" data-target="#popup">Top Users</a>
       <div class="modal fade" id="popup" role="dialog">
@@ -51,7 +51,7 @@
               <%= image_tag hash[:img], alt: hash[:name], class: "card-img-top card-img-examplepage-example" %>
               <div class="card-footer card-footer-examplepage-example">
                 <p class="examplepage-example-p d-inline-block float-left mt-2 overflow-hidden text-left text-truncate"><%= hash[:name] %></p>
-                <button type="button" class="btn btn-about examplepage-example-button float-right mb-3" onclick="window.location.href = 'https://circuitverse.org/users/3/projects/<%= hash[:linkno] %>';">View</button>
+                <button type="button" class="btn btn-about examplepage-example-button float-right mb-3" onclick="window.location.href = 'https://circuitverse.org/<%= hash[:id] %>';">View</button>
               </div>
             </div>
           </div>
