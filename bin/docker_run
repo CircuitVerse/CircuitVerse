@@ -1,5 +1,17 @@
 #!/bin/bash
 
+# Remove default old version of cmdtest/yarn
+apt uninstall cmdtest
+
+# Install new version of yarn
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+apt update
+apt install -y yarn
+
+# Install yarn packages
+yarn
+
 echo "Waiting for db to be available"
 for i in $(seq 1 30) ; do timeout 1 bash -c "echo > /dev/tcp/db/5432" > /dev/null 2>&1 && status=0 && break || status=$? && sleep 1 ; done
 
@@ -18,5 +30,5 @@ bundle exec rails db:seed
 
 rm -f /circuitverse/tmp/pids/server.pid
 
-echo "Starting on 127.0.0.1:3000"
+echo "Starting on 0.0.0.0:3000"
 bundle exec rails s -p 3000 -b '0.0.0.0'
