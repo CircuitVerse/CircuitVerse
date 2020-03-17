@@ -139,7 +139,7 @@ function showProperties(obj) {
     hideProperties();
 
     prevPropertyObj = obj;
-    if (simulationArea.lastSelected === undefined || simulationArea.lastSelected.objectType == "Wire" || simulationArea.lastSelected.objectType == "CircuitElement" || simulationArea.lastSelected.objectType == "Node") {
+    if (simulationArea.lastSelected === undefined || ["Wire", "CircuitElement", "Node"].indexOf(simulationArea.lastSelected.objectType) !== -1) {
         $('#moduleProperty').show();
         $('#moduleProperty-inner').append("<div id='moduleProperty-header'>" + "Project Properties" + "</div>");
         $('#moduleProperty-inner').append("<p>Project : <input class='objectPropertyAttribute' type='text'  name='setProjectName'  value='" + (projectName || "Untitled") + "'></p>");
