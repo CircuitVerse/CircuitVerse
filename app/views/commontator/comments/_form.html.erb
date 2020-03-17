@@ -45,7 +45,7 @@
       <%= f.text_area :body, rows: '7' , placeholder: "Write a comment..." , class: "comment-body" %>
       <%= javascript_tag('Commontator.initMentions()') if Commontator.mentions_enabled %>
     </div>
-    <div class="col-1" style="padding-right:0;">
+    <div class="col-12 col-lg-1" style="padding-right:0;">
       <%= f.submit t("commontator.comment.actions.#{comment.id.blank? ? 'create' : 'update'}") , value: "Send" , class:"btn btn-primary btn-post fa-post" , style: "margin:0;font-size: 15px;height:28px;" %>
     </div>
   </div>
