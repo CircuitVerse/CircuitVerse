@@ -22,7 +22,7 @@ class LogixController < ApplicationController
   end
 
   def examples
-    @example = [{ name: "Full Adder from 2-Half Adders", id: "users/3/projects/247",
+    @examples = [{ name: "Full Adder from 2-Half Adders", id: "users/3/projects/247",
                   img: "examples/fullAdder_n.png" },
                 { name: "16 Bit ripple carry adder", id: "users/3/projects/248",
                   img: "examples/RippleCarry_n.jpeg" },

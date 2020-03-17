@@ -45,13 +45,13 @@
         </form>
       </div>
       <div class="row row-examplepage-middle mx-auto mt-2 text-center">
-        <% @example.each do |hash| %>
+        <% @examples.each do |example| %>
           <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
             <div class="card card-examplepage-example d-inline-block my-4 rounded-0">
-              <%= image_tag hash[:img], alt: hash[:name], class: "card-img-top card-img-examplepage-example" %>
+              <%= image_tag example[:img], alt: example[:name], class: "card-img-top card-img-examplepage-example" %>
               <div class="card-footer card-footer-examplepage-example">
-                <p class="examplepage-example-p d-inline-block float-left mt-2 overflow-hidden text-left text-truncate"><%= hash[:name] %></p>
-                <button type="button" class="btn btn-about examplepage-example-button float-right mb-3" onclick="window.location.href = 'https://circuitverse.org/<%= hash[:id] %>';">View</button>
+                <p class="examplepage-example-p d-inline-block float-left mt-2 overflow-hidden text-left text-truncate"><%= example[:name] %></p>
+                <button type="button" class="btn btn-about examplepage-example-button float-right mb-3" onclick="window.location.href = 'https://circuitverse.org/<%= example[:id] %>';">View</button>
               </div>
             </div>
           </div>
