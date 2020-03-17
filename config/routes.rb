@@ -122,6 +122,9 @@ Rails.application.routes.draw do
           get '/', to: 'projects#show'
         end
       end
+
+      post '/auth/login', to: 'authentication#login'
+
     end
   end
 
