@@ -611,6 +611,7 @@ input:checked + .slider2:before {
     width: 70px;
     /*margin: 1px;*/
     margin-bottom: 5px;
+    margin-left: 3px;
     display: inline-block;
     background-color: white;
     border-radius: 4px;
