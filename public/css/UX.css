@@ -658,6 +658,7 @@ div.icon img {
 
 .objectPropertyAttributeChecked.btn {
     width: 100%;
+    margin-bottom: 1px;
 }
 
 /* For loading screen - pace.js */
