@@ -22,6 +22,18 @@ class LogixController < ApplicationController
   end
 
   def examples
+    @examples = [{ name: "Full Adder from 2-Half Adders", id: "users/3/projects/247",
+                  img: "examples/fullAdder_n.png" },
+                { name: "16 Bit ripple carry adder", id: "users/3/projects/248",
+                  img: "examples/RippleCarry_n.jpeg" },
+                { name: "Asynchronous Counter", id: "users/3/projects/249",
+                  img: "examples/AsyncCounter_n.jpeg" },
+                { name: "Keyboard", id: "users/3/projects/250",
+                  img: "examples/Keyboard_n.jpeg" },
+                { name: "FlipFlop", id: "users/3/projects/251",
+                  img: "examples/FlipFlop_n.jpeg" },
+                { name: "ALU 74LS181 by Ananth Shreekumar", id: "users/3/projects/252",
+                  img: "examples/ALU_n.png" }]
   end
 
   def features
