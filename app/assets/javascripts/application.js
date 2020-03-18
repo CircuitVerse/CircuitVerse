@@ -19,4 +19,5 @@
 //= require serviceworker-companion
 //= require restrictElements.js
 //= require time.js
+//= require scroll.js
 //= require trumbowyg/dist/trumbowyg.min.js
