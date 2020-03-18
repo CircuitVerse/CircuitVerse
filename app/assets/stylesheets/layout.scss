@@ -46,7 +46,8 @@
 
     &.active {
       a {
-        color: $primary !important;
+        color: $button-border-color !important;
+        font-weight: bold;
       }
     }
   }
@@ -58,7 +59,7 @@
     &::before {
       background-color: $green;
       bottom: -2px;
-      content: '';
+      content: "";
       height: 2px;
       left: 0;
       position: absolute;
