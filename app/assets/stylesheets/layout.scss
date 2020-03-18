@@ -75,7 +75,6 @@
 }
 
 .footer-logo {
-  padding-left: 1em;
   width: 100%;
 }
 
@@ -84,14 +83,10 @@
   width: 32px;
 }
 
-.footer-social {
-  margin-bottom: unset;
-  margin-left: 15px;
-}
 
 .copyright {
   font-size: small;
-  overflow: visible;
+  padding: 2rem 2rem 1rem 2rem;
   white-space: nowrap;
 }
 
@@ -107,4 +102,35 @@
     background-color: $green;
     color: $white;
   }
+}
+
+
+// CSS Grid Footer classes
+.footer{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-auto-rows: auto auto;
+}
+
+.footer-logo-social{
+    padding: 2rem 2rem 1rem 2rem;
+}
+
+.footer-links{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 2rem 2rem 1rem 2rem;
+}
+
+.footer-sponsers{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1rem;
+    font-size: 80%;
+    padding: 2rem 2rem 1rem 2rem;
+
+}
+
+.footer-sponser-img{
+    width: 100%;
 }
