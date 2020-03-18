@@ -81,14 +81,14 @@
           <div class="col-6 assignment-grade-inputs">
             <h4>Grade</h4>
             <% if @assignment.grading_scale == "percent" %>
-              <%= form.number_field :grade,id: "assignment-grade-grade", min: 0, max: 100, placeholder: "Grades...", class: " form-control rounded-0 border-success",style:"width: 100%;height: 40px;" %>
+              <%= form.number_field :grade,id: "assignment-grade-grade", min: 0, max: 100, placeholder: "Grades...", class: "form-control rounded-0 border-success",style:"width: 100%;height: 40px;" %>
             <% elsif @assignment.grading_scale == "letter" || @assignment.grading_scale == "custom" %>
               <%= form.text_field :grade,id: "assignment-grade-grade", placeholder: "Grades...", class: "form-control rounded-0 border-success",style:"width: 100%;height: 40px;" %>
             <% end %>
           </div>
             <div class="col-6">
           <h4>Remarks</h4>
-          <%= form.text_field :remarks,id: "assignment-grade-remarks", placeholder: "Remarks...", class: "rounded-0 border-success",style:"width: 100%;height: 40px;"%>
+          <%= form.text_field :remarks,id: "assignment-grade-remarks", placeholder: "Remarks...", class: "form-control rounded-0 border-success",style:"width: 100%;height: 40px;"%>
         </div>
         </div>
       </div>
@@ -105,6 +105,7 @@
            </div>
         </div>
       </div>
+  </div>
       <div class="row profile-background grade-container">
         <div class="col-4">
           <h4>Grade</h4>
@@ -128,5 +129,4 @@
                 this.innerHTML = formatDate(new Date(this.innerHTML), "dddd hh:mmTT zz, dd MMM yyyy")
             })})
     </script>
-</div>
-</div>
+
