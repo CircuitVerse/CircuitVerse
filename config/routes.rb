@@ -116,6 +116,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v0 do
+      post '/auth/login', to: 'authentication#login'
       scope '/projects' do
         get '/', to: 'projects#index'
         scope '/:id' do
@@ -123,7 +124,7 @@ Rails.application.routes.draw do
         end
       end
 
-      post '/auth/login', to: 'authentication#login'
+      resources :featured_circuits, only: [:index, :show]
 
     end
   end
