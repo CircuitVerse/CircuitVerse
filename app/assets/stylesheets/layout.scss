@@ -1,12 +1,4 @@
 // All the custom class styles
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  padding-top: 90px;
-}
-
 .custom-file-upload {
   background-color: $active-background;
   border: 1px solid $green;
@@ -22,13 +14,10 @@ body {
   display: none;
 }
 
-.no-projects {
-  padding-top: 20px;
-  text-align: center;
-}
-
-.no-projects-here {
-  color: $primary;
+.noprojects {
+  left: 30%;
+  position: absolute;
+  top: 30%;
 }
 
 .simulator {
@@ -46,18 +35,6 @@ body {
 
 .logo-bottom {
   max-height: 80px;
-}
-
-.affix {
-  box-shadow: 0 8px 6px -6px $shadow-grey;
-}
-
-.navbar {
-  background-color: $active-background;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 100;
 }
 
 .navbar-light .navbar-nav {
@@ -98,7 +75,7 @@ body {
 }
 
 .footer-logo {
-  width: 80%;
+  width: 100%;
 }
 
 .footer-social-icon {
@@ -106,14 +83,10 @@ body {
   width: 32px;
 }
 
-.footer-social {
-  margin-bottom: unset;
-  margin-left: 15px;
-}
 
 .copyright {
   font-size: small;
-  overflow: visible;
+  padding: 2rem 2rem 1rem;
   white-space: nowrap;
 }
 
@@ -129,4 +102,35 @@ body {
     background-color: $green;
     color: $white;
   }
+}
+
+
+// CSS Grid Footer classes
+.footer {
+  display: grid;
+  grid-auto-rows: auto auto;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.footer-logo-social {
+  padding: 2rem 2rem 1rem;
+}
+
+.footer-links {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
+  padding: 2rem 2rem 1rem;
+}
+
+.footer-sponsers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
+  font-size: 80%;
+  padding: 2rem 2rem 1rem;
+}
+
+.footer-sponser-img {
+  width: 100%;
 }
