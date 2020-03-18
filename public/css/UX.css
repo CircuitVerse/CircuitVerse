@@ -148,7 +148,7 @@ input[type="radio"]:checked ~ label {
     /*background-image: url("./ui-icons_white_256x240.png");*/
 }
 
-.no-select {
+.noSelect {
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;

@@ -15,7 +15,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-    <ul class="navbar-nav mr-auto no-select pointer-cursor" id="toolbar">
+    <ul class="navbar-nav mr-auto noSelect pointer-cursor" id="toolbar">
       <li class="dropdown">
         <a href="#" class="dropdown-toggle text-light" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Project<span class="caret"></span></a>
         <ul class="dropdown-menu">
@@ -46,10 +46,10 @@
         <a href="https://docs.circuitverse.org" class="text-light" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">Help</a>
       </li>
     </ul>
-    <span class="projectName no-select default-cursor font-weight-bold" id="projectName">
+    <span class="projectName noSelect default-cursor font-weight-bold" id="projectName">
       Untitled
     </span>
-    <ul class="nav navbar-nav no-select pointer-cursor pull-right">
+    <ul class="nav navbar-nav noSelect pointer-cursor pull-right">
       <li class="dropdown pull-right">
         <% if user_signed_in? %>
           <a href="#" class="dropdown-toggle text-light" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %><span class="caret"></span></a>
@@ -70,19 +70,19 @@
 </nav>
   <div>
     <div class="side left" id="sideBar" style="overflow-y: scroll;overflow-x: hidden">
-      <div class="modules no-select default-cursor">
+      <div class="modules noSelect default-cursor">
         <div id="modules-header">Circuit Elements</div>
         <div class="accordion" id="menu">
         </div>
       </div>
       <div class="moduleProperty effect1" id="moduleProperty">
-        <div id="moduleProperty-title" class="no-select pointer-cursor">Properties</div>
+        <div id="moduleProperty-title" class="noSelect pointer-cursor">Properties</div>
         <div id="moduleProperty-inner"></div>
         <!-- <div id="moduleProperty-toolTip"></div> -->
       </div>
     </div>
     <div class="rightPanel">
-      <div id="tabsBar" class="no-select pointer-cursor">
+      <div id="tabsBar" class="noSelect pointer-cursor">
         <!-- <div> Circuits: </div> -->
       </div>
       <div class="simulation" id="simulation">
