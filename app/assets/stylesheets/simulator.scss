@@ -8,3 +8,10 @@
 .moduleProperty input {
   color: #fff;
 }
+
+#sideBar {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  min-width: 250px;
+  max-width: 350px;
+}
