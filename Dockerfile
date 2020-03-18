@@ -15,6 +15,8 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x | bash \
 
 COPY Gemfile /circuitverse/Gemfile
 COPY Gemfile.lock /circuitverse/Gemfile.lock
+COPY package.json /circuitverse/package.json
+COPY yarn.lock /circuitverse/yarn.lock
 
 RUN gem install bundler
 RUN bundle install  --without production
