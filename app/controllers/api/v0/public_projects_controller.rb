@@ -1,7 +1,7 @@
 module Api
   module V0
 
-    class ProjectsController < ApplicationController
+    class PublicProjectsController < ApplicationController
 
       def index
         @projects = Project.where(project_access_type: "Public")
