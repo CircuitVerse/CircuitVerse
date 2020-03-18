@@ -22,13 +22,13 @@
 
 .simulator {
   border: 2px solid $green;
+  color: #343a40;
   font-weight: 500;
-  &:hover {
-    color: $color-hover;
-    background: $active-background;
-  }
 }
-
+.simulator:hover{
+    background: #42b983;
+    color: #fff;
+}
 .logo {
   height: 60px;
 }
