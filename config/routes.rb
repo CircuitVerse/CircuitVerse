@@ -126,6 +126,7 @@ Rails.application.routes.draw do
 
       resources :featured_circuits, only: [:index, :show]
       resources :public_projects, only: [:index, :show]
+      resources :projects
 
     end
   end

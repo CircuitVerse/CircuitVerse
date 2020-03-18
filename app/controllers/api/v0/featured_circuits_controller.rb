@@ -6,6 +6,8 @@ module Api
       before_action :set_project, only:[:show]
       before_action :authorize_request, except: [:index]
 
+      skip_before_action :verify_authenticity_token
+
       def index
         @projects = Project.joins(:featured_circuit)
         render :json => @projects

@@ -19,9 +19,10 @@ module Api
 
       private
 
-      def login_params
-        params.permit(:email, :password)
-      end
+        def login_params
+          params.permit(:email, :password)
+        end
+        
     end
   end
 end

@@ -3,6 +3,8 @@ module Api
 
     class PublicProjectsController < ApplicationController
 
+      skip_before_action :verify_authenticity_token
+
       def index
         @projects = Project.where(project_access_type: "Public")
         render :json => @projects, :include => {:author => {:only => [:name, :email]}}
