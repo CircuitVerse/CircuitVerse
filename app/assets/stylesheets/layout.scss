@@ -118,16 +118,16 @@
 
 .footer-links {
   display: grid;
-  grid-template-columns: 1fr 1fr;
   grid-gap: 1rem;
+  grid-template-columns: 1fr 1fr;
   padding: 2rem 2rem 1rem;
 }
 
 .footer-sponsers {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 1rem;
   font-size: 80%;
+  grid-gap: 1rem;
+  grid-template-columns: 1fr 1fr;
   padding: 2rem 2rem 1rem;
 }
 
