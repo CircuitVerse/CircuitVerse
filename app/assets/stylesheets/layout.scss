@@ -25,9 +25,9 @@
   color: #343a40;
   font-weight: 500;
 }
-.simulator:hover{
-    background: #42b983;
-    color: #fff;
+.simulator:hover {
+  background: $green;
+  color: $active-background;
 }
 .logo {
   height: 60px;
