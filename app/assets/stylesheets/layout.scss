@@ -37,18 +37,16 @@
   max-height: 80px;
 }
 
-.navbar-light .navbar-nav {
-  .nav-item {
-    .nav-link {
-      color: $primary;
-      font-weight: 500;
-    }
+.nav-item {
+  .nav-link {
+    color: $primary;
+    font-weight: 500;
+  }
 
-    &.active {
-      a {
-        color: $button-border-color !important;
-        font-weight: bold;
-      }
+  &.active {
+    a {
+      color: $button-border-color !important;
+      font-weight: bold;
     }
   }
 }
@@ -59,7 +57,7 @@
     &::before {
       background-color: $green;
       bottom: -2px;
-      content: "";
+      content: '';
       height: 2px;
       left: 0;
       position: absolute;
