@@ -119,6 +119,7 @@
                 <%= link_to 'Destroy', group_assignment_path(@group,assignment),class:"assignment-delete", method: :delete, data: { confirm: 'Are you sure?' } %>
               <% else %>
                   <% project_assignment = assignment.projects.find { |p| p.author_id == current_user.id } %>
+                  <%= link_to 'Show', group_assignment_path(@group,assignment), class:"assignment-view" %>
                   <% if(assignment.deadline > Time.now) %>
                       <% if project_assignment.nil? %>
                           <%= link_to 'Start Working', assignment_start_path(@group,assignment), class:"assignment-details" %>
