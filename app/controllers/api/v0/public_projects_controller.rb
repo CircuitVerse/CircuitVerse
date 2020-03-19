@@ -4,16 +4,24 @@ module Api
     class PublicProjectsController < ApplicationController
 
       skip_before_action :verify_authenticity_token
+      before_action :set_options
 
       def index
         @projects = Project.where(project_access_type: "Public")
-        render :json => @projects, :include => {:author => {:only => [:name, :email]}}
+        render :json => ProjectSerializer.new(@projects, @options).serialized_json
       end
 
       def show
         @project = Project.find(params[:id])
-        render :json => @project, :include => {:author => {:only => [:name, :email]}}
+        render :json => ProjectSerializer.new(@project, @options).serialized_json
       end
+
+      private
+
+        def set_options
+          @options = {}
+          @options[:include] = [:author]
+        end
 
     end
 

@@ -152,6 +152,8 @@ GEM
       i18n (>= 1.6, < 1.8)
     faraday (0.17.0)
       multipart-post (>= 1.2, < 3)
+    fast_jsonapi (1.5)
+      activesupport (>= 4.2)
     ffi (1.11.2)
     ffi (1.11.2-x64-mingw32)
     font-awesome-sass (5.12.0)
@@ -509,6 +511,7 @@ DEPENDENCIES
   erb_lint
   factory_bot_rails
   faker
+  fast_jsonapi
   font-awesome-sass (~> 5.12.0)
   geocoder
   hirb

@@ -117,16 +117,13 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v0 do
       post '/auth/login', to: 'authentication#login'
-      # scope '/projects' do
-      #   get '/', to: 'projects#index'
-      #   scope '/:id' do
-      #     get '/', to: 'projects#show'
-      #   end
-      # end
+      get '/user/me', to: 'users#index'
+      post '/user/me', to: 'users#update'
 
       resources :featured_circuits, only: [:index, :show]
       resources :public_projects, only: [:index, :show]
       resources :projects
+
 
     end
   end
