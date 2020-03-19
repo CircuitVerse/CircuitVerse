@@ -35,7 +35,7 @@
 
   <div id="thread_<%= thread.id.to_s %>_comment_list_div" class="thread_comment_list">
     <% comments = show_all ? thread.ordered_comments(true) : \
-                             thread.paginated_comments(page, per_page) %>
+                             thread.paginated_comments(page, per_page, show_all) %>
     <%= render partial: 'commontator/comments/list',
                locals: { comments: comments,
                             user: user } %>
