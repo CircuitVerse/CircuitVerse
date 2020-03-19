@@ -121,15 +121,15 @@
                   <% project_assignment = assignment.projects.find { |p| p.author_id == current_user.id } %>
                   <% if(assignment.deadline > Time.now) %>
                       <% if project_assignment.nil? %>
-                          <%= link_to 'Start Working', assignment_start_path(@group,assignment) %>
+                          <%= link_to 'Start Working', assignment_start_path(@group,assignment), class:"assignment-details" %>
                       <% else %>
-                          <%= link_to 'View your work', user_project_path(current_user,project_assignment) %>
+                          <%= link_to 'View your work', user_project_path(current_user,project_assignment), class:"assignment-details" %>
                       <% end %>
                   <% else %>
                       <% if project_assignment.nil? %>
                           Not submitted!
                       <% else %>
-                          <%= link_to 'View your submission', user_project_path(current_user,project_assignment) %>
+                          <%= link_to 'View Submission', user_project_path(current_user,project_assignment), class:"assignment-details" %>
                       <% end %>
                   <% end %>
             <% end %>
