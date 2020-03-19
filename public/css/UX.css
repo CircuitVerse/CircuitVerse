@@ -1,5 +1,4 @@
-.deleteOff {
-    color: red;
+.deleteOfflineProject {
     float: right;
     cursor: pointer;
     padding: 2px;

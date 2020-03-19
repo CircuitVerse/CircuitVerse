@@ -8,13 +8,15 @@
   background-color: $green;
   border-radius: 36px;
   color: $white;
-  padding: 7px 20px;
+  margin-left: -2px;
+  padding: 6px 19px 9px;
   text-align: center;
 }
 
 .a-homepage {
   color: $teal;
   margin-left: 15px;
+  margin-top: 15px;
   text-decoration: underline;
 }
 
@@ -24,12 +26,15 @@
 }
 
 .btn-homepage2 {
-  border: 2px solid $teal;
+  border: 1.6px solid $teal;
   border-radius: 5px;
+  box-shadow: 0 2px 7px $shadow-black;
   margin: 10px;
 
   &:hover {
-    box-shadow: 0 7px 7px $shadow-black;
+    background-color: $teal;
+    box-shadow: 0 7px 7px $white;
+    color: $white;
   }
 }
 
