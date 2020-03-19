@@ -91,6 +91,7 @@
       <tr>
         <th>Name</th>
         <th>DeadLine</th>
+        <th>Preview</th>
         <th>Grading</th>
         <th>Actions</th>
         <% unless policy(@group).admin_access? %>
@@ -107,10 +108,10 @@
               <p> <strong>Time remaining: </strong><%= (( assignment.deadline.to_i - Time.now.to_i)/1.day) %> days,  <%= (( assignment.deadline.to_i- Time.now.to_i)/1.hour)%24 %> hours, <%= (( assignment.deadline.to_i- Time.now.to_i)/1.minute)%60 %> minutes</p>
               <% end %>
             </td>
+            <td><%= link_to 'Show', group_assignment_path(@group,assignment), class:"assignment-view" %></td>
             <td> <%= AssignmentDecorator.new(assignment).graded %> </td>
             <td>
               <% if policy(@group).admin_access? %>
-                <%= link_to 'Show', group_assignment_path(@group,assignment), class:"assignment-view" %>
                 <% if assignment.status!="closed" %>
                   <%= link_to 'Edit', edit_group_assignment_path(@group,assignment), class:"assignment-edit-reopen" %>
                 <% else %>
