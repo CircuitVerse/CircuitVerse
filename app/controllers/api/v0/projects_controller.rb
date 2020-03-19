@@ -1,10 +1,11 @@
 module Api
   module V0
+    
     class ProjectsController < ApplicationController
       include ActionView::Helpers::SanitizeHelper
 
-      before_action :set_project, only: [:show, :update, :destroy]
-      before_action :authorize_request, only: [:index, :show, :update, :destroy]
+      before_action :set_project, only: [:show, :update, :destroy, :change_stars]
+      before_action :authorize_request, only: [:index, :show, :update, :destroy, :change_stars]
       before_action :check_access , only: [:update, :destroy]
       before_action :check_delete_access , only: [:destroy]
       before_action :check_view_access , only: [:show]
@@ -35,6 +36,22 @@ module Api
       def destroy
         @project.destroy
         render :json => {}, status: :no_content
+      end
+
+      def change_stars
+
+        star = Star.find_by(user_id: @current_user.id, project_id: @project.id)
+        if !star.nil?
+            star.destroy!
+        else
+          @star = Star.new()
+          @star.user_id = @current_user.id
+          @star.project_id = @project.id
+          @star.save!
+        end
+
+        render :json => {}, status: :ok
+
       end
 
       private

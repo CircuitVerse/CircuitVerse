@@ -1,6 +1,8 @@
 module Api
   module V0
+    
     class AuthenticationController < ApplicationController
+
       before_action :authorize_request, except: :login
       skip_before_action :verify_authenticity_token
 
@@ -22,7 +24,8 @@ module Api
         def login_params
           params.permit(:email, :password)
         end
-        
+
     end
+
   end
 end

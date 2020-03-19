@@ -2,19 +2,18 @@ module Api
   module V0
 
     class StarsController < ApplicationController
-      before_action :set_star, only: [:show, :edit, :update, :destroy]
-      before_action :authenticate_user!, only: [:edit, :update, :destroy, :create]
+      before_action :set_star, only: [:destroy]
+      before_action :authenticate_user!, only: [:create, :destroy]
 
       def create
         @star = Star.new(star_params)
-        @star.save
-        render plain: "Star added!"
+        @star.save!
+        render :json => StarSerializer.new(@star).serialized_json
       end
 
       def destroy
-
-        @star.destroy
-        render plain: "Star removed!"
+        @star.destroy!
+        render :json => {}, status: :no_content
       end
 
       private
