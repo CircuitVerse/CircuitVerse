@@ -226,6 +226,14 @@ a.btn.btn-outline-danger {
   text-decoration: none;
 }
 
+.scroll {
+  height: 420px;
+  margin: 4px;
+  overflow-y: auto;
+  padding: 4px;
+  text-align: justify;
+}
+
 .btn-post {
   font-size: 13px;
   height: 28px;
