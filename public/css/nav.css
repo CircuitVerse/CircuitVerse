@@ -1,0 +1,66 @@
+.nav-text{
+    color:white;
+    font-family: 'Fira Sans', sans-serif;
+    text-align: center;
+    position: relative;
+   z-index: 100;
+   transition: all 1s ease-out;
+}
+.nav-text:hover{
+    color:#343a40;
+    text-decoration: none;
+}
+.nav-text:hover::after{
+   transform: scaleY(1);
+    transition: all .3s ease-in-out;
+   
+}
+.brand{
+    font-family: 'Baloo Chettan 2', cursive;;
+}
+.nav-text::after{
+    transform: scaleY(0);
+    content: "";
+    background: white;
+    width: 100%;
+    height: 58px;
+    display: block;
+    position: absolute;
+    top:-13px;
+    margin-left: 6px;
+   z-index: -1;
+   transform-origin: bottom;
+}
+#projectName{
+    color:white;
+    font-family: 'Fira Sans', sans-serif;
+    font-weight: 300;
+}
+#sign{
+    color:whitesmoke;
+    text-transform: uppercase;
+    display: block;
+    
+}
+#sign:hover::after{
+    transform: translateY(3px);
+}
+#sign:hover::before{
+    transform: translateY(-3px);
+}
+#sign::after{
+    content: "";
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: wheat;
+    transition: all .1s ease-in-out;
+}
+#sign::before{
+    content: "";
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: wheat;
+    transition: all .1s ease-in-out;
+}

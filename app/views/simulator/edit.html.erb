@@ -4,20 +4,24 @@
 <!-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384&#45;BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link href="https://fonts.googleapis.com/css?family=Baloo+Chettan+2&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Fira+Sans&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Fira+Sans&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/nav.css">
 <script>
   userSignedIn = <%= user_signed_in? %>;
   logix_project_id = <%= @logix_project_id %>;
   projectName = "<%= @projectName %>"
 </script>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="/">CircuitVerse</a>
+  <a class="navbar-brand brand" href="/">CircuitVerse  &nbsp; &nbsp; |</a>
   <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-controls="collapsedNavbar" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="navbar-nav mr-auto noSelect pointerCursor" id="toolbar">
       <li class="dropdown">
-        <a href="#" class="dropdown-toggle text-light" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Project<span class="caret"></span></a>
+        <a href="#" class="dropdown-toggle nav-text" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Project<span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item logixButton" id="newProject">New Project</a></li>
           <li><a class="dropdown-item logixButton" id="clearProject">Clear Project</a></li>
@@ -28,14 +32,14 @@
         </ul>
       </li>
       <li class="dropdown">
-        <a href="#" class="dropdown-toggle text-light" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Circuit<span class="caret"></span></a>
+        <a href="#" class="dropdown-toggle nav-text" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Circuit<span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item logixButton" id="newCircuit">New Circuit +</a></li>
           <li><a class="dropdown-item logixButton" id="createSubCircuitPrompt">Insert SubCircuit</a></li>
         </ul>
       </li>
       <li class="dropdown">
-        <a href="#" class="dropdown-toggle text-light" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tools<span class="caret"></span></a>
+        <a href="#" class="nav-text" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tools<span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item logixButton" id="createCombinationalAnalysisPrompt">Combinational Analysis</a></li>
           <li><a class="dropdown-item logixButton" id="startPlot">Start Plot</a></li>
@@ -43,7 +47,7 @@
         </ul>
       </li>
       <li class="">
-        <a href="https://docs.circuitverse.org" class="text-light" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">Help</a>
+        <a href="https://docs.circuitverse.org" class="nav-text" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">Help</a>
       </li>
     </ul>
     <span class="projectName noSelect defaultCursor font-weight-bold" id="projectName">
@@ -61,7 +65,7 @@
             <li><a class="dropdown-item" rel="nofollow" data-method="delete" href=<%= destroy_user_session_path %>>Sign out</a></li>
           </ul>
         <% else %>
-          <a class="navbar-nav nav-link" href=<%= new_user_session_path %>> Sign in </a>
+          <a id="sign" class="navbar-nav nav-link " href=<%= new_user_session_path %>> Sign in </a>
         <% end %>
       </li>
     </ul>
