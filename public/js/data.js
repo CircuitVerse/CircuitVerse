@@ -37,12 +37,13 @@ function setProjectName(name) {
 }
 
 function clearProject() {
+    if (confirm("Would you like to clear the project?")){
     globalScope = undefined;
     scopeList = {};
     $('.circuits').remove();
     newCircuit("main");
     showMessage("Your project is as good as new!");
-
+    }
 }
 
 // Function used to start a new project while prompting confirmation from the user
@@ -795,14 +796,14 @@ createOpenLocalPrompt = function() {
     if (flag) $('#openProjectDialog').append('<p>Looks like no circuit has been saved yet. Create a new one and save it!</p>')
     $('#openProjectDialog').dialog({
         width: "auto",
-        buttons: [{
+        buttons: !flag ? [{
             text: "Open Project",
             click: function() {
                 if (!$("input[name=projectId]:checked").val()) return;
                 load(JSON.parse(localStorage.getItem($("input[name=projectId]:checked").val())));
                 $(this).dialog("close");
             },
-        }]
+        }] : []
 
     });
 
@@ -821,14 +822,14 @@ createSubCircuitPrompt = function(scope = globalScope) {
     if (flag) $('#insertSubcircuitDialog').append('<p>Looks like there are no other circuits which doesn\'t have this circuit as a dependency. Create a new one!</p>')
     $('#insertSubcircuitDialog').dialog({
         width: "auto",
-        buttons: [{
+        buttons: !flag ? [{
             text: "Insert SubCircuit",
             click: function() {
                 if (!$("input[name=subCircuitId]:checked").val()) return;
                 simulationArea.lastSelected = new SubCircuit(undefined, undefined, globalScope, $("input[name=subCircuitId]:checked").val());
                 $(this).dialog("close");
             },
-        }]
+        }] : []
 
     });
 
