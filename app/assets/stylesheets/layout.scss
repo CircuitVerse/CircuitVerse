@@ -87,7 +87,7 @@
 
 .copyright {
   font-size: small;
-  padding: 0rem 0rem 1rem 3rem;
+  padding: 0 0 1rem 3rem;
   white-space: nowrap;
 }
 
@@ -117,14 +117,14 @@
 }
 
 .footer-logo-social {
-  padding: 2rem 3rem 1rem 3rem;
+  padding: 2rem 3rem 1rem;
 }
 
 .footer-links {
   display: grid;
   grid-gap: 1rem;
   grid-template-columns: 1fr 1fr;
-  padding: 2rem 3rem 1rem 3rem;
+  padding: 2rem 3rem 1rem;
 }
 
 .footer-sponsers {
@@ -132,7 +132,7 @@
   font-size: 80%;
   grid-gap: 1rem;
   grid-template-columns: 1fr 1fr;
-  padding: 2rem 3rem 1rem 3rem;
+  padding: 2rem 3rem 1rem;
 }
 
 .footer-sponser-img {
