@@ -13,6 +13,39 @@
   logix_project_id = <%= @logix_project_id %>;
   projectName = "<%= @projectName %>"
 </script>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="brand nav-brand">CircuitVerse</div>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form>
+      <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1">
+      </div>
+      <div class="form-group form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">Keep me logged in</label>
+
+      </div>
+      <p><em>Don't have an account? <b>SignUp</b></em></p>
+      <button type="submit" class="btn btn-primary">LOG IN</button>
+    </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand brand" href="/">CircuitVerse  &nbsp; &nbsp; |</a>
   <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-controls="collapsedNavbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,7 +98,7 @@
             <li><a class="dropdown-item" rel="nofollow" data-method="delete" href=<%= destroy_user_session_path %>>Sign out</a></li>
           </ul>
         <% else %>
-          <a id="sign" class="navbar-nav nav-link " href=<%= new_user_session_path %>> Sign in </a>
+          <a id="sign" class="navbar-nav nav-link " data-toggle="modal" data-target="#exampleModal"> Sign in </a>
         <% end %>
       </li>
     </ul>

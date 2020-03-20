@@ -64,3 +64,10 @@
     background: wheat;
     transition: all .1s ease-in-out;
 }
+.modal-brand{
+    text-align: center;
+    display: block;
+}
+.nav-brand{
+    font-size: 30px;
+}
