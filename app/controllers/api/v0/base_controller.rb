@@ -30,4 +30,26 @@ class Api::V0::BaseController < ActionController::API
     render json: { message: exception.message, code: exception.code }, status: exception.http_status
   end
 
+  def paginate(resource)
+      default_per_page = Rails.application.secrets.default_per_page || 10
+
+      resource.paginate({
+        page: params[:page] || 1, per_page: params[:per_page] || default_per_page
+      })
+    end
+
+    #expects paginated resource!
+    def meta_attributes(resource, extra_meta = {})
+
+      meta = {
+        current_page: resource.current_page,
+        next_page: resource.next_page,
+        prev_page: resource.previous_page,
+        total_pages: resource.total_pages,
+        total_count: resource.total_entries
+      }.merge(extra_meta)
+
+      return meta
+    end
+
 end

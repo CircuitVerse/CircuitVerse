@@ -5,7 +5,8 @@ class Api::V0::FeaturedCircuitsController < Api::V0::BaseController
   before_action :set_options
 
   def index
-    @featured_circuits = FeaturedCircuit.all
+    @featured_circuits = paginate(FeaturedCircuit.all)
+    @options[:meta] = meta_attributes(@featured_circuits)
     render :json => FeaturedCircuitSerializer.new(@featured_circuits, @options).serialized_json
   end
 

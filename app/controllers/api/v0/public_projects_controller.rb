@@ -3,7 +3,8 @@ class Api::V0::PublicProjectsController < Api::V0::BaseController
   before_action :set_options
 
   def index
-    @projects = Project.where(project_access_type: "Public")
+    @projects = paginate(Project.where(project_access_type: "Public"))
+    @options[:meta] = meta_attributes(@projects)
     render :json => ProjectSerializer.new(@projects, @options).serialized_json
   end
 

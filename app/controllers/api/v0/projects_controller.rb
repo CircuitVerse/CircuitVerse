@@ -10,7 +10,8 @@ class Api::V0::ProjectsController < Api::V0::BaseController
   before_action :set_options, only: [:index, :show]
 
   def index
-    @projects = Project.where(author_id: @current_user.id)
+    @projects = paginate(Project.where(author_id: @current_user.id))
+    @options[:meta] = meta_attributes(@projects)
     render :json => ProjectSerializer.new(@projects, @options).serialized_json
   end
 
