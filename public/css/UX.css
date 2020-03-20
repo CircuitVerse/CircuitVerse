@@ -941,3 +941,56 @@ div.icon img {
 }
 
 /* LOADING ICON CSS ENDS*/
+
+.name_tooltip {
+    display: inline-block;
+    position: relative;
+    text-align: left;
+}
+
+.name_tooltip .top {
+    top: -12px;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    padding: 5px 10px;
+    color: #FFF;
+    background-color: #555;
+    font-weight: normal;
+    font-size: 15px;
+    border-radius: 8px;
+    position: absolute;
+    z-index: 99999999 !important;
+    box-sizing: border-box;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.5);
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.8s;
+}
+
+.name_tooltip:hover .top {
+    margin-top: 20px;
+    visibility: visible;
+    opacity: 1;
+}
+
+.name_tooltip .top i {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -15px;
+    width: 30px;
+    height: 15px;
+    overflow: hidden;
+}
+
+.name_tooltip .top i::after {
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    left: 50%;
+    z-index: 99999999 !important;
+    transform: translate(-50%,-50%) rotate(45deg);
+    background-color: #555;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.5);
+}
