@@ -24,7 +24,7 @@
           <%= f.label :password, class:"label-text" %>
           <div class="input-group">
             <%= f.password_field :password, autocomplete: "off" ,class:"form-control custom-input", id:"password-input", placeholder: 'Password' %>
-            <div class="input-group-addon" onclick="toggleLoginPassword()">
+            <div class="input-group-addon align-self-center ml-3 mt-2" onclick="toggleLoginPassword()">
               <i class="fa fa-eye-slash password-icon" aria-hidden="true" id="toggle-icon"></i>
             </div>
           </div>
@@ -32,8 +32,9 @@
 
         <% if devise_mapping.rememberable? -%>
           <div class="field form-group">
-            <%= f.check_box :remember_me %>
-            <%= f.label :remember_me ,class:"help-text" %>
+            <%= f.check_box :remember_me, {class:"check-box"} %>
+            <br>
+            <label for="user_remember_me" class="checkmark"><%= f.label :remember_me, class:"help-text position-relative pl-4", style:"top:-60%; width:135px;" %></label>
           </div>
         <% end -%>
 
@@ -41,7 +42,7 @@
           <div class="input-group">
             <%= f.submit "Log in" ,class:"btn btn-about custom-submit" %>
             <span class="help-text"> New User? </span>
-            <%= link_to "Sign up", new_registration_path(resource_name) ,class:"link-text pl-1" %>
+            <%= link_to "Sign up", new_registration_path(resource_name), class:"link-text pl-1" %>
           </div>
         </div>
 

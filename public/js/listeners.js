@@ -170,22 +170,42 @@ function startListeners() {
         }
 
         //change direction fns
-        if ((e.keyCode == 37 || e.keyCode == 65)&& simulationArea.lastSelected != undefined) {
-            simulationArea.lastSelected.newDirection("LEFT");
+        if (simulationArea.lastSelected != undefined) {
+            let direction = "";
+            switch (e.keyCode) {
+                case 37:
+                case 65:
+                    direction = "LEFT";
+                    break;
+
+                case 38:
+                case 87:
+                    direction = "UP";
+                    break;
+
+                case 39:
+                case 68:
+                    direction = "RIGHT";
+                    break;
+
+                case 40:
+                case 83:
+                    direction = "DOWN";
+                    break;
+
+                default:
+                    break;
+            }
+            if (direction !== ""){
+                simulationArea.lastSelected.newDirection(direction);
+            }
         }
-        if ((e.keyCode == 38 || e.keyCode == 87) && simulationArea.lastSelected != undefined) {
-            simulationArea.lastSelected.newDirection("UP");
-        }
-        if ((e.keyCode == 39 || e.keyCode == 68) && simulationArea.lastSelected != undefined) {
-            simulationArea.lastSelected.newDirection("RIGHT");
-        }
-        if ((e.keyCode == 40 || e.keyCode == 83) && simulationArea.lastSelected != undefined) {
-            simulationArea.lastSelected.newDirection("DOWN");
-        }
+
         if ((e.keyCode == 113 || e.keyCode == 81) && simulationArea.lastSelected != undefined) {
             if (simulationArea.lastSelected.bitWidth !== undefined)
                 simulationArea.lastSelected.newBitWidth(parseInt(prompt("Enter new bitWidth"), 10));
         }
+
         if (simulationArea.controlDown && (e.key == "T" || e.key == "t")) {
             // e.preventDefault(); //browsers normally open a new tab
             simulationArea.changeClockTime(prompt("Enter Time:"));
