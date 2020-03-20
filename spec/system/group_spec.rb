@@ -53,7 +53,7 @@ describe "Group management", type: :system do
     click_on "Remove"
     accept_alert
 
-    expect(page).to have_text("Group member was successfully destroyed.")
+    expect(page).to have_text("Group member was successfully removed.")
   end
 
   it "should change the group name" do

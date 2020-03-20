@@ -84,4 +84,43 @@ select {
   margin-top: 8px;
   width: 40px;
 }
+
+.checkmark {
+  background-color: $checkbox-grey;
+  border-radius: 3px;
+  display: inline-block;
+  height: 20px;
+  position: relative;
+  transition: background-color .4s;
+  width: 20px;
+
+  &::after {
+    border-bottom: 3px solid $pure-white;
+    border-right: 3px solid $pure-white;
+    content: '';
+    height: 10px;
+    left: 50%;
+    opacity: 0;
+    position: absolute;
+    top: 40%;
+    transform: translate(-50%, -50%) rotateZ(40deg) scale(2);
+    transition: all .4s;
+    width: 5px;
+  }
+}
+
+.check-box {
+  position: absolute;
+  visibility: hidden;
+}
+
+.check-box:checked ~ .checkmark {
+  background-color: $green;
+}
+
+.check-box:checked ~ .checkmark::after {
+  opacity: 1;
+  transform: translate(-50%, -50%) rotateZ(40deg) scale(1);
+}
+
 /*login/signup css ends*/
