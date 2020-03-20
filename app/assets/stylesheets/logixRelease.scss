@@ -10,12 +10,6 @@
   top: 50%;
 }
 
-.label-field {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-}
-
 .noSelect {
   -moz-user-select: none;
   -ms-user-select: none;
@@ -52,7 +46,6 @@ a.btn.btn-outline-danger {
   background: #f0f0f0;
   border: 1px solid #86181d;
   color: $red;
-  padding: 4px;
 
   h2 {
     font-size: 1.25rem;
@@ -118,16 +111,6 @@ a.btn.btn-outline-danger {
   margin-right: auto;
   max-width: 900px;
   padding: 10px 0 25px;
-}
-
-.btn-favourite {
-  display: inline;
-  float: right;
-}
-
-.username {
-  display: inline;
-  margin-left: 10px;
 }
 
 .card-userprojects {
@@ -212,11 +195,7 @@ a.btn.btn-outline-danger {
 
 .name-group {
   font-size: 1.2rem;
-  font-weight: 500;
-  height: 100%;
-  margin-right: 12px;
-  margin-top: 10px;
-  width: 220px;
+  margin: 0;
 }
 
 .edit-name {
@@ -260,7 +239,7 @@ a.btn.btn-outline-danger {
 }
 
 .fa-post {
-  font: normal normal normal 14px/1 FontAwesome;
+  font: normal normal normal 14px/1 sans-serif;
   font-size: 13px;
 }
 
