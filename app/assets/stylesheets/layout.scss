@@ -75,6 +75,7 @@
 }
 
 .footer-logo {
+  max-height: 85px;
   width: 100%;
 }
 
@@ -86,7 +87,7 @@
 
 .copyright {
   font-size: small;
-  padding: 2rem 2rem 1rem;
+  padding: 0rem 0rem 1rem 3rem;
   white-space: nowrap;
 }
 
@@ -116,14 +117,14 @@
 }
 
 .footer-logo-social {
-  padding: 2rem 2rem 1rem;
+  padding: 2rem 3rem 1rem 3rem;
 }
 
 .footer-links {
   display: grid;
   grid-gap: 1rem;
   grid-template-columns: 1fr 1fr;
-  padding: 2rem 2rem 1rem;
+  padding: 2rem 3rem 1rem 3rem;
 }
 
 .footer-sponsers {
@@ -131,7 +132,7 @@
   font-size: 80%;
   grid-gap: 1rem;
   grid-template-columns: 1fr 1fr;
-  padding: 2rem 2rem 1rem;
+  padding: 2rem 3rem 1rem 3rem;
 }
 
 .footer-sponser-img {
