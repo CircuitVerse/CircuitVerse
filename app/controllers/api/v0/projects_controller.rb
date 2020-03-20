@@ -20,16 +20,14 @@ class Api::V0::ProjectsController < Api::V0::BaseController
   end
 
   def update
-    @project.update(project_params)
+    @project.update!(project_params)
     if @project.update(project_params)
       render :json => ProjectSerializer.new(@project), status: :ok
-    else
-      render :json => @project.errors, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @project.destroy
+    @project.destroy!
     render :json => {}, status: :no_content
   end
 

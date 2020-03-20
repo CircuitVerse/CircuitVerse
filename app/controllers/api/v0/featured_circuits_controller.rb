@@ -13,7 +13,7 @@ class Api::V0::FeaturedCircuitsController < Api::V0::BaseController
     if @featured_circuit.exists?
       render :json => FeaturedCircuitSerializer.new(@pfeatured_circuit, @options).serialized_json
     else
-      render json: { error: 'Featured Circuit not found' }, status: :not_found
+      raise ActiveRecord::RecordNotFound
     end
   end
 

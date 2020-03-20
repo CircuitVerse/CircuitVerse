@@ -7,11 +7,9 @@ class Api::V0::UsersController < Api::V0::BaseController
   end
 
   def update
-    @current_user.update(user_params)
+    @current_user.update!(user_params)
     if @current_user.update(user_params)
       render :json => UserSerializer.new(@current_user), status: :accepted
-    else
-      render :json => @current_user.errors, status: :unprocessable_entity
     end
   end
 

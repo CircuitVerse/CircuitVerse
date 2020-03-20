@@ -11,7 +11,16 @@ class Api::V0::AuthenticationController < Api::V0::BaseController
       render json: { token: token, exp: time.strftime("%m-%d-%Y %H:%M"),
                     username: @user.name }, status: :accepted
     else
-      render json: { error: 'User not found' }, status: :not_found
+      if @user
+        render json: {
+          errors: [{
+            message: "Incorrect Credentials",
+            code: "incorrect_creds"
+          }]
+        }, status: :unauthorized
+      else
+        raise ActiveRecord::RecordNotFound
+      end
     end
   end
 

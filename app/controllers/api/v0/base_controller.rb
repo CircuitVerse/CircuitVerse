@@ -1,9 +1,8 @@
 class Api::V0::BaseController < ActionController::API
   include Pundit
 
-  rescue_from Pundit::NotAuthorizedError, with: :auth_error
-  rescue_from ApplicationPolicy::CustomAuthException, with: :custom_auth_error
-  rescue_from ActiveRecord::RecordNotFound, with: :not_found
+  rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
+  rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 
   def authorize_request
     header = request.headers['Authorization']
@@ -11,22 +10,24 @@ class Api::V0::BaseController < ActionController::API
     begin
       @decoded = JsonWebToken.decode(header)
       @current_user = User.find(@decoded[:user_id])
-    rescue ActiveRecord::RecordNotFound => e
-      render json: { errors: e.message }, status: :unauthorized
     rescue JWT::DecodeError => e
       render json: { errors: e.message }, status: :unauthorized
     end
   end
 
-  def auth_error
-    render plain: "You are not authorized to do the requested operation"
+  def render_unprocessable_entity_response(exception)
+    render json: {
+      message: "Validation Failed",
+      errors: ValidationErrorsSerializer.new(exception.record).serialize
+    }, status: :unprocessable_entity
   end
 
-  def custom_auth_error(exception)
-    render plain: "Not Authorized: #{exception.custom_message}"
+  def render_not_found_response
+    render json: { message: "Not found", code: "not_found" }, status: :not_found
   end
 
-  def not_found
-    render plain: "The record you wish access could not be found"
+  def render_error_response(exception)
+    render json: { message: exception.message, code: exception.code }, status: exception.http_status
   end
+
 end
