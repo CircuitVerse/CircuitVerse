@@ -1,38 +1,32 @@
-module Api
-  module V0
+class Api::V0::FeaturedCircuitsController < Api::V0::BaseController
 
-    class FeaturedCircuitsController < ApplicationController
+  before_action :set_project, only:[:show]
+  before_action :authorize_request, except: [:index]
+  before_action :set_options
 
-      before_action :set_project, only:[:show]
-      before_action :authorize_request, except: [:index]
-      before_action :set_options
-
-      skip_before_action :verify_authenticity_token
-
-      def index
-        @projects = Project.joins(:featured_circuit)
-        render :json => ProjectSerializer.new(@projects, @options).serialized_json
-      end
-
-      def show
-        @project.increase_views(current_user)
-        render :json => ProjectSerializer.new(@project, @options).serialized_json
-      end
-
-      private
-
-        def set_project
-          @project = Project.find(FeaturedProject.find(params[:id]).project_id)
-          @author = @project.author
-        end
-
-        def set_options
-          @options = {}
-          @options[:include] = [:author]
-        end
-
-      end
-
+  def index
+    @featured_circuits = FeaturedCircuit.all
+    render :json => FeaturedCircuitSerializer.new(@featured_circuits, @options).serialized_json
   end
+
+  def show
+    if @featured_circuit.exists?
+      render :json => FeaturedCircuitSerializer.new(@pfeatured_circuit, @options).serialized_json
+    else
+      render json: { error: 'Featured Circuit not found' }, status: :not_found
+    end
+  end
+
+  private
+
+  def set_project
+    @featured_circuit = FeaturedCircuit.find(params[:id])
+  end
+
+  def set_options
+    @options = {}
+    @options[:include] = [:project]
+  end
+
 end
 
