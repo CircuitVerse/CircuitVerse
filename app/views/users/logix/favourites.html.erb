@@ -11,7 +11,7 @@
 
   <% if @user.rated_projects.blank? %>
     <div class ="favblank">
-      <h5>There are no favourites to show.</h5>
+    <%= image_tag("SVGs/undraw_empty_xct9.svg", class: "cover", alt: "You don't have any favourite projects.") %>
     </div>
   <% end %>
 
