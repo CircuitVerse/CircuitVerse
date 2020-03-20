@@ -18,7 +18,36 @@
 .brand{
     font-family: 'Baloo Chettan 2', cursive;;
 }
-.nav-text::after{
+#moduleProperty{
+    background: #343a40;
+    border: none !important;
+    outline: none !important;
+    font-family: 'Baloo Chettan 2', cursive;
+}
+#moduleProperty-inner{
+    background: #343a40;
+    border: none !important;
+    outline: none !important;
+}
+.objectPropertyAttribute{
+    background: #343a40 !important;
+    transition: all .1s ease-in;
+
+}
+.objectPropertyAttribute:focus{
+    border-top: none !important;
+    border-right: none;
+    border-left: none;
+}
+.objectPropertyAttribute:focus{
+    outline: none;
+}
+.btn{
+    width: 100% !important;
+    margin-top: 10px;
+    text-transform: uppercase;
+}
+nav-text::after{
     transform: scaleY(0);
     content: "";
     background: white;
@@ -82,7 +111,7 @@
     color:wheat !important;
 }
 .ui-accordion-header{
-    background: rgb(55, 61, 74) !important;
+    background: rgb(55, 49, 59) !important;
     
     border: none !important;
     color: wheat !important;
