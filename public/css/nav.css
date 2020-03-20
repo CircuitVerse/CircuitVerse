@@ -81,3 +81,19 @@
     margin-left: 7px;
     color:wheat !important;
 }
+.ui-accordion-header{
+    background: rgb(55, 61, 74) !important;
+    
+    border: none !important;
+    color: wheat !important;
+    font-family: 'Baloo Chettan 2', cursive !important;
+}
+.ui-accordion-header.ui-accordion-header-active.ui-state-active{
+    border-bottom: 4px solid white !important;
+    outline: 1px solid red;
+}
+.ui-accordion .ui-accordion-content{
+    background: #000;
+    margin: 0px;
+   
+}
