@@ -71,3 +71,13 @@
 .nav-brand{
     font-size: 30px;
 }
+#sideBar{
+    background: #343a40 !important;
+}
+#modules-header{
+    font-family: 'Cabin', sans-serif !important;
+    text-transform: capitalize !important;
+    text-align: left !important;
+    margin-left: 7px;
+    color:wheat !important;
+}
