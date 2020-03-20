@@ -98,6 +98,12 @@ a.btn.btn-outline-danger {
   margin-top: 40px;
 }
 
+.profile-image { 
+  border: 0px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
 #profile-details {
   padding-top: 30px;
 }
