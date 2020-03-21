@@ -49,7 +49,7 @@
         </div>
         </li>
       <% else %>
-        <li class="nav-item px-2">
+        <li class="nav-item px-2 <%= request.path == '/users/sign_in' ? 'active' : '' %>">
           <a class="nav-link text-dark" href="/users/sign_in">Login</a>
         </li>
       <% end %>

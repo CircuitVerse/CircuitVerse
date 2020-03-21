@@ -52,6 +52,12 @@
   margin-bottom: 40px;
   width: 300px;
   padding: 15px;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease-in;
+}
+
+.contact:hover {
+ box-shadow: 0 7px 7px $shadow-black;
 }
 
 .contact img {
