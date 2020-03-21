@@ -1,5 +1,6 @@
 class ProjectSerializer
   include FastJsonapi::ObjectSerializer
+  set_type :projects
   attributes :image_preview, :description, :view, :tags, :name
   attributes :author do |project|
     "#{project.author.name}"
