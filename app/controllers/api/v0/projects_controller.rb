@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Api::V0::ProjectsController < ApplicationController
-
   before_action :set_project, only: [:show]
 
   def index
@@ -19,7 +18,7 @@ class Api::V0::ProjectsController < ApplicationController
     else
       render json: { errors: { title: :unauthorized,
         status: 401,
-        detail: "This project is not public"}}, status: :unauthorized
+        detail: "This project is not public" } }, status: :unauthorized
     end
   end
 

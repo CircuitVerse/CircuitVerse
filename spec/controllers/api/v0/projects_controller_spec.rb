@@ -3,7 +3,7 @@
 require "rails_helper"
 
 describe Api::V0::ProjectsController, type: :request do
-  let(:projects_url) { '/api/v0/projects/' }
+  let(:projects_url) { "/api/v0/projects/" }
   before do
     @author = FactoryBot.create(:user)
   end
@@ -11,8 +11,8 @@ describe Api::V0::ProjectsController, type: :request do
   describe "#get_projects" do
     before do
       @tag = FactoryBot.create(:tag)
-      @projects = [ FactoryBot.create(:project, author: @author, project_access_type: 'Public'),
-      FactoryBot.create(:project, author: @author, project_access_type: 'Public') ]
+      @projects = [ FactoryBot.create(:project, author: @author, project_access_type: "Public"),
+      FactoryBot.create(:project, author: @author, project_access_type: "Public") ]
       @projects.each { |project| FactoryBot.create(:tagging, project: project, tag: @tag) }
     end
 
