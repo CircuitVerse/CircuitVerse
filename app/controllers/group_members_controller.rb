@@ -90,10 +90,10 @@ class GroupMembersController < ApplicationController
   # DELETE /group_members/1
   # DELETE /group_members/1.json
   def destroy
-    notice_message = "Group member was successfully removed."
     @group_member.destroy
     respond_to do |format|
-      format.html { redirect_to group_path(@group_member.group), notice: notice_message }
+      format.html { redirect_to group_path(@group_member.group),
+         notice: "Group member was successfully removed." }
       format.json { head :no_content }
     end
   end
