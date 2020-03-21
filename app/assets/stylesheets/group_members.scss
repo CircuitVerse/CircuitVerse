@@ -75,6 +75,23 @@
   }
 }
 
+.assignment-details {
+  background-color: $mint-green;
+  border-radius: 5px;
+  color: $white;
+  cursor: pointer;
+  float: left;
+  font-size: 16px;
+  margin: 5px;
+  padding: 2px 12px;
+  text-decoration: none;
+
+  &:hover {
+    color: $white;
+    text-decoration: none;
+  }
+}
+
 .assignment-delete {
   background-color: $red;
   border-radius: 5px;

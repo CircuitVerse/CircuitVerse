@@ -74,14 +74,14 @@
             <br>
             <% if !@project.description.nil? %>
               <b>Description:</b>
-              <%= sanitize@project.description %>
+              <div class="scroll"><%= sanitize@project.description %></div>
             <% end %>
             <% if policy(@project).user_access? %>
               <br>
               <hr>
               <a href="<%= simulator_edit_path(@project) %>" class="card-link btn btn-primary btn-post fa-post" target="_blank">Launch simulator</a>
               <% if user_signed_in? %>
-                <i id="toggleStarButton" class="fa fa-star-o btn btn-primary fa-post btn-post noSelect" aria-hidden="true" style="font-size:13px;margin:0px;" style=<%= Star.find_by(user_id: current_user.id, project_id: @project.id).nil? ? "color:white" : "color:orange" %> onclick="toggleStar()"></i>
+                <i id="toggleStarButton" class="fa fa-star-o btn btn-primary fa-post noSelect" aria-hidden="true" style="font-size:14px;margin:0px;" onclick="toggleStar()"></i>
               <% else %>
                 <i class="fa fa-star-o btn btn-primary fa-post btn-post noSelect" aria-hidden="true" style="color:orange"></i>
               <% end %>
@@ -232,10 +232,15 @@
               star_count = document.getElementById("star_count").innerHTML;
 
               if(response == "1"){
+                if(document.getElementById('toggleStarButton').classList.contains("fa-star")){
+                  document.getElementById('toggleStarButton').classList.remove("fa-star");
+                  document.getElementById('toggleStarButton').classList.add("fa-star-o");
+                }
                   document.getElementById('toggleStarButton').style.color='white';
               }
               else{
-                  document.getElementById('toggleStarButton').style.color='orange';
+                  document.getElementById('toggleStarButton').classList.remove("fa-star-o");
+                  document.getElementById('toggleStarButton').classList.add("fa-star");
               }
               document.getElementById("star_count").innerHTML = (response == "1") ? (Number(star_count)-1) : (Number(star_count)+1);
           }

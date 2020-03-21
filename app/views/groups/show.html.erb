@@ -6,7 +6,7 @@
     <h1 style="text-align:center">
       <%= @group.name %>
       <% if policy(@group).admin_access? %>
-      <%= link_to ' Edit Name', edit_group_path(@group), class:"group-name-editlink fa fa-pencil" %>
+      <%= link_to ' Edit Name', edit_group_path(@group), class:"group-name-editlink" %>
       <% end %>
     </h1>
     <div style="font-size:25px; text-align:center;">
@@ -119,17 +119,18 @@
                 <%= link_to 'Destroy', group_assignment_path(@group,assignment),class:"assignment-delete", method: :delete, data: { confirm: 'Are you sure?' } %>
               <% else %>
                   <% project_assignment = assignment.projects.find { |p| p.author_id == current_user.id } %>
+                  <%= link_to 'Show', group_assignment_path(@group,assignment), class:"assignment-view" %>
                   <% if(assignment.deadline > Time.now) %>
                       <% if project_assignment.nil? %>
-                          <%= link_to 'Start Working', assignment_start_path(@group,assignment) %>
+                          <%= link_to 'Start Working', assignment_start_path(@group,assignment), class:"assignment-details" %>
                       <% else %>
-                          <%= link_to 'View your work', user_project_path(current_user,project_assignment) %>
+                          <%= link_to 'View your work', user_project_path(current_user,project_assignment), class:"assignment-details" %>
                       <% end %>
                   <% else %>
                       <% if project_assignment.nil? %>
                           Not submitted!
                       <% else %>
-                          <%= link_to 'View your submission', user_project_path(current_user,project_assignment) %>
+                          <%= link_to 'View Submission', user_project_path(current_user,project_assignment), class:"assignment-details" %>
                       <% end %>
                   <% end %>
             <% end %>
@@ -155,7 +156,7 @@
     </table>
     <% if policy(@group).admin_access? %>
     <% end %>
-    <%= link_to 'Back', user_groups_path(current_user) ,class:"group-description-back", style:"background-color: #42b983;" %>
+    <%= link_to 'Back', user_groups_path(current_user) ,class:"btn underline text-success" %>
   </div>
   <script>
       $(document).ready(function() {

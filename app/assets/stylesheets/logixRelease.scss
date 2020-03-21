@@ -141,6 +141,20 @@ a.btn.btn-outline-danger {
   opacity: 1;
 }
 
+.cover {
+  height: 360px;
+  margin-top: 10px;
+  width: 360px;
+}
+
+@media screen and (max-width: 640px) {
+  .cover {
+    height: 280px;
+    margin-top: 30px;
+    width: 280px;
+  }
+}
+
 .feature-preview {
   border: 2px solid $green;
   padding: 1.25rem;
@@ -224,6 +238,15 @@ a.btn.btn-outline-danger {
   border: 0;
   padding: 25px;
   text-decoration: none;
+}
+
+.scroll {
+  height: 180px;
+  margin-right: 4px;
+  margin-top: -10px;
+  overflow-y: auto;
+  padding: 4px;
+  text-align: left;
 }
 
 .btn-post {

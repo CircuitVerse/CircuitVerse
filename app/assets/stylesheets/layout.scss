@@ -1,4 +1,12 @@
 // All the custom class styles
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  padding-top: 90px;
+}
+
 .custom-file-upload {
   background-color: $active-background;
   border: 1px solid $green;
@@ -38,6 +46,18 @@
 
 .logo-bottom {
   max-height: 80px;
+}
+
+.affix {
+  box-shadow: 0 8px 6px -6px $shadow-grey;
+}
+
+.navbar {
+  background-color: $active-background;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
 }
 
 .navbar-light .navbar-nav {
