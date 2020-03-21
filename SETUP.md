@@ -92,7 +92,7 @@ Additional instructions can be found [here](https://www.howtoforge.com/tutorial/
 
   - Removing RVM
     ```
-    sudo apt-get --purge remove ruby-rvm` <br />
+    sudo apt-get --purge remove ruby-rvm
     sudo rm -rf /usr/share/ruby-rvm /etc/rvmrc /etc/profile.d/rvm.sh
     ```
   - Installing new version of RVM
