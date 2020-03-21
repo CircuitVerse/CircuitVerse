@@ -21,7 +21,8 @@
     "jquery": "^3.4.1",
     "opencollective-postinstall": "^2.0.2",
     "popper.js": "^1.16.0",
-    "trumbowyg": "^2.21.0"
+    "trumbowyg": "^2.21.0",
+    "webpack": "^4.42.0"
   },
   "collective": {
     "type": "opencollective",

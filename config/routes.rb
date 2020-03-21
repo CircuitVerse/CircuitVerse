@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+
+  namespace :api do
+    namespace :v0 do
+      resources :projects
+    end
+  end
+
   resources :collaborations
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
