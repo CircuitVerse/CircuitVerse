@@ -141,6 +141,20 @@ a.btn.btn-outline-danger {
   opacity: 1;
 }
 
+.cover {
+  height: 360px;
+  margin-top: 10px;
+  width: 360px;
+}
+
+@media screen and (max-width: 640px) {
+  .cover {
+    height: 280px;
+    margin-top: 30px;
+    width: 280px;
+  }
+}
+
 .feature-preview {
   border: 2px solid $green;
   padding: 1.25rem;
