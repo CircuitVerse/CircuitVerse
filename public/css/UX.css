@@ -655,6 +655,11 @@ div.icon img {
     transition: height 0.2s margin 0.2s;
 }
 
+.objectPropertyAttributeChecked.btn {
+    width: 100%;
+    margin-bottom: 5px;
+}
+
 /* For loading screen - pace.js */
 
 .pace {
