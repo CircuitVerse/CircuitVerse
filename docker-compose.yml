@@ -10,7 +10,7 @@ services:
       - db
       - redis
     build: .
-    command: bundle exec sidekiq -q default -q mailers -d
+    command: bundle exec sidekiq -q default -q mailers
     volumes:
       - .:/circuitverse
       - ./config/database.docker.yml:/circuitverse/config/database.yml

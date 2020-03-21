@@ -26,8 +26,8 @@ class Users::LogixController < ApplicationController
     query = params[:query]
     institute_list = User.where("educational_institute LIKE :query", query: "%#{query}%")
                                      .distinct
-                                     .pluck(:educational_institute)
                                      .limit(TYPEAHEAD_INSTITUTE_LIMIT)
+                                     .pluck(:educational_institute)
     typeahead_array = institute_list.map { |item| { name: item } }
     render json: typeahead_array
   end
