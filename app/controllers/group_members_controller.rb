@@ -90,7 +90,6 @@ class GroupMembersController < ApplicationController
   # DELETE /group_members/1
   # DELETE /group_members/1.json
   def destroy
-
     @group_member.destroy
     respond_to do |format|
       format.html { redirect_to group_path(@group_member.group), 
