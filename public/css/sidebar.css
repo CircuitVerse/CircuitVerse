@@ -1,0 +1,38 @@
+
+.header-mod{
+    font-family: 'Roboto Mono', monospace !important;
+    margin-left: 15px;
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+    
+}
+#moduleProperty-title.header-mod{
+    font-family: 'Roboto Mono', monospace !important;
+    margin-left: 15px;
+    margin-bottom: 10px;
+    text-transform: capitalize;
+    color: white;
+    text-align: left;
+
+}
+.ui-accordion-header {
+    background: red !important;
+    border:none !important;
+    font-family: 'Fira Sans', sans-serif !important;
+    outline: none !important;
+    background: #3d3d46 !important;
+    border-top-right-radius: 3px !important;
+    border-top-left-radius: 10px !important;
+    border-right: 2px solid white !important;
+    border-bottom: 1px solid white !important;
+}
+}
+
+.panel{
+    background-color: #373743;
+    border:1px solid white !important;
+
+}
+.icon{
+    margin-right: 20px;
+}
