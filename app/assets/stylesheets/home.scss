@@ -1,7 +1,7 @@
 // Home page New UI
 .row-homepage {
   margin-bottom: 40px;
-  margin-top: 70px;
+  margin-top: 60px;
 }
 
 .btn-homepage {
@@ -36,7 +36,7 @@
 .row-homepage-middle {
   margin-left: auto;
   margin-right: auto;
-  margin-top: 30px;
+  margin-top: 60px;
   text-align: center;
 }
 
@@ -97,12 +97,11 @@
     justify-content: center;
     margin-bottom: 25px;
   }
+
   .row-homepage {
     margin-top: 30px;
   }
-}
 
-@media (max-width:765px) {
   .btn-homepage2 {
     margin-left: 18px;
     margin-right: 18px;
