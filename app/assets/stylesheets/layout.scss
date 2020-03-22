@@ -20,14 +20,45 @@
   top: 30%;
 }
 
-.simulator {
+.simulator-btn {
+  cursor: pointer;
   border: 2px solid $green;
-  color: $dark-text;
-  font-weight: 500;
-  &:hover {
-    background: $green;
-    color: $active-background;
+  box-sizing: border-box;
+  width: 94px;
+  height: 36px;
+  float: left;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  &:hover .simulator-btn-active{
+      left: 0;
+    }
+  &:hover a {
+    color: $white;
+    }
+
+  a {
+    text-decoration: none;
+    color: $dark-text;
+    display: block;
+    position: relative;
+    padding-bottom: 2px;
+    line-height: 32px;
+    font-size: 16px;
+    font-weight: 600;
+    transition:0.7s all;
+    z-index: 0;
   }
+}
+
+.simulator-btn-active{
+  background: $green;
+  height: 36px;
+  width: 94px;
+  position: absolute;
+  transition:0.7s all;
+  left: -140px;
+  z-index: -1;
 }
 
 .logo {
