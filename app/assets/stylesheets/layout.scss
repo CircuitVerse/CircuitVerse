@@ -24,11 +24,11 @@
   border: 2px solid $green;
   color: $dark-text;
   font-weight: 500;
-}
-
-.simulator:hover {
+  
+  &:hover {
   background: $green;
   color: $active-background;
+  }
 }
 
 .logo {
