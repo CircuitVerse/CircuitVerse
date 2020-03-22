@@ -21,15 +21,15 @@
 }
 
 .simulator-btn {
-  cursor: pointer;
   border: 2px solid $green;
   box-sizing: border-box;
-  width: 94px;
-  height: 36px;
+  cursor: pointer;
   float: left;
+  height: 36px;
   overflow: hidden;
   position: relative;
   text-align: center;
+  width: 94px;
   &:hover .simulator-btn-active {
     left: 0;
     }
@@ -38,14 +38,14 @@
     }
 
   a {
-    text-decoration: none;
     color: $dark-text;
     display: block;
-    position: relative;
-    padding-bottom: 2px;
-    line-height: 32px;
     font-size: 16px;
     font-weight: 600;
+    line-height: 32px;
+    padding-bottom: 2px;
+    position: relative;
+    text-decoration: none;
     transition: .7s all;
     z-index: 0;
   }
@@ -54,10 +54,10 @@
 .simulator-btn-active {
   background: $green;
   height: 36px;
-  width: 94px;
+  left: -140px;
   position: absolute;
   transition: .7s all;
-  left: -140px;
+  width: 94px;
   z-index: -1;
 }
 
