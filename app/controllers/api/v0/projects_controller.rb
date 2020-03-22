@@ -2,7 +2,7 @@
 
 class Api::V0::ProjectsController < ApplicationController
   def index
-    @projects = Project.all
+    @projects = Project.where(project_access_type: "Public")
     json_string = ProjectsSerializer.new(@projects).serialized_json
     render json: json_string
   end
