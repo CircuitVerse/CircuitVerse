@@ -133,8 +133,8 @@ describe ProjectsController, type: :request do
       end
     end
 
-    describe "#udpate" do
-      let(:udpate_params) {
+    describe "#update" do
+      let(:update_params) {
         {
           project: {
             name: "Updated Name"
@@ -152,7 +152,7 @@ describe ProjectsController, type: :request do
         end
 
         it "updates project" do
-          put user_project_path(@author, @project), params: udpate_params
+          put user_project_path(@author, @project), params: update_params
           @project.reload
           expect(@project.name).to eq("Updated Name")
         end
@@ -161,7 +161,7 @@ describe ProjectsController, type: :request do
       context "user other than author is singed in" do
         it "throws project access error" do
           sign_in_random_user
-          put user_project_path(@author, @project), params: udpate_params
+          put user_project_path(@author, @project), params: update_params
           check_project_access_error(response)
         end
       end
