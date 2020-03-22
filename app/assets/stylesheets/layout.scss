@@ -30,8 +30,8 @@
   overflow: hidden;
   position: relative;
   text-align: center;
-  &:hover .simulator-btn-active{
-      left: 0;
+  &:hover .simulator-btn-active {
+    left: 0;
     }
   &:hover a {
     color: $white;
@@ -46,17 +46,17 @@
     line-height: 32px;
     font-size: 16px;
     font-weight: 600;
-    transition:0.7s all;
+    transition: .7s all;
     z-index: 0;
   }
 }
 
-.simulator-btn-active{
+.simulator-btn-active {
   background: $green;
   height: 36px;
   width: 94px;
   position: absolute;
-  transition:0.7s all;
+  transition: .7s all;
   left: -140px;
   z-index: -1;
 }
