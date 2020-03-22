@@ -331,6 +331,21 @@ select {
     border: 1px solid #0099ff;
 }
 
+.tabsCloseButton:hover{
+    color:#fff;
+    font-family: 'Gill Sans', sans-serif;
+    padding-left: 1em;
+    opacity: 0.5;
+
+}
+.tabsCloseButton {
+    color:#111;
+    font-family: 'Gill Sans', sans-serif;
+    padding-left: 1em;
+    opacity: 1.0;
+
+}
+
 th,
 td {
     padding-left: 15px;
