@@ -15,3 +15,21 @@
   overflow-x: hidden;
   overflow-y: scroll;
 }
+
+#mySidebar a{
+  position: absolute;
+  z-index:999;
+  top:90%;
+  right: -111px;
+  transition: 0.3s;
+  padding: 15px;
+  width: 150px;
+  text-decoration: none;
+  font-size: 13px;
+  color: white;
+  border-radius: 30px 5px 5px 30px;
+}
+
+#mySidebar a:hover {
+  right: 0px;
+}
