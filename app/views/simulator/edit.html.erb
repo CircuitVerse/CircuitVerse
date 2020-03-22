@@ -38,6 +38,8 @@
         <a href="#" class="dropdown-toggle text-light" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tools<span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item logixButton" id="createCombinationalAnalysisPrompt">Combinational Analysis</a></li>
+           <li><a type="button" class="dropdown-item logixButton" data-toggle="modal" data-target="#exampleModalCenter">
+      Bit Converter</a></li>
           <li><a class="dropdown-item logixButton" id="startPlot">Start Plot</a></li>
           <li><a class="dropdown-item logixButton" id="createSaveAsImgPrompt">Download Image</a>
         </ul>
@@ -290,6 +292,7 @@
     <script src="/js/miniMap.js"></script>
     <script src="/js/layout.js"></script>
     <script src="/js/testBench.js"></script>
+     <script src="/js/bitconverter.js"></script>
     <script src="/js/verilog.js"></script>
     <script type="text/javascript" src="/js/metadata.json"></script>
     <% if @project.nil? or @project.assignment_id.nil? %>
@@ -298,3 +301,44 @@
     <% end %>
     <script src="/js/canvas2svg.js"></script>
     <div>
+      
+      <!-- converter modal -->
+      
+      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background: black;color:#0087E1;border-color:#0087E1 ">
+        <h5 class="modal-title" id="exampleModalLongTitle">Bit Converter</h5>
+      </div>
+      <div class="modal-body" style="background: #343A40;color: #939393">
+        
+          <div>
+            <h4>Binary</h4>
+            <input id="bin" style="height:30px"><br/> <br />
+            
+            <button onclick="convert(document.getElementById('bin').value, 'binOutput', 'bin', 'dec')" style="background:#0087E1;color:white;border-color:#0087E1">Convert to Decimal</button>&nbsp&nbsp
+            <button onclick="convert(document.getElementById('bin').value, 'binOutput', 'bin', 'hex')" style="background:#0087E1;color:white;border-color:#0087E1">Convert to Hex</button><br />
+           
+            <span id="binOutput" style="color: white"></span>
+        </div>
+        
+        <div>
+            <h4>Decimal</h4>
+            <input id="dec" style="height: 30px"><br /> <br />
+            <button onclick="convert(document.getElementById('dec').value, 'decOutput', 'dec', 'bin')" style="background:#0087E1;color:white;border-color:#0087E1">Convert to Binary</button>&nbsp&nbsp
+            <button onclick="convert(document.getElementById('dec').value, 'decOutput', 'dec', 'hex')" style="background:#0087E1;color:white;border-color:#0087E1">Convert to Hex</button><br />
+            <span id="decOutput" style="color: white"></span>
+        </div>
+        
+        <div>
+            <h4>Hex</h4>
+            <input id="hex" style="height: 30px"><br /> <br />
+            <button onclick="convert(document.getElementById('hex').value, 'hexOutput', 'hex', 'bin')" style="background:#0087E1;color:white;border-color:#0087E1">Convert to Binary</button>&nbsp&nbsp
+            <button onclick="convert(document.getElementById('hex').value, 'hexOutput', 'hex', 'dec')" style="background:#0087E1;color:white;border-color:#0087E1">Convert to Decimal</button><br />
+            <span id="hexOutput" style="color: white"></span>
+        </div>
+    
+      </div>
+    </div>
+  </div>
+</div>
