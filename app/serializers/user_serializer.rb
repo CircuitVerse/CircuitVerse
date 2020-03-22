@@ -3,6 +3,6 @@ class UserSerializer
 
   attributes :id, :email, :name, :admin,
              :country, :educational_institute,
-             :subscribed
+             :subscribed, :created_at, :updated_at
 
 end

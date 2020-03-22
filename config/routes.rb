@@ -118,7 +118,7 @@ Rails.application.routes.draw do
     namespace :v0 do
       post '/auth/login', to: 'authentication#login'
       get '/user/me', to: 'users#index'
-      post '/user/me', to: 'users#update'
+      patch '/user/me', to: 'users#update'
       get '/change_stars/:id', to: 'projects#change_stars'
 
       resources :featured_circuits, only: [:index, :show]

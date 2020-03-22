@@ -31,7 +31,7 @@ class Api::V0::BaseController < ActionController::API
   end
 
   def paginate(resource)
-      default_per_page = Rails.application.secrets.default_per_page || 10
+      default_per_page = Rails.application.secrets.default_per_page || 3
 
       resource.paginate({
         page: params[:page] || 1, per_page: params[:per_page] || default_per_page
