@@ -24,10 +24,9 @@
   border: 2px solid $green;
   color: $dark-text;
   font-weight: 500;
-  
   &:hover {
-  background: $green;
-  color: $active-background;
+    background: $green;
+    color: $active-background;
   }
 }
 
