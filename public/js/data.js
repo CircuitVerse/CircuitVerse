@@ -10,7 +10,11 @@ function newCircuit(name, id) {
     globalScope = scope;
 
     $('.circuits').removeClass("current");
-    $('#tabsBar').append("<a href = '#' data-toggle ='tooltip' title = '" + name + "'><div class='circuits toolbarButton current' id='" + scope.id + "'> " + name.substr(0,6) + "<span id = 'tabsDivTabEdit1'>" + name.substr(6,3) + "</span><span class ='tabsCloseButton' onclick = 'deleteCurrentCircuit()' > x </span></div></a>");
+    if(name.length > 11){
+        $('#tabsBar').append("<a href = '#' data-toggle ='tooltip' title = '" + name + "'><div class='circuits toolbarButton current' id='" + scope.id + "'> " + name.substr(0,11) + "<span id = 'tabsDivTabEdit1'>...</span><span class ='tabsCloseButton' onclick = 'deleteCurrentCircuit()' > x </span></div></a>");
+    } else {
+        $('#tabsBar').append("<a href = '#' data-toggle ='tooltip' title = '" + name + "'><div class='circuits toolbarButton current' id='" + scope.id + "'> " + name.substr(0,11) + "<span class ='tabsCloseButton' onclick = 'deleteCurrentCircuit()' > x </span></div></a>");
+    }
     $('.circuits').click(function() {
         switchCircuit(this.id)
     });
