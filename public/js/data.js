@@ -796,14 +796,14 @@ createOpenLocalPrompt = function() {
     if (flag) $('#openProjectDialog').append('<p>Looks like no circuit has been saved yet. Create a new one and save it!</p>')
     $('#openProjectDialog').dialog({
         width: "auto",
-        buttons: [{
+        buttons: !flag ? [{
             text: "Open Project",
             click: function() {
                 if (!$("input[name=projectId]:checked").val()) return;
                 load(JSON.parse(localStorage.getItem($("input[name=projectId]:checked").val())));
                 $(this).dialog("close");
             },
-        }]
+        }] : []
 
     });
 
@@ -822,14 +822,14 @@ createSubCircuitPrompt = function(scope = globalScope) {
     if (flag) $('#insertSubcircuitDialog').append('<p>Looks like there are no other circuits which doesn\'t have this circuit as a dependency. Create a new one!</p>')
     $('#insertSubcircuitDialog').dialog({
         width: "auto",
-        buttons: [{
+        buttons: !flag ? [{
             text: "Insert SubCircuit",
             click: function() {
                 if (!$("input[name=subCircuitId]:checked").val()) return;
                 simulationArea.lastSelected = new SubCircuit(undefined, undefined, globalScope, $("input[name=subCircuitId]:checked").val());
                 $(this).dialog("close");
             },
-        }]
+        }] : []
 
     });
 
