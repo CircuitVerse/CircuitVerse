@@ -23,10 +23,10 @@ createCombinationalAnalysisPrompt=function(scope=globalScope){
                 var outputList = $("#outputNameList").val().split(',');
                 inputList = inputList.map(x => x.trim());
                 inputList = inputList.filter(e => e);
-                outputList = outputList.map( x => x.trim() );
+                outputList = outputList.map(x => x.trim());
                 outputList = outputList.filter(e => e);
                 if(inputList.length > 0 && outputList.length > 0){
-                    $( this ).dialog( "close" );
+                    $(this).dialog("close");
                     createBooleanPrompt(inputList,outputList,scope);
                 }
                 else{
