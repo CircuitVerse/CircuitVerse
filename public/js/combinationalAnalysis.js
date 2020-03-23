@@ -19,22 +19,21 @@ createCombinationalAnalysisPrompt=function(scope=globalScope){
        {
           text: "Next",
           click: function() {
-            // //console.log($("#inputNameList"),$("#inputNameList").val(),$("#inputNameList").html());
-            var inputList = [] ;
-            var outputList = [] ;
-            inputList=$("#inputNameList").val().split(',');
-            outputList=$("#outputNameList").val().split(',');
-            inputList = inputList.map( x => x.trim() );
-            inputList = inputList.filter(function(e){return e});
-            outputList = outputList.map( x => x.trim() );
-            outputList = outputList.filter(function(e){return e});
-            if( inputList.length > 0 && outputList.length > 0 ){
-            $( this ).dialog( "close" );
-            createBooleanPrompt(inputList,outputList,scope);}
-            else{
-              alert("Enter Input / Output Variable(s) !");
-            }
-        },
+                // //console.log($("#inputNameList"),$("#inputNameList").val(),$("#inputNameList").html());
+                var inputList = $("#inputNameList").val().split(',');
+                var outputList =$ ("#outputNameList").val().split(',');
+                inputList = inputList.map( x => x.trim() );
+                inputList = inputList.filter((e) => {return e;});
+                outputList = outputList.map( x => x.trim() );
+                outputList = outputList.filter((e) => {return e;});
+                if(inputList.length > 0 && outputList.length > 0){
+                    $( this ).dialog( "close" );
+                    createBooleanPrompt(inputList,outputList,scope);
+                }
+                else{
+                    alert("Enter Input / Output Variable(s) !");
+                }
+            },
         }
       ]
     });
