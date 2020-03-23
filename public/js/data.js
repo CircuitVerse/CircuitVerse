@@ -11,7 +11,7 @@ function newCircuit(name, id) {
 
     $('.circuits').removeClass("current");
     if (name.length > 7) {
-        $('#tabsBar').append("<a href = '#' data-toggle ='tooltip' title = '" + name + "'><div class='circuits toolbarButton current' id='" + scope.id + "'> " + name.substr(0,6) + "<span id = 'tabsDivTabEdit1'>" +'...'+ "</span>" + "<span class ='tabsCloseButton' onclick='deleteCurrentCircuit()'  >x</span></div></a>");
+        $('#tabsBar').append("<a href = '#' data-toggle ='tooltip' title = '" + name + "'><div class='circuits toolbarButton current' id='" + scope.id + "'> " + name.substr(0,6) + "<span id = 'tabsDivTabEdit1'>" + '...' + "</span>" + "<span class ='tabsCloseButton' onclick = 'deleteCurrentCircuit()'  > x </span></div></a>");
     }
     else {
         $('#tabsBar').append("<div class='circuits toolbarButton current' id='" + scope.id + "'>" + name.substr(0,6) + "<span class ='tabsCloseButton' onclick='deleteCurrentCircuit()'  >x</span></div>");
