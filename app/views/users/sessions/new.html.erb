@@ -31,9 +31,9 @@
         </div>
 
         <% if devise_mapping.rememberable? -%>
-          <div class="field form-group">
-            <%= f.check_box :remember_me %>
-            <%= f.label :remember_me ,class:"help-text" %>
+          <div class="field form-group d-flex align-items-center">
+            <%= f.check_box :remember_me, class: 'checkbox' %>
+            <%= f.label :remember_me , class:"help-text", style: 'padding-left: 5px;' %>
           </div>
         <% end -%>
 

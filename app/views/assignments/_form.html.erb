@@ -48,12 +48,13 @@
   </div>
 
   <h3 style="margin-top: 15px;"> Elements Restriction </h3>
-
   <div id="restrictions-field" class="form-group " style="margin-bottom: 15px;">
-    <span style="font-weight: 600"> Enable elements restriction: </span>  <%= check_box_tag "restrict-elements", "1", @assignment.elements_restricted?, id: "restrict-elements", style: "margin-top: 0" %>
+    <div class="d-flex align-items-center">
+      <span style="font-weight: 600; margin-bottom: 4px;"> Enable elements restriction:&nbsp;&nbsp;</span>
+      <%= check_box_tag "restrict-elements", "1", @assignment.elements_restricted?, id: "restrict-elements", style: "margin-top: 0", class:"toggle-ass" %>
+    </div>
     <div class="restricted-elements-list"> <!-- Operated by script --> </div>
   </div>
-
   <div class="actions form-group">
     <%= form.submit class: 'btn btn-primary' %>
   </div>

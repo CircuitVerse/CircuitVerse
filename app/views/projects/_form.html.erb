@@ -2,7 +2,7 @@
   <%= form_with(model: FeaturedCircuit.new, url: '/featured_circuits', multipart: true, id:"featuredCircuit") do |form| %>
     <%= form.hidden_field :project_id, value: @project.id %>
     <%= form.label :featured, class:'bold' %> <span> (Administrator Only) </span>
-    <%= form.check_box :featured, {checked: @project.featured?, id: 'featured_checkbox'} %>
+    <%= form.check_box :featured, {checked: @project.featured?, id: 'featured_checkbox', class: 'checkbox'} %>
   <% end %>
 <% end %>
 

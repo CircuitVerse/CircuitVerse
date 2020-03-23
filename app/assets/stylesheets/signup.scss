@@ -84,4 +84,67 @@ select {
   margin-top: 8px;
   width: 40px;
 }
+
+.checkbox {
+  -webkit-appearance: none;
+  background: $checkbox-grey;
+  border-radius: 1.7px;
+  box-shadow: inset 0 0 3px $toggle-shadow;
+  height: 17px;
+  outline: none;
+  position: relative;
+  transition: all .2s ease-in-out;
+  width: 17px;
+
+  &:checked {
+    background: $green;
+
+    &::before {
+      border-bottom: 1.5px solid $pure-white;
+      border-right: 1.5px solid $pure-white;
+      content: '';
+      height: 5px;
+      left: 50%;
+      opacity: 1;
+      position: absolute;
+      top: 45%;
+      transform: translate(-50%, -50%) rotateZ(40deg) scale(2.3);
+      width: 2px;
+    }
+  }
+}
+
+.toggle-ass {
+  -webkit-appearance: none;
+  background: $shadow-grey;
+  border-radius: 20px;
+  box-shadow: inset 0 0 5px $toggle-shadow;
+  height: 20px;
+  outline: none;
+  position: relative;
+  width: 35px;
+}
+
+.toggle-ass:checked {
+  background: $green;
+}
+
+.toggle-ass::before {
+  background: $pure-white;
+  border-radius: 20px;
+  box-shadow: 0 2px 5px $toggle-shadow;
+  content: '';
+  height: 20px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  transform: scale(1.1);
+  transition: .3s;
+  width: 20px;
+}
+
+.toggle-ass:checked::before {
+  left: 15px;
+}
+
 /*login/signup css ends*/
