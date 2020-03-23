@@ -16,7 +16,7 @@
   overflow-y: scroll;
 }
 
-.mysidebar a {
+.report-sidebar a {
   border-radius: 30px 5px 5px 30px;
   color: $white;
   font-size: 13px;
@@ -30,6 +30,6 @@
   z-index: 999;
 }
 
-.mysidebar a:hover {
+.report-sidebar a:hover {
   right: 0;
 }
