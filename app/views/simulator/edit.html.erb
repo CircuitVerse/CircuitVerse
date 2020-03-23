@@ -346,6 +346,14 @@
     $('#report-label').hide();
   }
    })
+  $('.issue').on('hide.bs.modal', function(e) {
+       $('#result').html("");
+       $('#issuetext').show();
+       $('#issuetext').val("");
+       $('#report').show();
+      $('#report-label').show();
+  
+}) 
 </script>
     
     
