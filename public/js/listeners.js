@@ -210,13 +210,6 @@ function startListeners() {
             // e.preventDefault(); //browsers normally open a new tab
             simulationArea.changeClockTime(prompt("Enter Time:"));
         }
-        if ((e.keyCode == 108 || e.keyCode == 76) && simulationArea.lastSelected != undefined) {
-            if (simulationArea.lastSelected.setLabel !== undefined){
-                var labl = prompt("Enter The Label : ", simulationArea.lastSelected.label);
-                if(labl)
-                    simulationArea.lastSelected.setLabel(labl);
-            }
-        }
     })
 
     document.getElementById("simulationArea").addEventListener('dblclick', function(e) {
