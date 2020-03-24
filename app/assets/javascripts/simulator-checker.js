@@ -4,6 +4,7 @@ var mouseConnected = false;
 
 function disableSimulator() {
     if (!simulatorDisabled) {
+        console.log('disable');
         $('main').addClass('hidden');
         $('#simulator-disabled').removeClass('hidden');
 
@@ -11,6 +12,7 @@ function disableSimulator() {
     }
 }
 function enableSimulator() {
+    console.log('enabling');
     if (simulatorDisabled) {
         $('main').removeClass('hidden');
         $('#simulator-disabled').addClass('hidden');

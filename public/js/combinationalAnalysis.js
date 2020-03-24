@@ -16,17 +16,23 @@ createCombinationalAnalysisPrompt=function(scope=globalScope){
     $('#combinationalAnalysis').dialog({
         width:"auto",
       buttons: [
-        {
+       {
           text: "Next",
           click: function() {
-            // //console.log($("#inputNameList"),$("#inputNameList").val(),$("#inputNameList").html());
-            var inputList=$("#inputNameList").val().split(',');
-            var outputList=$("#outputNameList").val().split(',');
-            inputList = inputList.map( x => x.trim() );
-            outputList = outputList.map( x => x.trim() );
-            $( this ).dialog( "close" );
-            createBooleanPrompt(inputList,outputList,scope);
-        },
+                var inputList = $("#inputNameList").val().split(',');
+                var outputList = $("#outputNameList").val().split(',');
+                inputList = inputList.map(x => x.trim());
+                inputList = inputList.filter(e => e);
+                outputList = outputList.map(x => x.trim());
+                outputList = outputList.filter(e => e);
+                if(inputList.length > 0 && outputList.length > 0){
+                    $(this).dialog("close");
+                    createBooleanPrompt(inputList,outputList,scope);
+                }
+                else{
+                    alert("Enter Input / Output Variable(s) !");
+                }
+            },
         }
       ]
     });
@@ -101,8 +107,24 @@ function createBooleanPrompt(inputListNames,outputListNames,scope=globalScope){
             // //console.log(dataSample);
             drawCombinationalAnalysis(minmizedCircuit,inputListNames,outputListNames,scope)
         },
-
-        }
+      },
+      {
+        text: "Print Truth Table",
+        click: function() {
+           var sTable = document.getElementById('combinationalAnalysis').innerHTML;
+           var style = "<style> table {font: 20px Calibri;} table, th, td {border: solid 1px #DDD;border-collapse: collapse;} padding: 2px 3px;text-align: center;} </style>";
+           var win = window.open('', '', 'height=700,width=700');
+           win.document.write('<html><head>');
+           win.document.write('<title>Boolean Logic Table</title>');
+           win.document.write(style);
+           win.document.write('</head>');
+           win.document.write('<body>');
+           win.document.write('<center>'+sTable+'</center>');
+           win.document.write('</body></html>');
+           win.document.close();
+           win.print();
+          },
+        },
       ]
     });
 

@@ -36,7 +36,7 @@ describe "Group management", type: :system do
 
   it "should add a member to the group" do
     visit "/groups/#{@group.id}"
-    click_button "Add member"
+    click_button "+ Add Members"
     execute_script "document.getElementById('myModal').style.display='block'"
     execute_script "document.getElementById('myModal').style.opacity=1"
     fill_in "emails", with: @user2.email
@@ -53,7 +53,7 @@ describe "Group management", type: :system do
     click_on "Remove"
     accept_alert
 
-    expect(page).to have_text("Group member was successfully destroyed.")
+    expect(page).to have_text("Group member was successfully removed.")
   end
 
   it "should change the group name" do

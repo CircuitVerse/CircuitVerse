@@ -3,7 +3,7 @@
   <% if policy(project).check_direct_view_access? %>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
       <div class="card text-center card-userprojects">
-        <div class="card-header card-header-userprojects">
+        <div class="card-header card-header-userprojects rounded-0">
           <h3 class="cardname"><%= project.name %></h3>
             <% if !project.assignment_id.nil? %>
               <span class="badge badge-dark">Assignment</span>

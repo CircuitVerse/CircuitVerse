@@ -1,19 +1,22 @@
 // Home page New UI
 .row-homepage {
-  margin-bottom: 40px;
-  margin-top: 70px;
+  margin-bottom: 20px;
+  margin-top: 80px;
 }
 
 .btn-homepage {
   background-color: $green;
   border-radius: 36px;
   color: $white;
-  padding: 10px 20px;
+  margin-left: -2px;
+  padding: 6px 19px 9px;
+  text-align: center;
 }
 
 .a-homepage {
   color: $teal;
   margin-left: 15px;
+  margin-top: 15px;
   text-decoration: underline;
 }
 
@@ -23,12 +26,14 @@
 }
 
 .btn-homepage2 {
-  border: 2px solid $teal;
+  border: 1.6px solid $teal;
   border-radius: 5px;
-  margin: 10px;
+  margin: 0 7px;
 
   &:hover {
-    box-shadow: 0 7px 7px $shadow-black;
+    background-color: $teal;
+    box-shadow: 0 7px 7px $white;
+    color: $white;
   }
 }
 
@@ -84,8 +89,29 @@
 }
 
 .homepage-cover {
-  margin-bottom: 15px;
-  margin-top: 30px;
+  margin-top: -60px;
   max-height: 700px;
   max-width: 100%;
+}
+
+.button-homepage {
+  margin-bottom: 50px;
+}
+
+@media (max-width:765px) {
+  .button-homepage {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+  }
+
+  .homepage-cover {
+    margin: 20px 0;
+  }
+}
+
+@media (max-width:1200px) and (min-width:765px){
+  .button-homepage {
+    margin-top: 100px;
+  }
 }

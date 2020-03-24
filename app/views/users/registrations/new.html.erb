@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 center-block">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 center-block d-none d-md-block">
       <%= image_tag "SVGs/signup.svg", alt: "signup-logo", :class => "signup-cover center-block" %>
       <h5>Get yourself registered to start away with saving circuits, building groups and much more!</h5>
     </div>
@@ -29,7 +29,7 @@
           <% end %>
           <div class="input-group">
             <%= f.password_field :password, autocomplete: "off", class:"form-control custom-input", id:"signup-psw", placeholder: 'Password' %>
-            <div class="input-group-addon" onclick="toggleSignupPassword()">
+            <div class="input-group-addon align-self-center ml-3 mt-2" onclick="toggleSignupPassword()">
               <i class="fa fa-eye-slash password-icon" aria-hidden="true" id="toggle-psw-icon"></i>
             </div>
           </div>

@@ -10,8 +10,9 @@
   </div>
 
   <% if @user.rated_projects.blank? %>
-    <div class ="favblank">
-      <h5>There are no favourites to show.</h5>
+    <div>
+    <center><div><%= image_tag("SVGs/undraw_empty_xct9.svg", class: "cover", alt: "You don't have any favourite projects yet.") %></div>
+    <div><b>You don't have any favourite projects yet.</b></div></center> 
     </div>
   <% end %>
 
@@ -21,7 +22,7 @@
       <% if policy(project).check_direct_view_access? %>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
           <div class="card text-center card-userprojects">
-            <div class="card-header card-header-userprojects">
+            <div class="card-header card-header-userprojects rounded-0">
               <h3 class="cardname"><%= project.name %></h3>
               <% if !project.assignment_id.nil? %>
                 <span class="badge badge-dark">Assignment</span>
