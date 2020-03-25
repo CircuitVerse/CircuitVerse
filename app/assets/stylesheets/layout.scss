@@ -60,20 +60,14 @@ body {
   z-index: 100;
 }
 
-.nav-item {
-  .nav-link {
-    color: $primary;
-    font-weight: 500;
-  }
-
-&.active {
-  a {
-    color: $button-border-color !important;
-    font-weight: bold;
-  }
-}
-
 .navbar-nav {
+  .active {
+    a {
+      color: $button-border-color !important;
+      font-weight: bold;
+    }
+  }
+
   .nav-link {
     position: relative;
     &::before {
