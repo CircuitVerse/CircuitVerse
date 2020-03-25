@@ -37,15 +37,15 @@
     </div>
     <% end %>
     <div class="container">
-      <div class="row row-homepage">
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+      <div class="d-flex flex-column flex-md-row align-items-center py-4 py-md-0 my-4 my-lg-0">
+        <div>
           <h1>Dive into the world of Logic Circuits for free!</h1> <br>
           <p>From simple gates to complex sequential circuits, plot timing diagrams, automatic circuit generation, explore standard ICs, and much more</p>
-          <button type="button" class="btn btn-homepage btn-about" onclick="window.location.href = '/simulator';">Launch Simulator</button>
+          <button type="button" class="btn btn-homepage btn-about mx-0" onclick="window.location.href = '/simulator';">Launch Simulator</button>
           <a href="https://learn.circuitverse.org/" class="a-homepage d-block d-md-inline-block d-lg-inline-block">Learn Logic Design</a>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-          <%= image_tag "homepage/new_homepage_sketch.png", alt: "HomepageSketch", :class => "homepage-cover center-block" %>
+        <div>
+          <%= image_tag "homepage/new_homepage_sketch.png", alt: "HomepageSketch", :class => "homepage-cover" %>
         </div>
       </div>
       <div class="row button-homepage">
@@ -131,7 +131,9 @@
             </div>
           </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+      </div>
+      <div class="row row-homepage-middle justify-content-center">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
           <div class="card card-homepage">
             <%= image_tag "homepage/sub-circuit.png", alt: "Sub Circuit", :class => "card-img-top cardimage-contribute" %>
             <div class="card-body">
@@ -140,7 +142,7 @@
             </div>
           </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
           <div class="card card-homepage">
             <%= image_tag "homepage/multi-bit-bus.png", alt: "Multi Bit Bus", :class => "card-img-top cardimage-contribute" %>
             <div class="card-body">
