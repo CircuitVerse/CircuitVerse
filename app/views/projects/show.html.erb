@@ -81,7 +81,7 @@
               <hr>
               <a href="<%= simulator_edit_path(@project) %>" class="card-link btn btn-primary btn-post fa-post" target="_blank">Launch simulator</a>
               <% if user_signed_in? %>
-                <i id="toggleStarButton" class="fa <%= Star.find_by(user_id: current_user.id, project_id: @project.id).nil? ? "fa-star-o" : "fa-star" %> btn btn-primary fa-post noSelect" aria-hidden="true" style="font-size:14px;margin:0px;" onclick="toggleStar()"></i>
+                <i id="toggleStarButton" class="fa <%= @already_starred ? "fa-star" : "fa-star-o" %> btn btn-primary fa-post noSelect" aria-hidden="true" style="font-size:14px;margin:0px;" onclick="toggleStar()"></i>
               <% else %>
                 <i class="fa fa-star-o btn btn-primary fa-post btn-post noSelect" aria-hidden="true" style="color:orange"></i>
               <% end %>
@@ -128,7 +128,7 @@
         <% end %>
         <% if !policy(@project).user_access? %>
           <% if user_signed_in? %>
-            <i id="toggleStarButton" class="fa <%= Star.find_by(user_id: current_user.id, project_id: @project.id).nil? ? "fa-star-o" : "fa-star" %> btn btn-primary fa-post noSelect" aria-hidden="true" style="font-size:14px;margin:0px;" onclick="toggleStar()"></i>
+            <i id="toggleStarButton" class="fa <%= @already_starred ? "fa-star" : "fa-star-o" %> btn btn-primary fa-post noSelect" aria-hidden="true" style="font-size:14px;margin:0px;" onclick="toggleStar()"></i>
           <% else %>
             <i class="fa fa-star-o btn btn-primary fa-post btn-post noSelect" aria-hidden="true"></i>
           <% end %>

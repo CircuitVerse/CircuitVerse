@@ -24,6 +24,7 @@ class ProjectsController < ApplicationController
     @project.increase_views(current_user)
     @collaboration = @project.collaborations.new
     @admin_access = true
+    @already_starred = Star.where(user_id: current_user.id, project_id: @project.id).exists?
     commontator_thread_show(@project)
   end
 
