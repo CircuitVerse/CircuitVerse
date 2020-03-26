@@ -9,7 +9,7 @@
   border-radius: 36px;
   color: $white;
   margin-left: -2px;
-  padding: 6px 19px 9px;
+  padding: 6px 19px 8px;
   text-align: center;
 }
 
@@ -28,7 +28,8 @@
 .btn-homepage2 {
   border: 1.6px solid $teal;
   border-radius: 5px;
-  margin: 0 7px;
+  box-shadow: 0 2px 7px $shadow-black;
+  margin: 10px 15px;
 
   &:hover {
     background-color: $teal;
@@ -89,7 +90,6 @@
 }
 
 .homepage-cover {
-  margin-top: -60px;
   max-height: 700px;
   max-width: 100%;
 }
@@ -98,7 +98,7 @@
   margin-bottom: 50px;
 }
 
-@media (max-width:765px) {
+@media (max-width: 765px) {
   .button-homepage {
     display: flex;
     justify-content: center;
@@ -109,8 +109,14 @@
     margin-top: 30px;
   }
 
+
   .btn-homepage2 {
     margin-left: 18px;
     margin-right: 18px;
+  }
+
+@media (max-width: 1200px) and (min-width: 765px) {
+  .button-homepage {
+    margin-top: 100px;
   }
 }
