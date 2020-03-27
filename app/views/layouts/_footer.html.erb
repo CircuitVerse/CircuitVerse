@@ -52,11 +52,7 @@
               <td><a class="text-white" href="/teachers">Teachers</a></td>
             </tr>
             <tr>
-              <% if user_signed_in? %>
-                  <td><a class="text-white" href="<%= user_path(current_user) %>">My Circuits</a></td>
-              <% else %>
-                  <td><a class="text-white" href="/users/sign_in">Login</a></td> 
-              <% end %>
+              <td><a class="text-white" href="/users/sign_in">Login</a></td>
               <td><a class="text-white" href="/about">About</a></td>
             </tr>
           </table>
