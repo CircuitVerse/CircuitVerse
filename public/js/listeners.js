@@ -183,8 +183,9 @@ function handleKeyUp(e) {
     if (e.key == "Meta" || e.key == "Control") {
         simulationArea.controlDown = false;
     }
-    if ( (e.key == "e" || e.key == "E")) {
+    if (e.keyCode == 69) {
         simulationArea.shiftDown = false;
+        
     }
 
 }
@@ -196,6 +197,45 @@ function handleKeyDowm (e) {
     // if($(':focus').length){
     //     return;
     // }
+
+    
+// handlers
+    function selectMulti (){
+        simulationArea.shiftDown = true;
+        if (simulationArea.lastSelected && !simulationArea.lastSelected.keyDown && simulationArea.lastSelected.objectType != "Wire" && simulationArea.lastSelected.objectType != "CircuitElement" && !simulationArea.multipleObjectSelections.contains(simulationArea.lastSelected)) {
+            simulationArea.multipleObjectSelections.push(simulationArea.lastSelected);
+        }
+    }
+    function getDirection(){
+        switch (e.keyCode) {
+            case 37:
+            case 65:
+                e.preventDefault();
+                return "LEFT";
+    
+            case 38:
+            case 87:
+                e.preventDefault();
+                return "UP";
+    
+            case 39:
+            case 68:
+                e.preventDefault();
+                return "RIGHT";
+    
+            case 40:
+            case 83:
+                e.preventDefault();
+                return "DOWN";
+    
+            default:
+                return false
+        }
+    }
+    function changeBitWidth(){
+        if (simulationArea.lastSelected.bitWidth !== undefined)
+        simulationArea.lastSelected.newBitWidth(parseInt(prompt("Enter new bitWidth"), 10));
+    }
 
     if (simulationArea.mouseRawX < 0 || simulationArea.mouseRawY < 0 || simulationArea.mouseRawX > width || simulationArea.mouseRawY > height) {
         return;
@@ -256,23 +296,30 @@ function handleKeyDowm (e) {
     }
     
 
-// Shift key
-function selectMulti (){
-    simulationArea.shiftDown = true;
-    if (simulationArea.lastSelected && !simulationArea.lastSelected.keyDown && simulationArea.lastSelected.objectType != "Wire" && simulationArea.lastSelected.objectType != "CircuitElement" && !simulationArea.multipleObjectSelections.contains(simulationArea.lastSelected)) {
-        simulationArea.multipleObjectSelections.push(simulationArea.lastSelected);
+    if (simulationArea.lastSelected != undefined) {
+        let direction = getDirection()
+        if (direction){
+            simulationArea.lastSelected.newDirection(direction);
+        }
+
     }
-}
+
+// Shift key
+
     if (e.keyCode == 16) {
         selectMulti()
+        e.preventDefault();
     }
 
     if (e.keyCode == 8 || e.key == "Delete") {
         delete_selected();
+        e.preventDefault();
     }
 
-    if (simulationArea.controlDown && e.key.charCodeAt(0) == 122) { // detect the special CTRL-Z code
+    // CTRL + z
+    if (simulationArea.controlDown && e.key.charCodeAt(0) == 122){
         undo();
+        e.preventDefault();
     }
 
     // Detect online save shortcut (CTRL+S)
@@ -286,56 +333,29 @@ function selectMulti (){
         e.preventDefault();
     }
 
-    // Detect Select all Shortcut
+    // CTRL + a 
     if (simulationArea.controlDown && (e.keyCode == 65 || e.keyCode == 97)) {
         selectAll();
         e.preventDefault();
     }
 
-    //change direction fns
-function getDirection(){
-    switch (e.keyCode) {
-        case 37:
-        case 65:
-            return "LEFT";
 
-        case 38:
-        case 87:
-            return "UP";
 
-        case 39:
-        case 68:
-            return "RIGHT";
+// f2 or q
+    if ((e.keyCode == 113 || e.keyCode == 81) && simulationArea.lastSelected != undefined){
 
-        case 40:
-        case 83:
-            return "DOWN";
-
-        default:
-            return false
+        changeBitWidth()
+        e.preventDefault();
     }
-}
-
-    if (simulationArea.lastSelected != undefined) {
-        let direction = getDirection()
-        if (direction){
-            simulationArea.lastSelected.newDirection(direction);
-        }
-    }
-
-    if ((e.keyCode == 113 || e.keyCode == 81) && simulationArea.lastSelected != undefined) {
-        if (simulationArea.lastSelected.bitWidth !== undefined)
-            simulationArea.lastSelected.newBitWidth(parseInt(prompt("Enter new bitWidth"), 10));
-    }
-
-    if (simulationArea.controlDown && (e.key == "T" || e.key == "t")) {
-        // e.preventDefault(); //browsers normally open a new tab
+// t
+    if (e.keyCode == 84){
         simulationArea.changeClockTime(prompt("Enter Time:"));
+        e.preventDefault();
     }
-
-    if ( (e.key == "e" || e.key == "E")) {
-        // Will be refactored later
-        simulationArea.shiftDown = true;
+// e
+    if (e.keyCode == 69){
+        selectMulti()
+        e.preventDefault();
     }
 
 
@@ -400,7 +420,7 @@ function handlePast(e) {
 // EventListenerHANDLERS -----------------------------------> end
 
 
-
+// HELPERS----------------------------------->START
 /** 
  * Zoom handler
  * @param {it's value is 1 for zoom in  or -1 for zoom out  } direction  
@@ -413,8 +433,18 @@ function zoom(direction){
     }
 }
 
+// Function selects all the elements from the scope
+function selectAll(scope = globalScope) {
+    circuitElementList.forEach((val, _, __) => {
+        if (scope.hasOwnProperty(val)) {
+            simulationArea.multipleObjectSelections.push(...scope[val]);
+        }
+    });
 
-// HELPERS----------------------------------->START
+    if (scope.nodes) {
+        simulationArea.multipleObjectSelections.push(...scope.nodes);
+    }
+}
 
 function removeMiniMap() {
     if (lightMode) return;
