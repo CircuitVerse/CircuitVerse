@@ -174,7 +174,6 @@ function handleKeyUp(e) {
     scheduleUpdate(1);
     simulationArea.shiftDown = e.shiftKey;
 
-
     if (e.keyCode == 16) 
         simulationArea.shiftDown = false;
     
@@ -263,12 +262,15 @@ function handleKeyDowm (e) {
             return;
         }
     }
+    
 
 // Shift key
 
     if (e.keyCode == 16) {
         handleSelectMulti()
         e.preventDefault();
+
+
     }
 
 //backspace or delete    deleteSelected
@@ -365,6 +367,7 @@ function handleKeyDowm (e) {
     }
     if (simulationArea.lastSelected != undefined) {
         let direction = getDirection(e)
+
         if (direction){
             simulationArea.lastSelected.newDirection(direction);
         }
