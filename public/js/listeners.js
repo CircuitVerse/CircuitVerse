@@ -163,7 +163,6 @@ function handleMouseScroll(event) {
     zoom(direction)      
 
     updateCanvas = true;
-    gridUpdate = true;
     if(layoutMode)layoutUpdate();
     else update(); // Schedule update not working, this is INEFFICIENT
 }
@@ -178,8 +177,6 @@ function handleKeyUp(e) {
     scheduleUpdate(1);
     simulationArea.shiftDown = e.shiftKey;
 
-
-//***************** SHIF ***************** 
     if (e.keyCode == 16) {
         simulationArea.shiftDown = false;
     }
@@ -191,6 +188,7 @@ function handleKeyUp(e) {
     }
 
 }
+
 // Key DOWM
 function handleKeyDowm (e) {
 
@@ -256,13 +254,17 @@ function handleKeyDowm (e) {
             return;
         }
     }
+    
 
-
+// Shift key
+function selectMulti (){
+    simulationArea.shiftDown = true;
+    if (simulationArea.lastSelected && !simulationArea.lastSelected.keyDown && simulationArea.lastSelected.objectType != "Wire" && simulationArea.lastSelected.objectType != "CircuitElement" && !simulationArea.multipleObjectSelections.contains(simulationArea.lastSelected)) {
+        simulationArea.multipleObjectSelections.push(simulationArea.lastSelected);
+    }
+}
     if (e.keyCode == 16) {
-        simulationArea.shiftDown = true;
-        if (simulationArea.lastSelected && !simulationArea.lastSelected.keyDown && simulationArea.lastSelected.objectType != "Wire" && simulationArea.lastSelected.objectType != "CircuitElement" && !simulationArea.multipleObjectSelections.contains(simulationArea.lastSelected)) {
-            simulationArea.multipleObjectSelections.push(simulationArea.lastSelected);
-        }
+        selectMulti()
     }
 
     if (e.keyCode == 8 || e.key == "Delete") {
@@ -291,33 +293,32 @@ function handleKeyDowm (e) {
     }
 
     //change direction fns
+function getDirection(){
+    switch (e.keyCode) {
+        case 37:
+        case 65:
+            return "LEFT";
+
+        case 38:
+        case 87:
+            return "UP";
+
+        case 39:
+        case 68:
+            return "RIGHT";
+
+        case 40:
+        case 83:
+            return "DOWN";
+
+        default:
+            return false
+    }
+}
+
     if (simulationArea.lastSelected != undefined) {
-        let direction = "";
-        switch (e.keyCode) {
-            case 37:
-            case 65:
-                direction = "LEFT";
-                break;
-
-            case 38:
-            case 87:
-                direction = "UP";
-                break;
-
-            case 39:
-            case 68:
-                direction = "RIGHT";
-                break;
-
-            case 40:
-            case 83:
-                direction = "DOWN";
-                break;
-
-            default:
-                break;
-        }
-        if (direction !== ""){
+        let direction = getDirection()
+        if (direction){
             simulationArea.lastSelected.newDirection(direction);
         }
     }
