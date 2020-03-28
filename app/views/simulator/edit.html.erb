@@ -335,14 +335,10 @@
 <script >
   $('button').click(function(){
    if (this.id== 'report'){
-    var  url= "https://hooks.slack.com/services/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";
-    var x=$('#issuetext').val();
-    x += "\nURL: " + window.location.href;
-    x += `\nUser Id: <%= user_signed_in? ? " #{current_user.id.to_s} : #{current_user.name}" : "Not logged in" %>`
-    var payload={"text":x};
-    $.post(url,JSON.stringify(payload),function(data){
-      $('#result').html("<i class='fa fa-check' style='color:green'></i> You've successfully submitted the issue. Thanks for improving our platform.");
-    })
+    var message=$('#issuetext').val();
+    message += "\nURL: " + window.location.href;
+    message += `\nUser Id: <%= user_signed_in? ? " #{current_user.id.to_s} : #{current_user.name}" : "Guest user" %>`
+    postUserIssue(message)
     $('#issuetext').hide();
     $('#report').hide();
     $('#report-label').hide();

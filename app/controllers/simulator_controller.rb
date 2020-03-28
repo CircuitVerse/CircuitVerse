@@ -59,6 +59,11 @@ class SimulatorController < ApplicationController
     render plain: "success"
   end
 
+  def post_issue
+    url = ENV["SLACK_ISSUE_HOOK_URL"]
+    HTTP.post(url, json: { text: params[:text] })
+    head :ok, content_type: "text/html"
+  end
 
   def create
     @project = Project.new
