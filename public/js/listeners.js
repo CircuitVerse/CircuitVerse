@@ -372,15 +372,11 @@ function handleCut(e) {
     // Updated restricted elements
     updateRestrictedElementsInScope();
 
-    localStorage.setItem('clipboardData', textToPutOnClipboard);
     e.preventDefault();
-    if(textToPutOnClipboard==undefined)
-        return;
-    if (isIe) {
-        window.clipboardData.setData('Text', textToPutOnClipboard);
-    } else {
-        e.clipboardData.setData('text/plain', textToPutOnClipboard);
+    if(textToPutOnClipboard!=undefined){
+        localStorage.setItem('clipboardData', textToPutOnClipboard);
     }
+
 }
 // COPY
 function handleCopy(e) {
@@ -394,24 +390,18 @@ function handleCopy(e) {
     // Updated restricted elements
     updateRestrictedElementsInScope();
 
-    localStorage.setItem('clipboardData', textToPutOnClipboard);
-    e.preventDefault();
-    if(textToPutOnClipboard==undefined)
-        return;
-    if (isIe) {
-        window.clipboardData.setData('Text', textToPutOnClipboard);
-    } else {
-        e.clipboardData.setData('text/plain', textToPutOnClipboard);
+    if(textToPutOnClipboard!=undefined){
+        localStorage.setItem('clipboardData', textToPutOnClipboard);
     }
+    
+    e.preventDefault();
+ 
+   
 }
 // PAST
 function handlePast(e) {
-    var data;
-    if (isIe) {
-        data = window.clipboardData.getData('Text');
-    } else {
-        data = e.clipboardData.getData('text/plain');
-    }
+  
+    var data =  localStorage.getItem('clipboardData');
 
     paste(data);
 
