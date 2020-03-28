@@ -156,15 +156,11 @@ function handleDoubleClick (e) {
 // Scroll
 function handleMouseScroll(event) {
     updateCanvas = true;
-
     event.preventDefault()
-  
   
     var deltaY = event.wheelDelta ? event.wheelDelta : -event.detail;
     let direction =  deltaY > 0 ? 1 : -1
-        if ( globalScope.scale > 0.5 * DPR && globalScope.scale < 4 * DPR) 
-            changeScale(direction*.1 * DPR);
-        
+    zoom(direction)      
 
     updateCanvas = true;
     gridUpdate = true;
@@ -222,22 +218,20 @@ function handleKeyDowm (e) {
         simulationArea.controlDown = true;
     }
 
-    // 187 =
-    // zoom in (+)
-    if (simulationArea.controlDown && (e.keyCode == 187 || e.keyCode == 171)) {
+// keyDownHandlers
+
+
+
+// zoom in (+)
+    if (simulationArea.controlDown&&(e.keyCode == 187 || e.keyCode == 171) || e.keyCode == 107) {
         e.preventDefault();
-        if (globalScope.scale < 4 * DPR) {
-            changeScale(.1 * DPR);
-        }
+        zoom(1)
     }
 
-    // 189 -
     // zoom out (-)
-    if (simulationArea.controlDown && (e.keyCode == 189 || e.keyCode == 173)) {
+    if ( simulationArea.controlDown&&(e.keyCode == 189 || e.keyCode == 173) || e.keyCode == 109) {
         e.preventDefault();
-        if (globalScope.scale > 0.5 * DPR) {
-            changeScale(-.1 * DPR);
-        }
+        zoom(-1)       
     }
 
     if (simulationArea.mouseRawX < 0 || simulationArea.mouseRawY < 0 || simulationArea.mouseRawX > width || simulationArea.mouseRawY > height) return;
@@ -246,30 +240,23 @@ function handleKeyDowm (e) {
     updateCanvas = true;
     wireToBeChecked = 1;
 
-
-    if (simulationArea.lastSelected && simulationArea.lastSelected.keyDown) {
-        if (e.key.toString().length == 1 || e.key.toString() == "Backspace") {
+    if(simulationArea.lastSelected){
+        if (simulationArea.lastSelected.keyDown&&(e.key.toString().length == 1 || e.key.toString() == "Backspace")) {
             simulationArea.lastSelected.keyDown(e.key.toString());
             return;
         }
 
-    }
-
-    if (simulationArea.lastSelected && simulationArea.lastSelected.keyDown2) {
-        if (e.key.toString().length == 1) {
+        if (simulationArea.lastSelected.keyDown2&&(e.key.toString().length == 1)) {
             simulationArea.lastSelected.keyDown2(e.key.toString());
             return;
         }
 
-    }
-
-    if (simulationArea.lastSelected && simulationArea.lastSelected.keyDown3) {
-        if (e.key.toString() != "Backspace" && e.key.toString() != "Delete") {
+        if (simulationArea.lastSelected.keyDown3&&(e.key.toString() != "Backspace" && e.key.toString() != "Delete")) {
             simulationArea.lastSelected.keyDown3(e.key.toString());
             return;
         }
-
     }
+
 
     if (e.keyCode == 16) {
         simulationArea.shiftDown = true;
@@ -346,6 +333,7 @@ function handleKeyDowm (e) {
     }
 
     if ( (e.key == "e" || e.key == "E")) {
+        // Will be refactored later
         simulationArea.shiftDown = true;
     }
 
@@ -411,6 +399,18 @@ function handlePast(e) {
 // EventListenerHANDLERS -----------------------------------> end
 
 
+
+/** 
+ * Zoom handler
+ * @param {it's value is 1 for zoom in  or -1 for zoom out  } direction  
+ */
+function zoom(direction){
+    if ( globalScope.scale > 0.5 * DPR && globalScope.scale < 4 * DPR){
+        changeScale(direction * .1 * DPR);
+        // This Fix zoom issue
+        gridUpdate = true;
+    }
+}
 
 
 // HELPERS----------------------------------->START
