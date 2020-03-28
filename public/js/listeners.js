@@ -174,6 +174,7 @@ function handleKeyUp(e) {
     scheduleUpdate(1);
     simulationArea.shiftDown = e.shiftKey;
 
+
     if (e.keyCode == 16) 
         simulationArea.shiftDown = false;
     
@@ -184,6 +185,18 @@ function handleKeyUp(e) {
     if (e.keyCode == 69) 
         simulationArea.shiftDown = false;
     
+//***************** SHIF ***************** 
+    if (e.keyCode == 16) {
+        simulationArea.shiftDown = false;
+    }
+    if (e.key == "Meta" || e.key == "Control") {
+        simulationArea.controlDown = false;
+    }
+    if ( (e.key == "e" || e.key == "E")) {
+        simulationArea.shiftDown = false;
+    }
+
+
 }
 
 // Key DOWM
@@ -233,6 +246,7 @@ function handleKeyDowm (e) {
 
     if(simulationArea.lastSelected){
         if (simulationArea.lastSelected.keyDown&&(e.key.toString().length == 1 || e.key.toString() == "Backspace")) {
+
             simulationArea.lastSelected.keyDown(e.key.toString());
             return;
         }
@@ -354,6 +368,20 @@ function handleKeyDowm (e) {
     }
     // directions Handler ---------------------------->END
 
+    if ((e.keyCode == 113 || e.keyCode == 81) && simulationArea.lastSelected != undefined) {
+        if (simulationArea.lastSelected.bitWidth !== undefined)
+            simulationArea.lastSelected.newBitWidth(parseInt(prompt("Enter new bitWidth"), 10));
+    }
+
+    if (simulationArea.controlDown && (e.key == "T" || e.key == "t")) {
+        // e.preventDefault(); //browsers normally open a new tab
+        simulationArea.changeClockTime(prompt("Enter Time:"));
+    }
+
+    if ( (e.key == "e" || e.key == "E")) {
+        simulationArea.shiftDown = true;
+    }
+
 }
 // ***KEYBOAED-END***
 
@@ -392,6 +420,7 @@ function handleCopy() {
     if(textToPutOnClipboard!=undefined){
         localStorage.setItem('clipboardData', textToPutOnClipboard);
     }   
+
 }
 // PAST
 function handlePast() {
