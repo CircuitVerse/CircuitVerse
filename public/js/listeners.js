@@ -38,27 +38,27 @@ function onMouseUp(e) {
         setTimeout(removeMiniMap, 2000);
     }
 
-    errorDetected = false;
+    errorDetected    = false;
     updateSimulation = true;
-    updatePosition = true;
-    updateCanvas = true;
-    gridUpdate = true;
-    wireToBeChecked = true;
+    updatePosition   = true;
+    updateCanvas     = true;
+    gridUpdate       = true;
+    wireToBeChecked  = true;
 
     scheduleUpdate(1);
     simulationArea.mouseDown = false;
 
     for (var i = 0; i < 2; i++) {
-        updatePosition = true;
+        updatePosition  = true;
         wireToBeChecked = true;
         update();
     }
-    errorDetected = false;
+    errorDetected    = false;
     updateSimulation = true;
-    updatePosition = true;
-    updateCanvas = true;
-    gridUpdate = true;
-    wireToBeChecked = true;
+    updatePosition   = true;
+    updateCanvas     = true;
+    gridUpdate       = true;
+    wireToBeChecked  = true;
 
     scheduleUpdate(1);
     var rect = simulationArea.canvas.getBoundingClientRect();
@@ -73,14 +73,13 @@ function onMouseUp(e) {
 function handleMouseDown (e) {
     $("input").blur();
 
-    errorDetected = false;
-    updateSimulation = true;
-    updatePosition = true;
-    updateCanvas = true;
-
+    errorDetected               = false;
+    updateSimulation            = true;
+    updatePosition              = true;
+    updateCanvas                = true;
     simulationArea.lastSelected = undefined;
-    simulationArea.selected = false;
-    simulationArea.hover = undefined;
+    simulationArea.selected     = false;
+    simulationArea.hover        = undefined;
     var rect = simulationArea.canvas.getBoundingClientRect();
     simulationArea.mouseDownRawX = (e.clientX - rect.left) * DPR;
     simulationArea.mouseDownRawY = (e.clientY - rect.top) * DPR;
@@ -183,16 +182,18 @@ function handleKeyUp(e) {
     scheduleUpdate(1);
     simulationArea.shiftDown = e.shiftKey;
 
-    console.log(e)
 
 //***************** SHIF ***************** 
     if (e.keyCode == 16) {
         simulationArea.shiftDown = false;
-        console.log("Shift Clicked",e)
     }
     if (e.key == "Meta" || e.key == "Control") {
         simulationArea.controlDown = false;
     }
+    if ( (e.key == "e" || e.key == "E")) {
+        simulationArea.shiftDown = false;
+    }
+
 }
 // Key DOWM
 function handleKeyDowm (e) {
@@ -212,9 +213,9 @@ function handleKeyDowm (e) {
         }
     }
 
-    errorDetected = false;
+    errorDetected    = false;
     updateSimulation = true;
-    updatePosition = true;
+    updatePosition   = true;
     simulationArea.shiftDown = e.shiftKey;
    
     if (e.key == "Meta" || e.key == "Control") {
@@ -245,17 +246,6 @@ function handleKeyDowm (e) {
     updateCanvas = true;
     wireToBeChecked = 1;
 
-    // Needs to be deprecated, moved to more recent listeners
-    if (simulationArea.controlDown && (e.key == "C" || e.key == "c")) {
-        //    simulationArea.copyList=simulationArea.multipleObjectSelections.slice();
-        //    if(simulationArea.lastSelected&&simulationArea.lastSelected!==simulationArea.root&&!simulationArea.copyList.contains(simulationArea.lastSelected)){
-        //        simulationArea.copyList.push(simulationArea.lastSelected);
-        //    }
-        //    copy(simulationArea.copyList);
-    }
-    if (simulationArea.controlDown && (e.key == "V" || e.key == "v")) {
-        //    paste(simulationArea.copyData);
-    }
 
     if (simulationArea.lastSelected && simulationArea.lastSelected.keyDown) {
         if (e.key.toString().length == 1 || e.key.toString() == "Backspace") {
@@ -354,6 +344,12 @@ function handleKeyDowm (e) {
         // e.preventDefault(); //browsers normally open a new tab
         simulationArea.changeClockTime(prompt("Enter Time:"));
     }
+
+    if ( (e.key == "e" || e.key == "E")) {
+        simulationArea.shiftDown = true;
+    }
+
+
 }
 // ***KEYBOAED-END***
 
@@ -393,7 +389,7 @@ function handleCopy(e) {
     if(textToPutOnClipboard!=undefined){
         localStorage.setItem('clipboardData', textToPutOnClipboard);
     }
-    
+
     e.preventDefault();
  
    
