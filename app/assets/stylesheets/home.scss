@@ -1,10 +1,15 @@
 // Home page New UI
+.row-homepage {
+  margin-bottom: 40px;
+  margin-top: 70px;
+}
+
 .btn-homepage {
   background-color: $green;
   border-radius: 36px;
   color: $white;
   margin-left: -2px;
-  padding: 6px 19px 9px;
+  padding: 6px 19px 8px;
   text-align: center;
 }
 
@@ -36,7 +41,7 @@
 .row-homepage-middle {
   margin-left: auto;
   margin-right: auto;
-  margin-top: 30px;
+  margin-top: 60px;
   text-align: center;
 }
 
@@ -100,8 +105,13 @@
     margin-bottom: 25px;
   }
 
-  .homepage-cover {
-    margin: 20px 0;
+  .row-homepage {
+    margin-top: 30px;
+  }
+
+  .btn-homepage2 {
+    margin-left: 18px;
+    margin-right: 18px;
   }
 }
 
