@@ -226,6 +226,7 @@ function handleKeyDowm (e) {
         simulationArea.controlDown = true;
     }
 
+
 //CTRL+= or +     zoom in (+)
     if (simulationArea.controlDown&&(e.keyCode == 187 || e.keyCode == 171) || e.keyCode == 107) {
         e.preventDefault();
@@ -236,6 +237,7 @@ function handleKeyDowm (e) {
     if ( simulationArea.controlDown&&(e.keyCode == 189 || e.keyCode == 173) || e.keyCode == 109) {
         e.preventDefault();
         handleZoom(-1)       
+
     }
 
     if (simulationArea.mouseRawX < 0 || simulationArea.mouseRawY < 0 || simulationArea.mouseRawX > width || simulationArea.mouseRawY > height) return;
@@ -263,6 +265,7 @@ function handleKeyDowm (e) {
     }
 
 // Shift key
+
     if (e.keyCode == 16) {
         handleSelectMulti()
         e.preventDefault();
@@ -379,6 +382,7 @@ function handleKeyDowm (e) {
     }
 
     if ( (e.key == "e" || e.key == "E")) {
+        // Will be refactored later
         simulationArea.shiftDown = true;
     }
 
@@ -434,6 +438,19 @@ function handlePast() {
 
 // EventListenerHANDLERS -----------------------------------> end
 
+
+
+/** 
+ * Zoom handler
+ * @param {it's value is 1 for zoom in  or -1 for zoom out  } direction  
+ */
+function zoom(direction){
+    if ( globalScope.scale > 0.5 * DPR && globalScope.scale < 4 * DPR){
+        changeScale(direction * .1 * DPR);
+        // This Fix zoom issue
+        gridUpdate = true;
+    }
+}
 
 
 // HELPERS----------------------------------->START
