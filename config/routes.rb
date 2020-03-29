@@ -117,6 +117,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v0 do
       post '/auth/login', to: 'authentication#login'
+      post '/auth/signup', to: 'authentication#signup'
       get '/user/me', to: 'users#index'
       patch '/user/me', to: 'users#update'
       get '/change_stars/:id', to: 'projects#change_stars'
