@@ -30,9 +30,9 @@
   <% end %>
 
 
-  <div class ="d-flex flex-column align-items-center flex-md-row justify-content-md-between align-items-md-center">	
-    <div class="d-flex flex-row justify-content-center align-items-center">	
-      <%= image_tag @user.profile_picture.url(:medium, alt: "@user.name"), class: 'about-card-image about-card-image', style: "width: 100px; height: 100px; margin: 10px;" %>	
+  <div class ="d-flex flex-column align-items-center flex-md-row justify-content-md-between align-items-md-center">
+    <div class="d-flex flex-row justify-content-center align-items-center">
+      <%= image_tag @user.profile_picture.url(:medium, alt: "@user.name"), class: 'about-card-image about-card-image', style: "width: 100px; height: 100px; margin: 10px;" %>
       <h2 class="p-4"><%= @user.name %></h2>
 
     </div>
