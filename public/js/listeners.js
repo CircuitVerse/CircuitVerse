@@ -28,7 +28,7 @@ function startListeners() {
 
 //***MOUSE-START***
 // onMouse UP at window
-function onMouseUp(e) {
+function onMouseUp() {
 
     if (!lightMode) {
         lastMiniMapShown = new Date().getTime();
@@ -108,7 +108,6 @@ function handleMouseUP(e) {
 
 // Mouse Move
 function onMouseMove(e) {
-
     var rect = simulationArea.canvas.getBoundingClientRect();
     simulationArea.mouseRawX = (e.clientX - rect.left) * DPR;
     simulationArea.mouseRawY = (e.clientY - rect.top) * DPR;
@@ -140,7 +139,7 @@ function onMouseMove(e) {
 }
 
 // Double Click
-function handleDoubleClick (e) {
+function handleDoubleClick () {
     scheduleUpdate(2);
     if (simulationArea.lastSelected && simulationArea.lastSelected.dblclick !== undefined) {
         simulationArea.lastSelected.dblclick();
@@ -177,7 +176,7 @@ function handleKeyUp(e) {
     if (e.keyCode == 16) 
         simulationArea.shiftDown = false;
     
-    if (e.key == "Meta" || e.key == "Control") 
+    if (e.key == "Meta" || e.keyCode == 17) 
         simulationArea.controlDown = false;
 
     // select multi buttom (m)
@@ -185,16 +184,11 @@ function handleKeyUp(e) {
         simulationArea.shiftDown = false;
     
 //***************** SHIF ***************** 
-    if (e.keyCode == 16) {
+    if (e.keyCode == 16) 
         simulationArea.shiftDown = false;
     
-    if (e.key == "Meta" || e.key == "Control") 
-        simulationArea.controlDown = false;
-    }
-    if ( (e.key == "e" || e.key == "E")) {
+    if ( (e.keyCode == 69)) 
         simulationArea.shiftDown = false;
-    }
-
 
 }
 
@@ -205,7 +199,6 @@ function handleKeyDowm (e) {
     //     return;
     // }
 
-
     if (simulationArea.mouseRawX < 0 || simulationArea.mouseRawY < 0 || simulationArea.mouseRawX > width || simulationArea.mouseRawY > height) {
         return;
     } else {
@@ -215,30 +208,11 @@ function handleKeyDowm (e) {
             showProperties(simulationArea.lastSelected)
         }
     }
-
     errorDetected    = false;
     updateSimulation = true;
     updatePosition   = true;
     simulationArea.shiftDown = e.shiftKey;
    
-    if (e.key == "Meta" || e.key == "Control") {
-        simulationArea.controlDown = true;
-    }
-
-
-//CTRL+= or +     zoom in (+)
-    if (simulationArea.controlDown&&(e.keyCode == 187 || e.keyCode == 171) || e.keyCode == 107) {
-        e.preventDefault();
-        handleZoom(1)
-    }
-
- //CTRL+- or -    zoom out (-)
-    if ( simulationArea.controlDown&&(e.keyCode == 189 || e.keyCode == 173) || e.keyCode == 109) {
-        e.preventDefault();
-        handleZoom(-1)       
-
-    }
-
     if (simulationArea.mouseRawX < 0 || simulationArea.mouseRawY < 0 || simulationArea.mouseRawX > width || simulationArea.mouseRawY > height) return;
 
     scheduleUpdate(1);
@@ -247,7 +221,6 @@ function handleKeyDowm (e) {
 
     if(simulationArea.lastSelected){
         if (simulationArea.lastSelected.keyDown&&(e.key.toString().length == 1 || e.key.toString() == "Backspace")) {
-
             simulationArea.lastSelected.keyDown(e.key.toString());
             return;
         }
@@ -262,13 +235,29 @@ function handleKeyDowm (e) {
             return;
         }
     }
-    
+
+
+// CTRL
+    if (e.key == "Meta" || e.keyCode == 17) {
+        simulationArea.controlDown = true;
+    }
+
+//CTRL+= or +     zoom in (+)
+    if (simulationArea.controlDown&&(e.keyCode == 187 || e.keyCode == 171) || e.keyCode == 107) {
+        e.preventDefault();
+        handleZoom(1)
+    }
+
+//CTRL+- or -    zoom out (-)
+    if ( simulationArea.controlDown&&(e.keyCode == 189 || e.keyCode == 173) || e.keyCode == 109) {
+        e.preventDefault();
+        handleZoom(-1)       
+    }
+
 // Shift key
     if (e.keyCode == 16) {
         handleSelectMulti()
         e.preventDefault();
-
-
     }
 
 //backspace or delete    deleteSelected
@@ -372,73 +361,6 @@ function handleKeyDowm (e) {
     }
     // directions Handler ---------------------------->END
 
-    if ((e.keyCode == 113 || e.keyCode == 81) && simulationArea.lastSelected != undefined) {
-        if (simulationArea.lastSelected.bitWidth !== undefined)
-            simulationArea.lastSelected.newBitWidth(parseInt(prompt("Enter new bitWidth"), 10));
-    }
-
-    if (simulationArea.controlDown && (e.key == "T" || e.key == "t")) {
-        // e.preventDefault(); //browsers normally open a new tab
-        simulationArea.changeClockTime(prompt("Enter Time:"));
-    }
-
-    if ( (e.key == "e" || e.key == "E")) {
-        // Will be refactored later
-        simulationArea.shiftDown = true;
-    }
-// c    Copy
-    if (e.keyCode == 67){
-        handleCopy()
-        e.preventDefault();
-    }
-    
-// x    Cut
-    if (e.keyCode == 88){
-        handleCut()
-        e.preventDefault();
-    }
-
-// v    past
-    if (e.keyCode == 86){
-        handlePast()
-        e.preventDefault();
-    }
-    
-    // directions Handler ---------------------------->START
-    function getDirection(){
-        switch (e.keyCode) {
-            case 37:
-            case 65:
-                e.preventDefault();
-                return "LEFT";
-
-            case 38:
-            case 87:
-                e.preventDefault();
-                return "UP";
-
-            case 39:
-            case 68:
-                e.preventDefault();
-                return "RIGHT";
-
-            case 40:
-            case 83:
-                e.preventDefault();
-                return "DOWN";
-
-            default:
-                return false
-        }
-    }
-    if (simulationArea.lastSelected != undefined) {
-        let direction = getDirection(e)
-        if (direction){
-            simulationArea.lastSelected.newDirection(direction);
-        }
-    }
-    // directions Handler ---------------------------->END
-
 }
 // ***KEYBOAED-END***
 
@@ -491,22 +413,8 @@ function handlePast() {
 // EventListenerHANDLERS -----------------------------------> end
 
 
-
-/** 
- * Zoom handler
- * @param {it's value is 1 for zoom in  or -1 for zoom out  } direction  
- */
-function zoom(direction){
-if ( globalScope.scale > 0.5 * DPR && globalScope.scale < 4 * DPR){
-        changeScale(direction * .1 * DPR);
-        // This Fix zoom issue
-        gridUpdate = true;
-    }
-}
-
-
 // HELPERS----------------------------------->START
-
+    
 function handleChangeClockTime(){
     simulationArea.changeClockTime(prompt("Enter Time:"));
 }
