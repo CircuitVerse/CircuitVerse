@@ -34,7 +34,7 @@
     <div class="d-flex flex-row justify-content-center align-items-center">
       <%= image_tag @user.profile_picture.url(:medium, alt: "@user.name"), class: 'about-card-image about-card-image', style: "width: 100px; height: 100px; margin: 10px;" %>
       <h2 class="p-4"><%= @user.name %></h2>
-
+      
     </div>
     <div class="">
       <a class="btn btn-about my-4 my-md-0" href="<%= user_favourites_path(@user) %>">View Favourites</a>
