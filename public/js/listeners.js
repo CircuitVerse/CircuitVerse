@@ -1,26 +1,41 @@
 // Most Listeners are stored here
 // 0 keys , 1 CTRL , 2 SHIFT
-var keymap = [
-    [[187,171,107],1,0,handleZoomIn],
-    [[189,173,109],1,0,handleZoomOut],
-    [[16],0,0,handleSelectMulti],
-    [[17],0,0,handleCtrlDown],
-    [[8,46],0,0,delete_selected],
-    [[90],1,0,undo],
-    [[83],1,0,save],
-    [[83],1,1,saveOffline],
-    [[65,97],1,0,handleSelectAll],
-    [[113,81],0,0,handleChangeBitWidth],
-    [[84],0,0,handleChangeClockTime],
-    [[69],0,0,handleSelectMulti],
-    [[67],0,0,handleCopy],
-    [[88],0,0,handleCut],
-    [[86],0,0,handlePast],
-    [[37,65],0,0,handleDirectionLeft],
-    [[39,68],0,0,handleDirectionRight],
-    [[38,87],0,0,handleDirectionUp],
-    [[40,83],0,0,handleDirectionDowm],
+// i had to covert functions to string then using eval to retrieve 
+// there could be an other appeoach here , 
+// we could create an other object with shortcut name , shortcut function 
+
+var custumeShortCuts = [
+    [[187,171,107],1,0,"handleZoomIn"],
+    [[189,173,109],1,0,"handleZoomOut"],
+    [[16],0,0,"handleSelectMulti"],
+    [[17],0,0,"handleCtrlDown"],
+    [[8,46],0,0,"delete_selected"],
+    [[90],1,0,"undo"],
+    [[83],1,0,"save"],
+    [[83],1,1,"saveOffline"],
+    [[65,97],1,0,"handleSelectAll"],
+    [[113,81],0,0,"handleChangeBitWidth"],
+    [[84],0,0,"handleChangeClockTime"],
+    [[69],0,0,"handleSelectMulti"],
+    [[67],0,0,"handleCopy"],
+    [[88],0,0,"handleCut"],
+    [[86],0,0,"handlePast"],
+    [[37,65],0,0,"handleDirectionLeft"],
+    [[39,68],0,0,"handleDirectionRight"],
+    [[38,87],0,0,"handleDirectionUp"],
+    [[40,83],0,0,"handleDirectionDowm"],
 ]
+var  keymap 
+// console.log("AAAAAAAAAAA" ,JSON.parse(stcus))
+//  for the first time the storedShortCuts would be null so we will store the shortcuts  
+let storedShortCuts = window.localStorage.getItem("custumeShortCuts")
+if(storedShortCuts){
+    keymap = JSON.parse(storedShortCuts)
+    console.log("keymap",keymap)
+}else{
+    keymap = custumeShortCuts
+    window.localStorage.setItem("custumeShortCuts" , JSON.stringify(custumeShortCuts))
+}
 
 function startListeners() {
 
@@ -91,7 +106,7 @@ function onMouseUp() {
 // Mouse Down
 function handleMouseDown (e) {
     $("input").blur();
-
+console.log("111",keymap)
     var rect = simulationArea.canvas.getBoundingClientRect();
     errorDetected               = false;
     updateSimulation            = true;
@@ -257,26 +272,25 @@ keymap.forEach(instruction=>{
         if(key===e.keyCode){
             if(instruction[1] && simulationArea.controlDown && instruction[2] && simulationArea.shiftDown){
                 // CTRL + SHIFT pressed
-                instruction[3]()
+                eval('(' + instruction[3] + ')')()
                 found=true
                 return
             }
-
             else if(instruction[1] && simulationArea.controlDown){
                 // ctrl pressed
-                instruction[3]()
+                eval('(' + instruction[3] + ')')()
                 found=true
                 return
             }
             else if(instruction[2]&&simulationArea.shiftDown){
                 // shift pressed
-                instruction[3]()
+                eval('(' + instruction[3] + ')')()
                 found=true
                 return
             }
             else if (!(instruction[1] || instruction[2])) {
                 // No SHIFT or CTRL
-                instruction[3]()
+                eval('(' + instruction[3] + ')')()
                 found=true
                 return
             }
