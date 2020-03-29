@@ -70,6 +70,7 @@ function onMouseUp() {
 function handleMouseDown (e) {
     $("input").blur();
 
+    var rect = simulationArea.canvas.getBoundingClientRect();
     errorDetected               = false;
     updateSimulation            = true;
     updatePosition              = true;
@@ -77,12 +78,11 @@ function handleMouseDown (e) {
     simulationArea.lastSelected = undefined;
     simulationArea.selected     = false;
     simulationArea.hover        = undefined;
-    var rect = simulationArea.canvas.getBoundingClientRect();
+    simulationArea.mouseDown    = true;
     simulationArea.mouseDownRawX = (e.clientX - rect.left) * DPR;
     simulationArea.mouseDownRawY = (e.clientY - rect.top) * DPR;
     simulationArea.mouseDownX = Math.round(((simulationArea.mouseDownRawX - globalScope.ox) / globalScope.scale) / unit) * unit;
     simulationArea.mouseDownY = Math.round(((simulationArea.mouseDownRawY - globalScope.oy) / globalScope.scale) / unit) * unit;
-    simulationArea.mouseDown = true;
     simulationArea.oldx = globalScope.ox;
     simulationArea.oldy = globalScope.oy;
 
@@ -238,17 +238,17 @@ function handleKeyDowm (e) {
 
 
 // CTRL
-    if (e.key == "Meta" || e.keyCode == 17) {
+    if (e.keyCode == 17) {
         simulationArea.controlDown = true;
     }
 
-//CTRL+= or +     zoom in (+)
+//CTRL+= or +    zoom in (+)
     if (simulationArea.controlDown&&(e.keyCode == 187 || e.keyCode == 171) || e.keyCode == 107) {
         e.preventDefault();
         handleZoom(1)
     }
 
-//CTRL+- or -    zoom out (-)
+//CTRL+- or -   zoom out (-)
     if ( simulationArea.controlDown&&(e.keyCode == 189 || e.keyCode == 173) || e.keyCode == 109) {
         e.preventDefault();
         handleZoom(-1)       
@@ -265,7 +265,42 @@ function handleKeyDowm (e) {
         delete_selected();
         e.preventDefault();
     }
+    function handleZoomIn(){
+        handleZoom(1)
+    }  
+    function handleZoomOut(){
+        handleZoom(-1)
+    }
+var keymap=[
+    [[187,171,107],handleZoomIn],
+    [[189,173,109],handleZoomOut],
+    [[16],handleSelectMulti],
+    [[8,46],delete_selected],
+    [[122],undo],
+    [[83],save],
+    [[65,97],handleSelectAll],
+    [[113,81],handleChangeBitWidth],
+    [[84],handleChangeClockTime],
+    [[69],handleSelectMulti],
+    [[67],handleCopy],
+    [[88],handleCut],
+    [[86],handlePast]
+]
 
+keymap[0][1]()
+let found =false
+keymap.forEach(instruction=>{
+    instruction[0].forEach(key=>{
+        if(key===e.keyCode){
+            instruction[1]()
+            found=true
+            return;
+        }
+    })
+    if(found)return;
+})
+
+// console.log(keymap[keymap.length-2][0])
 // CTRL+z    undo
     if (simulationArea.controlDown && e.key.charCodeAt(0) == 122){
         undo();
@@ -295,13 +330,13 @@ function handleKeyDowm (e) {
         e.preventDefault();
     }
 
-// t     changeClockTime
+// t    changeClockTime
     if (e.keyCode == 84){
         handleChangeClockTime()
         e.preventDefault();
     }
 
-// e     SelectMultibleElements when mousedowm
+// e    SelectMultibleElements when mousedowm
     if (e.keyCode == 69){
         handleSelectMulti()
         e.preventDefault();
