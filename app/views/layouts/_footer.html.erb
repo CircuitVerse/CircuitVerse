@@ -53,7 +53,7 @@
             </tr>
             <tr>
               <% if user_signed_in? %>
-                <td><a class="text-white" data-method="delete" href="<%= destroy_user_session_path %>">Sign Out</a></td>
+                <td><a class="text-white" href="<%= profile_path(current_user.id) %>">Profile</a></td>
               <% else %>
                 <td><a class="text-white" href="/users/sign_in">Login</a></td>
               <% end %>
