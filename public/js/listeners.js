@@ -1,4 +1,26 @@
 // Most Listeners are stored here
+// 0 keys , 1 CTRL , 2 SHIFT
+var keymap = [
+    [[187,171,107],1,0,handleZoomIn],
+    [[189,173,109],1,0,handleZoomOut],
+    [[16],0,0,handleSelectMulti],
+    [[17],0,0,handleCtrlDown],
+    [[8,46],0,0,delete_selected],
+    [[90],1,0,undo],
+    [[83],1,0,save],
+    [[83],1,1,saveOffline],
+    [[65,97],1,0,handleSelectAll],
+    [[113,81],0,0,handleChangeBitWidth],
+    [[84],0,0,handleChangeClockTime],
+    [[69],0,0,handleSelectMulti],
+    [[67],0,0,handleCopy],
+    [[88],0,0,handleCut],
+    [[86],0,0,handlePast],
+    [[37,65],0,0,handleDirectionLeft],
+    [[39,68],0,0,handleDirectionRight],
+    [[38,87],0,0,handleDirectionUp],
+    [[40,83],0,0,handleDirectionDowm],
+]
 
 function startListeners() {
 
@@ -93,7 +115,7 @@ function handleMouseDown (e) {
 }
 
 // Mouse UP at SIMULATOR
-function handleMouseUP(e) {
+function handleMouseUP() {
     if (simulationArea.lastSelected) simulationArea.lastSelected.newElement = false;
     /*
     handling restricted circuit elements
@@ -104,6 +126,12 @@ function handleMouseUP(e) {
         globalScope.restrictedCircuitElementsUsed.push(simulationArea.lastSelected.objectType);
         updateRestrictedElementsList();
     }
+
+// ####################################### fixes 1316 ###################################
+    if (!simulationArea.shiftDown && simulationArea.multipleObjectSelections.length>0) 
+           if(!simulationArea.multipleObjectSelections.includes(simulationArea.lastSelected))
+            simulationArea.multipleObjectSelections = [];
+// ######################################################################################
 }
 
 // Mouse Move
@@ -141,12 +169,8 @@ function onMouseMove(e) {
 // Double Click
 function handleDoubleClick () {
     scheduleUpdate(2);
-    if (simulationArea.lastSelected && simulationArea.lastSelected.dblclick !== undefined) {
+    if (simulationArea.lastSelected && simulationArea.lastSelected.dblclick !== undefined)
         simulationArea.lastSelected.dblclick();
-    }
-    if (!simulationArea.shiftDown) {
-        simulationArea.multipleObjectSelections = [];
-    }
 }
 
 // Scroll
@@ -181,15 +205,7 @@ function handleKeyUp(e) {
 
     // select multi buttom (m)
     if (e.keyCode == 69) 
-        simulationArea.shiftDown = false;
-    
-//***************** SHIF ***************** 
-    if (e.keyCode == 16) 
-        simulationArea.shiftDown = false;
-    
-    if ( (e.keyCode == 69)) 
-        simulationArea.shiftDown = false;
-
+        simulationArea.shiftDown = false;    
 }
 
 // Key DOWM
@@ -198,7 +214,6 @@ function handleKeyDowm (e) {
     // if($(':focus').length){
     //     return;
     // }
-
     if (simulationArea.mouseRawX < 0 || simulationArea.mouseRawY < 0 || simulationArea.mouseRawX > width || simulationArea.mouseRawY > height) {
         return;
     } else {
@@ -236,165 +251,44 @@ function handleKeyDowm (e) {
         }
     }
 
-
-// CTRL
-    if (e.keyCode == 17) {
-        simulationArea.controlDown = true;
-    }
-
-//CTRL+= or +    zoom in (+)
-    if (simulationArea.controlDown&&(e.keyCode == 187 || e.keyCode == 171) || e.keyCode == 107) {
-        e.preventDefault();
-        handleZoom(1)
-    }
-
-//CTRL+- or -   zoom out (-)
-    if ( simulationArea.controlDown&&(e.keyCode == 189 || e.keyCode == 173) || e.keyCode == 109) {
-        e.preventDefault();
-        handleZoom(-1)       
-    }
-
-// Shift key
-    if (e.keyCode == 16) {
-        handleSelectMulti()
-        e.preventDefault();
-    }
-
-//backspace or delete    deleteSelected
-    if (e.keyCode == 8 || e.keyCode == 46) {
-        delete_selected();
-        e.preventDefault();
-    }
-    function handleZoomIn(){
-        handleZoom(1)
-    }  
-    function handleZoomOut(){
-        handleZoom(-1)
-    }
-var keymap=[
-    [[187,171,107],handleZoomIn],
-    [[189,173,109],handleZoomOut],
-    [[16],handleSelectMulti],
-    [[8,46],delete_selected],
-    [[122],undo],
-    [[83],save],
-    [[65,97],handleSelectAll],
-    [[113,81],handleChangeBitWidth],
-    [[84],handleChangeClockTime],
-    [[69],handleSelectMulti],
-    [[67],handleCopy],
-    [[88],handleCut],
-    [[86],handlePast]
-]
-
-keymap[0][1]()
 let found =false
 keymap.forEach(instruction=>{
     instruction[0].forEach(key=>{
         if(key===e.keyCode){
-            instruction[1]()
-            found=true
-            return;
+            if(instruction[1] && simulationArea.controlDown && instruction[2] && simulationArea.shiftDown){
+                // CTRL + SHIFT pressed
+                instruction[3]()
+                found=true
+                return
+            }
+
+            else if(instruction[1] && simulationArea.controlDown){
+                // ctrl pressed
+                instruction[3]()
+                found=true
+                return
+            }
+            else if(instruction[2]&&simulationArea.shiftDown){
+                // shift pressed
+                instruction[3]()
+                found=true
+                return
+            }
+            else if (!(instruction[1] || instruction[2])) {
+                // No SHIFT or CTRL
+                instruction[3]()
+                found=true
+                return
+            }
         }
     })
-    if(found)return;
+    // this would prevent loop to continu after we got what we need
+    if(found){
+        e.preventDefault();
+        return;
+    }
+        
 })
-
-// console.log(keymap[keymap.length-2][0])
-// CTRL+z    undo
-    if (simulationArea.controlDown && e.key.charCodeAt(0) == 122){
-        undo();
-        e.preventDefault();
-    }
-
-//CTRL+S    Detect online save shortcut ()
-    if (simulationArea.controlDown && e.keyCode == 83 && !simulationArea.shiftDown) {
-        save();
-        e.preventDefault();
-    }
-//CTRL+SHIFT+S    Detect offline save shortcut ()
-    if (simulationArea.controlDown && e.keyCode == 83 && simulationArea.shiftDown) {
-        saveOffline();
-        e.preventDefault();
-    }
-
-// CTRL+a    selectAll
-    if (simulationArea.controlDown && (e.keyCode == 65 || e.keyCode == 97)) {
-        handleSelectAll();
-        e.preventDefault();
-    }
-
-// f2 or q    changeBitWidth
-    if ((e.keyCode == 113 || e.keyCode == 81) && simulationArea.lastSelected != undefined){
-        handleChangeBitWidth()
-        e.preventDefault();
-    }
-
-// t    changeClockTime
-    if (e.keyCode == 84){
-        handleChangeClockTime()
-        e.preventDefault();
-    }
-
-// e    SelectMultibleElements when mousedowm
-    if (e.keyCode == 69){
-        handleSelectMulti()
-        e.preventDefault();
-    }
-
-// c    Copy
-    if (e.keyCode == 67){
-        handleCopy()
-        e.preventDefault();
-    }
-    
-// x    Cut
-    if (e.keyCode == 88){
-        handleCut()
-        e.preventDefault();
-    }
-
-// v    past
-    if (e.keyCode == 86){
-        handlePast()
-        e.preventDefault();
-    }
-    
-    // directions Handler ---------------------------->START
-    function getDirection(){
-        switch (e.keyCode) {
-            case 37:
-            case 65:
-                e.preventDefault();
-                return "LEFT";
-
-            case 38:
-            case 87:
-                e.preventDefault();
-                return "UP";
-
-            case 39:
-            case 68:
-                e.preventDefault();
-                return "RIGHT";
-
-            case 40:
-            case 83:
-                e.preventDefault();
-                return "DOWN";
-
-            default:
-                return false
-        }
-    }
-    if (simulationArea.lastSelected != undefined) {
-        let direction = getDirection(e)
-
-        if (direction){
-            simulationArea.lastSelected.newDirection(direction);
-        }
-    }
-    // directions Handler ---------------------------->END
 
 }
 // ***KEYBOAED-END***
@@ -449,7 +343,30 @@ function handlePast() {
 
 
 // HELPERS----------------------------------->START
-    
+
+function handleCtrlDown(){
+    simulationArea.controlDown = true;
+}
+
+function handleNewDirection (direction){
+    if (simulationArea.lastSelected != undefined) 
+        if (direction)
+            simulationArea.lastSelected.newDirection(direction);
+}
+
+function handleDirectionUp (){
+    handleNewDirection("UP")
+}
+function handleDirectionRight (){
+    handleNewDirection("RIGHT")
+}
+function handleDirectionDowm (){
+    handleNewDirection("DOWN")
+}
+function handleDirectionLeft (){
+    handleNewDirection("LEFT")
+}
+
 function handleChangeClockTime(){
     simulationArea.changeClockTime(prompt("Enter Time:"));
 }
@@ -463,6 +380,14 @@ function handleZoom(direction){
     }
 }
 
+function handleZoomIn(){
+    handleZoom(1)
+}  
+
+function handleZoomOut(){
+    handleZoom(-1)
+}
+
 // Function selects all the elements from the scope
 function handleSelectMulti (){
     simulationArea.shiftDown = true;
@@ -473,7 +398,8 @@ function handleSelectMulti (){
 
 function handleChangeBitWidth(){
     if (simulationArea.lastSelected.bitWidth !== undefined)
-    simulationArea.lastSelected.newBitWidth(parseInt(prompt("Enter new bitWidth"), 10));
+        simulationArea.lastSelected.newBitWidth(parseInt(prompt("Enter new bitWidth"), 10));
+    else return
 }
 
 function handleSelectAll(scope = globalScope) {
