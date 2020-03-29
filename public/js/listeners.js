@@ -2,35 +2,32 @@
 
 function startListeners() {
 
-// startListeners function ---------------> START
+// startListeners function -----------------------------------> START
+    document.addEventListener('cut'  , handleCut);
+    document.addEventListener('copy' , handleCopy);
+    document.addEventListener('paste', handlePast);
 
-    document.addEventListener('cut', handleCut);
-    document.addEventListener('copy', handleCopy);
-    document.addEventListener('paste',handlePast);
-
-    window.addEventListener('keyup', handleKeyUp);
-    window.addEventListener('keydown',handleKeyDowm)
+    window.addEventListener('keyup'    , handleKeyUp);
+    window.addEventListener('keydown'  , handleKeyDowm)
     window.addEventListener('mousemove', onMouseMove);
-    window.addEventListener('mouseup', onMouseUp);
+    window.addEventListener('mouseup'  , onMouseUp);
 
-    document.getElementById("simulationArea").addEventListener('mousedown', handleMouseDown );
-    document.getElementById("simulationArea").addEventListener('mouseup', handleMouseUP );
-    document.getElementById("simulationArea").addEventListener('dblclick', handleDoubleClick);
-    document.getElementById("simulationArea").addEventListener('mousewheel', handleMouseScroll);
+    document.getElementById("simulationArea").addEventListener('mousedown'     , handleMouseDown );
+    document.getElementById("simulationArea").addEventListener('mouseup'       , handleMouseUP );
+    document.getElementById("simulationArea").addEventListener('dblclick'      , handleDoubleClick);
+    document.getElementById("simulationArea").addEventListener('mousewheel'    , handleMouseScroll);
     document.getElementById("simulationArea").addEventListener('DOMMouseScroll', handleMouseScroll);
-
-// startListeners function ---------------> END
+// startListeners function -----------------------------------> END
 
     hoverRestrictedElements()
 }
 
 
 
-
 // EventListenerHANDLERS -----------------------------------> start
 
 //***MOUSE-START***
-// onMouse UP
+// onMouse UP at window
 function onMouseUp(e) {
 
     if (!lightMode) {
@@ -95,7 +92,7 @@ function handleMouseDown (e) {
     $('.dropdown.open').removeClass('open');
 }
 
-// Mouse UP 
+// Mouse UP at SIMULATOR
 function handleMouseUP(e) {
     if (simulationArea.lastSelected) simulationArea.lastSelected.newElement = false;
     /*
@@ -160,7 +157,7 @@ function handleMouseScroll(event) {
   
     var deltaY = event.wheelDelta ? event.wheelDelta : -event.detail;
     let direction =  deltaY > 0 ? 1 : -1
-    zoom(direction)      
+    handleZoom(direction)      
 
     updateCanvas = true;
     if(layoutMode)layoutUpdate();
@@ -177,65 +174,25 @@ function handleKeyUp(e) {
     scheduleUpdate(1);
     simulationArea.shiftDown = e.shiftKey;
 
-    if (e.keyCode == 16) {
+    if (e.keyCode == 16) 
         simulationArea.shiftDown = false;
-    }
-    if (e.key == "Meta" || e.key == "Control") {
+    
+    if (e.key == "Meta" || e.key == "Control") 
         simulationArea.controlDown = false;
-    }
-    if (e.keyCode == 69) {
-        simulationArea.shiftDown = false;
-        
-    }
 
+    // select multi buttom (m)
+    if (e.keyCode == 69) 
+        simulationArea.shiftDown = false;
+    
 }
 
 // Key DOWM
 function handleKeyDowm (e) {
-
     // If mouse is focusing on input element, then override any action
     // if($(':focus').length){
     //     return;
     // }
 
-    
-// handlers
-    function selectMulti (){
-        simulationArea.shiftDown = true;
-        if (simulationArea.lastSelected && !simulationArea.lastSelected.keyDown && simulationArea.lastSelected.objectType != "Wire" && simulationArea.lastSelected.objectType != "CircuitElement" && !simulationArea.multipleObjectSelections.contains(simulationArea.lastSelected)) {
-            simulationArea.multipleObjectSelections.push(simulationArea.lastSelected);
-        }
-    }
-    function getDirection(){
-        switch (e.keyCode) {
-            case 37:
-            case 65:
-                e.preventDefault();
-                return "LEFT";
-    
-            case 38:
-            case 87:
-                e.preventDefault();
-                return "UP";
-    
-            case 39:
-            case 68:
-                e.preventDefault();
-                return "RIGHT";
-    
-            case 40:
-            case 83:
-                e.preventDefault();
-                return "DOWN";
-    
-            default:
-                return false
-        }
-    }
-    function changeBitWidth(){
-        if (simulationArea.lastSelected.bitWidth !== undefined)
-        simulationArea.lastSelected.newBitWidth(parseInt(prompt("Enter new bitWidth"), 10));
-    }
 
     if (simulationArea.mouseRawX < 0 || simulationArea.mouseRawY < 0 || simulationArea.mouseRawX > width || simulationArea.mouseRawY > height) {
         return;
@@ -256,20 +213,16 @@ function handleKeyDowm (e) {
         simulationArea.controlDown = true;
     }
 
-// keyDownHandlers
-
-
-
-// zoom in (+)
+//CTRL+= or +     zoom in (+)
     if (simulationArea.controlDown&&(e.keyCode == 187 || e.keyCode == 171) || e.keyCode == 107) {
         e.preventDefault();
-        zoom(1)
+        handleZoom(1)
     }
 
-    // zoom out (-)
+ //CTRL+- or -    zoom out (-)
     if ( simulationArea.controlDown&&(e.keyCode == 189 || e.keyCode == 173) || e.keyCode == 109) {
         e.preventDefault();
-        zoom(-1)       
+        handleZoom(-1)       
     }
 
     if (simulationArea.mouseRawX < 0 || simulationArea.mouseRawY < 0 || simulationArea.mouseRawX > width || simulationArea.mouseRawY > height) return;
@@ -294,70 +247,112 @@ function handleKeyDowm (e) {
             return;
         }
     }
-    
-
-    if (simulationArea.lastSelected != undefined) {
-        let direction = getDirection()
-        if (direction){
-            simulationArea.lastSelected.newDirection(direction);
-        }
-
-    }
 
 // Shift key
-
     if (e.keyCode == 16) {
-        selectMulti()
+        handleSelectMulti()
         e.preventDefault();
     }
 
-    if (e.keyCode == 8 || e.key == "Delete") {
+//backspace or delete    deleteSelected
+    if (e.keyCode == 8 || e.keyCode == 46) {
         delete_selected();
         e.preventDefault();
     }
 
-    // CTRL + z
+// CTRL+z    undo
     if (simulationArea.controlDown && e.key.charCodeAt(0) == 122){
         undo();
         e.preventDefault();
     }
 
-    // Detect online save shortcut (CTRL+S)
+//CTRL+S    Detect online save shortcut ()
     if (simulationArea.controlDown && e.keyCode == 83 && !simulationArea.shiftDown) {
         save();
         e.preventDefault();
     }
-     // Detect offline save shortcut (CTRL+SHIFT+S)
+//CTRL+SHIFT+S    Detect offline save shortcut ()
     if (simulationArea.controlDown && e.keyCode == 83 && simulationArea.shiftDown) {
         saveOffline();
         e.preventDefault();
     }
 
-    // CTRL + a 
+// CTRL+a    selectAll
     if (simulationArea.controlDown && (e.keyCode == 65 || e.keyCode == 97)) {
-        selectAll();
+        handleSelectAll();
         e.preventDefault();
     }
 
-
-
-// f2 or q
+// f2 or q    changeBitWidth
     if ((e.keyCode == 113 || e.keyCode == 81) && simulationArea.lastSelected != undefined){
-
-        changeBitWidth()
+        handleChangeBitWidth()
         e.preventDefault();
     }
-// t
+
+// t     changeClockTime
     if (e.keyCode == 84){
-        simulationArea.changeClockTime(prompt("Enter Time:"));
-        e.preventDefault();
-    }
-// e
-    if (e.keyCode == 69){
-        selectMulti()
+        handleChangeClockTime()
         e.preventDefault();
     }
 
+// e     SelectMultibleElements when mousedowm
+    if (e.keyCode == 69){
+        handleSelectMulti()
+        e.preventDefault();
+    }
+
+// c    Copy
+    if (e.keyCode == 67){
+        handleCopy()
+        e.preventDefault();
+    }
+    
+// x    Cut
+    if (e.keyCode == 88){
+        handleCut()
+        e.preventDefault();
+    }
+
+// v    past
+    if (e.keyCode == 86){
+        handlePast()
+        e.preventDefault();
+    }
+    
+    // directions Handler ---------------------------->START
+    function getDirection(){
+        switch (e.keyCode) {
+            case 37:
+            case 65:
+                e.preventDefault();
+                return "LEFT";
+
+            case 38:
+            case 87:
+                e.preventDefault();
+                return "UP";
+
+            case 39:
+            case 68:
+                e.preventDefault();
+                return "RIGHT";
+
+            case 40:
+            case 83:
+                e.preventDefault();
+                return "DOWN";
+
+            default:
+                return false
+        }
+    }
+    if (simulationArea.lastSelected != undefined) {
+        let direction = getDirection(e)
+        if (direction){
+            simulationArea.lastSelected.newDirection(direction);
+        }
+    }
+    // directions Handler ---------------------------->END
 
 }
 // ***KEYBOAED-END***
@@ -366,7 +361,7 @@ function handleKeyDowm (e) {
 
 // ***window-Start***
 // CUT
-function handleCut(e) {
+function handleCut() {
     simulationArea.copyList = simulationArea.multipleObjectSelections.slice();
     if (simulationArea.lastSelected && simulationArea.lastSelected !== simulationArea.root && !simulationArea.copyList.contains(simulationArea.lastSelected)) {
         simulationArea.copyList.push(simulationArea.lastSelected);
@@ -377,14 +372,13 @@ function handleCut(e) {
     // Updated restricted elements
     updateRestrictedElementsInScope();
 
-    e.preventDefault();
     if(textToPutOnClipboard!=undefined){
         localStorage.setItem('clipboardData', textToPutOnClipboard);
     }
 
 }
 // COPY
-function handleCopy(e) {
+function handleCopy() {
     simulationArea.copyList = simulationArea.multipleObjectSelections.slice();
     if (simulationArea.lastSelected && simulationArea.lastSelected !== simulationArea.root && !simulationArea.copyList.contains(simulationArea.lastSelected)) {
         simulationArea.copyList.push(simulationArea.lastSelected);
@@ -397,35 +391,30 @@ function handleCopy(e) {
 
     if(textToPutOnClipboard!=undefined){
         localStorage.setItem('clipboardData', textToPutOnClipboard);
-    }
-
-    e.preventDefault();
- 
-   
+    }   
 }
 // PAST
-function handlePast(e) {
-  
+function handlePast() {
     var data =  localStorage.getItem('clipboardData');
-
     paste(data);
 
     // Updated restricted elements
     updateRestrictedElementsInScope();
-
-    e.preventDefault();
 }
 // ***window-END***
 
 // EventListenerHANDLERS -----------------------------------> end
 
 
+
 // HELPERS----------------------------------->START
-/** 
- * Zoom handler
- * @param {it's value is 1 for zoom in  or -1 for zoom out  } direction  
- */
-function zoom(direction){
+
+function handleChangeClockTime(){
+    simulationArea.changeClockTime(prompt("Enter Time:"));
+}
+
+//   Zoom handler , direction is either 1 or -1 
+function handleZoom(direction){
     if ( globalScope.scale > 0.5 * DPR && globalScope.scale < 4 * DPR){
         changeScale(direction * .1 * DPR);
         // This Fix zoom issue
@@ -434,7 +423,19 @@ function zoom(direction){
 }
 
 // Function selects all the elements from the scope
-function selectAll(scope = globalScope) {
+function handleSelectMulti (){
+    simulationArea.shiftDown = true;
+    if (simulationArea.lastSelected && !simulationArea.lastSelected.keyDown && simulationArea.lastSelected.objectType != "Wire" && simulationArea.lastSelected.objectType != "CircuitElement" && !simulationArea.multipleObjectSelections.contains(simulationArea.lastSelected)) {
+        simulationArea.multipleObjectSelections.push(simulationArea.lastSelected);
+    }
+}
+
+function handleChangeBitWidth(){
+    if (simulationArea.lastSelected.bitWidth !== undefined)
+    simulationArea.lastSelected.newBitWidth(parseInt(prompt("Enter new bitWidth"), 10));
+}
+
+function handleSelectAll(scope = globalScope) {
     circuitElementList.forEach((val, _, __) => {
         if (scope.hasOwnProperty(val)) {
             simulationArea.multipleObjectSelections.push(...scope[val]);
@@ -455,11 +456,9 @@ function removeMiniMap() {
         return;
     }
     $('#miniMap').fadeOut('fast');
-
 }
 
 function delete_selected(){
-
     $("input").blur();
     hideProperties();
     if (simulationArea.lastSelected && !(simulationArea.lastSelected.objectType == "Node" && simulationArea.lastSelected.type != 2)) simulationArea.lastSelected.delete();
