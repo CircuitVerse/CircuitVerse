@@ -59,7 +59,7 @@
     <div class="col-3 col-3-submission-list">
       <div class="list-group submission-table" id="list-tab" role="tablist">
         <% @assignment.project_order.each do |project| %>
-          <a class="list-group-item list-submission" id="<%= project.id %>" data-grade="<%= project.grade_str %>" data-remarks="<%= project.remarks_str %>"><%= project.author.name %></a>
+          <a class="list-group-item list-group-item-action list-submission" id="<%= project.id %>" data-grade="<%= project.grade_str %>" data-remarks="<%= project.remarks_str %>"><%= project.author.name %></a>
         <% end %>
       </div>
     </div>
@@ -70,34 +70,42 @@
     </div>
   </div>
   <% if policy(@assignment).can_be_graded? %>
-    <div class="row profile-background grade-container">
+    <div class="profile-background grade-container px-3">
       <h3>Grades & Remarks</h3>
       <span id="project-grade-error" class="error"></span>
-      <div class="col-4">
-        <%= form_with(model: Grade.new, multipart: true, url: "/grades") do |form| %>
+      <div class="col-8">
+        <%= form_with(model: Grade.new, multipart: true,id:"assignment-grade-form",url: "/grades") do |form| %>
           <%= form.hidden_field :project_id, id: "assignment-project-id" %>
           <%= form.hidden_field :assignment_id, value: @assignment.id %>
-          <h4>Grade</h4>
-          <div class="assignment-grade-inputs">
+          <div class="row">
+          <div class="col-6 assignment-grade-inputs">
+            <h4>Grade</h4>
             <% if @assignment.grading_scale == "percent" %>
-              <%= form.number_field :grade, min: 0, max: 100, placeholder: "Grades...", class: "rounded-0 border-success" %>
-            <% elseif @assignment.grading_scale == "letter" || @assignment.grading_scale == "custom" %>
-              <%= form.text_field :grade, placeholder: "Grades...", class: "rounded-0 border-success" %>
+              <%= form.number_field :grade,id: "assignment-grade-grade", min: 0, max: 100, placeholder: "Grades...", class: "form-control rounded-0 border-success",style:"width: 100%;height: 40px;" %>
+            <% elsif @assignment.grading_scale == "letter" || @assignment.grading_scale == "custom" %>
+              <%= form.text_field :grade,id: "assignment-grade-grade", placeholder: "Grades...", class: "form-control rounded-0 border-success",style:"width: 100%;height: 40px;" %>
             <% end %>
           </div>
-        </div>
-        <div class="col-8">
+            <div class="col-6">
           <h4>Remarks</h4>
-          <%= form.text_field :remarks, placeholder: "Remarks...", class: "rounded-0 border-success" %>
+          <%= form.text_field :remarks,id: "assignment-grade-remarks", placeholder: "Remarks...", class: "form-control rounded-0 border-success",style:"width: 100%;height: 40px;"%>
         </div>
-      <div class="row profile-background">
-        <%= button_tag 'Submit', id: "grade-form-submit", class: "btn btn-about" %>
-        <div class="grade-form-help">
-          <%= @assignment.grading_scale_str %>
         </div>
-        <% end %>
       </div>
+      <div class="row profile-background px-2">
+        <div class="col-0">
+          <button name="button" type="submit" id="grade-form-submit" class="btn btn-about">Submit</button>
+       </div>
+       <div>
+          <div class="col-8">
+           <div class="grade-form-help ">
+              Assignments can be graded with any of letters A/B/C/D/E/F
+          </div>
+            <% end %>
+           </div>
+        </div>
       </div>
+  </div>
       <div class="row profile-background grade-container">
         <div class="col-4">
           <h4>Grade</h4>
@@ -107,12 +115,12 @@
           <h4>Remarks</h4>
           <span id="project-remarks"></span>
         </div>
-        <div class="row profile-background">
-          <%= button_tag 'Remove', id: "grade-form-remove", class: "btn btn-about" %>
+        <div class="container px-2">
+          <%= button_tag 'Remove', id: "grade-form-remove", class: "btn btn-about bg-danger" %>
           <% end %>
         </div>
-      </div>
-      <% end %>
+    </div>
+  <% end %>
     <% end %>
     <script src="/js/grading.js"> </script>
     <script>
@@ -121,5 +129,6 @@
                 this.innerHTML = formatDate(new Date(this.innerHTML), "dddd hh:mmTT zz, dd MMM yyyy")
             })})
     </script>
+
 </div>
 </div>

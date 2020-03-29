@@ -1,7 +1,7 @@
 <div class="container empty-div">
 </div>
 <div class="text-white">
-  <div class="p-2 container-fluid" style="background: #1c1c1c;">
+  <div class="pl-5 pt-2 container-fluid" style="background: #1c1c1c;">
     <div class="col-12">
       <div class="row mt-3 p-3 text-left">
         <div class="col-lg-3 col-xl-3 mb-3">
@@ -53,11 +53,11 @@
             </tr>
             <tr>
               <% if user_signed_in? %>
-                <td><a class="text-white" href="<%= profile_path(current_user.id) %>">Profile</a></td>
+                  <td><a class="text-white" href="<%= user_path(current_user) %>">My Circuits</a></td>
               <% else %>
-                <td><a class="text-white" href="/users/sign_in">Login</a></td>
+                  <td><a class="text-white" href="/users/sign_in">Login</a></td> 
               <% end %>
-                <td><a class="text-white" href="/about">About</a></td>
+              <td><a class="text-white" href="/about">About</a></td>
             </tr>
           </table>
         </div>

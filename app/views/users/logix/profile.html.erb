@@ -9,7 +9,7 @@
       <div class="row profile-background">
         <div class="col-xs col-sm-12 col-md col-lg-6">
           <div class="row-about">
-            <%= image_tag @profile.profile_picture.url(:medium, alt: "@user.name"), style: "width: 150px; height: 150px; border: 0px; margin: 30px 30px 20px 30px;" %>
+            <%= image_tag @profile.profile_picture.url(:medium, alt: "@user.name") , class: 'about-card-image about-card-image', style: "width: 150px; height: 150px; margin: 30px 30px 20px 30px;" %>
             <h3><%= @profile.name %></h3>
           </div>
         </div>

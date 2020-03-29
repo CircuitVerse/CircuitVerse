@@ -8,7 +8,8 @@
   background-color: $green;
   border-radius: 36px;
   color: $white;
-  padding: 7px 20px;
+  margin-left: -2px;
+  padding: 6px 19px 8px;
   text-align: center;
 }
 
@@ -25,19 +26,22 @@
 }
 
 .btn-homepage2 {
-  border: 2px solid $teal;
+  border: 1.6px solid $teal;
   border-radius: 5px;
-  margin: 10px;
+  box-shadow: 0 2px 7px $shadow-black;
+  margin: 10px 15px;
 
   &:hover {
-    box-shadow: 0 7px 7px $shadow-black;
+    background-color: $teal;
+    box-shadow: 0 7px 7px $white;
+    color: $white;
   }
 }
 
 .row-homepage-middle {
   margin-left: auto;
   margin-right: auto;
-  margin-top: 30px;
+  margin-top: 60px;
   text-align: center;
 }
 
@@ -86,23 +90,33 @@
 }
 
 .homepage-cover {
-  margin-bottom: 15px;
-  margin-top: 30px;
   max-height: 700px;
   max-width: 100%;
 }
 
-@media (max-width:765px) {
+.button-homepage {
+  margin-bottom: 50px;
+}
+
+@media (max-width: 765px) {
   .button-homepage {
     display: flex;
     justify-content: center;
     margin-bottom: 25px;
   }
-}
 
-@media (max-width:765px) {
+  .row-homepage {
+    margin-top: 30px;
+  }
+
   .btn-homepage2 {
     margin-left: 18px;
     margin-right: 18px;
+  }
+}
+
+@media (max-width: 1200px) and (min-width: 765px) {
+  .button-homepage {
+    margin-top: 100px;
   }
 }
