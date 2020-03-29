@@ -187,8 +187,8 @@ function handleKeyUp(e) {
 //***************** SHIF ***************** 
     if (e.keyCode == 16) {
         simulationArea.shiftDown = false;
-    }
-    if (e.key == "Meta" || e.key == "Control") {
+    
+    if (e.key == "Meta" || e.key == "Control") 
         simulationArea.controlDown = false;
     }
     if ( (e.key == "e" || e.key == "E")) {
@@ -263,9 +263,7 @@ function handleKeyDowm (e) {
         }
     }
     
-
 // Shift key
-
     if (e.keyCode == 16) {
         handleSelectMulti()
         e.preventDefault();
@@ -388,6 +386,58 @@ function handleKeyDowm (e) {
         // Will be refactored later
         simulationArea.shiftDown = true;
     }
+// c    Copy
+    if (e.keyCode == 67){
+        handleCopy()
+        e.preventDefault();
+    }
+    
+// x    Cut
+    if (e.keyCode == 88){
+        handleCut()
+        e.preventDefault();
+    }
+
+// v    past
+    if (e.keyCode == 86){
+        handlePast()
+        e.preventDefault();
+    }
+    
+    // directions Handler ---------------------------->START
+    function getDirection(){
+        switch (e.keyCode) {
+            case 37:
+            case 65:
+                e.preventDefault();
+                return "LEFT";
+
+            case 38:
+            case 87:
+                e.preventDefault();
+                return "UP";
+
+            case 39:
+            case 68:
+                e.preventDefault();
+                return "RIGHT";
+
+            case 40:
+            case 83:
+                e.preventDefault();
+                return "DOWN";
+
+            default:
+                return false
+        }
+    }
+    if (simulationArea.lastSelected != undefined) {
+        let direction = getDirection(e)
+        if (direction){
+            simulationArea.lastSelected.newDirection(direction);
+        }
+    }
+    // directions Handler ---------------------------->END
 
 }
 // ***KEYBOAED-END***
@@ -427,7 +477,6 @@ function handleCopy() {
     if(textToPutOnClipboard!=undefined){
         localStorage.setItem('clipboardData', textToPutOnClipboard);
     }   
-
 }
 // PAST
 function handlePast() {
@@ -448,7 +497,7 @@ function handlePast() {
  * @param {it's value is 1 for zoom in  or -1 for zoom out  } direction  
  */
 function zoom(direction){
-    if ( globalScope.scale > 0.5 * DPR && globalScope.scale < 4 * DPR){
+if ( globalScope.scale > 0.5 * DPR && globalScope.scale < 4 * DPR){
         changeScale(direction * .1 * DPR);
         // This Fix zoom issue
         gridUpdate = true;
