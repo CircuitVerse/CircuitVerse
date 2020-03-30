@@ -203,31 +203,13 @@ function showProperties(obj) {
         }
     }
 
-    // Tooltip can be defined in the prototype or the object itself, in addition to help map.
-    var tooltipText = obj && (obj.tooltipText);
-    if (tooltipText) {
-        $('#moduleProperty-inner').append('<p><button id="toolTipButton" class="btn btn-primary btn-xs" type="button" >CircuitVerse Help &#9432</button></p>');
-        $('#toolTipButton').hover(function () {
-            $("#Help").addClass("show");
-            $("#Help").empty();
-            ////console.log("SHOWING")
-            $("#Help").append(tooltipText);
-        }); // code goes in document ready fn only
-        $('#toolTipButton').mouseleave(function () {
-            $("#Help").removeClass("show");
-        });
-        //redirects to obj's specific help page
-        $('#toolTipButton').click(function () {
-            var helplink = obj && (obj.helplink);
+    var helplink = obj && (obj.helplink);
+    if (helplink) {
+        $('#moduleProperty-inner').append('<p><button id="HelpButton" class="btn btn-primary btn-xs" type="button" >Help &#9432</button></p>');
+        $('#HelpButton').click(function () {
             window.open(helplink);
         });
     }
-
-
-
-
-
-
 
     $(".objectPropertyAttribute").on("change keyup paste click", function () {
         // return;

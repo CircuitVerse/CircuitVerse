@@ -45,6 +45,7 @@ function TflipFlop(x, y, scope = globalScope, dir = "RIGHT") {
 TflipFlop.prototype = Object.create(CircuitElement.prototype);
 TflipFlop.prototype.constructor = TflipFlop;
 TflipFlop.prototype.tooltipText = "T FlipFlop ToolTip :  Changes state / Toggles whenever the clock input is strobed.";
+TflipFlop.prototype.helplink = "https://docs.circuitverse.org/#/Sequential?id=t-flip-flop";
 TflipFlop.prototype.isResolvable = function() {
     if (this.reset.value == 1) return true;
     if (this.clockInp.value != undefined && this.dInp.value != undefined) return true;
@@ -153,6 +154,7 @@ function DflipFlop(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
 DflipFlop.prototype = Object.create(CircuitElement.prototype);
 DflipFlop.prototype.constructor = DflipFlop;
 DflipFlop.prototype.tooltipText = "D FlipFlop ToolTip : Introduces delay in timing circuit.";
+DflipFlop.prototype.helplink = "https://docs.circuitverse.org/#/Sequential?id=d-flip-flop";
 DflipFlop.prototype.isResolvable = function() {
 	return true;
     if (this.reset.value == 1) return true;
@@ -261,6 +263,7 @@ function Dlatch(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
 Dlatch.prototype = Object.create(CircuitElement.prototype);
 Dlatch.prototype.constructor = Dlatch;
 Dlatch.prototype.tooltipText = "D Latch : Single input Flip flop or D FlipFlop";
+Dlatch.prototype.helplink = "https://docs.circuitverse.org/#/Sequential?id=d-latch";
 Dlatch.prototype.isResolvable = function() {
     if (this.clockInp.value != undefined && this.dInp.value != undefined ) return true;
     return false;
@@ -347,6 +350,8 @@ function Random(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
 }
 Random.prototype = Object.create(CircuitElement.prototype);
 Random.prototype.constructor = Random;
+Random.prototype.tooltipText = "Random ToolTip : Random Selected.";
+Random.prototype.helplink = "https://docs.circuitverse.org/#/inputElements?id=random";
 Random.prototype.isResolvable = function() {
     if (this.clockInp.value != undefined && ( this.maxValue.value != undefined || this.maxValue.connections.length == 0 ) )
         return true;
@@ -432,6 +437,7 @@ function SRflipFlop(x, y, scope = globalScope, dir = "RIGHT") {
 SRflipFlop.prototype = Object.create(CircuitElement.prototype);
 SRflipFlop.prototype.constructor = SRflipFlop;
 SRflipFlop.prototype.tooltipText = "SR FlipFlop ToolTip : SR FlipFlop Selected.";
+SRflipFlop.prototype.helplink = "https://docs.circuitverse.org/#/Sequential?id=sr-flip-flop";
 SRflipFlop.prototype.newBitWidth = function(bitWidth) {
     this.bitWidth = bitWidth;
     this.dInp.bitWidth = bitWidth;
@@ -535,6 +541,7 @@ function JKflipFlop(x, y, scope = globalScope, dir = "RIGHT") {
 JKflipFlop.prototype = Object.create(CircuitElement.prototype);
 JKflipFlop.prototype.constructor = JKflipFlop;
 JKflipFlop.prototype.tooltipText = "JK FlipFlop ToolTip : gated SR flip-flop with the addition of a clock input.";
+JKflipFlop.prototype.helplink = "https://docs.circuitverse.org/#/Sequential?id=jk-flip-flop";
 JKflipFlop.prototype.isResolvable = function() {
     if (this.reset.value == 1) return true;
     if (this.clockInp.value != undefined && this.J.value != undefined && this.K.value != undefined) return true;
@@ -662,6 +669,7 @@ function TTY(x, y, scope = globalScope, rows = 3, cols = 32) {
 TTY.prototype = Object.create(CircuitElement.prototype);
 TTY.prototype.constructor = TTY;
 TTY.prototype.tooltipText = "TTY ToolTip : Tele typewriter selected.";
+TTY.prototype.helplink = "https://docs.circuitverse.org/#/Sequential?id=tty";
 TTY.prototype.changeRowSize = function(size) {
     if (size == undefined || size < 1 || size > 10) return;
     if (this.rows == size) return;
@@ -801,6 +809,7 @@ function Keyboard(x, y, scope = globalScope, bufferSize = 32) {
 Keyboard.prototype = Object.create(CircuitElement.prototype);
 Keyboard.prototype.constructor = Keyboard;
 Keyboard.prototype.tooltipText = "Keyboard";
+Keyboard.prototype.helplink = "https://docs.circuitverse.org/#/Sequential?id=keyboard";
 Keyboard.prototype.changeBufferSize = function(size) {
     if (size == undefined || size < 20 || size > 100) return;
     if (this.bufferSize == size) return;
