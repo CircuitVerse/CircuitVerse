@@ -68,9 +68,11 @@ let keys = document.getElementById("keys")
       
       return value
     }
-
+function printCustomeShortCut(c){
+   return `<span class="command">${c[3]}</span>${getKeys(c)}`
+}
       custumeShortCuts.forEach(c=>{
-          keys.innerHTML+=`<p class="shortcut" id=${c[3]}><span class="command">${c[3]}</span>${getKeys(c)}</p>`
+          keys.innerHTML+= `<p class="shortcut" id=${c[3]}>${printCustomeShortCut(c)} </p>`
       })
       
       var wait =false
@@ -123,9 +125,9 @@ function handleDesired(e){
         if(keyvalue!==false){
              custumeShortCuts = custumeShortCuts.map(c=>{
                 if(c[3]==selectedCommand){
-
-                    $("#"+c[3]).html(getKeys(keyvalue))    
-                    return [...keyvalue ,c[3]]
+                    let fullKeyValue = [...keyvalue ,c[3]]
+                    $("#"+c[3]).html(printCustomeShortCut(fullKeyValue))    
+                    return fullKeyValue
                 }
 
                 else
