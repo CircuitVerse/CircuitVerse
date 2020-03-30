@@ -68,6 +68,11 @@
   </div>
   <!-- /.navbar-collapse -->
 </nav>
+<div id="enterKey">
+   <p> Enter your custom shortcut </p> 
+   <button class="btn btn-danger"id="submitKey" >submit</button>
+   <button class="btn btn-danger"id="discardKey">close</button>
+</div>
   <div>
     <div class="keys" id="keys">     </div>
     <div class="side left" id="sideBar">
@@ -300,7 +305,7 @@
     <script src="/js/canvas2svg.js"></script>
     
     <!---issue reporting-system----->
-    <div class="report-sidebar">
+    <div class="report-sidebar" >
     <a type="button" class="btn btn-primary text-light" data-toggle="modal" data-target=".issue"> <span class="fa fa-bug" ></span>&nbsp;&nbsp;Report an issue</a>
     </div>
       <!---issue reporting system-modal---->
@@ -318,7 +323,7 @@
        <div class="container my-2 text-center" id="result"></div>
        <label id="report-label" style="font-weight: lighter" ><b>Describe your issue:</b></label>
        <div class="form-group">
-          <textarea class="form-control border-primary"  id="issuetext" rows="3"></textarea>
+          <textarea autofocus class="form-control border-primary"  id="issuetext" rows="3"></textarea>
         </div>
         <div class="container">
           <center>
@@ -333,53 +338,27 @@
 
 
 <script >
+$('.report-sidebar').click(function(){
 
+console.log("kkkkkkkkk")
+wait=true
+})
 
-  let keys = document.getElementById("keys")
-  function getKeys(c){
-        let value =''
-
-        {
-            c[0].forEach(k=> {
-                let keyName = String.fromCharCode(k)
-                value+=`<kbd>${keyName}</kbd>`
-            })
-        }
-        return value
-      }
-
-      function getOptions(c){
-          let value=''
-          if(c[1]){
-              value+='<span class="addSign"> + </span> <kbd>CTRL</kbd>'
-          }
-          if(c[2]){
-              value+='<span class="addSign"> + </span> <kbd>SHIFT</kbd>'
-          }
-          return value
-      }
-        custumeShortCuts.forEach(c=>{
-            keys.innerHTML+=`<p class="shortcut" id=${c[3]}><span class="command">${c[3]}</span>${getKeys(c)} ${getOptions(c)}</p>`
-        })
-        $(".shortcut").click(function(e){
-          let selectedCommand =e.currentTarget.id
-          console.log(e.currentTarget.id)
-         let found = keymap.find(c=>{
-            if(c[3]==selectedCommand){
-              console.log(c)
-              return c;
-            }
-          })
-
-          
-        })
        
   $('button').click(function(){
+    
+    
    if (this.id== 'report'){
+    wait =false 
     var  url= "https://hooks.slack.com/services/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";
     var x=$('#issuetext').val();
+    if(x==''){alert("empty text is not allowed")}
+    else{
+
     x += "\nURL: " + window.location.href;
     x += `\nUser Id: <%= user_signed_in? ? " #{current_user.id.to_s} : #{current_user.name}" : "Not logged in" %>`
+  
+
     var payload={"text":x};
     $.post(url,JSON.stringify(payload),function(data){
       $('#result').html("<i class='fa fa-check' style='color:green'></i> You've successfully submitted the issue. Thanks for improving our platform.");
@@ -388,8 +367,11 @@
     $('#report').hide();
     $('#report-label').hide();
   }
+
+  }
    })
   $('.issue').on('hide.bs.modal', function(e) {
+wait=false
        $('#result').html("");
        $('#issuetext').show();
        $('#issuetext').val("");

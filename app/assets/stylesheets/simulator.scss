@@ -55,6 +55,15 @@ body{
     min-width: 170px !important;
   }  
 }
+#enterKey{
+  z-index: 300 !important;
+  background-color: #ccc;
+  position: absolute;
+  top: 40%;
+  left: 40%;
+  padding: 20px 40px;
+  display: none;
+}
 
 .report-sidebar a {
   border-radius: 30px 5px 5px 30px;

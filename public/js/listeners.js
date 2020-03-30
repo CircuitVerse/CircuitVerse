@@ -218,95 +218,100 @@ function handleKeyUp(e) {
 
 // Key DOWM
 function handleKeyDowm (e) {
-    console.log(e)
-    // If mouse is focusing on input element, then override any action
-    // if($(':focus').length){
-    //     return;
-    // }
-    if (simulationArea.mouseRawX < 0 || simulationArea.mouseRawY < 0 || simulationArea.mouseRawX > width || simulationArea.mouseRawY > height) {
-        return;
-    } else {
-        // HACK TO REMOVE FOCUS ON PROPERTIES
-        if (document.activeElement.type == "number") {
-            hideProperties();
-            showProperties(simulationArea.lastSelected)
+console.log(e)
+        if(wait){
+            desiredKey=e
+
+            // console.log(desiredKey)
+            console.log("wait")
         }
-    }
-    errorDetected    = false;
-    updateSimulation = true;
-    updatePosition   = true;
-    simulationArea.shiftDown = e.shiftKey;
-   
-    if (simulationArea.mouseRawX < 0 || simulationArea.mouseRawY < 0 || simulationArea.mouseRawX > width || simulationArea.mouseRawY > height) return;
+        else{
+            console.log("go")
 
-    scheduleUpdate(1);
-    updateCanvas = true;
-    wireToBeChecked = 1;
-
-    if(simulationArea.lastSelected){
-        if (simulationArea.lastSelected.keyDown&&(e.key.toString().length == 1 || e.key.toString() == "Backspace")) {
-            simulationArea.lastSelected.keyDown(e.key.toString());
+        if (simulationArea.mouseRawX < 0 || simulationArea.mouseRawY < 0 || simulationArea.mouseRawX > width || simulationArea.mouseRawY > height) {
+            return;
+        } else {
+            // HACK TO REMOVE FOCUS ON PROPERTIES
+            if (document.activeElement.type == "number") {
+                hideProperties();
+                showProperties(simulationArea.lastSelected)
+            }
+        }
+        errorDetected    = false;
+        updateSimulation = true;
+        updatePosition   = true;
+        simulationArea.shiftDown = e.shiftKey;
+       
+        if (simulationArea.mouseRawX < 0 || simulationArea.mouseRawY < 0 || simulationArea.mouseRawX > width || simulationArea.mouseRawY > height) return;
+    
+        scheduleUpdate(1);
+        updateCanvas = true;
+        wireToBeChecked = 1;
+    
+        if(simulationArea.lastSelected){
+            if (simulationArea.lastSelected.keyDown&&(e.key.toString().length == 1 || e.key.toString() == "Backspace")) {
+                simulationArea.lastSelected.keyDown(e.key.toString());
+                return;
+            }
+    
+            if (simulationArea.lastSelected.keyDown2&&(e.key.toString().length == 1)) {
+                simulationArea.lastSelected.keyDown2(e.key.toString());
+                return;
+            }
+    
+            if (simulationArea.lastSelected.keyDown3&&(e.key.toString() != "Backspace" && e.key.toString() != "Delete")) {
+                simulationArea.lastSelected.keyDown3(e.key.toString());
+                return;
+            }
+        }
+    
+        if(e.keyCode===16){
+            SelectMulti()
+        }
+        if(e.keyCode===17){
+            handleCtrlDown()
+        }
+    
+    let found =false
+    
+    
+    keymap.forEach(instruction=>{
+        instruction[0].forEach(key=>{
+            if(key===e.keyCode){
+                if(instruction[1] && simulationArea.controlDown && instruction[2] && simulationArea.shiftDown){
+                    // CTRL + SHIFT pressed
+                    eval('(' + instruction[3] + ')')()
+                    found=true
+                    return
+                }
+                else if(instruction[1] && simulationArea.controlDown){
+                    // ctrl pressed
+                    eval('(' + instruction[3] + ')')()
+                    found=true
+                    return
+                }
+                else if(instruction[2]&&simulationArea.shiftDown){
+                    // shift pressed
+                    eval('(' + instruction[3] + ')')()
+                    found=true
+                    return
+                }
+                else if (!(instruction[1] || instruction[2])) {
+                    // No SHIFT or CTRL
+                    eval('(' + instruction[3] + ')')()
+                    found=true
+                    return
+                }
+            }
+        })
+        // this would prevent loop to continu after we got what we need
+        if(found){
+            e.preventDefault();
             return;
         }
-
-        if (simulationArea.lastSelected.keyDown2&&(e.key.toString().length == 1)) {
-            simulationArea.lastSelected.keyDown2(e.key.toString());
-            return;
-        }
-
-        if (simulationArea.lastSelected.keyDown3&&(e.key.toString() != "Backspace" && e.key.toString() != "Delete")) {
-            simulationArea.lastSelected.keyDown3(e.key.toString());
-            return;
-        }
-    }
-
-    if(e.keyCode===16){
-        SelectMulti()
-    }
-    if(e.keyCode===17){
-        handleCtrlDown()
-    }
-
-let found =false
-
-
-keymap.forEach(instruction=>{
-    instruction[0].forEach(key=>{
-        if(key===e.keyCode){
-            if(instruction[1] && simulationArea.controlDown && instruction[2] && simulationArea.shiftDown){
-                // CTRL + SHIFT pressed
-                eval('(' + instruction[3] + ')')()
-                found=true
-                return
-            }
-            else if(instruction[1] && simulationArea.controlDown){
-                // ctrl pressed
-                eval('(' + instruction[3] + ')')()
-                found=true
-                return
-            }
-            else if(instruction[2]&&simulationArea.shiftDown){
-                // shift pressed
-                eval('(' + instruction[3] + ')')()
-                found=true
-                return
-            }
-            else if (!(instruction[1] || instruction[2])) {
-                // No SHIFT or CTRL
-                eval('(' + instruction[3] + ')')()
-                found=true
-                return
-            }
-        }
+          
     })
-    // this would prevent loop to continu after we got what we need
-    if(found){
-        e.preventDefault();
-        return;
     }
-        
-})
-
 }
 // ***KEYBOAED-END***
 

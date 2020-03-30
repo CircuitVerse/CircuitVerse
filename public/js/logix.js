@@ -32,10 +32,99 @@ layoutMode = false; // Flag for mode
 
 forceResetNodes = true; // FLag to reset all Nodes
 
-
+var wait =false;
+var desiredKey;
 //Exact same name as object constructor
 //This list needs to be updated when new circuitselements are created
 
+
+
+
+
+var custumeShortCuts = [
+    [[69],0,0,"SelectMulti"],
+    [[90],1,0,"undo"],
+    [[67],0,0,"Copy"],
+    [[88],0,0,"Cut"],
+    [[86],0,0,"Past"],
+    [[187,171,107],1,0,"ZoomIn"],
+    [[189,173,109],1,0,"ZoomOut"],
+    [[8,46],0,0,"delete_selected"],
+    [[65,],1,0,"SelectAll"],
+    [[83],1,0,"save"],
+    [[83],1,1,"saveOffline"],
+    [[81],0,0,"ChangeBitWidth"],
+    [[84],0,0,"ChangeClockTime"],
+    [[37,65],0,0," RotateLeft"],
+    [[39,68],0,0," RotateRight"],
+    [[38,87],0,0," RotateUp"],
+    [[40,83],0,0," RotateDowm"],
+]
+
+
+
+let keys = document.getElementById("keys")
+
+    function getKeys(c){
+      let value =''
+
+      {
+          c[0].forEach(k=> {
+              let keyName = String.fromCharCode(k)
+              value+=`<kbd>${keyName}</kbd>`
+          })
+      }
+      return value
+    }
+
+    function getOptions(c){
+        let value=''
+        if(c[1]){
+            value+='<span class="addSign"> + </span> <kbd>CTRL</kbd>'
+        }
+        if(c[2]){
+            value+='<span class="addSign"> + </span> <kbd>SHIFT</kbd>'
+        }
+        return value
+    }
+
+      custumeShortCuts.forEach(c=>{
+          keys.innerHTML+=`<p class="shortcut" id=${c[3]}><span class="command">${c[3]}</span>${getKeys(c)} ${getOptions(c)}</p>`
+      })
+      console.log(desiredKey)
+      
+      var wait =false
+      $(".shortcut").click(function(e){
+        
+        wait=true
+        let selectedCommand =e.currentTarget.id
+       let found = keymap.find(c=>{
+          if(c[3]==selectedCommand){
+            console.log(c)
+            return c;
+          }
+        })
+        if(wait){
+            console.log(wait)
+        }
+
+
+        $('#enterKey').show()
+
+    })
+
+    $("#submitKey").click(function(){
+        wait=false;
+        console.log("submitKey")
+        $('#enterKey').hide()
+    })
+    $("#discardKey").click(function(){
+        wait=false;
+        console.log("discardKey")
+        $('#enterKey').hide()
+    })
+
+// ____________________________________________________________________________________________
 
 function setupElementLists() {
 
