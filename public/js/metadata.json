@@ -59,6 +59,8 @@ var metadata = {
           "TTY",
           "Keyboard",
           "Clock",
+       ],
+       "Memory Elements":[
           "Rom",
           "RAM",
           "EEPROM"
