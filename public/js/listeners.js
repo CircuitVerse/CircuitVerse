@@ -1,25 +1,20 @@
 // Most Listeners are stored here
 // 0 keys , 1 CTRL , 2 SHIFT
-// i had to covert functions to string then using eval to retrieve 
-// there could be an other appeoach here , 
-// we could create an other object with shortcut name , shortcut function 
-
 var custumeShortCuts = [
-    [[187,171,107],1,0,"handleZoomIn"],
-    [[189,173,109],1,0,"handleZoomOut"],
-    [[16],0,0,"handleSelectMulti"],
     [[17],0,0,"handleCtrlDown"],
-    [[8,46],0,0,"delete_selected"],
+    [[16,69],0,0,"handleSelectMulti"],
     [[90],1,0,"undo"],
-    [[83],1,0,"save"],
-    [[83],1,1,"saveOffline"],
-    [[65,97],1,0,"handleSelectAll"],
-    [[113,81],0,0,"handleChangeBitWidth"],
-    [[84],0,0,"handleChangeClockTime"],
-    [[69],0,0,"handleSelectMulti"],
     [[67],0,0,"handleCopy"],
     [[88],0,0,"handleCut"],
     [[86],0,0,"handlePast"],
+    [[187,171,107],1,0,"handleZoomIn"],
+    [[189,173,109],1,0,"handleZoomOut"],
+    [[8,46],0,0,"delete_selected"],
+    [[65,97],1,0,"handleSelectAll"],
+    [[83],1,0,"save"],
+    [[83],1,1,"saveOffline"],
+    [[113,81],0,0,"handleChangeBitWidth"],
+    [[84],0,0,"handleChangeClockTime"],
     [[37,65],0,0,"handleDirectionLeft"],
     [[39,68],0,0,"handleDirectionRight"],
     [[38,87],0,0,"handleDirectionUp"],
@@ -106,7 +101,6 @@ function onMouseUp() {
 // Mouse Down
 function handleMouseDown (e) {
     $("input").blur();
-console.log("111",keymap)
     var rect = simulationArea.canvas.getBoundingClientRect();
     errorDetected               = false;
     updateSimulation            = true;
@@ -225,6 +219,7 @@ function handleKeyUp(e) {
 
 // Key DOWM
 function handleKeyDowm (e) {
+    console.log(e)
     // If mouse is focusing on input element, then override any action
     // if($(':focus').length){
     //     return;

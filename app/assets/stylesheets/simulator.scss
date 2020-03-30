@@ -8,13 +8,49 @@
 .moduleProperty input {
   color: #fff;
 }
-
+body{
+  overflow-y: scroll;
+}
 .side {
   max-width: 350px;
   min-width: 250px;
   overflow-x: hidden;
   overflow-y: scroll;
 }
+
+.keys{
+  position: absolute;
+  z-index: 200;
+  background-color: rgb(221, 240, 223);
+  right: 0;
+  padding: 0 30px;
+  height: 92.5vh !important;
+  overflow-y: auto;
+
+  p {
+    font-size: 1rem;
+    padding: 10px 0;
+    margin: 3px 0;
+    border-bottom: 1px solid #3336;
+  }
+  kbd {
+    display: inline-block;
+    color: #555;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0.1em 0.5em;
+    margin: 0 0.2em;
+    box-shadow: 0 1px 0px rgba(0, 0, 0, 0.4), 0 0 0 2px #fff inset;
+    background-color: #f7f7f7;
+  }
+  .command {
+    text-transform: capitalize;
+    display: inline-block;
+    min-width: 200px !important;
+  }
+  
+}
+
 
 .report-sidebar a {
   border-radius: 30px 5px 5px 30px;

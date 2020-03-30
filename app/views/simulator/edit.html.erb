@@ -69,6 +69,7 @@
   <!-- /.navbar-collapse -->
 </nav>
   <div>
+    <div class="keys" id="keys">     </div>
     <div class="side left" id="sideBar">
       <div class="modules noSelect defaultCursor">
         <div id="modules-header">Circuit Elements</div>
@@ -332,6 +333,37 @@
 
 
 <script >
+
+  let keys = document.getElementById("keys")
+  function getKeys(c){
+        let value =''
+
+        {
+            c[0].forEach(k=> {
+                let keyName = String.fromCharCode(k)
+                value+=`<kbd>${keyName}</kbd>`
+            })
+        }
+        return value
+      }
+
+      function getOptions(c){
+          let value=''
+          if(c[1]){
+              value+='<span class="addSign"> + </span> <kbd>CTRL</kbd>'
+          }
+          if(c[2]){
+              value+='<span class="addSign"> + </span> <kbd>SHIFT</kbd>'
+          }
+          return value
+      }
+
+        custumeShortCuts.forEach(c=>{
+            keys.innerHTML+=`<p><span class="command">${c[3]}</span>${getKeys(c)} ${getOptions(c)}</p>`
+        })
+
+
+
   $('button').click(function(){
    if (this.id== 'report'){
     var  url= "https://hooks.slack.com/services/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";
