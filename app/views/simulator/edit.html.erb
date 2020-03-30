@@ -334,6 +334,7 @@
 
 <script >
 
+
   let keys = document.getElementById("keys")
   function getKeys(c){
         let value =''
@@ -357,13 +358,22 @@
           }
           return value
       }
-
         custumeShortCuts.forEach(c=>{
-            keys.innerHTML+=`<p><span class="command">${c[3]}</span>${getKeys(c)} ${getOptions(c)}</p>`
+            keys.innerHTML+=`<p class="shortcut" id=${c[3]}><span class="command">${c[3]}</span>${getKeys(c)} ${getOptions(c)}</p>`
         })
+        $(".shortcut").click(function(e){
+          let selectedCommand =e.currentTarget.id
+          console.log(e.currentTarget.id)
+         let found = keymap.find(c=>{
+            if(c[3]==selectedCommand){
+              console.log(c)
+              return c;
+            }
+          })
 
-
-
+          
+        })
+       
   $('button').click(function(){
    if (this.id== 'report'){
     var  url= "https://hooks.slack.com/services/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";

@@ -23,15 +23,19 @@ body{
   z-index: 200;
   background-color: rgb(221, 240, 223);
   right: 0;
-  padding: 0 30px;
+  padding: 0 0;
   height: 92.5vh !important;
   overflow-y: auto;
 
   p {
     font-size: 1.1rem;
-    padding: 10px 0;
+    padding: 10px 25px;
     margin: 3px 0;
-    border-bottom: 1px solid #3336;
+    border-bottom: 1px solid #3332;
+    &:hover{
+      background-color:$white;
+      cursor: pointer;
+    }
   }
 
   kbd {
@@ -51,7 +55,6 @@ body{
     min-width: 170px !important;
   }  
 }
-
 
 .report-sidebar a {
   border-radius: 30px 5px 5px 30px;

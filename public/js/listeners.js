@@ -9,10 +9,10 @@ var custumeShortCuts = [
     [[187,171,107],1,0,"ZoomIn"],
     [[189,173,109],1,0,"ZoomOut"],
     [[8,46],0,0,"delete_selected"],
-    [[65,97],1,0,"SelectAll"],
+    [[65,],1,0,"SelectAll"],
     [[83],1,0,"save"],
     [[83],1,1,"saveOffline"],
-    [[113,81],0,0,"ChangeBitWidth"],
+    [[81],0,0,"ChangeBitWidth"],
     [[84],0,0,"ChangeClockTime"],
     [[37,65],0,0," RotateLeft"],
     [[39,68],0,0," RotateRight"],
@@ -25,7 +25,6 @@ var  keymap
 let storedShortCuts = window.localStorage.getItem("custumeShortCuts")
 if(storedShortCuts){
     keymap = JSON.parse(storedShortCuts)
-    console.log("keymap",keymap)
 }else{
     keymap = custumeShortCuts
     window.localStorage.setItem("custumeShortCuts" , JSON.stringify(custumeShortCuts))
@@ -34,6 +33,7 @@ if(storedShortCuts){
 function startListeners() {
 
 // startListeners function -----------------------------------> START
+let simulator = document.getElementById("simulationArea")
     document.addEventListener('cut'  , Cut);
     document.addEventListener('copy' , Copy);
     document.addEventListener('paste', Past);
@@ -43,11 +43,11 @@ function startListeners() {
     window.addEventListener('mousemove', onMouseMove);
     window.addEventListener('mouseup'  , onMouseUp);
 
-    document.getElementById("simulationArea").addEventListener('mousedown'     , handleMouseDown );
-    document.getElementById("simulationArea").addEventListener('mouseup'       , handleMouseUP );
-    document.getElementById("simulationArea").addEventListener('dblclick'      , handleDoubleClick);
-    document.getElementById("simulationArea").addEventListener('mousewheel'    , handleMouseScroll);
-    document.getElementById("simulationArea").addEventListener('DOMMouseScroll', handleMouseScroll);
+    simulator.addEventListener('mousedown'     , handleMouseDown );
+    simulator.addEventListener('mouseup'       , handleMouseUP );
+    simulator.addEventListener('dblclick'      , handleDoubleClick);
+    simulator.addEventListener('mousewheel'    , handleMouseScroll);
+    simulator.addEventListener('DOMMouseScroll', handleMouseScroll);
 // startListeners function -----------------------------------> END
 
     hoverRestrictedElements()
