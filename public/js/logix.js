@@ -35,6 +35,10 @@ forceResetNodes = true; // FLag to reset all Nodes
 var wait =false;
 var customKeyChange =false;
 
+var commandFound=false
+var keyvalue=false
+var indexFlag 
+let selectedCommand
 //Exact same name as object constructor
 //This list needs to be updated when new circuitselements are created
 
@@ -95,28 +99,16 @@ let keys = document.getElementById("keys")
       
       var wait =false
       $(".shortcut").click(function(e){
-        
         wait=true
         customKeyChange=true
-        let selectedCommand =e.currentTarget.id
-       let found = keymap.find(c=>{
-          if(c[3]==selectedCommand){
-            console.log(c)
-            return c;
-          }
-        })
-        if(wait){
-        }
-
-
+        selectedCommand =e.currentTarget.id
         $('#enterKey').show()
 
     })
 
-
 function handleDesired(e){
     let Displayedkey=''
-    let keyvalue=[[],0,0]
+     keyvalue=[[],0,0]
     if(customKeyChange){
         e.preventDefault();
         if(e.ctrlKey){
@@ -133,6 +125,7 @@ function handleDesired(e){
         }
         if(e.keyCode==13){
             handleClose()
+            handlekeySubmit()
         }
         if(e.keyCode==27){
             handleClose()
@@ -143,11 +136,26 @@ function handleDesired(e){
 }
 
     $("#submitKey").click(function(){
+        handlekeySubmit()
         handleClose()
     })
     $("#discardKey").click(function(){
         handleClose()
     })
+
+    function handlekeySubmit (){
+        if(keyvalue!==false){
+             custumeShortCuts = custumeShortCuts.map(c=>{
+                if(c[3]==selectedCommand)
+                    return [...keyvalue ,c[3]]
+                else
+                    return c
+                })
+              
+            console.log("CCCCCCCCCCCCCC",custumeShortCuts)
+            window.localStorage.setItem('custumeShortCuts',JSON.stringify(custumeShortCuts))
+        }
+    }
 
     function handleClose(){
         wait=false;
