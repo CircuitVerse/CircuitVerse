@@ -46,25 +46,7 @@ let selectedCommand
 
 
 
-var custumeShortCuts = [
-    [[69],0,0,"SelectMulti"],
-    [[90],1,0,"undo"],
-    [[67],0,0,"Copy"],
-    [[88],0,0,"Cut"],
-    [[86],0,0,"Past"],
-    [[187,171,107],1,0,"ZoomIn"],
-    [[189,173,109],1,0,"ZoomOut"],
-    [[8,46],0,0,"delete_selected"],
-    [[65,],1,0,"SelectAll"],
-    [[83],1,0,"save"],
-    [[83],1,1,"saveOffline"],
-    [[81],0,0,"ChangeBitWidth"],
-    [[84],0,0,"ChangeClockTime"],
-    [[37,65],0,0," RotateLeft"],
-    [[39,68],0,0," RotateRight"],
-    [[38,87],0,0," RotateUp"],
-    [[40,83],0,0," RotateDowm"],
-]
+var custumeShortCuts = JSON.parse(window.localStorage.getItem("custumeShortCuts"))
 
 
 
@@ -72,29 +54,23 @@ let keys = document.getElementById("keys")
 
     function getKeys(c){
       let value =''
-
-      {
+      if(c[1]){
+        value+='<kbd>CTRL</kbd> <span class="addSign"> + </span>'
+    }
+    if(c[2]){
+        value+='<kbd>SHIFT</kbd> <span class="addSign"> + </span>'
+    }
+     
           c[0].forEach(k=> {
               let keyName = String.fromCharCode(k)
               value+=`<kbd>${keyName}</kbd>`
           })
-      }
+      
       return value
     }
 
-    function getOptions(c){
-        let value=''
-        if(c[1]){
-            value+='<span class="addSign"> + </span> <kbd>CTRL</kbd>'
-        }
-        if(c[2]){
-            value+='<span class="addSign"> + </span> <kbd>SHIFT</kbd>'
-        }
-        return value
-    }
-
       custumeShortCuts.forEach(c=>{
-          keys.innerHTML+=`<p class="shortcut" id=${c[3]}><span class="command">${c[3]}</span>${getKeys(c)} ${getOptions(c)}</p>`
+          keys.innerHTML+=`<p class="shortcut" id=${c[3]}><span class="command">${c[3]}</span>${getKeys(c)}</p>`
       })
       
       var wait =false
@@ -146,8 +122,12 @@ function handleDesired(e){
     function handlekeySubmit (){
         if(keyvalue!==false){
              custumeShortCuts = custumeShortCuts.map(c=>{
-                if(c[3]==selectedCommand)
+                if(c[3]==selectedCommand){
+
+                    $("#"+c[3]).html(getKeys(keyvalue))    
                     return [...keyvalue ,c[3]]
+                }
+
                 else
                     return c
                 })

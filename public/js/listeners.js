@@ -1,6 +1,6 @@
 // Most Listeners are stored here
 // 0 keys , 1 CTRL , 2 SHIFT
-var custumeShortCuts = [
+var initCustumeShortCuts = [
     [[69],0,0,"SelectMulti"],
     [[90],1,0,"undo"],
     [[67],0,0,"Copy"],
@@ -22,12 +22,14 @@ var custumeShortCuts = [
 var  keymap 
 // console.log("AAAAAAAAAAA" ,JSON.parse(stcus))
 //  for the first time the storedShortCuts would be null so we will store the shortcuts  
-let storedShortCuts = window.localStorage.getItem("custumeShortCuts")
-if(storedShortCuts){
-    keymap = JSON.parse(storedShortCuts)
-}else{
+
+
+
+if(custumeShortCuts){
     keymap = custumeShortCuts
-    window.localStorage.setItem("custumeShortCuts" , JSON.stringify(custumeShortCuts))
+}else{
+    keymap = initCustumeShortCuts
+    window.localStorage.setItem("custumeShortCuts" , JSON.stringify(initCustumeShortCuts))
 }
 
 function startListeners() {
