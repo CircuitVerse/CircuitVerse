@@ -33,7 +33,8 @@ layoutMode = false; // Flag for mode
 forceResetNodes = true; // FLag to reset all Nodes
 
 var wait =false;
-var desiredKey;
+var customKeyChange =false;
+
 //Exact same name as object constructor
 //This list needs to be updated when new circuitselements are created
 
@@ -91,12 +92,12 @@ let keys = document.getElementById("keys")
       custumeShortCuts.forEach(c=>{
           keys.innerHTML+=`<p class="shortcut" id=${c[3]}><span class="command">${c[3]}</span>${getKeys(c)} ${getOptions(c)}</p>`
       })
-      console.log(desiredKey)
       
       var wait =false
       $(".shortcut").click(function(e){
         
         wait=true
+        customKeyChange=true
         let selectedCommand =e.currentTarget.id
        let found = keymap.find(c=>{
           if(c[3]==selectedCommand){
@@ -105,7 +106,6 @@ let keys = document.getElementById("keys")
           }
         })
         if(wait){
-            console.log(wait)
         }
 
 
@@ -113,17 +113,48 @@ let keys = document.getElementById("keys")
 
     })
 
+
+function handleDesired(e){
+    let Displayedkey=''
+    let keyvalue=[[],0,0]
+    if(customKeyChange){
+        e.preventDefault();
+        if(e.ctrlKey){
+            Displayedkey+='<kbd>CTRL</kbd> <span class="addSign"> + </span>'
+            keyvalue[1]=1
+        }
+        if(e.shiftKey){
+            Displayedkey+='<kbd>SHIFT</kbd> <span class="addSign"> + </span>'
+            keyvalue[2]=1
+        }
+        if(!(e.keyCode==16 || e.keyCode==17 ||e.keyCode==13 ||e.keyCode==27)){
+            Displayedkey+= `<kbd>${e.key}</kbd>` 
+            keyvalue[0][0]=e.keyCode
+        }
+        if(e.keyCode==13){
+            handleClose()
+        }
+        if(e.keyCode==27){
+            handleClose()
+        }
+
+        $("#listenToKeys").html( Displayedkey )
+    }
+}
+
     $("#submitKey").click(function(){
-        wait=false;
-        console.log("submitKey")
-        $('#enterKey').hide()
+        handleClose()
     })
     $("#discardKey").click(function(){
-        wait=false;
-        console.log("discardKey")
-        $('#enterKey').hide()
+        handleClose()
     })
 
+    function handleClose(){
+        wait=false;
+        customKeyChange=false
+        $("#listenToKeys").html( '<p> Enter your custom shortcut</p>' )
+        $('#enterKey').hide()
+    }
 // ____________________________________________________________________________________________
 
 function setupElementLists() {

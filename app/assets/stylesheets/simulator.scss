@@ -37,32 +37,33 @@ body{
       cursor: pointer;
     }
   }
-
-  kbd {
-    display: inline-block;
-    color: #555;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 0.1em 0.5em;
-    margin: 0 0.2em;
-    box-shadow: 0 1px 0px rgba(0, 0, 0, 0.4), 0 0 0 2px #fff inset;
-    background-color: #f7f7f7;
-  }
-
+  
   .command {
     text-transform: capitalize;
     display: inline-block;
     min-width: 170px !important;
   }  
 }
+
+kbd {
+  display: inline-block;
+  color: #555;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0.1em 0.5em;
+  margin: 0 0.2em;
+  box-shadow: 0 1px 0px rgba(0, 0, 0, 0.4), 0 0 0 2px #fff inset;
+  background-color: #f7f7f7;
+}
 #enterKey{
   z-index: 300 !important;
-  background-color: #ccc;
+  background-color: #ccca;
   position: absolute;
   top: 40%;
   left: 40%;
   padding: 20px 40px;
   display: none;
+  border-radius: 6px;
 }
 
 .report-sidebar a {

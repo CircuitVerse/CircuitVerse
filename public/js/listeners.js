@@ -220,9 +220,8 @@ function handleKeyUp(e) {
 function handleKeyDowm (e) {
 console.log(e)
         if(wait){
-            desiredKey=e
+            handleDesired(e)
 
-            // console.log(desiredKey)
             console.log("wait")
         }
         else{
