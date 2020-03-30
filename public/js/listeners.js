@@ -1,36 +1,9 @@
 // Most Listeners are stored here
-// 0 keys , 1 CTRL , 2 SHIFT
-var initCustumeShortCuts = [
-    [[69],0,0,"SelectMulti"],
-    [[90],1,0,"undo"],
-    [[67],0,0,"Copy"],
-    [[88],0,0,"Cut"],
-    [[86],0,0,"Past"],
-    [[187,171,107],1,0,"ZoomIn"],
-    [[189,173,109],1,0,"ZoomOut"],
-    [[8,46],0,0,"delete_selected"],
-    [[65,],1,0,"SelectAll"],
-    [[83],1,0,"save"],
-    [[83],1,1,"saveOffline"],
-    [[81],0,0,"ChangeBitWidth"],
-    [[84],0,0,"ChangeClockTime"],
-    [[37,65],0,0," RotateLeft"],
-    [[39,68],0,0," RotateRight"],
-    [[38,87],0,0," RotateUp"],
-    [[40,83],0,0," RotateDowm"],
-]
-var  keymap 
+
 // console.log("AAAAAAAAAAA" ,JSON.parse(stcus))
 //  for the first time the storedShortCuts would be null so we will store the shortcuts  
 
 
-
-if(custumeShortCuts){
-    keymap = custumeShortCuts
-}else{
-    keymap = initCustumeShortCuts
-    window.localStorage.setItem("custumeShortCuts" , JSON.stringify(initCustumeShortCuts))
-}
 
 function startListeners() {
 
@@ -390,17 +363,19 @@ function RotateLeft (){
     handleNewDirection("LEFT")
 }
 
-function handleChangeClockTime(){
+function ChangeClockTime(){
     simulationArea.changeClockTime(prompt("Enter Time:"));
 }
 
 //   Zoom handler , direction is either 1 or -1 
 function handleZoom(direction){
-    if ( globalScope.scale > 0.5 * DPR && globalScope.scale < 4 * DPR){
+    if ( globalScope.scale > 0.5 * DPR){
         changeScale(direction * .1 * DPR);
-        // This Fix zoom issue
-        gridUpdate = true;
     }
+    else if ( globalScope.scale < 4 * DPR){
+        changeScale(direction * .1 * DPR);
+    }
+    gridUpdate = true;
 }
 
 function ZoomIn(){

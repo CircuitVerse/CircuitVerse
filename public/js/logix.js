@@ -46,7 +46,35 @@ let selectedCommand
 
 
 
-var custumeShortCuts = JSON.parse(window.localStorage.getItem("custumeShortCuts"))
+// 0 keys , 1 CTRL , 2 SHIFT
+var initCustumeShortCuts = [
+    [[69],0,0,"SelectMulti"],
+    [[90],1,0,"undo"],
+    [[67],0,0,"Copy"],
+    [[88],0,0,"Cut"],
+    [[86],0,0,"Past"],
+    [[187,171,107],1,0,"ZoomIn"],
+    [[189,173,109],1,0,"ZoomOut"],
+    [[8,46],0,0,"delete_selected"],
+    [[65,],1,0,"SelectAll"],
+    [[83],1,0,"save"],
+    [[83],1,1,"saveOffline"],
+    [[81],0,0,"ChangeBitWidth"],
+    [[84],0,0,"ChangeClockTime"],
+    [[37,65],0,0,"RotateLeft"],
+    [[39,68],0,0,"RotateRight"],
+    [[38,87],0,0,"RotateUp"],
+    [[40,83],0,0,"RotateDowm"],
+]
+
+var custumeShortCuts=JSON.parse(localStorage.getItem("custumeShortCuts"))
+var  keymap 
+if(custumeShortCuts){
+    keymap = custumeShortCuts
+}else{
+    keymap = initCustumeShortCuts
+    window.localStorage.setItem("custumeShortCuts" , JSON.stringify(initCustumeShortCuts))
+}
 
 
 
@@ -71,7 +99,7 @@ let keys = document.getElementById("keys")
 function printCustomeShortCut(c){
    return `<span class="command">${c[3]}</span>${getKeys(c)}`
 }
-      custumeShortCuts.forEach(c=>{
+keymap.forEach(c=>{
           keys.innerHTML+= `<p class="shortcut" id=${c[3]}>${printCustomeShortCut(c)} </p>`
       })
       
@@ -108,7 +136,6 @@ function handleDesired(e){
         if(e.keyCode==27){
             handleClose()
         }
-
         $("#listenToKeys").html( Displayedkey )
     }
 }
@@ -123,7 +150,7 @@ function handleDesired(e){
 
     function handlekeySubmit (){
         if(keyvalue!==false){
-             custumeShortCuts = custumeShortCuts.map(c=>{
+            keymap = keymap.map(c=>{
                 if(c[3]==selectedCommand){
                     let fullKeyValue = [...keyvalue ,c[3]]
                     $("#"+c[3]).html(printCustomeShortCut(fullKeyValue))    
@@ -134,8 +161,7 @@ function handleDesired(e){
                     return c
                 })
               
-            console.log("CCCCCCCCCCCCCC",custumeShortCuts)
-            window.localStorage.setItem('custumeShortCuts',JSON.stringify(custumeShortCuts))
+            window.localStorage.setItem('custumeShortCuts',JSON.stringify(keymap))
         }
     }
 
