@@ -1,24 +1,23 @@
 // Most Listeners are stored here
 // 0 keys , 1 CTRL , 2 SHIFT
 var custumeShortCuts = [
-    [[17],0,0,"handleCtrlDown"],
-    [[16,69],0,0,"handleSelectMulti"],
+    [[69],0,0,"SelectMulti"],
     [[90],1,0,"undo"],
-    [[67],0,0,"handleCopy"],
-    [[88],0,0,"handleCut"],
-    [[86],0,0,"handlePast"],
-    [[187,171,107],1,0,"handleZoomIn"],
-    [[189,173,109],1,0,"handleZoomOut"],
+    [[67],0,0,"Copy"],
+    [[88],0,0,"Cut"],
+    [[86],0,0,"Past"],
+    [[187,171,107],1,0,"ZoomIn"],
+    [[189,173,109],1,0,"ZoomOut"],
     [[8,46],0,0,"delete_selected"],
-    [[65,97],1,0,"handleSelectAll"],
+    [[65,97],1,0,"SelectAll"],
     [[83],1,0,"save"],
     [[83],1,1,"saveOffline"],
-    [[113,81],0,0,"handleChangeBitWidth"],
-    [[84],0,0,"handleChangeClockTime"],
-    [[37,65],0,0,"handleDirectionLeft"],
-    [[39,68],0,0,"handleDirectionRight"],
-    [[38,87],0,0,"handleDirectionUp"],
-    [[40,83],0,0,"handleDirectionDowm"],
+    [[113,81],0,0,"ChangeBitWidth"],
+    [[84],0,0,"ChangeClockTime"],
+    [[37,65],0,0," RotateLeft"],
+    [[39,68],0,0," RotateRight"],
+    [[38,87],0,0," RotateUp"],
+    [[40,83],0,0," RotateDowm"],
 ]
 var  keymap 
 // console.log("AAAAAAAAAAA" ,JSON.parse(stcus))
@@ -35,9 +34,9 @@ if(storedShortCuts){
 function startListeners() {
 
 // startListeners function -----------------------------------> START
-    document.addEventListener('cut'  , handleCut);
-    document.addEventListener('copy' , handleCopy);
-    document.addEventListener('paste', handlePast);
+    document.addEventListener('cut'  , Cut);
+    document.addEventListener('copy' , Copy);
+    document.addEventListener('paste', Past);
 
     window.addEventListener('keyup'    , handleKeyUp);
     window.addEventListener('keydown'  , handleKeyDowm)
@@ -261,7 +260,16 @@ function handleKeyDowm (e) {
         }
     }
 
+    if(e.keyCode===16){
+        SelectMulti()
+    }
+    if(e.keyCode===17){
+        handleCtrlDown()
+    }
+
 let found =false
+
+
 keymap.forEach(instruction=>{
     instruction[0].forEach(key=>{
         if(key===e.keyCode){
@@ -306,7 +314,7 @@ keymap.forEach(instruction=>{
 
 // ***window-Start***
 // CUT
-function handleCut() {
+function Cut() {
     simulationArea.copyList = simulationArea.multipleObjectSelections.slice();
     if (simulationArea.lastSelected && simulationArea.lastSelected !== simulationArea.root && !simulationArea.copyList.contains(simulationArea.lastSelected)) {
         simulationArea.copyList.push(simulationArea.lastSelected);
@@ -323,7 +331,7 @@ function handleCut() {
 
 }
 // COPY
-function handleCopy() {
+function Copy() {
     simulationArea.copyList = simulationArea.multipleObjectSelections.slice();
     if (simulationArea.lastSelected && simulationArea.lastSelected !== simulationArea.root && !simulationArea.copyList.contains(simulationArea.lastSelected)) {
         simulationArea.copyList.push(simulationArea.lastSelected);
@@ -339,7 +347,7 @@ function handleCopy() {
     }   
 }
 // PAST
-function handlePast() {
+function Past() {
     var data =  localStorage.getItem('clipboardData');
     paste(data);
 
@@ -363,16 +371,16 @@ function handleNewDirection (direction){
             simulationArea.lastSelected.newDirection(direction);
 }
 
-function handleDirectionUp (){
+function RotateUp (){
     handleNewDirection("UP")
 }
-function handleDirectionRight (){
+function RotateRight (){
     handleNewDirection("RIGHT")
 }
-function handleDirectionDowm (){
+function RotateDowm (){
     handleNewDirection("DOWN")
 }
-function handleDirectionLeft (){
+function RotateLeft (){
     handleNewDirection("LEFT")
 }
 
@@ -389,29 +397,29 @@ function handleZoom(direction){
     }
 }
 
-function handleZoomIn(){
+function ZoomIn(){
     handleZoom(1)
 }  
 
-function handleZoomOut(){
+function ZoomOut(){
     handleZoom(-1)
 }
 
 // Function selects all the elements from the scope
-function handleSelectMulti (){
+function SelectMulti (){
     simulationArea.shiftDown = true;
     if (simulationArea.lastSelected && !simulationArea.lastSelected.keyDown && simulationArea.lastSelected.objectType != "Wire" && simulationArea.lastSelected.objectType != "CircuitElement" && !simulationArea.multipleObjectSelections.contains(simulationArea.lastSelected)) {
         simulationArea.multipleObjectSelections.push(simulationArea.lastSelected);
     }
 }
 
-function handleChangeBitWidth(){
+function ChangeBitWidth(){
     if (simulationArea.lastSelected.bitWidth !== undefined)
         simulationArea.lastSelected.newBitWidth(parseInt(prompt("Enter new bitWidth"), 10));
     else return
 }
 
-function handleSelectAll(scope = globalScope) {
+function SelectAll(scope = globalScope) {
     circuitElementList.forEach((val, _, __) => {
         if (scope.hasOwnProperty(val)) {
             simulationArea.multipleObjectSelections.push(...scope[val]);

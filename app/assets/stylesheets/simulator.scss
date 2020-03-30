@@ -28,11 +28,12 @@ body{
   overflow-y: auto;
 
   p {
-    font-size: 1rem;
+    font-size: 1.1rem;
     padding: 10px 0;
     margin: 3px 0;
     border-bottom: 1px solid #3336;
   }
+
   kbd {
     display: inline-block;
     color: #555;
@@ -43,12 +44,12 @@ body{
     box-shadow: 0 1px 0px rgba(0, 0, 0, 0.4), 0 0 0 2px #fff inset;
     background-color: #f7f7f7;
   }
+
   .command {
     text-transform: capitalize;
     display: inline-block;
-    min-width: 200px !important;
-  }
-  
+    min-width: 170px !important;
+  }  
 }
 
 
