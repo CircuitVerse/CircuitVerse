@@ -9,6 +9,9 @@
               <span class="badge badge-dark">Assignment</span>
             <% end %>
               <span class="badge badge-dark"><%= project.project_access_type %></span>
+              <% if !project.forked_project.nil? %>
+              <span class="badge badge-dark">Forked</span>
+              <% end %>
         </div>
         <img class="card-img-top" src="<%= project.image_preview.url %>" alt="<%= project.name %>">
         <div class="card-footer card-footer-userprojects">
