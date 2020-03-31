@@ -5,6 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem 'fast_jsonapi'
 gem 'language_filter'
 gem "paperclip", ">= 5.2.0"
 gem 'hirb'
@@ -79,7 +80,8 @@ gem "http"
 gem "pg", "~> 1.1.4"
 
 gem 'meta-tags'
-
+gem 'redis-throttle', git: 'git://github.com/lelylan/redis-throttle.git'
+gem 'rack-cors'
 # Notifications
 gem 'activity_notification'
 gem 'serviceworker-rails'
@@ -112,6 +114,7 @@ group :test do
   gem 'webdrivers', '~> 4.0'
   gem 'capybara', '~> 2.13'
   gem 'shoulda-matchers'
+  gem 'rails-helper'
 end
 
 group :development do

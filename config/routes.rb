@@ -1,4 +1,27 @@
 Rails.application.routes.draw do
+  namespace :api do
+    namespace :v1 do
+        resources :users do
+            resources :projects, only: [:show, :edit, :update, :new, :create, :destroy]
+        end
+        resources :featured_circuits, only: [:index, :create]
+        resources :stars , only: [:create, :destroy]
+        resources :group_members ,only: [:create,:destroy]
+        resources :groups do
+            resources :assignments
+        end
+        get "/404", to: "errors#not_found"
+        get "/422", to: "errors#unacceptable"
+        get "/500", to: "errors#internal_error"
+    end
+  end	
+
+  namespace :api do
+    namespace :v0 do
+        resources :projects
+    end
+  end
+  
   resources :collaborations
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
