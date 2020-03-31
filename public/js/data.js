@@ -27,7 +27,7 @@ function newCircuit(name, id) {
 function changeCircuitName(name, id = globalScope.id) {
     name = name || "Untitled";
     name = stripTags(name);
-    $('#' + id).html(name);
+    $('#' + id).html(name + '<span class ="tabsCloseButton" onclick="deleteCurrentCircuit()"  >x</span></div>');
     scopeList[id].name = name;
 }
 
