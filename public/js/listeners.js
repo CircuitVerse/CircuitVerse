@@ -61,8 +61,7 @@ function startListeners() {
     });
     window.addEventListener('mousemove', onMouseMove);
 
-
-
+    
     window.addEventListener('keydown', function(e) {
 
         // If mouse is focusing on input element, then override any action
