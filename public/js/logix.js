@@ -1493,3 +1493,30 @@ CircuitElement.prototype.generateVerilog = function() {
 function distance(x1, y1, x2, y2) {
     return Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
 }
+
+
+// Report An issue ---------------------------------------->START
+$('#report').click(function(){
+     var message=$('#issuetext').val();
+     if(message.split(' ').length>1){
+     message += "\nURL: " + window.location.href;
+     message += `\nUser Id: <%= user_signed_in? ? " #{current_user.id.to_s} : #{current_user.name}" : "Guest user" %>`
+     postUserIssue(message)
+     $('#issuetext').hide();
+     $('#report').hide();
+     $('#report-label').hide();
+     }else{
+        //  actually i wanted the message to be  (don't spam) XD 
+         alert("your imput cannot be less than two words")
+     }
+    })
+
+   $('.issue').on('hide.bs.modal', function(e) {
+        $('#result').html("");
+        $('#issuetext').show();
+        $('#issuetext').val("");
+        $('#report').show();
+       $('#report-label').show();
+   
+ }) 
+// Report An issue ---------------------------------------->END
