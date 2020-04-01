@@ -24,9 +24,28 @@
               <%= link_to edit_group_path(group), class: "btn-card btn-edit" do %>
                 <%= image_tag("SVGs/edit.svg", alt: "Edit", height: "15", width: "15", hspace: "2") %> Edit
               <% end %>
-              <%= link_to group, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn-card btn-delete" do %>
+              <%= link_to "Delete", data: {toggle: "modal", target: "#popup"}, class: "btn-card btn-delete" do %>
                 <%= image_tag("SVGs/delete.svg", alt: "Delete", height: "15", width: "15", hspace: "2") %> Delete
               <% end %>
+              <div class="modal fade" id="popup" role="dialog">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h4 class="modal-examplepage mx-auto">Delete!</h4>
+                    </div>
+                    <div class="modal-body mx-auto">
+                      <p>Are you sure to delete this group</p>
+                    </div>
+                    <div class="modal-footer">
+                      <%= link_to "No", data: {dismiss: "modal"}, class: "btn-card btn-view" do %>No
+                      <% end %>
+                      <%= link_to group, method: :delete, class: "btn-card btn-delete" do %>
+                      <%= image_tag("SVGs/delete.svg", alt: "Delete", height: "15", width: "15", hspace: "2") %> Delete
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
