@@ -1507,7 +1507,7 @@ $('#report').click(function(){
      $('#report-label').hide();
      }else{
         //  actually i wanted the message to be  (don't spam) XD 
-         alert("your imput cannot be less than two words")
+         alert("your input message can not be less than two words")
      }
     })
 
