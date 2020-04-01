@@ -1047,6 +1047,7 @@ function Text(x, y, scope = globalScope, label = "", fontSize = 14) {
 }
 Text.prototype = Object.create(CircuitElement.prototype);
 Text.prototype.constructor = Text;
+Text.prototype.propagationDelayFixed = true;
 Text.prototype.tooltipText = "Text ToolTip: Use this to document your circuit."
 Text.prototype.helplink = "https://docs.circuitverse.org/#/annotation?id=adding-labels";
 Text.prototype.setLabel = function (str = "") {
@@ -3726,6 +3727,7 @@ function Rectangle(x, y, scope = globalScope, rows = 15, cols = 20) {
 }
 Rectangle.prototype = Object.create(CircuitElement.prototype);
 Rectangle.prototype.constructor = Rectangle;
+Rectangle.prototype.propagationDelayFixed = true;
 Rectangle.prototype.tooltipText = "Rectangle ToolTip : Used to Box the Circuit or area you want to highlight.";
 Rectangle.prototype.changeRowSize = function (size) {
     if (size == undefined || size < 5 || size > 1000) return;
@@ -3814,6 +3816,7 @@ function Arrow(x, y, scope = globalScope, dir = "RIGHT") {
 }
 Arrow.prototype = Object.create(CircuitElement.prototype);
 Arrow.prototype.constructor = Arrow;
+Arrow.prototype.propagationDelayFixed = true;
 Arrow.prototype.tooltipText = "Arrow ToolTip : Arrow Selected.";
 Arrow.prototype.customSave = function () {
     var data = {
