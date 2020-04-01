@@ -49,6 +49,15 @@ function startListeners() {
             globalScope.restrictedCircuitElementsUsed.push(simulationArea.lastSelected.objectType);
             updateRestrictedElementsList();
         }
+        if (!simulationArea.shiftDown && simulationArea.multipleObjectSelections.length > 0
+        ) {
+          if (
+            !simulationArea.multipleObjectSelections.includes(
+              simulationArea.lastSelected
+            )
+          )
+            simulationArea.multipleObjectSelections = [];
+        }
     });
     window.addEventListener('mousemove', onMouseMove);
 
@@ -216,9 +225,6 @@ function startListeners() {
         scheduleUpdate(2);
         if (simulationArea.lastSelected && simulationArea.lastSelected.dblclick !== undefined) {
             simulationArea.lastSelected.dblclick();
-        }
-        if (!simulationArea.shiftDown) {
-            simulationArea.multipleObjectSelections = [];
         }
     });
 
