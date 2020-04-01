@@ -981,3 +981,22 @@ function promptSave(){
     if(confirm("You have not saved your creation! Would you like save your project online? "))
     save()
 }
+
+function postUserIssue(message) {
+    $.ajax({
+        url: '/simulator/post_issue',
+        type: 'POST',
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+        },
+        data: {
+            "text": message,
+        },
+        success: function(response) {
+            $('#result').html("<i class='fa fa-check' style='color:green'></i> You've successfully submitted the issue. Thanks for improving our platform.");
+        },
+        failure: function(err) {
+            $('#result').html("<i class='fa fa-check' style='color:red'></i> There seems to be a network issue. Please reach out to us at support@ciruitverse.org");
+        }
+    });
+}
