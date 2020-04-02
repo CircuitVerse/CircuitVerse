@@ -50,7 +50,7 @@
             <div class="card card-examplepage-example d-inline-block my-4 rounded-0">
               <%= image_tag example[:img], alt: example[:name], class: "card-img-top card-img-examplepage-example" %>
               <div class="card-footer card-footer-examplepage-example">
-                <p class="examplepage-example-p d-inline-block float-left mt-2 overflow-hidden text-left text-truncate"><%= example[:name] %></p>
+                <marquee class="examplepage-example-p d-inline-block float-left mt-2 overflow-hidden text-left text-truncate" onmouseover="this.stop();" onmouseout="this.start();"><%= example[:name] %></marquee>
                 <button type="button" class="btn btn-about examplepage-example-button float-right mb-3" onclick="window.location.href = 'https://circuitverse.org/<%= example[:id] %>';">View</button>
               </div>
             </div>
