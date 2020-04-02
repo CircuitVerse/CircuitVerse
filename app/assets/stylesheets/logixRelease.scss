@@ -122,6 +122,8 @@ a.btn.btn-outline-danger {
 .card-header-userprojects {
   background-color: $green;
   color: $white;
+  height: 60px;
+  overflow: hidden;
 }
 
 .card-footer-userprojects {
@@ -131,6 +133,7 @@ a.btn.btn-outline-danger {
 
 .cardname {
   display: inline;
+  line-height: 38px;
 }
 
 .modal-header-userprojects {
