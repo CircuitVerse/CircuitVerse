@@ -105,7 +105,7 @@
           </div>
 
           <div class="row row-homepage-middle">
-            <% @projects.limit(6).each do |project| %>
+            <% @projects.each do |project| %>
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
               <div class="card card-homepage-example">
                 <a href="<%= user_project_path(project.author_id,project) %>"><img class="card-img-top" src="<%= project.image_preview.url %>" alt="<%= project.name %>"></a>
