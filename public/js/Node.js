@@ -59,7 +59,6 @@ NODE_INPUT = 0;
 NODE_INTERMEDIATE = 2;
 
 function Node(x, y, type, parent, bitWidth = undefined, label = "") {
-    stopWire=false
 
     console.log("***************************")
 

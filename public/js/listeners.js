@@ -19,6 +19,7 @@ function startListeners() {
     document.getElementById("simulationArea").addEventListener('mousedown', function(e) {
         // console.log(simulationArea)
         simulationArea.mouseDown = true;
+        stopWire=false
 
         $("input").blur();
 
