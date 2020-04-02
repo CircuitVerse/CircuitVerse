@@ -2,6 +2,7 @@
 var width;
 var height;
 var createNode=false
+var stopWire=false
 uniqueIdCounter = 0; // To be deprecated
 unit = 10; // size of each division/ not used everywhere, to be deprecated
 

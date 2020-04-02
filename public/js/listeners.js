@@ -113,12 +113,15 @@ function startListeners() {
             //    }
             //    copy(simulationArea.copyList);
         }
+        if(!stopWire){
         if ((e.key == "V" || e.key == "v")) {
+            this.console.log("stopWire",stopWire)
     createNode=true
-console.log("vv")
-        }
-        if ((e.key == "x" || e.key == "X")) {
+        }}else{
     createNode=false
+    this.console.log("stopWire",stopWire)
+
+
         }
 
         if (simulationArea.lastSelected && simulationArea.lastSelected.keyDown) {
@@ -358,6 +361,8 @@ function removeMiniMap() {
 }
 
 function onMouseMove(e) {
+    // createNode=true
+
     var rect = simulationArea.canvas.getBoundingClientRect();
     simulationArea.mouseRawX = (e.clientX - rect.left) * DPR;
     simulationArea.mouseRawY = (e.clientY - rect.top) * DPR;
