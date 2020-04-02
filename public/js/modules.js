@@ -507,7 +507,7 @@ XnorGate.prototype.customDraw = function () {
 }
 
 
-function SevenSegDisplay(x, y, scope = globalScope) {
+function SevenSegDisplay(x, y, scope = globalScope, color = "Red") {
     CircuitElement.call(this, x, y, scope, "RIGHT", 1);
     this.fixedBitWidth = true;
     this.directionFixed = true;
@@ -522,6 +522,9 @@ function SevenSegDisplay(x, y, scope = globalScope) {
     this.c = new Node(+10, +50, 0, this);
     this.dot = new Node(+20, +50, 0, this);
     this.direction = "RIGHT";
+    this.color = color;
+    var temp = colorToRGBA(this.color)
+    this.actualColor = "rgba(" + temp[0] + "," + temp[1] + "," + temp[2] + "," + 0.8 + ")";
 
 
 }
@@ -559,7 +562,21 @@ SevenSegDisplay.prototype.customDrawSegment = function (x1, y1, x2, y2, color) {
     ctx.closePath();
     ctx.stroke();
 }
+SevenSegDisplay.prototype.mutableProperties = {
+    "color": {
+        name: "Color: ",
+        type: "text",
+        func: "changeColor",
+    },
+}
+SevenSegDisplay.prototype.changeColor = function (value) {
+    if (validColor(value)) {
+        this.color = value;
+        var temp = colorToRGBA(this.color)
+        this.actualColor = "rgba(" + temp[0] + "," + temp[1] + "," + temp[2] + "," + 0.8 + ")";
+    }
 
+}
 SevenSegDisplay.prototype.customDraw = function () {
     ctx = simulationArea.context;
 
@@ -581,8 +598,8 @@ SevenSegDisplay.prototype.customDraw = function () {
     ctx.stroke();
 }
 
-function SixteenSegDisplay(x, y, scope = globalScope) {
-    CircuitElement.call(this, x, y, scope, "RIGHT", 16);
+function SixteenSegDisplay(x, y, scope = globalScope, color = "Red") {
+    CircuitElement.call(this, x, y, scope, "RIGHT", 1);
     this.fixedBitWidth = true;
     this.directionFixed = true;
     this.setDimensions(30, 50);
@@ -590,6 +607,9 @@ function SixteenSegDisplay(x, y, scope = globalScope) {
     this.input1 = new Node(0, -50, 0, this, 16);
     this.dot = new Node(0, 50, 0, this, 1);
     this.direction = "RIGHT";
+    this.color = color;
+    var temp = colorToRGBA(this.color)
+    this.actualColor = "rgba(" + temp[0] + "," + temp[1] + "," + temp[2] + "," + 0.8 + ")";
 }
 
 SixteenSegDisplay.prototype = Object.create(CircuitElement.prototype);
@@ -633,7 +653,21 @@ SixteenSegDisplay.prototype.customDrawSegmentSlant = function (x1, y1, x2, y2, c
     ctx.closePath();
     ctx.stroke();
 }
+SixteenSegDisplay.prototype.mutableProperties = {
+    "color": {
+        name: "Color: ",
+        type: "text",
+        func: "changeColor",
+    },
+}
+SixteenSegDisplay.prototype.changeColor = function (value) {
+    if (validColor(value)) {
+        this.color = value;
+        var temp = colorToRGBA(this.color)
+        this.actualColor = "rgba(" + temp[0] + "," + temp[1] + "," + temp[2] + "," + 0.8 + ")";
+    }
 
+}
 SixteenSegDisplay.prototype.customDraw = function () {
     ctx = simulationArea.context;
 
@@ -667,14 +701,17 @@ SixteenSegDisplay.prototype.customDraw = function () {
     ctx.stroke();
 }
 
-function HexDisplay(x, y, scope = globalScope) {
-    CircuitElement.call(this, x, y, scope, "RIGHT", 4);
+function HexDisplay(x, y, scope = globalScope, color = "Red") {
+    CircuitElement.call(this, x, y, scope, "RIGHT", 1);
     this.directionFixed = true;
     this.fixedBitWidth = true;
     this.setDimensions(30, 50);
 
     this.inp = new Node(0, -50, 0, this, 4);
     this.direction = "RIGHT";
+    this.color = color;
+    var temp = colorToRGBA(this.color)
+    this.actualColor = "rgba(" + temp[0] + "," + temp[1] + "," + temp[2] + "," + 0.8 + ")";
 }
 
 HexDisplay.prototype = Object.create(CircuitElement.prototype);
@@ -705,6 +742,21 @@ HexDisplay.prototype.customDrawSegment = function (x1, y1, x2, y2, color) {
     lineTo(ctx, x2, y2, xx, yy, this.direction);
     ctx.closePath();
     ctx.stroke();
+}
+HexDisplay.prototype.mutableProperties = {
+    "color": {
+        name: "Color: ",
+        type: "text",
+        func: "changeColor",
+    },
+}
+HexDisplay.prototype.changeColor = function (value) {
+    if (validColor(value)) {
+        this.color = value;
+        var temp = colorToRGBA(this.color)
+        this.actualColor = "rgba(" + temp[0] + "," + temp[1] + "," + temp[2] + "," + 0.8 + ")";
+    }
+
 }
 HexDisplay.prototype.customDraw = function () {
     ctx = simulationArea.context;
@@ -2411,16 +2463,18 @@ DigitalLed.prototype.customDraw = function () {
 
 }
 
-function VariableLed(x, y, scope = globalScope) {
+function VariableLed(x, y, scope = globalScope, color = "Red") {
     // Calling base class constructor
 
-    CircuitElement.call(this, x, y, scope, "UP", 8);
+    CircuitElement.call(this, x, y, scope, "UP", 1);
     this.rectangleObject = false;
     this.setDimensions(10, 20);
     this.inp1 = new Node(-40, 0, 0, this, 8);
     this.directionFixed = true;
     this.fixedBitWidth = true;
-
+    this.color = color;
+    var temp = colorToRGBA(this.color)
+    this.actualColor = "rgba(" + temp[0] + "," + temp[1] + "," + temp[2] + "," + 0.8 + ")";
 
 }
 VariableLed.prototype = Object.create(CircuitElement.prototype);
@@ -2434,6 +2488,21 @@ VariableLed.prototype.customSave = function () {
         },
     }
     return data;
+}
+VariableLed.prototype.mutableProperties = {
+    "color": {
+        name: "Color: ",
+        type: "text",
+        func: "changeColor",
+    },
+}
+VariableLed.prototype.changeColor = function (value) {
+    if (validColor(value)) {
+        this.color = value;
+        var temp = colorToRGBA(this.color)
+        this.actualColor = "rgba(" + temp[0] + "," + temp[1] + "," + temp[2] + "," + 0.8 + ")";
+    }
+
 }
 VariableLed.prototype.customDraw = function () {
 
