@@ -59,7 +59,13 @@ NODE_INPUT = 0;
 NODE_INTERMEDIATE = 2;
 
 function Node(x, y, type, parent, bitWidth = undefined, label = "") {
+    console.log("***************************")
+
+    console.log(x,y)
+    console.log("-----------")
+   
 console.log("Node is plced")
+
 // debugger
     // Should never raise, but just in case
     if(isNaN(x) || isNaN(y)){
@@ -313,7 +319,7 @@ Node.prototype.resolve = function() {
 }
 
 Node.prototype.checkHover = function() {
-    if (createNode) {
+    if (simulationArea.mouseDown) {
         if (simulationArea.hover == this) {
             this.hover = this.isHover();
             if (!this.hover) {
@@ -543,7 +549,7 @@ Node.prototype.update = function() {
             for (var i = 0; i < this.parent.scope.allNodes.length; i++) {
                 if (x1 == this.parent.scope.allNodes[i].absX() && y1 == this.parent.scope.allNodes[i].absY()) {
                     n1 = this.parent.scope.allNodes[i];
-
+                    console.log("NODE1 IS HEREEEEE",this.parent.scope.allNodes[i] )
                     break;
                 }
             }
@@ -564,6 +570,7 @@ Node.prototype.update = function() {
         for (var i = 0; i < this.parent.scope.allNodes.length; i++) {
             if (x2 == this.parent.scope.allNodes[i].absX() && y2 == this.parent.scope.allNodes[i].absY()) {
                 n2 = this.parent.scope.allNodes[i];
+                console.log("NODE2 IS HEREEEEE",this.parent.scope.allNodes[i] )
                 break;
             }
         }

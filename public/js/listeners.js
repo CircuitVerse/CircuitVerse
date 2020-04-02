@@ -12,7 +12,13 @@ function startListeners() {
             simulationArea.controlDown = false;
         }
     });
+
+// *********************************************************************************************
+// *********************************************************************************************
+// *********************************************************************************************
     document.getElementById("simulationArea").addEventListener('mousedown', function(e) {
+        // console.log(simulationArea)
+        simulationArea.mouseDown = true;
 
         $("input").blur();
 
@@ -29,8 +35,6 @@ function startListeners() {
         simulationArea.mouseDownRawY = (e.clientY - rect.top) * DPR;
         simulationArea.mouseDownX = Math.round(((simulationArea.mouseDownRawX - globalScope.ox) / globalScope.scale) / unit) * unit;
         simulationArea.mouseDownY = Math.round(((simulationArea.mouseDownRawY - globalScope.oy) / globalScope.scale) / unit) * unit;
-        simulationArea.mouseDown = true;
-        createNode=false
 
         simulationArea.oldx = globalScope.ox;
         simulationArea.oldy = globalScope.oy;
@@ -109,8 +113,12 @@ function startListeners() {
             //    }
             //    copy(simulationArea.copyList);
         }
-        if (simulationArea.controlDown && (e.key == "V" || e.key == "v")) {
-            //    paste(simulationArea.copyData);
+        if ((e.key == "V" || e.key == "v")) {
+    createNode=true
+console.log("vv")
+        }
+        if ((e.key == "x" || e.key == "X")) {
+    createNode=false
         }
 
         if (simulationArea.lastSelected && simulationArea.lastSelected.keyDown) {
@@ -213,6 +221,7 @@ function startListeners() {
     })
 
     document.getElementById("simulationArea").addEventListener('dblclick', function(e) {
+
         scheduleUpdate(2);
         if (simulationArea.lastSelected && simulationArea.lastSelected.dblclick !== undefined) {
             simulationArea.lastSelected.dblclick();
@@ -349,7 +358,6 @@ function removeMiniMap() {
 }
 
 function onMouseMove(e) {
-
     var rect = simulationArea.canvas.getBoundingClientRect();
     simulationArea.mouseRawX = (e.clientX - rect.left) * DPR;
     simulationArea.mouseRawY = (e.clientY - rect.top) * DPR;
@@ -381,7 +389,9 @@ function onMouseMove(e) {
 
 
 }
-
+// *********************************************************************************************
+// *********************************************************************************************
+// *********************************************************************************************
 function onMouseUp(e) {
     createNode=false
     simulationArea.mouseDown = false;

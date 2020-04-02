@@ -40,7 +40,7 @@ function layoutUpdate(scope = globalScope) {
 }
 
 function paneLayout(scope = globalScope){
-    if (!simulationArea.selected &&createNode) {
+    if (!simulationArea.selected && simulationArea.mouseDown) {
 
         simulationArea.selected = true;
         simulationArea.lastSelected = scope.root;
@@ -339,7 +339,7 @@ layoutNode.prototype.update = function() {
     if (this == simulationArea.hover) simulationArea.hover = undefined;
     this.hover = this.isHover();
 
-    if (!createNode) {
+    if (!simulationArea.mouseDown) {
         if (this.absX() != this.prevx || this.absY() != this.prevy) {
             // Store position before clicked
             this.prevx = this.absX();
@@ -351,7 +351,7 @@ layoutNode.prototype.update = function() {
         simulationArea.hover = this;
     }
 
-    if (createNode && ((this.hover && !simulationArea.selected) || simulationArea.lastSelected == this)) {
+    if (simulationArea.mouseDown && ((this.hover && !simulationArea.selected) || simulationArea.lastSelected == this)) {
         simulationArea.selected = true;
         simulationArea.lastSelected = this;
         this.clicked = true;

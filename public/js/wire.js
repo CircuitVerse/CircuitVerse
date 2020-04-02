@@ -55,7 +55,7 @@ Wire.prototype.update = function() {
     } // SLOW , REMOVE
 
     // select a wire
-    if (simulationArea.shiftDown==false&&createNode == true && simulationArea.selected == false && this.checkWithin(simulationArea.mouseDownX, simulationArea.mouseDownY)) {
+    if (simulationArea.shiftDown==false&&simulationArea.mouseDown == true && simulationArea.selected == false && this.checkWithin(simulationArea.mouseDownX, simulationArea.mouseDownY)) {
         simulationArea.selected = true;
         simulationArea.lastSelected = this;
         updated = true;
@@ -79,7 +79,7 @@ Wire.prototype.update = function() {
     } //if either of the nodes are deleted
 
     //NODE POSITION when we move a  COMPONENT to make lines drawen  horzontally or vertically  
-    if (createNode == false) {
+    if (simulationArea.mouseDown == false) {
         if (this.type == "horizontal") {
             if (this.node1.absY() != this.y1) {
                 // if(this.checkConnections()){this.delete();return;}
