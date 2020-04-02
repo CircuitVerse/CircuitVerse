@@ -14,7 +14,7 @@
         <% @projects.each do |project| -%>
           <div class="row feature">
                  <div class="col-12 col-md-8">
-                     <h3 class="card-title"><%= project.name %></h4>
+                     <h3 class="card-title"><%= truncate( project.name, length: 18) %></h4>
                      <p class="card-text"></p>
                           <a class="btn btn-dark btn-lg" target="_blank" href="<%= user_project_url(project.author, project) %>" role="button">View Example &raquo;</a>
                  </div>
