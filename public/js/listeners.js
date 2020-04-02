@@ -30,6 +30,8 @@ function startListeners() {
         simulationArea.mouseDownX = Math.round(((simulationArea.mouseDownRawX - globalScope.ox) / globalScope.scale) / unit) * unit;
         simulationArea.mouseDownY = Math.round(((simulationArea.mouseDownRawY - globalScope.oy) / globalScope.scale) / unit) * unit;
         simulationArea.mouseDown = true;
+        createNode=false
+
         simulationArea.oldx = globalScope.ox;
         simulationArea.oldy = globalScope.oy;
 
@@ -51,8 +53,6 @@ function startListeners() {
         }
     });
     window.addEventListener('mousemove', onMouseMove);
-
-
 
     window.addEventListener('keydown', function(e) {
 
@@ -220,11 +220,10 @@ function startListeners() {
         if (!simulationArea.shiftDown) {
             simulationArea.multipleObjectSelections = [];
         }
+
     });
 
     window.addEventListener('mouseup', onMouseUp);
-
-
 
     document.getElementById("simulationArea").addEventListener('mousewheel', MouseScroll);
     document.getElementById("simulationArea").addEventListener('DOMMouseScroll', MouseScroll);
@@ -349,7 +348,6 @@ function removeMiniMap() {
 
 }
 
-
 function onMouseMove(e) {
 
     var rect = simulationArea.canvas.getBoundingClientRect();
@@ -385,6 +383,8 @@ function onMouseMove(e) {
 }
 
 function onMouseUp(e) {
+    createNode=false
+    simulationArea.mouseDown = false;
 
     if (!lightMode) {
         lastMiniMapShown = new Date().getTime();
@@ -399,7 +399,6 @@ function onMouseUp(e) {
     wireToBeChecked = true;
 
     scheduleUpdate(1);
-    simulationArea.mouseDown = false;
 
     for (var i = 0; i < 2; i++) {
         updatePosition = true;

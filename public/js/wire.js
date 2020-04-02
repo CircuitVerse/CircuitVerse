@@ -1,22 +1,17 @@
 //wire object
 function Wire(node1, node2, scope) {
-
     this.objectType = "Wire";
     this.node1 = node1;
     this.scope = scope;
     this.node2 = node2;
     this.type = "horizontal";
-
-
-
     this.updateData();
     this.scope.wires.push(this);
-	forceResetNodes=true;
-
-
+    forceResetNodes=true;
 }
 
 //if data changes
+// get the terminals of the wires
 Wire.prototype.updateData = function() {
 
     this.x1 = this.node1.absX();
@@ -54,17 +49,19 @@ Wire.prototype.update = function() {
 
     var updated = false;
     if (wireToBeChecked && this.checkConnections()) {
+        console.log("delet")
         this.delete();
         return;
     } // SLOW , REMOVE
-    if (simulationArea.shiftDown==false&&simulationArea.mouseDown == true && simulationArea.selected == false && this.checkWithin(simulationArea.mouseDownX, simulationArea.mouseDownY)) {
+
+    // select a wire
+    if (simulationArea.shiftDown==false&&createNode == true && simulationArea.selected == false && this.checkWithin(simulationArea.mouseDownX, simulationArea.mouseDownY)) {
         simulationArea.selected = true;
-
-
         simulationArea.lastSelected = this;
-
         updated = true;
     }
+
+    // double click on a wire to place a node
     else if(simulationArea.mouseDown && simulationArea.lastSelected==this&& !this.checkWithin(simulationArea.mouseX, simulationArea.mouseY)){
         var n = new Node(simulationArea.mouseDownX, simulationArea.mouseDownY, 2, this.scope.root);
         n.clicked = true;
@@ -81,7 +78,8 @@ Wire.prototype.update = function() {
         return;
     } //if either of the nodes are deleted
 
-    if (simulationArea.mouseDown == false) {
+    //NODE POSITION when we move a  COMPONENT to make lines drawen  horzontally or vertically  
+    if (createNode == false) {
         if (this.type == "horizontal") {
             if (this.node1.absY() != this.y1) {
                 // if(this.checkConnections()){this.delete();return;}
@@ -95,12 +93,14 @@ Wire.prototype.update = function() {
                 updated = true;
             }
         } else if (this.type == "vertical") {
+            
             if (this.node1.absX() != this.x1) {
                 // if(this.checkConnections()){this.delete();return;}
                 var n = new Node(this.x1, this.node1.absY(), 2, this.scope.root);
                 this.converge(n);
                 updated = true;
             } else if (this.node2.absX() != this.x2) {
+
                 // if(this.checkConnections()){this.delete();return;}
                 var n = new Node(this.x2, this.node2.absY(), 2, this.scope.root);
                 this.converge(n);

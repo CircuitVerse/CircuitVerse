@@ -1,7 +1,7 @@
 // Size of canvas
 var width;
 var height;
-
+var createNode=false
 uniqueIdCounter = 0; // To be deprecated
 unit = 10; // size of each division/ not used everywhere, to be deprecated
 
@@ -31,6 +31,8 @@ lightMode = false; // To be deprecated
 layoutMode = false; // Flag for mode
 
 forceResetNodes = true; // FLag to reset all Nodes
+
+
 
 
 //Exact same name as object constructor
