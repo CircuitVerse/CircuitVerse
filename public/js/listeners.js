@@ -442,8 +442,7 @@ function displayWindowSize(){
     var $sideBarsize = $('.side').width();
     var $maxwidth = ($windowsize - $sideBarsize);
     $("#tabsBar div").each(function(e){
-        $(this).css({ 'max-width': $maxwidth-20,
-        });
+        $(this).css({ 'max-width': $maxwidth - 20, });
     });
     }
 
