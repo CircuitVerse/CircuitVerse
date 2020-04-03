@@ -2,8 +2,8 @@
 var width;
 var height;
 
-var createNode=false
-var stopWire=true
+var createNode=false //Flag to create node when its value ==true 
+var stopWire=true //flag for stopoing making Nodes when the second terminal reaches a Node (closed path) 
 
 uniqueIdCounter = 0; // To be deprecated
 unit = 10; // size of each division/ not used everywhere, to be deprecated
