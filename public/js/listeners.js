@@ -436,3 +436,21 @@ function delete_selected(){
     // Updated restricted elements
     updateRestrictedElementsInScope();
 }
+
+function displayWindowSize(){
+    var $windowsize = $('body').width();
+    var $sideBarsize = $('.side').width();
+    var $maxwidth = ($windowsize-$sideBarsize);
+    //alert($percentwv);
+    $("#tabsBar div").each(function(e){
+        $(this).css({'max-width':$maxwidth-20,
+        });
+    });
+    }
+
+window.addEventListener("resize", displayWindowSize);
+displayWindowSize();
+
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+});
