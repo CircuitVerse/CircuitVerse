@@ -11,33 +11,12 @@ function startListeners() {
         if (e.key == "Meta" || e.key == "Control") {
             simulationArea.controlDown = false;
         }
-
-
-        // if(!stopWire){
-        //     if ((e.key == "V" || e.key == "v")) {
-        //         stopWire=true
-        //         createNode=false        
-        //         this.console.log("stopWireeeeeeeeeeeeeeeeeeeeeee",stopWire)
-        // createNode=true
-        //     }}else{
-        // createNode=false
-        // this.console.log("stopWire",stopWire)    
-        //     }
     });
 
-// *********************************************************************************************
-// *********************************************************************************************
-// *********************************************************************************************
     document.getElementById("simulationArea").addEventListener('mousedown', function(e) {
-        // if(simulationArea.controlDown){
-        // }else{
-        //     createNode=false
-        // }
         createNode=true
-
-        // console.log(simulationArea)
-        simulationArea.mouseDown = true;
         stopWire=false
+        simulationArea.mouseDown = true;
 
         $("input").blur();
 
@@ -135,14 +114,8 @@ function startListeners() {
             //    }
             //    copy(simulationArea.copyList);
         }
-        if(!stopWire){
-            if ((e.key == "f" || e.key == "F")) {
-                this.console.log("stopWire",stopWire)
-                createNode=true
-            }
-        }else{
+        if(stopWire){
             createNode=false
-            this.console.log("stopWire",stopWire)
         }
 
         if (simulationArea.lastSelected && simulationArea.lastSelected.keyDown) {
@@ -382,7 +355,6 @@ function removeMiniMap() {
 }
 
 function onMouseMove(e) {
-    // createNode=true
     var rect = simulationArea.canvas.getBoundingClientRect();
     simulationArea.mouseRawX = (e.clientX - rect.left) * DPR;
     simulationArea.mouseRawY = (e.clientY - rect.top) * DPR;
@@ -414,16 +386,9 @@ function onMouseMove(e) {
 
 
 }
-// *********************************************************************************************
-// *********************************************************************************************
-// *********************************************************************************************
+
 function onMouseUp(e) {
-    if(simulationArea.controlDown){
-        createNode=true
-    }else{
-        createNode=false
-    }
-    
+    createNode =simulationArea.controlDown?true:false
     simulationArea.mouseDown = false;
 
     if (!lightMode) {

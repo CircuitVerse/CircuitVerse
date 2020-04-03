@@ -550,9 +550,7 @@ Node.prototype.update = function() {
             for (var i = 0; i < this.parent.scope.allNodes.length; i++) {
                 if (x1 == this.parent.scope.allNodes[i].absX() && y1 == this.parent.scope.allNodes[i].absY()) {
                     n1 = this.parent.scope.allNodes[i];
- stopWire=true
-
-                    console.log("NODE1 IS HEREEEEE",this.parent.scope.allNodes[i] )
+                    stopWire=true
                     break;
                 }
             }
@@ -573,9 +571,8 @@ Node.prototype.update = function() {
         for (var i = 0; i < this.parent.scope.allNodes.length; i++) {
             if (x2 == this.parent.scope.allNodes[i].absX() && y2 == this.parent.scope.allNodes[i].absY()) {
                 n2 = this.parent.scope.allNodes[i];
- stopWire=true
-createNode=false
-                console.log("NODE2 IS HEREEEEE",this.parent.scope.allNodes[i] )
+                stopWire=true
+                createNode=false
                 break;
             }
         }
