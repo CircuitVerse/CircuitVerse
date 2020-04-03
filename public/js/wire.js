@@ -49,7 +49,6 @@ Wire.prototype.update = function() {
 
     var updated = false;
     if (wireToBeChecked && this.checkConnections()) {
-        console.log("delet")
         this.delete();
         return;
     } // SLOW , REMOVE

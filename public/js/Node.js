@@ -60,13 +60,6 @@ NODE_INTERMEDIATE = 2;
 
 function Node(x, y, type, parent, bitWidth = undefined, label = "") {
 
-    console.log("***************************")
-
-    console.log(x,y)
-    console.log("-----------")
-   
-console.log("Node is plced")
-
 // debugger
     // Should never raise, but just in case
     if(isNaN(x) || isNaN(y)){
@@ -320,7 +313,7 @@ Node.prototype.resolve = function() {
 }
 
 Node.prototype.checkHover = function() {
-    if (simulationArea.mouseDown) {
+    if (!simulationArea.mouseDown) {
         if (simulationArea.hover == this) {
             this.hover = this.isHover();
             if (!this.hover) {
@@ -425,7 +418,6 @@ Node.prototype.update = function() {
     // M CONNECT NODE
     if (createNode) {
         if (this.absX() != this.prevx || this.absY() != this.prevy) { // Connect to any node
-            console.log('CONNNECT')
             this.prevx = this.absX();
             this.prevy = this.absY();
             this.nodeConnect();
