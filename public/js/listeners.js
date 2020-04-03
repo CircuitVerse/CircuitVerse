@@ -437,19 +437,17 @@ function delete_selected(){
     updateRestrictedElementsInScope();
 }
 
-function displayWindowSize(){
+function resizeTabs(){
     var $windowsize = $('body').width();
     var $sideBarsize = $('.side').width();
     var $maxwidth = ($windowsize - $sideBarsize);
     $("#tabsBar div").each(function(e){
-        $(this).css({ 'max-width': $maxwidth - 20 });
+        $(this).css({ 'max-width': $maxwidth - 30 });
     });
     }
 
-window.addEventListener("resize", displayWindowSize);
-displayWindowSize();
-
-document.addEventListener('DOMContentLoaded', displayWindowSize);
+window.addEventListener("resize", resizeTabs);
+resizeTabs();
 
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()

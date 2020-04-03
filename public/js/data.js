@@ -8,9 +8,12 @@ function newCircuit(name, id) {
     if (id) scope.id = id;
     scopeList[scope.id] = scope;
     globalScope = scope;
-
+    var $windowsize = $('body').width();
+    var $sideBarsize = $('.side').width();
+    var $maxwidth = ($windowsize - $sideBarsize);
+    var resizer = "max-width:" + ($maxwidth - 30);
     $('.circuits').removeClass("current");
-    $('#tabsBar').append("<a href = '#' data-toggle = 'tooltip' title='" + name + "'><div class='circuits toolbarButton current' id='" + scope.id + "'>" + name + "<span class ='tabsCloseButton' onclick='deleteCurrentCircuit()'  ><i class='fa fa-times'></i></span></div></a>");
+    $('#tabsBar').append("<a href = '#' data-toggle = 'tooltip' title='" + name + "'><div class='circuits toolbarButton current' id='" + scope.id + "' style='" + resizer + "'>" + name + "<span class ='tabsCloseButton' onclick='deleteCurrentCircuit()'  ><i class='fa fa-times'></i></span></div></a>");
     $('.circuits').click(function() {
         switchCircuit(this.id)
     });
