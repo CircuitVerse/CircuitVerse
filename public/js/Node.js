@@ -60,7 +60,7 @@ NODE_INTERMEDIATE = 2;
 
 function Node(x, y, type, parent, bitWidth = undefined, label = "") {
 
-// debugger
+    // debugger
     // Should never raise, but just in case
     if(isNaN(x) || isNaN(y)){
         this.delete();
@@ -542,7 +542,7 @@ Node.prototype.update = function() {
             for (var i = 0; i < this.parent.scope.allNodes.length; i++) {
                 if (x1 == this.parent.scope.allNodes[i].absX() && y1 == this.parent.scope.allNodes[i].absY()) {
                     n1 = this.parent.scope.allNodes[i];
-                    stopWire=true
+                    stopWire = true
                     break;
                 }
             }
@@ -563,8 +563,8 @@ Node.prototype.update = function() {
         for (var i = 0; i < this.parent.scope.allNodes.length; i++) {
             if (x2 == this.parent.scope.allNodes[i].absX() && y2 == this.parent.scope.allNodes[i].absY()) {
                 n2 = this.parent.scope.allNodes[i];
-                stopWire=true
-                createNode=false
+                stopWire = true
+                createNode = false
                 break;
             }
         }

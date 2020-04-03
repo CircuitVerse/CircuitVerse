@@ -14,8 +14,8 @@ function startListeners() {
     });
 
     document.getElementById("simulationArea").addEventListener('mousedown', function(e) {
-        createNode=true
-        stopWire=false
+        createNode = true
+        stopWire = false
         simulationArea.mouseDown = true;
 
         $("input").blur();
@@ -53,14 +53,14 @@ function startListeners() {
             globalScope.restrictedCircuitElementsUsed.push(simulationArea.lastSelected.objectType);
             updateRestrictedElementsList();
         }
-       
+
 
 
     });
     window.addEventListener('mousemove', onMouseMove);
 
     window.addEventListener('keydown', function(e) {
-  
+
 
         // If mouse is focusing on input element, then override any action
         // if($(':focus').length){
@@ -89,7 +89,7 @@ function startListeners() {
         if (e.key == "Meta" || e.key == "Control") {
             simulationArea.controlDown = true;
         }
-        
+
         // zoom in (+)
         if (simulationArea.controlDown && (e.keyCode == 187 || e.keyCode == 171)) {
             e.preventDefault();
@@ -391,7 +391,7 @@ function onMouseMove(e) {
 }
 
 function onMouseUp(e) {
-    createNode =simulationArea.controlDown?true:false
+    createNode =simulationArea.controlDown
     simulationArea.mouseDown = false;
 
     if (!lightMode) {
