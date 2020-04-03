@@ -449,6 +449,8 @@ function displayWindowSize(){
 window.addEventListener("resize", displayWindowSize);
 displayWindowSize();
 
+document.addEventListener('DOMContentLoaded', displayWindowSize);
+
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 });

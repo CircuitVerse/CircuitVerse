@@ -10,7 +10,7 @@ function newCircuit(name, id) {
     globalScope = scope;
 
     $('.circuits').removeClass("current");
-    $('#tabsBar').append("<a href = '#' data-toggle = 'tooltip' title='" + name + "'><div class='circuits toolbarButton current' id='" + scope.id + "'>" + name + "<span class ='tabsCloseButton' onclick='deleteCurrentCircuit()'  >x</span></div></a>");
+    $('#tabsBar').append("<a href = '#' data-toggle = 'tooltip' title='" + name + "'><div class='circuits toolbarButton current' id='" + scope.id + "'>" + name + "<span class ='tabsCloseButton' onclick='deleteCurrentCircuit()'  ><i class='fa fa-times'></i></span></div></a>");
     $('.circuits').click(function() {
         switchCircuit(this.id)
     });
@@ -27,7 +27,7 @@ function newCircuit(name, id) {
 function changeCircuitName(name, id = globalScope.id) {
     name = name || "Untitled";
     name = stripTags(name);
-    $('#' + id).html(name);
+    $('#' + id).html(name + "<span class ='tabsCloseButton' onclick='deleteCurrentCircuit()'  ><i class='fa fa-times'></i></span>");
     scopeList[id].name = name;
 }
 
