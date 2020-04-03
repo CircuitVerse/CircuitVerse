@@ -65,13 +65,16 @@ Wire.prototype.update = function() {
         updated = true;
     }
     else if(simulationArea.mouseDown && simulationArea.lastSelected==this&& !this.checkWithin(simulationArea.mouseX, simulationArea.mouseY)){
-        console.log("i catcheeed you o")
         // lets move this wiree ! 
-        console.log(this )
-        this.node1.x=100
-        this.node1.y=100
-        this.node2.y=110
-        this.node2.y=110
+       if(this.node1.parent.objectType=="CircuitElement" && this.node2.parent.objectType=="CircuitElement" ){
+            if(this.type=="horizontal"){
+                this.node1.y= simulationArea.mouseY
+                this.node2.y= simulationArea.mouseY
+            }else if(this.type=="vertical"){
+                this.node1.x= simulationArea.mouseX
+                this.node2.x= simulationArea.mouseX
+            }
+        }
         // var n = new Node(simulationArea.mouseDownX, simulationArea.mouseDownY, 2, this.scope.root);
         // n.clicked = true;
        
