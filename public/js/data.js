@@ -822,9 +822,7 @@ createSubCircuitPrompt = function(scope = globalScope) {
     }
     if (flag) $('#insertSubcircuitDialog').append('<p>Looks like there are no other circuits which doesn\'t have this circuit as a dependency. Create a new one!</p>')
     $('#insertSubcircuitDialog').dialog({
-        height: 250,
-        maxHeight: 250,
-        minHeight: 250,
+        maxHeight: 350,
         width: 250,
         maxWidth: 250,
         minWidth: 250,
