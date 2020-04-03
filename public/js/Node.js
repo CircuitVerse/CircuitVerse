@@ -559,7 +559,6 @@ Node.prototype.update = function() {
             this.connect(n1);
         }
 
-        // if x=x ,y=y it's the same 
         for (var i = 0; i < this.parent.scope.allNodes.length; i++) {
             if (x2 == this.parent.scope.allNodes[i].absX() && y2 == this.parent.scope.allNodes[i].absY()) {
                 n2 = this.parent.scope.allNodes[i];
