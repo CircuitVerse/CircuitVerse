@@ -11,6 +11,18 @@ function startListeners() {
         if (e.key == "Meta" || e.key == "Control") {
             simulationArea.controlDown = false;
         }
+
+
+        // if(!stopWire){
+        //     if ((e.key == "V" || e.key == "v")) {
+        //         stopWire=true
+        //         createNode=false        
+        //         this.console.log("stopWireeeeeeeeeeeeeeeeeeeeeee",stopWire)
+        // createNode=true
+        //     }}else{
+        // createNode=false
+        // this.console.log("stopWire",stopWire)    
+        //     }
     });
 
 // *********************************************************************************************
@@ -18,6 +30,7 @@ function startListeners() {
 // *********************************************************************************************
     document.getElementById("simulationArea").addEventListener('mousedown', function(e) {
         // console.log(simulationArea)
+        
         simulationArea.mouseDown = true;
         stopWire=false
 
@@ -56,6 +69,9 @@ function startListeners() {
             globalScope.restrictedCircuitElementsUsed.push(simulationArea.lastSelected.objectType);
             updateRestrictedElementsList();
         }
+       
+
+
     });
     window.addEventListener('mousemove', onMouseMove);
 
@@ -115,14 +131,13 @@ function startListeners() {
             //    copy(simulationArea.copyList);
         }
         if(!stopWire){
-        if ((e.key == "V" || e.key == "v")) {
+            if ((e.key == "f" || e.key == "F")) {
+                this.console.log("stopWire",stopWire)
+                createNode=true
+            }
+        }else{
+            createNode=false
             this.console.log("stopWire",stopWire)
-    createNode=true
-        }}else{
-    createNode=false
-    this.console.log("stopWire",stopWire)
-
-
         }
 
         if (simulationArea.lastSelected && simulationArea.lastSelected.keyDown) {
@@ -363,7 +378,6 @@ function removeMiniMap() {
 
 function onMouseMove(e) {
     // createNode=true
-
     var rect = simulationArea.canvas.getBoundingClientRect();
     simulationArea.mouseRawX = (e.clientX - rect.left) * DPR;
     simulationArea.mouseRawY = (e.clientY - rect.top) * DPR;
@@ -399,7 +413,12 @@ function onMouseMove(e) {
 // *********************************************************************************************
 // *********************************************************************************************
 function onMouseUp(e) {
-    createNode=false
+    if(simulationArea.controlDown){
+        createNode=true
+    }else{
+        createNode=false
+    }
+    
     simulationArea.mouseDown = false;
 
     if (!lightMode) {
