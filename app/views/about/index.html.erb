@@ -9,21 +9,21 @@
           </div>
         </div>
         <div class="col-xs col-sm col-md col-lg text-center">
-          <button type="button" class="btn btn-about" onclick="window.location.href = '/tos';">Terms of Service</button>
-          <button type="button" class="btn btn-about" onclick="window.location.href = '/privacy';">Privacy Policy</button>
+          <a href="/tos"><button type="button" class="btn btn-about">Terms of Service</button></a>
+          <a href="/privacy"><button type="button" class="btn btn-about">Privacy Policy</button></a>
         </div>
         <div class="row row-about">
           <div class="col-xs col-sm col-md col-lg">
-            <div class="contact" onclick="window.location.href='mailto:support@circuitverse.org';">
+            <a href="mailto:support@circuitverse.org"><div class="contact text-dark">
               <%= image_tag "SVGs/email.svg", height: '60', width: '60', alt: "", class: 'about-card-image' %>
               <h6>Email us at</h6>
               <p id="tab">support@circuitverse.org</p>
-            </div>
-            <div class="contact" onclick="window.location.href='<%= Rails.configuration.slack_url %>';">
+            </div></a>
+            <a href="<%= Rails.configuration.slack_url %>"><div class="contact text-dark">
               <%= image_tag "SVGs/slack.svg", height: '60', width: '60', alt: "", class: 'about-card-image' %>
               <h6>Join and chat with us at</h6>
               <p id="tab">Slack Channel</p>
-            </div>
+            </div></a>
           </div>
         </div>
         <hr/>
