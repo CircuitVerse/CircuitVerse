@@ -60,6 +60,7 @@ function startListeners() {
     window.addEventListener('mousemove', onMouseMove);
 
     window.addEventListener('keydown', function(e) {
+  
 
         // If mouse is focusing on input element, then override any action
         // if($(':focus').length){
@@ -81,11 +82,15 @@ function startListeners() {
         updatePosition = true;
         simulationArea.shiftDown = e.shiftKey;
 
-        // zoom in (+)
+          //  stop making wires when we connect the 2nd termial to a node
+        if(stopWire){
+            createNode=false
+        }
         if (e.key == "Meta" || e.key == "Control") {
             simulationArea.controlDown = true;
         }
-
+        
+        // zoom in (+)
         if (simulationArea.controlDown && (e.keyCode == 187 || e.keyCode == 171)) {
             e.preventDefault();
             if (globalScope.scale < 4 * DPR) {
@@ -114,9 +119,7 @@ function startListeners() {
             //    }
             //    copy(simulationArea.copyList);
         }
-        if(stopWire){
-            createNode=false
-        }
+
 
         if (simulationArea.lastSelected && simulationArea.lastSelected.keyDown) {
             if (e.key.toString().length == 1 || e.key.toString() == "Backspace") {
