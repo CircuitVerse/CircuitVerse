@@ -29,8 +29,13 @@ function startListeners() {
 // *********************************************************************************************
 // *********************************************************************************************
     document.getElementById("simulationArea").addEventListener('mousedown', function(e) {
+        // if(simulationArea.controlDown){
+        // }else{
+        //     createNode=false
+        // }
+        createNode=true
+
         // console.log(simulationArea)
-        
         simulationArea.mouseDown = true;
         stopWire=false
 
