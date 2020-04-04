@@ -37,10 +37,10 @@
                       <p>Are you sure to delete this group</p>
                     </div>
                     <div class="modal-footer">
-                      <%= link_to "No", data: {dismiss: "modal"}, class: "btn-card btn-view" do %>No
+                      <%= link_to "No", data: {dismiss: "modal"}, class: "btn btn-secondary-to-profile-page text-decoration-underline px-1 py-1" do %>Cancel
                       <% end %>
-                      <%= link_to group, method: :delete, class: "btn-card btn-delete" do %>
-                      <%= image_tag("SVGs/delete.svg", alt: "Delete", height: "15", width: "15", hspace: "2") %> Delete
+                      <%= link_to group, method: :delete, class: " btn btn-danger px-2 py-1 small" do %>
+                        Delete
                       <% end %>
                     </div>
                   </div>
