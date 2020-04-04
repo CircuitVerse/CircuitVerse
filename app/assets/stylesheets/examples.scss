@@ -35,7 +35,6 @@
 
 .btn-examplepage {
   background-color: $green;
-  padding: 5px 17px;
   border-radius: 30px;
   color: $white;
   transition: all .3s ease 0s;
@@ -50,15 +49,14 @@
 
 .btn-examplepage-light {
   background-color: $white;
-  padding: 5px 17px;
-  border: 1px solid $green;
   border-radius: 30px;
+  color: $white;
   transition: all .3s ease 0s;
 
   &:hover {
     background-color: $teal;
     box-shadow: 0 8px 15px $shadow-black;
-    color: $white !important;
+    color: $white;
     transform: translateY(-7px);
   }
 }
