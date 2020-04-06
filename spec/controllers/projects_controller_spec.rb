@@ -26,6 +26,7 @@ describe ProjectsController, type: :request do
   describe "#show" do
     context "project is public" do
       before do
+        @user = sign_in_random_user
         @project = FactoryBot.create(:project, author: @author, project_access_type: "Public")
       end
 
