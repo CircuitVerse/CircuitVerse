@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   rescue_from Pundit::NotAuthorizedError, with: :auth_error
   rescue_from ApplicationPolicy::CustomAuthException, with: :custom_auth_error
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
-  
+
   def auth_error
     render plain: "You are not authorized to do the requested operation"
   end
@@ -15,6 +15,6 @@ class ApplicationController < ActionController::Base
   end
 
   def not_found
-    render 'errors/not_found.html.erb'
+    render "errors/not_found.html.erb"
   end
 end
