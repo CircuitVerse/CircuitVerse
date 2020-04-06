@@ -5,8 +5,7 @@
 
       <%= render 'form', project: @project %>
 
-      <%= link_to 'Show', user_project_path(current_user,@project) %> |
-      <%= link_to 'Back', user_path(@author)%>
+      <%= link_to 'Back', user_project_path(current_user,@project), class: "btn underline text-success p-0" %>
     </div>
   </div>
 </div>
