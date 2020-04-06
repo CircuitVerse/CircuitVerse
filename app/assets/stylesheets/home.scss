@@ -56,29 +56,41 @@
 .card-homepage-example {
   border: 1px solid $green;
   border-radius: 0;
-  display: inline-block;
   margin-bottom: 30px;
   margin-top: 30px;
+  max-height: 240px;
 }
 
 .card-img-homepage-example {
-  max-height: 160px;
+  height: 160px;
+  object-fit: contain;
+}
+
+@media (max-width: 950px) {
+
+  .fix {
+    max-height: 138px;
+  }
 }
 
 .homepage-example-p {
-  display: inline-block;
-  float: left;
+  display: block;
   font-weight: 600;
-  margin-top: 10px;
+  margin: 6px auto;
 }
 
 .homepage-example-button {
-  float: right;
+  border-radius: .15rem;
+  margin: auto;
   margin-bottom: 15px;
+  padding: 0 8px;
 }
 
 .card-footer-homepage-example {
   background-color: $white;
+  max-height: 100px;
+  padding: 0;
+  text-align: center;
 }
 
 .row-featured-examples {
