@@ -34,7 +34,7 @@
     <div class="d-flex flex-row justify-content-center align-items-center">
       <%= image_tag @user.profile_picture.url(:medium, alt: "@user.name"), class: 'about-card-image about-card-image', style: "width: 100px; height: 100px; margin: 10px;" %>
       <h2 class="p-4"><%= @user.name %></h2>
-      
+
     </div>
     <div class="">
       <a class="btn btn-about my-4 my-md-0" href="<%= user_favourites_path(@user) %>">View Favourites</a>
@@ -43,7 +43,11 @@
 
   <% if @user.projects.blank? %>
     <div class ="no-projects px-4">
-      <h5>You don't have any projects. Create one <%= link_to 'here', simulator_new_url, class: 'no-projects-here' %></h5>
+      <% if @current_user.id.eql? @user.id %>
+        <h5>You don't have any projects. Create one <%= link_to 'here', simulator_new_url, class: 'no-projects-here' %></h5>
+      <% else %>
+        <h5><%= @user.name %> doesn't have any projects</h5>
+      <% end %>
     </div>
   <% end %>
 
