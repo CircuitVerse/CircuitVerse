@@ -7,7 +7,7 @@ describe SearchController, type: :request do
     context "search in a non-existant resource" do
       it "should return not found error" do
         get search_path, params: { q: "Dummy query", resource: "NonExistantResource" }
-        expect(response.body).to include("The record you wish access could not be found")
+        expect(response.body).to include("OOPS,THE PAGE YOU ARE LOOKING FOR CAN'T BE FOUND!")
       end
     end
 
