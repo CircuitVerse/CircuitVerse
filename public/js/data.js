@@ -437,7 +437,7 @@ function generateImageForOnline() {
 function save() {
     projectSaved = true;
     var data = generateSaveData();
-    
+
     if (!userSignedIn) {
         // user not signed in, save locally temporarily and force user to sign in
         localStorage.setItem("recover_login", data);
