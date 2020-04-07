@@ -1390,6 +1390,58 @@ Adder.prototype.resolve = function () {
     simulationArea.simulationQueue.add(this.sum);
 }
 
+function TwoComplement(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
+
+    CircuitElement.call(this, x, y, scope, dir, bitWidth);
+    this.rectangleObject = false;
+    this.setDimensions(15, 15);
+
+    this.inp1 = new Node(-10, 0, 0, this, this.bitWidth, "input stream");
+    this.output1 = new Node(20, 0, 1, this, this.bitWidth, "2's complement");
+
+
+}
+TwoComplement.prototype = Object.create(CircuitElement.prototype);
+TwoComplement.prototype.constructor = TwoComplement;
+TwoComplement.prototype.tooltipText = "Two's Complement Tooltip : Calculates the two's complement";
+TwoComplement.prototype.customSave = function () {
+    var data = {
+        constructorParamaters: [this.direction, this.bitWidth],
+        nodes: {
+            output1: findNode(this.output1),
+            inp1: findNode(this.inp1)
+        },
+    }
+    return data;
+}
+TwoComplement.prototype.resolve = function () {
+    if (this.isResolvable() == false) {
+        return;
+    }
+    let output = ((~this.inp1.value >>> 0) << (32 - this.bitWidth)) >>> (32 - this.bitWidth);
+    output += 1;
+    this.output1.value = ((output) << (32 - this.bitWidth)) >>> (32 - this.bitWidth);
+	simulationArea.simulationQueue.add(this.output1);
+}
+TwoComplement.prototype.customDraw = function () {
+
+    ctx = simulationArea.context;
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = correctWidth(3);
+
+    var xx = this.x;
+    var yy = this.y;
+    ctx.beginPath();
+    ctx.fillStyle = "black";
+    fillText(ctx, "2'", xx, yy, 10);
+    if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = "rgba(255, 255, 32,0.8)";
+    ctx.fill();
+    ctx.beginPath();
+    drawCircle2(ctx, 5, 0, 15, xx, yy, this.direction);
+    ctx.stroke();
+}
+
+
 function Rom(x, y, scope = globalScope, data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]) {
 
     CircuitElement.call(this, x, y, scope, "RIGHT", 1);
