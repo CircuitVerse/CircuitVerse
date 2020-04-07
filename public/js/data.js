@@ -436,21 +436,19 @@ function generateImageForOnline() {
 // Function to save data online
 function save() {
     projectSaved = true;
-
-    $('.loadingIcon').fadeIn();
     var data = generateSaveData();
-
+    
     if (!userSignedIn) {
         // user not signed in, save locally temporarily and force user to sign in
         localStorage.setItem("recover_login", data);
         // Asking user whether they want to login.
-        if(confirm("You have to login to save the project, you will be redirected to the login page.")) window.location.href = "/users/sign_in";
-        else $('.loadingIcon').fadeOut();
+        confirm("You have to login to save the project, you will be redirected to the login page.") window.location.href = "/users/sign_in";
     } else if (logix_project_id == 0) {
 
         // Create new project - this part needs to be improved and optimised
         var form = $("<form/>", {
             action: '/simulator/create_data',
+            target: '_blank',
             method: "post"
         });
         form.append(
