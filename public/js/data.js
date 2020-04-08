@@ -484,7 +484,7 @@ function save() {
         $('body').append(form);
         form.submit();
     } else {
-
+        $('.loadingIcon').fadeIn();
         // updates project - this part needs to be improved and optimised
         $.ajax({
             url: '/simulator/update_data',
