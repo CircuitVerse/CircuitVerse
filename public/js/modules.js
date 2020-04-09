@@ -1390,6 +1390,80 @@ Adder.prototype.resolve = function () {
     simulationArea.simulationQueue.add(this.sum);
 }
 
+function LeftShift(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
+
+    CircuitElement.call(this, x, y, scope, dir, bitWidth);
+    this.setDimensions(20, 20);
+
+    this.input = new Node(-20, -10, 0, this, this.bitWidth, "Input");
+    // this.inpB = new Node(-20, 0, 0, this, this.bitWidth, "B");
+    // this.carryIn = new Node(-20, 10, 0, this, 1, "Cin");
+    this.output = new Node(20, 0, 1, this, this.bitWidth, "Left Shifted Output");
+    // this.carryOut = new Node(20, 10, 1, this, 1, "Cout");
+
+
+
+}
+LeftShift.prototype = Object.create(CircuitElement.prototype);
+LeftShift.prototype.constructor = LeftShift;
+LeftShift.prototype.tooltipText = "LeftShift ToolTip : Shifts all data to one bit left, repeating the rightmost bit";
+LeftShift.prototype.customSave = function () {
+    var data = {
+        constructorParamaters: [this.direction, this.bitWidth],
+        nodes: {
+            input: findNode(this.input),
+            output: findNode(this.output)
+            // inpB: findNode(this.inpB),
+            // carryIn: findNode(this.carryIn),
+            // carryOut: findNode(this.carryOut),
+        },
+    }
+    return data;
+}
+LeftShift.prototype.isResolvable = function () {
+    return this.input.value != undefined;
+}
+LeftShift.prototype.newBitWidth = function (bitWidth) {
+    this.bitWidth = bitWidth;
+    this.input.bitWidth = bitWidth;
+    this.output.bitWidth = bitWidth;
+    // this.sum.bitWidth = bitWidth;
+}
+LeftShift.prototype.resolve = function () {
+    if (this.isResolvable() == false) {
+        return;
+    }
+    // var carryIn = this.carryIn.value;
+    // if (carryIn == undefined) carryIn = 0;
+    // var sum = this.inpA.value + this.inpB.value + carryIn;
+	this.output.value = this.input.value;
+    // this.sum.value = ((sum) << (32 - this.bitWidth)) >>> (32 - this.bitWidth);
+    // this.carryOut.value = +((sum >>> (this.bitWidth)) !== 0);
+    // simulationArea.simulationQueue.add(this.carryOut);
+    simulationArea.simulationQueue.add(this.output);
+}
+
+LeftShift.prototype.customDraw = function () {
+    var ctx = simulationArea.context;
+    var xx = this.x;
+    var yy = this.y;
+
+    var colors = ["rgb(174,20,20)", "rgb(40,174,40)", "rgb(0,100,255)"];
+    ctx.strokeStyle = "#d3d4d5";
+    ctx.beginPath();
+    rect2(ctx, -15, -15, 30, 30, xx, yy, this.direction, "<<");
+    ctx.stroke();
+
+    if ((this.hover && !simulationArea.shiftDown) ||
+        simulationArea.lastSelected == this ||
+        simulationArea.multipleObjectSelections.contains(this)) {
+        ctx.fillStyle = "rgba(255, 255, 32)";
+    }
+
+    ctx.fill();
+}
+
+
 function Rom(x, y, scope = globalScope, data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]) {
 
     CircuitElement.call(this, x, y, scope, "RIGHT", 1);
@@ -1779,6 +1853,165 @@ Ground.prototype.customDraw = function () {
     lineTo(ctx, 2.5, 10, xx, yy, this.direction);
     ctx.stroke();
 }
+
+
+function LeftShift(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
+    CircuitElement.call(this, x, y, scope, dir, bitWidth);
+    this.setDimensions(20, 20);
+
+    this.input = new Node(-20, -10, 0, this, this.bitWidth, 'Input');
+    // this.inpB = new Node(-20, 0, 0, this, this.bitWidth, "B");
+    // this.carryIn = new Node(-20, 10, 0, this, 1, "Cin");
+    this.output = new Node(
+        20,
+        0,
+        1,
+        this,
+        this.bitWidth,
+        'Left Shifted Output',
+    );
+    // this.carryOut = new Node(20, 10, 1, this, 1, "Cout");
+}
+LeftShift.prototype = Object.create(CircuitElement.prototype);
+LeftShift.prototype.constructor = LeftShift;
+LeftShift.prototype.tooltipText = 'LeftShift ToolTip : Shifts all data to one bit left, repeating the rightmost bit';
+LeftShift.prototype.customSave = function () {
+    var data = {
+        constructorParamaters: [this.direction, this.bitWidth],
+        nodes: {
+            input: findNode(this.input),
+            output: findNode(this.output),
+        },
+    };
+    return data;
+};
+LeftShift.prototype.isResolvable = function () {
+    return this.input.value != undefined;
+};
+LeftShift.prototype.newBitWidth = function (bitWidth) {
+    this.bitWidth = bitWidth;
+    this.input.bitWidth = bitWidth;
+    this.output.bitWidth = bitWidth;
+};
+LeftShift.prototype.resolve = function () {
+    if (this.isResolvable() === false) {
+        return;
+    }
+
+    // shift bits by one
+    let bin = dec2bin(this.input.value, this.bitWidth).split('');
+    for (let i = 0; i < bin.length - 1; i++) {
+        bin[i] = bin[i + 1];
+    }
+    bin = bin.join('');
+    this.output.value = bin2dec(bin);
+
+    simulationArea.simulationQueue.add(this.output);
+};
+
+LeftShift.prototype.customDraw = function () {
+    var ctx = simulationArea.context;
+    var xx = this.x;
+    var yy = this.y;
+
+    ctx.strokeStyle = '#d3d4d5';
+    ctx.beginPath();
+    rect2(ctx, -15, -15, 30, 30, xx, yy, this.direction, '<<');
+    ctx.stroke();
+
+    if (
+        (this.hover && !simulationArea.shiftDown)
+        || simulationArea.lastSelected === this
+        || simulationArea.multipleObjectSelections.contains(this)
+    ) {
+        ctx.fillStyle = 'rgba(255, 255, 32)';
+    }
+
+    ctx.beginPath();
+    ctx.fillStyle = 'black';
+    fillText(ctx, '<<', xx, yy, 10);
+
+    ctx.fill();
+};
+
+function RightShift(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
+    CircuitElement.call(this, x, y, scope, dir, bitWidth);
+    this.setDimensions(20, 20);
+
+    this.input = new Node(-20, -10, 0, this, this.bitWidth, 'Input');
+    // this.inpB = new Node(-20, 0, 0, this, this.bitWidth, "B");
+    // this.carryIn = new Node(-20, 10, 0, this, 1, "Cin");
+    this.output = new Node(
+        20,
+        0,
+        1,
+        this,
+        this.bitWidth,
+        'Right Shifted Output',
+    );
+    // this.carryOut = new Node(20, 10, 1, this, 1, "Cout");
+}
+RightShift.prototype = Object.create(CircuitElement.prototype);
+RightShift.prototype.constructor = RightShift;
+RightShift.prototype.tooltipText = 'RightShift ToolTip : Shifts all data to one bit right, repeating the leftmost bit';
+RightShift.prototype.customSave = function () {
+    var data = {
+        constructorParamaters: [this.direction, this.bitWidth],
+        nodes: {
+            input: findNode(this.input),
+            output: findNode(this.output),
+        },
+    };
+    return data;
+};
+RightShift.prototype.isResolvable = function () {
+    return this.input.value !== undefined;
+};
+RightShift.prototype.newBitWidth = function (bitWidth) {
+    this.bitWidth = bitWidth;
+    this.input.bitWidth = bitWidth;
+    this.output.bitWidth = bitWidth;
+};
+RightShift.prototype.resolve = function () {
+    if (this.isResolvable() === false) {
+        return;
+    }
+
+    // shift bits by one
+    let bin = dec2bin(this.input.value, this.bitWidth).split('');
+    for (let i = bin.length - 2; i >= 0; i--) {
+        bin[i + 1] = bin[i];
+    }
+    bin = bin.join('');
+    this.output.value = bin2dec(bin);
+
+    simulationArea.simulationQueue.add(this.output);
+};
+
+RightShift.prototype.customDraw = function () {
+    var ctx = simulationArea.context;
+    var xx = this.x;
+    var yy = this.y;
+
+    ctx.strokeStyle = '#d3d4d5';
+    ctx.beginPath();
+    rect2(ctx, -15, -15, 30, 30, xx, yy, this.direction, '<<');
+    ctx.stroke();
+
+    if (
+        (this.hover && !simulationArea.shiftDown)
+        || simulationArea.lastSelected === this
+        || simulationArea.multipleObjectSelections.contains(this)
+    ) {
+        ctx.fillStyle = 'rgba(255, 255, 32)';
+    }
+
+    ctx.beginPath();
+    ctx.fillStyle = 'black';
+    fillText(ctx, '>>', xx, yy, 10);
+
+    ctx.fill();
+};
 
 
 function Power(x, y, scope = globalScope, bitWidth = 1) {
