@@ -206,9 +206,9 @@ function startListeners() {
                 simulationArea.lastSelected.newBitWidth(parseInt(prompt("Enter new bitWidth"), 10));
         }
 
-        if ( e.keyCode === 112 ) {
-            this.console.log("key is clicked")
-            e.preventDefault(); //browsers normally open a new tab
+        // f1 key for opening the documentation page
+        if (e.keyCode === 112) {
+            e.preventDefault();
             window.open('https://docs.circuitverse.org/', '_blank');
         }
     })
