@@ -35,31 +35,27 @@
           </div></div></div>
           <div class="row row-about">
             <div class="flex-container-about">
-              <div class="contributor-about">
-                <a href="https://github.com/satu0king">
-                  <%= image_tag "contributors/Satvik Ramaprasad.jpg", alt: "Satvik", class: 'contributor-image-about' %>
-                </a>
-              </div>
-              <div class="contributor-about">
-                <a href="https://github.com/tachyons">
-                  <%= image_tag "contributors/Aboobacker MK.png", alt: "Aboobacker", class: 'contributor-image-about' %>
-                </a>
-              </div>
-              <div class="contributor-about">
-                <a href="https://github.com/ankitkataria">
-                  <%= image_tag "contributors/Ankit Kataria.jpg", alt: "Ankit", class: 'contributor-image-about' %>
-                </a>
-              </div>
-              <div class="contributor-about">
-                <a href="https://github.com/nitin10s">
-                  <%= image_tag "contributors/Nitin Singhal.jpg", alt: "Nitin", class: 'contributor-image-about' %>
-                </a>
-              </div>
-              <div class="contributor-about">
-                <a href="https://github.com/aayush-05">
-                  <%= image_tag "contributors/Aayush Gupta.jpg", alt: "Aayush", class: 'contributor-image-about' %>
-                </a>
-              </div>
+
             </div>
           </div>
+          <script type="text/javascript">
+            async function getContributors(url){
+              let apiData = await fetch(url);
+              let contributorsData = await apiData.json();
+              for (let i=0; i<contributorsData.length; i++){
+                let contributorElement = document.createElement('div');
+                let contributorElementAnchor = document.createElement('a');
+                let contributorElementImage = document.createElement('img');
+                contributorElement.classList.add('contributor-about');
+                contributorElementAnchor.href = await contributorsData[i]['html_url'];
+                console.log(contributorsData[i]['html_url']);
+                contributorElementImage.src = await contributorsData[i]['avatar_url'];
+                contributorElementImage.classList.add('contributor-image-about');
+                contributorElementAnchor.appendChild(contributorElementImage);
+                contributorElement.appendChild(contributorElementAnchor);
+                document.getElementsByClassName('flex-container-about')[0].appendChild(contributorElement);
+              }
+            }
+            getContributors('https://api.github.com/repos/CircuitVerse/CircuitVerse/contributors');
+          </script>
         </div>
