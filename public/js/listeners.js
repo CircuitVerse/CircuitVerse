@@ -206,12 +206,18 @@ function startListeners() {
                 simulationArea.lastSelected.newBitWidth(parseInt(prompt("Enter new bitWidth"), 10));
         }
 
+        if (simulationArea.controlDown && (e.key == "T" || e.key == "t")) {
+            // e.preventDefault(); //browsers normally open a new tab
+            simulationArea.changeClockTime(prompt("Enter Time:"));
+        }
+
         // f1 key for opening the documentation page
         if (e.keyCode === 112) {
             e.preventDefault();
             window.open('https://docs.circuitverse.org/', '_blank');
         }
     })
+
 
     document.getElementById("simulationArea").addEventListener('dblclick', function(e) {
         scheduleUpdate(2);
