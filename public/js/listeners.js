@@ -206,9 +206,10 @@ function startListeners() {
                 simulationArea.lastSelected.newBitWidth(parseInt(prompt("Enter new bitWidth"), 10));
         }
 
-        if (simulationArea.controlDown && (e.key == "T" || e.key == "t")) {
-            // e.preventDefault(); //browsers normally open a new tab
-            simulationArea.changeClockTime(prompt("Enter Time:"));
+        if ( e.keyCode === 112 ) {
+            this.console.log("key is clicked")
+            e.preventDefault(); //browsers normally open a new tab
+            window.open('https://docs.circuitverse.org/', '_blank');
         }
     })
 
