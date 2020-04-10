@@ -24,7 +24,7 @@
           <li><a class="dropdown-item logixButton" id="save">Save Online</a></li>
           <li><a class="dropdown-item logixButton" id="saveOffline">Save Offline</a></li>
           <li><a class="dropdown-item logixButton" id="createOpenLocalPrompt">Open Offline</a></li>
-          <li><a class="dropdown-item logixButton" id="recoverProject">Recover project</a></li>
+          <li><a class="dropdown-item logixButton" id="recoverProject">Recover Project</a></li>
         </ul>
       </li>
       <li class="dropdown">
@@ -55,13 +55,13 @@
           <a href="#" class="dropdown-toggle text-light" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %><span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href=<%= profile_path(current_user) %>>Profile</a></li>
-            <li><a class="dropdown-item" href=<%= user_path(current_user) %>>My circuits</a></li>
-            <li><a class="dropdown-item" href=<%= user_groups_path(current_user) %>>My groups</a></li>
+            <li><a class="dropdown-item" href=<%= user_path(current_user) %>>My Circuits</a></li>
+            <li><a class="dropdown-item" href=<%= user_groups_path(current_user) %>>My Groups</a></li>
             <div class="dropdown-divider"></div>
-            <li><a class="dropdown-item" rel="nofollow" data-method="delete" href=<%= destroy_user_session_path %>>Sign out</a></li>
+            <li><a class="dropdown-item" rel="nofollow" data-method="delete" href=<%= destroy_user_session_path %>>Sign Out</a></li>
           </ul>
         <% else %>
-          <a class="navbar-nav nav-link" href=<%= new_user_session_path %>> Sign in </a>
+          <a class="navbar-nav nav-link" href=<%= new_user_session_path %>> Sign In </a>
         <% end %>
       </li>
     </ul>
@@ -69,7 +69,7 @@
   <!-- /.navbar-collapse -->
 </nav>
   <div>
-    <div class="side left" id="sideBar" style="overflow-y: scroll;overflow-x: hidden">
+    <div class="side left" id="sideBar">
       <div class="modules noSelect defaultCursor">
         <div id="modules-header">Circuit Elements</div>
         <div class="accordion" id="menu">
@@ -297,4 +297,61 @@
       <script src="/js/Quin_McCluskey.js"></script>
     <% end %>
     <script src="/js/canvas2svg.js"></script>
-    <div>
+    
+    <!---issue reporting-system----->
+    <div class="report-sidebar">
+    <a type="button" class="btn btn-primary text-light" data-toggle="modal" data-target=".issue"> <span class="fa fa-bug" ></span>&nbsp;&nbsp;Report an issue</a>
+    </div>
+      <!---issue reporting system-modal---->
+<div class="modal fade issue" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content"> 
+      <div class="container my-2">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      <div class="container  text-center">
+       <h4>Report an issue</h4>  
+    </div>
+    <hr>
+     <div class="container my-2 text-center" id="result">
+    </div>
+    <label id="report-label" style="font-weight: lighter" ><b>Describe your issue:</b></label>
+    <div class="form-group">
+    <textarea class="form-control border-primary"  id="issuetext" rows="3"></textarea>
+    </div>
+      <div class="container">
+        <center>
+     <button type="submit" id="report" class="btn btn-primary" >Report</button>
+   </center>
+    </div>
+  </div>
+  </div>
+</div>
+
+
+
+
+<script >
+  $('button').click(function(){
+   if (this.id== 'report'){
+    var message=$('#issuetext').val();
+    message += "\nURL: " + window.location.href;
+    message += `\nUser Id: <%= user_signed_in? ? " #{current_user.id.to_s} : #{current_user.name}" : "Guest user" %>`
+    postUserIssue(message)
+    $('#issuetext').hide();
+    $('#report').hide();
+    $('#report-label').hide();
+  }
+   })
+  $('.issue').on('hide.bs.modal', function(e) {
+       $('#result').html("");
+       $('#issuetext').show();
+       $('#issuetext').val("");
+       $('#report').show();
+      $('#report-label').show();
+  
+}) 
+</script>
+    
+    

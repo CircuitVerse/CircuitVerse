@@ -67,7 +67,7 @@ describe CollaborationsController, type: :request do
     end
   end
 
-  describe "#udpate" do
+  describe "#update" do
     before do
       @new_project = FactoryBot.create(:project)
       @collaboration = FactoryBot.create(:collaboration, project: @project,

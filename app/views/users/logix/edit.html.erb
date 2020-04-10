@@ -7,11 +7,11 @@
 <div class="container border-0 edit-profile-page-bg">
 
   <div class="row feature border-0 rounded-0 ">
-  
+
      <div class="container my-3 text-center">
        <h4> Fields marked with <sup><i class="fa fa-asterisk edit-profile-page-astrikstyle"></i></sup> are mandatory</h4>
      </div>
-     
+
     <div class="container px-5">
       <div class="container">
         <div class="col-12">
@@ -20,14 +20,14 @@
           <%= f.label :name, { class: 'h4 font-weight-bold'} %><sup><i class="fa fa-asterisk edit-profile-page-astrikstyle" ></i></sup><br>
           <%= f.text_field :name, required: true, class:"form-control  rounded-0 border-success", style:"width:100%; height:50px" %>
          </div>
-        
+
         <div class="form-group">
           <label class="h4 font-weight-bold" >Profile Picture:</label>
           <p> <%= image_tag @profile.profile_picture.url(:thumb), id:'imgedit', height:'160', width:'155',alt:'Your Profile' %></p>
           <label for="profile_picture" class="custom-file-upload h5 font-weight-bold">
             Choose File
           </label>
-            <input type="file" class="file-button" id="profile_picture" name="user[profile_picture]" onchange="readURL(this);" value="<%= @profile.profile_picture %>">
+            <input type="file" accept="image/png, .jpeg, .jpg" class="file-button" id="profile_picture" name="user[profile_picture]" onchange="readURL(this);" value="<%= @profile.profile_picture %>">
           </div>
 
         <div class="field form-group">
@@ -39,10 +39,10 @@
           <%= f.label :educational_institute , { class: 'h4 font-weight-bold'} %><span> [Optional]</span><br/>
           <%= f.text_field :educational_institute,{ class: "typeahead form form-group form-control rounded-0 border-success", style:"width:100%; height:50px",autocomplete:"off" } %>
         </div>
-       
+
         <div class="field form-group ">
-          <label for="profile_subscribed" class="h4 font-weight-bold " >Subscribed to mails: 
-          <%= f.check_box :subscribed, {checked: @profile.subscribed?, id: "profile_subscribed"} %>
+          <label for="profile_subscribed" class="h4 font-weight-bold">Subscribed to mails:
+          <%= f.check_box :subscribed, {checked: @profile.subscribed?, style: 'margin-top: 0;width: 20px;height: 20px;' , id: "profile_subscribed"} %>
           </label>
         </div>
 

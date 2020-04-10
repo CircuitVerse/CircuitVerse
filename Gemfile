@@ -72,6 +72,7 @@ gem 'pundit'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem "http"
 
 # Database
 

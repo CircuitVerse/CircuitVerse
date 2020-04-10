@@ -42,7 +42,7 @@ class Project < ApplicationRecord
 
   after_update :check_and_remove_featured
 
-  self.per_page = 8
+  self.per_page = 6
 
   acts_as_commontable
   # after_commit :send_mail, on: :create
