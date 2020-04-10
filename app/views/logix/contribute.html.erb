@@ -12,20 +12,20 @@
 
         <div class="row row-about">
           <div class="col-xs col-sm col-md col-lg">
-            <div class="contact">
-              <img src="/assets/SVGs/email.svg" alt="" height="60px" width="60px">
+            <div class="contact" onclick="window.location.href='mailto:support@circuitverse.org';">
+              <%= image_tag "SVGs/email.svg", alt: "", height: '60', width: '60', class: 'about-card-image' %>
               <h6>Email us at</h6>
-              <p id="tab"><a href="mailto:support@circuitverse.org">support@circuitverse.org</a> </p>
+              <p id="tab">support@circuitverse.org</p>
             </div>
-            <div class="contact">
-              <img src="/assets/SVGs/slack.svg" alt="" height="60px" width="60px">
+            <div class="contact" onclick="window.location.href='<%= Rails.configuration.slack_url %>';">
+              <%= image_tag "SVGs/slack.svg", alt: "", height: '60', width: '60', class: 'about-card-image' %>
               <h6>Join and chat with us at</h6>
-              <p id="tab"><a href="<%= Rails.configuration.slack_url %>">Slack Channel</a> </p>
+              <p id="tab">Slack Channel</p>
             </div>
-            <div class="contact">
-              <img src="/assets/SVGs/github.svg" alt="" height="60px" width="60px">
+            <div class="contact" onclick="window.location.href='https://github.com/CircuitVerse';">
+              <%= image_tag "SVGs/github.svg", alt: "", height: '60', width: '60', class: 'about-card-image' %>
               <h6>Contribute to Open Source</h6>
-              <p id="tab"><a href="https://github.com/CircuitVerse">Github</a> </p>
+              <p id="tab">Github</p>
             </div>
           </div>
         </div>
@@ -41,20 +41,22 @@
           <div class="row row-about">
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
               <div class="card card-contribute">
-                <img class="card-img-top cardimage-contribute" src="/assets/SVGs/student.svg" alt="">
+                <%= image_tag "SVGs/student.svg", alt: "", :class => "card-img-top cardimage-contribute" %>
                 <div class="card-body cardbody-contribute">
                   <h3 class="card-title" >I am a Student</h3>
                   <ul class="card-text">
                     <li>Create amazing circuits and share on the platform</li> <br>
-                    <li>Find and report bugs. Become a bug hunter</li> <br>
-                    <li>Introduce the platform to your buddie</li>
+                    <li>Dive into the world of Logic Design, with our <b>
+                      <%= link_to "Interactive Book", "https://learn.circuitverse.org", :target => '_blank' %> </b>
+                    </li> <br>
+                    <li>Introduce the platform to your buddies, design circuits, and have them featured!</li>
                   </ul>
                 </div>
               </div>
             </div>
               <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
                 <div class="card card-contribute">
-                  <img class="card-img-top cardimage-contribute" src="/assets/SVGs/professor.svg" alt="">
+                <%= image_tag "SVGs/professor.svg", alt: "", :class => "card-img-top cardimage-contribute" %>
                   <div class="card-body cardbody-contribute">
                     <h3 class="card-title" >I am a Teacher</h3>
                     <ul class="card-text">
@@ -67,13 +69,13 @@
               </div>
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
                   <div class="card card-contribute">
-                    <img class="card-img-top cardimage-contribute" src="/assets/SVGs/coder.svg" alt="">
+                   <%= image_tag "SVGs/coder.svg", alt: "", :class => "card-img-top cardimage-contribute" %>
                     <div class="card-body cardbody-contribute">
                       <h3 class="card-title" >I am a Developer</h3>
                       <ul class="card-text">
-                        <li>Create amazing circuits and share on the platform</li> <br>
-                        <li>Find and report bugs. Become a bug hunter</li> <br>
-                        <li>Introduce the platform to your buddie</li>
+                        <li>Contribute to the open source project</li> <br>
+                        <li>Add new features to the CircuitVerse project</li> <br>
+                        <li>Find and fix bugs to the CircuitVerse project</li>
                       </ul>
                     </div>
                   </div>
@@ -85,7 +87,7 @@
                       <p>Become a Patreon</p>
                         <a href="https://www.patreon.com/CircuitVerse">
                           <div class="patreon">
-                            <img class="contact-contribute" src="/assets/logos/patreon-logo.png" alt="">
+                            <%= image_tag "logos/patreon-logo.png", alt: "", :class => "contact-contribute" %>
                           </div>
                         </a>
                     </div>
@@ -93,7 +95,7 @@
                       <p>Donate through PayPal</p>
                         <a href="https://www.paypal.me/satviksr">
                           <div class="patreon">
-                            <img class="contact-contribute" src="/assets/logos/paypal-logo.jpg" alt="">
+                            <%= image_tag "logos/paypal-logo.jpg", alt: "", :class => "contact-contribute" %>
                           </div>
                         </a>
                     </div>

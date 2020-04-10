@@ -72,6 +72,7 @@ gem 'pundit'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem "http"
 
 # Database
 
@@ -87,6 +88,8 @@ gem 'webpush'
 gem 'webpacker', '~> 4.x'
 
 gem 'bootsnap', require: false
+
+gem 'font-awesome-sass', '~> 5.12.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

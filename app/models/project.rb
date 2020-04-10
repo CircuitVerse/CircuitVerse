@@ -1,6 +1,6 @@
 class Project < ApplicationRecord
   require "pg_search"
-  require "custom_optional_targets/web_push"
+  require "custom_optional_target/web_push"
   validates :name, length: { minimum: 1 }
   belongs_to :author, class_name: 'User'
   has_many :forks , class_name: 'Project', foreign_key: 'forked_project_id', dependent: :nullify
@@ -42,7 +42,7 @@ class Project < ApplicationRecord
 
   after_update :check_and_remove_featured
 
-  self.per_page = 8
+  self.per_page = 6
 
   acts_as_commontable
   # after_commit :send_mail, on: :create

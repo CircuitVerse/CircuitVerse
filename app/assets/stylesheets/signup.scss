@@ -45,6 +45,12 @@
   font-weight: 600;
 }
 
+.social-links {
+  &:hover {
+    opacity: .7;
+  }
+}
+
 .link-text {
   color: $green;
   font-weight: 600;

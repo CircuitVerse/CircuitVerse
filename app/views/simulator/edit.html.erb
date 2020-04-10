@@ -24,7 +24,7 @@
           <li><a class="dropdown-item logixButton" id="save">Save Online</a></li>
           <li><a class="dropdown-item logixButton" id="saveOffline">Save Offline</a></li>
           <li><a class="dropdown-item logixButton" id="createOpenLocalPrompt">Open Offline</a></li>
-          <li><a class="dropdown-item logixButton" id="recoverProject">Recover project</a></li>
+          <li><a class="dropdown-item logixButton" id="recoverProject">Recover Project</a></li>
         </ul>
       </li>
       <li class="dropdown">
@@ -56,10 +56,10 @@
           <a href="#" class="dropdown-toggle text-light" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %><span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href=<%= profile_path(current_user) %>>Profile</a></li>
-            <li><a class="dropdown-item" href=<%= user_path(current_user) %>>My circuits</a></li>
-            <li><a class="dropdown-item" href=<%= user_groups_path(current_user) %>>My groups</a></li>
+            <li><a class="dropdown-item" href=<%= user_path(current_user) %>>My Circuits</a></li>
+            <li><a class="dropdown-item" href=<%= user_groups_path(current_user) %>>My Groups</a></li>
             <div class="dropdown-divider"></div>
-            <li><a class="dropdown-item" rel="nofollow" data-method="delete" href=<%= destroy_user_session_path %>>Sign out</a></li>
+            <li><a class="dropdown-item" rel="nofollow" data-method="delete" href=<%= destroy_user_session_path %>>Sign Out</a></li>
           </ul>
         <% else %>
           <a class="navbar-nav text-light" href=<%= new_user_session_path %>> Sign in </a>
@@ -70,14 +70,14 @@
   <!-- /.navbar-collapse -->
 </nav>
   <div>
-    <div class="side left" id="sideBar" style="overflow-y: scroll;overflow-x: hidden">
+    <div class="side left" id="sideBar">
       <div class="modules noSelect defaultCursor">
         <div id="modules-header">Circuit Elements</div>
         <div class="accordion" id="menu">
         </div>
       </div>
       <div class="moduleProperty effect1" id="moduleProperty">
-        <div id="moduleProperty-title" class="noSelect pointerCursor">Properties</div>
+        <div id="moduleProperty-title" class="noSelect">Properties</div>
         <div id="moduleProperty-inner"></div>
         <!-- <div id="moduleProperty-toolTip"></div> -->
       </div>
@@ -121,8 +121,8 @@
             <!-- <canvas id="miniMapArea" style="position: absolute; left:0; top: 0; z-index: 2;"></canvas> -->
           </div>
           <div style="position:absolute; right:30px; top:30px; z-index:100">
-            <button type="button" class="btn zoomButton btn-lg" onclick="changeScale(0.2,'zoomButton','zoomButton',2)">
-              <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
+            <button type="button" class="btn zoomButton btn-lg" onclick="changeScale(0.2,'zoomButton','zoomButton',2)">              
+              <span class="fa fa-search-plus" aria-hidden="true" title="Zoom In"></span>
             </button>
           </div>
           <div class="sk-folding-cube loadingIcon" style="display:none;position:absolute; right:50%; bottom:50%; z-index:100">
@@ -133,79 +133,79 @@
           </div>
           <div style="position:absolute; right:60px; top:30px; z-index:100">
             <button type="button" class="btn zoomButton btn-lg" onclick="globalScope.centerFocus(false)">
-              <span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span>
+              <span class="fa fa-crosshairs" aria-hidden="true" title="Zoom To Fit"></span>
             </button>
           </div>
           <div style="position:absolute; right:90px; top:30px; z-index:100">
             <button type="button" class="btn zoomButton btn-lg" onclick="changeScale(-0.2,'zoomButton','zoomButton',2)">
-              <span class="glyphicon glyphicon-zoom-out" aria-hidden="true"></span>
+              <span class="fa fa-search-minus" aria-hidden="true" title="Zoom Out"></span>
             </button>
           </div>
           <div style="position:absolute; right:120px; top:30px; z-index:100">
             <button type="button" class="btn zoomButton btn-lg" onclick="undo()">
-              <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+              <span class="fa fa-redo" aria-hidden="true" title="Undo"></span>
             </button>
           </div>
           <div style="position:absolute; right:150px; top:30px; z-index:100">
             <button type="button" class="btn zoomButton btn-lg" onclick="delete_selected()">
-              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              <span class="fas fa-times" aria-hidden="true" title="Delete"></span>
             </button>
           </div>
-          <div id="layoutDialog" style="display:none" class="" title="Layout Options">
+          <div id="layoutDialog" style="display:none;Width:210px;" class="" title="Layout Options">
             <div class="container">
               <div class="panel-heading">Layout options</div>
               <div class="">
                 Width:
                 <button type="button" class="btn zoomButton btn-lg" onclick="decreaseLayoutWidth()">
-                  <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                  <span class="fa fa-minus" aria-hidden="true" title="Decrease Width"></span>
                 </button>
                 <button type="button" class="btn zoomButton btn-lg" onclick="increaseLayoutWidth()">
-                  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                  <span class="fa fa-plus" aria-hidden="true" title="Increase Width"></span>
                 </button>
               </div>
               <div class="">
                 Height:
                 <button type="button" class="btn zoomButton btn-lg" onclick="decreaseLayoutHeight()">
-                  <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                  <span class="fa fa-minus" aria-hidden="true" title="Decrease Height"></span>
                 </button>
                 <button type="button" class="btn zoomButton btn-lg" onclick="increaseLayoutHeight()">
-                  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                  <span class="fa fa-plus" aria-hidden="true" title="Increase Height"></span>
                 </button>
               </div>
               <div class="">
                 Reset all nodes:
                 <button type="button" class="btn zoomButton btn-lg" onclick="layoutResetNodes()">
-                  <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                  <span class="fa fa-refresh" aria-hidden="true" title="Reset"></span>
                 </button>
               </div>
               <div class="">
                 Title:
                 <button type="button" class="btn zoomButton btn-lg" onclick="layoutTitleUp()">
-                  <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+                  <span class="fa fa-arrow-up" aria-hidden="true" title="Up"></span>
                 </button>
                 <button type="button" class="btn zoomButton btn-lg" onclick="layoutTitleDown()">
-                  <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+                  <span class="fa fa-arrow-down" aria-hidden="true" title="Down"></span>
                 </button>
                 <button type="button" class="btn zoomButton btn-lg" onclick="layoutTitleLeft()">
-                  <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+                  <span class="fa fa-arrow-left" aria-hidden="true" title="Left"></span>
                 </button>
                 <button type="button" class="btn zoomButton btn-lg" onclick="layoutTitleRight()">
-                  <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+                  <span class="fa fa-arrow-right" aria-hidden="true" title="Right"></span>
                 </button>
               </div>
               <div class="">
                 <p>Title Enabled : <label class='switch'>
                   <input type='checkbox' checked id="toggleLayoutTitle" onclick="toggleLayoutTitle()">
-                  <span class='slider2'></span> </label></p>
+                  <span class='slider2' title="Title"></span> </label></p>
               </div>
               <div class="">
                 Save:
                 <button type="button" class="btn zoomButton btn-lg" onclick="saveLayout()">
-                  <span class="glyphicon glyphicon glyphicon-ok" aria-hidden="true"></span>
+                  <span class="fa fa-check" aria-hidden="true" title="Save Layout"></span>
                 </button>
                 Cancel:
                 <button type="button" class="btn zoomButton btn-lg" onclick="cancelLayout()">
-                  <span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span>
+                  <span class="fa fa-times" aria-hidden="true" title="Cancel"></span>
                 </button>
               </div>
             </div>
@@ -298,4 +298,61 @@
       <script src="/js/Quin_McCluskey.js"></script>
     <% end %>
     <script src="/js/canvas2svg.js"></script>
-    <div>
+    
+    <!---issue reporting-system----->
+    <div class="report-sidebar">
+    <a type="button" class="btn btn-primary text-light" data-toggle="modal" data-target=".issue"> <span class="fa fa-bug" ></span>&nbsp;&nbsp;Report an issue</a>
+    </div>
+      <!---issue reporting system-modal---->
+<div class="modal fade issue" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content"> 
+      <div class="container my-2">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      <div class="container  text-center">
+       <h4>Report an issue</h4>  
+    </div>
+    <hr>
+     <div class="container my-2 text-center" id="result">
+    </div>
+    <label id="report-label" style="font-weight: lighter" ><b>Describe your issue:</b></label>
+    <div class="form-group">
+    <textarea class="form-control border-primary"  id="issuetext" rows="3"></textarea>
+    </div>
+      <div class="container">
+        <center>
+     <button type="submit" id="report" class="btn btn-primary" >Report</button>
+   </center>
+    </div>
+  </div>
+  </div>
+</div>
+
+
+
+
+<script >
+  $('button').click(function(){
+   if (this.id== 'report'){
+    var message=$('#issuetext').val();
+    message += "\nURL: " + window.location.href;
+    message += `\nUser Id: <%= user_signed_in? ? " #{current_user.id.to_s} : #{current_user.name}" : "Guest user" %>`
+    postUserIssue(message)
+    $('#issuetext').hide();
+    $('#report').hide();
+    $('#report-label').hide();
+  }
+   })
+  $('.issue').on('hide.bs.modal', function(e) {
+       $('#result').html("");
+       $('#issuetext').show();
+       $('#issuetext').val("");
+       $('#report').show();
+      $('#report-label').show();
+  
+}) 
+</script>
+    
+    

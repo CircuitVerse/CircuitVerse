@@ -89,6 +89,7 @@ Rails.application.routes.draw do
     get '/:id', to: 'simulator#show', as: 'simulator'
     get '/edit/:id', to: 'simulator#edit', as: 'simulator_edit'
     post '/get_data', to: 'simulator#get_data'
+    post '/post_issue', to: 'simulator#post_issue'
     post '/update_data', to: 'simulator#update'
     post '/update_image', to: 'simulator#update_image'
     post '/create_data', to: 'simulator#create'
