@@ -92,7 +92,6 @@ button:focus {
 @media only screen and (max-width: 1366px) {
   #projectName{
     position: absolute;
-    padding-bottom: 10px;
   }
 }
 
@@ -106,7 +105,6 @@ button:focus {
     left: 50%;
     display: block;
     width: 500px;
-    text-align: center;
     margin-left: -250px;
 }
 
