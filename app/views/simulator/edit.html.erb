@@ -49,6 +49,7 @@
     <span class="projectName noSelect defaultCursor font-weight-bold" id="projectName">
       Untitled
     </span>
+    <br>
     <ul class="nav navbar-nav noSelect pointerCursor">
       <li class="dropdown">
         <% if user_signed_in? %>
@@ -61,7 +62,7 @@
             <li><a class="dropdown-item" rel="nofollow" data-method="delete" href=<%= destroy_user_session_path %>>Sign out</a></li>
           </ul>
         <% else %>
-          <a class="navbar-nav nav-link" href=<%= new_user_session_path %>> Sign in </a>
+          <a class="navbar-nav text-light" href=<%= new_user_session_path %>> Sign in </a>
         <% end %>
       </li>
     </ul>
