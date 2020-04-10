@@ -300,7 +300,7 @@
     
     <!---issue reporting-system----->
     <div class="report-sidebar">
-    <a type="button" class="btn btn-primary text-light" data-toggle="modal" data-target=".issue"> <span class="fa fa-bug" ></span>&nbsp;&nbsp;Report an issue</a>
+    <a type="button" id="reportIssue" class="btn btn-primary text-light" data-toggle="modal" data-target=".issue"> <span class="fa fa-bug" ></span>&nbsp;&nbsp;Report an issue</a>
     </div>
       <!---issue reporting system-modal---->
 <div class="modal fade issue" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
@@ -345,13 +345,16 @@
   }
    })
   $('.issue').on('hide.bs.modal', function(e) {
-       $('#result').html("");
-       $('#issuetext').show();
-       $('#issuetext').val("");
-       $('#report').show();
-      $('#report-label').show();
-  
+    listenToSimulator=true
+    $('#result').html("");
+    $('#issuetext').show();
+    $('#issuetext').val("");
+    $('#report').show();
+    $('#report-label').show();
 }) 
+$('#reportIssue').click(function(){
+  listenToSimulator=false
+})
 </script>
     
     
