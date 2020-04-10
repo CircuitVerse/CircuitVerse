@@ -266,6 +266,7 @@ function startListeners() {
     }
 
     document.addEventListener('cut', function(e) {
+        if(listenToSimulator){
         simulationArea.copyList = simulationArea.multipleObjectSelections.slice();
         if (simulationArea.lastSelected && simulationArea.lastSelected !== simulationArea.root && !simulationArea.copyList.contains(simulationArea.lastSelected)) {
             simulationArea.copyList.push(simulationArea.lastSelected);
@@ -286,10 +287,11 @@ function startListeners() {
         } else {
             e.clipboardData.setData('text/plain', textToPutOnClipboard);
         }
-
+    }
     });
 
     document.addEventListener('copy', function(e) {
+        if(listenToSimulator){
         simulationArea.copyList = simulationArea.multipleObjectSelections.slice();
         if (simulationArea.lastSelected && simulationArea.lastSelected !== simulationArea.root && !simulationArea.copyList.contains(simulationArea.lastSelected)) {
             simulationArea.copyList.push(simulationArea.lastSelected);
@@ -309,10 +311,11 @@ function startListeners() {
         } else {
             e.clipboardData.setData('text/plain', textToPutOnClipboard);
         }
-
+    }
     });
 
     document.addEventListener('paste', function(e) {
+        if(listenToSimulator){
         var data;
         if (isIe) {
             data = window.clipboardData.getData('Text');
@@ -326,6 +329,7 @@ function startListeners() {
         updateRestrictedElementsInScope();
 
         e.preventDefault();
+    }
     });
 
     restrictedElements.forEach((element) => {
