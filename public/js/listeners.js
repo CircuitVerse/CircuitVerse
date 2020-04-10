@@ -57,7 +57,7 @@ function startListeners() {
     window.addEventListener('keydown', function(e) {
         if(listenToSimulator){
 
-        
+
 
         // If mouse is focusing on input element, then override any action
         // if($(':focus').length){
@@ -225,7 +225,7 @@ function startListeners() {
         if (!simulationArea.shiftDown) {
             simulationArea.multipleObjectSelections = [];
         }
-        
+
     });
 
     window.addEventListener('mouseup', onMouseUp);
