@@ -211,7 +211,7 @@ function startListeners() {
             simulationArea.changeClockTime(prompt("Enter Time:"));
         }
 
-        
+
         //it's not working for rectangle [doesn't listen to the simulator's keydown listener]
         // f1 key for opening the documentation page
         if (e.keyCode === 112) {
@@ -223,10 +223,10 @@ function startListeners() {
               window.open("https://docs.circuitverse.org/", "_blank");
             } else if (type === "Wire" || type === "Node") {
               // WIRE OR NODE
-            } else if (type === "Clock"||type === "ControlledInverter"||type==="RGBLedMatrix") {
+            } else if (type === "Clock" || type === "ControlledInverter" || type==="RGBLedMatrix") {
               // NOT FOUND
             } else {
-                window.open(`https://docs.circuitverse.org/#/${docRef[type]}`,'_blank');
+                window.open(`https://docs.circuitverse.org/#/${docRef[type]}`, '_blank');
             }
           }
     })
