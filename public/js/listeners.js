@@ -280,8 +280,7 @@ function startListeners() {
             } else if (type === "Clock"||type === "ControlledInverter"||type==="RGBLedMatrix") {
               // NOT FOUND
             } else {
-                
-              console.log(docRef[type]);
+                window.open(`https://docs.circuitverse.org/#/${docRef[type]}`,'_blank');
             }
           }
     })
