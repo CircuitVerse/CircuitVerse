@@ -114,12 +114,12 @@ body {
 }
 
 .footer-logo {
-  border-radius: 5px;
   border: solid $dark-grey 1px;
+  border-radius: 5px;
   width: 100%;
 }
 
-.footer-logo-text{
+.footer-logo-text {
   margin-bottom: 0;
   padding-bottom: 0;
 }
@@ -133,17 +133,17 @@ body {
   margin-left: 15px;
 }
 
-.container-fluid-footer{
+.container-fluid-footer {
   background-color: $dark-grey;
 }
 
-.container-footer{
+.container-footer {
   padding-top: 30px;
   text-align: center;
 }
 
-.footer-links{
-  a{
+.footer-links {
+  a {
     color: $white;
     text-decoration: none;
     h6 {
@@ -153,7 +153,7 @@ body {
   }
 }
 
-.column-footer{
+.column-footer {
   padding-bottom: 15px;
   padding-top: 15px;
 }
