@@ -1501,9 +1501,9 @@ function distance(x1, y1, x2, y2) {
     let message='';
     let valid = false
     $('#issuetext').on('input', function(){
-        message = $('#issuetext').val();
-        valid = message.split(' ').length>1 
-        $('#report').attr("disabled",!valid)
+        message = $('#issuetext').val().trim();
+        valid = message.length>0;
+        $('#report').attr("disabled",!valid);
     })
     
     $('#report').click(function(){
