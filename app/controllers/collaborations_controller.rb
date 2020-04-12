@@ -38,7 +38,8 @@ class CollaborationsController < ApplicationController
 
     current = current_user
     already_present = User.where(id: @project.collaborations.pluck(:user_id)).pluck(:email)
-    collaboration_emails = Utils.parse_mails_except_current_user(collaboration_params[:emails], current)
+    collaboration_emails = Utils.parse_mails_except_current_user(collaboration_params[:emails],
+                                                                 current)
 
     newly_added = collaboration_emails - already_present
 
