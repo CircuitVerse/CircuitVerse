@@ -52,7 +52,7 @@ class CollaborationsController < ApplicationController
       end
     end
 
-    notice =  Utils.mail_notice(collaboration_params[:emails], collaboration_emails, newly_added)
+    notice = Utils.mail_notice(collaboration_params[:emails], collaboration_emails, newly_added)
 
     if collaboration_params[:emails].include?(current_user.email)
       notice = notice.prepend("You cannot invite yourself. ")
