@@ -876,12 +876,12 @@ OrGate.prototype.customDraw = function () {
 
 }
 
-function Stepper(x, y, scope = globalScope, dir = "RIGHT") {
+function Stepper(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
 
-    CircuitElement.call(this, x, y, scope, dir, 8);
+    CircuitElement.call(this, x, y, scope, dir, bitWidth);
     this.setDimensions(20, 20);
 
-    this.output1 = new Node(20, 0, 1, this, 8);
+    this.output1 = new Node(20, 0, 1, this);
     this.state = 0;
 
 }
@@ -891,7 +891,7 @@ Stepper.prototype.tooltipText = "Stepper ToolTip: Increase/Decrease value by sel
 Stepper.prototype.helplink = "https://docs.circuitverse.org/#/inputElements?id=stepper";
 Stepper.prototype.customSave = function () {
     var data = {
-        constructorParamaters: [this.direction],
+        constructorParamaters: [this.direction, this.bitWidth],
         nodes: {
             output1: findNode(this.output1),
         },
