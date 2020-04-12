@@ -56,8 +56,14 @@ class CollaborationsController < ApplicationController
       end
     end
 
+    if is_himself
+      notice = Utils.mail_notice_report_is_current_user(collaboration_params[:emails], collaboration_emails, newly_added)
+    else
+      notice = Utils.mail_notice(collaboration_params[:emails], collaboration_emails, newly_added)
+    end
+
     respond_to do |format|
-      format.html { redirect_to user_project_path(@project.author_id,@project.id), notice: Utils.mail_notice_report_is_current_user(collaboration_params[:emails], collaboration_emails, newly_added, is_himself)}
+      format.html { redirect_to user_project_path(@project.author_id,@project.id), notice: notice }
     end
 
   end

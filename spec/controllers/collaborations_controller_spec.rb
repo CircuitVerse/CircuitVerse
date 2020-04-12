@@ -27,7 +27,7 @@ describe CollaborationsController, type: :request do
       end
 
       it "creates collaboration" do
-        expect(Utils).to receive(:mail_notice)
+        expect(Utils).to receive(:mail_notice_report_is_current_user)
         expect {
           post collaborations_path, params: create_params
         }.to change { Collaboration.count }.by(1)
