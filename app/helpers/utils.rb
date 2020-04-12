@@ -9,6 +9,12 @@ module Utils
     end.uniq.map(&:downcase)
   end
 
+  def self.parse_mails_except_current_user(mails, current)
+    mails.split(/[\s,\,]/).select do |email|
+      email.present? && email != current.email && Devise.email_regexp.match?(email)
+    end.uniq.map(&:downcase)
+  end
+
   # Forms notice string for given email input
   # @param input_mails string of emails entered
   # @param parsed_mails array of valid emails
@@ -25,6 +31,25 @@ module Utils
                (already_present == 0 ? "No users were already present." : "#{already_present} user(s) #{already_present!= 1 ? 'were' : 'was'} already present.")
              else
                "No valid Email(s) entered."
+             end
+  end
+
+  def self.mail_notice_report_is_current_user(input_mails, parsed_mails, newly_added, is_himself)
+    total = input_mails.split(/[\s,\,]/).select(&:present?).count
+    valid = parsed_mails.count
+    invalid = total - valid
+    already_present = (parsed_mails - newly_added).count
+
+    notice = if total != 0 && valid != 0 && is_himself
+              "You cannot add yourself. Out of #{total} Email(s), #{valid} #{valid != 1 ? 'were' : 'was'} valid and #{invalid} #{invalid != 1 ? 'were' : 'was'} invalid. #{newly_added.count} user(s) will be invited. " + \
+               (already_present == 0 ? "No users were already present." : "#{already_present} user(s) #{already_present!= 1 ? 'were' : 'was'} already present.")
+             elsif total != 0 && valid != 0 && !is_himself
+              "Out of #{total} Email(s), #{valid} #{valid != 1 ? 'were' : 'was'} valid and #{invalid} #{invalid != 1 ? 'were' : 'was'} invalid. #{newly_added.count} user(s) will be invited. " + \
+               (already_present == 0 ? "No users were already present." : "#{already_present} user(s) #{already_present!= 1 ? 'were' : 'was'} already present.")
+             elsif total == 0 || valid == 0 && is_himself
+              "No valid email(s) entered. You cannot invite yourself"
+             else
+              "No valid email(s) entered"
              end
   end
 end
