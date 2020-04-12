@@ -34,16 +34,12 @@ class CollaborationsController < ApplicationController
     # if(not @project.assignment_id.nil?)
     #   render plain: "Assignments cannot have collaborators. Please contact admin." and return
     # end
-    authorize @project, :author_access?   
-    if collaboration_params[:emails].include?(current_user.email)
-      is_himself = true
-    else
-      is_himself = false
-    end
+    authorize @project, :author_access?
+
     current = current_user
     already_present = User.where(id: @project.collaborations.pluck(:user_id)).pluck(:email)
     collaboration_emails = Utils.parse_mails_except_current_user(collaboration_params[:emails], current)
-    
+
     newly_added = collaboration_emails - already_present
 
     newly_added.each do |email|
@@ -56,7 +52,7 @@ class CollaborationsController < ApplicationController
       end
     end
 
-    if is_himself
+    if collaboration_params[:emails].include?(current_user.email)
       notice = Utils.mail_notice_report_is_current_user(collaboration_params[:emails], collaboration_emails, newly_added)
     else
       notice = Utils.mail_notice(collaboration_params[:emails], collaboration_emails, newly_added)

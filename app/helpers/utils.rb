@@ -42,7 +42,7 @@ module Utils
 
     notice = if total != 0 && valid != 0
               "You cannot add yourself. Out of #{total} Email(s), #{valid} #{valid != 1 ? 'were' : 'was'} valid and #{invalid} #{invalid != 1 ? 'were' : 'was'} invalid. #{newly_added.count} user(s) will be invited. " + \
-               (already_present == 0 ? "No users were already present." : "#{already_present} user(s) #{already_present!= 1 ? 'were' : 'was'} already present.")             
+               (already_present == 0 ? "No users were already present." : "#{already_present} user(s) #{already_present!= 1 ? 'were' : 'was'} already present.")
              else
               "No valid email(s) entered. You cannot invite yourself"
              end
