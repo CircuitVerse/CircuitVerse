@@ -22,17 +22,15 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def storable_location?
+    def storable_location?
       request.get? && is_navigational_format? && !devise_controller? && !request.xhr?
-  end
+    end
 
-  def store_user_location!
-      # :user is the scope we are authenticating
+    def store_user_location!
       store_location_for(:user, request.fullpath)
-  end
+    end
 
-  def after_sign_in_path_for(resource_or_scope)
-    stored_location_for(resource_or_scope) || super
-  end
-
+    def after_sign_in_path_for(resource_or_scope)
+      stored_location_for(resource_or_scope) || super
+    end
 end
