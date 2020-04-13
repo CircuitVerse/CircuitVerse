@@ -48,7 +48,6 @@
                 let contributorElementImage = document.createElement('img');
                 contributorElement.classList.add('contributor-about');
                 contributorElementAnchor.href = await contributorsData[i]['html_url'];
-                console.log(contributorsData[i]['html_url']);
                 contributorElementImage.src = await contributorsData[i]['avatar_url'];
                 contributorElementImage.classList.add('contributor-image-about');
                 contributorElementAnchor.appendChild(contributorElementImage);
