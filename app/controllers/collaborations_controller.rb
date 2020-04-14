@@ -36,10 +36,9 @@ class CollaborationsController < ApplicationController
     # end
     authorize @project, :author_access?
 
-    current = current_user
     already_present = User.where(id: @project.collaborations.pluck(:user_id)).pluck(:email)
     collaboration_emails = Utils.parse_mails_except_current_user(collaboration_params[:emails],
-                                                                 current)
+                                                                 current_user)
 
     newly_added = collaboration_emails - already_present
 
@@ -56,7 +55,7 @@ class CollaborationsController < ApplicationController
     notice = Utils.mail_notice(collaboration_params[:emails], collaboration_emails, newly_added)
 
     if collaboration_params[:emails].include?(current_user.email)
-      notice = notice.prepend("You cannot invite yourself. ")
+      notice.prepend("You can't invite yourself. ")
     end
 
     respond_to do |format|
