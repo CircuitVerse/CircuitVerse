@@ -67,11 +67,6 @@ GEM
     acts_as_votable (0.12.1)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
-    ahoy_matey (3.0.1)
-      activesupport (>= 5)
-      device_detector
-      geocoder (>= 1.4.5)
-      safely_block (>= 0.2.1)
     ast (2.4.0)
     bcrypt (3.1.13)
     better_html (1.0.14)
@@ -130,7 +125,6 @@ GEM
       thor (>= 0.19.4, < 2.0)
       tins (~> 1.6)
     crass (1.0.6)
-    device_detector (1.0.3)
     devise (4.7.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -149,7 +143,6 @@ GEM
       rainbow
       rubocop (~> 0.51)
       smart_properties
-    errbase (0.2.0)
     erubi (1.9.0)
     execjs (2.7.0)
     factory_bot (5.1.1)
@@ -399,8 +392,6 @@ GEM
     ruby-progressbar (1.10.1)
     ruby_dep (1.5.0)
     rubyzip (2.0.0)
-    safely_block (0.3.0)
-      errbase (>= 0.1.1)
     sass (3.7.4)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -521,7 +512,6 @@ PLATFORMS
 DEPENDENCIES
   activity_notification
   acts_as_votable (~> 0.12.0)
-  ahoy_matey
   bootsnap
   bootstrap-typeahead-rails
   byebug

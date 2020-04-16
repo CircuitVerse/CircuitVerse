@@ -27,32 +27,15 @@ describe ProjectsController, type: :request do
     context "project is public" do
       before do
         @project = FactoryBot.create(:project, author: @author, project_access_type: "Public")
-        @visit = FactoryBot.create(:ahoy_visit)
-        allow_any_instance_of(Ahoy::Controller).to receive(:current_visit).and_return(@visit)
       end
 
-      context "new visit" do
-        it "shows project and increases views" do
-          expect {
-            get user_project_path(@author, @project)
-            @project.reload
-          }.to change { @project.view }.by(1)
+      it "shows project and increases views" do
+        expect {
+          get user_project_path(@author, @project)
+          @project.reload
+        }.to change { @project.view }.by(1)
 
-          expect(response.body).to include(@project.name)
-        end
-      end
-
-      context "event for visit already exists" do
-        before do
-          FactoryBot.create(:ahoy_event, visit: @visit, name: "Visited project #{@project.id}")
-        end
-
-        it "should not increase view" do
-          expect {
-            get user_project_path(@author, @project)
-            @project.reload
-          }.to change { @project.view }.by(0)
-        end
+        expect(response.body).to include(@project.name)
       end
     end
 
