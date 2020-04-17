@@ -199,33 +199,6 @@ function downloadAsImg(name, imgType) {
 
 }
 
-// Function to restore copy from backup
-function undo(scope = globalScope) {
-    if(layoutMode)return;
-    if (scope.backups.length == 0) return;
-    var backupOx = globalScope.ox;
-    var backupOy = globalScope.oy;
-    var backupScale = globalScope.scale;
-    globalScope.ox = 0;
-    globalScope.oy = 0;
-    var tempScope = new Scope(scope.name);
-    loading = true;
-    loadScope(tempScope, JSON.parse(scope.backups.pop()));
-    tempScope.backups = scope.backups;
-    tempScope.id = scope.id;
-    tempScope.name = scope.name;
-    scopeList[scope.id] = tempScope;
-    globalScope = tempScope;
-    globalScope.ox = backupOx;
-    globalScope.oy = backupOy;
-    globalScope.scale = backupScale;
-    loading = false;
-    forceResetNodes = true;
-
-    // Updated restricted elements
-    updateRestrictedElementsInScope();
-}
-
 //helper fn
 function extract(obj) {
     return obj.saveObject();
@@ -240,15 +213,76 @@ function checkIfBackup(scope) {
 
 // Function that should backup if there is a change, otherwise ignore
 function scheduleBackup(scope = globalScope) {
-
     var backup = JSON.stringify(backUp(scope));
     if (scope.backups.length == 0 || scope.backups[scope.backups.length - 1] != backup) {
         scope.backups.push(backup);
         scope.timeStamp = new Date().getTime();
         projectSaved = false;
     }
-
     return backup;
+}
+
+const undoRedo = {
+    undoHistory: [],
+    redoHistory: [],
+    state: '',
+    initialize(scope = globalScope) {
+        const backup = JSON.stringify(backUp(scope));
+            undoRedo.undoHistory.push(backup);
+            undoRedo.redoHistory = [];
+    },
+    undo(scope = globalScope) {
+        if(layoutMode) return;
+        if (this.undoHistory.length === 0) return;
+        const backupOx = globalScope.ox;
+        const backupOy = globalScope.oy;
+        const backupScale = globalScope.scale;
+        globalScope.ox = 0;
+        globalScope.oy = 0;
+        this.state = this.undoHistory.pop();
+        this.redoHistory.unshift(JSON.stringify(backUp(scope))); //globalscope state should be here
+        const tempScope = new Scope(scope.name);
+        loading = true;
+        loadScope(tempScope, JSON.parse(this.state));
+        tempScope.backups = scope.backups;
+        tempScope.id = scope.id;
+        tempScope.name = scope.name;
+        scopeList[scope.id] = tempScope;
+        globalScope = tempScope;
+        globalScope.ox = backupOx;
+        globalScope.oy = backupOy;
+        globalScope.scale = backupScale;
+        loading = false;
+        forceResetNodes = true;
+        // Updated restricted elements
+        updateRestrictedElementsInScope();
+    },
+    redo(scope = globalScope) {
+        if(layoutMode) return;
+        if (this.redoHistory.length == 0) return;
+        const backupOx = globalScope.ox;
+        const backupOy = globalScope.oy;
+        const backupScale = globalScope.scale;
+        globalScope.ox = 0;
+        globalScope.oy = 0;
+        this.undoHistory.push(JSON.stringify(backUp(scope)));
+        this.state = this.redoHistory.shift();
+        const tempScope = new Scope(scope.name);
+        loading = true;
+        loadScope(tempScope, JSON.parse(this.state));
+        tempScope.backups = scope.backups;
+        tempScope.id = scope.id;
+        tempScope.name = scope.name;
+        scopeList[scope.id] = tempScope;
+        globalScope = tempScope;
+        globalScope.ox = backupOx;
+        globalScope.oy = backupOy;
+        globalScope.scale = backupScale;
+        loading = false;
+        forceResetNodes = true;
+        // Updated restricted elements
+        updateRestrictedElementsInScope();
+    }
 }
 
 // Random ID generator

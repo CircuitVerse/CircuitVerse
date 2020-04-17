@@ -34,7 +34,9 @@ function startListeners() {
         simulationArea.oldy = globalScope.oy;
 
         e.preventDefault();
+
         scheduleBackup();
+        undoRedo.initialize();
         scheduleUpdate(1);
         $('.dropdown.open').removeClass('open');
     });
@@ -149,7 +151,11 @@ function startListeners() {
         }
 
         if (simulationArea.controlDown && e.key.charCodeAt(0) == 122) { // detect the special CTRL-Z code
-            undo();
+            undoRedo.undo();
+        }
+
+        if (simulationArea.controlDown && e.keyCode == 90 && simulationArea.shiftDown) { // detect the special CTRL-shift-Z code
+            undoRedo.redo();
         }
 
         // Detect online save shortcut (CTRL+S)

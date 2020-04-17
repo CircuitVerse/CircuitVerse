@@ -140,12 +140,17 @@
               <span class="fa fa-search-minus" aria-hidden="true" title="Zoom Out"></span>
             </button>
           </div>
-          <div style="position:absolute; right:120px; top:30px; z-index:100">
-            <button type="button" class="btn zoomButton btn-lg" onclick="undo()">
-              <span class="fa fa-redo" aria-hidden="true" title="Undo"></span>
+          <div style="position:absolute; right:145px; top:30px; z-index:100">
+            <button type="button" class="btn zoomButton btn-lg" onclick="undoRedo.undo()">
+              <span class="fa fa-undo" style="font-size: 19px;" aria-hidden="true" title="Undo"></span>
             </button>
           </div>
-          <div style="position:absolute; right:150px; top:30px; z-index:100">
+          <div style="position:absolute; right:120px; top:30px; z-index:100">
+            <button type="button" class="btn zoomButton btn-lg" onclick="undoRedo.redo()">
+              <span class="fa fa-redo" style="font-size: 19px;" aria-hidden="true" title="Redo"></span>
+            </button>
+          </div>
+          <div style="position:absolute; right:175px; top:30px; z-index:100">
             <button type="button" class="btn zoomButton btn-lg" onclick="delete_selected()">
               <span class="fas fa-times" aria-hidden="true" title="Delete"></span>
             </button>
