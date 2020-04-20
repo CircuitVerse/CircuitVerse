@@ -15,6 +15,7 @@
 
 .a-homepage {
   color: $teal;
+  display: inline-block;
   margin-left: 15px;
   margin-top: 15px;
   text-decoration: underline;
@@ -118,5 +119,19 @@
 @media (max-width: 1200px) and (min-width: 765px) {
   .button-homepage {
     margin-top: 100px;
+  }
+}
+
+@media (max-width: 350px) {
+  .a-homepage,
+  .btn-homepage {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
+  .btn-homepage {
+    max-width: 163px;
   }
 }
