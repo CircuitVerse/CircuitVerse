@@ -130,3 +130,16 @@ body {
     color: $white;
   }
 }
+
+.dropdown-toggle::after {
+  margin-left: 0;
+  padding-left: 0;
+  vertical-align: 0.5em;
+}
+
+.navbar-username-truncate {
+  display: inline-block;
+  max-width: 70px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
