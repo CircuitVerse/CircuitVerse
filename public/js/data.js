@@ -228,19 +228,27 @@ const undoRedo = {
     state: '',
     initialize(scope = globalScope) {
         const backup = JSON.stringify(backUp(scope));
-            undoRedo.undoHistory.push(backup);
-            undoRedo.redoHistory = [];
+        this.undoHistory.push(backup);
+        this.redoHistory = [];
     },
-    undo(scope = globalScope) {
-        if(layoutMode) return;
-        if (this.undoHistory.length === 0) return;
+    action(flag, scope = globalScope) {
+        if (layoutMode) return;
         const backupOx = globalScope.ox;
         const backupOy = globalScope.oy;
         const backupScale = globalScope.scale;
         globalScope.ox = 0;
         globalScope.oy = 0;
-        this.state = this.undoHistory.pop();
-        this.redoHistory.unshift(JSON.stringify(backUp(scope))); //globalscope state should be here
+        
+        if (flag === 'undo') {
+            if (this.undoHistory.length === 0) return;
+            this.state = this.undoHistory.pop();
+            this.redoHistory.unshift(JSON.stringify(backUp(scope)));
+        } else if (flag === 'redo') {
+            if (this.redoHistory.length === 0) return;
+            this.undoHistory.push(JSON.stringify(backUp(scope)));
+            this.state = this.redoHistory.shift();
+        }
+
         const tempScope = new Scope(scope.name);
         loading = true;
         loadScope(tempScope, JSON.parse(this.state));
@@ -254,33 +262,6 @@ const undoRedo = {
         globalScope.scale = backupScale;
         loading = false;
         forceResetNodes = true;
-        // Updated restricted elements
-        updateRestrictedElementsInScope();
-    },
-    redo(scope = globalScope) {
-        if(layoutMode) return;
-        if (this.redoHistory.length == 0) return;
-        const backupOx = globalScope.ox;
-        const backupOy = globalScope.oy;
-        const backupScale = globalScope.scale;
-        globalScope.ox = 0;
-        globalScope.oy = 0;
-        this.undoHistory.push(JSON.stringify(backUp(scope)));
-        this.state = this.redoHistory.shift();
-        const tempScope = new Scope(scope.name);
-        loading = true;
-        loadScope(tempScope, JSON.parse(this.state));
-        tempScope.backups = scope.backups;
-        tempScope.id = scope.id;
-        tempScope.name = scope.name;
-        scopeList[scope.id] = tempScope;
-        globalScope = tempScope;
-        globalScope.ox = backupOx;
-        globalScope.oy = backupOy;
-        globalScope.scale = backupScale;
-        loading = false;
-        forceResetNodes = true;
-        // Updated restricted elements
         updateRestrictedElementsInScope();
     }
 }

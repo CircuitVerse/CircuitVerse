@@ -151,11 +151,11 @@ function startListeners() {
         }
 
         if (simulationArea.controlDown && e.key.charCodeAt(0) == 122) { // detect the special CTRL-Z code
-            undoRedo.undo();
+            undoRedo.action('undo');
         }
 
         if (simulationArea.controlDown && e.keyCode == 90 && simulationArea.shiftDown) { // detect the special CTRL-shift-Z code
-            undoRedo.redo();
+            undoRedo.action('redo');
         }
 
         // Detect online save shortcut (CTRL+S)
