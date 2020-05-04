@@ -17,3 +17,6 @@ jobs:
         stale-pr-message: ' No activity on this PR for a prolonged duration, will be closed if no further activities in next 7 days'
         stale-issue-label: 'no-issue-activity'
         stale-pr-label: 'no-pr-activity'
+        exempt-issue-labels: 'enhancement, Feature, good first issue, help wanted, pending-product-review'
+        exempt-pr-labels: 'enhancement, Feature, help wanted, pending-product-review, Simulator, New_UI'
+          
