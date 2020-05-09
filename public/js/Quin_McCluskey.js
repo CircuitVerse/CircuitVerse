@@ -3,64 +3,61 @@
 function BooleanMinimize(numVarsArg, minTermsArg, dontCaresArg = []) {
     var __result;
 
-    Object.defineProperties(
-        this, {
-            'minTerms': {
-                value: minTermsArg,
-                enumerable: false,
-                writable: false,
-                configurable: true
-            },
+    Object.defineProperties(this, {
+        minTerms: {
+            value: minTermsArg,
+            enumerable: false,
+            writable: false,
+            configurable: true,
+        },
 
-            'dontCares': {
-                value: dontCaresArg,
-                enumerable: false,
-                writable: false,
-                configurable: true
-            },
+        dontCares: {
+            value: dontCaresArg,
+            enumerable: false,
+            writable: false,
+            configurable: true,
+        },
 
-            'numVars': {
-                value: numVarsArg,
-                enumerable: false,
-                writable: false,
-                configurable: true
-            },
+        numVars: {
+            value: numVarsArg,
+            enumerable: false,
+            writable: false,
+            configurable: true,
+        },
 
-            'result': {
-                enumerable: true,
-                configurable: true,
-                get: function() {
-                    if (__result === undefined) {
-                        __result = BooleanMinimize.prototype.solve.call(this);
-                    }
-
-                    return __result;
-                },
-                set: function() {
-                    throw new Error("result cannot be assigned a value");
+        result: {
+            enumerable: true,
+            configurable: true,
+            get: function () {
+                if (__result === undefined) {
+                    __result = BooleanMinimize.prototype.solve.call(this);
                 }
-            }
-        }
-    )
+
+                return __result;
+            },
+            set: function () {
+                throw new Error("result cannot be assigned a value");
+            },
+        },
+    });
 }
 
-BooleanMinimize.prototype.solve = function() {
+BooleanMinimize.prototype.solve = function () {
     function dec_to_binary_string(n) {
         var str = n.toString(2);
 
         while (str.length != this.numVars) {
-            str = '0' + str;
+            str = "0" + str;
         }
 
         return str;
-    };
+    }
 
     function num_set_bits(s) {
         var ans = 0;
-        for (let i = 0; i < s.length; ++i)
-            if (s[i] === '1') ans++;
+        for (let i = 0; i < s.length; ++i) if (s[i] === "1") ans++;
         return ans;
-    };
+    }
 
     function get_prime_implicants(allTerms) {
         var table = [];
@@ -69,7 +66,8 @@ BooleanMinimize.prototype.solve = function() {
 
         while (1) {
             for (let i = 0; i <= this.numVars; ++i) table[i] = new Set();
-            for (let i = 0; i < allTerms.length; ++i) table[num_set_bits(allTerms[i])].add(allTerms[i]);
+            for (let i = 0; i < allTerms.length; ++i)
+                table[num_set_bits(allTerms[i])].add(allTerms[i]);
 
             allTerms = [];
             reduced = new Set();
@@ -91,7 +89,9 @@ BooleanMinimize.prototype.solve = function() {
                         }
 
                         if (diff !== -1) {
-                            allTerms.push(str1.slice(0, diff) + '-' + str1.slice(diff + 1));
+                            allTerms.push(
+                                str1.slice(0, diff) + "-" + str1.slice(diff + 1)
+                            );
                             reduced.add(str1);
                             reduced.add(str2);
                         }
@@ -101,7 +101,7 @@ BooleanMinimize.prototype.solve = function() {
 
             for (let t of table) {
                 for (let str of t) {
-                    if (!(reduced.has(str))) primeImplicants.add(str);
+                    if (!reduced.has(str)) primeImplicants.add(str);
                 }
             }
 
@@ -109,7 +109,7 @@ BooleanMinimize.prototype.solve = function() {
         }
 
         return primeImplicants;
-    };
+    }
 
     function get_essential_prime_implicants(primeImplicants, minTerms) {
         var table = [],
@@ -117,7 +117,11 @@ BooleanMinimize.prototype.solve = function() {
 
         function check_if_similar(minTerm, primeImplicant) {
             for (let i = 0; i < primeImplicant.length; ++i) {
-                if (primeImplicant[i] !== '-' && (minTerm[i] !== primeImplicant[i])) return false;
+                if (
+                    primeImplicant[i] !== "-" &&
+                    minTerm[i] !== primeImplicant[i]
+                )
+                    return false;
             }
 
             return true;
@@ -128,9 +132,9 @@ BooleanMinimize.prototype.solve = function() {
 
             for (let t of terms) {
                 for (let i = 0; i < t.length; ++i) {
-                    if (t[i] !== '-') {
+                    if (t[i] !== "-") {
                         complexity++;
-                        if (t[i] === '0') complexity++;
+                        if (t[i] === "0") complexity++;
                     }
                 }
             }
@@ -140,7 +144,7 @@ BooleanMinimize.prototype.solve = function() {
 
         function isSubset(sub, sup) {
             for (let i of sub) {
-                if (!(sup.has(i))) return false;
+                if (!sup.has(i)) return false;
             }
 
             return true;
@@ -190,7 +194,8 @@ BooleanMinimize.prototype.solve = function() {
             }
         }
 
-        var essentialImplicants, minComplexity = 1e9;
+        var essentialImplicants,
+            minComplexity = 1e9;
 
         for (let s of possibleSets) {
             let p = [];
@@ -205,7 +210,7 @@ BooleanMinimize.prototype.solve = function() {
         }
 
         return essentialImplicants;
-    };
+    }
 
     var minTerms = this.minTerms.map(dec_to_binary_string.bind(this));
     var dontCares = this.dontCares.map(dec_to_binary_string.bind(this));

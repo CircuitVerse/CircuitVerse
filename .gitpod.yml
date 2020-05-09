@@ -31,8 +31,8 @@ tasks:
       bundle exec rails db:seed &&
       bundle exec rails server
 github:
-    prebuilds:
-        pullRequestsFromForks: true
+  prebuilds:
+    pullRequestsFromForks: true
 
 vscode:
   extensions:

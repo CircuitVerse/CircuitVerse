@@ -38,7 +38,7 @@
   border-radius: 30px;
   color: $white;
   padding: 5px 17px;
-  transition: all .3s ease 0s;
+  transition: all 0.3s ease 0s;
 
   &:hover {
     background-color: $teal;
@@ -53,7 +53,7 @@
   border: 1px solid $green;
   border-radius: 30px;
   padding: 5px 17px;
-  transition: all .3s ease 0s;
+  transition: all 0.3s ease 0s;
 
   &:hover {
     background-color: $teal;
@@ -67,7 +67,7 @@
   background-color: $green;
   color: $white;
   font-size: 12px;
-  transition: all .3s ease 0s;
+  transition: all 0.3s ease 0s;
 }
 
 .modal-examplepage {
@@ -110,7 +110,7 @@
   background-color: $white;
   border-radius: 30px;
   cursor: pointer;
-  font-size: .8rem;
+  font-size: 0.8rem;
   height: 33.2;
   width: 39.6;
 }

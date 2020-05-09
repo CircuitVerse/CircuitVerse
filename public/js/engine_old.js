@@ -8,8 +8,7 @@ function scheduleUpdate(count = 0, time = 100, fn) {
     if (lightMode) time *= 5;
 
     if (count && !layoutMode) {
-        for (var i = 0; i < count; i++)
-            setTimeout(update, 10 + 50 * i);
+        for (var i = 0; i < count; i++) setTimeout(update, 10 + 50 * i);
     }
     if (willBeUpdated) return;
 
@@ -21,22 +20,18 @@ function scheduleUpdate(count = 0, time = 100, fn) {
     }
 
     if (fn)
-        setTimeout(function() {
+        setTimeout(function () {
             fn();
             update();
         }, time);
     else setTimeout(update, time);
     // else
     //     setTimeout(update, 100);
-
-
 }
-
 
 // fn that calls update on everything else. If any change is there, it resolves the circuit and draws it again
 // fn to change scale (zoom) - It also shifts origin so that the position
 //of the object in focus doent changeB
-
 
 function update(scope = globalScope, updateEverything = false) {
     willBeUpdated = false;
@@ -47,7 +42,8 @@ function update(scope = globalScope, updateEverything = false) {
     simulationArea.hover = undefined;
     // wireToBeChecked=true;
     if (wireToBeChecked || updateEverything) {
-        if (wireToBeChecked == 2) wireToBeChecked = 0; // this required due to timing issues
+        if (wireToBeChecked == 2) wireToBeChecked = 0;
+        // this required due to timing issues
         else wireToBeChecked++;
         // WHY IS THIS REQUIRED ???? we are checking inside wire ALSO
         var prevLength = scope.wires.length;
@@ -67,8 +63,6 @@ function update(scope = globalScope, updateEverything = false) {
         updateSubcircuit = false;
     }
 
-
-
     if (updatePosition || updateEverything) {
         //////console.log("updatePosition");
         for (var i = 0; i < updateOrder.length; i++)
@@ -79,15 +73,18 @@ function update(scope = globalScope, updateEverything = false) {
 
     // updateSimulation |= updated;
     if (updatePosition) {
-
     }
 
     if (updatePosition || updateEverything) {
         updateSelectionsAndPane(scope);
     }
-    if (!embed && simulationArea.mouseDown && simulationArea.lastSelected && simulationArea.lastSelected != globalScope.root) {
-        if (!lightMode)
-            $('#miniMap').fadeOut('fast');
+    if (
+        !embed &&
+        simulationArea.mouseDown &&
+        simulationArea.lastSelected &&
+        simulationArea.lastSelected != globalScope.root
+    ) {
+        if (!lightMode) $("#miniMap").fadeOut("fast");
     }
 
     if (updateSimulation) {
@@ -95,15 +92,16 @@ function update(scope = globalScope, updateEverything = false) {
     }
 
     if (!embed && prevPropertyObj != simulationArea.lastSelected) {
-        if (simulationArea.lastSelected && simulationArea.lastSelected.objectType !== "Wire") {
+        if (
+            simulationArea.lastSelected &&
+            simulationArea.lastSelected.objectType !== "Wire"
+        ) {
             showProperties(simulationArea.lastSelected);
             //////console.log("yo");
         } else {
             // hideProperties();
         }
     }
-
-
 
     //Draw
     if (updateCanvas) {
@@ -125,9 +123,8 @@ function findDimensions(scope = globalScope) {
     simulationArea.minHeight = undefined;
     simulationArea.maxHeight = undefined;
     for (var i = 0; i < updateOrder.length; i++) {
-        if (updateOrder[i] !== 'wires')
+        if (updateOrder[i] !== "wires")
             for (var j = 0; j < scope[updateOrder[i]].length; j++) {
-
                 totalObjects += 1;
                 var obj = scope[updateOrder[i]][j];
                 if (totalObjects == 1) {
@@ -136,7 +133,7 @@ function findDimensions(scope = globalScope) {
                     simulationArea.maxWidth = obj.absX();
                     simulationArea.maxHeight = obj.absY();
                 }
-                if (obj.objectType != 'Node') {
+                if (obj.objectType != "Node") {
                     if (obj.y - obj.upDimensionY < simulationArea.minHeight)
                         simulationArea.minHeight = obj.y - obj.upDimensionY;
                     if (obj.y + obj.downDimensionY > simulationArea.maxHeight)
@@ -155,12 +152,9 @@ function findDimensions(scope = globalScope) {
                     if (obj.absX() > simulationArea.maxWidth)
                         simulationArea.maxWidth = obj.absX();
                 }
-
             }
-
     }
     simulationArea.objectList = updateOrder;
-
 }
 
 function updateSelectionsAndPane(scope = globalScope) {
@@ -179,23 +173,29 @@ function updateSelectionsAndPane(scope = globalScope) {
             if (!embed) {
                 findDimensions(scope);
                 miniMapArea.setup();
-                $('#miniMap').show();
+                $("#miniMap").show();
             }
         }
-    } else if (simulationArea.lastSelected == scope.root && simulationArea.mouseDown) {
+    } else if (
+        simulationArea.lastSelected == scope.root &&
+        simulationArea.mouseDown
+    ) {
         //pane canvas
         if (!objectSelection) {
-            globalScope.ox = (simulationArea.mouseRawX - simulationArea.mouseDownRawX) + simulationArea.oldx;
-            globalScope.oy = (simulationArea.mouseRawY - simulationArea.mouseDownRawY) + simulationArea.oldy;
+            globalScope.ox =
+                simulationArea.mouseRawX -
+                simulationArea.mouseDownRawX +
+                simulationArea.oldx;
+            globalScope.oy =
+                simulationArea.mouseRawY -
+                simulationArea.mouseDownRawY +
+                simulationArea.oldy;
             globalScope.ox = Math.round(globalScope.ox);
             globalScope.oy = Math.round(globalScope.oy);
             gridUpdate = true;
             if (!embed && !lightMode) miniMapArea.setup();
         } else {
-
         }
-
-
     } else if (simulationArea.lastSelected == scope.root) {
         simulationArea.lastSelected = undefined;
         simulationArea.selected = false;
@@ -225,7 +225,8 @@ function updateSelectionsAndPane(scope = globalScope) {
                 for (var j = 0; j < scope[updateOrder[i]].length; j++) {
                     var obj = scope[updateOrder[i]][j];
                     // //////console.log(obj);
-                    if (simulationArea.multipleObjectSelections.contains(obj)) continue;
+                    if (simulationArea.multipleObjectSelections.contains(obj))
+                        continue;
                     var x, y;
                     if (obj.objectType == "Node") {
                         x = obj.absX();
@@ -246,9 +247,7 @@ function updateSelectionsAndPane(scope = globalScope) {
     }
 }
 
-
 function renderCanvas(scope) {
-
     if (layoutMode) {
         return;
     }
@@ -266,15 +265,28 @@ function renderCanvas(scope) {
             scope[renderOrder[i]][j].draw();
 
     if (canvasMessageData) {
-        canvasMessage(ctx, canvasMessageData.string, canvasMessageData.x, canvasMessageData.y)
+        canvasMessage(
+            ctx,
+            canvasMessageData.string,
+            canvasMessageData.x,
+            canvasMessageData.y
+        );
     }
     if (objectSelection) {
-
         ctx.beginPath();
         ctx.lineWidth = 2;
-        ctx.strokeStyle = "black"
-        ctx.fillStyle = "rgba(0,0,0,0.1)"
-        rect2(ctx, simulationArea.mouseDownX, simulationArea.mouseDownY, simulationArea.mouseX - simulationArea.mouseDownX, simulationArea.mouseY - simulationArea.mouseDownY, 0, 0, "RIGHT");
+        ctx.strokeStyle = "black";
+        ctx.fillStyle = "rgba(0,0,0,0.1)";
+        rect2(
+            ctx,
+            simulationArea.mouseDownX,
+            simulationArea.mouseDownY,
+            simulationArea.mouseX - simulationArea.mouseDownX,
+            simulationArea.mouseY - simulationArea.mouseDownY,
+            0,
+            0,
+            "RIGHT"
+        );
         ctx.stroke();
         ctx.fill();
     }
@@ -295,11 +307,10 @@ function play(scope = globalScope, resetNodes = false) {
     scope.pending = [];
 
     scope.queue = new PriorityQueue({
-        comparator: function(a, b) {
+        comparator: function (a, b) {
             return a.priority - b.priority;
-        }
+        },
     });
-
 
     if (resetNodes || forceResetNodes) {
         forceResetNodes = false;
@@ -313,9 +324,9 @@ function play(scope = globalScope, resetNodes = false) {
         }
     }
 
-
     for (var i = 0; i < scope.SubCircuit.length; i++) {
-        if (scope.SubCircuit[i].isResolvable()) scope.queue.queue(scope.SubCircuit[i]);
+        if (scope.SubCircuit[i].isResolvable())
+            scope.queue.queue(scope.SubCircuit[i]);
     }
 
     // for (var i = 0; i < scope.FlipFlop.length; i++) {
@@ -328,14 +339,9 @@ function play(scope = globalScope, resetNodes = false) {
         }
     }
 
-
-
-
-
     // console.log(scope.stack);
     var stepCount = 0;
-    var elem = undefined
-
+    var elem = undefined;
 
     while (scope.queue.length || scope.pending.length) {
         // if(stepCount%100==0)console.log(scope.stack);
@@ -347,8 +353,7 @@ function play(scope = globalScope, resetNodes = false) {
             //     scope.pending.push(elem);
             //     continue;
             // }
-        } else
-            elem = scope.pending.pop();
+        } else elem = scope.pending.pop();
         // console.log("resolving:",elem)
         // scope.pending.clean(this);
         // scope.stack.clean(this);
@@ -356,13 +361,14 @@ function play(scope = globalScope, resetNodes = false) {
         stepCount++;
         if (stepCount > 1000) {
             // console.log(elem)
-            showError("Simulation Stack limit exceeded: maybe due to cyclic paths or contention");
+            showError(
+                "Simulation Stack limit exceeded: maybe due to cyclic paths or contention"
+            );
             return;
         }
     }
 
-    for (var i = 0; i < scope.Flag.length; i++)
-        scope.Flag[i].setPlotValue();
+    for (var i = 0; i < scope.Flag.length; i++) scope.Flag[i].setPlotValue();
     // for (var i = 0; i < scope.SubCircuit.length; i++) {
     //     if(!scope.SubCircuit[i].isResolvable())
     //         {
@@ -379,16 +385,11 @@ function play(scope = globalScope, resetNodes = false) {
     //             }
     //         }
     // }
-
 }
 
-
 function clearBuses(scope = globalScope) {
-
     scope.stack = [];
     scope.pending = [];
-
-
 
     for (var i = 0; i < scope.TriState.length; i++) {
         console.log("HIT2", i);
@@ -401,8 +402,7 @@ function clearBuses(scope = globalScope) {
 
     // console.log(scope.stack);
     var stepCount = 0;
-    var elem = undefined
-
+    var elem = undefined;
 
     while (scope.stack.length || scope.pending.length) {
         // if(stepCount%100==0)console.log(scope.stack);
@@ -414,8 +414,7 @@ function clearBuses(scope = globalScope) {
             //     scope.pending.push(elem);
             //     continue;
             // }
-        } else
-            elem = scope.pending.pop();
+        } else elem = scope.pending.pop();
 
         // scope.pending.clean(this);
         // scope.stack.clean(this);
@@ -427,6 +426,4 @@ function clearBuses(scope = globalScope) {
             return;
         }
     }
-
-
 }

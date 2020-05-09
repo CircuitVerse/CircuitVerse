@@ -1,4 +1,4 @@
-require: 
+require:
   - rubocop-rspec
   - rubocop-rails
   - rubocop-performance
@@ -9,38 +9,38 @@ AllCops:
   # to ignore them, so only the ones explicitly set in this file are enabled.
   DisabledByDefault: true
   Exclude:
-    - '**/templates/**/*'
-    - '**/vendor/**/*'
-    - 'actionpack/lib/action_dispatch/journey/parser.rb'
-    - 'railties/test/fixtures/tmp/**/*'
-    - 'actionmailbox/test/dummy/**/*'
-    - 'actiontext/test/dummy/**/*'
-    - 'node_modules/**/*'
-    - 'Gemfile'
-    - 'Rakefile'
-    - 'db/*'
-    - 'db/**/*'
-    - 'config/**/*'
-    - 'bin/**/*'
-    - 'app/views/**/*'
-    - 'test/**/*'
+    - "**/templates/**/*"
+    - "**/vendor/**/*"
+    - "actionpack/lib/action_dispatch/journey/parser.rb"
+    - "railties/test/fixtures/tmp/**/*"
+    - "actionmailbox/test/dummy/**/*"
+    - "actiontext/test/dummy/**/*"
+    - "node_modules/**/*"
+    - "Gemfile"
+    - "Rakefile"
+    - "db/*"
+    - "db/**/*"
+    - "config/**/*"
+    - "bin/**/*"
+    - "app/views/**/*"
+    - "test/**/*"
 
 Metrics/LineLength:
   Max: 100
 
 Metrics/BlockLength:
   Exclude:
-    - 'spec/**/*' # pretty much impossible with RSpec
-    - 'lib/tasks/*' # also impractical for Rake tasks
+    - "spec/**/*" # pretty much impossible with RSpec
+    - "lib/tasks/*" # also impractical for Rake tasks
 
 Metrics/MethodLength:
   Max: 15 # can be reduced
   Exclude:
-    - 'spec/**/*' # not a big deal in spec helper methods
+    - "spec/**/*" # not a big deal in spec helper methods
 
 Metrics/ModuleLength:
   Exclude:
-    - 'spec/**/*' # not a big deal in spec helper module
+    - "spec/**/*" # not a big deal in spec helper module
 
 Rails:
   Enabled: true
@@ -146,14 +146,14 @@ Style/FrozenStringLiteralComment:
   Enabled: true
   EnforcedStyle: always
   Exclude:
-    - 'actionview/test/**/*.builder'
-    - 'actionview/test/**/*.ruby'
-    - 'actionpack/test/**/*.builder'
-    - 'actionpack/test/**/*.ruby'
-    - 'activestorage/db/migrate/**/*.rb'
-    - 'activestorage/db/update_migrate/**/*.rb'
-    - 'actionmailbox/db/migrate/**/*.rb'
-    - 'actiontext/db/migrate/**/*.rb'
+    - "actionview/test/**/*.builder"
+    - "actionview/test/**/*.ruby"
+    - "actionpack/test/**/*.builder"
+    - "actionpack/test/**/*.ruby"
+    - "activestorage/db/migrate/**/*.rb"
+    - "activestorage/db/update_migrate/**/*.rb"
+    - "actionmailbox/db/migrate/**/*.rb"
+    - "actiontext/db/migrate/**/*.rb"
 
 Style/RedundantFreeze:
   Enabled: true

@@ -47,7 +47,7 @@
 
 .social-links {
   &:hover {
-    opacity: .7;
+    opacity: 0.7;
   }
 }
 
@@ -57,7 +57,6 @@
   padding-left: 5px;
   padding-top: 10px;
   text-decoration: underline;
-
 }
 
 .form-control.custom-input,
@@ -65,7 +64,7 @@ select {
   font-size: 20px;
   max-width: 80%;
   border: none;
-  border-bottom: 1px solid #42B983;
+  border-bottom: 1px solid #42b983;
   box-shadow: none;
   border-radius: 0;
 }
@@ -73,8 +72,8 @@ select {
 .custom-input:-webkit-autofill,
 .custom-input:-webkit-autofill:hover,
 .custom-input:-webkit-autofill:focus {
-  border-bottom: 1px solid #42B983;
-  -webkit-text-fill-color: #1C1C1C;
+  border-bottom: 1px solid #42b983;
+  -webkit-text-fill-color: #1c1c1c;
   -webkit-box-shadow: 0 0 0px 1000px #fff inset;
   transition: background-color 5000s ease-in-out 0s;
 }

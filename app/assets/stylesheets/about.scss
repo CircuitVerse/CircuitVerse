@@ -4,9 +4,9 @@
 
 .row-about {
   text-align: center;
-  margin-left:auto;
-  margin-right:auto;
-  max-width:1344px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1344px;
 }
 
 #about {
@@ -21,26 +21,27 @@
   margin-bottom: 10px;
 }
 
-#tab a, .card-body a{
+#tab a,
+.card-body a {
   text-decoration: none;
   color: $black;
 }
 
-.btn-about{
+.btn-about {
   background-color: $green;
   color: white;
   transition: all 0.3s ease 0s;
   margin: 5px;
 }
 
-.btn-about:hover{
-  color:white;
+.btn-about:hover {
+  color: white;
   background-color: $teal;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
   transform: translateY(-7px);
 }
 
-.contact{
+.contact {
   display: inline-block;
   background-color: $gray-100;
   box-shadow: 0px 2px 7px $shadow-black;
@@ -57,7 +58,7 @@
 }
 
 .contact:hover {
- box-shadow: 0 7px 7px $shadow-black;
+  box-shadow: 0 7px 7px $shadow-black;
 }
 
 .contact img {
@@ -73,7 +74,7 @@
   justify-content: center;
 }
 
-.card-about{
+.card-about {
   display: inline-block;
   width: 250px;
   background-color: $lightgrey;
@@ -84,11 +85,11 @@
   margin-bottom: 30px;
 }
 
-.cardbody-about p{
+.cardbody-about p {
   text-align: center;
 }
 
-.team{
+.team {
   background-color: $green;
   opacity: 1;
   color: white;
@@ -115,7 +116,7 @@
   width: 100%;
 }
 
-@media (max-width:350px) {
+@media (max-width: 350px) {
   .about-card-image {
     display: none;
   }

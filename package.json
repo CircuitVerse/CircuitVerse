@@ -4,14 +4,17 @@
   "repository": "git@github.com:CircuitVerse/CircuitVerse.git",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint ./public/js/",
-    "postinstall": "opencollective-postinstall || true"
+    "lint": "eslint ./public/js/ && yarn lint:prettier",
+    "postinstall": "opencollective-postinstall || true",
+    "lint:prettier": "prettier --list-different . \"!{**/*}.{jpg,png,svg,rb,erb}\" ",
+    "fix": "yarn lint:prettier --write"
   },
   "devDependencies": {
     "eslint": "^6.0.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.20.0",
     "expose-loader": "^0.7.5",
+    "prettier": "2.0.5",
     "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {

@@ -5,13 +5,12 @@ var totalObjects = 0;
 
 // Function to check for any UI update, it is throttled by time
 function scheduleUpdate(count = 0, time = 100, fn) {
-
     if (lightMode) time *= 5;
 
-    if (count && !layoutMode) { // Force update
+    if (count && !layoutMode) {
+        // Force update
         update();
-        for (var i = 0; i < count; i++)
-            setTimeout(update, 10 + 50 * i);
+        for (var i = 0; i < count; i++) setTimeout(update, 10 + 50 * i);
     }
 
     if (willBeUpdated) return; // Throttling
@@ -25,18 +24,16 @@ function scheduleUpdate(count = 0, time = 100, fn) {
 
     // Call a function before update ..
     if (fn)
-        setTimeout(function() {
+        setTimeout(function () {
             fn();
             update();
         }, time);
     else setTimeout(update, time);
-
 }
 
 // fn that calls update on everything else. If any change is there, it resolves the circuit and draws it again
 
 function update(scope = globalScope, updateEverything = false) {
-
     willBeUpdated = false;
     if (loading == true || layoutMode) return;
 
@@ -45,7 +42,8 @@ function update(scope = globalScope, updateEverything = false) {
 
     // Update wires
     if (wireToBeChecked || updateEverything) {
-        if (wireToBeChecked == 2) wireToBeChecked = 0; // this required due to timing issues
+        if (wireToBeChecked == 2) wireToBeChecked = 0;
+        // this required due to timing issues
         else wireToBeChecked++;
         // WHY IS THIS REQUIRED ???? we are checking inside wire ALSO
         var prevLength = scope.wires.length;
@@ -80,9 +78,13 @@ function update(scope = globalScope, updateEverything = false) {
     }
 
     // Update MiniMap
-    if (!embed && simulationArea.mouseDown && simulationArea.lastSelected && simulationArea.lastSelected != globalScope.root) {
-        if (!lightMode)
-            $('#miniMap').fadeOut('fast');
+    if (
+        !embed &&
+        simulationArea.mouseDown &&
+        simulationArea.lastSelected &&
+        simulationArea.lastSelected != globalScope.root
+    ) {
+        if (!lightMode) $("#miniMap").fadeOut("fast");
     }
 
     // Run simulation
@@ -92,7 +94,10 @@ function update(scope = globalScope, updateEverything = false) {
 
     // Show properties of selected element
     if (!embed && prevPropertyObj != simulationArea.lastSelected) {
-        if (simulationArea.lastSelected && simulationArea.lastSelected.objectType !== "Wire") {
+        if (
+            simulationArea.lastSelected &&
+            simulationArea.lastSelected.objectType !== "Wire"
+        ) {
             showProperties(simulationArea.lastSelected);
         } else {
             // hideProperties();
@@ -104,7 +109,6 @@ function update(scope = globalScope, updateEverything = false) {
         renderCanvas(scope);
     }
     updateSimulation = updateCanvas = updatePosition = false;
-
 }
 
 // Function to find dimensions of the current circuit
@@ -115,9 +119,8 @@ function findDimensions(scope = globalScope) {
     simulationArea.minHeight = undefined;
     simulationArea.maxHeight = undefined;
     for (var i = 0; i < updateOrder.length; i++) {
-        if (updateOrder[i] !== 'wires')
+        if (updateOrder[i] !== "wires")
             for (var j = 0; j < scope[updateOrder[i]].length; j++) {
-
                 totalObjects += 1;
                 var obj = scope[updateOrder[i]][j];
                 if (totalObjects == 1) {
@@ -126,7 +129,7 @@ function findDimensions(scope = globalScope) {
                     simulationArea.maxWidth = obj.absX();
                     simulationArea.maxHeight = obj.absY();
                 }
-                if (obj.objectType != 'Node') {
+                if (obj.objectType != "Node") {
                     if (obj.y - obj.upDimensionY < simulationArea.minHeight)
                         simulationArea.minHeight = obj.y - obj.upDimensionY;
                     if (obj.y + obj.downDimensionY > simulationArea.maxHeight)
@@ -145,19 +148,14 @@ function findDimensions(scope = globalScope) {
                     if (obj.absX() > simulationArea.maxWidth)
                         simulationArea.maxWidth = obj.absX();
                 }
-
             }
-
     }
     simulationArea.objectList = updateOrder;
-
 }
 
 // Function to move multiple objects and panes window
 function updateSelectionsAndPane(scope = globalScope) {
-
     if (!simulationArea.selected && simulationArea.mouseDown) {
-
         simulationArea.selected = true;
         simulationArea.lastSelected = scope.root;
         simulationArea.hover = scope.root;
@@ -169,26 +167,30 @@ function updateSelectionsAndPane(scope = globalScope) {
             if (!embed) {
                 findDimensions(scope);
                 miniMapArea.setup();
-                $('#miniMap').show();
+                $("#miniMap").show();
             }
         }
-    } else if (simulationArea.lastSelected == scope.root && simulationArea.mouseDown) {
-
+    } else if (
+        simulationArea.lastSelected == scope.root &&
+        simulationArea.mouseDown
+    ) {
         //pane canvas
         if (!objectSelection) {
-            globalScope.ox = (simulationArea.mouseRawX - simulationArea.mouseDownRawX) + simulationArea.oldx;
-            globalScope.oy = (simulationArea.mouseRawY - simulationArea.mouseDownRawY) + simulationArea.oldy;
+            globalScope.ox =
+                simulationArea.mouseRawX -
+                simulationArea.mouseDownRawX +
+                simulationArea.oldx;
+            globalScope.oy =
+                simulationArea.mouseRawY -
+                simulationArea.mouseDownRawY +
+                simulationArea.oldy;
             globalScope.ox = Math.round(globalScope.ox);
             globalScope.oy = Math.round(globalScope.oy);
             gridUpdate = true;
             if (!embed && !lightMode) miniMapArea.setup();
         } else {
-
         }
-
-
     } else if (simulationArea.lastSelected == scope.root) {
-
         // Select multiple objects
 
         simulationArea.lastSelected = undefined;
@@ -218,7 +220,8 @@ function updateSelectionsAndPane(scope = globalScope) {
             for (var i = 0; i < updateOrder.length; i++) {
                 for (var j = 0; j < scope[updateOrder[i]].length; j++) {
                     var obj = scope[updateOrder[i]][j];
-                    if (simulationArea.multipleObjectSelections.contains(obj)) continue;
+                    if (simulationArea.multipleObjectSelections.contains(obj))
+                        continue;
                     var x, y;
                     if (obj.objectType == "Node") {
                         x = obj.absX();
@@ -240,8 +243,8 @@ function updateSelectionsAndPane(scope = globalScope) {
 
 // Function to render Canvas according th renderupdate order
 function renderCanvas(scope) {
-
-    if (layoutMode) { // Different Algorithm
+    if (layoutMode) {
+        // Different Algorithm
         return;
     }
 
@@ -266,32 +269,44 @@ function renderCanvas(scope) {
     // Show any message
 
     if (canvasMessageData) {
-        canvasMessage(ctx, canvasMessageData.string, canvasMessageData.x, canvasMessageData.y)
+        canvasMessage(
+            ctx,
+            canvasMessageData.string,
+            canvasMessageData.x,
+            canvasMessageData.y
+        );
     }
 
     // If multiple object selections are going on, show selected area
     if (objectSelection) {
         ctx.beginPath();
         ctx.lineWidth = 2;
-        ctx.strokeStyle = "black"
-        ctx.fillStyle = "rgba(0,0,0,0.1)"
-        rect2(ctx, simulationArea.mouseDownX, simulationArea.mouseDownY, simulationArea.mouseX - simulationArea.mouseDownX, simulationArea.mouseY - simulationArea.mouseDownY, 0, 0, "RIGHT");
+        ctx.strokeStyle = "black";
+        ctx.fillStyle = "rgba(0,0,0,0.1)";
+        rect2(
+            ctx,
+            simulationArea.mouseDownX,
+            simulationArea.mouseDownY,
+            simulationArea.mouseX - simulationArea.mouseDownX,
+            simulationArea.mouseY - simulationArea.mouseDownY,
+            0,
+            0,
+            "RIGHT"
+        );
         ctx.stroke();
         ctx.fill();
     }
     if (simulationArea.hover != undefined) {
         simulationArea.canvas.style.cursor = "pointer";
     } else if (simulationArea.mouseDown) {
-        simulationArea.canvas.style.cursor = 'grabbing';
+        simulationArea.canvas.style.cursor = "grabbing";
     } else {
-        simulationArea.canvas.style.cursor = 'default';
+        simulationArea.canvas.style.cursor = "default";
     }
-
 }
 
 //Main fn that resolves circuit using event driven simulation
 function play(scope = globalScope, resetNodes = false) {
-
     if (errorDetected) return; // Don't simulate until error is fixed
 
     if (loading == true) return; // Don't simulate until loaded
@@ -316,7 +331,8 @@ function play(scope = globalScope, resetNodes = false) {
 
     // Add subcircuits if they can be resolved -- needs to be removed/ deprecated
     for (var i = 0; i < scope.SubCircuit.length; i++) {
-        if (scope.SubCircuit[i].isResolvable()) simulationArea.simulationQueue.add(scope.SubCircuit[i]);
+        if (scope.SubCircuit[i].isResolvable())
+            simulationArea.simulationQueue.add(scope.SubCircuit[i]);
     }
 
     // To store list of circuitselements that have shown contention but kept temporarily
@@ -327,7 +343,7 @@ function play(scope = globalScope, resetNodes = false) {
     scope.addInputs();
 
     var stepCount = 0;
-    var elem = undefined
+    var elem = undefined;
 
     while (!simulationArea.simulationQueue.isEmpty()) {
         if (errorDetected) {
@@ -339,23 +355,24 @@ function play(scope = globalScope, resetNodes = false) {
         elem.resolve();
         stepCount++;
 
-        if (stepCount > 1000000) { // Cyclic or infinite Circuit Detection
-            showError("Simulation Stack limit exceeded: maybe due to cyclic paths or contention");
+        if (stepCount > 1000000) {
+            // Cyclic or infinite Circuit Detection
+            showError(
+                "Simulation Stack limit exceeded: maybe due to cyclic paths or contention"
+            );
             errorDetected = true;
-            forceResetNodes = true
+            forceResetNodes = true;
         }
     }
 
     // Check for TriState Contentions
     if (simulationArea.contentionPending.length) {
-        console.log(simulationArea.contentionPending)
+        console.log(simulationArea.contentionPending);
         showError("Contention at TriState");
-        forceResetNodes = true
+        forceResetNodes = true;
         errorDetected = true;
     }
 
     // Setting Flag Values
-    for (var i = 0; i < scope.Flag.length; i++)
-        scope.Flag[i].setPlotValue();
-
+    for (var i = 0; i < scope.Flag.length; i++) scope.Flag[i].setPlotValue();
 }

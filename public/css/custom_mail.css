@@ -1,10 +1,11 @@
-.navbar, .foot {
+.navbar,
+.foot {
     display: none;
 }
 
 .mail-preview-header {
     padding: 10px 20px;
-    background: #F3F3F3
+    background: #f3f3f3;
 }
 
 .send-link {
@@ -12,6 +13,6 @@
 }
 
 .mail-status {
-    color: #7E7E7E;
+    color: #7e7e7e;
     margin-left: 10px;
 }

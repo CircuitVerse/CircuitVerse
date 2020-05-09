@@ -1,12 +1,12 @@
 /**
  * Counter component.
- * 
+ *
  * Counts from zero to a particular maximum value, which is either
  * specified by an input pin or determined by the Counter's bitWidth.
- * 
+ *
  * The counter outputs its current value and a flag that indicates
  * when the output value is zero and the clock is 1.
- * 
+ *
  * The counter can be reset to zero at any point using the RESET pin.
  */
 function Counter(x, y, scope = globalScope, bitWidth = 8) {
@@ -27,7 +27,8 @@ function Counter(x, y, scope = globalScope, bitWidth = 8) {
 }
 Counter.prototype = Object.create(CircuitElement.prototype);
 Counter.prototype.constructor = Counter;
-Counter.prototype.tooltipText = "Counter: a binary counter from zero to a given maximum value";
+Counter.prototype.tooltipText =
+    "Counter: a binary counter from zero to a given maximum value";
 Counter.prototype.customSave = function () {
     return {
         nodes: {
@@ -37,9 +38,9 @@ Counter.prototype.customSave = function () {
             output: findNode(this.output),
             zero: findNode(this.zero),
         },
-        constructorParamaters: [this.bitWidth]
+        constructorParamaters: [this.bitWidth],
     };
-}
+};
 Counter.prototype.newBitWidth = function (bitWidth) {
     this.bitWidth = bitWidth;
     this.maxValue.bitWidth = bitWidth;
@@ -47,10 +48,13 @@ Counter.prototype.newBitWidth = function (bitWidth) {
 };
 Counter.prototype.isResolvable = function () {
     return true;
-}
+};
 Counter.prototype.resolve = function () {
     // Max value is either the value in the input pin or the max allowed by the bitWidth.
-    var maxValue = this.maxValue.value != undefined ? this.maxValue.value : (1 << this.bitWidth) - 1;
+    var maxValue =
+        this.maxValue.value != undefined
+            ? this.maxValue.value
+            : (1 << this.bitWidth) - 1;
     var outputValue = this.value;
 
     // Increase value when clock is raised
@@ -80,7 +84,7 @@ Counter.prototype.resolve = function () {
         this.zero.value = zeroValue;
         simulationArea.simulationQueue.add(this.zero);
     }
-}
+};
 Counter.prototype.customDraw = function () {
     var ctx = simulationArea.context;
     var xx = this.x;
@@ -98,4 +102,4 @@ Counter.prototype.customDraw = function () {
     lineTo(ctx, -15, 10, xx, yy, this.direction);
     lineTo(ctx, -20, 15, xx, yy, this.direction);
     ctx.stroke();
-}
+};
