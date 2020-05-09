@@ -1,86 +1,86 @@
 /*login/signup css starts*/
 .signup-cover {
-    margin-bottom: 15px;
-    margin-top: 30px;
-    max-height: 400px;
-    max-width: 80%;
+  margin-bottom: 15px;
+  margin-top: 30px;
+  max-height: 400px;
+  max-width: 80%;
 }
 
 .form-container {
-    margin-left: 40px;
-    margin-top: 30px;
-    max-width: 80%;
+  margin-left: 40px;
+  margin-top: 30px;
+  max-width: 80%;
 }
 
 .center-block {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 
 .custom-submit {
-    border-radius: 36px;
-    padding-left: 20px;
-    padding-right: 20px;
+  border-radius: 36px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .fa.password-icon {
-    cursor: pointer;
-    color: $green;
-    font-size: 30px;
-    background: transparent;
+  cursor: pointer;
+  color: $green;
+  font-size: 30px;
+  background: transparent;
 }
 
 .label-text {
-    text-transform: uppercase;
-    font-size: 20px;
-    font-weight: 600;
-    margin-top: 15px;
+  text-transform: uppercase;
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 15px;
 }
 
 .help-text {
-    padding-left: 15px;
-    padding-top: 10px;
-    font-weight: 600;
+  padding-left: 15px;
+  padding-top: 10px;
+  font-weight: 600;
 }
 
 .social-links {
-    &:hover {
-        opacity: 0.7;
-    }
+  &:hover {
+    opacity: 0.7;
+  }
 }
 
 .link-text {
-    color: $green;
-    font-weight: 600;
-    padding-left: 5px;
-    padding-top: 10px;
-    text-decoration: underline;
+  color: $green;
+  font-weight: 600;
+  padding-left: 5px;
+  padding-top: 10px;
+  text-decoration: underline;
 }
 
 .form-control.custom-input,
 select {
-    font-size: 20px;
-    max-width: 80%;
-    border: none;
-    border-bottom: 1px solid #42b983;
-    box-shadow: none;
-    border-radius: 0;
+  font-size: 20px;
+  max-width: 80%;
+  border: none;
+  border-bottom: 1px solid #42b983;
+  box-shadow: none;
+  border-radius: 0;
 }
 
 .custom-input:-webkit-autofill,
 .custom-input:-webkit-autofill:hover,
 .custom-input:-webkit-autofill:focus {
-    border-bottom: 1px solid #42b983;
-    -webkit-text-fill-color: #1c1c1c;
-    -webkit-box-shadow: 0 0 0px 1000px #fff inset;
-    transition: background-color 5000s ease-in-out 0s;
+  border-bottom: 1px solid #42b983;
+  -webkit-text-fill-color: #1c1c1c;
+  -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+  transition: background-color 5000s ease-in-out 0s;
 }
 
 .ml-1 {
-    height: 40px;
-    margin-top: 8px;
-    width: 40px;
+  height: 40px;
+  margin-top: 8px;
+  width: 40px;
 }
 /*login/signup css ends*/
