@@ -1,7 +1,7 @@
 window.onscroll = function () {
     if ($(document).scrollTop() > 70) {
-        $("nav").addClass("affix");
+        $('nav').addClass('affix')
     } else {
-        $("nav").removeClass("affix");
+        $('nav').removeClass('affix')
     }
-};
+}

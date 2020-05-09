@@ -1,133 +1,133 @@
 .row-group {
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 1344px;
-  text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1344px;
+    text-align: center;
 }
 
 .heading-group {
-  color: $black;
-  margin-top: 30px;
+    color: $black;
+    margin-top: 30px;
 }
 
 .btn-group {
-  background-color: $green;
-  border-radius: 40px;
-  color: $white;
-  margin: 10px;
-  padding: 10px 40px;
+    background-color: $green;
+    border-radius: 40px;
+    color: $white;
+    margin: 10px;
+    padding: 10px 40px;
 
-  &:hover {
-    text-decoration: none;
-  }
+    &:hover {
+        text-decoration: none;
+    }
 }
 
 .card-group {
-  background-color: $lightgrey;
-  border-radius: 3px;
-  box-shadow: 0 2px 7px $shadow-black;
-  display: flex;
-  margin: 15px 0;
-  padding: 10px;
+    background-color: $lightgrey;
+    border-radius: 3px;
+    box-shadow: 0 2px 7px $shadow-black;
+    display: flex;
+    margin: 15px 0;
+    padding: 10px;
 }
 
 .btn-card {
-  align-items: center;
-  border-radius: 2px;
-  color: $black;
-  display: flex;
-  flex-direction: row;
-  font-size: x-small;
-  justify-content: center;
-  margin: 5px;
-  padding: 5px;
-  width: 75px;
+    align-items: center;
+    border-radius: 2px;
+    color: $black;
+    display: flex;
+    flex-direction: row;
+    font-size: x-small;
+    justify-content: center;
+    margin: 5px;
+    padding: 5px;
+    width: 75px;
 
-  &:hover {
-    text-decoration: none;
-  }
+    &:hover {
+        text-decoration: none;
+    }
 }
 
 .mentor-card-group {
-  align-items: center;
-  border-top: 10px solid $teal;
-  flex-direction: column;
-  justify-content: center;
+    align-items: center;
+    border-top: 10px solid $teal;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .btn-mentor-group {
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  padding: 10px;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 10px;
 }
 
 .btn-view {
-  border: 2px solid $green;
+    border: 2px solid $green;
 
-  &:hover {
-    background-color: $green;
-    color: $white;
-  }
+    &:hover {
+        background-color: $green;
+        color: $white;
+    }
 }
 
 .btn-edit {
-  border: 2px solid $blue;
+    border: 2px solid $blue;
 
-  &:hover {
-    background-color: $blue;
-    color: $white;
-  }
+    &:hover {
+        background-color: $blue;
+        color: $white;
+    }
 }
 
 .btn-delete {
-  border: 2px solid $danger;
+    border: 2px solid $danger;
 
-  &:hover {
-    background-color: $danger;
-    color: $white;
-  }
+    &:hover {
+        background-color: $danger;
+        color: $white;
+    }
 }
 
 .in-card-group {
-  align-items: center;
-  border-left: 10px solid $teal;
-  flex-direction: row;
-  justify-content: space-around;
+    align-items: center;
+    border-left: 10px solid $teal;
+    flex-direction: row;
+    justify-content: space-around;
 }
 
 .in-card-name-member {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .in-card-view {
-  background-color: $teal;
-  border-radius: 2px;
-  color: $white;
-  margin: 10px;
-  padding: 2px 15px;
+    background-color: $teal;
+    border-radius: 2px;
+    color: $white;
+    margin: 10px;
+    padding: 2px 15px;
 
-  &:hover {
-    background-color: $white;
-    color: $teal;
-    text-decoration: none;
-  }
+    &:hover {
+        background-color: $white;
+        color: $teal;
+        text-decoration: none;
+    }
 }
 
 .group-name {
-  font-size: 30px;
-  font-weight: bold;
+    font-size: 30px;
+    font-weight: bold;
 }
 
 .group-member-count {
-  font-size: 18px;
+    font-size: 18px;
 }
 
 .group-input-name {
-  border: 1px solid $green;
-  border-radius: 0;
+    border: 1px solid $green;
+    border-radius: 0;
 }

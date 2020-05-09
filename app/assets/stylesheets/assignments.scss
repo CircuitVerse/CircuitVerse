@@ -1,50 +1,50 @@
 .submission-table {
-  border: 1px solid $green;
-  border-bottom: 0;
-  border-right: 0;
-  max-height: 600px;
-  overflow: auto;
+    border: 1px solid $green;
+    border-bottom: 0;
+    border-right: 0;
+    max-height: 600px;
+    overflow: auto;
 }
 
 .list-submission {
-  &:hover {
-    background-color: $green;
-    color: $white;
-  }
+    &:hover {
+        background-color: $green;
+        color: $white;
+    }
 }
 
 .col-3-submission-list {
-  margin-right: 0;
-  padding-right: 0;
+    margin-right: 0;
+    padding-right: 0;
 }
 
 .col-9-submission-list {
-  border: 1px solid $green;
-  border-left: 0;
-  margin-left: 0;
-  padding-left: 0;
-  padding-right: 0;
+    border: 1px solid $green;
+    border-left: 0;
+    margin-left: 0;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .grade-container {
-  border: 1px solid $green;
-  margin-top: 10px;
+    border: 1px solid $green;
+    margin-top: 10px;
 }
 
 .grade-form-help {
-  font-size: 14px;
-  margin-top: 5px;
+    font-size: 14px;
+    margin-top: 5px;
 }
 
 .assignment-grade-inputs {
-  width: 100%;
+    width: 100%;
 }
 
 .btn-assignment-show {
-  padding-left: 0;
+    padding-left: 0;
 }
 
 .div-no-submission {
-  border: 1px solid $green;
-  padding: 15px;
+    border: 1px solid $green;
+    padding: 15px;
 }
