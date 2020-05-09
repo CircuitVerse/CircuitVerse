@@ -79,7 +79,7 @@ body {
     &::before {
       background-color: $green;
       bottom: -2px;
-      content: '';
+      content: "";
       height: 2px;
       left: 0;
       position: absolute;
@@ -134,7 +134,7 @@ body {
 .dropdown-toggle::after {
   margin-left: 0;
   padding-left: 0;
-  vertical-align: .5em;
+  vertical-align: 0.5em;
 }
 
 .navbar-username-truncate {
