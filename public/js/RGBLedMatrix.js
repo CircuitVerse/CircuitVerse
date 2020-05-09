@@ -2,14 +2,20 @@ function RGBLedMatrix(
     x,
     y,
     scope = globalScope,
-    { rows = 8, columns = 8, ledSize = 2, showGrid = true, colors = [] } = {}
+    {
+        rows = 8,
+        columns = 8,
+        ledSize = 2,
+        showGrid = true,
+        colors = [],
+    } = {},
 ) {
-    CircuitElement.call(this, x, y, scope, "RIGHT", 8);
+    CircuitElement.call(this, x, y, scope, 'RIGHT', 8);
     this.fixedBitWidth = true;
     this.directionFixed = true;
     this.rectangleObject = true;
     this.alwaysResolve = true;
-    this.labelDirection = "UP";
+    this.labelDirection = 'UP';
     this.leftDimensionX = 0;
     this.upDimensionY = 0;
 
@@ -19,9 +25,9 @@ function RGBLedMatrix(
     this.columnColorNodes = []; // 24-bit pin for each column, on the top.
 
     // These pins provide single-pixel editing; these are on the right side.
-    this.colorNode = new Node(0, -10, NODE_INPUT, this, 24, "COLOR");
-    this.rowNode = new Node(0, 0, NODE_INPUT, this, 1, "ROW");
-    this.columnNode = new Node(0, 10, NODE_INPUT, this, 1, "COLUMN");
+    this.colorNode = new Node(0, -10, NODE_INPUT, this, 24, 'COLOR');
+    this.rowNode = new Node(0, 0, NODE_INPUT, this, 1, 'ROW');
+    this.columnNode = new Node(0, 10, NODE_INPUT, this, 1, 'COLUMN');
 
     this.colors = colors;
     this.showGrid = showGrid;
@@ -29,7 +35,7 @@ function RGBLedMatrix(
 }
 RGBLedMatrix.prototype = Object.create(CircuitElement.prototype);
 RGBLedMatrix.prototype.constructor = RGBLedMatrix;
-RGBLedMatrix.prototype.tooltipText = "RGB Led Matrix";
+RGBLedMatrix.prototype.tooltipText = 'RGB Led Matrix';
 
 // Limit the size of the matrix otherwise the simulation starts to lag.
 RGBLedMatrix.prototype.maxRows = 128;
@@ -40,32 +46,32 @@ RGBLedMatrix.prototype.maxLedSize = 3;
 
 RGBLedMatrix.prototype.mutableProperties = {
     rows: {
-        name: "Rows",
-        type: "number",
+        name: 'Rows',
+        type: 'number',
         max: RGBLedMatrix.prototype.maxRows,
         min: 1,
-        func: "changeRows",
+        func: 'changeRows',
     },
     columns: {
-        name: "Columns",
-        type: "number",
+        name: 'Columns',
+        type: 'number',
         max: RGBLedMatrix.prototype.maxColumns,
         min: 1,
-        func: "changeColumns",
+        func: 'changeColumns',
     },
     ledSize: {
-        name: "LED Size",
-        type: "number",
+        name: 'LED Size',
+        type: 'number',
         max: RGBLedMatrix.prototype.maxLedSize,
         min: 1,
-        func: "changeLedSize",
+        func: 'changeLedSize',
     },
     showGrid: {
-        name: "Toggle Grid",
-        type: "button",
+        name: 'Toggle Grid',
+        type: 'button',
         max: RGBLedMatrix.prototype.maxLedSize,
         min: 1,
-        func: "toggleGrid",
+        func: 'toggleGrid',
     },
 };
 RGBLedMatrix.prototype.toggleGrid = function () {
@@ -125,86 +131,52 @@ RGBLedMatrix.prototype.changeSize = function (rows, columns, ledSize, move) {
     var resetAllNodes = ledSize != this.ledSize;
 
     // Delete unused row-enable nodes, reposition remaining nodes and add new nodes.
-    this.rowEnableNodes
-        .splice(resetAllNodes ? 0 : rows)
-        .forEach((node) => node.delete());
+    this.rowEnableNodes.splice(resetAllNodes ? 0 : rows).forEach(node => node.delete());
     this.rowEnableNodes.forEach((node, i) => {
         node.x = node.leftx = -halfWidth;
         node.y = node.lefty = i * ledHeight + nodeOffsetY;
     });
     while (this.rowEnableNodes.length < rows) {
-        this.rowEnableNodes.push(
-            new Node(
-                -halfWidth,
-                this.rowEnableNodes.length * ledHeight + nodeOffsetY,
-                NODE_INPUT,
-                this,
-                1,
-                "R" + this.rowEnableNodes.length
-            )
-        );
+        this.rowEnableNodes.push(new Node(-halfWidth, this.rowEnableNodes.length * ledHeight + nodeOffsetY, NODE_INPUT, this, 1, 'R' + this.rowEnableNodes.length));
     }
 
     // Delete unused column-enable nodes, reposition remaining nodes and add new nodes.
-    this.columnEnableNodes
-        .splice(resetAllNodes ? 0 : columns)
-        .forEach((node) => node.delete());
+    this.columnEnableNodes.splice(resetAllNodes ? 0 : columns).forEach(node => node.delete());
     this.columnEnableNodes.forEach((node, i) => {
         node.x = node.leftx = i * ledWidth + nodeOffsetX;
         node.y = node.lefty = halfHeight;
     });
     while (this.columnEnableNodes.length < columns) {
-        this.columnEnableNodes.push(
-            new Node(
-                this.columnEnableNodes.length * ledWidth + nodeOffsetX,
-                halfHeight,
-                NODE_INPUT,
-                this,
-                1,
-                "C" + this.columnEnableNodes.length
-            )
-        );
+        this.columnEnableNodes.push(new Node(this.columnEnableNodes.length * ledWidth + nodeOffsetX, halfHeight, NODE_INPUT, this, 1, 'C' + this.columnEnableNodes.length));
     }
 
     // Delete unused column color nodes, reposition remaining nodes and add new nodes.
-    this.columnColorNodes
-        .splice(resetAllNodes ? 0 : columns)
-        .forEach((node) => node.delete());
+    this.columnColorNodes.splice(resetAllNodes ? 0 : columns).forEach(node => node.delete());
     this.columnColorNodes.forEach((node, i) => {
         node.x = node.leftx = i * ledWidth + nodeOffsetX;
         node.y = node.lefty = -halfHeight;
     });
     while (this.columnColorNodes.length < columns) {
-        this.columnColorNodes.push(
-            new Node(
-                this.columnColorNodes.length * ledWidth + nodeOffsetX,
-                -halfHeight,
-                NODE_INPUT,
-                this,
-                24,
-                "CLR" + this.columnColorNodes.length
-            )
-        );
+        this.columnColorNodes.push(new Node(this.columnColorNodes.length * ledWidth + nodeOffsetX, -halfHeight, NODE_INPUT, this, 24, 'CLR' + this.columnColorNodes.length));
     }
 
     // Delete unused color storage and add storage for new rows.
     this.colors.splice(rows);
-    this.colors.forEach((c) => c.splice(columns));
+    this.colors.forEach(c => c.splice(columns));
     while (this.colors.length < rows) {
         this.colors.push([]);
     }
 
     // Reposition the single-pixel nodes
     this.rowNode.bitWidth = Math.ceil(Math.log2(rows));
-    this.rowNode.label = "ROW (" + this.rowNode.bitWidth + " bits)";
+    this.rowNode.label = 'ROW (' + this.rowNode.bitWidth + ' bits)';
     this.columnNode.bitWidth = Math.ceil(Math.log2(columns));
-    this.columnNode.label = "COLUMN (" + this.columnNode.bitWidth + " bits)";
+    this.columnNode.label = 'COLUMN (' + this.columnNode.bitWidth + ' bits)';
     var singlePixelNodePadding = rows > 1 ? nodeOffsetY : nodeOffsetY - 10;
-    var singlePixelNodeDistance = rows <= 2 ? 10 : ledHeight;
+    var singlePixelNodeDistance = (rows <= 2) ? 10 : ledHeight;
     [this.colorNode, this.rowNode, this.columnNode].forEach((node, i) => {
         node.x = node.leftx = halfWidth;
-        node.y = node.lefty =
-            i * singlePixelNodeDistance + singlePixelNodePadding;
+        node.y = node.lefty = i * singlePixelNodeDistance + singlePixelNodePadding;
     });
 
     // Store the new values
@@ -219,15 +191,13 @@ RGBLedMatrix.prototype.customSave = function () {
     // Unlike a read LED matrix, we also persist the color of each pixel.
     // This allows circuit preview to show the colors at the time the simulation was saved.
     return {
-        constructorParamaters: [
-            {
-                rows: this.rows,
-                columns: this.columns,
-                ledSize: this.ledSize,
-                showGrid: this.showGrid,
-                colors: this.colors,
-            },
-        ],
+        constructorParamaters: [{
+            rows: this.rows,
+            columns: this.columns,
+            ledSize: this.ledSize,
+            showGrid: this.showGrid,
+            colors: this.colors
+        }],
         nodes: {
             rowEnableNodes: this.rowEnableNodes.map(findNode),
             columnEnableNodes: this.columnEnableNodes.map(findNode),
@@ -236,7 +206,7 @@ RGBLedMatrix.prototype.customSave = function () {
             rowNode: findNode(this.rowNode),
             columnNode: findNode(this.columnNode),
         },
-    };
+    }
 };
 RGBLedMatrix.prototype.resolve = function () {
     var colorValue = this.colorNode.value;
@@ -294,31 +264,16 @@ RGBLedMatrix.prototype.customDraw = function () {
     var bottom = top + height;
     var right = left + width;
 
-    var [w, h] = rotate(
-        ledWidth * globalScope.scale,
-        ledHeight * globalScope.scale,
-        dir
-    );
+    var [w, h] = rotate(ledWidth * globalScope.scale, ledHeight * globalScope.scale, dir);
     var xoffset = Math.round(globalScope.ox + xx * globalScope.scale);
     var yoffset = Math.round(globalScope.oy + yy * globalScope.scale);
     for (var row = 0; row < rows; row++) {
         for (var column = 0; column < columns; column++) {
             var color = colors[row][column] || 0;
             ctx.beginPath();
-            ctx.fillStyle =
-                "rgb(" +
-                ((color & 0xff0000) >> 16) +
-                "," +
-                ((color & 0xff00) >> 8) +
-                "," +
-                (color & 0xff) +
-                ")";
+            ctx.fillStyle = 'rgb(' + ((color & 0xFF0000) >> 16) + ',' + ((color & 0xFF00) >> 8) + ',' + (color & 0xFF) + ')';
 
-            [x1, y1] = rotate(
-                left + column * ledWidth,
-                top + row * ledHeight,
-                dir
-            );
+            [x1, y1] = rotate(left + column * ledWidth, top + row * ledHeight, dir);
             x1 = x1 * globalScope.scale;
             y1 = y1 * globalScope.scale;
             ctx.rect(xoffset + x1, yoffset + y1, w, h);
@@ -328,7 +283,7 @@ RGBLedMatrix.prototype.customDraw = function () {
 
     if (this.showGrid) {
         ctx.beginPath();
-        ctx.strokeStyle = "#323232";
+        ctx.strokeStyle = '#323232';
         ctx.lineWidth = correctWidth(1);
         rect2(ctx, left, top, width, height, xx, yy, dir);
         for (var x = left + ledWidth; x < right; x += ledWidth) {

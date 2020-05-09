@@ -1,15 +1,15 @@
 function handleMainCheckbox() {
-    $("#restrict-elements").change(function (e) {
+    $('#restrict-elements').change(function (e) {
         e.preventDefault();
         var radio = $(e.currentTarget);
 
-        if (radio.is(":checked")) {
-            $(".restricted-elements-list").removeClass("display--none");
+        if (radio.is(':checked')) {
+            $('.restricted-elements-list').removeClass('display--none');
         } else {
-            $(".restricted-elements-list").addClass("display--none");
+            $('.restricted-elements-list').addClass('display--none');
         }
     });
-    $("#restrict-elements").trigger("change");
+    $('#restrict-elements').trigger('change');
 }
 
 function restrictionsMap(restrictions) {
@@ -21,7 +21,7 @@ function restrictionsMap(restrictions) {
 }
 
 function htmlRowName(name) {
-    return '<div class="circuit-element-category"> '.concat(name, " </div>");
+    return "<div class=\"circuit-element-category\"> ".concat(name, " </div>");
 }
 
 function htmlInlineCheckbox(elementName, checked) {
@@ -40,7 +40,7 @@ function generateRow(name, elements, restrictionMap) {
     var html = htmlRowName(name);
     for (var i = 0; i < elements.length; i++) {
         var element = elements[i];
-        var checked = restrictionMap[element] ? "checked" : "";
+        var checked = restrictionMap[element] ? 'checked' : '';
         html += htmlInlineCheckbox(element, checked);
     }
     return html;
@@ -50,7 +50,7 @@ function loadHtml(elementHierarchy, restrictionMap) {
     for (var i = 0; i < Object.entries(elementHierarchy).length; i++) {
         var category = Object.entries(elementHierarchy)[i];
         var html = generateRow(category[0], category[1], restrictionMap);
-        $(".restricted-elements-list").append(html);
+        $('.restricted-elements-list').append(html);
     }
 }
 

@@ -66,8 +66,8 @@ button:focus {
     padding: 5px;
     width: 200px;
     margin: 3px;
-    word-wrap: break-word;
-    overflow-x: hidden;
+    word-wrap:break-word;
+    overflow-x:hidden;
 }
 
 .pannel-heading {
@@ -330,17 +330,19 @@ select {
     border: 1px solid #0099ff;
 }
 
-.tabsCloseButton:hover {
-    color: #fff;
-    font-family: "Gill Sans", sans-serif;
+.tabsCloseButton:hover{
+    color:#fff;
+    font-family: 'Gill Sans', sans-serif;
     padding-left: 1em;
     opacity: 0.5;
+
 }
 .tabsCloseButton {
-    color: #111;
-    font-family: "Gill Sans", sans-serif;
+    color:#111;
+    font-family: 'Gill Sans', sans-serif;
     padding-left: 1em;
-    opacity: 1;
+    opacity: 1.0;
+
 }
 
 th,
@@ -639,7 +641,7 @@ div.icon img {
     position: absolute;
     /*top: 0;*/
     bottom: -16;
-    text-align: center;
+    text-align:center;
     left: 0;
     right: 0;
     background-color: #0099ff;

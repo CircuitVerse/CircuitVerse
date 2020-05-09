@@ -1,5 +1,5 @@
 .results-head {
-    margin: 2rem 1rem 0 1.6rem;
+    margin: 2rem 1rem 0 1.60rem;
 }
 
 .no-results {
@@ -13,14 +13,14 @@
 
 .search-box-form {
     display: flex;
-    margin-left: 1.5rem;
+    margin-left: 1.50rem;
     margin-right: 0.9rem;
 }
 
 .search-bar-input {
     border-radius: 0 3px 3px 0;
     outline: 0;
-    border: 1px solid rgba(0, 0, 0, 0.125);
+    border: 1px solid rgba(0,0,0,.125);
     padding: 0.5rem;
     padding-left: 0.8rem;
     width: 100%;
@@ -37,7 +37,7 @@
     border: 1px solid #ced4da;
     background: url("/img/caret.jpg") 100% / 25% no-repeat #ddd;
     padding: 0.8rem;
-    border: 1px solid rgba(0, 0, 0, 0.125);
+    border: 1px solid rgba(0,0,0,.125);
     font-size: 0.9rem;
 }
 

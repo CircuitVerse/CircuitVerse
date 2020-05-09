@@ -1,23 +1,26 @@
 function clockTick() {
-    if (!simulationArea.clockEnabled) return;
+    if(!simulationArea.clockEnabled)return;
     if (errorDetected) return;
     updateCanvas = true;
     globalScope.clockTick();
     play();
-    scheduleUpdate(0, 20);
+    scheduleUpdate(0,20);
+
 }
 
-function changeClockEnable(val) {
-    simulationArea.clockEnabled = val;
+function changeClockEnable(val){
+    simulationArea.clockEnabled = val
 }
 
-function runTest(n = 10) {
-    var t = new Date().getTime();
-    for (var i = 0; i < n; i++) clockTick();
+function runTest(n=10){
+    var t=new Date().getTime();
+    for(var i=0;i<n;i++)
+        clockTick();
     //console.log((new Date().getTime()-t)/n);
     updateCanvas = true;
     scheduleUpdate();
 }
+
 
 function TflipFlop(x, y, scope = globalScope, dir = "RIGHT") {
     CircuitElement.call(this, x, y, scope, dir, 1);
@@ -37,29 +40,32 @@ function TflipFlop(x, y, scope = globalScope, dir = "RIGHT") {
     this.prevClockState = 0;
 
     // this.wasClicked = false;
+
 }
 TflipFlop.prototype = Object.create(CircuitElement.prototype);
 TflipFlop.prototype.constructor = TflipFlop;
-TflipFlop.prototype.tooltipText =
-    "T FlipFlop ToolTip :  Changes state / Toggles whenever the clock input is strobed.";
-TflipFlop.prototype.isResolvable = function () {
+TflipFlop.prototype.tooltipText = "T FlipFlop ToolTip :  Changes state / Toggles whenever the clock input is strobed.";
+TflipFlop.prototype.isResolvable = function() {
     if (this.reset.value == 1) return true;
-    if (this.clockInp.value != undefined && this.dInp.value != undefined)
-        return true;
+    if (this.clockInp.value != undefined && this.dInp.value != undefined) return true;
     return false;
-};
-TflipFlop.prototype.newBitWidth = function (bitWidth) {
+}
+TflipFlop.prototype.newBitWidth = function(bitWidth) {
     this.bitWidth = bitWidth;
     this.dInp.bitWidth = bitWidth;
     this.qOutput.bitWidth = bitWidth;
     this.qInvOutput.bitWidth = bitWidth;
     this.preset.bitWidth = bitWidth;
-};
-TflipFlop.prototype.resolve = function () {
+}
+TflipFlop.prototype.resolve = function() {
     if (this.reset.value == 1) {
+
         this.masterState = this.slaveState = this.preset.value || 0;
+
     } else if (this.en.value == 0) {
+
         this.prevClockState = this.clockInp.value;
+
     } else if (this.en.value == 1 || this.en.connections.length == 0) {
         if (this.clockInp.value == this.prevClockState) {
             if (this.clockInp.value == 0 && this.dInp.value != undefined) {
@@ -68,10 +74,7 @@ TflipFlop.prototype.resolve = function () {
         } else if (this.clockInp.value != undefined) {
             if (this.clockInp.value == 1) {
                 this.slaveState = this.masterState;
-            } else if (
-                this.clockInp.value == 0 &&
-                this.dInp.value != undefined
-            ) {
+            } else if (this.clockInp.value == 0 && this.dInp.value != undefined) {
                 this.masterState = this.dInp.value ^ this.slaveState;
             }
             this.prevClockState = this.clockInp.value;
@@ -84,8 +87,8 @@ TflipFlop.prototype.resolve = function () {
         simulationArea.simulationQueue.add(this.qOutput);
         simulationArea.simulationQueue.add(this.qInvOutput);
     }
-};
-TflipFlop.prototype.customSave = function () {
+}
+TflipFlop.prototype.customSave = function() {
     var data = {
         nodes: {
             clockInp: findNode(this.clockInp),
@@ -96,14 +99,16 @@ TflipFlop.prototype.customSave = function () {
             preset: findNode(this.preset),
             en: findNode(this.en),
         },
-        constructorParamaters: [this.direction, this.bitWidth],
-    };
+        constructorParamaters: [this.direction, this.bitWidth]
+
+    }
     return data;
-};
-TflipFlop.prototype.customDraw = function () {
+}
+TflipFlop.prototype.customDraw = function() {
+
     ctx = simulationArea.context;
     ctx.beginPath();
-    ctx.strokeStyle = "rgba(0,0,0,1)";
+    ctx.strokeStyle = ("rgba(0,0,0,1)");
     ctx.fillStyle = "white";
     ctx.lineWidth = correctWidth(3);
     var xx = this.x;
@@ -112,6 +117,7 @@ TflipFlop.prototype.customDraw = function () {
     moveTo(ctx, -20, 5, xx, yy, this.direction);
     lineTo(ctx, -15, 10, xx, yy, this.direction);
     lineTo(ctx, -20, 15, xx, yy, this.direction);
+
 
     // if ((this.b.hover&&!simulationArea.shiftDown)|| simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = "rgba(255, 255, 32,0.8)";ctx.fill();
     ctx.stroke();
@@ -122,7 +128,8 @@ TflipFlop.prototype.customDraw = function () {
     ctx.textAlign = "center";
     fillText(ctx, this.slaveState.toString(16), xx, yy + 5);
     ctx.fill();
-};
+
+}
 
 function DflipFlop(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
     CircuitElement.call(this, x, y, scope, dir, bitWidth);
@@ -141,32 +148,34 @@ function DflipFlop(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
     this.prevClockState = 0;
 
     this.wasClicked = false;
+
 }
 DflipFlop.prototype = Object.create(CircuitElement.prototype);
 DflipFlop.prototype.constructor = DflipFlop;
-DflipFlop.prototype.tooltipText =
-    "D FlipFlop ToolTip : Introduces delay in timing circuit.";
-DflipFlop.prototype.isResolvable = function () {
-    return true;
+DflipFlop.prototype.tooltipText = "D FlipFlop ToolTip : Introduces delay in timing circuit.";
+DflipFlop.prototype.isResolvable = function() {
+	return true;
     if (this.reset.value == 1) return true;
-    if (this.clockInp.value != undefined && this.dInp.value != undefined)
-        return true;
+    if (this.clockInp.value != undefined && this.dInp.value != undefined ) return true;
     return false;
-};
-DflipFlop.prototype.newBitWidth = function (bitWidth) {
+}
+DflipFlop.prototype.newBitWidth = function(bitWidth) {
     this.bitWidth = bitWidth;
     this.dInp.bitWidth = bitWidth;
     this.qOutput.bitWidth = bitWidth;
     this.qInvOutput.bitWidth = bitWidth;
     this.preset.bitWidth = bitWidth;
-};
-DflipFlop.prototype.resolve = function () {
+}
+DflipFlop.prototype.resolve = function() {
     if (this.reset.value == 1) {
-        this.masterState = this.slaveState = this.preset.value || 0;
-    } else if (this.en.value == 0) {
+        this.masterState = this.slaveState = (this.preset.value||0);
+    }
+    else if (this.en.value == 0) {
+
         this.prevClockState = this.clockInp.value;
-    } else if (this.en.value == 1 || this.en.connections.length == 0) {
-        // if(this.en.value==1) // Creating Infinite Loop, WHY ??
+
+    }
+    else if (this.en.value == 1 || this.en.connections.length == 0) { // if(this.en.value==1) // Creating Infinite Loop, WHY ??
 
         if (this.clockInp.value == this.prevClockState) {
             if (this.clockInp.value == 0 && this.dInp.value != undefined) {
@@ -175,10 +184,7 @@ DflipFlop.prototype.resolve = function () {
         } else if (this.clockInp.value != undefined) {
             if (this.clockInp.value == 1) {
                 this.slaveState = this.masterState;
-            } else if (
-                this.clockInp.value == 0 &&
-                this.dInp.value != undefined
-            ) {
+            } else if (this.clockInp.value == 0 && this.dInp.value != undefined) {
                 this.masterState = this.dInp.value;
             }
             this.prevClockState = this.clockInp.value;
@@ -191,8 +197,8 @@ DflipFlop.prototype.resolve = function () {
         simulationArea.simulationQueue.add(this.qOutput);
         simulationArea.simulationQueue.add(this.qInvOutput);
     }
-};
-DflipFlop.prototype.customSave = function () {
+}
+DflipFlop.prototype.customSave = function() {
     var data = {
         nodes: {
             clockInp: findNode(this.clockInp),
@@ -203,14 +209,16 @@ DflipFlop.prototype.customSave = function () {
             preset: findNode(this.preset),
             en: findNode(this.en),
         },
-        constructorParamaters: [this.direction, this.bitWidth],
-    };
+        constructorParamaters: [this.direction, this.bitWidth]
+
+    }
     return data;
-};
-DflipFlop.prototype.customDraw = function () {
+}
+DflipFlop.prototype.customDraw = function() {
+
     ctx = simulationArea.context;
     ctx.beginPath();
-    ctx.strokeStyle = "rgba(0,0,0,1)";
+    ctx.strokeStyle = ("rgba(0,0,0,1)");
     ctx.fillStyle = "white";
     ctx.lineWidth = correctWidth(3);
     var xx = this.x;
@@ -219,6 +227,7 @@ DflipFlop.prototype.customDraw = function () {
     moveTo(ctx, -20, 5, xx, yy, this.direction);
     lineTo(ctx, -15, 10, xx, yy, this.direction);
     lineTo(ctx, -20, 15, xx, yy, this.direction);
+
 
     // if ((this.b.hover&&!simulationArea.shiftDown)|| simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = "rgba(255, 255, 32,0.8)";ctx.fill();
     ctx.stroke();
@@ -229,7 +238,8 @@ DflipFlop.prototype.customDraw = function () {
     ctx.textAlign = "center";
     fillText(ctx, this.slaveState.toString(16), xx, yy + 5);
     ctx.fill();
-};
+
+}
 
 function Dlatch(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
     CircuitElement.call(this, x, y, scope, dir, bitWidth);
@@ -246,25 +256,27 @@ function Dlatch(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
     this.state = 0;
     this.prevClockState = 0;
     this.wasClicked = false;
+
 }
 Dlatch.prototype = Object.create(CircuitElement.prototype);
 Dlatch.prototype.constructor = Dlatch;
 Dlatch.prototype.tooltipText = "D Latch : Single input Flip flop or D FlipFlop";
-Dlatch.prototype.isResolvable = function () {
-    if (this.clockInp.value != undefined && this.dInp.value != undefined)
-        return true;
+Dlatch.prototype.isResolvable = function() {
+    if (this.clockInp.value != undefined && this.dInp.value != undefined ) return true;
     return false;
-};
-Dlatch.prototype.newBitWidth = function (bitWidth) {
+}
+Dlatch.prototype.newBitWidth = function(bitWidth) {
     this.bitWidth = bitWidth;
     this.dInp.bitWidth = bitWidth;
     this.qOutput.bitWidth = bitWidth;
     this.qInvOutput.bitWidth = bitWidth;
     // this.preset.bitWidth = bitWidth;
-};
-Dlatch.prototype.resolve = function () {
-    if (this.clockInp.value == 1 && this.dInp.value != undefined) {
-        this.state = this.dInp.value;
+}
+Dlatch.prototype.resolve = function() {
+
+
+    if (this.clockInp.value == 1 && this.dInp.value!=undefined) {
+        this.state = this.dInp.value
     }
 
     if (this.qOutput.value != this.state) {
@@ -273,8 +285,8 @@ Dlatch.prototype.resolve = function () {
         simulationArea.simulationQueue.add(this.qOutput);
         simulationArea.simulationQueue.add(this.qInvOutput);
     }
-};
-Dlatch.prototype.customSave = function () {
+}
+Dlatch.prototype.customSave = function() {
     var data = {
         nodes: {
             clockInp: findNode(this.clockInp),
@@ -285,14 +297,16 @@ Dlatch.prototype.customSave = function () {
             // preset: findNode(this.preset),
             // en: findNode(this.en),
         },
-        constructorParamaters: [this.direction, this.bitWidth],
-    };
+        constructorParamaters: [this.direction, this.bitWidth]
+
+    }
     return data;
-};
-Dlatch.prototype.customDraw = function () {
+}
+Dlatch.prototype.customDraw = function() {
+
     ctx = simulationArea.context;
     ctx.beginPath();
-    ctx.strokeStyle = "rgba(0,0,0,1)";
+    ctx.strokeStyle = ("rgba(0,0,0,1)");
     ctx.fillStyle = "white";
     ctx.lineWidth = correctWidth(3);
     var xx = this.x;
@@ -301,6 +315,7 @@ Dlatch.prototype.customDraw = function () {
     moveTo(ctx, -20, 5, xx, yy, this.direction);
     lineTo(ctx, -15, 10, xx, yy, this.direction);
     lineTo(ctx, -20, 15, xx, yy, this.direction);
+
 
     // if ((this.b.hover&&!simulationArea.shiftDown)|| simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = "rgba(255, 255, 32,0.8)";ctx.fill();
     ctx.stroke();
@@ -311,7 +326,9 @@ Dlatch.prototype.customDraw = function () {
     ctx.textAlign = "center";
     fillText(ctx, this.state.toString(16), xx, yy + 5);
     ctx.fill();
-};
+
+}
+
 
 function Random(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
     CircuitElement.call(this, x, y, scope, dir, bitWidth);
@@ -326,31 +343,27 @@ function Random(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
     this.prevClockState = 0;
 
     this.wasClicked = false;
+
 }
 Random.prototype = Object.create(CircuitElement.prototype);
 Random.prototype.constructor = Random;
-Random.prototype.isResolvable = function () {
-    if (
-        this.clockInp.value != undefined &&
-        (this.maxValue.value != undefined ||
-            this.maxValue.connections.length == 0)
-    )
+Random.prototype.isResolvable = function() {
+    if (this.clockInp.value != undefined && ( this.maxValue.value != undefined || this.maxValue.connections.length == 0 ) )
         return true;
     return false;
 };
-Random.prototype.newBitWidth = function (bitWidth) {
+Random.prototype.newBitWidth = function(bitWidth) {
     this.bitWidth = bitWidth;
     this.maxValue.bitWidth = bitWidth;
     this.output.bitWidth = bitWidth;
 };
-Random.prototype.resolve = function () {
+Random.prototype.resolve = function() {
     //console.log("HIT")
-    var maxValue = this.maxValue.connections.length
-        ? this.maxValue.value + 1
-        : 2 << (this.bitWidth - 1);
+    var maxValue = this.maxValue.connections.length ? this.maxValue.value + 1 : (2<<(this.bitWidth-1)) ;
+
 
     if (this.clockInp.value != undefined) {
-        if (this.clockInp.value != this.prevClockState) {
+        if(this.clockInp.value!=this.prevClockState) {
             if (this.clockInp.value == 1) {
                 this.currentRandomNo = Math.floor(Math.random() * maxValue);
             }
@@ -358,23 +371,25 @@ Random.prototype.resolve = function () {
         }
     }
 
+
     if (this.output.value != this.currentRandomNo) {
         this.output.value = this.currentRandomNo;
         simulationArea.simulationQueue.add(this.output);
     }
-};
-Random.prototype.customSave = function () {
+}
+Random.prototype.customSave = function() {
     var data = {
         nodes: {
             clockInp: findNode(this.clockInp),
             maxValue: findNode(this.maxValue),
             output: findNode(this.output),
         },
-        constructorParamaters: [this.direction, this.bitWidth],
-    };
+        constructorParamaters: [this.direction, this.bitWidth]
+
+    }
     return data;
-};
-Random.prototype.customDraw = function () {
+}
+Random.prototype.customDraw = function() {
     ctx = simulationArea.context;
     ctx.beginPath();
     xx = this.x;
@@ -390,7 +405,9 @@ Random.prototype.customDraw = function () {
     lineTo(ctx, -15, 10, xx, yy, this.direction);
     lineTo(ctx, -20, 15, xx, yy, this.direction);
     ctx.stroke();
-};
+
+
+}
 
 function SRflipFlop(x, y, scope = globalScope, dir = "RIGHT") {
     CircuitElement.call(this, x, y, scope, dir, 1);
@@ -410,31 +427,34 @@ function SRflipFlop(x, y, scope = globalScope, dir = "RIGHT") {
     // this.prevClockState = 0;
 
     // this.wasClicked = false;
+
 }
 SRflipFlop.prototype = Object.create(CircuitElement.prototype);
 SRflipFlop.prototype.constructor = SRflipFlop;
-SRflipFlop.prototype.tooltipText =
-    "SR FlipFlop ToolTip : SR FlipFlop Selected.";
-SRflipFlop.prototype.newBitWidth = function (bitWidth) {
+SRflipFlop.prototype.tooltipText = "SR FlipFlop ToolTip : SR FlipFlop Selected.";
+SRflipFlop.prototype.newBitWidth = function(bitWidth) {
     this.bitWidth = bitWidth;
     this.dInp.bitWidth = bitWidth;
     this.qOutput.bitWidth = bitWidth;
     this.qInvOutput.bitWidth = bitWidth;
     this.preset.bitWidth = bitWidth;
-};
-SRflipFlop.prototype.isResolvable = function () {
+}
+SRflipFlop.prototype.isResolvable = function() {
     return true;
     if (this.reset.value == 1) return true;
     if (this.S.value != undefined && this.R.value != undefined) return true;
     return false;
-};
-SRflipFlop.prototype.resolve = function () {
+}
+SRflipFlop.prototype.resolve = function() {
+
     if (this.reset.value == 1) {
+
         this.state = this.preset.value || 0;
-    } else if (
-        (this.en.value == 1 || this.en.connections == 0) &&
-        this.S.value ^ this.R.value
-    ) {
+
+
+    }
+
+    else if ((this.en.value ==1||this.en.connections==0) && this.S.value ^ this.R.value) {
         this.state = this.S.value;
     }
 
@@ -445,8 +465,8 @@ SRflipFlop.prototype.resolve = function () {
         simulationArea.simulationQueue.add(this.qOutput);
         simulationArea.simulationQueue.add(this.qInvOutput);
     }
-};
-SRflipFlop.prototype.customSave = function () {
+}
+SRflipFlop.prototype.customSave = function() {
     var data = {
         nodes: {
             S: findNode(this.S),
@@ -457,14 +477,16 @@ SRflipFlop.prototype.customSave = function () {
             preset: findNode(this.preset),
             en: findNode(this.en),
         },
-        constructorParamaters: [this.direction],
-    };
+        constructorParamaters: [this.direction]
+
+    }
     return data;
-};
-SRflipFlop.prototype.customDraw = function () {
+}
+SRflipFlop.prototype.customDraw = function() {
+
     ctx = simulationArea.context;
     ctx.beginPath();
-    ctx.strokeStyle = "rgba(0,0,0,1)";
+    ctx.strokeStyle = ("rgba(0,0,0,1)");
     ctx.fillStyle = "white";
     ctx.lineWidth = correctWidth(3);
     var xx = this.x;
@@ -475,6 +497,7 @@ SRflipFlop.prototype.customDraw = function () {
     // lineTo(ctx, -15, 10, xx, yy, this.direction);
     // lineTo(ctx, -20, 15, xx, yy, this.direction);
 
+
     // if ((this.b.hover&&!simulationArea.shiftDown)|| simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = "rgba(255, 255, 32,0.8)";ctx.fill();
     ctx.stroke();
 
@@ -484,7 +507,8 @@ SRflipFlop.prototype.customDraw = function () {
     ctx.textAlign = "center";
     fillText(ctx, this.state.toString(16), xx, yy + 5);
     ctx.fill();
-};
+
+}
 
 function JKflipFlop(x, y, scope = globalScope, dir = "RIGHT") {
     CircuitElement.call(this, x, y, scope, dir, 1);
@@ -506,40 +530,35 @@ function JKflipFlop(x, y, scope = globalScope, dir = "RIGHT") {
     this.prevClockState = 0;
 
     // this.wasClicked = false;
+
 }
 JKflipFlop.prototype = Object.create(CircuitElement.prototype);
 JKflipFlop.prototype.constructor = JKflipFlop;
-JKflipFlop.prototype.tooltipText =
-    "JK FlipFlop ToolTip : gated SR flip-flop with the addition of a clock input.";
-JKflipFlop.prototype.isResolvable = function () {
+JKflipFlop.prototype.tooltipText = "JK FlipFlop ToolTip : gated SR flip-flop with the addition of a clock input.";
+JKflipFlop.prototype.isResolvable = function() {
     if (this.reset.value == 1) return true;
-    if (
-        this.clockInp.value != undefined &&
-        this.J.value != undefined &&
-        this.K.value != undefined
-    )
-        return true;
+    if (this.clockInp.value != undefined && this.J.value != undefined && this.K.value != undefined) return true;
     return false;
-};
-JKflipFlop.prototype.newBitWidth = function (bitWidth) {
+}
+JKflipFlop.prototype.newBitWidth = function(bitWidth) {
     this.bitWidth = bitWidth;
     this.dInp.bitWidth = bitWidth;
     this.qOutput.bitWidth = bitWidth;
     this.qInvOutput.bitWidth = bitWidth;
     this.preset.bitWidth = bitWidth;
-};
-JKflipFlop.prototype.resolve = function () {
+}
+JKflipFlop.prototype.resolve = function() {
     if (this.reset.value == 1) {
+
         this.masterState = this.slaveState = this.preset.value || 0;
+
     } else if (this.en.value == 0) {
+
         this.prevClockState = this.clockInp.value;
+
     } else if (this.en.value == 1 || this.en.connections.length == 0) {
         if (this.clockInp.value == this.prevClockState) {
-            if (
-                this.clockInp.value == 0 &&
-                this.J.value != undefined &&
-                this.K.value != undefined
-            ) {
+            if (this.clockInp.value == 0 && this.J.value != undefined && this.K.value != undefined) {
                 if (this.J.value && this.K.value)
                     this.masterState = 1 ^ this.slaveState;
                 else if (this.J.value ^ this.K.value)
@@ -548,11 +567,7 @@ JKflipFlop.prototype.resolve = function () {
         } else if (this.clockInp.value != undefined) {
             if (this.clockInp.value == 1) {
                 this.slaveState = this.masterState;
-            } else if (
-                this.clockInp.value == 0 &&
-                this.J.value != undefined &&
-                this.K.value != undefined
-            ) {
+            } else if (this.clockInp.value == 0 && this.J.value != undefined && this.K.value != undefined) {
                 if (this.J.value && this.K.value)
                     this.masterState = 1 ^ this.slaveState;
                 else if (this.J.value ^ this.K.value)
@@ -560,6 +575,7 @@ JKflipFlop.prototype.resolve = function () {
             }
             this.prevClockState = this.clockInp.value;
         }
+
     }
 
     if (this.qOutput.value != this.slaveState) {
@@ -568,8 +584,10 @@ JKflipFlop.prototype.resolve = function () {
         simulationArea.simulationQueue.add(this.qOutput);
         simulationArea.simulationQueue.add(this.qInvOutput);
     }
-};
-JKflipFlop.prototype.customSave = function () {
+
+
+}
+JKflipFlop.prototype.customSave = function() {
     var data = {
         nodes: {
             J: findNode(this.J),
@@ -581,14 +599,16 @@ JKflipFlop.prototype.customSave = function () {
             preset: findNode(this.preset),
             en: findNode(this.en),
         },
-        constructorParamaters: [this.direction],
-    };
+        constructorParamaters: [this.direction]
+
+    }
     return data;
-};
-JKflipFlop.prototype.customDraw = function () {
+}
+JKflipFlop.prototype.customDraw = function() {
+
     ctx = simulationArea.context;
     ctx.beginPath();
-    ctx.strokeStyle = "rgba(0,0,0,1)";
+    ctx.strokeStyle = ("rgba(0,0,0,1)");
     ctx.fillStyle = "white";
     ctx.lineWidth = correctWidth(3);
     var xx = this.x;
@@ -599,6 +619,7 @@ JKflipFlop.prototype.customDraw = function () {
     lineTo(ctx, -15, 10, xx, yy, this.direction);
     lineTo(ctx, -20, 15, xx, yy, this.direction);
 
+
     // if ((this.b.hover&&!simulationArea.shiftDown)|| simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = "rgba(255, 255, 32,0.8)";ctx.fill();
     ctx.stroke();
 
@@ -608,7 +629,8 @@ JKflipFlop.prototype.customDraw = function () {
     ctx.textAlign = "center";
     fillText(ctx, this.slaveState.toString(16), xx, yy + 5);
     ctx.fill();
-};
+
+}
 
 function TTY(x, y, scope = globalScope, rows = 3, cols = 32) {
     CircuitElement.call(this, x, y, scope, "RIGHT", 1);
@@ -618,110 +640,69 @@ function TTY(x, y, scope = globalScope, rows = 3, cols = 32) {
     this.rows = rows || parseInt(prompt("Enter rows:"));
 
     this.elementWidth = Math.max(40, Math.ceil(this.cols / 2) * 20);
-    this.elementHeight = Math.max(40, Math.ceil((this.rows * 15) / 20) * 20);
+    this.elementHeight = Math.max(40, Math.ceil(this.rows * 15 / 20) * 20);
     this.setWidth(this.elementWidth / 2);
     this.setHeight(this.elementHeight / 2);
     // this.element = new Element(x, y, "TTY",this.elementWidth/2, this,this.elementHeight/2);
 
-    this.clockInp = new Node(
-        -this.elementWidth / 2,
-        this.elementHeight / 2 - 10,
-        0,
-        this,
-        1,
-        "Clock"
-    );
-    this.asciiInp = new Node(
-        -this.elementWidth / 2,
-        this.elementHeight / 2 - 30,
-        0,
-        this,
-        7,
-        "Ascii Input"
-    );
+    this.clockInp = new Node(-this.elementWidth / 2, this.elementHeight / 2 - 10, 0, this, 1,"Clock");
+    this.asciiInp = new Node(-this.elementWidth / 2, this.elementHeight / 2 - 30, 0, this, 7,"Ascii Input");
     // this.qOutput = new Node(20, -10, 1, this);
-    this.reset = new Node(
-        30 - this.elementWidth / 2,
-        this.elementHeight / 2,
-        0,
-        this,
-        1,
-        "Reset"
-    );
-    this.en = new Node(
-        10 - this.elementWidth / 2,
-        this.elementHeight / 2,
-        0,
-        this,
-        1,
-        "Enable"
-    );
+    this.reset = new Node(30 - this.elementWidth / 2, this.elementHeight / 2, 0, this, 1,"Reset");
+    this.en = new Node(10 - this.elementWidth / 2, this.elementHeight / 2, 0, this, 1,"Enable");
     // this.masterState = 0;
     // this.slaveState = 0;
     this.prevClockState = 0;
 
     this.data = "";
     this.buffer = "";
+
+
 }
 TTY.prototype = Object.create(CircuitElement.prototype);
 TTY.prototype.constructor = TTY;
 TTY.prototype.tooltipText = "TTY ToolTip : Tele typewriter selected.";
-TTY.prototype.changeRowSize = function (size) {
+TTY.prototype.changeRowSize = function(size) {
     if (size == undefined || size < 1 || size > 10) return;
     if (this.rows == size) return;
-    var obj = new window[this.objectType](
-        this.x,
-        this.y,
-        this.scope,
-        size,
-        this.cols
-    );
+    var obj = new window[this.objectType](this.x, this.y, this.scope, size, this.cols);
     this.delete();
     simulationArea.lastSelected = obj;
     return obj;
-};
-TTY.prototype.changeColSize = function (size) {
+}
+TTY.prototype.changeColSize = function(size) {
     if (size == undefined || size < 20 || size > 100) return;
     if (this.cols == size) return;
-    var obj = new window[this.objectType](
-        this.x,
-        this.y,
-        this.scope,
-        this.rows,
-        size
-    );
+    var obj = new window[this.objectType](this.x, this.y, this.scope, this.rows, size);
     this.delete();
     simulationArea.lastSelected = obj;
     return obj;
-};
+}
 TTY.prototype.mutableProperties = {
-    cols: {
+    "cols": {
         name: "Columns",
         type: "number",
         max: "100",
         min: "20",
         func: "changeColSize",
     },
-    rows: {
+    "rows": {
         name: "Rows",
         type: "number",
         max: "10",
         min: "1",
         func: "changeRowSize",
-    },
-};
-TTY.prototype.isResolvable = function () {
+    }
+}
+TTY.prototype.isResolvable = function() {
     if (this.reset.value == 1) return true;
-    else if (
-        this.en.value == 0 ||
-        (this.en.connections.length && this.en.value == undefined)
-    )
-        return false;
+    else if (this.en.value == 0||(this.en.connections.length&&this.en.value==undefined)) return false;
     else if (this.clockInp.value == undefined) return false;
     else if (this.asciiInp.value == undefined) return false;
     return true;
-};
-TTY.prototype.resolve = function () {
+}
+TTY.prototype.resolve = function() {
+
     if (this.reset.value == 1) {
         this.data = "";
         return;
@@ -745,53 +726,35 @@ TTY.prototype.resolve = function () {
         }
         this.prevClockState = this.clockInp.value;
     }
-};
-TTY.prototype.customSave = function () {
+
+}
+TTY.prototype.customSave = function() {
     var data = {
         nodes: {
             clockInp: findNode(this.clockInp),
             asciiInp: findNode(this.asciiInp),
             reset: findNode(this.reset),
-            en: findNode(this.en),
+            en: findNode(this.en)
         },
         constructorParamaters: [this.rows, this.cols],
-    };
+    }
     return data;
-};
-TTY.prototype.customDraw = function () {
+}
+TTY.prototype.customDraw = function() {
+
     ctx = simulationArea.context;
     ctx.beginPath();
-    ctx.strokeStyle = "rgba(0,0,0,1)";
+    ctx.strokeStyle = ("rgba(0,0,0,1)");
     ctx.fillStyle = "white";
     ctx.lineWidth = correctWidth(3);
     var xx = this.x;
     var yy = this.y;
     // rect(ctx, xx - this.elementWidth/2, yy - this.elementHeight/2, this.elementWidth, this.elementHeight);
 
-    moveTo(
-        ctx,
-        -this.elementWidth / 2,
-        this.elementHeight / 2 - 15,
-        xx,
-        yy,
-        this.direction
-    );
-    lineTo(
-        ctx,
-        5 - this.elementWidth / 2,
-        this.elementHeight / 2 - 10,
-        xx,
-        yy,
-        this.direction
-    );
-    lineTo(
-        ctx,
-        -this.elementWidth / 2,
-        this.elementHeight / 2 - 5,
-        xx,
-        yy,
-        this.direction
-    );
+    moveTo(ctx, -this.elementWidth / 2, this.elementHeight / 2 - 15, xx, yy, this.direction);
+    lineTo(ctx, 5 - this.elementWidth / 2, this.elementHeight / 2 - 10, xx, yy, this.direction);
+    lineTo(ctx, -this.elementWidth / 2, this.elementHeight / 2 - 5, xx, yy, this.direction);
+
 
     // if ((this.b.hover&&!simulationArea.shiftDown)|| simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this))
     //     ctx.fillStyle = "rgba(255, 255, 32,0.8)";
@@ -803,24 +766,17 @@ TTY.prototype.customDraw = function () {
     ctx.textAlign = "center";
     var startY = -7.5 * this.rows + 3;
     for (var i = 0; i < this.data.length; i += this.cols) {
+
         var lineData = this.data.slice(i, i + this.cols);
-        lineData += " ".repeat(this.cols - lineData.length);
-        fillText3(
-            ctx,
-            lineData,
-            0,
-            startY + (i / this.cols) * 15 + 9,
-            xx,
-            yy,
-            (fontSize = 15),
-            (font = "Courier New"),
-            (textAlign = "center")
-        );
+        lineData += ' '.repeat(this.cols - lineData.length);
+        fillText3(ctx, lineData, 0, startY + (i / this.cols) * 15 + 9, xx, yy, fontSize = 15, font = "Courier New", textAlign = "center");
     }
     ctx.fill();
-};
+
+}
 
 function Keyboard(x, y, scope = globalScope, bufferSize = 32) {
+
     CircuitElement.call(this, x, y, scope, "RIGHT", 1);
     this.directionFixed = true;
     this.fixedBitWidth = true;
@@ -831,74 +787,53 @@ function Keyboard(x, y, scope = globalScope, bufferSize = 32) {
     this.setWidth(this.elementWidth / 2);
     this.setHeight(this.elementHeight / 2);
 
-    this.clockInp = new Node(
-        -this.elementWidth / 2,
-        this.elementHeight / 2 - 10,
-        0,
-        this,
-        1,
-        "Clock"
-    );
-    this.asciiOutput = new Node(
-        30,
-        this.elementHeight / 2,
-        1,
-        this,
-        7,
-        "Ascii Output"
-    );
-    this.available = new Node(
-        10,
-        this.elementHeight / 2,
-        1,
-        this,
-        1,
-        "Available"
-    );
-    this.reset = new Node(-10, this.elementHeight / 2, 0, this, 1, "Reset");
-    this.en = new Node(-30, this.elementHeight / 2, 0, this, 1, "Enable");
+    this.clockInp = new Node(-this.elementWidth / 2, this.elementHeight / 2 - 10, 0, this, 1,"Clock");
+    this.asciiOutput = new Node(30, this.elementHeight / 2, 1, this, 7,"Ascii Output");
+    this.available = new Node(10, this.elementHeight / 2, 1, this, 1,"Available");
+    this.reset = new Node(-10, this.elementHeight / 2, 0, this, 1,"Reset");
+    this.en = new Node(-30, this.elementHeight / 2, 0, this, 1,"Enable");
     this.prevClockState = 0;
     this.buffer = "";
     this.bufferOutValue = undefined;
+
+
 }
 Keyboard.prototype = Object.create(CircuitElement.prototype);
 Keyboard.prototype.constructor = Keyboard;
 Keyboard.prototype.tooltipText = "Keyboard";
-Keyboard.prototype.changeBufferSize = function (size) {
+Keyboard.prototype.changeBufferSize = function(size) {
     if (size == undefined || size < 20 || size > 100) return;
     if (this.bufferSize == size) return;
     var obj = new window[this.objectType](this.x, this.y, this.scope, size);
     this.delete();
     simulationArea.lastSelected = obj;
     return obj;
-};
+}
 Keyboard.prototype.mutableProperties = {
-    bufferSize: {
+    "bufferSize": {
         name: "Buffer Size",
         type: "number",
         max: "100",
         min: "20",
         func: "changeBufferSize",
-    },
-};
-Keyboard.prototype.keyDown = function (key) {
+    }
+}
+Keyboard.prototype.keyDown = function(key) {
     if (key.length != 1) return;
     this.buffer += key;
     if (this.buffer.length > this.bufferSize)
         this.buffer = this.buffer.slice(1);
     //console.log(key)
-};
-Keyboard.prototype.isResolvable = function () {
+
+}
+Keyboard.prototype.isResolvable = function() {
     if (this.reset.value == 1) return true;
-    else if (
-        this.en.value == 0 ||
-        (this.en.connections.length && this.en.value == undefined)
-    )
-        return false;
+    else if (this.en.value == 0||(this.en.connections.length&&this.en.value==undefined)) return false;
     else if (this.clockInp.value == undefined) return false;
     return true;
-};
-Keyboard.prototype.resolve = function () {
+}
+Keyboard.prototype.resolve = function() {
+
     if (this.reset.value == 1) {
         this.buffer = "";
         return;
@@ -921,9 +856,9 @@ Keyboard.prototype.resolve = function () {
             }
         }
     } else if (this.clockInp.value != undefined) {
+
         if (this.clockInp.value == 1 && this.buffer.length) {
-            if (this.bufferOutValue == this.buffer[0].charCodeAt(0)) {
-                // WHY IS THIS REQUIRED ??
+            if (this.bufferOutValue == this.buffer[0].charCodeAt(0)) { // WHY IS THIS REQUIRED ??
                 this.buffer = this.buffer.slice(1);
             }
         } else {
@@ -945,73 +880,43 @@ Keyboard.prototype.resolve = function () {
         this.available.value = 1; //this.bufferOutValue;
         simulationArea.simulationQueue.add(this.available);
     }
-};
-Keyboard.prototype.customSave = function () {
+
+}
+Keyboard.prototype.customSave = function() {
     var data = {
         nodes: {
             clockInp: findNode(this.clockInp),
             asciiOutput: findNode(this.asciiOutput),
             available: findNode(this.available),
             reset: findNode(this.reset),
-            en: findNode(this.en),
+            en: findNode(this.en)
         },
-        constructorParamaters: [this.bufferSize],
-    };
+        constructorParamaters: [this.bufferSize]
+    }
     return data;
-};
-Keyboard.prototype.customDraw = function () {
+}
+Keyboard.prototype.customDraw = function() {
+
     ctx = simulationArea.context;
     ctx.beginPath();
-    ctx.strokeStyle = "rgba(0,0,0,1)";
+    ctx.strokeStyle = ("rgba(0,0,0,1)");
     ctx.fillStyle = "white";
     ctx.lineWidth = correctWidth(3);
     var xx = this.x;
     var yy = this.y;
-    moveTo(
-        ctx,
-        -this.elementWidth / 2,
-        this.elementHeight / 2 - 15,
-        xx,
-        yy,
-        this.direction
-    );
-    lineTo(
-        ctx,
-        5 - this.elementWidth / 2,
-        this.elementHeight / 2 - 10,
-        xx,
-        yy,
-        this.direction
-    );
-    lineTo(
-        ctx,
-        -this.elementWidth / 2,
-        this.elementHeight / 2 - 5,
-        xx,
-        yy,
-        this.direction
-    );
+    moveTo(ctx, -this.elementWidth / 2, this.elementHeight / 2 - 15, xx, yy, this.direction);
+    lineTo(ctx, 5 - this.elementWidth / 2, this.elementHeight / 2 - 10, xx, yy, this.direction);
+    lineTo(ctx, -this.elementWidth / 2, this.elementHeight / 2 - 5, xx, yy, this.direction);
 
     ctx.stroke();
 
     ctx.beginPath();
     ctx.fillStyle = "green";
     ctx.textAlign = "center";
-    var lineData =
-        this.buffer + " ".repeat(this.bufferSize - this.buffer.length);
-    fillText3(
-        ctx,
-        lineData,
-        0,
-        +5,
-        xx,
-        yy,
-        (fontSize = 15),
-        (font = "Courier New"),
-        (textAlign = "center")
-    );
+    var lineData = this.buffer + ' '.repeat(this.bufferSize - this.buffer.length);
+    fillText3(ctx, lineData, 0, +5, xx, yy, fontSize = 15, font = "Courier New", textAlign = "center");
     ctx.fill();
-};
+}
 
 function Clock(x, y, scope = globalScope, dir = "RIGHT") {
     CircuitElement.call(this, x, y, scope, dir, 1);
@@ -1021,32 +926,33 @@ function Clock(x, y, scope = globalScope, dir = "RIGHT") {
     this.output1.value = this.state;
     this.wasClicked = false;
     this.interval = null;
+
 }
 Clock.prototype = Object.create(CircuitElement.prototype);
 Clock.prototype.constructor = Clock;
 Clock.prototype.tooltipText = "Clock";
-Clock.prototype.customSave = function () {
+Clock.prototype.customSave = function() {
     var data = {
         nodes: {
-            output1: findNode(this.output1),
+            output1: findNode(this.output1)
         },
         constructorParamaters: [this.direction],
-    };
+    }
     return data;
-};
-Clock.prototype.resolve = function () {
+}
+Clock.prototype.resolve = function() {
     this.output1.value = this.state;
     simulationArea.simulationQueue.add(this.output1);
-};
-Clock.prototype.toggleState = function () {
-    //toggleState
+}
+Clock.prototype.toggleState = function() { //toggleState
     this.state = (this.state + 1) % 2;
     this.output1.value = this.state;
-};
+}
 Clock.prototype.click = Clock.prototype.toggleState;
-Clock.prototype.customDraw = function () {
+Clock.prototype.customDraw = function() {
+
     ctx = simulationArea.context;
-    ctx.strokeStyle = "rgba(0,0,0,1)";
+    ctx.strokeStyle = ("rgba(0,0,0,1)");
     ctx.fillStyle = "white";
     ctx.lineWidth = correctWidth(3);
     var xx = this.x;
@@ -1062,6 +968,7 @@ Clock.prototype.customDraw = function () {
         lineTo(ctx, 0, -5, xx, yy, "RIGHT");
         lineTo(ctx, 6, -5, xx, yy, "RIGHT");
         lineTo(ctx, 6, 0, xx, yy, "RIGHT");
+
     } else {
         moveTo(ctx, -6, 0, xx, yy, "RIGHT");
         lineTo(ctx, -6, -5, xx, yy, "RIGHT");
@@ -1071,4 +978,5 @@ Clock.prototype.customDraw = function () {
         lineTo(ctx, 6, 0, xx, yy, "RIGHT");
     }
     ctx.stroke();
-};
+
+}

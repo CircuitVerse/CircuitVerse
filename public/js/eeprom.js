@@ -11,35 +11,26 @@
  *
  * These two techniques help keep reduce the size of saved projects.
  */
-function EEPROM(
-    x,
-    y,
-    scope = globalScope,
-    dir = "RIGHT",
-    bitWidth = 8,
-    addressWidth = 8,
-    data = null
-) {
+function EEPROM(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 8, addressWidth = 8, data = null) {
     RAM.call(this, x, y, scope, dir, bitWidth, addressWidth);
     this.data = data || this.data;
 }
 EEPROM.prototype = Object.create(RAM.prototype);
-EEPROM.prototype.tooltipText =
-    "Electrically Erasable Programmable Read-Only Memory";
+EEPROM.prototype.tooltipText = "Electrically Erasable Programmable Read-Only Memory";
 EEPROM.prototype.constructor = EEPROM;
 EEPROM.prototype.shortName = "EEPROM";
 EEPROM.prototype.maxAddressWidth = 10;
 EEPROM.prototype.mutableProperties = {
-    addressWidth: {
+    "addressWidth": {
         name: "Address Width",
         type: "number",
         max: "10",
         min: "1",
         func: "changeAddressWidth",
     },
-    dump: RAM.prototype.mutableProperties.dump,
-    reset: RAM.prototype.mutableProperties.reset,
-};
+    "dump": RAM.prototype.mutableProperties.dump,
+    "reset": RAM.prototype.mutableProperties.reset,
+}
 EEPROM.prototype.customSave = function () {
     var saveInfo = RAM.prototype.customSave.call(this);
 
@@ -51,4 +42,5 @@ EEPROM.prototype.customSave = function () {
 
     saveInfo.constructorParamaters.push(data);
     return saveInfo;
-};
+}
+

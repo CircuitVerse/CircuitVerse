@@ -39,7 +39,7 @@
   border-radius: 8px;
   box-shadow: 3px 3px 6px $shadow-black;
   padding: 4px;
-  transition: box-shadow 0.2s ease-in;
+  transition: box-shadow .2s ease-in;
 
   &:hover {
     box-shadow: 0 9px 9px $shadow-black;
@@ -51,7 +51,7 @@
   }
 }
 
-@media (max-width: 350px) {
+@media (max-width:350px) {
   .card-contribute {
     padding-left: 0;
     width: 250px;

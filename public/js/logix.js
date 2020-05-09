@@ -32,24 +32,23 @@ layoutMode = false; // Flag for mode
 
 forceResetNodes = true; // FLag to reset all Nodes
 
+
 //Exact same name as object constructor
 //This list needs to be updated when new circuitselements are created
 
+
 function setupElementLists() {
-    $("#menu").empty();
+
+    $('#menu').empty();
 
     window.circuitElementList = metadata.circuitElementList;
     window.annotationList = metadata.annotationList;
     window.inputList = metadata.inputList;
     window.subCircuitInputList = metadata.subCircuitInputList;
-    window.moduleList = [...circuitElementList, ...annotationList];
-    window.updateOrder = [
-        "wires",
-        ...circuitElementList,
-        "nodes",
-        ...annotationList,
-    ]; // Order of update
-    window.renderOrder = [...moduleList.slice().reverse(), "wires", "allNodes"]; // Order of render
+    window.moduleList = [...circuitElementList, ...annotationList]
+    window.updateOrder = ["wires", ...circuitElementList, "nodes", ...annotationList]; // Order of update
+    window.renderOrder = [...(moduleList.slice().reverse()), "wires", "allNodes"]; // Order of render
+
 
     function createIcon(element) {
         return `<div class="icon logixModules pointerCursor" id="${element}" >
@@ -60,7 +59,7 @@ function setupElementLists() {
 
     let elementHierarchy = metadata.elementHierarchy;
     for (category in elementHierarchy) {
-        let htmlIcons = "";
+        let htmlIcons = '';
 
         let categoryData = elementHierarchy[category];
 
@@ -74,11 +73,15 @@ function setupElementLists() {
               ${htmlIcons}
             </div>`;
 
-        $("#menu").append(accordionData);
+        $('#menu').append(accordionData);
+
     }
+
+
 }
 
 // setupElementLists()
+
 
 // circuitElementList = [
 //     "Input", "Output", "NotGate", "OrGate", "AndGate", "NorGate", "NandGate", "XorGate", "XnorGate", "SevenSegDisplay", "SixteenSegDisplay", "HexDisplay",
@@ -105,43 +108,35 @@ function setupElementLists() {
 //Scope object for each circuit level, globalScope for outer level
 scopeList = {};
 
+
 // Helper function to show error
 function showError(error) {
     errorDetected = true;
     if (error == prevErrorMessage) return;
     prevErrorMessage = error;
     var id = Math.floor(Math.random() * 10000);
-    $("#MessageDiv").append(
-        "<div class='alert alert-danger' role='alert' id='" +
-            id +
-            "'> " +
-            error +
-            "</div>"
-    );
-    setTimeout(function () {
+    $('#MessageDiv').append("<div class='alert alert-danger' role='alert' id='" + id + "'> " + error + "</div>");
+    setTimeout(function() {
         prevErrorMessage = undefined;
-        $("#" + id).fadeOut();
+        $('#' + id).fadeOut();
     }, 1500);
 }
 
 function showRestricted() {
-    $("#restrictedDiv").removeClass("display--none");
+    $('#restrictedDiv').removeClass("display--none");
     // Show no help text for restricted elements
     $("#Help").removeClass("show");
-    $("#restrictedDiv").html(
-        "The element has been restricted by mentor. Usage might lead to deduction in marks"
-    );
+    $('#restrictedDiv').html("The element has been restricted by mentor. Usage might lead to deduction in marks");
 }
 
 function hideRestricted() {
-    $("#restrictedDiv").addClass("display--none");
+    $('#restrictedDiv').addClass("display--none");
 }
 
 function updateRestrictedElementsList() {
     if (restrictedElements.length === 0) return;
 
-    const restrictedCircuitElementsUsed =
-        globalScope.restrictedCircuitElementsUsed;
+    const restrictedCircuitElementsUsed = globalScope.restrictedCircuitElementsUsed;
     let restrictedStr = "";
 
     restrictedCircuitElementsUsed.forEach((element) => {
@@ -156,6 +151,7 @@ function updateRestrictedElementsList() {
 
     $("#restrictedElementsDiv--list").html(restrictedStr);
 }
+
 
 function updateRestrictedElementsInScope(scope = globalScope) {
     // Do nothing if no restricted elements
@@ -175,30 +171,24 @@ function updateRestrictedElementsInScope(scope = globalScope) {
 // Helper function to show message
 function showMessage(mes) {
     if (mes == prevShowMessage) return;
-    prevShowMessage = mes;
+    prevShowMessage = mes
     var id = Math.floor(Math.random() * 10000);
-    $("#MessageDiv").append(
-        "<div class='alert alert-success' role='alert' id='" +
-            id +
-            "'> " +
-            mes +
-            "</div>"
-    );
-    setTimeout(function () {
+    $('#MessageDiv').append("<div class='alert alert-success' role='alert' id='" + id + "'> " + mes + "</div>");
+    setTimeout(function() {
         prevShowMessage = undefined;
-        $("#" + id).fadeOut();
+        $('#' + id).fadeOut()
     }, 2500);
 }
 
 // Helper function to open a new tab
 function openInNewTab(url) {
-    var win = window.open(url, "_blank");
+    var win = window.open(url, '_blank');
     win.focus();
 }
 
 // Following function need to be improved - remove mutability etc
 //fn to remove elem in array
-Array.prototype.clean = function (deleteValue) {
+Array.prototype.clean = function(deleteValue) {
     for (var i = 0; i < this.length; i++) {
         if (this[i] == deleteValue) {
             this.splice(i, 1);
@@ -209,23 +199,23 @@ Array.prototype.clean = function (deleteValue) {
 };
 
 // Following function need to be improved
-Array.prototype.extend = function (other_array) {
+Array.prototype.extend = function(other_array) {
     /* you should include a test to check whether other_array really is an array */
-    other_array.forEach(function (v) {
-        this.push(v);
+    other_array.forEach(function(v) {
+        this.push(v)
     }, this);
-};
+}
 
 // Following function need to be improved
 //fn to check if an elem is in an array
-Array.prototype.contains = function (value) {
-    return this.indexOf(value) > -1;
+Array.prototype.contains = function(value) {
+    return this.indexOf(value) > -1
 };
 
 // Helper function to return unique list
 function uniq(a) {
     var seen = {};
-    return a.filter(function (item) {
+    return a.filter(function(item) {
         return seen.hasOwnProperty(item) ? false : (seen[item] = true);
     });
 }
@@ -238,7 +228,7 @@ globalScope = undefined;
 
 function Scope(name = "localScope", id = undefined) {
     this.restrictedCircuitElementsUsed = [];
-    this.id = id || Math.floor(Math.random() * 100000000000 + 1);
+    this.id = id || Math.floor((Math.random() * 100000000000) + 1);
     this.CircuitElement = [];
 
     //root object for referring to main canvas - intermediate node uses this
@@ -250,10 +240,10 @@ function Scope(name = "localScope", id = undefined) {
     this.oy = 0;
     this.scale = DPR;
     this.tunnelList = {};
-    this.stack = [];
+    this.stack = []
 
     this.name = name;
-    this.pending = [];
+    this.pending = []
     this.nodes = []; //intermediate nodes only
     this.allNodes = [];
     this.wires = [];
@@ -264,14 +254,14 @@ function Scope(name = "localScope", id = undefined) {
     }
 
     // Setting default layout
-    this.layout = {
-        // default position
+    this.layout = { // default position
         width: 100,
         height: 40,
         title_x: 50,
         title_y: 13,
         titleEnabled: true,
-    };
+    }
+
 
     // FOR SOME UNKNOWN REASON, MAKING THE COPY OF THE LIST COMMON
     // TO ALL SCOPES EITHER BY PROTOTYPE OR JUST BY REFERNCE IS CAUSING ISSUES
@@ -282,18 +272,20 @@ function Scope(name = "localScope", id = undefined) {
 }
 
 // Resets all nodes recursively
-Scope.prototype.reset = function () {
-    for (var i = 0; i < this.allNodes.length; i++) this.allNodes[i].reset();
+Scope.prototype.reset = function() {
+    for (var i = 0; i < this.allNodes.length; i++)
+        this.allNodes[i].reset();
     for (var i = 0; i < this.Splitter.length; i++) {
         this.Splitter[i].reset();
     }
     for (var i = 0; i < this.SubCircuit.length; i++) {
         this.SubCircuit[i].reset();
     }
-};
+
+}
 
 // Adds all inputs to simulationQueue
-Scope.prototype.addInputs = function () {
+Scope.prototype.addInputs = function() {
     for (var i = 0; i < inputList.length; i++) {
         for (var j = 0; j < this[inputList[i]].length; j++) {
             simulationArea.simulationQueue.add(this[inputList[i]][j], 0);
@@ -302,18 +294,20 @@ Scope.prototype.addInputs = function () {
 
     for (let j = 0; j < this.SubCircuit.length; j++)
         this.SubCircuit[j].addInputs();
-};
+
+}
 
 // Ticks clocks recursively -- needs to be deprecated and synchronize all clocks with a global clock
-Scope.prototype.clockTick = function () {
-    for (var i = 0; i < this.Clock.length; i++) this.Clock[i].toggleState(); //tick clock!
+Scope.prototype.clockTick = function() {
+    for (var i = 0; i < this.Clock.length; i++)
+        this.Clock[i].toggleState(); //tick clock!
     for (var i = 0; i < this.SubCircuit.length; i++)
         this.SubCircuit[i].localScope.clockTick(); //tick clock!
-};
+}
 
 // Checks if this circuit contains directly or indirectly scope with id
 // Recursive nature
-Scope.prototype.checkDependency = function (id) {
+Scope.prototype.checkDependency = function(id) {
     if (id == this.id) return true;
     for (var i = 0; i < this.SubCircuit.length; i++)
         if (this.SubCircuit[i].id == id) return true;
@@ -321,31 +315,32 @@ Scope.prototype.checkDependency = function (id) {
     for (var i = 0; i < this.SubCircuit.length; i++)
         if (scopeList[this.SubCircuit[i].id].checkDependency(id)) return true;
 
-    return false;
-};
+    return false
+}
 
 // Get dependency list - list of all circuits, this circuit depends on
-Scope.prototype.getDependencies = function () {
-    var list = [];
+Scope.prototype.getDependencies = function() {
+    var list = []
     for (var i = 0; i < this.SubCircuit.length; i++) {
         list.push(this.SubCircuit[i].id);
         list.extend(scopeList[this.SubCircuit[i].id].getDependencies());
     }
     return uniq(list);
-};
+}
 
 // helper function to reduce layout size
-Scope.prototype.fixLayout = function () {
+Scope.prototype.fixLayout = function() {
     var max_y = 20;
     for (var i = 0; i < this.Input.length; i++)
-        max_y = Math.max(this.Input[i].layoutProperties.y, max_y);
+        max_y = Math.max(this.Input[i].layoutProperties.y, max_y)
     for (var i = 0; i < this.Output.length; i++)
-        max_y = Math.max(this.Output[i].layoutProperties.y, max_y);
-    if (max_y != this.layout.height) this.layout.height = max_y + 10;
-};
+        max_y = Math.max(this.Output[i].layoutProperties.y, max_y)
+    if (max_y != this.layout.height)
+        this.layout.height = max_y + 10;
+}
 
 // Function which centers the circuit to the correct zoom level
-Scope.prototype.centerFocus = function (zoomIn = true) {
+Scope.prototype.centerFocus = function(zoomIn = true) {
     if (layoutMode) return;
     findDimensions(this);
     var minX = simulationArea.minWidth || 0;
@@ -356,64 +351,65 @@ Scope.prototype.centerFocus = function (zoomIn = true) {
     var reqWidth = maxX - minX + 150;
     var reqHeight = maxY - minY + 150;
 
-    this.scale = Math.min(width / reqWidth, height / reqHeight);
+    this.scale = Math.min(width / reqWidth, height / reqHeight)
 
-    if (!zoomIn) this.scale = Math.min(this.scale, DPR);
+    if (!zoomIn)
+        this.scale = Math.min(this.scale, DPR);
     this.scale = Math.max(this.scale, DPR / 10);
 
-    this.ox = -minX * this.scale + (width - (maxX - minX) * this.scale) / 2;
-    this.oy = -minY * this.scale + (height - (maxY - minY) * this.scale) / 2;
-};
+    this.ox = (-minX) * this.scale + (width - (maxX - minX) * this.scale) / 2;
+    this.oy = (-minY) * this.scale + (height - (maxY - minY) * this.scale) / 2;
+}
 
 //fn to setup environment
 function setupEnvironment() {
+
     projectId = generateId();
     updateSimulation = true;
     DPR = window.devicePixelRatio || 1;
     newCircuit("Main");
 
-    data = {};
+    data = {}
     resetup();
 }
 
+
 function setup() {
+
     setupElementLists();
     setupEnvironment();
-    if (!embed) setupUI();
+    if (!embed)
+        setupUI();
     startListeners();
 
     // Load project data after 1 second - needs to be improved, delay needs to be eliminated
-    setTimeout(function () {
+    setTimeout(function() {
         if (logix_project_id != 0) {
-            $(".loadingIcon").fadeIn();
+            $('.loadingIcon').fadeIn();
             $.ajax({
-                url: "/simulator/get_data",
-                type: "POST",
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader(
-                        "X-CSRF-Token",
-                        $('meta[name="csrf-token"]').attr("content")
-                    );
+                url: '/simulator/get_data',
+                type: 'POST',
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
                 },
                 data: {
-                    id: logix_project_id,
+                    "id": logix_project_id
                 },
-                success: function (response) {
-                    data = response;
+                success: function(response) {
+                    data = (response);
 
                     if (data) {
                         load(data);
-                        simulationArea.changeClockTime(
-                            data["timePeriod"] || 500
-                        );
+                        simulationArea.changeClockTime(data["timePeriod"] || 500);
                     }
-                    $(".loadingIcon").fadeOut();
+                    $('.loadingIcon').fadeOut();
                 },
-                failure: function () {
+                failure: function() {
                     alert("Error: could not load ");
-                    $(".loadingIcon").fadeOut();
-                },
+                    $('.loadingIcon').fadeOut();
+                }
             });
+
         }
 
         // Restore unsaved data and save
@@ -427,11 +423,11 @@ function setup() {
 
         // Restore unsaved data which didn't get saved due to error
         else if (localStorage.getItem("recover")) {
-            showMessage(
-                "We have detected that you did not save your last work. Don't worry we have recovered them. Access them using Project->Recover"
-            );
+            showMessage("We have detected that you did not save your last work. Don't worry we have recovered them. Access them using Project->Recover")
         }
     }, 1000);
+
+
 }
 
 // Helper function to recover unsaved data
@@ -443,7 +439,7 @@ function recoverProject() {
         }
         localStorage.removeItem("recover");
     } else {
-        showError("No recover project found");
+        showError("No recover project found")
     }
 }
 
@@ -456,24 +452,23 @@ function changeLightMode(val) {
     } else if (val && !lightMode) {
         lightMode = true;
         globalScope.scale /= DPR;
-        DPR = 1;
-        $("#miniMap").fadeOut("fast");
+        DPR = 1
+        $('#miniMap').fadeOut('fast');
     }
     resetup();
 }
 
 //to resize window and setup things
 function resetup() {
+
     DPR = window.devicePixelRatio || 1;
-    if (lightMode) DPR = 1;
+    if (lightMode)
+        DPR = 1;
     width = document.getElementById("simulationArea").clientWidth * DPR;
     if (!embed) {
-        height =
-            (document.getElementById("simulation").clientHeight -
-                document.getElementById("toolbar").clientHeight) *
-            DPR;
+        height = (document.getElementById("simulation").clientHeight - document.getElementById("toolbar").clientHeight) * DPR;
     } else {
-        height = document.getElementById("simulation").clientHeight * DPR;
+        height = (document.getElementById("simulation").clientHeight) * DPR;
     }
 
     //setup simulationArea
@@ -493,7 +488,7 @@ function resetup() {
     backgroundArea.canvas.height = height + 100 * DPR;
     if (!embed) {
         plotArea.c.width = document.getElementById("plot").clientWidth;
-        plotArea.c.height = document.getElementById("plot").clientHeight;
+        plotArea.c.height = document.getElementById("plot").clientHeight
     }
 
     updateCanvas = true;
@@ -506,22 +501,23 @@ window.onresize = resetup; // listener
 window.onorientationchange = resetup; // listener
 
 //for mobiles
-window.addEventListener("orientationchange", resetup); // listener
+window.addEventListener('orientationchange', resetup); // listener
 
 // Object that holds data and objects of grid canvas
 var backgroundArea = {
     canvas: document.getElementById("backgroundArea"),
-    setup: function () {
+    setup: function() {
         this.canvas.width = width;
         this.canvas.height = height;
         this.context = this.canvas.getContext("2d");
         dots(true, false);
     },
-    clear: function () {
+    clear: function() {
         if (!this.context) return;
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    },
-};
+    }
+}
+
 
 //simulation environment object - holds simulation canvas
 var simulationArea = {
@@ -553,33 +549,33 @@ var simulationArea = {
 
     clickCount: 0, //double click
     lock: "unlocked",
-    timer: function () {
-        ckickTimer = setTimeout(function () {
+    timer: function() {
+        ckickTimer = setTimeout(function() {
             simulationArea.clickCount = 0;
         }, 600);
     },
 
-    setup: function () {
+    setup: function() {
         this.canvas.width = width;
         this.canvas.height = height;
         this.simulationQueue = new EventQueue(10000);
         this.context = this.canvas.getContext("2d");
-        simulationArea.changeClockTime(simulationArea.timePeriod);
+        simulationArea.changeClockTime(simulationArea.timePeriod)
         this.mouseDown = false;
     },
-    changeClockTime: function (t) {
+    changeClockTime: function(t) {
         if (t < 50) return;
         clearInterval(simulationArea.ClockInterval);
         t = t || prompt("Enter Time Period:");
         simulationArea.timePeriod = t;
         simulationArea.ClockInterval = setInterval(clockTick, t);
     },
-    clear: function () {
+    clear: function() {
         if (!this.context) return;
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    },
-};
-changeClockTime = simulationArea.changeClockTime;
+    }
+}
+changeClockTime = simulationArea.changeClockTime
 
 // Kept for archival purposes - needs to be removed
 //
@@ -682,6 +678,7 @@ changeClockTime = simulationArea.changeClockTime;
 
 // paste function
 function paste(copyData) {
+
     if (copyData == undefined) return;
     var data = JSON.parse(copyData);
     if (!data["logixClipBoardData"]) return;
@@ -702,7 +699,7 @@ function paste(copyData) {
     var oldScale = globalScope.scale;
     loadScope(tempScope, data);
 
-    var prevLength = tempScope.allNodes.length;
+    var prevLength = tempScope.allNodes.length
     for (var i = 0; i < tempScope.allNodes.length; i++) {
         tempScope.allNodes[i].checkDeleted();
         if (tempScope.allNodes.length != prevLength) {
@@ -713,7 +710,7 @@ function paste(copyData) {
 
     var approxX = 0;
     var approxY = 0;
-    var count = 0;
+    var count = 0
 
     for (var i = 0; i < updateOrder.length; i++) {
         for (var j = 0; j < tempScope[updateOrder[i]].length; j++) {
@@ -728,15 +725,16 @@ function paste(copyData) {
     }
 
     for (var j = 0; j < tempScope.CircuitElement.length; j++) {
-        var obj = tempScope.CircuitElement[j];
+        var obj = tempScope.CircuitElement[j]
         obj.updateScope(globalScope);
     }
 
-    approxX /= count;
-    approxY /= count;
+    approxX /= count
+    approxY /= count
 
-    approxX = Math.round(approxX / 10) * 10;
-    approxY = Math.round(approxY / 10) * 10;
+    approxX = Math.round(approxX / 10) * 10
+    approxY = Math.round(approxY / 10) * 10
+
 
     for (var i = 0; i < updateOrder.length; i++) {
         for (var j = 0; j < tempScope[updateOrder[i]].length; j++) {
@@ -749,28 +747,18 @@ function paste(copyData) {
     }
 
     for (l in tempScope) {
-        if (
-            tempScope[l] instanceof Array &&
-            l != "objects" &&
-            l != "CircuitElement"
-        ) {
+        if (tempScope[l] instanceof Array && l != "objects" && l != "CircuitElement") {
             globalScope[l].extend(tempScope[l]);
         }
     }
     for (var i = 0; i < tempScope.Input.length; i++) {
-        tempScope.Input[i].layoutProperties.y = get_next_position(
-            0,
-            globalScope
-        );
+        tempScope.Input[i].layoutProperties.y = get_next_position(0, globalScope);
         tempScope.Input[i].layoutProperties.id = generateId();
     }
     for (var i = 0; i < tempScope.Output.length; i++) {
         tempScope.Output[i].layoutProperties.x = globalScope.layout.width;
         tempScope.Output[i].layoutProperties.id = generateId();
-        tempScope.Output[i].layoutProperties.y = get_next_position(
-            globalScope.layout.width,
-            globalScope
-        );
+        tempScope.Output[i].layoutProperties.y = get_next_position(globalScope.layout.width, globalScope);
     }
 
     canvasUpdate = true;
@@ -781,7 +769,8 @@ function paste(copyData) {
     globalScope.oy = oldOy;
     globalScope.scale = oldScale;
 
-    forceResetNodes = true;
+
+    forceResetNodes = true
 }
 
 function cut(copyList) {
@@ -796,16 +785,13 @@ function cut(copyList) {
 
     for (var i = 0; i < copyList.length; i++) {
         var obj = copyList[i];
-        if (obj.objectType == "Node") obj.objectType = "allNodes";
+        if (obj.objectType == "Node") obj.objectType = "allNodes"
         for (var j = 0; j < tempScope[obj.objectType].length; j++) {
-            if (
-                tempScope[obj.objectType][j].x == obj.x &&
-                tempScope[obj.objectType][j].y == obj.y &&
-                (obj.objectType != "Node" || obj.type == 2)
-            ) {
+            if (tempScope[obj.objectType][j].x == obj.x && tempScope[obj.objectType][j].y == obj.y && (obj.objectType != "Node" || obj.type == 2)) {
                 tempScope[obj.objectType][j].delete();
                 break;
             }
+
         }
     }
     tempScope.backups = globalScope.backups;
@@ -813,8 +799,7 @@ function cut(copyList) {
         var prevLength = globalScope[updateOrder[i]].length; // LOL length of list will reduce automatically when deletion starts
         for (var j = 0; j < globalScope[updateOrder[i]].length; j++) {
             var obj = globalScope[updateOrder[i]][j];
-            if (obj.objectType != "Wire") {
-                //}&&obj.objectType!='CircuitElement'){//}&&(obj.objectType!='Node'||obj.type==2)){
+            if (obj.objectType != 'Wire') { //}&&obj.objectType!='CircuitElement'){//}&&(obj.objectType!='Node'||obj.type==2)){
                 if (!copyList.contains(globalScope[updateOrder[i]][j])) {
                     globalScope[updateOrder[i]][j].cleanDelete();
                 }
@@ -839,12 +824,12 @@ function cut(copyList) {
     updateSimulation = true;
 
     var data = backUp(globalScope);
-    data["logixClipBoardData"] = true;
+    data['logixClipBoardData'] = true;
     var dependencyList = globalScope.getDependencies();
     data["dependencies"] = {};
     for (dependency in dependencyList)
         data.dependencies[dependency] = backUp(scopeList[dependency]);
-    data["logixClipBoardData"] = true;
+    data['logixClipBoardData'] = true;
     data = JSON.stringify(data);
 
     simulationArea.multipleObjectSelections = []; //copyList.slice();
@@ -856,11 +841,12 @@ function cut(copyList) {
     globalScope.ox = oldOx;
     globalScope.oy = oldOy;
     globalScope.scale = oldScale;
-    forceResetNodes = true;
+    forceResetNodes = true
     return data;
 }
 
 function copy(copyList, cut = false) {
+
     if (copyList.length == 0) return;
     var tempScope = new Scope(globalScope.name, globalScope.id);
     var oldOx = globalScope.ox;
@@ -874,16 +860,13 @@ function copy(copyList, cut = false) {
     if (cut) {
         for (var i = 0; i < copyList.length; i++) {
             var obj = copyList[i];
-            if (obj.objectType == "Node") obj.objectType = "allNodes";
+            if (obj.objectType == "Node") obj.objectType = "allNodes"
             for (var j = 0; j < tempScope[obj.objectType].length; j++) {
-                if (
-                    tempScope[obj.objectType][j].x == obj.x &&
-                    tempScope[obj.objectType][j].y == obj.y &&
-                    (obj.objectType != "Node" || obj.type == 2)
-                ) {
+                if (tempScope[obj.objectType][j].x == obj.x && tempScope[obj.objectType][j].y == obj.y && (obj.objectType != "Node" || obj.type == 2)) {
                     tempScope[obj.objectType][j].delete();
                     break;
                 }
+
             }
         }
     }
@@ -892,8 +875,7 @@ function copy(copyList, cut = false) {
         var prevLength = globalScope[updateOrder[i]].length; // LOL length of list will reduce automatically when deletion starts
         for (var j = 0; j < globalScope[updateOrder[i]].length; j++) {
             var obj = globalScope[updateOrder[i]][j];
-            if (obj.objectType != "Wire") {
-                //}&&obj.objectType!='CircuitElement'){//}&&(obj.objectType!='Node'||obj.type==2)){
+            if (obj.objectType != 'Wire') { //}&&obj.objectType!='CircuitElement'){//}&&(obj.objectType!='Node'||obj.type==2)){
                 if (!copyList.contains(globalScope[updateOrder[i]][j])) {
                     ////console.log("DELETE:", globalScope[updateOrder[i]][j]);
                     globalScope[updateOrder[i]][j].cleanDelete();
@@ -919,24 +901,27 @@ function copy(copyList, cut = false) {
     updateSimulation = true;
 
     var data = backUp(globalScope);
-    data.scopes = [];
+    data.scopes = []
     var dependencyList = {};
     var requiredDependencies = globalScope.getDependencies();
     var completed = {};
-    for (id in scopeList) dependencyList[id] = scopeList[id].getDependencies();
+    for (id in scopeList)
+        dependencyList[id] = scopeList[id].getDependencies();
 
     function saveScope(id) {
+
         if (completed[id]) return;
         for (var i = 0; i < dependencyList[id].length; i++)
             saveScope(dependencyList[id][i]);
         completed[id] = true;
         data.scopes.push(backUp(scopeList[id]));
+
     }
 
     for (var i = 0; i < requiredDependencies.length; i++)
         saveScope(requiredDependencies[i]);
 
-    data["logixClipBoardData"] = true;
+    data['logixClipBoardData'] = true;
     data = JSON.stringify(data);
 
     simulationArea.multipleObjectSelections = []; //copyList.slice();
@@ -948,7 +933,7 @@ function copy(copyList, cut = false) {
     globalScope.ox = oldOx;
     globalScope.oy = oldOy;
     globalScope.scale = oldScale;
-    forceResetNodes = true;
+    forceResetNodes = true
     return data;
 }
 
@@ -971,6 +956,7 @@ function selectAll(scope = globalScope) {
 //          - update: Used to update the state of object on mouse applicationCache
 //          - isHover: Used to check if mouse is hovering over object
 
+
 function CircuitElement(x, y, scope, dir, bitWidth) {
     // Data member initializations
     this.objectType = this.constructor.name;
@@ -987,7 +973,7 @@ function CircuitElement(x, y, scope, dir, bitWidth) {
 
     this.deleteNodesWhenDeleted = true; // FOR NOW - TO CHECK LATER
 
-    this.nodeList = [];
+    this.nodeList = []
     this.clicked = false;
 
     this.oldx = x;
@@ -1023,27 +1009,28 @@ function CircuitElement(x, y, scope, dir, bitWidth) {
         inQueue: false,
         time: undefined,
         index: undefined,
-    };
+    }
+
 }
 
-CircuitElement.prototype.alwaysResolve = false;
-CircuitElement.prototype.propagationDelay = 100;
-CircuitElement.prototype.flipBits = function (val) {
+CircuitElement.prototype.alwaysResolve = false
+CircuitElement.prototype.propagationDelay = 100
+CircuitElement.prototype.flipBits = function(val) {
     return ((~val >>> 0) << (32 - this.bitWidth)) >>> (32 - this.bitWidth);
-};
-CircuitElement.prototype.absX = function () {
+}
+CircuitElement.prototype.absX = function() {
     return this.x;
-};
-CircuitElement.prototype.absY = function () {
+}
+CircuitElement.prototype.absY = function() {
     return this.y;
-};
-CircuitElement.prototype.copyFrom = function (obj) {
+}
+CircuitElement.prototype.copyFrom = function(obj) {
     var properties = ["label", "labelDirection"];
     for (var i = 0; i < properties.length; i++) {
         if (obj[properties[i]] !== undefined)
             this[properties[i]] = obj[properties[i]];
     }
-};
+}
 
 /* Methods to be Implemented for derivedClass
         saveObject(); //To generate JSON-safe data that can be loaded
@@ -1056,13 +1043,13 @@ CircuitElement.prototype.copyFrom = function (obj) {
 
 // Method definitions
 
-CircuitElement.prototype.updateScope = function (scope) {
+CircuitElement.prototype.updateScope = function(scope) {
     this.scope = scope;
     for (var i = 0; i < this.nodeList.length; i++)
         this.nodeList[i].scope = scope;
-};
+}
 
-CircuitElement.prototype.saveObject = function () {
+CircuitElement.prototype.saveObject = function() {
     var data = {
         x: this.x,
         y: this.y,
@@ -1071,19 +1058,21 @@ CircuitElement.prototype.saveObject = function () {
         direction: this.direction,
         labelDirection: this.labelDirection,
         propagationDelay: this.propagationDelay,
-        customData: this.customSave(),
-    };
+        customData: this.customSave()
+    }
     return data;
-};
-CircuitElement.prototype.customSave = function () {
+
+}
+CircuitElement.prototype.customSave = function() {
     return {
         values: {},
         nodes: {},
         constructorParamaters: [],
-    };
-};
+    }
+}
 
-CircuitElement.prototype.checkHover = function () {
+CircuitElement.prototype.checkHover = function() {
+
     if (simulationArea.mouseDown) return;
     for (var i = 0; i < this.nodeList.length; i++) {
         this.nodeList[i].checkHover();
@@ -1096,26 +1085,26 @@ CircuitElement.prototype.checkHover = function () {
             this.hover = this.isHover();
             if (this.hover) simulationArea.hover = this;
         } else {
-            this.hover = false;
+            this.hover = false
         }
     }
-};
+}
 
 //This sets the width and height of the element if its rectangular
 // and the reference point is at the center of the object.
 //width and height define the X and Y distance from the center.
 //Effectively HALF the actual width and height.
 // NOT OVERRIDABLE
-CircuitElement.prototype.setDimensions = function (width, height) {
+CircuitElement.prototype.setDimensions = function(width, height) {
     this.leftDimensionX = this.rightDimensionX = width;
     this.downDimensionY = this.upDimensionY = height;
-};
-CircuitElement.prototype.setWidth = function (width) {
+}
+CircuitElement.prototype.setWidth = function(width) {
     this.leftDimensionX = this.rightDimensionX = width;
-};
-CircuitElement.prototype.setHeight = function (height) {
+}
+CircuitElement.prototype.setHeight = function(height) {
     this.downDimensionY = this.upDimensionY = height;
-};
+}
 
 // The update method is used to change the parameters of the object on mouse click and hover.
 // Return Value: true if state has changed else false
@@ -1124,32 +1113,23 @@ CircuitElement.prototype.setHeight = function (height) {
 // When true this.isHover() will not rotate bounds. To be used when bounds are set manually.
 CircuitElement.prototype.overrideDirectionRotation = false;
 
-CircuitElement.prototype.startDragging = function () {
+CircuitElement.prototype.startDragging = function() {
     this.oldx = this.x;
     this.oldy = this.y;
-};
-CircuitElement.prototype.drag = function () {
+}
+CircuitElement.prototype.drag = function() {
     this.x = this.oldx + simulationArea.mouseX - simulationArea.mouseDownX;
     this.y = this.oldy + simulationArea.mouseY - simulationArea.mouseDownY;
-};
-CircuitElement.prototype.update = function () {
+}
+CircuitElement.prototype.update = function() {
+
     var update = false;
 
     update |= this.newElement;
     if (this.newElement) {
         if (this.centerElement) {
-            this.x =
-                Math.round(
-                    (simulationArea.mouseX -
-                        (this.rightDimensionX - this.leftDimensionX) / 2) /
-                        10
-                ) * 10;
-            this.y =
-                Math.round(
-                    (simulationArea.mouseY -
-                        (this.downDimensionY - this.upDimensionY) / 2) /
-                        10
-                ) * 10;
+            this.x = Math.round((simulationArea.mouseX - (this.rightDimensionX - this.leftDimensionX) / 2) / 10) * 10;
+            this.y = Math.round((simulationArea.mouseY - (this.downDimensionY - this.upDimensionY) / 2) / 10) * 10;
         } else {
             this.x = simulationArea.mouseX;
             this.y = simulationArea.mouseY;
@@ -1170,45 +1150,30 @@ CircuitElement.prototype.update = function () {
 
     if (!simulationArea.mouseDown) this.hover = false;
 
+
     if ((this.clicked || !simulationArea.hover) && this.isHover()) {
         this.hover = true;
         simulationArea.hover = this;
-    } else if (
-        !simulationArea.mouseDown &&
-        this.hover &&
-        this.isHover() == false
-    ) {
+    } else if (!simulationArea.mouseDown && this.hover && this.isHover() == false) {
         if (this.hover) simulationArea.hover = undefined;
         this.hover = false;
     }
 
-    if (simulationArea.mouseDown && this.clicked) {
+    if (simulationArea.mouseDown && (this.clicked)) {
+
         this.drag();
-        if (
-            !simulationArea.shiftDown &&
-            simulationArea.multipleObjectSelections.contains(this)
-        ) {
-            for (
-                var i = 0;
-                i < simulationArea.multipleObjectSelections.length;
-                i++
-            ) {
+        if (!simulationArea.shiftDown && simulationArea.multipleObjectSelections.contains(this)) {
+            for (var i = 0; i < simulationArea.multipleObjectSelections.length; i++) {
                 simulationArea.multipleObjectSelections[i].drag();
             }
         }
 
         update |= true;
     } else if (simulationArea.mouseDown && !simulationArea.selected) {
+
         this.startDragging();
-        if (
-            !simulationArea.shiftDown &&
-            simulationArea.multipleObjectSelections.contains(this)
-        ) {
-            for (
-                var i = 0;
-                i < simulationArea.multipleObjectSelections.length;
-                i++
-            ) {
+        if (!simulationArea.shiftDown && simulationArea.multipleObjectSelections.contains(this)) {
+            for (var i = 0; i < simulationArea.multipleObjectSelections.length; i++) {
                 simulationArea.multipleObjectSelections[i].startDragging();
             }
         }
@@ -1239,18 +1204,18 @@ CircuitElement.prototype.update = function () {
     }
 
     return update;
-};
+}
 
-CircuitElement.prototype.fixDirection = function () {
+CircuitElement.prototype.fixDirection = function() {
     this.direction = fixDirection[this.direction] || this.direction;
-    this.labelDirection =
-        fixDirection[this.labelDirection] || this.labelDirection;
-};
+    this.labelDirection = fixDirection[this.labelDirection] || this.labelDirection;
+}
 
 // The isHover method is used to check if the mouse is hovering over the object.
 // Return Value: true if mouse is hovering over object else false
 // NOT OVERRIDABLE
-CircuitElement.prototype.isHover = function () {
+CircuitElement.prototype.isHover = function() {
+
     var mX = simulationArea.mouseXf - this.x;
     var mY = this.y - simulationArea.mouseYf;
 
@@ -1262,7 +1227,7 @@ CircuitElement.prototype.isHover = function () {
     if (!this.directionFixed && !this.overrideDirectionRotation) {
         if (this.direction == "LEFT") {
             lX = this.rightDimensionX;
-            rX = this.leftDimensionX;
+            rX = this.leftDimensionX
         } else if (this.direction == "DOWN") {
             lX = this.downDimensionY;
             rX = this.upDimensionY;
@@ -1279,28 +1244,18 @@ CircuitElement.prototype.isHover = function () {
     return -lX <= mX && mX <= rX && -dY <= mY && mY <= uY;
 };
 
-CircuitElement.prototype.setLabel = function (label) {
-    this.label = label || "";
-};
+CircuitElement.prototype.setLabel = function(label) {
+    this.label = label || ""
+}
 
 CircuitElement.prototype.propagationDelayFixed = false;
 
 //Method that draws the outline of the module and calls draw function on module Nodes.
 //NOT OVERRIDABLE
-CircuitElement.prototype.draw = function () {
+CircuitElement.prototype.draw = function() {
     var ctx = simulationArea.context;
     this.checkHover();
-    if (
-        this.x * this.scope.scale + this.scope.ox <
-            -this.rightDimensionX * this.scope.scale - 00 ||
-        this.x * this.scope.scale + this.scope.ox >
-            width + this.leftDimensionX * this.scope.scale + 00 ||
-        this.y * this.scope.scale + this.scope.oy <
-            -this.downDimensionY * this.scope.scale - 00 ||
-        this.y * this.scope.scale + this.scope.oy >
-            height + 00 + this.upDimensionY * this.scope.scale
-    )
-        return;
+    if (this.x * this.scope.scale + this.scope.ox < -this.rightDimensionX * this.scope.scale - 00 || this.x * this.scope.scale + this.scope.ox > width + this.leftDimensionX * this.scope.scale + 00 || this.y * this.scope.scale + this.scope.oy < -this.downDimensionY * this.scope.scale - 00 || this.y * this.scope.scale + this.scope.oy > height + 00 + this.upDimensionY * this.scope.scale) return;
 
     // Draws rectangle and highlights
     if (this.rectangleObject) {
@@ -1308,22 +1263,8 @@ CircuitElement.prototype.draw = function () {
         ctx.fillStyle = "white";
         ctx.lineWidth = correctWidth(3);
         ctx.beginPath();
-        rect2(
-            ctx,
-            -this.leftDimensionX,
-            -this.upDimensionY,
-            this.leftDimensionX + this.rightDimensionX,
-            this.upDimensionY + this.downDimensionY,
-            this.x,
-            this.y,
-            [this.direction, "RIGHT"][+this.directionFixed]
-        );
-        if (
-            (this.hover && !simulationArea.shiftDown) ||
-            simulationArea.lastSelected == this ||
-            simulationArea.multipleObjectSelections.contains(this)
-        )
-            ctx.fillStyle = "rgba(255, 255, 32,0.8)";
+        rect2(ctx, -this.leftDimensionX, -this.upDimensionY, this.leftDimensionX + this.rightDimensionX, this.upDimensionY + this.downDimensionY, this.x, this.y, [this.direction, "RIGHT"][+this.directionFixed]);
+        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = "rgba(255, 255, 32,0.8)";
         ctx.fill();
         ctx.stroke();
     }
@@ -1335,7 +1276,7 @@ CircuitElement.prototype.draw = function () {
         if (!this.directionFixed) {
             if (this.direction == "LEFT") {
                 lX = this.rightDimensionX;
-                rX = this.leftDimensionX;
+                rX = this.leftDimensionX
             } else if (this.direction == "DOWN") {
                 lX = this.downDimensionY;
                 rX = this.upDimensionY;
@@ -1377,39 +1318,43 @@ CircuitElement.prototype.draw = function () {
     }
 
     // calls the custom circuit design
-    if (this.customDraw) this.customDraw();
+    if (this.customDraw)
+        this.customDraw();
 
     //draws nodes - Moved to renderCanvas
     // for (var i = 0; i < this.nodeList.length; i++)
     //     this.nodeList[i].draw();
-};
+}
 
 //method to delete object
 //OVERRIDE WITH CAUTION
-CircuitElement.prototype.delete = function () {
+CircuitElement.prototype.delete = function() {
     simulationArea.lastSelected = undefined;
     this.scope[this.objectType].clean(this); // CHECK IF THIS IS VALID
-    if (this.deleteNodesWhenDeleted) this.deleteNodes();
+    if (this.deleteNodesWhenDeleted)
+        this.deleteNodes();
     else
         for (var i = 0; i < this.nodeList.length; i++)
             if (this.nodeList[i].connections.length)
                 this.nodeList[i].converToIntermediate();
-            else this.nodeList[i].delete();
+            else
+                this.nodeList[i].delete();
     this.deleted = true;
-};
+}
 
-CircuitElement.prototype.cleanDelete = function () {
+CircuitElement.prototype.cleanDelete = function() {
     this.deleteNodesWhenDeleted = true;
     this.delete();
-};
+}
 
-CircuitElement.prototype.deleteNodes = function () {
-    for (var i = 0; i < this.nodeList.length; i++) this.nodeList[i].delete();
-};
+CircuitElement.prototype.deleteNodes = function() {
+    for (var i = 0; i < this.nodeList.length; i++)
+        this.nodeList[i].delete();
+}
 
 //method to change direction
 //OVERRIDE WITH CAUTION
-CircuitElement.prototype.newDirection = function (dir) {
+CircuitElement.prototype.newDirection = function(dir) {
     if (this.direction == dir) return;
     // Leave this for now
     if (this.directionFixed && this.orientationFixed) return;
@@ -1423,84 +1368,71 @@ CircuitElement.prototype.newDirection = function (dir) {
     for (var i = 0; i < this.nodeList.length; i++) {
         this.nodeList[i].refresh();
     }
-};
 
-CircuitElement.prototype.newLabelDirection = function (dir) {
+}
+
+CircuitElement.prototype.newLabelDirection = function(dir) {
     this.labelDirection = dir;
-};
+}
 
 //Method to check if object can be resolved
 //OVERRIDE if necessary
-CircuitElement.prototype.isResolvable = function () {
+CircuitElement.prototype.isResolvable = function() {
     if (this.alwaysResolve) return true;
     for (var i = 0; i < this.nodeList.length; i++)
-        if (this.nodeList[i].type == 0 && this.nodeList[i].value == undefined)
-            return false;
+        if (this.nodeList[i].type == 0 && this.nodeList[i].value == undefined) return false;
     return true;
-};
+}
 
 //Method to change object Bitwidth
 //OVERRIDE if necessary
-CircuitElement.prototype.newBitWidth = function (bitWidth) {
+CircuitElement.prototype.newBitWidth = function(bitWidth) {
     if (this.fixedBitWidth) return;
     if (this.bitWidth == undefined) return;
     if (this.bitWidth < 1) return;
     this.bitWidth = bitWidth;
     for (var i = 0; i < this.nodeList.length; i++)
         this.nodeList[i].bitWidth = bitWidth;
-};
+}
 
 //Method to change object delay
 //OVERRIDE if necessary
-CircuitElement.prototype.changePropagationDelay = function (delay) {
+CircuitElement.prototype.changePropagationDelay = function(delay) {
     if (this.propagationDelayFixed) return;
     if (delay == undefined) return;
     if (delay == "") return;
-    delay = parseInt(delay, 10);
+    delay = parseInt(delay, 10)
     if (delay < 0) return;
     this.propagationDelay = delay;
-};
+}
 
 //Dummy resolve function
 //OVERRIDE if necessary
-CircuitElement.prototype.resolve = function () {};
+CircuitElement.prototype.resolve = function() {
 
-CircuitElement.prototype.processVerilog = function () {
+}
+
+CircuitElement.prototype.processVerilog = function() {
     var output_count = 0;
     for (var i = 0; i < this.nodeList.length; i++) {
         if (this.nodeList[i].type == NODE_OUTPUT) {
-            this.nodeList[i].verilogLabel =
-                this.nodeList[i].verilogLabel ||
-                this.verilogLabel +
-                    "_" +
-                    (verilog.fixName(this.nodeList[i].label) ||
-                        "out_" + output_count);
-            if (
-                this.objectType != "Input" &&
-                this.nodeList[i].connections.length > 0
-            ) {
+            this.nodeList[i].verilogLabel = this.nodeList[i].verilogLabel || (this.verilogLabel + "_" + (verilog.fixName(this.nodeList[i].label) || ("out_" + output_count)));
+            if (this.objectType != "Input" && this.nodeList[i].connections.length > 0) {
                 if (this.scope.verilogWireList[this.bitWidth] != undefined) {
-                    if (
-                        !this.scope.verilogWireList[this.bitWidth].contains(
-                            this.nodeList[i].verilogLabel
-                        )
-                    )
-                        this.scope.verilogWireList[this.bitWidth].push(
-                            this.nodeList[i].verilogLabel
-                        );
+                    if (!this.scope.verilogWireList[this.bitWidth].contains(this.nodeList[i].verilogLabel))
+                        this.scope.verilogWireList[this.bitWidth].push(this.nodeList[i].verilogLabel);
                 } else
-                    this.scope.verilogWireList[this.bitWidth] = [
-                        this.nodeList[i].verilogLabel,
-                    ];
+                    this.scope.verilogWireList[this.bitWidth] = [this.nodeList[i].verilogLabel];
             }
             this.scope.stack.push(this.nodeList[i]);
             output_count++;
         }
     }
-};
+}
 
-CircuitElement.prototype.isVerilogResolvable = function () {
-    var backupValues = [];
+CircuitElement.prototype.isVerilogResolvable = function() {
+
+    var backupValues = []
     for (var i = 0; i < this.nodeList.length; i++) {
         backupValues.push(this.nodeList[i].value);
         this.nodeList[i].value = undefined;
@@ -1519,9 +1451,9 @@ CircuitElement.prototype.isVerilogResolvable = function () {
     }
 
     return res;
-};
+}
 
-CircuitElement.prototype.removePropagation = function () {
+CircuitElement.prototype.removePropagation = function() {
     for (var i = 0; i < this.nodeList.length; i++) {
         if (this.nodeList[i].type == NODE_OUTPUT) {
             if (this.nodeList[i].value !== undefined) {
@@ -1530,15 +1462,17 @@ CircuitElement.prototype.removePropagation = function () {
             }
         }
     }
-};
+}
 
-CircuitElement.prototype.verilogName = function () {
+CircuitElement.prototype.verilogName = function() {
     return this.verilogType || this.objectType;
-};
+}
 
-CircuitElement.prototype.generateVerilog = function () {
+CircuitElement.prototype.generateVerilog = function() {
+
     var inputs = [];
     var outputs = [];
+
 
     for (var i = 0; i < this.nodeList.length; i++) {
         if (this.nodeList[i].type == NODE_INPUT) {
@@ -1549,21 +1483,13 @@ CircuitElement.prototype.generateVerilog = function () {
     }
 
     var list = outputs.concat(inputs);
-    var res =
-        this.verilogName() +
-        " " +
-        this.verilogLabel +
-        " (" +
-        list
-            .map(function (x) {
-                return x.verilogLabel;
-            })
-            .join(",") +
-        ");";
+    var res = this.verilogName() + " " + this.verilogLabel + " (" + list.map(function(x) {
+        return x.verilogLabel
+    }).join(",") + ");";
 
     return res;
-};
+}
 
 function distance(x1, y1, x2, y2) {
-    return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+    return Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
 }

@@ -19,3 +19,4 @@ test:
 development:
   <<: *default
   database: circuitverse_development
+

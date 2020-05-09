@@ -31,61 +31,23 @@
  * allocated. Nevertheless, it is better to prevent large allocations from happening
  * by keeping the max addressWidth small. If needed, we can increase the max.
  */
-function RAM(
-    x,
-    y,
-    scope = globalScope,
-    dir = "RIGHT",
-    bitWidth = 8,
-    addressWidth = 10
-) {
-    CircuitElement.call(
-        this,
-        x,
-        y,
-        scope,
-        dir,
-        Math.min(Math.max(1, bitWidth), 32)
-    );
+function RAM(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 8, addressWidth = 10) {
+    CircuitElement.call(this, x, y, scope, dir, Math.min(Math.max(1, bitWidth), 32));
     this.setDimensions(60, 40);
 
     this.directionFixed = true;
     this.labelDirection = "UP";
 
-    this.addressWidth = Math.min(
-        Math.max(1, addressWidth),
-        this.maxAddressWidth
-    );
-    this.address = new Node(
-        -this.leftDimensionX,
-        -20,
-        0,
-        this,
-        this.addressWidth,
-        "ADDRESS"
-    );
-    this.dataIn = new Node(
-        -this.leftDimensionX,
-        0,
-        0,
-        this,
-        this.bitWidth,
-        "DATA IN"
-    );
+    this.addressWidth = Math.min(Math.max(1, addressWidth), this.maxAddressWidth);
+    this.address = new Node(-this.leftDimensionX, -20, 0, this, this.addressWidth, "ADDRESS");
+    this.dataIn = new Node(-this.leftDimensionX, 0, 0, this, this.bitWidth, "DATA IN");
     this.write = new Node(-this.leftDimensionX, 20, 0, this, 1, "WRITE");
     this.reset = new Node(0, this.downDimensionY, 0, this, 1, "RESET");
     this.coreDump = new Node(-20, this.downDimensionY, 0, this, 1, "CORE DUMP");
-    this.dataOut = new Node(
-        this.rightDimensionX,
-        0,
-        1,
-        this,
-        this.bitWidth,
-        "DATA OUT"
-    );
+    this.dataOut = new Node(this.rightDimensionX, 0, 1, this, this.bitWidth, "DATA OUT");
     this.prevCoreDumpValue = undefined;
 
-    this.clearData();
+    this.clearData()
 }
 RAM.prototype = Object.create(CircuitElement.prototype);
 RAM.prototype.tooltipText = "Random Access Memory";
@@ -93,32 +55,28 @@ RAM.prototype.shortName = "RAM";
 RAM.prototype.maxAddressWidth = 20;
 RAM.prototype.constructor = RAM;
 RAM.prototype.mutableProperties = {
-    addressWidth: {
+    "addressWidth": {
         name: "Address Width",
         type: "number",
         max: "20",
         min: "1",
         func: "changeAddressWidth",
     },
-    dump: {
+    "dump": {
         name: "Core Dump",
         type: "button",
         func: "dump",
     },
-    reset: {
+    "reset": {
         name: "Reset",
         type: "button",
         func: "clearData",
     },
-};
+}
 RAM.prototype.customSave = function () {
     return {
         // NOTE: data is not persisted since RAMs are volatile.
-        constructorParamaters: [
-            this.direction,
-            this.bitWidth,
-            this.addressWidth,
-        ],
+        constructorParamaters: [this.direction, this.bitWidth, this.addressWidth],
         nodes: {
             address: findNode(this.address),
             dataIn: findNode(this.dataIn),
@@ -127,8 +85,8 @@ RAM.prototype.customSave = function () {
             coreDump: findNode(this.coreDump),
             dataOut: findNode(this.dataOut),
         },
-    };
-};
+    }
+}
 RAM.prototype.newBitWidth = function (value) {
     value = parseInt(value);
     if (!isNaN(value) && this.bitWidth != value && value >= 1 && value <= 32) {
@@ -137,31 +95,22 @@ RAM.prototype.newBitWidth = function (value) {
         this.dataOut.bitWidth = value;
         this.clearData();
     }
-};
+}
 RAM.prototype.changeAddressWidth = function (value) {
     value = parseInt(value);
-    if (
-        !isNaN(value) &&
-        this.addressWidth != value &&
-        value >= 1 &&
-        value <= this.maxAddressWidth
-    ) {
+    if (!isNaN(value) && this.addressWidth != value && value >= 1 && value <= this.maxAddressWidth) {
         this.addressWidth = value;
         this.address.bitWidth = value;
         this.clearData();
     }
-};
+}
 RAM.prototype.clearData = function () {
     this.data = new Array(Math.pow(2, this.addressWidth));
     this.tooltipText = this.memSizeString() + " " + this.shortName;
-};
+}
 RAM.prototype.isResolvable = function () {
-    return (
-        this.address.value !== undefined ||
-        this.reset.value !== undefined ||
-        this.coreDump.value !== undefined
-    );
-};
+    return this.address.value !== undefined || this.reset.value !== undefined || this.coreDump.value !== undefined;
+}
 RAM.prototype.resolve = function () {
     if (this.write.value == 1) {
         this.data[this.address.value] = this.dataIn.value;
@@ -178,7 +127,7 @@ RAM.prototype.resolve = function () {
 
     this.dataOut.value = this.data[this.address.value] || 0;
     simulationArea.simulationQueue.add(this.dataOut);
-};
+}
 RAM.prototype.customDraw = function () {
     var ctx = simulationArea.context;
     var xx = this.x;
@@ -197,52 +146,15 @@ RAM.prototype.customDraw = function () {
     ctx.fillStyle = "black";
     fillText4(ctx, this.memSizeString(), 0, -10, xx, yy, this.direction, 12);
     fillText4(ctx, this.shortName, 0, 10, xx, yy, this.direction, 12);
-    fillText2(
-        ctx,
-        "A",
-        this.address.x + 12,
-        this.address.y,
-        xx,
-        yy,
-        this.direction
-    );
-    fillText2(
-        ctx,
-        "DI",
-        this.dataIn.x + 12,
-        this.dataIn.y,
-        xx,
-        yy,
-        this.direction
-    );
-    fillText2(
-        ctx,
-        "W",
-        this.write.x + 12,
-        this.write.y,
-        xx,
-        yy,
-        this.direction
-    );
-    fillText2(
-        ctx,
-        "DO",
-        this.dataOut.x - 15,
-        this.dataOut.y,
-        xx,
-        yy,
-        this.direction
-    );
+    fillText2(ctx, "A", this.address.x + 12, this.address.y, xx, yy, this.direction);
+    fillText2(ctx, "DI", this.dataIn.x + 12, this.dataIn.y, xx, yy, this.direction);
+    fillText2(ctx, "W", this.write.x + 12, this.write.y, xx, yy, this.direction);
+    fillText2(ctx, "DO", this.dataOut.x - 15, this.dataOut.y, xx, yy, this.direction);
     ctx.fill();
-};
+}
 RAM.prototype.memSizeString = function () {
-    var mag = ["", "K", "M"];
-    var unit =
-        this.bitWidth == 8
-            ? "B"
-            : this.bitWidth == 1
-            ? "b"
-            : " x " + this.bitWidth + "b";
+    var mag = ['', 'K', 'M'];
+    var unit = this.bitWidth == 8 ? "B" : this.bitWidth == 1 ? "b" : " x " + this.bitWidth + 'b';
     var v = Math.pow(2, this.addressWidth);
     var m = 0;
     while (v >= 1024 && m < mag.length - 1) {
@@ -250,16 +162,16 @@ RAM.prototype.memSizeString = function () {
         m++;
     }
     return v + mag[m] + unit;
-};
+}
 RAM.prototype.dump = function () {
     var logLabel = console.group && this.label;
     if (logLabel) {
         console.group(this.label);
     }
 
-    console.log(this.data);
+    console.log(this.data)
 
     if (logLabel) {
         console.groupEnd();
     }
-};
+}

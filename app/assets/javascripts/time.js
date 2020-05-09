@@ -1,44 +1,7 @@
 function formatDate(date, format, utc) {
-    var MMMM = [
-        "\x00",
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-    ];
-    var MMM = [
-        "\x01",
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-    ];
-    var dddd = [
-        "\x02",
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-    ];
+    var MMMM = ["\x00", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    var MMM = ["\x01", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    var dddd = ["\x02", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     var ddd = ["\x03", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
     function ii(i, len) {
@@ -115,17 +78,20 @@ function formatDate(date, format, utc) {
 
     format = format.replace(/\\(.)/g, "$1");
 
-    format = format.replace("zz", getTimeZoneName());
+
+    format = format.replace("zz",  getTimeZoneName());
+
+
 
     return format;
 }
 
-function getTimeZoneName() {
-    return new Date().toString().split("(")[1].slice(0, -1);
+function getTimeZoneName(){
+    return new Date().toString().split("(")[1].slice(0,-1);
 }
 
 function convertSecondsToReadableString(input) {
-    if (input <= 0) return "past";
+    if (input <= 0) return 'past';
 
     var daySeconds = 86400;
     var hourSeconds = 3600;
@@ -133,11 +99,6 @@ function convertSecondsToReadableString(input) {
 
     var days = Math.floor(input / daySeconds);
     var hours = Math.floor((input - days * daySeconds) / hourSeconds);
-    var minutes = Math.floor(
-        (input - (days * daySeconds + hours * hourSeconds)) / minuteSeconds
-    );
-    return ""
-        .concat(days, " days, ")
-        .concat(hours, " hours, ")
-        .concat(minutes, " minutes");
+    var minutes = Math.floor((input - (days * daySeconds + hours * hourSeconds)) / minuteSeconds);
+    return "".concat(days, " days, ").concat(hours, " hours, ").concat(minutes, " minutes");
 }

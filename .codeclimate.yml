@@ -14,25 +14,25 @@ plugins:
 
 ratings:
   paths:
-    - Gemfile.lock
-    - "**.erb"
-    - "**.rb"
-    - "**.css"
-    - "**.coffee"
-    - "**.inc"
-    - "**.js"
-    - "**.module"
+  - Gemfile.lock
+  - "**.erb"
+  - "**.rb"
+  - "**.css"
+  - "**.coffee"
+  - "**.inc"
+  - "**.js"
+  - "**.module"
 
 exclude_paths:
-  - config/
-  - db/
-  - vendor/
-  - public/bootstrap-3.3.7/
-  - public/external/
-  - test/
-  - tmp/
+- config/
+- db/
+- vendor/
+- public/bootstrap-3.3.7/
+- public/external/
+- test/
+- tmp/
 
 checks:
   method-lines:
-    config:
-      threshold: 100 # prevent lint errors in js
+      config:
+        threshold: 100 # prevent lint errors in js
