@@ -882,12 +882,12 @@ OrGate.prototype.customDraw = function () {
 
 }
 
-function Stepper(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
+function Stepper(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 8) {
 
     CircuitElement.call(this, x, y, scope, dir, bitWidth);
     this.setDimensions(20, 20);
 
-    this.output1 = new Node(20, 0, 1, this);
+    this.output1 = new Node(20, 0, 1, this, bitWidth);
     this.state = 0;
 
 }
@@ -924,7 +924,7 @@ Stepper.prototype.resolve = function () {
 }
 Stepper.prototype.keyDown2 = function (key) {
     //console.log(key);
-    if (this.state < (1 << this.bitWidth) && (key == "+" || key == "=")) this.state++;
+    if (this.state + 1 < (1 << this.bitWidth) && (key == "+" || key == "=")) this.state++;
     if (this.state > 0 && (key == "_" || key == "-")) this.state--;
 }
 
