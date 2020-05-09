@@ -66,7 +66,7 @@ Wire.prototype.update = function() {
     }
     else if(simulationArea.mouseDown && simulationArea.lastSelected==this&& !this.checkWithin(simulationArea.mouseX, simulationArea.mouseY)){
         // lets move this wiree ! 
-       if(this.node1.parent.objectType=="CircuitElement" && this.node2.parent.objectType=="CircuitElement"){
+       if(this.node1.type == NODE_INTERMEDIATE && this.node2.type == NODE_INTERMEDIATE) {
             if(this.type=="horizontal"){
                 this.node1.y= simulationArea.mouseY
                 this.node2.y= simulationArea.mouseY
