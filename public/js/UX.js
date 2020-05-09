@@ -211,11 +211,24 @@ function showProperties(obj) {
         });
     }
 
+    function checkValidBitWidth() {
+        const selector = $("[name='newBitWidth']");
+        if (selector == undefined
+            || selector.val() > 32
+            || selector.val() < 1
+            || !$.isNumeric(selector.val())) {
+            // fallback to previously saves state
+            selector.val(selector.attr("old-val"));
+        } else {
+            selector.attr("old-val", selector.val());
+        }
+    }
+
     $(".objectPropertyAttribute").on("change keyup paste click", function () {
         // return;
         //////console.log(this.name+":"+this.value);
 
-
+        checkValidBitWidth()
         scheduleUpdate();
         updateCanvas = true;
         wireToBeChecked = 1;
