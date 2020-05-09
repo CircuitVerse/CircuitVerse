@@ -85,6 +85,13 @@ RAILS_ENV=production bundle exec rake assets:precompile
 bundle exec sidekiq -e production -q default -q mailers -d -L tmp/sidekiq.log
 ```
 
+### Deploy to Heroku
+You will be redirected to the Heroku page for deployment on clicking the below button.
+Make sure that you fill in the `Config Vars` section before deploying it.
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/CircuitVerse/CircuitVerse)
+
+
 ### Additional instructions for Ubuntu
 Additional instructions can be found [here](https://www.howtoforge.com/tutorial/ubuntu-ruby-on-rails/) and there are some extra notes for single user installations:
 - If you are facing difficulties installing RVM, most probably it is because of an older version of rvm shipped with Ubuntu's desktop edition and updating the same resolves the problem.

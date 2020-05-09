@@ -60,17 +60,27 @@ Wire.prototype.update = function() {
     if (simulationArea.shiftDown==false&&simulationArea.mouseDown == true && simulationArea.selected == false && this.checkWithin(simulationArea.mouseDownX, simulationArea.mouseDownY)) {
         simulationArea.selected = true;
 
-
         simulationArea.lastSelected = this;
 
         updated = true;
     }
     else if(simulationArea.mouseDown && simulationArea.lastSelected==this&& !this.checkWithin(simulationArea.mouseX, simulationArea.mouseY)){
-        var n = new Node(simulationArea.mouseDownX, simulationArea.mouseDownY, 2, this.scope.root);
-        n.clicked = true;
-        n.wasClicked = true;
-        simulationArea.lastSelected=n;
-        this.converge(n);
+        // lets move this wiree ! 
+       if(this.node1.type == NODE_INTERMEDIATE && this.node2.type == NODE_INTERMEDIATE) {
+            if(this.type=="horizontal"){
+                this.node1.y= simulationArea.mouseY
+                this.node2.y= simulationArea.mouseY
+            } else if(this.type=="vertical"){
+                this.node1.x= simulationArea.mouseX
+                this.node2.x= simulationArea.mouseX
+            }
+        }
+        // var n = new Node(simulationArea.mouseDownX, simulationArea.mouseDownY, 2, this.scope.root);
+        // n.clicked = true;
+       
+        // n.wasClicked = true;
+        // simulationArea.lastSelected=n;
+        // this.converge(n);
     }
     if (simulationArea.lastSelected == this) {
         

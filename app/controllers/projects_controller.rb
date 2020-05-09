@@ -21,7 +21,11 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
-    @project.increase_views(current_user)
+    if current_visit && !Ahoy::Event.exists?(visit_id: current_visit.id,
+      name: "Visited project #{@project.id}")
+      ahoy.track("Visited project " + @project.id.to_s)
+      @project.increase_views(current_user)
+    end
     @collaboration = @project.collaborations.new
     @admin_access = true
     commontator_thread_show(@project)

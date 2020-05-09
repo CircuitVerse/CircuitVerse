@@ -94,6 +94,27 @@
   color: white;
 }
 
+.flex-container-about {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 30px;
+  min-width: 100%;
+  justify-content: center;
+}
+
+.contributor-about {
+  height: 100px;
+  padding: 10px;
+  width: 100px;
+}
+
+.contributor-image-about {
+  border: 2px solid $green;
+  border-radius: 50%;
+  width: 100%;
+}
+
 @media (max-width:350px) {
   .about-card-image {
     display: none;

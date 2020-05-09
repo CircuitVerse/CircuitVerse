@@ -1493,3 +1493,37 @@ CircuitElement.prototype.generateVerilog = function() {
 function distance(x1, y1, x2, y2) {
     return Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
 }
+
+
+// Report An issue ---------------------------------------->START
+
+(function(){
+    let message='';
+    let valid = false
+    $('#issuetext').on('input', function(){
+        message = $('#issuetext').val().trim();
+        valid = message.length>0;
+        $('#report').attr("disabled",!valid);
+    })
+    
+    $('#report').click(function(){
+         message += "\nURL: " + window.location.href;
+         message += `\nUser Id: <%= user_signed_in? ? " #{current_user.id.to_s} : #{current_user.name}" : "Guest user" %>`
+         postUserIssue(message)
+         $('#issuetext').hide();
+         $('#report').hide();
+         $('#report-label').hide();
+        })
+    
+       $('.issue').on('hide.bs.modal', function(e) {
+            $('#report').attr("disabled",true)
+            $('#result').html("");
+            $('#issuetext').show();
+            $('#issuetext').val("");
+            $('#report').show();
+           $('#report-label').show();
+       
+     }) 
+})()
+
+// Report An issue ---------------------------------------->END
