@@ -5,6 +5,13 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
+
+.subcircuitdialog {
+  display: none;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
 .moduleProperty input {
   color: #fff;
 }
