@@ -10,7 +10,7 @@
 test_results
 
 public/assets/
-
+out/
 /config/database.yml
 /config/secrets.yml
 
