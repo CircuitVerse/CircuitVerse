@@ -169,6 +169,12 @@ function startListeners() {
             e.preventDefault();
         }
 
+        //deselect all Shortcut
+        if (e.keyCode == 27) {
+            simulationArea.multipleObjectSelections = [];
+            e.preventDefault();
+        }
+
         //change direction fns
         if (simulationArea.lastSelected != undefined) {
             let direction = "";
