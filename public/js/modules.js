@@ -104,6 +104,7 @@ AndGate.prototype.verilogType = 'and';
  * function to change input nodes of the gate
  */
 AndGate.prototype.changeInputSize = changeInputSize;
+AndGate.prototype.helplink = 'https://docs.circuitverse.org/#/gates?id=and-gate';
 
 /**
  * @memberof AndGate
@@ -241,12 +242,13 @@ NandGate.prototype.changeInputSize = changeInputSize;
  * @type {string}
  */
 NandGate.prototype.verilogType = 'nand';
-
+NandGate.prototype.helplink = 'https://docs.circuitverse.org/#/gates?id=nand-gate';
 /**
  * @memberof NandGate
  * fn to create save Json Data of object
  * @return {JSON}
  */
+// fn to create save Json Data of object
 NandGate.prototype.customSave = function () {
     const data = {
 
@@ -352,6 +354,7 @@ Multiplexer.prototype.constructor = Multiplexer;
  * @type {string}
  */
 Multiplexer.prototype.tooltipText = 'Multiplexer ToolTip : Multiple inputs and a single line output.';
+Multiplexer.prototype.helplink = 'https://docs.circuitverse.org/#/decodersandplexers?id=multiplexer';
 
 /**
  * @memberof Multiplexer
@@ -554,6 +557,7 @@ XorGate.prototype.changeInputSize = changeInputSize;
  * @type {string}
  */
 XorGate.prototype.verilogType = 'xor';
+XorGate.prototype.helplink = 'https://docs.circuitverse.org/#/gates?id=xor-gate';
 
 /**
  * @memberof XorGate
@@ -684,6 +688,7 @@ XnorGate.prototype.changeInputSize = changeInputSize;
  * @type {string}
  */
 XnorGate.prototype.verilogType = 'xnor';
+XnorGate.prototype.helplink = 'https://docs.circuitverse.org/#/gates?id=xnor-gate';
 
 /**
  * @memberof XnorGate
@@ -1179,6 +1184,7 @@ OrGate.prototype.alwaysResolve = true;
  * @type {string}
  */
 OrGate.prototype.verilogType = 'or';
+OrGate.prototype.helplink = 'https://docs.circuitverse.org/#/gates?id=or-gate';
 
 /**
  * @memberof OrGate
@@ -1244,12 +1250,13 @@ OrGate.prototype.customDraw = function () {
  * @param {number} y - y coordinate of element.
  * @param {Scope=} scope - Cirucit on which element is drawn
  * @param {string=} dir - direction of element
+ * @param {number=} bitWidth - bitwidth of element
  */
-function Stepper(x, y, scope = globalScope, dir = 'RIGHT') {
-    CircuitElement.call(this, x, y, scope, dir, 8);
+function Stepper(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 8) {
+    CircuitElement.call(this, x, y, scope, dir, bitWidth);
     this.setDimensions(20, 20);
 
-    this.output1 = new Node(20, 0, 1, this, 8);
+    this.output1 = new Node(20, 0, 1, this, bitWidth);
     this.state = 0;
 }
 Stepper.prototype = Object.create(CircuitElement.prototype);
@@ -1275,8 +1282,8 @@ Stepper.prototype.helplink = 'https://docs.circuitverse.org/#/inputElements?id=s
  * @return {JSON}
  */
 Stepper.prototype.customSave = function () {
-    const data = {
-        constructorParamaters: [this.direction],
+    var data = {
+        constructorParamaters: [this.direction, this.bitWidth],
         nodes: {
             output1: findNode(this.output1),
         },
@@ -1350,6 +1357,7 @@ NotGate.prototype.constructor = NotGate;
  * @type {string}
  */
 NotGate.prototype.tooltipText = 'Not Gate Tooltip : Inverts the input digital signal.';
+NotGate.prototype.helplink = 'https://docs.circuitverse.org/#/gates?id=not-gate';
 
 /**
  * @memberof NotGate
@@ -1646,6 +1654,8 @@ TriState.prototype.constructor = TriState;
  * @type {string}
  */
 TriState.prototype.tooltipText = 'TriState ToolTip : Effectively removes the output from the circuit.';
+TriState.prototype.helplink = 'https://docs.circuitverse.org/#/miscellaneous?id=tri-state-buffer';
+
 // TriState.prototype.propagationDelay=10000;
 
 /**
@@ -1749,6 +1759,7 @@ Buffer.prototype.constructor = Buffer;
  * @type {string}
  */
 Buffer.prototype.tooltipText = 'Buffer ToolTip : Isolate the input from the output.';
+Buffer.prototype.helplink = 'https://docs.circuitverse.org/#/miscellaneous?id=buffer';
 
 /**
  * @memberof Buffer
@@ -1951,6 +1962,7 @@ Adder.prototype.constructor = Adder;
  * @type {string}
  */
 Adder.prototype.tooltipText = 'Adder ToolTip : Performs addition of numbers.';
+Adder.prototype.helplink = 'https://docs.circuitverse.org/#/miscellaneous?id=adder';
 
 /**
  * @memberof Adder
@@ -2117,6 +2129,7 @@ Rom.prototype.constructor = Rom;
  * @type {string}
  */
 Rom.prototype.tooltipText = 'Read-only memory';
+Rom.prototype.helplink = 'https://docs.circuitverse.org/#/memoryElements?id=rom';
 
 /**
  * @memberof Rom
@@ -2986,7 +2999,8 @@ Output.prototype.customDraw = function () {
     ctx.font = '20px Georgia';
     ctx.fillStyle = 'green';
     ctx.textAlign = 'center';
-    if (this.state === undefined) { const bin = 'x'.repeat(this.bitWidth); } else { const bin = dec2bin(this.state, this.bitWidth); }
+    let bin;
+    if (this.state === undefined) { bin = 'x'.repeat(this.bitWidth); } else { bin = dec2bin(this.state, this.bitWidth); }
 
     for (let k = 0; k < this.bitWidth; k++) { fillText(ctx, bin[k], xx - 10 * this.bitWidth + 10 + (k) * 20, yy + 5); }
     ctx.fill();
@@ -3042,6 +3056,7 @@ BitSelector.prototype.constructor = BitSelector;
  * @type {string}
  */
 BitSelector.prototype.tooltipText = 'BitSelector ToolTip : Divides input bits into several equal-sized groups.';
+BitSelector.prototype.helplink = 'https://docs.circuitverse.org/#/decodersandplexers?id=bit-selector';
 
 /**
  * @memberof BitSelector
@@ -3354,6 +3369,7 @@ NorGate.prototype.changeInputSize = changeInputSize;
  * @type {string}
  */
 NorGate.prototype.verilogType = 'nor';
+NorGate.prototype.helplink = 'https://docs.circuitverse.org/#/gates?id=nor-gate';
 
 /**
  * @memberof NorGate
@@ -4037,6 +4053,7 @@ Demultiplexer.prototype.constructor = Demultiplexer;
  * @type {string}
  */
 Demultiplexer.prototype.tooltipText = 'DeMultiplexer ToolTip : Multiple outputs and a single line input.';
+Demultiplexer.prototype.helplink = 'https://docs.circuitverse.org/#/decodersandplexers?id=demultiplexer';
 
 /**
  * @memberof Demultiplexer
@@ -4186,6 +4203,7 @@ Decoder.prototype.constructor = Decoder;
  * @type {string}
  */
 Decoder.prototype.tooltipText = 'Decoder ToolTip : Converts coded inputs into coded outputs.';
+Decoder.prototype.helplink = 'https://docs.circuitverse.org/#/decodersandplexers?id=decoder';
 
 /**
  * @memberof Decoder
@@ -4290,6 +4308,7 @@ Flag.prototype.constructor = Flag;
  * @type {string}
  */
 Flag.prototype.tooltipText = 'FLag ToolTip: Use this for debugging and plotting.';
+Flag.prototype.helplink = 'https://docs.circuitverse.org/#/timing_diagrams?id=using-flags';
 
 /**
  * @memberof Flag
@@ -4462,6 +4481,7 @@ MSB.prototype.constructor = MSB;
  * @type {string}
  */
 MSB.prototype.tooltipText = 'MSB ToolTip : The most significant bit or the high-order bit.';
+MSB.prototype.helplink = 'https://docs.circuitverse.org/#/decodersandplexers?id=most-significant-bit-msb-detector';
 
 /**
  * @memberof MSB
@@ -4577,6 +4597,7 @@ LSB.prototype.constructor = LSB;
  * @type {string}
  */
 LSB.prototype.tooltipText = 'LSB ToolTip : The least significant bit or the low-order bit.';
+LSB.prototype.helplink = 'https://docs.circuitverse.org/#/decodersandplexers?id=least-significant-bit-lsb-detector';
 
 /**
  * @memberof LSB
@@ -4713,6 +4734,7 @@ PriorityEncoder.prototype.constructor = PriorityEncoder;
  * @type {string}
  */
 PriorityEncoder.prototype.tooltipText = 'Priority Encoder ToolTip : Compresses binary inputs into a smaller number of outputs.';
+PriorityEncoder.prototype.helplink = 'https://docs.circuitverse.org/#/decodersandplexers?id=priority-encoder';
 
 /**
  * @memberof PriorityEncoder
@@ -4851,6 +4873,7 @@ Tunnel.prototype.constructor = Tunnel;
  * @type {string}
  */
 Tunnel.prototype.tooltipText = 'Tunnel ToolTip : Tunnel Selected.';
+Tunnel.prototype.helplink = 'https://docs.circuitverse.org/#/miscellaneous?id=tunnel';
 
 /**
  * @memberof Tunnel
@@ -5264,6 +5287,13 @@ Rectangle.prototype.constructor = Rectangle;
  * @type {string}
  */
 Rectangle.prototype.tooltipText = 'Rectangle ToolTip : Used to Box the Circuit or area you want to highlight.';
+Rectangle.prototype.helplink = 'https://docs.circuitverse.org/#/annotation?id=rectangle';
+Rectangle.prototype.propagationDelayFixed = true;
+
+/**
+ * @memberof Rectangle
+ * @param {number} size - new size of rows
+ */
 Rectangle.prototype.changeRowSize = function (size) {
     if (size === undefined || size < 5 || size > 1000) return;
     if (this.rows === size) return;
@@ -5388,6 +5418,8 @@ Arrow.prototype.constructor = Arrow;
  * @type {string}
  */
 Arrow.prototype.tooltipText = 'Arrow ToolTip : Arrow Selected.';
+Arrow.prototype.propagationDelayFixed = true;
+Arrow.prototype.helplink = 'https://docs.circuitverse.org/#/annotation?id=arrow';
 
 /**
  * @memberof Arrow

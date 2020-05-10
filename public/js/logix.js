@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 /* eslint-disable no-bitwise */
 /* eslint-disable camelcase */
 /* eslint-disable no-alert */
@@ -31,32 +32,32 @@ let globalScope;
  * To be deprecated
  * @type {number}
  */
-const uniqueIdCounter = 0;
+let uniqueIdCounter = 0;
 
 /**
  * size of each division/ not used everywhere, to be deprecated
  * @type {number}
  */
 
-const unit = 10;
+let unit = 10;
 
 /**
  * when node disconnects from another node
  * @type {number}
  */
-const wireToBeChecked = 0;
+let wireToBeChecked = 0;
 
 /**
  * scheduleUpdate() will be called if true
  * @type {boolean}
  */
-const willBeUpdated = false; // scheduleUpdate() will be called if true
+let willBeUpdated = false; // scheduleUpdate() will be called if true
 
 /**
  * Flag for object selection
  * @type {boolean}
  */
-const objectSelection = false; // Flag for object selection
+let objectSelection = false; // Flag for object selection
 
 /**
  * Flag for error detection
@@ -81,7 +82,7 @@ let prevShowMessage;
  * Flag for updating position
  * @type {boolean}
  */
-const updatePosition = true;
+let updatePosition = true;
 /**
  * Flag for updating simulation
  * @type {boolean}
@@ -97,7 +98,7 @@ let updateCanvas = true;
  * Flag for updating grid
  * @type {boolean}
  */
-const gridUpdate = true;
+let gridUpdate = true;
 /**
  * Flag for updating subCircuits
  * @type {boolean}
@@ -108,7 +109,7 @@ let updateSubcircuit = true;
  * Flag - all assets are loaded
  * @type {boolean}
  */
-const loading = false;
+let loading = false;
 
 /**
  * devicePixelRatio, 2 for retina displays, 1 for low resolution displays
@@ -120,7 +121,7 @@ let DPR = 1;
  * Flag for project saved or not
  * @type {boolean}
  */
-const projectSaved = true;
+let projectSaved = true;
 
 /**
  * To be deprecated
@@ -132,7 +133,7 @@ let lightMode = false;
  * Flag for mode
  * @type {boolean}
  */
-const layoutMode = false;
+let layoutMode = false;
 
 /**
  * Flag to reset all Nodes
@@ -263,7 +264,7 @@ function setupElementLists() {
     }
 
     const { elementHierarchy } = metadata;
-    for (category in elementHierarchy.keys()) {
+    for (category in elementHierarchy) {
         let htmlIcons = '';
         const categoryData = elementHierarchy[category];
         for (let i = 0; i < categoryData.length; i++) {
