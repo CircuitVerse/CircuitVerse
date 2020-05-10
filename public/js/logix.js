@@ -943,13 +943,13 @@ function paste(copyData) {
         }
     }
     for (let i = 0; i < tempScope.Input.length; i++) {
-        tempScope.Input[i].layoutProperties.y = get_next_position(0, globalScope);
+        tempScope.Input[i].layoutProperties.y = getNextPosition(0, globalScope);
         tempScope.Input[i].layoutProperties.id = generateId();
     }
     for (let i = 0; i < tempScope.Output.length; i++) {
         tempScope.Output[i].layoutProperties.x = globalScope.layout.width;
         tempScope.Output[i].layoutProperties.id = generateId();
-        tempScope.Output[i].layoutProperties.y = get_next_position(globalScope.layout.width, globalScope);
+        tempScope.Output[i].layoutProperties.y = getNextPosition(globalScope.layout.width, globalScope);
     }
 
     canvasUpdate = true;
@@ -1181,11 +1181,10 @@ function CircuitElement(x, y, scope, dir, bitWidth) {
     this.oldx = x;
     this.oldy = y;
 
-    /**
-     The following attributes help in setting the touch area bound. They are the distances from the center.
-     Note they are all positive distances from center. They will automatically be rotated when direction is changed.
-     To stop the rotation when direction is changed, check overrideDirectionRotation attribute.
-     * */
+    // The following attributes help in setting the touch area bound. They are the distances from the center.
+    // Note they are all positive distances from center. They will automatically be rotated when direction is changed.
+    // To stop the rotation when direction is changed, check overrideDirectionRotation attribute.
+
     this.leftDimensionX = 10;
     this.rightDimensionX = 10;
     this.upDimensionY = 10;
