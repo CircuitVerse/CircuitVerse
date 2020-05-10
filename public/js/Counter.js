@@ -28,6 +28,7 @@ function Counter(x, y, scope = globalScope, bitWidth = 8) {
 Counter.prototype = Object.create(CircuitElement.prototype);
 Counter.prototype.constructor = Counter;
 Counter.prototype.tooltipText = "Counter: a binary counter from zero to a given maximum value";
+Counter.prototype.helplink = "https://docs.circuitverse.org/#/inputElements?id=counter";
 Counter.prototype.customSave = function () {
     return {
         nodes: {
