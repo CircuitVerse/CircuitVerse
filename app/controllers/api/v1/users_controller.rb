@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::UsersController < Api::V1::BaseController
-  skip_before_action :set_user, only: [:index]
+  before_action :set_user, only: [:show, :update]
   before_action :authenticate_user!
   before_action :check_access, only: [:update]
 
