@@ -32,6 +32,16 @@ RSpec.describe Api::V1::UsersController, type: :request do
   describe "list a user" do
     let!(:user) { FactoryBot.create(:user) }
 
+    context "when requested user does not exists" do
+      before(:each) do
+        get "/api/v1/users/0"
+      end
+      it "returns 404 :not_found and should have jsonapi errors" do
+        expect(response).to have_http_status(404)
+        expect(response.body).to have_jsonapi_errors()
+      end
+    end
+
     context "when not authenticated" do
       before(:each) do
         get "/api/v1/users/#{user.id}"
@@ -58,6 +68,16 @@ RSpec.describe Api::V1::UsersController, type: :request do
   describe "update a user" do
     let!(:user) { FactoryBot.create(:user) }
 
+    context "when requested user does not exists" do
+      before(:each) do
+        get "/api/v1/users/0"
+      end
+      it "returns 404 :not_found and should have jsonapi errors" do
+        expect(response).to have_http_status(404)
+        expect(response.body).to have_jsonapi_errors()
+      end
+    end
+
     context "when not authenticated" do
       before(:each) do
         patch "/api/v1/users/#{user.id}", params: { name: "Updated Name" }
@@ -77,7 +97,7 @@ RSpec.describe Api::V1::UsersController, type: :request do
         headers: { "Authorization": "Token #{token}" }
       end
 
-      it "returns 404 :forbidden and should have jsonapi errors" do
+      it "returns 403 :forbidden and should have jsonapi errors" do
         expect(response).to have_http_status(403)
         expect(response.body).to have_jsonapi_errors()
       end
