@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 class Api::V1::ErrorSerializer
-  UNKNOWN_ERROR = 'Something Unexpectedly Went Wrong! Please consider opening a github issue :)'.freeze
+  UNKNOWN_ERROR = "Something Unexpectedly Went Wrong! Please open a github issue."
 
   def initialize(status, errors)
     @status = status
     if errors.is_a? ActiveModel::Errors
       @errors = parse_am_errors(errors)
-    else #it's an array or a string
+    else
       @errors = [errors].flatten
     end
   end
@@ -14,10 +16,6 @@ class Api::V1::ErrorSerializer
     {
       errors: errors
     }
-  end
-
-  def to_json
-    as_json.to_json
   end
 
   private

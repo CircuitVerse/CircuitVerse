@@ -5,7 +5,7 @@ class Api::V1::BaseController < ActionController::API
   include CustomErrors
 
   rescue_from ActionController::ParameterMissing do
-    api_error(status: 400, errors: 'invalid parameters')
+    api_error(status: 400, errors: "invalid parameters")
   end
 
   rescue_from Pundit::NotAuthorizedError do
@@ -13,11 +13,11 @@ class Api::V1::BaseController < ActionController::API
   end
 
   rescue_from ActiveRecord::RecordNotFound do
-    api_error(status: 404, errors: 'resource not found!')
+    api_error(status: 404, errors: "resource not found!")
   end
 
   rescue_from ActiveRecord::RecordInvalid do
-    api_error(status: 422, errors: 'resource invalid!')
+    api_error(status: 422, errors: "resource invalid!")
   end
 
   rescue_from UnauthenticatedError do
@@ -25,8 +25,8 @@ class Api::V1::BaseController < ActionController::API
   end
 
   def authenticate_user
-    header = request.headers['Authorization']
-    header = header.split(' ').last if header
+    header = request.headers["Authorization"]
+    header = header.split(" ").last if header
     begin
       @decoded = JsonWebToken.decode(header)
       @current_user = User.find(@decoded[:user][:user_id])
@@ -40,15 +40,15 @@ class Api::V1::BaseController < ActionController::API
   end
 
   def unauthenticated!
-    api_error(status: 401, errors: 'not authenticated')
+    api_error(status: 401, errors: "not authenticated")
   end
 
   def unauthorized!
-    api_error(status: 403, errors: 'not authorized')
+    api_error(status: 403, errors: "not authorized")
   end
 
   def not_found!
-    api_error(status: 404, errors: 'resource not found')
+    api_error(status: 404, errors: "resource not found")
   end
 
   def invalid_resource!(errors = [])
@@ -58,9 +58,9 @@ class Api::V1::BaseController < ActionController::API
   def paginate(resource)
     default_per_page = Rails.application.secrets.default_per_page || 5
 
-    resource.paginate({
+    resource.paginate(
       page: params[:page] || 1, per_page: params[:per_page] || default_per_page
-    })
+    )
   end
 
   def meta_attributes(resource, extra_meta = {})
@@ -72,12 +72,10 @@ class Api::V1::BaseController < ActionController::API
       total_count: resource.total_entries
     }.merge(extra_meta)
 
-    return meta
+    meta
   end
 
   def api_error(status: 500, errors: [])
-    puts errors.full_messages if errors.respond_to?(:full_messages)
-
     render json: Api::V1::ErrorSerializer.new(status, errors).as_json,
       status: status
   end
