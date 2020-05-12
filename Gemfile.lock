@@ -203,6 +203,8 @@ GEM
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
     json (2.2.0)
+    json-schema (2.8.1)
+      addressable (>= 2.4)
     jwt (2.2.1)
     kaminari (1.1.1)
       activesupport (>= 4.1.0)
@@ -546,6 +548,7 @@ DEPENDENCIES
   http
   jbuilder (~> 2.5)
   jquery-rails
+  json-schema
   jwt
   language_filter
   listen (>= 3.0.5, < 3.2)

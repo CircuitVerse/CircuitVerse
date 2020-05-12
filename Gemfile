@@ -119,6 +119,7 @@ group :test do
   gem 'webdrivers', '~> 4.0'
   gem 'capybara', '~> 2.13'
   gem 'shoulda-matchers'
+  gem "json-schema"
 end
 
 group :development do
