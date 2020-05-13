@@ -38,7 +38,7 @@ class Api::V1::BaseController < ActionController::API
   end
 
   def authenticate_user!
-    authenticate_user or raise UnauthenticatedError
+    authenticate_user || UnauthenticatedError
   end
 
   def unauthenticated!
