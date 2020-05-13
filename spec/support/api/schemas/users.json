@@ -11,26 +11,10 @@
           "attributes": {
             "type": "object",
             "properties": {
-              "id": { "type": "integer" },
-              "email": { "type": "string" },
-              "name": { "type": "string" },
-              "admin": { "type": "boolean" },
-              "country": { "type": ["null", "string"] },
-              "educational_institute": { "type": ["null", "string"] },
-              "subscribed": { "type": "boolean" },
-              "created_at": { "type": "string" },
-              "updated_at": { "type": "string" }
+              "name": { "type": "string" }
             },
             "required": [
-              "id",
-              "email",
-              "name",
-              "admin",
-              "country",
-              "educational_institute",
-              "subscribed",
-              "created_at",
-              "updated_at"
+              "name"
             ]
           }
         },
