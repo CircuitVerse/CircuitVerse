@@ -2,10 +2,9 @@
 
 module AuthenticationHelper
   def get_auth_token(user)
-    token = JsonWebToken.encode(
-      user: { user_id: user.id, username: user.name, email: user.email }
+    JsonWebToken.encode(
+      user_id: user.id, username: user.name, email: user.email
     )
-    token
   end
 end
 

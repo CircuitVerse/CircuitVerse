@@ -1,15 +1,27 @@
 # frozen_string_literal: true
 
 class JsonWebToken
-  SECRET_KEY = Rails.application.secrets.secret_key_base. to_s
-
-  def self.encode(payload, exp = 24.hours.from_now)
-    payload[:exp] = exp.to_i
-    JWT.encode(payload, SECRET_KEY)
+  def self.encode(payload)
+    payload.reverse_merge!(meta)
+    JWT.encode(payload, private_key, "RS256")
   end
 
   def self.decode(token)
-    decoded = JWT.decode(token, SECRET_KEY)[0]
-    HashWithIndifferentAccess.new decoded
+    JWT.decode(token, public_key, true, algorithm: "RS256")
+  end
+
+  # Default options to be encoded in the token
+  def self.meta
+    {
+      exp: 7.days.from_now.to_i
+    }
+  end
+
+  def self.private_key
+    OpenSSL::PKey::RSA.new(File.open(Rails.root.join("config", "private.pem"), "r:UTF-8"))
+  end
+
+  def self.public_key
+    OpenSSL::PKey::RSA.new(File.open(Rails.root.join("config", "public.pem"), "r:UTF-8"))
   end
 end

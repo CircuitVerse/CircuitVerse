@@ -7,14 +7,10 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
   def login
     @user = User.find_by!(email: params[:email])
     if @user&.valid_password?(params[:password])
-      exp = (Time.zone.today + 365)
       token = JsonWebToken.encode(
-        user: { user_id: @user.id, username: @user.name, email: @user.email },
-        exp: exp
+        user_id: @user.id, username: @user.name, email: @user.email
       )
-      render json: {
-        token: token
-      }, status: :accepted
+      render json: { token: token }, status: :accepted
     elsif @user
       api_error(status: 401, errors: "invalid credentials")
     end
@@ -26,10 +22,8 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
       api_error(status: 409, errors: "user already exists")
     else
       @user = User.create!(signup_params)
-      exp = (Time.zone.today + 365)
       token = JsonWebToken.encode(
-        user: { user_id: @user.id, username: @user.name, email: @user.email },
-        exp: exp
+        user_id: @user.id, username: @user.name, email: @user.email
       )
       render json: { token: token }, status: :created
     end

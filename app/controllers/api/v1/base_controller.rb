@@ -30,8 +30,8 @@ class Api::V1::BaseController < ActionController::API
     header = request.headers["Authorization"]
     header = header.split(" ").last if header
     begin
-      @decoded = JsonWebToken.decode(header)
-      @current_user = User.find(@decoded[:user][:user_id])
+      @decoded = JsonWebToken.decode(header)[0]
+      @current_user = User.find(@decoded["user_id"])
     rescue JWT::DecodeError => e
       api_error(status: 401, errors: e.message)
     end
