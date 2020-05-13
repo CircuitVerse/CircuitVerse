@@ -526,7 +526,6 @@ DEPENDENCIES
   activity_notification
   acts_as_votable (~> 0.12.0)
   ahoy_matey
-  bcrypt
   bootsnap
   bootstrap-typeahead-rails
   byebug

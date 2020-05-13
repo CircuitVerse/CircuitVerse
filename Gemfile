@@ -94,7 +94,6 @@ gem 'bootsnap', require: false
 
 gem 'font-awesome-sass', '~> 5.12.0'
 
-gem 'bcrypt'
 gem 'jwt'
 gem 'fast_jsonapi'
 

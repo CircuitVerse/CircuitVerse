@@ -4,6 +4,8 @@ class Api::V1::BaseController < ActionController::API
   include Pundit
   include CustomErrors
 
+  DEFAULT_PER_PAGE = 5
+
   rescue_from ActionController::ParameterMissing do
     api_error(status: 400, errors: "invalid parameters")
   end
@@ -56,10 +58,8 @@ class Api::V1::BaseController < ActionController::API
   end
 
   def paginate(resource)
-    default_per_page = Rails.application.secrets.default_per_page || 5
-
     resource.paginate(
-      page: params[:page] || 1, per_page: params[:per_page] || default_per_page
+      page: params[:page] || 1, per_page: params[:per_page] || DEFAULT_PER_PAGE
     )
   end
 
