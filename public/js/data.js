@@ -9,6 +9,10 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-alert */
 /**
+ * The module to save and load the project and circuits.
+ * @module data
+ */
+/**
  * Function to create new circuit
  * Function creates button in tab, creates scope and switches to this circuit
  * @param {string} name - name of the new circuit

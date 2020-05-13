@@ -44,7 +44,7 @@ function menuItemClicked(id) {
         // document.execCommand('paste'); it is restricted to sove this problem we use dataPasted variable
         paste(localStorage.getItem('clipboardData'));
     } else if (id === 3) {
-        delete_selected();
+        deleteSelected();
     } else if (id === 4) {
         undo();
         undo();

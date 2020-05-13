@@ -1,33 +1,49 @@
+/**
+ * TestBench Input has a node for it's clock input.
+ * this.testData - the data of all test cases.
+ * Every testbench has a uniq identifier.
+ * @class
+ * @extends CircuitElement
+ * @param {number} x - the x coord of TB
+ * @param {number} y - the y coord of TB
+ * @param {Scope=} scope - the circuit on which TB is drawn
+ * @param {string} dir - direction
+ * @param {string} identifier - id to identify tests
+ * @param {JSON=} testData - input, output and number of tests
+ */
 function TB_Input(x, y, scope = globalScope, dir = "RIGHT",  identifier, testData) {
-
     CircuitElement.call(this, x, y, scope, dir, 1);
-    // this.setDimensions(60,20);
-
-    // this.xSize=10;
-
-    // this.plotValues = [];
-    // this.inp1 = new Node(0, 0, 0, this);
-    // this.inp1 = new Node(100, 100, 0, this);
     this.setIdentifier (identifier|| "Test1");
     this.testData=testData || {"inputs":[],"outputs":[],"n":0}
     this.clockInp = new Node(0,20, 0,this,1);
     this.outputs = []
-
-    this.running = false;
+    this.running = false; // if tests are undergo
     this.iteration=0;
-
     this.setup();
-
 }
 TB_Input.prototype = Object.create(CircuitElement.prototype);
+
 TB_Input.prototype.constructor = TB_Input;
+
 TB_Input.prototype.tooltipText = "Test Bench Input Selected";
+
+/**
+ * @memberof TB_Input
+ * different algo for drawing center elements
+ */
 TB_Input.prototype.centerElement = true;
+
 TB_Input.prototype.helplink = "https://docs.circuitverse.org/#/testbench";
+
+/**
+ * @memberof TB_Input
+ * Takes iput when double clicked. For help on generation of input refer to TB_Input.helplink
+ */
 TB_Input.prototype.dblclick=function(){
     this.testData=JSON.parse(prompt("Enter TestBench Json"));
     this.setup();
 }
+
 TB_Input.prototype.setDimensions=function() {
     this.leftDimensionX = 0;
     this.rightDimensionX = 120;
@@ -35,11 +51,14 @@ TB_Input.prototype.setDimensions=function() {
     this.upDimensionY = 0;
     this.downDimensionY = 40 + this.testData.inputs.length * 20;
 }
+
+/**
+ * @memberof TB_Input
+ * setups the Test by parsing through the testbench data.
+ */
 TB_Input.prototype.setup=function(){
-
     this.iteration = 0;
-    this.running = false;
-
+    this.running = false
     this.nodeList.clean(this.clockInp);
     this.deleteNodes();
     this.nodeList = []
@@ -62,14 +81,28 @@ TB_Input.prototype.setup=function(){
     }
 }
 
+/**
+ * @memberof TB_Input
+ * toggles state by simply negating this.running so that test cases stop
+ */
 TB_Input.prototype.toggleState=function(){
     this.running=!this.running;
     this.prevClockState=0;
 }
+
+/**
+ * @memberof TB_Input
+ * function to run from test case 0 again
+ */
 TB_Input.prototype.resetIterations=function(){
     this.iteration=0;
     this.prevClockState=0;
 }
+
+/**
+ * @memberof TB_Input
+ * function to resolve the testbench input adds
+ */
 TB_Input.prototype.resolve=function(){
     if(this.clockInp.value !=  this.prevClockState){
         this.prevClockState = this.clockInp.value;
@@ -91,6 +124,10 @@ TB_Input.prototype.resolve=function(){
 
 }
 
+/**
+ * @memberof TB_Input
+ * was a function to plot values of the testbench(probably not called anymore WIP)
+ */
 TB_Input.prototype.setPlotValue = function() {
     var time = plotArea.stopWatch.ElapsedMilliseconds;
     if (this.plotValues.length && this.plotValues[this.plotValues.length - 1][0] == time)
@@ -106,6 +143,7 @@ TB_Input.prototype.setPlotValue = function() {
     else
         this.plotValues.push([time, this.inp1.value]);
 }
+
 TB_Input.prototype.customSave = function() {
     var data = {
         constructorParamaters: [this.direction,   this.identifier, this.testData],
@@ -116,6 +154,11 @@ TB_Input.prototype.customSave = function() {
     }
     return data;
 }
+
+/**
+ * This function is used to set a uniq identifier to every testbench
+ * @memberof TB_Input
+ */
 TB_Input.prototype.setIdentifier = function(id = "") {
     if (id.length == 0 || id==this.identifier) return;
 
@@ -134,16 +177,23 @@ TB_Input.prototype.setIdentifier = function(id = "") {
 
     this.checkPaired();
 }
+
+/**
+ * Check if there is a output tester paired with input TB.
+ * @memberof TB_Input
+ */
 TB_Input.prototype.checkPaired=function(){
     for(var i =0; i<this.scope.TB_Output.length;i++){
         if(this.scope.TB_Output[i].identifier == this.identifier)
             this.scope.TB_Output[i].checkPairing();
     }
 }
+
 TB_Input.prototype.delete = function () {
     CircuitElement.prototype.delete.call(this)
     this.checkPaired();
 }
+
 TB_Input.prototype.mutableProperties = {
     "identifier": {
         name: "TestBench Name:",
@@ -162,6 +212,7 @@ TB_Input.prototype.mutableProperties = {
         func: "toggleState",
     },
 }
+
 TB_Input.prototype.customDraw = function() {
     ctx = simulationArea.context;
     ctx.beginPath();
@@ -186,25 +237,6 @@ TB_Input.prototype.customDraw = function() {
         xRotate=60-this.xSize/2;
         yRotate=20;
     }
-
-    // rect2(ctx, -120+xRotate+this.xSize, -20+yRotate, 120-this.xSize, 40, xx, yy, "RIGHT");
-    // if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this))
-    //     ctx.fillStyle = "rgba(255, 255, 32,0.8)";
-    // ctx.fill();
-    // ctx.stroke();
-    //
-    // ctx.font = "14px Georgia";
-    // this.xOff = ctx.measureText(this.identifier).width;
-    // ctx.beginPath();
-    // rect2(ctx, -105+xRotate+this.xSize, -11+yRotate,this.xOff + 10, 23, xx, yy, "RIGHT");
-    // ctx.fillStyle = "#eee"
-    // ctx.strokeStyle = "#ccc";
-    // ctx.fill();
-    // ctx.stroke();
-    //
-
-
-
 
     ctx.beginPath();
     ctx.textAlign = "center";
@@ -240,17 +272,6 @@ TB_Input.prototype.customDraw = function() {
         ctx.fill();
     }
 
-    //
-    //
-    // ctx.font = "30px Georgia";
-    // ctx.textAlign = "center";
-    // ctx.fillStyle = ["blue", "red"][+(this.inp1.value == undefined)];
-    // if (this.inp1.value !== undefined)
-    //     fillText(ctx, this.inp1.value.toString(16), xx - 23 + xRotate, yy + 8 + yRotate, 25);
-    // else
-    //     fillText(ctx, "x", xx - 23 + xRotate, yy + 8 + yRotate, 25);
-    // ctx.fill();
-
     ctx.beginPath();
     ctx.strokeStyle = ("rgba(0,0,0,1)");
     ctx.lineWidth = correctWidth(3);
@@ -264,14 +285,19 @@ TB_Input.prototype.customDraw = function() {
     ctx.stroke();
 }
 
-
-
-
-
-
-
-
-
+/**
+ * TestBench Output has a node for it's  input which is
+ * compared to desired output according tp testData of 
+ * input TB Every TB_output has a uniq identifier matching
+ * it's TB_Input
+ * @class
+ * @extends CircuitElement
+ * @param {number} x - the x coord of TB
+ * @param {number} y - the y coord of TB
+ * @param {Scope=} scope - the circuit on which TB is drawn
+ * @param {string} dir - direction
+ * @param {string} identifier - id to identify tests
+ */
 
 function TB_Output(x, y, scope = globalScope, dir = "RIGHT",  identifier) {
 
@@ -303,25 +329,22 @@ TB_Output.prototype.centerElement = true;
 TB_Output.prototype.setDimensions=function() {
     this.leftDimensionX = 0;
     this.rightDimensionX = 160;
-
     this.upDimensionY = 0;
     this.downDimensionY = 40;
     if(this.testBenchInput)
     this.downDimensionY = 40 + this.testBenchInput.testData.outputs.length * 20;
 }
-TB_Output.prototype.setup = function(){
 
+TB_Output.prototype.setup = function(){
     // this.iteration = 0;
     // this.running = false;
-
     // this.nodeList.clean(this.clockInp);
-    this.deleteNodes();
+    this.deleteNodes(); // deletes all nodes whenever setup is called.
     this.nodeList = []
-
-
 
     this.inputs = [];
     this.testBenchInput = undefined;
+    // find it's pair input
     for(var i=0;i<this.scope.TB_Input.length;i++){
         if(this.scope.TB_Input[i].identifier == this.identifier) {
             this.testBenchInput = this.scope.TB_Input[i];
@@ -339,49 +362,6 @@ TB_Output.prototype.setup = function(){
 
 }
 
-// TB_Output.prototype.toggleState=function(){
-//     this.running=!this.running;
-//     this.prevClockState=0;
-// }
-// TB_Output.prototype.resetIterations=function(){
-//     this.iteration=0;
-//     this.prevClockState=0;
-// }
-// TB_Output.prototype.resolve=function(){
-//     if(this.clockInp.value !=  this.prevClockState){
-//         this.prevClockState = this.clockInp.value;
-//         if(this.clockInp.value == 1 && this.running){
-//             if(this.iteration<this.testData.n){
-//                 this.iteration++;
-//             }
-//             else{
-//                 this.running = false;
-//             }
-//         }
-//     }
-//     if(this.running && this.iteration)
-//     for(var i=0;i<this.testData.inputs.length;i++){
-//         console.log(this.testData.inputs[i].values[this.iteration-1]);
-//         this.outputs[i].value = parseInt(this.testData.inputs[i].values[this.iteration-1],2);
-//         simulationArea.simulationQueue.add(this.outputs[i]);
-//     }
-//
-// }
-// TB_Output.prototype.setPlotValue = function() {
-//     var time = plotArea.stopWatch.ElapsedMilliseconds;
-//     if (this.plotValues.length && this.plotValues[this.plotValues.length - 1][0] == time)
-//         this.plotValues.pop();
-//
-//     if (this.plotValues.length == 0) {
-//         this.plotValues.push([time, this.inp1.value]);
-//         return;
-//     }
-//
-//     if (this.plotValues[this.plotValues.length - 1][1] == this.inp1.value)
-//         return;
-//     else
-//         this.plotValues.push([time, this.inp1.value]);
-// }
 TB_Output.prototype.customSave = function() {
     var data = {
         constructorParamaters: [this.direction,   this.identifier],
@@ -391,11 +371,19 @@ TB_Output.prototype.customSave = function() {
     }
     return data;
 }
+/**
+ * @memberof TB_output
+ * set identifier for this testbench
+ */
 TB_Output.prototype.setIdentifier = function(id = "") {
     if (id.length == 0 || id==this.identifier) return;
     this.identifier = id;
     this.setup();
 }
+/**
+ * @memberof TB_output
+ * Function to check if the input for this TB exist
+ */
 TB_Output.prototype.checkPairing = function(id = "") {
     if(this.testBenchInput){
         if(this.testBenchInput.deleted || this.testBenchInput.identifier!=this.identifier){
@@ -530,18 +518,5 @@ TB_Output.prototype.customDraw = function() {
 
 
     }
-
-
-
-    //
-    //
-    // ctx.font = "30px Georgia";
-    // ctx.textAlign = "center";
-    // ctx.fillStyle = ["blue", "red"][+(this.inp1.value == undefined)];
-    // if (this.inp1.value !== undefined)
-    //     fillText(ctx, this.inp1.value.toString(16), xx - 23 + xRotate, yy + 8 + yRotate, 25);
-    // else
-    //     fillText(ctx, "x", xx - 23 + xRotate, yy + 8 + yRotate, 25);
-    // ctx.fill();
 
 }

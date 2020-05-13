@@ -6,6 +6,9 @@
 /* eslint-disable no-bitwise */
 /* eslint-disable no-param-reassign */
 /**
+ * @module modules
+ */
+/**
  * Function to change the number of input node
  * @param {number} size - new input size
  * @return {CircuitElement}

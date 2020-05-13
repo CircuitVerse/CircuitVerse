@@ -1,20 +1,24 @@
+/* eslint-disable func-names */
+/* eslint-disable no-alert */
+/* eslint-disable no-use-before-define */
 // Most Listeners are stored here
 
-
+/**
+ * Function to start all the listeners
+ */
 function startListeners() {
-    window.addEventListener('keyup', function(e) {
+    window.addEventListener('keyup', (e) => {
         scheduleUpdate(1);
         simulationArea.shiftDown = e.shiftKey;
-        if (e.keyCode == 16) {
+        if (e.keyCode === 16) {
             simulationArea.shiftDown = false;
         }
-        if (e.key == "Meta" || e.key == "Control") {
+        if (e.key === 'Meta' || e.key === 'Control') {
             simulationArea.controlDown = false;
         }
     });
-    document.getElementById("simulationArea").addEventListener('mousedown', function(e) {
-
-        $("input").blur();
+    document.getElementById('simulationArea').addEventListener('mousedown', (e) => {
+        $('input').blur();
 
         errorDetected = false;
         updateSimulation = true;
@@ -38,13 +42,13 @@ function startListeners() {
         scheduleUpdate(1);
         $('.dropdown.open').removeClass('open');
     });
-    document.getElementById("simulationArea").addEventListener('mouseup', function(e) {
+    document.getElementById('simulationArea').addEventListener('mouseup', (e) => {
         if (simulationArea.lastSelected) simulationArea.lastSelected.newElement = false;
         /*
         handling restricted circuit elements
         */
 
-        if(simulationArea.lastSelected && restrictedElements.includes(simulationArea.lastSelected.objectType)
+        if (simulationArea.lastSelected && restrictedElements.includes(simulationArea.lastSelected.objectType)
             && !globalScope.restrictedCircuitElementsUsed.includes(simulationArea.lastSelected.objectType)) {
             globalScope.restrictedCircuitElementsUsed.push(simulationArea.lastSelected.objectType);
             updateRestrictedElementsList();
@@ -53,9 +57,7 @@ function startListeners() {
     window.addEventListener('mousemove', onMouseMove);
 
 
-
-    window.addEventListener('keydown', function(e) {
-
+    window.addEventListener('keydown', (e) => {
         // If mouse is focusing on input element, then override any action
         // if($(':focus').length){
         //     return;
@@ -63,13 +65,13 @@ function startListeners() {
 
         if (simulationArea.mouseRawX < 0 || simulationArea.mouseRawY < 0 || simulationArea.mouseRawX > width || simulationArea.mouseRawY > height) {
             return;
-        } else {
-            // HACK TO REMOVE FOCUS ON PROPERTIES
-            if (document.activeElement.type == "number") {
-                hideProperties();
-                showProperties(simulationArea.lastSelected)
-            }
         }
+        // HACK TO REMOVE FOCUS ON PROPERTIES
+        if (document.activeElement.type === 'number') {
+            hideProperties();
+            showProperties(simulationArea.lastSelected);
+        }
+
 
         errorDetected = false;
         updateSimulation = true;
@@ -77,21 +79,21 @@ function startListeners() {
         simulationArea.shiftDown = e.shiftKey;
 
         // zoom in (+)
-        if (e.key == "Meta" || e.key == "Control") {
+        if (e.key === 'Meta' || e.key === 'Control') {
             simulationArea.controlDown = true;
         }
 
-        if (simulationArea.controlDown && (e.keyCode == 187 || e.keyCode == 171)) {
+        if (simulationArea.controlDown && (e.keyCode === 187 || e.keyCode === 171)) {
             e.preventDefault();
             if (globalScope.scale < 4 * DPR) {
-                changeScale(.1 * DPR);
+                changeScale(0.1 * DPR);
             }
         }
         // zoom out (-)
-        if (simulationArea.controlDown && (e.keyCode == 189 || e.keyCode == 173)) {
+        if (simulationArea.controlDown && (e.keyCode === 189 || e.keyCode === 173)) {
             e.preventDefault();
             if (globalScope.scale > 0.5 * DPR) {
-                changeScale(-.1 * DPR);
+                changeScale(-0.1 * DPR);
             }
         }
 
@@ -102,113 +104,109 @@ function startListeners() {
         wireToBeChecked = 1;
 
         // Needs to be deprecated, moved to more recent listeners
-        if (simulationArea.controlDown && (e.key == "C" || e.key == "c")) {
+        if (simulationArea.controlDown && (e.key === 'C' || e.key === 'c')) {
             //    simulationArea.copyList=simulationArea.multipleObjectSelections.slice();
             //    if(simulationArea.lastSelected&&simulationArea.lastSelected!==simulationArea.root&&!simulationArea.copyList.contains(simulationArea.lastSelected)){
             //        simulationArea.copyList.push(simulationArea.lastSelected);
             //    }
             //    copy(simulationArea.copyList);
         }
-        if (simulationArea.controlDown && (e.key == "V" || e.key == "v")) {
+        if (simulationArea.controlDown && (e.key === 'V' || e.key === 'v')) {
             //    paste(simulationArea.copyData);
         }
 
         if (simulationArea.lastSelected && simulationArea.lastSelected.keyDown) {
-            if (e.key.toString().length == 1 || e.key.toString() == "Backspace") {
+            if (e.key.toString().length === 1 || e.key.toString() === 'Backspace') {
                 simulationArea.lastSelected.keyDown(e.key.toString());
                 return;
             }
-
         }
 
         if (simulationArea.lastSelected && simulationArea.lastSelected.keyDown2) {
-            if (e.key.toString().length == 1) {
+            if (e.key.toString().length === 1) {
                 simulationArea.lastSelected.keyDown2(e.key.toString());
                 return;
             }
-
         }
 
         if (simulationArea.lastSelected && simulationArea.lastSelected.keyDown3) {
-            if (e.key.toString() != "Backspace" && e.key.toString() != "Delete") {
+            if (e.key.toString() !== 'Backspace' && e.key.toString() !== 'Delete') {
                 simulationArea.lastSelected.keyDown3(e.key.toString());
                 return;
             }
-
         }
 
-        if (e.keyCode == 16) {
+        if (e.keyCode === 16) {
             simulationArea.shiftDown = true;
-            if (simulationArea.lastSelected && !simulationArea.lastSelected.keyDown && simulationArea.lastSelected.objectType != "Wire" && simulationArea.lastSelected.objectType != "CircuitElement" && !simulationArea.multipleObjectSelections.contains(simulationArea.lastSelected)) {
+            if (simulationArea.lastSelected && !simulationArea.lastSelected.keyDown && simulationArea.lastSelected.objectType !== 'Wire' && simulationArea.lastSelected.objectType !== 'CircuitElement' && !simulationArea.multipleObjectSelections.contains(simulationArea.lastSelected)) {
                 simulationArea.multipleObjectSelections.push(simulationArea.lastSelected);
             }
         }
 
-        if (e.keyCode == 8 || e.key == "Delete") {
-            delete_selected();
+        if (e.keyCode === 8 || e.key === 'Delete') {
+            deleteSelected();
         }
 
-        if (simulationArea.controlDown && e.key.charCodeAt(0) == 122) { // detect the special CTRL-Z code
+        if (simulationArea.controlDown && e.key.charCodeAt(0) === 122) { // detect the special CTRL-Z code
             undo();
         }
 
         // Detect online save shortcut (CTRL+S)
-        if (simulationArea.controlDown && e.keyCode == 83 && !simulationArea.shiftDown) {
+        if (simulationArea.controlDown && e.keyCode === 83 && !simulationArea.shiftDown) {
             save();
             e.preventDefault();
         }
-         // Detect offline save shortcut (CTRL+SHIFT+S)
-        if (simulationArea.controlDown && e.keyCode == 83 && simulationArea.shiftDown) {
+        // Detect offline save shortcut (CTRL+SHIFT+S)
+        if (simulationArea.controlDown && e.keyCode === 83 && simulationArea.shiftDown) {
             saveOffline();
             e.preventDefault();
         }
 
         // Detect Select all Shortcut
-        if (simulationArea.controlDown && (e.keyCode == 65 || e.keyCode == 97)) {
+        if (simulationArea.controlDown && (e.keyCode === 65 || e.keyCode === 97)) {
             selectAll();
             e.preventDefault();
         }
 
-        //change direction fns
-        if (simulationArea.lastSelected != undefined) {
-            let direction = "";
+        // change direction fns
+        if (simulationArea.lastSelected !== undefined) {
+            let direction = '';
             switch (e.keyCode) {
-                case 37:
-                case 65:
-                    direction = "LEFT";
-                    break;
+            case 37:
+            case 65:
+                direction = 'LEFT';
+                break;
 
-                case 38:
-                case 87:
-                    direction = "UP";
-                    break;
+            case 38:
+            case 87:
+                direction = 'UP';
+                break;
 
-                case 39:
-                case 68:
-                    direction = "RIGHT";
-                    break;
+            case 39:
+            case 68:
+                direction = 'RIGHT';
+                break;
 
-                case 40:
-                case 83:
-                    direction = "DOWN";
-                    break;
+            case 40:
+            case 83:
+                direction = 'DOWN';
+                break;
 
-                default:
-                    break;
+            default:
+                break;
             }
-            if (direction !== ""){
+            if (direction !== '') {
                 simulationArea.lastSelected.newDirection(direction);
             }
         }
 
-        if ((e.keyCode == 113 || e.keyCode == 81) && simulationArea.lastSelected != undefined) {
-            if (simulationArea.lastSelected.bitWidth !== undefined)
-                simulationArea.lastSelected.newBitWidth(parseInt(prompt("Enter new bitWidth"), 10));
+        if ((e.keyCode === 113 || e.keyCode === 81) && simulationArea.lastSelected !== undefined) {
+            if (simulationArea.lastSelected.bitWidth !== undefined) { simulationArea.lastSelected.newBitWidth(parseInt(prompt('Enter new bitWidth'), 10)); }
         }
 
-        if (simulationArea.controlDown && (e.key == "T" || e.key == "t")) {
+        if (simulationArea.controlDown && (e.key === 'T' || e.key === 't')) {
             // e.preventDefault(); //browsers normally open a new tab
-            simulationArea.changeClockTime(prompt("Enter Time:"));
+            simulationArea.changeClockTime(prompt('Enter Time:'));
         }
 
         // f1 key for opening the documentation page
@@ -216,10 +214,10 @@ function startListeners() {
             e.preventDefault();
             window.open('https://docs.circuitverse.org/', '_blank');
         }
-    })
+    });
 
 
-    document.getElementById("simulationArea").addEventListener('dblclick', function(e) {
+    document.getElementById('simulationArea').addEventListener('dblclick', (e) => {
         scheduleUpdate(2);
         if (simulationArea.lastSelected && simulationArea.lastSelected.dblclick !== undefined) {
             simulationArea.lastSelected.dblclick();
@@ -232,41 +230,40 @@ function startListeners() {
     window.addEventListener('mouseup', onMouseUp);
 
 
-
-    document.getElementById("simulationArea").addEventListener('mousewheel', MouseScroll);
-    document.getElementById("simulationArea").addEventListener('DOMMouseScroll', MouseScroll);
+    document.getElementById('simulationArea').addEventListener('mousewheel', MouseScroll);
+    document.getElementById('simulationArea').addEventListener('DOMMouseScroll', MouseScroll);
 
     function MouseScroll(event) {
         updateCanvas = true;
 
-        event.preventDefault()
+        event.preventDefault();
         var deltaY = event.wheelDelta ? event.wheelDelta : -event.detail;
         var scrolledUp = deltaY < 0;
         var scrolledDown = deltaY > 0;
 
         if (event.ctrlKey) {
             if (scrolledUp && globalScope.scale > 0.5 * DPR) {
-                changeScale(-.1 * DPR);
+                changeScale(-0.1 * DPR);
             }
             if (scrolledDown && globalScope.scale < 4 * DPR) {
-                changeScale(.1 * DPR);
+                changeScale(0.1 * DPR);
             }
         } else {
             if (scrolledUp && globalScope.scale < 4 * DPR) {
-                changeScale(.1 * DPR);
+                changeScale(0.1 * DPR);
             }
             if (scrolledDown && globalScope.scale > 0.5 * DPR) {
-                changeScale(-.1 * DPR);
+                changeScale(-0.1 * DPR);
             }
         }
 
         updateCanvas = true;
         gridUpdate = true;
-        if(layoutMode)layoutUpdate();
+        if (layoutMode)layoutUpdate();
         else update(); // Schedule update not working, this is INEFFICIENT
     }
 
-    document.addEventListener('cut', function(e) {
+    document.addEventListener('cut', (e) => {
         simulationArea.copyList = simulationArea.multipleObjectSelections.slice();
         if (simulationArea.lastSelected && simulationArea.lastSelected !== simulationArea.root && !simulationArea.copyList.contains(simulationArea.lastSelected)) {
             simulationArea.copyList.push(simulationArea.lastSelected);
@@ -280,17 +277,15 @@ function startListeners() {
 
         localStorage.setItem('clipboardData', textToPutOnClipboard);
         e.preventDefault();
-        if(textToPutOnClipboard==undefined)
-            return;
+        if (textToPutOnClipboard === undefined) { return; }
         if (isIe) {
             window.clipboardData.setData('Text', textToPutOnClipboard);
         } else {
             e.clipboardData.setData('text/plain', textToPutOnClipboard);
         }
-
     });
 
-    document.addEventListener('copy', function(e) {
+    document.addEventListener('copy', (e) => {
         simulationArea.copyList = simulationArea.multipleObjectSelections.slice();
         if (simulationArea.lastSelected && simulationArea.lastSelected !== simulationArea.root && !simulationArea.copyList.contains(simulationArea.lastSelected)) {
             simulationArea.copyList.push(simulationArea.lastSelected);
@@ -303,17 +298,15 @@ function startListeners() {
 
         localStorage.setItem('clipboardData', textToPutOnClipboard);
         e.preventDefault();
-        if(textToPutOnClipboard==undefined)
-            return;
+        if (textToPutOnClipboard === undefined) { return; }
         if (isIe) {
             window.clipboardData.setData('Text', textToPutOnClipboard);
         } else {
             e.clipboardData.setData('text/plain', textToPutOnClipboard);
         }
-
     });
 
-    document.addEventListener('paste', function(e) {
+    document.addEventListener('paste', (e) => {
         var data;
         if (isIe) {
             data = window.clipboardData.getData('Text');
@@ -336,29 +329,27 @@ function startListeners() {
 
         $(`#${element}`).mouseout(() => {
             hideRestricted();
-        })
+        });
     });
 }
 
-var isIe = (navigator.userAgent.toLowerCase().indexOf("msie") != -1 ||
-    navigator.userAgent.toLowerCase().indexOf("trident") != -1);
+var isIe = (navigator.userAgent.toLowerCase().indexOf('msie') !== -1
+    || navigator.userAgent.toLowerCase().indexOf('trident') !== -1);
 
 
 function removeMiniMap() {
     if (lightMode) return;
 
-    if (simulationArea.lastSelected == globalScope.root && simulationArea.mouseDown) return;
+    if (simulationArea.lastSelected === globalScope.root && simulationArea.mouseDown) return;
     if (lastMiniMapShown + 2000 >= new Date().getTime()) {
         setTimeout(removeMiniMap, lastMiniMapShown + 2000 - new Date().getTime());
         return;
     }
     $('#miniMap').fadeOut('fast');
-
 }
 
 
 function onMouseMove(e) {
-
     var rect = simulationArea.canvas.getBoundingClientRect();
     simulationArea.mouseRawX = (e.clientX - rect.left) * DPR;
     simulationArea.mouseRawY = (e.clientY - rect.top) * DPR;
@@ -373,26 +364,22 @@ function onMouseMove(e) {
         updateCanvas = true;
         var fn;
 
-        if (simulationArea.lastSelected == globalScope.root) {
-            fn = function() {
+        if (simulationArea.lastSelected === globalScope.root) {
+            fn = function () {
                 updateSelectionsAndPane();
-            }
+            };
         } else {
-            fn = function() {
-                if (simulationArea.lastSelected)
-                    simulationArea.lastSelected.update();
+            fn = function () {
+                if (simulationArea.lastSelected) { simulationArea.lastSelected.update(); }
             };
         }
         scheduleUpdate(0, 20, fn);
     } else {
         scheduleUpdate(0, 200);
     }
-
-
 }
 
 function onMouseUp(e) {
-
     if (!lightMode) {
         lastMiniMapShown = new Date().getTime();
         setTimeout(removeMiniMap, 2000);
@@ -424,19 +411,17 @@ function onMouseUp(e) {
     var rect = simulationArea.canvas.getBoundingClientRect();
 
     if (!(simulationArea.mouseRawX < 0 || simulationArea.mouseRawY < 0 || simulationArea.mouseRawX > width || simulationArea.mouseRawY > height)) {
-        smartDropXX = simulationArea.mouseX + 100; //Math.round(((simulationArea.mouseRawX - globalScope.ox+100) / globalScope.scale) / unit) * unit;
-        smartDropYY = simulationArea.mouseY - 50; //Math.round(((simulationArea.mouseRawY - globalScope.oy+100) / globalScope.scale) / unit) * unit;
+        smartDropXX = simulationArea.mouseX + 100; // Math.round(((simulationArea.mouseRawX - globalScope.ox+100) / globalScope.scale) / unit) * unit;
+        smartDropYY = simulationArea.mouseY - 50; // Math.round(((simulationArea.mouseRawY - globalScope.oy+100) / globalScope.scale) / unit) * unit;
     }
-
 }
 
-function delete_selected(){
-
-    $("input").blur();
+function deleteSelected() {
+    $('input').blur();
     hideProperties();
-    if (simulationArea.lastSelected && !(simulationArea.lastSelected.objectType == "Node" && simulationArea.lastSelected.type != 2)) simulationArea.lastSelected.delete();
+    if (simulationArea.lastSelected && !(simulationArea.lastSelected.objectType === 'Node' && simulationArea.lastSelected.type !== 2)) simulationArea.lastSelected.delete();
     for (var i = 0; i < simulationArea.multipleObjectSelections.length; i++) {
-        if (!(simulationArea.multipleObjectSelections[i].objectType == "Node" && simulationArea.multipleObjectSelections[i].type != 2)) simulationArea.multipleObjectSelections[i].cleanDelete();
+        if (!(simulationArea.multipleObjectSelections[i].objectType === 'Node' && simulationArea.multipleObjectSelections[i].type !== 2)) simulationArea.multipleObjectSelections[i].cleanDelete();
     }
     simulationArea.multipleObjectSelections = [];
 

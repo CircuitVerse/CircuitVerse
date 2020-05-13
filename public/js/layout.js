@@ -1,54 +1,63 @@
-// Layout.js - all subcircuit layout related code is here
-
-// Function to toggle between layoutMode and normal Mode
+/**
+ * Layout.js - all subcircuit layout related code is here
+ * You can edit how your subcircuit for a circuit will look by
+ * clicking edit layout in properties for a ciruit
+ */
+/**
+ * Function to toggle between layoutMode and normal Mode
+ * the sidebar is disabled and n properties are shown.
+ */
 function toggleLayoutMode() {
     if (layoutMode) {
         layoutMode = false;
         temp_buffer = undefined;
-        $("#layoutDialog").fadeOut();
+        $('#layoutDialog').fadeOut();
         globalScope.centerFocus(false);
         dots();
-
     } else {
         layoutMode = true;
-        $("#layoutDialog").fadeIn();
+        $('#layoutDialog').fadeIn();
         globalScope.ox = 0;
         globalScope.oy = 0;
         globalScope.scale = DPR * 1.3;
         dots();
 
         temp_buffer = new layout_buffer();
-        $("#toggleLayoutTitle")[0].checked=temp_buffer.layout.titleEnabled;
+        $('#toggleLayoutTitle')[0].checked = temp_buffer.layout.titleEnabled;
     }
     hideProperties();
-    update(globalScope, true)
+    update(globalScope, true);
     scheduleUpdate();
 }
 
-// Update UI, positions of inputs and outputs
+/**
+ * Update UI, positions of inputs and outputs
+ * @param {Scope} scope - the circuit whose subcircuit we are editing
+ */
 function layoutUpdate(scope = globalScope) {
     if (!layoutMode) return;
     willBeUpdated = false;
     for (var i = 0; i < temp_buffer.Input.length; i++) {
-        temp_buffer.Input[i].update()
+        temp_buffer.Input[i].update();
     }
     for (var i = 0; i < temp_buffer.Output.length; i++) {
-        temp_buffer.Output[i].update()
+        temp_buffer.Output[i].update();
     }
     paneLayout(scope);
     renderLayout(scope);
 }
 
-function paneLayout(scope = globalScope){
+/**
+ * WIP
+ * @param {Scope} scope - the circuit whose subcircuit we are editing
+ */
+function paneLayout(scope = globalScope) {
     if (!simulationArea.selected && simulationArea.mouseDown) {
-
         simulationArea.selected = true;
         simulationArea.lastSelected = scope.root;
         simulationArea.hover = scope.root;
-
     } else if (simulationArea.lastSelected == scope.root && simulationArea.mouseDown) {
-
-        //pane canvas
+        // pane canvas
         if (!objectSelection) {
             globalScope.ox = (simulationArea.mouseRawX - simulationArea.mouseDownRawX) + simulationArea.oldx;
             globalScope.oy = (simulationArea.mouseRawY - simulationArea.mouseDownRawY) + simulationArea.oldy;
@@ -59,24 +68,21 @@ function paneLayout(scope = globalScope){
         } else {
 
         }
-
-
     } else if (simulationArea.lastSelected == scope.root) {
-
         // Select multiple objects
 
         simulationArea.lastSelected = undefined;
         simulationArea.selected = false;
         simulationArea.hover = undefined;
-
-
     }
 }
 
 
-// Buffer object to store changes
+/**
+ * Buffer object to store changes so that you can reset changes
+ * @param {Scope=} scope
+ */
 function layout_buffer(scope = globalScope) {
-
     // Position of screen in layoutMode -- needs to be deprecated, reset screen position instead
     var x = -Math.round(globalScope.ox / 10) * 10;
     var y = -Math.round(globalScope.oy / 10) * 10;
@@ -92,63 +98,65 @@ function layout_buffer(scope = globalScope) {
     this.yy = yy;
 
     // Assign layout if exist or create new one
-    this.layout = Object.assign({}, scope.layout); //Object.create(scope.layout);
+    this.layout = { ...scope.layout}; // Object.create(scope.layout);
 
     // Push Input Nodes
     this.Input = [];
-    for (var i = 0; i < scope.Input.length; i++)
-        this.Input.push(new layoutNode(scope.Input[i].layoutProperties.x, scope.Input[i].layoutProperties.y, scope.Input[i].layoutProperties.id, scope.Input[i].label, xx, yy, scope.Input[i].type, scope.Input[i]))
+    for (var i = 0; i < scope.Input.length; i++) {this.Input.push(new layoutNode(scope.Input[i].layoutProperties.x, scope.Input[i].layoutProperties.y, scope.Input[i].layoutProperties.id, scope.Input[i].label, xx, yy, scope.Input[i].type, scope.Input[i]))};
 
     // Push Output Nodes
     this.Output = [];
-    for (var i = 0; i < scope.Output.length; i++)
-        this.Output.push(new layoutNode(scope.Output[i].layoutProperties.x, scope.Output[i].layoutProperties.y, scope.Output[i].layoutProperties.id, scope.Output[i].label, xx, yy, scope.Output[i].type, scope.Output[i]))
-
+    for (var i = 0; i < scope.Output.length; i++) {this.Output.push(new layoutNode(scope.Output[i].layoutProperties.x, scope.Output[i].layoutProperties.y, scope.Output[i].layoutProperties.id, scope.Output[i].label, xx, yy, scope.Output[i].type, scope.Output[i]))};
 }
 
-// Check if position is on the boundaries of subcircuit
-layout_buffer.prototype.isAllowed = function(x, y) {
+/**
+ * @memberof layoutBuffer
+ * Check if position is on the boundaries of subcircuit
+ * if the desired width and heiht is allowed
+ */
+layout_buffer.prototype.isAllowed = function (x, y) {
     if (x < 0 || x > this.layout.width || y < 0 || y > this.layout.height) return false;
     if (x > 0 && x < this.layout.width && y > 0 && y < this.layout.height) return false;
 
     if ((x == 0 && y == 0) || (x == 0 && y == this.layout.height) || (x == this.layout.width && y == 0) || (x == this.layout.width && y == this.layout.height)) return false;
 
     return true;
-}
+};
 
-// Check if node is already at a position
-layout_buffer.prototype.isNodeAt = function(x, y) {
-    for (var i = 0; i < this.Input.length; i++)
-        if (this.Input[i].x == x && this.Input[i].y == y) return true;
-    for (var i = 0; i < this.Output.length; i++)
-        if (this.Output[i].x == x && this.Output[i].y == y) return true;
+/**
+ * @memberof layoutBuffer
+ * Check if node is already at a position
+ * Function is called while decreasing height to
+ * check if it is possible without moving other node
+ */
+layout_buffer.prototype.isNodeAt = function (x, y) {
+    for (var i = 0; i < this.Input.length; i++) {if (this.Input[i].x == x && this.Input[i].y == y) return true;}
+    for (var i = 0; i < this.Output.length; i++) {if (this.Output[i].x == x && this.Output[i].y == y) return true;}
     return false;
-}
+};
 
-// Function to render layout on screen
+/**
+ * Function to render layout on screen
+ * @param {Scope=} scope
+ */
 function renderLayout(scope = globalScope) {
     if (!layoutMode) return;
-
-    var xx = temp_buffer.xx;
-    var yy = temp_buffer.yy;
-
+    var {xx} = temp_buffer;
+    var {yy} = temp_buffer;
     var ctx = simulationArea.context;
     simulationArea.clear();
-
-    ctx.strokeStyle = "black";
-    ctx.fillStyle = "white";
+    ctx.strokeStyle = 'black';
+    ctx.fillStyle = 'white';
     ctx.lineWidth = correctWidth(3);
-
     // Draw base rectangle
     ctx.beginPath();
-    rect2(ctx, 0, 0, temp_buffer.layout.width, temp_buffer.layout.height, xx, yy, "RIGHT");
+    rect2(ctx, 0, 0, temp_buffer.layout.width, temp_buffer.layout.height, xx, yy, 'RIGHT');
     ctx.fill();
     ctx.stroke();
-
     ctx.beginPath();
-    ctx.textAlign = "center";
-    ctx.fillStyle = "black";
-    if(temp_buffer.layout.titleEnabled){
+    ctx.textAlign = 'center';
+    ctx.fillStyle = 'black';
+    if (temp_buffer.layout.titleEnabled) {
         fillText(ctx, scope.name, temp_buffer.layout.title_x + xx, yy + temp_buffer.layout.title_y, 11);
     }
 
@@ -169,20 +177,21 @@ function renderLayout(scope = globalScope) {
 
     // Draw points
     for (var i = 0; i < temp_buffer.Input.length; i++) {
-        temp_buffer.Input[i].draw()
+        temp_buffer.Input[i].draw();
     }
     for (var i = 0; i < temp_buffer.Output.length; i++) {
-        temp_buffer.Output[i].draw()
+        temp_buffer.Output[i].draw();
     }
 
     if (gridUpdate) {
         gridUpdate = false;
         dots();
     }
-
 }
 
-// Helper function to reset all nodes to original default positions
+/**
+ * Helper function to reset all nodes to original default positions
+ */
 function layoutResetNodes() {
     temp_buffer.layout.width = 100;
     temp_buffer.layout.height = Math.max(temp_buffer.Input.length, temp_buffer.Output.length) * 20 + 20;
@@ -196,115 +205,135 @@ function layoutResetNodes() {
     }
 }
 
-// Increase width, and move all nodes
+/**
+ * Increase width, and move all nodes
+ */
 function increaseLayoutWidth() {
     for (var i = 0; i < temp_buffer.Input.length; i++) {
-        if (temp_buffer.Input[i].x == temp_buffer.layout.width)
-            temp_buffer.Input[i].x += 10;
+        if (temp_buffer.Input[i].x == temp_buffer.layout.width) {temp_buffer.Input[i].x += 10;}
     }
     for (var i = 0; i < temp_buffer.Output.length; i++) {
-        if (temp_buffer.Output[i].x == temp_buffer.layout.width)
-            temp_buffer.Output[i].x += 10;
+        if (temp_buffer.Output[i].x == temp_buffer.layout.width) {temp_buffer.Output[i].x += 10;}
     }
     temp_buffer.layout.width += 10;
 }
 
-// Increase Height, and move all nodes
+/**
+ * Increase Height, and move all nodes
+ */
 function increaseLayoutHeight() {
     for (var i = 0; i < temp_buffer.Input.length; i++) {
-        if (temp_buffer.Input[i].y == temp_buffer.layout.height)
-            temp_buffer.Input[i].y += 10;
+        if (temp_buffer.Input[i].y == temp_buffer.layout.height) {temp_buffer.Input[i].y += 10;}
     }
     for (var i = 0; i < temp_buffer.Output.length; i++) {
-        if (temp_buffer.Output[i].y == temp_buffer.layout.height)
-            temp_buffer.Output[i].y += 10;
+        if (temp_buffer.Output[i].y == temp_buffer.layout.height) {temp_buffer.Output[i].y += 10;}
     }
     temp_buffer.layout.height += 10;
 }
 
-// Decrease Width, and move all nodes, check if space is there
+/**
+ * Decrease Width, and move all nodes, check if space is there
+ */
 function decreaseLayoutWidth() {
-
     if (temp_buffer.layout.width < 30) return;
     for (var i = 0; i < temp_buffer.Input.length; i++) {
         if (temp_buffer.Input[i].x == temp_buffer.layout.width - 10) {
-            showMessage("No space. Move or delete some nodes to make space.");
+            showMessage('No space. Move or delete some nodes to make space.');
             return;
         }
-
     }
     for (var i = 0; i < temp_buffer.Output.length; i++) {
         if (temp_buffer.Output[i].x == temp_buffer.layout.width - 10) {
-            showMessage("No space. Move or delete some nodes to make space.");
+            showMessage('No space. Move or delete some nodes to make space.');
             return;
         }
     }
 
     for (var i = 0; i < temp_buffer.Input.length; i++) {
-        if (temp_buffer.Input[i].x == temp_buffer.layout.width)
-            temp_buffer.Input[i].x -= 10;
+        if (temp_buffer.Input[i].x == temp_buffer.layout.width) {temp_buffer.Input[i].x -= 10;}
     }
     for (var i = 0; i < temp_buffer.Output.length; i++) {
-        if (temp_buffer.Output[i].x == temp_buffer.layout.width)
-            temp_buffer.Output[i].x -= 10;
+        if (temp_buffer.Output[i].x == temp_buffer.layout.width) {temp_buffer.Output[i].x -= 10;}
     }
     temp_buffer.layout.width -= 10;
 }
 
-// Decrease Height, and move all nodes, check if space is there
+/**
+ * Decrease Height, and move all nodes, check if space is there
+ */
 function decreaseLayoutHeight() {
-
     if (temp_buffer.layout.height < 30) return;
     for (var i = 0; i < temp_buffer.Input.length; i++) {
         if (temp_buffer.Input[i].y == temp_buffer.layout.height - 10) {
-            showMessage("No space. Move or delete some nodes to make space.");
+            showMessage('No space. Move or delete some nodes to make space.');
             return;
         }
-
     }
     for (var i = 0; i < temp_buffer.Output.length; i++) {
         if (temp_buffer.Output[i].y == temp_buffer.layout.height - 10) {
-            showMessage("No space. Move or delete some nodes to make space.");
+            showMessage('No space. Move or delete some nodes to make space.');
             return;
         }
     }
 
     for (var i = 0; i < temp_buffer.Input.length; i++) {
-        if (temp_buffer.Input[i].y == temp_buffer.layout.height)
-            temp_buffer.Input[i].y -= 10;
+        if (temp_buffer.Input[i].y == temp_buffer.layout.height) {temp_buffer.Input[i].y -= 10;}
     }
     for (var i = 0; i < temp_buffer.Output.length; i++) {
-        if (temp_buffer.Output[i].y == temp_buffer.layout.height)
-            temp_buffer.Output[i].y -= 10;
+        if (temp_buffer.Output[i].y == temp_buffer.layout.height) {temp_buffer.Output[i].y -= 10;}
     }
     temp_buffer.layout.height -= 10;
 }
 
-// Helper functions to move the titles
+/**
+ * Helper functions to move the titles
+ */
 function layoutTitleUp() {
     temp_buffer.layout.title_y -= 5;
 }
 
+/**
+ * Helper functions to move the titles
+ */
 function layoutTitleDown() {
     temp_buffer.layout.title_y += 5;
 }
 
+/**
+ * Helper functions to move the titles
+ */
 function layoutTitleRight() {
     temp_buffer.layout.title_x += 5;
 }
 
+/**
+ * Helper functions to move the titles
+ */
 function layoutTitleLeft() {
     temp_buffer.layout.title_x -= 5;
 }
 
-function toggleLayoutTitle(){
-    temp_buffer.layout.titleEnabled=!temp_buffer.layout.titleEnabled;
+/**
+ * Helper functions to move the titles
+ */
+function toggleLayoutTitle() {
+    temp_buffer.layout.titleEnabled = !temp_buffer.layout.titleEnabled;
 }
 
-function layoutNode(x, y, id, label = "", xx, yy, type, parent) {
-
+/**
+ * 
+ * @param {number} x - x coord of node
+ * @param {number} y - y coord of node
+ * @param {strng} id - id for node
+ * @param {string=} label - label for the node
+ * @param {WIP} xx - parent x
+ * @param {WIP} yy - parent y
+ * @param {WIP} type - not used?
+ * @param {WIP} parent  not used?
+ */
+function layoutNode(x, y, id, label = '', xx, yy, type, parent) {
     this.type = type;
-    this.id = id
+    this.id = id;
 
     this.xx = xx; // Position of parent
     this.yy = yy; // Position of parent
@@ -322,18 +351,16 @@ function layoutNode(x, y, id, label = "", xx, yy, type, parent) {
     this.prev = 'a';
     this.count = 0;
     this.parent = parent;
-
 }
 
-layoutNode.prototype.absX = function() {
+layoutNode.prototype.absX = function () {
     return this.x + this.xx;
-}
-layoutNode.prototype.absY = function() {
-    return this.y + this.yy
-}
+};
+layoutNode.prototype.absY = function () {
+    return this.y + this.yy;
+};
 
-layoutNode.prototype.update = function() {
-
+layoutNode.prototype.update = function () {
     // Code copied from node.update() - Some code is redundant - needs to be removed
 
     if (this == simulationArea.hover) simulationArea.hover = undefined;
@@ -360,11 +387,9 @@ layoutNode.prototype.update = function() {
     }
 
     if (!this.wasClicked && this.clicked) {
-
         this.wasClicked = true;
         this.prev = 'a';
         simulationArea.lastSelected = this;
-
     } else if (this.wasClicked && this.clicked) {
         // Check if valid position and update accordingly
         if (temp_buffer.isAllowed(simulationArea.mouseX - this.xx, simulationArea.mouseY - this.yy) && !temp_buffer.isNodeAt(simulationArea.mouseX - this.xx, simulationArea.mouseY - this.yy)) {
@@ -372,26 +397,40 @@ layoutNode.prototype.update = function() {
             this.y = simulationArea.mouseY - this.yy;
         }
     }
+};
 
-}
-
-layoutNode.prototype.draw = function() {
+/**
+ * @memberof layoutNode
+ * this function is used to draw the nodes
+ */
+layoutNode.prototype.draw = function () {
     var ctx = simulationArea.context;
-    drawCircle(ctx, this.absX(), this.absY(), 3, ["green", "red"][+(simulationArea.lastSelected == this)]);
-}
+    drawCircle(ctx, this.absX(), this.absY(), 3, ['green', 'red'][+(simulationArea.lastSelected == this)]);
+};
 
-layoutNode.prototype.isHover = function() {
+/**
+ * @memberof layoutNode
+ * this function is used to check if hover
+ */
+layoutNode.prototype.isHover = function () {
     return this.absX() == simulationArea.mouseX && this.absY() == simulationArea.mouseY;
-}
+};
 
-// Helper function to determine alignment and position of nodes for rendering
+/**
+ * Helper function to determine alignment and position of nodes for rendering
+ * @param {number} x - width of label
+ * @param {number} y - height of label
+ */
 function determine_label(x, y) {
-    if (x == 0) return ["left", 5, 5]
-    if (x == temp_buffer.layout.width) return ["right", -5, 5]
-    if (y == 0) return ["center", 0, 13]
-    return ["center", 0, -6]
+    if (x == 0) return ['left', 5, 5];
+    if (x == temp_buffer.layout.width) return ['right', -5, 5];
+    if (y == 0) return ['center', 0, 13];
+    return ['center', 0, -6];
 }
 
+/**
+ * just toggles back to normal mode
+ */
 function cancelLayout() {
     if (layoutMode) {
         toggleLayoutMode();
@@ -399,7 +438,9 @@ function cancelLayout() {
 }
 
 
-// Store all data into layout and exit
+/**
+ * Store all data into layout and exit
+ */
 function saveLayout() {
     if (layoutMode) {
         for (var i = 0; i < temp_buffer.Input.length; i++) {
@@ -410,7 +451,7 @@ function saveLayout() {
             temp_buffer.Output[i].parent.layoutProperties.x = temp_buffer.Output[i].x;
             temp_buffer.Output[i].parent.layoutProperties.y = temp_buffer.Output[i].y;
         }
-        globalScope.layout = Object.assign({}, temp_buffer.layout);
+        globalScope.layout = { ...temp_buffer.layout};
         toggleLayoutMode();
     }
 }
