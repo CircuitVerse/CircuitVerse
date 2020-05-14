@@ -21,4 +21,11 @@ class ErrorsController < ApplicationController
       format.json { render json: { error: "Internal server error" }, status: 500 }
     end
   end
+  
+  def bad_request
+    respond_to do |format|
+      format.html { render status: 400 }
+      format.json { render json: { error: "Bad Request" }, status: 400  }
+    end
+  end
 end

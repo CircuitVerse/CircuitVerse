@@ -25,6 +25,7 @@ Rails.application.routes.draw do
     get '/to_csv/:assignment_id', to: 'grades#to_csv', as: 'grades_to_csv'
   end
 
+  get "/400", to: "errors#bad_request"
   get "/404", to: "errors#not_found"
   get "/422", to: "errors#unacceptable"
   get "/500", to: "errors#internal_error"
@@ -71,6 +72,7 @@ Rails.application.routes.draw do
     get '/educational_institute/typeahead/:query' => 'users/logix#typeahead_educational_institute'
     get '/:id/notifications', to: 'users/notifications#index', as: 'notifications'
     get '/:id/settings', to: 'users/logix#settings', as: 'user_settings'
+    patch '/:id/update_settings', to: 'users/logix#update_settings', as: 'update_settings'
   end
 
   post '/push/subscription/new', to: 'push_subscription#create'

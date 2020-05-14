@@ -1,9 +1,26 @@
-function loadUserSettings(settings)
+function loadUserSettings(settings, token)
 {
     $.getJSON("/js/settings.json", (json) => 
     {
-        console.log(json);
-        console.log(settings);
+        console.log('start')
+        $.ajax({
+            url: 'http://127.0.0.1:8080/users/1/update',
+            type: 'PATCH',
+            data: 
+            {
+                authenticity_token: token,
+                settings:
+                {
+                    change_logo_color: true
+                }
+            },
+            success: function(result) {
+                console.log(result);
+            },
+            error: function(result) {
+                console.log(result);
+            }
+        });
     })
     .fail(() => showError('Failed to load settings.json'));
 }

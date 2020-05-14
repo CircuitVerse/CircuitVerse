@@ -33,22 +33,16 @@ class Users::LogixController < ApplicationController
   end
 
   def update
-    if @profile.update(profile_params)
-      redirect_to profile_path(current_user)
+    if params.has_key?(:user) && profile_params
+      @profile.update(profile_params)
+    elsif params.has_key?(:settings) && settings_params
+      @user.update(settings_params)
     else
-      render :edit
+      render 'errors/bad_request', :status => :bad_request
     end
   end
 
   def settings
-  end
-
-  def update_settings
-    if @settings.update(profile_params)
-      redirect_to settings_path(current_user)
-    else
-      render :settings
-    end
   end
 
   def groups
@@ -64,6 +58,10 @@ class Users::LogixController < ApplicationController
     def profile_params
       params.require(:user).permit(:name, :profile_picture, :country, :educational_institute,
        :subscribed)
+    end
+
+    def settings_params
+      params.require(:settings).permit(:change_logo_color)
     end
 
     def set_user
