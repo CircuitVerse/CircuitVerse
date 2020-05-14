@@ -9,7 +9,6 @@
         "attributes": {
           "type": "object",
           "properties": {
-            "id": { "type": "integer" },
             "email": { "type": "string" },
             "name": { "type": "string" },
             "admin": { "type": "boolean" },
@@ -20,8 +19,6 @@
             "updated_at": { "type": "string" }
           },
           "required": [
-            "id",
-            "email",
             "name",
             "admin",
             "country",
