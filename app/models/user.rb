@@ -11,6 +11,11 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable,
     :validatable, :omniauthable, omniauth_providers: [:google_oauth2, :facebook, :github]
 
+  # Settings
+  typed_store :settings, coder: JSON do |s|
+    s.boolean :change_logo_color, default: false, null: false
+  end
+
   # has_many :assignments, foreign_key: 'mentor_id', dependent: :destroy
   has_many :group_members, dependent: :destroy
   has_many :groups, through: :group_members
