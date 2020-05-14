@@ -13,14 +13,15 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def show
-    render json: Api::V1::UserSerializer.new(@user)
+    render json: Api::V1::UserSerializer.new(
+      @user, params: { has_email_access: @user.eql?(@current_user) })
   end
 
   def update
     @user.update!(user_params)
     if @user.update(user_params)
       render json: Api::V1::UserSerializer.new(
-        @user
+        @user, params: { has_email_access: @user.eql?(@current_user) }
       ), status: :accepted
     else
       invalid_resource!(@user.errors)
