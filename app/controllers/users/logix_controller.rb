@@ -40,6 +40,17 @@ class Users::LogixController < ApplicationController
     end
   end
 
+  def settings
+  end
+
+  def update_settings
+    if @settings.update(profile_params)
+      redirect_to settings_path(current_user)
+    else
+      render :settings
+    end
+  end
+
   def groups
     @user = authorize @user
     @groups_mentored = Group.where(id: Group.joins(:mentor).where(mentor: @user))

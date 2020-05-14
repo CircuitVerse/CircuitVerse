@@ -70,6 +70,7 @@ Rails.application.routes.draw do
     get '/:id/favourites', to: 'users/logix#favourites', as: 'user_favourites'
     get '/educational_institute/typeahead/:query' => 'users/logix#typeahead_educational_institute'
     get '/:id/notifications', to: 'users/notifications#index', as: 'notifications'
+    get '/:id/settings', to: 'users/logix#settings', as: 'user_settings'
   end
 
   post '/push/subscription/new', to: 'push_subscription#create'
