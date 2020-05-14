@@ -1,1 +1,17 @@
-<h2>Hello World!</h2>
+<% content_for :title, "CircuitVerse - Settings" %>
+<div class="container">
+    <div class="row row-about">
+        <div class="col-xs col-sm col-md col-lg">
+            <h1 class="heading-profile">User Settings</h1>
+        </div>
+    </div>
+    <div id="settings-container" class="row profile-background">
+        <p class="w-100 text-center">Loading your settings...</p>
+    </div>
+    </div>
+</div>
+
+
+<script>
+    loadUserSettings(JSON.parse('<%= raw current_user.settings.to_json %>'));
+</script>

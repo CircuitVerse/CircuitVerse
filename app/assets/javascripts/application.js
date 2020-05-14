@@ -18,6 +18,7 @@
 //= require bootstrap/dist/js/bootstrap.min.js
 //= require serviceworker-companion
 //= require restrictElements.js
+//= require settings.js
 //= require time.js
 //= require scroll.js
 //= require trumbowyg/dist/trumbowyg.min.js

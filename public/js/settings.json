@@ -1,0 +1,18 @@
+{
+    "categories":
+    [
+        {
+            "name": "Platform",
+            "description": "Configure overall behavior of the platform"
+        }
+    ],
+    "settings":
+    [
+        {
+            "name" : "change_logo_color",
+            "category:" : "Platform",
+            "display_name" : "Hide fork button on project pages",
+            "description": "Changes cv color to red. Why? idk "
+        }
+    ]
+}
