@@ -7,8 +7,7 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   def index
     @users = paginate(User.all)
-    @options = {}
-    @options[:meta] = meta_attributes(@users)
+    @options = {  meta: meta_attributes(@users) }
     render json: Api::V1::UsersSerializer.new(@users, @options)
   end
 
