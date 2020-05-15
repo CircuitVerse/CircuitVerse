@@ -17,9 +17,11 @@ function showError(text)
 function generateHtml(friendlySchema, userSettings, token)
 {
     let result = '';
-    friendlySchema.categories.forEach(category => {
+    friendlySchema.categories.forEach(category => 
+    {
         result += `<h3>${category.name}</h3>`
-        friendlySchema.settings.filter(x => x.category == category.name).forEach(setting => {
+        friendlySchema.settings.filter(x => x.category == category.name).forEach(setting => 
+        {
             const settingValue = userSettings[setting.name];
             if(settingValue !== undefined)
             {
@@ -27,11 +29,11 @@ function generateHtml(friendlySchema, userSettings, token)
                 `
                 <div class="form-row w-100">
                     <div class="form-group col-md-6">
-                        <strong>${setting.display_name}</strong> <br>
+                        <strong>${setting.displayName}</strong> <br>
                         ${setting.description}
                     </div>
                     <div class="form-group col-md-6 d-flex justify-content-center align-items-center">
-                        <input type="checkbox" id="${setting.name}" onclick='handleClick(this, ${setting.refresh_page},"${token}");' ${settingValue ? " checked" : ""}>
+                        <input type="checkbox" id="${setting.name}" onclick='handleClick(this, ${setting.refreshPage},"${token}");' ${settingValue ? " checked" : ""}>
                     </div>
                 </div>
                 `
@@ -40,7 +42,21 @@ function generateHtml(friendlySchema, userSettings, token)
             {
                 console.error(`${setting.name} exist in schema but does not exist in user settings`)
             }
-            
+        });
+        friendlySchema.additionalButtons.filter(x => x.category == category.name).forEach(button =>
+        {
+            result +=
+                `
+                <div class="form-row w-100">
+                    <div class="form-group col-md-6">
+                        <strong>${button.displayName}</strong> <br>
+                        ${button.description}
+                    </div>
+                    <div class="form-group col-md-6 d-flex justify-content-center align-items-center">
+                        <a class="btn btn-secondary" href="${button.buttonLink}" role="button">${button.buttonText}</a>
+                    </div>
+                </div>
+                `
         });
     });
     return result;

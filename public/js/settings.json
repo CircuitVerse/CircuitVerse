@@ -4,6 +4,10 @@
         {
             "name": "Platform",
             "description": "Configure overall behavior of the platform"
+        },
+        {
+            "name": "Security",
+            "description": ""
         }
     ],
     "settings":
@@ -11,9 +15,19 @@
         {
             "name" : "hide_external_navbar_links",
             "category" : "Platform",
-            "display_name" : "Hide external navbar link",
-            "description": "Hide <code>Learn</code> and <code>Documentation</code> links",
-            "refresh_page": true
+            "displayName" : "Hide external navbar link",
+            "description": "Hide <code>Learn</code> and <code>Documentation</code> links.",
+            "refreshPage": true
+        }
+    ],
+    "additionalButtons":
+    [
+        {
+            "displayName" : "Delete account",
+            "category" : "Security",
+            "description": "Permanently delete your account and all of your content. <B>[PREVIEW - NOT WORKING]</b>",
+            "buttonText": "Delete account",
+            "buttonLink": "/404"
         }
     ]
 }
