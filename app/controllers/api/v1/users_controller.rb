@@ -5,22 +5,26 @@ class Api::V1::UsersController < Api::V1::BaseController
   before_action :authenticate_user!
   before_action :check_access, only: [:update]
 
+  # GET api/v1/users
   def index
     @users = paginate(User.all)
     @options = {  meta: meta_attributes(@users) }
     render json: Api::V1::UsersSerializer.new(@users, @options)
   end
 
+  # GET api/v1/users/:id
   def show
     render json: Api::V1::UserSerializer.new(
       @user, params: { has_email_access: @user.eql?(@current_user) })
   end
 
-  def logged_in_user
+  # GET api/v1/me
+  def me
     render json: Api::V1::UserSerializer.new(
       @current_user, params: { has_email_access: true })
   end
 
+  # PATCH api/v1/users/:id
   def update
     @user.update!(user_params)
     if @user.update(user_params)
