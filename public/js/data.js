@@ -825,7 +825,7 @@ createSubCircuitPrompt = function(scope = globalScope) {
         display: "none",
         height: "350px",
         width: "250px",
-        overflow: "auto"
+        overflow: "auto",
     });
     $('#insertSubcircuitDialog').dialog({
         buttons: !flag ? [{
