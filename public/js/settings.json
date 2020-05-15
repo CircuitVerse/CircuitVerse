@@ -25,9 +25,9 @@
         {
             "displayName" : "Delete account",
             "category" : "Security",
-            "description": "Permanently delete your account and all of your content. <B>[PREVIEW - NOT WORKING]</b>",
+            "description": "Permanently delete your account and all of your content.",
             "buttonText": "Delete account",
-            "buttonLink": "/404"
+            "buttonLink": "/501"
         }
     ]
 }

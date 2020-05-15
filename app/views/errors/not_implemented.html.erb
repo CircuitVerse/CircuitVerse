@@ -1,0 +1,19 @@
+<link rel="stylesheet" type="text/css" href="/css/error.css">
+
+<div class="container">
+  <h1 class="oops">  Not Implemented! </h1>
+  <div class="help-text">
+    <div class="help-text-main"> CircutVerse is still growing platform and that feature is unfortunetly not implemented yet. Stay Tuned! </div> <br>
+    <a role="button" class="btn btn-primary btn-lg btn-block" href="javascript:history.back()">Go Back</a>
+    <div class="error-code"> Error code: 501 </span> </div>
+
+    <% if Rails.env === "development" %>
+      <div class="card text-white bg-danger mb-3 center" style="max-width: 20rem; margin: 70px auto 0 auto">
+        <div class="card-body">
+          <h5 class="card-title"><i class="fa fa-exclamation-circle"></i> Make issue if you are redirecting here</h5>
+          <p class="card-text">You are seeing this message since you are in development env. Please make an issue regarding the absence of feature when your pr will get aceppted!</p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

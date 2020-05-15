@@ -28,4 +28,11 @@ class ErrorsController < ApplicationController
       format.json { render json: { error: "Bad Request" }, status: 400  }
     end
   end
+
+  def not_implemented
+    respond_to do |format|
+      format.html { render status: 501 }
+      format.json { render json: { error: "Not Implemented" }, status: 501  }
+    end
+  end
 end
