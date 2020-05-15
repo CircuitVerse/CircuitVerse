@@ -11,7 +11,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable,
     :validatable, :omniauthable, omniauth_providers: [:google_oauth2, :facebook, :github]
 
-  # Settings
+  # If you wish to add setting you also need to change:
+  # public/js/settings.json - to show frendly messages on frotntent
+  # LogixController#settings_params - to accept settings via user request
   typed_store :settings, coder: JSON do |s|
     s.boolean :change_logo_color, default: false, null: false
   end

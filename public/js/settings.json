@@ -11,7 +11,7 @@
         {
             "name" : "change_logo_color",
             "category:" : "Platform",
-            "display_name" : "Hide fork button on project pages",
+            "display_name" : "Change logo color",
             "description": "Changes cv color to red. Why? idk "
         }
     ]
