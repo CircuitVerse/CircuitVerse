@@ -38,6 +38,7 @@
         <a href="#" class="dropdown-toggle text-light" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tools<span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item logixButton" id="createCombinationalAnalysisPrompt">Combinational Analysis</a></li>
+           <li><a type="button" class="dropdown-item" id="bitconverter" >Hex-Bin-Dec-Converter</a></li>
           <li><a class="dropdown-item logixButton" id="startPlot">Start Plot</a></li>
           <li><a class="dropdown-item logixButton" id="createSaveAsImgPrompt">Download Image</a>
         </ul>
@@ -212,6 +213,7 @@
         </div>
       </div>
       <div id="combinationalAnalysis" style="display:none;" title="BooleanLogicTable"></div>
+       <div id="bitconverterprompt" title="Dec-Bin-Hex-Converter"></div>
       <div id="insertSubcircuitDialog"  class="subcircuitdialog" title="Insert SubCircuit"></div>
       <div id="openProjectDialog" style="display:none;" title="Open Project"></div>
     </div>
@@ -304,6 +306,7 @@
     <link rel="stylesheet" type="text/css" href="/css/restrictedElements.css">
     <!-- <script src="./SAP_DATA.js"></script> -->
     <script src="/js/utils.js"></script>
+    <script src="/js/dec-bin-hex-converter.js"></script>
     <script src="/js/engine.js"></script>
     <script src="/js/logix.js"></script>
     <script src="/js/Plot.js"></script>
@@ -330,3 +333,32 @@
       <script src="/js/Quin_McCluskey.js"></script>
     <% end %>
     <script src="/js/canvas2svg.js"></script>
+    
+    <script type="text/javascript">
+         $('#bitconverterprompt').append(" <label style='color:grey'>Decimal value</label><br><input  type='text' id='txt1' name='text1'><br><br>");
+  $('#bitconverterprompt').append("<label  style='color:grey'>Binary value</label><br><input  type='text' id='txt2' name='text1'><br><br>");
+  $('#bitconverterprompt').append("<label  style='color:grey'>Hexadecimal value</label><br><input  type='text' id='txt3' name='text1'><br><br>");
+  $('#bitconverter').click(function () {
+   $('#bitconverterprompt').dialog({
+    buttons: [
+       {
+          text: "Reset",
+          click:function(){
+            $("#txt1").val("");
+            $("#txt2").val("");
+            $("#txt3").val("");
+          }
+        }
+      ]
+   });
+})
+
+  $("#txt1").on('keyup',function(){
+    var  x= $("#txt1").val()
+    y=ConvertBase.dec2bin(x)
+    z=ConvertBase.dec2hex(x)
+   $("#txt2").val(y)
+    $("#txt3").val(z)
+    })
+
+</script>
