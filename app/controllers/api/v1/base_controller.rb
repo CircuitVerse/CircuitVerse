@@ -14,6 +14,10 @@ class Api::V1::BaseController < ActionController::API
     unauthorized!
   end
 
+  rescue_from MissingAuthHeader do
+    api_error(status: 401, errors: "Authentication header is missing")
+  end
+
   rescue_from ActiveRecord::RecordNotFound do
     api_error(status: 404, errors: "resource not found!")
   end
@@ -28,9 +32,10 @@ class Api::V1::BaseController < ActionController::API
 
   def authenticate_user
     header = request.headers["Authorization"]
-    header = header.split(" ").last if header
+    raise MissingAuthHeader if header.blank?
+    auth_header = header.split(" ").last
     begin
-      @decoded = JsonWebToken.decode(header)[0]
+      @decoded = JsonWebToken.decode(auth_header)[0]
       @current_user = User.find(@decoded["user_id"])
     rescue JWT::DecodeError => e
       api_error(status: 401, errors: e.message)

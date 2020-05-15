@@ -4,4 +4,6 @@ module CustomErrors
   extend ActiveSupport::Concern
 
   class UnauthenticatedError < StandardError; end
+
+  class MissingAuthHeader < StandardError; end
 end
