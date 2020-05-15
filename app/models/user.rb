@@ -15,7 +15,7 @@ class User < ApplicationRecord
   # public/js/settings.json - to show frendly messages on frotntent
   # LogixController#settings_params - to accept settings via user request
   typed_store :settings, coder: JSON do |s|
-    s.boolean :change_logo_color, default: false, null: false
+    s.boolean :hide_external_navbar_links, default: false, null: false
   end
 
   # has_many :assignments, foreign_key: 'mentor_id', dependent: :destroy

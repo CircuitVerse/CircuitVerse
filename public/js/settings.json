@@ -9,10 +9,11 @@
     "settings":
     [
         {
-            "name" : "change_logo_color",
+            "name" : "hide_external_navbar_links",
             "category" : "Platform",
-            "display_name" : "Change logo color",
-            "description": "Changes cv color to red. Why? idk "
+            "display_name" : "Hide external navbar link",
+            "description": "Hide <code>Learn</code> and <code>Documentation</code> links",
+            "refresh_page": true
         }
     ]
 }

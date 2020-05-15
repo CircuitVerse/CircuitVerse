@@ -61,7 +61,7 @@ class Users::LogixController < ApplicationController
     end
 
     def settings_params
-      params.require(:settings).permit(:change_logo_color)
+      params.require(:settings).permit(:hide_external_navbar_links)
     end
 
     def set_user

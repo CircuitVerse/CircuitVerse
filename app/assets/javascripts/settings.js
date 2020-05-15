@@ -31,7 +31,7 @@ function generateHtml(friendlySchema, userSettings, token)
                         ${setting.description}
                     </div>
                     <div class="form-group col-md-6 d-flex justify-content-center align-items-center">
-                        <input type="checkbox" id="${setting.name}" onclick='handleClick(this, "${token}");' ${settingValue ? " checked" : ""}>
+                        <input type="checkbox" id="${setting.name}" onclick='handleClick(this, ${setting.refresh_page},"${token}");' ${settingValue ? " checked" : ""}>
                     </div>
                 </div>
                 `
@@ -46,7 +46,7 @@ function generateHtml(friendlySchema, userSettings, token)
     return result;
 }    
 
-function handleClick(checkbox, token)
+function handleClick(checkbox, refresh, token)
 {
     checkbox.disabled = true;
     console.log(`changing ${checkbox.id} to ${checkbox.checked}...`)
@@ -64,9 +64,16 @@ function handleClick(checkbox, token)
         success: () =>
         {
             console.log('Successfully!')
-            checkbox.disabled = false;
+            if(refresh)
+            {
+                location.reload();
+            }
+            else
+            {
+                checkbox.disabled = false;
+            }
         },
-        error: (result) =>
+        error: () =>
         {
             checkbox.checked = !checkbox.checked;
             checkbox.disabled = false;

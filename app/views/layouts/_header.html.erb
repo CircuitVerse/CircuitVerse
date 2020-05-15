@@ -1,9 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white">
   <a class="navbar-brand" href="/">
-    <!-- testing user settings -->
-    <!-- do not use that change in production -->
-    <%= image_tag( current_user.change_logo_color ? "cv-red.png" : "CircuitVerseNew.png", class: "logo", alt: "CircuitVerse Logo") %>
-    <!-- testing user settings -->
+    <%= image_tag( "CircuitVerseNew.png", class: "logo", alt: "CircuitVerse Logo") %>
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsedNavbar"
           aria-controls="collapsedNavbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -15,12 +12,14 @@
       <li class="nav-item px-1">
         <a class="btn btn-outline-success rounded-0 simulator text-dark " href="/simulator">Simulator</a>
       </li>
-      <li class="nav-item px-1">
-        <a class="nav-link text-dark" href="https://learn.circuitverse.org/">Learn</a>
-      </li>
-      <li class="nav-item px-1">
-        <a class="nav-link text-dark" href="https://docs.circuitverse.org/">Documentation</a>
-      </li>
+      <% if !(current_user && current_user.hide_external_navbar_links) %>
+        <li class="nav-item px-1">
+          <a class="nav-link text-dark" href="https://learn.circuitverse.org/">Learn</a>
+        </li>
+        <li class="nav-item px-1">
+          <a class="nav-link text-dark" href="https://docs.circuitverse.org/">Documentation</a>
+        </li>
+      <% end %>
       <li class="nav-item px-1 <%= request.path == '/examples' ? 'active' : '' %>">
         <a class="nav-link text-dark" href="/examples">Examples</a>
       </li>
