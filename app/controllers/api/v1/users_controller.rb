@@ -16,6 +16,11 @@ class Api::V1::UsersController < Api::V1::BaseController
       @user, params: { has_email_access: @user.eql?(@current_user) })
   end
 
+  def logged_in_user
+    render json: Api::V1::UserSerializer.new(
+      @current_user, params: { has_email_access: true })
+  end
+
   def update
     @user.update!(user_params)
     if @user.update(user_params)
