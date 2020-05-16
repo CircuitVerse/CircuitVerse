@@ -22,10 +22,7 @@
             "name",
             "admin",
             "country",
-            "educational_institute",
-            "subscribed",
-            "created_at",
-            "updated_at"
+            "educational_institute"
           ]
         }
       },
