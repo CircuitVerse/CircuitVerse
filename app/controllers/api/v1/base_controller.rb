@@ -64,24 +64,29 @@ class Api::V1::BaseController < ActionController::API
 
   def paginate(resource)
     resource.paginate(
-      page: params[:page] || 1, per_page: params[:per_page] || DEFAULT_PER_PAGE
+      page: (params.to_unsafe_h.dig("page", "number") || 1).to_i,
+      per_page: (params.to_unsafe_h.dig("page", "size") || DEFAULT_PER_PAGE).to_i,
     )
   end
 
-  def meta_attributes(resource, extra_meta = {})
-    meta = {
-      current_page: resource.current_page,
-      next_page: resource.next_page,
-      prev_page: resource.previous_page,
-      total_pages: resource.total_pages,
-      total_count: resource.total_entries
-    }.merge(extra_meta)
-
-    meta
+  def link_attrs(resource, base_url)
+    {
+      self: paginated_url(base_url, resource.current_page),
+      first: paginated_url(base_url, 1),
+      prev: paginated_url(base_url, resource.previous_page),
+      next: paginated_url(base_url, resource.next_page),
+      last: paginated_url(base_url, resource.total_pages),
+    }
   end
 
   def api_error(status: 500, errors: [])
     render json: Api::V1::ErrorSerializer.new(status, errors).as_json,
       status: status
   end
+
+  private
+
+    def paginated_url(base_url, page)
+      page ? "#{base_url}?page[number]=#{page}" : nil
+    end
 end
