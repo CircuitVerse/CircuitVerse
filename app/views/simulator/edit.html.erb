@@ -352,6 +352,20 @@
       ]
    });
 })
+      //coverting decimal to binary
+function dec2bin(z){
+   return Number(z).toString(2);
+   }
+
+//coverting decimal to hexadecimal
+function dec2hex(z){
+   return Number(z).toString(16);
+}
+
+//coverting decimal to octal
+//function dec2hex(z){
+//   return Number(z).toString(8);
+//}
 
   $("#txt1").on('keyup',function(){
     var  x= $("#txt1").val()
