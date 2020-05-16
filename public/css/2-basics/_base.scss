@@ -1,0 +1,14 @@
+//*****************
+// base/default rule set here
+// no class or ID selectors
+//*****************
+
+// @import normalize;
+
+html {
+  box-sizing: border-box;
+}
+
+* *:before *:after {
+  box-sizing: inherit;
+}
