@@ -431,6 +431,22 @@ function delete_selected(){
     updateRestrictedElementsInScope();
 }
 
+function resizeTabs(){
+    var $windowsize = $('body').width();
+    var $sideBarsize = $('.side').width();
+    var $maxwidth = ($windowsize - $sideBarsize);
+    $("#tabsBar div").each(function(e){
+        $(this).css({ 'max-width': $maxwidth - 30 });
+    });
+    }
+
+window.addEventListener("resize", resizeTabs);
+resizeTabs();
+
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+});
+
 // direction is only 1 or -1 
 function handleZoom(direction) {
     if (globalScope.scale > 0.5 * DPR) {
