@@ -20,6 +20,7 @@ EEPROM.prototype.tooltipText = "Electrically Erasable Programmable Read-Only Mem
 EEPROM.prototype.constructor = EEPROM;
 EEPROM.prototype.shortName = "EEPROM";
 EEPROM.prototype.maxAddressWidth = 10;
+EEPROM.prototype.helplink = "https://docs.circuitverse.org/#/memoryElements?id=eeprom";
 EEPROM.prototype.mutableProperties = {
     "addressWidth": {
         name: "Address Width",

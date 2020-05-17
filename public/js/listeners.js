@@ -76,23 +76,19 @@ function startListeners() {
         updatePosition = true;
         simulationArea.shiftDown = e.shiftKey;
 
-        // zoom in (+)
         if (e.key == "Meta" || e.key == "Control") {
-            simulationArea.controlDown = true;
+          simulationArea.controlDown = true;
         }
-
-        if (simulationArea.controlDown && (e.keyCode == 187 || e.keyCode == 171)) {
+        
+        // zoom in (+)
+        if ((simulationArea.controlDown && (e.keyCode == 187 || e.keyCode == 171))||e.keyCode==107) {
             e.preventDefault();
-            if (globalScope.scale < 4 * DPR) {
-                changeScale(.1 * DPR);
-            }
+            ZoomIn()
         }
         // zoom out (-)
-        if (simulationArea.controlDown && (e.keyCode == 189 || e.keyCode == 173)) {
+        if ((simulationArea.controlDown && (e.keyCode == 189 || e.keyCode == 173))||e.keyCode==109) {
             e.preventDefault();
-            if (globalScope.scale > 0.5 * DPR) {
-                changeScale(-.1 * DPR);
-            }
+            ZoomOut()
         }
 
         if (simulationArea.mouseRawX < 0 || simulationArea.mouseRawY < 0 || simulationArea.mouseRawX > width || simulationArea.mouseRawY > height) return;
@@ -169,6 +165,13 @@ function startListeners() {
             e.preventDefault();
         }
 
+        //deselect all Shortcut
+        if (e.keyCode == 27) {
+            simulationArea.multipleObjectSelections = [];
+            simulationArea.lastSelected = undefined;
+            e.preventDefault();
+        }
+
         //change direction fns
         if (simulationArea.lastSelected != undefined) {
             let direction = "";
@@ -210,7 +213,14 @@ function startListeners() {
             // e.preventDefault(); //browsers normally open a new tab
             simulationArea.changeClockTime(prompt("Enter Time:"));
         }
+
+        // f1 key for opening the documentation page
+        if (e.keyCode === 112) {
+            e.preventDefault();
+            window.open('https://docs.circuitverse.org/', '_blank');
+        }
     })
+
 
     document.getElementById("simulationArea").addEventListener('dblclick', function(e) {
         scheduleUpdate(2);
@@ -230,31 +240,15 @@ function startListeners() {
     document.getElementById("simulationArea").addEventListener('DOMMouseScroll', MouseScroll);
 
     function MouseScroll(event) {
-        updateCanvas = true;
 
         event.preventDefault()
         var deltaY = event.wheelDelta ? event.wheelDelta : -event.detail;
-        var scrolledUp = deltaY < 0;
-        var scrolledDown = deltaY > 0;
-
-        if (event.ctrlKey) {
-            if (scrolledUp && globalScope.scale > 0.5 * DPR) {
-                changeScale(-.1 * DPR);
-            }
-            if (scrolledDown && globalScope.scale < 4 * DPR) {
-                changeScale(.1 * DPR);
-            }
-        } else {
-            if (scrolledUp && globalScope.scale < 4 * DPR) {
-                changeScale(.1 * DPR);
-            }
-            if (scrolledDown && globalScope.scale > 0.5 * DPR) {
-                changeScale(-.1 * DPR);
-            }
-        }
-
+        event.preventDefault();
+        var deltaY = event.wheelDelta ? event.wheelDelta : -event.detail;
+        let direction = deltaY > 0 ? 1 : -1;
+        handleZoom(direction);
         updateCanvas = true;
-        gridUpdate = true;
+
         if(layoutMode)layoutUpdate();
         else update(); // Schedule update not working, this is INEFFICIENT
     }
@@ -452,3 +446,21 @@ resizeTabs();
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 });
+
+// direction is only 1 or -1 
+function handleZoom(direction) {
+    if (globalScope.scale > 0.5 * DPR) {
+      changeScale(direction * 0.1 * DPR);
+    } else if (globalScope.scale < 4 * DPR) {
+      changeScale(direction * 0.1 * DPR);
+    }
+    gridUpdate = true;
+  }
+  
+  function ZoomIn() {
+    handleZoom(1);
+  }
+  
+  function ZoomOut() {
+    handleZoom(-1);
+  }
