@@ -976,14 +976,14 @@ function generateImage(imgType, view, transparent, resolution, down = true) {
 
 }
 
-if (logix_project_id == 0)
-setTimeout(promptSave,120000);
+// if (logix_project_id == 0)
+// setTimeout(promptSave,120000);
 
-function promptSave(){
-    console.log("PROMPT")
-    if(confirm("You have not saved your creation! Would you like save your project online? "))
-    save()
-}
+// function promptSave(){
+//     console.log("PROMPT")
+//     if(confirm("You have not saved your creation! Would you like save your project online? "))
+//     save()
+// }
 
 function postUserIssue(message) {
     $.ajax({

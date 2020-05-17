@@ -1,51 +1,203 @@
 /* @import 'css-vars/css-vars'; */
 /* $css-vars-use-native: true; */
 @import "./5-layout/simulator.scss";
+@import "./2-basics/base.scss";
+@import "./2-basics/reset.scss";
 
 /* new UI ruleset starts here */
 
+* {
+  box-sizing: border-box;
+}
+
 :root {
-    /* base color theme */
-    --primary: #454545;
-    /* input border (mainly bottom)  */
-    --input: #bbbbbb;
-    /* global font color */
-    --text-primary: #ffffff;
-    /* placeholder text */
-    --text-secondary: #bbbbbb;
-    /* simulator bg  */
-    --sim-primary: #ffffff;
-    /* simulator gridlines */
-    --sim-secondary: #cacaca;
-    /* dialog boxes bg color */
-    --dialog-primary: #454545;
-    /* dialog boxes box border color */
-    --dialog-secondary: #7d7d7d;
-    /* btn primary  */
-    --button-primary: #42b983;
-    /* delete button */
-    --button-secondary: #dc5656;
-    /* error text color */
-    --error-primary: #f8d7da;
-    /* box shadow  */
-    --box-shadow: #4545457f;
-    /* border color */
-    --border-primary: #ffffff;
-    /* dropdown border color */
-    --border-secondary: #8b8b8b;
-    /* input box border  */
-    --border-tertiary: #bbbbbb;
-    /* tab-bar bg color */
-    --bg-primary--nav: #8b8b8b;
-    /* active tab-bar menu bg color */
-    --bg-secondary--nav: #454545;
-    /* inactive nav-bar menu bg color  */
-    --bg-tertiary--nav: #dddddd;
+  /* base color theme */
+  --primary: #454545;
+  /* input border (mainly bottom)  */
+  --input: #bbbbbb;
+  /* global font color */
+  --text-primary: #ffffff;
+  /* placeholder text */
+  --text-secondary: #bbbbbb;
+  /* simulator bg  */
+  --sim-primary: #ffffff;
+  /* simulator gridlines */
+  --sim-secondary: #cacaca;
+  /* dialog boxes bg color */
+  --dialog-primary: #454545;
+  /* dialog boxes box border color */
+  --dialog-secondary: #7d7d7d;
+  /* btn primary  */
+  --button-primary: #42b983;
+  /* delete button */
+  --button-secondary: #dc5656;
+  /* error text color */
+  --error-primary: #f8d7da;
+  /* box shadow  */
+  --box-shadow: #4545457f;
+  /* border color */
+  --border-primary: #ffffff;
+  /* dropdown border color */
+  --border-secondary: #8b8b8b;
+  /* input box border  */
+  --border-tertiary: #bbbbbb;
+  /* tab-bar bg color */
+  --bg-primary--nav: #8b8b8b;
+  /* active tab-bar menu bg color */
+  --bg-secondary--nav: #454545;
+  /* inactive nav-bar menu bg color  */
+  --bg-tertiary--nav: #dddddd;
 }
 
 @font-face {
-    font-family: "Nunito", sans-serif;
-    src: url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;700&display=swap");
+  font-family: "Nunito", sans-serif;
+  src: url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;1,200&display=swap");
 }
 
+body {
+  font-family: "Nunito", sans-serif;
+  font-weight: 200;
+}
 
+a:hover {
+  text-decoration: none !important;
+}
+
+.navbar-menu {
+  position: relative;
+}
+
+.navbar-menu > li > a {
+  color: var(--text-primary);
+  border: 1px solid transparent;
+  border-radius: 1px;
+  padding: 2px 8px;
+}
+
+.navbar-menu > li > a:hover {
+  border: 1px solid white;
+}
+
+.navbar-menu > li > a:focus {
+  outline: none;
+}
+
+.projectName {
+  color: var(--text-primary);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 20px;
+  font-size: 1.4em;
+}
+
+.account-btn {
+  position: absolute;
+  right: 13px;
+  padding: 4px 10px;
+}
+
+.account-btn:hover {
+  border: 1px solid white;
+  border-radius: 1px;
+}
+
+.signIn-btn {
+  color: var(--text-primary);
+}
+
+.signIn-btn:hover {
+  color: var(--text-primary);
+}
+
+.header {
+  background: var(--primary);
+  height: 50px;
+}
+
+.logo {
+  background: url(./assets/logo.svg) center/cover;
+  height: 30px;
+  width: 105px;
+  display: inline-block;
+  margin-right: 36px;
+}
+
+.quick-btn {
+  display: flex;
+  position: absolute;
+  width: 329px;
+  right: 286px;
+  height: 33px;
+  border-radius: 7px;
+  background: #454545;
+  box-shadow: 4px 4px 5px #3b3b3b, -4px -4px 5px #4f4f4f;
+  border-top: 1.5px solid #535353;
+  border-left: 1.5px solid #535353;
+  border-right: 1.5px solid #333333;
+  border-bottom: 1.5px solid #333333;
+}
+
+.quick-btn > div {
+  margin: auto;
+}
+.quick-btn > div > button {
+  margin: auto;
+  border: none;
+}
+
+.quick-btn-new {
+  background: url(./assets/new.svg) center/cover;
+  width: 24px;
+  height: 19.2px;
+  color: red;
+}
+
+.quick-btn-save-online {
+  background: url(./assets/save-online.svg) center/cover;
+  width: 27.43px;
+  height: 19.2px;
+  display: block;
+}
+
+.quick-btn-save {
+  background: url(./assets/save.svg) center/cover;
+  width: 19.2px;
+  height: 19.2px;
+  display: block;
+}
+
+.quick-btn-delete {
+  background: url(./assets/delete.svg) center/cover;
+  width: 24px;
+  height: 19.2px;
+  display: block;
+}
+
+.quick-btn-download {
+  background: url(./assets/download.svg) center/cover;
+  width: 19.2px;
+  height: 19.2px;
+  display: block;
+}
+
+.quick-btn-zoom-fit {
+  background: url(./assets/fit.svg) center/cover;
+  width: 19.2px;
+  height: 19.2px;
+  display: block;
+}
+
+.quick-btn-undo {
+  background: url(./assets/undo.svg) center/cover;
+  width: 19.2px;
+  height: 19.2px;
+  display: block;
+}
+
+.quick-btn-redo {
+  background: url(./assets/redo.svg) center/cover;
+  width: 19.2px;
+  height: 19.2px;
+  display: block;
+}
