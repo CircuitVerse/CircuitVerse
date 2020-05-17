@@ -172,6 +172,7 @@ function startListeners() {
         //deselect all Shortcut
         if (e.keyCode == 27) {
             simulationArea.multipleObjectSelections = [];
+            simulationArea.lastSelected = undefined;
             e.preventDefault();
         }
 
