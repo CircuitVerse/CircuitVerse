@@ -91,6 +91,7 @@ NODE_INTERMEDIATE = 2;
  * NODE_INPUT = 0;
  * NODE_OUTPUT = 1;
  * NODE_INTERMEDIATE = 2;
+ * Input and output nodes belong to some CircuitElement(it's parent)
  * @class
  * @memberof module:node
  * @param {number} x - x coord of Node
@@ -136,6 +137,14 @@ function Node(x, y, type, parent, bitWidth = undefined, label = '') {
     this.hover = false;
     this.wasClicked = false;
     this.scope = this.parent.scope;
+    /**
+     * idea:
+     * @type {string}
+     * value of this.prev is
+     * 'a' : whenever a node is not being dragged this.prev is 'a'
+     * 'x' : when node is being dragged horizontally
+     * 'y' : when node is being dragged vertically
+     */
     this.prev = 'a';
     this.count = 0;
     this.highlighted = false;
@@ -162,7 +171,7 @@ Node.prototype.propagationDelay = 0;
 
 /**
  * @memberof Node
- * WIP
+ * This is used to give some nodes special ignorance when drawing a circuit.
  */
 Node.prototype.subcircuitOverride = false;
 

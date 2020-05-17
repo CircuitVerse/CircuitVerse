@@ -237,9 +237,9 @@ var simulationArea = {
 changeClockTime = simulationArea.changeClockTime;
 
 /**
- * Function to setup the sidebar. It draw icons in the sidebar
- * It also initializes som other useful lists which are helpful
- * while saving and loading project.
+ * It initializes some useful array which are helpful
+ * while simulating, saving and loading project.
+ * It also draws icons in the sidebar
  */
 function setupElementLists() {
     $('#menu').empty();
@@ -600,7 +600,7 @@ Scope.prototype.centerFocus = function (zoomIn = true) {
 };
 
 /**
- * function to setup environment letiables like projectId and DPR
+ * function to setup environment variables like projectId and DPR
  */
 function setupEnvironment() {
     projectId = generateId();
@@ -679,7 +679,9 @@ function recoverProject() {
 
 
 /**
- * to resize window and setup things
+ * to resize window and setup things it
+ * sets up new width for the canvas variables.
+ * Also redraws the grid.
  */
 function resetup() {
     DPR = window.devicePixelRatio || 1;
@@ -1219,6 +1221,7 @@ function CircuitElement(x, y, scope, dir, bitWidth) {
  * @type {boolean}
  */
 CircuitElement.prototype.alwaysResolve = false;
+
 /**
  * propogation delay for the element
  * @memberof CircuitElement
@@ -1546,7 +1549,7 @@ CircuitElement.prototype.setLabel = function (label) {
 };
 
 /**
- * Documention is WIP
+ * If true some delay is added before the element is added to simulation queue
  * @memberof CircuitElement
  * @type {boolean}
  */

@@ -7,7 +7,7 @@
  * @property {function} setup - used to setup the parameters and dimensions
  * @property {function} play - used to draw outline of minimap and call resolve
  * @property {function} resolve - used to resolve all objects and draw them on minimap
- * @property {function} CLEAR - used to clear minimap
+ * @property {function} clear - used to clear minimap
  */
 var miniMapArea = {
     canvas: document.getElementById('miniMapArea'),

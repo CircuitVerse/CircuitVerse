@@ -56,7 +56,10 @@ function menuItemClicked(id) {
         globalScope.centerFocus(false);
     }
 }
-
+/**
+ * adds some UI elements to side bar and
+ * menu also attaches listeners to sidebar
+ */
 function setupUI() {
     var ctxEl = document.getElementById('contextMenu');
     document.addEventListener('mousedown', (e) => {

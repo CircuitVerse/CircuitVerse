@@ -314,7 +314,7 @@ NandGate.prototype.customDraw = function () {
  * @param {Scope=} scope - Cirucit on which element is drawn
  * @param {string=} dir - direction of element
  * @param {number=} bitWidth - bit width per node.
- * @param {number=} controlSignalSize - Documentation is WIP
+ * @param {number=} controlSignalSize - [Documentation is WIP]
  */
 function Multiplexer(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1, controlSignalSize = 1) {
     CircuitElement.call(this, x, y, scope, dir, bitWidth);

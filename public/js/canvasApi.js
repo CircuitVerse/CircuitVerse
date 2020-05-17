@@ -309,7 +309,7 @@ function arc2(ctx, sx, sy, radius, start, stop, xx, yy, dir) {
 }
 
 /**
- * function to draw circle a better descriprion is wip
+ * function to draw circle a better description is wip
  * @param {HTMLCanvasElement} ctx
  * @param {number} sx - shift in x direction
  * @param {number} sy -shift in y direction
@@ -334,7 +334,7 @@ function drawCircle(ctx, x1, y1, r, color) {
 }
 
 /**
- * function to draw circle a better descriprion is wip
+ * function to draw circle a better description is wip
  * @param {HTMLCanvasElement} ctx
  * @param {number} sx - shift in x direction
  * @param {number} sy -shift in y direction

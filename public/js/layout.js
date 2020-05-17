@@ -48,7 +48,7 @@ function layoutUpdate(scope = globalScope) {
 }
 
 /**
- * WIP
+ * Used to move the grid in the layout mode
  * @param {Scope} scope - the circuit whose subcircuit we are editing
  */
 function paneLayout(scope = globalScope) {
@@ -326,10 +326,10 @@ function toggleLayoutTitle() {
  * @param {number} y - y coord of node
  * @param {strng} id - id for node
  * @param {string=} label - label for the node
- * @param {WIP} xx - parent x
- * @param {WIP} yy - parent y
- * @param {WIP} type - not used?
- * @param {WIP} parent  not used?
+ * @param {number} xx - parent x
+ * @param {number} yy - parent y
+ * @param {number} type - input or output node
+ * @param {CircuitElement} parent  parent of the node
  */
 function layoutNode(x, y, id, label = '', xx, yy, type, parent) {
     this.type = type;
