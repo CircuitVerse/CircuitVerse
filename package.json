@@ -20,6 +20,7 @@
     "bootstrap": "^4.3.1",
     "jquery": "^3.4.1",
     "opencollective-postinstall": "^2.0.2",
+    "css-vars": "^2.2.0",
     "popper.js": "^1.16.0",
     "trumbowyg": "^2.21.0"
   },

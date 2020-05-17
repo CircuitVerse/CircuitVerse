@@ -1,0 +1,51 @@
+/* @import 'css-vars/css-vars'; */
+/* $css-vars-use-native: true; */
+@import "./5-layout/simulator.scss";
+
+/* new UI ruleset starts here */
+
+:root {
+    /* base color theme */
+    --primary: #454545;
+    /* input border (mainly bottom)  */
+    --input: #bbbbbb;
+    /* global font color */
+    --text-primary: #ffffff;
+    /* placeholder text */
+    --text-secondary: #bbbbbb;
+    /* simulator bg  */
+    --sim-primary: #ffffff;
+    /* simulator gridlines */
+    --sim-secondary: #cacaca;
+    /* dialog boxes bg color */
+    --dialog-primary: #454545;
+    /* dialog boxes box border color */
+    --dialog-secondary: #7d7d7d;
+    /* btn primary  */
+    --button-primary: #42b983;
+    /* delete button */
+    --button-secondary: #dc5656;
+    /* error text color */
+    --error-primary: #f8d7da;
+    /* box shadow  */
+    --box-shadow: #4545457f;
+    /* border color */
+    --border-primary: #ffffff;
+    /* dropdown border color */
+    --border-secondary: #8b8b8b;
+    /* input box border  */
+    --border-tertiary: #bbbbbb;
+    /* tab-bar bg color */
+    --bg-primary--nav: #8b8b8b;
+    /* active tab-bar menu bg color */
+    --bg-secondary--nav: #454545;
+    /* inactive nav-bar menu bg color  */
+    --bg-tertiary--nav: #dddddd;
+}
+
+@font-face {
+    font-family: "Nunito", sans-serif;
+    src: url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;700&display=swap");
+}
+
+

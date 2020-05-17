@@ -1,3 +1,8 @@
+@import 'css-vars/css-vars';
+$css-vars-use-native: true;
+
+
+//old ui ruleset starts here
 .deleteOfflineProject {
     float: right;
     cursor: pointer;
@@ -962,3 +967,5 @@ div.icon img {
 }
 
 /* LOADING ICON CSS ENDS*/
+
+
