@@ -87,7 +87,7 @@ a:hover {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  margin: 20px;
+  /* margin: 20px; */
   font-size: 1.4em;
 }
 
@@ -200,4 +200,96 @@ a:hover {
   width: 19.2px;
   height: 19.2px;
   display: block;
+}
+
+/* dropdown-menu styles */
+
+.dropdown > ul {
+  background-color: rgba(69, 69, 69, 0.5);
+  border-radius: 5px;
+  text-align: center;
+  border: 0.5px solid #8b8b8b;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px); /* doesn't work on firefox */
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 13px);
+}
+
+.dropdown > ul::before {
+  background-color: transparent;
+  content: "";
+  width: 10px;
+  display: inline-block;
+  height: 10px;
+  position: absolute;
+  border-top: 1px solid #8b8b8b;
+  border-right: 1px solid #8b8b8b;
+  transform: translate(-50%, -13px) rotate(-45deg); /* background-color: #8b8b8b; */
+}
+.dropdown > ul::after {
+  content: "";
+  width: 11.5px;
+  display: inline-block;
+  height: 10px;
+  position: absolute;
+  border-top: 1.5px solid #454545;
+  transform: translate(-50%, -15.5px);
+  top: 14.5px;
+}
+
+.dropdown-menu > li > a {
+  color: var(--text-primary) !important;
+  padding: 7px 0;
+  width: 90%;
+  margin: auto;
+}
+
+.dropdown-menu > li > a:hover {
+  color: black !important;
+  background: #cacaca 0% 0% no-repeat padding-box;
+  border-radius: 7px;
+  opacity: 1;
+  backdrop-filter: blur(50px);
+  -webkit-backdrop-filter: blur(50px);
+}
+
+#contextMenu {
+  width: 150px;
+  visibility: hidden;
+  box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  position: fixed;
+  z-index: 100;
+  background: #fff;
+  opacity: 0;
+  top: 100;
+  left: 100;
+  cursor: pointer;
+  color: #000;
+  padding-bottom: 4px;
+  padding-top: 4px;
+  transition: opacity 0.2s ease-in-out;
+  user-select: none;
+}
+
+#contextMenu ul {
+  margin: 0;
+  padding: 0;
+  font: 16px sans-serif;
+}
+
+#contextMenu ul li {
+  list-style: none;
+  padding: 8px;
+  padding-left: 20px;
+}
+
+#contextMenu ul li a {
+  text-decoration: none;
+  color: #000 !important;
+}
+
+#contextMenu ul li:hover {
+  background: rgba(0, 0, 0, 0.1);
 }
