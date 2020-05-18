@@ -306,6 +306,10 @@ select {
     /*padding-left: 0.5em;*/
     margin: 0.1em;
     color: #fff;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    position: relative;
 }
 
 #tabsBar .circuits {
@@ -313,7 +317,7 @@ select {
     text-align: center;
     background-color: #00284d;
     padding-left: 0.5em;
-    padding-right: 0.5em;
+    padding-right: 1.5em;
     border: 1px solid #005cb3;
     border-radius: 0.1em;
 }
@@ -335,14 +339,15 @@ select {
     font-family: 'Gill Sans', sans-serif;
     padding-left: 1em;
     opacity: 0.5;
-
 }
 .tabsCloseButton {
     color:#111;
     font-family: 'Gill Sans', sans-serif;
     padding-left: 1em;
     opacity: 1.0;
-
+    position: absolute;
+    top: 5px;
+    right: 3;
 }
 
 th,
