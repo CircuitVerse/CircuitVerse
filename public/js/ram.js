@@ -54,6 +54,7 @@ RAM.prototype.tooltipText = "Random Access Memory";
 RAM.prototype.shortName = "RAM";
 RAM.prototype.maxAddressWidth = 20;
 RAM.prototype.constructor = RAM;
+RAM.prototype.helplink = "https://docs.circuitverse.org/#/memoryElements?id=ram";
 RAM.prototype.mutableProperties = {
     "addressWidth": {
         name: "Address Width",
