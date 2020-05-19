@@ -205,15 +205,20 @@ a:hover {
 /* dropdown-menu styles */
 
 .dropdown > ul {
-  background-color: rgba(69, 69, 69, 0.5);
+  background-color: rgba(69, 69, 69, .9);
   border-radius: 5px;
   text-align: center;
   border: 0.5px solid #8b8b8b;
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px); /* doesn't work on firefox */
   position: absolute;
   left: 50%;
   transform: translate(-50%, 13px);
+}
+
+@supports(backdrop-filter: blur()) {
+  .dropdown > ul {
+    background-color: rgba(69, 69, 69, 0.5);
+    backdrop-filter: blur(10px);
+  }
 }
 
 .dropdown > ul::before {
@@ -227,6 +232,7 @@ a:hover {
   border-right: 1px solid #8b8b8b;
   transform: translate(-50%, -13px) rotate(-45deg); /* background-color: #8b8b8b; */
 }
+
 .dropdown > ul::after {
   content: "";
   width: 11.5px;
@@ -293,3 +299,4 @@ a:hover {
 #contextMenu ul li:hover {
   background: rgba(0, 0, 0, 0.1);
 }
+
