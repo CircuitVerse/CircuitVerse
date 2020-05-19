@@ -205,7 +205,7 @@ a:hover {
 /* dropdown-menu styles */
 
 .dropdown > ul {
-  background-color: rgba(69, 69, 69, .9);
+  background-color: rgba(69, 69, 69, 0.9);
   border-radius: 5px;
   text-align: center;
   border: 0.5px solid #8b8b8b;
@@ -214,7 +214,7 @@ a:hover {
   transform: translate(-50%, 13px);
 }
 
-@supports(backdrop-filter: blur()) {
+@supports (backdrop-filter: blur()) {
   .dropdown > ul {
     background-color: rgba(69, 69, 69, 0.5);
     backdrop-filter: blur(10px);
@@ -263,40 +263,49 @@ a:hover {
 #contextMenu {
   width: 150px;
   visibility: hidden;
-  box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 0.5px solid #8b8b8b;
   position: fixed;
   z-index: 100;
-  background: #fff;
+  background-color: rgba(69, 69, 69, 0.9);
   opacity: 0;
   top: 100;
   left: 100;
   cursor: pointer;
-  color: #000;
-  padding-bottom: 4px;
-  padding-top: 4px;
+  color: var(--text-primary) !important;
+  padding-bottom: 7px;
+  padding-top: 7px;
   transition: opacity 0.2s ease-in-out;
   user-select: none;
+  border-radius: 5px;
 }
 
 #contextMenu ul {
   margin: 0;
   padding: 0;
-  font: 16px sans-serif;
 }
 
 #contextMenu ul li {
   list-style: none;
   padding: 8px;
   padding-left: 20px;
-}
-
-#contextMenu ul li a {
-  text-decoration: none;
-  color: #000 !important;
+  width: 90%;
+  margin: auto;
 }
 
 #contextMenu ul li:hover {
-  background: rgba(0, 0, 0, 0.1);
+  color: black !important;
+  background: #cacaca 0% 0% no-repeat padding-box;
+  border-radius: 7px;
+  opacity: 1;
 }
 
+@supports (backdrop-filter: blur()) {
+  #contextMenu {
+    background-color: rgba(69, 69, 69, 0.7);
+    backdrop-filter: blur(10px);
+  }
+  #contextMenu ul li:hover {
+    backdrop-filter: blur(50px);
+    -webkit-backdrop-filter: blur(50px);
+  }
+}
