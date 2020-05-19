@@ -14,4 +14,12 @@ class UserMailerPreview < ActionMailer::Preview
       content: "<i> Now grade your assignments with CircuitVerse! </i>")
     UserMailer.custom_email(User.first, mail)
   end
+
+  def welcome_email
+    UserMailer.welcome_email(User.first)
+  end
+
+  def forked_project_email
+    UserMailer.forked_project_email(User.first, Project.first, Project.second)
+  end
 end
