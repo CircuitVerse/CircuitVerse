@@ -93,9 +93,7 @@ input[type="radio"]:checked ~ label {
   transition: opacity 0.2s;
 }
 
-.ui-accordion-header-icon.ui-icon {
-  /*background-image: url("./ui-icons_white_256x240.png");*/
-}
+
 
 .noSelect {
   -moz-user-select: none;
@@ -128,46 +126,6 @@ input[type="radio"]:checked ~ label {
   height: auto;
 }
 
-#modules-header {
-  margin-bottom: 0.5em;
-  font-size: 1.3em;
-  text-transform: uppercase;
-  font-family: Arial, Helvetica, sans-serif;
-  color: #0099ff;
-  text-align: center;
-  padding-top: 0.3em;
-}
-
-.panel {
-  padding: 0em;
-  background-color: #333;
-  margin: 0;
-  border-radius: 0;
-  margin-bottom: 0em;
-  border: 1px solid #0099ff;
-}
-
-.ui-accordion-header {
-  background-color: #333;
-  color: #fff;
-  border: 1px solid #0099ff;
-  border-radius: 0;
-  margin: 0em;
-  padding: 0em;
-  outline: none;
-}
-
-.ui-accordion-header.ui-accordion-header-active.ui-state-active {
-  background-color: #0099ff;
-  outline: none;
-  margin-bottom: 0;
-}
-
-.ui-accordion-header.ui-state-hover {
-  background-color: #0066cc;
-  outline: none;
-  /*margin-bottom: 0;*/
-}
 
 /* MODULES */
 
@@ -553,72 +511,6 @@ input:checked + .slider2:before {
   float: right;
 }
 
-.icon {
-  position: relative;
-  height: 70px;
-  width: 70px;
-  /*margin: 1px;*/
-  margin-bottom: 5px;
-  margin-left: 3px;
-  display: inline-block;
-  background-color: white;
-  border-radius: 4px;
-  /*border-color: #0099ff;*/
-  border: 2px solid #0099ff;
-  text-align: center;
-  font-size: 8px;
-  padding: 5px;
-}
-
-img {
-  display: none;
-}
-
-div.icon img {
-  -webkit-user-drag: none;
-  -khtml-user-drag: none;
-  -moz-user-drag: none;
-  -o-user-drag: none;
-  user-drag: none;
-  /*margin: auto;*/
-  width: 100%;
-  /*height:100%;*/
-  display: inline-block;
-}
-
-.img__description {
-  position: absolute;
-  /*top: 0;*/
-  bottom: -16;
-  text-align: center;
-  left: 0;
-  right: 0;
-  background-color: #0099ff;
-  color: white;
-  font-size: 8px;
-  /*background: rgba(29, 106, 154, 0.72);
-  color: #fff;*/
-  visibility: hidden;
-  border-bottom-left-radius: 2px;
-  border-bottom-right-radius: 2px;
-  opacity: 0;
-  /* transition effect. not necessary */
-  transition: opacity 0.2s, visibility 0.2s;
-}
-
-.icon:hover .img__description {
-  visibility: visible;
-  opacity: 1;
-}
-
-.icon:hover {
-  /*background-color: #cce5ff;*/
-  /*border-color: blue;*/
-  margin-bottom: 1px;
-  height: 74px;
-  background-color: #f5f5f5;
-  transition: height 0.2s margin 0.2s;
-}
 
 .objectPropertyAttributeChecked.btn {
   width: 100%;

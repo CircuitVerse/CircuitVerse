@@ -51,9 +51,8 @@ function setupElementLists() {
 
 
     function createIcon(element) {
-        return `<div class="icon logixModules pointerCursor" id="${element}" >
+        return `<div class="icon logixModules pointerCursor" title="${element}" id="${element}" >
             <img src= "/img/${element}.svg" >
-            <p class="img__description">${element}</p>
         </div>`;
     }
 
@@ -69,7 +68,7 @@ function setupElementLists() {
         }
 
         let accordionData = `<div class="panelHeader">${category}</div>
-            <div class="panel" style="overflow-y:hidden;">
+            <div class="panel customScroll">
               ${htmlIcons}
             </div>`;
 
@@ -79,8 +78,8 @@ function setupElementLists() {
 
 
 }
-
-// setupElementLists()
+  
+  // setupElementLists()
 
 
 // circuitElementList = [
