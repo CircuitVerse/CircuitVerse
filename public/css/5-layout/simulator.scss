@@ -203,54 +203,6 @@ select {
 
 /* END OF MODULES  */
 
-#tabsBar {
-  width: 100%;
-  /*height: 3em;*/
-  margin-left: 20px;
-  background-color: #000;
-}
-
-#tabsBar div {
-  display: inline-block;
-  /*padding-left: 0.5em;*/
-  margin: 0.1em;
-  color: #fff;
-}
-
-#tabsBar .circuits {
-  color: #fff;
-  text-align: center;
-  background-color: #00284d;
-  padding-left: 0.5em;
-  padding-right: 0.5em;
-  border: 1px solid #005cb3;
-  border-radius: 0.1em;
-}
-
-#tabsBar .circuits:hover {
-  background-color: #00ace6;
-  /*border: 1px solid #0099ff;*/
-  transition-duration: 100ms;
-}
-
-#tabsBar .current {
-  /*background-color: #0086b3;*/
-  background-color: #004280;
-  border: 1px solid #0099ff;
-}
-
-.tabsCloseButton:hover {
-  color: #fff;
-  font-family: "Gill Sans", sans-serif;
-  padding-left: 1em;
-  opacity: 0.5;
-}
-.tabsCloseButton {
-  color: #111;
-  font-family: "Gill Sans", sans-serif;
-  padding-left: 1em;
-  opacity: 1;
-}
 
 th,
 td {

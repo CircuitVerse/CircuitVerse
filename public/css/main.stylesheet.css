@@ -478,3 +478,50 @@ div.icon img {
 }
 
 /** custom scroll  styling starts ends here  */
+/* ce-panel styling  ends */
+
+/* tab bar styling starts */
+#tabsBar {
+  width: 100%;
+  background-color: #8b8b8b;
+  height: 23.5px;
+  border: 1px solid white;
+  display: flex;
+  align-items: center;
+}
+
+#tabsBar div {
+  justify-content: space-between;
+  border: 1px solid white;
+  border-radius: 1px;
+  display: inline-block;
+  margin: 2px;
+  min-width: 110px;
+  color: #fff;
+  font-size: 14px;
+}
+
+#tabsBar div > span {
+  display: inline-block;
+  padding: 2px 5px;
+}
+
+#tabsBar .circuits {
+  text-align: center;
+  background-color: #dddddd;
+}
+
+#tabsBar .circuits > span {
+  color: black;
+}
+
+#tabsBar .current {
+  color: white;
+  background-color: #454545;
+}
+
+#tabsBar .current > span {
+  color: white;
+}
+
+/* tab bar styling ends */
