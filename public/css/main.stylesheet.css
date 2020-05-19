@@ -524,4 +524,17 @@ div.icon img {
   color: white;
 }
 
+#tabsBar button {
+  order: 99; /* could have better solution */
+  width: 18px;
+  align-items: center;
+  padding: 0;
+  color: white;
+  background-color: #454545;
+  text-decoration: none;
+  outline: none;
+  border: 1px solid white;
+  border-radius: 1px;
+}
+
 /* tab bar styling ends */
