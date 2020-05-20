@@ -11,19 +11,27 @@ describe ErrorsController, type: :request do
     end
   end
 
-  describe "#not_found" do
-    it "should return 404" do
+  describe "#unacceptable" do
+    it "should return 422" do
+      get "/422"
+      expect(response.body).to include("Request could not be processed :(")
+      expect(response.body).to include("Error code: 422")
+    end
+  end
+
+  describe "#internal_error" do
+    it "should return 500" do
       get "/500"
       expect(response.body).to include("Server Errored!")
       expect(response.body).to include("Error code: 500")
     end
   end
 
-  describe "#not_found" do
-    it "should return 404" do
-      get "/422"
-      expect(response.body).to include("Request could not be processed :(")
-      expect(response.body).to include("Error code: 422")
+  describe "#not_implemented" do
+    it "should return 501" do
+      get "/501"
+      expect(response.body).to include("Not Implemented")
+      expect(response.body).to include("Error code: 501")
     end
   end
 end
