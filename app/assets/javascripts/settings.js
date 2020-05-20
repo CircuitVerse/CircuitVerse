@@ -6,7 +6,7 @@ function loadUserSettings(userSettings, token)
         console.log('User Settings Schema', friendlySchema);
         $("#settings-container").html(generateHtml(friendlySchema, userSettings, token));
     })
-    .fail(() => showError('Failed to load settings.json'));
+    .fail((error) => showError('settings.json load - ' + 't'));
 }
 
 function showError(text)
@@ -20,47 +20,43 @@ function generateHtml(friendlySchema, userSettings, token)
     friendlySchema.categories.forEach(category => 
     {
         result += `<h3>${category.name}</h3>`
+
         friendlySchema.settings.filter(x => x.category == category.name).forEach(setting => 
         {
-            const settingValue = userSettings[setting.name];
-            if(settingValue !== undefined)
+            if(userSettings[setting.name] !== undefined || setting.type === "button")
             {
-                result +=
-                `
-                <div class="form-row w-100">
-                    <div class="form-group col-md-6">
-                        <strong>${setting.displayName}</strong> <br>
-                        ${setting.description}
-                    </div>
-                    <div class="form-group col-md-6 d-flex justify-content-center align-items-center">
-                        <input type="checkbox" id="${setting.name}" onclick='handleClick(this, ${setting.refreshPage},"${token}");' ${settingValue ? " checked" : ""}>
-                    </div>
-                </div>
-                `
+                result += generateSettingRow(setting, userSettings[setting.name], token)
             }
-            else
-            {
-                console.error(`${setting.name} exist in schema but does not exist in user settings`)
-            }
-        });
-        friendlySchema.additionalButtons.filter(x => x.category == category.name).forEach(button =>
-        {
-            result +=
-                `
-                <div class="form-row w-100">
-                    <div class="form-group col-md-6">
-                        <strong>${button.displayName}</strong> <br>
-                        ${button.description}
-                    </div>
-                    <div class="form-group col-md-6 d-flex justify-content-center align-items-center">
-                        <a class="btn btn-secondary" href="${button.buttonLink}" role="button">${button.buttonText}</a>
-                    </div>
-                </div>
-                `
+            
         });
     });
     return result;
 }    
+
+function generateSettingRow(setting, value, token)
+{
+    let action = "Failed to generate action";
+    if(setting.type == "boolean")
+    {
+        action = `<input type="checkbox" id="${setting.name}" onclick='handleClick(this, ${setting.refreshPage},"${token}");' ${value ? " checked" : ""}>`
+    }
+    else if(setting.type == "button")
+    {
+        action = `<a class="btn btn-secondary" href="${setting.buttonLink}" role="button">${setting.buttonText}</a>`
+    }
+
+    return `
+    <div class="form-row w-100">
+        <div class="form-group col-md-6">
+            <strong>${setting.displayName}</strong> <br>
+            ${setting.description}
+        </div>
+        <div class="form-group col-md-6 d-flex justify-content-center align-items-center">
+            ${action}
+        </div>
+    </div>
+    `
+}
 
 function handleClick(checkbox, refresh, token)
 {
