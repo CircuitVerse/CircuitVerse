@@ -15,6 +15,10 @@ describe Users::LogixController, type: :request do
     get profile_path(id: @user.id)
     expect(response.status).to eq(200)
   end
+  it "should get user settings" do
+    get user_settings_path(id: @user.id)
+    expect(response.status).to eq(200)
+  end
   it "should get user favourites" do
     get user_favourites_path(id: @user.id)
     expect(response.status).to eq(200)
