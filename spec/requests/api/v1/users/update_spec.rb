@@ -46,18 +46,14 @@ RSpec.describe Api::V1::UsersController, "#update", type: :request do
         token = get_auth_token(user)
         patch "/api/v1/users/#{user.id}",
         params: { name: "Updated Name" },
-        headers: { "Authorization": "Token #{token}" }
+        headers: { "Authorization": "Token #{token}" }, as: :json
       end
 
       it "returns the updated user" do
         expect(response).to have_http_status(202)
         expect(response).to match_response_schema("user")
-        expect(response_body[:data][:attributes][:name]).to eq("Updated Name")
+        expect(response.parsed_body["data"]["attributes"]["name"]).to eq("Updated Name")
       end
-    end
-
-    def response_body
-      JSON.parse(response.body).with_indifferent_access
     end
   end
 end
