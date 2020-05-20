@@ -10,4 +10,14 @@ class AssignmentMailer < ApplicationMailer
     @user = user
     mail(to: (@user.email), subject: "Assignment Updated in " +  Group.find_by(id:(@assignment.group_id)).name )
   end
+
+  def deadline_assignment_email(assignment, projects_submitted, projects_not_submitted)
+    @assignment = assignment
+    @projects_submitted = projects_submitted
+    @projects_not_submitted = projects_not_submitted
+    @user = @assignment.group.mentor
+    @grp_name = @assignment.group.name
+    @subject = 'Assignment has reached the deadline in ' + @grp_name
+    mail(to: @user.email, subject: @subject)
+  end
 end
