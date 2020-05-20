@@ -127,66 +127,6 @@ input[type="radio"]:checked ~ label {
 }
 
 
-/* MODULES */
-
-.moduleProperty {
-  display: none;
-  background-color: #333;
-  color: #fff;
-  /*padding-bottom: 2em;*/
-  margin-top: 1em;
-}
-
-#moduleProperty-inner {
-  border: 1px solid #0099ff;
-  padding: 1em;
-  /*margin-bottom: 1em;*/
-}
-
-#moduleProperty-toolTip {
-  padding: 10px;
-  /*font-size: 1.1em;*/
-  color: #0099ff;
-}
-
-#moduleProperty-title {
-  text-transform: uppercase;
-  font-size: 1.3em;
-  color: #0099ff;
-  margin-bottom: 0.55em;
-  text-align: center;
-}
-
-#moduleProperty-header {
-  font-size: 1.1em;
-  text-transform: uppercase;
-  margin-bottom: 0.5em;
-}
-
-#moduleProperty-inner > p {
-  margin: 0;
-  margin-top: 0.2em;
-}
-
-input,
-select {
-  padding: 0.25rem;
-}
-
-.moduleProperty input,
-.moduleProperty select {
-  background-color: #333;
-  border: none;
-  border-bottom: 2px solid #ccc;
-}
-
-.moduleProperty input:active,
-.moduleProperty input:focus,
-.moduleProperty select:active,
-.moduleProperty select:focus {
-  border-bottom: 2px solid #0099ff;
-}
-
 .navbar.navbar-default {
   margin: 0px;
   border-radius: 0px;
@@ -314,56 +254,6 @@ html {
   height: 100%;
   overflow: hidden;
   background-color: "white";
-}
-
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 43px;
-  height: 17px;
-  margin-bottom: 0px;
-}
-
-.switch input {
-  display: none;
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 2;
-  left: 0;
-  right: 0;
-  bottom: -2;
-  background-color: #ccc;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 17px;
-  width: 17px;
-  left: 0px;
-  bottom: 0px;
-  background-color: white;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
-
-input:checked + .slider {
-  background-color: #2196f3;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196f3;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
 }
 
 /* Rounded sliders */

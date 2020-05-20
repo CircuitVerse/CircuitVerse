@@ -462,19 +462,19 @@ div.icon img {
 
 /** custom scroll  styling starts here  */
 .customScroll {
-    scrollbar-width: thin; /* for firefox */
+  scrollbar-width: thin; /* for firefox */
 }
 
 .customScroll::-webkit-scrollbar {
-    margin-right: 3px;
-    width: 6px;
+  margin-right: 3px;
+  width: 6px;
 }
 .customScroll::-webkit-scrollbar-thumb {
-    background-color: #7d7d7d;
+  background-color: #7d7d7d;
 }
 
 .customScroll::-webkit-scrollbar-thumb:hover {
-    background-color: #454545;
+  background-color: #454545;
 }
 
 /** custom scroll  styling starts ends here  */
@@ -537,4 +537,239 @@ div.icon img {
   border-radius: 1px;
 }
 
-/* tab bar styling ends */
+/*! tab bar styling ends */
+
+/** Module property styling starts here */
+
+.moduleProperty input {
+  color: #fff;
+}
+
+.moduleProperty {
+  display: none;
+  font: inherit;
+  width: 240px;
+  background: #454545;
+  border: 2px solid white;
+  box-shadow: 0px 0px 10px #4545457f;
+  border-radius: 5px;
+  position: fixed;
+  top: 90px;
+  right: 10px;
+  color: white;
+  z-index: 1000;
+}
+
+#moduleProperty-toolTip {
+  padding: 10px;
+}
+
+#moduleProperty-title {
+  margin: 10px;
+  font: Bold 20px Nunito;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+#moduleProperty-inner {
+  width: 85%;
+  margin: auto;
+}
+
+#moduleProperty-header {
+  font-size: 1.1em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+#moduleProperty-inner > p span {
+  display: inline-block;
+  font-weight: bold;
+}
+
+#moduleProperty-inner > p button {
+  border-radius: 2px;
+  margin: 3px;
+  border: none;
+}
+
+#moduleProperty-inner:last-child {
+  margin-bottom: 15px !important;
+}
+
+.moduleProperty input,
+.moduleProperty select {
+  background-color: transparent !important;
+  border: none;
+  border-bottom: 0.5px solid #bbbbbb;
+  margin: auto;
+  width: 100%;
+  padding-left: 10px;
+  color: white !important;
+  outline: none;
+}
+
+.moduleProperty input:focus,
+.moduleProperty select:focus {
+  outline-width: 0;
+  outline: none;
+  box-shadow: none;
+  border-color: white;
+}
+
+/* toogle */
+
+.switch {
+  position: relative;
+  width: 43px;
+  height: 17px;
+  margin-bottom: 0px;
+  float: right;
+}
+
+.switch input {
+  display: none;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 25px;
+  width: 35px;
+  box-shadow: inset 0px 0px 5px rgba(69, 69, 69, 0.255);
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: -3px;
+  top: 50%;
+  transform: translateY(-51%);
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s all forwards;
+  border-radius: 50%;
+  box-shadow: 0px 0px 7px rgba(69, 69, 69, 0.8);
+}
+
+input:checked + .slider {
+  background-color: #42b983;
+}
+
+input:checked + .slider:before {
+  transform: translate(21px, -51%);
+}
+
+/** custom button styling */
+
+.custom-btn--primary {
+  font-weight: bold;
+  background-color: #42b983;
+  color: white;
+}
+
+.custom-btn--primary:hover {
+  background-color: #3ba374;
+  color: white;
+}
+
+.custom-btn--secondary {
+  background-color: transparent;
+  border: 1px solid white !important;
+  border-radius: 1px;
+  width: 90%;
+  color: white;
+  display: inline-block;
+  line-height: inherit;
+}
+
+.custom-btn--secondary:hover {
+  color: white;
+}
+
+.custom-btn--tertiary {
+  background-color: #dc5656;
+  color: white;
+}
+
+.custom-btn--tertiary:hover {
+  color: white;
+}
+
+#HelpButton {
+  background-color: transparent;
+  border: 1px solid white !important;
+  width: 90%;
+  margin-bottom: 15px !important;
+  margin-top: 15px !important;
+}
+
+.btn-parent {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+}
+
+/* custom spin button */
+
+/*! Module property styling starts here */
+
+/** selects styling starts here */
+
+select {
+  appearance: none;
+  background: #bbbbbb;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #454545;
+  color: white;
+  width: auto !important;
+  float: right !important;
+  background-image: url(./assets/small-components/chevron-down.svg);
+  background-repeat: no-repeat, repeat;
+  background-position: right -10px top 50%, 0 0;
+  background-size: 15px;
+  background-origin: content-box;
+}
+
+select > option {
+  color: black;
+  padding: 2px 4px;
+}
+
+select:focus,
+select > option:focus {
+  border: none;
+  outline: none;
+}
+
+.moduleProperty select {
+  padding-right: 10px;
+  padding-left: 5px;
+}
+
+/*! selects styling end here */
+
+/** input[type='number'] styling starts here */
+
+input[type="number"]:focus {
+  background-color: transparent !important;
+  outline: none;
+  border: none !important;
+  color: white !important;
+}
+
+/*! input[type='number'] styling end here */

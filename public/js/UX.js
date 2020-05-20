@@ -137,121 +137,239 @@ var prevPropertyObj = undefined;
 function showProperties(obj) {
     if (obj == prevPropertyObj) return;
     hideProperties();
-
+  
     prevPropertyObj = obj;
-    if (simulationArea.lastSelected === undefined || ["Wire", "CircuitElement", "Node"].indexOf(simulationArea.lastSelected.objectType) !== -1) {
-        $('#moduleProperty').show();
-        $('#moduleProperty-inner').append("<div id='moduleProperty-header'>" + "Project Properties" + "</div>");
-        $('#moduleProperty-inner').append("<p>Project : <input class='objectPropertyAttribute' type='text'  name='setProjectName'  value='" + (projectName || "Untitled") + "'></p>");
-        $('#moduleProperty-inner').append("<p>Circuit : <input class='objectPropertyAttribute' type='text'  name='changeCircuitName'  value='" + (globalScope.name || "Untitled") + "'></p>");
-        $('#moduleProperty-inner').append("<p>Clock Time : <input class='objectPropertyAttribute' min='50' type='number' style='width:100px' step='10' name='changeClockTime'  value='" + (simulationArea.timePeriod) + "'>ms</p>");
-        $('#moduleProperty-inner').append("<p>Clock Enabled : <label class='switch'> <input type='checkbox' " + ["", "checked"][simulationArea.clockEnabled + 0] + " class='objectPropertyAttributeChecked' name='changeClockEnable' > <span class='slider'></span> </label></p>");
-        $('#moduleProperty-inner').append("<p>Lite Mode : <label class='switch'> <input type='checkbox' " + ["", "checked"][lightMode + 0] + " class='objectPropertyAttributeChecked' name='changeLightMode' > <span class='slider'></span> </label></p>");
-        // $('#moduleProperty-inner').append("<p>  ");
-        $('#moduleProperty-inner').append("<p><button type='button' class='objectPropertyAttributeChecked btn btn-danger btn-xs' name='deleteCurrentCircuit' >Delete Circuit</button>  <button type='button' class='objectPropertyAttributeChecked btn btn-primary btn-xs' name='toggleLayoutMode' >Edit Layout</button> </p>");
+    if (
+      simulationArea.lastSelected === undefined ||
+      ["Wire", "CircuitElement", "Node"].indexOf(
+        simulationArea.lastSelected.objectType
+      ) !== -1
+    ) {
+      $("#moduleProperty").show();
+      $("#moduleProperty-inner").append(
+        "<div id='moduleProperty-header'>" + "Project Properties" + "</div>"
+      );
+      $("#moduleProperty-inner").append(
+        "<p> <span> Project Title: </span> <input class='objectPropertyAttribute' type='text'  name='setProjectName'  value='" +
+          (projectName || "Untitled") +
+          "'></p>"
+      );
+      $("#moduleProperty-inner").append(
+        "<p><span>Circuit:</span> <input class='objectPropertyAttribute' type='text'  name='changeCircuitName'  value='" +
+          (globalScope.name || "Untitled") +
+          "'></p>"
+      );
+      $("#moduleProperty-inner").append(
+        "<p><span>Clock Time(ms):</span> <div class='input-number--parent'><input class='objectPropertyAttribute input-number' min='50' type='number' step='10' name='changeClockTime'  value='" +
+          simulationArea.timePeriod +
+          "'></div></p>"
+      );
+      $("#moduleProperty-inner").append(
+        "<p><span>Clock Enabled:</span><label class='switch'> <input type='checkbox' " +
+          ["", "checked"][simulationArea.clockEnabled + 0] +
+          " class='objectPropertyAttributeChecked' name='changeClockEnable' > <span class='slider'></span> </label></p>"
+      );
+      $("#moduleProperty-inner").append(
+        "<p><span>Lite Mode:</span> <label class='switch'> <input type='checkbox' " +
+          ["", "checked"][lightMode + 0] +
+          " class='objectPropertyAttributeChecked' name='changeLightMode' > <span class='slider'></span> </label></p>"
+      );
+      $("#moduleProperty-inner").append(
+        "<p><button type='button' class='objectPropertyAttributeChecked btn btn-primary btn-xs custom-btn--primary' name='toggleLayoutMode' >Edit Layout</button><button type='button' class='objectPropertyAttributeChecked btn btn-danger btn-xs custom-btn--tertiary' name='deleteCurrentCircuit' >Delete Circuit</button></p>"
+      );
+
     } else {
-        $('#moduleProperty').show();
+      $("#moduleProperty").show();
+  
+      $("#moduleProperty-inner").append(
+        "<div id='moduleProperty-header'>" + obj.objectType + "</div>"
+      );
 
-        $('#moduleProperty-inner').append("<div id='moduleProperty-header'>" + obj.objectType + "</div>");
-        // $('#moduleProperty').append("<input type='range' name='points' min='1' max='32' value="+obj.bitWidth+">");
-        if (!obj.fixedBitWidth)
-            $('#moduleProperty-inner').append("<p>BitWidth: <input class='objectPropertyAttribute' type='number'  name='newBitWidth' min='1' max='32' value=" + obj.bitWidth + "></p>");
-
-        if (obj.changeInputSize)
-            $('#moduleProperty-inner').append("<p>Input Size: <input class='objectPropertyAttribute' type='number'  name='changeInputSize' min='2' max='10' value=" + obj.inputSize + "></p>");
-
-        if (!obj.propagationDelayFixed)
-            $('#moduleProperty-inner').append("<p>Delay: <input class='objectPropertyAttribute' type='number'  name='changePropagationDelay' min='0' max='100000' value=" + obj.propagationDelay + "></p>");
-
-
-        $('#moduleProperty-inner').append("<p>Label: <input class='objectPropertyAttribute' type='text'  name='setLabel'  value='" + escapeHtml(obj.label) + "'></p>");
-
-
-        if (!obj.labelDirectionFixed) {
-            var s = $("<select class='objectPropertyAttribute' name='newLabelDirection'>" + "<option value='RIGHT' " + ["", "selected"][+(obj.labelDirection == "RIGHT")] + " >RIGHT</option><option value='DOWN' " + ["", "selected"][+(obj.labelDirection == "DOWN")] + " >DOWN</option><option value='LEFT' " + "<option value='RIGHT'" + ["", "selected"][+(obj.labelDirection == "LEFT")] + " >LEFT</option><option value='UP' " + "<option value='RIGHT'" + ["", "selected"][+(obj.labelDirection == "UP")] + " >UP</option>" + "</select>");
-            s.val(obj.labelDirection);
-            $('#moduleProperty-inner').append("<p>Label Direction: " + $(s).prop('outerHTML') + "</p>");
+      if (!obj.fixedBitWidth)
+        $("#moduleProperty-inner").append(
+          "<p><span>BitWidth:</span> <input class='objectPropertyAttribute' type='number'  name='newBitWidth' min='1' max='32' value=" +
+            obj.bitWidth +
+            "></p>"
+        );
+  
+      if (obj.changeInputSize)
+        $("#moduleProperty-inner").append(
+          "<p><span>Input Size:</span> <input class='objectPropertyAttribute' type='number'  name='changeInputSize' min='2' max='10' value=" +
+            obj.inputSize +
+            "></p>"
+        );
+  
+      if (!obj.propagationDelayFixed)
+        $("#moduleProperty-inner").append(
+          "<p><span>Delay:</span> <input class='objectPropertyAttribute' type='number'  name='changePropagationDelay' min='0' max='100000' value=" +
+            obj.propagationDelay +
+            "></p>"
+        );
+  
+      $("#moduleProperty-inner").append(
+        "<p><span>Label:</span> <input class='objectPropertyAttribute' type='text'  name='setLabel'  value='" +
+          escapeHtml(obj.label) +
+          "'></p>"
+      );
+  
+      if (!obj.labelDirectionFixed) {
+        var s = $(
+          "<select class='objectPropertyAttribute' name='newLabelDirection'>" +
+            "<option value='RIGHT' " +
+            ["", "selected"][+(obj.labelDirection == "RIGHT")] +
+            " >RIGHT</option><option value='DOWN' " +
+            ["", "selected"][+(obj.labelDirection == "DOWN")] +
+            " >DOWN</option><option value='LEFT' " +
+            "<option value='RIGHT'" +
+            ["", "selected"][+(obj.labelDirection == "LEFT")] +
+            " >LEFT</option><option value='UP' " +
+            "<option value='RIGHT'" +
+            ["", "selected"][+(obj.labelDirection == "UP")] +
+            " >UP</option>" +
+            "</select>"
+        );
+        s.val(obj.labelDirection);
+        $("#moduleProperty-inner").append(
+          "<p><span>Label Direction:</span> " + $(s).prop("outerHTML") + "</p>"
+        );
+      }
+  
+      if (!obj.directionFixed) {
+        var s = $(
+          "<select class='objectPropertyAttribute' name='newDirection'>" +
+            "<option value='RIGHT' " +
+            ["", "selected"][+(obj.direction == "RIGHT")] +
+            " >RIGHT</option><option value='DOWN' " +
+            ["", "selected"][+(obj.direction == "DOWN")] +
+            " >DOWN</option><option value='LEFT' " +
+            "<option value='RIGHT'" +
+            ["", "selected"][+(obj.direction == "LEFT")] +
+            " >LEFT</option><option value='UP' " +
+            "<option value='RIGHT'" +
+            ["", "selected"][+(obj.direction == "UP")] +
+            " >UP</option>" +
+            "</select>"
+        );
+        $("#moduleProperty-inner").append(
+          "<p><span>Direction:</span> " + $(s).prop("outerHTML") + "</p>"
+        );
+      } else if (!obj.orientationFixed) {
+        var s = $(
+          "<select class='objectPropertyAttribute' name='newDirection'>" +
+            "<option value='RIGHT' " +
+            ["", "selected"][+(obj.direction == "RIGHT")] +
+            " >RIGHT</option><option value='DOWN' " +
+            ["", "selected"][+(obj.direction == "DOWN")] +
+            " >DOWN</option><option value='LEFT' " +
+            "<option value='RIGHT'" +
+            ["", "selected"][+(obj.direction == "LEFT")] +
+            " >LEFT</option><option value='UP' " +
+            "<option value='RIGHT'" +
+            ["", "selected"][+(obj.direction == "UP")] +
+            " >UP</option>" +
+            "</select>"
+        );
+        $("#moduleProperty-inner").append(
+          "<p>Orientation: " + $(s).prop("outerHTML") + "</p>"
+        );
+      }
+  
+      if (obj.mutableProperties) {
+        for (attr in obj.mutableProperties) {
+          var prop = obj.mutableProperties[attr];
+          if (obj.mutableProperties[attr].type == "number") {
+            var s =
+              "<p><span>" +
+              prop.name +
+              "</span><input class='objectPropertyAttribute' type='number'  name='" +
+              prop.func +
+              "' min='" +
+              (prop.min || 0) +
+              "' max='" +
+              (prop.max || 200) +
+              "' value=" +
+              obj[attr] +
+              "></p>";
+            $("#moduleProperty-inner").append(s);
+          } else if (obj.mutableProperties[attr].type == "text") {
+            var s =
+              "<p><span>" +
+              prop.name +
+              "<span><input class='objectPropertyAttribute' type='text'  name='" +
+              prop.func +
+              "' maxlength='" +
+              (prop.maxlength || 200) +
+              "' value=" +
+              obj[attr] +
+              "></p>";
+            $("#moduleProperty-inner").append(s);
+          } else if (obj.mutableProperties[attr].type == "button") {
+            var s =
+              "<p class='btn-parent'><button class='objectPropertyAttribute btn custom-btn--secondary' type='button'  name='" +
+              prop.func +
+              "'>" +
+              prop.name +
+              "</button></p>";
+            $("#moduleProperty-inner").append(s);
+          }
         }
-
-
-        if (!obj.directionFixed) {
-            var s = $("<select class='objectPropertyAttribute' name='newDirection'>" + "<option value='RIGHT' " + ["", "selected"][+(obj.direction == "RIGHT")] + " >RIGHT</option><option value='DOWN' " + ["", "selected"][+(obj.direction == "DOWN")] + " >DOWN</option><option value='LEFT' " + "<option value='RIGHT'" + ["", "selected"][+(obj.direction == "LEFT")] + " >LEFT</option><option value='UP' " + "<option value='RIGHT'" + ["", "selected"][+(obj.direction == "UP")] + " >UP</option>" + "</select>");
-            $('#moduleProperty-inner').append("<p>Direction: " + $(s).prop('outerHTML') + "</p>");
-
-        } else if (!obj.orientationFixed) {
-            var s = $("<select class='objectPropertyAttribute' name='newDirection'>" + "<option value='RIGHT' " + ["", "selected"][+(obj.direction == "RIGHT")] + " >RIGHT</option><option value='DOWN' " + ["", "selected"][+(obj.direction == "DOWN")] + " >DOWN</option><option value='LEFT' " + "<option value='RIGHT'" + ["", "selected"][+(obj.direction == "LEFT")] + " >LEFT</option><option value='UP' " + "<option value='RIGHT'" + ["", "selected"][+(obj.direction == "UP")] + " >UP</option>" + "</select>");
-            $('#moduleProperty-inner').append("<p>Orientation: " + $(s).prop('outerHTML') + "</p>");
-        }
-
-        if (obj.mutableProperties) {
-            for (attr in obj.mutableProperties) {
-                var prop = obj.mutableProperties[attr];
-                if (obj.mutableProperties[attr].type == "number") {
-                    var s = "<p>" + prop.name + "<input class='objectPropertyAttribute' type='number'  name='" + prop.func + "' min='" + (prop.min || 0) + "' max='" + (prop.max || 200) + "' value=" + obj[attr] + "></p>";
-                    $('#moduleProperty-inner').append(s);
-                }
-                else if (obj.mutableProperties[attr].type == "text") {
-                    var s = "<p>" + prop.name + "<input class='objectPropertyAttribute' type='text'  name='" + prop.func + "' maxlength='" + (prop.maxlength || 200) + "' value=" + obj[attr] + "></p>";
-                    $('#moduleProperty-inner').append(s);
-                }
-                else if (obj.mutableProperties[attr].type == "button") {
-                    var s = "<p><button class='objectPropertyAttribute btn btn-primary btn-xs' type='button'  name='" + prop.func + "'>" + prop.name + "</button></p>";
-                    $('#moduleProperty-inner').append(s);
-                }
-
-            }
-        }
+      }
     }
-
-    var helplink = obj && (obj.helplink);
+  
+    var helplink = obj && obj.helplink;
     if (helplink) {
-        $('#moduleProperty-inner').append('<p><button id="HelpButton" class="btn btn-primary btn-xs" type="button" >Help &#9432</button></p>');
-        $('#HelpButton').click(function () {
-            window.open(helplink);
-        });
+      $("#moduleProperty-inner").append(
+        '<p class="btn-parent" ><button id="HelpButton" class="btn btn-primary btn-xs" type="button" >Help &#9432</button></p>'
+      );
+      $("#HelpButton").click(function () {
+        window.open(helplink);
+      });
     }
-
+  
     function checkValidBitWidth() {
-        const selector = $("[name='newBitWidth']");
-        if (selector == undefined
-            || selector.val() > 32
-            || selector.val() < 1
-            || !$.isNumeric(selector.val())) {
-            // fallback to previously saves state
-            selector.val(selector.attr("old-val"));
-        } else {
-            selector.attr("old-val", selector.val());
-        }
+      const selector = $("[name='newBitWidth']");
+      if (
+        selector == undefined ||
+        selector.val() > 32 ||
+        selector.val() < 1 ||
+        !$.isNumeric(selector.val())
+      ) {
+        // fallback to previously saves state
+        selector.val(selector.attr("old-val"));
+      } else {
+        selector.attr("old-val", selector.val());
+      }
     }
-
+  
     $(".objectPropertyAttribute").on("change keyup paste click", function () {
-        // return;
-        //////console.log(this.name+":"+this.value);
-
-        checkValidBitWidth()
+      checkValidBitWidth();
+      scheduleUpdate();
+      updateCanvas = true;
+      wireToBeChecked = 1;
+      if (simulationArea.lastSelected && simulationArea.lastSelected[this.name])
+        prevPropertyObj =
+          simulationArea.lastSelected[this.name](this.value) || prevPropertyObj;
+      else window[this.name](this.value);
+    });
+    $(".objectPropertyAttributeChecked").on(
+      "change keyup paste click",
+      function () {
         scheduleUpdate();
         updateCanvas = true;
         wireToBeChecked = 1;
         if (simulationArea.lastSelected && simulationArea.lastSelected[this.name])
-            prevPropertyObj = simulationArea.lastSelected[this.name](this.value) || prevPropertyObj;
-        else
-            window[this.name](this.value);
-    })
-    $(".objectPropertyAttributeChecked").on("change keyup paste click", function () {
-        // return;
-        //////console.log(this.name+":"+this.value);
+          prevPropertyObj =
+            simulationArea.lastSelected[this.name](this.value) || prevPropertyObj;
+        else window[this.name](this.checked);
+      }
+    );
 
-
-
-        scheduleUpdate();
-        updateCanvas = true;
-        wireToBeChecked = 1;
-        if (simulationArea.lastSelected && simulationArea.lastSelected[this.name])
-            prevPropertyObj = simulationArea.lastSelected[this.name](this.value) || prevPropertyObj;
-        else
-            window[this.name](this.checked);
-    })
-}
+    $(function(){
+        $("input[type='number']").inputSpinner();
+      });
+    
+  }
+  
 
 
 function hideProperties() {
@@ -270,6 +388,8 @@ function escapeHtml(unsafe) {
         .replace(/'/g, "&#039;");
 }
 
+//* new addition
+
 $(document).tooltip({
     show: null,
     track: true,
@@ -277,4 +397,7 @@ $(document).tooltip({
     tooltipClass: "custom-tooltip-styling",
   });
 
-$( input[type='number'] ).spinner();
+// $(function(){
+//     $("input[type='number']").inputSpinner();
+//   });
+  
