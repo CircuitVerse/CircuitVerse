@@ -38,7 +38,7 @@ class Users::LogixController < ApplicationController
     elsif params.has_key?(:settings) && settings_params
       @user.update(settings_params)
     else
-      render 'errors/bad_request', :status => :bad_request
+      render 'errors/unacceptable', :status => :unacceptable
     end
   end
 
