@@ -34,7 +34,11 @@ class Users::LogixController < ApplicationController
 
   def update
     if params.has_key?(:user) && profile_params
-      @profile.update(profile_params)
+      if @profile.update(profile_params)
+        redirect_to profile_path(current_user)
+      else
+        render :edit
+      end
     elsif params.has_key?(:settings) && settings_params
       @user.update(settings_params)
     else
