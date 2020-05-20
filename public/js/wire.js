@@ -25,7 +25,8 @@ function Wire(node1, node2, scope) {
 // if data changes
 /**
  * @memberof Wire
- * to change postion of node wires
+ * to change postion of wires according to node
+ * used during loading the wires.
  */
 Wire.prototype.updateData = function () {
     this.x1 = this.node1.absX();

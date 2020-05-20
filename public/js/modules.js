@@ -314,7 +314,7 @@ NandGate.prototype.customDraw = function () {
  * @param {Scope=} scope - Cirucit on which element is drawn
  * @param {string=} dir - direction of element
  * @param {number=} bitWidth - bit width per node.
- * @param {number=} controlSignalSize - [Documentation is WIP]
+ * @param {number=} controlSignalSize - 1 by default
  */
 function Multiplexer(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1, controlSignalSize = 1) {
     CircuitElement.call(this, x, y, scope, dir, bitWidth);
@@ -2164,7 +2164,7 @@ Rom.prototype.customSave = function () {
 
 /**
  * @memberof Rom
- * function to find position [ Documentation is a WIP ]
+ * function to find position of the index of part of rom selected.
  * @return {number}
  */
 Rom.prototype.findPos = function () {
@@ -2176,7 +2176,7 @@ Rom.prototype.findPos = function () {
 
 /**
  * @memberof Rom
- * listener function to set selected index [ Documentation is a WIP ]
+ * listener function to set selected index
  * @return {number}
  */
 Rom.prototype.click = function () { // toggle
@@ -2185,7 +2185,7 @@ Rom.prototype.click = function () { // toggle
 
 /**
  * @memberof Rom
- * listener function to find position [ Documentation is a WIP ]
+ * to take input in rom
  * @return {number}
  */
 Rom.prototype.keyDown = function (key) {
@@ -2352,7 +2352,7 @@ Splitter.prototype.customSave = function () {
 
 /**
  * @memberof Splitter
- * fn to remove proporgation [Documentation is a WIP]
+ * fn to remove proporgation delay.
  * @return {JSON}
  */
 Splitter.prototype.removePropagation = function () {
@@ -2820,7 +2820,7 @@ Input.prototype.newBitWidth = function (bitWidth) {
 
 /**
  * @memberof Input
- * listener function to set selected index [ Documentation is a WIP ]
+ * listener function to set selected index
  */
 Input.prototype.click = function () { // toggle
     let pos = this.findPos();
@@ -2872,7 +2872,7 @@ Input.prototype.newDirection = function (dir) {
 
 /**
  * @memberof Input
- * function to find position of mouse click [Documentation is a WIP]
+ * function to find position of mouse click
  */
 Input.prototype.findPos = function () {
     return Math.round((simulationArea.mouseX - this.x + 10 * this.bitWidth) / 20.0);
@@ -3039,7 +3039,7 @@ Output.prototype.newDirection = function (dir) {
  * @param {Scope=} scope - Cirucit on which element is drawn
  * @param {string=} dir - direction of element
  * @param {number=} bitWidth - bit width per node.
- * @param {number=} selectorBitWidth - WIP
+ * @param {number=} selectorBitWidth - 1 by default
  */
 function BitSelector(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 2, selectorBitWidth = 1) {
     CircuitElement.call(this, x, y, scope, dir, bitWidth);
@@ -3994,7 +3994,7 @@ SquareRGBLed.prototype.customDraw = function () {
  * @param {Scope=} scope - Cirucit on which element is drawn
  * @param {string=} dir - direction of element
  * @param {number=} bitWidth - bit width per node.
- * @param {number=} controlSignalSize - WIP
+ * @param {number=} controlSignalSize - 1 by default
  */
 function Demultiplexer(x, y, scope = globalScope, dir = 'LEFT', bitWidth = 1, controlSignalSize = 1) {
     CircuitElement.call(this, x, y, scope, dir, bitWidth);
@@ -4991,7 +4991,7 @@ Tunnel.prototype.customSave = function () {
 /**
  * @memberof Tunnel
  * function to set tunnel value
- * @param {string=} id - id is a WIP
+ * @param {string=} id - id so that every link is unique
  */
 Tunnel.prototype.setIdentifier = function (id = '') {
     if (id.length === 0) return;

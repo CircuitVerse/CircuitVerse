@@ -321,7 +321,7 @@ function toggleLayoutTitle() {
 }
 
 /**
- * 
+ * @class
  * @param {number} x - x coord of node
  * @param {number} y - y coord of node
  * @param {strng} id - id for node

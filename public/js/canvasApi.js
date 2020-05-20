@@ -200,7 +200,7 @@ function bezierCurveTo(x1, y1, x2, y2, x3, y3, xx, yy, dir) {
  * @param {number} xx - x of point from path's beginning
  * @param {number} yy - y of point from path's beginning
  * @param {number} dir - direction of distance
- * @param {boolean} bypass - WIP
+ * @param {boolean} bypass - no correction if true
  */
 function moveTo(ctx, x1, y1, xx, yy, dir, bypass = false) {
     var correction = 0.5 * (ctx.lineWidth % 2);
@@ -309,7 +309,7 @@ function arc2(ctx, sx, sy, radius, start, stop, xx, yy, dir) {
 }
 
 /**
- * function to draw circle a better description is wip
+ * function to draw filled circles like nodes.
  * @param {HTMLCanvasElement} ctx
  * @param {number} sx - shift in x direction
  * @param {number} sy -shift in y direction
@@ -334,7 +334,7 @@ function drawCircle(ctx, x1, y1, r, color) {
 }
 
 /**
- * function to draw circle a better description is wip
+ * function to draw circles that are not filled like the tip of nand or xnor gate.
  * @param {HTMLCanvasElement} ctx
  * @param {number} sx - shift in x direction
  * @param {number} sy -shift in y direction
