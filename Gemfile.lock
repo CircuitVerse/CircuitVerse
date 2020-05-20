@@ -161,6 +161,8 @@ GEM
       i18n (>= 1.6, < 1.8)
     faraday (0.17.0)
       multipart-post (>= 1.2, < 3)
+    fast_jsonapi (1.5)
+      activesupport (>= 4.2)
     ffi (1.11.2)
     ffi (1.11.2-x64-mingw32)
     ffi-compiler (1.0.1)
@@ -201,6 +203,8 @@ GEM
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
     json (2.2.0)
+    json-schema (2.8.1)
+      addressable (>= 2.4)
     jwt (2.2.1)
     kaminari (1.1.1)
       activesupport (>= 4.1.0)
@@ -536,12 +540,15 @@ DEPENDENCIES
   erb_lint
   factory_bot_rails
   faker
+  fast_jsonapi
   font-awesome-sass (~> 5.12.0)
   geocoder
   hirb
   http
   jbuilder (~> 2.5)
   jquery-rails
+  json-schema
+  jwt
   language_filter
   listen (>= 3.0.5, < 3.2)
   meta-tags
@@ -586,4 +593,4 @@ DEPENDENCIES
   will_paginate-bootstrap
 
 BUNDLED WITH
-   2.0.2
+   2.1.4
