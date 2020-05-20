@@ -10,11 +10,11 @@ RSpec.describe Api::V1::AuthenticationController, "#login", type: :request do
       before(:each) do
         post "/api/v1/auth/login", params: {
           email: user.email, password: "invalid"
-        }
+        }, as: :json
       end
       it "return status 401 and should have jsonapi errors" do
         expect(response).to have_http_status(401)
-        expect(response.body).to have_jsonapi_errors()
+        expect(response.parsed_body).to have_jsonapi_errors()
       end
     end
 
@@ -23,11 +23,11 @@ RSpec.describe Api::V1::AuthenticationController, "#login", type: :request do
         new_user = FactoryBot.build(:user)
         post "/api/v1/auth/login", params: {
           email: new_user.email, password: new_user.password
-        }
+        }, as: :json
       end
       it "return status 404 and should have jsonapi errors" do
         expect(response).to have_http_status(404)
-        expect(response.body).to have_jsonapi_errors()
+        expect(response.parsed_body).to have_jsonapi_errors()
       end
     end
 
@@ -35,11 +35,11 @@ RSpec.describe Api::V1::AuthenticationController, "#login", type: :request do
       before(:each) do
         post "/api/v1/auth/login", params: {
           email: user.email, password: user.password
-        }
+        }, as: :json
       end
       it "return status 202 and respond with token" do
         expect(response).to have_http_status(202)
-        expect(JSON.parse(response.body)).to have_key("token")
+        expect(response.parsed_body).to have_key("token")
       end
     end
   end

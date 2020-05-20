@@ -8,21 +8,21 @@ RSpec.describe Api::V1::UsersController, "#update", type: :request do
 
     context "when requested user does not exists" do
       before(:each) do
-        get "/api/v1/users/0"
+        get "/api/v1/users/0", as: :json
       end
       it "returns 404 :not_found and should have jsonapi errors" do
         expect(response).to have_http_status(404)
-        expect(response.body).to have_jsonapi_errors()
+        expect(response.parsed_body).to have_jsonapi_errors()
       end
     end
 
     context "when not authenticated" do
       before(:each) do
-        patch "/api/v1/users/#{user.id}", params: { name: "Updated Name" }
+        patch "/api/v1/users/#{user.id}", params: { name: "Updated Name" }, as: :json
       end
       it "returns 401 :unauthorized and should have jsonapi errors" do
         expect(response).to have_http_status(401)
-        expect(response.body).to have_jsonapi_errors()
+        expect(response.parsed_body).to have_jsonapi_errors()
       end
     end
 
@@ -32,12 +32,12 @@ RSpec.describe Api::V1::UsersController, "#update", type: :request do
         random_user = FactoryBot.create(:user)
         patch "/api/v1/users/#{random_user.id}",
         params: { name: "Updated Name" },
-        headers: { "Authorization": "Token #{token}" }
+        headers: { "Authorization": "Token #{token}" }, as: :json
       end
 
       it "returns 403 :forbidden and should have jsonapi errors" do
         expect(response).to have_http_status(403)
-        expect(response.body).to have_jsonapi_errors()
+        expect(response.parsed_body).to have_jsonapi_errors()
       end
     end
 

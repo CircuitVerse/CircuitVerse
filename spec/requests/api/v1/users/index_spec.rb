@@ -8,18 +8,18 @@ RSpec.describe Api::V1::UsersController, "#index", type: :request do
 
     context "when not authenticated" do
       before(:each) do
-        get "/api/v1/users"
+        get "/api/v1/users", as: :json
       end
       it "returns 401 :unauthorized and should have jsonapi errors" do
         expect(response).to have_http_status(401)
-        expect(response.body).to have_jsonapi_errors()
+        expect(response.parsed_body).to have_jsonapi_errors()
       end
     end
 
     context "when authenticated" do
       before(:each) do
         token = get_auth_token(users_list.first)
-        get "/api/v1/users", headers: { "Authorization": "Token #{token}" }
+        get "/api/v1/users", headers: { "Authorization": "Token #{token}" }, as: :json
       end
 
       it "returns the correct users" do
