@@ -121,6 +121,16 @@ Rails.application.routes.draw do
       post '/auth/signup', to: 'authentication#signup'
       get '/me', to: 'users#me'
       resources :users, only: [:index, :show, :update]
+      get '/projects/featured', to: 'projects#featured_circuits'
+      resources :projects do
+        member do
+          get 'toggle-star', to: 'projects#toggle_star'
+          get 'fork', to: 'projects#create_fork'
+        end
+      end
+      resources :users do
+        get 'projects', to: 'projects#user_projects', on: :member
+      end
     end
   end
 end
