@@ -73,10 +73,10 @@ function setupUI() {
     });
     document.getElementById('canvasArea').oncontextmenu = showContextMenu;
 
-    $("#sideBar").resizable({
-        handles: 'e',
-        // minWidth:270,
-    });
+    // $("#sideBar").resizable({
+    //     handles: 'e',
+    //     // minWidth:270,
+    // });
     $("#menu").accordion({
         collapsible: true,
         active: false,
