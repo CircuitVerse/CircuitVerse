@@ -1,3 +1,7 @@
+body {
+  padding-top: 90px;
+}
+
 .feature {
   border: 1px solid $featurepostborder;
   border-radius: .25em;
@@ -264,10 +268,6 @@ a.btn.btn-outline-danger {
 .fa-post {
   font: normal normal normal 14px/1 sans-serif;
   font-size: 13px;
-}
-
-a {
-  color: $link-color;
 }
 
 .btnself-post {

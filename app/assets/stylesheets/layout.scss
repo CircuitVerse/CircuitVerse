@@ -3,10 +3,6 @@ html {
   scroll-behavior: smooth;
 }
 
-body {
-  padding-top: 90px;
-}
-
 .custom-file-upload {
   background-color: $active-background;
   border: 1px solid $green;
@@ -142,4 +138,43 @@ body {
   max-width: 70px;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+//headings
+.heading-main {
+  color: $teal;
+  margin-top: 40px;
+  margin-bottom: 10px;
+}
+
+.heading-submain {
+  margin-top: 30px;
+}
+
+.paragraph-text-justified {
+  text-align: justify;
+  margin: 30px 0 30px 0;
+}
+
+//alignment
+* {
+  box-sizing: border-box;
+}
+
+.row-text {
+  text-align: center;
+  margin-left:auto;
+  margin-right:auto;
+  max-width:1344px;
+}
+
+//anchor
+.anchor-text {
+  color: $teal;
+  font-weight: 500;
+  text-decoration: underline;
+
+  &:hover {
+    color: $green;
+  }
 }
