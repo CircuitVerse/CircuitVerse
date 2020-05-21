@@ -66,6 +66,7 @@ gem 'pundit'
 
 # for analytics
 gem 'ahoy_matey'
+gem 'i18n-js'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'

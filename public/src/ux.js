@@ -1,14 +1,26 @@
 /* eslint-disable guard-for-in */
 /* eslint-disable no-restricted-syntax */
-/**
- * @type {number} - Is used to calculate the position where an element from sidebar is dropped
- */
-var smartDropXX = 50;
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable guard-for-in */
+
+
+import { scheduleUpdate } from './engine';
+import simulationArea from './simulationArea';
+import logixFunction from './data';
+import { newCircuit, circuitProperty } from './circuit';
+import modules, { moduleProperty } from './modules';
+import { updateRestrictedElementsInScope } from './restrictedElementDiv';
+import { paste } from './events';
 
 /**
  * @type {number} - Is used to calculate the position where an element from sidebar is dropped
  */
-var smartDropYY = 80;
+window.smartDropXX = 50;
+
+/**
+ * @type {number} - Is used to calculate the position where an element from sidebar is dropped
+ */
+window.smartDropYY = 80;
 
 /**
  * @type {Object} - Object stores the position of context menu;
@@ -60,26 +72,31 @@ function menuItemClicked(id) {
         // document.execCommand('paste'); it is restricted to sove this problem we use dataPasted variable
         paste(localStorage.getItem('clipboardData'));
     } else if (id === 3) {
-        delete_selected();
+        deleteSelected();
     } else if (id === 4) {
         undo();
         undo();
     } else if (id === 5) {
         newCircuit();
     } else if (id === 6) {
-        createSubCircuitPrompt();
+        logixFunction.createSubCircuitPrompt();
     } else if (id === 7) {
         globalScope.centerFocus(false);
     }
 }
+window.menuItemClicked = menuItemClicked;
 
-function setupUI() {
+/**
+ * adds some UI elements to side bar and
+ * menu also attaches listeners to sidebar
+ */
+export function setupUI() {
     var ctxEl = document.getElementById('contextMenu');
     document.addEventListener('mousedown', (e) => {
         // Check if mouse is not inside the context menu and menu is visible
         if (!((e.clientX >= ctxPos.x && e.clientX <= ctxPos.x + ctxEl.offsetWidth)
-        && (e.clientY >= ctxPos.y && e.clientY <= ctxPos.y + ctxEl.offsetHeight))
-        && (ctxPos.visible && e.which !== 3)) {
+            && (e.clientY >= ctxPos.y && e.clientY <= ctxPos.y + ctxEl.offsetHeight))
+            && (ctxPos.visible && e.which !== 3)) {
             hideContextMenu();
         }
 
@@ -106,7 +123,7 @@ function setupUI() {
     $('.logixModules').mousedown(function () {
         // ////console.log(smartDropXX,smartDropYY);
         if (simulationArea.lastSelected && simulationArea.lastSelected.newElement) simulationArea.lastSelected.delete();
-        var obj = new window[this.id](); // (simulationArea.mouseX,simulationArea.mouseY);
+        var obj = new modules[this.id](); // (simulationArea.mouseX,simulationArea.mouseY);
         simulationArea.lastSelected = obj;
         // simulationArea.lastSelected=obj;
         // simulationArea.mouseDown=true;
@@ -117,7 +134,7 @@ function setupUI() {
         }
     });
     $('.logixButton').click(function () {
-        window[this.id]();
+        logixFunction[this.id]();
     });
     // var dummyCounter=0;
 
@@ -154,7 +171,7 @@ var prevPropertyObj = undefined;
  * show properties of an object.
  * @param {CircuiElement} obj - the object whose properties we want to be shown in sidebar
  */
-function showProperties(obj) {
+export function showProperties(obj) {
     if (obj === prevPropertyObj) return;
     hideProperties();
 
@@ -216,40 +233,14 @@ function showProperties(obj) {
         }
     }
 
-<<<<<<< HEAD
-    // Tooltip can be defined in the prototype or the object itself, in addition to help map.
-    var tooltipText = obj && (obj.tooltipText);
-    if (tooltipText) {
-        $('#moduleProperty-inner').append('<p><button id="toolTipButton" class="btn btn-primary btn-xs" type="button" >CircuitVerse Help &#9432</button></p>');
-        $('#toolTipButton').hover(function () {
-            $("#Help").addClass("show");
-            $("#Help").empty();
-            ////console.log("SHOWING")
-            $("#Help").append(tooltipText);
-        }); // code goes in document ready fn only
-        $('#toolTipButton').mouseleave(function () {
-            $("#Help").removeClass("show");
-        });
-        //redirects to obj's specific help page
-        $('#toolTipButton').click(function () {
-            var helplink = obj && (obj.helplink);
-=======
     var helplink = obj && (obj.helplink);
     if (helplink) {
         $('#moduleProperty-inner').append('<p><button id="HelpButton" class="btn btn-primary btn-xs" type="button" >Help &#9432</button></p>');
         $('#HelpButton').click(() => {
->>>>>>> e3672de... basic webpack setup for simulator
             window.open(helplink);
         });
     }
 
-<<<<<<< HEAD
-
-
-
-
-
-=======
     function checkValidBitWidth() {
         const selector = $("[name='newBitWidth']");
         if (selector === undefined
@@ -262,21 +253,16 @@ function showProperties(obj) {
             selector.attr('old-val', selector.val());
         }
     }
->>>>>>> e3672de... basic webpack setup for simulator
 
     $('.objectPropertyAttribute').on('change keyup paste click', function () {
         // return;
         // ////console.log(this.name+":"+this.value);
 
-<<<<<<< HEAD
-
-=======
         checkValidBitWidth();
->>>>>>> e3672de... basic webpack setup for simulator
         scheduleUpdate();
         updateCanvas = true;
         wireToBeChecked = 1;
-        if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) { prevPropertyObj = simulationArea.lastSelected[this.name](this.value) || prevPropertyObj; } else { window[this.name](this.value); }
+        if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) { prevPropertyObj = simulationArea.lastSelected[this.name](this.value) || prevPropertyObj; } else { circuitProperty[this.name](this.value); }
     });
     $('.objectPropertyAttributeChecked').on('change keyup paste click', function () {
         // return;
@@ -286,14 +272,14 @@ function showProperties(obj) {
         scheduleUpdate();
         updateCanvas = true;
         wireToBeChecked = 1;
-        if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) { prevPropertyObj = simulationArea.lastSelected[this.name](this.value) || prevPropertyObj; } else { window[this.name](this.checked); }
+        if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) { prevPropertyObj = simulationArea.lastSelected[this.name](this.value) || prevPropertyObj; } else { circuitProperty[this.name](this.checked); }
     });
 }
 
 /**
- * Hides the context menu.
+ * Hides the properties in sidebar.
  */
-function hideProperties() {
+export function hideProperties() {
     $('#moduleProperty-inner').empty();
     $('#moduleProperty').hide();
     prevPropertyObj = undefined;
@@ -311,3 +297,17 @@ function escapeHtml(unsafe) {
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#039;');
 }
+
+function deleteSelected() {
+    $('input').blur();
+    hideProperties();
+    if (simulationArea.lastSelected && !(simulationArea.lastSelected.objectType === 'Node' && simulationArea.lastSelected.type !== 2)) simulationArea.lastSelected.delete();
+    for (var i = 0; i < simulationArea.multipleObjectSelections.length; i++) {
+        if (!(simulationArea.multipleObjectSelections[i].objectType === 'Node' && simulationArea.multipleObjectSelections[i].type !== 2)) simulationArea.multipleObjectSelections[i].cleanDelete();
+    }
+    simulationArea.multipleObjectSelections = [];
+
+    // Updated restricted elements
+    updateRestrictedElementsInScope();
+}
+window.deleteSelected = deleteSelected;
