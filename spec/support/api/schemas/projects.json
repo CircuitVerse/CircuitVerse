@@ -1,0 +1,133 @@
+{
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "type": { "type": "string" },
+          "attributes": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "project_access_type": { "type": "string" },
+              "created_at": { "type": "string" },
+              "updated_at": { "type": "string" },
+              "image_preview": {
+                "type": "object",
+                "properties": {
+                  "url": { "type": "string" }
+                },
+                "required": ["url"]
+              },
+              "description": { "type": "string" },
+              "view": { "type": "integer" },
+              "stars_count": { "type": "integer" },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "integer" },
+                    "name": { "type": "string" },
+                    "created_at": { "type": "string" },
+                    "updated_at": { "type": "string" }
+                  },
+                  "required": ["id", "name", "created_at", "updated_at"]
+                }
+              }
+            },
+            "required": [
+              "name",
+              "project_access_type",
+              "created_at",
+              "updated_at",
+              "image_preview",
+              "description",
+              "view",
+              "stars_count",
+              "tags"
+            ]
+          },
+          "relationships": {
+            "type": "object",
+            "properties": {
+              "author": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "object",
+                    "properties": {
+                      "id": { "type": "string" },
+                      "type": { "type": "string" }
+                    },
+                    "required": ["id", "type"]
+                  }
+                },
+                "required": ["data"]
+              }
+            },
+            "required": ["author"]
+          }
+        },
+        "required": ["id", "type", "attributes"]
+      }
+    },
+    "included": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "type": { "type": "string" },
+          "attributes": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "email": { "type": "string" }
+            },
+            "required": ["name", "email"]
+          },
+          "relationships": {
+            "type": "object",
+            "properties": {
+              "projects": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": { "type": "string" },
+                        "type": { "type": "string" }
+                      },
+                      "required": ["id", "type"]
+                    }
+                  }
+                },
+                "required": ["data"]
+              }
+            },
+            "required": ["projects"]
+          }
+        },
+        "required": ["id", "type", "attributes", "relationships"]
+      }
+    },
+    "links": {
+      "type": "object",
+      "properties": {
+        "self": { "type": "string" },
+        "first": { "type": "string" },
+        "prev": { "type": ["null", "string"] },
+        "next": { "type": ["null", "string"] },
+        "last": { "type": "string" }
+      },
+      "required": ["self", "first", "prev", "next", "last"]
+    }
+  },
+  "required": ["data", "included", "links"]
+}
