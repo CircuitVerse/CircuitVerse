@@ -1,38 +1,45 @@
-function loadUserSettings(userSettings, token)
+function loadUserSettings(userSettings, devEnv, token)
 {
     $.getJSON("/js/settings.json", (friendlySchema) => 
     {
         console.log('User Settings', userSettings);
         console.log('User Settings Friendly Schema', friendlySchema);
-        $("#settings-container").html(generateHtml(friendlySchema, userSettings, token));
+        $("#settings-container").html(generateHtml(friendlySchema, userSettings, devEnv, token));
     })
     .fail(() => showError('settings.json load'));
 }
 
-function generateHtml(friendlySchema, userSettings, token)
+function generateHtml(friendlySchema, userSettings, devEnv, token)
 {
     let result = '';
     friendlySchema.categories.forEach(category => 
     {
-        result += `<h3>${category.name}</h3>`
-
-        friendlySchema.settings.filter(x => x.category == category.name).forEach(setting => 
+        categoryElements = friendlySchema.settings.filter(x => x.category == category.name);
+        notHiddenElements = categoryElements.filter(x => !x.hidden);
+        if((!devEnv && notHiddenElements.length > 0) || (devEnv && categoryElements.length > 0))
         {
-            if(userSettings[setting.action.name] !== undefined || setting.action.type === "button")
+            result += `<h3>${category.name}</h3>`
+
+            categoryElements.forEach(setting => 
             {
-                result += generateSettingRow(setting, userSettings[setting.action.name], token)
-            }
-            else
-            {
-                console.error("Failed to generate setting row, schema and user settings mismatch: ", setting.action.name)
-            }
-        });
+                if(userSettings[setting.action.name] !== undefined || setting.action.type === "button")
+                {
+                    result += generateSettingRow(setting, userSettings[setting.action.name], devEnv, token)
+                }
+                else
+                {
+                    console.error("Failed to generate setting row, schema and user settings mismatch: ", setting.action.name)
+                }
+            });
+        }
     });
     return result;
 }    
 
-function generateSettingRow(setting, value, token)
+function generateSettingRow(setting, value, devEnv, token)
 {
+    if(setting.hidden && !devEnv) return "";
+
     let action = "Failed to generate action";
     if(setting.action.type == "boolean")
     {
@@ -50,7 +57,7 @@ function generateSettingRow(setting, value, token)
     return `
     <div class="form-row w-100">
         <div class="form-group col-md-6">
-            <strong>${setting.name}</strong> <br>
+            <strong>${setting.name}</strong> ${setting.hidden ? '<span class="badge badge-dark">Hidden</span>' : ""} <br>
             ${setting.description}
         </div>
         <div class="form-group col-md-6 d-flex justify-content-center align-items-center">

@@ -28,6 +28,7 @@
             }
         },
         {
+            "hidden": "true",
             "category" : "Security",
             "name" : "Delete account",
             "description": "Permanently delete your account and all of your content.",
@@ -39,6 +40,7 @@
             }
         },
         {
+            "hidden": "true",
             "category" : "Account",
             "name" : "Download your information",
             "description": "Download a copy of the information you’ve shared on Medium to a .zip file.",
