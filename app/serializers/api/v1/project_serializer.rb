@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::V1::ProjectSerializer
   include FastJsonapi::ObjectSerializer
 
@@ -8,7 +10,6 @@ class Api::V1::ProjectSerializer
   attributes :stars_count do |project|
     project.stars.count
   end
-  
-  belongs_to :author
 
+  belongs_to :author
 end
