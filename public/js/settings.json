@@ -13,20 +13,26 @@
     "settings":
     [
         {
-            "type": "boolean",
-            "name" : "hide_external_navbar_links",
             "category" : "Platform",
-            "displayName" : "Hide external navbar link",
+            "name" : "Hide external navbar link",
             "description": "Hide <code>Learn</code> and <code>Documentation</code> links.",
-            "refreshPage": true
+            "action":
+            {
+                "type": "boolean",
+                "name" : "hide_external_navbar_links",
+                "refreshPage": true
+            }
         },
         {
-            "type": "button",
             "category" : "Security",
-            "displayName" : "Delete account",
+            "name" : "Delete account",
             "description": "Permanently delete your account and all of your content.",
-            "buttonText": "Delete account",
-            "buttonLink": "/501"
+            "action":
+            {
+                "type": "button",
+                "buttonText": "Delete account",
+                "buttonLink": "/501"
+            }
         }
     ]
 }
