@@ -6,8 +6,12 @@
             "description": "Configure overall behavior of the platform"
         },
         {
+            "name": "Account",
+            "description": "Account related settings"
+        },
+        {
             "name": "Security",
-            "description": ""
+            "description": "Security related settings"
         }
     ],
     "settings":
@@ -31,6 +35,17 @@
             {
                 "type": "button",
                 "buttonText": "Delete account",
+                "buttonLink": "/501"
+            }
+        },
+        {
+            "category" : "Account",
+            "name" : "Download your information",
+            "description": "Download a copy of the information you’ve shared on Medium to a .zip file.",
+            "action":
+            {
+                "type": "button",
+                "buttonText": "Download .zip",
                 "buttonLink": "/501"
             }
         }
