@@ -1,13 +1,13 @@
 //about.scss
 .row-about {
-  margin-left:auto;
-  margin-right:auto;
-  max-width:1344px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1344px;
   text-align: center;
 }
 
 #about {
-  margin: 30px 0 30px 0;
+  margin: 30px 0;
   text-align: justify;
 }
 
@@ -21,12 +21,12 @@
   background-color: $green;
   color: white;
   margin: 5px;
-  transition: all 0.3s ease 0s;
+  transition: all .3s ease 0s;
 }
 
 .btn-about:hover{
   background-color: $teal;
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
   color:white;
   transform: translateY(-7px);
 }
@@ -38,7 +38,7 @@
 
 .contact{
   background-color: $gray-100;
-  box-shadow: 0px 2px 7px $shadow-black;
+  box-shadow: 0 2px 7px $shadow-black;
   display: inline-block;
   height: 89px;
   margin-top: 50px;
@@ -47,7 +47,7 @@
   margin-bottom: 40px;
   opacity: 0.89;
   padding: 15px;
-  transition: box-shadow 0.2s ease-in;
+  transition: box-shadow .2s ease-in;
   width: 300px;
 }
 

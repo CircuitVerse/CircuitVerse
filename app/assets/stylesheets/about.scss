@@ -30,7 +30,7 @@
 .about-contributor-image {
   border: 2px solid $green;
   border-radius: 50%;
-  transition: all 0.3s ease-in;
+  transition: all .3s ease-in;
   width: 100%;
 
   &:hover {
@@ -39,8 +39,8 @@
 }
 
 .about-button-contribute {
-  padding: 12px 30px;
   margin-top: 20px;
+  padding: 12px 30px;
 }
 
 @media (max-width: 576px) {
