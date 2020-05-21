@@ -67,4 +67,66 @@ describe Users::LogixController, type: :request do
     expect(@user.country).to eq("IN")
     expect(@user.educational_institute).to eq("MAIT")
   end
+
+  describe "settings.json schema" do
+    schema = JSON.parse File.read "public/js/settings.json"
+    
+    describe "overall" do
+      it "should have atleast one category" do
+        expect(schema["categories"].length).to be > 0
+      end
+      it "should have atleast one setting" do
+        expect(schema["settings"].length).to be > 0
+      end
+    end
+
+    describe "categories" do
+      it "should all have name" do
+        expect(schema["categories"]).to all include "name"
+      end
+      it "should all have description" do
+        expect(schema["categories"]).to all include "description"
+      end
+    end
+
+    describe "settings" do
+      it "should all have existing category" do
+        schema["settings"].each do |s|
+          expect(s).to include "category"
+          expect(schema["categories"].select{|k, v| k["name"] == s["category"] }.length).to eq(1),
+            "'#{s["name"]}' reffers to '#{s["category"]}' category which don't exist"
+        end
+      end
+      it "should all have name" do
+        expect(schema["settings"]).to all include "name"
+      end
+      it "should all have description" do
+        expect(schema["settings"]).to all include "description"
+      end
+      it "should all have action" do
+        expect(schema["settings"]).to all include "action"
+      end
+
+      describe "actions" do
+        it "should all have valid type " do
+          valid_actions = ["boolean", "button"]
+          schema["settings"].each do |s|
+            expect(valid_actions).to include s["action"]["type"]
+          end
+        end
+
+        it "booleans should keep schema " do
+          schema["settings"].select{|k, v| k["action"]["type"] == "boolean" }.each do |s|
+            expect(s["action"]).to include "name"
+          end
+        end
+        it "buttons should keep schema " do
+          schema["settings"].select{|k, v| k["action"]["type"] == "button" }.each do |s|
+            expect(s["action"]).to include "buttonText"
+            expect(s["action"]).to include "buttonLink"
+          end
+        end
+      end
+    end
+  end
 end
