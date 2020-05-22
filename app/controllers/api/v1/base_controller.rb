@@ -32,18 +32,21 @@ class Api::V1::BaseController < ActionController::API
 
   def authenticate_user
     header = request.headers["Authorization"]
-    raise MissingAuthHeader if header.blank?
-    auth_header = header.split(" ").last
-    begin
-      @decoded = JsonWebToken.decode(auth_header)[0]
-      @current_user = User.find(@decoded["user_id"])
-    rescue JWT::DecodeError => e
-      api_error(status: 401, errors: e.message)
+    if header.present?
+      auth_header = header.split(" ").last
+      begin
+        @decoded = JsonWebToken.decode(auth_header)[0]
+        @current_user = User.find(@decoded["user_id"])
+      rescue JWT::DecodeError => e
+        api_error(status: 401, errors: e.message)
+      end
     end
   end
 
   def authenticate_user!
-    authenticate_user || UnauthenticatedError
+    raise MissingAuthHeader if request.headers["Authorization"].blank?
+    authenticate_user
+    raise UnauthenticatedError if @current_user.nil?
   end
 
   def unauthenticated!

@@ -20,6 +20,8 @@ class Project < ApplicationRecord
   scope :public_and_not_forked,
   ->() { where(project_access_type: "Public", forked_project_id: nil) }
 
+  scope :public_access, -> { where(project_access_type: "Public") }
+
   include PgSearch
   pg_search_scope :text_search, against: [:name, :description], associated_against: {
     author: :name,

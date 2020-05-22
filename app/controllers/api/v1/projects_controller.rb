@@ -4,6 +4,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
   include ActionView::Helpers::SanitizeHelper
 
   before_action :set_project, except: [:index, :user_projects, :featured_circuits]
+  before_action :authenticate_user, only: [:index]
   before_action :authenticate_user!, except: [:index]
   before_action :edit_access?, only: [:update, :destroy]
   before_action :delete_access?, only: [:destroy]
@@ -15,12 +16,11 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
   # GET /api/v1/projects
   def index
-    if request.headers["Authorization"].present?
-      authenticate_user!
+    if @current_user.nil?
+      @projects = Project.public_access
+    else
       @projects = Project.where(
         "author_id = ? OR  project_access_type = ?", @current_user.id, "Public")
-    else
-      @projects = Project.where("project_access_type = ?", "Public")
     end
 
     @projects = @projects.tagged_with(params[:filter][:tag]) if params.has_key?(:filter)
@@ -34,11 +34,11 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
   # GET /api/v1/users/:id/projects/
   def user_projects
-    if @current_user.eql?(User.find(params[:id]))
-      @projects = Project.where(author_id: params[:id])
+    if @current_user.id == params[:id].to_i
+      @projects = @current_user.projects
     else
       @projects = Project.where(
-        ["author_id = ? and project_access_type = ?", params[:id], "Public"]
+        "author_id = ? AND project_access_type = ?", params[:id], "Public"
       )
     end
 
