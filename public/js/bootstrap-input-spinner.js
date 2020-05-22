@@ -4,6 +4,8 @@
  * License: MIT, see file 'LICENSE'
  */
 
+//**  The file has been modified
+
 (function ($) {
   "use strict";
 

@@ -397,7 +397,14 @@ $(document).tooltip({
     tooltipClass: "custom-tooltip-styling",
   });
 
-// $(function(){
-//     $("input[type='number']").inputSpinner();
-//   });
+  
+$(function(){
+  $(".btn-group-toggle").twbsToggleButtons();
+});
+
+$(function(){
+  $(".download-dialog-section-2_2").checkBo();
+});
+
+
   

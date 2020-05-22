@@ -755,8 +755,13 @@ createSaveAsImgPrompt = function(scope = globalScope) {
                 generateImage($('input[name=imgType]:checked').val(), $('input[name=view]:checked').val(), $('input[name=transparent]:checked').val(), $('input[name=resolution]:checked').val());
                 $(this).dialog("close");
             },
+            class: "render-btn"
+        },
+        {
+            text: "x",
+            click:  function() {$(this).dialog("close");},
+            class: 'down-dialog--btn'
         }]
-
     });
     $("input[name=imgType]").change(function() {
         $('input[name=resolution]').prop("disabled", false);
