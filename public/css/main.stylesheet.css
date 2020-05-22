@@ -677,11 +677,13 @@ input:checked + .slider:before {
   font-weight: bold;
   background-color: #42b983;
   color: white;
+  border-radius: 1px;
 }
 
 .custom-btn--primary:hover {
   background-color: #3ba374;
   color: white;
+  border-radius: 1px;
 }
 
 .custom-btn--secondary {
@@ -701,6 +703,7 @@ input:checked + .slider:before {
 .custom-btn--tertiary {
   background-color: #dc5656;
   color: white;
+  border-radius: 1px;
 }
 
 .custom-btn--tertiary:hover {
@@ -773,3 +776,88 @@ input[type="number"]:focus {
 }
 
 /*! input[type='number'] styling end here */
+
+/** layout dialog styling starts here */
+
+#layoutDialog {
+  position: absolute;
+  right: 10px;
+  top: 90px;
+  z-index: 100;
+  width: 220px;
+  height: 330px;
+  border: 2px solid white;
+  box-shadow: 0px 0px 10px #4545457f;
+  border-radius: 5px;
+  background-color: #454545;
+  text-align: center;
+  color: white;
+  padding: 10px;
+  padding-bottom: 17px;
+  font-weight: bold;
+}
+
+#layoutDialog > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+#layoutDialog > div span:before {
+  color: white;
+}
+
+.panel-heading {
+  margin: 10px;
+  font: Bold 20px Nunito;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+.layout-title span {
+  display: block;
+  font-weight: bold;
+  margin: 8px;
+}
+
+.layout-title--enable {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 0;
+  padding: 0 8px;
+}
+
+.Layout-btn {
+  width: 48%;
+  height: 30px;
+  line-height: inherit;
+}
+
+.zoomButton-up {
+  background: url(./assets/layout-panel/up.svg) center/cover no-repeat;
+  display: inline-block;
+  height: 35px;
+  width: 35px;
+}
+.zoomButton-down {
+  background: url(./assets/layout-panel/down.svg) center/cover no-repeat;
+  display: inline-block;
+  height: 35px;
+  width: 35px;
+}
+.zoomButton-left {
+  background: url(./assets/layout-panel/left.svg) center/cover no-repeat;
+  display: inline-block;
+  height: 35px;
+  width: 35px;
+}
+.zoomButton-right {
+  background: url(./assets/layout-panel/right.svg) center/cover no-repeat;
+  display: inline-block;
+  height: 35px;
+  width: 35px;
+}
+
+/*! layout dialog styling ends here */
