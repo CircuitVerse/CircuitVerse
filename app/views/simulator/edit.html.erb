@@ -10,7 +10,10 @@
   projectName = "<%= @projectName %>"
 
     focusMethod = function getFocus() {
-    document.getElementById("projname").focus();
+      simulationArea.lastSelected = globalScope.root;
+      setTimeout(() => {
+        document.getElementById("projname").select();
+      }, 100);
     }
 
 </script>

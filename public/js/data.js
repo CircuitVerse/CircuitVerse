@@ -16,7 +16,10 @@ function newCircuit(name, id) {
     $('.circuits').removeClass("current");
     $('#tabsBar').append("<a id='circlink' href='javascript::void(0)' data-toggle = 'tooltip' title='" + name + "'><div class='circuits toolbarButton current' id='" + scope.id + "' style='" + resizer + "'>" + name + "<span class ='tabsCloseButton' onclick='deleteCurrentCircuit()'  ><i class='fa fa-times'></i></span></div></a>");
     $("#circlink").click(function(event) {
-        document.getElementById("circname").focus();
+        simulationArea.lastSelected = globalScope.root;
+        setTimeout(() => {
+            document.getElementById("circname").select();
+        }, 100);
     });
     $('.circuits').click(function() {
         switchCircuit(this.id)
