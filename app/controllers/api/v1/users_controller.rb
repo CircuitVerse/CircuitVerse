@@ -22,7 +22,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   # GET api/v1/me
   def me
     @options = { params: { has_details_access: true } }
-    render json: Api::V1::UserSerializer.new(@current_user, @options)
+    render json: Api::V1::UserSerializer.new(current_user, @options)
   end
 
   # PATCH api/v1/users/:id
@@ -46,7 +46,7 @@ class Api::V1::UsersController < Api::V1::BaseController
     end
 
     def set_details_access
-      @options = { params: { has_details_access: @user.eql?(@current_user) } }
+      @options = { params: { has_details_access: @user.eql?(current_user) } }
     end
 
     def user_params

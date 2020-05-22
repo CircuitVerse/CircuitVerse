@@ -3,6 +3,7 @@
 class Api::V1::BaseController < ActionController::API
   include Pundit
   include CustomErrors
+  attr_reader :current_user
 
   DEFAULT_PER_PAGE = 5
 
