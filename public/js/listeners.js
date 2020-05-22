@@ -63,6 +63,9 @@ function startListeners() {
 
     
     window.addEventListener('keydown', function(e) {
+        if(listenToSimulator){
+
+
 
         // If mouse is focusing on input element, then override any action
         // if($(':focus').length){
@@ -221,13 +224,13 @@ function startListeners() {
             // e.preventDefault(); //browsers normally open a new tab
             simulationArea.changeClockTime(prompt("Enter Time:"));
         }
-
         // f1 key for opening the documentation page
         if (e.keyCode === 112) {
             e.preventDefault();
             window.open('https://docs.circuitverse.org/', '_blank');
         }
-    })
+    }       
+  })
 
 
     document.getElementById("simulationArea").addEventListener('dblclick', function(e) {
@@ -235,6 +238,7 @@ function startListeners() {
         if (simulationArea.lastSelected && simulationArea.lastSelected.dblclick !== undefined) {
             simulationArea.lastSelected.dblclick();
         }
+
     });
 
     window.addEventListener('mouseup', onMouseUp);
@@ -259,6 +263,7 @@ function startListeners() {
     }
 
     document.addEventListener('cut', function(e) {
+        if(listenToSimulator){
         simulationArea.copyList = simulationArea.multipleObjectSelections.slice();
         if (simulationArea.lastSelected && simulationArea.lastSelected !== simulationArea.root && !simulationArea.copyList.contains(simulationArea.lastSelected)) {
             simulationArea.copyList.push(simulationArea.lastSelected);
@@ -279,10 +284,11 @@ function startListeners() {
         } else {
             e.clipboardData.setData('text/plain', textToPutOnClipboard);
         }
-
+    }
     });
 
     document.addEventListener('copy', function(e) {
+        if(listenToSimulator){
         simulationArea.copyList = simulationArea.multipleObjectSelections.slice();
         if (simulationArea.lastSelected && simulationArea.lastSelected !== simulationArea.root && !simulationArea.copyList.contains(simulationArea.lastSelected)) {
             simulationArea.copyList.push(simulationArea.lastSelected);
@@ -302,10 +308,11 @@ function startListeners() {
         } else {
             e.clipboardData.setData('text/plain', textToPutOnClipboard);
         }
-
+    }
     });
 
     document.addEventListener('paste', function(e) {
+        if(listenToSimulator){
         var data;
         if (isIe) {
             data = window.clipboardData.getData('Text');
@@ -319,6 +326,7 @@ function startListeners() {
         updateRestrictedElementsInScope();
 
         e.preventDefault();
+    }
     });
 
     restrictedElements.forEach((element) => {
