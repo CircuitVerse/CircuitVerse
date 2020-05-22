@@ -52,10 +52,11 @@ function AndGate(x, y, scope = globalScope, dir = "RIGHT", inputLength = 2, bitW
 
 AndGate.prototype = Object.create(CircuitElement.prototype);
 AndGate.prototype.constructor = AndGate;
+AndGate.prototype.tooltipText = "And Gate Tooltip : Implements logical conjunction";
 AndGate.prototype.alwaysResolve = true;
 AndGate.prototype.verilogType = "and";
-
 AndGate.prototype.changeInputSize = changeInputSize;
+AndGate.prototype.helplink = "https://docs.circuitverse.org/#/gates?id=and-gate";
 //fn to create save Json Data of object
 AndGate.prototype.customSave = function () {
     var data = {
@@ -145,9 +146,11 @@ function NandGate(x, y, scope = globalScope, dir = "RIGHT", inputLength = 2, bit
 }
 NandGate.prototype = Object.create(CircuitElement.prototype);
 NandGate.prototype.constructor = NandGate;
+NandGate.prototype.tooltipText = "Nand Gate ToolTip : Combination of AND and NOT gates";
 NandGate.prototype.alwaysResolve = true;
 NandGate.prototype.changeInputSize = changeInputSize;
 NandGate.prototype.verilogType = "nand";
+NandGate.prototype.helplink = "https://docs.circuitverse.org/#/gates?id=nand-gate";
 //fn to create save Json Data of object
 NandGate.prototype.customSave = function () {
     var data = {
@@ -234,6 +237,8 @@ function Multiplexer(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1, con
 }
 Multiplexer.prototype = Object.create(CircuitElement.prototype);
 Multiplexer.prototype.constructor = Multiplexer;
+Multiplexer.prototype.tooltipText = "Multiplexer ToolTip : Multiple inputs and a single line output.";
+Multiplexer.prototype.helplink = "https://docs.circuitverse.org/#/decodersandplexers?id=multiplexer";
 Multiplexer.prototype.changeControlSignalSize = function (size) {
     if (size == undefined || size < 1 || size > 32) return;
     if (this.controlSignalSize == size) return;
@@ -363,10 +368,12 @@ function XorGate(x, y, scope = globalScope, dir = "RIGHT", inputs = 2, bitWidth 
 
 XorGate.prototype = Object.create(CircuitElement.prototype);
 XorGate.prototype.constructor = XorGate;
+XorGate.prototype.tooltipText = "Xor Gate Tooltip : Implements an exclusive OR.";
 XorGate.prototype.alwaysResolve = true;
 
 XorGate.prototype.changeInputSize = changeInputSize;
 XorGate.prototype.verilogType = "xor";
+XorGate.prototype.helplink = "https://docs.circuitverse.org/#/gates?id=xor-gate";
 XorGate.prototype.customSave = function () {
     // //console.log(this.scope.allNodes);
     var data = {
@@ -451,9 +458,10 @@ function XnorGate(x, y, scope = globalScope, dir = "RIGHT", inputs = 2, bitWidth
 XnorGate.prototype = Object.create(CircuitElement.prototype);
 XnorGate.prototype.constructor = XnorGate;
 XnorGate.prototype.alwaysResolve = true;
-
+XnorGate.prototype.tooltipText = "Xnor Gate ToolTip : Logical complement of the XOR gate";
 XnorGate.prototype.changeInputSize = changeInputSize;
 XnorGate.prototype.verilogType = "xnor";
+XnorGate.prototype.helplink = "https://docs.circuitverse.org/#/gates?id=xnor-gate";
 XnorGate.prototype.customSave = function () {
     var data = {
         constructorParamaters: [this.direction, this.inputSize, this.bitWidth],
@@ -524,7 +532,8 @@ function SevenSegDisplay(x, y, scope = globalScope) {
 }
 SevenSegDisplay.prototype = Object.create(CircuitElement.prototype);
 SevenSegDisplay.prototype.constructor = SevenSegDisplay;
-SevenSegDisplay.prototype.tooltipText = "Seven Display ToolTip: Consists of 7+1 single bit inputs."
+SevenSegDisplay.prototype.tooltipText = "Seven Display ToolTip: Consists of 7+1 single bit inputs.";
+SevenSegDisplay.prototype.helplink = "https://docs.circuitverse.org/#/outputs?id=seven-segment-display";
 SevenSegDisplay.prototype.customSave = function () {
     var data = {
 
@@ -591,6 +600,7 @@ function SixteenSegDisplay(x, y, scope = globalScope) {
 SixteenSegDisplay.prototype = Object.create(CircuitElement.prototype);
 SixteenSegDisplay.prototype.constructor = SixteenSegDisplay;
 SixteenSegDisplay.prototype.tooltipText = "Sixteen Display ToolTip: Consists of 16+1 bit inputs.";
+SixteenSegDisplay.prototype.helplink = "https://docs.circuitverse.org/#/outputs?id=sixteen-segment-display";
 SixteenSegDisplay.prototype.customSave = function () {
     var data = {
         nodes: {
@@ -675,6 +685,7 @@ function HexDisplay(x, y, scope = globalScope) {
 HexDisplay.prototype = Object.create(CircuitElement.prototype);
 HexDisplay.prototype.constructor = HexDisplay;
 HexDisplay.prototype.tooltipText = "Hex Display ToolTip: Inputs a 4 Bit Hex number and displays it."
+HexDisplay.prototype.helplink = "https://docs.circuitverse.org/#/outputs?id=hex-display";
 HexDisplay.prototype.customSave = function () {
     var data = {
 
@@ -820,9 +831,11 @@ function OrGate(x, y, scope = globalScope, dir = "RIGHT", inputs = 2, bitWidth =
 }
 OrGate.prototype = Object.create(CircuitElement.prototype);
 OrGate.prototype.constructor = OrGate;
+OrGate.prototype.tooltipText = "Or Gate Tooltip : Implements logical disjunction";
 OrGate.prototype.changeInputSize = changeInputSize;
 OrGate.prototype.alwaysResolve = true;
 OrGate.prototype.verilogType = "or";
+OrGate.prototype.helplink = "https://docs.circuitverse.org/#/gates?id=or-gate";
 OrGate.prototype.customSave = function () {
     var data = {
 
@@ -869,21 +882,22 @@ OrGate.prototype.customDraw = function () {
 
 }
 
-function Stepper(x, y, scope = globalScope, dir = "RIGHT") {
+function Stepper(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 8) {
 
-    CircuitElement.call(this, x, y, scope, dir, 8);
+    CircuitElement.call(this, x, y, scope, dir, bitWidth);
     this.setDimensions(20, 20);
 
-    this.output1 = new Node(20, 0, 1, this, 8);
+    this.output1 = new Node(20, 0, 1, this, bitWidth);
     this.state = 0;
 
 }
 Stepper.prototype = Object.create(CircuitElement.prototype);
 Stepper.prototype.constructor = Stepper;
 Stepper.prototype.tooltipText = "Stepper ToolTip: Increase/Decrease value by selecting the stepper and using +/- keys."
+Stepper.prototype.helplink = "https://docs.circuitverse.org/#/inputElements?id=stepper";
 Stepper.prototype.customSave = function () {
     var data = {
-        constructorParamaters: [this.direction],
+        constructorParamaters: [this.direction, this.bitWidth],
         nodes: {
             output1: findNode(this.output1),
         },
@@ -910,7 +924,7 @@ Stepper.prototype.resolve = function () {
 }
 Stepper.prototype.keyDown2 = function (key) {
     //console.log(key);
-    if (this.state < (1 << this.bitWidth) && (key == "+" || key == "=")) this.state++;
+    if (this.state + 1 < (1 << this.bitWidth) && (key == "+" || key == "=")) this.state++;
     if (this.state > 0 && (key == "_" || key == "-")) this.state--;
 }
 
@@ -927,6 +941,8 @@ function NotGate(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
 }
 NotGate.prototype = Object.create(CircuitElement.prototype);
 NotGate.prototype.constructor = NotGate;
+NotGate.prototype.tooltipText = "Not Gate Tooltip : Inverts the input digital signal.";
+NotGate.prototype.helplink = "https://docs.circuitverse.org/#/gates?id=not-gate";
 NotGate.prototype.customSave = function () {
     var data = {
         constructorParamaters: [this.direction, this.bitWidth],
@@ -981,6 +997,7 @@ function ForceGate(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
 }
 ForceGate.prototype = Object.create(CircuitElement.prototype);
 ForceGate.prototype.constructor = ForceGate;
+ForceGate.prototype.tooltipText = "Force Gate ToolTip : ForceGate Selected.";
 ForceGate.prototype.isResolvable = function () {
     return (this.inp1.value != undefined || this.inp2.value != undefined)
 }
@@ -1021,7 +1038,7 @@ ForceGate.prototype.customDraw = function () {
 }
 
 
-function Text(x, y, scope = globalScope, label = "") {
+function Text(x, y, scope = globalScope, label = "", fontSize = 14) {
 
     CircuitElement.call(this, x, y, scope, "RIGHT", 1);
     // this.setDimensions(15, 15);
@@ -1030,25 +1047,37 @@ function Text(x, y, scope = globalScope, label = "") {
     this.labelDirectionFixed = true;
     this.setHeight(10);
     this.setLabel(label);
+    this.setFontSize(fontSize);
 
 
 
 }
 Text.prototype = Object.create(CircuitElement.prototype);
 Text.prototype.constructor = Text;
+Text.prototype.propagationDelayFixed = true;
 Text.prototype.tooltipText = "Text ToolTip: Use this to document your circuit."
+Text.prototype.helplink = "https://docs.circuitverse.org/#/annotation?id=adding-labels";
 Text.prototype.setLabel = function (str = "") {
 
     this.label = str;
     ctx = simulationArea.context;
-    ctx.font = 14 + "px Georgia";
+    ctx.font = this.fontSize + "px Georgia";
     this.leftDimensionX = 10;
     this.rightDimensionX = ctx.measureText(this.label).width + 10;
     //console.log(this.leftDimensionX,this.rightDimensionX,ctx.measureText(this.label))
 }
+
+Text.prototype.setFontSize = function (fontSize = 14) {
+    this.fontSize = fontSize;
+    ctx = simulationArea.context;
+    ctx.font = this.fontSize + "px Georgia";
+    this.leftDimensionX = 10;
+    this.rightDimensionX = ctx.measureText(this.label).width + 10;
+}
+
 Text.prototype.customSave = function () {
     var data = {
-        constructorParamaters: [this.label],
+        constructorParamaters: [this.label, this.fontSize],
     }
     return data;
 }
@@ -1067,6 +1096,17 @@ Text.prototype.keyDown = function (key) {
             this.setLabel(this.label.slice(0, -1));
     }
 }
+
+Text.prototype.mutableProperties = {
+    "fontSize": {
+        name: "Font size: ",
+        type: "number",
+        max: "84",
+        min: "14",
+        func: "setFontSize",
+    }
+}
+
 Text.prototype.draw = function () {
 
     if (this.label.length == 0 && simulationArea.lastSelected != this) this.delete();
@@ -1083,7 +1123,10 @@ Text.prototype.draw = function () {
     if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) {
         ctx.beginPath();
         ctx.fillStyle = "white";
-        rect2(ctx, -this.leftDimensionX, -this.upDimensionY, this.leftDimensionX + this.rightDimensionX, this.upDimensionY + this.downDimensionY, this.x, this.y, "RIGHT");
+        var magicDimenstion = this.fontSize - 14;
+        rect2(ctx, -this.leftDimensionX, -this.upDimensionY - magicDimenstion,
+            this.leftDimensionX + this.rightDimensionX,
+            this.upDimensionY + this.downDimensionY + magicDimenstion, this.x, this.y, "RIGHT");
         ctx.fillStyle = "rgba(255, 255, 32,0.1)";
         ctx.fill();
         ctx.stroke();
@@ -1091,7 +1134,7 @@ Text.prototype.draw = function () {
     ctx.beginPath();
     ctx.textAlign = "left";
     ctx.fillStyle = "black"
-    fillText(ctx, this.label, xx, yy + 5, 14);
+    fillText(ctx, this.label, xx, yy + 5, this.fontSize);
     ctx.fill();
 
 }
@@ -1109,6 +1152,8 @@ function TriState(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
 }
 TriState.prototype = Object.create(CircuitElement.prototype);
 TriState.prototype.constructor = TriState;
+TriState.prototype.tooltipText = "TriState ToolTip : Effectively removes the output from the circuit.";
+TriState.prototype.helplink = "https://docs.circuitverse.org/#/miscellaneous?id=tri-state-buffer"
 // TriState.prototype.propagationDelay=10000;
 TriState.prototype.customSave = function () {
     var data = {
@@ -1184,6 +1229,8 @@ function Buffer(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
 }
 Buffer.prototype = Object.create(CircuitElement.prototype);
 Buffer.prototype.constructor = Buffer;
+Buffer.prototype.tooltipText = "Buffer ToolTip : Isolate the input from the output.";
+Buffer.prototype.helplink = "https://docs.circuitverse.org/#/miscellaneous?id=buffer"
 Buffer.prototype.customSave = function () {
     var data = {
         constructorParamaters: [this.direction, this.bitWidth],
@@ -1248,6 +1295,7 @@ function ControlledInverter(x, y, scope = globalScope, dir = "RIGHT", bitWidth =
 }
 ControlledInverter.prototype = Object.create(CircuitElement.prototype);
 ControlledInverter.prototype.constructor = ControlledInverter;
+ControlledInverter.prototype.tooltipText = "Controlled Inverter ToolTip : Controlled buffer and NOT gate.";
 ControlledInverter.prototype.customSave = function () {
     var data = {
         constructorParamaters: [this.direction, this.bitWidth],
@@ -1315,6 +1363,8 @@ function Adder(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
 }
 Adder.prototype = Object.create(CircuitElement.prototype);
 Adder.prototype.constructor = Adder;
+Adder.prototype.tooltipText = "Adder ToolTip : Performs addition of numbers.";
+Adder.prototype.helplink = "https://docs.circuitverse.org/#/miscellaneous?id=adder"
 Adder.prototype.customSave = function () {
     var data = {
         constructorParamaters: [this.direction, this.bitWidth],
@@ -1351,6 +1401,58 @@ Adder.prototype.resolve = function () {
     simulationArea.simulationQueue.add(this.sum);
 }
 
+function TwoComplement(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
+
+    CircuitElement.call(this, x, y, scope, dir, bitWidth);
+    this.rectangleObject = false;
+    this.setDimensions(15, 15);
+
+    this.inp1 = new Node(-10, 0, 0, this, this.bitWidth, "input stream");
+    this.output1 = new Node(20, 0, 1, this, this.bitWidth, "2's complement");
+
+
+}
+TwoComplement.prototype = Object.create(CircuitElement.prototype);
+TwoComplement.prototype.constructor = TwoComplement;
+TwoComplement.prototype.tooltipText = "Two's Complement Tooltip : Calculates the two's complement";
+TwoComplement.prototype.customSave = function () {
+    var data = {
+        constructorParamaters: [this.direction, this.bitWidth],
+        nodes: {
+            output1: findNode(this.output1),
+            inp1: findNode(this.inp1)
+        },
+    }
+    return data;
+}
+TwoComplement.prototype.resolve = function () {
+    if (this.isResolvable() == false) {
+        return;
+    }
+    let output = ((~this.inp1.value >>> 0) << (32 - this.bitWidth)) >>> (32 - this.bitWidth);
+    output += 1;
+    this.output1.value = ((output) << (32 - this.bitWidth)) >>> (32 - this.bitWidth);
+	simulationArea.simulationQueue.add(this.output1);
+}
+TwoComplement.prototype.customDraw = function () {
+
+    ctx = simulationArea.context;
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = correctWidth(3);
+
+    var xx = this.x;
+    var yy = this.y;
+    ctx.beginPath();
+    ctx.fillStyle = "black";
+    fillText(ctx, "2'", xx, yy, 10);
+    if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = "rgba(255, 255, 32,0.8)";
+    ctx.fill();
+    ctx.beginPath();
+    drawCircle2(ctx, 5, 0, 15, xx, yy, this.direction);
+    ctx.stroke();
+}
+
+
 function Rom(x, y, scope = globalScope, data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]) {
 
     CircuitElement.call(this, x, y, scope, "RIGHT", 1);
@@ -1372,6 +1474,8 @@ function Rom(x, y, scope = globalScope, data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 }
 Rom.prototype = Object.create(CircuitElement.prototype);
 Rom.prototype.constructor = Rom;
+Rom.prototype.tooltipText = "Read-only memory";
+Rom.prototype.helplink = "https://docs.circuitverse.org/#/memoryElements?id=rom";
 Rom.prototype.isResolvable = function () {
     if ((this.en.value == 1 || this.en.connections.length == 0) && this.memAddr.value != undefined) return true;
     return false;
@@ -1534,6 +1638,7 @@ function Splitter(x, y, scope = globalScope, dir = "RIGHT", bitWidth = undefined
 Splitter.prototype = Object.create(CircuitElement.prototype);
 Splitter.prototype.constructor = Splitter;
 Splitter.prototype.tooltipText = "Splitter ToolTip: Split multiBit Input into smaller bitwidths or vice versa."
+Splitter.prototype.helplink = "https://docs.circuitverse.org/#/splitter";
 Splitter.prototype.customSave = function () {
     var data = {
 
@@ -1689,6 +1794,7 @@ function Ground(x, y, scope = globalScope, bitWidth = 1) {
 }
 Ground.prototype = Object.create(CircuitElement.prototype);
 Ground.prototype.tooltipText = "Ground: All bits are Low(0).";
+Ground.prototype.helplink = "https://docs.circuitverse.org/#/inputElements?id=ground";
 Ground.prototype.constructor = Ground;
 Ground.prototype.propagationDelay = 0;
 Ground.prototype.customSave = function () {
@@ -1749,6 +1855,7 @@ function Power(x, y, scope = globalScope, bitWidth = 1) {
 }
 Power.prototype = Object.create(CircuitElement.prototype);
 Power.prototype.tooltipText = "Power: All bits are High(1).";
+Power.prototype.helplink = "https://docs.circuitverse.org/#/inputElements?id=power";
 Power.prototype.constructor = Power;
 Power.prototype.propagationDelay = 0;
 Power.prototype.resolve = function () {
@@ -1853,6 +1960,7 @@ function Input(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1, layoutPro
 Input.prototype = Object.create(CircuitElement.prototype);
 Input.prototype.constructor = Input;
 Input.prototype.tooltipText = "Input ToolTip: Toggle the individual bits by clicking on them."
+Input.prototype.helplink = "https://docs.circuitverse.org/#/inputElements?id=input";
 Input.prototype.propagationDelay = 0;
 Input.prototype.customSave = function () {
     var data = {
@@ -1957,7 +2065,8 @@ function Output(x, y, scope = globalScope, dir = "LEFT", bitWidth = 1, layoutPro
 }
 Output.prototype = Object.create(CircuitElement.prototype);
 Output.prototype.constructor = Output;
-Output.prototype.tooltipText = "Output ToolTip: Simple output element showing output in binary."
+Output.prototype.tooltipText = "Output ToolTip: Simple output element showing output in binary.";
+Output.prototype.helplink = "https://docs.circuitverse.org/#/outputs?id=output";
 Output.prototype.propagationDelay = 0;
 Output.prototype.generateVerilog = function () {
     return "assign " + this.label + " = " + this.inp1.verilogLabel + ";"
@@ -2049,6 +2158,8 @@ function BitSelector(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 2, sel
 }
 BitSelector.prototype = Object.create(CircuitElement.prototype);
 BitSelector.prototype.constructor = BitSelector;
+BitSelector.prototype.tooltipText = "BitSelector ToolTip : Divides input bits into several equal-sized groups.";
+BitSelector.prototype.helplink = "https://docs.circuitverse.org/#/decodersandplexers?id=bit-selector";
 BitSelector.prototype.changeSelectorBitWidth = function (size) {
     if (size == undefined || size < 1 || size > 32) return;
     this.selectorBitWidth = size;
@@ -2127,6 +2238,7 @@ function ConstantVal(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1, sta
 ConstantVal.prototype = Object.create(CircuitElement.prototype);
 ConstantVal.prototype.constructor = ConstantVal;
 ConstantVal.prototype.tooltipText = "Constant ToolTip: Bits are fixed. Double click element to change the bits."
+ConstantVal.prototype.helplink = "https://docs.circuitverse.org/#/inputElements?id=constantval";
 ConstantVal.prototype.propagationDelay = 0;
 ConstantVal.prototype.generateVerilog = function () {
     return "localparam [" + (this.bitWidth - 1) + ":0] " + this.verilogLabel + "=" + this.bitWidth + "b'" + this.state + ";";
@@ -2240,9 +2352,11 @@ function NorGate(x, y, scope = globalScope, dir = "RIGHT", inputs = 2, bitWidth 
 }
 NorGate.prototype = Object.create(CircuitElement.prototype);
 NorGate.prototype.constructor = NorGate;
+NorGate.prototype.tooltipText = "Nor Gate ToolTip : Combination of OR gate and NOT gate.";
 NorGate.prototype.alwaysResolve = true;
 NorGate.prototype.changeInputSize = changeInputSize;
 NorGate.prototype.verilogType = "nor";
+NorGate.prototype.helplink = "https://docs.circuitverse.org/#/gates?id=nor-gate";
 NorGate.prototype.customSave = function () {
     var data = {
         constructorParamaters: [this.direction, this.inputSize, this.bitWidth],
@@ -2304,6 +2418,8 @@ function DigitalLed(x, y, scope = globalScope, color = "Red") {
 DigitalLed.prototype = Object.create(CircuitElement.prototype);
 DigitalLed.prototype.constructor = DigitalLed;
 DigitalLed.prototype.tooltipText = "Digital Led ToolTip: Digital LED glows high when input is High(1)."
+DigitalLed.prototype.helplink = "https://docs.circuitverse.org/#/outputs?id=digital-led";
+
 DigitalLed.prototype.customSave = function () {
     var data = {
         constructorParamaters: [this.color],
@@ -2376,6 +2492,7 @@ function VariableLed(x, y, scope = globalScope) {
 VariableLed.prototype = Object.create(CircuitElement.prototype);
 VariableLed.prototype.constructor = VariableLed;
 VariableLed.prototype.tooltipText = "Variable Led ToolTip: Variable LED inputs an 8 bit value and glows with a proportional intensity."
+VariableLed.prototype.helplink = "https://docs.circuitverse.org/#/outputs?id=variable-led";
 VariableLed.prototype.customSave = function () {
     var data = {
         nodes: {
@@ -2433,6 +2550,7 @@ function Button(x, y, scope = globalScope, dir = "RIGHT") {
 Button.prototype = Object.create(CircuitElement.prototype);
 Button.prototype.constructor = Button;
 Button.prototype.tooltipText = "Button ToolTip: High(1) when pressed and Low(0) when released."
+Button.prototype.helplink = "https://docs.circuitverse.org/#/inputElements?id=button";
 Button.prototype.propagationDelay = 0;
 Button.prototype.customSave = function () {
     var data = {
@@ -2505,6 +2623,7 @@ function RGBLed(x, y, scope = globalScope) {
 RGBLed.prototype = Object.create(CircuitElement.prototype);
 RGBLed.prototype.constructor = RGBLed;
 RGBLed.prototype.tooltipText = "RGB Led ToolTip: RGB Led inputs 8 bit values for the colors RED, GREEN and BLUE."
+RGBLed.prototype.helplink = "https://docs.circuitverse.org/#/outputs?id=rgb-led";
 RGBLed.prototype.customSave = function () {
     var data = {
         nodes: {
@@ -2611,6 +2730,7 @@ function SquareRGBLed(x, y, scope = globalScope, dir = "UP", pinLength = 1) {
 SquareRGBLed.prototype = Object.create(CircuitElement.prototype);
 SquareRGBLed.prototype.constructor = SquareRGBLed;
 SquareRGBLed.prototype.tooltipText = "Square RGB Led ToolTip: RGB Led inputs 8 bit values for the colors RED, GREEN and BLUE."
+SquareRGBLed.prototype.helplink = "https://docs.circuitverse.org/#/outputs?id=square-rgb-led";
 SquareRGBLed.prototype.customSave = function () {
     var data = {
         constructorParamaters: [this.direction, this.pinLength],
@@ -2724,6 +2844,8 @@ function Demultiplexer(x, y, scope = globalScope, dir = "LEFT", bitWidth = 1, co
 }
 Demultiplexer.prototype = Object.create(CircuitElement.prototype);
 Demultiplexer.prototype.constructor = Demultiplexer;
+Demultiplexer.prototype.tooltipText = "DeMultiplexer ToolTip : Multiple outputs and a single line input.";
+Demultiplexer.prototype.helplink = "https://docs.circuitverse.org/#/decodersandplexers?id=demultiplexer";
 Demultiplexer.prototype.customSave = function () {
     var data = {
         constructorParamaters: [this.direction, this.bitWidth, this.controlSignalSize],
@@ -2850,6 +2972,8 @@ function Decoder(x, y, scope = globalScope, dir = "LEFT", bitWidth = 1) {
 }
 Decoder.prototype = Object.create(CircuitElement.prototype);
 Decoder.prototype.constructor = Decoder;
+Decoder.prototype.tooltipText = "Decoder ToolTip : Converts coded inputs into coded outputs.";
+Decoder.prototype.helplink = "https://docs.circuitverse.org/#/decodersandplexers?id=decoder";
 Decoder.prototype.customSave = function () {
     var data = {
         constructorParamaters: [this.direction, this.bitWidth],
@@ -2930,6 +3054,7 @@ function Flag(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1, identifier
 Flag.prototype = Object.create(CircuitElement.prototype);
 Flag.prototype.constructor = Flag;
 Flag.prototype.tooltipText = "FLag ToolTip: Use this for debugging and plotting."
+Flag.prototype.helplink = "https://docs.circuitverse.org/#/timing_diagrams?id=using-flags";
 Flag.prototype.setPlotValue = function () {
     var time = plotArea.stopWatch.ElapsedMilliseconds;
 
@@ -3055,6 +3180,8 @@ function MSB(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
 }
 MSB.prototype = Object.create(CircuitElement.prototype);
 MSB.prototype.constructor = MSB;
+MSB.prototype.tooltipText = "MSB ToolTip : The most significant bit or the high-order bit.";
+MSB.prototype.helplink = "https://docs.circuitverse.org/#/decodersandplexers?id=most-significant-bit-msb-detector";
 MSB.prototype.customSave = function () {
     var data = {
 
@@ -3137,6 +3264,8 @@ function LSB(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
 }
 LSB.prototype = Object.create(CircuitElement.prototype);
 LSB.prototype.constructor = LSB;
+LSB.prototype.tooltipText = "LSB ToolTip : The least significant bit or the low-order bit.";
+LSB.prototype.helplink = "https://docs.circuitverse.org/#/decodersandplexers?id=least-significant-bit-lsb-detector";
 LSB.prototype.customSave = function () {
     var data = {
 
@@ -3240,6 +3369,8 @@ function PriorityEncoder(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1)
 }
 PriorityEncoder.prototype = Object.create(CircuitElement.prototype);
 PriorityEncoder.prototype.constructor = PriorityEncoder;
+PriorityEncoder.prototype.tooltipText = "Priority Encoder ToolTip : Compresses binary inputs into a smaller number of outputs.";
+PriorityEncoder.prototype.helplink = "https://docs.circuitverse.org/#/decodersandplexers?id=priority-encoder";
 PriorityEncoder.prototype.customSave = function () {
     var data = {
 
@@ -3347,6 +3478,8 @@ function Tunnel(x, y, scope = globalScope, dir = "LEFT", bitWidth = 1, identifie
 }
 Tunnel.prototype = Object.create(CircuitElement.prototype);
 Tunnel.prototype.constructor = Tunnel;
+Tunnel.prototype.tooltipText = "Tunnel ToolTip : Tunnel Selected.";
+Tunnel.prototype.helplink = "https://docs.circuitverse.org/#/miscellaneous?id=tunnel";
 Tunnel.prototype.newDirection = function (dir) {
     if (this.direction == dir) return;
     this.direction = dir;
@@ -3534,6 +3667,7 @@ function ALU(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
 ALU.prototype = Object.create(CircuitElement.prototype);
 ALU.prototype.constructor = ALU;
 ALU.prototype.tooltipText = "ALU ToolTip: 0: A&B, 1:A|B, 2:A+B, 4:A&~B, 5:A|~B, 6:A-B, 7:SLT "
+ALU.prototype.helplink = "https://docs.circuitverse.org/#/miscellaneous?id=alu";
 ALU.prototype.newBitWidth = function (bitWidth) {
     this.bitWidth = bitWidth;
     this.inp1.bitWidth = bitWidth;
@@ -3664,6 +3798,9 @@ function Rectangle(x, y, scope = globalScope, rows = 15, cols = 20) {
 }
 Rectangle.prototype = Object.create(CircuitElement.prototype);
 Rectangle.prototype.constructor = Rectangle;
+Rectangle.prototype.propagationDelayFixed = true;
+Rectangle.prototype.tooltipText = "Rectangle ToolTip : Used to Box the Circuit or area you want to highlight.";
+Rectangle.prototype.helplink = "https://docs.circuitverse.org/#/annotation?id=rectangle";
 Rectangle.prototype.changeRowSize = function (size) {
     if (size == undefined || size < 5 || size > 1000) return;
     if (this.rows == size) return;
@@ -3751,6 +3888,9 @@ function Arrow(x, y, scope = globalScope, dir = "RIGHT") {
 }
 Arrow.prototype = Object.create(CircuitElement.prototype);
 Arrow.prototype.constructor = Arrow;
+Arrow.prototype.propagationDelayFixed = true;
+Arrow.prototype.tooltipText = "Arrow ToolTip : Arrow Selected.";
+Arrow.prototype.helplink = "https://docs.circuitverse.org/#/annotation?id=arrow";
 Arrow.prototype.customSave = function () {
     var data = {
         constructorParamaters: [this.direction],

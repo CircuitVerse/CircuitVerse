@@ -28,133 +28,157 @@
     <!-- <div class="col">
         <img src="img/logixBanner.png" class="img-fluid img-thumbnail" alt="Responsive image">
     </div> -->
-    <div class="jumbotron" style="background-image: url('img/logixBanner2.png')">
-        <div class="container">
-            <div class="row justify-content-md-center">
-                <div class="col-md-auto">
-                    <div class="card text-center" style="max-width: 40rem; box-shadow: 0px 0px 40px 8px rgba(0, 0, 0, .6), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
-                        <div class="card-body">
-                            <h1 class="card-title display-4" style="font-size: 3em">Explore Digital Logic Circuits with <img src="/img/circuitverse_black.svg" height="45px" alt="Logo"></h1>
-                            <p class="card-text">From simple gates to complex sequential circuits, plot timing diagrams, automatic circuit generation, explore standard ICs, and much more – for free!</p>
-                            <a class="btn btn-lg btn-secondary" href=<%= simulator_new_path %> role="button">Launch Simulator &raquo;</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- <div class="col">
-                    <img src="img/logixBanner.png" class="img-fluid img-thumbnail" alt="Responsive image">
-                </div> -->
-            </div>
-
-        </div>
-
-
+    <% if notice %>
+    <div class="row" id='alertdiv'>
+      <div class="alert alert-success alert-dismissible container-fluid text-center">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <%= notice %>
+      </div>
     </div>
-
-
-
-    <div class="container">
-
-
-
-        <% if notice %>
-            <div class="row" id='alertdiv'>
-                <div class="alert alert-success alert-dismissible container-fluid text-center">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <%= notice %>
-                </div>
-            </div>
-        <% end %>
-
-
-        <div class="row text-center">
-
-            <div class="col-md-4">
-                <h2 class="">Features</h2>
-                <p>CircuitVerse contains most primary circuit elements from both combinational and sequential circuit design. CircuitVerse allows multi-bit wires(buses) and Subcircuits.</p>
-                <p class="text-center"><a class="btn btn-secondary" href="./features" role="button">Read More &raquo;</a></p>
-            </div>
-            <div class="col-md-4">
-                <h2 class="">Open source</h2>
-                <p>CircuitVerse is now opensource! The platform will forever be free and will not run ads. The project is now run by the community. We would love your support.</p>
-                <p class="text-center"><a class="btn btn-primary" href="./contribute" role="button"> Read More &raquo;</a></p>
-            </div>
-            <!--<div class="col-md-4">-->
-                <!--<h2 class="">Ease of use</h2>-->
-                <!--<p>CircuitVerse uses a drag and drop interface. Most users are able to get started immediately. Checkout the interactive online documentation to learn CircuitVerse and Digital Logic Design.</p>-->
-                <!--<p><a class="btn btn-secondary" href="https://docs.circuitverse.org" role="button"> Documentation &raquo;</a></p>-->
-            <!--</div>-->
-            <div class="col-md-4">
-                <h2 class="">Teachers</h2>
-                <p>CircuitVerse has been designed to be very easy to use in class. Teachers can create groups for their class and issue tests and assignments. </p>
-                <p class="text-center"><a class="btn btn-secondary" href="./teachers" role="button">Read More &raquo;</a></p>
-            </div>
-            <!--<div class="col-md-4">-->
-                <!--<h2 class="">The Idea</h2>-->
-                <!--<p>CircuitVerse in its present form is an easy to use digital circuit simulator. The idea is to form a community based learning platform around it. Something very similar to MIT-Scratch. </p>-->
-                <!--<p><a class="btn btn-secondary" href="./about.html" role="button">Read More &raquo;</a></p>-->
-            <!--</div>-->
-        </div>
-    </div>
-  <br>
-  <br>
-  <div class="container">
-    <% if Rails.env.production? %>
-    <h5 class=""><a href="/examples" style="color:black;">Featured Examples</a></h5>
-    <div class="row">
-      <% featured_ids=[247,248,252,67] %>
-      <% featured_ids.each do |project_id| %>
-          <% project = Project.find(project_id) %>
-          <div class="col-sm-3">
-            <div class="card text-center " style="margin-top: 2rem">
-              <div class="card-header card-title">
-               <a href="<%= user_project_path(project.author_id,project) %>"><%=project.name %></a>
-              </div>
-              <a href="<%= user_project_path(project.author_id,project) %>" ><img class="card-img-top " src="<%= project.image_preview.url %>" alt="<%= project.name%>" ></a>
-            </div>
-          </div>
-      <% end %>
-    </div>
-    <br>
     <% end %>
-
-    <h5 class=""><a href="/featured_circuits" style="color: black;">Editor Picks</a></h5>
-    <div class="row">
-      <% @featured_circuits.each do |project| %>
-          <div class="col-sm-3">
-            <div class="card text-center " style="margin-top: 2rem">
-              <div class="card-header card-title">
-               <a href="<%= user_project_path(project.author_id, project) %>"><%=project.name %></a>
+    <div class="container">
+      <div class="d-flex flex-column flex-md-row align-items-center py-4 py-md-0 my-4 my-lg-0">
+        <div>
+          <h1>Dive into the world of Logic Circuits for free!</h1><br>
+          <p>From simple gates to complex sequential circuits, plot timing diagrams, automatic circuit generation, explore standard ICs, and much more</p>
+          <a class="btn btn-homepage btn-about" href='/simulator'>Launch Simulator</a>
+          <a href="https://learn.circuitverse.org/" class="a-homepage">Learn Logic Design</a>
+        </div>
+        <div>
+          <%= image_tag "homepage/new_homepage_sketch.png", alt: "HomepageSketch", :class => "homepage-cover" %>
+        </div>
+      </div>
+      <div class="row button-homepage">
+        <button type="button" class="btn btn-homepage2" onclick="window.location.href = '/teachers';">For Teachers</button>
+        <button type="button" class="btn btn-homepage2" onclick="window.location.href = '/contribute';">For Contributors</button>
+      </div>
+    </div>
+    <div class="container-fluid container-fluid_teachersbackground">
+      <div class="container">
+        <div class="row row-homepage-middle">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <h3>Featured Examples</h3>
+          </div>
+        </div>
+        <div class="row row-homepage-middle">
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+            <div class="card card-homepage-example">
+              <%= image_tag "homepage/rippleCarry.jpg", alt: "Ripple Carry", :class => "card-img-top card-img-homepage-example" %>
+              <div class="card-footer card-footer-homepage-example">
+                <p class="homepage-example-p">16-bit Ripple Carry Adder</p>
+                <button type="button" class="btn btn-about homepage-example-button" onclick="window.location.href = 'https://circuitverse.org/users/3/projects/248';">View</button>
               </div>
-              <a href="<%= user_project_path(project.author_id, project) %>" ><img class="card-img-top " src="<%= project.image_preview.url %>" alt="<%= project.name%>" ></a>
             </div>
           </div>
-      <% end %>
-    </div>
-    <br>
-
-    <h5 class="" id="recent">Recent Circuits</h5>
-    <div class="row">
-      <% @projects.each do |project| %>
-          <div class="col-sm-3">
-            <div class="card text-center " style="margin-top: 2rem">
-              <div class="card-header card-title">
-               <a href="<%= user_project_path(project.author_id,project) %>"><%=project.name %></a>
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+            <div class="card card-homepage-example">
+              <%= image_tag "homepage/sap.jpg", alt: "SAP-1", :class => "card-img-top card-img-homepage-example" %>
+              <div class="card-footer card-footer-homepage-example">
+                <p class="homepage-example-p">SAP-1</p>
+                <button type="button" class="btn btn-about homepage-example-button" onclick="window.location.href = 'https://circuitverse.org/users/3/projects/67';">View</button>
               </div>
-              <a href="<%= user_project_path(project.author_id,project) %>" ><img class="card-img-top " src="<%= project.image_preview.url %>" alt="<%= project.name%>" ></a>
             </div>
           </div>
-      <% end %>
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+            <div class="card card-homepage-example">
+              <%= image_tag "homepage/fullAdder.png", alt: "Full Adder", :class => "card-img-top card-img-homepage-example" %>
+              <div class="card-footer card-footer-homepage-example">
+                <p class="homepage-example-p">Full Adder from 2 Half Adders</p>
+                <button type="button" class="btn btn-about homepage-example-button" onclick="window.location.href = 'https://circuitverse.org/users/3/projects/247';">View</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center">
+              <button type="button" class="btn btn-homepage btn-about " onclick="window.location.href = '/featured_circuits';">Explore More</button>
+            </div>
+        </div>
+      </div>
+      </div>
+      <div class="container-fluid container-fluid_teachersbackground">
+        <div class="container" id="recent">
+          <div class="row row-homepage-middle">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <h3>Recent Circuits</h3>
+            </div>
+          </div>
+
+          <div class="row row-homepage-middle">
+            <% @projects.each do |project| %>
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+              <div class="card card-homepage-example">
+                <a href="<%= user_project_path(project.author_id,project) %>"><img class="card-img-top" src="<%= project.image_preview.url %>" alt="<%= project.name %>"></a>
+                <div class="card-footer card-footer-homepage-example">
+                  <p class="homepage-example-p"><%= project.name %></p>
+                  <button type="button" class="btn btn-about homepage-example-button" onclick="window.location.href = '<%= user_project_path(project.author_id,project) %>';">View</button>
+                </div>
+               </div>
+              </div>
+             <% end %>
+           </div>
+           <div class="container pagination-cont">
+            <%= will_paginate @projects, renderer: PaginateRenderer %>
+           </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row row-homepage-middle">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <h3>Features</h3>
+            <p class="homepage_p">Design circuits quickly and easily with a modern and intuitive user interface with drag-and-drop, copy/paste, zoom and more.</p>
+        </div>
+      </div>
+      <div class="row row-homepage-middle">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+          <div class="card card-homepage">
+            <%= image_tag "homepage/export-hd.png", alt: "Export HD", :class => "card-img-top cardimage-contribute" %>
+            <div class="card-body">
+              <h5 class="card-title">Export High-Resolution Images</h5>
+              <p class="card-text">CircuitVerse can export high resolution images in multiple formats including SVG.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+          <div class="card card-homepage">
+            <%= image_tag "homepage/combinations analysis.png", alt: "Combinational Analysis", :class => "card-img-top cardimage-contribute" %>
+            <div class="card-body">
+              <h5 class="card-title">Combinational Analysis</h5>
+              <p class="card-text">Automatically generate circuit based on truth table data. This is great to create complex logic circuits and can be easily be made into a subcircuit.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-s-12 col-md-4 col-lg-4">
+          <div class="card card-homepage">
+            <%= image_tag "homepage/embed.png", alt: "Embed", :class => "card-img-top cardimage-contribute" %>
+            <div class="card-body">
+              <h5 class="card-title">Embed in Blogs</h5>
+              <p class="card-text">Since CircuitVerse is built in HTML5, an iFrame can be generated for each project allowing the user to embed it almost anywhere.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row row-homepage-middle justify-content-center">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+          <div class="card card-homepage">
+            <%= image_tag "homepage/sub-circuit.png", alt: "Sub Circuit", :class => "card-img-top cardimage-contribute" %>
+            <div class="card-body">
+              <h5 class="card-title">Use Sub circuits</h5>
+              <p class="card-text">Create subcircuits once and use them repeatedly. This allows easier and more structured design.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+          <div class="card card-homepage">
+            <%= image_tag "homepage/multi-bit-bus.png", alt: "Multi Bit Bus", :class => "card-img-top cardimage-contribute" %>
+            <div class="card-body">
+              <h5 class="card-title">Multi Bit Buses and components</h5>
+              <p class="card-text">CircuitVerse supports multi bit wires, this means circuit design is easier, faster and uncluttered.</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <br>
-    <div class="container pagination-cont">
-<%= will_paginate @projects, renderer: PaginateRenderer %>
-
-    </div>
-
-
-
-  </div>
-
 
     <% if user_signed_in? %>
     <script>

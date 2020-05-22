@@ -1,6 +1,7 @@
 // Size of canvas
 var width;
 var height;
+var listenToSimulator=true; //enables key down listener on the simulator
 
 uniqueIdCounter = 0; // To be deprecated
 unit = 10; // size of each division/ not used everywhere, to be deprecated
@@ -33,6 +34,7 @@ layoutMode = false; // Flag for mode
 forceResetNodes = true; // FLag to reset all Nodes
 
 
+
 //Exact same name as object constructor
 //This list needs to be updated when new circuitselements are created
 
@@ -51,7 +53,7 @@ function setupElementLists() {
 
 
     function createIcon(element) {
-        return `<div class="icon logixModules" id="${element}" >
+        return `<div class="icon logixModules pointerCursor" id="${element}" >
             <img src= "/img/${element}.svg" >
             <p class="img__description">${element}</p>
         </div>`;
@@ -69,7 +71,7 @@ function setupElementLists() {
         }
 
         let accordionData = `<div class="panelHeader">${category}</div>
-            <div class="panel" style="overflow-y:hidden">
+            <div class="panel" style="overflow-y:hidden;">
               ${htmlIcons}
             </div>`;
 

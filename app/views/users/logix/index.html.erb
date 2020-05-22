@@ -21,17 +21,31 @@
   <!--<%= link_to 'Back', all_users_path %>-->
 
   <% if notice %>
-      <div class="row">
-          <div class="alert alert-success alert-dismissible container-fluid text-center">
-              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-              <%= notice %>
-          </div>
+    <div class="row">
+      <div class="alert alert-success alert-dismissible container-fluid text-center">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <%= notice %>
       </div>
+    </div>
   <% end %>
 
-  <div class ="row">
-    <h2 class="card-title"><%= @user.name%> - Projects | <a href=  "<%= profile_path(@user)%>"  target="_blank"> View Profile </a> | <a href=  "<%= user_favourites_path(@user)%>"  target="_blank"> View Favourites </a> </h2>
+
+  <div class ="d-flex flex-column align-items-center flex-md-row justify-content-md-between align-items-md-center">
+    <div class="d-flex flex-row justify-content-center align-items-center">
+      <%= image_tag @user.profile_picture.url(:medium, alt: "@user.name"), class: 'about-card-image about-card-image', style: "width: 100px; height: 100px; margin: 10px;" %>
+      <h2 class="p-4"><%= @user.name %></h2>
+      
+    </div>
+    <div class="">
+      <a class="btn btn-about my-4 my-md-0" href="<%= user_favourites_path(@user) %>">View Favourites</a>
+    </div>
   </div>
+
+  <% if @user.projects.blank? %>
+    <div class ="no-projects px-4">
+      <h5>You don't have any projects. Create one <%= link_to 'here', simulator_new_url, class: 'no-projects-here' %></h5>
+    </div>
+  <% end %>
 
   <div class="row">
     <%= render partial: "dashboard" , locals: {projects: @user.projects} %>
@@ -40,44 +54,50 @@
   <% collaborated_projects = @user.collaborated_projects %>
 
   <% if collaborated_projects.count >0 %>
-      <br>
-    <div class ="row">
-      <h2 class="card-title">Collaborated Projects </h2>
-    </div>
+    <br>
+      <div class ="row row-about">
+        <h1>Collaborated Projects</h1>
+      </div>
 
     <div class="row">
       <%= render partial: "dashboard" , locals: {projects: collaborated_projects} %>
     </div>
-  <%end %>
+  <% end %>
 
 </div>
-
 <br>
 
 
+<% @user.projects.each do |project| %>
+  <% if policy(project).check_direct_view_access? %>
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
 
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-lg">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header modal-header-userprojects">
+              <h4 class="modal-title">Project Preview</h4>
+              <button type="button" class="close close-modal" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+              <div class="embed-responsive embed-responsive-4by3 feature feature-preview">
+                <iframe src="" id="projectPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen> </iframe>
+              </div>
+            </div>
+            <div class="modal-footer modal-footer-userprojects">
+              <% if policy(project).user_access? %>
+                <a href="<%= simulator_edit_path(project) %>" class="btn btn-about btn-userprojects" target="_blank">Launch</a>
+              <% else %>
+                <a href="<%= create_fork_project_path(project) %>" class="btn btn-about btn-userprojects" target="_blank">Fork</a>
+              <% end %>
+              <a href="<%= user_project_path(@user,project) %>" class="btn btn-about btn-userprojects" target="_blank">More</a>
+            </div>
+          </div>
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Project Preview</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-
-      </div>
-      <div class="modal-body">
-        <div class="embed-responsive embed-responsive-4by3 feature">
-          <iframe src="" id="projectPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen> </iframe>
         </div>
       </div>
-      <!--<div class="modal-footer">-->
-      <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">close</button>-->
-      <!--</div>-->
-    </div>
-
-  </div>
-</div>
+    <% end %>
+  <% end %>
 
 <script type="application/ld+json">
 {

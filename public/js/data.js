@@ -9,12 +9,14 @@ function newCircuit(name, id) {
     if (id) scope.id = id;
     scopeList[scope.id] = scope;
     globalScope = scope;
-
+    var $windowsize = $('body').width();
+    var $sideBarsize = $('.side').width();
+    var $maxwidth = ($windowsize - $sideBarsize);
+    var resizer = "max-width:" + ($maxwidth - 30);
     $('.circuits').removeClass("current");
-    $('#tabsBar').append("<span class='circuits toolbarButton current ' id='staticname'>" + title + " </span>");
-    $('#tabsBar').append("<a id='circlink' href='javascript::void(0)'><span class='circuits toolbarButton current ' id='" + scope.id + "'>" + name + "</span></a>");
+    $('#tabsBar').append("<a id='circlink' href='javascript::void(0)' data-toggle = 'tooltip' title='" + name + "'><div class='circuits toolbarButton current' id='" + scope.id + "' style='" + resizer + "'>" + name + "<span class ='tabsCloseButton' onclick='deleteCurrentCircuit()'  ><i class='fa fa-times'></i></span></div></a>");
     $("#circlink").click(function(event) {
-    document.getElementById("circname").focus();
+        document.getElementById("circname").focus();
     });
     $('.circuits').click(function() {
         switchCircuit(this.id)
@@ -30,8 +32,9 @@ function newCircuit(name, id) {
 
 
 function changeCircuitName(name, id = globalScope.id) {
+    name = name || "Untitled";
     name = stripTags(name);
-    $('#' + id).html(name);
+    $('#' + id).html(name + "<span class ='tabsCloseButton' onclick='deleteCurrentCircuit()'  ><i class='fa fa-times'></i></span>");
     scopeList[id].name = name;
 }
 
@@ -42,12 +45,13 @@ function setProjectName(name) {
 }
 
 function clearProject() {
+    if (confirm("Would you like to clear the project?")){
     globalScope = undefined;
     scopeList = {};
     $('.circuits').remove();
     newCircuit("main");
     showMessage("Your project is as good as new!");
-
+    }
 }
 
 // Function used to start a new project while prompting confirmation from the user
@@ -449,8 +453,9 @@ function save() {
     if (!userSignedIn) {
         // user not signed in, save locally temporarily and force user to sign in
         localStorage.setItem("recover_login", data);
-        alert("You have to login to save the project, you will be redirected to the login page.")
-        window.location.href = "/users/sign_in"
+        // Asking user whether they want to login.
+        if(confirm("You have to login to save the project, you will be redirected to the login page.")) window.location.href = "/users/sign_in";
+        else $('.loadingIcon').fadeOut();
     } else if (logix_project_id == 0) {
 
         // Create new project - this part needs to be improved and optimised
@@ -776,16 +781,16 @@ createSaveAsImgPrompt = function(scope = globalScope) {
 }
 
 // Function to delete offline project of selected id
-deleteOfflineProject = function (id) {
+deleteOfflineProject = function (projectId) {
     var projectList = JSON.parse(localStorage.getItem("projectList"));
-    var y = confirm("Are You Sure You Want To Delete Project " + projectList[id] + " ?");
-    if (y) {
-        delete projectList[id];
-        localStorage.removeItem(id);
+    var confirmation = confirm("Are You Sure You Want To Delete Project " + projectList[projectId] + " ?");
+    if (confirmation) {
+        delete projectList[projectId];
+        localStorage.removeItem(projectId);
         localStorage.setItem("projectList", JSON.stringify(projectList));
         $('#openProjectDialog').empty();
-        for (idd in projectList) {
-            $('#openProjectDialog').append('<label class="option"><input type="radio" name="projectId" value="' + idd + '" />' + projectList[idd] + '<i class="glyphicon glyphicon-trash deleteOff" onclick="deleteOfflineProject(\'' + idd + '\')"></i></label>');
+        for (id in projectList) {
+            $('#openProjectDialog').append('<label class="option"><input type="radio" name="projectId" value="' + id + '" />' + projectList[id] + '<i class="fa fa-times deleteOfflineProject" onclick="deleteOfflineProject(\'' + id + '\')"></i></label>');
         }
     }
 }
@@ -797,19 +802,19 @@ createOpenLocalPrompt = function() {
     var flag = true;
     for (id in projectList) {
         flag = false;
-        $('#openProjectDialog').append('<label class="option"><input type="radio" name="projectId" value="' + id + '" />' + projectList[id] + '<i class="glyphicon glyphicon-trash deleteOff" onclick="deleteOfflineProject(\'' + id + '\')"></i></label>');
+        $('#openProjectDialog').append('<label class="option"><input type="radio" name="projectId" value="' + id + '" />' + projectList[id] + '<i class="fa fa-times deleteOfflineProject" onclick="deleteOfflineProject(\'' + id + '\')"></i></label>');
     }
     if (flag) $('#openProjectDialog').append('<p>Looks like no circuit has been saved yet. Create a new one and save it!</p>')
     $('#openProjectDialog').dialog({
         width: "auto",
-        buttons: [{
+        buttons: !flag ? [{
             text: "Open Project",
             click: function() {
                 if (!$("input[name=projectId]:checked").val()) return;
                 load(JSON.parse(localStorage.getItem($("input[name=projectId]:checked").val())));
                 $(this).dialog("close");
             },
-        }]
+        }] : []
 
     });
 
@@ -827,15 +832,18 @@ createSubCircuitPrompt = function(scope = globalScope) {
     }
     if (flag) $('#insertSubcircuitDialog').append('<p>Looks like there are no other circuits which doesn\'t have this circuit as a dependency. Create a new one!</p>')
     $('#insertSubcircuitDialog').dialog({
-        width: "auto",
-        buttons: [{
+        maxHeight: 350,
+        width: 250,
+        maxWidth: 250,
+        minWidth: 250,
+        buttons: !flag ? [{
             text: "Insert SubCircuit",
             click: function() {
                 if (!$("input[name=subCircuitId]:checked").val()) return;
                 simulationArea.lastSelected = new SubCircuit(undefined, undefined, globalScope, $("input[name=subCircuitId]:checked").val());
                 $(this).dialog("close");
             },
-        }]
+        }] : []
 
     });
 
@@ -985,4 +993,23 @@ function promptSave(){
     console.log("PROMPT")
     if(confirm("You have not saved your creation! Would you like save your project online? "))
     save()
+}
+
+function postUserIssue(message) {
+    $.ajax({
+        url: '/simulator/post_issue',
+        type: 'POST',
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+        },
+        data: {
+            "text": message,
+        },
+        success: function(response) {
+            $('#result').html("<i class='fa fa-check' style='color:green'></i> You've successfully submitted the issue. Thanks for improving our platform.");
+        },
+        failure: function(err) {
+            $('#result').html("<i class='fa fa-check' style='color:red'></i> There seems to be a network issue. Please reach out to us at support@ciruitverse.org");
+        }
+    });
 }

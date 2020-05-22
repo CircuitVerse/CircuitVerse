@@ -1,23 +1,14 @@
-<div class="container">
-  <div class="row feature">
 
+<% content_for :title, @group.name + " - Edit Group Name" %>
+
+<h1 class="edit-name text-center">EDIT GROUP NAME</h1>
+<div class="container profile-background">
+  <div class="row p-4 center-block">
     <div class="col col-xs-10 col-lg-6 col-md-8 col-s-10 col-centered">
-      <h1>Editing Group</h1>
-
       <%= render 'form', group: @group %>
-
-      <%= link_to 'Show', @group %> |
-      <%= link_to 'Back', user_groups_path(current_user) %>
-
+      <br>
+      <br>
+      <br>
     </div>
-
-
   </div>
-  <br />
-
-  <br />
-
-
-
 </div>
-

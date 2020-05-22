@@ -9,7 +9,7 @@ class AssignmentPolicy < ApplicationPolicy
   end
 
   def show?
-    assignment.group.mentor_id == user.id || user.groups.pluck(:id).include?(assignment.group.id) \
+    assignment.group.mentor_id == user.id || user.groups.where(id: assignment.group.id).exists? \
     || user.admin?
   end
 
@@ -20,7 +20,7 @@ class AssignmentPolicy < ApplicationPolicy
   def start?
     # assignment should not be closed and not submitted
     assignment.status != "closed" \
-      && Project.find_by(author_id: user.id, assignment_id: assignment.id).nil?
+      && !Project.exists?(author_id: user.id, assignment_id: assignment.id)
   end
 
   def edit?
@@ -28,7 +28,8 @@ class AssignmentPolicy < ApplicationPolicy
   end
 
   def reopen?
-    raise CustomAuthError.new("Project is already open") if assignment.status == "open"
+    raise CustomAuthError, "Project is already open" if assignment.status == "open"
+
     true
   end
 

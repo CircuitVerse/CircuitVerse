@@ -49,12 +49,23 @@ function startListeners() {
             globalScope.restrictedCircuitElementsUsed.push(simulationArea.lastSelected.objectType);
             updateRestrictedElementsList();
         }
+        if (!simulationArea.shiftDown && simulationArea.multipleObjectSelections.length > 0
+        ) {
+          if (
+            !simulationArea.multipleObjectSelections.includes(
+              simulationArea.lastSelected
+            )
+          )
+            simulationArea.multipleObjectSelections = [];
+        }
     });
     window.addEventListener('mousemove', onMouseMove);
 
-
-
+    
     window.addEventListener('keydown', function(e) {
+        if(listenToSimulator){
+
+
 
         // If mouse is focusing on input element, then override any action
         // if($(':focus').length){
@@ -76,23 +87,19 @@ function startListeners() {
         updatePosition = true;
         simulationArea.shiftDown = e.shiftKey;
 
-        // zoom in (+)
         if (e.key == "Meta" || e.key == "Control") {
-            simulationArea.controlDown = true;
+          simulationArea.controlDown = true;
         }
-
-        if (simulationArea.controlDown && (e.keyCode == 187 || e.keyCode == 171)) {
+        
+        // zoom in (+)
+        if ((simulationArea.controlDown && (e.keyCode == 187 || e.keyCode == 171))||e.keyCode==107) {
             e.preventDefault();
-            if (globalScope.scale < 4 * DPR) {
-                changeScale(.1 * DPR);
-            }
+            ZoomIn()
         }
         // zoom out (-)
-        if (simulationArea.controlDown && (e.keyCode == 189 || e.keyCode == 173)) {
+        if ((simulationArea.controlDown && (e.keyCode == 189 || e.keyCode == 173))||e.keyCode==109) {
             e.preventDefault();
-            if (globalScope.scale > 0.5 * DPR) {
-                changeScale(-.1 * DPR);
-            }
+            ZoomOut()
         }
 
         if (simulationArea.mouseRawX < 0 || simulationArea.mouseRawY < 0 || simulationArea.mouseRawX > width || simulationArea.mouseRawY > height) return;
@@ -169,44 +176,69 @@ function startListeners() {
             e.preventDefault();
         }
 
+        //deselect all Shortcut
+        if (e.keyCode == 27) {
+            simulationArea.multipleObjectSelections = [];
+            simulationArea.lastSelected = undefined;
+            e.preventDefault();
+        }
+
         //change direction fns
-        if ((e.keyCode == 37 || e.keyCode == 65)&& simulationArea.lastSelected != undefined) {
-            simulationArea.lastSelected.newDirection("LEFT");
+        if (simulationArea.lastSelected != undefined) {
+            let direction = "";
+            switch (e.keyCode) {
+                case 37:
+                case 65:
+                    direction = "LEFT";
+                    break;
+
+                case 38:
+                case 87:
+                    direction = "UP";
+                    break;
+
+                case 39:
+                case 68:
+                    direction = "RIGHT";
+                    break;
+
+                case 40:
+                case 83:
+                    direction = "DOWN";
+                    break;
+
+                default:
+                    break;
+            }
+            if (direction !== ""){
+                simulationArea.lastSelected.newDirection(direction);
+            }
         }
-        if ((e.keyCode == 38 || e.keyCode == 87) && simulationArea.lastSelected != undefined) {
-            simulationArea.lastSelected.newDirection("UP");
-        }
-        if ((e.keyCode == 39 || e.keyCode == 68) && simulationArea.lastSelected != undefined) {
-            simulationArea.lastSelected.newDirection("RIGHT");
-        }
-        if ((e.keyCode == 40 || e.keyCode == 83) && simulationArea.lastSelected != undefined) {
-            simulationArea.lastSelected.newDirection("DOWN");
-        }
+
         if ((e.keyCode == 113 || e.keyCode == 81) && simulationArea.lastSelected != undefined) {
             if (simulationArea.lastSelected.bitWidth !== undefined)
                 simulationArea.lastSelected.newBitWidth(parseInt(prompt("Enter new bitWidth"), 10));
         }
+
         if (simulationArea.controlDown && (e.key == "T" || e.key == "t")) {
             // e.preventDefault(); //browsers normally open a new tab
             simulationArea.changeClockTime(prompt("Enter Time:"));
         }
-        if ((e.keyCode == 108 || e.keyCode == 76) && simulationArea.lastSelected != undefined) {
-            if (simulationArea.lastSelected.setLabel !== undefined){
-                var labl = prompt("Enter The Label : ", simulationArea.lastSelected.label);
-                if(labl)
-                    simulationArea.lastSelected.setLabel(labl);
-            }
+        // f1 key for opening the documentation page
+        if (e.keyCode === 112) {
+            e.preventDefault();
+            window.open('https://docs.circuitverse.org/', '_blank');
         }
-    })
+    }       
+  })
+
 
     document.getElementById("simulationArea").addEventListener('dblclick', function(e) {
         scheduleUpdate(2);
         if (simulationArea.lastSelected && simulationArea.lastSelected.dblclick !== undefined) {
             simulationArea.lastSelected.dblclick();
         }
-        if (!simulationArea.shiftDown) {
-            simulationArea.multipleObjectSelections = [];
-        }
+
     });
 
     window.addEventListener('mouseup', onMouseUp);
@@ -217,36 +249,21 @@ function startListeners() {
     document.getElementById("simulationArea").addEventListener('DOMMouseScroll', MouseScroll);
 
     function MouseScroll(event) {
-        updateCanvas = true;
 
         event.preventDefault()
         var deltaY = event.wheelDelta ? event.wheelDelta : -event.detail;
-        var scrolledUp = deltaY < 0;
-        var scrolledDown = deltaY > 0;
-
-        if (event.ctrlKey) {
-            if (scrolledUp && globalScope.scale > 0.5 * DPR) {
-                changeScale(-.1 * DPR);
-            }
-            if (scrolledDown && globalScope.scale < 4 * DPR) {
-                changeScale(.1 * DPR);
-            }
-        } else {
-            if (scrolledUp && globalScope.scale < 4 * DPR) {
-                changeScale(.1 * DPR);
-            }
-            if (scrolledDown && globalScope.scale > 0.5 * DPR) {
-                changeScale(-.1 * DPR);
-            }
-        }
-
+        event.preventDefault();
+        var deltaY = event.wheelDelta ? event.wheelDelta : -event.detail;
+        let direction = deltaY > 0 ? 1 : -1;
+        handleZoom(direction);
         updateCanvas = true;
-        gridUpdate = true;
+
         if(layoutMode)layoutUpdate();
         else update(); // Schedule update not working, this is INEFFICIENT
     }
 
     document.addEventListener('cut', function(e) {
+        if(listenToSimulator){
         simulationArea.copyList = simulationArea.multipleObjectSelections.slice();
         if (simulationArea.lastSelected && simulationArea.lastSelected !== simulationArea.root && !simulationArea.copyList.contains(simulationArea.lastSelected)) {
             simulationArea.copyList.push(simulationArea.lastSelected);
@@ -267,10 +284,11 @@ function startListeners() {
         } else {
             e.clipboardData.setData('text/plain', textToPutOnClipboard);
         }
-
+    }
     });
 
     document.addEventListener('copy', function(e) {
+        if(listenToSimulator){
         simulationArea.copyList = simulationArea.multipleObjectSelections.slice();
         if (simulationArea.lastSelected && simulationArea.lastSelected !== simulationArea.root && !simulationArea.copyList.contains(simulationArea.lastSelected)) {
             simulationArea.copyList.push(simulationArea.lastSelected);
@@ -290,10 +308,11 @@ function startListeners() {
         } else {
             e.clipboardData.setData('text/plain', textToPutOnClipboard);
         }
-
+    }
     });
 
     document.addEventListener('paste', function(e) {
+        if(listenToSimulator){
         var data;
         if (isIe) {
             data = window.clipboardData.getData('Text');
@@ -307,6 +326,7 @@ function startListeners() {
         updateRestrictedElementsInScope();
 
         e.preventDefault();
+    }
     });
 
     restrictedElements.forEach((element) => {
@@ -423,3 +443,37 @@ function delete_selected(){
     // Updated restricted elements
     updateRestrictedElementsInScope();
 }
+
+function resizeTabs(){
+    var $windowsize = $('body').width();
+    var $sideBarsize = $('.side').width();
+    var $maxwidth = ($windowsize - $sideBarsize);
+    $("#tabsBar div").each(function(e){
+        $(this).css({ 'max-width': $maxwidth - 30 });
+    });
+    }
+
+window.addEventListener("resize", resizeTabs);
+resizeTabs();
+
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+});
+
+// direction is only 1 or -1 
+function handleZoom(direction) {
+    if (globalScope.scale > 0.5 * DPR) {
+      changeScale(direction * 0.1 * DPR);
+    } else if (globalScope.scale < 4 * DPR) {
+      changeScale(direction * 0.1 * DPR);
+    }
+    gridUpdate = true;
+  }
+  
+  function ZoomIn() {
+    handleZoom(1);
+  }
+  
+  function ZoomOut() {
+    handleZoom(-1);
+  }

@@ -1,5 +1,4 @@
-.deleteOff {
-    color: red;
+.deleteOfflineProject {
     float: right;
     cursor: pointer;
     padding: 2px;
@@ -50,7 +49,6 @@ button:focus {
 }
 
 .side {
-    width: 270px;
     height: 100%;
     background-color: #333;
     padding: 3px;
@@ -68,6 +66,8 @@ button:focus {
     padding: 5px;
     width: 200px;
     margin: 3px;
+    word-wrap:break-word;
+    overflow-x:hidden;
 }
 
 .pannel-heading {
@@ -93,7 +93,7 @@ button:focus {
     margin: 0 auto;
     text-align: center;
     font-size: 1.4em;
-    position: absolute;
+    position: static;
     left: 50%;
     display: block;
     width: 500px;
@@ -306,6 +306,10 @@ select {
     /*padding-left: 0.5em;*/
     margin: 0.1em;
     color: #fff;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    position: relative;
 }
 
 #tabsBar .circuits {
@@ -313,7 +317,7 @@ select {
     text-align: center;
     background-color: #00284d;
     padding-left: 0.5em;
-    padding-right: 0.5em;
+    padding-right: 1.5em;
     border: 1px solid #005cb3;
     border-radius: 0.1em;
 }
@@ -328,6 +332,22 @@ select {
     /*background-color: #0086b3;*/
     background-color: #004280;
     border: 1px solid #0099ff;
+}
+
+.tabsCloseButton:hover{
+    color:#fff;
+    font-family: 'Gill Sans', sans-serif;
+    padding-left: 1em;
+    opacity: 0.5;
+}
+.tabsCloseButton {
+    color:#111;
+    font-family: 'Gill Sans', sans-serif;
+    padding-left: 1em;
+    opacity: 1.0;
+    position: absolute;
+    top: 5px;
+    right: 3;
 }
 
 th,
@@ -591,10 +611,11 @@ input:checked + .slider2:before {
 
 .icon {
     position: relative;
-    height: 60px;
-    width: 60px;
+    height: 70px;
+    width: 70px;
     /*margin: 1px;*/
     margin-bottom: 5px;
+    margin-left: 3px;
     display: inline-block;
     background-color: white;
     border-radius: 4px;
@@ -602,7 +623,7 @@ input:checked + .slider2:before {
     border: 2px solid #0099ff;
     text-align: center;
     font-size: 8px;
-    padding: 3px;
+    padding: 5px;
 }
 
 img {
@@ -624,7 +645,8 @@ div.icon img {
 .img__description {
     position: absolute;
     /*top: 0;*/
-    bottom: -10;
+    bottom: -16;
+    text-align:center;
     left: 0;
     right: 0;
     background-color: #0099ff;
@@ -649,9 +671,14 @@ div.icon img {
     /*background-color: #cce5ff;*/
     /*border-color: blue;*/
     margin-bottom: 1px;
-    height: 64px;
+    height: 74px;
     background-color: #f5f5f5;
     transition: height 0.2s margin 0.2s;
+}
+
+.objectPropertyAttributeChecked.btn {
+    width: 100%;
+    margin-bottom: 5px;
 }
 
 /* For loading screen - pace.js */
@@ -828,7 +855,7 @@ div.icon img {
 .navbar .nav.pull-right {
     float: right;
     margin-right: 10px;
-    /*set margin this way in your custom styesheet*/
+    /*set margin this way in your custom stylesheet*/
 }
 
 /* LOADING ICON CSS STARTS*/

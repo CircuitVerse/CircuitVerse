@@ -1,15 +1,22 @@
 @import "theme";
-@import "bootstrap/scss/bootstrap.scss";
+@import "bootstrap/scss/bootstrap";
 @import "commontator/application";
-@import "bootstrap-typeahead-rails";
-@import "font-awesome/css/font-awesome.min.css";
-@import "signup";
-@import "logixRelease";
-@import "layout";
-@import "about";
-@import "editor";
-@import "trumbowyg/dist/ui/trumbowyg.min.css";
-
+@import 'bootstrap-typeahead-rails';
+@import "font-awesome-sprockets";
+@import "font-awesome";
+@import 'signup';
+@import 'logixRelease';
+@import 'layout';
+@import 'about';
+@import 'editor';
+@import 'groups';
+@import 'group_members';
+@import 'profile';
+@import 'home';
+@import 'contribute';
+@import 'assignments';
+@import 'trumbowyg/dist/ui/trumbowyg.min';
+@import 'examples';
 // #FIXME move these styles
 .alert {
   width: 100%;

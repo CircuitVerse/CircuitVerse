@@ -55,3 +55,13 @@ solr/development/data
 solr/default/data
 solr/pids
 solr/*
+
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
+
+# Private key
+config/private.pem
