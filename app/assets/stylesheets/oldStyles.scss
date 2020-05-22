@@ -39,10 +39,18 @@
   padding: 15px;
   transition: box-shadow .2s ease-in;
   width: 300px;
+
+  &:hover {
+    box-shadow: 0 7px 7px $shadow-black;
+  }
+
+  img {
+    float: left;
+  }
 }
 
 .contact:hover {
- box-shadow: 0 7px 7px $shadow-black;
+  box-shadow: 0 7px 7px $shadow-black;
 }
 
 .contact img {

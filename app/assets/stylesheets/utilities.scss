@@ -2,14 +2,14 @@
 .button-primary {
   background-color: $green;
   border-radius: 4px;
-  color: white;
+  color: $white;
   margin: 5px;
-  transition: all 0.3s ease 0s;
+  transition: all .3s ease 0s;
 
   &:hover {
     background-color: $teal;
-    box-shadow: 0px 8px 15px $shadow-black;
-    color: white;
+    box-shadow: 0 8px 15px $shadow-black;
+    color: $white;
     transform: translateY(-7px);
   }
 }
@@ -17,13 +17,13 @@
 //cards
 .card-small-social {
   background-color: $card-green;
-  box-shadow: 0px 2px 7px $shadow-black;
+  box-shadow: 0 2px 7px $shadow-black;
   display: inline-block;
   height: 89px;
-  margin: 50px 7px 40px 7px;
-  opacity: 0.89;
+  margin: 50px 7px 40px;
+  opacity: .89;
   padding: 15px;
-  transition: box-shadow 0.2s ease-in;
+  transition: box-shadow .2s ease-in;
   width: 300px;
 
   &:hover {
