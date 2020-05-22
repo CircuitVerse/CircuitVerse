@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class Api::V1::UsersController < Api::V1::BaseController
-  before_action :set_user, only: [:show, :update]
+  before_action :set_user, only: %i[show update]
   before_action :authenticate_user!
   before_action :check_access, only: [:update]
-  before_action :set_details_access, except: [:index, :me]
+  before_action :set_details_access, except: %i[index me]
 
   # GET api/v1/users
   def index

@@ -8,12 +8,12 @@ class Api::V1::UserSerializer
 
   # only serialized if user fetches own details
   attributes :email, :subscribed, :created_at, :updated_at,
-  if: Proc.new { |record, params|
-    params[:has_details_access] == true || record.admin
-  }
+             if: proc { |record, params|
+               params[:has_details_access] == true || record.admin
+             }
 
   attributes :admin, :country, :educational_institute,
-  if: Proc.new { |record, params|
-    params[:are_all_users_fetched] != true || record.admin
-  }
+             if: proc { |record, params|
+               params[:are_all_users_fetched] != true || record.admin
+             }
 end
