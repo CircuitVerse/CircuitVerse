@@ -2,9 +2,20 @@
 
 module SortingHelper
   def self.sort_fields(sort, allowed)
+    allowed = allowed.map(&:to_s)
     fields = sort.to_s.split(",")
-    fields.select { |field| allowed.include?(field.start_with?("-") ? field[1..-1] : field) }
-    fields.map { |field| field + (field.start_with?("-") ? " DESC" : " ASC") }
-    fields.join(", ")
+    ordered_fields = ordered_hash(fields)
+    ordered_fields.select { |key, value| allowed.include?(key) }
+  end
+
+  def self.ordered_hash(fields)
+    fields.each_with_object({}) do |field, hash|
+      if field.start_with?("-")
+        field = field[1..-1]
+        hash[field] = :desc
+      else
+        hash[field] = :asc
+      end
+    end
   end
 end

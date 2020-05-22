@@ -12,7 +12,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
   before_action :sanitize_name, only: [:update]
   before_action :set_options, except: [:destroy, :toggle_star]
 
-  SORTABLE_FIELDS = ["view", "created_at"]
+  SORTABLE_FIELDS = [:view, :created_at]
 
   # GET /api/v1/projects
   def index
@@ -25,7 +25,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
     @projects = @projects.tagged_with(params[:filter][:tag]) if params.has_key?(:filter)
     @projects = @projects.order(
-      Arel.sql(SortingHelper.sort_fields(params[:sort], SORTABLE_FIELDS))
+      SortingHelper.sort_fields(params[:sort], SORTABLE_FIELDS)
     ) if params.has_key?(:sort)
     @options[:links] = link_attrs(paginate(@projects), api_v1_projects_url)
 
@@ -44,7 +44,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
     @projects = @projects.tagged_with(params[:filter][:tag]) if params.has_key?(:filter)
     @projects = @projects.order(
-      Arel.sql(SortingHelper.sort_fields(params[:sort], SORTABLE_FIELDS))
+      SortingHelper.sort_fields(params[:sort], SORTABLE_FIELDS)
     ) if params.has_key?(:sort)
     @options[:links] = link_attrs(paginate(@projects), projects_api_v1_user_url)
 
@@ -82,7 +82,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     @projects = Project.joins(:featured_circuit).all
     @projects = @projects.tagged_with(params[:filter][:tag]) if params.has_key?(:filter)
     @projects = @projects.order(
-      Arel.sql(SortingHelper.sort_fields(params[:sort], SORTABLE_FIELDS))
+      SortingHelper.sort_fields(params[:sort], SORTABLE_FIELDS)
     ) if params.has_key?(:sort)
 
     @options[:links] = link_attrs(paginate(@projects), api_v1_projects_featured_url)
