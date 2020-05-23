@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Api::V1::ProjectsController, "#featured_ciruits", type: :request do
+RSpec.describe Api::V1::ProjectsController, "#featured_circuits", type: :request do
   describe "list all featured projects" do
     let!(:user) { FactoryBot.create(:user) }
     let!(:project_one) { FactoryBot.create(:project, project_access_type: "Public", view: 1) }

@@ -28,7 +28,7 @@ RSpec.describe Api::V1::ProjectsController, "#index", type: :request do
       end
     end
 
-    context "checks for projects sorted by views" do
+    context "when projects sorted by views" do
       it "returns all public projects sorted by views in descending order" do
         get "/api/v1/projects", params: { sort: "-view" }, as: :json
         views = response.parsed_body["data"].map { |proj| proj["attributes"]["view"] }

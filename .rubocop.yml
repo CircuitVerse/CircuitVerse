@@ -1,4 +1,4 @@
-require: 
+require:
   - rubocop-rspec
   - rubocop-rails
   - rubocop-performance
@@ -245,3 +245,6 @@ Style/Documentation:
   Enabled: false
 Style/ClassAndModuleChildren:
   Enabled: false
+
+RSpec/MultipleExpectations:
+  Max: 3

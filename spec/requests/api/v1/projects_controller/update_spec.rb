@@ -20,7 +20,7 @@ RSpec.describe Api::V1::ProjectsController, "#update", type: :request do
       end
     end
 
-    context "invalid parameters format" do
+    context "when invalid parameters format" do
       before do
         token = get_auth_token(user)
         patch "/api/v1/projects/#{project.id}",
