@@ -32,3 +32,13 @@ $(document).ready(() => {
         });
     }
 });
+
+
+var searchIcon = document.getElementsByClassName("fa-search");
+function activeSearchBar(){
+  let searchBar = document.getElementsByClassName("navbar-search-active");
+  searchIcon[0].addClass("active");
+  searchBar[0].style.display = "block";
+}
+console.log("hello");
+searchIcon.click(activeSearchBar());

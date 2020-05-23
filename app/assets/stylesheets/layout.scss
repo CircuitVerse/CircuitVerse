@@ -40,9 +40,112 @@ body {
   }
 }
 
-.logo {
+//navbar
+.navbar {
+  background-color: $white;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.navbar-logo {
   height: 60px;
 }
+
+.navbar-search-icon-container {
+  position: relative;
+  height: 40px;
+  width: 40px;
+}
+
+.nav-item {
+  .nav-link {
+    font-weight: 500;
+  }
+
+  &.active {
+    .nav-link {
+      color: $teal;
+    }
+  }
+}
+
+.dropdown:hover {
+  .dropdown-menu {
+    display: block;
+  }
+}
+
+.navbar-nav {
+.nav-link {
+  position: relative;
+  &::before {
+    background-color: $green;
+    bottom: -2px;
+    content: '';
+    height: 2px;
+    left: 0;
+    position: absolute;
+    transition: 300ms;
+    width: 0;
+  }
+  &:hover::before {
+    opacity: 1;
+    width: 100%;
+  }
+}
+}
+
+.fa-search {
+  color: $black;
+  font-size: 20px;
+  vertical-align: middle;
+
+  &:hover {
+    color: $green;
+  }
+
+  &.active {
+    color: $teal;
+  }
+}
+
+.dropdown-item {
+  &:hover {
+    background-color: $green;
+    color: $white;
+  }
+}
+
+.dropdown-toggle-hidden {
+  .dropdown-toggle::after {
+    display: none;
+  }
+}
+
+.dropdown-toggle {
+  cursor: pointer;
+}
+
+.dropdown-toggle::after {
+  margin-left: 0;
+  padding-left: 0;
+  vertical-align: .5em;
+}
+
+.navbar-username-truncate {
+  display: inline-block;
+  max-width: 70px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.navbar-search-active {
+  background-color: $card-green;
+  display: none;
+}
+//navbar ends
 
 .logo-bottom {
   max-height: 80px;
@@ -50,47 +153,6 @@ body {
 
 .affix {
   box-shadow: 0 8px 6px -6px $shadow-grey;
-}
-
-.navbar {
-  background-color: $active-background;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 100;
-}
-
-.navbar-light .navbar-nav {
-  .nav-item {
-    .nav-link {
-      color: $primary;
-      font-weight: 500;
-    }
-
-    &.active {
-      border-bottom: 2px solid $green;
-    }
-  }
-}
-
-.navbar-nav {
-  .nav-link {
-    position: relative;
-    &::before {
-      background-color: $green;
-      bottom: -2px;
-      content: '';
-      height: 2px;
-      left: 0;
-      position: absolute;
-      transition: 300ms;
-      width: 0;
-    }
-    &:hover::before {
-      opacity: 1;
-      width: 100%;
-    }
-  }
 }
 
 .empty-div {
@@ -124,22 +186,10 @@ body {
   justify-content: center;
 }
 
-.dropdown-item {
-  &:hover {
-    background-color: $green;
-    color: $white;
-  }
-}
-
-.dropdown-toggle::after {
-  margin-left: 0;
-  padding-left: 0;
-  vertical-align: .5em;
-}
-
-.navbar-username-truncate {
-  display: inline-block;
-  max-width: 70px;
-  overflow: hidden;
-  text-overflow: ellipsis;
+//to be removed
+.row-text {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1344px;
 }
