@@ -61,6 +61,15 @@ class Project < ApplicationRecord
     end
   end
 
+  def fork(user)
+    @forked_project = dup
+    @forked_project.remove_image_preview!
+    @forked_project.update!(
+      view: 1, author_id: user.id, forked_project_id: id, name: name
+    )
+    @forked_project
+  end
+
   def send_mail
     if forked_project_id.nil?
       UserMailer.new_project_email(author, self).deliver_later if project_submission == false
