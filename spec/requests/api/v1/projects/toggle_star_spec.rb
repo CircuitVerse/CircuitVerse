@@ -8,50 +8,51 @@ RSpec.describe Api::V1::ProjectsController, "#toggle-star", type: :request do
     let!(:project) { FactoryBot.create(:project, author: user) }
 
     context "when not authenticated" do
-      before(:each) do
+      before do
         get "/api/v1/projects/#{project.id}/toggle-star", as: :json
       end
-      it "should return status :not_authorized" do
+
+      it "returns status :not_authorized" do
         expect(response).to have_http_status(401)
-        expect(response.parsed_body).to have_jsonapi_errors()
+        expect(response.parsed_body).to have_jsonapi_errors
       end
     end
 
     context "when authenticated & stars a non existent project" do
-      before(:each) do
+      before do
         token = get_auth_token(user)
         get "/api/v1/projects/0/toggle-star",
-        headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { "Authorization": "Token #{token}" }, as: :json
       end
 
-      it "should return status :not_found" do
+      it "returns status :not_found" do
         expect(response).to have_http_status(404)
-        expect(response.parsed_body).to have_jsonapi_errors()
+        expect(response.parsed_body).to have_jsonapi_errors
       end
     end
 
     context "when stars an unstarred project" do
-      before(:each) do
+      before do
         token = get_auth_token(user)
         get "/api/v1/projects/#{project.id}/toggle-star",
-        headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { "Authorization": "Token #{token}" }, as: :json
       end
 
-      it "should return status :ok & starred message" do
+      it "returns status :ok & starred message" do
         expect(response).to have_http_status(200)
         expect(response.parsed_body["message"]).to eq("Starred successfully!")
       end
     end
 
     context "when unstars a starred project" do
-      before(:each) do
+      before do
         FactoryBot.create(:star, project: project, user: user)
         token = get_auth_token(user)
         get "/api/v1/projects/#{project.id}/toggle-star",
-        headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { "Authorization": "Token #{token}" }, as: :json
       end
 
-      it "should return status :ok & starred message" do
+      it "returns status :ok & starred message" do
         expect(response).to have_http_status(200)
         expect(response.parsed_body["message"]).to eq("Unstarred successfully!")
       end

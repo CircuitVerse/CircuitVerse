@@ -11,23 +11,24 @@ RSpec.describe Api::V1::ProjectsController, "#featured_ciruits", type: :request 
     let!(:featured_project_two) { FactoryBot.create(:featured_circuit, project: project_two) }
 
     context "when not authenticated" do
-      before(:each) do
+      before do
         get "/api/v1/projects/featured", as: :json
       end
-      it "should return status :not_authorized" do
+
+      it "returns status :not_authorized" do
         expect(response).to have_http_status(401)
-        expect(response.parsed_body).to have_jsonapi_errors()
+        expect(response.parsed_body).to have_jsonapi_errors
       end
     end
 
     context "when authenticated" do
-      before(:each) do
+      before do
         token = get_auth_token(user)
         get "/api/v1/projects/featured",
-        headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { "Authorization": "Token #{token}" }, as: :json
       end
 
-      it "should return all featured projects" do
+      it "returns all featured projects" do
         expect(response).to have_http_status(200)
         expect(response).to match_response_schema("projects")
         expect(response.parsed_body["data"].length).to eq(2)
@@ -35,20 +36,20 @@ RSpec.describe Api::V1::ProjectsController, "#featured_ciruits", type: :request 
     end
 
     context "when authenticated and checks for featured projects sorted by views" do
-      it "should return all featured projects sorted by views in descending order" do
+      it "returns all featured projects sorted by views in descending order" do
         token = get_auth_token(user)
         get "/api/v1/projects/featured",
-        headers: { "Authorization": "Token #{token}" },
-        params: { sort: "-view" }, as: :json
+            headers: { "Authorization": "Token #{token}" },
+            params: { sort: "-view" }, as: :json
         views = response.parsed_body["data"].map { |proj| proj["attributes"]["view"] }
         expect(views).to eq([2, 1])
       end
 
-      it "should return all featured projects sorted by views in ascending order" do
+      it "returns all featured projects sorted by views in ascending order" do
         token = get_auth_token(user)
         get "/api/v1/projects/featured",
-        headers: { "Authorization": "Token #{token}" },
-        params: { sort: "view" }, as: :json
+            headers: { "Authorization": "Token #{token}" },
+            params: { sort: "view" }, as: :json
         views = response.parsed_body["data"].map { |proj| proj["attributes"]["view"] }
         expect(views).to eq([1, 2])
       end

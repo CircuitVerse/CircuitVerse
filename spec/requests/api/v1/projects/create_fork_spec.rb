@@ -9,49 +9,50 @@ RSpec.describe Api::V1::ProjectsController, "#create_fork", type: :request do
     let!(:project) { FactoryBot.create(:project, author: user) }
 
     context "when not authenticated" do
-      before(:each) do
+      before do
         get "/api/v1/projects/#{project.id}/fork", as: :json
       end
-      it "should return status :not_authorized" do
+
+      it "returns status :not_authorized" do
         expect(response).to have_http_status(401)
-        expect(response.parsed_body).to have_jsonapi_errors()
+        expect(response.parsed_body).to have_jsonapi_errors
       end
     end
 
     context "when authenticated & forks a non existent project" do
-      before(:each) do
+      before do
         token = get_auth_token(user)
         get "/api/v1/projects/0/fork",
-        headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { "Authorization": "Token #{token}" }, as: :json
       end
 
-      it "should return status :not_found" do
+      it "returns status :not_found" do
         expect(response).to have_http_status(404)
-        expect(response.parsed_body).to have_jsonapi_errors()
+        expect(response.parsed_body).to have_jsonapi_errors
       end
     end
 
     context "when forks own project" do
-      before(:each) do
+      before do
         token = get_auth_token(user)
         get "/api/v1/projects/#{project.id}/fork",
-        headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { "Authorization": "Token #{token}" }, as: :json
       end
 
-      it "should return status :conflict" do
+      it "returns status :conflict" do
         expect(response).to have_http_status(409)
-        expect(response.parsed_body).to have_jsonapi_errors()
+        expect(response.parsed_body).to have_jsonapi_errors
       end
     end
 
     context "when forks other user's project" do
-      before(:each) do
+      before do
         token = get_auth_token(random_user)
         get "/api/v1/projects/#{project.id}/fork",
-        headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { "Authorization": "Token #{token}" }, as: :json
       end
 
-      it "should return status :ok & return forked project" do
+      it "returns status :ok & return forked project" do
         expect(response).to have_http_status(200)
         expect(response).to match_response_schema("project")
       end

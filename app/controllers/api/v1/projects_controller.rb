@@ -3,30 +3,33 @@
 class Api::V1::ProjectsController < Api::V1::BaseController
   include ActionView::Helpers::SanitizeHelper
 
-  before_action :set_project, except: [:index, :user_projects, :featured_circuits]
+  before_action :set_project, except: %i[index user_projects featured_circuits]
   before_action :authenticate_user, only: [:index]
   before_action :authenticate_user!, except: [:index]
-  before_action :edit_access?, only: [:update, :destroy]
+  before_action :edit_access?, only: %i[update destroy]
   before_action :delete_access?, only: [:destroy]
   before_action :view_access?, only: [:show]
   before_action :sanitize_name, only: [:update]
-  before_action :set_options, except: [:destroy, :toggle_star]
+  before_action :set_options, except: %i[destroy toggle_star]
 
-  SORTABLE_FIELDS = [:view, :created_at]
+  SORTABLE_FIELDS = %i[view created_at].freeze
 
   # GET /api/v1/projects
   def index
-    if @current_user.nil?
-      @projects = Project.public_access
+    @projects = if @current_user.nil?
+      Project.public_access
     else
-      @projects = Project.where(
-        "author_id = ? OR  project_access_type = ?", @current_user.id, "Public")
+      Project.where(
+        "author_id = ? OR  project_access_type = ?", @current_user.id, "Public"
+      )
     end
 
-    @projects = @projects.tagged_with(params[:filter][:tag]) if params.has_key?(:filter)
-    @projects = @projects.order(
-      SortingHelper.sort_fields(params[:sort], SORTABLE_FIELDS)
-    ) if params.has_key?(:sort)
+    @projects = @projects.tagged_with(params[:filter][:tag]) if params.key?(:filter)
+    if params.key?(:sort)
+      @projects = @projects.order(
+        SortingHelper.sort_fields(params[:sort], SORTABLE_FIELDS)
+      )
+    end
     @options[:links] = link_attrs(paginate(@projects), api_v1_projects_url)
 
     render json: Api::V1::ProjectSerializer.new(paginate(@projects), @options)
@@ -34,18 +37,20 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
   # GET /api/v1/users/:id/projects/
   def user_projects
-    if @current_user.id == params[:id].to_i
-      @projects = @current_user.projects
+    @projects = if @current_user.id == params[:id].to_i
+      @current_user.projects
     else
-      @projects = Project.where(
+      Project.where(
         "author_id = ? AND project_access_type = ?", params[:id], "Public"
       )
     end
 
-    @projects = @projects.tagged_with(params[:filter][:tag]) if params.has_key?(:filter)
-    @projects = @projects.order(
-      SortingHelper.sort_fields(params[:sort], SORTABLE_FIELDS)
-    ) if params.has_key?(:sort)
+    @projects = @projects.tagged_with(params[:filter][:tag]) if params.key?(:filter)
+    if params.key?(:sort)
+      @projects = @projects.order(
+        SortingHelper.sort_fields(params[:sort], SORTABLE_FIELDS)
+      )
+    end
     @options[:links] = link_attrs(paginate(@projects), projects_api_v1_user_url)
 
     render json: Api::V1::ProjectSerializer.new(paginate(@projects), @options)
@@ -80,10 +85,12 @@ class Api::V1::ProjectsController < Api::V1::BaseController
   # GET /api/v1/projects/featured
   def featured_circuits
     @projects = Project.joins(:featured_circuit).all
-    @projects = @projects.tagged_with(params[:filter][:tag]) if params.has_key?(:filter)
-    @projects = @projects.order(
-      SortingHelper.sort_fields(params[:sort], SORTABLE_FIELDS)
-    ) if params.has_key?(:sort)
+    @projects = @projects.tagged_with(params[:filter][:tag]) if params.key?(:filter)
+    if params.key?(:sort)
+      @projects = @projects.order(
+        SortingHelper.sort_fields(params[:sort], SORTABLE_FIELDS)
+      )
+    end
 
     @options[:links] = link_attrs(paginate(@projects), api_v1_projects_featured_url)
     render json: Api::V1::ProjectSerializer.new(paginate(@projects), @options)
@@ -96,7 +103,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
       star.destroy!
       render json: { "message": "Unstarred successfully!" }, status: :ok
     else
-      @star = Star.new()
+      @star = Star.new
       @star.user_id = @current_user.id
       @star.project_id = @project.id
       @star.save!
