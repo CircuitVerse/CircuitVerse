@@ -3,6 +3,7 @@
 class Api::V1::BaseController < ActionController::API
   include Pundit
   include CustomErrors
+  attr_reader :current_user
 
   DEFAULT_PER_PAGE = 5
 
@@ -68,7 +69,7 @@ class Api::V1::BaseController < ActionController::API
   def paginate(resource)
     resource.paginate(
       page: (params.to_unsafe_h.dig("page", "number") || 1).to_i,
-      per_page: (params.to_unsafe_h.dig("page", "size") || DEFAULT_PER_PAGE).to_i,
+      per_page: (params.to_unsafe_h.dig("page", "size") || DEFAULT_PER_PAGE).to_i
     )
   end
 
@@ -78,13 +79,13 @@ class Api::V1::BaseController < ActionController::API
       first: paginated_url(base_url, 1),
       prev: paginated_url(base_url, resource.previous_page),
       next: paginated_url(base_url, resource.next_page),
-      last: paginated_url(base_url, resource.total_pages),
+      last: paginated_url(base_url, resource.total_pages)
     }
   end
 
   def api_error(status: 500, errors: [])
     render json: Api::V1::ErrorSerializer.new(status, errors).as_json,
-      status: status
+           status: status
   end
 
   private

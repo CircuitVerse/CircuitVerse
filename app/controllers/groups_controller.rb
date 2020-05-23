@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class GroupsController < ApplicationController
-  before_action :set_group, only: [:show, :edit, :update, :destroy]
+  before_action :set_group, only: %i[show edit update destroy]
   before_action :authenticate_user!
-  before_action :check_show_access, only: [:show, :edit, :update, :destroy]
-  before_action :check_edit_access, only: [:edit,:update, :destroy]
+  before_action :check_show_access, only: %i[show edit update destroy]
+  before_action :check_edit_access, only: %i[edit update destroy]
 
   # GET /groups
   # GET /groups.json
@@ -15,8 +17,8 @@ class GroupsController < ApplicationController
   def show
     @group_member = @group.group_members.new
     @group.assignments.each do |assignment|
-      if assignment.status == 'reopening' and assignment.deadline < Time.now
-        assignment.status = 'closed'
+      if (assignment.status == "reopening") && (assignment.deadline < Time.zone.now)
+        assignment.status = "closed"
         assignment.save
       end
     end
@@ -28,8 +30,7 @@ class GroupsController < ApplicationController
   end
 
   # GET /groups/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /groups
   # POST /groups.json
@@ -38,7 +39,7 @@ class GroupsController < ApplicationController
 
     respond_to do |format|
       if @group.save
-        format.html { redirect_to @group, notice: 'Group was successfully created.' }
+        format.html { redirect_to @group, notice: "Group was successfully created." }
         format.json { render :show, status: :created, location: @group }
       else
         format.html { render :new }
@@ -52,7 +53,7 @@ class GroupsController < ApplicationController
   def update
     respond_to do |format|
       if @group.update(group_params)
-        format.html { redirect_to @group, notice: 'Group was successfully updated.' }
+        format.html { redirect_to @group, notice: "Group was successfully updated." }
         format.json { render :show, status: :ok, location: @group }
       else
         format.html { render :edit }
@@ -66,12 +67,13 @@ class GroupsController < ApplicationController
   def destroy
     @group.destroy
     respond_to do |format|
-      format.html { redirect_to user_groups_path(current_user), notice: 'Group was successfully destroyed.' }
+      format.html { redirect_to user_groups_path(current_user), notice: "Group was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_group
       @group = Group.find(params[:id])

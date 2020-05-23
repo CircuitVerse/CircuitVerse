@@ -28,7 +28,8 @@ class AssignmentPolicy < ApplicationPolicy
   end
 
   def reopen?
-    raise CustomAuthError.new("Project is already open") if assignment.status == "open"
+    raise CustomAuthError, "Project is already open" if assignment.status == "open"
+
     true
   end
 

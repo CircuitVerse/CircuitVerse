@@ -42,9 +42,7 @@ class Users::NotificationsController < ActivityNotification::NotificationsContro
 
     def set_target
       super
-      if @target != current_user
-        raise ApplicationPolicy::CustomAuthException.new "Wrong user"
-      end
+      raise ApplicationPolicy::CustomAuthException, "Wrong user" if @target != current_user
     end
 
   # def set_notification

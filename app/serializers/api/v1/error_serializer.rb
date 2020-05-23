@@ -5,10 +5,10 @@ class Api::V1::ErrorSerializer
 
   def initialize(status, errors)
     @status = status
-    if errors.is_a? ActiveModel::Errors
-      @errors = parse_am_errors(errors)
+    @errors = if errors.is_a? ActiveModel::Errors
+      parse_am_errors(errors)
     else
-      @errors = [errors].flatten
+      [errors].flatten
     end
   end
 
@@ -33,7 +33,7 @@ class Api::V1::ErrorSerializer
         {
           status: @status,
           title: normalize_title(error),
-          detail: normalize_error(error),
+          detail: normalize_error(error)
         }
       end
     end
@@ -48,7 +48,9 @@ class Api::V1::ErrorSerializer
 
     class ErrorDecorator
       def initialize(key, value, message)
-        @key, @value, @message = key, value, message
+        @key = key
+        @value = value
+        @message = message
       end
 
       def title

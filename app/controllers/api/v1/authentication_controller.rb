@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::AuthenticationController < Api::V1::BaseController
-  before_action :authenticate_user!, except: [:login, :signup]
+  before_action :authenticate_user!, except: %i[login signup]
 
   # POST api/v1/auth/login
   def login
