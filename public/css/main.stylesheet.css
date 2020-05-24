@@ -870,10 +870,11 @@ input[type="number"]:focus {
   font: inherit;
   background: rgba(69, 69, 69, 0.9);
   border-radius: 10px;
-  width: 600px !important;
-  height: 320px !important;
+  width: 600px;
+  height: 320px;
   padding: 10px 17px;
-  border: none;
+  padding-bottom: 0;
+  border: none !important;
 }
 @supports (backdrop-filter: blur()) {
   .ui-dialog {
@@ -881,6 +882,8 @@ input[type="number"]:focus {
     backdrop-filter: blur(10px);
   }
 }
+
+
 .ui-widget-header {
   background: transparent;
   color: white;
@@ -1083,3 +1086,85 @@ input[type="number"]:focus {
 }
 
 /*! download dialog styling end here */
+
+/** combinationalAnalysis dialog styling starts here */
+
+.ui-dialog[aria-describedby="combinationalAnalysis"] {
+  width: 460px;
+  min-height: 210px;
+  border: none !important;
+}
+
+#combinationalAnalysis {
+  border: 1px solid #7d7d7d;
+  margin-top: 10px;
+  color: white;
+}
+
+#combinationalAnalysis p input {
+  border: none;
+  border-bottom: 1px solid white;
+  background: transparent;
+  color: white;
+  font: inherit;
+  float: right;
+  text-align: center;
+}
+
+#combinationalAnalysis table {
+  width: 460px;
+}
+
+#booleanTable {
+  width: 200px;
+}
+
+table {
+  border-collapse: collapse;
+  -webkit-user-select: none;
+  /* Chrome/Safari */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* IE10+ */
+  /* Rules below not implemented in browsers yet */
+  -o-user-select: none;
+  user-select: none;
+}
+
+.content-table {
+  border-collapse: collapse;
+  font-size: 0.9em;
+  min-width: 400px;
+  overflow: hidden;
+}
+
+.content-table tr th {
+  background-color: #3ba374 !important;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.content-table th,
+.content-table td {
+  padding: 5px 15px;
+  margin: 0 3px;
+  width: 20%;
+  background-color: #f3f3f3;
+  border-radius: 2px;
+}
+
+.content-table tbody tr {
+  text-align: center;
+  display: flex;
+  margin-bottom: 4px;
+}
+.content-table tbody {
+  display: table-row-group !important;
+}
+.ui-dialog[aria-describedby="combinationalAnalysis"] button {
+  margin: 0 5px !important;
+
+}
+
+/*! combinationalAnalysis dialog styling end here */

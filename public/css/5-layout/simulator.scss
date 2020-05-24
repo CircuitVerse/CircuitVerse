@@ -91,32 +91,6 @@ button:focus {
 /* END OF MODULES  */
 
 
-th,
-td {
-  padding-left: 15px;
-  padding-right: 15px;
-  text-align: left;
-  border: 1px solid #0099ff;
-  color: white;
-}
-
-#booleanTable {
-  width: 200px;
-}
-
-table {
-  border-collapse: collapse;
-  -webkit-user-select: none;
-  /* Chrome/Safari */
-  -moz-user-select: none;
-  /* Firefox */
-  -ms-user-select: none;
-  /* IE10+ */
-  /* Rules below not implemented in browsers yet */
-  -o-user-select: none;
-  user-select: none;
-}
-
 body,
 html {
   width: 100%;
