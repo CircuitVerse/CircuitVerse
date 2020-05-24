@@ -1,0 +1,118 @@
+# frozen_string_literal: true
+
+class Api::V1::AssignmentsController < Api::V1::BaseController
+  before_action :authenticate_user!
+  before_action :set_group, only: %i[index create]
+  before_action :set_assignment, only: %i[show update destroy reopen start]
+  before_action :check_access, only: %i[update destroy reopen]
+  after_action :check_reopening_status, only: [:update]
+
+  # GET /api/v1/groups/:group_id/assignments
+  def index
+    # checks if current_user has access to group contents
+    authorize @group, :show_access?
+
+    @assignments = paginate(@group.assignments)
+    @options = { links: link_attrs(@assignments, api_v1_group_assignments_url(@group.id)) }
+    render json: Api::V1::AssignmentSerializer.new(@assignments, @options)
+  end
+
+  # GET /api/v1/assignments/:id
+  def show
+    authorize @assignment, :show?
+    render json: Api::V1::AssignmentSerializer.new(@assignment)
+  end
+
+  # POST /api/v1/groups/:group_id/assignments
+  def create
+    @assignment = @group.assignments.new(assignment_create_params)
+    authorize @assignment, :admin_access?
+    @assignment.status = "open"
+    @assignment.deadline = Time.zone.now + 1.year if @assignment.deadline.nil?
+    @assignment.save!
+    render json: Api::V1::AssignmentSerializer.new(@assignment), status: :created
+  end
+
+  # PATCH /api/v1/assignments/:id
+  def update
+    @assignment.update!(assignment_update_params)
+    if @assignment.update(assignment_update_params)
+      render json: Api::V1::AssignmentSerializer.new(@assignment), status: :accepted
+    else
+      invalid_resource!(@assignment.errors)
+    end
+  end
+
+  # DELETE /api/v1/assignments/:id
+  def destroy
+    @assignment.destroy!
+    render json: {}, status: :no_content
+  end
+
+  # GET /api/v1/assignments/:id/reopen
+  def reopen
+    if @assignment.status != "open"
+      @assignment.status = "open"
+      @assignment.deadline = Time.zone.now + 1.day
+      @assignment.save!
+      render json: { "message": "Assignment has been reopened!" }
+    else
+      api_error(status: 409, errors: "Project is already opened!")
+    end
+  end
+
+  # GET /api/v1/assignments/:id/start
+  def start
+    authorize @assignment
+    @project = @current_user.projects.new
+    @project.name = @current_user.name + "/" + @assignment.name
+    @project.assignment_id = @assignment.id
+    @project.project_access_type = "Private"
+    @project.save!
+    render json: {
+      "message": "Voila! Project set up under name #{@project.name}"
+    }
+  end
+
+  def check_reopening_status
+    @assignment.projects.each do |proj|
+      next unless proj.project_submission == true
+
+      old_project = Project.find_by(id: proj.forked_project_id)
+      if old_project.nil?
+        proj.project_submission = false
+        proj.save
+      else
+        old_project.assignment_id = proj.assignment_id
+        old_project.save
+        proj.destroy
+      end
+    end
+  end
+
+  private
+
+    def set_assignment
+      @assignment = Assignment.find(params[:id])
+    end
+
+    def set_group
+      @group = Group.find(params[:group_id])
+    end
+
+    def assignment_create_params
+      params.require(:assignment).permit(
+        :name, :deadline, :description, :grading_scale, :restrictions
+      )
+    end
+
+    def assignment_update_params
+      params.require(:assignment).permit(
+        :name, :deadline, :description, :restrictions
+      )
+    end
+
+    def check_access
+      authorize @assignment, :admin_access?
+    end
+end
