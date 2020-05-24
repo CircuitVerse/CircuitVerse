@@ -25,3 +25,7 @@ RUN yarn install
 
 # copy source
 COPY . /circuitverse
+
+# generate key-pair for jwt-auth
+RUN openssl genrsa -out /circuitverse/config/private.pem 2048
+RUN openssl rsa -in /circuitverse/config/private.pem -outform PEM -pubout -out /circuitverse/config/public.pem

@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class CollaborationsController < ApplicationController
-  before_action :set_collaboration, only: [:show, :edit, :update, :destroy]
+  before_action :set_collaboration, only: %i[show edit update destroy]
 
   def self.policy_class
     ProjectPolicy
@@ -13,8 +15,7 @@ class CollaborationsController < ApplicationController
 
   # GET /collaborations/1
   # GET /collaborations/1.json
-  def show
-  end
+  def show; end
 
   # GET /collaborations/new
   def new
@@ -22,13 +23,11 @@ class CollaborationsController < ApplicationController
   end
 
   # GET /collaborations/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /collaborations
   # POST /collaborations.json
   def create
-
     @project = Project.find(collaboration_params[:project_id])
 
     # if(not @project.assignment_id.nil?)
@@ -48,7 +47,7 @@ class CollaborationsController < ApplicationController
       if user.nil?
         # PendingInvitation.where(group_id:@group.id,email:email).first_or_create
       else
-        Collaboration.where(project_id:@project.id,user_id:user.id).first_or_create
+        Collaboration.where(project_id: @project.id, user_id: user.id).first_or_create
       end
     end
 
@@ -59,9 +58,8 @@ class CollaborationsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_to user_project_path(@project.author_id,@project.id), notice: notice }
+      format.html { redirect_to user_project_path(@project.author_id, @project.id), notice: notice }
     end
-
   end
 
   # PATCH/PUT /collaborations/1
@@ -71,7 +69,7 @@ class CollaborationsController < ApplicationController
 
     respond_to do |format|
       if @collaboration.update(collaboration_params)
-        format.html { redirect_to @collaboration, notice: 'Collaboration was successfully updated.' }
+        format.html { redirect_to @collaboration, notice: "Collaboration was successfully updated." }
         format.json { render :show, status: :ok, location: @collaboration }
       else
         format.html { render :edit }
@@ -87,12 +85,13 @@ class CollaborationsController < ApplicationController
 
     @collaboration.destroy
     respond_to do |format|
-      format.html { redirect_to user_project_path(@collaboration.project.author_id,@collaboration.project_id), notice: 'Collaboration was successfully destroyed.' }
+      format.html { redirect_to user_project_path(@collaboration.project.author_id, @collaboration.project_id), notice: "Collaboration was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_collaboration
       @collaboration = Collaboration.find(params[:id])
