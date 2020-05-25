@@ -93,7 +93,7 @@ describe Users::LogixController, type: :request do
       it "should all have existing category" do
         schema["settings"].each do |s|
           expect(s).to include "category"
-          expect(schema["categories"].select{|k, v| k["name"] == s["category"] }.length).to eq(1),
+          expect(schema["categories"].select { |k, v| k["name"] == s["category"] }.length).to eq(1),
             "'#{s["name"]}' reffers to '#{s["category"]}' category which don't exist"
         end
       end
@@ -116,12 +116,12 @@ describe Users::LogixController, type: :request do
         end
 
         it "booleans should keep schema " do
-          schema["settings"].select{ |k, v| k["action"]["type"] == "boolean" }.each do |s|
+          schema["settings"].select { |k, v| k["action"]["type"] == "boolean" }.each do |s|
             expect(s["action"]).to include "name"
           end
         end
         it "buttons should keep schema " do
-          schema["settings"].select{ |k, v| k["action"]["type"] == "button" }.each do |s|
+          schema["settings"].select { |k, v| k["action"]["type"] == "button" }.each do |s|
             expect(s["action"]).to include "buttonText"
             expect(s["action"]).to include "buttonLink"
           end
