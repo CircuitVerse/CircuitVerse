@@ -199,14 +199,9 @@ a.btn.btn-outline-danger {
 }
 
 .teacher-image {
-  box-shadow: 0 7px 7px $shadow-black;
+  border: 2px solid $shadow-grey;
   max-height: 100%;
   max-width: 100%;
-  transition: box-shadow .2s ease-in;
-
-  &:hover {
-    box-shadow: 0 15px 15px $shadow-black;
-  }
 }
 
 .teacher-text-left {
