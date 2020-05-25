@@ -20,7 +20,7 @@
 - Ruby Version: ruby-2.6.5
 - Rails Version: Rails 6.0.1
 - PostgreSQL Version: 9.5
-  
+
 ## Cloning From GitHub
 To clone the repository, either use the Git GUI if you have one installed or enter the following commands:
 ```sh
@@ -43,13 +43,20 @@ You will also need the required software, detailed above. `Redis` and `PostgreSQ
 1. Install bundler : `gem install bundler`
 1. Install dependencies: `bundle install`
 1. Install Yarn dependencies: `yarn`
-1. Configure your PostgreSQL database in `config/database.yml` (copy `config/database.example.yml` for the template) 
+1. Configure your PostgreSQL database in `config/database.yml` (copy `config/database.example.yml` for the template)
      * **Note:** The Postgres credentials need to be updated to your currently running database
 1. Create database: `rails db:create`
 1. Run migrations: `rails db:migrate`
 1. Start Sidekiq: `bundle exec sidekiq -e development -q default -q mailers -d -L tmp/sidekiq.log` (currently in development)
 
 Then, local development can be started with `rails s -b 127.0.0.1 -p 8080`. Navigate to `127.0.0.1:8080` in your web browser to access the website.
+
+### CircuitVerse API setup instructions
+CircuitVerse API uses `RSASSA` cryptographic signing that requires `private` and associated `public` key. To generate the keys RUN the following commands in `CircuitVerse/`
+```
+openssl genrsa -out config/private.pem 2048
+openssl rsa -in config/private.pem -outform PEM -pubout -out config/public.pem
+```
 
 ### Additional setup instructions
 [Yarn](https://yarnpkg.com/lang/en/) is a package manager for the JavaScript ecosystem.
@@ -85,6 +92,13 @@ RAILS_ENV=production bundle exec rake assets:precompile
 bundle exec sidekiq -e production -q default -q mailers -d -L tmp/sidekiq.log
 ```
 
+### Deploy to Heroku
+You will be redirected to the Heroku page for deployment on clicking the below button.
+Make sure that you fill in the `Config Vars` section before deploying it.
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/CircuitVerse/CircuitVerse)
+
+
 ### Additional instructions for Ubuntu
 Additional instructions can be found [here](https://www.howtoforge.com/tutorial/ubuntu-ruby-on-rails/) and there are some extra notes for single user installations:
 - If you are facing difficulties installing RVM, most probably it is because of an older version of rvm shipped with Ubuntu's desktop edition and updating the same resolves the problem.
@@ -113,7 +127,7 @@ Before making a pull request, it is a good idea to check that all tests are pass
 **Note:** Docker will not run on Windows 10 Home Edition.
 
 ### Usage
-* Run `docker-compose up` to run the instance 
+* Run `docker-compose up` to run the instance
 * Run `docker-compose down` to stop the instance
 * Run `docker-compose build --no-cache` to rebuild the instance (make sure the instance is not running first)
 

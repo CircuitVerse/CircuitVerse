@@ -39,10 +39,10 @@
     <div class="container">
       <div class="d-flex flex-column flex-md-row align-items-center py-4 py-md-0 my-4 my-lg-0">
         <div>
-          <h1>Dive into the world of Logic Circuits for free!</h1> <br>
+          <h1>Dive into the world of Logic Circuits for free!</h1><br>
           <p>From simple gates to complex sequential circuits, plot timing diagrams, automatic circuit generation, explore standard ICs, and much more</p>
-          <button type="button" class="btn btn-homepage btn-about mx-0" onclick="window.location.href = '/simulator';">Launch Simulator</button>
-          <a href="https://learn.circuitverse.org/" class="a-homepage d-block d-md-inline-block d-lg-inline-block">Learn Logic Design</a>
+          <a class="btn btn-homepage btn-about" href='/simulator'>Launch Simulator</a>
+          <a href="https://learn.circuitverse.org/" class="a-homepage">Learn Logic Design</a>
         </div>
         <div>
           <%= image_tag "homepage/new_homepage_sketch.png", alt: "HomepageSketch", :class => "homepage-cover" %>
@@ -95,6 +95,32 @@
             </div>
         </div>
       </div>
+      </div>
+      <div class="container-fluid container-fluid_teachersbackground">
+        <div class="container" id="recent">
+          <div class="row row-homepage-middle">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <h3>Recent Circuits</h3>
+            </div>
+          </div>
+
+          <div class="row row-homepage-middle">
+            <% @projects.each do |project| %>
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+              <div class="card card-homepage-example">
+                <a href="<%= user_project_path(project.author_id,project) %>"><img class="card-img-top" src="<%= project.image_preview.url %>" alt="<%= project.name %>"></a>
+                <div class="card-footer card-footer-homepage-example">
+                  <p class="homepage-example-p"><%= project.name %></p>
+                  <button type="button" class="btn btn-about homepage-example-button" onclick="window.location.href = '<%= user_project_path(project.author_id,project) %>';">View</button>
+                </div>
+               </div>
+              </div>
+             <% end %>
+           </div>
+           <div class="container pagination-cont">
+            <%= will_paginate @projects, renderer: PaginateRenderer %>
+           </div>
+        </div>
       </div>
       <div class="container">
         <div class="row row-homepage-middle">

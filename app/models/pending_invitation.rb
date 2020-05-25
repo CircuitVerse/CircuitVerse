@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PendingInvitation < ApplicationRecord
   belongs_to :group
   after_commit :send_pending_invitation_mail, on: :create

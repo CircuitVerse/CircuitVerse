@@ -65,7 +65,7 @@
             <br>
           <% end %>
           <% if !@project.forked_project.nil? %>
-            <strong>Forked project:</strong>
+            <strong>Forked from:</strong>
             <%= link_to @project.forked_project.author.name+"/"+@project.forked_project.name , user_project_path(@project.forked_project.author,@project.forked_project) %>
               <br>
             <% end %>

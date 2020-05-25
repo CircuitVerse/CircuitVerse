@@ -1,1 +1,3 @@
-json.array! @collaborations, partial: 'collaborations/collaboration', as: :collaboration
+# frozen_string_literal: true
+
+json.array! @collaborations, partial: "collaborations/collaboration", as: :collaboration
