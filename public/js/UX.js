@@ -271,10 +271,10 @@ function escapeHtml(unsafe) {
 }
 
 $('#bitconverterprompt').append(`
-<label style='color:grey'>Decimal value</label><br><input  type='text' id='decimalInput' name='text1'><br><br>
-<label  style='color:grey'>Binary value</label><br><input  type='text' id='binaryInput' name='text1'><br><br>
-<label  style='color:grey'>Octal value</label><br><input  type='text' id='octalInput' name='text1'><br><br>
-<label  style='color:grey'>Hexadecimal value</label><br><input  type='text' id='hexInput' name='text1'><br><br>
+<label style='color:grey'>Decimal value</label><br><input  type='text' id='decimalInput' label="Decimal" name='text1'><br><br>
+<label  style='color:grey'>Binary value</label><br><input  type='text' id='binaryInput' label="Binary" name='text1'><br><br>
+<label  style='color:grey'>Octal value</label><br><input  type='text' id='octalInput' label="Octal" name='text1'><br><br>
+<label  style='color:grey'>Hexadecimal value</label><br><input  type='text' id='hexInput' label="Hex" name='text1'><br><br>
 `);
 $('#bitconverter').click(function () {
     $('#bitconverterprompt').dialog({
@@ -294,9 +294,9 @@ $('#bitconverter').click(function () {
 
 // convertors
 convertors = {
-    dec2bin : (x) => {return x.toString(2)},   
-    dec2hex : (x) => {return x.toString(16)},   
-    dec2octal : (x) => {return x.toString(8)},   
+    dec2bin: (x) => x.toString(2),   
+    dec2hex: (x) => x.toString(16),   
+    dec2octal: (x) => x.toString(8),   
 }
 
 function setBaseValues(x) {
