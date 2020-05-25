@@ -24,8 +24,8 @@ function generateSettingRow(setting, value, devEnv, token) {
 function generateHtml(friendlySchema, userSettings, devEnv, token) {
     let result = '';
     friendlySchema.categories.forEach((category) => {
-        categoryElements = friendlySchema.settings.filter((x) => x.category === category.name);
-        notHiddenElements = categoryElements.filter((x) => !x.hidden);
+        categoryElements = friendlySchema.settings.filter(x => x.category === category.name);
+        notHiddenElements = categoryElements.filter(x => !x.hidden);
         if ((!devEnv && notHiddenElements.length > 0) || (devEnv && categoryElements.length > 0)) {
             result += `<h3>${category.name}</h3>`;
 
