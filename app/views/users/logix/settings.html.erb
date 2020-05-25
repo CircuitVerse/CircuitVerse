@@ -11,7 +11,6 @@
   </div>
 </div>
 
-
 <script>
     loadUserSettings(JSON.parse('<%= raw current_user.settings.to_json %>'), <%= Rails.env == "development" %>, '<%= form_authenticity_token %>');
 </script>
