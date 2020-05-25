@@ -11,6 +11,6 @@ describe "Settings", type: :system do
     sign_in @user
     visit user_settings_path(@user)
     check "hide_external_navbar_links"
-    expect(page).to have_no_link("Documentation", :href=>"https://docs.circuitverse.org/")
+    expect(page).to have_no_link("Documentation", href: "https://docs.circuitverse.org/")
   end
 end

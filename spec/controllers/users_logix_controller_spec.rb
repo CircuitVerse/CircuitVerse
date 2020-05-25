@@ -70,7 +70,7 @@ describe Users::LogixController, type: :request do
 
   describe "settings.json schema" do
     schema = JSON.parse File.read "public/js/settings.json"
-    
+
     describe "overall" do
       it "should have atleast one category" do
         expect(schema["categories"].length).to be > 0
@@ -116,12 +116,12 @@ describe Users::LogixController, type: :request do
         end
 
         it "booleans should keep schema " do
-          schema["settings"].select{|k, v| k["action"]["type"] == "boolean" }.each do |s|
+          schema["settings"].select{ |k, v| k["action"]["type"] == "boolean" }.each do |s|
             expect(s["action"]).to include "name"
           end
         end
         it "buttons should keep schema " do
-          schema["settings"].select{|k, v| k["action"]["type"] == "button" }.each do |s|
+          schema["settings"].select{ |k, v| k["action"]["type"] == "button" }.each do |s|
             expect(s["action"]).to include "buttonText"
             expect(s["action"]).to include "buttonLink"
           end
