@@ -294,13 +294,13 @@ $('#bitconverter').click(function () {
 
 // convertors
 convertors = {
-    dec2bin: (x) => x.toString(2),   
-    dec2hex: (x) => x.toString(16),   
-    dec2octal: (x) => x.toString(8),   
+    dec2bin: x => x.toString(2),   
+    dec2hex: x => x.toString(16),   
+    dec2octal: x => x.toString(8),   
 }
 
 function setBaseValues(x) {
-    if(isNaN(x))return;
+    if (isNaN(x)) return;
     $("#binaryInput").val(convertors.dec2bin(x));
     $("#octalInput").val(convertors.dec2octal(x));
     $("#hexInput").val(convertors.dec2hex(x));
