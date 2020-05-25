@@ -5,10 +5,6 @@ require "rails_helper"
 RSpec.describe Api::V1::ProjectsController, "#featured_circuits", type: :request do
   describe "list all featured projects" do
     let!(:user) { FactoryBot.create(:user) }
-    let!(:project_one) { FactoryBot.create(:project, project_access_type: "Public", view: 1) }
-    let!(:project_two) { FactoryBot.create(:project, project_access_type: "Public", view: 2) }
-    let!(:featured_project_one) { FactoryBot.create(:featured_circuit, project: project_one) }
-    let!(:featured_project_two) { FactoryBot.create(:featured_circuit, project: project_two) }
 
     context "when not authenticated" do
       before do
@@ -23,6 +19,9 @@ RSpec.describe Api::V1::ProjectsController, "#featured_circuits", type: :request
 
     context "when authenticated" do
       before do
+        FactoryBot.create_list(:project, 5, project_access_type: "Public").each do |p|
+          FactoryBot.create(:featured_circuit, project: p)
+        end
         token = get_auth_token(user)
         get "/api/v1/projects/featured",
             headers: { "Authorization": "Token #{token}" }, as: :json
@@ -31,27 +30,43 @@ RSpec.describe Api::V1::ProjectsController, "#featured_circuits", type: :request
       it "returns all featured projects" do
         expect(response).to have_http_status(200)
         expect(response).to match_response_schema("projects")
-        expect(response.parsed_body["data"].length).to eq(2)
+        expect(response.parsed_body["data"].length).to eq(5)
       end
     end
 
-    context "when authenticated and checks for featured projects sorted by views" do
-      it "returns all featured projects sorted by views in descending order" do
-        token = get_auth_token(user)
-        get "/api/v1/projects/featured",
-            headers: { "Authorization": "Token #{token}" },
-            params: { sort: "-view" }, as: :json
-        views = response.parsed_body["data"].map { |proj| proj["attributes"]["view"] }
-        expect(views).to eq([2, 1])
-      end
-
-      it "returns all featured projects sorted by views in ascending order" do
+    context "when authenticated and checks for projects sorted in :ASC by views" do
+      before do
+        FactoryBot.create_list(:project, 5, project_access_type: "Public", view: rand(10))
+                  .each do |p|
+          FactoryBot.create(:featured_circuit, project: p)
+        end
         token = get_auth_token(user)
         get "/api/v1/projects/featured",
             headers: { "Authorization": "Token #{token}" },
             params: { sort: "view" }, as: :json
+      end
+
+      it "returns all projects sorted by views in ascending order" do
         views = response.parsed_body["data"].map { |proj| proj["attributes"]["view"] }
-        expect(views).to eq([1, 2])
+        expect(views).to eq(views.sort)
+      end
+    end
+
+    context "when authenticated and checks for projects sorted in :DESC by views" do
+      before do
+        FactoryBot.create_list(:project, 5, project_access_type: "Public", view: rand(10))
+                  .each do |p|
+          FactoryBot.create(:featured_circuit, project: p)
+        end
+        token = get_auth_token(user)
+        get "/api/v1/projects/featured",
+            headers: { "Authorization": "Token #{token}" },
+            params: { sort: "-view" }, as: :json
+      end
+
+      it "returns all projects sorted by views in descending order" do
+        views = response.parsed_body["data"].map { |proj| proj["attributes"]["view"] }
+        expect(views).to eq(views.sort.reverse)
       end
     end
   end

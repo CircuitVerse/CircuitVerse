@@ -8,9 +8,7 @@ RSpec.describe Api::V1::ProjectsController, "#show", type: :request do
     let!(:random_user) { FactoryBot.create(:user) }
     let!(:private_project) { FactoryBot.create(:project, author: user) }
     let!(:public_project) do
-      FactoryBot.create(
-        :project, project_access_type: "Public", author: user
-      )
+      FactoryBot.create(:project, project_access_type: "Public", author: user)
     end
 
     context "when not authenticated" do

@@ -7,15 +7,11 @@ RSpec.describe Api::V1::ProjectsController, "#user_projects", type: :request do
     let!(:user_one) { FactoryBot.create(:user) }
     let!(:user_two) { FactoryBot.create(:user) }
     let!(:public_project_user_one) do
-      FactoryBot.create(
-        :project, project_access_type: "Public", author: user_one, view: 1
-      )
+      FactoryBot.create(:project, project_access_type: "Public", author: user_one, view: 1)
     end
     let!(:private_project_user_one) { FactoryBot.create(:project, author: user_one, view: 2) }
     let!(:public_project_user_two) do
-      FactoryBot.create(
-        :project, project_access_type: "Public", author: user_two, view: 3
-      )
+      FactoryBot.create(:project, project_access_type: "Public", author: user_two, view: 3)
     end
     let!(:private_project_user_two) { FactoryBot.create(:project, author: user_two, view: 4) }
 
@@ -56,23 +52,31 @@ RSpec.describe Api::V1::ProjectsController, "#user_projects", type: :request do
       end
     end
 
-    context "when authenticated and checks for projects sorted by views" do
-      it "returns all user projects sorted by views in descending order" do
-        token = get_auth_token(user_one)
-        get "/api/v1/users/#{user_one.id}/projects",
-            headers: { "Authorization": "Token #{token}" },
-            params: { sort: "-view" }, as: :json
-        views = response.parsed_body["data"].map { |proj| proj["attributes"]["view"] }
-        expect(views).to eq([2, 1])
-      end
-
-      it "returns all user projects sorted by views in ascending order" do
+    context "when authenticated and checks for projects sorted in :ASC by views" do
+      before do
         token = get_auth_token(user_one)
         get "/api/v1/users/#{user_one.id}/projects",
             headers: { "Authorization": "Token #{token}" },
             params: { sort: "view" }, as: :json
+      end
+
+      it "returns all projects sorted by views in ascending order" do
         views = response.parsed_body["data"].map { |proj| proj["attributes"]["view"] }
         expect(views).to eq([1, 2])
+      end
+    end
+
+    context "when authenticated and checks for projects sorted in :DESC by views" do
+      before do
+        token = get_auth_token(user_one)
+        get "/api/v1/users/#{user_one.id}/projects",
+            headers: { "Authorization": "Token #{token}" },
+            params: { sort: "-view" }, as: :json
+      end
+
+      it "returns all projects sorted by views in descending order" do
+        views = response.parsed_body["data"].map { |proj| proj["attributes"]["view"] }
+        expect(views).to eq([2, 1])
       end
     end
 

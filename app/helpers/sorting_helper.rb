@@ -5,7 +5,7 @@ module SortingHelper
     allowed = allowed.map(&:to_s)
     fields = sort.to_s.split(",")
     ordered_fields = ordered_hash(fields)
-    ordered_fields.select { |key, value| allowed.include?(key) }
+    ordered_fields.select { |key, _value| allowed.include?(key) }
   end
 
   def self.ordered_hash(fields)
