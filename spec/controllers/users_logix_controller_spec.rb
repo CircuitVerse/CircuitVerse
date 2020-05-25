@@ -97,12 +97,15 @@ describe Users::LogixController, type: :request do
             "'#{s["name"]}' reffers to '#{s["category"]}' category which don't exist"
         end
       end
+
       it "should all have name" do
         expect(schema["settings"]).to all include "name"
       end
+
       it "should all have description" do
         expect(schema["settings"]).to all include "description"
       end
+
       it "should all have action" do
         expect(schema["settings"]).to all include "action"
       end
@@ -120,6 +123,7 @@ describe Users::LogixController, type: :request do
             expect(s["action"]).to include "name"
           end
         end
+        
         it "buttons should keep schema " do
           schema["settings"].select { |k, v| k["action"]["type"] == "button" }.each do |s|
             expect(s["action"]).to include "buttonText"
