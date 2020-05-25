@@ -216,7 +216,7 @@ function startListeners() {
         // f1 key for opening the documentation page
         if (e.keyCode === 112) {
             e.preventDefault();
-            const type = simulationArea.lastSelected.objectType;
+            const type = simulationArea.lastSelected;
             // except Wire Node
             if (simulationArea.lastSelected == undefined) {
               // didn't select any element
@@ -226,7 +226,7 @@ function startListeners() {
             } else if (type === "Clock" || type === "ControlledInverter" || type==="RGBLedMatrix") {
               // NOT FOUND
             } else {
-                window.open(`https://docs.circuitverse.org/#/${docRef[type]}`, '_blank');
+                window.open(type.helplink);
             }
           }
     })
