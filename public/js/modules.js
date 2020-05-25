@@ -1399,12 +1399,26 @@ Rom.prototype.click = function () { // toggle
 }
 
 Rom.prototype.dblclick = function() { // entering data in ROM
-    temp = prompt("Enter data").replace(/[^(0|1)]/g,"").match(/.{1,2}/g).map(function (x) {
-        return parseInt(x, 16);
-    });  
+    temp = prompt("Enter data")
+    console.log(temp)
+    if (temp === null || temp === ''){
+        showError("No input was given")
+        return;
+    }
+    if (temp.slice(0, 2) === '0x' || ((parseInt(temp,16) != NaN) && (parseInt(temp,16)>17))){
+        temp = temp.slice(2).replace(/[^(0|1|2|3|4|5|6|7|8|9|0|a|b|c|d|e|f)]/g,"").match(/.{1,2}/g).map(function (x) {
+            return parseInt(x, 16);
+        });  
+    }
+    else{
+        temp = temp.replace(/[^(0|1)]/g,"").match(/.{1,2}/g).map(function (x) {
+            return parseInt(x, 16);
+        });  
+    }
     for(var i = 0; i < 16 && i < temp.length; i++){
         this.data[i] = temp[i];
     }
+    console.log(this.data)
 }
 Rom.prototype.keyDown = function (key) {
     if (key == "Backspace") this.delete();
