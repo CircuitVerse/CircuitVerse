@@ -18,12 +18,10 @@ describe CustomMailsHelper do
         sender: FactoryBot.create(:user, subscribed: false))
     end
 
-    # uncomment me when pushing
-    #
-    # it "should send mails to all subscribed users" do
-    #   expect {
-    #     send_mail_in_batches(@mail)
-    #   }.to have_enqueued_job.on_queue("mailers").exactly(SUBSCRIBED_USERS_COUNT).times
-    # end
+    it "should send mails to all subscribed users" do
+      expect {
+        send_mail_in_batches(@mail)
+      }.to have_enqueued_job.on_queue("mailers").exactly(SUBSCRIBED_USERS_COUNT).times
+    end
   end
 end
