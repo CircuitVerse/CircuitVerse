@@ -52,7 +52,7 @@ function handleCheckbox(checkbox, refresh, token) {
         },
         success: () => {
             if (refresh) {
-                location.reload();
+                window.location.reload();
             } else {
                 checkbox.disabled = false;
             }
