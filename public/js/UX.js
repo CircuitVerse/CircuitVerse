@@ -294,9 +294,9 @@ $('#bitconverter').click(function () {
 
 // convertors
 convertors = {
-    dec2bin: x => x.toString(2),   
-    dec2hex: x => x.toString(16),   
-    dec2octal: x => x.toString(8),   
+    dec2bin: x => "0b" + x.toString(2),
+    dec2hex: x => "0x" + x.toString(16),
+    dec2octal: x => "0" + x.toString(8),
 }
 
 function setBaseValues(x) {
