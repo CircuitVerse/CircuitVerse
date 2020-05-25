@@ -1034,7 +1034,7 @@ input[type="number"]:focus {
   border: none;
   color: white;
   position: absolute;
-  top: 0;
+  top: 5px;
   right: 5px;
   margin-top: 3px !important;
 }
@@ -1176,7 +1176,7 @@ table {
 
 #openProjectDialog > label {
   margin: 4px;
-  padding: 4px;
+  padding: 10px;
   background: transparent;
   border: 1px solid white;
   color: white;
@@ -1195,3 +1195,7 @@ table {
 
 
 /*! openProjectDialog styling ends here */
+
+#insertSubcircuitDialog {
+  color: white;
+}
