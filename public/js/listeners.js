@@ -69,13 +69,16 @@ function startListeners() {
   
     
     window.addEventListener('keydown', function(e) {
+
+        if(document.activeElement.tagName == "INPUT") return; 
+        
         if(listenToSimulator){
         // If mouse is focusing on input element, then override any action
         // if($(':focus').length){
         //     return;
         // }
 
-        if (simulationArea.mouseRawX < 0 || simulationArea.mouseRawY < 0 || simulationArea.mouseRawX > width || simulationArea.mouseRawY > height) {
+        if (document.activeElement.tagName == "INPUT" || simulationArea.mouseRawX < 0 || simulationArea.mouseRawY < 0 || simulationArea.mouseRawX > width || simulationArea.mouseRawY > height) {
             return;
         } else {
             // HACK TO REMOVE FOCUS ON PROPERTIES
@@ -275,6 +278,9 @@ function startListeners() {
     }
 
     document.addEventListener('cut', function(e) {
+
+        if(document.activeElement.tagName == "INPUT") return; 
+
         if(listenToSimulator){
         simulationArea.copyList = simulationArea.multipleObjectSelections.slice();
         if (simulationArea.lastSelected && simulationArea.lastSelected !== simulationArea.root && !simulationArea.copyList.contains(simulationArea.lastSelected)) {
@@ -300,6 +306,9 @@ function startListeners() {
     });
 
     document.addEventListener('copy', function(e) {
+
+        if(document.activeElement.tagName == "INPUT") return; 
+
         if(listenToSimulator){
         simulationArea.copyList = simulationArea.multipleObjectSelections.slice();
         if (simulationArea.lastSelected && simulationArea.lastSelected !== simulationArea.root && !simulationArea.copyList.contains(simulationArea.lastSelected)) {
@@ -324,6 +333,9 @@ function startListeners() {
     });
 
     document.addEventListener('paste', function(e) {
+
+        if(document.activeElement.tagName == "INPUT") return; 
+
         if(listenToSimulator){
         var data;
         if (isIe) {
