@@ -883,7 +883,6 @@ input[type="number"]:focus {
   }
 }
 
-
 .ui-widget-header {
   background: transparent;
   color: white;
@@ -1164,7 +1163,35 @@ table {
 }
 .ui-dialog[aria-describedby="combinationalAnalysis"] button {
   margin: 0 5px !important;
-
 }
 
 /*! combinationalAnalysis dialog styling end here */
+
+/** openProjectDialog styling starts here */
+
+#openProjectDialog {
+  display: flex;
+  flex-direction: column;
+}
+
+#openProjectDialog > label {
+  margin: 4px;
+  padding: 4px;
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+  border-radius: 1px;
+  width: 100%;
+}
+
+#openProjectDialog > label > span {
+  border: 3px solid white;
+}
+
+#openProjectDialog > label > span:after {
+  background: white;
+}
+
+
+
+/*! openProjectDialog styling ends here */

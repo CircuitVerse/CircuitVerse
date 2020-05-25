@@ -403,7 +403,7 @@ $(function(){
 });
 
 $(function(){
-  // $("#combinationalAnalysis").checkBo();
+  $("#openProjectDialog").checkBo();
   $(".download-dialog-section-2_2").checkBo();
 });
 
