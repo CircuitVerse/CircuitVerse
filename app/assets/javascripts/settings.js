@@ -43,7 +43,7 @@ function generateSettingRow(setting, value, devEnv, token)
     let action = "Failed to generate action";
     if(setting.action.type == "boolean")
     {
-        action = `<input type="checkbox" id="${setting.action.name}" onclick='handleClick(this, ${setting.action.refreshPage},"${token}");' ${value ? " checked" : ""}>`
+        action = `<input type="checkbox" id="${setting.action.name}" onclick='handleCheckbox(this, ${setting.action.refreshPage},"${token}");' ${value ? " checked" : ""}>`
     }
     else if(setting.action.type == "button")
     {
