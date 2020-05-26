@@ -57,8 +57,8 @@ body {
   transition: all .2s ease-in;
 
   &:hover {
-    color: $white;
     background: $green;
+    color: $white;
   }
 }
 
@@ -75,7 +75,7 @@ body {
   }
 }
 
-#navbarDropdown {
+#navbar-dropdown-1, #navbar-dropdown-2 {
   &:hover {
     color: $green;
   }
@@ -127,11 +127,11 @@ body {
 
 .navbar-search-active {
   background-color: $card-green;
-  top: 78px;
   display: none;
   margin-top: 0;
   padding: 20px;
   position: fixed;
+  top: 78px;
   width: 100%;
   z-index: 90;
 }
@@ -186,8 +186,8 @@ body {
 
 //to be removed
 .row-text {
-  text-align: center;
   margin-left: auto;
   margin-right: auto;
   max-width: 1344px;
+  text-align: center;
 }
