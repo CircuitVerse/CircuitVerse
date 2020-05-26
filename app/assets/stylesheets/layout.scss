@@ -31,15 +31,6 @@ body {
   color: $primary;
 }
 
-.simulator {
-  border: 2px solid $green;
-  font-weight: 500;
-  &:hover {
-    color: $color-hover;
-    background: $active-background;
-  }
-}
-
 //navbar
 .navbar {
   background-color: $white;
@@ -54,47 +45,40 @@ body {
 }
 
 .navbar-search-icon-container {
-  position: relative;
   height: 40px;
+  position: relative;
   width: 40px;
 }
 
-.nav-item {
-  .nav-link {
-    font-weight: 500;
+.navbar-simulator-text {
+  border: 2px solid $green;
+  color: $black;
+  font-weight: 500;
+  transition: all .2s ease-in;
+
+  &:hover {
+    color: $white;
+    background: $green;
+  }
+}
+
+.navbar-text {
+  color: $black;
+  font-weight: 500;
+
+  &:hover {
+    color: $green;
   }
 
   &.active {
-    .nav-link {
-      color: $teal;
-    }
+    color: $teal;
   }
 }
 
-.dropdown:hover {
-  .dropdown-menu {
-    display: block;
+#navbarDropdown {
+  &:hover {
+    color: $green;
   }
-}
-
-.navbar-nav {
-.nav-link {
-  position: relative;
-  &::before {
-    background-color: $green;
-    bottom: -2px;
-    content: '';
-    height: 2px;
-    left: 0;
-    position: absolute;
-    transition: 300ms;
-    width: 0;
-  }
-  &:hover::before {
-    opacity: 1;
-    width: 100%;
-  }
-}
 }
 
 .fa-search {
@@ -143,16 +127,22 @@ body {
 
 .navbar-search-active {
   background-color: $card-green;
+  top: 78px;
   display: none;
+  margin-top: 0;
+  padding: 20px;
+  position: fixed;
+  width: 100%;
+  z-index: 90;
+}
+
+.affix {
+  box-shadow: 0 8px 6px -6px $shadow-grey;
 }
 //navbar ends
 
 .logo-bottom {
   max-height: 80px;
-}
-
-.affix {
-  box-shadow: 0 8px 6px -6px $shadow-grey;
 }
 
 .empty-div {
@@ -184,6 +174,14 @@ body {
   display: flex;
   height: 300px;
   justify-content: center;
+}
+
+//breakpoints
+@media (max-width: 400px) {
+  .navbar-search-active {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
 }
 
 //to be removed

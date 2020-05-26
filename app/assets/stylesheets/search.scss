@@ -11,60 +11,67 @@
     display: none;
 }
 
-.search-box-form {
-    display: flex;
-    margin-left: 1.50rem;
-    margin-right: 0.9rem;
-}
-
-.search-bar-input {
-    border: 1px solid $green;
-    border-radius: 4px;
-    outline: 0;
-
-    padding: 0.5rem;
-    padding-left: 0.8rem;
-    width: 100%;
-    margin-right: 0.6rem;
-}
-
-.search-bar-select {
-    cursor: pointer;
-    width: 105px;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    border-radius: 3px 0 0 3px;
-    border: 1px solid #ced4da;
-    background: url("/img/caret.jpg") 100% / 25% no-repeat #ddd;
-    padding: 0.8rem;
-    border: 1px solid rgba(0,0,0,.125);
-    font-size: 0.9rem;
-}
-
-.nav-search-form {
-    display: flex;
-}
-
-.nav-bar-search-select {
-    cursor: pointer;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    border-radius: 3px 0 0 3px;
-    border: 1px solid #ced4da;
-    background: url("/img/caret.jpg") 100% / 25% no-repeat #ddd;
-    font-size: 0.8rem;
-    padding-right: 1.6rem;
-}
-
-.nav-bar-search-input {
-    border-radius: 0 3px 3px 0;
-    outline: 0;
-    border: 0;
-    padding-left: 0.8rem;
-}
-
 .search-match {
     color: red;
+}
+
+//navbar search
+.navbar-search-bar-form {
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;
+}
+
+.navbar-search-bar-input {
+  border: 1px solid $green;
+  margin: 5px;
+  min-width: 150px;
+  padding: 5px;
+  width: 100%;
+}
+
+.navbar-search-bar-select {
+  background-color: $card-green;
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+//navbar search ends
+
+//breakpoints
+@media (max-width: 768px) {
+  .navbar-search-bar-form {
+    width: 90%;
+  }
+}
+
+@media (max-width: 400px) {
+  .navbar-search-bar-form {
+    width: 100%;
+  }
+
+  .navbar-search-bar-submit {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .navbar-search-bar-select {
+    width: 50px;
+  }
+}
+
+//to be removed
+.button-primary {
+  background-color: $green;
+  border-radius: 4px;
+  color: $white;
+  margin: 5px;
+  transition: all .3s ease 0s;
+
+  &:hover {
+    background-color: $teal;
+    box-shadow: 0 8px 15px $shadow-black;
+    color: $white;
+    transform: translateY(-7px);
+  }
 }

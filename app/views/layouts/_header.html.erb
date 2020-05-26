@@ -1,8 +1,8 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-white">
+<nav class="navbar navbar-expand-lg bg-white">
   <a class="navbar-brand" href="/">
     <%= image_tag("CircuitVerse.png", class: "navbar-logo", alt: "CircuitVerse Logo") %>
   </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsedNavbar"
+  <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse" data-target="#collapsedNavbar"
   aria-controls="collapsedNavbar" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -10,36 +10,34 @@
     <ul class="navbar-nav ml-auto navigationBar-item">
       <li class="nav-item px-1 pt-1">
         <div class="row-text navbar-search-icon-container">
-          <a href="#"><i class="fa fa-search aria-hidden="true"></i></a>
+          <i class="fa fa-search <%= request.path == '/search' ? 'active' : '' %>" aria-hidden="true"></i>
         </div>
       </li>
       <li class="nav-item px-1">
-        <a class="btn btn-outline-success rounded-0 simulator text-dark" href="/simulator">Simulator</a>
+        <a class="btn rounded-0 navbar-simulator-text" href="/simulator">Simulator</a>
       </li>
       <div class="navbar-nav nav-item dropdown">
         <li class="nav-item px-1 dropdown-toggle-hidden">
-          <a class="nav-link text-dark dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <div>Getting Started</div>
-          </a>
+          <a class="nav-link dropdown-toggle navbar-item navbar-text" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Getting Started</a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="https://learn.circuitverse.org/">Learn</a>
             <a class="dropdown-item" href="https://docs.circuitverse.org/">Documentation</a>
           </div>
         </li>
       </div>
-      <li class="nav-item px-1 <%= request.path == '/features' ? 'active' : '' %>">
-        <a class="nav-link" href="/features">Features</a>
+      <li class="nav-item px-1">
+        <a class="nav-link navbar-text navbar-item <%= request.path == '/features' ? 'active' : '' %>" href="/features">Features</a>
       </li>
-      <li class="nav-item px-1 <%= request.path == '/teachers' ? 'active' : '' %>">
-        <a class="nav-link text-dark" href="/teachers">Teachers</a>
+      <li class="nav-item px-1">
+        <a class="nav-link navbar-text navbar-item <%= request.path == '/teachers' ? 'active' : '' %>" href="/teachers">Teachers</a>
       </li>
-      <li class="nav-item px-1 <%= request.path == '/about' ? 'active' : '' %>">
-        <a class="nav-link text-dark" href="/about">About</a>
+      <li class="nav-item px-1">
+        <a class="nav-link navbar-text navbar-item <%= request.path == '/about' ? 'active' : '' %>" href="/about">About</a>
       </li>
       <% if user_signed_in? %>
       <div class="navbar-nav nav-item dropdown">
         <li class="nav-item px-1">
-          <a class="nav-link text-dark dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link navbar-text dropdown-toggle navbar-item" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <div class="navbar-username-truncate"><%= current_user.name %></div>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -54,17 +52,36 @@
         </li>
       </div>
       <% else %>
-        <li class="nav-item px-1 <%= request.path == '/users/sign_in' ? 'active' : '' %>">
-          <a class="nav-link text-dark" href="/users/sign_in">Login</a>
+        <li class="nav-item px-1">
+          <a class="nav-link navbar-text navbar-item <%= request.path == '/users/sign_in' ? 'active' : '' %>" href="/users/sign_in">Login</a>
         </li>
       <% end %>
     </ul>
   </div>
 </nav>
-<div class="container">
-  <div class="row navbar-search-active">
-    <%= render "logix_assets/search_bar" %>
-  </div>
+<div class="container-fluid navbar-search-active">
+  <%= render "logix_assets/search_bar" %>
 </div>
 
-<!-- <%= render "logix_assets/search_bar" %> -->
+<script type="text/javascript">
+  function activeSearchBar(){
+    let searchIcon = document.getElementsByClassName("fa-search")[0];
+    let searchBar = document.getElementsByClassName("navbar-search-active")[0];
+    let burgerButton = document.getElementById("collapsedNavbar");
+    if (searchIcon.classList.contains("active")) {
+      searchIcon.classList.remove("active");
+      searchBar.style.display = "none";
+    }
+    else {
+      searchIcon.classList.add("active");
+      searchBar.style.display = "block";
+    }
+    burgerButton.classList.remove("show");
+  }
+  let searchIcon = document.getElementsByClassName("fa-search")[0];
+  let searchBar = document.getElementsByClassName("navbar-search-active")[0];
+  searchIcon.addEventListener("click", activeSearchBar);
+  if (window.location.href.includes('search')) {
+      searchBar.style.display = "block";
+  }
+</script>

@@ -1,10 +1,6 @@
 /* jshint esversion: 6 */
 
 $(document).ready(() => {
-    // remove search in nav bar on the search page
-    if (window.location.href.includes('search')) {
-        $('#nav-search').remove();
-    }
 
     // Highlight searched text
     var searchText = $('.search-bar-input').val().trim();
@@ -32,13 +28,3 @@ $(document).ready(() => {
         });
     }
 });
-
-
-var searchIcon = document.getElementsByClassName("fa-search");
-function activeSearchBar(){
-  let searchBar = document.getElementsByClassName("navbar-search-active");
-  searchIcon[0].addClass("active");
-  searchBar[0].style.display = "block";
-}
-console.log("hello");
-searchIcon.click(activeSearchBar());
