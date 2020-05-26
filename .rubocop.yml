@@ -32,11 +32,6 @@ Metrics/MethodLength:
   Exclude:
     - 'spec/**/*' # not a big deal in spec helper methods
 
-Metrics/ClassLength:
-  Max: 100
-  Exclude:
-    - 'app/models/**/*' #fat models and slim controllers principle
-
 Metrics/ModuleLength:
   Exclude:
     - 'spec/**/*' # not a big deal in spec helper module

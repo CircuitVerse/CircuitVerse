@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class Project < ApplicationRecord
   require "pg_search"
   require "custom_optional_target/web_push"
@@ -23,6 +24,8 @@ class Project < ApplicationRecord
         -> { where(project_access_type: "Public", forked_project_id: nil) }
 
   scope :public_access, -> { where(project_access_type: "Public") }
+
+  scope :author, ->(author_id) { where(author_id: author_id) }
 
   include PgSearch
   pg_search_scope :text_search, against: %i[name description], associated_against: {
@@ -143,3 +146,4 @@ class Project < ApplicationRecord
       end
     end
 end
+# rubocop:enable Metrics/ClassLength

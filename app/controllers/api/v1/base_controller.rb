@@ -48,7 +48,7 @@ class Api::V1::BaseController < ActionController::API
     raise MissingAuthHeader if request.headers["Authorization"].blank?
 
     authenticate_user
-    raise UnauthenticatedError if @current_user.nil?
+    raise UnauthenticatedError if current_user.nil?
   end
 
   def unauthenticated!

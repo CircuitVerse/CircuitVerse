@@ -3,8 +3,8 @@
 class Api::V1::ProjectsController < Api::V1::BaseController
   include ActionView::Helpers::SanitizeHelper
 
-  before_action :authenticate_user, only: [:index]
-  before_action :authenticate_user!, except: [:index]
+  before_action :authenticate_user, only: %i[index show]
+  before_action :authenticate_user!, except: %i[index show]
   before_action :load_index_projects, only: %i[index]
   before_action :load_user_projects, only: %i[user_projects]
   before_action :load_featured_circuits, only: %i[featured_circuits]
@@ -30,12 +30,8 @@ class Api::V1::ProjectsController < Api::V1::BaseController
   # GET /api/v1/projects/:id
   def show
     authorize @project, :check_view_access?
-    if @project.project_access_type == "Public" || @project.author.eql?(@current_user)
-      @project.increase_views(@current_user)
-      render json: Api::V1::ProjectSerializer.new(@project, @options)
-    else
-      api_error(status: 403, errors: "not authorized")
-    end
+    @project.increase_views(@current_user)
+    render json: Api::V1::ProjectSerializer.new(@project, @options)
   end
 
   # PATCH /api/v1/projects/:id
@@ -96,7 +92,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
       @projects = if @current_user.nil?
         Project.public_access
       else
-        Project.where("author_id = ? OR  project_access_type = ?", @current_user.id, "Public")
+        Project.public_access.or(Project.author(@current_user.id))
       end
     end
 
@@ -104,7 +100,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
       @projects = if @current_user.id == params[:id].to_i
         @current_user.projects
       else
-        Project.where("author_id = ? AND project_access_type = ?", params[:id], "Public")
+        Project.public_access.author(params[:id])
       end
     end
 

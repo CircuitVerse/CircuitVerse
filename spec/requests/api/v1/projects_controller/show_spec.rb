@@ -11,13 +11,24 @@ RSpec.describe Api::V1::ProjectsController, "#show", type: :request do
       FactoryBot.create(:project, project_access_type: "Public", author: user)
     end
 
-    context "when not authenticated" do
+    context "when unauthenticated user fetches public project details" do
       before do
         get "/api/v1/projects/#{public_project.id}", as: :json
       end
 
+      it "returns project details" do
+        expect(response).to have_http_status(200)
+        expect(response).to match_response_schema("project")
+      end
+    end
+
+    context "when unauthenticated user fetches private project details" do
+      before do
+        get "/api/v1/projects/#{private_project.id}", as: :json
+      end
+
       it "returns status unauthorized" do
-        expect(response).to have_http_status(401)
+        expect(response).to have_http_status(403)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
