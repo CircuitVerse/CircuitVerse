@@ -12,6 +12,11 @@ plugins:
   scss-lint:
     enabled: true
 
+  duplication:
+    enabled: true
+    exclude_patterns:
+      - "spec/"
+
 ratings:
   paths:
   - Gemfile.lock
