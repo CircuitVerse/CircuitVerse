@@ -758,7 +758,7 @@ createSaveAsImgPrompt = function(scope = globalScope) {
             class: "render-btn"
         },
         {
-            text: "x",
+            text: "",
             click:  function() {$(this).dialog("close");},
             class: 'down-dialog--btn'
         }]
@@ -818,7 +818,7 @@ createOpenLocalPrompt = function() {
             },
         },
         {
-            text: "x",
+            text: "",
             click:  function() {$(this).dialog("close");},
             class: 'down-dialog--btn'
         }] : []

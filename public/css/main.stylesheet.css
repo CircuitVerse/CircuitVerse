@@ -1034,9 +1034,25 @@ input[type="number"]:focus {
   border: none;
   color: white;
   position: absolute;
-  top: 5px;
-  right: 5px;
-  margin-top: 3px !important;
+  top: 15px;
+  right: 15px;
+  /* margin-top: 3px !important; */
+  visibility: hidden;
+}
+
+.down-dialog--btn:after {
+  content: "";
+  display: block;
+  position: absolute;
+  background: url(./assets/small-components/close.svg) center/cover no-repeat;
+  height: 15px;
+  width: 15px;
+  visibility: visible;
+  transform: translate(-10%, -60%);
+}
+
+.down-dialog--btn:before:hover {
+  background-color: #454545;
 }
 
 .down-dialog--btn:hover {
@@ -1191,8 +1207,6 @@ table {
 #openProjectDialog > label > span:after {
   background: white;
 }
-
-
 
 /*! openProjectDialog styling ends here */
 
