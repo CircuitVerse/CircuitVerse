@@ -253,6 +253,7 @@ function startListeners() {
                 window.open(type.helplink);
             }
           }
+        }
     })
 
     document.getElementById("simulationArea").addEventListener('dblclick', function(e) {
