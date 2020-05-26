@@ -388,8 +388,6 @@ function escapeHtml(unsafe) {
         .replace(/'/g, "&#039;");
 }
 
-//* new addition
-
 $(document).tooltip({
     show: null,
     track: true,
@@ -397,7 +395,6 @@ $(document).tooltip({
     tooltipClass: "custom-tooltip-styling",
   });
 
-  
 $(function(){
   $(".btn-group-toggle").twbsToggleButtons();
 });
@@ -406,6 +403,3 @@ $(function(){
   $("#openProjectDialog").checkBo();
   $(".download-dialog-section-2_2").checkBo();
 });
-
-
-  
