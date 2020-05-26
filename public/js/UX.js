@@ -62,8 +62,8 @@ function setupUI() {
     document.addEventListener('mousedown', (e) => {
         // Check if mouse is not inside the context menu and menu is visible
         if (!((e.clientX >= ctxPos.x && e.clientX <= ctxPos.x + ctxEl.offsetWidth)
-        && (e.clientY >= ctxPos.y && e.clientY <= ctxPos.y + ctxEl.offsetHeight))
-        && (ctxPos.visible && e.which !== 3)) {
+            && (e.clientY >= ctxPos.y && e.clientY <= ctxPos.y + ctxEl.offsetHeight))
+            && (ctxPos.visible && e.which !== 3)) {
             hideContextMenu();
         }
 
@@ -269,3 +269,60 @@ function escapeHtml(unsafe) {
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
 }
+
+$('#bitconverterprompt').append(`
+<label style='color:grey'>Decimal value</label><br><input  type='text' id='decimalInput' label="Decimal" name='text1'><br><br>
+<label  style='color:grey'>Binary value</label><br><input  type='text' id='binaryInput' label="Binary" name='text1'><br><br>
+<label  style='color:grey'>Octal value</label><br><input  type='text' id='octalInput' label="Octal" name='text1'><br><br>
+<label  style='color:grey'>Hexadecimal value</label><br><input  type='text' id='hexInput' label="Hex" name='text1'><br><br>
+`);
+$('#bitconverter').click(function () {
+    $('#bitconverterprompt').dialog({
+        buttons: [
+            {
+                text: "Reset",
+                click: function () {
+                    $("#decimalInput").val("0");
+                    $("#binaryInput").val("0");
+                    $("#octalInput").val("0");
+                    $("#hexInput").val("0");
+                }
+            }
+        ]
+    });
+})
+
+// convertors
+convertors = {
+    dec2bin: x => "0b" + x.toString(2),
+    dec2hex: x => "0x" + x.toString(16),
+    dec2octal: x => "0" + x.toString(8),
+}
+
+function setBaseValues(x) {
+    if (isNaN(x)) return;
+    $("#binaryInput").val(convertors.dec2bin(x));
+    $("#octalInput").val(convertors.dec2octal(x));
+    $("#hexInput").val(convertors.dec2hex(x));
+    $("#decimalInput").val(x);
+}
+
+$("#decimalInput").on('keyup', function () {
+    var x = parseInt($("#decimalInput").val(), 10);
+    setBaseValues(x);
+})
+
+$("#binaryInput").on('keyup', function () {
+    var x = parseInt($("#binaryInput").val(), 2);
+    setBaseValues(x);
+})
+
+$("#hexInput").on('keyup', function () {
+    var x = parseInt($("#hexInput").val(), 16);
+    setBaseValues(x);
+})
+
+$("#octalInput").on('keyup', function () {
+    var x = parseInt($("#octalInput").val(), 8);
+    setBaseValues(x);
+})

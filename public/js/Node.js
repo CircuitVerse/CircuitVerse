@@ -60,6 +60,7 @@ NODE_INTERMEDIATE = 2;
 
 function Node(x, y, type, parent, bitWidth = undefined, label = "") {
 
+    // debugger
     // Should never raise, but just in case
     if(isNaN(x) || isNaN(y)){
         this.delete();
@@ -414,7 +415,8 @@ Node.prototype.update = function() {
     if (this == simulationArea.hover) simulationArea.hover = undefined;
     this.hover = this.isHover();
 
-    if (!simulationArea.mouseDown) {
+    // M CONNECT NODE
+    if (createNode) {
         if (this.absX() != this.prevx || this.absY() != this.prevy) { // Connect to any node
             this.prevx = this.absX();
             this.prevy = this.absY();
@@ -426,7 +428,7 @@ Node.prototype.update = function() {
         simulationArea.hover = this;
     }
 
-    if (simulationArea.mouseDown && ((this.hover && !simulationArea.selected) || simulationArea.lastSelected == this)) {
+    if (createNode && ((this.hover && !simulationArea.selected) || simulationArea.lastSelected == this)) {
         simulationArea.selected = true;
         simulationArea.lastSelected = this;
         this.clicked = true;
@@ -540,7 +542,7 @@ Node.prototype.update = function() {
             for (var i = 0; i < this.parent.scope.allNodes.length; i++) {
                 if (x1 == this.parent.scope.allNodes[i].absX() && y1 == this.parent.scope.allNodes[i].absY()) {
                     n1 = this.parent.scope.allNodes[i];
-
+                    stopWire = true
                     break;
                 }
             }
@@ -560,6 +562,8 @@ Node.prototype.update = function() {
         for (var i = 0; i < this.parent.scope.allNodes.length; i++) {
             if (x2 == this.parent.scope.allNodes[i].absX() && y2 == this.parent.scope.allNodes[i].absY()) {
                 n2 = this.parent.scope.allNodes[i];
+                stopWire = true
+                createNode = false
                 break;
             }
         }
@@ -579,7 +583,7 @@ Node.prototype.update = function() {
 
     }
 
-    if (this.type == 2 && simulationArea.mouseDown == false) {
+    if (this.type == 2 && createNode == false) {
         if (this.connections.length == 2) {
             if ((this.connections[0].absX() == this.connections[1].absX()) || (this.connections[0].absY() == this.connections[1].absY())) {
                 this.connections[0].connect(this.connections[1]);
