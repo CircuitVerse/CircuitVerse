@@ -180,6 +180,24 @@
   }
 }
 
+@media (max-width:400px) {
+  .editgroup-button-primary {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .editgroup-form-text {
+    margin-left: 10px;
+    padding-left: 20px;
+  }
+
+  .editgroup-background-card {
+    margin-left: 0;
+    padding-left: 10px;
+
+  }
+}
+
 //to be removed
 .row-group {
   margin-left: auto;
