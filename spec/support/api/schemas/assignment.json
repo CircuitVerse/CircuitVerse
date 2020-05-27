@@ -1,0 +1,39 @@
+{
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string" },
+        "attributes": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "deadline": { "type": "string" },
+            "description": { "type": "string" },
+            "created_at": { "type": "string" },
+            "updated_at": { "type": "string" },
+            "status": { "type": ["null", "string"] },
+            "grading_scale": { "type": "string" },
+            "grades_finalized": { "type": "boolean" },
+            "restrictions": { "type": "string" }
+          },
+          "required": [
+            "name",
+            "deadline",
+            "description",
+            "created_at",
+            "updated_at",
+            "status",
+            "grading_scale",
+            "grades_finalized",
+            "restrictions"
+          ]
+        }
+      },
+      "required": ["id", "type", "attributes"]
+    }
+  },
+  "required": ["data"]
+}
