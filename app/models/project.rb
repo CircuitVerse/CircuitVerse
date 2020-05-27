@@ -23,9 +23,9 @@ class Project < ApplicationRecord
   scope :public_and_not_forked,
         -> { where(project_access_type: "Public", forked_project_id: nil) }
 
-  scope :public_access, -> { where(project_access_type: "Public") }
+  scope :open, -> { where(project_access_type: "Public") }
 
-  scope :author, ->(author_id) { where(author_id: author_id) }
+  scope :by, ->(author_id) { where(author_id: author_id) }
 
   include PgSearch
   pg_search_scope :text_search, against: %i[name description], associated_against: {
@@ -54,13 +54,23 @@ class Project < ApplicationRecord
   acts_as_commontable
   # after_commit :send_mail, on: :create
 
-  scope :open, -> { where(project_access_type: "Public") }
-
   def increase_views(user)
     if user.nil? || (user.id != author_id)
       self.view ||= 0
       self.view += 1
       save
+    end
+  end
+
+  # returns true if starred, false if unstarred
+  def toggle_star(user)
+    star = Star.find_by(user_id: user.id, project_id: id)
+    if !star.nil?
+      star.destroy!
+      false
+    else
+      @star = Star.create!(user_id: user.id, project_id: id)
+      true
     end
   end
 

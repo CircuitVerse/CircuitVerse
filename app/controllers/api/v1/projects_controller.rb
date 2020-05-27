@@ -61,13 +61,10 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
   # GET /api/v1/projects/:id/toggle-star
   def toggle_star
-    star = Star.find_by(user_id: @current_user.id, project_id: @project.id)
-    if !star.nil?
-      star.destroy!
-      render json: { "message": "Unstarred successfully!" }, status: :ok
-    else
-      @star = Star.create!(user_id: @current_user.id, project_id: @project.id)
+    if @project.toggle_star(@current_user)
       render json: { "message": "Starred successfully!" }, status: :ok
+    else
+      render json: { "message": "Unstarred successfully!" }, status: :ok
     end
   end
 
@@ -90,9 +87,9 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
     def load_index_projects
       @projects = if @current_user.nil?
-        Project.public_access
+        Project.open
       else
-        Project.public_access.or(Project.author(@current_user.id))
+        Project.open.or(Project.by(@current_user.id))
       end
     end
 
@@ -100,7 +97,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
       @projects = if @current_user.id == params[:id].to_i
         @current_user.projects
       else
-        Project.public_access.author(params[:id])
+        Project.open.by(params[:id])
       end
     end
 
