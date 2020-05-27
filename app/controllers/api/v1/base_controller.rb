@@ -33,7 +33,7 @@ class Api::V1::BaseController < ActionController::API
 
   def authenticate_user
     header = request.headers["Authorization"]
-    raise MissingAuthHeader if header.blank?
+    return if header.blank?
 
     auth_header = header.split(" ").last
     begin
@@ -45,7 +45,10 @@ class Api::V1::BaseController < ActionController::API
   end
 
   def authenticate_user!
-    authenticate_user || UnauthenticatedError
+    raise MissingAuthHeader if request.headers["Authorization"].blank?
+
+    authenticate_user
+    raise UnauthenticatedError if current_user.nil?
   end
 
   def unauthenticated!
