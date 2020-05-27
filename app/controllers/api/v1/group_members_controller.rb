@@ -67,9 +67,11 @@ class Api::V1::GroupMembersController < Api::V1::BaseController
 
       mails.split(",").each do |email|
         email = email.strip
-        email.present? && Devise.email_regexp.match?(email) ?
-        @valid_mails.push(email.downcase) :
-        @invalid_mails.push(email)
+        if email.present? && Devise.email_regexp.match?(email)
+          @valid_mails.push(email.downcase)
+        else
+          @invalid_mails.push(email)
+        end
       end
 
       @existing_mails = User.where(

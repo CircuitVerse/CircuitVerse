@@ -5,9 +5,11 @@ require "rails_helper"
 RSpec.describe Api::V1::AssignmentsController, "#show", type: :request do
   describe "list specific assignment" do
     let!(:group) { FactoryBot.create(:group, mentor: FactoryBot.create(:user)) }
-    let!(:group_member) { FactoryBot.create(
-      :group_member, group: group, user: FactoryBot.create(:user)
-    )}
+    let!(:group_member) do
+      FactoryBot.create(
+        :group_member, group: group, user: FactoryBot.create(:user)
+      )
+    end
     let!(:assignment) { FactoryBot.create(:assignment, group: group) }
 
     context "when not authenticated" do

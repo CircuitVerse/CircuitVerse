@@ -23,8 +23,8 @@ RSpec.describe Api::V1::GroupsController, "#update", type: :request do
       before do
         token = get_auth_token(FactoryBot.create(:user))
         patch "/api/v1/groups/#{group.id}",
-            headers: { "Authorization": "Token #{token}" },
-            params: update_params, as: :json
+              headers: { "Authorization": "Token #{token}" },
+              params: update_params, as: :json
       end
 
       it "returns status unauthorized" do
@@ -37,8 +37,8 @@ RSpec.describe Api::V1::GroupsController, "#update", type: :request do
       before do
         token = get_auth_token(mentor)
         patch "/api/v1/groups/0",
-            headers: { "Authorization": "Token #{token}" },
-            params: update_params, as: :json
+              headers: { "Authorization": "Token #{token}" },
+              params: update_params, as: :json
       end
 
       it "returns status not_found" do
@@ -51,8 +51,8 @@ RSpec.describe Api::V1::GroupsController, "#update", type: :request do
       before do
         token = get_auth_token(mentor)
         patch "/api/v1/groups/#{group.id}",
-            headers: { "Authorization": "Token #{token}" },
-            params: { "invalid": "invalid" }, as: :json
+              headers: { "Authorization": "Token #{token}" },
+              params: { "invalid": "invalid" }, as: :json
       end
 
       it "returns status bad_request" do
@@ -66,11 +66,11 @@ RSpec.describe Api::V1::GroupsController, "#update", type: :request do
         FactoryBot.create(:group_member, user: user, group: group)
         token = get_auth_token(mentor)
         patch "/api/v1/groups/#{group.id}",
-            headers: { "Authorization": "Token #{token}" },
-            params: update_params, as: :json
+              headers: { "Authorization": "Token #{token}" },
+              params: update_params, as: :json
       end
 
-      it "should return the updated group details" do
+      it "returns the updated group details" do
         expect(response).to have_http_status(202)
         expect(response).to match_response_schema("group")
         expect(response.parsed_body["data"]["attributes"]["name"]).to eq("Test Group Updated")

@@ -29,7 +29,7 @@ RSpec.describe Api::V1::GroupsController, "#index", type: :request do
             headers: { "Authorization": "Token #{token}" }, as: :json
       end
 
-      it "should return all groups signed in user is member of" do
+      it "returns all groups signed in user is member of" do
         expect(response).to have_http_status(200)
         expect(response).to match_response_schema("groups")
         expect(response.parsed_body["data"].length).to eq(3)
@@ -48,7 +48,7 @@ RSpec.describe Api::V1::GroupsController, "#index", type: :request do
             headers: { "Authorization": "Token #{token}" }, as: :json
       end
 
-      it "should return all groups including assignments signed in user is member of" do
+      it "returns all groups including assignments signed in user is member of" do
         expect(response).to have_http_status(200)
         expect(response).to match_response_schema("groups_with_assignments")
         expect(response.parsed_body["data"].length).to eq(3)
@@ -70,7 +70,7 @@ RSpec.describe Api::V1::GroupsController, "#index", type: :request do
             headers: { "Authorization": "Token #{token}" }, as: :json
       end
 
-      it "should return all groups including group_members signed in user is member of" do
+      it "returns all groups including group_members signed in user is member of" do
         expect(response).to have_http_status(200)
         expect(response).to match_response_schema("groups_with_members")
         expect(response.parsed_body["data"].length).to eq(3)

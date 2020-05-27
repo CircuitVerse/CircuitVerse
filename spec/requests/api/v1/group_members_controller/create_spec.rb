@@ -23,8 +23,8 @@ RSpec.describe Api::V1::GroupMembersController, "#create", type: :request do
       before do
         token = get_auth_token(FactoryBot.create(:user))
         post "/api/v1/groups/#{group.id}/group_members",
-            headers: { "Authorization": "Token #{token}" },
-            params: create_params, as: :json
+             headers: { "Authorization": "Token #{token}" },
+             params: create_params, as: :json
       end
 
       it "returns status unauthorized" do
@@ -37,8 +37,8 @@ RSpec.describe Api::V1::GroupMembersController, "#create", type: :request do
       before do
         token = get_auth_token(mentor)
         post "/api/v1/groups/0/group_members",
-            headers: { "Authorization": "Token #{token}" },
-            params: create_params, as: :json
+             headers: { "Authorization": "Token #{token}" },
+             params: create_params, as: :json
       end
 
       it "returns status not_found" do
@@ -51,11 +51,11 @@ RSpec.describe Api::V1::GroupMembersController, "#create", type: :request do
       before do
         token = get_auth_token(mentor)
         post "/api/v1/groups/#{group.id}/group_members",
-            headers: { "Authorization": "Token #{token}" },
-            params: create_params, as: :json
+             headers: { "Authorization": "Token #{token}" },
+             params: create_params, as: :json
       end
 
-      it "should return the added, already_existing & invalid mails" do
+      it "returns the added, already_existing & invalid mails" do
         expect(response).to have_http_status(200)
         expect(response.parsed_body["added"]).to eq([existing_user.email])
         expect(response.parsed_body["pending"]).to eq(["newuser@test.com"])

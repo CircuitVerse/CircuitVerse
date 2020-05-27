@@ -53,7 +53,7 @@ RSpec.describe Api::V1::GroupsController, "#show", type: :request do
             headers: { "Authorization": "Token #{token}" }, as: :json
       end
 
-      it "should return the group details" do
+      it "returns the group details" do
         expect(response).to have_http_status(200)
         expect(response).to match_response_schema("group")
       end

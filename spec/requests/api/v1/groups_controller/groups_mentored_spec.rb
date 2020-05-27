@@ -44,7 +44,7 @@ RSpec.describe Api::V1::GroupsController, "#groups_mentored", type: :request do
             headers: { "Authorization": "Token #{token}" }, as: :json
       end
 
-      it "should return all groups including assignments signed in user mentors" do
+      it "returns all groups including assignments signed in user mentors" do
         expect(response).to have_http_status(200)
         expect(response).to match_response_schema("groups_with_assignments")
         expect(response.parsed_body["data"].length).to eq(3)
@@ -56,16 +56,18 @@ RSpec.describe Api::V1::GroupsController, "#groups_mentored", type: :request do
         # create 3 groups with 4 group_members for each
         FactoryBot.create_list(:group, 3, mentor: mentor).each do |g|
           # creates three random group members
+          # rubocop:disable FactoryBot/CreateList
           3.times do
             FactoryBot.create(:group_member, group: g, user: FactoryBot.create(:user))
           end
+          # rubocop:enable FactoryBot/CreateList
         end
         token = get_auth_token(mentor)
         get "/api/v1/groups_mentored?include=group_members",
             headers: { "Authorization": "Token #{token}" }, as: :json
       end
 
-      it "should return all groups including group_members signed in user mentors" do
+      it "returns all groups including group_members signed in user mentors" do
         expect(response).to have_http_status(200)
         expect(response).to match_response_schema("groups_with_members")
         expect(response.parsed_body["data"].length).to eq(3)

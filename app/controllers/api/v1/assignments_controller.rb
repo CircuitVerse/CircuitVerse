@@ -74,22 +74,6 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
     }
   end
 
-  def check_reopening_status
-    @assignment.projects.each do |proj|
-      next unless proj.project_submission == true
-
-      old_project = Project.find_by(id: proj.forked_project_id)
-      if old_project.nil?
-        proj.project_submission = false
-        proj.save
-      else
-        old_project.assignment_id = proj.assignment_id
-        old_project.save
-        proj.destroy
-      end
-    end
-  end
-
   private
 
     def set_assignment
@@ -98,6 +82,10 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
 
     def set_group
       @group = Group.find(params[:group_id])
+    end
+
+    def check_reopening_status
+      @assignment.check_reopening_status
     end
 
     def assignment_create_params

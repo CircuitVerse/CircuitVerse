@@ -4,14 +4,18 @@ require "rails_helper"
 
 RSpec.describe Api::V1::AssignmentsController, "#start", type: :request do
   describe "start working on assignment" do
-    let!(:assignment) { FactoryBot.create(
-      :assignment, group: FactoryBot.create(:group, mentor: FactoryBot.create(:user))
-    )}
-    let!(:closed_assignment) { FactoryBot.create(
-      :assignment, group: FactoryBot.create(
-        :group, mentor: FactoryBot.create(:user)
-      ), status: "closed"
-    )}
+    let!(:assignment) do
+      FactoryBot.create(
+        :assignment, group: FactoryBot.create(:group, mentor: FactoryBot.create(:user))
+      )
+    end
+    let!(:closed_assignment) do
+      FactoryBot.create(
+        :assignment, group: FactoryBot.create(
+          :group, mentor: FactoryBot.create(:user)
+        ), status: "closed"
+      )
+    end
 
     context "when not authenticated" do
       before do
@@ -61,9 +65,6 @@ RSpec.describe Api::V1::AssignmentsController, "#start", type: :request do
       it "starts a new project & return status ok" do
         assignment_proj_name = "#{@user.name}/#{assignment.name}"
         expect(response).to have_http_status(200)
-        expect(response.parsed_body["message"]).to eq(
-          "Voila! Project set up under name #{assignment_proj_name}"
-        )
         expect(@user.projects).to include(Project.find_by(name: assignment_proj_name))
       end
     end

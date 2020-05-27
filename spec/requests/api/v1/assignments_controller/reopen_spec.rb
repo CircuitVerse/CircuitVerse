@@ -5,12 +5,16 @@ require "rails_helper"
 RSpec.describe Api::V1::AssignmentsController, "#reopen", type: :request do
   describe "reopen specific assignment" do
     let!(:mentor) { FactoryBot.create(:user) }
-    let!(:assignment) { FactoryBot.create(
-      :assignment, group: FactoryBot.create(:group, mentor: mentor)
-    )}
-    let!(:open_assignment) { FactoryBot.create(
-      :assignment, group: FactoryBot.create(:group, mentor: mentor), status: "open"
-    )}
+    let!(:assignment) do
+      FactoryBot.create(
+        :assignment, group: FactoryBot.create(:group, mentor: mentor)
+      )
+    end
+    let!(:open_assignment) do
+      FactoryBot.create(
+        :assignment, group: FactoryBot.create(:group, mentor: mentor), status: "open"
+      )
+    end
 
     context "when not authenticated" do
       before do

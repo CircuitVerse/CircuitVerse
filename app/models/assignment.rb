@@ -49,4 +49,20 @@ class Assignment < ApplicationRecord
     projects.includes(:grade, :author).sort_by { |p| p.author.name }
             .map { |project| ProjectDecorator.new(project) }
   end
+
+  def check_reopening_status
+    projects.each do |proj|
+      next unless proj.project_submission == true
+
+      old_project = Project.find_by(id: proj.forked_project_id)
+      if old_project.nil?
+        proj.project_submission = false
+        proj.save
+      else
+        old_project.assignment_id = proj.assignment_id
+        old_project.save
+        proj.destroy
+      end
+    end
+  end
 end

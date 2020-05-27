@@ -5,9 +5,11 @@ require "rails_helper"
 RSpec.describe Api::V1::AssignmentsController, "#update", type: :request do
   describe "update specific assignment" do
     let!(:mentor) { FactoryBot.create(:user) }
-    let!(:assignment) { FactoryBot.create(
-      :assignment, group: FactoryBot.create(:group, mentor: mentor)
-    )}
+    let!(:assignment) do
+      FactoryBot.create(
+        :assignment, group: FactoryBot.create(:group, mentor: mentor)
+      )
+    end
 
     context "when not authenticated" do
       before do
@@ -24,8 +26,8 @@ RSpec.describe Api::V1::AssignmentsController, "#update", type: :request do
       before do
         token = get_auth_token(FactoryBot.create(:user))
         patch "/api/v1/assignments/#{assignment.id}",
-            headers: { "Authorization": "Token #{token}" },
-            params: update_params, as: :json
+              headers: { "Authorization": "Token #{token}" },
+              params: update_params, as: :json
       end
 
       it "returns status unauthorized" do
@@ -38,8 +40,8 @@ RSpec.describe Api::V1::AssignmentsController, "#update", type: :request do
       before do
         token = get_auth_token(mentor)
         patch "/api/v1/assignments/0",
-            headers: { "Authorization": "Token #{token}" },
-            params: update_params, as: :json
+              headers: { "Authorization": "Token #{token}" },
+              params: update_params, as: :json
       end
 
       it "returns status not_found" do
@@ -52,8 +54,8 @@ RSpec.describe Api::V1::AssignmentsController, "#update", type: :request do
       before do
         token = get_auth_token(mentor)
         patch "/api/v1/assignments/#{assignment.id}",
-            headers: { "Authorization": "Token #{token}" },
-            params: { "invalid": "invalid params" }, as: :json
+              headers: { "Authorization": "Token #{token}" },
+              params: { "invalid": "invalid params" }, as: :json
       end
 
       it "returns status invalid request" do
@@ -66,11 +68,11 @@ RSpec.describe Api::V1::AssignmentsController, "#update", type: :request do
       before do
         token = get_auth_token(mentor)
         patch "/api/v1/assignments/#{assignment.id}",
-            headers: { "Authorization": "Token #{token}" },
-            params: update_params, as: :json
+              headers: { "Authorization": "Token #{token}" },
+              params: update_params, as: :json
       end
 
-      it "should return the updated assignment" do
+      it "returns the updated assignment" do
         expect(response).to have_http_status(202)
         expect(response).to match_response_schema("assignment")
         expect(response.parsed_body["data"]["attributes"]["name"]).to eq("test updated")
