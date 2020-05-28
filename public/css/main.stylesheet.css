@@ -860,7 +860,7 @@ input:checked + .slider:before {
 .custom-btn--secondary:hover {
   /* color: white; */
   background-color: #ddd;
-  transition: all .5s ease;
+  transition: all 0.5s ease;
 }
 
 .custom-btn--secondary:active,
@@ -1137,6 +1137,11 @@ select {
   color: white;
 }
 
+.download-dialog-section-2 .btn input[type="radio"]:disabled {
+  background: red !important;
+  color: red !important;
+}
+
 .download-dialog-section-2_2 {
   display: flex;
   align-items: center;
@@ -1151,6 +1156,7 @@ select {
   align-items: center;
   padding: 6px 10px;
   width: 320px;
+  position: inherit;
 }
 
 .download-dialog-section-3 > span {
@@ -1225,7 +1231,7 @@ select {
 .ui-dialog .ui-dialog-buttonpane button:hover {
   background: #ddd;
   color: #454545 !important;
-  transition: all .5s ease;
+  transition: all 0.5s ease;
   border: none;
 }
 
@@ -1367,4 +1373,15 @@ select {
   opacity: 0.5;
   overflow: hidden;
   border: none;
+}
+
+.disable::after {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: #808080;
+  cursor: not-allowed;
+  left: 0;
+  /* top: 0; */
 }

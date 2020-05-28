@@ -767,6 +767,7 @@ createSaveAsImgPrompt = function(scope = globalScope) {
         $('input[name=resolution]').prop("disabled", false);
         $('input[name=transparent]').prop("disabled", false);
         var imgType = $('input[name=imgType]:checked').val();
+        imgType == 'svg'? $('.btn-group-toggle, .download-dialog-section-3').addClass('disable') : $('.btn-group-toggle, .download-dialog-section-3, .cb-inner').removeClass('disable')
         if (imgType == 'svg') {
             $('input[name=resolution][value=1]').click();
             $('input[name=view][value="full"]').click();
@@ -775,9 +776,11 @@ createSaveAsImgPrompt = function(scope = globalScope) {
         } else if (imgType != 'png') {
             $('input[name=transparent]').attr('checked', false);
             $('input[name=transparent]').prop("disabled", true);
+            $('.cb-inner').addClass('disable');
             $('input[name=view]').prop("disabled", false);
         } else {
-            $('input[name=view]').prop("disabled", false);
+            $('input[name=view]').prop("disabled", false);            
+            $('.cb-inner').removeClass('disable');
         }
     });
 }
@@ -1001,14 +1004,14 @@ function generateImage(imgType, view, transparent, resolution, down = true) {
 
 }
 
-// if (logix_project_id == 0)
-// setTimeout(promptSave,120000);
+if (logix_project_id == 0)
+setTimeout(promptSave,120000);
 
-// function promptSave(){
-//     console.log("PROMPT")
-//     if(confirm("You have not saved your creation! Would you like save your project online? "))
-//     save()
-// }
+function promptSave(){
+    console.log("PROMPT")
+    if(confirm("You have not saved your creation! Would you like save your project online? "))
+    save()
+}
 
 function postUserIssue(message) {
     $.ajax({
