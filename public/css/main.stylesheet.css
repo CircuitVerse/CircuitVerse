@@ -149,6 +149,7 @@ button:focus {
   box-shadow: none !important;
   border: none;
   outline: none;
+  border-color: white;
 }
 
 button:focus {
