@@ -128,8 +128,12 @@ button {
   box-shadow: none;
 }
 
-button:active,button:focus {
+button:active {
   background: transparent !important;
+}
+
+button:active,
+button:focus {
   box-shadow: none !important;
   border: none;
   outline: none;
@@ -158,7 +162,7 @@ button:focus {
   border: 1px solid transparent;
   border-radius: 1px;
   padding: 2px 8px;
-  transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 /* effect  */
@@ -1051,7 +1055,7 @@ select {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;  
+  align-items: center;
   min-height: 188px !important;
 }
 

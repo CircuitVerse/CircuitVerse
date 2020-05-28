@@ -407,3 +407,4 @@ $(function(){
 $('button').ripple({
   duration: 500
 });
+
