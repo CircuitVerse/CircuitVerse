@@ -74,6 +74,17 @@ html {
   overflow: hidden;
 }
 
+::-moz-selection {
+  /* Code for Firefox */
+  color: white;
+  background: #7d7d7d;
+}
+
+::selection {
+  color: white;
+  background: #7d7d7d;
+}
+
 button:focus {
   outline: 0;
 }
@@ -83,6 +94,7 @@ a {
 }
 
 a:hover {
+  color: white;
   text-decoration: none;
 }
 
@@ -141,6 +153,11 @@ button:focus {
 
 button:focus {
   box-shadow: none;
+}
+
+input[type="text"]:focus {
+  background: transparent;
+  color: white;
 }
 
 /*! Global styles ends here */
