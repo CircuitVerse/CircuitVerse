@@ -37,7 +37,7 @@ createCombinationalAnalysisPrompt=function(scope=globalScope){
         {
             text: "",
             click:  function() {$(this).dialog("close");},
-            class: 'down-dialog--btn'
+            class: 'dialog-close--btn'
         }
       ]
     });
@@ -132,7 +132,7 @@ function createBooleanPrompt(inputListNames,outputListNames,scope=globalScope){
         {
             text: "",
             click:  function() {$(this).dialog("close");},
-            class: 'down-dialog--btn'
+            class: 'dialog-close--btn'
         }
 
       ]

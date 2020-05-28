@@ -1165,7 +1165,7 @@ select {
   padding-bottom: 8px;
 }
 
-.down-dialog--btn {
+.dialog-close--btn {
   border: none;
   color: white;
   position: absolute;
@@ -1174,7 +1174,7 @@ select {
   visibility: hidden;
 }
 
-.down-dialog--btn:after {
+.dialog-close--btn::after {
   content: "";
   display: block;
   position: absolute;
@@ -1185,11 +1185,11 @@ select {
   transform: translate(-10%, -60%);
 }
 
-.down-dialog--btn:before:hover {
+.dialog-close--btn::before:hover {
   background-color: #454545;
 }
 
-.down-dialog--btn:hover {
+.dialog-close--btn::hover {
   border: none;
 }
 

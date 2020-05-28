@@ -760,7 +760,7 @@ createSaveAsImgPrompt = function(scope = globalScope) {
         {
             text: "",
             click:  function() {$(this).dialog("close");},
-            class: 'down-dialog--btn'
+            class: 'dialog-close--btn'
         }]
     });
     $("input[name=imgType]").change(function() {
@@ -820,7 +820,7 @@ createOpenLocalPrompt = function() {
         {
             text: "",
             click:  function() {$(this).dialog("close");},
-            class: 'down-dialog--btn'
+            class: 'dialog-close--btn'
         }] : []
 
     });
@@ -851,10 +851,17 @@ createSubCircuitPrompt = function(scope = globalScope) {
                 $(this).dialog("close");
             },
         },
-    ] : []
-
+        {
+            text: "",
+            click:  function() {$(this).dialog("close");},
+            class: 'dialog-close--btn'
+        }] : [
+        {
+            text: "",
+            click:  function() {$(this).dialog("close");},
+            class: 'dialog-close--btn'
+        }]
     });
-
 }
 
 // Helper function to store to localStorage -- needs to be deprecated/removed
