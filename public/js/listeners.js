@@ -144,8 +144,8 @@ function startListeners() {
             }
         }
 
-        if (e.keyCode == 8 || e.key == "Delete") {
-            delete_selected();
+        if (e.key == "Delete") {
+            if (simulationArea.lastSelected) delete_selected();
         }
 
         if (simulationArea.controlDown && e.key.charCodeAt(0) == 122) { // detect the special CTRL-Z code
