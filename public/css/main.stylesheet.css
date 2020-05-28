@@ -1018,7 +1018,7 @@ select {
   height: 320px;
   padding: 10px 17px;
   padding-bottom: 0;
-  border: none;
+  border: none !important;
 }
 
 @supports (backdrop-filter: blur()) {
@@ -1384,4 +1384,32 @@ select {
   cursor: not-allowed;
   left: 0;
   /* top: 0; */
+}
+
+#bitconverterprompt {
+  text-align: center;
+  color: white;
+  font: inherit;
+  border: none;
+  margin-top: 15px;
+  padding: 0;
+}
+
+#bitconverterprompt input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid white;
+  outline: none;
+  color: white;
+  text-align: center;
+  font: inherit;
+}
+
+#bitconverterprompt input:focus {
+  border: none;
+  border-bottom: 1px solid white;
+}
+
+#bitconverterprompt label {
+  color: white !important;
 }

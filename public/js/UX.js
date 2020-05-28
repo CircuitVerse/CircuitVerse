@@ -425,6 +425,11 @@ $('#bitconverter').click(function () {
                     $("#octalInput").val("0");
                     $("#hexInput").val("0");
                 }
+            },
+            {
+              text: "",
+              click:  function() {$(this).dialog("close");},
+              class: 'dialog-close--btn'
             }
         ]
     });
