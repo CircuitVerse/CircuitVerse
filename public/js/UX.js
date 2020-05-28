@@ -175,7 +175,7 @@ function showProperties(obj) {
           " class='objectPropertyAttributeChecked' name='changeLightMode' > <span class='slider'></span> </label></p>"
       );
       $("#moduleProperty-inner").append(
-        "<p><button type='button' class='objectPropertyAttributeChecked btn btn-primary btn-xs custom-btn--primary' name='toggleLayoutMode' >Edit Layout</button><button type='button' class='objectPropertyAttributeChecked btn btn-danger btn-xs custom-btn--tertiary' name='deleteCurrentCircuit' >Delete Circuit</button></p>"
+        "<p><button type='button' class='objectPropertyAttributeChecked btn btn-xs custom-btn--primary' name='toggleLayoutMode' >Edit Layout</button><button type='button' class='objectPropertyAttributeChecked btn btn-danger btn-xs custom-btn--tertiary' name='deleteCurrentCircuit' >Delete Circuit</button></p>"
       );
 
     } else {

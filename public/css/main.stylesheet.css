@@ -272,7 +272,7 @@ button:focus {
   background: url(./assets/shorcuts/new.svg) center/cover;
   width: 24px;
   height: 19.2px;
-  color: red;
+  display: block;
 }
 
 .quick-btn-save-online {
@@ -719,7 +719,7 @@ div.icon img {
 #moduleProperty-inner > p button {
   border-radius: 2px;
   margin: 3px;
-  border: none;
+  /* border: none; */
 }
 
 #moduleProperty-inner:last-child {
@@ -732,7 +732,6 @@ div.icon img {
   border: none;
   border-bottom: 0.5px solid #bbbbbb;
   margin: auto;
-  width: 100%;
   padding-left: 10px;
   color: white;
   outline: none;
@@ -744,8 +743,23 @@ div.icon img {
   outline: none;
   box-shadow: none;
   border-color: white;
-  background: transparent;
   color: white;
+}
+
+.input-group-prepend button {
+  margin-right: 5px;
+}
+.input-group-append button {
+  margin-left: 5px;
+}
+
+.input-group-prepend button:hover {
+  border-radius: 3px !important;
+  background: rgba(202, 202, 202, 0.5);
+}
+.input-group-append button:hover {
+  border-radius: 3px !important;
+  background: rgba(202, 202, 202, 0.5);
 }
 
 /* toogle */
@@ -1306,4 +1320,15 @@ select {
 
 #insertSubcircuitDialog {
   color: white;
+}
+
+#miniMap {
+  position: fixed;
+  z-index: 100;
+  bottom: 20px;
+  right: 40px;
+  overflow-y: scroll;
+  opacity: 0.5;
+  overflow: hidden;
+  border: none;
 }
