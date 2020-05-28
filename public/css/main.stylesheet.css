@@ -149,7 +149,7 @@ button:focus {
   box-shadow: none !important;
   border: none;
   outline: none;
-  border-color: white;
+  border-color: white !important;
 }
 
 button:focus {
@@ -858,7 +858,14 @@ input:checked + .slider:before {
 }
 
 .custom-btn--secondary:hover {
-  color: white;
+  /* color: white; */
+  background-color: #ddd;
+  transition: all .5s ease;
+}
+
+.custom-btn--secondary:active,
+.custom-btn--secondary:focus {
+  border: 1px solid white;
 }
 
 .custom-btn--tertiary {
@@ -1163,6 +1170,9 @@ select {
 .ui-dialog .ui-dialog-titlebar {
   padding: 0;
   padding-bottom: 8px;
+  font: inherit;
+  line-height: inherit;
+  font-weight: bold;
 }
 
 .dialog-close--btn {
@@ -1209,6 +1219,14 @@ select {
   line-height: inherit;
   margin: auto;
   border-radius: 1px;
+  font: inherit;
+}
+
+.ui-dialog .ui-dialog-buttonpane button:hover {
+  background: #ddd;
+  color: #454545 !important;
+  transition: all .5s ease;
+  border: none;
 }
 
 .render-btn {
