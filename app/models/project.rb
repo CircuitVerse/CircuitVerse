@@ -1,16 +1,19 @@
+# frozen_string_literal: true
+
+# rubocop:disable Metrics/ClassLength
 class Project < ApplicationRecord
   require "pg_search"
   require "custom_optional_target/web_push"
   validates :name, length: { minimum: 1 }
-  belongs_to :author, class_name: 'User'
-  has_many :forks , class_name: 'Project', foreign_key: 'forked_project_id', dependent: :nullify
-  belongs_to :forked_project , class_name: 'Project' , optional: true
-  has_many :stars , dependent: :destroy
-  has_many :user_ratings, through: :stars , dependent: :destroy ,source: 'user'
-  belongs_to :assignment , optional: true
+  belongs_to :author, class_name: "User"
+  has_many :forks, class_name: "Project", foreign_key: "forked_project_id", dependent: :nullify
+  belongs_to :forked_project, class_name: "Project", optional: true
+  has_many :stars, dependent: :destroy
+  has_many :user_ratings, through: :stars, dependent: :destroy, source: "user"
+  belongs_to :assignment, optional: true
 
   has_many :collaborations, dependent: :destroy
-  has_many :collaborators, source: 'user' , through: :collaborations
+  has_many :collaborators, source: "user", through: :collaborations
   has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
   mount_uploader :image_preview, ImagePreviewUploader
@@ -18,10 +21,14 @@ class Project < ApplicationRecord
   has_one :grade, dependent: :destroy
 
   scope :public_and_not_forked,
-  ->() { where(project_access_type: "Public", forked_project_id: nil) }
+        -> { where(project_access_type: "Public", forked_project_id: nil) }
+
+  scope :open, -> { where(project_access_type: "Public") }
+
+  scope :by, ->(author_id) { where(author_id: author_id) }
 
   include PgSearch
-  pg_search_scope :text_search, against: [:name, :description], associated_against: {
+  pg_search_scope :text_search, against: %i[name description], associated_against: {
     author: :name,
     tags: :name
   }
@@ -36,7 +43,7 @@ class Project < ApplicationRecord
     end
 
     text :tags do
-      tags.map { |tag| tag.name }
+      tags.map(&:name)
     end
   end
 
@@ -47,46 +54,61 @@ class Project < ApplicationRecord
   acts_as_commontable
   # after_commit :send_mail, on: :create
 
-  scope :open, -> { where(project_access_type: "Public") }
-
   def increase_views(user)
-
-    if user.nil? or user.id != self.author_id
-      self.view ||=0
+    if user.nil? || (user.id != author_id)
+      self.view ||= 0
       self.view += 1
-      self.save
+      save
     end
   end
 
+  # returns true if starred, false if unstarred
+  def toggle_star(user)
+    star = Star.find_by(user_id: user.id, project_id: id)
+    if !star.nil?
+      star.destroy!
+      false
+    else
+      @star = Star.create!(user_id: user.id, project_id: id)
+      true
+    end
+  end
+
+  def fork(user)
+    @forked_project = dup
+    @forked_project.remove_image_preview!
+    @forked_project.update!(
+      view: 1, author_id: user.id, forked_project_id: id, name: name
+    )
+    @forked_project
+  end
 
   def send_mail
-    if(self.forked_project_id.nil?)
-      if(self.project_submission == false)
-        UserMailer.new_project_email(self.author,self).deliver_later
-      end
+    if forked_project_id.nil?
+      UserMailer.new_project_email(author, self).deliver_later if project_submission == false
     else
-      if(self.project_submission == false)
-        UserMailer.forked_project_email(self.author,self.forked_project,self).deliver_later
+      if project_submission == false
+        UserMailer.forked_project_email(author, forked_project, self).deliver_later
       end
     end
   end
 
   acts_as_notifiable :users,
                      # Notification targets as :targets is a necessary option
-                     targets: ->(project, key) {
+                     targets: lambda { |project, _key|
                        [project.forked_project.author]
                      },
                      notifier: :author,
-                     printable_name: ->(project) {
+                     printable_name: lambda { |project|
                        "forked your project \"#{project.name}\""
                      },
                      notifiable_path: :project_notifiable_path,
                      optional_targets: {
-                         CustomOptionalTarget::WebPush => {}
+                       CustomOptionalTarget::WebPush => {}
                      }
 
   def project_notifiable_path
-    user_project_path(self.forked_project.author, self.forked_project)
+    user_project_path(forked_project.author, forked_project)
   end
 
   def self.tagged_with(name)
@@ -109,27 +131,29 @@ class Project < ApplicationRecord
 
   validate :check_validity
   validate :clean_description
+
   private
-  def check_validity
-    if project_access_type != "Private" and !assignment_id.nil?
-      errors.add(:project_access_type, "Assignment has to be private")
+
+    def check_validity
+      if (project_access_type != "Private") && !assignment_id.nil?
+        errors.add(:project_access_type, "Assignment has to be private")
+      end
     end
-  end
 
-  def clean_description
-    profanity_filter = LanguageFilter::Filter.new matchlist: :profanity
-    return nil unless profanity_filter.match? description
-    errors.add(
-      :description,
-      "contains inappropriate language: #{profanity_filter.matched(description).join(', ')}"
-    )
-  end
+    def clean_description
+      profanity_filter = LanguageFilter::Filter.new matchlist: :profanity
+      return nil unless profanity_filter.match? description
 
-  def check_and_remove_featured
-    if saved_change_to_project_access_type? && saved_changes["project_access_type"][1] != "Public"
-      FeaturedCircuit.find_by(project_id: id)&.destroy
+      errors.add(
+        :description,
+        "contains inappropriate language: #{profanity_filter.matched(description).join(', ')}"
+      )
     end
-  end
 
-
+    def check_and_remove_featured
+      if saved_change_to_project_access_type? && saved_changes["project_access_type"][1] != "Public"
+        FeaturedCircuit.find_by(project_id: id)&.destroy
+      end
+    end
 end
+# rubocop:enable Metrics/ClassLength

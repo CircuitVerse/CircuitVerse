@@ -63,3 +63,7 @@
     border: 0;
     padding-left: 0.8rem;
 }
+
+.search-match {
+    color: red;
+}

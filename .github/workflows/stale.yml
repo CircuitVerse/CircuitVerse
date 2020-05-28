@@ -10,10 +10,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/stale@v1
+    - uses: actions/stale@v3
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         stale-issue-message: ' No activity on this issue for a prolonged duration, will be closed if no further activities in next 7 days'
         stale-pr-message: ' No activity on this PR for a prolonged duration, will be closed if no further activities in next 7 days'
         stale-issue-label: 'no-issue-activity'
         stale-pr-label: 'no-pr-activity'
+        days-before-stale: 120
+        days-before-close: 14
+        exempt-issue-labels: 'awaiting-approval,work-in-progress'
+        exempt-pr-labels: 'awaiting-approval,work-in-progress'  

@@ -12,7 +12,11 @@ function startListeners() {
             simulationArea.controlDown = false;
         }
     });
+
     document.getElementById("simulationArea").addEventListener('mousedown', function(e) {
+        createNode = true
+        stopWire = false
+        simulationArea.mouseDown = true;
 
         $("input").blur();
 
@@ -29,7 +33,7 @@ function startListeners() {
         simulationArea.mouseDownRawY = (e.clientY - rect.top) * DPR;
         simulationArea.mouseDownX = Math.round(((simulationArea.mouseDownRawX - globalScope.ox) / globalScope.scale) / unit) * unit;
         simulationArea.mouseDownY = Math.round(((simulationArea.mouseDownRawY - globalScope.oy) / globalScope.scale) / unit) * unit;
-        simulationArea.mouseDown = true;
+
         simulationArea.oldx = globalScope.ox;
         simulationArea.oldy = globalScope.oy;
 
@@ -49,19 +53,32 @@ function startListeners() {
             globalScope.restrictedCircuitElementsUsed.push(simulationArea.lastSelected.objectType);
             updateRestrictedElementsList();
         }
+
+//       deselect multible elements with click
+        if (!simulationArea.shiftDown && simulationArea.multipleObjectSelections.length > 0
+        ) {
+          if (
+            !simulationArea.multipleObjectSelections.includes(
+              simulationArea.lastSelected
+            )
+          )
+            simulationArea.multipleObjectSelections = [];
+        }
     });
     window.addEventListener('mousemove', onMouseMove);
-
-
-
+  
+    
     window.addEventListener('keydown', function(e) {
 
+        if(document.activeElement.tagName == "INPUT") return; 
+        
+        if(listenToSimulator){
         // If mouse is focusing on input element, then override any action
         // if($(':focus').length){
         //     return;
         // }
 
-        if (simulationArea.mouseRawX < 0 || simulationArea.mouseRawY < 0 || simulationArea.mouseRawX > width || simulationArea.mouseRawY > height) {
+        if (document.activeElement.tagName == "INPUT" || simulationArea.mouseRawX < 0 || simulationArea.mouseRawY < 0 || simulationArea.mouseRawX > width || simulationArea.mouseRawY > height) {
             return;
         } else {
             // HACK TO REMOVE FOCUS ON PROPERTIES
@@ -76,23 +93,25 @@ function startListeners() {
         updatePosition = true;
         simulationArea.shiftDown = e.shiftKey;
 
-        // zoom in (+)
-        if (e.key == "Meta" || e.key == "Control") {
-            simulationArea.controlDown = true;
+          //  stop making wires when we connect the 2nd termial to a node
+        if(stopWire){
+            createNode=false
         }
 
-        if (simulationArea.controlDown && (e.keyCode == 187 || e.keyCode == 171)) {
+        if (e.key == "Meta" || e.key == "Control") {
+          simulationArea.controlDown = true;
+        }
+
+        
+        // zoom in (+)
+        if ((simulationArea.controlDown && (e.keyCode == 187 || e.keyCode == 171))||e.keyCode==107) {
             e.preventDefault();
-            if (globalScope.scale < 4 * DPR) {
-                changeScale(.1 * DPR);
-            }
+            ZoomIn()
         }
         // zoom out (-)
-        if (simulationArea.controlDown && (e.keyCode == 189 || e.keyCode == 173)) {
+        if ((simulationArea.controlDown && (e.keyCode == 189 || e.keyCode == 173))||e.keyCode==109) {
             e.preventDefault();
-            if (globalScope.scale > 0.5 * DPR) {
-                changeScale(-.1 * DPR);
-            }
+            ZoomOut()
         }
 
         if (simulationArea.mouseRawX < 0 || simulationArea.mouseRawY < 0 || simulationArea.mouseRawX > width || simulationArea.mouseRawY > height) return;
@@ -109,9 +128,7 @@ function startListeners() {
             //    }
             //    copy(simulationArea.copyList);
         }
-        if (simulationArea.controlDown && (e.key == "V" || e.key == "v")) {
-            //    paste(simulationArea.copyData);
-        }
+
 
         if (simulationArea.lastSelected && simulationArea.lastSelected.keyDown) {
             if (e.key.toString().length == 1 || e.key.toString() == "Backspace") {
@@ -169,6 +186,13 @@ function startListeners() {
             e.preventDefault();
         }
 
+        //deselect all Shortcut
+        if (e.keyCode == 27) {
+            simulationArea.multipleObjectSelections = [];
+            simulationArea.lastSelected = undefined;
+            e.preventDefault();
+        }
+
         //change direction fns
         if (simulationArea.lastSelected != undefined) {
             let direction = "";
@@ -210,63 +234,54 @@ function startListeners() {
             // e.preventDefault(); //browsers normally open a new tab
             simulationArea.changeClockTime(prompt("Enter Time:"));
         }
-
         // f1 key for opening the documentation page
         if (e.keyCode === 112) {
             e.preventDefault();
             window.open('https://docs.circuitverse.org/', '_blank');
         }
-    })
+    }       
+  })
 
 
     document.getElementById("simulationArea").addEventListener('dblclick', function(e) {
+
         scheduleUpdate(2);
         if (simulationArea.lastSelected && simulationArea.lastSelected.dblclick !== undefined) {
             simulationArea.lastSelected.dblclick();
         }
+
+//       not needed becasue we do that with one click , but leaving it as it is will not harm 
         if (!simulationArea.shiftDown) {
             simulationArea.multipleObjectSelections = [];
         }
+
+
     });
 
     window.addEventListener('mouseup', onMouseUp);
-
-
 
     document.getElementById("simulationArea").addEventListener('mousewheel', MouseScroll);
     document.getElementById("simulationArea").addEventListener('DOMMouseScroll', MouseScroll);
 
     function MouseScroll(event) {
-        updateCanvas = true;
 
         event.preventDefault()
         var deltaY = event.wheelDelta ? event.wheelDelta : -event.detail;
-        var scrolledUp = deltaY < 0;
-        var scrolledDown = deltaY > 0;
-
-        if (event.ctrlKey) {
-            if (scrolledUp && globalScope.scale > 0.5 * DPR) {
-                changeScale(-.1 * DPR);
-            }
-            if (scrolledDown && globalScope.scale < 4 * DPR) {
-                changeScale(.1 * DPR);
-            }
-        } else {
-            if (scrolledUp && globalScope.scale < 4 * DPR) {
-                changeScale(.1 * DPR);
-            }
-            if (scrolledDown && globalScope.scale > 0.5 * DPR) {
-                changeScale(-.1 * DPR);
-            }
-        }
-
+        event.preventDefault();
+        var deltaY = event.wheelDelta ? event.wheelDelta : -event.detail;
+        let direction = deltaY > 0 ? 1 : -1;
+        handleZoom(direction);
         updateCanvas = true;
-        gridUpdate = true;
+
         if(layoutMode)layoutUpdate();
         else update(); // Schedule update not working, this is INEFFICIENT
     }
 
     document.addEventListener('cut', function(e) {
+
+        if(document.activeElement.tagName == "INPUT") return; 
+
+        if(listenToSimulator){
         simulationArea.copyList = simulationArea.multipleObjectSelections.slice();
         if (simulationArea.lastSelected && simulationArea.lastSelected !== simulationArea.root && !simulationArea.copyList.contains(simulationArea.lastSelected)) {
             simulationArea.copyList.push(simulationArea.lastSelected);
@@ -287,10 +302,14 @@ function startListeners() {
         } else {
             e.clipboardData.setData('text/plain', textToPutOnClipboard);
         }
-
+    }
     });
 
     document.addEventListener('copy', function(e) {
+
+        if(document.activeElement.tagName == "INPUT") return; 
+
+        if(listenToSimulator){
         simulationArea.copyList = simulationArea.multipleObjectSelections.slice();
         if (simulationArea.lastSelected && simulationArea.lastSelected !== simulationArea.root && !simulationArea.copyList.contains(simulationArea.lastSelected)) {
             simulationArea.copyList.push(simulationArea.lastSelected);
@@ -310,10 +329,14 @@ function startListeners() {
         } else {
             e.clipboardData.setData('text/plain', textToPutOnClipboard);
         }
-
+    }
     });
 
     document.addEventListener('paste', function(e) {
+
+        if(document.activeElement.tagName == "INPUT") return; 
+
+        if(listenToSimulator){
         var data;
         if (isIe) {
             data = window.clipboardData.getData('Text');
@@ -327,6 +350,7 @@ function startListeners() {
         updateRestrictedElementsInScope();
 
         e.preventDefault();
+    }
     });
 
     restrictedElements.forEach((element) => {
@@ -356,9 +380,7 @@ function removeMiniMap() {
 
 }
 
-
 function onMouseMove(e) {
-
     var rect = simulationArea.canvas.getBoundingClientRect();
     simulationArea.mouseRawX = (e.clientX - rect.left) * DPR;
     simulationArea.mouseRawY = (e.clientY - rect.top) * DPR;
@@ -392,6 +414,8 @@ function onMouseMove(e) {
 }
 
 function onMouseUp(e) {
+    createNode =simulationArea.controlDown
+    simulationArea.mouseDown = false;
 
     if (!lightMode) {
         lastMiniMapShown = new Date().getTime();
@@ -406,7 +430,6 @@ function onMouseUp(e) {
     wireToBeChecked = true;
 
     scheduleUpdate(1);
-    simulationArea.mouseDown = false;
 
     for (var i = 0; i < 2; i++) {
         updatePosition = true;
@@ -443,3 +466,37 @@ function delete_selected(){
     // Updated restricted elements
     updateRestrictedElementsInScope();
 }
+
+function resizeTabs(){
+    var $windowsize = $('body').width();
+    var $sideBarsize = $('.side').width();
+    var $maxwidth = ($windowsize - $sideBarsize);
+    $("#tabsBar div").each(function(e){
+        $(this).css({ 'max-width': $maxwidth - 30 });
+    });
+    }
+
+window.addEventListener("resize", resizeTabs);
+resizeTabs();
+
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+});
+
+// direction is only 1 or -1 
+function handleZoom(direction) {
+    if (globalScope.scale > 0.5 * DPR) {
+      changeScale(direction * 0.1 * DPR);
+    } else if (globalScope.scale < 4 * DPR) {
+      changeScale(direction * 0.1 * DPR);
+    }
+    gridUpdate = true;
+  }
+  
+  function ZoomIn() {
+    handleZoom(1);
+  }
+  
+  function ZoomOut() {
+    handleZoom(-1);
+  }
