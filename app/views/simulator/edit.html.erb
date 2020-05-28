@@ -10,8 +10,12 @@
   rel="stylesheet"
   href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
 />
-<script src="/js/jquery.twbs-toggle-buttons.min.js"></script>
-<script src="/js/checkBo.min.js"></script>
+<!-- Plugin scripts -->
+<script src="/js/plugins/jquery.twbs-toggle-buttons.min.js"></script>
+<script src="/js/plugins/checkBo.min.js"></script>
+<script src="/js/plugins/jquery-pseudo-ripple.js"></script>
+<script src="js/plugins/bootstrap-input-spinner.js"></script>
+
 <script>
   userSignedIn = <%= user_signed_in? %>;
   logix_project_id = <%= @logix_project_id %>;
@@ -475,7 +479,6 @@
   });
 </script>
 
-<script src="js/bootstrap-input-spinner.js"></script>
 <link rel="stylesheet" type="text/css" href="css/main.stylesheet.css" />
 <link rel="stylesheet" type="text/css" href="/css/restrictedElements.css" />
 <!-- <script src="./SAP_DATA.js"></script> -->
@@ -500,7 +503,6 @@
 <script src="/js/layout.js"></script>
 <script src="/js/testBench.js"></script>
 <script src="/js/verilog.js"></script>
-<script src="/js/nice_number.js"></script>
 <script type="text/javascript" src="/js/metadata.json"></script>
 <% if @project.nil? or @project.assignment_id.nil? %>
   <script src="/js/combinationalAnalysis.js"></script>

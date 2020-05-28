@@ -12,6 +12,7 @@
 @import "./2-basics/reset.scss";
 @import "./plugin-stylesheets/simple-button-radios.css";
 @import "./plugin-stylesheets/checkBo.min.css";
+@import "./plugin-stylesheets/jquery-pseudo-ripple.css";
 
 /** new UI ruleset starts here */
 
@@ -127,9 +128,11 @@ button {
   box-shadow: none;
 }
 
-button:active {
+button:active,button:focus {
   background: transparent !important;
   box-shadow: none !important;
+  border: none;
+  outline: none;
 }
 
 button:focus {
@@ -1048,7 +1051,7 @@ select {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
+  align-items: center;  
   min-height: 188px !important;
 }
 

@@ -403,3 +403,7 @@ $(function(){
   $("#openProjectDialog").checkBo();
   $(".download-dialog-section-2_2").checkBo();
 });
+
+$('button').ripple({
+  duration: 500
+});
