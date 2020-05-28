@@ -62,16 +62,18 @@ body {
   }
 }
 
-.navbar-text {
-  color: $black;
+.navbar-light
+.navbar-nav {
   font-weight: 500;
 
-  &:hover {
-    color: $green;
-  }
+  .nav-link {
+    &:hover {
+      color: $green;
+    }
 
-  &.active {
-    color: $teal;
+    &.active {
+      color: $teal;
+    }
   }
 }
 
@@ -79,6 +81,10 @@ body {
 #navbar-dropdown-2 {
   &:hover {
     color: $green;
+  }
+
+  &[aria-expanded="true"]{
+    color: $teal;
   }
 }
 
