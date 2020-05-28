@@ -18,19 +18,6 @@ RSpec.describe Api::V1::GroupMembersController, "#index", type: :request do
       end
     end
 
-    context "when authenticated and not having any group members" do
-      before do
-        token = get_auth_token(mentor)
-        get "/api/v1/groups/#{group.id}/group_members",
-            headers: { "Authorization": "Token #{token}" }, as: :json
-      end
-
-      it "returns status not found" do
-        expect(response).to have_http_status(404)
-        expect(response.parsed_body).to have_jsonapi_errors
-      end
-    end
-
     context "when authenticated as mentor and has group members" do
       before do
         # create 3 groups members for the defined group

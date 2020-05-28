@@ -7,8 +7,6 @@ class Api::V1::GroupMembersController < Api::V1::BaseController
 
   # GET /api/v1/groups/:group_id/group_members/
   def index
-    raise ActiveRecord::RecordNotFound if @group.group_members.empty?
-
     # checks if current_user has access to get group members
     authorize @group, :show_access?
 

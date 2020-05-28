@@ -10,8 +10,6 @@ class Api::V1::GroupsController < Api::V1::BaseController
 
   # GET /api/v1/groups
   def index
-    raise ActiveRecord::RecordNotFound if @current_user.groups.empty?
-
     @groups = paginate(@current_user.groups)
     @options = { links: link_attrs(@groups, api_v1_groups_url) }
     @options[:include] = include_resource if params.key?(:include)
@@ -20,8 +18,6 @@ class Api::V1::GroupsController < Api::V1::BaseController
 
   # GET /api/v1/groups_mentored
   def groups_mentored
-    raise ActiveRecord::RecordNotFound if @current_user.groups_mentored.empty?
-
     @groups = paginate(@current_user.groups_mentored)
     @options = { links: link_attrs(@groups, api_v1_groups_mentored_url) }
     @options[:include] = include_resource if params.key?(:include)

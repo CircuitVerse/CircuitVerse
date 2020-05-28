@@ -17,22 +17,6 @@ RSpec.describe Api::V1::GroupsController, "#groups_mentored", type: :request do
       end
     end
 
-    context "when authenticated but don't mentor any groups" do
-      before do
-        # create 3 groups with :mentor as mentor
-        FactoryBot.create_list(:group, 3, mentor: FactoryBot.create(:user))
-        # authenticate as non mentoring user
-        token = get_auth_token(mentor)
-        get "/api/v1/groups_mentored",
-            headers: { "Authorization": "Token #{token}" }, as: :json
-      end
-
-      it "returns status not_found" do
-        expect(response).to have_http_status(404)
-        expect(response.parsed_body).to have_jsonapi_errors
-      end
-    end
-
     context "when authenticated as mentor and including assignments" do
       before do
         # create 3 groups with assignments and group_members for each

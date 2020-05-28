@@ -4,6 +4,7 @@ require "rails_helper"
 
 RSpec.describe Api::V1::AssignmentsController, "#start", type: :request do
   describe "start working on assignment" do
+    let!(:user) { FactoryBot.create(:user) }
     let!(:assignment) do
       FactoryBot.create(
         :assignment, group: FactoryBot.create(:group, mentor: FactoryBot.create(:user))
@@ -56,16 +57,15 @@ RSpec.describe Api::V1::AssignmentsController, "#start", type: :request do
 
     context "when authorized and starts assignment" do
       before do
-        @user = FactoryBot.create(:user)
-        token = get_auth_token(@user)
+        token = get_auth_token(user)
         get "/api/v1/assignments/#{assignment.id}/start",
             headers: { "Authorization": "Token #{token}" }, as: :json
       end
 
       it "starts a new project & return status ok" do
-        assignment_proj_name = "#{@user.name}/#{assignment.name}"
+        assignment_proj_name = "#{user.name}/#{assignment.name}"
         expect(response).to have_http_status(200)
-        expect(@user.projects).to include(Project.find_by(name: assignment_proj_name))
+        expect(user.projects).to include(Project.find_by(name: assignment_proj_name))
       end
     end
   end
