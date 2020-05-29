@@ -7,7 +7,7 @@
  * @module engine
  */
 
-import { plotArea } from './plotArea';
+import plotArea from './plotArea';
 import { layoutUpdate } from './layoutMode';
 import simulationArea from './simulationArea';
 import {

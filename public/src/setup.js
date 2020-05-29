@@ -1,7 +1,7 @@
 import * as metadata from './metadata.json';
 import { generateId, showMessage } from './utils';
 import backgroundArea from './backgroundArea';
-import { plotArea } from './plotArea';
+import plotArea from './plotArea';
 import simulationArea from './simulationArea';
 import { dots } from './canvasApi';
 import { update } from './engine';

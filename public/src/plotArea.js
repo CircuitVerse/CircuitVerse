@@ -31,7 +31,7 @@ function startPlot() {
     plotArea.scroll = 1;
     addPlot();
 }
-export var plotArea = {
+const plotArea = {
     ox: 0,
     oy: 0,
     unit: 0,
@@ -273,3 +273,4 @@ export var plotArea = {
 
 //     }
 // });
+export default plotArea;
