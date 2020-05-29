@@ -15,6 +15,7 @@ import { correctWidth, lineTo, moveTo } from '../canvasApi';
 export default class Clock extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT') {
         super(x, y, scope, dir, 1);
+        this.scope['Clock'].push(this);
         this.fixedBitWidth = true;
         this.output1 = new Node(10, 0, 1, this, 1);
         this.state = 0;
@@ -76,3 +77,4 @@ export default class Clock extends CircuitElement {
 Clock.prototype.tooltipText = 'Clock';
 
 Clock.prototype.click = Clock.prototype.toggleState;
+Clock.prototype.objectType = 'Clock';

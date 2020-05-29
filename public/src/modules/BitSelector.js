@@ -23,6 +23,7 @@ export default class BitSelector extends CircuitElement {
         selectorBitWidth = 1,
     ) {
         super(x, y, scope, dir, bitWidth);
+        this.scope['BitSelector'].push(this);
         this.setDimensions(20, 20);
         this.selectorBitWidth = selectorBitWidth || parseInt(prompt('Enter Selector bitWidth'), 10);
         this.rectangleObject = false;
@@ -130,3 +131,4 @@ BitSelector.prototype.mutableProperties = {
         func: 'changeSelectorBitWidth',
     },
 };
+BitSelector.prototype.objectType = 'BitSelector';

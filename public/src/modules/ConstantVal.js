@@ -2,9 +2,21 @@ import CircuitElement from '../circuitElement';
 import { Node, findNode } from '../node';
 import simulationArea from '../simulationArea';
 import {
-    correctWidth, lineTo, moveTo, arc,
+    correctWidth, rect2, fillText
 } from '../canvasApi';
-import { changeInputSize } from '../modules';
+
+
+function bin2dec(binString) {
+    return parseInt(binString, 2);
+}
+
+function dec2bin(dec, bitWidth = undefined) {
+    // only for positive nos
+    var bin = (dec).toString(2);
+    if (bitWidth == undefined) return bin;
+    return '0'.repeat(bitWidth - bin.length) + bin;
+}
+
 /**
  * @class
  * ConstantVal
@@ -18,8 +30,10 @@ import { changeInputSize } from '../modules';
  */
 export default class ConstantVal extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1, state = '0') {
-        this.state = state || prompt('Enter value');
-        super(x, y, scope, dir, this.state.length);
+        state = state || prompt('Enter value');
+        super(x, y, scope, dir, state.length);
+        this.state = state;
+        this.scope['ConstantVal'].push(this);
         this.setDimensions(10 * this.state.length, 10);
         this.bitWidth = bitWidth || this.state.length;
         this.directionFixed = true;
@@ -156,3 +170,4 @@ ConstantVal.prototype.helplink = 'https://docs.circuitverse.org/#/inputElements?
  * @type {number}
  */
 ConstantVal.prototype.propagationDelay = 0;
+ConstantVal.prototype.objectType = 'ConstantVal';

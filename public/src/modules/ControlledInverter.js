@@ -2,7 +2,7 @@ import CircuitElement from '../circuitElement';
 import { Node, findNode } from '../node';
 import simulationArea from '../simulationArea';
 import {
-    correctWidth, lineTo, moveTo, arc,
+    correctWidth, lineTo, moveTo, drawCircle2,
 } from '../canvasApi';
 import { changeInputSize } from '../modules';
 /**
@@ -18,6 +18,7 @@ import { changeInputSize } from '../modules';
 export default class ControlledInverter extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
+        this.scope['ControlledInverter'].push(this);
         this.rectangleObject = false;
         this.setDimensions(15, 15);
 
@@ -103,3 +104,4 @@ export default class ControlledInverter extends CircuitElement {
  * @type {string}
  */
 ControlledInverter.prototype.tooltipText = 'Controlled Inverter ToolTip : Controlled buffer and NOT gate.';
+ControlledInverter.prototype.objectType = 'ControlledInverter';

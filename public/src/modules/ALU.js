@@ -21,6 +21,7 @@ export default class ALU extends CircuitElement {
         // //console.log("HIT");
         // //console.log(x,y,scope,dir,bitWidth,controlSignalSize);
         super(x, y, scope, dir, bitWidth);
+        this.scope['ALU'].push(this);
         this.message = 'ALU';
 
         this.setDimensions(30, 40);
@@ -179,3 +180,4 @@ ALU.prototype.tooltipText = 'ALU ToolTip: 0: A&B, 1:A|B, 2:A+B, 4:A&~B, 5:A|~B, 
  * @type {string}
  */
 ALU.prototype.helplink = 'https://docs.circuitverse.org/#/miscellaneous?id=alu';
+ALU.prototype.objectType = 'ALU';

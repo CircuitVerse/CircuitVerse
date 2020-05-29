@@ -19,6 +19,7 @@ import plotArea from '../plotArea';
 export default class Flag extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1, identifier) {
         super(x, y, scope, dir, bitWidth);
+        this.scope['Flag'].push(this);
         this.setWidth(60);
         this.setHeight(20);
         this.rectangleObject = false;
@@ -177,3 +178,4 @@ Flag.prototype.mutableProperties = {
         func: 'setIdentifier',
     },
 };
+Flag.prototype.objectType = 'Flag';

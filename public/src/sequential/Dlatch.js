@@ -18,6 +18,7 @@ import { correctWidth, lineTo, moveTo, fillText } from '../canvasApi';
 export default class Dlatch extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
+        this.scope['Dlatch'].push(this);
         this.directionFixed = true;
         this.setDimensions(20, 20);
         this.rectangleObject = true;
@@ -110,3 +111,4 @@ export default class Dlatch extends CircuitElement {
 Dlatch.prototype.tooltipText = 'D Latch : Single input Flip flop or D FlipFlop';
 Dlatch.prototype.helplink = 'https://docs.circuitverse.org/#/Sequential?id=d-latch';
 
+Dlatch.prototype.objectType = 'Dlatch';

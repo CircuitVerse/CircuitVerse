@@ -150,7 +150,7 @@ export function updateSelectionsAndPane(scope = globalScope) {
  * @param {Scope=} scope - the circuit we want to simulate
  * @param {boolean} resetNodes - boolean to reset all nodes
  */
-function play(scope = globalScope, resetNodes = false) {
+export function play(scope = globalScope, resetNodes = false) {
     if (errorDetected) return; // Don't simulate until error is fixed
     if (loading === true) return; // Don't simulate until loaded
     if (!embed) plotArea.stopWatch.Stop(); // Waveform thing

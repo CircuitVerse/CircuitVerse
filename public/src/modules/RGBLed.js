@@ -17,6 +17,7 @@ export default class RGBLed extends CircuitElement {
     constructor(x, y, scope = globalScope) {
         // Calling base class constructor
         super(x, y, scope, 'UP', 8);
+        this.scope['RGBLed'].push(this);
         this.rectangleObject = false;
         this.inp = [];
         this.setDimensions(10, 10);
@@ -113,3 +114,4 @@ RGBLed.prototype.tooltipText = 'RGB Led ToolTip: RGB Led inputs 8 bit values for
  * @type {string}
  */
 RGBLed.prototype.helplink = 'https://docs.circuitverse.org/#/outputs?id=rgb-led';
+RGBLed.prototype.objectType = 'RGBLed';

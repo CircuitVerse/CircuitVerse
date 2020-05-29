@@ -16,6 +16,7 @@ import { changeInputSize } from '../modules';
 export default class HexDisplay extends CircuitElement {
     constructor(x, y, scope = globalScope) {
         super(x, y, scope, 'RIGHT', 4);
+        this.scope['HexDisplay'].push(this);
         this.directionFixed = true;
         this.fixedBitWidth = true;
         this.setDimensions(30, 50);
@@ -49,8 +50,8 @@ export default class HexDisplay extends CircuitElement {
         ctx.beginPath();
         ctx.strokeStyle = color;
         ctx.lineWidth = correctWidth(5);
-        xx = this.x;
-        yy = this.y;
+        const xx = this.x;
+        const yy = this.y;
 
         moveTo(ctx, x1, y1, xx, yy, this.direction);
         lineTo(ctx, x2, y2, xx, yy, this.direction);
@@ -70,7 +71,7 @@ export default class HexDisplay extends CircuitElement {
 
         ctx.strokeStyle = 'black';
         ctx.lineWidth = correctWidth(3);
-        let a = b = c = d = e = f = g = 0;
+        let a = 0, b = 0, c = 0, d = 0, e = 0, f = 0, g = 0;
         switch (this.inp.value) {
         case 0:
             a = b = c = d = e = f = 1;
@@ -145,3 +146,4 @@ HexDisplay.prototype.tooltipText = 'Hex Display ToolTip: Inputs a 4 Bit Hex numb
  * @type {string}
  */
 HexDisplay.prototype.helplink = 'https://docs.circuitverse.org/#/outputs?id=hex-display';
+HexDisplay.prototype.objectType = 'HexDisplay';

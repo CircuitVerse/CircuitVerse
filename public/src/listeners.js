@@ -5,7 +5,7 @@ import { changeScale } from './canvasApi';
 import { scheduleBackup } from './data/backupCircuit';
 import { hideProperties } from './ux';
 import { updateRestrictedElementsList, updateRestrictedElementsInScope } from './restrictedElementDiv';
-import { removeMiniMap } from './minimap';
+import { removeMiniMap, updatelastMinimapShown } from './minimap';
 import undo from './data/undo';
 import { copy, paste, selectAll } from './events';
 import save from './data/save';
@@ -352,7 +352,7 @@ function onMouseMove(e) {
 
 function onMouseUp(e) {
     if (!lightMode) {
-        lastMiniMapShown = new Date().getTime();
+        updatelastMinimapShown();
         setTimeout(removeMiniMap, 2000);
     }
 

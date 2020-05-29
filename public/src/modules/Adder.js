@@ -16,6 +16,7 @@ import simulationArea from '../simulationArea';
 export default class Adder extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
+        this.scope['Adder'].push(this);
         this.setDimensions(20, 20);
 
         this.inpA = new Node(-20, -10, 0, this, this.bitWidth, 'A');
@@ -91,3 +92,4 @@ export default class Adder extends CircuitElement {
  */
 Adder.prototype.tooltipText = 'Adder ToolTip : Performs addition of numbers.';
 Adder.prototype.helplink = 'https://docs.circuitverse.org/#/miscellaneous?id=adder';
+Adder.prototype.objectType = 'Adder';

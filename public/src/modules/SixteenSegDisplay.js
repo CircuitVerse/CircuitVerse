@@ -2,7 +2,7 @@ import CircuitElement from '../circuitElement';
 import { Node, findNode } from '../node';
 import simulationArea from '../simulationArea';
 import {
-    correctWidth, lineTo, moveTo, arc,
+    correctWidth, lineTo, moveTo, rect,
 } from '../canvasApi';
 import { changeInputSize } from '../modules';
 /**
@@ -16,6 +16,7 @@ import { changeInputSize } from '../modules';
 export default class SixteenSegDisplay extends CircuitElement {
     constructor(x, y, scope = globalScope) {
         super(x, y, scope, 'RIGHT', 16);
+        this.scope['SixteenSegDisplay'].push(this);
         this.fixedBitWidth = true;
         this.directionFixed = true;
         this.setDimensions(30, 50);
@@ -49,8 +50,8 @@ export default class SixteenSegDisplay extends CircuitElement {
         ctx.beginPath();
         ctx.strokeStyle = color;
         ctx.lineWidth = correctWidth(4);
-        xx = this.x;
-        yy = this.y;
+        const xx = this.x;
+        const yy = this.y;
         moveTo(ctx, x1, y1, xx, yy, this.direction);
         lineTo(ctx, x2, y2, xx, yy, this.direction);
         ctx.closePath();
@@ -67,8 +68,8 @@ export default class SixteenSegDisplay extends CircuitElement {
         ctx.beginPath();
         ctx.strokeStyle = color;
         ctx.lineWidth = correctWidth(3);
-        xx = this.x;
-        yy = this.y;
+        const xx = this.x;
+        const yy = this.y;
         moveTo(ctx, x1, y1, xx, yy, this.direction);
         lineTo(ctx, x2, y2, xx, yy, this.direction);
         ctx.closePath();
@@ -122,3 +123,4 @@ SixteenSegDisplay.prototype.tooltipText = 'Sixteen Display ToolTip: Consists of 
  * @type {string}
  */
 SixteenSegDisplay.prototype.helplink = 'https://docs.circuitverse.org/#/outputs?id=sixteen-segment-display';
+SixteenSegDisplay.prototype.objectType = 'SixteenSegDisplay';

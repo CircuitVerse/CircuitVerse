@@ -18,6 +18,7 @@ import { changeInputSize } from '../modules';
 export default class NotGate extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
+        this.scope['NotGate'].push(this);
         this.rectangleObject = false;
         this.setDimensions(15, 15);
 
@@ -86,3 +87,4 @@ export default class NotGate extends CircuitElement {
  */
 NotGate.prototype.tooltipText = 'Not Gate Tooltip : Inverts the input digital signal.';
 NotGate.prototype.helplink = 'https://docs.circuitverse.org/#/gates?id=not-gate';
+NotGate.prototype.objectType = 'NotGate';

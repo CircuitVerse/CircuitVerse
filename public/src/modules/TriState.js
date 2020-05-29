@@ -18,6 +18,7 @@ import { changeInputSize } from '../modules';
 export default class TriState extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
+        this.scope['TriState'].push(this);
         this.rectangleObject = false;
         this.setDimensions(15, 15);
 
@@ -108,3 +109,4 @@ export default class TriState extends CircuitElement {
  */
 TriState.prototype.tooltipText = 'TriState ToolTip : Effectively removes the output from the circuit.';
 TriState.prototype.helplink = 'https://docs.circuitverse.org/#/miscellaneous?id=tri-state-buffer';
+TriState.prototype.objectType = 'TriState';

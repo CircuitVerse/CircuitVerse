@@ -1,13 +1,8 @@
 /* eslint-disable no-param-reassign */
 import backgroundArea from './backgroundArea';
 import simulationArea from './simulationArea';
-import { removeMiniMap } from './minimap';
+import { removeMiniMap, updatelastMinimapShown } from './minimap';
 import miniMapArea from './minimap';
-
-// Function used to change the zoom level wrt to a point
-// fn to change scale (zoom) - It also shifts origin so that the position
-// of the object in focus doesn't change
-window.lastMiniMapShown = undefined;
 
 export function findDimensions(scope = globalScope) {
     var totalObjects = 0;
@@ -44,6 +39,9 @@ export function findDimensions(scope = globalScope) {
 }
 
 
+// Function used to change the zoom level wrt to a point
+// fn to change scale (zoom) - It also shifts origin so that the position
+// of the object in focus doesn't change
 export function changeScale(delta, xx, yy, method = 1) {
     // method = 3/2 - Zoom wrt center of screen
     // method = 1 - Zoom wrt position of mouse
@@ -82,12 +80,12 @@ export function changeScale(delta, xx, yy, method = 1) {
         findDimensions(globalScope);
         miniMapArea.setup();
         $('#miniMap').show();
-        lastMiniMapShown = new Date().getTime();
+        updatelastMinimapShown();
         $('#miniMap').show();
         setTimeout(removeMiniMap, 2000);
     }
 }
-window.changeScale = changeScale
+window.changeScale = changeScale; // called in html to be updated
 // fn to draw Dots on screen
 // the function is called only when the zoom level or size of screen changes.
 // Otherwise for normal panning, the canvas itself is moved to give the illusion of movement
@@ -230,8 +228,8 @@ export function arc2(ctx, sx, sy, radius, start, stop, xx, yy, dir) {
 }
 
 export function drawCircle2(ctx, sx, sy, radius, xx, yy, dir) { // ox-x of origin, xx- x of element , sx - shift in x from element
-    let Sx; let 
-Sy;
+    let Sx; 
+    let Sy;
     [Sx, Sy] = rotate(sx, sy, dir);
     Sx *= globalScope.scale;
     Sy *= globalScope.scale;
@@ -264,7 +262,7 @@ export function rect2(ctx, x1, y1, x2, y2, xx, yy, dir = 'RIGHT') {
 }
 
 
-function rotate(x1, y1, dir) {
+export function rotate(x1, y1, dir) {
     if (dir === 'LEFT') { return [-x1, y1]; }
     if (dir === 'DOWN') { return [y1, x1]; }
     if (dir === 'UP') { return [y1, -x1]; }
@@ -369,7 +367,7 @@ export function fillText(ctx, str, x1, y1, fontSize = 20) {
 }
 
 export function fillText2(ctx, str, x1, y1, xx, yy, dir) {
-    angle = {
+    var angle = {
         RIGHT: 0,
         LEFT: 0,
         DOWN: Math.PI / 2,

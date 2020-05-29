@@ -8,6 +8,8 @@ import undo from './data/undo';
 window.$ = $;
 window.jQuery = $;
 
-window.setup = setup;
+document.addEventListener('DOMContentLoaded', () => {
+    setup();
+});
 window.undo = undo;
 window.Array = Array;

@@ -19,6 +19,7 @@ import { changeInputSize } from '../modules';
 export default class XorGate extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', inputs = 2, bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
+        this.scope['XorGate'].push(this);
         this.rectangleObject = false;
         this.setDimensions(15, 20);
 
@@ -134,3 +135,4 @@ XorGate.prototype.changeInputSize = changeInputSize;
  */
 XorGate.prototype.verilogType = 'xor';
 XorGate.prototype.helplink = 'https://docs.circuitverse.org/#/gates?id=xor-gate';
+XorGate.prototype.objectType = 'XorGate';

@@ -15,20 +15,16 @@ const oppositeDirection = {
 export default class CircuitElement {
     constructor(x, y, scope, dir, bitWidth) {
         // Data member initializations
-        this.objectType = this.constructor.name;
         this.x = x;
         this.y = y;
         this.hover = false;
-        console.log(x,y,this.objectType)
         if (this.x === undefined || this.y === undefined) {
             this.x = simulationArea.mouseX;
             this.y = simulationArea.mouseY;
             this.newElement = true;
             this.hover = true;
         }
-
         this.deleteNodesWhenDeleted = true; // FOR NOW - TO CHECK LATER
-
         this.nodeList = [];
         this.clicked = false;
 
@@ -48,7 +44,7 @@ export default class CircuitElement {
         this.rectangleObject = true;
         this.label = '';
         this.scope = scope;
-        this.scope[this.objectType].push(this);
+        this.scope.CircuitElement.push(this);
 
         this.bitWidth = bitWidth || parseInt(prompt('Enter bitWidth'), 10) || 1;
         this.direction = dir;
@@ -535,3 +531,4 @@ CircuitElement.prototype.tooltip = undefined;
 // CircuitElement.prototype.overrideDirectionRotation = false;
 
 CircuitElement.prototype.propagationDelayFixed = false;
+CircuitElement.prototype.objectType = 'CircuitElement';

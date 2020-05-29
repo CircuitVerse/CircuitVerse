@@ -16,6 +16,7 @@ import { correctWidth, lineTo, moveTo, fillText } from '../canvasApi';
 export default class JKflipFlop extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT') {
         super(x, y, scope, dir, 1);
+        this.scope['JKflipFlop'].push(this);
         this.directionFixed = true;
         this.fixedBitWidth = true;
         this.setDimensions(20, 20);
@@ -139,3 +140,4 @@ JKflipFlop.prototype.tooltipText = 'JK FlipFlop ToolTip : gated SR flip-flop wit
 
 JKflipFlop.prototype.helplink = 'https://docs.circuitverse.org/#/Sequential?id=jk-flip-flop';
 
+JKflipFlop.prototype.objectType = 'JKflipFlop';

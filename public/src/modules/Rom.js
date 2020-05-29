@@ -22,6 +22,7 @@ export default class Rom extends CircuitElement {
         data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     ) {
         super(x, y, scope, 'RIGHT', 1);
+        this.scope['Rom'].push(this);
         this.fixedBitWidth = true;
         this.directionFixed = true;
         this.rectangleObject = false;
@@ -194,3 +195,4 @@ export default class Rom extends CircuitElement {
  */
 Rom.prototype.tooltipText = 'Read-only memory';
 Rom.prototype.helplink = 'https://docs.circuitverse.org/#/memoryElements?id=rom';
+Rom.prototype.objectType = 'Rom';

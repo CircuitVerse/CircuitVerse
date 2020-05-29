@@ -1,3 +1,5 @@
+import simulationArea from './simulationArea';
+import { scheduleUpdate, play } from './engine';
 window.width = undefined;
 window.height = undefined;
 

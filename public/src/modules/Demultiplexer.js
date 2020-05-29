@@ -25,6 +25,7 @@ export default class Demultiplexer extends CircuitElement {
         controlSignalSize = 1,
     ) {
         super(x, y, scope, dir, bitWidth);
+        this.scope['Demultiplexer'].push(this);
         this.controlSignalSize = controlSignalSize || parseInt(prompt('Enter control signal bitWidth'), 10);
         this.outputsize = 1 << this.controlSignalSize;
         this.xOff = 0;
@@ -39,7 +40,7 @@ export default class Demultiplexer extends CircuitElement {
         this.changeControlSignalSize = function (size) {
             if (size === undefined || size < 1 || size > 32) return;
             if (this.controlSignalSize === size) return;
-            const obj = new window[this.objectType](this.x, this.y, this.scope, this.direction, this.bitWidth, size);
+            const obj = new Demultiplexer(this.x, this.y, this.scope, this.direction, this.bitWidth, size);
             this.cleanDelete();
             simulationArea.lastSelected = obj;
             return obj;
@@ -155,3 +156,4 @@ export default class Demultiplexer extends CircuitElement {
  */
 Demultiplexer.prototype.tooltipText = 'DeMultiplexer ToolTip : Multiple outputs and a single line input.';
 Demultiplexer.prototype.helplink = 'https://docs.circuitverse.org/#/decodersandplexers?id=demultiplexer';
+Demultiplexer.prototype.objectType = 'Demultiplexer';

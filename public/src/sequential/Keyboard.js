@@ -16,6 +16,7 @@ import { correctWidth, lineTo, moveTo, fillText3, fontSize } from '../canvasApi'
 export default class Keyboard extends CircuitElement {
     constructor(x, y, scope = globalScope, bufferSize = 32) {
         super(x, y, scope, 'RIGHT', 1);
+        this.scope['Keyboard'].push(this);
         this.directionFixed = true;
         this.fixedBitWidth = true;
 
@@ -43,7 +44,7 @@ export default class Keyboard extends CircuitElement {
     changeBufferSize(size) {
         if (size == undefined || size < 20 || size > 100) return;
         if (this.bufferSize == size) return;
-        var obj = new Keyboard[this.objectType](this.x, this.y, this.scope, size);
+        var obj = new Keyboard(this.x, this.y, this.scope, size);
         this.delete();
         simulationArea.lastSelected = obj;
         return obj;
@@ -173,3 +174,4 @@ Keyboard.prototype.mutableProperties = {
     },
 };
 
+Keyboard.prototype.objectType = 'Keyboard';

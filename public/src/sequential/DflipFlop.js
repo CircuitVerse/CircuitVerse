@@ -16,6 +16,7 @@ import { correctWidth, lineTo, moveTo, fillText } from '../canvasApi';
 export default class DflipFlop extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
+        this.scope['DflipFlop'].push(this);
         this.directionFixed = true;
         this.setDimensions(20, 20);
         this.rectangleObject = true;
@@ -133,3 +134,4 @@ export default class DflipFlop extends CircuitElement {
 DflipFlop.prototype.tooltipText = 'D FlipFlop ToolTip : Introduces delay in timing circuit.';
 DflipFlop.prototype.helplink = 'https://docs.circuitverse.org/#/Sequential?id=d-flip-flop';
 
+DflipFlop.prototype.objectType = 'DflipFlop';

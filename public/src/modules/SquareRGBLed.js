@@ -2,9 +2,9 @@ import CircuitElement from '../circuitElement';
 import { Node, findNode } from '../node';
 import simulationArea from '../simulationArea';
 import {
-    correctWidth, lineTo, moveTo, arc,
+    correctWidth, lineTo, moveTo, rect2,
 } from '../canvasApi';
-import { changeInputSize } from '../modules';
+
 /**
  * @class
  * SquareRGBLed
@@ -18,6 +18,7 @@ import { changeInputSize } from '../modules';
 export default class SquareRGBLed extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'UP', pinLength = 1) {
         super(x, y, scope, dir, 8);
+        this.scope['SquareRGBLed'].push(this);
         this.rectangleObject = false;
         this.setDimensions(15, 15);
         this.pinLength = pinLength === undefined ? 1 : pinLength;
@@ -43,7 +44,7 @@ export default class SquareRGBLed extends CircuitElement {
             const diffY = this.direction === 'UP' ? -diff : this.direction === 'DOWN' ? diff : 0;
 
             // Build a new LED with the new values; preserve label properties too.
-            const obj = new window[this.objectType](this.x + diffX, this.y + diffY, this.scope, this.direction, pinLength);
+            const obj = new SquareRGBLed(this.x + diffX, this.y + diffY, this.scope, this.direction, pinLength);
             obj.label = this.label;
             obj.labelDirection = this.labelDirection;
 
@@ -145,3 +146,4 @@ SquareRGBLed.prototype.tooltipText = 'Square RGB Led ToolTip: RGB Led inputs 8 b
  * @type {string}
  */
 SquareRGBLed.prototype.helplink = 'https://docs.circuitverse.org/#/outputs?id=square-rgb-led';
+SquareRGBLed.prototype.objectType = 'SquareRGBLed';

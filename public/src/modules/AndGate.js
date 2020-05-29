@@ -22,6 +22,7 @@ export default class AndGate extends CircuitElement {
          * super call
          */
         super(x, y, scope, dir, bitWidth);
+        this.scope['AndGate'].push(this);
         this.rectangleObject = false;
         this.setDimensions(15, 20);
         this.inp = [];
@@ -136,3 +137,4 @@ AndGate.prototype.verilogType = 'and';
  */
 AndGate.prototype.changeInputSize = changeInputSize;
 AndGate.prototype.helplink = 'https://docs.circuitverse.org/#/gates?id=and-gate';
+AndGate.prototype.objectType = 'AndGate';

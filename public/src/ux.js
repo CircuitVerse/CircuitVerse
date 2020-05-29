@@ -8,7 +8,9 @@ import { scheduleUpdate } from './engine';
 import simulationArea from './simulationArea';
 import logixFunction from './data';
 import { newCircuit, circuitProperty } from './circuit';
-import modules, { moduleProperty } from './modules';
+import modules from './modules';
+import sequential from './sequential'
+import testbench from './testbench'
 import { updateRestrictedElementsInScope } from './restrictedElementDiv';
 import { paste } from './events';
 
@@ -123,7 +125,15 @@ export function setupUI() {
     $('.logixModules').mousedown(function () {
         // ////console.log(smartDropXX,smartDropYY);
         if (simulationArea.lastSelected && simulationArea.lastSelected.newElement) simulationArea.lastSelected.delete();
-        var obj = new modules[this.id](); // (simulationArea.mouseX,simulationArea.mouseY);
+        var obj;
+        if (elementHierarchy['Sequential Elements'].includes(this.id)) {
+            obj = new sequential[this.id](); // (simulationArea.mouseX,simulationArea.mouseY);
+        } else if (elementHierarchy['Test Bench'].includes(this.id)) {
+            obj = new testbench[this.id](); // (simulationArea.mouseX,simulationArea.mouseY);
+        } else {
+            obj = new modules[this.id](); // (simulationArea.mouseX,simulationArea.mouseY);
+        }
+        // obj = new modules[this.id](); // (simulationArea.mouseX,simulationArea.mouseY);
         simulationArea.lastSelected = obj;
         // simulationArea.lastSelected=obj;
         // simulationArea.mouseDown=true;
@@ -141,7 +151,14 @@ export function setupUI() {
 
     $('.logixModules').hover(function () {
         // Tooltip can be statically defined in the prototype.
-        var { tooltipText } = window[this.id].prototype;
+        var tooltipText;
+        if (elementHierarchy['Sequential Elements'].includes(this.id)) {
+            tooltipText = sequential[this.id].prototype.tooltipText;
+        } else if (elementHierarchy['Test Bench'].includes(this.id)) {
+            tooltipText = testbench[this.id].prototype.tooltipText;
+        } else {
+            tooltipText = modules[this.id].prototype.tooltipText;
+        }
         if (!tooltipText) return;
         $('#Help').addClass('show');
         $('#Help').empty();
@@ -172,6 +189,7 @@ var prevPropertyObj = undefined;
  * @param {CircuiElement} obj - the object whose properties we want to be shown in sidebar
  */
 export function showProperties(obj) {
+    // console.log(obj)
     if (obj === prevPropertyObj) return;
     hideProperties();
 
@@ -217,7 +235,7 @@ export function showProperties(obj) {
         }
 
         if (obj.mutableProperties) {
-            for (attr in obj.mutableProperties) {
+            for (let attr in obj.mutableProperties) {
                 var prop = obj.mutableProperties[attr];
                 if (obj.mutableProperties[attr].type === 'number') {
                     s = `<p>${prop.name}<input class='objectPropertyAttribute' type='number'  name='${prop.func}' min='${prop.min || 0}' max='${prop.max || 200}' value=${obj[attr]}></p>`;

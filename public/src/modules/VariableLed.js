@@ -18,6 +18,7 @@ export default class VariableLed extends CircuitElement {
         // Calling base class constructor
 
         super(x, y, scope, 'UP', 8);
+        this.scope['VariableLed'].push(this);
         this.rectangleObject = false;
         this.setDimensions(10, 20);
         this.inp1 = new Node(-40, 0, 0, this, 8);
@@ -91,3 +92,4 @@ VariableLed.prototype.tooltipText = 'Variable Led ToolTip: Variable LED inputs a
  * @type {string}
  */
 VariableLed.prototype.helplink = 'https://docs.circuitverse.org/#/outputs?id=variable-led';
+VariableLed.prototype.objectType = 'VariableLed';

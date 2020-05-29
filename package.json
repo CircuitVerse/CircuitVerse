@@ -11,18 +11,18 @@
     "eslint": "^6.0.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.20.0",
-    "expose-loader": "^0.7.5",
-    "webpack-dev-server": "^3.10.3"
+    "jsdoc": "3.6.3",
+    "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.12.1",
     "@rails/webpacker": "4.2.2",
     "bootstrap": "^4.3.1",
+    "expose-loader": "^0.7.5",
     "jquery": "^3.4.1",
     "jquery-ui": "^1.12.1",
     "jquery-ui-dist": "^1.12.1",
     "jquery-ujs": "^1.2.2",
-    "jsdoc": "3.6.3",
     "opencollective-postinstall": "^2.0.2",
     "popper.js": "^1.16.0",
     "trumbowyg": "^2.21.0",

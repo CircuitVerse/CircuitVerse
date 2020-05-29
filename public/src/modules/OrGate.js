@@ -20,6 +20,7 @@ export default class OrGate extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', inputs = 2, bitWidth = 1) {
         // Calling base class constructor
         super(x, y, scope, dir, bitWidth);
+        this.scope['OrGate'].push(this);
         this.rectangleObject = false;
         this.setDimensions(15, 20);
         // Inherit base class prototype
@@ -131,3 +132,4 @@ OrGate.prototype.alwaysResolve = true;
  */
 OrGate.prototype.verilogType = 'or';
 OrGate.prototype.helplink = 'https://docs.circuitverse.org/#/gates?id=or-gate';
+OrGate.prototype.objectType = 'OrGate';

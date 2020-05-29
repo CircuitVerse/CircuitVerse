@@ -19,6 +19,7 @@ import { correctWidth, lineTo, moveTo, fillText3 } from '../canvasApi';
 export default class TTY extends CircuitElement {
     constructor(x, y, scope = globalScope, rows = 3, cols = 32) {
         super(x, y, scope, 'RIGHT', 1);
+        this.scope['TTY'].push(this);
         this.directionFixed = true;
         this.fixedBitWidth = true;
         this.cols = cols || parseInt(prompt('Enter cols:'));
@@ -50,7 +51,7 @@ export default class TTY extends CircuitElement {
     changeRowSize(size) {
         if (size == undefined || size < 1 || size > 10) return;
         if (this.rows == size) return;
-        var obj = new TTY[this.objectType](this.x, this.y, this.scope, size, this.cols);
+        var obj = new TTY(this.x, this.y, this.scope, size, this.cols);
         this.delete();
         simulationArea.lastSelected = obj;
         return obj;
@@ -63,7 +64,7 @@ export default class TTY extends CircuitElement {
     changeColSize(size) {
         if (size == undefined || size < 20 || size > 100) return;
         if (this.cols == size) return;
-        var obj = new TTY[this.objectType](this.x, this.y, this.scope, this.rows, size);
+        var obj = new TTY(this.x, this.y, this.scope, this.rows, size);
         this.delete();
         simulationArea.lastSelected = obj;
         return obj;
@@ -178,3 +179,4 @@ TTY.prototype.mutableProperties = {
     },
 };
 
+TTY.prototype.objectType = 'TTY';

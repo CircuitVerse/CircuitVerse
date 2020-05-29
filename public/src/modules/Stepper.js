@@ -1,9 +1,7 @@
 import CircuitElement from '../circuitElement';
 import { Node, findNode } from '../node';
 import simulationArea from '../simulationArea';
-import {
-    correctWidth, lineTo, moveTo, arc,
-} from '../canvasApi';
+import { fillText } from '../canvasApi';
 import { changeInputSize } from '../modules';
 /**
  * @class
@@ -18,6 +16,7 @@ import { changeInputSize } from '../modules';
 export default class Stepper extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 8) {
         super(x, y, scope, dir, bitWidth);
+        this.scope['Stepper'].push(this);
         this.setDimensions(20, 20);
 
         this.output1 = new Node(20, 0, 1, this, bitWidth);
@@ -92,3 +91,4 @@ Stepper.prototype.tooltipText = 'Stepper ToolTip: Increase/Decrease value by sel
  * @type {string}
  */
 Stepper.prototype.helplink = 'https://docs.circuitverse.org/#/inputElements?id=stepper';
+Stepper.prototype.objectType = 'Stepper';

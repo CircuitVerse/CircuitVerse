@@ -15,6 +15,7 @@ import { correctWidth, rect, fillText } from '../canvasApi';
 export default class LSB extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
+        this.scope['LSB'].push(this);
         this.leftDimensionX = 10;
         this.rightDimensionX = 20;
         this.setHeight(30);
@@ -124,3 +125,4 @@ export default class LSB extends CircuitElement {
  */
 LSB.prototype.tooltipText = 'LSB ToolTip : The least significant bit or the low-order bit.';
 LSB.prototype.helplink = 'https://docs.circuitverse.org/#/decodersandplexers?id=least-significant-bit-lsb-detector';
+LSB.prototype.objectType = 'LSB';

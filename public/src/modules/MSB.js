@@ -15,6 +15,7 @@ import { correctWidth, rect, fillText } from '../canvasApi';
 export default class MSB extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
+        this.scope['MSB'].push(this);
         // this.setDimensions(20, 20);
         this.leftDimensionX = 10;
         this.rightDimensionX = 20;
@@ -118,3 +119,4 @@ export default class MSB extends CircuitElement {
  */
 MSB.prototype.tooltipText = 'MSB ToolTip : The most significant bit or the high-order bit.';
 MSB.prototype.helplink = 'https://docs.circuitverse.org/#/decodersandplexers?id=most-significant-bit-msb-detector';
+MSB.prototype.objectType = 'MSB';

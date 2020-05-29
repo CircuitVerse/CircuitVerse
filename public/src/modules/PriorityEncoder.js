@@ -15,6 +15,7 @@ import { correctWidth, rect, fillText } from '../canvasApi';
 export default class PriorityEncoder extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
+        this.scope['PriorityEncoder'].push(this);
         this.bitWidth = bitWidth || parseInt(prompt('Enter bitWidth'), 10);
         this.inputSize = 1 << this.bitWidth;
 
@@ -70,7 +71,7 @@ export default class PriorityEncoder extends CircuitElement {
         if (this.bitWidth === bitWidth) return;
 
         this.bitWidth = bitWidth;
-        const obj = new window[this.objectType](this.x, this.y, this.scope, this.direction, this.bitWidth);
+        const obj = new PriorityEncoder(this.x, this.y, this.scope, this.direction, this.bitWidth);
         this.inputSize = 1 << bitWidth;
 
         this.cleanDelete();
@@ -157,3 +158,4 @@ export default class PriorityEncoder extends CircuitElement {
  */
 PriorityEncoder.prototype.tooltipText = 'Priority Encoder ToolTip : Compresses binary inputs into a smaller number of outputs.';
 PriorityEncoder.prototype.helplink = 'https://docs.circuitverse.org/#/decodersandplexers?id=priority-encoder';
+PriorityEncoder.prototype.objectType = 'PriorityEncoder';

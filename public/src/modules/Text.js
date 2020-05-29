@@ -15,6 +15,7 @@ import { rect2, fillText } from '../canvasApi';
 export default class Text extends CircuitElement {
     constructor(x, y, scope = globalScope, label = '', fontSize = 14) {
         super(x, y, scope, 'RIGHT', 1);
+        this.scope['Text'].push(this);
         // this.setDimensions(15, 15);
         this.fixedBitWidth = true;
         this.directionFixed = true;
@@ -134,3 +135,4 @@ Text.prototype.mutableProperties = {
         func: 'setFontSize',
     },
 };
+Text.prototype.objectType = 'Text';

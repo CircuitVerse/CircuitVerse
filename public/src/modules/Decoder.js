@@ -17,6 +17,7 @@ import {
 export default class Decoder extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'LEFT', bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
+        this.scope['Decoder'].push(this);
         // this.controlSignalSize = controlSignalSize || parseInt(prompt("Enter control signal bitWidth"), 10);
         this.outputsize = 1 << this.bitWidth;
         this.xOff = 0;
@@ -54,7 +55,7 @@ export default class Decoder extends CircuitElement {
             // this.input.bitWidth = bitWidth;
             if (bitWidth === undefined || bitWidth < 1 || bitWidth > 32) return;
             if (this.bitWidth === bitWidth) return;
-            const obj = new window[this.objectType](this.x, this.y, this.scope, this.direction, bitWidth);
+            const obj = new Decoder(this.x, this.y, this.scope, this.direction, bitWidth);
             this.cleanDelete();
             simulationArea.lastSelected = obj;
             return obj;
@@ -150,3 +151,4 @@ export default class Decoder extends CircuitElement {
  */
 Decoder.prototype.tooltipText = 'Decoder ToolTip : Converts coded inputs into coded outputs.';
 Decoder.prototype.helplink = 'https://docs.circuitverse.org/#/decodersandplexers?id=decoder';
+Decoder.prototype.objectType = 'Decoder';

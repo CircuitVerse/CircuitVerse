@@ -16,7 +16,8 @@ export default class ForceGate extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
         this.setDimensions(20, 10);
-
+        this.objectType = 'ForceGate';
+        this.scope.ForceGate.push(this);
         this.inp1 = new Node(-20, 0, 0, this);
         this.inp2 = new Node(0, 0, 0, this);
         this.output1 = new Node(20, 0, 1, this);
@@ -82,3 +83,4 @@ export default class ForceGate extends CircuitElement {
  * @type {string}
  */
 ForceGate.prototype.tooltipText = 'Force Gate ToolTip : ForceGate Selected.';
+ForceGate.prototype.objectType = 'ForceGate';

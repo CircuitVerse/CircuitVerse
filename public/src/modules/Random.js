@@ -17,6 +17,7 @@ import { fillText, lineTo, moveTo } from '../canvasApi';
 export default class Random extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
+        this.scope['Random'].push(this);
         this.directionFixed = true;
         this.setDimensions(20, 20);
         this.rectangleObject = true;
@@ -81,8 +82,8 @@ export default class Random extends CircuitElement {
     customDraw() {
         var ctx = simulationArea.context;
         ctx.beginPath();
-        xx = this.x;
-        yy = this.y;
+        var xx = this.x;
+        var yy = this.y;
         ctx.font = '20px Georgia';
         ctx.fillStyle = 'green';
         ctx.textAlign = 'center';
@@ -100,3 +101,4 @@ Random.prototype.tooltipText = 'Random ToolTip : Random Selected.';
 
 Random.prototype.helplink = 'https://docs.circuitverse.org/#/inputElements?id=random';
 
+Random.prototype.objectType = 'Random';

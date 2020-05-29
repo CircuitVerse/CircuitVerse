@@ -34,6 +34,7 @@ function dec2bin(dec, bitWidth = undefined) {
 export default class Input extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1, layoutProperties) {
         super(x, y, scope, dir, bitWidth);
+        this.scope['Input'].push(this);
         if (layoutProperties) { this.layoutProperties = layoutProperties; } else {
             this.layoutProperties = {};
             this.layoutProperties.x = 0;
@@ -185,3 +186,4 @@ Input.prototype.helplink = 'https://docs.circuitverse.org/#/inputElements?id=inp
  * @type {number}
  */
 Input.prototype.propagationDelay = 0;
+Input.prototype.objectType = 'Input';

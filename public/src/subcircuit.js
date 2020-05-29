@@ -61,6 +61,8 @@ export function createSubCircuitPrompt(scope = globalScope) {
 export default class SubCircuit extends CircuitElement {
     constructor(x, y, scope = globalScope, id = undefined, savedData = undefined) {
         super(x, y, scope, 'RIGHT', 1); // super call
+        this.objectType = 'SubCircuit';
+        this.scope.SubCircuit.push(this);
         this.id = id || prompt('Enter Id: ');
         this.directionFixed = true;
         this.fixedBitWidth = true;

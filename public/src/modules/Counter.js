@@ -21,6 +21,7 @@ import { lineTo, moveTo, fillText } from '../canvasApi';
 export default class Counter extends CircuitElement {
     constructor(x, y, scope = globalScope, bitWidth = 8) {
         super(x, y, scope, "RIGHT", bitWidth);
+        this.scope['Counter'].push(this);
         this.directionFixed = true;
         this.rectangleObject = true;
 
@@ -114,4 +115,5 @@ export default class Counter extends CircuitElement {
 }
 
 Counter.prototype.tooltipText = "Counter: a binary counter from zero to a given maximum value";
-Counter.prototype.helplink = "https://docs.circuitverse.org/#/inputElements?id=counter";
+Counter.prototype.helplink = "https://docs.circuitverse.org/#/inputElements?id=counter";Counter.prototype.objectType = 'Counter';
+Counter.prototype.objectType = 'Counter';

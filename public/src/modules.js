@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import AndGate from './modules/AndGate';
 import NandGate from './modules/NandGate';
 import Multiplexer from './modules/Multiplexer';
@@ -9,14 +10,12 @@ import HexDisplay from './modules/HexDisplay';
 import OrGate from './modules/OrGate';
 import Stepper from './modules/Stepper';
 import NotGate from './modules/NotGate';
-// import ForceGate from './modules/ForceGate';
 import Text from './modules/Text';
 import TriState from './modules/TriState';
 import Buffer from './modules/Buffer';
 import ControlledInverter from './modules/ControlledInverter';
 import Adder from './modules/Adder';
 import TwoComplement from './modules/TwoComplement';
-import Rom from './modules/Rom';
 import Splitter from './modules/Splitter';
 import Ground from './modules/Ground';
 import Power from './modules/Power';
@@ -40,19 +39,11 @@ import Tunnel from './modules/Tunnel';
 import ALU from './modules/ALU';
 import Rectangle from './modules/Rectangle';
 import Arrow from './modules/Arrow';
+import Counter from './modules/Counter';
+import Random from './modules/Random';
+import RGBLedMatrix from './modules/RGBLedMatrix';
+import simulationArea from './simulationArea';
 
-export function changeInputSize(size) {
-    if (size == undefined || size < 2 || size > 10) return;
-    if (this.inputSize == size) return;
-    size = parseInt(size, 10);
-    console.log(this.objectType, size);
-    var obj = new window[this.objectType](this.x, this.y, this.scope, this.direction, size, this.bitWidth);
-    simulationArea.lastSelected = obj;
-    this.delete();
-    console.log('obj', obj);
-    return obj;
-    // showProperties(obj);
-}
 export function getNextPosition(x = 0, scope = globalScope) {
     let possibleY = 20;
     const done = {};
@@ -77,11 +68,11 @@ export function getNextPosition(x = 0, scope = globalScope) {
     return possibleY;
 }
 
-export const moduleProperty = { changeInputSize };
-
 const modules = {
     AndGate,
+    Random,
     NandGate,
+    Counter,
     Multiplexer,
     XorGate,
     XnorGate,
@@ -91,14 +82,12 @@ const modules = {
     OrGate,
     Stepper,
     NotGate,
-    // ForceGate,
     Text,
     TriState,
     Buffer,
     ControlledInverter,
     Adder,
     TwoComplement,
-    Rom,
     Splitter,
     Ground,
     Power,
@@ -122,5 +111,16 @@ const modules = {
     ALU,
     Rectangle,
     Arrow,
+    RGBLedMatrix,
 };
 export default modules;
+export function changeInputSize(size) {
+    if (size == undefined || size < 2 || size > 10) return;
+    if (this.inputSize == size) return;
+    size = parseInt(size, 10);
+    var obj = new modules[this.objectType](this.x, this.y, this.scope, this.direction, size, this.bitWidth);
+    this.delete();
+    simulationArea.lastSelected = obj;
+    return obj;
+    // showProperties(obj);
+}

@@ -18,6 +18,7 @@ import { changeInputSize } from '../modules';
 export default class Buffer extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
+        this.scope['Buffer'].push(this);
         this.rectangleObject = false;
         this.setDimensions(15, 15);
         this.state = 0;
@@ -108,3 +109,4 @@ export default class Buffer extends CircuitElement {
  */
 Buffer.prototype.tooltipText = 'Buffer ToolTip : Isolate the input from the output.';
 Buffer.prototype.helplink = 'https://docs.circuitverse.org/#/miscellaneous?id=buffer';
+Buffer.prototype.objectType = 'Buffer';

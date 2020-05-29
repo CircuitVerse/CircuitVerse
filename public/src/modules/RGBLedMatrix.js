@@ -27,6 +27,7 @@ export default class RGBLedMatrix extends CircuitElement {
         } = {}
     ) {
         super(x, y, scope, 'RIGHT', 8);
+        this.scope['RGBLedMatrix'].push(this);
         this.fixedBitWidth = true;
         this.directionFixed = true;
         this.rectangleObject = true;
@@ -320,4 +321,4 @@ RGBLedMatrix.prototype.mutableProperties = {
         min: 1,
         func: 'toggleGrid',
     },
-};
+};RGBLedMatrix.prototype.objectType = 'RGBLedMatrix';

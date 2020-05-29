@@ -2,6 +2,8 @@ import CircuitElement from '../circuitElement';
 import simulationArea from '../simulationArea';
 import { correctWidth, lineTo, moveTo, fillText } from '../canvasApi';
 import { Node, findNode } from '../node';
+import plotArea from '../plotArea';
+
 
 /**
  * TestBench Input has a node for it's clock input.
@@ -19,6 +21,8 @@ import { Node, findNode } from '../node';
 export default class TB_Input extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', identifier, testData) {
         super(x, y, scope, dir, 1);
+        this.objectType = 'TB_Input';
+        this.scope.TB_Input.push(this);
         this.setIdentifier(identifier || 'Test1');
         this.testData = testData || { inputs: [], outputs: [], n: 0 };
         this.clockInp = new Node(0, 20, 0, this, 1);
@@ -280,3 +284,4 @@ TB_Input.prototype.mutableProperties = {
         func: 'toggleState',
     },
 };
+TB_Input.prototype.objectType = 'TB_Input';

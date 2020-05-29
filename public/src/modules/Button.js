@@ -2,9 +2,9 @@ import CircuitElement from '../circuitElement';
 import { Node, findNode } from '../node';
 import simulationArea from '../simulationArea';
 import {
-    correctWidth, lineTo, moveTo, arc,
+    correctWidth, lineTo, moveTo, drawCircle2,
 } from '../canvasApi';
-import { changeInputSize } from '../modules';
+
 /**
  * @class
  * Button
@@ -17,6 +17,7 @@ import { changeInputSize } from '../modules';
 export default class Button extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT') {
         super(x, y, scope, dir, 1);
+        this.scope['Button'].push(this);
         this.state = 0;
         this.output1 = new Node(30, 0, 1, this);
         this.wasClicked = false;
@@ -107,3 +108,4 @@ Button.prototype.helplink = 'https://docs.circuitverse.org/#/inputElements?id=bu
  * @type {number}
  */
 Button.prototype.propagationDelay = 0;
+Button.prototype.objectType = 'Button';

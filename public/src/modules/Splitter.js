@@ -2,7 +2,7 @@ import CircuitElement from '../circuitElement';
 import { Node, findNode } from '../node';
 import simulationArea from '../simulationArea';
 import {
-    correctWidth, lineTo, moveTo, arc,
+    correctWidth, lineTo, moveTo, fillText2,
 } from '../canvasApi';
 /**
  * @class
@@ -25,6 +25,7 @@ export default class Splitter extends CircuitElement {
         bitWidthSplit = undefined,
     ) {
         super(x, y, scope, dir, bitWidth);
+        this.scope['Splitter'].push(this);
         this.rectangleObject = false;
 
         this.bitWidthSplit = bitWidthSplit || prompt('Enter bitWidth Split').split(' ').filter((lambda) => lambda !== '').map((lambda) => parseInt(lambda, 10) || 1);
@@ -216,3 +217,4 @@ Splitter.prototype.tooltipText = 'Splitter ToolTip: Split multiBit Input into sm
  * @type {string}
  */
 Splitter.prototype.helplink = 'https://docs.circuitverse.org/#/splitter';
+Splitter.prototype.objectType = 'Splitter';

@@ -19,6 +19,7 @@ import { changeInputSize } from '../modules';
 export default class XnorGate extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', inputs = 2, bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
+        this.scope['XnorGate'].push(this);
         this.rectangleObject = false;
         this.setDimensions(15, 20);
 
@@ -136,3 +137,4 @@ XnorGate.prototype.changeInputSize = changeInputSize;
  */
 XnorGate.prototype.verilogType = 'xnor';
 XnorGate.prototype.helplink = 'https://docs.circuitverse.org/#/gates?id=xnor-gate';
+XnorGate.prototype.objectType = 'XnorGate';

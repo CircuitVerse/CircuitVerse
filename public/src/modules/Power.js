@@ -17,6 +17,7 @@ import { changeInputSize } from '../modules';
 export default class Power extends CircuitElement {
     constructor(x, y, scope = globalScope, bitWidth = 1) {
         super(x, y, scope, 'RIGHT', bitWidth);
+        this.scope['Power'].push(this);
         this.directionFixed = true;
         this.rectangleObject = false;
         this.setDimensions(10, 10);
@@ -117,3 +118,4 @@ function getNextPosition(x = 0, scope = globalScope) {
     }
     return possibleY;
 }
+Power.prototype.objectType = 'Power';

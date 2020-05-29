@@ -17,6 +17,7 @@ import plotArea from '../plotArea';
 export default class Tunnel extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'LEFT', bitWidth = 1, identifier) {
         super(x, y, scope, dir, bitWidth);
+        this.scope['Tunnel'].push(this);
         this.rectangleObject = false;
         this.centerElement = true;
         this.xSize = 10;
@@ -162,6 +163,7 @@ export default class Tunnel extends CircuitElement {
         this.scope.Tunnel.clean(this);
         this.scope.tunnelList[this.identifier].clean(this);
         super.delete();
+        this.scope['Tunnel'].push(this);
     }
 
     /**
@@ -245,3 +247,4 @@ Tunnel.prototype.mutableProperties = {
         func: 'setIdentifier',
     },
 };
+Tunnel.prototype.objectType = 'Tunnel';

@@ -35,6 +35,7 @@ export default class Output extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'LEFT', bitWidth = 1, layoutProperties) {
         // Calling base class constructor
         super(x, y, scope, dir, bitWidth);
+        this.scope['Output'].push(this);
         if (layoutProperties) { this.layoutProperties = layoutProperties; } else {
             this.layoutProperties = {};
             this.layoutProperties.x = scope.layout.width;
@@ -169,3 +170,4 @@ Output.prototype.helplink = 'https://docs.circuitverse.org/#/outputs?id=output';
  * @type {number}
  */
 Output.prototype.propagationDelay = 0;
+Output.prototype.objectType = 'Output';

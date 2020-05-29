@@ -20,9 +20,10 @@ import { showProperties } from './ux';
 import { scheduleUpdate } from './engine';
 import { toggleLayoutMode } from './layoutMode';
 import { setProjectName } from './data/save';
+import { changeClockEnable } from './sequential';
+import { changeInputSize } from './modules';
 
-
-export const circuitProperty = { toggleLayoutMode, setProjectName, changeCircuitName, changeClockTime, deleteCurrentCircuit};
+export const circuitProperty = { toggleLayoutMode, setProjectName, changeCircuitName, changeClockTime, deleteCurrentCircuit, changeClockEnable, changeInputSize };
 // export circuitProperty;
 
 /**

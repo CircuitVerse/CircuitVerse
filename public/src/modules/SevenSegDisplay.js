@@ -2,9 +2,9 @@ import CircuitElement from '../circuitElement';
 import { Node, findNode } from '../node';
 import simulationArea from '../simulationArea';
 import {
-    correctWidth, lineTo, moveTo, arc,
+    correctWidth, lineTo, moveTo, rect,
 } from '../canvasApi';
-import { changeInputSize } from '../modules';
+
 /**
  * @class
  * SevenSegDisplay
@@ -16,6 +16,7 @@ import { changeInputSize } from '../modules';
 export default class SevenSegDisplay extends CircuitElement {
     constructor(x, y, scope = globalScope) {
         super(x, y, scope, 'RIGHT', 1);
+        this.scope['SevenSegDisplay'].push(this);
         this.fixedBitWidth = true;
         this.directionFixed = true;
         this.setDimensions(30, 50);
@@ -63,8 +64,8 @@ export default class SevenSegDisplay extends CircuitElement {
         ctx.beginPath();
         ctx.strokeStyle = color;
         ctx.lineWidth = correctWidth(5);
-        xx = this.x;
-        yy = this.y;
+        const xx = this.x;
+        const yy = this.y;
         moveTo(ctx, x1, y1, xx, yy, this.direction);
         lineTo(ctx, x2, y2, xx, yy, this.direction);
         ctx.closePath();
@@ -107,3 +108,4 @@ SevenSegDisplay.prototype.tooltipText = 'Seven Display ToolTip: Consists of 7+1 
  * @type {string}
  */
 SevenSegDisplay.prototype.helplink = 'https://docs.circuitverse.org/#/outputs?id=seven-segment-display';
+SevenSegDisplay.prototype.objectType = 'SevenSegDisplay';

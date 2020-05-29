@@ -100,7 +100,10 @@ export default miniMapArea = {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     },
 };
-
+var lastMiniMapShown;
+export function updatelastMinimapShown() {
+    lastMiniMapShown = new Date().getTime();
+}
 export function removeMiniMap() {
     if (lightMode) return;
 

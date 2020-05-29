@@ -19,6 +19,7 @@ export default class DigitalLed extends CircuitElement {
         // Calling base class constructor
 
         super(x, y, scope, 'UP', 1);
+        this.scope['DigitalLed'].push(this);
         this.rectangleObject = false;
         this.setDimensions(10, 20);
         this.inp1 = new Node(-40, 0, 0, this, 1);
@@ -118,3 +119,4 @@ DigitalLed.prototype.mutableProperties = {
         func: 'changeColor',
     },
 };
+DigitalLed.prototype.objectType = 'DigitalLed';

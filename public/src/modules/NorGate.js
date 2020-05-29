@@ -19,6 +19,7 @@ import { changeInputSize } from '../modules';
 export default class NorGate extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', inputs = 2, bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
+        this.scope['NorGate'].push(this);
         this.rectangleObject = false;
         this.setDimensions(15, 20);
 
@@ -132,3 +133,4 @@ NorGate.prototype.changeInputSize = changeInputSize;
  */
 NorGate.prototype.verilogType = 'nor';
 NorGate.prototype.helplink = 'https://docs.circuitverse.org/#/gates?id=nor-gate';
+NorGate.prototype.objectType = 'NorGate';

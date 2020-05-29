@@ -17,6 +17,7 @@ import { changeInputSize } from '../modules';
 export default class Arrow extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT') {
         super(x, y, scope, dir, 8);
+        this.scope['Arrow'].push(this);
         this.rectangleObject = false;
         this.fixedBitWidth = true;
         this.setDimensions(30, 20);
@@ -70,3 +71,4 @@ export default class Arrow extends CircuitElement {
 Arrow.prototype.tooltipText = 'Arrow ToolTip : Arrow Selected.';
 Arrow.prototype.propagationDelayFixed = true;
 Arrow.prototype.helplink = 'https://docs.circuitverse.org/#/annotation?id=arrow';
+Arrow.prototype.objectType = 'Arrow';

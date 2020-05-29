@@ -44,6 +44,7 @@ import { correctWidth, fillText2, fillText4, drawCircle2 } from '../canvasApi';
 export default class RAM extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 8, addressWidth = 10) {
         super(x, y, scope, dir, Math.min(Math.max(1, bitWidth), 32));
+        this.scope['RAM'].push(this);
         this.setDimensions(60, 40);
 
         this.directionFixed = true;
@@ -195,3 +196,4 @@ RAM.prototype.mutableProperties = {
         func: 'clearData',
     },
 };
+RAM.prototype.objectType = 'RAM';

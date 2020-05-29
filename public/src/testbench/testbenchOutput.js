@@ -29,6 +29,8 @@ export default class TB_Output extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', identifier) {
         super(x, y, scope, dir, 1);
         // this.setDimensions(60,20);
+        this.objectType = 'TB_Output';
+        this.scope.TB_Output.push(this);
 
         // this.xSize=10;
 
@@ -226,3 +228,4 @@ TB_Output.prototype.mutableProperties = {
         func: 'setIdentifier',
     },
 };
+TB_Output.prototype.objectType = 'TB_Output';

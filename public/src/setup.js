@@ -1,3 +1,6 @@
+/* eslint-disable import/no-cycle */
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable guard-for-in */
 import * as metadata from './metadata.json';
 import { generateId, showMessage } from './utils';
 import backgroundArea from './backgroundArea';
@@ -6,10 +9,14 @@ import simulationArea from './simulationArea';
 import { dots } from './canvasApi';
 import { update } from './engine';
 import { setupUI } from './ux';
-import startListeners from './listeners';
+import startMainListeners from './listeners';
+import startEmbedListeners from './embedListeners';
+import './embed';
 import { newCircuit } from './circuit';
 import load from './data/load';
 import save from './data/save';
+
+const startListeners = embed ? startMainListeners : startEmbedListeners;
 
 /**
  * to resize window and setup things it
@@ -91,8 +98,8 @@ function setupElementLists() {
         </div>`;
     }
 
-    const elementHierarchy = metadata.elementHierarchy;
-    console.log(elementHierarchy);
+    window.elementHierarchy = metadata.elementHierarchy;
+    console.log(elementHierarchy)
     for (const category in elementHierarchy) {
         let htmlIcons = '';
 

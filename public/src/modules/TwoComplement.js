@@ -18,6 +18,7 @@ import { changeInputSize } from '../modules';
 export default class TwoComplement extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
+        this.scope['TwoComplement'].push(this);
         this.rectangleObject = false;
         this.setDimensions(15, 15);
         this.inp1 = new Node(-10, 0, 0, this, this.bitWidth, 'input stream');
@@ -81,3 +82,4 @@ export default class TwoComplement extends CircuitElement {
  * @type {string}
  */
 TwoComplement.prototype.tooltipText = "Two's Complement Tooltip : Calculates the two's complement";
+TwoComplement.prototype.objectType = 'TwoComplement';

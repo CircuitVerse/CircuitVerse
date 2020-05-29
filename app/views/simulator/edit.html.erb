@@ -146,7 +146,7 @@
             </button>
           </div>
           <div style="position:absolute; right:150px; top:30px; z-index:100">
-            <button type="button" class="btn zoomButton btn-lg" onclick="delete_selected()">
+            <button type="button" class="btn zoomButton btn-lg" onclick="deleteSelected()">
               <span class="fas fa-times" aria-hidden="true" title="Delete"></span>
             </button>
           </div>
@@ -155,55 +155,55 @@
               <div class="panel-heading">Layout options</div>
               <div class="">
                 Width:
-                <button type="button" class="btn zoomButton btn-lg" onclick="decreaseLayoutWidth()">
+                <button type="button" class="btn zoomButton btn-lg" id="decreaseLayoutWidth">
                   <span class="fa fa-minus" aria-hidden="true" title="Decrease Width"></span>
                 </button>
-                <button type="button" class="btn zoomButton btn-lg" onclick="increaseLayoutWidth()">
+                <button type="button" class="btn zoomButton btn-lg" id="increaseLayoutWidth">
                   <span class="fa fa-plus" aria-hidden="true" title="Increase Width"></span>
                 </button>
               </div>
               <div class="">
                 Height:
-                <button type="button" class="btn zoomButton btn-lg" onclick="decreaseLayoutHeight()">
+                <button type="button" class="btn zoomButton btn-lg" id="decreaseLayoutHeight">
                   <span class="fa fa-minus" aria-hidden="true" title="Decrease Height"></span>
                 </button>
-                <button type="button" class="btn zoomButton btn-lg" onclick="increaseLayoutHeight()">
+                <button type="button" class="btn zoomButton btn-lg" id="increaseLayoutHeight">
                   <span class="fa fa-plus" aria-hidden="true" title="Increase Height"></span>
                 </button>
               </div>
               <div class="">
                 Reset all nodes:
-                <button type="button" class="btn zoomButton btn-lg" onclick="layoutResetNodes()">
+                <button type="button" class="btn zoomButton btn-lg" id="layoutResetNodes">
                   <span class="fa fa-refresh" aria-hidden="true" title="Reset"></span>
                 </button>
               </div>
               <div class="">
                 Title:
-                <button type="button" class="btn zoomButton btn-lg" onclick="layoutTitleUp()">
+                <button type="button" class="btn zoomButton btn-lg" id="layoutTitleUp">
                   <span class="fa fa-arrow-up" aria-hidden="true" title="Up"></span>
                 </button>
-                <button type="button" class="btn zoomButton btn-lg" onclick="layoutTitleDown()">
+                <button type="button" class="btn zoomButton btn-lg" id="layoutTitleDown">
                   <span class="fa fa-arrow-down" aria-hidden="true" title="Down"></span>
                 </button>
-                <button type="button" class="btn zoomButton btn-lg" onclick="layoutTitleLeft()">
+                <button type="button" class="btn zoomButton btn-lg" id="layoutTitleLeft">
                   <span class="fa fa-arrow-left" aria-hidden="true" title="Left"></span>
                 </button>
-                <button type="button" class="btn zoomButton btn-lg" onclick="layoutTitleRight()">
+                <button type="button" class="btn zoomButton btn-lg" id="layoutTitleRight">
                   <span class="fa fa-arrow-right" aria-hidden="true" title="Right"></span>
                 </button>
               </div>
               <div class="">
                 <p>Title Enabled : <label class='switch'>
-                  <input type='checkbox' checked id="toggleLayoutTitle" onclick="toggleLayoutTitle()">
+                  <input type='checkbox' checked id="toggleLayoutTitle" id="toggleLayoutTitle">
                   <span class='slider2' title="Title"></span> </label></p>
               </div>
               <div class="">
                 Save:
-                <button type="button" class="btn zoomButton btn-lg" onclick="saveLayout()">
+                <button type="button" class="btn zoomButton btn-lg" id="saveLayout">
                   <span class="fa fa-check" aria-hidden="true" title="Save Layout"></span>
                 </button>
                 Cancel:
-                <button type="button" class="btn zoomButton btn-lg" onclick="cancelLayout()">
+                <button type="button" class="btn zoomButton btn-lg" id="cancelLayout">
                   <span class="fa fa-times" aria-hidden="true" title="Cancel"></span>
                 </button>
               </div>
@@ -276,11 +276,6 @@
 
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        setup()
-      }, false);
-      embed = false;
-
       <% if @project&.assignment_id.present? %>
       restrictedElements = JSON.parse('<%= raw @project&.assignment.restrictions %>');
       <% else %>

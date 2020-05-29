@@ -19,6 +19,7 @@ import { changeInputSize } from '../modules';
 export default class NandGate extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', inputLength = 2, bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
+        this.scope['NandGate'].push(this);
         this.rectangleObject = false;
         this.setDimensions(15, 20);
         this.inp = [];
@@ -133,3 +134,4 @@ NandGate.prototype.changeInputSize = changeInputSize;
  */
 NandGate.prototype.verilogType = 'nand';
 NandGate.prototype.helplink = 'https://docs.circuitverse.org/#/gates?id=nand-gate';
+NandGate.prototype.objectType = 'NandGate';

@@ -30,6 +30,7 @@ export default class EEPROM extends RAM {
         data = null,
     ) {
         super(x, y, scope, dir, bitWidth, addressWidth);
+        this.scope['EEPROM'].push(this);
         this.data = data || this.data;
     }
 
@@ -61,3 +62,4 @@ EEPROM.prototype.mutableProperties = {
     dump: RAM.prototype.mutableProperties.dump,
     reset: RAM.prototype.mutableProperties.reset,
 };
+EEPROM.prototype.objectType = 'EEPROM';
