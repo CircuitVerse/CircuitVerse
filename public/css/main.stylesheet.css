@@ -17,6 +17,7 @@
 /** new UI ruleset starts here */
 
 /*! Adding color variables to root, required later for hokey binding */
+
 :root {
   /* base color theme */
   --primary: #454545;
@@ -63,6 +64,7 @@
 }
 
 /** Global Styles starts here */
+
 body,
 html {
   font-family: "Nunito", sans-serif;
@@ -140,7 +142,7 @@ button {
   box-shadow: none;
 }
 
-button:active {
+button:not('.quick-btn button'):active {
   background: transparent !important;
 }
 
@@ -1383,7 +1385,6 @@ select {
   background: #808080;
   cursor: not-allowed;
   left: 0;
-  /* top: 0; */
 }
 
 #bitconverterprompt {

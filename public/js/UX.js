@@ -404,7 +404,7 @@ $(function(){
   $(".download-dialog-section-2_2").checkBo();
 });
 
-$('button').ripple({
+$('.Layout-btn').ripple({
   duration: 500
 });
 
