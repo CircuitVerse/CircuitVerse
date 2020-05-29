@@ -34,132 +34,113 @@
 }
 //editgroup ends
 
-.heading-group {
-  color: $black;
-  margin-top: 30px;
-}
-
-.btn-group {
-  background-color: $green;
-  border-radius: 40px;
-  color: $white;
-  margin: 10px;
+//groups
+.groups-button-primary {
+  margin-top: 20px;
   padding: 10px 40px;
-
-  &:hover {
-    text-decoration: none;
-  }
 }
 
-.card-group {
-  background-color: $lightgrey;
-  border-radius: 3px;
+.groups-card {
+  background-color: $card-grey;
+  border-radius: 4px;
   box-shadow: 0 2px 7px $shadow-black;
   display: flex;
   margin: 15px 0;
   padding: 10px;
 }
 
-.btn-card {
+.groups-mentor-card {
   align-items: center;
-  border-radius: 2px;
-  color: $black;
-  display: flex;
-  flex-direction: row;
-  font-size: x-small;
-  justify-content: center;
-  margin: 5px;
-  padding: 5px;
-  width: 75px;
-
-  &:hover {
-    text-decoration: none;
-  }
-}
-
-.mentor-card-group {
-  align-items: center;
-  border-top: 10px solid $teal;
+  border-top: 10px solid $green;
   flex-direction: column;
   justify-content: center;
 }
 
-.btn-mentor-group {
+.groups-mentor-card-name {
+  font-size: 28px;
+  font-weight: 500;
+  padding-top: 15px;
+}
+
+.groups-mentor-card-buttons {
   align-items: center;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-  padding: 10px;
+  justify-content: center;
+  padding-bottom: 15px;
 }
 
-.btn-view {
-  border: 2px solid $green;
+.groups-mentor-card-button-edit {
+  background: $seablue;
+  transition: transform .2s ease-in;
+
+  i {
+    color: $white;
+    display: inline-flex;
+    margin: 0;
+    padding: 0;
+  }
 
   &:hover {
-    background-color: $green;
     color: $white;
+    text-decoration: none;
+    transform: translateY(-4px);
   }
 }
 
-.btn-edit {
-  border: 2px solid $blue;
+.groups-mentor-card-button-delete {
+  background: $error-red-font;
+  transition: transform .2s ease-in;
+
+  i {
+    color: $white;
+    display: inline-flex;
+    margin: 0;
+    padding: 0;
+  }
 
   &:hover {
-    background-color: $blue;
     color: $white;
+    text-decoration: none;
+    transform: translateY(-4px);
   }
 }
 
-.btn-delete {
-  border: 2px solid $danger;
+.groups-mentor-card-button-view {
+  background: $green;
+  transition: transform .2s ease-in;
+
+  i {
+    color: $white;
+    display: inline-flex;
+    margin: 0;
+    padding: 0;
+  }
 
   &:hover {
-    background-color: $danger;
     color: $white;
+    text-decoration: none;
+    transform: translateY(-4px);
   }
 }
 
-.in-card-group {
+.groups-member-card {
   align-items: center;
-  border-left: 10px solid $teal;
+  border-left: 10px solid $green;
   flex-direction: row;
   justify-content: space-around;
 }
 
-.in-card-name-member {
-  align-items: center;
+.groups-member-card-details {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.in-card-view {
-  background-color: $teal;
-  border-radius: 2px;
-  color: $white;
-  margin: 10px;
-  padding: 2px 15px;
-
-  &:hover {
-    background-color: $white;
-    color: $teal;
-    text-decoration: none;
-  }
+.groups-member-card-button {
+  margin-top: 20px;
 }
-
-.group-name {
-  font-size: 30px;
-  font-weight: bold;
-}
-
-.group-member-count {
-  font-size: 18px;
-}
-
-.group-input-name {
-  border: 1px solid $green;
-  border-radius: 0;
-}
+//groups ends
 
 //breakpoints
 @media (max-width: 1000px) {
@@ -204,4 +185,128 @@
   margin-right: auto;
   max-width: 1344px;
   text-align: center;
+}
+
+.heading-group {
+  color: $black;
+  margin-top: 30px;
+}
+
+.btn-group {
+  background-color: $green;
+  border-radius: 40px;
+  color: $white;
+  margin: 10px;
+  padding: 10px 40px;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.card-group {
+  background-color: $card-grey;
+  border-radius: 4px;
+  box-shadow: 0 2px 7px $shadow-black;
+  display: flex;
+  margin: 15px 0;
+  padding: 10px;
+}
+
+
+.mentor-card-group {
+  align-items: center;
+  border-top: 10px solid $teal;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.group-name {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.group-member-count {
+  font-size: 18px;
+}
+
+.group-input-name {
+  border: 1px solid $green;
+  border-radius: 0;
+}
+
+.btn-card {
+  align-items: center;
+  border-radius: 2px;
+  color: $black;
+  display: flex;
+  flex-direction: row;
+  font-size: x-small;
+  justify-content: center;
+  margin: 5px;
+  padding: 5px;
+  width: 75px;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+
+.btn-mentor-group {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 10px;
+}
+
+.btn-view {
+  border: 2px solid $green;
+
+  &:hover {
+    background-color: $green;
+    color: $white;
+  }
+}
+
+.btn-edit {
+  border: 2px solid $blue;
+
+  &:hover {
+    background-color: $blue;
+    color: $white;
+  }
+}
+
+.btn-delete {
+  border: 2px solid $danger;
+
+  &:hover {
+    background-color: $danger;
+    color: $white;
+  }
+}
+
+.in-card-group {
+  align-items: center;
+  border-left: 10px solid $teal;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+
+
+.in-card-view {
+  background-color: $teal;
+  border-radius: 2px;
+  color: $white;
+  margin: 10px;
+  padding: 2px 15px;
+
+  &:hover {
+    background-color: $white;
+    color: $teal;
+    text-decoration: none;
+  }
 }
