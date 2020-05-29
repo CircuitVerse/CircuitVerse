@@ -14,6 +14,16 @@
   }
 }
 
+.button-mini-edit {
+  border-radius: 4px;
+  color: $white;
+  height: 28px;
+  margin: 3px;
+  padding: 2px;
+  text-decoration: none;
+  width: 75px;
+}
+
 //cards
 .card-small-social {
   background-color: $card-green;
@@ -63,6 +73,7 @@
   border-radius: 0;
   height: 40px;
 }
+
 //breakpoints
 @media (max-width:$small-display) {
   .about-button-primary-container {
