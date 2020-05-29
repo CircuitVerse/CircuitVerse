@@ -185,44 +185,8 @@ input[type="text"]:focus {
   transition: all 0.2s ease-in-out;
 }
 
-/* effect  */
-
-.navbar-menu > li:not(:last-child) > a::before {
-  content: "";
-  position: absolute;
-  height: 0;
-  width: 0;
-  border: 1px solid transparent;
-  left: 0;
-  top: -25%;
-}
-
-.navbar-menu > li:not(:last-child) > a::after {
-  content: "";
-  position: absolute;
-  height: 0;
-  width: 0;
-  border: 1px solid transparent;
-  right: 0;
-  bottom: -32%;
-}
-
-.navbar-menu > li:not(:last-child) > a:hover::before {
-  height: 25px;
-  width: 100%;
+.navbar-menu > li > a:hover {
   border: 1px solid white;
-  border-right: none;
-  border-bottom: none;
-  transition: height 0.15s ease-out, width 0.15s ease-out 0.15s;
-}
-
-.navbar-menu > li:not(:last-child) > a:hover::after {
-  height: 25px;
-  width: 100%;
-  border: 1px solid white;
-  border-left: none;
-  border-top: none;
-  transition: height 0.15s ease-out, width 0.15s ease-out 0.15s;
 }
 
 .projectName {
@@ -237,11 +201,13 @@ input[type="text"]:focus {
   position: absolute;
   right: 13px;
   padding: 4px 10px;
+  border: 1px solid transparent;
+  border-radius: 1px;
+  transition: all 0.2s ease-in-out;
 }
 
 .account-btn:hover {
   border: 1px solid var(--border-primary);
-  border-radius: 1px;
 }
 
 .signIn-btn {
@@ -1012,7 +978,7 @@ select {
 
 /** download dialog styling starts here */
 
-.ui-dialog {
+ .ui-dialog {  /*this also affects all dialog created using jquery UI, needs to be more universe */
   font: inherit;
   background: rgba(69, 69, 69, 0.9);
   border-radius: 10px;
