@@ -143,7 +143,7 @@ button {
   box-shadow: none;
 }
 
-button:not('.quick-btn button'):active {
+button:not(".quick-btn button"):active {
   background: transparent !important;
 }
 
@@ -184,10 +184,31 @@ input[type="text"]:focus {
   border-radius: 1px;
   padding: 2px 8px;
   transition: all 0.2s ease-in-out;
+  margin-right: 10px;
+}
+
+.navbar-menu > li > a span {
+  content: "";
+  background: url(./assets/small-components/chevron-down.svg) center/cover
+    no-repeat;
+  display: inline-block;
+  height: 5px;
+  width: 5px;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-66%);
+  padding: 4px;
+  margin: 0 5px;
+  transition: all 0.2s ease-in-out;
 }
 
 .navbar-menu > li > a:hover {
   border: 1px solid white;
+}
+
+.navbar-menu > li > a:hover span {
+  background: none;
 }
 
 .projectName {
@@ -777,8 +798,8 @@ div.icon img {
   right: 0;
   bottom: 0;
   background-color: #ccc;
-  -webkit-transition: .2s all ease;
-  transition: .2s all ease;
+  -webkit-transition: 0.2s all ease;
+  transition: 0.2s all ease;
   border-radius: 25px;
   width: 35px;
   box-shadow: inset 0px 0px 5px rgba(69, 69, 69, 0.255);
@@ -985,7 +1006,8 @@ select {
 
 /** download dialog styling starts here */
 
- .ui-dialog {  /*this also affects all dialog created using jquery UI, needs to be more universe */
+.ui-dialog {
+  /*this also affects all dialog created using jquery UI, needs to be more universe */
   font: inherit;
   background: rgba(69, 69, 69, 0.9);
   border-radius: 10px;
