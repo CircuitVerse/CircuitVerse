@@ -1,4 +1,13 @@
 // All the custom class styles
+//to be removed
+.row-text {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1344px;
+  text-align: center;
+}
+
+//alignment to be added at the very top
 html {
   scroll-behavior: smooth;
 }
@@ -62,19 +71,23 @@ body {
   }
 }
 
-.navbar-light
-.navbar-nav {
+.navbar-text {
+  color: $navbar-dark;
   font-weight: 500;
 
-  .nav-link {
-    &:hover {
-      color: $green;
-    }
-
-    &.active {
-      color: $teal;
-    }
+  &:hover {
+    color: $green;
   }
+
+  &.active {
+    color: $teal;
+  }
+
+  &:focus {
+    text-decoration: underline;
+    outline: none;
+  }
+
 }
 
 #navbar-dropdown-1,
@@ -86,11 +99,17 @@ body {
   &[aria-expanded="true"] {
     color: $teal;
   }
+
+  &:focus {
+    text-decoration: underline;
+    outline: none;
+  }
 }
 
 .fa-search {
   color: $black;
   font-size: 20px;
+  margin-right: 12px;
   vertical-align: middle;
 
   &:hover {
@@ -100,6 +119,19 @@ body {
   &.active {
     color: $teal;
   }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.navbar-search-icon-oncollapse {
+  display: none;
+  margin-right: 0;
+  padding-top: 5px;
+  padding-right: 0;
+  text-align: right;
+  right: 0;
 }
 
 .dropdown-item {
@@ -191,10 +223,12 @@ body {
   }
 }
 
-//to be removed
-.row-text {
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 1344px;
-  text-align: center;
+@media (max-width: 991px) {
+  .navbar-search-icon-onexpand {
+    display: none;
+  }
+
+  .navbar-search-icon-oncollapse {
+    display: block;
+  }
 }
