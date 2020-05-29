@@ -113,10 +113,10 @@
     background: transparent;
     display: inline-block;
     border: 1px solid #d6d6d6;
-    -moz-transition: all 0.5s ease;
+    /* -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     -webkit-transition: all 0.5s ease;
-    transition: all 0.5s ease;
+    transition: all 0.5s ease; */
 }
 .cb-checkbox i {
     top: 1px;
@@ -132,10 +132,10 @@
     display: block;
     position: absolute;
     background-color: #fff;
-    -moz-transition: all 0.2s ease;
+    /* -moz-transition: all 0.2s ease;
     -o-transition: all 0.2s ease;
     -webkit-transition: all 0.2s ease;
-    transition: all 0.2s ease;
+    transition: all 0.2s ease; */
 }
 .cb-checkbox i:before {
     top: 0;
@@ -148,10 +148,10 @@
 .cb-checkbox i:after {
     left: 7px;
     bottom: 5px;
-    -moz-transition-delay: 0.3s;
+    /* -moz-transition-delay: 0.3s;
     -o-transition-delay: 0.3s;
     -webkit-transition-delay: 0.3s;
-    transition-delay: 0.3s;
+    transition-delay: 0.3s; */
     -moz-transform: rotate(30deg);
     -ms-transform: rotate(30deg);
     -webkit-transform: rotate(30deg);

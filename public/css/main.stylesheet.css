@@ -103,6 +103,7 @@ a:hover {
 select > option {
   color: black;
   padding: 2px 4px;
+  margin-right: 5px;
 }
 
 select:focus,
@@ -614,6 +615,7 @@ div.icon img {
   min-width: 110px;
   color: #fff;
   font-size: 14px;
+  transition: all 0.2s ease-in-out;
 }
 
 #tabsBar div > span {
@@ -720,7 +722,6 @@ div.icon img {
   border: none;
   border-bottom: 0.5px solid #bbbbbb;
   margin: auto;
-  padding-left: 10px;
   color: white;
   outline: none;
 }
