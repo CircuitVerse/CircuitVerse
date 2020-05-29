@@ -734,6 +734,10 @@ div.icon img {
   color: white;
 }
 
+.input-group div button {
+  color: white;
+}
+
 .input-group-prepend button {
   margin-right: 5px;
 }
@@ -772,8 +776,8 @@ div.icon img {
   right: 0;
   bottom: 0;
   background-color: #ccc;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
+  -webkit-transition: .2s all ease;
+  transition: .2s all ease;
   border-radius: 25px;
   width: 35px;
   box-shadow: inset 0px 0px 5px rgba(69, 69, 69, 0.255);
@@ -788,8 +792,8 @@ div.icon img {
   top: 50%;
   transform: translateY(-51%);
   background-color: white;
-  -webkit-transition: 0.4s;
-  transition: 0.4s all forwards;
+  -webkit-transition: 0.2s all ease-in-out;
+  transition: 0.2s all ease-in-out;
   border-radius: 50%;
   box-shadow: 0px 0px 7px rgba(69, 69, 69, 0.8);
 }

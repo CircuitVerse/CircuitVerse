@@ -319,7 +319,7 @@ function showProperties(obj) {
     var helplink = obj && obj.helplink;
     if (helplink) {
       $("#moduleProperty-inner").append(
-        '<p class="btn-parent" ><button id="HelpButton" class="btn btn-primary btn-xs" type="button" >Help &#9432</button></p>'
+        '<p class="btn-parent" ><button id="HelpButton" class="btn btn-primary btn-xs" type="button" >&#9432 Help</button></p>'
       );
       $("#HelpButton").click(function () {
         window.open(helplink);
