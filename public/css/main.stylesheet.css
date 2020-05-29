@@ -379,6 +379,7 @@ input[type="text"]:focus {
   padding: 7px 0;
   width: 90%;
   margin: auto;
+  transition: all 0.2s ease-in-out;
 }
 
 .dropdown-menu > li > a:hover {
@@ -629,7 +630,6 @@ div.icon img {
 
 #tabsBar div {
   justify-content: space-between;
-  border: 1px solid var(--border-primary);
   border-radius: 1px;
   display: inline-block;
   margin: 2px;
@@ -637,6 +637,7 @@ div.icon img {
   color: #fff;
   font-size: 14px;
   transition: all 0.2s ease-in-out;
+  border: 1px solid #454545;
 }
 
 #tabsBar div > span {
@@ -656,6 +657,7 @@ div.icon img {
 #tabsBar .current {
   color: white;
   background-color: #454545;
+  border: 1px solid var(--border-primary);
 }
 
 #tabsBar .current > span {
@@ -671,7 +673,7 @@ div.icon img {
   background-color: #454545;
   text-decoration: none;
   outline: none;
-  border: 1px solid var(--border-primary);
+  /* border: 1px solid var(--border-primary); */
   border-radius: 1px;
 }
 
@@ -1326,6 +1328,10 @@ select {
 
 .ui-dialog[aria-describedby="combinationalAnalysis"] button {
   margin: 0 5px;
+}
+
+.output {
+  cursor: pointer;
 }
 
 /*! combinationalAnalysis dialog styling end here */
