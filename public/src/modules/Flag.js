@@ -4,7 +4,7 @@ import simulationArea from '../simulationArea';
 import {
     correctWidth, rect2, fillText
 } from '../canvasApi';
-import plotArea from '../plotArea';
+// import plotArea from '../plotArea';
 /**
  * @class
  * Flag

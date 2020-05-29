@@ -9,7 +9,7 @@ import HexDisplay from './modules/HexDisplay';
 import OrGate from './modules/OrGate';
 import Stepper from './modules/Stepper';
 import NotGate from './modules/NotGate';
-import ForceGate from './modules/ForceGate';
+// import ForceGate from './modules/ForceGate';
 import Text from './modules/Text';
 import TriState from './modules/TriState';
 import Buffer from './modules/Buffer';
@@ -91,7 +91,7 @@ const modules = {
     OrGate,
     Stepper,
     NotGate,
-    ForceGate,
+    // ForceGate,
     Text,
     TriState,
     Buffer,
