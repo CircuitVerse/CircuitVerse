@@ -2,9 +2,9 @@ import CircuitElement from '../circuitElement';
 import { Node, findNode } from '../node';
 import simulationArea from '../simulationArea';
 import {
-    correctWidth, lineTo, moveTo, arc,
+    correctWidth, rect2, fillText
 } from '../canvasApi';
-import { changeInputSize } from '../modules';
+import plotArea from '../plotArea';
 /**
  * @class
  * Flag
