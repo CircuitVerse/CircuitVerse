@@ -3,7 +3,9 @@
 class Api::V1::GroupMembersController < Api::V1::BaseController
   before_action :authenticate_user!
   before_action :set_group, only: %i[index create]
+  before_action :set_group_member, only: %i[destroy]
   before_action :check_edit_access, only: %i[create]
+  before_action :parse_mails, only: %i[create]
 
   # GET /api/v1/groups/:group_id/group_members/
   def index
@@ -17,7 +19,6 @@ class Api::V1::GroupMembersController < Api::V1::BaseController
 
   # POST /api/v1/groups/:group_id/group_members/
   def create
-    parse_mails(params[:emails])
     newly_added = @valid_mails - @existing_mails
 
     @pending_mails = []
@@ -39,8 +40,6 @@ class Api::V1::GroupMembersController < Api::V1::BaseController
 
   # DELETE /api/v1/group_members/:id
   def destroy
-    @group_member = GroupMember.find(params[:id])
-
     # check mentor access?
     authorize @group_member, :mentor?
 
@@ -54,19 +53,23 @@ class Api::V1::GroupMembersController < Api::V1::BaseController
       @group = Group.find(params[:group_id])
     end
 
+    def set_group_member
+      @group_member = GroupMember.find(params[:id])
+    end
+
     def check_edit_access
       # check if current user has admin/mentor rights to create group members
       authorize @group, :admin_access?
     end
 
-    def parse_mails(mails)
+    def parse_mails
       @valid_mails = []
       @invalid_mails = []
 
-      mails.split(",").each do |email|
+      params[:emails].split(",").each do |email|
         email = email.strip
         if email.present? && Devise.email_regexp.match?(email)
-          @valid_mails.push(email.downcase)
+          @valid_mails.push(email)
         else
           @invalid_mails.push(email)
         end
