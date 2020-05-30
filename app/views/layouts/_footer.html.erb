@@ -8,7 +8,7 @@
           <div class="row">
             <div>
               <a href="/">
-                <%= image_tag("CircuitVerseNew.png", class: "logo-bottom", alt: "CircuitVerse logo") %>
+                <%= image_tag("cvlogo.svg", class: "logo-bottom", alt: "CircuitVerse logo") %>
               </a>
             </div>
             <div class="d-block d-md-none w-100"></div>
@@ -52,7 +52,11 @@
               <td><a class="text-white" href="/teachers">Teachers</a></td>
             </tr>
             <tr>
-              <td><a class="text-white" href="/users/sign_in">Login</a></td>
+              <% if user_signed_in? %>
+                  <td><a class="text-white" href="<%= user_path(current_user) %>">My Circuits</a></td>
+              <% else %>
+                  <td><a class="text-white" href="/users/sign_in">Login</a></td> 
+              <% end %>
               <td><a class="text-white" href="/about">About</a></td>
             </tr>
           </table>

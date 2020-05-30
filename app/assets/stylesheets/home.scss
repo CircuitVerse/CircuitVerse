@@ -1,7 +1,7 @@
 // Home page New UI
 .row-homepage {
-  margin-bottom: 20px;
-  margin-top: 80px;
+  margin-bottom: 40px;
+  margin-top: 70px;
 }
 
 .btn-homepage {
@@ -9,12 +9,13 @@
   border-radius: 36px;
   color: $white;
   margin-left: -2px;
-  padding: 6px 19px 9px;
+  padding: 6px 19px 8px;
   text-align: center;
 }
 
 .a-homepage {
   color: $teal;
+  display: inline-block;
   margin-left: 15px;
   margin-top: 15px;
   text-decoration: underline;
@@ -28,7 +29,8 @@
 .btn-homepage2 {
   border: 1.6px solid $teal;
   border-radius: 5px;
-  margin: 0 7px;
+  box-shadow: 0 2px 7px $shadow-black;
+  margin: 10px 15px;
 
   &:hover {
     background-color: $teal;
@@ -40,7 +42,7 @@
 .row-homepage-middle {
   margin-left: auto;
   margin-right: auto;
-  margin-top: 30px;
+  margin-top: 60px;
   text-align: center;
 }
 
@@ -89,7 +91,6 @@
 }
 
 .homepage-cover {
-  margin-top: -60px;
   max-height: 700px;
   max-width: 100%;
 }
@@ -98,20 +99,39 @@
   margin-bottom: 50px;
 }
 
-@media (max-width:765px) {
+@media (max-width: 765px) {
   .button-homepage {
     display: flex;
     justify-content: center;
     margin-bottom: 25px;
   }
 
-  .homepage-cover {
-    margin: 20px 0;
+  .row-homepage {
+    margin-top: 30px;
+  }
+
+  .btn-homepage2 {
+    margin-left: 18px;
+    margin-right: 18px;
   }
 }
 
-@media (max-width:1200px) and (min-width:765px){
+@media (max-width: 1200px) and (min-width: 765px) {
   .button-homepage {
     margin-top: 100px;
+  }
+}
+
+@media (max-width: 350px) {
+  .a-homepage,
+  .btn-homepage {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
+  .btn-homepage {
+    max-width: 163px;
   }
 }

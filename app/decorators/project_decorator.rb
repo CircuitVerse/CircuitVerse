@@ -6,10 +6,10 @@ class ProjectDecorator < SimpleDelegator
   end
 
   def grade_str
-    project.grade&.grade.present? ? project.grade&.grade : "N.A."
+    project.grade&.grade.presence || "N.A."
   end
 
   def remarks_str
-    project.grade&.remarks.present? ? project.grade&.remarks : "N.A."
+    project.grade&.remarks.presence || "N.A."
   end
 end

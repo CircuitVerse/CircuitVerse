@@ -62,3 +62,6 @@ solr/*
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+# Private key
+config/private.pem

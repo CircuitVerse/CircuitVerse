@@ -20,7 +20,7 @@ function enableSimulator() {
 }
 
 function checkScreenSize() {
-    if (document.documentElement.clientWidth < 700) {
+    if (document.documentElement.clientWidth < 900) {
         return false;
     }
     return true;
@@ -84,6 +84,7 @@ function initialiseChecks() {
     checkSimulator();
 }
 
+initialiseChecks();
 $(window).ready(initialiseChecks);
 $(window).on('resize', checkSimulator);
 $(window).on('mousemove', mouseIsConnected);

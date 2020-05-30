@@ -1,6 +1,10 @@
 // Size of canvas
 var width;
 var height;
+var listenToSimulator=true; //enables key down listener on the simulator
+
+var createNode=false //Flag to create node when its value ==true 
+var stopWire=true //flag for stopoing making Nodes when the second terminal reaches a Node (closed path) 
 
 uniqueIdCounter = 0; // To be deprecated
 unit = 10; // size of each division/ not used everywhere, to be deprecated
@@ -31,6 +35,8 @@ lightMode = false; // To be deprecated
 layoutMode = false; // Flag for mode
 
 forceResetNodes = true; // FLag to reset all Nodes
+
+
 
 
 //Exact same name as object constructor

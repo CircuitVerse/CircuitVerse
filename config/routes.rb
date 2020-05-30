@@ -89,6 +89,7 @@ Rails.application.routes.draw do
     get '/:id', to: 'simulator#show', as: 'simulator'
     get '/edit/:id', to: 'simulator#edit', as: 'simulator_edit'
     post '/get_data', to: 'simulator#get_data'
+    post '/post_issue', to: 'simulator#post_issue'
     post '/update_data', to: 'simulator#update'
     post '/update_image', to: 'simulator#update_image'
     post '/create_data', to: 'simulator#create'
@@ -113,4 +114,23 @@ Rails.application.routes.draw do
 
   # get 'comments/create_reply/:id', to: 'comments#create_reply', as: 'reply_comment'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  namespace :api do
+    namespace :v1 do
+      post '/auth/login', to: 'authentication#login'
+      post '/auth/signup', to: 'authentication#signup'
+      get '/me', to: 'users#me'
+      resources :users, only: [:index, :show, :update]
+      get '/projects/featured', to: 'projects#featured_circuits'
+      resources :projects do
+        member do
+          get 'toggle-star', to: 'projects#toggle_star'
+          get 'fork', to: 'projects#create_fork'
+        end
+      end
+      resources :users do
+        get 'projects', to: 'projects#user_projects', on: :member
+      end
+    end
+  end
 end
