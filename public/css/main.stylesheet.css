@@ -621,7 +621,7 @@ div.icon img {
 #tabsBar {
   width: 100%;
   background-color: #8b8b8b;
-  height: 23.5px;
+  /* height: 23.5px; */
   border: 1px solid var(--border-primary);
   display: flex;
   align-items: center;
@@ -648,6 +648,7 @@ div.icon img {
 #tabsBar .circuits {
   text-align: center;
   background-color: #dddddd;
+  padding: 1px;
 }
 
 #tabsBar .circuits > span {
@@ -666,15 +667,22 @@ div.icon img {
 
 #tabsBar button {
   order: 99; /* could have better solution */
-  width: 18px;
+  width: 20px;
   align-items: center;
-  padding: 0;
+  padding: 1px;
   color: white;
   background-color: #454545;
   text-decoration: none;
   outline: none;
-  /* border: 1px solid var(--border-primary); */
+  border: 1px solid var(--border-primary);
   border-radius: 1px;
+  transition: all 0.1s ease-in-out;
+}
+
+#tabsBar button:hover {
+  color: #454545;
+  background: #dddddd;
+  border: 1px solid #454545;
 }
 
 /*! tab bar styling ends */
