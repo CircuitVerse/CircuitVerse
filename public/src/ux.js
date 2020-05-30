@@ -1,16 +1,15 @@
+/* eslint-disable import/no-cycle */
 /* eslint-disable guard-for-in */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable guard-for-in */
-
-
 import { scheduleUpdate } from './engine';
 import simulationArea from './simulationArea';
 import logixFunction from './data';
 import { newCircuit, circuitProperty } from './circuit';
 import modules from './modules';
-import sequential from './sequential'
-import testbench from './testbench'
+import sequential from './sequential';
+import testbench from './testbench';
 import { updateRestrictedElementsInScope } from './restrictedElementDiv';
 import { paste } from './events';
 

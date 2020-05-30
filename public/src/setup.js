@@ -16,7 +16,7 @@ import { newCircuit } from './circuit';
 import load from './data/load';
 import save from './data/save';
 
-const startListeners = embed ? startMainListeners : startEmbedListeners;
+const startListeners = embed ? startEmbedListeners : startMainListeners;
 
 /**
  * to resize window and setup things it

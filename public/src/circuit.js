@@ -12,7 +12,7 @@
 import CircuitElement from './circuitElement';
 import simulationArea from './simulationArea';
 import { changeClockTime } from './simulationArea';
-import { stripTags, uniq, showMessage } from './utils';
+import { stripTags, uniq, showMessage, showError } from './utils';
 import { findDimensions, dots } from './canvasApi';
 import { updateRestrictedElementsList } from './restrictedElementDiv';
 import { scheduleBackup } from './data/backupCircuit';
@@ -96,7 +96,6 @@ function deleteCurrentCircuit(scopeId = globalScope.id) {
         showMessage('Circuit was successfully deleted');
     } else { showMessage('Circuit was not deleted'); }
 }
-window.deleteCurrentCircuit = deleteCurrentCircuit;
 
 /**
  * Function to create new circuit
@@ -113,9 +112,13 @@ export function newCircuit(name, id) {
     scopeList[scope.id] = scope;
     globalScope = scope;
     $('.circuits').removeClass('current');
-    $('#tabsBar').append(`<div class='circuits toolbarButton current' id='${scope.id}'>${name}<span class ='tabsCloseButton' onclick='deleteCurrentCircuit(${scope.id})'  ><i class="fa fa-times"></i></span></div>`);
+    $('#tabsBar').append(`<div class='circuits toolbarButton current' id='${scope.id}'>${name}<span class ='tabsCloseButton' id='${scope.id}'  ><i class="fa fa-times"></i></span></div>`);
     $('.circuits').click(function () {
         switchCircuit(this.id);
+    });
+    $('.tabsCloseButton').click(function (e) {
+        e.stopPropagation();
+        deleteCurrentCircuit(this.id);
     });
     if (!embed) {
         showProperties(scope.root);

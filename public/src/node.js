@@ -66,8 +66,8 @@ function extractNode(x, scope, parent) {
 // input node=0
 // intermediate node =2
 
-window.NODE_OUTPUT = 1;
 window.NODE_INPUT = 0;
+window.NODE_OUTPUT = 1;
 window.NODE_INTERMEDIATE = 2;
 
 export class Node {

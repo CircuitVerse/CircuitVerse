@@ -3,7 +3,7 @@
 import simulationArea from './simulationArea';
 import { scheduleUpdate, update, updateSelectionsAndPane } from './engine';
 import { changeScale } from './canvasApi';
-import { copy, paste, selectAll } from './events';
+import { copy, paste } from './events';
 
 export default function startListeners() {
     window.addEventListener('keyup', function (e) {
