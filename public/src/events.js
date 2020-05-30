@@ -2,7 +2,7 @@ import Scope, { switchCircuit } from './circuit';
 import { loadScope } from './data/load';
 import { scheduleUpdate } from './engine';
 import { backUp } from './data/backupCircuit';
-import { getNextPosition } from './modules'
+import { getNextPosition } from './modules';
 import { generateId } from './utils';
 import simulationArea from './simulationArea';
 
@@ -46,7 +46,7 @@ export function paste(copyData) {
 
     for (let i = 0; i < updateOrder.length; i++) {
         for (let j = 0; j < tempScope[updateOrder[i]].length; j++) {
-            let obj = tempScope[updateOrder[i]][j];
+            const obj = tempScope[updateOrder[i]][j];
             obj.updateScope(globalScope);
             if (obj.objectType != 'Wire') {
                 approxX += obj.x;
@@ -57,7 +57,7 @@ export function paste(copyData) {
     }
 
     for (let j = 0; j < tempScope.CircuitElement.length; j++) {
-        let obj = tempScope.CircuitElement[j];
+        const obj = tempScope.CircuitElement[j];
         obj.updateScope(globalScope);
     }
 
@@ -70,19 +70,19 @@ export function paste(copyData) {
 
     for (let i = 0; i < updateOrder.length; i++) {
         for (let j = 0; j < tempScope[updateOrder[i]].length; j++) {
-            let obj = tempScope[updateOrder[i]][j];
-            if (obj.objectType != 'Wire') {
+            const obj = tempScope[updateOrder[i]][j];
+            if (obj.objectType !== 'Wire') {
                 obj.x += simulationArea.mouseX - approxX;
                 obj.y += simulationArea.mouseY - approxY;
             }
         }
     }
 
-    for (let l in tempScope) {
-        if (tempScope[l] instanceof Array && l != 'objects' && l != 'CircuitElement') {
+    Object.keys(tempScope).forEach((l) => {
+        if (tempScope[l] instanceof Array && l !== 'objects' && l !== 'CircuitElement') {
             globalScope[l].extend(tempScope[l]);
         }
-    }
+    });
     for (let i = 0; i < tempScope.Input.length; i++) {
         tempScope.Input[i].layoutProperties.y = getNextPosition(0, globalScope);
         tempScope.Input[i].layoutProperties.id = generateId();
@@ -92,7 +92,6 @@ export function paste(copyData) {
         tempScope.Output[i].layoutProperties.id = generateId();
         tempScope.Output[i].layoutProperties.y = getNextPosition(globalScope.layout.width, globalScope);
     }
-    console.log(tempScope)
     var canvasUpdate = true;
     updateSimulation = true;
     updateSubcircuit = true;
@@ -119,7 +118,7 @@ export function cut(copyList) {
     scopeList[tempScope.id] = tempScope;
 
     for (let i = 0; i < copyList.length; i++) {
-        let obj = copyList[i];
+        const obj = copyList[i];
         if (obj.objectType === 'Node') obj.objectType = 'allNodes';
         for (let j = 0; j < tempScope[obj.objectType].length; j++) {
             if (tempScope[obj.objectType][j].x === obj.x && tempScope[obj.objectType][j].y === obj.y && (obj.objectType != 'Node' || obj.type === 2)) {
@@ -132,7 +131,7 @@ export function cut(copyList) {
     for (let i = 0; i < updateOrder.length; i++) {
         let prevLength = globalScope[updateOrder[i]].length; // LOL length of list will reduce automatically when deletion starts
         for (let j = 0; j < globalScope[updateOrder[i]].length; j++) {
-            let obj = globalScope[updateOrder[i]][j];
+            const obj = globalScope[updateOrder[i]][j];
             if (obj.objectType != 'Wire') { // }&&obj.objectType!='CircuitElement'){//}&&(obj.objectType!='Node'||obj.type==2)){
                 if (!copyList.contains(globalScope[updateOrder[i]][j])) {
                     globalScope[updateOrder[i]][j].cleanDelete();
@@ -161,7 +160,9 @@ export function cut(copyList) {
     data.logixClipBoardData = true;
     var dependencyList = globalScope.getDependencies();
     data.dependencies = {};
-    for (dependency in dependencyList) { data.dependencies[dependency] = backUp(scopeList[dependency]); }
+    Object.keys(dependencyList).forEach((dependency) => {
+        data.dependencies[dependency] = backUp(scopeList[dependency]);
+    });
     data.logixClipBoardData = true;
     data = JSON.stringify(data);
 
@@ -196,7 +197,7 @@ export function copy(copyList, cutflag = false) {
 
     if (cutflag) {
         for (let i = 0; i < copyList.length; i++) {
-            let obj = copyList[i];
+            const obj = copyList[i];
             if (obj.objectType === 'Node') obj.objectType = 'allNodes';
             for (let j = 0; j < tempScope[obj.objectType].length; j++) {
                 if (tempScope[obj.objectType][j].x === obj.x && tempScope[obj.objectType][j].y === obj.y && (obj.objectType != 'Node' || obj.type === 2)) {
@@ -210,7 +211,7 @@ export function copy(copyList, cutflag = false) {
     for (let i = 0; i < updateOrder.length; i++) {
         let prevLength = globalScope[updateOrder[i]].length; // LOL length of list will reduce automatically when deletion starts
         for (let j = 0; j < globalScope[updateOrder[i]].length; j++) {
-            let obj = globalScope[updateOrder[i]][j];
+            const obj = globalScope[updateOrder[i]][j];
             if (obj.objectType != 'Wire') { // }&&obj.objectType!='CircuitElement'){//}&&(obj.objectType!='Node'||obj.type==2)){
                 if (!copyList.contains(globalScope[updateOrder[i]][j])) {
                     // //console.log("DELETE:", globalScope[updateOrder[i]][j]);
@@ -241,20 +242,18 @@ export function copy(copyList, cutflag = false) {
     var dependencyList = {};
     var requiredDependencies = globalScope.getDependencies();
     var completed = {};
-    for (id in scopeList) { dependencyList[id] = scopeList[id].getDependencies(); }
-
+    Object.keys(scopeList).forEach((id) => {
+        dependencyList[id] = scopeList[id].getDependencies();
+    });
     function saveScope(id) {
         if (completed[id]) return;
         for (let i = 0; i < dependencyList[id].length; i++) { saveScope(dependencyList[id][i]); }
         completed[id] = true;
         data.scopes.push(backUp(scopeList[id]));
     }
-
     for (let i = 0; i < requiredDependencies.length; i++) { saveScope(requiredDependencies[i]); }
-
     data.logixClipBoardData = true;
     data = JSON.stringify(data);
-
     simulationArea.multipleObjectSelections = []; // copyList.slice();
     simulationArea.copyList = []; // copyList.slice();
     var canvasUpdate = true;

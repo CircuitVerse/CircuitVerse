@@ -16,8 +16,6 @@ import { newCircuit } from './circuit';
 import load from './data/load';
 import save from './data/save';
 
-const startListeners = embed ? startEmbedListeners : startMainListeners;
-
 /**
  * to resize window and setup things it
  * sets up new width for the canvas variables.
@@ -99,7 +97,6 @@ function setupElementLists() {
     }
 
     window.elementHierarchy = metadata.elementHierarchy;
-    console.log(elementHierarchy)
     for (const category in elementHierarchy) {
         let htmlIcons = '';
 
@@ -123,6 +120,8 @@ function setupElementLists() {
  * The first function to be called to setup the whole simulator
  */
 export function setup() {
+    console.log(embed);
+    const startListeners = embed ? startEmbedListeners : startMainListeners;
     setupElementLists();
     setupEnvironment();
     if (!embed) { setupUI(); }

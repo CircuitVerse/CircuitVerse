@@ -13,15 +13,19 @@ import testbench from './testbench';
 import { updateRestrictedElementsInScope } from './restrictedElementDiv';
 import { paste } from './events';
 
+export const uxvar = {
+    smartDropXX: 50,
+    smartDropYY: 80,
+};
 /**
  * @type {number} - Is used to calculate the position where an element from sidebar is dropped
  */
-window.smartDropXX = 50;
+uxvar.smartDropXX = 50;
 
 /**
  * @type {number} - Is used to calculate the position where an element from sidebar is dropped
  */
-window.smartDropYY = 80;
+uxvar.smartDropYY = 80;
 
 /**
  * @type {Object} - Object stores the position of context menu;
@@ -122,7 +126,7 @@ export function setupUI() {
     // });
 
     $('.logixModules').mousedown(function () {
-        // ////console.log(smartDropXX,smartDropYY);
+        // ////console.log(uxvar.smartDropXX,uxvar.smartDropYY);
         if (simulationArea.lastSelected && simulationArea.lastSelected.newElement) simulationArea.lastSelected.delete();
         var obj;
         if (elementHierarchy['Sequential Elements'].includes(this.id)) {
@@ -136,10 +140,10 @@ export function setupUI() {
         simulationArea.lastSelected = obj;
         // simulationArea.lastSelected=obj;
         // simulationArea.mouseDown=true;
-        smartDropXX += 70;
-        if (smartDropXX / globalScope.scale > width) {
-            smartDropXX = 50;
-            smartDropYY += 80;
+        uxvar.smartDropXX += 70;
+        if (uxvar.smartDropXX / globalScope.scale > width) {
+            uxvar.smartDropXX = 50;
+            uxvar.smartDropYY += 80;
         }
     });
     $('.logixButton').click(function () {
@@ -191,7 +195,6 @@ export function showProperties(obj) {
     // console.log(obj)
     if (obj === prevPropertyObj) return;
     hideProperties();
-
     prevPropertyObj = obj;
     if (simulationArea.lastSelected === undefined || ['Wire', 'CircuitElement', 'Node'].indexOf(simulationArea.lastSelected.objectType) !== -1) {
         $('#moduleProperty').show();
@@ -315,7 +318,7 @@ function escapeHtml(unsafe) {
         .replace(/'/g, '&#039;');
 }
 
-function deleteSelected() {
+export function deleteSelected() {
     $('input').blur();
     hideProperties();
     if (simulationArea.lastSelected && !(simulationArea.lastSelected.objectType === 'Node' && simulationArea.lastSelected.type !== 2)) simulationArea.lastSelected.delete();
@@ -327,4 +330,3 @@ function deleteSelected() {
     // Updated restricted elements
     updateRestrictedElementsInScope();
 }
-window.deleteSelected = deleteSelected;

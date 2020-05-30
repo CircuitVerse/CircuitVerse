@@ -7,7 +7,6 @@ import { updateRestrictedElementsInScope } from '../restrictedElementDiv';
 import Scope from '../circuit';
 
 export default function undo(scope = globalScope) {
-    console.log(scope.backups.length)
     if (layoutMode) return;
     if (scope.backups.length === 0) return;
     const backupOx = globalScope.ox;
@@ -32,3 +31,5 @@ export default function undo(scope = globalScope) {
     // Updated restricted elements
     updateRestrictedElementsInScope();
 }
+// for html file
+window.undo = undo;

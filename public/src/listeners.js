@@ -3,7 +3,7 @@ import simulationArea from './simulationArea';
 import { scheduleUpdate, update, updateSelectionsAndPane } from './engine';
 import { changeScale } from './canvasApi';
 import { scheduleBackup } from './data/backupCircuit';
-import { hideProperties } from './ux';
+import { hideProperties, deleteSelected, uxvar } from './ux';
 import { updateRestrictedElementsList, updateRestrictedElementsInScope } from './restrictedElementDiv';
 import { removeMiniMap, updatelastMinimapShown } from './minimap';
 import undo from './data/undo';
@@ -11,6 +11,9 @@ import { copy, paste, selectAll } from './events';
 import save from './data/save';
 
 export default function startListeners() {
+    $('#deleteSelected').click(() => {
+        deleteSelected();
+    });
     window.addEventListener('keyup', (e) => {
         scheduleUpdate(1);
         simulationArea.shiftDown = e.shiftKey;
@@ -382,21 +385,7 @@ function onMouseUp(e) {
     var rect = simulationArea.canvas.getBoundingClientRect();
 
     if (!(simulationArea.mouseRawX < 0 || simulationArea.mouseRawY < 0 || simulationArea.mouseRawX > width || simulationArea.mouseRawY > height)) {
-        smartDropXX = simulationArea.mouseX + 100; // Math.round(((simulationArea.mouseRawX - globalScope.ox+100) / globalScope.scale) / unit) * unit;
-        smartDropYY = simulationArea.mouseY - 50; // Math.round(((simulationArea.mouseRawY - globalScope.oy+100) / globalScope.scale) / unit) * unit;
+        uxvar.smartDropXX = simulationArea.mouseX + 100; // Math.round(((simulationArea.mouseRawX - globalScope.ox+100) / globalScope.scale) / unit) * unit;
+        uxvar.smartDropYY = simulationArea.mouseY - 50; // Math.round(((simulationArea.mouseRawY - globalScope.oy+100) / globalScope.scale) / unit) * unit;
     }
-}
-
-function delete_selected() {
-    $('input').blur();
-    hideProperties();
-    // console.log(simulationArea.lastSelected)
-    if (simulationArea.lastSelected && !(simulationArea.lastSelected.objectType == 'Node' && simulationArea.lastSelected.type != 2)) simulationArea.lastSelected.delete();
-    for (var i = 0; i < simulationArea.multipleObjectSelections.length; i++) {
-        if (!(simulationArea.multipleObjectSelections[i].objectType == 'Node' && simulationArea.multipleObjectSelections[i].type != 2)) simulationArea.multipleObjectSelections[i].cleanDelete();
-    }
-    simulationArea.multipleObjectSelections = [];
-
-    // Updated restricted elements
-    // updateRestrictedElementsInScope();
 }
