@@ -377,11 +377,9 @@ input[type="text"]:focus {
 
 .dropdown-menu > li > a:hover {
   color: black !important;
-  background: #cacaca 0% 0% no-repeat padding-box;
+  background: #cacaca;
   border-radius: 7px;
   opacity: 1;
-  backdrop-filter: blur(50px);
-  -webkit-backdrop-filter: blur(50px);
 }
 
 #contextMenu {
@@ -398,7 +396,7 @@ input[type="text"]:focus {
   color: var(--text-primary);
   padding-bottom: 7px;
   padding-top: 7px;
-  transition: opacity 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   user-select: none;
   border-radius: 5px;
 }
@@ -418,7 +416,7 @@ input[type="text"]:focus {
 
 #contextMenu ul li:hover {
   color: black;
-  background: #cacaca 0% 0% no-repeat padding-box;
+  background: #cacaca;
   border-radius: 7px;
   opacity: 1;
 }
@@ -1340,8 +1338,9 @@ select {
 /** openProjectDialog styling starts here */
 
 #openProjectDialog {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 0 10px;
 }
 
 #openProjectDialog > label {
