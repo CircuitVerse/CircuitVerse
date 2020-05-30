@@ -56,11 +56,9 @@ class Assignment < ApplicationRecord
 
       old_project = Project.find_by(id: proj.forked_project_id)
       if old_project.nil?
-        proj.project_submission = false
-        proj.save
+        proj.update(project_submission: false)
       else
-        old_project.assignment_id = proj.assignment_id
-        old_project.save
+        old_project.update(assignment_id: proj.assignment_id)
         proj.destroy
       end
     end
