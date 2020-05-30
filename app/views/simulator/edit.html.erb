@@ -319,6 +319,10 @@
     <hr>
      <div class="container my-2 text-center" id="result">
     </div>
+    <label id="email-label" style="font-weight: lighter" ><b>Email:</b></label>
+    <div class="form-group">
+    <input class="form-control border-primary"  type="email" id="emailtext" rows="3"></input>
+    </div>
     <label id="report-label" style="font-weight: lighter" ><b>Describe your issue:</b></label>
     <div class="form-group">
     <textarea class="form-control border-primary"  id="issuetext" rows="3"></textarea>
@@ -339,21 +343,28 @@
   $('button').click(function(){
    if (this.id== 'report'){
     var message=$('#issuetext').val();
+    var email=$('#emailtext').val();
+    message += "\nEmail:"+ email
     message += "\nURL: " + window.location.href;
     message += `\nUser Id: <%= user_signed_in? ? " #{current_user.id.to_s} : #{current_user.name}" : "Guest user" %>`
     postUserIssue(message)
     $('#issuetext').hide();
+    $('#emailtext').hide();
     $('#report').hide();
     $('#report-label').hide();
+    $('#email-label').hide();
   }
    })
   $('.issue').on('hide.bs.modal', function(e) {
     listenToSimulator=true
     $('#result').html("");
     $('#issuetext').show();
+    $('#emailtext').show();
     $('#issuetext').val("");
+    $('#emailtext').val("");
     $('#report').show();
     $('#report-label').show();
+    $('#email-label').show();
 }) 
 $('#reportIssue').click(function(){
   listenToSimulator=false
