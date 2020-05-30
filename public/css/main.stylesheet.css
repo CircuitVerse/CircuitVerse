@@ -256,7 +256,7 @@ input[type="text"]:focus {
 .quick-btn {
   display: flex;
   position: absolute;
-  width: 329px;
+  width: 280px;
   left: 60vw;
   height: 33px;
   border-radius: 7px;
@@ -274,13 +274,6 @@ input[type="text"]:focus {
 .quick-btn > div > button {
   margin: auto;
   border: none;
-}
-
-.quick-btn-new {
-  background: url(./assets/shorcuts/new.svg) center/cover;
-  width: 24px;
-  height: 19.2px;
-  display: block;
 }
 
 .quick-btn-save-online {
