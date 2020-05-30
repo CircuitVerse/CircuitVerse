@@ -113,7 +113,7 @@ export function newCircuit(name, id) {
     scopeList[scope.id] = scope;
     globalScope = scope;
     $('.circuits').removeClass('current');
-    $('#tabsBar').append(`<div class='circuits toolbarButton current' id='${scope.id}'>${name}<span class ='tabsCloseButton' onclick='deleteCurrentCircuit(${scope.id})'  >x</span></div>`);
+    $('#tabsBar').append(`<div class='circuits toolbarButton current' id='${scope.id}'>${name}<span class ='tabsCloseButton' onclick='deleteCurrentCircuit(${scope.id})'  ><i class="fa fa-times"></i></span></div>`);
     $('.circuits').click(function () {
         switchCircuit(this.id);
     });
