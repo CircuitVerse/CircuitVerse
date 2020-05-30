@@ -1366,7 +1366,23 @@ select {
 
 #insertSubcircuitDialog {
   color: white;
+  display: block;
+  padding-bottom: 0;
+  overflow: visible;
 }
+
+#insertSubcircuitDialog > p {
+  margin-bottom: 0;
+}
+
+#insertSubcircuitDialog > label {
+  height: 20px;
+  border-radius: 3px;
+  margin: 0 5px;
+  margin-bottom: 4px;
+  justify-content: center;
+}
+
 
 #miniMap {
   position: fixed;
