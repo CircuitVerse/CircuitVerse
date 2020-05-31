@@ -17,7 +17,9 @@ import { changeInputSize } from '../modules';
 export default class Arrow extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT') {
         super(x, y, scope, dir, 8);
+        /* this is done in this.baseSetup() now
         this.scope['Arrow'].push(this);
+        */
         this.rectangleObject = false;
         this.fixedBitWidth = true;
         this.setDimensions(30, 20);

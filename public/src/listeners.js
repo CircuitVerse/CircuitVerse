@@ -150,7 +150,7 @@ export default function startListeners() {
         }
 
         if (e.keyCode == 8 || e.key == 'Delete') {
-            delete_selected();
+            deleteSelected();
         }
 
         if (simulationArea.controlDown && e.key.charCodeAt(0) == 122) { // detect the special CTRL-Z code

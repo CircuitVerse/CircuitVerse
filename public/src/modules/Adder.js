@@ -16,7 +16,9 @@ import simulationArea from '../simulationArea';
 export default class Adder extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
+        /* this is done in this.baseSetup() now
         this.scope['Adder'].push(this);
+        */
         this.setDimensions(20, 20);
 
         this.inpA = new Node(-20, -10, 0, this, this.bitWidth, 'A');

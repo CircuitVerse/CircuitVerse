@@ -17,7 +17,9 @@ import {
 export default class Decoder extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'LEFT', bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
+        /* this is done in this.baseSetup() now
         this.scope['Decoder'].push(this);
+        */
         // this.controlSignalSize = controlSignalSize || parseInt(prompt("Enter control signal bitWidth"), 10);
         this.outputsize = 1 << this.bitWidth;
         this.xOff = 0;

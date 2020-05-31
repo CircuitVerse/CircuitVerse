@@ -1,5 +1,5 @@
 import CircuitElement from '../circuitElement';
-import { Node, findNode } from '../node';
+import { Node, findNode, extractBits } from '../node';
 import simulationArea from '../simulationArea';
 import { correctWidth, rect, fillText } from '../canvasApi';
 /**
@@ -23,7 +23,9 @@ export default class BitSelector extends CircuitElement {
         selectorBitWidth = 1,
     ) {
         super(x, y, scope, dir, bitWidth);
+        /* this is done in this.baseSetup() now
         this.scope['BitSelector'].push(this);
+        */
         this.setDimensions(20, 20);
         this.selectorBitWidth = selectorBitWidth || parseInt(prompt('Enter Selector bitWidth'), 10);
         this.rectangleObject = false;

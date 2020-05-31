@@ -12,6 +12,7 @@ const oppositeDirection = {
     DOWN: 'UP',
     UP: 'DOWN',
 };
+
 export default class CircuitElement {
     constructor(x, y, scope, dir, bitWidth) {
         // Data member initializations
@@ -44,7 +45,7 @@ export default class CircuitElement {
         this.rectangleObject = true;
         this.label = '';
         this.scope = scope;
-        this.scope.CircuitElement.push(this);
+        this.baseSetup();
 
         this.bitWidth = bitWidth || parseInt(prompt('Enter bitWidth'), 10) || 1;
         this.direction = dir;
@@ -73,6 +74,11 @@ export default class CircuitElement {
 
     absY() {
         return this.y;
+    }
+
+    baseSetup() {
+        console.log(this.objectType)
+        this.scope[this.objectType].push(this);
     }
 
     copyFrom(obj) {

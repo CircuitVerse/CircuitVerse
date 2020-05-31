@@ -20,7 +20,9 @@ export default class OrGate extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', inputs = 2, bitWidth = 1) {
         // Calling base class constructor
         super(x, y, scope, dir, bitWidth);
+        /* this is done in this.baseSetup() now
         this.scope['OrGate'].push(this);
+        */
         this.rectangleObject = false;
         this.setDimensions(15, 20);
         // Inherit base class prototype

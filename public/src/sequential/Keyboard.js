@@ -16,7 +16,9 @@ import { correctWidth, lineTo, moveTo, fillText3, fontSize } from '../canvasApi'
 export default class Keyboard extends CircuitElement {
     constructor(x, y, scope = globalScope, bufferSize = 32) {
         super(x, y, scope, 'RIGHT', 1);
+        /*
         this.scope['Keyboard'].push(this);
+        */
         this.directionFixed = true;
         this.fixedBitWidth = true;
 

@@ -19,7 +19,9 @@ import plotArea from '../plotArea';
 export default class Flag extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1, identifier) {
         super(x, y, scope, dir, bitWidth);
+        /* this is done in this.baseSetup() now
         this.scope['Flag'].push(this);
+        */
         this.setWidth(60);
         this.setHeight(20);
         this.rectangleObject = false;

@@ -26,7 +26,9 @@ export default class Multiplexer extends CircuitElement {
         controlSignalSize = 1,
     ) {
         super(x, y, scope, dir, bitWidth);
+        /* this is done in this.baseSetup() now
         this.scope['Multiplexer'].push(this);
+        */
         this.controlSignalSize = controlSignalSize || parseInt(prompt('Enter control signal bitWidth'), 10);
         this.inputSize = 1 << this.controlSignalSize;
         this.xOff = 0;

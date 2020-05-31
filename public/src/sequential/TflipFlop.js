@@ -17,7 +17,9 @@ import { correctWidth, lineTo, moveTo, fillText } from '../canvasApi';
 export default class TflipFlop extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT') {
         super(x, y, scope, dir, 1);
+        /*
         this.scope['TflipFlop'].push(this);
+        */
         this.directionFixed = true;
         this.fixedBitWidth = true;
         this.setDimensions(20, 20);

@@ -19,7 +19,9 @@ import { correctWidth, lineTo, moveTo, fillText3 } from '../canvasApi';
 export default class TTY extends CircuitElement {
     constructor(x, y, scope = globalScope, rows = 3, cols = 32) {
         super(x, y, scope, 'RIGHT', 1);
+        /*
         this.scope['TTY'].push(this);
+        */
         this.directionFixed = true;
         this.fixedBitWidth = true;
         this.cols = cols || parseInt(prompt('Enter cols:'));
@@ -153,7 +155,7 @@ export default class TTY extends CircuitElement {
         for (var i = 0; i < this.data.length; i += this.cols) {
             var lineData = this.data.slice(i, i + this.cols);
             lineData += ' '.repeat(this.cols - lineData.length);
-            fillText3(ctx, lineData, 0, startY + (i / this.cols) * 15 + 9, xx, yy, fontSize = 15, font = 'Courier New', textAlign = 'center');
+            fillText3(ctx, lineData, 0, startY + (i / this.cols) * 15 + 9, xx, yy, 15,'Courier New', 'center');
         }
         ctx.fill();
     }

@@ -22,7 +22,9 @@ export default class AndGate extends CircuitElement {
          * super call
          */
         super(x, y, scope, dir, bitWidth);
+        /* this is done in this.baseSetup() now
         this.scope['AndGate'].push(this);
+        */
         this.rectangleObject = false;
         this.setDimensions(15, 20);
         this.inp = [];

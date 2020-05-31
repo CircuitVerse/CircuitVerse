@@ -22,7 +22,9 @@ export default class Rom extends CircuitElement {
         data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     ) {
         super(x, y, scope, 'RIGHT', 1);
+        /* this is done in this.baseSetup() now
         this.scope['Rom'].push(this);
+        */
         this.fixedBitWidth = true;
         this.directionFixed = true;
         this.rectangleObject = false;

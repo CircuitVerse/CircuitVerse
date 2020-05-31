@@ -30,10 +30,12 @@ function dec2bin(dec, bitWidth = undefined) {
  */
 export default class ConstantVal extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1, state = '0') {
-        state = state || prompt('Enter value');
+        // state = state || prompt('Enter value');
         super(x, y, scope, dir, state.length);
+        /* this is done in this.baseSetup() now
+            this.scope['ConstantVal'].push(this);
+        */
         this.state = state;
-        this.scope['ConstantVal'].push(this);
         this.setDimensions(10 * this.state.length, 10);
         this.bitWidth = bitWidth || this.state.length;
         this.directionFixed = true;

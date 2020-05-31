@@ -17,7 +17,9 @@ import {
 export default class Button extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT') {
         super(x, y, scope, dir, 1);
+        /* this is done in this.baseSetup() now
         this.scope['Button'].push(this);
+        */
         this.state = 0;
         this.output1 = new Node(30, 0, 1, this);
         this.wasClicked = false;

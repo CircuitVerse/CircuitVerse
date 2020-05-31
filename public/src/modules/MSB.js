@@ -1,5 +1,5 @@
 import CircuitElement from '../circuitElement';
-import { Node, findNode } from '../node';
+import { Node, findNode, dec2bin } from '../node';
 import simulationArea from '../simulationArea';
 import { correctWidth, rect, fillText } from '../canvasApi';
 /**
@@ -15,7 +15,9 @@ import { correctWidth, rect, fillText } from '../canvasApi';
 export default class MSB extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
+        /* this is done in this.baseSetup() now
         this.scope['MSB'].push(this);
+        */
         // this.setDimensions(20, 20);
         this.leftDimensionX = 10;
         this.rightDimensionX = 20;

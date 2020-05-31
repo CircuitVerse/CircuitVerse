@@ -4,6 +4,11 @@ import simulationArea from '../simulationArea';
 import {
     correctWidth, lineTo, moveTo, fillText2,
 } from '../canvasApi';
+
+function extractBits(num, start, end) {
+    return (num << (32 - end)) >>> (32 - (end - start + 1));
+}
+
 /**
  * @class
  * Splitter
@@ -25,7 +30,9 @@ export default class Splitter extends CircuitElement {
         bitWidthSplit = undefined,
     ) {
         super(x, y, scope, dir, bitWidth);
+        /* this is done in this.baseSetup() now
         this.scope['Splitter'].push(this);
+        */
         this.rectangleObject = false;
 
         this.bitWidthSplit = bitWidthSplit || prompt('Enter bitWidth Split').split(' ').filter((lambda) => lambda !== '').map((lambda) => parseInt(lambda, 10) || 1);

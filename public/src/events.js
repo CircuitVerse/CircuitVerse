@@ -1,4 +1,4 @@
-import Scope, { switchCircuit } from './circuit';
+import Scope, { switchCircuit, newCircuit } from './circuit';
 import { loadScope } from './data/load';
 import { scheduleUpdate } from './engine';
 import { backUp } from './data/backupCircuit';

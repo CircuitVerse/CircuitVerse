@@ -21,7 +21,9 @@ export default class ALU extends CircuitElement {
         // //console.log("HIT");
         // //console.log(x,y,scope,dir,bitWidth,controlSignalSize);
         super(x, y, scope, dir, bitWidth);
+        /* this is done in this.baseSetup() now
         this.scope['ALU'].push(this);
+        */
         this.message = 'ALU';
 
         this.setDimensions(30, 40);

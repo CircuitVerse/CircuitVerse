@@ -31,15 +31,15 @@ function rotate(x1, y1, dir) {
     if (dir == 'LEFT') { return [-x1, y1]; } if (dir == 'DOWN') { return [y1, x1]; } if (dir == 'UP') { return [y1, -x1]; } return [x1, y1];
 }
 
-function extractBits(num, start, end) {
+export function extractBits(num, start, end) {
     return (num << (32 - end)) >>> (32 - (end - start + 1));
 }
 
-function bin2dec(binString) {
+export function bin2dec(binString) {
     return parseInt(binString, 2);
 }
 
-function dec2bin(dec, bitWidth = undefined) {
+export function dec2bin(dec, bitWidth = undefined) {
     // only for positive nos
     var bin = (dec).toString(2);
     if (bitWidth == undefined) return bin;

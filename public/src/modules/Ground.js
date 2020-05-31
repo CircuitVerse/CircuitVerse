@@ -17,7 +17,9 @@ import { changeInputSize } from '../modules';
 export default class Ground extends CircuitElement {
     constructor(x, y, scope = globalScope, bitWidth = 1) {
         super(x, y, scope, 'RIGHT', bitWidth);
+        /* this is done in this.baseSetup() now
         this.scope['Ground'].push(this);
+        */
         this.rectangleObject = false;
         this.setDimensions(10, 10);
         this.directionFixed = true;

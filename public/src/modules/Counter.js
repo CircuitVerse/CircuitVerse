@@ -21,7 +21,9 @@ import { lineTo, moveTo, fillText } from '../canvasApi';
 export default class Counter extends CircuitElement {
     constructor(x, y, scope = globalScope, bitWidth = 8) {
         super(x, y, scope, "RIGHT", bitWidth);
+        /* this is done in this.baseSetup() now
         this.scope['Counter'].push(this);
+        */
         this.directionFixed = true;
         this.rectangleObject = true;
 

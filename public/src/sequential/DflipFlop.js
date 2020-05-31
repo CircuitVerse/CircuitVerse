@@ -16,7 +16,9 @@ import { correctWidth, lineTo, moveTo, fillText } from '../canvasApi';
 export default class DflipFlop extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
+        /*
         this.scope['DflipFlop'].push(this);
+        */
         this.directionFixed = true;
         this.setDimensions(20, 20);
         this.rectangleObject = true;
