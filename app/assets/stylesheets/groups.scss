@@ -46,14 +46,14 @@
   box-shadow: 0 2px 7px $shadow-black;
   display: flex;
   margin: 15px 0;
-  padding: 10px;
+  padding: 10px 0;
 }
 
 .groups-mentor-card {
   align-items: center;
   border-top: 10px solid $green;
   flex-direction: column;
-  justify-content: center;
+  // justify-content: center;
 }
 
 .groups-mentor-card-name {
@@ -73,12 +73,12 @@
 .groups-mentor-card-button-edit {
   background: $seablue;
   transition: transform .2s ease-in;
+  width: 75px;
 
-  i {
-    color: $white;
-    display: inline-flex;
-    margin: 0;
-    padding: 0;
+  img {
+    height: 20px;
+    padding-bottom: 2px;
+    width: 20px;
   }
 
   &:hover {
@@ -92,11 +92,10 @@
   background: $error-red-font;
   transition: transform .2s ease-in;
 
-  i {
-    color: $white;
-    display: inline-flex;
-    margin: 0;
-    padding: 0;
+  img {
+    height: 20px;
+    padding-bottom: 2px;
+    width: 20px;
   }
 
   &:hover {
@@ -109,12 +108,12 @@
 .groups-mentor-card-button-view {
   background: $green;
   transition: transform .2s ease-in;
+  width: 75px;
 
-  i {
-    color: $white;
-    display: inline-flex;
-    margin: 0;
-    padding: 0;
+  img {
+    height: 20px;
+    padding-bottom: 2px;
+    width: 20px;
   }
 
   &:hover {

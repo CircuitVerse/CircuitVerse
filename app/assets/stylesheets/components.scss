@@ -17,11 +17,11 @@
 .button-mini-edit {
   border-radius: 4px;
   color: $white;
-  height: 28px;
-  margin: 3px;
-  padding: 2px;
+  height: 32px;
+  margin: 5px;
+  padding: 3px 5px;
   text-decoration: none;
-  width: 75px;
+  width: 85px;
 }
 
 //cards
@@ -92,5 +92,11 @@
 @media (max-width: 768px) {
   .background-card {
     margin: auto;
+  }
+}
+
+@media (max-width: 400px) {
+  .button-mini-edit {
+    margin: 2px;
   }
 }

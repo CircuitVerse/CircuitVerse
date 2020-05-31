@@ -24,15 +24,15 @@
             </div>
             <div class="groups-mentor-card-buttons">
               <%= link_to group, class: "button-mini-edit groups-mentor-card-button-view" do %>
-                <i class="fas fa-eye"></i>
+                <%= image_tag("SVGs/viewGroup.svg", alt: "View Group") %>
                 <span>View</span>
               <% end %>
               <%= link_to edit_group_path(group), class: "button-mini-edit groups-mentor-card-button-edit" do %>
-                <i class="fas fa-pencil-alt"></i>
+                <%= image_tag("SVGs/editGroup.svg", alt: "Edit Group") %>
                 <span>Edit</span>
               <% end %>
               <%= link_to group, method: :delete, data: { confirm: 'Are you sure?' }, class: "button-mini-edit groups-mentor-card-button-delete" do %>
-                <i class="fas fa-trash"></i>
+                <%= image_tag("SVGs/deleteGroup.svg", alt: "Delete Group") %>
                 <span>Delete</span>
               <% end %>
             </div>
