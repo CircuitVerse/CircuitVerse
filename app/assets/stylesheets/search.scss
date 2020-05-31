@@ -33,8 +33,13 @@
 
 .navbar-search-bar-select {
   background-color: $card-green;
+  border: 1px solid $green;
   cursor: pointer;
-  margin-bottom: 5px;
+  font-size: 18px;
+  height: 38px;
+  margin-right: 6px;
+  margin-top: 5px;
+  max-width: 70px;
 }
 //navbar search ends
 

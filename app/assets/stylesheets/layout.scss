@@ -62,7 +62,7 @@ body {
 
 .navbar-simulator-text {
   border: 2px solid $green;
-  color: $black;
+  color: $navbar-dark;
   font-weight: 500;
   transition: all .2s ease-in;
 
@@ -109,7 +109,7 @@ body {
 }
 
 .fa-search {
-  color: $black;
+  color: $navbar-dark;
   font-size: 20px;
   margin-right: 12px;
   vertical-align: middle;
@@ -171,7 +171,7 @@ body {
   margin-top: 0;
   padding: 20px;
   position: fixed;
-  top: 78px;
+  top: 96px;
   width: 100%;
   z-index: 90;
 }
@@ -221,6 +221,11 @@ body {
   .navbar-search-active {
     padding-left: 5px;
     padding-right: 5px;
+  }
+
+  .navbar-logo {
+    height: 60px;
+    padding-top: 10px;
   }
 }
 
