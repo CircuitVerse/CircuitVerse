@@ -129,7 +129,7 @@ Rails.application.routes.draw do
           get 'fork', to: 'projects#create_fork'
           get 'image_preview', to: 'projects#image_preview'
         end
-        resources :collaborations, shallow: true
+        resources :collaborators, only: [:index, :create, :destroy]
       end
       resources :users do
         get 'projects', to: 'projects#user_projects', on: :member
