@@ -8,8 +8,6 @@ import simulationArea from './simulationArea';
 import logixFunction from './data';
 import { newCircuit, circuitProperty } from './circuit';
 import modules from './modules';
-import sequential from './sequential';
-import testbench from './testbench';
 import { updateRestrictedElementsInScope } from './restrictedElementDiv';
 import { paste } from './events';
 
@@ -128,14 +126,7 @@ export function setupUI() {
     $('.logixModules').mousedown(function () {
         // ////console.log(uxvar.smartDropXX,uxvar.smartDropYY);
         if (simulationArea.lastSelected && simulationArea.lastSelected.newElement) simulationArea.lastSelected.delete();
-        var obj;
-        if (elementHierarchy['Sequential Elements'].includes(this.id)) {
-            obj = new sequential[this.id](); // (simulationArea.mouseX,simulationArea.mouseY);
-        } else if (elementHierarchy['Test Bench'].includes(this.id)) {
-            obj = new testbench[this.id](); // (simulationArea.mouseX,simulationArea.mouseY);
-        } else {
-            obj = new modules[this.id](); // (simulationArea.mouseX,simulationArea.mouseY);
-        }
+        var obj = new modules[this.id](); // (simulationArea.mouseX,simulationArea.mouseY);
         // obj = new modules[this.id](); // (simulationArea.mouseX,simulationArea.mouseY);
         simulationArea.lastSelected = obj;
         // simulationArea.lastSelected=obj;
@@ -154,14 +145,7 @@ export function setupUI() {
 
     $('.logixModules').hover(function () {
         // Tooltip can be statically defined in the prototype.
-        var tooltipText;
-        if (elementHierarchy['Sequential Elements'].includes(this.id)) {
-            tooltipText = sequential[this.id].prototype.tooltipText;
-        } else if (elementHierarchy['Test Bench'].includes(this.id)) {
-            tooltipText = testbench[this.id].prototype.tooltipText;
-        } else {
-            tooltipText = modules[this.id].prototype.tooltipText;
-        }
+        var tooltipText = modules[this.id].prototype.tooltipText;
         if (!tooltipText) return;
         $('#Help').addClass('show');
         $('#Help').empty();

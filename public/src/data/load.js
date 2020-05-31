@@ -9,8 +9,6 @@ import { showProperties } from '../ux';
 import { constructNodeConnections, loadNode, replace } from '../node';
 import { generateId } from '../utils';
 import modules from '../modules'
-import sequential from '../sequential';
-import testbench from '../testbench';
 
 /**
  * Backward compatibility - needs to be deprecated
@@ -31,15 +29,7 @@ function rectifyObjectType(obj) {
  */
 function loadModule(data, scope) {
     // Create circuit element
-    var obj;
-    if (elementHierarchy['Sequential Elements'].includes(data.objectType)) {
-        obj = new sequential[rectifyObjectType(data.objectType)](data.x, data.y, scope, ...data.customData.constructorParamaters || []);
-    } else if (elementHierarchy['Test Bench'].includes(data.objectType)) {
-        obj = new testbench[rectifyObjectType(data.objectType)](data.x, data.y, scope, ...data.customData.constructorParamaters || []);
-    } else {
-        obj = new modules[rectifyObjectType(data.objectType)](data.x, data.y, scope, ...data.customData.constructorParamaters || []);
-    }
-
+    var obj = new modules[rectifyObjectType(data.objectType)](data.x, data.y, scope, ...data.customData.constructorParamaters || []);
     // Sets directions
     obj.label = data.label;
     obj.labelDirection = data.labelDirection || oppositeDirection[fixDirection[obj.direction]];

@@ -43,6 +43,20 @@ import Counter from './modules/Counter';
 import Random from './modules/Random';
 import RGBLedMatrix from './modules/RGBLedMatrix';
 import simulationArea from './simulationArea';
+import TflipFlop from './sequential/TflipFlop';
+import DflipFlop from './sequential/DflipFlop';
+import Dlatch from './sequential/Dlatch';
+import SRflipFlop from './sequential/SRflipFlop';
+import JKflipFlop from './sequential/JKflipFlop';
+import TTY from './sequential/TTY';
+import Keyboard from './sequential/Keyboard';
+import Clock from './sequential/Clock';
+import RAM from './sequential/RAM';
+import EEPROM from './sequential/EEPROM';
+import Rom from './sequential/Rom';
+import TB_Input from './testbench/testbenchInput';
+import TB_Output from './testbench/testbenchOutput';
+import ForceGate from './testbench/ForceGate';
 
 export function getNextPosition(x = 0, scope = globalScope) {
     let possibleY = 20;
@@ -111,7 +125,21 @@ const modules = {
     ALU,
     Rectangle,
     Arrow,
-    RGBLedMatrix,
+    RGBLedMatrix, 
+    TflipFlop,
+    DflipFlop,
+    Dlatch,
+    SRflipFlop,
+    JKflipFlop,
+    TTY,
+    Keyboard,
+    Clock,
+    Rom,
+    EEPROM,
+    RAM,
+    TB_Input,
+    TB_Output,
+    ForceGate,
 };
 export default modules;
 export function changeInputSize(size) {
