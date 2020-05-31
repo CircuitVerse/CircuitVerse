@@ -38,7 +38,8 @@ class Api::V1::CollaboratorsController < Api::V1::BaseController
   # DELETE /api/v1//projects/:project_id/collaborators/:id
   # :id is essentially the user_id for the user to be removed from project
   def destroy
-    @collaborator.destroy!
+    @collaboration = Collaboration.find_by(user: @collaborator, project: @project)
+    @collaboration.destroy!
     render json: {}, status: :no_content
   end
 
