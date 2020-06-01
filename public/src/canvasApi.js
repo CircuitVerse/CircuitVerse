@@ -1,8 +1,8 @@
 /* eslint-disable no-param-reassign */
 import backgroundArea from './backgroundArea';
 import simulationArea from './simulationArea';
-import { removeMiniMap, updatelastMinimapShown } from './minimap';
-import miniMapArea from './minimap';
+import miniMapArea, { removeMiniMap, updatelastMinimapShown } from './minimap';
+
 
 export function findDimensions(scope = globalScope) {
     var totalObjects = 0;
@@ -228,7 +228,7 @@ export function arc2(ctx, sx, sy, radius, start, stop, xx, yy, dir) {
 }
 
 export function drawCircle2(ctx, sx, sy, radius, xx, yy, dir) { // ox-x of origin, xx- x of element , sx - shift in x from element
-    let Sx; 
+    let Sx;
     let Sy;
     [Sx, Sy] = rotate(sx, sy, dir);
     Sx *= globalScope.scale;
@@ -320,7 +320,6 @@ function colorToRGBA(color) {
 }
 
 export function drawCircle(ctx, x1, y1, r, color) {
-    // console.log(x1,y1);
     x1 *= globalScope.scale;
     y1 *= globalScope.scale;
     ctx.beginPath();

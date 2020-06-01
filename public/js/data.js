@@ -8,9 +8,12 @@ function newCircuit(name, id) {
     if (id) scope.id = id;
     scopeList[scope.id] = scope;
     globalScope = scope;
-
+    var $windowsize = $('body').width();
+    var $sideBarsize = $('.side').width();
+    var $maxwidth = ($windowsize - $sideBarsize);
+    var resizer = "max-width:" + ($maxwidth - 30);
     $('.circuits').removeClass("current");
-    $('#tabsBar').append("<div class='circuits toolbarButton current' id='" + scope.id + "'>" + name + "<span class ='tabsCloseButton' onclick='deleteCurrentCircuit()'  >x</span></div>");
+    $('#tabsBar').append("<a href = '#' data-toggle = 'tooltip' title='" + name + "'><div class='circuits toolbarButton current' id='" + scope.id + "' style='" + resizer + "'>" + name + "<span class ='tabsCloseButton' onclick='deleteCurrentCircuit()'  ><i class='fa fa-times'></i></span></div></a>");
     $('.circuits').click(function() {
         switchCircuit(this.id)
     });
@@ -27,7 +30,7 @@ function newCircuit(name, id) {
 function changeCircuitName(name, id = globalScope.id) {
     name = name || "Untitled";
     name = stripTags(name);
-    $('#' + id).html(name);
+    $('#' + id).html(name + "<span class ='tabsCloseButton' onclick='deleteCurrentCircuit()'  ><i class='fa fa-times'></i></span>");
     scopeList[id].name = name;
 }
 

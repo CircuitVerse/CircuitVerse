@@ -151,7 +151,6 @@ export default class SubCircuit extends CircuitElement {
     }
 
     /**
-     * @memberof SubCircuit
      * actually make all connection but are invisible so
      * it seems like the simulation is happening in other
      * Scope but it actually is not.
@@ -169,7 +168,6 @@ export default class SubCircuit extends CircuitElement {
     }
 
     /**
-     * @memberof Subcircuit
      * Function to remove wireless connections
      */
     removeConnections() {
@@ -221,7 +219,6 @@ export default class SubCircuit extends CircuitElement {
     }
 
     /**
-     * @memberof SubCircuit
      * rebuilds the subcircuit if any change to localscope is made
      */
     reBuildCircuit() {
@@ -340,7 +337,6 @@ export default class SubCircuit extends CircuitElement {
     }
 
     /**
-     * @memberof SubCircuit
      * adds all local scope inputs to the global scope simulation queue
      */
     addInputs() {
@@ -407,7 +403,6 @@ export default class SubCircuit extends CircuitElement {
     }
 
     /**
-     * @memberof SubCircuit
      * determines where to show label
      */
     determine_label(x, y) {

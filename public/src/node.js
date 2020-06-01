@@ -1,4 +1,8 @@
 /* eslint-disable import/no-cycle */
+/**
+ * @module node
+ */
+
 import { drawCircle, drawLine, arc } from './canvasApi';
 import simulationArea from './simulationArea';
 import { distance, showError } from './utils';
@@ -9,6 +13,11 @@ import {
 } from './engine';
 import Wire from './wire';
 
+/**
+* Constructs all the connections of Node node
+ * @param {Node} node - node to be constructed
+ * @param {JSON} data - the saved data which is used to load
+ */
 export function constructNodeConnections(node, data) {
     for (var i = 0; i < data.connections.length; i++) { if (!node.connections.contains(node.scope.allNodes[data.connections[i]])) node.connect(node.scope.allNodes[data.connections[i]]); }
 }
@@ -51,16 +60,29 @@ export function dec2bin(dec, bitWidth = undefined) {
     return '0'.repeat(bitWidth - bin.length) + bin;
 }
 
-// find Index of a node
+/**
+ * find Index of a node
+ * @param {Node} x - Node to be dound
+ */
 export function findNode(x) {
     return x.scope.allNodes.indexOf(x);
 }
 
+/**
+ * function makes a node according to data providede
+ * @param {JSON} data - the data used to load a Project
+ * @param {Scope} scope - scope to which node has to be loaded
+ */
 export function loadNode(data, scope) {
     var n = new Node(data.x, data.y, data.type, scope.root, data.bitWidth, data.label);
 }
 
-// get Node in index x in scope and set parent
+/**
+ * get Node in index x in scope and set parent
+ * @param {Node} x - the desired node
+ * @param {Scope} scope - the scope
+ * @param {CircuitElement} parent - The parent of node
+ */
 function extractNode(x, scope, parent) {
     var n = scope.allNodes[x];
     n.parent = parent;
@@ -74,7 +96,28 @@ function extractNode(x, scope, parent) {
 window.NODE_INPUT = 0;
 window.NODE_OUTPUT = 1;
 window.NODE_INTERMEDIATE = 2;
+/**
+ * used to give id to a node.
+ * @type {number}
+ */
 var uniqueIdCounter = 10;
+
+/**
+ * This class is responsible for all the Nodes.Nodes are connected using Wires
+ * Nodes are of 3 types;
+ * NODE_INPUT = 0;
+ * NODE_OUTPUT = 1;
+ * NODE_INTERMEDIATE = 2;
+ * Input and output nodes belong to some CircuitElement(it's parent)
+ * @class
+ * @memberof module:node
+ * @param {number} x - x coord of Node
+ * @param {number} y - y coord of Node
+ * @param {number} type - type of node
+ * @param {CircuitElement} parent - parent element
+ * @param {?number} bitWidth - the bits of node in input and output nodes
+ * @param {string=} label - label for a node
+ */
 export class Node {
     constructor(x, y, type, parent, bitWidth = undefined, label = '') {
         // Should never raise, but just in case
@@ -114,6 +157,13 @@ export class Node {
         this.hover = false;
         this.wasClicked = false;
         this.scope = this.parent.scope;
+        /**
+        * @type {string}
+        * value of this.prev is
+        * 'a' : whenever a node is not being dragged this.prev is 'a'
+        * 'x' : when node is being dragged horizontally
+        * 'y' : when node is being dragged vertically
+        */
         this.prev = 'a';
         this.count = 0;
         this.highlighted = false;
@@ -132,10 +182,18 @@ export class Node {
         };
     }
 
+    /**
+     * @memberof Node
+     * Function to set label
+     */
     setLabel(label) {
         this.label = label; // || "";
     }
 
+    /**
+     * @memberof Node
+     * function to convert a node to intermediate node
+     */
     converToIntermediate() {
         this.type = 2;
         this.x = this.absX();
@@ -144,16 +202,28 @@ export class Node {
         this.scope.nodes.push(this);
     }
 
+    /**
+    * @memberof Node
+    * Helper fuction to move a node. Sets up some variable which help in changing node.
+    */
     startDragging() {
         this.oldx = this.x;
         this.oldy = this.y;
     }
 
+    /**
+    * @memberof Node
+    * Helper fuction to move a node.
+    */
     drag() {
         this.x = this.oldx + simulationArea.mouseX - simulationArea.mouseDownX;
         this.y = this.oldy + simulationArea.mouseY - simulationArea.mouseDownY;
     }
 
+    /**
+    * @memberof Node
+    * Funciton for saving a node
+    */
     saveObject() {
         if (this.type == 2) {
             this.leftx = this.x;
@@ -173,6 +243,10 @@ export class Node {
         return data;
     }
 
+    /**
+     * @memberof Node
+     * helper function to help rotating parent
+     */
     updateRotation() {
         var x; var
             y;
@@ -181,6 +255,10 @@ export class Node {
         this.y = y;
     }
 
+    /**
+    * @memberof Node
+    * Refreshes a node after roation of parent
+    */
     refresh() {
         this.updateRotation();
         for (var i = 0; i < this.connections.length; i++) {
@@ -189,28 +267,52 @@ export class Node {
         this.connections = [];
     }
 
+    /**
+    * @memberof Node
+    * gives absolute x position of the node
+    */
     absX() {
         return this.x + this.parent.x;
     }
 
+    /**
+    * @memberof Node
+    * gives absolute y position of the node
+    */
     absY() {
         return this.y + this.parent.y;
     }
 
+    /**
+     * @memberof Node
+     * update the scope of a node
+     */
     updateScope(scope) {
         this.scope = scope;
         if (this.type == 2) this.parent = scope.root;
     }
 
+    /**
+     * @memberof Node
+     * return true if node is connected or not connected but false if undefined.
+     */
     isResolvable() {
         return this.value != undefined;
     }
 
+    /**
+     * @memberof Node
+     * function used to reset the nodes
+     */
     reset() {
         this.value = undefined;
         this.highlighted = false;
     }
 
+    /**
+    * @memberof Node
+    * function to connect two nodes.
+    */
     connect(n) {
         if (n == this) return;
         if (n.connections.contains(this)) return;
@@ -223,6 +325,10 @@ export class Node {
         scheduleUpdate();
     }
 
+    /**
+     * @memberof Node
+     * connects but doesnt draw the wire between nodes
+     */
     connectWireLess(n) {
         if (n == this) return;
         if (n.connections.contains(this)) return;
@@ -234,11 +340,19 @@ export class Node {
         scheduleUpdate();
     }
 
+    /**
+    * @memberof Node
+    * disconnecting two nodes connected wirelessly
+    */
     disconnectWireLess(n) {
         this.connections.clean(n);
         n.connections.clean(this);
     }
 
+    /**
+     * @memberof Node
+     * function to resolve a node
+     */
     resolve() {
         // Remove Propogation of values (TriState)
         if (this.value == undefined) {
@@ -299,6 +413,10 @@ export class Node {
         }
     }
 
+    /**
+     * @memberof Node
+     * this function checks if hover over the node
+     */
     checkHover() {
         if (!simulationArea.mouseDown) {
             if (simulationArea.hover == this) {
@@ -321,6 +439,10 @@ export class Node {
         }
     }
 
+    /**
+     * @memberof Node
+     * this function draw a node
+     */
     draw() {
         // console.log(this.id)
         const ctx = simulationArea.context;
@@ -377,11 +499,20 @@ export class Node {
         }
     }
 
+    /**
+     * @memberof Node
+     * checks if a node has been deleted
+     */
     checkDeleted() {
         if (this.deleted) this.delete();
         if (this.connections.length == 0 && this.type == 2) this.delete();
     }
 
+    /**
+    * @memberof Node
+    * used to update nodes if there is a event like click or hover on the node.
+    * many booleans are used to check if certain properties are to be updated.
+    */
     update() {
         if (embed) return;
 
@@ -559,6 +690,10 @@ export class Node {
         }
     }
 
+    /**
+     * @memberof Node
+     * function delete a node
+     */
     delete() {
         updateSimulationSet(true);
         this.deleted = true;
@@ -585,6 +720,12 @@ export class Node {
         return this.absX() == simulationArea.mouseX && this.absY() == simulationArea.mouseY;
     }
 
+    /**
+     * @memberof Node
+     * if input nodde: it resolves the parent
+     * else: it adds all the nodes onto the stack
+     * and they are processed to generate verilog
+     */
     nodeConnect() {
         var x = this.absX();
         var y = this.absY();
@@ -633,189 +774,16 @@ export class Node {
             }
         }
     }
-
-
-    // Kept for archival purposes
-    // function oldNodeUpdate() {
-    //
-    //     if (!this.clicked && !simulationArea.mouseDown) {
-    //         var px = this.prevx;
-    //         var py = this.prevy;
-    //         this.prevx = this.absX();
-    //         this.prevy = this.absY();
-    //         if (this.absX() != px || this.absY() != py) {
-    //             updated = true;
-    //             this.nodeConnect();
-    //             return updated;
-    //         }
-    //     }
-    //
-    //     var updated = false;
-    //     if (!simulationArea.mouseDown) this.hover = false;
-    //     if ((this.clicked || !simulationArea.hover) && this.isHover()) {
-    //         this.hover = true;
-    //         simulationArea.hover = this;
-    //     } else if (!simulationArea.mouseDown && this.hover && this.isHover() == false) {
-    //         if (this.hover) simulationArea.hover = undefined;
-    //         this.hover = false;
-    //     }
-    //
-    //     if (simulationArea.mouseDown && (this.clicked)) {
-    //
-    //         if (!simulationArea.shiftDown && simulationArea.multipleObjectSelections.contains(this)) {
-    //             for (var i = 0; i < simulationArea.multipleObjectSelections.length; i++) {
-    //                 simulationArea.multipleObjectSelections[i].drag();
-    //             }
-    //         }
-    //
-    //         if (this.type == 2) {
-    //             if (this.absX() == simulationArea.mouseX && this.absY() == simulationArea.mouseY) {
-    //                 updated = false;
-    //                 this.prev = 'a';
-    //             } else if (this.connections.length == 1 && this.connections[0].absX() == simulationArea.mouseX && this.absX() == simulationArea.mouseX) {
-    //                 this.y = simulationArea.mouseY - this.parent.y;
-    //                 this.prev = 'a';
-    //                 updated = true;
-    //             } else if (this.connections.length == 1 && this.connections[0].absY() == simulationArea.mouseY && this.absY() == simulationArea.mouseY) {
-    //                 this.x = simulationArea.mouseX - this.parent.x;
-    //                 this.prev = 'a';
-    //                 updated = true;
-    //             }
-    //             if (this.connections.length == 1 && this.connections[0].absX() == this.absX() && this.connections[0].absY() == this.absY()) {
-    //                 this.connections[0].clicked = true;
-    //                 this.connections[0].wasClicked = true;
-    //                 this.delete();
-    //                 updated = true;
-    //             }
-    //         }
-    //         if (this.prev == 'a' && distance(simulationArea.mouseX, simulationArea.mouseY, this.absX(), this.absY()) >= 10) {
-    //             if (Math.abs(this.x + this.parent.x - simulationArea.mouseX) > Math.abs(this.y + this.parent.y - simulationArea.mouseY)) {
-    //                 this.prev = 'x';
-    //             } else {
-    //                 this.prev = 'y';
-    //             }
-    //         }
-    //     } else if (simulationArea.mouseDown && !simulationArea.selected) {
-    //         simulationArea.selected = this.clicked = this.hover;
-    //         updated |= this.clicked;
-    //         this.prev = 'a';
-    //     } else if (!simulationArea.mouseDown) {
-    //         if (this.clicked) simulationArea.selected = false;
-    //         this.clicked = false;
-    //         this.count = 0;
-    //     }
-    //
-    //     if (this.clicked && !this.wasClicked) {
-    //         this.wasClicked = true;
-    //         if (!simulationArea.shiftDown && simulationArea.multipleObjectSelections.contains(this)) {
-    //             for (var i = 0; i < simulationArea.multipleObjectSelections.length; i++) {
-    //                 simulationArea.multipleObjectSelections[i].startDragging();
-    //             }
-    //         }
-    //
-    //         if (this.type == 2) {
-    //             if (simulationArea.shiftDown) {
-    //                 simulationArea.lastSelected = undefined;
-    //                 if (simulationArea.multipleObjectSelections.contains(this)) {
-    //                     simulationArea.multipleObjectSelections.clean(this);
-    //                 } else {
-    //                     simulationArea.multipleObjectSelections.push(this);
-    //                 }
-    //             } else {
-    //                 simulationArea.lastSelected = this;
-    //             }
-    //         }
-    //     }
-    //
-    //     if (this.wasClicked && !this.clicked) {
-    //         this.wasClicked = false;
-    //
-    //         if (simulationArea.mouseX == this.absX() && simulationArea.mouseY == this.absY()) {
-    //             this.nodeConnect();
-    //             return updated;
-    //         }
-    //
-    //         var n, n1;
-    //         var x, y, x1, y1, flag = -1;
-    //         x1 = simulationArea.mouseX;
-    //         y1 = simulationArea.mouseY;
-    //         if (this.prev == 'x') {
-    //             x = x1;
-    //             y = this.absY();
-    //             flag = 0;
-    //         } else if (this.prev == 'y') {
-    //             y = y1;
-    //             x = this.absX();
-    //             flag = 1;
-    //         }
-    //         if (this.type == 'a') return; // this should never happen!!
-    //
-    //         for (var i = 0; i < this.parent.scope.allNodes.length; i++) {
-    //             if (x == this.parent.scope.allNodes[i].absX() && y == this.parent.scope.allNodes[i].absY()) {
-    //                 n = this.parent.scope.allNodes[i];
-    //                 this.connect(n);
-    //                 break;
-    //             }
-    //         }
-    //
-    //         if (n == undefined) {
-    //             n = new Node(x, y, 2, this.scope.root);
-    //             this.connect(n);
-    //             for (var i = 0; i < this.parent.scope.wires.length; i++) {
-    //                 if (this.parent.scope.wires[i].checkConvergence(n)) {
-    //                     this.parent.scope.wires[i].converge(n);
-    //                 }
-    //             }
-    //         }
-    //         this.prev = 'a';
-    //
-    //         if (flag == 0 && (this.y + this.parent.y - simulationArea.mouseY) != 0) {
-    //             y = y1;
-    //             flag = 2;
-    //         } else if ((this.x + this.parent.x - simulationArea.mouseX) != 0 && flag == 1) {
-    //             x = x1;
-    //             flag = 2;
-    //         }
-    //         if (flag == 2) {
-    //             for (var i = 0; i < this.parent.scope.allNodes.length; i++) {
-    //                 if (x == this.parent.scope.allNodes[i].absX() && y == this.parent.scope.allNodes[i].absY()) {
-    //                     n1 = this.parent.scope.allNodes[i];
-    //                     n.connect(n1);
-    //                     break;
-    //                 }
-    //             }
-    //             if (n1 == undefined) {
-    //                 n1 = new Node(x, y, 2, this.scope.root);
-    //                 n.connect(n1);
-    //                 for (var i = 0; i < this.parent.scope.wires.length; i++) {
-    //                     if (this.parent.scope.wires[i].checkConvergence(n1)) {
-    //                         this.parent.scope.wires[i].converge(n1);
-    //                     }
-    //                 }
-    //             }
-    //
-    //         }
-    //         updated = true;
-    //
-    //         if (simulationArea.lastSelected == this) simulationArea.lastSelected = undefined;
-    //     }
-    //
-    //     if (this.type == 2) {
-    //         if (this.connections.length == 2 && simulationArea.mouseDown == false) {
-    //             if ((this.connections[0].absX() == this.connections[1].absX()) || (this.connections[0].absY() == this.connections[1].absY())) {
-    //                 this.connections[0].connect(this.connections[1]);
-    //                 this.delete();
-    //             }
-    //         } else if (this.connections.length == 0) this.delete();
-    //     }
-    //
-    //     // if (this.clicked && this.type == 2 && simulationArea.lastSelected == undefined) simulationArea.lastSelected = this;
-    //     return updated;
-    //
-    //
-    //
-    // }
 }
 
+/**
+ * @memberof Node
+ * delay in simulation of the node.
+ */
 Node.prototype.propagationDelay = 0;
+
+/**
+ * @memberof Node
+ * backward comaptibilty?
+ */
 Node.prototype.cleanDelete = Node.prototype.delete;

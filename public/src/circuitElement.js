@@ -3,12 +3,11 @@
 import { scheduleUpdate } from './engine';
 import simulationArea from './simulationArea';
 import {
-    fixDirection, fillText, correctWidth, rect2, oppositeDirection
+    fixDirection, fillText, correctWidth, rect2, oppositeDirection,
 } from './canvasApi';
 
 /**
  * Base class for circuit elements.
- * @class
  * @param {number} x - x coordinate of the element
  * @param {number} y - y coordinate of the element
  * @param {Scope} scope - The circuit on which circuit element is being drawn
@@ -66,23 +65,45 @@ export default class CircuitElement {
         };
     }
 
+    /**
+     * Function to flip bits
+     * @param {number} val - the value of flipped bits
+     * @returns {number} - The number of flipped bits
+     */
     flipBits(val) {
         return ((~val >>> 0) << (32 - this.bitWidth)) >>> (32 - this.bitWidth);
     }
 
+    /**
+     * Function to get absolute value of x coordinate of the element
+     * @param {number} x - value of x coordinate of the element
+     * @return {number} - absolute value of x
+     */
     absX() {
         return this.x;
     }
 
+    /**
+     * Function to get absolute value of y coordinate of the element
+     * @param {number} y - value of y coordinate of the element
+     * @return {number} - absolute value of y
+     */
     absY() {
         return this.y;
     }
 
+    /**
+     * adds the element to scopeList
+     */
     baseSetup() {
-        console.log(this.objectType)
+        console.log(this.objectType);
         this.scope[this.objectType].push(this);
     }
 
+    /**
+     * Function to copy the circuit element obj to a new circuit element
+     * @param {CircuitElement} obj - element to be copied from
+     */
     copyFrom(obj) {
         var properties = ['label', 'labelDirection'];
         for (let i = 0; i < properties.length; i++) {
@@ -90,22 +111,31 @@ export default class CircuitElement {
         }
     }
 
-    /* Methods to be Implemented for derivedClass
-            saveObject(); //To generate JSON-safe data that can be loaded
-            customDraw(); //This is to draw the custom design of the circuit(Optional)
-            resolve(); // To execute digital logic(Optional)
-            override isResolvable(); // custom logic for checking if module is ready
-            override newDirection(dir) //To implement custom direction logic(Optional)
-            newOrientation(dir) //To implement custom orientation logic(Optional)
-        */
+    /** Methods to be Implemented for derivedClass
+    * saveObject(); //To generate JSON-safe data that can be loaded
+    * customDraw(); //This is to draw the custom design of the circuit(Optional)
+    * resolve(); // To execute digital logic(Optional)
+    * override isResolvable(); // custom logic for checking if module is ready
+    * override newDirection(dir) //To implement custom direction logic(Optional)
+    * newOrientation(dir) //To implement custom orientation logic(Optional)
+    */
 
     // Method definitions
 
+    /**
+     * Function to update the scope when a new element is added.
+     * @param {Scope} scope - the circuit in which we add element
+     */
     updateScope(scope) {
         this.scope = scope;
         for (let i = 0; i < this.nodeList.length; i++) { this.nodeList[i].scope = scope; }
     }
 
+    /**
+    * To generate JSON-safe data that can be loaded
+    * @memberof CircuitElement
+    * @return {JSON} - the data to be saved
+    */
     saveObject() {
         var data = {
             x: this.x,
@@ -120,6 +150,11 @@ export default class CircuitElement {
         return data;
     }
 
+    /**
+    * Always overriden
+    * @memberof CircuitElement
+    * @return {JSON} - the data to be saved
+    */
     // eslint-disable-next-line class-methods-use-this
     customSave() {
         return {
@@ -129,6 +164,10 @@ export default class CircuitElement {
         };
     }
 
+    /**
+     * check hover over the element
+     * @return {boolean}
+     */
     checkHover() {
         if (simulationArea.mouseDown) return;
         for (let i = 0; i < this.nodeList.length; i++) {
@@ -147,34 +186,58 @@ export default class CircuitElement {
         }
     }
 
-    // This sets the width and height of the element if its rectangular
-    // and the reference point is at the center of the object.
-    // width and height define the X and Y distance from the center.
-    // Effectively HALF the actual width and height.
-    // NOT OVERRIDABLE
+
+    /**
+     * This sets the width and height of the element if its rectangular
+     * and the reference point is at the center of the object.
+     * width and height define the X and Y distance from the center.
+     * Effectively HALF the actual width and height.
+     * NOT OVERRIDABLE
+     * @param {number} w - width
+     * @param {number} h - height
+     */
     setDimensions(width, height) {
         this.leftDimensionX = this.rightDimensionX = width;
         this.downDimensionY = this.upDimensionY = height;
     }
 
+    /**
+    * @memberof CircuitElement
+    * @param {number} w -width
+    */
     setWidth(width) {
         this.leftDimensionX = this.rightDimensionX = width;
     }
 
+    /**
+     * @param {number} h -height
+     */
     setHeight(height) {
         this.downDimensionY = this.upDimensionY = height;
     }
 
+    /**
+     * Helper Function to drag element to a new position
+     */
     startDragging() {
         this.oldx = this.x;
         this.oldy = this.y;
     }
 
+    /**
+    * Helper Function to drag element to a new position
+    * @memberof CircuitElement
+    */
     drag() {
         this.x = this.oldx + simulationArea.mouseX - simulationArea.mouseDownX;
         this.y = this.oldy + simulationArea.mouseY - simulationArea.mouseDownY;
     }
 
+    /**
+     * The update method is used to change the parameters of the object on mouse click and hover.
+     * Return Value: true if state has changed else false
+     * NOT OVERRIDABLE
+     */
     update() {
         let update = false;
 
@@ -256,14 +319,19 @@ export default class CircuitElement {
         return update;
     }
 
+    /**
+     * Helper Function to correct the direction of element
+     */
     fixDirection() {
         this.direction = fixDirection[this.direction] || this.direction;
         this.labelDirection = fixDirection[this.labelDirection] || this.labelDirection;
     }
 
-    // The isHover method is used to check if the mouse is hovering over the object.
-    // Return Value: true if mouse is hovering over object else false
-    // NOT OVERRIDABLE
+    /**
+     * The isHover method is used to check if the mouse is hovering over the object.
+     * Return Value: true if mouse is hovering over object else false
+     * NOT OVERRIDABLE
+    */
     isHover() {
         var mX = simulationArea.mouseXf - this.x;
         var mY = this.y - simulationArea.mouseYf;
@@ -293,12 +361,19 @@ export default class CircuitElement {
         return -lX <= mX && mX <= rX && -dY <= mY && mY <= uY;
     }
 
+    /**
+    * Helper Function to set label of an element.
+    * @memberof CircuitElement
+    * @param {string} label - the label for element
+    */
     setLabel(label) {
         this.label = label || '';
     }
 
-    // Method that draws the outline of the module and calls draw function on module Nodes.
-    // NOT OVERRIDABLE
+    /**
+     * Method that draws the outline of the module and calls draw function on module Nodes.
+     * NOT OVERRIDABLE
+     */
     draw() {
         var ctx = simulationArea.context;
         this.checkHover();
@@ -387,17 +462,28 @@ export default class CircuitElement {
         this.deleted = true;
     }
 
+    /**
+    * method to delete object
+    * OVERRIDE WITH CAUTION
+    * @memberof CircuitElement
+    */
     cleanDelete() {
         this.deleteNodesWhenDeleted = true;
         this.delete();
     }
 
+    /**
+     * Helper Function to delete the element and all the node attached to it.
+     */
     deleteNodes() {
         for (let i = 0; i < this.nodeList.length; i++) { this.nodeList[i].delete(); }
     }
 
-    // method to change direction
-    // OVERRIDE WITH CAUTION
+    /**
+     * method to change direction
+     * OVERRIDE WITH CAUTION
+     * @param {string} dir - new direction
+     */
     newDirection(dir) {
         if (this.direction === dir) return;
         // Leave this for now
@@ -414,20 +500,32 @@ export default class CircuitElement {
         }
     }
 
+    /**
+    * Helper Function to change label direction of the element.
+    * @memberof CircuitElement
+    * @param {string} dir - new direction
+    */
     newLabelDirection(dir) {
         this.labelDirection = dir;
     }
 
-    // Method to check if object can be resolved
-    // OVERRIDE if necessary
+    /**
+     * Method to check if object can be resolved
+     * OVERRIDE if necessary
+     * @return {boolean}
+     */
     isResolvable() {
         if (this.alwaysResolve) return true;
         for (let i = 0; i < this.nodeList.length; i++) { if (this.nodeList[i].type === 0 && this.nodeList[i].value === undefined) return false; }
         return true;
     }
 
-    // Method to change object Bitwidth
-    // OVERRIDE if necessary
+
+    /**
+     * Method to change object Bitwidth
+     * OVERRIDE if necessary
+     * @param {number} bitWidth - new bitwidth
+     */
     newBitWidth(bitWidth) {
         if (this.fixedBitWidth) return;
         if (this.bitWidth === undefined) return;
@@ -436,8 +534,11 @@ export default class CircuitElement {
         for (let i = 0; i < this.nodeList.length; i++) { this.nodeList[i].bitWidth = bitWidth; }
     }
 
-    // Method to change object delay
-    // OVERRIDE if necessary
+    /**
+     * Method to change object delay
+     * OVERRIDE if necessary
+     * @param {number} delay - new delay
+     */
     changePropagationDelay(delay) {
         if (this.propagationDelayFixed) return;
         if (delay === undefined) return;
@@ -447,13 +548,17 @@ export default class CircuitElement {
         this.propagationDelay = tmpDelay;
     }
 
-    // Dummy resolve function
-    // OVERRIDE if necessary
-    // eslint-disable-next-line class-methods-use-this
+    /**
+    * Dummy resolve function
+    * OVERRIDE if necessary
+    */
     resolve() {
 
     }
 
+    /**
+    * Helper Function to process verilog
+    */
     processVerilog() {
         var outputCount = 0;
         for (let i = 0; i < this.nodeList.length; i++) {
@@ -470,6 +575,10 @@ export default class CircuitElement {
         }
     }
 
+    /**
+    * Helper Function to check if verilog resolvable
+    * @return {boolean}
+    */
     isVerilogResolvable() {
         var backupValues = [];
         for (let i = 0; i < this.nodeList.length; i++) {
@@ -492,6 +601,9 @@ export default class CircuitElement {
         return res;
     }
 
+    /**
+    * Helper Function to remove proporgation.
+    */
     removePropagation() {
         for (let i = 0; i < this.nodeList.length; i++) {
             if (this.nodeList[i].type === NODE_OUTPUT) {
@@ -503,10 +615,18 @@ export default class CircuitElement {
         }
     }
 
+    /**
+    * Helper Function to name the verilog.
+    * @return {string}
+    */
     verilogName() {
         return this.verilogType || this.objectType;
     }
 
+    /**
+    * Helper Function to generate verilog
+    * @return {JSON}
+    */
     generateVerilog() {
         var inputs = [];
         var outputs = [];
@@ -530,13 +650,5 @@ export default class CircuitElement {
 CircuitElement.prototype.alwaysResolve = false;
 CircuitElement.prototype.propagationDelay = 10;
 CircuitElement.prototype.tooltip = undefined;
-
-// The update method is used to change the parameters of the object on mouse click and hover.
-// Return Value: true if state has changed else false
-// NOT OVERRIDABLE
-
-// When true this.isHover() will not rotate bounds. To be used when bounds are set manually.
-// CircuitElement.prototype.overrideDirectionRotation = false;
-
 CircuitElement.prototype.propagationDelayFixed = false;
 CircuitElement.prototype.objectType = 'CircuitElement';
