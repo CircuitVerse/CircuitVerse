@@ -1,5 +1,7 @@
 import simulationArea from './simulationArea';
-import { scheduleUpdate, play, updateCanvasSet, errorDetectedSet, checkErrorDetected } from './engine';
+import {
+    scheduleUpdate, play, updateCanvasSet, errorDetectedSet, checkErrorDetected,
+} from './engine';
 
 // window.width = undefined;
 // window.height = undefined;
@@ -16,7 +18,9 @@ window.prevPropertyObj = undefined;
 window.loading = false; // Flag - all assets are loaded
 window.layoutMode = false; // Flag for mode
 // window. // FLag to reset all Nodes
-
+window.createNode = false; // Flag to create node when its value ==true
+window.stopWire = true; // flag for stopoing making Nodes when the second terminal reaches a Node (closed path)
+window.listenToSimulator = true;
 
 var prevErrorMessage; // Global variable for error messages
 var prevShowMessage; // Global variable for error messages

@@ -1,5 +1,5 @@
 import CircuitElement from '../circuitElement';
-import { Node, findNode, extractBits } from '../node';
+import Node, { findNode, extractBits } from '../node';
 import simulationArea from '../simulationArea';
 import { correctWidth, rect, fillText } from '../canvasApi';
 /**

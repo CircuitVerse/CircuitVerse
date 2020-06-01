@@ -2,7 +2,7 @@
 // wire object
 import { drawLine } from './canvasApi';
 import simulationArea from './simulationArea';
-import { Node } from './node';
+import Node from './node';
 import { updateSimulationSet, forceResetNodesSet } from './engine';
 
 /**

@@ -1,7 +1,7 @@
 import CircuitElement from '../circuitElement';
 import simulationArea from '../simulationArea';
 import { correctWidth, fillText } from '../canvasApi';
-import { Node, findNode } from '../node';
+import Node, { findNode } from '../node';
 
 // helper function to convert decimal to binary
 function dec2bin(dec, bitWidth = undefined) {

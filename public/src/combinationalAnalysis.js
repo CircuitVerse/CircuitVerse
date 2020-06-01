@@ -1,6 +1,7 @@
+/* eslint-disable import/no-cycle */
 /* eslint-disable guard-for-in */
 /* eslint-disable no-restricted-syntax */
-import { Node } from './node';
+import Node from './node';
 import { scheduleBackup } from './data/backupCircuit';
 import BooleanMinimize from './quinMcCluskey';
 import Input from './modules/Input';
@@ -48,7 +49,7 @@ export default function createCombinationalAnalysisPrompt(scope = globalScope) {
             },
         ],
     });
-};
+}
 /**
  * This funciton hashes the output array and makes required JSON using
  * a BooleanMinimize class defined in Quin_Mcluskey.js var s which will

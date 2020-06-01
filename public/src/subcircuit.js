@@ -7,7 +7,7 @@ import { scheduleUpdate, updateSimulationSet, updateCanvasSet, updateSubcircuitS
 import { loadScope } from './data/load';
 import { showError } from './utils';
 
-import { Node, findNode } from './node';
+import Node, { findNode } from './node';
 import { fillText } from './canvasApi';
 ;
 

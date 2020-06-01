@@ -3,7 +3,9 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable guard-for-in */
-import { scheduleUpdate, wireToBeCheckedSet, updateCanvasSet, update, updateSimulationSet } from './engine';
+import {
+    scheduleUpdate, wireToBeCheckedSet, updateCanvasSet, update, updateSimulationSet,
+} from './engine';
 import simulationArea from './simulationArea';
 import logixFunction from './data';
 import { newCircuit, circuitProperty } from './circuit';
@@ -145,7 +147,7 @@ export function setupUI() {
 
     $('.logixModules').hover(function () {
         // Tooltip can be statically defined in the prototype.
-        var tooltipText = modules[this.id].prototype.tooltipText;
+        var { tooltipText } = modules[this.id].prototype;
         if (!tooltipText) return;
         $('#Help').addClass('show');
         $('#Help').empty();
@@ -221,7 +223,7 @@ export function showProperties(obj) {
         }
 
         if (obj.mutableProperties) {
-            for (let attr in obj.mutableProperties) {
+            for (const attr in obj.mutableProperties) {
                 var prop = obj.mutableProperties[attr];
                 if (obj.mutableProperties[attr].type === 'number') {
                     s = `<p>${prop.name}<input class='objectPropertyAttribute' type='number'  name='${prop.func}' min='${prop.min || 0}' max='${prop.max || 200}' value=${obj[attr]}></p>`;
@@ -313,3 +315,63 @@ export function deleteSelected() {
     scheduleUpdate();
     updateRestrictedElementsInScope();
 }
+
+$('#bitconverterprompt').append(`
+<label style='color:grey'>Decimal value</label><br><input  type='text' id='decimalInput' label="Decimal" name='text1'><br><br>
+<label  style='color:grey'>Binary value</label><br><input  type='text' id='binaryInput' label="Binary" name='text1'><br><br>
+<label  style='color:grey'>Octal value</label><br><input  type='text' id='octalInput' label="Octal" name='text1'><br><br>
+<label  style='color:grey'>Hexadecimal value</label><br><input  type='text' id='hexInput' label="Hex" name='text1'><br><br>
+`);
+/**
+ * listener for opening the prompt for bin conversion
+ */
+$('#bitconverter').click(() => {
+    $('#bitconverterprompt').dialog({
+        buttons: [
+            {
+                text: 'Reset',
+                click() {
+                    $('#decimalInput').val('0');
+                    $('#binaryInput').val('0');
+                    $('#octalInput').val('0');
+                    $('#hexInput').val('0');
+                },
+            },
+        ],
+    });
+});
+
+// convertors
+const convertors = {
+    dec2bin: (x) => `0b${x.toString(2)}`,
+    dec2hex: (x) => `0x${x.toString(16)}`,
+    dec2octal: (x) => `0${x.toString(8)}`,
+};
+
+function setBaseValues(x) {
+    if (isNaN(x)) return;
+    $('#binaryInput').val(convertors.dec2bin(x));
+    $('#octalInput').val(convertors.dec2octal(x));
+    $('#hexInput').val(convertors.dec2hex(x));
+    $('#decimalInput').val(x);
+}
+
+$('#decimalInput').on('keyup', () => {
+    var x = parseInt($('#decimalInput').val(), 10);
+    setBaseValues(x);
+});
+
+$('#binaryInput').on('keyup', () => {
+    var x = parseInt($('#binaryInput').val(), 2);
+    setBaseValues(x);
+});
+
+$('#hexInput').on('keyup', () => {
+    var x = parseInt($('#hexInput').val(), 16);
+    setBaseValues(x);
+});
+
+$('#octalInput').on('keyup', () => {
+    var x = parseInt($('#octalInput').val(), 8);
+    setBaseValues(x);
+});

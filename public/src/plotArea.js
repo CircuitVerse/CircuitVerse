@@ -1,3 +1,9 @@
+/**
+ * @module plot
+ */
+/**
+ * function to add the plotting div
+ */
 function addPlot() {
     plotArea.ox = 0;
     plotArea.oy = 0;
@@ -6,31 +12,36 @@ function addPlot() {
     plotArea.specificTimeX = 0;
 }
 
-
 class StopWatch {
+    /**
+     * Used as a stopwatch to
+     * record time side of the plot
+     */
     constructor() {
         this.StartMilliseconds = 0;
         this.ElapsedMilliseconds = 0;
     }
 
+    /**
+     * @memberof StopWatch
+     * used to start the stopwatch
+     */
     Start() {
         this.StartMilliseconds = new Date().getTime();
     }
 
+    /**
+    * @memberof StopWatch
+    * used to get time elapsed.
+    */
     Stop() {
         this.ElapsedMilliseconds = new Date().getTime() - this.StartMilliseconds;
     }
 }
-function startPlot() {
-    plotArea.stopWatch.Start();
-    for (var i = 0; i < globalScope.Flag.length; i++) {
-        globalScope.Flag[i].plotValues = [[0, globalScope.Flag[i].inp1.value]];
-        globalScope.Flag[i].cachedIndex = 0;
-    }
-    // play();
-    plotArea.scroll = 1;
-    addPlot();
-}
+
+/**
+ * @typedef {Object} plotArea
+ */
 const plotArea = {
     ox: 0,
     oy: 0,
@@ -94,7 +105,7 @@ const plotArea = {
 
             var j = 0;
             // var start=arr[j][0];
-            if (globalScope.Flag[i].cachedIndex) j = globalScope.Flag[i].cachedIndex;
+            if (globalScope.Flag[i].cachedIndex) { j = globalScope.Flag[i].cachedIndex; }
 
 
             while (j < arr.length && 80 + (arr[j][0] * unit) - plotArea.ox < 0) {
@@ -113,8 +124,7 @@ const plotArea = {
             for (; j < arr.length; j++) {
                 var start = arr[j][0];
 
-                if (j + 1 == arr.length) var end = time;
-                else var end = arr[j + 1][0];
+                if (j + 1 == arr.length) { var end = time; } else { var end = arr[j + 1][0]; }
 
                 if (start <= time) {
                     if (globalScope.Flag[i].bitWidth == 1) {
@@ -235,42 +245,52 @@ const plotArea = {
     },
 
 };
-
-// document.getElementById("plotArea").addEventListener('mousedown', function (e) {
-
-//     var rect = plotArea.c.getBoundingClientRect();
-//     var x = e.clientX - rect.left;
-//     plotArea.scrollAcc = 0;
-//     if (e.shiftKey) {
-//         plotArea.specificTimeX = x;
-//     }
-//     else {
-//         plotArea.scroll = 0;
-//         plotArea.mouseDown = true;
-
-//         plotArea.prevX = x;
-//         console.log("HIT");
-//     }
-// });
-// document.getElementById("plotArea").addEventListener('mouseup', function (e) {
-
-//     plotArea.mouseDown = false;
-// });
-
-// document.getElementById("plotArea").addEventListener('mousemove', function (e) {
-
-//     var rect = plotArea.c.getBoundingClientRect();
-//     var x = e.clientX - rect.left;
-//     if (!e.shiftKey && plotArea.mouseDown) {
-//         plotArea.ox -= x - plotArea.prevX;
-//         plotArea.scrollAcc = x - plotArea.prevX;
-//         plotArea.prevX = x;
-//         // plotArea.ox=Math.max(0,plotArea.ox)
-//     }
-//     else {
-//         plotArea.mouseDown = false;
-
-
-//     }
-// });
 export default plotArea;
+if (document.getElementById('plotArea') !== null) {
+    /**
+     * Event listeners for the Plot
+     */
+    document.getElementById('plotArea').addEventListener('mousedown', (e) => {
+        var rect = plotArea.c.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        plotArea.scrollAcc = 0;
+        if (e.shiftKey) {
+            plotArea.specificTimeX = x;
+        } else {
+            plotArea.scroll = 0;
+            plotArea.mouseDown = true;
+
+            plotArea.prevX = x;
+            console.log('HIT');
+        }
+    });
+    document.getElementById('plotArea').addEventListener('mouseup', (e) => {
+        plotArea.mouseDown = false;
+    });
+
+    document.getElementById('plotArea').addEventListener('mousemove', (e) => {
+        var rect = plotArea.c.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        if (!e.shiftKey && plotArea.mouseDown) {
+            plotArea.ox -= x - plotArea.prevX;
+            plotArea.scrollAcc = x - plotArea.prevX;
+            plotArea.prevX = x;
+            // plotArea.ox=Math.max(0,plotArea.ox)
+        } else {
+            plotArea.mouseDown = false;
+        }
+    });
+}
+/**
+ * sets plot values of all flags and it add(s)Plot().
+ */
+function startPlot() {
+    plotArea.stopWatch.Start();
+    for (var i = 0; i < globalScope.Flag.length; i++) {
+        globalScope.Flag[i].plotValues = [[0, globalScope.Flag[i].inp1.value]];
+        globalScope.Flag[i].cachedIndex = 0;
+    }
+    // play();
+    plotArea.scroll = 1;
+    addPlot();
+}

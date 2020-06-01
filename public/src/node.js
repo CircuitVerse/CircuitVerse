@@ -102,23 +102,21 @@ window.NODE_INTERMEDIATE = 2;
  */
 var uniqueIdCounter = 10;
 
-/**
- * This class is responsible for all the Nodes.Nodes are connected using Wires
- * Nodes are of 3 types;
- * NODE_INPUT = 0;
- * NODE_OUTPUT = 1;
- * NODE_INTERMEDIATE = 2;
- * Input and output nodes belong to some CircuitElement(it's parent)
- * @class
- * @memberof module:node
- * @param {number} x - x coord of Node
- * @param {number} y - y coord of Node
- * @param {number} type - type of node
- * @param {CircuitElement} parent - parent element
- * @param {?number} bitWidth - the bits of node in input and output nodes
- * @param {string=} label - label for a node
- */
-export class Node {
+export default class Node {
+    /**
+     * This class is responsible for all the Nodes.Nodes are connected using Wires
+     * Nodes are of 3 types;
+     * NODE_INPUT = 0;
+     * NODE_OUTPUT = 1;
+     * NODE_INTERMEDIATE = 2;
+     * Input and output nodes belong to some CircuitElement(it's parent)
+     * @param {number} x - x coord of Node
+     * @param {number} y - y coord of Node
+     * @param {number} type - type of node
+     * @param {CircuitElement} parent - parent element
+     * @param {?number} bitWidth - the bits of node in input and output nodes
+     * @param {string=} label - label for a node
+     */
     constructor(x, y, type, parent, bitWidth = undefined, label = '') {
         // Should never raise, but just in case
         if (isNaN(x) || isNaN(y)) {
@@ -183,7 +181,7 @@ export class Node {
     }
 
     /**
-     * @memberof Node
+     * @param {string} - new label
      * Function to set label
      */
     setLabel(label) {
@@ -191,7 +189,6 @@ export class Node {
     }
 
     /**
-     * @memberof Node
      * function to convert a node to intermediate node
      */
     converToIntermediate() {
@@ -203,7 +200,6 @@ export class Node {
     }
 
     /**
-    * @memberof Node
     * Helper fuction to move a node. Sets up some variable which help in changing node.
     */
     startDragging() {
@@ -212,7 +208,6 @@ export class Node {
     }
 
     /**
-    * @memberof Node
     * Helper fuction to move a node.
     */
     drag() {
@@ -221,7 +216,6 @@ export class Node {
     }
 
     /**
-    * @memberof Node
     * Funciton for saving a node
     */
     saveObject() {
@@ -244,7 +238,6 @@ export class Node {
     }
 
     /**
-     * @memberof Node
      * helper function to help rotating parent
      */
     updateRotation() {
@@ -256,7 +249,6 @@ export class Node {
     }
 
     /**
-    * @memberof Node
     * Refreshes a node after roation of parent
     */
     refresh() {
@@ -268,7 +260,6 @@ export class Node {
     }
 
     /**
-    * @memberof Node
     * gives absolute x position of the node
     */
     absX() {
@@ -276,7 +267,6 @@ export class Node {
     }
 
     /**
-    * @memberof Node
     * gives absolute y position of the node
     */
     absY() {
@@ -284,7 +274,6 @@ export class Node {
     }
 
     /**
-     * @memberof Node
      * update the scope of a node
      */
     updateScope(scope) {
@@ -293,7 +282,6 @@ export class Node {
     }
 
     /**
-     * @memberof Node
      * return true if node is connected or not connected but false if undefined.
      */
     isResolvable() {
@@ -301,7 +289,6 @@ export class Node {
     }
 
     /**
-     * @memberof Node
      * function used to reset the nodes
      */
     reset() {
@@ -310,7 +297,6 @@ export class Node {
     }
 
     /**
-    * @memberof Node
     * function to connect two nodes.
     */
     connect(n) {
@@ -326,7 +312,6 @@ export class Node {
     }
 
     /**
-     * @memberof Node
      * connects but doesnt draw the wire between nodes
      */
     connectWireLess(n) {
@@ -341,7 +326,6 @@ export class Node {
     }
 
     /**
-    * @memberof Node
     * disconnecting two nodes connected wirelessly
     */
     disconnectWireLess(n) {
@@ -350,7 +334,6 @@ export class Node {
     }
 
     /**
-     * @memberof Node
      * function to resolve a node
      */
     resolve() {
@@ -414,7 +397,6 @@ export class Node {
     }
 
     /**
-     * @memberof Node
      * this function checks if hover over the node
      */
     checkHover() {
@@ -440,7 +422,6 @@ export class Node {
     }
 
     /**
-     * @memberof Node
      * this function draw a node
      */
     draw() {
@@ -500,7 +481,6 @@ export class Node {
     }
 
     /**
-     * @memberof Node
      * checks if a node has been deleted
      */
     checkDeleted() {
@@ -509,7 +489,6 @@ export class Node {
     }
 
     /**
-    * @memberof Node
     * used to update nodes if there is a event like click or hover on the node.
     * many booleans are used to check if certain properties are to be updated.
     */
@@ -519,7 +498,7 @@ export class Node {
         if (this == simulationArea.hover) simulationArea.hover = undefined;
         this.hover = this.isHover();
 
-        if (!simulationArea.mouseDown) {
+        if (createNode) {
             if (this.absX() != this.prevx || this.absY() != this.prevy) { // Connect to any node
                 this.prevx = this.absX();
                 this.prevy = this.absY();
@@ -531,7 +510,7 @@ export class Node {
             simulationArea.hover = this;
         }
 
-        if (simulationArea.mouseDown && ((this.hover && !simulationArea.selected) || simulationArea.lastSelected == this)) {
+        if (createNode && ((this.hover && !simulationArea.selected) || simulationArea.lastSelected == this)) {
             simulationArea.selected = true;
             simulationArea.lastSelected = this;
             this.clicked = true;
@@ -642,7 +621,7 @@ export class Node {
                 for (var i = 0; i < this.parent.scope.allNodes.length; i++) {
                     if (x1 == this.parent.scope.allNodes[i].absX() && y1 == this.parent.scope.allNodes[i].absY()) {
                         n1 = this.parent.scope.allNodes[i];
-
+                        stopWire = true;
                         break;
                     }
                 }
@@ -662,6 +641,8 @@ export class Node {
             for (var i = 0; i < this.parent.scope.allNodes.length; i++) {
                 if (x2 == this.parent.scope.allNodes[i].absX() && y2 == this.parent.scope.allNodes[i].absY()) {
                     n2 = this.parent.scope.allNodes[i];
+                    stopWire = true;
+                    createNode = false;
                     break;
                 }
             }
@@ -680,7 +661,7 @@ export class Node {
             if (simulationArea.lastSelected == this) simulationArea.lastSelected = n2;
         }
 
-        if (this.type == 2 && simulationArea.mouseDown == false) {
+        if (this.type == 2 && createNode == false) {
             if (this.connections.length == 2) {
                 if ((this.connections[0].absX() == this.connections[1].absX()) || (this.connections[0].absY() == this.connections[1].absY())) {
                     this.connections[0].connect(this.connections[1]);
@@ -691,7 +672,6 @@ export class Node {
     }
 
     /**
-     * @memberof Node
      * function delete a node
      */
     delete() {
@@ -721,7 +701,6 @@ export class Node {
     }
 
     /**
-     * @memberof Node
      * if input nodde: it resolves the parent
      * else: it adds all the nodes onto the stack
      * and they are processed to generate verilog
@@ -777,13 +756,11 @@ export class Node {
 }
 
 /**
- * @memberof Node
  * delay in simulation of the node.
  */
 Node.prototype.propagationDelay = 0;
 
 /**
- * @memberof Node
  * backward comaptibilty?
  */
 Node.prototype.cleanDelete = Node.prototype.delete;

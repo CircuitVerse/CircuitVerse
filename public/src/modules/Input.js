@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-expressions */
 import CircuitElement from '../circuitElement';
-import { Node, findNode } from '../node';
+import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import {
     correctWidth, oppositeDirection, fillText,

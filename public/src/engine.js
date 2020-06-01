@@ -120,7 +120,7 @@ export function renderCanvas(scope) {
     }
     if (simulationArea.hover !== undefined) {
         simulationArea.canvas.style.cursor = 'pointer';
-    } else if (simulationArea.mouseDown) {
+    } else if (createNode) {
         simulationArea.canvas.style.cursor = 'grabbing';
     } else {
         simulationArea.canvas.style.cursor = 'default';

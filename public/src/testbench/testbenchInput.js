@@ -1,7 +1,7 @@
 import CircuitElement from '../circuitElement';
 import simulationArea from '../simulationArea';
 import { correctWidth, lineTo, moveTo, fillText } from '../canvasApi';
-import { Node, findNode } from '../node';
+import Node, { findNode } from '../node';
 import plotArea from '../plotArea';
 
 

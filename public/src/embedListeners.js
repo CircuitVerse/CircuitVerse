@@ -1,10 +1,11 @@
+/* eslint-disable import/no-cycle */
 // Listeners when circuit is embedded
 // Refer listeners.js
 import simulationArea from './simulationArea';
 import {
     scheduleUpdate, update, updateSelectionsAndPane,
     wireToBeCheckedSet, updatePositionSet, updateSimulationSet,
-    updateCanvasSet, gridUpdateSet, errorDetectedSet
+    updateCanvasSet, gridUpdateSet, errorDetectedSet,
 } from './engine';
 import { changeScale } from './canvasApi';
 import { copy, paste } from './events';
@@ -101,13 +102,13 @@ export default function startListeners() {
 
         if (simulationArea.controlDown && (e.keyCode == 187 || e.KeyCode == 171)) {
             e.preventDefault();
-            if (globalScope.scale < 4 * DPR) {changeScale(.1 * DPR);}
+            if (globalScope.scale < 4 * DPR) { changeScale(0.1 * DPR); }
         }
 
         // zoom out (-)
         if (simulationArea.controlDown && (e.keyCode == 189 || e.Keycode == 173)) {
             e.preventDefault();
-            if (globalScope.scale > 0.5 * DPR) {changeScale(-.1 * DPR);}
+            if (globalScope.scale > 0.5 * DPR) { changeScale(-0.1 * DPR); }
         }
 
 
