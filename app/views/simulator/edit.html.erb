@@ -175,7 +175,7 @@
               <div class="">
                 Reset all nodes:
                 <button type="button" class="btn zoomButton btn-lg" id="layoutResetNodes">
-                  <span class="fa fa-refresh" aria-hidden="true" title="Reset"></span>
+                  <span class="fa fa-sync" aria-hidden="true" title="Reset"></span>
                 </button>
               </div>
               <div class="">
@@ -245,14 +245,13 @@
     </div>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
-      embed = false;
+    var embed = false;
       <% if @project&.assignment_id.present? %>
       restrictedElements = JSON.parse('<%= raw @project&.assignment.restrictions %>');
       <% else %>
       restrictedElements = [];
       <% end %>
     </script>
-    <script src="/js/UX.js"></script>
     <!-- on hover for dropdowns -->
     <script>
       $('.dropdown-toggle').hover(function () {
@@ -334,4 +333,3 @@ $('#reportIssue').click(function(){
     
     
     <script src="/js/canvas2svg.js"></script>
-
