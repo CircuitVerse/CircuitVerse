@@ -12,7 +12,6 @@ import {
 export default class CircuitElement {
     /**
      * Base class for circuit elements.
-     * @class
      * @param {number} x - x coordinate of the element
      * @param {number} y - y coordinate of the element
      * @param {Scope} scope - The circuit on which circuit element is being drawn
