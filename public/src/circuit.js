@@ -17,7 +17,7 @@ import { findDimensions, dots } from './canvasApi';
 import { updateRestrictedElementsList } from './restrictedElementDiv';
 import { scheduleBackup } from './data/backupCircuit';
 import { showProperties } from './ux';
-import { scheduleUpdate } from './engine';
+import { scheduleUpdate, updateSimulationSet, updateCanvasSet } from './engine';
 import { toggleLayoutMode } from './layoutMode';
 import { setProjectName } from './data/save';
 import { changeClockEnable } from './sequential';
@@ -45,7 +45,7 @@ export function switchCircuit(id) {
     simulationArea.multipleObjectSelections = [];
     simulationArea.copyList = [];
     globalScope = scopeList[id];
-    updateSimulation = true;
+    updateSimulationSet(true);
     updateSubcircuit = true;
     forceResetNodes = true;
     dots(false);
@@ -53,7 +53,7 @@ export function switchCircuit(id) {
     if (!embed) {
         showProperties(simulationArea.lastSelected);
     }
-    updateCanvas = true;
+    updateCanvasSet(true);
     scheduleUpdate();
 
     // to update the restricted elements information
@@ -140,8 +140,7 @@ export function changeCircuitName(name, id = globalScope.id) {
 }
 
 /**
- * Constructor for a circuit
- * @class
+ * Class representing a Scope
  * @param {string} name - name of the circuit
  * @param {number=} id - a random id for the circuit
  */

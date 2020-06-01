@@ -2,9 +2,42 @@
 import EventQueue from './eventQueue';
 import { clockTick } from './utils';
 
-var simulationArea;
-
-export default simulationArea = {
+/**
+ * simulation environment object - holds simulation canvas
+ * @typedef {Object} simulationArea
+ * @property {HTMLCanvasElement} canvas
+ * @property {boolean} selected
+ * @property {boolean} hover
+ * @property {number} clockState
+ * @property {boolean} clockEnabled
+ * @property {undefined} lastSelected
+ * @property {Array} stack
+ * @property {number} prevScale
+ * @property {number} oldx
+ * @property {number} oldy
+ * @property {Array} objectList
+ * @property {number} maxHeight
+ * @property {number} maxWidth
+ * @property {number} minHeight
+ * @property {number} minWidth
+ * @property {Array} multipleObjectSelections
+ * @property {Array} copyList - List of selected elements
+ * @property {boolean} shiftDown - shift down or not
+ * @property {boolean} controlDown - contol down or not
+ * @property {number} timePeriod - time period
+ * @property {number} mouseX - mouse x
+ * @property {number} mouseY - mouse y
+ * @property {number} mouseDownX - mouse click x
+ * @property {number} mouseDownY - mouse click y
+ * @property {Array} simulationQueue - simulation queue
+ * @property {number} clickCount - number of clicks
+ * @property {string} lock - locked or unlocked
+ * @property {function} timer - timer
+ * @property {function} setup - to setup the simulaton area
+ * @property {function} changeClockTime - change clock time
+ * @property {function} clear - clear the simulation area
+ */
+const simulationArea = {
     canvas: document.getElementById('simulationArea'),
     selected: false,
     hover: false,
@@ -61,3 +94,4 @@ export default simulationArea = {
     },
 };
 export const { changeClockTime } = simulationArea;
+export default simulationArea;

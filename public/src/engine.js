@@ -6,6 +6,42 @@
  * Core of the simulation and rendering algorithm.
  * @module engine
  */
+var wireToBeChecked = 0; // when node disconnects from another node
+export function wireToBeCheckedSet(param) {
+    wireToBeChecked = param;
+}
+var willBeUpdated = false; // scheduleUpdate() will be called if true
+export function willBeUpdatedSet(param) {
+    willBeUpdated = param;
+}
+var objectSelection = false; // Flag for object selection
+export function objectSelectionSet(param) {
+    objectSelection = param;
+}
+
+var updatePosition = true; // Flag for updating position
+export function updatePositionSet(param) {
+    updatePosition = param;
+}
+
+var updateSimulation = true; // Flag for updating simulation
+export function updateSimulationSet(param) {
+    updateSimulation = param;
+}
+
+var updateCanvas = true; // Flag for rendering
+export function updateCanvasSet(param) {
+    updateCanvas = param;
+}
+
+// var gridUpdate = true; // Flag for updating grid
+// export function gridUpdateSet(param) {
+//     gridUpdate = param;
+// }
+// var updateSubcircuit = true; // Flag for updating subCircuits
+// export function updateSubcircuitSet(param) {
+//     updateSubcircuit = param;
+// }
 
 import plotArea from './plotArea';
 import { layoutUpdate } from './layoutMode';
@@ -73,7 +109,7 @@ export function updateSelectionsAndPane(scope = globalScope) {
         simulationArea.hover = scope.root;
         // Selecting multiple objects
         if (simulationArea.shiftDown) {
-            objectSelection = true;
+            objectSelectionSet(true);
         } else if (!embed) {
             findDimensions(scope);
             miniMapArea.setup();
@@ -102,7 +138,7 @@ export function updateSelectionsAndPane(scope = globalScope) {
         simulationArea.selected = false;
         simulationArea.hover = undefined;
         if (objectSelection) {
-            objectSelection = false;
+            objectSelectionSet(false);
             var x1 = simulationArea.mouseDownX;
             var x2 = simulationArea.mouseX;
             var y1 = simulationArea.mouseDownY;
@@ -209,7 +245,7 @@ export function play(scope = globalScope, resetNodes = false) {
  * Function to check for any UI update, it is throttled by time
  * @param {number=} count - this is used to force update
  * @param {number=} time - the time throttling parameter
- * @param {functio} fn - function to run before updating UI
+ * @param {function} fn - function to run before updating UI
  */
 export function scheduleUpdate(count = 0, time = 100, fn) {
     if (lightMode) time *= 5;
@@ -218,7 +254,7 @@ export function scheduleUpdate(count = 0, time = 100, fn) {
         for (let i = 0; i < count; i++) { setTimeout(update, 10 + 50 * i); }
     }
     if (willBeUpdated) return; // Throttling
-    willBeUpdated = true;
+    willBeUpdatedSet(true);
     if (layoutMode) {
         setTimeout(layoutUpdate, time); // Update layout, different algorithm
         return;
@@ -241,7 +277,7 @@ export function scheduleUpdate(count = 0, time = 100, fn) {
  * @param {boolean=} updateEverything - if true we update the wires, nodes and modules
  */
 export function update(scope = globalScope, updateEverything = false) {
-    willBeUpdated = false;
+    willBeUpdatedSet(false);
     if (loading === true || layoutMode) return;
     var updated = false;
     simulationArea.hover = undefined;
@@ -299,7 +335,7 @@ export function update(scope = globalScope, updateEverything = false) {
     if (updateCanvas) {
         renderCanvas(scope);
     }
-    updateSimulation = false;
+    updateSimulationSet(false);
     updateCanvas = false;
-    updatePosition = false;
+    updatePositionSet(false);
 }

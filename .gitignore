@@ -7,7 +7,7 @@
 # Ignore bundler config.
 /.bundle
 /.idea
-script.py
+/out
 test_results
 
 public/assets/

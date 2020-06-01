@@ -7,7 +7,7 @@ import backgroundArea from './backgroundArea';
 import plotArea from './plotArea';
 import simulationArea from './simulationArea';
 import { dots } from './canvasApi';
-import { update } from './engine';
+import { update, updateSimulationSet, updateCanvasSet } from './engine';
 import { setupUI } from './ux';
 import startMainListeners from './listeners';
 import startEmbedListeners from './embedListeners';
@@ -48,7 +48,7 @@ export function resetup() {
         plotArea.c.width = document.getElementById('plot').clientWidth;
         plotArea.c.height = document.getElementById('plot').clientHeight;
     }
-    updateCanvas = true;
+    updateCanvasSet(true);
     update(); // INEFFICIENT, needs to be deprecated
     simulationArea.prevScale = 0;
     dots();
@@ -65,7 +65,7 @@ window.addEventListener('orientationchange', resetup); // listener
  */
 function setupEnvironment() {
     const projectId = generateId();
-    const updateSimulation = true;
+    updateSimulationSet(true);
     const DPR = window.devicePixelRatio || 1;
     newCircuit('Main');
     window.data = {};

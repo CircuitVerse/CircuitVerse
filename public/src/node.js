@@ -1,7 +1,10 @@
 import { drawCircle, drawLine, arc } from './canvasApi';
 import simulationArea from './simulationArea';
 import { distance, showError } from './utils';
-import { renderCanvas, scheduleUpdate } from './engine';
+import {
+    renderCanvas, scheduleUpdate, wireToBeCheckedSet,
+    updateSimulationSet, updateCanvasSet,
+} from './engine';
 import Wire from './wire';
 
 export function constructNodeConnections(node, data) {
@@ -213,8 +216,8 @@ export class Node {
         this.connections.push(n);
         n.connections.push(this);
 
-        updateCanvas = true;
-        updateSimulation = true;
+        updateCanvasSet(true);
+        updateSimulationSet(true);
         scheduleUpdate();
     }
 
@@ -224,8 +227,8 @@ export class Node {
         this.connections.push(n);
         n.connections.push(this);
 
-        updateCanvas = true;
-        updateSimulation = true;
+        updateCanvasSet(true);
+        updateSimulationSet(true);
         scheduleUpdate();
     }
 
@@ -336,8 +339,7 @@ export class Node {
         if (this.bitWidth == 1) color = ['green', 'lightgreen'][this.value];
         if (this.value == undefined) color = 'red';
         if (this.type == 2) this.checkHover();
-        if (this.type == 2) { drawCircle(ctx, this.absX(), this.absY(), 3, color); }
-        else { drawCircle(ctx, this.absX(), this.absY(), 3, 'green'); }
+        if (this.type == 2) { drawCircle(ctx, this.absX(), this.absY(), 3, color); } else { drawCircle(ctx, this.absX(), this.absY(), 3, 'green'); }
 
         if (this.highlighted || simulationArea.lastSelected == this || (this.isHover() && !simulationArea.selected && !simulationArea.shiftDown) || simulationArea.multipleObjectSelections.contains(this)) {
             ctx.strokeStyle = 'green';
@@ -368,7 +370,7 @@ export class Node {
             } else {
                 setTimeout(() => {
                     if (simulationArea.hover) simulationArea.hover.showHover = true;
-                    updateCanvas = true;
+                    updateCanvasSet(true);
                     renderCanvas(globalScope);
                 }, 400);
             }
@@ -558,7 +560,7 @@ export class Node {
     }
 
     delete() {
-        updateSimulation = true;
+        updateSimulationSet(true);
         this.deleted = true;
         this.parent.scope.allNodes.clean(this);
         this.parent.scope.nodes.clean(this);
@@ -570,7 +572,7 @@ export class Node {
             this.connections[i].connections.clean(this);
             this.connections[i].checkDeleted();
         }
-        wireToBeChecked = true;
+        wireToBeCheckedSet(1);
         forceResetNodes = true;
         scheduleUpdate();
     }

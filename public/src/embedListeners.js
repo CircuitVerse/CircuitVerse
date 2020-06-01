@@ -1,26 +1,30 @@
 // Listeners when circuit is embedded
 // Refer listeners.js
 import simulationArea from './simulationArea';
-import { scheduleUpdate, update, updateSelectionsAndPane } from './engine';
+import {
+    scheduleUpdate, update, updateSelectionsAndPane,
+    wireToBeCheckedSet, updatePositionSet, updateSimulationSet,
+    updateCanvasSet,
+} from './engine';
 import { changeScale } from './canvasApi';
 import { copy, paste } from './events';
 
 export default function startListeners() {
-    window.addEventListener('keyup', function (e) {
+    window.addEventListener('keyup', (e) => {
         scheduleUpdate(1);
         if (e.keyCode == 16) {
             simulationArea.shiftDown = false;
         }
-        if (e.key == "Meta" || e.key == "Control") {
+        if (e.key == 'Meta' || e.key == 'Control') {
             simulationArea.controlDown = false;
         }
     });
 
-    document.getElementById("simulationArea").addEventListener('mousedown', function (e) {
+    document.getElementById('simulationArea').addEventListener('mousedown', (e) => {
         errorDetected = false;
-        updateSimulation = true;
-        updatePosition = true;
-        updateCanvas = true;
+        updateSimulationSet(true);
+        updatePositionSet(true);
+        updateCanvasSet(true);
 
         simulationArea.lastSelected = undefined;
         simulationArea.selected = false;
@@ -43,7 +47,7 @@ export default function startListeners() {
         var ele = document.getElementById('elementName');
         if (globalScope && simulationArea && simulationArea.objectList) {
             var { objectList } = simulationArea;
-            objectList = objectList.filter(val => val !== 'wires');
+            objectList = objectList.filter((val) => val !== 'wires');
 
             for (var i = 0; i < objectList.length; i++) {
                 for (var j = 0; j < globalScope[objectList[i]].length; j++) {
@@ -64,8 +68,7 @@ export default function startListeners() {
         document.getElementById('elementName').innerHTML = '';
     });
 
-    window.addEventListener('mousemove', function (e) {
-
+    window.addEventListener('mousemove', (e) => {
         var rect = simulationArea.canvas.getBoundingClientRect();
         simulationArea.mouseRawX = (e.clientX - rect.left) * DPR;
         simulationArea.mouseRawY = (e.clientY - rect.top) * DPR;
@@ -74,64 +77,56 @@ export default function startListeners() {
         simulationArea.mouseX = Math.round(simulationArea.mouseXf / unit) * unit;
         simulationArea.mouseY = Math.round(simulationArea.mouseYf / unit) * unit;
 
-        updateCanvas = true;
+        updateCanvasSet(true);
         if (simulationArea.lastSelected == globalScope.root) {
-            updateCanvas = true;
+            updateCanvasSet(true);
             var fn;
             fn = function () {
                 updateSelectionsAndPane();
-            }
+            };
             scheduleUpdate(0, 20, fn);
-
         } else {
             scheduleUpdate(0, 200);
         }
-
-
     });
-    window.addEventListener('keydown', function (e) {
-
+    window.addEventListener('keydown', (e) => {
         errorDetected = false;
-        updateSimulation = true;
-        updatePosition = true;
+        updateSimulationSet(true);
+        updatePositionSet(true);
 
         // zoom in (+)
-        if (e.key == "Meta" || e.key == "Control") {
+        if (e.key == 'Meta' || e.key == 'Control') {
             simulationArea.controlDown = true;
         }
 
         if (simulationArea.controlDown && (e.keyCode == 187 || e.KeyCode == 171)) {
             e.preventDefault();
-            if (globalScope.scale < 4 * DPR)
-                changeScale(.1 * DPR);
+            if (globalScope.scale < 4 * DPR) {changeScale(.1 * DPR);}
         }
 
         // zoom out (-)
         if (simulationArea.controlDown && (e.keyCode == 189 || e.Keycode == 173)) {
             e.preventDefault();
-            if (globalScope.scale > 0.5 * DPR)
-                changeScale(-.1 * DPR);
+            if (globalScope.scale > 0.5 * DPR) {changeScale(-.1 * DPR);}
         }
 
 
         if (simulationArea.mouseRawX < 0 || simulationArea.mouseRawY < 0 || simulationArea.mouseRawX > width || simulationArea.mouseRawY > height) return;
 
         scheduleUpdate(1);
-        updateCanvas = true;
+        updateCanvasSet(true);
 
         if (simulationArea.lastSelected && simulationArea.lastSelected.keyDown) {
-            if (e.key.toString().length == 1 || e.key.toString() == "Backspace") {
+            if (e.key.toString().length == 1 || e.key.toString() == 'Backspace') {
                 simulationArea.lastSelected.keyDown(e.key.toString());
                 return;
             }
-
         }
         if (simulationArea.lastSelected && simulationArea.lastSelected.keyDown2) {
             if (e.key.toString().length == 1) {
                 simulationArea.lastSelected.keyDown2(e.key.toString());
                 return;
             }
-
         }
 
         // if (simulationArea.lastSelected && simulationArea.lastSelected.keyDown3) {
@@ -142,12 +137,11 @@ export default function startListeners() {
 
         // }
 
-        if (e.key == "T" || e.key == "t") {
-            simulationArea.changeClockTime(prompt("Enter Time:"));
+        if (e.key == 'T' || e.key == 't') {
+            simulationArea.changeClockTime(prompt('Enter Time:'));
         }
-
-    })
-    document.getElementById("simulationArea").addEventListener('dblclick', function (e) {
+    });
+    document.getElementById('simulationArea').addEventListener('dblclick', (e) => {
         scheduleUpdate(2);
         if (simulationArea.lastSelected && simulationArea.lastSelected.dblclick !== undefined) {
             simulationArea.lastSelected.dblclick();
@@ -155,15 +149,14 @@ export default function startListeners() {
     });
 
 
-    window.addEventListener('mouseup', function (e) {
-
+    window.addEventListener('mouseup', (e) => {
         simulationArea.mouseDown = false;
         errorDetected = false;
-        updateSimulation = true;
-        updatePosition = true;
-        updateCanvas = true;
+        updateSimulationSet(true);
+        updatePositionSet(true);
+        updateCanvasSet(true);
         gridUpdate = true;
-        wireToBeChecked = true;
+        wireToBeCheckedSet(1);
 
         scheduleUpdate(1);
     });
@@ -171,39 +164,39 @@ export default function startListeners() {
         this.focus();
     });
 
-    document.getElementById("simulationArea").addEventListener('mousewheel', MouseScroll);
-    document.getElementById("simulationArea").addEventListener('DOMMouseScroll', MouseScroll);
+    document.getElementById('simulationArea').addEventListener('mousewheel', MouseScroll);
+    document.getElementById('simulationArea').addEventListener('DOMMouseScroll', MouseScroll);
 
     function MouseScroll(event) {
-        updateCanvas = true;
+        updateCanvasSet(true);
 
-        event.preventDefault()
+        event.preventDefault();
         var deltaY = event.wheelDelta ? event.wheelDelta : -event.detail;
         var scrolledUp = deltaY < 0;
         var scrolledDown = deltaY > 0;
 
         if (event.ctrlKey) {
             if (scrolledUp && globalScope.scale > 0.5 * DPR) {
-                changeScale(-.1 * DPR);
+                changeScale(-0.1 * DPR);
             }
             if (scrolledDown && globalScope.scale < 4 * DPR) {
-                changeScale(.1 * DPR);
+                changeScale(0.1 * DPR);
             }
         } else {
             if (scrolledUp && globalScope.scale < 4 * DPR) {
-                changeScale(.1 * DPR);
+                changeScale(0.1 * DPR);
             }
             if (scrolledDown && globalScope.scale > 0.5 * DPR) {
-                changeScale(-.1 * DPR);
+                changeScale(-0.1 * DPR);
             }
         }
 
-        updateCanvas = true;
+        updateCanvasSet(true);
         gridUpdate = true;
         update(); // Schedule update not working, this is INEFFICENT
     }
 
-    document.addEventListener('cut', function (e) {
+    document.addEventListener('cut', (e) => {
         simulationArea.copyList = simulationArea.multipleObjectSelections.slice();
         if (simulationArea.lastSelected && simulationArea.lastSelected !== simulationArea.root && !simulationArea.copyList.contains(simulationArea.lastSelected)) {
             simulationArea.copyList.push(simulationArea.lastSelected);
@@ -217,7 +210,7 @@ export default function startListeners() {
         }
         e.preventDefault();
     });
-    document.addEventListener('copy', function (e) {
+    document.addEventListener('copy', (e) => {
         simulationArea.copyList = simulationArea.multipleObjectSelections.slice();
         if (simulationArea.lastSelected && simulationArea.lastSelected !== simulationArea.root && !simulationArea.copyList.contains(simulationArea.lastSelected)) {
             simulationArea.copyList.push(simulationArea.lastSelected);
@@ -232,7 +225,7 @@ export default function startListeners() {
         e.preventDefault();
     });
 
-    document.addEventListener('paste', function (e) {
+    document.addEventListener('paste', (e) => {
         var data;
         if (isIe) {
             data = window.clipboardData.getData('Text');
@@ -246,5 +239,5 @@ export default function startListeners() {
 }
 
 
-var isIe = (navigator.userAgent.toLowerCase().indexOf("msie") != -1 ||
-    navigator.userAgent.toLowerCase().indexOf("trident") != -1);
+var isIe = (navigator.userAgent.toLowerCase().indexOf('msie') != -1
+    || navigator.userAgent.toLowerCase().indexOf('trident') != -1);

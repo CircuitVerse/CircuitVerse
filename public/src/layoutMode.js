@@ -6,7 +6,9 @@ import {
 import LayoutBuffer from './layout/layoutBuffer';
 import simulationArea from './simulationArea';
 import { hideProperties } from './ux';
-import { update, scheduleUpdate } from './engine';
+import { update, scheduleUpdate, willBeUpdatedSet } from './engine';
+import miniMapArea from './minimap';
+import { showMessage } from './utils';
 
 /**
  * Layout.js - all subcircuit layout related code is here
@@ -15,7 +17,7 @@ import { update, scheduleUpdate } from './engine';
  */
 
 /**
- * @type {layoutBuffer} - used to temporartily store all changes.
+ * @type {LayoutBuffer} - used to temporartily store all changes.
  */
 export var tempBuffer;
 
@@ -42,7 +44,7 @@ export function paneLayout(scope = globalScope) {
         simulationArea.hover = scope.root;
     } else if (simulationArea.lastSelected === scope.root && simulationArea.mouseDown) {
         // pane canvas
-        if (!objectSelection) {
+        if (true) {
             globalScope.ox = (simulationArea.mouseRawX - simulationArea.mouseDownRawX) + simulationArea.oldx;
             globalScope.oy = (simulationArea.mouseRawY - simulationArea.mouseDownRawY) + simulationArea.oldy;
             globalScope.ox = Math.round(globalScope.ox);
@@ -121,7 +123,7 @@ export function renderLayout(scope = globalScope) {
  */
 export function layoutUpdate(scope = globalScope) {
     if (!layoutMode) return;
-    willBeUpdated = false;
+    willBeUpdatedSet(false);
     for (let i = 0; i < tempBuffer.Input.length; i++) {
         tempBuffer.Input[i].update();
     }

@@ -1,6 +1,6 @@
 // Helper functions for when circuit is embedded
 import simulationArea from './simulationArea';
-import { scheduleUpdate } from './engine';
+import { scheduleUpdate, wireToBeCheckedSet, updateCanvasSet } from './engine';
 import { circuitProperty } from './circuit';
 
 circuitProperty.toggleFullScreen = toggleFullScreen;
@@ -13,8 +13,8 @@ $(document).ready(() => {
     // Following codes need to be removed
     $('.objectPropertyAttribute').on('change keyup paste click', function () {
         scheduleUpdate();
-        updateCanvas = true;
-        wireToBeChecked = 1;
+        updateCanvasSet(true);
+        wireToBeCheckedSet(1);
         if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) {prevPropertyObj = simulationArea.lastSelected[this.name](this.value) || prevPropertyObj;}
         else {circuitProperty[this.name](this.value);}
     });
@@ -22,8 +22,8 @@ $(document).ready(() => {
     // Following codes need to be removed
     $('.objectPropertyAttributeChecked').on('change keyup paste click', function () {
         scheduleUpdate();
-        updateCanvas = true;
-        wireToBeChecked = 1;
+        updateCanvasSet(true);
+        wireToBeCheckedSet(1);
         if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) {prevPropertyObj = simulationArea.lastSelected[this.name](this.value) || prevPropertyObj;}
         else {circuitProperty[this.name](this.checked);}
     });

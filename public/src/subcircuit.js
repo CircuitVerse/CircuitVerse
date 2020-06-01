@@ -1,7 +1,7 @@
 import CircuitElement from './circuitElement';
 import simulationArea from './simulationArea';
 import { scheduleBackup , checkIfBackup } from './data/backupCircuit';
-import { scheduleUpdate } from './engine';
+import { scheduleUpdate, updateSimulationSet, updateCanvasSet } from './engine';
 import { loadScope } from './data/load';
 import { showError } from './utils';
 import Scope from './circuit';
@@ -185,8 +185,8 @@ export default class SubCircuit extends CircuitElement {
         var subcircuitScope = scopeList[this.id];
         loadScope(this.localScope, this.data);
         this.lastUpdated = this.localScope.timeStamp;
-        updateSimulation = true;
-        updateCanvas = true;
+        updateSimulationSet(true);
+        updateCanvasSet(true);
 
         if (this.savedData == undefined) {
             this.leftDimensionX = 0;

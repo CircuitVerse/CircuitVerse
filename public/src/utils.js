@@ -1,5 +1,5 @@
 import simulationArea from './simulationArea';
-import { scheduleUpdate, play } from './engine';
+import { scheduleUpdate, play, updateCanvasSet } from './engine';
 
 window.width = undefined;
 window.height = undefined;
@@ -9,21 +9,15 @@ window.globalScope = undefined;
 window.unit = 10; // size of each division/ not used everywhere, to be deprecated
 window.uniqueIdCounter = 10; // size of each division/ not used everywhere, to be deprecated
 window.embed = false; // true if embed mode
-window.wireToBeChecked = 0; // when node disconnects from another node
-window.willBeUpdated = false; // scheduleUpdate() will be called if true
-window.objectSelection = false; // Flag for object selection
 window.errorDetected = false; // Flag for error detection
 window.projectId = undefined;
 window.id = undefined;
 window.prevErrorMessage = undefined; // Global variable for error messages
 window.prevShowMessage = undefined; // Global variable for error messages
 window.prevPropertyObj = undefined;
-window.updatePosition = true; // Flag for updating position
-window.updateSimulation = true; // Flag for updating simulation
-window.updateCanvas = true; // Flag for rendering
+
 window.gridUpdate = true; // Flag for updating grid
 window.updateSubcircuit = true; // Flag for updating subCircuits
-
 window.loading = false; // Flag - all assets are loaded
 
 window.DPR = 1; // devicePixelRatio, 2 for retina displays, 1 for low resolution displays
@@ -56,7 +50,7 @@ export function stripTags(string = '') {
 export function clockTick() {
     if (!simulationArea.clockEnabled) return;
     if (errorDetected) return;
-    updateCanvas = true;
+    updateCanvasSet(true);
     globalScope.clockTick();
     play();
     scheduleUpdate(0, 20);

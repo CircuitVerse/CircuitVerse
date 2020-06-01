@@ -1,5 +1,5 @@
 import { setProjectName } from './save';
-import { scheduleUpdate, update } from '../engine';
+import { scheduleUpdate, update, updateSimulationSet, updateCanvasSet } from '../engine';
 import { updateRestrictedElementsInScope } from '../restrictedElementDiv';
 import simulationArea from '../simulationArea';
 import { newCircuit, switchCircuit } from '../circuit';
@@ -193,8 +193,8 @@ export default function load(data) {
     if (data.focussedCircuit) switchCircuit(data.focussedCircuit);
 
 
-    updateSimulation = true;
-    updateCanvas = true;
+    updateSimulationSet(true);
+    updateCanvasSet(true);
     gridUpdate = true;
     scheduleUpdate();
 }

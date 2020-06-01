@@ -13,6 +13,15 @@ const oppositeDirection = {
     UP: 'DOWN',
 };
 
+/**
+ * Base class for circuit elements.
+ * @class
+ * @param {number} x - x coordinate of the element
+ * @param {number} y - y coordinate of the element
+ * @param {Scope} scope - The circuit on which circuit element is being drawn
+ * @param {string} dir - The direction of circuit element
+ * @param {number} bitWidth - the number of bits per node.
+ */
 export default class CircuitElement {
     constructor(x, y, scope, dir, bitWidth) {
         // Data member initializations

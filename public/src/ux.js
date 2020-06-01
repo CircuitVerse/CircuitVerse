@@ -3,7 +3,7 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable guard-for-in */
-import { scheduleUpdate } from './engine';
+import { scheduleUpdate, wireToBeCheckedSet, updateCanvasSet } from './engine';
 import simulationArea from './simulationArea';
 import logixFunction from './data';
 import { newCircuit, circuitProperty } from './circuit';
@@ -264,8 +264,8 @@ export function showProperties(obj) {
 
         checkValidBitWidth();
         scheduleUpdate();
-        updateCanvas = true;
-        wireToBeChecked = 1;
+        updateCanvasSet(true);
+        wireToBeCheckedSet(1);
         if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) { prevPropertyObj = simulationArea.lastSelected[this.name](this.value) || prevPropertyObj; } else { circuitProperty[this.name](this.value); }
     });
     $('.objectPropertyAttributeChecked').on('change keyup paste click', function () {
@@ -274,8 +274,8 @@ export function showProperties(obj) {
 
 
         scheduleUpdate();
-        updateCanvas = true;
-        wireToBeChecked = 1;
+        updateCanvasSet(true);
+        wireToBeCheckedSet(1);
         if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) { prevPropertyObj = simulationArea.lastSelected[this.name](this.value) || prevPropertyObj; } else { circuitProperty[this.name](this.checked); }
     });
 }

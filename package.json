@@ -15,6 +15,7 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
+    "@babel/compat-data": "7.8.0",
     "@fortawesome/fontawesome-free": "^5.12.1",
     "@rails/webpacker": "4.2.2",
     "bootstrap": "^4.3.1",

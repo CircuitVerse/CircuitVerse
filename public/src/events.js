@@ -1,6 +1,6 @@
 import Scope, { switchCircuit, newCircuit } from './circuit';
 import { loadScope } from './data/load';
-import { scheduleUpdate } from './engine';
+import { scheduleUpdate, updateSimulationSet } from './engine';
 import { backUp } from './data/backupCircuit';
 import { getNextPosition } from './modules';
 import { generateId } from './utils';
@@ -93,7 +93,7 @@ export function paste(copyData) {
         tempScope.Output[i].layoutProperties.y = getNextPosition(globalScope.layout.width, globalScope);
     }
     var canvasUpdate = true;
-    updateSimulation = true;
+    updateSimulationSet(true);
     updateSubcircuit = true;
     scheduleUpdate();
     globalScope.ox = oldOx;
@@ -154,7 +154,7 @@ export function cut(copyList) {
         }
     }
 
-    updateSimulation = true;
+    updateSimulationSet(true);
 
     var data = backUp(globalScope);
     data.logixClipBoardData = true;
@@ -169,7 +169,7 @@ export function cut(copyList) {
     simulationArea.multipleObjectSelections = []; // copyList.slice();
     simulationArea.copyList = []; // copyList.slice();
     var canvasUpdate = true;
-    updateSimulation = true;
+    updateSimulationSet(true);
     globalScope = tempScope;
     scheduleUpdate();
     globalScope.ox = oldOx;
@@ -235,7 +235,7 @@ export function copy(copyList, cutflag = false) {
         }
     }
 
-    updateSimulation = true;
+    updateSimulationSet(true);
 
     var data = backUp(globalScope);
     data.scopes = [];
@@ -257,7 +257,7 @@ export function copy(copyList, cutflag = false) {
     simulationArea.multipleObjectSelections = []; // copyList.slice();
     simulationArea.copyList = []; // copyList.slice();
     var canvasUpdate = true;
-    updateSimulation = true;
+    updateSimulationSet(true);
     globalScope = tempScope;
     scheduleUpdate();
     globalScope.ox = oldOx;

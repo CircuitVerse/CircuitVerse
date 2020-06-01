@@ -3,7 +3,19 @@
 import { drawLine } from './canvasApi';
 import simulationArea from './simulationArea';
 import { Node } from './node';
+import { updateSimulationSet } from './engine';
 
+/**
+ * @module wire
+*/
+/**
+ * Wire - To connect two nodes.
+ * @class
+ * @memberof module:wire
+ * @param {Node} node1
+ * @param {Node} node2
+ * @param {Scope} scope - The circuit in which wire has to be drawn
+ */
 export default class Wire {
     constructor(node1, node2, scope) {
         this.objectType = 'Wire';
@@ -51,10 +63,10 @@ export default class Wire {
             this.type = 'horizontal';
         }
 
-        if (wireToBeChecked && this.checkConnections()) {
-            this.delete();
-            return updated;
-        } // SLOW , REMOVE
+        // if (wireToBeChecked && this.checkConnections()) {
+        //     this.delete();
+        //     return updated;
+        // } // SLOW , REMOVE
         if (simulationArea.shiftDown === false && simulationArea.mouseDown === true && simulationArea.selected === false && this.checkWithin(simulationArea.mouseDownX, simulationArea.mouseDownY)) {
             simulationArea.selected = true;
 
@@ -142,7 +154,7 @@ export default class Wire {
 
     delete() {
         forceResetNodes = true;
-        updateSimulation = true;
+        updateSimulationSet(true);
         this.node1.connections.clean(this.node2);
         this.node2.connections.clean(this.node1);
         this.scope.wires.clean(this);

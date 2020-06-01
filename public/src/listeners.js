@@ -1,6 +1,10 @@
 // Most Listeners are stored here
 import simulationArea from './simulationArea';
-import { scheduleUpdate, update, updateSelectionsAndPane } from './engine';
+import {
+    scheduleUpdate, update, updateSelectionsAndPane,
+    wireToBeCheckedSet, updatePositionSet, updateSimulationSet,
+    updateCanvasSet,
+} from './engine';
 import { changeScale } from './canvasApi';
 import { scheduleBackup } from './data/backupCircuit';
 import { hideProperties, deleteSelected, uxvar } from './ux';
@@ -27,9 +31,9 @@ export default function startListeners() {
     document.getElementById('simulationArea').addEventListener('mousedown', (e) => {
         $('input').blur();
         errorDetected = false;
-        updateSimulation = true;
-        updatePosition = true;
-        updateCanvas = true;
+        updateSimulationSet(true);
+        updatePositionSet(true);
+        updateCanvasSet(true);
 
         simulationArea.lastSelected = undefined;
         simulationArea.selected = false;
@@ -80,8 +84,8 @@ export default function startListeners() {
 
 
         errorDetected = false;
-        updateSimulation = true;
-        updatePosition = true;
+        updateSimulationSet(true);
+        updatePositionSet(true);
         simulationArea.shiftDown = e.shiftKey;
 
         // zoom in (+)
@@ -106,8 +110,8 @@ export default function startListeners() {
         if (simulationArea.mouseRawX < 0 || simulationArea.mouseRawY < 0 || simulationArea.mouseRawX > width || simulationArea.mouseRawY > height) return;
 
         scheduleUpdate(1);
-        updateCanvas = true;
-        wireToBeChecked = 1;
+        updateCanvasSet(true);
+        wireToBeCheckedSet(1);
 
         // Needs to be deprecated, moved to more recent listeners
         if (simulationArea.controlDown && (e.key == 'C' || e.key == 'c')) {
@@ -219,7 +223,7 @@ export default function startListeners() {
     document.getElementById('simulationArea').addEventListener('DOMMouseScroll', MouseScroll);
 
     function MouseScroll(event) {
-        updateCanvas = true;
+        updateCanvasSet(true);
 
         event.preventDefault();
         var deltaY = event.wheelDelta ? event.wheelDelta : -event.detail;
@@ -242,7 +246,7 @@ export default function startListeners() {
             }
         }
 
-        updateCanvas = true;
+        updateCanvasSet(true);
         gridUpdate = true;
         if (layoutMode) layoutUpdate();
         else update(); // Schedule update not working, this is INEFFICIENT
@@ -332,10 +336,10 @@ function onMouseMove(e) {
     simulationArea.mouseX = Math.round(simulationArea.mouseXf / unit) * unit;
     simulationArea.mouseY = Math.round(simulationArea.mouseYf / unit) * unit;
 
-    updateCanvas = true;
+    updateCanvasSet(true);
 
     if (simulationArea.lastSelected && (simulationArea.mouseDown || simulationArea.lastSelected.newElement)) {
-        updateCanvas = true;
+        updateCanvasSet(true);
         var fn;
 
         if (simulationArea.lastSelected == globalScope.root) {
@@ -360,26 +364,26 @@ function onMouseUp(e) {
     }
 
     errorDetected = false;
-    updateSimulation = true;
-    updatePosition = true;
-    updateCanvas = true;
+    updateSimulationSet(true);
+    updatePositionSet(true);
+    updateCanvasSet(true);
     gridUpdate = true;
-    wireToBeChecked = true;
+    wireToBeCheckedSet(1);
 
     scheduleUpdate(1);
     simulationArea.mouseDown = false;
 
     for (var i = 0; i < 2; i++) {
-        updatePosition = true;
-        wireToBeChecked = true;
+        updatePositionSet(true);
+        wireToBeCheckedSet(1);
         update();
     }
     errorDetected = false;
-    updateSimulation = true;
-    updatePosition = true;
-    updateCanvas = true;
+    updateSimulationSet(true);
+    updatePositionSet(true);
+    updateCanvasSet(true);
     gridUpdate = true;
-    wireToBeChecked = true;
+    wireToBeCheckedSet(1);
 
     scheduleUpdate(1);
     var rect = simulationArea.canvas.getBoundingClientRect();
