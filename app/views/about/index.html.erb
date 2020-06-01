@@ -1,67 +1,74 @@
 <% content_for :title, "CircuitVerse - About us" %>
 
-    <div class="container">
-      <div class="row row-about">
-        <div class="col-xs col-sm col-md col-lg">
-          <h1 class="heading">ABOUT</h1>
-            <h5>Learn about the awesome people behind CircuitVerse</h5>
-            <p id="about">CircuitVerse is a product developed by students at IIIT-Bangalore. It aims to provide a platform where circuits can be designed and simulated using a graphical user interface. While users can design complete CPU implementations within the simulator, the software is designed primarily for educational use. CircuitVerse is an opensource project with an active community. Checkout the contribute page for more detail.</p>
-          </div>
-        </div>
-        <div class="col-xs col-sm col-md col-lg text-center">
-          <button type="button" class="btn btn-about" onclick="window.location.href = '/tos';">Terms of Service</button>
-          <button type="button" class="btn btn-about" onclick="window.location.href = '/privacy';">Privacy Policy</button>
-        </div>
-        <div class="row row-about">
-          <div class="col-xs col-sm col-md col-lg">
-            <div class="contact" onclick="window.location.href='mailto:support@circuitverse.org';">
-              <%= image_tag "SVGs/email.svg", height: '60', width: '60', alt: "", class: 'about-card-image' %>
-              <h6>Email us at</h6>
-              <p id="tab">support@circuitverse.org</p>
-            </div>
-            <div class="contact" onclick="window.location.href='<%= Rails.configuration.slack_url %>';">
-              <%= image_tag "SVGs/slack.svg", height: '60', width: '60', alt: "", class: 'about-card-image' %>
-              <h6>Join and chat with us at</h6>
-              <p id="tab">Slack Channel</p>
-            </div>
-          </div>
-        </div>
-        <hr/>
-      <div class="row row-about">
-        <div class="col-xs col-sm col-md col-lg">
-          <div class="team-heading">
-            <h2>OUR TEAM</h2>
-          </div></div></div>
-          <div class="row row-about">
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-              <div class="card card-about">
-                <div class="card-header team">
-                  <h5>Core Team</h5>
-                </div>
-                <div class="card-body cardbody-about">
-                  <p><a href="https://satu0king.github.io" target="_blank">Satvik Ramaprasad <br>(Product Manager)</a> <br> <hr/>Biswesh Mohapatra <br>(Lead Developer) <br> <hr/>Aditya Hegde <br>(SEO and Infrastructure Manager)</p>
-                </div>
-              </div>
-            </div>
-              <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-                <div class="card card-about">
-                  <div class="card-header team">
-                    <h5>Extended Team</h5>
-                  </div>
-                  <div class="card-body cardbody-about">
-                    <p><a href="https://www.linkedin.com/in/vibhavagarwal5/" target="_blank">Vibhav Agarwal <br>(Module Developer)</a> <br> <hr/>Abhishek Krishna <br>(UI Designer and consultant) <br> <hr/>Aniruddha Mysore <br>(UI Designer and consultant) <br> <hr/>Shreyas Gupta <br>(Logo Designer) </p>
-                  </div>
-                </div>
-              </div>
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-                  <div class="card card-about">
-                    <div class="card-header team">
-                      <h5>Mentors</h5>
-                    </div>
-                    <div class="card-body cardbody-about">
-                      <p>Prof. Subhajit Sen <br>(Domain Expert) <br> <hr/>Ramesh Sundararaman <br>(Brand Advisor) <br> <hr/>Vikas Yadav <br>(Technical Advisor)<br> <hr/>Gaurav Koley <br>(Technical Advisor) </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+<div class="container">
+  <div class="row row-text">
+    <div class="col-xs col-sm col-md col-lg">
+      <h1 class="heading-main">ABOUT</h1>
+        <h5>Learn about the awesome people behind CircuitVerse</h5>
+        <p class="paragraph-text-justified">CircuitVerse is a product developed by students at IIIT-Bangalore.
+          It aims to provide a platform where circuits can be designed and simulated using a graphical user interface.
+          While users can design complete CPU implementations within the simulator, the software is designed primarily for educational use.
+          CircuitVerse is an opensource project with an active community. Checkout the contribute page for more detail.
+        </p>
+    </div>
+  </div>
+  <div class="col-xs col-sm col-md col-lg about-button-primary-container">
+    <a class="btn button-primary about-button-primary" href="/tos">Terms of Service</a>
+    <a class="btn button-primary about-button-primary" href="/privacy">Privacy Policy</a>
+  </div>
+  <div class="row row-text">
+    <div class="col-xs col-sm col-md col-lg">
+      <div class="card-small-social about-card-social-1">
+        <a class="about-social-anchor" href="mailto:support@circuitverse.org" target="_blank">
+          <%= image_tag "SVGs/email.svg", height: "60", width: "60", alt: "Email Icon", class: "card-small-social-image" %>
+          <h6>Email us at</h6>
+          <p>support@circuitverse.org</p>
+        </a>
+      </div>
+      <div class="card-small-social about-card-social-2">
+        <a class="about-social-anchor" href="<%= Rails.configuration.slack_url %>" target="_blank">
+          <%= image_tag "SVGs/slack.svg", height: "60", width: "60", alt: "Slack Logo", class: "card-small-social-image" %>
+          <h6>Join and chat with us at</h6>
+          <p>Slack Channel</p>
+        </a>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="row row-text">
+    <div class="col-xs col-sm col-md col-lg">
+      <h2 class="heading-submain">CONTRIBUTORS</h2>
+      <h5>Meet the awesome people of CircuitVerse community that've made this platform what it is now.</h5>
+    </div>
+  </div>
+  <div class="row row-text">
+    <div class="about-contributors-section">
+
+    </div>
+  </div>
+  <br>
+  <div class="row row-text">
+    <div class="col-xs col-sm col-md col-lg text-center">
+      <a class="btn button-primary about-button-contribute" href="/contribute">Become a Contributor</a>
+    </div>
+  </div>
+  <script type="text/javascript">
+    async function getContributors(url){
+      let apiData = await fetch(url);
+      let contributorsData = await apiData.json();
+      for (let i=0; i<contributorsData.length; i++){
+        let contributorElement = document.createElement('div');
+        let contributorElementAnchor = document.createElement('a');
+        let contributorElementImage = document.createElement('img');
+        contributorElement.classList.add('about-contributor');
+        contributorElementAnchor.href = await contributorsData[i]['html_url'];
+        contributorElementImage.src = await contributorsData[i]['avatar_url'];
+        contributorElementImage.classList.add('about-contributor-image');
+        contributorElementAnchor.appendChild(contributorElementImage);
+        contributorElement.appendChild(contributorElementAnchor);
+        document.getElementsByClassName('about-contributors-section')[0].appendChild(contributorElement);
+      }
+    }
+    getContributors('https://api.github.com/repos/CircuitVerse/CircuitVerse/contributors');
+  </script>
+</div>

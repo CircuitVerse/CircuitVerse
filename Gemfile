@@ -64,6 +64,9 @@ gem 'bootstrap-typeahead-rails'
 # for authorization layer
 gem 'pundit'
 
+# for analytics
+gem 'ahoy_matey'
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
@@ -91,6 +94,9 @@ gem 'bootsnap', require: false
 
 gem 'font-awesome-sass', '~> 5.12.0'
 
+gem 'jwt'
+gem 'fast_jsonapi'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -112,6 +118,7 @@ group :test do
   gem 'webdrivers', '~> 4.0'
   gem 'capybara', '~> 2.13'
   gem 'shoulda-matchers'
+  gem "json-schema"
 end
 
 group :development do

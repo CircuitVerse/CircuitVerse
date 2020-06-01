@@ -1,21 +1,23 @@
+# frozen_string_literal: true
+
 module SimulatorHelper
   def return_image_file(data_url)
-    str = data_url["data:image/jpeg;base64,".length .. -1]
+    str = data_url["data:image/jpeg;base64,".length..-1]
     if str.to_s.empty?
       path = Rails.root.join("public/img/default.png")
       image_file = File.open(path, "rb")
 
     else
       jpeg       = Base64.decode64(str)
-      image_file = File.new("preview_#{Time.now()}.jpeg", "wb")
+      image_file = File.new("preview_#{Time.zone.now}.jpeg", "wb")
       image_file.write(jpeg)
     end
 
     image_file
   end
 
-  def check_to_delete (data_url)
-    !data_url["data:image/jpeg;base64,".length .. -1].to_s.empty?
+  def check_to_delete(data_url)
+    !data_url["data:image/jpeg;base64,".length..-1].to_s.empty?
   end
 
   def sanitize_data(project, data)
@@ -25,18 +27,15 @@ module SimulatorHelper
     saved_restricted_elements = JSON.parse(project.assignment.restrictions)
     scopes = data["scopes"] || []
 
-    parsed_scopes = scopes.reduce([]) do |new_scopes, scope|
+    parsed_scopes = scopes.each_with_object([]) do |scope, new_scopes|
       restricted_elements_used = []
 
       saved_restricted_elements.each do |element|
-        if scope[element].present?
-          restricted_elements_used.push(element)
-        end
+        restricted_elements_used.push(element) if scope[element].present?
       end
 
       scope["restrictedCircuitElementsUsed"] = restricted_elements_used
       new_scopes.push(scope)
-      new_scopes
     end
 
     data["scopes"] = parsed_scopes
