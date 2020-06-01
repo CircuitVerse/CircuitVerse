@@ -1,0 +1,102 @@
+//buttons
+.button-primary {
+  background-color: $green;
+  border-radius: 4px;
+  color: $white;
+  margin: 5px;
+  transition: all .3s ease 0s;
+
+  &:hover {
+    background-color: $teal;
+    box-shadow: 0 8px 15px $shadow-black;
+    color: $white;
+    transform: translateY(-7px);
+  }
+}
+
+.button-mini-edit {
+  border-radius: 4px;
+  color: $white;
+  height: 32px;
+  margin: 5px;
+  padding: 3px 5px;
+  text-decoration: none;
+  width: 85px;
+}
+
+//cards
+.card-small-social {
+  background-color: $card-green;
+  box-shadow: 0 2px 7px $shadow-black;
+  display: inline-block;
+  height: 89px;
+  margin: 50px 7px 40px;
+  opacity: .89;
+  padding: 15px;
+  transition: box-shadow .2s ease-in;
+  width: 300px;
+
+  &:hover {
+    box-shadow: 0 7px 7px $shadow-black;
+  }
+}
+
+.card-small-social-image {
+  float: left;
+}
+
+.background-card {
+  background-color: $card-grey;
+  margin: 15px;
+  min-width: 230px;
+  padding: 15px;
+}
+
+//errors
+.error-explanation {
+  background: $error-red;
+  border-radius: 4px;
+  color: $error-red-font;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 15px;
+
+  li {
+    text-align: left;
+  }
+}
+
+//form elements
+.form-input {
+  background-color: $white;
+  border: 1px solid $green;
+  border-radius: 0;
+  height: 40px;
+}
+
+//breakpoints
+@media (max-width:$small-display) {
+  .about-button-primary-container {
+    text-align: center;
+  }
+
+  .card-small-social {
+    width: 230px;
+  }
+
+  .card-small-social-image {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .background-card {
+    margin: auto;
+  }
+}
+
+@media (max-width: 400px) {
+  .button-mini-edit {
+    margin: 2px;
+  }
+}
