@@ -15,7 +15,7 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
-    "@babel/compat-data": "7.8.0",
+    "@babel/plugin-proposal-numeric-separator": "^7.10.1",
     "@fortawesome/fontawesome-free": "^5.12.1",
     "@rails/webpacker": "4.2.2",
     "bootstrap": "^4.3.1",
@@ -24,7 +24,6 @@
     "jquery-ui": "^1.12.1",
     "jquery-ui-dist": "^1.12.1",
     "jquery-ujs": "^1.2.2",
-    "jsdoc-export-default-interop": "^0.3.1",
     "opencollective-postinstall": "^2.0.2",
     "popper.js": "^1.16.0",
     "trumbowyg": "^2.21.0",
