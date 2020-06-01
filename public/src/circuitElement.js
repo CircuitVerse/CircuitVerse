@@ -1,20 +1,24 @@
 /* eslint-disable no-multi-assign */
 /* eslint-disable no-bitwise */
+/**
+ * @module circuitElement
+ */
 import { scheduleUpdate } from './engine';
 import simulationArea from './simulationArea';
 import {
     fixDirection, fillText, correctWidth, rect2, oppositeDirection,
 } from './canvasApi';
 
-/**
- * Base class for circuit elements.
- * @param {number} x - x coordinate of the element
- * @param {number} y - y coordinate of the element
- * @param {Scope} scope - The circuit on which circuit element is being drawn
- * @param {string} dir - The direction of circuit element
- * @param {number} bitWidth - the number of bits per node.
- */
 export default class CircuitElement {
+    /**
+     * Base class for circuit elements.
+     * @class
+     * @param {number} x - x coordinate of the element
+     * @param {number} y - y coordinate of the element
+     * @param {Scope} scope - The circuit on which circuit element is being drawn
+     * @param {string} dir - The direction of circuit element
+     * @param {number} bitWidth - the number of bits per node.
+     */
     constructor(x, y, scope, dir, bitWidth) {
         // Data member initializations
         this.x = x;

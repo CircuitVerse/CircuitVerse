@@ -1,6 +1,12 @@
 // Event Queue is simply a priority Queue, basic implementation O(n^2)
-
+/**
+ * This module has basic implementation of a priority queue.
+ * @module eventQueue
+ */
 export default class EventQueue {
+    /**
+     * Event Queue is simply a priority Queue, basic implementation O(n^2).
+     */
     constructor(size) {
         this.size = size;
         this.queue = new Array(size);
@@ -8,6 +14,10 @@ export default class EventQueue {
         this.time = 0;
     }
 
+    /**
+    * @param {CircuitElement} obj - the elemnt to be added
+    * @param {number} delay - the delay in adding an object to queue
+    */
     add(obj, delay) {
         if (obj.queueProperties.inQueue) {
             obj.queueProperties.time = this.time + (delay || obj.propagationDelay);
@@ -39,6 +49,10 @@ export default class EventQueue {
         }
     }
 
+    /**
+    * To add without any delay.
+    * @param {CircuitElement} obj - the object to be added
+    */
     addImmediate(obj) {
         this.queue[this.frontIndex] = obj;
         obj.queueProperties.time = this.time;
@@ -47,6 +61,11 @@ export default class EventQueue {
         this.frontIndex++;
     }
 
+    /**
+    * Function to swap two objects in queue.
+    * @param {number} v1
+    * @param {number} v2
+    */
     swap(v1, v2) {
         const obj1 = this.queue[v1];
         obj1.queueProperties.index = v2;
@@ -58,6 +77,9 @@ export default class EventQueue {
         this.queue[v2] = obj1;
     }
 
+    /**
+    * function to pop element from queue.
+    */
     pop() {
         if (this.isEmpty()) throw 'Queue Empty';
 
@@ -68,12 +90,18 @@ export default class EventQueue {
         return obj;
     }
 
+    /**
+     * function to reset queue.
+     */
     reset() {
         for (let i = 0; i < this.frontIndex; i++) this.queue[i].queueProperties.inQueue = false;
         this.time = 0;
         this.frontIndex = 0;
     }
 
+    /**
+    * function to check if empty queue.
+    */
     isEmpty() {
         return this.frontIndex == 0;
     }
