@@ -13,6 +13,7 @@ import { removeMiniMap, updatelastMinimapShown } from './minimap';
 import undo from './data/undo';
 import { copy, paste, selectAll } from './events';
 import save from './data/save';
+import { layoutUpdate } from './layoutMode';
 
 export default function startListeners() {
     $('#deleteSelected').click(() => {
