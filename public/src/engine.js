@@ -1,7 +1,17 @@
+/* eslint-disable import/no-cycle */
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-continue */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-bitwise */
+import plotArea from './plotArea';
+import { layoutUpdate } from './layoutMode';
+import simulationArea from './simulationArea';
+import {
+    dots, canvasMessage, findDimensions, rect2,
+} from './canvasApi';
+import { showProperties } from './ux';
+import { showError } from './utils';
+import miniMapArea from './minimap';
 /**
  * Core of the simulation and rendering algorithm.
  * @module engine
@@ -34,24 +44,40 @@ export function updateCanvasSet(param) {
     updateCanvas = param;
 }
 
-// var gridUpdate = true; // Flag for updating grid
-// export function gridUpdateSet(param) {
-//     gridUpdate = param;
-// }
-// var updateSubcircuit = true; // Flag for updating subCircuits
-// export function updateSubcircuitSet(param) {
-//     updateSubcircuit = param;
-// }
+var gridUpdate = true; // Flag for updating grid
+export function gridUpdateSet(param) {
+    gridUpdate = param;
+}
 
-import plotArea from './plotArea';
-import { layoutUpdate } from './layoutMode';
-import simulationArea from './simulationArea';
-import {
-    dots, canvasMessage, findDimensions, rect2,
-} from './canvasApi';
-import { showProperties } from './ux';
-import { showError } from './utils';
-import miniMapArea from './minimap';
+var forceResetNodes = true; // Flag for updating grid
+export function forceResetNodesSet(param) {
+    forceResetNodes = param;
+}
+
+var errorDetected = false; // Flag for updating grid
+export function errorDetectedSet(param) {
+    errorDetected = param;
+}
+export function checkErrorDetected() {
+    return errorDetected;
+}
+
+export var canvasMessageData = {
+    x: undefined,
+    y: undefined,
+    string: undefined,
+}; // Flag for updating grid
+
+var updateSubcircuit = true; // Flag for updating subCircuits
+export function updateSubcircuitSet(param) {
+    // console.log(updateSubcircuit,param);
+    if (updateSubcircuit != param) {
+        updateSubcircuit = param;
+        return true;
+    }
+    updateSubcircuit = param;
+    return false;
+}
 
 /**
  * Function to render Canvas according th renderupdate order
@@ -66,16 +92,20 @@ export function renderCanvas(scope) {
     simulationArea.clear();
     // Update Grid
     if (gridUpdate) {
-        gridUpdate = false;
+        gridUpdateSet(false);
         dots();
     }
-    canvasMessageData = undefined; //  Globally set in draw fn ()
+    canvasMessageData = {
+        x: undefined,
+        y: undefined,
+        string: undefined,
+    }; //  Globally set in draw fn ()
     // Render objects
     for (let i = 0; i < renderOrder.length; i++) {
         for (var j = 0; j < scope[renderOrder[i]].length; j++) { scope[renderOrder[i]][j].draw(); }
     }
     // Show any message
-    if (canvasMessageData) {
+    if (canvasMessageData.string !== undefined) {
         canvasMessage(ctx, canvasMessageData.string, canvasMessageData.x, canvasMessageData.y);
     }
     // If multiple object selections are going on, show selected area
@@ -122,7 +152,7 @@ export function updateSelectionsAndPane(scope = globalScope) {
             globalScope.oy = (simulationArea.mouseRawY - simulationArea.mouseDownRawY) + simulationArea.oldy;
             globalScope.ox = Math.round(globalScope.ox);
             globalScope.oy = Math.round(globalScope.oy);
-            gridUpdate = true;
+            gridUpdateSet(true);
             if (!embed && !lightMode) miniMapArea.setup();
         } else {
             // idea: kind of empty
@@ -194,7 +224,7 @@ export function play(scope = globalScope, resetNodes = false) {
     if (resetNodes || forceResetNodes) {
         scope.reset();
         simulationArea.simulationQueue.reset();
-        forceResetNodes = false;
+        forceResetNodesSet(false);
     }
     // Temporarily kept for for future uses
     // else{
@@ -226,16 +256,16 @@ export function play(scope = globalScope, resetNodes = false) {
         stepCount++;
         if (stepCount > 1000000) { // Cyclic or infinite Circuit Detection
             showError('Simulation Stack limit exceeded: maybe due to cyclic paths or contention');
-            errorDetected = true;
-            forceResetNodes = true;
+            errorDetectedSet(true);
+            forceResetNodesSet(true);
         }
     }
     // Check for TriState Contentions
     if (simulationArea.contentionPending.length) {
         console.log(simulationArea.contentionPending);
         showError('Contention at TriState');
-        forceResetNodes = true;
-        errorDetected = true;
+        forceResetNodesSet(true);
+        errorDetectedSet(true);
     }
     // Setting Flag Values
     for (let i = 0; i < scope.Flag.length; i++) { scope.Flag[i].setPlotValue(); }
@@ -300,7 +330,7 @@ export function update(scope = globalScope, updateEverything = false) {
     // Update subcircuits
     if (updateSubcircuit || updateEverything) {
         for (let i = 0; i < scope.SubCircuit.length; i++) { scope.SubCircuit[i].reset(); }
-        updateSubcircuit = false;
+        updateSubcircuitSet(false);
     }
     // Update UI position
     if (updatePosition || updateEverything) {

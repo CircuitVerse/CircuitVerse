@@ -6,7 +6,7 @@ import {
 import LayoutBuffer from './layout/layoutBuffer';
 import simulationArea from './simulationArea';
 import { hideProperties } from './ux';
-import { update, scheduleUpdate, willBeUpdatedSet } from './engine';
+import { update, scheduleUpdate, willBeUpdatedSet, gridUpdateSet } from './engine';
 import miniMapArea from './minimap';
 import { showMessage } from './utils';
 
@@ -49,7 +49,7 @@ export function paneLayout(scope = globalScope) {
             globalScope.oy = (simulationArea.mouseRawY - simulationArea.mouseDownRawY) + simulationArea.oldy;
             globalScope.ox = Math.round(globalScope.ox);
             globalScope.oy = Math.round(globalScope.oy);
-            gridUpdate = true;
+            gridUpdateSet(true);
             if (!embed && !lightMode) miniMapArea.setup();
         }
     } else if (simulationArea.lastSelected === scope.root) {
@@ -111,8 +111,7 @@ export function renderLayout(scope = globalScope) {
         tempBuffer.Output[i].draw();
     }
 
-    if (gridUpdate) {
-        gridUpdate = false;
+    if (gridUpdateSet(false)) {
         dots();
     }
 }
@@ -268,7 +267,7 @@ export function toggleLayoutTitle() {
 /**
  * just toggles back to normal mode
  */
-export function cancelLayout() {
+function cancelLayout() {
     if (layoutMode) {
         // eslint-disable-next-line no-use-before-define
         toggleLayoutMode();
@@ -315,6 +314,9 @@ export function toggleLayoutMode() {
         tempBuffer = new LayoutBuffer();
         $('#toggleLayoutTitle')[0].checked = tempBuffer.layout.titleEnabled;
     }
+    hideProperties();
+    update(globalScope, true);
+    scheduleUpdate();
     // console.log(document.querySelector('#layoutDialog'))
     $('#decreaseLayoutWidth').click(() => {
         decreaseLayoutWidth();
@@ -352,7 +354,4 @@ export function toggleLayoutMode() {
     $('#cancelLayout').click(() => {
         cancelLayout();
     });
-    hideProperties();
-    update(globalScope, true);
-    scheduleUpdate();
 }

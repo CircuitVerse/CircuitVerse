@@ -3,7 +3,7 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable guard-for-in */
-import { scheduleUpdate, wireToBeCheckedSet, updateCanvasSet } from './engine';
+import { scheduleUpdate, wireToBeCheckedSet, updateCanvasSet, update, updateSimulationSet } from './engine';
 import simulationArea from './simulationArea';
 import logixFunction from './data';
 import { newCircuit, circuitProperty } from './circuit';
@@ -261,7 +261,6 @@ export function showProperties(obj) {
     $('.objectPropertyAttribute').on('change keyup paste click', function () {
         // return;
         // ////console.log(this.name+":"+this.value);
-
         checkValidBitWidth();
         scheduleUpdate();
         updateCanvasSet(true);
@@ -270,9 +269,7 @@ export function showProperties(obj) {
     });
     $('.objectPropertyAttributeChecked').on('change keyup paste click', function () {
         // return;
-        // ////console.log(this.name+":"+this.value);
-
-
+        // console.log(this.name+":"+this.value);
         scheduleUpdate();
         updateCanvasSet(true);
         wireToBeCheckedSet(1);
@@ -304,13 +301,15 @@ function escapeHtml(unsafe) {
 
 export function deleteSelected() {
     $('input').blur();
-    hideProperties();
     if (simulationArea.lastSelected && !(simulationArea.lastSelected.objectType === 'Node' && simulationArea.lastSelected.type !== 2)) simulationArea.lastSelected.delete();
     for (var i = 0; i < simulationArea.multipleObjectSelections.length; i++) {
         if (!(simulationArea.multipleObjectSelections[i].objectType === 'Node' && simulationArea.multipleObjectSelections[i].type !== 2)) simulationArea.multipleObjectSelections[i].cleanDelete();
     }
+    hideProperties();
     simulationArea.multipleObjectSelections = [];
 
     // Updated restricted elements
+    updateCanvasSet(true);
+    scheduleUpdate();
     updateRestrictedElementsInScope();
 }

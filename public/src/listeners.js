@@ -3,7 +3,7 @@ import simulationArea from './simulationArea';
 import {
     scheduleUpdate, update, updateSelectionsAndPane,
     wireToBeCheckedSet, updatePositionSet, updateSimulationSet,
-    updateCanvasSet,
+    updateCanvasSet, gridUpdateSet, errorDetectedSet
 } from './engine';
 import { changeScale } from './canvasApi';
 import { scheduleBackup } from './data/backupCircuit';
@@ -30,7 +30,7 @@ export default function startListeners() {
     });
     document.getElementById('simulationArea').addEventListener('mousedown', (e) => {
         $('input').blur();
-        errorDetected = false;
+        errorDetectedSet(false);
         updateSimulationSet(true);
         updatePositionSet(true);
         updateCanvasSet(true);
@@ -83,7 +83,7 @@ export default function startListeners() {
         }
 
 
-        errorDetected = false;
+        errorDetectedSet(false);
         updateSimulationSet(true);
         updatePositionSet(true);
         simulationArea.shiftDown = e.shiftKey;
@@ -247,7 +247,7 @@ export default function startListeners() {
         }
 
         updateCanvasSet(true);
-        gridUpdate = true;
+        gridUpdateSet(true);
         if (layoutMode) layoutUpdate();
         else update(); // Schedule update not working, this is INEFFICIENT
     }
@@ -363,11 +363,11 @@ function onMouseUp(e) {
         setTimeout(removeMiniMap, 2000);
     }
 
-    errorDetected = false;
+    errorDetectedSet(false);
     updateSimulationSet(true);
     updatePositionSet(true);
     updateCanvasSet(true);
-    gridUpdate = true;
+    gridUpdateSet(true);
     wireToBeCheckedSet(1);
 
     scheduleUpdate(1);
@@ -378,11 +378,11 @@ function onMouseUp(e) {
         wireToBeCheckedSet(1);
         update();
     }
-    errorDetected = false;
+    errorDetectedSet(false);
     updateSimulationSet(true);
     updatePositionSet(true);
     updateCanvasSet(true);
-    gridUpdate = true;
+    gridUpdateSet(true);
     wireToBeCheckedSet(1);
 
     scheduleUpdate(1);

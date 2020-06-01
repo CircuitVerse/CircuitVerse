@@ -1,10 +1,12 @@
+/* eslint-disable import/no-cycle */
 /**
  * Function to restore copy from backup
  * @param {Scope=} scope - The circuit on which undo is called
  */
+import Scope, { scopeList } from '../circuit';
 import { loadScope } from './load';
 import { updateRestrictedElementsInScope } from '../restrictedElementDiv';
-import Scope from '../circuit';
+import { forceResetNodesSet } from '../engine';
 
 export default function undo(scope = globalScope) {
     if (layoutMode) return;
@@ -26,7 +28,7 @@ export default function undo(scope = globalScope) {
     globalScope.oy = backupOy;
     globalScope.scale = backupScale;
     loading = false;
-    forceResetNodes = true;
+    forceResetNodesSet(true);
 
     // Updated restricted elements
     updateRestrictedElementsInScope();

@@ -1,3 +1,4 @@
+import { projectSavedSet } from './project';
 /* eslint-disable no-param-reassign */
 function extract(obj) {
     return obj.saveObject();
@@ -54,7 +55,7 @@ export function scheduleBackup(scope = globalScope) {
     if (scope.backups.length === 0 || scope.backups[scope.backups.length - 1] !== backup) {
         scope.backups.push(backup);
         scope.timeStamp = new Date().getTime();
-        projectSaved = false;
+        projectSavedSet(false);
     }
 
     return backup;

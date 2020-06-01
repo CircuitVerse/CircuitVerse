@@ -4,7 +4,7 @@ import simulationArea from './simulationArea';
 import {
     scheduleUpdate, update, updateSelectionsAndPane,
     wireToBeCheckedSet, updatePositionSet, updateSimulationSet,
-    updateCanvasSet,
+    updateCanvasSet, gridUpdateSet, errorDetectedSet
 } from './engine';
 import { changeScale } from './canvasApi';
 import { copy, paste } from './events';
@@ -21,7 +21,7 @@ export default function startListeners() {
     });
 
     document.getElementById('simulationArea').addEventListener('mousedown', (e) => {
-        errorDetected = false;
+        errorDetectedSet(false);
         updateSimulationSet(true);
         updatePositionSet(true);
         updateCanvasSet(true);
@@ -90,7 +90,7 @@ export default function startListeners() {
         }
     });
     window.addEventListener('keydown', (e) => {
-        errorDetected = false;
+        errorDetectedSet(false);
         updateSimulationSet(true);
         updatePositionSet(true);
 
@@ -151,11 +151,11 @@ export default function startListeners() {
 
     window.addEventListener('mouseup', (e) => {
         simulationArea.mouseDown = false;
-        errorDetected = false;
+        errorDetectedSet(false);
         updateSimulationSet(true);
         updatePositionSet(true);
         updateCanvasSet(true);
-        gridUpdate = true;
+        gridUpdateSet(true);
         wireToBeCheckedSet(1);
 
         scheduleUpdate(1);
@@ -192,7 +192,7 @@ export default function startListeners() {
         }
 
         updateCanvasSet(true);
-        gridUpdate = true;
+        gridUpdateSet(true);
         update(); // Schedule update not working, this is INEFFICENT
     }
 

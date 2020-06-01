@@ -3,7 +3,7 @@
 import { drawLine } from './canvasApi';
 import simulationArea from './simulationArea';
 import { Node } from './node';
-import { updateSimulationSet } from './engine';
+import { updateSimulationSet, forceResetNodesSet } from './engine';
 
 /**
  * @module wire
@@ -27,7 +27,7 @@ export default class Wire {
 
         this.updateData();
         this.scope.wires.push(this);
-        forceResetNodes = true;
+        forceResetNodesSet(true);
     }
 
     // if data changes
@@ -153,7 +153,7 @@ export default class Wire {
     }
 
     delete() {
-        forceResetNodes = true;
+        forceResetNodesSet(true);
         updateSimulationSet(true);
         this.node1.connections.clean(this.node2);
         this.node2.connections.clean(this.node1);

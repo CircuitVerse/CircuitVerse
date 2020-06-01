@@ -17,15 +17,21 @@ import { findDimensions, dots } from './canvasApi';
 import { updateRestrictedElementsList } from './restrictedElementDiv';
 import { scheduleBackup } from './data/backupCircuit';
 import { showProperties } from './ux';
-import { scheduleUpdate, updateSimulationSet, updateCanvasSet } from './engine';
+import {
+    scheduleUpdate, updateSimulationSet,
+    updateCanvasSet, updateSubcircuitSet,
+    forceResetNodesSet,
+} from './engine';
 import { toggleLayoutMode } from './layoutMode';
 import { setProjectName } from './data/save';
 import { changeClockEnable } from './sequential';
 import { changeInputSize } from './modules';
 
 export const circuitProperty = { toggleLayoutMode, setProjectName, changeCircuitName, changeClockTime, deleteCurrentCircuit, changeClockEnable, changeInputSize };
-// export circuitProperty;
-
+export var scopeList = {};
+export function resetScopeList() {
+    scopeList = {};
+}
 /**
  * Function used to change the current focusedCircuit
  * Disables layoutMode if enabled
@@ -46,8 +52,8 @@ export function switchCircuit(id) {
     simulationArea.copyList = [];
     globalScope = scopeList[id];
     updateSimulationSet(true);
-    updateSubcircuit = true;
-    forceResetNodes = true;
+    updateSubcircuitSet(true);
+    forceResetNodesSet(true);
     dots(false);
     simulationArea.lastSelected = globalScope.root;
     if (!embed) {

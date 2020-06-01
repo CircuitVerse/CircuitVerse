@@ -2,7 +2,7 @@ import CircuitElement from '../circuitElement';
 import { Node, findNode } from '../node';
 import simulationArea from '../simulationArea';
 import {
-    correctWidth, fillText, rect2, lineTo, moveTo, arc,
+    correctWidth, fillText, rect2, oppositeDirection,
 } from '../canvasApi';
 import { getNextPosition } from '../modules';
 import { generateId } from '../utils';

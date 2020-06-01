@@ -1,3 +1,4 @@
+import { scopeList } from '../circuit';
 import { resetup } from '../setup';
 import { update } from '../engine';
 import { stripTags, showMessage } from '../utils';
@@ -5,6 +6,8 @@ import { backUp } from './backupCircuit';
 import simulationArea from '../simulationArea';
 import backgroundArea from '../backgroundArea';
 import { findDimensions } from '../canvasApi';
+import { projectSavedSet } from './project';
+
 /**
  * Function to set the name of project.
  * @param {string} name - name for project
@@ -220,7 +223,7 @@ function generateImageForOnline() {
 }
 
 export default function save() {
-    projectSaved = true;
+    projectSavedSet(true);
 
     $('.loadingIcon').fadeIn();
     const data = generateSaveData();

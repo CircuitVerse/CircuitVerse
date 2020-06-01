@@ -1,9 +1,11 @@
+/* eslint-disable import/no-cycle */
 import { drawCircle, drawLine, arc } from './canvasApi';
 import simulationArea from './simulationArea';
 import { distance, showError } from './utils';
 import {
     renderCanvas, scheduleUpdate, wireToBeCheckedSet,
-    updateSimulationSet, updateCanvasSet,
+    updateSimulationSet, updateCanvasSet, forceResetNodesSet,
+    canvasMessageData,
 } from './engine';
 import Wire from './wire';
 
@@ -72,7 +74,7 @@ function extractNode(x, scope, parent) {
 window.NODE_INPUT = 0;
 window.NODE_OUTPUT = 1;
 window.NODE_INTERMEDIATE = 2;
-
+var uniqueIdCounter = 10;
 export class Node {
     constructor(x, y, type, parent, bitWidth = undefined, label = '') {
         // Should never raise, but just in case
@@ -82,7 +84,7 @@ export class Node {
             return;
         }
 
-        forceResetNodes = true;
+        forceResetNodesSet(true);
 
         this.objectType = 'Node';
         this.subcircuitOverride = false;
@@ -352,10 +354,8 @@ export class Node {
 
         if (this.hover || (simulationArea.lastSelected == this)) {
             if (this.showHover || simulationArea.lastSelected == this) {
-                canvasMessageData = {
-                    x: this.absX(),
-                    y: this.absY() - 15,
-                };
+                canvasMessageData.x = this.absX();
+                canvasMessageData.y = this.absY() - 15;
                 if (this.type == 2) {
                     var v = 'X';
                     if (this.value !== undefined) { v = this.value.toString(16); }
@@ -573,7 +573,7 @@ export class Node {
             this.connections[i].checkDeleted();
         }
         wireToBeCheckedSet(1);
-        forceResetNodes = true;
+        forceResetNodesSet(true);
         scheduleUpdate();
     }
 

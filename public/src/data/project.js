@@ -3,7 +3,7 @@
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-restricted-globals */
 /* eslint-disable no-alert */
-import { newCircuit } from '../circuit';
+import { resetScopeList, scopeList, newCircuit } from '../circuit';
 import { showMessage, showError } from '../utils';
 import { checkIfBackup } from './backupCircuit';
 import {generateSaveData} from './save';
@@ -50,12 +50,20 @@ export function openOffline() {
 
     });
 }
+/**
+ * Flag for project saved or not
+ * @type {boolean}
+ */
+var projectSaved = true;
+export function projectSavedSet(param) {
+    projectSaved = param;
+}
+
 
 /**
  * Helper function to store to localStorage -- needs to be deprecated/removed
  */
 export function saveOffline() {
-    projectSaved = true;
     const data = generateSaveData();
     localStorage.setItem(projectId, data);
     const temp = JSON.parse(localStorage.getItem('projectList')) || {};
@@ -98,7 +106,7 @@ window.onbeforeunload = function () {
 export function clearProject() {
     if (confirm('Would you like to clear the project?')) {
         globalScope = undefined;
-        scopeList = {};
+        resetScopeList();
         $('.circuits').remove();
         newCircuit('main');
         showMessage('Your project is as good as new!');

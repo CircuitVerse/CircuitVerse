@@ -1,6 +1,10 @@
-import Scope, { switchCircuit, newCircuit } from './circuit';
+/* eslint-disable import/no-cycle */
+import Scope, { scopeList, switchCircuit, newCircuit } from './circuit';
+
 import { loadScope } from './data/load';
-import { scheduleUpdate, updateSimulationSet } from './engine';
+import {
+    scheduleUpdate, updateSimulationSet, updateSubcircuitSet, forceResetNodesSet,
+} from './engine';
 import { backUp } from './data/backupCircuit';
 import { getNextPosition } from './modules';
 import { generateId } from './utils';
@@ -94,14 +98,14 @@ export function paste(copyData) {
     }
     var canvasUpdate = true;
     updateSimulationSet(true);
-    updateSubcircuit = true;
+    updateSubcircuitSet(true);
     scheduleUpdate();
     globalScope.ox = oldOx;
     globalScope.oy = oldOy;
     globalScope.scale = oldScale;
 
 
-    forceResetNodes = true;
+    forceResetNodesSet(true);
 }
 /**
  * Helper function for cut
@@ -175,7 +179,7 @@ export function cut(copyList) {
     globalScope.ox = oldOx;
     globalScope.oy = oldOy;
     globalScope.scale = oldScale;
-    forceResetNodes = true;
+    forceResetNodesSet(true);
     // eslint-disable-next-line consistent-return
     return data;
 }
@@ -263,7 +267,7 @@ export function copy(copyList, cutflag = false) {
     globalScope.ox = oldOx;
     globalScope.oy = oldOy;
     globalScope.scale = oldScale;
-    forceResetNodes = true;
+    forceResetNodesSet(true);
     // needs to be fixed
     // eslint-disable-next-line consistent-return
     return data;

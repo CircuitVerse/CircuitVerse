@@ -1,14 +1,18 @@
+import { resetScopeList, newCircuit, switchCircuit } from '../circuit';
 import { setProjectName } from './save';
-import { scheduleUpdate, update, updateSimulationSet, updateCanvasSet } from '../engine';
+import {
+ scheduleUpdate, update, updateSimulationSet, updateCanvasSet, gridUpdateSet 
+} from '../engine';
 import { updateRestrictedElementsInScope } from '../restrictedElementDiv';
 import simulationArea from '../simulationArea';
-import { newCircuit, switchCircuit } from '../circuit';
+
 import { loadSubCircuit } from '../subcircuit';
 import { scheduleBackup } from './backupCircuit';
 import { showProperties } from '../ux';
 import { constructNodeConnections, loadNode, replace } from '../node';
 import { generateId } from '../utils';
-import modules from '../modules'
+import modules from '../modules';
+import { oppositeDirection } from '../canvasApi';
 
 /**
  * Backward compatibility - needs to be deprecated
@@ -150,13 +154,13 @@ export default function load(data) {
         return;
     }
 
-    var projectId = data.projectId;
+    var { projectId } = data;
     var projectName = data.name;
 
     if (data.name === 'Untitled') { projectName = undefined; } else { setProjectName(data.name); }
 
     globalScope = undefined;
-    scopeList = {}; // Remove default scope
+    resetScopeList(); // Remove default scope
     $('.circuits').remove(); // Delete default scope
 
     // Load all circuits according to the dependency order
@@ -195,6 +199,6 @@ export default function load(data) {
 
     updateSimulationSet(true);
     updateCanvasSet(true);
-    gridUpdate = true;
+    gridUpdateSet(true);
     scheduleUpdate();
 }

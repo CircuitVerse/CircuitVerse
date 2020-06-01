@@ -216,40 +216,14 @@ function showProperties(obj) {
         }
     }
 
-<<<<<<< HEAD
-    // Tooltip can be defined in the prototype or the object itself, in addition to help map.
-    var tooltipText = obj && (obj.tooltipText);
-    if (tooltipText) {
-        $('#moduleProperty-inner').append('<p><button id="toolTipButton" class="btn btn-primary btn-xs" type="button" >CircuitVerse Help &#9432</button></p>');
-        $('#toolTipButton').hover(function () {
-            $("#Help").addClass("show");
-            $("#Help").empty();
-            ////console.log("SHOWING")
-            $("#Help").append(tooltipText);
-        }); // code goes in document ready fn only
-        $('#toolTipButton').mouseleave(function () {
-            $("#Help").removeClass("show");
-        });
-        //redirects to obj's specific help page
-        $('#toolTipButton').click(function () {
-            var helplink = obj && (obj.helplink);
-=======
     var helplink = obj && (obj.helplink);
     if (helplink) {
         $('#moduleProperty-inner').append('<p><button id="HelpButton" class="btn btn-primary btn-xs" type="button" >Help &#9432</button></p>');
         $('#HelpButton').click(() => {
->>>>>>> e3672de... basic webpack setup for simulator
             window.open(helplink);
         });
     }
 
-<<<<<<< HEAD
-
-
-
-
-
-=======
     function checkValidBitWidth() {
         const selector = $("[name='newBitWidth']");
         if (selector === undefined
@@ -262,17 +236,12 @@ function showProperties(obj) {
             selector.attr('old-val', selector.val());
         }
     }
->>>>>>> e3672de... basic webpack setup for simulator
 
     $('.objectPropertyAttribute').on('change keyup paste click', function () {
         // return;
         // ////console.log(this.name+":"+this.value);
 
-<<<<<<< HEAD
-
-=======
         checkValidBitWidth();
->>>>>>> e3672de... basic webpack setup for simulator
         scheduleUpdate();
         updateCanvas = true;
         wireToBeChecked = 1;

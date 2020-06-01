@@ -1,37 +1,25 @@
 import simulationArea from './simulationArea';
-import { scheduleUpdate, play, updateCanvasSet } from './engine';
+import { scheduleUpdate, play, updateCanvasSet, errorDetectedSet, checkErrorDetected } from './engine';
 
-window.width = undefined;
-window.height = undefined;
+// window.width = undefined;
+// window.height = undefined;
 
-window.scopeList = {};
+// window.scopeList = {};
 window.globalScope = undefined;
+
 window.unit = 10; // size of each division/ not used everywhere, to be deprecated
-window.uniqueIdCounter = 10; // size of each division/ not used everywhere, to be deprecated
-window.embed = false; // true if embed mode
-window.errorDetected = false; // Flag for error detection
-window.projectId = undefined;
-window.id = undefined;
-window.prevErrorMessage = undefined; // Global variable for error messages
-window.prevShowMessage = undefined; // Global variable for error messages
-window.prevPropertyObj = undefined;
-
-window.gridUpdate = true; // Flag for updating grid
-window.updateSubcircuit = true; // Flag for updating subCircuits
-window.loading = false; // Flag - all assets are loaded
-
-window.DPR = 1; // devicePixelRatio, 2 for retina displays, 1 for low resolution displays
-
-window.projectSaved = true; // Flag for project saved or not
-window.canvasMessageData = undefined; //  Globally set in draw fn ()
-
 window.lightMode = false; // To be deprecated
 
+window.projectId = undefined;
+window.id = undefined;
+window.prevPropertyObj = undefined;
+window.loading = false; // Flag - all assets are loaded
 window.layoutMode = false; // Flag for mode
+// window. // FLag to reset all Nodes
 
-window.forceResetNodes = true; // FLag to reset all Nodes
 
-
+var prevErrorMessage; // Global variable for error messages
+var prevShowMessage; // Global variable for error messages
 export function generateId() {
     var id = '';
     var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -49,7 +37,7 @@ export function stripTags(string = '') {
 
 export function clockTick() {
     if (!simulationArea.clockEnabled) return;
-    if (errorDetected) return;
+    if (checkErrorDetected) return;
     updateCanvasSet(true);
     globalScope.clockTick();
     play();
@@ -61,7 +49,7 @@ export function clockTick() {
  * @param {string} error -The error to be shown
  */
 export function showError(error) {
-    errorDetected = true;
+    errorDetectedSet(true);
     // if error ha been shown return
     if (error === prevErrorMessage) return;
     prevErrorMessage = error;

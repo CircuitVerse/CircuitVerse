@@ -16,6 +16,10 @@ import { newCircuit } from './circuit';
 import load from './data/load';
 import save from './data/save';
 
+window.width = undefined;
+window.height = undefined;
+window.DPR = 1; // devicePixelRatio, 2 for retina displays, 1 for low resolution displays
+
 /**
  * to resize window and setup things it
  * sets up new width for the canvas variables.

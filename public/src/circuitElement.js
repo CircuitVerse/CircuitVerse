@@ -3,15 +3,8 @@
 import { scheduleUpdate } from './engine';
 import simulationArea from './simulationArea';
 import {
-    fixDirection, fillText, correctWidth, rect2,
+    fixDirection, fillText, correctWidth, rect2, oppositeDirection
 } from './canvasApi';
-
-const oppositeDirection = {
-    RIGHT: 'LEFT',
-    LEFT: 'RIGHT',
-    DOWN: 'UP',
-    UP: 'DOWN',
-};
 
 /**
  * Base class for circuit elements.
