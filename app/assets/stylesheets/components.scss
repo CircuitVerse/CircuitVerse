@@ -74,6 +74,29 @@
   height: 40px;
 }
 
+//modals
+.custom-modal-dialog {
+  border-radius: 4px;
+  box-shadow: none;
+  padding-right: 0;
+}
+
+.custom-modal-header {
+  border: 1px solid $green;
+  background-color: $green;
+  box-shadow: none;
+  height: 65px;
+  width: 499px;
+
+  .modal-title {
+    color: $white;
+  }
+
+  .close {
+    color: $white;
+  }
+}
+
 //breakpoints
 @media (max-width:$small-display) {
   .about-button-primary-container {

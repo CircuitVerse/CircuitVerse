@@ -1,24 +1,76 @@
-// Place all the styles related to the group_members controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-.card-member {
-  background-color: $gray-100;
-  border: 1px solid $green-border;
-  border-radius: 2px;
-  margin-top: 8px;
-  padding: 18px 14px;
+
+//group details
+.groupdetails-button-primary-editname {
+  margin-bottom: 20px;
 }
 
-.group-name-editlink {
-  background-color: $teal;
-  border-radius: 5px;
-  color: $white;
+.groupdetails-heading-mentor {
+  font-weight: normal;
+}
+
+.groupdetails-row {
+  padding-top: 65px;
+  justify-content: space-between;
+}
+
+.groupdetails-row-scroll {
+  max-height: 525px;
+  overflow-y: auto;
+}
+
+.groupdetails-button-primary-addmember {
+  padding: 12px 35px;
+}
+
+.groupdetails-card-member {
+  background-color: $lightgrey;
+  border: 1px solid $teal;
+  height: 90px;
+  margin: 10px;
+  max-width: 300px;
+  padding: 15px;
+}
+
+.groupdetails-card-member-details-1 {
+  padding-right: 0;
+  text-align: left;
+
+  i {
+    margin-top: 0;
+    margin-right: 3px;
+  }
+}
+
+.groupdetails-card-member-details-2 {
+  padding-top: 15px;
+}
+
+.groupdetails-card-member-name {
+  color: $black;
+  font-size: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  &:hover {
+    color: $black;
+    text-decoration: none;
+  }
+}
+
+.groupdetails-card-member-email {
+  color: $black;
+  font-size: 15px;
+  max-width: 175px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.groupdetails-button-mini-remove {
+  background-color: $error-red-font;
   cursor: pointer;
-  font-size: 18px;
-  left: 4px;
-  padding: 8px;
-  position: relative;
-  top: -7px;
+  font-size: 15px;
+  margin-left: 5px;
+  padding: 4px 7px;
 
   &:hover {
     color: $white;
@@ -26,21 +78,7 @@
   }
 }
 
-.add-member {
-  background-color: $green;
-  border: 0;
-  border-radius: 25px;
-  color: $white;
-  cursor: pointer;
-  font-size: 18px;
-  padding: 12px 34px;
-
-  &:hover {
-    color: $white;
-    text-decoration: none;
-  }
-}
-
+//to do
 .assignment-view {
   background-color: $green;
   border-radius: 5px;
@@ -109,42 +147,6 @@
   }
 }
 
-.card-member-name {
-  color: $black;
-  font-size: 20px;
-  max-width: 175px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-
-  &:hover {
-    color: $black;
-    text-decoration: none;
-  }
-}
-
-.card-member-email {
-  color: $black;
-  font-size: 18px;
-  letter-spacing: 1px;
-  margin-top: 2px;
-  max-width: 175px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.card-member-remove {
-  background-color: $red;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 15px;
-  overflow: hidden;
-  padding: 2px 5px;
-
-  &:hover {
-    color: $white;
-    text-decoration: none;
-  }
-}
 
 .group-description-back {
   border-radius: 25px;
@@ -172,16 +174,41 @@
   border: 1px solid $green-border;
 }
 
-.add-member-heading {
-  display: inline;
-}
-
-.auto-scroll-members {
-  max-height: 525px;
-  overflow-y: auto;
-}
-
 .scroll-members-card {
   max-height: 125px;
   overflow-y: scroll;
+}
+//to do ends
+
+//to be removed
+.add-member {
+  background-color: $green;
+  border: 0;
+  border-radius: 25px;
+  color: $white;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 12px 34px;
+
+  &:hover {
+    color: $white;
+    text-decoration: none;
+  }
+}
+
+.group-name-editlink {
+  background-color: $teal;
+  border-radius: 5px;
+  color: $white;
+  cursor: pointer;
+  font-size: 18px;
+  left: 4px;
+  padding: 8px;
+  position: relative;
+  top: -7px;
+
+  &:hover {
+    color: $white;
+    text-decoration: none;
+  }
 }

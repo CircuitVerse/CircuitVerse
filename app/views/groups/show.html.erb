@@ -1,94 +1,62 @@
 
 <% content_for :title, @group.name %>
-
-<div class="container p-4">
-  <div>
-    <% if notice %>
-      <p id="notice" class="alert alert-success"><%= notice %></p>
-    <% end %>
-    <h1 style="text-align:center">
-      <%= @group.name %>
-      <% if policy(@group).admin_access? %>
-      <%= link_to ' Edit Name', edit_group_path(@group), class:"group-name-editlink" %>
-      <% end %>
-    </h1>
-    <div style="font-size:25px; text-align:center;">
-      <strong>Mentor:</strong>
-      <%= @group.mentor.name %>
-    </div>
-    <br><br>
-    <div class="d-flex flex-column flex-md-row align-items-center justify-content-md-between">
-      <h3 class="add-member-heading">MEMBERS</h3>
-      <% if policy(@group).admin_access? %>
-      <button type="button" class="add-member" data-toggle="modal" data-target="#myModal">+ Add Members</button>
-      <% end %>
-    </div>
-    <hr>
-    <div class="row auto-scroll-members">
-      <% @group.users.each do |user| %>
-        <div class="col-12 col-md-6 col-lg-4">
-          <div class="card-member d-flex flex-column flex-sm-row justify-content-between align-items-center">
-            <div class="d-flex flex-column align-items-center align-items-sm-start">
-              <div class="d-flex flex-row justify-content-between">
-                <div class="fa fa-user mt-2">&nbsp</div>
-                <%= link_to user.name, user, class: " card-member-name" %>
-              </div>
-              <div class="card-member-email"><%= user.email %></div>
-            </div>
-            <% if policy(@group).admin_access? %>
-              <%= link_to 'Remove', group_member_path(GroupMember.find_by(user_id:user.id,group_id:@group.id)), method: :delete, data: { confirm: 'Are you sure?' }, class:"card-member-remove text-white  mt-1 mt-sm-0" %>
-            <% end %>
-          </div>
-        </div>
-      <% end %>
-    </div>
-    <div id="myModal" class="modal fade" role="dialog">
-      <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Add members</h4>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-          </div>
-          <div class="modal-body">
-            <p>Enter Email IDs separated by commas/spaces or in separate lines. If users are not registered, an email ID will be sent requesting them to sign up.</p>
-            <%= form_with(model: @group_member, local: true) do |form| %>
-              <% if @group_member.errors.any? %>
-                <div id="error_explanation">
-                  <h2><%= pluralize(group_member.errors.count, "error") %> prohibited this group_member from being saved:</h2>
-                  <ul>
-                    <% @group_member.errors.full_messages.each do |message| %>
-                        <li><%= message %></li>
-                    <% end %>
-                  </ul>
-                </div>
-              <% end %>
-              <div class="field">
-                <%= form.hidden_field :group_id, id: :group_member_group_id %>
-              </div>
-              <div class="form-group">
-                <label for="emails">Email IDs:</label>
-                <textarea class="form-control" rows="5" id="emails" name="group_member[emails]"></textarea>
-              </div>
-              <div class="actions modal-footer">
-                <%= form.submit "Add members", class: 'btn btn-secondary' %>
-              </div>
-            <% end %>
-          </div>
-          <!--<div class="modal-footer">-->
-            <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">close</button>-->
-          <!--</div>-->
-        </div>
-      </div>
-    </div>
-      <br><br>
-      <div class="d-flex flex-column flex-md-row align-items-center justify-content-md-between">
-        <h3 class="add-member-heading">ASSIGNMENTS</h3>
+<div class="container">
+  <div class="row row-text">
+    <div class="col-xs col-sm col-md col-lg">
+      <h1 class="heading-submain">
+        <%= @group.name %>
         <% if policy(@group).admin_access? %>
-        <%= link_to '+ Add new assignment', new_group_assignment_path(@group), class: "add-member" %>
+          <%= link_to edit_group_path(@group), class:"btn button-primary groupdetails-button-primary-editname" do %>
+            <%= image_tag("SVGs/editGroup.svg", alt: "Edit Group") %>
+            <span>Edit Name</span>
+          <% end %>
         <% end %>
+      </h1>
+      <h4 class="groupdetails-heading-mentor">
+        <strong>Mentor:</strong>
+        <%= @group.mentor.name %>
+      </h4>
+      <% if notice %>
+        <p id="notice" class="alert alert-success"><%= notice %></p>
+      <% end %>
+    </div>
+  </div>
+  <div class="row row-text groupdetails-row">
+    <h3>MEMBERS</h3>
+    <% if policy(@group).admin_access? %>
+      <button type="button" class="btn button-primary groupdetails-button-primary-addmember" data-toggle="modal" data-target="#myModal">+ Add Members</button>
+    <% end %>
+  </div>
+  <hr>
+  <div class="row row-text groupdetails-row-scroll">
+    <% @group.users.each do |user| %>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+        <div class="groupdetails-card-member">
+          <div class="row">
+            <div class="col-7 groupdetails-card-member-details-1">
+              <i class="fa fa-user"></i>
+              <%= link_to user.name, user, class: "groupdetails-card-member-name" %>
+              <p class="groupdetails-card-member-email"><%= user.email %></p>
+            </div>
+            <div class="col-4 groupdetails-card-member-details-2">
+              <% if policy(@group).admin_access? %>
+                <%= link_to 'Remove', group_member_path(GroupMember.find_by(user_id:user.id,group_id:@group.id)), method: :delete, data: { confirm: 'Are you sure?' }, class:"button-mini-edit groupdetails-button-mini-remove" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
       </div>
-      <hr>
+    <% end %>
+  </div>
+  <div class="row row-text groupdetails-row">
+    <h3>ASSIGNMENTS</h3>
+    <% if policy(@group).admin_access? %>
+      <%= link_to '+ Add Assignment', new_group_assignment_path(@group), class: "btn button-primary groupdetails-button-primary-addmember" %>
+    <% end %>
+  </div>
+  <hr>
+
+    <!-- to do -->
     <table class="table assignment-table table-borderless">
       <thead>
       <tr>
@@ -159,7 +127,45 @@
     </table>
     <% if policy(@group).admin_access? %>
     <% end %>
-    <%= link_to 'Back', user_groups_path(current_user) ,class:"btn underline text-success" %>
+    <!-- to do ends -->
+
+  <%= link_to 'Back', user_groups_path(current_user) ,class:"anchor-text" %>
+
+  <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog custom-modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header custom-modal-header">
+          <h4 class="modal-title">Add members</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p>Enter Email IDs separated by commas/spaces or in separate lines. If users are not registered, an email ID will be sent requesting them to sign up.</p>
+          <%= form_with(model: @group_member, local: true) do |form| %>
+            <% if @group_member.errors.any? %>
+              <div id="error-explanation">
+                <h6><%= pluralize(group_member.errors.count, "error") %> prohibited this group member from being saved:</h6>
+                <ul>
+                  <% @group_member.errors.full_messages.each do |message| %>
+                      <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+            <div class="field">
+              <%= form.hidden_field :group_id, id: :group_member_group_id %>
+            </div>
+            <div class="form-group">
+              <label for="emails">Email IDs:</label>
+              <textarea class="form-control" rows="5" id="emails" name="group_member[emails]"></textarea>
+            </div>
+            <div class="actions modal-footer">
+              <%= form.submit "Add members", class: 'btn button-primary' %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
   <script>
       $(document).ready(function() {
