@@ -19,20 +19,15 @@ class Api::V1::CollaboratorsController < Api::V1::BaseController
 
   # POST /api/v1/projects/:project_id/collaborators
   def create
-    parse_mails_except_current_user(params[:emails])
-    newly_added = @valid_mails - @existing_mails
+    mails_handler = MailsHandler.new(params[:emails], @project, @current_user)
+    # parse mails as valid or invalid
+    mails_handler.parse
 
-    @added_mails = []
-
-    newly_added.each do |email|
-      user = User.find_by(email: email)
-      if user.present?
-        @added_mails.push(email)
-        Collaboration.where(project_id: @project.id, user_id: user.id).first_or_create
-      end
-    end
-
-    render json: { added: @added_mails, existing: @existing_mails, invalid: @invalid_mails }
+    render json: {
+      added: mails_handler.added_mails,
+      existing: mails_handler.existing_mails,
+      invalid: mails_handler.invalid_mails
+    }
   end
 
   # DELETE /api/v1//projects/:project_id/collaborators/:id
@@ -59,24 +54,5 @@ class Api::V1::CollaboratorsController < Api::V1::BaseController
 
     def collaborator_params
       params.require(:collaborator).permit(:project_id, :emails)
-    end
-
-    def parse_mails_except_current_user(mails)
-      @valid_mails = []
-      @invalid_mails = []
-
-      mails.split(",").each do |email|
-        email = email.strip
-        if email.present? && email != @current_user.email \
-          && Devise.email_regexp.match?(email)
-          @valid_mails.push(email)
-        else
-          @invalid_mails.push(email)
-        end
-      end
-
-      @existing_mails = User.where(
-        id: @project.collaborations.pluck(:user_id)
-      ).pluck(:email)
     end
 end

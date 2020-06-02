@@ -36,7 +36,7 @@ RSpec.describe Api::V1::CollaboratorsController, "#create", type: :request do
     context "when authorized but tries to add collaborator to non existent project" do
       before do
         token = get_auth_token(author)
-        post "//api/v1/projects/0/collaborators/",
+        post "/api/v1/projects/0/collaborators/",
              headers: { "Authorization": "Token #{token}" },
              params: create_params, as: :json
       end
@@ -53,7 +53,7 @@ RSpec.describe Api::V1::CollaboratorsController, "#create", type: :request do
         existing = FactoryBot.create(:user, email: "existing@test.com")
         FactoryBot.create(:collaboration, user: existing, project: project)
         token = get_auth_token(author)
-        post "//api/v1/projects/#{project.id}/collaborators/",
+        post "/api/v1/projects/#{project.id}/collaborators/",
              headers: { "Authorization": "Token #{token}" },
              params: create_params, as: :json
       end
@@ -64,6 +64,7 @@ RSpec.describe Api::V1::CollaboratorsController, "#create", type: :request do
 
       it "returns the added, already_existing & invalid mails (author being invalid)" do
         expect(response.parsed_body["added"]).to eq([user.email])
+        puts user.email
         expect(response.parsed_body["existing"]).to eq(["existing@test.com"])
         expect(response.parsed_body["invalid"]).to eq(["invalid", author.email])
       end
