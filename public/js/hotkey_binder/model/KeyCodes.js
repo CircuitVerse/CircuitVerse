@@ -1,6 +1,6 @@
 //extracted from https://github.com/wesbos/keycodes
 
-export default keyCodes = {
+const keyCodes = {
   0: "That key has no keycode",
   3: "break",
   8: "backspace / delete",

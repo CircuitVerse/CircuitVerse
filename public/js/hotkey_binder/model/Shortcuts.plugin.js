@@ -5,9 +5,21 @@
  * License : BSD
  */
 
+
+ /**
+ * Restrictions:
+ *  The shortcut key combination should be specified in this format ... Modifier[+Modifier..]+Key.
+ *  Can have a single key without Modifier .. Key, not Key + Key
+ * These restrictions will be hardcoded to not let users input invalid key combo
+ *
+ * There is no way to override Ctrl+N, Ctrl+T, or Ctrl+W in Google Chrome since version 4 of Chrome (shipped in 2010).
+ *
+ *
+ */
+
 //*! This plugin has been modified
 
-export default shortcut = {
+const shortcut = {
   all_shortcuts: {}, //All the shortcuts are stored in this array ex. download : keycombo;
   add: function (shortcut_combination, callback, opt) {
     //Provide a set of default options

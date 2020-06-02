@@ -41,6 +41,7 @@
           <li><a type="button" class="dropdown-item" id="bitconverter" >Hex-Bin-Dec-Converter</a></li>
           <li><a class="dropdown-item logixButton" id="startPlot">Start Plot</a></li>
           <li><a class="dropdown-item logixButton" id="createSaveAsImgPrompt">Download Image</a>
+          <li><a class="dropdown-item" id="customShortcut">Custom Shortcut Preference</a>
         </ul>
       </li>
       <li class="">
@@ -69,6 +70,21 @@
   </div>
   <!-- /.navbar-collapse -->
 </nav>
+<div id="customShortcutDialog">
+        <div id="edit"tabindex="0">
+          <span style="font-size: 14px;">Press Desire Key Combination and press Enter or press ESC to cancel.</span>
+          <div id="pressedKeys"></div>
+        </div>
+        <span id="closeDialog">+</span>
+        <span id="dialogTitle">Keyboard Shortcuts Preference</span>
+        <div id="heading">
+            <span>Command</span>
+            <span>Keymapping</span>
+        </div>
+        <button id="resetDefault" onClick="setDefault();" >Reset to default</button>
+        <button id="submitbtn">Save</button>
+    </div>
+
   <div>
     <div class="side left" id="sideBar">
       <div class="modules noSelect defaultCursor">
@@ -294,6 +310,13 @@
     <script src="/js/layout.js"></script>
     <script src="/js/testBench.js"></script>
     <script src="/js/verilog.js"></script>
+    <!-- hotkeys -->
+    <script src="/js/hotkey_binder/model/keyCodes.js"></script>
+    <script src="/js/hotkey_binder/model/utils.js"></script>
+    <script src="/js/hotkey_binder/model/shortcuts.plugin.js"></script>
+    <script src="/js/hotkey_binder/view/panel.ui.js"></script>
+    <script src="/js/hotkey_binder/keyBinder.js"></script>
+    <!-- hotkeys-end --> 
     <script type="text/javascript" src="/js/metadata.json"></script>
     <% if @project.nil? or @project.assignment_id.nil? %>
       <script src="/js/combinationalAnalysis.js"></script>

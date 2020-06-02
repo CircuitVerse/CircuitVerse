@@ -1,3 +1,5 @@
+@import './shorcut.panel.css';
+
 .deleteOfflineProject {
     float: right;
     cursor: pointer;
