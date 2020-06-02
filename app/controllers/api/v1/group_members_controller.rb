@@ -5,7 +5,6 @@ class Api::V1::GroupMembersController < Api::V1::BaseController
   before_action :set_group, only: %i[index create]
   before_action :set_group_member, only: %i[destroy]
   before_action :check_edit_access, only: %i[create]
-  before_action :parse_mails, only: %i[create]
 
   # GET /api/v1/groups/:group_id/group_members/
   def index
@@ -19,23 +18,17 @@ class Api::V1::GroupMembersController < Api::V1::BaseController
 
   # POST /api/v1/groups/:group_id/group_members/
   def create
-    newly_added = @valid_mails - @existing_mails
+    mails_handler = MailsHandler.new(params[:emails], @group, @current_user)
+    # parse mails as valid or invalid
+    mails_handler.parse
+    # create invitation or group member
+    mails_handler.create_invitation_or_group_member
 
-    @pending_mails = []
-    @added_mails = []
-
-    newly_added.each do |email|
-      user = User.find_by(email: email)
-      if user.nil?
-        @pending_mails.push(email)
-        PendingInvitation.where(group_id: @group.id, email: email).first_or_create
-      else
-        @added_mails.push(email)
-        GroupMember.where(group_id: @group.id, user_id: user.id).first_or_create
-      end
-    end
-
-    render json: { added: @added_mails, pending: @pending_mails, invalid: @invalid_mails }
+    render json: {
+      added: mails_handler.added_mails,
+      pending: mails_handler.pending_mails,
+      invalid: mails_handler.invalid_mails
+    }
   end
 
   # DELETE /api/v1/group_members/:id
@@ -60,23 +53,5 @@ class Api::V1::GroupMembersController < Api::V1::BaseController
     def check_edit_access
       # check if current user has admin/mentor rights to create group members
       authorize @group, :admin_access?
-    end
-
-    def parse_mails
-      @valid_mails = []
-      @invalid_mails = []
-
-      params[:emails].split(",").each do |email|
-        email = email.strip
-        if email.present? && Devise.email_regexp.match?(email)
-          @valid_mails.push(email)
-        else
-          @invalid_mails.push(email)
-        end
-      end
-
-      @existing_mails = User.where(
-        id: @group.group_members.pluck(:user_id)
-      ).pluck(:email)
     end
 end
