@@ -5,3 +5,4 @@ Storage.prototype.set = function (key, obj) {
 Storage.prototype.get = function (key) {
   return JSON.parse(this.getItem(key));
 };
+
