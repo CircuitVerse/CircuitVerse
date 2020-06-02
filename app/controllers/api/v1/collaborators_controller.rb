@@ -3,7 +3,7 @@
 class Api::V1::CollaboratorsController < Api::V1::BaseController
   before_action :authenticate_user!
   before_action :set_project
-  before_action :check_author_access, only: %i[create destroy]
+  before_action :check_author_access, except: %i[index]
   before_action :set_collaborator, only: %i[destroy]
 
   # /api/v1/projects/:project_id/collaborators
