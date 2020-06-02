@@ -85,7 +85,6 @@ export function changeScale(delta, xx, yy, method = 1) {
         setTimeout(removeMiniMap, 2000);
     }
 }
-window.changeScale = changeScale; // called in html to be updated
 // fn to draw Dots on screen
 // the function is called only when the zoom level or size of screen changes.
 // Otherwise for normal panning, the canvas itself is moved to give the illusion of movement

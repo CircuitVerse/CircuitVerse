@@ -3,6 +3,7 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable guard-for-in */
+import { layoutModeGet } from './layoutMode';
 import {
     scheduleUpdate, wireToBeCheckedSet, updateCanvasSet, update, updateSimulationSet,
 } from './engine';
@@ -52,7 +53,7 @@ function hideContextMenu() {
  * Function displays context menu
  */
 function showContextMenu() {
-    if (layoutMode) return false; // Hide context menu when it is in Layout Mode
+    if (layoutModeGet()) return false; // Hide context menu when it is in Layout Mode
     $('#contextMenu').css({
         visibility: 'visible',
         opacity: 1,

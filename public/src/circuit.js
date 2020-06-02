@@ -10,9 +10,10 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-alert */
 import CircuitElement from './circuitElement';
-import simulationArea from './simulationArea';
-import { changeClockTime } from './simulationArea';
-import { stripTags, uniq, showMessage, showError } from './utils';
+import simulationArea, { changeClockTime } from './simulationArea';
+import {
+    stripTags, uniq, showMessage, showError,
+} from './utils';
 import { findDimensions, dots } from './canvasApi';
 import { updateRestrictedElementsList } from './restrictedElementDiv';
 import { scheduleBackup } from './data/backupCircuit';
@@ -22,12 +23,14 @@ import {
     updateCanvasSet, updateSubcircuitSet,
     forceResetNodesSet,
 } from './engine';
-import { toggleLayoutMode } from './layoutMode';
+import { toggleLayoutMode, layoutModeGet } from './layoutMode';
 import { setProjectName } from './data/save';
 import { changeClockEnable } from './sequential';
 import { changeInputSize } from './modules';
 
-export const circuitProperty = { toggleLayoutMode, setProjectName, changeCircuitName, changeClockTime, deleteCurrentCircuit, changeClockEnable, changeInputSize };
+export const circuitProperty = {
+    toggleLayoutMode, setProjectName, changeCircuitName, changeClockTime, deleteCurrentCircuit, changeClockEnable, changeInputSize,
+};
 export var scopeList = {};
 export function resetScopeList() {
     scopeList = {};
@@ -40,7 +43,7 @@ export function resetScopeList() {
  * @param {string} id - identifier for circuit
  */
 export function switchCircuit(id) {
-    if (layoutMode) { toggleLayoutMode(); }
+    if (layoutModeGet()) { toggleLayoutMode(); }
 
     // globalScope.fixLayout();
     scheduleBackup();
@@ -255,7 +258,7 @@ export default class Scope {
 
     // Function which centers the circuit to the correct zoom level
     centerFocus(zoomIn = true) {
-        if (layoutMode) return;
+        if (layoutModeGet()) return;
         findDimensions(this);
         var minX = simulationArea.minWidth || 0;
         var minY = simulationArea.minHeight || 0;

@@ -3,6 +3,7 @@
 /* eslint-disable no-continue */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-bitwise */
+import { layoutModeGet } from './layoutMode';
 import plotArea from './plotArea';
 import { layoutUpdate } from './layoutMode';
 import simulationArea from './simulationArea';
@@ -12,6 +13,8 @@ import {
 import { showProperties } from './ux';
 import { showError } from './utils';
 import miniMapArea from './minimap';
+import { createNodeGet } from './listeners';
+
 /**
  * Core of the simulation and rendering algorithm.
  * @module engine
@@ -84,7 +87,7 @@ export function updateSubcircuitSet(param) {
  * @param {Scope} scope - The circuit whose canvas we want to render
  */
 export function renderCanvas(scope) {
-    if (layoutMode) { // Different Algorithm
+    if (layoutModeGet()) { // Different Algorithm
         return;
     }
     var ctx = simulationArea.context;
@@ -120,7 +123,7 @@ export function renderCanvas(scope) {
     }
     if (simulationArea.hover !== undefined) {
         simulationArea.canvas.style.cursor = 'pointer';
-    } else if (createNode) {
+    } else if (createNodeGet()) {
         simulationArea.canvas.style.cursor = 'grabbing';
     } else {
         simulationArea.canvas.style.cursor = 'default';
@@ -279,13 +282,13 @@ export function play(scope = globalScope, resetNodes = false) {
  */
 export function scheduleUpdate(count = 0, time = 100, fn) {
     if (lightMode) time *= 5;
-    if (count && !layoutMode) { // Force update
+    if (count && !layoutModeGet()) { // Force update
         update();
         for (let i = 0; i < count; i++) { setTimeout(update, 10 + 50 * i); }
     }
     if (willBeUpdated) return; // Throttling
     willBeUpdatedSet(true);
-    if (layoutMode) {
+    if (layoutModeGet()) {
         setTimeout(layoutUpdate, time); // Update layout, different algorithm
         return;
     }
@@ -308,7 +311,7 @@ export function scheduleUpdate(count = 0, time = 100, fn) {
  */
 export function update(scope = globalScope, updateEverything = false) {
     willBeUpdatedSet(false);
-    if (loading === true || layoutMode) return;
+    if (loading === true || layoutModeGet()) return;
     var updated = false;
     simulationArea.hover = undefined;
     // Update wires

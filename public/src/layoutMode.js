@@ -6,7 +6,9 @@ import {
 import LayoutBuffer from './layout/layoutBuffer';
 import simulationArea from './simulationArea';
 import { hideProperties } from './ux';
-import { update, scheduleUpdate, willBeUpdatedSet, gridUpdateSet } from './engine';
+import {
+    update, scheduleUpdate, willBeUpdatedSet, gridUpdateSet,
+} from './engine';
 import miniMapArea from './minimap';
 import { showMessage } from './utils';
 
@@ -15,6 +17,16 @@ import { showMessage } from './utils';
  * You can edit how your subcircuit for a circuit will look by
  * clicking edit layout in properties for a ciruit
  */
+
+var layoutMode = false;
+
+export function layoutModeSet(param) {
+    layoutMode = param;
+}
+
+export function layoutModeGet(param) {
+    return layoutMode;
+}
 
 /**
  * @type {LayoutBuffer} - used to temporartily store all changes.
@@ -67,7 +79,7 @@ export function paneLayout(scope = globalScope) {
  * @param {Scope=} scope
  */
 export function renderLayout(scope = globalScope) {
-    if (!layoutMode) return;
+    if (!layoutModeGet()) return;
     var { xx } = tempBuffer;
     var { yy } = tempBuffer;
     var ctx = simulationArea.context;
@@ -121,7 +133,7 @@ export function renderLayout(scope = globalScope) {
  * @param {Scope} scope - the circuit whose subcircuit we are editing
  */
 export function layoutUpdate(scope = globalScope) {
-    if (!layoutMode) return;
+    if (!layoutModeGet()) return;
     willBeUpdatedSet(false);
     for (let i = 0; i < tempBuffer.Input.length; i++) {
         tempBuffer.Input[i].update();
@@ -268,7 +280,7 @@ export function toggleLayoutTitle() {
  * just toggles back to normal mode
  */
 function cancelLayout() {
-    if (layoutMode) {
+    if (layoutModeGet()) {
         // eslint-disable-next-line no-use-before-define
         toggleLayoutMode();
     }
@@ -279,7 +291,7 @@ function cancelLayout() {
  * Store all data into layout and exit
  */
 function saveLayout() {
-    if (layoutMode) {
+    if (layoutModeGet()) {
         for (let i = 0; i < tempBuffer.Input.length; i++) {
             tempBuffer.Input[i].parent.layoutProperties.x = tempBuffer.Input[i].x;
             tempBuffer.Input[i].parent.layoutProperties.y = tempBuffer.Input[i].y;
@@ -299,13 +311,13 @@ function saveLayout() {
  * the sidebar is disabled and n properties are shown.
  */
 export function toggleLayoutMode() {
-    if (layoutMode) {
-        layoutMode = false;
+    if (layoutModeGet()) {
+        (layoutModeSet(false));
         $('#layoutDialog').fadeOut();
         globalScope.centerFocus(false);
         dots();
     } else {
-        layoutMode = true;
+        (layoutModeSet(true));
         $('#layoutDialog').fadeIn();
         globalScope.ox = 0;
         globalScope.oy = 0;

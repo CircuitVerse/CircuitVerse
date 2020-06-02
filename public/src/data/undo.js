@@ -3,13 +3,14 @@
  * Function to restore copy from backup
  * @param {Scope=} scope - The circuit on which undo is called
  */
+import { layoutModeGet } from '../layoutMode';
 import Scope, { scopeList } from '../circuit';
 import { loadScope } from './load';
 import { updateRestrictedElementsInScope } from '../restrictedElementDiv';
 import { forceResetNodesSet } from '../engine';
 
 export default function undo(scope = globalScope) {
-    if (layoutMode) return;
+    if (layoutModeGet()) return;
     if (scope.backups.length === 0) return;
     const backupOx = globalScope.ox;
     const backupOy = globalScope.oy;
@@ -34,4 +35,3 @@ export default function undo(scope = globalScope) {
     updateRestrictedElementsInScope();
 }
 // for html file
-window.undo = undo;

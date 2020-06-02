@@ -1,4 +1,5 @@
 // Most Listeners are stored here
+import { layoutModeGet } from './layoutMode';
 import simulationArea from './simulationArea';
 import {
     scheduleUpdate, update, updateSelectionsAndPane,
@@ -8,17 +9,47 @@ import {
 import { changeScale } from './canvasApi';
 import { scheduleBackup } from './data/backupCircuit';
 import { hideProperties, deleteSelected, uxvar } from './ux';
-import { updateRestrictedElementsList, updateRestrictedElementsInScope } from './restrictedElementDiv';
+import {
+    updateRestrictedElementsList, updateRestrictedElementsInScope, hideRestricted, showRestricted,
+} from './restrictedElementDiv';
 import { removeMiniMap, updatelastMinimapShown } from './minimap';
 import undo from './data/undo';
 import { copy, paste, selectAll } from './events';
 import save from './data/save';
 import { layoutUpdate } from './layoutMode';
 
+
+var createNode = false; // Flag to create node when its value ==tru)e
+export function createNodeSet(param) {
+    createNode = param;
+}
+export function createNodeGet(param) {
+    return createNode;
+}
+
+var stopWire = true; // flag for stopoing making Nodes when the second terminal reaches a Node (closed path)
+export function stopWireSet(param) {
+    stopWire = param;
+}
+
+
 export default function startListeners() {
     $('#deleteSelected').click(() => {
         deleteSelected();
     });
+
+    $('#zoomIn').click(() => {
+        changeScale(0.2, 'zoomButton', 'zoomButton', 2);
+    });
+
+    $('#zoomOut').click(() => {
+        changeScale(-0.2, 'zoomButton', 'zoomButton', 2);
+    });
+
+    $('#undoButton').click(() => {
+        undo();
+    });
+
     window.addEventListener('keyup', (e) => {
         scheduleUpdate(1);
         simulationArea.shiftDown = e.shiftKey;
@@ -31,8 +62,8 @@ export default function startListeners() {
     });
 
     document.getElementById('simulationArea').addEventListener('mousedown', (e) => {
-        createNode = true;
-        stopWire = false;
+        createNodeSet(true);
+        stopWireSet(false);
         simulationArea.mouseDown = true;
 
         $('input').blur();
@@ -109,7 +140,7 @@ export default function startListeners() {
 
             //  stop making wires when we connect the 2nd termial to a node
             if (stopWire) {
-                createNode = false;
+                createNodeSet(false);
             }
 
             if (e.key == 'Meta' || e.key == 'Control') {
@@ -279,7 +310,7 @@ export default function startListeners() {
         updateCanvasSet(true);
         gridUpdateSet(true);
 
-        if (layoutMode)layoutUpdate();
+        if (layoutModeGet())layoutUpdate();
         else update(); // Schedule update not working, this is INEFFICIENT
     }
 
@@ -399,7 +430,7 @@ function onMouseMove(e) {
 }
 
 function onMouseUp(e) {
-    createNode = simulationArea.controlDown;
+    createNodeSet(simulationArea.controlDown);
     simulationArea.mouseDown = false;
     console.log(createNode);
     if (!lightMode) {
