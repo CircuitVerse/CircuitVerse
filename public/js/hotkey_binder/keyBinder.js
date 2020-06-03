@@ -25,7 +25,7 @@ $("#customShortcut").click(() => {
 
 let targetPref = null;
 $("#preference").click((e) => {
-  $("#pressedKeys").innerText = "";
+  $("#pressedKeys").text("");
   $("#edit").css("display", "block");
   $(function () {
     $($("#edit")).focus();

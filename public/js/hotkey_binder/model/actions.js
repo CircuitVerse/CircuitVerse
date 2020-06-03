@@ -74,7 +74,7 @@ const addShortcut = (keys, action) => {
   }
   shortcut.add(keys, callback, {
     type: "keydown",
-    propagate: false,
+    propagate: true,
     target: document,
   });
 };
