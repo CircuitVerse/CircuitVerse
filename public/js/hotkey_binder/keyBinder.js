@@ -3,6 +3,7 @@ $("#customShortcutDialog").append(heading);
 $("#customShortcutDialog").append(markUp);
 
 $("#customShortcut").click(() => {
+  closeEdit(); //if edit is showing, close it
   $("#customShortcutDialog").dialog({
     buttons: [
       {
@@ -34,11 +35,8 @@ $("#preference").click((e) => {
 
 $("#edit").keydown((e) => {
   e = e || window.event;
-  // shortcut.removeAll();
-  if (e.keyCode == 27) {
-    $("#pressedKeys").text("");
-    $("#edit").css("display", "none");
-  }
+  e.stopPropagation();
+  if (e.keyCode == 27) closeEdit();
   if (!$("#pressedKeys").text()) {
     $("#pressedKeys").text(keyCodes[e.keyCode]);
   } else {

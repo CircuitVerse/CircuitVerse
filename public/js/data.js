@@ -979,8 +979,8 @@ function generateImage(imgType, view, transparent, resolution, down = true) {
 
 }
 
-if (logix_project_id == 0)
-setTimeout(promptSave,120000);
+// if (logix_project_id == 0)
+// setTimeout(promptSave,120000);
 
 function promptSave(){
     console.log("PROMPT")

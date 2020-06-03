@@ -69,3 +69,8 @@ const updateHTML = (mode) => {
     }
   }
 };
+
+const closeEdit = () => {
+  $("#pressedKeys").text("");
+  $("#edit").css("display", "none");
+};
