@@ -1,3 +1,7 @@
+/* eslint-disable quotes */
+/* eslint-disable indent */
+/* eslint-disable linebreak-style */
+
 $("#customShortcutDialog").append(editPanel);
 $("#customShortcutDialog").append(heading);
 $("#customShortcutDialog").append(markUp);
@@ -36,20 +40,30 @@ $("#preference").click((e) => {
 $("#edit").keydown((e) => {
   e = e || window.event;
   e.stopPropagation();
-  if (e.keyCode == 27) closeEdit();
-  if (!$("#pressedKeys").text()) {
-    $("#pressedKeys").text(keyCodes[e.keyCode].toUpperCase());
-  } else {
-    $("#pressedKeys").append(` + ${keyCodes[e.keyCode]}`.toUpperCase());
-  }
-
-  if (e.keyCode == 13) {
-    $("#edit").css("display", "none");
-    targetPref.innerText = $("#pressedKeys")
-      .text()
-      .substring(0, $("#pressedKeys").text().length - 2)
-      .toUpperCase();
+  let modifiers = ["CTRL", "ALT", "SHIFT"];
+  if (e.keyCode === 27) closeEdit();
+  if (e.keyCode === 13) {
+    targetPref.innerText = $("#pressedKeys").text().toUpperCase();
     $("#pressedKeys").text("");
+    $("#edit").css("display", "none");
+  }
+  const currentKey = keyCodes[e.keyCode].toUpperCase();
+  if (
+    $("#pressedKeys").text().split(" + ").length === 2 &&
+    !modifiers.includes(currentKey)
+  ) {
+    $("#pressedKeys").append(` + ${currentKey}`);
+  } else if (modifiers.includes($("#pressedKeys").text())) {
+    modifiers = modifiers.filter((mod) => mod === $("#pressedKeys").text());
+    if (!modifiers.includes(currentKey)) {
+      $("#pressedKeys").append(` + ${currentKey}`);
+    }
+  } else {
+    $("#pressedKeys").text("");
+    $("#pressedKeys").text(currentKey);
+  }
+  if (!$("#pressedKeys").text()) {
+    $("#pressedKeys").text(currentKey);
   }
 });
 
