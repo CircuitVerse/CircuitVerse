@@ -1,8 +1,11 @@
 /**
- * @module plot
+ * @module plotArea
+ * @category plotArea
  */
 /**
  * function to add the plotting div
+ * @memberof module:plotArea
+ * @category plotArea
  */
 function addPlot() {
     plotArea.ox = 0;
@@ -12,11 +15,12 @@ function addPlot() {
     plotArea.specificTimeX = 0;
 }
 
+/**
+ * Used as a stopwatch to
+ * record time side of the plot
+ * @category plotArea
+ */
 class StopWatch {
-    /**
-     * Used as a stopwatch to
-     * record time side of the plot
-     */
     constructor() {
         this.StartMilliseconds = 0;
         this.ElapsedMilliseconds = 0;
@@ -41,6 +45,7 @@ class StopWatch {
 
 /**
  * @typedef {Object} plotArea
+ * @category plotArea
  */
 const plotArea = {
     ox: 0,
@@ -283,6 +288,7 @@ if (document.getElementById('plotArea') !== null) {
 }
 /**
  * sets plot values of all flags and it add(s)Plot().
+ * @category plotArea
  */
 function startPlot() {
     plotArea.stopWatch.Start();

@@ -17,7 +17,7 @@ import { createNodeGet } from './listeners';
 
 /**
  * Core of the simulation and rendering algorithm.
- * @module engine
+ * @category engine
  */
 var wireToBeChecked = 0; // when node disconnects from another node
 export function wireToBeCheckedSet(param) {
@@ -85,6 +85,7 @@ export function updateSubcircuitSet(param) {
 /**
  * Function to render Canvas according th renderupdate order
  * @param {Scope} scope - The circuit whose canvas we want to render
+ * @category engine
  */
 export function renderCanvas(scope) {
     if (layoutModeGet()) { // Different Algorithm
@@ -134,6 +135,7 @@ export function renderCanvas(scope) {
  * Function to move multiple objects and panes window
  * deselected using dblclick right now (PR open for esc key)
  * @param {Scope=} scope - the circuit in which we are selecting stuff
+ * @category engine
  */
 export function updateSelectionsAndPane(scope = globalScope) {
     if (!simulationArea.selected && simulationArea.mouseDown) {
@@ -218,6 +220,7 @@ export function updateSelectionsAndPane(scope = globalScope) {
  * the simulation starts to play.
  * @param {Scope=} scope - the circuit we want to simulate
  * @param {boolean} resetNodes - boolean to reset all nodes
+ * @category engine
  */
 export function play(scope = globalScope, resetNodes = false) {
     if (errorDetected) return; // Don't simulate until error is fixed
@@ -279,6 +282,7 @@ export function play(scope = globalScope, resetNodes = false) {
  * @param {number=} count - this is used to force update
  * @param {number=} time - the time throttling parameter
  * @param {function} fn - function to run before updating UI
+ * @category engine
  */
 export function scheduleUpdate(count = 0, time = 100, fn) {
     if (lightMode) time *= 5;
@@ -308,6 +312,7 @@ export function scheduleUpdate(count = 0, time = 100, fn) {
  * circuit and redraws canvas if required.
  * @param {Scope=} scope - the circuit to be updated
  * @param {boolean=} updateEverything - if true we update the wires, nodes and modules
+ * @category engine
  */
 export function update(scope = globalScope, updateEverything = false) {
     willBeUpdatedSet(false);

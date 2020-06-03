@@ -19,8 +19,9 @@ var sampleOutputListNames = ['X'];
 /**
  * The prompt for combinational analysis
  * @param {Scope=} - the circuit in which we want combinational analysis
+ * @category combinationalAnalysis
  */
-export default function createCombinationalAnalysisPrompt(scope = globalScope) {
+export function createCombinationalAnalysisPrompt(scope = globalScope) {
     // console.log("Ya");
     scheduleBackup();
     $('#combinationalAnalysis').empty();
@@ -57,6 +58,7 @@ export default function createCombinationalAnalysisPrompt(scope = globalScope) {
  * @param {Array} inputListNames - labels of input nodes
  * @param {Array} outputListNames - labels of output nodes
  * @param {Scope=} scope - h circuit
+ * @category combinationalAnalysis
  */
 function createBooleanPrompt(inputListNames, outputListNames, scope = globalScope) {
     var inputListNames = inputListNames || (prompt('Enter inputs separated by commas').split(','));

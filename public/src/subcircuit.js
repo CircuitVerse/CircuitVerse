@@ -13,6 +13,7 @@ import { fillText } from './canvasApi';
 
 /**
  * Function to load a subcicuit
+ * @category subcircuit
  */
 export function loadSubCircuit(savedData, scope) {
     new SubCircuit(savedData.x, savedData.y, scope, savedData.id, savedData);
@@ -21,6 +22,7 @@ export function loadSubCircuit(savedData, scope) {
 /**
  * Prompt to create subcircuit, shows list of circuits which dont depend on the current circuit
  * @param {Scope=} scope
+ * @category subcircuit
  */
 export function createSubCircuitPrompt(scope = globalScope) {
     console.log('hey');
@@ -59,6 +61,7 @@ export function createSubCircuitPrompt(scope = globalScope) {
  * @param {Scope=} scope - the circuit in which subcircuit has been added
  * @param {string} id - the id of the subcircuit scope
  * @param {JSON} savedData - the saved data
+ * @category subcircuit
  */
 export default class SubCircuit extends CircuitElement {
     constructor(x, y, scope = globalScope, id = undefined, savedData = undefined) {

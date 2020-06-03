@@ -3,10 +3,6 @@ import {
     scheduleUpdate, play, updateCanvasSet, errorDetectedSet, checkErrorDetected,
 } from './engine';
 
-// window.width = undefined;
-// window.height = undefined;
-
-// window.scopeList = {};
 window.globalScope = undefined;
 
 window.unit = 10; // size of each division/ not used everywhere, to be deprecated
@@ -46,6 +42,7 @@ export function clockTick() {
 /**
  * Helper function to show error
  * @param {string} error -The error to be shown
+ * @category utils
  */
 export function showError(error) {
     errorDetectedSet(true);
@@ -79,6 +76,7 @@ export function distance(x1, y1, x2, y2) {
 /**
  * Helper function to return unique list
  * @param {Array} a - any array
+ * @category utils
  */
 export function uniq(a) {
     var seen = {};

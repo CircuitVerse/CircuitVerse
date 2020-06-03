@@ -20,16 +20,19 @@ export const uxvar = {
 };
 /**
  * @type {number} - Is used to calculate the position where an element from sidebar is dropped
+ * @category ux
  */
 uxvar.smartDropXX = 50;
 
 /**
  * @type {number} - Is used to calculate the position where an element from sidebar is dropped
+ * @category ux
  */
 uxvar.smartDropYY = 80;
 
 /**
  * @type {Object} - Object stores the position of context menu;
+ * @category ux
  */
 var ctxPos = {
     x: 0,
@@ -39,6 +42,7 @@ var ctxPos = {
 
 /**
  * Function hides the context menu
+ * @category ux
  */
 function hideContextMenu() {
     var el = document.getElementById('contextMenu');
@@ -51,6 +55,7 @@ function hideContextMenu() {
 
 /**
  * Function displays context menu
+ * @category ux
  */
 function showContextMenu() {
     if (layoutModeGet()) return false; // Hide context menu when it is in Layout Mode
@@ -67,6 +72,7 @@ function showContextMenu() {
 /**
  * Function is called when context item is clicked
  * @param {number} id - id of the optoin selected
+ * @category ux
  */
 function menuItemClicked(id) {
     hideContextMenu();
@@ -95,6 +101,7 @@ window.menuItemClicked = menuItemClicked;
 /**
  * adds some UI elements to side bar and
  * menu also attaches listeners to sidebar
+ * @category ux
  */
 export function setupUI() {
     var ctxEl = document.getElementById('contextMenu');
@@ -171,12 +178,14 @@ export function setupUI() {
 
 /**
  * Keeps in check which property is being displayed
+ * @category ux
  */
 var prevPropertyObj = undefined;
 
 /**
  * show properties of an object.
  * @param {CircuiElement} obj - the object whose properties we want to be shown in sidebar
+ * @category ux
  */
 export function showProperties(obj) {
     // console.log(obj)
@@ -282,6 +291,7 @@ export function showProperties(obj) {
 
 /**
  * Hides the properties in sidebar.
+ * @category ux
  */
 export function hideProperties() {
     $('#moduleProperty-inner').empty();
@@ -292,6 +302,7 @@ export function hideProperties() {
 /**
  * checkss the input is safe or not
  * @param {HTML} unsafe - the html which we wants to escape
+ * @category ux
  */
 function escapeHtml(unsafe) {
     return unsafe
@@ -325,6 +336,7 @@ $('#bitconverterprompt').append(`
 `);
 /**
  * listener for opening the prompt for bin conversion
+ * @category ux
  */
 $('#bitconverter').click(() => {
     $('#bitconverterprompt').dialog({

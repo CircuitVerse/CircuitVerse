@@ -36,6 +36,7 @@ import { clockTick } from './utils';
  * @property {function} setup - to setup the simulaton area
  * @property {function} changeClockTime - change clock time
  * @property {function} clear - clear the simulation area
+ * @category simulationArea
  */
 const simulationArea = {
     canvas: document.getElementById('simulationArea'),

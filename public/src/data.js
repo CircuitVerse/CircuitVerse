@@ -4,7 +4,7 @@ import load from './data/load';
 import createSaveAsImgPrompt from './data/saveImage'
 import { clearProject, newProject, saveOffline, openOffline, recoverProject } from './data/project'
 import { newCircuit } from './circuit'
-import createCombinationalAnalysisPrompt from './combinationalAnalysis';
+import { createCombinationalAnalysisPrompt } from './combinationalAnalysis';
 const logixFunction = {};
 logixFunction.save = save;
 logixFunction.load = load;

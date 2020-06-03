@@ -16,6 +16,7 @@ import { showMessage } from './utils';
  * Layout.js - all subcircuit layout related code is here
  * You can edit how your subcircuit for a circuit will look by
  * clicking edit layout in properties for a ciruit
+ * @category layoutMode
  */
 
 var layoutMode = false;
@@ -30,6 +31,7 @@ export function layoutModeGet(param) {
 
 /**
  * @type {LayoutBuffer} - used to temporartily store all changes.
+ * @category layoutMode
  */
 export var tempBuffer;
 
@@ -37,6 +39,7 @@ export var tempBuffer;
  * Helper function to determine alignment and position of nodes for rendering
  * @param {number} x - width of label
  * @param {number} y - height of label
+ * @category layoutMode
  */
 export function determineLabel(x, y) {
     if (x === 0) return ['left', 5, 5];
@@ -48,6 +51,7 @@ export function determineLabel(x, y) {
 /**
  * Used to move the grid in the layout mode
  * @param {Scope} scope - the circuit whose subcircuit we are editing
+ * @category layoutMode
  */
 export function paneLayout(scope = globalScope) {
     if (!simulationArea.selected && simulationArea.mouseDown) {
@@ -77,6 +81,7 @@ export function paneLayout(scope = globalScope) {
 /**
  * Function to render layout on screen
  * @param {Scope=} scope
+ * @category layoutMode
  */
 export function renderLayout(scope = globalScope) {
     if (!layoutModeGet()) return;
@@ -131,6 +136,7 @@ export function renderLayout(scope = globalScope) {
 /**
  * Update UI, positions of inputs and outputs
  * @param {Scope} scope - the circuit whose subcircuit we are editing
+ * @category layoutMode
  */
 export function layoutUpdate(scope = globalScope) {
     if (!layoutModeGet()) return;
@@ -147,6 +153,7 @@ export function layoutUpdate(scope = globalScope) {
 
 /**
  * Helper function to reset all nodes to original default positions
+ * @category layoutMode
  */
 export function layoutResetNodes() {
     tempBuffer.layout.width = 100;
@@ -163,6 +170,7 @@ export function layoutResetNodes() {
 
 /**
  * Increase width, and move all nodes
+ * @category layoutMode
  */
 export function increaseLayoutWidth() {
     for (let i = 0; i < tempBuffer.Input.length; i++) {
@@ -176,6 +184,7 @@ export function increaseLayoutWidth() {
 
 /**
  * Increase Height, and move all nodes
+ * @category layoutMode
  */
 export function increaseLayoutHeight() {
     for (let i = 0; i < tempBuffer.Input.length; i++) {
@@ -189,6 +198,7 @@ export function increaseLayoutHeight() {
 
 /**
  * Decrease Width, and move all nodes, check if space is there
+ * @category layoutMode
  */
 export function decreaseLayoutWidth() {
     if (tempBuffer.layout.width < 30) return;
@@ -216,6 +226,7 @@ export function decreaseLayoutWidth() {
 
 /**
  * Decrease Height, and move all nodes, check if space is there
+ * @category layoutMode
  */
 export function decreaseLayoutHeight() {
     if (tempBuffer.layout.height < 30) return;
@@ -243,6 +254,7 @@ export function decreaseLayoutHeight() {
 
 /**
  * Helper functions to move the titles
+ * @category layoutMode
  */
 export function layoutTitleUp() {
     tempBuffer.layout.title_y -= 5;
@@ -250,6 +262,7 @@ export function layoutTitleUp() {
 
 /**
  * Helper functions to move the titles
+ * @category layoutMode
  */
 export function layoutTitleDown() {
     tempBuffer.layout.title_y += 5;
@@ -257,6 +270,7 @@ export function layoutTitleDown() {
 
 /**
  * Helper functions to move the titles
+ * @category layoutMode
  */
 export function layoutTitleRight() {
     tempBuffer.layout.title_x += 5;
@@ -264,6 +278,7 @@ export function layoutTitleRight() {
 
 /**
  * Helper functions to move the titles
+ * @category layoutMode
  */
 export function layoutTitleLeft() {
     tempBuffer.layout.title_x -= 5;
@@ -271,6 +286,7 @@ export function layoutTitleLeft() {
 
 /**
  * Helper functions to move the titles
+ * @category layoutMode
  */
 export function toggleLayoutTitle() {
     tempBuffer.layout.titleEnabled = !tempBuffer.layout.titleEnabled;
@@ -278,6 +294,7 @@ export function toggleLayoutTitle() {
 
 /**
  * just toggles back to normal mode
+ * @category layoutMode
  */
 function cancelLayout() {
     if (layoutModeGet()) {
@@ -289,6 +306,7 @@ function cancelLayout() {
 
 /**
  * Store all data into layout and exit
+ * @category layoutMode
  */
 function saveLayout() {
     if (layoutModeGet()) {
@@ -309,6 +327,7 @@ function saveLayout() {
 /**
  * Function to toggle between layoutMode and normal Mode
  * the sidebar is disabled and n properties are shown.
+ * @category layoutMode
  */
 export function toggleLayoutMode() {
     if (layoutModeGet()) {

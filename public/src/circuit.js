@@ -41,6 +41,7 @@ export function resetScopeList() {
  * Changes UI tab etc
  * Sets flags to make updates, resets most of the things
  * @param {string} id - identifier for circuit
+ * @category circuit
  */
 export function switchCircuit(id) {
     if (layoutModeGet()) { toggleLayoutMode(); }
@@ -74,7 +75,8 @@ export function switchCircuit(id) {
  * Ensures that at least one circuit is there
  * Ensures that no circuit depends on the current circuit
  * Switched to a random circuit
- */
+  * @category circuit
+*/
 function deleteCurrentCircuit(scopeId = globalScope.id) {
     const scope = scopeList[scopeId];
     if (Object.keys(scopeList).length <= 1) {
@@ -111,6 +113,7 @@ function deleteCurrentCircuit(scopeId = globalScope.id) {
  * Function creates button in tab, creates scope and switches to this circuit
  * @param {string} name - name of the new circuit
  * @param {string} id - identifier for circuit
+ * @category circuit
  */
 export function newCircuit(name, id) {
     name = name || prompt('Enter circuit name:');
@@ -140,6 +143,7 @@ export function newCircuit(name, id) {
  * Used to change name of a circuit
  * @param {string} name - new name
  * @param {string} id - id of the circuit
+ * @category circuit
  */
 export function changeCircuitName(name, id = globalScope.id) {
     name = name || 'Untitled';
@@ -150,8 +154,10 @@ export function changeCircuitName(name, id = globalScope.id) {
 
 /**
  * Class representing a Scope
+ * @class
  * @param {string} name - name of the circuit
  * @param {number=} id - a random id for the circuit
+ * @category circuit
  */
 export default class Scope {
     constructor(name = 'localScope', id = undefined) {

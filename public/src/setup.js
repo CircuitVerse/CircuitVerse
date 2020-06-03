@@ -24,6 +24,7 @@ window.DPR = 1; // devicePixelRatio, 2 for retina displays, 1 for low resolution
  * to resize window and setup things it
  * sets up new width for the canvas variables.
  * Also redraws the grid.
+ * @category setup
  */
 export function resetup() {
     DPR = window.devicePixelRatio || 1;
@@ -66,6 +67,7 @@ window.addEventListener('orientationchange', resetup); // listener
 
 /**
  * function to setup environment variables like projectId and DPR
+ * @category setup
  */
 function setupEnvironment() {
     const projectId = generateId();
@@ -80,6 +82,7 @@ function setupEnvironment() {
  * It initializes some useful array which are helpful
  * while simulating, saving and loading project.
  * It also draws icons in the sidebar
+ * @category setup
  */
 function setupElementLists() {
     $('#menu').empty();
@@ -122,6 +125,7 @@ function setupElementLists() {
 
 /**
  * The first function to be called to setup the whole simulator
+ * @category setup
  */
 export function setup() {
     console.log(embed);

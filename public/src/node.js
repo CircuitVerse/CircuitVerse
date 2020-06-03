@@ -1,8 +1,4 @@
 /* eslint-disable import/no-cycle */
-/**
- * @module node
- */
-
 import { drawCircle, drawLine, arc } from './canvasApi';
 import simulationArea from './simulationArea';
 import { distance, showError } from './utils';
@@ -18,6 +14,7 @@ import { createNodeGet, createNodeSet, stopWireSet } from './listeners';
 * Constructs all the connections of Node node
  * @param {Node} node - node to be constructed
  * @param {JSON} data - the saved data which is used to load
+ * @category node
  */
 export function constructNodeConnections(node, data) {
     for (var i = 0; i < data.connections.length; i++) { if (!node.connections.contains(node.scope.allNodes[data.connections[i]])) node.connect(node.scope.allNodes[data.connections[i]]); }
@@ -27,6 +24,7 @@ export function constructNodeConnections(node, data) {
  * Fn to replace node by node @ index in global Node List - used when loading
  * @param {Node} node - node to be replaced
  * @param {number} index - index of node to be replaced
+ * @category node
  */
 export function replace(node, index) {
     if (index == -1) {
@@ -64,6 +62,7 @@ export function dec2bin(dec, bitWidth = undefined) {
 /**
  * find Index of a node
  * @param {Node} x - Node to be dound
+ * @category node
  */
 export function findNode(x) {
     return x.scope.allNodes.indexOf(x);
@@ -73,6 +72,7 @@ export function findNode(x) {
  * function makes a node according to data providede
  * @param {JSON} data - the data used to load a Project
  * @param {Scope} scope - scope to which node has to be loaded
+ * @category node
  */
 export function loadNode(data, scope) {
     var n = new Node(data.x, data.y, data.type, scope.root, data.bitWidth, data.label);
@@ -83,6 +83,7 @@ export function loadNode(data, scope) {
  * @param {Node} x - the desired node
  * @param {Scope} scope - the scope
  * @param {CircuitElement} parent - The parent of node
+ * @category node
  */
 function extractNode(x, scope, parent) {
     var n = scope.allNodes[x];
@@ -100,24 +101,26 @@ window.NODE_INTERMEDIATE = 2;
 /**
  * used to give id to a node.
  * @type {number}
+ * @category node
  */
 var uniqueIdCounter = 10;
 
+/**
+ * This class is responsible for all the Nodes.Nodes are connected using Wires
+ * Nodes are of 3 types;
+ * NODE_INPUT = 0;
+ * NODE_OUTPUT = 1;
+ * NODE_INTERMEDIATE = 2;
+ * Input and output nodes belong to some CircuitElement(it's parent)
+ * @param {number} x - x coord of Node
+ * @param {number} y - y coord of Node
+ * @param {number} type - type of node
+ * @param {CircuitElement} parent - parent element
+ * @param {?number} bitWidth - the bits of node in input and output nodes
+ * @param {string=} label - label for a node
+ * @category node
+ */
 export default class Node {
-    /**
-     * This class is responsible for all the Nodes.Nodes are connected using Wires
-     * Nodes are of 3 types;
-     * NODE_INPUT = 0;
-     * NODE_OUTPUT = 1;
-     * NODE_INTERMEDIATE = 2;
-     * Input and output nodes belong to some CircuitElement(it's parent)
-     * @param {number} x - x coord of Node
-     * @param {number} y - y coord of Node
-     * @param {number} type - type of node
-     * @param {CircuitElement} parent - parent element
-     * @param {?number} bitWidth - the bits of node in input and output nodes
-     * @param {string=} label - label for a node
-     */
     constructor(x, y, type, parent, bitWidth = undefined, label = '') {
         // Should never raise, but just in case
         if (isNaN(x) || isNaN(y)) {
@@ -758,10 +761,12 @@ export default class Node {
 
 /**
  * delay in simulation of the node.
+ * @category node
  */
 Node.prototype.propagationDelay = 0;
 
 /**
  * backward comaptibilty?
+ * @category node
  */
 Node.prototype.cleanDelete = Node.prototype.delete;

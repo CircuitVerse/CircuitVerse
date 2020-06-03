@@ -13,6 +13,7 @@ import simulationArea from './simulationArea';
 /**
  * Helper function to paste
  * @param {JSON} copyData - the data to be pasted
+ * @category events
  */
 export function paste(copyData) {
     if (copyData === undefined) return;
@@ -110,6 +111,7 @@ export function paste(copyData) {
 /**
  * Helper function for cut
  * @param {JSON} copyList - The selected elements
+ * @category events
  */
 export function cut(copyList) {
     if (copyList.length === 0) return;
@@ -187,6 +189,7 @@ export function cut(copyList) {
  * Helper function for copy
  * @param {JSON} copyList - The data to copied
  * @param {boolean} cutflag - flase if we want to copy
+ * @category events
  */
 export function copy(copyList, cutflag = false) {
     if (copyList.length === 0) return;
@@ -275,6 +278,7 @@ export function copy(copyList, cutflag = false) {
 
 /**
  * Function selects all the elements from the scope
+ * @category events
  */
 export function selectAll(scope = globalScope) {
     circuitElementList.forEach((val, _, __) => {

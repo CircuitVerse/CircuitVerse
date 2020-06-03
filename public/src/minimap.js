@@ -10,6 +10,7 @@ import simulationArea from './simulationArea';
  * @property {function} play - used to draw outline of minimap and call resolve
  * @property {function} resolve - used to resolve all objects and draw them on minimap
  * @property {function} clear - used to clear minimap
+ * @category minimap
  */
 var miniMapArea;
 export default miniMapArea = {

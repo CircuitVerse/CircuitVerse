@@ -1,12 +1,8 @@
-// Event Queue is simply a priority Queue, basic implementation O(n^2)
 /**
- * This module has basic implementation of a priority queue.
- * @module eventQueue
+ * Event Queue is simply a priority Queue, basic implementation O(n^2).
+ * @category eventQueue
  */
 export default class EventQueue {
-    /**
-     * Event Queue is simply a priority Queue, basic implementation O(n^2).
-     */
     constructor(size) {
         this.size = size;
         this.queue = new Array(size);

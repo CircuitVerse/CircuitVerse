@@ -6,15 +6,13 @@ import Node from './node';
 import { updateSimulationSet, forceResetNodesSet } from './engine';
 
 /**
- * @module wire
-*/
-/**
  * Wire - To connect two nodes.
  * @class
  * @memberof module:wire
  * @param {Node} node1
  * @param {Node} node2
  * @param {Scope} scope - The circuit in which wire has to be drawn
+ * @category wire
  */
 export default class Wire {
     constructor(node1, node2, scope) {
