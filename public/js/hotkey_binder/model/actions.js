@@ -1,19 +1,3 @@
-const setUserKeys = () => {
-  let userKeys = {};
-  let x = 0;
-  while ($("#preference").children()[x]) {
-    userKeys[$("#preference").children()[x].children[0].innerText] = $(
-      "#preference"
-    )
-      .children()
-      [x].children()[1].innerText;
-    x++;
-  }
-  localStorage.removeItem("defaultKeys");
-  localStorage.set("userKeys", userKeys);
-  addKeys("user");
-};
-
 const addKeys = (mode) => {
   shortcut.all_shortcuts = {};
   if (mode == "user") {
@@ -35,8 +19,22 @@ const addKeys = (mode) => {
   }
 };
 
+const setUserKeys = () => {
+  let userKeys = {};
+  let x = 0;
+  while ($("#preference").children()[x]) {
+    userKeys[$("#preference").children()[x].children[0].innerText] = $(
+      "#preference"
+    ).children()[x].children[1].innerText;
+    x++;
+  }
+  localStorage.removeItem("defaultKeys");
+  localStorage.set("userKeys", userKeys);
+  addKeys("user");
+};
+
 const setDefault = () => {
-  localStorage.set("defaultKeys", defaultKeys);
+  localStorage.set("defaultKeys", defaultKeys); //TODO add a confirmation alert
   addKeys("default");
 };
 
@@ -76,7 +74,7 @@ const addShortcut = (keys, action) => {
   }
   shortcut.add(keys, callback, {
     type: "keydown",
-    propagate: true,
+    propagate: false,
     target: document,
   });
 };

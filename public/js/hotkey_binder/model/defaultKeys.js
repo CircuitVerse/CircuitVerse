@@ -1,4 +1,4 @@
-let defaultKeys = {
+const defaultKeys = {
   "New Project": "Shift + N",
   "Save Online": "Ctrl + S",
   "Save Offline": "Ctrl + Alt + S",

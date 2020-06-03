@@ -12,7 +12,10 @@ $("#customShortcut").click(() => {
       },
       {
         text: "Save",
-        click: () => submit(),
+        click: () => {
+          submit();
+          $("#customShortcutDialog").dialog("close");
+        },
         id: "submitBtn",
       },
     ],
@@ -24,13 +27,14 @@ $("#preference").click((e) => {
   $("#pressedKeys").innerText = "";
   $("#edit").css("display", "block");
   $(function () {
-    $("#edit").focus();
+    $($("#edit")).focus();
   });
   targetPref = e.target.closest("div").children[1];
 });
 
 $("#edit").keydown((e) => {
   e = e || window.event;
+  // shortcut.removeAll();
   if (e.keyCode == 27) {
     $("#pressedKeys").text("");
     $("#edit").css("display", "none");
@@ -44,16 +48,17 @@ $("#edit").keydown((e) => {
   if (e.keyCode == 13) {
     $("#edit").css("display", "none");
     targetPref.innerText = $("#pressedKeys")
-      .innerText.substring(0, $("#pressedKeys").innerText.length - 2)
+      .text()
+      .substring(0, $("#pressedKeys").text().length - 2)
       .toUpperCase();
-    $("#pressedKeys").innerText = "";
+    $("#pressedKeys").text("");
   }
 });
 
 const submit = () => {
   $("#edit").css("display", "none");
   setUserKeys();
-  updateHTML();
+  updateHTML("user");
 };
 
 //IFFE
