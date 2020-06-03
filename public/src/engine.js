@@ -10,10 +10,11 @@ import simulationArea from './simulationArea';
 import {
     dots, canvasMessage, findDimensions, rect2,
 } from './canvasApi';
-import { showProperties } from './ux';
+import { showProperties, prevPropertyObjGet } from './ux';
 import { showError } from './utils';
 import miniMapArea from './minimap';
 import { createNodeGet } from './listeners';
+import { resetup } from './setup';
 
 /**
  * Core of the simulation and rendering algorithm.
@@ -80,6 +81,24 @@ export function updateSubcircuitSet(param) {
     }
     updateSubcircuit = param;
     return false;
+}
+
+/**
+ * turn light mode on
+ * @param {boolean} val -- new value for light mode
+ */
+export function changeLightMode(val) {
+    if (!val && lightMode) {
+        lightMode = false;
+        DPR = window.devicePixelRatio || 1;
+        globalScope.scale *= DPR;
+    } else if (val && !lightMode) {
+        lightMode = true;
+        globalScope.scale /= DPR;
+        DPR = 1
+        $('#miniMap').fadeOut('fast');
+    }
+    resetup();
 }
 
 /**
@@ -361,7 +380,7 @@ export function update(scope = globalScope, updateEverything = false) {
         play();
     }
     // Show properties of selected element
-    if (!embed && prevPropertyObj !== simulationArea.lastSelected) {
+    if (!embed && prevPropertyObjGet() !== simulationArea.lastSelected) {
         if (simulationArea.lastSelected && simulationArea.lastSelected.objectType !== 'Wire') {
             // ideas: why show properties of project in Nodes but not wires?
             showProperties(simulationArea.lastSelected);

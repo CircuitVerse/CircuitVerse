@@ -4,13 +4,10 @@ import {
 } from './engine';
 
 window.globalScope = undefined;
-
 window.unit = 10; // size of each division/ not used everywhere, to be deprecated
 window.lightMode = false; // To be deprecated
-
 window.projectId = undefined;
 window.id = undefined;
-window.prevPropertyObj = undefined;
 window.loading = false; // Flag - all assets are loaded
 
 var prevErrorMessage; // Global variable for error messages
@@ -32,7 +29,7 @@ export function stripTags(string = '') {
 
 export function clockTick() {
     if (!simulationArea.clockEnabled) return;
-    if (checkErrorDetected) return;
+    if (checkErrorDetected()) return;
     updateCanvasSet(true);
     globalScope.clockTick();
     play();

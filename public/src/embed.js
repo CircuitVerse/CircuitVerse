@@ -5,6 +5,7 @@ import simulationArea from './simulationArea';
 import {
     scheduleUpdate, wireToBeCheckedSet, updateCanvasSet, gridUpdateSet,
 } from './engine';
+import { prevPropertyObjGet, prevPropertyObjSet } from './ux';
 
 
 circuitProperty.toggleFullScreen = toggleFullScreen;
@@ -19,7 +20,7 @@ $(document).ready(() => {
         scheduleUpdate();
         updateCanvasSet(true);
         wireToBeCheckedSet(1);
-        if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) { prevPropertyObj = simulationArea.lastSelected[this.name](this.value) || prevPropertyObj; } else { circuitProperty[this.name](this.value); }
+        if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) { prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet() ; } else { circuitProperty[this.name](this.value); }
     });
 
     // Following codes need to be removed
@@ -27,7 +28,7 @@ $(document).ready(() => {
         scheduleUpdate();
         updateCanvasSet(true);
         wireToBeCheckedSet(1);
-        if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) { prevPropertyObj = simulationArea.lastSelected[this.name](this.value) || prevPropertyObj; } else { circuitProperty[this.name](this.checked); }
+        if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) { prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet(); } else { circuitProperty[this.name](this.checked); }
     });
 });
 

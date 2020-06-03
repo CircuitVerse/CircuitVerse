@@ -180,7 +180,15 @@ export function setupUI() {
  * Keeps in check which property is being displayed
  * @category ux
  */
-var prevPropertyObj = undefined;
+var prevPropertyObj;
+
+export function prevPropertyObjSet(param) {
+    prevPropertyObj = param;
+}
+
+export function prevPropertyObjGet() {
+    return prevPropertyObj;
+}
 
 /**
  * show properties of an object.
@@ -189,9 +197,9 @@ var prevPropertyObj = undefined;
  */
 export function showProperties(obj) {
     // console.log(obj)
-    if (obj === prevPropertyObj) return;
+    if (obj === prevPropertyObjGet()) return;
     hideProperties();
-    prevPropertyObj = obj;
+    prevPropertyObjSet(obj);
     if (simulationArea.lastSelected === undefined || ['Wire', 'CircuitElement', 'Node'].indexOf(simulationArea.lastSelected.objectType) !== -1) {
         $('#moduleProperty').show();
         $('#moduleProperty-inner').append("<div id='moduleProperty-header'>" + 'Project Properties' + '</div>');
@@ -277,7 +285,7 @@ export function showProperties(obj) {
         scheduleUpdate();
         updateCanvasSet(true);
         wireToBeCheckedSet(1);
-        if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) { prevPropertyObj = simulationArea.lastSelected[this.name](this.value) || prevPropertyObj; } else { circuitProperty[this.name](this.value); }
+        if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) { prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet(); } else { circuitProperty[this.name](this.value); }
     });
     $('.objectPropertyAttributeChecked').on('change keyup paste click', function () {
         // return;
@@ -285,7 +293,7 @@ export function showProperties(obj) {
         scheduleUpdate();
         updateCanvasSet(true);
         wireToBeCheckedSet(1);
-        if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) { prevPropertyObj = simulationArea.lastSelected[this.name](this.value) || prevPropertyObj; } else { circuitProperty[this.name](this.checked); }
+        if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) { prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet(); } else { circuitProperty[this.name](this.checked); }
     });
 }
 
@@ -296,7 +304,7 @@ export function showProperties(obj) {
 export function hideProperties() {
     $('#moduleProperty-inner').empty();
     $('#moduleProperty').hide();
-    prevPropertyObj = undefined;
+    prevPropertyObjSet(undefined);
     $('.objectPropertyAttribute').unbind('change keyup paste click');
 }
 /**
