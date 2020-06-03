@@ -38,9 +38,9 @@ $("#edit").keydown((e) => {
   e.stopPropagation();
   if (e.keyCode == 27) closeEdit();
   if (!$("#pressedKeys").text()) {
-    $("#pressedKeys").text(keyCodes[e.keyCode]);
+    $("#pressedKeys").text(keyCodes[e.keyCode].toUpperCase());
   } else {
-    $("#pressedKeys").append(` + ${keyCodes[e.keyCode]}`);
+    $("#pressedKeys").append(` + ${keyCodes[e.keyCode]}`.toUpperCase());
   }
 
   if (e.keyCode == 13) {

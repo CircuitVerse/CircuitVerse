@@ -1,46 +1,17 @@
-const markUp = `<div id="preference">
-<div class="options">
-    <span>New Project</span>
+//func to generate html from json
+const createElements = (metadata) => {
+  let elements = ``;
+  Object.entries(metadata).forEach((entry) => {
+    elements += `<div class="options">
+    <span>${entry[0]}</span>
     <span></span>
-</div>
-<div class="options">
-    <span>Save Online</span>
-    <span></span>
-</div>
-<div class="options">
-    <span>Save Offline</span>
-    <span></span>
-</div>
-<div class="options">
-    <span>Download as Image</span>
-    <span></span>
-</div>
-<div class="options">
-    <span>Open Offline</span>
-    <span></span>
-</div>
-<div class="options">
-    <span>Recover Project</span>
-    <span></span>
-</div>
-<div class="options">
-    <span>New Circuit</span>
-    <span></span>
-</div>
-<div class="options">
-    <span>Create Sub-ciruit</span>
-    <span></span>
-</div>
-<div class="options">
-    <span>Combinational Analysis</span>
-    <span></span>
-</div>
-<div class="options">
-    <span>Start Plot</span>
-    <span></span>
-</div>
-</div>
-`;
+    </div>
+    `;
+  });
+  return `<div id="preference">${elements}</div>`;
+};
+
+const markUp = createElements(defaultKeys);
 
 const editPanel = `<div id="edit" tabindex="0">
 <span style="font-size: 14px;">Press Desire Key Combination and press Enter or press ESC to cancel.</span>
