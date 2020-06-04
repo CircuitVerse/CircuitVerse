@@ -30,7 +30,7 @@ $("#customShortcut").click(() => {
 let targetPref = null;
 $("#preference").click((e) => {
     $("#pressedKeys").text("");
-    $("#warning").text("");
+    $("#pressedKeys").text("");
 
     $("#edit").css("display", "block");
     $($("#edit")).focus();
@@ -40,6 +40,7 @@ $("#preference").click((e) => {
 // Modifiers restriction enabled here
 $("#edit").keydown((e) => {
     e.stopPropagation();
+    e.preventDefault();
     let modifiers = ["CTRL", "ALT", "SHIFT"];
     if (e.keyCode === 27) closeEdit();
     if (e.keyCode === 13) {
