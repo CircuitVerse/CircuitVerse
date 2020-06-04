@@ -170,6 +170,8 @@ GEM
       rake
     font-awesome-sass (5.12.0)
       sassc (>= 1.11)
+    friendly_id (5.2.5)
+      activerecord (>= 4.0.0)
     geocoder (1.6.0)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
@@ -545,6 +547,7 @@ DEPENDENCIES
   faker
   fast_jsonapi
   font-awesome-sass (~> 5.12.0)
+  friendly_id (~> 5.2.4)
   geocoder
   hirb
   http
