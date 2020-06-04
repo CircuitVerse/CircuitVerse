@@ -132,6 +132,8 @@ Rails.application.routes.draw do
       resources :users do
         get 'projects', to: 'projects#user_projects', on: :member
       end
+      post '/assignments/:assignment_id/projects/:project_id/grades', to: 'grades#create'
+      resources :grades, only: [:update, :destroy]
     end
   end
 end
