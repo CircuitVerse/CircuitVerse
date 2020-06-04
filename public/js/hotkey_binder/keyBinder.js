@@ -69,6 +69,15 @@ $("#edit").keydown((e) => {
     if (!$("#pressedKeys").text()) {
         $("#pressedKeys").text(currentKey);
     }
+    if (
+        ($("#pressedKeys").text().split(" + ").length === 2 &&
+            $("#pressedKeys").text().split(" + ")[1] === "CTRL") ||
+        $("#pressedKeys").text().split(" + ")[0] === "ALT"
+    ) {
+        $("#pressedKeys").text(
+            $("#pressedKeys").text().split(" + ").reverse().join(" + ")
+        );
+    }
     warnOverride($("#pressedKeys").text());
 });
 
