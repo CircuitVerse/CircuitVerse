@@ -1,5 +1,6 @@
 const addKeys = (mode) => {
-    shortcut.all_shortcuts = {};
+    shortcut.removeAll();
+    // shortcut.all_shortcuts = {};
     if (mode == "user") {
         let userKeys = localStorage.get("userKeys");
         for (let pref in userKeys) {
