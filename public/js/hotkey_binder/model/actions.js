@@ -39,14 +39,19 @@ const setDefault = () => {
 };
 
 const warnOverride = (combo) => {
-    const currentKeys = localStorage.get("userKeys")
-        ? localStorage.get("userKeys")
-        : localStorage.get("defaultKeys");
-    if (getKey(currentKeys, combo)) {
-        const asignee = getKey(currentKeys, combo);
-        $("#warning").text(
-            `This key(s) is already assigned to: ${asignee}, Override?`
-        );
+    let x = 0;
+    // const currentKeys = localStorage.get("userKeys")
+    // ? localStorage.get("userKeys")
+    // : localStorage.get("defaultKeys");
+    while ($("#preference").children()[x]) {
+        if ($("#preference").children()[x].children[1].innerText === combo) {
+            const asignee = $("#preference").children()[x].children[0]
+                .innerText;
+            $("#warning").text(
+                `This key(s) is already assigned to: ${asignee}, Override?`
+            );
+        }
+        x++;
     }
 };
 

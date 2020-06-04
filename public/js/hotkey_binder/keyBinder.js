@@ -30,6 +30,8 @@ $("#customShortcut").click(() => {
 let targetPref = null;
 $("#preference").click((e) => {
     $("#pressedKeys").text("");
+    $("#warning").text("");
+
     $("#edit").css("display", "block");
     $($("#edit")).focus();
     [, targetPref] = e.target.closest("div").children;
