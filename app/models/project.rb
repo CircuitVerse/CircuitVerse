@@ -2,8 +2,8 @@
 
 # rubocop:disable Metrics/ClassLength
 
-  require "pg_search"
-  require "custom_optional_target/web_push"
+require "pg_search"
+require "custom_optional_target/web_push"
 class Project < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: :slugged
