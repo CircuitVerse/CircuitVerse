@@ -1,14 +1,14 @@
-//func to generate html from json
+// func to generate html from json
 const createElements = (metadata) => {
-  let elements = ``;
-  Object.entries(metadata).forEach((entry) => {
-    elements += `<div class="options">
+    let elements = ``;
+    Object.entries(metadata).forEach((entry) => {
+        elements += `<div>
     <span>${entry[0]}</span>
     <span></span>
     </div>
     `;
-  });
-  return `<div id="preference">${elements}</div>`;
+    });
+    return `<div id="preference">${elements}</div>`;
 };
 
 const markUp = createElements(defaultKeys);
@@ -24,24 +24,32 @@ const heading = `<div id="heading">
 </div>`;
 
 const updateHTML = (mode) => {
-  let x = 0;
-  if (mode == "user") {
-    let userKeys = localStorage.get("userKeys");
-    while ($("#preference").children()[x]) {
-      $("#preference").children()[x].children[1].innerText =
-        userKeys[$("#preference").children()[x].children[0].innerText];
-      x++;
+    let x = 0;
+    if (mode == "user") {
+        let userKeys = localStorage.get("userKeys");
+        while ($("#preference").children()[x]) {
+            $("#preference").children()[x].children[1].innerText =
+                userKeys[$("#preference").children()[x].children[0].innerText];
+            x++;
+        }
+    } else if (mode == "default") {
+        while ($("#preference").children()[x]) {
+            $("#preference").children()[x].children[1].innerText =
+                defaultKeys[
+                    $("#preference").children()[x].children[0].innerText
+                ];
+            x++;
+        }
     }
-  } else if (mode == "default") {
-    while ($("#preference").children()[x]) {
-      $("#preference").children()[x].children[1].innerText =
-        defaultKeys[$("#preference").children()[x].children[0].innerText];
-      x++;
-    }
-  }
 };
 
 const closeEdit = () => {
-  $("#pressedKeys").text("");
-  $("#edit").css("display", "none");
+    $("#pressedKeys").text("");
+    $("#edit").css("display", "none");
+};
+
+const submit = () => {
+    $("#edit").css("display", "none");
+    setUserKeys();
+    updateHTML("user");
 };

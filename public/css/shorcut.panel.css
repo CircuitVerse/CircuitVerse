@@ -81,7 +81,7 @@
     background-color: #747474;
 } */
 
-.options {
+#preference div {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -89,10 +89,10 @@
   cursor: pointer;
   user-select: none;
   -moz-user-select: none;
-
   /* background-color: #747474; */
 }
-.options > span {
+
+#preference div > span {
   padding: 0 30px;
   /* text-align: left; */
 }
