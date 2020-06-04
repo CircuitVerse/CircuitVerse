@@ -38,6 +38,18 @@ const setDefault = () => {
     addKeys("default");
 };
 
+const warnOverride = (combo) => {
+    const currentKeys = localStorage.get("userKeys")
+        ? localStorage.get("userKeys")
+        : localStorage.get("defaultKeys");
+    if (getKey(currentKeys, combo)) {
+        const asignee = getKey(currentKeys, combo);
+        $("#warning").text(
+            `This key(s) is already assigned to: ${asignee}, Override?`
+        );
+    }
+};
+
 const addShortcut = (keys, action) => {
     let callback;
     switch (action) {

@@ -5,3 +5,5 @@ Storage.prototype.set = function (key, obj) {
 Storage.prototype.get = function (key) {
     return JSON.parse(this.getItem(key));
 };
+
+const getKey = (obj, val) => Object.keys(obj).find((key) => obj[key] === val);

@@ -41,10 +41,12 @@ $("#edit").keydown((e) => {
     let modifiers = ["CTRL", "ALT", "SHIFT"];
     if (e.keyCode === 27) closeEdit();
     if (e.keyCode === 13) {
-        targetPref.innerText = $("#pressedKeys").text().toUpperCase();
+        override($("#pressedKeys").text());
+        targetPref.innerText = $("#pressedKeys").text();
         $("#pressedKeys").text("");
         $("#edit").css("display", "none");
     }
+    $("#warning").text("");
     const currentKey = keyCodes[e.keyCode].toUpperCase();
     if (
         $("#pressedKeys").text().split(" + ").length === 2 &&
@@ -64,6 +66,7 @@ $("#edit").keydown((e) => {
     if (!$("#pressedKeys").text()) {
         $("#pressedKeys").text(currentKey);
     }
+    warnOverride($("#pressedKeys").text());
 });
 
 //  IFFE

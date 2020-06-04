@@ -16,6 +16,7 @@ const markUp = createElements(defaultKeys);
 const editPanel = `<div id="edit" tabindex="0">
 <span style="font-size: 14px;">Press Desire Key Combination and press Enter or press ESC to cancel.</span>
 <div id="pressedKeys"></div>
+<div id="warning"></div>
 </div>`;
 
 const heading = `<div id="heading">
@@ -40,6 +41,15 @@ const updateHTML = (mode) => {
                 ];
             x++;
         }
+    }
+};
+
+const override = (combo) => {
+    let x = 0;
+    while ($("#preference").children()[x]) {
+        if ($("#preference").children()[x].children[1].innerText === combo)
+            $("#preference").children()[x].children[1].innerText = "";
+        x++;
     }
 };
 
