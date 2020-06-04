@@ -21,7 +21,7 @@ class SimulatorController < ApplicationController
   end
 
   def edit
-    @project = Project.friendly.find_by(id: params[:id])
+    @project = Project.friendly.find(params[:id])
     @logix_project_id = params[:id]
     @projectName = @project.name
   end
