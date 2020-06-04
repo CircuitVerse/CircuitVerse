@@ -50,7 +50,8 @@ $("#edit").keydown((e) => {
   const currentKey = keyCodes[e.keyCode].toUpperCase();
   if (
     $("#pressedKeys").text().split(" + ").length === 2 &&
-    !modifiers.includes(currentKey)
+    !modifiers.includes(currentKey) &&
+    modifiers.includes($("#pressedKeys").text().split(" + ")[1])
   ) {
     $("#pressedKeys").append(` + ${currentKey}`);
   } else if (modifiers.includes($("#pressedKeys").text())) {
