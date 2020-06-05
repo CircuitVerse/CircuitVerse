@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Adder.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Adder.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* eslint-disable no-bitwise */
+import CircuitElement from '../circuitElement';
+import { Node, findNode } from '../node';
+import simulationArea from '../simulationArea';
+
+/**
+ * @class
+ * Adder
+ * @extends CircuitElement
+ * @param {number} x - x coordinate of element.
+ * @param {number} y - y coordinate of element.
+ * @param {Scope=} scope - Cirucit on which element is drawn
+ * @param {string=} dir - direction of element
+ * @param {number=} bitWidth - bit width per node.
+ */
+export default class Adder extends CircuitElement {
+    constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
+        super(x, y, scope, dir, bitWidth);
+        /* this is done in this.baseSetup() now
+        this.scope['Adder'].push(this);
+        */
+        this.setDimensions(20, 20);
+
+        this.inpA = new Node(-20, -10, 0, this, this.bitWidth, 'A');
+        this.inpB = new Node(-20, 0, 0, this, this.bitWidth, 'B');
+        this.carryIn = new Node(-20, 10, 0, this, 1, 'Cin');
+        this.sum = new Node(20, 0, 1, this, this.bitWidth, 'Sum');
+        this.carryOut = new Node(20, 10, 1, this, 1, 'Cout');
+    }
+
+    /**
+     * @memberof Adder
+     * fn to create save Json Data of object
+     * @return {JSON}
+     */
+    customSave() {
+        const data = {
+            constructorParamaters: [this.direction, this.bitWidth],
+            nodes: {
+                inpA: findNode(this.inpA),
+                inpB: findNode(this.inpB),
+                carryIn: findNode(this.carryIn),
+                carryOut: findNode(this.carryOut),
+                sum: findNode(this.sum),
+            },
+        };
+        return data;
+    }
+
+    /**
+     * @memberof Adder
+     * Checks if the element is resolvable
+     * @return {boolean}
+     */
+    isResolvable() {
+        return this.inpA.value !== undefined &amp;&amp; this.inpB.value !== undefined;
+    }
+
+    /**
+     * @memberof Adder
+     * function to change bitwidth of the element
+     * @param {number} bitWidth - new bitwidth
+     */
+    newBitWidth(bitWidth) {
+        this.bitWidth = bitWidth;
+        this.inpA.bitWidth = bitWidth;
+        this.inpB.bitWidth = bitWidth;
+        this.sum.bitWidth = bitWidth;
+    }
+
+    /**
+     * @memberof Adder
+     * resolve output values based on inputData
+     */
+    resolve() {
+        if (this.isResolvable() === false) {
+            return;
+        }
+        let carryIn = this.carryIn.value;
+        if (carryIn === undefined) carryIn = 0;
+        const sum = this.inpA.value + this.inpB.value + carryIn;
+
+        this.sum.value = ((sum) &lt;&lt; (32 - this.bitWidth)) >>> (32 - this.bitWidth);
+        this.carryOut.value = +((sum >>> (this.bitWidth)) !== 0);
+        simulationArea.simulationQueue.add(this.carryOut);
+        simulationArea.simulationQueue.add(this.sum);
+    }
+}
+
+/**
+ * @memberof Adder
+ * Help Tip
+ * @type {string}
+ */
+Adder.prototype.tooltipText = 'Adder ToolTip : Performs addition of numbers.';
+Adder.prototype.helplink = 'https://docs.circuitverse.org/#/miscellaneous?id=adder';
+Adder.prototype.objectType = 'Adder';
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Adder.html">Adder</a></li><li><a href="ALU.html">ALU</a></li><li><a href="AndGate.html">AndGate</a></li><li><a href="Arrow.html">Arrow</a></li><li><a href="BitSelector.html">BitSelector</a></li><li><a href="Buffer.html">Buffer</a></li><li><a href="Button.html">Button</a></li><li><a href="ConstantVal.html">ConstantVal</a></li><li><a href="ControlledInverter.html">ControlledInverter</a></li><li><a href="Counter.html">Counter</a></li><li><a href="Decoder.html">Decoder</a></li><li><a href="Demultiplexer.html">Demultiplexer</a></li><li><a href="DigitalLed.html">DigitalLed</a></li><li><a href="Flag.html">Flag</a></li><li><a href="Ground.html">Ground</a></li><li><a href="HexDisplay.html">HexDisplay</a></li><li><a href="Input.html">Input</a></li><li><a href="LSB.html">LSB</a></li><li><a href="MSB.html">MSB</a></li><li><a href="Multiplexer.html">Multiplexer</a></li><li><a href="NandGate.html">NandGate</a></li><li><a href="NorGate.html">NorGate</a></li><li><a href="NotGate.html">NotGate</a></li><li><a href="OrGate.html">OrGate</a></li><li><a href="Output.html">Output</a></li><li><a href="Power.html">Power</a></li><li><a href="PriorityEncoder.html">PriorityEncoder</a></li><li><a href="Random.html">Random</a></li><li><a href="Rectangle.html">Rectangle</a></li><li><a href="RGBLed.html">RGBLed</a></li><li><a href="RGBLedMatrix.html">RGBLedMatrix</a></li><li><a href="Rom.html">Rom</a></li><li><a href="SevenSegDisplay.html">SevenSegDisplay</a></li><li><a href="SixteenSegDisplay.html">SixteenSegDisplay</a></li><li><a href="Splitter.html">Splitter</a></li><li><a href="SquareRGBLed.html">SquareRGBLed</a></li><li><a href="Stepper.html">Stepper</a></li><li><a href="Text.html">Text</a></li><li><a href="TriState.html">TriState</a></li><li><a href="Tunnel.html">Tunnel</a></li><li><a href="TwoComplement.html">TwoComplement</a></li><li><a href="VariableLed.html">VariableLed</a></li><li><a href="XnorGate.html">XnorGate</a></li><li><a href="XorGate.html">XorGate</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Mon Jun 01 2020 18:10:01 GMT+0530 (India Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

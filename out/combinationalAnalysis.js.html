@@ -1,0 +1,405 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> combinationalAnalysis.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                <div class="dropdown is-hoverable is-right">
+                    <a class="dropdown-trigger link">
+                        Tutorials
+                        <i class="fas fa-chevron-down fa-xs"></i>
+                    </a>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-content">
+                        
+                        </div>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>c2s</h2><h3>Classes</h3><ul><li><a href="CanvasGradient.html">CanvasGradient</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ctx">ctx</a></li><li><a href="global.html#normalize">normalize</a></li></ul></div><div class="category"><h2>circuit</h2><h3>Classes</h3><ul><li><a href="Scope.html">Scope</a></li></ul><h3>Global</h3><ul><li><a href="global.html#changeCircuitName">changeCircuitName</a></li><li><a href="global.html#deleteCurrentCircuit">deleteCurrentCircuit</a></li><li><a href="global.html#newCircuit">newCircuit</a></li><li><a href="global.html#switchCircuit">switchCircuit</a></li></ul></div><div class="category"><h2>circuitElement</h2><h3>Classes</h3><ul><li><a href="CircuitElement.html">CircuitElement</a></li></ul></div><div class="category"><h2>combinationalAnalysis</h2><h3>Global</h3><ul><li><a href="global.html#createBooleanPrompt">createBooleanPrompt</a></li><li><a href="global.html#createCombinationalAnalysisPrompt">createCombinationalAnalysisPrompt</a></li></ul></div><div class="category"><h2>data</h2><h3>Modules</h3><ul><li><a href="module-createSaveAsImgPrompt.html">createSaveAsImgPrompt</a></li><li><a href="module-load.html">load</a></li><li><a href="module-save.html">save</a></li><li><a href="module-undo.html">undo</a></li></ul><h3>Global</h3><ul><li><a href="global.html#checkIfBackup">checkIfBackup</a></li><li><a href="global.html#checkToSave">checkToSave</a></li><li><a href="global.html#clearProject">clearProject</a></li><li><a href="global.html#downloadAsImg">downloadAsImg</a></li><li><a href="global.html#generateImage">generateImage</a></li><li><a href="global.html#generateImageForOnline">generateImageForOnline</a></li><li><a href="global.html#generateSaveData">generateSaveData</a></li><li><a href="global.html#loadModule">loadModule</a></li><li><a href="global.html#loadScope">loadScope</a></li><li><a href="global.html#newProject">newProject</a></li><li><a href="global.html#openOffline">openOffline</a></li><li><a href="global.html#projectSaved">projectSaved</a></li><li><a href="global.html#recoverProject">recoverProject</a></li><li><a href="global.html#rectifyObjectType">rectifyObjectType</a></li><li><a href="global.html#removeBugNodes">removeBugNodes</a></li><li><a href="global.html#saveOffline">saveOffline</a></li><li><a href="global.html#setProjectName">setProjectName</a></li></ul></div><div class="category"><h2>engine</h2><h3>Global</h3><ul><li><a href="global.html#canvasMessageData">canvasMessageData</a></li><li><a href="global.html#changeLightMode">changeLightMode</a></li><li><a href="global.html#errorDetected">errorDetected</a></li><li><a href="global.html#errorDetectedGet">errorDetectedGet</a></li><li><a href="global.html#errorDetectedSet">errorDetectedSet</a></li><li><a href="global.html#forceResetNodes">forceResetNodes</a></li><li><a href="global.html#forceResetNodesSet">forceResetNodesSet</a></li><li><a href="global.html#gridUpdate">gridUpdate</a></li><li><a href="global.html#gridUpdateSet">gridUpdateSet</a></li><li><a href="global.html#objectSelection">objectSelection</a></li><li><a href="global.html#objectSelectionSet">objectSelectionSet</a></li><li><a href="global.html#play">play</a></li><li><a href="global.html#renderCanvas">renderCanvas</a></li><li><a href="global.html#scheduleUpdate">scheduleUpdate</a></li><li><a href="global.html#update">update</a></li><li><a href="global.html#updateCanvas">updateCanvas</a></li><li><a href="global.html#updateCanvasSet">updateCanvasSet</a></li><li><a href="global.html#updatePosition">updatePosition</a></li><li><a href="global.html#updatePositionSet">updatePositionSet</a></li><li><a href="global.html#updateSelectionsAndPane">updateSelectionsAndPane</a></li><li><a href="global.html#updateSimulation">updateSimulation</a></li><li><a href="global.html#updateSimulationSet">updateSimulationSet</a></li><li><a href="global.html#updateSubcircuit">updateSubcircuit</a></li><li><a href="global.html#updateSubcircuitSet">updateSubcircuitSet</a></li><li><a href="global.html#willBeUpdated">willBeUpdated</a></li><li><a href="global.html#willBeUpdatedSet">willBeUpdatedSet</a></li><li><a href="global.html#wireToBeChecked">wireToBeChecked</a></li><li><a href="global.html#wireToBeCheckedSet">wireToBeCheckedSet</a></li></ul></div><div class="category"><h2>eventQueue</h2><h3>Classes</h3><ul><li><a href="EventQueue.html">EventQueue</a></li></ul></div><div class="category"><h2>events</h2><h3>Global</h3><ul><li><a href="global.html#copy">copy</a></li><li><a href="global.html#cut">cut</a></li><li><a href="global.html#paste">paste</a></li><li><a href="global.html#selectAll">selectAll</a></li></ul></div><div class="category"><h2>layout</h2><h3>Classes</h3><ul><li><a href="LayoutBuffer.html">LayoutBuffer</a></li><li><a href="LayoutNode.html">LayoutNode</a></li></ul></div><div class="category"><h2>layoutMode</h2><h3>Global</h3><ul><li><a href="global.html#cancelLayout">cancelLayout</a></li><li><a href="global.html#decreaseLayoutHeight">decreaseLayoutHeight</a></li><li><a href="global.html#decreaseLayoutWidth">decreaseLayoutWidth</a></li><li><a href="global.html#determineLabel">determineLabel</a></li><li><a href="global.html#increaseLayoutHeight">increaseLayoutHeight</a></li><li><a href="global.html#increaseLayoutWidth">increaseLayoutWidth</a></li><li><a href="global.html#layoutMode">layoutMode</a></li><li><a href="global.html#layoutResetNodes">layoutResetNodes</a></li><li><a href="global.html#layoutTitleDown">layoutTitleDown</a></li><li><a href="global.html#layoutTitleLeft">layoutTitleLeft</a></li><li><a href="global.html#layoutTitleRight">layoutTitleRight</a></li><li><a href="global.html#layoutTitleUp">layoutTitleUp</a></li><li><a href="global.html#layoutUpdate">layoutUpdate</a></li><li><a href="global.html#paneLayout">paneLayout</a></li><li><a href="global.html#renderLayout">renderLayout</a></li><li><a href="global.html#saveLayout">saveLayout</a></li><li><a href="global.html#tempBuffer">tempBuffer</a></li><li><a href="global.html#toggleLayoutMode">toggleLayoutMode</a></li><li><a href="global.html#toggleLayoutTitle">toggleLayoutTitle</a></li></ul></div><div class="category"><h2>minimap</h2><h3>Global</h3><ul><li><a href="global.html#miniMapArea">miniMapArea</a></li></ul></div><div class="category"><h2>modules</h2><h3>Classes</h3><ul><li><a href="Adder.html">Adder</a></li><li><a href="ALU.html">ALU</a></li><li><a href="AndGate.html">AndGate</a></li><li><a href="Arrow.html">Arrow</a></li><li><a href="BitSelector.html">BitSelector</a></li><li><a href="Buffer.html">Buffer</a></li><li><a href="Button.html">Button</a></li><li><a href="ConstantVal.html">ConstantVal</a></li><li><a href="ControlledInverter.html">ControlledInverter</a></li><li><a href="Counter.html">Counter</a></li><li><a href="Decoder.html">Decoder</a></li><li><a href="Demultiplexer.html">Demultiplexer</a></li><li><a href="DigitalLed.html">DigitalLed</a></li><li><a href="Flag.html">Flag</a></li><li><a href="Ground.html">Ground</a></li><li><a href="HexDisplay.html">HexDisplay</a></li><li><a href="Input.html">Input</a></li><li><a href="LSB.html">LSB</a></li><li><a href="MSB.html">MSB</a></li><li><a href="Multiplexer.html">Multiplexer</a></li><li><a href="NandGate.html">NandGate</a></li><li><a href="NorGate.html">NorGate</a></li><li><a href="NotGate.html">NotGate</a></li><li><a href="OrGate.html">OrGate</a></li><li><a href="Output.html">Output</a></li><li><a href="Power.html">Power</a></li><li><a href="PriorityEncoder.html">PriorityEncoder</a></li><li><a href="Random.html">Random</a></li><li><a href="Rectangle.html">Rectangle</a></li><li><a href="RGBLed.html">RGBLed</a></li><li><a href="RGBLedMatrix.html">RGBLedMatrix</a></li><li><a href="Rom.html">Rom</a></li><li><a href="SevenSegDisplay.html">SevenSegDisplay</a></li><li><a href="SixteenSegDisplay.html">SixteenSegDisplay</a></li><li><a href="Splitter.html">Splitter</a></li><li><a href="SquareRGBLed.html">SquareRGBLed</a></li><li><a href="Stepper.html">Stepper</a></li><li><a href="Text.html">Text</a></li><li><a href="TriState.html">TriState</a></li><li><a href="Tunnel.html">Tunnel</a></li><li><a href="TwoComplement.html">TwoComplement</a></li><li><a href="VariableLed.html">VariableLed</a></li><li><a href="XnorGate.html">XnorGate</a></li><li><a href="XorGate.html">XorGate</a></li></ul></div><div class="category"><h2>node</h2><h3>Classes</h3><ul><li><a href="Node.html">Node</a></li></ul><h3>Global</h3><ul><li><a href="global.html#constructNodeConnections">constructNodeConnections</a></li><li><a href="global.html#extractNode">extractNode</a></li><li><a href="global.html#findNode">findNode</a></li><li><a href="global.html#loadNode">loadNode</a></li><li><a href="global.html#replace">replace</a></li><li><a href="global.html#uniqueIdCounter">uniqueIdCounter</a></li></ul></div><div class="category"><h2>plotArea</h2><h3>Modules</h3><ul><li><a href="module-plotArea.html">plotArea</a></li></ul><h3>Classes</h3><ul><li><a href="module-plotArea-StopWatch.html">StopWatch</a></li></ul></div><div class="category"><h2>sequential</h2><h3>Classes</h3><ul><li><a href="Clock.html">Clock</a></li><li><a href="DflipFlop.html">DflipFlop</a></li><li><a href="Dlatch.html">Dlatch</a></li><li><a href="EEPROM.html">EEPROM</a></li><li><a href="JKflipFlop.html">JKflipFlop</a></li><li><a href="Keyboard.html">Keyboard</a></li><li><a href="RAM.html">RAM</a></li><li><a href="Rom.html">Rom</a></li><li><a href="SRflipFlop.html">SRflipFlop</a></li><li><a href="TflipFlop.html">TflipFlop</a></li><li><a href="TTY.html">TTY</a></li></ul><h3>Global</h3><ul><li><a href="global.html#changeClockEnable">changeClockEnable</a></li><li><a href="global.html#runTest">runTest</a></li></ul></div><div class="category"><h2>setup</h2><h3>Global</h3><ul><li><a href="global.html#resetup">resetup</a></li><li><a href="global.html#setup">setup</a></li><li><a href="global.html#setupElementLists">setupElementLists</a></li><li><a href="global.html#setupEnvironment">setupEnvironment</a></li></ul></div><div class="category"><h2>simulationArea</h2><h3>Global</h3><ul><li><a href="global.html#simulationArea">simulationArea</a></li></ul></div><div class="category"><h2>subcircuit</h2><h3>Classes</h3><ul><li><a href="SubCircuit.html">SubCircuit</a></li></ul><h3>Global</h3><ul><li><a href="global.html#createSubCircuitPrompt">createSubCircuitPrompt</a></li><li><a href="global.html#loadSubCircuit">loadSubCircuit</a></li></ul></div><div class="category"><h2>testbench</h2><h3>Classes</h3><ul><li><a href="ForceGate.html">ForceGate</a></li><li><a href="TB_Input.html">TB_Input</a></li><li><a href="TB_Output.html">TB_Output</a></li></ul></div><div class="category"><h2>utils</h2><h3>Global</h3><ul><li><a href="global.html#showError">showError</a></li><li><a href="global.html#uniq">uniq</a></li></ul></div><div class="category"><h2>ux</h2><h3>Global</h3><ul><li><a href="global.html#ctxPos">ctxPos</a></li><li><a href="global.html#escapeHtml">escapeHtml</a></li><li><a href="global.html#hideContextMenu">hideContextMenu</a></li><li><a href="global.html#hideProperties">hideProperties</a></li><li><a href="global.html#menuItemClicked">menuItemClicked</a></li><li><a href="global.html#prevPropertyObj">prevPropertyObj</a></li><li><a href="global.html#setupUI">setupUI</a></li><li><a href="global.html#showContextMenu">showContextMenu</a></li><li><a href="global.html#showProperties">showProperties</a></li></ul></div><div class="category"><h2>wire</h2><h3>Classes</h3><ul><li><a href="module-wire.Wire.html">Wire</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>combinationalAnalysis.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* eslint-disable import/no-cycle */
+/* eslint-disable guard-for-in */
+/* eslint-disable no-restricted-syntax */
+import Node from './node';
+import { scheduleBackup } from './data/backupCircuit';
+import BooleanMinimize from './quinMcCluskey';
+import Input from './modules/Input';
+import Output from './modules/Output';
+import AndGate from './modules/AndGate';
+import OrGate from './modules/OrGate';
+import NotGate from './modules/NotGate';
+
+var inputSample = 5;
+var dataSample = [['01---', '11110', '01---', '00000'], ['01110', '1-1-1', '----0'], ['01---', '11110', '01110', '1-1-1', '0---0'], ['----1']];
+
+var sampleInputListNames = ['A', 'B'];
+var sampleOutputListNames = ['X'];
+
+/**
+ * The prompt for combinational analysis
+ * @param {Scope=} - the circuit in which we want combinational analysis
+ * @category combinationalAnalysis
+ */
+export function createCombinationalAnalysisPrompt(scope = globalScope) {
+    // console.log("Ya");
+    scheduleBackup();
+    $('#combinationalAnalysis').empty();
+    $('#combinationalAnalysis').append("&lt;p>Enter Input names separated by commas: &lt;input id='inputNameList' type='text'  placeHolder='eg. In A, In B'>&lt;/p>");
+    $('#combinationalAnalysis').append("&lt;p>Enter Output names separated by commas: &lt;input id='outputNameList' type='text'  placeHolder='eg. Out X, Out Y'>&lt;/p>");
+    $('#combinationalAnalysis').append("&lt;p>Do you need a decimal column? &lt;input id='decimalColumnBox' type='checkbox'>&lt;/p>");
+    $('#combinationalAnalysis').dialog({
+        width: 'auto',
+        buttons: [
+            {
+                text: 'Next',
+                click() {
+                    var inputList = $('#inputNameList').val().split(',');
+                    var outputList = $('#outputNameList').val().split(',');
+                    inputList = inputList.map((x) => x.trim());
+                    inputList = inputList.filter((e) => e);
+                    outputList = outputList.map((x) => x.trim());
+                    outputList = outputList.filter((e) => e);
+                    if (inputList.length > 0 &amp;&amp; outputList.length > 0) {
+                        $(this).dialog('close');
+                        createBooleanPrompt(inputList, outputList, scope);
+                    } else {
+                        alert('Enter Input / Output Variable(s) !');
+                    }
+                },
+            },
+        ],
+    });
+}
+/**
+ * This funciton hashes the output array and makes required JSON using
+ * a BooleanMinimize class defined in Quin_Mcluskey.js var s which will
+ * be output table is also initialied here
+ * @param {Array} inputListNames - labels of input nodes
+ * @param {Array} outputListNames - labels of output nodes
+ * @param {Scope=} scope - h circuit
+ * @category combinationalAnalysis
+ */
+function createBooleanPrompt(inputListNames, outputListNames, scope = globalScope) {
+    var inputListNames = inputListNames || (prompt('Enter inputs separated by commas').split(','));
+    var outputListNames = outputListNames || (prompt('Enter outputs separated by commas').split(','));
+    var outputListNamesInteger = [];
+    for (var i = 0; i &lt; outputListNames.length; i++) { outputListNamesInteger[i] = 7 * i + 13; }// assigning an integer to the value, 7*i + 13 is random
+
+    var s = '&lt;table>';
+    s += '&lt;tbody style="display:block; max-height:70vh; overflow-y:scroll" >';
+    s += '&lt;tr>';
+    if ($('#decimalColumnBox').is(':checked')) { s += '&lt;th>' + 'dec' + '&lt;/th>'; }
+    for (var i = 0; i &lt; inputListNames.length; i++) { s += `&lt;th>${inputListNames[i]}&lt;/th>`; }
+    for (var i = 0; i &lt; outputListNames.length; i++) { s += `&lt;th>${outputListNames[i]}&lt;/th>`; }
+    s += '&lt;/tr>';
+
+    var matrix = [];
+    for (var i = 0; i &lt; inputListNames.length; i++) {
+        matrix[i] = new Array((1 &lt;&lt; inputListNames.length));
+    }
+
+    for (var i = 0; i &lt; inputListNames.length; i++) {
+        for (var j = 0; j &lt; (1 &lt;&lt; inputListNames.length); j++) {
+            matrix[i][j] = (+((j &amp; (1 &lt;&lt; (inputListNames.length - i - 1))) != 0));
+        }
+    }
+
+    for (var j = 0; j &lt; (1 &lt;&lt; inputListNames.length); j++) {
+        s += '&lt;tr>';
+        if ($('#decimalColumnBox').is(':checked')) { s += `&lt;td>${j}&lt;/td>`; }
+        for (var i = 0; i &lt; inputListNames.length; i++) {
+            s += `&lt;td>${matrix[i][j]}&lt;/td>`;
+        }
+        for (var i = 0; i &lt; outputListNamesInteger.length; i++) {
+            s += `&lt;td class ="output ${outputListNamesInteger[i]}" id="${j}">` + 'x' + '&lt;/td>';
+            // using hash values as they'll be used in the generateBooleanTableData function
+        }
+        s += '&lt;/tr>';
+    }
+    s += '&lt;/tbody>';
+    s += '&lt;/table>';
+    // console.log(s)
+    $('#combinationalAnalysis').empty();
+    $('#combinationalAnalysis').append(s);
+    $('#combinationalAnalysis').dialog({
+        width: 'auto',
+        buttons: [
+            {
+                text: 'Generate Circuit',
+                click() {
+                    $(this).dialog('close');
+                    var data = generateBooleanTableData(outputListNamesInteger);
+                    // passing the hash values to avoid spaces being passed which is causing a problem
+                    var minmizedCircuit = [];
+                    for (const output in data) {
+                        const temp = new BooleanMinimize(
+                            inputListNames.length,
+                            data[output][1].map(Number),
+                            data[output].x.map(Number),
+                        );
+                        minmizedCircuit.push(temp.result);
+                    }
+                    // //console.log(dataSample);
+                    drawCombinationalAnalysis(minmizedCircuit, inputListNames, outputListNames, scope);
+                },
+            },
+            {
+                text: 'Print Truth Table',
+                click() {
+                    var sTable = document.getElementById('combinationalAnalysis').innerHTML;
+                    var style = '&lt;style> table {font: 20px Calibri;} table, th, td {border: solid 1px #DDD;border-collapse: collapse;} padding: 2px 3px;text-align: center;} &lt;/style>';
+                    var win = window.open('', '', 'height=700,width=700');
+                    win.document.write('&lt;html>&lt;head>');
+                    win.document.write('&lt;title>Boolean Logic Table&lt;/title>');
+                    win.document.write(style);
+                    win.document.write('&lt;/head>');
+                    win.document.write('&lt;body>');
+                    win.document.write(`&lt;center>${sTable}&lt;/center>`);
+                    win.document.write('&lt;/body>&lt;/html>');
+                    win.document.close();
+                    win.print();
+                },
+            },
+        ],
+    });
+
+    $('.output').click(function () {
+        var v = $(this).html();
+        if (v == 0)v = $(this).html(1);
+        else if (v == 1)v = $(this).html('x');
+        else if (v == 'x')v = $(this).html(0);
+    });
+}
+
+function generateBooleanTableData(outputListNames) {
+    var data = {};
+    for (var i = 0; i &lt; outputListNames.length; i++) {
+        data[outputListNames[i]] = {
+            x: [],
+            1: [],
+            0: [],
+        };
+        var rows = $(`.${outputListNames[i]}`);
+        for (let j = 0; j &lt; rows.length; j++) {
+            // console.log($rows[j].innerHTML)
+            data[outputListNames[i]][rows[j].innerHTML].push(rows[j].id);
+        }
+    }
+    // console.log(data);
+    return data;
+}
+
+function drawCombinationalAnalysis(combinationalData, inputList, outputListNames, scope = globalScope) {
+    // console.log(combinationalData);
+    var inputCount = inputList.length;
+    var maxTerms = 0;
+    for (var i = 0; i &lt; combinationalData.length; i++) { maxTerms = Math.max(maxTerms, combinationalData[i].length); }
+
+    var startPosX = 200;
+    var startPosY = 200;
+
+    var currentPosY = 300;
+    var andPosX = startPosX + inputCount * 40 + 40;
+    var orPosX = andPosX + Math.floor(maxTerms / 2) * 10 + 80;
+    var outputPosX = orPosX + 60;
+    var inputObjects = [];
+
+    var logixNodes = [];
+
+    for (var i = 0; i &lt; inputCount; i++) {
+        inputObjects.push(new Input(startPosX + i * 40, startPosY, scope, 'DOWN', 1));
+        inputObjects[i].setLabel(inputList[i]);
+        inputObjects[i].newLabelDirection('UP');
+        var v1 = new Node(startPosX + i * 40, startPosY + 20, 2, scope.root);
+        inputObjects[i].output1.connect(v1);
+        var v2 = new Node(startPosX + i * 40 + 20, startPosY + 20, 2, scope.root);
+        v1.connect(v2);
+        var notG = new NotGate(startPosX + i * 40 + 20, startPosY + 40, scope, 'DOWN', 1);
+        notG.inp1.connect(v2);
+        logixNodes.push(v1);
+        logixNodes.push(notG.output1);
+    }
+
+    function countTerm(s) {
+        var c = 0;
+        for (var i = 0; i &lt; s.length; i++) { if (s[i] !== '-')c++; }
+        return c;
+    }
+
+    for (var i = 0; i &lt; combinationalData.length; i++) {
+        // //console.log(combinationalData[i]);
+        var andGateNodes = [];
+        for (var j = 0; j &lt; combinationalData[i].length; j++) {
+            var c = countTerm(combinationalData[i][j]);
+            if (c > 1) {
+                var andGate = new AndGate(andPosX, currentPosY, scope, 'RIGHT', c, 1);
+                andGateNodes.push(andGate.output1);
+                var misses = 0;
+                for (var k = 0; k &lt; combinationalData[i][j].length; k++) {
+                    if (combinationalData[i][j][k] == '-') { misses++; continue; }
+                    var index = 2 * k + (combinationalData[i][j][k] == 0);
+                    // console.log(index);
+                    // console.log(andGate);
+                    var v = new Node(logixNodes[index].absX(), andGate.inp[k - misses].absY(), 2, scope.root);
+                    logixNodes[index].connect(v);
+                    logixNodes[index] = v;
+                    v.connect(andGate.inp[k - misses]);
+                }
+            } else {
+                for (var k = 0; k &lt; combinationalData[i][j].length; k++) {
+                    if (combinationalData[i][j][k] == '-') continue;
+                    var index = 2 * k + (combinationalData[i][j][k] == 0);
+                    var andGateSubstituteNode = new Node(andPosX, currentPosY, 2, scope.root);
+                    var v = new Node(logixNodes[index].absX(), andGateSubstituteNode.absY(), 2, scope.root);
+                    logixNodes[index].connect(v);
+                    logixNodes[index] = v;
+                    v.connect(andGateSubstituteNode);
+                    andGateNodes.push(andGateSubstituteNode);
+                }
+            }
+            currentPosY += c * 10 + 30;
+        }
+
+        var andGateCount = andGateNodes.length;
+        var midWay = Math.floor(andGateCount / 2);
+        var orGatePosY = (andGateNodes[midWay].absY() + andGateNodes[Math.floor((andGateCount - 1) / 2)].absY()) / 2;
+        if (orGatePosY % 10 == 5) { orGatePosY += 5; } // To make or gate fall in grid
+        if (andGateCount > 1) {
+            var o = new OrGate(orPosX, orGatePosY, scope, 'RIGHT', andGateCount, 1);
+            if (andGateCount % 2 == 1)andGateNodes[midWay].connect(o.inp[midWay]);
+            for (var j = 0; j &lt; midWay; j++) {
+                var v = new Node(andPosX + 30 + (midWay - j) * 10, andGateNodes[j].absY(), 2, scope.root);
+                v.connect(andGateNodes[j]);
+                var v2 = new Node(andPosX + 30 + (midWay - j) * 10, o.inp[j].absY(), 2, scope.root);
+                v2.connect(v);
+                o.inp[j].connect(v2);
+
+                var v = new Node(andPosX + 30 + (midWay - j) * 10, andGateNodes[andGateCount - j - 1].absY(), 2, scope.root);
+                v.connect(andGateNodes[andGateCount - j - 1]);
+                var v2 = new Node(andPosX + 30 + (midWay - j) * 10, o.inp[andGateCount - j - 1].absY(), 2, scope.root);
+                v2.connect(v);
+                o.inp[andGateCount - j - 1].connect(v2);
+            }
+            var out = new Output(outputPosX, o.y, scope, 'LEFT', 1);
+            out.inp1.connect(o.output1);
+        } else {
+            var out = new Output(outputPosX, andGateNodes[0].absY(), scope, 'LEFT', 1);
+            out.inp1.connect(andGateNodes[0]);
+        }
+        out.setLabel(outputListNames[i]);
+        out.newLabelDirection('RIGHT');
+    }
+    for (var i = 0; i &lt; logixNodes.length; i++) {
+        if (logixNodes[i].absY() != currentPosY) {
+            var v = new Node(logixNodes[i].absX(), currentPosY, 2, scope.root);
+            logixNodes[i].connect(v);
+        }
+    }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+</body>
+</html>

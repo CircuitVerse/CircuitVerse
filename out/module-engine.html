@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> engine</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                <div class="dropdown is-hoverable is-right">
+                    <a class="dropdown-trigger link">
+                        Tutorials
+                        <i class="fas fa-chevron-down fa-xs"></i>
+                    </a>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-content">
+                        
+                        </div>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="module-eventQueue.EventQueue.html">EventQueue</a></li><li><a href="module-node.Node.html">Node</a></li><li><a href="module-plot-StopWatch.html">StopWatch</a></li></ul></div><div class="category"><h2>canvas2svg</h2><h3>Classes</h3><ul><li><a href="CanvasGradient.html">CanvasGradient</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ctx">ctx</a></li><li><a href="global.html#normalize">normalize</a></li></ul></div><div class="category"><h2>circuit</h2><h3>Classes</h3><ul><li><a href="Scope.html">Scope</a></li></ul><h3>Global</h3><ul><li><a href="global.html#changeCircuitName">changeCircuitName</a></li><li><a href="global.html#deleteCurrentCircuit">deleteCurrentCircuit</a></li><li><a href="global.html#newCircuit">newCircuit</a></li><li><a href="global.html#switchCircuit">switchCircuit</a></li></ul></div><div class="category"><h2>circuitElement</h2><h3>Classes</h3><ul><li><a href="CircuitElement.html">CircuitElement</a></li></ul></div><div class="category"><h2>combinationalAnalysis</h2><h3>Global</h3><ul><li><a href="global.html#createBooleanPrompt">createBooleanPrompt</a></li><li><a href="global.html#default">default</a></li></ul></div><div class="category"><h2>engine</h2><h3>Modules</h3><ul><li><a href="module-engine.html">engine</a></li></ul></div><div class="category"><h2>eventQueue</h2><h3>Modules</h3><ul><li><a href="module-eventQueue.html">eventQueue</a></li></ul></div><div class="category"><h2>events</h2><h3>Global</h3><ul><li><a href="global.html#copy">copy</a></li><li><a href="global.html#cut">cut</a></li><li><a href="global.html#paste">paste</a></li><li><a href="global.html#selectAll">selectAll</a></li></ul></div><div class="category"><h2>minimap</h2><h3><a href="global.html">Global</a></h3></div><div class="category"><h2>node</h2><h3>Modules</h3><ul><li><a href="module-node.html">node</a></li></ul></div><div class="category"><h2>plotArea</h2><h3>Modules</h3><ul><li><a href="module-plot.html">plot</a></li></ul></div><div class="category"><h2>sequential</h2><h3>Modules</h3><ul><li><a href="module-sequential.html">sequential</a></li></ul></div><div class="category"><h2>setup</h2><h3>Global</h3><ul><li><a href="global.html#resetup">resetup</a></li><li><a href="global.html#setup">setup</a></li><li><a href="global.html#setupElementLists">setupElementLists</a></li><li><a href="global.html#setupEnvironment">setupEnvironment</a></li></ul></div><div class="category"><h2>simulationArea</h2><h3><a href="global.html">Global</a></h3></div><div class="category"><h2>subcircuit</h2><h3>Classes</h3><ul><li><a href="SubCircuit.html">SubCircuit</a></li></ul><h3>Global</h3><ul><li><a href="global.html#createSubCircuitPrompt">createSubCircuitPrompt</a></li><li><a href="global.html#loadSubCircuit">loadSubCircuit</a></li></ul></div><div class="category"><h2>utils</h2><h3>Global</h3><ul><li><a href="global.html#showError">showError</a></li><li><a href="global.html#uniq">uniq</a></li></ul></div><div class="category"><h2>ux</h2><h3>Global</h3><ul><li><a href="global.html#ctxPos">ctxPos</a></li><li><a href="global.html#escapeHtml">escapeHtml</a></li><li><a href="global.html#hideContextMenu">hideContextMenu</a></li><li><a href="global.html#hideProperties">hideProperties</a></li><li><a href="global.html#menuItemClicked">menuItemClicked</a></li><li><a href="global.html#prevPropertyObj">prevPropertyObj</a></li><li><a href="global.html#setupUI">setupUI</a></li><li><a href="global.html#showContextMenu">showContextMenu</a></li><li><a href="global.html#showProperties">showProperties</a></li></ul></div><div class="category"><h2>wire</h2><h3>Classes</h3><ul><li><a href="module-wire.Wire.html">Wire</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Module</p>
+                    <h1>engine</h1>
+                </header>
+                
+
+
+
+
+<section>
+
+<header>
+    
+        
+            
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Core of the simulation and rendering algorithm.</div>
+        
+
+        
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="engine.js.html" class="button">View Source</a>
+            <span>
+                <a href="engine.js.html">engine.js</a>, <a href="engine.js.html#line18">line 18</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+    </div>
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <div class='vertical-section'>
+            <h1>Methods</h1>
+            <div class="members">
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id=".play">
+        <a class="href-link" href="#.play">#</a>
+        
+            
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            
+                play<span class="signature">(scope<span class="signature-attributes">opt</span>, resetNodes)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Main fn that resolves circuit using event driven simulation
+All inputs are added to a scope using scope.addinput() and
+the simulation starts to play.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+            <th>Attributes</th>
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>scope</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type"><a href="Scope.html">Scope</a></span>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+          &lt;optional><br>
+      
+
+      
+
+      
+      </td>
+  
+
+  
+
+  <td class="description last">the circuit we want to simulate</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>resetNodes</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">boolean</span>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+
+      
+
+      
+      </td>
+  
+
+  
+
+  <td class="description last">boolean to reset all nodes</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="engine.js.html" class="button">View Source</a>
+            <span>
+                <a href="engine.js.html">engine.js</a>, <a href="engine.js.html#line226">line 226</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id=".renderCanvas">
+        <a class="href-link" href="#.renderCanvas">#</a>
+        
+            
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            
+                renderCanvas<span class="signature">(scope)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Function to render Canvas according th renderupdate order
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>scope</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type"><a href="Scope.html">Scope</a></span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">The circuit whose canvas we want to render</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="engine.js.html" class="button">View Source</a>
+            <span>
+                <a href="engine.js.html">engine.js</a>, <a href="engine.js.html#line91">line 91</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id=".scheduleUpdate">
+        <a class="href-link" href="#.scheduleUpdate">#</a>
+        
+            
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            
+                scheduleUpdate<span class="signature">(count<span class="signature-attributes">opt</span>, time<span class="signature-attributes">opt</span>, fn)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Function to check for any UI update, it is throttled by time
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+            <th>Attributes</th>
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>count</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">number</span>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+          &lt;optional><br>
+      
+
+      
+
+      
+      </td>
+  
+
+  
+
+  <td class="description last">this is used to force update</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>time</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">number</span>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+          &lt;optional><br>
+      
+
+      
+
+      
+      </td>
+  
+
+  
+
+  <td class="description last">the time throttling parameter</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>fn</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">function</span>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+
+      
+
+      
+      </td>
+  
+
+  
+
+  <td class="description last">function to run before updating UI</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="engine.js.html" class="button">View Source</a>
+            <span>
+                <a href="engine.js.html">engine.js</a>, <a href="engine.js.html#line288">line 288</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id=".update">
+        <a class="href-link" href="#.update">#</a>
+        
+            
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            
+                update<span class="signature">(scope<span class="signature-attributes">opt</span>, updateEverything<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        fn that calls update on everything else. If any change
+is there, it resolves the circuit and draws it again.
+Also updates simulations, selection, minimap, resolves
+circuit and redraws canvas if required.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+            <th>Attributes</th>
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>scope</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type"><a href="Scope.html">Scope</a></span>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+          &lt;optional><br>
+      
+
+      
+
+      
+      </td>
+  
+
+  
+
+  <td class="description last">the circuit to be updated</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>updateEverything</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">boolean</span>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+          &lt;optional><br>
+      
+
+      
+
+      
+      </td>
+  
+
+  
+
+  <td class="description last">if true we update the wires, nodes and modules</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="engine.js.html" class="button">View Source</a>
+            <span>
+                <a href="engine.js.html">engine.js</a>, <a href="engine.js.html#line318">line 318</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id=".updateSelectionsAndPane">
+        <a class="href-link" href="#.updateSelectionsAndPane">#</a>
+        
+            
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            
+                updateSelectionsAndPane<span class="signature">(scope<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Function to move multiple objects and panes window
+deselected using dblclick right now (PR open for esc key)
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+            <th>Attributes</th>
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>scope</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type"><a href="Scope.html">Scope</a></span>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+          &lt;optional><br>
+      
+
+      
+
+      
+      </td>
+  
+
+  
+
+  <td class="description last">the circuit in which we are selecting stuff</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="engine.js.html" class="button">View Source</a>
+            <span>
+                <a href="engine.js.html">engine.js</a>, <a href="engine.js.html#line141">line 141</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+            </div>
+        </div>
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+</body>
+</html>

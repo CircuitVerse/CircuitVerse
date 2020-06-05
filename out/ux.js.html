@@ -1,0 +1,524 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> ux.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                <div class="dropdown is-hoverable is-right">
+                    <a class="dropdown-trigger link">
+                        Tutorials
+                        <i class="fas fa-chevron-down fa-xs"></i>
+                    </a>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-content">
+                        
+                        </div>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>c2s</h2><h3>Classes</h3><ul><li><a href="CanvasGradient.html">CanvasGradient</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ctx">ctx</a></li><li><a href="global.html#normalize">normalize</a></li></ul></div><div class="category"><h2>circuit</h2><h3>Classes</h3><ul><li><a href="Scope.html">Scope</a></li></ul><h3>Global</h3><ul><li><a href="global.html#changeCircuitName">changeCircuitName</a></li><li><a href="global.html#deleteCurrentCircuit">deleteCurrentCircuit</a></li><li><a href="global.html#newCircuit">newCircuit</a></li><li><a href="global.html#switchCircuit">switchCircuit</a></li></ul></div><div class="category"><h2>circuitElement</h2><h3>Classes</h3><ul><li><a href="CircuitElement.html">CircuitElement</a></li></ul></div><div class="category"><h2>combinationalAnalysis</h2><h3>Global</h3><ul><li><a href="global.html#createBooleanPrompt">createBooleanPrompt</a></li><li><a href="global.html#createCombinationalAnalysisPrompt">createCombinationalAnalysisPrompt</a></li></ul></div><div class="category"><h2>data</h2><h3>Modules</h3><ul><li><a href="module-createSaveAsImgPrompt.html">createSaveAsImgPrompt</a></li><li><a href="module-load.html">load</a></li><li><a href="module-save.html">save</a></li><li><a href="module-undo.html">undo</a></li></ul><h3>Global</h3><ul><li><a href="global.html#checkIfBackup">checkIfBackup</a></li><li><a href="global.html#checkToSave">checkToSave</a></li><li><a href="global.html#clearProject">clearProject</a></li><li><a href="global.html#downloadAsImg">downloadAsImg</a></li><li><a href="global.html#generateImage">generateImage</a></li><li><a href="global.html#generateImageForOnline">generateImageForOnline</a></li><li><a href="global.html#generateSaveData">generateSaveData</a></li><li><a href="global.html#loadModule">loadModule</a></li><li><a href="global.html#loadScope">loadScope</a></li><li><a href="global.html#newProject">newProject</a></li><li><a href="global.html#openOffline">openOffline</a></li><li><a href="global.html#projectSaved">projectSaved</a></li><li><a href="global.html#recoverProject">recoverProject</a></li><li><a href="global.html#rectifyObjectType">rectifyObjectType</a></li><li><a href="global.html#removeBugNodes">removeBugNodes</a></li><li><a href="global.html#saveOffline">saveOffline</a></li><li><a href="global.html#setProjectName">setProjectName</a></li></ul></div><div class="category"><h2>engine</h2><h3>Global</h3><ul><li><a href="global.html#canvasMessageData">canvasMessageData</a></li><li><a href="global.html#changeLightMode">changeLightMode</a></li><li><a href="global.html#errorDetected">errorDetected</a></li><li><a href="global.html#errorDetectedGet">errorDetectedGet</a></li><li><a href="global.html#errorDetectedSet">errorDetectedSet</a></li><li><a href="global.html#forceResetNodes">forceResetNodes</a></li><li><a href="global.html#forceResetNodesSet">forceResetNodesSet</a></li><li><a href="global.html#gridUpdate">gridUpdate</a></li><li><a href="global.html#gridUpdateSet">gridUpdateSet</a></li><li><a href="global.html#objectSelection">objectSelection</a></li><li><a href="global.html#objectSelectionSet">objectSelectionSet</a></li><li><a href="global.html#play">play</a></li><li><a href="global.html#renderCanvas">renderCanvas</a></li><li><a href="global.html#scheduleUpdate">scheduleUpdate</a></li><li><a href="global.html#update">update</a></li><li><a href="global.html#updateCanvas">updateCanvas</a></li><li><a href="global.html#updateCanvasSet">updateCanvasSet</a></li><li><a href="global.html#updatePosition">updatePosition</a></li><li><a href="global.html#updatePositionSet">updatePositionSet</a></li><li><a href="global.html#updateSelectionsAndPane">updateSelectionsAndPane</a></li><li><a href="global.html#updateSimulation">updateSimulation</a></li><li><a href="global.html#updateSimulationSet">updateSimulationSet</a></li><li><a href="global.html#updateSubcircuit">updateSubcircuit</a></li><li><a href="global.html#updateSubcircuitSet">updateSubcircuitSet</a></li><li><a href="global.html#willBeUpdated">willBeUpdated</a></li><li><a href="global.html#willBeUpdatedSet">willBeUpdatedSet</a></li><li><a href="global.html#wireToBeChecked">wireToBeChecked</a></li><li><a href="global.html#wireToBeCheckedSet">wireToBeCheckedSet</a></li></ul></div><div class="category"><h2>eventQueue</h2><h3>Classes</h3><ul><li><a href="EventQueue.html">EventQueue</a></li></ul></div><div class="category"><h2>events</h2><h3>Global</h3><ul><li><a href="global.html#copy">copy</a></li><li><a href="global.html#cut">cut</a></li><li><a href="global.html#paste">paste</a></li><li><a href="global.html#selectAll">selectAll</a></li></ul></div><div class="category"><h2>layout</h2><h3>Classes</h3><ul><li><a href="LayoutBuffer.html">LayoutBuffer</a></li><li><a href="LayoutNode.html">LayoutNode</a></li></ul></div><div class="category"><h2>layoutMode</h2><h3>Global</h3><ul><li><a href="global.html#cancelLayout">cancelLayout</a></li><li><a href="global.html#decreaseLayoutHeight">decreaseLayoutHeight</a></li><li><a href="global.html#decreaseLayoutWidth">decreaseLayoutWidth</a></li><li><a href="global.html#determineLabel">determineLabel</a></li><li><a href="global.html#increaseLayoutHeight">increaseLayoutHeight</a></li><li><a href="global.html#increaseLayoutWidth">increaseLayoutWidth</a></li><li><a href="global.html#layoutMode">layoutMode</a></li><li><a href="global.html#layoutResetNodes">layoutResetNodes</a></li><li><a href="global.html#layoutTitleDown">layoutTitleDown</a></li><li><a href="global.html#layoutTitleLeft">layoutTitleLeft</a></li><li><a href="global.html#layoutTitleRight">layoutTitleRight</a></li><li><a href="global.html#layoutTitleUp">layoutTitleUp</a></li><li><a href="global.html#layoutUpdate">layoutUpdate</a></li><li><a href="global.html#paneLayout">paneLayout</a></li><li><a href="global.html#renderLayout">renderLayout</a></li><li><a href="global.html#saveLayout">saveLayout</a></li><li><a href="global.html#tempBuffer">tempBuffer</a></li><li><a href="global.html#toggleLayoutMode">toggleLayoutMode</a></li><li><a href="global.html#toggleLayoutTitle">toggleLayoutTitle</a></li></ul></div><div class="category"><h2>minimap</h2><h3>Global</h3><ul><li><a href="global.html#miniMapArea">miniMapArea</a></li></ul></div><div class="category"><h2>modules</h2><h3>Classes</h3><ul><li><a href="Adder.html">Adder</a></li><li><a href="ALU.html">ALU</a></li><li><a href="AndGate.html">AndGate</a></li><li><a href="Arrow.html">Arrow</a></li><li><a href="BitSelector.html">BitSelector</a></li><li><a href="Buffer.html">Buffer</a></li><li><a href="Button.html">Button</a></li><li><a href="ConstantVal.html">ConstantVal</a></li><li><a href="ControlledInverter.html">ControlledInverter</a></li><li><a href="Counter.html">Counter</a></li><li><a href="Decoder.html">Decoder</a></li><li><a href="Demultiplexer.html">Demultiplexer</a></li><li><a href="DigitalLed.html">DigitalLed</a></li><li><a href="Flag.html">Flag</a></li><li><a href="Ground.html">Ground</a></li><li><a href="HexDisplay.html">HexDisplay</a></li><li><a href="Input.html">Input</a></li><li><a href="LSB.html">LSB</a></li><li><a href="MSB.html">MSB</a></li><li><a href="Multiplexer.html">Multiplexer</a></li><li><a href="NandGate.html">NandGate</a></li><li><a href="NorGate.html">NorGate</a></li><li><a href="NotGate.html">NotGate</a></li><li><a href="OrGate.html">OrGate</a></li><li><a href="Output.html">Output</a></li><li><a href="Power.html">Power</a></li><li><a href="PriorityEncoder.html">PriorityEncoder</a></li><li><a href="Random.html">Random</a></li><li><a href="Rectangle.html">Rectangle</a></li><li><a href="RGBLed.html">RGBLed</a></li><li><a href="RGBLedMatrix.html">RGBLedMatrix</a></li><li><a href="Rom.html">Rom</a></li><li><a href="SevenSegDisplay.html">SevenSegDisplay</a></li><li><a href="SixteenSegDisplay.html">SixteenSegDisplay</a></li><li><a href="Splitter.html">Splitter</a></li><li><a href="SquareRGBLed.html">SquareRGBLed</a></li><li><a href="Stepper.html">Stepper</a></li><li><a href="Text.html">Text</a></li><li><a href="TriState.html">TriState</a></li><li><a href="Tunnel.html">Tunnel</a></li><li><a href="TwoComplement.html">TwoComplement</a></li><li><a href="VariableLed.html">VariableLed</a></li><li><a href="XnorGate.html">XnorGate</a></li><li><a href="XorGate.html">XorGate</a></li></ul></div><div class="category"><h2>node</h2><h3>Classes</h3><ul><li><a href="Node.html">Node</a></li></ul><h3>Global</h3><ul><li><a href="global.html#constructNodeConnections">constructNodeConnections</a></li><li><a href="global.html#extractNode">extractNode</a></li><li><a href="global.html#findNode">findNode</a></li><li><a href="global.html#loadNode">loadNode</a></li><li><a href="global.html#replace">replace</a></li><li><a href="global.html#uniqueIdCounter">uniqueIdCounter</a></li></ul></div><div class="category"><h2>plotArea</h2><h3>Modules</h3><ul><li><a href="module-plotArea.html">plotArea</a></li></ul><h3>Classes</h3><ul><li><a href="module-plotArea-StopWatch.html">StopWatch</a></li></ul></div><div class="category"><h2>sequential</h2><h3>Classes</h3><ul><li><a href="Clock.html">Clock</a></li><li><a href="DflipFlop.html">DflipFlop</a></li><li><a href="Dlatch.html">Dlatch</a></li><li><a href="EEPROM.html">EEPROM</a></li><li><a href="JKflipFlop.html">JKflipFlop</a></li><li><a href="Keyboard.html">Keyboard</a></li><li><a href="RAM.html">RAM</a></li><li><a href="Rom.html">Rom</a></li><li><a href="SRflipFlop.html">SRflipFlop</a></li><li><a href="TflipFlop.html">TflipFlop</a></li><li><a href="TTY.html">TTY</a></li></ul><h3>Global</h3><ul><li><a href="global.html#changeClockEnable">changeClockEnable</a></li><li><a href="global.html#runTest">runTest</a></li></ul></div><div class="category"><h2>setup</h2><h3>Global</h3><ul><li><a href="global.html#resetup">resetup</a></li><li><a href="global.html#setup">setup</a></li><li><a href="global.html#setupElementLists">setupElementLists</a></li><li><a href="global.html#setupEnvironment">setupEnvironment</a></li></ul></div><div class="category"><h2>simulationArea</h2><h3>Global</h3><ul><li><a href="global.html#simulationArea">simulationArea</a></li></ul></div><div class="category"><h2>subcircuit</h2><h3>Classes</h3><ul><li><a href="SubCircuit.html">SubCircuit</a></li></ul><h3>Global</h3><ul><li><a href="global.html#createSubCircuitPrompt">createSubCircuitPrompt</a></li><li><a href="global.html#loadSubCircuit">loadSubCircuit</a></li></ul></div><div class="category"><h2>testbench</h2><h3>Classes</h3><ul><li><a href="ForceGate.html">ForceGate</a></li><li><a href="TB_Input.html">TB_Input</a></li><li><a href="TB_Output.html">TB_Output</a></li></ul></div><div class="category"><h2>utils</h2><h3>Global</h3><ul><li><a href="global.html#showError">showError</a></li><li><a href="global.html#uniq">uniq</a></li></ul></div><div class="category"><h2>ux</h2><h3>Global</h3><ul><li><a href="global.html#ctxPos">ctxPos</a></li><li><a href="global.html#escapeHtml">escapeHtml</a></li><li><a href="global.html#hideContextMenu">hideContextMenu</a></li><li><a href="global.html#hideProperties">hideProperties</a></li><li><a href="global.html#menuItemClicked">menuItemClicked</a></li><li><a href="global.html#prevPropertyObj">prevPropertyObj</a></li><li><a href="global.html#setupUI">setupUI</a></li><li><a href="global.html#showContextMenu">showContextMenu</a></li><li><a href="global.html#showProperties">showProperties</a></li></ul></div><div class="category"><h2>wire</h2><h3>Classes</h3><ul><li><a href="module-wire.Wire.html">Wire</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>ux.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* eslint-disable import/no-cycle */
+/* eslint-disable guard-for-in */
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable guard-for-in */
+import { layoutModeGet } from './layoutMode';
+import {
+    scheduleUpdate, wireToBeCheckedSet, updateCanvasSet, update, updateSimulationSet,
+} from './engine';
+import simulationArea from './simulationArea';
+import logixFunction from './data';
+import { newCircuit, circuitProperty } from './circuit';
+import modules from './modules';
+import { updateRestrictedElementsInScope } from './restrictedElementDiv';
+import { paste } from './events';
+
+export const uxvar = {
+    smartDropXX: 50,
+    smartDropYY: 80,
+};
+/**
+ * @type {number} - Is used to calculate the position where an element from sidebar is dropped
+ * @category ux
+ */
+uxvar.smartDropXX = 50;
+
+/**
+ * @type {number} - Is used to calculate the position where an element from sidebar is dropped
+ * @category ux
+ */
+uxvar.smartDropYY = 80;
+
+/**
+ * @type {Object} - Object stores the position of context menu;
+ * @category ux
+ */
+var ctxPos = {
+    x: 0,
+    y: 0,
+    visible: false,
+};
+
+/**
+ * Function hides the context menu
+ * @category ux
+ */
+function hideContextMenu() {
+    var el = document.getElementById('contextMenu');
+    el.style = 'opacity:0;';
+    setTimeout(() => {
+        el.style = 'visibility:hidden;';
+        ctxPos.visible = false;
+    }, 200); // Hide after 2 sec
+}
+
+/**
+ * Function displays context menu
+ * @category ux
+ */
+function showContextMenu() {
+    if (layoutModeGet()) return false; // Hide context menu when it is in Layout Mode
+    $('#contextMenu').css({
+        visibility: 'visible',
+        opacity: 1,
+        top: `${ctxPos.y}px`,
+        left: `${ctxPos.x}px`,
+    });
+    ctxPos.visible = true;
+    return false;
+}
+
+/**
+ * Function is called when context item is clicked
+ * @param {number} id - id of the optoin selected
+ * @category ux
+ */
+function menuItemClicked(id) {
+    hideContextMenu();
+    if (id === 0) {
+        document.execCommand('copy');
+    } else if (id === 1) {
+        document.execCommand('cut');
+    } else if (id === 2) {
+        // document.execCommand('paste'); it is restricted to sove this problem we use dataPasted variable
+        paste(localStorage.getItem('clipboardData'));
+    } else if (id === 3) {
+        deleteSelected();
+    } else if (id === 4) {
+        undo();
+        undo();
+    } else if (id === 5) {
+        newCircuit();
+    } else if (id === 6) {
+        logixFunction.createSubCircuitPrompt();
+    } else if (id === 7) {
+        globalScope.centerFocus(false);
+    }
+}
+window.menuItemClicked = menuItemClicked;
+
+/**
+ * adds some UI elements to side bar and
+ * menu also attaches listeners to sidebar
+ * @category ux
+ */
+export function setupUI() {
+    var ctxEl = document.getElementById('contextMenu');
+    document.addEventListener('mousedown', (e) => {
+        // Check if mouse is not inside the context menu and menu is visible
+        if (!((e.clientX >= ctxPos.x &amp;&amp; e.clientX &lt;= ctxPos.x + ctxEl.offsetWidth)
+            &amp;&amp; (e.clientY >= ctxPos.y &amp;&amp; e.clientY &lt;= ctxPos.y + ctxEl.offsetHeight))
+            &amp;&amp; (ctxPos.visible &amp;&amp; e.which !== 3)) {
+            hideContextMenu();
+        }
+
+        // Change the position of context whenever mouse is clicked
+        ctxPos.x = e.clientX;
+        ctxPos.y = e.clientY;
+    });
+    document.getElementById('canvasArea').oncontextmenu = showContextMenu;
+
+    $('#sideBar').resizable({
+        handles: 'e',
+        // minWidth:270,
+    });
+    $('#menu').accordion({
+        collapsible: true,
+        active: false,
+        heightStyle: 'content',
+    });
+    // $( "#plot" ).resizable({
+    // handles: 'n',
+    //     // minHeight:200,
+    // });
+
+    $('.logixModules').mousedown(function () {
+        // ////console.log(uxvar.smartDropXX,uxvar.smartDropYY);
+        if (simulationArea.lastSelected &amp;&amp; simulationArea.lastSelected.newElement) simulationArea.lastSelected.delete();
+        var obj = new modules[this.id](); // (simulationArea.mouseX,simulationArea.mouseY);
+        // obj = new modules[this.id](); // (simulationArea.mouseX,simulationArea.mouseY);
+        simulationArea.lastSelected = obj;
+        // simulationArea.lastSelected=obj;
+        // simulationArea.mouseDown=true;
+        uxvar.smartDropXX += 70;
+        if (uxvar.smartDropXX / globalScope.scale > width) {
+            uxvar.smartDropXX = 50;
+            uxvar.smartDropYY += 80;
+        }
+    });
+    $('.logixButton').click(function () {
+        logixFunction[this.id]();
+    });
+    // var dummyCounter=0;
+
+
+    $('.logixModules').hover(function () {
+        // Tooltip can be statically defined in the prototype.
+        var { tooltipText } = modules[this.id].prototype;
+        if (!tooltipText) return;
+        $('#Help').addClass('show');
+        $('#Help').empty();
+        // //console.log("SHOWING")
+        $('#Help').append(tooltipText);
+    }); // code goes in document ready fn only
+    $('.logixModules').mouseleave(() => {
+        $('#Help').removeClass('show');
+    }); // code goes in document ready fn only
+
+
+    // $('#saveAsImg').click(function(){
+    //     saveAsImg();
+    // });
+    // $('#Save').click(function(){
+    //     Save();
+    // });
+    // $('#moduleProperty').draggable();
+}
+
+/**
+ * Keeps in check which property is being displayed
+ * @category ux
+ */
+var prevPropertyObj;
+
+export function prevPropertyObjSet(param) {
+    prevPropertyObj = param;
+}
+
+export function prevPropertyObjGet() {
+    return prevPropertyObj;
+}
+
+/**
+ * show properties of an object.
+ * @param {CircuiElement} obj - the object whose properties we want to be shown in sidebar
+ * @category ux
+ */
+export function showProperties(obj) {
+    // console.log(obj)
+    if (obj === prevPropertyObjGet()) return;
+    hideProperties();
+    prevPropertyObjSet(obj);
+    if (simulationArea.lastSelected === undefined || ['Wire', 'CircuitElement', 'Node'].indexOf(simulationArea.lastSelected.objectType) !== -1) {
+        $('#moduleProperty').show();
+        $('#moduleProperty-inner').append("&lt;div id='moduleProperty-header'>" + 'Project Properties' + '&lt;/div>');
+        $('#moduleProperty-inner').append(`&lt;p>Project : &lt;input class='objectPropertyAttribute' type='text'  name='setProjectName'  value='${projectName || 'Untitled'}'>&lt;/p>`);
+        $('#moduleProperty-inner').append(`&lt;p>Circuit : &lt;input class='objectPropertyAttribute' type='text'  name='changeCircuitName'  value='${globalScope.name || 'Untitled'}'>&lt;/p>`);
+        $('#moduleProperty-inner').append(`&lt;p>Clock Time : &lt;input class='objectPropertyAttribute' min='50' type='number' style='width:100px' step='10' name='changeClockTime'  value='${simulationArea.timePeriod}'>ms&lt;/p>`);
+        $('#moduleProperty-inner').append(`&lt;p>Clock Enabled : &lt;label class='switch'> &lt;input type='checkbox' ${['', 'checked'][simulationArea.clockEnabled + 0]} class='objectPropertyAttributeChecked' name='changeClockEnable' > &lt;span class='slider'>&lt;/span> &lt;/label>&lt;/p>`);
+        $('#moduleProperty-inner').append(`&lt;p>Lite Mode : &lt;label class='switch'> &lt;input type='checkbox' ${['', 'checked'][lightMode + 0]} class='objectPropertyAttributeChecked' name='changeLightMode' > &lt;span class='slider'>&lt;/span> &lt;/label>&lt;/p>`);
+        // $('#moduleProperty-inner').append("&lt;p>  ");
+        $('#moduleProperty-inner').append("&lt;p>&lt;button type='button' class='objectPropertyAttributeChecked btn btn-danger btn-xs' name='deleteCurrentCircuit' >Delete Circuit&lt;/button>  &lt;button type='button' class='objectPropertyAttributeChecked btn btn-primary btn-xs' name='toggleLayoutMode' >Edit Layout&lt;/button> &lt;/p>");
+    } else {
+        $('#moduleProperty').show();
+
+        $('#moduleProperty-inner').append(`&lt;div id='moduleProperty-header'>${obj.objectType}&lt;/div>`);
+        // $('#moduleProperty').append("&lt;input type='range' name='points' min='1' max='32' value="+obj.bitWidth+">");
+        if (!obj.fixedBitWidth) { $('#moduleProperty-inner').append(`&lt;p>BitWidth: &lt;input class='objectPropertyAttribute' type='number'  name='newBitWidth' min='1' max='32' value=${obj.bitWidth}>&lt;/p>`); }
+
+        if (obj.changeInputSize) { $('#moduleProperty-inner').append(`&lt;p>Input Size: &lt;input class='objectPropertyAttribute' type='number'  name='changeInputSize' min='2' max='10' value=${obj.inputSize}>&lt;/p>`); }
+
+        if (!obj.propagationDelayFixed) { $('#moduleProperty-inner').append(`&lt;p>Delay: &lt;input class='objectPropertyAttribute' type='number'  name='changePropagationDelay' min='0' max='100000' value=${obj.propagationDelay}>&lt;/p>`); }
+
+
+        $('#moduleProperty-inner').append(`&lt;p>Label: &lt;input class='objectPropertyAttribute' type='text'  name='setLabel'  value='${escapeHtml(obj.label)}'>&lt;/p>`);
+
+        var s;
+        if (!obj.labelDirectionFixed) {
+            s = $(`${"&lt;select class='objectPropertyAttribute' name='newLabelDirection'>" + "&lt;option value='RIGHT' "}${['', 'selected'][+(obj.labelDirection === 'RIGHT')]} >RIGHT&lt;/option>&lt;option value='DOWN' ${['', 'selected'][+(obj.labelDirection === 'DOWN')]} >DOWN&lt;/option>&lt;option value='LEFT' ` + `&lt;option value='RIGHT'${['', 'selected'][+(obj.labelDirection === 'LEFT')]} >LEFT&lt;/option>&lt;option value='UP' ` + `&lt;option value='RIGHT'${['', 'selected'][+(obj.labelDirection === 'UP')]} >UP&lt;/option>` + '&lt;/select>');
+            s.val(obj.labelDirection);
+            $('#moduleProperty-inner').append(`&lt;p>Label Direction: ${$(s).prop('outerHTML')}&lt;/p>`);
+        }
+
+
+        if (!obj.directionFixed) {
+            s = $(`${"&lt;select class='objectPropertyAttribute' name='newDirection'>" + "&lt;option value='RIGHT' "}${['', 'selected'][+(obj.direction === 'RIGHT')]} >RIGHT&lt;/option>&lt;option value='DOWN' ${['', 'selected'][+(obj.direction === 'DOWN')]} >DOWN&lt;/option>&lt;option value='LEFT' ` + `&lt;option value='RIGHT'${['', 'selected'][+(obj.direction === 'LEFT')]} >LEFT&lt;/option>&lt;option value='UP' ` + `&lt;option value='RIGHT'${['', 'selected'][+(obj.direction === 'UP')]} >UP&lt;/option>` + '&lt;/select>');
+            $('#moduleProperty-inner').append(`&lt;p>Direction: ${$(s).prop('outerHTML')}&lt;/p>`);
+        } else if (!obj.orientationFixed) {
+            s = $(`${"&lt;select class='objectPropertyAttribute' name='newDirection'>" + "&lt;option value='RIGHT' "}${['', 'selected'][+(obj.direction === 'RIGHT')]} >RIGHT&lt;/option>&lt;option value='DOWN' ${['', 'selected'][+(obj.direction === 'DOWN')]} >DOWN&lt;/option>&lt;option value='LEFT' ` + `&lt;option value='RIGHT'${['', 'selected'][+(obj.direction === 'LEFT')]} >LEFT&lt;/option>&lt;option value='UP' ` + `&lt;option value='RIGHT'${['', 'selected'][+(obj.direction === 'UP')]} >UP&lt;/option>` + '&lt;/select>');
+            $('#moduleProperty-inner').append(`&lt;p>Orientation: ${$(s).prop('outerHTML')}&lt;/p>`);
+        }
+
+        if (obj.mutableProperties) {
+            for (const attr in obj.mutableProperties) {
+                var prop = obj.mutableProperties[attr];
+                if (obj.mutableProperties[attr].type === 'number') {
+                    s = `&lt;p>${prop.name}&lt;input class='objectPropertyAttribute' type='number'  name='${prop.func}' min='${prop.min || 0}' max='${prop.max || 200}' value=${obj[attr]}>&lt;/p>`;
+                    $('#moduleProperty-inner').append(s);
+                } else if (obj.mutableProperties[attr].type === 'text') {
+                    s = `&lt;p>${prop.name}&lt;input class='objectPropertyAttribute' type='text'  name='${prop.func}' maxlength='${prop.maxlength || 200}' value=${obj[attr]}>&lt;/p>`;
+                    $('#moduleProperty-inner').append(s);
+                } else if (obj.mutableProperties[attr].type === 'button') {
+                    s = `&lt;p>&lt;button class='objectPropertyAttribute btn btn-primary btn-xs' type='button'  name='${prop.func}'>${prop.name}&lt;/button>&lt;/p>`;
+                    $('#moduleProperty-inner').append(s);
+                }
+            }
+        }
+    }
+
+    var helplink = obj &amp;&amp; (obj.helplink);
+    if (helplink) {
+        $('#moduleProperty-inner').append('&lt;p>&lt;button id="HelpButton" class="btn btn-primary btn-xs" type="button" >Help &amp;#9432&lt;/button>&lt;/p>');
+        $('#HelpButton').click(() => {
+            window.open(helplink);
+        });
+    }
+
+    function checkValidBitWidth() {
+        const selector = $("[name='newBitWidth']");
+        if (selector === undefined
+            || selector.val() > 32
+            || selector.val() &lt; 1
+            || !$.isNumeric(selector.val())) {
+            // fallback to previously saves state
+            selector.val(selector.attr('old-val'));
+        } else {
+            selector.attr('old-val', selector.val());
+        }
+    }
+
+    $('.objectPropertyAttribute').on('change keyup paste click', function () {
+        // return;
+        // ////console.log(this.name+":"+this.value);
+        checkValidBitWidth();
+        scheduleUpdate();
+        updateCanvasSet(true);
+        wireToBeCheckedSet(1);
+        if (simulationArea.lastSelected &amp;&amp; simulationArea.lastSelected[this.name]) { prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet(); } else { circuitProperty[this.name](this.value); }
+    });
+    $('.objectPropertyAttributeChecked').on('change keyup paste click', function () {
+        // return;
+        // console.log(this.name+":"+this.value);
+        scheduleUpdate();
+        updateCanvasSet(true);
+        wireToBeCheckedSet(1);
+        if (simulationArea.lastSelected &amp;&amp; simulationArea.lastSelected[this.name]) { prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet(); } else { circuitProperty[this.name](this.checked); }
+    });
+}
+
+/**
+ * Hides the properties in sidebar.
+ * @category ux
+ */
+export function hideProperties() {
+    $('#moduleProperty-inner').empty();
+    $('#moduleProperty').hide();
+    prevPropertyObjSet(undefined);
+    $('.objectPropertyAttribute').unbind('change keyup paste click');
+}
+/**
+ * checkss the input is safe or not
+ * @param {HTML} unsafe - the html which we wants to escape
+ * @category ux
+ */
+function escapeHtml(unsafe) {
+    return unsafe
+        .replace(/&amp;/g, '&amp;amp;')
+        .replace(/&lt;/g, '&amp;lt;')
+        .replace(/>/g, '&amp;gt;')
+        .replace(/"/g, '&amp;quot;')
+        .replace(/'/g, '&amp;#039;');
+}
+
+export function deleteSelected() {
+    $('input').blur();
+    if (simulationArea.lastSelected &amp;&amp; !(simulationArea.lastSelected.objectType === 'Node' &amp;&amp; simulationArea.lastSelected.type !== 2)) simulationArea.lastSelected.delete();
+    for (var i = 0; i &lt; simulationArea.multipleObjectSelections.length; i++) {
+        if (!(simulationArea.multipleObjectSelections[i].objectType === 'Node' &amp;&amp; simulationArea.multipleObjectSelections[i].type !== 2)) simulationArea.multipleObjectSelections[i].cleanDelete();
+    }
+    hideProperties();
+    simulationArea.multipleObjectSelections = [];
+
+    // Updated restricted elements
+    updateCanvasSet(true);
+    scheduleUpdate();
+    updateRestrictedElementsInScope();
+}
+
+$('#bitconverterprompt').append(`
+&lt;label style='color:grey'>Decimal value&lt;/label>&lt;br>&lt;input  type='text' id='decimalInput' label="Decimal" name='text1'>&lt;br>&lt;br>
+&lt;label  style='color:grey'>Binary value&lt;/label>&lt;br>&lt;input  type='text' id='binaryInput' label="Binary" name='text1'>&lt;br>&lt;br>
+&lt;label  style='color:grey'>Octal value&lt;/label>&lt;br>&lt;input  type='text' id='octalInput' label="Octal" name='text1'>&lt;br>&lt;br>
+&lt;label  style='color:grey'>Hexadecimal value&lt;/label>&lt;br>&lt;input  type='text' id='hexInput' label="Hex" name='text1'>&lt;br>&lt;br>
+`);
+/**
+ * listener for opening the prompt for bin conversion
+ * @category ux
+ */
+$('#bitconverter').click(() => {
+    $('#bitconverterprompt').dialog({
+        buttons: [
+            {
+                text: 'Reset',
+                click() {
+                    $('#decimalInput').val('0');
+                    $('#binaryInput').val('0');
+                    $('#octalInput').val('0');
+                    $('#hexInput').val('0');
+                },
+            },
+        ],
+    });
+});
+
+// convertors
+const convertors = {
+    dec2bin: (x) => `0b${x.toString(2)}`,
+    dec2hex: (x) => `0x${x.toString(16)}`,
+    dec2octal: (x) => `0${x.toString(8)}`,
+};
+
+function setBaseValues(x) {
+    if (isNaN(x)) return;
+    $('#binaryInput').val(convertors.dec2bin(x));
+    $('#octalInput').val(convertors.dec2octal(x));
+    $('#hexInput').val(convertors.dec2hex(x));
+    $('#decimalInput').val(x);
+}
+
+$('#decimalInput').on('keyup', () => {
+    var x = parseInt($('#decimalInput').val(), 10);
+    setBaseValues(x);
+});
+
+$('#binaryInput').on('keyup', () => {
+    var x = parseInt($('#binaryInput').val(), 2);
+    setBaseValues(x);
+});
+
+$('#hexInput').on('keyup', () => {
+    var x = parseInt($('#hexInput').val(), 16);
+    setBaseValues(x);
+});
+
+$('#octalInput').on('keyup', () => {
+    var x = parseInt($('#octalInput').val(), 8);
+    setBaseValues(x);
+});
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+</body>
+</html>

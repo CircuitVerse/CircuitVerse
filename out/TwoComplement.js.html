@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: TwoComplement.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: TwoComplement.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import CircuitElement from '../circuitElement';
+import { Node, findNode } from '../node';
+import simulationArea from '../simulationArea';
+import {
+    correctWidth, lineTo, moveTo, arc,
+} from '../canvasApi';
+import { changeInputSize } from '../modules';
+/**
+ * @class
+ * TwoComplement
+ * @extends CircuitElement
+ * @param {number} x - x coordinate of element.
+ * @param {number} y - y coordinate of element.
+ * @param {Scope=} scope - Cirucit on which element is drawn
+ * @param {string=} dir - direction of element
+ * @param {number=} bitWidth - bit width per node.
+ */
+export default class TwoComplement extends CircuitElement {
+    constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
+        super(x, y, scope, dir, bitWidth);
+        /* this is done in this.baseSetup() now
+        this.scope['TwoComplement'].push(this);
+        */
+        this.rectangleObject = false;
+        this.setDimensions(15, 15);
+        this.inp1 = new Node(-10, 0, 0, this, this.bitWidth, 'input stream');
+        this.output1 = new Node(20, 0, 1, this, this.bitWidth, "2's complement");
+    }
+
+    /**
+     * @memberof TwoComplement
+     * fn to create save Json Data of object
+     * @return {JSON}
+     */
+    customSave() {
+        const data = {
+            constructorParamaters: [this.direction, this.bitWidth],
+            nodes: {
+                output1: findNode(this.output1),
+                inp1: findNode(this.inp1),
+            },
+        };
+        return data;
+    }
+
+    /**
+     * @memberof TwoComplement
+     * resolve output values based on inputData
+     */
+    resolve() {
+        if (this.isResolvable() === false) {
+            return;
+        }
+        let output = ((~this.inp1.value >>> 0) &lt;&lt; (32 - this.bitWidth)) >>> (32 - this.bitWidth);
+        output += 1;
+        this.output1.value = ((output) &lt;&lt; (32 - this.bitWidth)) >>> (32 - this.bitWidth);
+        simulationArea.simulationQueue.add(this.output1);
+    }
+
+    /**
+     * @memberof TwoComplement
+     * function to draw element
+     */
+    customDraw() {
+        var ctx = simulationArea.context;
+        ctx.strokeStyle = 'black';
+        ctx.lineWidth = correctWidth(3);
+        const xx = this.x;
+        const yy = this.y;
+        ctx.beginPath();
+        ctx.fillStyle = 'black';
+        fillText(ctx, "2'", xx, yy, 10);
+        if ((this.hover &amp;&amp; !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = 'rgba(255, 255, 32,0.8)';
+        ctx.fill();
+        ctx.beginPath();
+        drawCircle2(ctx, 5, 0, 15, xx, yy, this.direction);
+        ctx.stroke();
+    }
+}
+
+/**
+ * @memberof TwoComplement
+ * Help Tip
+ * @type {string}
+ */
+TwoComplement.prototype.tooltipText = "Two's Complement Tooltip : Calculates the two's complement";
+TwoComplement.prototype.objectType = 'TwoComplement';
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Adder.html">Adder</a></li><li><a href="ALU.html">ALU</a></li><li><a href="AndGate.html">AndGate</a></li><li><a href="Arrow.html">Arrow</a></li><li><a href="BitSelector.html">BitSelector</a></li><li><a href="Buffer.html">Buffer</a></li><li><a href="Button.html">Button</a></li><li><a href="ConstantVal.html">ConstantVal</a></li><li><a href="ControlledInverter.html">ControlledInverter</a></li><li><a href="Counter.html">Counter</a></li><li><a href="Decoder.html">Decoder</a></li><li><a href="Demultiplexer.html">Demultiplexer</a></li><li><a href="DigitalLed.html">DigitalLed</a></li><li><a href="Flag.html">Flag</a></li><li><a href="Ground.html">Ground</a></li><li><a href="HexDisplay.html">HexDisplay</a></li><li><a href="Input.html">Input</a></li><li><a href="LSB.html">LSB</a></li><li><a href="MSB.html">MSB</a></li><li><a href="Multiplexer.html">Multiplexer</a></li><li><a href="NandGate.html">NandGate</a></li><li><a href="NorGate.html">NorGate</a></li><li><a href="NotGate.html">NotGate</a></li><li><a href="OrGate.html">OrGate</a></li><li><a href="Output.html">Output</a></li><li><a href="Power.html">Power</a></li><li><a href="PriorityEncoder.html">PriorityEncoder</a></li><li><a href="Random.html">Random</a></li><li><a href="Rectangle.html">Rectangle</a></li><li><a href="RGBLed.html">RGBLed</a></li><li><a href="RGBLedMatrix.html">RGBLedMatrix</a></li><li><a href="Rom.html">Rom</a></li><li><a href="SevenSegDisplay.html">SevenSegDisplay</a></li><li><a href="SixteenSegDisplay.html">SixteenSegDisplay</a></li><li><a href="Splitter.html">Splitter</a></li><li><a href="SquareRGBLed.html">SquareRGBLed</a></li><li><a href="Stepper.html">Stepper</a></li><li><a href="Text.html">Text</a></li><li><a href="TriState.html">TriState</a></li><li><a href="Tunnel.html">Tunnel</a></li><li><a href="TwoComplement.html">TwoComplement</a></li><li><a href="VariableLed.html">VariableLed</a></li><li><a href="XnorGate.html">XnorGate</a></li><li><a href="XorGate.html">XorGate</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Mon Jun 01 2020 18:10:02 GMT+0530 (India Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
