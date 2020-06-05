@@ -7,7 +7,6 @@
 # Ignore bundler config.
 /.bundle
 /.idea
-/out
 test_results
 
 public/assets/
