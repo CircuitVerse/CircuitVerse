@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount Tolk::Engine => '/translate', :as => 'tolk'
   resources :collaborations
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 

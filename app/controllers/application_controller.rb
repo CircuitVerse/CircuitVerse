@@ -19,4 +19,16 @@ class ApplicationController < ActionController::Base
   def not_found
     render plain: "The record you wish access could not be found"
   end
+
+  around_action :switch_locale
+
+  def switch_locale(&action)
+    if user_signed_in?
+      locale = current_user.try(:language)
+    else
+      locale = params[:locale] || session[:locale]
+      session[:locale] = locale
+    end
+    I18n.with_locale(locale, &action)
+  end
 end

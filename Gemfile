@@ -76,6 +76,9 @@ gem 'ahoy_matey'
 # gem 'capistrano-rails', group: :development
 
 gem "http"
+gem "tolk"
+gem "rails-i18n"
+gem "i18n-tasks"
 
 # Database
 
