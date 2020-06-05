@@ -12,6 +12,7 @@ import {
  * @param {number} x - x coordinate of element.
  * @param {number} y - y coordinate of element.
  * @param {Scope=} scope - Cirucit on which element is drawn
+ * @category modules
  */
 export default class SevenSegDisplay extends CircuitElement {
     constructor(x, y, scope = globalScope) {
@@ -101,6 +102,7 @@ export default class SevenSegDisplay extends CircuitElement {
  * @memberof SevenSegDisplay
  * Help Tip
  * @type {string}
+ * @category modules
  */
 SevenSegDisplay.prototype.tooltipText = 'Seven Display ToolTip: Consists of 7+1 single bit inputs.';
 
@@ -108,6 +110,7 @@ SevenSegDisplay.prototype.tooltipText = 'Seven Display ToolTip: Consists of 7+1 
  * @memberof SevenSegDisplay
  * Help URL
  * @type {string}
+ * @category modules
  */
 SevenSegDisplay.prototype.helplink = 'https://docs.circuitverse.org/#/outputs?id=seven-segment-display';
 SevenSegDisplay.prototype.objectType = 'SevenSegDisplay';

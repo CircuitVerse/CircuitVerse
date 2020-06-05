@@ -17,6 +17,7 @@ import plotArea from '../plotArea';
  * @param {string} dir - direction
  * @param {string} identifier - id to identify tests
  * @param {JSON=} testData - input, output and number of tests
+ * @category testbench
  */
 export default class TB_Input extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', identifier, testData) {
@@ -261,6 +262,7 @@ TB_Input.prototype.tooltipText = 'Test Bench Input Selected';
 /**
  * @memberof TB_Input
  * different algo for drawing center elements
+ * @category testbench
  */
 TB_Input.prototype.centerElement = true;
 

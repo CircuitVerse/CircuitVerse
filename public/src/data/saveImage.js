@@ -2,8 +2,16 @@
  * Helper function to show prompt to save image
  * Options - resolution, image type, view
  * @param {Scope=} scope - useless though
+ * @category data
  */
 import { generateImage } from './save';
+
+/**
+ * Function called to generate a prompt to save an image
+ * @category data
+ * @param {Scope=} - circuit whose image we want
+ * @exports createSaveAsImgPrompt
+ */
 export default function createSaveAsImgPrompt(scope = globalScope) {
     $('#saveImageDialog').dialog({
         width: 'auto',

@@ -205,7 +205,9 @@ export default class Scope {
         // this.renderObjectOrder = [ ...(moduleList.slice().reverse()), "wires", "allNodes"];
     }
 
-    // Resets all nodes recursively
+    /**
+     * Resets all nodes recursively
+     */
     reset() {
         for (let i = 0; i < this.allNodes.length; i++) { this.allNodes[i].reset(); }
         for (let i = 0; i < this.Splitter.length; i++) {
@@ -216,7 +218,9 @@ export default class Scope {
         }
     }
 
-    // Adds all inputs to simulationQueue
+    /**
+     * Adds all inputs to simulationQueue
+    */
     addInputs() {
         for (let i = 0; i < inputList.length; i++) {
             for (var j = 0; j < this[inputList[i]].length; j++) {
@@ -227,14 +231,18 @@ export default class Scope {
         for (let i = 0; i < this.SubCircuit.length; i++) { this.SubCircuit[i].addInputs(); }
     }
 
-    // Ticks clocks recursively -- needs to be deprecated and synchronize all clocks with a global clock
+    /**
+     * Ticks clocks recursively -- needs to be deprecated and synchronize all clocks with a global clock
+     */
     clockTick() {
         for (let i = 0; i < this.Clock.length; i++) { this.Clock[i].toggleState(); } // tick clock!
         for (let i = 0; i < this.SubCircuit.length; i++) { this.SubCircuit[i].localScope.clockTick(); } // tick clock!
     }
 
-    // Checks if this circuit contains directly or indirectly scope with id
-    // Recursive nature
+    /**
+     * Checks if this circuit contains directly or indirectly scope with id
+     * Recursive nature
+     */
     checkDependency(id) {
         if (id === this.id) return true;
         for (let i = 0; i < this.SubCircuit.length; i++) { if (this.SubCircuit[i].id === id) return true; }
@@ -244,7 +252,9 @@ export default class Scope {
         return false;
     }
 
-    // Get dependency list - list of all circuits, this circuit depends on
+    /**
+     * Get dependency list - list of all circuits, this circuit depends on
+     */
     getDependencies() {
         var list = [];
         for (let i = 0; i < this.SubCircuit.length; i++) {
@@ -254,7 +264,9 @@ export default class Scope {
         return uniq(list);
     }
 
-    // helper function to reduce layout size
+    /**
+     * helper function to reduce layout size
+    */
     fixLayout() {
         var maxY = 20;
         for (let i = 0; i < this.Input.length; i++) { maxY = Math.max(this.Input[i].layoutProperties.y, maxY); }
@@ -262,7 +274,10 @@ export default class Scope {
         if (maxY !== this.layout.height) { this.layout.height = maxY + 10; }
     }
 
-    // Function which centers the circuit to the correct zoom level
+
+    /**
+     * Function which centers the circuit to the correct zoom level
+     */
     centerFocus(zoomIn = true) {
         if (layoutModeGet()) return;
         findDimensions(this);

@@ -15,6 +15,7 @@ import { changeInputSize } from '../modules';
  * @param {string=} dir - direction of element
  * @param {number=} inputLength - number of input nodes
  * @param {number=} bitWidth - bit width per node.
+ * @category modules
  */
 export default class XnorGate extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', inputs = 2, bitWidth = 1) {
@@ -117,6 +118,7 @@ export default class XnorGate extends CircuitElement {
 /**
  * @memberof XnorGate
  * @type {boolean}
+ * @category modules
  */
 XnorGate.prototype.alwaysResolve = true;
 
@@ -124,18 +126,21 @@ XnorGate.prototype.alwaysResolve = true;
  * @memberof XnorGate
  * Help Tip
  * @type {string}
+ * @category modules
  */
 XnorGate.prototype.tooltipText = 'Xnor Gate ToolTip : Logical complement of the XOR gate';
 
 /**
  * @memberof XnorGate
  * function to change input nodes of the element
+ * @category modules
  */
 XnorGate.prototype.changeInputSize = changeInputSize;
 
 /**
  * @memberof XnorGate
  * @type {string}
+ * @category modules
  */
 XnorGate.prototype.verilogType = 'xnor';
 XnorGate.prototype.helplink = 'https://docs.circuitverse.org/#/gates?id=xnor-gate';

@@ -11,6 +11,7 @@ import { correctWidth, rect, fillText } from '../canvasApi';
  * @param {Scope=} scope - Cirucit on which element is drawn
  * @param {string=} dir - direction of element
  * @param {number=} bitWidth - bit width per node.
+ * @category modules
  */
 export default class MSB extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
@@ -118,6 +119,7 @@ export default class MSB extends CircuitElement {
  * @memberof MSB
  * Help Tip
  * @type {string}
+ * @category modules
  */
 MSB.prototype.tooltipText = 'MSB ToolTip : The most significant bit or the high-order bit.';
 MSB.prototype.helplink = 'https://docs.circuitverse.org/#/decodersandplexers?id=most-significant-bit-msb-detector';

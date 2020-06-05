@@ -12,6 +12,7 @@ import { changeInputSize } from '../modules';
  * @param {number} x - x coordinate of element.
  * @param {number} y - y coordinate of element.
  * @param {Scope=} scope - Cirucit on which element is drawn
+ * @category modules
  */
 export default class VariableLed extends CircuitElement {
     constructor(x, y, scope = globalScope) {
@@ -85,6 +86,7 @@ export default class VariableLed extends CircuitElement {
  * @memberof VariableLed
  * Help Tip
  * @type {string}
+ * @category modules
  */
 VariableLed.prototype.tooltipText = 'Variable Led ToolTip: Variable LED inputs an 8 bit value and glows with a proportional intensity.';
 
@@ -92,6 +94,7 @@ VariableLed.prototype.tooltipText = 'Variable Led ToolTip: Variable LED inputs a
  * @memberof VariableLed
  * Help URL
  * @type {string}
+ * @category modules
  */
 VariableLed.prototype.helplink = 'https://docs.circuitverse.org/#/outputs?id=variable-led';
 VariableLed.prototype.objectType = 'VariableLed';

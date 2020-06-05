@@ -18,7 +18,7 @@ import { copy, paste, selectAll } from './events';
 import save from './data/save';
 import { layoutUpdate } from './layoutMode';
 
-
+var unit = 10;
 var createNode = false; // Flag to create node when its value ==tru)e
 export function createNodeSet(param) {
     createNode = param;

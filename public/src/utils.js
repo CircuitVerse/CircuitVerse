@@ -1,10 +1,9 @@
 import simulationArea from './simulationArea';
 import {
-    scheduleUpdate, play, updateCanvasSet, errorDetectedSet, checkErrorDetected,
+    scheduleUpdate, play, updateCanvasSet, errorDetectedSet, errorDetectedGet,
 } from './engine';
 
 window.globalScope = undefined;
-window.unit = 10; // size of each division/ not used everywhere, to be deprecated
 window.lightMode = false; // To be deprecated
 window.projectId = undefined;
 window.id = undefined;
@@ -29,7 +28,7 @@ export function stripTags(string = '') {
 
 export function clockTick() {
     if (!simulationArea.clockEnabled) return;
-    if (checkErrorDetected()) return;
+    if (errorDetectedGet()) return;
     updateCanvasSet(true);
     globalScope.clockTick();
     play();

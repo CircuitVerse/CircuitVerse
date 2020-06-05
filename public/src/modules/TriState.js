@@ -14,6 +14,7 @@ import { changeInputSize } from '../modules';
  * @param {Scope=} scope - Cirucit on which element is drawn
  * @param {string=} dir - direction of element
  * @param {number=} bitWidth - bit width per node.
+ * @category modules
  */
 export default class TriState extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
@@ -108,6 +109,7 @@ export default class TriState extends CircuitElement {
  * @memberof TriState
  * Help Tip
  * @type {string}
+ * @category modules
  */
 TriState.prototype.tooltipText = 'TriState ToolTip : Effectively removes the output from the circuit.';
 TriState.prototype.helplink = 'https://docs.circuitverse.org/#/miscellaneous?id=tri-state-buffer';

@@ -12,6 +12,7 @@ import { changeInputSize } from '../modules';
  * @param {number} x - x coordinate of element.
  * @param {number} y - y coordinate of element.
  * @param {Scope=} scope - Cirucit on which element is drawn
+ * @category modules
  */
 export default class RGBLed extends CircuitElement {
     constructor(x, y, scope = globalScope) {
@@ -107,6 +108,7 @@ export default class RGBLed extends CircuitElement {
  * @memberof RGBLed
  * Help Tip
  * @type {string}
+ * @category modules
  */
 RGBLed.prototype.tooltipText = 'RGB Led ToolTip: RGB Led inputs 8 bit values for the colors RED, GREEN and BLUE.';
 
@@ -114,6 +116,7 @@ RGBLed.prototype.tooltipText = 'RGB Led ToolTip: RGB Led inputs 8 bit values for
  * @memberof RGBLed
  * Help URL
  * @type {string}
+ * @category modules
  */
 RGBLed.prototype.helplink = 'https://docs.circuitverse.org/#/outputs?id=rgb-led';
 RGBLed.prototype.objectType = 'RGBLed';

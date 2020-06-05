@@ -15,6 +15,7 @@ import { changeInputSize } from '../modules';
  * @param {string=} dir - direction of element
  * @param {number=} bitWidth - bit width per node.
  * @param {number=} controlSignalSize - 1 by default
+ * @category modules
  */
 export default class Multiplexer extends CircuitElement {
     constructor(
@@ -162,6 +163,7 @@ export default class Multiplexer extends CircuitElement {
  * @memberof Multiplexer
  * Help Tip
  * @type {string}
+ * @category modules
  */
 Multiplexer.prototype.tooltipText = 'Multiplexer ToolTip : Multiple inputs and a single line output.';
 Multiplexer.prototype.helplink = 'https://docs.circuitverse.org/#/decodersandplexers?id=multiplexer';
@@ -170,6 +172,7 @@ Multiplexer.prototype.helplink = 'https://docs.circuitverse.org/#/decodersandple
  * @memberof Multiplexer
  * multable properties of element
  * @type {JSON}
+ * @category modules
  */
 Multiplexer.prototype.mutableProperties = {
     controlSignalSize: {

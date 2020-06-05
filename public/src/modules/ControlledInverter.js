@@ -14,6 +14,7 @@ import { changeInputSize } from '../modules';
  * @param {Scope=} scope - Cirucit on which element is drawn
  * @param {string=} dir - direction of element
  * @param {number=} bitWidth - bit width per node.
+ * @category modules
  */
 export default class ControlledInverter extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
@@ -104,6 +105,7 @@ export default class ControlledInverter extends CircuitElement {
  * @memberof ControlledInverter
  * Help Tip
  * @type {string}
+ * @category modules
  */
 ControlledInverter.prototype.tooltipText = 'Controlled Inverter ToolTip : Controlled buffer and NOT gate.';
 ControlledInverter.prototype.objectType = 'ControlledInverter';

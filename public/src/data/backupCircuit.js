@@ -9,6 +9,7 @@ function extract(obj) {
  * Check if backup is available
  * @param {Scope} scope
  * @return {boolean}
+ * @category data
  */
 export function checkIfBackup(scope) {
     for (let i = 0; i < updateOrder.length; i++) { if (scope[updateOrder[i]].length) return true; }

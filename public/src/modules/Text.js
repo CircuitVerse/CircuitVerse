@@ -11,6 +11,7 @@ import { rect2, fillText } from '../canvasApi';
  * @param {Scope=} scope - Cirucit on which element is drawn
  * @param {string=} label - label of element
  * @param {number=} fontSize - font size
+ * @category modules
  */
 export default class Text extends CircuitElement {
     constructor(x, y, scope = globalScope, label = '', fontSize = 14) {
@@ -113,6 +114,7 @@ export default class Text extends CircuitElement {
  * @memberof Text
  * Help Tip
  * @type {string}
+ * @category modules
  */
 Text.prototype.tooltipText = 'Text ToolTip: Use this to document your circuit.';
 
@@ -120,6 +122,7 @@ Text.prototype.tooltipText = 'Text ToolTip: Use this to document your circuit.';
  * @memberof Text
  * Help URL
  * @type {string}
+ * @category modules
  */
 Text.prototype.helplink = 'https://docs.circuitverse.org/#/annotation?id=adding-labels';
 
@@ -127,6 +130,7 @@ Text.prototype.helplink = 'https://docs.circuitverse.org/#/annotation?id=adding-
  * @memberof Text
  * Mutable properties of the element
  * @type {JSON}
+ * @category modules
  */
 Text.prototype.mutableProperties = {
     fontSize: {

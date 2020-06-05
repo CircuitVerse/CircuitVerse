@@ -12,6 +12,7 @@ import { changeInputSize } from '../modules';
  * @param {Scope=} scope - Cirucit on which element is drawn
  * @param {string=} dir - direction of element
  * @param {number=} bitWidth - bitwidth of element
+ * @category modules
  */
 export default class Stepper extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 8) {
@@ -84,6 +85,7 @@ export default class Stepper extends CircuitElement {
  * @memberof Stepper
  * Help Tip
  * @type {string}
+ * @category modules
  */
 Stepper.prototype.tooltipText = 'Stepper ToolTip: Increase/Decrease value by selecting the stepper and using +/- keys.';
 
@@ -91,6 +93,7 @@ Stepper.prototype.tooltipText = 'Stepper ToolTip: Increase/Decrease value by sel
  * @memberof Stepper
  * Help URL
  * @type {string}
+ * @category modules
  */
 Stepper.prototype.helplink = 'https://docs.circuitverse.org/#/inputElements?id=stepper';
 Stepper.prototype.objectType = 'Stepper';

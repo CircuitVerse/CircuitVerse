@@ -4,7 +4,7 @@
   "repository": "git@github.com:CircuitVerse/CircuitVerse.git",
   "license": "MIT",
   "scripts": {
-    "build:docs": "./node_modules/.bin/jsdoc public/src -c conf.json -t ./node_modules/better-docs",
+    "build:docs": "./node_modules/.bin/jsdoc public/src/* -c conf.json -t ./node_modules/better-docs",
     "watch:doc-src": "npx nodemon --exec 'npm run build:docs' --watch public/src/",
     "watch:doc-output": "npx livereload out",
     "watch:docs": "npm run watch:doc-output & npm run watch:doc-src",

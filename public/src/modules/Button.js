@@ -13,6 +13,7 @@ import {
  * @param {number} y - y coordinate of element.
  * @param {Scope=} scope - Cirucit on which element is drawn
  * @param {string=} dir - direction of element
+ * @category modules
  */
 export default class Button extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT') {
@@ -95,6 +96,7 @@ export default class Button extends CircuitElement {
  * @memberof Button
  * Help Tip
  * @type {string}
+ * @category modules
  */
 Button.prototype.tooltipText = 'Button ToolTip: High(1) when pressed and Low(0) when released.';
 
@@ -102,12 +104,14 @@ Button.prototype.tooltipText = 'Button ToolTip: High(1) when pressed and Low(0) 
  * @memberof Button
  * Help URL
  * @type {string}
+ * @category modules
  */
 Button.prototype.helplink = 'https://docs.circuitverse.org/#/inputElements?id=button';
 
 /**
  * @memberof Button
  * @type {number}
+ * @category modules
  */
 Button.prototype.propagationDelay = 0;
 Button.prototype.objectType = 'Button';

@@ -13,6 +13,7 @@ import { changeInputSize } from '../modules';
  * @param {number} y - y coordinate of element.
  * @param {Scope=} scope - Cirucit on which element is drawn
  * @param {Array=} data - bit width per node.
+ * @category modules
  */
 export default class Rom extends CircuitElement {
     constructor(
@@ -194,6 +195,7 @@ export default class Rom extends CircuitElement {
  * @memberof Rom
  * Help Tip
  * @type {string}
+ * @category modules
  */
 Rom.prototype.tooltipText = 'Read-only memory';
 Rom.prototype.helplink = 'https://docs.circuitverse.org/#/memoryElements?id=rom';

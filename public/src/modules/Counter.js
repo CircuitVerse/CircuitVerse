@@ -17,6 +17,7 @@ import { lineTo, moveTo, fillText } from '../canvasApi';
  * The counter outputs its current value and a flag that indicates
  * when the output value is zero and the clock is 1.
  * The counter can be reset to zero at any point using the RESET pin.
+ * @category modules
  */
 export default class Counter extends CircuitElement {
     constructor(x, y, scope = globalScope, bitWidth = 8) {

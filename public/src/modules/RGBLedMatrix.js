@@ -12,6 +12,7 @@ import { correctWidth, rect2, rotate, lineTo, moveTo } from '../canvasApi';
  * @param {Scope=} scope - Cirucit on which element is drawn
  * @param {number=} rows - number of rows
  * @param {number=} cols - number of columns.
+ * @category modules
  */
 export default class RGBLedMatrix extends CircuitElement {
     constructor(

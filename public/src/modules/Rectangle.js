@@ -11,6 +11,7 @@ import { correctWidth, rect } from '../canvasApi';
  * @param {Scope=} scope - Cirucit on which element is drawn
  * @param {number=} rows - number of rows
  * @param {number=} cols - number of columns.
+ * @category modules
  */
 export default class Rectangle extends CircuitElement {
     constructor(x, y, scope = globalScope, rows = 15, cols = 20) {
@@ -114,6 +115,7 @@ export default class Rectangle extends CircuitElement {
  * @memberof Rectangle
  * Help Tip
  * @type {string}
+ * @category modules
  */
 Rectangle.prototype.tooltipText = 'Rectangle ToolTip : Used to Box the Circuit or area you want to highlight.';
 Rectangle.prototype.helplink = 'https://docs.circuitverse.org/#/annotation?id=rectangle';
@@ -123,6 +125,7 @@ Rectangle.prototype.propagationDelayFixed = true;
  * @memberof Rectangle
  * Mutable properties of the element
  * @type {JSON}
+ * @category modules
  */
 Rectangle.prototype.mutableProperties = {
     cols: {

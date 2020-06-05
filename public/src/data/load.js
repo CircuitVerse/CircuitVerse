@@ -17,6 +17,7 @@ import { oppositeDirection } from '../canvasApi';
 /**
  * Backward compatibility - needs to be deprecated
  * @param {CircuitElement} obj - the object to be rectified
+ * @category data
  */
 function rectifyObjectType(obj) {
     const rectify = {
@@ -30,6 +31,7 @@ function rectifyObjectType(obj) {
  * Function to load CircuitElements
  * @param {JSON} data - JSOn data
  * @param {Scope} scope - circuit in which we want to load modules
+ * @category data
  */
 function loadModule(data, scope) {
     // Create circuit element
@@ -67,6 +69,7 @@ function loadModule(data, scope) {
 /**
  * This function shouldn't ideally exist. But temporary fix
  * for some issues while loading nodes.
+ * @category data
  */
 function removeBugNodes(scope = globalScope) {
     let x = scope.allNodes.length;
@@ -83,6 +86,7 @@ function removeBugNodes(scope = globalScope) {
  * Function to load a full circuit
  * @param {Scope} scope
  * @param {JSON} data
+ * @category data
  */
 export function loadScope(scope, data) {
     const ML = moduleList.slice(); // Module List copy
@@ -146,6 +150,8 @@ export function loadScope(scope, data) {
 /**
  * loads a saved project
  * @param {JSON} data - the json data of the
+ * @category data
+ * @exports load
  */
 export default function load(data) {
     // If project is new and no data is there, then just set project name

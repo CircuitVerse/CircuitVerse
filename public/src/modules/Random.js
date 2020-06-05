@@ -13,6 +13,7 @@ import { fillText, lineTo, moveTo } from '../canvasApi';
  * @param {number} y - y coord of element
  * @param {Scope=} scope - the ciruit in which we want the Element
  * @param {string=} dir - direcion in which element has to drawn
+ * @category modules
  */
 export default class Random extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {

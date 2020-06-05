@@ -13,6 +13,7 @@ import { changeInputSize } from '../modules';
  * @param {number} y - y coordinate of element.
  * @param {Scope=} scope - Cirucit on which element is drawn
  * @param {string=} dir - direction of element
+ * @category modules
  */
 export default class Arrow extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT') {
@@ -69,6 +70,7 @@ export default class Arrow extends CircuitElement {
  * @memberof Arrow
  * Help Tip
  * @type {string}
+ * @category modules
  */
 Arrow.prototype.tooltipText = 'Arrow ToolTip : Arrow Selected.';
 Arrow.prototype.propagationDelayFixed = true;

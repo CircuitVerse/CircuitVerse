@@ -12,7 +12,8 @@ import { tempBuffer } from '../layoutMode';
  * @param {number} yy - parent y
  * @param {number} type - input or output node
  * @param {CircuitElement} parent  parent of the node
- */ 
+ * @category layout
+ */
 export default class LayoutNode {
     constructor(x, y, id, label = '', xx, yy, type, parent) {
         this.type = type;

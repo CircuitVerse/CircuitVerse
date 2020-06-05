@@ -13,6 +13,7 @@ import plotArea from '../plotArea';
  * @param {string=} dir - direction of element
  * @param {number=} bitWidth - bit width per node.
  * @param {string=} identifier - number of input nodes
+ * @category modules
  */
 export default class Tunnel extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'LEFT', bitWidth = 1, identifier) {
@@ -230,6 +231,7 @@ export default class Tunnel extends CircuitElement {
  * @memberof Tunnel
  * Help Tip
  * @type {string}
+ * @category modules
  */
 Tunnel.prototype.tooltipText = 'Tunnel ToolTip : Tunnel Selected.';
 Tunnel.prototype.helplink = 'https://docs.circuitverse.org/#/miscellaneous?id=tunnel';
@@ -240,6 +242,7 @@ Tunnel.prototype.overrideDirectionRotation = true;
  * @memberof Tunnel
  * Mutable properties of the element
  * @type {JSON}
+ * @category modules
  */
 Tunnel.prototype.mutableProperties = {
     identifier: {

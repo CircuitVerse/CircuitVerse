@@ -17,6 +17,7 @@ import { generateId } from '../utils';
  * @param {string=} dir - direction of element
  * @param {number=} bitWidth - bit width per node.
  * @param {Object=} layoutProperties - x,y and id
+ * @category modules
  */
 
 function bin2dec(binString) {
@@ -173,6 +174,7 @@ export default class Input extends CircuitElement {
  * @memberof Input
  * Help Tip
  * @type {string}
+ * @category modules
  */
 Input.prototype.tooltipText = 'Input ToolTip: Toggle the individual bits by clicking on them.';
 
@@ -180,12 +182,14 @@ Input.prototype.tooltipText = 'Input ToolTip: Toggle the individual bits by clic
  * @memberof Input
  * Help URL
  * @type {string}
+ * @category modules
  */
 Input.prototype.helplink = 'https://docs.circuitverse.org/#/inputElements?id=input';
 
 /**
  * @memberof Input
  * @type {number}
+ * @category modules
  */
 Input.prototype.propagationDelay = 0;
 Input.prototype.objectType = 'Input';

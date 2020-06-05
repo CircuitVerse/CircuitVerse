@@ -19,6 +19,7 @@ function extractBits(num, start, end) {
  * @param {string=} dir - direction of element
  * @param {number=} bitWidth - bit width per node.
  * @param {number=} bitWidthSplit - number of input nodes
+ * @category modules
  */
 export default class Splitter extends CircuitElement {
     constructor(
@@ -215,6 +216,7 @@ export default class Splitter extends CircuitElement {
  * @memberof Splitter
  * Help Tip
  * @type {string}
+ * @category modules
  */
 Splitter.prototype.tooltipText = 'Splitter ToolTip: Split multiBit Input into smaller bitwidths or vice versa.';
 
@@ -222,6 +224,7 @@ Splitter.prototype.tooltipText = 'Splitter ToolTip: Split multiBit Input into sm
  * @memberof Splitter
  * Help URL
  * @type {string}
+ * @category modules
  */
 Splitter.prototype.helplink = 'https://docs.circuitverse.org/#/splitter';
 Splitter.prototype.objectType = 'Splitter';

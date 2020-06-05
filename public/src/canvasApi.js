@@ -3,6 +3,7 @@ import backgroundArea from './backgroundArea';
 import simulationArea from './simulationArea';
 import miniMapArea, { removeMiniMap, updatelastMinimapShown } from './minimap';
 
+var unit = 10;
 
 export function findDimensions(scope = globalScope) {
     var totalObjects = 0;

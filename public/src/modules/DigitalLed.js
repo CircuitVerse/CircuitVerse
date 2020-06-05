@@ -13,6 +13,7 @@ import { changeInputSize } from '../modules';
  * @param {number} y - y coordinate of element.
  * @param {Scope=} scope - Cirucit on which element is drawn
  * @param {string=} color - color of led
+ * @category modules
  */
 export default class DigitalLed extends CircuitElement {
     constructor(x, y, scope = globalScope, color = 'Red') {
@@ -99,6 +100,7 @@ export default class DigitalLed extends CircuitElement {
  * @memberof DigitalLed
  * Help Tip
  * @type {string}
+ * @category modules
  */
 DigitalLed.prototype.tooltipText = 'Digital Led ToolTip: Digital LED glows high when input is High(1).';
 
@@ -106,6 +108,7 @@ DigitalLed.prototype.tooltipText = 'Digital Led ToolTip: Digital LED glows high 
  * @memberof DigitalLed
  * Help URL
  * @type {string}
+ * @category modules
  */
 DigitalLed.prototype.helplink = 'https://docs.circuitverse.org/#/outputs?id=digital-led';
 
@@ -113,6 +116,7 @@ DigitalLed.prototype.helplink = 'https://docs.circuitverse.org/#/outputs?id=digi
  * @memberof DigitalLed
  * Mutable properties of the element
  * @type {JSON}
+ * @category modules
  */
 DigitalLed.prototype.mutableProperties = {
     color: {

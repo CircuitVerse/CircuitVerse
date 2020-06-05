@@ -15,6 +15,7 @@ import { changeInputSize } from '../modules';
  * @param {string=} dir - direction of And Gate
  * @param {number=} inputLength - number of input nodes
  * @param {number=} bitWidth - bit width per node.
+ * @category modules
  */
 export default class AndGate extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', inputLength = 2, bitWidth = 1) {
@@ -118,24 +119,28 @@ export default class AndGate extends CircuitElement {
  * @memberof AndGate
  * Help Tip
  * @type {string}
+ * @category modules
  */
 AndGate.prototype.tooltipText = 'And Gate Tooltip : Implements logical conjunction';
 
 /**
  * @memberof AndGate
  * @type {boolean}
+ * @category modules
  */
 AndGate.prototype.alwaysResolve = true;
 
 /**
  * @memberof AndGate
  * @type {string}
+ * @category modules
  */
 AndGate.prototype.verilogType = 'and';
 
 /**
  * @memberof AndGate
  * function to change input nodes of the gate
+ * @category modules
  */
 AndGate.prototype.changeInputSize = changeInputSize;
 AndGate.prototype.helplink = 'https://docs.circuitverse.org/#/gates?id=and-gate';

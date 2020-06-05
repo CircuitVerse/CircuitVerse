@@ -12,6 +12,7 @@ import { changeInputSize } from '../modules';
  * @param {number} x - x coordinate of element.
  * @param {number} y - y coordinate of element.
  * @param {Scope=} scope - Cirucit on which element is drawn
+ * @category modules
  */
 export default class HexDisplay extends CircuitElement {
     constructor(x, y, scope = globalScope) {
@@ -139,6 +140,7 @@ export default class HexDisplay extends CircuitElement {
  * @memberof HexDisplay
  * Help Tip
  * @type {string}
+ * @category modules
  */
 HexDisplay.prototype.tooltipText = 'Hex Display ToolTip: Inputs a 4 Bit Hex number and displays it.';
 
@@ -146,6 +148,7 @@ HexDisplay.prototype.tooltipText = 'Hex Display ToolTip: Inputs a 4 Bit Hex numb
  * @memberof HexDisplay
  * Help URL
  * @type {string}
+ * @category modules
  */
 HexDisplay.prototype.helplink = 'https://docs.circuitverse.org/#/outputs?id=hex-display';
 HexDisplay.prototype.objectType = 'HexDisplay';

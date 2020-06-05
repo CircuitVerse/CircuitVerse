@@ -11,6 +11,7 @@ import load from './load';
 
 /**
  * Helper function to recover unsaved data
+ * @category data
  */
 export function recoverProject() {
     if (localStorage.getItem('recover')) {
@@ -27,6 +28,7 @@ export function recoverProject() {
 
 /**
  * Prompt to restore from localStorage
+ * @category data
  */
 export function openOffline() {
     $('#openProjectDialog').empty();
@@ -53,6 +55,7 @@ export function openOffline() {
 /**
  * Flag for project saved or not
  * @type {boolean}
+ * @category data
  */
 var projectSaved = true;
 export function projectSavedSet(param) {
@@ -62,6 +65,7 @@ export function projectSavedSet(param) {
 
 /**
  * Helper function to store to localStorage -- needs to be deprecated/removed
+ * @category data
  */
 export function saveOffline() {
     const data = generateSaveData();
@@ -74,6 +78,7 @@ export function saveOffline() {
 
 /**
  * Checks if any circuit has unsaved data
+ * @category data
  */
 function checkToSave() {
     let saveFlag = false;
@@ -86,6 +91,7 @@ function checkToSave() {
 
 /**
  * Prompt user to save data if unsaved
+ * @category data
  */
 window.onbeforeunload = function () {
     if (projectSaved || embed) return;
@@ -102,6 +108,7 @@ window.onbeforeunload = function () {
 
 /**
  * Function to clear project
+ * @category data
  */
 export function clearProject() {
     if (confirm('Would you like to clear the project?')) {
@@ -116,6 +123,7 @@ export function clearProject() {
 /**
  Function used to start a new project while prompting confirmation from the user
  * @param {boolean} verify - flag to verify a new project
+ * @category data
  */
 export function newProject(verify) {
     if (verify || projectSaved || !checkToSave() || confirm('What you like to start a new project? Any unsaved changes will be lost.')) {

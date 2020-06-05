@@ -4,7 +4,7 @@ import { clockTick } from './utils';
 
 /**
  * simulation environment object - holds simulation canvas
- * @typedef {Object} simulationArea
+ * @type {Object} simulationArea
  * @property {HTMLCanvasElement} canvas
  * @property {boolean} selected
  * @property {boolean} hover

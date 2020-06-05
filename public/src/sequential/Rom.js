@@ -12,6 +12,7 @@ import {
  * @param {number} y - y coordinate of element.
  * @param {Scope=} scope - Cirucit on which element is drawn
  * @param {Array=} data - bit width per node.
+ * @category sequential
  */
 export default class Rom extends CircuitElement {
     constructor(
@@ -193,6 +194,7 @@ export default class Rom extends CircuitElement {
  * @memberof Rom
  * Help Tip
  * @type {string}
+ * @category sequential
  */
 Rom.prototype.tooltipText = 'Read-only memory';
 Rom.prototype.helplink = 'https://docs.circuitverse.org/#/memoryElements?id=rom';

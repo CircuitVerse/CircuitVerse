@@ -15,6 +15,7 @@ import { changeInputSize } from '../modules';
  * @param {string=} dir - direction of element
  * @param {number=} inputs - number of input nodes
  * @param {number=} bitWidth - bit width per node.
+ * @category modules
  */
 export default class OrGate extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', inputs = 2, bitWidth = 1) {
@@ -113,24 +114,28 @@ export default class OrGate extends CircuitElement {
  * @memberof OrGate
  * Help Tip
  * @type {string}
+ * @category modules
  */
 OrGate.prototype.tooltipText = 'Or Gate Tooltip : Implements logical disjunction';
 
 /**
  * @memberof OrGate
  * function to change input nodes of the element
+ * @category modules
  */
 OrGate.prototype.changeInputSize = changeInputSize;
 
 /**
  * @memberof SevenSegDisplay
  * @type {boolean}
+ * @category modules
  */
 OrGate.prototype.alwaysResolve = true;
 
 /**
  * @memberof SevenSegDisplay
  * @type {string}
+ * @category modules
  */
 OrGate.prototype.verilogType = 'or';
 OrGate.prototype.helplink = 'https://docs.circuitverse.org/#/gates?id=or-gate';

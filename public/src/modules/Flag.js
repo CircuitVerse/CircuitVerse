@@ -15,6 +15,7 @@ import plotArea from '../plotArea';
  * @param {string=} dir - direction of element
  * @param {number=} bitWidth - bit width per node.
  * @param {string} identifier - id
+ * @category modules
  */
 export default class Flag extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1, identifier) {
@@ -156,6 +157,7 @@ export default class Flag extends CircuitElement {
  * @memberof Flag
  * Help Tip
  * @type {string}
+ * @category modules
  */
 Flag.prototype.tooltipText = 'FLag ToolTip: Use this for debugging and plotting.';
 Flag.prototype.helplink = 'https://docs.circuitverse.org/#/timing_diagrams?id=using-flags';
@@ -164,6 +166,7 @@ Flag.prototype.helplink = 'https://docs.circuitverse.org/#/timing_diagrams?id=us
  * @memberof Flag
  * Help URL
  * @type {string}
+ * @category modules
  */
 Flag.prototype.helplink = 'https://docs.circuitverse.org/#/miscellaneous?id=tunnel';
 
@@ -171,6 +174,7 @@ Flag.prototype.helplink = 'https://docs.circuitverse.org/#/miscellaneous?id=tunn
  * @memberof Flag
  * Mutable properties of the element
  * @type {JSON}
+ * @category modules
  */
 Flag.prototype.mutableProperties = {
     identifier: {

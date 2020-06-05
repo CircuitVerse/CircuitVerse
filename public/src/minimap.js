@@ -1,7 +1,7 @@
 import simulationArea from './simulationArea';
 
 /**
- * @typedef {Object} miniMapArea
+ * @type {Object} miniMapArea
  * This object is used to draw the miniMap.
  * @property {number} pageY
  * @property {number} pageX

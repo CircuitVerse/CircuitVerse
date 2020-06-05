@@ -27,6 +27,7 @@ function dec2bin(dec, bitWidth = undefined) {
  * @param {string=} dir - direction of element
  * @param {number=} bitWidth - bit width per node.
  * @param {string=} state - The state of element
+ * @category modules
  */
 export default class ConstantVal extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1, state = '0') {
@@ -157,6 +158,7 @@ export default class ConstantVal extends CircuitElement {
  * @memberof ConstantVal
  * Help Tip
  * @type {string}
+ * @category modules
  */
 ConstantVal.prototype.tooltipText = 'Constant ToolTip: Bits are fixed. Double click element to change the bits.';
 
@@ -164,12 +166,14 @@ ConstantVal.prototype.tooltipText = 'Constant ToolTip: Bits are fixed. Double cl
  * @memberof ConstantVal
  * Help URL
  * @type {string}
+ * @category modules
  */
 ConstantVal.prototype.helplink = 'https://docs.circuitverse.org/#/inputElements?id=constantval';
 
 /**
  * @memberof ConstantVal
  * @type {number}
+ * @category modules
  */
 ConstantVal.prototype.propagationDelay = 0;
 ConstantVal.prototype.objectType = 'ConstantVal';

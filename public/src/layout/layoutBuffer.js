@@ -3,6 +3,7 @@ import LayoutNode from './layoutNode';
  * Buffer object to store changes so that you can reset changes
  * @class
  * @param {Scope=} scope
+ * @category layout
  */
 export default class LayoutBuffer {
     constructor(scope = globalScope) {

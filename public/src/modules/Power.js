@@ -13,6 +13,7 @@ import { changeInputSize } from '../modules';
  * @param {number} y - y coordinate of element.
  * @param {Scope=} scope - Cirucit on which element is drawn
  * @param {number=} bitWidth - bit width per node.
+ * @category modules
  */
 export default class Power extends CircuitElement {
     constructor(x, y, scope = globalScope, bitWidth = 1) {
@@ -81,6 +82,7 @@ export default class Power extends CircuitElement {
  * @memberof Power
  * Help Tip
  * @type {string}
+ * @category modules
  */
 Power.prototype.tooltipText = 'Power: All bits are High(1).';
 
@@ -88,12 +90,14 @@ Power.prototype.tooltipText = 'Power: All bits are High(1).';
  * @memberof Power
  * Help URL
  * @type {string}
+ * @category modules
  */
 Power.prototype.helplink = 'https://docs.circuitverse.org/#/inputElements?id=power';
 
 /**
  * @memberof Power
  * @type {number}
+ * @category modules
  */
 Power.prototype.propagationDelay = 0;
 

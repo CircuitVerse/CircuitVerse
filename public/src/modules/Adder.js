@@ -11,7 +11,8 @@ import simulationArea from '../simulationArea';
  * @param {number} y - y coordinate of element.
  * @param {Scope=} scope - Cirucit on which element is drawn
  * @param {string=} dir - direction of element
- * @param {number=} bitWidth - bit width per node.
+ * @param {number=} bitWidth - bit width per node. modules
+ * @category modules
  */
 export default class Adder extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
@@ -91,6 +92,7 @@ export default class Adder extends CircuitElement {
  * @memberof Adder
  * Help Tip
  * @type {string}
+ * @category modules
  */
 Adder.prototype.tooltipText = 'Adder ToolTip : Performs addition of numbers.';
 Adder.prototype.helplink = 'https://docs.circuitverse.org/#/miscellaneous?id=adder';

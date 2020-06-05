@@ -23,6 +23,7 @@ function dec2bin(dec, bitWidth = undefined) {
  * @param {Scope=} scope - the circuit on which TB is drawn
  * @param {string} dir - direction
  * @param {string} identifier - id to identify tests
+ * @category testbench
  */
 
 export default class TB_Output extends CircuitElement {

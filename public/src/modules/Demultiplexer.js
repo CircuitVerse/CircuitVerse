@@ -14,6 +14,7 @@ import {
  * @param {string=} dir - direction of element
  * @param {number=} bitWidth - bit width per node.
  * @param {number=} controlSignalSize - 1 by default
+ * @category modules
  */
 export default class Demultiplexer extends CircuitElement {
     constructor(
@@ -155,6 +156,7 @@ export default class Demultiplexer extends CircuitElement {
  * @memberof Demultiplexer
  * Help Tip
  * @type {string}
+ * @category modules
  */
 Demultiplexer.prototype.tooltipText = 'DeMultiplexer ToolTip : Multiple outputs and a single line input.';
 Demultiplexer.prototype.helplink = 'https://docs.circuitverse.org/#/decodersandplexers?id=demultiplexer';

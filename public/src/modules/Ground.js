@@ -13,6 +13,7 @@ import { changeInputSize } from '../modules';
  * @param {number} y - y coordinate of element.
  * @param {Scope=} scope - Cirucit on which element is drawn
  * @param {number=} bitWidth - bit width per node.
+ * @category modules
  */
 export default class Ground extends CircuitElement {
     constructor(x, y, scope = globalScope, bitWidth = 1) {
@@ -98,6 +99,7 @@ export default class Ground extends CircuitElement {
  * @memberof Ground
  * Help Tip
  * @type {string}
+ * @category modules
  */
 Ground.prototype.tooltipText = 'Ground: All bits are Low(0).';
 
@@ -105,12 +107,14 @@ Ground.prototype.tooltipText = 'Ground: All bits are Low(0).';
  * @memberof Ground
  * Help URL
  * @type {string}
+ * @category modules
  */
 Ground.prototype.helplink = 'https://docs.circuitverse.org/#/inputElements?id=ground';
 
 /**
  * @memberof Ground
  * @type {number}
+ * @category modules
  */
 Ground.prototype.propagationDelay = 0;
 Ground.prototype.objectType = 'Ground';

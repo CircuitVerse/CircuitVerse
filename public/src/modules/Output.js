@@ -30,6 +30,7 @@ function dec2bin(dec, bitWidth = undefined) {
  * @param {string=} dir - direction of element
  * @param {number=} inputLength - number of input nodes
  * @param {number=} bitWidth - bit width per node.
+ * @category modules
  */
 export default class Output extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'LEFT', bitWidth = 1, layoutProperties) {
@@ -157,6 +158,7 @@ export default class Output extends CircuitElement {
  * @memberof Output
  * Help Tip
  * @type {string}
+ * @category modules
  */
 Output.prototype.tooltipText = 'Output ToolTip: Simple output element showing output in binary.';
 
@@ -164,12 +166,14 @@ Output.prototype.tooltipText = 'Output ToolTip: Simple output element showing ou
  * @memberof Output
  * Help URL
  * @type {string}
+ * @category modules
  */
 Output.prototype.helplink = 'https://docs.circuitverse.org/#/outputs?id=output';
 
 /**
  * @memberof Output
  * @type {number}
+ * @category modules
  */
 Output.prototype.propagationDelay = 0;
 Output.prototype.objectType = 'Output';

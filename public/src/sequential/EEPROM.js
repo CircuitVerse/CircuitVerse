@@ -18,6 +18,7 @@ import RAM from './RAM';
  * This way we serialize unused values as "0" instead of "null".
  *
  * These two techniques help keep reduce the size of saved projects.
+ * @category sequential
  */
 export default class EEPROM extends RAM {
     constructor(

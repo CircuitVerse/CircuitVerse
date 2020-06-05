@@ -14,6 +14,7 @@ import { changeInputSize } from '../modules';
  * @param {Scope=} scope - Cirucit on which element is drawn
  * @param {string=} dir - direction of element
  * @param {number=} bitWidth - bit width per node.
+ * @category modules
  */
 export default class Buffer extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
@@ -108,6 +109,7 @@ export default class Buffer extends CircuitElement {
  * @memberof Buffer
  * Help Tip
  * @type {string}
+ * @category modules
  */
 Buffer.prototype.tooltipText = 'Buffer ToolTip : Isolate the input from the output.';
 Buffer.prototype.helplink = 'https://docs.circuitverse.org/#/miscellaneous?id=buffer';

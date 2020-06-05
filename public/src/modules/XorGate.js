@@ -15,6 +15,7 @@ import { changeInputSize } from '../modules';
  * @param {string=} dir - direction of element
  * @param {number=} inputs - number of input nodes
  * @param {number=} bitWidth - bit width per node.
+ * @category modules
  */
 export default class XorGate extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', inputs = 2, bitWidth = 1) {
@@ -116,24 +117,28 @@ export default class XorGate extends CircuitElement {
  * @memberof XorGate
  * Help Tip
  * @type {string}
+ * @category modules
  */
 XorGate.prototype.tooltipText = 'Xor Gate Tooltip : Implements an exclusive OR.';
 
 /**
  * @memberof XorGate
  * @type {boolean}
+ * @category modules
  */
 XorGate.prototype.alwaysResolve = true;
 
 /**
  * @memberof XorGate
  * function to change input nodes of the element
+ * @category modules
  */
 XorGate.prototype.changeInputSize = changeInputSize;
 
 /**
  * @memberof XorGate
  * @type {string}
+ * @category modules
  */
 XorGate.prototype.verilogType = 'xor';
 XorGate.prototype.helplink = 'https://docs.circuitverse.org/#/gates?id=xor-gate';

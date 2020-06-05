@@ -13,6 +13,7 @@ import {
  * @param {Scope=} scope - Cirucit on which element is drawn
  * @param {string=} dir - direction of element
  * @param {number=} bitWidth - bit width per node.
+ * @category modules
  */
 export default class Decoder extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'LEFT', bitWidth = 1) {
@@ -150,6 +151,7 @@ export default class Decoder extends CircuitElement {
  * @memberof Decoder
  * Help Tip
  * @type {string}
+ * @category modules
  */
 Decoder.prototype.tooltipText = 'Decoder ToolTip : Converts coded inputs into coded outputs.';
 Decoder.prototype.helplink = 'https://docs.circuitverse.org/#/decodersandplexers?id=decoder';

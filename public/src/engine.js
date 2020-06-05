@@ -18,61 +18,185 @@ import { resetup } from './setup';
 
 /**
  * Core of the simulation and rendering algorithm.
+ */
+
+/**
+ * @type {number} engine
  * @category engine
  */
-var wireToBeChecked = 0; // when node disconnects from another node
+var wireToBeChecked = 0;
+
+/**
+ * Used to set wireChecked boolean which updates wires in UI if true (or 1). 2 if some problem and it is handled.
+ * @param {number} param - value of wirechecked
+ * @category engine
+ */
 export function wireToBeCheckedSet(param) {
     wireToBeChecked = param;
 }
-var willBeUpdated = false; // scheduleUpdate() will be called if true
+
+/**
+ * scheduleUpdate() will be called if true
+ * @type {boolean}
+ * @category engine
+ */
+var willBeUpdated = false;
+
+/**
+ * used to set willBeUpdated variable
+ * @type {boolean}
+ * @category engine
+ * @category engine
+ */
 export function willBeUpdatedSet(param) {
     willBeUpdated = param;
 }
-var objectSelection = false; // Flag for object selection
+
+/**
+ * true if we have an element selected and 
+ * is used when we are paning the grid.
+ * @type {boolean}
+ * @category engine
+ */
+var objectSelection = false;
+
+/**
+ * used to set the value of object selection,
+ * @param {boolean} param 
+ * @category engine
+ */
 export function objectSelectionSet(param) {
     objectSelection = param;
 }
 
-var updatePosition = true; // Flag for updating position
+/**
+ * Flag for updating position
+ * @type {boolean}
+ * @category engine
+ */
+var updatePosition = true;
+
+/**
+ * used to set the value of updatePosition.
+ * @param {boolean} param 
+ * @category engine
+ */
 export function updatePositionSet(param) {
     updatePosition = param;
 }
 
-var updateSimulation = true; // Flag for updating simulation
+/**
+ * Flag for updating simulation
+ * @type {boolean}
+ * @category engine
+ */
+var updateSimulation = true;
+
+/**
+ * used to set the value of updateSimulation.
+ * @param {boolean} param
+ * @category engine
+ */
 export function updateSimulationSet(param) {
     updateSimulation = param;
 }
+/**
+ * Flag for rendering
+ * @type {boolean}
+ * @category engine
+ */
+var updateCanvas = true;
 
-var updateCanvas = true; // Flag for rendering
+/**
+ * used to set the value of updateCanvas.
+ * @param {boolean} param
+ * @category engine
+ */
 export function updateCanvasSet(param) {
     updateCanvas = param;
 }
 
-var gridUpdate = true; // Flag for updating grid
+/**
+ *  Flag for updating grid
+ * @type {boolean}
+ * @category engine
+ */
+var gridUpdate = true;
+
+/**
+ * used to set gridUpdate
+ * @param {boolean} param
+ * @category engine
+ */
 export function gridUpdateSet(param) {
     gridUpdate = param;
 }
+/**
+ *  Flag for updating grid
+ * @type {boolean}
+ * @category engine
+ */
+var forceResetNodes = true;
 
-var forceResetNodes = true; // Flag for updating grid
+/**
+ * used to set forceResetNodes
+ * @param {boolean} param
+ * @category engine
+ */
 export function forceResetNodesSet(param) {
     forceResetNodes = param;
 }
+/**
+ *  Flag for updating grid
+ * @type {boolean}
+ * @category engine
+ */
+var errorDetected = false;
 
-var errorDetected = false; // Flag for updating grid
+/**
+ * used to set errorDetected
+ * @param {boolean} param
+ * @category engine
+ */
 export function errorDetectedSet(param) {
     errorDetected = param;
 }
-export function checkErrorDetected() {
+
+/**
+ * used to set errorDetected
+ * @returns {boolean} errorDetected
+ * @category engine
+ */
+export function errorDetectedGet() {
     return errorDetected;
 }
 
+/**
+ * details of where and what canvas message has to be shown.
+ * @type {Object}
+ * @property {number} x - x cordinate of message
+ * @property {number} y - x cordinate of message
+ * @property {number} string - the message
+ * @category engine
+*/
 export var canvasMessageData = {
     x: undefined,
     y: undefined,
     string: undefined,
-}; // Flag for updating grid
+};
 
-var updateSubcircuit = true; // Flag for updating subCircuits
+/**
+ *  Flag for updating subCircuits
+ * @type {boolean}
+ * @category engine
+ */
+var updateSubcircuit = true;
+
+/**
+ * used to set updateSubcircuit
+ * @param {boolean} param
+ * @category engine
+ */
 export function updateSubcircuitSet(param) {
     // console.log(updateSubcircuit,param);
     if (updateSubcircuit != param) {
@@ -86,6 +210,7 @@ export function updateSubcircuitSet(param) {
 /**
  * turn light mode on
  * @param {boolean} val -- new value for light mode
+ * @category engine
  */
 export function changeLightMode(val) {
     if (!val && lightMode) {

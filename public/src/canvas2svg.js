@@ -171,9 +171,9 @@ STYLES = {
 };
 
 /**
- *
  * @param gradientNode - reference to the gradient
  * @constructor
+ * @category c2s 
  */
 CanvasGradient = function (gradientNode, ctx) {
     this.__root = gradientNode;
@@ -212,6 +212,7 @@ CanvasPattern = function (pattern, ctx) {
  * height - height of your canvas (defaults to 500)
  * enableMirroring - enables canvas mirroring (get image data) (defaults to false)
  * document - the document object (defaults to the current document)
+ * @category c2s
  */
 ctx = function (o) {
     var defaultOptions = { width: 500, height: 500, enableMirroring: false }; var
@@ -649,6 +650,7 @@ ctx.prototype.quadraticCurveTo = function (cpx, cpy, x, y) {
 
 /**
  * Return a new normalized vector of given vector
+ * @category c2s
  */
 var normalize = function (vector) {
     var len = Math.sqrt(vector[0] * vector[0] + vector[1] * vector[1]);

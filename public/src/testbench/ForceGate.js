@@ -11,6 +11,7 @@ import { fillText4 } from '../canvasApi';
  * @param {Scope=} scope - Cirucit on which element is drawn
  * @param {string=} dir - direction of element
  * @param {number=} bitWidth - bit width per node.
+ * @category testbench
  */
 export default class ForceGate extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
@@ -81,6 +82,7 @@ export default class ForceGate extends CircuitElement {
  * @memberof ForceGate
  * Help Tip
  * @type {string}
+ * @category testbench
  */
 ForceGate.prototype.tooltipText = 'Force Gate ToolTip : ForceGate Selected.';
 ForceGate.prototype.objectType = 'ForceGate';

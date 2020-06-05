@@ -40,6 +40,7 @@ import { correctWidth, fillText2, fillText4, drawCircle2 } from '../canvasApi';
  * Internally we use a sparse array, so only the addresses that are written are actually
  * allocated. Nevertheless, it is better to prevent large allocations from happening
  * by keeping the max addressWidth small. If needed, we can increase the max.
+ * @category sequential
  */
 export default class RAM extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 8, addressWidth = 10) {

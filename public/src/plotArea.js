@@ -44,7 +44,7 @@ class StopWatch {
 }
 
 /**
- * @typedef {Object} plotArea
+ * @type {Object} plotArea
  * @category plotArea
  */
 const plotArea = {

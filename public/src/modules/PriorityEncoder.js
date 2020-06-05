@@ -11,6 +11,7 @@ import { correctWidth, rect, fillText } from '../canvasApi';
  * @param {Scope=} scope - Cirucit on which element is drawn
  * @param {string=} dir - direction of element
  * @param {number=} bitWidth - bit width per node.
+ * @category modules
  */
 export default class PriorityEncoder extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
@@ -157,6 +158,7 @@ export default class PriorityEncoder extends CircuitElement {
  * @memberof PriorityEncoder
  * Help Tip
  * @type {string}
+ * @category modules
  */
 PriorityEncoder.prototype.tooltipText = 'Priority Encoder ToolTip : Compresses binary inputs into a smaller number of outputs.';
 PriorityEncoder.prototype.helplink = 'https://docs.circuitverse.org/#/decodersandplexers?id=priority-encoder';

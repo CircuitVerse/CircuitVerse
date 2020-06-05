@@ -15,6 +15,7 @@ import {
  * @param {Scope=} scope - Cirucit on which element is drawn
  * @param {string=} dir - direction of element
  * @param {number=} bitWidth - bit width per node.
+ * @category modules
  */
 export default class ALU extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
@@ -173,6 +174,7 @@ export default class ALU extends CircuitElement {
  * @memberof ALU
  * Help Tip
  * @type {string}
+ * @category modules
  */
 ALU.prototype.tooltipText = 'ALU ToolTip: 0: A&B, 1:A|B, 2:A+B, 4:A&~B, 5:A|~B, 6:A-B, 7:SLT ';
 
@@ -180,6 +182,7 @@ ALU.prototype.tooltipText = 'ALU ToolTip: 0: A&B, 1:A|B, 2:A+B, 4:A&~B, 5:A|~B, 
  * @memberof ALU
  * Help URL
  * @type {string}
+ * @category modules
  */
 ALU.prototype.helplink = 'https://docs.circuitverse.org/#/miscellaneous?id=alu';
 ALU.prototype.objectType = 'ALU';

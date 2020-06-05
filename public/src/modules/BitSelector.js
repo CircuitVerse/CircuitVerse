@@ -12,6 +12,7 @@ import { correctWidth, rect, fillText } from '../canvasApi';
  * @param {string=} dir - direction of element
  * @param {number=} bitWidth - bit width per node.
  * @param {number=} selectorBitWidth - 1 by default
+ * @category modules
  */
 export default class BitSelector extends CircuitElement {
     constructor(
@@ -115,6 +116,7 @@ export default class BitSelector extends CircuitElement {
  * @memberof BitSelector
  * Help Tip
  * @type {string}
+ * @category modules
  */
 BitSelector.prototype.tooltipText = 'BitSelector ToolTip : Divides input bits into several equal-sized groups.';
 BitSelector.prototype.helplink = 'https://docs.circuitverse.org/#/decodersandplexers?id=bit-selector';
@@ -123,6 +125,7 @@ BitSelector.prototype.helplink = 'https://docs.circuitverse.org/#/decodersandple
  * @memberof BitSelector
  * Mutable properties of the element
  * @type {JSON}
+ * @category modules
  */
 BitSelector.prototype.mutableProperties = {
     selectorBitWidth: {

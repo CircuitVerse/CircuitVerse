@@ -15,6 +15,7 @@ import { changeInputSize } from '../modules';
  * @param {string=} dir - direction of nand Gate
  * @param {number=} inputLength - number of input nodes
  * @param {number=} bitWidth - bit width per node.
+ * @category modules
  */
 export default class NandGate extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', inputLength = 2, bitWidth = 1) {
@@ -115,24 +116,28 @@ export default class NandGate extends CircuitElement {
  * @memberof NandGate
  * Help Tip
  * @type {string}
+ * @category modules
  */
 NandGate.prototype.tooltipText = 'Nand Gate ToolTip : Combination of AND and NOT gates';
 
 /**
  * @memberof NandGate
  * @type {boolean}
+ * @category modules
  */
 NandGate.prototype.alwaysResolve = true;
 
 /**
  * @memberof NandGate
  * function to change input nodes of the gate
+ * @category modules
  */
 NandGate.prototype.changeInputSize = changeInputSize;
 
 /**
  * @memberof NandGate
  * @type {string}
+ * @category modules
  */
 NandGate.prototype.verilogType = 'nand';
 NandGate.prototype.helplink = 'https://docs.circuitverse.org/#/gates?id=nand-gate';

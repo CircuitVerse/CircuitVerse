@@ -11,6 +11,7 @@ import { projectSavedSet } from './project';
 /**
  * Function to set the name of project.
  * @param {string} name - name for project
+ * @category data
  */
 export function setProjectName(name) {
     name = stripTags(name);
@@ -22,6 +23,7 @@ export function setProjectName(name) {
  * Helper function to save canvas as image based on image type
  * @param {string} name -name of the circuit
  * @param {string} imgType - image type ex: png,jpg etc.
+ * @category data
  */
 function downloadAsImg(name, imgType) {
     const gh = simulationArea.canvas.toDataURL(`image/${imgType}`);
@@ -35,6 +37,7 @@ function downloadAsImg(name, imgType) {
  * Generates JSON of the entire project
  * @param {string} name - the name of project
  * @return {JSON}
+ * @category data
  */
 export function generateSaveData(name) {
     data = {};
@@ -84,6 +87,22 @@ export function generateSaveData(name) {
     return data;
 }
 
+// Helper function to download text
+function download(filename, text) {
+    var pom = document.createElement('a');
+    pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    pom.setAttribute('download', filename);
+
+
+    if (document.createEvent) {
+        var event = document.createEvent('MouseEvents');
+        event.initEvent('click', true, true);
+        pom.dispatchEvent(event);
+    } else {
+        pom.click();
+    }
+}
+
 /**
  * Function to generate image for the circuit
  * @param {string} imgType - ex: png,jpg etc.
@@ -91,6 +110,7 @@ export function generateSaveData(name) {
  * @param {boolean} transparent - tranparent bg or not
  * @param {number} resolution - resolution of the image
  * @param {boolean=} down - will download if true
+ * @category data
  */
 export function generateImage(imgType, view, transparent, resolution, down = true) {
     // Backup all data
@@ -120,22 +140,25 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
     const scope = globalScope;
 
     // Focus circuit
-    if (view === 'full') {
-        findDimensions();
-        const minX = simulationArea.minWidth;
-        const minY = simulationArea.minHeight;
-        const maxX = simulationArea.maxWidth;
-        const maxY = simulationArea.maxHeight;
-        width = (maxX - minX + 100) * resolution;
-        height = (maxY - minY + 100) * resolution;
+    var flag = 1;
+    if (flag) {
+        if (view === 'full') {
+            findDimensions();
+            const minX = simulationArea.minWidth;
+            const minY = simulationArea.minHeight;
+            const maxX = simulationArea.maxWidth;
+            const maxY = simulationArea.maxHeight;
+            width = (maxX - minX + 100) * resolution;
+            height = (maxY - minY + 100) * resolution;
 
-        globalScope.ox = (-minX + 50) * resolution;
-        globalScope.oy = (-minY + 50) * resolution;
-    } else {
-        globalScope.ox *= resolution;
-        globalScope.oy *= resolution;
-        width = (width * resolution) / backUpScale;
-        height = (height * resolution) / backUpScale;
+            globalScope.ox = (-minX + 50) * resolution;
+            globalScope.oy = (-minY + 50) * resolution;
+        } else {
+            globalScope.ox *= resolution;
+            globalScope.oy *= resolution;
+            width = (width * resolution) / backUpScale;
+            height = (height * resolution) / backUpScale;
+        }
     }
 
     globalScope.ox = Math.round(globalScope.ox);
@@ -198,6 +221,7 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
 /**
  * Function that is used to save image for display in the website
  * @return {JSON}
+ * @category data
  */
 function generateImageForOnline() {
     simulationArea.lastSelected = undefined; // Unselect any selections
@@ -220,8 +244,13 @@ function generateImageForOnline() {
     // Restores Focus
     globalScope.centerFocus(false);
     return data;
+    
 }
-
+/**
+ * Function called when you save acircuit online
+ * @category data
+ * @exports save
+ */
 export default function save() {
     projectSavedSet(true);
 

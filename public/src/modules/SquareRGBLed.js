@@ -14,6 +14,7 @@ import {
  * @param {Scope=} scope - Cirucit on which element is drawn
  * @param {string=} dir - direction of element
  * @param {number=} pinLength - pins per node.
+ * @category modules
  */
 export default class SquareRGBLed extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'UP', pinLength = 1) {
@@ -139,6 +140,7 @@ export default class SquareRGBLed extends CircuitElement {
  * @memberof SquareRGBLed
  * Help Tip
  * @type {string}
+ * @category modules
  */
 SquareRGBLed.prototype.tooltipText = 'Square RGB Led ToolTip: RGB Led inputs 8 bit values for the colors RED, GREEN and BLUE.';
 
@@ -146,6 +148,7 @@ SquareRGBLed.prototype.tooltipText = 'Square RGB Led ToolTip: RGB Led inputs 8 b
  * @memberof SquareRGBLed
  * Help URL
  * @type {string}
+ * @category modules
  */
 SquareRGBLed.prototype.helplink = 'https://docs.circuitverse.org/#/outputs?id=square-rgb-led';
 SquareRGBLed.prototype.objectType = 'SquareRGBLed';

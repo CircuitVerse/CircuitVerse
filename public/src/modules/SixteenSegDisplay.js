@@ -12,6 +12,7 @@ import { changeInputSize } from '../modules';
  * @param {number} x - x coordinate of element.
  * @param {number} y - y coordinate of element.
  * @param {Scope=} scope - Cirucit on which element is drawn
+ * @category modules
  */
 export default class SixteenSegDisplay extends CircuitElement {
     constructor(x, y, scope = globalScope) {
@@ -116,6 +117,7 @@ export default class SixteenSegDisplay extends CircuitElement {
  * @memberof SixteenSegDisplay
  * Help Tip
  * @type {string}
+ * @category modules
  */
 SixteenSegDisplay.prototype.tooltipText = 'Sixteen Display ToolTip: Consists of 16+1 bit inputs.';
 
@@ -123,6 +125,7 @@ SixteenSegDisplay.prototype.tooltipText = 'Sixteen Display ToolTip: Consists of 
  * @memberof SixteenSegDisplay
  * Help URL
  * @type {string}
+ * @category modules
  */
 SixteenSegDisplay.prototype.helplink = 'https://docs.circuitverse.org/#/outputs?id=sixteen-segment-display';
 SixteenSegDisplay.prototype.objectType = 'SixteenSegDisplay';

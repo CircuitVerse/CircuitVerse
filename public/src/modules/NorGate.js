@@ -15,6 +15,7 @@ import { changeInputSize } from '../modules';
  * @param {string=} dir - direction of element
  * @param {number=} inputs - number of input nodes
  * @param {number=} bitWidth - bit width per node.
+ * @category modules
  */
 export default class NorGate extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', inputs = 2, bitWidth = 1) {
@@ -113,12 +114,14 @@ export default class NorGate extends CircuitElement {
  * @memberof NorGate
  * Help Tip
  * @type {string}
+ * @category modules
  */
 NorGate.prototype.tooltipText = 'Nor Gate ToolTip : Combination of OR gate and NOT gate.';
 
 /**
  * @memberof NorGate
  * @type {boolean}
+ * @category modules
  */
 NorGate.prototype.alwaysResolve = true;
 
@@ -126,12 +129,14 @@ NorGate.prototype.alwaysResolve = true;
 /**
  * @memberof SevenSegDisplay
  * function to change input nodes of the element
+ * @category modules
  */
 NorGate.prototype.changeInputSize = changeInputSize;
 
 /**
  * @memberof SevenSegDisplay
  * @type {string}
+ * @category modules
  */
 NorGate.prototype.verilogType = 'nor';
 NorGate.prototype.helplink = 'https://docs.circuitverse.org/#/gates?id=nor-gate';

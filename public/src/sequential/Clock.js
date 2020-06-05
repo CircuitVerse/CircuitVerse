@@ -11,6 +11,7 @@ import { correctWidth, lineTo, moveTo } from '../canvasApi';
  * @param {number} y - y coord of element
  * @param {Scope=} scope - the ciruit in which we want the Element
  * @param {string=} dir - direcion in which element has to drawn
+ * @category sequential
  */
 export default class Clock extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT') {
