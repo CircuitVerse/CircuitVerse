@@ -123,7 +123,7 @@ describe Users::LogixController, type: :request do
             expect(s["action"]).to include "name"
           end
         end
-        
+
         it "buttons should keep schema " do
           schema["settings"].select { |k, v| k["action"]["type"] == "button" }.each do |s|
             expect(s["action"]).to include "buttonText"
