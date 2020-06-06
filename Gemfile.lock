@@ -192,6 +192,8 @@ GEM
       ffi-compiler (>= 1.0, < 2.0)
     i18n (1.7.1)
       concurrent-ruby (~> 1.0)
+    i18n-js (3.3.0)
+      i18n (>= 0.6.6)
     i18n_data (0.8.0)
     jbuilder (2.9.1)
       activesupport (>= 4.2.0)
@@ -548,6 +550,7 @@ DEPENDENCIES
   geocoder
   hirb
   http
+  i18n-js
   jbuilder (~> 2.5)
   jquery-rails
   json-schema

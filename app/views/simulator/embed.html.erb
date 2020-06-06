@@ -7,10 +7,8 @@
 <!--<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>-->
 <link rel="stylesheet" type="text/css" href="/css/embed.css"/>
 </head>
-
-<body onload="setup()">
 <script>
-    
+    embed=true;
     <% if @project&.assignment_id.present? %>
      
     <% else %>
@@ -96,7 +94,6 @@
 <!-- <script src="/js/SAP_DATA.js"></script> -->
 <script type="text/javascript">
     logix_project_id = <%= @logix_project_id%>
-        embed=true;
         <% if @project&.assignment_id.present? %>
           restrictedElements = JSON.parse('<%= raw @project&.assignment.restrictions %>');
         <% else %>
@@ -104,28 +101,6 @@
         <% end %>
 
  </script>
- <script src="/js/engine.js"></script>
- <script src="/js/logix.js"></script>
- <script src="/js/Node.js"></script>
- <script src="/js/wire.js"></script>
- <script src="/js/subcircuit.js"></script>
- <script src="/js/modules.js"></script>
- <script src="/js/RGBLedMatrix.js"></script>
- <script src="/js/sequential.js"></script>
- <script src="/js/ram.js"></script>
- <script src="/js/eeprom.js"></script>
- <script src="/js/Counter.js"></script>
- <script src="/js/canvasApi.js"></script>
- <script src="/js/data.js"></script>
- <script src="/js/embedListeners.js"></script>
- <script src="/js/embed.js"></script>
- <script src="/js/testBench.js"></script>
-    <script src="/js/eventQueue.js"></script>
-    <script src="/js/utils.js"> </script>
-    <script type="text/javascript" src="/js/metadata.json"></script>
-
-
-
 <!-- <script src="/js/canvas2svg.js"></script> -->
 
 
