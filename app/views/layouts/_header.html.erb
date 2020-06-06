@@ -45,7 +45,8 @@
           <a class="dropdown-item" href="<%= user_path(current_user) %>">My Circuits</a>
           <a class="dropdown-item" href="<%= user_groups_path(current_user) %>">My Groups</a>
           <a class="dropdown-item" href="<%= user_favourites_path(current_user) %>">My Favourites</a>
-          <a class="dropdown-item" href="<%= user_settings_path(current_user) %>">Settings</a>
+          <!-- uncomment when settings page will be done -->
+          <!--<a class="dropdown-item" href="<%= user_settings_path(current_user) %>">Settings</a>-->
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" rel="nofollow" data-method="delete" href="<%= destroy_user_session_path %>">Sign Out</a>
 
