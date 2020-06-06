@@ -1,3 +1,7 @@
+/**Add more elements here, along with a valid value for key
+* Elements keys must have the same name as their ID
+**/
+
 defaultKeys = {
   "New Project": "SHIFT + N",
   "Save Online": "CTRL + S",
@@ -9,4 +13,21 @@ defaultKeys = {
   "Create Sub-ciruit": "SHIFT + C",
   "Combinational Analysis": "SHIFT + A",
   "Start Plot": "CTRL + P",
+  "Input": "1",
+  "Output": "2",
+  "NotGate": "3",
+  "OrGate": "4",
+  "AndGate": "5",
+  "NorGate": "6",
+  "NandGate": "7",
+  "XorGate": "8",
+  "SevenSegDisplay": "9",
+  "SixteenSegDisplay": "0",
 };
+
+// circuitElementList = [
+//     "Input", "Output", "NotGate", "OrGate", "AndGate", "NorGate", "NandGate", "XorGate", "XnorGate", "SevenSegDisplay", "SixteenSegDisplay", "HexDisplay",
+//     "Multiplexer", "BitSelector", "Splitter", "Power", "Ground", "ConstantVal", "ControlledInverter", "TriState", "Adder", "Rom", "RAM", "EEPROM", "TflipFlop",
+//     "JKflipFlop", "SRflipFlop", "DflipFlop", "TTY", "Keyboard", "Clock", "DigitalLed", "Stepper", "VariableLed", "RGBLed", "SquareRGBLed", "RGBLedMatrix", "Button", "Demultiplexer",
+//     "Buffer", "SubCircuit", "Flag", "MSB", "LSB", "PriorityEncoder", "Tunnel", "ALU", "Decoder", "Random", "Counter", "Dlatch", "TB_Input", "TB_Output", "ForceGate",
+// ];

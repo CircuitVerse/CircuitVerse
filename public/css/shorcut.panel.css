@@ -43,6 +43,7 @@
     align-items: center;
     color: white;
     flex-direction: column;
+    max-height: 430px !important;
 }
 
 #closeDialog {

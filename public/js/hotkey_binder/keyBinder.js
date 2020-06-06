@@ -75,7 +75,8 @@ $("#edit").keydown((e) => {
         $("#pressedKeys").text().split(" + ")[0] === "ALT"
     ) {
         $("#pressedKeys").text(
-            $("#pressedKeys").text().split(" + ").reverse().join(" + ")
+            $("#pressedKeys").text().split(" + ").reverse()
+            .join(" + ")
         );
     }
     warnOverride($("#pressedKeys").text());
