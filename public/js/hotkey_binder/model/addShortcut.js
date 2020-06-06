@@ -39,7 +39,8 @@ const addShortcut = (keys, action) => {
 	}
 	shortcut.add(keys, callback, {
 		type: "keydown",
-		propagate: true,
+		propagate: false,
 		target: document,
+		disable_in_input: true,
 	});
 };
