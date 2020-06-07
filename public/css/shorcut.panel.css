@@ -1,88 +1,88 @@
 .ui-dialog[aria-describedby="customShortcutDialog"] {
-    min-width: 680px;
+	min-width: 680px;
 }
 
 #edit {
-    display: none;
-    position: absolute;
-    width: 490px;
-    height: 150px;
-    background: #2d302e;
-    border-radius: 5px;
-    z-index: 10000;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+	display: none;
+	position: absolute;
+	width: 490px;
+	height: 150px;
+	background: #2d302e;
+	border-radius: 5px;
+	z-index: 10000;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 
 #edit > span {
-    margin-top: 10px;
-    position: absolute;
-    text-align: center;
-    width: 100%;
+	margin-top: 10px;
+	position: absolute;
+	text-align: center;
+	width: 100%;
 }
 
 #pressedKeys {
-    text-align: center;
-    position: absolute;
-    top: 50%;
-    width: 100%;
+	text-align: center;
+	position: absolute;
+	top: 50%;
+	width: 100%;
 }
 
 #warning {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    text-align: center;
-    font-size: 14px;
-    color: rgb(207, 30, 30);
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	text-align: center;
+	font-size: 14px;
+	color: rgb(207, 30, 30);
 }
 
 #customShortcutDialog {
-    display: none;
-    align-items: center;
-    color: white;
-    flex-direction: column;
-    max-height: 430px !important;
+	display: none;
+	align-items: center;
+	color: white;
+	flex-direction: column;
+	max-height: 430px !important;
 }
 
 #closeDialog {
-    font-size: 25px;
-    color: white;
-    transform: rotate(45deg);
-    position: absolute;
-    top: 0%;
-    right: 2%;
-    cursor: pointer;
-    user-select: none;
-    -moz-user-select: none;
+	font-size: 25px;
+	color: white;
+	transform: rotate(45deg);
+	position: absolute;
+	top: 0%;
+	right: 2%;
+	cursor: pointer;
+	user-select: none;
+	-moz-user-select: none;
 }
 
 #dialogTitle {
-    position: absolute;
-    top: 2%;
-    left: 3%;
-    user-select: none;
-    -moz-user-select: none;
+	position: absolute;
+	top: 2%;
+	left: 3%;
+	user-select: none;
+	-moz-user-select: none;
 }
 
 #heading {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: bold;
-    width: 100%;
-    height: 35px;
-    user-select: none;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-weight: bold;
+	width: 100%;
+	height: 35px;
+	user-select: none;
 }
 
 #heading > span {
-    padding: 0 20px;
+	padding: 0 20px;
 }
 
 #preference {
-    width: 100%;
-    overflow-y: auto;
+	width: 100%;
+	overflow-y: auto;
 }
 
 /* #preference >div:nth-of-type(even) {
@@ -90,19 +90,19 @@
 } */
 
 #preference div {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 35px;
-    cursor: pointer;
-    user-select: none;
-    -moz-user-select: none;
-    /* background-color: #747474; */
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 35px;
+	cursor: pointer;
+	user-select: none;
+	-moz-user-select: none;
+	/* background-color: #747474; */
 }
 
 #preference div > span {
-    padding: 0 30px;
-    /* text-align: left; */
+	padding: 0 30px;
+	/* text-align: left; */
 }
 
 /* #submitbtn {
@@ -135,16 +135,24 @@
 } */
 
 #preference > div:hover {
-    background-color: #7474743f;
+	background-color: #7474743f;
 }
 
 #preference > div:hover::before {
-    content: "";
-    background-image: url(../img/edit_icon.png);
-    position: absolute;
-    margin-left: 5px;
-    background-size: 15px 15px;
-    display: inline-block;
-    width: 15px;
-    height: 15px;
+	content: "";
+	background-image: url(../img/edit_icon.png);
+	position: absolute;
+	margin-left: 5px;
+	background-size: 15px 15px;
+	display: inline-block;
+	width: 15px;
+	height: 15px;
+}
+
+.disable--cb {
+	float: left;
+	display: inline-block;
+    margin-top: .8rem;
+    margin-left: 1rem;
+    color: white;
 }
