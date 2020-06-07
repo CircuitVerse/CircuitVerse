@@ -39,7 +39,6 @@ export function resetup() {
     backgroundArea.setup();
     if (!embed) plotArea.setup();
     simulationArea.setup();
-    console.log(simulationArea);
     // redraw grid
     dots();
     document.getElementById('backgroundArea').style.height = height / DPR + 100;
@@ -128,7 +127,6 @@ function setupElementLists() {
  * @category setup
  */
 export function setup() {
-    console.log(embed);
     const startListeners = embed ? startEmbedListeners : startMainListeners;
     setupElementLists();
     setupEnvironment();

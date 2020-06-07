@@ -116,7 +116,6 @@ export default function startListeners() {
 
     window.addEventListener('keydown', (e) => {
         if (document.activeElement.tagName == 'INPUT') return;
-
         if (listenToSimulator) {
         // If mouse is focusing on input element, then override any action
         // if($(':focus').length){
@@ -432,7 +431,6 @@ function onMouseMove(e) {
 function onMouseUp(e) {
     createNodeSet(simulationArea.controlDown);
     simulationArea.mouseDown = false;
-    console.log(createNode);
     if (!lightMode) {
         updatelastMinimapShown();
         setTimeout(removeMiniMap, 2000);

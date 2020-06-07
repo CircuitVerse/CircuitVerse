@@ -33,7 +33,7 @@ export default class CircuitElement {
 
         this.oldx = x;
         this.oldy = y;
-        
+
         // The following attributes help in setting the touch area bound. They are the distances from the center.
         // Note they are all positive distances from center. They will automatically be rotated when direction is changed.
         // To stop the rotation when direction is changed, check overrideDirectionRotation attribute.
@@ -542,7 +542,7 @@ export default class CircuitElement {
         if (this.propagationDelayFixed) return;
         if (delay === undefined) return;
         if (delay === '') return;
-        tmpDelay = parseInt(delay, 10);
+        var tmpDelay = parseInt(delay, 10);
         if (tmpDelay < 0) return;
         this.propagationDelay = tmpDelay;
     }

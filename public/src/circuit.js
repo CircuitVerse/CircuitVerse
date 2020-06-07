@@ -21,7 +21,7 @@ import { showProperties } from './ux';
 import {
     scheduleUpdate, updateSimulationSet,
     updateCanvasSet, updateSubcircuitSet,
-    forceResetNodesSet, changeLightMode
+    forceResetNodesSet, changeLightMode,
 } from './engine';
 import { toggleLayoutMode, layoutModeGet } from './layoutMode';
 import { setProjectName } from './data/save';
@@ -29,7 +29,14 @@ import { changeClockEnable } from './sequential';
 import { changeInputSize } from './modules';
 
 export const circuitProperty = {
-    toggleLayoutMode, setProjectName, changeCircuitName, changeClockTime, deleteCurrentCircuit, changeClockEnable, changeInputSize, changeLightMode,
+    toggleLayoutMode,
+    setProjectName,
+    changeCircuitName,
+    changeClockTime,
+    deleteCurrentCircuit,
+    changeClockEnable,
+    changeInputSize,
+    changeLightMode,
 };
 export var scopeList = {};
 export function resetScopeList() {

@@ -10,28 +10,29 @@ import { prevPropertyObjGet, prevPropertyObjSet } from './ux';
 
 circuitProperty.toggleFullScreen = toggleFullScreen;
 $(document).ready(() => {
-    // Clock features
-    $('#clockProperty').append("<label class=''> <input type='button' class='objectPropertyAttributeEmbed' name='toggleFullScreen' value='Fullscreen' style='font-size: 20px'> </input> </label></br>");
-    $('#clockProperty').append(`Time: <input class='objectPropertyAttributeEmbed' min='50' type='number' style='width:48px' step='10' name='changeClockTime'  value='${simulationArea.timePeriod}'><br>`);
-    $('#clockProperty').append(`Clock: <label class='switch'> <input type='checkbox' ${['', 'checked'][simulationArea.clockEnabled + 0]} class='objectPropertyAttributeEmbedChecked' name='changeClockEnable' > <span class='slider'></span> </label><br>`);
+    if (embed) {
+        // Clock features
+        $('#clockProperty').append("<label class=''> <input type='button' class='objectPropertyAttributeEmbed' name='toggleFullScreen' value='Fullscreen' style='font-size: 20px'> </input> </label></br>");
+        $('#clockProperty').append(`Time: <input class='objectPropertyAttributeEmbed' min='50' type='number' style='width:48px' step='10' name='changeClockTime'  value='${simulationArea.timePeriod}'><br>`);
+        $('#clockProperty').append(`Clock: <label class='switch'> <input type='checkbox' ${['', 'checked'][simulationArea.clockEnabled + 0]} class='objectPropertyAttributeEmbedChecked' name='changeClockEnable' > <span class='slider'></span> </label><br>`);
 
-    // Following codes need to be removed
-    $('.objectPropertyAttributeEmbed').on('change keyup paste click', function () {
-        scheduleUpdate();
-        updateCanvasSet(true);
-        wireToBeCheckedSet(1);
-        if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) { prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet() ; } else { circuitProperty[this.name](this.value); }
-    });
+        // Following codes need to be removed
+        $('.objectPropertyAttributeEmbed').on('change keyup paste click', function () {
+            scheduleUpdate();
+            updateCanvasSet(true);
+            wireToBeCheckedSet(1);
+            if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) { prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet(); } else { circuitProperty[this.name](this.value); }
+        });
 
-    // Following codes need to be removed
-    $('.objectPropertyAttributeEmbedChecked').on('change keyup paste click', function () {
-        scheduleUpdate();
-        updateCanvasSet(true);
-        wireToBeCheckedSet(1);
-        if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) { prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet(); } else { circuitProperty[this.name](this.checked); }
-    });
+        // Following codes need to be removed
+        $('.objectPropertyAttributeEmbedChecked').on('change keyup paste click', function () {
+            scheduleUpdate();
+            updateCanvasSet(true);
+            wireToBeCheckedSet(1);
+            if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) { prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet(); } else { circuitProperty[this.name](this.checked); }
+        });
+    }
 });
-
 // Full screen toggle helper function
 function toggleFullScreen(value) {
     if (!getfullscreenelement()) {

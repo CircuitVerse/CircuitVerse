@@ -38,7 +38,7 @@
         <a href="#" class="dropdown-toggle text-light" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tools<span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item logixButton" id="createCombinationalAnalysisPrompt">Combinational Analysis</a></li>
-          <li><a type="button" class="dropdown-item" id="bitconverter" >Hex-Bin-Dec-Converter</a></li>
+          <li><a class="dropdown-item logixButton" id="bitconverter" >Hex-Bin-Dec-Converter</a></li>
           <li><a class="dropdown-item logixButton" id="startPlot">Start Plot</a></li>
           <li><a class="dropdown-item logixButton" id="createSaveAsImgPrompt">Download Image</a>
         </ul>
@@ -245,7 +245,7 @@
     </div>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
-      var embed = false;
+      const embed = false;
       var listenToSimulator=true
       <% if @project&.assignment_id.present? %>
       restrictedElements = JSON.parse('<%= raw @project&.assignment.restrictions %>');
@@ -320,7 +320,7 @@
   }
    })
   $('.issue').on('hide.bs.modal', function(e) {
-    var listenToSimulator=true
+    listenToSimulator=true
     $('#result').html("");
     $('#issuetext').show();
     $('#issuetext').val("");
@@ -328,7 +328,7 @@
     $('#report-label').show();
 }) 
 $('#reportIssue').click(function(){
-  var listenToSimulator=false
+  listenToSimulator=false
 })
 </script>
     

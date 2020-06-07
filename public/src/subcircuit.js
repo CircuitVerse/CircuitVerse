@@ -3,13 +3,15 @@ import Scope, { scopeList, switchCircuit } from './circuit';
 import CircuitElement from './circuitElement';
 import simulationArea from './simulationArea';
 import { scheduleBackup, checkIfBackup } from './data/backupCircuit';
-import { scheduleUpdate, updateSimulationSet, updateCanvasSet, updateSubcircuitSet } from './engine';
+import {
+    scheduleUpdate, updateSimulationSet, updateCanvasSet, updateSubcircuitSet,
+} from './engine';
 import { loadScope } from './data/load';
 import { showError } from './utils';
 
 import Node, { findNode } from './node';
 import { fillText } from './canvasApi';
-;
+
 
 /**
  * Function to load a subcicuit
@@ -25,7 +27,6 @@ export function loadSubCircuit(savedData, scope) {
  * @category subcircuit
  */
 export function createSubCircuitPrompt(scope = globalScope) {
-    console.log('hey');
     $('#insertSubcircuitDialog').empty();
     let flag = true;
     for (id in scopeList) {
@@ -79,10 +80,10 @@ export default class SubCircuit extends CircuitElement {
         // Error handing
         if (subcircuitScope == undefined) {
             // if no such scope for subcircuit exists
-            showError(`SubCircuit : ${(savedData && savedData.title) || this.id } Not found`);
+            showError(`SubCircuit : ${(savedData && savedData.title) || this.id} Not found`);
         } else if (!checkIfBackup(subcircuitScope)) {
             // if there is no input/output nodes there will be no backup
-            showError(`SubCircuit : ${(savedData && savedData.title) || subcircuitScope.name } is an empty circuit`);
+            showError(`SubCircuit : ${(savedData && savedData.title) || subcircuitScope.name} is an empty circuit`);
         } else if (subcircuitScope.checkDependency(scope.id)) {
             // check for cyclic dependency
             showError('Cyclic Circuit Error');
@@ -196,17 +197,14 @@ export default class SubCircuit extends CircuitElement {
             this.upDimensionY = 0;
             this.rightDimensionX = subcircuitScope.layout.width;
             this.downDimensionY = subcircuitScope.layout.height;
-            console.log(subcircuitScope.Output.length);
             for (var i = 0; i < subcircuitScope.Output.length; i++) {
                 var a = new Node(subcircuitScope.Output[i].layoutProperties.x, subcircuitScope.Output[i].layoutProperties.y, 1, this, subcircuitScope.Output[i].bitWidth);
                 a.layout_id = subcircuitScope.Output[i].layoutProperties.id;
-                console.log(a.absX(), a.absY());
                 this.outputNodes.push(a);
             }
             for (var i = 0; i < subcircuitScope.Input.length; i++) {
                 var a = new Node(subcircuitScope.Input[i].layoutProperties.x, subcircuitScope.Input[i].layoutProperties.y, 0, this, subcircuitScope.Input[i].bitWidth);
                 a.layout_id = subcircuitScope.Input[i].layoutProperties.id;
-                console.log(a.absX(), a.absY());
                 this.inputNodes.push(a);
             }
         }
@@ -242,7 +240,7 @@ export default class SubCircuit extends CircuitElement {
         }
 
         if (subcircuitScope.Input.length == 0 && subcircuitScope.Output.length == 0) {
-            showError(`SubCircuit : ${subcircuitScope.name } is an empty circuit`);
+            showError(`SubCircuit : ${subcircuitScope.name} is an empty circuit`);
             this.delete();
             this.scope.backups = [];
             return;
