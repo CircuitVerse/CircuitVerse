@@ -7,6 +7,10 @@ class Api::V1::ProjectSerializer
              :updated_at, :image_preview, :description,
              :view, :tags
 
+  attributes :author_name do |project|
+    project.author.name
+  end
+
   attributes :stars_count do |project|
     project.stars.count
   end
