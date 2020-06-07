@@ -11,12 +11,19 @@
           "attributes": {
             "type": "object",
             "properties": {
+              "member_count": { "type": "integer" },
               "name": { "type": "string" },
               "mentor_id": { "type": "integer" },
               "created_at": { "type": "string" },
               "updated_at": { "type": "string" }
             },
-            "required": ["name", "mentor_id", "created_at", "updated_at"]
+            "required": [
+              "member_count",
+              "name",
+              "mentor_id",
+              "created_at",
+              "updated_at"
+            ]
           },
           "relationships": {
             "type": "object",
