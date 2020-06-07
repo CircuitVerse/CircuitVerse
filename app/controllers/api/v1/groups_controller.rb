@@ -3,6 +3,7 @@
 class Api::V1::GroupsController < Api::V1::BaseController
   before_action :authenticate_user!
   before_action :set_group, except: %i[index groups_mentored create]
+  before_action :set_options, only: %i[index groups_mentored create show]
   before_action :check_show_access, only: [:show]
   before_action :check_edit_access, only: %i[update destroy]
 
@@ -11,16 +12,14 @@ class Api::V1::GroupsController < Api::V1::BaseController
   # GET /api/v1/groups
   def index
     @groups = paginate(@current_user.groups)
-    @options = { links: link_attrs(@groups, api_v1_groups_url) }
-    @options[:include] = include_resource if params.key?(:include)
+    @options[:links] = link_attrs(@groups, api_v1_groups_url)
     render json: Api::V1::GroupSerializer.new(@groups, @options)
   end
 
   # GET /api/v1/groups_mentored
   def groups_mentored
     @groups = paginate(@current_user.groups_mentored)
-    @options = { links: link_attrs(@groups, api_v1_groups_mentored_url) }
-    @options[:include] = include_resource if params.key?(:include)
+    @options[:links] = link_attrs(@groups, api_v1_groups_mentored_url)
     render json: Api::V1::GroupSerializer.new(@groups, @options)
   end
 
@@ -29,8 +28,7 @@ class Api::V1::GroupsController < Api::V1::BaseController
     @group = @current_user.groups_mentored.new(group_params)
     @group.save!
     if @group.save
-      @options = { include: include_resource } if params.key?(:include)
-      render json: Api::V1::GroupSerializer.new(@group, @options || {}), status: :created
+      render json: Api::V1::GroupSerializer.new(@group, @options), status: :created
     else
       invalid_resource!(@group.errors)
     end
@@ -38,7 +36,6 @@ class Api::V1::GroupsController < Api::V1::BaseController
 
   # GET /api/v1/groups/:id
   def show
-    @options = { include: include_resource } if params.key?(:include)
     render json: Api::V1::GroupSerializer.new(@group, @options || {})
   end
 
@@ -69,6 +66,11 @@ class Api::V1::GroupsController < Api::V1::BaseController
 
     def set_group
       @group = Group.find(params[:id])
+    end
+
+    def set_options
+      @options = {}
+      @options[:include] = include_resource if params.key?(:include)
     end
 
     def group_params
