@@ -462,11 +462,6 @@
   }, false);
   embed = false;
 
-  <% if @project&.assignment_id.present? %>
-  restrictedElements = JSON.parse('<%= raw @project&.assignment.restrictions %>');
-  <% else %>
-  restrictedElements = [];
-  <% end %>
 </script>
 <script src="/js/UX.js"></script>
 
@@ -476,6 +471,38 @@
     $(".dropdown.open").removeClass("open");
     $(this).parent(".dropdown").addClass("open");
   });
+</script>
+
+<script>
+  $('button').click(function(){
+   if (this.id== 'report'){
+    var message=$('#issuetext').val();
+    var email=$('#emailtext').val();
+    message += "\nEmail:"+ email
+    message += "\nURL: " + window.location.href;
+    message += `\nUser Id: <%= user_signed_in? ? " #{current_user.id.to_s} : #{current_user.name}" : "Guest user" %>`
+    postUserIssue(message)
+    $('#issuetext').hide();
+    $('#emailtext').hide();
+    $('#report').hide();
+    $('#report-label').hide();
+    $('#email-label').hide();
+  }
+   })
+  $('.issue').on('hide.bs.modal', function(e) {
+    listenToSimulator=true
+    $('#result').html("");
+    $('#issuetext').show();
+    $('#emailtext').show();
+    $('#issuetext').val("");
+    $('#emailtext').val("");
+    $('#report').show();
+    $('#report-label').show();
+    $('#email-label').show();
+}) 
+$('#reportIssue').click(function(){
+  listenToSimulator=false
+})
 </script>
 
 <link rel="stylesheet" type="text/css" href="/css/main.stylesheet.css" />
