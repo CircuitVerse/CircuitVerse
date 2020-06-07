@@ -78,7 +78,7 @@ export default class SRflipFlop extends CircuitElement {
     }
 
     customSave() {
-        var data = {
+        const data = {
             nodes: {
                 S: findNode(this.S),
                 R: findNode(this.R),
@@ -95,13 +95,13 @@ export default class SRflipFlop extends CircuitElement {
     }
 
     customDraw() {
-        var ctx = simulationArea.context;
+        const ctx = simulationArea.context;
         ctx.beginPath();
         ctx.strokeStyle = ('rgba(0,0,0,1)');
         ctx.fillStyle = 'white';
         ctx.lineWidth = correctWidth(3);
-        var xx = this.x;
-        var yy = this.y;
+        const xx = this.x;
+        const yy = this.y;
 
         // rect(ctx, xx - 20, yy - 20, 40, 40);
         // moveTo(ctx, -20, 5, xx, yy, this.direction);

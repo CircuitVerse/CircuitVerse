@@ -19,7 +19,7 @@ import { showMessage } from './utils';
  * @category layoutMode
  */
 
-var layoutMode = false;
+let layoutMode = false;
 
 export function layoutModeSet(param) {
     layoutMode = param;
@@ -33,7 +33,7 @@ export function layoutModeGet(param) {
  * @type {LayoutBuffer} - used to temporartily store all changes.
  * @category layoutMode
  */
-export var tempBuffer;
+export let tempBuffer;
 
 /**
  * Helper function to determine alignment and position of nodes for rendering
@@ -85,9 +85,9 @@ export function paneLayout(scope = globalScope) {
  */
 export function renderLayout(scope = globalScope) {
     if (!layoutModeGet()) return;
-    var { xx } = tempBuffer;
-    var { yy } = tempBuffer;
-    var ctx = simulationArea.context;
+    const { xx } = tempBuffer;
+    const { yy } = tempBuffer;
+    const ctx = simulationArea.context;
     simulationArea.clear();
     ctx.strokeStyle = 'black';
     ctx.fillStyle = 'white';
@@ -105,7 +105,7 @@ export function renderLayout(scope = globalScope) {
     }
 
     // Draw labels
-    var info;
+    let info;
     for (let i = 0; i < tempBuffer.Input.length; i++) {
         if (!tempBuffer.Input[i].label) continue;
         info = determineLabel(tempBuffer.Input[i].x, tempBuffer.Input[i].y, scope);

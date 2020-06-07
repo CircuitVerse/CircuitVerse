@@ -2,7 +2,7 @@ import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import {
-    correctWidth, rect2, fillText, oppositeDirection
+    correctWidth, rect2, fillText, oppositeDirection,
 } from '../canvasApi';
 
 
@@ -12,7 +12,7 @@ function bin2dec(binString) {
 
 function dec2bin(dec, bitWidth = undefined) {
     // only for positive nos
-    var bin = (dec).toString(2);
+    const bin = (dec).toString(2);
     if (bitWidth == undefined) return bin;
     return '0'.repeat(bitWidth - bin.length) + bin;
 }
@@ -111,7 +111,7 @@ export default class ConstantVal extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        var ctx = simulationArea.context;
+        const ctx = simulationArea.context;
         ctx.beginPath();
         ctx.strokeStyle = ('rgba(0,0,0,1)');
         ctx.fillStyle = 'white';

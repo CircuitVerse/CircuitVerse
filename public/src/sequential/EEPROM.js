@@ -7,7 +7,7 @@ import RAM from './RAM';
  * @param {number} y - y coord of element
  * @param {Scope=} scope - the ciruit in which we want the Element
  * @param {string=} dir - direcion in which element has to drawn
- 
+
  *
  * This is basically a RAM component that persists its contents.
  *
@@ -38,11 +38,11 @@ export default class EEPROM extends RAM {
     }
 
     customSave() {
-        var saveInfo = RAM.prototype.customSave.call(this);
+        const saveInfo = RAM.prototype.customSave.call(this);
 
         // Normalize this.data to use zeroes instead of null when serialized.
-        var {data} = this;
-        for (var i = 0; i < data.length; i++) {
+        const { data } = this;
+        for (let i = 0; i < data.length; i++) {
             data[i] = data[i] || 0;
         }
 

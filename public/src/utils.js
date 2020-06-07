@@ -9,13 +9,13 @@ window.projectId = undefined;
 window.id = undefined;
 window.loading = false; // Flag - all assets are loaded
 
-var prevErrorMessage; // Global variable for error messages
-var prevShowMessage; // Global variable for error messages
+let prevErrorMessage; // Global variable for error messages
+let prevShowMessage; // Global variable for error messages
 export function generateId() {
-    var id = '';
-    var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let id = '';
+    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
-    for (var i = 0; i < 20; i++) { id += possible.charAt(Math.floor(Math.random() * possible.length)); }
+    for (let i = 0; i < 20; i++) { id += possible.charAt(Math.floor(Math.random() * possible.length)); }
 
     return id;
 }
@@ -45,7 +45,7 @@ export function showError(error) {
     // if error ha been shown return
     if (error === prevErrorMessage) return;
     prevErrorMessage = error;
-    var id = Math.floor(Math.random() * 10000);
+    const id = Math.floor(Math.random() * 10000);
     $('#MessageDiv').append(`<div class='alert alert-danger' role='alert' id='${id}'> ${error}</div>`);
     setTimeout(() => {
         prevErrorMessage = undefined;
@@ -57,7 +57,7 @@ export function showError(error) {
 export function showMessage(mes) {
     if (mes === prevShowMessage) return;
     prevShowMessage = mes;
-    var id = Math.floor(Math.random() * 10000);
+    const id = Math.floor(Math.random() * 10000);
     $('#MessageDiv').append(`<div class='alert alert-success' role='alert' id='${id}'> ${mes}</div>`);
     setTimeout(() => {
         prevShowMessage = undefined;
@@ -75,7 +75,7 @@ export function distance(x1, y1, x2, y2) {
  * @category utils
  */
 export function uniq(a) {
-    var seen = {};
+    const seen = {};
     const tmp = a.filter((item) => (seen.hasOwnProperty(item) ? false : (seen[item] = true)));
     return tmp;
 }

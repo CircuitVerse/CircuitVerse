@@ -1,7 +1,9 @@
 import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
-import { correctWidth, lineTo, moveTo, fillText } from '../canvasApi';
+import {
+    correctWidth, lineTo, moveTo, fillText,
+} from '../canvasApi';
 /**
  * @class
  * DflipFlop
@@ -94,7 +96,7 @@ export default class DflipFlop extends CircuitElement {
     }
 
     customSave() {
-        var data = {
+        const data = {
             nodes: {
                 clockInp: findNode(this.clockInp),
                 dInp: findNode(this.dInp),
@@ -111,13 +113,13 @@ export default class DflipFlop extends CircuitElement {
     }
 
     customDraw() {
-        var ctx = simulationArea.context;
+        const ctx = simulationArea.context;
         ctx.beginPath();
         ctx.strokeStyle = ('rgba(0,0,0,1)');
         ctx.fillStyle = 'white';
         ctx.lineWidth = correctWidth(3);
-        var xx = this.x;
-        var yy = this.y;
+        const xx = this.x;
+        const yy = this.y;
         // rect(ctx, xx - 20, yy - 20, 40, 40);
         moveTo(ctx, -20, 5, xx, yy, this.direction);
         lineTo(ctx, -15, 10, xx, yy, this.direction);

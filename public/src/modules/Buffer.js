@@ -4,7 +4,6 @@ import simulationArea from '../simulationArea';
 import {
     correctWidth, lineTo, moveTo, arc,
 } from '../canvasApi';
-import { changeInputSize } from '../modules';
 /**
  * @class
  * Buffer
@@ -87,7 +86,7 @@ export default class Buffer extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        var ctx = simulationArea.context;
+        const ctx = simulationArea.context;
         ctx.strokeStyle = ('rgba(200,0,0,1)');
         ctx.lineWidth = correctWidth(3);
 

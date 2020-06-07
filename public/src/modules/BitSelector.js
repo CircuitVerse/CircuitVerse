@@ -88,7 +88,7 @@ export default class BitSelector extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        var ctx = simulationArea.context;
+        const ctx = simulationArea.context;
         ctx.beginPath();
         ctx.strokeStyle = ['blue', 'red'][(this.state === undefined) + 0];
         ctx.fillStyle = 'white';
@@ -104,7 +104,7 @@ export default class BitSelector extends CircuitElement {
         ctx.font = '20px Georgia';
         ctx.fillStyle = 'green';
         ctx.textAlign = 'center';
-        var bit;
+        let bit;
         if (this.bitSelectorInp.value === undefined) { bit = 'x'; } else { bit = this.bitSelectorInp.value; }
 
         fillText(ctx, bit, xx, yy + 5);

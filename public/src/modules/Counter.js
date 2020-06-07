@@ -21,7 +21,7 @@ import { lineTo, moveTo, fillText } from '../canvasApi';
  */
 export default class Counter extends CircuitElement {
     constructor(x, y, scope = globalScope, bitWidth = 8) {
-        super(x, y, scope, "RIGHT", bitWidth);
+        super(x, y, scope, 'RIGHT', bitWidth);
         /* this is done in this.baseSetup() now
         this.scope['Counter'].push(this);
         */
@@ -30,11 +30,11 @@ export default class Counter extends CircuitElement {
 
         this.setDimensions(20, 20);
 
-        this.maxValue = new Node(-20, -10, 0, this, this.bitWidth, "MaxValue");
-        this.clock = new Node(-20, +10, 0, this, 1, "Clock");
-        this.reset = new Node(0, 20, 0, this, 1, "Reset");
-        this.output = new Node(20, -10, 1, this, this.bitWidth, "Value");
-        this.zero = new Node(20, 10, 1, this, 1, "Zero");
+        this.maxValue = new Node(-20, -10, 0, this, this.bitWidth, 'MaxValue');
+        this.clock = new Node(-20, +10, 0, this, 1, 'Clock');
+        this.reset = new Node(0, 20, 0, this, 1, 'Reset');
+        this.output = new Node(20, -10, 1, this, this.bitWidth, 'Value');
+        this.zero = new Node(20, 10, 1, this, 1, 'Zero');
 
         this.value = 0;
         this.prevClockState = undefined;
@@ -49,7 +49,7 @@ export default class Counter extends CircuitElement {
                 output: findNode(this.output),
                 zero: findNode(this.zero),
             },
-            constructorParamaters: [this.bitWidth]
+            constructorParamaters: [this.bitWidth],
         };
     }
 
@@ -65,8 +65,8 @@ export default class Counter extends CircuitElement {
 
     resolve() {
         // Max value is either the value in the input pin or the max allowed by the bitWidth.
-        var maxValue = this.maxValue.value != undefined ? this.maxValue.value : (1 << this.bitWidth) - 1;
-        var outputValue = this.value;
+        const maxValue = this.maxValue.value != undefined ? this.maxValue.value : (1 << this.bitWidth) - 1;
+        let outputValue = this.value;
 
         // Increase value when clock is raised
         if (this.clock.value != this.prevClockState && this.clock.value == 1) {
@@ -75,7 +75,7 @@ export default class Counter extends CircuitElement {
         this.prevClockState = this.clock.value;
 
         // Limit to the effective maximum value; this also accounts for bitWidth changes.
-        outputValue = outputValue % (maxValue + 1);
+        outputValue %= (maxValue + 1);
 
         // Reset to zero if RESET pin is on
         if (this.reset.value == 1) {
@@ -90,7 +90,7 @@ export default class Counter extends CircuitElement {
         }
 
         // Output the zero signal
-        var zeroValue = this.clock.value == 1 && outputValue == 0 ? 1 : 0;
+        const zeroValue = this.clock.value == 1 && outputValue == 0 ? 1 : 0;
         if (this.zero.value != zeroValue) {
             this.zero.value = zeroValue;
             simulationArea.simulationQueue.add(this.zero);
@@ -98,14 +98,14 @@ export default class Counter extends CircuitElement {
     }
 
     customDraw() {
-        var ctx = simulationArea.context;
-        var xx = this.x;
-        var yy = this.y;
+        const ctx = simulationArea.context;
+        const xx = this.x;
+        const yy = this.y;
 
         ctx.beginPath();
-        ctx.font = "20px Georgia";
-        ctx.fillStyle = "green";
-        ctx.textAlign = "center";
+        ctx.font = '20px Georgia';
+        ctx.fillStyle = 'green';
+        ctx.textAlign = 'center';
         fillText(ctx, this.value.toString(16), this.x, this.y + 5);
         ctx.fill();
 
@@ -117,6 +117,6 @@ export default class Counter extends CircuitElement {
     }
 }
 
-Counter.prototype.tooltipText = "Counter: a binary counter from zero to a given maximum value";
-Counter.prototype.helplink = "https://docs.circuitverse.org/#/inputElements?id=counter";Counter.prototype.objectType = 'Counter';
+Counter.prototype.tooltipText = 'Counter: a binary counter from zero to a given maximum value';
+Counter.prototype.helplink = 'https://docs.circuitverse.org/#/inputElements?id=counter'; Counter.prototype.objectType = 'Counter';
 Counter.prototype.objectType = 'Counter';

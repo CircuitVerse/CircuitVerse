@@ -49,7 +49,7 @@ export default class HexDisplay extends CircuitElement {
      */
     customDrawSegment(x1, y1, x2, y2, color) {
         if (color === undefined) color = 'lightgrey';
-        var ctx = simulationArea.context;
+        const ctx = simulationArea.context;
         ctx.beginPath();
         ctx.strokeStyle = color;
         ctx.lineWidth = correctWidth(5);
@@ -67,14 +67,15 @@ export default class HexDisplay extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        var ctx = simulationArea.context;
+        const ctx = simulationArea.context;
 
         const xx = this.x;
         const yy = this.y;
 
         ctx.strokeStyle = 'black';
         ctx.lineWidth = correctWidth(3);
-        let a = 0, b = 0, c = 0, d = 0, e = 0, f = 0, g = 0;
+        let a = 0; let b = 0; let c = 0; let d = 0; let e = 0; let f = 0; let
+            g = 0;
         switch (this.inp.value) {
         case 0:
             a = b = c = d = e = f = 1;

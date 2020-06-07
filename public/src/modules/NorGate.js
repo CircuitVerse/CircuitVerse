@@ -86,7 +86,7 @@ export default class NorGate extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        var ctx = simulationArea.context;
+        const ctx = simulationArea.context;
         ctx.strokeStyle = ('rgba(0,0,0,1)');
         ctx.lineWidth = correctWidth(3);
 

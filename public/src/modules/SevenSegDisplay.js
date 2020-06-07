@@ -63,7 +63,7 @@ export default class SevenSegDisplay extends CircuitElement {
      */
     customDrawSegment(x1, y1, x2, y2, color) {
         if (color === undefined) color = 'lightgrey';
-        var ctx = simulationArea.context;
+        const ctx = simulationArea.context;
         ctx.beginPath();
         ctx.strokeStyle = color;
         ctx.lineWidth = correctWidth(5);
@@ -80,7 +80,7 @@ export default class SevenSegDisplay extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        var ctx = simulationArea.context;
+        const ctx = simulationArea.context;
         const xx = this.x;
         const yy = this.y;
         this.customDrawSegment(18, -3, 18, -38, ['lightgrey', 'red'][this.b.value]);

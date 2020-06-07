@@ -35,7 +35,7 @@ export default class Text extends CircuitElement {
      */
     setLabel(str = '') {
         this.label = str;
-        var ctx = simulationArea.context;
+        const ctx = simulationArea.context;
         ctx.font = `${this.fontSize}px Georgia`;
         this.leftDimensionX = 10;
         this.rightDimensionX = ctx.measureText(this.label).width + 10;
@@ -49,7 +49,7 @@ export default class Text extends CircuitElement {
      */
     setFontSize(fontSize = 14) {
         this.fontSize = fontSize;
-        var ctx = simulationArea.context;
+        const ctx = simulationArea.context;
         ctx.font = `${this.fontSize}px Georgia`;
         this.leftDimensionX = 10;
         this.rightDimensionX = ctx.measureText(this.label).width + 10;
@@ -86,7 +86,7 @@ export default class Text extends CircuitElement {
      */
     draw() {
         if (this.label.length === 0 && simulationArea.lastSelected !== this) this.delete();
-        var ctx = simulationArea.context;
+        const ctx = simulationArea.context;
         ctx.strokeStyle = 'black';
         ctx.lineWidth = 1;
         const xx = this.x;

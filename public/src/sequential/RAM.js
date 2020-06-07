@@ -1,7 +1,9 @@
 import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
-import { correctWidth, fillText2, fillText4, drawCircle2 } from '../canvasApi';
+import {
+    correctWidth, fillText2, fillText4, drawCircle2,
+} from '../canvasApi';
 /**
  * @class
  * RAM Component.
@@ -127,9 +129,9 @@ export default class RAM extends CircuitElement {
     }
 
     customDraw() {
-        var ctx = simulationArea.context;
-        var xx = this.x;
-        var yy = this.y;
+        const ctx = simulationArea.context;
+        const xx = this.x;
+        const yy = this.y;
 
         ctx.beginPath();
         ctx.strokeStyle = 'gray';
@@ -152,10 +154,10 @@ export default class RAM extends CircuitElement {
     }
 
     memSizeString() {
-        var mag = ['', 'K', 'M'];
-        var unit = this.bitWidth == 8 ? 'B' : this.bitWidth == 1 ? 'b' : ` x ${this.bitWidth}b`;
-        var v = Math.pow(2, this.addressWidth);
-        var m = 0;
+        const mag = ['', 'K', 'M'];
+        const unit = this.bitWidth == 8 ? 'B' : this.bitWidth == 1 ? 'b' : ` x ${this.bitWidth}b`;
+        let v = Math.pow(2, this.addressWidth);
+        let m = 0;
         while (v >= 1024 && m < mag.length - 1) {
             v /= 1024;
             m++;
@@ -164,7 +166,7 @@ export default class RAM extends CircuitElement {
     }
 
     dump() {
-        var logLabel = console.group && this.label;
+        const logLabel = console.group && this.label;
         if (logLabel) {
             console.group(this.label);
         }

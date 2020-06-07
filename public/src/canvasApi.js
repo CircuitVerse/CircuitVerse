@@ -3,19 +3,19 @@ import backgroundArea from './backgroundArea';
 import simulationArea from './simulationArea';
 import miniMapArea, { removeMiniMap, updatelastMinimapShown } from './minimap';
 
-var unit = 10;
+const unit = 10;
 
 export function findDimensions(scope = globalScope) {
-    var totalObjects = 0;
+    let totalObjects = 0;
     simulationArea.minWidth = undefined;
     simulationArea.maxWidth = undefined;
     simulationArea.minHeight = undefined;
     simulationArea.maxHeight = undefined;
-    for (var i = 0; i < updateOrder.length; i++) {
+    for (let i = 0; i < updateOrder.length; i++) {
         if (updateOrder[i] !== 'wires') {
-            for (var j = 0; j < scope[updateOrder[i]].length; j++) {
+            for (let j = 0; j < scope[updateOrder[i]].length; j++) {
                 totalObjects += 1;
-                var obj = scope[updateOrder[i]][j];
+                const obj = scope[updateOrder[i]][j];
                 if (totalObjects === 1) {
                     simulationArea.minWidth = obj.absX();
                     simulationArea.minHeight = obj.absY();
@@ -68,7 +68,7 @@ export function changeScale(delta, xx, yy, method = 1) {
     }
 
 
-    var oldScale = globalScope.scale;
+    const oldScale = globalScope.scale;
     globalScope.scale = Math.max(0.5, Math.min(4 * DPR, globalScope.scale + delta));
     globalScope.scale = Math.round(globalScope.scale * 10) / 10;
     globalScope.ox -= Math.round(xx * (globalScope.scale - oldScale)); // Shift accordingly, so that we zoom wrt to the selected point
@@ -91,9 +91,9 @@ export function changeScale(delta, xx, yy, method = 1) {
 // Otherwise for normal panning, the canvas itself is moved to give the illusion of movement
 
 export function dots(dots = true, transparentBackground = false, force = false) {
-    var scale = unit * globalScope.scale;
-    var ox = globalScope.ox % scale; // offset
-    var oy = globalScope.oy % scale; // offset
+    const scale = unit * globalScope.scale;
+    const ox = globalScope.ox % scale; // offset
+    const oy = globalScope.oy % scale; // offset
 
     document.getElementById('backgroundArea').style.left = (ox - scale) / DPR;
     document.getElementById('backgroundArea').style.top = (oy - scale) / DPR;
@@ -102,10 +102,10 @@ export function dots(dots = true, transparentBackground = false, force = false) 
     if (!backgroundArea.context) return;
     simulationArea.prevScale = globalScope.scale;
 
-    var canvasWidth = backgroundArea.canvas.width; // max X distance
-    var canvasHeight = backgroundArea.canvas.height; // max Y distance
+    const canvasWidth = backgroundArea.canvas.width; // max X distance
+    const canvasHeight = backgroundArea.canvas.height; // max Y distance
 
-    var ctx = backgroundArea.context;
+    const ctx = backgroundArea.context;
     ctx.beginPath();
     backgroundArea.clear();
     ctx.strokeStyle = '#eee';
@@ -117,12 +117,12 @@ export function dots(dots = true, transparentBackground = false, force = false) 
     }
 
 
-    var correction = 0.5 * (ctx.lineWidth % 2);
-    for (var i = 0; i < canvasWidth; i += scale) {
+    const correction = 0.5 * (ctx.lineWidth % 2);
+    for (let i = 0; i < canvasWidth; i += scale) {
         ctx.moveTo(Math.round(i + correction) - correction, 0);
         ctx.lineTo(Math.round(i + correction) - correction, canvasHeight);
     }
-    for (var j = 0; j < canvasHeight; j += scale) {
+    for (let j = 0; j < canvasHeight; j += scale) {
         ctx.moveTo(0, Math.round(j + correction) - correction);
         ctx.lineTo(canvasWidth, Math.round(j + correction) - correction);
     }
@@ -131,19 +131,19 @@ export function dots(dots = true, transparentBackground = false, force = false) 
 
     // Old Code
     // function drawPixel(x, y, r, g, b, a) {
-    //     var index = (x + y * canvasWidth) * 4;
+    //     let index = (x + y * canvasWidth) * 4;
     //     canvasData.data[index + 0] = r;
     //     canvasData.data[index + 1] = g;
     //     canvasData.data[index + 2] = b;
     //     canvasData.data[index + 3] = a;
     // }
     // if (dots) {
-    //     var canvasData = ctx.getImageData(0, 0, canvasWidth, canvasHeight);
+    //     let canvasData = ctx.getImageData(0, 0, canvasWidth, canvasHeight);
     //
     //
     //
-    //     for (var i = 0 + ox; i < canvasWidth; i += scale)
-    //         for (var j = 0 + oy; j < canvasHeight; j += scale)
+    //     for (let i = 0 + ox; i < canvasWidth; i += scale)
+    //         for (let j = 0 + oy; j < canvasHeight; j += scale)
     //             drawPixel(i, j, 0, 0, 0, 255);
     //     ctx.putImageData(canvasData, 0, 0);
     // }
@@ -158,8 +158,8 @@ export function bezierCurveTo(x1, y1, x2, y2, x3, y3, xx, yy, dir) {
     [x1, y1] = rotate(x1, y1, dir);
     [x2, y2] = rotate(x2, y2, dir);
     [x3, y3] = rotate(x3, y3, dir);
-    var { ox } = globalScope;
-    var { oy } = globalScope;
+    const { ox } = globalScope;
+    const { oy } = globalScope;
     x1 *= globalScope.scale;
     y1 *= globalScope.scale;
     x2 *= globalScope.scale;
@@ -168,12 +168,12 @@ export function bezierCurveTo(x1, y1, x2, y2, x3, y3, xx, yy, dir) {
     y3 *= globalScope.scale;
     xx *= globalScope.scale;
     yy *= globalScope.scale;
-    var ctx = simulationArea.context;
+    const ctx = simulationArea.context;
     ctx.bezierCurveTo(Math.round(xx + ox + x1), Math.round(yy + oy + y1), Math.round(xx + ox + x2), Math.round(yy + oy + y2), Math.round(xx + ox + x3), Math.round(yy + oy + y3));
 }
 
 export function moveTo(ctx, x1, y1, xx, yy, dir, bypass = false) {
-    var correction = 0.5 * (ctx.lineWidth % 2);
+    const correction = 0.5 * (ctx.lineWidth % 2);
     let newX;
     let newY;
     [newX, newY] = rotate(x1, y1, dir);
@@ -188,7 +188,7 @@ export function lineTo(ctx, x1, y1, xx, yy, dir) {
     let newX;
     let newY;
 
-    var correction = 0.5 * (ctx.lineWidth % 2);
+    const correction = 0.5 * (ctx.lineWidth % 2);
     [newX, newY] = rotate(x1, y1, dir);
     newX *= globalScope.scale;
     newY *= globalScope.scale;
@@ -200,7 +200,7 @@ export function lineTo(ctx, x1, y1, xx, yy, dir) {
 export function arc(ctx, sx, sy, radius, start, stop, xx, yy, dir) {
     // ox-x of origin, xx- x of element , sx - shift in x from element
     let Sx; let Sy; let newStart; let newStop; let counterClock;
-    var correction = 0.5 * (ctx.lineWidth % 2);
+    const correction = 0.5 * (ctx.lineWidth % 2);
     [Sx, Sy] = rotate(sx, sy, dir);
     Sx *= globalScope.scale;
     Sy *= globalScope.scale;
@@ -214,7 +214,7 @@ export function arc(ctx, sx, sy, radius, start, stop, xx, yy, dir) {
 export function arc2(ctx, sx, sy, radius, start, stop, xx, yy, dir) {
     // ox-x of origin, xx- x of element , sx - shift in x from element
     let Sx; let Sy; let newStart; let newStop; let counterClock;
-    var correction = 0.5 * (ctx.lineWidth % 2);
+    const correction = 0.5 * (ctx.lineWidth % 2);
     [Sx, Sy] = rotate(sx, sy, dir);
     Sx *= globalScope.scale;
     Sy *= globalScope.scale;
@@ -222,7 +222,7 @@ export function arc2(ctx, sx, sy, radius, start, stop, xx, yy, dir) {
     yy *= globalScope.scale;
     radius *= globalScope.scale;
     [newStart, newStop, counterClock] = rotateAngle(start, stop, dir);
-    var pi = 0;
+    let pi = 0;
     if (counterClock) { pi = Math.PI; }
     ctx.arc(Math.round(xx + globalScope.ox + Sx + correction) - correction, Math.round(yy + globalScope.oy + Sy + correction) - correction, Math.round(radius), newStart + pi, newStop + pi);
 }
@@ -240,7 +240,7 @@ export function drawCircle2(ctx, sx, sy, radius, xx, yy, dir) { // ox-x of origi
 }
 
 export function rect(ctx, x1, y1, x2, y2) {
-    var correction = 0.5 * (ctx.lineWidth % 2);
+    const correction = 0.5 * (ctx.lineWidth % 2);
     x1 *= globalScope.scale;
     y1 *= globalScope.scale;
     x2 *= globalScope.scale;
@@ -249,7 +249,7 @@ export function rect(ctx, x1, y1, x2, y2) {
 }
 
 export function rect2(ctx, x1, y1, x2, y2, xx, yy, dir = 'RIGHT') {
-    var correction = 0.5 * (ctx.lineWidth % 2);
+    const correction = 0.5 * (ctx.lineWidth % 2);
     [x1, y1] = rotate(x1, y1, dir);
     [x2, y2] = rotate(x2, y2, dir);
     x1 *= globalScope.scale;
@@ -289,9 +289,9 @@ export function drawLine(ctx, x1, y1, x2, y2, color, width) {
     ctx.strokeStyle = color;
     ctx.lineCap = 'round';
     ctx.lineWidth = correctWidth(width);//* globalScope.scale;
-    var correction = 0.5 * (ctx.lineWidth % 2);
-    var hCorrection = 0;
-    var vCorrection = 0;
+    const correction = 0.5 * (ctx.lineWidth % 2);
+    let hCorrection = 0;
+    let vCorrection = 0;
     if (y1 === y2) vCorrection = correction;
     if (x1 === x2) hCorrection = correction;
     ctx.moveTo(Math.round(x1 + globalScope.ox + hCorrection) - hCorrection, Math.round(y1 + globalScope.oy + vCorrection) - vCorrection);
@@ -301,14 +301,14 @@ export function drawLine(ctx, x1, y1, x2, y2, color, width) {
 
 // Checks if string color is a valid color using a hack
 function validColor(color) {
-    var $div = $('<div>');
+    const $div = $('<div>');
     $div.css('border', `1px solid ${color}`);
     return ($div.css('border-color') !== '');
 }
 
 // Helper function to color "RED" to RGBA
 function colorToRGBA(color) {
-    var cvs; var
+    let cvs; let
         ctx;
     cvs = document.createElement('canvas');
     cvs.height = 1;
@@ -335,8 +335,8 @@ export function canvasMessage(ctx, str, x1, y1, fontSize = 10) {
 
     ctx.font = `${Math.round(fontSize * globalScope.scale)}px Georgia`;
     ctx.textAlign = 'center';
-    var width = ctx.measureText(str).width / globalScope.scale + 8;
-    var height = 13;
+    const width = ctx.measureText(str).width / globalScope.scale + 8;
+    const height = 13;
     ctx.strokeStyle = 'black';
     ctx.lineWidth = correctWidth(1);
     ctx.fillStyle = 'yellow';
@@ -366,7 +366,7 @@ export function fillText(ctx, str, x1, y1, fontSize = 20) {
 }
 
 export function fillText2(ctx, str, x1, y1, xx, yy, dir) {
-    var angle = {
+    const angle = {
         RIGHT: 0,
         LEFT: 0,
         DOWN: Math.PI / 2,
@@ -388,7 +388,7 @@ export function fillText2(ctx, str, x1, y1, xx, yy, dir) {
 }
 
 export function fillText4(ctx, str, x1, y1, xx, yy, dir, fontSize = 14, textAlign = 'center') {
-    var angle = {
+    const angle = {
         RIGHT: 0,
         LEFT: 0,
         DOWN: Math.PI / 2,

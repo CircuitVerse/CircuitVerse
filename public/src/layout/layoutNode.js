@@ -89,7 +89,7 @@ export default class LayoutNode {
      * this function is used to draw the nodes
      */
     draw() {
-        var ctx = simulationArea.context;
+        const ctx = simulationArea.context;
         drawCircle(ctx, this.absX(), this.absY(), 3, ['green', 'red'][+(simulationArea.lastSelected === this)]);
     }
 

@@ -17,7 +17,7 @@ import { createNodeGet, createNodeSet, stopWireSet } from './listeners';
  * @category node
  */
 export function constructNodeConnections(node, data) {
-    for (var i = 0; i < data.connections.length; i++) { if (!node.connections.contains(node.scope.allNodes[data.connections[i]])) node.connect(node.scope.allNodes[data.connections[i]]); }
+    for (let i = 0; i < data.connections.length; i++) { if (!node.connections.contains(node.scope.allNodes[data.connections[i]])) node.connect(node.scope.allNodes[data.connections[i]]); }
 }
 
 /**
@@ -30,8 +30,8 @@ export function replace(node, index) {
     if (index == -1) {
         return node;
     }
-    var { scope } = node;
-    var { parent } = node;
+    const { scope } = node;
+    const { parent } = node;
     parent.nodeList.clean(node);
     node.delete();
     node = scope.allNodes[index];
@@ -54,7 +54,7 @@ export function bin2dec(binString) {
 
 export function dec2bin(dec, bitWidth = undefined) {
     // only for positive nos
-    var bin = (dec).toString(2);
+    const bin = (dec).toString(2);
     if (bitWidth == undefined) return bin;
     return '0'.repeat(bitWidth - bin.length) + bin;
 }
@@ -75,7 +75,7 @@ export function findNode(x) {
  * @category node
  */
 export function loadNode(data, scope) {
-    var n = new Node(data.x, data.y, data.type, scope.root, data.bitWidth, data.label);
+    const n = new Node(data.x, data.y, data.type, scope.root, data.bitWidth, data.label);
 }
 
 /**
@@ -86,7 +86,7 @@ export function loadNode(data, scope) {
  * @category node
  */
 function extractNode(x, scope, parent) {
-    var n = scope.allNodes[x];
+    const n = scope.allNodes[x];
     n.parent = parent;
     return n;
 }
@@ -103,7 +103,7 @@ window.NODE_INTERMEDIATE = 2;
  * @type {number}
  * @category node
  */
-var uniqueIdCounter = 10;
+let uniqueIdCounter = 10;
 
 /**
  * This class is responsible for all the Nodes.Nodes are connected using Wires
@@ -227,7 +227,7 @@ export default class Node {
             this.leftx = this.x;
             this.lefty = this.y;
         }
-        var data = {
+        const data = {
             x: this.leftx,
             y: this.lefty,
             type: this.type,
@@ -235,7 +235,7 @@ export default class Node {
             label: this.label,
             connections: [],
         };
-        for (var i = 0; i < this.connections.length; i++) {
+        for (let i = 0; i < this.connections.length; i++) {
             data.connections.push(findNode(this.connections[i]));
         }
         return data;
@@ -245,7 +245,7 @@ export default class Node {
      * helper function to help rotating parent
      */
     updateRotation() {
-        var x; var
+        let x; var
             y;
         [x, y] = rotate(this.leftx, this.lefty, this.parent.direction);
         this.x = x;
@@ -257,7 +257,7 @@ export default class Node {
     */
     refresh() {
         this.updateRotation();
-        for (var i = 0; i < this.connections.length; i++) {
+        for (let i = 0; i < this.connections.length; i++) {
             this.connections[i].connections.clean(this);
         }
         this.connections = [];
@@ -306,7 +306,7 @@ export default class Node {
     connect(n) {
         if (n == this) return;
         if (n.connections.contains(this)) return;
-        var w = new Wire(this, n, this.parent.scope);
+        const w = new Wire(this, n, this.parent.scope);
         this.connections.push(n);
         n.connections.push(this);
 
@@ -343,7 +343,7 @@ export default class Node {
     resolve() {
         // Remove Propogation of values (TriState)
         if (this.value == undefined) {
-            for (var i = 0; i < this.connections.length; i++) {
+            for (let i = 0; i < this.connections.length; i++) {
                 if (this.connections[i].value !== undefined) {
                     this.connections[i].value = undefined;
                     simulationArea.simulationQueue.add(this.connections[i]);
@@ -374,7 +374,7 @@ export default class Node {
             if (this.parent.isResolvable()) { simulationArea.simulationQueue.add(this.parent); }
         }
 
-        for (var i = 0; i < this.connections.length; i++) {
+        for (let i = 0; i < this.connections.length; i++) {
             const node = this.connections[i];
 
             if (node.value != this.value) {
@@ -444,7 +444,7 @@ export default class Node {
                 drawLine(ctx, this.absX(), this.absY(), this.absX(), simulationArea.mouseY, 'black', 3);
             }
         }
-        var color = 'black';
+        let color = 'black';
         if (this.bitWidth == 1) color = ['green', 'lightgreen'][this.value];
         if (this.value == undefined) color = 'red';
         if (this.type == 2) this.checkHover();
@@ -464,7 +464,7 @@ export default class Node {
                 canvasMessageData.x = this.absX();
                 canvasMessageData.y = this.absY() - 15;
                 if (this.type == 2) {
-                    var v = 'X';
+                    let v = 'X';
                     if (this.value !== undefined) { v = this.value.toString(16); }
                     if (this.label.length) {
                         canvasMessageData.string = `${this.label} : ${v}`;
@@ -527,7 +527,7 @@ export default class Node {
             this.prev = 'a';
             if (this.type == 2) {
                 if (!simulationArea.shiftDown && simulationArea.multipleObjectSelections.contains(this)) {
-                    for (var i = 0; i < simulationArea.multipleObjectSelections.length; i++) {
+                    for (let i = 0; i < simulationArea.multipleObjectSelections.length; i++) {
                         simulationArea.multipleObjectSelections[i].startDragging();
                     }
                 }
@@ -545,7 +545,7 @@ export default class Node {
             }
         } else if (this.wasClicked && this.clicked) {
             if (!simulationArea.shiftDown && simulationArea.multipleObjectSelections.contains(this)) {
-                for (var i = 0; i < simulationArea.multipleObjectSelections.length; i++) {
+                for (let i = 0; i < simulationArea.multipleObjectSelections.length; i++) {
                     simulationArea.multipleObjectSelections[i].drag();
                 }
             }
@@ -586,9 +586,9 @@ export default class Node {
                 return; // no new node situation
             }
 
-            var x1; var y1; var x2; var y2; var
+            let x1; let y1; let x2; let y2; var
                 flag = 0;
-            var n1; var
+            let n1; var
                 n2;
 
             // (x,y) present node, (x1,y1) node 1 , (x2,y2) node 2
@@ -622,7 +622,7 @@ export default class Node {
             }
 
             if (flag == 1) {
-                for (var i = 0; i < this.parent.scope.allNodes.length; i++) {
+                for (let i = 0; i < this.parent.scope.allNodes.length; i++) {
                     if (x1 == this.parent.scope.allNodes[i].absX() && y1 == this.parent.scope.allNodes[i].absY()) {
                         n1 = this.parent.scope.allNodes[i];
                         stopWireSet(true);
@@ -632,7 +632,7 @@ export default class Node {
 
                 if (n1 == undefined) {
                     n1 = new Node(x1, y1, 2, this.scope.root);
-                    for (var i = 0; i < this.parent.scope.wires.length; i++) {
+                    for (let i = 0; i < this.parent.scope.wires.length; i++) {
                         if (this.parent.scope.wires[i].checkConvergence(n1)) {
                             this.parent.scope.wires[i].converge(n1);
                             break;
@@ -642,7 +642,7 @@ export default class Node {
                 this.connect(n1);
             }
 
-            for (var i = 0; i < this.parent.scope.allNodes.length; i++) {
+            for (let i = 0; i < this.parent.scope.allNodes.length; i++) {
                 if (x2 == this.parent.scope.allNodes[i].absX() && y2 == this.parent.scope.allNodes[i].absY()) {
                     n2 = this.parent.scope.allNodes[i];
                     stopWireSet(true);
@@ -653,7 +653,7 @@ export default class Node {
 
             if (n2 == undefined) {
                 n2 = new Node(x2, y2, 2, this.scope.root);
-                for (var i = 0; i < this.parent.scope.wires.length; i++) {
+                for (let i = 0; i < this.parent.scope.wires.length; i++) {
                     if (this.parent.scope.wires[i].checkConvergence(n2)) {
                         this.parent.scope.wires[i].converge(n2);
                         break;
@@ -687,7 +687,7 @@ export default class Node {
         this.parent.scope.root.nodeList.clean(this); // Hope this works! - Can cause bugs
 
         if (simulationArea.lastSelected == this) simulationArea.lastSelected = undefined;
-        for (var i = 0; i < this.connections.length; i++) {
+        for (let i = 0; i < this.connections.length; i++) {
             this.connections[i].connections.clean(this);
             this.connections[i].checkDeleted();
         }
@@ -710,15 +710,15 @@ export default class Node {
      * and they are processed to generate verilog
      */
     nodeConnect() {
-        var x = this.absX();
-        var y = this.absY();
-        var n;
+        const x = this.absX();
+        const y = this.absY();
+        let n;
 
-        for (var i = 0; i < this.parent.scope.allNodes.length; i++) {
+        for (let i = 0; i < this.parent.scope.allNodes.length; i++) {
             if (this != this.parent.scope.allNodes[i] && x == this.parent.scope.allNodes[i].absX() && y == this.parent.scope.allNodes[i].absY()) {
                 n = this.parent.scope.allNodes[i];
                 if (this.type == 2) {
-                    for (var j = 0; j < this.connections.length; j++) {
+                    for (let j = 0; j < this.connections.length; j++) {
                         n.connect(this.connections[j]);
                     }
                     this.delete();
@@ -731,9 +731,9 @@ export default class Node {
         }
 
         if (n == undefined) {
-            for (var i = 0; i < this.parent.scope.wires.length; i++) {
+            for (let i = 0; i < this.parent.scope.wires.length; i++) {
                 if (this.parent.scope.wires[i].checkConvergence(this)) {
-                    var n = this;
+                    let n = this;
                     if (this.type != 2) {
                         n = new Node(this.absX(), this.absY(), 2, this.scope.root);
                         this.connect(n);
@@ -750,7 +750,7 @@ export default class Node {
             if (this.parent.isVerilogResolvable()) { this.scope.stack.push(this.parent); }
         }
 
-        for (var i = 0; i < this.connections.length; i++) {
+        for (let i = 0; i < this.connections.length; i++) {
             if (this.connections[i].verilogLabel != this.verilogLabel) {
                 this.connections[i].verilogLabel = this.verilogLabel;
                 this.scope.stack.push(this.connections[i]);

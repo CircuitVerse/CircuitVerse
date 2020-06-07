@@ -18,8 +18,8 @@ import { copy, paste, selectAll } from './events';
 import save from './data/save';
 import { layoutUpdate } from './layoutMode';
 
-var unit = 10;
-var createNode = false; // Flag to create node when its value ==tru)e
+const unit = 10;
+let createNode = false; // Flag to create node when its value ==tru)e
 export function createNodeSet(param) {
     createNode = param;
 }
@@ -27,7 +27,7 @@ export function createNodeGet(param) {
     return createNode;
 }
 
-var stopWire = true; // flag for stopoing making Nodes when the second terminal reaches a Node (closed path)
+let stopWire = true; // flag for stopoing making Nodes when the second terminal reaches a Node (closed path)
 export function stopWireSet(param) {
     stopWire = param;
 }
@@ -76,7 +76,7 @@ export default function startListeners() {
         simulationArea.lastSelected = undefined;
         simulationArea.selected = false;
         simulationArea.hover = undefined;
-        var rect = simulationArea.canvas.getBoundingClientRect();
+        const rect = simulationArea.canvas.getBoundingClientRect();
         simulationArea.mouseDownRawX = (e.clientX - rect.left) * DPR;
         simulationArea.mouseDownRawY = (e.clientY - rect.top) * DPR;
         simulationArea.mouseDownX = Math.round(((simulationArea.mouseDownRawX - globalScope.ox) / globalScope.scale) / unit) * unit;
@@ -301,9 +301,9 @@ export default function startListeners() {
     function MouseScroll(event) {
         updateCanvasSet(true);
         event.preventDefault();
-        var deltaY = event.wheelDelta ? event.wheelDelta : -event.detail;
+        let deltaY = event.wheelDelta ? event.wheelDelta : -event.detail;
         event.preventDefault();
-        var deltaY = event.wheelDelta ? event.wheelDelta : -event.detail;
+        deltaY = event.wheelDelta ? event.wheelDelta : -event.detail;
         const direction = deltaY > 0 ? 1 : -1;
         handleZoom(direction);
         updateCanvasSet(true);
@@ -323,7 +323,7 @@ export default function startListeners() {
             }
 
 
-            var textToPutOnClipboard = copy(simulationArea.copyList, true);
+            const textToPutOnClipboard = copy(simulationArea.copyList, true);
 
             // Updated restricted elements
             updateRestrictedElementsInScope();
@@ -348,7 +348,7 @@ export default function startListeners() {
                 simulationArea.copyList.push(simulationArea.lastSelected);
             }
 
-            var textToPutOnClipboard = copy(simulationArea.copyList);
+            const textToPutOnClipboard = copy(simulationArea.copyList);
 
             // Updated restricted elements
             updateRestrictedElementsInScope();
@@ -368,7 +368,7 @@ export default function startListeners() {
         if (document.activeElement.tagName == 'INPUT') return;
 
         if (listenToSimulator) {
-            var data;
+            let data;
             if (isIe) {
                 data = window.clipboardData.getData('Text');
             } else {
@@ -395,11 +395,11 @@ export default function startListeners() {
     });
 }
 
-var isIe = (navigator.userAgent.toLowerCase().indexOf('msie') != -1
+let isIe = (navigator.userAgent.toLowerCase().indexOf('msie') != -1
     || navigator.userAgent.toLowerCase().indexOf('trident') != -1);
 
 function onMouseMove(e) {
-    var rect = simulationArea.canvas.getBoundingClientRect();
+    const rect = simulationArea.canvas.getBoundingClientRect();
     simulationArea.mouseRawX = (e.clientX - rect.left) * DPR;
     simulationArea.mouseRawY = (e.clientY - rect.top) * DPR;
     simulationArea.mouseXf = (simulationArea.mouseRawX - globalScope.ox) / globalScope.scale;
@@ -411,7 +411,7 @@ function onMouseMove(e) {
 
     if (simulationArea.lastSelected && (simulationArea.mouseDown || simulationArea.lastSelected.newElement)) {
         updateCanvasSet(true);
-        var fn;
+        let fn;
 
         if (simulationArea.lastSelected == globalScope.root) {
             fn = function () {
@@ -446,7 +446,7 @@ function onMouseUp(e) {
     scheduleUpdate(1);
     simulationArea.mouseDown = false;
 
-    for (var i = 0; i < 2; i++) {
+    for (let i = 0; i < 2; i++) {
         updatePositionSet(true);
         wireToBeCheckedSet(1);
         update();
@@ -459,7 +459,7 @@ function onMouseUp(e) {
     wireToBeCheckedSet(1);
 
     scheduleUpdate(1);
-    var rect = simulationArea.canvas.getBoundingClientRect();
+    const rect = simulationArea.canvas.getBoundingClientRect();
 
     if (!(simulationArea.mouseRawX < 0 || simulationArea.mouseRawY < 0 || simulationArea.mouseRawX > width || simulationArea.mouseRawY > height)) {
         uxvar.smartDropXX = simulationArea.mouseX + 100; // Math.round(((simulationArea.mouseRawX - globalScope.ox+100) / globalScope.scale) / unit) * unit;
@@ -468,9 +468,9 @@ function onMouseUp(e) {
 }
 
 function resizeTabs() {
-    var $windowsize = $('body').width();
-    var $sideBarsize = $('.side').width();
-    var $maxwidth = ($windowsize - $sideBarsize);
+    const $windowsize = $('body').width();
+    const $sideBarsize = $('.side').width();
+    const $maxwidth = ($windowsize - $sideBarsize);
     $('#tabsBar div').each(function (e) {
         $(this).css({ 'max-width': $maxwidth - 30 });
     });

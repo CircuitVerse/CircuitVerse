@@ -23,22 +23,22 @@ export function createBitConverter() {
     });
 
     $('#decimalInput').on('keyup', () => {
-        var x = parseInt($('#decimalInput').val(), 10);
+        const x = parseInt($('#decimalInput').val(), 10);
         setBaseValues(x);
     });
 
     $('#binaryInput').on('keyup', () => {
-        var x = parseInt($('#binaryInput').val(), 2);
+        const x = parseInt($('#binaryInput').val(), 2);
         setBaseValues(x);
     });
 
     $('#hexInput').on('keyup', () => {
-        var x = parseInt($('#hexInput').val(), 16);
+        const x = parseInt($('#hexInput').val(), 16);
         setBaseValues(x);
     });
 
     $('#octalInput').on('keyup', () => {
-        var x = parseInt($('#octalInput').val(), 8);
+        const x = parseInt($('#octalInput').val(), 8);
         setBaseValues(x);
     });
 }

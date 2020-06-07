@@ -6,7 +6,7 @@ import Node, { findNode } from '../node';
 // helper function to convert decimal to binary
 function dec2bin(dec, bitWidth = undefined) {
     // only for positive nos
-    var bin = (dec).toString(2);
+    const bin = (dec).toString(2);
     if (bitWidth == undefined) return bin;
     return '0'.repeat(bitWidth - bin.length) + bin;
 }
@@ -67,7 +67,7 @@ export default class TB_Output extends CircuitElement {
         this.inputs = [];
         this.testBenchInput = undefined;
         // find it's pair input
-        for (var i = 0; i < this.scope.TB_Input.length; i++) {
+        for (let i = 0; i < this.scope.TB_Input.length; i++) {
             if (this.scope.TB_Input[i].identifier == this.identifier) {
                 this.testBenchInput = this.scope.TB_Input[i];
                 break;
@@ -77,14 +77,14 @@ export default class TB_Output extends CircuitElement {
         this.setDimensions();
 
         if (this.testBenchInput) {
-            for (var i = 0; i < this.testBenchInput.testData.outputs.length; i++) {
+            for (let i = 0; i < this.testBenchInput.testData.outputs.length; i++) {
                 this.inputs.push(new Node(0, 30 + i * 20, NODE_INPUT, this, this.testBenchInput.testData.outputs[i].bitWidth, this.testBenchInput.testData.outputs[i].label));
             }
         }
     }
 
     customSave() {
-        var data = {
+        const data = {
             constructorParamaters: [this.direction, this.identifier],
             nodes: {
                 inputs: this.inputs.map(findNode),
@@ -118,16 +118,16 @@ export default class TB_Output extends CircuitElement {
     }
 
     customDraw() {
-        var ctx = simulationArea.context;
+        const ctx = simulationArea.context;
         ctx.beginPath();
         ctx.strokeStyle = 'grey';
         ctx.fillStyle = '#fcfcfc';
         ctx.lineWidth = correctWidth(1);
-        var xx = this.x;
-        var yy = this.y;
+        const xx = this.x;
+        const yy = this.y;
 
-        var xRotate = 0;
-        var yRotate = 0;
+        let xRotate = 0;
+        let yRotate = 0;
         if (this.direction == 'LEFT') {
             xRotate = 0;
             yRotate = 0;
@@ -175,7 +175,7 @@ export default class TB_Output extends CircuitElement {
             ctx.font = '30px Georgia';
             ctx.textAlign = 'left';
             ctx.fillStyle = 'blue';
-            for (var i = 0; i < this.testBenchInput.testData.outputs.length; i++) {
+            for (let i = 0; i < this.testBenchInput.testData.outputs.length; i++) {
                 // ctx.beginPath();
                 fillText(ctx, this.testBenchInput.testData.outputs[i].label, 5 + xx, 30 + i * 20 + yy + 4, 10);
             }
@@ -187,7 +187,7 @@ export default class TB_Output extends CircuitElement {
                 ctx.textAlign = 'right';
                 ctx.fillStyle = 'blue';
                 ctx.beginPath();
-                for (var i = 0; i < this.testBenchInput.testData.outputs.length; i++) {
+                for (let i = 0; i < this.testBenchInput.testData.outputs.length; i++) {
                     fillText(ctx, this.testBenchInput.testData.outputs[i].values[this.testBenchInput.iteration - 1], xx + this.rightDimensionX - 5, 30 + i * 20 + yy + 4, 10);
                 }
 
@@ -200,7 +200,7 @@ export default class TB_Output extends CircuitElement {
                 ctx.textAlign = 'center';
                 ctx.fillStyle = 'blue';
 
-                for (var i = 0; i < this.testBenchInput.testData.outputs.length; i++) {
+                for (let i = 0; i < this.testBenchInput.testData.outputs.length; i++) {
                     if (this.inputs[i].value != undefined) {
                         ctx.beginPath();
                         if (this.testBenchInput.testData.outputs[i].values[this.testBenchInput.iteration - 1] == 'x' || parseInt(this.testBenchInput.testData.outputs[i].values[this.testBenchInput.iteration - 1], 2) == this.inputs[i].value) { ctx.fillStyle = 'green'; } else { ctx.fillStyle = 'red'; }

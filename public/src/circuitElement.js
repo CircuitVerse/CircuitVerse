@@ -104,7 +104,7 @@ export default class CircuitElement {
      * @param {CircuitElement} obj - element to be copied from
      */
     copyFrom(obj) {
-        var properties = ['label', 'labelDirection'];
+        const properties = ['label', 'labelDirection'];
         for (let i = 0; i < properties.length; i++) {
             if (obj[properties[i]] !== undefined) { this[properties[i]] = obj[properties[i]]; }
         }
@@ -136,7 +136,7 @@ export default class CircuitElement {
     * @return {JSON} - the data to be saved
     */
     saveObject() {
-        var data = {
+        const data = {
             x: this.x,
             y: this.y,
             objectType: this.objectType,
@@ -332,13 +332,13 @@ export default class CircuitElement {
      * NOT OVERRIDABLE
     */
     isHover() {
-        var mX = simulationArea.mouseXf - this.x;
-        var mY = this.y - simulationArea.mouseYf;
+        const mX = simulationArea.mouseXf - this.x;
+        const mY = this.y - simulationArea.mouseYf;
 
-        var rX = this.rightDimensionX;
-        var lX = this.leftDimensionX;
-        var uY = this.upDimensionY;
-        var dY = this.downDimensionY;
+        let rX = this.rightDimensionX;
+        let lX = this.leftDimensionX;
+        let uY = this.upDimensionY;
+        let dY = this.downDimensionY;
 
         if (!this.directionFixed && !this.overrideDirectionRotation) {
             if (this.direction === 'LEFT') {
@@ -374,7 +374,7 @@ export default class CircuitElement {
      * NOT OVERRIDABLE
      */
     draw() {
-        var ctx = simulationArea.context;
+        const ctx = simulationArea.context;
         this.checkHover();
 
 
@@ -392,10 +392,10 @@ export default class CircuitElement {
             ctx.stroke();
         }
         if (this.label !== '') {
-            var rX = this.rightDimensionX;
-            var lX = this.leftDimensionX;
-            var uY = this.upDimensionY;
-            var dY = this.downDimensionY;
+            let rX = this.rightDimensionX;
+            let lX = this.leftDimensionX;
+            let uY = this.upDimensionY;
+            let dY = this.downDimensionY;
             if (!this.directionFixed) {
                 if (this.direction === 'LEFT') {
                     lX = this.rightDimensionX;
@@ -542,7 +542,7 @@ export default class CircuitElement {
         if (this.propagationDelayFixed) return;
         if (delay === undefined) return;
         if (delay === '') return;
-        var tmpDelay = parseInt(delay, 10);
+        const tmpDelay = parseInt(delay, 10);
         if (tmpDelay < 0) return;
         this.propagationDelay = tmpDelay;
     }
@@ -559,7 +559,7 @@ export default class CircuitElement {
     * Helper Function to process verilog
     */
     processVerilog() {
-        var outputCount = 0;
+        let outputCount = 0;
         for (let i = 0; i < this.nodeList.length; i++) {
             if (this.nodeList[i].type === NODE_OUTPUT) {
                 this.nodeList[i].verilogLabel = this.nodeList[i].verilogLabel || (`${this.verilogLabel}_${verilog.fixName(this.nodeList[i].label) || (`out_${outputCount}`)}`);
@@ -579,7 +579,7 @@ export default class CircuitElement {
     * @return {boolean}
     */
     isVerilogResolvable() {
-        var backupValues = [];
+        const backupValues = [];
         for (let i = 0; i < this.nodeList.length; i++) {
             backupValues.push(this.nodeList[i].value);
             this.nodeList[i].value = undefined;
@@ -591,7 +591,7 @@ export default class CircuitElement {
             }
         }
 
-        var res = this.isResolvable();
+        const res = this.isResolvable();
 
         for (let i = 0; i < this.nodeList.length; i++) {
             this.nodeList[i].value = backupValues[i];
@@ -627,8 +627,8 @@ export default class CircuitElement {
     * @return {JSON}
     */
     generateVerilog() {
-        var inputs = [];
-        var outputs = [];
+        const inputs = [];
+        const outputs = [];
 
 
         for (let i = 0; i < this.nodeList.length; i++) {
@@ -639,8 +639,8 @@ export default class CircuitElement {
             }
         }
 
-        var list = outputs.concat(inputs);
-        var res = `${this.verilogName()} ${this.verilogLabel} (${list.map((x) => x.verilogLabel).join(',')});`;
+        const list = outputs.concat(inputs);
+        const res = `${this.verilogName()} ${this.verilogLabel} (${list.map((x) => x.verilogLabel).join(',')});`;
 
         return res;
     }

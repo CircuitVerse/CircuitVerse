@@ -1,7 +1,9 @@
 import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
-import { correctWidth, rect2, rotate, lineTo, moveTo } from '../canvasApi';
+import {
+    correctWidth, rect2, rotate, lineTo, moveTo,
+} from '../canvasApi';
 
 /**
  * @class
@@ -25,7 +27,7 @@ export default class RGBLedMatrix extends CircuitElement {
             ledSize = 2,
             showGrid = true,
             colors = [],
-        } = {}
+        } = {},
     ) {
         super(x, y, scope, 'RIGHT', 8);
         /* this is done in this.baseSetup() now
@@ -81,20 +83,20 @@ export default class RGBLedMatrix extends CircuitElement {
         if (isNaN(ledSize) || ledSize < 0 || ledSize > this.maxLedSize) return;
 
         // The size of an individual LED, in canvas units.
-        var ledWidth = 10 * ledSize;
-        var ledHeight = 10 * ledSize;
+        const ledWidth = 10 * ledSize;
+        const ledHeight = 10 * ledSize;
 
         // The size of the LED matrix, in canvas units.
-        var gridWidth = ledWidth * columns;
-        var gridHeight = ledHeight * rows;
+        const gridWidth = ledWidth * columns;
+        const gridHeight = ledHeight * rows;
 
         // We need to position the element in the 10x10 grid.
         // Depending on the size of the leds we need to add different paddings so position correctly.
-        var padding = ledSize % 2 ? 5 : 10;
+        const padding = ledSize % 2 ? 5 : 10;
 
         // The dimensions of the element, in canvas units.
-        var halfWidth = gridWidth / 2 + padding;
-        var halfHeight = gridHeight / 2 + padding;
+        const halfWidth = gridWidth / 2 + padding;
+        const halfHeight = gridHeight / 2 + padding;
 
         // Move the element in order to keep the position of the nodes stable so wires don't break.
         if (move) {
@@ -106,58 +108,58 @@ export default class RGBLedMatrix extends CircuitElement {
         this.setDimensions(halfWidth, halfHeight);
 
         // Offset of the nodes in relation to the element's center.
-        var nodePadding = [10, 20, 20][ledSize - 1];
-        var nodeOffsetX = nodePadding - halfWidth;
-        var nodeOffsetY = nodePadding - halfHeight;
+        const nodePadding = [10, 20, 20][ledSize - 1];
+        const nodeOffsetX = nodePadding - halfWidth;
+        const nodeOffsetY = nodePadding - halfHeight;
 
         // When the led size changes it is better to delete all nodes to break connected the wires.
         // Otherwise, wires can end up connected in unexpected ways.
-        var resetAllNodes = ledSize != this.ledSize;
+        const resetAllNodes = ledSize != this.ledSize;
 
         // Delete unused row-enable nodes, reposition remaining nodes and add new nodes.
-        this.rowEnableNodes.splice(resetAllNodes ? 0 : rows).forEach(node => node.delete());
+        this.rowEnableNodes.splice(resetAllNodes ? 0 : rows).forEach((node) => node.delete());
         this.rowEnableNodes.forEach((node, i) => {
             node.x = node.leftx = -halfWidth;
             node.y = node.lefty = i * ledHeight + nodeOffsetY;
         });
         while (this.rowEnableNodes.length < rows) {
-            this.rowEnableNodes.push(new Node(-halfWidth, this.rowEnableNodes.length * ledHeight + nodeOffsetY, NODE_INPUT, this, 1, 'R' + this.rowEnableNodes.length));
+            this.rowEnableNodes.push(new Node(-halfWidth, this.rowEnableNodes.length * ledHeight + nodeOffsetY, NODE_INPUT, this, 1, `R${this.rowEnableNodes.length}`));
         }
 
         // Delete unused column-enable nodes, reposition remaining nodes and add new nodes.
-        this.columnEnableNodes.splice(resetAllNodes ? 0 : columns).forEach(node => node.delete());
+        this.columnEnableNodes.splice(resetAllNodes ? 0 : columns).forEach((node) => node.delete());
         this.columnEnableNodes.forEach((node, i) => {
             node.x = node.leftx = i * ledWidth + nodeOffsetX;
             node.y = node.lefty = halfHeight;
         });
         while (this.columnEnableNodes.length < columns) {
-            this.columnEnableNodes.push(new Node(this.columnEnableNodes.length * ledWidth + nodeOffsetX, halfHeight, NODE_INPUT, this, 1, 'C' + this.columnEnableNodes.length));
+            this.columnEnableNodes.push(new Node(this.columnEnableNodes.length * ledWidth + nodeOffsetX, halfHeight, NODE_INPUT, this, 1, `C${this.columnEnableNodes.length}`));
         }
 
         // Delete unused column color nodes, reposition remaining nodes and add new nodes.
-        this.columnColorNodes.splice(resetAllNodes ? 0 : columns).forEach(node => node.delete());
+        this.columnColorNodes.splice(resetAllNodes ? 0 : columns).forEach((node) => node.delete());
         this.columnColorNodes.forEach((node, i) => {
             node.x = node.leftx = i * ledWidth + nodeOffsetX;
             node.y = node.lefty = -halfHeight;
         });
         while (this.columnColorNodes.length < columns) {
-            this.columnColorNodes.push(new Node(this.columnColorNodes.length * ledWidth + nodeOffsetX, -halfHeight, NODE_INPUT, this, 24, 'CLR' + this.columnColorNodes.length));
+            this.columnColorNodes.push(new Node(this.columnColorNodes.length * ledWidth + nodeOffsetX, -halfHeight, NODE_INPUT, this, 24, `CLR${this.columnColorNodes.length}`));
         }
 
         // Delete unused color storage and add storage for new rows.
         this.colors.splice(rows);
-        this.colors.forEach(c => c.splice(columns));
+        this.colors.forEach((c) => c.splice(columns));
         while (this.colors.length < rows) {
             this.colors.push([]);
         }
 
         // Reposition the single-pixel nodes
         this.rowNode.bitWidth = Math.ceil(Math.log2(rows));
-        this.rowNode.label = 'ROW (' + this.rowNode.bitWidth + ' bits)';
+        this.rowNode.label = `ROW (${this.rowNode.bitWidth} bits)`;
         this.columnNode.bitWidth = Math.ceil(Math.log2(columns));
-        this.columnNode.label = 'COLUMN (' + this.columnNode.bitWidth + ' bits)';
-        var singlePixelNodePadding = rows > 1 ? nodeOffsetY : nodeOffsetY - 10;
-        var singlePixelNodeDistance = (rows <= 2) ? 10 : ledHeight;
+        this.columnNode.label = `COLUMN (${this.columnNode.bitWidth} bits)`;
+        const singlePixelNodePadding = rows > 1 ? nodeOffsetY : nodeOffsetY - 10;
+        const singlePixelNodeDistance = (rows <= 2) ? 10 : ledHeight;
         [this.colorNode, this.rowNode, this.columnNode].forEach((node, i) => {
             node.x = node.leftx = halfWidth;
             node.y = node.lefty = i * singlePixelNodeDistance + singlePixelNodePadding;
@@ -181,7 +183,7 @@ export default class RGBLedMatrix extends CircuitElement {
                 columns: this.columns,
                 ledSize: this.ledSize,
                 showGrid: this.showGrid,
-                colors: this.colors
+                colors: this.colors,
             }],
             nodes: {
                 rowEnableNodes: this.rowEnableNodes.map(findNode),
@@ -191,25 +193,25 @@ export default class RGBLedMatrix extends CircuitElement {
                 rowNode: findNode(this.rowNode),
                 columnNode: findNode(this.columnNode),
             },
-        }
+        };
     }
 
     resolve() {
-        var colorValue = this.colorNode.value;
-        var hasColorValue = colorValue != undefined;
+        const colorValue = this.colorNode.value;
+        const hasColorValue = colorValue != undefined;
 
-        var rows = this.rows;
-        var columns = this.columns;
-        var rowEnableNodes = this.rowEnableNodes;
-        var columnEnableNodes = this.columnEnableNodes;
-        var columnColorNodes = this.columnColorNodes;
-        var colors = this.colors;
+        const { rows } = this;
+        const { columns } = this;
+        const { rowEnableNodes } = this;
+        const { columnEnableNodes } = this;
+        const { columnColorNodes } = this;
+        const { colors } = this;
 
-        for (var row = 0; row < rows; row++) {
+        for (let row = 0; row < rows; row++) {
             if (rowEnableNodes[row].value === 1) {
-                for (var column = 0; column < columns; column++) {
+                for (let column = 0; column < columns; column++) {
                     // Method 1: set pixel by rowEnable + columnColor pins
-                    var columnColor = columnColorNodes[column].value;
+                    const columnColor = columnColorNodes[column].value;
                     if (columnColor !== undefined) {
                         colors[row][column] = columnColor;
                     }
@@ -223,11 +225,11 @@ export default class RGBLedMatrix extends CircuitElement {
         }
 
         // Method 3: set pixel by write + pixel index + color pins.
-        var hasRowNodeValue = this.rowNode.value != undefined || rows == 1;
-        var hasColumnNodeValue = this.columnNode.value != undefined || columns == 1;
+        const hasRowNodeValue = this.rowNode.value != undefined || rows == 1;
+        const hasColumnNodeValue = this.columnNode.value != undefined || columns == 1;
         if (hasColorValue && hasRowNodeValue && hasColumnNodeValue) {
-            var rowNodeValue = this.rowNode.value || 0;
-            var columnNodeValue = this.columnNode.value || 0;
+            const rowNodeValue = this.rowNode.value || 0;
+            const columnNodeValue = this.columnNode.value || 0;
             if (rowNodeValue < rows && columnNodeValue < columns) {
                 colors[rowNodeValue][columnNodeValue] = colorValue;
             }
@@ -235,34 +237,35 @@ export default class RGBLedMatrix extends CircuitElement {
     }
 
     customDraw() {
-        var ctx = simulationArea.context;
-        var rows = this.rows;
-        var columns = this.columns;
-        var colors = this.colors;
-        var xx = this.x;
-        var yy = this.y;
-        var dir = this.direction;
-        var ledWidth = 10 * this.ledSize;
-        var ledHeight = 10 * this.ledSize;
-        var top = this.rowEnableNodes[0].y - ledHeight / 2;
-        var left = this.columnColorNodes[0].x - ledWidth / 2;
-        var width = this.columns * ledWidth;
-        var height = this.rows * ledHeight;
-        var bottom = top + height;
-        var right = left + width;
+        const ctx = simulationArea.context;
+        const { rows } = this;
+        const { columns } = this;
+        const { colors } = this;
+        const xx = this.x;
+        const yy = this.y;
+        const dir = this.direction;
+        const ledWidth = 10 * this.ledSize;
+        const ledHeight = 10 * this.ledSize;
+        const top = this.rowEnableNodes[0].y - ledHeight / 2;
+        const left = this.columnColorNodes[0].x - ledWidth / 2;
+        const width = this.columns * ledWidth;
+        const height = this.rows * ledHeight;
+        const bottom = top + height;
+        const right = left + width;
 
-        var [w, h] = rotate(ledWidth * globalScope.scale, ledHeight * globalScope.scale, dir);
-        var xoffset = Math.round(globalScope.ox + xx * globalScope.scale);
-        var yoffset = Math.round(globalScope.oy + yy * globalScope.scale);
-        for (var row = 0; row < rows; row++) {
-            for (var column = 0; column < columns; column++) {
-                var color = colors[row][column] || 0;
+        const [w, h] = rotate(ledWidth * globalScope.scale, ledHeight * globalScope.scale, dir);
+        const xoffset = Math.round(globalScope.ox + xx * globalScope.scale);
+        const yoffset = Math.round(globalScope.oy + yy * globalScope.scale);
+        for (let row = 0; row < rows; row++) {
+            for (let column = 0; column < columns; column++) {
+                const color = colors[row][column] || 0;
                 ctx.beginPath();
-                ctx.fillStyle = 'rgb(' + ((color & 0xFF0000) >> 16) + ',' + ((color & 0xFF00) >> 8) + ',' + (color & 0xFF) + ')';
-                let x1,y1;
+                ctx.fillStyle = `rgb(${(color & 0xFF0000) >> 16},${(color & 0xFF00) >> 8},${color & 0xFF})`;
+                let x1; let
+                    y1;
                 [x1, y1] = rotate(left + column * ledWidth, top + row * ledHeight, dir);
-                x1 = x1 * globalScope.scale;
-                y1 = y1 * globalScope.scale;
+                x1 *= globalScope.scale;
+                y1 *= globalScope.scale;
                 ctx.rect(xoffset + x1, yoffset + y1, w, h);
                 ctx.fill();
             }
@@ -273,11 +276,11 @@ export default class RGBLedMatrix extends CircuitElement {
             ctx.strokeStyle = '#323232';
             ctx.lineWidth = correctWidth(1);
             rect2(ctx, left, top, width, height, xx, yy, dir);
-            for (var x = left + ledWidth; x < right; x += ledWidth) {
+            for (let x = left + ledWidth; x < right; x += ledWidth) {
                 moveTo(ctx, x, top, xx, yy, dir);
                 lineTo(ctx, x, bottom, xx, yy, dir);
             }
-            for (var y = top + ledHeight; y < bottom; y += ledHeight) {
+            for (let y = top + ledHeight; y < bottom; y += ledHeight) {
                 moveTo(ctx, left, y, xx, yy, dir);
                 lineTo(ctx, right, y, xx, yy, dir);
             }
@@ -324,4 +327,4 @@ RGBLedMatrix.prototype.mutableProperties = {
         min: 1,
         func: 'toggleGrid',
     },
-};RGBLedMatrix.prototype.objectType = 'RGBLedMatrix';
+}; RGBLedMatrix.prototype.objectType = 'RGBLedMatrix';

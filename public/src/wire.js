@@ -44,13 +44,13 @@ export default class Wire {
 
     // to check if nodes are disconnected
     checkConnections() {
-        var check = this.node1.deleted || this.node2.deleted || !this.node1.connections.contains(this.node2) || !this.node2.connections.contains(this.node1);
+        const check = this.node1.deleted || this.node2.deleted || !this.node1.connections.contains(this.node2) || !this.node2.connections.contains(this.node1);
         if (check) this.delete();
         return check;
     }
 
     update() {
-        var updated = false;
+        let updated = false;
         if (embed) return updated;
 
         if (this.node1.absX() === this.node2.absX()) {
@@ -73,7 +73,7 @@ export default class Wire {
 
             updated = true;
         } else if (simulationArea.mouseDown && simulationArea.lastSelected === this && !this.checkWithin(simulationArea.mouseX, simulationArea.mouseY)) {
-            var n = new Node(simulationArea.mouseDownX, simulationArea.mouseDownY, 2, this.scope.root);
+            const n = new Node(simulationArea.mouseDownX, simulationArea.mouseDownY, 2, this.scope.root);
             n.clicked = true;
             n.wasClicked = true;
             simulationArea.lastSelected = n;
@@ -88,7 +88,7 @@ export default class Wire {
             this.delete();
             return updated;
         } // if either of the nodes are deleted
-
+        let n;
         if (simulationArea.mouseDown === false) {
             if (this.type === 'horizontal') {
                 if (this.node1.absY() !== this.y1) {
@@ -124,7 +124,7 @@ export default class Wire {
 
         const ctx = simulationArea.context;
 
-        var color;
+        let color;
         if (simulationArea.lastSelected === this) { color = 'blue'; } else if (this.node1.value === undefined || this.node2.value === undefined) { color = 'red'; } else if (this.node1.bitWidth === 1) { color = ['red', 'DarkGreen', 'Lime'][this.node1.value + 1]; } else { color = 'black'; }
         drawLine(ctx, this.node1.absX(), this.node1.absY(), this.node2.absX(), this.node2.absY(), color, 3);
     }

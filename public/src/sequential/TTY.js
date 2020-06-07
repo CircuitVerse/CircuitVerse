@@ -1,7 +1,9 @@
 import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
-import { correctWidth, lineTo, moveTo, fillText3 } from '../canvasApi';
+import {
+    correctWidth, lineTo, moveTo, fillText3,
+} from '../canvasApi';
 
 /**
  * @class
@@ -54,7 +56,7 @@ export default class TTY extends CircuitElement {
     changeRowSize(size) {
         if (size == undefined || size < 1 || size > 10) return;
         if (this.rows == size) return;
-        var obj = new TTY(this.x, this.y, this.scope, size, this.cols);
+        const obj = new TTY(this.x, this.y, this.scope, size, this.cols);
         this.delete();
         simulationArea.lastSelected = obj;
         return obj;
@@ -67,7 +69,7 @@ export default class TTY extends CircuitElement {
     changeColSize(size) {
         if (size == undefined || size < 20 || size > 100) return;
         if (this.cols == size) return;
-        var obj = new TTY(this.x, this.y, this.scope, this.rows, size);
+        const obj = new TTY(this.x, this.y, this.scope, this.rows, size);
         this.delete();
         simulationArea.lastSelected = obj;
         return obj;
@@ -80,8 +82,8 @@ export default class TTY extends CircuitElement {
     isResolvable() {
         if (this.reset.value == 1) return true;
         if (this.en.value == 0 || (this.en.connections.length && this.en.value == undefined)) return false;
-        else if (this.clockInp.value == undefined) return false;
-        else if (this.asciiInp.value == undefined) return false;
+        if (this.clockInp.value == undefined) return false;
+        if (this.asciiInp.value == undefined) return false;
         return true;
     }
 
@@ -117,7 +119,7 @@ export default class TTY extends CircuitElement {
     }
 
     customSave() {
-        var data = {
+        const data = {
             nodes: {
                 clockInp: findNode(this.clockInp),
                 asciiInp: findNode(this.asciiInp),
@@ -130,13 +132,13 @@ export default class TTY extends CircuitElement {
     }
 
     customDraw() {
-        var ctx = simulationArea.context;
+        const ctx = simulationArea.context;
         ctx.beginPath();
         ctx.strokeStyle = ('rgba(0,0,0,1)');
         ctx.fillStyle = 'white';
         ctx.lineWidth = correctWidth(3);
-        var xx = this.x;
-        var yy = this.y;
+        const xx = this.x;
+        const yy = this.y;
         // rect(ctx, xx - this.elementWidth/2, yy - this.elementHeight/2, this.elementWidth, this.elementHeight);
 
         moveTo(ctx, -this.elementWidth / 2, this.elementHeight / 2 - 15, xx, yy, this.direction);
@@ -152,11 +154,11 @@ export default class TTY extends CircuitElement {
         ctx.beginPath();
         ctx.fillStyle = 'green';
         ctx.textAlign = 'center';
-        var startY = -7.5 * this.rows + 3;
-        for (var i = 0; i < this.data.length; i += this.cols) {
-            var lineData = this.data.slice(i, i + this.cols);
+        const startY = -7.5 * this.rows + 3;
+        for (let i = 0; i < this.data.length; i += this.cols) {
+            let lineData = this.data.slice(i, i + this.cols);
             lineData += ' '.repeat(this.cols - lineData.length);
-            fillText3(ctx, lineData, 0, startY + (i / this.cols) * 15 + 9, xx, yy, 15,'Courier New', 'center');
+            fillText3(ctx, lineData, 0, startY + (i / this.cols) * 15 + 9, xx, yy, 15, 'Courier New', 'center');
         }
         ctx.fill();
     }
@@ -166,14 +168,14 @@ TTY.prototype.tooltipText = 'TTY ToolTip : Tele typewriter selected.';
 TTY.prototype.helplink = 'https://docs.circuitverse.org/#/Sequential?id=tty';
 
 TTY.prototype.mutableProperties = {
-    'cols': {
+    cols: {
         name: 'Columns',
         type: 'number',
         max: '100',
         min: '20',
         func: 'changeColSize',
     },
-    'rows': {
+    rows: {
         name: 'Rows',
         type: 'number',
         max: '10',

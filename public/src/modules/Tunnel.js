@@ -166,7 +166,7 @@ export default class Tunnel extends CircuitElement {
         this.scope.Tunnel.clean(this);
         this.scope.tunnelList[this.identifier].clean(this);
         super.delete();
-        this.scope['Tunnel'].push(this);
+        this.scope.Tunnel.push(this);
     }
 
     /**
@@ -174,7 +174,7 @@ export default class Tunnel extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        var ctx = simulationArea.context;
+        const ctx = simulationArea.context;
         ctx.beginPath();
         ctx.strokeStyle = 'grey';
         ctx.fillStyle = '#fcfcfc';

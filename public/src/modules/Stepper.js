@@ -32,7 +32,7 @@ export default class Stepper extends CircuitElement {
      * @return {JSON}
      */
     customSave() {
-        var data = {
+        const data = {
             constructorParamaters: [this.direction, this.bitWidth],
             nodes: {
                 output1: findNode(this.output1),
@@ -49,7 +49,7 @@ export default class Stepper extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        var ctx = simulationArea.context;
+        const ctx = simulationArea.context;
 
         ctx.beginPath();
         ctx.font = '20px Georgia';

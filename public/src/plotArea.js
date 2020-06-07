@@ -76,7 +76,7 @@ const plotArea = {
             return;
         }
         this.stopWatch.Stop();
-        var time = this.stopWatch.ElapsedMilliseconds;
+        const time = this.stopWatch.ElapsedMilliseconds;
         this.c.width = document.getElementById('simulationArea').clientWidth; // innerWidth;
 
         this.c.height = globalScope.Flag.length * 30 + 40;
@@ -98,18 +98,18 @@ const plotArea = {
             if (this.ox < 0) plotArea.scrollAcc = -0.2 + 0.2 * this.ox;
             if (Math.abs(this.ox) < 0.5) this.ox = 0;
         }
-        var { ctx } = this;
+        const { ctx } = this;
         this.clear(ctx);
         ctx.fillStyle = 'black';
         ctx.fillRect(0, 0, this.c.width, this.c.height);
-        var unit = (this.pixel / (plotArea.unit * plotArea.scale));
+        const unit = (this.pixel / (plotArea.unit * plotArea.scale));
         ctx.strokeStyle = 'cyan';
         ctx.lineWidth = 2;
-        for (var i = 0; i < globalScope.Flag.length; i++) {
-            var arr = globalScope.Flag[i].plotValues;
+        for (let i = 0; i < globalScope.Flag.length; i++) {
+            const arr = globalScope.Flag[i].plotValues;
 
-            var j = 0;
-            // var start=arr[j][0];
+            let j = 0;
+            // let start=arr[j][0];
             if (globalScope.Flag[i].cachedIndex) { j = globalScope.Flag[i].cachedIndex; }
 
 
@@ -127,10 +127,10 @@ const plotArea = {
             globalScope.Flag[i].cachedIndex = j;
 
             for (; j < arr.length; j++) {
-                var start = arr[j][0];
-
-                if (j + 1 == arr.length) { var end = time; } else { var end = arr[j + 1][0]; }
-
+                const start = arr[j][0];
+                let end;
+                if (j + 1 == arr.length) { end = time; } else { end = arr[j + 1][0]; }
+                let yOff;
                 if (start <= time) {
                     if (globalScope.Flag[i].bitWidth == 1) {
                         if (arr[j][1] !== undefined) {
@@ -141,7 +141,7 @@ const plotArea = {
                                 //   ctx.moveTo(80+(start*unit)-plotArea.ox,2*(30+i*15-yOff)-plotArea.oy)
                                 ctx.strokeStyle = 'cyan';
                             }
-                            var yOff = 5 * arr[j][1];
+                            yOff = 5 * arr[j][1];
                         } else {
                             ctx.stroke();
                             ctx.beginPath();
@@ -188,7 +188,7 @@ const plotArea = {
         ctx.fillRect(0, 0, this.c.width, 30);
         ctx.font = '14px Georgia';
         ctx.fillStyle = 'black';
-        for (var i = 1; i * Math.round(plotArea.unit * plotArea.scale) <= time + Math.round(plotArea.unit * plotArea.scale); i++) {
+        for (let i = 1; i * Math.round(plotArea.unit * plotArea.scale) <= time + Math.round(plotArea.unit * plotArea.scale); i++) {
             ctx.fillText(`${Math.round(plotArea.unit * plotArea.scale) * i / 1000}s`, 48 + this.pixel * i - plotArea.ox, 20);
         }
 
@@ -196,7 +196,7 @@ const plotArea = {
         ctx.fillRect(0, 0, 75, this.c.height);
         ctx.font = '15px Georgia';
         ctx.fillStyle = 'black';
-        for (var i = 0; i < globalScope.Flag.length; i++) {
+        for (let i = 0; i < globalScope.Flag.length; i++) {
             ctx.fillText(globalScope.Flag[i].identifier, 5, 2 * (25 + i * 15) - plotArea.oy);
             ctx.fillRect(0, 2 * (13 + i * 15) + 4 - plotArea.oy, 75, 3);
         }
@@ -209,7 +209,7 @@ const plotArea = {
         ctx.moveTo(0, 25);
         ctx.lineTo(75, 25);
         // for yellow line to show specific time
-        var specificTime = (plotArea.specificTimeX + plotArea.ox - 80) * Math.round(plotArea.unit * plotArea.scale) / (this.pixel);
+        const specificTime = (plotArea.specificTimeX + plotArea.ox - 80) * Math.round(plotArea.unit * plotArea.scale) / (this.pixel);
         // ctx.strokeStyle = 'white';
         // ctx.moveTo(plotArea.specificTimeX,0);
         // ctx.lineTo(plotArea.specificTimeX,plotArea.c.height);
@@ -256,8 +256,8 @@ if (document.getElementById('plotArea') !== null) {
      * Event listeners for the Plot
      */
     document.getElementById('plotArea').addEventListener('mousedown', (e) => {
-        var rect = plotArea.c.getBoundingClientRect();
-        var x = e.clientX - rect.left;
+        const rect = plotArea.c.getBoundingClientRect();
+        const x = e.clientX - rect.left;
         plotArea.scrollAcc = 0;
         if (e.shiftKey) {
             plotArea.specificTimeX = x;
@@ -274,8 +274,8 @@ if (document.getElementById('plotArea') !== null) {
     });
 
     document.getElementById('plotArea').addEventListener('mousemove', (e) => {
-        var rect = plotArea.c.getBoundingClientRect();
-        var x = e.clientX - rect.left;
+        const rect = plotArea.c.getBoundingClientRect();
+        const x = e.clientX - rect.left;
         if (!e.shiftKey && plotArea.mouseDown) {
             plotArea.ox -= x - plotArea.prevX;
             plotArea.scrollAcc = x - plotArea.prevX;
@@ -292,7 +292,7 @@ if (document.getElementById('plotArea') !== null) {
  */
 function startPlot() {
     plotArea.stopWatch.Start();
-    for (var i = 0; i < globalScope.Flag.length; i++) {
+    for (let i = 0; i < globalScope.Flag.length; i++) {
         globalScope.Flag[i].plotValues = [[0, globalScope.Flag[i].inp1.value]];
         globalScope.Flag[i].cachedIndex = 0;
     }

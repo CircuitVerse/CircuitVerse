@@ -17,26 +17,26 @@ import simulationArea from './simulationArea';
  */
 export function paste(copyData) {
     if (copyData === undefined) return;
-    var data = JSON.parse(copyData);
+    const data = JSON.parse(copyData);
     if (!data.logixClipBoardData) return;
 
-    var currentScopeId = globalScope.id;
+    const currentScopeId = globalScope.id;
     for (let i = 0; i < data.scopes.length; i++) {
         if (scopeList[data.scopes[i].id] === undefined) {
-            var scope = newCircuit(data.scopes[i].name, data.scopes[i].id);
+            const scope = newCircuit(data.scopes[i].name, data.scopes[i].id);
             loadScope(scope, data.scopes[i]);
             scopeList[data.scopes[i].id] = scope;
         }
     }
 
     switchCircuit(currentScopeId);
-    var tempScope = new Scope(globalScope.name, globalScope.id);
-    var oldOx = globalScope.ox;
-    var oldOy = globalScope.oy;
-    var oldScale = globalScope.scale;
+    const tempScope = new Scope(globalScope.name, globalScope.id);
+    const oldOx = globalScope.ox;
+    const oldOy = globalScope.oy;
+    const oldScale = globalScope.scale;
     loadScope(tempScope, data);
 
-    var prevLength = tempScope.allNodes.length;
+    let prevLength = tempScope.allNodes.length;
     for (let i = 0; i < tempScope.allNodes.length; i++) {
         tempScope.allNodes[i].checkDeleted();
         if (tempScope.allNodes.length != prevLength) {
@@ -45,9 +45,9 @@ export function paste(copyData) {
         }
     }
 
-    var approxX = 0;
-    var approxY = 0;
-    var count = 0;
+    let approxX = 0;
+    let approxY = 0;
+    let count = 0;
 
     for (let i = 0; i < updateOrder.length; i++) {
         for (let j = 0; j < tempScope[updateOrder[i]].length; j++) {
@@ -97,7 +97,7 @@ export function paste(copyData) {
         tempScope.Output[i].layoutProperties.id = generateId();
         tempScope.Output[i].layoutProperties.y = getNextPosition(globalScope.layout.width, globalScope);
     }
-    var canvasUpdate = true;
+    const canvasUpdate = true;
     updateSimulationSet(true);
     updateSubcircuitSet(true);
     scheduleUpdate();
@@ -115,10 +115,10 @@ export function paste(copyData) {
  */
 export function cut(copyList) {
     if (copyList.length === 0) return;
-    var tempScope = new Scope(globalScope.name, globalScope.id);
-    var oldOx = globalScope.ox;
-    var oldOy = globalScope.oy;
-    var oldScale = globalScope.scale;
+    const tempScope = new Scope(globalScope.name, globalScope.id);
+    const oldOx = globalScope.ox;
+    const oldOy = globalScope.oy;
+    const oldScale = globalScope.scale;
     d = backUp(globalScope);
     loadScope(tempScope, d);
     scopeList[tempScope.id] = tempScope;
@@ -151,7 +151,7 @@ export function cut(copyList) {
         }
     }
 
-    var prevLength = globalScope.wires.length;
+    let prevLength = globalScope.wires.length;
     for (let i = 0; i < globalScope.wires.length; i++) {
         globalScope.wires[i].checkConnections();
         if (globalScope.wires.length != prevLength) {
@@ -162,9 +162,9 @@ export function cut(copyList) {
 
     updateSimulationSet(true);
 
-    var data = backUp(globalScope);
+    let data = backUp(globalScope);
     data.logixClipBoardData = true;
-    var dependencyList = globalScope.getDependencies();
+    const dependencyList = globalScope.getDependencies();
     data.dependencies = {};
     Object.keys(dependencyList).forEach((dependency) => {
         data.dependencies[dependency] = backUp(scopeList[dependency]);
@@ -174,7 +174,7 @@ export function cut(copyList) {
 
     simulationArea.multipleObjectSelections = []; // copyList.slice();
     simulationArea.copyList = []; // copyList.slice();
-    var canvasUpdate = true;
+    const canvasUpdate = true;
     updateSimulationSet(true);
     globalScope = tempScope;
     scheduleUpdate();
@@ -193,11 +193,11 @@ export function cut(copyList) {
  */
 export function copy(copyList, cutflag = false) {
     if (copyList.length === 0) return;
-    var tempScope = new Scope(globalScope.name, globalScope.id);
-    var oldOx = globalScope.ox;
-    var oldOy = globalScope.oy;
-    var oldScale = globalScope.scale;
-    var d = backUp(globalScope);
+    const tempScope = new Scope(globalScope.name, globalScope.id);
+    const oldOx = globalScope.ox;
+    const oldOy = globalScope.oy;
+    const oldScale = globalScope.scale;
+    const d = backUp(globalScope);
 
     loadScope(tempScope, d);
     scopeList[tempScope.id] = tempScope;
@@ -233,7 +233,7 @@ export function copy(copyList, cutflag = false) {
         }
     }
 
-    var prevLength = globalScope.wires.length;
+    let prevLength = globalScope.wires.length;
     for (let i = 0; i < globalScope.wires.length; i++) {
         globalScope.wires[i].checkConnections();
         if (globalScope.wires.length != prevLength) {
@@ -244,11 +244,11 @@ export function copy(copyList, cutflag = false) {
 
     updateSimulationSet(true);
 
-    var data = backUp(globalScope);
+    let data = backUp(globalScope);
     data.scopes = [];
-    var dependencyList = {};
-    var requiredDependencies = globalScope.getDependencies();
-    var completed = {};
+    const dependencyList = {};
+    const requiredDependencies = globalScope.getDependencies();
+    const completed = {};
     Object.keys(scopeList).forEach((id) => {
         dependencyList[id] = scopeList[id].getDependencies();
     });
@@ -263,7 +263,7 @@ export function copy(copyList, cutflag = false) {
     data = JSON.stringify(data);
     simulationArea.multipleObjectSelections = []; // copyList.slice();
     simulationArea.copyList = []; // copyList.slice();
-    var canvasUpdate = true;
+    const canvasUpdate = true;
     updateSimulationSet(true);
     globalScope = tempScope;
     scheduleUpdate();

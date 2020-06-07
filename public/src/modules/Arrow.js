@@ -2,9 +2,9 @@ import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import {
-    correctWidth, lineTo, moveTo, arc,
+    correctWidth, lineTo, moveTo,
 } from '../canvasApi';
-import { changeInputSize } from '../modules';
+
 /**
  * @class
  * Arrow
@@ -43,7 +43,7 @@ export default class Arrow extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        var ctx = simulationArea.context;
+        const ctx = simulationArea.context;
         ctx.lineWidth = correctWidth(3);
         const xx = this.x;
         const yy = this.y;

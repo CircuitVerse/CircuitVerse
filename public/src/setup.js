@@ -147,7 +147,7 @@ export function setup() {
                     id: logix_project_id,
                 },
                 success(response) {
-                    var data = (response);
+                    const data = (response);
                     if (data) {
                         load(data);
                         simulationArea.changeClockTime(data.timePeriod || 500);
@@ -161,7 +161,7 @@ export function setup() {
             });
         } else if (localStorage.getItem('recover_login') && userSignedIn) {
             // Restore unsaved data and save
-            var data = JSON.parse(localStorage.getItem('recover_login'));
+            const data = JSON.parse(localStorage.getItem('recover_login'));
             load(data);
             localStorage.removeItem('recover');
             localStorage.removeItem('recover_login');

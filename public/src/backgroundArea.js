@@ -1,6 +1,6 @@
 import { dots } from './canvasApi';
 
-var backgroundArea;
+let backgroundArea;
 export default backgroundArea = {
     canvas: document.getElementById('backgroundArea'),
     setup() {

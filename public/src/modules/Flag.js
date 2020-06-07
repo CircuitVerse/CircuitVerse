@@ -2,7 +2,7 @@ import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import {
-    correctWidth, rect2, fillText
+    correctWidth, rect2, fillText,
 } from '../canvasApi';
 import plotArea from '../plotArea';
 /**
@@ -93,7 +93,7 @@ export default class Flag extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        var ctx = simulationArea.context;
+        const ctx = simulationArea.context;
         ctx.beginPath();
         ctx.strokeStyle = 'grey';
         ctx.fillStyle = '#fcfcfc';

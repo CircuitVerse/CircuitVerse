@@ -1,7 +1,9 @@
 import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
-import { correctWidth, lineTo, moveTo, fillText3, fontSize } from '../canvasApi';
+import {
+    correctWidth, lineTo, moveTo, fillText3, fontSize,
+} from '../canvasApi';
 /**
  * @class
  * Keyboard
@@ -47,7 +49,7 @@ export default class Keyboard extends CircuitElement {
     changeBufferSize(size) {
         if (size == undefined || size < 20 || size > 100) return;
         if (this.bufferSize == size) return;
-        var obj = new Keyboard(this.x, this.y, this.scope, size);
+        const obj = new Keyboard(this.x, this.y, this.scope, size);
         this.delete();
         simulationArea.lastSelected = obj;
         return obj;
@@ -71,14 +73,14 @@ export default class Keyboard extends CircuitElement {
     isResolvable() {
         if (this.reset.value == 1) return true;
         if (this.en.value == 0 || (this.en.connections.length && this.en.value == undefined)) return false;
-        else if (this.clockInp.value == undefined) return false;
+        if (this.clockInp.value == undefined) return false;
         return true;
     }
 
     /**
      * @memberof Keyboard
      * Whenever clock is enabled (1) then one charecter
-     * from the buffer is converted to ascii and transmitted 
+     * from the buffer is converted to ascii and transmitted
      * through the output nodes.
      */
     resolve() {
@@ -128,7 +130,7 @@ export default class Keyboard extends CircuitElement {
     }
 
     customSave() {
-        var data = {
+        const data = {
             nodes: {
                 clockInp: findNode(this.clockInp),
                 asciiOutput: findNode(this.asciiOutput),
@@ -142,13 +144,13 @@ export default class Keyboard extends CircuitElement {
     }
 
     customDraw() {
-        var ctx = simulationArea.context;
+        const ctx = simulationArea.context;
         ctx.beginPath();
         ctx.strokeStyle = ('rgba(0,0,0,1)');
         ctx.fillStyle = 'white';
         ctx.lineWidth = correctWidth(3);
-        var xx = this.x;
-        var yy = this.y;
+        const xx = this.x;
+        const yy = this.y;
         moveTo(ctx, -this.elementWidth / 2, this.elementHeight / 2 - 15, xx, yy, this.direction);
         lineTo(ctx, 5 - this.elementWidth / 2, this.elementHeight / 2 - 10, xx, yy, this.direction);
         lineTo(ctx, -this.elementWidth / 2, this.elementHeight / 2 - 5, xx, yy, this.direction);
@@ -158,7 +160,7 @@ export default class Keyboard extends CircuitElement {
         ctx.beginPath();
         ctx.fillStyle = 'green';
         ctx.textAlign = 'center';
-        var lineData = this.buffer + ' '.repeat(this.bufferSize - this.buffer.length);
+        const lineData = this.buffer + ' '.repeat(this.bufferSize - this.buffer.length);
         fillText3(ctx, lineData, 0, +5, xx, yy, 15, 'Courier New', 'center');
         ctx.fill();
     }
@@ -168,7 +170,7 @@ Keyboard.prototype.tooltipText = 'Keyboard';
 Keyboard.prototype.helplink = 'https://docs.circuitverse.org/#/Sequential?id=keyboard';
 
 Keyboard.prototype.mutableProperties = {
-    'bufferSize': {
+    bufferSize: {
         name: 'Buffer Size',
         type: 'number',
         max: '100',

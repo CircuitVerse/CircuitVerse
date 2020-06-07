@@ -8,14 +8,14 @@ import LayoutNode from './layoutNode';
 export default class LayoutBuffer {
     constructor(scope = globalScope) {
         // Position of screen in layoutMode -- needs to be deprecated, reset screen position instead
-        var x = -Math.round(globalScope.ox / 10) * 10;
-        var y = -Math.round(globalScope.oy / 10) * 10;
+        const x = -Math.round(globalScope.ox / 10) * 10;
+        const y = -Math.round(globalScope.oy / 10) * 10;
 
-        var w = Math.round((width / globalScope.scale) * 0.01) * 10; // 10% width of screen in layoutMode
-        var h = Math.round((height / globalScope.scale) * 0.01) * 10; // 10% height of screen in layoutMode
+        const w = Math.round((width / globalScope.scale) * 0.01) * 10; // 10% width of screen in layoutMode
+        const h = Math.round((height / globalScope.scale) * 0.01) * 10; // 10% height of screen in layoutMode
 
-        var xx = x + w;
-        var yy = y + h;
+        const xx = x + w;
+        const yy = y + h;
 
         // Position of subcircuit
         this.xx = xx;

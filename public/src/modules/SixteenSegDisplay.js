@@ -49,7 +49,7 @@ export default class SixteenSegDisplay extends CircuitElement {
      */
     customDrawSegment(x1, y1, x2, y2, color) {
         if (color === undefined) color = 'lightgrey';
-        var ctx = simulationArea.context;
+        const ctx = simulationArea.context;
         ctx.beginPath();
         ctx.strokeStyle = color;
         ctx.lineWidth = correctWidth(4);
@@ -67,7 +67,7 @@ export default class SixteenSegDisplay extends CircuitElement {
      */
     customDrawSegmentSlant(x1, y1, x2, y2, color) {
         if (color === undefined) color = 'lightgrey';
-        var ctx = simulationArea.context;
+        const ctx = simulationArea.context;
         ctx.beginPath();
         ctx.strokeStyle = color;
         ctx.lineWidth = correctWidth(3);
@@ -84,7 +84,7 @@ export default class SixteenSegDisplay extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        var ctx = simulationArea.context;
+        const ctx = simulationArea.context;
         const xx = this.x;
         const yy = this.y;
         const color = ['lightgrey', 'red'];

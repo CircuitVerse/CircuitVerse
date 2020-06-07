@@ -1,6 +1,8 @@
 import CircuitElement from '../circuitElement';
 import simulationArea from '../simulationArea';
-import { correctWidth, lineTo, moveTo, fillText } from '../canvasApi';
+import {
+    correctWidth, lineTo, moveTo, fillText,
+} from '../canvasApi';
 import Node, { findNode } from '../node';
 import plotArea from '../plotArea';
 
@@ -69,11 +71,11 @@ export default class TB_Input extends CircuitElement {
         this.prevClockState = 0;
         this.outputs = [];
 
-        for (var i = 0; i < this.testData.inputs.length; i++) {
+        for (let i = 0; i < this.testData.inputs.length; i++) {
             this.outputs.push(new Node(this.rightDimensionX, 30 + i * 20, 1, this, this.testData.inputs[i].bitWidth, this.testData.inputs[i].label));
         }
 
-        for (var i = 0; i < this.scope.TB_Output.length; i++) {
+        for (let i = 0; i < this.scope.TB_Output.length; i++) {
             if (this.scope.TB_Output[i].identifier == this.identifier) { this.scope.TB_Output[i].setup(); }
         }
     }
@@ -112,7 +114,7 @@ export default class TB_Input extends CircuitElement {
             }
         }
         if (this.running && this.iteration) {
-            for (var i = 0; i < this.testData.inputs.length; i++) {
+            for (let i = 0; i < this.testData.inputs.length; i++) {
                 console.log(this.testData.inputs[i].values[this.iteration - 1]);
                 this.outputs[i].value = parseInt(this.testData.inputs[i].values[this.iteration - 1], 2);
                 simulationArea.simulationQueue.add(this.outputs[i]);
@@ -125,7 +127,7 @@ export default class TB_Input extends CircuitElement {
      * was a function to plot values incase any flag used as output to this element
      */
     setPlotValue() {
-        var time = plotArea.stopWatch.ElapsedMilliseconds;
+        const time = plotArea.stopWatch.ElapsedMilliseconds;
         if (this.plotValues.length && this.plotValues[this.plotValues.length - 1][0] == time) { this.plotValues.pop(); }
 
         if (this.plotValues.length == 0) {
@@ -138,7 +140,7 @@ export default class TB_Input extends CircuitElement {
     }
 
     customSave() {
-        var data = {
+        const data = {
             constructorParamaters: [this.direction, this.identifier, this.testData],
             nodes: {
                 outputs: this.outputs.map(findNode),
@@ -156,12 +158,12 @@ export default class TB_Input extends CircuitElement {
         if (id.length == 0 || id == this.identifier) return;
 
 
-        for (var i = 0; i < this.scope.TB_Output.length; i++) {
+        for (let i = 0; i < this.scope.TB_Output.length; i++) {
             this.scope.TB_Output[i].checkPairing();
         }
 
 
-        for (var i = 0; i < this.scope.TB_Output.length; i++) {
+        for (let i = 0; i < this.scope.TB_Output.length; i++) {
             if (this.scope.TB_Output[i].identifier == this.identifier) { this.scope.TB_Output[i].identifier = id; }
         }
 
@@ -175,7 +177,7 @@ export default class TB_Input extends CircuitElement {
      * @memberof TB_Input
      */
     checkPaired() {
-        for (var i = 0; i < this.scope.TB_Output.length; i++) {
+        for (let i = 0; i < this.scope.TB_Output.length; i++) {
             if (this.scope.TB_Output[i].identifier == this.identifier) { this.scope.TB_Output[i].checkPairing(); }
         }
     }
@@ -186,16 +188,16 @@ export default class TB_Input extends CircuitElement {
     }
 
     customDraw() {
-        var ctx = simulationArea.context;
+        const ctx = simulationArea.context;
         ctx.beginPath();
         ctx.strokeStyle = 'grey';
         ctx.fillStyle = '#fcfcfc';
         ctx.lineWidth = correctWidth(1);
-        var xx = this.x;
-        var yy = this.y;
+        let xx = this.x;
+        let yy = this.y;
 
-        var xRotate = 0;
-        var yRotate = 0;
+        let xRotate = 0;
+        let yRotate = 0;
         if (this.direction == 'LEFT') {
             xRotate = 0;
             yRotate = 0;
@@ -225,7 +227,7 @@ export default class TB_Input extends CircuitElement {
         ctx.textAlign = 'right';
         ctx.fillStyle = 'blue';
         ctx.beginPath();
-        for (var i = 0; i < this.testData.inputs.length; i++) {
+        for (let i = 0; i < this.testData.inputs.length; i++) {
             // ctx.beginPath();
             fillText(ctx, this.testData.inputs[i].label, this.rightDimensionX - 5 + xx, 30 + i * 20 + yy + 4, 10);
         }
@@ -236,7 +238,7 @@ export default class TB_Input extends CircuitElement {
             ctx.textAlign = 'left';
             ctx.fillStyle = 'blue';
             ctx.beginPath();
-            for (var i = 0; i < this.testData.inputs.length; i++) {
+            for (let i = 0; i < this.testData.inputs.length; i++) {
                 fillText(ctx, this.testData.inputs[i].values[this.iteration - 1], 5 + xx, 30 + i * 20 + yy + 4, 10);
             }
 
@@ -246,8 +248,8 @@ export default class TB_Input extends CircuitElement {
         ctx.beginPath();
         ctx.strokeStyle = ('rgba(0,0,0,1)');
         ctx.lineWidth = correctWidth(3);
-        var xx = this.x;
-        var yy = this.y;
+        xx = this.x;
+        yy = this.y;
         // rect(ctx, xx - 20, yy - 20, 40, 40);
         moveTo(ctx, 0, 15, xx, yy, this.direction);
         lineTo(ctx, 5, 20, xx, yy, this.direction);

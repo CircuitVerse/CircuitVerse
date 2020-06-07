@@ -12,7 +12,7 @@ import simulationArea from './simulationArea';
  * @property {function} clear - used to clear minimap
  * @category minimap
  */
-var miniMapArea;
+let miniMapArea;
 export default miniMapArea = {
     canvas: document.getElementById('miniMapArea'),
     setup() {
@@ -28,10 +28,10 @@ export default miniMapArea = {
         if (simulationArea.minWidth != undefined) { this.minX = Math.min(simulationArea.minWidth, (-globalScope.ox) / globalScope.scale); } else { this.minX = (-globalScope.ox) / globalScope.scale; }
         if (simulationArea.maxWidth != undefined) { this.maxX = Math.max(simulationArea.maxWidth, (this.pageX) / globalScope.scale); } else { this.maxX = (this.pageX) / globalScope.scale; }
 
-        var h = this.maxY - this.minY;
-        var w = this.maxX - this.minX;
+        const h = this.maxY - this.minY;
+        const w = this.maxX - this.minX;
 
-        var ratio = Math.min(250 / h, 250 / w);
+        const ratio = Math.min(250 / h, 250 / w);
         if (h > w) {
             this.canvas.height = 250.0;
             this.canvas.width = (250.0 * w) / h;
@@ -66,12 +66,12 @@ export default miniMapArea = {
         this.ctx.fill();
 
         //  to show the area of current canvas
-        var lst = updateOrder;
+        const lst = updateOrder;
         this.ctx.strokeStyle = 'green';
         this.ctx.fillStyle = 'DarkGreen';
-        for (var i = 0; i < lst.length; i++) {
+        for (let i = 0; i < lst.length; i++) {
             if (lst[i] === 'wires') {
-                for (var j = 0; j < globalScope[lst[i]].length; j++) {
+                for (let j = 0; j < globalScope[lst[i]].length; j++) {
                     this.ctx.beginPath();
                     this.ctx.moveTo(2.5 + (globalScope[lst[i]][j].node1.absX() - this.minX) * ratio, 2.5 + (globalScope[lst[i]][j].node1.absY() - this.minY) * ratio);
                     this.ctx.lineTo(2.5 + (globalScope[lst[i]][j].node2.absX() - this.minX) * ratio, 2.5 + (globalScope[lst[i]][j].node2.absY() - this.minY) * ratio);
@@ -79,14 +79,14 @@ export default miniMapArea = {
                 }
             } else if (lst[i] != 'nodes') {
                 // Don't include SquareRGBLed here; it has correct size.
-                var ledY = 0;
+                let ledY = 0;
                 if (lst[i] == 'DigitalLed' || lst[i] == 'VariableLed' || lst[i] == 'RGBLed') { ledY = 20; }
 
-                for (var j = 0; j < globalScope[lst[i]].length; j++) {
-                    var xx = (globalScope[lst[i]][j].x - simulationArea.minWidth);
-                    var yy = (globalScope[lst[i]][j].y - simulationArea.minHeight);
+                for (let j = 0; j < globalScope[lst[i]].length; j++) {
+                    const xx = (globalScope[lst[i]][j].x - simulationArea.minWidth);
+                    const yy = (globalScope[lst[i]][j].y - simulationArea.minHeight);
                     this.ctx.beginPath();
-                    var obj = globalScope[lst[i]][j];
+                    const obj = globalScope[lst[i]][j];
                     this.ctx.rect(2.5 + (obj.x - obj.leftDimensionX - this.minX) * ratio, 2.5 + (obj.y - obj.upDimensionY - this.minY) * ratio, (obj.rightDimensionX + obj.leftDimensionX) * ratio, (obj.downDimensionY + obj.upDimensionY + ledY) * ratio);
 
                     this.ctx.fill();
@@ -101,7 +101,7 @@ export default miniMapArea = {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     },
 };
-var lastMiniMapShown;
+let lastMiniMapShown;
 export function updatelastMinimapShown() {
     lastMiniMapShown = new Date().getTime();
 }

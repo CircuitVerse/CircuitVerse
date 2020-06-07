@@ -54,7 +54,7 @@ export default class Random extends CircuitElement {
      */
     resolve() {
         // console.log("HIT")
-        var maxValue = this.maxValue.connections.length ? this.maxValue.value + 1 : (2 << (this.bitWidth - 1));
+        const maxValue = this.maxValue.connections.length ? this.maxValue.value + 1 : (2 << (this.bitWidth - 1));
         if (this.clockInp.value != undefined) {
             if (this.clockInp.value != this.prevClockState) {
                 if (this.clockInp.value == 1) {
@@ -70,7 +70,7 @@ export default class Random extends CircuitElement {
     }
 
     customSave() {
-        var data = {
+        const data = {
             nodes: {
                 clockInp: findNode(this.clockInp),
                 maxValue: findNode(this.maxValue),
@@ -83,10 +83,10 @@ export default class Random extends CircuitElement {
     }
 
     customDraw() {
-        var ctx = simulationArea.context;
+        const ctx = simulationArea.context;
         ctx.beginPath();
-        var xx = this.x;
-        var yy = this.y;
+        const xx = this.x;
+        const yy = this.y;
         ctx.font = '20px Georgia';
         ctx.fillStyle = 'green';
         ctx.textAlign = 'center';

@@ -6,7 +6,7 @@
 import { resetScopeList, scopeList, newCircuit } from '../circuit';
 import { showMessage, showError } from '../utils';
 import { checkIfBackup } from './backupCircuit';
-import {generateSaveData} from './save';
+import { generateSaveData } from './save';
 import load from './load';
 
 /**
@@ -15,7 +15,7 @@ import load from './load';
  */
 export function recoverProject() {
     if (localStorage.getItem('recover')) {
-        var data = JSON.parse(localStorage.getItem('recover'));
+        const data = JSON.parse(localStorage.getItem('recover'));
         if (confirm(`Would you like to recover: ${data.name}`)) {
             load(data);
         }
@@ -57,7 +57,7 @@ export function openOffline() {
  * @type {boolean}
  * @category data
  */
-var projectSaved = true;
+let projectSaved = true;
 export function projectSavedSet(param) {
     projectSaved = param;
 }

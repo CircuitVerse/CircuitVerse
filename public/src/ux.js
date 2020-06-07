@@ -34,7 +34,7 @@ uxvar.smartDropYY = 80;
  * @type {Object} - Object stores the position of context menu;
  * @category ux
  */
-var ctxPos = {
+const ctxPos = {
     x: 0,
     y: 0,
     visible: false,
@@ -45,7 +45,7 @@ var ctxPos = {
  * @category ux
  */
 function hideContextMenu() {
-    var el = document.getElementById('contextMenu');
+    const el = document.getElementById('contextMenu');
     el.style = 'opacity:0;';
     setTimeout(() => {
         el.style = 'visibility:hidden;';
@@ -104,7 +104,7 @@ window.menuItemClicked = menuItemClicked;
  * @category ux
  */
 export function setupUI() {
-    var ctxEl = document.getElementById('contextMenu');
+    const ctxEl = document.getElementById('contextMenu');
     document.addEventListener('mousedown', (e) => {
         // Check if mouse is not inside the context menu and menu is visible
         if (!((e.clientX >= ctxPos.x && e.clientX <= ctxPos.x + ctxEl.offsetWidth)
@@ -136,7 +136,7 @@ export function setupUI() {
     $('.logixModules').mousedown(function () {
         // ////console.log(uxvar.smartDropXX,uxvar.smartDropYY);
         if (simulationArea.lastSelected && simulationArea.lastSelected.newElement) simulationArea.lastSelected.delete();
-        var obj = new modules[this.id](); // (simulationArea.mouseX,simulationArea.mouseY);
+        const obj = new modules[this.id](); // (simulationArea.mouseX,simulationArea.mouseY);
         // obj = new modules[this.id](); // (simulationArea.mouseX,simulationArea.mouseY);
         simulationArea.lastSelected = obj;
         // simulationArea.lastSelected=obj;
@@ -150,12 +150,12 @@ export function setupUI() {
     $('.logixButton').click(function () {
         logixFunction[this.id]();
     });
-    // var dummyCounter=0;
+    // let dummyCounter=0;
 
 
     $('.logixModules').hover(function () {
         // Tooltip can be statically defined in the prototype.
-        var { tooltipText } = modules[this.id].prototype;
+        const { tooltipText } = modules[this.id].prototype;
         if (!tooltipText) return;
         $('#Help').addClass('show');
         $('#Help').empty();
@@ -180,7 +180,7 @@ export function setupUI() {
  * Keeps in check which property is being displayed
  * @category ux
  */
-var prevPropertyObj;
+let prevPropertyObj;
 
 export function prevPropertyObjSet(param) {
     prevPropertyObj = param;
@@ -224,7 +224,7 @@ export function showProperties(obj) {
 
         $('#moduleProperty-inner').append(`<p>Label: <input class='objectPropertyAttribute' type='text'  name='setLabel'  value='${escapeHtml(obj.label)}'></p>`);
 
-        var s;
+        let s;
         if (!obj.labelDirectionFixed) {
             s = $(`${"<select class='objectPropertyAttribute' name='newLabelDirection'>" + "<option value='RIGHT' "}${['', 'selected'][+(obj.labelDirection === 'RIGHT')]} >RIGHT</option><option value='DOWN' ${['', 'selected'][+(obj.labelDirection === 'DOWN')]} >DOWN</option><option value='LEFT' ` + `<option value='RIGHT'${['', 'selected'][+(obj.labelDirection === 'LEFT')]} >LEFT</option><option value='UP' ` + `<option value='RIGHT'${['', 'selected'][+(obj.labelDirection === 'UP')]} >UP</option>` + '</select>');
             s.val(obj.labelDirection);
@@ -242,7 +242,7 @@ export function showProperties(obj) {
 
         if (obj.mutableProperties) {
             for (const attr in obj.mutableProperties) {
-                var prop = obj.mutableProperties[attr];
+                const prop = obj.mutableProperties[attr];
                 if (obj.mutableProperties[attr].type === 'number') {
                     s = `<p>${prop.name}<input class='objectPropertyAttribute' type='number'  name='${prop.func}' min='${prop.min || 0}' max='${prop.max || 200}' value=${obj[attr]}></p>`;
                     $('#moduleProperty-inner').append(s);
@@ -257,7 +257,7 @@ export function showProperties(obj) {
         }
     }
 
-    var helplink = obj && (obj.helplink);
+    const helplink = obj && (obj.helplink);
     if (helplink) {
         $('#moduleProperty-inner').append('<p><button id="HelpButton" class="btn btn-primary btn-xs" type="button" >Help &#9432</button></p>');
         $('#HelpButton').click(() => {
@@ -332,7 +332,7 @@ function escapeHtml(unsafe) {
 export function deleteSelected() {
     $('input').blur();
     if (simulationArea.lastSelected && !(simulationArea.lastSelected.objectType === 'Node' && simulationArea.lastSelected.type !== 2)) simulationArea.lastSelected.delete();
-    for (var i = 0; i < simulationArea.multipleObjectSelections.length; i++) {
+    for (let i = 0; i < simulationArea.multipleObjectSelections.length; i++) {
         if (!(simulationArea.multipleObjectSelections[i].objectType === 'Node' && simulationArea.multipleObjectSelections[i].type !== 2)) simulationArea.multipleObjectSelections[i].cleanDelete();
     }
     hideProperties();
@@ -386,21 +386,21 @@ function setBaseValues(x) {
 }
 
 $('#decimalInput').on('keyup', () => {
-    var x = parseInt($('#decimalInput').val(), 10);
+    const x = parseInt($('#decimalInput').val(), 10);
     setBaseValues(x);
 });
 
 $('#binaryInput').on('keyup', () => {
-    var x = parseInt($('#binaryInput').val(), 2);
+    const x = parseInt($('#binaryInput').val(), 2);
     setBaseValues(x);
 });
 
 $('#hexInput').on('keyup', () => {
-    var x = parseInt($('#hexInput').val(), 16);
+    const x = parseInt($('#hexInput').val(), 16);
     setBaseValues(x);
 });
 
 $('#octalInput').on('keyup', () => {
-    var x = parseInt($('#octalInput').val(), 8);
+    const x = parseInt($('#octalInput').val(), 8);
     setBaseValues(x);
 });

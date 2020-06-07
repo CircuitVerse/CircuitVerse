@@ -38,7 +38,7 @@ export const circuitProperty = {
     changeInputSize,
     changeLightMode,
 };
-export var scopeList = {};
+export let scopeList = {};
 export function resetScopeList() {
     scopeList = {};
 }
@@ -230,7 +230,7 @@ export default class Scope {
     */
     addInputs() {
         for (let i = 0; i < inputList.length; i++) {
-            for (var j = 0; j < this[inputList[i]].length; j++) {
+            for (let j = 0; j < this[inputList[i]].length; j++) {
                 simulationArea.simulationQueue.add(this[inputList[i]][j], 0);
             }
         }
@@ -263,7 +263,7 @@ export default class Scope {
      * Get dependency list - list of all circuits, this circuit depends on
      */
     getDependencies() {
-        var list = [];
+        const list = [];
         for (let i = 0; i < this.SubCircuit.length; i++) {
             list.push(this.SubCircuit[i].id);
             list.extend(scopeList[this.SubCircuit[i].id].getDependencies());
@@ -275,7 +275,7 @@ export default class Scope {
      * helper function to reduce layout size
     */
     fixLayout() {
-        var maxY = 20;
+        let maxY = 20;
         for (let i = 0; i < this.Input.length; i++) { maxY = Math.max(this.Input[i].layoutProperties.y, maxY); }
         for (let i = 0; i < this.Output.length; i++) { maxY = Math.max(this.Output[i].layoutProperties.y, maxY); }
         if (maxY !== this.layout.height) { this.layout.height = maxY + 10; }
@@ -288,13 +288,13 @@ export default class Scope {
     centerFocus(zoomIn = true) {
         if (layoutModeGet()) return;
         findDimensions(this);
-        var minX = simulationArea.minWidth || 0;
-        var minY = simulationArea.minHeight || 0;
-        var maxX = simulationArea.maxWidth || 0;
-        var maxY = simulationArea.maxHeight || 0;
+        const minX = simulationArea.minWidth || 0;
+        const minY = simulationArea.minHeight || 0;
+        const maxX = simulationArea.maxWidth || 0;
+        const maxY = simulationArea.maxHeight || 0;
 
-        var reqWidth = maxX - minX + 150;
-        var reqHeight = maxY - minY + 150;
+        const reqWidth = maxX - minX + 150;
+        const reqHeight = maxY - minY + 150;
 
         this.scale = Math.min(width / reqWidth, height / reqHeight);
 

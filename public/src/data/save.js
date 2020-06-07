@@ -15,7 +15,7 @@ import { projectSavedSet } from './project';
  */
 export function setProjectName(name) {
     name = stripTags(name);
-    var projectName = name;
+    const projectName = name;
     $('#projectName').html(name);
 }
 
@@ -89,13 +89,13 @@ export function generateSaveData(name) {
 
 // Helper function to download text
 function download(filename, text) {
-    var pom = document.createElement('a');
-    pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    const pom = document.createElement('a');
+    pom.setAttribute('href', `data:text/plain;charset=utf-8,${encodeURIComponent(text)}`);
     pom.setAttribute('download', filename);
 
 
     if (document.createEvent) {
-        var event = document.createEvent('MouseEvents');
+        const event = document.createEvent('MouseEvents');
         event.initEvent('click', true, true);
         pom.dispatchEvent(event);
     } else {
@@ -140,7 +140,7 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
     const scope = globalScope;
 
     // Focus circuit
-    var flag = 1;
+    const flag = 1;
     if (flag) {
         if (view === 'full') {
             findDimensions();
@@ -244,7 +244,6 @@ function generateImageForOnline() {
     // Restores Focus
     globalScope.centerFocus(false);
     return data;
-    
 }
 /**
  * Function called when you save acircuit online

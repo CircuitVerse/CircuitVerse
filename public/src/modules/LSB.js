@@ -91,7 +91,7 @@ export default class LSB extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        var ctx = simulationArea.context;
+        const ctx = simulationArea.context;
         ctx.beginPath();
         ctx.strokeStyle = 'black';
         ctx.fillStyle = 'white';

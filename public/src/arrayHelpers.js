@@ -3,7 +3,7 @@
 /* eslint-disable no-extend-native */
 export default Array = window.Array;
 Array.prototype.clean = function (deleteValue) {
-    for (var i = 0; i < this.length; i++) {
+    for (let i = 0; i < this.length; i++) {
         if (this[i] === deleteValue) {
             this.splice(i, 1);
             i--;

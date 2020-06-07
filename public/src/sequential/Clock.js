@@ -28,7 +28,7 @@ export default class Clock extends CircuitElement {
     }
 
     customSave() {
-        var data = {
+        const data = {
             nodes: {
                 output1: findNode(this.output1),
             },
@@ -48,12 +48,12 @@ export default class Clock extends CircuitElement {
     }
 
     customDraw() {
-        var ctx = simulationArea.context;
+        const ctx = simulationArea.context;
         ctx.strokeStyle = ('rgba(0,0,0,1)');
         ctx.fillStyle = 'white';
         ctx.lineWidth = correctWidth(3);
-        var xx = this.x;
-        var yy = this.y;
+        const xx = this.x;
+        const yy = this.y;
 
         ctx.beginPath();
         ctx.strokeStyle = ['DarkGreen', 'Lime'][this.state];

@@ -10,6 +10,7 @@ import {
 import { changeScale } from './canvasApi';
 import { copy, paste } from './events';
 
+const unit = 10;
 export default function startListeners() {
     window.addEventListener('keyup', (e) => {
         scheduleUpdate(1);
@@ -30,7 +31,7 @@ export default function startListeners() {
         simulationArea.lastSelected = undefined;
         simulationArea.selected = false;
         simulationArea.hover = undefined;
-        var rect = simulationArea.canvas.getBoundingClientRect();
+        const rect = simulationArea.canvas.getBoundingClientRect();
         simulationArea.mouseDownRawX = (e.clientX - rect.left) * DPR;
         simulationArea.mouseDownRawY = (e.clientY - rect.top) * DPR;
         simulationArea.mouseDownX = Math.round(((simulationArea.mouseDownRawX - globalScope.ox) / globalScope.scale) / unit) * unit;
@@ -45,13 +46,13 @@ export default function startListeners() {
     });
 
     document.getElementById('simulationArea').addEventListener('mousemove', () => {
-        var ele = document.getElementById('elementName');
+        const ele = document.getElementById('elementName');
         if (globalScope && simulationArea && simulationArea.objectList) {
-            var { objectList } = simulationArea;
+            let { objectList } = simulationArea;
             objectList = objectList.filter((val) => val !== 'wires');
 
-            for (var i = 0; i < objectList.length; i++) {
-                for (var j = 0; j < globalScope[objectList[i]].length; j++) {
+            for (let i = 0; i < objectList.length; i++) {
+                for (let j = 0; j < globalScope[objectList[i]].length; j++) {
                     if (globalScope[objectList[i]][j].isHover()) {
                         ele.style.display = 'block';
                         if (objectList[i] === 'SubCircuit') {
@@ -70,7 +71,7 @@ export default function startListeners() {
     });
 
     window.addEventListener('mousemove', (e) => {
-        var rect = simulationArea.canvas.getBoundingClientRect();
+        const rect = simulationArea.canvas.getBoundingClientRect();
         simulationArea.mouseRawX = (e.clientX - rect.left) * DPR;
         simulationArea.mouseRawY = (e.clientY - rect.top) * DPR;
         simulationArea.mouseXf = (simulationArea.mouseRawX - globalScope.ox) / globalScope.scale;
@@ -81,7 +82,7 @@ export default function startListeners() {
         updateCanvasSet(true);
         if (simulationArea.lastSelected == globalScope.root) {
             updateCanvasSet(true);
-            var fn;
+            let fn;
             fn = function () {
                 updateSelectionsAndPane();
             };
@@ -172,9 +173,9 @@ export default function startListeners() {
         updateCanvasSet(true);
 
         event.preventDefault();
-        var deltaY = event.wheelDelta ? event.wheelDelta : -event.detail;
-        var scrolledUp = deltaY < 0;
-        var scrolledDown = deltaY > 0;
+        const deltaY = event.wheelDelta ? event.wheelDelta : -event.detail;
+        const scrolledUp = deltaY < 0;
+        const scrolledDown = deltaY > 0;
 
         if (event.ctrlKey) {
             if (scrolledUp && globalScope.scale > 0.5 * DPR) {
@@ -203,7 +204,7 @@ export default function startListeners() {
             simulationArea.copyList.push(simulationArea.lastSelected);
         }
 
-        var textToPutOnClipboard = cut(simulationArea.copyList);
+        const textToPutOnClipboard = cut(simulationArea.copyList);
         if (isIe) {
             window.clipboardData.setData('Text', textToPutOnClipboard);
         } else {
@@ -217,7 +218,7 @@ export default function startListeners() {
             simulationArea.copyList.push(simulationArea.lastSelected);
         }
 
-        var textToPutOnClipboard = copy(simulationArea.copyList);
+        const textToPutOnClipboard = copy(simulationArea.copyList);
         if (isIe) {
             window.clipboardData.setData('Text', textToPutOnClipboard);
         } else {
@@ -227,7 +228,7 @@ export default function startListeners() {
     });
 
     document.addEventListener('paste', (e) => {
-        var data;
+        let data;
         if (isIe) {
             data = window.clipboardData.getData('Text');
         } else {
@@ -240,5 +241,5 @@ export default function startListeners() {
 }
 
 
-var isIe = (navigator.userAgent.toLowerCase().indexOf('msie') != -1
+let isIe = (navigator.userAgent.toLowerCase().indexOf('msie') != -1
     || navigator.userAgent.toLowerCase().indexOf('trident') != -1);

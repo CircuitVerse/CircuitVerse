@@ -80,7 +80,7 @@ export default class Rectangle extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        var ctx = simulationArea.context;
+        const ctx = simulationArea.context;
         ctx.beginPath();
         ctx.strokeStyle = 'rgba(0,0,0,1)';
         ctx.setLineDash([5 * globalScope.scale, 5 * globalScope.scale]);

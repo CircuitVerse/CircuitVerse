@@ -125,7 +125,7 @@ const modules = {
     ALU,
     Rectangle,
     Arrow,
-    RGBLedMatrix, 
+    RGBLedMatrix,
     TflipFlop,
     DflipFlop,
     Dlatch,
@@ -146,7 +146,7 @@ export function changeInputSize(size) {
     if (size == undefined || size < 2 || size > 10) return;
     if (this.inputSize == size) return;
     size = parseInt(size, 10);
-    var obj = new modules[this.objectType](this.x, this.y, this.scope, this.direction, size, this.bitWidth);
+    const obj = new modules[this.objectType](this.x, this.y, this.scope, this.direction, size, this.bitWidth);
     this.delete();
     simulationArea.lastSelected = obj;
     return obj;

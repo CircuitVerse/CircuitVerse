@@ -1,7 +1,9 @@
 import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
-import { correctWidth, lineTo, moveTo, fillText } from '../canvasApi';
+import {
+    correctWidth, lineTo, moveTo, fillText,
+} from '../canvasApi';
 /**
  * @class
  * JKflipFlop
@@ -72,15 +74,13 @@ export default class JKflipFlop extends CircuitElement {
         } else if (this.en.value == 1 || this.en.connections.length == 0) {
             if (this.clockInp.value == this.prevClockState) {
                 if (this.clockInp.value == 0 && this.J.value != undefined && this.K.value != undefined) {
-                    if (this.J.value && this.K.value) { this.masterState = 1 ^ this.slaveState; }
-                    else if (this.J.value ^ this.K.value) { this.masterState = this.J.value; }
+                    if (this.J.value && this.K.value) { this.masterState = 1 ^ this.slaveState; } else if (this.J.value ^ this.K.value) { this.masterState = this.J.value; }
                 }
             } else if (this.clockInp.value != undefined) {
                 if (this.clockInp.value == 1) {
                     this.slaveState = this.masterState;
                 } else if (this.clockInp.value == 0 && this.J.value != undefined && this.K.value != undefined) {
-                    if (this.J.value && this.K.value) { this.masterState = 1 ^ this.slaveState; }
-                    else if (this.J.value ^ this.K.value) { this.masterState = this.J.value; }
+                    if (this.J.value && this.K.value) { this.masterState = 1 ^ this.slaveState; } else if (this.J.value ^ this.K.value) { this.masterState = this.J.value; }
                 }
                 this.prevClockState = this.clockInp.value;
             }
@@ -95,7 +95,7 @@ export default class JKflipFlop extends CircuitElement {
     }
 
     customSave() {
-        var data = {
+        const data = {
             nodes: {
                 J: findNode(this.J),
                 K: findNode(this.K),
@@ -113,13 +113,13 @@ export default class JKflipFlop extends CircuitElement {
     }
 
     customDraw() {
-        var ctx = simulationArea.context;
+        const ctx = simulationArea.context;
         ctx.beginPath();
         ctx.strokeStyle = ('rgba(0,0,0,1)');
         ctx.fillStyle = 'white';
         ctx.lineWidth = correctWidth(3);
-        var xx = this.x;
-        var yy = this.y;
+        const xx = this.x;
+        const yy = this.y;
 
         // rect(ctx, xx - 20, yy - 20, 40, 40);
         moveTo(ctx, -20, 5, xx, yy, this.direction);

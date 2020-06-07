@@ -1,7 +1,7 @@
 import { resetScopeList, newCircuit, switchCircuit } from '../circuit';
 import { setProjectName } from './save';
 import {
- scheduleUpdate, update, updateSimulationSet, updateCanvasSet, gridUpdateSet 
+    scheduleUpdate, update, updateSimulationSet, updateCanvasSet, gridUpdateSet,
 } from '../engine';
 import { updateRestrictedElementsInScope } from '../restrictedElementDiv';
 import simulationArea from '../simulationArea';
@@ -35,7 +35,7 @@ function rectifyObjectType(obj) {
  */
 function loadModule(data, scope) {
     // Create circuit element
-    var obj = new modules[rectifyObjectType(data.objectType)](data.x, data.y, scope, ...data.customData.constructorParamaters || []);
+    const obj = new modules[rectifyObjectType(data.objectType)](data.x, data.y, scope, ...data.customData.constructorParamaters || []);
     // Sets directions
     obj.label = data.label;
     obj.labelDirection = data.labelDirection || oppositeDirection[fixDirection[obj.direction]];
@@ -46,7 +46,7 @@ function loadModule(data, scope) {
 
     // Restore other values
     if (data.customData.values) {
-        for (var prop in data.customData.values) {
+        for (const prop in data.customData.values) {
             obj[prop] = data.customData.values[prop];
         }
     }
@@ -160,8 +160,8 @@ export default function load(data) {
         return;
     }
 
-    var { projectId } = data;
-    var projectName = data.name;
+    const { projectId } = data;
+    let projectName = data.name;
 
     if (data.name === 'Untitled') { projectName = undefined; } else { setProjectName(data.name); }
 

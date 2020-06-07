@@ -14,7 +14,7 @@ function bin2dec(binString) {
 
 function dec2bin(dec, bitWidth = undefined) {
     // only for positive nos
-    var bin = (dec).toString(2);
+    const bin = (dec).toString(2);
     if (bitWidth == undefined) return bin;
     return '0'.repeat(bitWidth - bin.length) + bin;
 }
@@ -107,7 +107,7 @@ export default class Output extends CircuitElement {
      */
     customDraw() {
         this.state = this.inp1.value;
-        var ctx = simulationArea.context;
+        const ctx = simulationArea.context;
         ctx.beginPath();
         ctx.strokeStyle = ['blue', 'red'][+(this.inp1.value === undefined)];
         ctx.fillStyle = 'white';

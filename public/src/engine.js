@@ -24,7 +24,7 @@ import { resetup } from './setup';
  * @type {number} engine
  * @category engine
  */
-var wireToBeChecked = 0;
+let wireToBeChecked = 0;
 
 /**
  * Used to set wireChecked boolean which updates wires in UI if true (or 1). 2 if some problem and it is handled.
@@ -40,7 +40,7 @@ export function wireToBeCheckedSet(param) {
  * @type {boolean}
  * @category engine
  */
-var willBeUpdated = false;
+let willBeUpdated = false;
 
 /**
  * used to set willBeUpdated variable
@@ -53,16 +53,16 @@ export function willBeUpdatedSet(param) {
 }
 
 /**
- * true if we have an element selected and 
+ * true if we have an element selected and
  * is used when we are paning the grid.
  * @type {boolean}
  * @category engine
  */
-var objectSelection = false;
+let objectSelection = false;
 
 /**
  * used to set the value of object selection,
- * @param {boolean} param 
+ * @param {boolean} param
  * @category engine
  */
 export function objectSelectionSet(param) {
@@ -74,11 +74,11 @@ export function objectSelectionSet(param) {
  * @type {boolean}
  * @category engine
  */
-var updatePosition = true;
+let updatePosition = true;
 
 /**
  * used to set the value of updatePosition.
- * @param {boolean} param 
+ * @param {boolean} param
  * @category engine
  */
 export function updatePositionSet(param) {
@@ -90,7 +90,7 @@ export function updatePositionSet(param) {
  * @type {boolean}
  * @category engine
  */
-var updateSimulation = true;
+let updateSimulation = true;
 
 /**
  * used to set the value of updateSimulation.
@@ -105,7 +105,7 @@ export function updateSimulationSet(param) {
  * @type {boolean}
  * @category engine
  */
-var updateCanvas = true;
+let updateCanvas = true;
 
 /**
  * used to set the value of updateCanvas.
@@ -121,7 +121,7 @@ export function updateCanvasSet(param) {
  * @type {boolean}
  * @category engine
  */
-var gridUpdate = true;
+let gridUpdate = true;
 
 /**
  * used to set gridUpdate
@@ -136,7 +136,7 @@ export function gridUpdateSet(param) {
  * @type {boolean}
  * @category engine
  */
-var forceResetNodes = true;
+let forceResetNodes = true;
 
 /**
  * used to set forceResetNodes
@@ -151,7 +151,7 @@ export function forceResetNodesSet(param) {
  * @type {boolean}
  * @category engine
  */
-var errorDetected = false;
+let errorDetected = false;
 
 /**
  * used to set errorDetected
@@ -179,7 +179,7 @@ export function errorDetectedGet() {
  * @property {number} string - the message
  * @category engine
 */
-export var canvasMessageData = {
+export let canvasMessageData = {
     x: undefined,
     y: undefined,
     string: undefined,
@@ -190,7 +190,7 @@ export var canvasMessageData = {
  * @type {boolean}
  * @category engine
  */
-var updateSubcircuit = true;
+let updateSubcircuit = true;
 
 /**
  * used to set updateSubcircuit
@@ -220,7 +220,7 @@ export function changeLightMode(val) {
     } else if (val && !lightMode) {
         lightMode = true;
         globalScope.scale /= DPR;
-        DPR = 1
+        DPR = 1;
         $('#miniMap').fadeOut('fast');
     }
     resetup();
@@ -235,7 +235,7 @@ export function renderCanvas(scope) {
     if (layoutModeGet()) { // Different Algorithm
         return;
     }
-    var ctx = simulationArea.context;
+    const ctx = simulationArea.context;
     // Reset canvas
     simulationArea.clear();
     // Update Grid
@@ -250,7 +250,7 @@ export function renderCanvas(scope) {
     }; //  Globally set in draw fn ()
     // Render objects
     for (let i = 0; i < renderOrder.length; i++) {
-        for (var j = 0; j < scope[renderOrder[i]].length; j++) { scope[renderOrder[i]][j].draw(); }
+        for (let j = 0; j < scope[renderOrder[i]].length; j++) { scope[renderOrder[i]][j].draw(); }
     }
     // Show any message
     if (canvasMessageData.string !== undefined) {
@@ -318,10 +318,10 @@ export function updateSelectionsAndPane(scope = globalScope) {
         simulationArea.hover = undefined;
         if (objectSelection) {
             objectSelectionSet(false);
-            var x1 = simulationArea.mouseDownX;
-            var x2 = simulationArea.mouseX;
-            var y1 = simulationArea.mouseDownY;
-            var y2 = simulationArea.mouseY;
+            let x1 = simulationArea.mouseDownX;
+            let x2 = simulationArea.mouseX;
+            let y1 = simulationArea.mouseDownY;
+            let y2 = simulationArea.mouseY;
             // Sort those four points to make a selection pane
             if (x1 > x2) {
                 const temp = x1;
@@ -335,10 +335,10 @@ export function updateSelectionsAndPane(scope = globalScope) {
             }
             // Select the objects, push them into a list
             for (let i = 0; i < updateOrder.length; i++) {
-                for (var j = 0; j < scope[updateOrder[i]].length; j++) {
-                    var obj = scope[updateOrder[i]][j];
+                for (let j = 0; j < scope[updateOrder[i]].length; j++) {
+                    const obj = scope[updateOrder[i]][j];
                     if (simulationArea.multipleObjectSelections.contains(obj)) continue;
-                    var x; var
+                    let x; var
                         y;
                     if (obj.objectType === 'Node') {
                         x = obj.absX();
@@ -379,7 +379,7 @@ export function play(scope = globalScope, resetNodes = false) {
     // Temporarily kept for for future uses
     // else{
     //     // clearBuses(scope);
-    //     for(var i=0;i<scope.TriState.length;i++) {
+    //     for(let i=0;i<scope.TriState.length;i++) {
     //         // console.log("HIT2",i);
     //         scope.TriState[i].removePropagation();
     //     }
@@ -461,7 +461,7 @@ export function scheduleUpdate(count = 0, time = 100, fn) {
 export function update(scope = globalScope, updateEverything = false) {
     willBeUpdatedSet(false);
     if (loading === true || layoutModeGet()) return;
-    var updated = false;
+    let updated = false;
     simulationArea.hover = undefined;
     // Update wires
     if (wireToBeChecked || updateEverything) {
@@ -469,7 +469,7 @@ export function update(scope = globalScope, updateEverything = false) {
         else wireToBeChecked++;
         // WHY IS THIS REQUIRED ???? we are checking inside wire ALSO
         // Idea: we can just call length again instead of doing it during loop.
-        var prevLength = scope.wires.length;
+        let prevLength = scope.wires.length;
         for (let i = 0; i < scope.wires.length; i++) {
             scope.wires[i].checkConnections();
             if (scope.wires.length !== prevLength) {

@@ -21,7 +21,7 @@ export function backUp(scope = globalScope) {
     // in current scope and those in the subcircuit's scope
     for (let i = 0; i < scope.SubCircuit.length; i++) { scope.SubCircuit[i].removeConnections(); }
 
-    var data = {};
+    const data = {};
 
     // Storing layout
     data.layout = scope.layout;
@@ -52,7 +52,7 @@ export function backUp(scope = globalScope) {
 }
 
 export function scheduleBackup(scope = globalScope) {
-    var backup = JSON.stringify(backUp(scope));
+    const backup = JSON.stringify(backUp(scope));
     if (scope.backups.length === 0 || scope.backups[scope.backups.length - 1] !== backup) {
         scope.backups.push(backup);
         scope.timeStamp = new Date().getTime();

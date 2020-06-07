@@ -93,7 +93,7 @@ export default class AndGate extends CircuitElement {
      * function to draw And Gate
      */
     customDraw() {
-        var ctx = simulationArea.context;
+        const ctx = simulationArea.context;
 
         ctx.beginPath();
         ctx.lineWidth = correctWidth(3);
