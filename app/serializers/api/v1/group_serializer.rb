@@ -7,6 +7,10 @@ class Api::V1::GroupSerializer
     group.group_members.count
   end
 
+  attributes :mentor_name do |group|
+    group.mentor.name
+  end
+
   attributes :name, :mentor_id, :created_at, :updated_at
 
   has_many :group_members
