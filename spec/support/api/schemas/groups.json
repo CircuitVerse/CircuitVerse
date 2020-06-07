@@ -12,6 +12,7 @@
             "type": "object",
             "properties": {
               "member_count": { "type": "integer" },
+              "mentor_name": { "type": "string" },
               "name": { "type": "string" },
               "mentor_id": { "type": "integer" },
               "created_at": { "type": "string" },
@@ -19,6 +20,7 @@
             },
             "required": [
               "member_count",
+              "mentor_name",
               "name",
               "mentor_id",
               "created_at",
