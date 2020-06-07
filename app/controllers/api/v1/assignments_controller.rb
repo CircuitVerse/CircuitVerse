@@ -4,14 +4,12 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
   before_action :authenticate_user!
   before_action :set_group, only: %i[index create]
   before_action :set_assignment, only: %i[show update destroy reopen start]
+  before_action :check_show_access, only: %i[index]
   before_action :check_access, only: %i[update destroy reopen]
   after_action :check_reopening_status, only: [:update]
 
   # GET /api/v1/groups/:group_id/assignments
   def index
-    # checks if current_user has access to group contents
-    authorize @group, :show_access?
-
     @assignments = paginate(@group.assignments)
     @options = { links: link_attrs(@assignments, api_v1_group_assignments_url(@group.id)) }
     render json: Api::V1::AssignmentSerializer.new(@assignments, @options)
@@ -98,6 +96,11 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
       params.require(:assignment).permit(
         :name, :deadline, :description, :restrictions
       )
+    end
+
+    def check_show_access
+      # checks if current_user has access to group contents
+      authorize @group, :show_access?
     end
 
     def check_access

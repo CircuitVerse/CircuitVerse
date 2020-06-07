@@ -4,13 +4,12 @@ class Api::V1::GroupMembersController < Api::V1::BaseController
   before_action :authenticate_user!
   before_action :set_group, only: %i[index create]
   before_action :set_group_member, only: %i[destroy]
+  before_action :check_show_access, only: %i[index]
   before_action :check_edit_access, only: %i[create]
+  before_action :check_mentor_access, only: %i[destroy]
 
   # GET /api/v1/groups/:group_id/group_members/
   def index
-    # checks if current_user has access to get group members
-    authorize @group, :show_access?
-
     @group_members = paginate(@group.group_members)
     @options = { links: link_attrs(@group_members, api_v1_group_group_members_url(@group.id)) }
     render json: Api::V1::GroupMemberSerializer.new(@group_members, @options)
@@ -33,9 +32,6 @@ class Api::V1::GroupMembersController < Api::V1::BaseController
 
   # DELETE /api/v1/group_members/:id
   def destroy
-    # check mentor access?
-    authorize @group_member, :mentor?
-
     @group_member.destroy!
     render json: {}, status: :no_content
   end
@@ -48,6 +44,16 @@ class Api::V1::GroupMembersController < Api::V1::BaseController
 
     def set_group_member
       @group_member = GroupMember.find(params[:id])
+    end
+
+    def check_show_access
+      # checks if current_user has access to get group members
+      authorize @group, :show_access?
+    end
+
+    def check_mentor_access
+      # check mentor access?
+      authorize @group_member, :mentor?
     end
 
     def check_edit_access
