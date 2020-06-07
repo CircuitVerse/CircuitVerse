@@ -3,6 +3,10 @@
 class Api::V1::GroupSerializer
   include FastJsonapi::ObjectSerializer
 
+  attributes :member_count do |group|
+    group.group_members.count
+  end
+
   attributes :name, :mentor_id, :created_at, :updated_at
 
   has_many :group_members
