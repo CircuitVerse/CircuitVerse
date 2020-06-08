@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="18.142" height="18.142" viewBox="0 0 18.142 18.142">
+  <g id="icon" transform="translate(9.071 2) rotate(45)">
+    <path id="line" d="M0,0,10,10" fill="#fff" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <path id="line-2" data-name="line" d="M0,10,10,0" fill="#fff" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+  </g>
+</svg>

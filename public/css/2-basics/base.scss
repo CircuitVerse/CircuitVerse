@@ -1,0 +1,12 @@
+//*****************
+// base/default rule set here
+// no class or ID selectors
+//*****************
+
+html {
+  box-sizing: border-box;
+}
+
+* *:before *:after {
+  box-sizing: inherit;
+}
