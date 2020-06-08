@@ -131,6 +131,11 @@
   font-size: 15px;
   margin: 25px 5px 10px;
   padding: 4px 8px 6px;
+
+  &:hover {
+    color: $white;
+    text-decoration: none;
+  }
 }
 
 .assignment-button-mini-edit-reopen {
@@ -139,6 +144,11 @@
   font-size: 15px;
   margin: 10px 5px;
   padding: 4px 8px 6px;
+
+  &:hover {
+    color: $white;
+    text-decoration: none;
+  }
 }
 
 .assignment-button-mini-delete {
@@ -147,6 +157,11 @@
   font-size: 15px;
   margin: 10px 5px;
   padding: 4px 8px 6px;
+
+  &:hover {
+    color: $white;
+    text-decoration: none;
+  }
 }
 
 .assignment-no-submission {
