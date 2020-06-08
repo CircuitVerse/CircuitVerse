@@ -24,7 +24,7 @@ describe "Assignments", type: :system do
       click_button "Create Assignment"
       expect(page).to have_text("Assignment was successfully created.")
 
-      click_link "Show"
+      click_link "View"
       check_show_page(name, deadline, description, "Input, Button, Power")
     end
 
@@ -57,7 +57,7 @@ describe "Assignments", type: :system do
       click_button "Update Assignment"
       expect(page).to have_text("Assignment was successfully updated.")
 
-      click_link "Show"
+      click_link "View"
       check_show_page(name, deadline, description, "Input, Button")
     end
   end

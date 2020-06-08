@@ -39,7 +39,7 @@ describe GroupsController, type: :request do
     end
   end
 
-  describe "#view" do
+  describe "#show" do
     before do
       @group = FactoryBot.create(:group, mentor: @mentor)
     end
