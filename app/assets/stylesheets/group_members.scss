@@ -9,8 +9,8 @@
 }
 
 .groupdetails-row {
-  padding-top: 65px;
   justify-content: space-between;
+  padding-top: 65px;
 }
 
 .groupdetails-row-scroll {
@@ -28,8 +28,8 @@
   display: inline-block;
   height: 90px;
   margin: 10px;
-  width: 300px;
   padding: 15px;
+  width: 300px;
 }
 
 .groupdetails-card-member-details-1 {
@@ -37,8 +37,8 @@
   text-align: left;
 
   i {
-    margin-top: 0;
     margin-right: 3px;
+    margin-top: 0;
   }
 }
 
@@ -91,7 +91,7 @@
 .groupdetails-table-assignments-rows {
   background-color: $card-green;
   border: 1px solid $teal;
-  margin: 10px 10px;
+  margin: 10px;
   padding-top: 30px;
 }
 
@@ -160,9 +160,9 @@
 
 .assignment-table-empty-row {
   border: 0;
-  padding: 20px;
   height: 20px;
   line-height: normal;
+  padding: 20px;
 }
 
 .table-collapsed-assignment-table-empty-row {
@@ -188,11 +188,13 @@
 
 //breakpoints
 @media (max-width: 1200px) {
+
   .groupdetails-card-member {
     width: 270px;
   }
 }
 @media (max-width: 768px) {
+
   .groupdetails-table-assignments-heading {
     display: none;
   }
@@ -207,10 +209,11 @@
 }
 
 @media (max-width: 500px) {
+
   .groupdetails-card-member {
     margin: 10px 0;
     padding: 10px;
-    width: 270px
+    width: 270px;
   }
 
   .groupdetails-card-member-container {
