@@ -30,7 +30,7 @@
   <hr>
   <div class="row row-text groupdetails-row-scroll">
     <% @group.users.each do |user| %>
-      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 groupdetails-card-member-container">
         <div class="groupdetails-card-member">
           <div class="row">
             <div class="col-7 groupdetails-card-member-details-1">
@@ -38,9 +38,12 @@
               <%= link_to user.name, user, class: "groupdetails-card-member-name" %>
               <p class="groupdetails-card-member-email"><%= user.email %></p>
             </div>
-            <div class="col-4 groupdetails-card-member-details-2">
+            <div class="col-5 groupdetails-card-member-details-2">
               <% if policy(@group).admin_access? %>
-                <%= link_to 'Remove', group_member_path(GroupMember.find_by(user_id:user.id,group_id:@group.id)), method: :delete, data: { confirm: 'Are you sure?' }, class:"button-mini-edit groupdetails-button-mini-remove" %>
+                <%= link_to group_member_path(GroupMember.find_by(user_id:user.id,group_id:@group.id)), method: :delete, data: { confirm: 'Are you sure?' }, class:"button-mini-edit groupdetails-button-mini-remove" do %>
+                  <%= image_tag("SVGs/deleteGroup.svg", alt: "Remove Member") %>
+                  <span>Remove</span>
+                <% end %>
               <% end %>
             </div>
           </div>
@@ -55,10 +58,8 @@
     <% end %>
   </div>
   <hr>
-
-    <!-- to do -->
-    <table class="table assignment-table table-borderless">
-      <thead>
+  <table class="table groupdetails-table-assignments table-borderless">
+    <thead class="groupdetails-table-assignments-heading">
       <tr>
         <th>Name</th>
         <th>DeadLine</th>
@@ -68,72 +69,247 @@
           <th>Grade</th>
         <% end %>
       </tr>
-      </thead>
-      <tbody>
-        <% @group.assignments.includes(projects: :grade).each do |assignment| %>
-          <tr class="assignment-rows">
-            <td><%= assignment.name %></td>
-            <td><div class="date"><%= assignment.deadline.strftime("%d %b,%Y %I:%M %p %Z") %></div>
-              <% if(assignment.deadline > Time.now) %>
-              <p> <strong>Time remaining: </strong><%= (( assignment.deadline.to_i - Time.now.to_i)/1.day) %> days,  <%= (( assignment.deadline.to_i- Time.now.to_i)/1.hour)%24 %> hours, <%= (( assignment.deadline.to_i- Time.now.to_i)/1.minute)%60 %> minutes</p>
-              <% end %>
-            </td>
-            <td> <%= AssignmentDecorator.new(assignment).graded %> </td>
-            <td>
-              <% if policy(@group).admin_access? %>
-                <%= link_to 'Show', group_assignment_path(@group,assignment), class:"assignment-view" %>
-                <% if assignment.status!="closed" %>
-                  <%= link_to 'Edit', edit_group_assignment_path(@group,assignment), class:"assignment-edit-reopen" %>
-                <% else %>
-                  <%= link_to 'Reopen', reopen_group_assignment_path(@group,assignment), class:"assignment-edit-reopen" %>
-                <% end %>
-                <%= link_to 'Destroy', group_assignment_path(@group,assignment),class:"assignment-delete", method: :delete, data: { confirm: 'Are you sure?' } %>
-              <% else %>
-                  <% project_assignment = assignment.projects.find { |p| p.author_id == current_user.id } %>
-                  <%= link_to 'Show', group_assignment_path(@group,assignment), class:"assignment-view" %>
-                  <% if(assignment.deadline > Time.now) %>
-                      <% if project_assignment.nil? %>
-                          <%= link_to 'Start Working', assignment_start_path(@group,assignment), class:"assignment-details" %>
-                      <% else %>
-                          <%= link_to 'View your work', user_project_path(current_user,project_assignment), class:"assignment-details" %>
-                      <% end %>
-                  <% else %>
-                      <% if project_assignment.nil? %>
-                          Not submitted!
-                      <% else %>
-                          <%= link_to 'View Submission', user_project_path(current_user,project_assignment), class:"assignment-details" %>
-                      <% end %>
-                  <% end %>
+    </thead>
+    <tbody class="table-expanded">
+      <% @group.assignments.includes(projects: :grade).each do |assignment| %>
+        <tr class="groupdetails-table-assignments-rows">
+          <td>
+            <div class="assignment-content assignment-name">
+              <%= assignment.name %>
+            </div>
+          </td>
+          <td>
+            <div class="assignment-deadline-date table-expanded-date"><%= assignment.deadline %></div>
+            <% if(assignment.deadline > Time.now) %>
+              <p>
+                (<strong>Time remaining: </strong><%= (( assignment.deadline.to_i - Time.now.to_i)/1.day) %> days,  <%= (( assignment.deadline.to_i- Time.now.to_i)/1.hour)%24 %> hours, <%= (( assignment.deadline.to_i- Time.now.to_i)/1.minute)%60 %> minutes)
+              </p>
             <% end %>
+          </td>
+          <td>
+            <div class="assignment-content">
+              <%= AssignmentDecorator.new(assignment).graded %>
+            </div>
+          </td>
+          <td class="assignment-button-container">
+            <div class="assignment-content">
+              <%= link_to group_assignment_path(@group,assignment), class:"button-mini-edit assignment-button-mini-view" do %>
+                <%= image_tag("SVGs/viewGroup.svg", alt: "View Assignment") %>
+                <span>View</span>
+              <% end %>
+            </div>
+            <% if policy(@group).admin_access? %>
+              <% if assignment.status!="closed" %>
+                <div class="assignment-content">
+                  <%= link_to edit_group_assignment_path(@group,assignment), class:"button-mini-edit assignment-button-mini-edit-reopen" do %>
+                    <%= image_tag("SVGs/editGroup.svg", alt: "Edit Assignment") %>
+                    <span>Edit</span>
+                  <% end %>
+                </div>
+              <% else %>
+                <div class="assignment-content">
+                  <%= link_to reopen_group_assignment_path(@group,assignment), class:"button-mini-edit assignment-button-mini-edit-reopen" do %>
+                    <%= image_tag("SVGs/reopenAssignment.svg", alt: "Reopen Assignment") %>
+                    <span>Reopen</span>
+                  <% end %>
+                </div>
+              <% end %>
+              <div class="assignment-content">
+                <%= link_to group_assignment_path(@group,assignment), class:"button-mini-edit assignment-button-mini-delete", method: :delete, data: { confirm: 'Are you sure?' } do %>
+                  <%= image_tag("SVGs/deleteGroup.svg", alt: "Delete Assignment") %>
+                  <span>Delete</span>
+                <% end %>
+              </div>
+            <% else %>
+              <% project_assignment = assignment.projects.find { |p| p.author_id == current_user.id } %>
+                <% if(assignment.deadline > Time.now) %>
+                  <% if project_assignment.nil? %>
+                    <div class="assignment-content">
+                      <%= link_to assignment_start_path(@group,assignment), class:"button-mini-edit assignment-button-mini-edit-reopen" do %>
+                        <%= image_tag("SVGs/editGroup.svg", alt: "Start Assignment") %>
+                        <span>Start Working</span>
+                      <% end %>
+                    </div>
+                  <% else %>
+                    <div class="assignment-content">
+                      <%= link_to user_project_path(current_user,project_assignment), class:"button-mini-edit assignment-button-mini-edit-reopen" do %>
+                        <%= image_tag("SVGs/viewGroup.svg", alt: "View work") %>
+                        <span>View your Work</span>
+                      <% end %>
+                    </div>
+                  <% end %>
+                <% else %>
+                  <% if project_assignment.nil? %>
+                    <h6 class="assignment-no-submission">Not submitted!</h6>
+                  <% else %>
+                    <div class="assignment-content">
+                      <%= link_to user_project_path(current_user,project_assignment), class:"button-mini-edit assignment-button-mini-edit-reopen" do %>
+                        <%= image_tag("SVGs/viewGroup.svg", alt: "View submission") %>
+                        <span>View Submission</span>
+                      <% end %>
+                    </div>
+                  <% end %>
+                <% end %>
+              <% end %>
             </td>
             <% unless policy(@group).admin_access? %>
               <td>
                 <% if policy(assignment).show_grades? && project_assignment.present? %>
-                  <div class="tooltip-help">
-                    <%= ProjectDecorator.new(project_assignment).grade_str %>
-                    <div class="right-help">
-                      <%= ProjectDecorator.new(project_assignment).remarks_str %>
-                      <i> </i>
+                  <div class="assignment-content">
+                    <div class="assignment-no-submission">
+                      <h6>
+                        <%= ProjectDecorator.new(project_assignment).grade_str %>
+                      </h6>
+                      <div class="assignment-name">
+                        <p>(<%= ProjectDecorator.new(project_assignment).remarks_str %>)</p>
+                      </div>
                     </div>
                   </div>
                 <% else %>
-                  N.A.
+                  <div class="assignment-content">
+                    <h6 class="assignment-no-submission">N.A.</h6>
+                  </div>
                 <% end %>
               </td>
             <% end %>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-    <% if policy(@group).admin_access? %>
-    <% end %>
-    <!-- to do ends -->
+        </tr>
+        <tr class="assignment-table-empty-row"></tr>
+      <% end %>
+    </tbody>
+
+    <tbody class="table-collapsed">
+      <% @group.assignments.includes(projects: :grade).each do |assignment| %>
+        <tr>
+          <table class="groupdetails-table-assignments-rows table-collapsed">
+            <tr>
+              <th class="table-collapsed-head">Name</th>
+              <td>
+                <div class="table-collapsed-assignment-name">
+                  <%= assignment.name %>
+                </div>
+              </td>
+            </tr>
+            <tr class="table-collapsed-assignment-table-empty-row"></tr>
+            <tr>
+              <th class="table-collapsed-head">Deadline</th>
+              <td>
+                <div class="assignment-deadline-date"><%= assignment.deadline %></div>
+                <% if(assignment.deadline > Time.now) %>
+                  <p>(<strong>Time remaining: </strong><%= (( assignment.deadline.to_i - Time.now.to_i)/1.day) %> days,  <%= (( assignment.deadline.to_i- Time.now.to_i)/1.hour)%24 %> hours, <%= (( assignment.deadline.to_i- Time.now.to_i)/1.minute)%60 %> minutes)</p>
+                <% end %>
+              </td>
+            </tr>
+            <tr class="table-collapsed-assignment-table-empty-row"></tr>
+            <tr>
+              <th class="table-collapsed-head">Grading</th>
+              <td>
+                <%= AssignmentDecorator.new(assignment).graded %>
+              </td>
+            </tr>
+            <tr class="table-collapsed-assignment-table-empty-row"></tr>
+            <tr>
+              <th class="table-collapsed-head table-collapsed-assignment-content">Actions</th>
+              <td class="assignment-button-container">
+                <div class="table-collapsed-assignment-content">
+                  <%= link_to group_assignment_path(@group,assignment), class:"button-mini-edit assignment-button-mini-view" do %>
+                    <%= image_tag("SVGs/viewGroup.svg", alt: "View Assignment") %>
+                    <span>View</span>
+                  <% end %>
+                </div>
+                <% if policy(@group).admin_access? %>
+                  <% if assignment.status!="closed" %>
+                    <div class="table-collapsed-assignment-content">
+                      <%= link_to edit_group_assignment_path(@group,assignment), class:"button-mini-edit assignment-button-mini-edit-reopen" do %>
+                        <%= image_tag("SVGs/editGroup.svg", alt: "Edit Assignment") %>
+                        <span>Edit</span>
+                      <% end %>
+                    </div>
+                  <% else %>
+                    <div class="table-collapsed-assignment-content">
+                      <%= link_to reopen_group_assignment_path(@group,assignment), class:"button-mini-edit assignment-button-mini-edit-reopen" do %>
+                        <%= image_tag("SVGs/reopenAssignment.svg", alt: "Reopen Assignment") %>
+                        <span>Reopen</span>
+                      <% end %>
+                    </div>
+                  <% end %>
+                  <div class="table-collapsed-assignment-content">
+                    <%= link_to group_assignment_path(@group,assignment), class:"button-mini-edit assignment-button-mini-delete", method: :delete, data: { confirm: 'Are you sure?' } do %>
+                      <%= image_tag("SVGs/deleteGroup.svg", alt: "Delete Assignment") %>
+                      <span>Delete</span>
+                    <% end %>
+                  </div>
+                <% else %>
+                  <% project_assignment = assignment.projects.find { |p| p.author_id == current_user.id } %>
+                    <% if(assignment.deadline > Time.now) %>
+                      <% if project_assignment.nil? %>
+                        <div class="table-collapsed-assignment-content">
+                          <%= link_to assignment_start_path(@group,assignment), class:"button-mini-edit assignment-button-mini-edit-reopen" do %>
+                            <%= image_tag("SVGs/editGroup.svg", alt: "Start Assignment") %>
+                            <span>Start Working</span>
+                          <% end %>
+                        </div>
+                      <% else %>
+                        <div class="table-collapsed-assignment-content">
+                          <%= link_to user_project_path(current_user,project_assignment), class:"button-mini-edit assignment-button-mini-edit-reopen" do %>
+                            <%= image_tag("SVGs/viewGroup.svg", alt: "View work") %>
+                            <span>View your Work</span>
+                          <% end %>
+                        </div>
+                      <% end %>
+                    <% else %>
+                      <% if project_assignment.nil? %>
+                      <div class="table-collapsed-assignment-content">
+                        <div class="assignment-no-submission">
+                          <h6>Not submitted!</h6>
+                        </div>
+                      </div>
+                      <% else %>
+                        <div class="table-collapsed-assignment-content">
+                          <%= link_to user_project_path(current_user,project_assignment), class:"button-mini-edit assignment-button-mini-edit-reopen" do %>
+                            <%= image_tag("SVGs/viewGroup.svg", alt: "View submission") %>
+                            <span>View Submission</span>
+                          <% end %>
+                        </div>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+              </td>
+            </tr>
+                <% unless policy(@group).admin_access? %>
+                  <tr class="table-collapsed-assignment-table-empty-row"></tr>
+                  <tr>
+                    <th class="table-collapsed-head table-collapsed-assignment-content">Grade</th>
+                    <td>
+                      <% if policy(assignment).show_grades? && project_assignment.present? %>
+                        <div class="table-collapsed-assignment-content">
+                          <div class="assignment-no-submission">
+                            <h6>
+                              <%= ProjectDecorator.new(project_assignment).grade_str %>
+                            </h6>
+                            <div class="assignment-name">
+                              <p>(<%= ProjectDecorator.new(project_assignment).remarks_str %>)</p>
+                            </div>
+                          </div>
+                        </div>
+                      <% else %>
+                        <div class="table-collapsed-assignment-content">
+                          <h6 class="assignment-no-submission">N.A.</h6>
+                        </div>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+          </table>
+        </tr>
+        <tr class="assignment-table-empty-row"></tr>
+      <% end %>
+    </tbody>
+  </table>
 
   <%= link_to 'Back', user_groups_path(current_user) ,class:"anchor-text" %>
 
   <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog custom-modal-dialog">
-      <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header custom-modal-header">
           <h4 class="modal-title">Add members</h4>
@@ -169,7 +345,7 @@
   </div>
   <script>
       $(document).ready(function() {
-          $('.date').each(function(){
+          $('.assignment-deadline-date').each(function(){
               this.innerHTML = formatDate(new Date(this.innerHTML), "dddd hh:mmTT zz, dd MMM yyyy")
           })
       })

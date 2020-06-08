@@ -25,9 +25,10 @@
 .groupdetails-card-member {
   background-color: $lightgrey;
   border: 1px solid $teal;
+  display: inline-block;
   height: 90px;
   margin: 10px;
-  max-width: 300px;
+  width: 300px;
   padding: 15px;
 }
 
@@ -42,7 +43,12 @@
 }
 
 .groupdetails-card-member-details-2 {
-  padding-top: 15px;
+  padding: 15px 15px 15px 0;
+  transition: padding-top .2s ease-in;
+
+  &:hover {
+    padding-top: 11px;
+  }
 }
 
 .groupdetails-card-member-name {
@@ -70,7 +76,7 @@
   cursor: pointer;
   font-size: 15px;
   margin-left: 5px;
-  padding: 4px 7px;
+  padding: 4px 8px 6px;
 
   &:hover {
     color: $white;
@@ -78,7 +84,154 @@
   }
 }
 
-//to do
+.groupdetails-table-assignments {
+  border-collapse: collapse;
+}
+
+.groupdetails-table-assignments-rows {
+  background-color: $card-green;
+  border: 1px solid $teal;
+  margin: 10px 10px;
+  padding-top: 30px;
+}
+
+.assignment-content {
+  display: inline-block;
+  margin-top: 15px;
+}
+
+.table-collapsed-assignment-content {
+  display: inline-block;
+  margin-top: 15px;
+}
+
+.assignment-name {
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.table-collapsed-assignment-name {
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.table-expanded-date {
+  padding-top: 15px;
+
+  p {
+    margin-bottom: 0;
+  }
+}
+
+.assignment-button-mini-view {
+  background-color: $green;
+  cursor: pointer;
+  font-size: 15px;
+  margin: 25px 5px 10px;
+  padding: 4px 8px 6px;
+}
+
+.assignment-button-mini-edit-reopen {
+  background-color: $seablue;
+  cursor: pointer;
+  font-size: 15px;
+  margin: 10px 5px;
+  padding: 4px 8px 6px;
+}
+
+.assignment-button-mini-delete {
+  background-color: $error-red-font;
+  cursor: pointer;
+  font-size: 15px;
+  margin: 10px 5px;
+  padding: 4px 8px 6px;
+}
+
+.assignment-no-submission {
+  display: inline-block;
+  margin-top: 3px;
+}
+
+.assignment-button-container {
+  min-width: 190px;
+}
+
+.assignment-table-empty-row {
+  border: 0;
+  padding: 20px;
+  height: 20px;
+  line-height: normal;
+}
+
+.table-collapsed-assignment-table-empty-row {
+  border: 0;
+  padding: 20px;
+  height: 10px;
+  line-height: normal;
+}
+
+.table-collapsed {
+  display: none;
+  padding: 15px;
+}
+
+.table-collapsed-row-div {
+  margin-bottom: 15px;
+}
+
+.table-collapsed-head {
+  min-width: 90px;
+  vertical-align: top;
+}
+
+//breakpoints
+@media (max-width: 1200px) {
+  .groupdetails-card-member {
+    width: 270px;
+  }
+}
+@media (max-width: 768px) {
+  .groupdetails-table-assignments-heading {
+    display: none;
+  }
+
+  .table-expanded {
+    display: none;
+  }
+
+  .table-collapsed {
+    display: block;
+  }
+}
+
+@media (max-width: 500px) {
+  .groupdetails-card-member {
+    margin: 10px 0;
+    padding: 10px;
+    width: 270px
+  }
+
+  .groupdetails-card-member-container {
+    padding: 5px;
+  }
+
+  .table-collapsed {
+    padding: 10px 5px;
+  }
+
+  .table-collapsed-head {
+    min-width: 70px;
+  }
+
+  .groupdetails-row {
+    display: block;
+    text-align: center;
+  }
+}
+
+//to be removed
 .assignment-view {
   background-color: $green;
   border-radius: 5px;
@@ -165,22 +318,11 @@
   }
 }
 
-.assignment-table {
-  border-collapse: collapse;
-}
-
-.assignment-rows {
-  background-color: $gray-100;
-  border: 1px solid $green-border;
-}
-
 .scroll-members-card {
   max-height: 125px;
   overflow-y: scroll;
 }
-//to do ends
 
-//to be removed
 .add-member {
   background-color: $green;
   border: 0;

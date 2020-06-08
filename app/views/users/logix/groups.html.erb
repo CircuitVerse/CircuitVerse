@@ -50,11 +50,11 @@
           <div class="groups-card groups-member-card">
             <div class="groups-member-card-details">
               <div class="groups-mentor-card-name"><%= group.name %></div>
-              <p>Total Members: <%= group.group_member_count %></p>
+              <p>Total Members: <%= group.group_members.count %></p>
             </div>
             <div class="groups-mentor-card-buttons">
               <%= link_to group, class: "button-mini-edit groups-mentor-card-button-view groups-member-card-button" do %>
-                <i class="fas fa-eye"></i>
+                <%= image_tag("SVGs/viewGroup.svg", alt: "View Group") %>
                 <span>View</span>
               <% end %>
             </div>
