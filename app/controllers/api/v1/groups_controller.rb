@@ -7,7 +7,7 @@ class Api::V1::GroupsController < Api::V1::BaseController
   before_action :check_show_access, only: [:show]
   before_action :check_edit_access, only: %i[update destroy]
 
-  ALLOWED_TO_BE_INCLUDED = %i[group_members assignments].freeze
+  WHITELISTED_INCLUDE_ATTRIBUTES = %i[group_members assignments].freeze
 
   # GET /api/v1/groups
   def index
@@ -61,7 +61,7 @@ class Api::V1::GroupsController < Api::V1::BaseController
     def include_resource
       params[:include].split(",")
                       .map { |resource| resource.strip.to_sym }
-                      .select { |resource| ALLOWED_TO_BE_INCLUDED.include?(resource) }
+                      .select { |resource| WHITELISTED_INCLUDE_ATTRIBUTES.include?(resource) }
     end
 
     def set_group
