@@ -52,6 +52,20 @@ RSpec.describe Api::V1::ProjectsController, "#user_projects", type: :request do
       end
     end
 
+    context "when authenticated with user that fetches own projects including author details" do
+      before do
+        token = get_auth_token(user_one)
+        get "/api/v1/users/#{user_one.id}/projects?include=author",
+            headers: { "Authorization": "Token #{token}" }, as: :json
+      end
+
+      it "returns user's all projects including author details" do
+        expect(response).to have_http_status(200)
+        expect(response).to match_response_schema("projects_with_author")
+        expect(response.parsed_body["data"].length).to eq(2)
+      end
+    end
+
     context "when authenticated and checks for projects sorted in :ASC by views" do
       before do
         token = get_auth_token(user_one)
