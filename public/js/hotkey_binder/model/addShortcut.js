@@ -34,7 +34,7 @@ const addShortcut = (keys, action) => {
 			callback = startPlot;
 			break;
 		default:
-			callback = selectElement(action);
+			callback = null;
 			break;
 	}
 	shortcut.add(keys, callback, {

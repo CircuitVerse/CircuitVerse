@@ -41,9 +41,6 @@ const setDefault = () => {
 
 const warnOverride = (combo) => {
 	let x = 0;
-	// const currentKeys = localStorage.get("userKeys")
-	// ? localStorage.get("userKeys")
-	// : localStorage.get("defaultKeys");
 	while ($("#preference").children()[x]) {
 		if ($("#preference").children()[x].children[1].innerText === combo) {
 			const asignee = $("#preference").children()[x].children[0]
@@ -53,16 +50,5 @@ const warnOverride = (combo) => {
 			);
 		}
 		x++;
-	}
-};
-
-const toggle_hotkey = () => {
-	if ($(".disable--cb > input[type='checkbox']").prop("checked") == false) {
-		localStorage.set("custom_hotkey", { enable: false });
-		shortcut.removeAll();
-	} else {
-		localStorage.set("custom_hotkey", { enable: true });
-		setDefault();
-		if (localStorage.userKeys) addKeys("user");
 	}
 };
