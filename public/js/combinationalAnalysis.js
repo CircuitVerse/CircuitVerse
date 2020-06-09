@@ -33,7 +33,8 @@ createCombinationalAnalysisPrompt=function(scope=globalScope){
                     alert("Enter Input / Output Variable(s) !");
                 }
             },
-        }
+        },
+
       ]
     });
 
@@ -125,6 +126,8 @@ function createBooleanPrompt(inputListNames,outputListNames,scope=globalScope){
            win.print();
           },
         },
+
+
       ]
     });
 

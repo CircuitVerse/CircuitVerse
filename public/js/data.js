@@ -751,6 +751,7 @@ createSaveAsImgPrompt = function(scope = globalScope) {
                 generateImage($('input[name=imgType]:checked').val(), $('input[name=view]:checked').val(), $('input[name=transparent]:checked').val(), $('input[name=resolution]:checked').val());
                 $(this).dialog("close");
             },
+            class: "render-btn"
         }]
 
     });
@@ -807,7 +808,8 @@ createOpenLocalPrompt = function() {
                 load(JSON.parse(localStorage.getItem($("input[name=projectId]:checked").val())));
                 $(this).dialog("close");
             },
-        }] : []
+        },
+] : []
 
     });
 
@@ -836,8 +838,9 @@ createSubCircuitPrompt = function(scope = globalScope) {
                 simulationArea.lastSelected = new SubCircuit(undefined, undefined, globalScope, $("input[name=subCircuitId]:checked").val());
                 $(this).dialog("close");
             },
-        }] : []
-
+        },
+] : [
+]
     });
 
 }

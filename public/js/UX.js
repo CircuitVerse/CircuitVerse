@@ -288,7 +288,7 @@ $('#bitconverter').click(function () {
                     $("#hexInput").val("0");
                 }
             }
-        ]
+          ]
     });
 })
 
