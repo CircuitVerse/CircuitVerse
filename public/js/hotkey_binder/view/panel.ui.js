@@ -27,7 +27,7 @@ const heading = `<div id="heading">
 const updateHTML = (mode) => {
     let x = 0;
     if (mode == "user") {
-        let userKeys = localStorage.get("userKeys");
+        const userKeys = localStorage.get("userKeys");
         while ($("#preference").children()[x]) {
             $("#preference").children()[x].children[1].innerText =
                 userKeys[$("#preference").children()[x].children[0].innerText];
@@ -35,6 +35,7 @@ const updateHTML = (mode) => {
         }
     } else if (mode == "default") {
         while ($("#preference").children()[x]) {
+            const defaultKeys = localStorage.get("defaultKeys");
             $("#preference").children()[x].children[1].innerText =
                 defaultKeys[
                     $("#preference").children()[x].children[0].innerText

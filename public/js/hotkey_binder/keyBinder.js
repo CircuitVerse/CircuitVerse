@@ -31,8 +31,8 @@ $("#customShortcut").click(() => {
 let targetPref = null;
 $("#preference").click((e) => {
     $("#pressedKeys").text("");
-    $("#pressedKeys").text("");
-
+    $("#warning").text("");
+    $("#edit").css("border", "none");
     $("#edit").css("display", "block");
     $($("#edit")).focus();
     [, targetPref] = e.target.closest("div").children;
@@ -42,7 +42,7 @@ $("#preference").click((e) => {
 $("#edit").keydown((e) => {
     e.stopPropagation();
     e.preventDefault();
-    let modifiers = ["CTRL", "ALT", "SHIFT"];
+    let modifiers = ["CTRL", "ALT", "SHIFT", "META"];
     if (e.keyCode === 27) closeEdit();
     if (e.keyCode === 13) {
         override($("#pressedKeys").text());
@@ -50,7 +50,6 @@ $("#edit").keydown((e) => {
         $("#pressedKeys").text("");
         $("#edit").css("display", "none");
     }
-    $("#warning").text("");
     const currentKey = keyCodes[e.keyCode].toUpperCase();
     if (
         $("#pressedKeys").text().split(" + ").length === 2 &&
@@ -72,7 +71,7 @@ $("#edit").keydown((e) => {
     }
     if (
         ($("#pressedKeys").text().split(" + ").length === 2 &&
-            $("#pressedKeys").text().split(" + ")[1] === "CTRL") ||
+            $("#pressedKeys").text().split(" + ")[1] === ("CTRL" || "META")) ||
         $("#pressedKeys").text().split(" + ")[0] === "ALT"
     ) {
         $("#pressedKeys").text(
