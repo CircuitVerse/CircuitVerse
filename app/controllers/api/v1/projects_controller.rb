@@ -14,7 +14,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
   before_action :sort, only: %i[index user_projects featured_circuits]
 
   SORTABLE_FIELDS = %i[view created_at].freeze
-  ALLOWED_TO_BE_INCLUDED = %i[author].freeze
+  WHITELISTED_INCLUDE_ATTRIBUTES = %i[author].freeze
 
   # GET /api/v1/projects
   def index
@@ -110,7 +110,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     def include_resource
       params[:include].split(",")
                       .map { |resource| resource.strip.to_sym }
-                      .select { |resource| ALLOWED_TO_BE_INCLUDED.include?(resource) }
+                      .select { |resource| WHITELISTED_INCLUDE_ATTRIBUTES.include?(resource) }
     end
 
     def set_options
