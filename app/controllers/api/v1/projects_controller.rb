@@ -14,6 +14,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
   before_action :sort, only: %i[index user_projects featured_circuits]
 
   SORTABLE_FIELDS = %i[view created_at].freeze
+  WHITELISTED_INCLUDE_ATTRIBUTES = %i[author].freeze
 
   # GET /api/v1/projects
   def index
@@ -105,12 +106,16 @@ class Api::V1::ProjectsController < Api::V1::BaseController
       @projects = Project.joins(:featured_circuit).all
     end
 
-    def set_options
-      @options = { include: [:author] }
+    # include=author
+    def include_resource
+      params[:include].split(",")
+                      .map { |resource| resource.strip.to_sym }
+                      .select { |resource| WHITELISTED_INCLUDE_ATTRIBUTES.include?(resource) }
     end
 
-    def project_params
-      params.require(:project).permit(:name, :project_access_type, :description, :tag_list)
+    def set_options
+      @options = {}
+      @options[:include] = include_resource if params.key?(:include)
     end
 
     def filter
@@ -121,5 +126,9 @@ class Api::V1::ProjectsController < Api::V1::BaseController
       return unless params.key?(:sort)
 
       @projects = @projects.order(SortingHelper.sort_fields(params[:sort], SORTABLE_FIELDS))
+    end
+
+    def project_params
+      params.require(:project).permit(:name, :project_access_type, :description, :tag_list)
     end
 end
