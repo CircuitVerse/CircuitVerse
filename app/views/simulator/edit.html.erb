@@ -7,7 +7,6 @@
 <style>
   .hidden { display: none; }
 </style>
-<%= javascript_include_tag "simulator-checker" %>
 <script>
   userSignedIn = <%= user_signed_in? %>;
   logix_project_id = <%= @logix_project_id %>;
@@ -399,5 +398,5 @@ $('#reportIssue').click(function(){
 </script>
     
 <script src="/js/canvas2svg.js"></script>
-
+<%= javascript_include_tag "simulator-checker" %>
 

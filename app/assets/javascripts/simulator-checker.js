@@ -84,7 +84,6 @@ function initialiseChecks() {
     checkSimulator();
 }
 
-initialiseChecks();
 $(window).ready(initialiseChecks);
 $(window).on('resize', checkSimulator);
 $(window).on('mousemove', mouseIsConnected);
