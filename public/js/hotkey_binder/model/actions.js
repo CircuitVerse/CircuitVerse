@@ -69,3 +69,10 @@ const warnOverride = (combo) => {
         x++;
     }
 };
+
+const elementDirecton = (keyCode) => () => {
+    if (simulationArea.lastSelected) {
+        simulationArea.lastSelected.newDirection(keyCode.toUpperCase());
+        $("select[name |= 'newDirection']").val(keyCode.toUpperCase());
+    }
+};

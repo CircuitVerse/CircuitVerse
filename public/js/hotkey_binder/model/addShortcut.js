@@ -33,6 +33,18 @@ const addShortcut = (keys, action) => {
 		case "Start Plot":
 			callback = startPlot;
 			break;
+		case "Direction Up":
+			callback = elementDirecton('up');
+			break;
+		case "Direction Down":
+			callback = elementDirecton('down');
+			break;
+		case "Direction Left":
+			callback = elementDirecton('left');
+			break;
+		case "Direction Right":
+			callback = elementDirecton('right');
+			break;
 		default:
 			callback = null;
 			break;
