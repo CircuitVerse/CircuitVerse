@@ -33,7 +33,7 @@
       <div class="projectshow-iframe-container">
         <div class=" projectshow-iframe">
           <div class="embed-responsive embed-responsive-4by3">
-            <iframe src = <%= simulator_path(@project) %> id="view" webkitAllowFullScreen mozAllowFullScreen allowFullScreen scrolling="no"></iframe>
+            <iframe src=<%= simulator_path(@project) %> id="view" webkitAllowFullScreen mozAllowFullScreen allowFullScreen scrolling="no"></iframe>
           </div>
         </div>
       </div>
@@ -130,7 +130,7 @@
           <% end %>
           <div class="collapse" id="collapseExample">
             <div class="projectshow-embed-text-container">
-              <textarea id="embedTextArea" class="projectshow-embed-text" rows="4" cols="35"><iframe width="600px" height="400px" src="<%= simulator_embed_url(@project) %>" id="projectPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen></iframe></textarea>
+              <textarea id="embedTextArea" class="projectshow-embed-text" rows="4" cols="35"><iframe width="600px" height="400px" src="<%= simulator_embed_url(@project) %>" id="projectPreview" scrolling="no" label="Embed Project" webkitAllowFullScreen mozAllowFullScreen allowFullScreen></iframe></textarea>
             </div>
             <small class="projectshow-embed-text-confirm">Code Copied to Clipboard!</small>
           </div>

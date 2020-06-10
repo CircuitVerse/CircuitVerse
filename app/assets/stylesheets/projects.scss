@@ -19,8 +19,8 @@
 .projectshow-details-heading {
   background-color: $green;
   height: 55px;
-  padding-top: 10px;
   padding-bottom: 10px;
+  padding-top: 10px;
 }
 
 .projectshow-details-heading-container {
@@ -43,7 +43,7 @@
 .projectshow-details-user {
   padding: 0 20px 15px;
 
-  &>p {
+  >p {
     display: block;
     margin-bottom: 10px;
     text-align: left;
@@ -72,7 +72,7 @@
 }
 
 .projectshow-horizontal-rule {
-  width: 100%
+  width: 100%;
 }
 
 .projectshow-embed-text-container {
@@ -133,8 +133,8 @@
 }
 
 .projectshow-collaborators-userdata {
-  padding: 5px 15px;
   overflow: hidden;
+  padding: 5px 15px;
   text-align: left;
   text-overflow: ellipsis;
 }
@@ -150,7 +150,7 @@
 }
 
 .projectshow-collaborators-horizontal-rule {
-  width: 80%
+  width: 80%;
 }
 
 @media (max-width: 575px) {
