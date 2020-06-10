@@ -86,3 +86,13 @@ const labelDirecton = (direct) => () => {
         $("select[name |= 'newLabelDirection']").val(direct.toUpperCase());
     }
 };
+
+const insertLabel = () => {
+    if (simulationArea.lastSelected) {
+        $("input[name |= 'setLabel']").focus();
+        $("input[name |= 'setLabel']").val().length
+            ? null
+            : $("input[name |= 'setLabel']").val("Untitled");
+        $("input[name |= 'setLabel']").select();
+    }
+};

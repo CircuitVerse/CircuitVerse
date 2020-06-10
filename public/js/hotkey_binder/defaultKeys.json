@@ -17,6 +17,7 @@ defaultKeys = {
   "Direction Down": "Down",
   "Direction Left": "Left",
   "Direction Right": "Right",
+  "Insert Label": "Ctrl + L",
   "Label Direction Up": "Alt + Up",
   "Label Direction Down": "Alt + Down",
   "Label Direction Left": "Alt + Left",
