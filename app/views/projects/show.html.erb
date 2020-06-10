@@ -130,7 +130,8 @@
           <% end %>
           <div class="collapse" id="collapseExample">
             <div class="projectshow-embed-text-container">
-              <textarea id="embedTextArea" class="projectshow-embed-text" rows="4" cols="35"><iframe width="600px" height="400px" src="<%= simulator_embed_url(@project) %>" id="projectPreview" scrolling="no" label="Embed Project" webkitAllowFullScreen mozAllowFullScreen allowFullScreen></iframe></textarea>
+              <label for="embedTextArea">Embed Project</label>
+              <textarea id="embedTextArea" class="projectshow-embed-text" rows="4" cols="35"><iframe width="600px" height="400px" src="<%= simulator_embed_url(@project) %>" id="projectPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen></iframe></textarea>
             </div>
             <small class="projectshow-embed-text-confirm">Code Copied to Clipboard!</small>
           </div>
