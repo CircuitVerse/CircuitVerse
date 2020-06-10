@@ -70,9 +70,19 @@ const warnOverride = (combo) => {
     }
 };
 
-const elementDirecton = (keyCode) => () => {
+const elementDirecton = (direct) => () => {
     if (simulationArea.lastSelected) {
-        simulationArea.lastSelected.newDirection(keyCode.toUpperCase());
-        $("select[name |= 'newDirection']").val(keyCode.toUpperCase());
+        simulationArea.lastSelected.newDirection(direct.toUpperCase());
+        $("select[name |= 'newDirection']").val(direct.toUpperCase());
+    }
+};
+
+const labelDirecton = (direct) => () => {
+    if (
+        simulationArea.lastSelected &&
+        !simulationArea.lastSelected.labelDirectonFixed
+    ) {
+        simulationArea.lastSelected.labelDirection = direct.toUpperCase();
+        $("select[name |= 'newLabelDirection']").val(direct.toUpperCase());
     }
 };

@@ -45,6 +45,18 @@ const addShortcut = (keys, action) => {
 		case "Direction Right":
 			callback = elementDirecton('right');
 			break;
+		case "Label Direction Up":
+			callback = labelDirecton('up');
+			break;
+		case "Label Direction Down":
+			callback = labelDirecton('down');
+			break;
+		case "Label Direction Left":
+			callback = labelDirecton('left');
+			break;
+		case "Label Direction Right":
+			callback = labelDirecton('right');
+			break;
 		default:
 			callback = null;
 			break;
