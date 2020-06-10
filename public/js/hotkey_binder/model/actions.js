@@ -96,3 +96,22 @@ const insertLabel = () => {
         $("input[name |= 'setLabel']").select();
     }
 };
+
+const moveElement = (direct) => () => {
+    if (simulationArea.lastSelected) {
+        switch (direct) {
+            case "up":
+                simulationArea.lastSelected.y -= 15;
+                break;
+            case "down":
+                simulationArea.lastSelected.y += 15;
+                break;
+            case "left":
+                simulationArea.lastSelected.x -= 15;
+                break;
+            case "right":
+                simulationArea.lastSelected.x += 15;
+                break;
+        }
+    }
+};

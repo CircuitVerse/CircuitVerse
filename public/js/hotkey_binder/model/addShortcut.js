@@ -60,6 +60,18 @@ const addShortcut = (keys, action) => {
 		case "Label Direction Right":
 			callback = labelDirecton('right');
 			break;
+		case "Move Element Up":
+			callback = moveElement('up');
+			break;
+		case "Move Element Down":
+			callback = moveElement('down');
+			break;
+		case "Move Element Left":
+			callback = moveElement('left');
+			break;
+		case "Move Element Right":
+			callback = moveElement('right');
+			break;
 		default:
 			callback = null;
 			break;
