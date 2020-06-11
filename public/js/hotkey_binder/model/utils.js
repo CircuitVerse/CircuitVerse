@@ -16,3 +16,15 @@ const getOS = () => {
     if (navigator.appVersion.indexOf("Linux") != -1) OSName = "Linux";
     return OSName;
 };
+
+const checkRestricted = (key) => {
+    const restrictedKeys = [
+        "CTRL + N",
+        "CTRL + W",
+        "CTRL + T",
+        "META + N",
+        "META + W",
+        "META + T",
+    ];
+    return restrictedKeys.includes(key);
+};

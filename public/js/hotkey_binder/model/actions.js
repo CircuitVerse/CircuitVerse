@@ -63,7 +63,7 @@ const warnOverride = (combo) => {
             $("#edit").css("border", "1.5px solid #dc5656");
             return;
         } else {
-            $("#warning").text("");
+            // $("#warning").text("");
             $("#edit").css("border", "none");
         }
         x++;

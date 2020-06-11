@@ -43,12 +43,24 @@ $("#edit").keydown((e) => {
     e.stopPropagation();
     e.preventDefault();
     let modifiers = ["CTRL", "ALT", "SHIFT", "META"];
+    $("#edit").css("animation", "none");
+    $("#warning").text("");
     if (e.keyCode === 27) closeEdit();
     if (e.keyCode === 13) {
-        override($("#pressedKeys").text());
-        targetPref.innerText = $("#pressedKeys").text();
-        $("#pressedKeys").text("");
-        $("#edit").css("display", "none");
+        if ($("#pressedKeys").text() === '') {
+            $("#warning").text("Please enter some key(s)");
+            $("#edit").css("animation", "shake .3s linear");
+            return;
+        }
+        if (!checkRestricted($("#pressedKeys").text())) {
+            override($("#pressedKeys").text());
+            targetPref.innerText = $("#pressedKeys").text();
+            $("#pressedKeys").text("");
+            $("#edit").css("display", "none");
+        } else {
+            $("#warning").text("Please enter different key(s).");
+            $("#edit").css("animation", "shake .3s linear");
+        }
     }
     const currentKey = keyCodes[e.keyCode].toUpperCase();
     if (
@@ -79,6 +91,9 @@ $("#edit").keydown((e) => {
         );
     }
     warnOverride($("#pressedKeys").text());
+    if (checkRestricted($("#pressedKeys").text())) {
+        $("#warning").text("The above key(s) cannot be set.");
+    }
 });
 
 //  IFFE
