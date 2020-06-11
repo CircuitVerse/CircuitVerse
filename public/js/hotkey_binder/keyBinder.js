@@ -47,7 +47,7 @@ $("#edit").keydown((e) => {
     $("#warning").text("");
     if (e.keyCode === 27) closeEdit();
     if (e.keyCode === 13) {
-        if ($("#pressedKeys").text() === '') {
+        if ($("#pressedKeys").text() === "") {
             $("#warning").text("Please enter some key(s)");
             $("#edit").css("animation", "shake .3s linear");
             return;
@@ -83,8 +83,11 @@ $("#edit").keydown((e) => {
     }
     if (
         ($("#pressedKeys").text().split(" + ").length === 2 &&
-            $("#pressedKeys").text().split(" + ")[1] === ("CTRL" || "META")) ||
-        $("#pressedKeys").text().split(" + ")[0] === "ALT"
+            ["CTRL", "META"].includes(
+                $("#pressedKeys").text().split(" + ")[1]
+            )) ||
+        ($("#pressedKeys").text().split(" + ")[0] === "ALT" &&
+            $("#pressedKeys").text().split(" + ")[1] === "SHIFT")
     ) {
         $("#pressedKeys").text(
             $("#pressedKeys").text().split(" + ").reverse().join(" + ")
