@@ -8,7 +8,7 @@ const createElements = (metadata) => {
     </div>
     `;
     });
-    return `<div id="preference">${elements}</div>`;
+    return `<div id="preference" class="customScroll">${elements}</div>`;
 };
 
 const markUp = createElements(defaultKeys);

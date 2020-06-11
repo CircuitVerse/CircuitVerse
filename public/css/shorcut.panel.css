@@ -45,6 +45,7 @@
     color: white;
     flex-direction: column;
     max-height: 430px !important;
+    overflow: hidden !important;
 }
 
 #closeDialog {
@@ -75,6 +76,7 @@
     width: 100%;
     height: 35px;
     user-select: none;
+    padding-bottom: 10px;
 }
 
 #heading > span {
@@ -86,10 +88,6 @@
     overflow-y: auto;
 }
 
-/* #preference >div:nth-of-type(even) {
-    background-color: #747474;
-} */
-
 #preference div {
     display: flex;
     justify-content: space-between;
@@ -98,42 +96,11 @@
     cursor: pointer;
     user-select: none;
     -moz-user-select: none;
-    /* background-color: #747474; */
 }
 
 #preference div > span {
     padding: 0 30px;
-    /* text-align: left; */
 }
-
-/* #submitbtn {
-  text-decoration: none;
-  height: 28px;
-  width: 70px;
-  cursor: pointer;
-  background: transparent;
-  border: 1px solid #ffffff;
-  position: absolute;
-  bottom: 2.5%;
-  right: 3%;
-  border-radius: 3px;
-  padding-bottom: 5px;
-  color: #fff;
-}
-#resetDefault {
-  text-decoration: none;
-  height: 28px;
-  width: 140px;
-  cursor: pointer;
-  background: transparent;
-  border: 1px solid #ffffff;
-  position: absolute;
-  bottom: 2.5%;
-  right: 20%;
-  border-radius: 3px;
-  padding-bottom: 5px;
-  color: #fff;
-} */
 
 #preference > div:hover {
     background-color: #7474743f;

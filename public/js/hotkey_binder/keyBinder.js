@@ -26,6 +26,7 @@ $("#customShortcut").click(() => {
             },
         ],
     });
+    $("#customShortcutDialog").css("display", "flex");
 });
 
 let targetPref = null;
