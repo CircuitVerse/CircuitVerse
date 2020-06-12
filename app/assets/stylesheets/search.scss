@@ -87,8 +87,8 @@
 .navbar-search-bar-input {
   background-color: $card-green;
   border: 0;
-  outline: none;
   margin-top: 5px;
+  outline: none;
   width: 80%;
 
   &.active {
@@ -112,6 +112,7 @@
 .searchpage-container-margin {
   margin-top: 100px;
 }
+
 .searchpage-container {
   border: 1px solid $shadow-grey;
   border-radius: 0;
@@ -184,7 +185,7 @@
   overflow: hidden;
   text-align: left;
   text-overflow: ellipsis;
-  width: 90%
+  width: 90%;
 }
 //searchpage ends
 
