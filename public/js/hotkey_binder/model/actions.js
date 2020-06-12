@@ -40,8 +40,8 @@ const setDefault = () => {
         for (let [key, value] of Object.entries(defaultKeys)) {
             if (value.split(" + ")[0] == "Ctrl");
             macDefaultKeys[key] =
-                value.split(" + ")[0] === "CTRL"
-                    ? value.replace("CTRL", "META")
+                value.split(" + ")[0] == "Ctrl"
+                    ? value.replace("Ctrl", "Meta")
                     : value;
             localStorage.set("defaultKeys", macDefaultKeys);
         }
@@ -63,7 +63,6 @@ const warnOverride = (combo) => {
             $("#edit").css("border", "1.5px solid #dc5656");
             return;
         } else {
-            // $("#warning").text("");
             $("#edit").css("border", "none");
         }
         x++;

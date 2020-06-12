@@ -3,16 +3,16 @@
 **/
 
 defaultKeys = {
-  "New Project": "SHIFT + N",
-  "Save Online": "CTRL + S",
-  "Save Offline": "CTRL + ALT + S",
-  "Download as Image": "CTRL + D",
-  "Open Offline": "CTRL + O",
-  "Recover Project": "CTRL + R",
-  "New Circuit": "CTRL + ALT + N",
-  "Create Sub-ciruit": "SHIFT + C",
-  "Combinational Analysis": "SHIFT + A",
-  "Start Plot": "CTRL + P",
+  "New Project": "Shift + N",
+  "Save Online": "Ctrl + S",
+  "Save Offline": "Ctrl + Alt + S",
+  "Download as Image": "Ctrl + D",
+  "Open Offline": "Ctrl + O",
+  "Recover Project": "Ctrl + R",
+  "New Circuit": "Ctrl + Alt + N",
+  "Create Sub-ciruit": "Shift + C",
+  "Combinational Analysis": "Shift + A",
+  "Start Plot": "Ctrl + P",
   "Direction Up": "Up",
   "Direction Down": "Down",
   "Direction Left": "Left",
@@ -26,20 +26,5 @@ defaultKeys = {
   "Move Element Down": "S",
   "Move Element Left": "A",
   "Move Element Right": "D",
-  // "Output": "2",
-  // "NotGate": "3",
-  // "OrGate": "4",
-  // "AndGate": "5",
-  // "NorGate": "6",
-  // "NandGate": "7",
-  // "XorGate": "8",
-  // "SevenSegDisplay": "9",
-  // "SixteenSegDisplay": "0",
 };
 
-// circuitElementList = [
-//     "Input", "Output", "NotGate", "OrGate", "AndGate", "NorGate", "NandGate", "XorGate", "XnorGate", "SevenSegDisplay", "SixteenSegDisplay", "HexDisplay",
-//     "Multiplexer", "BitSelector", "Splitter", "Power", "Ground", "ConstantVal", "ControlledInverter", "TriState", "Adder", "Rom", "RAM", "EEPROM", "TflipFlop",
-//     "JKflipFlop", "SRflipFlop", "DflipFlop", "TTY", "Keyboard", "Clock", "DigitalLed", "Stepper", "VariableLed", "RGBLed", "SquareRGBLed", "RGBLedMatrix", "Button", "Demultiplexer",
-//     "Buffer", "SubCircuit", "Flag", "MSB", "LSB", "PriorityEncoder", "Tunnel", "ALU", "Decoder", "Random", "Counter", "Dlatch", "TB_Input", "TB_Output", "ForceGate",
-// ];
