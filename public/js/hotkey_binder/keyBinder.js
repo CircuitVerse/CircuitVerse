@@ -41,8 +41,10 @@ $("#preference").click((e) => {
 
 // Modifiers restriction enabled here
 $("#edit").keydown((e) => {
+    e = e || window.event;
     e.stopPropagation();
     e.preventDefault();
+    var k = KeyCode;
     let modifiers = ["CTRL", "ALT", "SHIFT", "META"];
     $("#edit").css("animation", "none");
     $("#warning").text("");
@@ -63,7 +65,7 @@ $("#edit").keydown((e) => {
             $("#edit").css("animation", "shake .3s linear");
         }
     }
-    const currentKey = keyCodes[e.keyCode].toUpperCase();
+    const currentKey = k.hot_key(k.translate_event(e));
     if (
         $("#pressedKeys").text().split(" + ").length === 2 &&
         !modifiers.includes(currentKey) &&
