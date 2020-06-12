@@ -1,8 +1,11 @@
 <div class="container">
   <div class="row row-text">
   <%= form_tag("/search", method: "get", id: 'search-box', class: 'navbar-search-bar-form') do %>
-    <%= select_tag "resource", options_for_select([ "Users", "Projects" ], "resource" == "Projects" ? "Projects" : "Users"), class: "navbar-search-bar-select", id: "search_type" %>
-    <%= text_field_tag :q,params[:q], placeholder: "Search for projects or users", autocomplete:"off", class: "navbar-search-bar-input" %>
+    <%= select_tag "resource", options_for_select([ "Users", "Projects" ], request.fullpath.split("&")[0] == '/search?resource=Projects' ? 'Projects' : 'Users' ), class: "navbar-search-bar-select", id: "search_type" %>
+    <div class="navbar-search-bar-input-container">
+      <i class="fa fa-search navbar-search-bar-icon"></i>
+      <%= text_field_tag :q,params[:q], placeholder: "Search for projects or users", autocomplete:"off", class: "navbar-search-bar-input" %>
+    </div>
     <button class="btn button-primary navbar-search-bar-submit" type="submit" name="button" value="Submit">Search</button>
   <% end %>
   </div>
