@@ -2,6 +2,7 @@
 
 class Api::V1::AssignmentsController < Api::V1::BaseController
   before_action :authenticate_user!
+  before_action :set_options, only: %i[index show create update]
   before_action :set_group, only: %i[index create]
   before_action :set_assignment, only: %i[show update destroy reopen start]
   before_action :check_show_access, only: %i[index]
@@ -11,14 +12,14 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
   # GET /api/v1/groups/:group_id/assignments
   def index
     @assignments = paginate(@group.assignments)
-    @options = { links: link_attrs(@assignments, api_v1_group_assignments_url(@group.id)) }
+    @options[:links] = link_attrs(@assignments, api_v1_group_assignments_url(@group.id))
     render json: Api::V1::AssignmentSerializer.new(@assignments, @options)
   end
 
   # GET /api/v1/assignments/:id
   def show
     authorize @assignment, :show?
-    render json: Api::V1::AssignmentSerializer.new(@assignment)
+    render json: Api::V1::AssignmentSerializer.new(@assignment, @options)
   end
 
   # POST /api/v1/groups/:group_id/assignments
@@ -28,14 +29,14 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
     @assignment.status = "open"
     @assignment.deadline = Time.zone.now + 1.year if @assignment.deadline.nil?
     @assignment.save!
-    render json: Api::V1::AssignmentSerializer.new(@assignment), status: :created
+    render json: Api::V1::AssignmentSerializer.new(@assignment, @options), status: :created
   end
 
   # PATCH /api/v1/assignments/:id
   def update
     @assignment.update!(assignment_update_params)
     if @assignment.update(assignment_update_params)
-      render json: Api::V1::AssignmentSerializer.new(@assignment), status: :accepted
+      render json: Api::V1::AssignmentSerializer.new(@assignment, @options), status: :accepted
     else
       invalid_resource!(@assignment.errors)
     end
@@ -80,6 +81,11 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
 
     def set_group
       @group = Group.find(params[:group_id])
+    end
+
+    # sets @current_user as params to be used in assignment serializer
+    def set_options
+      @options = { params: { current_user: @current_user } }
     end
 
     def check_reopening_status

@@ -3,7 +3,7 @@
 class Api::V1::GroupsController < Api::V1::BaseController
   before_action :authenticate_user!
   before_action :set_group, except: %i[index groups_mentored create]
-  before_action :set_options, only: %i[index groups_mentored create show]
+  before_action :set_options, only: %i[index groups_mentored create show update]
   before_action :check_show_access, only: [:show]
   before_action :check_edit_access, only: %i[update destroy]
 
@@ -36,7 +36,7 @@ class Api::V1::GroupsController < Api::V1::BaseController
 
   # GET /api/v1/groups/:id
   def show
-    render json: Api::V1::GroupSerializer.new(@group, @options || {})
+    render json: Api::V1::GroupSerializer.new(@group, @options)
   end
 
   # PATCH /api/v1/groups/:id
@@ -71,6 +71,7 @@ class Api::V1::GroupsController < Api::V1::BaseController
     def set_options
       @options = {}
       @options[:include] = include_resource if params.key?(:include)
+      @options[:params] = { current_user: @current_user }
     end
 
     def group_params
