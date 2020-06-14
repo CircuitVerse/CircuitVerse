@@ -25,9 +25,9 @@ const setUserKeys = () => {
     let userKeys = {};
     let x = 0;
     while ($("#preference").children()[x]) {
-        userKeys[$("#preference").children()[x].children[0].innerText] = $(
+        userKeys[$("#preference").children()[x].children[1].children[0].innerText] = $(
             "#preference"
-        ).children()[x].children[1].innerText;
+        ).children()[x].children[1].children[1].innerText;
         x++;
     }
     localStorage.set("userKeys", userKeys);
@@ -35,6 +35,7 @@ const setUserKeys = () => {
 };
 
 const setDefault = () => {
+    if (localStorage.userKeys) localStorage.removeItem('userKeys');
     if (getOS() === "MacOS") {
         const macDefaultKeys = {};
         for (let [key, value] of Object.entries(defaultKeys)) {

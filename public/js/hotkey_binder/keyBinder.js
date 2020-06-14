@@ -104,6 +104,6 @@ $("#edit").keydown((e) => {
 
 //  IFFE
 (() => {
-    setDefault();
     if (localStorage.userKeys) addKeys("user");
+    else setDefault();
 })();
