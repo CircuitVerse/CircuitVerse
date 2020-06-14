@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class Api::V1::ProjectsController < Api::V1::BaseController
   include ActionView::Helpers::SanitizeHelper
 
@@ -8,10 +9,11 @@ class Api::V1::ProjectsController < Api::V1::BaseController
   before_action :load_index_projects, only: %i[index]
   before_action :load_user_projects, only: %i[user_projects]
   before_action :load_featured_circuits, only: %i[featured_circuits]
+  before_action :load_favourites, only: %i[favourite_projects]
   before_action :set_project, only: %i[show update destroy toggle_star create_fork]
   before_action :set_options, except: %i[destroy toggle_star]
-  before_action :filter, only: %i[index user_projects featured_circuits]
-  before_action :sort, only: %i[index user_projects featured_circuits]
+  before_action :filter, only: %i[index user_projects featured_circuits favourite_projects]
+  before_action :sort, only: %i[index user_projects featured_circuits favourite_projects]
 
   SORTABLE_FIELDS = %i[view created_at].freeze
   WHITELISTED_INCLUDE_ATTRIBUTES = %i[author].freeze
@@ -57,6 +59,12 @@ class Api::V1::ProjectsController < Api::V1::BaseController
   # GET /api/v1/projects/featured
   def featured_circuits
     @options[:links] = link_attrs(paginate(@projects), api_v1_projects_featured_url)
+    render json: Api::V1::ProjectSerializer.new(paginate(@projects), @options)
+  end
+
+  # GET /api/v1/projects/favourites
+  def favourite_projects
+    @options[:links] = link_attrs(paginate(@projects), api_v1_projects_favourites_url)
     render json: Api::V1::ProjectSerializer.new(paginate(@projects), @options)
   end
 
@@ -113,6 +121,10 @@ class Api::V1::ProjectsController < Api::V1::BaseController
                       .select { |resource| WHITELISTED_INCLUDE_ATTRIBUTES.include?(resource) }
     end
 
+    def load_favourites
+      @projects = Project.joins(:stars).where(stars: { user_id: @current_user.id })
+    end
+
     def set_options
       @options = {}
       @options[:include] = include_resource if params.key?(:include)
@@ -132,3 +144,4 @@ class Api::V1::ProjectsController < Api::V1::BaseController
       params.require(:project).permit(:name, :project_access_type, :description, :tag_list)
     end
 end
+# rubocop:enable Metrics/ClassLength
