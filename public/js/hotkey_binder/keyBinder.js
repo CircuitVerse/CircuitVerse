@@ -13,7 +13,12 @@ $("#customShortcut").click(() => {
         buttons: [
             {
                 text: "Reset to default",
-                click: () => setDefault(),
+                click: () => {
+                    if(confirm(
+                        "Remove all custom keys & set the default keys?"
+                        ))
+                    setDefault();
+                },
                 id: "resetDefault",
             },
             {
