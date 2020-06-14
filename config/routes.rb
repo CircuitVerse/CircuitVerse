@@ -122,6 +122,7 @@ Rails.application.routes.draw do
       get '/me', to: 'users#me'
       resources :users, only: [:index, :show, :update]
       get '/projects/featured', to: 'projects#featured_circuits'
+      get '/projects/favourites', to: 'projects#favourite_projects'
       resources :projects do
         member do
           get 'toggle-star', to: 'projects#toggle_star'
