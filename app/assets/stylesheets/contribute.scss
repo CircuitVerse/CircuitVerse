@@ -1,4 +1,4 @@
-.contribute-card {
+.card-contribute {
   border: 0;
   display: inline-block;
   margin-bottom: 30px;
@@ -6,22 +6,20 @@
   width: 300px;
 }
 
-.contribute-cardimage {
+.cardimage-contribute {
   height: 150px;
   width: 150px;
 }
 
-.contribute-cardbody {
-  h3 {
-    text-align: center;
-  }
-
-  ul {
-    text-align: left;
-  }
+.cardbody-contribute > h3 {
+  text-align: center;
 }
 
-.contribute-card-pay-container {
+.cardbody-contribute > ul {
+  text-align: left;
+}
+
+.contribute-pay {
   display: inline-block;
   height: 100px;
   margin-bottom: 40px;
@@ -36,7 +34,7 @@
   }
 }
 
-.contribute-card-pay {
+.patreon {
   border: 1.5px solid $black;
   border-radius: 8px;
   box-shadow: 3px 3px 6px $shadow-black;
@@ -53,16 +51,9 @@
   }
 }
 
-@media (max-width:$small-display) {
-  .contribute-card {
+@media (max-width:350px) {
+  .card-contribute {
     padding-left: 0;
     width: 250px;
-  }
-}
-
-@media (max-width: 1199px) {
-  .contribute-card-social {
-    margin-bottom: 10px;
-    margin-top: 10px;
   }
 }

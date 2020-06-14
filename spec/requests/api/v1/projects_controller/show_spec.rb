@@ -22,6 +22,17 @@ RSpec.describe Api::V1::ProjectsController, "#show", type: :request do
       end
     end
 
+    context "when unauthenticated user fetches public project with author details" do
+      before do
+        get "/api/v1/projects/#{public_project.id}?include=author", as: :json
+      end
+
+      it "returns project details including author details" do
+        expect(response).to have_http_status(200)
+        expect(response).to match_response_schema("project_with_author")
+      end
+    end
+
     context "when unauthenticated user fetches private project details" do
       before do
         get "/api/v1/projects/#{private_project.id}", as: :json
