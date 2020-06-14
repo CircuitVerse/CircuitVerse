@@ -121,13 +121,13 @@
     height: 15px;
 }
 
-.disable--cb {
+/* .disable--cb {
     float: left;
     display: inline-block;
     margin-top: 0.8rem;
     margin-left: 1rem;
     color: white;
-}
+} */
 
 @keyframes shake {
     10%,

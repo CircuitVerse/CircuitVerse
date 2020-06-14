@@ -65,7 +65,7 @@ $("#edit").keydown((e) => {
             $("#edit").css("animation", "shake .3s linear");
         }
     }
-    const currentKey = k.hot_key(k.translate_event(e));
+    const currentKey = k.hot_key(k.translate_event(e)).split('+').join(' + ');
     if (
         $("#pressedKeys").text().split(" + ").length === 2 &&
         !modifiers.includes(currentKey) &&
@@ -96,7 +96,7 @@ $("#edit").keydown((e) => {
             $("#pressedKeys").text().split(" + ").reverse().join(" + ")
         );
     }
-    warnOverride($("#pressedKeys").text());
+    warnOverride($("#pressedKeys").text(), targetPref);
     if (checkRestricted($("#pressedKeys").text())) {
         $("#warning").text("The above key(s) cannot be set.");
     }

@@ -53,11 +53,15 @@ const updateHTML = (mode) => {
 };
 
 const override = (combo) => {
-    let x = 1;
+    let x = 0;
     while ($("#preference").children()[x]) {
-        if ($("#preference").children()[x].children[1].innerText === combo)
-            $("#preference").children()[x].children[1].innerText = "";
-        x += 2;
+        if (
+            $("#preference").children()[x]
+            .children[1].children[1].innerText === combo
+            )
+            $("#preference").children()[x]
+            .children[1].children[1].innerText = "";
+        x++;
     }
 };
 

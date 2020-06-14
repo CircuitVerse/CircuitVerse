@@ -51,12 +51,17 @@ const setDefault = () => {
     addKeys("default");
 };
 
-const warnOverride = (combo) => {
+const warnOverride = (combo, target) => {
     let x = 0;
     while ($("#preference").children()[x]) {
-        if ($("#preference").children()[x].children[1].innerText === combo) {
-            const asignee = $("#preference").children()[x].children[0]
-                .innerText;
+        if (
+            $("#preference").children()[x].children[1].children[1].innerText ===
+                combo &&
+            $("#preference").children()[x].children[1].children[0].innerText !==
+                target.previousElementSibling.innerText
+        ) {
+            const asignee = $("#preference").children()[x].children[1]
+                .children[0].innerText;
             $("#warning").text(
                 `This key(s) is already assigned to: ${asignee}, Override?`
             );
