@@ -159,5 +159,9 @@ class Project < ApplicationRecord
         FeaturedCircuit.find_by(project_id: id)&.destroy
       end
     end
+
+    def should_generate_new_friendly_id?
+      name_changed?
+    end
 end
 # rubocop:enable Metrics/ClassLength
