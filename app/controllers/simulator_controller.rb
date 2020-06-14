@@ -21,7 +21,7 @@ class SimulatorController < ApplicationController
   end
 
   def edit
-    @project = Project.find_by(id: params[:id])
+    @project = Project.friendly.find(params[:id])
     @logix_project_id = params[:id]
     @projectName = @project.name
   end
@@ -29,7 +29,7 @@ class SimulatorController < ApplicationController
   def embed
     authorize @project
     @logix_project_id = params[:id]
-    @project = Project.find(params[:id])
+    @project = Project.friendly.find(params[:id])
     @author = @project.author_id
     @external_embed = true
     render "embed"
@@ -90,7 +90,7 @@ class SimulatorController < ApplicationController
     end
 
     def set_project
-      @project = Project.find(params[:id])
+      @project = Project.friendly.find(params[:id])
     end
 
     def check_edit_access

@@ -6,7 +6,7 @@ class LogixController < ApplicationController
   MAXIMUM_FEATURED_CIRCUITS = 4
 
   def index
-    @projects = Project.select("id,author_id,image_preview,name")
+    @projects = Project.select(:id, :author_id, :image_preview, :name, :slug)
                        .where(project_access_type: "Public", forked_project_id: nil)
                        .paginate(page: params[:page]).order("id desc").limit(Project.per_page)
 

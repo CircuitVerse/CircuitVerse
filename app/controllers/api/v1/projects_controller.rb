@@ -90,8 +90,13 @@ class Api::V1::ProjectsController < Api::V1::BaseController
   private
 
     def set_project
-      @project = Project.find(params[:id])
-      @author = @project.author
+      if params[:user_id]
+        @author = User.find(params[:user_id])
+        @project = @author.projects.friendly.find(params[:id])
+      else
+        @project = Project.friendly.find(params[:id])
+        @author = @project.author
+      end
     end
 
     def load_index_projects

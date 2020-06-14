@@ -96,6 +96,7 @@ gem 'font-awesome-sass', '~> 5.12.0'
 
 gem 'jwt'
 gem 'fast_jsonapi'
+gem 'friendly_id', '~> 5.2.4'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
