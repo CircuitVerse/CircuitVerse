@@ -89,16 +89,18 @@
 }
 
 #preference div {
-    display: flex;
+    display: inline-flex;
     justify-content: space-between;
     align-items: center;
     height: 35px;
     cursor: pointer;
     user-select: none;
     -moz-user-select: none;
+    width: 100%;
+    padding: 0 10px;
 }
 
-#preference div > span {
+#preference div:not("#edit-icon") > span {
     padding: 0 30px;
 }
 
@@ -106,13 +108,15 @@
     background-color: #7474743f;
 }
 
-#preference > div:hover::before {
-    content: "";
-    background-image: url(../img/edit_icon.png);
-    position: absolute;
-    margin-left: 5px;
+#preference > div:hover span {
+    visibility: visible;
+}
+
+#edit-icon {
+    background: url(../img/edit_icon.png) no-repeat;
     background-size: 15px 15px;
     display: inline-block;
+    visibility: hidden;
     width: 15px;
     height: 15px;
 }
