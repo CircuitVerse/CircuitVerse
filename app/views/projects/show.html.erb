@@ -48,7 +48,7 @@
           </div>
         </div>
         <div class="row row-text projectshow-view-star-count-container noSelect">
-          <i class="fas fa-star" aria-hidden="true"></i>
+          <i class="fas fa-star star-count-icon" aria-hidden="true"></i>
           <span id="star-count" class="noSelect"><%= @project.stars.count %></span>
            Stars
           &nbsp; &nbsp;
@@ -130,10 +130,10 @@
           <% end %>
           <div class="collapse" id="collapseExample">
             <div class="projectshow-embed-text-container">
-              <label for="embedTextArea">Embed Project</label>
+              <label for="embedTextArea"></label>
               <textarea id="embedTextArea" class="projectshow-embed-text" rows="4" cols="35"><iframe width="600px" height="400px" src="<%= simulator_embed_url(@project) %>" id="projectPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen></iframe></textarea>
             </div>
-            <small class="projectshow-embed-text-confirm">Code Copied to Clipboard!</small>
+            <small class="projectshow-embed-text-confirm">Copied to Clipboard!</small>
           </div>
           <p>
             <%= link_to 'Back', user_path(@author), class: "anchor-text" %>
