@@ -173,7 +173,7 @@
               </td>
             <% end %>
         </tr>
-        <tr class="assignment-table-empty-row"></tr>
+        <tr class="assignment-table-expanded-empty-row"></tr>
       <% end %>
     </tbody>
 
@@ -301,12 +301,14 @@
                 <% end %>
           </table>
         </tr>
-        <tr class="assignment-table-empty-row"></tr>
       <% end %>
     </tbody>
   </table>
-
-  <%= link_to 'Back', user_groups_path(current_user) ,class:"anchor-text" %>
+  <div class="row">
+    <div class="col-12 groupdetails-back-button-container">
+      <%= link_to 'Back', user_groups_path(current_user) ,class:"anchor-text" %>
+    </div>
+  </div>
 
   <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog custom-modal-dialog">
