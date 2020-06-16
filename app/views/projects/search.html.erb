@@ -1,7 +1,14 @@
 
 <% if @results.empty? %>
   <div class="container searchpage-container-margin">
-    <h1>No Results Found</h1>
+    <div class="row row-text">
+      <div class="col-12">
+        <div class="searchpage-no-result-container">
+          <%= image_tag "SVGs/noResult.svg", alt: "No result image" %>
+          <h6>No Results Found</h6>
+        </div>
+      </div>
+    </div>
   </div>
 <% else %>
   <div class="container searchpage-container searchpage-container-margin">
@@ -9,10 +16,10 @@
       <div class="row row-text">
         <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
           <div class="row row-text">
-            <img src="<%= project.image_preview.url %>" alt="<%= project.name %>" class="searchpage-image">
+            <%= image_tag project.image_preview.url, alt: "project.name", class: "searchpage-image" %>
           </div>
           <div class="row row-text searchpage-view-star-count-container">
-            <i class="fas fa-star" aria-hidden="true"></i>
+            <i class="fas fa-star star-count-icon" aria-hidden="true"></i>
             <span id="star-count" class="noSelect"><%= project.stars.count %></span>
              Stars
             &nbsp; &nbsp;
