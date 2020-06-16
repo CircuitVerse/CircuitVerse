@@ -36,6 +36,22 @@
 }
 
 //checkpoints
+.checkpoint-primary {
+  background-color: $shadow-grey;
+  bottom: 0;
+  display: inline-block;
+  height: 25px;
+  margin-top: 15px;
+  position: absolute;
+  width: 25px;
+
+  &::after {
+    content: "";
+    display: none;
+    position: absolute;
+  }
+}
+
 .checkpoint-primary-container {
   cursor: pointer;
   display: block;
@@ -48,45 +64,20 @@
     position: absolute;
     width: 0;
   }
-}
 
-.checkpoint-primary {
-  background-color: $shadow-grey;
-  bottom: 0;
-  display: inline-block;
-  height: 25px;
-  margin-top: 15px;
-  position: absolute;
-  width: 25px;
+  input:checked ~ .checkpoint-primary {
+    background-color: $green;
 
-  &:after {
-    position: absolute;
-    display: none;
-  }
-}
-
-.checkpoint-primary-container input:checked ~ .checkpoint-primary {
-  background-color: $green;
-
-  &:after {
-    display: block;
-    left: 9px;
-    top: 5px;
-    width: 8px;
-    height: 12px;
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-  }
-}
-
-.checkpoint-primary {
-  &:after {
-    content: "";
-    position: absolute;
-    display: none;
+    &::after {
+      border: solid $white;
+      border-width: 0 3px 3px 0;
+      display: block;
+      height: 12px;
+      left: 9px;
+      top: 5px;
+      transform: rotate(45deg);
+      width: 8px;
+    }
   }
 }
 
