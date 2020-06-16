@@ -1,6 +1,7 @@
 // All the custom class styles
-html {
-  scroll-behavior: smooth;
+//to be removed
+.file-button {
+  display: none;
 }
 
 .custom-file-upload {
@@ -13,10 +14,12 @@ html {
   text-align: center;
   width: 155px;
 }
-
-.file-button {
-  display: none;
+//to be removed ends
+html {
+  scroll-behavior: smooth;
 }
+
+
 
 .no-projects {
   padding-top: 20px;
