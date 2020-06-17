@@ -18,9 +18,6 @@ const addShortcut = (keys, action) => {
 		case "Open Offline":
 			callback = createOpenLocalPrompt;
 			break;
-		case "Recover Project":
-			callback = recoverProject;
-			break;
 		case "New Circuit":
 			callback = newCircuit;
 			break;
@@ -72,6 +69,10 @@ const addShortcut = (keys, action) => {
 		case "Move Element Right":
 			callback = moveElement('right');
 			break;
+		case "Hotkey Preference":
+			callback = openHotkey;
+			break;
+			
 		default:
 			callback = null;
 			break;

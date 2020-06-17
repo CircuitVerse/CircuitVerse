@@ -9,7 +9,7 @@ Storage.prototype.get = function (key) {
 const getKey = (obj, val) => Object.keys(obj).find((key) => obj[key] === val);
 
 const getOS = () => {
-    let OSName = '';
+    let OSName = "";
     if (navigator.appVersion.indexOf("Win") != -1) OSName = "Windows";
     if (navigator.appVersion.indexOf("Mac") != -1) OSName = "MacOS";
     if (navigator.appVersion.indexOf("X11") != -1) OSName = "UNIX";
@@ -19,12 +19,32 @@ const getOS = () => {
 
 const checkRestricted = (key) => {
     const restrictedKeys = [
-        "CTRL + N",
-        "CTRL + W",
-        "CTRL + T",
-        "META + N",
-        "META + W",
-        "META + T",
+        "Ctrl + N",
+        "Ctrl + W",
+        "Ctrl + T",
+        "Ctrl + /",
+        "Ctrl + ]",
+        "Ctrl + [",
+        "Ctrl + ~",
+        "Ctrl + Num1",
+        "Ctrl + Num2",
+        "Ctrl + Num3",
+        "Ctrl + Num4",
+        "Ctrl + Num5",
+        "Ctrl + Num6",
+        "Ctrl + Num*",
+        "Ctrl + Num/",
+        "Ctrl + Num.",
+        "Ctrl + Num0",
     ];
+    if (getOS == "macOS") {
+        restrictedKeys.forEach((value, i) => {
+            if (value.split(" + ")[0] == "Ctrl");
+            restrictedKeys[i] =
+                value.split(" + ")[0] == "Ctrl"
+                    ? value.replace("Ctrl", "Meta")
+                    : value;
+        });
+    }
     return restrictedKeys.includes(key);
 };

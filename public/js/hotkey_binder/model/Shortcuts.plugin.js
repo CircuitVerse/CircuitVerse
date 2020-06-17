@@ -59,7 +59,7 @@ const shortcut = {
       if (e.keyCode) code = e.keyCode;
       else if (e.which) code = e.which;
       var character = String.fromCharCode(code).toLowerCase();
-      // e.preventDefault();
+      e.preventDefault();
 
       if (code == 188) character = ","; //If the user presses , when the type is onkeydown
       if (code == 190) character = "."; //If the user presses , when the type is onkeydown

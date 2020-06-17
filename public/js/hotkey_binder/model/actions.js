@@ -120,3 +120,5 @@ const moveElement = (direct) => () => {
         }
     }
 };
+
+const openHotkey = () => $("#customShortcut").click();

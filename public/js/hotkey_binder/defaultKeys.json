@@ -8,7 +8,6 @@ defaultKeys = {
   "Save Offline": "Ctrl + Alt + S",
   "Download as Image": "Ctrl + D",
   "Open Offline": "Ctrl + O",
-  "Recover Project": "Ctrl + R",
   "New Circuit": "Ctrl + Alt + N",
   "Create Sub-ciruit": "Shift + C",
   "Combinational Analysis": "Shift + A",
@@ -26,5 +25,6 @@ defaultKeys = {
   "Move Element Down": "S",
   "Move Element Left": "A",
   "Move Element Right": "D",
+  "Hotkey Preference": "Ctrl + .",
 };
 
