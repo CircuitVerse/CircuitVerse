@@ -14,10 +14,12 @@ $("#customShortcut").click(() => {
             {
                 text: "Reset to default",
                 click: () => {
-                    if(confirm(
-                        "Remove all custom keys & set the default keys?"
-                        ))
-                    setDefault();
+                    if (
+                        confirm(
+                            "Remove all custom keys & set the default keys?"
+                        )
+                    )
+                        setDefault();
                 },
                 id: "resetDefault",
             },
@@ -68,9 +70,13 @@ $("#edit").keydown((e) => {
         } else {
             $("#warning").text("Please enter different key(s).");
             $("#edit").css("animation", "shake .3s linear");
+            $("#pressedKeys").text("");
         }
     }
-    const currentKey = k.hot_key(k.translate_event(e)).split('+').join(' + ');
+    const currentKey =
+        k.hot_key(k.translate_event(e)).split("+").join(" + ") !== "Enter"
+            ? k.hot_key(k.translate_event(e)).split("+").join(" + ")
+            : "";
     if (
         $("#pressedKeys").text().split(" + ").length === 2 &&
         !modifiers.includes(currentKey) &&
@@ -91,11 +97,11 @@ $("#edit").keydown((e) => {
     }
     if (
         ($("#pressedKeys").text().split(" + ").length === 2 &&
-            ["CTRL", "META"].includes(
+            ["Ctrl", "Meta"].includes(
                 $("#pressedKeys").text().split(" + ")[1]
             )) ||
-        ($("#pressedKeys").text().split(" + ")[0] === "ALT" &&
-            $("#pressedKeys").text().split(" + ")[1] === "SHIFT")
+        ($("#pressedKeys").text().split(" + ")[0] === "Alt" &&
+            $("#pressedKeys").text().split(" + ")[1] === "Shift")
     ) {
         $("#pressedKeys").text(
             $("#pressedKeys").text().split(" + ").reverse().join(" + ")
