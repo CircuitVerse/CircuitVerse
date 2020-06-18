@@ -74,7 +74,7 @@ const addShortcut = (keys, action) => {
 			break;
 			
 		default:
-			callback = null;
+			callback = () => true;
 			break;
 	}
 	shortcut.add(keys, callback, {
