@@ -1,17 +1,17 @@
 function handleMainCheckbox() {
     $('#restrict-elements').change(function (e) {
-      e.preventDefault();
-      var radio = $(e.currentTarget);
+        e.preventDefault();
+        var radio = $(e.currentTarget);
 
-      if (radio.is(':checked')) {
-          $('.restricted-elements-list').removeClass('display--none');
-      }
-      else {
-          $('.restricted-elements-list').addClass('display--none');
-      }
+        if (radio.is(':checked')) {
+            $('.restricted-elements-list').removeClass('display--none');
+        }
+        else {
+            $('.restricted-elements-list').addClass('display--none');
+        }
     });
     $('#restrict-elements').trigger('change');
-  }
+}
 
 function restrictionsMap(restrictions) {
     var map = {};
@@ -27,13 +27,13 @@ function htmlRowName(name) {
 
 function htmlInlineCheckbox(elementName, checked) {
     return '\n <div class="form-check form-check-inline"> \n <label class="form-check-label checkpoint-primary-container newassignment-checkpoint-primary-container" for="checkbox-'
-      .concat(elementName, '">')
-      .concat('<input class="form-check-input element-restriction" type="checkbox" id="checkbox-')
-      .concat(elementName, '" value="')
-      .concat(elementName, '" ')
-      .concat('>\n')
-      .concat('<div class="checkpoint-primary newassignment-checkpoint-primary"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;')
-      .concat(elementName, "</span></label>\n</div>");
+        .concat(elementName, '">')
+        .concat('<input class="form-check-input element-restriction" type="checkbox" id="checkbox-')
+        .concat(elementName, '" value="')
+        .concat(elementName, '" ')
+        .concat('>\n')
+        .concat('<div class="checkpoint-primary newassignment-checkpoint-primary"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;')
+        .concat(elementName, "</span></label>\n</div>");
 }
 
 function generateRow(name, elements, restrictionMap) {
