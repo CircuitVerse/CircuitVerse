@@ -1,15 +1,18 @@
 
 <% content_for :title, @group.name + " - New Assignment" %>
 
-<link rel="stylesheet" type="text/css" href="/css/tooltip.css">
-<div class="container">
-  <div class="row feature">
-    <div class="col">
-      <h1 style="margin-bottom: 15px;">New Assignment <small><%= @group.name %></small></h1>
-
-      <%= render 'form', assignment: @assignment , group:@group %>
-
-      <%= link_to 'Back', group_path(@group) %>
+<div class="container newproject-container">
+  <div class="row row-text">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <h1 class="heading-submain">New Assignment</h1>
+      <h2 class="heading-submain newassignment-heading-submain">Group: <%= @group.name %></h2> <br>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="newproject-form-container">
+        <%= render 'form', assignment: @assignment , group:@group %>
+      </div>
     </div>
   </div>
 </div>

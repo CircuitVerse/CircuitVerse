@@ -1,17 +1,17 @@
 .display--none {
-    display:none;
+  display: none;
 }
 
 .circuit-element-container {
-    padding: 0 3px;
+  padding: 0 3px;
 }
 
 .circuit-element-category {
-    font-weight: 500;
-    margin: 20px 0 5px 0;
-    border-bottom: 1px solid #42B983;
+  border-bottom: 1px solid #42b983;
+  font-weight: 500;
+  margin: 20px 0 5px;
 }
 
 .restricted-elements-list {
-    margin: 10px 0 25px 0;
+  margin: 10px 0 25px;
 }

@@ -80,6 +80,30 @@
   }
 }
 
+//tooltips
+.tooltip {
+  color: $black;
+  display: inline-block;
+  border-bottom: 1px dotted $black;
+
+  .tooltip-text {
+    visibility: hidden;
+    width: 220px;
+    background-color: $card-green;
+    color: $black;
+    text-align: left;
+    border-radius: 4px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    }
+
+    &:hover {
+      .tooltip-text {
+        visibility: visible;
+      }
+    }
+}
 //breakpoints
 @media (max-width:$small-display) {
   .about-button-primary-container {
