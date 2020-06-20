@@ -15,6 +15,7 @@
 
 .groupdetails-row-scroll {
   max-height: 525px;
+  max-width: 1030px;
   overflow-y: auto;
 }
 
@@ -27,7 +28,7 @@
   border: 1px solid $teal;
   display: inline-block;
   height: 90px;
-  margin: 10px;
+  margin: 18px 10px;
   padding: 15px;
   width: 300px;
 }
@@ -211,8 +212,19 @@
 //breakpoints
 @media (max-width: 1200px) {
 
+  .groupdetails-row-scroll {
+    max-width: 920px;
+  }
+
   .groupdetails-card-member {
     width: 270px;
+  }
+}
+
+@media(max-width: 992px) {
+
+  .groupdetails-row-scroll {
+    max-width: 610px;
   }
 }
 
