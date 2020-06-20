@@ -5,8 +5,7 @@ function handleMainCheckbox() {
 
         if (radio.is(':checked')) {
             $('.restricted-elements-list').removeClass('display--none');
-        }
-        else {
+        } else {
             $('.restricted-elements-list').addClass('display--none');
         }
     });

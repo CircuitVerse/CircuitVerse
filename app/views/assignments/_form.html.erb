@@ -38,10 +38,7 @@
   </div>
 
   <div id="restrictions-field" class="form-group">
-    <label for="restrict-elements" class="checkpoint-primary-container newproject-checkbox-label"><h6>Enable elements restriction:</h6>
-      <%= check_box_tag "restrict-elements", "1", checked: @assignment.elements_restricted? %>
-      <div class="checkpoint-primary"></div>
-    </label>
+    <%= check_box_tag "restrict-elements", "1", checked: @assignment.elements_restricted? %>
     <div class="restricted-elements-list"> <!-- Operated by script --> </div>
   </div>
 
