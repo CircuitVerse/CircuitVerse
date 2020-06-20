@@ -17,13 +17,13 @@
           <%= form_with model: @profile, multipart: true, url: { action: "update" }, local: true do |f| %>
             <div class="form-group ">
               <h6><%= f.label :name %><sup><i class="fa fa-asterisk editprofile-asterisk"></i></sup></h6>
-              <%= f.text_field :name, required: true, class:"form-control editprofile-data-field" %>
+              <%= f.text_field :name, required: true, class:"form-control editprofile-data-field", autofocus: true %>
             </div>
             <div class="form-group">
               <h6>Profile Picture<h6>
               <p><%= image_tag @profile.profile_picture.url(:thumb), id:'imgedit', class:"editprofile-user-image", alt:'User Profile Image' %></p>
               <label for="profile_picture" class="editprofile-data-field editprofile-user-image-button">Choose File</label>
-              <input type="file" accept="image/png, .jpeg, .jpg" class="editprofile-image-button-hidden" id="profile_picture" name="user[profile_picture]" onchange="readURL(this);" value="<%= @profile.profile_picture %>">
+              <input tabindex="0" type="file" accept="image/png, .jpeg, .jpg" class="editprofile-image-button-hidden" id="profile_picture" name="user[profile_picture]" onchange="readURL(this);" value="<%= @profile.profile_picture %>">
             </div>
             <div class="form-group">
               <h6><%= f.label :country %></h6>
