@@ -111,9 +111,9 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    commontator (5.0.0)
-      jquery-rails
-      rails (>= 5.0)
+    commontator (6.3.0)
+      rails (>= 5.2)
+      will_paginate
     concurrent-ruby (1.1.6)
     connection_pool (2.2.2)
     countries (3.0.0)
@@ -537,7 +537,7 @@ DEPENDENCIES
   capybara (~> 2.13)
   carrierwave (~> 1.0)
   coffee-rails (~> 5.0)
-  commontator (~> 5.0.0)
+  commontator (~> 6.3.0)
   country_select (~> 4.0)
   coveralls
   devise

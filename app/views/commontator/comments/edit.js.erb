@@ -1,5 +1,7 @@
-$("#comment_<%= @comment.id.to_s %>_body_div").html("<%= j(
-  render partial: 'form',
-         locals: { comment: @comment }) %>");
-         
+$("#commontator-comment-<%= @comment.id %>-body").html("<%= escape_javascript(
+  render partial: 'form', locals: { comment: @comment }
+) %>");
+
+$('#commontator-comment-<%= @comment.id %>-edit-body').focus();
+
 <%= javascript_proc %>
