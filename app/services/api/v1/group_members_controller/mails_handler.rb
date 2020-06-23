@@ -16,7 +16,7 @@ class Api::V1::GroupMembersController
       @added_mails = []
     end
 
-    # parse emails as valid, invalid or exisitng mails
+    # parse emails as valid, invalid or existing mails
     def parse
       @mails.split(",").each do |email|
         email = email.strip
@@ -39,11 +39,11 @@ class Api::V1::GroupMembersController
       newly_added.each do |email|
         user = User.find_by(email: email)
         if user.nil?
-          # invitation being sent to non-existant user
+          # invitation being sent to non-existent user
           @pending_mails.push(email)
           PendingInvitation.where(group_id: @group.id, email: email).first_or_create
         else
-          # create group_member for existant users
+          # create group_member for existent users
           @added_mails.push(email)
           GroupMember.where(group_id: @group.id, user_id: user.id).first_or_create
         end

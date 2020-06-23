@@ -11,7 +11,7 @@ RSpec.describe Api::V1::GroupsController, "#create", type: :request do
         post "/api/v1/groups", as: :json
       end
 
-      it "returns status unatheticated" do
+      it "returns status unauthenticated" do
         expect(response).to have_http_status(401)
         expect(response.parsed_body).to have_jsonapi_errors
       end

@@ -16,7 +16,7 @@ RSpec.describe Api::V1::AssignmentsController, "#update", type: :request do
         patch "/api/v1/assignments/#{assignment.id}", as: :json
       end
 
-      it "returns status unautheticated" do
+      it "returns status unauthenticated" do
         expect(response).to have_http_status(401)
         expect(response.parsed_body).to have_jsonapi_errors
       end

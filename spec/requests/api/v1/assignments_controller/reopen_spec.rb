@@ -73,7 +73,7 @@ RSpec.describe Api::V1::AssignmentsController, "#reopen", type: :request do
             headers: { "Authorization": "Token #{token}" }, as: :json
       end
 
-      it "reopnes assignment & return status ok" do
+      it "reopens assignment & return status ok" do
         expect(response).to have_http_status(200)
         expect(response.parsed_body["message"]).to eq("Assignment has been reopened!")
       end

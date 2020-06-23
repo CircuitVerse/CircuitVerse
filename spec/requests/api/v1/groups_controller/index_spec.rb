@@ -36,7 +36,7 @@ RSpec.describe Api::V1::GroupsController, "#index", type: :request do
       end
     end
 
-    context "when auhtorized and including assignments" do
+    context "when authorized and including assignments" do
       before do
         # create 3 groups with assignment and group_member for each
         FactoryBot.create_list(:group, 3, mentor: mentor).each do |g|
