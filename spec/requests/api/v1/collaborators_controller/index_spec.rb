@@ -31,7 +31,7 @@ RSpec.describe Api::V1::CollaboratorsController, "#index", type: :request do
       end
     end
 
-    context "when auhtorized to fetch project collaborators" do
+    context "when authorized to fetch project collaborators" do
       before do
         # create 3 collaborators for a project
         FactoryBot.create_list(:user, 3).each do |u|

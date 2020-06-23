@@ -13,7 +13,7 @@ RSpec.describe Api::V1::CollaboratorsController, "#create", type: :request do
         post "/api/v1/projects/#{project.id}/collaborators/", as: :json
       end
 
-      it "returns status unautheticated" do
+      it "returns status unauthenticated" do
         expect(response).to have_http_status(401)
         expect(response.parsed_body).to have_jsonapi_errors
       end

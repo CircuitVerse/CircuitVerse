@@ -14,7 +14,7 @@ class Api::V1::CollaboratorsController
       @invalid_mails = []
     end
 
-    # parse emails as valid, invalid or exisitng mails
+    # parse emails as valid, invalid or existing mails
     def parse
       @mails.split(",").each do |email|
         email = email.strip
