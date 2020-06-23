@@ -1,32 +1,32 @@
-<% # Clients of this partial must supply the following variables:
-   # thread
-   # user
-   # per_page
+<%#
+  Views that use this partial must supply the following variables:
+  thread
+  user
+%>
 
-   hidden_class = @new_comment.nil? ? ' commontator_hidden' : '' %>
-
-<div id="thread_<%= thread.id %>_reply" class="thread_reply">
+<div id="commontator-thread-<%= thread.id %>-reply" class="reply">
   <% if thread.is_closed? %>
     <p><%= t 'commontator.thread.status.cannot_post' %></p>
   <% elsif !user %>
-    <p><%= t 'commontator.require_login' %>.</p>
+    <p><%= t 'commontator.require_login' %></p>
   <% else %>
-    <div id="thread_<%= thread.id %>_new_comment_form_div" class="thread_new_comment_form<%=
-    hidden_class %>">
-      <% unless @new_comment.nil? %>
-        <%= render partial: 'commontator/comments/form',
-                   locals: { comment: @new_comment,
-                                thread: thread,
-                                per_page: per_page } %>
-      <% end %>
-    </div>
-
-    <% if @new_comment.nil? %>
-      <div id="thread_<%= thread.id %>_new_comment_link_div" class="thread_new_comment_link">
+    <% if @commontator_new_comment.nil? %>
+      <div id="commontator-thread-<%= thread.id %>-new-comment-link" class="new-comment">
         <%= link_to t('commontator.comment.actions.new'),
-            commontator.new_thread_comment_path(thread, per_page: per_page),
+            commontator.new_thread_comment_path(thread),
             remote: true %>
       </div>
     <% end %>
+
+    <div id="commontator-thread-<%= thread.id %>-new-comment" class="new-comment<%=
+    @commontator_new_comment.nil? ? ' commontator-hidden' : '' %>">
+      <% unless @commontator_new_comment.nil? %>
+        <%=
+          render partial: 'commontator/comments/form', locals: {
+            comment: @commontator_new_comment, thread: thread
+          }
+        %>
+      <% end %>
+    </div>
   <% end %>
 </div>
