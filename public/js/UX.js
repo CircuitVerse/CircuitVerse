@@ -426,11 +426,6 @@ $('#bitconverter').click(function () {
                     $("#hexInput").val("0");
                 }
             },
-            {
-              text: "",
-              click:  function() {$(this).dialog("close");},
-              class: 'dialog-close--btn'
-            }
           ]
     });
 })

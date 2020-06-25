@@ -1219,7 +1219,6 @@ select {
   background: transparent;
   color: white;
   line-height: inherit;
-  margin: auto;
   border-radius: 1px;
   font: inherit;
 }
@@ -1228,7 +1227,7 @@ select {
   background: #ddd;
   color: #454545 !important;
   transition: all 0.5s ease;
-  border: none;
+  border: 1px solid transparent;
 }
 
 .render-btn {
