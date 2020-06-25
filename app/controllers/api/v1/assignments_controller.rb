@@ -9,6 +9,8 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
   before_action :check_access, only: %i[update destroy reopen]
   after_action :check_reopening_status, only: [:update]
 
+  WHITELISTED_INCLUDE_ATTRIBUTES = %i[projects grades].freeze
+
   # GET /api/v1/groups/:group_id/assignments
   def index
     @assignments = paginate(@group.assignments)
@@ -75,6 +77,13 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
 
   private
 
+    # include=projects,grades
+    def include_resource
+      params[:include].split(",")
+                      .map { |resource| resource.strip.to_sym }
+                      .select { |resource| WHITELISTED_INCLUDE_ATTRIBUTES.include?(resource) }
+    end
+
     def set_assignment
       @assignment = Assignment.find(params[:id])
     end
@@ -85,7 +94,9 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
 
     # sets @current_user as params to be used in assignment serializer
     def set_options
-      @options = { params: { current_user: @current_user } }
+      @options = {}
+      @options[:include] = include_resource if params.key?(:include)
+      @options[:params] = { current_user: @current_user }
     end
 
     def check_reopening_status

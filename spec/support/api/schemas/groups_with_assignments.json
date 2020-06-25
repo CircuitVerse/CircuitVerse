@@ -106,6 +106,46 @@
               "grades_finalized",
               "restrictions"
             ]
+          },
+          "relationships": {
+            "type": "object",
+            "properties": {
+              "projects": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": { "type": "string" },
+                        "type": { "type": "string" }
+                      }
+                    },
+                    "required": ["id", "type"]
+                  }
+                },
+                "required": ["data"]
+              },
+              "grades": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": { "type": "string" },
+                        "type": { "type": "string" }
+                      }
+                    },
+                    "required": ["id", "type"]
+                  }
+                },
+                "required": ["data"]
+              }
+            },
+            "required": ["projects", "grades"]
           }
         },
         "required": ["id", "type", "attributes"]

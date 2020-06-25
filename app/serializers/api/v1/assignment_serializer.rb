@@ -16,4 +16,7 @@ class Api::V1::AssignmentSerializer
   end
 
   attributes :created_at, :updated_at, :grading_scale, :grades_finalized
+
+  has_many :projects
+  has_many :grades
 end
