@@ -127,6 +127,7 @@ Rails.application.routes.draw do
         member do
           get 'toggle-star', to: 'projects#toggle_star'
           get 'fork', to: 'projects#create_fork'
+          get 'image_preview', to: 'projects#image_preview'
         end
       end
       resources :users do

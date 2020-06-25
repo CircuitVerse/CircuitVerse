@@ -5,7 +5,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
   include ActionView::Helpers::SanitizeHelper
 
   before_action :authenticate_user, only: %i[index show]
-  before_action :authenticate_user!, except: %i[index show]
+  before_action :authenticate_user!, except: %i[index show image_preview]
   before_action :load_index_projects, only: %i[index]
   before_action :load_user_projects, only: %i[user_projects]
   before_action :load_featured_circuits, only: %i[featured_circuits]
@@ -35,6 +35,11 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     authorize @project, :check_view_access?
     @project.increase_views(@current_user)
     render json: Api::V1::ProjectSerializer.new(@project, @options)
+  end
+
+  def image_preview
+    @project = Project.open.find(params[:id])
+    render json: { "project_preview": request.base_url + @project.image_preview.url }
   end
 
   # PATCH /api/v1/projects/:id
