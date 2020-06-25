@@ -1,0 +1,335 @@
+@import "css-vars/css-vars";
+$css-vars-use-native: true;
+
+//old ui ruleset starts here
+.deleteOfflineProject {
+  float: right;
+  cursor: pointer;
+  padding: 2px;
+}
+
+.pointerCursor {
+  cursor: pointer;
+}
+
+.defaultCursor {
+  cursor: default;
+}
+
+#container {
+  display: table;
+  width: 100%;
+  height: 100%;
+}
+
+#container > div {
+  display: table-row;
+  height: 0;
+}
+
+#container > div.fill {
+  height: auto;
+}
+
+/* END OF MODULES  */
+
+#restrictedDiv {
+  position: absolute;
+  top: 10px;
+  margin-left: 10px;
+  width: 560px;
+  z-index: 100;
+}
+
+#restrictedElementsDiv {
+  position: absolute;
+  top: 90px;
+  right: 10px;
+  z-index: 100;
+  width: 200px;
+}
+
+#MessageDiv {
+  position: absolute;
+  margin-left: 30px;
+  bottom: 100px;
+  z-index: 100;
+}
+
+.errorMessage {
+  height: auto;
+  width: 100%;
+  padding: 2px;
+  margin: 2px;
+  border: 1px solid red;
+  border-radius: 3px;
+  background-color: #fee;
+  font-size: 15px;
+}
+
+.normalMessage {
+  height: auto;
+  width: 100%;  padding: 2px;
+  margin: 2px;
+  border: 1px solid green;
+  border-radius: 3px;
+  background-color: #99ff33;
+  font-size: 15px;
+}
+
+#canvasArea {
+  display: block;
+  position: relative;
+  width: 100%;
+  background-color: red;
+}
+
+.simulation {
+  position: relative;
+  width: auto;
+  height: 100%;
+  overflow: hidden;
+  background-color: "white";
+}
+
+#plot {
+  position: fixed;
+  z-index: 1;
+  bottom: 0;
+  right: 0;
+  overflow-y: scroll;
+  background-color: #eee;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+
+.objectPropertyAttributeChecked.btn {
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+/* For loading screen - pace.js */
+
+.pace {
+  -webkit-pointer-events: none;
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: #fff;
+  z-index: 100000;
+}
+
+.pace-inactive {
+  display: none;
+}
+
+#Help {
+  visibility: hidden;
+  /* Hidden by default. Visible on click */
+  min-width: 250px;
+  /* Set a default minimum width */
+  margin-left: -125px;
+  /* Divide value of min-width by 2 */
+  background-color: #333;
+  /* Black background color */
+  color: #fff;
+  /* White text color */
+  text-align: center;
+  /* Centered text */
+  border-radius: 2px;
+  /* Rounded borders */
+  padding: 16px;
+  /* Padding */
+  position: fixed;
+  /* Sit on top of the screen */
+  z-index: 1;
+  /* Add a z-index if needed */
+  right: 50px;
+  /* Center the snackbar */
+  bottom: 50px;
+  /* 30px from the bottom */
+  opacity: 0;
+}
+
+#Help.show {
+  visibility: visible;
+  /* Show the snackbar */
+  opacity: 1;
+  -webkit-transition-delay: 0.5s;
+  /* Safari */
+  transition-delay: 0.5s;
+  -webkit-transition-duration: 0.3s;
+  /* Safari */
+  transition-duration: 0.3s;
+}
+
+/* Animations to fade the snackbar in and out */
+
+@-webkit-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    bottom: 0px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+.pace .pace-progress {
+  background: #29d;
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  right: 100%;
+  width: 50%;
+  height: 5px;
+}
+
+/* LOADING ICON CSS STARTS*/
+
+.sk-folding-cube {
+  margin: 20px auto;
+  width: 40px;
+  height: 40px;
+  position: relative;
+  -webkit-transform: rotateZ(45deg);
+  transform: rotateZ(45deg);
+}
+
+.sk-folding-cube .sk-cube {
+  float: left;
+  width: 50%;
+  height: 50%;
+  position: relative;
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+.sk-folding-cube .sk-cube:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #09f;
+  -webkit-animation: sk-foldCubeAngle 2.4s infinite linear both;
+  animation: sk-foldCubeAngle 2.4s infinite linear both;
+  -webkit-transform-origin: 100% 100%;
+  -ms-transform-origin: 100% 100%;
+  transform-origin: 100% 100%;
+}
+
+.sk-folding-cube .sk-cube2 {
+  -webkit-transform: scale(1.1) rotateZ(90deg);
+  transform: scale(1.1) rotateZ(90deg);
+}
+
+.sk-folding-cube .sk-cube3 {
+  -webkit-transform: scale(1.1) rotateZ(180deg);
+  transform: scale(1.1) rotateZ(180deg);
+}
+
+.sk-folding-cube .sk-cube4 {
+  -webkit-transform: scale(1.1) rotateZ(270deg);
+  transform: scale(1.1) rotateZ(270deg);
+}
+
+.sk-folding-cube .sk-cube2:before {
+  -webkit-animation-delay: 0.3s;
+  animation-delay: 0.3s;
+}
+
+.sk-folding-cube .sk-cube3:before {
+  -webkit-animation-delay: 0.6s;
+  animation-delay: 0.6s;
+}
+
+.sk-folding-cube .sk-cube4:before {
+  -webkit-animation-delay: 0.9s;
+  animation-delay: 0.9s;
+}
+
+@-webkit-keyframes sk-foldCubeAngle {
+  0%,
+  10% {
+    -webkit-transform: perspective(140px) rotateX(-180deg);
+    transform: perspective(140px) rotateX(-180deg);
+    opacity: 0;
+  }
+  25%,
+  75% {
+    -webkit-transform: perspective(140px) rotateX(0deg);
+    transform: perspective(140px) rotateX(0deg);
+    opacity: 1;
+  }
+  90%,
+  100% {
+    -webkit-transform: perspective(140px) rotateY(180deg);
+    transform: perspective(140px) rotateY(180deg);
+    opacity: 0;
+  }
+}
+
+@keyframes sk-foldCubeAngle {
+  0%,
+  10% {
+    -webkit-transform: perspective(140px) rotateX(-180deg);
+    transform: perspective(140px) rotateX(-180deg);
+    opacity: 0;
+  }
+  25%,
+  75% {
+    -webkit-transform: perspective(140px) rotateX(0deg);
+    transform: perspective(140px) rotateX(0deg);
+    opacity: 1;
+  }
+  90%,
+  100% {
+    -webkit-transform: perspective(140px) rotateY(180deg);
+    transform: perspective(140px) rotateY(180deg);
+    opacity: 0;
+  }
+}
+
+/* LOADING ICON CSS ENDS*/

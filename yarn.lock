@@ -2237,6 +2237,11 @@ css-tree@1.0.0-alpha.37:
     mdn-data "2.0.4"
     source-map "^0.6.1"
 
+css-vars@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/css-vars/-/css-vars-2.2.0.tgz#18eefe1a3d1582baba12c969247d09ac2f2ba341"
+  integrity sha1-GO7+Gj0Vgrq6EslpJH0JrC8ro0E=
+
 css-what@^3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/css-what/-/css-what-3.2.1.tgz#f4a8f12421064621b456755e34a03a2c22df5da1"

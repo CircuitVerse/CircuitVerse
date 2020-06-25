@@ -1,23 +1,35 @@
 <% content_for(:html_title) { 'CircuitVerse - Digital Simulator' } %>
 <!--Displays the loading screen  -->
 <script src="/js/pace.js"></script>
-<!-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384&#45;BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script
+  src="https://code.jquery.com/jquery-3.5.1.min.js"
+  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+  crossorigin="anonymous"
+></script>
+<link
+  rel="stylesheet"
+  href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
+/>
+<!-- Plugin scripts -->
+<script src="/js/plugins/jquery.twbs-toggle-buttons.min.js"></script>
+<script src="/js/plugins/checkBo.min.js"></script>
+<script src="/js/plugins/jquery-pseudo-ripple.js"></script>
+<script src="/js/plugins/bootstrap-input-spinner.js"></script>
+
 <script>
   userSignedIn = <%= user_signed_in? %>;
   logix_project_id = <%= @logix_project_id %>;
   projectName = "<%= @projectName %>"
 </script>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="/">CircuitVerse</a>
+<nav class="navbar navbar-expand-lg navbar-dark header">
+  <a href="/"><span class='logo'></span></a>
   <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-controls="collapsedNavbar" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-    <ul class="navbar-nav mr-auto noSelect pointerCursor" id="toolbar">
+    <ul class="navbar-nav navbar-menu noSelect pointerCursor" id="toolbar">
       <li class="dropdown">
-        <a href="#" class="dropdown-toggle text-light" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Project<span class="caret"></span></a>
+        <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Project<span></span></a>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item logixButton" id="newProject">New Project</a></li>
           <li><a class="dropdown-item logixButton" id="clearProject">Clear Project</a></li>
@@ -28,33 +40,72 @@
         </ul>
       </li>
       <li class="dropdown">
-        <a href="#" class="dropdown-toggle text-light" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Circuit<span class="caret"></span></a>
+        <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Circuit<span></span></a>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item logixButton" id="newCircuit">New Circuit +</a></li>
           <li><a class="dropdown-item logixButton" id="createSubCircuitPrompt">Insert SubCircuit</a></li>
         </ul>
       </li>
       <li class="dropdown">
-        <a href="#" class="dropdown-toggle text-light" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tools<span class="caret"></span></a>
+        <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tools<span></span></a>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item logixButton" id="createCombinationalAnalysisPrompt">Combinational Analysis</a></li>
-          <li><a type="button" class="dropdown-item" id="bitconverter" >Hex-Bin-Dec-Converter</a></li>
+          <li><a class="dropdown-item logixButton" id="createCombinationalAnalysisPrompt">Combinational<br>Analysis</a></li>
+          <li><a type="button" class="dropdown-item" id="bitconverter" >Hex-Bin-Dec<br>Converter</a></li>
           <li><a class="dropdown-item logixButton" id="startPlot">Start Plot</a></li>
           <li><a class="dropdown-item logixButton" id="createSaveAsImgPrompt">Download Image</a>
           <li><a class="dropdown-item" id="customShortcut">Custom Shortcut</a>
         </ul>
       </li>
+<!--      <li class="dropdown">
+        <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Window<span></span></a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item logixButton" id="createCombinationalAnalysisPrompt">Combinational</br>Analysis</a></li>
+          <li><a class="dropdown-item logixButton" id="startPlot">Start Plot</a></li>
+          <li><a class="dropdown-item logixButton" id="createSaveAsImgPrompt">Download Image</a>
+        </ul>
+      </li> -->
       <li class="">
-        <a href="https://docs.circuitverse.org" class="text-light" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">Help</a>
+        <a href="https://docs.circuitverse.org" class="" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">Help</a>
       </li>
     </ul>
     <span class="projectName noSelect defaultCursor font-weight-bold" id="projectName">
       Untitled
     </span>
-    <ul class="nav navbar-nav noSelect pointerCursor pull-right">
+    <div class='quick-btn'>
+            <div>
+              <button type="button" class="quick-btn-save-online logixButton" id="save" title="Save Online" onclick="">
+              </button>
+            </div>
+            <div>
+              <button type="button" class="quick-btn-save logixButton"  id="saveOffline" title="Save Offline" onclick="">
+              </button>
+            </div>          
+            <div>
+              <button type="button" class="quick-btn-delete" title="Delete Selected" onclick="delete_selected()">
+              </button>
+            </div>     
+            <div>
+              <button type="button" class="quick-btn-download logixButton" id="createSaveAsImgPrompt" title="Download as Image" onclick="">
+              </button>
+            </div>
+            <div>    
+              <button type="button" class="quick-btn-zoom-fit" title="Fit to Screen" onclick="layoutResetNodes()">
+              </button>
+            </div>
+            <div>
+              <button type="button" class="quick-btn-undo" title="Undo" onclick="undo()">
+              </button>
+            </div>
+            <div>
+              <button type="button" class="quick-btn-redo logixButton" title="Redo" onclick="">
+              </button>
+            </div>
+      </div>
+
+    <ul class="nav navbar-nav noSelect pointerCursor pull-right account-btn">
       <li class="dropdown pull-right">
         <% if user_signed_in? %>
-          <a href="#" class="dropdown-toggle text-light" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %><span class="caret"></span></a>
+          <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %></a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href=<%= profile_path(current_user) %>>Profile</a></li>
             <li><a class="dropdown-item" href=<%= user_path(current_user) %>>My Circuits</a></li>
@@ -63,321 +114,439 @@
             <li><a class="dropdown-item" rel="nofollow" data-method="delete" href=<%= destroy_user_session_path %>>Sign Out</a></li>
           </ul>
         <% else %>
-          <a class="navbar-nav nav-link" href=<%= new_user_session_path %>> Sign In </a>
+          <a class="navbar-nav signIn-btn" href=<%= new_user_session_path %>> Sign In </a>
         <% end %>
       </li>
     </ul>
   </div>
   <!-- /.navbar-collapse -->
 </nav>
+<div id="tabsBar" class="noSelect pointerCursor">
+  <button class="logixButton" id="newCircuit" onclick="">&#43;</button>
+</div>
+
+<div class="modules noSelect defaultCursor ce-panel">
+  <div id="modules-header">Circuit Elements</div>
+  <div class="accordion" id="menu"></div>
+</div>
+
+<div class="moduleProperty noSelect effect1 properties-panel" id="moduleProperty">
+  <div id="moduleProperty-title" class="noSelect">Properties</div>
+  <div id="moduleProperty-inner"></div>
+</div>
 
 <div id="bitconverterprompt" title="Dec-Bin-Hex-Converter" style="display: none;"></div>
 <div id="customShortcutDialog" title="Keybinding Preference"></div>
 
-  <div>
-    <div class="side left" id="sideBar">
-      <div class="modules noSelect defaultCursor">
-        <div id="modules-header">Circuit Elements</div>
-        <div class="accordion" id="menu">
-        </div>
-      </div>
-      <div class="moduleProperty effect1" id="moduleProperty">
-        <div id="moduleProperty-title" class="noSelect">Properties</div>
-        <div id="moduleProperty-inner"></div>
-        <!-- <div id="moduleProperty-toolTip"></div> -->
-      </div>
+<div id="layoutDialog" style="display: none;" class="">
+  <div class="">
+    <div class="panel-heading">Layout Options</div>
+    <div class="">
+      <button
+        type="button"
+        class="btn zoomButton btn-lg"
+        onclick="decreaseLayoutWidth()"
+      >
+        <span class="fa fa-minus" aria-hidden="true"></span>
+      </button>
+      <span>Width</span>
+      <button
+        type="button"
+        class="btn zoomButton btn-lg"
+        onclick="increaseLayoutWidth()"
+      >
+        <span class="fa fa-plus" aria-hidden="true"></span>
+      </button>
     </div>
-    <div class="rightPanel">
-      <div id="tabsBar" class="noSelect pointerCursor">
-        <!-- <div> Circuits: </div> -->
-      </div>
-      <div class="simulation" id="simulation">
-        <div id="restrictedDiv" class="alert alert-danger display--none">
-        </div>
-        <% if @project&.assignment_id.present? && @project&.assignment&.elements_restricted? %>
-          <div id="restrictedElementsDiv" class="alert alert-danger">
-            <div> Restricted elements used: <span id="restrictedElementsDiv--list"> </span></div>
-          </div>
-        <% end %>
-        <div id="MessageDiv">
-        </div>
-        <div class="canvasArea" id="canvasArea">
-          <canvas id="backgroundArea" style="position: absolute; left: 0; top: 0; z-index: 0; width:100%;height:100%"></canvas>
-          <canvas id="simulationArea" style="position: absolute; left: 0; top: 0; z-index: 1; width:100%;height:100%"></canvas>
-          <div id="plot">
-            <canvas id="plotArea" style="position: absolute; left: 0; top: 0; z-index: 2"></canvas>
-          </div>
-          <div id="miniMap">
-            <canvas id="miniMapArea" style="position: absolute; left:0; top: 0; z-index: 3;"></canvas>
-          </div>
-          <div id="contextMenu" oncontextmenu="return false;">
-            <ul>
-              <li onclick="menuItemClicked(2)"><a>Paste</a></li>
-              <li onclick="menuItemClicked(0)"><a>Copy</a></li>
-              <li onclick="menuItemClicked(1)"><a>Cut</a></li>
-              <li onclick="menuItemClicked(3)"><a>Delete</a></li>
-              <li onclick="menuItemClicked(4)"><a>Undo</a></li>
-              <li onclick="menuItemClicked(5)"><a>New Circuit</a></li>
-              <li onclick="menuItemClicked(6)"><a>Insert SubCircuit</a></li>
-              <li onclick="menuItemClicked(7)"><a>Center Focus</a></li>
-            </ul>
-          </div>
-          <div id="Help">
-            <!-- <canvas id="miniMapArea" style="position: absolute; left:0; top: 0; z-index: 2;"></canvas> -->
-          </div>
-          <div style="position:absolute; right:30px; top:30px; z-index:100">
-            <button type="button" class="btn zoomButton btn-lg" onclick="changeScale(0.2,'zoomButton','zoomButton',2)">              
-              <span class="fa fa-search-plus" aria-hidden="true" title="Zoom In"></span>
-            </button>
-          </div>
-          <div class="sk-folding-cube loadingIcon" style="display:none;position:absolute; right:50%; bottom:50%; z-index:100">
-            <div class="sk-cube1 sk-cube"></div>
-            <div class="sk-cube2 sk-cube"></div>
-            <div class="sk-cube4 sk-cube"></div>
-            <div class="sk-cube3 sk-cube"></div>
-          </div>
-          <div style="position:absolute; right:60px; top:30px; z-index:100">
-            <button type="button" class="btn zoomButton btn-lg" onclick="globalScope.centerFocus(false)">
-              <span class="fa fa-crosshairs" aria-hidden="true" title="Zoom To Fit"></span>
-            </button>
-          </div>
-          <div style="position:absolute; right:90px; top:30px; z-index:100">
-            <button type="button" class="btn zoomButton btn-lg" onclick="changeScale(-0.2,'zoomButton','zoomButton',2)">
-              <span class="fa fa-search-minus" aria-hidden="true" title="Zoom Out"></span>
-            </button>
-          </div>
-          <div style="position:absolute; right:120px; top:30px; z-index:100">
-            <button type="button" class="btn zoomButton btn-lg" onclick="undo()">
-              <span class="fas fa-undo-alt" aria-hidden="true" title="Undo"></span>
-            </button>
-          </div>
-          <div style="position:absolute; right:150px; top:30px; z-index:100">
-            <button type="button" class="btn zoomButton btn-lg" onclick="delete_selected()">
-              <span class="fas fa-trash-alt" aria-hidden="true" title="Delete"></span>
-            </button>
-          </div>
-          <div id="layoutDialog" style="display:none;Width:210px;" class="" title="Layout Options">
-            <div class="container">
-              <div class="panel-heading">Layout options</div>
-              <div class="">
-                Width:
-                <button type="button" class="btn zoomButton btn-lg" onclick="decreaseLayoutWidth()">
-                  <span class="fa fa-minus" aria-hidden="true" title="Decrease Width"></span>
-                </button>
-                <button type="button" class="btn zoomButton btn-lg" onclick="increaseLayoutWidth()">
-                  <span class="fa fa-plus" aria-hidden="true" title="Increase Width"></span>
-                </button>
-              </div>
-              <div class="">
-                Height:
-                <button type="button" class="btn zoomButton btn-lg" onclick="decreaseLayoutHeight()">
-                  <span class="fa fa-minus" aria-hidden="true" title="Decrease Height"></span>
-                </button>
-                <button type="button" class="btn zoomButton btn-lg" onclick="increaseLayoutHeight()">
-                  <span class="fa fa-plus" aria-hidden="true" title="Increase Height"></span>
-                </button>
-              </div>
-              <div class="">
-                Reset all nodes:
-                <button type="button" class="btn zoomButton btn-lg" onclick="layoutResetNodes()">
-                  <span class="fa fa-sync" aria-hidden="true" title="Reset"></span>
-                </button>
-              </div>
-              <div class="">
-                Title:
-                <button type="button" class="btn zoomButton btn-lg" onclick="layoutTitleUp()">
-                  <span class="fa fa-arrow-up" aria-hidden="true" title="Up"></span>
-                </button>
-                <button type="button" class="btn zoomButton btn-lg" onclick="layoutTitleDown()">
-                  <span class="fa fa-arrow-down" aria-hidden="true" title="Down"></span>
-                </button>
-                <button type="button" class="btn zoomButton btn-lg" onclick="layoutTitleLeft()">
-                  <span class="fa fa-arrow-left" aria-hidden="true" title="Left"></span>
-                </button>
-                <button type="button" class="btn zoomButton btn-lg" onclick="layoutTitleRight()">
-                  <span class="fa fa-arrow-right" aria-hidden="true" title="Right"></span>
-                </button>
-              </div>
-              <div class="">
-                <p>Title Enabled : <label class='switch'>
-                  <input type='checkbox' checked id="toggleLayoutTitle" onclick="toggleLayoutTitle()">
-                  <span class='slider2' title="Title"></span> </label></p>
-              </div>
-              <div class="">
-                Save:
-                <button type="button" class="btn zoomButton btn-lg" onclick="saveLayout()">
-                  <span class="fa fa-check" aria-hidden="true" title="Save Layout"></span>
-                </button>
-                Cancel:
-                <button type="button" class="btn zoomButton btn-lg" onclick="cancelLayout()">
-                  <span class="fa fa-times" aria-hidden="true" title="Cancel"></span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div id="combinationalAnalysis" style="display:none;" title="BooleanLogicTable"></div>
-       <div id="bitconverterprompt" title="Dec-Bin-Hex-Converter"></div>
-      <div id="insertSubcircuitDialog"  class="subcircuitdialog" title="Insert SubCircuit"></div>
-      <div id="openProjectDialog" style="display:none;" title="Open Project"></div>
+    <div class="">
+      <button
+        type="button"
+        class="btn zoomButton btn-lg"
+        onclick="decreaseLayoutHeight()"
+      >
+        <span class="fa fa-minus" aria-hidden="true"></span>
+      </button>
+      <span>Height</span>
+      <button
+        type="button"
+        class="btn zoomButton btn-lg"
+        onclick="increaseLayoutHeight()"
+      >
+        <span class="fa fa-plus" aria-hidden="true"></span>
+      </button>
     </div>
-    <!-- Right panel -->
-    <div id="saveImageDialog" style="display:none;" title="Render Image">
-      <p>
-        <label class="option inline"><input type="radio" name="imgType" value="png" checked="checked">PNG</label>
-        <label class="option inline"><input type="radio" name="imgType" value="jpeg">JPEG</label>
-        <label class="option inline"> <input type="radio" name="imgType" value="svg">SVG</label>
-        <label class="option inline"> <input type="radio" name="imgType" value="bmp">BMP</label>
-        <label class="option inline"> <input type="radio" name="imgType" value="gif">GIF</label>
-        <label class="option inline"> <input type="radio" name="imgType" value="tiff">TIFF</label>
-      </p>
-      <p>
-        <label class="option inline"><input type="radio" name="view" value="full"> Full Circuit View</label>
-        <label class="option inline"> <input type="radio" name="view" value="current" checked="checked">Current
-          View</label>
-      </p>
-      <p>
-        <label class="option inline"><input type="checkbox" name="transparent" value="transparent"> Transparent
-          Background</label>
-      </p>
-      <p>
-        Resolution:
-        <label class="option inline"> <input type="radio" name="resolution" value="1" checked="checked">1x</label>
-        <label class="option inline"><input type="radio" name="resolution" value="2"> 2x</label>
-        <label class="option inline"> <input type="radio" name="resolution" value="4">4x</label>
-      </p>
+    <div class="">
+      <span>Reset all nodes:</span>
+      <button
+        type="button"
+        class="btn zoomButton btn-lg"
+        onclick="layoutResetNodes()"
+      >
+        <span class="fa fa-sync" aria-hidden="true" title="Reset"></span>
+      </button>
     </div>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        setup()
-      }, false);
-      embed = false;
+    <div class="layout-title">
+      <span>Title</span>
+      <button
+        type="button"
+        class="btn zoomButton-up btn-lg"
+        onclick="layoutTitleUp()"
+      ></button>
+      <button
+        type="button"
+        class="btn zoomButton-down btn-lg"
+        onclick="layoutTitleDown()"
+      ></button>
+      <button
+        type="button"
+        class="btn zoomButton-left btn-lg"
+        onclick="layoutTitleLeft()"
+      ></button>
+      <button
+        type="button"
+        class="btn zoomButton-right btn-lg"
+        onclick="layoutTitleRight()"
+      ></button>
+    </div>
+    <div class="layout-title--enable">
+      <span>Title Enabled:</span>
+      <label class="switch">
+        <input
+          type="checkbox"
+          checked
+          id="toggleLayoutTitle"
+          onclick="toggleLayoutTitle()"
+        />
+        <span class="slider"></span>
+      </label>
+    </div>
+    <div class="">
+      <button
+        type="button"
+        class="btn Layout-btn custom-btn--primary"
+        onclick="saveLayout()"
+      >
+        Save
+      </button>
 
-      <% if @project&.assignment_id.present? %>
-      restrictedElements = JSON.parse('<%= raw @project&.assignment.restrictions %>');
-      <% else %>
-      restrictedElements = [];
-      <% end %>
-    </script>
-    <script src="/js/UX.js"></script>
-    <!-- on hover for dropdowns -->
-    <script>
-      $('.dropdown-toggle').hover(function () {
-
-        $('.dropdown.open').removeClass('open');
-        $(this).parent('.dropdown').addClass('open');
-      });
-      //    $('.dropdown-toggle').onClick( function() {
-      //
-      //      $(this).parent('.dropdown').addClass('open');
-      //    });
-    </script>
-    <link rel="stylesheet" type="text/css" href="/css/UX.css">
-    <link rel="stylesheet" type="text/css" href="/css/restrictedElements.css">
-    <!-- <script src="./SAP_DATA.js"></script> -->
-    <script src="/js/utils.js"></script>
-    <script src="/js/dec-bin-hex-converter.js"></script>
-    <script src="/js/engine.js"></script>
-    <script src="/js/logix.js"></script>
-    <script src="/js/Plot.js"></script>
-    <script src="/js/Node.js"></script>
-    <script src="/js/wire.js"></script>
-    <script src="/js/subcircuit.js"></script>
-    <script src="/js/modules.js"></script>
-    <script src="/js/RGBLedMatrix.js"></script>
-    <script src="/js/sequential.js"></script>
-    <script src="/js/ram.js"></script>
-    <script src="/js/eeprom.js"></script>
-    <script src="/js/Counter.js"></script>
-    <script src="/js/canvasApi.js"></script>
-    <script src="/js/data.js"></script>
-    <script src="/js/listeners.js"></script>
-    <script src="/js/eventQueue.js"></script>
-    <script src="/js/miniMap.js"></script>
-    <script src="/js/layout.js"></script>
-    <script src="/js/testBench.js"></script>
-    <script src="/js/verilog.js"></script>
-    <!-- hotkeys -->
-    <script src="/js/hotkey_binder/defaultKeys.json"></script>
-    <script src="/js/hotkey_binder/model/normalize/normalizer.plugin.js"></script>
-    <script src="/js/hotkey_binder/model/normalize/test.js"></script>
-    <script src="/js/hotkey_binder/model/utils.js"></script>
-    <script src="/js/hotkey_binder/model/shortcuts.plugin.js"></script>
-    <script src="/js/hotkey_binder/view/panel.ui.js"></script>
-    <script src="/js/hotkey_binder/model/forElements.js"></script>
-    <script src="/js/hotkey_binder/model/addShortcut.js"></script>
-    <script src="/js/hotkey_binder/model/actions.js"></script>
-    <script src="/js/hotkey_binder/keyBinder.js"></script>
-    <!-- hotkeys-end --> 
-    <script type="text/javascript" src="/js/metadata.json"></script>
-    <% if @project.nil? or @project.assignment_id.nil? %>
-      <script src="/js/combinationalAnalysis.js"></script>
-      <script src="/js/Quin_McCluskey.js"></script>
-    <% end %>
-    <script src="/js/canvas2svg.js"></script>
-
-    <!---issue reporting-system----->
-    <div class="report-sidebar">
-    <a type="button" id="reportIssue"class="btn btn-primary text-light" data-toggle="modal" data-target=".issue"> <span class="fa fa-bug" ></span>&nbsp;&nbsp;Report an issue</a>
-    </div>
-      <!---issue reporting system-modal---->
-<div class="modal fade issue" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content"> 
-      <div class="container my-2">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      <div class="container  text-center">
-       <h4>Report an issue</h4>  
-    </div>
-    <hr>
-     <div class="container my-2 text-center" id="result">
-    </div>
-    <label id="report-label" style="font-weight: lighter" ><b>Describe your issue:</b></label>
-    <div class="form-group">
-    <textarea class="form-control border-primary"  id="issuetext" rows="3"></textarea>
-    </div>
-      <div class="container">
-        <center>
-     <button type="submit" id="report" class="btn btn-primary" >Report</button>
-   </center>
+      <button
+        type="button"
+        class="btn Layout-btn custom-btn--tertiary"
+        onclick="cancelLayout()"
+      >
+        Cancel
+      </button>
     </div>
   </div>
+</div>
+<div id="saveImageDialog"  class="noSelect" style="display: none;" title="Render Image">
+  <div class="download-dialog-section-1">
+    <label class="option custom-radio inline"
+      ><input
+        type="radio"
+        name="imgType"
+        value="png"
+        checked="checked" />PNG<span></span
+    ></label>
+    <label class="option custom-radio inline"
+      ><input type="radio" name="imgType" value="jpeg" />JPEG<span></span
+    ></label>
+    <label class="option custom-radio inline"
+      ><input type="radio" name="imgType" value="svg" />SVG<span></span
+    ></label>
+    <label class="option custom-radio inline"
+      ><input type="radio" name="imgType" value="bmp" />BMP<span></span
+    ></label>
+    <label class="option custom-radio inline"
+      ><input type="radio" name="imgType" value="gif" />GIF<span></span
+    ></label>
+    <label class="option custom-radio inline"
+      ><input type="radio" name="imgType" value="tiff" />TIFF<span></span
+    ></label>
+  </div>
+  <div class="download-dialog-section-2">
+    <div
+      class="option inline btn-group btn-group-toggle"
+      style="border: none;"
+      data-toggle="buttons"
+    >
+      <div class="btn" role="button">
+        <input type="radio" name="view" value="full" />Full Circuit View
+      </div>
+      <div class="btn active" role="button">
+        <input
+          type="radio"
+          name="view"
+          value="current"
+          checked="checked"
+        />Current View
+      </div>
+    </div>
+    <div class="download-dialog-section-2_2">
+      <label class="cb-checkbox"
+        ><input
+          type="checkbox"
+          name="transparent"
+          value="transparent"
+        />Transparent Background</label
+      >
+    </div>
+  </div>
+  <div class="download-dialog-section-3">
+    <span>Resolution:</span>
+    <label class="option custom-radio inline"
+      ><input
+        type="radio"
+        name="resolution"
+        value="1"
+        checked="checked" />1x<span></span
+    ></label>
+    <label class="option custom-radio inline"
+      ><input type="radio" name="resolution" value="2" />2x<span></span
+    ></label>
+    <label class="option custom-radio inline"
+      ><input type="radio" name="resolution" value="4" />4x<span></span
+    ></label>
   </div>
 </div>
 
+<div class="simulation" id="simulation">
+  <div id="restrictedDiv" class="alert alert-danger display--none"></div>
+  <% if @project&.assignment_id.present? &&
+  @project&.assignment&.elements_restricted? %>
+  <div id="restrictedElementsDiv" class="alert alert-danger">
+    <div>
+      Restricted elements used:
+      <span id="restrictedElementsDiv--list"> </span>
+    </div>
+  </div>
+  <% end %>
+  <div id="MessageDiv"></div>
+  <div class="canvasArea" id="canvasArea">
+    <canvas
+      id="backgroundArea"
+      style="
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 0;
+        width: 100%;
+        height: 100%;
+      "
+    ></canvas>
+    <canvas
+      id="simulationArea"
+      style="
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+      "
+    ></canvas>
+    <div id="plot">
+      <canvas
+        id="plotArea"
+        style="position: absolute; left: 0; top: 0; z-index: 2;"
+      ></canvas>
+    </div>
+    <div id="miniMap">
+      <canvas
+        id="miniMapArea"
+        style="position: absolute; left: 0; top: 0; z-index: 3;"
+      ></canvas>
+    </div>
+    <div id="contextMenu" oncontextmenu="return false;">
+      <ul>
+        <li onclick="menuItemClicked(2)">Paste</li>
+        <li onclick="menuItemClicked(0)">Copy</li>
+        <li onclick="menuItemClicked(1)">Cut</li>
+        <li onclick="menuItemClicked(3)">Delete</li>
+        <li onclick="menuItemClicked(4)">Undo</li>
+        <li onclick="menuItemClicked(5)">New Circuit</li>
+        <li onclick="menuItemClicked(6)">Insert SubCircuit</li>
+        <li onclick="menuItemClicked(7)">Center Focus</li>
+      </ul>
+    </div>
+    <div id="Help"></div>
+    <div
+      class="sk-folding-cube loadingIcon"
+      style="
+        display: none;
+        position: absolute;
+        right: 50%;
+        bottom: 50%;
+        z-index: 100;
+      "
+    >
+      <div class="sk-cube1 sk-cube"></div>
+      <div class="sk-cube2 sk-cube"></div>
+      <div class="sk-cube4 sk-cube"></div>
+      <div class="sk-cube3 sk-cube"></div>
+    </div>
+  </div>
+</div>
+<div
+  id="combinationalAnalysis"
+  style="display: none;"
+  title="BooleanLogicTable"
+></div>
+<div
+  id="insertSubcircuitDialog"
+  class="subcircuitdialog"
+  title="Insert SubCircuit"
+></div>
+<div id="openProjectDialog" style="display: none;" title="Open Project"></div>
 
+<!---issue reporting-system----->
+<div class="report-sidebar">
+  <a
+    type="button"
+    class="btn btn-primary text-light"
+    data-toggle="modal"
+    data-target=".issue"
+  >
+    <span class="fa fa-bug"></span>&nbsp;&nbsp;Report an issue</a
+  >
+</div>
 
+<!---issue reporting system-modal---->
+<div
+  class="modal fade issue"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="mySmallModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="container my-2">
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="container text-center">
+          <h4>Report an issue</h4>
+        </div>
+        <hr />
+        <div class="container my-2 text-center" id="result"></div>
+        <label id="report-label" style="font-weight: lighter;"
+          ><b>Describe your issue:</b></label
+        >
+        <div class="form-group">
+          <textarea
+            class="form-control border-primary"
+            id="issuetext"
+            rows="3"
+          ></textarea>
+        </div>
+        <div class="container">
+          <center>
+            <button type="submit" id="report" disabled class="btn btn-primary">
+              Report
+            </button>
+          </center>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-<script >
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    setup()
+  }, false);
+  embed = false;
+
+</script>
+<script src="/js/UX.js"></script>
+
+<!-- on hover for dropdowns -->
+<script>
+  $(".dropdown-toggle").hover(function () {
+    $(".dropdown.open").removeClass("open");
+    $(this).parent(".dropdown").addClass("open");
+  });
+</script>
+
+<script>
   $('button').click(function(){
    if (this.id== 'report'){
     var message=$('#issuetext').val();
+    var email=$('#emailtext').val();
+    message += "\nEmail:"+ email
     message += "\nURL: " + window.location.href;
     message += `\nUser Id: <%= user_signed_in? ? " #{current_user.id.to_s} : #{current_user.name}" : "Guest user" %>`
     postUserIssue(message)
     $('#issuetext').hide();
+    $('#emailtext').hide();
     $('#report').hide();
     $('#report-label').hide();
+    $('#email-label').hide();
   }
    })
   $('.issue').on('hide.bs.modal', function(e) {
     listenToSimulator=true
     $('#result').html("");
     $('#issuetext').show();
+    $('#emailtext').show();
     $('#issuetext').val("");
+    $('#emailtext').val("");
     $('#report').show();
     $('#report-label').show();
+    $('#email-label').show();
 }) 
 $('#reportIssue').click(function(){
   listenToSimulator=false
 })
 </script>
-    
-    
-    <script src="/js/canvas2svg.js"></script>
 
+<link rel="stylesheet" type="text/css" href="/css/main.stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="/css/restrictedElements.css" />
+<!-- <script src="./SAP_DATA.js"></script> -->
+<script src="/js/utils.js"></script>
+<script src="/js/engine.js"></script>
+<script src="/js/logix.js"></script>
+<script src="/js/Plot.js"></script>
+<script src="/js/Node.js"></script>
+<script src="/js/wire.js"></script>
+<script src="/js/subcircuit.js"></script>
+<script src="/js/modules.js"></script>
+<script src="/js/RGBLedMatrix.js"></script>
+<script src="/js/sequential.js"></script>
+<script src="/js/ram.js"></script>
+<script src="/js/eeprom.js"></script>
+<script src="/js/Counter.js"></script>
+<script src="/js/canvasApi.js"></script>
+<script src="/js/data.js"></script>
+<script src="/js/listeners.js"></script>
+<script src="/js/eventQueue.js"></script>
+<script src="/js/miniMap.js"></script>
+<script src="/js/layout.js"></script>
+<script src="/js/testBench.js"></script>
+<script src="/js/verilog.js"></script>
+<script type="text/javascript" src="/js/metadata.json"></script>
+<% if @project.nil? or @project.assignment_id.nil? %>
+  <script src="/js/combinationalAnalysis.js"></script>
+  <script src="/js/Quin_McCluskey.js"></script>
+<% end %>
+<script src="/js/canvas2svg.js"></script>
+<!-- hotkeys -->
+<script src="/js/hotkey_binder/defaultKeys.json"></script>
+<script src="/js/hotkey_binder/model/normalize/normalizer.plugin.js"></script>
+<script src="/js/hotkey_binder/model/normalize/test.js"></script>
+<script src="/js/hotkey_binder/model/utils.js"></script>
+<script src="/js/hotkey_binder/model/shortcuts.plugin.js"></script>
+<script src="/js/hotkey_binder/view/panel.ui.js"></script>
+<script src="/js/hotkey_binder/model/forElements.js"></script>
+<script src="/js/hotkey_binder/model/addShortcut.js"></script>
+<script src="/js/hotkey_binder/model/actions.js"></script>
+<script src="/js/hotkey_binder/keyBinder.js"></script>
+<!-- hotkeys-end --> 
 
