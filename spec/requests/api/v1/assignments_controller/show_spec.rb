@@ -4,13 +4,14 @@ require "rails_helper"
 
 RSpec.describe Api::V1::AssignmentsController, "#show", type: :request do
   describe "list specific assignment" do
-    let!(:group) { FactoryBot.create(:group, mentor: FactoryBot.create(:user)) }
+    let!(:mentor) { FactoryBot.create(:user) }
+    let!(:group) { FactoryBot.create(:group, mentor: mentor) }
     let!(:group_member) do
-      FactoryBot.create(
-        :group_member, group: group, user: FactoryBot.create(:user)
-      )
+      FactoryBot.create(:group_member, group: group, user: FactoryBot.create(:user))
     end
-    let!(:assignment) { FactoryBot.create(:assignment, group: group) }
+    let!(:assignment) do
+      FactoryBot.create(:assignment, group: group, grading_scale: 1)
+    end
 
     context "when not authenticated" do
       before do
@@ -59,6 +60,42 @@ RSpec.describe Api::V1::AssignmentsController, "#show", type: :request do
       it "returns the group details" do
         expect(response).to have_http_status(200)
         expect(response).to match_response_schema("assignment")
+      end
+    end
+
+    context "when authorized and including projects" do
+      before do
+        # creates a project for the assignment..
+        FactoryBot.create(:project, assignment: assignment)
+
+        token = get_auth_token(mentor)
+        get "/api/v1/assignments/#{assignment.id}?include=projects",
+            headers: { "Authorization": "Token #{token}" }, as: :json
+      end
+
+      it "returns assignment with projects that belongs to the assignment" do
+        expect(response).to have_http_status(200)
+        expect(response).to match_response_schema("assignment_with_projects")
+        expect(response.parsed_body["included"].length).to eq(1)
+      end
+    end
+
+    context "when authorized and including grades" do
+      before do
+        # creates a project and corresponding grade for the assignment..
+        project = FactoryBot.create(:project, assignment: assignment)
+        FactoryBot.create(
+          :grade, user_id: mentor.id, assignment: assignment, project: project, grade: "A"
+        )
+        token = get_auth_token(mentor)
+        get "/api/v1/assignments/#{assignment.id}?include=grades",
+            headers: { "Authorization": "Token #{token}" }, as: :json
+      end
+
+      it "returns assignment with grades that belongs to the assignment" do
+        expect(response).to have_http_status(200)
+        expect(response).to match_response_schema("assignment_with_grades")
+        expect(response.parsed_body["included"].length).to eq(1)
       end
     end
   end

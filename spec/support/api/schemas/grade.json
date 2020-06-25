@@ -10,7 +10,7 @@
           "type": "object",
           "properties": {
             "grade": { "type": "string" },
-            "remarks": { "type": "string" },
+            "remarks": { "type": ["string", "null"] },
             "created_at": { "type": "string" },
             "updated_at": { "type": "string" }
           },
