@@ -1101,10 +1101,6 @@ select {
   padding: 0;
 }
 
-.ui-dialog-titlebar button {
-  display: none;
-}
-
 .download-dialog-section-1 > label {
   height: 30px;
   width: 85px;
@@ -1180,7 +1176,7 @@ select {
   font-weight: bold;
 }
 
-.dialog-close--btn {
+.ui-dialog-titlebar-close {
   border: none;
   color: white;
   position: absolute;
@@ -1189,7 +1185,7 @@ select {
   visibility: hidden;
 }
 
-.dialog-close--btn::after {
+.ui-dialog-titlebar-close::after {
   content: "";
   display: block;
   position: absolute;
@@ -1197,14 +1193,15 @@ select {
   height: 15px;
   width: 15px;
   visibility: visible;
-  transform: translate(-10%, -60%);
+  right: 0;
+  top: 0;
 }
 
-.dialog-close--btn::before:hover {
+.ui-dialog-titlebar-close::before:hover {
   background-color: #454545;
 }
 
-.dialog-close--btn::hover {
+.ui-dialog-titlebar-close::hover {
   border: none;
 }
 
@@ -1324,10 +1321,6 @@ select {
 .content-table tbody {
   display: table-row-group;
   overflow: auto !important;
-}
-
-.ui-dialog[aria-describedby="combinationalAnalysis"] button {
-  margin: 0 5px;
 }
 
 .output {
