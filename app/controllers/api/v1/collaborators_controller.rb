@@ -4,6 +4,7 @@ class Api::V1::CollaboratorsController < Api::V1::BaseController
   before_action :authenticate_user!
   before_action :set_project
   before_action :check_author_access, except: %i[index]
+  before_action :check_view_access, only: %i[index]
   before_action :set_collaborator, only: %i[destroy]
 
   # /api/v1/projects/:project_id/collaborators
@@ -46,6 +47,10 @@ class Api::V1::CollaboratorsController < Api::V1::BaseController
 
     def check_author_access
       authorize @project, :author_access?
+    end
+
+    def check_view_access
+      authorize @project, :check_view_access?
     end
 
     def set_collaborator

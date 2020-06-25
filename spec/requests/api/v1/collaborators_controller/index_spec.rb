@@ -5,11 +5,14 @@ require "rails_helper"
 RSpec.describe Api::V1::CollaboratorsController, "#index", type: :request do
   describe "list all collaborators" do
     let!(:author) { FactoryBot.create(:user) }
-    let!(:project) { FactoryBot.create(:project, author: author) }
+    let!(:public_project) do
+      FactoryBot.create(:project, author: author, project_access_type: "Public")
+    end
+    let!(:private_project) { FactoryBot.create(:project, author: author) }
 
     context "when not authenticated" do
       before do
-        get "/api/v1/projects/#{project.id}/collaborators/", as: :json
+        get "/api/v1/projects/#{public_project.id}/collaborators/", as: :json
       end
 
       it "returns status unauthorized" do
@@ -31,14 +34,14 @@ RSpec.describe Api::V1::CollaboratorsController, "#index", type: :request do
       end
     end
 
-    context "when authorized to fetch project collaborators" do
+    context "when authorized to fetch project's collaborators which user has view access to" do
       before do
-        # create 3 collaborators for a project
+        # create 3 collaborators for a public project
         FactoryBot.create_list(:user, 3).each do |u|
-          FactoryBot.create(:collaboration, user: u, project: project)
+          FactoryBot.create(:collaboration, user: u, project: public_project)
         end
         token = get_auth_token(FactoryBot.create(:user))
-        get "/api/v1/projects/#{project.id}/collaborators/",
+        get "/api/v1/projects/#{public_project.id}/collaborators/",
             headers: { "Authorization": "Token #{token}" }, as: :json
       end
 
@@ -46,6 +49,23 @@ RSpec.describe Api::V1::CollaboratorsController, "#index", type: :request do
         expect(response).to have_http_status(200)
         expect(response).to match_response_schema("users")
         expect(response.parsed_body["data"].length).to eq(3)
+      end
+    end
+
+    context "when fetching project's collaborators which user doesn't have view access to" do
+      before do
+        # create 3 collaborators for a private project
+        FactoryBot.create_list(:user, 3).each do |u|
+          FactoryBot.create(:collaboration, user: u, project: private_project)
+        end
+        token = get_auth_token(FactoryBot.create(:user))
+        get "/api/v1/projects/#{private_project.id}/collaborators/",
+            headers: { "Authorization": "Token #{token}" }, as: :json
+      end
+
+      it "returns status unauthorized" do
+        expect(response).to have_http_status(403)
+        expect(response.parsed_body).to have_jsonapi_errors
       end
     end
   end
