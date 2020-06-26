@@ -9,8 +9,8 @@ a. function Add takes 3 arguments:
     callback: <func> reference to a function, which will be invoked when the above combination is detected
     opt: <object>  some optional parameters such as propagation, type of keyevent, etc
 
-b. function Remove: removes a particular shorcut provided in the param.
-c. function RemoveAll: takes no param removes all shorcuts.
+b. function Remove: removes a particular shortcut provided in the param.
+c. function RemoveAll: takes no param removes all shortcuts.
 
 supported format:
     * Modifier

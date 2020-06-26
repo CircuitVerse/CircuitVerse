@@ -61,10 +61,10 @@ const warnOverride = (combo, target) => {
             $("#preference").children()[x].children[1].children[0].innerText !==
                 target.previousElementSibling.innerText
         ) {
-            const asignee = $("#preference").children()[x].children[1]
+            const assignee = $("#preference").children()[x].children[1]
                 .children[0].innerText;
             $("#warning").text(
-                `This key(s) is already assigned to: ${asignee}, Override?`
+                `This key(s) is already assigned to: ${assignee}, Override?`
             );
             $("#edit").css("border", "1.5px solid #dc5656");
             return;
@@ -75,17 +75,17 @@ const warnOverride = (combo, target) => {
     }
 };
 
-const elementDirecton = (direct) => () => {
+const elementDirection = (direct) => () => {
     if (simulationArea.lastSelected) {
         simulationArea.lastSelected.newDirection(direct.toUpperCase());
         $("select[name |= 'newDirection']").val(direct.toUpperCase());
     }
 };
 
-const labelDirecton = (direct) => () => {
+const labelDirection = (direct) => () => {
     if (
         simulationArea.lastSelected &&
-        !simulationArea.lastSelected.labelDirectonFixed
+        !simulationArea.lastSelected.labelDirectionFixed
     ) {
         simulationArea.lastSelected.labelDirection = direct.toUpperCase();
         $("select[name |= 'newLabelDirection']").val(direct.toUpperCase());

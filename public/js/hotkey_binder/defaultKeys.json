@@ -9,7 +9,7 @@ defaultKeys = {
   "Download as Image": "Ctrl + D",
   "Open Offline": "Ctrl + O",
   "New Circuit": "Ctrl + Alt + N",
-  "Create Sub-ciruit": "Shift + C",
+  "Create Sub-circuit": "Shift + C",
   "Combinational Analysis": "Shift + A",
   "Start Plot": "Ctrl + P",
   "Direction Up": "Up",

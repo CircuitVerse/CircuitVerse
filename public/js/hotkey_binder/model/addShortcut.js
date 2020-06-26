@@ -21,7 +21,7 @@ const addShortcut = (keys, action) => {
 		case "New Circuit":
 			callback = newCircuit;
 			break;
-		case "Create Sub-ciruit":
+		case "Create Sub-circuit":
 			callback = createSubCircuitPrompt;
 			break;
 		case "Combinational Analysis":
@@ -31,31 +31,31 @@ const addShortcut = (keys, action) => {
 			callback = startPlot;
 			break;
 		case "Direction Up":
-			callback = elementDirecton('up');
+			callback = elementDirection('up');
 			break;
 		case "Direction Down":
-			callback = elementDirecton('down');
+			callback = elementDirection('down');
 			break;
 		case "Direction Left":
-			callback = elementDirecton('left');
+			callback = elementDirection('left');
 			break;
 		case "Direction Right":
-			callback = elementDirecton('right');
+			callback = elementDirection('right');
 			break;
 		case "Insert Label":
 			callback = insertLabel;
 			break;
 		case "Label Direction Up":
-			callback = labelDirecton('up');
+			callback = labelDirection('up');
 			break;
 		case "Label Direction Down":
-			callback = labelDirecton('down');
+			callback = labelDirection('down');
 			break;
 		case "Label Direction Left":
-			callback = labelDirecton('left');
+			callback = labelDirection('left');
 			break;
 		case "Label Direction Right":
-			callback = labelDirecton('right');
+			callback = labelDirection('right');
 			break;
 		case "Move Element Up":
 			callback = moveElement('up');
