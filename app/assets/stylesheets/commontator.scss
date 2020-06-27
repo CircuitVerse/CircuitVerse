@@ -72,7 +72,7 @@
 }
 
 .timestamp {
-  opacity: 0.7;
+  opacity: .7;
 }
 
 .body {
@@ -84,21 +84,28 @@
   border: 2px solid $teal;
   border-radius: 0;
   padding: 5px;
+
   textarea {
     border: 0;
+
     &:focus {
       outline: 0;
     }
   }
 }
+
 //breakpoints
 @media(max-width: 400px){
   .comments-comment {
-    padding: 10px;
     margin: 5px;
+    padding: 10px;
   }
 
   .actions {
     margin-top: 0;
+  }
+
+  .field {
+    margin-top: 40px;
   }
 }
