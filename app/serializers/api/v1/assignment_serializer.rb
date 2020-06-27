@@ -9,9 +9,9 @@ class Api::V1::AssignmentSerializer
     (assignment.group.mentor_id == params[:current_user].id) || params[:current_user].admin?
   end
 
-  attributes :your_project_id do |assignment, params|
-    # checks for project related to the assignment, returns null if no project found or project_id
-    project = assignment.projects.find { |p| p.author_id == params[:current_user].id }
+  attributes :current_user_project_id do |assignment, params|
+    # checks for project related to the assignment, returns null if no project found else project_id
+    project = assignment.projects.find_by(author_id: params[:current_user].id)
     project.nil? ? nil : project.id
   end
 
