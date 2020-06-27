@@ -144,8 +144,8 @@ Rails.application.routes.draw do
       end
       resources :assignments do
         member do
-          get 'reopen'
-          get 'start'
+          patch 'reopen'
+          patch 'start'
         end
       end
     end

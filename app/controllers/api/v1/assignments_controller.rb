@@ -50,19 +50,19 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
     render json: {}, status: :no_content
   end
 
-  # GET /api/v1/assignments/:id/reopen
+  # PATCH /api/v1/assignments/:id/reopen
   def reopen
     if @assignment.status != "open"
       @assignment.status = "open"
       @assignment.deadline = Time.zone.now + 1.day
       @assignment.save!
-      render json: { "message": "Assignment has been reopened!" }
+      render json: { "message": "Assignment has been reopened!" }, status: :accepted
     else
       api_error(status: 409, errors: "Project is already opened!")
     end
   end
 
-  # GET /api/v1/assignments/:id/start
+  # PATCH /api/v1/assignments/:id/start
   def start
     authorize @assignment
     @project = @current_user.projects.new
@@ -72,7 +72,7 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
     @project.save!
     render json: {
       "message": "Voila! Project set up under name #{@project.name}"
-    }
+    }, status: :created
   end
 
   private
