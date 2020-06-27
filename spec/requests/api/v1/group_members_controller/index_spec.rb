@@ -9,7 +9,7 @@ RSpec.describe Api::V1::GroupMembersController, "#index", type: :request do
 
     context "when not authenticated" do
       before do
-        get "/api/v1/groups/#{group.id}/group_members", as: :json
+        get "/api/v1/groups/#{group.id}/members", as: :json
       end
 
       it "returns status unauthorized" do
@@ -27,7 +27,7 @@ RSpec.describe Api::V1::GroupMembersController, "#index", type: :request do
         end
         # rubocop:enable FactoryBot/CreateList
         token = get_auth_token(mentor)
-        get "/api/v1/groups/#{group.id}/group_members",
+        get "/api/v1/groups/#{group.id}/members",
             headers: { "Authorization": "Token #{token}" }, as: :json
       end
 

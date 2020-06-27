@@ -8,14 +8,14 @@ class Api::V1::GroupMembersController < Api::V1::BaseController
   before_action :check_edit_access, only: %i[create]
   before_action :check_mentor_access, only: %i[destroy]
 
-  # GET /api/v1/groups/:group_id/group_members/
+  # GET /api/v1/groups/:group_id/members/
   def index
     @group_members = paginate(@group.group_members)
-    @options = { links: link_attrs(@group_members, api_v1_group_group_members_url(@group.id)) }
+    @options = { links: link_attrs(@group_members, api_v1_group_members_url(@group.id)) }
     render json: Api::V1::GroupMemberSerializer.new(@group_members, @options)
   end
 
-  # POST /api/v1/groups/:group_id/group_members/
+  # POST /api/v1/groups/:group_id/members/
   def create
     mails_handler = MailsHandler.new(params[:emails], @group, @current_user)
     # parse mails as valid or invalid
@@ -30,7 +30,7 @@ class Api::V1::GroupMembersController < Api::V1::BaseController
     }
   end
 
-  # DELETE /api/v1/group_members/:id
+  # DELETE /api/v1/group/members/:id
   def destroy
     @group_member.destroy!
     render json: {}, status: :no_content

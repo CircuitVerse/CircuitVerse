@@ -10,7 +10,7 @@ RSpec.describe Api::V1::GroupMembersController, "#create", type: :request do
 
     context "when not authenticated" do
       before do
-        post "/api/v1/groups/#{group.id}/group_members", as: :json
+        post "/api/v1/groups/#{group.id}/members", as: :json
       end
 
       it "returns status unauthenticated" do
@@ -22,7 +22,7 @@ RSpec.describe Api::V1::GroupMembersController, "#create", type: :request do
     context "when authenticated as random user and don't have edit_access?" do
       before do
         token = get_auth_token(FactoryBot.create(:user))
-        post "/api/v1/groups/#{group.id}/group_members",
+        post "/api/v1/groups/#{group.id}/members",
              headers: { "Authorization": "Token #{token}" },
              params: create_params, as: :json
       end
@@ -36,7 +36,7 @@ RSpec.describe Api::V1::GroupMembersController, "#create", type: :request do
     context "when authorized but tries to add members to non existent group" do
       before do
         token = get_auth_token(mentor)
-        post "/api/v1/groups/0/group_members",
+        post "/api/v1/groups/0/members",
              headers: { "Authorization": "Token #{token}" },
              params: create_params, as: :json
       end
@@ -50,7 +50,7 @@ RSpec.describe Api::V1::GroupMembersController, "#create", type: :request do
     context "when authorized and has access to add group members" do
       before do
         token = get_auth_token(mentor)
-        post "/api/v1/groups/#{group.id}/group_members",
+        post "/api/v1/groups/#{group.id}/members",
              headers: { "Authorization": "Token #{token}" },
              params: create_params, as: :json
       end

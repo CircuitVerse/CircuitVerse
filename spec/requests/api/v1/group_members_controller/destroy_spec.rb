@@ -11,7 +11,7 @@ RSpec.describe Api::V1::GroupMembersController, "#destroy", type: :request do
 
     context "when not authenticated" do
       before do
-        delete "/api/v1/group_members/#{group_member.id}", as: :json
+        delete "/api/v1/group/members/#{group_member.id}", as: :json
       end
 
       it "returns status unauthenticated" do
@@ -23,7 +23,7 @@ RSpec.describe Api::V1::GroupMembersController, "#destroy", type: :request do
     context "when authenticated as random user and don't have edit_access?" do
       before do
         token = get_auth_token(user)
-        delete "/api/v1/group_members/#{group_member.id}",
+        delete "/api/v1/group/members/#{group_member.id}",
                headers: { "Authorization": "Token #{token}" }, as: :json
       end
 
@@ -36,7 +36,7 @@ RSpec.describe Api::V1::GroupMembersController, "#destroy", type: :request do
     context "when authenticated but tries to delete non existent group member" do
       before do
         token = get_auth_token(mentor)
-        delete "/api/v1/group_members/0",
+        delete "/api/v1/group/members/0",
                headers: { "Authorization": "Token #{token}" }, as: :json
       end
 
@@ -49,7 +49,7 @@ RSpec.describe Api::V1::GroupMembersController, "#destroy", type: :request do
     context "when authenticated and has access to delete group member" do
       before do
         token = get_auth_token(mentor)
-        delete "/api/v1/group_members/#{group_member.id}",
+        delete "/api/v1/group/members/#{group_member.id}",
                headers: { "Authorization": "Token #{token}" }, as: :json
       end
 

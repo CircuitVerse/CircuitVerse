@@ -136,10 +136,11 @@ Rails.application.routes.draw do
       end
       post '/assignments/:assignment_id/projects/:project_id/grades', to: 'grades#create'
       resources :grades, only: [:update, :destroy]
+      get "/groups/mentored", to: "groups#groups_mentored"
       resources :groups, only: [:index, :show, :update, :destroy]
-      get '/groups_mentored', to: 'groups#groups_mentored'
+      delete '/group/members/:id', to: 'group_members#destroy'
       resources :groups do
-        resources :group_members, shallow: true
+        resources :members, controller: 'group_members', shallow: true, only: [:index, :create]
         resources :assignments, shallow: true
       end
       resources :assignments do

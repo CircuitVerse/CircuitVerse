@@ -16,7 +16,7 @@ class Api::V1::GroupsController < Api::V1::BaseController
     render json: Api::V1::GroupSerializer.new(@groups, @options)
   end
 
-  # GET /api/v1/groups_mentored
+  # GET /api/v1/groups/mentored
   def groups_mentored
     @groups = paginate(@current_user.groups_mentored)
     @options[:links] = link_attrs(@groups, api_v1_groups_mentored_url)

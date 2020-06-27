@@ -8,7 +8,7 @@ RSpec.describe Api::V1::GroupsController, "#groups_mentored", type: :request do
 
     context "when not authenticated" do
       before do
-        get "/api/v1/groups_mentored", as: :json
+        get "/api/v1/groups/mentored", as: :json
       end
 
       it "returns status unauthorized" do
@@ -24,7 +24,7 @@ RSpec.describe Api::V1::GroupsController, "#groups_mentored", type: :request do
           FactoryBot.create(:assignment, group: g)
         end
         token = get_auth_token(mentor)
-        get "/api/v1/groups_mentored?include=assignments",
+        get "/api/v1/groups/mentored?include=assignments",
             headers: { "Authorization": "Token #{token}" }, as: :json
       end
 
@@ -47,7 +47,7 @@ RSpec.describe Api::V1::GroupsController, "#groups_mentored", type: :request do
           # rubocop:enable FactoryBot/CreateList
         end
         token = get_auth_token(mentor)
-        get "/api/v1/groups_mentored?include=group_members",
+        get "/api/v1/groups/mentored?include=group_members",
             headers: { "Authorization": "Token #{token}" }, as: :json
       end
 
