@@ -2,9 +2,9 @@
 
 class Api::V1::UsersController < Api::V1::BaseController
   before_action :set_user, only: %i[show update]
-  before_action :authenticate_user!, except: %i[forgot_password]
+  before_action :authenticate_user!
   before_action :check_access, only: [:update]
-  before_action :set_details_access, except: %i[index me forgot_password]
+  before_action :set_details_access, except: %i[index me]
 
   # GET api/v1/users
   def index
@@ -33,14 +33,6 @@ class Api::V1::UsersController < Api::V1::BaseController
     else
       invalid_resource!(@user.errors)
     end
-  end
-
-  # POST api/v1/forgot_password
-  def forgot_password
-    @user = User.find_by!(email: params[:email])
-    # sends reset password instructions to the user's mail if exists
-    @user.send_reset_password_instructions
-    render json: { message: "password reset instructions to #{@user.email}" }
   end
 
   private

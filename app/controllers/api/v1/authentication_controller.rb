@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Api::V1::AuthenticationController < Api::V1::BaseController
-  before_action :authenticate_user!, except: %i[login signup]
-
   # POST api/v1/auth/login
   def login
     @user = User.find_by!(email: params[:email])
@@ -27,6 +25,14 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
       )
       render json: { token: token }, status: :created
     end
+  end
+
+  # POST api/v1/forgot_password
+  def forgot_password
+    @user = User.find_by!(email: params[:email])
+    # sends reset password instructions to the user's mail if exists
+    @user.send_reset_password_instructions
+    render json: { message: "password reset instructions sent to #{@user.email}" }
   end
 
   private
