@@ -14,7 +14,7 @@
 
 <% if comment.errors.any? %>
   <div class="error-explanation">
-    <h3><%= t "commontator.comment.errors.#{new_record ? 'create' : 'update'}" %></h3>
+    <h6><%= t "commontator.comment.errors.#{new_record ? 'create' : 'update'}" %></h6>
 
     <ul>
       <% comment.errors.full_messages.each do |msg| %>
@@ -45,10 +45,10 @@
   </div>
 
   <div class="submit">
-    <%= form.submit t("commontator.comment.actions.#{new_record ? 'create' : 'update'}") %>
+    <%= form.submit t("commontator.comment.actions.#{new_record ? 'create' : 'update'}"), class: "btn button-primary" %>
     <%=
       form.submit(
-        t('commontator.comment.actions.cancel'), name: 'cancel'
+        t('commontator.comment.actions.cancel'), name: 'cancel', class: "btn button-primary"
       ) unless config.new_comment_style == :t && new_record && comment.parent.nil?
     %>
   </div>

@@ -14,16 +14,22 @@
 <div id="commontator-thread-<%= thread.id %>-show" class="show commontator-hidden">
   <%= link_to t('commontator.thread.actions.show'),
               '#',
-              id: "commontator-thread-#{thread.id}-show-link" %>
+              id: "commontator-thread-#{thread.id}-show-link", class: "anchor-text" %>
 </div>
 
 <div id="commontator-thread-<%= thread.id %>-content" class="content">
   <div id="commontator-thread-<%= thread.id %>-header" class="header">
+    <span id="commontator-thread-<%= thread.id %>-status" class="status">
+      <div class="comments-status">
+        <h5><%= t "commontator.thread.status.#{thread.is_closed? ? 'closed' : 'open'}",
+              closer_name: (thread.is_closed? ? Commontator.commontator_name(thread.closer) : '') %></h5>
+      </div>
+    </span>
     <span id="commontator-thread-<%= thread.id %>-actions" class="actions">
       <span id="commontator-thread-<%= thread.id %>-hide" class="hide commontator-hidden">
         <%= link_to t('commontator.thread.actions.hide'),
                     '#',
-                    id: "commontator-thread-#{thread.id}-hide-link" %>
+                    id: "commontator-thread-#{thread.id}-hide-link", class: "anchor-text" %>
       </span>
 
       <% if can_subscribe %>
@@ -63,11 +69,6 @@
                     remote: true %>
       <% end %>
     </span>
-
-    <span id="commontator-thread-<%= thread.id %>-status" class="status">
-      <%= t "commontator.thread.status.#{thread.is_closed? ? 'closed' : 'open'}",
-            closer_name: (thread.is_closed? ? Commontator.commontator_name(thread.closer) : '') %>
-    </span>
   </div>
 
   <% if thread.config.comment_order == :l %>
@@ -83,11 +84,6 @@
   </div>
 
   <div id="commontator-thread-<%= thread.id %>-pagination" class="pagination">
-    <div id="commontator-thread-<%= thread.id %>-page-entries-info" class="page-entries-info">
-      <%=
-        page_entries_info(comments) unless [ :i, :b ].include? thread.config.comment_reply_style
-      %>
-    </div>
 
     <div id="commontator-thread-<%= thread.id %>-will-paginate" class="will-paginate">
       <%=

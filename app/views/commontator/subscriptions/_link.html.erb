@@ -6,9 +6,10 @@
 
 <% is_subscribed = !!thread.subscription_for(user) %>
 <% sub_string = is_subscribed ? 'unsubscribe' : 'subscribe' %>
+&nbsp;
 <%= link_to t("commontator.subscription.actions.#{sub_string}"),
             commontator.polymorphic_path([sub_string, thread]),
             method: :put,
             id: "commontator-thread-#{thread.id}-#{sub_string}",
-            class: sub_string,
+            class: "anchor-text sub_string",
             remote: true %>

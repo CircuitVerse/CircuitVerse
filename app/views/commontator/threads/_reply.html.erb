@@ -14,7 +14,7 @@
       <div id="commontator-thread-<%= thread.id %>-new-comment-link" class="new-comment">
         <%= link_to t('commontator.comment.actions.new'),
             commontator.new_thread_comment_path(thread),
-            remote: true %>
+            remote: true, class: "anchor-text" %>
       </div>
     <% end %>
 
