@@ -35,6 +35,12 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
     render json: { message: "password reset instructions sent to #{@user.email}" }
   end
 
+  # GET /public_key.pem
+  def public_key
+    public_key = File.open(Rails.root.join("config/public.pem"), "r:UTF-8")
+    send_file public_key
+  end
+
   private
 
     def login_params
