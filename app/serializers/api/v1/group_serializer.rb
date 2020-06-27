@@ -4,7 +4,7 @@ class Api::V1::GroupSerializer
   include FastJsonapi::ObjectSerializer
 
   attributes :member_count do |group|
-    group.group_members.count
+    group.group_members.size
   end
 
   attributes :mentor_name do |group|
