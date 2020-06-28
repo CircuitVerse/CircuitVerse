@@ -8,4 +8,5 @@ includes:
   - overview
   - authentication
   - users
+  - projects
 ---
