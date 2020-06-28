@@ -9,4 +9,5 @@ includes:
   - authentication
   - users
   - projects
+  - collaborators
 ---
