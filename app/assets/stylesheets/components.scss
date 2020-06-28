@@ -14,6 +14,21 @@
   }
 }
 
+.button-secondary {
+  background-color: $error-red-font;
+  border-radius: 4px;
+  color: $white;
+  margin: 5px;
+  transition: all .3s ease 0s;
+
+  &:hover {
+    background-color: $button-secondary-red-hover;
+    box-shadow: 0 8px 15px $shadow-black;
+    color: $white;
+    transform: translateY(-7px);
+  }
+}
+
 .button-mini-edit {
   border-radius: 4px;
   color: $white;
