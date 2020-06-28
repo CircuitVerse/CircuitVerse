@@ -36,6 +36,8 @@ exclude_paths:
 - public/external/
 - test/
 - tmp/
+- apidoc/v1/javascripts/
+- docs/source/javascripts/
 
 checks:
   method-lines:
