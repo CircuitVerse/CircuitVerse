@@ -12,4 +12,5 @@ includes:
   - collaborators
   - groups
   - group_members
+  - assignments
 ---
