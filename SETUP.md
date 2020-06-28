@@ -58,6 +58,9 @@ openssl genrsa -out config/private.pem 2048
 openssl rsa -in config/private.pem -outform PEM -pubout -out config/public.pem
 ```
 
+### CircuitVerse API documentation setup instructions
+To setup CircuitVerse API documentation, refer [docs/README.md](docs/README.md)
+
 ### Additional setup instructions
 [Yarn](https://yarnpkg.com/lang/en/) is a package manager for the JavaScript ecosystem.
 CircuitVerse uses Yarn for frontend package and asset management.
