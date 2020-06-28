@@ -10,4 +10,6 @@ includes:
   - users
   - projects
   - collaborators
+  - groups
+  - group_members
 ---
