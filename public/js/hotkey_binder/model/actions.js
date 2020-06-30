@@ -136,6 +136,6 @@ const moveElement = (direct) => () => {
     }
 };
 
-const openHotkey = () => $("#newCircuit").click();
+const openHotkey = () => $("#customShortcut").click();
 
 const newCircuitCall = () => $("#newCircuit").click(); //hack for bug
