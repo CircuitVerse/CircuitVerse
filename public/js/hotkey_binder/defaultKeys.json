@@ -24,6 +24,6 @@ defaultKeys = {
   "Move Element Down": "S",
   "Move Element Left": "A",
   "Move Element Right": "D",
-  "Hotkey Preference": "Ctrl + .",
+  "Hotkey Preference": "F8",
 };
 
