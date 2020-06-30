@@ -21,6 +21,20 @@ const addKeys = (mode) => {
     }
 };
 
+const checkUpdate = () => {
+    let userK = localStorage.get("userKeys");
+    if (Object.size(userK) !== Object.size(defaultKeys)) {
+        for (const [key, value] of Object.entries(defaultKeys)) {
+            if (!Object.keys(userK).includes(key)) {
+                userK[key] = value;
+            }
+        }
+        localStorage.set("userKeys", userK);
+    } else {
+        return
+    }
+};
+
 const setUserKeys = () => {
     if (localStorage.defaultKeys) localStorage.removeItem('defaultKeys');
     let userKeys = {};

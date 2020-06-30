@@ -122,27 +122,6 @@ $("#edit").keydown((e) => {
 //         localStorage.set("defaultKeys", obj);
 //     }
 //   }
-const checkUpdate = () => {
-    let userK = localStorage.get("userKeys");
-    if (Object.size(userK) !== Object.size(defaultKeys)) {
-        for (const [key, value] of Object.entries(defaultKeys)) {
-            if (!Object.keys(userK).includes(key)) {
-                userK[key] = value;
-            }
-        }
-        localStorage.set("userKeys", userK);
-    } else {
-        return
-    }
-};
-
-// //  IFFE
-// (() => {
-//     if (localStorage.userKeys) {
-//         checkUpdate();
-//         addKeys("user");
-//     } else setDefault();
-// })();
 
 window.onload = () => {
     if (localStorage.userKeys) {
