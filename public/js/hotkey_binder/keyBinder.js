@@ -113,8 +113,40 @@ $("#edit").keydown((e) => {
     }
 });
 
-//  IFFE
-(() => {
-    if (localStorage.userKeys) addKeys("user");
-    else setDefault();
-})();
+// if (Object.keys(defaultKeys) !== )
+// userK = localStorage.get("defaultKeys");
+// for (const [key, value] of Object.entries(defaultKeys)) {
+//     if (Object.keys(userK).includes(key) && value !== userK[key]) {
+//         // console.log(`${key}: ${value}`);
+//         obj = `{${key}}`
+//         localStorage.set("defaultKeys", obj);
+//     }
+//   }
+const checkUpdate = () => {
+    let userK = localStorage.get("userKeys");
+    if (Object.size(userK) !== Object.size(defaultKeys)) {
+        for (const [key, value] of Object.entries(defaultKeys)) {
+            if (!Object.keys(userK).includes(key)) {
+                userK[key] = value;
+            }
+        }
+        localStorage.set("userKeys", userK);
+    } else {
+        return
+    }
+};
+
+// //  IFFE
+// (() => {
+//     if (localStorage.userKeys) {
+//         checkUpdate();
+//         addKeys("user");
+//     } else setDefault();
+// })();
+
+window.onload = () => {
+    if (localStorage.userKeys) {
+        checkUpdate();
+        addKeys("user");
+    } else setDefault();
+  };

@@ -22,6 +22,7 @@ const addKeys = (mode) => {
 };
 
 const setUserKeys = () => {
+    if (localStorage.defaultKeys) localStorage.removeItem('defaultKeys');
     let userKeys = {};
     let x = 0;
     while ($("#preference").children()[x]) {
@@ -121,4 +122,6 @@ const moveElement = (direct) => () => {
     }
 };
 
-const openHotkey = () => $("#customShortcut").click();
+const openHotkey = () => $("#newCircuit").click();
+
+const newCircuitCall = () => $("#newCircuit").click(); //hack for bug

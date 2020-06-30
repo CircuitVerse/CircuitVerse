@@ -3,6 +3,9 @@
 const addShortcut = (keys, action) => {
 	let callback;
 	switch (action) {
+		case "New Circuit":
+			callback = newCircuitCall;
+			break;
 		case "Save Online":
 			callback = save;
 			break;
@@ -14,9 +17,6 @@ const addShortcut = (keys, action) => {
 			break;
 		case "Open Offline":
 			callback = createOpenLocalPrompt;
-			break;
-		case "New Circuit":
-			callback = newCircuit;
 			break;
 		case "Create Sub-circuit":
 			callback = createSubCircuitPrompt;
