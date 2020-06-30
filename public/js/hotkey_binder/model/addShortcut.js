@@ -3,9 +3,6 @@
 const addShortcut = (keys, action) => {
 	let callback;
 	switch (action) {
-		case "New Project":
-			callback = newProject;
-			break;
 		case "Save Online":
 			callback = save;
 			break;

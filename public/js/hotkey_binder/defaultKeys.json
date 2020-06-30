@@ -3,12 +3,11 @@
 **/
 
 defaultKeys = {
-  "New Project": "Shift + N",
+  "New Circuit": "Shift + N",
   "Save Online": "Ctrl + S",
   "Save Offline": "Ctrl + Alt + S",
   "Download as Image": "Ctrl + D",
   "Open Offline": "Ctrl + O",
-  "New Circuit": "Ctrl + Alt + N",
   "Create Sub-circuit": "Shift + C",
   "Combinational Analysis": "Shift + A",
   "Start Plot": "Ctrl + P",
