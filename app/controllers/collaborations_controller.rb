@@ -1,29 +1,11 @@
 # frozen_string_literal: true
 
 class CollaborationsController < ApplicationController
-  before_action :set_collaboration, only: %i[show edit update destroy]
+  before_action :set_collaboration, only: %i[update destroy]
 
   def self.policy_class
     ProjectPolicy
   end
-
-  # GET /collaborations
-  # GET /collaborations.json
-  def index
-    @collaborations = Collaboration.all
-  end
-
-  # GET /collaborations/1
-  # GET /collaborations/1.json
-  def show; end
-
-  # GET /collaborations/new
-  def new
-    @collaboration = Collaboration.new
-  end
-
-  # GET /collaborations/1/edit
-  def edit; end
 
   # POST /collaborations
   # POST /collaborations.json
