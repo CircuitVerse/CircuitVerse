@@ -340,8 +340,8 @@ input[type="text"]:focus {
 
 @supports (backdrop-filter: blur()) {
   .dropdown > ul {
-    background-color: rgba(69, 69, 69, 0.5);
-    backdrop-filter: blur(10px);
+    background-color: rgba(69, 69, 69, 0.7);
+    backdrop-filter: blur(5px);
   }
 }
 
@@ -425,7 +425,7 @@ input[type="text"]:focus {
 @supports (backdrop-filter: blur()) {
   #contextMenu {
     background-color: rgba(69, 69, 69, 0.7);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(5px);
   }
   #contextMenu ul li:hover {
     backdrop-filter: blur(50px);
@@ -1023,7 +1023,7 @@ select {
 @supports (backdrop-filter: blur()) {
   .ui-dialog {
     background-color: rgba(69, 69, 69, 0.7);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(5px);
   }
 }
 
@@ -1122,8 +1122,6 @@ select {
 
 .download-dialog-section-2 .active-btn {
   background: #42b983;
-  /* border-left: 1px solid white; */
-  /* border-right: 1px solid white; */
   color: white;
   box-shadow: none;
 }
