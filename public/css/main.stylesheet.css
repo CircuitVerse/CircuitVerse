@@ -858,7 +858,7 @@ input:checked + .slider:before {
 .custom-btn--secondary:hover {
   /* color: white; */
   background-color: #ddd;
-  transition: all 0.5s ease;
+  transition: all 0.3s ease;
 }
 
 .custom-btn--secondary:active,
@@ -1122,8 +1122,8 @@ select {
 
 .download-dialog-section-2 .active-btn {
   background: #42b983;
-  border-left: 1px solid white;
-  border-right: 1px solid white;
+  /* border-left: 1px solid white; */
+  /* border-right: 1px solid white; */
   color: white;
   box-shadow: none;
 }
@@ -1226,7 +1226,7 @@ select {
 .ui-dialog .ui-dialog-buttonpane button:hover {
   background: #ddd;
   color: #454545 !important;
-  transition: all 0.5s ease;
+  transition: all 0.3s ease;
   border: 1px solid transparent;
 }
 
@@ -1429,4 +1429,12 @@ select {
 
 .ui-dialog .ui-dialog-buttonpane button {
   margin-left: .4em;
+}
+
+.ui-dialog-titlebar-close:hover {
+  border: none;
+}
+
+.radio-green {
+  background: #42b983;
 }

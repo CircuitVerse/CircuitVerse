@@ -388,7 +388,7 @@ function escapeHtml(unsafe) {
         .replace(/'/g, "&#039;");
 }
 
-$(document).tooltip({
+$(document).not('.ui-dialog-titlebar-close').tooltip({
     show: null,
     track: true,
     hide: false,
@@ -463,4 +463,15 @@ $("#hexInput").on('keyup', function () {
 $("#octalInput").on('keyup', function () {
     var x = parseInt($("#octalInput").val(), 8);
     setBaseValues(x);
+})
+
+// some hack 
+$('#radio-full').click(() => {
+  $('#radio-full').addClass('radio-green');
+  $('#radio-current').removeClass('radio-green');
+})
+
+$('#radio-current').click(() => {
+  $('#radio-current').addClass('radio-green');
+  $('#radio-full').removeClass('radio-green');
 })
