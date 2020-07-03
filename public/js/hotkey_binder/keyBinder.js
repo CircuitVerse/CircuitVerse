@@ -109,7 +109,7 @@ $("#edit").keydown((e) => {
     }
     warnOverride($("#pressedKeys").text(), targetPref);
     if (checkRestricted($("#pressedKeys").text())) {
-        $("#warning").text("The above key(s) cannot be set.");
+        $("#warning").text("The above combination is a system default shortcut & cannot be set.");
     }
 });
 
