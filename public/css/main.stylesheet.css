@@ -1332,8 +1332,10 @@ select {
 
 #openProjectDialog {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 0 10px;
+  /* grid-template-columns: 1fr 1fr 1fr; */
+  /* grid-gap: 0 10px; */
+  color: white;
+  align-items: center;
 }
 
 #openProjectDialog > label {
@@ -1425,3 +1427,6 @@ select {
   color: white !important;
 }
 
+.ui-dialog .ui-dialog-buttonpane button {
+  margin-left: .4em;
+}
