@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :collaborations
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
   require 'sidekiq/web'
@@ -102,7 +101,8 @@ Rails.application.routes.draw do
   resources :users do
     resources :projects, only: [:show, :edit, :update, :new, :create, :destroy]
   end
-
+  resources :collaborations, only: [:create, :destroy, :update]
+  
   #redirects
   get '/facebook', to: redirect('https://www.facebook.com/CircuitVerse')
   get '/twitter', to: redirect('https://www.twitter.com/CircuitVerse')
@@ -114,4 +114,28 @@ Rails.application.routes.draw do
 
   # get 'comments/create_reply/:id', to: 'comments#create_reply', as: 'reply_comment'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  namespace :api do
+    namespace :v1 do
+      post '/auth/login', to: 'authentication#login'
+      post '/auth/signup', to: 'authentication#signup'
+      get '/me', to: 'users#me'
+      resources :users, only: [:index, :show, :update]
+      get '/projects/featured', to: 'projects#featured_circuits'
+      get '/projects/favourites', to: 'projects#favourite_projects'
+      resources :projects do
+        member do
+          get 'toggle-star', to: 'projects#toggle_star'
+          get 'fork', to: 'projects#create_fork'
+          get 'image_preview', to: 'projects#image_preview'
+        end
+        resources :collaborators, only: [:index, :create, :destroy]
+      end
+      resources :users do
+        get 'projects', to: 'projects#user_projects', on: :member
+      end
+      post '/assignments/:assignment_id/projects/:project_id/grades', to: 'grades#create'
+      resources :grades, only: [:update, :destroy]
+    end
+  end
 end

@@ -1,20 +1,16 @@
-require: 
+require:
   - rubocop-rspec
   - rubocop-rails
   - rubocop-performance
 
 AllCops:
   TargetRubyVersion: 2.5
+  NewCops: enable
   # RuboCop has a bunch of cops enabled by default. This setting tells RuboCop
   # to ignore them, so only the ones explicitly set in this file are enabled.
-  DisabledByDefault: true
   Exclude:
     - '**/templates/**/*'
     - '**/vendor/**/*'
-    - 'actionpack/lib/action_dispatch/journey/parser.rb'
-    - 'railties/test/fixtures/tmp/**/*'
-    - 'actionmailbox/test/dummy/**/*'
-    - 'actiontext/test/dummy/**/*'
     - 'node_modules/**/*'
     - 'Gemfile'
     - 'Rakefile'
@@ -22,10 +18,8 @@ AllCops:
     - 'db/**/*'
     - 'config/**/*'
     - 'bin/**/*'
-    - 'app/views/**/*'
-    - 'test/**/*'
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 100
 
 Metrics/BlockLength:
@@ -48,12 +42,6 @@ Rails:
 # Prefer &&/|| over and/or.
 Style/AndOr:
   Enabled: true
-
-# Do not use braces for hash literals when they are the last argument of a
-# method call.
-Style/BracesAroundHashParameters:
-  Enabled: true
-  EnforcedStyle: context_dependent
 
 # Align `when` with `case`.
 Layout/CaseIndentation:
@@ -91,7 +79,7 @@ Layout/EmptyLinesAroundMethodBody:
 Layout/EmptyLinesAroundModuleBody:
   Enabled: true
 
-Layout/IndentFirstArgument:
+Layout/FirstArgumentIndentation:
   Enabled: true
 
 # Use Ruby >= 1.9 syntax for hashes. Prefer { a: :b } over { :a => :b }.
@@ -180,11 +168,11 @@ Style/StringLiterals:
   EnforcedStyle: double_quotes
 
 # Detect hard tabs, no hard tabs.
-Layout/Tab:
+Layout/IndentationStyle:
   Enabled: true
 
 # Blank lines should not have any spaces.
-Layout/TrailingBlankLines:
+Layout/TrailingEmptyLines:
   Enabled: true
 
 # No trailing whitespace.
@@ -203,9 +191,6 @@ Lint/RequireParentheses:
   Enabled: true
 
 Lint/ShadowingOuterLocalVariable:
-  Enabled: true
-
-Lint/StringConversionInInterpolation:
   Enabled: true
 
 Lint/UriEscapeUnescape:
@@ -255,3 +240,11 @@ Performance/RegexpMatch:
 
 Performance/UnfreezeString:
   Enabled: true
+
+Style/Documentation:
+  Enabled: false
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Max: 3

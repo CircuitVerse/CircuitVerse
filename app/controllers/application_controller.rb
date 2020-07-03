@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   include Pundit
   protect_from_forgery with: :exception
@@ -15,6 +17,6 @@ class ApplicationController < ActionController::Base
   end
 
   def not_found
-    render plain: "The record you wish access could not be found"
+    render "errors/not_found.html.erb"
   end
 end
