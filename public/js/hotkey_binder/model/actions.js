@@ -79,7 +79,7 @@ const warnOverride = (combo, target) => {
             const assignee = $("#preference").children()[x].children[1]
                 .children[0].innerText;
             $("#warning").text(
-                `This key(s) is already assigned to: ${assignee}, Override?`
+                `This key(s) is already assigned to: ${assignee}, press Enter to override.`
             );
             $("#edit").css("border", "1.5px solid #dc5656");
             return;

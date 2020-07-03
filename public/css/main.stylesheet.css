@@ -597,7 +597,7 @@ div.icon img {
   width: 6px;
 }
 .customScroll::-webkit-scrollbar-thumb {
-  background-color: #7d7d7d;
+  background-color: #585858;
 }
 
 .customScroll::-webkit-scrollbar-thumb:hover {

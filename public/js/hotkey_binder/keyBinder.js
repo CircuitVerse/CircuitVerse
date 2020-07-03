@@ -113,16 +113,6 @@ $("#edit").keydown((e) => {
     }
 });
 
-// if (Object.keys(defaultKeys) !== )
-// userK = localStorage.get("defaultKeys");
-// for (const [key, value] of Object.entries(defaultKeys)) {
-//     if (Object.keys(userK).includes(key) && value !== userK[key]) {
-//         // console.log(`${key}: ${value}`);
-//         obj = `{${key}}`
-//         localStorage.set("defaultKeys", obj);
-//     }
-//   }
-
 window.onload = () => {
     if (localStorage.userKeys) {
         checkUpdate();

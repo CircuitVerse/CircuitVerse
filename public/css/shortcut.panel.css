@@ -97,7 +97,8 @@
     user-select: none;
     -moz-user-select: none;
     width: 100%;
-    padding: 0 10px;
+    padding-left: 5px;
+    padding-right: 7px;
 }
 
 #preference div:not("#edit-icon") > span {
@@ -120,14 +121,6 @@
     width: 15px;
     height: 15px;
 }
-
-/* .disable--cb {
-    float: left;
-    display: inline-block;
-    margin-top: 0.8rem;
-    margin-left: 1rem;
-    color: white;
-} */
 
 @keyframes shake {
     10%,
