@@ -1,0 +1,22 @@
+//*****************
+// Color configuration 
+//*****************
+
+$primary: $charcoal; //base color theme
+$input: $silver; //input border (mainly bottom)
+$text-primary: $white; //global font color
+$text-secondary: $silver; //placeholder text
+$sim-primary: $white; //simulator bg
+$sim-secondary: $very-light-grey; //simulator gridlines
+$dialog-primary: $primary; //dialog boxes bg color
+$dialog-secondary: $grey; //dialog boxes box border color
+$button-primary: $medium-sea-green; //btn primary
+$button-secondary: $roman; //delete button
+$error-primary: $carousel-pink; //error text color
+$box-shadow: $grey-shadow; //box shadow
+$border-primary: $white; //border color
+$border-secondary: $suva-grey; //dropdown border color
+$border-tertiary: $silver; //input box border
+$bg-primary--nav: $suva-grey; //nav-bar bg color
+$bg-secondary--nav: $primary; //active nav-bar menu bg color
+$bg-tertiary--nav: $gainsboro; //inactive nav-bar menu bg color
