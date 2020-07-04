@@ -35,6 +35,35 @@
   float: left;
 }
 
+.background-card {
+  background-color: $card-grey;
+  margin: 15px;
+  min-width: 230px;
+  padding: 15px;
+}
+
+//errors
+.error-explanation {
+  background: $error-red;
+  border-radius: 4px;
+  color: $error-red-font;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 15px;
+
+  li {
+    text-align: left;
+  }
+}
+
+//form elements
+.form-input {
+  background-color: $white;
+  border: 1px solid $green;
+  border-radius: 0;
+  height: 40px;
+}
+
 //breakpoints
 @media (max-width:$small-display) {
   .about-button-primary-container {
@@ -47,5 +76,11 @@
 
   .card-small-social-image {
     display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .background-card {
+    margin: auto;
   }
 }
