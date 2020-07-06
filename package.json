@@ -24,6 +24,7 @@
     "@rails/webpacker": "4.2.2",
     "better-docs": "^2.0.1",
     "bootstrap": "^4.3.1",
+    "css-vars": "^2.2.0",
     "expose-loader": "^0.7.5",
     "jquery": "^3.4.1",
     "jquery-ui": "^1.12.1",
@@ -33,7 +34,6 @@
     "livereload": "^0.9.1",
     "nodemon": "^2.0.4",
     "opencollective-postinstall": "^2.0.2",
-    "css-vars": "^2.2.0",
     "popper.js": "^1.16.0",
     "trumbowyg": "^2.21.0",
     "turbolinks": "^5.2.0"

@@ -21,6 +21,7 @@ export default function createSaveAsImgPrompt(scope = globalScope) {
                 generateImage($('input[name=imgType]:checked').val(), $('input[name=view]:checked').val(), $('input[name=transparent]:checked').val(), $('input[name=resolution]:checked').val());
                 $(this).dialog('close');
             },
+            class: "render-btn",
         }],
 
     });
@@ -28,6 +29,7 @@ export default function createSaveAsImgPrompt(scope = globalScope) {
         $('input[name=resolution]').prop('disabled', false);
         $('input[name=transparent]').prop('disabled', false);
         const imgType = $('input[name=imgType]:checked').val();
+        imgType == 'svg'? $('.btn-group-toggle, .download-dialog-section-3').addClass('disable') : $('.btn-group-toggle, .download-dialog-section-3, .cb-inner').removeClass('disable');
         if (imgType === 'svg') {
             $('input[name=resolution][value=1]').click();
             $('input[name=view][value="full"]').click();
@@ -37,8 +39,10 @@ export default function createSaveAsImgPrompt(scope = globalScope) {
             $('input[name=transparent]').attr('checked', false);
             $('input[name=transparent]').prop('disabled', true);
             $('input[name=view]').prop('disabled', false);
+            $('.cb-inner').addClass('disable');
         } else {
-            $('input[name=view]').prop('disabled', false);
+            $('input[name=view]').prop("disabled", false);
+            $('.cb-inner').removeClass('disable');
         }
     });
 }

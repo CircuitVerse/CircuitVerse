@@ -27,7 +27,7 @@ export function createCombinationalAnalysisPrompt(scope = globalScope) {
     $('#combinationalAnalysis').empty();
     $('#combinationalAnalysis').append("<p>Enter Input names separated by commas: <input id='inputNameList' type='text'  placeHolder='eg. In A, In B'></p>");
     $('#combinationalAnalysis').append("<p>Enter Output names separated by commas: <input id='outputNameList' type='text'  placeHolder='eg. Out X, Out Y'></p>");
-    $('#combinationalAnalysis').append("<p>Do you need a decimal column? <input id='decimalColumnBox' type='checkbox'></p>");
+    $('#combinationalAnalysis').append("<label class='cb-checkbox'>I need a decimal column.<input id='decimalColumnBox' type='checkbox'></label>");
     $('#combinationalAnalysis').dialog({
         width: 'auto',
         buttons: [
@@ -50,6 +50,7 @@ export function createCombinationalAnalysisPrompt(scope = globalScope) {
             },
         ],
     });
+    $("#combinationalAnalysis").checkBo();
 }
 /**
  * This funciton hashes the output array and makes required JSON using
@@ -66,7 +67,7 @@ function createBooleanPrompt(inputListNames, outputListNames, scope = globalScop
     var outputListNamesInteger = [];
     for (var i = 0; i < outputListNames.length; i++) { outputListNamesInteger[i] = 7 * i + 13; }// assigning an integer to the value, 7*i + 13 is random
 
-    var s = '<table>';
+    var s = '<table  class="content-table">';
     s += '<tbody style="display:block; max-height:70vh; overflow-y:scroll" >';
     s += '<tr>';
     if ($('#decimalColumnBox').is(':checked')) { s += '<th>' + 'dec' + '</th>'; }
