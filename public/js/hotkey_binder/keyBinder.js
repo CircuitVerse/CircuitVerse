@@ -2,10 +2,10 @@
 /* eslint-disable indent */
 /* eslint-disable linebreak-style */
 
+
 $("#customShortcutDialog").append(editPanel);
 $("#customShortcutDialog").append(heading);
 $("#customShortcutDialog").append(markUp);
-
 $("#customShortcut").click(() => {
     closeEdit(); // if edit is showing, close it
     $("#customShortcutDialog").dialog({
@@ -111,6 +111,12 @@ $("#edit").keydown((e) => {
     if (checkRestricted($("#pressedKeys").text())) {
         $("#warning").text("The above combination is a system default shortcut & cannot be set.");
     }
+});
+
+$('div#customShortcutDialog').on('dialogclose', function(event) {
+    if (localStorage.userKeys) {
+        updateHTML("user");
+    } else updateHTML("default");
 });
 
 window.onload = () => {
