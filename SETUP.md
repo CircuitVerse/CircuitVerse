@@ -48,7 +48,7 @@ You will also need the required software, detailed above. `Redis` and `PostgreSQ
 1. Create database: `rails db:create`
 1. Run migrations: `rails db:migrate`
 1. Start Sidekiq: `bundle exec sidekiq -e development -q default -q mailers -d -L tmp/sidekiq.log` (currently in development)
-
+1. ./bin/webpack-dev-server for Hot Module reload for  fast development or transpile using ./bin/webpack.
 Then, local development can be started with `rails s -b 127.0.0.1 -p 8080`. Navigate to `127.0.0.1:8080` in your web browser to access the website.
 
 ### CircuitVerse API setup instructions

@@ -339,8 +339,8 @@ input[type="text"]:focus {
 
 @supports (backdrop-filter: blur()) {
   .dropdown > ul {
-    background-color: rgba(69, 69, 69, 0.5);
-    backdrop-filter: blur(10px);
+    background-color: rgba(69, 69, 69, 0.7);
+    backdrop-filter: blur(5px);
   }
 }
 
@@ -424,7 +424,7 @@ input[type="text"]:focus {
 @supports (backdrop-filter: blur()) {
   #contextMenu {
     background-color: rgba(69, 69, 69, 0.7);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(5px);
   }
   #contextMenu ul li:hover {
     backdrop-filter: blur(50px);
@@ -596,7 +596,7 @@ div.icon img {
   width: 6px;
 }
 .customScroll::-webkit-scrollbar-thumb {
-  background-color: #7d7d7d;
+  background-color: #585858;
 }
 
 .customScroll::-webkit-scrollbar-thumb:hover {
@@ -857,7 +857,7 @@ input:checked + .slider:before {
 .custom-btn--secondary:hover {
   /* color: white; */
   background-color: #ddd;
-  transition: all 0.5s ease;
+  transition: all 0.3s ease;
 }
 
 .custom-btn--secondary:active,
@@ -1022,7 +1022,7 @@ select {
 @supports (backdrop-filter: blur()) {
   .ui-dialog {
     background-color: rgba(69, 69, 69, 0.7);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(5px);
   }
 }
 
@@ -1100,10 +1100,6 @@ select {
   padding: 0;
 }
 
-.ui-dialog-titlebar button {
-  display: none;
-}
-
 .download-dialog-section-1 > label {
   height: 30px;
   width: 85px;
@@ -1125,8 +1121,6 @@ select {
 
 .download-dialog-section-2 .active-btn {
   background: #42b983;
-  border-left: 1px solid white;
-  border-right: 1px solid white;
   color: white;
   box-shadow: none;
 }
@@ -1179,7 +1173,7 @@ select {
   font-weight: bold;
 }
 
-.dialog-close--btn {
+.ui-dialog-titlebar-close {
   border: none;
   color: white;
   position: absolute;
@@ -1188,7 +1182,7 @@ select {
   visibility: hidden;
 }
 
-.dialog-close--btn::after {
+.ui-dialog-titlebar-close::after {
   content: "";
   display: block;
   position: absolute;
@@ -1196,14 +1190,15 @@ select {
   height: 15px;
   width: 15px;
   visibility: visible;
-  transform: translate(-10%, -60%);
+  right: 0;
+  top: 0;
 }
 
-.dialog-close--btn::before:hover {
+.ui-dialog-titlebar-close::before:hover {
   background-color: #454545;
 }
 
-.dialog-close--btn::hover {
+.ui-dialog-titlebar-close::hover {
   border: none;
 }
 
@@ -1221,7 +1216,6 @@ select {
   background: transparent;
   color: white;
   line-height: inherit;
-  margin: auto;
   border-radius: 1px;
   font: inherit;
 }
@@ -1229,8 +1223,8 @@ select {
 .ui-dialog .ui-dialog-buttonpane button:hover {
   background: #ddd;
   color: #454545 !important;
-  transition: all 0.5s ease;
-  border: none;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
 }
 
 .render-btn {
@@ -1325,10 +1319,6 @@ select {
   overflow: auto !important;
 }
 
-.ui-dialog[aria-describedby="combinationalAnalysis"] button {
-  margin: 0 5px;
-}
-
 .output {
   cursor: pointer;
 }
@@ -1339,8 +1329,10 @@ select {
 
 #openProjectDialog {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 0 10px;
+  /* grid-template-columns: 1fr 1fr 1fr; */
+  /* grid-gap: 0 10px; */
+  color: white;
+  align-items: center;
 }
 
 #openProjectDialog > label {
@@ -1430,4 +1422,16 @@ select {
 
 #bitconverterprompt label {
   color: white !important;
+}
+
+.ui-dialog .ui-dialog-buttonpane button {
+  margin-left: .4em;
+}
+
+.ui-dialog-titlebar-close:hover {
+  border: none;
+}
+
+.radio-green {
+  background: #42b983;
 }
