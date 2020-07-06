@@ -5,11 +5,10 @@ class Users::LogixController < ApplicationController
 
   include UsersLogixHelper
 
-  before_action :authenticate_user!, only: [:edit, :update, :groups]
+  before_action :authenticate_user!, only: %i[edit update groups]
   before_action :set_user, except: [:typeahead_educational_institute]
 
-  def index
-  end
+  def index; end
 
   def favourites
     @projects = @user.rated_projects
@@ -19,15 +18,14 @@ class Users::LogixController < ApplicationController
     @profile = ProfileDecorator.new(@user)
   end
 
-  def edit
-  end
+  def edit; end
 
   def typeahead_educational_institute
     query = params[:query]
     institute_list = User.where("educational_institute LIKE :query", query: "%#{query}%")
-                                     .distinct
-                                     .limit(TYPEAHEAD_INSTITUTE_LIMIT)
-                                     .pluck(:educational_institute)
+                         .distinct
+                         .limit(TYPEAHEAD_INSTITUTE_LIMIT)
+                         .pluck(:educational_institute)
     typeahead_array = institute_list.map { |item| { name: item } }
     render json: typeahead_array
   end
@@ -50,9 +48,10 @@ class Users::LogixController < ApplicationController
   end
 
   private
+
     def profile_params
       params.require(:user).permit(:name, :profile_picture, :country, :educational_institute,
-       :subscribed)
+                                   :subscribed)
     end
 
     def set_user

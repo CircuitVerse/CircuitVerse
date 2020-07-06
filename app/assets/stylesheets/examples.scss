@@ -37,6 +37,7 @@
   background-color: $green;
   border-radius: 30px;
   color: $white;
+  padding: 5px 17px;
   transition: all .3s ease 0s;
 
   &:hover {
@@ -49,14 +50,15 @@
 
 .btn-examplepage-light {
   background-color: $white;
+  border: 1px solid $green;
   border-radius: 30px;
-  color: $white;
+  padding: 5px 17px;
   transition: all .3s ease 0s;
 
   &:hover {
     background-color: $teal;
     box-shadow: 0 8px 15px $shadow-black;
-    color: $white;
+    color: $white !important;
     transform: translateY(-7px);
   }
 }

@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script>
   userSignedIn = <%= user_signed_in? %>;
-  logix_project_id = <%= @logix_project_id %>;
+  logix_project_id = "<%= @logix_project_id %>";
   projectName = "<%= @projectName %>"
 </script>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -38,6 +38,7 @@
         <a href="#" class="dropdown-toggle text-light" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tools<span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item logixButton" id="createCombinationalAnalysisPrompt">Combinational Analysis</a></li>
+          <li><a type="button" class="dropdown-item" id="bitconverter" >Hex-Bin-Dec-Converter</a></li>
           <li><a class="dropdown-item logixButton" id="startPlot">Start Plot</a></li>
           <li><a class="dropdown-item logixButton" id="createSaveAsImgPrompt">Download Image</a>
         </ul>
@@ -142,12 +143,12 @@
           </div>
           <div style="position:absolute; right:120px; top:30px; z-index:100">
             <button type="button" class="btn zoomButton btn-lg" onclick="undo()">
-              <span class="fa fa-redo" aria-hidden="true" title="Undo"></span>
+              <span class="fas fa-undo-alt" aria-hidden="true" title="Undo"></span>
             </button>
           </div>
           <div style="position:absolute; right:150px; top:30px; z-index:100">
             <button type="button" class="btn zoomButton btn-lg" onclick="delete_selected()">
-              <span class="fas fa-times" aria-hidden="true" title="Delete"></span>
+              <span class="fas fa-trash-alt" aria-hidden="true" title="Delete"></span>
             </button>
           </div>
           <div id="layoutDialog" style="display:none;Width:210px;" class="" title="Layout Options">
@@ -174,7 +175,7 @@
               <div class="">
                 Reset all nodes:
                 <button type="button" class="btn zoomButton btn-lg" onclick="layoutResetNodes()">
-                  <span class="fa fa-refresh" aria-hidden="true" title="Reset"></span>
+                  <span class="fa fa-sync" aria-hidden="true" title="Reset"></span>
                 </button>
               </div>
               <div class="">
@@ -212,7 +213,8 @@
         </div>
       </div>
       <div id="combinationalAnalysis" style="display:none;" title="BooleanLogicTable"></div>
-      <div id="insertSubcircuitDialog" style="display:none;" title="Insert SubCircuit"></div>
+       <div id="bitconverterprompt" title="Dec-Bin-Hex-Converter"></div>
+      <div id="insertSubcircuitDialog"  class="subcircuitdialog" title="Insert SubCircuit"></div>
       <div id="openProjectDialog" style="display:none;" title="Open Project"></div>
     </div>
     <!-- Right panel -->
@@ -297,10 +299,10 @@
       <script src="/js/Quin_McCluskey.js"></script>
     <% end %>
     <script src="/js/canvas2svg.js"></script>
-    
+
     <!---issue reporting-system----->
     <div class="report-sidebar">
-    <a type="button" class="btn btn-primary text-light" data-toggle="modal" data-target=".issue"> <span class="fa fa-bug" ></span>&nbsp;&nbsp;Report an issue</a>
+    <a type="button" id="reportIssue"class="btn btn-primary text-light" data-toggle="modal" data-target=".issue"> <span class="fa fa-bug" ></span>&nbsp;&nbsp;Report an issue</a>
     </div>
       <!---issue reporting system-modal---->
 <div class="modal fade issue" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
@@ -316,9 +318,13 @@
     <hr>
      <div class="container my-2 text-center" id="result">
     </div>
-    <label id="report-label" style="font-weight: lighter" ><b>Describe your issue:</b></label>
+    <label for="issuetext" id="report-label" style="font-weight: lighter" ><b>Describe your issue:</b></label>
     <div class="form-group">
     <textarea class="form-control border-primary"  id="issuetext" rows="3"></textarea>
+    </div>
+    <label for="emailtext" id="email-label" style="font-weight: lighter"><b>Email</b><span> [Optional]</span>:</label>
+    <div class="form-group">
+    <input class="form-control border-primary"  type="email" id="emailtext" rows="3"/>
     </div>
       <div class="container">
         <center>
@@ -336,22 +342,35 @@
   $('button').click(function(){
    if (this.id== 'report'){
     var message=$('#issuetext').val();
+    var email=$('#emailtext').val();
+    message += "\nEmail:"+ email
     message += "\nURL: " + window.location.href;
     message += `\nUser Id: <%= user_signed_in? ? " #{current_user.id.to_s} : #{current_user.name}" : "Guest user" %>`
     postUserIssue(message)
     $('#issuetext').hide();
+    $('#emailtext').hide();
     $('#report').hide();
     $('#report-label').hide();
+    $('#email-label').hide();
   }
    })
   $('.issue').on('hide.bs.modal', function(e) {
-       $('#result').html("");
-       $('#issuetext').show();
-       $('#issuetext').val("");
-       $('#report').show();
-      $('#report-label').show();
-  
+    listenToSimulator=true
+    $('#result').html("");
+    $('#issuetext').show();
+    $('#emailtext').show();
+    $('#issuetext').val("");
+    $('#emailtext').val("");
+    $('#report').show();
+    $('#report-label').show();
+    $('#email-label').show();
 }) 
+$('#reportIssue').click(function(){
+  listenToSimulator=false
+})
 </script>
     
     
+    <script src="/js/canvas2svg.js"></script>
+
+
