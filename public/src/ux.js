@@ -16,7 +16,7 @@ import { updateRestrictedElementsInScope } from './restrictedElementDiv';
 import { paste } from './events';
 import  updateTheme from "./themer/themer";
 
-// updateTheme("default");
+updateTheme("nightSky");
 
 export const uxvar = {
     smartDropXX: 50,
