@@ -14,7 +14,9 @@ import { newCircuit, circuitProperty } from './circuit';
 import modules from './modules';
 import { updateRestrictedElementsInScope } from './restrictedElementDiv';
 import { paste } from './events';
+import  updateTheme from "./themer/themer";
 
+// updateTheme("default");
 
 export const uxvar = {
     smartDropXX: 50,

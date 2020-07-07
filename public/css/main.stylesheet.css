@@ -18,44 +18,6 @@
 
 /*! Adding color variables to root, required later for hokey binding */
 
-:root {
-  /* base color theme */
-  --primary: #454545;
-  /* input border (mainly bottom)  */
-  --input: #bbbbbb;
-  /* global font color */
-  --text-primary: #ffffff;
-  /* placeholder text */
-  --text-secondary: #bbbbbb;
-  /* simulator bg  */
-  --sim-primary: #ffffff;
-  /* simulator gridlines */
-  --sim-secondary: #cacaca;
-  /* dialog boxes bg color */
-  --dialog-primary: #454545;
-  /* dialog boxes box border color */
-  --dialog-secondary: #7d7d7d;
-  /* btn primary  */
-  --button-primary: #42b983;
-  /* delete button */
-  --button-secondary: #dc5656;
-  /* error text color */
-  --error-primary: #f8d7da;
-  /* box shadow  */
-  --box-shadow: #4545457f;
-  /* border color */
-  --border-primary: #ffffff;
-  /* dropdown border color */
-  --border-secondary: #8b8b8b;
-  /* input box border  */
-  --border-tertiary: #bbbbbb;
-  /* tab-bar bg color */
-  --bg-primary--nav: #8b8b8b;
-  /* active tab-bar menu bg color */
-  --bg-secondary--nav: #454545;
-  /* inactive nav-bar menu bg color  */
-  --bg-tertiary--nav: #dddddd;
-}
 
 /* typography */
 @font-face {
@@ -74,17 +36,6 @@ html {
   margin: 0;
   padding: 0;
   overflow: hidden;
-}
-
-::-moz-selection {
-  /* Code for Firefox */
-  color: white;
-  background: #7d7d7d;
-}
-
-::selection {
-  color: white;
-  background: #7d7d7d;
 }
 
 button:focus {
@@ -179,7 +130,6 @@ input[type="text"]:focus {
 }
 
 .navbar-menu > li > a {
-  color: var(--text-primary);
   border: 1px solid transparent;
   border-radius: 1px;
   padding: 2px 8px;
@@ -203,16 +153,15 @@ input[type="text"]:focus {
   transition: all 0.2s ease-in-out;
 }
 
-.navbar-menu > li > a:hover {
+/* .navbar-menu > li > a:hover {
   border: 1px solid white;
-}
+} */
 
 .navbar-menu > li > a:hover span {
   background: none;
 }
 
 .projectName {
-  color: var(--text-primary);
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
@@ -228,9 +177,9 @@ input[type="text"]:focus {
   transition: all 0.2s ease-in-out;
 }
 
-.account-btn:hover {
+/* .account-btn:hover {
   border: 1px solid var(--border-primary);
-}
+} */
 
 .signIn-btn {
   color: var(--text-primary);
@@ -241,7 +190,6 @@ input[type="text"]:focus {
 }
 
 .header {
-  background: var(--primary);
   height: 50px;
 }
 
@@ -260,12 +208,6 @@ input[type="text"]:focus {
   left: 60vw;
   height: 33px;
   border-radius: 7px;
-  background: #454545;
-  box-shadow: 4px 4px 5px #3b3b3b, -4px -4px 5px #4f4f4f;
-  border-top: 1.5px solid #535353;
-  border-left: 1.5px solid #535353;
-  border-right: 1.5px solid #333333;
-  border-bottom: 1.5px solid #333333;
 }
 
 .quick-btn > div {
@@ -328,10 +270,8 @@ input[type="text"]:focus {
 /* dropdown-menu styles */
 
 .dropdown > ul {
-  background-color: rgba(69, 69, 69, 0.9);
   border-radius: 5px;
   text-align: center;
-  border: 0.5px solid #8b8b8b;
   position: absolute;
   left: 50%;
   transform: translate(-50%, 13px);
@@ -339,7 +279,6 @@ input[type="text"]:focus {
 
 @supports (backdrop-filter: blur()) {
   .dropdown > ul {
-    background-color: rgba(69, 69, 69, 0.7);
     backdrop-filter: blur(5px);
   }
 }
@@ -351,8 +290,6 @@ input[type="text"]:focus {
   display: inline-block;
   height: 10px;
   position: absolute;
-  border-top: 1px solid #8b8b8b;
-  border-right: 1px solid #8b8b8b;
   transform: translate(-50%, -13px) rotate(-45deg);
 }
 
@@ -362,13 +299,11 @@ input[type="text"]:focus {
   display: inline-block;
   height: 10px;
   position: absolute;
-  border-top: 1.5px solid #454545;
   transform: translate(-50%, -15.5px);
   top: 14.5px;
 }
 
 .dropdown-menu > li > a {
-  color: var(--text-primary) !important;
   padding: 7px 0;
   width: 90%;
   margin: auto;
@@ -376,8 +311,6 @@ input[type="text"]:focus {
 }
 
 .dropdown-menu > li > a:hover {
-  color: black !important;
-  background: #cacaca;
   border-radius: 7px;
   opacity: 1;
 }
@@ -385,15 +318,12 @@ input[type="text"]:focus {
 #contextMenu {
   width: 150px;
   visibility: hidden;
-  border: 0.5px solid #8b8b8b;
   position: fixed;
   z-index: 1000;
-  background-color: rgba(69, 69, 69, 0.9);
   opacity: 0;
   top: 100;
   left: 100;
   cursor: pointer;
-  color: var(--text-primary);
   padding-bottom: 7px;
   padding-top: 7px;
   transition: all 0.2s ease-in-out;
@@ -415,15 +345,12 @@ input[type="text"]:focus {
 }
 
 #contextMenu ul li:hover {
-  color: black;
-  background: #cacaca;
   border-radius: 7px;
   opacity: 1;
 }
 
 @supports (backdrop-filter: blur()) {
   #contextMenu {
-    background-color: rgba(69, 69, 69, 0.7);
     backdrop-filter: blur(5px);
   }
   #contextMenu ul li:hover {
@@ -437,9 +364,6 @@ input[type="text"]:focus {
 .ce-panel {
   font: inherit;
   width: 220px;
-  background: #454545;
-  border: 2px solid white;
-  box-shadow: 0px 0px 10px #4545457f;
   border-radius: 5px;
   position: fixed;
   top: 90px;
@@ -455,13 +379,11 @@ input[type="text"]:focus {
   margin: 10px;
   font: Bold 20px Nunito;
   text-transform: uppercase;
-  color: var(--text-primary);
   text-align: center;
 }
 
 .panel {
   padding: 0em;
-  background-color: #333;
   margin: 0;
   border-radius: 0;
   margin-bottom: 0em;
@@ -475,7 +397,6 @@ input[type="text"]:focus {
 
 .ui-accordion-header {
   background-color: transparent;
-  color: #fff;
   margin: 0em;
   padding: 0em;
   outline: none;
@@ -506,7 +427,6 @@ input[type="text"]:focus {
 }
 
 .panelHeader:hover {
-  background-color: #7d7d7d;
   border-radius: 3px;
 }
 
@@ -514,7 +434,6 @@ input[type="text"]:focus {
 .panelHeader:before {
   content: "";
   height: 11px;
-  border: 1px solid var(--border-primary);
   display: inline-block;
   right: 15px;
   position: absolute;
@@ -522,7 +441,6 @@ input[type="text"]:focus {
   top: 50%;
   transform: translateY(-50%);
   transition: 0.5s ease-out;
-  background-color: white;
 }
 
 .panelHeader:after {
@@ -539,7 +457,6 @@ input[type="text"]:focus {
 }
 
 .ui-accordion .ui-accordion-content {
-  background-color: white;
   border: none;
   padding: 0;
 }
@@ -549,7 +466,6 @@ input[type="text"]:focus {
   width: 50px;
   margin: 5px;
   display: inline-block;
-  background-color: white;
   text-align: center;
   font-size: 8px;
 }
@@ -568,9 +484,6 @@ div.icon img {
 }
 
 .custom-tooltip-styling {
-  color: white;
-  background-color: #707070;
-  border: 1px solid var(--border-primary);
   box-shadow: none;
   border-radius: 3px;
   font: inherit;
@@ -579,7 +492,6 @@ div.icon img {
 }
 
 .icon:hover {
-  background-color: #707070;
   border-radius: 3px;
 }
 
@@ -595,13 +507,6 @@ div.icon img {
   margin-right: 3px;
   width: 6px;
 }
-.customScroll::-webkit-scrollbar-thumb {
-  background-color: #585858;
-}
-
-.customScroll::-webkit-scrollbar-thumb:hover {
-  background-color: #454545;
-}
 
 /*! custom scroll  styling starts ends here  */
 
@@ -611,9 +516,7 @@ div.icon img {
 
 #tabsBar {
   width: 100%;
-  background-color: #8b8b8b;
   /* height: 23.5px; */
-  border: 1px solid var(--border-primary);
   display: flex;
   align-items: center;
   z-index: 100;
@@ -625,10 +528,8 @@ div.icon img {
   display: inline-block;
   margin: 2px;
   min-width: 110px;
-  color: #fff;
   font-size: 14px;
   transition: all 0.2s ease-in-out;
-  border: 1px solid #454545;
 }
 
 #tabsBar div > span {
@@ -638,22 +539,7 @@ div.icon img {
 
 #tabsBar .circuits {
   text-align: center;
-  background-color: #dddddd;
   padding: 1px;
-}
-
-#tabsBar .circuits > span {
-  color: black;
-}
-
-#tabsBar .current {
-  color: white;
-  background-color: #454545;
-  border: 1px solid var(--border-primary);
-}
-
-#tabsBar .current > span {
-  color: white;
 }
 
 #tabsBar button {
@@ -661,41 +547,23 @@ div.icon img {
   width: 20px;
   align-items: center;
   padding: 1px;
-  color: white;
-  background-color: #454545;
   text-decoration: none;
   outline: none;
-  border: 1px solid var(--border-primary);
   border-radius: 1px;
   transition: all 0.1s ease-in-out;
 }
 
-#tabsBar button:hover {
-  color: #454545;
-  background: #dddddd;
-  border: 1px solid #454545;
-}
-
 /*! tab bar styling ends */
-
 /** Module property styling starts here */
-
-.moduleProperty input {
-  color: #fff;
-}
 
 .moduleProperty {
   display: none;
   font: inherit;
   width: 240px;
-  background: #454545;
-  border: 2px solid white;
-  box-shadow: 0px 0px 10px #4545457f;
   border-radius: 5px;
   position: fixed;
   top: 90px;
   right: 10px;
-  color: white;
   z-index: 100;
 }
 
@@ -707,7 +575,6 @@ div.icon img {
   margin: 10px;
   font: Bold 20px Nunito;
   text-transform: uppercase;
-  color: var(--text-primary);
   text-align: center;
 }
 
@@ -731,7 +598,6 @@ div.icon img {
 #moduleProperty-inner > p button {
   border-radius: 2px;
   margin: 3px;
-  /* border: none; */
 }
 
 #moduleProperty-inner:last-child {
@@ -742,9 +608,7 @@ div.icon img {
 .moduleProperty select {
   background-color: transparent;
   border: none;
-  border-bottom: 0.5px solid #bbbbbb;
   margin: auto;
-  color: white;
   outline: none;
 }
 
@@ -753,12 +617,6 @@ div.icon img {
   outline-width: 0;
   outline: none;
   box-shadow: none;
-  border-color: white;
-  color: white;
-}
-
-.input-group div button {
-  color: white;
 }
 
 .input-group-prepend button {
@@ -770,11 +628,9 @@ div.icon img {
 
 .input-group-prepend button:hover {
   border-radius: 3px !important;
-  background: rgba(202, 202, 202, 0.5);
 }
 .input-group-append button:hover {
   border-radius: 3px !important;
-  background: rgba(202, 202, 202, 0.5);
 }
 
 /* toogle */
@@ -798,12 +654,10 @@ div.icon img {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
   -webkit-transition: 0.2s all ease;
   transition: 0.2s all ease;
   border-radius: 25px;
   width: 35px;
-  box-shadow: inset 0px 0px 5px rgba(69, 69, 69, 0.255);
 }
 
 .slider:before {
@@ -814,15 +668,9 @@ div.icon img {
   left: -3px;
   top: 50%;
   transform: translateY(-51%);
-  background-color: white;
   -webkit-transition: 0.2s all ease-in-out;
   transition: 0.2s all ease-in-out;
   border-radius: 50%;
-  box-shadow: 0px 0px 7px rgba(69, 69, 69, 0.8);
-}
-
-input:checked + .slider {
-  background-color: #42b983;
 }
 
 input:checked + .slider:before {
@@ -833,51 +681,32 @@ input:checked + .slider:before {
 
 .custom-btn--primary {
   font-weight: bold;
-  background-color: #42b983;
-  color: white;
   border-radius: 1px;
 }
 
 .custom-btn--primary:hover {
-  background-color: #3ba374;
-  color: white;
   border-radius: 1px;
 }
 
 .custom-btn--secondary {
   background-color: transparent;
-  border: 1px solid white;
   border-radius: 1px;
   width: 90%;
-  color: white;
   display: inline-block;
   line-height: inherit;
 }
 
 .custom-btn--secondary:hover {
   /* color: white; */
-  background-color: #ddd;
   transition: all 0.3s ease;
 }
 
-.custom-btn--secondary:active,
-.custom-btn--secondary:focus {
-  border: 1px solid white;
-}
-
 .custom-btn--tertiary {
-  background-color: #dc5656;
-  color: white;
   border-radius: 1px;
-}
-
-.custom-btn--tertiary:hover {
-  color: white;
 }
 
 #HelpButton {
   background-color: transparent;
-  border: 1px solid white;
   width: 90%;
   margin-bottom: 15px;
   margin-top: 15px;
@@ -898,12 +727,9 @@ input:checked + .slider:before {
 
 select {
   appearance: none;
-  background: #bbbbbb;
   -moz-appearance: none;
   -webkit-appearance: none;
   appearance: none;
-  background-color: #454545;
-  color: white;
   width: auto;
   float: right;
   background-image: url(./assets/small-components/chevron-down.svg);
@@ -929,12 +755,8 @@ select {
   z-index: 100;
   width: 220px;
   height: 330px;
-  border: 2px solid white;
-  box-shadow: 0px 0px 10px #4545457f;
   border-radius: 5px;
-  background-color: #454545;
   text-align: center;
-  color: white;
   padding: 10px;
   padding-bottom: 17px;
   font-weight: bold;
@@ -947,15 +769,11 @@ select {
   height: 100%;
 }
 
-#layoutDialog > div span:before {
-  color: white;
-}
 
 .panel-heading {
   margin: 10px;
   font: Bold 20px Nunito;
   text-transform: uppercase;
-  color: var(--text-primary);
   text-align: center;
 }
 
@@ -1010,8 +828,7 @@ select {
 .ui-dialog {
   /*this also affects all dialog created using jquery UI, needs to be more universe */
   font: inherit;
-  background: rgba(69, 69, 69, 0.9);
-  border-radius: 10px;
+  border-radius: 5px;
   width: 600px;
   height: 320px;
   padding: 10px 17px;
@@ -1021,23 +838,18 @@ select {
 
 @supports (backdrop-filter: blur()) {
   .ui-dialog {
-    background-color: rgba(69, 69, 69, 0.7);
     backdrop-filter: blur(5px);
   }
 }
 
 .ui-widget-header {
   background: transparent;
-  color: white;
   border: none;
   border-radius: 0;
-  border-bottom: 0.5px solid white;
 }
 
 .option {
   display: inline-flex;
-  background-color: white;
-  color: black;
   border-radius: 7px;
   align-items: center;
   justify-content: space-around;
@@ -1053,7 +865,6 @@ select {
   height: 20px;
   width: 20px;
   border-radius: 50%;
-  border: 3px solid #454545;
   display: block;
   position: absolute;
   left: 5px;
@@ -1066,7 +877,6 @@ select {
   height: 8px;
   width: 8px;
   border-radius: 50%;
-  background: #454545;
   display: block;
   position: absolute;
   left: 50%;
@@ -1079,12 +889,8 @@ select {
   transform: translate(-50%, -50%) scale(1);
 }
 
-.pannel-heading {
-  background-color: #f5f5f5;
-}
 
 #saveImageDialog {
-  border: 1px solid #7d7d7d;
   border-radius: 2px;
   padding: 13px;
   margin: 0;
@@ -1107,7 +913,6 @@ select {
 
 .download-dialog-section-2 {
   background: transparent;
-  color: white;
   width: 100%;
   display: inline-flex;
   justify-content: space-around;
@@ -1118,16 +923,10 @@ select {
   border: 1px solid white !important;
   overflow: hidden;
 }
-
 .download-dialog-section-2 .active-btn {
-  background: #42b983;
-  color: white;
   box-shadow: none;
 }
 
-.download-dialog-section-2 .inactive-btn {
-  color: white;
-}
 
 .download-dialog-section-2 .btn input[type="radio"]:disabled {
   background: red !important;
@@ -1141,7 +940,6 @@ select {
 }
 
 .download-dialog-section-3 {
-  border: 1px solid var(--border-primary);
   border-radius: 2px;
   display: flex;
   justify-content: space-between;
@@ -1151,9 +949,6 @@ select {
   position: inherit;
 }
 
-.download-dialog-section-3 > span {
-  color: white;
-}
 
 .download-dialog-section-3 > label {
   width: 60px;
@@ -1194,10 +989,6 @@ select {
   top: 0;
 }
 
-.ui-dialog-titlebar-close::before:hover {
-  background-color: #454545;
-}
-
 .ui-dialog-titlebar-close::hover {
   border: none;
 }
@@ -1221,32 +1012,16 @@ select {
 }
 
 .ui-dialog .ui-dialog-buttonpane button:hover {
-  background: #ddd;
-  color: #454545 !important;
   transition: all 0.3s ease;
   border: 1px solid transparent;
 }
 
 .render-btn {
   height: 35px;
-  background: #42b983;
-  color: white;
   border-radius: 1px;
-  border: 1px solid white;
 }
 
-.render-btn:active {
-  border: 1px solid white;
-}
 
-.render-btn:hover {
-  background: #3ba374;
-  color: white;
-}
-
-.ui-dialog .ui-dialog-buttonpane button:hover {
-  color: white;
-}
 
 .navbar .nav.pull-right {
   float: right;
@@ -1264,16 +1039,12 @@ select {
 }
 
 #combinationalAnalysis {
-  border: 1px solid #7d7d7d;
   margin-top: 10px;
-  color: white;
 }
 
 #combinationalAnalysis p input {
   border: none;
-  border-bottom: 1px solid white;
   background: transparent;
-  color: white;
   font: inherit;
   float: right;
   text-align: center;
@@ -1294,8 +1065,6 @@ select {
 }
 
 .content-table tr th {
-  background-color: #3ba374;
-  color: #ffffff;
   font-weight: bold;
 }
 
@@ -1304,7 +1073,6 @@ select {
   padding: 5px 15px;
   margin: 0 3px;
   width: 20%;
-  background-color: #f3f3f3;
   border-radius: 2px;
 }
 
@@ -1331,7 +1099,6 @@ select {
   display: grid;
   /* grid-template-columns: 1fr 1fr 1fr; */
   /* grid-gap: 0 10px; */
-  color: white;
   align-items: center;
 }
 
@@ -1339,24 +1106,14 @@ select {
   margin: 4px;
   padding: 10px;
   background: transparent;
-  border: 1px solid var(--border-primary);
-  color: white;
   border-radius: 1px;
   width: 100%;
 }
 
-#openProjectDialog > label > span {
-  border: 3px solid white;
-}
-
-#openProjectDialog > label > span:after {
-  background: white;
-}
 
 /*! openProjectDialog styling ends here */
 
 #insertSubcircuitDialog {
-  color: white;
   display: block;
   padding-bottom: 0;
   overflow: visible;
@@ -1391,14 +1148,12 @@ select {
   position: absolute;
   height: 100%;
   width: 100%;
-  background: #808080;
   cursor: not-allowed;
   left: 0;
 }
 
 #bitconverterprompt {
   text-align: center;
-  color: white;
   font: inherit;
   border: none;
   margin-top: 15px;
@@ -1408,21 +1163,15 @@ select {
 #bitconverterprompt input {
   background: transparent;
   border: none;
-  border-bottom: 1px solid white;
   outline: none;
-  color: white;
   text-align: center;
   font: inherit;
 }
 
 #bitconverterprompt input:focus {
   border: none;
-  border-bottom: 1px solid white;
 }
 
-#bitconverterprompt label {
-  color: white !important;
-}
 
 .ui-dialog .ui-dialog-buttonpane button {
   margin-left: .4em;
@@ -1432,6 +1181,3 @@ select {
   border: none;
 }
 
-.radio-green {
-  background: #42b983;
-}

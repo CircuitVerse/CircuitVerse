@@ -1,0 +1,467 @@
+@import "css-vars";
+$css-vars-use-native: true;
+
+$baseDefault: #454545;
+$textDefault: #fff;
+$textDefault2: #000;
+$borderDefault: #fff;
+$bg-moz: #454545e6;
+$bg-chr: #454545b3;
+$bg-tabs-grey: #8b8b8b;
+$bg-icons-grey: #7d7d7d;
+$bg-text-grey: #cacaca;
+$bg-secondary-grey: #bbbbbb;
+
+$primary: $baseDefault;
+$text-primary: $textDefault;
+$text-secondary: $textDefault2;
+$br-primary: $borderDefault;
+$bg-primary-moz: $bg-moz;
+$bg-primary-chr: $bg-chr;
+$bg-tabs: $bg-tabs-grey;
+$bg-icons: $bg-icons-grey;
+$bg-text: $bg-text-grey;
+$bg-secondary: $bg-secondary-grey;
+
+@include css-vars(
+  (
+    --primary: $primary,
+    --text-primary: $text-primary,
+    --text-secondary: $text-secondary,
+    --br-primary: $br-primary,
+    --bg-primary-moz: $bg-primary-moz,
+    --bg-primary-chr: $bg-primary-moz,
+    --bg-tabs: $bg-tabs,
+    --bg-icons: $bg-icons,
+    --bg-text: $bg-text,
+    --bg-secondary: $bg-secondary,
+  )
+);
+
+::-moz-selection {
+  /* Code for Firefox */
+  color: var(--text-primary);
+  background: var(--bg-icons);
+}
+
+::selection {
+  color: var(--text-primary);
+  background: var(--bg-icons);
+}
+
+.navbar-menu > li > a {
+  color: var(--text-primary);
+}
+
+.projectName {
+  color: var(--text-primary);
+}
+
+.header {
+  background: var(--primary);
+}
+
+.quick-btn {
+  //neumorph
+  background: var(--primary);
+  box-shadow: 4px 4px 5px #3b3b3b, -4px -4px 5px #4f4f4f;
+  border-top: 1.5px solid #535353;
+  border-left: 1.5px solid #535353;
+  border-right: 1.5px solid #333333;
+  border-bottom: 1.5px solid #333333;
+}
+
+.dropdown > ul {
+  background-color: var(--bg-primary-moz);
+  border: 0.5px solid var(--bg-tabs);
+}
+
+@supports (backdrop-filter: blur()) {
+  .dropdown > ul {
+    background-color: var(--bg-primary-chr);
+  }
+}
+
+.dropdown > ul::before {
+  border-top: 1px solid var(--bg-tabs);
+  border-right: 1px solid var(--bg-tabs);
+}
+
+.dropdown > ul::after {
+  border-top: 1.5px solid var(--primary);
+}
+
+.dropdown-menu > li > a {
+  color: var(--text-primary) !important;
+}
+
+.dropdown-menu > li > a:hover {
+  color: var(--text-secondary) !important; //text secondary
+  background: var(--bg-text);
+}
+
+#contextMenu {
+  border: 0.5px solid var(--bg-tabs);
+  background-color: var(--bg-primary-moz);
+  color: var(--text-primary);
+}
+
+#contextMenu ul li:hover {
+  color: var(--text-secondary);
+  background: var(--bg-text);
+}
+
+@supports (backdrop-filter: blur()) {
+  #contextMenu {
+    background-color: var(--bg-primary-chr);
+  }
+}
+
+.ce-panel {
+  background: var(--primary);
+  border: 2px solid var(--br-primary);
+  box-shadow: 0px 0px 10px #4545457f;
+}
+
+#modules-header {
+  color: var(--text-primary);
+}
+
+.panel {
+  // background-color: white;
+}
+
+.ui-accordion-header {
+  color: var(--text-primary) !important;
+}
+
+.panelHeader:hover {
+  background-color: var(--bg-icons);
+}
+
+.panelHeader:after,
+.panelHeader:before {
+  background-color: var(--br-primary);
+  border: 1px solid var(--br-primary);
+}
+
+.ui-accordion .ui-accordion-content {
+  background-color: white;
+}
+
+.icon {
+  background-color: white;
+}
+
+.custom-tooltip-styling {
+  background-color: var(--bg-icons) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--br-primary);
+}
+
+.icon:hover {
+  background-color: var(--bg-icons);
+}
+
+.customScroll::-webkit-scrollbar-thumb {
+  background-color: #585858;
+}
+
+.customScroll::-webkit-scrollbar-thumb:hover {
+  background-color: var(--primary);
+}
+
+#tabsBar {
+  background-color: var(--bg-tabs);
+  border-top: 1px solid var(--br-primary);
+}
+
+#tabsBar div {
+  color: var(--text-primary);
+  border: 1px solid var(--primary);
+}
+
+#tabsBar .circuits {
+  background-color: var(--bg-secondary);
+}
+
+#tabsBar .circuits > span {
+  color: var(--text-secondary);
+}
+#tabsBar .current {
+  color: var(--text-primary);
+  background-color: var(--primary);
+  border: 1px solid var(--br-primary);
+}
+
+#tabsBar .current > span {
+  color: var(--text-primary);
+}
+
+#tabsBar button {
+  color: var(--text-primary);
+  background-color: var(--primary);
+  border: 1px solid var(--br-primary);
+}
+
+#tabsBar button:hover {
+  color: var(--primary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--primary);
+}
+
+.moduleProperty input {
+  color: var(--text-primary);
+}
+
+.moduleProperty {
+  background: var(--primary);
+  border: 2px solid var(--br-primary);
+  box-shadow: 0px 0px 10px #4545457f;
+  color: var(--text-primary);
+}
+
+#moduleProperty-title {
+  color: var(--text-primary);
+}
+
+.moduleProperty input,
+.moduleProperty select {
+  border-bottom: 0.5px solid var(--bg-secondary) !important;
+  color: var(--text-primary);
+}
+
+.moduleProperty input:focus,
+.moduleProperty select:focus {
+  color: var(--text-primary);
+  border-color: var(--br-primary) !important;
+}
+
+.input-group div button {
+  color: var(--text-primary);
+}
+
+.input-group-prepend button:hover {
+  background: rgba(202, 202, 202, 0.5);
+}
+.input-group-append button:hover {
+  background: rgba(202, 202, 202, 0.5);
+}
+
+.slider {
+  background-color: #ccc;
+  box-shadow: inset 0px 0px 5px rgba(69, 69, 69, 0.255);
+}
+
+.slider:before {
+  background-color: white;
+  box-shadow: 0px 0px 7px rgba(69, 69, 69, 0.8);
+}
+
+input:checked + .slider {
+  background-color: #42b983;
+}
+
+.custom-btn--primary {
+  background-color: #42b983;
+  color: var(--text-primary);
+}
+.custom-btn--primary:hover {
+  background-color: #3ba374;
+  color: var(--text-primary);
+}
+.custom-btn--secondary {
+  border: 1px solid white;
+  color: var(--text-primary);
+}
+.custom-btn--secondary:hover {
+  background-color: #ddd;
+}
+
+.custom-btn--secondary:active,
+.custom-btn--secondary:focus {
+  border: 1px solid white;
+}
+
+.custom-btn--tertiary {
+  background-color: #dc5656;
+  color: var(--text-primary);
+}
+
+.custom-btn--tertiary:hover {
+  color: var(--text-primary);
+}
+
+#HelpButton {
+  border: 1px solid var(--br-primary);
+}
+
+select {
+  background: var(--bg-secondary);
+  background-color: var(--primary);
+  color: var(--text-primary);
+}
+
+#layoutDialog {
+  border: 2px solid var(--br-primary);
+  box-shadow: 0px 0px 10px #4545457f;
+  background-color: var(--primary);
+  color: var(--text-primary);
+}
+
+#layoutDialog > div span:before {
+  color: var(--text-primary);
+}
+
+.panel-heading {
+  color: var(--text-primary);
+}
+
+.ui-dialog {
+  background: var(--bg-primary-moz) !important;
+}
+
+@supports (backdrop-filter: blur()) {
+  .ui-dialog {
+    background-color: var(--bg-primary-chr) !important;
+  }
+}
+
+.ui-widget-header {
+  color: var(--text-primary) !important;
+  border-bottom: 0.5px solid var(--br-primary);
+}
+
+.option {
+  background-color: white;
+  color: var(--text-secondary);
+}
+
+.custom-radio span {
+  border: 3px solid var(--primary);
+}
+
+.custom-radio span:after {
+  background: var(--primary);
+}
+
+.pannel-heading {
+  // background-color: #f5f5f5;
+}
+
+#saveImageDialog {
+  border: 1px solid var(--bg-icons);
+}
+.download-dialog-section-2 {
+  color: var(--text-primary);
+}
+
+.download-dialog-section-2 .active-btn {
+  background: #42b983;
+  color: var(--text-primary);
+}
+
+.download-dialog-section-2 .inactive-btn {
+  color: var(--text-primary);
+}
+
+.download-dialog-section-3 {
+  border: 1px solid var(--br-primary);
+}
+
+.download-dialog-section-3 > span {
+  color: var(--text-primary);
+}
+
+.ui-dialog-titlebar-close::before:hover {
+  background-color: var(--primary);
+}
+
+.ui-dialog .ui-dialog-buttonpane button:hover {
+  color: var(--text-secondary) !important;
+  background: #ddd;
+}
+
+.render-btn {
+  background: #42b983;
+  color: var(--text-primary);
+  border: 1px solid var(--br-primary);
+}
+
+.render-btn:active {
+  border: 1px solid var(--br-primary);
+}
+.render-btn:hover {
+  background: #3ba374;
+  color: var(--text-primary);
+}
+
+.ui-dialog .ui-dialog-buttonpane button:hover {
+  color: var(--text-primary);
+}
+
+#combinationalAnalysis {
+  border: 1px solid var(--bg-icons);
+  color: var(--text-primary);
+}
+
+#combinationalAnalysis p input {
+  border-bottom: 1px solid white !important;
+  color: var(--text-primary);
+}
+
+.content-table tr th {
+  background-color: #3ba374;
+  color: var(--text-primary);
+}
+
+.content-table th,
+.content-table td {
+  background-color: #f3f3f3;
+}
+
+#openProjectDialog {
+  color: var(--text-primary);
+}
+
+#openProjectDialog > label {
+  border: 1px solid var(--br-primary);
+  color: var(--text-primary);
+}
+
+#openProjectDialog > label > span {
+  border: 3px solid white;
+}
+
+#openProjectDialog > label > span:after {
+  background: var(--text-primary);
+}
+
+#insertSubcircuitDialog {
+  color: var(--text-primary);
+}
+
+.disable::after {
+  background: #808080;
+}
+
+#bitconverterprompt {
+  color: var(--text-primary);
+}
+
+#bitconverterprompt input {
+  border-bottom: 1px solid var(--br-primary);
+  color: var(--text-primary);
+}
+
+#bitconverterprompt input:focus {
+  border-bottom: 1px solid var(--br-primary);
+}
+
+#bitconverterprompt label {
+  color: var(--text-primary) !important;
+}
+
+.radio-green {
+  background: #42b983;
+}
