@@ -5,6 +5,7 @@ import simulationArea from './simulationArea';
 import {
     fixDirection, fillText, correctWidth, rect2, oppositeDirection,
 } from './canvasApi';
+import getColors from './modules/colors';
 
 /**
  * Base class for circuit elements.
@@ -376,7 +377,7 @@ export default class CircuitElement {
     draw() {
         var ctx = simulationArea.context;
         this.checkHover();
-
+        const colors = getColors();
 
         if (this.x * this.scope.scale + this.scope.ox < -this.rightDimensionX * this.scope.scale - 0 || this.x * this.scope.scale + this.scope.ox > width + this.leftDimensionX * this.scope.scale + 0 || this.y * this.scope.scale + this.scope.oy < -this.downDimensionY * this.scope.scale - 0 || this.y * this.scope.scale + this.scope.oy > height + 0 + this.upDimensionY * this.scope.scale) return;
 
@@ -387,7 +388,7 @@ export default class CircuitElement {
             ctx.lineWidth = correctWidth(3);
             ctx.beginPath();
             rect2(ctx, -this.leftDimensionX, -this.upDimensionY, this.leftDimensionX + this.rightDimensionX, this.upDimensionY + this.downDimensionY, this.x, this.y, [this.direction, 'RIGHT'][+this.directionFixed]);
-            if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = 'rgba(255, 255, 32,0.8)';
+            if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = colors["hover_select"];
             ctx.fill();
             ctx.stroke();
         }

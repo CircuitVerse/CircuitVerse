@@ -5,6 +5,7 @@ import {
     correctWidth, lineTo, moveTo, arc,
 } from '../canvasApi';
 import { changeInputSize } from '../modules';
+import getColors from './colors';
 /**
  * @class
  * AndGate
@@ -93,8 +94,8 @@ export default class AndGate extends CircuitElement {
      * function to draw And Gate
      */
     customDraw() {
+        const colors = getColors();
         var ctx = simulationArea.context;
-
         ctx.beginPath();
         ctx.lineWidth = correctWidth(3);
         ctx.strokeStyle = 'black'; // ("rgba(0,0,0,1)");
@@ -109,7 +110,7 @@ export default class AndGate extends CircuitElement {
         lineTo(ctx, -10, -20, xx, yy, this.direction);
         ctx.closePath();
 
-        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = 'rgba(255, 255, 32,0.8)';
+        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = colors["hover_select"];
         ctx.fill();
         ctx.stroke();
     }

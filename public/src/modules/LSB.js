@@ -13,6 +13,7 @@ import { correctWidth, rect, fillText } from '../canvasApi';
  * @param {number=} bitWidth - bit width per node.
  * @category modules
  */
+import getColors from './colors';
 export default class LSB extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
@@ -91,6 +92,7 @@ export default class LSB extends CircuitElement {
      * function to draw element
      */
     customDraw() {
+        const colors = getColors();
         var ctx = simulationArea.context;
         ctx.beginPath();
         ctx.strokeStyle = 'black';
@@ -99,7 +101,7 @@ export default class LSB extends CircuitElement {
         const xx = this.x;
         const yy = this.y;
         rect(ctx, xx - 10, yy - 30, 30, 60);
-        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = 'rgba(255, 255, 32,0.8)';
+        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = colors["hover_select"];
         ctx.fill();
         ctx.stroke();
 

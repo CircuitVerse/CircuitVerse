@@ -67,8 +67,11 @@ export default miniMapArea = {
 
         //  to show the area of current canvas
         var lst = updateOrder;
-        this.ctx.strokeStyle = 'green';
-        this.ctx.fillStyle = 'DarkGreen';
+        const miniFill = getComputedStyle(document.documentElement).getPropertyValue('--mini-map');
+        const miniStroke = getComputedStyle(document.documentElement).getPropertyValue('--mini-map-stroke');
+
+        this.ctx.strokeStyle = miniStroke;
+        this.ctx.fillStyle = miniStroke;
         for (var i = 0; i < lst.length; i++) {
             if (lst[i] === 'wires') {
                 for (var j = 0; j < globalScope[lst[i]].length; j++) {

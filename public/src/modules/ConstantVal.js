@@ -4,6 +4,7 @@ import simulationArea from '../simulationArea';
 import {
     correctWidth, rect2, fillText, oppositeDirection
 } from '../canvasApi';
+import getColors from './colors';
 
 
 function bin2dec(binString) {
@@ -111,6 +112,7 @@ export default class ConstantVal extends CircuitElement {
      * function to draw element
      */
     customDraw() {
+        const colors = getColors();
         var ctx = simulationArea.context;
         ctx.beginPath();
         ctx.strokeStyle = ('rgba(0,0,0,1)');
@@ -120,7 +122,7 @@ export default class ConstantVal extends CircuitElement {
         const yy = this.y;
 
         rect2(ctx, -10 * this.bitWidth, -10, 20 * this.bitWidth, 20, xx, yy, 'RIGHT');
-        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = 'rgba(255, 255, 32,0.8)';
+        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = colors["hover_select"];
         ctx.fill();
         ctx.stroke();
 

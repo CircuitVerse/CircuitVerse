@@ -13,6 +13,7 @@ import { correctWidth, rect, fillText } from '../canvasApi';
  * @param {number=} bitWidth - bit width per node.
  * @category modules
  */
+import getColors from './colors';
 export default class PriorityEncoder extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
@@ -128,6 +129,7 @@ export default class PriorityEncoder extends CircuitElement {
      * function to draw element
      */
     customDraw() {
+        const colors = getColors();
         var ctx = simulationArea.context;
         ctx.beginPath();
         ctx.strokeStyle = 'black';
@@ -136,7 +138,7 @@ export default class PriorityEncoder extends CircuitElement {
         const xx = this.x;
         const yy = this.y;
         if (this.bitWidth <= 3) { rect(ctx, xx - 10, yy - 10 - this.yOff * 5 * (this.inputSize), 40, 20 * (this.inputSize + 1)); } else { rect(ctx, xx - 10, yy - 10 - this.yOff * 5 * (this.inputSize), 40, 10 * (this.inputSize + 3)); }
-        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = 'rgba(255, 255, 32,0.8)';
+        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = colors["hover_select"];
         ctx.fill();
         ctx.stroke();
 

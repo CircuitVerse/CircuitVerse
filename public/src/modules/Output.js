@@ -6,6 +6,7 @@ import {
 } from '../canvasApi';
 import { getNextPosition } from '../modules';
 import { generateId } from '../utils';
+import getColors from './colors';
 
 
 function bin2dec(binString) {
@@ -106,6 +107,7 @@ export default class Output extends CircuitElement {
      * function to draw element
      */
     customDraw() {
+        const colors = getColors();
         this.state = this.inp1.value;
         var ctx = simulationArea.context;
         ctx.beginPath();
@@ -116,7 +118,7 @@ export default class Output extends CircuitElement {
         const yy = this.y;
 
         rect2(ctx, -10 * this.bitWidth, -10, 20 * this.bitWidth, 20, xx, yy, 'RIGHT');
-        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) { ctx.fillStyle = 'rgba(255, 255, 32,0.8)'; }
+        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) { ctx.fillStyle = colors["hover_select"]; }
 
         ctx.fill();
         ctx.stroke();

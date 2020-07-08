@@ -14,6 +14,7 @@ import {
  * @param {Array=} data - bit width per node.
  * @category sequential
  */
+import getColors from '../modules/colors';
 export default class Rom extends CircuitElement {
     constructor(
         x,
@@ -104,6 +105,7 @@ export default class Rom extends CircuitElement {
      * function to draw element
      */
     customDraw() {
+        const colors = getColors();
         const ctx = simulationArea.context;
         const xx = this.x;
         const yy = this.y;
@@ -113,7 +115,7 @@ export default class Rom extends CircuitElement {
         ctx.lineWidth = correctWidth(3);
         ctx.beginPath();
         rect2(ctx, -this.leftDimensionX, -this.upDimensionY, this.leftDimensionX + this.rightDimensionX, this.upDimensionY + this.downDimensionY, this.x, this.y, [this.direction, 'RIGHT'][+this.directionFixed]);
-        if (hoverIndex === undefined && ((!simulationArea.shiftDown && this.hover) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this))) ctx.fillStyle = 'rgba(255, 255, 32,0.8)';
+        if (hoverIndex === undefined && ((!simulationArea.shiftDown && this.hover) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this))) ctx.fillStyle = colors["hover_select"];
         ctx.fill();
         ctx.stroke();
         ctx.strokeStyle = 'black';

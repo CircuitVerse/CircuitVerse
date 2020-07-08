@@ -15,6 +15,7 @@ import {
  * @param {number=} bitWidth - bit width per node.
  * @category modules
  */
+import getColors from './colors';
 export default class Decoder extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'LEFT', bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
@@ -108,6 +109,7 @@ export default class Decoder extends CircuitElement {
      * function to draw element
      */
     customDraw() {
+        const colors = getColors();
         var ctx = simulationArea.context;
 
         const xx = this.x;
@@ -128,7 +130,7 @@ export default class Decoder extends CircuitElement {
         lineTo(ctx, 20 - this.xOff, -this.yOff * 10 * (this.outputsize / 2) - this.xOff + 20, xx, yy, this.direction);
 
         ctx.closePath();
-        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) { ctx.fillStyle = 'rgba(255, 255, 32,0.8)'; }
+        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) { ctx.fillStyle = colors["hover_select"]; }
         ctx.fill();
         ctx.stroke();
 

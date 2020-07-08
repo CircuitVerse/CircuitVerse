@@ -16,6 +16,7 @@ import { changeInputSize } from '../modules';
  * @param {number=} bitWidth - bit width per node.
  * @category modules
  */
+import getColors from './colors';
 export default class NotGate extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
@@ -62,6 +63,7 @@ export default class NotGate extends CircuitElement {
      * function to draw element
      */
     customDraw() {
+        const colors = getColors();
         var ctx = simulationArea.context;
         ctx.strokeStyle = 'black';
         ctx.lineWidth = correctWidth(3);
@@ -74,7 +76,7 @@ export default class NotGate extends CircuitElement {
         lineTo(ctx, 10, 0, xx, yy, this.direction);
         lineTo(ctx, -10, 10, xx, yy, this.direction);
         ctx.closePath();
-        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = 'rgba(255, 255, 32,0.8)';
+        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = colors["hover_select"];
         ctx.fill();
         ctx.stroke();
         ctx.beginPath();

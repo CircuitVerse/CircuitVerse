@@ -14,6 +14,7 @@ import { changeInputSize } from '../modules';
  * @param {Scope=} scope - Cirucit on which element is drawn
  * @category modules
  */
+import getColors from './colors';
 export default class RGBLed extends CircuitElement {
     constructor(x, y, scope = globalScope) {
         // Calling base class constructor
@@ -55,6 +56,7 @@ export default class RGBLed extends CircuitElement {
      * function to draw element
      */
     customDraw() {
+        const colors = getColors();
         var ctx = simulationArea.context;
 
         const xx = this.x;
@@ -99,7 +101,7 @@ export default class RGBLed extends CircuitElement {
         arc(ctx, 0, 0, Math.sqrt(666), ((Math.PI / 2) + Math.acos(15 / Math.sqrt(666))), ((-Math.PI / 2) - Math.asin(21 / Math.sqrt(666))), xx, yy, this.direction);
         lineTo(ctx, -18, -11, xx, yy, this.direction);
         ctx.stroke();
-        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = 'rgba(255, 255, 32,0.8)';
+        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = colors["hover_select"];
         ctx.fill();
     }
 }

@@ -125,7 +125,9 @@ export default class Wire {
         const ctx = simulationArea.context;
 
         var color;
-        if (simulationArea.lastSelected === this) { color = 'blue'; } else if (this.node1.value === undefined || this.node2.value === undefined) { color = 'red'; } else if (this.node1.bitWidth === 1) { color = ['red', 'DarkGreen', 'Lime'][this.node1.value + 1]; } else { color = 'black'; }
+        const wireSel = getComputedStyle(document.documentElement).getPropertyValue('--wire-sel');
+        const wireLose = getComputedStyle(document.documentElement).getPropertyValue('--wire-lose');
+        if (simulationArea.lastSelected === this) { color = wireSel; } else if (this.node1.value === undefined || this.node2.value === undefined) { color = wireLose; } else if (this.node1.bitWidth === 1) { color = ['red', 'DarkGreen', 'Lime'][this.node1.value + 1]; } else { color = 'black'; }
         drawLine(ctx, this.node1.absX(), this.node1.absY(), this.node2.absX(), this.node2.absY(), color, 3);
     }
 

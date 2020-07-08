@@ -17,6 +17,7 @@ import { changeInputSize } from '../modules';
  * @param {number=} bitWidth - bit width per node.
  * @category modules
  */
+import getColors from './colors';
 export default class XorGate extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', inputs = 2, bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
@@ -90,6 +91,7 @@ export default class XorGate extends CircuitElement {
      * function to draw element
      */
     customDraw() {
+        const colors = getColors();
         var ctx = simulationArea.context;
         ctx.strokeStyle = ('rgba(0,0,0,1)');
         ctx.lineWidth = correctWidth(3);
@@ -104,7 +106,7 @@ export default class XorGate extends CircuitElement {
         bezierCurveTo(0, 0, 0, 0, -10, -20, xx, yy, this.direction);
         // arc(ctx, 0, 0, -20, (-Math.PI / 2), (Math.PI / 2), xx, yy, this.direction);
         ctx.closePath();
-        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = 'rgba(255, 255, 32,0.8)';
+        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = colors["hover_select"];
         ctx.fill();
         ctx.stroke();
         ctx.beginPath();

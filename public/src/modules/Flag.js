@@ -17,6 +17,7 @@ import plotArea from '../plotArea';
  * @param {string} identifier - id
  * @category modules
  */
+import getColors from './colors';
 export default class Flag extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1, identifier) {
         super(x, y, scope, dir, bitWidth);
@@ -93,6 +94,7 @@ export default class Flag extends CircuitElement {
      * function to draw element
      */
     customDraw() {
+        const colors = getColors();
         var ctx = simulationArea.context;
         ctx.beginPath();
         ctx.strokeStyle = 'grey';
@@ -102,7 +104,7 @@ export default class Flag extends CircuitElement {
         const yy = this.y;
 
         rect2(ctx, -50 + this.xSize, -20, 100 - 2 * this.xSize, 40, xx, yy, 'RIGHT');
-        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = 'rgba(255, 255, 32,0.8)';
+        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = colors["hover_select"];
         ctx.fill();
         ctx.stroke();
 

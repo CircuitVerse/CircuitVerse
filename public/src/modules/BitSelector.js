@@ -14,6 +14,7 @@ import { correctWidth, rect, fillText } from '../canvasApi';
  * @param {number=} selectorBitWidth - 1 by default
  * @category modules
  */
+import getColors from './colors';
 export default class BitSelector extends CircuitElement {
     constructor(
         x,
@@ -88,6 +89,7 @@ export default class BitSelector extends CircuitElement {
      * function to draw element
      */
     customDraw() {
+        const colors = getColors();
         var ctx = simulationArea.context;
         ctx.beginPath();
         ctx.strokeStyle = ['blue', 'red'][(this.state === undefined) + 0];
@@ -96,7 +98,7 @@ export default class BitSelector extends CircuitElement {
         const xx = this.x;
         const yy = this.y;
         rect(ctx, xx - 20, yy - 20, 40, 40);
-        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = 'rgba(255, 255, 32,0.8)';
+        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = colors["hover_select"];
         ctx.fill();
         ctx.stroke();
 

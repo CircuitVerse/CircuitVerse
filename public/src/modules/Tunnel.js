@@ -15,6 +15,7 @@ import plotArea from '../plotArea';
  * @param {string=} identifier - number of input nodes
  * @category modules
  */
+import getColors from './colors';
 export default class Tunnel extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'LEFT', bitWidth = 1, identifier) {
         super(x, y, scope, dir, bitWidth);
@@ -174,6 +175,7 @@ export default class Tunnel extends CircuitElement {
      * function to draw element
      */
     customDraw() {
+        const colors = getColors();
         var ctx = simulationArea.context;
         ctx.beginPath();
         ctx.strokeStyle = 'grey';
@@ -199,7 +201,7 @@ export default class Tunnel extends CircuitElement {
         }
 
         rect2(ctx, -120 + xRotate + this.xSize, -20 + yRotate, 120 - this.xSize, 40, xx, yy, 'RIGHT');
-        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) { ctx.fillStyle = 'rgba(255, 255, 32,0.8)'; }
+        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) { ctx.fillStyle = colors["hover_select"]; }
         ctx.fill();
         ctx.stroke();
 

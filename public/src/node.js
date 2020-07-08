@@ -431,27 +431,33 @@ export default class Node {
     draw() {
         // console.log(this.id)
         const ctx = simulationArea.context;
+        const color = getComputedStyle(document.documentElement).getPropertyValue('--wire-draw');
         if (this.clicked) {
             if (this.prev == 'x') {
-                drawLine(ctx, this.absX(), this.absY(), simulationArea.mouseX, this.absY(), 'black', 3);
-                drawLine(ctx, simulationArea.mouseX, this.absY(), simulationArea.mouseX, simulationArea.mouseY, 'black', 3);
+                drawLine(ctx, this.absX(), this.absY(), simulationArea.mouseX, this.absY(), color, 3);
+                drawLine(ctx, simulationArea.mouseX, this.absY(), simulationArea.mouseX, simulationArea.mouseY, color, 3);
             } else if (this.prev == 'y') {
-                drawLine(ctx, this.absX(), this.absY(), this.absX(), simulationArea.mouseY, 'black', 3);
-                drawLine(ctx, this.absX(), simulationArea.mouseY, simulationArea.mouseX, simulationArea.mouseY, 'black', 3);
+                drawLine(ctx, this.absX(), this.absY(), this.absX(), simulationArea.mouseY, color, 3);
+                drawLine(ctx, this.absX(), simulationArea.mouseY, simulationArea.mouseX, simulationArea.mouseY, color, 3);
             } else if (Math.abs(this.x + this.parent.x - simulationArea.mouseX) > Math.abs(this.y + this.parent.y - simulationArea.mouseY)) {
-                drawLine(ctx, this.absX(), this.absY(), simulationArea.mouseX, this.absY(), 'black', 3);
+                drawLine(ctx, this.absX(), this.absY(), simulationArea.mouseX, this.absY(), color, 3);
             } else {
-                drawLine(ctx, this.absX(), this.absY(), this.absX(), simulationArea.mouseY, 'black', 3);
+                drawLine(ctx, this.absX(), this.absY(), this.absX(), simulationArea.mouseY, color, 3);
             }
         }
-        var color = 'black';
-        if (this.bitWidth == 1) color = ['green', 'lightgreen'][this.value];
-        if (this.value == undefined) color = 'red';
+        let wire = 'black';
+        const wireConnect = getComputedStyle(document.documentElement).getPropertyValue('--wire-cnt');
+        const wirePow = getComputedStyle(document.documentElement).getPropertyValue('--wire-pow');
+        const wireLose = getComputedStyle(document.documentElement).getPropertyValue('--wire-lose');
+        const node = getComputedStyle(document.documentElement).getPropertyValue('--node');
+
+        if (this.bitWidth == 1) wire = [wireConnect, wirePow][this.value];
+        if (this.value == undefined) wire = wireLose;
         if (this.type == 2) this.checkHover();
-        if (this.type == 2) { drawCircle(ctx, this.absX(), this.absY(), 3, color); } else { drawCircle(ctx, this.absX(), this.absY(), 3, 'green'); }
+        if (this.type == 2) { drawCircle(ctx, this.absX(), this.absY(), 3, wire); } else { drawCircle(ctx, this.absX(), this.absY(), 3, node); }
 
         if (this.highlighted || simulationArea.lastSelected == this || (this.isHover() && !simulationArea.selected && !simulationArea.shiftDown) || simulationArea.multipleObjectSelections.contains(this)) {
-            ctx.strokeStyle = 'green';
+            ctx.strokeStyle = node;
             ctx.beginPath();
             ctx.lineWidth = 3;
             arc(ctx, this.x, this.y, 8, 0, Math.PI * 2, this.parent.x, this.parent.y, 'RIGHT');
