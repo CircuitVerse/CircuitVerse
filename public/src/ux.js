@@ -16,7 +16,9 @@ import { updateRestrictedElementsInScope } from './restrictedElementDiv';
 import { paste } from './events';
 import  updateTheme from "./themer/themer";
 
-updateTheme("nightSky");
+
+
+
 
 export const uxvar = {
     smartDropXX: 50,
@@ -299,7 +301,6 @@ export function showProperties(obj) {
         wireToBeCheckedSet(1);
         if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) { prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet(); } else { circuitProperty[this.name](this.checked); }
     });
-
     $(function(){
         $("input[type='number']").inputSpinner();
       });
@@ -405,3 +406,6 @@ $('#octalInput').on('keyup', () => {
     var x = parseInt($('#octalInput').val(), 8);
     setBaseValues(x);
 });
+
+updateTheme("nightSky", false)
+

@@ -1,6 +1,44 @@
 @import "css-vars";
 $css-vars-use-native: true;
 
+// $primary: $baseDefault;
+// $text-primary: $textDefault;
+// $text-secondary: $textDefault2;
+// $br-primary: $borderDefault;
+// $bg-primary-moz: $bg-moz;
+// $bg-primary-chr: $bg-chr;
+// $bg-tabs: $bg-tabs-grey;
+// $bg-icons: $bg-icons-grey;
+// $bg-text: $bg-text-grey;
+// $bg-secondary: $bg-secondary-grey;
+// $canvas-primary: $canvas-primary-grey;
+// $canvas-secondary: $canvas-secondary-white;
+// $bg-toogle: $bg-toogle-green;
+// $bg-toogle-darken: $bg-toogle-green-darken;
+// $btn-danger: $btn-danger-red;
+// $btn-danger-darken: $btn-danger-red-dark;
+
+// @include css-vars(
+//   (
+//     --primary: $primary,
+//     --text-primary: $text-primary,
+//     --text-secondary: $text-secondary,
+//     --br-primary: $br-primary,
+//     --bg-primary-moz: $bg-primary-moz,
+//     --bg-primary-chr: $bg-primary-moz,
+//     --bg-tabs: $bg-tabs,
+//     --bg-icons: $bg-icons,
+//     --bg-text: $bg-text,
+//     --bg-secondary: $bg-secondary,
+//     --canvas-stroke: $canvas-primary,
+//     --canvas-fill: $canvas-secondary,
+//     --bg-toogle: $bg-toogle,
+//     --bg-toogle-darken: $bg-toogle-darken,
+//     --btn-danger: $btn-danger,
+//     --btn-danger-darken: $btn-danger-darken,
+//   )
+// );
+
 $baseDefault: #454545;
 $textDefault: #fff;
 $textDefault2: #000;
@@ -11,30 +49,45 @@ $bg-tabs-grey: #8b8b8b;
 $bg-icons-grey: #7d7d7d;
 $bg-text-grey: #cacaca;
 $bg-secondary-grey: #bbbbbb;
-
-$primary: $baseDefault;
-$text-primary: $textDefault;
-$text-secondary: $textDefault2;
-$br-primary: $borderDefault;
-$bg-primary-moz: $bg-moz;
-$bg-primary-chr: $bg-chr;
-$bg-tabs: $bg-tabs-grey;
-$bg-icons: $bg-icons-grey;
-$bg-text: $bg-text-grey;
-$bg-secondary: $bg-secondary-grey;
+$canvas-primary-grey: #eee;
+$canvas-secondary-white: white;
+$bg-toogle-green: #42b983;
+$bg-toogle-green-darken: #3ca877;
+$btn-danger-red: #dc5656;
+$btn-danger-red-dark: #b03662;
+$disable: #6c8b93;
+$qp-br-tl: #535353;
+$qp-br-rd: #333333;
+$qp-box-shadow-1: #3b3b3b;
+$qp-box-shadow-2: #4f4f4f;
+$btn-dg-hov: #ddd;
+$btn-dg-hov-text: #000;
 
 @include css-vars(
   (
-    --primary: $primary,
-    --text-primary: $text-primary,
-    --text-secondary: $text-secondary,
-    --br-primary: $br-primary,
-    --bg-primary-moz: $bg-primary-moz,
-    --bg-primary-chr: $bg-primary-moz,
-    --bg-tabs: $bg-tabs,
-    --bg-icons: $bg-icons,
-    --bg-text: $bg-text,
-    --bg-secondary: $bg-secondary,
+    --primary: $baseDefault,
+    --text-primary: $textDefault,
+    --text-secondary: $textDefault2,
+    --br-primary: $borderDefault,
+    --bg-primary-moz: $bg-moz,
+    --bg-primary-chr: $bg-chr,
+    --bg-tabs: $bg-tabs-grey,
+    --bg-icons: $bg-icons-grey,
+    --bg-text: $bg-text-grey,
+    --bg-secondary: $bg-secondary-grey,
+    --canvas-stroke: $canvas-primary-grey,
+    --canvas-fill: $canvas-secondary-white,
+    --bg-toogle: $bg-toogle-green,
+    --bg-toogle-darken: $bg-toogle-green-darken,
+    --btn-danger: $btn-danger-red,
+    --btn-danger-darken: $btn-danger-red-dark,
+    --disable: $disable,
+    --qp-br-tl: $qp-br-tl,
+    --qp-br-rd: $qp-br-rd,
+    --qp-box-shadow-1: $qp-box-shadow-1,
+    --qp-box-shadow-2: $qp-box-shadow-2,
+    --btn-dg-hov: $btn-dg-hov,
+    --btn-dg-hov-text: $btn-dg-hov-text,
   )
 );
 
@@ -64,11 +117,12 @@ $bg-secondary: $bg-secondary-grey;
 .quick-btn {
   //neumorph
   background: var(--primary);
-  box-shadow: 4px 4px 5px #3b3b3b, -4px -4px 5px #4f4f4f;
-  border-top: 1.5px solid #535353;
-  border-left: 1.5px solid #535353;
-  border-right: 1.5px solid #333333;
-  border-bottom: 1.5px solid #333333;
+  box-shadow: 4px 4px 5px var(--qp-box-shadow-2),
+    -4px -4px 5px var(--qp-box-shadow-1);
+  border-top: 1.5px solid var(--qp-br-tl);
+  border-left: 1.5px solid var(--qp-br-tl);
+  border-right: 1.5px solid var(--qp-br-rd);
+  border-bottom: 1.5px solid var(--qp-br-rd);
 }
 
 .dropdown > ul {
@@ -244,6 +298,7 @@ $bg-secondary: $bg-secondary-grey;
 .input-group-prepend button:hover {
   background: rgba(202, 202, 202, 0.5);
 }
+
 .input-group-append button:hover {
   background: rgba(202, 202, 202, 0.5);
 }
@@ -259,15 +314,15 @@ $bg-secondary: $bg-secondary-grey;
 }
 
 input:checked + .slider {
-  background-color: #42b983;
+  background-color: var(--bg-toogle);
 }
 
 .custom-btn--primary {
-  background-color: #42b983;
+  background-color: var(--bg-toogle);
   color: var(--text-primary);
 }
 .custom-btn--primary:hover {
-  background-color: #3ba374;
+  background-color: var(--bg-toogle-darken);
   color: var(--text-primary);
 }
 .custom-btn--secondary {
@@ -276,6 +331,7 @@ input:checked + .slider {
 }
 .custom-btn--secondary:hover {
   background-color: #ddd;
+  color: var(--btn-dg-hov-text);
 }
 
 .custom-btn--secondary:active,
@@ -284,11 +340,12 @@ input:checked + .slider {
 }
 
 .custom-btn--tertiary {
-  background-color: #dc5656;
+  background-color: var(--btn-danger);
   color: var(--text-primary);
 }
 
 .custom-btn--tertiary:hover {
+  background-color: var(--btn-danger-darken);
   color: var(--text-primary);
 }
 
@@ -357,7 +414,7 @@ select {
 }
 
 .download-dialog-section-2 .active-btn {
-  background: #42b983;
+  background: var(--bg-toogle);
   color: var(--text-primary);
 }
 
@@ -366,7 +423,7 @@ select {
 }
 
 .download-dialog-section-3 {
-  border: 1px solid var(--br-primary);
+  border: 1px solid var(--bg-tabs);
 }
 
 .download-dialog-section-3 > span {
@@ -378,12 +435,13 @@ select {
 }
 
 .ui-dialog .ui-dialog-buttonpane button:hover {
-  color: var(--text-secondary) !important;
-  background: #ddd;
+  color: var(--btn-dg-hov-text) !important;
+  background: var(--btn-dg-hov);
+  border: 1px solid transparent;
 }
 
 .render-btn {
-  background: #42b983;
+  // background: #42b983;
   color: var(--text-primary);
   border: 1px solid var(--br-primary);
 }
@@ -394,10 +452,7 @@ select {
 .render-btn:hover {
   background: #3ba374;
   color: var(--text-primary);
-}
-
-.ui-dialog .ui-dialog-buttonpane button:hover {
-  color: var(--text-primary);
+  border: 1px solid transparent;
 }
 
 #combinationalAnalysis {
@@ -411,7 +466,7 @@ select {
 }
 
 .content-table tr th {
-  background-color: #3ba374;
+  background-color: var(--bg-toogle);
   color: var(--text-primary);
 }
 
@@ -442,7 +497,7 @@ select {
 }
 
 .disable::after {
-  background: #808080;
+  background: var(--disable);
 }
 
 #bitconverterprompt {
@@ -464,4 +519,8 @@ select {
 
 .radio-green {
   background: #42b983;
+}
+
+.btn-group-toggle {
+  border: 1px solid var(--bg-tabs) !important;
 }

@@ -1,18 +1,51 @@
+import { dots } from '../canvasApi';
+
 const themeOptions = [
+    {
+        "--primary": "#0F111A", //header bg, panels bg
+        "--text-primary": "#FFF", //normal state text
+        "--text-secondary": "#000", //text state on hover, on drop down menu , context menu
+        "--br-primary": "#665627", //panel border, tabbar circuit border
+        "--bg-primary-moz": "#0f111ae6", //dialog bg
+        "--bg-primary-chr": "#0f111ab3", //dialog bg
+        "--bg-tabs": "#727d8d", //tabs bar primary bg,
+        "--bg-icons": "#4d647a", //ce icon bg
+        "--bg-text": "#727d8d", //drop down, content menu, text bg on hover
+        "--bg-secondary": "#536c84", //border color input button,
+        "--canvas-fill": "#1B2C33", //canvas bg
+        "--canvas-stroke": "#6A7980", //canvas stroke
+        "--bg-toogle": "#48a69d",
+        "--bg-toogle-darken": "#3f9189",
+        "--btn-danger": "#c33c6c",
+        "--btn-danger-darken": "#b03662",
+        "--qp-br-tl": "#282d46", //more ligthen than qp box shadow 1
+        "--qp-br-rd": "#1d2132",
+        "--qp-box-shadow-1": "#1d2132", //lil lighten base
+        "--qp-box-shadow-2": "#0a0b11", //lil darken base
+        "--btn-dg-hov": "#48a69d",
+        "--btn-dg-hov-text": "#fff",
+        name: "nightSky",
+    },
     {
         "--primary": "#0F111A",
         "--text-primary": "#FFF",
         "--text-secondary": "#000",
         "--br-primary": "#665627",
-        "--bg-primary-moz": "#0f111ae6", 
+        "--bg-primary-moz": "#0f111ae6",
         "--bg-primary-chr": "#0f111ab3",
         "--bg-tabs": "#8b8b8b",
         "--bg-icons": "#2f3550",
         "--bg-text": "#49527a",
         "--bg-secondary": "#40486b",
-        name: "nightSky"
+        "--canvas-fill": "black",
+        "--canvas-stroke": "white",
+        // "--canvas-fill": "black",
+        // "--canvas-stroke": "white",
+        name: "nightSky2",
     },
 ];
+
+// document.getElementById('backgroundArea').getContext('2d').strokeStyle
 
 //metadata.json , upto max 3rd level
 const themes = [
@@ -90,9 +123,10 @@ function updateThemeForStyle(themeName) {
     );
     const html = document.getElementsByTagName("html")[0];
     Object.keys(selectedTheme).forEach((property, i) => {
-        if (property == "name") return;
+        if (property === "name") return;
         html.style.setProperty(property, selectedTheme[property]);
     });
+
 }
 
 export default updateThemeForStyle;

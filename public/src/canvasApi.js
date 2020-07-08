@@ -108,10 +108,10 @@ export function dots(dots = true, transparentBackground = false, force = false) 
     var ctx = backgroundArea.context;
     ctx.beginPath();
     backgroundArea.clear();
-    ctx.strokeStyle = '#eee';
+    ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--canvas-stroke');
     ctx.lineWidth = 1;
     if (!transparentBackground) {
-        ctx.fillStyle = 'white';
+        ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--canvas-fill');
         ctx.rect(0, 0, canvasWidth, canvasHeight);
         ctx.fill();
     }

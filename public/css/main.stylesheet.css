@@ -920,7 +920,6 @@ select {
 
 .btn-group-toggle {
   background-color: transparent;
-  border: 1px solid white !important;
   overflow: hidden;
 }
 .download-dialog-section-2 .active-btn {
