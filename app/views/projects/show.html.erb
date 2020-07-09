@@ -270,14 +270,6 @@
 
 <!-- to be discussed -->
 <% if user_signed_in? %>
-<script src="https://goodwill.zense.co.in/packs/gratia.js"></script>
-<script>
-  var gratia = new window.Gratia({
-    from: '<%= profile_url(current_user) %>',
-    to: <%= ([@project.author] + @project.collaborators ).map{ |c| profile_url(c) }.to_json.html_safe %>,
-    tags: <%= @project.tag_list.to_json.html_safe %>
-  });
-</script>
 <script>
   if($("#featuredCircuit")) {
       $("#featuredCircuit").submit(function(e) {
