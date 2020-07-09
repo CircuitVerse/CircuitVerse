@@ -134,7 +134,7 @@ export default class Multiplexer extends CircuitElement {
 
         ctx.lineWidth = correctWidth(3);
         ctx.beginPath();
-        ctx.strokeStyle = ('rgba(0,0,0,1)');
+        ctx.strokeStyle = (colors['stroke']);
 
         ctx.fillStyle = colors['fill'];
         moveTo(ctx, -20 + this.xOff, -this.yOff * 10 * (this.inputSize / 2), xx, yy, this.direction);

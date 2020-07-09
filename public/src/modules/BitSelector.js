@@ -92,7 +92,7 @@ export default class BitSelector extends CircuitElement {
         const colors = getColors();
         var ctx = simulationArea.context;
         ctx.beginPath();
-        ctx.strokeStyle = ['blue', 'red'][(this.state === undefined) + 0];
+        ctx.strokeStyle = ['blue', colors['stroke_alt']][(this.state === undefined) + 0];
         ctx.fillStyle = colors['fill'];
         ctx.lineWidth = correctWidth(3);
         const xx = this.x;
@@ -104,7 +104,7 @@ export default class BitSelector extends CircuitElement {
 
         ctx.beginPath();
         ctx.font = '20px Georgia';
-        ctx.fillStyle = 'green';
+        ctx.fillStyle = colors['input_text'];
         ctx.textAlign = 'center';
         var bit;
         if (this.bitSelectorInp.value === undefined) { bit = 'x'; } else { bit = this.bitSelectorInp.value; }

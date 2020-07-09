@@ -121,7 +121,7 @@ export default class Decoder extends CircuitElement {
         // ctx.stroke();
 
         ctx.beginPath();
-        ctx.strokeStyle = ('rgba(0,0,0,1)');
+        ctx.strokeStyle = (colors['stroke']);
         ctx.lineWidth = correctWidth(4);
         ctx.fillStyle = colors['fill'];
         moveTo(ctx, -20 + this.xOff, -this.yOff * 10 * (this.outputsize / 2), xx, yy, this.direction);

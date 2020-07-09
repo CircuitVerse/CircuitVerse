@@ -110,9 +110,11 @@ export default class Rom extends CircuitElement {
         const xx = this.x;
         const yy = this.y;
         const hoverIndex = this.findPos();
-        ctx.strokeStyle = 'black';
-        ctx.fillStyle = 'white';
+        ctx.strokeStyle = colors['stroke'];
+        ctx.fillStyle = (colors['fill']);
         ctx.lineWidth = correctWidth(3);
+        ctx.fill();
+        ctx.stroke();
         ctx.beginPath();
         rect2(ctx, -this.leftDimensionX, -this.upDimensionY, this.leftDimensionX + this.rightDimensionX, this.upDimensionY + this.downDimensionY, this.x, this.y, [this.direction, 'RIGHT'][+this.directionFixed]);
         if (hoverIndex === undefined && ((!simulationArea.shiftDown && this.hover) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this))) ctx.fillStyle = colors["hover_select"];
@@ -145,7 +147,7 @@ export default class Rom extends CircuitElement {
         }
         if (this.memAddr.value !== undefined) {
             ctx.beginPath();
-            ctx.fillStyle = 'green';
+            ctx.fillStyle = colors['input_text'];
             rect2(ctx, (this.memAddr.value % 4) * 20, Math.floor(this.memAddr.value / 4) * 16, 20, 16, xx - 35, yy - 35);
             ctx.fill();
             ctx.stroke();

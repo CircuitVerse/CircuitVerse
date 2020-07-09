@@ -2,6 +2,7 @@ import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import { correctWidth, lineTo, moveTo, fillText3 } from '../canvasApi';
+import getColors from '../modules/colors';
 
 /**
  * @class
@@ -131,9 +132,12 @@ export default class TTY extends CircuitElement {
 
     customDraw() {
         var ctx = simulationArea.context;
+        const colors = getColors();
+        ctx.strokeStyle = (colors['stroke']);
+        ctx.fillStyle = (colors['fill']);
+        ctx.fill();
+        ctx.stroke();
         ctx.beginPath();
-        ctx.strokeStyle = ('rgba(0,0,0,1)');
-        ctx.fillStyle = 'white';
         ctx.lineWidth = correctWidth(3);
         var xx = this.x;
         var yy = this.y;
@@ -146,17 +150,17 @@ export default class TTY extends CircuitElement {
 
         // if ((this.b.hover&&!simulationArea.shiftDown)|| simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this))
         //     ctx.fillStyle = "rgba(255, 255, 32,0.8)";
-        // ctx.fill();
+        ctx.fill();
         ctx.stroke();
 
         ctx.beginPath();
-        ctx.fillStyle = 'green';
+        ctx.fillStyle = colors['input_text'];
         ctx.textAlign = 'center';
         var startY = -7.5 * this.rows + 3;
         for (var i = 0; i < this.data.length; i += this.cols) {
             var lineData = this.data.slice(i, i + this.cols);
             lineData += ' '.repeat(this.cols - lineData.length);
-            fillText3(ctx, lineData, 0, startY + (i / this.cols) * 15 + 9, xx, yy, 15,'Courier New', 'center');
+            fillText3(ctx, lineData, 0, startY + (i / this.cols) * 15 + 9, xx, yy, 15, 'Courier New', 'center');
         }
         ctx.fill();
     }

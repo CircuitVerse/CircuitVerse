@@ -13,6 +13,7 @@ import { correctWidth, lineTo, moveTo } from '../canvasApi';
  * @param {string=} dir - direcion in which element has to drawn
  * @category sequential
  */
+import getColors from '../modules/colors';
 export default class Clock extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT') {
         super(x, y, scope, dir, 1);
@@ -48,15 +49,18 @@ export default class Clock extends CircuitElement {
     }
 
     customDraw() {
+        const colors = getColors();
         var ctx = simulationArea.context;
-        ctx.strokeStyle = ('rgba(0,0,0,1)');
-        ctx.fillStyle = 'white';
+        ctx.strokeStyle = (colors['stroke']);
+        ctx.fillStyle = colors['fill'];
+        ctx.stroke();
+        ctx.fill();
         ctx.lineWidth = correctWidth(3);
         var xx = this.x;
         var yy = this.y;
 
         ctx.beginPath();
-        ctx.strokeStyle = ['DarkGreen', 'Lime'][this.state];
+        ctx.strokeStyle = [colors['wire_con'], colors['wire_pow']][this.state];
         ctx.lineWidth = correctWidth(2);
         if (this.state == 0) {
             moveTo(ctx, -6, 0, xx, yy, 'RIGHT');

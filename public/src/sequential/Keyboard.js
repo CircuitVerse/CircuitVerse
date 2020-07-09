@@ -14,6 +14,7 @@ import { correctWidth, lineTo, moveTo, fillText3, fontSize } from '../canvasApi'
  * @param {string=} dir - direcion in which element has to drawn
  * @category sequential
  */
+import getColors from '../modules/colors';
 export default class Keyboard extends CircuitElement {
     constructor(x, y, scope = globalScope, bufferSize = 32) {
         super(x, y, scope, 'RIGHT', 1);
@@ -143,9 +144,12 @@ export default class Keyboard extends CircuitElement {
 
     customDraw() {
         var ctx = simulationArea.context;
+        const colors = getColors();
+        ctx.strokeStyle = (colors['stroke']);
+        ctx.fillStyle = (colors['fill']);
+        ctx.stroke();
+        ctx.fill();
         ctx.beginPath();
-        ctx.strokeStyle = ('rgba(0,0,0,1)');
-        ctx.fillStyle = 'white';
         ctx.lineWidth = correctWidth(3);
         var xx = this.x;
         var yy = this.y;
@@ -154,9 +158,10 @@ export default class Keyboard extends CircuitElement {
         lineTo(ctx, -this.elementWidth / 2, this.elementHeight / 2 - 5, xx, yy, this.direction);
 
         ctx.stroke();
+        ctx.fill();
 
         ctx.beginPath();
-        ctx.fillStyle = 'green';
+        ctx.fillStyle = colors['input_text'];
         ctx.textAlign = 'center';
         var lineData = this.buffer + ' '.repeat(this.bufferSize - this.buffer.length);
         fillText3(ctx, lineData, 0, +5, xx, yy, 15, 'Courier New', 'center');

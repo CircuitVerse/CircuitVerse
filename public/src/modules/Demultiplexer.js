@@ -126,14 +126,14 @@ export default class Demultiplexer extends CircuitElement {
         ctx.stroke();
 
         ctx.beginPath();
-        ctx.strokeStyle = ('rgba(0,0,0,1)');
+        ctx.strokeStyle = (colors['stroke']);
         ctx.lineWidth = correctWidth(4);
         ctx.fillStyle = colors['fill'];
         moveTo(ctx, -20 + this.xOff, -this.yOff * 10 * (this.outputsize / 2), xx, yy, this.direction);
         lineTo(ctx, -20 + this.xOff, 20 + this.yOff * 10 * (this.outputsize / 2 - 1), xx, yy, this.direction);
         lineTo(ctx, 20 - this.xOff, +this.yOff * 10 * (this.outputsize / 2 - 1) + this.xOff, xx, yy, this.direction);
         lineTo(ctx, 20 - this.xOff, -this.yOff * 10 * (this.outputsize / 2) - this.xOff + 20, xx, yy, this.direction);
-
+        ctx.stroke();
         ctx.closePath();
         if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) { ctx.fillStyle = colors["hover_select"]; }
         ctx.fill();

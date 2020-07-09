@@ -90,9 +90,9 @@ export default class TriState extends CircuitElement {
     customDraw() {
         const colors = getColors();
         var ctx = simulationArea.context;
-        ctx.strokeStyle = ('rgba(0,0,0,1)');
+        ctx.strokeStyle = (colors['stroke']);
         ctx.lineWidth = correctWidth(3);
-
+        ctx.stroke();
         const xx = this.x;
         const yy = this.y;
         ctx.beginPath();

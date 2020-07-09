@@ -15,6 +15,7 @@ import { changeInputSize } from '../modules';
  * @param {number=} bitWidth - bit width per node.
  * @category modules
  */
+import getColors from './colors';
 export default class Ground extends CircuitElement {
     constructor(x, y, scope = globalScope, bitWidth = 1) {
         super(x, y, scope, 'RIGHT', bitWidth);
@@ -75,9 +76,9 @@ export default class Ground extends CircuitElement {
      */
     customDraw() {
         var ctx = simulationArea.context;
-
+        const colors = getColors();
         ctx.beginPath();
-        ctx.strokeStyle = ['black', 'brown'][((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) + 0];
+        ctx.strokeStyle = [colors['stroke'], 'brown'][((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) + 0];
         ctx.lineWidth = correctWidth(3);
 
         const xx = this.x;

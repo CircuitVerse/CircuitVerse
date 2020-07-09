@@ -111,7 +111,7 @@ export default class Output extends CircuitElement {
         this.state = this.inp1.value;
         var ctx = simulationArea.context;
         ctx.beginPath();
-        ctx.strokeStyle = ['blue', 'red'][+(this.inp1.value === undefined)];
+        ctx.strokeStyle = ['blue', colors['stroke_alt']][+(this.inp1.value === undefined)];
         ctx.fillStyle = colors['fill'];
         ctx.lineWidth = correctWidth(3);
         const xx = this.x;
@@ -125,7 +125,7 @@ export default class Output extends CircuitElement {
 
         ctx.beginPath();
         ctx.font = '20px Georgia';
-        ctx.fillStyle = 'green';
+        ctx.fillStyle = colors['input_text'];
         ctx.textAlign = 'center';
         let bin;
         if (this.state === undefined) { bin = 'x'.repeat(this.bitWidth); } else { bin = dec2bin(this.state, this.bitWidth); }

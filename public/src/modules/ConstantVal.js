@@ -115,7 +115,7 @@ export default class ConstantVal extends CircuitElement {
         const colors = getColors();
         var ctx = simulationArea.context;
         ctx.beginPath();
-        ctx.strokeStyle = ('rgba(0,0,0,1)');
+        ctx.strokeStyle = colors['stroke'];
         ctx.fillStyle = colors['fill'];
         ctx.lineWidth = correctWidth(1);
         const xx = this.x;
@@ -127,7 +127,7 @@ export default class ConstantVal extends CircuitElement {
         ctx.stroke();
 
         ctx.beginPath();
-        ctx.fillStyle = 'green';
+        ctx.fillStyle = colors['input_text'];
         ctx.textAlign = 'center';
         const bin = this.state; // dec2bin(this.state,this.bitWidth);
         for (let k = 0; k < this.bitWidth; k++) { fillText(ctx, bin[k], xx - 10 * this.bitWidth + 10 + (k) * 20, yy + 5); }

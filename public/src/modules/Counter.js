@@ -2,6 +2,7 @@ import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import { lineTo, moveTo, fillText } from '../canvasApi';
+import getColors from './colors';
 
 /**
  * @class
@@ -101,10 +102,14 @@ export default class Counter extends CircuitElement {
         var ctx = simulationArea.context;
         var xx = this.x;
         var yy = this.y;
-
+        const colors = getColors();
+        ctx.fillStyle = colors['fill'];
+        ctx.strokeStyle = colors['stroke'];
+        ctx.fill();
+        ctx.stroke();
         ctx.beginPath();
         ctx.font = "20px Georgia";
-        ctx.fillStyle = "green";
+        ctx.fillStyle = colors['input_text'];
         ctx.textAlign = "center";
         fillText(ctx, this.value.toString(16), this.x, this.y + 5);
         ctx.fill();

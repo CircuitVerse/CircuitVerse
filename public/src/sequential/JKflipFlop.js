@@ -14,6 +14,7 @@ import { correctWidth, lineTo, moveTo, fillText } from '../canvasApi';
  * @param {string=} dir - direcion in which element has to drawn
  * @category sequential
  */
+import getColors from '../modules/colors';
 export default class JKflipFlop extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT') {
         super(x, y, scope, dir, 1);
@@ -114,9 +115,12 @@ export default class JKflipFlop extends CircuitElement {
 
     customDraw() {
         var ctx = simulationArea.context;
+        const colors = getColors();
+        ctx.strokeStyle = (colors['stroke']);
+        ctx.fillStyle = (colors['fill']);
+        ctx.stroke();
+        ctx.fill();
         ctx.beginPath();
-        ctx.strokeStyle = ('rgba(0,0,0,1)');
-        ctx.fillStyle = 'white';
         ctx.lineWidth = correctWidth(3);
         var xx = this.x;
         var yy = this.y;
@@ -129,10 +133,11 @@ export default class JKflipFlop extends CircuitElement {
 
         // if ((this.b.hover&&!simulationArea.shiftDown)|| simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = "rgba(255, 255, 32,0.8)";ctx.fill();
         ctx.stroke();
+        ctx.fill();
 
         ctx.beginPath();
         ctx.font = '20px Georgia';
-        ctx.fillStyle = 'green';
+        ctx.fillStyle = colors['input_text'];
         ctx.textAlign = 'center';
         fillText(ctx, this.slaveState.toString(16), xx, yy + 5);
         ctx.fill();

@@ -65,7 +65,7 @@ export default class Power extends CircuitElement {
         ctx.beginPath();
         ctx.strokeStyle = ('rgba(0,0,0,1)');
         ctx.lineWidth = correctWidth(3);
-        ctx.fillStyle = 'green';
+        ctx.fillStyle = colors['fill'];
         moveTo(ctx, 0, -10, xx, yy, this.direction);
         lineTo(ctx, -10, 0, xx, yy, this.direction);
         lineTo(ctx, 10, 0, xx, yy, this.direction);
