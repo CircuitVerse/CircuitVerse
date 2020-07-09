@@ -1,20 +1,28 @@
 // Bootstrap theming
 // Ref: https://getbootstrap.com/docs/4.0/getting-started/theming/
+
+//colors
+$navbar-dark: #343a40;
 $card-green: #f9fffc;
 $green: #42b983;
+$shadow-grey: #d5d5d5;
+$card-grey: #fcfcfc;
+$error-red: #fae3e3;
+$error-red-font: #ff5959;
 $teal: #026e57;
-$gray-100: #f9fffc;
 $lightgrey: #fafafa;
 $slight-gray: #707070;
-$slightblack: #fcfcfc;
-$shadow-grey: #d5d5d5;
+$teal: #026e57;
+$lightgrey: #fafafa;
+$slight-gray: #707070;
 $error-red-font: #ff5959;
+$slightblack: #fcfcfc;
 $seablue: #42b9b6;
 $shadow-black: #00000029;
 $black: #000000;
 $white: #fff;
 $primary: $green;
-$secondary: $gray-100;
+$secondary: $card-green;
 $border-radius: .3rem;
 $font-familiy-sans-serif: 'Open Sans', 'Noto Sans';
 $input-btn-focus-width: .2rem;
@@ -28,6 +36,13 @@ $featurepostborder: #cbcbcb;
 $blue: #009dff;
 $danger: #c21d1d;
 $green-border: #bcdbd3;
-$red: #ff5959;
 $mint-green: #71cac8;
 $pure-white: #fff;
+
+//sizes
+$small-display: 400px;
+
+//to be removed
+$gray-100: #f9fffc;
+$slightblack: #fcfcfc;
+$red: #ff5959;

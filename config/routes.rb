@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :collaborations
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
   require 'sidekiq/web'
@@ -102,7 +101,8 @@ Rails.application.routes.draw do
   resources :users do
     resources :projects, only: [:show, :edit, :update, :new, :create, :destroy]
   end
-
+  resources :collaborations, only: [:create, :destroy, :update]
+  
   #redirects
   get '/facebook', to: redirect('https://www.facebook.com/CircuitVerse')
   get '/twitter', to: redirect('https://www.twitter.com/CircuitVerse')
