@@ -95,8 +95,8 @@ export default class LSB extends CircuitElement {
         const colors = getColors();
         var ctx = simulationArea.context;
         ctx.beginPath();
-        ctx.strokeStyle = 'black';
-        ctx.fillStyle = 'white';
+        ctx.strokeStyle = colors['stroke'];
+        ctx.fillStyle = colors['fill'];
         ctx.lineWidth = correctWidth(3);
         const xx = this.x;
         const yy = this.y;

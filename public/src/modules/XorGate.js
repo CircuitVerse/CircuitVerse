@@ -99,7 +99,7 @@ export default class XorGate extends CircuitElement {
         const xx = this.x;
         const yy = this.y;
         ctx.beginPath();
-        ctx.fillStyle = 'white';
+        ctx.fillStyle = colors['fill'];
         moveTo(ctx, -10, -20, xx, yy, this.direction, true);
         bezierCurveTo(0, -20, +15, -10, 20, 0, xx, yy, this.direction);
         bezierCurveTo(0 + 15, 0 + 10, 0, 0 + 20, -10, +20, xx, yy, this.direction);

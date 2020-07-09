@@ -87,13 +87,13 @@ export default class Text extends CircuitElement {
     draw() {
         if (this.label.length === 0 && simulationArea.lastSelected !== this) this.delete();
         var ctx = simulationArea.context;
-        ctx.strokeStyle = 'black';
+        ctx.strokeStyle = colors['stroke'];
         ctx.lineWidth = 1;
         const xx = this.x;
         const yy = this.y;
         if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) {
             ctx.beginPath();
-            ctx.fillStyle = 'white';
+            ctx.fillStyle = colors['fill'];
             const magicDimenstion = this.fontSize - 14;
             rect2(ctx, -this.leftDimensionX, -this.upDimensionY - magicDimenstion,
                 this.leftDimensionX + this.rightDimensionX,

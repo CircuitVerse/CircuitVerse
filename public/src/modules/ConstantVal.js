@@ -116,7 +116,7 @@ export default class ConstantVal extends CircuitElement {
         var ctx = simulationArea.context;
         ctx.beginPath();
         ctx.strokeStyle = ('rgba(0,0,0,1)');
-        ctx.fillStyle = 'white';
+        ctx.fillStyle = colors['fill'];
         ctx.lineWidth = correctWidth(1);
         const xx = this.x;
         const yy = this.y;

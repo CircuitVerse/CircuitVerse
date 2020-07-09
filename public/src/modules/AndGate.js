@@ -98,8 +98,8 @@ export default class AndGate extends CircuitElement {
         var ctx = simulationArea.context;
         ctx.beginPath();
         ctx.lineWidth = correctWidth(3);
-        ctx.strokeStyle = 'black'; // ("rgba(0,0,0,1)");
-        ctx.fillStyle = 'white';
+        ctx.strokeStyle = colors['stroke']; // ("rgba(0,0,0,1)");
+        ctx.fillStyle = colors['fill'];
         const xx = this.x;
         const yy = this.y;
 

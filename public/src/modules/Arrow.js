@@ -50,7 +50,7 @@ export default class Arrow extends CircuitElement {
         const xx = this.x;
         const yy = this.y;
         ctx.strokeStyle = 'red';
-        ctx.fillStyle = 'white';
+        ctx.fillStyle = colors['fill'];
 
         ctx.beginPath();
 

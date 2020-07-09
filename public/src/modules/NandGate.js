@@ -93,8 +93,8 @@ export default class NandGate extends CircuitElement {
         var ctx = simulationArea.context;
         ctx.beginPath();
         ctx.lineWidth = correctWidth(3);
-        ctx.strokeStyle = 'black';
-        ctx.fillStyle = 'white';
+        ctx.strokeStyle = colors['stroke'];
+        ctx.fillStyle = colors['fill'];
         const xx = this.x;
         const yy = this.y;
         moveTo(ctx, -10, -20, xx, yy, this.direction);

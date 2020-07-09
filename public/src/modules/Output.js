@@ -112,7 +112,7 @@ export default class Output extends CircuitElement {
         var ctx = simulationArea.context;
         ctx.beginPath();
         ctx.strokeStyle = ['blue', 'red'][+(this.inp1.value === undefined)];
-        ctx.fillStyle = 'white';
+        ctx.fillStyle = colors['fill'];
         ctx.lineWidth = correctWidth(3);
         const xx = this.x;
         const yy = this.y;

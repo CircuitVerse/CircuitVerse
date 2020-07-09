@@ -79,8 +79,8 @@ export default class ALU extends CircuitElement {
         var ctx = simulationArea.context;
         const xx = this.x;
         const yy = this.y;
-        ctx.strokeStyle = 'black';
-        ctx.fillStyle = 'white';
+        ctx.strokeStyle = colors['stroke'];
+        ctx.fillStyle = colors['fill'];
         ctx.lineWidth = correctWidth(3);
         ctx.beginPath();
         moveTo(ctx, 30, 10, xx, yy, this.direction);

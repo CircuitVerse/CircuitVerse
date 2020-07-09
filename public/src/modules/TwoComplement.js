@@ -66,7 +66,7 @@ export default class TwoComplement extends CircuitElement {
     customDraw() {
         const colors = getColors();
         var ctx = simulationArea.context;
-        ctx.strokeStyle = 'black';
+        ctx.strokeStyle = colors['stroke'];
         ctx.lineWidth = correctWidth(3);
         const xx = this.x;
         const yy = this.y;

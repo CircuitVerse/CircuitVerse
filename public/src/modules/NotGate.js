@@ -65,13 +65,13 @@ export default class NotGate extends CircuitElement {
     customDraw() {
         const colors = getColors();
         var ctx = simulationArea.context;
-        ctx.strokeStyle = 'black';
+        ctx.strokeStyle = colors['stroke'];
         ctx.lineWidth = correctWidth(3);
 
         const xx = this.x;
         const yy = this.y;
         ctx.beginPath();
-        ctx.fillStyle = 'white';
+        ctx.fillStyle = colors['fill'];
         moveTo(ctx, -10, -10, xx, yy, this.direction);
         lineTo(ctx, 10, 0, xx, yy, this.direction);
         lineTo(ctx, -10, 10, xx, yy, this.direction);

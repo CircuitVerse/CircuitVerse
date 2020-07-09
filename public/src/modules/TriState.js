@@ -96,7 +96,7 @@ export default class TriState extends CircuitElement {
         const xx = this.x;
         const yy = this.y;
         ctx.beginPath();
-        ctx.fillStyle = 'white';
+        ctx.fillStyle = colors['fill'];
         moveTo(ctx, -10, -15, xx, yy, this.direction);
         lineTo(ctx, 20, 0, xx, yy, this.direction);
         lineTo(ctx, -10, 15, xx, yy, this.direction);
