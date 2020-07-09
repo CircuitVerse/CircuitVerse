@@ -93,7 +93,7 @@ export default class XorGate extends CircuitElement {
     customDraw() {
         const colors = getColors();
         var ctx = simulationArea.context;
-        ctx.strokeStyle = ('rgba(0,0,0,1)');
+        ctx.strokeStyle = (colors['stroke']);
         ctx.lineWidth = correctWidth(3);
 
         const xx = this.x;

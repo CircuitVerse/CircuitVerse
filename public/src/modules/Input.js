@@ -128,18 +128,19 @@ export default class Input extends CircuitElement {
     customDraw() {
         var ctx = simulationArea.context;
         const colors = getColors();
+        ctx.strokeStyle = (colors['stroke']);
+        ctx.stroke();
         ctx.beginPath();
-        ctx.strokeStyle = ('rgba(0,0,0,1)');
         ctx.lineWidth = correctWidth(3);
         const xx = this.x;
         const yy = this.y;
-
         ctx.beginPath();
         ctx.fillStyle = colors['input_text'];
         ctx.textAlign = 'center';
         const bin = dec2bin(this.state, this.bitWidth);
         for (let k = 0; k < this.bitWidth; k++) { fillText(ctx, bin[k], xx - 10 * this.bitWidth + 10 + (k) * 20, yy + 5); }
         ctx.fill();
+        ctx.stroke();
     }
 
     /**
