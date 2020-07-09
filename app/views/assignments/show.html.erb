@@ -36,9 +36,8 @@
           <% end %>
           &nbsp;
           <%= link_to 'Back', group_path(@group), class: "anchor-text" %>
-          <br>
+          <br> <br>
           <hr class="assignment-details-horizontal-rule">
-          <br>
           <% if policy(@assignment).admin_access? %>
             <h3 class="assignment-details-heading-submission">Submissions :</h3>
             <script>
