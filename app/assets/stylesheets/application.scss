@@ -4,9 +4,12 @@
 @import 'bootstrap-typeahead-rails';
 @import "font-awesome-sprockets";
 @import "font-awesome";
+@import 'layout';
+@import 'components';
 @import 'signup';
 @import 'logixRelease';
 @import 'layout';
+@import 'search';
 @import 'about';
 @import 'editor';
 @import 'groups';
@@ -18,6 +21,7 @@
 @import 'trumbowyg/dist/ui/trumbowyg.min';
 @import 'examples';
 @import 'commontator';
+@import 'oldStyles';
 // #FIXME move these styles
 .alert {
   width: 100%;
