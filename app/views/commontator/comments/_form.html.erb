@@ -36,12 +36,11 @@
 
   <div class="field">
     <%=
-      form.text_area :body, rows: '7', id: new_record ?
+      form.text_area :body, rows: '1', id: new_record ?
         comment.parent.nil? ? "commontator-thread-#{@commontator_thread.id}-new-comment-body" :
                               "commontator-comment-#{comment.parent.id}-reply" :
         "commontator-comment-#{comment.id}-edit-body"
     %>
-    <%= javascript_tag('Commontator.initMentions();') if config.mentions_enabled %>
   </div>
 
   <div class="submit">

@@ -27,27 +27,26 @@
       </span>
 
       <div id="commontator-comment-<%= comment.id %>-actions" class="actions">
-        <%=
-          link_to(
-            t('commontator.comment.actions.edit'),
-            commontator.edit_comment_path(comment),
-            id: "commontator-comment-#{comment.id}-edit",
-            class: 'edit anchor-text',
-            remote: true
-          ) if comment.can_be_edited_by?(user)
-        %>
+        <% if comment.can_be_edited_by?(user) %>
+          <%= link_to commontator.edit_comment_path(comment),
+                      id: "commontator-comment-#{comment.id}-edit",
+                      remote: true,
+                      class: 'edit btn edit-action' do %>
+            <%= image_tag("SVGs/editGroup.svg", alt: "Edit Comment") %>
+          <% end %>
+        <% end %>
 
         <% if comment.can_be_deleted_by?(user) %>
           <% is_deleted = comment.is_deleted? %>
           <% del_string = is_deleted ? 'undelete' : 'delete' %>
-          &nbsp;
-          <%= link_to t("commontator.comment.actions.#{del_string}"),
-                      commontator.polymorphic_path([del_string, comment]),
+          <%= link_to commontator.polymorphic_path([del_string, comment]),
                       data: is_deleted ? {} : { confirm: t('commontator.comment.actions.confirm_delete') },
                       method: :put,
                       id: "commontator-comment-#{comment.id}-#{del_string}",
-                      class: "del_string anchor-text",
-                      remote: true %>
+                      remote: true,
+                      class: "del_string btn delete-action" do %>
+            <%= image_tag("SVGs/deleteGroup.svg", alt: "Delete Comment") %>
+          <% end %>
         <% end %>
       </div>
     </div>

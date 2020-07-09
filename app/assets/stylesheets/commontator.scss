@@ -94,6 +94,36 @@
   }
 }
 
+.edit-action {
+  background-color: $seablue;
+  border-radius: 50%;
+  height: 35px;
+  margin: 5px;
+  width: 35px;
+
+  img {
+    height: 20px;
+    margin-top: -5px;
+    margin-left: -5px;
+    width: 20px;
+  }
+}
+
+.delete-action {
+  background-color: $error-red-font;
+  border-radius: 50%;
+  height: 35px;
+  margin: 5px;
+  width: 35px;
+
+  img {
+    height: 15px;
+    margin-top: -5px;
+    margin-left: -3px;
+    width: 15px;
+  }
+}
+
 //breakpoints
 @media(max-width: 400px){
   .comments-comment {
