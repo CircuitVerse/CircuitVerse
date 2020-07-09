@@ -25,7 +25,7 @@ const themeOptions = [
         "--btn-dg-hov": "#48a69d",
         "--btn-dg-hov-text": "#fff",
 
-        "--node":"#0F111A",
+        "--node":"#285963",
         "--stroke":"#277F7C",
         "--fill":"#DEFFFE",
         "--hover-and-sel":"#E3B924",

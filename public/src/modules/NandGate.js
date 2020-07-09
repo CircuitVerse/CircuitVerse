@@ -17,6 +17,7 @@ import { changeInputSize } from '../modules';
  * @param {number=} bitWidth - bit width per node.
  * @category modules
  */
+import getColors from './colors';
 export default class NandGate extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', inputLength = 2, bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
@@ -90,6 +91,7 @@ export default class NandGate extends CircuitElement {
      * function to draw nand Gate
      */
     customDraw() {
+        const colors = getColors();
         var ctx = simulationArea.context;
         ctx.beginPath();
         ctx.lineWidth = correctWidth(3);
@@ -103,7 +105,7 @@ export default class NandGate extends CircuitElement {
         lineTo(ctx, -10, 20, xx, yy, this.direction);
         lineTo(ctx, -10, -20, xx, yy, this.direction);
         ctx.closePath();
-        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = 'rgba(255, 255, 32,0.5)';
+        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = colors['hover_select'];
         ctx.fill();
         ctx.stroke();
         ctx.beginPath();
