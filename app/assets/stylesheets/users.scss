@@ -1,0 +1,47 @@
+.users-container-fluid {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 90%;
+  text-align: center;
+}
+
+.users-container-userdetails {
+  border: 1px solid $card-border-grey;
+  padding: 20px 10px;
+}
+
+.users-heading-username {
+  display: block;
+  width: 100%;
+}
+
+.users-userimage {
+  height: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  object-fit: cover;
+  text-align: center;
+  width: 100px;
+}
+
+.users-userdetails {
+  padding: 20px 10px;
+  text-align: left;
+}
+
+.users-button-primary {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0;
+  text-align: center;
+}
+
+.users-container-userprojects {
+  border: 1px solid $card-border-grey;
+  // margin-left: 10px;
+  width: 100%;
+}
+
+.users-container-no-userprojects {
+  padding-top: 100px;
+}
