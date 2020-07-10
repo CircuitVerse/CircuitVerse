@@ -65,6 +65,7 @@ $btn-dg-hov-text: #000;
 
 //elements
 $node: green;
+$node-norm: green;
 $stroke: black;
 $secondary-stroke: red;
 $fill: white;
@@ -75,8 +76,10 @@ $wire-cnt: green;
 $wire-pow: lightgreen;
 $wire-sel: blue;
 $wire-lose: red;
+$wire-norm: black;
 $mini-map: green;
 $mini-map-stroke: darkgreen;
+$text: black;
 
 @include css-vars(
   (
@@ -115,7 +118,10 @@ $mini-map-stroke: darkgreen;
     --mini-map: $mini-map,
     --mini-map-stroke: $mini-map-stroke,
     --input-text: $input-text,
-    --secondary-stroke: $secondary-stroke
+    --secondary-stroke: $secondary-stroke,
+    --text: $text,
+    --wire-norm: $wire-norm,
+    --node-norm: $node-norm,
   )
 );
 

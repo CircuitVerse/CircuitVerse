@@ -9,6 +9,7 @@ import { showError } from './utils';
 
 import Node, { findNode } from './node';
 import { fillText } from './canvasApi';
+import getColors from './modules/colors';
 ;
 
 /**
@@ -416,20 +417,22 @@ export default class SubCircuit extends CircuitElement {
     }
 
     customDraw() {
+        const colors = getColors();
         var subcircuitScope = scopeList[this.id];
 
         var ctx = simulationArea.context;
 
         ctx.lineWidth = globalScope.scale * 3;
-        ctx.strokeStyle = 'black'; // ("rgba(0,0,0,1)");
-        ctx.fillStyle = 'white';
+        ctx.strokeStyle = colors['stroke']; // ("rgba(0,0,0,1)");
+        ctx.fillStyle = colors['fill'];
         var xx = this.x;
         var yy = this.y;
-
+        ctx.fill();
+        ctx.stroke();
         ctx.beginPath();
 
         ctx.textAlign = 'center';
-        ctx.fillStyle = 'black';
+        ctx.fillStyle = "black";//colors['text_alt'];
         if (this.version == '1.0') { fillText(ctx, subcircuitScope.name, xx, yy - subcircuitScope.layout.height / 2 + 13, 11); } else if (this.version == '2.0') {
             if (subcircuitScope.layout.titleEnabled) {
                 fillText(ctx, subcircuitScope.name, subcircuitScope.layout.title_x + xx, yy + subcircuitScope.layout.title_y, 11);

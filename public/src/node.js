@@ -9,6 +9,7 @@ import {
 } from './engine';
 import Wire from './wire';
 import { createNodeGet, createNodeSet, stopWireSet } from './listeners';
+import getColors from './modules/colors';
 
 /**
 * Constructs all the connections of Node node
@@ -431,6 +432,7 @@ export default class Node {
     draw() {
         // console.log(this.id)
         const ctx = simulationArea.context;
+        const colors = getColors();
         const color = getComputedStyle(document.documentElement).getPropertyValue('--wire-draw');
         if (this.clicked) {
             if (this.prev == 'x') {
@@ -445,7 +447,7 @@ export default class Node {
                 drawLine(ctx, this.absX(), this.absY(), this.absX(), simulationArea.mouseY, color, 3);
             }
         }
-        let wire = 'black';
+        let wire = colors['node_norm'];
         const wireConnect = getComputedStyle(document.documentElement).getPropertyValue('--wire-cnt');
         const wirePow = getComputedStyle(document.documentElement).getPropertyValue('--wire-pow');
         const wireLose = getComputedStyle(document.documentElement).getPropertyValue('--wire-lose');
@@ -454,7 +456,7 @@ export default class Node {
         if (this.bitWidth == 1) wire = [wireConnect, wirePow][this.value];
         if (this.value == undefined) wire = wireLose;
         if (this.type == 2) this.checkHover();
-        if (this.type == 2) { drawCircle(ctx, this.absX(), this.absY(), 3, wire); } else { drawCircle(ctx, this.absX(), this.absY(), 3, node); }
+        if (this.type == 2) { drawCircle(ctx, this.absX(), this.absY(), 3, ); wire} else { drawCircle(ctx, this.absX(), this.absY(), 3, node); }
 
         if (this.highlighted || simulationArea.lastSelected == this || (this.isHover() && !simulationArea.selected && !simulationArea.shiftDown) || simulationArea.multipleObjectSelections.contains(this)) {
             ctx.strokeStyle = node;

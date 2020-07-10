@@ -13,6 +13,7 @@ import { rect2, fillText } from '../canvasApi';
  * @param {number=} fontSize - font size
  * @category modules
  */
+import getColors from './colors';
 export default class Text extends CircuitElement {
     constructor(x, y, scope = globalScope, label = '', fontSize = 14) {
         super(x, y, scope, 'RIGHT', 1);
@@ -85,6 +86,7 @@ export default class Text extends CircuitElement {
      * Function for drawing text box
      */
     draw() {
+        const colors = getColors();
         if (this.label.length === 0 && simulationArea.lastSelected !== this) this.delete();
         var ctx = simulationArea.context;
         ctx.strokeStyle = colors['stroke'];
