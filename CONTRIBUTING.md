@@ -4,7 +4,7 @@
 Thanks for checking out our contribution guide. We greatly appreciate any work contributed, no matter how small!
 
 ## How to Contribute
-When you are ready to start work on a issue:
+When you are ready to start work on an issue:
 
 - Let us know by leaving a comment on the issue. (Also let us know later if you are no longer working on it.)
 - Once you are assigned the issue (or once you have claimed the issue) only then proceed to making the Pull Request. This will help avoid multiple PRs pertaining to the same issue.
