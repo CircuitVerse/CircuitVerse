@@ -168,6 +168,15 @@ GEM
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
+    flipper (0.18.0)
+    flipper-redis (0.18.0)
+      flipper (~> 0.18.0)
+      redis (>= 2.2, < 5)
+    flipper-ui (0.18.0)
+      erubi (>= 1.0.0, < 2.0.0)
+      flipper (~> 0.18.0)
+      rack (>= 1.4, < 3)
+      rack-protection (>= 1.5.3, < 2.1.0)
     font-awesome-sass (5.12.0)
       sassc (>= 1.11)
     friendly_id (5.2.5)
@@ -546,6 +555,8 @@ DEPENDENCIES
   factory_bot_rails
   faker
   fast_jsonapi
+  flipper-redis
+  flipper-ui
   font-awesome-sass (~> 5.12.0)
   friendly_id (~> 5.2.4)
   geocoder

@@ -75,6 +75,10 @@ class User < ApplicationRecord
     end
   end
 
+  def flipper_id
+    "User;#{id}"
+  end
+
   private
 
     def send_welcome_mail

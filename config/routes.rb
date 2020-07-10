@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   authenticate :user, lambda { |u| u.admin? } do
     mount Sidekiq::Web => '/sidekiq'
+    mount Flipper::UI.app(Flipper) => '/flipper'
   end
 
   # resources :assignment_submissions
