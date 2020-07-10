@@ -90,9 +90,9 @@ export default class Buffer extends CircuitElement {
     customDraw() {
         const colors = getColors();
         var ctx = simulationArea.context;
-        ctx.strokeStyle = ('rgba(200,0,0,1)');
+        ctx.strokeStyle = (colors['stroke_alt']);
         ctx.lineWidth = correctWidth(3);
-
+        ctx.stroke();
         const xx = this.x;
         const yy = this.y;
         ctx.beginPath();

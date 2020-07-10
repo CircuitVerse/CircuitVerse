@@ -49,7 +49,7 @@ export default class Arrow extends CircuitElement {
         ctx.lineWidth = correctWidth(3);
         const xx = this.x;
         const yy = this.y;
-        ctx.strokeStyle = 'red';
+        ctx.strokeStyle = colors['stroke_alt'];
         ctx.fillStyle = colors['fill'];
 
         ctx.beginPath();

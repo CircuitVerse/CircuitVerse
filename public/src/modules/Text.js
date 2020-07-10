@@ -106,7 +106,7 @@ export default class Text extends CircuitElement {
         }
         ctx.beginPath();
         ctx.textAlign = 'left';
-        ctx.fillStyle = 'black';
+        ctx.fillStyle = colors['text'];
         fillText(ctx, this.label, xx, yy + 5, this.fontSize);
         ctx.fill();
     }

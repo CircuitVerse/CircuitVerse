@@ -178,8 +178,8 @@ export default class Tunnel extends CircuitElement {
         const colors = getColors();
         var ctx = simulationArea.context;
         ctx.beginPath();
-        ctx.strokeStyle = 'grey';
-        ctx.fillStyle = '#fcfcfc';
+        ctx.strokeStyle = colors['stroke'];
+        ctx.fillStyle = colors['fill'];
         ctx.lineWidth = correctWidth(1);
         const xx = this.x;
         const yy = this.y;
