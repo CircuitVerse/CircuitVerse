@@ -37,10 +37,12 @@ const themeOptions = [
         "--mini-map":"#3B7F58",
         "--mini-map-stroke":"#607F6E",
         "--input-text":"#3B7F58",
+        "--output-rect":"#0487D9",
         "--secondary-stroke":"#BF0426",
         "--text": "#E9FBF8",
         "--wire-norm": "#277F7C",
         "--node-norm": "#FFC231",
+        "--splitter": "#0284A8",
         name: "nightSky",
     },
 ];

@@ -111,7 +111,7 @@ export default class Output extends CircuitElement {
         this.state = this.inp1.value;
         var ctx = simulationArea.context;
         ctx.beginPath();
-        ctx.strokeStyle = ['blue', colors['stroke_alt']][+(this.inp1.value === undefined)];
+        ctx.strokeStyle = [colors['out_rect'], colors['stroke_alt']][+(this.inp1.value === undefined)];
         ctx.fillStyle = colors['fill'];
         ctx.lineWidth = correctWidth(3);
         const xx = this.x;

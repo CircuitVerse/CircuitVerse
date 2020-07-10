@@ -80,6 +80,8 @@ $wire-norm: black;
 $mini-map: green;
 $mini-map-stroke: darkgreen;
 $text: black;
+$splitter: black;
+$output-rect: blue;
 
 @include css-vars(
   (
@@ -122,6 +124,8 @@ $text: black;
     --text: $text,
     --wire-norm: $wire-norm,
     --node-norm: $node-norm,
+    --splitter: $splitter,
+    --output-rect: $output-rect,
   )
 );
 

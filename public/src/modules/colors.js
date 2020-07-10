@@ -16,6 +16,8 @@ const getColors = () => {
     colors["wire"] = getComputedStyle(document.documentElement).getPropertyValue('--wire-norm');
     colors["text"] = getComputedStyle(document.documentElement).getPropertyValue('--text');
     colors["node_norm"] = getComputedStyle(document.documentElement).getPropertyValue('--node-norm');
+    colors["splitter"] = getComputedStyle(document.documentElement).getPropertyValue('--splitter');
+    colors["out_rect"] = getComputedStyle(document.documentElement).getPropertyValue('--output-rect');
     return colors;
 }
 

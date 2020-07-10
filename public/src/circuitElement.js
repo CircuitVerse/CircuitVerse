@@ -375,16 +375,16 @@ export default class CircuitElement {
      * NOT OVERRIDABLE
      */
     draw() {
+        const colors = getColors();
         var ctx = simulationArea.context;
         this.checkHover();
-        const colors = getColors();
 
         if (this.x * this.scope.scale + this.scope.ox < -this.rightDimensionX * this.scope.scale - 0 || this.x * this.scope.scale + this.scope.ox > width + this.leftDimensionX * this.scope.scale + 0 || this.y * this.scope.scale + this.scope.oy < -this.downDimensionY * this.scope.scale - 0 || this.y * this.scope.scale + this.scope.oy > height + 0 + this.upDimensionY * this.scope.scale) return;
 
         // Draws rectangle and highlights
         if (this.rectangleObject) {
-            ctx.strokeStyle = 'black';
-            ctx.fillStyle = 'white';
+            ctx.strokeStyle = colors['stroke'];
+            ctx.fillStyle = colors['fill'];
             ctx.lineWidth = correctWidth(3);
             ctx.beginPath();
             rect2(ctx, -this.leftDimensionX, -this.upDimensionY, this.leftDimensionX + this.rightDimensionX, this.upDimensionY + this.downDimensionY, this.x, this.y, [this.direction, 'RIGHT'][+this.directionFixed]);
@@ -417,25 +417,25 @@ export default class CircuitElement {
             if (this.labelDirection === 'LEFT') {
                 ctx.beginPath();
                 ctx.textAlign = 'right';
-                ctx.fillStyle = 'black';
+                ctx.fillStyle = colors['text'];
                 fillText(ctx, this.label, this.x - lX - 10, this.y + 5, 14);
                 ctx.fill();
             } else if (this.labelDirection === 'RIGHT') {
                 ctx.beginPath();
                 ctx.textAlign = 'left';
-                ctx.fillStyle = 'black';
+                ctx.fillStyle = colors['text'];
                 fillText(ctx, this.label, this.x + rX + 10, this.y + 5, 14);
                 ctx.fill();
             } else if (this.labelDirection === 'UP') {
                 ctx.beginPath();
                 ctx.textAlign = 'center';
-                ctx.fillStyle = 'black';
+                ctx.fillStyle = colors['text'];
                 fillText(ctx, this.label, this.x, this.y + 5 - uY - 10, 14);
                 ctx.fill();
             } else if (this.labelDirection === 'DOWN') {
                 ctx.beginPath();
                 ctx.textAlign = 'center';
-                ctx.fillStyle = 'black';
+                ctx.fillStyle = colors['text'];
                 fillText(ctx, this.label, this.x, this.y + 5 + dY + 10, 14);
                 ctx.fill();
             }
