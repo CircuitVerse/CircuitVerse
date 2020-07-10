@@ -99,8 +99,7 @@ gem 'fast_jsonapi'
 gem 'flipper-redis'
 gem 'flipper-ui'
 gem 'friendly_id', '~> 5.2.4'
-# gem 'simple_discussion'
-gem 'simple_discussion', github: 'excid3/simple_discussion'
+gem 'simple_discussion', '~> 1.2'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
