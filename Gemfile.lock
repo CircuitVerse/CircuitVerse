@@ -1,3 +1,14 @@
+GIT
+  remote: https://github.com/excid3/simple_discussion.git
+  revision: f0a5a61e6b88af4a9fbbda943c7a257f7080fa05
+  specs:
+    simple_discussion (1.2.0)
+      font-awesome-sass (~> 5.13.0)
+      friendly_id (>= 5.2.0)
+      gravatar_image_tag
+      rails (>= 4.2)
+      will_paginate (>= 3.1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -163,8 +174,8 @@ GEM
       multipart-post (>= 1.2, < 3)
     fast_jsonapi (1.5)
       activesupport (>= 4.2)
-    ffi (1.11.2)
-    ffi (1.11.2-x64-mingw32)
+    ffi (1.13.1)
+    ffi (1.13.1-x64-mingw32)
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
@@ -184,6 +195,7 @@ GEM
     geocoder (1.6.1)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
+    gravatar_image_tag (1.2.0)
     haml (5.1.2)
       temple (>= 0.8.0)
       tilt
@@ -430,9 +442,9 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
-    sassc (2.2.1)
+    sassc (2.4.0)
       ffi (~> 1.9)
-    sassc (2.2.1-x64-mingw32)
+    sassc (2.4.0-x64-mingw32)
       ffi (~> 1.9)
     sassc-rails (2.1.2)
       railties (>= 4.0.0)
@@ -594,6 +606,7 @@ DEPENDENCIES
   serviceworker-rails
   shoulda-matchers
   sidekiq
+  simple_discussion!
   sitemap_generator
   spring
   spring-watcher-listen (~> 2.0.0)

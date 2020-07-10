@@ -92,13 +92,15 @@ gem 'webpacker', '~> 4.x'
 
 gem 'bootsnap', require: false
 
-gem 'font-awesome-sass', '~> 5.12.0'
+gem 'font-awesome-sass', '~> 5.13.0'
 
 gem 'jwt'
 gem 'fast_jsonapi'
 gem 'flipper-redis'
 gem 'flipper-ui'
 gem 'friendly_id', '~> 5.2.4'
+# gem 'simple_discussion'
+gem 'simple_discussion', github: 'excid3/simple_discussion'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -2,6 +2,8 @@
 
 class User < ApplicationRecord
   require "pg_search"
+  include SimpleDiscussion::ForumUser
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   has_many :projects, foreign_key: "author_id", dependent: :destroy
@@ -79,6 +81,10 @@ class User < ApplicationRecord
     "User;#{id}"
   end
 
+  def moderator?
+    admin?
+  end
+  
   private
 
     def send_welcome_mail
