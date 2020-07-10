@@ -1,4 +1,5 @@
 import simulationArea from './simulationArea';
+import getColors from './modules/colors';
 
 /**
  * @type {Object} miniMapArea
@@ -59,7 +60,7 @@ export default miniMapArea = {
     },
     resolve(ratio) {
         if (lightMode) return;
-
+        const colors = getColors();
         this.ctx.fillStyle = '#ddd';
         this.ctx.beginPath();
         this.ctx.rect(2.5 + ((this.pageX - this.pageWidth) / globalScope.scale - this.minX) * ratio, 2.5 + ((this.pageY - this.pageHeight) / globalScope.scale - this.minY) * ratio, this.pageWidth * ratio / globalScope.scale, this.pageHeight * ratio / globalScope.scale);
@@ -67,11 +68,11 @@ export default miniMapArea = {
 
         //  to show the area of current canvas
         var lst = updateOrder;
-        const miniFill = getComputedStyle(document.documentElement).getPropertyValue('--mini-map');
-        const miniStroke = getComputedStyle(document.documentElement).getPropertyValue('--mini-map-stroke');
+        const miniFill = colors["mini_fill"];
+        const miniStroke = colors["mini_stroke"];
 
         this.ctx.strokeStyle = miniStroke;
-        this.ctx.fillStyle = miniStroke;
+        this.ctx.fillStyle = miniFill;
         for (var i = 0; i < lst.length; i++) {
             if (lst[i] === 'wires') {
                 for (var j = 0; j < globalScope[lst[i]].length; j++) {

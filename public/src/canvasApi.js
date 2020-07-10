@@ -2,6 +2,7 @@
 import backgroundArea from './backgroundArea';
 import simulationArea from './simulationArea';
 import miniMapArea, { removeMiniMap, updatelastMinimapShown } from './minimap';
+import getColors from './modules/colors';
 
 var unit = 10;
 
@@ -91,6 +92,7 @@ export function changeScale(delta, xx, yy, method = 1) {
 // Otherwise for normal panning, the canvas itself is moved to give the illusion of movement
 
 export function dots(dots = true, transparentBackground = false, force = false) {
+    const colors = getColors();
     var scale = unit * globalScope.scale;
     var ox = globalScope.ox % scale; // offset
     var oy = globalScope.oy % scale; // offset
@@ -108,10 +110,10 @@ export function dots(dots = true, transparentBackground = false, force = false) 
     var ctx = backgroundArea.context;
     ctx.beginPath();
     backgroundArea.clear();
-    ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--canvas-stroke');
+    ctx.strokeStyle = colors["canvas_stroke"];
     ctx.lineWidth = 1;
     if (!transparentBackground) {
-        ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--canvas-fill');
+        ctx.fillStyle = colors["canvas_fill"];
         ctx.rect(0, 0, canvasWidth, canvasHeight);
         ctx.fill();
     }

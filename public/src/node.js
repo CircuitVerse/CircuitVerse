@@ -433,7 +433,7 @@ export default class Node {
         // console.log(this.id)
         const ctx = simulationArea.context;
         const colors = getColors();
-        const color = getComputedStyle(document.documentElement).getPropertyValue('--wire-draw');
+        const color = colors["wire_draw"];
         if (this.clicked) {
             if (this.prev == 'x') {
                 drawLine(ctx, this.absX(), this.absY(), simulationArea.mouseX, this.absY(), color, 3);
@@ -448,10 +448,10 @@ export default class Node {
             }
         }
         let wire = colors['node_norm'];
-        const wireConnect = getComputedStyle(document.documentElement).getPropertyValue('--wire-cnt');
-        const wirePow = getComputedStyle(document.documentElement).getPropertyValue('--wire-pow');
-        const wireLose = getComputedStyle(document.documentElement).getPropertyValue('--wire-lose');
-        const node = getComputedStyle(document.documentElement).getPropertyValue('--node');
+        const wireConnect = colors['wire_con']
+        const wirePow = colors['wire_pow']
+        const wireLose = colors['wire_lose']
+        const node = colors['node'];
 
         if (this.bitWidth == 1) wire = [wireConnect, wirePow][this.value];
         if (this.value == undefined) wire = wireLose;
