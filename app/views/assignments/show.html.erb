@@ -32,7 +32,7 @@
           <% end %>
           <% if policy(@assignment).can_be_graded? %>
             &nbsp;
-            <%= link_to 'Export', grades_to_csv_path(@assignment, format: "csv"), class: "anchor-text" %>
+            <%= link_to 'Export Results', grades_to_csv_path(@assignment, format: "csv"), class: "anchor-text" %>
           <% end %>
           &nbsp;
           <%= link_to 'Back', group_path(@group), class: "anchor-text" %>
