@@ -1,4 +1,4 @@
-// Home page New UI
+//to be removed
 .row-homepage {
   margin-bottom: 40px;
   margin-top: 70px;
@@ -90,10 +90,7 @@
   float: right;
 }
 
-.homepage-cover {
-  max-height: 700px;
-  max-width: 100%;
-}
+
 
 .button-homepage {
   margin-bottom: 50px;
@@ -133,5 +130,88 @@
 
   .btn-homepage {
     max-width: 163px;
+  }
+}
+//to be removed ends
+
+//homepage
+.homepage-container-maincontent {
+  margin-bottom: 60px;
+  margin-top: 45px;
+  text-align: left;
+}
+
+.homepage-image-cover {
+  max-height: 700px;
+  max-width: 100%;
+}
+
+.homepage-container-tertiary-button {
+  margin-bottom: 50px;
+}
+
+.homepage-card-feature {
+  border: 0;
+  display: inline-block;
+  margin-bottom: 15px;
+  margin-top: 15px;
+  max-width: 350px;
+
+  img {
+    max-width: 60%;
+  }
+}
+
+.homepage-container-fluid-greenbackground{
+  background-color: $card-green;
+  margin-bottom: 30px;
+  margin-top: 65px;
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
+
+.homepage-row-circuits {
+  margin-top: 70px;
+}
+
+.homepage-button-primary-feature {
+  padding: 10px 30px;
+}
+
+//breakpoints
+@media(max-width: 768px) {
+  .homepage-container-maincontent {
+    margin-bottom: 30px;
+    margin-top: 20px;
+  }
+}
+
+@media(max-width: 600px) {
+  .homepage-image-cover {
+    display: none;
+  }
+}
+
+@media(max-width: 400px) {
+  .homepage-container-tertiary-button {
+    text-align: center;
+  }
+
+  .homepage-button-primary-simulator {
+    display: block;
+    margin-bottom: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 149px;
+    text-align: center;
+  }
+
+  .homepage-container-simulator {
+    text-align: center;
+  }
+
+  .homepage-container-fluid-greenbackground {
+    padding-left: 0;
+    padding-right: 0;
   }
 }

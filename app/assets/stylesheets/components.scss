@@ -14,6 +14,20 @@
   }
 }
 
+.button-tertiary {
+  border: 1.5px solid $teal;
+  border-radius: 4px;
+  box-shadow: 0 2px 7px $shadow-black;
+  margin: 10px 15px;
+  transition: all .3s ease 0s;
+
+  &:hover {
+    background-color: $teal;
+    box-shadow: 0 7px 7px $white;
+    color: $white;
+  }
+}
+
 //cards
 .card-small-social {
   background-color: $card-green;
@@ -46,7 +60,8 @@
 }
 
 .circuit-card-image {
-  max-height: 180px;
+  height: 180px;
+  max-width: 100%;
 }
 
 .circuit-card-footer {
