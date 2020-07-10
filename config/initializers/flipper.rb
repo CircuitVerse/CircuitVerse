@@ -1,8 +1,14 @@
-require 'flipper/adapters/redis'
+# frozen_string_literal: true
+
+require "flipper/adapters/redis"
 Flipper.configure do |config|
   config.default do
-    client = Redis.new
-    adapter = Flipper::Adapters::Redis.new(client)
+    if Rails.env.test?
+      adapter = Flipper::Adapters::Memory.new
+    else
+      client = Redis.new
+      adapter = Flipper::Adapters::Redis.new(client)
+    end
 
     # pass adapter to handy DSL instance
     Flipper.new(adapter)
