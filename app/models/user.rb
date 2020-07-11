@@ -84,7 +84,7 @@ class User < ApplicationRecord
   def moderator?
     admin?
   end
-  
+
   private
 
     def send_welcome_mail
