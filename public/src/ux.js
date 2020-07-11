@@ -14,7 +14,7 @@ import { newCircuit, circuitProperty } from './circuit';
 import modules from './modules';
 import { updateRestrictedElementsInScope } from './restrictedElementDiv';
 import { paste } from './events';
-import  updateTheme from "./themer/themer";
+import updateTheme from "./themer/themer";
 
 
 
@@ -301,9 +301,9 @@ export function showProperties(obj) {
         wireToBeCheckedSet(1);
         if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) { prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet(); } else { circuitProperty[this.name](this.checked); }
     });
-    $(function(){
+    $(function () {
         $("input[type='number']").inputSpinner();
-      });
+    });
 }
 
 /**
@@ -407,5 +407,4 @@ $('#octalInput').on('keyup', () => {
     setBaseValues(x);
 });
 
-updateTheme("nightSky", false)
-
+// updateTheme("nightSky", false);

@@ -127,6 +127,8 @@ input[type="text"]:focus {
 
 .navbar-menu {
   position: relative;
+  transition: all 0.2s ease-in-out;
+
 }
 
 .navbar-menu > li > a {
@@ -369,6 +371,8 @@ input[type="text"]:focus {
   top: 90px;
   left: 10px;
   z-index: 100;
+  /* transition: background .7s ease-out; */
+
 }
 
 .accordion:last-child {
@@ -565,6 +569,7 @@ div.icon img {
   top: 90px;
   right: 10px;
   z-index: 100;
+  /* transition: background .7s ease-out; */
 }
 
 #moduleProperty-toolTip {
@@ -1019,7 +1024,9 @@ select {
   height: 35px;
   border-radius: 1px;
 }
-
+.navbar {
+  /* transition: background .7s ease-out; */
+}
 
 
 .navbar .nav.pull-right {
@@ -1180,3 +1187,44 @@ select {
   border: none;
 }
 
+
+/** Color them dialog styles starts here*/
+
+.ui-dialog[aria-describedby="colorThemesDialog"] {
+  min-width: 425px;
+  user-select: none;
+}
+
+.theme {
+  color: white;
+  height: 30px;
+  line-height: 30px;
+  padding-left: 10px;
+  user-select: none;
+  margin: 5px 0;
+  border-radius: 1.5px;
+  border: .5px solid transparent;
+  transition: all .1s ease-out;
+  cursor: pointer;
+}
+
+.selected {
+  padding-left: 15px;
+}
+
+/* .set::after {
+  content: '';
+  height: 5px;
+  width: 5px;
+  background: white;
+  display: inline-block;
+  position: absolute;
+  right: 25%;
+  top: 50%;
+} */
+
+.ui-dialog[aria-describedby="colorThemesDialog"] .ui-dialog-titlebar-close { 
+   /* display: none; */
+  }
+
+/*! Color them dialog styles ends here*/

@@ -56,8 +56,8 @@ $bg-toogle-green-darken: #3ca877;
 $btn-danger-red: #dc5656;
 $btn-danger-red-dark: #b03662;
 $disable: #6c8b93;
-$qp-br-tl: #535353;
-$qp-br-rd: #333333;
+$qp-br-tl: #333333;
+$qp-br-rd: #535353;
 $qp-box-shadow-1: #3b3b3b;
 $qp-box-shadow-2: #4f4f4f;
 $btn-dg-hov: #ddd;
@@ -429,7 +429,7 @@ select {
 
 .option {
   background-color: white;
-  color: var(--text-secondary);
+  color: var(--primary);
 }
 
 .custom-radio span {
@@ -561,4 +561,13 @@ select {
 
 .btn-group-toggle {
   border: 1px solid var(--bg-tabs) !important;
+}
+
+.selected {
+  background: var(--bg-secondary) !important;
+  color: var(--text-secondary) !important;
+}
+
+.set {
+  border: .5px solid var(--bg-tabs) !important;
 }
