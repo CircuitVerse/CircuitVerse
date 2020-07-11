@@ -96,6 +96,8 @@ gem 'font-awesome-sass', '~> 5.12.0'
 
 gem 'jwt'
 gem 'fast_jsonapi'
+gem 'flipper-redis'
+gem 'flipper-ui'
 gem 'friendly_id', '~> 5.2.4'
 
 group :development, :test do
