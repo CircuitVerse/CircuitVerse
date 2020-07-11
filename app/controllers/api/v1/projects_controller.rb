@@ -138,7 +138,10 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     def set_options
       @options = {}
       @options[:include] = include_resource if params.key?(:include)
-      @options[:params] = { only_name: true }
+      @options[:params] = {
+        current_user: @current_user,
+        only_name: true
+      }
     end
 
     def filter

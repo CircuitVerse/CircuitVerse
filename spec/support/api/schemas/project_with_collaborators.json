@@ -22,6 +22,7 @@
             },
             "description": { "type": "string" },
             "view": { "type": "integer" },
+            "is_starred": { "type": ["boolean", "null"] },
             "author_name": { "type": "string" },
             "stars_count": { "type": "integer" },
             "tags": {
@@ -46,6 +47,7 @@
             "image_preview",
             "description",
             "view",
+            "is_starred",
             "author_name",
             "stars_count",
             "tags"

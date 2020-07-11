@@ -7,6 +7,14 @@ class Api::V1::ProjectSerializer
              :updated_at, :image_preview, :description,
              :view, :tags
 
+  attributes :is_starred do |project, params|
+    if params[:current_user].nil?
+      nil
+    else
+      Star.find_by(user_id: params[:current_user].id, project_id: project.id).nil? ? false : true
+    end
+  end
+
   attributes :author_name do |project|
     project.author.name
   end
