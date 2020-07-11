@@ -33,6 +33,19 @@ RSpec.describe Api::V1::ProjectsController, "#show", type: :request do
       end
     end
 
+    context "when unauthenticated user fetches public project with collaborators" do
+      before do
+        # Adds random user as a collaborator to public_project
+        FactoryBot.create(:collaboration, user: FactoryBot.create(:user), project: public_project)
+        get "/api/v1/projects/#{public_project.id}?include=collaborators", as: :json
+      end
+
+      it "returns project details including collaborators" do
+        expect(response).to have_http_status(200)
+        expect(response).to match_response_schema("project_with_collaborators")
+      end
+    end
+
     context "when unauthenticated user fetches private project details" do
       before do
         get "/api/v1/projects/#{private_project.id}", as: :json

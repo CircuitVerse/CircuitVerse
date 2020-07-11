@@ -70,5 +70,18 @@ RSpec.describe Api::V1::ProjectsController, "#create_fork", type: :request do
         expect(response).to match_response_schema("project_with_author")
       end
     end
+
+    context "when forks other user's project and includes collaborators" do
+      before do
+        token = get_auth_token(random_user)
+        get "/api/v1/projects/#{project.id}/fork?include=collaborators",
+            headers: { "Authorization": "Token #{token}" }, as: :json
+      end
+
+      it "returns status :ok & return forked project including collaborators" do
+        expect(response).to have_http_status(200)
+        expect(response).to match_response_schema("project_with_collaborators")
+      end
+    end
   end
 end

@@ -16,4 +16,5 @@ class Api::V1::ProjectSerializer
   end
 
   belongs_to :author
+  has_many :collaborators, serializer: Api::V1::UserSerializer
 end

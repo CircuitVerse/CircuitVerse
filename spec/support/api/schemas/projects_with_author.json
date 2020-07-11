@@ -69,15 +69,32 @@
                   }
                 },
                 "required": ["data"]
+              },
+              "collaborators": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": { "type": "string" },
+                        "type": { "type": "string" }
+                      },
+                      "required": ["id", "type"]
+                    }
+                  }
+                },
+                "required": ["data"]
               }
             },
-            "required": ["author"]
+            "required": ["author", "collaborators"]
           }
         },
         "required": ["id", "type", "attributes"]
       }
     },
-        "included": {
+    "included": {
       "type": "array",
       "items": {
         "type": "object",
