@@ -103,7 +103,7 @@ button:focus {
   box-shadow: none !important;
   border: none;
   outline: none;
-  border-color: white !important;
+  /* border-color: white !important; */
 }
 
 button:focus {
@@ -555,6 +555,15 @@ div.icon img {
   outline: none;
   border-radius: 1px;
   transition: all 0.1s ease-in-out;
+}
+
+#tabsBar button:focus{
+  outline: none !important;
+  box-shadow: none !important;
+}
+#tabsBar button:active{
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 /*! tab bar styling ends */

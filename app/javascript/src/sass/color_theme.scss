@@ -284,6 +284,7 @@ $output-rect: blue;
   color: var(--text-primary);
   background-color: var(--primary);
   border: 1px solid var(--br-primary);
+
 }
 
 #tabsBar .current > span {
@@ -297,7 +298,7 @@ $output-rect: blue;
 }
 
 #tabsBar button:hover {
-  color: var(--primary);
+  // color: var(--primary);
   background: var(--bg-secondary);
   border: 1px solid var(--primary);
 }
@@ -570,4 +571,12 @@ select {
 
 .set {
   border: .5px solid var(--bg-tabs) !important;
+  border-radius: 1.5px;
+}
+
+.input-group-prepend button:hover {
+  background: var(--bg-secondary) !important;
+}
+.input-group-append button:hover {
+  background:  var(--bg-secondary) !important;
 }
