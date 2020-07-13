@@ -10,7 +10,7 @@
   "devDependencies": {
     "eslint": "^6.0.0",
     "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-plugin-import": "^2.20.0",
+    "eslint-plugin-import": "^2.22.0",
     "expose-loader": "^0.7.5",
     "webpack-dev-server": "^3.10.3"
   },
