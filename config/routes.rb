@@ -119,6 +119,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       post '/auth/login', to: 'authentication#login'
       post '/auth/signup', to: 'authentication#signup'
+      post '/oauth', to: 'authentication#oauth'
       get '/public_key.pem', to: "authentication#public_key"
       post '/password/forgot', to: 'authentication#forgot_password'
       get '/me', to: 'users#me'
