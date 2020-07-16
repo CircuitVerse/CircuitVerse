@@ -11,7 +11,7 @@ When you are ready to start work on an issue:
 
 If you don't see your idea listed, do one of the following:
 * **If your contribution is minor,** such as a typo fix, open a pull request.
-* **If your contribution is major,** such as a new feature/enhancement, start by opening an issue first. That way, other people can be also involved in the discussion before you do any work.
+* **If your contribution is major,** such as a new feature/enhancement, start by opening an issue first. This way, other people can be also involved in the discussion before you do any work.
 
 ## Pull Request Process
 
