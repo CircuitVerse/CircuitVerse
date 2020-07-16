@@ -15,7 +15,6 @@
 @import "./plugin-stylesheets/jquery-pseudo-ripple.css";
 
 /** new UI ruleset starts here */
-
 /*! Adding color variables to root, required later for hokey binding */
 
 
@@ -112,7 +111,7 @@ button:focus {
 
 input[type="text"]:focus {
   background: transparent;
-  color: white;
+  /* color: white; */
 }
 
 /*! Global styles ends here */
@@ -811,25 +810,25 @@ select {
 }
 
 .zoomButton-up {
-  background: url(./assets/layout-panel/up.svg) center/cover no-repeat;
+  /* background: url(./assets/layout-panel/up.svg) center/cover no-repeat; */
   display: inline-block;
   height: 35px;
   width: 35px;
 }
 .zoomButton-down {
-  background: url(./assets/layout-panel/down.svg) center/cover no-repeat;
+  /* background: url(./assets/layout-panel/down.svg) center/cover no-repeat; */
   display: inline-block;
   height: 35px;
   width: 35px;
 }
 .zoomButton-left {
-  background: url(./assets/layout-panel/left.svg) center/cover no-repeat;
+  /* background: url(./assets/layout-panel/left.svg) center/cover no-repeat; */
   display: inline-block;
   height: 35px;
   width: 35px;
 }
 .zoomButton-right {
-  background: url(./assets/layout-panel/right.svg) center/cover no-repeat;
+  /* background: url(./assets/layout-panel/right.svg) center/cover no-repeat; */
   display: inline-block;
   height: 35px;
   width: 35px;

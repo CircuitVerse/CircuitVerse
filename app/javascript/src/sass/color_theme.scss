@@ -2,8 +2,8 @@
 $css-vars-use-native: true;
 
 // $primary: $baseDefault;
-// $text-primary: $textDefault;
-// $text-secondary: $textDefault2;
+// $text-primary: $text-lite;
+// $text-secondary: $text-dark;
 // $br-primary: $borderDefault;
 // $bg-primary-moz: $bg-moz;
 // $bg-primary-chr: $bg-chr;
@@ -13,16 +13,16 @@ $css-vars-use-native: true;
 // $bg-secondary: $bg-secondary-grey;
 // $canvas-primary: $canvas-primary-grey;
 // $canvas-secondary: $canvas-secondary-white;
-// $bg-toogle: $bg-toogle-green;
-// $bg-toogle-darken: $bg-toogle-green-darken;
+// $bg-toogle: $bg-toggle-btn-primary;
+// $bg-toogle-darken: $bg-toggle-btn-primary-darken;
 // $btn-danger: $btn-danger-red;
 // $btn-danger-darken: $btn-danger-red-dark;
 
 // @include css-vars(
 //   (
 //     --primary: $primary,
-//     --text-primary: $text-primary,
-//     --text-secondary: $text-secondary,
+//     --text-lite: $text-primary,
+//     --text-dark: $text-secondary,
 //     --br-primary: $br-primary,
 //     --bg-primary-moz: $bg-primary-moz,
 //     --bg-primary-chr: $bg-primary-moz,
@@ -32,38 +32,70 @@ $css-vars-use-native: true;
 //     --bg-secondary: $bg-secondary,
 //     --canvas-stroke: $canvas-primary,
 //     --canvas-fill: $canvas-secondary,
-//     --bg-toogle: $bg-toogle,
-//     --bg-toogle-darken: $bg-toogle-darken,
+//     --bg-toggle-btn-primary: $bg-toogle,
+//     --primary-btn-hov: $bg-toogle-darken,
 //     --btn-danger: $btn-danger,
 //     --btn-danger-darken: $btn-danger-darken,
 //   )
 // );
 
+//global
 $baseDefault: #454545;
-$textDefault: #fff;
-$textDefault2: #000;
+$text-lite: #fff;
+$text-dark: #000;
 $borderDefault: #fff;
-$bg-moz: #454545e6;
-$bg-chr: #454545b3;
-$bg-tabs-grey: #8b8b8b;
-$bg-icons-grey: #7d7d7d;
-$bg-text-grey: #cacaca;
-$bg-secondary-grey: #bbbbbb;
-$canvas-primary-grey: #eee;
-$canvas-secondary-white: white;
-$bg-toogle-green: #42b983;
-$bg-toogle-green-darken: #3ca877;
-$btn-danger-red: #dc5656;
-$btn-danger-red-dark: #b03662;
-$disable: #6c8b93;
+
+//nav
+$bg-navbar: #454545;
+$text-navbar: white;
+$text-navbar--alt: black;
 $qp-br-tl: #333333;
 $qp-br-rd: #535353;
 $qp-box-shadow-1: #3b3b3b;
 $qp-box-shadow-2: #4f4f4f;
-$btn-dg-hov: #ddd;
-$btn-dg-hov-text: #000;
 
-//elements
+
+//tabs bar
+$bg-tabs-grey: #8b8b8b;
+$bg-circuit: #bbbbbb;
+$br-circuit: #454545; //bg of inative circuit
+$br-circuit-cur: white;
+
+//dialog background
+$bg-moz: hsla(0, 0%, 27%, 0.902); //blur bg
+$bg-chr: hsla(0, 0%, 27%, 0.702); //blur bg
+
+
+
+//ce panel
+$bg-icons-grey: #7d7d7d;
+$text-panel: white;
+
+//
+$bg-text-grey: #cacaca; //dropdown menu hover background
+$bg-secondary-grey: #bbbbbb; //input border bottom & select background
+
+
+//btn
+$bg-toggle-btn-primary: #42b983;
+$bg-primary-btn-hov: #3ca877; //custom
+$btn-danger-red: #dc5656;
+$btn-danger-red-dark: #b03662; //hover
+
+$cus-btn-hover-bg: #ddd;
+$cus-btn-hover-text: #000;
+
+
+//context menu
+$context-text: white;
+$context-text-hov: black;
+
+//small components
+$disable: #6c8b93;
+
+//canvas
+$canvas-primary-grey: #eee;
+$canvas-secondary-white: white;
 $node: green;
 $node-norm: green;
 $stroke: black;
@@ -86,28 +118,44 @@ $output-rect: blue;
 @include css-vars(
   (
     --primary: $baseDefault,
-    --text-primary: $textDefault,
-    --text-secondary: $textDefault2,
+
+    --bg-navbar: $bg-navbar,
+    --text-navbar: $text-navbar,
+    --text-navbar--alt: $text-navbar--alt,
+    --qp-br-tl: $qp-br-tl,
+    --qp-br-rd: $qp-br-rd,
+
+    --br-circuit: $br-circuit,
+    --br-circuit-cur: $br-circuit-cur,
+    --bg-tabs: $bg-tabs-grey,
+    --bg-circuit: $bg-circuit,
+
+    --text-lite: $text-lite,
+    --text-dark: $text-dark,
+    --text-panel: $text-panel,
+
+    --context-text: $context-text,
+    --context-text-hov: $context-text-hov,
+
+
+
     --br-primary: $borderDefault,
     --bg-primary-moz: $bg-moz,
     --bg-primary-chr: $bg-chr,
-    --bg-tabs: $bg-tabs-grey,
     --bg-icons: $bg-icons-grey,
     --bg-text: $bg-text-grey,
     --bg-secondary: $bg-secondary-grey,
     --canvas-stroke: $canvas-primary-grey,
     --canvas-fill: $canvas-secondary-white,
-    --bg-toogle: $bg-toogle-green,
-    --bg-toogle-darken: $bg-toogle-green-darken,
+    --bg-toggle-btn-primary: $bg-toggle-btn-primary,
+    --primary-btn-hov: $bg-primary-btn-hov,
     --btn-danger: $btn-danger-red,
     --btn-danger-darken: $btn-danger-red-dark,
     --disable: $disable,
-    --qp-br-tl: $qp-br-tl,
-    --qp-br-rd: $qp-br-rd,
     --qp-box-shadow-1: $qp-box-shadow-1,
     --qp-box-shadow-2: $qp-box-shadow-2,
-    --btn-dg-hov: $btn-dg-hov,
-    --btn-dg-hov-text: $btn-dg-hov-text,
+    --cus-btn-hov--bg: $cus-btn-hover-bg,
+    --cus-btn-hov-text: $cus-btn-hover-text,
     --node: $node,
     --stroke: $stroke,
     --fill: $fill,
@@ -131,30 +179,30 @@ $output-rect: blue;
 
 ::-moz-selection {
   /* Code for Firefox */
-  color: var(--text-primary);
+  color: var(--text-lite);
   background: var(--bg-icons);
 }
 
 ::selection {
-  color: var(--text-primary);
+  color: var(--text-lite);
   background: var(--bg-icons);
 }
 
 .navbar-menu > li > a {
-  color: var(--text-primary);
+  color: var(--text-navbar);
 }
 
 .projectName {
-  color: var(--text-primary);
+  color: var(--text-navbar);
 }
 
 .header {
-  background: var(--primary);
+  background: var(--bg-navbar);
 }
 
 .quick-btn {
   //neumorph
-  background: var(--primary);
+  background: var(--bg-navbar);
   box-shadow: 4px 4px 5px var(--qp-box-shadow-2),
     -4px -4px 5px var(--qp-box-shadow-1);
   border-top: 1.5px solid var(--qp-br-tl);
@@ -184,22 +232,26 @@ $output-rect: blue;
 }
 
 .dropdown-menu > li > a {
-  color: var(--text-primary) !important;
+  color: var(--text-navbar) !important;
+}
+
+.signIn-btn {
+  color: var(--text-navbar) !important;
 }
 
 .dropdown-menu > li > a:hover {
-  color: var(--text-secondary) !important; //text secondary
+  color: var(--text-navbar--alt) !important; 
   background: var(--bg-text);
 }
 
 #contextMenu {
   border: 0.5px solid var(--bg-tabs);
   background-color: var(--bg-primary-moz);
-  color: var(--text-primary);
+  color: var(--context-text);
 }
 
 #contextMenu ul li:hover {
-  color: var(--text-secondary);
+  color: var(--context-text-hov);
   background: var(--bg-text);
 }
 
@@ -216,7 +268,7 @@ $output-rect: blue;
 }
 
 #modules-header {
-  color: var(--text-primary);
+  color: var(--text-panel);
 }
 
 .panel {
@@ -224,7 +276,7 @@ $output-rect: blue;
 }
 
 .ui-accordion-header {
-  color: var(--text-primary) !important;
+  color: var(--text-panel) !important;
 }
 
 .panelHeader:hover {
@@ -247,7 +299,7 @@ $output-rect: blue;
 
 .custom-tooltip-styling {
   background-color: var(--bg-icons) !important;
-  color: var(--text-primary) !important;
+  color: var(--text-panel) !important;
   border: 1px solid var(--br-primary);
 }
 
@@ -269,69 +321,71 @@ $output-rect: blue;
 }
 
 #tabsBar div {
-  color: var(--text-primary);
-  border: 1px solid var(--primary);
+  color: var(--text-panel);
+  border: 1px solid var(--br-circuit);
 }
 
 #tabsBar .circuits {
-  background-color: var(--bg-secondary);
+  background-color: var(--bg-circuit);
 }
 
 #tabsBar .circuits > span {
-  color: var(--text-secondary);
+  color: var(--text-panel);
 }
+
 #tabsBar .current {
-  color: var(--text-primary);
+  color: var(--text-panel);
   background-color: var(--primary);
-  border: 1px solid var(--br-primary);
+  border: 1px solid var(--br-circuit-cur);
 
 }
 
 #tabsBar .current > span {
-  color: var(--text-primary);
+  color: var(--text-panel);
+
 }
 
 #tabsBar button {
-  color: var(--text-primary);
+  color: var(--text-panel);
   background-color: var(--primary);
-  border: 1px solid var(--br-primary);
+  border: 1px solid var(--br-circuit-cur);
 }
 
 #tabsBar button:hover {
-  // color: var(--primary);
-  background: var(--bg-secondary);
+  color: var(--primary);
+  background: var(--bg-circuit);
   border: 1px solid var(--primary);
 }
 
 .moduleProperty input {
-  color: var(--text-primary);
+  color: var(--text-panel);
 }
 
 .moduleProperty {
   background: var(--primary);
   border: 2px solid var(--br-primary);
   box-shadow: 0px 0px 10px #4545457f;
-  color: var(--text-primary);
+  color: var(--text-panel);
 }
 
 #moduleProperty-title {
-  color: var(--text-primary);
+  color: var(--text-panel);
 }
 
 .moduleProperty input,
 .moduleProperty select {
   border-bottom: 0.5px solid var(--bg-secondary) !important;
-  color: var(--text-primary);
+  color: var(--text-panel);
 }
 
 .moduleProperty input:focus,
 .moduleProperty select:focus {
-  color: var(--text-primary);
+  // color: var(--text-lite);
   border-color: var(--br-primary) !important;
 }
 
 .input-group div button {
-  color: var(--text-primary);
+  color: var(--text-lite);
 }
 
 .input-group-prepend button:hover {
@@ -353,24 +407,24 @@ $output-rect: blue;
 }
 
 input:checked + .slider {
-  background-color: var(--bg-toogle);
+  background-color: var(--bg-toggle-btn-primary);
 }
 
 .custom-btn--primary {
-  background-color: var(--bg-toogle);
-  color: var(--text-primary);
+  background-color: var(--bg-toggle-btn-primary);
+  color: var(--text-lite);
 }
 .custom-btn--primary:hover {
-  background-color: var(--bg-toogle-darken);
-  color: var(--text-primary);
+  background-color: var(--primary-btn-hov);
+  color: var(--text-lite);
 }
 .custom-btn--secondary {
   border: 1px solid white;
-  color: var(--text-primary);
+  color: var(--text-lite);
 }
 .custom-btn--secondary:hover {
   background-color: #ddd;
-  color: var(--btn-dg-hov-text);
+  color: var(--cus-btn-hov-text);
 }
 
 .custom-btn--secondary:active,
@@ -380,37 +434,38 @@ input:checked + .slider {
 
 .custom-btn--tertiary {
   background-color: var(--btn-danger);
-  color: var(--text-primary);
+  color: var(--text-lite);
 }
 
 .custom-btn--tertiary:hover {
   background-color: var(--btn-danger-darken);
-  color: var(--text-primary);
+  color: var(--text-lite);
 }
 
 #HelpButton {
   border: 1px solid var(--br-primary);
+  color: var(--text-panel);
 }
 
 select {
   background: var(--bg-secondary);
   background-color: var(--primary);
-  color: var(--text-primary);
+  color: var(--text-lite);
 }
 
 #layoutDialog {
   border: 2px solid var(--br-primary);
   box-shadow: 0px 0px 10px #4545457f;
   background-color: var(--primary);
-  color: var(--text-primary);
+  color: var(--text-panel)
 }
 
 #layoutDialog > div span:before {
-  color: var(--text-primary);
+  color: var(--text-panel)
 }
 
 .panel-heading {
-  color: var(--text-primary);
+color: var(--text-panel)
 }
 
 .ui-dialog {
@@ -424,21 +479,21 @@ select {
 }
 
 .ui-widget-header {
-  color: var(--text-primary) !important;
+  color: var(--text-lite) !important;
   border-bottom: 0.5px solid var(--br-primary);
 }
 
 .option {
   background-color: white;
-  color: var(--primary);
+  color: var(--text-dark);
 }
 
 .custom-radio span {
-  border: 3px solid var(--primary);
+  border: 3px solid var(--text-dark);
 }
 
 .custom-radio span:after {
-  background: var(--primary);
+  background: var(--text-dark);
 }
 
 .pannel-heading {
@@ -449,16 +504,16 @@ select {
   border: 1px solid var(--bg-icons);
 }
 .download-dialog-section-2 {
-  color: var(--text-primary);
+  color: var(--text-lite);
 }
 
 .download-dialog-section-2 .active-btn {
-  background: var(--bg-toogle);
-  color: var(--text-primary);
+  background: var(--bg-toggle-btn-primary);
+  color: var(--text-lite);
 }
 
 .download-dialog-section-2 .inactive-btn {
-  color: var(--text-primary);
+  color: var(--text-lite);
 }
 
 .download-dialog-section-3 {
@@ -466,7 +521,7 @@ select {
 }
 
 .download-dialog-section-3 > span {
-  color: var(--text-primary);
+  color: var(--text-lite);
 }
 
 .ui-dialog-titlebar-close::before:hover {
@@ -474,14 +529,14 @@ select {
 }
 
 .ui-dialog .ui-dialog-buttonpane button:hover {
-  color: var(--btn-dg-hov-text) !important;
-  background: var(--btn-dg-hov);
+  color: var(--cus-btn-hov-text) !important;
+  background: var(--cus-btn-hov--bg);
   border: 1px solid transparent;
 }
 
 .render-btn {
   // background: #42b983;
-  color: var(--text-primary);
+  color: var(--text-lite);
   border: 1px solid var(--br-primary);
 }
 
@@ -490,23 +545,23 @@ select {
 }
 .render-btn:hover {
   background: #3ba374;
-  color: var(--text-primary);
+  color: var(--text-lite);
   border: 1px solid transparent;
 }
 
 #combinationalAnalysis {
   border: 1px solid var(--bg-icons);
-  color: var(--text-primary);
+  color: var(--text-lite);
 }
 
 #combinationalAnalysis p input {
   border-bottom: 1px solid white !important;
-  color: var(--text-primary);
+  color: var(--text-lite);
 }
 
 .content-table tr th {
-  background-color: var(--bg-toogle);
-  color: var(--text-primary);
+  background-color: var(--bg-toggle-btn-primary);
+  color: var(--text-lite);
 }
 
 .content-table th,
@@ -515,12 +570,12 @@ select {
 }
 
 #openProjectDialog {
-  color: var(--text-primary);
+  color: var(--text-lite);
 }
 
 #openProjectDialog > label {
   border: 1px solid var(--br-primary);
-  color: var(--text-primary);
+  color: var(--text-lite);
 }
 
 #openProjectDialog > label > span {
@@ -528,11 +583,11 @@ select {
 }
 
 #openProjectDialog > label > span:after {
-  background: var(--text-primary);
+  background: var(--text-lite);
 }
 
 #insertSubcircuitDialog {
-  color: var(--text-primary);
+  color: var(--text-lite);
 }
 
 .disable::after {
@@ -540,12 +595,12 @@ select {
 }
 
 #bitconverterprompt {
-  color: var(--text-primary);
+  color: var(--text-lite);
 }
 
 #bitconverterprompt input {
   border-bottom: 1px solid var(--br-primary);
-  color: var(--text-primary);
+  color: var(--text-lite);
 }
 
 #bitconverterprompt input:focus {
@@ -553,7 +608,7 @@ select {
 }
 
 #bitconverterprompt label {
-  color: var(--text-primary) !important;
+  color: var(--text-lite) !important;
 }
 
 .radio-green {
@@ -565,8 +620,9 @@ select {
 }
 
 .selected {
-  background: var(--bg-secondary) !important;
-  color: var(--text-secondary) !important;
+  background: var(--bg-icons) !important;
+  color: var(--text-panel) !important;
+  // color: var();
 }
 
 .set {
@@ -576,7 +632,38 @@ select {
 
 .input-group-prepend button:hover {
   background: var(--bg-secondary) !important;
+  color: var(--text-lite) !important;
 }
+
 .input-group-append button:hover {
   background:  var(--bg-secondary) !important;
+  color: var(--text-lite) !important;
+
+}
+
+.input-group-prepend button {
+  color: var(--text-panel) !important;
+  // background: var(--bg-secondary) !important;
+}
+
+.input-group-append button {
+  color: var(--text-panel) !important;
+  // background:  var(--bg-secondary) !important;
+}
+svg:hover {
+  fill: red;
+}
+
+#Rectangle_1072 {
+  stroke: var(--text-panel);
+}
+
+#Path_36 {
+  fill: var(--text-panel);
+}
+
+.layout--btn-group {
+  display: block;
+  margin-right: 25px;
+  margin-top: -10px;
 }
