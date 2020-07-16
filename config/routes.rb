@@ -102,7 +102,8 @@ Rails.application.routes.draw do
   resources :users do
     resources :projects, only: %i[show edit update new create destroy]
   end
-  resources :collaborations, only: %i[create destroy update]
+  resources :collaborations, only: %i[create destroy]
+  resources :mentorships, only: %i[create destroy]
 
   # redirects
   get "/facebook", to: redirect("https://www.facebook.com/CircuitVerse")

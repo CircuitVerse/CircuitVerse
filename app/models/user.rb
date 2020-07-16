@@ -24,6 +24,9 @@ class User < ApplicationRecord
 
   has_many :pending_invitations, foreign_key: :email, primary_key: :email
 
+  has_many :mentorships, dependent: :destroy
+  has_many :secondary_mentor_groups, source: "group", through: :mentorships
+  
   # Multiple push_subscriptions over many devices
   has_many :push_subscriptions, dependent: :destroy
 
