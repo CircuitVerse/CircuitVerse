@@ -166,6 +166,68 @@ const themeOptions = [
         "--splitter": "#00B462",
         name: "Lite-born Spring",
     },
+    {
+        "--primary": "#EAEAEB", //header bg
+        "--text-dark": "#6B6B6B", //normal state text
+        "--text-lite": "white", //text state on hover, on drop down menu , context menu
+        "--text-panel": "#6B6B6B",
+        
+        "--bg-navbar":"#6b6b6b",
+        "--text-navbar": "white",
+        "--qp-br-tl": "#969696", //more ligthen than qp box shadow 1
+        "--qp-br-rd": "#545454",
+        "--qp-box-shadow-1": "#747474", //lil lighten base .. top left shadow
+        "--qp-box-shadow-2": "#5f5f5f", //lil darken base //down right shadow
+        
+        // "--bg-tabs": "#EAEAEB", //tabs bar primary bg,
+        "--bg-tabs": "#D7D7D7", //tabs bar primary bg,
+        "--br-circuit-cur": "#6b6b6b",
+        "--bg-circuit": "#A4A4A4",
+        "--br-circuit": "#6b6b6b", 
+
+        "--br-primary": "#6B6B6B", //panel border, tabbar circuit border
+
+        "--context-text-hov": "#6B6B6B",
+        "--context-text": "white",
+
+        "--bg-primary-moz": "rgba(107, 107, 107, 0.904)", //dialog bg, navbar dropwdown //.9 opacity of nav
+        "--bg-primary-chr": "rgba(107, 107, 107, 0.704)", //dialog bg navbar dropwdown // .7 opacity of nav
+
+        "--bg-icons": "#DDDDDD", //ce icon bg
+
+        "--bg-text": "#ddd", //drop down, content menu, text bg on hover
+
+        "--bg-secondary": "#6B6B6B", //border color input button,
+
+        "--bg-toggle-btn-primary": "#3ac8a4",
+        "--primary-btn-hov": "#71D7BD",
+        "--btn-danger": "#fc8771",
+        "--btn-danger-darken": "#FDB2A4",
+        "--cus-btn-hov--bg": "#3ac8a4",
+        "--cus-btn-hov-text": "#fff",
+        
+        "--canvas-fill": "white", //canvas bg
+        "--canvas-stroke": "#BABABA", //canvas stroke
+        "--node": "#42B983",
+        "--stroke": "#6B6B6B",
+        "--fill": "#EAEAEB",
+        "--hover-and-sel": "#FFE99B", //yellow
+        "--wire-draw": "#6B6B6B", //black
+        "--wire-cnt": "#42B983", //
+        "--wire-pow": "#52E539",
+        "--wire-sel": "#0FB2F2",
+        "--wire-lose": "#F10530",
+        "--mini-map": "#42B983",
+        "--mini-map-stroke": "#0FB2F2",
+        "--input-text": "#42B983",
+        "--output-rect": "#0487D9",
+        "--secondary-stroke": "#F10530",
+        "--text": "#454545",
+        "--wire-norm": "#006839",
+        "--node-norm": "#FFC231",
+        "--splitter": "#00B462",
+        name: "G&W",
+    },
 ];
 
 // document.getElementById('backgroundArea').getContext('2d').strokeStyle
