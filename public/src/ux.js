@@ -407,4 +407,4 @@ $('#octalInput').on('keyup', () => {
     setBaseValues(x);
 });
 
-// updateTheme("nightSky", false);
+
