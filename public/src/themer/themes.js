@@ -1,5 +1,9 @@
 export default {
     "Default Theme": {
+        "--br-secondary": "#7d7d7d",
+        "--br-circuit-cur": "#fff",
+        "--br-circuit": "#fff",
+        "--cus-radio_label": "#656565",
         "--primary": "#454545",
         "--text-lite": "#fff",
         "--text-dark": "#000",
@@ -46,14 +50,16 @@ export default {
         "--node-norm": "green",
         "--splitter": "black",
         "--output-rect": "blue",
-        // "name": "Default Theme",
     },
     "Night Sky": {
+        "--br-secondary": "#665627",
+        "--cus-radio_label": "#0F111A",
         "--primary": "#0F111A", //header bg, panels bg
         "--text-lite": "#FFF", //normal state text
         "--text-dark": "white", //text state on hover, on drop down menu , context menu
         "--text-panel": "white",
         "--bg-navbar": "#0F111A",
+        "--br-circuit": "#0F111A", //panel border, tabbar circuit border
         "--br-primary": "#665627", //panel border, tabbar circuit border
         "--br-circuit-cur": "#cccccc",
         "--bg-circuit": "#727d8d",
@@ -93,9 +99,10 @@ export default {
         "--wire-norm": "#277F7C",
         "--node-norm": "#FFC231",
         "--splitter": "#0284A8",
-        // "name": "Night Sky",
     },
     "Lite-born Spring": {
+        "--br-secondary": "#6B6B6B",
+        "--cus-radio_label": "#6B6B6B",
         "--primary": "#EAEAEB", //header bg
         "--text-dark": "#6B6B6B", //normal state text
         "--text-lite": "white", //text state on hover, on drop down menu , context menu
@@ -145,13 +152,14 @@ export default {
         "--wire-norm": "#006839",
         "--node-norm": "#FFC231",
         "--splitter": "#00B462",
-        // "name": "Lite-born Spring",
     },
     "G&W": {
+        "--br-secondary": "#6B6B6B",
+        "--cus-radio_label": "#6B6B6B",
         "--primary": "#EAEAEB", //header bg
         "--text-dark": "#6B6B6B", //normal state text
         "--text-lite": "white", //text state on hover, on drop down menu , context menu
-        "--text-panel": "#6B6B6B",
+        "--text-panel": "#656565",
         "--bg-navbar": "#6b6b6b",
         "--text-navbar": "white",
         "--qp-br-tl": "#969696", //more ligthen than qp box shadow 1
@@ -197,6 +205,111 @@ export default {
         "--wire-norm": "#006839",
         "--node-norm": "#FFC231",
         "--splitter": "#00B462",
-        "name": "G&W",
+    },
+    "High Contrast": {
+        "--br-secondary": "#F38518",
+        "--cus-radio_label": "black",
+        "--primary": "black", //header bg
+        "--text-dark": "black", //normal state text
+        "--text-lite": "white", //text state on hover, on drop down menu , context menu
+        "--text-panel": "white",
+        "--bg-navbar": "black",
+        "--text-navbar": "white",
+        "--qp-br-tl": "#F38518", //more ligthen than qp box shadow 1
+        "--qp-br-rd": "#F38518",
+        "--qp-box-shadow-1": "#0D0D0D", //lil lighten base .. top left shadow
+        "--qp-box-shadow-2": "#0D0D0D", //lil darken base //down right shadow
+        "--bg-tabs": "black", //tabs bar primary bg,
+        "--text-circuit": "black",
+        "--br-circuit-cur": "#F38518",
+        "--bg-circuit": "#B6B6B6",
+        "--br-circuit": "#F38518",
+        "--br-primary": "#F38518", //panel border, tabbar circuit border
+        "--context-text-hov": "black",
+        "--context-text": "white",
+        "--bg-primary-moz": "rgba(0, 0, 0, 0.904)", //dialog bg, navbar dropwdown //.9 opacity of nav
+        "--bg-primary-chr": "rgba(0, 0, 0, 0.704)", //dialog bg navbar dropwdown // .7 opacity of nav
+        "--bg-icons": "#262626", //ce icon bg
+        "--bg-text": "#ddd", //drop down, content menu, text bg on hover
+        "--bg-secondary": "#6B6B6B", //border color input button,
+        "--bg-toggle-btn-primary": "#009599",
+        "--primary-btn-hov": "#00b1b6",
+        "--btn-danger": "#E45605",
+        "--btn-danger-darken": "#fa792f",
+        "--cus-btn-hov--bg": "#009599",
+        "--cus-btn-hov-text": "#fff",
+        "--canvas-fill": "black", //canvas bg
+        "--canvas-stroke": "#9ad5e9", //canvas stroke
+        "--node": "#26a841",
+        "--stroke": "#626262",
+        "--fill": "#d4d4d4",
+        "--hover-and-sel": "#ffdf6c", //yellow
+        "--wire-draw": "#909090", //black
+        "--wire-cnt": "#3bb15b", //
+        "--wire-pow": "#3ac53c",
+        "--wire-sel": "#049ffb",
+        "--wire-lose": "#f42f0b",
+        "--mini-map": "#1c2427",
+        "--mini-map-stroke": "#000",
+        "--input-text": "#42B983",
+        "--output-rect": "#005682",
+        "--secondary-stroke": "#f7081e",
+        "--text": "#fff",
+        "--wire-norm": "#00b965",
+        "--node-norm": "#F38518",
+        "--splitter": "#21de5a",
+    },
+    "Color Blind": {
+        "--br-secondary": "#e2dad1",
+        "--cus-radio_label": "#2e2b21",
+        "--primary": "#2e2b21", //header bg
+        "--text-dark": "black", //normal state text
+        "--text-lite": "white", //text state on hover, on drop down menu , context menu
+        "--text-panel": "white",
+        "--bg-navbar": "#2e2b21",
+        "--text-navbar": "white",
+        "--qp-br-tl": "#716950", //more ligthen than qp box shadow 1
+        "--qp-br-rd": "#6c654d",
+        "--qp-box-shadow-1": "#4f4a38", //lil lighten base .. top left shadow
+        "--qp-box-shadow-2": "#302d23", //lil darken base //down right shadow
+        "--bg-tabs": "#2e2b21", //tabs bar primary bg,
+        "--text-circuit": "black",
+        "--br-circuit-cur": "#e2dad1",
+        "--bg-circuit": "#B6B6B6",
+        "--br-circuit": "#e2dad1",
+        "--br-primary": "#e2dad1", //panel border, tabbar circuit border
+        "--context-text-hov": "black",
+        "--context-text": "white",
+        "--bg-primary-moz": "rgba(46, 43, 33,.904)", //dialog bg, navbar dropwdown //.9 opacity of nav
+        "--bg-primary-chr": "rgba(46, 43, 33, 0.704)", //dialog bg navbar dropwdown // .7 opacity of nav
+        "--bg-icons": "#b1a074", //ce icon bg
+        "--bg-text": "#ddd", //drop down, content menu, text bg on hover
+        "--bg-secondary": "#6B6B6B", //border color input button,
+        "--bg-toggle-btn-primary": "#bfaac1",
+        "--primary-btn-hov": "#ccbbcd",
+        "--btn-danger": "#b66e43",
+        "--btn-danger-darken": "#ba7144",
+        "--cus-btn-hov--bg": "#bfaac1",
+        "--cus-btn-hov-text": "#fff",
+        "--canvas-fill": "#fff", //canvas bg
+        "--canvas-stroke": "#8d88ad", //canvas stroke
+        "--node": "#c59434",
+        "--stroke": "#342a1f",
+        "--fill": "#e0dcd3",
+        "--hover-and-sel": "#f4d4d4", //yellow
+        "--wire-draw": "#909090", //black
+        "--wire-cnt": "#908eb9", //
+        "--wire-pow": "#b3b1cf",
+        "--wire-sel": "#a7b8f8",
+        "--wire-lose": "#f42f0b",
+        "--mini-map": "#4b4636",
+        "--mini-map-stroke": "#000",
+        "--input-text": "#756d54",
+        "--output-rect": "#092c48",
+        "--secondary-stroke": "#cdb1ad",
+        "--text": "#000",
+        "--wire-norm": "#7f7cae",
+        "--node-norm": "#c59434",
+        "--splitter": "#836222",
     },
 };

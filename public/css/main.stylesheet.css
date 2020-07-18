@@ -846,7 +846,7 @@ select {
   height: 320px;
   padding: 10px 17px;
   padding-bottom: 0;
-  border: none !important;
+  /* border: none !important; */
 }
 
 @supports (backdrop-filter: blur()) {

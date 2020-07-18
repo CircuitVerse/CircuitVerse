@@ -60,12 +60,11 @@ $bg-tabs-grey: #8b8b8b;
 $bg-circuit: #bbbbbb;
 $br-circuit: #454545; //bg of inative circuit
 $br-circuit-cur: white;
+$text-circuit: white;
 
 //dialog background
 $bg-moz: hsla(0, 0%, 27%, 0.902); //blur bg
 $bg-chr: hsla(0, 0%, 27%, 0.702); //blur bg
-
-
 
 //ce panel
 $bg-icons-grey: #7d7d7d;
@@ -74,6 +73,7 @@ $text-panel: white;
 //
 $bg-text-grey: #cacaca; //dropdown menu hover background
 $bg-secondary-grey: #bbbbbb; //input border bottom & select background
+$br-secondary: #7d7d7d;
 
 
 //btn
@@ -92,6 +92,7 @@ $context-text-hov: black;
 
 //small components
 $disable: #6c8b93;
+$cus-radio_label: #656565;
 
 //canvas
 $canvas-primary-grey: #eee;
@@ -133,11 +134,14 @@ $output-rect: blue;
     --text-lite: $text-lite,
     --text-dark: $text-dark,
     --text-panel: $text-panel,
+    --text-circuit: $text-circuit,
 
     --context-text: $context-text,
     --context-text-hov: $context-text-hov,
 
+    --cus-radio_label: $cus-radio_label,
 
+    --br-secondary: $br-secondary,
 
     --br-primary: $borderDefault,
     --bg-primary-moz: $bg-moz,
@@ -318,19 +322,20 @@ $output-rect: blue;
 #tabsBar {
   background-color: var(--bg-tabs);
   border-top: 1px solid var(--br-primary);
+  border-bottom: 1px solid var(--br-primary);
 }
 
 #tabsBar div {
-  color: var(--text-panel);
   border: 1px solid var(--br-circuit);
 }
 
 #tabsBar .circuits {
+  color: var(--text-circuit);
   background-color: var(--bg-circuit);
 }
 
 #tabsBar .circuits > span {
-  color: var(--text-panel);
+  // color: var(--text-panel);
   // color: ;
 }
 
@@ -381,7 +386,7 @@ $output-rect: blue;
 
 .moduleProperty input:focus,
 .moduleProperty select:focus {
-  // color: var(--text-lite);
+  color: var(--text-panel);
   border-color: var(--br-primary) !important;
 }
 
@@ -470,6 +475,7 @@ color: var(--text-panel)
 }
 
 .ui-dialog {
+  border: .5px solid var(--br-primary) !important;
   background: var(--bg-primary-moz) !important;
 }
 
@@ -486,15 +492,15 @@ color: var(--text-panel)
 
 .option {
   background-color: white;
-  color: var(--text-dark);
+  color: var(--cus-radio_label);
 }
 
 .custom-radio span {
-  border: 3px solid var(--text-dark);
+  border: 3px solid var(--cus-radio_label);
 }
 
 .custom-radio span:after {
-  background: var(--text-dark);
+  background: var(--cus-radio_label);
 }
 
 .pannel-heading {
@@ -502,7 +508,7 @@ color: var(--text-panel)
 }
 
 #saveImageDialog {
-  border: 1px solid var(--bg-icons);
+  border: 1px solid var(--br-secondary);
 }
 .download-dialog-section-2 {
   color: var(--text-lite);
@@ -518,7 +524,7 @@ color: var(--text-panel)
 }
 
 .download-dialog-section-3 {
-  border: 1px solid var(--bg-tabs);
+  border: 1px solid var(--br-secondary);
 }
 
 .download-dialog-section-3 > span {
@@ -551,7 +557,7 @@ color: var(--text-panel)
 }
 
 #combinationalAnalysis {
-  border: 1px solid var(--bg-icons);
+  border: 1px solid var(--br-secondary);
   color: var(--text-lite);
 }
 
@@ -617,7 +623,7 @@ color: var(--text-panel)
 }
 
 .btn-group-toggle {
-  border: 1px solid var(--bg-tabs) !important;
+  border: 1px solid var(--br-secondary) !important;
 }
 
 .selected {
