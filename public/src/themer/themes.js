@@ -50,6 +50,7 @@ export default {
         "--node-norm": "green",
         "--splitter": "black",
         "--output-rect": "blue",
+        "--disable": "#6c8b93",
     },
     "Night Sky": {
         "--br-secondary": "#665627",
@@ -99,6 +100,7 @@ export default {
         "--wire-norm": "#277F7C",
         "--node-norm": "#FFC231",
         "--splitter": "#0284A8",
+        "--disable": "#4F74B0"
     },
     "Lite-born Spring": {
         "--br-secondary": "#6B6B6B",
@@ -152,6 +154,7 @@ export default {
         "--wire-norm": "#006839",
         "--node-norm": "#FFC231",
         "--splitter": "#00B462",
+        "--disable": '#656565',
     },
     "G&W": {
         "--br-secondary": "#6B6B6B",
@@ -205,6 +208,7 @@ export default {
         "--wire-norm": "#006839",
         "--node-norm": "#FFC231",
         "--splitter": "#00B462",
+        "--disable": "#656565",
     },
     "High Contrast": {
         "--br-secondary": "#F38518",
@@ -258,6 +262,7 @@ export default {
         "--wire-norm": "#00b965",
         "--node-norm": "#F38518",
         "--splitter": "#21de5a",
+        "--disable": "#262626",
     },
     "Color Blind": {
         "--br-secondary": "#e2dad1",
@@ -289,7 +294,7 @@ export default {
         "--primary-btn-hov": "#ccbbcd",
         "--btn-danger": "#b66e43",
         "--btn-danger-darken": "#ba7144",
-        "--cus-btn-hov--bg": "#bfaac1",
+        "--cus-btn-hov--bg": "#b66e43",
         "--cus-btn-hov-text": "#fff",
         "--canvas-fill": "#fff", //canvas bg
         "--canvas-stroke": "#8d88ad", //canvas stroke
@@ -311,5 +316,6 @@ export default {
         "--wire-norm": "#7f7cae",
         "--node-norm": "#c59434",
         "--splitter": "#836222",
+        "--disable": "#956c6a",
     },
 };
