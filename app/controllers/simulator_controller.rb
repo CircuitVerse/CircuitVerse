@@ -8,6 +8,7 @@ class SimulatorController < ApplicationController
   before_action :set_project, only: %i[show embed embed update edit get_data update_image]
   before_action :check_view_access, only: %i[show embed get_data]
   before_action :check_edit_access, only: %i[edit update update_image]
+  skip_before_action :verify_authenticity_token, only: [:get_data]
   after_action :allow_iframe, only: :embed
 
   def self.policy_class
@@ -74,7 +75,7 @@ class SimulatorController < ApplicationController
     image_file = return_image_file(params[:image])
 
     @project.image_preview = image_file
-    @project.save
+    @project.save!
 
     File.delete(image_file) if check_to_delete(params[:image])
 

@@ -62,7 +62,6 @@ Rails.application.routes.draw do
   notify_to :users, controller: "users/notifications"
 
   scope "/users" do
-    get "/", to: "welcome#all_user_index", as: "all_users"
     get "/:id/profile", to: "users/logix#profile", as: "profile"
     get "/:id/profile/edit", to: "users/logix#edit", as: "profile_edit"
     patch "/:id/update", to: "users/logix#update", as: "profile_update"
