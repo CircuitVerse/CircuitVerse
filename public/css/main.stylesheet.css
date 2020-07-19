@@ -370,7 +370,7 @@ input[type="text"]:focus {
   top: 90px;
   left: 10px;
   z-index: 100;
-  /* transition: background .7s ease-out; */
+  transition: background .5s ease-out; 
 
 }
 
@@ -577,7 +577,7 @@ div.icon img {
   top: 90px;
   right: 10px;
   z-index: 100;
-  /* transition: background .7s ease-out; */
+  transition: background .5s ease-out; 
 }
 
 #moduleProperty-toolTip {
@@ -1033,7 +1033,7 @@ select {
   border-radius: 1px;
 }
 .navbar {
-  /* transition: background .7s ease-out; */
+  transition: background .5s ease-out; 
 }
 
 
