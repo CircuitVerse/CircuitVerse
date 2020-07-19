@@ -1,5 +1,6 @@
 export default {
     "Default Theme": {
+        "--text-navbar--alt": "#000",
         "--br-secondary": "#7d7d7d",
         "--br-circuit-cur": "#fff",
         "--br-circuit": "#fff",
@@ -53,6 +54,7 @@ export default {
         "--disable": "#6c8b93",
     },
     "Night Sky": {
+        "--text-navbar--alt": "#fff",
         "--br-secondary": "#665627",
         "--cus-radio_label": "#0F111A",
         "--primary": "#0F111A", //header bg, panels bg
@@ -103,6 +105,7 @@ export default {
         "--disable": "#4F74B0"
     },
     "Lite-born Spring": {
+        "--text-navbar--alt": "#000",
         "--br-secondary": "#6B6B6B",
         "--cus-radio_label": "#6B6B6B",
         "--primary": "#EAEAEB", //header bg
@@ -157,6 +160,7 @@ export default {
         "--disable": '#656565',
     },
     "G&W": {
+        "--text-navbar--alt": "#000",
         "--br-secondary": "#6B6B6B",
         "--cus-radio_label": "#6B6B6B",
         "--primary": "#EAEAEB", //header bg
@@ -211,6 +215,7 @@ export default {
         "--disable": "#656565",
     },
     "High Contrast": {
+        "--text-navbar--alt": "#000",
         "--br-secondary": "#F38518",
         "--cus-radio_label": "black",
         "--primary": "black", //header bg
@@ -265,6 +270,7 @@ export default {
         "--disable": "#262626",
     },
     "Color Blind": {
+        "--text-navbar--alt": "#000",
         "--br-secondary": "#e2dad1",
         "--cus-radio_label": "#2e2b21",
         "--primary": "#2e2b21", //header bg
