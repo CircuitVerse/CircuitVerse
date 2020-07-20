@@ -6,12 +6,13 @@ class GroupPolicy < ApplicationPolicy
   def initialize(user, group)
     @user = user
     @group = group
-    @admin_access = ((group.mentor_id == user.id) || user.admin?)
+    @admin_access = ((group.primary_mentor_id == user.id) || user.admin?)
   end
 
   def check_edit_access?
-    ((!user.nil? && group.mentor_id == user.id) \
-    || (!user.nil? && Mentorship.exists?(group_id: group.id, user_id: user.id)))
+    ((!user.nil? && group.primary_mentor_id == user.id) \
+    || (!user.nil? \
+      && Mentorship.exists?(group_id: group.id, user_id: user.id)))
   end
 
   def show_access?

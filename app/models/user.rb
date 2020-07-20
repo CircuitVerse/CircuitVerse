@@ -9,11 +9,11 @@ class User < ApplicationRecord
   has_many :projects, foreign_key: "author_id", dependent: :destroy
   has_many :stars
   has_many :rated_projects, through: :stars, dependent: :destroy, source: "project"
-  has_many :groups_mentored, class_name: "Group",  foreign_key: "mentor_id", dependent: :destroy
+  has_many :groups_mentored, class_name: "Group",  foreign_key: "primary_mentor_id", dependent: :destroy
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable,
          :validatable, :omniauthable, omniauth_providers: %i[google_oauth2 facebook github]
 
-  # has_many :assignments, foreign_key: 'mentor_id', dependent: :destroy
+  # has_many :assignments, foreign_key: 'primary_mentor_id', dependent: :destroy
   has_many :group_members, dependent: :destroy
   has_many :groups, through: :group_members
   has_many :grades
@@ -26,7 +26,6 @@ class User < ApplicationRecord
 
   has_many :mentorships, dependent: :destroy
   has_many :secondary_mentor_groups, source: "group", through: :mentorships
-  
   # Multiple push_subscriptions over many devices
   has_many :push_subscriptions, dependent: :destroy
 

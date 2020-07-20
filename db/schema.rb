@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_11_093104) do
+ActiveRecord::Schema.define(version: 2020_07_20_072413) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -209,10 +209,10 @@ ActiveRecord::Schema.define(version: 2020_07_11_093104) do
 
   create_table "groups", force: :cascade do |t|
     t.string "name"
-    t.bigint "mentor_id"
+    t.bigint "primary_mentor_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["mentor_id"], name: "index_groups_on_mentor_id"
+    t.index ["primary_mentor_id"], name: "index_groups_on_primary_mentor_id"
   end
 
   create_table "mentorships", force: :cascade do |t|
@@ -387,7 +387,7 @@ ActiveRecord::Schema.define(version: 2020_07_11_093104) do
   add_foreign_key "grades", "users"
   add_foreign_key "group_members", "groups"
   add_foreign_key "group_members", "users"
-  add_foreign_key "groups", "users", column: "mentor_id"
+  add_foreign_key "groups", "users", column: "primary_mentor_id"
   add_foreign_key "mentorships", "groups"
   add_foreign_key "mentorships", "users"
   add_foreign_key "pending_invitations", "groups"

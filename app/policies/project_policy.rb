@@ -28,7 +28,7 @@ class ProjectPolicy < ApplicationPolicy
     (project.project_access_type != "Private" \
     || (!user.nil? && project.author_id == user.id) \
     || (!user.nil? && !project.assignment_id.nil? \
-      && project.assignment.group.mentor_id == user.id) \
+      && project.assignment.group.primary_mentor_id == user.id) \
     || (!user.nil? && Collaboration.exists?(project_id: project.id, user_id: user.id)) \
     || (!user.nil? && user.admin))
   end
