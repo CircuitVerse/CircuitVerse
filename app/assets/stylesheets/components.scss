@@ -54,6 +54,13 @@
   li {
     text-align: left;
   }
+
+  input {
+    height: 0;
+    opacity: 1;
+    position: absolute;
+    width: 0;
+  }
 }
 
 //form elements
