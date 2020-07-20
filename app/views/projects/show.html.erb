@@ -135,9 +135,6 @@
             </div>
             <small class="projectshow-embed-text-confirm">Copied to Clipboard!</small>
           </div>
-          <p>
-            <%= link_to 'Back', user_path(@author), class: "anchor-text" %>
-          </p>
         </div>
       </div>
     </div>
@@ -170,7 +167,10 @@
                   </div>
                   <div class="col-xs-4 col-sm-4 col-md-3 col-lg-3">
                     <div class="projectshow-collaborators-userdata-button">
-                      <%= link_to 'Remove', collaboration_path(Collaboration.find_by(user_id:user.id,project_id:@project.id)), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn button-primary" %>
+                      <%= link_to collaboration_path(Collaboration.find_by(user_id:user.id,project_id:@project.id)), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn button-primary projectshow-button-primary-delete" do %>
+                        <%= image_tag("SVGs/deleteGroup.svg", alt: "Delete Collaboration") %>
+                        <span>Remove</span>
+                      <% end %>
                     </div>
                   </div>
                 <% end %>
