@@ -6,13 +6,13 @@
   <body>
     <h1><%= @assignment.name %> </h1>
     <p>
-      A new assignment named <%=@assignment.name%> has been assigned in <%=Group.find_by(id:@assignment.group_id).name%> .<br>
+      A new assignment named <%= @assignment.name %> has been assigned in <%=Group.find_by(id:@assignment.group_id).name %> .<br>
     </p>
     <p>
-      Assignment is mentored by <%=User.find_by(id:Group.find_by(id:@assignment.group_id).primary_mentor_id).name %>
+      Assignment is mentored by <%= User.find_by(id:Group.find_by(id:@assignment.group_id).primary_mentor_id).name %>
     </p>
     <p>
-      Deadline: <%= @assignment.deadline%>
+      Deadline: <%= @assignment.deadline %>
     </p>
   </body>
 </html>
