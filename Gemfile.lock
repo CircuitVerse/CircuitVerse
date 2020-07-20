@@ -184,7 +184,7 @@ GEM
       rack-protection (>= 1.5.3, < 2.1.0)
     font-awesome-sass (5.13.0)
       sassc (>= 1.11)
-    friendly_id (5.2.5)
+    friendly_id (5.3.0)
       activerecord (>= 4.0.0)
     geocoder (1.6.1)
     globalid (0.4.2)
@@ -570,7 +570,7 @@ DEPENDENCIES
   flipper-redis
   flipper-ui
   font-awesome-sass (~> 5.13.0)
-  friendly_id (~> 5.2.4)
+  friendly_id (~> 5.3.0)
   geocoder
   hirb
   http

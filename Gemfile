@@ -99,7 +99,7 @@ gem 'jwt'
 gem 'fast_jsonapi'
 gem 'flipper-redis'
 gem 'flipper-ui'
-gem 'friendly_id', '~> 5.2.4'
+gem 'friendly_id', '~> 5.3.0'
 gem 'simple_discussion', '~> 1.2'
 
 group :development, :test do
