@@ -5,7 +5,7 @@ require "rails_helper"
 describe "Assignments", type: :system do
   before do
     @mentor = FactoryBot.create(:user)
-    @group = FactoryBot.create(:group, mentor: @mentor)
+    @group = FactoryBot.create(:group, primary_mentor: @mentor)
     @member = FactoryBot.create(:user)
     FactoryBot.create(:group_member, group: @group, user: @member)
   end

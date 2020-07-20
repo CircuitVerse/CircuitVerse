@@ -5,7 +5,7 @@ require "rails_helper"
 describe GroupMembersController, type: :request do
   before do
     @mentor = FactoryBot.create(:user)
-    @group = FactoryBot.create(:group, mentor: @mentor)
+    @group = FactoryBot.create(:group, primary_mentor: @mentor)
   end
 
   describe "#create" do

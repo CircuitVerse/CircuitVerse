@@ -7,7 +7,7 @@ describe AssignmentPolicy do
 
   before do
     @mentor = FactoryBot.create(:user)
-    @group = FactoryBot.create(:group, mentor: @mentor)
+    @group = FactoryBot.create(:group, primary_mentor: @mentor)
   end
 
   context "user is mentor" do

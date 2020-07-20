@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe GroupMailer, type: :mailer do
   before do
     @mentor = FactoryBot.create(:user)
-    @group = FactoryBot.create(:group, mentor: @mentor)
+    @group = FactoryBot.create(:group, primary_mentor: @mentor)
   end
 
   describe "new_group_email" do

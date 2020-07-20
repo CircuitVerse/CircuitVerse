@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe Grade, type: :model do
   before do
     @mentor = FactoryBot.create(:user)
-    @group = FactoryBot.create(:group, mentor: @mentor)
+    @group = FactoryBot.create(:group, primary_mentor: @mentor)
     @assignment = FactoryBot.create(:assignment, group: @group, grading_scale: :letter)
     @assignment_project = FactoryBot.create(:project, assignment: @assignment,
       author: FactoryBot.create(:user))
