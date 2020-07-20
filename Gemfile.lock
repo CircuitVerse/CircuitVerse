@@ -301,8 +301,8 @@ GEM
     parallel (1.19.2)
     parser (2.7.1.4)
       ast (~> 2.4.1)
-    pg (1.1.4)
-    pg (1.1.4-x64-mingw32)
+    pg (1.2.3)
+    pg (1.2.3-x64-mingw32)
     pg_search (2.3.0)
       activerecord (>= 4.2)
       activesupport (>= 4.2)
@@ -588,7 +588,7 @@ DEPENDENCIES
   omniauth-google-oauth2
   omniauth-microsoft-office365
   paperclip (>= 5.2.0)
-  pg (~> 1.1.4)
+  pg (~> 1.2.3)
   pg_search
   pry-rails
   puma (~> 3.12)
