@@ -15,6 +15,6 @@ class Group < ApplicationRecord
   after_commit :send_creation_mail, on: :create
 
   def send_creation_mail
-    GroupMailer.new_group_email(@primary_mentor, self).deliver_later
+    GroupMailer.new_group_email(primary_mentor, self).deliver_later
   end
 end

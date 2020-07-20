@@ -2,7 +2,7 @@
 
 class GroupMailer < ApplicationMailer
   def new_group_email(mentor, group)
-    @mentor = mentor
+    @primary_mentor = mentor
     @group = group
     mail(to: @mentor.email, subject: "New Group Created ")
   end

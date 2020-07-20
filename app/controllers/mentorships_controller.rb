@@ -16,7 +16,7 @@ class MentorshipsController < ApplicationController
     mentorship_emails = Utils.parse_mails_except_current_user(
                          mentorship_params[:emails],
                          current_user
-                     )
+                      )
 
     newly_added = mentorship_emails - already_present
     newly_added.each do |email|
@@ -47,7 +47,7 @@ class MentorshipsController < ApplicationController
     format.html {
                   redirect_to group_path(@group),
                   notice: "Mentorship relation was successfully destroyed."
-                }
+    }
       format.json { head :no_content }
     end
   end
