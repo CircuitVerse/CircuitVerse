@@ -66,37 +66,4 @@ describe CollaborationsController, type: :request do
       end
     end
   end
-
-  describe "#update" do
-    before do
-      @new_project = FactoryBot.create(:project)
-      @collaboration = FactoryBot.create(:collaboration, project: @project,
-        user: FactoryBot.create(:user))
-    end
-
-    let(:update_params) {
-      {
-        collaboration: {
-          project_id: @new_project.id
-        }
-      }
-    }
-
-    context "author is signed in" do
-      it "updates the collaboration" do
-        sign_in @author
-        put collaboration_path(@collaboration), params: update_params
-        @collaboration.reload
-        expect(@collaboration.project_id).to eq(@new_project.id)
-      end
-    end
-
-    context "user other than author is signed_in" do
-      it "throws unauthorized error" do
-        sign_in_random_user
-        put collaboration_path(@collaboration), params: update_params
-        check_not_authorized(response)
-      end
-    end
-  end
 end

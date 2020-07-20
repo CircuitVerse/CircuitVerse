@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe Api::V1::GradesController, "#create", type: :request do
   describe "create a grade" do
     let!(:mentor) { FactoryBot.create(:user) }
-    let!(:group) { FactoryBot.create(:group, mentor: mentor) }
+    let!(:group) { FactoryBot.create(:group, primary_mentor: mentor) }
     let!(:assignment) { FactoryBot.create(:assignment, group: group, grading_scale: :letter) }
     let!(:project) { FactoryBot.create(:project, assignment: assignment) }
 

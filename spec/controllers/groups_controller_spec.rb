@@ -11,14 +11,14 @@ describe GroupsController, type: :request do
     it "creates a group" do
       sign_in @mentor
       expect {
-        post groups_path, params: { group: { name: "test group", mentor_id: @mentor.id } }
+        post groups_path, params: { group: { name: "test group", primary_mentor_id: @mentor.id } }
       }.to change { Group.count }.by(1)
     end
   end
 
   describe "#destroy" do
     before do
-      @group = FactoryBot.create(:group, mentor: @mentor)
+      @group = FactoryBot.create(:group, primary_mentor: @mentor)
     end
 
     context "mentor is signed_in" do
@@ -41,7 +41,7 @@ describe GroupsController, type: :request do
 
   describe "#show" do
     before do
-      @group = FactoryBot.create(:group, mentor: @mentor)
+      @group = FactoryBot.create(:group, primary_mentor: @mentor)
     end
 
     context "group member is signed in", :focus do
@@ -69,7 +69,7 @@ describe GroupsController, type: :request do
 
   describe "#update" do
     before do
-      @group = FactoryBot.create(:group, name: "test group", mentor: @mentor)
+      @group = FactoryBot.create(:group, name: "test group", primary_mentor: @mentor)
     end
 
     context "mentor is signed in" do

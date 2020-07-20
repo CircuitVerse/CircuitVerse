@@ -8,7 +8,7 @@ describe GroupMemberPolicy do
 
   before do
     @mentor = FactoryBot.create(:user)
-    group = FactoryBot.create(:group, mentor: @mentor)
+    group = FactoryBot.create(:group, primary_mentor: @mentor)
     @user = FactoryBot.create(:user)
     @group_member = FactoryBot.create(:group_member, group: group, user: @user)
   end

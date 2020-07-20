@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CollaborationsController < ApplicationController
-  before_action :set_collaboration, only: %i[update destroy]
+  before_action :set_collaboration, only: %i[destroy]
 
   def self.policy_class
     ProjectPolicy
@@ -41,22 +41,6 @@ class CollaborationsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to user_project_path(@project.author_id, @project.id), notice: notice }
-    end
-  end
-
-  # PATCH/PUT /collaborations/1
-  # PATCH/PUT /collaborations/1.json
-  def update
-    authorize @collaboration.project, :author_access?
-
-    respond_to do |format|
-      if @collaboration.update(collaboration_params)
-        format.html { redirect_to @collaboration, notice: "Collaboration was successfully updated." }
-        format.json { render :show, status: :ok, location: @collaboration }
-      else
-        format.html { render :edit }
-        format.json { render json: @collaboration.errors, status: :unprocessable_entity }
-      end
     end
   end
 

@@ -7,7 +7,7 @@ describe GradePolicy do
 
   before do
     @mentor = FactoryBot.create(:user)
-    @group = FactoryBot.create(:group, mentor: @mentor)
+    @group = FactoryBot.create(:group, primary_mentor: @mentor)
     @assignment = FactoryBot.create(:assignment, group: @group, grading_scale: :letter,
       grades_finalized: false)
     @assignment_project = FactoryBot.create(:project, assignment: @assignment,
