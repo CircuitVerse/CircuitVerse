@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Api::V1::AuthenticationController < Api::V1::BaseController
-  before_action :load_resource, only: %i[oauth]
-
   # POST api/v1/auth/login
   def login
     @user = User.find_by!(email: params[:email])
@@ -29,15 +27,27 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
     end
   end
 
-  # POST api/v1/oauth
-  def oauth
-    if @user.persisted?
+  # POST api/v1/oauth/login
+  def oauth_login
+    @user = User.find_by!(email: params["email"])
+    token = JsonWebToken.encode(
+      user_id: @user.id, username: @user.name, email: @user.email
+    )
+    render json: { token: token }, status: :accepted
+  end
+
+  # POST api/v1/oauth/signup
+  def oauth_signup
+    if User.exists?(email: params[:email])
+      api_error(status: 409, errors: "user already exists")
+    else
+      @user = User.new(oauth_signup_params)
+      @user.password = Devise.friendly_token[0, 20]
+      @user.save!
       token = JsonWebToken.encode(
         user_id: @user.id, username: @user.name, email: @user.email
       )
-      render json: { token: token }
-    else
-      api_error(status: 404, errors: "user not found")
+      render json: { token: token }, status: :created
     end
   end
 
@@ -65,14 +75,7 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
       params.permit(:name, :email, :password)
     end
 
-    def load_resource
-      @user = User.find_by(email: params["email"])
-      @user ||= User.create(
-        name: params["name"],
-        email: params["email"],
-        password: Devise.friendly_token[0, 20],
-        provider: params["provider"],
-        uid: params["uid"]
-      )
+    def oauth_signup_params
+      params.permit(:uid, :name, :email, :provider)
     end
 end
