@@ -103,10 +103,9 @@
           "attributes": {
             "type": "object",
             "properties": {
-              "name": { "type": "string" },
-              "email": { "type": "string" }
+              "name": { "type": "string" }
             },
-            "required": ["name", "email"]
+            "required": ["name"]
           }
         },
         "required": ["id", "type", "attributes"]

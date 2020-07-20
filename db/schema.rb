@@ -212,6 +212,7 @@ ActiveRecord::Schema.define(version: 2020_07_10_140442) do
     t.bigint "mentor_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "group_members_count"
     t.index ["mentor_id"], name: "index_groups_on_mentor_id"
   end
 

@@ -11,12 +11,12 @@ class Api::V1::ProjectsController < Api::V1::BaseController
   before_action :load_featured_circuits, only: %i[featured_circuits]
   before_action :load_favourites, only: %i[favourite_projects]
   before_action :set_project, only: %i[show update destroy toggle_star create_fork]
-  before_action :set_options, except: %i[destroy toggle_star]
+  before_action :set_options, except: %i[destroy toggle_star image_preview]
   before_action :filter, only: %i[index user_projects featured_circuits favourite_projects]
   before_action :sort, only: %i[index user_projects featured_circuits favourite_projects]
 
   SORTABLE_FIELDS = %i[view created_at].freeze
-  WHITELISTED_INCLUDE_ATTRIBUTES = %i[author].freeze
+  WHITELISTED_INCLUDE_ATTRIBUTES = %i[author collaborators].freeze
 
   # GET /api/v1/projects
   def index
@@ -138,6 +138,10 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     def set_options
       @options = {}
       @options[:include] = include_resource if params.key?(:include)
+      @options[:params] = {
+        current_user: @current_user,
+        only_name: true
+      }
     end
 
     def filter
