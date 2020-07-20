@@ -101,6 +101,7 @@
               },
               "description": { "type": "string" },
               "view": { "type": "integer" },
+              "is_starred": { "type": ["boolean", "null"] },
               "author_name": { "type": "string" },
               "stars_count": { "type": "integer" },
               "tags": {
@@ -125,6 +126,7 @@
               "image_preview",
               "description",
               "view",
+              "is_starred",
               "author_name",
               "stars_count",
               "tags"
@@ -146,9 +148,26 @@
                   }
                 },
                 "required": ["data"]
+              },
+              "collaborators": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": { "type": "string" },
+                        "type": { "type": "string" }
+                      },
+                      "required": ["id", "type"]
+                    }
+                  }
+                },
+                "required": ["data"]
               }
             },
-            "required": ["author"]
+            "required": ["author", "collaborators"]
           }
         },
         "required": ["id", "type", "attributes"]
