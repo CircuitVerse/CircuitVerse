@@ -4,10 +4,10 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Welcome <%= @user.name%> </h1>
+    <h1>Welcome <%= @user.name %> </h1>
     <p>
       You have been added to a new group named <%= @group.name %>.<br>
-      The group is mentored by <%= User.find_by(id:@group.primary_mentor_id).name%>.<br>
+      The group is mentored by <%= User.find_by(id:@group.primary_mentor_id).name %>.<br>
     </p>
     <br>
 

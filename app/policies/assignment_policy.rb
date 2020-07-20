@@ -9,7 +9,8 @@ class AssignmentPolicy < ApplicationPolicy
   end
 
   def show?
-    assignment.group.primary_mentor_id == user.id || user.groups.where(id: assignment.group.id).exists? \
+    assignment.group.primary_mentor_id == user.id \
+    || user.groups.where(id: assignment.group.id).exists? \
     || user.admin?
   end
 

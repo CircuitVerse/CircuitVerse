@@ -6,7 +6,7 @@ RSpec.describe Api::V1::GradesController, "#destroy", type: :request do
   describe "delete specific grade" do
     let!(:mentor) { FactoryBot.create(:user) }
     let!(:group) { FactoryBot.create(:group, primary_mentor: mentor) }
-    let!(:assignment) { FactoryBot.create(:assignment, primary_group: group, grading_scale: :letter) }
+    let!(:assignment) { FactoryBot.create(:assignment, group: group, grading_scale: :letter) }
     let!(:project) { FactoryBot.create(:project, assignment: assignment) }
     let!(:grade) do
       FactoryBot.create(
