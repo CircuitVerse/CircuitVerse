@@ -15,8 +15,7 @@ class MentorshipsController < ApplicationController
     already_present = User.where(id: @group.mentorships.pluck(:user_id)).pluck(:email)
     mentorship_emails = Utils.parse_mails_except_current_user(
      mentorship_params[:emails],
-     current_user
-    )
+    current_user)
 
     newly_added = mentorship_emails - already_present
     newly_added.each do |email|
@@ -44,9 +43,8 @@ class MentorshipsController < ApplicationController
 
     @mentorship.destroy
     respond_to do |format|
-      format.html {redirect_to group_path(@group),
+      format.html redirect_to group_path(@group),
         notice: "Mentorship relation was successfully destroyed."
-      }
       format.json { head :no_content }
     end
   end
