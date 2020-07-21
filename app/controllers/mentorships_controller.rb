@@ -45,7 +45,7 @@ class MentorshipsController < ApplicationController
     @mentorship.destroy
     respond_to do |format|
       format.html redirect_to group_path(@group),
-                  notice: "Mentorship relation was successfully destroyed."
+        notice: "Mentorship relation was successfully destroyed."
       format.json { head :no_content }
     end
   end
