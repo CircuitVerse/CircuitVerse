@@ -84,7 +84,10 @@ html {
     outline: none;
     text-decoration: underline;
   }
+}
 
+.affix {
+  box-shadow: 0 8px 6px -6px $shadow-grey;
 }
 
 #navbar-dropdown-1,
@@ -100,7 +103,6 @@ html {
   &:focus {
     outline: none;
     text-decoration: underline;
-
   }
 }
 
@@ -144,6 +146,26 @@ html {
   }
 }
 
+.favblank {
+  align-items: center;
+  display: flex;
+  height: 300px;
+  justify-content: center;
+}
+
+.dropdown-item {
+  &:hover {
+    background-color: $green;
+    color: $white;
+  }
+}
+
+//footer css
+.logo-bottom {
+  max-height: 80px;
+  max-width: 100%;
+}
+
 .dropdown-toggle {
   cursor: pointer;
 }
@@ -177,16 +199,19 @@ html {
 }
 //navbar ends
 
-.logo-bottom {
-  max-height: 80px;
-}
-
 .empty-div {
   height: 250px;
 }
 
 .footer-logo {
-  width: 80%;
+  border: solid $dark-grey 1px;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.footer-logo-text {
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
 .footer-social-icon {
@@ -195,43 +220,40 @@ html {
 }
 
 .footer-social {
-  margin-bottom: unset;
   margin-left: 15px;
 }
 
-.copyright {
-  font-size: small;
-  overflow: visible;
-  white-space: nowrap;
+.container-fluid-footer {
+  background-color: $dark-grey;
 }
 
-.favblank {
-  align-items: center;
-  display: flex;
-  height: 300px;
-  justify-content: center;
+.container-footer {
+  padding-top: 30px;
+  text-align: center;
 }
 
-//breakpoints
-@media (max-width: 400px) {
-  .navbar-search-active {
-    padding-left: 5px;
-    padding-right: 5px;
-  }
+.footer-links {
+  a {
+    color: $white;
+    text-decoration: none;
 
-  .navbar-logo {
-    height: 60px;
-    padding-top: 10px;
+    h6 {
+      margin-bottom: 10px;
+      margin-top: 10px;
+    }
   }
 }
 
-@media (max-width: 991px) {
-  .navbar-search-icon-onexpand {
-    display: none;
-  }
+.column-footer {
+  padding-bottom: 15px;
+  padding-top: 15px;
+}
 
-  .navbar-search-icon-oncollapse {
-    display: block;
+.row-copyright {
+  padding-top: 15px;
+
+  p {
+    font-size: 15px;
   }
 }
 
@@ -290,6 +312,29 @@ html {
 @media (max-width: 768px) {
   .image-center {
     display: none;
+  }
+}
+
+
+@media (max-width: 400px) {
+  .navbar-search-active {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  .navbar-logo {
+    height: 60px;
+    padding-top: 10px;
+  }
+}
+
+@media (max-width: 991px) {
+  .navbar-search-icon-onexpand {
+    display: none;
+  }
+
+  .navbar-search-icon-oncollapse {
+    display: block;
   }
 }
 
