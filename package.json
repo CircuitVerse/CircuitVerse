@@ -26,6 +26,7 @@
     "bootstrap": "^4.3.1",
     "css-vars": "^2.2.0",
     "expose-loader": "^0.7.5",
+    "guidechimp": "^1.7.4",
     "jquery": "^3.4.1",
     "jquery-ui": "^1.12.1",
     "jquery-ui-dist": "^1.12.1",

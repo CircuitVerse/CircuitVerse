@@ -3876,6 +3876,11 @@ graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.9
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.4.tgz#2256bde14d3632958c465ebc96dc467ca07a29fb"
   integrity sha512-WjKPNJF79dtJAVniUlGGWHYGz2jWxT6VhN/4m1NdkbZ2nOsEF+cI1Edgql5zCRhs/VsQYRvrXctxktVXZUkixw==
 
+guidechimp@^1.7.4:
+  version "1.7.4"
+  resolved "https://registry.yarnpkg.com/guidechimp/-/guidechimp-1.7.4.tgz#cae219f1f932f5297891b279ca4589f1aa32d32c"
+  integrity sha512-wIOJW5GD2JxQwhZcnc6YSXNRDkaHVCkLCW9dJ2IwJPI4oMhlJBczZokY6I4JagPMg6o9MckrxuePC2eVDvSV+g==
+
 handle-thing@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/handle-thing/-/handle-thing-2.0.1.tgz#857f79ce359580c340d43081cc648970d0bb234e"

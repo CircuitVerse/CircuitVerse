@@ -14,7 +14,6 @@ import { newCircuit, circuitProperty } from './circuit';
 import modules from './modules';
 import { updateRestrictedElementsInScope } from './restrictedElementDiv';
 import { paste } from './events';
-import updateTheme from "./themer/themer";
 
 
 
@@ -406,5 +405,4 @@ $('#octalInput').on('keyup', () => {
     var x = parseInt($('#octalInput').val(), 8);
     setBaseValues(x);
 });
-
 
