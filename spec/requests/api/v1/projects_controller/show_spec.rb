@@ -16,9 +16,10 @@ RSpec.describe Api::V1::ProjectsController, "#show", type: :request do
         get "/api/v1/projects/#{public_project.id}", as: :json
       end
 
-      it "returns project details" do
+      it "returns project details with is_starred as nil" do
         expect(response).to have_http_status(200)
         expect(response).to match_response_schema("project")
+        expect(response.parsed_body["data"]["attributes"]["is_starred"]).to be_nil
       end
     end
 
@@ -30,6 +31,19 @@ RSpec.describe Api::V1::ProjectsController, "#show", type: :request do
       it "returns project details including author details" do
         expect(response).to have_http_status(200)
         expect(response).to match_response_schema("project_with_author")
+      end
+    end
+
+    context "when unauthenticated user fetches public project with collaborators" do
+      before do
+        # Adds random user as a collaborator to public_project
+        FactoryBot.create(:collaboration, user: FactoryBot.create(:user), project: public_project)
+        get "/api/v1/projects/#{public_project.id}?include=collaborators", as: :json
+      end
+
+      it "returns project details including collaborators" do
+        expect(response).to have_http_status(200)
+        expect(response).to match_response_schema("project_with_collaborators")
       end
     end
 
@@ -93,6 +107,35 @@ RSpec.describe Api::V1::ProjectsController, "#show", type: :request do
       it "returns status :forbidden" do
         expect(response).to have_http_status(403)
         expect(response.parsed_body).to have_jsonapi_errors
+      end
+    end
+
+    context "when authenticated & fetches starred project" do
+      before do
+        token = get_auth_token(user)
+        FactoryBot.create(:star, user_id: user.id, project_id: public_project.id)
+        get "/api/v1/projects/#{public_project.id}",
+            headers: { "Authorization": "Token #{token}" }, as: :json
+      end
+
+      it "returns project details with is_starred attr to be true" do
+        expect(response).to have_http_status(200)
+        expect(response).to match_response_schema("project")
+        expect(response.parsed_body["data"]["attributes"]["is_starred"]).to be true
+      end
+    end
+
+    context "when authenticated & fetches unstarred project" do
+      before do
+        token = get_auth_token(user)
+        get "/api/v1/projects/#{public_project.id}",
+            headers: { "Authorization": "Token #{token}" }, as: :json
+      end
+
+      it "returns project details with is_starred attr to be false" do
+        expect(response).to have_http_status(200)
+        expect(response).to match_response_schema("project")
+        expect(response.parsed_body["data"]["attributes"]["is_starred"]).to be false
       end
     end
   end

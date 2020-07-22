@@ -2,6 +2,8 @@
 
 class User < ApplicationRecord
   require "pg_search"
+  include SimpleDiscussion::ForumUser
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   has_many :projects, foreign_key: "author_id", dependent: :destroy
@@ -73,6 +75,14 @@ class User < ApplicationRecord
       # notification permission
       push_subscriptions.destroy(subscription)
     end
+  end
+
+  def flipper_id
+    "User;#{id}"
+  end
+
+  def moderator?
+    admin?
   end
 
   private

@@ -11,7 +11,7 @@
   <% end %>
   <div class="my-3 editgroup-form-text">
     <h5><%= form.label :name, "Group Name:" %></h5>
-    <%= form.text_field :name, id: :group_name, class: 'form-input editgroup-form-input' %>
+    <%= form.text_field :name, id: :group_name, class: 'form-input editgroup-form-input', autofocus: true %>
   </div>
   <div class="editgroup-form-text">
     <%= form.submit 'Save', class: 'btn button-primary editgroup-button-primary' %>

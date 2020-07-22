@@ -96,6 +96,24 @@
         "required": ["id", "type", "attributes"]
       }
     },
+    "included": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "type": { "type": "string" },
+          "attributes": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" }
+            },
+            "required": ["name"]
+          }
+        },
+        "required": ["id", "type", "attributes"]
+      }
+    },
     "links": {
       "type": "object",
       "properties": {
@@ -108,5 +126,5 @@
       "required": ["self", "first", "prev", "next", "last"]
     }
   },
-  "required": ["data", "links"]
+  "required": ["data", "included", "links"]
 }
