@@ -8,7 +8,8 @@
 @import 'components';
 @import 'signup';
 @import 'logixRelease';
-
+@import 'layout';
+@import 'search';
 @import 'about';
 @import 'editor';
 @import 'groups';
@@ -19,6 +20,8 @@
 @import 'assignments';
 @import 'trumbowyg/dist/ui/trumbowyg.min';
 @import 'examples';
+@import 'simple_discussion';
+@import 'simple_discussion_overrides';
 
 @import 'oldStyles';
 // #FIXME move these styles

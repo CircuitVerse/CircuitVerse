@@ -5,6 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem 'dotenv-rails', groups: [:development, :test]
 gem 'language_filter'
 gem "paperclip", ">= 5.2.0"
 gem 'hirb'
@@ -17,7 +18,7 @@ gem 'omniauth-github'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0'
 # Use Puma as the app server
-gem 'puma', '~> 3.12'
+gem 'puma', '~> 4.3'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -34,7 +35,7 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'devise'
 
-gem 'commontator', '~> 5.0.0'
+gem 'commontator', '~> 6.3.0'
 
 # To generate sitemap.xml
 gem 'sitemap_generator'
@@ -79,7 +80,7 @@ gem "http"
 
 # Database
 
-gem "pg", "~> 1.1.4"
+gem "pg", "~> 1.2.3"
 
 gem 'meta-tags'
 
@@ -92,7 +93,14 @@ gem 'webpacker', '~> 4.x'
 
 gem 'bootsnap', require: false
 
-gem 'font-awesome-sass', '~> 5.12.0'
+gem 'font-awesome-sass', '~> 5.13.0'
+
+gem 'jwt'
+gem 'fast_jsonapi'
+gem 'flipper-redis'
+gem 'flipper-ui'
+gem 'friendly_id', '~> 5.3.0'
+gem 'simple_discussion', '~> 1.2'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -115,20 +123,22 @@ group :test do
   gem 'webdrivers', '~> 4.0'
   gem 'capybara', '~> 2.13'
   gem 'shoulda-matchers'
+  gem "json-schema"
 end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'
-  gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'listen', '>= 3.0.5', '< 3.3'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'rails-erd'
   gem 'rubocop'
-  gem 'dotenv', '~> 2.2.1'
   gem 'sunspot_solr'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+gem "bugsnag", "~> 6.13"

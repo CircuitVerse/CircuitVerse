@@ -1,25 +1,24 @@
-.oops {
-    font-size: 4rem;
-    color: rgba(0, 0, 0, 0.8);
-}
-
-.help-text {
-    margin-top: 1rem;
-    padding-left: 0.5rem;
+.error-code {
+  color: #42b983;
+  font-family: 'CircuitBoredNF';
+  font-size: 142px;
 }
 
 .help-text-main {
-    font-size: 2rem;
-    color: rgba(0, 0, 0, 0.7);
+  color: #1c1c1c;
+  font-family: 'Segoe UI';
+  font-size: 22px;
+  font-weight: 400;  
+  margin: 0;
 }
 
-.error-code {
-    margin-top: 1rem;
-    font-size: 1.2rem;
-    color: rgba(0, 0, 0, 0.5);
-    font-weight: 600;
+.return {
+  color: #42b983;
+  display: inline-block;
+  font-family: 'Segoe UI';
+  font-weight: 700;
 }
 
-.help-text-sub {
-    font-weight: 200;
+.return:hover {
+  color: #42b983;
 }
