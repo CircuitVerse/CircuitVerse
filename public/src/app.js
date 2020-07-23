@@ -8,7 +8,6 @@ import 'bootstrap';
 
 document.addEventListener('DOMContentLoaded', () => {
     setup();
-    // console.log($('.panelHeader'))
 
     const panelHighlight = new Driver();
     $('.panelHeader').one('click', (e) => {
@@ -22,9 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 offset: $($(e.target).next()).height() + $(e.target).offset().top - 45,
             }
         })
-        $('#driver-highlighted-element-stage').css("background-color", "transparent");
     })
-    const iconHighlight = new Driver();
     $('.icon').click(() => {
         panelHighlight.reset(true);
     });

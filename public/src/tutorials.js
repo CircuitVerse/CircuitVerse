@@ -39,24 +39,43 @@ export const tour = [
             // offset: 750,
         },
     },
-    // {
-    //     element: '#tabsBar',
-    //     popover: {
-    //         title: 'This is the tabs bar',
-    //         description: "Here you can see all the circuits you have currently in your project, change or delete them.",
-    //         position: 'bottom',
-    //         offset: 250,
-    //     },
-    // },
-    // {
-    //     element: '.text-light',
-    //     popover: {
-    //         title: 'This is the Report Issue button',
-    //         description: "You can easily create new sub-circuits with the help of this button.",
-    //         position: 'left',
-    //         // offset: 250,
-    //     },
-    // },
+    {
+        element: '#tabsBar',
+        popover: {
+            title: 'This is the tabs bar',
+            description: "Here you can see all the circuits you have currently in your project, change or delete them.",
+            position: 'bottom',
+            offset: 250,
+        },
+    },
+    {
+        element: '#subCirGuide',
+        popover: {
+            title: 'Create new sub-circuit button',
+            description: "You can make new sub-circuits by pressing this button.",
+            position: 'right',
+            // offset: 250,
+        },
+    },
+    {
+        element: '#delCirGuide',
+        popover: {
+            title: 'Delete sub-circuit button',
+            description: "You can make delete sub-circuits by pressing the cross *Note that main circuit cannot be deleted.",
+            position: 'right',
+            // offset: 250,
+        },
+    },
+    {
+        element: '.fa-bug',
+        popover: {
+            className: "bug-guide",
+            title: 'Report issues here',
+            description: "",
+            position: 'left',
+            offset: -25,
+        },
+    },
 
 ]
 
