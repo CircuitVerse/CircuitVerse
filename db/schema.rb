@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_08_045111) do
+ActiveRecord::Schema.define(version: 2020_07_10_140442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,9 +89,11 @@ ActiveRecord::Schema.define(version: 2019_12_08_045111) do
     t.integer "cached_votes_down", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "parent_id"
     t.index ["cached_votes_down"], name: "index_commontator_comments_on_cached_votes_down"
     t.index ["cached_votes_up"], name: "index_commontator_comments_on_cached_votes_up"
     t.index ["creator_id", "creator_type", "thread_id"], name: "index_commontator_comments_on_c_id_and_c_type_and_t_id"
+    t.index ["parent_id"], name: "index_commontator_comments_on_parent_id"
     t.index ["thread_id", "created_at"], name: "index_commontator_comments_on_thread_id_and_created_at"
   end
 
@@ -133,6 +135,54 @@ ActiveRecord::Schema.define(version: 2019_12_08_045111) do
     t.index ["project_id"], name: "index_featured_circuits_on_project_id"
   end
 
+  create_table "forum_categories", id: :serial, force: :cascade do |t|
+    t.string "name", null: false
+    t.string "slug", null: false
+    t.string "color", default: "000000"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "forum_posts", id: :serial, force: :cascade do |t|
+    t.integer "forum_thread_id"
+    t.integer "user_id"
+    t.text "body"
+    t.boolean "solved", default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "forum_subscriptions", id: :serial, force: :cascade do |t|
+    t.integer "forum_thread_id"
+    t.integer "user_id"
+    t.string "subscription_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "forum_threads", id: :serial, force: :cascade do |t|
+    t.integer "forum_category_id"
+    t.integer "user_id"
+    t.string "title", null: false
+    t.string "slug", null: false
+    t.integer "forum_posts_count", default: 0
+    t.boolean "pinned", default: false
+    t.boolean "solved", default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "friendly_id_slugs", force: :cascade do |t|
+    t.string "slug", null: false
+    t.integer "sluggable_id", null: false
+    t.string "sluggable_type", limit: 50
+    t.string "scope"
+    t.datetime "created_at"
+    t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
+    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
+    t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
+  end
+
   create_table "grades", force: :cascade do |t|
     t.string "grade"
     t.datetime "created_at", null: false
@@ -142,6 +192,7 @@ ActiveRecord::Schema.define(version: 2019_12_08_045111) do
     t.bigint "assignment_id"
     t.string "remarks"
     t.index ["assignment_id"], name: "index_grades_on_assignment_id"
+    t.index ["project_id", "assignment_id"], name: "index_grades_on_project_id_and_assignment_id", unique: true
     t.index ["project_id"], name: "index_grades_on_project_id"
     t.index ["user_id"], name: "index_grades_on_user_id"
   end
@@ -161,6 +212,7 @@ ActiveRecord::Schema.define(version: 2019_12_08_045111) do
     t.bigint "mentor_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "group_members_count"
     t.index ["mentor_id"], name: "index_groups_on_mentor_id"
   end
 
@@ -208,9 +260,11 @@ ActiveRecord::Schema.define(version: 2019_12_08_045111) do
     t.string "image_preview"
     t.text "description"
     t.bigint "view", default: 1
+    t.string "slug"
     t.index ["assignment_id"], name: "index_projects_on_assignment_id"
     t.index ["author_id"], name: "index_projects_on_author_id"
     t.index ["forked_project_id"], name: "index_projects_on_forked_project_id"
+    t.index ["slug"], name: "index_projects_on_slug", unique: true
   end
 
   create_table "push_subscriptions", force: :cascade do |t|
@@ -311,8 +365,15 @@ ActiveRecord::Schema.define(version: 2019_12_08_045111) do
   add_foreign_key "assignments", "groups"
   add_foreign_key "collaborations", "projects"
   add_foreign_key "collaborations", "users"
+  add_foreign_key "commontator_comments", "commontator_comments", column: "parent_id", on_update: :restrict, on_delete: :cascade
   add_foreign_key "custom_mails", "users"
   add_foreign_key "featured_circuits", "projects"
+  add_foreign_key "forum_posts", "forum_threads"
+  add_foreign_key "forum_posts", "users"
+  add_foreign_key "forum_subscriptions", "forum_threads"
+  add_foreign_key "forum_subscriptions", "users"
+  add_foreign_key "forum_threads", "forum_categories"
+  add_foreign_key "forum_threads", "users"
   add_foreign_key "grades", "assignments"
   add_foreign_key "grades", "projects"
   add_foreign_key "grades", "users"

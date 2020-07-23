@@ -206,9 +206,8 @@
       </div>
     </div>
   </div>
-  <%= commontator_thread(@project) %>
 </div>
-</p>
+<%= commontator_thread(@project) if Flipper.enabled?(:project_comments) %>
 <script>
   function embed() {
       setTimeout(function(){$("#embedTextArea").select();document.execCommand("copy")},100) ;
