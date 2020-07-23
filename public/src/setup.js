@@ -1,6 +1,7 @@
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable guard-for-in */
+import Driver  from 'driver.js';
 import * as metadata from './metadata.json';
 import { generateId, showMessage } from './utils';
 import backgroundArea from './backgroundArea';
@@ -15,6 +16,8 @@ import './embed';
 import { newCircuit } from './circuit';
 import load from './data/load';
 import save from './data/save';
+import animatedTourDriver, { tour } from './tutorials';
+
 
 window.width = undefined;
 window.height = undefined;
@@ -103,6 +106,7 @@ function setupElementLists() {
     }
 
     window.elementHierarchy = metadata.elementHierarchy;
+    let id = 'input';
     for (const category in elementHierarchy) {
         let htmlIcons = '';
 
@@ -112,13 +116,14 @@ function setupElementLists() {
             const element = categoryData[i];
             htmlIcons += createIcon(element);
         }
-
-        const accordionData = `<div class="panelHeader">${category}</div>
+        
+        const accordionData = `<div id='${id}' class="panelHeader">${category}</div>
             <div class="panel customScroll">
               ${htmlIcons}
             </div>`;
 
         $('#menu').append(accordionData);
+        id ='';
     }
 }
 
@@ -173,3 +178,8 @@ export function setup() {
         }
     }, 1000);
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    animatedTourDriver.defineSteps(tour);
+    animatedTourDriver.start();
+});

@@ -2938,6 +2938,11 @@ dot-prop@^5.2.0:
   dependencies:
     is-obj "^2.0.0"
 
+driver.js@^0.9.8:
+  version "0.9.8"
+  resolved "https://registry.yarnpkg.com/driver.js/-/driver.js-0.9.8.tgz#4b327f4537b1c9b9fb19419de86174be821ae32a"
+  integrity sha512-bczjyKdX6XmFyCDkwtRmlaORDwfBk1xXmRO0CAe5VwNQTM98aWaG2LAIiIdTe53iV/B7W5lXlIy2xYtf0JRb7Q==
+
 duplexer3@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/duplexer3/-/duplexer3-0.1.4.tgz#ee01dd1cac0ed3cbc7fdbea37dc0a8f1ce002ce2"
@@ -3875,11 +3880,6 @@ graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.9
   version "4.2.4"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.4.tgz#2256bde14d3632958c465ebc96dc467ca07a29fb"
   integrity sha512-WjKPNJF79dtJAVniUlGGWHYGz2jWxT6VhN/4m1NdkbZ2nOsEF+cI1Edgql5zCRhs/VsQYRvrXctxktVXZUkixw==
-
-guidechimp@^1.7.4:
-  version "1.7.4"
-  resolved "https://registry.yarnpkg.com/guidechimp/-/guidechimp-1.7.4.tgz#cae219f1f932f5297891b279ca4589f1aa32d32c"
-  integrity sha512-wIOJW5GD2JxQwhZcnc6YSXNRDkaHVCkLCW9dJ2IwJPI4oMhlJBczZokY6I4JagPMg6o9MckrxuePC2eVDvSV+g==
 
 handle-thing@^2.0.0:
   version "2.0.1"
