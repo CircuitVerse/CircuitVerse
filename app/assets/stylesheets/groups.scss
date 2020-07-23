@@ -34,30 +34,165 @@
 }
 //editgroup ends
 
-.heading-group {
-  color: $black;
-  margin-top: 30px;
+//groups
+.groups-button-primary {
+  margin-top: 20px;
+  padding: 10px 40px;
 }
 
-.btn-group {
-  background-color: $green;
-  border-radius: 40px;
-  color: $white;
-  margin: 10px;
-  padding: 10px 40px;
+.groups-card {
+  background-color: $card-grey;
+  border-radius: 4px;
+  box-shadow: 0 2px 7px $shadow-black;
+  display: flex;
+  margin: 15px 0;
+  padding: 10px 0;
+}
+
+.groups-mentor-card {
+  align-items: center;
+  border-top: 10px solid $green;
+  flex-direction: column;
+  // justify-content: center;
+}
+
+.groups-mentor-card-name {
+  font-size: 28px;
+  font-weight: 500;
+  padding-top: 15px;
+}
+
+.groups-mentor-card-buttons {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-bottom: 15px;
+}
+
+.groups-mentor-card-button-edit {
+  background: $seablue;
+  transition: transform .2s ease-in;
+  width: 75px;
+
+  img {
+    height: 20px;
+    padding-bottom: 2px;
+    width: 20px;
+  }
 
   &:hover {
+    color: $white;
     text-decoration: none;
+    transform: translateY(-4px);
+  }
+}
+
+.groups-mentor-card-button-delete {
+  background: $error-red-font;
+  transition: transform .2s ease-in;
+
+  img {
+    height: 20px;
+    padding-bottom: 2px;
+    width: 20px;
+  }
+
+  &:hover {
+    color: $white;
+    text-decoration: none;
+    transform: translateY(-4px);
+  }
+}
+
+.groups-mentor-card-button-view {
+  background: $green;
+  transition: transform .2s ease-in;
+  width: 75px;
+
+  img {
+    height: 20px;
+    padding-bottom: 2px;
+    width: 20px;
+  }
+
+  &:hover {
+    color: $white;
+    text-decoration: none;
+    transform: translateY(-4px);
+  }
+}
+
+.groups-member-card {
+  align-items: center;
+  border-left: 10px solid $green;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.groups-member-card-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.groups-member-card-button {
+  margin-top: 20px;
+}
+//groups ends
+
+//breakpoints
+@media (max-width: 1000px) {
+  .editgroup-form-text {
+    padding-left: 15px;
+  }
+}
+
+@media (max-width: 400px) {
+  .editgroup-anchor-text {
+    margin-left: 2px;
+  }
+}
+
+@media (max-width: 991px) and (min-width: 720px) {
+  .editgroup-image {
+    margin-top: 80px;
+  }
+}
+
+@media (max-width:400px) {
+  .editgroup-button-primary {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .editgroup-form-text {
+    margin-left: 10px;
+    padding-left: 20px;
+  }
+
+  .editgroup-background-card {
+    margin-left: 0;
+    padding-left: 10px;
+
   }
 }
 
 .card-group {
-  background-color: $lightgrey;
-  border-radius: 3px;
+  background-color: $card-grey;
+  border-radius: 4px;
   box-shadow: 0 2px 7px $shadow-black;
   display: flex;
   margin: 15px 0;
   padding: 10px;
+}
+
+
+.mentor-card-group {
+  align-items: center;
+  border-top: 10px solid $teal;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .btn-card {
@@ -77,12 +212,6 @@
   }
 }
 
-.mentor-card-group {
-  align-items: center;
-  border-top: 10px solid $teal;
-  flex-direction: column;
-  justify-content: center;
-}
 
 .btn-mentor-group {
   align-items: center;
@@ -126,12 +255,7 @@
   justify-content: space-around;
 }
 
-.in-card-name-member {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
+
 
 .in-card-view {
   background-color: $teal;
@@ -196,12 +320,4 @@
     padding-left: 10px;
 
   }
-}
-
-//to be removed
-.row-group {
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 1344px;
-  text-align: center;
 }
