@@ -74,6 +74,7 @@ html {
   margin: 0;
   padding: 0;
   overflow: hidden;
+  position: fixed;
 }
 
 ::-moz-selection {
@@ -266,6 +267,7 @@ input[type="text"]:focus {
   border-left: 1.5px solid #535353;
   border-right: 1.5px solid #333333;
   border-bottom: 1.5px solid #333333;
+  z-index: 10000;
 }
 
 .quick-btn > div {
@@ -278,50 +280,50 @@ input[type="text"]:focus {
 
 .quick-btn-save-online {
   background: url(./assets/shorcuts/save-online.svg) center/cover;
-  width: 27.43px;
-  height: 19.2px;
+  width: 21.43px;
+  height: 15.2px;
   display: block;
 }
 
 .quick-btn-save {
   background: url(./assets/shorcuts/save.svg) center/cover;
-  width: 19.2px;
-  height: 19.2px;
+  width: 15.2px;
+  height: 15.2px;
   display: block;
 }
 
 .quick-btn-delete {
   background: url(./assets/shorcuts/delete.svg) center/cover;
-  width: 24px;
-  height: 19.2px;
+  width: 20px;
+  height: 15.2px;
   display: block;
 }
 
 .quick-btn-download {
   background: url(./assets/shorcuts/download.svg) center/cover;
-  width: 19.2px;
-  height: 19.2px;
+  width: 15.2px;
+  height: 15.2px;
   display: block;
 }
 
 .quick-btn-zoom-fit {
   background: url(./assets/shorcuts/fit.svg) center/cover;
-  width: 19.2px;
-  height: 19.2px;
+  width: 15.2px;
+  height: 15.2px;
   display: block;
 }
 
 .quick-btn-undo {
   background: url(./assets/shorcuts/undo.svg) center/cover;
-  width: 19.2px;
-  height: 19.2px;
+  width: 15.2px;
+  height: 16.2px;
   display: block;
 }
 
 .quick-btn-redo {
   background: url(./assets/shorcuts/redo.svg) center/cover;
-  width: 19.2px;
-  height: 19.2px;
+  width: 15.2px;
+  height: 16.2px;
   display: block;
 }
 
@@ -456,7 +458,8 @@ input[type="text"]:focus {
   font: Bold 20px Nunito;
   text-transform: uppercase;
   color: var(--text-primary);
-  text-align: center;
+  text-align: left;
+  cursor: move;
 }
 
 .panel {
@@ -1470,4 +1473,136 @@ select {
 
 #filter div{
   border-radius: 3px;
+}
+
+.zoom-slider {
+    position: absolute;
+    right: 8%;
+}
+
+.zoom-slider::before {
+  content: '-';
+  color: white;
+  font-size: 30px;
+  position: absolute;
+  left: -20px;
+  top: -5.0px;
+}
+
+.zoom-slider::after {
+  content: '+';
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  right: -20px;
+  top: 1px;
+}
+
+.custom-range {
+  width: 140px;
+}
+.custom-range::-moz-range-track {
+  height: 1px;
+}
+
+.custom-range::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+  background-color: white;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+
+}
+.custom-range:focus::-moz-range-thumb {
+  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(75, 86, 99, 0.25);
+}
+
+input[type='range']::-webkit-slider-runnable-track {
+  height: 1px;
+}
+
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 10px;
+  height: 10px;
+  background-color: white;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+
+}
+
+#modules-header::before, #moduleProperty-title::before {
+  content: '';
+  width: 34px;
+  border-top: 2px solid white;
+  border-radius: 2px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 6px;
+}
+
+.minimize {
+  content: '';
+  width: 17px;
+  height: 9.5px;
+  border: 4px solid white;
+  position: absolute;
+  right: 6px;
+  transform: translateX(-50%);
+  top: 21px;
+  cursor: pointer;
+}
+
+.ce-hidden,.prop-hidden {
+  color: white;
+  background: #2E2E2E;
+  font-weight: bold;
+  padding: 10px;
+  font-size: 16px;
+  text-transform: uppercase;
+  border-radius: 5px;
+}
+
+#moduleProperty-title {
+  padding-left: 16px;
+  background: #2E2E2E;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #707070;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  padding-top: 15px;
+  cursor: move;
+}
+
+.objectPropertyAttributeChecked {
+  margin-left: 0 !important;
+}
+
+#exitViewBtn {
+    position: fixed;
+    z-index: 1000000000;
+    right: 2%;
+    top: 3%;
+    background: #2d2d2d;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px #4545457f;
+}
+
+.panel-drag {
+  cursor: move;
+  opacity: .6;
+  /* display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+  padding: 6px 0;
+  width: 1px; */
+}
+
+#canvasArea, #backgroundArea, #simulationArea, canvas {
+  /* cursor: wait !important; */
 }

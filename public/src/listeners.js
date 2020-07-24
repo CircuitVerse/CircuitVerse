@@ -408,18 +408,19 @@ export default function startListeners() {
         $('#filter').css('display', 'block');
         $('.filterX').on('click', () => {
             $('#element').val('');
-        $('#menu').css('display', 'block');
+            $('#menu').css('display', 'block');
             $('#filter').css('display', 'none');
+            $('.filteX').css('display', 'none');
         });
-        $('.filterX').css('display', 'block');
         const value = $(this).val().toLowerCase();
         if (value.length === 0) {
-        $('#filter').css('display', 'none');
-        $('.filterX').css('display', 'none');
+            $('#filter').css('display', 'none');
+            $('.filterX').css('display', 'none');
             $('#filter').empty();
-        $('#menu').css('display', 'block');
+            $('#menu').css('display', 'block');
             return;
         }
+        $('.filterX').css('display', 'block');
         $('#menu').css('display', 'none');
         let htmlIcons = '';
         const result = circuitElementList.filter(ele => ele.toLowerCase().includes(value));
@@ -487,6 +488,9 @@ function onMouseUp(e) {
     wireToBeCheckedSet(1);
 
     scheduleUpdate(1);
+    console.log('mo', simulationArea)
+    let latest = globalScope.backups[globalScope.backups.length-1]
+    console.log(JSON.parse(latest))
     simulationArea.mouseDown = false;
 
     for (var i = 0; i < 2; i++) {
@@ -508,6 +512,7 @@ function onMouseUp(e) {
         uxvar.smartDropXX = simulationArea.mouseX + 100; // Math.round(((simulationArea.mouseRawX - globalScope.ox+100) / globalScope.scale) / unit) * unit;
         uxvar.smartDropYY = simulationArea.mouseY - 50; // Math.round(((simulationArea.mouseRawY - globalScope.oy+100) / globalScope.scale) / unit) * unit;
     }
+    console.log(simulationArea)
 }
 
 function resizeTabs() {
@@ -544,4 +549,35 @@ function ZoomOut() {
     handleZoom(-1);
 }
 
+window.addEventListener('DOMContentLoaded', (event) => {
+    document.getElementById("customRange1").value = 5;
+    document.getElementById('simulationArea').addEventListener('DOMMouseScroll',zoomSliderScroll);
+    document.getElementById('simulationArea').addEventListener('mousewheel', zoomSliderScroll);
+    let curLevel = document.getElementById("customRange1").value;
+    $(document).on('input change', '#customRange1', function (e) {
+        let newValue = $(this).val();
+        let changeInScale = newValue - curLevel;
+        updateCanvasSet(true);
+        changeScale(changeInScale * .1, 'zoomButton', 'zoomButton', 3)
+        gridUpdateSet(true);
+        curLevel = newValue;
+    });
+    function zoomSliderScroll(e) {
+        let zoomLevel = document.getElementById("customRange1").value;
+        let deltaY = e.wheelDelta ? e.wheelDelta : -e.detail;
+        const directionY = deltaY > 0 ? 1 : -1;
+        if (directionY > 0) zoomLevel++
+        else zoomLevel--
+        if (zoomLevel >= 45) {
+            zoomLevel = 45;
+            document.getElementById("customRange1").value = 45;
+        } else if (zoomLevel <= 0) {
+            zoomLevel = 0;
+            document.getElementById("customRange1").value = 0;
+        } else {
+            document.getElementById("customRange1").value = zoomLevel;
+            curLevel = zoomLevel;
+        }
+    }
+});
 
