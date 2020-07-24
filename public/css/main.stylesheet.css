@@ -1435,3 +1435,39 @@ select {
 .radio-green {
   background: #42b983;
 }
+
+#element {
+  margin: 0 10px;
+  padding: 3px 10px;
+  width: 90%;
+  border: none;
+  border-radius: 13px;
+  margin-bottom: 10px;
+  background: transparent !important;
+  color: white;
+  border: 1px solid white;
+}
+
+.filterX {
+  position: absolute;
+  right: 19px;
+  top: 6px;
+  cursor: pointer;
+  color: white;
+  display: none;
+}
+
+#filter {
+  display: none;
+  padding: 15px;
+  color: white;
+  transition: all .5s ease;
+  max-height: 340px;
+  overflow-y: scroll;
+  padding-right: 0;
+
+}
+
+#filter div{
+  border-radius: 3px;
+}

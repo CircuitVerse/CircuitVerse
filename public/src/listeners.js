@@ -17,6 +17,7 @@ import undo from './data/undo';
 import { copy, paste, selectAll } from './events';
 import save from './data/save';
 import { layoutUpdate } from './layoutMode';
+import { selectElement } from './ux';
 
 var unit = 10;
 var createNode = false; // Flag to create node when its value ==tru)e
@@ -394,6 +395,46 @@ export default function startListeners() {
             hideRestricted();
         });
     });
+
+    const circuitElementList = [
+        "Input", "Output", "NotGate", "OrGate", "AndGate", "NorGate", "NandGate", "XorGate", "XnorGate", "SevenSegDisplay", "SixteenSegDisplay", "HexDisplay",
+        "Multiplexer", "BitSelector", "Splitter", "Power", "Ground", "ConstantVal", "ControlledInverter", "TriState", "Adder", "Rom", "RAM", "EEPROM", "TflipFlop",
+        "JKflipFlop", "SRflipFlop", "DflipFlop", "TTY", "Keyboard", "Clock", "DigitalLed", "Stepper", "VariableLed", "RGBLed", "SquareRGBLed", "RGBLedMatrix", "Button", "Demultiplexer",
+        "Buffer", "SubCircuit", "Flag", "MSB", "LSB", "PriorityEncoder", "Tunnel", "ALU", "Decoder", "Random", "Counter", "Dlatch", "TB_Input", "TB_Output", "ForceGate",
+    ];
+
+    $("#element").val('');
+    $("#element").on("keyup", function() {
+        $('#filter').css('display', 'block');
+        $('.filterX').on('click', () => {
+            $('#element').val('');
+        $('#menu').css('display', 'block');
+            $('#filter').css('display', 'none');
+        });
+        $('.filterX').css('display', 'block');
+        const value = $(this).val().toLowerCase();
+        if (value.length === 0) {
+        $('#filter').css('display', 'none');
+        $('.filterX').css('display', 'none');
+            $('#filter').empty();
+        $('#menu').css('display', 'block');
+            return;
+        }
+        $('#menu').css('display', 'none');
+        let htmlIcons = '';
+        const result = circuitElementList.filter(ele => ele.toLowerCase().includes(value));
+        if(!result.length) $('#filter').text('No elements found ...');
+        else {
+            result.forEach( e => htmlIcons += createIcon(e));
+            $('#filter').html(htmlIcons);
+            $('#filter').on('click', e => selectElement($(e.target)[0].parentElement.classList[0]));
+        }
+    });
+    function createIcon(element) {
+        return `<div class="${element} icon" id="${element} filter" title="${element}">
+            <img  src= "/img/${element}.svg" >
+        </div>`;
+    }
 }
 
 var isIe = (navigator.userAgent.toLowerCase().indexOf('msie') != -1
@@ -502,3 +543,5 @@ function ZoomIn() {
 function ZoomOut() {
     handleZoom(-1);
 }
+
+

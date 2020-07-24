@@ -105,18 +105,16 @@ function setupElementLists() {
     window.elementHierarchy = metadata.elementHierarchy;
     for (const category in elementHierarchy) {
         let htmlIcons = '';
-
         const categoryData = elementHierarchy[category];
-
         for (let i = 0; i < categoryData.length; i++) {
             const element = categoryData[i];
             htmlIcons += createIcon(element);
         }
 
         const accordionData = `<div class="panelHeader">${category}</div>
-            <div class="panel customScroll">
-              ${htmlIcons}
-            </div>`;
+        <div class="panel customScroll">
+        ${htmlIcons}
+        </div>`;
 
         $('#menu').append(accordionData);
     }
