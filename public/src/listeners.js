@@ -1,4 +1,5 @@
 // Most Listeners are stored here
+/* eslint-disable */
 import { layoutModeGet } from './layoutMode';
 import simulationArea from './simulationArea';
 import {
@@ -17,6 +18,7 @@ import undo from './data/undo';
 import { copy, paste, selectAll } from './events';
 import save from './data/save';
 import { layoutUpdate } from './layoutMode';
+// import Hammer from 'hammerjs';
 
 var unit = 10;
 var createNode = false; // Flag to create node when its value ==tru)e
@@ -61,6 +63,37 @@ export default function startListeners() {
         }
     });
 
+    // const hammer = new Hammer(simulationArea.canvas);
+
+    document.getElementById('simulationArea').addEventListener("touchstart", (e) => {
+        createNodeSet(true);
+        stopWireSet(false);
+        simulationArea.mouseDown = true;
+
+        $('input').blur();
+
+        errorDetectedSet(false);
+        updateSimulationSet(true);
+        updatePositionSet(true);
+        updateCanvasSet(true);
+
+        simulationArea.lastSelected = undefined;
+        simulationArea.selected = false;
+        simulationArea.hover = undefined;
+        var rect = simulationArea.canvas.getBoundingClientRect();
+        simulationArea.mouseDownRawX = (e.touches[0].pageX - rect.left) * DPR;
+        simulationArea.mouseDownRawY = (e.touches[0].pageY - rect.top) * DPR;
+        simulationArea.mouseDownX = Math.round(((simulationArea.mouseDownRawX - globalScope.ox) / globalScope.scale) / unit) * unit;
+        simulationArea.mouseDownY = Math.round(((simulationArea.mouseDownRawY - globalScope.oy) / globalScope.scale) / unit) * unit;
+        simulationArea.oldx = globalScope.ox;
+        simulationArea.oldy = globalScope.oy;
+        
+        e.preventDefault();
+        scheduleBackup();
+        scheduleUpdate(1);
+        $('.dropdown.open').removeClass('open');
+    } , false)
+    
     document.getElementById('simulationArea').addEventListener('mousedown', (e) => {
         createNodeSet(true);
         stopWireSet(false);
@@ -83,12 +116,37 @@ export default function startListeners() {
         simulationArea.mouseDownY = Math.round(((simulationArea.mouseDownRawY - globalScope.oy) / globalScope.scale) / unit) * unit;
         simulationArea.oldx = globalScope.ox;
         simulationArea.oldy = globalScope.oy;
-
+        
         e.preventDefault();
         scheduleBackup();
         scheduleUpdate(1);
         $('.dropdown.open').removeClass('open');
     });
+
+    document.getElementById('simulationArea').addEventListener('touchend', (e) => {
+        if (simulationArea.lastSelected) simulationArea.lastSelected.newElement = false;
+        /*
+        handling restricted circuit elements
+        */
+
+        if (simulationArea.lastSelected && restrictedElements.includes(simulationArea.lastSelected.objectType)
+            && !globalScope.restrictedCircuitElementsUsed.includes(simulationArea.lastSelected.objectType)) {
+            globalScope.restrictedCircuitElementsUsed.push(simulationArea.lastSelected.objectType);
+            updateRestrictedElementsList();
+        }
+
+        //       deselect multible elements with click
+        if (!simulationArea.shiftDown && simulationArea.multipleObjectSelections.length > 0
+        ) {
+            if (
+                !simulationArea.multipleObjectSelections.includes(
+                    simulationArea.lastSelected,
+                )
+            ) { simulationArea.multipleObjectSelections = []; }
+        }
+    });
+    window.addEventListener('touchmove', onTouchMove);
+
     document.getElementById('simulationArea').addEventListener('mouseup', (e) => {
         if (simulationArea.lastSelected) simulationArea.lastSelected.newElement = false;
         /*
@@ -118,10 +176,10 @@ export default function startListeners() {
         if (document.activeElement.tagName == 'INPUT') return;
 
         if (listenToSimulator) {
-        // If mouse is focusing on input element, then override any action
-        // if($(':focus').length){
-        //     return;
-        // }
+            // If mouse is focusing on input element, then override any action
+            // if($(':focus').length){
+            //     return;
+            // }
 
             if (document.activeElement.tagName == 'INPUT' || simulationArea.mouseRawX < 0 || simulationArea.mouseRawY < 0 || simulationArea.mouseRawX > width || simulationArea.mouseRawY > height) {
                 return;
@@ -167,11 +225,11 @@ export default function startListeners() {
 
             // Needs to be deprecated, moved to more recent listeners
             if (simulationArea.controlDown && (e.key == 'C' || e.key == 'c')) {
-            //    simulationArea.copyList=simulationArea.multipleObjectSelections.slice();
-            //    if(simulationArea.lastSelected&&simulationArea.lastSelected!==simulationArea.root&&!simulationArea.copyList.contains(simulationArea.lastSelected)){
-            //        simulationArea.copyList.push(simulationArea.lastSelected);
-            //    }
-            //    copy(simulationArea.copyList);
+                //    simulationArea.copyList=simulationArea.multipleObjectSelections.slice();
+                //    if(simulationArea.lastSelected&&simulationArea.lastSelected!==simulationArea.root&&!simulationArea.copyList.contains(simulationArea.lastSelected)){
+                //        simulationArea.copyList.push(simulationArea.lastSelected);
+                //    }
+                //    copy(simulationArea.copyList);
             }
 
 
@@ -239,28 +297,28 @@ export default function startListeners() {
             if (simulationArea.lastSelected != undefined) {
                 let direction = '';
                 switch (e.keyCode) {
-                case 37:
-                case 65:
-                    direction = 'LEFT';
-                    break;
+                    case 37:
+                    case 65:
+                        direction = 'LEFT';
+                        break;
 
-                case 38:
-                case 87:
-                    direction = 'UP';
-                    break;
+                    case 38:
+                    case 87:
+                        direction = 'UP';
+                        break;
 
-                case 39:
-                case 68:
-                    direction = 'RIGHT';
-                    break;
+                    case 39:
+                    case 68:
+                        direction = 'RIGHT';
+                        break;
 
-                case 40:
-                case 83:
-                    direction = 'DOWN';
-                    break;
+                    case 40:
+                    case 83:
+                        direction = 'DOWN';
+                        break;
 
-                default:
-                    break;
+                    default:
+                        break;
                 }
                 if (direction !== '') {
                     simulationArea.lastSelected.newDirection(direction);
@@ -272,7 +330,7 @@ export default function startListeners() {
             }
 
             if (simulationArea.controlDown && (e.key == 'T' || e.key == 't')) {
-            // e.preventDefault(); //browsers normally open a new tab
+                // e.preventDefault(); //browsers normally open a new tab
                 simulationArea.changeClockTime(prompt('Enter Time:'));
             }
             // f1 key for opening the documentation page
@@ -295,6 +353,7 @@ export default function startListeners() {
     });
 
     window.addEventListener('mouseup', onMouseUp);
+    window.addEventListener('touchend', onMouseUp);
 
     document.getElementById('simulationArea').addEventListener('mousewheel', MouseScroll);
     document.getElementById('simulationArea').addEventListener('DOMMouseScroll', MouseScroll);
@@ -304,13 +363,13 @@ export default function startListeners() {
         event.preventDefault();
         var deltaY = event.wheelDelta ? event.wheelDelta : -event.detail;
         event.preventDefault();
-        var deltaY = event.wheelDelta ? event.wheelDelta : -event.detail;
-        const direction = deltaY > 0 ? 1 : -1;
+        var deltaY = event.wheelDelta ? event.wheelDelta : -event.detail;
+        const direction = deltaY > 0 ? 1 : -1;
         handleZoom(direction);
         updateCanvasSet(true);
         gridUpdateSet(true);
 
-        if (layoutModeGet())layoutUpdate();
+        if (layoutModeGet()) layoutUpdate();
         else update(); // Schedule update not working, this is INEFFICIENT
     }
 
@@ -407,6 +466,38 @@ function onMouseMove(e) {
     simulationArea.mouseYf = (simulationArea.mouseRawY - globalScope.oy) / globalScope.scale;
     simulationArea.mouseX = Math.round(simulationArea.mouseXf / unit) * unit;
     simulationArea.mouseY = Math.round(simulationArea.mouseYf / unit) * unit;
+        // console.log('mousemove:',rect.left, rect.top, DPR)
+
+    updateCanvasSet(true);
+
+    if (simulationArea.lastSelected && (simulationArea.mouseDown || simulationArea.lastSelected.newElement)) {
+        updateCanvasSet(true);
+        var fn;
+
+        if (simulationArea.lastSelected == globalScope.root) {
+            fn = function () {
+                updateSelectionsAndPane();
+            };
+        } else {
+            fn = function () {
+                if (simulationArea.lastSelected) { simulationArea.lastSelected.update(); }
+            };
+        }
+        scheduleUpdate(0, 20, fn);
+    } else {
+        scheduleUpdate(0, 200);
+    }
+}
+function onTouchMove(e) {
+    // console.log(e)
+    var rect = simulationArea.canvas.getBoundingClientRect();
+    simulationArea.mouseRawX = (e.touches[0].pageX - rect.left) * DPR;
+    simulationArea.mouseRawY = (e.touches[0].pageY - rect.top) * DPR;
+    simulationArea.mouseXf = (simulationArea.mouseRawX - globalScope.ox) / globalScope.scale;
+    simulationArea.mouseYf = (simulationArea.mouseRawY - globalScope.oy) / globalScope.scale;
+    simulationArea.mouseX = Math.round(simulationArea.mouseXf / unit) * unit;
+    simulationArea.mouseY = Math.round(simulationArea.mouseYf / unit) * unit;
+        // console.log('mousemove:',rect.left, rect.top, DPR)
 
     updateCanvasSet(true);
 
@@ -432,7 +523,7 @@ function onMouseMove(e) {
 function onMouseUp(e) {
     createNodeSet(simulationArea.controlDown);
     simulationArea.mouseDown = false;
-    console.log(createNode);
+    //console.log(createNode);
     if (!lightMode) {
         updatelastMinimapShown();
         setTimeout(removeMiniMap, 2000);
@@ -466,6 +557,8 @@ function onMouseUp(e) {
     if (!(simulationArea.mouseRawX < 0 || simulationArea.mouseRawY < 0 || simulationArea.mouseRawX > width || simulationArea.mouseRawY > height)) {
         uxvar.smartDropXX = simulationArea.mouseX + 100; // Math.round(((simulationArea.mouseRawX - globalScope.ox+100) / globalScope.scale) / unit) * unit;
         uxvar.smartDropYY = simulationArea.mouseY - 50; // Math.round(((simulationArea.mouseRawY - globalScope.oy+100) / globalScope.scale) / unit) * unit;
+        // uxvar.smartDropXX = 0; // Math.round(((simulationArea.mouseRawX - globalScope.ox+100) / globalScope.scale) / unit) * unit;
+        // uxvar.smartDropYY = 0; // Math.round(((simulationArea.mouseRawY - globalScope.oy+100) / globalScope.scale) / unit) * unit;
     }
 }
 
@@ -486,19 +579,19 @@ $(() => {
 });
 
 // direction is only 1 or -1
-function handleZoom(direction) {
-    if (globalScope.scale > 0.5 * DPR) {
-        changeScale(direction * 0.1 * DPR);
-    } else if (globalScope.scale < 4 * DPR) {
-        changeScale(direction * 0.1 * DPR);
+function handleZoom(direction) {
+    if (globalScope.scale > 0.5 * DPR) {
+        changeScale(direction * 0.1 * DPR);
+    } else if (globalScope.scale < 4 * DPR) {
+        changeScale(direction * 0.1 * DPR);
     }
     gridUpdateSet(true);
 }
 
-function ZoomIn() {
+function ZoomIn() {
     handleZoom(1);
 }
 
-function ZoomOut() {
+function ZoomOut() {
     handleZoom(-1);
 }

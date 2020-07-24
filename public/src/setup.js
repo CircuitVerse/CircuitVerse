@@ -39,7 +39,7 @@ export function resetup() {
     backgroundArea.setup();
     if (!embed) plotArea.setup();
     simulationArea.setup();
-    console.log(simulationArea);
+    // console.log(simulationArea);
     // redraw grid
     dots();
     document.getElementById('backgroundArea').style.height = height / DPR + 100;
