@@ -98,6 +98,8 @@ jobs:
       - name: Install packages
         run: |
           yarn install --pure-lockfile
+      - name: Copy sample database config
+        run: cp config/database.example.yml config/database.yml
 
       - name: Setup test database
         env:
