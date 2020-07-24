@@ -14,11 +14,9 @@ describe "Assignments", type: :system do
     it "should create assignment" do
       sign_in @mentor
       visit new_group_assignment_path(@group)
-
       name = Faker::Lorem.word
       deadline = Faker::Date.forward(days: 23)
       description = Faker::Lorem.sentence
-
       fill_assignments(name, deadline, description, grading: true)
 
       click_button "Create Assignment"
@@ -46,11 +44,9 @@ describe "Assignments", type: :system do
       sign_in @mentor
       @assignment = FactoryBot.create(:assignment, group: @group)
       visit edit_group_assignment_path(@group, @assignment)
-
       name = Faker::Lorem.word
       deadline = Faker::Date.forward(days: 23)
       description = Faker::Lorem.sentence
-
       fill_assignments(name, deadline, description, grading: false)
       uncheck "checkbox-Power"
 
