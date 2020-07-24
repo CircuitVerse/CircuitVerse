@@ -15,7 +15,7 @@ plugins:
   duplication:
     enabled: true
     exclude_patterns:
-      - "spec/"
+      - "spec/**/*"
 
 ratings:
   paths:
