@@ -170,4 +170,7 @@ export function setup() {
             showMessage("We have detected that you did not save your last work. Don't worry we have recovered them. Access them using Project->Recover");
         }
     }, 1000);
+    $('#moduleProperty').draggable();
+    $('.ce-panel').draggable();
+
 }

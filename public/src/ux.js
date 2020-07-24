@@ -418,3 +418,15 @@ $('#octalInput').on('keyup', () => {
     var x = parseInt($('#octalInput').val(), 8);
     setBaseValues(x);
 });
+
+window.addEventListener('DOMContentLoaded', () => {
+    $('.ce-panel').on('mousedown', () => {
+        $('#moduleProperty').css('z-index', '99')
+        $('.ce-panel').css('z-index', '100')
+    })
+
+    $('#moduleProperty').on('mousedown', () => {
+        $('#moduleProperty').css('z-index', '100')
+        $('.ce-panel').css('z-index', '99')
+})
+});
