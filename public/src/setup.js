@@ -180,6 +180,9 @@ export function setup() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    animatedTourDriver.defineSteps(tour);
-    animatedTourDriver.start();
+    if (!localStorage.tutorials) {
+        animatedTourDriver.defineSteps(tour);
+        animatedTourDriver.start();
+        localStorage.setItem('tutorials', 'next');
+    }
 });
