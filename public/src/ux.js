@@ -420,6 +420,9 @@ $('#octalInput').on('keyup', () => {
 });
 
 window.addEventListener('DOMContentLoaded', () => {
+    $('#moduleProperty').draggable();
+    $('.ce-panel').draggable();
+    
     $('.ce-panel').on('mousedown', () => {
         $('#moduleProperty').css('z-index', '99')
         $('.ce-panel').css('z-index', '100')
@@ -428,5 +431,5 @@ window.addEventListener('DOMContentLoaded', () => {
     $('#moduleProperty').on('mousedown', () => {
         $('#moduleProperty').css('z-index', '100')
         $('.ce-panel').css('z-index', '99')
-})
+    })
 });

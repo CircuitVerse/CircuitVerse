@@ -408,18 +408,19 @@ export default function startListeners() {
         $('#filter').css('display', 'block');
         $('.filterX').on('click', () => {
             $('#element').val('');
-        $('#menu').css('display', 'block');
+            $('#menu').css('display', 'block');
             $('#filter').css('display', 'none');
+            $('.filteX').css('display', 'none');
         });
-        $('.filterX').css('display', 'block');
         const value = $(this).val().toLowerCase();
         if (value.length === 0) {
-        $('#filter').css('display', 'none');
-        $('.filterX').css('display', 'none');
+            $('#filter').css('display', 'none');
+            $('.filterX').css('display', 'none');
             $('#filter').empty();
-        $('#menu').css('display', 'block');
+            $('#menu').css('display', 'block');
             return;
         }
+        $('.filterX').css('display', 'block');
         $('#menu').css('display', 'none');
         let htmlIcons = '';
         const result = circuitElementList.filter(ele => ele.toLowerCase().includes(value));
