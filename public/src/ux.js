@@ -14,6 +14,7 @@ import { newCircuit, circuitProperty } from './circuit';
 import modules from './modules';
 import { updateRestrictedElementsInScope } from './restrictedElementDiv';
 import { paste } from './events';
+import { changeScale } from './canvasApi';
 
 
 export const uxvar = {
@@ -433,3 +434,9 @@ window.addEventListener('DOMContentLoaded', () => {
         $('.ce-panel').css('z-index', '99')
     })
 });
+
+
+// $('#customRange1').on('change', e => {
+//     console.log(e.value);
+// })
+

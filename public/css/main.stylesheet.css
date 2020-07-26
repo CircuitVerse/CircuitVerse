@@ -1472,3 +1472,8 @@ select {
 #filter div{
   border-radius: 3px;
 }
+
+.zoom-slider {
+    position: absolute;
+    right: 8%;
+}
