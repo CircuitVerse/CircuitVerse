@@ -1545,3 +1545,7 @@ select {
   border-top-right-radius: 5px;
   padding-top: 15px;
 }
+
+.objectPropertyAttributeChecked {
+  margin-left: 0 !important;
+}

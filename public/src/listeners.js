@@ -569,7 +569,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
         let newValue = $(this).val();
         let changeInScale = newValue - curLevel;
         updateCanvasSet(true);
-        changeScale(changeInScale * .1,'zoomButton', 'zoomButton', 3)
+        changeScale(changeInScale * .1, 'zoomButton', 'zoomButton', 3)
         gridUpdateSet(true);
         curLevel = newValue;
     });
