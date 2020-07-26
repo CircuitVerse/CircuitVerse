@@ -314,9 +314,9 @@ export function showProperties(obj) {
         if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) { prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet(); } else { circuitProperty[this.name](this.checked); }
     });
 
-    $(function(){
+    $(function () {
         $("input[type='number']").inputSpinner();
-      });
+    });
 }
 
 /**
@@ -423,7 +423,7 @@ $('#octalInput').on('keyup', () => {
 window.addEventListener('DOMContentLoaded', () => {
     $('#moduleProperty').draggable();
     $('.ce-panel').draggable();
-    
+
     $('.ce-panel').on('mousedown', () => {
         $('#moduleProperty').css('z-index', '99')
         $('.ce-panel').css('z-index', '100')
@@ -440,3 +440,16 @@ window.addEventListener('DOMContentLoaded', () => {
 //     console.log(e.value);
 // })
 
+window.addEventListener('DOMContentLoaded', () => {
+    $('#ceMinimize').on('click', () => {
+        const markUp = `<div class='ce-hidden'>Circuit Elements<span id='ce-expand' style="right: 15px;position: absolute; cursor:pointer;"><i  onclick=" (() => {$('.modules').children().css('display', 'block'); $('.ce-hidden').remove(); $('#filter').css('display', 'none');})();" class="fas fa-external-link-square-alt"></i></span><div>`
+        $('.modules').children().css('display', 'none');
+        $('.modules').append(markUp);
+    })
+    $('#propsMinimize').on('click', () => {
+        const markUp = `<div class='prop-hidden'>properties<span id='prop-expand' style="right: 15px;position: absolute; cursor:pointer;"><i  onclick=" (() => {$('#moduleProperty').children().css('display', 'block'); $('.prop-hidden').remove();})();" class="fas fa-external-link-square-alt"></i></span><div>`
+        $('#moduleProperty').children().css('display', 'none');
+        $('.moduleProperty').append(markUp);
+    })
+
+})

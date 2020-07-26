@@ -453,11 +453,19 @@ input[type="text"]:focus {
 }
 
 #modules-header {
-  margin: 10px;
-  font: Bold 20px Nunito;
+  background: #2E2E2E;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #707070;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  padding-top: 15px;
+  padding: 10px;
+  padding-top: 15px;
+  padding-left: 17px;
+  font: Bold 16px Nunito;
   text-transform: uppercase;
   color: var(--text-primary);
-  text-align: center;
+  text-align: left;
 }
 
 .panel {
@@ -705,11 +713,11 @@ div.icon img {
 }
 
 #moduleProperty-title {
-  margin: 10px;
-  font: Bold 20px Nunito;
+  padding: 10px;
+  font: Bold 16px Nunito;
   text-transform: uppercase;
   color: var(--text-primary);
-  text-align: center;
+  text-align: left;
 }
 
 #moduleProperty-inner {
@@ -721,7 +729,7 @@ div.icon img {
   font-size: 1.1em;
   text-transform: uppercase;
   margin-bottom: 20px;
-  text-align: center;
+  text-align: left;
 }
 
 #moduleProperty-inner > p span {
@@ -1493,4 +1501,47 @@ select {
 }
 .custom-range:focus::-moz-range-thumb {
   box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(75, 86, 99, 0.25);
+}
+
+#modules-header::before, #moduleProperty-title::before {
+  content: '';
+  width: 34px;
+  border-top: 2px solid white;
+  border-radius: 2px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 6px;
+}
+
+.minimize {
+  content: '';
+  width: 17px;
+  height: 9.5px;
+  border: 4px solid white;
+  position: absolute;
+  right: 6px;
+  transform: translateX(-50%);
+  top: 21px;
+  cursor: pointer;
+}
+
+.ce-hidden,.prop-hidden {
+  color: white;
+  background: #2E2E2E;
+  font-weight: bold;
+  padding: 10px;
+  font-size: 16px;
+  text-transform: uppercase;
+  border-radius: 5px;
+}
+
+#moduleProperty-title {
+  padding-left: 16px;
+  background: #2E2E2E;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #707070;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  padding-top: 15px;
 }
