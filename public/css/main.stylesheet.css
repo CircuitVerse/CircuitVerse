@@ -454,12 +454,19 @@ input[type="text"]:focus {
 }
 
 #modules-header {
-  margin: 10px;
-  font: Bold 20px Nunito;
+  background: #2E2E2E;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #707070;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  padding-top: 15px;
+  padding: 10px;
+  padding-top: 15px;
+  padding-left: 17px;
+  font: Bold 16px Nunito;
   text-transform: uppercase;
   color: var(--text-primary);
   text-align: left;
-  cursor: move;
 }
 
 .panel {
@@ -707,11 +714,11 @@ div.icon img {
 }
 
 #moduleProperty-title {
-  margin: 10px;
-  font: Bold 20px Nunito;
+  padding: 10px;
+  font: Bold 16px Nunito;
   text-transform: uppercase;
   color: var(--text-primary);
-  text-align: center;
+  text-align: left;
 }
 
 #moduleProperty-inner {
@@ -723,7 +730,7 @@ div.icon img {
   font-size: 1.1em;
   text-transform: uppercase;
   margin-bottom: 20px;
-  text-align: center;
+  text-align: left;
 }
 
 #moduleProperty-inner > p span {
@@ -1518,21 +1525,6 @@ select {
   box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(75, 86, 99, 0.25);
 }
 
-input[type='range']::-webkit-slider-runnable-track {
-  height: 1px;
-}
-
-input[type='range']::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 10px;
-  height: 10px;
-  background-color: white;
-  border: 0;
-  border-radius: 50%;
-  cursor: pointer;
-
-}
-
 #modules-header::before, #moduleProperty-title::before {
   content: '';
   width: 34px;
@@ -1578,16 +1570,4 @@ input[type='range']::-webkit-slider-thumb {
 
 .objectPropertyAttributeChecked {
   margin-left: 0 !important;
-}
-
-#exitViewBtn {
-    position: fixed;
-    z-index: 1000000000;
-    right: 2%;
-    top: 3%;
-    background: #2d2d2d;
-    color: white;
-    padding: 10px 15px;
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px #4545457f;
 }
