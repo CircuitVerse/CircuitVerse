@@ -14,6 +14,7 @@ import { newCircuit, circuitProperty } from './circuit';
 import modules from './modules';
 import { updateRestrictedElementsInScope } from './restrictedElementDiv';
 import { paste } from './events';
+import { changeScale } from './canvasApi';
 
 
 export const uxvar = {
@@ -438,35 +439,8 @@ window.addEventListener('DOMContentLoaded', () => {
     })
 });
 
-window.addEventListener('DOMContentLoaded', () => {
-    $('#ceMinimize').on('click', () => {
-        const markUp = `<div class='ce-hidden'>Circuit Elements<span id='ce-expand' style="right: 15px;position: absolute; cursor:pointer;"><i  onclick=" (() => {$('.modules').children().css('display', 'block'); $('.ce-hidden').remove(); $('#filter').css('display', 'none');})();" class="fas fa-external-link-square-alt"></i></span><div>`
-        $('.modules').children().css('display', 'none');
-        $('.modules').append(markUp);
-    })
-    $('#propsMinimize').on('click', () => {
-        const markUp = `<div class='prop-hidden'>properties<span id='prop-expand' style="right: 15px;position: absolute; cursor:pointer;"><i  onclick=" (() => {$('#moduleProperty').children().css('display', 'block'); $('.prop-hidden').remove();})();" class="fas fa-external-link-square-alt"></i></span><div>`
-        $('#moduleProperty').children().css('display', 'none');
-        $('.moduleProperty').append(markUp);
-    })
-    function exitFull() {
-        $('.navbar').show()
-        $('.modules').show()
-        $('.report-sidebar').show()
-        $('#tabsBar').show()
-        $('#moduleProperty').show()
-        $('#exitView').hide();
-    }
 
-})
+// $('#customRange1').on('change', e => {
+//     console.log(e.value);
+// })
 
-export function fullView () {
-    const onClick = `onclick="(() => {$('.navbar').show(); $('.modules').show(); $('.report-sidebar').show(); $('#tabsBar').show(); $('#exitViewBtn').remove(); $('#moduleProperty').show();})()"`
-    const markUp = `<button id='exitViewBtn' ${onClick} >Exit Full Preview</button>`
-    $('.navbar').hide()
-    $('.modules').hide()
-    $('.report-sidebar').hide()
-    $('#tabsBar').hide()
-    $('#moduleProperty').hide()
-    $('#exitView').append(markUp);
-}
