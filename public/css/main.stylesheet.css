@@ -1477,3 +1477,20 @@ select {
     position: absolute;
     right: 8%;
 }
+
+.custom-range::-moz-range-track {
+  height: 1px;
+}
+
+.custom-range::-moz-range-thumb {
+  width: 5px;
+  height: 15px;
+  background-color: white;
+  border: 0;
+  border-radius: 1px;
+  cursor: pointer;
+
+}
+.custom-range:focus::-moz-range-thumb {
+  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(75, 86, 99, 0.25);
+}
