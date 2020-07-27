@@ -433,6 +433,8 @@ window.addEventListener('DOMContentLoaded', () => {
         $('#moduleProperty').css('z-index', '100')
         $('.ce-panel').css('z-index', '99')
     })
+
+    $('.quick-btn').draggable();
 });
 
 
