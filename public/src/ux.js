@@ -451,5 +451,24 @@ window.addEventListener('DOMContentLoaded', () => {
         $('#moduleProperty').children().css('display', 'none');
         $('.moduleProperty').append(markUp);
     })
+    function exitFull() {
+        $('.navbar').show()
+        $('.modules').show()
+        $('.report-sidebar').show()
+        $('#tabsBar').show()
+        $('#moduleProperty').show()
+        $('#exitView').hide();
+    }
 
 })
+
+export function fullView () {
+    const onClick = `onclick="(() => {$('.navbar').show(); $('.modules').show(); $('.report-sidebar').show(); $('#tabsBar').show(); $('#exitViewBtn').remove(); $('#moduleProperty').show();})()"`
+    const markUp = `<button id='exitViewBtn' ${onClick} >Exit Full Preview</button>`
+    $('.navbar').hide()
+    $('.modules').hide()
+    $('.report-sidebar').hide()
+    $('#tabsBar').hide()
+    $('#moduleProperty').hide()
+    $('#exitView').append(markUp);
+}

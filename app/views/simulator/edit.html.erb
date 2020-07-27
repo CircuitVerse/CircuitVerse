@@ -19,6 +19,7 @@
   logix_project_id = <%= @logix_project_id %>;
   projectName = "<%= @projectName %>"
 </script>
+<div id='exitView'></div>
 <nav class="navbar navbar-expand-lg navbar-dark header">
   <a href="/"><span class='logo'></span></a>
   <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-controls="collapsedNavbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,6 +36,7 @@
           <li><a class="dropdown-item logixButton" id="saveOffline">Save Offline</a></li>
           <li><a class="dropdown-item logixButton" id="createOpenLocalPrompt">Open Offline</a></li>
           <li><a class="dropdown-item logixButton" id="recoverProject">Recover Project</a></li>
+          <li><a class="dropdown-item logixButton" id="fullViewOption">Preview Circuit</a></li>
         </ul>
       </li>
       <li class="dropdown">
@@ -124,7 +126,7 @@
         </button>
       </div>
       <div>
-        <button type="button" class="quick-btn-view" title="Preview Circuit" id="viewButton"><i style="color: #ddd;" class="fas fa-expand-arrows-alt"></i>
+        <button type="button" class="quick-btn-view" title="Preview Circuit" id="viewButton"><i class="fas fa-expand-arrows-alt"></i>
         </button>
       </div>
    <!--   <div>
@@ -136,7 +138,6 @@
         <span id='slider_value'></span>
       </div>
     </div>
-
 
     <ul class="nav navbar-nav noSelect pointerCursor pull-right account-btn">
       <li class="dropdown pull-right">

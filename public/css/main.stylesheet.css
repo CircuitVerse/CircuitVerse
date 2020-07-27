@@ -327,6 +327,10 @@ input[type="text"]:focus {
   display: block;
 }
 
+.quick-btn-view {
+  color: white;
+
+}
 /* dropdown-menu styles */
 
 .dropdown > ul {
@@ -1570,4 +1574,16 @@ select {
 
 .objectPropertyAttributeChecked {
   margin-left: 0 !important;
+}
+
+#exitViewBtn {
+    position: fixed;
+    z-index: 1000000000;
+    right: 2%;
+    top: 3%;
+    background: #2d2d2d;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px #4545457f;
 }
