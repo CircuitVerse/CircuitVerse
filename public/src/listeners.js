@@ -8,7 +8,7 @@ import {
 } from './engine';
 import { changeScale } from './canvasApi';
 import { scheduleBackup } from './data/backupCircuit';
-import { hideProperties, deleteSelected, uxvar } from './ux';
+import { hideProperties, deleteSelected, uxvar, fullView } from './ux';
 import {
     updateRestrictedElementsList, updateRestrictedElementsInScope, hideRestricted, showRestricted,
 } from './restrictedElementDiv';
@@ -51,6 +51,10 @@ export default function startListeners() {
         undo();
     });
 
+    $('#viewButton').click(() => {
+        fullView();
+    });
+    // $('#exitViewBtn').click(() => showAll());
     window.addEventListener('keyup', (e) => {
         scheduleUpdate(1);
         simulationArea.shiftDown = e.shiftKey;

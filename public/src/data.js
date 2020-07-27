@@ -1,3 +1,4 @@
+import { fullView } from './ux';
 import { createSubCircuitPrompt } from './subcircuit';
 import save from './data/save';
 import load from './data/load';
@@ -17,4 +18,5 @@ logixFunction.createOpenLocalPrompt = openOffline;
 logixFunction.recoverProject = recoverProject;
 logixFunction.createSubCircuitPrompt = createSubCircuitPrompt;
 logixFunction.createCombinationalAnalysisPrompt = createCombinationalAnalysisPrompt;
+logixFunction.fullViewOption = fullView;
 export default logixFunction;
