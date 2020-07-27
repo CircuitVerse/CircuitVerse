@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Api::V1::AuthenticationController < Api::V1::BaseController
+  before_action :oauth_profile, only: %i[oauth_signup oauth_login]
+
   # POST api/v1/auth/login
   def login
     @user = User.find_by!(email: params[:email])
@@ -29,7 +31,7 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
 
   # POST api/v1/oauth/login
   def oauth_login
-    @user = User.find_by!(email: params["email"])
+    @user = User.find_by!(email: @response["email"])
     token = JsonWebToken.encode(
       user_id: @user.id, username: @user.name, email: @user.email
     )
@@ -37,19 +39,25 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
   end
 
   # POST api/v1/oauth/signup
+  # rubocop:disable Metrics/AbcSize
   def oauth_signup
-    if User.exists?(email: params[:email])
+    if User.exists?(email: @response["email"])
       api_error(status: 409, errors: "user already exists")
     else
-      @user = User.new(oauth_signup_params)
-      @user.password = Devise.friendly_token[0, 20]
-      @user.save!
+      @user = User.create!(
+        name: @response["name"],
+        email: @response["email"],
+        password: Devise.friendly_token[0, 20],
+        provider: params[:provider],
+        uid: @response["id"] || @response["sub"]
+      )
       token = JsonWebToken.encode(
         user_id: @user.id, username: @user.name, email: @user.email
       )
       render json: { token: token }, status: :created
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   # POST api/v1/forgot_password
   def forgot_password
@@ -67,6 +75,25 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
 
   private
 
+    # rubocop:disable Metrics/AbcSize
+    def oauth_profile
+      case params[:provider]
+      when "google"
+        @response = HTTP.auth("Bearer #{params[:access_token]}")
+                        .get("https://www.googleapis.com/oauth2/v3/userinfo")
+      when "facebook"
+        @response = HTTP.get("https://graph.facebook.com/v2.12/me"\
+          "?fields=name,email&access_token=#{params[:access_token]}")
+      when "github"
+        @response = HTTP.auth("token #{params[:access_token]}")
+                        .get("https://api.github.com/user")
+      else
+        api_error(status: 404, errors: "#{params[:provider]} as a provider is not supported")
+      end
+      @response = JSON.parse(@response.body.to_s)
+    end
+    # rubocop:enable Metrics/AbcSize
+
     def login_params
       params.permit(:email, :password)
     end
@@ -75,7 +102,7 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
       params.permit(:name, :email, :password)
     end
 
-    def oauth_signup_params
-      params.permit(:uid, :name, :email, :provider)
+    def oauth_params
+      params.permit(:access_token, :provider)
     end
 end
