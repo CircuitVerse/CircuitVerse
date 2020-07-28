@@ -492,6 +492,9 @@ function onMouseUp(e) {
     wireToBeCheckedSet(1);
 
     scheduleUpdate(1);
+    console.log('mo', simulationArea)
+    let latest = globalScope.backups[globalScope.backups.length-1]
+    console.log(JSON.parse(latest))
     simulationArea.mouseDown = false;
 
     for (var i = 0; i < 2; i++) {
@@ -513,6 +516,7 @@ function onMouseUp(e) {
         uxvar.smartDropXX = simulationArea.mouseX + 100; // Math.round(((simulationArea.mouseRawX - globalScope.ox+100) / globalScope.scale) / unit) * unit;
         uxvar.smartDropYY = simulationArea.mouseY - 50; // Math.round(((simulationArea.mouseRawY - globalScope.oy+100) / globalScope.scale) / unit) * unit;
     }
+    console.log(simulationArea)
 }
 
 function resizeTabs() {
@@ -562,22 +566,22 @@ window.addEventListener('DOMContentLoaded', (event) => {
         gridUpdateSet(true);
         curLevel = newValue;
     });
+    function zoomSliderScroll(e) {
+        let zoomLevel = document.getElementById("customRange1").value;
+        let deltaY = e.wheelDelta ? e.wheelDelta : -e.detail;
+        const directionY = deltaY > 0 ? 1 : -1;
+        if (directionY > 0) zoomLevel++
+        else zoomLevel--
+        if (zoomLevel >= 45) {
+            zoomLevel = 45;
+            document.getElementById("customRange1").value = 45;
+        } else if (zoomLevel <= 0) {
+            zoomLevel = 0;
+            document.getElementById("customRange1").value = 0;
+        } else {
+            document.getElementById("customRange1").value = zoomLevel;
+            curLevel = zoomLevel;
+        }
+    }
 });
 
-function zoomSliderScroll(e) {
-    let zoomLevel = document.getElementById("customRange1").value;
-    let deltaY = e.wheelDelta ? e.wheelDelta : -e.detail;
-    const directionY = deltaY > 0 ? 1 : -1;
-    if (directionY > 0) zoomLevel++
-    else zoomLevel--
-    if (zoomLevel >= 45) {
-        zoomLevel = 45;
-        document.getElementById("customRange1").value = 45;
-    } else if (zoomLevel <= 0) {
-        zoomLevel = 0;
-        document.getElementById("customRange1").value = 0;
-    } else {
-        document.getElementById("customRange1").value = zoomLevel;
-        curLevel = zoomLevel;
-    }
-}

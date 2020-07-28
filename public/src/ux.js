@@ -421,8 +421,12 @@ $('#octalInput').on('keyup', () => {
 });
 
 window.addEventListener('DOMContentLoaded', () => {
-    $('#moduleProperty').draggable();
-    $('.ce-panel').draggable();
+    $('#moduleProperty-title').on('mousedown', () => $('#moduleProperty').draggable({ disabled: false }));
+    $('#moduleProperty-title').on('mouseup', () => $('#moduleProperty').draggable({ disabled: true }));
+    $('#modules-header').on('mousedown', () => $('.ce-panel').draggable({ disabled: false }));
+    $('#modules-header').on('mouseup', () => $('.ce-panel').draggable({ disabled: true }));
+    $('#dragQPanel').on('mousedown', () => $('.quick-btn').draggable({ disabled: false }));
+    $('#dragQPanel').on('mouseup', () => $('.quick-btn').draggable({ disabled: true }));
 
     $('.ce-panel').on('mousedown', () => {
         $('#moduleProperty').css('z-index', '99')
@@ -433,14 +437,7 @@ window.addEventListener('DOMContentLoaded', () => {
         $('#moduleProperty').css('z-index', '100')
         $('.ce-panel').css('z-index', '99')
     })
-
-    $('.quick-btn').draggable();
 });
-
-
-// $('#customRange1').on('change', e => {
-//     console.log(e.value);
-// })
 
 window.addEventListener('DOMContentLoaded', () => {
     $('#ceMinimize').on('click', () => {
