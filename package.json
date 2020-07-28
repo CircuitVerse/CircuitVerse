@@ -24,7 +24,6 @@
     "@rails/webpacker": "4.2.2",
     "better-docs": "^2.0.1",
     "bootstrap": "^4.3.1",
-    "bootstrap-slider": "^11.0.2",
     "css-vars": "^2.2.0",
     "expose-loader": "^0.7.5",
     "jquery": "^3.4.1",
