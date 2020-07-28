@@ -87,7 +87,7 @@ GEM
       msgpack (~> 1.0)
     bootstrap-typeahead-rails (0.10.5.1)
       railties (>= 3.0)
-    bugsnag (6.13.1)
+    bugsnag (6.15.0)
       concurrent-ruby (~> 1.0)
     builder (3.2.4)
     byebug (11.0.1)
@@ -553,7 +553,7 @@ DEPENDENCIES
   ahoy_matey
   bootsnap
   bootstrap-typeahead-rails
-  bugsnag (~> 6.13)
+  bugsnag (~> 6.15)
   byebug
   capybara (~> 2.13)
   carrierwave (~> 1.0)
