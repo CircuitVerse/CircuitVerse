@@ -39,25 +39,21 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
   end
 
   # POST api/v1/oauth/signup
-  # rubocop:disable Metrics/AbcSize
   def oauth_signup
     if User.exists?(email: @response["email"])
       api_error(status: 409, errors: "user already exists")
     else
-      @user = User.create!(
-        name: @response["name"],
-        email: @response["email"],
-        password: Devise.friendly_token[0, 20],
-        provider: params[:provider],
-        uid: @response["id"] || @response["sub"]
-      )
-      token = JsonWebToken.encode(
-        user_id: @user.id, username: @user.name, email: @user.email
-      )
-      render json: { token: token }, status: :created
+      begin
+        @user = create_oauth_user
+        token = JsonWebToken.encode(
+          user_id: @user.id, username: @user.name, email: @user.email
+        )
+        render json: { token: token }, status: :created
+      rescue ActiveRecord::RecordInvalid
+        api_error(status: 422, errors: @user.errors)
+      end
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   # POST api/v1/forgot_password
   def forgot_password
@@ -93,6 +89,16 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
       @response = JSON.parse(@response.body.to_s)
     end
     # rubocop:enable Metrics/AbcSize
+
+    def create_oauth_user
+      User.create!(
+        name: @response["name"],
+        email: @response["email"],
+        password: Devise.friendly_token[0, 20],
+        provider: params[:provider],
+        uid: @response["id"] || @response["sub"]
+      )
+    end
 
     def login_params
       params.permit(:email, :password)
