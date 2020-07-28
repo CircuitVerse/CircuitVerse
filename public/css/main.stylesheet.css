@@ -1491,21 +1491,57 @@ select {
     right: 8%;
 }
 
+.zoom-slider::before {
+  content: '-';
+  color: white;
+  font-size: 30px;
+  position: absolute;
+  left: -20px;
+  top: -5.0px;
+}
+
+.zoom-slider::after {
+  content: '+';
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  right: -20px;
+  top: 1px;
+}
+
+.custom-range {
+  width: 140px;
+}
 .custom-range::-moz-range-track {
   height: 1px;
 }
 
 .custom-range::-moz-range-thumb {
-  width: 5px;
-  height: 15px;
+  width: 10px;
+  height: 10px;
   background-color: white;
   border: 0;
-  border-radius: 1px;
+  border-radius: 50%;
   cursor: pointer;
 
 }
 .custom-range:focus::-moz-range-thumb {
   box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(75, 86, 99, 0.25);
+}
+
+input[type='range']::-webkit-slider-runnable-track {
+  height: 1px;
+}
+
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 10px;
+  height: 10px;
+  background-color: white;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+
 }
 
 #modules-header::before, #moduleProperty-title::before {

@@ -551,23 +551,8 @@ function ZoomOut() {
 
 window.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById("customRange1").value = 5;
-    document.getElementById('simulationArea').addEventListener('DOMMouseScroll', (e) => {
-        let zoomLevel = document.getElementById("customRange1").value;
-        let deltaY = e.wheelDelta ? e.wheelDelta : -e.detail;
-        const directionY = deltaY > 0 ? 1 : -1;
-        if (directionY > 0) zoomLevel++
-        else zoomLevel--
-        if (zoomLevel >= 45) {
-            zoomLevel = 45;
-            document.getElementById("customRange1").value = 45;
-        } else if (zoomLevel <= 0) {
-            zoomLevel = 0;
-            document.getElementById("customRange1").value = 0;
-        } else {
-            document.getElementById("customRange1").value = zoomLevel;
-            curLevel = zoomLevel;
-        }
-    });
+    document.getElementById('simulationArea').addEventListener('DOMMouseScroll',zoomSliderScroll);
+    document.getElementById('simulationArea').addEventListener('mousewheel', zoomSliderScroll);
     let curLevel = document.getElementById("customRange1").value;
     $(document).on('input change', '#customRange1', function (e) {
         let newValue = $(this).val();
@@ -578,3 +563,21 @@ window.addEventListener('DOMContentLoaded', (event) => {
         curLevel = newValue;
     });
 });
+
+function zoomSliderScroll(e) {
+    let zoomLevel = document.getElementById("customRange1").value;
+    let deltaY = e.wheelDelta ? e.wheelDelta : -e.detail;
+    const directionY = deltaY > 0 ? 1 : -1;
+    if (directionY > 0) zoomLevel++
+    else zoomLevel--
+    if (zoomLevel >= 45) {
+        zoomLevel = 45;
+        document.getElementById("customRange1").value = 45;
+    } else if (zoomLevel <= 0) {
+        zoomLevel = 0;
+        document.getElementById("customRange1").value = 0;
+    } else {
+        document.getElementById("customRange1").value = zoomLevel;
+        curLevel = zoomLevel;
+    }
+}
