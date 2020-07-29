@@ -67,6 +67,16 @@ class User < ApplicationRecord
     user
   end
 
+  def self.from_oauth(oauth_user, provider)
+    User.create!(
+      name: oauth_user["name"],
+      email: oauth_user["email"],
+      password: Devise.friendly_token[0, 20],
+      provider: provider,
+      uid: oauth_user["id"] || oauth_user["sub"]
+    )
+  end
+
   def send_push_notification(message, url = "")
     push_subscriptions.each do |subscription|
       subscription.send_push_notification(message, url)

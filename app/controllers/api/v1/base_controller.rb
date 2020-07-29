@@ -19,6 +19,14 @@ class Api::V1::BaseController < ActionController::API
     api_error(status: 401, errors: "Authentication header is missing")
   end
 
+  rescue_from InvalidOAuthToken do
+    api_error(status: 401, errors: "OAuth token is invalid")
+  end
+
+  rescue_from UnsupportedOAuthProvider do
+    api_error(status: 404, errors: "OAuth provider not supported")
+  end
+
   rescue_from ActiveRecord::RecordNotFound do
     api_error(status: 404, errors: "resource not found!")
   end

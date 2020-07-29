@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::AuthenticationController < Api::V1::BaseController
-  before_action :oauth_profile, only: %i[oauth_signup oauth_login]
+  before_action :set_oauth_user, only: %i[oauth_signup oauth_login]
 
   # POST api/v1/auth/login
   def login
@@ -31,7 +31,7 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
 
   # POST api/v1/oauth/login
   def oauth_login
-    @user = User.find_by!(email: @response["email"])
+    @user = User.find_by!(email: @oauth_user["email"])
     token = JsonWebToken.encode(
       user_id: @user.id, username: @user.name, email: @user.email
     )
@@ -40,11 +40,11 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
 
   # POST api/v1/oauth/signup
   def oauth_signup
-    if User.exists?(email: @response["email"])
+    if User.exists?(email: @oauth_user["email"])
       api_error(status: 409, errors: "user already exists")
     else
       begin
-        @user = create_oauth_user
+        @user = User.from_oauth(@oauth_user, params[:provider])
         token = JsonWebToken.encode(
           user_id: @user.id, username: @user.name, email: @user.email
         )
@@ -71,33 +71,8 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
 
   private
 
-    # rubocop:disable Metrics/AbcSize
-    def oauth_profile
-      case params[:provider]
-      when "google"
-        @response = HTTP.auth("Bearer #{params[:access_token]}")
-                        .get("https://www.googleapis.com/oauth2/v3/userinfo")
-      when "facebook"
-        @response = HTTP.get("https://graph.facebook.com/v2.12/me"\
-          "?fields=name,email&access_token=#{params[:access_token]}")
-      when "github"
-        @response = HTTP.auth("token #{params[:access_token]}")
-                        .get("https://api.github.com/user")
-      else
-        api_error(status: 404, errors: "#{params[:provider]} as a provider is not supported")
-      end
-      @response = JSON.parse(@response.body.to_s)
-    end
-    # rubocop:enable Metrics/AbcSize
-
-    def create_oauth_user
-      User.create!(
-        name: @response["name"],
-        email: @response["email"],
-        password: Devise.friendly_token[0, 20],
-        provider: params[:provider],
-        uid: @response["id"] || @response["sub"]
-      )
+    def set_oauth_user
+      @oauth_user = OauthApiHandler.new(params[:access_token], params[:provider]).oauth_user
     end
 
     def login_params
