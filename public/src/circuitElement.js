@@ -139,6 +139,8 @@ export default class CircuitElement {
         var data = {
             x: this.x,
             y: this.y,
+            dimensionY: this.downDimensionY,
+            dimensionX: this.leftDimensionX,
             objectType: this.objectType,
             label: this.label,
             direction: this.direction,

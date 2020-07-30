@@ -475,7 +475,12 @@ function onMouseMove(e) {
     }
 }
 
+const getCoordinate = (x, y, dimX, dimY) => {
+    return [x - dimX/2, x + dimX/2, y - dimY/2, y + dimY/2]
+}
 function onMouseUp(e) {
+
+
     createNodeSet(simulationArea.controlDown);
     simulationArea.mouseDown = false;
     console.log(createNode);
@@ -492,11 +497,32 @@ function onMouseUp(e) {
     wireToBeCheckedSet(1);
 
     scheduleUpdate(1);
-    console.log('mo', simulationArea)
-    let latest = globalScope.backups[globalScope.backups.length-1]
-    console.log(JSON.parse(latest))
-    simulationArea.mouseDown = false;
+    let currentCoordinate = undefined;
+    if (simulationArea.lastSelected && !simulationArea.lastSelected.newElement) {
+         currentCoordinate = getCoordinate(simulationArea.lastSelected.x, simulationArea.lastSelected.y, simulationArea.lastSelected.leftDimensionX, simulationArea.lastSelected.downDimensionY)
+        }
+    if (simulationArea.lastSelected && simulationArea.lastSelected.newElement) {
+        let prev = ''
+        if (globalScope.backups.length >= 2) {
+            prev = JSON.parse(globalScope.backups[globalScope.backups.length-2])
+            let coordinateArray = []
+            for (const [key, value] of Object.entries(prev)) {
+                if (circuitElementList.includes(key)) {
+                    value.forEach((item, index) => {
+                        const cordinates = getCoordinate(item.x, item.y, item.dimensionX, item.dimensionY);
+                        coordinateArray.push(cordinates);
+                    })
+                    console.log(coordinateArray);
+                }
+              }
+              coordinateArray.forEach((item, index) => {
+                  if (currentCoordinate[0]  > item[0]  && currentCoordinate[1] < item[1]) simulationArea.lastSelected.x -= 100
+              })
+        }
 
+    }
+
+    simulationArea.mouseDown = false;
     for (var i = 0; i < 2; i++) {
         updatePositionSet(true);
         wireToBeCheckedSet(1);
@@ -516,7 +542,6 @@ function onMouseUp(e) {
         uxvar.smartDropXX = simulationArea.mouseX + 100; // Math.round(((simulationArea.mouseRawX - globalScope.ox+100) / globalScope.scale) / unit) * unit;
         uxvar.smartDropYY = simulationArea.mouseY - 50; // Math.round(((simulationArea.mouseRawY - globalScope.oy+100) / globalScope.scale) / unit) * unit;
     }
-    console.log(simulationArea)
 }
 
 function resizeTabs() {
