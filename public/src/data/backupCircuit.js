@@ -22,7 +22,6 @@ export function backUp(scope = globalScope) {
     for (let i = 0; i < scope.SubCircuit.length; i++) { scope.SubCircuit[i].removeConnections(); }
 
     var data = {};
-
     // Storing layout
     data.layout = scope.layout;
 

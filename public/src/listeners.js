@@ -475,7 +475,20 @@ function onMouseMove(e) {
     }
 }
 
+const getCoordinate = (x, y, dimX, dimY) => {
+    return [x - dimX, y + dimY, x + dimX, y - dimY] //lx rx ty by
+}
+
+var isRectangleOverlap = function(rec1, rec2) {
+    if (rec2[0] <= rec1[2] && rec2[1] >= rec1[3] && rec2[2] >= rec1[0] && rec2[3] <= rec1[1]){
+			   return true;
+       }
+    return false;
+};
+
 function onMouseUp(e) {
+
+
     createNodeSet(simulationArea.controlDown);
     simulationArea.mouseDown = false;
     console.log(createNode);
@@ -492,11 +505,27 @@ function onMouseUp(e) {
     wireToBeCheckedSet(1);
 
     scheduleUpdate(1);
-    console.log('mo', simulationArea)
-    let latest = globalScope.backups[globalScope.backups.length-1]
-    console.log(JSON.parse(latest))
+    // if (simulationArea.lastSelected && !simulationArea.lastSelected.newElement) {
+    //      let currentCoordinate = getCoordinate(simulationArea.lastSelected.x, simulationArea.lastSelected.y, simulationArea.lastSelected.leftDimensionX, simulationArea.lastSelected.downDimensionY)
+    //     // console.log('cur', currentCoordinate )
+    //     if (globalScope.backups.length >= 2) {
+    //         let prev = JSON.parse(globalScope.backups[globalScope.backups.length-2])
+    //         let coordinateArray = []
+    //         for (const [key, value] of Object.entries(prev)) {
+    //             if (circuitElementList.includes(key)) {
+    //                 value.forEach((item, index) => {
+    //                     const cordinates = getCoordinate(item.x, item.y, item.dimensionX, item.dimensionY);
+    //                     coordinateArray.push(cordinates);
+    //                 })
+    //             }
+    //         }
+    //         // console.log('coor', coordinateArray)
+    //        coordinateArray.forEach((item, index) => {
+    //             if (isRectangleOverlap(currentCoordinate, item)) simulationArea.lastSelected.x -=  currentCoordinate[2] - item[0]
+    //         })
+    //     }
+    // }
     simulationArea.mouseDown = false;
-
     for (var i = 0; i < 2; i++) {
         updatePositionSet(true);
         wireToBeCheckedSet(1);
@@ -516,7 +545,6 @@ function onMouseUp(e) {
         uxvar.smartDropXX = simulationArea.mouseX + 100; // Math.round(((simulationArea.mouseRawX - globalScope.ox+100) / globalScope.scale) / unit) * unit;
         uxvar.smartDropYY = simulationArea.mouseY - 50; // Math.round(((simulationArea.mouseRawY - globalScope.oy+100) / globalScope.scale) / unit) * unit;
     }
-    console.log(simulationArea)
 }
 
 function resizeTabs() {
