@@ -476,8 +476,16 @@ function onMouseMove(e) {
 }
 
 const getCoordinate = (x, y, dimX, dimY) => {
-    return [x - dimX/2, x + dimX/2, y - dimY/2, y + dimY/2]
+    return [x - dimX, y + dimY, x + dimX, y - dimY] //lx rx ty by
 }
+
+var isRectangleOverlap = function(rec1, rec2) {
+    if (rec2[0] <= rec1[2] && rec2[1] >= rec1[3] && rec2[2] >= rec1[0] && rec2[3] <= rec1[1]){
+			   return true;
+       }
+    return false;
+};
+
 function onMouseUp(e) {
 
 
@@ -497,14 +505,11 @@ function onMouseUp(e) {
     wireToBeCheckedSet(1);
 
     scheduleUpdate(1);
-    let currentCoordinate = undefined;
     if (simulationArea.lastSelected && !simulationArea.lastSelected.newElement) {
-         currentCoordinate = getCoordinate(simulationArea.lastSelected.x, simulationArea.lastSelected.y, simulationArea.lastSelected.leftDimensionX, simulationArea.lastSelected.downDimensionY)
-        }
-    if (simulationArea.lastSelected && simulationArea.lastSelected.newElement) {
-        let prev = ''
+         let currentCoordinate = getCoordinate(simulationArea.lastSelected.x, simulationArea.lastSelected.y, simulationArea.lastSelected.leftDimensionX, simulationArea.lastSelected.downDimensionY)
+        // console.log('cur', currentCoordinate )
         if (globalScope.backups.length >= 2) {
-            prev = JSON.parse(globalScope.backups[globalScope.backups.length-2])
+            let prev = JSON.parse(globalScope.backups[globalScope.backups.length-2])
             let coordinateArray = []
             for (const [key, value] of Object.entries(prev)) {
                 if (circuitElementList.includes(key)) {
@@ -512,16 +517,14 @@ function onMouseUp(e) {
                         const cordinates = getCoordinate(item.x, item.y, item.dimensionX, item.dimensionY);
                         coordinateArray.push(cordinates);
                     })
-                    console.log(coordinateArray);
                 }
-              }
-              coordinateArray.forEach((item, index) => {
-                  if (currentCoordinate[0]  > item[0]  && currentCoordinate[1] < item[1]) simulationArea.lastSelected.x -= 100
-              })
+            }
+            // console.log('coor', coordinateArray)
+           coordinateArray.forEach((item, index) => {
+                if (isRectangleOverlap(currentCoordinate, item)) simulationArea.lastSelected.x -=  currentCoordinate[2] - item[0]
+            })
         }
-
     }
-
     simulationArea.mouseDown = false;
     for (var i = 0; i < 2; i++) {
         updatePositionSet(true);
