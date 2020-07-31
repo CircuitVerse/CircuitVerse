@@ -505,26 +505,26 @@ function onMouseUp(e) {
     wireToBeCheckedSet(1);
 
     scheduleUpdate(1);
-    if (simulationArea.lastSelected && !simulationArea.lastSelected.newElement) {
-         let currentCoordinate = getCoordinate(simulationArea.lastSelected.x, simulationArea.lastSelected.y, simulationArea.lastSelected.leftDimensionX, simulationArea.lastSelected.downDimensionY)
-        // console.log('cur', currentCoordinate )
-        if (globalScope.backups.length >= 2) {
-            let prev = JSON.parse(globalScope.backups[globalScope.backups.length-2])
-            let coordinateArray = []
-            for (const [key, value] of Object.entries(prev)) {
-                if (circuitElementList.includes(key)) {
-                    value.forEach((item, index) => {
-                        const cordinates = getCoordinate(item.x, item.y, item.dimensionX, item.dimensionY);
-                        coordinateArray.push(cordinates);
-                    })
-                }
-            }
-            // console.log('coor', coordinateArray)
-           coordinateArray.forEach((item, index) => {
-                if (isRectangleOverlap(currentCoordinate, item)) simulationArea.lastSelected.x -=  currentCoordinate[2] - item[0]
-            })
-        }
-    }
+    // if (simulationArea.lastSelected && !simulationArea.lastSelected.newElement) {
+    //      let currentCoordinate = getCoordinate(simulationArea.lastSelected.x, simulationArea.lastSelected.y, simulationArea.lastSelected.leftDimensionX, simulationArea.lastSelected.downDimensionY)
+    //     // console.log('cur', currentCoordinate )
+    //     if (globalScope.backups.length >= 2) {
+    //         let prev = JSON.parse(globalScope.backups[globalScope.backups.length-2])
+    //         let coordinateArray = []
+    //         for (const [key, value] of Object.entries(prev)) {
+    //             if (circuitElementList.includes(key)) {
+    //                 value.forEach((item, index) => {
+    //                     const cordinates = getCoordinate(item.x, item.y, item.dimensionX, item.dimensionY);
+    //                     coordinateArray.push(cordinates);
+    //                 })
+    //             }
+    //         }
+    //         // console.log('coor', coordinateArray)
+    //        coordinateArray.forEach((item, index) => {
+    //             if (isRectangleOverlap(currentCoordinate, item)) simulationArea.lastSelected.x -=  currentCoordinate[2] - item[0]
+    //         })
+    //     }
+    // }
     simulationArea.mouseDown = false;
     for (var i = 0; i < 2; i++) {
         updatePositionSet(true);
