@@ -36,6 +36,7 @@ export default class Output extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'LEFT', bitWidth = 1, layoutProperties) {
         // Calling base class constructor
         super(x, y, scope, dir, bitWidth);
+        this.title = 'Output';
         /* this is done in this.baseSetup() now
         this.scope['Output'].push(this);
         */

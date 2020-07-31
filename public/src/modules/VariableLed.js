@@ -19,6 +19,7 @@ export default class VariableLed extends CircuitElement {
         // Calling base class constructor
 
         super(x, y, scope, 'UP', 8);
+        this.title = 'VariableLed';
         /* this is done in this.baseSetup() now
         this.scope['VariableLed'].push(this);
         */

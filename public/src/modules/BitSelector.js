@@ -33,6 +33,7 @@ export default class BitSelector extends CircuitElement {
         this.inp1 = new Node(-20, 0, 0, this, this.bitWidth, 'Input');
         this.output1 = new Node(20, 0, 1, this, 1, 'Output');
         this.bitSelectorInp = new Node(0, 20, 0, this, this.selectorBitWidth, 'Bit Selector');
+        this.title = 'BitSelector';
     }
 
     /**

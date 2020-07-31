@@ -18,8 +18,9 @@ export default class RGBLed extends CircuitElement {
     constructor(x, y, scope = globalScope) {
         // Calling base class constructor
         super(x, y, scope, 'UP', 8);
+        this.title = 'RGBLed';
         /* this is done in this.baseSetup() now
-        this.scope['RGBLed'].push(this);
+        this.title = 'Rectangle';
         */
         this.rectangleObject = false;
         this.inp = [];

@@ -20,6 +20,7 @@ export default class Adder extends CircuitElement {
         /* this is done in this.baseSetup() now
         this.scope['Adder'].push(this);
         */
+        this.title = 'Adder';
         this.setDimensions(20, 20);
 
         this.inpA = new Node(-20, -10, 0, this, this.bitWidth, 'A');

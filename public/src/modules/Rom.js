@@ -23,6 +23,7 @@ export default class Rom extends CircuitElement {
         data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     ) {
         super(x, y, scope, 'RIGHT', 1);
+        this.title = 'Rom';
         /* this is done in this.baseSetup() now
         this.scope['Rom'].push(this);
         */

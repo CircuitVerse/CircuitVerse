@@ -18,6 +18,7 @@ import plotArea from '../plotArea';
 export default class Tunnel extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'LEFT', bitWidth = 1, identifier) {
         super(x, y, scope, dir, bitWidth);
+        this.title = 'Tunnel';
         /* this is done in this.baseSetup() now
         this.scope['Tunnel'].push(this);
         */

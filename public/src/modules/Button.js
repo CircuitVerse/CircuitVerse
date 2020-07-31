@@ -26,6 +26,7 @@ export default class Button extends CircuitElement {
         this.wasClicked = false;
         this.rectangleObject = false;
         this.setDimensions(10, 10);
+        this.title = 'Button';
     }
 
     /**

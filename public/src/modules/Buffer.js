@@ -29,6 +29,7 @@ export default class Buffer extends CircuitElement {
         this.inp1 = new Node(-10, 0, 0, this);
         this.reset = new Node(0, 0, 0, this, 1, 'reset');
         this.output1 = new Node(20, 0, 1, this);
+        this.title = 'Buffer';
     }
 
     /**

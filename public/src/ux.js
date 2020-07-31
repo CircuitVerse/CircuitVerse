@@ -142,6 +142,7 @@ export function setupUI() {
         var obj = new modules[this.id](); // (simulationArea.mouseX,simulationArea.mouseY);
         // obj = new modules[this.id](); // (simulationArea.mouseX,simulationArea.mouseY);
         simulationArea.lastSelected = obj;
+        simulationArea.multiAddElement = true;
         // simulationArea.lastSelected=obj;
         // simulationArea.mouseDown=true;
         uxvar.smartDropXX += 70;
@@ -185,6 +186,7 @@ export const selectElement = (ele) => {
     var obj = new modules[ele](); // (simulationArea.mouseX,simulationArea.mouseY);
     // obj = new modules[this.id](); // (simulationArea.mouseX,simulationArea.mouseY);
     simulationArea.lastSelected = obj;
+    simulationArea.multiAddElement = true;
     // simulationArea.lastSelected=obj;
     // simulationArea.mouseDown=true;
     uxvar.smartDropXX += 70;

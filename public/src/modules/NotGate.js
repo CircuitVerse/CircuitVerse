@@ -19,6 +19,7 @@ import { changeInputSize } from '../modules';
 export default class NotGate extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
+        this.title = 'NotGate';
         /* this is done in this.baseSetup() now
         this.scope['NotGate'].push(this);
         */

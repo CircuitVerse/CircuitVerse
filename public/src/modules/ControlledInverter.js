@@ -28,6 +28,7 @@ export default class ControlledInverter extends CircuitElement {
         this.inp1 = new Node(-10, 0, 0, this);
         this.output1 = new Node(30, 0, 1, this);
         this.state = new Node(0, 0, 0, this, 1, 'Enable');
+        this.title = 'ControlledInverter';
     }
 
     /**

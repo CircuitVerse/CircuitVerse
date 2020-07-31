@@ -24,6 +24,7 @@ export default class Arrow extends CircuitElement {
         this.rectangleObject = false;
         this.fixedBitWidth = true;
         this.setDimensions(30, 20);
+        this.title = 'Arrow';
     }
 
     /**

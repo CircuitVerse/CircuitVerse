@@ -19,6 +19,7 @@ import {
 export default class SquareRGBLed extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'UP', pinLength = 1) {
         super(x, y, scope, dir, 8);
+        this.title = 'SquareRGBLed';
         /* this is done in this.baseSetup() now
         this.scope['SquareRGBLed'].push(this);
         */

@@ -16,6 +16,8 @@ import { correctWidth, rect, fillText } from '../canvasApi';
 export default class LSB extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
+        this.title = 'LSB';
+
         /* this is done in this.baseSetup() now
         this.scope['LSB'].push(this);
         */

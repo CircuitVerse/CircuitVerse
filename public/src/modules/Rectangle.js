@@ -16,6 +16,7 @@ import { correctWidth, rect } from '../canvasApi';
 export default class Rectangle extends CircuitElement {
     constructor(x, y, scope = globalScope, rows = 15, cols = 20) {
         super(x, y, scope, 'RIGHT', 1);
+        this.title = 'Rectangle';
         /* this is done in this.baseSetup() now
         this.scope['Rectangle'].push(this);
         */

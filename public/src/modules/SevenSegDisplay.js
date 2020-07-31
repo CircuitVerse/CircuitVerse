@@ -17,6 +17,7 @@ import {
 export default class SevenSegDisplay extends CircuitElement {
     constructor(x, y, scope = globalScope) {
         super(x, y, scope, 'RIGHT', 1);
+        this.title = 'SevenSegDisplay';
         /* this is done in this.baseSetup() now
         this.scope['SevenSegDisplay'].push(this);
         */

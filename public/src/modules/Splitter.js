@@ -31,6 +31,7 @@ export default class Splitter extends CircuitElement {
         bitWidthSplit = undefined,
     ) {
         super(x, y, scope, dir, bitWidth);
+        this.title = 'Splitter';
         /* this is done in this.baseSetup() now
         this.scope['Splitter'].push(this);
         */
