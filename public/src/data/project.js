@@ -13,18 +13,34 @@ import load from './load';
  * Helper function to recover unsaved data
  * @category data
  */
+// recoverProject
 export function recoverProject() {
     if (localStorage.getItem('recover')) {
         var data = JSON.parse(localStorage.getItem('recover'));
-        if (confirm(`Would you like to recover: ${data.name}`)) {
-            load(data);
-        }
-        localStorage.removeItem('recover');
+        let name = data.name;
+        $('#recoverProjectPrompt').append("<span>Would you like to recover: " + name + "</span>");
+        $('#recoverProjectPrompt').dialog({
+            buttons:[
+                {
+                    text: "Ok",
+                    click(){
+                        load(data);
+                        localStorage.removeItem('recover');
+                        $(this).dialog('close');
+                    },
+                },
+                {
+                    text: "Cancel",
+                    click(){
+                        $(this).dialog('close');
+                    },
+                }
+            ]
+        })
     } else {
         showError('No recover project found');
     }
 }
-
 
 /**
  * Prompt to restore from localStorage
