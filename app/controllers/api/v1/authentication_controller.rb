@@ -39,21 +39,24 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
   end
 
   # POST api/v1/oauth/signup
+  # rubocop:disable Metrics/AbcSize
   def oauth_signup
     if User.exists?(email: @oauth_user["email"])
       api_error(status: 409, errors: "user already exists")
     else
-      begin
-        @user = User.from_oauth(@oauth_user, params[:provider])
+      @user = User.from_oauth(@oauth_user, params[:provider])
+      if @user.errors.any?
+        # @user has validation errors
+        api_error(status: 422, errors: @user.errors)
+      else
         token = JsonWebToken.encode(
           user_id: @user.id, username: @user.name, email: @user.email
         )
         render json: { token: token }, status: :created
-      rescue ActiveRecord::RecordInvalid
-        api_error(status: 422, errors: @user.errors)
       end
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   # POST api/v1/forgot_password
   def forgot_password

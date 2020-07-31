@@ -68,7 +68,7 @@ class User < ApplicationRecord
   end
 
   def self.from_oauth(oauth_user, provider)
-    User.create!(
+    User.create(
       name: oauth_user["name"],
       email: oauth_user["email"],
       password: Devise.friendly_token[0, 20],
