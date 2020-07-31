@@ -111,13 +111,28 @@ window.onbeforeunload = function () {
  * @category data
  */
 export function clearProject() {
-    if (confirm('Would you like to clear the project?')) {
-        globalScope = undefined;
-        resetScopeList();
-        $('.circuits').remove();
-        newCircuit('main');
-        showMessage('Your project is as good as new!');
-    }
+    $('#clearProjectPrompt').text('Would you like to clear the project?');
+    $('#clearProjectPrompt').dialog({
+        buttons: [
+            {
+                text: 'OK',
+                click() {
+                    globalScope = undefined;
+                    resetScopeList();
+                    $('.circuits').remove();
+                    newCircuit('main');
+                    showMessage('Your project is as good as new!');
+                    $('#clearProjectPrompt').dialog('close');
+                }
+            },
+            {
+                text: 'Cancel',
+                click() {
+                    $(this).dialog('close');
+                }
+            }
+        ]
+    });
 }
 
 /**

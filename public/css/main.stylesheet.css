@@ -1435,3 +1435,7 @@ select {
 .radio-green {
   background: #42b983;
 }
+
+.prompt {
+  color: white;
+}
