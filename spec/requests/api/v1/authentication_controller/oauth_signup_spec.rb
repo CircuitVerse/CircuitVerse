@@ -45,6 +45,20 @@ RSpec.describe Api::V1::AuthenticationController, "#oauth_signup", type: :reques
       end
     end
 
+    context "with empty email & valid provider" do
+      before do
+        post "/api/v1/oauth/signup", params: {
+          "access_token": "empty_email_token",
+          "provider": "google"
+        }, as: :json
+      end
+
+      it "return status 422 and should have jsonapi errors" do
+        expect(response).to have_http_status(422)
+        expect(response.parsed_body).to have_jsonapi_errors
+      end
+    end
+
     context "with valid params" do
       before do
         post "/api/v1/oauth/signup", params: oauth_params, as: :json

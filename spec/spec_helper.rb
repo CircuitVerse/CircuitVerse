@@ -52,6 +52,27 @@ RSpec.configure do |config|
         "locale": "en"
       }.to_json, headers: {})
 
+    # To stub google oauth fetch user response with valid access token but empty email
+    stub_request(:get, "https://www.googleapis.com/oauth2/v3/userinfo")
+      .with(
+        headers: {
+          "Authorization" => "Bearer empty_email_token",
+          "Connection" => "close",
+          "Host" => "www.googleapis.com",
+          "User-Agent" => "http.rb/4.4.0"
+        }
+      )
+      .to_return(status: 200, body: {
+        "sub": "113163207688653496181",
+        "name": "Test OAuth User",
+        "given_name": "Test User",
+        "family_name": "Test User",
+        "picture": "https://lh3.googleusercontent.com/a-/AOh14",
+        "email": "",
+        "email_verified": true,
+        "locale": "en"
+      }.to_json, headers: {})
+
     # To stub google oauth fetch user response with invalid access token
     stub_request(:get, "https://www.googleapis.com/oauth2/v3/userinfo")
       .with(
