@@ -116,27 +116,60 @@ function deleteCurrentCircuit(scopeId = globalScope.id) {
  * @category circuit
  */
 export function newCircuit(name, id) {
-    name = name || prompt('Enter circuit name:');
-    name = stripTags(name);
-    if (!name) return;
-    const scope = new Scope(name);
-    if (id) scope.id = id;
-    scopeList[scope.id] = scope;
-    globalScope = scope;
-    $('.circuits').removeClass('current');
-    $('#tabsBar').append(`<div style='display: flex' class='circuits toolbarButton current' id='${scope.id}'><span>${name}</span><span class ='tabsCloseButton' id='${scope.id}'  >x</span></div>`);
-    $('.circuits').click(function () {
-        switchCircuit(this.id);
-    });
-    $('.tabsCloseButton').click(function (e) {
-        e.stopPropagation();
-        deleteCurrentCircuit(this.id);
-    });
-    if (!embed) {
-        showProperties(scope.root);
+    if(name) {
+        name = stripTags(name);
+        if (!name) return;
+        const scope = new Scope(name);
+        if (id) scope.id = id;
+        scopeList[scope.id] = scope;
+        globalScope = scope;
+        $('.circuits').removeClass('current');
+        $('#tabsBar').append(`<div style='display: flex' class='circuits toolbarButton current' id='${scope.id}'><span>${name}</span><span class ='tabsCloseButton' id='${scope.id}'  >x</span></div>`);
+        $('.circuits').click(function () {
+            switchCircuit(this.id);
+        });
+        $('.tabsCloseButton').click(function (e) {
+            e.stopPropagation();
+            deleteCurrentCircuit(this.id);
+        });
+        if (!embed) {
+            showProperties(scope.root);
+        }
+        dots(false);
+        return scope;
+    } else {
+        $('#newCircuitPrompt').append(`<span>Enter circuit name: </span><input style="border: 1px solid white;background: transparent;margin: 5px;padding: 3px;margin-left: 0;" id='newCircuitName' required type='text'>`);
+        $('#newCircuitPrompt').dialog({
+            buttons:[
+                {
+                    text:'Confirm',
+                    click() {
+                        let name = $('#newCircuitName').val();
+                        name = stripTags(name);
+                        if (!name) return;
+                        const scope = new Scope(name);
+                        if (id) scope.id = id;
+                        scopeList[scope.id] = scope;
+                        globalScope = scope;
+                        $('.circuits').removeClass('current');
+                        $('#tabsBar').append(`<div style='display: flex' class='circuits toolbarButton current' id='${scope.id}'><span>${name}</span><span class ='tabsCloseButton' id='${scope.id}'  >x</span></div>`);
+                        $('.circuits').click(function () {
+                            switchCircuit(this.id);
+                        });
+                        $('.tabsCloseButton').click(function (e) {
+                            e.stopPropagation();
+                            deleteCurrentCircuit(this.id);
+                        });
+                        if (!embed) {
+                            showProperties(scope.root);
+                        }
+                        dots(false);
+                        return scope;
+                    }
+                }
+            ]
+        })
     }
-    dots(false);
-    return scope;
 }
 
 /**
