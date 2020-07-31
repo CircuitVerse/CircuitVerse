@@ -17,6 +17,8 @@ import { changeInputSize } from '../modules';
 export default class HexDisplay extends CircuitElement {
     constructor(x, y, scope = globalScope) {
         super(x, y, scope, 'RIGHT', 4);
+        this.title = 'HexDisplay';
+        
         /* this is done in this.baseSetup() now
         this.scope['HexDisplay'].push(this);
         */

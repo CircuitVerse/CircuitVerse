@@ -20,6 +20,7 @@ import { changeInputSize } from '../modules';
 export default class XnorGate extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', inputs = 2, bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
+        this.title = 'XnorGate';
         /* this is done in this.baseSetup() now
         this.scope['XnorGate'].push(this);
         */

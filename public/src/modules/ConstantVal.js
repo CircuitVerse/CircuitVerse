@@ -46,6 +46,7 @@ export default class ConstantVal extends CircuitElement {
         this.output1 = new Node(this.bitWidth * 10, 0, 1, this);
         this.wasClicked = false;
         this.label = '';
+        this.title = 'ConstantVal';
     }
 
     generateVerilog() {

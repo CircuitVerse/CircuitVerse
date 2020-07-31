@@ -28,6 +28,7 @@ export default class RGBLedMatrix extends CircuitElement {
         } = {}
     ) {
         super(x, y, scope, 'RIGHT', 8);
+        this.title = 'RGBLedMatrix';
         /* this is done in this.baseSetup() now
         this.scope['RGBLedMatrix'].push(this);
         */

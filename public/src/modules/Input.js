@@ -35,6 +35,8 @@ function dec2bin(dec, bitWidth = undefined) {
 export default class Input extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1, layoutProperties) {
         super(x, y, scope, dir, bitWidth);
+        this.title = 'Input';
+
         /* this is done in this.baseSetup() now
         this.scope['Input'].push(this);
         */

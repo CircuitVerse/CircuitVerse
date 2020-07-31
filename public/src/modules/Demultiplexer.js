@@ -26,6 +26,7 @@ export default class Demultiplexer extends CircuitElement {
         controlSignalSize = 1,
     ) {
         super(x, y, scope, dir, bitWidth);
+        this.title = 'Demultiplexer';
         /* this is done in this.baseSetup() now
         this.scope['Demultiplexer'].push(this);
         */

@@ -18,6 +18,7 @@ import { fillText, lineTo, moveTo } from '../canvasApi';
 export default class Random extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
+        this.title = 'Random';
         /* this is done in this.baseSetup() now
         this.scope['Random'].push(this);
         */

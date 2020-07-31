@@ -26,6 +26,7 @@ export default class AndGate extends CircuitElement {
         /* this is done in this.baseSetup() now
         this.scope['AndGate'].push(this);
         */
+        this.title = 'AndGate'
         this.rectangleObject = false;
         this.setDimensions(15, 20);
         this.inp = [];

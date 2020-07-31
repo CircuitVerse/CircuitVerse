@@ -17,7 +17,9 @@ import { changeInputSize } from '../modules';
 export default class Stepper extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 8) {
         super(x, y, scope, dir, bitWidth);
+        this.title = 'Stepper';
         /* this is done in this.baseSetup() now
+        
         this.scope['Stepper'].push(this);
         */
         this.setDimensions(20, 20);

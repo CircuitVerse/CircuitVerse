@@ -37,6 +37,7 @@ export default class Counter extends CircuitElement {
         this.zero = new Node(20, 10, 1, this, 1, "Zero");
 
         this.value = 0;
+        this.title = 'Counter';
         this.prevClockState = undefined;
     }
 

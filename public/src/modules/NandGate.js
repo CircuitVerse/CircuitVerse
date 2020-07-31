@@ -20,6 +20,7 @@ import { changeInputSize } from '../modules';
 export default class NandGate extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', inputLength = 2, bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
+        this.title = 'NandGate';
         /* this is done in this.baseSetup() now
         this.scope['NandGate'].push(this);
         */

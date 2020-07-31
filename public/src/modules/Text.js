@@ -16,6 +16,7 @@ import { rect2, fillText } from '../canvasApi';
 export default class Text extends CircuitElement {
     constructor(x, y, scope = globalScope, label = '', fontSize = 14) {
         super(x, y, scope, 'RIGHT', 1);
+        this.title = 'Text';
         /* this is done in this.baseSetup() now
         this.scope['Text'].push(this);
         */

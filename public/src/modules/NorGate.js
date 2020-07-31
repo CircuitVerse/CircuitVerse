@@ -20,6 +20,7 @@ import { changeInputSize } from '../modules';
 export default class NorGate extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', inputs = 2, bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
+        this.title = 'NorGate';
         /* this is done in this.baseSetup() now
         this.scope['NorGate'].push(this);
         */

@@ -18,6 +18,7 @@ import { changeInputSize } from '../modules';
 export default class Power extends CircuitElement {
     constructor(x, y, scope = globalScope, bitWidth = 1) {
         super(x, y, scope, 'RIGHT', bitWidth);
+        this.title = 'Power';
         /* this is done in this.baseSetup() now
         this.scope['Power'].push(this);
         */

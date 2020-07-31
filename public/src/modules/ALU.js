@@ -26,6 +26,7 @@ export default class ALU extends CircuitElement {
         this.scope['ALU'].push(this);
         */
         this.message = 'ALU';
+        this.title = 'ALU';
 
         this.setDimensions(30, 40);
         this.rectangleObject = false;

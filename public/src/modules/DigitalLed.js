@@ -20,6 +20,7 @@ export default class DigitalLed extends CircuitElement {
         // Calling base class constructor
 
         super(x, y, scope, 'UP', 1);
+        this.title = 'DigitalLed';
         /* this is done in this.baseSetup() now
         this.scope['DigitalLed'].push(this);
         */

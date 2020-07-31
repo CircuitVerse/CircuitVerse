@@ -27,6 +27,7 @@ export default class Multiplexer extends CircuitElement {
         controlSignalSize = 1,
     ) {
         super(x, y, scope, dir, bitWidth);
+        this.title = 'Multiplexer';
         /* this is done in this.baseSetup() now
         this.scope['Multiplexer'].push(this);
         */

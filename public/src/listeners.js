@@ -8,7 +8,7 @@ import {
 } from './engine';
 import { changeScale } from './canvasApi';
 import { scheduleBackup } from './data/backupCircuit';
-import { hideProperties, deleteSelected, uxvar, fullView } from './ux';
+import { hideProperties, deleteSelected, uxvar, fullView, selectElement } from './ux';
 import {
     updateRestrictedElementsList, updateRestrictedElementsInScope, hideRestricted, showRestricted,
 } from './restrictedElementDiv';
@@ -17,7 +17,6 @@ import undo from './data/undo';
 import { copy, paste, selectAll } from './events';
 import save from './data/save';
 import { layoutUpdate } from './layoutMode';
-import { selectElement } from './ux';
 
 var unit = 10;
 var createNode = false; // Flag to create node when its value ==tru)e
@@ -545,6 +544,7 @@ function onMouseUp(e) {
         uxvar.smartDropXX = simulationArea.mouseX + 100; // Math.round(((simulationArea.mouseRawX - globalScope.ox+100) / globalScope.scale) / unit) * unit;
         uxvar.smartDropYY = simulationArea.mouseY - 50; // Math.round(((simulationArea.mouseRawY - globalScope.oy+100) / globalScope.scale) / unit) * unit;
     }
+    selectElement(simulationArea.lastSelected.title);
 }
 
 function resizeTabs() {
