@@ -141,13 +141,36 @@ export function clearProject() {
  * @category data
  */
 export function newProject(verify) {
-    if (verify || projectSaved || !checkToSave() || confirm('What you like to start a new project? Any unsaved changes will be lost.')) {
-        clearProject();
-        localStorage.removeItem('recover');
-        window.location = '/simulator';
-
-        projectName = undefined;
-        projectId = generateId();
-        showMessage('New Project has been created!');
+    if (verify || projectSaved || !checkToSave()) {
+        newProjectConfirmed();
+    } else {
+        $('#newProjectPrompt').text('Would you like to start a new project? Any unsaved changes will be lost.');
+        $('#newProjectPrompt').dialog({
+            buttons:[
+                {
+                    text: 'OK',
+                    click() {
+                        newProjectConfirmed();
+                        $(this).dialog('close');
+                    }
+                },
+                {
+                    text: 'Cancel',
+                    click() {
+                        $(this).dialog('close');
+                    }
+                },
+            ]
+        });
     }
+}
+
+function newProjectConfirmed() {
+    clearProject();
+    localStorage.removeItem('recover');
+    window.location = '/simulator';
+
+    projectName = undefined;
+    projectId = generateId();
+    showMessage('New Project has been created!');
 }
