@@ -209,6 +209,7 @@ export default function startListeners() {
 
             if (e.keyCode == 8 || e.key == 'Delete') {
                 deleteSelected();
+                simulationArea.multiAddElement = false;
             }
 
             if (simulationArea.controlDown && e.key.charCodeAt(0) == 122) { // detect the special CTRL-Z code
@@ -234,8 +235,10 @@ export default function startListeners() {
 
             // deselect all Shortcut
             if (e.keyCode == 27) {
+            $('input').blur();
                 simulationArea.multipleObjectSelections = [];
                 simulationArea.lastSelected = undefined;
+                simulationArea.multiAddElement = false;
                 e.preventDefault();
             }
 
@@ -544,7 +547,7 @@ function onMouseUp(e) {
         uxvar.smartDropXX = simulationArea.mouseX + 100; // Math.round(((simulationArea.mouseRawX - globalScope.ox+100) / globalScope.scale) / unit) * unit;
         uxvar.smartDropYY = simulationArea.mouseY - 50; // Math.round(((simulationArea.mouseRawY - globalScope.oy+100) / globalScope.scale) / unit) * unit;
     }
-    selectElement(simulationArea.lastSelected.title);
+    if (simulationArea.multiAddElement) selectElement(simulationArea.lastSelected.title);
 }
 
 function resizeTabs() {
