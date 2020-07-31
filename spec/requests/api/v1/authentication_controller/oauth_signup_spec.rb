@@ -53,9 +53,12 @@ RSpec.describe Api::V1::AuthenticationController, "#oauth_signup", type: :reques
         }, as: :json
       end
 
-      it "return status 422 and should have jsonapi errors" do
+      it "return status 422 and should have jsonapi error with detail 'Email can't be blank'" do
         expect(response).to have_http_status(422)
         expect(response.parsed_body).to have_jsonapi_errors
+        expect(
+          response.parsed_body["errors"].any? { |e| e["detail"] == "Email can't be blank" }
+        ).to be true
       end
     end
 
