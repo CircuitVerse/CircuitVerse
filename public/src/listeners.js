@@ -210,6 +210,7 @@ export default function startListeners() {
 
             if (e.keyCode == 8 || e.key == 'Delete') {
                 deleteSelected();
+                simulationArea.multiAddElement = false;
             }
 
             if (simulationArea.controlDown && e.key.charCodeAt(0) == 122) { // detect the special CTRL-Z code
@@ -235,8 +236,10 @@ export default function startListeners() {
 
             // deselect all Shortcut
             if (e.keyCode == 27) {
+            $('input').blur();
                 simulationArea.multipleObjectSelections = [];
                 simulationArea.lastSelected = undefined;
+                simulationArea.multiAddElement = false;
                 e.preventDefault();
             }
 
