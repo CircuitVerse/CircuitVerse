@@ -247,4 +247,4 @@ Style/ClassAndModuleChildren:
   Enabled: false
 
 RSpec/MultipleExpectations:
-  Max: 7
+  Max: 5
