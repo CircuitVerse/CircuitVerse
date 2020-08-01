@@ -2,6 +2,7 @@
 
 class PushSubscriptionController < ApplicationController
   before_action :authenticate_user!, only: %i[create test]
+  skip_before_action :verify_authenticity_token, only: [:create, :test]
 
   # POST /push/subscription/new
   def create
