@@ -18,8 +18,9 @@ export function recoverProject() {
     if (localStorage.getItem('recover')) {
         var data = JSON.parse(localStorage.getItem('recover'));
         let name = data.name;
-        $('#recoverProjectPrompt').append("<span>Would you like to recover: " + name + "</span>");
+        $('#recoverProjectPrompt').append(`<span>Would you like to recover: "${name}"</span>`);
         $('#recoverProjectPrompt').dialog({
+            resizable:false,
             buttons:[
                 {
                     text: "Ok",
@@ -129,6 +130,7 @@ window.onbeforeunload = function () {
 export function clearProject() {
     $('#clearProjectPrompt').text('Would you like to clear the project?');
     $('#clearProjectPrompt').dialog({
+        resizable:false,
         buttons: [
             {
                 text: 'OK',
@@ -162,6 +164,7 @@ export function newProject(verify) {
     } else {
         $('#newProjectPrompt').text('Would you like to start a new project? Any unsaved changes will be lost.');
         $('#newProjectPrompt').dialog({
+            resizable:false,
             buttons:[
                 {
                     text: 'OK',

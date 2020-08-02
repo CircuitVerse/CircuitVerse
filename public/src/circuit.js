@@ -138,8 +138,10 @@ export function newCircuit(name, id) {
         dots(false);
         return scope;
     } else {
-        $('#newCircuitPrompt').append(`<span>Enter circuit name: </span><input style="border: 1px solid white;background: transparent;margin: 5px;padding: 3px;margin-left: 0;" id='newCircuitName' required type='text'>`);
+        $('#newCircuitPrompt').empty();
+        $('#newCircuitPrompt').append(`<label style="margin: 0;">Enter circuit name: </label><input style="background: transparent;margin: 5px;padding: 3px;" id='newCircuitName' required type='text'>`);
         $('#newCircuitPrompt').dialog({
+            resizable:false,
             buttons:[
                 {
                     text:'Confirm',

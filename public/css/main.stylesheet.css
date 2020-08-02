@@ -1439,3 +1439,34 @@ select {
 .prompt {
   color: white;
 }
+
+.ui-dialog[aria-describedby='newCircuitPrompt'] {
+  width: 400px !important;
+}
+
+.ui-dialog[aria-describedby='recoverProjectPrompt'] {
+  width: 350px !important;
+}
+
+.ui-dialog[aria-describedby='clearProjectPrompt'] {
+  width: 350px !important;
+}
+
+.ui-dialog[aria-describedby='newProjectPrompt'] {
+  width: 350px !important;
+}
+
+#newCircuitName {
+  border: none;
+  border-bottom: 1px solid white;
+}
+#newCircuitname label{
+  margin-bottom: 0 !important;
+}
+
+#newCircuitPrompt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 0;
+}
