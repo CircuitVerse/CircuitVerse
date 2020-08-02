@@ -211,6 +211,42 @@
 .star-count-icon {
   color: $star-yellow;
 }
+
+.searchpage-user-container {
+  padding-top: 20px;
+  width: 70%;
+}
+
+.searchpage-usersearch-image {
+  margin-bottom: 20px;
+  width: 80%;
+}
+
+.searchpage-username-container {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.searchpage-username {
+  display: block;
+  font-size: 35px;
+  font-weight: 500;
+}
+
+.searchpage-userdetails-text {
+  font-size: 20px;
+  padding-bottom: 10px;
+}
+
+.searchpage-userdetails-container {
+  text-align: left;
+}
+
+.searchpage-user-button-primary {
+  padding-left: 30px;
+  padding-right: 30px;
+}
 //searchpage ends
 
 //breakpoints
@@ -264,5 +300,15 @@
     img {
       max-width: 80%;
     }
+  }
+
+  .searchpage-userdetails-text {
+    font-size: 16px;
+    padding-bottom: 5px;
+  }
+
+  .searchpage-user-container {
+    padding-top: 10px;
+    width: 90%;
   }
 }
