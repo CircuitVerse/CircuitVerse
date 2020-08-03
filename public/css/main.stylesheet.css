@@ -1279,6 +1279,11 @@ select {
   text-align: center;
 }
 
+#combinationalAnalysis p input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: white;
+  opacity: .7; /* Firefox */
+}
+
 #combinationalAnalysis table {
   width: 460px;
 }
