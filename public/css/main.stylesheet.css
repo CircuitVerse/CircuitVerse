@@ -164,6 +164,10 @@ input[type="text"]:focus {
   color: white;
 }
 
+label {
+  cursor: pointer;
+}
+
 /*! Global styles ends here */
 
 .noSelect {
