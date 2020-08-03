@@ -106,7 +106,7 @@
       <li class="dropdown pull-right">
         <% if user_signed_in? %>
           <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %><span class="caret"></span></a>
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu" style="min-width: 110px !important;">
             <li><a class="dropdown-item" href=<%= profile_path(current_user) %>>Profile</a></li>
             <li><a class="dropdown-item" href=<%= user_path(current_user) %>>My Circuits</a></li>
             <li><a class="dropdown-item" href=<%= user_groups_path(current_user) %>>My Groups</a></li>

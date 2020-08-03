@@ -208,7 +208,7 @@ label {
 }
 
 .navbar-menu > li > a:hover {
-  border: 1px solid white;
+  font-weight: bold;
 }
 
 .navbar-menu > li > a:hover span {
@@ -234,7 +234,7 @@ label {
 }
 
 .account-btn:hover {
-  border: 1px solid var(--border-primary);
+  font-weight: bold;
 }
 
 .signIn-btn {
