@@ -4,15 +4,16 @@
 class Api::V1::ProjectsController < Api::V1::BaseController
   include ActionView::Helpers::SanitizeHelper
 
-  before_action :authenticate_user!, except: %i[index show image_preview]
+  before_action :authenticate_user, only: %i[index show user_projects user_favourites]
+  before_action :authenticate_user!, only: %i[update destroy toggle_star create_fork]
   before_action :load_index_projects, only: %i[index]
   before_action :load_user_projects, only: %i[user_projects]
   before_action :load_featured_circuits, only: %i[featured_circuits]
-  before_action :load_favourites, only: %i[favourite_projects]
+  before_action :load_user_favourites, only: %i[user_favourites]
   before_action :set_project, only: %i[show update destroy toggle_star create_fork]
   before_action :set_options, except: %i[destroy toggle_star image_preview]
-  before_action :filter, only: %i[index user_projects featured_circuits favourite_projects]
-  before_action :sort, only: %i[index user_projects featured_circuits favourite_projects]
+  before_action :filter, only: %i[index user_projects featured_circuits user_favourites]
+  before_action :sort, only: %i[index user_projects featured_circuits user_favourites]
 
   SORTABLE_FIELDS = %i[view created_at].freeze
   WHITELISTED_INCLUDE_ATTRIBUTES = %i[author collaborators].freeze
@@ -26,6 +27,12 @@ class Api::V1::ProjectsController < Api::V1::BaseController
   # GET /api/v1/users/:id/projects/
   def user_projects
     @options[:links] = link_attrs(paginate(@projects), projects_api_v1_user_url)
+    render json: Api::V1::ProjectSerializer.new(paginate(@projects), @options)
+  end
+
+  # GET /api/v1/users/:id/favourites
+  def user_favourites
+    @options[:links] = link_attrs(paginate(@projects), favourites_api_v1_user_url)
     render json: Api::V1::ProjectSerializer.new(paginate(@projects), @options)
   end
 
@@ -66,12 +73,6 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     render json: Api::V1::ProjectSerializer.new(paginate(@projects), @options)
   end
 
-  # GET /api/v1/projects/favourites
-  def favourite_projects
-    @options[:links] = link_attrs(paginate(@projects), api_v1_projects_favourites_url)
-    render json: Api::V1::ProjectSerializer.new(paginate(@projects), @options)
-  end
-
   # GET /api/v1/projects/:id/toggle-star
   def toggle_star
     if @project.toggle_star(current_user)
@@ -93,6 +94,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
   private
 
+    # rubocop:disable Metrics/AbcSize
     def set_project
       if params[:user_id]
         @author = User.find(params[:user_id])
@@ -102,6 +104,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
         @author = @project.author
       end
     end
+    # rubocop:enable Metrics/AbcSize
 
     def load_index_projects
       @projects = if current_user.nil?
@@ -112,10 +115,25 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     end
 
     def load_user_projects
-      @projects = if current_user.id == params[:id].to_i
-        current_user.projects
-      else
+      # if user is not authenticated or authenticated as some other user
+      # return only user's public projects else all
+      @projects = if @current_user.nil? || @current_user.id != params[:id].to_i
         Project.open.by(params[:id])
+      else
+        @current_user.projects
+      end
+    end
+
+    def load_user_favourites
+      @projects = Project.joins(:stars)
+                         .where(stars: { user_id: params[:id].to_i })
+
+      # if user is not authenticated or authenticated as some other user
+      # return only user's public favourites else all
+      @projects = if @current_user.nil? || @current_user.id != params[:id].to_i
+        @projects.open
+      else
+        @projects
       end
     end
 
@@ -128,10 +146,6 @@ class Api::V1::ProjectsController < Api::V1::BaseController
       params[:include].split(",")
                       .map { |resource| resource.strip.to_sym }
                       .select { |resource| WHITELISTED_INCLUDE_ATTRIBUTES.include?(resource) }
-    end
-
-    def load_favourites
-      @projects = Project.joins(:stars).where(stars: { user_id: current_user.id })
     end
 
     def set_options
