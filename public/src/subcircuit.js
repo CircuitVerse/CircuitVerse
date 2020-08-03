@@ -36,6 +36,7 @@ export function createSubCircuitPrompt(scope = globalScope) {
     }
     if (flag) $('#insertSubcircuitDialog').append('<p>Looks like there are no other circuits which doesn\'t have this circuit as a dependency. Create a new one!</p>');
     $('#insertSubcircuitDialog').dialog({
+        resizable:false,
         maxHeight: 350,
         width: 250,
         maxWidth: 250,

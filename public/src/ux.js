@@ -355,6 +355,7 @@ $('#bitconverterprompt').append(`
  */
 $('#bitconverter').click(() => {
     $('#bitconverterprompt').dialog({
+        resizable:false,
         buttons: [
             {
                 text: 'Reset',

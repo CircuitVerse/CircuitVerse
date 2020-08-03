@@ -29,6 +29,7 @@ export function createCombinationalAnalysisPrompt(scope = globalScope) {
     $('#combinationalAnalysis').append("<p>Enter Output names separated by commas: <input id='outputNameList' type='text'  placeHolder='eg. Out X, Out Y'></p>");
     $('#combinationalAnalysis').append("<label class='cb-checkbox'>I need a decimal column.<input id='decimalColumnBox' type='checkbox'></label>");
     $('#combinationalAnalysis').dialog({
+        resizable:false,
         width: 'auto',
         buttons: [
             {

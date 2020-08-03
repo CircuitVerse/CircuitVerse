@@ -14,6 +14,7 @@ import { generateImage } from './save';
  */
 export default function createSaveAsImgPrompt(scope = globalScope) {
     $('#saveImageDialog').dialog({
+        resizable:false,
         width: 'auto',
         buttons: [{
             text: 'Render Circuit Image',
