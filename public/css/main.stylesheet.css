@@ -221,6 +221,7 @@ label {
   left: 50%;
   transform: translateX(-50%);
   font-size: 1.4em;
+  cursor: pointer;
 }
 
 .account-btn {

@@ -404,3 +404,12 @@ $('#octalInput').on('keyup', () => {
     var x = parseInt($('#octalInput').val(), 8);
     setBaseValues(x);
 });
+
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    $('#projectName').on('click', () => {
+        $("input[name='setProjectName']").focus();
+        $("input[name='setProjectName']").select();
+        console.log('ok')
+    })
+});
