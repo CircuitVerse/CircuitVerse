@@ -2,7 +2,7 @@
 
 ## GET All Projects
 
-You can GET all projects in `/api/v1/projects`. Authentication `token` is passed through `Authorization` header and is **optional**.
+You can GET all projects in `/api/v1/projects`. Authentication `token` is passed through `Authorization` header but is **NOT** mandatory.
 
 This endpoint fetches all the `public projects` if the user is _not authorized_. If _authorized_ it fetches all the projects user has access to including `private projects`.
 
@@ -188,11 +188,11 @@ HTTP/1.1 200 OK
 }
 ```
 
-## GET User Specific Projects
+## GET User's Projects
 
-You can GET all users specific (identified by `:id`) projects in `/api/v1/users/:id/projects`. Authentication `token` is passed through `Authorization` header and is **required**.
+You can GET all users specific (identified by `:id`) projects in `/api/v1/users/:id/projects`. Authentication `token` is passed through `Authorization` header but is **NOT** mandatory.
 
-This endpoint fetches user specific `public projects` if the user is _not authorized_ as the user identified by `:id`. If _authorized_ as the user identified by `:id` it fetches all the user specific projects including `private projects`.
+This endpoint fetches user specific `public projects` if the user is _not authenticated_ or _not authorized_ as the user identified by `:id`. If _authorized_ as the user identified by `:id` it fetches all the user specific projects including `private projects`.
 
 ### URL Parameters
 
@@ -383,9 +383,204 @@ HTTP/1.1 200 OK
 }
 ```
 
+## GET User's Favourites
+
+You can GET all users specific (identified by `:id`) favourites in `/api/v1/users/:id/favourites`. Authentication `token` is passed through `Authorization` header but is **NOT** mandatory.
+
+This endpoint fetches user specific `public favourites` if the user is _not authenticated_ or _not authorized_ as the user identified by `:id`. If _authorized_ as the user identified by `:id` it fetches all the user specific favourites including `private projects`.
+
+### URL Parameters
+
+| Parameter | Description                   |
+| --------- | ----------------------------- |
+| `id`      | The `id` to identify the user |
+
+### URL Query Parameters
+
+| Parameter      | Description                                                  |
+| -------------- | ------------------------------------------------------------ |
+| `page[number]` | The `number`<sup>th</sup> page of the response               |
+| `page[size]`   | The `size` of the `per_page` response                        |
+| `filter[tag]`  | The `projects` to be filtered by `tag`                       |
+| `sort`         | `,` separated `String` of `sortable params`                  |
+| `include`      | Adds passed params details in `included` section of response |
+
+<aside class="notice">include query param accepts `author` only</aside>
+
+<aside class="success">Sortable params include "view" & "created_at". Append "+" or "-" for ascending or descending sorting respectively.</aside>
+
+### Possible exceptions
+
+| Error Code | Description                                                   |
+| ---------- | ------------------------------------------------------------- |
+| 401        | When user is not authenticated i.e invalid or corrupt `token` |
+| 404        | When user associated with `:id` does not exists               |
+
+```http
+GET /api/v1/users/:id/favourites?include=author HTTP/1.1
+Accept: application/json
+Authorization: Token {token}
+Host: localhost
+```
+
+```http
+HTTP/1.1 200 OK
+```
+
+> JSON response example:
+
+```json
+{
+  "data": [
+    {
+      "id": "1",
+      "type": "project",
+      "attributes": {
+        "name": "Test User/Test",
+        "project_access_type": "Private",
+        "created_at": "2020-03-28T04:14:34.683Z",
+        "updated_at": "2020-05-18T16:53:07.349Z",
+        "image_preview": {
+          "url": "/img/default.png"
+        },
+        "description": null,
+        "view": 11,
+        "tags": [],
+        "stars_count": 1
+      },
+      "relationships": {
+        "author": {
+          "data": {
+            "id": "1",
+            "type": "author"
+          }
+        }
+      }
+    },
+    {
+      "id": "2",
+      "type": "project",
+      "attributes": {
+        "name": "Test 3",
+        "project_access_type": "Public",
+        "created_at": "2020-03-21T18:55:54.528Z",
+        "updated_at": "2020-03-28T04:51:21.479Z",
+        "image_preview": {
+          "url": "/uploads/project/image_preview/10/preview_2020-03-22_00_25_54_%2B0530.jpeg"
+        },
+        "description": "",
+        "view": 2,
+        "tags": [],
+        "stars_count": 1
+      },
+      "relationships": {
+        "author": {
+          "data": {
+            "id": "1",
+            "type": "author"
+          }
+        }
+      }
+    },
+    {
+      "id": "3",
+      "type": "project",
+      "attributes": {
+        "name": "Simple LED",
+        "project_access_type": "Public",
+        "created_at": "2020-05-10T13:04:15.649Z",
+        "updated_at": "2020-05-10T13:04:15.649Z",
+        "image_preview": {
+          "url": "/img/default.png"
+        },
+        "description": " <p>Hey there, Loving Circuitverse</p>",
+        "view": 1,
+        "tags": [],
+        "stars_count": 0
+      },
+      "relationships": {
+        "author": {
+          "data": {
+            "id": "1",
+            "type": "author"
+          }
+        }
+      }
+    },
+    {
+      "id": "4",
+      "type": "project",
+      "attributes": {
+        "name": "Test 5",
+        "project_access_type": "Public",
+        "created_at": "2020-03-21T18:59:50.380Z",
+        "updated_at": "2020-03-21T18:59:54.500Z",
+        "image_preview": {
+          "url": "/uploads/project/image_preview/11/default.png"
+        },
+        "description": "",
+        "view": 1,
+        "tags": [],
+        "stars_count": 0
+      },
+      "relationships": {
+        "author": {
+          "data": {
+            "id": "1",
+            "type": "author"
+          }
+        }
+      }
+    },
+    {
+      "id": "5",
+      "type": "project",
+      "attributes": {
+        "name": "Simple LED",
+        "project_access_type": "Public",
+        "created_at": "2020-05-10T13:07:44.960Z",
+        "updated_at": "2020-05-10T13:07:44.960Z",
+        "image_preview": {
+          "url": "/img/default.png"
+        },
+        "description": " <p>Hey there, Loving Circuitverse</p>",
+        "view": 1,
+        "tags": [],
+        "stars_count": 0
+      },
+      "relationships": {
+        "author": {
+          "data": {
+            "id": "1",
+            "type": "author"
+          }
+        }
+      }
+    }
+  ],
+  "included": [
+    {
+      "id": "1",
+      "type": "author",
+      "attributes": {
+        "name": "Test User",
+        "email": "test@test.com"
+      }
+    }
+  ],
+  "links": {
+    "self": "http://localhost:3000/api/v1/users/1/favourites?page[number]=1",
+    "first": "http://localhost:3000/api/v1/users/1/favourites?page[number]=1",
+    "prev": null,
+    "next": "http://localhost:3000/api/v1/users/1/favourites?page[number]=2",
+    "last": "http://localhost:3000/api/v1/users/1/favourites?page[number]=3"
+  }
+}
+```
+
 ## GET Project Details
 
-You can GET project details (identified by `:id`) in `/api/v1/projects/:id/`. Authentication `token` is passed through `Authorization` header and is **required**.
+You can GET project details (identified by `:id`) in `/api/v1/projects/:id/`. Authentication `token` is passed through `Authorization` header but is **NOT** mandatory.
 
 ### URL Parameters
 
@@ -599,7 +794,7 @@ Content-Type: application/json
 
 ## GET Featured Projects
 
-You can GET all featured projects in `/api/v1/projects/featured`. Authentication `token` is passed through `Authorization` header and is **required**.
+You can GET all featured projects in `/api/v1/projects/featured`.
 
 ### URL Query Parameters
 
