@@ -52,7 +52,7 @@ export const tour = [
     {
         element: '#subCirGuide',
         popover: {
-            title: 'Sub-Circuits',
+            title: 'subCirGuide',
             description: "This feature lets you add one of your circuits into another by converting it to a sub-circuit..",
             position: 'right',
             // offset: 250,
@@ -74,7 +74,7 @@ export const tour = [
             title: 'Report System',
             description: "You can report any issues/bugs you face through this issue reporting button there and then quickly.",
             position: 'left',
-            offset: -25,
+            offset: -105,
         },
     },
 ]

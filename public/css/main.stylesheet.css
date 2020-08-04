@@ -1236,3 +1236,7 @@ select {
   }
 
 /*! Color them dialog styles ends here*/
+
+.bug-guide .right {
+  top: 110px !important;
+}
