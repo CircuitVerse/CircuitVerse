@@ -31,6 +31,16 @@ export const tour = [
         },
     },
     {
+        element: '.forum-tab',
+        popover: {
+            className: "",
+            title: 'Forum Tab',
+            description: "The forums can help you report issues & bugs, feature requests, and discussing about circuits with the community!",
+            position: 'right',
+            // offset: -25,
+        },
+    },
+    {
         element: '#tabsBar',
         popover: {
             title: 'Circuit Tabs',
@@ -67,17 +77,6 @@ export const tour = [
             offset: -25,
         },
     },
-    // {
-    //     element: '.fa-bug',
-    //     popover: {
-    //         className: "forum-tab",
-    //         title: 'The forums can help you report issues & bugs, feature requests, and discussing about circuits with the community!',
-    //         description: "",
-    //         position: 'left',
-    //         offset: -25,
-    //     },
-    // }
- 
 ]
  
 const animatedTourDriver = new Driver({
