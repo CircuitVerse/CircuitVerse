@@ -60,7 +60,7 @@ export default class Clock extends CircuitElement {
         var yy = this.y;
 
         ctx.beginPath();
-        ctx.strokeStyle = [colors['wire_con'], colors['wire_pow']][this.state];
+        ctx.strokeStyle = [colors['color_wire_con'], colors['color_wire_pow']][this.state];
         ctx.lineWidth = correctWidth(2);
         if (this.state == 0) {
             moveTo(ctx, -6, 0, xx, yy, 'RIGHT');

@@ -434,7 +434,7 @@ export default class Node {
         // console.log(this.id)
         const ctx = simulationArea.context;
         //        
-        const color = colors["wire_draw"];
+        const color = colors["color_wire_draw"];
         if (this.clicked) {
             if (this.prev == 'x') {
                 drawLine(ctx, this.absX(), this.absY(), simulationArea.mouseX, this.absY(), color, 3);
@@ -448,19 +448,19 @@ export default class Node {
                 drawLine(ctx, this.absX(), this.absY(), this.absX(), simulationArea.mouseY, color, 3);
             }
         }
-        let wire = colors['node_norm'];
-        const wireConnect = colors['wire_con']
-        const wirePow = colors['wire_pow']
-        const wireLose = colors['wire_lose']
-        const node = colors['node'];
+        let colorWire = colors['node_norm'];
+        const colorWireConnect = colors['color_wire_con']
+        const colorWirePow = colors['color_wire_pow']
+        const colorWireLose = colors['color_wire_lose']
+        const colorNode = colors['node'];
 
-        if (this.bitWidth == 1) wire = [wireConnect, wirePow][this.value];
-        if (this.value == undefined) wire = wireLose;
+        if (this.bitWidth == 1) colorWire = [colorWireConnect, colorWirePow][this.value];
+        if (this.value == undefined) colorWire = colorWireLose;
         if (this.type == 2) this.checkHover();
-        if (this.type == 2) { drawCircle(ctx, this.absX(), this.absY(), 3,); wire } else { drawCircle(ctx, this.absX(), this.absY(), 3, node); }
+        if (this.type == 2) { drawCircle(ctx, this.absX(), this.absY(), 3,); colorWire } else { drawCircle(ctx, this.absX(), this.absY(), 3, colorNode); }
 
         if (this.highlighted || simulationArea.lastSelected == this || (this.isHover() && !simulationArea.selected && !simulationArea.shiftDown) || simulationArea.multipleObjectSelections.contains(this)) {
-            ctx.strokeStyle = node;
+            ctx.strokeStyle = colorNode;
             ctx.beginPath();
             ctx.lineWidth = 3;
             arc(ctx, this.x, this.y, 8, 0, Math.PI * 2, this.parent.x, this.parent.y, 'RIGHT');
