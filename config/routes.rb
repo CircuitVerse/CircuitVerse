@@ -134,8 +134,21 @@ Rails.application.routes.draw do
       resources :users do
         get "projects", to: "projects#user_projects", on: :member
       end
-      post "/assignments/:assignment_id/projects/:project_id/grades", to: "grades#create"
-      resources :grades, only: %i[update destroy]
+      post '/assignments/:assignment_id/projects/:project_id/grades', to: 'grades#create'
+      resources :grades, only: [:update, :destroy]
+      get "/groups/mentored", to: "groups#groups_mentored"
+      resources :groups, only: [:index, :show, :update, :destroy]
+      delete '/group/members/:id', to: 'group_members#destroy'
+      resources :groups do
+        resources :members, controller: 'group_members', shallow: true, only: [:index, :create]
+        resources :assignments, shallow: true
+      end
+      resources :assignments do
+        member do
+          patch 'reopen'
+          patch 'start'
+        end
+      end
     end
   end
 end
