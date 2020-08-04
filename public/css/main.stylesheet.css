@@ -168,6 +168,12 @@ label {
   cursor: pointer;
 }
 
+input {
+  border: 1px solid white !important;
+  margin-top: 7px !important;
+  padding: 0 5px !important;
+}
+
 /*! Global styles ends here */
 
 .noSelect {
@@ -758,6 +764,10 @@ div.icon img {
   margin-bottom: 15px;
 }
 
+.moduleProperty input {
+  width: 100%;
+}
+
 .moduleProperty input,
 .moduleProperty select {
   background-color: transparent;
@@ -901,6 +911,7 @@ input:checked + .slider:before {
   width: 90%;
   margin-bottom: 15px;
   margin-top: 15px;
+  font-weight: bold;
 }
 
 .btn-parent {
