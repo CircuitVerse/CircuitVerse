@@ -170,7 +170,6 @@ label {
 
 input {
   border: 1px solid white !important;
-  margin-top: 7px !important;
   padding: 0 5px !important;
 }
 
@@ -708,6 +707,7 @@ div.icon img {
 
 .moduleProperty input {
   color: #fff;
+  margin-top: 7px !important;
 }
 
 .moduleProperty {
@@ -1306,7 +1306,6 @@ select {
   background: transparent;
   color: white;
   font: inherit;
-  float: right;
   text-align: center;
 }
 
