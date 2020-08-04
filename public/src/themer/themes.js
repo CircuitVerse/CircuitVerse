@@ -291,8 +291,8 @@ export default {
         "--br-primary": "#e2dad1", //panel border, tabbar circuit border
         "--context-text-hov": "black",
         "--context-text": "white",
-        "--bg-primary-moz": "rgba(46, 43, 33,.904)", //dialog bg, navbar dropwdown //.9 opacity of nav
-        "--bg-primary-chr": "rgba(46, 43, 33, 0.704)", //dialog bg navbar dropwdown // .7 opacity of nav
+        "--bg-primary-moz": "rgba(46, 43, 33, 1)", //dialog bg, navbar dropwdown //.9 opacity of nav
+        "--bg-primary-chr": "rgba(46, 43, 33, 1)", //dialog bg navbar dropwdown // .7 opacity of nav
         "--bg-icons": "#b1a074", //ce icon bg
         "--bg-text": "#ddd", //drop down, content menu, text bg on hover
         "--bg-secondary": "#6B6B6B", //border color input button,
