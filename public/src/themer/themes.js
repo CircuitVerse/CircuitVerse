@@ -85,7 +85,7 @@ export default {
         "--cus-btn-hov--bg": "#48a69d",
         "--cus-btn-hov-text": "#fff",
         "--node": "#285963",
-        "--stroke": "#277F7C",
+        "--stroke": "#35aea9",
         "--fill": "#DEFFFE",
         "--hover-and-sel": "#E3B924",
         "--wire-draw": "#77878C",
