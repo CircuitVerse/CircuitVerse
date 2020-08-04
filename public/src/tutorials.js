@@ -6,8 +6,8 @@ export const tour = [
         className: 'guide_1',
         popover: {
             className: '',
-            title: 'Curcuit Elements panel',
-            description: 'it consits of all the elements availabe here, which is used to build circuits.',
+            title: 'Circuit Elements panel',
+            description: 'This is where you can find all the circuit elements that are offered to build amazing circuits.',
             position: 'right',
             offset: 160,
         },
@@ -16,25 +16,16 @@ export const tour = [
         element: '.guide_2',
         popover: {
             title: 'Properties Panel',
-            description: 'It will show the properties of the current element on focus, you can set or change properties here. Since no elements are currently on focus it is showing the properties of the current workspace.',
+            description: 'This panel lets you change element properties as they are selected. When no elements are selected, the panel displays project properties.',
             position: 'left',
             offset: 200,
         },
     },
     {
-        element: '.header',
-        popover: {
-            title: 'This is the header',
-            description: 'It consists of menu items, the title and a quick buttons menu',
-            position: 'bottom',
-            offset: 750,
-        },
-    },
-    {
         element: '.quick-btn',
         popover: {
-            title: 'This is the quick options menu',
-            description: "Here you can access options like save online, save offline, etc. Just hover any of the option & it will display it's name.",
+            title: 'Quick Access Panel',
+            description: "This movable panel offers to perform some actions like Save Online, Open, Download quickly. Hover over the icons and see for yourself",
             position: 'bottom',
             // offset: 750,
         },
@@ -42,8 +33,8 @@ export const tour = [
     {
         element: '#tabsBar',
         popover: {
-            title: 'This is the tabs bar',
-            description: "Here you can see all the circuits you have currently in your project, change or delete them.",
+            title: 'Circuit Tabs',
+            description: "This section displays all the circuits you have in your project. You can easily add and delete circuits.",
             position: 'bottom',
             offset: 250,
         },
@@ -51,8 +42,8 @@ export const tour = [
     {
         element: '#subCirGuide',
         popover: {
-            title: 'Create new sub-circuit button',
-            description: "You can make new sub-circuits by pressing this button.",
+            title: 'Sub-Circuits',
+            description: "This feature lets you add one of your circuits into another by converting it to a sub-circuit..",
             position: 'right',
             // offset: 250,
         },
@@ -70,21 +61,52 @@ export const tour = [
         element: '.fa-bug',
         popover: {
             className: "bug-guide",
-            title: 'Report issues here',
-            description: "",
+            title: 'Report System',
+            description: "You can report any issues/bugs you face through this issue reporting button there and then quickly.",
             position: 'left',
             offset: -25,
         },
     },
-
+    // {
+    //     element: '.fa-bug',
+    //     popover: {
+    //         className: "forum-tab",
+    //         title: 'The forums can help you report issues & bugs, feature requests, and discussing about circuits with the community!',
+    //         description: "",
+    //         position: 'left',
+    //         offset: -25,
+    //     },
+    // }
+ 
 ]
-
-
+ 
 const animatedTourDriver = new Driver({
     animate: true,
     opacity: 0.8,
     padding: 5,
     showButtons: true,
 });
+
+export const tutorialWrapper = () => {
+    const panelHighlight = new Driver();
+    $('.panelHeader').one('click', (e) => {
+        if (localStorage.tutorials === "next") {
+            panelHighlight.highlight({
+                element: '#guide_1',
+                showButtons: false,
+                popover: {
+                    title: 'Here are the elements',
+                    description: 'Select any element by clicking on it & then click anywhere on the grid to place the element.',
+                    position: 'right',
+                    offset: $($(e.target).next()).height() + $(e.target).offset().top - 45,
+                }
+            })
+            localStorage.setItem('tutorials', 'done');
+        }
+    })
+    $('.icon').click(() => {
+        panelHighlight.reset(true);
+    });
+} 
 
 export default animatedTourDriver;
