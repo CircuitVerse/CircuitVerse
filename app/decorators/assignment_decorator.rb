@@ -32,7 +32,7 @@ class AssignmentDecorator < SimpleDelegator
   end
 
   def closed
-    assignment.status == "closed" ?
+    assignment.status == "closed"
   end
 
   def time_remaining
