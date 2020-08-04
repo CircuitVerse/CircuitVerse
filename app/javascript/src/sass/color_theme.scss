@@ -629,11 +629,10 @@ color: var(--text-panel)
 .selected {
   background: var(--bg-icons) !important;
   color: var(--text-panel) !important;
-  // color: var();
 }
 
 .set {
-  border: .5px solid var(--bg-tabs) !important;
+  border: .5px solid var(--br-primary) !important;
   border-radius: 1.5px;
 }
 
