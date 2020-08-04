@@ -738,23 +738,10 @@ input:checked + .slider:before {
 
 /** selects styling starts here */
 
-select {
-  appearance: none;
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  appearance: none;
-  width: auto;
-  float: right;
-  background-image: url(./assets/small-components/chevron-down.svg);
-  background-repeat: no-repeat, repeat;
-  background-position: right -10px top 50%, 0 0;
-  background-size: 15px;
-  background-origin: content-box;
-}
-
 .moduleProperty select {
-  padding-right: 10px;
   padding-left: 5px;
+  width: 81px;
+  float: right;
 }
 
 /*! selects styling end here */
