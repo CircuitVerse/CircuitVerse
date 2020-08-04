@@ -29,27 +29,7 @@
   </div>
   <hr>
   <div class="row row-text groupdetails-row-scroll">
-    <% @group.users.each do |user| %>
-      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 groupdetails-card-member-container">
-        <div class="groupdetails-card-member">
-          <div class="row">
-            <div class="col-7 groupdetails-card-member-details-1">
-              <i class="fa fa-user"></i>
-              <%= link_to user.name, user, class: "groupdetails-card-member-name" %>
-              <p class="groupdetails-card-member-email"><%= user.email %></p>
-            </div>
-            <div class="col-5 groupdetails-card-member-details-2">
-              <% if policy(@group).admin_access? %>
-                <%= link_to group_member_path(GroupMember.find_by(user_id:user.id,group_id:@group.id)), method: :delete, data: { confirm: 'Are you sure?' }, class:"button-mini-edit groupdetails-button-mini-remove" do %>
-                  <%= image_tag("SVGs/deleteGroup.svg", alt: "Remove Member") %>
-                  <span>Remove</span>
-                <% end %>
-              <% end %>
-            </div>
-          </div>
-        </div>
-      </div>
-    <% end %>
+    <%= render partial "group_members", locals: {group: @group} %>
   </div>
   <div class="row row-text groupdetails-row">
     <h3>ASSIGNMENTS</h3>
@@ -99,7 +79,7 @@
               <% end %>
             </div>
             <% if policy(@group).admin_access? %>
-              <% if assignment.status!="closed" %>
+              <% if assignment.closed? %>
                 <div class="assignment-content">
                   <%= link_to edit_group_assignment_path(@group,assignment), class:"button-mini-edit assignment-button-mini-edit-reopen" do %>
                     <%= image_tag("SVGs/editGroup.svg", alt: "Edit Assignment") %>
@@ -194,8 +174,8 @@
               <th class="table-collapsed-head">Deadline</th>
               <td>
                 <div class="assignment-deadline-date"><%= assignment.deadline %></div>
-                <% if(assignment.deadline > Time.now) %>
-                  <p>(<strong>Time remaining: </strong><%= (( assignment.deadline.to_i - Time.now.to_i)/1.day) %> days,  <%= (( assignment.deadline.to_i- Time.now.to_i)/1.hour)%24 %> hours, <%= (( assignment.deadline.to_i- Time.now.to_i)/1.minute)%60 %> minutes)</p>
+                <% if(assignment.deadline > Time.current) %>
+                  <p>(<strong>Time remaining: </strong><%= assignment.time_remaining %>)</p>
                 <% end %>
               </td>
             </tr>
@@ -309,42 +289,8 @@
       <%= link_to 'Back', user_groups_path(current_user) ,class:"anchor-text" %>
     </div>
   </div>
+  <%= render partial: "modal", locals: {group_member: @group_member} %>
 
-  <div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog custom-modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header custom-modal-header">
-          <h4 class="modal-title">Add members</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <div class="modal-body">
-          <p>Enter Email IDs separated by commas/spaces or in separate lines. If users are not registered, an email ID will be sent requesting them to sign up.</p>
-          <%= form_with(model: @group_member, local: true) do |form| %>
-            <% if @group_member.errors.any? %>
-              <div id="error-explanation">
-                <h6><%= pluralize(group_member.errors.count, "error") %> prohibited this group member from being saved:</h6>
-                <ul>
-                  <% @group_member.errors.full_messages.each do |message| %>
-                      <li><%= message %></li>
-                  <% end %>
-                </ul>
-              </div>
-            <% end %>
-            <div class="field">
-              <%= form.hidden_field :group_id, id: :group_member_group_id %>
-            </div>
-            <div class="form-group">
-              <label for="emails">Email IDs:</label>
-              <textarea class="form-control" rows="5" id="emails" name="group_member[emails]"></textarea>
-            </div>
-            <div class="actions modal-footer">
-              <%= form.submit "Add members", class: 'btn button-primary' %>
-            </div>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  </div>
   <script>
       $(document).ready(function() {
           $('.assignment-deadline-date').each(function(){
