@@ -31,7 +31,7 @@ class AssignmentDecorator < SimpleDelegator
     restricted_elements_str.present? ? restricted_elements_str.slice(0..-3) : "None"
   end
 
-  def closed
+  def closed?
     assignment.status == "closed"
   end
 
