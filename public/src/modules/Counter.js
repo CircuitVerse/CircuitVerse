@@ -2,7 +2,8 @@ import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import { lineTo, moveTo, fillText } from '../canvasApi';
-import getColors from './colors';
+import { colors } from '../themer/themer';
+
 
 /**
  * @class
@@ -102,7 +103,7 @@ export default class Counter extends CircuitElement {
         var ctx = simulationArea.context;
         var xx = this.x;
         var yy = this.y;
-        const colors = getColors();
+        //        
         ctx.fillStyle = colors['fill'];
         ctx.strokeStyle = colors['stroke'];
         ctx.fill();
@@ -123,5 +124,5 @@ export default class Counter extends CircuitElement {
 }
 
 Counter.prototype.tooltipText = "Counter: a binary counter from zero to a given maximum value";
-Counter.prototype.helplink = "https://docs.circuitverse.org/#/inputElements?id=counter";Counter.prototype.objectType = 'Counter';
+Counter.prototype.helplink = "https://docs.circuitverse.org/#/inputElements?id=counter"; Counter.prototype.objectType = 'Counter';
 Counter.prototype.objectType = 'Counter';

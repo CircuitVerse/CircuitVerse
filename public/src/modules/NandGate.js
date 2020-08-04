@@ -17,7 +17,8 @@ import { changeInputSize } from '../modules';
  * @param {number=} bitWidth - bit width per node.
  * @category modules
  */
-import getColors from './colors';
+import { colors } from '../themer/themer';
+
 export default class NandGate extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', inputLength = 2, bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
@@ -91,7 +92,7 @@ export default class NandGate extends CircuitElement {
      * function to draw nand Gate
      */
     customDraw() {
-        const colors = getColors();
+        //        
         var ctx = simulationArea.context;
         ctx.beginPath();
         ctx.lineWidth = correctWidth(3);

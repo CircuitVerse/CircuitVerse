@@ -9,7 +9,7 @@ import { showError } from './utils';
 
 import Node, { findNode } from './node';
 import { fillText } from './canvasApi';
-import getColors from './modules/colors';
+import { colors } from './themer/themer';
 ;
 
 /**
@@ -80,10 +80,10 @@ export default class SubCircuit extends CircuitElement {
         // Error handing
         if (subcircuitScope == undefined) {
             // if no such scope for subcircuit exists
-            showError(`SubCircuit : ${(savedData && savedData.title) || this.id } Not found`);
+            showError(`SubCircuit : ${(savedData && savedData.title) || this.id} Not found`);
         } else if (!checkIfBackup(subcircuitScope)) {
             // if there is no input/output nodes there will be no backup
-            showError(`SubCircuit : ${(savedData && savedData.title) || subcircuitScope.name } is an empty circuit`);
+            showError(`SubCircuit : ${(savedData && savedData.title) || subcircuitScope.name} is an empty circuit`);
         } else if (subcircuitScope.checkDependency(scope.id)) {
             // check for cyclic dependency
             showError('Cyclic Circuit Error');
@@ -243,7 +243,7 @@ export default class SubCircuit extends CircuitElement {
         }
 
         if (subcircuitScope.Input.length == 0 && subcircuitScope.Output.length == 0) {
-            showError(`SubCircuit : ${subcircuitScope.name } is an empty circuit`);
+            showError(`SubCircuit : ${subcircuitScope.name} is an empty circuit`);
             this.delete();
             this.scope.backups = [];
             return;
@@ -417,7 +417,7 @@ export default class SubCircuit extends CircuitElement {
     }
 
     customDraw() {
-        const colors = getColors();
+        //        
         var subcircuitScope = scopeList[this.id];
 
         var ctx = simulationArea.context;

@@ -112,8 +112,8 @@ export default class DflipFlop extends CircuitElement {
     }
 
     customDraw() {
-        var ctx = simulationArea.context; 
-        const colors = getColors();
+        var ctx = simulationArea.context;
+        //        
         ctx.strokeStyle = (colors['stroke']);
         ctx.fillStyle = colors['fill'];
         ctx.fill();

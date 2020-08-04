@@ -17,7 +17,8 @@ import { changeInputSize } from '../modules';
  * @param {number=} controlSignalSize - 1 by default
  * @category modules
  */
-import getColors from './colors';
+import { colors } from '../themer/themer';
+
 export default class Multiplexer extends CircuitElement {
     constructor(
         x,
@@ -121,7 +122,7 @@ export default class Multiplexer extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        const colors = getColors();
+        //        
         var ctx = simulationArea.context;
 
         const xx = this.x;

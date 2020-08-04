@@ -15,7 +15,8 @@ import { changeInputSize } from '../modules';
  * @param {string=} color - color of led
  * @category modules
  */
-import getColors from './colors';
+import { colors } from '../themer/themer';
+
 export default class DigitalLed extends CircuitElement {
     constructor(x, y, scope = globalScope, color = 'Red') {
         // Calling base class constructor
@@ -66,7 +67,7 @@ export default class DigitalLed extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        const colors = getColors();
+        //        
         var ctx = simulationArea.context;
 
         const xx = this.x;

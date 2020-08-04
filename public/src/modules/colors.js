@@ -1,6 +1,3 @@
-// const colors = {
-//     "hover_select": hover_select,
-// }
 
 const getColors = () => {
     const colors = {};

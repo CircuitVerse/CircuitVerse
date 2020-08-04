@@ -15,7 +15,8 @@ import { changeInputSize } from '../modules';
  * @param {string=} dir - direction of element
  * @category modules
  */
-import getColors from './colors';
+import { colors } from '../themer/themer';
+
 export default class Arrow extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT') {
         super(x, y, scope, dir, 8);
@@ -44,7 +45,7 @@ export default class Arrow extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        const colors = getColors();
+        //        
         var ctx = simulationArea.context;
         ctx.lineWidth = correctWidth(3);
         const xx = this.x;

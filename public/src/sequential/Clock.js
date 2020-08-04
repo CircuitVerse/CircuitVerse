@@ -49,7 +49,7 @@ export default class Clock extends CircuitElement {
     }
 
     customDraw() {
-        const colors = getColors();
+        //        
         var ctx = simulationArea.context;
         ctx.strokeStyle = (colors['stroke']);
         ctx.fillStyle = colors['fill'];

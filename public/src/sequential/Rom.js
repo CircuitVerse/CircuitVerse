@@ -105,7 +105,7 @@ export default class Rom extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        const colors = getColors();
+        //        
         const ctx = simulationArea.context;
         const xx = this.x;
         const yy = this.y;

@@ -5,7 +5,8 @@ import simulationArea from '../simulationArea';
 import {
     correctWidth, lineTo, moveTo, fillText4,
 } from '../canvasApi';
-import getColors from './colors';
+import { colors } from '../themer/themer';
+
 
 /**
  * @class
@@ -75,7 +76,7 @@ export default class ALU extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        const colors = getColors();
+        //        
         var ctx = simulationArea.context;
         const xx = this.x;
         const yy = this.y;

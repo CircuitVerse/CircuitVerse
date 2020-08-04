@@ -14,7 +14,8 @@ import { changeInputSize } from '../modules';
  * @param {Scope=} scope - Cirucit on which element is drawn
  * @category modules
  */
-import getColors from './colors';
+import { colors } from '../themer/themer';
+
 export default class HexDisplay extends CircuitElement {
     constructor(x, y, scope = globalScope) {
         super(x, y, scope, 'RIGHT', 4);
@@ -68,7 +69,7 @@ export default class HexDisplay extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        const colors = getColors();
+        //        
         var ctx = simulationArea.context;
 
         const xx = this.x;
@@ -80,55 +81,55 @@ export default class HexDisplay extends CircuitElement {
 
         let a = 0, b = 0, c = 0, d = 0, e = 0, f = 0, g = 0;
         switch (this.inp.value) {
-        case 0:
-            a = b = c = d = e = f = 1;
-            break;
-        case 1:
-            b = c = 1;
-            break;
-        case 2:
-            a = b = g = e = d = 1;
-            break;
-        case 3:
-            a = b = g = c = d = 1;
-            break;
-        case 4:
-            f = g = b = c = 1;
-            break;
-        case 5:
-            a = f = g = c = d = 1;
-            break;
-        case 6:
-            a = f = g = e = c = d = 1;
-            break;
-        case 7:
-            a = b = c = 1;
-            break;
-        case 8:
-            a = b = c = d = e = g = f = 1;
-            break;
-        case 9:
-            a = f = g = b = c = 1;
-            break;
-        case 0xA:
-            a = f = b = c = g = e = 1;
-            break;
-        case 0xB:
-            f = e = g = c = d = 1;
-            break;
-        case 0xC:
-            a = f = e = d = 1;
-            break;
-        case 0xD:
-            b = c = g = e = d = 1;
-            break;
-        case 0xE:
-            a = f = g = e = d = 1;
-            break;
-        case 0xF:
-            a = f = g = e = 1;
-            break;
-        default:
+            case 0:
+                a = b = c = d = e = f = 1;
+                break;
+            case 1:
+                b = c = 1;
+                break;
+            case 2:
+                a = b = g = e = d = 1;
+                break;
+            case 3:
+                a = b = g = c = d = 1;
+                break;
+            case 4:
+                f = g = b = c = 1;
+                break;
+            case 5:
+                a = f = g = c = d = 1;
+                break;
+            case 6:
+                a = f = g = e = c = d = 1;
+                break;
+            case 7:
+                a = b = c = 1;
+                break;
+            case 8:
+                a = b = c = d = e = g = f = 1;
+                break;
+            case 9:
+                a = f = g = b = c = 1;
+                break;
+            case 0xA:
+                a = f = b = c = g = e = 1;
+                break;
+            case 0xB:
+                f = e = g = c = d = 1;
+                break;
+            case 0xC:
+                a = f = e = d = 1;
+                break;
+            case 0xD:
+                b = c = g = e = d = 1;
+                break;
+            case 0xE:
+                a = f = g = e = d = 1;
+                break;
+            case 0xF:
+                a = f = g = e = 1;
+                break;
+            default:
         }
         this.customDrawSegment(18, -3, 18, -38, ['lightgrey', 'red'][b]);
         this.customDrawSegment(18, 3, 18, 38, ['lightgrey', 'red'][c]);

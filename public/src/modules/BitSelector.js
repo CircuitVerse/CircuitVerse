@@ -14,7 +14,8 @@ import { correctWidth, rect, fillText } from '../canvasApi';
  * @param {number=} selectorBitWidth - 1 by default
  * @category modules
  */
-import getColors from './colors';
+import { colors } from '../themer/themer';
+
 export default class BitSelector extends CircuitElement {
     constructor(
         x,
@@ -89,7 +90,7 @@ export default class BitSelector extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        const colors = getColors();
+        //        
         var ctx = simulationArea.context;
         ctx.beginPath();
         ctx.strokeStyle = ['blue', colors['stroke_alt']][(this.state === undefined) + 0];

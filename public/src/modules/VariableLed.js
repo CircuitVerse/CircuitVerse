@@ -14,7 +14,8 @@ import { changeInputSize } from '../modules';
  * @param {Scope=} scope - Cirucit on which element is drawn
  * @category modules
  */
-import getColors from './colors';
+import { colors } from '../themer/themer';
+
 export default class VariableLed extends CircuitElement {
     constructor(x, y, scope = globalScope) {
         // Calling base class constructor
@@ -49,7 +50,7 @@ export default class VariableLed extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        const colors = getColors();
+        //        
         var ctx = simulationArea.context;
 
         const xx = this.x;

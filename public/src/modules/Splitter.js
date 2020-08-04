@@ -4,7 +4,8 @@ import simulationArea from '../simulationArea';
 import {
     correctWidth, lineTo, moveTo, fillText2,
 } from '../canvasApi';
-import getColors from './colors';
+import { colors } from '../themer/themer';
+
 
 function extractBits(num, start, end) {
     return (num << (32 - end)) >>> (32 - (end - start + 1));
@@ -189,7 +190,7 @@ export default class Splitter extends CircuitElement {
      */
     customDraw() {
         var ctx = simulationArea.context;
-        const colors = getColors();
+        //        
         ctx.strokeStyle = [colors['splitter'], 'brown'][((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) + 0];
         ctx.lineWidth = correctWidth(3);
         const xx = this.x;

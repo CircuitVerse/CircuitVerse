@@ -1,19 +1,17 @@
 import { dots } from '../canvasApi';
 // import getColors from '../modules/colors';
 import themeOptions from "./themes";
+import getColors from '../modules/colors';
 
-
+export let colors = getColors();
 
 function updateThemeForStyle(themeName) {
-    // const selectedTheme = themeOptions.find(
-    //     (t) => t.name.toLowerCase() === themeName.toLowerCase()
-    // );
     const selectedTheme = themeOptions[themeName];
     const html = document.getElementsByTagName('html')[0];
     Object.keys(selectedTheme).forEach((property, i) => {
-        // if (property === 'name') return;
         html.style.setProperty(property, selectedTheme[property]);
     });
+    colors = getColors();
 }
 
 export default updateThemeForStyle;

@@ -4,7 +4,7 @@ import { drawLine } from './canvasApi';
 import simulationArea from './simulationArea';
 import Node from './node';
 import { updateSimulationSet, forceResetNodesSet } from './engine';
-import getColors from './modules/colors';
+import { colors } from './themer/themer';
 
 /**
  * Wire - To connect two nodes.
@@ -122,7 +122,7 @@ export default class Wire {
 
     draw() {
         // for calculating min-max Width,min-max Height
-        const colors = getColors();
+        //        
         const ctx = simulationArea.context;
 
         var color;

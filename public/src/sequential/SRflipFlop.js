@@ -97,7 +97,7 @@ export default class SRflipFlop extends CircuitElement {
 
     customDraw() {
         var ctx = simulationArea.context;
-        const colors = getColors();
+        //        
         ctx.strokeStyle = (colors['stroke']);
         ctx.fillStyle = (colors['fill']);
         ctx.fill();

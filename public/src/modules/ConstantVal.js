@@ -4,7 +4,8 @@ import simulationArea from '../simulationArea';
 import {
     correctWidth, rect2, fillText, oppositeDirection
 } from '../canvasApi';
-import getColors from './colors';
+import { colors } from '../themer/themer';
+
 
 
 function bin2dec(binString) {
@@ -112,7 +113,7 @@ export default class ConstantVal extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        const colors = getColors();
+        //        
         var ctx = simulationArea.context;
         ctx.beginPath();
         ctx.strokeStyle = colors['stroke'];

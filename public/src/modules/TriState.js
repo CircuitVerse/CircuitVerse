@@ -16,7 +16,8 @@ import { changeInputSize } from '../modules';
  * @param {number=} bitWidth - bit width per node.
  * @category modules
  */
-import getColors from './colors';
+import { colors } from '../themer/themer';
+
 export default class TriState extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
@@ -88,7 +89,7 @@ export default class TriState extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        const colors = getColors();
+        //        
         var ctx = simulationArea.context;
         ctx.strokeStyle = (colors['stroke']);
         ctx.lineWidth = correctWidth(3);

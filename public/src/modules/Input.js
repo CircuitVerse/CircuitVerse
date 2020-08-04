@@ -19,7 +19,8 @@ import { generateId } from '../utils';
  * @param {Object=} layoutProperties - x,y and id
  * @category modules
  */
-import getColors from './colors';
+import { colors } from '../themer/themer';
+
 
 function bin2dec(binString) {
     return parseInt(binString, 2);
@@ -127,7 +128,7 @@ export default class Input extends CircuitElement {
      */
     customDraw() {
         var ctx = simulationArea.context;
-        const colors = getColors();
+        //        
         ctx.strokeStyle = (colors['stroke']);
         ctx.stroke();
         ctx.beginPath();

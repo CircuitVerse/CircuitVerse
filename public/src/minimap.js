@@ -1,6 +1,5 @@
 import simulationArea from './simulationArea';
-import getColors from './modules/colors';
-
+import { colors } from './themer/themer';
 /**
  * @type {Object} miniMapArea
  * This object is used to draw the miniMap.
@@ -60,7 +59,7 @@ export default miniMapArea = {
     },
     resolve(ratio) {
         if (lightMode) return;
-        const colors = getColors();
+        //        
         this.ctx.fillStyle = '#ddd';
         this.ctx.beginPath();
         this.ctx.rect(2.5 + ((this.pageX - this.pageWidth) / globalScope.scale - this.minX) * ratio, 2.5 + ((this.pageY - this.pageHeight) / globalScope.scale - this.minY) * ratio, this.pageWidth * ratio / globalScope.scale, this.pageHeight * ratio / globalScope.scale);

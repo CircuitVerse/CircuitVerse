@@ -6,7 +6,8 @@ import {
 } from '../canvasApi';
 import { getNextPosition } from '../modules';
 import { generateId } from '../utils';
-import getColors from './colors';
+import { colors } from '../themer/themer';
+
 
 
 function bin2dec(binString) {
@@ -107,7 +108,7 @@ export default class Output extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        const colors = getColors();
+        //        
         this.state = this.inp1.value;
         var ctx = simulationArea.context;
         ctx.beginPath();

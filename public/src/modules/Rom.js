@@ -15,7 +15,8 @@ import { changeInputSize } from '../modules';
  * @param {Array=} data - bit width per node.
  * @category modules
  */
-import getColors from './colors';
+import { colors } from '../themer/themer';
+
 export default class Rom extends CircuitElement {
     constructor(
         x,
@@ -106,7 +107,7 @@ export default class Rom extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        const colors = getColors();
+        //        
         const ctx = simulationArea.context;
         const xx = this.x;
         const yy = this.y;

@@ -15,7 +15,8 @@ import { changeInputSize } from '../modules';
  * @param {number=} bitWidth - bit width per node.
  * @category modules
  */
-import getColors from './colors';
+import { colors } from '../themer/themer';
+
 export default class Power extends CircuitElement {
     constructor(x, y, scope = globalScope, bitWidth = 1) {
         super(x, y, scope, 'RIGHT', bitWidth);
@@ -58,7 +59,7 @@ export default class Power extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        const colors = getColors();
+        //        
         var ctx = simulationArea.context;
         const xx = this.x;
         const yy = this.y;

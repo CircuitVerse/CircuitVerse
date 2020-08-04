@@ -129,7 +129,7 @@ export default class RAM extends CircuitElement {
 
     customDraw() {
         var ctx = simulationArea.context;
-        const colors = getColors();
+        //        
         var xx = this.x;
         var yy = this.y;
 

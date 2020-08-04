@@ -16,7 +16,8 @@ import {
  * @param {number=} controlSignalSize - 1 by default
  * @category modules
  */
-import getColors from './colors';
+import { colors } from '../themer/themer';
+
 export default class Demultiplexer extends CircuitElement {
     constructor(
         x,
@@ -114,7 +115,7 @@ export default class Demultiplexer extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        const colors = getColors();
+        //        
         var ctx = simulationArea.context;
 
         const xx = this.x;

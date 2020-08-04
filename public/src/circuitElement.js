@@ -5,7 +5,7 @@ import simulationArea from './simulationArea';
 import {
     fixDirection, fillText, correctWidth, rect2, oppositeDirection,
 } from './canvasApi';
-import getColors from './modules/colors';
+import { colors } from './themer/themer';
 
 /**
  * Base class for circuit elements.
@@ -34,7 +34,7 @@ export default class CircuitElement {
 
         this.oldx = x;
         this.oldy = y;
-        
+
         // The following attributes help in setting the touch area bound. They are the distances from the center.
         // Note they are all positive distances from center. They will automatically be rotated when direction is changed.
         // To stop the rotation when direction is changed, check overrideDirectionRotation attribute.
@@ -375,7 +375,7 @@ export default class CircuitElement {
      * NOT OVERRIDABLE
      */
     draw() {
-        const colors = getColors();
+        //        
         var ctx = simulationArea.context;
         this.checkHover();
 

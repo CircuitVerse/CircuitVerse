@@ -5,7 +5,8 @@ import {
     correctWidth, lineTo, moveTo, arc,
 } from '../canvasApi';
 import { changeInputSize } from '../modules';
-import getColors from './colors';
+import { colors } from '../themer/themer';
+
 /**
  * @class
  * AndGate
@@ -94,7 +95,7 @@ export default class AndGate extends CircuitElement {
      * function to draw And Gate
      */
     customDraw() {
-        const colors = getColors();
+        //        
         var ctx = simulationArea.context;
         ctx.beginPath();
         ctx.lineWidth = correctWidth(3);

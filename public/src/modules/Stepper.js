@@ -14,7 +14,8 @@ import { changeInputSize } from '../modules';
  * @param {number=} bitWidth - bitwidth of element
  * @category modules
  */
-import getColors from './colors';
+import { colors } from '../themer/themer';
+
 export default class Stepper extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 8) {
         super(x, y, scope, dir, bitWidth);
@@ -51,7 +52,7 @@ export default class Stepper extends CircuitElement {
      */
     customDraw() {
         var ctx = simulationArea.context;
-        const colors = getColors();
+        //        
         ctx.fillStyle = colors['fill'];
         ctx.strokeStyle = colors['stroke'];
         ctx.fill();

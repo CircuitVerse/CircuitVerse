@@ -17,7 +17,8 @@ import plotArea from '../plotArea';
  * @param {string} identifier - id
  * @category modules
  */
-import getColors from './colors';
+import { colors } from '../themer/themer';
+
 export default class Flag extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1, identifier) {
         super(x, y, scope, dir, bitWidth);
@@ -94,7 +95,7 @@ export default class Flag extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        const colors = getColors();
+        //        
         var ctx = simulationArea.context;
         ctx.beginPath();
         ctx.strokeStyle = colors['stroke'];

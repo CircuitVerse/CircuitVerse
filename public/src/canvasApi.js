@@ -2,7 +2,7 @@
 import backgroundArea from './backgroundArea';
 import simulationArea from './simulationArea';
 import miniMapArea, { removeMiniMap, updatelastMinimapShown } from './minimap';
-import getColors from './modules/colors';
+import { colors } from './themer/themer';
 
 var unit = 10;
 
@@ -92,7 +92,7 @@ export function changeScale(delta, xx, yy, method = 1) {
 // Otherwise for normal panning, the canvas itself is moved to give the illusion of movement
 
 export function dots(dots = true, transparentBackground = false, force = false) {
-    const colors = getColors();
+
     var scale = unit * globalScope.scale;
     var ox = globalScope.ox % scale; // offset
     var oy = globalScope.oy % scale; // offset
