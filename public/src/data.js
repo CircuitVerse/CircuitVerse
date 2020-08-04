@@ -6,6 +6,7 @@ import { clearProject, newProject, saveOffline, openOffline, recoverProject } fr
 import { newCircuit } from './circuit'
 import { createCombinationalAnalysisPrompt } from './combinationalAnalysis';
 import { colorThemes } from "./themer/themer";
+import { restartTutorials } from './tutorials';
 
 const logixFunction = {};
 logixFunction.save = save;
@@ -20,4 +21,5 @@ logixFunction.recoverProject = recoverProject;
 logixFunction.createSubCircuitPrompt = createSubCircuitPrompt;
 logixFunction.createCombinationalAnalysisPrompt = createCombinationalAnalysisPrompt;
 logixFunction.colorThemes = colorThemes;
+logixFunction.restartGuide = restartTutorials;
 export default logixFunction;

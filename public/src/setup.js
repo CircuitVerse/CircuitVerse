@@ -1,7 +1,7 @@
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable guard-for-in */
-import Driver  from 'driver.js';
+import Driver from 'driver.js';
 import * as metadata from './metadata.json';
 import { generateId, showMessage } from './utils';
 import backgroundArea from './backgroundArea';

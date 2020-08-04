@@ -106,6 +106,11 @@ export const tutorialWrapper = () => {
     $('.icon').click(() => {
         panelHighlight.reset(true);
     });
-} 
+}
+
+export function restartTutorials() {
+    localStorage.removeItem('tutorials');
+    location.reload();
+}
 
 export default animatedTourDriver;
