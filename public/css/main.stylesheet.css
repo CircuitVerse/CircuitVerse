@@ -178,12 +178,8 @@ input[type="text"]:focus {
   transition: all 0.2s ease-in-out;
 }
 
-/* .account-btn:hover {
-  border: 1px solid var(--border-primary);
-} */
-
-.signIn-btn {
-  color: var(--text-primary);
+.cur-user, .signIn-btn {
+  color: var(--text-navbar);
 }
 
 .signIn-btn:hover {
