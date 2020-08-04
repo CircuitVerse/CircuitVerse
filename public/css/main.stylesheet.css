@@ -164,15 +164,6 @@ input[type="text"]:focus {
   color: white;
 }
 
-label {
-  cursor: pointer;
-}
-
-input {
-  border: 1px solid white !important;
-  padding: 0 5px !important;
-}
-
 /*! Global styles ends here */
 
 .noSelect {
@@ -352,6 +343,10 @@ input {
     background-color: rgba(69, 69, 69, 0.7);
     backdrop-filter: blur(5px);
   }
+}
+
+.mw-override {
+  min-width: 110px;
 }
 
 .dropdown > ul::before {
@@ -705,11 +700,6 @@ div.icon img {
 
 /** Module property styling starts here */
 
-.moduleProperty input {
-  color: #fff;
-  margin-top: 7px !important;
-}
-
 .moduleProperty {
   display: none;
   font: inherit;
@@ -768,7 +758,6 @@ div.icon img {
   width: 100%;
 }
 
-.moduleProperty input,
 .moduleProperty select {
   background-color: transparent;
   border: none;
@@ -776,6 +765,15 @@ div.icon img {
   margin: auto;
   color: white;
   outline: none;
+}
+
+.moduleProperty input {
+  background-color: transparent;
+  color: #fff;
+  margin-top: 7px;
+  outline: none;
+  border: 1px solid white;
+  padding: 0 5px;
 }
 
 .moduleProperty input:focus,
@@ -885,7 +883,6 @@ input:checked + .slider:before {
 }
 
 .custom-btn--secondary:hover {
-  /* color: white; */
   background-color: #ddd;
   transition: all 0.3s ease;
 }
@@ -907,7 +904,7 @@ input:checked + .slider:before {
 
 #HelpButton {
   background-color: transparent;
-  border: 1px solid white;
+  border: 2px solid white;
   width: 90%;
   margin-bottom: 15px;
   margin-top: 15px;
@@ -1074,6 +1071,7 @@ select {
   justify-content: space-around;
   padding: 0 7px;
   position: relative;
+  cursor: pointer;
 }
 
 .option input[type="radio"] {
@@ -1301,8 +1299,7 @@ select {
 }
 
 #combinationalAnalysis p input {
-  border: none;
-  border-bottom: 1px solid white;
+  border: 1px solid white;
   background: transparent;
   color: white;
   font: inherit;

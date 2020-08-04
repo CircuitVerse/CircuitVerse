@@ -405,11 +405,9 @@ $('#octalInput').on('keyup', () => {
     setBaseValues(x);
 });
 
-
 document.addEventListener('DOMContentLoaded', (event) => {
     $('#projectName').on('click', () => {
         $("input[name='setProjectName']").focus();
         $("input[name='setProjectName']").select();
-        console.log('ok')
     })
 });
