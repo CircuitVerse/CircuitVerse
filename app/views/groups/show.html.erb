@@ -29,7 +29,7 @@
   </div>
   <hr>
   <div class="row row-text groupdetails-row-scroll">
-    <%= render partial "group_members", locals: {group: @group} %>
+    <%= render partial: "group_members", locals: {group: @group} %>
   </div>
   <div class="row row-text groupdetails-row">
     <h3>ASSIGNMENTS</h3>
@@ -60,9 +60,9 @@
           </td>
           <td>
             <div class="assignment-deadline-date table-expanded-date"><%= assignment.deadline %></div>
-            <% if(assignment.deadline > Time.now) %>
+            <% if(assignment.deadline > Time.current) %>
               <p>
-                (<strong>Time remaining: </strong><%= (( assignment.deadline.to_i - Time.now.to_i)/1.day) %> days,  <%= (( assignment.deadline.to_i- Time.now.to_i)/1.hour)%24 %> hours, <%= (( assignment.deadline.to_i- Time.now.to_i)/1.minute)%60 %> minutes)
+                (<strong>Time remaining: </strong><%= AssignmentDecorator.new(assignment).time_remaining %>)
               </p>
             <% end %>
           </td>
@@ -79,7 +79,7 @@
               <% end %>
             </div>
             <% if policy(@group).admin_access? %>
-              <% if assignment.closed? %>
+              <% if AssignmentDecorator.new(assignment).closed? %>
                 <div class="assignment-content">
                   <%= link_to edit_group_assignment_path(@group,assignment), class:"button-mini-edit assignment-button-mini-edit-reopen" do %>
                     <%= image_tag("SVGs/editGroup.svg", alt: "Edit Assignment") %>
@@ -102,7 +102,7 @@
               </div>
             <% else %>
               <% project_assignment = assignment.projects.find { |p| p.author_id == current_user.id } %>
-                <% if(assignment.deadline > Time.now) %>
+                <% if(assignment.deadline > Time.current) %>
                   <% if project_assignment.nil? %>
                     <div class="assignment-content">
                       <%= link_to assignment_start_path(@group,assignment), class:"button-mini-edit assignment-button-mini-edit-reopen" do %>
@@ -175,7 +175,7 @@
               <td>
                 <div class="assignment-deadline-date"><%= assignment.deadline %></div>
                 <% if(assignment.deadline > Time.current) %>
-                  <p>(<strong>Time remaining: </strong><%= assignment.time_remaining %>)</p>
+                  <p>(<strong>Time remaining: </strong><%= AssignmentDecorator.new(assignment).time_remaining %>)</p>
                 <% end %>
               </td>
             </tr>
@@ -197,7 +197,7 @@
                   <% end %>
                 </div>
                 <% if policy(@group).admin_access? %>
-                  <% if assignment.status!="closed" %>
+                  <% if AssignmentDecorator.new(assignment).closed? %>
                     <div class="table-collapsed-assignment-content">
                       <%= link_to edit_group_assignment_path(@group,assignment), class:"button-mini-edit assignment-button-mini-edit-reopen" do %>
                         <%= image_tag("SVGs/editGroup.svg", alt: "Edit Assignment") %>
@@ -220,7 +220,7 @@
                   </div>
                 <% else %>
                   <% project_assignment = assignment.projects.find { |p| p.author_id == current_user.id } %>
-                    <% if(assignment.deadline > Time.now) %>
+                    <% if(assignment.deadline > Time.current) %>
                       <% if project_assignment.nil? %>
                         <div class="table-collapsed-assignment-content">
                           <%= link_to assignment_start_path(@group,assignment), class:"button-mini-edit assignment-button-mini-edit-reopen" do %>
