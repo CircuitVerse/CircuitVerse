@@ -88,7 +88,7 @@ export default {
         "--stroke": "#277F7C",
         "--fill": "#DEFFFE",
         "--hover-and-sel": "#E3B924",
-        "--wire-draw": "#262626",
+        "--wire-draw": "#77878C",
         "--wire-cnt": "#3B7F58",
         "--wire-pow": "#75FFB0",
         "--wire-sel": "#208CC9",
