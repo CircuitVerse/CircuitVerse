@@ -124,6 +124,7 @@ group :test do
   gem 'capybara', '~> 2.13'
   gem 'shoulda-matchers'
   gem "json-schema"
+  gem 'webmock'
 end
 
 group :development do

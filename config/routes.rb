@@ -117,12 +117,17 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      post "/auth/login", to: "authentication#login"
-      post "/auth/signup", to: "authentication#signup"
-      get "/me", to: "users#me"
+      post '/auth/login', to: 'authentication#login'
+      post '/auth/signup', to: 'authentication#signup'
+      post '/oauth/login', to: 'authentication#oauth_login'
+      post '/oauth/signup', to: 'authentication#oauth_signup'
+      get '/public_key.pem', to: "authentication#public_key"
+      post '/password/forgot', to: 'authentication#forgot_password'
+      get '/me', to: 'users#me'
+      post '/forgot_password', to: 'users#forgot_password'
       resources :users, only: %i[index show update]
-      get "/projects/featured", to: "projects#featured_circuits"
-      get "/projects/favourites", to: "projects#favourite_projects"
+      get '/projects/featured', to: 'projects#featured_circuits'
+      get '/projects/favourites', to: 'projects#favourite_projects'
       resources :projects do
         member do
           get "toggle-star", to: "projects#toggle_star"
