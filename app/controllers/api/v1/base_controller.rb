@@ -38,6 +38,14 @@ class Api::V1::BaseController < ActionController::API
     unauthenticated!
   end
 
+  rescue_from Commontator::SecurityTransgression do
+    api_error(status: 403, errors: "not authorized for this action")
+  end
+
+  def security_transgression_unless(check)
+    raise Commontator::SecurityTransgression unless check
+  end
+
   def unauthenticated!
     api_error(status: 401, errors: "not authenticated")
   end
