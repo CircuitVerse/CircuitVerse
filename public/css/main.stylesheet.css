@@ -527,31 +527,27 @@ input[type="text"]:focus {
   position: absolute;
   border-radius: 5px;
   top: 50%;
-  /* transform: translateY(-50%) rotate(45deg); */
   transform: translateY(-50%) rotate(132deg);
-  transition: 0.5s ease-out;
+  transition: 0.2s ease-out;
   background-color: white;
 }
 
 .panelHeader:after {
-  /* transform: translate(325%, -50%) rotate(135deg); */
   transform: translate(325%, -50%) rotate(226deg);
 }
 
 .ui-accordion-header-active:before {
-  /* height: 0; */
-  transition: 0.5s ease-out;
+  transition: 0.2s ease-out;
   transform-origin: left;
-  /* transform: translate(37%, -40%) rotate(135deg);} */
   transform: translate(29%, -40%) rotate(50deg);
+  top: 46%;
 }
 
 .ui-accordion-header-active:after {
-  /* height: 0; */
   transform-origin: bottom;
-  /* transform: translate(73%, -50%) rotate(45deg);   */
   transform: translate(541%, -50%) rotate(310deg);
-  transition: 0.5s ease-out;
+  transition: 0.2s ease-out;
+  top: 46%;
 }
 
 .ui-accordion-header-active:hover {
@@ -754,10 +750,6 @@ div.icon img {
   margin-bottom: 15px;
 }
 
-.moduleProperty input {
-  width: 100%;
-}
-
 .moduleProperty select {
   background-color: transparent;
   border: none;
@@ -774,6 +766,7 @@ div.icon img {
   outline: none;
   border: 1px solid white;
   padding: 0 5px;
+  width: 100%;
 }
 
 .moduleProperty input:focus,
