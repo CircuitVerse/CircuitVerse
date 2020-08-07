@@ -105,7 +105,7 @@
     <ul class="nav navbar-nav noSelect pointerCursor pull-right account-btn">
       <li class="dropdown pull-right">
         <% if user_signed_in? %>
-          <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %><span class="caret"></span></a>
+          <a href="#" class="acc-drop" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %><span class="caret acc-caret"></span></a>
           <ul class="dropdown-menu mw-override" >
             <li><a class="dropdown-item" href=<%= profile_path(current_user) %>>Profile</a></li>
             <li><a class="dropdown-item" href=<%= user_path(current_user) %>>My Circuits</a></li>

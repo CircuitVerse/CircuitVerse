@@ -187,7 +187,7 @@ input[type="text"]:focus {
   margin-right: 10px;
 }
 
-.navbar-menu > li > a span {
+.navbar-menu > li > a span, .acc-caret {
   content: "";
   background: url(./assets/small-components/chevron-down.svg) center/cover
     no-repeat;
@@ -203,11 +203,14 @@ input[type="text"]:focus {
   transition: all 0.2s ease-in-out;
 }
 
+.acc-caret {
+  right: -17px;
+}
 .navbar-menu > li > a:hover {
   font-weight: bold;
 }
 
-.navbar-menu > li > a:hover span {
+.navbar-menu > li > a:hover span, .acc-drop:hover .acc-caret {
   background: none;
 }
 
