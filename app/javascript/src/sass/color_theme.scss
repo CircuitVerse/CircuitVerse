@@ -1,43 +1,6 @@
 @import "css-vars";
 $css-vars-use-native: true;
-
-// $primary: $baseDefault;
-// $text-primary: $text-lite;
-// $text-secondary: $text-dark;
-// $br-primary: $borderDefault;
-// $bg-primary-moz: $bg-moz;
-// $bg-primary-chr: $bg-chr;
-// $bg-tabs: $bg-tabs-grey;
-// $bg-icons: $bg-icons-grey;
-// $bg-text: $bg-text-grey;
-// $bg-secondary: $bg-secondary-grey;
-// $canvas-primary: $canvas-primary-grey;
-// $canvas-secondary: $canvas-secondary-white;
-// $bg-toogle: $bg-toggle-btn-primary;
-// $bg-toogle-darken: $bg-toggle-btn-primary-darken;
-// $btn-danger: $btn-danger-red;
-// $btn-danger-darken: $btn-danger-red-dark;
-
-// @include css-vars(
-//   (
-//     --primary: $primary,
-//     --text-lite: $text-primary,
-//     --text-dark: $text-secondary,
-//     --br-primary: $br-primary,
-//     --bg-primary-moz: $bg-primary-moz,
-//     --bg-primary-chr: $bg-primary-moz,
-//     --bg-tabs: $bg-tabs,
-//     --bg-icons: $bg-icons,
-//     --bg-text: $bg-text,
-//     --bg-secondary: $bg-secondary,
-//     --canvas-stroke: $canvas-primary,
-//     --canvas-fill: $canvas-secondary,
-//     --bg-toggle-btn-primary: $bg-toogle,
-//     --primary-btn-hov: $bg-toogle-darken,
-//     --btn-danger: $btn-danger,
-//     --btn-danger-darken: $btn-danger-darken,
-//   )
-// );
+@import './svg_color';
 
 //global
 $baseDefault: #454545;
@@ -334,16 +297,10 @@ $output-rect: blue;
   background-color: var(--bg-circuit);
 }
 
-#tabsBar .circuits > span {
-  // color: var(--text-panel);
-  // color: ;
-}
-
 #tabsBar .current {
   color: var(--text-panel);
   background-color: var(--primary);
   border: 1px solid var(--br-circuit-cur);
-
 }
 
 #tabsBar .current > span {
@@ -503,10 +460,6 @@ color: var(--text-panel)
   background: var(--cus-radio_label);
 }
 
-.pannel-heading {
-  // background-color: #f5f5f5;
-}
-
 #saveImageDialog {
   border: 1px solid var(--br-secondary);
 }
@@ -542,7 +495,6 @@ color: var(--text-panel)
 }
 
 .render-btn {
-  // background: #42b983;
   color: var(--text-lite);
   border: 1px solid var(--br-primary);
 }
@@ -550,6 +502,7 @@ color: var(--text-panel)
 .render-btn:active {
   border: 1px solid var(--br-primary);
 }
+
 .render-btn:hover {
   background: #3ba374;
   color: var(--text-lite);
@@ -626,13 +579,13 @@ color: var(--text-panel)
   border: 1px solid var(--br-secondary) !important;
 }
 
-.selected {
-  background: var(--bg-icons) !important;
-  color: var(--text-panel) !important;
+.set {
+  border: 2px solid cyan !important;
 }
 
-.set {
-  border: .5px solid var(--br-primary) !important;
+.theme {
+  color: var(--text-panel) !important;
+  background: var(--bg-icons) !important;
   border-radius: 1.5px;
 }
 
@@ -649,13 +602,12 @@ color: var(--text-panel)
 
 .input-group-prepend button {
   color: var(--text-panel) !important;
-  // background: var(--bg-secondary) !important;
 }
 
 .input-group-append button {
   color: var(--text-panel) !important;
-  // background:  var(--bg-secondary) !important;
 }
+
 svg:hover {
   fill: red;
 }
