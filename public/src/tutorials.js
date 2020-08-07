@@ -50,15 +50,6 @@ export const tour = [
         },
     },
     {
-        element: '#subCirGuide',
-        popover: {
-            title: 'subCirGuide',
-            description: "This feature lets you add one of your circuits into another by converting it to a sub-circuit..",
-            position: 'right',
-            // offset: 250,
-        },
-    },
-    {
         element: '#delCirGuide',
         popover: {
             title: 'Delete sub-circuit button',
@@ -77,6 +68,18 @@ export const tour = [
             offset: -105,
         },
     },
+    {
+        element: '.tour-help',
+        popover: {
+            className: 'tourHelpStep',
+            title: 'Restart tutorial anytime',
+            description: 'You can restart this tutorial anytime by clicking on "Tutorial Guide" under this dropdown.',
+            position: 'right',
+            offset: 0,
+        },
+    },
+
+
 ]
  
 const animatedTourDriver = new Driver({
