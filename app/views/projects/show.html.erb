@@ -221,10 +221,9 @@
       </div>
     </div>
   </div>
-
-  <%= commontator_thread(@project) %>
-
 </div>
+<%= commontator_thread(@project) if Flipper.enabled?(:project_comments) %>
+
 <script>
   function embedOther() {
     if(document.getElementsByClassName("projectshow-button-embed-other")[0].ariaExpanded=="false") {

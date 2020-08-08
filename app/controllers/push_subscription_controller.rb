@@ -1,14 +1,15 @@
 # frozen_string_literal: true
 
 class PushSubscriptionController < ApplicationController
-  before_action :authenticate_user!, only: [:create, :test]
+  before_action :authenticate_user!, only: %i[create test]
+  skip_before_action :verify_authenticity_token, only: [:create, :test]
 
   # POST /push/subscription/new
   def create
     @subscription = current_user.push_subscriptions.create(push_subscription_params)
     if @subscription.save
       render json: {
-          status: "ok"
+        status: "ok"
       }, status: :created
     else
       render json: @subscription.errors, status: :unprocessable_entity
