@@ -128,6 +128,14 @@ ActiveRecord::Schema.define(version: 2020_09_30_135954) do
     t.index ["user_id"], name: "index_custom_mails_on_user_id"
   end
 
+  create_table "fcms", force: :cascade do |t|
+    t.string "token", null: false
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_fcms_on_user_id"
+  end
+
   create_table "featured_circuits", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -367,6 +375,7 @@ ActiveRecord::Schema.define(version: 2020_09_30_135954) do
   add_foreign_key "collaborations", "users"
   add_foreign_key "commontator_comments", "commontator_comments", column: "parent_id", on_update: :restrict, on_delete: :cascade
   add_foreign_key "custom_mails", "users"
+  add_foreign_key "fcms", "users"
   add_foreign_key "featured_circuits", "projects"
   add_foreign_key "forum_posts", "forum_threads"
   add_foreign_key "forum_posts", "users"
