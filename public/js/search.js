@@ -3,7 +3,7 @@
 $(document).ready(() => {
 
     // Highlight searched text
-    var searchText = $('.search-bar-input').val().trim();
+    var searchText = $('.navbar-search-bar-input').val().trim();
 
     if (searchText !== '') {
         $('.feature').find('p, .card-title, .card-text, .description, .text-muted').each(function highlight() {
