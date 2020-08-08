@@ -17,7 +17,7 @@ class Api::V1::GroupMembersController < Api::V1::BaseController
 
   # POST /api/v1/groups/:group_id/members/
   def create
-    mails_handler = MailsHandler.new(params[:emails], @group, @current_user)
+    mails_handler = MailsHandler.new(params[:emails], @group, current_user)
     # parse mails as valid or invalid
     mails_handler.parse
     # create invitation or group member

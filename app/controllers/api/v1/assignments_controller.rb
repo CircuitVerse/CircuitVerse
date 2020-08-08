@@ -65,8 +65,8 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
   # PATCH /api/v1/assignments/:id/start
   def start
     authorize @assignment
-    @project = @current_user.projects.new
-    @project.name = @current_user.name + "/" + @assignment.name
+    @project = current_user.projects.new
+    @project.name = current_user.name + "/" + @assignment.name
     @project.assignment_id = @assignment.id
     @project.project_access_type = "Private"
     @project.save!
@@ -96,7 +96,7 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
     def set_options
       @options = {}
       @options[:include] = include_resource if params.key?(:include)
-      @options[:params] = { current_user: @current_user }
+      @options[:params] = { current_user: current_user }
     end
 
     def check_reopening_status
