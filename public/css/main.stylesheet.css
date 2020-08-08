@@ -1448,6 +1448,10 @@ select {
   border: 1px solid white;
 }
 
+#element:focus {
+  outline: none !important;
+}
+
 .filterX {
   position: absolute;
   right: 19px;
