@@ -46,7 +46,7 @@ Rails.application.routes.draw do
   resources :featured_circuits, only: %i[index create]
   delete "/featured_circuits", to: "featured_circuits#destroy"
 
-  devise_for :users, controllers: { registrations: "users/registrations", omniauth_callbacks: "users/omniauth_callbacks" }
+  devise_for :users, controllers: { registrations: "users/registrations", omniauth_callbacks: "users/omniauth_callbacks", sessions: "users/sessions" }
 
   # Logix web pages resources
   root "logix#index"

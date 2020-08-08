@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-white">
+<nav id="navbarContainer" class="navbar navbar-expand-lg bg-white">
   <a class="navbar-brand" href="/">
     <%= image_tag("CircuitVerse.svg", class: "navbar-logo", alt: "CircuitVerse Logo") %>
   </a>
@@ -56,7 +56,7 @@
       </div>
       <% else %>
         <li class="nav-item px-1">
-          <a class="nav-link navbar-item navbar-text <%= request.path == '/users/sign_in' ? 'active' : '' %>" href="/users/sign_in">Login</a>
+          <a href="#" class="nav-link navbar-item navbar-text" data-toggle="modal" data-target="#loginModal">Log In</a>
         </li>
       <% end %>
     </ul>

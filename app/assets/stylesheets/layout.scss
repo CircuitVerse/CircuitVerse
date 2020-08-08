@@ -390,3 +390,26 @@ html {
     display: none;
   }
 }
+
+
+//login popup styles
+#loginModal {
+  .modal-dialog {
+    max-width: 800px;
+  }
+}
+
+//to be removed
+.editprofile-data-field {
+  border: 1px solid $teal;
+  border-radius: 0;
+  height: 40px;
+  margin-bottom: 35px;
+  max-width: 100%;
+}
+//to be removed ends
+.layouts-login-popup-login-button {
+  padding: 8px 30px;
+}
+
+//login popup styles ends
