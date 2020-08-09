@@ -18,7 +18,7 @@
     "@fortawesome/fontawesome-free": "^5.12.1",
     "@rails/webpacker": "4.2.2",
     "bootstrap": "^4.5.0",
-    "jquery": "^3.5.0",
+    "jquery": "^3.5.1",
     "opencollective-postinstall": "^2.0.2",
     "popper.js": "^1.16.0",
     "trumbowyg": "^2.21.0"
