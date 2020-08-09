@@ -46,8 +46,8 @@ Rails.application.routes.draw do
   resources :featured_circuits, only: %i[index create]
   delete "/featured_circuits", to: "featured_circuits#destroy"
 
+  get "users/sign_in" => redirect('/')
   devise_for :users, controllers: { registrations: "users/registrations", omniauth_callbacks: "users/omniauth_callbacks", sessions: "users/sessions" }
-
   # Logix web pages resources
   root "logix#index"
   get  "/gettingStarted", to: "logix#gettingStarted"

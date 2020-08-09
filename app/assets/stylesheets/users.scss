@@ -1,0 +1,98 @@
+//to be removed
+.primary-button {
+  background-color: $primary-green;
+  border-radius: 4px;
+  color: $white;
+  margin: 5px;
+  transition: all .3s ease 0s;
+
+  &:hover {
+    background-color: $secondary-green;
+    box-shadow: 0 8px 15px $shadow-black;
+    color: $white;
+    transform: translateY(-7px);
+  }
+}
+
+.center-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.center-row {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1344px;
+  text-align: center;
+}
+//to be removed ends
+
+//passwords
+.users-image {
+  margin-bottom: 15px;
+  margin-top: 30px;
+  max-height: 400px;
+  max-width: 80%;
+}
+
+.users-heading-main {
+  margin-bottom: 30px;
+}
+
+.users-primary-button {
+  padding: 8px 20px;
+  margin-left: 0;
+  margin-right: 15px;
+}
+
+.users-form-container {
+  margin-left: 40px;
+  margin-top: 30px;
+  max-width: 80%;
+}
+
+.users-text {
+  font-weight: 500;
+  padding-right: 10px;
+}
+
+//breakpoints
+@media (max-width: 768px) {
+  .users-image,
+  .users-image-text {
+    display: none;
+  }
+}
+
+@media (max-width: 400px) {
+  .users-form-container {
+    margin-left: 10px;
+    margin-top: 15px;
+    max-width: 90%;
+  }
+}
+//passwords ends
+
+//shared
+.users-shared {
+  margin-top: 40px;
+}
+
+.users-shared-row {
+  width: 100%;
+}
+
+.users-social-links {
+  height: 50px;
+  margin-left: 5px;
+  margin-right: 5px;
+  padding-top: 10px;
+  width: 40px;
+
+  &:hover {
+    opacity: .7;
+  }
+}
+//shared ends

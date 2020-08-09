@@ -1,5 +1,32 @@
 <div class="container">
   <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 center-image">
+      <%= image_tag "SVGs/signup.svg", alt: "Login Logo", :class => "users-image" %>
+      <h5 class="users-image-text">Get yourself registered to start away with saving circuits, building groups and much more!</h5>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+      <div class="users-form-container">
+        <h2 class="users-heading-main">Forgot your password?</h2>
+        <%= form_with(model: resource, as: resource_name, url: registration_path(resource_name), local: true) do |f| %>
+          <%= devise_error_messages! %>
+          <div class="field form-group">
+            <h6><%= f.label :name %></h6>
+            <div class="input-group">
+              <%= f.text_field :name, autofocus: true, class:"form-control form-input" %>
+            </div>
+          </div>
+          <div class="field form-group">
+            <h6><%= f.label :email %></h6>
+            <div class="input-group">
+              <%= f.email_field :email, class:"form-control form-input" %>
+            </div>
+          </div>
+
+
+
+<div class="container">
+  <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 center-block d-none d-md-block">
       <%= image_tag "SVGs/signup.svg", alt: "signup-logo", :class => "signup-cover center-block" %>
       <h5>Get yourself registered to start away with saving circuits, building groups and much more!</h5>

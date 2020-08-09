@@ -1,51 +1,45 @@
 <div class="container">
   <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 center-block">
-      <%= image_tag "SVGs/login.svg", alt: "login-logo", :class => "signup-cover center-block" %>
-      <h5>Welcome back to the Digital Circuit Universe!</h5>
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 center-image">
+      <%= image_tag "SVGs/login.svg", alt: "Login Logo", :class => "users-image" %>
+      <h5 class="users-image-text">Welcome back to the Digital Circuit Universe!</h5>
     </div>
 
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-      <div class="form-container">
-        <h1 class="pb-3">Change your password</h1>
+      <div class="users-form-container">
+        <h2 class="users-heading-main">Change your password</h2>
         <%= form_with(model: resource, as: resource_name, url: password_path(resource_name), method: :put, local: true) do |f| %>
-        <%= devise_error_messages! %>
-        <%= f.hidden_field :reset_password_token %>
-
-        <div class="field form-group">
-          <%= f.label :password, class:"label-text"%>
-          <% if @minimum_password_length %>
-          <span>(Minimum <%= @minimum_password_length %> characters)</span>
-          <% end %>
-          <div class="input-group">
-            <%= f.password_field :password, autofocus: true, autocomplete: "off", class:"form-control custom-input" %>
+          <%= devise_error_messages! %>
+          <%= f.hidden_field :reset_password_token %>
+          <div class="field form-group">
+            <h6>
+              <%= f.label :password %>
+              <% if @minimum_password_length %>
+                (Minimum <%= @minimum_password_length %> characters)
+              <% end %>
+            </h6>
+            <div class="input-group">
+              <%= f.password_field :password, autofocus: true, autocomplete: "off", class:"form-control form-input" %>
+            </div>
           </div>
-        </div>
-
-        <div class="field form-group">
-          <%= f.label :password_confirmation, class:"label-text" %>
-          <div class="input-group">
-            <%= f.password_field :password_confirmation, autocomplete: "off", class:"form-control custom-input" %>
+          <div class="field form-group">
+            <h6><%= f.label :password_confirmation %></h6>
+            <div class="input-group">
+              <%= f.password_field :password_confirmation, autocomplete: "off", class:"form-control form-input" %>
+            </div>
           </div>
-        </div>
-
-        <div class="field form-group mt-4">
-          <div class="input-group">
-            <%= f.submit "Change my password" ,class:"btn btn-about custom-submit" %>
-            <%= link_to "Go to Login Page", new_session_path(resource_name) ,class:"link-text pl-3" %>
+          <div class="field form-group">
+            <div class="input-group">
+              <%= f.submit "Change my password" ,class:"btn primary-button users-primary-button" %>
+              <a href="#" class="anchor-text mt-2" data-toggle="modal" data-target="#loginModal">Go to Login Page</a>
           </div>
-        </div>
-
-        <div class="field form-group">
-          <div class="input-group">
-            <span class="help-text"> New User? </span>
-            <%= link_to "Sign up", new_registration_path(resource_name) ,class:"link-text pl-1" %>
+          <div class="field form-group">
+            <div class="input-group">
+              <span class="users-text">New User?</span>
+              <%= link_to "Sign Up", new_registration_path(resource_name) ,class:"anchor-text" %>
+            </div>
           </div>
-        </div>
-
-        <div class="field form-group mt-3">
           <%= render "users/shared/links" %>
-        </div>
         <% end %>
       </div>
     </div>
