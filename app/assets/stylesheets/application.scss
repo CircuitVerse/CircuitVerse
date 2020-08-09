@@ -9,20 +9,22 @@
 @import 'signup';
 @import 'logixRelease';
 @import 'layout';
-@import 'search';
-@import 'about';
 @import 'editor';
 @import 'groups';
 @import 'group_members';
 @import 'profile';
 @import 'home';
-@import 'contribute';
 @import 'assignments';
 @import 'trumbowyg/dist/ui/trumbowyg.min';
 @import 'examples';
 @import 'simple_discussion';
 @import 'simple_discussion_overrides';
 
+@import 'navbar';
+@import 'about';
+@import 'contribute';
+@import 'teacher';
+@import 'footer';
 @import 'oldStyles';
 // #FIXME move these styles
 .alert {
