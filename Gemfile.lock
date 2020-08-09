@@ -544,7 +544,7 @@ GEM
     websocket-driver (0.7.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    will_paginate (3.1.8)
+    will_paginate (3.3.0)
     will_paginate-bootstrap (1.0.2)
       will_paginate (>= 3.0.3)
     xpath (3.2.0)
@@ -628,7 +628,7 @@ DEPENDENCIES
   webmock
   webpacker (~> 4.x)
   webpush
-  will_paginate (~> 3.1.1)
+  will_paginate (~> 3.3.0)
   will_paginate-bootstrap
 
 BUNDLED WITH

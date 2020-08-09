@@ -55,7 +55,7 @@ gem 'pg_search'
 gem 'sunspot_rails'
 
 # For home page pagination
-gem 'will_paginate', '~> 3.1.1'
+gem 'will_paginate', '~> 3.3.0'
 gem 'will_paginate-bootstrap'
 
 gem 'country_select', '~> 4.0'
