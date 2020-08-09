@@ -4,7 +4,6 @@
 class Api::V1::ProjectsController < Api::V1::BaseController
   include ActionView::Helpers::SanitizeHelper
 
-  before_action :authenticate_user, only: %i[index show user_projects user_favourites]
   before_action :authenticate_user!, only: %i[update destroy toggle_star create_fork]
   before_action :load_index_projects, only: %i[index]
   before_action :load_user_projects, only: %i[user_projects]
@@ -117,10 +116,10 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     def load_user_projects
       # if user is not authenticated or authenticated as some other user
       # return only user's public projects else all
-      @projects = if @current_user.nil? || @current_user.id != params[:id].to_i
+      @projects = if current_user.nil? || current_user.id != params[:id].to_i
         Project.open.by(params[:id])
       else
-        @current_user.projects
+        current_user.projects
       end
     end
 
@@ -130,7 +129,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
       # if user is not authenticated or authenticated as some other user
       # return only user's public favourites else all
-      @projects = if @current_user.nil? || @current_user.id != params[:id].to_i
+      @projects = if current_user.nil? || current_user.id != params[:id].to_i
         @projects.open
       else
         @projects
