@@ -105,6 +105,30 @@
   height: 40px;
 }
 
+//modals
+.custom-modal-dialog {
+  border-radius: 4px;
+  box-shadow: none;
+  padding-right: 0;
+}
+
+.custom-modal-header {
+  background-color: $green;
+  border: 1px solid $green;
+  box-shadow: none;
+  height: 65px;
+  width: 499px;
+
+  .modal-title {
+    color: $white;
+  }
+
+  .close {
+    color: $white;
+    opacity: 1;
+  }
+}
+
 //breakpoints
 @media (max-width:$small-display) {
   .about-button-primary-container {
@@ -130,4 +154,43 @@
   .button-mini-edit {
     margin: 2px;
   }
+}
+
+
+//final styles
+//buttons
+.primary-button {
+  background-color: $primary-green;
+  border-radius: 4px;
+  color: $white;
+  margin: 5px;
+  transition: all .3s ease 0s;
+
+  &:hover {
+    background-color: $secondary-green;
+    box-shadow: 0 8px 15px $shadow-black;
+    color: $white;
+    transform: translateY(-7px);
+  }
+}
+
+//cards
+.social-card {
+  background-color: $card-green;
+  box-shadow: 0 2px 7px $shadow-black;
+  display: inline-block;
+  height: 89px;
+  margin: 50px 7px 40px;
+  opacity: .89;
+  padding: 15px;
+  transition: box-shadow .2s ease-in;
+  width: 300px;
+
+  &:hover {
+    box-shadow: 0 7px 7px $shadow-black;
+  }
+}
+
+.social-card-image {
+  float: left;
 }

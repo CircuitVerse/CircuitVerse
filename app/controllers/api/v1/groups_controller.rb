@@ -11,21 +11,21 @@ class Api::V1::GroupsController < Api::V1::BaseController
 
   # GET /api/v1/groups
   def index
-    @groups = paginate(@current_user.groups)
+    @groups = paginate(current_user.groups)
     @options[:links] = link_attrs(@groups, api_v1_groups_url)
     render json: Api::V1::GroupSerializer.new(@groups, @options)
   end
 
   # GET /api/v1/groups/mentored
   def groups_mentored
-    @groups = paginate(@current_user.groups_mentored)
+    @groups = paginate(current_user.groups_mentored)
     @options[:links] = link_attrs(@groups, api_v1_groups_mentored_url)
     render json: Api::V1::GroupSerializer.new(@groups, @options)
   end
 
   # POST /api/v1/groups/
   def create
-    @group = @current_user.groups_mentored.new(group_params)
+    @group = current_user.groups_mentored.new(group_params)
     @group.save!
     if @group.save
       render json: Api::V1::GroupSerializer.new(@group, @options), status: :created
@@ -71,7 +71,7 @@ class Api::V1::GroupsController < Api::V1::BaseController
     def set_options
       @options = {}
       @options[:include] = include_resource if params.key?(:include)
-      @options[:params] = { current_user: @current_user }
+      @options[:params] = { current_user: current_user }
     end
 
     def group_params

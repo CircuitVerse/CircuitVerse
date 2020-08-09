@@ -4,7 +4,6 @@
 class Api::V1::ProjectsController < Api::V1::BaseController
   include ActionView::Helpers::SanitizeHelper
 
-  before_action :authenticate_user, only: %i[index show]
   before_action :authenticate_user!, except: %i[index show image_preview]
   before_action :load_index_projects, only: %i[index]
   before_action :load_user_projects, only: %i[user_projects]
@@ -33,7 +32,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
   # GET /api/v1/projects/:id
   def show
     authorize @project, :check_view_access?
-    @project.increase_views(@current_user)
+    @project.increase_views(current_user)
     render json: Api::V1::ProjectSerializer.new(@project, @options)
   end
 
@@ -75,7 +74,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
   # GET /api/v1/projects/:id/toggle-star
   def toggle_star
-    if @project.toggle_star(@current_user)
+    if @project.toggle_star(current_user)
       render json: { "message": "Starred successfully!" }, status: :ok
     else
       render json: { "message": "Unstarred successfully!" }, status: :ok
@@ -84,10 +83,10 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
   # /api/v1/projects/:id/fork
   def create_fork
-    if @current_user.id == @project.author_id
+    if current_user.id == @project.author_id
       api_error(status: 409, errors: "Cannot fork your own project!")
     else
-      @forked_project = @project.fork(@current_user)
+      @forked_project = @project.fork(current_user)
       render json: Api::V1::ProjectSerializer.new(@forked_project, @options)
     end
   end
@@ -105,16 +104,16 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     end
 
     def load_index_projects
-      @projects = if @current_user.nil?
+      @projects = if current_user.nil?
         Project.open
       else
-        Project.open.or(Project.by(@current_user.id))
+        Project.open.or(Project.by(current_user.id))
       end
     end
 
     def load_user_projects
-      @projects = if @current_user.id == params[:id].to_i
-        @current_user.projects
+      @projects = if current_user.id == params[:id].to_i
+        current_user.projects
       else
         Project.open.by(params[:id])
       end
@@ -132,14 +131,14 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     end
 
     def load_favourites
-      @projects = Project.joins(:stars).where(stars: { user_id: @current_user.id })
+      @projects = Project.joins(:stars).where(stars: { user_id: current_user.id })
     end
 
     def set_options
       @options = {}
       @options[:include] = include_resource if params.key?(:include)
       @options[:params] = {
-        current_user: @current_user,
+        current_user: current_user,
         only_name: true
       }
     end

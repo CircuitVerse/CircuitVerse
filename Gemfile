@@ -55,7 +55,7 @@ gem 'pg_search'
 gem 'sunspot_rails'
 
 # For home page pagination
-gem 'will_paginate', '~> 3.1.1'
+gem 'will_paginate', '~> 3.3.0'
 gem 'will_paginate-bootstrap'
 
 gem 'country_select', '~> 4.0'
@@ -117,7 +117,7 @@ group :development, :test do
 end
 
 group :test do
-  gem 'rspec-rails', '~> 3.8'
+  gem 'rspec-rails', '~> 4.0'
   gem "rspec_junit_formatter"
   gem 'selenium-webdriver'
   gem 'webdrivers', '~> 4.0'
