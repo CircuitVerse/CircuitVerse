@@ -12,11 +12,11 @@ class Api::V1::CommentsController < Api::V1::BaseController
 
   # POST /api/v1/threads/:thread_id/comments
   def create
-    security_transgression_unless @comment.can_be_created_by?(@current_user)
+    security_transgression_unless @comment.can_be_created_by?(current_user)
 
     if @comment.save
       sub = @commontator_thread.config.thread_subscription.to_sym
-      @commontator_thread.subscribe(@current_user) if %i[a b].include? sub
+      @commontator_thread.subscribe(current_user) if %i[a b].include? sub
       Commontator::Subscription.comment_created(@comment)
       render json: Api::V1::CommentSerializer.new(@comment)
     else
@@ -26,16 +26,16 @@ class Api::V1::CommentsController < Api::V1::BaseController
 
   # GET /api/v1/comments/:id
   def show
-    security_transgression_unless @commontator_thread.can_be_read_by? @current_user
+    security_transgression_unless @commontator_thread.can_be_read_by? current_user
 
     render json: Api::V1::CommentSerializer.new(@comment)
   end
 
   # PUT/PATCH /api/v1/comments/:id
   def update
-    @comment.editor = @current_user
+    @comment.editor = current_user
     @comment.body = params.dig(:comment, :body)
-    security_transgression_unless @comment.can_be_edited_by?(@current_user)
+    security_transgression_unless @comment.can_be_edited_by?(current_user)
 
     if @comment.save
       render json: Api::V1::CommentSerializer.new(@comment)
@@ -46,9 +46,9 @@ class Api::V1::CommentsController < Api::V1::BaseController
 
   # PUT /api/v1/comments/:id/delete
   def delete
-    security_transgression_unless @comment.can_be_deleted_by?(@current_user)
+    security_transgression_unless @comment.can_be_deleted_by?(current_user)
 
-    if @comment.delete_by(@current_user)
+    if @comment.delete_by(current_user)
       render json: {}, status: :no_content
     else
       api_error(status: 409, errors: "already deleted")
@@ -57,9 +57,9 @@ class Api::V1::CommentsController < Api::V1::BaseController
 
   # PUT /api/v1/comments/:id/undelete
   def undelete
-    security_transgression_unless @comment.can_be_deleted_by?(@current_user)
+    security_transgression_unless @comment.can_be_deleted_by?(current_user)
 
-    if @comment.undelete_by(@current_user)
+    if @comment.undelete_by(current_user)
       render json: Api::V1::CommentSerializer.new(@comment)
     else
       api_error(status: 404, errors: "comment does not exists")
@@ -68,26 +68,26 @@ class Api::V1::CommentsController < Api::V1::BaseController
 
   # PUT /api/v1/comments/:id/upvote
   def upvote
-    security_transgression_unless @comment.can_be_voted_on_by?(@current_user)
+    security_transgression_unless @comment.can_be_voted_on_by?(current_user)
 
-    @comment.upvote_from @current_user
+    @comment.upvote_from current_user
     render json: { "message": "comment upvoted" }
   end
 
   # PUT /api/v1/comments/:id/downvote
   def downvote
-    security_transgression_unless @comment.can_be_voted_on_by?(@current_user) && \
+    security_transgression_unless @comment.can_be_voted_on_by?(current_user) && \
                                   @comment.thread.config.comment_voting.to_sym == :ld
 
-    @comment.downvote_from @current_user
+    @comment.downvote_from current_user
     render json: { "message": "comment downvoted" }
   end
 
   # PUT /api/v1/comments/:id/unvote
   def unvote
-    security_transgression_unless @comment.can_be_voted_on_by?(@current_user)
+    security_transgression_unless @comment.can_be_voted_on_by?(current_user)
 
-    @comment.unvote voter: @current_user
+    @comment.unvote voter: current_user
     render json: { "message": "comment unvoted" }
   end
 
@@ -98,12 +98,12 @@ class Api::V1::CommentsController < Api::V1::BaseController
       case params[:action].to_sym
       when :index
         @commontator_thread = Commontator::Thread.find(params[:thread_id])
-        security_transgression_unless @commontator_thread.can_be_read_by? @current_user
+        security_transgression_unless @commontator_thread.can_be_read_by? current_user
       when :create
         @commontator_thread = Commontator::Thread.find(params[:thread_id])
-        security_transgression_unless @commontator_thread.can_be_read_by? @current_user
+        security_transgression_unless @commontator_thread.can_be_read_by? current_user
         @comment = Commontator::Comment.new(
-          thread: @commontator_thread, creator: @current_user, body: params.dig(:comment, :body)
+          thread: @commontator_thread, creator: current_user, body: params.dig(:comment, :body)
         )
       else
         @comment = Commontator::Comment.find(params[:id])

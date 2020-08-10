@@ -6,9 +6,9 @@ class Api::V1::ThreadsController < Api::V1::BaseController
 
   # PUT /api/v1/threads/:id/close
   def close
-    security_transgression_unless @commontator_thread.can_be_read_by? @current_user
+    security_transgression_unless @commontator_thread.can_be_read_by? current_user
 
-    if @commontator_thread.close(@current_user)
+    if @commontator_thread.close(current_user)
       render json: { "message": "thread closed" }
     else
       api_error(status: 409, errors: "thread is already closed")
@@ -17,7 +17,7 @@ class Api::V1::ThreadsController < Api::V1::BaseController
 
   # PUT /api/v1/threads/:id/reopen
   def reopen
-    security_transgression_unless @commontator_thread.can_be_read_by? @current_user
+    security_transgression_unless @commontator_thread.can_be_read_by? current_user
 
     if @commontator_thread.reopen
       render json: { "message": "thread reopened" }
@@ -28,9 +28,9 @@ class Api::V1::ThreadsController < Api::V1::BaseController
 
   # PUT /api/v1/threads/:id/subscribe
   def subscribe
-    security_transgression_unless @commontator_thread.can_subscribe?(@current_user)
+    security_transgression_unless @commontator_thread.can_subscribe?(current_user)
 
-    if @commontator_thread.subscribe(@current_user)
+    if @commontator_thread.subscribe(current_user)
       render json: { "message": "thread subscribed" }
     else
       api_error(status: 409, errors: "thread already subscribed")
@@ -39,9 +39,9 @@ class Api::V1::ThreadsController < Api::V1::BaseController
 
   # PUT /api/v1/threads/:id/unsubscribe
   def unsubscribe
-    security_transgression_unless @commontator_thread.can_subscribe?(@current_user)
+    security_transgression_unless @commontator_thread.can_subscribe?(current_user)
 
-    if @commontator_thread.unsubscribe(@current_user)
+    if @commontator_thread.unsubscribe(current_user)
       render json: { "message": "thread unsubscribed" }
     else
       api_error(status: 409, errors: "thread not subscribed")
@@ -53,6 +53,6 @@ class Api::V1::ThreadsController < Api::V1::BaseController
     def load_resource
       @commontator_thread = Commontator::Thread.find(params[:id])
 
-      security_transgression_unless @commontator_thread.can_be_read_by? @current_user
+      security_transgression_unless @commontator_thread.can_be_read_by? current_user
     end
 end
