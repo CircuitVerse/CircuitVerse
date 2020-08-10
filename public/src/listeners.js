@@ -432,8 +432,9 @@ export default function startListeners() {
         if(!result.length) $('#filter').text('No elements found ...');
         else {
             result.forEach( e => htmlIcons += createIcon(e));
-            $('#filter').html(htmlIcons);
-            $('#filter').on('click', e => selectElement($(e.target)[0].parentElement.classList[0]));
+            $('#filter')
+              .html(htmlIcons)
+              .on('click', e => selectElement($(e.target)[0].parentElement.classList[0]));
         }
     });
     function createIcon(element) {
