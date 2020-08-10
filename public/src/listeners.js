@@ -419,9 +419,8 @@ export default function startListeners() {
         });
         const value = $(this).val().toLowerCase();
         if (value.length === 0) {
-            $('#filter').css('display', 'none');
+            $('#filter').css('display', 'none').empty();
             $('.filterX').css('display', 'none');
-            $('#filter').empty();
             $('#menu').css('display', 'block');
             return;
         }
