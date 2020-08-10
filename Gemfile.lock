@@ -67,7 +67,7 @@ GEM
     acts_as_votable (0.12.1)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
-    ahoy_matey (3.0.1)
+    ahoy_matey (3.0.4)
       activesupport (>= 5)
       device_detector
       geocoder (>= 1.4.5)
@@ -116,7 +116,7 @@ GEM
     commontator (6.3.0)
       rails (>= 5.2)
       will_paginate
-    concurrent-ruby (1.1.6)
+    concurrent-ruby (1.1.7)
     connection_pool (2.2.2)
     countries (3.0.0)
       i18n_data (~> 0.8.0)
@@ -134,7 +134,7 @@ GEM
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.6)
-    device_detector (1.0.3)
+    device_detector (1.0.4)
     devise (4.7.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
