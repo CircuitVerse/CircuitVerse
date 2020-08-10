@@ -177,6 +177,8 @@ GEM
       multipart-post (>= 1.2, < 3)
     fast_jsonapi (1.5)
       activesupport (>= 4.2)
+    fcm (0.0.6)
+      httparty (~> 0.10, >= 0.10.0)
     ffi (1.13.1)
     ffi (1.13.1-x64-mingw32)
     ffi-compiler (1.0.1)
@@ -219,6 +221,10 @@ GEM
     http-parser (1.2.1)
       ffi-compiler (>= 1.0, < 2.0)
     i18n (1.8.5)
+    httparty (0.18.1)
+      mime-types (~> 3.0)
+      multi_xml (>= 0.5.2)
+    i18n (1.7.1)
       concurrent-ruby (~> 1.0)
     i18n_data (0.8.0)
     image_processing (1.11.0)
@@ -609,6 +615,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   fast_jsonapi
+  fcm
   flipper-redis
   flipper-ui
   font-awesome-sass (~> 5.13.0)
