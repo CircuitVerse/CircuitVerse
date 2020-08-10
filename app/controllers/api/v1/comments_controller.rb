@@ -12,8 +12,6 @@ class Api::V1::CommentsController < Api::V1::BaseController
 
   # POST /api/v1/threads/:thread_id/comments
   def create
-    security_transgression_unless @comment.can_be_created_by?(current_user)
-
     if @comment.save
       sub = @commontator_thread.config.thread_subscription.to_sym
       @commontator_thread.subscribe(current_user) if %i[a b].include? sub
@@ -102,9 +100,11 @@ class Api::V1::CommentsController < Api::V1::BaseController
       when :create
         @commontator_thread = Commontator::Thread.find(params[:thread_id])
         security_transgression_unless @commontator_thread.can_be_read_by? current_user
+
         @comment = Commontator::Comment.new(
           thread: @commontator_thread, creator: current_user, body: params.dig(:comment, :body)
         )
+        security_transgression_unless @comment.can_be_created_by?(current_user)
       else
         @comment = Commontator::Comment.find(params[:id])
         @commontator_thread = @comment.thread
