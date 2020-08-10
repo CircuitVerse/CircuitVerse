@@ -18,7 +18,7 @@ class Api::V1::CommentsController < Api::V1::BaseController
       sub = @commontator_thread.config.thread_subscription.to_sym
       @commontator_thread.subscribe(current_user) if %i[a b].include? sub
       Commontator::Subscription.comment_created(@comment)
-      render json: Api::V1::CommentSerializer.new(@comment, @options)
+      render json: Api::V1::CommentSerializer.new(@comment, @options), status: :created
     else
       api_error(status: 422, errors: @comment.errors)
     end
@@ -38,7 +38,7 @@ class Api::V1::CommentsController < Api::V1::BaseController
     security_transgression_unless @comment.can_be_edited_by?(current_user)
 
     if @comment.save
-      render json: Api::V1::CommentSerializer.new(@comment, @options)
+      render json: Api::V1::CommentSerializer.new(@comment, @options), status: :accepted
     else
       api_error(status: 422, errors: @comment.errors)
     end
