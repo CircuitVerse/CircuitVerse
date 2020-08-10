@@ -425,8 +425,9 @@ window.addEventListener('DOMContentLoaded', () => {
     $('#moduleProperty-title').on('mouseup', () => $('#moduleProperty').draggable({ disabled: true }));
     $('#modules-header').on('mousedown', () => $('.ce-panel').draggable({ disabled: false }));
     $('#modules-header').on('mouseup', () => $('.ce-panel').draggable({ disabled: true }));
-    $('#dragQPanel').on('mousedown', () => $('.quick-btn').draggable({ disabled: false }));
-    $('#dragQPanel').on('mouseup', () => $('.quick-btn').draggable({ disabled: true }));
+    $('#dragQPanel')
+        .on('mousedown', () => $('.quick-btn').draggable({ disabled: false }))
+        .on('mouseup', () => $('.quick-btn').draggable({ disabled: true }));
 
     $('.ce-panel').on('mousedown', () => {
         $('#moduleProperty').css('z-index', '99')
