@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script>
   userSignedIn = <%= user_signed_in? %>;
-  logix_project_id = <%= @logix_project_id %>;
+  logix_project_id = "<%= @logix_project_id %>";
   projectName = "<%= @projectName %>"
 </script>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -273,7 +273,6 @@
     <link rel="stylesheet" type="text/css" href="/css/restrictedElements.css">
     <!-- <script src="./SAP_DATA.js"></script> -->
     <script src="/js/utils.js"></script>
-    <script src="/js/dec-bin-hex-converter.js"></script>
     <script src="/js/engine.js"></script>
     <script src="/js/logix.js"></script>
     <script src="/js/Plot.js"></script>
@@ -319,9 +318,13 @@
     <hr>
      <div class="container my-2 text-center" id="result">
     </div>
-    <label id="report-label" style="font-weight: lighter" ><b>Describe your issue:</b></label>
+    <label for="issuetext" id="report-label" style="font-weight: lighter" ><b>Describe your issue:</b></label>
     <div class="form-group">
     <textarea class="form-control border-primary"  id="issuetext" rows="3"></textarea>
+    </div>
+    <label for="emailtext" id="email-label" style="font-weight: lighter"><b>Email</b><span> [Optional]</span>:</label>
+    <div class="form-group">
+    <input class="form-control border-primary"  type="email" id="emailtext" rows="3"/>
     </div>
       <div class="container">
         <center>
@@ -339,21 +342,28 @@
   $('button').click(function(){
    if (this.id== 'report'){
     var message=$('#issuetext').val();
+    var email=$('#emailtext').val();
+    message += "\nEmail:"+ email
     message += "\nURL: " + window.location.href;
     message += `\nUser Id: <%= user_signed_in? ? " #{current_user.id.to_s} : #{current_user.name}" : "Guest user" %>`
     postUserIssue(message)
     $('#issuetext').hide();
+    $('#emailtext').hide();
     $('#report').hide();
     $('#report-label').hide();
+    $('#email-label').hide();
   }
    })
   $('.issue').on('hide.bs.modal', function(e) {
     listenToSimulator=true
     $('#result').html("");
     $('#issuetext').show();
+    $('#emailtext').show();
     $('#issuetext').val("");
+    $('#emailtext').val("");
     $('#report').show();
     $('#report-label').show();
+    $('#email-label').show();
 }) 
 $('#reportIssue').click(function(){
   listenToSimulator=false

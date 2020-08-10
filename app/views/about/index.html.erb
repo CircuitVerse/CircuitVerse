@@ -1,60 +1,75 @@
 <% content_for :title, "CircuitVerse - About us" %>
 
-    <div class="container">
-      <div class="row row-about">
-        <div class="col-xs col-sm col-md col-lg">
-          <h1 class="heading">ABOUT</h1>
-            <h5>Learn about the awesome people behind CircuitVerse</h5>
-            <p id="about">CircuitVerse is a product developed by students at IIIT-Bangalore. It aims to provide a platform where circuits can be designed and simulated using a graphical user interface. While users can design complete CPU implementations within the simulator, the software is designed primarily for educational use. CircuitVerse is an opensource project with an active community. Checkout the contribute page for more detail.</p>
-          </div>
-        </div>
-        <div class="col-xs col-sm col-md col-lg text-center">
-          <button type="button" class="btn btn-about" onclick="window.location.href = '/tos';">Terms of Service</button>
-          <button type="button" class="btn btn-about" onclick="window.location.href = '/privacy';">Privacy Policy</button>
-        </div>
-        <div class="row row-about">
-          <div class="col-xs col-sm col-md col-lg">
-            <div class="contact" onclick="window.location.href='mailto:support@circuitverse.org';">
-              <%= image_tag "SVGs/email.svg", height: '60', width: '60', alt: "", class: 'about-card-image' %>
-              <h6>Email us at</h6>
-              <p id="tab">support@circuitverse.org</p>
-            </div>
-            <div class="contact" onclick="window.location.href='<%= Rails.configuration.slack_url %>';">
-              <%= image_tag "SVGs/slack.svg", height: '60', width: '60', alt: "", class: 'about-card-image' %>
-              <h6>Join and chat with us at</h6>
-              <p id="tab">Slack Channel</p>
-            </div>
-          </div>
-        </div>
-        <hr/>
-      <div class="row row-about">
-        <div class="col-xs col-sm col-md col-lg">
-          <div class="team-heading">
-            <h2>CONTRIBUTORS</h2>
-            <h5>Meet the awesome people of CircuitVerse community that've made this platform what it is now.</h5>
-          </div></div></div>
-          <div class="row row-about">
-            <div class="flex-container-about">
+<div class="container">
+  <div class="row center-row">
+    <div class="col-xs col-sm col-md col-lg">
+      <h1 class="main-heading">ABOUT</h1>
+        <p class="main-description">Learn about the awesome people behind CircuitVerse</p>
+        <p class="justified-paragraph">CircuitVerse is a product developed by students at IIIT-Bangalore.
+          It aims to provide a platform where circuits can be designed and simulated using a graphical user interface.
+          While users can design complete CPU implementations within the simulator, the software is designed primarily for educational use.
+          CircuitVerse is an opensource project with an active community. Checkout the contribute page for more detail.
+        </p>
+    </div>
+  </div>
+  <div class="col-xs col-sm col-md col-lg">
+    <a class="btn primary-button" href="/tos" target="_blank">Terms of Service</a>
+    <a class="btn primary-button" href="/privacy" target="_blank">Privacy Policy</a>
+  </div>
+  <div class="row center-row">
+    <div class="col-xs col-sm col-md col-lg">
+      <div class="social-card about-social-card-1">
+        <a class="about-social-anchor" href="mailto:support@circuitverse.org" target="_blank">
+          <%= image_tag "SVGs/email.svg", height: "60", width: "60", alt: "Email Icon", class: "social-card-image" %>
+          <h6>Email us at</h6>
+          <p>support@circuitverse.org</p>
+        </a>
+      </div>
+      <div class="social-card about-social-card-2">
+        <a class="about-social-anchor" href="<%= Rails.configuration.slack_url %>" target="_blank">
+          <%= image_tag "SVGs/slack.svg", height: "60", width: "60", alt: "Slack Logo", class: "social-card-image" %>
+          <h6>Join and chat with us at</h6>
+          <p>Slack Channel</p>
+        </a>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="row center-row">
+    <div class="col-xs col-sm col-md col-lg">
+      <h2 class="submain-heading">CONTRIBUTORS</h2>
+      <h5>Meet the awesome people of CircuitVerse community that've made this platform what it is now.</h5>
+    </div>
+  </div>
+  <div class="row center-row">
+    <div class="about-contributors-section">
 
-            </div>
-          </div>
-          <script type="text/javascript">
-            async function getContributors(url){
-              let apiData = await fetch(url);
-              let contributorsData = await apiData.json();
-              for (let i=0; i<contributorsData.length; i++){
-                let contributorElement = document.createElement('div');
-                let contributorElementAnchor = document.createElement('a');
-                let contributorElementImage = document.createElement('img');
-                contributorElement.classList.add('contributor-about');
-                contributorElementAnchor.href = await contributorsData[i]['html_url'];
-                contributorElementImage.src = await contributorsData[i]['avatar_url'];
-                contributorElementImage.classList.add('contributor-image-about');
-                contributorElementAnchor.appendChild(contributorElementImage);
-                contributorElement.appendChild(contributorElementAnchor);
-                document.getElementsByClassName('flex-container-about')[0].appendChild(contributorElement);
-              }
-            }
-            getContributors('https://api.github.com/repos/CircuitVerse/CircuitVerse/contributors');
-          </script>
-        </div>
+    </div>
+  </div>
+  <br>
+  <div class="row center-row">
+    <div class="col-xs col-sm col-md col-lg text-center">
+      <a class="btn primary-button about-primary-button" href="/contribute">Become a Contributor</a>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  async function getContributors(url){
+    let apiData = await fetch(url);
+    let contributorsData = await apiData.json();
+    for (let i=0; i<contributorsData.length; i++){
+      let contributorElement = document.createElement('div');
+      let contributorElementAnchor = document.createElement('a');
+      let contributorElementImage = document.createElement('img');
+      contributorElement.classList.add('about-contributor');
+      contributorElementAnchor.href = await contributorsData[i]['html_url'];
+      contributorElementImage.src = await contributorsData[i]['avatar_url'];
+      contributorElementImage.classList.add('about-contributor-image');
+      contributorElementAnchor.appendChild(contributorElementImage);
+      contributorElement.appendChild(contributorElementAnchor);
+      document.getElementsByClassName('about-contributors-section')[0].appendChild(contributorElement);
+    }
+  }
+  getContributors('https://api.github.com/repos/CircuitVerse/CircuitVerse/contributors');
+</script>

@@ -108,10 +108,10 @@
             <% @projects.each do |project| %>
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
               <div class="card card-homepage-example">
-                <a href="<%= user_project_path(project.author_id,project) %>"><img class="card-img-top" src="<%= project.image_preview.url %>" alt="<%= project.name %>"></a>
+                <a href="<%= user_project_path(project.author, project) %>"><img class="card-img-top" src="<%= project.image_preview.url %>" alt="<%= project.name %>"></a>
                 <div class="card-footer card-footer-homepage-example">
                   <p class="homepage-example-p"><%= project.name %></p>
-                  <button type="button" class="btn btn-about homepage-example-button" onclick="window.location.href = '<%= user_project_path(project.author_id,project) %>';">View</button>
+                  <button type="button" class="btn btn-about homepage-example-button" onclick="window.location.href = '<%= user_project_path(project.author, project) %>';">View</button>
                 </div>
                </div>
               </div>

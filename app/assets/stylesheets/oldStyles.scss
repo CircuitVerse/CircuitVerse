@@ -1,0 +1,52 @@
+//about.scss
+.row-about {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1344px;
+  text-align: center;
+}
+
+.heading {
+  color: $teal;
+  margin-bottom: 10px;
+  margin-top: 40px;
+}
+
+.btn-about {
+  background-color: $green;
+  color: $white;
+  margin: 5px;
+  transition: all .3s ease 0s;
+}
+
+.btn-about:hover {
+  background-color: $teal;
+  box-shadow: 0 8px 15px $shadow-black;
+  color: $white;
+  transform: translateY(-7px);
+}
+
+.contact {
+  background-color: $gray-100;
+  box-shadow: 0 2px 7px $shadow-black;
+  display: inline-block;
+  height: 89px;
+  margin-bottom: 40px;
+  margin-left: 7px;
+  margin-right: 7px;
+  margin-top: 50px;
+  opacity: .89;
+  padding: 15px;
+  transition: box-shadow .2s ease-in;
+  width: 300px;
+
+  &:hover {
+    box-shadow: 0 7px 7px $shadow-black;
+  }
+
+  img {
+    float: left;
+  }
+}
+
+//ends

@@ -1,19 +1,8 @@
 // All the custom class styles
-//to be removed
-.row-text {
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 1344px;
-  text-align: center;
-}
 
 //alignment to be added at the very top
 html {
   scroll-behavior: smooth;
-}
-
-body {
-  padding-top: 90px;
 }
 
 .custom-file-upload {
@@ -40,175 +29,6 @@ body {
   color: $primary;
 }
 
-//navbar
-.navbar {
-  background-color: $white;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 100;
-}
-
-.navbar-logo {
-  height: 70px;
-  padding-top: 5px;
-}
-
-.navbar-search-icon-container {
-  height: 40px;
-  position: relative;
-  width: 40px;
-}
-
-.navbar-simulator-text {
-  border: 2px solid $green;
-  color: $navbar-dark;
-  font-weight: 500;
-  transition: all .2s ease-in;
-
-  &:hover {
-    background: $green;
-    color: $white;
-  }
-}
-
-.navbar-text {
-  color: $navbar-dark;
-  font-weight: 500;
-
-  &:hover {
-    color: $green;
-  }
-
-  &.active {
-    color: $teal;
-  }
-
-  &:focus {
-    outline: none;
-    text-decoration: underline;
-  }
-
-}
-
-#navbar-dropdown-1,
-#navbar-dropdown-2 {
-  &:hover {
-    color: $green;
-  }
-
-  &[aria-expanded="true"] {
-    color: $teal;
-  }
-
-  &:focus {
-    outline: none;
-    text-decoration: underline;
-
-  }
-}
-
-.fa-search {
-  color: $navbar-dark;
-  font-size: 20px;
-  margin-right: 12px;
-  vertical-align: middle;
-
-  &:hover {
-    color: $green;
-  }
-
-  &.active {
-    color: $teal;
-  }
-
-  &:focus {
-    outline: none;
-  }
-}
-
-.navbar-search-icon-oncollapse {
-  display: none;
-  margin-right: 0;
-  padding-right: 0;
-  padding-top: 5px;
-  text-align: right;
-}
-
-.dropdown-item {
-  &:hover {
-    background-color: $green;
-    color: $white;
-  }
-}
-
-.dropdown-toggle-hidden {
-  .dropdown-toggle::after {
-    display: none;
-  }
-}
-
-.dropdown-toggle {
-  cursor: pointer;
-}
-
-.dropdown-toggle::after {
-  margin-left: 0;
-  padding-left: 0;
-  vertical-align: .5em;
-}
-
-.navbar-username-truncate {
-  display: inline-block;
-  max-width: 70px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.navbar-search-active {
-  background-color: $card-green;
-  display: none;
-  margin-top: 0;
-  padding: 20px;
-  position: fixed;
-  top: 96px;
-  width: 100%;
-  z-index: 90;
-}
-
-.affix {
-  box-shadow: 0 8px 6px -6px $shadow-grey;
-}
-//navbar ends
-
-.logo-bottom {
-  max-height: 80px;
-}
-
-.empty-div {
-  height: 250px;
-}
-
-.footer-logo {
-  width: 80%;
-}
-
-.footer-social-icon {
-  margin-left: 15px;
-  width: 32px;
-}
-
-.footer-social {
-  margin-bottom: unset;
-  margin-left: 15px;
-}
-
-.copyright {
-  font-size: small;
-  overflow: visible;
-  white-space: nowrap;
-}
-
 .favblank {
   align-items: center;
   display: flex;
@@ -216,25 +36,116 @@ body {
   justify-content: center;
 }
 
-//breakpoints
-@media (max-width: 400px) {
-  .navbar-search-active {
-    padding-left: 5px;
-    padding-right: 5px;
-  }
+//headings
+.heading-main {
+  color: $teal;
+  margin-bottom: 10px;
+  margin-top: 40px;
+}
 
-  .navbar-logo {
-    height: 60px;
-    padding-top: 10px;
+.heading-submain {
+  margin-top: 30px;
+}
+
+.heading-main-description {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.paragraph-text-justified {
+  margin: 30px 0;
+  text-align: justify;
+}
+
+//alignment
+.row-text {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1344px;
+  text-align: center;
+}
+
+//anchor
+.anchor-text {
+  color: $teal;
+  font-weight: 500;
+  text-decoration: underline;
+
+  &:hover {
+    color: $green;
   }
 }
 
-@media (max-width: 991px) {
-  .navbar-search-icon-onexpand {
+.image-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+//breakpoints
+@media (max-width: 768px) {
+  .image-center {
     display: none;
   }
+}
 
-  .navbar-search-icon-oncollapse {
-    display: block;
+
+//final styles
+//headings
+.main-heading {
+  color: $secondary-green;
+  margin-bottom: 10px;
+  margin-top: 40px;
+}
+
+.submain-heading {
+  margin-top: 30px;
+}
+
+.main-description {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.justified-paragraph {
+  margin: 30px 0;
+  text-align: justify;
+}
+
+//alignment
+* {
+  box-sizing: border-box;
+}
+
+.center-row {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1344px;
+  text-align: center;
+}
+
+//anchor
+.anchor-text {
+  color: $secondary-green;
+  font-weight: 500;
+  text-decoration: underline;
+
+  &:hover {
+    color: $primary-green;
+  }
+}
+
+.center-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+//breakpoints
+@media (max-width: 768px) {
+  .center-image {
+    display: none;
   }
 }

@@ -3,7 +3,6 @@
 class Api::V1::BaseController < ActionController::API
   include Pundit
   include CustomErrors
-  attr_reader :current_user
 
   DEFAULT_PER_PAGE = 5
 
@@ -19,6 +18,14 @@ class Api::V1::BaseController < ActionController::API
     api_error(status: 401, errors: "Authentication header is missing")
   end
 
+  rescue_from InvalidOAuthToken do
+    api_error(status: 401, errors: "OAuth token is invalid")
+  end
+
+  rescue_from UnsupportedOAuthProvider do
+    api_error(status: 404, errors: "OAuth provider not supported")
+  end
+
   rescue_from ActiveRecord::RecordNotFound do
     api_error(status: 404, errors: "resource not found!")
   end
@@ -29,23 +36,6 @@ class Api::V1::BaseController < ActionController::API
 
   rescue_from UnauthenticatedError do
     unauthenticated!
-  end
-
-  def authenticate_user
-    header = request.headers["Authorization"]
-    raise MissingAuthHeader if header.blank?
-
-    auth_header = header.split(" ").last
-    begin
-      @decoded = JsonWebToken.decode(auth_header)[0]
-      @current_user = User.find(@decoded["user_id"])
-    rescue JWT::DecodeError => e
-      api_error(status: 401, errors: e.message)
-    end
-  end
-
-  def authenticate_user!
-    authenticate_user || UnauthenticatedError
   end
 
   def unauthenticated!

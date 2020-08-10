@@ -9,7 +9,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   # GET api/v1/users
   def index
     @users = paginate(User.all)
-    @options = { params: { are_all_users_fetched: true } }
+    @options = { params: { only_name: true } }
     @options[:links] = link_attrs(@users, api_v1_users_url)
     render json: Api::V1::UserSerializer.new(@users, @options)
   end

@@ -1,108 +1,82 @@
-<div class="container empty-div">
+<div class="container footer-empty-div">
 </div>
-<div class="text-white">
-  <div class="pl-5 pt-2 container-fluid" style="background: #1c1c1c;">
-    <div class="col-12">
-      <div class="row mt-3 p-3 text-left">
-        <div class="col-lg-3 col-xl-3 mb-3">
-          <div class="row">
-            <div>
-              <a href="/">
-                <%= image_tag("cvlogo.svg", class: "logo-bottom", alt: "CircuitVerse logo") %>
-              </a>
-            </div>
-            <div class="d-block d-md-none w-100"></div>
-            <div class="d-block d-lg-none w-100"></div>
-            <div class="d-none d-xl-block w-100"></div>
-            <div class="pt-3">
-              <table class="w-100">
-                <tr>
-                  <p class="mt-2 footer-social">Follow us on:</p>
-                </tr>
-                <tr>
-                  <td class="">
-                    <a class="" href="/facebook" target="_blank"><%= image_tag("logos/facebook-logo.png", class: "footer-social-icon pt-2", alt: "Facebook logo") %></a>
-                  <td class="">
-                    <a class="" href="/twitter" target="_blank"><%= image_tag("logos/twitter-logo.png", class: "footer-social-icon pt-2", alt: "Twitter logo") %></a>
-                  </td>
-                </tr>
-              </table>
-            </div>
+<div class="container-fluid footer-container-fluid">
+  <div class="container footer-container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 footer-column">
+        <div class="row">
+          <a href="/">
+            <%= image_tag("CircuitVerseNew.png", class: "footer-logo", alt: "CircuitVerse Logo") %>
+          </a>
+        </div>
+        <div class="row">
+          <p class="mt-3 mb-0 footer-social-icon-text">Follow us on:</p>
+        </div>
+        <div class="row">
+          <a class="" href="/facebook" target="_blank"><%= image_tag("logos/facebook-logo.png", class: "footer-social-icon pt-2", alt: "Facebook Logo") %></a>
+          <a class="" href="/twitter" target="_blank"><%= image_tag("logos/twitter-logo.png", class: "footer-social-icon pt-2", alt: "Twitter Logo") %></a>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 footer-column">
+        <div class="row text-left">
+          <div class="col-5 footer-links">
+            <h6>Circuits</h6>
+            <a href="/simulator"><h6>Simulator</h6></a>
+            <a href="/learn" target="_blank"><h6>Learn</h6></a>
+            <a href="/examples"><h6>Examples</h6></a>
+            <% if user_signed_in? %>
+              <a href="<%= user_path(current_user) %>"><h6>My Circuits</h6></a>
+            <% else %>
+              <a href="/users/sign_in"><h6>Login</h6></a>
+            <% end %>
+          </div>
+          <div class="col-6 footer-links">
+            <h6>Info</h6>
+            <a href="/docs" target="_blank"><h6>Documentation</h6></a>
+            <a href="/contribute"><h6>Contribute</h6></a>
+            <a href="/teachers"><h6>Teachers</h6></a>
+            <a href="/about"><h6>About</h6></a>
+            <% if Flipper.enabled?(:forum) %>
+              <%= link_to "Forum", simple_discussion_path %>
+            <% end %>
           </div>
         </div>
-        <div class="d-block d-sm-none w-100">
-        <br>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 footer-column">
+        <div class="row">
+          <div class="col-6">
+            <small class="text-left footer-sponsor-logo-text">Brought to you by:</small>
+            <a href="https://www.iiitb.ac.in/" target="_blank">
+              <%= image_tag("footer/iiitb.png", class: "footer-sponsor-logo mb-2", alt: "iiitb Logo") %>
+            </a>
+          </div>
+          <div class="col-6">
+            <small class="text-left footer-sponsor-logo-text">Hosting Sponsor:</small>
+            <a href="http://digitalocean.com/" target="_blank">
+              <%= image_tag("footer/DO.png", class: "footer-sponsor-logo mb-2", alt: "DO Logo") %>
+            </a>
+          </div>
         </div>
-        <div class="col-sm-6 col-lg-4 col-xl-4 mx-auto mb-4">
-          <table class="w-100">
-            <tr>
-              <th>Circuits</th>
-              <th>Info</th>
-            </tr>
-            <tr>
-              <td><a class="text-white" href="/simulator">Simulator</a></td>
-              <td><a class="text-white" href="/docs" target="_blank">Documentation</a></td>
-            </tr>
-            <tr>
-              <td><a class="text-white" href="/learn" target="_blank">Learn</a></td>
-              <td><a class="text-white" href="/contribute">Contribute</a></td>
-            </tr>
-            <tr>
-              <td><a class="text-white" href="/examples">Examples</a></td>
-              <td><a class="text-white" href="/teachers">Teachers</a></td>
-            </tr>
-            <tr>
-              <% if user_signed_in? %>
-                  <td><a class="text-white" href="<%= user_path(current_user) %>">My Circuits</a></td>
-              <% else %>
-                  <td><a class="text-white" href="/users/sign_in">Login</a></td> 
-              <% end %>
-              <td><a class="text-white" href="/about">About</a></td>
-            </tr>
-          </table>
+        <div class="row">
+          <div class="col-6">
+            <small class="text-left footer-sponsor-logo-text">Marketed by:</small>
+            <a href="http://www.iiitb.org/" target="_blank">
+                  <%= image_tag("footer/istudio.png", class: "footer-sponsor-logo", alt: "istudio Logo") %>
+                </a>
+          </div>
+          <div class="col-6">
+            <small class="text-left footer-sponsor-logo-text">Developed By:</small>
+            <a href="http://zense.co.in/" target="_blank">
+              <%= image_tag("footer/zense.png", class: "footer-sponsor-logo", alt: "Zense Logo") %>
+            </a>
+          </div>
         </div>
-        <div class="col-sm-6 col-lg-5 col-xl-5 mx-auto mb-4">
-          <table class="w-100 small">
-            <tr>
-              <td>Brought to you by:</td>
-              <td>Hosting sponsor:</td>
-            </tr>
-            <tr>
-              <td class="py-1">
-                <a href="https://www.iiitb.ac.in/" target="_blank">
-                  <%= image_tag("footer/iiitb.png", class: "footer-logo", alt: "iiitb Logo") %>
-                </a>
-              </td>
-              <td class="py-1">
-                <a href="http://digitalocean.com/" target="_blank">
-                  <%= image_tag("footer/DO.png", class: "footer-logo", alt: "DO Logo") %>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td>Marketed by:</td>
-              <td>Developed by:</td>
-            </tr>
-            <tr>
-              <td class="py-1">
-                <a href="http://www.iiitb.org/" target="_blank">
-                  <%= image_tag("footer/istudio.png", class: "footer-logo", alt: "istudio Logo") %>
-                </a>
-              </td>
-              <td class="py-1">
-                <a href="http://zense.co.in/" target="_blank">
-                  <%= image_tag("footer/zense.png", class: "footer-logo", alt: "Zense Logo") %>
-                </a>
-              </td>
-            </tr>
-          </table>
-        </div>
-        <div class="d-none d-sm-block d-md-none copyright pl-3">Copyright © <script type="text/javascript"> document.write(new Date().getFullYear()); </script> CircuitVerse, All rights reserved.</div>
-        <div class="d-block d-sm-none copyright pl-3">Copyright © <script type="text/javascript"> document.write(new Date().getFullYear()); </script> CircuitVerse, All rights reserved.</div>
-        <div class="d-none d-sm-none d-md-block d-lg-none copyright pl-3" >Copyright © <script type="text/javascript"> document.write(new Date().getFullYear()); </script> CircuitVerse, All rights reserved.</div>
-        <div class="d-none d-sm-none d-md-none d-lg-block d-xl-none copyright pl-3" >Copyright © <script type="text/javascript"> document.write(new Date().getFullYear()); </script> CircuitVerse, All rights reserved.</div>
-        <div class="d-none d-sm-none d-md-none d-lg-none d-xl-block copyright pl-3" >Copyright © <script type="text/javascript"> document.write(new Date().getFullYear()); </script> CircuitVerse, All rights reserved.</div>
-     </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 text-white text-left footer-copyright-text">
+        <p>Copyright &copy; <script type="text/javascript"> document.write(new Date().getFullYear()); </script> CircuitVerse, All rights reserved.</p>
+      </div>
     </div>
   </div>
 </div>

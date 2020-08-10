@@ -10,6 +10,7 @@ class Grade < ApplicationRecord
 
   validates :grade, :user_id, :project_id, :assignment_id, presence: true
   validate :grading_scale, :assignment_project
+  validates :project_id, uniqueness: { scope: :assignment_id }
 
   private
 
@@ -46,7 +47,6 @@ class Grade < ApplicationRecord
         group_members.each do |member|
           submission = submissions.find do |s| (
 
-                         
                          s.author_id == member.id &&
             s.assignment_id == assignment_id)
           end

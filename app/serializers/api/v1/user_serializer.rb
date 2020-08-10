@@ -3,7 +3,7 @@
 class Api::V1::UserSerializer
   include FastJsonapi::ObjectSerializer
 
-  # only name is serialized if all users are fetched
+  # only name is serialized if all users/collaborators are fetched
   attribute :name
 
   # only serialized if user fetches own details
@@ -14,6 +14,6 @@ class Api::V1::UserSerializer
 
   attributes :admin, :country, :educational_institute,
              if: proc { |record, params|
-               params[:are_all_users_fetched] != true || record.admin
+               params[:only_name] != true || record.admin
              }
 end
