@@ -50,7 +50,7 @@ describe "Group management", type: :system do
   it "should remove a member from the group" do
     @group.users.append(@user2)
     visit "/groups/#{@group.id}"
-    click_button "Remove"
+    click_on "Remove"
     execute_script "document.getElementById('deletememberModal').style.display='block'"
     execute_script "document.getElementById('deletememberModal').style.opacity=1"
     click_button "Delete"
