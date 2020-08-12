@@ -53,7 +53,7 @@ describe "Group management", type: :system do
     click_on "Remove"
     execute_script "document.getElementById('deletememberModal').style.display='block'"
     execute_script "document.getElementById('deletememberModal').style.opacity=1"
-    click_button "Delete"
+    click_on "Delete"
 
 
     expect(page).to have_text("Group member was successfully removed.")
