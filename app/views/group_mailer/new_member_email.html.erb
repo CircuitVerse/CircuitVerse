@@ -5,5 +5,6 @@
     You have been added to a new group named <span class="mailer-highlighted-text"><%= @group.name %></span>. <br>
     The group is mentored by <span class="mailer-highlighted-text"><%= User.find_by(id:@group.primary_mentor_id).name %></span>.
   </p>
+  <a href="<%= group_url(@group) %>" class="mailer-button">View Group</a>
   <p class="mailer-text">Keep building!</p>
 </div>

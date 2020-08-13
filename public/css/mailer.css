@@ -41,10 +41,53 @@ body {
 .mailer-text {
   font-weight: 400;
 }
+
+.mailer-welcome-text {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+
+}
+
 .mailer-highlighted-text {
   font-weight: 600;
 }
 
+.mailer-button {
+  background-color: #42b983;
+  border-radius: 4px;
+  color: white;
+  display: inline-block;
+  margin: 5px;
+  padding: 10px 20px;
+  text-decoration: none;
+  width: 220px;
+}
+
+.mailer-showcase-container {
+  display: inline-block;
+}
+
+.mailer-showcase-card {
+  display: inline-block;
+  padding: 15px 20px;
+  width: 250px;
+}
+
+.mailer-showcase-card-image {
+  max-width: 80%;
+}
+
+.mailer-showcase-heading {
+  margin-top: 0;
+}
+
+.mailer-showcase-text {
+  font-size: 15px;
+}
+.mailer-showcase-card-button {
+  width: 120px;
+}
 /* breakpoints */
 @media (max-width: 674px) {
   .mailer-logo {
@@ -61,6 +104,10 @@ body {
 
   .mailer-social-image {
     width: 30px;
+  }
+
+  .mailer-welcome-text {
+    max-width: 90%;
   }
 }
 
@@ -79,5 +126,9 @@ body {
 
   .mailer-social-image {
     width: 45px;
+  }
+
+  .mailer-welcome-text {
+    max-width: 70%;
   }
 }
