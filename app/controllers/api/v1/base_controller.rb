@@ -14,10 +14,6 @@ class Api::V1::BaseController < ActionController::API
     unauthorized!
   end
 
-  rescue_from MissingAuthHeader do
-    api_error(status: 401, errors: "Authentication header is missing")
-  end
-
   rescue_from InvalidOAuthToken do
     api_error(status: 401, errors: "OAuth token is invalid")
   end
@@ -34,20 +30,12 @@ class Api::V1::BaseController < ActionController::API
     api_error(status: 422, errors: "resource invalid!")
   end
 
-  rescue_from UnauthenticatedError do
-    unauthenticated!
-  end
-
   rescue_from Commontator::SecurityTransgression do
     api_error(status: 403, errors: "not authorized for this action")
   end
 
   def security_transgression_unless(check)
     raise Commontator::SecurityTransgression unless check
-  end
-
-  def unauthenticated!
-    api_error(status: 401, errors: "not authenticated")
   end
 
   def unauthorized!
