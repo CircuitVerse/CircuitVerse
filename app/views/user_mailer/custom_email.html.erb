@@ -1,3 +1,4 @@
+<% content_for :title, @mail.subject %>
 <div>
   <h2>Hello, <%= @user.name %></h2>
   <p class="mailer-text"><%= raw @mail.content %></p>
