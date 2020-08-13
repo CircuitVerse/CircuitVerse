@@ -24,13 +24,6 @@ class Api::V1::CommentsController < Api::V1::BaseController
     end
   end
 
-  # GET /api/v1/comments/:id
-  def show
-    security_transgression_unless @commontator_thread.can_be_read_by? current_user
-
-    render json: Api::V1::CommentSerializer.new(@comment, @options)
-  end
-
   # PUT/PATCH /api/v1/comments/:id
   def update
     @comment.editor = current_user

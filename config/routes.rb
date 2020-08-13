@@ -163,7 +163,7 @@ Rails.application.routes.draw do
         end
       end
       resources :threads, only: %i[close reopen] do
-        resources :comments, only: %i[index show create update], shallow: true do
+        resources :comments, only: %i[index create update], shallow: true do
           member do
             put "upvote"
             put "downvote"
