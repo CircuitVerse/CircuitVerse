@@ -39,7 +39,8 @@
               }
             },
             "thread_id": { "type": "integer" },
-            "is_thread_subscribed": { "type": ["boolean", "null"] }
+            "is_thread_subscribed": { "type": ["boolean", "null"] },
+            "is_thread_closed": { "type": "boolean" }
           },
           "required": [
             "name",
@@ -54,7 +55,8 @@
             "stars_count",
             "tags",
             "thread_id",
-            "is_thread_subscribed"
+            "is_thread_subscribed",
+            "is_thread_closed"
           ]
         },
         "relationships": {

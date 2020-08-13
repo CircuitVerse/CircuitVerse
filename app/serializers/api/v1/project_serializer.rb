@@ -37,6 +37,10 @@ class Api::V1::ProjectSerializer
     end
   end
 
+  attributes :is_thread_closed do |project|
+    project.commontator_thread.is_closed?
+  end
+
   belongs_to :author
   has_many :collaborators, serializer: Api::V1::UserSerializer
 end
