@@ -15,6 +15,12 @@ import './embed';
 import { newCircuit } from './circuit';
 import load from './data/load';
 import save from './data/save';
+require('jquery-ui/themes/base/core.css');
+require('jquery-ui/themes/base/resizable.css');
+require('jquery-ui/themes/base/accordion.css');
+require('jquery-ui/themes/base/theme.css');
+var autocomplete = require( "jquery-ui/ui/widgets/resizable");
+var autocomplete = require( "jquery-ui/ui/widgets/accordion");
 
 window.width = undefined;
 window.height = undefined;

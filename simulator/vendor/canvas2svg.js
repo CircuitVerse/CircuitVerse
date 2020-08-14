@@ -1105,7 +1105,7 @@
             dw = args[7];
             dh = args[8];
         } else {
-            throw new Error("Inavlid number of arguments passed to drawImage: " + arguments.length);
+            throw new Error("Invalid number of arguments passed to drawImage: " + arguments.length);
         }
 
         parent = this.__closestGroupOrSvg();

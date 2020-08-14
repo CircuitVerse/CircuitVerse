@@ -1,9 +1,6 @@
 <% content_for(:html_title) { 'CircuitVerse - Digital Simulator' } %>
 <!--Displays the loading screen  -->
 <script src="/js/pace.js"></script>
-<!-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384&#45;BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script>
   userSignedIn = <%= user_signed_in? %>;
   logix_project_id = <%= @logix_project_id %>;
@@ -243,7 +240,6 @@
         <label class="option inline"> <input type="radio" name="resolution" value="4">4x</label>
       </p>
     </div>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
       var embed = false;
       var listenToSimulator=true
@@ -271,7 +267,7 @@
     <script src="/js/dec-bin-hex-converter.js"></script>
     <script src="/js/verilog.js"></script>
     <script type="text/javascript" src="/js/metadata.json"></script>
-    <script src="/js/canvas2svg.js"></script>
+    <!-- <script src="/js/canvas2svg.js"></script> -->
 
     <!---issue reporting-system----->
     <div class="report-sidebar">
@@ -331,6 +327,3 @@ $('#reportIssue').click(function(){
   var listenToSimulator=false
 })
 </script>
-    
-    
-    <script src="/js/canvas2svg.js"></script>
