@@ -35,7 +35,8 @@
     "opencollective-postinstall": "^2.0.2",
     "popper.js": "^1.16.0",
     "trumbowyg": "^2.21.0",
-    "turbolinks": "^5.2.0"
+    "turbolinks": "^5.2.0",
+    "canvas2svg": "^1.0.16"
   },
   "collective": {
     "type": "opencollective",
