@@ -1,6 +1,6 @@
 import 'jquery-ujs';
 
-import '../../../public/src/app';
+import '../../../simulator/src/app';
 
 var Turbolinks = require('turbolinks');
 
