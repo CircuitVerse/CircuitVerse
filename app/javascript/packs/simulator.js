@@ -1,4 +1,4 @@
-import 'jquery-ujs';
+import 'jquery';
 
 import '../../../simulator/src/app';
 
