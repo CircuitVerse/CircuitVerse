@@ -832,7 +832,7 @@ div.icon img {
 }
 
 .ui-dialog-titlebar-close {
-    background-image: url("../img/cross.png");
+    background-image: url("../cross.png");
     position: absolute;
     right: 0.3em;
     top: 50%;

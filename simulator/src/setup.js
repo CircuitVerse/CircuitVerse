@@ -15,12 +15,18 @@ import './embed';
 import { newCircuit } from './circuit';
 import load from './data/load';
 import save from './data/save';
-require('jquery-ui/themes/base/core.css');
-require('jquery-ui/themes/base/resizable.css');
-require('jquery-ui/themes/base/accordion.css');
-require('jquery-ui/themes/base/theme.css');
-var autocomplete = require( "jquery-ui/ui/widgets/resizable");
-var autocomplete = require( "jquery-ui/ui/widgets/accordion");
+
+import 'jquery-ui/themes/base/core.css';
+import 'jquery-ui/themes/base/resizable.css';
+import 'jquery-ui/themes/base/accordion.css';
+import 'jquery-ui/themes/base/dialog.css';
+import 'jquery-ui/themes/base/theme.css';
+
+import autocomplete from 'jquery-ui/ui/widgets/resizable';
+import accordion from 'jquery-ui/ui/widgets/accordion';
+import dialog from 'jquery-ui/ui/widgets/dialog';
+
+import './css/styles.css';
 
 window.width = undefined;
 window.height = undefined;
