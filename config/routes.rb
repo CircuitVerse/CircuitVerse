@@ -127,8 +127,7 @@ Rails.application.routes.draw do
       get '/me', to: 'users#me'
       post '/forgot_password', to: 'users#forgot_password'
       resources :users, only: %i[index show update]
-      get '/projects/featured', to: 'projects#featured_circuits'
-      get '/projects/favourites', to: 'projects#favourite_projects'
+      get "/projects/featured", to: "projects#featured_circuits"
       resources :projects do
         member do
           get "toggle-star", to: "projects#toggle_star"
@@ -138,7 +137,10 @@ Rails.application.routes.draw do
         resources :collaborators, only: %i[index create destroy]
       end
       resources :users do
-        get "projects", to: "projects#user_projects", on: :member
+        member do
+          get "projects", to: "projects#user_projects"
+          get "favourites", to: "projects#user_favourites"
+        end
       end
       post '/assignments/:assignment_id/projects/:project_id/grades', to: 'grades#create'
       resources :grades, only: [:update, :destroy]

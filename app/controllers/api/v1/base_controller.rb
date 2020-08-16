@@ -3,7 +3,6 @@
 class Api::V1::BaseController < ActionController::API
   include Pundit
   include CustomErrors
-  attr_reader :current_user
 
   DEFAULT_PER_PAGE = 5
 
@@ -37,26 +36,6 @@ class Api::V1::BaseController < ActionController::API
 
   rescue_from UnauthenticatedError do
     unauthenticated!
-  end
-
-  def authenticate_user
-    header = request.headers["Authorization"]
-    return if header.blank?
-
-    auth_header = header.split(" ").last
-    begin
-      @decoded = JsonWebToken.decode(auth_header)[0]
-      @current_user = User.find(@decoded["user_id"])
-    rescue JWT::DecodeError => e
-      api_error(status: 401, errors: e.message)
-    end
-  end
-
-  def authenticate_user!
-    raise MissingAuthHeader if request.headers["Authorization"].blank?
-
-    authenticate_user
-    raise UnauthenticatedError if current_user.nil?
   end
 
   def unauthenticated!

@@ -9,7 +9,7 @@ class Api::V1::GradesController < Api::V1::BaseController
   before_action :check_access
 
   def create
-    @grade.user_id = @current_user.id
+    @grade.user_id = current_user.id
     @grade.grade = grade_params[:grade]
     @grade.remarks = sanitize grade_params[:remarks]
 
