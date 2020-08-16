@@ -9,7 +9,7 @@ describe "Sign In", type: :system do
   end
 
   before(:each) do
-    click_on "Log In"
+    click_link('#loginNavbarText')
   end
 
   it "should not sign-in when no credentials" do
@@ -23,7 +23,7 @@ describe "Sign In", type: :system do
     fill_in "Password", with: @user.password
     click_button "Log in"
 
-    expect(page).to have_text("#{@user.name}")
+    expect(page).to have_text(@user.name.to_s)
   end
 
   it "should not sign-in when password is empty" do

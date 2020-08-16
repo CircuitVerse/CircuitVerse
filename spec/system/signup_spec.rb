@@ -8,8 +8,8 @@ describe "Sign up", type: :system do
   end
 
   before(:each) do
-    click_on "Log In"
-    click_on "Sign up"
+    click_link('#loginNavbarText')
+    click_link('#popupSignupLink')
   end
 
   it "should not sign-up when no credentials" do
@@ -50,6 +50,6 @@ describe "Sign up", type: :system do
     fill_in "Password", with: "secret"
     click_button "Sign up"
 
-    expect(page).to have_text("#{@user.name}")
+    expect(page).to have_text(@user.name.to_s)
   end
 end

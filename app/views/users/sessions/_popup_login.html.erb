@@ -45,7 +45,7 @@
                 <div class="input-group">
                   <%= f.submit "Log in" ,class:"btn primary-button users-login-primary-button" %>
                   <span class="users-text mt-2 ml-2">New User?</span>
-                  <%= link_to "Sign up", "#" ,class:"anchor-text mt-2", data: {toggle: "modal", target: "#registerModal", dismiss: "modal"} %>
+                  <%= link_to "Sign up", "#" ,class:"anchor-text mt-2", data: {toggle: "modal", target: "#registerModal", dismiss: "modal"}, id: "popupSignupLink" %>
                 </div>
               </div>
               <%= render "users/shared/links" %>
