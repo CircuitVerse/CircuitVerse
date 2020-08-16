@@ -87,6 +87,18 @@ RSpec.configure do |config|
         "error": "invalid_request",
         "error_description": "Invalid Credentials"
       }.to_json, headers: {})
+
+    # To stub fcm send notifications with irrespective of request body
+    stub_request(:post, "https://fcm.googleapis.com/fcm/send")
+      .with(
+        headers: {
+          "Accept" => "*/*",
+          "Accept-Encoding" => "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
+          "Content-Type" => "application/json",
+          "User-Agent" => "Ruby"
+        }
+      )
+      .to_return(status: 200, body: "", headers: {})
   end
 
   config.after do
