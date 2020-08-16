@@ -9,7 +9,7 @@ describe "Sign In", type: :system do
   end
 
   before(:each) do
-    click_link('#loginNavbarText')
+    click_on "Log In"
   end
 
   it "should not sign-in when no credentials" do
