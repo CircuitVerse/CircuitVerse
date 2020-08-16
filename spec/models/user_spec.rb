@@ -4,14 +4,15 @@ require "rails_helper"
 
 RSpec.describe User, type: :model do
   describe "associations" do
-    it { should have_many(:projects) }
-    it { should have_many(:stars) }
-    it { should have_many(:rated_projects) }
-    it { should have_many(:groups_mentored) }
-    it { should have_many(:group_members) }
-    it { should have_many(:groups) }
-    it { should have_many(:collaborations) }
-    it { should have_many(:collaborated_projects) }
+    it { is_expected.to have_many(:projects) }
+    it { is_expected.to have_many(:stars) }
+    it { is_expected.to have_many(:rated_projects) }
+    it { is_expected.to have_many(:groups_mentored) }
+    it { is_expected.to have_many(:group_members) }
+    it { is_expected.to have_many(:groups) }
+    it { is_expected.to have_many(:collaborations) }
+    it { is_expected.to have_many(:collaborated_projects) }
+    it { is_expected.to have_one(:fcm) }
   end
 
   describe "callbacks" do
