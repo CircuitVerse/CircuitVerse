@@ -4,42 +4,85 @@ require "rails_helper"
 
 RSpec.describe Api::V1::CommentsController, "#index", type: :request do
   describe "get thread's comments" do
-    let!(:creator) { FactoryBot.create(:user) }
-    let!(:project) { FactoryBot.create(:project, project_access_type: "Public") }
+    let!(:private_project_author) { FactoryBot.create(:user) }
+    let!(:public_project) { FactoryBot.create(:project, project_access_type: "Public") }
+    let!(:private_project) { FactoryBot.create(:project, author: private_project_author) }
 
-    context "when not authenticated" do
+    context "when not authenticated & public project's comments are fetched" do
       before do
-        FactoryBot.create_list(
-          :commontator_comment, 3, creator: creator, thread: project.commontator_thread
-        )
-        get "/api/v1/threads/#{project.commontator_thread.id}/comments", as: :json
+        create_comments_for(public_project)
+        get "/api/v1/threads/#{public_project.commontator_thread.id}/comments", as: :json
       end
 
-      it "returns all comments with vote_status to be nil" do
+      it "returns all comments" do
         expect(response).to have_http_status(200)
         expect(response).to match_response_schema("comments")
         expect(response.parsed_body["data"].length).to eq(3)
-        response.parsed_body["data"].each { |c| expect(c["attributes"]["vote_status"]).to be_nil }
       end
     end
 
-    context "when authenticated" do
+    context "when not authenticated & private project's comments are fetched" do
       before do
-        token = get_auth_token(creator)
-        FactoryBot.create_list(
-          :commontator_comment, 3, creator: creator, thread: project.commontator_thread
-        )
-        get "/api/v1/threads/#{project.commontator_thread.id}/comments",
+        create_comments_for(private_project)
+        get "/api/v1/threads/#{private_project.commontator_thread.id}/comments", as: :json
+      end
+
+      it "returns status forbidden" do
+        expect(response).to have_http_status(403)
+        expect(response.parsed_body).to have_jsonapi_errors
+      end
+    end
+
+    context "when authenticated & public project's comments are fetched" do
+      before do
+        create_comments_for(public_project)
+        token = get_auth_token(FactoryBot.create(:user))
+        get "/api/v1/threads/#{public_project.commontator_thread.id}/comments",
             headers: { "Authorization": "Token #{token}" }, as: :json
       end
 
-      it "returns all comments with vote_status not to be nil" do
+      it "returns all comments" do
         expect(response).to have_http_status(200)
         expect(response).to match_response_schema("comments")
-        response.parsed_body["data"].each do |comment|
-          expect(comment["attributes"]["vote_status"]).not_to be_nil
-        end
+        expect(response.parsed_body["data"].length).to eq(3)
       end
+    end
+
+    context "when authenticated but not as user whose private project's comments are fetched" do
+      before do
+        create_comments_for(private_project)
+        token = get_auth_token(FactoryBot.create(:user))
+        get "/api/v1/threads/#{private_project.commontator_thread.id}/comments",
+            headers: { "Authorization": "Token #{token}" }, as: :json
+      end
+
+      it "returns status forbidden" do
+        expect(response).to have_http_status(403)
+        expect(response.parsed_body).to have_jsonapi_errors
+      end
+    end
+
+    context "when authenticated as user whose private project's comments are fetched" do
+      before do
+        create_comments_for(private_project)
+        token = get_auth_token(private_project_author)
+        get "/api/v1/threads/#{private_project.commontator_thread.id}/comments",
+            headers: { "Authorization": "Token #{token}" }, as: :json
+      end
+
+      it "returns all comments" do
+        expect(response).to have_http_status(200)
+        expect(response).to match_response_schema("comments")
+        expect(response.parsed_body["data"].length).to eq(3)
+      end
+    end
+
+    def create_comments_for(project)
+      FactoryBot.create_list(
+        :commontator_comment, 3,
+        creator: FactoryBot.create(:user),
+        thread: project.commontator_thread
+      )
     end
   end
 end

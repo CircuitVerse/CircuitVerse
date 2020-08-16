@@ -2,7 +2,9 @@
 
 class Api::V1::CommentsController < Api::V1::BaseController
   before_action :authenticate_user!, except: %i[index]
-  before_action :load_resource
+  before_action :load_index_resource, only: %i[index]
+  before_action :load_create_resource, only: %i[create]
+  before_action :set_comment_and_thread, except: %i[index create]
   before_action :set_options
 
   # GET /api/v1/threads/:thread_id/comments
@@ -86,26 +88,28 @@ class Api::V1::CommentsController < Api::V1::BaseController
 
   private
 
-    # rubocop:disable Metrics/AbcSize
-    def load_resource
-      case params[:action].to_sym
-      when :index
-        @commontator_thread = Commontator::Thread.find(params[:thread_id])
-        security_transgression_unless @commontator_thread.can_be_read_by? current_user
-      when :create
-        @commontator_thread = Commontator::Thread.find(params[:thread_id])
-        security_transgression_unless @commontator_thread.can_be_read_by? current_user
-
-        @comment = Commontator::Comment.new(
-          thread: @commontator_thread, creator: current_user, body: params.dig(:comment, :body)
-        )
-        security_transgression_unless @comment.can_be_created_by?(current_user)
-      else
-        @comment = Commontator::Comment.find(params[:id])
-        @commontator_thread = @comment.thread
-      end
+    def load_index_resource
+      @commontator_thread = Commontator::Thread.find(params[:thread_id])
+      @project = @commontator_thread.commontable
+      security_transgression_unless @project.project_access_type == "Public"\
+                                    || current_user && @project.author == current_user\
+                                    && @commontator_thread.can_be_read_by?(current_user)
     end
-    # rubocop:enable Metrics/AbcSize
+
+    def load_create_resource
+      @commontator_thread = Commontator::Thread.find(params[:thread_id])
+      security_transgression_unless @commontator_thread.can_be_read_by? current_user
+
+      @comment = Commontator::Comment.new(
+        thread: @commontator_thread, creator: current_user, body: params.dig(:comment, :body)
+      )
+      security_transgression_unless @comment.can_be_created_by?(current_user)
+    end
+
+    def set_comment_and_thread
+      @comment = Commontator::Comment.find(params[:id])
+      @commontator_thread = @comment.thread
+    end
 
     def set_options
       @options = {}
