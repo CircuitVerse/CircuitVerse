@@ -16,27 +16,3 @@
     </div>
   </div>
 </div>
-
-<!-- to do -->
-<%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
-  <div class="field form-group">
-    <div class="input-group">
-      <span class="help-text">Forgot password?</span>
-      <div class="input-group-addon pt-2" onclick="togglePassword()">
-        <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
-        <%= link_to "Reset your Password", new_password_path(resource_name),class:"link-text pl-1" %>
-        <% end -%>
-      </div>
-    </div>
-  </div>
-<% end -%>
-
-<%- if devise_mapping.omniauthable? %>
-  <%- resource_class.omniauth_providers.each do |provider| %>
-    <%- unless current_user%>
-      <% link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider) %>
-    <%- else %>
-      <% link_to "Logout", destroy_user_session_path,method: :delete %>
-    <% end -%>
-  <% end -%>
-<% end -%>

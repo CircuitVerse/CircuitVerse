@@ -1,0 +1,56 @@
+<div id="registerModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="row users-popup-row">
+        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 users-popup-image-background">
+          <%= image_tag ("SVGs/signup.svg"), class: "users-popup-image" %>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
+          <button type="button" class=" mr-3 mt-3 close" data-dismiss="modal">&times;</button>
+          <div class="form-container">
+            <h3>Sign Up</h3> <br>
+            <%= form_with(model: resource, as: resource_name, url: new_registration_path(resource_name), html: {id: "registerForm"}, remote: true) do |f| %>
+              <div class="alert error-message" id="usersSignupError">
+                <%= devise_error_messages! %>
+              </div>
+              <div class="field form-group">
+                <h6><%= f.label :name %></h6>
+                <div class="input-group">
+                  <%= f.text_field :name, autofocus: true, class:"form-control form-input" %>
+                </div>
+              </div>
+              <div class="field form-group">
+                <h6><%= f.label :email %></h6>
+                <div class="input-group">
+                  <%= f.email_field :email, class:"form-control form-input" %>
+                </div>
+              </div>
+              <div class="field form-group">
+                <h6>
+                  <%= f.label :password %>
+                  <% if resource_class.password_length.min %>
+                    (Minimum <%= resource_class.password_length.min %> characters)
+                  <% end %>
+                </h6>
+                <div class="input-group form-input">
+                  <%= f.password_field :password, autocomplete: "off" ,class:"form-control users-login-password-input", id:"signup-password-input" %>
+                  <div class="input-group-addon ml-3 mt-2" onclick="toggleSignupPassword()">
+                    <i class="far fa-eye-slash password-icon" aria-hidden="true" id="signup-toggle-icon"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="field form-group">
+                <div class="input-group">
+                  <%= f.submit "Sign Up" ,class:"btn primary-button users-login-primary-button" %>
+                  <span class="users-text mt-2 ml-2">Already Registered?</span>
+                  <%= link_to "Log In", "#" ,class:"anchor-text mt-2", data: {toggle: "modal", target: "#loginModal", dismiss: "modal"} %>
+                </div>
+              </div>
+              <%= render "users/shared/links" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

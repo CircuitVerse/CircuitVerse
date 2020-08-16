@@ -31,12 +31,13 @@
           <div class="field form-group">
             <div class="input-group">
               <%= f.submit "Change my password" ,class:"btn primary-button users-primary-button" %>
-              <a href="#" class="anchor-text mt-2" data-toggle="modal" data-target="#loginModal">Go to Login Page</a>
+              <a href="#" class="anchor-text mt-2" data-toggle="modal" data-target="#loginModal" data-dismiss="modal">Go to Login Page</a>
+            </div>
           </div>
           <div class="field form-group">
             <div class="input-group">
               <span class="users-text">New User?</span>
-              <%= link_to "Sign Up", new_registration_path(resource_name) ,class:"anchor-text" %>
+              <%= link_to "Sign Up", '#', class:"anchor-text", data: {target: "#registerModal", dismiss: "modal", toggle: "modal" } %>
             </div>
           </div>
           <%= render "users/shared/links" %>

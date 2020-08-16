@@ -16,37 +16,18 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <%= render "layouts/google_analytics" %>
+    <%= render partial: "layouts/google_analytics" %>
   </head>
 
   <body>
     <%= render "layouts/header" %>
-    <%= yield %>
-    <div class="modal fade" role="dialog" id="signinmodal">
-      <div class="modal-dialog">
-    <!-- Modal content-->
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Log In</h4>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-          </div>
-          <div class="modal-body">
-            <%= devise_error_messages! %>
-            <%= form_for(resource, :as => resource_name, :url => session_path(resource_name) ,:html => {:id => "login-box"}, :remote => true ) do |f| %>
-              <%= f.email_field :email, autofocus: true, class:"form-control", placeholder: 'Email' %>
-              <%= f.password_field :password, :class => "form-control", :placeholder => "Password", autocomplete: "off" %>
-              <% if devise_mapping.rememberable? %>
-                <%= f.check_box :remember_me, :style => "margin-top:20px;margin-bottom:20px;" %>
-                <%= f.label :remember_me, :style => "margin-top:20px;margin-bottom:20px;" %>
-              <% end %>
-              <%= f.submit "Sign In", :class => "btn btn-default btn-login" %>
-            <% end %>
-          </div>
-        </div>
-      </div>
+    <div class="alert error-message" id="usersSignupError">
+      <%= devise_error_messages! %>
     </div>
+    <%= yield %>
     <%= render "layouts/footer" %>
-    <%= render "layouts/popup_login" %>
+    <%= render "users/sessions/popup_login" %>
+    <%= render "users/registrations/popup_register" %>
 
     <script type="text/javascript">
       // In this script tag we are checking alert's and if there is alert this code will be execute
@@ -54,6 +35,5 @@
         setTimeout(() => document.querySelector(".alert").hide(), 3000);
       }
     </script>
-
   </body>
 </html>
