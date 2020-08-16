@@ -4,27 +4,12 @@ require "rails_helper"
 
 RSpec.describe Api::V1::ProjectsController, "#featured_circuits", type: :request do
   describe "list all featured projects" do
-    let!(:user) { FactoryBot.create(:user) }
-
-    context "when not authenticated" do
-      before do
-        get "/api/v1/projects/featured", as: :json
-      end
-
-      it "returns status :not_authorized" do
-        expect(response).to have_http_status(401)
-        expect(response.parsed_body).to have_jsonapi_errors
-      end
-    end
-
-    context "when authenticated" do
+    context "when fetches all featured projects" do
       before do
         FactoryBot.create_list(:project, 5, project_access_type: "Public").each do |p|
           FactoryBot.create(:featured_circuit, project: p)
         end
-        token = get_auth_token(user)
-        get "/api/v1/projects/featured",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+        get "/api/v1/projects/featured", as: :json
       end
 
       it "returns all featured projects" do
@@ -34,14 +19,12 @@ RSpec.describe Api::V1::ProjectsController, "#featured_circuits", type: :request
       end
     end
 
-    context "when authenticated and includes author details" do
+    context "when includes author details" do
       before do
         FactoryBot.create_list(:project, 5, project_access_type: "Public").each do |p|
           FactoryBot.create(:featured_circuit, project: p)
         end
-        token = get_auth_token(user)
-        get "/api/v1/projects/featured?include=author",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+        get "/api/v1/projects/featured?include=author", as: :json
       end
 
       it "returns all featured projects including author details" do
@@ -51,15 +34,13 @@ RSpec.describe Api::V1::ProjectsController, "#featured_circuits", type: :request
       end
     end
 
-    context "when authenticated and checks for projects sorted in :ASC by views" do
+    context "when checks for projects sorted in :ASC by views" do
       before do
         FactoryBot.create_list(:project, 5, project_access_type: "Public", view: rand(10))
                   .each do |p|
           FactoryBot.create(:featured_circuit, project: p)
         end
-        token = get_auth_token(user)
         get "/api/v1/projects/featured",
-            headers: { "Authorization": "Token #{token}" },
             params: { sort: "view" }, as: :json
       end
 
@@ -69,15 +50,13 @@ RSpec.describe Api::V1::ProjectsController, "#featured_circuits", type: :request
       end
     end
 
-    context "when authenticated and checks for projects sorted in :DESC by views" do
+    context "when checks for projects sorted in :DESC by views" do
       before do
         FactoryBot.create_list(:project, 5, project_access_type: "Public", view: rand(10))
                   .each do |p|
           FactoryBot.create(:featured_circuit, project: p)
         end
-        token = get_auth_token(user)
         get "/api/v1/projects/featured",
-            headers: { "Authorization": "Token #{token}" },
             params: { sort: "-view" }, as: :json
       end
 
