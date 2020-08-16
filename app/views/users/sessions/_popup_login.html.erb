@@ -9,7 +9,7 @@
           <button type="button" class=" mr-3 mt-3 close" data-dismiss="modal">&times;</button>
           <div class="form-container">
             <h3>Log In</h3> <br>
-            <%= form_with(model: resource, as: resource_name, url: new_session_path(resource_name), html: {id: "loginForm"}, remote: true) do |f| %>
+            <%= form_with(model: resource, as: resource_name, url: session_path(resource_name), html: {id: "loginForm"}, remote: true) do |f| %>
               <div class="alert error-message" id="usersLoginError"></div>
               <div class="field form-group">
                 <h6><%= f.label :email %></h6>

@@ -235,3 +235,21 @@
     display: none;
   }
 }
+
+@media (max-width: 850px) {
+  #loginModal,
+  #registerModal {
+    .modal-dialog {
+      max-width: 75%;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  #loginModal,
+  #registerModal {
+    .modal-dialog {
+      max-width: 500px;
+    }
+  }
+}

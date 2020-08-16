@@ -8,13 +8,15 @@ describe "Sign up", type: :system do
   end
 
   before(:each) do
-    visit "/users/sign_up"
+    click_on "Log In"
+    click_on "Sign up"
   end
 
   it "should not sign-up when no credentials" do
     click_button "Sign up"
 
-    expect(page).to have_text("2 errors prohibited this user from being saved:")
+    expect(page).to have_text("Email can't be blank")
+    expect(page).to have_text("Password can't be blank")
   end
 
   it "should not sign-up when password is empty" do
@@ -48,6 +50,6 @@ describe "Sign up", type: :system do
     fill_in "Password", with: "secret"
     click_button "Sign up"
 
-    expect(page).to have_text("Welcome! You have signed up successfully.")
+    expect(page).to have_text("#{@user.name}")
   end
 end

@@ -9,9 +9,8 @@
           <button type="button" class=" mr-3 mt-3 close" data-dismiss="modal">&times;</button>
           <div class="form-container">
             <h3>Sign Up</h3> <br>
-            <%= form_with(model: resource, as: resource_name, url: new_registration_path(resource_name), html: {id: "registerForm"}, remote: true) do |f| %>
+            <%= form_with(model: resource, as: resource_name, url: registration_path(resource_name), html: {id: "registerForm"}, remote: true) do |f| %>
               <div class="alert error-message" id="usersSignupError">
-                <%= devise_error_messages! %>
               </div>
               <div class="field form-group">
                 <h6><%= f.label :name %></h6>
@@ -41,7 +40,7 @@
               </div>
               <div class="field form-group">
                 <div class="input-group">
-                  <%= f.submit "Sign Up" ,class:"btn primary-button users-login-primary-button" %>
+                  <%= f.submit "Sign up" ,class:"btn primary-button users-login-primary-button" %>
                   <span class="users-text mt-2 ml-2">Already Registered?</span>
                   <%= link_to "Log In", "#" ,class:"anchor-text mt-2", data: {toggle: "modal", target: "#loginModal", dismiss: "modal"} %>
                 </div>

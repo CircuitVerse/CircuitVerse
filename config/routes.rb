@@ -47,6 +47,7 @@ Rails.application.routes.draw do
   delete "/featured_circuits", to: "featured_circuits#destroy"
 
   get "users/sign_in" => redirect('/')
+  get "users/sign_up" => redirect('/')
   devise_for :users, controllers: { registrations: "users/registrations", omniauth_callbacks: "users/omniauth_callbacks", sessions: "users/sessions" }
   # Logix web pages resources
   root "logix#index"

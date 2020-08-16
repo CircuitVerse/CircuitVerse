@@ -9,13 +9,13 @@ describe "Sign In", type: :system do
   end
 
   before(:each) do
-    visit "/users/sign_in"
+    click_on "Log In"
   end
 
   it "should not sign-in when no credentials" do
     click_button "Log in"
 
-    expect(page).to have_text("Invalid Email or password.")
+    expect(page).to have_text("Invalid Email or password")
   end
 
   it "should sign-in when valid credentials" do
@@ -23,20 +23,20 @@ describe "Sign In", type: :system do
     fill_in "Password", with: @user.password
     click_button "Log in"
 
-    expect(page).to have_text("Signed in successfully.")
+    expect(page).to have_text("#{@user.name}")
   end
 
   it "should not sign-in when password is empty" do
     fill_in "Email", with: @user.email
     click_button "Log in"
 
-    expect(page).to have_text("Invalid Email or password.")
+    expect(page).to have_text("Invalid Email or password")
   end
 
   it "should not sign-in when email is empty" do
     fill_in "Password", with: @user.password
     click_button "Log in"
 
-    expect(page).to have_text("Invalid Email or password.")
+    expect(page).to have_text("Invalid Email or password")
   end
 end

@@ -1,2 +1,8 @@
-console.log("Created");
-location.reload();
+if("<%= j(devise_error_messages!.html_safe) %>"){
+  const errorDiv = document.getElementById("usersSignupError");
+  errorDiv.innerHTML = "<%= j(devise_error_messages!.html_safe) %>";
+  errorDiv.style.display = "block";
+}
+else{
+  location.reload();
+}

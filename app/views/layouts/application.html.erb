@@ -21,9 +21,6 @@
 
   <body>
     <%= render "layouts/header" %>
-    <div class="alert error-message" id="usersSignupError">
-      <%= devise_error_messages! %>
-    </div>
     <%= yield %>
     <%= render "layouts/footer" %>
     <%= render "users/sessions/popup_login" %>
