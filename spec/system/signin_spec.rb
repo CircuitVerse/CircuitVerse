@@ -9,7 +9,8 @@ describe "Sign In", type: :system do
   end
 
   before(:each) do
-    click_on "Log In"
+    click_on "Log in"
+    click_button "Log in"
   end
 
   it "should not sign-in when no credentials" do
