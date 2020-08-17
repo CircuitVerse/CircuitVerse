@@ -194,3 +194,31 @@
 .social-card-image {
   float: left;
 }
+
+//modals
+.primary-modal-dialog {
+  border-radius: 4px;
+  box-shadow: none;
+  padding-right: 0;
+}
+
+.primary-modal-header {
+  background-color: $primary-green;
+  border: 1px solid $primary-green;
+  box-shadow: none;
+
+  .modal-title {
+    color: $white;
+  }
+
+  .close {
+    color: $white;
+    opacity: 1;
+  }
+}
+
+@media (max-width: 400px) {
+  .primary-modal-dialog {
+    max-width: 100%;
+  }
+}
