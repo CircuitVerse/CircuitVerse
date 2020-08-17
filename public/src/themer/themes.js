@@ -308,7 +308,7 @@ export default {
         "--stroke": "#342a1f",
         "--fill": "#e0dcd3",
         "--hover-and-sel": "#f4d4d4", //yellow
-        "--wire-draw": "#909090", //black
+        "--wire-draw": "#4c4c4c", //black
         "--wire-cnt": "#908eb9", //
         "--wire-pow": "#b3b1cf",
         "--wire-sel": "#a7b8f8",
