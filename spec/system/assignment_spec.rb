@@ -83,13 +83,10 @@ describe "Assignments", type: :system do
       select "percent", from: "assignment_grading_scale"
     end
 
-    check "restrict-elements"
-    # check "Input"
+    page.find('#label-restrict-elements').click
+    page.find('#label-Input').click
     page.find('#label-Button').click
-    # click_on "Button"
-    # check "checkbox-Input"
-    check "checkbox-Button"
-    check "checkbox-Power"
+    page.find('#label-Power').click
   end
 
   def fill_in_editor(editor, with:)
