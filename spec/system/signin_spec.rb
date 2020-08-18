@@ -9,7 +9,8 @@ describe "Sign In", type: :system do
   end
 
   before(:each) do
-    click_link "Log in"
+    visit root_path
+    click_link "Log In"
   end
 
   it "should not sign-in when no credentials" do
