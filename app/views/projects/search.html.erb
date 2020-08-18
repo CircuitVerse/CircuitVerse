@@ -1,55 +1,69 @@
-<link href="/css/search.css" rel="stylesheet">
-
-<%= render "logix_assets/search_bar", { resource: "Projects" } %>
 
 <% if @results.empty? %>
-  <div class="container">
-    <h4 class="results-head">No Results Found</h4>
+  <div class="container searchpage-container-margin">
+    <div class="row row-text">
+      <div class="col-12">
+        <div class="searchpage-no-result-container">
+          <%= image_tag "SVGs/noResult.svg", alt: "No result image" %>
+          <h6>No Results Found</h6>
+        </div>
+      </div>
+    </div>
   </div>
 <% else %>
-<div class=""></div>
-<div class="container">
-  <% @results.each do |project| %>
-    <div class="row feature m-4">
-      <div class="col-md-9">
-        <h3 class="card-title"><%= project.name %></h3>
-        <p class="card-text">
-          <% project.tags.each do |tag| %>
-            <%= link_to tag.name, tag_path(tag.name),{:style=>"background-color: #f1f1f1; color: #000000", :class=>"badge"} %>
-          <% end %>
-        </p>
-        <div class="description"><%= sanitize project.description %></div>
-        <div class="row mt-3">
-          <div class="col-4">
-            <div class="mt-3 mb-3">
-              <a class="btn btn-dark btn-md" target="_blank"
-                 href="<%= user_project_path(project.author, project) %>" role="button">View</a>
-            </div>
+  <div class="container searchpage-container searchpage-container-margin">
+    <% @results.each do |project| %>
+      <div class="row row-text">
+        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+          <div class="row row-text">
+            <%= image_tag project.image_preview.url, alt: "project.name", class: "searchpage-image" %>
           </div>
-          <div class="col-8 d-flex justify-content-end">
-            <div class="row">
-              <div class="col-sm-auto p-1">
-                <%= image_tag project.author.profile_picture.url(:medium),
-                              style: "height:60px;width:60px;",
-                              class: ' img-responsive thumbnail rounded-circle' %>
-              </div>
-              <div class="col p-3">
-                <small class="text-muted"><%= link_to project.author.name, project.author %></small>
-              </div>
+          <div class="row row-text searchpage-view-star-count-container">
+            <i class="fas fa-star star-count-icon" aria-hidden="true"></i>
+            <span id="star-count" class="noSelect"><%= project.stars.count %></span>
+             Stars
+            &nbsp; &nbsp;
+            <i class="fa fa-eye" aria-hidden="true"></i>
+            <span id="star-count" class="noSelect"><%= project.view %></span>
+             Views
+          </div>
+          <div class="row row-text searchpage-user-data-container">
+            <h6 class="searchpage-user-heading">User:</h6>
+            <div class="searchpage-user-data">
+              <%= image_tag project.author.profile_picture.url(:medium), alt: "User Image", class: "searchpage-user-image" %>
+              <%= link_to project.author.name, project.author, class: "searchpage-user-link anchor-text" %>
             </div>
           </div>
         </div>
+        <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
+          <div class="row row-text">
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 searchpage-proper-orientation">
+              <div class="row row-text">
+                <h3 class="searchpage-project-name"><%= project.name %></h3>
+              </div>
+              <div class="row row-text">
+                <div class="searchpage-search-tag-container">
+                  <% if !project.tags.empty? %>
+                    <% project.tags.each do |tag| %>
+                      <%= link_to tag.name, tag_path(tag.name), class: "badge search-tag" %>
+                    <% end %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 searchpage-proper-orientation">
+              <a class="btn button-primary searchpage-button-primary" target="_blank" href="<%= user_project_path(project.author, project) %>" role="button">View</a>
+            </div>
+          </div>
+          <div class="row row-text">
+            <div class="searchpage-description"><%= sanitize project.description %></div>
+          </div>
+        </div>
       </div>
-      <div class="col-md-3">
-        <img src="<%= project.image_preview.url %>" alt="<%= project.name %>" class="img-fluid img-thumbnail">
-        <br/>
-        <div align="center">No. of views =<%= project.view %></div>
-      </div>
-    </div>
-  <% end %>
-  <% unless @results.empty? %>
-    <%= will_paginate(@results, renderer: SearchPaginateRenderer) %>
-  <% end %>
-</div>
+      <hr class="searchpage-horizontal-rule">
+    <% end %>
+    <% unless @results.empty? %>
+      <%= will_paginate(@results, renderer: SearchPaginateRenderer) %>
+    <% end %>
+  </div>
 <% end %>
-

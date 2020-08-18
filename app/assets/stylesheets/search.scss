@@ -1,0 +1,268 @@
+//to be removed
+.button-primary {
+  background-color: $green;
+  border-radius: 4px;
+  color: $white;
+  margin: 5px;
+  transition: all .3s ease 0s;
+
+  &:hover {
+    background-color: $teal;
+    box-shadow: 0 8px 15px $shadow-black;
+    color: $white;
+    transform: translateY(-7px);
+  }
+}
+
+.anchor-text {
+  color: $teal;
+  font-weight: 500;
+  text-decoration: underline;
+
+  &:hover {
+    color: $green;
+  }
+}
+
+.search-tag {
+  background-color: $teal;
+  border-radius: 4px;
+  color: $white;
+  font-weight: 500;
+  padding: 5px;
+
+  &:hover {
+    color: $white;
+  }
+}
+
+.results-head {
+  margin: 2rem 1rem 0 1.60rem;
+}
+
+.no-results {
+  margin-left: 1.6rem;
+  margin-top: 2rem;
+}
+
+.hide {
+  display: none;
+}
+//to be removed ends
+
+
+.search-match {
+  color: $error-red-font;
+}
+
+//navbar search
+.navbar-search-bar-form {
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;
+}
+
+.navbar-search-bar-input-container {
+  border: 1px solid $green;
+  height: 38px;
+  margin: 5px;
+  min-width: 150px;
+  padding: 0 5px 5px;
+  text-align: left;
+  width: 100%;
+}
+
+.navbar-search-bar-icon {
+  color: $slight-gray;
+  height: 10px;
+  margin-bottom: 12px;
+  width: 10px;
+
+  &:hover {
+    color: $slight-gray;
+  }
+}
+
+.navbar-search-bar-input {
+  background-color: $card-green;
+  border: 0;
+  margin-top: 5px;
+  outline: none;
+  width: 80%;
+
+  &.active {
+    border: 0;
+  }
+}
+
+.navbar-search-bar-select {
+  background-color: $card-green;
+  border: 1px solid $green;
+  cursor: pointer;
+  font-size: 18px;
+  height: 38px;
+  margin-right: 6px;
+  margin-top: 5px;
+  max-width: 70px;
+}
+//navbar search ends
+
+//searchpage
+.searchpage-container-margin {
+  margin-top: 100px;
+}
+
+.searchpage-container-margin-tags {
+  margin-top: 30px;
+}
+
+.searchpage-container {
+  border: 1px solid $card-border-grey;
+  border-radius: 0;
+  padding: 20px 8px;
+}
+
+.searchpage-image {
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.searchpage-view-star-count-container {
+  color: $black;
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  margin-top: 5px;
+  text-align: left;
+}
+
+.searchpage-user-data-container {
+  display: block;
+  text-align: left;
+}
+
+.searchpage-user-heading {
+  color: $teal;
+}
+
+.searchpage-user-image {
+  border: 1px solid $shadow-grey;
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+}
+
+.searchpage-user-link {
+  display: block;
+}
+
+.searchpage-search-tag-container {
+  display: block;
+  margin-bottom: 15px;
+  padding-left: 0;
+  text-align: left;
+  width: 90%;
+}
+
+.searchpage-button-primary {
+  margin-top: 20px;
+  padding: 5px 20px;
+}
+
+.searchpage-description {
+  height: 300px;
+  margin-left: 15px;
+  overflow-y: auto;
+  text-align: left;
+  width: 100%;
+  word-wrap: break-word;
+}
+
+.searchpage-horizontal-rule {
+  width: 70%;
+}
+
+.searchpage-project-name {
+  height: 40px;
+  overflow: hidden;
+  text-align: left;
+  text-overflow: ellipsis;
+  width: 90%;
+}
+
+.searchpage-no-result-container {
+  margin-top: 20px;
+
+  img {
+    display: block;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 40%;
+  }
+}
+
+.searchpage-tag-heading {
+  display: block;
+}
+
+.star-count-icon {
+  color: $star-yellow;
+}
+//searchpage ends
+
+//breakpoints
+@media (max-width: 768px) {
+  .navbar-search-bar-form {
+    width: 90%;
+  }
+
+  .searchpage-user-data {
+    padding-bottom: 20px;
+  }
+
+  .searchpage-proper-orientation {
+    padding-left: 0;
+  }
+
+  .searchpage-description {
+    margin-left: 0;
+  }
+
+  .searchpage-no-result-container {
+
+    img {
+      max-width: 60%;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .searchpage-container {
+    width: 90%;
+  }
+}
+
+@media (max-width: 400px) {
+  .navbar-search-bar-form {
+    width: 100%;
+  }
+
+  .navbar-search-bar-submit {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .navbar-search-bar-select {
+    width: 50px;
+  }
+
+  .searchpage-no-result-container {
+
+    img {
+      max-width: 80%;
+    }
+  }
+}
