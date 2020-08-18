@@ -59,6 +59,6 @@ describe "Sign up", type: :system do
     end
     click_button "Sign up"
 
-    expect(page).to have_text(@user.name.to_s)
+    expect(page).to have_text("user1")
   end
 end
