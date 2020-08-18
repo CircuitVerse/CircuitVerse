@@ -52,7 +52,7 @@ describe "Assignments", type: :system do
       description = Faker::Lorem.sentence
 
       fill_assignments(name, deadline, description, grading: false)
-      uncheck "checkbox-Power"
+      page.find("#label-Power").click
 
       click_button "Update Assignment"
       expect(page).to have_text("Assignment was successfully updated.")
@@ -83,10 +83,10 @@ describe "Assignments", type: :system do
       select "percent", from: "assignment_grading_scale"
     end
 
-    page.find('#label-restrict-elements').click
-    page.find('#label-Input').click
-    page.find('#label-Button').click
-    page.find('#label-Power').click
+    page.find("#label-restrict-elements").click
+    page.find("#label-Input").click
+    page.find("#label-Button").click
+    page.find("#label-Power").click
   end
 
   def fill_in_editor(editor, with:)

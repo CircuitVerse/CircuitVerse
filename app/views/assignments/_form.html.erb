@@ -22,7 +22,7 @@
     <%= render :partial => 'editor/index', :locals => {:content => @assignment.description} %>
   </div>
   <div id="deadline-field" class="form-group newproject-tag-field">
-    <h6><%= form.label :deadline %></h6> (<span id='remaining-time'><b>(something went wrong when loading script)</b></span>)
+    <h6><label for="assignment_deadline">Deadline</label></h6> (<span id='remaining-time'><b>(something went wrong when loading script)</b></span>)
     <input id="assignment_deadline" name="assignment[deadline]" type="text" class="form-control editprofile-data-field">
   </div>
   <div id="grade-field" class="form-group newproject-tag-field">
