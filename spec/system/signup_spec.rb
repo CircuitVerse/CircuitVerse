@@ -21,24 +21,30 @@ describe "Sign up", type: :system do
   end
 
   it "should not sign-up when password is empty" do
-    fill_in "Name", with: "user1"
-    fill_in "Email", with: "user1@example.com"
+    within("#registerModal") do
+      fill_in "Name", with: "user1"
+      fill_in "Email", with: "user1@example.com"
+    end
     click_button "Sign up"
 
     expect(page).to have_text("Password can't be blank")
   end
 
   it "should not sign-up when email is empty" do
-    fill_in "Name", with: "user1"
-    fill_in "Password", with: "secret"
+    within("#registerModal") do
+      fill_in "Name", with: "user1"
+      fill_in "Password", with: "secret"
+    end
     click_button "Sign up"
 
     expect(page).to have_text("Email can't be blank")
   end
 
   it "should not sign-up when password is less than 6 characters" do
-    fill_in "Name", with: "user1"
-    fill_in "Password", with: "secr"
+    within("#registerModal") do
+      fill_in "Name", with: "user1"
+      fill_in "Password", with: "secr"
+    end
     click_button "Sign up"
 
     expect(page).to have_text("Password is too short (minimum is 6 characters)")
@@ -46,9 +52,11 @@ describe "Sign up", type: :system do
 
 
   it "should sign-up when valid credentials" do
-    fill_in "Name", with: "user1"
-    fill_in "Email", with: "user1@example.com"
-    fill_in "Password", with: "secret"
+    within("#registerModal") do
+      fill_in "Name", with: "user1"
+      fill_in "Email", with: "user1@example.com"
+      fill_in "Password", with: "secret"
+    end
     click_button "Sign up"
 
     expect(page).to have_text(@user.name.to_s)
