@@ -84,7 +84,9 @@ describe "Assignments", type: :system do
     end
 
     check "restrict-elements"
-    check "checkbox-Input"
+    check "Input"
+    # click_on "Button"
+    # check "checkbox-Input"
     check "checkbox-Button"
     check "checkbox-Power"
   end
