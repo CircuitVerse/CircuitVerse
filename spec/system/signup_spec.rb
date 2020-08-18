@@ -8,7 +8,8 @@ describe "Sign up", type: :system do
   end
 
   before(:each) do
-    click_link "Log in"
+    visit root_path
+    click_link "Log In"
     click_link('#popupSignupLink')
   end
 

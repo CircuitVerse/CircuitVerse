@@ -16,7 +16,7 @@ describe "Sign In", type: :system do
   it "should not sign-in when no credentials" do
     click_button "Log in"
 
-    expect(page).to have_text("Invalid Email or password")
+    expect(page).to have_text("Invalid Email or Password")
   end
 
   it "should sign-in when valid credentials" do
