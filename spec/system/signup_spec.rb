@@ -10,7 +10,7 @@ describe "Sign up", type: :system do
   before(:each) do
     visit root_path
     click_link "Log In"
-    click_link('#popupSignupLink')
+    click_link "Sign up"
   end
 
   it "should not sign-up when no credentials" do

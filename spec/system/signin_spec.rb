@@ -31,13 +31,13 @@ describe "Sign In", type: :system do
     fill_in "Email", with: @user.email
     click_button "Log in"
 
-    expect(page).to have_text("Invalid Email or password")
+    expect(page).to have_text("Invalid Email or Password")
   end
 
   it "should not sign-in when email is empty" do
     fill_in "Password", with: @user.password
     click_button "Log in"
 
-    expect(page).to have_text("Invalid Email or password")
+    expect(page).to have_text("Invalid Email or Password")
   end
 end
