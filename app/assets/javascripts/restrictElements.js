@@ -25,7 +25,8 @@ function htmlRowName(name) {
 }
 
 function htmlInlineCheckbox(elementName, checked) {
-    return '\n <div class="form-check form-check-inline"> \n <label class="form-check-label checkpoint-primary-container newassignment-checkpoint-primary-container" for="checkbox-'
+    return '\n <div class="form-check form-check-inline"> \n <label class="form-check-label checkpoint-primary-container newassignment-checkpoint-primary-container" id = "label-'
+        .concat(elementName, '" for="checkbox-')
         .concat(elementName, '">')
         .concat('<input class="form-check-input element-restriction" type="checkbox" id="checkbox-')
         .concat(elementName, '" value="')
