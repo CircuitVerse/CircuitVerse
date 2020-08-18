@@ -85,7 +85,7 @@ describe "Assignments", type: :system do
 
     check "restrict-elements"
     # check "Input"
-    page.find('#checkbox-Button', visible: :all).click
+    page.find('#checkbox-Button', visible: false).check
     # click_on "Button"
     # check "checkbox-Input"
     check "checkbox-Button"
