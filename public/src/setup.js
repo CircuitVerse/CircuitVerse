@@ -18,7 +18,7 @@ import save from './data/save';
 
 window.width = undefined;
 window.height = undefined;
-window.DPR = 1; // devicePixelRatio, 2 for retina displays, 1 for low resolution displays
+window.DPR = window.devicePixelRatio || 1; // devicePixelRatio, 2 for retina displays, 1 for low resolution displays
 
 /**
  * to resize window and setup things it
