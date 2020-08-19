@@ -13,8 +13,6 @@
 @import 'layout';
 @import 'search';
 @import 'editor';
-@import 'groups';
-@import 'group_members';
 @import 'profile';
 @import 'home';
 @import 'assignments';
@@ -26,12 +24,10 @@
 @import 'about';
 @import 'contribute';
 @import 'teacher';
+@import 'groups';
 @import 'footer';
 @import 'oldStyles';
 // #FIXME move these styles
-.alert {
-  width: 100%;
-}
 
 .col-centered {
   float: none;

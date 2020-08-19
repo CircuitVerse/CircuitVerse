@@ -220,6 +220,31 @@
   }
 }
 
+.primary-delete-button {
+  background-color: $primary-red;
+  border-radius: 4px;
+  color: $white;
+  margin: 5px;
+  transition: all .3s ease 0s;
+
+  &:hover {
+    background-color: $secondary-red;
+    box-shadow: 0 8px 15px $shadow-black;
+    color: $white;
+    transform: translateY(-7px);
+  }
+}
+
+.mini-button {
+  border-radius: 4px;
+  color: $white;
+  height: 32px;
+  margin: 5px;
+  padding: 3px 5px;
+  text-decoration: none;
+  width: 85px;
+}
+
 //cards
 .social-card {
   background-color: $card-green;
@@ -239,4 +264,69 @@
 
 .social-card-image {
   float: left;
+}
+
+//modals
+.primary-modal-dialog {
+  border-radius: 4px;
+  box-shadow: none;
+  padding-right: 0;
+}
+
+.primary-modal-header {
+  background-color: $primary-green;
+  border: 1px solid $primary-green;
+  box-shadow: none;
+
+  .modal-title {
+    color: $white;
+  }
+
+  .close {
+    color: $white;
+    opacity: 1;
+  }
+}
+
+.secondary-modal-header {
+  background-color: $primary-red;
+  border: 1px solid $primary-red;
+  box-shadow: none;
+
+  .modal-title {
+    color: $white;
+  }
+
+  .close {
+    color: $white;
+    opacity: 1;
+  }
+}
+
+@media (max-width: 400px) {
+  .primary-modal-dialog {
+    max-width: 100%;
+  }
+}
+
+//form elements
+.form-input {
+  background-color: $white;
+  border: 1px solid $green;
+  border-radius: 0;
+  height: 40px;
+}
+
+//errors
+.error-message {
+  background: $error-red;
+  border-radius: 4px;
+  color: $primary-red;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 15px;
+
+  li {
+    text-align: left;
+  }
 }
