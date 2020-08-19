@@ -42,21 +42,25 @@ class ProjectPolicy < ApplicationPolicy
 
   def edit_access?
     raise @simulator_exception unless user_access?
+
     true
   end
 
   def view_access?
     raise @simulator_exception unless check_view_access?
+
     true
   end
 
   def direct_view_access?
     raise @simulator_exception unless check_direct_view_access?
+
     true
   end
 
   def embed?
     raise @simulator_exception unless project.project_access_type != "Private"
+
     true
   end
 

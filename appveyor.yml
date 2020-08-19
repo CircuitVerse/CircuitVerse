@@ -14,7 +14,7 @@ install:
   - set PATH=C:\Ruby26\bin;%PATH%
   - bundle config --local path vendor/bundle
   - bundle install --with postgresql
-  - yarn  
+  - yarn
 
 build: off
 
@@ -25,6 +25,8 @@ before_test:
   - copy config\database.appveyor.yml config\database.yml
   - ruby bin\rake db:create
   - ruby bin\rails db:schema:load
+  - openssl genrsa  -out config/private.pem 2048
+  - openssl rsa -in config/private.pem -outform PEM -pubout -out config/public.pem
 
 
 test_script:

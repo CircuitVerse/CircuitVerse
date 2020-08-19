@@ -21,6 +21,7 @@ class FeaturedCircuitsController < ApplicationController
   end
 
   private
+
     def set_and_authorize_featured
       authorize FeaturedCircuit, :admin?
       @featured_circuit = FeaturedCircuit.find_by(project_id: featured_circuit_params[:project_id])

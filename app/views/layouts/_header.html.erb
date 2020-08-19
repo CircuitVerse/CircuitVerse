@@ -1,58 +1,95 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-white">
+<nav class="navbar navbar-expand-lg bg-white">
   <a class="navbar-brand" href="/">
-    <%= image_tag("CircuitVerseNew.png", class: "logo", alt: "CircuitVerse Logo") %>
+    <%= image_tag("CircuitVerse.svg", class: "navbar-logo", alt: "CircuitVerse Logo") %>
   </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsedNavbar"
-          aria-controls="collapsedNavbar" aria-expanded="false" aria-label="Toggle navigation">
+  <div class="center-row navbar-search-icon-container navbar-search-icon-oncollapse">
+    <i class="fa fa-search <%= request.path == '/search' ? 'active' : '' %>" tabindex="0" aria-label="search"></i>
+  </div>
+  <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse" data-target="#collapsed-navbar"
+  aria-controls="collapsedNavbar" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-
-  <div class="collapse navbar-collapse" id="collapsedNavbar">
-    <ul class="navbar-nav ml-auto mt-2 mt-lg-0 navigationBar-item">
-      <li class="nav-item px-1">
-        <a class="btn btn-outline-success rounded-0 simulator text-dark " href="/simulator">Simulator</a>
+  <div class="collapse navbar-collapse" id="collapsed-navbar">
+    <ul class="navbar-nav ml-auto navigationBar-item">
+      <li class="nav-item px-1 pt-1 navbar-search-icon-onexpand">
+        <div class="center-row navbar-search-icon-container">
+          <i class="fa fa-search <%= request.path == '/search' ? 'active' : '' %>" tabindex="0" aria-label="search"></i>
+        </div>
       </li>
       <li class="nav-item px-1">
-        <a class="nav-link text-dark" href="https://learn.circuitverse.org/">Learn</a>
+        <a class="btn rounded-0 navbar-simulator-text" href="/simulator">Simulator</a>
+      </li>
+      <div class="navbar-nav nav-item dropdown">
+        <li class="nav-item px-1 navbar-dropdown-toggle-hidden">
+          <a class="nav-link dropdown-toggle navbar-item navbar-text" id="navbar-dropdown-1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-label="getting started">Getting Started</a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-dropdown-1">
+            <a class="dropdown-item" href="https://learn.circuitverse.org/" target="_blank">Learn</a>
+            <a class="dropdown-item" href="https://docs.circuitverse.org/" target="_blank">Documentation</a>
+          </div>
+        </li>
+      </div>
+      <li class="nav-item px-1">
+        <a class="nav-link navbar-item navbar-text <%= request.path == '/features' ? 'active' : '' %>" href="/#homepage-features-section">Features</a>
       </li>
       <li class="nav-item px-1">
-        <a class="nav-link text-dark" href="https://docs.circuitverse.org/">Documentation</a>
+        <a class="nav-link navbar-item navbar-text <%= request.path == '/teachers' ? 'active' : '' %>" href="/teachers">Teachers</a>
       </li>
-      <li class="nav-item px-1 <%= request.path == '/examples' ? 'active' : '' %>">
-        <a class="nav-link text-dark" href="/examples">Examples</a>
-      </li>
-      <li class="nav-item px-1 <%= request.path == '/contribute' ? 'active' : '' %>">
-        <a class="nav-link text-dark" href="/contribute">Contribute</a>
-      </li>
-      <li class="nav-item px-1 <%= request.path == '/teachers' ? 'active' : '' %>">
-        <a class="nav-link text-dark" href="/teachers">Teachers</a>
-      </li>
-      <li class="nav-item px-1 <%= request.path == '/about' ? 'active' : '' %>">
-        <a class="nav-link text-dark" href="/about">About</a>
+      <li class="nav-item px-1">
+        <a class="nav-link navbar-item navbar-text <%= request.path == '/about' ? 'active' : '' %>" href="/about">About</a>
       </li>
       <% if user_signed_in? %>
-       <div class="navbar-nav nav-item dropdown">
+      <div class="navbar-nav nav-item dropdown">
         <li class="nav-item px-1">
-          <a class="nav-link text-dark dropdown-toggle" style="cursor: pointer;" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle navbar-item navbar-text" id="navbar-dropdown-2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-label="user">
             <div class="navbar-username-truncate"><%= current_user.name %></div>
-         </a>
-
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="<%= profile_path(current_user) %>">Profile </a>
-          <a class="dropdown-item" href="<%= notifications_path(current_user) %>">Notifications </a>
-          <a class="dropdown-item" href="<%= user_path(current_user) %>">My Circuits</a>
-          <a class="dropdown-item" href="<%= user_groups_path(current_user) %>">My Groups</a>
-          <a class="dropdown-item" href="<%= user_favourites_path(current_user) %>">My Favourites</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" rel="nofollow" data-method="delete" href="<%= destroy_user_session_path %>">Sign Out</a>
-
-        </div>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-dropdown-2">
+            <a class="dropdown-item" href="<%= profile_path(current_user) %>">Profile </a>
+            <a class="dropdown-item" href="<%= notifications_path(current_user) %>">Notifications </a>
+            <a class="dropdown-item" href="<%= user_path(current_user) %>">My Circuits</a>
+            <a class="dropdown-item" href="<%= user_groups_path(current_user) %>">My Groups</a>
+            <a class="dropdown-item" href="<%= user_favourites_path(current_user) %>">My Favourites</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" rel="nofollow" data-method="delete" href="<%= destroy_user_session_path %>">Sign Out</a>
+          </div>
         </li>
+      </div>
       <% else %>
-        <li class="nav-item px-2 <%= request.path == '/users/sign_in' ? 'active' : '' %>">
-          <a class="nav-link text-dark" href="/users/sign_in">Login</a>
+        <li class="nav-item px-1">
+          <a class="nav-link navbar-item navbar-text <%= request.path == '/users/sign_in' ? 'active' : '' %>" href="/users/sign_in">Login</a>
         </li>
       <% end %>
     </ul>
   </div>
 </nav>
+<div class="container-fluid navbar-search-active">
+  <%= render "logix_assets/search_bar" %>
+</div>
+
+<script type="text/javascript">
+  function activeSearchBar(){
+    let searchIconCollapse = document.getElementsByClassName("fa-search")[0];
+    let searchIconExpand = document.getElementsByClassName("fa-search")[1];
+    let searchBar = document.getElementsByClassName("navbar-search-active")[0];
+    let burgerButton = document.getElementById("collapsed-navbar");
+    if (searchIconCollapse.classList.contains("active") || searchIconExpand.classList.contains("active")) {
+      searchIconCollapse.classList.remove("active");
+      searchIconExpand.classList.remove("active");
+      searchBar.style.display = "none";
+    }
+    else {
+      searchIconCollapse.classList.add("active");
+      searchIconExpand.classList.add("active");
+      searchBar.style.display = "block";
+    }
+    burgerButton.classList.remove("show");
+  }
+  let searchIconCollapse = document.getElementsByClassName("fa-search")[0];
+  let searchIconExpand = document.getElementsByClassName("fa-search")[1];
+  let searchBar = document.getElementsByClassName("navbar-search-active")[0];
+  searchIconCollapse.addEventListener("click", activeSearchBar);
+  searchIconExpand.addEventListener("click", activeSearchBar);
+  if (window.location.href.includes('search')) {
+      searchBar.style.display = "block";
+  }
+</script>

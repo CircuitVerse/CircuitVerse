@@ -1,24 +1,86 @@
-// Place all the styles related to the group_members controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-.card-member {
-  background-color: $gray-100;
-  border: 1px solid $green-border;
-  border-radius: 2px;
-  margin-top: 8px;
-  padding: 18px 14px;
+
+//group details
+.groupdetails-button-primary-editname {
+  margin-bottom: 20px;
 }
 
-.group-name-editlink {
-  background-color: $teal;
-  border-radius: 5px;
-  color: $white;
+.groupdetails-heading-mentor {
+  font-weight: normal;
+}
+
+.groupdetails-row {
+  justify-content: space-between;
+  padding-top: 65px;
+}
+
+.groupdetails-row-scroll {
+  max-height: 525px;
+  max-width: 1030px;
+  overflow-y: auto;
+}
+
+.groupdetails-button-primary-addmember {
+  padding: 12px 35px;
+}
+
+.groupdetails-card-member {
+  background-color: $member-card-green;
+  border: 1px solid $teal;
+  display: inline-block;
+  height: 90px;
+  margin: 18px 10px;
+  padding: 15px;
+  width: 300px;
+}
+
+.groupdetails-card-member-details-1 {
+  padding-right: 0;
+  text-align: left;
+
+  i {
+    margin-right: 3px;
+    margin-top: 0;
+  }
+}
+
+.groupdetails-card-member-details-2 {
+  margin-right: 0;
+  padding: 15px 15px 15px 0;
+  text-align: right;
+  transition: padding-top .2s ease-in;
+
+  &:hover {
+    padding-top: 11px;
+  }
+}
+
+.groupdetails-card-member-name {
+  color: $black;
+  font-size: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  &:hover {
+    color: $black;
+    text-decoration: none;
+  }
+}
+
+.groupdetails-card-member-email {
+  color: $black;
+  font-size: 15px;
+  max-width: 175px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.groupdetails-button-mini-remove {
+  background-color: $error-red-font;
   cursor: pointer;
-  font-size: 18px;
-  left: 4px;
-  padding: 8px;
-  position: relative;
-  top: -7px;
+  font-size: 15px;
+  margin-left: 5px;
+  margin-right: 0;
+  padding: 4px 8px 6px;
 
   &:hover {
     color: $white;
@@ -26,14 +88,47 @@
   }
 }
 
-.add-member {
+.groupdetails-table-assignments {
+  border-collapse: collapse;
+}
+
+.assignment-content {
+  display: inline-block;
+  margin-top: 15px;
+}
+
+.table-collapsed-assignment-content {
+  display: inline-block;
+  margin-top: 15px;
+}
+
+.assignment-name {
+  margin-left: 8px;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.table-collapsed-assignment-name {
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.table-expanded-date {
+  padding-top: 15px;
+
+  p {
+    margin-bottom: 0;
+  }
+}
+
+.assignment-button-mini-view {
   background-color: $green;
-  border: 0;
-  border-radius: 25px;
-  color: $white;
   cursor: pointer;
-  font-size: 18px;
-  padding: 12px 34px;
+  font-size: 15px;
+  margin: 25px 5px 10px;
+  padding: 4px 8px 6px;
 
   &:hover {
     color: $white;
@@ -41,6 +136,144 @@
   }
 }
 
+.assignment-button-mini-edit-reopen {
+  background-color: $seablue;
+  cursor: pointer;
+  font-size: 15px;
+  margin: 10px 5px;
+  padding: 4px 8px 6px;
+
+  &:hover {
+    color: $white;
+    text-decoration: none;
+  }
+}
+
+.assignment-button-mini-delete {
+  background-color: $error-red-font;
+  cursor: pointer;
+  font-size: 15px;
+  margin: 10px 5px;
+  padding: 4px 8px 6px;
+
+  &:hover {
+    color: $white;
+    text-decoration: none;
+  }
+}
+
+.assignment-no-submission {
+  display: inline-block;
+  margin-top: 3px;
+}
+
+.assignment-button-container {
+  min-width: 190px;
+}
+
+.assignment-table-expanded-empty-row {
+  border: 0;
+  height: 20px;
+  line-height: normal;
+  padding: 20px;
+}
+
+
+.table-collapsed-assignment-table-empty-row {
+  border: 0;
+  height: 10px;
+  line-height: normal;
+  padding: 20px;
+}
+
+.table-collapsed {
+  display: none;
+  padding: 15px;
+}
+
+.table-collapsed-row-div {
+  margin-bottom: 15px;
+}
+
+.table-collapsed-head {
+  // margin-left: 8px;
+  min-width: 90px;
+  vertical-align: top;
+}
+
+.groupdetails-table-assignments-rows {
+  background-color: $member-card-green;
+  border: 1px solid $teal;
+  margin: 10px 10px 20px;
+  padding-bottom: 20px;
+  padding-top: 15px;
+}
+
+//breakpoints
+@media (max-width: 1200px) {
+
+  .groupdetails-row-scroll {
+    max-width: 920px;
+  }
+
+  .groupdetails-card-member {
+    width: 270px;
+  }
+}
+
+@media(max-width: 992px) {
+
+  .groupdetails-row-scroll {
+    max-width: 610px;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .groupdetails-table-assignments-heading {
+    display: none;
+  }
+
+  .table-expanded {
+    display: none;
+  }
+
+  .table-collapsed {
+    display: block;
+  }
+
+  .groupdetails-back-button-container {
+    margin-left: 10px;
+  }
+}
+
+@media (max-width: 500px) {
+
+  .groupdetails-card-member {
+    margin: 10px 0;
+    padding: 10px;
+    width: 270px;
+  }
+
+  .groupdetails-card-member-container {
+    padding: 5px;
+  }
+
+  .table-collapsed {
+    padding: 10px 5px;
+  }
+
+  .table-collapsed-head {
+    min-width: 70px;
+  }
+
+  .groupdetails-row {
+    display: block;
+    text-align: center;
+  }
+}
+
+//to be removed
 .assignment-view {
   background-color: $green;
   border-radius: 5px;
@@ -109,42 +342,6 @@
   }
 }
 
-.card-member-name {
-  color: $black;
-  font-size: 20px;
-  max-width: 175px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-
-  &:hover {
-    color: $black;
-    text-decoration: none;
-  }
-}
-
-.card-member-email {
-  color: $black;
-  font-size: 18px;
-  letter-spacing: 1px;
-  margin-top: 2px;
-  max-width: 175px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.card-member-remove {
-  background-color: $red;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 15px;
-  overflow: hidden;
-  padding: 2px 5px;
-
-  &:hover {
-    color: $white;
-    text-decoration: none;
-  }
-}
 
 .group-description-back {
   border-radius: 25px;
@@ -163,25 +360,39 @@
   }
 }
 
-.assignment-table {
-  border-collapse: collapse;
-}
-
-.assignment-rows {
-  background-color: $gray-100;
-  border: 1px solid $green-border;
-}
-
-.add-member-heading {
-  display: inline;
-}
-
-.auto-scroll-members {
-  max-height: 525px;
-  overflow-y: auto;
-}
-
 .scroll-members-card {
   max-height: 125px;
   overflow-y: scroll;
+}
+
+.add-member {
+  background-color: $green;
+  border: 0;
+  border-radius: 25px;
+  color: $white;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 12px 34px;
+
+  &:hover {
+    color: $white;
+    text-decoration: none;
+  }
+}
+
+.group-name-editlink {
+  background-color: $teal;
+  border-radius: 5px;
+  color: $white;
+  cursor: pointer;
+  font-size: 18px;
+  left: 4px;
+  padding: 8px;
+  position: relative;
+  top: -7px;
+
+  &:hover {
+    color: $white;
+    text-decoration: none;
+  }
 }
