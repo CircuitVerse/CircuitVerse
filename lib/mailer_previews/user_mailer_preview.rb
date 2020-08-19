@@ -11,7 +11,7 @@ class UserMailerPreview < ActionMailer::Preview
 
   def custom_email
     mail = CustomMail.new(subject: "Launching Graded Assignments!",
-      content: "<i> Now grade your assignments with CircuitVerse! </i>")
+                          content: "<i> Now grade your assignments with CircuitVerse! </i>")
     UserMailer.custom_email(User.first, mail)
   end
 
