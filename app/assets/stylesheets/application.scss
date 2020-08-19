@@ -4,6 +4,7 @@
 @import 'bootstrap-typeahead-rails';
 @import "font-awesome-sprockets";
 @import "font-awesome";
+@import 'trumbowyg/dist/ui/trumbowyg.min';
 @import 'layout';
 @import 'components';
 @import 'signup';
@@ -17,7 +18,6 @@
 @import 'profile';
 @import 'home';
 @import 'assignments';
-@import 'trumbowyg/dist/ui/trumbowyg.min';
 @import 'examples';
 @import 'simple_discussion';
 @import 'simple_discussion_overrides';
