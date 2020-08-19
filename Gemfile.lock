@@ -213,8 +213,8 @@ GEM
     i18n (1.7.1)
       concurrent-ruby (~> 1.0)
     i18n_data (0.8.0)
-    jbuilder (2.9.1)
-      activesupport (>= 4.2.0)
+    jbuilder (2.10.0)
+      activesupport (>= 5.0.0)
     jquery-rails (4.4.0)
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
@@ -582,7 +582,7 @@ DEPENDENCIES
   geocoder
   hirb
   http
-  jbuilder (~> 2.5)
+  jbuilder (~> 2.10)
   jquery-rails
   json-schema
   jwt
