@@ -1,9 +1,9 @@
 
 <% if @results.empty? %>
-  <div class="container searchpage-container-margin">
-    <div class="row row-text">
+  <div class="container search-no-results-container">
+    <div class="row center-row">
       <div class="col-12">
-        <div class="searchpage-no-result-container">
+        <div class="search-no-results-image">
           <%= image_tag "SVGs/noResult.svg", alt: "No result image" %>
           <h6>No Results Found</h6>
         </div>
@@ -11,15 +11,15 @@
     </div>
   </div>
 <% else %>
-  <div class="container searchpage-container searchpage-container-margin">
+  <div class="container search-container">
     <% @results.each do |project| %>
-      <div class="row row-text">
+      <div class="row center-row">
         <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
-          <div class="row row-text">
-            <%= image_tag project.image_preview.url, alt: "project.name", class: "searchpage-image" %>
+          <div class="row center-row">
+            <%= image_tag project.image_preview.url, alt: "project.name", class: "search-image" %>
           </div>
-          <div class="row row-text searchpage-view-star-count-container">
-            <i class="fas fa-star star-count-icon" aria-hidden="true"></i>
+          <div class="row center-row searchpage-view-count-container">
+            <i class="fas fa-star search-star-count-icon" aria-hidden="true"></i>
             <span id="star-count" class="noSelect"><%= project.stars.count %></span>
              Stars
             &nbsp; &nbsp;
@@ -27,22 +27,22 @@
             <span id="star-count" class="noSelect"><%= project.view %></span>
              Views
           </div>
-          <div class="row row-text searchpage-user-data-container">
-            <h6 class="searchpage-user-heading">User:</h6>
-            <div class="searchpage-user-data">
-              <%= image_tag project.author.profile_picture.url(:medium), alt: "User Image", class: "searchpage-user-image" %>
-              <%= link_to project.author.name, project.author, class: "searchpage-user-link anchor-text" %>
+          <div class="row center-row search-user-data-container">
+            <h6 class="search-user-heading">User:</h6>
+            <div class="search-user-data">
+              <%= image_tag project.author.profile_picture.url(:medium), alt: "User Image", class: "search-user-image" %>
+              <%= link_to project.author.name, project.author, class: "search-user-link anchor-text" %>
             </div>
           </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
-          <div class="row row-text">
-            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 searchpage-proper-orientation">
-              <div class="row row-text">
-                <h3 class="searchpage-project-name"><%= project.name %></h3>
+          <div class="row center-row">
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 search-project-detail-container">
+              <div class="row center-row">
+                <h3 class="search-project-name"><%= project.name %></h3>
               </div>
-              <div class="row row-text">
-                <div class="searchpage-search-tag-container">
+              <div class="row center-row">
+                <div class="search-tag-container">
                   <% if !project.tags.empty? %>
                     <% project.tags.each do |tag| %>
                       <%= link_to tag.name, tag_path(tag.name), class: "badge search-tag" %>
@@ -51,12 +51,12 @@
                 </div>
               </div>
             </div>
-            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 searchpage-proper-orientation">
-              <a class="btn button-primary searchpage-button-primary" target="_blank" href="<%= user_project_path(project.author, project) %>" role="button">View</a>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 search-project-detail-container">
+              <a class="btn primary-button search-primary-button" target="_blank" href="<%= user_project_path(project.author, project) %>" role="button">View</a>
             </div>
           </div>
-          <div class="row row-text">
-            <div class="searchpage-description"><%= sanitize project.description %></div>
+          <div class="row center-row">
+            <div class="search-project-description"><%= sanitize project.description %></div>
           </div>
         </div>
       </div>
