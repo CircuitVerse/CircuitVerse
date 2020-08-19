@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container navbar-search-container">
   <div class="row center-row">
   <%= form_tag("/search", method: "get", id: 'search-box', class: 'navbar-search-bar-form') do %>
     <%= select_tag "resource", options_for_select([ "Users", "Projects" ], "resource" == "Projects" ? "Projects" : "Users"), class: "navbar-search-bar-select", id: "search_type" %>
@@ -6,5 +6,6 @@
     <button class="btn primary-button navbar-search-bar-button" type="submit" name="button" value="Submit">Search</button>
   <% end %>
   </div>
-  <!-- <script src="js/search.js"></script> -->
 </div>
+
+<script src="js/search.js"></script>

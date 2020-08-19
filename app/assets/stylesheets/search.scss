@@ -1,16 +1,12 @@
 .search-match {
-  color: $error-red-font;
+  background-color: $search-yellow;
 }
 
-.searchpage-tag-heading {
-  display: block;
-}
-//projects search
 .search-no-results-container {
   margin-top: 100px;
 }
 
-.searchpage-no-results-image {
+.search-no-results-image {
   margin-top: 20px;
 
   img {
@@ -100,6 +96,10 @@
 
 .search-horizontal-rule {
   width: 70%;
+}
+
+.search-tag-heading {
+  display: block;
 }
 
 //breakpoints
