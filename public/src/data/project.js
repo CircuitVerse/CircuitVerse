@@ -13,18 +13,36 @@ import load from './load';
  * Helper function to recover unsaved data
  * @category data
  */
+// recoverProject
 export function recoverProject() {
     if (localStorage.getItem('recover')) {
         var data = JSON.parse(localStorage.getItem('recover'));
-        if (confirm(`Would you like to recover: ${data.name}`)) {
-            load(data);
-        }
-        localStorage.removeItem('recover');
+        let name = data.name;
+        $('#recoverProjectPrompt').empty();
+        $('#recoverProjectPrompt').append(`<span>Would you like to recover: "${name}"</span>`);
+        $('#recoverProjectPrompt').dialog({
+            resizable:false,
+            buttons:[
+                {
+                    text: "Ok",
+                    click(){
+                        load(data);
+                        localStorage.removeItem('recover');
+                        $(this).dialog('close');
+                    },
+                },
+                {
+                    text: "Cancel",
+                    click(){
+                        $(this).dialog('close');
+                    },
+                }
+            ]
+        })
     } else {
         showError('No recover project found');
     }
 }
-
 
 /**
  * Prompt to restore from localStorage
@@ -111,13 +129,29 @@ window.onbeforeunload = function () {
  * @category data
  */
 export function clearProject() {
-    if (confirm('Would you like to clear the project?')) {
-        globalScope = undefined;
-        resetScopeList();
-        $('.circuits').remove();
-        newCircuit('main');
-        showMessage('Your project is as good as new!');
-    }
+    $('#clearProjectPrompt').text('Would you like to clear the project?');
+    $('#clearProjectPrompt').dialog({
+        resizable:false,
+        buttons: [
+            {
+                text: 'OK',
+                click() {
+                    globalScope = undefined;
+                    resetScopeList();
+                    $('.circuits').remove();
+                    newCircuit('main');
+                    showMessage('Your project is as good as new!');
+                    $('#clearProjectPrompt').dialog('close');
+                }
+            },
+            {
+                text: 'Cancel',
+                click() {
+                    $(this).dialog('close');
+                }
+            }
+        ]
+    });
 }
 
 /**
@@ -126,13 +160,37 @@ export function clearProject() {
  * @category data
  */
 export function newProject(verify) {
-    if (verify || projectSaved || !checkToSave() || confirm('What you like to start a new project? Any unsaved changes will be lost.')) {
-        clearProject();
-        localStorage.removeItem('recover');
-        window.location = '/simulator';
-
-        projectName = undefined;
-        projectId = generateId();
-        showMessage('New Project has been created!');
+    if (verify || projectSaved || !checkToSave()) {
+        newProjectConfirmed();
+    } else {
+        $('#newProjectPrompt').text('Would you like to start a new project? Any unsaved changes will be lost.');
+        $('#newProjectPrompt').dialog({
+            resizable:false,
+            buttons:[
+                {
+                    text: 'OK',
+                    click() {
+                        newProjectConfirmed();
+                        $(this).dialog('close');
+                    }
+                },
+                {
+                    text: 'Cancel',
+                    click() {
+                        $(this).dialog('close');
+                    }
+                },
+            ]
+        });
     }
+}
+
+function newProjectConfirmed() {
+    clearProject();
+    localStorage.removeItem('recover');
+    window.location = '/simulator';
+
+    projectName = undefined;
+    projectId = generateId();
+    showMessage('New Project has been created!');
 }
