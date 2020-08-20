@@ -28,7 +28,7 @@
 }
 
 .about-contributor-image {
-  border: 2px solid $green;
+  border: 2px solid $primary-green;
   border-radius: 50%;
   transition: all .3s ease-in;
   width: 100%;
@@ -43,6 +43,7 @@
   padding: 12px 30px;
 }
 
+//breakpoints
 @media (max-width: 576px) {
   .about-social-card-1 {
     margin-top: 50px;

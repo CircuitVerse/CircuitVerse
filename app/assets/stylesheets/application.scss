@@ -4,19 +4,15 @@
 @import 'bootstrap-typeahead-rails';
 @import "font-awesome-sprockets";
 @import "font-awesome";
+@import 'trumbowyg/dist/ui/trumbowyg.min';
 @import 'layout';
 @import 'components';
-@import 'signup';
 @import 'logixRelease';
-@import 'projects';
 @import 'layout';
+@import 'search';
 @import 'editor';
-@import 'groups';
-@import 'group_members';
-@import 'profile';
 @import 'home';
 @import 'assignments';
-@import 'trumbowyg/dist/ui/trumbowyg.min';
 @import 'examples';
 @import 'simple_discussion';
 @import 'simple_discussion_overrides';
@@ -26,13 +22,12 @@
 @import 'contribute';
 @import 'teacher';
 @import 'users';
+@import 'groups';
+@import 'projects';
 @import 'footer';
 @import 'oldStyles';
 
 // #FIXME move these styles
-.alert {
-  width: 100%;
-}
 
 .col-centered {
   float: none;

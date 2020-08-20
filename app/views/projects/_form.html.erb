@@ -1,53 +1,50 @@
+
 <% if policy(@project).can_feature? %>
   <%= form_with(model: FeaturedCircuit.new, url: '/featured_circuits', multipart: true, id:"featuredCircuit") do |form| %>
     <%= form.hidden_field :project_id, value: @project.id %>
-    <%= form.label :featured, class:'bold' %> <span> (Administrator Only) </span>
-    <%= form.check_box :featured, {checked: @project.featured?, id: 'featured_checkbox'} %>
+    <div class="form-group projects-primary-checkpoint">
+      <label for="featured_checkbox" class="primary-checkpoint-container"><h6>Featured (Administrator Only)</h6>
+        <%= form.check_box :featured, checked: @project.featured?, id: "featured_checkbox" %>
+        <div class="primary-checkpoint"></div>
+      </label>
+    </div>
   <% end %>
 <% end %>
 
 <%= form_with(model: [ current_user, @project] , local: true, multipart: true, id:"projectForm") do |form| %>
-
   <% if project.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:</h2>
-
+    <div id="error-message">
+      <h6><%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:</h6>
       <ul>
-      <% project.errors.full_messages.each do |message| %>
+        <% project.errors.full_messages.each do |message| %>
         <li><%= message %></li>
-      <% end %>
+        <% end %>
       </ul>
     </div>
   <% end %>
-
-  <div class="form-group">
-    <%= form.label :name, class:'bold' %>
-    <%= form.text_field :name, id: :project_name, class: 'form-control' %>
+  <div class="field form-group">
+    <h6><%= form.label :name %></h6>
+    <%= form.text_field :name, id: :project_name, class: 'form-control form-input' %>
   </div>
-
-  <div class="form-group">
-    <%= form.label :tag_list, class:'bold' %> <span> Your project tags divided by comma. </span>
-    <%= form.text_field :tag_list, class: 'form-control' %>
+  <div class="field form-group projects-tag-form-group">
+    <h6><%= form.label :tag_list %></h6> <span>(Enter your Project Tags divided by comma[,])</span>
+    <%= form.text_field :tag_list, class: 'form-control form-input' %>
   </div>
-
-  <div class="form-group">
-    <%= form.label :project_access_type, class:'bold' %>
+  <div class="field form-group">
+    <h6 class="projects-type-field-heading"><%= form.label :project_access_type %></h6>
     <% if @project.featured? %>
       <%= @warning %>
-      <span> <i class="fa fa-exclamation-triangle"></i> This project is featured. It will no longer be featured if public access is removed. </span>
-    <% end %>
-    <%= form.select :project_access_type, [["Public","Public"],["Private","Private"],["Limited access","Limited access"]], {},  class: 'form-control' %>
+        <span class="projects-type-field-warning"><i class="fa fa-exclamation-triangle"></i> (This project is featured. It will no longer be featured if public access is removed.)</span>
+      <% end %>
+    <%= form.select :project_access_type, [["Public","Public"],["Private","Private"],["Limited access","Limited access"]], {},  class: 'form-control form-input' %>
   </div>
-
-  <div class="field" id="description">
-    <%= form.label :description %><br>
+  <div class="field form-group" id="description">
+    <h6><%= form.label :description %></h6>
     <%= render :partial => 'editor/index', :locals => {:content => @project.description} %>
   </div>
-
-
-  <div class="actions form-group" onclick="beforeSubmit()">
-    <%= form.submit class: 'btn btn-primary' %>
-    <%= link_to 'Back', :back, class: 'btn underline text-success' %>
+  <div class="field form-group" onclick="beforeSubmit()">
+    <%= form.submit class: 'btn primary-button' %> &nbsp;
+    <%= link_to 'Back', :back, class: 'anchor-text' %>
   </div>
 
 <% end %>

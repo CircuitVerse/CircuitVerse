@@ -162,15 +162,13 @@
 }
 
 //breakpoints
-@media (max-width: 400px) {
-  .navbar-search-active {
-    padding-left: 5px;
-    padding-right: 5px;
+@media (max-width: 991px) {
+  .navbar-search-icon-oncollapse {
+    display: block;
   }
 
-  .navbar-logo {
-    height: 60px;
-    padding-top: 10px;
+  .navbar-search-icon-onexpand {
+    display: none;
   }
 }
 
@@ -189,12 +187,23 @@
   }
 }
 
-@media (max-width: 991px) {
-  .navbar-search-icon-oncollapse {
-    display: block;
+@media (max-width: 400px) {
+  .navbar-search-bar-form {
+    width: 100%;
   }
 
-  .navbar-search-icon-onexpand {
-    display: none;
+  .navbar-search-container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .navbar-search-active {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .navbar-logo {
+    height: 60px;
+    padding-top: 10px;
   }
 }

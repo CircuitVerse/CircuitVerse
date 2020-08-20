@@ -15,7 +15,7 @@
     "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.12.1",
+    "@fortawesome/fontawesome-free": "^5.14.0",
     "@rails/webpacker": "4.2.2",
     "bootstrap": "^4.5.0",
     "jquery": "^3.5.1",
