@@ -4,14 +4,14 @@
 Thanks for checking out our contribution guide. We greatly appreciate any work contributed, no matter how small!
 
 ## How to Contribute
-When you are ready to start work on a issue:
+When you are ready to start work on an issue:
 
 - Let us know by leaving a comment on the issue. (Also let us know later if you are no longer working on it.)
-- Once you are assigned the issue (or once you have claimed the issue) only then proceed to making the Pull Request. This will help avoid multiple PRs pertaining to the same issue.
+- Once you are assigned the issue (or once you have claimed the issue) only then proceed to make the Pull Request. This will help avoid multiple PRs pertaining to the same issue.
 
 If you don't see your idea listed, do one of the following:
 * **If your contribution is minor,** such as a typo fix, open a pull request.
-* **If your contribution is major,** such as a new feature/enhancement, start by opening an issue first. That way, other people can be also involved in the discussion before you do any work.
+* **If your contribution is major,** such as a new feature/enhancement, start by opening an issue first. This way, other people can be also involved in the discussion before you do any work.
 
 ## Pull Request Process
 
@@ -34,7 +34,7 @@ Discussions about CircuitVerse issues and features take place on the repository'
 ## Contributors
 ### Financial Contributors
 
-Becoming a [financial contributor](https://opencollective.com/CircuitVerse/contribute) help us sustain our community and platform.
+Becoming a [financial contributor](https://opencollective.com/CircuitVerse/contribute) helps us sustain our community and platform.
 
 #### Individuals
 <a href="https://opencollective.com/CircuitVerse"><img src="https://opencollective.com/CircuitVerse/individuals.svg?width=890" alt="Individual financial contributors"></a>

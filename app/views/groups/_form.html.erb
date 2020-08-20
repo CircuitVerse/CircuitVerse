@@ -1,7 +1,7 @@
 <%= form_with(model: group, local: true) do |form| %>
   <% if group.errors.any? %>
-    <div id="error_explanation">
-      <h5><%= pluralize(group.errors.count, "error") %> prohibited this group from being saved:</h5>
+    <div class="error-message">
+      <h6><%= pluralize(group.errors.count, "error") %> prohibited this group from being saved:</h6>
       <ul>
         <% group.errors.full_messages.each do |message| %>
           <li><%= message %></li>
@@ -9,12 +9,16 @@
       </ul>
     </div>
   <% end %>
-  <div class="d-flex flex-column flex-sm-row justify-content-center align-items-center my-3">
-    <%= form.label :name, "GROUP NAME:", class: 'm-1 m-md-2' %>
-    <%= form.text_field :name, id: :group_name, class: 'm-1 m-md-2' %>
+  <div class="my-3 groups-form-text-container">
+    <div class="field form-group">
+      <h5><%= form.label :name, "Group Name:" %></h5>
+      <div class="input-group groups-input-group">
+        <%= form.text_field :name, id: :group_name, class: 'form-control form-input', autofocus: true %>
+      </div>
+    </div>
   </div>
-  <div class="d-flex flex-row justify-content-center align-items-center">
-    <%= form.submit 'Save', class: 'btn btn-primary m-1 m-md-2' %>
-    <%= link_to 'Back', :back, class: 'btn underline text-success m-1 m-md-2' %>
+  <div class="groups-form-text-container">
+    <%= form.submit 'Save', class: 'btn primary-button groups-form-primary-button' %>
+    <%= link_to 'Back', :back, class: 'groups-form-anchor-text anchor-text' %>
   </div>
 <% end %>

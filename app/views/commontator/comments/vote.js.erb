@@ -1,6 +1,5 @@
-$("#comment_<%= @comment.id %>_votes_span").html("<%= j(
-  render partial: 'votes',
-         locals: { comment: @comment,
-                      user: @user }) %>");
+$("#commontator-comment-<%= @comment.id %>-votes").html("<%= escape_javascript(
+  render partial: 'votes', locals: { comment: @comment, user: @commontator_user }
+) %>");
 
 <%= javascript_proc %>

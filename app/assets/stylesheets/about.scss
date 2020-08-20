@@ -28,7 +28,7 @@
 }
 
 .about-contributor-image {
-  border: 2px solid $green;
+  border: 2px solid $primary-green;
   border-radius: 50%;
   transition: all .3s ease-in;
   width: 100%;
@@ -38,23 +38,24 @@
   }
 }
 
-.about-button-contribute {
+.about-primary-button {
   margin-top: 20px;
   padding: 12px 30px;
 }
 
+//breakpoints
 @media (max-width: 576px) {
-  .about-card-social-1 {
+  .about-social-card-1 {
     margin-top: 50px;
   }
 }
 
 @media (max-width: 768px) {
-  .about-card-social-1 {
+  .about-social-card-1 {
     margin-bottom: 10px;
   }
 
-  .about-card-social-2 {
+  .about-social-card-2 {
     margin-top: 10px;
   }
 }
