@@ -134,6 +134,8 @@ GEM
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.6)
+    css_parser (1.7.1)
+      addressable
     device_detector (1.0.4)
     devise (4.7.1)
       bcrypt (~> 3.0)
@@ -200,6 +202,7 @@ GEM
     hirb (0.7.3)
     hkdf (0.3.0)
     html_tokenizer (0.0.7)
+    htmlentities (4.3.4)
     http (4.4.0)
       addressable (~> 2.3)
       http-cookie (~> 1.0)
@@ -309,6 +312,13 @@ GEM
       activerecord (>= 4.2)
       activesupport (>= 4.2)
     pr_geohash (1.0.0)
+    premailer (1.13.1)
+      addressable
+      css_parser (>= 1.6.0)
+      htmlentities (>= 4.0.0)
+    premailer-rails (1.11.1)
+      actionmailer (>= 3)
+      premailer (~> 1.7, >= 1.7.9)
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -597,6 +607,7 @@ DEPENDENCIES
   paperclip (>= 5.2.0)
   pg (~> 1.2.3)
   pg_search
+  premailer-rails (~> 1.11, >= 1.11.1)
   pry-rails
   puma (~> 4.3)
   pundit
