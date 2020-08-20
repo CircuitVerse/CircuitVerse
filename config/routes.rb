@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/BlockLength
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => "/admin", as: "rails_admin"
   mount SimpleDiscussion::Engine => "/forum", constraints: -> { Flipper.enabled?(:forum) }
@@ -19,7 +20,8 @@ Rails.application.routes.draw do
 
   resources :custom_mails, only: %i[index new create edit show update]
   get "/custom_mails/send_mail/:id", to: "custom_mails#send_mail", as: "send_custom_mail"
-  get "/custom_mails/send_mail_to_self/:id", to: "custom_mails#send_mail_self", as: "send_custom_mail_self"
+  get "/custom_mails/send_mail_to_self/:id", to: "custom_mails#send_mail_self",
+                                             as: "send_custom_mail_self"
 
   # grades
   scope "/grades" do
@@ -46,7 +48,9 @@ Rails.application.routes.draw do
   resources :featured_circuits, only: %i[index create]
   delete "/featured_circuits", to: "featured_circuits#destroy"
 
-  devise_for :users, controllers: { registrations: "users/registrations", omniauth_callbacks: "users/omniauth_callbacks" }
+  devise_for :users, controllers: {
+    registrations: "users/registrations", omniauth_callbacks: "users/omniauth_callbacks"
+  }
 
   # Logix web pages resources
   root "logix#index"
@@ -106,7 +110,9 @@ Rails.application.routes.draw do
   # redirects
   get "/facebook", to: redirect("https://www.facebook.com/CircuitVerse")
   get "/twitter", to: redirect("https://www.twitter.com/CircuitVerse")
-  get "/slack", to: redirect("https://join.slack.com/t/circuitverse-team/shared_invite/enQtNjc4MzcyNDE5OTA3LTdjYTM5NjFiZWZlZGI2MmU1MmYzYzczNmZlZDg5MjYxYmQ4ODRjMjQxM2UyMWI5ODUzODQzMDU2ZDEzNjI4NmE")
+  get "/slack", to: redirect(
+    "https://join.slack.com/t/circuitverse-team/shared_invite/enQtNjc4MzcyNDE5OTA3LTdjYTM5NjFiZWZlZGI2MmU1MmYzYzczNmZlZDg5MjYxYmQ4ODRjMjQxM2UyMWI5ODUzODQzMDU2ZDEzNjI4NmE"
+  )
   get "/discord", to: redirect("https://discord.gg/8G6TpmM")
   get "/github", to: redirect("https://github.com/CircuitVerse")
   get "/learn", to: redirect("https://learn.circuitverse.org")
@@ -117,14 +123,14 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      post '/auth/login', to: 'authentication#login'
-      post '/auth/signup', to: 'authentication#signup'
-      post '/oauth/login', to: 'authentication#oauth_login'
-      post '/oauth/signup', to: 'authentication#oauth_signup'
-      get '/public_key.pem', to: "authentication#public_key"
-      post '/password/forgot', to: 'authentication#forgot_password'
-      get '/me', to: 'users#me'
-      post '/forgot_password', to: 'users#forgot_password'
+      post "/auth/login", to: "authentication#login"
+      post "/auth/signup", to: "authentication#signup"
+      post "/oauth/login", to: "authentication#oauth_login"
+      post "/oauth/signup", to: "authentication#oauth_signup"
+      get  "/public_key.pem", to: "authentication#public_key"
+      post "/password/forgot", to: "authentication#forgot_password"
+      get "/me", to: "users#me"
+      post "/forgot_password", to: "users#forgot_password"
       resources :users, only: %i[index show update]
       get "/projects/featured", to: "projects#featured_circuits"
       resources :projects do
@@ -141,21 +147,42 @@ Rails.application.routes.draw do
           get "favourites", to: "projects#user_favourites"
         end
       end
-      post '/assignments/:assignment_id/projects/:project_id/grades', to: 'grades#create'
-      resources :grades, only: [:update, :destroy]
+      post "/assignments/:assignment_id/projects/:project_id/grades", to: "grades#create"
+      resources :grades, only: %i[update destroy]
       get "/groups/mentored", to: "groups#groups_mentored"
-      resources :groups, only: [:index, :show, :update, :destroy]
-      delete '/group/members/:id', to: 'group_members#destroy'
+      resources :groups, only: %i[index show update destroy]
+      delete "/group/members/:id", to: "group_members#destroy"
       resources :groups do
-        resources :members, controller: 'group_members', shallow: true, only: [:index, :create]
+        resources :members, controller: "group_members", shallow: true, only: %i[index create]
         resources :assignments, shallow: true
       end
       resources :assignments do
         member do
-          patch 'reopen'
-          patch 'start'
+          patch "reopen"
+          patch "start"
+        end
+      end
+      resources :threads, only: %i[close reopen] do
+        resources :comments, only: %i[index create update], shallow: true do
+          member do
+            put "upvote"
+            put "downvote"
+            put "unvote"
+
+            put "delete"
+            put "undelete"
+          end
+        end
+
+        member do
+          put "close"
+          put "reopen"
+
+          put "subscribe"
+          put "unsubscribe"
         end
       end
     end
   end
 end
+# rubocop:enable Metrics/BlockLength

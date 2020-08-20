@@ -31,7 +31,7 @@ gem 'coffee-rails', '~> 5.0'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.5'
+gem 'jbuilder', '~> 2.10'
 
 gem 'devise'
 
@@ -142,7 +142,7 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem "bugsnag", "~> 6.13"
-
 #mails
 gem 'premailer-rails', '~> 1.11', '>= 1.11.1'
+
+gem "bugsnag", "~> 6.16"

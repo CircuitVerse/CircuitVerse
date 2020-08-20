@@ -1,8 +1,98 @@
-.edit-profile-page-astrikstyle {
-  color: $danger;
+//edit profile
+.editprofile-heading-main {
+  color: $black;
+  margin-bottom: 20px;
+}
+
+.editprofile-container {
+  border: 1px solid $card-border-grey;
+  max-width: 80%;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  text-align: center;
+}
+
+.editprofile-container-row {
+  max-width: 70%;
+}
+
+.editprofile-container-inside {
+  text-align: left;
+}
+
+.editprofile-asterisk {
+  color: $error-red-font;
   font-size: 10px;
 }
 
+.editprofile-data-field {
+  border: 1px solid $teal;
+  border-radius: 0;
+  height: 40px;
+  margin-bottom: 35px;
+  max-width: 100%;
+}
+
+.editprofile-user-image {
+  border-radius: 50%;
+  height: 150px;
+  width: 150px;
+}
+
+.editprofile-image-button-hidden {
+  display: none;
+}
+
+.editprofile-user-image-button {
+  border-radius: 4px;
+  cursor: pointer;
+  height: 35px;
+  margin-left: 10px;
+  padding-top: 5px;
+  text-align: center;
+  width: 120px;
+}
+
+.editprofile-button-primary {
+  margin-right: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.editprofile-email-container {
+  margin-bottom: 35px;
+  margin-top: 25px;
+}
+
+.editprofile-email-text {
+  display: inline-block;
+  margin-bottom: 5px;
+  margin-right: 15px;
+}
+//edit profile ends
+
+//breakpoints
+@media (max-width: 768px) {
+  .editprofile-container {
+    max-width: 85%;
+  }
+
+  .editprofile-container-row {
+    max-width: 95%;
+  }
+}
+
+@media (max-width: 400px) {
+  .editprofile-container {
+    max-width: 95%;
+  }
+
+  .editprofile-container-row {
+    max-width: 95%;
+  }
+}
+
+//to be removed
 .btn-secondary-profile-page {
   background-color: $green;
   color: $pure-white;

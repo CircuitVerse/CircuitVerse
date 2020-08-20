@@ -36,6 +36,7 @@
   }
 }
 
+
 .contribute-pay-card {
   border: 1.5px solid $black;
   border-radius: 8px;
@@ -53,6 +54,7 @@
   }
 }
 
+//breakpoints
 @media (max-width: 400px) {
   .contribute-card {
     padding-left: 0;

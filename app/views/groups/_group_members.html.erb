@@ -1,15 +1,17 @@
 <% group.users.each do |user| %>
-  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 groupdetails-card-member-container">
-    <div class="groupdetails-card-member">
+  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 groups-members-card-container">
+    <div class="groups-members-card">
       <div class="row">
-        <div class="col-7 groupdetails-card-member-details-1">
+        <div class="col-7 groups-members-card-details">
           <i class="fa fa-user"></i>
-          <%= link_to user.name, user, class: "groupdetails-card-member-name" %>
-          <p class="groupdetails-card-member-email"><%= user.email %></p>
+          <div class="groups-members-card-name-container">
+            <%= link_to user.name, user, class: "groups-members-card-name" %>
+          </div>
+          <p class="groups-members-card-email"><%= user.email %></p>
         </div>
-        <div class="col-5 groupdetails-card-member-details-2">
+        <div class="col-5 groups-members-card-button">
           <% if policy(group).admin_access? %>
-            <%= link_to group_member_path(GroupMember.find_by(user_id:user.id,group_id:group.id)), method: :delete, data: { confirm: 'Are you sure?' }, class:"button-mini-edit groupdetails-button-mini-remove" do %>
+            <%= link_to '#', data: {toggle: "modal", target: "#deletememberModal", currentgroupmember: GroupMember.find_by(user_id:user.id,group_id:group.id).id}, class:"mini-button groups-delete-mini-button" do %>
               <%= image_tag("SVGs/deleteGroup.svg", alt: "Remove Member") %>
               <span>Remove</span>
             <% end %>

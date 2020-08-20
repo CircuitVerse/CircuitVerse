@@ -167,16 +167,6 @@ a.btn.btn-outline-danger {
   margin: 2px;
 }
 
-.name-group {
-  font-size: 1.2rem;
-  margin: 0;
-}
-
-.underline {
-  display: inline-block;
-  text-decoration: underline;
-}
-
 .feature-post {
   border: 1.5px solid $featurepostborder;
   margin-bottom: 10px;
@@ -191,6 +181,17 @@ a.btn.btn-outline-danger {
 
 .container-in {
   padding-top: 50px;
+}
+//to be removed ends
+
+.name-group {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.underline {
+  display: inline-block;
+  text-decoration: underline;
 }
 
 .card-body-post {
