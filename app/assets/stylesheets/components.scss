@@ -323,6 +323,20 @@
   max-width: 100%;
 }
 
+//forms
+.form-container {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 75%;
+  text-align: left;
+}
+
+@media (max-width: 400px) {
+
+  .form-container {
+    max-width: 90%;
+  }
+}
 //errors
 .error-message {
   background: $error-red;
@@ -395,7 +409,7 @@
 
 //tags
 .search-tag {
-  background-color: $teal;
+  background-color: $secondary-green;
   border-radius: 4px;
   color: $white;
   font-weight: 500;
