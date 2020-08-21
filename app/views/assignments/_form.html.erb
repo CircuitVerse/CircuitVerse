@@ -86,20 +86,11 @@
     label.html(`Time remaining: ${timeString}`);
   }
   function defaultAssignmentDate() {
-    let date = new Date();
-    date.setDate(date.getDate() + 7);
-    date = formatDate(date,'d/M/y');
-
-    let hour = formatDate(new Date(),'H');
-    let minutes = formatDate(new Date(),'m');
-    if(minutes < 30) {
-      minutes = 30;
-    }
-    else {
-      minutes = '00';
-      hour++;
-    }
-    return date + ' ' + hour + ':' + minutes;
+    const splittedDate = "<%= assignment.deadline.strftime("%d/%m/%Y %H:%M")%>".split(/[\s,/:]+/);
+    let pickerDate = new Date(splittedDate[2], splittedDate[1]-1, splittedDate[0], splittedDate[3], splittedDate[4]);
+    const pickerUnix = pickerDate.getTime();
+    const pickerUnixWithTimezone = new Date(pickerUnix - new Date().getTimezoneOffset()*60*1000);
+    return formatDate(pickerUnixWithTimezone,"dd/MM/yyyy HH:mm");
   }
   function beforeSubmit() {
       cleanEditor();
