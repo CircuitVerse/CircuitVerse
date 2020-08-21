@@ -1,6 +1,21 @@
+// import { shortcut } from './Shortcuts.plugin';
+// import createSaveAsImgPrompt from '../../data/saveImage';
 //Assign the callback func for the keymap here
+import {
+    newCircuitCall,
+    elementDirection,
+    insertLabel,
+    labelDirection,
+    openHotkey,
+    moveElement
+} from './actions';
+import save from '../../data/save';
+import { saveOffline, openOffline } from '../../data/project';
+import createSaveAsImgPrompt from '../../data/saveImage';
+import { createSubCircuitPrompt } from '../../subcircuit';
+import { createCombinationalAnalysisPrompt } from '../../combinationalAnalysis';
 
-const addShortcut = (keys, action) => {
+export const addShortcut = (keys, action) => {
 	let callback;
 	switch (action) {
 		case "New Circuit":
@@ -16,17 +31,17 @@ const addShortcut = (keys, action) => {
 			callback = createSaveAsImgPrompt;
 			break;
 		case "Open Offline":
-			callback = createOpenLocalPrompt;
+			callback = openOffline;
 			break;
-		case "Create Sub-circuit":
+		case "Insert Sub-circuit":
 			callback = createSubCircuitPrompt;
 			break;
 		case "Combinational Analysis":
 			callback = createCombinationalAnalysisPrompt;
 			break; //bug
-		case "Start Plot":
-			callback = startPlot;
-			break;
+		// case "Start Plot":
+		// 	callback = startPlot;
+		// 	break;
 		case "Direction Up":
 			callback = elementDirection('up');
 			break;
@@ -71,7 +86,7 @@ const addShortcut = (keys, action) => {
 			break;
 			
 		default:
-			callback = () => true;
+			callback = () => console.log('No shortcut found..');
 			break;
 	}
 	shortcut.add(keys, callback, {

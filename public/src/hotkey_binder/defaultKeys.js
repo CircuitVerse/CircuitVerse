@@ -2,15 +2,15 @@
 * Elements keys must have the same name as their ID
 **/
 
-defaultKeys = {
+export const defaultKeys = {
   "New Circuit": "Shift + N",
   "Save Online": "Ctrl + S",
   "Save Offline": "Ctrl + Alt + S",
   "Download as Image": "Ctrl + D",
   "Open Offline": "Ctrl + O",
-  "Create Sub-circuit": "Shift + C",
+  "Insert Sub-circuit": "Shift + C",
   "Combinational Analysis": "Shift + A",
-  "Start Plot": "Ctrl + P",
+  // "Start Plot": "Ctrl + P",
   "Direction Up": "Up",
   "Direction Down": "Down",
   "Direction Left": "Left",

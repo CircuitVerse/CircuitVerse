@@ -1,4 +1,11 @@
-const addKeys = (mode) => {
+import { defaultKeys } from '../defaultKeys';
+// import addShortcut from './addShortcut';
+// import { shortcut } from './Shortcuts.plugin';
+import { addShortcut } from './addShortcut';
+import { updateHTML } from '../view/panel.ui';
+import simulationArea from '../../simulationArea';
+
+export const addKeys = (mode) => {
     shortcut.removeAll();
     if (mode == "user") {
         localStorage.removeItem("defaultKeys");
@@ -21,7 +28,7 @@ const addKeys = (mode) => {
     }
 };
 
-const checkUpdate = () => {
+export const checkUpdate = () => {
     let userK = localStorage.get("userKeys");
     if (Object.size(userK) !== Object.size(defaultKeys)) {
         for (const [key, value] of Object.entries(defaultKeys)) {
@@ -35,7 +42,7 @@ const checkUpdate = () => {
     }
 };
 
-const setUserKeys = () => {
+export const setUserKeys = () => {
     if (localStorage.defaultKeys) localStorage.removeItem('defaultKeys');
     let userKeys = {};
     let x = 0;
@@ -49,7 +56,7 @@ const setUserKeys = () => {
     addKeys("user");
 };
 
-const setDefault = () => {
+export const setDefault = () => {
     if (localStorage.userKeys) localStorage.removeItem('userKeys');
     if (getOS() === "MacOS") {
         const macDefaultKeys = {};
@@ -67,7 +74,7 @@ const setDefault = () => {
     addKeys("default");
 };
 
-const warnOverride = (combo, target) => {
+export const warnOverride = (combo, target) => {
     let x = 0;
     while ($("#preference").children()[x]) {
         if (
@@ -90,14 +97,14 @@ const warnOverride = (combo, target) => {
     }
 };
 
-const elementDirection = (direct) => () => {
+export const elementDirection = (direct) => () => {
     if (simulationArea.lastSelected) {
         simulationArea.lastSelected.newDirection(direct.toUpperCase());
         $("select[name |= 'newDirection']").val(direct.toUpperCase());
     }
 };
 
-const labelDirection = (direct) => () => {
+export const labelDirection = (direct) => () => {
     if (
         simulationArea.lastSelected &&
         !simulationArea.lastSelected.labelDirectionFixed
@@ -107,7 +114,7 @@ const labelDirection = (direct) => () => {
     }
 };
 
-const insertLabel = () => {
+export const insertLabel = () => {
     if (simulationArea.lastSelected) {
         $("input[name |= 'setLabel']").focus();
         $("input[name |= 'setLabel']").val().length
@@ -117,7 +124,7 @@ const insertLabel = () => {
     }
 };
 
-const moveElement = (direct) => () => {
+export const moveElement = (direct) => () => {
     if (simulationArea.lastSelected) {
         switch (direct) {
             case "up":
@@ -136,6 +143,6 @@ const moveElement = (direct) => () => {
     }
 };
 
-const openHotkey = () => $("#customShortcut").click();
+export const openHotkey = () => $("#customShortcut").click();
 
-const newCircuitCall = () => $("#newCircuit").click(); //hack for bug
+export const newCircuitCall = () => $("#newCircuit").click(); //hack for bug

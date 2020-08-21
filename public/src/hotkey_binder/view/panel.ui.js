@@ -1,4 +1,6 @@
+import { defaultKeys } from '../defaultKeys';
 // func to generate html from json
+import { setUserKeys } from '../model/actions';
 const createElements = (metadata) => {
     let elements = ``;
     Object.entries(metadata).forEach((entry) => {
@@ -14,20 +16,20 @@ const createElements = (metadata) => {
     return `<div id="preference" class="customScroll">${elements}</div>`;
 };
 
-const markUp = createElements(defaultKeys);
+export const markUp = createElements(defaultKeys);
 
-const editPanel = `<div id="edit" tabindex="0">
+export const editPanel = `<div id="edit" tabindex="0">
 <span style="font-size: 14px;">Press Desire Key Combination & press Enter or press ESC to cancel.</span>
 <div id="pressedKeys"></div>
 <div id="warning"></div>
 </div>`;
 
-const heading = `<div id="heading">
+export const heading = `<div id="heading">
   <span>Command</span>
   <span>Keymapping</span>
 </div>`;
 
-const updateHTML = (mode) => {
+export const updateHTML = (mode) => {
     let x = 0;
     if (mode == "user") {
         const userKeys = localStorage.get("userKeys");
@@ -52,7 +54,7 @@ const updateHTML = (mode) => {
     }
 };
 
-const override = (combo) => {
+export const override = (combo) => {
     let x = 0;
     while ($("#preference").children()[x]) {
         if (
@@ -65,12 +67,12 @@ const override = (combo) => {
     }
 };
 
-const closeEdit = () => {
+export const closeEdit = () => {
     $("#pressedKeys").text("");
     $("#edit").css("display", "none");
 };
 
-const submit = () => {
+export const submit = () => {
     $("#edit").css("display", "none");
     setUserKeys();
     updateHTML("user");
