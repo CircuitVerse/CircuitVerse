@@ -1,5 +1,7 @@
 import simulationArea from './simulationArea';
 import { colors } from './themer/themer';
+import { layoutModeGet } from './layoutMode';
+
 /**
  * @type {Object} miniMapArea
  * This object is used to draw the miniMap.
@@ -50,7 +52,7 @@ export default miniMapArea = {
     },
 
     play(ratio) {
-        if (lightMode) return;
+        if (lightMode || layoutModeGet()) return;
 
         this.ctx.fillStyle = '#bbb';
         this.ctx.rect(0, 0, this.canvas.width, this.canvas.height);

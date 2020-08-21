@@ -543,7 +543,7 @@ export default class CircuitElement {
         if (this.propagationDelayFixed) return;
         if (delay === undefined) return;
         if (delay === '') return;
-        tmpDelay = parseInt(delay, 10);
+        var tmpDelay = parseInt(delay, 10);
         if (tmpDelay < 0) return;
         this.propagationDelay = tmpDelay;
     }

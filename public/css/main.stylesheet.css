@@ -376,7 +376,7 @@ input[type="text"]:focus {
 
 #modules-header {
   margin: 10px;
-  font: Bold 20px Nunito;
+  font: Bold 20px;
   text-transform: uppercase;
   text-align: center;
 }
@@ -582,7 +582,7 @@ div.icon img {
 
 #moduleProperty-title {
   margin: 10px;
-  font: Bold 20px Nunito;
+  font: Bold 20px;
   text-transform: uppercase;
   text-align: center;
 }
@@ -768,7 +768,7 @@ input:checked + .slider:before {
 
 .panel-heading {
   margin: 10px;
-  font: Bold 20px Nunito;
+  font: Bold 20px;
   text-transform: uppercase;
   text-align: center;
 }
