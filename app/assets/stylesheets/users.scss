@@ -24,7 +24,7 @@
 
 .users-text {
   font-weight: 500;
-  padding-right: 10px;
+  padding-right: 5px;
 }
 
 .users-primary-checkpoint {
@@ -35,11 +35,21 @@
   }
 }
 
+.users-text-container {
+  padding-left: 4px;
+  padding-top: 9px;
+}
+
 //breakpoints
-@media (max-width: 768px) {
+@media (max-width: 766px) {
   .users-image,
   .users-image-text {
     display: none;
+  }
+
+  .users-text-container {
+    display: block;
+    padding-top: 6px;
   }
 }
 
@@ -76,30 +86,6 @@
 //shared ends
 
 //login-register
-.users-modal-content {
-  border-bottom: 0;
-  border-left: 0;
-}
-
-#loginModal,
-#registerModal {
-  .modal-dialog {
-    margin-top: 50px;
-    max-width: 800px;
-  }
-}
-
-.users-popup-row {
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  width: 100%;
-}
-
-.users-popup-details {
-  padding-top: 20px;
-}
-
 .users-remember-me-text {
   display: inline-block;
 }
@@ -116,17 +102,6 @@
   border: 0;
 }
 
-// .users-popup-image-background {
-//   background-color: $popup-purple;
-//   margin-left: 0;
-//   padding-left: 0;
-// }
-
-.users-popup-image {
-  margin-top: 100px;
-  width: 90%;
-}
-
 .users-forgot-password-text {
   margin-left: auto;
   text-align: right;
@@ -134,56 +109,6 @@
 
 .users-login-primary-button {
   padding: 8px 25px;
-}
-
-#usersLoginError,
-#usersSignupError {
-  display: none;
-}
-
-@media (max-width: 768px) {
-  .users-popup-image-background {
-    display: none;
-  }
-}
-
-@media (max-width: 850px) {
-  #loginModal,
-  #registerModal {
-    .modal-dialog {
-      max-width: 75%;
-    }
-  }
-}
-
-@media (max-width: 576px) {
-  #loginModal,
-  #registerModal {
-    .modal-dialog {
-      margin-left: auto;
-      margin-right: auto;
-      max-width: 80%;
-    }
-
-    .users-text {
-      display: none;
-    }
-
-    .users-anchor-text {
-      padding-left: 2px;
-    }
-  }
-}
-
-@media (max-width: 400px) {
-  #loginModal,
-  #registerModal {
-    .modal-dialog {
-      margin-left: auto;
-      margin-right: auto;
-      max-width: 95%;
-    }
-  }
 }
 //login-register ends
 

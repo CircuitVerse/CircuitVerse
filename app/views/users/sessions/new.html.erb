@@ -45,8 +45,10 @@
         <div class="field form-group">
           <div class="input-group">
             <%= f.submit "Log in" ,class:"btn primary-button users-login-primary-button" %>
-            <span class="users-text mt-2 ml-2">New User?</span>
-            <%= link_to "Sign up", new_registration_path(resource_name) ,class:"anchor-text mt-2 users-anchor-text" %>
+            <div class="users-text-container">
+              <span class="users-text">New User?</span>
+              <%= link_to "Sign up", new_registration_path(resource_name) ,class:"anchor-text" %>
+            </div>
           </div>
         </div>
         <%= render "users/shared/links" %>
