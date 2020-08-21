@@ -41,11 +41,23 @@
           <button type="submit" class="btn primary-button users-edit-primary-button">Save</button>
           <a class="anchor-text" href="<%= profile_path(current_user) %>">Back</a>
         <% end %>
+        <div class="users-delete-button-container">
+          <%= link_to "Delete Account", "#", class: "btn primary-delete-button users-delete-button-container", data: {toggle: "modal", target: "#deleteuserModal", currentuser: @profile.id} %>
+        </div>
       </div>
     </div>
   </div>
 </div>
-
+<%= render partial: "users/logix/delete_user_confirmation_modal" %>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#deleteuserModal").on("show.bs.modal", function(e) {
+        let user = $(e.relatedTarget).data('currentuser');
+        $(e.currentTarget).find('#users-user-delete-button').attr("href",
+        "/users/");
+    });
+  });
+</script>
 <script>
   function readURL(input) {
     if (input.files && input.files[0]) {
