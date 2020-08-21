@@ -1,0 +1,227 @@
+//passwords
+.users-image {
+  margin-bottom: 15px;
+  margin-top: 30px;
+  max-height: 400px;
+  max-width: 80%;
+}
+
+.users-heading-main {
+  margin-bottom: 30px;
+}
+
+.users-primary-button {
+  margin-left: 0;
+  margin-right: 15px;
+  padding: 8px 20px;
+}
+
+.users-form-container {
+  margin-left: 40px;
+  margin-top: 30px;
+  max-width: 80%;
+}
+
+.users-text {
+  font-weight: 500;
+  padding-right: 10px;
+}
+
+.users-primary-checkpoint {
+  h6 {
+    display: inline-block;
+    margin-bottom: 0;
+    margin-right: 10px;
+  }
+}
+
+//breakpoints
+@media (max-width: 768px) {
+  .users-image,
+  .users-image-text {
+    display: none;
+  }
+}
+
+@media (max-width: 400px) {
+  .users-form-container {
+    margin-left: 10px;
+    margin-top: 15px;
+    max-width: 90%;
+  }
+}
+//passwords ends
+
+//shared
+.users-shared {
+  margin-bottom: 30px;
+  margin-top: 40px;
+}
+
+.users-shared-row {
+  width: 100%;
+}
+
+.users-social-links {
+  height: 50px;
+  margin-left: 5px;
+  margin-right: 5px;
+  padding-top: 10px;
+  width: 40px;
+
+  &:hover {
+    opacity: .7;
+  }
+}
+//shared ends
+
+//login-register
+.users-modal-content {
+  border-bottom: 0;
+  border-left: 0;
+}
+
+#loginModal,
+#registerModal {
+  .modal-dialog {
+    margin-top: 50px;
+    max-width: 800px;
+  }
+}
+
+.users-popup-row {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  width: 100%;
+}
+
+.users-popup-details {
+  padding-top: 20px;
+}
+
+.users-remember-me-text {
+  display: inline-block;
+}
+
+.fa-eye-slash,
+.fa-eye {
+  color: $secondary-green;
+  height: 40px;
+  width: 40px;
+}
+
+.users-login-password-input,
+.users-signup-password-input {
+  border: 0;
+}
+
+// .users-popup-image-background {
+//   background-color: $popup-purple;
+//   margin-left: 0;
+//   padding-left: 0;
+// }
+
+.users-popup-image {
+  margin-top: 100px;
+  width: 90%;
+}
+
+.users-forgot-password-text {
+  margin-left: auto;
+  text-align: right;
+}
+
+.users-login-primary-button {
+  padding: 8px 25px;
+}
+
+#usersLoginError,
+#usersSignupError {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .users-popup-image-background {
+    display: none;
+  }
+}
+
+@media (max-width: 850px) {
+  #loginModal,
+  #registerModal {
+    .modal-dialog {
+      max-width: 75%;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  #loginModal,
+  #registerModal {
+    .modal-dialog {
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 80%;
+    }
+
+    .users-text {
+      display: none;
+    }
+
+    .users-anchor-text {
+      padding-left: 2px;
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  #loginModal,
+  #registerModal {
+    .modal-dialog {
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 95%;
+    }
+  }
+}
+//login-register ends
+
+//user edit
+.users-edit-asterisk {
+  color: $primary-red;
+  font-size: 10px;
+}
+
+.users-edit-image {
+  border-radius: 50%;
+  height: 150px;
+  width: 150px;
+}
+
+.users-edit-image-button {
+  border: 1px solid $secondary-green;
+  border-radius: 4px;
+  cursor: pointer;
+  height: 35px;
+  margin-bottom: 20px;
+  margin-left: 10px;
+  padding-top: 5px;
+  text-align: center;
+  width: 120px;
+}
+
+.users-edit-image-button-hidden {
+  display: none;
+}
+
+.users-edit-primary-checkpoint {
+  margin-bottom: 20px;
+  padding-top: 40px;
+}
+
+.users-edit-primary-button {
+  margin-right: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
