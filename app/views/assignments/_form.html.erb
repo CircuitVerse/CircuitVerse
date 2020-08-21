@@ -86,7 +86,7 @@
     label.html(`Time remaining: ${timeString}`);
   }
   function defaultAssignmentDate() {
-    const splittedDate = "<%= assignment.deadline.strftime("%d/%m/%Y %H:%M")%>".split(/[\s,/:]+/);
+    const splittedDate = "<%= assignment.deadline.strftime("%d/%m/%Y %H:%M") %>".split(/[\s,/:]+/);
     let pickerDate = new Date(splittedDate[2], splittedDate[1]-1, splittedDate[0], splittedDate[3], splittedDate[4]);
     const pickerUnix = pickerDate.getTime();
     const pickerUnixWithTimezone = new Date(pickerUnix - new Date().getTimezoneOffset()*60*1000);
