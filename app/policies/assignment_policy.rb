@@ -14,7 +14,7 @@ class AssignmentPolicy < ApplicationPolicy
   end
 
   def admin_access?
-    (assignment.group&.primary_mentor_id == user.id) || user.admin?
+    (assignment.group&.mentor_id == user.id) || user.admin?
   end
 
   def start?
