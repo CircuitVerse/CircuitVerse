@@ -1,10 +1,8 @@
-import CircuitElement from '../circuitElement';
-import Node, { findNode } from '../node';
-import simulationArea from '../simulationArea';
-import {
-    correctWidth, lineTo, moveTo, arc,
-} from '../canvasApi';
-import { changeInputSize } from '../modules';
+import CircuitElement from "../circuitElement";
+import Node, { findNode } from "../node";
+import simulationArea from "../simulationArea";
+import { correctWidth, lineTo, moveTo, arc } from "../canvasApi";
+import { changeInputSize } from "../modules";
 /**
  * @class
  * Arrow
@@ -15,10 +13,10 @@ import { changeInputSize } from '../modules';
  * @param {string=} dir - direction of element
  * @category modules
  */
-import { colors } from '../themer/themer';
+import { colors } from "../themer/themer";
 
 export default class Arrow extends CircuitElement {
-    constructor(x, y, scope = globalScope, dir = 'RIGHT') {
+    constructor(x, y, scope = globalScope, dir = "RIGHT") {
         super(x, y, scope, dir, 8);
         /* this is done in this.baseSetup() now
         this.scope['Arrow'].push(this);
@@ -45,13 +43,12 @@ export default class Arrow extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        //        
         var ctx = simulationArea.context;
         ctx.lineWidth = correctWidth(3);
         const xx = this.x;
         const yy = this.y;
-        ctx.strokeStyle = colors['stroke_alt'];
-        ctx.fillStyle = colors['fill'];
+        ctx.strokeStyle = colors["stroke_alt"];
+        ctx.fillStyle = colors["fill"];
 
         ctx.beginPath();
 
@@ -64,7 +61,12 @@ export default class Arrow extends CircuitElement {
         lineTo(ctx, -30, 3, xx, yy, this.direction);
         ctx.closePath();
         ctx.stroke();
-        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = colors["hover_select"];
+        if (
+            (this.hover && !simulationArea.shiftDown) ||
+            simulationArea.lastSelected === this ||
+            simulationArea.multipleObjectSelections.contains(this)
+        )
+            ctx.fillStyle = colors["hover_select"];
         ctx.fill();
     }
 }
@@ -75,7 +77,8 @@ export default class Arrow extends CircuitElement {
  * @type {string}
  * @category modules
  */
-Arrow.prototype.tooltipText = 'Arrow ToolTip : Arrow Selected.';
+Arrow.prototype.tooltipText = "Arrow ToolTip : Arrow Selected.";
 Arrow.prototype.propagationDelayFixed = true;
-Arrow.prototype.helplink = 'https://docs.circuitverse.org/#/annotation?id=arrow';
-Arrow.prototype.objectType = 'Arrow';
+Arrow.prototype.helplink =
+    "https://docs.circuitverse.org/#/annotation?id=arrow";
+Arrow.prototype.objectType = "Arrow";

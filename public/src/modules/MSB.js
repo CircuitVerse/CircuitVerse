@@ -1,7 +1,7 @@
-import CircuitElement from '../circuitElement';
-import Node, { findNode, dec2bin } from '../node';
-import simulationArea from '../simulationArea';
-import { correctWidth, rect, fillText } from '../canvasApi';
+import CircuitElement from "../circuitElement";
+import Node, { findNode, dec2bin } from "../node";
+import simulationArea from "../simulationArea";
+import { correctWidth, rect, fillText } from "../canvasApi";
 /**
  * @class
  * MSB
@@ -13,10 +13,10 @@ import { correctWidth, rect, fillText } from '../canvasApi';
  * @param {number=} bitWidth - bit width per node.
  * @category modules
  */
-import { colors } from '../themer/themer';
+import { colors } from "../themer/themer";
 
 export default class MSB extends CircuitElement {
-    constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
+    constructor(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
         /* this is done in this.baseSetup() now
         this.scope['MSB'].push(this);
@@ -26,7 +26,7 @@ export default class MSB extends CircuitElement {
         this.rightDimensionX = 20;
         this.setHeight(30);
         this.directionFixed = true;
-        this.bitWidth = bitWidth || parseInt(prompt('Enter bitWidth'), 10);
+        this.bitWidth = bitWidth || parseInt(prompt("Enter bitWidth"), 10);
         this.rectangleObject = false;
         this.inputSize = 1 << this.bitWidth;
 
@@ -42,7 +42,6 @@ export default class MSB extends CircuitElement {
      */
     customSave() {
         const data = {
-
             nodes: {
                 inp1: findNode(this.inp1),
                 output1: findNode(this.output1),
@@ -72,7 +71,7 @@ export default class MSB extends CircuitElement {
      */
     resolve() {
         const inp = this.inp1.value;
-        this.output1.value = (dec2bin(inp).length) - 1;
+        this.output1.value = dec2bin(inp).length - 1;
         simulationArea.simulationQueue.add(this.output1);
         if (inp !== 0) {
             this.enable.value = 1;
@@ -87,29 +86,33 @@ export default class MSB extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        //        
         var ctx = simulationArea.context;
         ctx.beginPath();
-        ctx.strokeStyle = colors['stroke'];
-        ctx.fillStyle = colors['fill'];
+        ctx.strokeStyle = colors["stroke"];
+        ctx.fillStyle = colors["fill"];
         ctx.lineWidth = correctWidth(3);
         const xx = this.x;
         const yy = this.y;
         rect(ctx, xx - 10, yy - 30, 30, 60);
-        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = colors["hover_select"];
+        if (
+            (this.hover && !simulationArea.shiftDown) ||
+            simulationArea.lastSelected === this ||
+            simulationArea.multipleObjectSelections.contains(this)
+        )
+            ctx.fillStyle = colors["hover_select"];
         ctx.fill();
         ctx.stroke();
 
         ctx.beginPath();
-        ctx.fillStyle = 'black';
-        ctx.textAlign = 'center';
-        fillText(ctx, 'MSB', xx + 6, yy - 12, 10);
-        fillText(ctx, 'EN', xx + this.enable.x - 12, yy + this.enable.y + 3, 8);
+        ctx.fillStyle = "black";
+        ctx.textAlign = "center";
+        fillText(ctx, "MSB", xx + 6, yy - 12, 10);
+        fillText(ctx, "EN", xx + this.enable.x - 12, yy + this.enable.y + 3, 8);
         ctx.fill();
 
         ctx.beginPath();
-        ctx.fillStyle = 'green';
-        ctx.textAlign = 'center';
+        ctx.fillStyle = "green";
+        ctx.textAlign = "center";
         if (this.output1.value !== undefined) {
             fillText(ctx, this.output1.value, xx + 5, yy + 14, 13);
         }
@@ -124,6 +127,8 @@ export default class MSB extends CircuitElement {
  * @type {string}
  * @category modules
  */
-MSB.prototype.tooltipText = 'MSB ToolTip : The most significant bit or the high-order bit.';
-MSB.prototype.helplink = 'https://docs.circuitverse.org/#/decodersandplexers?id=most-significant-bit-msb-detector';
-MSB.prototype.objectType = 'MSB';
+MSB.prototype.tooltipText =
+    "MSB ToolTip : The most significant bit or the high-order bit.";
+MSB.prototype.helplink =
+    "https://docs.circuitverse.org/#/decodersandplexers?id=most-significant-bit-msb-detector";
+MSB.prototype.objectType = "MSB";

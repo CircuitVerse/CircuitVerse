@@ -1,10 +1,8 @@
-import CircuitElement from '../circuitElement';
-import Node, { findNode } from '../node';
-import simulationArea from '../simulationArea';
-import {
-    correctWidth, lineTo, moveTo, arc,
-} from '../canvasApi';
-import { changeInputSize } from '../modules';
+import CircuitElement from "../circuitElement";
+import Node, { findNode } from "../node";
+import simulationArea from "../simulationArea";
+import { correctWidth, lineTo, moveTo, arc } from "../canvasApi";
+import { changeInputSize } from "../modules";
 /**
  * @class
  * DigitalLed
@@ -15,13 +13,13 @@ import { changeInputSize } from '../modules';
  * @param {string=} color - color of led
  * @category modules
  */
-import { colors } from '../themer/themer';
+import { colors } from "../themer/themer";
 
 export default class DigitalLed extends CircuitElement {
-    constructor(x, y, scope = globalScope, color = 'Red') {
+    constructor(x, y, scope = globalScope, color = "Red") {
         // Calling base class constructor
 
-        super(x, y, scope, 'UP', 1);
+        super(x, y, scope, "UP", 1);
         /* this is done in this.baseSetup() now
         this.scope['DigitalLed'].push(this);
         */
@@ -67,34 +65,50 @@ export default class DigitalLed extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        //        
         var ctx = simulationArea.context;
 
         const xx = this.x;
         const yy = this.y;
 
-        ctx.strokeStyle = '#e3e4e5';
+        ctx.strokeStyle = "#e3e4e5";
         ctx.lineWidth = correctWidth(3);
         ctx.beginPath();
         moveTo(ctx, -20, 0, xx, yy, this.direction);
         lineTo(ctx, -40, 0, xx, yy, this.direction);
         ctx.stroke();
 
-        ctx.strokeStyle = '#d3d4d5';
-        ctx.fillStyle = ['rgba(227,228,229,0.8)', this.actualColor][this.inp1.value || 0];
+        ctx.strokeStyle = "#d3d4d5";
+        ctx.fillStyle = ["rgba(227,228,229,0.8)", this.actualColor][
+            this.inp1.value || 0
+        ];
         ctx.lineWidth = correctWidth(1);
 
         ctx.beginPath();
 
         moveTo(ctx, -15, -9, xx, yy, this.direction);
         lineTo(ctx, 0, -9, xx, yy, this.direction);
-        arc(ctx, 0, 0, 9, (-Math.PI / 2), (Math.PI / 2), xx, yy, this.direction);
+        arc(ctx, 0, 0, 9, -Math.PI / 2, Math.PI / 2, xx, yy, this.direction);
         lineTo(ctx, -15, 9, xx, yy, this.direction);
         lineTo(ctx, -18, 12, xx, yy, this.direction);
-        arc(ctx, 0, 0, Math.sqrt(468), ((Math.PI / 2) + Math.acos(12 / Math.sqrt(468))), ((-Math.PI / 2) - Math.asin(18 / Math.sqrt(468))), xx, yy, this.direction);
+        arc(
+            ctx,
+            0,
+            0,
+            Math.sqrt(468),
+            Math.PI / 2 + Math.acos(12 / Math.sqrt(468)),
+            -Math.PI / 2 - Math.asin(18 / Math.sqrt(468)),
+            xx,
+            yy,
+            this.direction
+        );
         lineTo(ctx, -15, -9, xx, yy, this.direction);
         ctx.stroke();
-        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = colors["hover_select"];
+        if (
+            (this.hover && !simulationArea.shiftDown) ||
+            simulationArea.lastSelected === this ||
+            simulationArea.multipleObjectSelections.contains(this)
+        )
+            ctx.fillStyle = colors["hover_select"];
         ctx.fill();
     }
 }
@@ -105,7 +119,8 @@ export default class DigitalLed extends CircuitElement {
  * @type {string}
  * @category modules
  */
-DigitalLed.prototype.tooltipText = 'Digital Led ToolTip: Digital LED glows high when input is High(1).';
+DigitalLed.prototype.tooltipText =
+    "Digital Led ToolTip: Digital LED glows high when input is High(1).";
 
 /**
  * @memberof DigitalLed
@@ -113,7 +128,8 @@ DigitalLed.prototype.tooltipText = 'Digital Led ToolTip: Digital LED glows high 
  * @type {string}
  * @category modules
  */
-DigitalLed.prototype.helplink = 'https://docs.circuitverse.org/#/outputs?id=digital-led';
+DigitalLed.prototype.helplink =
+    "https://docs.circuitverse.org/#/outputs?id=digital-led";
 
 /**
  * @memberof DigitalLed
@@ -123,9 +139,9 @@ DigitalLed.prototype.helplink = 'https://docs.circuitverse.org/#/outputs?id=digi
  */
 DigitalLed.prototype.mutableProperties = {
     color: {
-        name: 'Color: ',
-        type: 'text',
-        func: 'changeColor',
+        name: "Color: ",
+        type: "text",
+        func: "changeColor",
     },
 };
-DigitalLed.prototype.objectType = 'DigitalLed';
+DigitalLed.prototype.objectType = "DigitalLed";

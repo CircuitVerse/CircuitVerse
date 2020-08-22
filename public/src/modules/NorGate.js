@@ -1,10 +1,14 @@
-import CircuitElement from '../circuitElement';
-import Node, { findNode } from '../node';
-import simulationArea from '../simulationArea';
+import CircuitElement from "../circuitElement";
+import Node, { findNode } from "../node";
+import simulationArea from "../simulationArea";
 import {
-    correctWidth, bezierCurveTo, moveTo, arc2, drawCircle2,
-} from '../canvasApi';
-import { changeInputSize } from '../modules';
+    correctWidth,
+    bezierCurveTo,
+    moveTo,
+    arc2,
+    drawCircle2,
+} from "../canvasApi";
+import { changeInputSize } from "../modules";
 /**
  * @class
  * NorGate
@@ -17,10 +21,17 @@ import { changeInputSize } from '../modules';
  * @param {number=} bitWidth - bit width per node.
  * @category modules
  */
-import { colors } from '../themer/themer';
+import { colors } from "../themer/themer";
 
 export default class NorGate extends CircuitElement {
-    constructor(x, y, scope = globalScope, dir = 'RIGHT', inputs = 2, bitWidth = 1) {
+    constructor(
+        x,
+        y,
+        scope = globalScope,
+        dir = "RIGHT",
+        inputs = 2,
+        bitWidth = 1
+    ) {
         super(x, y, scope, dir, bitWidth);
         /* this is done in this.baseSetup() now
         this.scope['NorGate'].push(this);
@@ -62,7 +73,11 @@ export default class NorGate extends CircuitElement {
      */
     customSave() {
         const data = {
-            constructorParamaters: [this.direction, this.inputSize, this.bitWidth],
+            constructorParamaters: [
+                this.direction,
+                this.inputSize,
+                this.bitWidth,
+            ],
             nodes: {
                 inp: this.inp.map(findNode),
                 output1: findNode(this.output1),
@@ -77,8 +92,10 @@ export default class NorGate extends CircuitElement {
      */
     resolve() {
         let result = this.inp[0].value || 0;
-        for (let i = 1; i < this.inputSize; i++) result |= (this.inp[i].value || 0);
-        result = ((~result >>> 0) << (32 - this.bitWidth)) >>> (32 - this.bitWidth);
+        for (let i = 1; i < this.inputSize; i++)
+            result |= this.inp[i].value || 0;
+        result =
+            ((~result >>> 0) << (32 - this.bitWidth)) >>> (32 - this.bitWidth);
         this.output1.value = result;
         simulationArea.simulationQueue.add(this.output1);
     }
@@ -88,22 +105,36 @@ export default class NorGate extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        //        
         var ctx = simulationArea.context;
-        ctx.strokeStyle = (colors['stroke']);
+        ctx.strokeStyle = colors["stroke"];
         ctx.lineWidth = correctWidth(3);
 
         const xx = this.x;
         const yy = this.y;
         ctx.beginPath();
-        ctx.fillStyle = colors['fill'];
+        ctx.fillStyle = colors["fill"];
 
         moveTo(ctx, -10, -20, xx, yy, this.direction, true);
         bezierCurveTo(0, -20, +15, -10, 20, 0, xx, yy, this.direction);
-        bezierCurveTo(0 + 15, 0 + 10, 0, 0 + 20, -10, +20, xx, yy, this.direction);
+        bezierCurveTo(
+            0 + 15,
+            0 + 10,
+            0,
+            0 + 20,
+            -10,
+            +20,
+            xx,
+            yy,
+            this.direction
+        );
         bezierCurveTo(0, 0, 0, 0, -10, -20, xx, yy, this.direction);
         ctx.closePath();
-        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = colors['hover_select'];
+        if (
+            (this.hover && !simulationArea.shiftDown) ||
+            simulationArea.lastSelected === this ||
+            simulationArea.multipleObjectSelections.contains(this)
+        )
+            ctx.fillStyle = colors["hover_select"];
         ctx.fill();
         ctx.stroke();
         ctx.beginPath();
@@ -119,7 +150,8 @@ export default class NorGate extends CircuitElement {
  * @type {string}
  * @category modules
  */
-NorGate.prototype.tooltipText = 'Nor Gate ToolTip : Combination of OR gate and NOT gate.';
+NorGate.prototype.tooltipText =
+    "Nor Gate ToolTip : Combination of OR gate and NOT gate.";
 
 /**
  * @memberof NorGate
@@ -127,7 +159,6 @@ NorGate.prototype.tooltipText = 'Nor Gate ToolTip : Combination of OR gate and N
  * @category modules
  */
 NorGate.prototype.alwaysResolve = true;
-
 
 /**
  * @memberof SevenSegDisplay
@@ -141,6 +172,7 @@ NorGate.prototype.changeInputSize = changeInputSize;
  * @type {string}
  * @category modules
  */
-NorGate.prototype.verilogType = 'nor';
-NorGate.prototype.helplink = 'https://docs.circuitverse.org/#/gates?id=nor-gate';
-NorGate.prototype.objectType = 'NorGate';
+NorGate.prototype.verilogType = "nor";
+NorGate.prototype.helplink =
+    "https://docs.circuitverse.org/#/gates?id=nor-gate";
+NorGate.prototype.objectType = "NorGate";

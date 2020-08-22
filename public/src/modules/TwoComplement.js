@@ -1,10 +1,8 @@
-import CircuitElement from '../circuitElement';
-import Node, { findNode } from '../node';
-import simulationArea from '../simulationArea';
-import {
-    correctWidth, lineTo, moveTo, arc,
-} from '../canvasApi';
-import { changeInputSize } from '../modules';
+import CircuitElement from "../circuitElement";
+import Node, { findNode } from "../node";
+import simulationArea from "../simulationArea";
+import { correctWidth, lineTo, moveTo, arc } from "../canvasApi";
+import { changeInputSize } from "../modules";
 /**
  * @class
  * TwoComplement
@@ -16,18 +14,25 @@ import { changeInputSize } from '../modules';
  * @param {number=} bitWidth - bit width per node.
  * @category modules
  */
-import { colors } from '../themer/themer';
+import { colors } from "../themer/themer";
 
 export default class TwoComplement extends CircuitElement {
-    constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
+    constructor(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
         /* this is done in this.baseSetup() now
         this.scope['TwoComplement'].push(this);
         */
         this.rectangleObject = false;
         this.setDimensions(15, 15);
-        this.inp1 = new Node(-10, 0, 0, this, this.bitWidth, 'input stream');
-        this.output1 = new Node(20, 0, 1, this, this.bitWidth, "2's complement");
+        this.inp1 = new Node(-10, 0, 0, this, this.bitWidth, "input stream");
+        this.output1 = new Node(
+            20,
+            0,
+            1,
+            this,
+            this.bitWidth,
+            "2's complement"
+        );
     }
 
     /**
@@ -54,9 +59,12 @@ export default class TwoComplement extends CircuitElement {
         if (this.isResolvable() === false) {
             return;
         }
-        let output = ((~this.inp1.value >>> 0) << (32 - this.bitWidth)) >>> (32 - this.bitWidth);
+        let output =
+            ((~this.inp1.value >>> 0) << (32 - this.bitWidth)) >>>
+            (32 - this.bitWidth);
         output += 1;
-        this.output1.value = ((output) << (32 - this.bitWidth)) >>> (32 - this.bitWidth);
+        this.output1.value =
+            (output << (32 - this.bitWidth)) >>> (32 - this.bitWidth);
         simulationArea.simulationQueue.add(this.output1);
     }
 
@@ -65,16 +73,20 @@ export default class TwoComplement extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        //        
         var ctx = simulationArea.context;
-        ctx.strokeStyle = colors['stroke'];
+        ctx.strokeStyle = colors["stroke"];
         ctx.lineWidth = correctWidth(3);
         const xx = this.x;
         const yy = this.y;
         ctx.beginPath();
-        ctx.fillStyle = 'black';
+        ctx.fillStyle = "black";
         fillText(ctx, "2'", xx, yy, 10);
-        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = colors["hover_select"];
+        if (
+            (this.hover && !simulationArea.shiftDown) ||
+            simulationArea.lastSelected === this ||
+            simulationArea.multipleObjectSelections.contains(this)
+        )
+            ctx.fillStyle = colors["hover_select"];
         ctx.fill();
         ctx.beginPath();
         drawCircle2(ctx, 5, 0, 15, xx, yy, this.direction);
@@ -88,5 +100,6 @@ export default class TwoComplement extends CircuitElement {
  * @type {string}
  * @category modules
  */
-TwoComplement.prototype.tooltipText = "Two's Complement Tooltip : Calculates the two's complement";
-TwoComplement.prototype.objectType = 'TwoComplement';
+TwoComplement.prototype.tooltipText =
+    "Two's Complement Tooltip : Calculates the two's complement";
+TwoComplement.prototype.objectType = "TwoComplement";

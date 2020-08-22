@@ -1,7 +1,7 @@
-import CircuitElement from '../circuitElement';
-import Node, { findNode } from '../node';
-import simulationArea from '../simulationArea';
-import { correctWidth, lineTo, moveTo } from '../canvasApi';
+import CircuitElement from "../circuitElement";
+import Node, { findNode } from "../node";
+import simulationArea from "../simulationArea";
+import { correctWidth, lineTo, moveTo } from "../canvasApi";
 /**
  * @class
  * Clock
@@ -13,9 +13,9 @@ import { correctWidth, lineTo, moveTo } from '../canvasApi';
  * @param {string=} dir - direcion in which element has to drawn
  * @category sequential
  */
-import getColors from '../modules/colors';
+import getColors from "../modules/colors";
 export default class Clock extends CircuitElement {
-    constructor(x, y, scope = globalScope, dir = 'RIGHT') {
+    constructor(x, y, scope = globalScope, dir = "RIGHT") {
         super(x, y, scope, dir, 1);
         /*
         this.scope['Clock'].push(this);
@@ -43,16 +43,16 @@ export default class Clock extends CircuitElement {
         simulationArea.simulationQueue.add(this.output1);
     }
 
-    toggleState() { // toggleState
+    toggleState() {
+        // toggleState
         this.state = (this.state + 1) % 2;
         this.output1.value = this.state;
     }
 
     customDraw() {
-        //        
         var ctx = simulationArea.context;
-        ctx.strokeStyle = (colors['stroke']);
-        ctx.fillStyle = colors['fill'];
+        ctx.strokeStyle = colors["stroke"];
+        ctx.fillStyle = colors["fill"];
         ctx.stroke();
         ctx.fill();
         ctx.lineWidth = correctWidth(3);
@@ -60,28 +60,30 @@ export default class Clock extends CircuitElement {
         var yy = this.y;
 
         ctx.beginPath();
-        ctx.strokeStyle = [colors['color_wire_con'], colors['color_wire_pow']][this.state];
+        ctx.strokeStyle = [colors["color_wire_con"], colors["color_wire_pow"]][
+            this.state
+        ];
         ctx.lineWidth = correctWidth(2);
         if (this.state == 0) {
-            moveTo(ctx, -6, 0, xx, yy, 'RIGHT');
-            lineTo(ctx, -6, 5, xx, yy, 'RIGHT');
-            lineTo(ctx, 0, 5, xx, yy, 'RIGHT');
-            lineTo(ctx, 0, -5, xx, yy, 'RIGHT');
-            lineTo(ctx, 6, -5, xx, yy, 'RIGHT');
-            lineTo(ctx, 6, 0, xx, yy, 'RIGHT');
+            moveTo(ctx, -6, 0, xx, yy, "RIGHT");
+            lineTo(ctx, -6, 5, xx, yy, "RIGHT");
+            lineTo(ctx, 0, 5, xx, yy, "RIGHT");
+            lineTo(ctx, 0, -5, xx, yy, "RIGHT");
+            lineTo(ctx, 6, -5, xx, yy, "RIGHT");
+            lineTo(ctx, 6, 0, xx, yy, "RIGHT");
         } else {
-            moveTo(ctx, -6, 0, xx, yy, 'RIGHT');
-            lineTo(ctx, -6, -5, xx, yy, 'RIGHT');
-            lineTo(ctx, 0, -5, xx, yy, 'RIGHT');
-            lineTo(ctx, 0, 5, xx, yy, 'RIGHT');
-            lineTo(ctx, 6, 5, xx, yy, 'RIGHT');
-            lineTo(ctx, 6, 0, xx, yy, 'RIGHT');
+            moveTo(ctx, -6, 0, xx, yy, "RIGHT");
+            lineTo(ctx, -6, -5, xx, yy, "RIGHT");
+            lineTo(ctx, 0, -5, xx, yy, "RIGHT");
+            lineTo(ctx, 0, 5, xx, yy, "RIGHT");
+            lineTo(ctx, 6, 5, xx, yy, "RIGHT");
+            lineTo(ctx, 6, 0, xx, yy, "RIGHT");
         }
         ctx.stroke();
     }
 }
 
-Clock.prototype.tooltipText = 'Clock';
+Clock.prototype.tooltipText = "Clock";
 
 Clock.prototype.click = Clock.prototype.toggleState;
-Clock.prototype.objectType = 'Clock';
+Clock.prototype.objectType = "Clock";

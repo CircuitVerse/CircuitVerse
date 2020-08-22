@@ -1,10 +1,8 @@
-import CircuitElement from '../circuitElement';
-import Node, { findNode } from '../node';
-import simulationArea from '../simulationArea';
-import {
-    correctWidth, bezierCurveTo, moveTo, arc2,
-} from '../canvasApi';
-import { changeInputSize } from '../modules';
+import CircuitElement from "../circuitElement";
+import Node, { findNode } from "../node";
+import simulationArea from "../simulationArea";
+import { correctWidth, bezierCurveTo, moveTo, arc2 } from "../canvasApi";
+import { changeInputSize } from "../modules";
 /**
  * @class
  * OrGate
@@ -17,10 +15,17 @@ import { changeInputSize } from '../modules';
  * @param {number=} bitWidth - bit width per node.
  * @category modules
  */
-import { colors } from '../themer/themer';
+import { colors } from "../themer/themer";
 
 export default class OrGate extends CircuitElement {
-    constructor(x, y, scope = globalScope, dir = 'RIGHT', inputs = 2, bitWidth = 1) {
+    constructor(
+        x,
+        y,
+        scope = globalScope,
+        dir = "RIGHT",
+        inputs = 2,
+        bitWidth = 1
+    ) {
         // Calling base class constructor
         super(x, y, scope, dir, bitWidth);
         /* this is done in this.baseSetup() now
@@ -62,8 +67,11 @@ export default class OrGate extends CircuitElement {
      */
     customSave() {
         const data = {
-
-            constructorParamaters: [this.direction, this.inputSize, this.bitWidth],
+            constructorParamaters: [
+                this.direction,
+                this.inputSize,
+                this.bitWidth,
+            ],
 
             nodes: {
                 inp: this.inp.map(findNode),
@@ -82,7 +90,8 @@ export default class OrGate extends CircuitElement {
         if (this.isResolvable() === false) {
             return;
         }
-        for (let i = 1; i < this.inputSize; i++) result |= (this.inp[i].value || 0);
+        for (let i = 1; i < this.inputSize; i++)
+            result |= this.inp[i].value || 0;
         this.output1.value = result;
         simulationArea.simulationQueue.add(this.output1);
     }
@@ -92,22 +101,36 @@ export default class OrGate extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        //        
         var ctx = simulationArea.context;
-        ctx.strokeStyle = (colors['stroke']);
+        ctx.strokeStyle = colors["stroke"];
         ctx.lineWidth = correctWidth(3);
 
         const xx = this.x;
         const yy = this.y;
         ctx.beginPath();
-        ctx.fillStyle = colors['fill'];
+        ctx.fillStyle = colors["fill"];
 
         moveTo(ctx, -10, -20, xx, yy, this.direction, true);
         bezierCurveTo(0, -20, +15, -10, 20, 0, xx, yy, this.direction);
-        bezierCurveTo(0 + 15, 0 + 10, 0, 0 + 20, -10, +20, xx, yy, this.direction);
+        bezierCurveTo(
+            0 + 15,
+            0 + 10,
+            0,
+            0 + 20,
+            -10,
+            +20,
+            xx,
+            yy,
+            this.direction
+        );
         bezierCurveTo(0, 0, 0, 0, -10, -20, xx, yy, this.direction);
         ctx.closePath();
-        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = colors["hover_select"];
+        if (
+            (this.hover && !simulationArea.shiftDown) ||
+            simulationArea.lastSelected === this ||
+            simulationArea.multipleObjectSelections.contains(this)
+        )
+            ctx.fillStyle = colors["hover_select"];
         ctx.fill();
         ctx.stroke();
     }
@@ -119,7 +142,8 @@ export default class OrGate extends CircuitElement {
  * @type {string}
  * @category modules
  */
-OrGate.prototype.tooltipText = 'Or Gate Tooltip : Implements logical disjunction';
+OrGate.prototype.tooltipText =
+    "Or Gate Tooltip : Implements logical disjunction";
 
 /**
  * @memberof OrGate
@@ -140,6 +164,6 @@ OrGate.prototype.alwaysResolve = true;
  * @type {string}
  * @category modules
  */
-OrGate.prototype.verilogType = 'or';
-OrGate.prototype.helplink = 'https://docs.circuitverse.org/#/gates?id=or-gate';
-OrGate.prototype.objectType = 'OrGate';
+OrGate.prototype.verilogType = "or";
+OrGate.prototype.helplink = "https://docs.circuitverse.org/#/gates?id=or-gate";
+OrGate.prototype.objectType = "OrGate";

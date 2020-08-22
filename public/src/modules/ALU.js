@@ -76,7 +76,6 @@ export default class ALU extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        //        
         var ctx = simulationArea.context;
         const xx = this.x;
         const yy = this.y;
