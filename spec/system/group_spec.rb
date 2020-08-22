@@ -37,8 +37,8 @@ describe "Group management", type: :system do
   it "should add a member to the group" do
     visit "/groups/#{@group.id}"
     click_button "+ Add Members"
-    execute_script "document.getElementById('myModal').style.display='block'"
-    execute_script "document.getElementById('myModal').style.opacity=1"
+    execute_script "document.getElementById('addmemberModal').style.display='block'"
+    execute_script "document.getElementById('addmemberModal').style.opacity=1"
     fill_in "emails", with: @user2.email
     click_button "Add members"
 
@@ -51,7 +51,10 @@ describe "Group management", type: :system do
     @group.users.append(@user2)
     visit "/groups/#{@group.id}"
     click_on "Remove"
-    accept_alert
+    execute_script "document.getElementById('deletememberModal').style.display='block'"
+    execute_script "document.getElementById('deletememberModal').style.opacity=1"
+    click_on "Delete"
+
 
     expect(page).to have_text("Group member was successfully removed.")
   end

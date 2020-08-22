@@ -1,7 +1,11 @@
-$("#comment_<%= @comment.id.to_s %>_body_div").html("<%= j(
-  render partial: 'body', locals: { comment: @comment }) %>");
-
-$("#comment_<%= @comment.id.to_s %>_updated_timestamp_span").html("<%= j(
-  @comment.updated_timestamp) %>");
+<%=
+  render partial: 'show', locals: {
+    user: @commontator_user,
+    thread: @commontator_thread,
+    comment: @comment,
+    page: @commontator_page,
+    show_all: @commontator_show_all
+  }
+%>
 
 <%= javascript_proc %>

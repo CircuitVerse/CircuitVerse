@@ -4,7 +4,6 @@
 <% set_meta_tags author: @user.name %>
 
 <div class="container">
-  <!--<%= link_to 'Back', all_users_path %>-->
   <div class ="row row-about">
     <h1>Favourite Projects</h1>
   </div>
@@ -12,7 +11,7 @@
   <% if @user.rated_projects.blank? %>
     <div>
     <center><div><%= image_tag("SVGs/undraw_empty_xct9.svg", class: "cover", alt: "You don't have any favourite projects yet.") %></div>
-    <div><b>You don't have any favourite projects yet.</b></div></center> 
+    <div><b>You don't have any favourite projects yet.</b></div></center>
     </div>
   <% end %>
 
@@ -37,7 +36,7 @@
                 <a href="<%= create_fork_project_path(project) %>" class="btn btn-about" target="_blank">Fork</a>
               <% end %>
               <a href="#" id="<%= project.id %>" class="previewButton btn btn-about" data-toggle="modal" data-target="#myModal">View</a>
-              <a href="<%= user_project_path(@user,project) %>" class="btn btn-about" target="_blank">More</a>
+              <a href="<%= user_project_path(project.author, project) %>" class="btn btn-about" target="_blank">More</a>
             </div>
           </div>
         </div>

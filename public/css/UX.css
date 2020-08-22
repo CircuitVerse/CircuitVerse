@@ -337,13 +337,13 @@ select {
 .tabsCloseButton:hover{
     color:#fff;
     font-family: 'Gill Sans', sans-serif;
-    padding-left: 1em;
+    margin-left: 1em;
     opacity: 0.5;
 }
 .tabsCloseButton {
     color:#111;
     font-family: 'Gill Sans', sans-serif;
-    padding-left: 1em;
+    margin-left: 1em;
     opacity: 1.0;
     position: absolute;
     top: 5px;

@@ -1,13 +1,13 @@
 <% content_for :title, "CircuitVerse - Editor Picks" %>
 
 <div class="container">
-  <div class="row row-text">
+  <div class="row center-row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <h1 class="heading-main">Editor Picks</h1>
-      <p class="heading-main-description">These circuits have been hand-picked by our authors for their awesomeness</p>
+      <h1 class="main-heading">Editor Picks</h1>
+      <p class="main-description">These circuits have been hand-picked by our authors for their awesomeness</p>
     </div>
   </div>
-  <div class="row row-text examples-container">
+  <div class="row center-row examples-container">
     <% @projects.each do |project| %>
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
         <div class="card circuit-card">
@@ -16,7 +16,7 @@
             <div class="circuit-card-name">
               <p><%= project.name %></p>
             </div>
-            <a class="btn button-primary circuit-card-button-primary" target="_blank" href="<%= user_project_url(project.author, project) %>">View</a>
+            <a class="btn primary-button circuit-card-primary-button" target="_blank" href="<%= user_project_url(project.author, project) %>">View</a>
           </div>
         </div>
       </div>
