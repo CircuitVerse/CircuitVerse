@@ -291,7 +291,12 @@ export function showProperties(obj) {
         scheduleUpdate();
         updateCanvasSet(true);
         wireToBeCheckedSet(1);
-        if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) { prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet(); } else { circuitProperty[this.name](this.value); }
+        if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) { 
+            simulationArea.lastSelected[this.name](this.value)
+            // Commented out due to property menu refresh bug
+            // prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet(); 
+        } else { circuitProperty[this.name](this.value); 
+        }
     });
     $('.objectPropertyAttributeChecked').on('change keyup paste click', function () {
         // return;
@@ -299,7 +304,13 @@ export function showProperties(obj) {
         scheduleUpdate();
         updateCanvasSet(true);
         wireToBeCheckedSet(1);
-        if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) { prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet(); } else { circuitProperty[this.name](this.checked); }
+        if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) { 
+            simulationArea.lastSelected[this.name](this.value);
+            // Commented out due to property menu refresh bug
+            // prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet(); 
+        } else { 
+                circuitProperty[this.name](this.checked); 
+            }
     });
     $(function () {
         $("input[type='number']").inputSpinner();
