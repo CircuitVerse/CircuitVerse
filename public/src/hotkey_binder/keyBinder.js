@@ -9,6 +9,7 @@ import {
 } from './view/panel.ui';
 import { setDefault, checkUpdate, addKeys, warnOverride } from './model/actions';
 
+//** keyBinder dialog */
 export function keyBinder() {
     $("#customShortcutDialog").append(editPanel);
     $("#customShortcutDialog").append(heading);
@@ -43,6 +44,7 @@ export function keyBinder() {
         $("#customShortcutDialog").css("display", "flex");
     });
 
+    //** targetPref is assigned to the target key option to be edited */
     let targetPref = null;
     $("#preference").click((e) => {
         $("#pressedKeys").text("");
@@ -51,9 +53,14 @@ export function keyBinder() {
         $("#edit").css("display", "block");
         $($("#edit")).focus();
         [, targetPref] = e.target.closest("div").children;
+
     });
 
-    // Modifiers restriction enabled here
+    //*** Modifiers restriction enabled here */ 
+    //*** below fn works in the edit panel where user enters key combo,
+    //*** responsible for checking duplicate entries, overriding entries, checking restricted keys, arranging keys in
+    //*** proper order, validating key combos */
+
     $("#edit").keydown((e) => {
         e = e || window.event;
         e.stopPropagation();
@@ -120,11 +127,15 @@ export function keyBinder() {
         }
     });
 
+    //**  if users closes hotkey dialog by making changes & not saving them, fn will fallback to previous state */
+
     $('div#customShortcutDialog').on('dialogclose', function(event) {
         if (localStorage.userKeys) {
             updateHTML("user");
         } else updateHTML("default");
     });
+
+    //** onload function to setup the keybinder at load */
 
     window.onload = () => {
         if (localStorage.userKeys) {

@@ -1,6 +1,10 @@
 import { defaultKeys } from '../defaultKeys';
-// func to generate html from json
 import { setUserKeys } from '../model/actions';
+
+/**
+ * function to generate the specific HTML for the hotkey panel
+ * @param {object} metadata keycombo object
+ */
 const createElements = (metadata) => {
     let elements = ``;
     Object.entries(metadata).forEach((entry) => {
@@ -29,6 +33,10 @@ export const heading = `<div id="heading">
   <span>Keymapping</span>
 </div>`;
 
+/**
+ * fn to update the htokey panel UI with the currently set configuration
+ * @param {string} mode user prefered if present, or default keys configuration
+ */
 export const updateHTML = (mode) => {
     let x = 0;
     if (mode == "user") {
@@ -53,7 +61,11 @@ export const updateHTML = (mode) => {
         }
     }
 };
-
+/**
+ * fn to override key of duplicate entries
+ * old entry will be left blank & keys will be assigned to the new target
+ * @param {*} combo 
+ */
 export const override = (combo) => {
     let x = 0;
     while ($("#preference").children()[x]) {

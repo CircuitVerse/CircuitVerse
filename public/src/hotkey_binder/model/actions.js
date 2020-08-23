@@ -1,13 +1,17 @@
 import { defaultKeys } from '../defaultKeys';
-// import addShortcut from './addShortcut';
-// import { shortcut } from './Shortcuts.plugin';
 import { addShortcut } from './addShortcut';
 import { updateHTML } from '../view/panel.ui';
 import simulationArea from '../../simulationArea';
 
+/**
+ * Function used to add or change keys user or default
+ * grabs the keycombo from localstorage &
+ * calls the addShortcut function in a loop to bind them
+ * @param {string} mode - user custom keys or default keys
+ */
 export const addKeys = (mode) => {
     shortcut.removeAll();
-    if (mode == "user") {
+    if (mode === "user") {
         localStorage.removeItem("defaultKeys");
         let userKeys = localStorage.get("userKeys");
         for (let pref in userKeys) {
@@ -27,9 +31,11 @@ export const addKeys = (mode) => {
         updateHTML("default");
     }
 };
-
+/**
+ * Function used to check if new keys are added, adds missing keys if added
+ */
 export const checkUpdate = () => {
-    let userK = localStorage.get("userKeys");
+    const userK = localStorage.get("userKeys");
     if (Object.size(userK) !== Object.size(defaultKeys)) {
         for (const [key, value] of Object.entries(defaultKeys)) {
             if (!Object.keys(userK).includes(key)) {
@@ -38,10 +44,14 @@ export const checkUpdate = () => {
         }
         localStorage.set("userKeys", userK);
     } else {
-        return
+        return;
     }
 };
-
+/**
+ * Function used to set userKeys, grabs the keycombo from the panel UI
+ * sets it to the localStorage & cals addKeys
+ * removes the defaultkeys from localStorage
+ */
 export const setUserKeys = () => {
     if (localStorage.defaultKeys) localStorage.removeItem('defaultKeys');
     let userKeys = {};
@@ -55,7 +65,12 @@ export const setUserKeys = () => {
     localStorage.set("userKeys", userKeys);
     addKeys("user");
 };
-
+/**
+ * Function used to set defaultKeys, grabs the keycombo from the defaultkeys metadata
+ * sets it to the localStorage & cals addKeys
+ * removes the userkeys from localStorage if present
+ * also checks for OS type
+ */
 export const setDefault = () => {
     if (localStorage.userKeys) localStorage.removeItem('userKeys');
     if (getOS() === "MacOS") {
@@ -73,7 +88,12 @@ export const setDefault = () => {
     }
     addKeys("default");
 };
-
+/**
+ * function to check if user entered keys are already assigned to other key
+ * gives a warning message if keys already assigned
+ * @param {string} combo the key combo
+ * @param {string} target the target option of the panel
+ */
 export const warnOverride = (combo, target) => {
     let x = 0;
     while ($("#preference").children()[x]) {
@@ -145,4 +165,4 @@ export const moveElement = (direct) => () => {
 
 export const openHotkey = () => $("#customShortcut").click();
 
-export const newCircuitCall = () => $("#newCircuit").click(); //hack for bug
+export const newCircuitCall = () => $("#newCircuit").click();
