@@ -1,121 +1,17 @@
-// New UI Example Page
-
-.heading-examplepage {
-  color: $teal;
+//examples page
+.examples-container {
+  margin-top: 20px;
+  padding: 20px;
 }
 
-.row-examplepage {
-  max-width: 1344px;
+.examples-circuit-card-image {
+  height: 80%;
+  width: 100%;
 }
 
-.card-examplepage-example {
-  border: 1px solid $green;
-  width: 98%;
-}
-
-.card-img-examplepage-example {
-  max-height: 250px;
-}
-
-.card-footer-examplepage-example {
-  background-color: $white;
-}
-
-.examplepage-example-p {
-  font-weight: 600;
-  width: 80%;
-}
-
-.examplepage-example-button:hover {
-  background-color: $teal;
-  box-shadow: 0 8px 15px $shadow-black;
-  color: $white;
-  transform: translateY(-7px);
-}
-
-.btn-examplepage {
-  background-color: $green;
-  border-radius: 30px;
-  color: $white;
-  padding: 5px 17px;
-  transition: all .3s ease 0s;
-
-  &:hover {
-    background-color: $teal;
-    box-shadow: 0 8px 15px $shadow-black;
-    color: $white;
-    transform: translateY(-7px);
+@media(max-width: 400px) {
+  .examples-container {
+    padding: 20px 0;
   }
 }
-
-.btn-examplepage-light {
-  background-color: $white;
-  border: 1px solid $green;
-  border-radius: 30px;
-  padding: 5px 17px;
-  transition: all .3s ease 0s;
-
-  &:hover {
-    background-color: $teal;
-    box-shadow: 0 8px 15px $shadow-black;
-    color: $white !important;
-    transform: translateY(-7px);
-  }
-}
-
-.btn-examplepage-close {
-  background-color: $green;
-  color: $white;
-  font-size: 12px;
-  transition: all .3s ease 0s;
-}
-
-.modal-examplepage {
-  color: $green;
-}
-
-.container-examplepage {
-  background-color: $gray-100;
-  font-family: Open Sans;
-}
-
-//styling for search bar
-
-.nav-search-form-examplepage {
-  background-color: $white;
-  border: 1px solid $teal;
-  border-radius: 30px;
-}
-
-.nav-bar-search-input-examplepage {
-  border: 0;
-  border-radius: 30px;
-  outline: 0;
-}
-
-.search-logo-examplepage {
-  background-color: $white;
-  border-radius: 30px;
-  height: 33.2px;
-  left: 0;
-  top: 0;
-  width: 39.6px;
-  z-index: 10;
-}
-
-.search-type-examplepage {
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  appearance: none;
-  background-color: $white;
-  border-radius: 30px;
-  cursor: pointer;
-  font-size: .8rem;
-  height: 33.2;
-  width: 39.6;
-}
-
-.fa-search-examples {
-  left: 3px;
-  top: 5px;
-}
+//examples page ends

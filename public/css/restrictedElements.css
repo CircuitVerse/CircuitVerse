@@ -1,3 +1,7 @@
+.display--none {
+  display: none;
+}
+
 .circuit-element-category {
   border-bottom: 1px solid #026e57;
   font-weight: 500;

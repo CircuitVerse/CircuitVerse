@@ -63,6 +63,42 @@
   float: left;
 }
 
+.circuit-card {
+  border: 1px solid $green;
+  border-radius: 0;
+  display: inline-block;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  max-width: 320px;
+  min-width: 260px;
+}
+
+.circuit-card-image {
+  max-height: 180px;
+}
+
+.circuit-card-footer {
+  background-color: $white;
+  padding-top: 10px;
+}
+
+.circuit-card-name {
+  display: inline-block;
+  float: left;
+  font-weight: 600;
+  margin-top: 10px;
+  max-height: 30px;
+  max-width: 150px;
+  overflow: hidden;
+  text-align: left;
+  text-overflow: ellipsis;
+}
+
+.circuit-card-button-primary {
+  float: right;
+  margin-bottom: 15px;
+}
+
 //checkpoints
 .checkpoint-primary {
   background-color: $shadow-grey;
@@ -175,6 +211,10 @@
   .card-small-social-image {
     display: none;
   }
+
+  .circuit-card-name {
+    max-width: 140px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -269,6 +309,48 @@
 
 .social-card-image {
   float: left;
+}
+
+.circuit-card {
+  border: 1px solid $primary-green;
+  border-radius: 0;
+  display: inline-block;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  max-width: 320px;
+  min-width: 260px;
+}
+
+.circuit-card-image {
+  max-height: 180px;
+}
+
+.circuit-card-footer {
+  background-color: $white;
+  padding-top: 10px;
+}
+
+.circuit-card-name {
+  display: inline-block;
+  float: left;
+  font-weight: 600;
+  margin-top: 10px;
+  max-height: 30px;
+  max-width: 150px;
+  overflow: hidden;
+  text-align: left;
+  text-overflow: ellipsis;
+}
+
+.circuit-card-primary-button {
+  float: right;
+  margin-bottom: 15px;
+}
+
+@media (max-width: 400px) {
+  .circuit-card-name {
+    max-width: 140px;
+  }
 }
 
 //forms
