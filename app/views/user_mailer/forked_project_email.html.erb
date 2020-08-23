@@ -1,15 +1,9 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
-  </head>
-  <body>
-    <h1>Welcome to CircuitVerse, <%= @user.name %></h1>
-    <p>
-      You have successfully forked a new project from <%= User.find_by(id: @old_project.author_id).name + "/" +@old_project.name %>.<br>
-      Your forked project name is: <%= @new_project.name %> with an access type: <%= @new_project.project_access_type%>.<br>
-    </p>
-
-    <p>Have a great day!</p>
-  </body>
-</html>
+<div>
+  <h2>Welcome to CircuitVerse, <%= @user.name %></h2>
+  <%= image_tag "SVGs/newProject.svg", alt: "New Project", class: "mailer-assignment-image" %>
+  <p class="mailer-text">You have successfully forked a new project from <span class="mailer-highlighted-text"><%= User.find_by(id: @old_project.author_id).name + "/" + @old_project.name %></span>. <br>
+    Your forked project name is: <span class="mailer-highlighted-text"><%= @new_project.name %></span> with an access type: <span class="mailer-highlighted-text"><%= @new_project.project_access_type %></span>.
+  </p>
+  <a href="<%= user_project_url(@user, @new_project) %>" class="mailer-button">View Project</a>
+  <p class="mailer-text">Keep building!</p>
+</div>

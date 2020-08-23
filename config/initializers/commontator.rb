@@ -22,8 +22,8 @@ Commontator.configure do |config|
   # Objects visible in view templates can be accessed
   # through the view object (for example, view.flash)
   # However, the view does not include the main application's helpers
-  # Default: ->(view) { '$("#error_explanation").remove();' }
-  config.javascript_proc = ->(view) { '$("#error_explanation").remove();' }
+  # Default: ->(view) { '' }
+  config.javascript_proc = ->(view) { '' }
 
 
   # User (acts_as_commontator) Configuration
@@ -198,12 +198,14 @@ Commontator.configure do |config|
   config.new_comment_style = :l
 
   # comments_per_page
-  # Type: Fixnum or nil
-  # Number of comments to display in each page
-  # Set to nil to disable pagination
-  # Any other value requires the will_paginate gem
-  # Default: nil (no pagination)
-  config.comments_per_page = nil
+  # Type: Array
+  # The array represents how many comments to load at each nesting level, with the
+  # first number corresponding to the current level, the second number to the next level, etc
+  # Note: large values WILL cause performance and memory issues with many nested comments
+  # The maximum number of comments loaded at once for the default setting is:
+  # 20 + 20*5 + 20*5*2 == 320
+  # Default: [ 20, 5, 2 ]
+  config.comments_per_page = [ 20, 5, 2]
 
   # thread_subscription
   # Type: Symbol

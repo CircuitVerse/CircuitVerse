@@ -1,15 +1,23 @@
 
 <% content_for :title, "CircuitVerse - New Group" %>
-
-<div class="container text-center">
-  <h1 class="">NEW GROUP</h1>
-  <div class="profile-background">
-    <div>
-      Groups can be used by mentors to set projects for and give grades to students.
-      You can find the documentation <a href="https://docs.circuitverse.org/#/groups" target="_blank">here</a>.
+<div class="container">
+  <div class="row center-row">
+    <div class="col-xs col-sm col-md col-lg">
+      <h2 class="submain-heading">NEW GROUP</h2>
+      <p class="main-description">Groups can be used by mentors to set projects for and give grades to students.
+      You can find the documentation <a class="anchor-text" href="https://docs.circuitverse.org/#/groups" target="_blank">here</a>.</p>
     </div>
-    <%= render 'form', group: @group %>
   </div>
-  <br>
-  <br>
+  <div class="row center-row">
+    <div class="col-xs-12 col-sm-12 col-md-7 col-lg-6">
+      <div class="container">
+        <div class="center-row groups-background-card">
+          <%= render 'form', group: @group %>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-6">
+      <%= image_tag "PNGs/newGroup.png", alt: "New Group Sketch", :class => "groups-center-image center-image" %>
+    </div>
+  </div>
 </div>

@@ -46,16 +46,6 @@ a.btn.btn-outline-danger {
   margin-top: 10px;
 }
 
-#error_explanation {
-  background: #f0f0f0;
-  border: 1px solid #86181d;
-  color: $red;
-
-  h2 {
-    font-size: 1.25rem;
-  }
-}
-
 .pagination .page-link {
   white-space: nowrap;
 }
@@ -177,55 +167,6 @@ a.btn.btn-outline-danger {
   margin: 2px;
 }
 
-//teachers
-.teacher-sub-heading {
-  margin-bottom: 35px;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 768px;
-}
-
-.teacher-container-fluid-fill {
-  background-color: $card-green;
-  padding: 40px 0;
-}
-
-.teacher-container-fluid {
-  padding: 40px 0;
-}
-
-.teacher-content-center {
-  align-items: center;
-}
-
-.teacher-image {
-  border: 2px solid $shadow-grey;
-  max-height: 100%;
-  max-width: 100%;
-}
-
-.teacher-text-left {
-  text-align: left;
-}
-//teachers ends
-
-.name-group {
-  font-size: 1.2rem;
-  margin: 0;
-}
-
-.edit-name {
-  font-size: 2rem;
-  font-weight: 500;
-  padding-bottom: 20px;
-  padding-top: 50px;
-}
-
-.underline {
-  display: inline-block;
-  text-decoration: underline;
-}
-
 .feature-post {
   border: 1.5px solid $featurepostborder;
   margin-bottom: 10px;
@@ -240,6 +181,17 @@ a.btn.btn-outline-danger {
 
 .container-in {
   padding-top: 50px;
+}
+//to be removed ends
+
+.name-group {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.underline {
+  display: inline-block;
+  text-decoration: underline;
 }
 
 .card-body-post {
@@ -272,4 +224,22 @@ a.btn.btn-outline-danger {
   background-color: $white;
   border: 1.5px solid $button-border-color;
   color: $black;
+}
+
+//to be removed
+.edit-name {
+  font-size: 2rem;
+  font-weight: 500;
+  padding-bottom: 20px;
+  padding-top: 50px;
+}
+
+#error_explanation {
+  background: #f0f0f0;
+  border: 1px solid #86181d;
+  color: $red;
+
+  h2 {
+    font-size: 1.25rem;
+  }
 }

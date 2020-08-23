@@ -6,12 +6,12 @@
   width: 300px;
 }
 
-.contribute-cardimage {
+.contribute-card-image {
   height: 150px;
   width: 150px;
 }
 
-.contribute-cardbody {
+.contribute-card-body {
   h3 {
     text-align: center;
   }
@@ -21,7 +21,7 @@
   }
 }
 
-.contribute-card-pay-container {
+.contribute-pay-card-container {
   display: inline-block;
   height: 100px;
   margin-bottom: 40px;
@@ -36,7 +36,8 @@
   }
 }
 
-.contribute-card-pay {
+
+.contribute-pay-card {
   border: 1.5px solid $black;
   border-radius: 8px;
   box-shadow: 3px 3px 6px $shadow-black;
@@ -53,7 +54,8 @@
   }
 }
 
-@media (max-width:$small-display) {
+//breakpoints
+@media (max-width: 400px) {
   .contribute-card {
     padding-left: 0;
     width: 250px;
@@ -61,7 +63,7 @@
 }
 
 @media (max-width: 1199px) {
-  .contribute-card-social {
+  .contribute-social-card {
     margin-bottom: 10px;
     margin-top: 10px;
   }

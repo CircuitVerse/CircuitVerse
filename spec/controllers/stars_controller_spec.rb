@@ -43,7 +43,7 @@ describe StarsController, type: :request do
       expect(@star.printable_notifiable_name(@user))
           .to eq("starred your project \"#{@project.name}\"")
       expect(@star.star_notifiable_path)
-          .to eq("/users/#{@project_author.id}/projects/#{@project.id}")
+          .to eq("/users/#{@project_author.id}/projects/#{@project.slug}")
     end
   end
 end
