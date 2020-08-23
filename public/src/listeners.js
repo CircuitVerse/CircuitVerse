@@ -71,7 +71,9 @@ export default function startListeners() {
         stopWireSet(false);
         simulationArea.mouseDown = true;
 
-        $('input').blur();
+        // Deselect Input
+        if (document.activeElement instanceof HTMLElement)
+            document.activeElement.blur();
 
         errorDetectedSet(false);
         updateSimulationSet(true);
