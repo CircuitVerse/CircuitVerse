@@ -44,7 +44,7 @@ gem 'jquery-rails'
 
 # gem 'acts_as_votable', '~> 0.11.1'
 
-gem 'carrierwave', '~> 1.0'
+gem 'carrierwave', '~> 2.1'
 
 gem 'rails_admin', '~> 2.0'
 
