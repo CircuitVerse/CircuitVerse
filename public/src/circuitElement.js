@@ -96,7 +96,6 @@ export default class CircuitElement {
      * adds the element to scopeList
      */
     baseSetup() {
-        console.log(this.objectType);
         this.scope[this.objectType].push(this);
     }
 

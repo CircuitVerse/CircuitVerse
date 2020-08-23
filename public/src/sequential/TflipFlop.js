@@ -2,7 +2,7 @@ import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import { correctWidth, lineTo, moveTo, fillText } from '../canvasApi';
-import getColors from '../modules/colors';
+import { colors } from '../themer/themer';
 
 /**
  * @class
@@ -126,8 +126,6 @@ export default class TflipFlop extends CircuitElement {
         //        
         ctx.strokeStyle = (colors['stroke']);
         ctx.fillStyle = (colors['fill']);
-        ctx.fill();
-        ctx.stroke();
         ctx.beginPath();
         ctx.lineWidth = correctWidth(3);
         var xx = this.x;
@@ -138,7 +136,6 @@ export default class TflipFlop extends CircuitElement {
         lineTo(ctx, -20, 15, xx, yy, this.direction);
 
         // if ((this.b.hover&&!simulationArea.shiftDown)|| simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = "rgba(255, 255, 32,0.8)";ctx.fill();
-        ctx.fill();
         ctx.stroke();
         ctx.beginPath();
         ctx.font = '20px Georgia';

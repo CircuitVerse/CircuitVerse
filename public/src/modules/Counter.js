@@ -103,18 +103,15 @@ export default class Counter extends CircuitElement {
         var ctx = simulationArea.context;
         var xx = this.x;
         var yy = this.y;
-        //        
-        ctx.fillStyle = colors['fill'];
-        ctx.strokeStyle = colors['stroke'];
-        ctx.fill();
-        ctx.stroke();
+        
         ctx.beginPath();
         ctx.font = "20px Georgia";
         ctx.fillStyle = colors['input_text'];
         ctx.textAlign = "center";
         fillText(ctx, this.value.toString(16), this.x, this.y + 5);
         ctx.fill();
-
+        
+        ctx.strokeStyle = colors['stroke'];
         ctx.beginPath();
         moveTo(ctx, -20, 5, xx, yy, this.direction);
         lineTo(ctx, -15, 10, xx, yy, this.direction);

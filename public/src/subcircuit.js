@@ -563,8 +563,6 @@ export default class SubCircuit extends CircuitElement {
         ctx.fillStyle = colors["fill"];
         var xx = this.x;
         var yy = this.y;
-        ctx.fill();
-        ctx.stroke();
         ctx.beginPath();
 
         ctx.textAlign = "center";

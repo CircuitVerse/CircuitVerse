@@ -61,7 +61,7 @@ export default miniMapArea = {
     },
     resolve(ratio) {
         if (lightMode) return;
-        //        
+                
         this.ctx.fillStyle = '#ddd';
         this.ctx.beginPath();
         this.ctx.rect(2.5 + ((this.pageX - this.pageWidth) / globalScope.scale - this.minX) * ratio, 2.5 + ((this.pageY - this.pageHeight) / globalScope.scale - this.minY) * ratio, this.pageWidth * ratio / globalScope.scale, this.pageHeight * ratio / globalScope.scale);

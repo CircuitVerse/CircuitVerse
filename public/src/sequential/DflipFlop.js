@@ -2,6 +2,7 @@ import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import { correctWidth, lineTo, moveTo, fillText } from '../canvasApi';
+import { colors } from '../themer/themer';
 /**
  * @class
  * DflipFlop
@@ -14,7 +15,6 @@ import { correctWidth, lineTo, moveTo, fillText } from '../canvasApi';
  * @param {string=} dir - direcion in which element has to drawn
  * @category sequential
  */
-import getColors from '../modules/colors';
 export default class DflipFlop extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
@@ -116,8 +116,6 @@ export default class DflipFlop extends CircuitElement {
         //        
         ctx.strokeStyle = (colors['stroke']);
         ctx.fillStyle = colors['fill'];
-        ctx.fill();
-        ctx.stroke();
         ctx.beginPath();
         ctx.lineWidth = correctWidth(3);
         var xx = this.x;

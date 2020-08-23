@@ -14,7 +14,7 @@ import { correctWidth, lineTo, moveTo, fillText3, fontSize } from '../canvasApi'
  * @param {string=} dir - direcion in which element has to drawn
  * @category sequential
  */
-import getColors from '../modules/colors';
+import { colors } from '../themer/themer';
 export default class Keyboard extends CircuitElement {
     constructor(x, y, scope = globalScope, bufferSize = 32) {
         super(x, y, scope, 'RIGHT', 1);
@@ -147,8 +147,6 @@ export default class Keyboard extends CircuitElement {
         //        
         ctx.strokeStyle = (colors['stroke']);
         ctx.fillStyle = (colors['fill']);
-        ctx.stroke();
-        ctx.fill();
         ctx.beginPath();
         ctx.lineWidth = correctWidth(3);
         var xx = this.x;
@@ -158,7 +156,6 @@ export default class Keyboard extends CircuitElement {
         lineTo(ctx, -this.elementWidth / 2, this.elementHeight / 2 - 5, xx, yy, this.direction);
 
         ctx.stroke();
-        ctx.fill();
 
         ctx.beginPath();
         ctx.fillStyle = colors['input_text'];

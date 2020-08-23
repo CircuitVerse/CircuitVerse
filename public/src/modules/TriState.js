@@ -93,7 +93,6 @@ export default class TriState extends CircuitElement {
         var ctx = simulationArea.context;
         ctx.strokeStyle = colors["stroke"];
         ctx.lineWidth = correctWidth(3);
-        ctx.stroke();
         const xx = this.x;
         const yy = this.y;
         ctx.beginPath();

@@ -89,8 +89,6 @@ export default class Random extends CircuitElement {
         //        
         ctx.fillStyle = colors['fill'];
         ctx.strokeStyle = colors['stroke'];
-        ctx.fill();
-        ctx.stroke();
         ctx.beginPath();
         var xx = this.x;
         var yy = this.y;

@@ -14,7 +14,7 @@ import {
  * @param {Array=} data - bit width per node.
  * @category sequential
  */
-import getColors from '../modules/colors';
+import { colors } from '../themer/themer';
 export default class Rom extends CircuitElement {
     constructor(
         x,
@@ -112,8 +112,6 @@ export default class Rom extends CircuitElement {
         ctx.strokeStyle = colors['stroke'];
         ctx.fillStyle = (colors['fill']);
         ctx.lineWidth = correctWidth(3);
-        ctx.fill();
-        ctx.stroke();
         ctx.beginPath();
         rect2(ctx, -this.leftDimensionX, -this.upDimensionY, this.leftDimensionX + this.rightDimensionX, this.upDimensionY + this.downDimensionY, this.x, this.y, [this.direction, 'RIGHT'][+this.directionFixed]);
         if (hoverIndex === undefined && ((!simulationArea.shiftDown && this.hover) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this))) ctx.fillStyle = colors["hover_select"];

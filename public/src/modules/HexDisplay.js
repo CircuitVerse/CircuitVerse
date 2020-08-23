@@ -72,7 +72,6 @@ export default class HexDisplay extends CircuitElement {
 
         ctx.strokeStyle = colors["stroke"];
         ctx.lineWidth = correctWidth(3);
-        ctx.stroke();
 
         let a = 0,
             b = 0,
@@ -139,7 +138,6 @@ export default class HexDisplay extends CircuitElement {
         this.customDrawSegment(-17, -38, 17, -38, ["lightgrey", "red"][a]);
         this.customDrawSegment(-17, 0, 17, 0, ["lightgrey", "red"][g]);
         this.customDrawSegment(-15, 38, 17, 38, ["lightgrey", "red"][d]);
-        ctx.stroke();
     }
 }
 

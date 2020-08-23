@@ -202,7 +202,6 @@ export default class Demultiplexer extends CircuitElement {
             yy,
             this.direction
         );
-        ctx.stroke();
         ctx.closePath();
         if (
             (this.hover && !simulationArea.shiftDown) ||

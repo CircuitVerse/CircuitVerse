@@ -309,7 +309,7 @@ function validColor(color) {
 }
 
 // Helper function to color "RED" to RGBA
-function colorToRGBA(color) {
+export function colorToRGBA(color) {
     var cvs; var
         ctx;
     cvs = document.createElement('canvas');

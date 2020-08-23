@@ -448,19 +448,19 @@ export default class Node {
                 drawLine(ctx, this.absX(), this.absY(), this.absX(), simulationArea.mouseY, color, 3);
             }
         }
-        let colorWire = colors['node_norm'];
-        const colorWireConnect = colors['color_wire_con']
-        const colorWirePow = colors['color_wire_pow']
-        const colorWireLose = colors['color_wire_lose']
-        const colorNode = colors['node'];
+        var colorNode = colors['stroke'];
+        const colorNodeConnect = colors['color_wire_con']
+        const colorNodePow = colors['color_wire_pow']
+        const colorNodeLose = colors['color_wire_lose']
+        const colorNodeSelected = colors['node'];
 
-        if (this.bitWidth == 1) colorWire = [colorWireConnect, colorWirePow][this.value];
-        if (this.value == undefined) colorWire = colorWireLose;
+        if (this.bitWidth == 1) colorNode = [colorNodeConnect, colorNodePow][this.value];
+        if (this.value == undefined) colorNode = colorNodeLose;
         if (this.type == 2) this.checkHover();
-        if (this.type == 2) { drawCircle(ctx, this.absX(), this.absY(), 3,); colorWire } else { drawCircle(ctx, this.absX(), this.absY(), 3, colorNode); }
-
+        if (this.type == 2) { drawCircle(ctx, this.absX(), this.absY(), 3, colorNode);  } else { drawCircle(ctx, this.absX(), this.absY(), 3, colorNodeSelected); }
+        
         if (this.highlighted || simulationArea.lastSelected == this || (this.isHover() && !simulationArea.selected && !simulationArea.shiftDown) || simulationArea.multipleObjectSelections.contains(this)) {
-            ctx.strokeStyle = colorNode;
+            ctx.strokeStyle = colorNodeSelected;
             ctx.beginPath();
             ctx.lineWidth = 3;
             arc(ctx, this.x, this.y, 8, 0, Math.PI * 2, this.parent.x, this.parent.y, 'RIGHT');
