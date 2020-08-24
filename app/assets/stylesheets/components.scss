@@ -174,6 +174,20 @@
   height: 40px;
 }
 
+.form-container {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 75%;
+  text-align: left;
+}
+
+@media (max-width: 400px) {
+
+  .form-container {
+    max-width: 90%;
+  }
+}
+
 //modals
 .custom-modal-dialog {
   border-radius: 4px;

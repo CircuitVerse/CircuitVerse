@@ -3,46 +3,44 @@
 
 <link href="/css/typeahead.min.css" rel="stylesheet">
 
-<div class="container">
-  <div class="row row-text">
+<div class="container projects-new-container">
+  <div class="row center-row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <h1 class="heading-main editprofile-heading-main">EDIT PROFILE</h1>
+      <h1 class="submain-heading">EDIT PROFILE</h1>
+        <p class="main-description">Fields marked with <sup><i class="fa fa-asterisk users-edit-asterisk"></i></sup> are mandatory</p> <br>
     </div>
   </div>
-  <div class="container editprofile-container">
-    <div class="row row-text editprofile-container-row">
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <p class="heading-main-description">Fields marked with <sup><i class="fa fa-asterisk editprofile-asterisk"></i></sup> are mandatory</p> <br>
-        <div class="editprofile-container-inside">
-          <%= form_with model: @profile, multipart: true, url: { action: "update" }, local: true do |f| %>
-            <div class="form-group ">
-              <h6><%= f.label :name %><sup><i class="fa fa-asterisk editprofile-asterisk"></i></sup></h6>
-              <%= f.text_field :name, required: true, class:"form-control editprofile-data-field", autofocus: true %>
-            </div>
-            <div class="form-group">
-              <h6>Profile Picture<h6>
-              <p><%= image_tag @profile.profile_picture.url(:thumb), id:'imgedit', class:"editprofile-user-image", alt:'User Profile Image' %></p>
-              <label for="profile_picture" class="editprofile-data-field editprofile-user-image-button">Choose File</label>
-              <input tabindex="0" type="file" accept="image/png, .jpeg, .jpg" class="editprofile-image-button-hidden" id="profile_picture" name="user[profile_picture]" onchange="readURL(this);" value="<%= @profile.profile_picture %>">
-            </div>
-            <div class="form-group">
-              <h6><%= f.label :country %></h6>
-              <%= f.country_select :country, { include_blank: 'Prefer Not To Enter', priority_countries: get_priority_countries() }, class: "form-control editprofile-data-field" %>
-            </div>
-            <div class="form-group">
-              <h6><%= f.label :educational_institute %></h6>
-              <%= f.text_field :educational_institute, { class: "typeahead form-control editprofile-data-field", autocomplete:"off" } %>
-            </div> <br>
-            <div class="form-group editprofile-email-container">
-              <label for="profile_subscribed" class="checkpoint-primary-container"><h6 class="editprofile-email-text">Subscribed to mails?</h6>
-                <%= f.check_box :subscribed, checked: @profile.subscribed?, id: "profile_subscribed" %>
-                <div class="checkpoint-primary"></div>
-              </label>
-            </div>
-            <button type="submit" class="btn button-primary editprofile-button-primary">Save</button>
-            <a class="anchor-text" href="<%= profile_path(current_user) %>">Back</a>
-          <% end %>
-        </div>
+  <div class="row">
+    <div class="col-xs col-sm col-md col-lg">
+      <div class="form-container">
+        <%= form_with model: @profile, multipart: true, url: { action: "update" }, local: true do |f| %>
+          <div class="field form-group">
+            <h6><%= f.label :name %><sup><i class="fa fa-asterisk users-edit-asterisk"></i></sup></h6>
+            <%= f.text_field :name, required: true, class:"form-control form-input", autofocus: true %>
+          </div>
+          <div class="field form-group">
+            <h6>Profile Picture<h6>
+            <p><%= image_tag @profile.profile_picture.url(:thumb), id:'imgedit', class:"users-edit-image", alt:'User Profile Image' %></p>
+            <label for="profile_picture" class="users-edit-image-button">Choose File</label>
+            <input tabindex="0" type="file" accept="image/png, .jpeg, .jpg" class="users-edit-image-button-hidden" id="profile_picture" name="user[profile_picture]" onchange="readURL(this);" value="<%= @profile.profile_picture %>">
+          </div>
+          <div class="field form-group">
+            <h6><%= f.label :country %></h6>
+            <%= f.country_select :country, { include_blank: 'Prefer Not To Enter', priority_countries: get_priority_countries() }, class: "form-control form-input" %>
+          </div>
+          <div class="field form-group">
+            <h6><%= f.label :educational_institute %></h6>
+            <%= f.text_field :educational_institute, { class: "typeahead form-control form-input", autocomplete:"off" } %>
+          </div>
+          <div class="field form-group users-edit-primary-checkpoint">
+            <label for="profile_subscribed" class="primary-checkpoint-container"><h6>Subscribed to mails?</h6>
+              <%= f.check_box :subscribed, checked: @profile.subscribed?, id: "profile_subscribed" %>
+              <div class="primary-checkpoint"></div>
+            </label>
+          </div>
+          <button type="submit" class="btn primary-button users-edit-primary-button">Save</button>
+          <a class="anchor-text" href="<%= profile_path(current_user) %>">Back</a>
+        <% end %>
       </div>
     </div>
   </div>
