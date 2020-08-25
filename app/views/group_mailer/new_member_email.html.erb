@@ -1,16 +1,10 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
-  </head>
-  <body>
-    <h1>Welcome <%= @user.name%> </h1>
-    <p>
-      You have been added to a new group named <%= @group.name %>.<br>
-      The group is mentored by <%= User.find_by(id:@group.mentor_id).name%>.<br>
-    </p>
-    <br>
-
-    <p>Have a great day!</p>
-  </body>
-</html>
+<div>
+  <h2>Welcome to CircuitVerse, <%= @user.name %></h2>
+  <%= image_tag "PNGs/newGroup.png", alt: "New Group", class: "mailer-group-image" %>
+  <p class="mailer-text">
+    You have been added to a new group named <span class="mailer-highlighted-text"><%= @group.name %></span>. <br>
+    The group is mentored by <span class="mailer-highlighted-text"><%= User.find_by(id:@group.mentor_id).name %></span>.
+  </p>
+  <a href="<%= group_url(@group) %>" class="mailer-button">View Group</a>
+  <p class="mailer-text">Keep building!</p>
+</div>

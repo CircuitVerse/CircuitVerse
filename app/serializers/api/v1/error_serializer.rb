@@ -39,11 +39,11 @@ class Api::V1::ErrorSerializer
     end
 
     def normalize_title(error)
-      error.try(:title) || error.try(:to_s) || UNKNOWN_ERROR
+      error.try(:to_s) || error.try(:title) || UNKNOWN_ERROR
     end
 
     def normalize_error(error)
-      error.try(:details) || error.try(:to_s) || UNKNOWN_ERROR
+      error.try(:to_s) || error.try(:details) || UNKNOWN_ERROR
     end
 
     class ErrorDecorator

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::AuthenticationController < Api::V1::BaseController
-  before_action :authenticate_user!, except: %i[login signup]
+  before_action :set_oauth_user, only: %i[oauth_signup oauth_login]
 
   # POST api/v1/auth/login
   def login
@@ -29,7 +29,54 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
     end
   end
 
+  # POST api/v1/oauth/login
+  def oauth_login
+    @user = User.find_by!(email: @oauth_user["email"])
+    token = JsonWebToken.encode(
+      user_id: @user.id, username: @user.name, email: @user.email
+    )
+    render json: { token: token }, status: :accepted
+  end
+
+  # POST api/v1/oauth/signup
+  # rubocop:disable Metrics/AbcSize
+  def oauth_signup
+    if User.exists?(email: @oauth_user["email"])
+      api_error(status: 409, errors: "user already exists")
+    else
+      @user = User.from_oauth(@oauth_user, params[:provider])
+      if @user.errors.any?
+        # @user has validation errors
+        api_error(status: 422, errors: @user.errors)
+      else
+        token = JsonWebToken.encode(
+          user_id: @user.id, username: @user.name, email: @user.email
+        )
+        render json: { token: token }, status: :created
+      end
+    end
+  end
+  # rubocop:enable Metrics/AbcSize
+
+  # POST api/v1/forgot_password
+  def forgot_password
+    @user = User.find_by!(email: params[:email])
+    # sends reset password instructions to the user's mail if exists
+    @user.send_reset_password_instructions
+    render json: { message: "password reset instructions sent to #{@user.email}" }
+  end
+
+  # GET /public_key.pem
+  def public_key
+    public_key = File.open(Rails.root.join("config", "public.pem"), "r:UTF-8")
+    send_file public_key
+  end
+
   private
+
+    def set_oauth_user
+      @oauth_user = OauthApiHandler.new(params[:access_token], params[:provider]).oauth_user
+    end
 
     def login_params
       params.permit(:email, :password)
@@ -37,5 +84,9 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
 
     def signup_params
       params.permit(:name, :email, :password)
+    end
+
+    def oauth_params
+      params.permit(:access_token, :provider)
     end
 end

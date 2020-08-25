@@ -65,3 +65,5 @@ yarn-debug.log*
 
 # Private key
 config/private.pem
+
+.env

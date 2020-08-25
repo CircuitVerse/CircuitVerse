@@ -16,288 +16,248 @@
   type: "article",
   site_name: Rails.configuration.site_name
   } %>
-<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<div class="container container-in">
+<div class="container">
   <% if notice %>
-  <div class="row">
-    <div class="alert alert-success alert-dismissible container-fluid text-center">
-      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-      <%= notice %>
+    <div class="row">
+      <div class="alert alert-success alert-dismissible text-center">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <h6><%= notice %></h6>
+      </div>
     </div>
-  </div>
   <% end %>
-  <div class="row" style="margin: 10px;">
-    <div class="col col-md-7 col-12 feature-post">
-      <div class=" iframe-box">
-        <div class="embed-responsive embed-responsive-4by3">
-          <iframe src = <%=simulator_path(@project) %> id="view" webkitAllowFullScreen mozAllowFullScreen allowFullScreen scrolling="no"> </iframe>
+  <br>
+  <div class="row center-row">
+    <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 ">
+      <div class="projects-iframe-container">
+        <div class=" projects-iframe">
+          <div class="embed-responsive embed-responsive-4by3">
+            <iframe src=<%= simulator_path(@project) %> id="view" webkitAllowFullScreen mozAllowFullScreen allowFullScreen scrolling="no"></iframe>
+          </div>
         </div>
       </div>
     </div>
-    <div class="col col-md-5 col-12">
-      <div class="card" style="border:0;">
-        <div class="card-header text-center h5 text-capitalize team">
-          <%= @project.name %>
+    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+      <div class="container projects-details">
+        <div class="row center-row projects-details-heading-container">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="projects-details-heading">
+              <%= @project.name %>
+            </div>
+          </div>
         </div>
-      <div style="text-align:right">
-        <span class="badge badge-secondary noSelect font-weight-normal" style="margin:5px;display:inline;">
-          <i class="fa fa-star" aria-hidden="true">&ensp;</i>
-          <r id="star_count" style="font-size:12px" class="noSelect"><%= @project.stars.count %></r>
-          &nbsp;Stars
-        </span>
-        <span class="badge badge-secondary noSelect font-weight-normal" style="margin:5px;display:inline">
-          <i class="fa fa-eye" aria-hidden="true">&ensp;</i>
-          <r id="star_count" style="font-size:12px" class="noSelect"><%= @project.view %></r>
-          &nbsp;Views
-        </span>
-      </div>
-        <div class="card-body-post">
-          <p style="line-height:32px;">
-          <strong>Author:  </strong>
-          <%= link_to @project.author.name, @project.author %>
-            <br>
+        <div class="row projects-views-count-container noSelect">
+          <i class="fas fa-star projects-star-count-icon" aria-hidden="true"></i>
+          <span id="star-count" class="noSelect"><%= @project.stars.count %></span>
+           Stars
+          &nbsp; &nbsp;
+          <i class="fa fa-eye" aria-hidden="true"></i>
+          <span id="star-count" class="noSelect"><%= @project.view %></span>
+           Views &nbsp; &nbsp;
+        </div>
+        <div class="row center-row projects-user-details-container">
+          <div class="projects-search-tags-container">
             <% if !@project.tags.empty? %>
-              <strong>Tags:</strong>
-            <% @project.tags.each do |tag| %>
-              <%= link_to tag.name, tag_path(tag.name),{:style=>"background-color: #f1f1f1; color: #000000", :class=>"badge"} %>
+              <% @project.tags.each do |tag| %>
+                <%= link_to tag.name, tag_path(tag.name),class: "badge search-tag" %>
+              <% end %>
             <% end %>
-            <br>
-          <% end %>
+          </div>
+          <p>
+            <strong>Author : </strong>
+            <%= link_to @project.author.name, @project.author, class: "anchor-text" %>
+          </p>
           <% if !@project.forked_project.nil? %>
-            <strong>Forked from:</strong>
-            <%= link_to @project.forked_project.author.name+"/"+@project.forked_project.name , user_project_path(@project.forked_project.author,@project.forked_project) %>
-              <br>
-            <% end %>
-            <strong>Project access type: </strong>
-            <%= @project.project_access_type %>
-            <br>
-            <% if !@project.description.nil? %>
-              <b>Description:</b>
-              <div class="scroll"><%= sanitize@project.description %></div>
-            <% end %>
-            <% if policy(@project).user_access? %>
-              <br>
-              <hr>
-              <a href="<%= simulator_edit_path(@project) %>" class="card-link btn btn-primary btn-post fa-post" target="_blank">Launch simulator</a>
-              <% if user_signed_in? %>
-                <i id="toggleStarButton" class="fa fa-star-o btn btn-primary fa-post noSelect" aria-hidden="true" style="font-size:14px;margin:0px;" onclick="toggleStar()"></i>
-              <% else %>
-                <i class="fa fa-star-o btn btn-primary fa-post btn-post noSelect" aria-hidden="true" style="color:orange"></i>
-              <% end %>
-            <% end %>
-            <% if policy(@project).author_access? %>
-              <p></p>
-              <span style="font-weight:bold;">+</span><a href="#>" class="collaboratorButton" id="<%= @project.id %>" data-toggle="modal" data-target="#collaboratorModal" style="text-decoration:underline;color:black;font-size:13px;font-weight:bold;"> Add a Collaborator</a>
-              <br>
-            <% end %>
+            <p>
+              <strong>Forked from : </strong>
+              <%= link_to @project.forked_project.author.name+"/"+@project.forked_project.name, user_project_path(@project.forked_project.author,@project.forked_project), class: "anchor-text" %>
             </p>
-            <hr>
-            <% if policy(@project).user_access? %>
-              <% if @project.author_id == current_user&.id %>
-                <%= link_to ' Edit', edit_user_project_path(@author, @project), class: "fa fa-pencil btn btn-primary btn-post fa-post card-link btnself-post", style: "margin:0px;" %>
-                <% if policy(@project).author_access? %>
-                  <%= link_to ' Delete',user_project_path(@author,@project), method: :delete, data: { confirm: 'Are you sure?' }, class: "fa fa-trash card-link btn btn-primary btn-post fa-post btnself-post" , style: "margin:0px;" %>
-                <% end %>
-              <% else %>
-                <%= link_to ' Edit', edit_user_project_path(@author, @project), class: "fa fa-pencil btn btn-primary btn-post fa-post card-link", style: "margin:0px;" %>
-                <% if policy(@project).author_access? %>
-                  <%= link_to ' Delete',user_project_path(@author,@project), method: :delete, data: { confirm: 'Are you sure?' }, class: "fa fa-trash card-link btn btn-primary btn-post fa-post" , style: "margin:0px;" %>
-                <% end %>
-              <% end %>
-            <% end %>
-          <% if @project.author_id != current_user&.id %>
-            <%= link_to ' Fork', create_fork_project_path(@project), class: "card-link btn btn-primary btn-post fa-post fa fa-code-fork" , style: "margin:0px;" %>
           <% end %>
-          <% if @project.project_access_type != "Private" %>
-            <% if @project.author_id != current_user&.id %>
-            <a class="fa fa-code btn btn-primary btn-post fa-post" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" onclick="embed()">
-            Embed
-            </a>
-          <% else %>
-            <a class="fa fa-code btn btn-primary btn-post fa-post btnself-post" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" onclick="embed()">
-             Embed
-            </a>
+          <p>
+            <strong>Project access type : </strong>
+            <%= @project.project_access_type %>
+          </p>
+          <% if !@project.description.nil? %>
+            <p>
+              <strong>Description : </strong>
+            </p>
+            <div class="projects-details-description"><%= sanitize@project.description %></div>
+          <% end %>
+          <% if user_signed_in? %>
+            <p>
+              <hr class="projects-horizontal-rule">
+              <% if policy(@project).user_access? %>
+                <a href="<%= simulator_edit_path(@project) %>" class="btn primary-button projects-primary-button" target="_blank">Launch simulator</a>
+              <% else %>
+                <%= link_to create_fork_project_path(@project), class: "btn primary-button projects-primary-button" do %>
+                  <%= image_tag("SVGs/forkProject.svg", alt: "Fork Project") %>
+                  <span>Fork</span>
+                <% end %>
+                <a class="btn primary-button projects-primary-button projects-others-embed-button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" onclick="embedOther()">
+                  <i class="fas fa-code"></i>
+                  <span>Embed</span>
+                </a>
+              <% end %>
+              <% if @project.stars.exists?(user_id: current_user.id) %>
+                <i id="toggleStarButton" class="fas fa-star btn primary-button projects-primary-button projects-button-star-icon" aria-hidden="true" onclick="toggleStar()"></i>
+              <% else %>
+                <i id="toggleStarButton" class="far fa-star btn primary-button projects-primary-button projects-button-star-icon" aria-hidden="true" onclick="toggleStar()"></i>
+              <% end %>
+            </p>
+          <% end %>
+          <% if policy(@project).author_access? %>
+            <p>
+              <a href="#" class="anchor-text" id="<%= @project.id %>" data-toggle="modal" data-target="#collaboratorModal">+ Add a Collaborator</a>
+            </p>
+          <% end %>
+          <% if policy(@project).user_access? %>
+            <hr class="projects-horizontal-rule">
+            <p>
+              <%= link_to edit_user_project_path(@author, @project), class: "btn secondary-button" do %>
+                <%= image_tag("SVGs/editProject.svg", alt: "Edit Project") %>
+                <span>Edit</span>
+              <% end %>
+              <%= link_to "#", class: "btn secondary-button", data: {toggle: "modal", target: "#deleteprojectModal", currentauthor: @author.id, currentproject: @project.id} do %>
+                <%= image_tag("SVGs/deleteProject.svg", alt: "Delete Project") %>
+                <span>Delete</span>
+              <% end %>
+              <a class="btn secondary-button projects-self-embed-button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" onclick="embedSelf()">
+                <i class="fas fa-code"></i>
+                <span>Embed</span>
+              </a>
+            </p>
           <% end %>
           <div class="collapse" id="collapseExample">
-            <div class="card card-body">
-              <textarea id="embedTextArea" style="font-size:12px"><iframe width="600px" height="400px" src="<%= simulator_embed_url(@project) %>" id="projectPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen></iframe></textarea>
-              <a class="text-success" style="margin:0px;">Embed code copied to clipboard!</a>
+            <div class="projects-embed-text-container">
+              <label for="embedTextArea"></label>
+              <textarea id="embedTextArea" class="projects-embed-text" rows="4" cols="35"><iframe width="600px" height="400px" src="<%= simulator_embed_url(@project) %>" id="projectPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen></iframe></textarea>
             </div>
+            <small class="projectshow-embed-text-confirmation">Copied to Clipboard!</small>
           </div>
-        <% end %>
-        <% if !policy(@project).user_access? %>
-          <% if user_signed_in? %>
-            <i id="toggleStarButton" class="fa fa-star-o btn btn-primary fa-post btn-post noSelect" aria-hidden="true" style="font-size:13px;margin:0px;" style=<%= Star.find_by(user_id: current_user.id, project_id: @project.id).nil? ? "color:white" : "color:orange" %> onclick="toggleStar()"></i>
-          <% else %>
-            <i class="fa fa-star-o btn btn-primary fa-post btn-post noSelect" aria-hidden="true"></i>
-          <% end %>
-        <% end %>
-        <%= link_to 'Back', user_path(@author), class: "btn underline text-success", style: "margin:0px;" %>
         </div>
       </div>
     </div>
   </div>
-  <% collaborators = @project.collaborators %>
-  <% if collaborators.count !=0 %>
   <br>
-  <h3>Collaborators</h3>
-  <div style="max-height:400px;overflow:hidden;overflow-y:scroll">
-    <table class="table">
-      <!--<thead>-->
-      <!--<tr>-->
-      <!--<th>Group members</th>-->
-      <!--<th>Email IDs</th>-->
-      <!--<th>Action</th>-->
-      <!--</tr>-->
-      <!--</thead>-->
-      <tbody>
-        <% @project.collaborators.each do |user| %>
-        <tr>
-          <td><%= link_to user.name, user %></td>
-          <% if policy(@project).author_access? %>
-            <td><%= user.email %></td>
-            <td><%= link_to 'Remove', collaboration_path(Collaboration.find_by(user_id:user.id,project_id:@project.id)), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-          <% end %>
-        </tr>
-        <% end %>
-      <tbody/>
-    </table>
-  </div>
-  <% end %>
-  <div id="collaboratorModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Add members</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <div class="modal-body">
-          <p>Enter Email IDs separated by commas/spaces or in separate lines. Users need to be registered already on the platform.
-            Note that collaboration is not real time as of now. Every save overwites the previous data.
-          </p>
-          <%= form_with(model: @collaboration, local: true) do |form| %>
-          <% if @collaboration.errors.any? %>
-            <div id="error_explanation">
-              <h2><%= pluralize(collaboration.errors.count, "error") %> prohibited this group_member from being saved:</h2>
-              <ul>
-              <% @collaborator.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
-              <% end %>
-              </ul>
+  <% collaborators = @project.collaborators %>
+    <% if collaborators.count!=0 %>
+      <div class="row center-row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <div class="projects-collaborators-container">
+            <div class="row center-row">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 projects-collaborators-heading">
+                <div class="">
+                  Collaborators
+                </div>
+              </div>
             </div>
-          <% end %>
-          <div class="field">
-            <%= form.hidden_field :project_id, id: :collaboration_project_id %>
+            <% @project.collaborators.each do |user| %>
+              <div class="row center-row">
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                  <div class="projectshow-collaborators-userdata">
+                    <%= link_to user.name, user, class: "anchor-text" %>
+                  </div>
+                </div>
+                <% if policy(@project).author_access? %>
+                  <div class="col-xs-8 col-sm-8 col-md-5 col-lg-5">
+                    <div class="projects-collaborators-data">
+                      <%= user.email %>
+                    </div>
+                  </div>
+                  <div class="col-xs-4 col-sm-4 col-md-3 col-lg-3">
+                    <div class="projects-collaborators-button-container">
+                      <%= link_to "#", data: {toggle: "modal", target: "#deletecollaborationModal", currentcollaboration: Collaboration.find_by(user_id:user.id, project_id:@project.id).id }, class: "btn primary-delete-button" do %>
+                        <%= image_tag("SVGs/deleteGroup.svg", alt: "Delete Collaboration") %>
+                        <span>Remove</span>
+                      <% end %>
+                    </div>
+                  </div>
+                <% end %>
+                <hr class="projects-collaborators-horizontal-rule">
+              </div>
           </div>
-          <div class="form-group">
-            <label for="Email Ids">Email IDs:</label>
-            <textarea class="form-control" rows="5" id="emails" name="collaboration[emails]"></textarea>
-          </div>
-          <div class="actions modal-footer">
-            <%= form.submit "Add Collaborators", class: 'btn btn-secondary' %>
-          </div>
-          <% end %>
         </div>
-        <!--<div class="modal-footer">-->
-        <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">close</button>-->
-        <!--</div>-->
       </div>
-    </div>
-  </div>
+      <% end %>
+    <% end %>
+
+    <%= render partial: "add_collaborator_modal" %>
+    <%= render partial: "delete_project_confirmation_modal" %>
+    <%= render partial: "delete_collaboration_confirmation_modal" %>
+
 </div>
-<%= commontator_thread(@project) %>
-<script>
-  function embed() {
-      setTimeout(function(){$("#embedTextArea").select();document.execCommand("copy")},100) ;
 
-  //        $("#embedTextArea").copy();
-  }
-  $( function() {
-      $('.collaboratorButton').on('click', function (e) {
-          e.preventDefault()
-          $("#collaboratorModel").tab('show')
-      })
-  } );
-  function toggleStar(toggle) {
-      $.ajax({
-          url: "<%= change_stars_path(@project) %>",
-          type: 'GET',
-          beforeSend: function (xhr) {
-              xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
-          },
-          success: function (response) {
-              star_count = document.getElementById("star_count").innerHTML;
+<%= commontator_thread(@project) if Flipper.enabled?(:project_comments) %>
 
-              if(response == "1"){
-                if(document.getElementById('toggleStarButton').classList.contains("fa-star")){
-                  document.getElementById('toggleStarButton').classList.remove("fa-star");
-                  document.getElementById('toggleStarButton').classList.add("fa-star-o");
-                }
-                  document.getElementById('toggleStarButton').style.color='white';
-              }
-              else{
-                  document.getElementById('toggleStarButton').classList.remove("fa-star-o");
-                  document.getElementById('toggleStarButton').classList.add("fa-star");
-              }
-              document.getElementById("star_count").innerHTML = (response == "1") ? (Number(star_count)-1) : (Number(star_count)+1);
-          }
-      });
-  }
-</script>
-<% if user_signed_in? %>
-<script src="https://goodwill.zense.co.in/packs/gratia.js"></script>
 <script>
-  var gratia = new window.Gratia({
-    from: '<%= profile_url(current_user) %>',
-    to: <%= ([@project.author] + @project.collaborators ).map{ |c| profile_url(c) }.to_json.html_safe %>,
-    tags: <%= @project.tag_list.to_json.html_safe %>
-  });
+  $(document).ready(function() {
+    $("#deleteprojectModal").on("show.bs.modal", function(e) {
+        let author = $(e.relatedTarget).data('currentauthor');
+        let project = $(e.relatedTarget).data('currentproject');
+        $(e.currentTarget).find('#projects-delete-button').attr("href",
+        "/users/" + author.toString() + "/projects/" + project.toString());
+    });
+    $("#deletecollaborationModal").on("show.bs.modal", function(e) {
+        let collaboration = $(e.relatedTarget).data('currentcollaboration');
+        $(e.currentTarget).find('#projects-collaboration-delete-button').attr("href",
+        "/collaborations/" + collaboration.toString());
+    });
+  })
 </script>
 <script>
-  if($("#featuredCircuit")) {
-      $("#featuredCircuit").submit(function(e) {
-        e.preventDefault();
-
-        var form = $(this);
-        var url = form.attr('action');
-        var type = $("#project-featured").val() === "1" ? "POST" : "DELETE";
-
-        $.ajax({
-          type: type,
-          url: url,
-          data: form.serialize(),
-          success: (data) => {
-            if(type === "POST") {
-              $("#feature-control").html("Unfeature");
-              $("#project-featured").val("0");
-            } else {
-              $("#feature-control").html("Feature");
-              $("#project-featured").val("1");
-            }
-
-          }
-        });
-      });
-
-      $("#feature-control").click((e) => {
-        e.preventDefault();
-        $("#featuredCircuit").submit();
-      })
+  function embedOther() {
+    if(document.getElementsByClassName("projects-embed-button")[0].ariaExpanded=="false") {
+      document.getElementsByClassName("projects-embed-button")[0].classList.add("active");
     }
-</script>
-<script type="application/ld+json">
-  {
-    "@context" : "http://schema.org",
-    "@type" : "Article",
-    "name" : "<%= @project.name %>",
-    "author" : {
-      "@type" : "Person",
-      "name" : "<%= @project.author.name %>"
-    },
-    "articleSection" : "Project",
-    "articleBody" : "<%= @project.description || " " %>"
+    else {
+      document.getElementsByClassName("projects-embed-button")[0].classList.remove("active");
+    }
+    setTimeout(function(){$("#embedTextArea").select();document.execCommand("copy")},100);
+  }
+
+  function embedSelf() {
+    if(document.getElementsByClassName("projects-self-embed-button")[0].ariaExpanded=="false") {
+      document.getElementsByClassName("projects-self-embed-button")[0].classList.add("active");
+    }
+    else {
+      document.getElementsByClassName("projects-self-embed-button")[0].classList.remove("active");
+    }
+    setTimeout(function(){$("#embedTextArea").select();document.execCommand("copy")},100);
+  }
+
+  function toggleStar(toggle) {
+    $.ajax({
+      url: "<%= change_stars_path(@project) %>",
+      type: 'GET',
+      beforeSend: function (xhr) {
+        xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+      },
+      success: function (response) {
+        if(response == "1"){
+          document.getElementById('toggleStarButton').classList.remove("fas");
+          document.getElementById('toggleStarButton').classList.add("far");
+          }
+        else{
+          document.getElementById('toggleStarButton').classList.remove("far");
+          document.getElementById('toggleStarButton').classList.add("fas");
+          }
+          document.getElementById("star-count").innerHTML = (response == "1") ? (Number(document.getElementById("star-count").innerHTML)-1) : (Number(document.getElementById("star-count").innerHTML)+1);
+        }
+    });
   }
 </script>
+
+<% if user_signed_in? %>
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Article",
+      "name" : "<%= @project.name %>",
+      "author" : {
+        "@type" : "Person",
+        "name" : "<%= @project.author.name %>"
+      },
+      "articleSection" : "Project",
+      "articleBody" : "<%= @project.description || " " %>"
+    }
+  </script>
 <% end %>

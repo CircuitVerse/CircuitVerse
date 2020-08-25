@@ -20,7 +20,7 @@ class Api::V1::CollaboratorsController < Api::V1::BaseController
 
   # POST /api/v1/projects/:project_id/collaborators
   def create
-    mails_handler = MailsHandler.new(params[:emails], @project, @current_user)
+    mails_handler = MailsHandler.new(params[:emails], @project, current_user)
     # parse mails as valid or invalid
     mails_handler.parse
 

@@ -9,16 +9,16 @@
   },
   "devDependencies": {
     "eslint": "^6.0.0",
-    "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-plugin-import": "^2.20.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0",
     "expose-loader": "^0.7.5",
     "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.12.1",
+    "@fortawesome/fontawesome-free": "^5.14.0",
     "@rails/webpacker": "4.2.2",
-    "bootstrap": "^4.3.1",
-    "jquery": "^3.5.0",
+    "bootstrap": "^4.5.0",
+    "jquery": "^3.5.1",
     "opencollective-postinstall": "^2.0.2",
     "popper.js": "^1.16.0",
     "trumbowyg": "^2.21.0"

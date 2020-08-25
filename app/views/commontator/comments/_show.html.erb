@@ -39,13 +39,15 @@
         <% if comment.can_be_deleted_by?(user) %>
           <% is_deleted = comment.is_deleted? %>
           <% del_string = is_deleted ? 'undelete' : 'delete' %>
-          <%= link_to commontator.polymorphic_path([del_string, comment]),
-                      data: is_deleted ? {} : { confirm: t('commontator.comment.actions.confirm_delete') },
-                      method: :put,
-                      id: "commontator-comment-#{comment.id}-#{del_string}",
-                      remote: true,
-                      class: "del_string btn delete-action" do %>
-            <%= image_tag("SVGs/deleteGroup.svg", alt: "Delete Comment") %>
+          <% unless is_deleted %>
+            <%= link_to commontator.polymorphic_path([del_string, comment]),
+                        data: is_deleted ? {} : { confirm: t('commontator.comment.actions.confirm_delete') },
+                        method: :put,
+                        id: "commontator-comment-#{comment.id}-#{del_string}",
+                        remote: true,
+                        class: "del_string btn delete-action" do %>
+              <%= image_tag("SVGs/deleteGroup.svg", alt: "Delete Comment") %>
+            <% end %>
           <% end %>
         <% end %>
       </div>
