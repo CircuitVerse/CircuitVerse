@@ -1,5 +1,7 @@
 # Projects
 
+<aside class="notice">Thread parameters for particular project include "thread_id", "is_thread_subscribed", "is_thread_closed"</aside>
+
 ## GET All Projects
 
 You can GET all projects in `/api/v1/projects`. Authentication `token` is passed through `Authorization` header but is **NOT** mandatory.
@@ -56,7 +58,10 @@ HTTP/1.1 200 OK
         "description": " <p>Hey there, Loving CircuitVerse</p>",
         "view": 1,
         "tags": [],
-        "stars_count": 0
+        "stars_count": 0,
+        "thread_id": "1",
+        "is_thread_subscribed": false,
+        "is_thread_closed": false
       },
       "relationships": {
         "author": {
@@ -81,7 +86,10 @@ HTTP/1.1 200 OK
         "description": "",
         "view": 1,
         "tags": [],
-        "stars_count": 0
+        "stars_count": 0,
+        "thread_id": "1",
+        "is_thread_subscribed": false,
+        "is_thread_closed": false
       },
       "relationships": {
         "author": {
@@ -106,7 +114,10 @@ HTTP/1.1 200 OK
         "description": " <p>Hey there, Loving Circuitverse</p>",
         "view": 1,
         "tags": [],
-        "stars_count": 0
+        "stars_count": 0,
+        "thread_id": "1",
+        "is_thread_subscribed": false,
+        "is_thread_closed": false
       },
       "relationships": {
         "author": {
@@ -131,7 +142,10 @@ HTTP/1.1 200 OK
         "description": "",
         "view": 2,
         "tags": [],
-        "stars_count": 1
+        "stars_count": 1,
+        "thread_id": "1",
+        "is_thread_subscribed": false,
+        "is_thread_closed": false
       },
       "relationships": {
         "author": {
@@ -156,7 +170,10 @@ HTTP/1.1 200 OK
         "description": " <p>Hey there, Loving Circuitverse</p>",
         "view": 1,
         "tags": [],
-        "stars_count": 0
+        "stars_count": 0,
+        "thread_id": "1",
+        "is_thread_subscribed": false,
+        "is_thread_closed": false
       },
       "relationships": {
         "author": {
@@ -251,7 +268,10 @@ HTTP/1.1 200 OK
         "description": null,
         "view": 11,
         "tags": [],
-        "stars_count": 1
+        "stars_count": 1,
+        "thread_id": "1",
+        "is_thread_subscribed": false,
+        "is_thread_closed": false
       },
       "relationships": {
         "author": {
@@ -276,7 +296,10 @@ HTTP/1.1 200 OK
         "description": "",
         "view": 2,
         "tags": [],
-        "stars_count": 1
+        "stars_count": 1,
+        "thread_id": "1",
+        "is_thread_subscribed": false,
+        "is_thread_closed": false
       },
       "relationships": {
         "author": {
@@ -301,7 +324,10 @@ HTTP/1.1 200 OK
         "description": " <p>Hey there, Loving Circuitverse</p>",
         "view": 1,
         "tags": [],
-        "stars_count": 0
+        "stars_count": 0,
+        "thread_id": "1",
+        "is_thread_subscribed": false,
+        "is_thread_closed": false
       },
       "relationships": {
         "author": {
@@ -326,7 +352,10 @@ HTTP/1.1 200 OK
         "description": "",
         "view": 1,
         "tags": [],
-        "stars_count": 0
+        "stars_count": 0,
+        "thread_id": "1",
+        "is_thread_subscribed": false,
+        "is_thread_closed": false
       },
       "relationships": {
         "author": {
@@ -351,7 +380,10 @@ HTTP/1.1 200 OK
         "description": " <p>Hey there, Loving Circuitverse</p>",
         "view": 1,
         "tags": [],
-        "stars_count": 0
+        "stars_count": 0,
+        "thread_id": "1",
+        "is_thread_subscribed": false,
+        "is_thread_closed": false
       },
       "relationships": {
         "author": {
@@ -446,7 +478,10 @@ HTTP/1.1 200 OK
         "description": null,
         "view": 11,
         "tags": [],
-        "stars_count": 1
+        "stars_count": 1,
+        "thread_id": "1",
+        "is_thread_subscribed": false,
+        "is_thread_closed": false
       },
       "relationships": {
         "author": {
@@ -471,7 +506,10 @@ HTTP/1.1 200 OK
         "description": "",
         "view": 2,
         "tags": [],
-        "stars_count": 1
+        "stars_count": 1,
+        "thread_id": "1",
+        "is_thread_subscribed": false,
+        "is_thread_closed": false
       },
       "relationships": {
         "author": {
@@ -496,7 +534,10 @@ HTTP/1.1 200 OK
         "description": " <p>Hey there, Loving Circuitverse</p>",
         "view": 1,
         "tags": [],
-        "stars_count": 0
+        "stars_count": 0,
+        "thread_id": "1",
+        "is_thread_subscribed": false,
+        "is_thread_closed": false
       },
       "relationships": {
         "author": {
@@ -521,7 +562,10 @@ HTTP/1.1 200 OK
         "description": "",
         "view": 1,
         "tags": [],
-        "stars_count": 0
+        "stars_count": 0,
+        "thread_id": "1",
+        "is_thread_subscribed": false,
+        "is_thread_closed": false
       },
       "relationships": {
         "author": {
@@ -546,7 +590,10 @@ HTTP/1.1 200 OK
         "description": " <p>Hey there, Loving Circuitverse</p>",
         "view": 1,
         "tags": [],
-        "stars_count": 0
+        "stars_count": 0,
+        "thread_id": "1",
+        "is_thread_subscribed": false,
+        "is_thread_closed": false
       },
       "relationships": {
         "author": {
@@ -635,7 +682,10 @@ HTTP/1.1 200 OK
           "updated_at": "2020-03-10T13:02:10.381Z"
         }
       ],
-      "stars_count": 1
+      "stars_count": 1,
+      "thread_id": "1",
+      "is_thread_subscribed": false,
+      "is_thread_closed": false
     },
     "relationships": {
       "author": {
@@ -736,7 +786,10 @@ Content-Type: application/json
           "updated_at": "2020-03-10T13:02:10.381Z"
         }
       ],
-      "stars_count": 1
+      "stars_count": 1,
+      "thread_id": "1",
+      "is_thread_subscribed": false,
+      "is_thread_closed": false
     },
     "relationships": {
       "author": {
@@ -853,7 +906,10 @@ HTTP/1.1 200 OK
             "updated_at": "2020-03-10T13:02:10.381Z"
           }
         ],
-        "stars_count": 1
+        "stars_count": 1,
+        "thread_id": "1",
+        "is_thread_subscribed": false,
+        "is_thread_closed": false
       },
       "relationships": {
         "author": {
@@ -976,7 +1032,10 @@ HTTP/1.1 200 OK
           "updated_at": "2020-03-10T13:02:10.381Z"
         }
       ],
-      "stars_count": 1
+      "stars_count": 1,
+      "thread_id": "1",
+      "is_thread_subscribed": false,
+      "is_thread_closed": false
     },
     "relationships": {
       "author": {

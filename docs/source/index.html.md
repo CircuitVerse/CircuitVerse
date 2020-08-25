@@ -14,4 +14,5 @@ includes:
   - group_members
   - assignments
   - grades
+  - comments
 ---
