@@ -8,9 +8,9 @@ class GroupsController < ApplicationController
 
   # GET /groups
   # GET /groups.json
-  def index
-    @groups = Group.all
-  end
+  # def index
+  #   @groups = Group.all
+  # end
 
   # GET /groups/1
   # GET /groups/1.json

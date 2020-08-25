@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
   # resources :assignment_submissions
   resources :group_members, only: %i[create destroy]
-  resources :groups do
+  resources :groups, except: %i[index] do
     resources :assignments
   end
 
