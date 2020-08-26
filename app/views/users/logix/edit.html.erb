@@ -41,10 +41,13 @@
           <button type="submit" class="btn primary-button users-edit-primary-button">Save</button>
           <a class="anchor-text" href="<%= profile_path(current_user) %>">Back</a>
         <% end %>
-        <div class="users-delete-button-container">
-          <%= link_to "Delete Account", "#", class: "btn primary-delete-button users-delete-button-container", data: {toggle: "modal", target: "#deleteuserModal", currentuser: @profile.id} %>
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <h4 class="submain-heading">Delete your Account</h4>
+            <p>Proceed with caution! This action cannot be reversed.</p> <br>
+          </div>
         </div>
-      </div>
+        <%= link_to "Delete Account", "#", class: "btn primary-delete-button", data: {toggle: "modal", target: "#deleteuserModal", currentuser: @profile.id} %>
     </div>
   </div>
 </div>

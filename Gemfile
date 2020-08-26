@@ -44,7 +44,7 @@ gem 'jquery-rails'
 
 # gem 'acts_as_votable', '~> 0.11.1'
 
-gem 'carrierwave', '~> 1.0'
+gem 'carrierwave', '~> 2.1'
 
 gem 'rails_admin', '~> 2.0'
 
@@ -121,7 +121,7 @@ group :test do
   gem "rspec_junit_formatter"
   gem 'selenium-webdriver'
   gem 'webdrivers', '~> 4.0'
-  gem 'capybara', '~> 2.13'
+  gem 'capybara', '~> 3.33'
   gem 'shoulda-matchers'
   gem "json-schema"
   gem 'webmock'

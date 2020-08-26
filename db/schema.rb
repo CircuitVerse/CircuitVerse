@@ -209,20 +209,11 @@ ActiveRecord::Schema.define(version: 2020_08_21_091915) do
 
   create_table "groups", force: :cascade do |t|
     t.string "name"
-    t.bigint "primary_mentor_id"
+    t.bigint "mentor_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "group_members_count"
-    t.index ["primary_mentor_id"], name: "index_groups_on_primary_mentor_id"
-  end
-
-  create_table "mentorships", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "group_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["group_id"], name: "index_mentorships_on_group_id"
-    t.index ["user_id"], name: "index_mentorships_on_user_id"
+    t.index ["mentor_id"], name: "index_groups_on_mentor_id"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -389,9 +380,7 @@ ActiveRecord::Schema.define(version: 2020_08_21_091915) do
   add_foreign_key "grades", "users"
   add_foreign_key "group_members", "groups"
   add_foreign_key "group_members", "users"
-  add_foreign_key "groups", "users", column: "primary_mentor_id"
-  add_foreign_key "mentorships", "groups"
-  add_foreign_key "mentorships", "users"
+  add_foreign_key "groups", "users", column: "mentor_id"
   add_foreign_key "pending_invitations", "groups"
   add_foreign_key "projects", "assignments"
   add_foreign_key "projects", "projects", column: "forked_project_id"

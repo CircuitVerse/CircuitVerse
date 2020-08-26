@@ -13,12 +13,13 @@ button.trumbowyg-active {
   background-color: $card-green;
 
   &::after {
-    color: $teal;
+    color: $secondary-green;
   }
 }
 
 .trumbowyg-box {
-  border: 1px solid $teal;
+  border: 1px solid $secondary-green;
+  margin-bottom: 35px;
   margin-top: 0;
   padding: 0;
 
@@ -34,7 +35,7 @@ button.trumbowyg-active {
 
 .trumbowyg-editor {
   background-color: $white;
-  border-top: 1px solid $teal;
+  border-top: 1px solid $secondary-green;
   opacity: 1;
   padding-left: 15px;
   padding-top: 10px;
