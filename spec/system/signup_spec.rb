@@ -60,6 +60,6 @@ describe "Sign up", type: :system do
     page.find("#label-privacy-check").click
     click_button "Agree"
 
-    expect(page).not_to have_text("Cookies and Privacy Policy") 
+    expect(page).not_to have_text("Cookies and Privacy Policy")
   end
 end
