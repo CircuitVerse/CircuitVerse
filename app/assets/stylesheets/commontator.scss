@@ -1,35 +1,9 @@
-//to be removed
-.anchor-text {
-  color: $teal;
-  font-weight: 500;
-  text-decoration: underline;
-
-  &:hover {
-    color: $green;
-  }
-}
-
-.button-primary {
-  background-color: $green;
-  border-radius: 4px;
-  color: $white;
-  margin: 5px;
-  transition: all .3s ease 0s;
-
-  &:hover {
-    background-color: $teal;
-    box-shadow: 0 8px 15px $shadow-black;
-    color: $white;
-    transform: translateY(-7px);
-  }
-}
-//to be removed ends
-
 .comments-container {
   margin-top: 70px;
 }
 
 .comments-status {
+  display: inline-block;
   margin-bottom: 20px;
 }
 
@@ -127,6 +101,7 @@
 .new-comment {
   display: block;
 }
+
 //breakpoints
 @media(max-width: 400px){
   .comments-comment {
