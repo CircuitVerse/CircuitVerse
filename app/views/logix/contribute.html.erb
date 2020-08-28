@@ -1,34 +1,34 @@
 <% content_for :title, "CircuitVerse - Contribute" %>
 
 <div class="container">
-  <div class="row row-text">
+  <div class="row center-row">
     <div class="col-xs col-sm col-md col-lg">
-      <h1 class="heading-main">CONTRIBUTE</h1>
-        <h5>Learn about the awesome people behind CircuitVerse</h5>
-        <p class="paragraph-text-justified">CircuitVerse aims to be free for ever and we promise that we will not run ads!
+      <h1 class="main-heading">CONTRIBUTE</h1>
+        <p class="main-description">Learn about the awesome people behind CircuitVerse</p>
+        <p class="justified-paragraph">CircuitVerse aims to be free for ever and we promise that we will not run ads!
           The project is open source and to ensure its continued development and maintenance we need your support.
         </p>
     </div>
   </div>
-  <div class="row row-text">
+  <div class="row center-row">
     <div class="col-xs col-sm col-md col-lg">
-      <div class="card-small-social contribute-card-social">
+      <div class="social-card contribute-social-card">
         <a class="about-social-anchor" href="mailto:support@circuitverse.org" target="_blank">
-          <%= image_tag "SVGs/email.svg", height: "60", width: "60", alt: "Email Icon", class: "card-small-social-image" %>
+          <%= image_tag "SVGs/email.svg", height: "60", width: "60", alt: "Email Icon", class: "social-card-image" %>
           <h6>Email us at</h6>
           <p>support@circuitverse.org</p>
         </a>
       </div>
-      <div class="card-small-social contribute-card-social">
+      <div class="social-card contribute-social-card">
         <a class="about-social-anchor" href="<%= Rails.configuration.slack_url %>" target="_blank">
-          <%= image_tag "SVGs/slack.svg", height: "60", width: "60", alt: "Slack Logo", class: "card-small-social-image" %>
+          <%= image_tag "SVGs/slack.svg", height: "60", width: "60", alt: "Slack Logo", class: "social-card-image" %>
           <h6>Join and chat with us at</h6>
           <p>Slack Channel</p>
         </a>
       </div>
-      <div class="card-small-social contribute-card-social">
+      <div class="social-card contribute-social-card">
         <a class="about-social-anchor" href="https://github.com/CircuitVerse" target="_blank">
-          <%= image_tag "SVGs/github.svg", height: "60", width: "60", alt: "Github Logo", class: "card-small-social-image" %>
+          <%= image_tag "SVGs/github.svg", height: "60", width: "60", alt: "Github Logo", class: "social-card-image" %>
           <h6>Contribute to Open Source</h6>
           <p>Github</p>
         </a>
@@ -37,16 +37,16 @@
   </div>
   <hr>
 
-  <div class="row row-text">
+  <div class="row center-row">
     <div class="col-xs col-sm col-md col-lg">
-      <h2 class="heading-submain">How to Support?</h2>
+      <h2 class="submain-heading">How to Support?</h2>
     </div>
   </div>
-  <div class="row row-text">
+  <div class="row center-row">
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
       <div class="card contribute-card">
-        <%= image_tag "SVGs/student.svg", alt: "Student Icon", :class => "card-img-top contribute-cardimage" %>
-        <div class="card-body contribute-cardbody">
+        <%= image_tag "SVGs/student.svg", alt: "Student Icon", :class => "card-img-top contribute-card-image" %>
+        <div class="card-body contribute-card-body">
           <h3 class="card-title">I am a Student</h3>
           <ul class="card-text">
             <li>Create amazing circuits and share on the platform</li> <br>
@@ -60,8 +60,8 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
       <div class="card contribute-card">
-      <%= image_tag "SVGs/professor.svg", alt: "Professor Icon", :class => "card-img-top contribute-cardimage" %>
-        <div class="card-body contribute-cardbody">
+      <%= image_tag "SVGs/professor.svg", alt: "Professor Icon", :class => "card-img-top contribute-card-image" %>
+        <div class="card-body contribute-card-body">
           <h3 class="card-title">I am a Teacher</h3>
           <ul class="card-text">
             <li>Introduce the platform to your students</li> <br>
@@ -73,8 +73,8 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
       <div class="card contribute-card">
-       <%= image_tag "SVGs/coder.svg", alt: "Developer Icon", :class => "card-img-top contribute-cardimage" %>
-        <div class="card-body contribute-cardbody">
+       <%= image_tag "SVGs/coder.svg", alt: "Developer Icon", :class => "card-img-top contribute-card-image" %>
+        <div class="card-body contribute-card-body">
           <h3 class="card-title">I am a Developer</h3>
           <ul class="card-text">
             <li>Contribute to the open source project</li> <br>
@@ -85,20 +85,20 @@
       </div>
     </div>
   </div>
-  <div class="row row-text">
+  <div class="row center-row">
     <div class="col-xs col-sm col-md col-lg">
-      <div class="contribute-card-pay-container">
+      <div class="contribute-pay-card-container">
         <p>Become a Patreon</p>
           <a href="https://www.patreon.com/CircuitVerse" target="_blank">
-            <div class="contribute-card-pay">
+            <div class="contribute-pay-card">
               <%= image_tag "logos/patreon-logo.png", alt: "Patreon Logo" %>
             </div>
           </a>
       </div>
-      <div class="contribute-card-pay-container">
+      <div class="contribute-pay-card-container">
         <p>Donate through PayPal</p>
           <a href="https://www.paypal.me/satviksr" target="_blank">
-            <div class="contribute-card-pay">
+            <div class="contribute-pay-card">
               <%= image_tag "logos/paypal-logo.jpg", alt: "Paypal Logo" %>
             </div>
           </a>

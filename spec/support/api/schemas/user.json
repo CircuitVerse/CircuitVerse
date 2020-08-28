@@ -1,0 +1,33 @@
+{
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string" },
+        "attributes": {
+          "type": "object",
+          "properties": {
+            "email": { "type": "string" },
+            "name": { "type": "string" },
+            "admin": { "type": "boolean" },
+            "country": { "type": ["null", "string"] },
+            "educational_institute": { "type": ["null", "string"] },
+            "subscribed": { "type": "boolean" },
+            "created_at": { "type": "string" },
+            "updated_at": { "type": "string" }
+          },
+          "required": [
+            "name",
+            "admin",
+            "country",
+            "educational_institute"
+          ]
+        }
+      },
+      "required": ["id", "type", "attributes"]
+    }
+  },
+  "required": ["data"]
+}

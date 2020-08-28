@@ -1,18 +1,18 @@
 
 <% content_for :title, @group.name + " - Edit Group Name" %>
 <div class="container">
-  <div class="row row-text">
+  <div class="row center-row">
     <div class="col-xs col-sm col-md col-lg">
-      <h2 class="heading-submain">EDIT GROUP NAME</h2>
+      <h2 class="submain-heading">EDIT GROUP NAME</h2>
     </div>
   </div>
-  <div class="row row-text">
+  <div class="row center-row">
     <div class="col-xs-12 col-sm-12 col-md-5 col-lg-6">
-      <%= image_tag "PNGs/editGroupName.png", alt: "Group Sketch", :class => "editgroup-image image-center" %>
+      <%= image_tag "PNGs/editGroupName.png", alt: "Group Sketch", :class => "groups-center-image center-image" %>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-7 col-lg-6">
       <div class="container">
-        <div class="row-text background-card editgroup-background-card">
+        <div class="center-row groups-background-card">
           <%= render 'form', group: @group %>
         </div>
       </div>

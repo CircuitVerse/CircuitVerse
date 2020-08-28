@@ -1,6 +1,6 @@
 <%= form_with(model: group, local: true) do |form| %>
   <% if group.errors.any? %>
-    <div class="error-explanation">
+    <div class="error-message">
       <h6><%= pluralize(group.errors.count, "error") %> prohibited this group from being saved:</h6>
       <ul>
         <% group.errors.full_messages.each do |message| %>
@@ -9,12 +9,16 @@
       </ul>
     </div>
   <% end %>
-  <div class="my-3 editgroup-form-text">
-    <h5><%= form.label :name, "Group Name:" %></h5>
-    <%= form.text_field :name, id: :group_name, class: 'form-input editgroup-form-input' %>
+  <div class="my-3 groups-form-text-container">
+    <div class="field form-group">
+      <h5><%= form.label :name, "Group Name:" %></h5>
+      <div class="input-group groups-input-group">
+        <%= form.text_field :name, id: :group_name, class: 'form-control form-input', autofocus: true %>
+      </div>
+    </div>
   </div>
-  <div class="editgroup-form-text">
-    <%= form.submit 'Save', class: 'btn button-primary editgroup-button-primary' %>
-    <%= link_to 'Back', :back, class: 'editgroup-anchor-text anchor-text' %>
+  <div class="groups-form-text-container">
+    <%= form.submit 'Save', class: 'btn primary-button groups-form-primary-button' %>
+    <%= link_to 'Back', :back, class: 'groups-form-anchor-text anchor-text' %>
   </div>
 <% end %>

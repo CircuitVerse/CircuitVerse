@@ -14,11 +14,9 @@ describe "Assignments", type: :system do
     it "should create assignment" do
       sign_in @mentor
       visit new_group_assignment_path(@group)
-
       name = Faker::Lorem.word
       deadline = Faker::Date.forward(days: 23)
       description = Faker::Lorem.sentence
-
       fill_assignments(name, deadline, description, grading: true)
 
       click_button "Create Assignment"
@@ -46,13 +44,11 @@ describe "Assignments", type: :system do
       sign_in @mentor
       @assignment = FactoryBot.create(:assignment, group: @group)
       visit edit_group_assignment_path(@group, @assignment)
-
       name = Faker::Lorem.word
       deadline = Faker::Date.forward(days: 23)
       description = Faker::Lorem.sentence
-
       fill_assignments(name, deadline, description, grading: false)
-      uncheck "checkbox-Power"
+      page.find("#label-Power").click
 
       click_button "Update Assignment"
       expect(page).to have_text("Assignment was successfully updated.")
@@ -83,10 +79,10 @@ describe "Assignments", type: :system do
       select "percent", from: "assignment_grading_scale"
     end
 
-    check "restrict-elements"
-    check "checkbox-Input"
-    check "checkbox-Button"
-    check "checkbox-Power"
+    page.find("#label-restrict-elements").click
+    page.find("#label-Input").click
+    page.find("#label-Button").click
+    page.find("#label-Power").click
   end
 
   def fill_in_editor(editor, with:)

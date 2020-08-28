@@ -1,5 +1,17 @@
-<div class="container feature">
-  <h1 style="margin-bottom: 15px;">New project</h1> <!-- if needed add any subtitle by <small> inside h1 -->
 
-  <%= render 'form', project: @project %>
+<% content_for :title,  "New Project" %>
+
+<div class="container projects-new-container">
+  <div class="row center-row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <h1 class="submain-heading">New Project</h1> <br>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="form-container">
+        <%= render 'form', project: @project %>
+      </div>
+    </div>
+  </div>
 </div>

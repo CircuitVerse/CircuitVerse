@@ -1,4 +1,9 @@
 // All the custom class styles
+//to be removed
+.file-button {
+  display: none;
+}
+//alignment to be added at the very top
 html {
   scroll-behavior: smooth;
 }
@@ -13,10 +18,11 @@ html {
   text-align: center;
   width: 155px;
 }
+//to be removed ends
 
-.file-button {
-  display: none;
-}
+
+
+
 
 .no-projects {
   padding-top: 20px;
@@ -27,92 +33,6 @@ html {
   color: $primary;
 }
 
-.simulator {
-  border: 2px solid $green;
-  font-weight: 500;
-  &:hover {
-    color: $color-hover;
-    background: $active-background;
-  }
-}
-
-.logo {
-  height: 60px;
-}
-
-.logo-bottom {
-  max-height: 80px;
-}
-
-.affix {
-  box-shadow: 0 8px 6px -6px $shadow-grey;
-}
-
-.navbar {
-  background-color: $active-background;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 100;
-}
-
-.navbar-light .navbar-nav {
-  .nav-item {
-    .nav-link {
-      color: $primary;
-      font-weight: 500;
-    }
-
-    &.active {
-      border-bottom: 2px solid $green;
-    }
-  }
-}
-
-.navbar-nav {
-  .nav-link {
-    position: relative;
-    &::before {
-      background-color: $green;
-      bottom: -2px;
-      content: '';
-      height: 2px;
-      left: 0;
-      position: absolute;
-      transition: 300ms;
-      width: 0;
-    }
-    &:hover::before {
-      opacity: 1;
-      width: 100%;
-    }
-  }
-}
-
-.empty-div {
-  height: 250px;
-}
-
-.footer-logo {
-  width: 80%;
-}
-
-.footer-social-icon {
-  margin-left: 15px;
-  width: 32px;
-}
-
-.footer-social {
-  margin-bottom: unset;
-  margin-left: 15px;
-}
-
-.copyright {
-  font-size: small;
-  overflow: visible;
-  white-space: nowrap;
-}
-
 .favblank {
   align-items: center;
   display: flex;
@@ -120,24 +40,337 @@ html {
   justify-content: center;
 }
 
-.dropdown-item {
+//headings
+.heading-main {
+  color: $teal;
+  margin-bottom: 10px;
+  margin-top: 40px;
+}
+
+.heading-submain {
+  margin-top: 30px;
+}
+
+.heading-main-description {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.paragraph-text-justified {
+  margin: 30px 0;
+  text-align: justify;
+}
+
+//alignment
+.row-text {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1344px;
+  text-align: center;
+}
+
+//anchor
+.anchor-text {
+  color: $teal;
+  font-weight: 500;
+  text-decoration: underline;
+
   &:hover {
-    background-color: $green;
-    color: $white;
+    color: $green;
   }
 }
 
-.dropdown-toggle::after {
-  margin-left: 0;
-  padding-left: 0;
-  vertical-align: .5em;
+.image-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 
-.navbar-username-truncate {
-  display: inline-block;
-  max-width: 70px;
-  overflow: hidden;
-  text-overflow: ellipsis;
+//breakpoints
+@media (max-width: 768px) {
+  .image-center {
+    display: none;
+  }
+}
+
+
+//final styles
+//headings
+.main-heading {
+  color: $secondary-green;
+  margin-bottom: 10px;
+  margin-top: 40px;
+}
+
+.submain-heading {
+  margin-top: 30px;
+}
+
+.main-description {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.justified-paragraph {
+  margin: 30px 0;
+  text-align: justify;
+}
+
+//alignment
+
+.alert {
+  display: block;
+  width: 100%;
+}
+
+.center-row {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1344px;
+  text-align: center;
+}
+
+//anchor
+.anchor-text {
+  color: $secondary-green;
+  font-weight: 500;
+  text-decoration: underline;
+
+  &:hover {
+    color: $primary-green;
+  }
+}
+
+.center-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+//breakpoints
+@media (max-width: 768px) {
+  .center-image {
+    display: none;
+  }
+}
+
+//headings
+.heading-main {
+  color: $teal;
+  margin-bottom: 10px;
+  margin-top: 40px;
+}
+
+.heading-submain {
+  margin-top: 30px;
+}
+
+.heading-main-description {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.paragraph-text-justified {
+  margin: 30px 0;
+  text-align: justify;
+}
+
+//alignment
+
+.row-text {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1344px;
+  text-align: center;
+}
+
+//anchor
+.anchor-text {
+  color: $teal;
+  font-weight: 500;
+  text-decoration: underline;
+
+  &:hover {
+    color: $green;
+  }
+}
+
+//headings
+.heading-main {
+  color: $teal;
+  margin-bottom: 10px;
+  margin-top: 40px;
+}
+
+.heading-submain {
+  margin-top: 30px;
+}
+
+.heading-main-description {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.paragraph-text-justified {
+  margin: 30px 0;
+  text-align: justify;
+}
+
+//alignment
+* {
+  box-sizing: border-box;
+}
+
+.row-text {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1344px;
+  text-align: center;
+}
+
+//anchor
+.anchor-text {
+  color: $teal;
+  font-weight: 500;
+  text-decoration: underline;
+
+  &:hover {
+    color: $green;
+  }
+}
+
+//headings
+.heading-main {
+  color: $teal;
+  margin-bottom: 10px;
+  margin-top: 40px;
+}
+
+.heading-submain {
+  margin-top: 30px;
+}
+
+.heading-main-description {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.paragraph-text-justified {
+  margin: 30px 0;
+  text-align: justify;
+}
+
+//alignment
+* {
+  box-sizing: border-box;
+}
+
+.row-text {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1344px;
+  text-align: center;
+}
+
+//anchor
+.anchor-text {
+  color: $teal;
+  font-weight: 500;
+  text-decoration: underline;
+
+  &:hover {
+    color: $green;
+  }
+}
+
+//headings
+.heading-main {
+  color: $teal;
+  margin-bottom: 10px;
+  margin-top: 40px;
+}
+
+.heading-submain {
+  margin-top: 30px;
+}
+
+.heading-main-description {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.paragraph-text-justified {
+  margin: 30px 0;
+  text-align: justify;
+}
+
+//alignment
+* {
+  box-sizing: border-box;
+}
+
+.row-text {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1344px;
+  text-align: center;
+}
+
+//anchor
+.anchor-text {
+  color: $teal;
+  font-weight: 500;
+  text-decoration: underline;
+
+  &:hover {
+    color: $green;
+  }
+}
+
+//headings
+.heading-main {
+  color: $teal;
+  margin-bottom: 10px;
+  margin-top: 40px;
+}
+
+.heading-submain {
+  margin-top: 30px;
+}
+
+.heading-main-description {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.paragraph-text-justified {
+  margin: 30px 0;
+  text-align: justify;
+}
+
+//alignment
+* {
+  box-sizing: border-box;
+}
+
+.row-text {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1344px;
+  text-align: center;
+}
+
+//anchor
+.anchor-text {
+  color: $teal;
+  font-weight: 500;
+  text-decoration: underline;
+
+  &:hover {
+    color: $green;
+  }
 }
 
 //headings

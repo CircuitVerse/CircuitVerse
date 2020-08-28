@@ -1,11 +1,42 @@
 .trumbowyg-button-pane button .trumbowyg-active,
 .trumbowyg-button-pane button:not(.trumbowyg-disable):focus,
 .trumbowyg-button-pane button:not(.trumbowyg-disable):hover {
-  background-color: #56c292 !important;
   outline: 0;
 }
 
 button.trumbowyg-active {
-  background-color: inherit !important;
+  background-color: inherit;
   outline: none;
+}
+
+.trumbowyg-button-pane {
+  background-color: $card-green;
+
+  &::after {
+    color: $secondary-green;
+  }
+}
+
+.trumbowyg-box {
+  border: 1px solid $secondary-green;
+  margin-bottom: 35px;
+  margin-top: 0;
+  padding: 0;
+
+  button {
+    transition: box-shadow .2s ease-in;
+
+    &:hover {
+      background-color: $card-green;
+      box-shadow: 0 7px 7px $shadow-black;
+    }
+  }
+}
+
+.trumbowyg-editor {
+  background-color: $white;
+  border-top: 1px solid $secondary-green;
+  opacity: 1;
+  padding-left: 15px;
+  padding-top: 10px;
 }

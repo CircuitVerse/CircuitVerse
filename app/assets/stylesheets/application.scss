@@ -6,26 +6,27 @@
 @import "font-awesome";
 @import 'layout';
 @import 'components';
-@import 'signup';
 @import 'logixRelease';
-
-@import 'about';
 @import 'editor';
-@import 'groups';
-@import 'group_members';
-@import 'profile';
 @import 'home';
-@import 'contribute';
 @import 'assignments';
 @import 'assignment_submissions';
-@import 'trumbowyg/dist/ui/trumbowyg.min';
 @import 'examples';
+@import 'editor';
+@import 'simple_discussion';
+@import 'simple_discussion_overrides';
 
+@import 'navbar';
+@import 'about';
+@import 'contribute';
+@import 'teacher';
+@import 'custom_mail';
+@import 'groups';
+@import 'projects';
+@import 'users';
+@import 'footer';
 @import 'oldStyles';
 // #FIXME move these styles
-.alert {
-  width: 100%;
-}
 
 .col-centered {
   float: none;
