@@ -4,9 +4,11 @@
 @import 'bootstrap-typeahead-rails';
 @import "font-awesome-sprockets";
 @import "font-awesome";
+@import 'trumbowyg/dist/ui/trumbowyg.min';
 @import 'layout';
 @import 'components';
 @import 'logixRelease';
+@import 'search';
 @import 'editor';
 @import 'home';
 @import 'assignments';
