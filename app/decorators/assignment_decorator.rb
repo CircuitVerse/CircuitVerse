@@ -39,7 +39,7 @@ class AssignmentDecorator < SimpleDelegator
     str = ""
     str += "#{(assignment.deadline.to_i - Time.current.to_i) / 1.day} days "
     str += "#{((assignment.deadline.to_i - Time.now.to_i) / 1.hour) % 24} hours"
-    str += "#{((assignment.deadline.to_i - Time.now.to_i) / 1.minute) % 60} minutes"
+    str += " #{((assignment.deadline.to_i - Time.now.to_i) / 1.minute) % 60} minutes"
     str
   end
 end
