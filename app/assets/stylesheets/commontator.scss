@@ -55,7 +55,7 @@
 }
 
 .field {
-  border: 2px solid $teal;
+  border: 2px solid $secondary-green;
   border-radius: 0;
   padding: 5px;
 
@@ -69,7 +69,7 @@
 }
 
 .edit-action {
-  background-color: $seablue;
+  background-color: $mini-button-blue;
   border-radius: 50%;
   height: 35px;
   margin: 5px;
@@ -84,7 +84,7 @@
 }
 
 .delete-action {
-  background-color: $error-red-font;
+  background-color: $primary-red;
   border-radius: 50%;
   height: 35px;
   margin: 5px;
