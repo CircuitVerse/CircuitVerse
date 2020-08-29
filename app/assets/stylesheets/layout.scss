@@ -101,9 +101,9 @@ body {
   }
 
   .pagination {
-    overflow-x: visible;
-    max-width: none;
     display: block;
+    max-width: none;
+    overflow-x: visible;
     padding: 0;
     white-space: nowrap;
   }

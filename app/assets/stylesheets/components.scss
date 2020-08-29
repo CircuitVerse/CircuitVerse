@@ -186,12 +186,15 @@
   text-align: left;
 }
 
-.form-control:focus {
-  color: $black;
-  background-color: $white;
-  border-color: $form-input-green;
-  outline: 0;
-  box-shadow: 0 0 0 0.2rem $form-input-focus-green;
+.form-control {
+
+  &:focus {
+    background-color: $white;
+    border-color: $form-input-green;
+    box-shadow: 0 0 0 .2rem $form-input-focus-green;
+    color: $black;
+    outline: 0;
+  }
 }
 
 .form-input {
