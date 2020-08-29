@@ -1,156 +1,20 @@
-//to be removed
-.row-homepage {
-  margin-bottom: 40px;
-  margin-top: 70px;
-}
-
-.btn-homepage {
-  background-color: $green;
-  border-radius: 36px;
-  color: $white;
-  margin-left: -2px;
-  padding: 6px 19px 8px;
-  text-align: center;
-}
-
-.a-homepage {
-  color: $teal;
-  display: inline-block;
-  margin-left: 15px;
-  margin-top: 15px;
-  text-decoration: underline;
-}
-
-.a-homepage:hover {
-  color: $green;
-  text-decoration: none;
-}
-
-.btn-homepage2 {
-  border: 1.6px solid $teal;
-  border-radius: 5px;
-  box-shadow: 0 2px 7px $shadow-black;
-  margin: 10px 15px;
-
-  &:hover {
-    background-color: $teal;
-    box-shadow: 0 7px 7px $white;
-    color: $white;
-  }
-}
-
-.row-homepage-middle {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 60px;
-  text-align: center;
-}
-
-.card-homepage {
-  border: 0;
-  display: inline-block;
-  margin-bottom: 30px;
-  margin-top: 30px;
-  max-width: 350px;
-}
-
-.card-homepage-example {
-  border: 1px solid $green;
-  border-radius: 0;
-  display: inline-block;
-  margin-bottom: 30px;
-  margin-top: 30px;
-}
-
-.card-img-homepage-example {
-  max-height: 160px;
-}
-
-.homepage-example-p {
-  display: inline-block;
-  float: left;
-  font-weight: 600;
-  margin-top: 10px;
-}
-
-.homepage-example-button {
-  float: right;
-  margin-bottom: 15px;
-}
-
-.card-footer-homepage-example {
-  background-color: $white;
-}
-
-.row-featured-examples {
-  background-color: $green;
-}
-
-.btn-right {
-  float: right;
-}
-
-
-
-.button-homepage {
-  margin-bottom: 50px;
-}
-
-@media (max-width: 765px) {
-  .button-homepage {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 25px;
-  }
-
-  .row-homepage {
-    margin-top: 30px;
-  }
-
-  .btn-homepage2 {
-    margin-left: 18px;
-    margin-right: 18px;
-  }
-}
-
-@media (max-width: 1200px) and (min-width: 765px) {
-  .button-homepage {
-    margin-top: 100px;
-  }
-}
-
-@media (max-width: 350px) {
-  .a-homepage,
-  .btn-homepage {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-  }
-
-  .btn-homepage {
-    max-width: 163px;
-  }
-}
-//to be removed ends
-
 //homepage
-.homepage-container-maincontent {
+.home-main-content {
   margin-bottom: 60px;
   margin-top: 45px;
   text-align: left;
 }
 
-.homepage-image-cover {
+.home-image-cover {
   max-height: 700px;
   max-width: 100%;
 }
 
-.homepage-container-tertiary-button {
+.home-tertiary-button-container {
   margin-bottom: 50px;
 }
 
-.homepage-card-feature {
+.home-feature-card {
   border: 0;
   display: inline-block;
   margin-bottom: 15px;
@@ -162,7 +26,7 @@
   }
 }
 
-.homepage-container-fluid-greenbackground {
+.home-container-fluid {
   background-color: $card-green;
   margin-bottom: 30px;
   margin-top: 65px;
@@ -170,34 +34,34 @@
   padding-top: 20px;
 }
 
-.homepage-row-circuits {
+.home-circuit-card-row {
   margin-top: 70px;
 }
 
-.homepage-button-primary-feature {
+.homepage-primary-button-feature {
   padding: 10px 30px;
 }
 
 //breakpoints
 @media(max-width: 768px) {
-  .homepage-container-maincontent {
+  .home-main-content {
     margin-bottom: 30px;
     margin-top: 20px;
   }
 }
 
 @media(max-width: 600px) {
-  .homepage-image-cover {
+  .home-image-cover {
     display: none;
   }
 }
 
 @media(max-width: 400px) {
-  .homepage-container-tertiary-button {
+  .home-tertiary-button-container {
     text-align: center;
   }
 
-  .homepage-button-primary-simulator {
+  .home-simulator-button {
     display: block;
     margin-bottom: 15px;
     margin-left: auto;
@@ -206,11 +70,11 @@
     text-align: center;
   }
 
-  .homepage-container-simulator {
+  .home-buttons-container {
     text-align: center;
   }
 
-  .homepage-container-fluid-greenbackground {
+  .home-container-fluid {
     padding-left: 0;
     padding-right: 0;
   }

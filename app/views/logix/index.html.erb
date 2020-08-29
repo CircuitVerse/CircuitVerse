@@ -25,43 +25,43 @@
 
     <% if notice %>
     <div class="row" id='alertdiv'>
-      <div class="alert alert-success alert-dismissible container-fluid text-center">
+      <div class="alert alert-success alert-dismissible container text-center">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <%= notice %>
+        <h6><%= notice %></h6>
       </div>
     </div>
     <% end %>
     <div class="container">
-      <div class="row row-text">
+      <div class="row center-row">
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-          <div class="homepage-container-maincontent">
+          <div class="home-main-content">
             <h1>Dive into the world of Logic Circuits for free!</h1><br>
             <p>From simple gates to complex sequential circuits, plot timing diagrams, automatic circuit generation, explore standard ICs, and much more</p>
-            <div class="homepage-container-simulator justify-content-center">
-              <a class="btn button-primary homepage-button-primary-simulator" href='/simulator'>Launch Simulator</a> &nbsp;
+            <div class="home-buttons-container justify-content-center">
+              <a class="btn primary-button home-simulator-button" href='/simulator'>Launch Simulator</a> &nbsp;
               <a href="https://learn.circuitverse.org/" class="anchor-text">Learn Logic Design</a>
             </div>
           </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-          <%= image_tag "homepage/new_homepage_sketch.png", alt: "HomepageSketch", :class => "homepage-image-cover" %>
+          <%= image_tag "homepage/new_homepage_sketch.png", alt: "HomepageSketch", :class => "home-image-cover" %>
         </div>
       </div>
       <div class="row">
-        <div class="col-12 homepage-container-tertiary-button">
-          <a class="btn button-tertiary" href="/teachers">For Teachers</a>
-          <a class="btn button-tertiary" href="/contribute">For Contributors</a>
+        <div class="col-12 home-tertiary-button-container">
+          <a class="btn tertiary-button" href="/teachers">For Teachers</a>
+          <a class="btn tertiary-button" href="/contribute">For Contributors</a>
         </div>
       </div>
-      <div class="row row-text">
+      <div class="row center-row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
           <h3>Features</h3>
           <p>Design circuits quickly and easily with a modern and intuitive user interface with drag-and-drop, copy/paste, zoom and more.</p>
         </div>
       </div>
-      <div class="row row-text justify-content-center">
+      <div class="row center-row justify-content-center">
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-          <div class="card homepage-card-feature">
+          <div class="card home-feature-card">
             <%= image_tag "homepage/export-hd.png", alt: "Export HD", :class => "card-img-top" %>
             <div class="card-body">
               <h5 class="card-title">Export High-Resolution Images</h5>
@@ -70,7 +70,7 @@
           </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-          <div class="card homepage-card-feature">
+          <div class="card home-feature-card">
             <%= image_tag "homepage/combinations analysis.png", alt: "Combinational Analysis", :class => "card-img-top" %>
             <div class="card-body">
               <h5 class="card-title">Combinational Analysis</h5>
@@ -79,7 +79,7 @@
           </div>
         </div>
         <div class="col-xs-12 col-s-12 col-md-6 col-lg-4">
-          <div class="card homepage-card-feature">
+          <div class="card home-feature-card">
             <%= image_tag "homepage/embed.png", alt: "Embed", :class => "card-img-top" %>
             <div class="card-body">
               <h5 class="card-title">Embed in Blogs</h5>
@@ -88,7 +88,7 @@
           </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-          <div class="card homepage-card-feature">
+          <div class="card home-feature-card">
             <%= image_tag "homepage/sub-circuit.png", alt: "Sub Circuit", :class => "card-img-top" %>
             <div class="card-body">
               <h5 class="card-title">Use Sub circuits</h5>
@@ -97,7 +97,7 @@
           </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-          <div class="card homepage-card-feature">
+          <div class="card home-feature-card">
             <%= image_tag "homepage/multi-bit-bus.png", alt: "Multi Bit Bus", :class => "card-img-top" %>
             <div class="card-body">
               <h5 class="card-title">Multi Bit Buses and components</h5>
@@ -107,92 +107,92 @@
         </div>
       </div>
     </div>
-    <div class="container-fluid homepage-container-fluid-greenbackground">
+    <div class="container-fluid home-container-fluid">
       <div class="container">
-        <div class="row row-text">
+        <div class="row center-row">
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <h3>Editor Picks</h3>
             <p>These circuits have been hand-picked by our authors for their awesomeness</p>
           </div>
         </div>
-        <div class="row row-text justify-content-center">
-          <% @featured_projects.each do |project| %>
+        <div class="row center-row justify-content-center">
+          <% @featured_circuits.each do |circuit| %>
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
               <div class="card circuit-card">
-                <%= image_tag project.image_preview.url, alt: project.name, :class => "card-img-top circuit-card-image" %>
+                <%= image_tag circuit.image_preview.url, alt: circuit.name, :class => "card-img-top circuit-card-image" %>
                 <div class="card-footer circuit-card-footer">
                   <div class="circuit-card-name">
-                    <p><%= project.name %></p>
+                    <p><%= circuit.name %></p>
                   </div>
-                  <a class="btn button-primary circuit-card-button-primary" target="_blank" href="<%= user_project_url(project.author, project) %>">View</a>
+                  <a class="btn primary-button circuit-card-primary-button" target="_blank" href="<%= user_project_url(circuit.author, circuit) %>">View</a>
                 </div>
               </div>
             </div>
           <% end %>
         </div>
-        <div class="row row-text">
+        <div class="row center-row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-              <a class="btn button-primary homepage-button-primary-feature" href="/featured_circuits">Explore More</a>
+              <a class="btn primary-button homepage-primary-button-feature" href="/featured_circuits">Explore More</a>
             </div>
         </div>
       </div>
     </div>
     <div class="container">
-      <div class="row row-text homepage-row-circuits">
+      <div class="row center-row home-circuit-card-row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
           <h3>Featured Examples</h3>
           <p>Learn and get inspired from the best examples</p>
         </div>
       </div>
-      <div class="row row-text justify-content-center">
+      <div class="row center-row justify-content-center">
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
           <div class="card circuit-card">
-            <%= image_tag "homepage/rippleCarry.jpg", alt: "Ripple Carry", :class => "card-img-top circuit-card-image" %>
+            <%= image_tag "homepage/rippleCarry.jpg", alt: "Ripple Carry", :class => "card-img-top circuit-card-image examples-circuit-card-image" %>
             <div class="card-footer circuit-card-footer">
               <div class="circuit-card-name">
                 <p>16-bit Ripple Carry Adder</p>
               </div>
-              <a class="btn button-primary circuit-card-button-primary" target="_blank" href="https://circuitverse.org/users/3/projects/248">View</a>
+              <a class="btn primary-button circuit-card-primary-button" target="_blank" href="https://circuitverse.org/users/3/projects/248">View</a>
             </div>
           </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
           <div class="card circuit-card">
-            <%= image_tag "homepage/sap.jpg", alt: "SAP-1", :class => "card-img-top circuit-card-image" %>
+            <%= image_tag "homepage/sap.jpg", alt: "SAP-1", :class => "card-img-top circuit-card-image examples-circuit-card-image" %>
             <div class="card-footer circuit-card-footer">
               <div class="circuit-card-name">
                 <p>SAP-1</p>
               </div>
-              <a class="btn button-primary circuit-card-button-primary" target="_blank" href="https://circuitverse.org/users/3/projects/67">View</a>
+              <a class="btn primary-button circuit-card-primary-button" target="_blank" href="https://circuitverse.org/users/3/projects/67">View</a>
             </div>
           </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
           <div class="card circuit-card">
-            <%= image_tag "homepage/fullAdder.png", alt: "Full Adder", :class => "card-img-top circuit-card-image" %>
+            <%= image_tag "homepage/fullAdder.png", alt: "Full Adder", :class => "card-img-top circuit-card-image examples-circuit-card-image" %>
             <div class="card-footer circuit-card-footer">
               <div class="circuit-card-name">
                 <p>Full Adder from 2 Half Adders</p>
               </div>
-              <a class="btn button-primary circuit-card-button-primary" target="_blank" href="https://circuitverse.org/users/3/projects/247">View</a>
+              <a class="btn primary-button circuit-card-primary-button" target="_blank" href="https://circuitverse.org/users/3/projects/247">View</a>
             </div>
           </div>
         </div>
       </div>
-      <div class="row row-text">
+      <div class="row center-row">
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <a class="btn button-primary homepage-button-primary-feature" href="/examples">Explore More</a>
+            <a class="btn primary-button homepage-primary-button-feature" href="/examples">Explore More</a>
           </div>
       </div>
     </div>
     <div class="container" id="recent">
-      <div class="row row-text homepage-row-circuits">
+      <div class="row center-row home-circuit-card-row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
           <h3>Recent Circuits</h3>
           <p>Explore the latest circuits by our awesome users</p>
         </div>
       </div>
-      <div class="row row-text justify-content-center">
+      <div class="row center-row justify-content-center">
         <% @projects.each do |project| %>
           <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
             <div class="card circuit-card">
@@ -201,7 +201,7 @@
                 <div class="circuit-card-name">
                   <p><%= project.name %></p>
                 </div>
-                <a class="btn button-primary circuit-card-button-primary" target="_blank" href="<%= user_project_url(project.author, project) %>">View</a>
+                <a class="btn primary-button circuit-card-primary-button" target="_blank" href="<%= user_project_url(project.author, project) %>">View</a>
               </div>
             </div>
           </div>

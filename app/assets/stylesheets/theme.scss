@@ -1,37 +1,24 @@
 // Bootstrap theming
 // Ref: https://getbootstrap.com/docs/4.0/getting-started/theming/
 
-//colors
-$card-green: #f9fffc;
-$green: #42b983;
-$shadow-grey: #d5d5d5;
-$teal: #026e57;
-$lightgrey: #fafafa;
-$slight-gray: #707070;
-$slightblack: #fcfcfc;
-$shadow-black: #00000029;
 $black: #000000;
 $white: #fff;
-$primary: $green;
-$secondary: $card-green;
-$border-radius: .3rem;
-$font-familiy-sans-serif: 'Open Sans', 'Noto Sans';
-$input-btn-focus-width: .2rem;
-$color-hover: $green;
-$active-background: white;
-$active-border: $teal;
-$button-border-color: #2f8875;
-$link-color: #0082ff;
-$iframeborder:  rgba(0, 0, 0, .125);
-$featurepostborder: #cbcbcb;
-$blue: #009dff;
-$danger: #c21d1d;
-$green-border: #bcdbd3;
-$red: #ff5959;
-$mint-green: #71cac8;
-$pure-white: #fff;
-
-//sizes
-$small-display: 400px;
-//to be removed
-$gray-100: #f9fffc;
+$primary-green: #42b983;
+$secondary-green: #026e57;
+$primary-red: #ff5959;
+$secondary-red: #c21d1d;
+$card-green: #f9fffc;
+$shadow-black: #00000029;
+$card-grey: #fcfcfc;
+$error-red: #fae3e3;
+$navbar-dark-grey: #343a40;
+$footer-dark-grey: #1c1c1c;
+$mini-button-blue: #42b9b6;
+$form-border-grey: #f2f2f2;
+$iframe-container-grey: #707070;
+$project-card-grey: #fafafa;
+$star-yellow: #ffb60a;
+$search-yellow: #ffff00;
+$shadow-grey: #d5d5d5;
+$form-input-green: #9edcc0;
+$form-input-focus-green: rgba(66,185,131,0.25);

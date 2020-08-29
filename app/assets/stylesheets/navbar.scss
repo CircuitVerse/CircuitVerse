@@ -1,0 +1,209 @@
+.navbar {
+  background-color: $white;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.navbar-logo {
+  height: 70px;
+  padding-top: 5px;
+}
+
+.navbar-search-icon-container {
+  height: 40px;
+  position: relative;
+  width: 40px;
+}
+
+.navbar-search-icon-oncollapse {
+  display: none;
+  margin-right: 0;
+  padding-right: 0;
+  padding-top: 5px;
+  text-align: right;
+}
+
+.fa-search {
+  color: $navbar-dark-grey;
+  font-size: 20px;
+  margin-right: 12px;
+  vertical-align: middle;
+
+  &:hover {
+    color: $primary-green;
+  }
+
+  &.active {
+    color: $secondary-green;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.navbar-simulator-text {
+  border: 2px solid $primary-green;
+  color: $navbar-dark-grey;
+  font-weight: 500;
+  transition: all .3s ease-in;
+
+  &:hover {
+    background: $primary-green;
+    color: $white;
+  }
+}
+
+.navbar-dropdown-toggle-hidden {
+  .dropdown-toggle::after {
+    display: none;
+  }
+}
+
+.dropdown-toggle {
+  cursor: pointer;
+
+  &::after {
+    margin-left: 0;
+    padding-left: 0;
+    vertical-align: .5em;
+  }
+}
+
+.dropdown-item {
+  &:hover {
+    background-color: $primary-green;
+    color: $white;
+  }
+}
+
+.navbar-text {
+  color: $navbar-dark-grey;
+  font-weight: 500;
+
+  &:hover {
+    color: $primary-green;
+  }
+
+  &.active {
+    color: $secondary-green;
+  }
+
+  &:focus {
+    outline: none;
+    text-decoration: underline;
+  }
+}
+
+.navbar-search-active {
+  background-color: $card-green;
+  display: none;
+  margin-top: 0;
+  padding: 20px;
+  position: fixed;
+  top: 96px;
+  width: 100%;
+  z-index: 90;
+}
+
+#navbar-dropdown-1,
+#navbar-dropdown-2 {
+  &:hover {
+    color: $primary-green;
+  }
+
+  &[aria-expanded="true"] {
+    color: $secondary-green;
+  }
+
+  &:focus {
+    outline: none;
+    text-decoration: underline;
+  }
+}
+
+.navbar-username-truncate {
+  display: inline-block;
+  max-width: 70px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.affix {
+  box-shadow: 0 8px 6px -6px $shadow-grey;
+}
+
+.navbar-search-bar-form {
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;
+}
+
+.navbar-search-bar-input {
+  border: 1px solid $primary-green;
+  margin: 5px;
+  min-width: 150px;
+  padding: 5px;
+  width: 100%;
+}
+
+.navbar-search-bar-select {
+  background-color: $card-green;
+  border: 1px solid $primary-green;
+  cursor: pointer;
+  font-size: 18px;
+  height: 38px;
+  margin-right: 6px;
+  margin-top: 5px;
+  max-width: 90px;
+}
+
+//breakpoints
+@media (max-width: 991px) {
+  .navbar-search-icon-oncollapse {
+    display: block;
+  }
+
+  .navbar-search-icon-onexpand {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar-search-bar-form {
+    width: 90%;
+  }
+
+  .navbar-search-bar-button {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .navbar-search-bar-select {
+    width: 50px;
+  }
+}
+
+@media (max-width: 400px) {
+  .navbar-search-bar-form {
+    width: 100%;
+  }
+
+  .navbar-search-container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .navbar-search-active {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .navbar-logo {
+    height: 60px;
+    padding-top: 10px;
+  }
+}

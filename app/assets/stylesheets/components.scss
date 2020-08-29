@@ -1,35 +1,78 @@
 //buttons
-.button-primary {
-  background-color: $green;
+.primary-button {
+  background-color: $primary-green;
   border-radius: 4px;
   color: $white;
   margin: 5px;
   transition: all .3s ease 0s;
 
   &:hover {
-    background-color: $teal;
+    background-color: $secondary-green;
     box-shadow: 0 8px 15px $shadow-black;
     color: $white;
     transform: translateY(-7px);
   }
 }
 
-.button-tertiary {
-  border: 1.5px solid $teal;
+.primary-delete-button {
+  background-color: $primary-red;
+  border-radius: 4px;
+  color: $white;
+  margin: 5px;
+  transition: all .3s ease 0s;
+
+  &:hover {
+    background-color: $secondary-red;
+    box-shadow: 0 8px 15px $shadow-black;
+    color: $white;
+    transform: translateY(-7px);
+  }
+}
+
+.secondary-button {
+  background-color: $white;
+  border: 1.5px solid $secondary-green;
+  border-radius: 4px;
+  color: $black;
+  height: 30px;
+  margin: 5px;
+  padding: 0 5px 6px;
+  text-decoration: none;
+
+  img {
+    height: 20px;
+    padding-bottom: 2px;
+    padding-right: 2px;
+    width: 20px;
+  }
+}
+
+.tertiary-button {
+  border: 1.5px solid $secondary-green;
   border-radius: 4px;
   box-shadow: 0 2px 7px $shadow-black;
   margin: 10px 15px;
   transition: all .3s ease 0s;
 
   &:hover {
-    background-color: $teal;
+    background-color: $secondary-green;
     box-shadow: 0 7px 7px $white;
     color: $white;
   }
 }
 
+.mini-button {
+  border-radius: 4px;
+  color: $white;
+  height: 32px;
+  margin: 5px;
+  padding: 3px 5px;
+  text-decoration: none;
+  width: 85px;
+}
+
 //cards
-.card-small-social {
+.social-card {
   background-color: $card-green;
   box-shadow: 0 2px 7px $shadow-black;
   display: inline-block;
@@ -45,14 +88,15 @@
   }
 }
 
-.card-small-social-image {
+.social-card-image {
   float: left;
 }
 
 .circuit-card {
-  border: 1px solid $green;
+  border: 1px solid $primary-green;
   border-radius: 0;
   display: inline-block;
+  height: 250px;
   margin-bottom: 20px;
   margin-top: 20px;
   max-width: 320px;
@@ -60,8 +104,7 @@
 }
 
 .circuit-card-image {
-  height: 180px;
-  max-width: 100%;
+  max-height: 180px;
 }
 
 .circuit-card-footer {
@@ -81,26 +124,171 @@
   text-overflow: ellipsis;
 }
 
-.circuit-card-button-primary {
+.circuit-card-primary-button {
   float: right;
   margin-bottom: 15px;
 }
 
-//breakpoints
-@media (max-width:$small-display) {
-  .about-button-primary-container {
-    text-align: center;
-  }
-
-  .card-small-social {
-    width: 230px;
-  }
-
-  .card-small-social-image {
-    display: none;
-  }
-
+@media (max-width: 400px) {
   .circuit-card-name {
     max-width: 140px;
+  }
+}
+
+//modals
+.primary-modal-dialog {
+  border-radius: 4px;
+  box-shadow: none;
+  padding-right: 0;
+}
+
+.primary-modal-header {
+  background-color: $primary-green;
+  border: 1px solid $primary-green;
+  box-shadow: none;
+
+  .modal-title {
+    color: $white;
+  }
+
+  .close {
+    color: $white;
+    opacity: 1;
+  }
+}
+
+.secondary-modal-header {
+  background-color: $primary-red;
+  border: 1px solid $primary-red;
+  box-shadow: none;
+
+  .modal-title {
+    color: $white;
+  }
+
+  .close {
+    color: $white;
+    opacity: 1;
+  }
+}
+
+@media (max-width: 400px) {
+  .primary-modal-dialog {
+    max-width: 100%;
+  }
+}
+
+//forms
+.form-container {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 75%;
+  text-align: left;
+}
+
+.form-control:focus {
+  color: $black;
+  background-color: $white;
+  border-color: $form-input-green;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem $form-input-focus-green;
+}
+
+.form-input {
+  background-color: $white;
+  border: 1px solid $secondary-green;
+  border-radius: 0;
+  height: 40px;
+  max-width: 100%;
+}
+
+@media (max-width: 400px) {
+
+  .form-container {
+    max-width: 90%;
+  }
+}
+
+//errors
+.error-message {
+  background: $error-red;
+  border-radius: 4px;
+  color: $primary-red;
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  padding: 15px;
+
+  li {
+    text-align: left;
+  }
+}
+
+.alert-success {
+  margin-top: 10px;
+}
+
+//checkpoints
+.primary-checkpoint {
+  background-color: $shadow-grey;
+  bottom: 0;
+  display: inline-block;
+  height: 25px;
+  margin-top: 15px;
+  position: absolute;
+  width: 25px;
+
+  &::after {
+    content: '';
+    display: none;
+    position: absolute;
+  }
+}
+
+.primary-checkpoint-container {
+  cursor: pointer;
+  display: block;
+  font-size: 22px;
+  position: relative;
+
+  input {
+    height: 0;
+    opacity: 0;
+    position: absolute;
+    width: 0;
+  }
+
+  h6 {
+    display: inline-block;
+    margin-bottom: 0;
+    margin-right: 10px;
+  }
+
+  input:checked ~ .primary-checkpoint {
+    background-color: $primary-green;
+
+    &::after {
+      border: solid $white;
+      border-width: 0 3px 3px 0;
+      display: block;
+      height: 12px;
+      left: 9px;
+      top: 5px;
+      transform: rotate(45deg);
+      width: 8px;
+    }
+  }
+}
+
+//tags
+.search-tag {
+  background-color: $secondary-green;
+  border-radius: 4px;
+  color: $white;
+  font-weight: 500;
+  padding: 5px;
+
+  &:hover {
+    color: $white;
   }
 }

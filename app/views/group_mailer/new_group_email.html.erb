@@ -1,15 +1,7 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
-  </head>
-  <body>
-    <h1>Welcome to CircuitVerse, <%= @mentor.name %></h1>
-    <p>
-      You have successfully created a new group,
-      your group name is: <%= @group.name %>.<br>
-    </p>
-
-    <p>Have a great day!</p>
-  </body>
-</html>
+<div>
+  <h2>Welcome to CircuitVerse, <%= @mentor.name %></h2>
+  <%= image_tag "PNGs/newGroup.png", alt: "New Group", class: "mailer-group-image" %>
+  <p class="mailer-text">You have successfully created a new group, <span class="mailer-highlighted-text"><%= @group.name %></span>.</p>
+  <a href="<%= group_url(@group) %>" class="mailer-button">View Group</a>
+  <p class="mailer-text">Keep building!</p>
+</div>
