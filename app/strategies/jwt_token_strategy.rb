@@ -1,4 +1,4 @@
-class JWTTokenStrategy < Warden::Strategies::Base
+class JwtTokenStrategy < Warden::Strategies::Base
   def valid?
     token.present?
   end
