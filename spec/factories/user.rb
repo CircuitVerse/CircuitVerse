@@ -6,6 +6,6 @@ FactoryBot.define do
     password { Faker::Alphanumeric.alphanumeric number: 10 }
     name { Faker::Name.name }
     admin { false }
-    privacy_confirmation { true }
+    accepted_privacy_policy { true }
   end
 end

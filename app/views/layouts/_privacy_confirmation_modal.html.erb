@@ -3,7 +3,6 @@
     <div class="modal-content">
       <div class="modal-header primary-modal-header">
         <h4 class="modal-title">Cookies and Privacy Policy</h4>
-        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
       </div>
       <div class="modal-body">
         <p>We have made some changes to our Privacy Policy to be completely transparent about how we process users' data and give the control back to them in compliance to <a href="https://gdpr.eu/" class="anchor-text" target="_blank">EU General Data Protection Regulation (GDPR)</a>.</p>
@@ -11,7 +10,7 @@
         <%= form_with(model: resource, as: resource_name, url: registration_path(resource_name), method: :put, remote: true) do |f| %>
           <div class="form-group newproject-checkbox">
             <label class="primary-checkpoint-container projects-checkbox-label" id="label-privacy-check"><h6>I agree to the Privacy Policy and Terms of Service</h6>
-              <%= f.check_box :privacy_confirmation %>
+              <%= f.check_box :accepted_privacy_policy %>
               <div class="primary-checkpoint"></div>
             </label>
           </div>
