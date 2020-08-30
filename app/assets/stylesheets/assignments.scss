@@ -155,6 +155,10 @@ a:not([href]):not([tabindex]) {
   display: none;
 }
 
+.assignments-error {
+  color: $primary-red;
+  font-size: 15px;
+}
 //breakpoints
 @media (max-width: 400px) {
 

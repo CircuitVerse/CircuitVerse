@@ -6,7 +6,7 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
       <div class="users-form-container">
-        <h2 class="users-heading-main">Resend confirmation instructions</h2>
+        <h2 class="users-main-heading">Resend confirmation instructions</h2>
         <%= form_with(model: resource, as: resource_name, url: confirmation_path(resource_name), method: :post, local: true) do |f| %>
           <%= devise_error_messages! %>
           <div class="field form-group">

@@ -14,7 +14,8 @@ describe "Sign up", type: :system do
   it "should not sign-up when no credentials" do
     click_button "Sign up"
 
-    expect(page).to have_text("2 errors prohibited this user from being saved:")
+    expect(page).to have_text("Email can't be blank")
+    expect(page).to have_text("Password can't be blank")
   end
 
   it "should not sign-up when password is empty" do
