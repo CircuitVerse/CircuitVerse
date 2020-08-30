@@ -1,94 +1,93 @@
-/* New UI */
-// .heading-profile {
-//   margin-bottom: 40px;
-//   margin-top: 40px;
-// }
-//
-// .profile-image {
-//   border: 0px;
-//   border-radius: 50%;
-//   object-fit: cover;
-// }
-//
-// #profile-details {
-//   padding-top: 30px;
-// }
-//
-// #profile-details > p {
-//   font-size: 20px;
-// }
-//
-// .profile-background {
-//   background-color: $slightblack;
-//   margin-left: auto;
-//   margin-right: auto;
-//   max-width: 900px;
-//   padding: 10px 0 25px;
-// }
-//
-// .card-userprojects {
-//   border: 2px solid $green;
-//   border-radius: 0;
-//   margin-top: 2rem;
-// }
-//
-// .card-header-userprojects {
-//   background-color: $green;
-//   color: $white;
-// }
-//
-// .card-footer-userprojects {
-//   background-color: $white;
-//   border-top: 1.5px solid $green;
-// }
-//
-// .cardname {
-//   display: inline;
-// }
-//
-// .modal-header-userprojects {
-//   background-color: $green;
-//   color: $white;
-// }
-//
-// .modal-footer-userprojects {
-//   border: 0px;
-// }
-//
-// .close-modal {
-//   color: $white;
-//   opacity: 1;
-// }
-//
-// .cover {
-//   height: 360px;
-//   margin-top: 10px;
-//   width: 360px;
-// }
-//
-// @media screen and (max-width: 640px) {
-//   .cover {
-//     height: 280px;
-//     margin-top: 30px;
-//     width: 280px;
-//   }
-// }
-//
-// .feature-preview {
-//   border: 2px solid $green;
-//   padding: 1.25rem;
-//   border-radius: .25em;
-// }
-//
-// .btn-userprojects {
-//   background-color: $green;
-//   color: $white;
-//   margin: 2px;
-// }
-//
-// .feature-post {
-//   border: 1.5px solid $featurepostborder;
-//   margin-bottom: 10px;
-//   padding: .6rem .4rem;
-// }
-//
+//to be removed
+.heading-profile {
+  margin-bottom: 40px;
+  margin-top: 40px;
+}
+
+.profile-image {
+  border: 0px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+#profile-details {
+  padding-top: 30px;
+}
+
+#profile-details > p {
+  font-size: 20px;
+}
+
+.profile-background {
+  background-color: $slightblack;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 900px;
+  padding: 10px 0 25px;
+}
+
+.card-userprojects {
+  border: 2px solid $green;
+  border-radius: 0;
+  margin-top: 2rem;
+}
+
+.card-header-userprojects {
+  background-color: $green;
+  color: $white;
+}
+
+.card-footer-userprojects {
+  background-color: $white;
+  border-top: 1.5px solid $green;
+}
+
+.cardname {
+  display: inline;
+}
+
+.modal-header-userprojects {
+  background-color: $green;
+  color: $white;
+}
+
+.modal-footer-userprojects {
+  border: 0px;
+}
+
+.close-modal {
+  color: $white;
+  opacity: 1;
+}
+
+.cover {
+  height: 360px;
+  margin-top: 10px;
+  width: 360px;
+}
+
+@media screen and (max-width: 640px) {
+  .cover {
+    height: 280px;
+    margin-top: 30px;
+    width: 280px;
+  }
+}
+
+.feature-preview {
+  border: 2px solid $green;
+  padding: 1.25rem;
+  border-radius: .25em;
+}
+
+.btn-userprojects {
+  background-color: $green;
+  color: $white;
+  margin: 2px;
+}
+
+.feature-post {
+  border: 1.5px solid $featurepostborder;
+  margin-bottom: 10px;
+  padding: .6rem .4rem;
+}
