@@ -303,8 +303,17 @@
 <script>
   $(document).ready(function() {
     $('.groups-assignment-deadline').each(function(){
+      let date = new Date(this.innerHTML)
+      console.log(date);
       this.innerHTML = formatDate(new Date(this.innerHTML), "dddd hh:mmTT zz, dd MMM yyyy");
     });
+    // $('.groups-assignment-deadline').each(function(){
+      // let dateString = this.innerHTML;
+      // console.log(dateString);
+    //   let date = new Date(this.innerHTML);
+    //   console.log(date);
+    //   this.innerHTML = date.toString();
+    // });
     $("#deleteassignmentModal").on("show.bs.modal", function(e) {
         let group = $(e.relatedTarget).data('currentgroup');
         let assignment = $(e.relatedTarget).data('currentassignment');

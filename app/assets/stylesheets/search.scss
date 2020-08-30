@@ -116,8 +116,9 @@
 }
 
 .search-usersearch-image {
+  display: block;
   margin-bottom: 20px;
-  width: 80%;
+  width: 70%;
 }
 
 .search-username-container {
@@ -128,7 +129,7 @@
 
 .search-username {
   display: block;
-  font-size: 35px;
+  font-size: 25px;
   font-weight: 500;
 }
 
@@ -136,9 +137,13 @@
   text-align: left;
 }
 
-.search-userdetails-text {
-  font-size: 20px;
-  padding-bottom: 10px;
+.search-user-details-text {
+  font-size: 16px;
+  margin-bottom: 8px;
+
+  strong {
+    font-weight: 500;
+  }
 }
 
 .search-user-primary-button {
@@ -183,7 +188,7 @@
     }
   }
 
-  .search-userdetails-text {
+  .search-user-details-text {
     font-size: 16px;
     padding-bottom: 5px;
   }

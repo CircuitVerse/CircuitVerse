@@ -105,10 +105,12 @@
 
 .circuit-card-image {
   max-height: 180px;
+  max-width: 100%;
 }
 
 .circuit-card-footer {
   background-color: $white;
+  border-top: 1px solid $primary-green;
   padding-top: 10px;
 }
 

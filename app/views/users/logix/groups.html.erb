@@ -1,5 +1,9 @@
+<% if @user.name %>
+  <% content_for :title, @user.name + " - Groups" %>
+<% else %>
+  <% content_for :title, "Nil - Groups" %>
+<% end %>
 
-<% content_for :title, @user.name + " - Groups" %>
 
 <div class="container">
   <% if notice %>

@@ -165,4 +165,127 @@
 .no-projects-here {
   color: $primary;
 }
+//////////////
+.users-details-container {
+  border: 1px solid $form-border-grey;
+  margin-top: 20px;
+  max-width: 600px;
+  padding-bottom: 20px;
+  padding-top: 30px;
+}
+
+.users-user-name {
+  font-weight: 600;
+  padding-bottom: 5px;
+  text-align: left;
+}
+
+.users-circuits-container {
+  border: 1px solid $form-border-grey;
+  margin-top: 0;
+  // max-width: 90%;
+  padding-bottom: 20px;
+  padding-top: 30px;
+}
+
+.users-card {
+  border: 1px solid $primary-green;
+  border-radius: 0;
+  display: inline-block;
+  max-height: 370px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  max-width: 320px;
+  min-width: 260px;
+}
+
+.users-card-header {
+  background-color: $white;
+  border-bottom: 1px solid $primary-green;
+  border-radius: 0;
+  padding-top: 4px;
+}
+
+.users-card-name {
+  display: block;
+  font-size: 22px;
+  font-weight: 600;
+  max-height: 30px;
+  max-width: 290px;
+  padding-bottom: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  p {
+    margin-bottom: 0;
+  }
+}
+
+.users-tag-container {
+  display: inline-block;
+  margin-top: 0;
+}
+
+.users-tag-heading {
+  font-weight: 500;
+}
+
+.users-card-body {
+  padding: 0;
+}
+
+.users-card-footer {
+  background-color: $white;
+  border-top: 1px solid $primary-green;
+}
+
+.users-circuits-tab {
+  background-color: $form-border-grey;
+  border-radius: 0;
+  color: $black;
+  font-size: 18px;
+  padding: 7px 25px;
+  margin: 0;
+  margin-top: 20px;
+
+  &:hover {
+    color: $black;
+    text-decoration: none;
+  }
+
+  &.active {
+    background-color: $primary-green;
+    color: $white;
+
+    &:hover {
+      color: $white;
+      text-decoration: none;
+    }
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 .2rem $form-input-focus-green;
+    outline: 0;
+  }
+}
+
+#favourites-div {
+  display: none;
+}
+
+#circuits-div,
+#favourites-div {
+  width: 100%;
+}
+
+.users-favourites-tab {
+  margin-left: -5px;
+}
+
+//breakpoints
+@media (max-width: 400px) {
+  .users-card {
+    max-width: 140px;
+  }
+}
 //user profile ends

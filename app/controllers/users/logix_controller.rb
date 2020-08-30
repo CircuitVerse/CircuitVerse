@@ -8,7 +8,10 @@ class Users::LogixController < ApplicationController
   before_action :authenticate_user!, only: %i[edit update groups]
   before_action :set_user, except: [:typeahead_educational_institute]
 
-  def index; end
+  def index
+    @profile = ProfileDecorator.new(@user)
+    @projects = @user.rated_projects
+  end
 
   def favourites
     @projects = @user.rated_projects
