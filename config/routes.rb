@@ -54,9 +54,7 @@ Rails.application.routes.draw do
 
   # Logix web pages resources
   root "logix#index"
-  get  "/gettingStarted", to: "logix#gettingStarted"
   get  "/examples", to: "logix#examples"
-  get  "/features", to: "logix#features"
   get  "/tos", to: "logix#tos"
   get  "/teachers", to: "logix#teachers"
   get  "/contribute", to: "logix#contribute"

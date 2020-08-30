@@ -7,9 +7,17 @@
 
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
       <div class="users-form-container">
-        <h2 class="users-heading-main">Change your password</h2>
+        <h2 class="users-main-heading">Change your password</h2>
         <%= form_with(model: resource, as: resource_name, url: password_path(resource_name), method: :put, local: true) do |f| %>
-          <%= devise_error_messages! %>
+          <% if !resource.errors.empty? %>
+            <div class="error-message">
+              <ul>
+                <% resource.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
           <%= f.hidden_field :reset_password_token %>
           <div class="field form-group">
             <h6>

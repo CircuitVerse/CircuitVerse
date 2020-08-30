@@ -12,7 +12,6 @@
         <%= form_with(model: @collaboration, local: true) do |form| %>
         <% if @collaboration.errors.any? %>
           <div id="error-message">
-            <h2><%= pluralize(collaboration.errors.count, "error") %> prohibited this collaborator from being saved:</h2>
             <ul>
             <% @collaborator.errors.full_messages.each do |message| %>
               <li><%= message %></li>
