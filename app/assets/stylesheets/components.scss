@@ -1,244 +1,4 @@
 //buttons
-.button-primary {
-  background-color: $green;
-  border-radius: 4px;
-  color: $white;
-  margin: 5px;
-  transition: all .3s ease 0s;
-
-  &:hover {
-    background-color: $teal;
-    box-shadow: 0 8px 15px $shadow-black;
-    color: $white;
-    transform: translateY(-7px);
-  }
-}
-
-.button-secondary {
-  background-color: $white;
-  border: 1.5px solid $teal;
-  border-radius: 4px;
-  color: $black;
-  height: 30px;
-  margin: 5px;
-  padding: 0 5px 6px;
-  text-decoration: none;
-
-  img {
-    height: 20px;
-    padding-bottom: 2px;
-    padding-right: 2px;
-    width: 20px;
-  }
-}
-
-.button-mini-edit {
-  border-radius: 4px;
-  color: $white;
-  height: 32px;
-  margin: 5px;
-  padding: 3px 5px;
-  text-decoration: none;
-  width: 85px;
-}
-
-//cards
-.card-small-social {
-  background-color: $card-green;
-  box-shadow: 0 2px 7px $shadow-black;
-  display: inline-block;
-  height: 89px;
-  margin: 50px 7px 40px;
-  opacity: .89;
-  padding: 15px;
-  transition: box-shadow .2s ease-in;
-  width: 300px;
-
-  &:hover {
-    box-shadow: 0 7px 7px $shadow-black;
-  }
-}
-
-.card-small-social-image {
-  float: left;
-}
-
-.circuit-card {
-  border: 1px solid $green;
-  border-radius: 0;
-  display: inline-block;
-  margin-bottom: 20px;
-  margin-top: 20px;
-  max-width: 320px;
-  min-width: 260px;
-}
-
-.circuit-card-image {
-  max-height: 180px;
-}
-
-.circuit-card-footer {
-  background-color: $white;
-  padding-top: 10px;
-}
-
-.circuit-card-name {
-  display: inline-block;
-  float: left;
-  font-weight: 600;
-  margin-top: 10px;
-  max-height: 30px;
-  max-width: 150px;
-  overflow: hidden;
-  text-align: left;
-  text-overflow: ellipsis;
-}
-
-.circuit-card-button-primary {
-  float: right;
-  margin-bottom: 15px;
-}
-
-//checkpoints
-.checkpoint-primary {
-  background-color: $shadow-grey;
-  bottom: 0;
-  display: inline-block;
-  height: 25px;
-  margin-top: 15px;
-  position: absolute;
-  width: 25px;
-
-  &::after {
-    content: '';
-    display: none;
-    position: absolute;
-  }
-}
-
-.checkpoint-primary-container {
-  cursor: pointer;
-  display: block;
-  font-size: 22px;
-  position: relative;
-
-  input {
-    height: 0;
-    opacity: 0;
-    position: absolute;
-    width: 0;
-  }
-
-  input:checked ~ .checkpoint-primary {
-    background-color: $green;
-
-    &::after {
-      border: solid $white;
-      border-width: 0 3px 3px 0;
-      display: block;
-      height: 12px;
-      left: 9px;
-      top: 5px;
-      transform: rotate(45deg);
-      width: 8px;
-    }
-  }
-}
-
-.background-card {
-  background-color: $card-grey;
-  margin: 15px;
-  min-width: 230px;
-  padding: 15px;
-}
-
-//errors
-.error-explanation {
-  background: $error-red;
-  border-radius: 4px;
-  color: $error-red-font;
-  font-size: 18px;
-  font-weight: 500;
-  padding: 15px;
-
-  li {
-    text-align: left;
-  }
-
-  input {
-    height: 0;
-    opacity: 1;
-    position: absolute;
-    width: 0;
-  }
-}
-
-//form elements
-.form-input {
-  background-color: $white;
-  border: 1px solid $green;
-  border-radius: 0;
-  height: 40px;
-}
-
-//modals
-.custom-modal-dialog {
-  border-radius: 4px;
-  box-shadow: none;
-  padding-right: 0;
-}
-
-.custom-modal-header {
-  background-color: $green;
-  border: 1px solid $green;
-  box-shadow: none;
-  height: 65px;
-  width: 499px;
-
-  .modal-title {
-    color: $white;
-  }
-
-  .close {
-    color: $white;
-    opacity: 1;
-  }
-}
-
-//breakpoints
-@media (max-width:$small-display) {
-  .about-button-primary-container {
-    text-align: center;
-  }
-
-  .card-small-social {
-    width: 230px;
-  }
-
-  .card-small-social-image {
-    display: none;
-  }
-
-  .circuit-card-name {
-    max-width: 140px;
-  }
-}
-
-@media (max-width: 768px) {
-  .background-card {
-    margin: auto;
-  }
-}
-
-@media (max-width: 400px) {
-  .button-mini-edit {
-    margin: 2px;
-  }
-}
-
-
-//final styles
-//buttons
 .primary-button {
   background-color: $primary-green;
   border-radius: 4px;
@@ -287,6 +47,20 @@
   }
 }
 
+.tertiary-button {
+  border: 1.5px solid $secondary-green;
+  border-radius: 4px;
+  box-shadow: 0 2px 7px $shadow-black;
+  margin: 10px 15px;
+  transition: all .3s ease 0s;
+
+  &:hover {
+    background-color: $secondary-green;
+    box-shadow: 0 7px 7px $white;
+    color: $white;
+  }
+}
+
 .mini-button {
   border-radius: 4px;
   color: $white;
@@ -322,6 +96,7 @@
   border: 1px solid $primary-green;
   border-radius: 0;
   display: inline-block;
+  height: 250px;
   margin-bottom: 20px;
   margin-top: 20px;
   max-width: 320px;
@@ -358,14 +133,6 @@
   .circuit-card-name {
     max-width: 140px;
   }
-}
-
-//forms
-.form-container {
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 75%;
-  text-align: left;
 }
 
 //modals
@@ -411,15 +178,6 @@
   }
 }
 
-//form elements
-.form-input {
-  background-color: $white;
-  border: 1px solid $secondary-green;
-  border-radius: 0;
-  height: 40px;
-  max-width: 100%;
-}
-
 //forms
 .form-container {
   margin-left: auto;
@@ -428,12 +186,32 @@
   text-align: left;
 }
 
+.form-control {
+
+  &:focus {
+    background-color: $white;
+    border-color: $form-input-green;
+    box-shadow: 0 0 0 .2rem $form-input-focus-green;
+    color: $black;
+    outline: 0;
+  }
+}
+
+.form-input {
+  background-color: $white;
+  border: 1px solid $secondary-green;
+  border-radius: 0;
+  height: 40px;
+  max-width: 100%;
+}
+
 @media (max-width: 400px) {
 
   .form-container {
     max-width: 90%;
   }
 }
+
 //errors
 .error-message {
   background: $error-red;
@@ -441,6 +219,7 @@
   color: $primary-red;
   font-size: 18px;
   font-weight: 500;
+  margin-bottom: 10px;
   padding: 15px;
 
   li {

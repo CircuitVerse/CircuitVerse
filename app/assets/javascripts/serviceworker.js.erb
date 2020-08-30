@@ -13,7 +13,7 @@ function onInstall(event) {
 
         '<%= asset_path "application.scss" %>',
 
-        '<%= image_path "favicon.png" %>'
+        '<%= image_path "favicon.ico" %>'
 
       ]);
     })
@@ -46,7 +46,7 @@ self.addEventListener("push", function (event) {
   console.log("Received message: ",body);
   // Prevent notifications being collapsed
   var tag = "circuitverse"+Math.random();
-  var icon = '<%= image_path "favicon.png" %>';
+  var icon = '<%= image_path "favicon.ico" %>';
 
   event.waitUntil(
     self.registration.showNotification(title, {
