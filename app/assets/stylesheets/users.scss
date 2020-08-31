@@ -183,7 +183,6 @@
 .users-circuits-container {
   border: 1px solid $form-border-grey;
   margin-top: 0;
-  // max-width: 90%;
   padding-bottom: 20px;
   padding-top: 30px;
 }
@@ -234,6 +233,10 @@
   padding: 0;
 }
 
+.users-iframe-container {
+  border: 1px solid $secondary-green;
+  border-radius: 0;
+}
 .users-card-footer {
   background-color: $white;
   border-top: 1px solid $primary-green;
@@ -286,6 +289,11 @@
 @media (max-width: 400px) {
   .users-card {
     max-width: 140px;
+  }
+
+  .users-circuits-tab {
+    font-size: 16px;
+    padding: 4px 15px;
   }
 }
 //user profile ends

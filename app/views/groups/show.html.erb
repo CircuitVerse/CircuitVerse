@@ -64,7 +64,9 @@
             </div>
           </td>
           <td>
-            <div class="groups-assignment-deadline groups-assignment-date"><%= assignment.deadline %></div>
+            <div class="groups-assignment-deadline groups-assignment-date", data-year=<%= assignment.deadline.strftime("%Y") %> data-month=<%= assignment.deadline.strftime("%m") %> data-day=<%= assignment.deadline.strftime("%-d") %> data-hour=<%= assignment.deadline.strftime("%H") %> data-minute=<%= assignment.deadline.strftime("%M") %> data-second=<%= assignment.deadline.strftime("%S") %>>
+              <%= assignment.deadline %>
+            </div>
             <% if(assignment.deadline > Time.current) %>
               <p>
                 (<strong>Time remaining: </strong><%= AssignmentDecorator.new(assignment).time_remaining %>)
@@ -302,11 +304,18 @@
 
 <script>
   $(document).ready(function() {
-    $('.groups-assignment-deadline').each(function(){
-      let date = new Date(this.innerHTML)
-      console.log(date);
-      this.innerHTML = formatDate(new Date(this.innerHTML), "dddd hh:mmTT zz, dd MMM yyyy");
+    $('.groups-assignment-deadline').each(function() {
+      let month = $('.groups-assignment-deadline').data("month") -1;
+      let date = new Date($('.groups-assignment-deadline').data("year"), month, $('.groups-assignment-deadline').data("day"), $('.groups-assignment-deadline').data("hour"), $('.groups-assignment-deadline').data("minute"), $('.groups-assignment-deadline').data("second"), 0);
+      let offset = date.getTimezoneOffset();
+      let localTime = new Date(date.getTime() - offset * 60 * 1000);
+      this.innerHTML = localTime;
     });
+    // $('.groups-assignment-deadline').each(function(){
+    //   let date = new Date(this.innerHTML)
+    //   console.log(date);
+    //   this.innerHTML = formatDate(new Date(this.innerHTML), "dddd hh:mmTT zz, dd MMM yyyy");
+    // });
     // $('.groups-assignment-deadline').each(function(){
       // let dateString = this.innerHTML;
       // console.log(dateString);

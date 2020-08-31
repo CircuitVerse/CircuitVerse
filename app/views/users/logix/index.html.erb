@@ -58,10 +58,36 @@
   </div>
   <div class="users-circuits-container">
     <div id="circuits-div" class="row center-row">
-      <%= render partial: "dashboard" , locals: {projects: @user.projects} %>
+      <% if @user.projects.blank? %>
+      <div class="col-12">
+        <div class="search-no-results-image">
+          <%= image_tag "SVGs/noProject.svg", alt: "No result image" %>
+          <% if current_user == @user %>
+            <h6>You don't have any projects. Create one <%= link_to 'here', simulator_new_url, class: 'anchor-text' %></h6>
+          <% else %>
+            <h6><%= @user.name %> doesn't have any projects.</h6>
+          <% end %>
+        </div>
+      </div>
+      <% else %>
+        <%= render partial: "dashboard" , locals: {projects: @user.projects} %>
+      <% end %>
     </div>
     <div id="favourites-div" class="row center-row">
-      <%= render partial: "dashboard" , locals: {projects: @projects} %>
+      <% if @projects.blank? %>
+        <div class="col-12">
+          <div class="search-no-results-image">
+            <%= image_tag "SVGs/noProject.svg", alt: "No result image" %>
+            <% if current_user == @user %>
+              <h6>You don't have any favourites. Create one <%= link_to 'here', simulator_new_url, class: 'anchor-text' %></h6>
+            <% else %>
+              <h6><%= @user.name %> doesn't have any favourites.</h6>
+            <% end %>
+          </div>
+        </div>
+      <% else %>
+        <%= render partial: "dashboard" , locals: {projects: @projects} %>
+      <% end %>
     </div>
 
   </div>
