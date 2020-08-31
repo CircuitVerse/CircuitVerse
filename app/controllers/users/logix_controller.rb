@@ -27,7 +27,7 @@ class Users::LogixController < ApplicationController
 
   def update
     if @profile.update(profile_params)
-      redirect_to profile_path(current_user)
+      redirect_to user_projects_path(current_user)
     else
       render :edit
     end

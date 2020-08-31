@@ -44,7 +44,7 @@
           <p class="search-user-details-text"><strong>Educational Institution: </strong><%= @profile.educational_institute %></p>
           <p class="search-user-details-text"><strong>Country: </strong><%= @profile.country_name %></p>
           <% if policy(@user).edit? %>
-            <a class="btn primary-button" target="_blank" href="<%= profile_edit_path(current_user) %>">Edit Details</a>
+            <a class="btn primary-button" href="<%= profile_edit_path(current_user) %>">Edit Details</a>
           <% end %>
         </div>
       </div>
