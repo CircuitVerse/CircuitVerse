@@ -4,7 +4,7 @@
     <meta charset="utf-8" content="width=device-width, initial-scale=1.0">
     <title></title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/mailer.css">
+    <%= stylesheet_link_tag "/css/mailer.css" %>
   </head>
   <body>
     <div class="mailer-logo-container">
@@ -15,16 +15,16 @@
     <h2 class="mailer-social-link-text">Join Us</h2>
     <div class="mailer-social-container">
       <div class="mailer-social-link">
-        <a href="https://www.facebook.com/CircuitVerse"><%= image_tag "SVGs/facebook.svg", alt: "Facebook Logo", class: "mailer-social-image" %></a>
+        <a href="https://www.facebook.com/CircuitVerse"><%= inline_svg_tag "SVGs/facebook.svg", alt: "Facebook Logo", class: "mailer-social-image" %></a>
       </div>
       <div class="mailer-social-link">
-        <a href="https://twitter.com/CircuitVerse"><%= image_tag "PNGs/twitter.png", alt: "Twitter Logo", class: "mailer-social-image" %></a>
+        <a href="https://twitter.com/CircuitVerse"><%= inline_svg_tag "PNGs/twitter.png", alt: "Twitter Logo", class: "mailer-social-image" %></a>
       </div>
       <div class="mailer-social-link">
         <a href="https://circuitverse-team.slack.com/join/shared_invite/enQtNjc4MzcyNDE5OTA3LTdjYTM5NjFiZWZlZGI2MmU1MmYzYzczNmZlZDg5MjYxYmQ4ODRjMjQxM2UyMWI5ODUzODQzMDU2ZDEzNjI4NmE"><%= image_tag "SVGs/slack.svg", alt: "Slack Logo", class: "mailer-social-image" %></a>
       </div>
       <div class="mailer-social-link">
-        <a href="https://github.com/CircuitVerse/CircuitVerse"><%= image_tag "SVGs/github.svg", alt: "Github Logo", class: "mailer-social-image" %></a>
+        <a href="https://github.com/CircuitVerse/CircuitVerse"><%= inline_svg_tag "SVGs/github.svg", alt: "Github Logo", class: "mailer-social-image" %></a>
       </div>
     </div>
     <h6 class="mailer-copyright-text">Copyright &copy; 2020 CircuitVerse. All rights reserved. For any issues, reach out to us support@circuitverse.org</h6>
