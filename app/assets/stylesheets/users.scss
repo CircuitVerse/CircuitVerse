@@ -187,19 +187,27 @@
   padding-top: 30px;
 }
 
+.users-circuits-column {
+  padding-left: 0;
+  padding-right: 0;
+}
+
 .users-card {
   border: 1px solid $primary-green;
   border-radius: 0;
   display: inline-block;
   max-height: 370px;
-  margin-bottom: 20px;
-  margin-top: 20px;
-  max-width: 320px;
+  margin-bottom: 15px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 15px;
+  max-width: 350px;
   min-width: 260px;
+  width: 92%;
 }
 
 .users-card-header {
-  background-color: $white;
+  background-color: $card-green;
   border-bottom: 1px solid $primary-green;
   border-radius: 0;
   padding-top: 4px;
@@ -207,11 +215,11 @@
 
 .users-card-name {
   display: block;
-  font-size: 22px;
+  font-size: 18px;
   font-weight: 600;
   max-height: 30px;
-  max-width: 290px;
-  padding-bottom: 10px;
+  max-width: 340px;
+  padding-bottom: 0;
   overflow: hidden;
   text-overflow: ellipsis;
 
@@ -225,12 +233,12 @@
   margin-top: 0;
 }
 
-.users-tag-heading {
-  font-weight: 500;
-}
-
 .users-card-body {
   padding: 0;
+}
+
+.users-card-image {
+  width: 100%;
 }
 
 .users-iframe-container {
@@ -238,7 +246,7 @@
   border-radius: 0;
 }
 .users-card-footer {
-  background-color: $white;
+  background-color: $card-green;
   border-top: 1px solid $primary-green;
 }
 

@@ -11,11 +11,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <% if policy(project).user_access? %>
-          <%= link_to "Launch", '#', class: "btn primary-button", id: "project-launch-button" %>
-        <% else %>
-          <%= link_to "Fork", '#', class: "btn primary-button", id: "project-fork-button" %>
-        <% end %>
+        <%= link_to "Fork", '#', class: "btn primary-button", id: "project-fork-button" %>
         <%= link_to "More", '#', class: "btn primary-button", id: "project-more-button", target: "_blank" %>
       </div>
     </div>

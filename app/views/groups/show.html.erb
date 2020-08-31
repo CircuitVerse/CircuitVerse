@@ -56,7 +56,7 @@
       </tr>
     </thead>
     <tbody class="groups-expanded-table">
-      <% @group.assignments.includes(projects: :grade).each do |assignment| %>
+      <% @group.assignments.includes(projects: :grade).sort_by(&:deadline).each do |assignment| %>
         <tr class="groups-table-rows">
           <td>
             <div class="groups-assignment-details groups-expanded-assignment-name">
@@ -165,7 +165,7 @@
     </tbody>
 
     <tbody class="groups-collapsed-table">
-      <% @group.assignments.includes(projects: :grade).each do |assignment| %>
+      <% @group.assignments.includes(projects: :grade).sort_by(&:deadline).each do |assignment| %>
         <tr>
           <table class="groups-table-rows groups-collapsed-table">
             <tr>
@@ -307,8 +307,8 @@
 <script>
   $(document).ready(function() {
     $('.groups-assignment-deadline').each(function() {
-      let month = $('.groups-assignment-deadline').data("month") -1;
-      let date = new Date($('.groups-assignment-deadline').data("year"), month, $('.groups-assignment-deadline').data("day"), $('.groups-assignment-deadline').data("hour"), $('.groups-assignment-deadline').data("minute"), $('.groups-assignment-deadline').data("second"), 0);
+      let month = $(this).data("month") -1;
+      let date = new Date($(this).data("year"), month, $(this).data("day"), $(this).data("hour"), $(this).data("minute"), $(this).data("second"), 0);
       let offset = date.getTimezoneOffset();
       let localTime = new Date(date.getTime() - offset * 60 * 1000);
       this.innerHTML = localTime;
