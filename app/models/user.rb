@@ -32,11 +32,10 @@ class User < ApplicationRecord
 
   has_attached_file :profile_picture, styles: { medium: "205X240#", thumb: "100x100>" }, default_url: ":style/Default.jpg"
 
-  #validations for user
+  # validations for user
 
   validates_attachment_content_type :profile_picture, content_type: %r{\Aimage/.*\z}
-  validates :name, presence: true
-  validates_format_of :name, :with => /\A[^0-9`!@#\$%\^&*+_=]+\z/
+  validates :name, presence: true, format: { with: /\A[^0-9`!@#\$%\^&*+_=]+\z/ }
 
   scope :subscribed, -> { where(subscribed: true) }
 
