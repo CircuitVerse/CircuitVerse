@@ -1,6 +1,3 @@
-@import "css-vars";
-$css-vars-use-native: true;
-
 //global
 $baseDefault: #454545;
 $text-lite: #fff;
@@ -15,7 +12,6 @@ $qp-br-tl: #333333;
 $qp-br-rd: #535353;
 $qp-box-shadow-1: #3b3b3b;
 $qp-box-shadow-2: #4f4f4f;
-
 
 //tabs bar
 $bg-tabs-grey: #8b8b8b;
@@ -78,70 +74,68 @@ $text: black;
 $splitter: black;
 $output-rect: blue;
 
-@include css-vars(
-  (
-    --primary: $baseDefault,
+:root{
+  --primary: $baseDefault;
 
-    --bg-navbar: $bg-navbar,
-    --text-navbar: $text-navbar,
-    --text-navbar--alt: $text-navbar--alt,
-    --qp-br-tl: $qp-br-tl,
-    --qp-br-rd: $qp-br-rd,
+  --bg-navbar: $bg-navbar;
+  --text-navbar: $text-navbar;
+  --text-navbar--alt: $text-navbar--alt;
+  --qp-br-tl: $qp-br-tl;
+  --qp-br-rd: $qp-br-rd;
 
-    --br-circuit: $br-circuit,
-    --br-circuit-cur: $br-circuit-cur,
-    --bg-tabs: $bg-tabs-grey,
-    --bg-circuit: $bg-circuit,
+  --br-circuit: $br-circuit;
+  --br-circuit-cur: $br-circuit-cur;
+  --bg-tabs: $bg-tabs-grey;
+  --bg-circuit: $bg-circuit;
 
-    --text-lite: $text-lite,
-    --text-dark: $text-dark,
-    --text-panel: $text-panel,
-    --text-circuit: $text-circuit,
+  --text-lite: $text-lite;
+  --text-dark: $text-dark;
+  --text-panel: $text-panel;
+  --text-circuit: $text-circuit;
 
-    --context-text: $context-text,
-    --context-text-hov: $context-text-hov,
+  --context-text: $context-text;
+  --context-text-hov: $context-text-hov;
 
-    --cus-radio_label: $cus-radio_label,
+  --cus-radio_label: $cus-radio_label;
 
-    --br-secondary: $br-secondary,
+  --br-secondary: $br-secondary;
 
-    --br-primary: $borderDefault,
-    --bg-primary-moz: $bg-moz,
-    --bg-primary-chr: $bg-chr,
-    --bg-icons: $bg-icons-grey,
-    --bg-text: $bg-text-grey,
-    --bg-secondary: $bg-secondary-grey,
-    --canvas-stroke: $canvas-primary-grey,
-    --canvas-fill: $canvas-secondary-white,
-    --bg-toggle-btn-primary: $bg-toggle-btn-primary,
-    --primary-btn-hov: $bg-primary-btn-hov,
-    --btn-danger: $btn-danger-red,
-    --btn-danger-darken: $btn-danger-red-dark,
-    --disable: $disable,
-    --qp-box-shadow-1: $qp-box-shadow-1,
-    --qp-box-shadow-2: $qp-box-shadow-2,
-    --cus-btn-hov--bg: $cus-btn-hover-bg,
-    --cus-btn-hov-text: $cus-btn-hover-text,
-    --node: $node,
-    --stroke: $stroke,
-    --fill: $fill,
-    --hover-and-sel: $hover-and-sel,
-    --wire-draw: $wire-draw,
-    --wire-cnt: $wire-cnt,
-    --wire-pow: $wire-pow,
-    --wire-sel: $wire-sel,
-    --wire-lose: $wire-lose,
-    --mini-map: $mini-map,
-    --mini-map-stroke: $mini-map-stroke,
-    --input-text: $input-text,
-    --secondary-stroke: $secondary-stroke,
-    --text: $text,
-    --wire-norm: $wire-norm,
-    --node-norm: $node-norm,
-    --splitter: $splitter,
-    --output-rect: $output-rect,
-  )
-);
+  --br-primary: $borderDefault;
+  --bg-primary-moz: $bg-moz;
+  --bg-primary-chr: $bg-chr;
+  --bg-icons: $bg-icons-grey;
+  --bg-text: $bg-text-grey;
+  --bg-secondary: $bg-secondary-grey;
+  --canvas-stroke: $canvas-primary-grey;
+  --canvas-fill: $canvas-secondary-white;
+  --bg-toggle-btn-primary: $bg-toggle-btn-primary;
+  --primary-btn-hov: $bg-primary-btn-hov;
+  --btn-danger: $btn-danger-red;
+  --btn-danger-darken: $btn-danger-red-dark;
+  --disable: $disable;
+  --qp-box-shadow-1: $qp-box-shadow-1;
+  --qp-box-shadow-2: $qp-box-shadow-2;
+  --cus-btn-hov--bg: $cus-btn-hover-bg;
+  --cus-btn-hov-text: $cus-btn-hover-text;
+  --node: $node;
+  --stroke: $stroke;
+  --fill: $fill;
+  --hover-and-sel: $hover-and-sel;
+  --wire-draw: $wire-draw;
+  --wire-cnt: $wire-cnt;
+  --wire-pow: $wire-pow;
+  --wire-sel: $wire-sel;
+  --wire-lose: $wire-lose;
+  --mini-map: $mini-map;
+  --mini-map-stroke: $mini-map-stroke;
+  --input-text: $input-text;
+  --secondary-stroke: $secondary-stroke;
+  --text: $text;
+  --wire-norm: $wire-norm;
+  --node-norm: $node-norm;
+  --splitter: $splitter;
+  --output-rect: $output-rect;
+}
 
 ::-moz-selection {
   /* Code for Firefox */
