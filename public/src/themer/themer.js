@@ -2,6 +2,10 @@ import { dots } from '../canvasApi';
 import themeOptions from "./themes";
 import themeCardSvg from "./themeCardSvg";
 
+/**
+ * Extracts canvas theme colors from CSS-Variables and returns a JSON Object
+ * @returns {object}
+ */
 const getCanvasColors = () => {
   let colors = {};
   colors["hover_select"] = getComputedStyle(document.documentElement).getPropertyValue('--hover-and-sel');
@@ -27,8 +31,16 @@ const getCanvasColors = () => {
   return colors;
 }
 
+/**
+ * Common canvas theme color object, used for rendering canvas elements
+ */
 export let colors = getCanvasColors();
 
+/**
+ * Updates theme
+ * 1) Sets CSS Variables for UI elements
+ * 2) Sets color variable for Canvas elements
+ */
 function updateThemeForStyle(themeName) {
     const selectedTheme = themeOptions[themeName];
     const html = document.getElementsByTagName('html')[0];
@@ -40,7 +52,13 @@ function updateThemeForStyle(themeName) {
 
 export default updateThemeForStyle;
 
-const getSvg = (themeName) => {
+/**
+ * Theme Preview Card SVG
+ * Sets the SVG colors according to theme
+ * @param {string} themeName Name of theme
+ * @returns {SVG Text}
+ */
+const getThemeCardSvg = (themeName) => {
   const colors = themeOptions[themeName];
   let svgIcon = $(themeCardSvg);
 
@@ -63,6 +81,12 @@ const getSvg = (themeName) => {
   return svgIcon.prop('outerHTML');
 };
 
+/**
+ * Generates theme card HTML
+ * @param {string} themeName Name of theme
+ * @param {boolean} selected Flag variable for currently selected theme
+ * @return {string} Theme card html
+ */
 export const getThemeCard = (themeName, selected) => {
   let themeId = themeName.replace(' ', '');
   let selectedClass = selected ? 'selected set' : '';
@@ -70,7 +94,7 @@ export const getThemeCard = (themeName, selected) => {
   return `
             <div id="theme" class="theme ${selectedClass}">
               <div class='themeSel'></div>
-              <span>${getSvg(themeName)}</span>
+              <span>${getThemeCardSvg(themeName)}</span>
               <span id='themeNameBox' class='themeNameBox'>
                 <input type='radio' id='${themeId}' value='${themeName}' name='theme'>
                 <label for='${themeId}'>${themeName}</label>
@@ -79,6 +103,9 @@ export const getThemeCard = (themeName, selected) => {
             `
 }
 
+/**
+ * Create Color Themes Dialog
+ */
 export const colorThemes = () => {
     const selectedTheme = localStorage.getItem('theme');
     $('#colorThemesDialog').empty();
