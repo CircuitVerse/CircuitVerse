@@ -1,10 +1,8 @@
-import CircuitElement from '../circuitElement';
-import Node, { findNode } from '../node';
-import simulationArea from '../simulationArea';
-import {
-    correctWidth, lineTo, moveTo, drawCircle2, arc,
-} from '../canvasApi';
-import { changeInputSize } from '../modules';
+import CircuitElement from "../circuitElement";
+import Node, { findNode } from "../node";
+import simulationArea from "../simulationArea";
+import { correctWidth, lineTo, moveTo, drawCircle2, arc } from "../canvasApi";
+import { changeInputSize } from "../modules";
 /**
  * @class
  * NandGate
@@ -17,8 +15,17 @@ import { changeInputSize } from '../modules';
  * @param {number=} bitWidth - bit width per node.
  * @category modules
  */
+import { colors } from "../themer/themer";
+
 export default class NandGate extends CircuitElement {
-    constructor(x, y, scope = globalScope, dir = 'RIGHT', inputLength = 2, bitWidth = 1) {
+    constructor(
+        x,
+        y,
+        scope = globalScope,
+        dir = "RIGHT",
+        inputLength = 2,
+        bitWidth = 1
+    ) {
         super(x, y, scope, dir, bitWidth);
         /* this is done in this.baseSetup() now
         this.scope['NandGate'].push(this);
@@ -45,7 +52,12 @@ export default class NandGate extends CircuitElement {
                 this.inp.push(a);
             }
             for (let i = inputLength / 2; i < inputLength; i++) {
-                const a = new Node(-10, 10 * (i + 1 - inputLength / 2), 0, this);
+                const a = new Node(
+                    -10,
+                    10 * (i + 1 - inputLength / 2),
+                    0,
+                    this
+                );
                 this.inp.push(a);
             }
         }
@@ -60,8 +72,11 @@ export default class NandGate extends CircuitElement {
     // fn to create save Json Data of object
     customSave() {
         const data = {
-
-            constructorParamaters: [this.direction, this.inputSize, this.bitWidth],
+            constructorParamaters: [
+                this.direction,
+                this.inputSize,
+                this.bitWidth,
+            ],
             nodes: {
                 inp: this.inp.map(findNode),
                 output1: findNode(this.output1),
@@ -79,8 +94,10 @@ export default class NandGate extends CircuitElement {
         if (this.isResolvable() === false) {
             return;
         }
-        for (let i = 1; i < this.inputSize; i++) result &= (this.inp[i].value || 0);
-        result = ((~result >>> 0) << (32 - this.bitWidth)) >>> (32 - this.bitWidth);
+        for (let i = 1; i < this.inputSize; i++)
+            result &= this.inp[i].value || 0;
+        result =
+            ((~result >>> 0) << (32 - this.bitWidth)) >>> (32 - this.bitWidth);
         this.output1.value = result;
         simulationArea.simulationQueue.add(this.output1);
     }
@@ -93,17 +110,22 @@ export default class NandGate extends CircuitElement {
         var ctx = simulationArea.context;
         ctx.beginPath();
         ctx.lineWidth = correctWidth(3);
-        ctx.strokeStyle = 'black';
-        ctx.fillStyle = 'white';
+        ctx.strokeStyle = colors["stroke"];
+        ctx.fillStyle = colors["fill"];
         const xx = this.x;
         const yy = this.y;
         moveTo(ctx, -10, -20, xx, yy, this.direction);
         lineTo(ctx, 0, -20, xx, yy, this.direction);
-        arc(ctx, 0, 0, 20, (-Math.PI / 2), (Math.PI / 2), xx, yy, this.direction);
+        arc(ctx, 0, 0, 20, -Math.PI / 2, Math.PI / 2, xx, yy, this.direction);
         lineTo(ctx, -10, 20, xx, yy, this.direction);
         lineTo(ctx, -10, -20, xx, yy, this.direction);
         ctx.closePath();
-        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = 'rgba(255, 255, 32,0.5)';
+        if (
+            (this.hover && !simulationArea.shiftDown) ||
+            simulationArea.lastSelected === this ||
+            simulationArea.multipleObjectSelections.contains(this)
+        )
+            ctx.fillStyle = colors["hover_select"];
         ctx.fill();
         ctx.stroke();
         ctx.beginPath();
@@ -118,7 +140,8 @@ export default class NandGate extends CircuitElement {
  * @type {string}
  * @category modules
  */
-NandGate.prototype.tooltipText = 'Nand Gate ToolTip : Combination of AND and NOT gates';
+NandGate.prototype.tooltipText =
+    "Nand Gate ToolTip : Combination of AND and NOT gates";
 
 /**
  * @memberof NandGate
@@ -139,6 +162,7 @@ NandGate.prototype.changeInputSize = changeInputSize;
  * @type {string}
  * @category modules
  */
-NandGate.prototype.verilogType = 'nand';
-NandGate.prototype.helplink = 'https://docs.circuitverse.org/#/gates?id=nand-gate';
-NandGate.prototype.objectType = 'NandGate';
+NandGate.prototype.verilogType = "nand";
+NandGate.prototype.helplink =
+    "https://docs.circuitverse.org/#/gates?id=nand-gate";
+NandGate.prototype.objectType = "NandGate";

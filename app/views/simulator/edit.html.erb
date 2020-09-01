@@ -51,6 +51,7 @@
           <li><a class="dropdown-item logixButton" id="bitconverter">Hex-Bin-Dec<br>Converter</a></li>
           <li><a class="dropdown-item logixButton" id="startPlot">Start Plot</a></li>
           <li><a class="dropdown-item logixButton" id="createSaveAsImgPrompt">Download Image</a>
+          <li><a class="dropdown-item logixButton" id="colorThemes">Themes</a>
         </ul>
       </li>
       <!--      <li class="dropdown">
@@ -105,7 +106,7 @@
     <ul class="nav navbar-nav noSelect pointerCursor pull-right account-btn">
       <li class="dropdown pull-right">
         <% if user_signed_in? %>
-          <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %><span class="caret"></span></a>
+          <a href="#" class="cur-user" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %><span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href=<%= profile_path(current_user) %>>Profile</a></li>
             <li><a class="dropdown-item" href=<%= user_path(current_user) %>>My Circuits</a></li>
@@ -188,26 +189,62 @@
     </div>
     <div class="layout-title">
       <span>Title</span>
-      <button
-        type="button"
-        class="btn zoomButton-up btn-lg"
-        id="layoutTitleUp"
-      ></button>
-      <button
-        type="button"
-        class="btn zoomButton-down btn-lg"
-        id="layoutTitleDown"
-      ></button>
-      <button
-        type="button"
-        class="btn zoomButton-left btn-lg"
-        id="layoutTitleLeft"
-      ></button>
-      <button
-        type="button"
-        class="btn zoomButton-right btn-lg"
-        id="layoutTitleRight">
+      <div class="layout--btn-group">
+        <button
+          type="button"
+          class="btn zoomButton-up btn-lg"
+          id="layoutTitleUp"
+        >
+        <svg id="Group_304" data-name="Group 304" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+          <g id="Rectangle_1072" data-name="Rectangle 1072" fill="none" stroke="#f1f9ff" stroke-width="2">
+            <rect width="30" height="30" rx="10" stroke="none"/>
+            <rect x="1" y="1" width="28" height="28" rx="9" fill="none"/>
+          </g>
+          <path id="Path_36" data-name="Path 36" d="M4.7,6.1,0,1.4,1.4,0,4.7,3.3,8,0,9.4,1.4Z" transform="translate(19.4 17.755) rotate(180)" fill="#fff"/>
+        </svg>
+        
       </button>
+        <button
+          type="button"
+          class="btn zoomButton-down btn-lg"
+          id="layoutTitleDown"
+        >
+        <svg id="Group_305" data-name="Group 305" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+          <g id="Rectangle_1072" data-name="Rectangle 1072" fill="none" stroke="#f1f9ff" stroke-width="2">
+            <rect width="30" height="30" rx="10" stroke="none"/>
+            <rect x="1" y="1" width="28" height="28" rx="9" fill="none"/>
+          </g>
+          <path id="Path_36" data-name="Path 36" d="M4.7,6.1,0,1.4,1.4,0,4.7,3.3,8,0,9.4,1.4Z" transform="translate(10 11.655)" fill="#fff"/>
+        </svg>
+        
+      </button>
+        <button
+          type="button"
+          class="btn zoomButton-left btn-lg"
+          id="layoutTitleLeft"
+        >
+        <svg id="Group_306" data-name="Group 306" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+          <g id="Rectangle_1072" data-name="Rectangle 1072" fill="none" stroke="#f1f9ff" stroke-width="2">
+            <rect width="30" height="30" rx="10" stroke="none"/>
+            <rect x="1" y="1" width="28" height="28" rx="9" fill="none"/>
+          </g>
+          <path id="Path_36" data-name="Path 36" d="M4.7,6.1,0,1.4,1.4,0,4.7,3.3,8,0,9.4,1.4Z" transform="translate(18.1 9.655) rotate(90)" fill="#fff"/>
+        </svg>
+        </button>
+        <button
+          type="button"
+          class="btn zoomButton-right btn-lg"
+          id="layoutTitleRight"
+        >
+        <svg id="Group_307" data-name="Group 307" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+          <g id="Rectangle_1072" data-name="Rectangle 1072" fill="none" stroke="#f1f9ff" stroke-width="2">
+            <rect width="30" height="30" rx="10" stroke="none"/>
+            <rect x="1" y="1" width="28" height="28" rx="9" fill="none"/>
+          </g>
+          <path id="Path_36" data-name="Path 36" d="M4.7,6.1,0,1.4,1.4,0,4.7,3.3,8,0,9.4,1.4Z" transform="translate(12 19.055) rotate(-90)" fill="#fff"/>
+        </svg>  
+      </button>
+    </div>
     </div>
     <div class="layout-title--enable">
       <span>Title Enabled:</span>
@@ -310,6 +347,7 @@
   </div>
 </div>
 
+<div id="colorThemesDialog" class='customScroll colorThemesDialog' tabindex = "0" style="display: none;" title="Select Theme"></div>
 
 <div class="simulation" id="simulation">
   <div id="restrictedDiv" class="alert alert-danger display--none"></div>
@@ -519,7 +557,7 @@
   })
 </script>
 
-
+// <script src="../../../public/js/themer/themer.js"></script>
 <script>
   $(document).tooltip({
     show: null,
@@ -541,3 +579,4 @@ $('.Layout-btn').ripple({
 duration: 500
 });
 </script>
+<script src = './'>

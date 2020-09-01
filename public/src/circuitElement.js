@@ -5,6 +5,7 @@ import simulationArea from './simulationArea';
 import {
     fixDirection, fillText, correctWidth, rect2, oppositeDirection,
 } from './canvasApi';
+import { colors } from './themer/themer';
 
 /**
  * Base class for circuit elements.
@@ -33,7 +34,7 @@ export default class CircuitElement {
 
         this.oldx = x;
         this.oldy = y;
-        
+
         // The following attributes help in setting the touch area bound. They are the distances from the center.
         // Note they are all positive distances from center. They will automatically be rotated when direction is changed.
         // To stop the rotation when direction is changed, check overrideDirectionRotation attribute.
@@ -95,7 +96,6 @@ export default class CircuitElement {
      * adds the element to scopeList
      */
     baseSetup() {
-        console.log(this.objectType);
         this.scope[this.objectType].push(this);
     }
 
@@ -374,20 +374,20 @@ export default class CircuitElement {
      * NOT OVERRIDABLE
      */
     draw() {
+        //        
         var ctx = simulationArea.context;
         this.checkHover();
-
 
         if (this.x * this.scope.scale + this.scope.ox < -this.rightDimensionX * this.scope.scale - 0 || this.x * this.scope.scale + this.scope.ox > width + this.leftDimensionX * this.scope.scale + 0 || this.y * this.scope.scale + this.scope.oy < -this.downDimensionY * this.scope.scale - 0 || this.y * this.scope.scale + this.scope.oy > height + 0 + this.upDimensionY * this.scope.scale) return;
 
         // Draws rectangle and highlights
         if (this.rectangleObject) {
-            ctx.strokeStyle = 'black';
-            ctx.fillStyle = 'white';
+            ctx.strokeStyle = colors['stroke'];
+            ctx.fillStyle = colors['fill'];
             ctx.lineWidth = correctWidth(3);
             ctx.beginPath();
             rect2(ctx, -this.leftDimensionX, -this.upDimensionY, this.leftDimensionX + this.rightDimensionX, this.upDimensionY + this.downDimensionY, this.x, this.y, [this.direction, 'RIGHT'][+this.directionFixed]);
-            if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = 'rgba(255, 255, 32,0.8)';
+            if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = colors["hover_select"];
             ctx.fill();
             ctx.stroke();
         }
@@ -416,25 +416,25 @@ export default class CircuitElement {
             if (this.labelDirection === 'LEFT') {
                 ctx.beginPath();
                 ctx.textAlign = 'right';
-                ctx.fillStyle = 'black';
+                ctx.fillStyle = colors['text'];
                 fillText(ctx, this.label, this.x - lX - 10, this.y + 5, 14);
                 ctx.fill();
             } else if (this.labelDirection === 'RIGHT') {
                 ctx.beginPath();
                 ctx.textAlign = 'left';
-                ctx.fillStyle = 'black';
+                ctx.fillStyle = colors['text'];
                 fillText(ctx, this.label, this.x + rX + 10, this.y + 5, 14);
                 ctx.fill();
             } else if (this.labelDirection === 'UP') {
                 ctx.beginPath();
                 ctx.textAlign = 'center';
-                ctx.fillStyle = 'black';
+                ctx.fillStyle = colors['text'];
                 fillText(ctx, this.label, this.x, this.y + 5 - uY - 10, 14);
                 ctx.fill();
             } else if (this.labelDirection === 'DOWN') {
                 ctx.beginPath();
                 ctx.textAlign = 'center';
-                ctx.fillStyle = 'black';
+                ctx.fillStyle = colors['text'];
                 fillText(ctx, this.label, this.x, this.y + 5 + dY + 10, 14);
                 ctx.fill();
             }

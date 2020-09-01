@@ -1,10 +1,8 @@
-import CircuitElement from '../circuitElement';
-import Node, { findNode } from '../node';
-import simulationArea from '../simulationArea';
-import {
-    correctWidth, bezierCurveTo, moveTo, arc2,
-} from '../canvasApi';
-import { changeInputSize } from '../modules';
+import CircuitElement from "../circuitElement";
+import Node, { findNode } from "../node";
+import simulationArea from "../simulationArea";
+import { correctWidth, bezierCurveTo, moveTo, arc2 } from "../canvasApi";
+import { changeInputSize } from "../modules";
 /**
  * @class
  * XorGate
@@ -17,8 +15,17 @@ import { changeInputSize } from '../modules';
  * @param {number=} bitWidth - bit width per node.
  * @category modules
  */
+import { colors } from "../themer/themer";
+
 export default class XorGate extends CircuitElement {
-    constructor(x, y, scope = globalScope, dir = 'RIGHT', inputs = 2, bitWidth = 1) {
+    constructor(
+        x,
+        y,
+        scope = globalScope,
+        dir = "RIGHT",
+        inputs = 2,
+        bitWidth = 1
+    ) {
         super(x, y, scope, dir, bitWidth);
         /* this is done in this.baseSetup() now
         this.scope['XorGate'].push(this);
@@ -61,7 +68,11 @@ export default class XorGate extends CircuitElement {
     customSave() {
         // //console.log(this.scope.allNodes);
         const data = {
-            constructorParamaters: [this.direction, this.inputSize, this.bitWidth],
+            constructorParamaters: [
+                this.direction,
+                this.inputSize,
+                this.bitWidth,
+            ],
             nodes: {
                 inp: this.inp.map(findNode),
                 output1: findNode(this.output1),
@@ -79,7 +90,8 @@ export default class XorGate extends CircuitElement {
         if (this.isResolvable() === false) {
             return;
         }
-        for (let i = 1; i < this.inputSize; i++) result ^= (this.inp[i].value || 0);
+        for (let i = 1; i < this.inputSize; i++)
+            result ^= this.inp[i].value || 0;
 
         this.output1.value = result;
         simulationArea.simulationQueue.add(this.output1);
@@ -91,24 +103,49 @@ export default class XorGate extends CircuitElement {
      */
     customDraw() {
         var ctx = simulationArea.context;
-        ctx.strokeStyle = ('rgba(0,0,0,1)');
+        ctx.strokeStyle = colors["stroke"];
         ctx.lineWidth = correctWidth(3);
 
         const xx = this.x;
         const yy = this.y;
         ctx.beginPath();
-        ctx.fillStyle = 'white';
+        ctx.fillStyle = colors["fill"];
         moveTo(ctx, -10, -20, xx, yy, this.direction, true);
         bezierCurveTo(0, -20, +15, -10, 20, 0, xx, yy, this.direction);
-        bezierCurveTo(0 + 15, 0 + 10, 0, 0 + 20, -10, +20, xx, yy, this.direction);
+        bezierCurveTo(
+            0 + 15,
+            0 + 10,
+            0,
+            0 + 20,
+            -10,
+            +20,
+            xx,
+            yy,
+            this.direction
+        );
         bezierCurveTo(0, 0, 0, 0, -10, -20, xx, yy, this.direction);
         // arc(ctx, 0, 0, -20, (-Math.PI / 2), (Math.PI / 2), xx, yy, this.direction);
         ctx.closePath();
-        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = 'rgba(255, 255, 32,0.8)';
+        if (
+            (this.hover && !simulationArea.shiftDown) ||
+            simulationArea.lastSelected === this ||
+            simulationArea.multipleObjectSelections.contains(this)
+        )
+            ctx.fillStyle = colors["hover_select"];
         ctx.fill();
         ctx.stroke();
         ctx.beginPath();
-        arc2(ctx, -35, 0, 25, 1.70 * (Math.PI), 0.30 * (Math.PI), xx, yy, this.direction);
+        arc2(
+            ctx,
+            -35,
+            0,
+            25,
+            1.7 * Math.PI,
+            0.3 * Math.PI,
+            xx,
+            yy,
+            this.direction
+        );
         ctx.stroke();
     }
 }
@@ -119,7 +156,8 @@ export default class XorGate extends CircuitElement {
  * @type {string}
  * @category modules
  */
-XorGate.prototype.tooltipText = 'Xor Gate Tooltip : Implements an exclusive OR.';
+XorGate.prototype.tooltipText =
+    "Xor Gate Tooltip : Implements an exclusive OR.";
 
 /**
  * @memberof XorGate
@@ -140,6 +178,7 @@ XorGate.prototype.changeInputSize = changeInputSize;
  * @type {string}
  * @category modules
  */
-XorGate.prototype.verilogType = 'xor';
-XorGate.prototype.helplink = 'https://docs.circuitverse.org/#/gates?id=xor-gate';
-XorGate.prototype.objectType = 'XorGate';
+XorGate.prototype.verilogType = "xor";
+XorGate.prototype.helplink =
+    "https://docs.circuitverse.org/#/gates?id=xor-gate";
+XorGate.prototype.objectType = "XorGate";

@@ -14,6 +14,10 @@ import { newCircuit, circuitProperty } from './circuit';
 import modules from './modules';
 import { updateRestrictedElementsInScope } from './restrictedElementDiv';
 import { paste } from './events';
+import updateTheme from "./themer/themer";
+
+
+
 
 
 export const uxvar = {
@@ -308,10 +312,9 @@ export function showProperties(obj) {
                 circuitProperty[this.name](this.checked); 
             }
     });
-
-    $(function(){
+    $(function () {
         $("input[type='number']").inputSpinner();
-      });
+    });
 }
 
 /**
@@ -414,3 +417,5 @@ $('#octalInput').on('keyup', () => {
     var x = parseInt($('#octalInput').val(), 8);
     setBaseValues(x);
 });
+
+

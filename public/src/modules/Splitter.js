@@ -4,6 +4,8 @@ import simulationArea from '../simulationArea';
 import {
     correctWidth, lineTo, moveTo, fillText2,
 } from '../canvasApi';
+import { colors } from '../themer/themer';
+
 
 function extractBits(num, start, end) {
     return (num << (32 - end)) >>> (32 - (end - start + 1));
@@ -188,7 +190,8 @@ export default class Splitter extends CircuitElement {
      */
     customDraw() {
         var ctx = simulationArea.context;
-        ctx.strokeStyle = ['black', 'brown'][((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) + 0];
+        //        
+        ctx.strokeStyle = [colors['splitter'], 'brown'][((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) + 0];
         ctx.lineWidth = correctWidth(3);
         const xx = this.x;
         const yy = this.y;
@@ -203,7 +206,7 @@ export default class Splitter extends CircuitElement {
         }
         ctx.stroke();
         ctx.beginPath();
-        ctx.fillStyle = 'black';
+        ctx.fillStyle = colors['text'];
         for (let i = this.splitCount - 1; i >= 0; i--) {
             fillText2(ctx, `${bitCount}:${bitCount + this.bitWidthSplit[this.splitCount - i - 1]}`, 12, -20 * i + this.yOffset + 10, xx, yy, this.direction);
             bitCount += this.bitWidthSplit[this.splitCount - i - 1];
