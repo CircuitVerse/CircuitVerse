@@ -21,7 +21,10 @@
         <div class="assignments-data">
           <p><strong>Name: </strong><%= @assignment.name %></p>
           <p><strong>Group: </strong><%= @assignment.group.name %></p>
-          <p><strong>Deadline: </strong><span class="assignments-deadline" data-year=<%= @assignment.deadline.strftime("%Y") %> data-month=<%= @assignment.deadline.strftime("%m") %> data-day=<%= @assignment.deadline.strftime("%-d") %> data-hour=<%= @assignment.deadline.strftime("%H") %> data-minute=<%= @assignment.deadline.strftime("%M") %> data-second=<%= @assignment.deadline.strftime("%S") %>><%= @assignment.deadline %></span></p>
+          <p><strong>Deadline: </strong><span class="assignments-deadline" data-year=<%= deadline_year(@assignment) %>
+            data-month=<%= deadline_month(@assignment) %> data-day=<%= deadline_day(@assignment) %>
+            data-hour=<%= deadline_hour(@assignment) %> data-minute=<%= deadline_minute(@assignment) %>
+            data-second=<%= deadline_second(@assignment) %>><%= @assignment.deadline %></span></p>
           <% if(@assignment.deadline > Time.now) %>
             <p><strong>Time Remaining: </strong><%= AssignmentDecorator.new(@assignment).time_remaining %></p>
           <% end %>

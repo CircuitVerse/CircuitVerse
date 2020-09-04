@@ -65,6 +65,7 @@ Rails.application.routes.draw do
   notify_to :users, controller: "users/notifications"
 
   scope "/users" do
+    get "/:id/profile", to: redirect('/users/%{id}')
     get "/:id/profile/edit", to: "users/logix#edit", as: "profile_edit"
     patch "/:id/update", to: "users/logix#update", as: "profile_update"
     get "/:id/groups", to: "users/logix#groups", as: "user_groups"

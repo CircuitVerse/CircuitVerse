@@ -23,6 +23,6 @@ class ProfileDecorator < SimpleDelegator
   end
 
   def total_circuits
-    profile.projects.count.zero? ? "No circuits" : profile.projects.count
+    profile.projects.exists? ?  profile.projects.count : "No circuits"
   end
 end

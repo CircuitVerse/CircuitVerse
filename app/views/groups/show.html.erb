@@ -56,7 +56,7 @@
       </tr>
     </thead>
     <tbody class="groups-expanded-table">
-      <% @group.assignments.includes(projects: :grade).sort_by(&:deadline).each do |assignment| %>
+      <% @group.assignments.includes(projects: :grade).each do |assignment| %>
         <tr class="groups-table-rows">
           <td>
             <div class="groups-assignment-details groups-expanded-assignment-name">
@@ -64,7 +64,10 @@
             </div>
           </td>
           <td>
-            <div class="groups-assignment-deadline groups-assignment-date" data-year=<%= assignment.deadline.strftime("%Y") %> data-month=<%= assignment.deadline.strftime("%m") %> data-day=<%= assignment.deadline.strftime("%-d") %> data-hour=<%= assignment.deadline.strftime("%H") %> data-minute=<%= assignment.deadline.strftime("%M") %> data-second=<%= assignment.deadline.strftime("%S") %>>
+            <div class="groups-assignment-deadline groups-assignment-date" data-year=<%= deadline_year(assignment) %>
+              data-month=<%= deadline_month(assignment) %> data-day=<%= deadline_day(assignment) %>
+              data-hour=<%= deadline_hour(assignment) %> data-minute=<%= deadline_minute(assignment) %>
+              data-second=<%= deadline_second(assignment) %>>
               <%= assignment.deadline %>
             </div>
             <% if(assignment.deadline > Time.current) %>
@@ -165,7 +168,7 @@
     </tbody>
 
     <tbody class="groups-collapsed-table">
-      <% @group.assignments.includes(projects: :grade).sort_by(&:deadline).each do |assignment| %>
+      <% @group.assignments.includes(projects: :grade).each do |assignment| %>
         <tr>
           <table class="groups-table-rows groups-collapsed-table">
             <tr>
@@ -180,7 +183,10 @@
             <tr>
               <th class="groups-collapsed-table-head">Deadline</th>
               <td>
-                <div class="groups-assignment-deadline" data-year=<%= assignment.deadline.strftime("%Y") %> data-month=<%= assignment.deadline.strftime("%m") %> data-day=<%= assignment.deadline.strftime("%-d") %> data-hour=<%= assignment.deadline.strftime("%H") %> data-minute=<%= assignment.deadline.strftime("%M") %> data-second=<%= assignment.deadline.strftime("%S") %>>
+                <div class="groups-assignment-deadline" data-year=<%= deadline_year(assignment) %>
+                  data-month=<%= deadline_month(assignment) %> data-day=<%= deadline_day(assignment) %>
+                  data-hour=<%= deadline_hour(assignment) %> data-minute=<%= deadline_minute(assignment) %>
+                  data-second=<%= deadline_second(assignment) %>>
                   <%= assignment.deadline %>
                 </div>
                 <% if(assignment.deadline > Time.current) %>
