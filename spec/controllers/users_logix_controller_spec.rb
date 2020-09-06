@@ -11,6 +11,12 @@ describe Users::LogixController, type: :request do
     get user_projects_path(id: @user.id)
     expect(response.status).to eq(200)
   end
+  it "should get user profile" do
+    get profile_path(id: @user.id)
+    expect(response).to redirect_to(user_projects_path(id: @user.id))
+    expect(response.status).to eq(200)
+  end
+
   describe "#groups" do
     before do
       sign_out @user
