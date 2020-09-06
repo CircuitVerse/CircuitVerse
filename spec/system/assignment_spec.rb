@@ -92,7 +92,7 @@ describe "Assignments", type: :system do
   def check_show_page(name, deadline, description, restricted_elements)
     expect(page).to have_text(name)
     expect(page).to have_text(description)
-    expect(page).to have_text(deadline.strftime("%d %b %Y"))
+    expect(page).to have_text(deadline.strftime("%a %b %d %Y"))
     expect(page).to have_text(restricted_elements)
   end
 end

@@ -88,8 +88,20 @@ body {
 //pagination
 .page-link {
   color: $secondary-green;
+
+  &:hover {
+    color: $primary-green;
+  }
 }
 
+.page-item {
+  &.active {
+    .page-link {
+      background-color: $primary-green;
+      border-color: $primary-green;
+    }
+  }
+}
 .pagination .page-link {
   white-space: nowrap;
 }

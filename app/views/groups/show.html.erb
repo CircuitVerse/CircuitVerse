@@ -64,7 +64,12 @@
             </div>
           </td>
           <td>
-            <div class="groups-assignment-deadline groups-assignment-date"><%= assignment.deadline %></div>
+            <div class="groups-assignment-deadline groups-assignment-date" data-year=<%= deadline_year(assignment) %>
+              data-month=<%= deadline_month(assignment) %> data-day=<%= deadline_day(assignment) %>
+              data-hour=<%= deadline_hour(assignment) %> data-minute=<%= deadline_minute(assignment) %>
+              data-second=<%= deadline_second(assignment) %>>
+              <%= assignment.deadline %>
+            </div>
             <% if(assignment.deadline > Time.current) %>
               <p>
                 (<strong>Time remaining: </strong><%= AssignmentDecorator.new(assignment).time_remaining %>)
@@ -178,7 +183,12 @@
             <tr>
               <th class="groups-collapsed-table-head">Deadline</th>
               <td>
-                <div class="groups-assignment-deadline"><%= assignment.deadline %></div>
+                <div class="groups-assignment-deadline" data-year=<%= deadline_year(assignment) %>
+                  data-month=<%= deadline_month(assignment) %> data-day=<%= deadline_day(assignment) %>
+                  data-hour=<%= deadline_hour(assignment) %> data-minute=<%= deadline_minute(assignment) %>
+                  data-second=<%= deadline_second(assignment) %>>
+                  <%= assignment.deadline %>
+                </div>
                 <% if(assignment.deadline > Time.current) %>
                   <p>(<strong>Time remaining: </strong><%= AssignmentDecorator.new(assignment).time_remaining %>)</p>
                 <% end %>
@@ -302,8 +312,12 @@
 
 <script>
   $(document).ready(function() {
-    $('.groups-assignment-deadline').each(function(){
-      this.innerHTML = formatDate(new Date(this.innerHTML), "dddd hh:mmTT zz, dd MMM yyyy");
+    $('.groups-assignment-deadline').each(function() {
+      let month = $(this).data("month") -1;
+      let date = new Date($(this).data("year"), month, $(this).data("day"), $(this).data("hour"), $(this).data("minute"), $(this).data("second"), 0);
+      let offset = date.getTimezoneOffset();
+      let localTime = new Date(date.getTime() - offset * 60 * 1000);
+      this.innerHTML = localTime;
     });
     $("#deleteassignmentModal").on("show.bs.modal", function(e) {
         let group = $(e.relatedTarget).data('currentgroup');

@@ -25,12 +25,19 @@
   padding: 20px 8px;
 }
 
+.search-tag-search-container {
+  border: 1px solid $form-border-grey;
+  border-radius: 0;
+  margin-top: 20px;
+  padding: 20px 8px;
+}
+
 .search-image {
   margin-bottom: 10px;
   width: 100%;
 }
 
-.searchpage-view-count-container {
+.search-view-count-container {
   color: $black;
   display: block;
   font-size: 14px;
@@ -102,6 +109,48 @@
   display: block;
 }
 
+
+.search-user-container {
+  padding-top: 20px;
+  width: 70%;
+}
+
+.search-usersearch-image {
+  display: block;
+  margin-bottom: 20px;
+  width: 70%;
+}
+
+.search-username-container {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.search-username {
+  display: block;
+  font-size: 25px;
+  font-weight: 500;
+}
+
+.search-userdetails-container {
+  text-align: left;
+}
+
+.search-user-details-text {
+  font-size: 16px;
+  margin-bottom: 8px;
+
+  strong {
+    font-weight: 500;
+  }
+}
+
+.search-user-primary-button {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
 //breakpoints
 @media (max-width: 768px) {
 
@@ -117,7 +166,7 @@
     margin-left: 0;
   }
 
-  .searchpage-no-results-image {
+  .search-no-results-image {
 
     img {
       max-width: 60%;
@@ -132,10 +181,20 @@
 }
 
 @media (max-width: 400px) {
-  .searchpage-no-results-image {
+  .search-no-results-image {
 
     img {
       max-width: 80%;
     }
+  }
+
+  .search-user-details-text {
+    font-size: 16px;
+    padding-bottom: 5px;
+  }
+
+  .search-user-container {
+    padding-top: 10px;
+    width: 90%;
   }
 }
