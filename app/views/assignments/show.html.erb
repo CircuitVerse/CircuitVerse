@@ -21,7 +21,10 @@
         <div class="assignments-data">
           <p><strong>Name: </strong><%= @assignment.name %></p>
           <p><strong>Group: </strong><%= @assignment.group.name %></p>
-          <p><strong>Deadline: </strong><span class="assignments-deadline"><%= @assignment.deadline %></span></p>
+          <p><strong>Deadline: </strong><span class="assignments-deadline" data-year=<%= deadline_year(@assignment) %>
+            data-month=<%= deadline_month(@assignment) %> data-day=<%= deadline_day(@assignment) %>
+            data-hour=<%= deadline_hour(@assignment) %> data-minute=<%= deadline_minute(@assignment) %>
+            data-second=<%= deadline_second(@assignment) %>><%= @assignment.deadline %></span></p>
           <% if(@assignment.deadline > Time.now) %>
             <p><strong>Time Remaining: </strong><%= AssignmentDecorator.new(@assignment).time_remaining %></p>
           <% end %>
@@ -156,7 +159,11 @@
 <script type="text/javascript">
   $(document).ready(function() {
     $('.assignments-deadline').each(function(){
-      this.innerHTML = formatDate(new Date(this.innerHTML), "dddd hh:mmTT zz, dd MMM yyyy");
+      let month = $('.assignments-deadline').data("month") -1;
+      let date = new Date($('.assignments-deadline').data("year"), month, $('.assignments-deadline').data("day"), $('.assignments-deadline').data("hour"), $('.assignments-deadline').data("minute"), $('.assignments-deadline').data("second"), 0);
+      let offset = date.getTimezoneOffset();
+      let localTime = new Date(date.getTime() - offset * 60 * 1000);
+      this.innerHTML = localTime;
     });
   });
 </script>

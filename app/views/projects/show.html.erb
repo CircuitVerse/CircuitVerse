@@ -29,10 +29,8 @@
   <div class="row center-row">
     <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 ">
       <div class="projects-iframe-container">
-        <div class=" projects-iframe">
-          <div class="embed-responsive embed-responsive-4by3">
-            <iframe src=<%= simulator_path(@project) %> id="view" webkitAllowFullScreen mozAllowFullScreen allowFullScreen scrolling="no"></iframe>
-          </div>
+        <div class="embed-responsive embed-responsive-4by3">
+          <iframe src=<%= simulator_path(@project) %> id="view" webkitAllowFullScreen mozAllowFullScreen allowFullScreen scrolling="no"></iframe>
         </div>
       </div>
     </div>
@@ -88,14 +86,14 @@
               <% if policy(@project).user_access? %>
                 <a href="<%= simulator_edit_path(@project) %>" class="btn primary-button projects-primary-button" target="_blank">Launch simulator</a>
               <% else %>
-                <%= link_to create_fork_project_path(@project), class: "btn primary-button projects-primary-button" do %>
-                  <%= image_tag("SVGs/forkProject.svg", alt: "Fork Project") %>
-                  <span>Fork</span>
-                <% end %>
                 <a class="btn primary-button projects-primary-button projects-others-embed-button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" onclick="embedOther()">
                   <i class="fas fa-code"></i>
                   <span>Embed</span>
                 </a>
+              <% end %>
+              <%= link_to create_fork_project_path(@project), class: "btn primary-button projects-primary-button" do %>
+                <%= image_tag("SVGs/forkProject.svg", alt: "Fork Project") %>
+                <span>Fork</span>
               <% end %>
               <% if @project.stars.exists?(user_id: current_user.id) %>
                 <i id="toggleStarButton" class="fas fa-star btn primary-button projects-primary-button projects-button-star-icon" aria-hidden="true" onclick="toggleStar()"></i>
