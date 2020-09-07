@@ -8,6 +8,7 @@
 @import "./5-layout/simulator.scss";
 @import "./2-basics/base.scss";
 @import "./2-basics/reset.scss";
+@import "./shortcut.panel.css";
 @import "./plugin-stylesheets/simple-button-radios.css";
 @import "./plugin-stylesheets/checkBo.min.css";
 @import "./plugin-stylesheets/jquery-pseudo-ripple.css";

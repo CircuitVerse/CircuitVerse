@@ -29,29 +29,30 @@
       <li class="dropdown">
         <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Project<span></span></a>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item logixButton" id="newProject">New Project</a></li>
-          <li><a class="dropdown-item logixButton" id="clearProject">Clear Project</a></li>
-          <li><a class="dropdown-item logixButton" id="save">Save Online</a></li>
-          <li><a class="dropdown-item logixButton" id="saveOffline">Save Offline</a></li>
-          <li><a class="dropdown-item logixButton" id="createOpenLocalPrompt">Open Offline</a></li>
-          <li><a class="dropdown-item logixButton" id="recoverProject">Recover Project</a></li>
+          <li><a class="dropdown-item text-left pl-1 logixButton" id="newProject">New Project</a></li>
+          <li><a class="dropdown-item text-left pl-1 logixButton" id="clearProject">Clear Project</a></li>
+          <li><a class="dropdown-item text-left pl-1 logixButton" id="save">Save Online</a></li>
+          <li><a class="dropdown-item text-left pl-1 logixButton" id="saveOffline">Save Offline</a></li>
+          <li><a class="dropdown-item text-left pl-1 logixButton" id="createOpenLocalPrompt">Open Offline</a></li>
+          <li><a class="dropdown-item text-left pl-1 logixButton" id="recoverProject">Recover Project</a></li>
         </ul>
       </li>
       <li class="dropdown">
         <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Circuit<span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item logixButton" id="newCircuit">New Circuit +</a></li>
-          <li><a class="dropdown-item logixButton" id="createSubCircuitPrompt">Insert SubCircuit</a></li>
+          <li><a class="dropdown-item text-left logixButton pl-1" id="newCircuit">New Circuit +</a></li>
+          <li><a class="dropdown-item logixButton text-left pl-1" id="createSubCircuitPrompt">Insert SubCircuit</a></li>
         </ul>
       </li>
       <li class="dropdown">
         <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tools<span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item logixButton" id="createCombinationalAnalysisPrompt">Combinational<br>Analysis</a></li>
-          <li><a class="dropdown-item logixButton" id="bitconverter">Hex-Bin-Dec<br>Converter</a></li>
-          <li><a class="dropdown-item logixButton" id="startPlot">Start Plot</a></li>
-          <li><a class="dropdown-item logixButton" id="createSaveAsImgPrompt">Download Image</a>
-          <li><a class="dropdown-item logixButton" id="colorThemes">Themes</a>
+          <li><a class="dropdown-item text-left pl-1 logixButton" id="createCombinationalAnalysisPrompt">Combinational<br>Analysis</a></li>
+          <li><a class="dropdown-item text-left pl-1 logixButton" id="bitconverter">Hex-Bin-Dec<br>Converter</a></li>
+          <li><a class="dropdown-item text-left pl-1 logixButton" id="startPlot">Start Plot</a></li>
+          <li><a class="dropdown-item text-left pl-1 logixButton" id="createSaveAsImgPrompt">Download Image</a>
+          <li><a class="dropdown-item text-left pl-1 logixButton" id="colorThemes">Themes</a>
+          <li><a class="dropdown-item text-left pl-1" id="customShortcut">Custom Shortcut</a></li>
         </ul>
       </li>
       <!--      <li class="dropdown">
@@ -135,6 +136,8 @@
   <div id="moduleProperty-title" class="noSelect">Properties</div>
   <div id="moduleProperty-inner"></div>
 </div>
+
+<div id="customShortcutDialog" title="Keybinding Preference"></div>
 
 <div id="layoutDialog" style="display: none;" class="">
   <div class="">
@@ -307,10 +310,10 @@
       style="border: none;"
       data-toggle="buttons"
     >
-      <div class="btn" role="button">
-        <input type="radio" name="view" value="full" />Full Circuit View
+      <div class="btn" id="radio-full" role="button">
+        <input type="radio" name="view" value="full" /> Full Circuit View
       </div>
-      <div class="btn active" role="button">
+      <div class="btn active" id="radio-current" role="button">
         <input
           type="radio"
           name="view"
@@ -512,7 +515,6 @@
 <!-- on hover for dropdowns -->
 <script>
   $('.dropdown-toggle').hover(function () {
-
     $('.dropdown.open').removeClass('open');
     $(this).parent('.dropdown').addClass('open');
   });
@@ -556,6 +558,12 @@
     var listenToSimulator=false
   })
 </script>
+
+<!-- hotkeys -->
+<script src="/src/hotkey_binder/model/normalize/normalizer.plugin.js"></script>
+<script src="/src/hotkey_binder/model/utils.js"></script>
+<script src="/src/hotkey_binder/model/shortcuts.plugin.js"></script>
+<!-- hotkeys-end --> 
 
 <script>
   $(document).tooltip({

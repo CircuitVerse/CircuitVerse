@@ -34,11 +34,6 @@ createCombinationalAnalysisPrompt=function(scope=globalScope){
                 }
             },
         },
-        {
-            text: "",
-            click:  function() {$(this).dialog("close");},
-            class: 'dialog-close--btn'
-        }
       ]
     });
   $("#combinationalAnalysis").checkBo();
@@ -129,11 +124,6 @@ function createBooleanPrompt(inputListNames,outputListNames,scope=globalScope){
            win.print();
           },
         },
-        {
-            text: "",
-            click:  function() {$(this).dialog("close");},
-            class: 'dialog-close--btn'
-        }
 
       ]
     });
