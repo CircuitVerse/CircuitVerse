@@ -13,7 +13,7 @@
 <% else %>
   <div class="container search-container">
     <% @results.each do |project| %>
-      <div class="row center-row">
+      <div class="row center-row search-card-container">
         <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
           <div class="row center-row">
             <%= image_tag project.image_preview.url, alt: "project.name", class: "search-image" %>
@@ -28,7 +28,7 @@
              Views
           </div>
           <div class="row center-row search-user-data-container">
-            <h6 class="search-user-heading">User:</h6>
+            <h6>User:</h6>
             <div class="search-user-data">
               <%= image_tag project.author.profile_picture.url(:medium), alt: "User Image", class: "search-user-image" %>
               <%= link_to project.author.name, project.author, class: "search-user-link anchor-text" %>
@@ -60,7 +60,6 @@
           </div>
         </div>
       </div>
-      <hr class="searchpage-horizontal-rule">
     <% end %>
     <% unless @results.empty? %>
       <%= will_paginate(@results, renderer: SearchPaginateRenderer) %>
