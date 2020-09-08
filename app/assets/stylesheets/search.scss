@@ -19,9 +19,13 @@
 }
 
 .search-container {
+  margin-top: 100px;
+}
+
+.search-card-container {
   border: 1px solid $form-border-grey;
   border-radius: 0;
-  margin-top: 100px;
+  margin-top: 20px;
   padding: 20px 8px;
 }
 
@@ -56,10 +60,6 @@
   text-align: left;
 }
 
-.search-user-heading {
-  color: $secondary-green;
-}
-
 .search-user-image {
   border: 1px solid $shadow-grey;
   border-radius: 50%;
@@ -69,6 +69,11 @@
 
 .search-user-link {
   display: block;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
 }
 
 .search-project-name {
@@ -108,7 +113,6 @@
 .search-tag-heading {
   display: block;
 }
-
 
 .search-user-container {
   padding-top: 20px;
@@ -153,7 +157,6 @@
 
 //breakpoints
 @media (max-width: 768px) {
-
   .search-user-data {
     padding-bottom: 20px;
   }
@@ -167,7 +170,6 @@
   }
 
   .search-no-results-image {
-
     img {
       max-width: 60%;
     }
@@ -182,7 +184,6 @@
 
 @media (max-width: 400px) {
   .search-no-results-image {
-
     img {
       max-width: 80%;
     }
