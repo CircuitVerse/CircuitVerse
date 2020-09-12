@@ -3,10 +3,7 @@
 class User < ApplicationRecord
   require "pg_search"
   include SimpleDiscussion::ForumUser
-
-  validates :name, format: { with: /\A[a-zA-Z_ ]{2,30}\z/ }
-  validates :email, format: { with: /\b[A-Z0-9._%a-z\-]+@(?:[A-Z0-9a-z\-]+\.)+[A-Za-z]{2,4}\z/ }
-
+  
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   has_many :projects, foreign_key: "author_id", dependent: :destroy
@@ -35,6 +32,8 @@ class User < ApplicationRecord
 
   has_attached_file :profile_picture, styles: { medium: "205X240#", thumb: "100x100>" }, default_url: ":style/Default.jpg"
   validates_attachment_content_type :profile_picture, content_type: %r{\Aimage/.*\z}
+  validates :name, format: { with: /\A[a-zA-Z_ ]{2,30}\z/ }
+  validates :email, format: { with: /\b[A-Z0-9._%a-z\-]+@(?:[A-Z0-9a-z\-]+\.)+[A-Za-z]{2,4}\z/ }
 
   scope :subscribed, -> { where(subscribed: true) }
 
