@@ -1,7 +1,6 @@
 <%= form_with(model: group, local: true) do |form| %>
   <% if group.errors.any? %>
     <div class="error-message">
-      <h6><%= pluralize(group.errors.count, "error") %> prohibited this group from being saved:</h6>
       <ul>
         <% group.errors.full_messages.each do |message| %>
           <li><%= message %></li>

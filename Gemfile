@@ -101,6 +101,7 @@ gem 'flipper-redis'
 gem 'flipper-ui'
 gem 'friendly_id', '~> 5.3.0'
 gem 'simple_discussion', '~> 1.2'
+gem 'inline_svg'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -42,14 +42,8 @@
 
 //project details
 .projects-iframe-container {
-  border: 1.5px solid $iframe-container-grey;
+  border: 1.5px solid $shadow-black;
   margin-bottom: 20px;
-  padding: 10px;
-}
-
-.projects-iframe {
-  border: 1px solid $shadow-black;
-  border-radius: 4px;
   padding: 10px;
 }
 

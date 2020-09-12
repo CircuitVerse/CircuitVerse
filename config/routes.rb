@@ -48,15 +48,14 @@ Rails.application.routes.draw do
   resources :featured_circuits, only: %i[index create]
   delete "/featured_circuits", to: "featured_circuits#destroy"
 
+  get "/users/edit", to: redirect('/')
   devise_for :users, controllers: {
     registrations: "users/registrations", omniauth_callbacks: "users/omniauth_callbacks"
   }
 
   # Logix web pages resources
   root "logix#index"
-  get  "/gettingStarted", to: "logix#gettingStarted"
   get  "/examples", to: "logix#examples"
-  get  "/features", to: "logix#features"
   get  "/tos", to: "logix#tos"
   get  "/teachers", to: "logix#teachers"
   get  "/contribute", to: "logix#contribute"
@@ -66,12 +65,11 @@ Rails.application.routes.draw do
   notify_to :users, controller: "users/notifications"
 
   scope "/users" do
-    get "/:id/profile", to: "users/logix#profile", as: "profile"
+    get "/:id/profile", to: redirect('/users/%{id}'), as: "profile"
     get "/:id/profile/edit", to: "users/logix#edit", as: "profile_edit"
     patch "/:id/update", to: "users/logix#update", as: "profile_update"
     get "/:id/groups", to: "users/logix#groups", as: "user_groups"
     get "/:id/", to: "users/logix#index", as: "user_projects"
-    get "/:id/favourites", to: "users/logix#favourites", as: "user_favourites"
     get "/educational_institute/typeahead/:query" => "users/logix#typeahead_educational_institute"
     get "/:id/notifications", to: "users/notifications#index", as: "notifications"
   end

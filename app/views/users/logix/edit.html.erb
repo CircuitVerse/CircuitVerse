@@ -39,7 +39,7 @@
             </label>
           </div>
           <button type="submit" class="btn primary-button users-edit-primary-button">Save</button>
-          <a class="anchor-text" href="<%= profile_path(current_user) %>">Back</a>
+          <%= link_to "Back", :back, class: "anchor-text" %>
         <% end %>
         <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -48,9 +48,6 @@
           </div>
         </div>
         <%= link_to "Delete Account", "#", class: "btn primary-delete-button", data: {toggle: "modal", target: "#deleteuserModal", currentuser: @profile.id} %>
-        <!-- <div class="users-delete-button-container">
-
-        </div> -->
       </div>
     </div>
   </div>
