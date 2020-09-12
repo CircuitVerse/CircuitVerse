@@ -11,7 +11,10 @@ class User < ApplicationRecord
   has_many :rated_projects, through: :stars, dependent: :destroy, source: "project"
   has_many :groups_mentored, class_name: "Group",  foreign_key: "mentor_id", dependent: :destroy
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable,
-         :validatable, :omniauthable, omniauth_providers: %i[google_oauth2 facebook github]
+         :validatable, :omniauthable, omniauth_providers: %i[google_oauth2 facebook github] 
+         
+  validates_format_of :name, :with => /\A[a-zA-Z_ ]{3,30}\z/,:message=> ':Only alphabets,underscores and spaces are allowed.'
+  validates_format_of :email, :with =>/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4})(\]?)$/,:multiline => true
 
   # has_many :assignments, foreign_key: 'mentor_id', dependent: :destroy
   has_many :group_members, dependent: :destroy

@@ -12,14 +12,15 @@
         <%= devise_error_messages! %>
         <div class="field form-group">
           <%= f.label :name, class:"label-text" %>
+          
           <div class="input-group">
-            <%= f.text_field :name, autofocus: true ,class:"form-control custom-input", placeholder: 'Name' %>
+            <%= f.text_field :name, autofocus: true ,class:"form-control custom-input", placeholder: 'Name',:required =>true %>
           </div>
         </div>
         <div class="field form-group">
           <%= f.label :email, class:"label-text" %>
           <div class="input-group">
-            <%= f.email_field :email, autofocus: true,class:"form-control custom-input", placeholder: 'Email' %>
+            <%= f.email_field :email, autofocus: true,class:"form-control custom-input", placeholder: 'Email',:required =>true %>
           </div>
         </div>
         <div class="field form-group">
@@ -28,7 +29,7 @@
           <span>(Minimum <%= @minimum_password_length %> characters)</span>
           <% end %>
           <div class="input-group">
-            <%= f.password_field :password, autocomplete: "off", class:"form-control custom-input", id:"signup-psw", placeholder: 'Password' %>
+            <%= f.password_field :password, autocomplete: "off", class:"form-control custom-input", id:"signup-psw", placeholder: 'Password',:required =>true %>
             <div class="input-group-addon align-self-center ml-3 mt-2" onclick="toggleSignupPassword()">
               <i class="fa fa-eye-slash password-icon" aria-hidden="true" id="toggle-psw-icon"></i>
             </div>
