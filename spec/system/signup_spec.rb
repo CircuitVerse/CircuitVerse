@@ -43,7 +43,7 @@ describe "Sign up", type: :system do
 
 
   it "should sign-up when valid credentials" do
-    fill_in "Name", with: "userone"
+    fill_in "Name", with: "user1"
     fill_in "Email", with: "user1@example.com"
     fill_in "Password", with: "secret"
     click_button "Sign up"
