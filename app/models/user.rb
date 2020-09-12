@@ -5,7 +5,7 @@ class User < ApplicationRecord
   include SimpleDiscussion::ForumUser
 
   validates :name, 
-            format: { with: /\A[a-zA-Z_ ]{3,30}\z/ }
+            format: { with: /\A[a-zA-Z_ ]{2,30}\z/, message: ":can contain only alphabets,underscores and spaces" }
   validates :email,
             format: { with: /\b[A-Z0-9._%a-z\-]+@(?:[A-Z0-9a-z\-]+\.)+[A-Za-z]{2,4}\z/ } 
 
