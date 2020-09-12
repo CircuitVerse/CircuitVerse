@@ -1,6 +1,10 @@
-
-<% content_for :title, @user.name + " - Circuits" %>
-<% set_meta_tags author: @user.name %>
+<% if @user.name %>
+  <% content_for :title, @user.name + " - Circuits" %>
+  <% set_meta_tags author: @user.name %>
+<% else %>
+  <% content_for :title, "Nil - Circuits" %>
+  <% set_meta_tags author: nil %>
+<% end %>
 
 <% set_meta_tags twitter: {
   card: "summary_large_image",
@@ -18,85 +22,76 @@
 } %>
 
 <div class="container">
-
   <% if notice %>
-    <div class="row">
-      <div class="alert alert-success alert-dismissible container-fluid text-center">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-          <%= notice %>
-      </div>
-    </div>
-  <% end %>
-
-
-  <div class ="d-flex flex-column align-items-center flex-md-row justify-content-md-between align-items-md-center">
-    <div class="d-flex flex-row justify-content-center align-items-center">
-      <%= image_tag @user.profile_picture.url(:medium, alt: "@user.name"), class: 'about-card-image about-card-image', style: "width: 100px; height: 100px; margin: 10px;" %>
-      <h2 class="p-4"><%= @user.name %></h2>
-      
-    </div>
-    <div class="">
-      <a class="btn btn-about my-4 my-md-0" href="<%= user_favourites_path(@user) %>">View Favourites</a>
+  <div class="row" id='alertdiv'>
+    <div class="alert alert-success alert-dismissible container text-center">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <h6><%= notice %></h6>
     </div>
   </div>
-
-  <% if @user.projects.blank? %>
-    <div class ="no-projects px-4">
-      <h5>You don't have any projects. Create one <%= link_to 'here', simulator_new_url, class: 'no-projects-here' %></h5>
-    </div>
   <% end %>
-
-  <div class="row">
-    <%= render partial: "dashboard" , locals: {projects: @user.projects} %>
-  </div>
-
-  <% collaborated_projects = @user.collaborated_projects %>
-
-  <% if collaborated_projects.count >0 %>
-    <br>
-      <div class ="row row-about">
-        <h1>Collaborated Projects</h1>
-      </div>
-
-    <div class="row">
-      <%= render partial: "dashboard" , locals: {projects: collaborated_projects} %>
-    </div>
-  <% end %>
-
-</div>
-<br>
-
-
-<% @user.projects.each do |project| %>
-  <% if policy(project).check_direct_view_access? %>
-    <div id="myModal" class="modal fade" role="dialog">
-        <div class="modal-dialog modal-lg">
-
-          <!-- Modal content-->
-          <div class="modal-content">
-            <div class="modal-header modal-header-userprojects">
-              <h4 class="modal-title">Project Preview</h4>
-              <button type="button" class="close close-modal" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-              <div class="embed-responsive embed-responsive-4by3 feature feature-preview">
-                <iframe src="" id="projectPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen> </iframe>
-              </div>
-            </div>
-            <div class="modal-footer modal-footer-userprojects">
-              <% if policy(project).user_access? %>
-                <a href="<%= simulator_edit_path(project) %>" class="btn btn-about btn-userprojects" target="_blank">Launch</a>
-              <% else %>
-                <a href="<%= create_fork_project_path(project) %>" class="btn btn-about btn-userprojects" target="_blank">Fork</a>
-              <% end %>
-              <a href="<%= user_project_path(@user,project) %>" class="btn btn-about btn-userprojects" target="_blank">More</a>
-            </div>
-          </div>
-
+  <div class="row center-row users-details-container">
+    <div class="row center-row">
+      <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+        <div class="row center-row">
+          <%= image_tag @profile.profile_picture.url(:medium), alt: "project.name", class: "center-row search-usersearch-image" %>
         </div>
       </div>
-    <% end %>
-  <% end %>
+      <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
+        <h4 class="users-user-name"><%= @profile.name %></h4>
+        <div class="search-userdetails-container">
+          <p class="search-user-details-text"><strong>Member since: </strong><%= @profile.member_since %> days</p>
+          <p class="search-user-details-text"><strong>Educational Institution: </strong><%= @profile.educational_institute %></p>
+          <p class="search-user-details-text"><strong>Country: </strong><%= @profile.country_name %></p>
+          <% if policy(@user).edit? %>
+            <a class="btn primary-button" href="<%= profile_edit_path(current_user) %>">Edit Details</a>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a id="my-circuits" href="#" class="btn users-circuits-tab active">My Circuits</a>
+      <a id="favourite-circuits" href="#" class="btn users-circuits-tab users-favourites-tab">Favourite Circuits</a>
+    </div>
+  </div>
+  <div class="users-circuits-container">
+    <div id="circuits-div" class="row center-row">
+      <% if @user.projects.blank? %>
+      <div class="col-12">
+        <div class="search-no-results-image">
+          <%= image_tag "SVGs/noProject.svg", alt: "No result image" %>
+          <% if current_user == @user %>
+            <h6>You don't have any projects. Create one <%= link_to 'here', simulator_new_url, class: 'anchor-text' %></h6>
+          <% else %>
+            <h6><%= @user.name %> doesn't have any projects.</h6>
+          <% end %>
+        </div>
+      </div>
+      <% else %>
+        <%= render partial: "dashboard" , locals: {projects: @user.projects} %>
+      <% end %>
+    </div>
+    <div id="favourites-div" class="row center-row">
+      <% if @projects.blank? %>
+        <div class="col-12">
+          <div class="search-no-results-image">
+            <%= image_tag "SVGs/noProject.svg", alt: "No result image" %>
+            <% if current_user == @user %>
+              <h6>You don't have any favourites. Create one <%= link_to 'here', simulator_new_url, class: 'anchor-text' %></h6>
+            <% else %>
+              <h6><%= @user.name %> doesn't have any favourites.</h6>
+            <% end %>
+          </div>
+        </div>
+      <% else %>
+        <%= render partial: "dashboard" , locals: {projects: @projects} %>
+      <% end %>
+    </div>
+
+  </div>
+</div>
 
 <script type="application/ld+json">
 {
@@ -110,12 +105,36 @@
 }
 </script>
 
+<script type="text/javascript">
+  $( function() {
+    $('#my-circuits').on('click', function (e) {
+      if(!$(e.currentTarget).hasClass("active")) {
+        $(e.currentTarget).addClass("active");
+        $('#favourite-circuits').removeClass("active");
+        $('#circuits-div').css("display", "flex");
+        $('#favourites-div').css("display", "none");
+      }
+    });
+  });
+  $( function() {
+    $('#favourite-circuits').on('click', function (e) {
+      if(!$(e.currentTarget).hasClass("active")) {
+        $(e.currentTarget).addClass("active");
+        $('#my-circuits').removeClass("active");
+        $('#favourites-div').css("display", "flex");
+        $('#circuits-div').css("display", "none");
+      }
+    });
+  });
+</script>
 <script>
     $( function() {
         $('.previewButton').on('click', function (e) {
             e.preventDefault()
-            $("#projectPreview").attr("src","/simulator/" + e.currentTarget.id );
-            $("#myModal").tab('show')
+            let project = $(e.currentTarget).data('currentproject').id;
+            $("#projectPreview").attr("src","/simulator/" + project.toString() );
+            console.log(project);
+            $("#projectModal").tab('show')
         })
     } );
 </script>

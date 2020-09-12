@@ -13,7 +13,7 @@ describe "Sign up", type: :system do
 
   it "should not sign-up when no credentials" do
     click_button "Sign up"
-
+    
     expect(page).to have_text("4 errors prohibited this user from being saved:")
   end
 

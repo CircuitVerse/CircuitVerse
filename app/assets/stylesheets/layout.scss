@@ -1,101 +1,31 @@
-// All the custom class styles
-//to be removed
-.file-button {
-  display: none;
+* {
+  box-sizing: border-box;
 }
-//alignment to be added at the very top
+
 html {
   scroll-behavior: smooth;
 }
 
-.custom-file-upload {
-  background-color: $active-background;
-  border: 1px solid $green;
-  border-radius: 6px;
+body {
+  padding-top: 90px;
+}
+
+.noSelect {
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.pointerCursor {
   cursor: pointer;
-  display: inline-block;
-  padding: 6px 12px;
-  text-align: center;
-  width: 155px;
-}
-//to be removed ends
-
-
-
-
-
-.no-projects {
-  padding-top: 20px;
-  text-align: center;
 }
 
-.no-projects-here {
-  color: $primary;
+.defaultCursor {
+  cursor: default;
 }
 
-.favblank {
-  align-items: center;
-  display: flex;
-  height: 300px;
-  justify-content: center;
-}
-
-//headings
-.heading-main {
-  color: $teal;
-  margin-bottom: 10px;
-  margin-top: 40px;
-}
-
-.heading-submain {
-  margin-top: 30px;
-}
-
-.heading-main-description {
-  font-size: 20px;
-  font-weight: 500;
-}
-
-.paragraph-text-justified {
-  margin: 30px 0;
-  text-align: justify;
-}
-
-//alignment
-.row-text {
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 1344px;
-  text-align: center;
-}
-
-//anchor
-.anchor-text {
-  color: $teal;
-  font-weight: 500;
-  text-decoration: underline;
-
-  &:hover {
-    color: $green;
-  }
-}
-
-.image-center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-}
-
-//breakpoints
-@media (max-width: 768px) {
-  .image-center {
-    display: none;
-  }
-}
-
-
-//final styles
 //headings
 .main-heading {
   color: $secondary-green;
@@ -118,7 +48,6 @@ html {
 }
 
 //alignment
-
 .alert {
   display: block;
   width: 100%;
@@ -129,17 +58,6 @@ html {
   margin-right: auto;
   max-width: 1344px;
   text-align: center;
-}
-
-//anchor
-.anchor-text {
-  color: $secondary-green;
-  font-weight: 500;
-  text-decoration: underline;
-
-  &:hover {
-    color: $primary-green;
-  }
 }
 
 .center-image {
@@ -156,272 +74,55 @@ html {
   }
 }
 
-//headings
-.heading-main {
-  color: $teal;
-  margin-bottom: 10px;
-  margin-top: 40px;
-}
-
-.heading-submain {
-  margin-top: 30px;
-}
-
-.heading-main-description {
-  font-size: 20px;
-  font-weight: 500;
-}
-
-.paragraph-text-justified {
-  margin: 30px 0;
-  text-align: justify;
-}
-
-//alignment
-
-.row-text {
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 1344px;
-  text-align: center;
-}
-
 //anchor
 .anchor-text {
-  color: $teal;
+  color: $secondary-green;
   font-weight: 500;
   text-decoration: underline;
 
   &:hover {
-    color: $green;
+    color: $primary-green;
   }
 }
 
-//headings
-.heading-main {
-  color: $teal;
-  margin-bottom: 10px;
-  margin-top: 40px;
-}
-
-.heading-submain {
-  margin-top: 30px;
-}
-
-.heading-main-description {
-  font-size: 20px;
-  font-weight: 500;
-}
-
-.paragraph-text-justified {
-  margin: 30px 0;
-  text-align: justify;
-}
-
-//alignment
-* {
-  box-sizing: border-box;
-}
-
-.row-text {
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 1344px;
-  text-align: center;
-}
-
-//anchor
-.anchor-text {
-  color: $teal;
-  font-weight: 500;
-  text-decoration: underline;
+//pagination
+.page-link {
+  color: $secondary-green;
 
   &:hover {
-    color: $green;
+    color: $primary-green;
   }
 }
 
-//headings
-.heading-main {
-  color: $teal;
-  margin-bottom: 10px;
-  margin-top: 40px;
-}
-
-.heading-submain {
-  margin-top: 30px;
-}
-
-.heading-main-description {
-  font-size: 20px;
-  font-weight: 500;
-}
-
-.paragraph-text-justified {
-  margin: 30px 0;
-  text-align: justify;
-}
-
-//alignment
-* {
-  box-sizing: border-box;
-}
-
-.row-text {
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 1344px;
-  text-align: center;
-}
-
-//anchor
-.anchor-text {
-  color: $teal;
-  font-weight: 500;
-  text-decoration: underline;
-
-  &:hover {
-    color: $green;
+.page-item {
+  &.active {
+    .page-link {
+      background-color: $primary-green;
+      border-color: $primary-green;
+    }
   }
 }
-
-//headings
-.heading-main {
-  color: $teal;
-  margin-bottom: 10px;
-  margin-top: 40px;
+.pagination .page-link {
+  white-space: nowrap;
 }
 
-.heading-submain {
-  margin-top: 30px;
-}
-
-.heading-main-description {
-  font-size: 20px;
-  font-weight: 500;
-}
-
-.paragraph-text-justified {
-  margin: 30px 0;
-  text-align: justify;
-}
-
-//alignment
-* {
-  box-sizing: border-box;
-}
-
-.row-text {
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 1344px;
-  text-align: center;
-}
-
-//anchor
-.anchor-text {
-  color: $teal;
-  font-weight: 500;
-  text-decoration: underline;
-
-  &:hover {
-    color: $green;
+@media (max-width: 992px) {
+  .pagination-cont {
+    overflow-x: auto;
+    padding: 0;
   }
-}
 
-//headings
-.heading-main {
-  color: $teal;
-  margin-bottom: 10px;
-  margin-top: 40px;
-}
-
-.heading-submain {
-  margin-top: 30px;
-}
-
-.heading-main-description {
-  font-size: 20px;
-  font-weight: 500;
-}
-
-.paragraph-text-justified {
-  margin: 30px 0;
-  text-align: justify;
-}
-
-//alignment
-* {
-  box-sizing: border-box;
-}
-
-.row-text {
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 1344px;
-  text-align: center;
-}
-
-//anchor
-.anchor-text {
-  color: $teal;
-  font-weight: 500;
-  text-decoration: underline;
-
-  &:hover {
-    color: $green;
+  .pagination {
+    display: block;
+    max-width: none;
+    overflow-x: visible;
+    padding: 0;
+    white-space: nowrap;
   }
-}
 
-//headings
-.heading-main {
-  color: $teal;
-  margin-bottom: 10px;
-  margin-top: 40px;
-}
-
-.heading-submain {
-  margin-top: 30px;
-}
-
-.paragraph-text-justified {
-  margin: 30px 0;
-  text-align: justify;
-}
-
-//alignment
-* {
-  box-sizing: border-box;
-}
-
-.row-text {
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 1344px;
-  text-align: center;
-}
-
-//anchor
-.anchor-text {
-  color: $teal;
-  font-weight: 500;
-  text-decoration: underline;
-
-  &:hover {
-    color: $green;
-  }
-}
-
-.image-center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-}
-
-//breakpoints
-@media (max-width: 768px) {
-  .image-center {
-    display: none;
+  .pagination > * {
+    display: inline-block;
+    margin: 0;
+    margin-left: -4px;
   }
 }

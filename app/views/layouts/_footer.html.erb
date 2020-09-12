@@ -6,7 +6,7 @@
       <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 footer-column">
         <div class="row">
           <a href="/">
-            <%= image_tag("CircuitVerseNew.png", class: "footer-logo", alt: "CircuitVerse Logo") %>
+            <%= image_tag("CircuitVerse.png", class: "footer-logo", alt: "CircuitVerse Logo") %>
           </a>
         </div>
         <div class="row">
@@ -37,7 +37,7 @@
             <a href="/teachers"><h6>Teachers</h6></a>
             <a href="/about"><h6>About</h6></a>
             <% if Flipper.enabled?(:forum) %>
-              <%= link_to "Forum", simple_discussion_path %>
+              <h6><%= link_to "Forum", simple_discussion_path %></h6>
             <% end %>
           </div>
         </div>
