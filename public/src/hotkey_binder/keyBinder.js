@@ -8,6 +8,8 @@ import {
     override
 } from './view/panel.ui';
 import { setDefault, checkUpdate, addKeys, warnOverride } from './model/actions';
+import { KeyCode } from './model/normalize/normalizer.plugin.js'
+import {checkRestricted} from './model/utils.js'
 
 //** keyBinder dialog */
 export function keyBinder() {

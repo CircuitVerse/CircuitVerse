@@ -14,6 +14,7 @@ import { saveOffline, openOffline } from '../../data/project';
 import createSaveAsImgPrompt from '../../data/saveImage';
 import { createSubCircuitPrompt } from '../../subcircuit';
 import { createCombinationalAnalysisPrompt } from '../../combinationalAnalysis';
+import {shortcut} from './shortcuts.plugin.js'
 
 export const addShortcut = (keys, action) => {
 	let callback;

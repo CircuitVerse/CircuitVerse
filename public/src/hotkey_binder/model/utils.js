@@ -14,9 +14,9 @@ Object.size = function(obj) {
     return size;
 };
 
-const getKey = (obj, val) => Object.keys(obj).find((key) => obj[key] === val);
+export const getKey = (obj, val) => Object.keys(obj).find((key) => obj[key] === val);
 
-const getOS = () => {
+export const getOS = () => {
     let OSName = "";
     if (navigator.appVersion.indexOf("Win") != -1) OSName = "Windows";
     if (navigator.appVersion.indexOf("Mac") != -1) OSName = "MacOS";
@@ -25,7 +25,7 @@ const getOS = () => {
     return OSName;
 };
 
-const checkRestricted = (key) => {
+export const checkRestricted = (key) => {
     const restrictedKeys = [
         "Ctrl + N",
         "Ctrl + W",
