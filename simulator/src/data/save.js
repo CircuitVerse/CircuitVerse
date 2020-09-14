@@ -7,6 +7,7 @@ import simulationArea from '../simulationArea';
 import backgroundArea from '../backgroundArea';
 import { findDimensions } from '../canvasApi';
 import { projectSavedSet } from './project';
+import C2S  from '../../vendor/canvas2svg';
 
 /**
  * Function to set the name of project.
