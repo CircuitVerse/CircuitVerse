@@ -17,7 +17,7 @@
 
 //*! This plugin has been modified
 
-const shortcut = {
+export const shortcut = {
   all_shortcuts: {}, //All the shortcuts are stored in this array ex. download : keycombo;
   add: function (shortcut_combination, callback, opt) {
     //Provide a set of default options
@@ -55,6 +55,7 @@ const shortcut = {
         if (element.tagName == "INPUT" || element.tagName == "TEXTAREA") return;
       }
 
+      let code = '';
       //Find Which key is pressed
       if (e.keyCode) code = e.keyCode;
       else if (e.which) code = e.which;
@@ -157,6 +158,7 @@ const shortcut = {
       if (e.altKey) modifiers.alt.pressed = true;
       if (e.metaKey) modifiers.meta.pressed = true;
 
+      let k;
       for (var i = 0; (k = keys[i]), i < keys.length; i++) {
         //Modifiers
         if (k == "ctrl" || k == "control") {
@@ -241,7 +243,7 @@ const shortcut = {
     else ele["on" + type] = false;
   },
   removeAll: function () {
-    for (x in this.all_shortcuts) {
+    for (let x in this.all_shortcuts) {
       this.remove(x);
     }
   },

@@ -7,6 +7,9 @@ import {
     wireToBeCheckedSet, updatePositionSet, updateSimulationSet,
     updateCanvasSet, gridUpdateSet, errorDetectedSet,
 } from '../../engine';
+
+import {getOS} from './utils.js'
+import {shortcut} from './shortcuts.plugin.js'
 /**
  * Function used to add or change keys user or default
  * grabs the keycombo from localstorage &
