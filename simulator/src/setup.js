@@ -15,12 +15,18 @@ import './embed';
 import { newCircuit } from './circuit';
 import load from './data/load';
 import save from './data/save';
+// import 'jquery'
 require('jquery-ui/themes/base/core.css');
 require('jquery-ui/themes/base/resizable.css');
 require('jquery-ui/themes/base/accordion.css');
+require('jquery-ui/themes/base/tooltip.css');
 require('jquery-ui/themes/base/theme.css');
-var autocomplete = require( "jquery-ui/ui/widgets/resizable");
-var autocomplete = require( "jquery-ui/ui/widgets/accordion");
+var resizable = require( "jquery-ui/ui/widgets/resizable");
+var acoordian= require( "jquery-ui/ui/widgets/accordion");
+var tooltip = require( "jquery-ui/ui/widgets/tooltip");
+
+import './css/main.stylesheet.scss';
+import './css/restrictedElements.css';
 
 window.width = undefined;
 window.height = undefined;
