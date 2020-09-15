@@ -24,6 +24,7 @@ require('jquery-ui/themes/base/theme.css');
 var resizable = require( "jquery-ui/ui/widgets/resizable");
 var acoordian= require( "jquery-ui/ui/widgets/accordion");
 var tooltip = require( "jquery-ui/ui/widgets/tooltip");
+var dialog = require( "jquery-ui/ui/widgets/dialog");
 
 import './css/main.stylesheet.scss';
 import './css/restrictedElements.css';
