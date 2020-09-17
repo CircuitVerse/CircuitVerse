@@ -3,9 +3,8 @@
 class User < ApplicationRecord
   require "pg_search"
   include SimpleDiscussion::ForumUser
-  validates :name, format: { with: /\A[a-zA-Z_ ]{2,30}\z/,
-                             message: ":can contain only alphabets,underscores and spaces" },
-                   on: :create
+  validates :name, presence: true, length: { minimum: 2, maximum: 30,
+                                             too_long: ":30 characters is the maximum allowed" }
   validates :email, format: { with: /\b[A-Z0-9._%a-z\-]+@(?:[A-Z0-9a-z\-]+\.)+[A-Za-z]{2,4}\z/ }
 
   # Include default devise modules. Others available are:
