@@ -6,6 +6,8 @@ import createSaveAsImgPrompt from './data/saveImage'
 import { clearProject, newProject, saveOffline, openOffline, recoverProject } from './data/project'
 import { newCircuit } from './circuit'
 import { createCombinationalAnalysisPrompt } from './combinationalAnalysis';
+import { colorThemes } from "./themer/themer";
+
 const logixFunction = {};
 logixFunction.save = save;
 logixFunction.load = load;
@@ -19,4 +21,5 @@ logixFunction.recoverProject = recoverProject;
 logixFunction.createSubCircuitPrompt = createSubCircuitPrompt;
 logixFunction.createCombinationalAnalysisPrompt = createCombinationalAnalysisPrompt;
 logixFunction.fullViewOption = fullView;
+logixFunction.colorThemes = colorThemes;
 export default logixFunction;

@@ -4,6 +4,7 @@ import { drawLine } from './canvasApi';
 import simulationArea from './simulationArea';
 import Node from './node';
 import { updateSimulationSet, forceResetNodesSet } from './engine';
+import { colors } from './themer/themer';
 
 /**
  * Wire - To connect two nodes.
@@ -121,11 +122,11 @@ export default class Wire {
 
     draw() {
         // for calculating min-max Width,min-max Height
-
+        //        
         const ctx = simulationArea.context;
 
         var color;
-        if (simulationArea.lastSelected === this) { color = 'blue'; } else if (this.node1.value === undefined || this.node2.value === undefined) { color = 'red'; } else if (this.node1.bitWidth === 1) { color = ['red', 'DarkGreen', 'Lime'][this.node1.value + 1]; } else { color = 'black'; }
+        if (simulationArea.lastSelected === this) { color = colors['color_wire_sel'] } else if (this.node1.value === undefined || this.node2.value === undefined) { color = colors['color_wire_lose'] } else if (this.node1.bitWidth === 1) { color = [colors['color_wire_lose'], colors['color_wire_con'], colors['color_wire_pow']][this.node1.value + 1]; } else { color = colors['color_wire'] }
         drawLine(ctx, this.node1.absX(), this.node1.absY(), this.node2.absX(), this.node2.absY(), color, 3);
     }
 

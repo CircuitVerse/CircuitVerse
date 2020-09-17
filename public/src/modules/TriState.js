@@ -1,10 +1,8 @@
-import CircuitElement from '../circuitElement';
-import Node, { findNode } from '../node';
-import simulationArea from '../simulationArea';
-import {
-    correctWidth, lineTo, moveTo, arc,
-} from '../canvasApi';
-import { changeInputSize } from '../modules';
+import CircuitElement from "../circuitElement";
+import Node, { findNode } from "../node";
+import simulationArea from "../simulationArea";
+import { correctWidth, lineTo, moveTo, arc } from "../canvasApi";
+import { changeInputSize } from "../modules";
 /**
  * @class
  * TriState
@@ -16,8 +14,10 @@ import { changeInputSize } from '../modules';
  * @param {number=} bitWidth - bit width per node.
  * @category modules
  */
+import { colors } from "../themer/themer";
+
 export default class TriState extends CircuitElement {
-    constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
+    constructor(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
         /* this is done in this.baseSetup() now
         this.scope['TriState'].push(this);
@@ -27,7 +27,7 @@ export default class TriState extends CircuitElement {
 
         this.inp1 = new Node(-10, 0, 0, this);
         this.output1 = new Node(20, 0, 1, this);
-        this.state = new Node(0, 0, 0, this, 1, 'Enable');
+        this.state = new Node(0, 0, 0, this, 1, "Enable");
     }
 
     // TriState.prototype.propagationDelay=10000;
@@ -75,7 +75,10 @@ export default class TriState extends CircuitElement {
                 simulationArea.simulationQueue.add(this.output1);
             }
             simulationArea.contentionPending.clean(this);
-        } else if (this.output1.value !== undefined && !simulationArea.contentionPending.contains(this)) {
+        } else if (
+            this.output1.value !== undefined &&
+            !simulationArea.contentionPending.contains(this)
+        ) {
             this.output1.value = undefined;
             simulationArea.simulationQueue.add(this.output1);
         }
@@ -88,18 +91,22 @@ export default class TriState extends CircuitElement {
      */
     customDraw() {
         var ctx = simulationArea.context;
-        ctx.strokeStyle = ('rgba(0,0,0,1)');
+        ctx.strokeStyle = colors["stroke"];
         ctx.lineWidth = correctWidth(3);
-
         const xx = this.x;
         const yy = this.y;
         ctx.beginPath();
-        ctx.fillStyle = 'white';
+        ctx.fillStyle = colors["fill"];
         moveTo(ctx, -10, -15, xx, yy, this.direction);
         lineTo(ctx, 20, 0, xx, yy, this.direction);
         lineTo(ctx, -10, 15, xx, yy, this.direction);
         ctx.closePath();
-        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = 'rgba(255, 255, 32,0.8)';
+        if (
+            (this.hover && !simulationArea.shiftDown) ||
+            simulationArea.lastSelected === this ||
+            simulationArea.multipleObjectSelections.contains(this)
+        )
+            ctx.fillStyle = colors["hover_select"];
         ctx.fill();
         ctx.stroke();
     }
@@ -111,6 +118,8 @@ export default class TriState extends CircuitElement {
  * @type {string}
  * @category modules
  */
-TriState.prototype.tooltipText = 'TriState ToolTip : Effectively removes the output from the circuit.';
-TriState.prototype.helplink = 'https://docs.circuitverse.org/#/miscellaneous?id=tri-state-buffer';
-TriState.prototype.objectType = 'TriState';
+TriState.prototype.tooltipText =
+    "TriState ToolTip : Effectively removes the output from the circuit.";
+TriState.prototype.helplink =
+    "https://docs.circuitverse.org/#/miscellaneous?id=tri-state-buffer";
+TriState.prototype.objectType = "TriState";

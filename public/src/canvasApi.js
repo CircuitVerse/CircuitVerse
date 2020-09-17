@@ -2,6 +2,7 @@
 import backgroundArea from './backgroundArea';
 import simulationArea from './simulationArea';
 import miniMapArea, { removeMiniMap, updatelastMinimapShown } from './minimap';
+import { colors } from './themer/themer';
 
 var unit = 10;
 
@@ -91,6 +92,7 @@ export function changeScale(delta, xx, yy, method = 1) {
 // Otherwise for normal panning, the canvas itself is moved to give the illusion of movement
 
 export function dots(dots = true, transparentBackground = false, force = false) {
+
     var scale = unit * globalScope.scale;
     var ox = globalScope.ox % scale; // offset
     var oy = globalScope.oy % scale; // offset
@@ -108,10 +110,10 @@ export function dots(dots = true, transparentBackground = false, force = false) 
     var ctx = backgroundArea.context;
     ctx.beginPath();
     backgroundArea.clear();
-    ctx.strokeStyle = '#eee';
+    ctx.strokeStyle = colors["canvas_stroke"];
     ctx.lineWidth = 1;
     if (!transparentBackground) {
-        ctx.fillStyle = 'white';
+        ctx.fillStyle = colors["canvas_fill"];
         ctx.rect(0, 0, canvasWidth, canvasHeight);
         ctx.fill();
     }
@@ -307,7 +309,7 @@ function validColor(color) {
 }
 
 // Helper function to color "RED" to RGBA
-function colorToRGBA(color) {
+export function colorToRGBA(color) {
     var cvs; var
         ctx;
     cvs = document.createElement('canvas');

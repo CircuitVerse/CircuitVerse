@@ -15,6 +15,7 @@ import modules from './modules';
 import { updateRestrictedElementsInScope } from './restrictedElementDiv';
 import { paste } from './events';
 import { changeScale } from './canvasApi';
+import updateTheme from "./themer/themer";
 
 
 export const uxvar = {
@@ -324,7 +325,6 @@ export function showProperties(obj) {
                 circuitProperty[this.name](this.checked); 
             }
     });
-
     $(function () {
         $("input[type='number']").inputSpinner();
     });
@@ -483,3 +483,4 @@ export function fullView () {
     $('#moduleProperty').hide()
     $('#exitView').append(markUp);
 }
+

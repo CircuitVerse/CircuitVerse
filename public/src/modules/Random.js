@@ -15,6 +15,8 @@ import { fillText, lineTo, moveTo } from '../canvasApi';
  * @param {string=} dir - direcion in which element has to drawn
  * @category modules
  */
+import { colors } from '../themer/themer';
+
 export default class Random extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
@@ -84,11 +86,14 @@ export default class Random extends CircuitElement {
 
     customDraw() {
         var ctx = simulationArea.context;
+        //        
+        ctx.fillStyle = colors['fill'];
+        ctx.strokeStyle = colors['stroke'];
         ctx.beginPath();
         var xx = this.x;
         var yy = this.y;
         ctx.font = '20px Georgia';
-        ctx.fillStyle = 'green';
+        ctx.fillStyle = colors['input_text'];
         ctx.textAlign = 'center';
         fillText(ctx, this.currentRandomNo.toString(10), this.x, this.y + 5);
         ctx.fill();

@@ -2,6 +2,7 @@ import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import { correctWidth, lineTo, moveTo, fillText } from '../canvasApi';
+import { colors } from '../themer/themer';
 
 /**
  * @class
@@ -122,9 +123,10 @@ export default class TflipFlop extends CircuitElement {
 
     customDraw() {
         var ctx = simulationArea.context;
+        //        
+        ctx.strokeStyle = (colors['stroke']);
+        ctx.fillStyle = (colors['fill']);
         ctx.beginPath();
-        ctx.strokeStyle = ('rgba(0,0,0,1)');
-        ctx.fillStyle = 'white';
         ctx.lineWidth = correctWidth(3);
         var xx = this.x;
         var yy = this.y;
@@ -137,7 +139,7 @@ export default class TflipFlop extends CircuitElement {
         ctx.stroke();
         ctx.beginPath();
         ctx.font = '20px Georgia';
-        ctx.fillStyle = 'green';
+        ctx.fillStyle = colors['input_text'];
         ctx.textAlign = 'center';
         fillText(ctx, this.slaveState.toString(16), xx, yy + 5);
         ctx.fill();
