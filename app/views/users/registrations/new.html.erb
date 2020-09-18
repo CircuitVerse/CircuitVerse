@@ -9,6 +9,7 @@
       <div class="form-container">
         <h1 class="users-main-heading">Sign Up</h1>
         <%= form_with(model: resource, as: resource_name, url: registration_path(resource_name), local: true) do |f| %>
+          <%= f.invisible_captcha :subtitle %>
         <% if !resource.errors.empty? %>
           <div class="error-message">
             <ul>
