@@ -147,3 +147,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'premailer-rails', '~> 1.11', '>= 1.11.1'
 
 gem "bugsnag", "~> 6.16"
+
+gem "invisible_captcha", "~> 1.1"

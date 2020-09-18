@@ -226,6 +226,8 @@ GEM
     inline_svg (1.7.1)
       activesupport (>= 3.0)
       nokogiri (>= 1.6)
+    invisible_captcha (1.1.0)
+      rails (>= 4.2)
     jbuilder (2.10.0)
       activesupport (>= 5.0.0)
     jquery-rails (4.4.0)
@@ -607,6 +609,7 @@ DEPENDENCIES
   hirb
   http
   inline_svg
+  invisible_captcha (~> 1.1)
   jbuilder (~> 2.10)
   jquery-rails
   json-schema
