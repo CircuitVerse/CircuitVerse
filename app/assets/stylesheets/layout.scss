@@ -1,6 +1,8 @@
 @font-face {
   font-family: 'Inter';
-  src: url(asset-path("Inter.ttf")) format("truetype");
+  src: url(asset-path('Inter.ttf')) format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
 * {
@@ -12,8 +14,8 @@ html {
 }
 
 body {
-  padding-top: 90px;
   font-family: 'Inter';
+  padding-top: 90px;
 }
 
 .noSelect {
