@@ -44,6 +44,9 @@
         <% end -%>
         <div class="field form-group">
           <div class="input-group">
+            <% if Flipper.enabled?(:recaptcha) %>
+              <%= recaptcha_tags %>
+            <% end %>
             <%= f.submit "Log in" ,class:"btn primary-button users-login-primary-button" %>
             <div class="users-text-container">
               <span class="users-text">New User?</span>

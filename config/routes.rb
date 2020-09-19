@@ -50,7 +50,8 @@ Rails.application.routes.draw do
 
   get "/users/edit", to: redirect('/')
   devise_for :users, controllers: {
-    registrations: "users/registrations", omniauth_callbacks: "users/omniauth_callbacks"
+    registrations: "users/registrations", omniauth_callbacks: "users/omniauth_callbacks",
+    sessions: "users/sessions"
   }
 
   # Logix web pages resources
