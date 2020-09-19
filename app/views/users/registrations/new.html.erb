@@ -48,6 +48,10 @@
         <div class="field form-group">
           <div class="field form-group">
             <div class="input-group">
+              <% if Flipper.enabled?(:recaptcha) %>
+                <%= flash[:recaptcha_error] %>
+                <%= recaptcha_tags %>
+              <% end %>
               <%= f.submit "Sign up" ,class:"btn primary-button users-login-primary-button" %>
               <div class="users-text-container">
                 <span class="users-text">Already Registered?</span>
