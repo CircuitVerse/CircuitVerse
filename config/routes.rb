@@ -15,10 +15,10 @@ Rails.application.routes.draw do
   # resources :assignment_submissions
   resources :group_members, only: %i[create destroy]
   resources :groups, except: %i[index] do
-    resources :assignments
+    resources :assignments, except: %i[index]
   end
 
-  resources :custom_mails, only: %i[index new create edit show update]
+  resources :custom_mails, except: %i[destroy]
   get "/custom_mails/send_mail/:id", to: "custom_mails#send_mail", as: "send_custom_mail"
   get "/custom_mails/send_mail_to_self/:id", to: "custom_mails#send_mail_self",
                                              as: "send_custom_mail_self"
@@ -101,7 +101,7 @@ Rails.application.routes.draw do
   # get 'simulator/embed_cross/:id', to: 'simulator#embed_cross', as: 'simulator_embed_cross'
 
   resources :users do
-    resources :projects, only: %i[show edit update new create destroy]
+    resources :projects, except: %i[index]
   end
   resources :collaborations, only: %i[create destroy update]
 
