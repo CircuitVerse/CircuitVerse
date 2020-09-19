@@ -11,7 +11,8 @@ class User < ApplicationRecord
   has_many :rated_projects, through: :stars, dependent: :destroy, source: "project"
   has_many :groups_mentored, class_name: "Group",  foreign_key: "mentor_id", dependent: :destroy
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable,
-         :validatable, :omniauthable, omniauth_providers: %i[google_oauth2 facebook github]
+         :validatable, :omniauthable,:confirmable, :async, 
+         omniauth_providers: %i[google_oauth2 facebook github]
 
   # has_many :assignments, foreign_key: 'mentor_id', dependent: :destroy
   has_many :group_members, dependent: :destroy
@@ -58,12 +59,20 @@ class User < ApplicationRecord
   def self.from_omniauth(access_token)
     data = access_token.info
     user = User.where(email: data["email"]).first
+    # Confirm all existing users using oauth login
+    user.confirm if user && !user.confirmed?
+
     # Uncomment the section below if you want users to be created if they don't exist
-    user ||= User.create(name: data["name"],
-                         email: data["email"],
-                         password: Devise.friendly_token[0, 20],
-                         provider: access_token.provider,
-                         uid: access_token.uid)
+    unless user
+      user = User.new(name: data["name"],
+                      email: data["email"],
+                      password: Devise.friendly_token[0, 20],
+                      provider: access_token.provider,
+                      uid: access_token.uid)
+      # Add this line to confirm automatically for oauth users
+      user.confirm
+      user.save!
+    end
     user
   end
 
@@ -94,6 +103,11 @@ class User < ApplicationRecord
   def moderator?
     admin?
   end
+
+  def after_confirmation
+    self.subscribed = true
+    self.save
+ end
 
   private
 

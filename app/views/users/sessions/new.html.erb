@@ -32,6 +32,9 @@
             <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
               <%= link_to "Forgot password?", new_password_path(resource_name), class:"anchor-text users-forgot-password-text" %>
             <% end -%>
+            <%- if devise_mapping.confirmable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+              <%= link_to "Resend Confirmation Email", new_user_confirmation_path, class:"anchor-text users-resend-mail-confirmation-text" %>
+            <% end -%>
           </div>
         </div>
         <% if devise_mapping.rememberable? -%>
