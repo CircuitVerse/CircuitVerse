@@ -11,7 +11,7 @@ export default class LayoutBuffer {
         var x = -Math.round(globalScope.ox / 10) * 10;
         var y = -Math.round(globalScope.oy / 10) * 10;
 
-        var w = Math.round((width / globalScope.scale) * 0.01) * 10; // 10% width of screen in layoutMode
+        var w = Math.round((width / globalScope.scale) * 0.01) * 20; // 20% width of screen in layoutMode
         var h = Math.round((height / globalScope.scale) * 0.01) * 10; // 10% height of screen in layoutMode
 
         var xx = x + w;

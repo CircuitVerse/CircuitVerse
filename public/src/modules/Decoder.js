@@ -1,9 +1,7 @@
-import CircuitElement from '../circuitElement';
-import Node, { findNode } from '../node';
-import simulationArea from '../simulationArea';
-import {
-    correctWidth, lineTo, moveTo, rect, fillText,
-} from '../canvasApi';
+import CircuitElement from "../circuitElement";
+import Node, { findNode } from "../node";
+import simulationArea from "../simulationArea";
+import { correctWidth, lineTo, moveTo, rect, fillText } from "../canvasApi";
 /**
  * @class
  * Decoder
@@ -15,8 +13,10 @@ import {
  * @param {number=} bitWidth - bit width per node.
  * @category modules
  */
+import { colors } from "../themer/themer";
+
 export default class Decoder extends CircuitElement {
-    constructor(x, y, scope = globalScope, dir = 'LEFT', bitWidth = 1) {
+    constructor(x, y, scope = globalScope, dir = "LEFT", bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
         /* this is done in this.baseSetup() now
         this.scope['Decoder'].push(this);
@@ -58,19 +58,31 @@ export default class Decoder extends CircuitElement {
             // this.input.bitWidth = bitWidth;
             if (bitWidth === undefined || bitWidth < 1 || bitWidth > 32) return;
             if (this.bitWidth === bitWidth) return;
-            const obj = new Decoder(this.x, this.y, this.scope, this.direction, bitWidth);
+            const obj = new Decoder(
+                this.x,
+                this.y,
+                this.scope,
+                this.direction,
+                bitWidth
+            );
             this.cleanDelete();
             simulationArea.lastSelected = obj;
             return obj;
         };
 
-        this.setDimensions(20 - this.xOff, this.yOff * 5 * (this.outputsize));
+        this.setDimensions(20 - this.xOff, this.yOff * 5 * this.outputsize);
         this.rectangleObject = false;
         this.input = new Node(20 - this.xOff, 0, 0, this);
 
         this.output1 = [];
         for (let i = 0; i < this.outputsize; i++) {
-            const a = new Node(-20 + this.xOff, +this.yOff * 10 * (i - this.outputsize / 2) + 10, 1, this, 1);
+            const a = new Node(
+                -20 + this.xOff,
+                +this.yOff * 10 * (i - this.outputsize / 2) + 10,
+                1,
+                this,
+                1
+            );
             this.output1.push(a);
         }
 
@@ -98,9 +110,13 @@ export default class Decoder extends CircuitElement {
      * resolve output values based on inputData
      */
     resolve() {
-        for (let i = 0; i < this.output1.length; i++) { this.output1[i].value = 0; }
+        for (let i = 0; i < this.output1.length; i++) {
+            this.output1[i].value = 0;
+        }
         this.output1[this.input.value].value = 1;
-        for (let i = 0; i < this.output1.length; i++) { simulationArea.simulationQueue.add(this.output1[i]); }
+        for (let i = 0; i < this.output1.length; i++) {
+            simulationArea.simulationQueue.add(this.output1[i]);
+        }
     }
 
     /**
@@ -119,29 +135,91 @@ export default class Decoder extends CircuitElement {
         // ctx.stroke();
 
         ctx.beginPath();
-        ctx.strokeStyle = ('rgba(0,0,0,1)');
+        ctx.strokeStyle = colors["stroke"];
         ctx.lineWidth = correctWidth(4);
-        ctx.fillStyle = 'white';
-        moveTo(ctx, -20 + this.xOff, -this.yOff * 10 * (this.outputsize / 2), xx, yy, this.direction);
-        lineTo(ctx, -20 + this.xOff, 20 + this.yOff * 10 * (this.outputsize / 2 - 1), xx, yy, this.direction);
-        lineTo(ctx, 20 - this.xOff, +this.yOff * 10 * (this.outputsize / 2 - 1) + this.xOff, xx, yy, this.direction);
-        lineTo(ctx, 20 - this.xOff, -this.yOff * 10 * (this.outputsize / 2) - this.xOff + 20, xx, yy, this.direction);
+        ctx.fillStyle = colors["fill"];
+        moveTo(
+            ctx,
+            -20 + this.xOff,
+            -this.yOff * 10 * (this.outputsize / 2),
+            xx,
+            yy,
+            this.direction
+        );
+        lineTo(
+            ctx,
+            -20 + this.xOff,
+            20 + this.yOff * 10 * (this.outputsize / 2 - 1),
+            xx,
+            yy,
+            this.direction
+        );
+        lineTo(
+            ctx,
+            20 - this.xOff,
+            +this.yOff * 10 * (this.outputsize / 2 - 1) + this.xOff,
+            xx,
+            yy,
+            this.direction
+        );
+        lineTo(
+            ctx,
+            20 - this.xOff,
+            -this.yOff * 10 * (this.outputsize / 2) - this.xOff + 20,
+            xx,
+            yy,
+            this.direction
+        );
 
         ctx.closePath();
-        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) { ctx.fillStyle = 'rgba(255, 255, 32,0.8)'; }
+        if (
+            (this.hover && !simulationArea.shiftDown) ||
+            simulationArea.lastSelected === this ||
+            simulationArea.multipleObjectSelections.contains(this)
+        ) {
+            ctx.fillStyle = colors["hover_select"];
+        }
         ctx.fill();
         ctx.stroke();
 
         ctx.beginPath();
-        ctx.fillStyle = 'black';
-        ctx.textAlign = 'center';
+        ctx.fillStyle = "black";
+        ctx.textAlign = "center";
         // [xFill,yFill] = rotate(xx + this.output1[i].x - 7, yy + this.output1[i].y + 2);
         // //console.log([xFill,yFill])
         for (let i = 0; i < this.outputsize; i++) {
-            if (this.direction === 'LEFT') fillText(ctx, String(i), xx + this.output1[i].x - 7, yy + this.output1[i].y + 2, 10);
-            else if (this.direction === 'RIGHT') fillText(ctx, String(i), xx + this.output1[i].x + 7, yy + this.output1[i].y + 2, 10);
-            else if (this.direction === 'UP') fillText(ctx, String(i), xx + this.output1[i].x, yy + this.output1[i].y - 5, 10);
-            else fillText(ctx, String(i), xx + this.output1[i].x, yy + this.output1[i].y + 10, 10);
+            if (this.direction === "LEFT")
+                fillText(
+                    ctx,
+                    String(i),
+                    xx + this.output1[i].x - 7,
+                    yy + this.output1[i].y + 2,
+                    10
+                );
+            else if (this.direction === "RIGHT")
+                fillText(
+                    ctx,
+                    String(i),
+                    xx + this.output1[i].x + 7,
+                    yy + this.output1[i].y + 2,
+                    10
+                );
+            else if (this.direction === "UP")
+                fillText(
+                    ctx,
+                    String(i),
+                    xx + this.output1[i].x,
+                    yy + this.output1[i].y - 5,
+                    10
+                );
+            else
+                fillText(
+                    ctx,
+                    String(i),
+                    xx + this.output1[i].x,
+                    yy + this.output1[i].y + 10,
+                    10
+                );
         }
         ctx.fill();
     }
@@ -153,6 +231,8 @@ export default class Decoder extends CircuitElement {
  * @type {string}
  * @category modules
  */
-Decoder.prototype.tooltipText = 'Decoder ToolTip : Converts coded inputs into coded outputs.';
-Decoder.prototype.helplink = 'https://docs.circuitverse.org/#/decodersandplexers?id=decoder';
-Decoder.prototype.objectType = 'Decoder';
+Decoder.prototype.tooltipText =
+    "Decoder ToolTip : Converts coded inputs into coded outputs.";
+Decoder.prototype.helplink =
+    "https://docs.circuitverse.org/#/decodersandplexers?id=decoder";
+Decoder.prototype.objectType = "Decoder";

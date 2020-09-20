@@ -13,6 +13,8 @@ import { rect2, fillText } from '../canvasApi';
  * @param {number=} fontSize - font size
  * @category modules
  */
+import { colors } from '../themer/themer';
+
 export default class Text extends CircuitElement {
     constructor(x, y, scope = globalScope, label = '', fontSize = 14) {
         super(x, y, scope, 'RIGHT', 1);
@@ -85,15 +87,16 @@ export default class Text extends CircuitElement {
      * Function for drawing text box
      */
     draw() {
+        //        
         if (this.label.length === 0 && simulationArea.lastSelected !== this) this.delete();
         var ctx = simulationArea.context;
-        ctx.strokeStyle = 'black';
+        ctx.strokeStyle = colors['stroke'];
         ctx.lineWidth = 1;
         const xx = this.x;
         const yy = this.y;
         if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) {
             ctx.beginPath();
-            ctx.fillStyle = 'white';
+            ctx.fillStyle = colors['fill'];
             const magicDimenstion = this.fontSize - 14;
             rect2(ctx, -this.leftDimensionX, -this.upDimensionY - magicDimenstion,
                 this.leftDimensionX + this.rightDimensionX,
@@ -104,7 +107,7 @@ export default class Text extends CircuitElement {
         }
         ctx.beginPath();
         ctx.textAlign = 'left';
-        ctx.fillStyle = 'black';
+        ctx.fillStyle = colors['text'];
         fillText(ctx, this.label, xx, yy + 5, this.fontSize);
         ctx.fill();
     }

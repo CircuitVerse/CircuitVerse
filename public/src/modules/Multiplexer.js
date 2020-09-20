@@ -1,10 +1,8 @@
-import CircuitElement from '../circuitElement';
-import Node, { findNode } from '../node';
-import simulationArea from '../simulationArea';
-import {
-    correctWidth, lineTo, moveTo, fillText,
-} from '../canvasApi';
-import { changeInputSize } from '../modules';
+import CircuitElement from "../circuitElement";
+import Node, { findNode } from "../node";
+import simulationArea from "../simulationArea";
+import { correctWidth, lineTo, moveTo, fillText } from "../canvasApi";
+import { changeInputSize } from "../modules";
 /**
  * @class
  * Multiplexer
@@ -17,20 +15,24 @@ import { changeInputSize } from '../modules';
  * @param {number=} controlSignalSize - 1 by default
  * @category modules
  */
+import { colors } from "../themer/themer";
+
 export default class Multiplexer extends CircuitElement {
     constructor(
         x,
         y,
         scope = globalScope,
-        dir = 'RIGHT',
+        dir = "RIGHT",
         bitWidth = 1,
-        controlSignalSize = 1,
+        controlSignalSize = 1
     ) {
         super(x, y, scope, dir, bitWidth);
         /* this is done in this.baseSetup() now
         this.scope['Multiplexer'].push(this);
         */
-        this.controlSignalSize = controlSignalSize || parseInt(prompt('Enter control signal bitWidth'), 10);
+        this.controlSignalSize =
+            controlSignalSize ||
+            parseInt(prompt("Enter control signal bitWidth"), 10);
         this.inputSize = 1 << this.controlSignalSize;
         this.xOff = 0;
         this.yOff = 1;
@@ -40,15 +42,27 @@ export default class Multiplexer extends CircuitElement {
         if (this.controlSignalSize <= 3) {
             this.yOff = 2;
         }
-        this.setDimensions(20 - this.xOff, this.yOff * 5 * (this.inputSize));
+        this.setDimensions(20 - this.xOff, this.yOff * 5 * this.inputSize);
         this.rectangleObject = false;
         this.inp = [];
         for (let i = 0; i < this.inputSize; i++) {
-            const a = new Node(-20 + this.xOff, +this.yOff * 10 * (i - this.inputSize / 2) + 10, 0, this);
+            const a = new Node(
+                -20 + this.xOff,
+                +this.yOff * 10 * (i - this.inputSize / 2) + 10,
+                0,
+                this
+            );
             this.inp.push(a);
         }
         this.output1 = new Node(20 - this.xOff, 0, 1, this);
-        this.controlSignalInput = new Node(0, this.yOff * 10 * (this.inputSize / 2 - 1) + this.xOff + 10, 0, this, this.controlSignalSize, 'Control Signal');
+        this.controlSignalInput = new Node(
+            0,
+            this.yOff * 10 * (this.inputSize / 2 - 1) + this.xOff + 10,
+            0,
+            this,
+            this.controlSignalSize,
+            "Control Signal"
+        );
     }
 
     /**
@@ -58,7 +72,14 @@ export default class Multiplexer extends CircuitElement {
     changeControlSignalSize(size) {
         if (size === undefined || size < 1 || size > 32) return;
         if (this.controlSignalSize === size) return;
-        const obj = new Multiplexer(this.x, this.y, this.scope, this.direction, this.bitWidth, size);
+        const obj = new Multiplexer(
+            this.x,
+            this.y,
+            this.scope,
+            this.direction,
+            this.bitWidth,
+            size
+        );
         this.cleanDelete();
         simulationArea.lastSelected = obj;
         return obj;
@@ -82,7 +103,11 @@ export default class Multiplexer extends CircuitElement {
      * @type {boolean}
      */
     isResolvable() {
-        if (this.controlSignalInput.value !== undefined && this.inp[this.controlSignalInput.value].value !== undefined) return true;
+        if (
+            this.controlSignalInput.value !== undefined &&
+            this.inp[this.controlSignalInput.value].value !== undefined
+        )
+            return true;
         return false;
     }
 
@@ -93,7 +118,11 @@ export default class Multiplexer extends CircuitElement {
      */
     customSave() {
         const data = {
-            constructorParamaters: [this.direction, this.bitWidth, this.controlSignalSize],
+            constructorParamaters: [
+                this.direction,
+                this.bitWidth,
+                this.controlSignalSize,
+            ],
             nodes: {
                 inp: this.inp.map(findNode),
                 output1: findNode(this.output1),
@@ -126,34 +155,110 @@ export default class Multiplexer extends CircuitElement {
         const yy = this.y;
 
         ctx.beginPath();
-        moveTo(ctx, 0, this.yOff * 10 * (this.inputSize / 2 - 1) + 10 + 0.5 * this.xOff, xx, yy, this.direction);
-        lineTo(ctx, 0, this.yOff * 5 * (this.inputSize - 1) + this.xOff, xx, yy, this.direction);
+        moveTo(
+            ctx,
+            0,
+            this.yOff * 10 * (this.inputSize / 2 - 1) + 10 + 0.5 * this.xOff,
+            xx,
+            yy,
+            this.direction
+        );
+        lineTo(
+            ctx,
+            0,
+            this.yOff * 5 * (this.inputSize - 1) + this.xOff,
+            xx,
+            yy,
+            this.direction
+        );
         ctx.stroke();
 
         ctx.lineWidth = correctWidth(3);
         ctx.beginPath();
-        ctx.strokeStyle = ('rgba(0,0,0,1)');
+        ctx.strokeStyle = colors["stroke"];
 
-        ctx.fillStyle = 'white';
-        moveTo(ctx, -20 + this.xOff, -this.yOff * 10 * (this.inputSize / 2), xx, yy, this.direction);
-        lineTo(ctx, -20 + this.xOff, 20 + this.yOff * 10 * (this.inputSize / 2 - 1), xx, yy, this.direction);
-        lineTo(ctx, 20 - this.xOff, +this.yOff * 10 * (this.inputSize / 2 - 1) + this.xOff, xx, yy, this.direction);
-        lineTo(ctx, 20 - this.xOff, -this.yOff * 10 * (this.inputSize / 2) - this.xOff + 20, xx, yy, this.direction);
+        ctx.fillStyle = colors["fill"];
+        moveTo(
+            ctx,
+            -20 + this.xOff,
+            -this.yOff * 10 * (this.inputSize / 2),
+            xx,
+            yy,
+            this.direction
+        );
+        lineTo(
+            ctx,
+            -20 + this.xOff,
+            20 + this.yOff * 10 * (this.inputSize / 2 - 1),
+            xx,
+            yy,
+            this.direction
+        );
+        lineTo(
+            ctx,
+            20 - this.xOff,
+            +this.yOff * 10 * (this.inputSize / 2 - 1) + this.xOff,
+            xx,
+            yy,
+            this.direction
+        );
+        lineTo(
+            ctx,
+            20 - this.xOff,
+            -this.yOff * 10 * (this.inputSize / 2) - this.xOff + 20,
+            xx,
+            yy,
+            this.direction
+        );
 
         ctx.closePath();
-        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) { ctx.fillStyle = 'rgba(255, 255, 32,0.8)'; }
+        if (
+            (this.hover && !simulationArea.shiftDown) ||
+            simulationArea.lastSelected === this ||
+            simulationArea.multipleObjectSelections.contains(this)
+        ) {
+            ctx.fillStyle = colors["hover_select"];
+        }
         ctx.fill();
         ctx.stroke();
 
         ctx.beginPath();
         // ctx.lineWidth = correctWidth(2);
-        ctx.fillStyle = 'black';
-        ctx.textAlign = 'center';
+        ctx.fillStyle = "black";
+        ctx.textAlign = "center";
         for (let i = 0; i < this.inputSize; i++) {
-            if (this.direction === 'RIGHT') fillText(ctx, String(i), xx + this.inp[i].x + 7, yy + this.inp[i].y + 2, 10);
-            else if (this.direction === 'LEFT') fillText(ctx, String(i), xx + this.inp[i].x - 7, yy + this.inp[i].y + 2, 10);
-            else if (this.direction === 'UP') fillText(ctx, String(i), xx + this.inp[i].x, yy + this.inp[i].y - 4, 10);
-            else fillText(ctx, String(i), xx + this.inp[i].x, yy + this.inp[i].y + 10, 10);
+            if (this.direction === "RIGHT")
+                fillText(
+                    ctx,
+                    String(i),
+                    xx + this.inp[i].x + 7,
+                    yy + this.inp[i].y + 2,
+                    10
+                );
+            else if (this.direction === "LEFT")
+                fillText(
+                    ctx,
+                    String(i),
+                    xx + this.inp[i].x - 7,
+                    yy + this.inp[i].y + 2,
+                    10
+                );
+            else if (this.direction === "UP")
+                fillText(
+                    ctx,
+                    String(i),
+                    xx + this.inp[i].x,
+                    yy + this.inp[i].y - 4,
+                    10
+                );
+            else
+                fillText(
+                    ctx,
+                    String(i),
+                    xx + this.inp[i].x,
+                    yy + this.inp[i].y + 10,
+                    10
+                );
         }
         ctx.fill();
     }
@@ -165,8 +270,10 @@ export default class Multiplexer extends CircuitElement {
  * @type {string}
  * @category modules
  */
-Multiplexer.prototype.tooltipText = 'Multiplexer ToolTip : Multiple inputs and a single line output.';
-Multiplexer.prototype.helplink = 'https://docs.circuitverse.org/#/decodersandplexers?id=multiplexer';
+Multiplexer.prototype.tooltipText =
+    "Multiplexer ToolTip : Multiple inputs and a single line output.";
+Multiplexer.prototype.helplink =
+    "https://docs.circuitverse.org/#/decodersandplexers?id=multiplexer";
 
 /**
  * @memberof Multiplexer
@@ -176,11 +283,11 @@ Multiplexer.prototype.helplink = 'https://docs.circuitverse.org/#/decodersandple
  */
 Multiplexer.prototype.mutableProperties = {
     controlSignalSize: {
-        name: 'Control Signal Size',
-        type: 'number',
-        max: '32',
-        min: '1',
-        func: 'changeControlSignalSize',
+        name: "Control Signal Size",
+        type: "number",
+        max: "32",
+        min: "1",
+        func: "changeControlSignalSize",
     },
 };
-Multiplexer.prototype.objectType = 'Multiplexer';
+Multiplexer.prototype.objectType = "Multiplexer";

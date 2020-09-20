@@ -5,6 +5,8 @@ import simulationArea from '../simulationArea';
 import {
     correctWidth, lineTo, moveTo, fillText4,
 } from '../canvasApi';
+import { colors } from '../themer/themer';
+
 
 /**
  * @class
@@ -77,8 +79,8 @@ export default class ALU extends CircuitElement {
         var ctx = simulationArea.context;
         const xx = this.x;
         const yy = this.y;
-        ctx.strokeStyle = 'black';
-        ctx.fillStyle = 'white';
+        ctx.strokeStyle = colors['stroke'];
+        ctx.fillStyle = colors['fill'];
         ctx.lineWidth = correctWidth(3);
         ctx.beginPath();
         moveTo(ctx, 30, 10, xx, yy, this.direction);
@@ -95,7 +97,7 @@ export default class ALU extends CircuitElement {
         ctx.closePath();
         ctx.stroke();
 
-        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) { ctx.fillStyle = 'rgba(255, 255, 32,0.8)'; }
+        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) { ctx.fillStyle = colors["hover_select"]; }
         ctx.fill();
         ctx.stroke();
 

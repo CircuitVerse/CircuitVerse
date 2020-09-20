@@ -66,7 +66,9 @@ export default function startListeners() {
         stopWireSet(false);
         simulationArea.mouseDown = true;
 
-        $('input').blur();
+        // Deselect Input
+        if (document.activeElement instanceof HTMLElement)
+            document.activeElement.blur();
 
         errorDetectedSet(false);
         updateSimulationSet(true);
@@ -233,38 +235,6 @@ export default function startListeners() {
                 simulationArea.multipleObjectSelections = [];
                 simulationArea.lastSelected = undefined;
                 e.preventDefault();
-            }
-
-            // change direction fns
-            if (simulationArea.lastSelected != undefined) {
-                let direction = '';
-                switch (e.keyCode) {
-                case 37:
-                case 65:
-                    direction = 'LEFT';
-                    break;
-
-                case 38:
-                case 87:
-                    direction = 'UP';
-                    break;
-
-                case 39:
-                case 68:
-                    direction = 'RIGHT';
-                    break;
-
-                case 40:
-                case 83:
-                    direction = 'DOWN';
-                    break;
-
-                default:
-                    break;
-                }
-                if (direction !== '') {
-                    simulationArea.lastSelected.newDirection(direction);
-                }
             }
 
             if ((e.keyCode == 113 || e.keyCode == 81) && simulationArea.lastSelected != undefined) {
