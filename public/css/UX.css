@@ -53,7 +53,7 @@ button:focus {
     background-color: #333;
     padding: 3px;
     color: #fff;
-    border-side: 1px solid #0099ff;
+    border: 0 1px solid #0099ff;
     border-bottom: 40px solid #0099ff;
     padding: 0.5em;
 }
@@ -142,7 +142,7 @@ input[type="radio"]:checked ~ label {
     transition: opacity 0.2s;
 }
 
-.ui-accordion-header-icon.ui-icon {
+.ui-accordion-header-icon .ui-icon {
     /*background-image: url("./ui-icons_white_256x240.png");*/
 }
 
