@@ -1,4 +1,4 @@
-class JWTTokenStrategy < Warden::Strategies::Base
+class JwtTokenStrategy < Warden::Strategies::Base
   def valid?
     token.present?
   end
@@ -11,6 +11,8 @@ class JWTTokenStrategy < Warden::Strategies::Base
     else
       fail!('Invalid')
     end
+  rescue JWT::DecodeError => e
+    fail!("Unable to decode the token #{e.message}")
   end
 
   private

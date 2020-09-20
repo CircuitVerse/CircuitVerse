@@ -1,44 +1,6 @@
 // Bootstrap theming
 // Ref: https://getbootstrap.com/docs/4.0/getting-started/theming/
 
-//colors
-$seablue: #42b9b6;
-$navbar-dark: #343a40;
-$card-green: #f9fffc;
-$green: #42b983;
-$shadow-grey: #d5d5d5;
-$error-red: #fae3e3;
-$error-red-font: #ff5959;
-$teal: #026e57;
-$lightgrey: #fafafa;
-$card-border-grey: #f2f2f2;
-$slight-gray: #707070;
-$member-card-green: #f8fffc;
-$slightblack: #fcfcfc;
-$shadow-black: #00000029;
-$black: #000000;
-$white: #fff;
-$star-yellow: #ffb60a;
-$primary: $green;
-$secondary: $card-green;
-$border-radius: .3rem;
-$font-familiy-sans-serif: 'Open Sans', 'Noto Sans';
-$input-btn-focus-width: .2rem;
-$color-hover: $green;
-$active-background: white;
-$active-border: $teal;
-$button-border-color: #2f8875;
-$link-color: #0082ff;
-$iframeborder:  rgba(0, 0, 0, .125);
-$featurepostborder: #cbcbcb;
-$blue: #009dff;
-$danger: #c21d1d;
-$green-border: #bcdbd3;
-$mint-green: #71cac8;
-$pure-white: #fff;
-$error-red-font: #ff5959;
-
-//final colors
 $black: #000000;
 $white: #fff;
 $primary-green: #42b983;
@@ -57,12 +19,11 @@ $iframe-container-grey: #707070;
 $project-card-grey: #fafafa;
 $star-yellow: #ffb60a;
 $search-yellow: #ffff00;
-
-//sizes
-$small-display: 400px;
+$shadow-grey: #d5d5d5;
+$form-input-green: #9edcc0;
+$form-input-focus-green: rgba(66,185,131,0.25);
 
 //to be removed
-$gray-100: #f9fffc;
 $slightblack: #fcfcfc;
-$red: #ff5959;
-$dark-grey: #1c1c1c;
+$green: #42b983;
+$featurepostborder: #cbcbcb;

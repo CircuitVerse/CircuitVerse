@@ -15,6 +15,7 @@ Flipper.configure do |config|
   end
 end
 
+Flipper.enable(:project_comments)
 Flipper::UI.configure do |config|
   config.fun = false
 end

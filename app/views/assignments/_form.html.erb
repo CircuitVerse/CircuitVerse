@@ -4,7 +4,6 @@
 <%= form_with(model: [group,@assignment], local: true, html: {onsubmit:"beforeSubmit()"}, multipart: true ,id:"assignmentForm") do |form| %>
   <% if @assignment.errors.any? %>
     <div id="error-message">
-      <h6><%= pluralize(@assignment.errors.count, "error") %> prohibited this assignment from being saved:</h6>
       <ul>
         <% @assignment.errors.full_messages.each do |message| %>
           <li><%= message %></li>

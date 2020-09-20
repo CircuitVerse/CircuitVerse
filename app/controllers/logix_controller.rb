@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 class LogixController < ApplicationController
-  # before_action :authenticate_user!
 
-  MAXIMUM_FEATURED_CIRCUITS = 4
+  MAXIMUM_FEATURED_CIRCUITS = 3
 
   def index
     @projects = Project.select(:id, :author_id, :image_preview, :name, :slug)
@@ -18,18 +17,16 @@ class LogixController < ApplicationController
       @projects.paginate(page: nil)
     end
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @projects }
-      format.js
-    end
-
     @featured_circuits = Project.joins(:featured_circuit)
       .order("featured_circuits.created_at DESC")
                                 .limit(MAXIMUM_FEATURED_CIRCUITS)
-  end
 
-  def gettingStarted; end
+    respond_to do |format|
+      format.html
+      format.json { render json: @projects }
+      format.js
+    end
+  end
 
   def examples
     @examples = [{ name: "Full Adder from 2-Half Adders", id: "users/3/projects/247",
@@ -45,10 +42,6 @@ class LogixController < ApplicationController
                  { name: "ALU 74LS181 by Ananth Shreekumar", id: "users/3/projects/252",
                    img: "examples/ALU_n.png" }]
   end
-
-  def features; end
-
-  def all_user_index; end
 
   def tos; end
 

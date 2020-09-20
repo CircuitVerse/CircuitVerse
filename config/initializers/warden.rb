@@ -1,1 +1,1 @@
-Warden::Strategies.add(:jwt_token, JWTTokenStrategy)
+Warden::Strategies.add(:jwt_token, JwtTokenStrategy)

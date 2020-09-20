@@ -14,7 +14,6 @@
 <%= form_with(model: [ current_user, @project] , local: true, multipart: true, id:"projectForm") do |form| %>
   <% if project.errors.any? %>
     <div id="error-message">
-      <h6><%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:</h6>
       <ul>
         <% project.errors.full_messages.each do |message| %>
         <li><%= message %></li>

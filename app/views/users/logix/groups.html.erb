@@ -1,14 +1,23 @@
+<% if @user.name %>
+  <% content_for :title, @user.name + " - Groups" %>
+<% else %>
+  <% content_for :title, "Nil - Groups" %>
+<% end %>
 
-<% content_for :title, @user.name + " - Groups" %>
 
 <div class="container">
+  <% if notice %>
+  <div class="row" id='alertdiv'>
+    <div class="alert alert-success alert-dismissible container text-center">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <h6><%= notice %></h6>
+    </div>
+  </div>
+  <% end %>
   <div class="row center-row">
     <div class="col-xs col-sm col-md col-lg">
       <h1 class="submain-heading">GROUPS</h1>
       <%= link_to '+ Make New Group', new_group_path, class: "btn primary-button groups-add-primary-button" %>
-      <% if notice %>
-        <p id="notice" class="alert alert-success"><%= notice %></p>
-      <% end %>
     </div>
   </div>
   <br>

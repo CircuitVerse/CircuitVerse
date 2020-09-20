@@ -8,25 +8,17 @@
   <% if thread.is_closed? %>
     <p><%= t 'commontator.thread.status.cannot_post' %></p>
   <% elsif !user %>
-    <p><%= t 'commontator.require_login' %></p>
+    <p>You must <a href="/users/sign_in" class="anchor-text">login</a> before you can post a comment.</p>
   <% else %>
     <% if @commontator_new_comment.nil? %>
       <div id="commontator-thread-<%= thread.id %>-new-comment-link" class="new-comment">
-        <%= link_to t('commontator.comment.actions.new'),
+        <%= link_to "+ Add Comment",
             commontator.new_thread_comment_path(thread),
-            remote: true %>
+            remote: true, class: "btn primary-button" %>
       </div>
     <% end %>
 
-    <div id="commontator-thread-<%= thread.id %>-new-comment" class="new-comment<%=
-    @commontator_new_comment.nil? ? ' commontator-hidden' : '' %>">
-      <% unless @commontator_new_comment.nil? %>
-        <%=
-          render partial: 'commontator/comments/form', locals: {
-            comment: @commontator_new_comment, thread: thread
-          }
-        %>
-      <% end %>
+    <div id="commontator-thread-<%= thread.id %>-new-comment" class="new-comment">
     </div>
   <% end %>
 </div>

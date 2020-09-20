@@ -1,35 +1,26 @@
 @import "theme";
 @import "bootstrap/scss/bootstrap";
-@import "commontator/application";
 @import 'bootstrap-typeahead-rails';
 @import "font-awesome-sprockets";
 @import "font-awesome";
 @import 'trumbowyg/dist/ui/trumbowyg.min';
+@import "commontator/application";
+@import 'simple_discussion';
+@import 'simple_discussion_overrides';
 @import 'layout';
 @import 'components';
-@import 'logixRelease';
-@import 'layout';
+@import 'navbar';
+@import 'footer';
+@import 'about';
+@import 'contribute';
+@import 'teacher';
 @import 'search';
+@import 'custom_mail';
 @import 'editor';
 @import 'home';
 @import 'assignments';
 @import 'examples';
-@import 'simple_discussion';
-@import 'simple_discussion_overrides';
-
-@import 'navbar';
-@import 'about';
-@import 'contribute';
-@import 'teacher';
-@import 'custom_mail';
 @import 'groups';
 @import 'projects';
 @import 'users';
-@import 'footer';
-@import 'oldStyles';
-// #FIXME move these styles
-
-.col-centered {
-  float: none;
-  margin: 0 auto;
-}
+@import 'commontator';

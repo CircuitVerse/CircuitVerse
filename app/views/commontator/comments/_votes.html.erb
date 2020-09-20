@@ -32,7 +32,9 @@
         %>
       <% end %>
     <% else %>
-      <%= image_tag "commontator/upvote_disabled.png" %>
+      <div title="You can't vote on your own comment">
+        <%= image_tag "commontator/upvote_disabled.png" %>
+      </div>
     <% end %>
   </span>
   <% end %>
@@ -62,7 +64,9 @@
         %>
       <% end %>
     <% else %>
+    <div title="You can't vote on your own comment">
       <%= image_tag "commontator/downvote_disabled.png" %>
+    </div>
     <% end %>
   </span>
   <% end %>

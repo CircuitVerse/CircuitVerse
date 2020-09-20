@@ -39,7 +39,7 @@
             </label>
           </div>
           <button type="submit" class="btn primary-button users-edit-primary-button">Save</button>
-          <a class="anchor-text" href="<%= profile_path(current_user) %>">Back</a>
+          <%= link_to "Back", :back, class: "anchor-text" %>
         <% end %>
         <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
