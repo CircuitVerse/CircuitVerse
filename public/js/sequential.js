@@ -157,9 +157,6 @@ DflipFlop.prototype.tooltipText = "D FlipFlop ToolTip : Introduces delay in timi
 DflipFlop.prototype.helplink = "https://docs.circuitverse.org/#/Sequential?id=d-flip-flop";
 DflipFlop.prototype.isResolvable = function() {
 	return true;
-    if (this.reset.value == 1) return true;
-    if (this.clockInp.value != undefined && this.dInp.value != undefined ) return true;
-    return false;
 }
 DflipFlop.prototype.newBitWidth = function(bitWidth) {
     this.bitWidth = bitWidth;
@@ -447,9 +444,6 @@ SRflipFlop.prototype.newBitWidth = function(bitWidth) {
 }
 SRflipFlop.prototype.isResolvable = function() {
     return true;
-    if (this.reset.value == 1) return true;
-    if (this.S.value != undefined && this.R.value != undefined) return true;
-    return false;
 }
 SRflipFlop.prototype.resolve = function() {
 
