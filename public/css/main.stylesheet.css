@@ -1209,6 +1209,11 @@ input:checked + .slider:before {
   background: transparent !important;
 }
 
+#element:focus {
+  outline: none !important;
+}
+
+
 .filterX {
   position: absolute;
   right: 19px;
