@@ -2,17 +2,24 @@
 
 class Api::V1::GroupsController < Api::V1::BaseController
   before_action :authenticate_user!
-  before_action :set_group, except: %i[index groups_mentored create]
-  before_action :set_options, only: %i[index groups_mentored create show update]
+  before_action :set_group, except: %i[index groups_owned groups_mentored create]
+  before_action :set_options, only: %i[index groups_owned groups_mentored create show update]
   before_action :check_show_access, only: [:show]
   before_action :check_edit_access, only: %i[update destroy]
 
-  WHITELISTED_INCLUDE_ATTRIBUTES = %i[group_members assignments].freeze
+  WHITELISTED_INCLUDE_ATTRIBUTES = %i[group_members group_mentors assignments].freeze
 
   # GET /api/v1/groups
   def index
     @groups = paginate(current_user.groups)
     @options[:links] = link_attrs(@groups, api_v1_groups_url)
+    render json: Api::V1::GroupSerializer.new(@groups, @options)
+  end
+
+  # GET /api/v1/groups/owned
+  def groups_owned
+    @groups = paginate(current_user.groups_owned)
+    @options[:links] = link_attrs(@groups, api_v1_groups_owned_url)
     render json: Api::V1::GroupSerializer.new(@groups, @options)
   end
 
@@ -25,6 +32,7 @@ class Api::V1::GroupsController < Api::V1::BaseController
 
   # POST /api/v1/groups/
   def create
+    @group = current_user.groups_owned.new(group_params)
     @group = current_user.groups_mentored.new(group_params)
     @group.save!
     if @group.save
@@ -75,7 +83,7 @@ class Api::V1::GroupsController < Api::V1::BaseController
     end
 
     def group_params
-      params.require(:group).permit(:name, :mentor_id)
+      params.require(:group).permit(:name, :owner_id)
     end
 
     def check_show_access

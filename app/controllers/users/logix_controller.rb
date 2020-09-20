@@ -35,7 +35,12 @@ class Users::LogixController < ApplicationController
 
   def groups
     @user = authorize @user
-    @groups_mentored = Group.where(id: Group.joins(:mentor).where(mentor: @user))
+    @groups_owned = Group.where(id: Group.joins(:owner).where(owner: @user))
+                            .select("groups.*, COUNT(group_members.id) as group_member_count")
+                            .joins("left outer join group_members on \
+                              (group_members.group_id = groups.id)")
+                            .group("groups.id")
+    @groups_mentored = Group.where(id: Group.joins(:group_mentors).where(group_mentors: { user: @user }))
                             .select("groups.*, COUNT(group_members.id) as group_member_count")
                             .joins("left outer join group_members on \
                               (group_members.group_id = groups.id)")

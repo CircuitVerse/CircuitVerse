@@ -7,6 +7,7 @@ RSpec.describe User, type: :model do
     it { should have_many(:projects) }
     it { should have_many(:stars) }
     it { should have_many(:rated_projects) }
+    it { should have_many(:groups_owned) }
     it { should have_many(:groups_mentored) }
     it { should have_many(:group_members) }
     it { should have_many(:groups) }

@@ -21,6 +21,35 @@
     </div>
   </div>
   <br>
+  <% if @groups_owned.present? %>
+    <h4 class="submain-heading">GROUPS YOU OWN:</h4>
+    <div class="row center-row">
+      <% @groups_owned.each do |group| %>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+          <div class="groups-card groups-mentor-card">
+            <div class="groups-mentor-card-name"><%= group.name %></div>
+            <div>
+              <p>Total Members: <%= group.group_member_count %></p>
+            </div>
+            <div class="groups-mentor-card-mini-buttons">
+              <%= link_to group, class: "mini-button groups-mentor-card-view-mini-button" do %>
+                <%= image_tag("SVGs/viewGroup.svg", alt: "View Group") %>
+                <span>View</span>
+              <% end %>
+              <%= link_to edit_group_path(group), class: "mini-button groups-mentor-card-edit-mini-button" do %>
+                <%= image_tag("SVGs/editGroup.svg", alt: "Edit Group") %>
+                <span>Edit</span>
+              <% end %>
+              <%= link_to '#', class: "mini-button groups-mentor-card-delete-mini-button", data: {toggle: "modal", target: "#deletegroupModal", currentgroup: group.id} do %>
+                <%= image_tag("SVGs/deleteGroup.svg", alt: "Delete Group") %>
+                <span>Delete</span>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
   <% if @groups_mentored.present? %>
     <h4 class="submain-heading">GROUPS YOU MENTOR:</h4>
     <div class="row center-row">

@@ -11,7 +11,7 @@ describe GroupsController, type: :request do
     it "creates a group" do
       sign_in @mentor
       expect {
-        post groups_path, params: { group: { name: "test group", mentor_id: @mentor.id } }
+        post groups_path, params: { group: { name: "test group", owner_id: @mentor.id } }
       }.to change { Group.count }.by(1)
     end
   end

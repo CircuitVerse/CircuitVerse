@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
   # resources :assignment_submissions
   resources :group_members, only: %i[create destroy]
+  resources :group_mentors, only: %i[create destroy]
   resources :groups, except: %i[index] do
     resources :assignments
   end
@@ -148,11 +149,14 @@ Rails.application.routes.draw do
       end
       post "/assignments/:assignment_id/projects/:project_id/grades", to: "grades#create"
       resources :grades, only: %i[update destroy]
+      get "/groups/owned", to: "groups#groups_owned"
       get "/groups/mentored", to: "groups#groups_mentored"
       resources :groups, only: %i[index show update destroy]
       delete "/group/members/:id", to: "group_members#destroy"
+      delete "/group/mentors/:id", to: "group_mentors#destroy"
       resources :groups do
         resources :members, controller: "group_members", shallow: true, only: %i[index create]
+        resources :mentors, controller: "group_mentors", shallow: true, only: %i[index create]
         resources :assignments, shallow: true
       end
       resources :assignments do

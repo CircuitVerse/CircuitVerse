@@ -9,12 +9,16 @@ class AssignmentPolicy < ApplicationPolicy
   end
 
   def show?
-    assignment.group.mentor_id == user.id || user.groups.where(id: assignment.group.id).exists? \
-    || user.admin?
+    assignment.group.owner_id == user.id || user.groups.where(id: assignment.group.id).exists? \
+    || mentor? || user.admin?
+  end
+
+  def mentor?
+    assignment.group.group_mentors.where(user: user.id).exists?
   end
 
   def admin_access?
-    (assignment.group&.mentor_id == user.id) || user.admin?
+    (assignment.group&.owner_id == user.id) || mentor? || user.admin?
   end
 
   def start?
