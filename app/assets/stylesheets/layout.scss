@@ -94,10 +94,6 @@ body {
 }
 
 //pagination
-.pagination {
-   justify-content: center;
-   margin-top: 50px;
-}
 .page-link {
   color: $secondary-green;
 
@@ -115,7 +111,12 @@ body {
   }
 }
 .pagination .page-link {
-  white-space: nowrap;
+  white-space: nowrap
+}
+
+.pagination {
+  justify-content: center;
+  margin-top: 50px
 }
 
 @media (max-width: 992px) {
