@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'Inter';
+  src: font-url('Inter.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -7,6 +14,7 @@ html {
 }
 
 body {
+  font-family: 'Inter';
   padding-top: 90px;
 }
 

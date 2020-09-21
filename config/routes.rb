@@ -108,6 +108,7 @@ Rails.application.routes.draw do
   # redirects
   get "/facebook", to: redirect("https://www.facebook.com/CircuitVerse")
   get "/twitter", to: redirect("https://www.twitter.com/CircuitVerse")
+  get "/linkedin", to: redirect("https://www.linkedin.com/company/circuitverse")
   get "/slack", to: redirect(
     "https://join.slack.com/t/circuitverse-team/shared_invite/enQtNjc4MzcyNDE5OTA3LTdjYTM5NjFiZWZlZGI2MmU1MmYzYzczNmZlZDg5MjYxYmQ4ODRjMjQxM2UyMWI5ODUzODQzMDU2ZDEzNjI4NmE"
   )
