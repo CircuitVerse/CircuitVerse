@@ -240,7 +240,7 @@ GEM
     json (2.3.1)
     json-schema (2.8.1)
       addressable (>= 2.4)
-    jwt (2.2.1)
+    jwt (2.2.2)
     kaminari (1.2.1)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.2.1)
