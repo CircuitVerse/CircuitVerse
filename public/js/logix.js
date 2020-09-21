@@ -56,10 +56,10 @@ function setupElementLists() {
     window.renderOrder = [...(moduleList.slice().reverse()), "wires", "allNodes"]; // Order of render
 
 
-    function createIcon(element) {
+    function createIcon(element, description) {
         return `<div class="icon logixModules pointerCursor" id="${element}" >
             <img src= "/img/${element}.svg" >
-            <p class="img__description">${element}</p>
+            <p class="img__description">${description}</p>
         </div>`;
     }
 
@@ -69,9 +69,8 @@ function setupElementLists() {
 
         let categoryData = elementHierarchy[category];
 
-        for (let i = 0; i < categoryData.length; i++) {
-            let element = categoryData[i];
-            htmlIcons += createIcon(element);
+        for (element in categoryData) {
+            htmlIcons += createIcon(element, categoryData[element]);
         }
 
         let accordionData = `<div class="panelHeader">${category}</div>
