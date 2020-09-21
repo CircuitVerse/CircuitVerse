@@ -171,6 +171,13 @@ function generateBooleanTableData(outputListNames) {
     return data;
 }
 
+/* combinationalData is a 2d array which contains conditions for each output to be 1 in terms of input.
+    Ex. [["1-","-1"],["11"]] implies (1,x) or (x, 1) input config generates a 1 on the first output
+    and (1,1) for the second output and so on */
+
+/* This function is used to draw the circuit for the given combinational analysis.
+    It first checks for AND conditions, adds an andGateSubstitute(regular node) for DONT CAREs.
+    Finally these AND(and AND substitute) gate outputs are ORed */
 function drawCombinationalAnalysis(combinationalData, inputList, outputListNames, scope = globalScope) {
     // console.log(combinationalData);
     var inputCount = inputList.length;
@@ -188,6 +195,8 @@ function drawCombinationalAnalysis(combinationalData, inputList, outputListNames
 
     var logixNodes = [];
 
+    /* Adds inputs, labels for those inputs and 2 wires(A and not A). Also adds 
+        required nodes in the process */
     for (var i = 0; i < inputCount; i++) {
         inputObjects.push(new Input(startPosX + i * 40, startPosY, scope, 'DOWN', 1));
         inputObjects[i].setLabel(inputList[i]);
@@ -237,6 +246,19 @@ function drawCombinationalAnalysis(combinationalData, inputList, outputListNames
                     logixNodes[index] = v;
                     v.connect(andGateSubstituteNode);
                     andGateNodes.push(andGateSubstituteNode);
+                }
+
+                // control here implies combinationalData[i][j] is dashes only
+                if(andGateNodes.length === 0) {
+                   for(var k = 0; k <= combinationalData[i][j].length; k++){
+                        var index = k;
+                        var andGateSubstituteNode = new Node(andPosX, currentPosY + 30 * index, 2, scope.root);
+                        var v = new Node(logixNodes[index].absX(), andGateSubstituteNode.absY(), 2, scope.root);
+                        logixNodes[index].connect(v);
+                        logixNodes[index] = v;
+                        v.connect(andGateSubstituteNode);
+                        andGateNodes.push(andGateSubstituteNode);
+                    } 
                 }
             }
             currentPosY += c * 10 + 30;
