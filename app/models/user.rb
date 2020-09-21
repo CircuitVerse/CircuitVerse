@@ -4,6 +4,8 @@ class User < ApplicationRecord
   require "pg_search"
   include SimpleDiscussion::ForumUser
 
+  validates :email, undisposable: { message: "Sorry, but we do not accept your mail provider." }
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   has_many :projects, foreign_key: "author_id", dependent: :destroy
