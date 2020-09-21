@@ -3,8 +3,7 @@
 class User < ApplicationRecord
   require "pg_search"
   include SimpleDiscussion::ForumUser
-  validates :name, presence: true
-  validates :email, format: { with: /\b[A-Z0-9._%a-z\-]+@(?:[A-Z0-9a-z\-]+\.)+[A-Za-z]{2,4}\z/ }
+  validates :email, format: { with: Devise.email_regexp }
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
