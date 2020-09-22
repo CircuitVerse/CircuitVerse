@@ -183,4 +183,8 @@ a:not([href]):not([tabindex]) {
     line-height: normal;
   }
 }
+
+.assignments-description img {
+  max-width: 100%;
+}
 //assignment details ends

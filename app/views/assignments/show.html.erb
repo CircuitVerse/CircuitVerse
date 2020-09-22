@@ -29,7 +29,12 @@
             <p><strong>Time Remaining: </strong><%= AssignmentDecorator.new(@assignment).time_remaining %></p>
           <% end %>
           <p><strong>Graded: </strong><%= @assignment.graded %></p>
-          <p><strong>Description: </strong><%= @assignment.description&.html_safe %></p>
+          <% if @assignment.description %>
+            <p><strong>Description: </strong></p>
+            <div class="assignments-description">
+              <%= @assignment.description&.html_safe %>
+            </div>
+          <% end %>
           <% if @assignment.restricted_circuit_elements != "None" %>
             <p><strong>Restricted Circuited Elements: </strong><%= @assignment.restricted_circuit_elements %></p>
           <% end %>
@@ -87,7 +92,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="row assignments-submission-row assignments-submission-description">
+                <div class="row assignments-submission-row assignments-submission-description assignments-description">
                   <h6 class="assignments-project-decription-heading">Description:</h6>
                   <p id="project-description"></p>
                 </div>
