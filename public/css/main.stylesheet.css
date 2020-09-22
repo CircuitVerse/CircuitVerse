@@ -201,17 +201,12 @@ input[type="text"]:focus {
 .quick-btn {
   display: flex;
   position: absolute;
-  width: 280px;
-  left: 60vw;
+  width: 400px;
   height: 33px;
+  top: 90px;
+  right: 280px;
   border-radius: 7px;
-  /* background: #454545;
-  box-shadow: 4px 4px 5px #3b3b3b, -4px -4px 5px #4f4f4f;
-  border-top: 1.5px solid #535353;
-  border-left: 1.5px solid #535353;
-  border-right: 1.5px solid #333333;
-  border-bottom: 1.5px solid #333333; */
-  z-index: 10000;
+  z-index: 100;
 }
 
 .quick-btn > div {
@@ -393,7 +388,8 @@ input[type="text"]:focus {
   padding: 10px;
   padding-top: 15px;
   padding-left: 17px;
-  font: Bold 16px Nunito;
+  font-weight: bold;
+  font-size: 16px;
   text-transform: uppercase;
   text-align: left;
   cursor: move;
@@ -585,7 +581,7 @@ div.icon img {
 .moduleProperty {
   display: none;
   font: inherit;
-  width: 240px;
+  width: 242px;
   border-radius: 5px;
   position: fixed;
   top: 90px;
@@ -600,7 +596,8 @@ div.icon img {
 
 #moduleProperty-title {
   padding: 10px;
-  font: Bold 16px Nunito;
+  font-weight: bold;
+  font-size: 16px;
   text-transform: uppercase;
   text-align: left;
 }
@@ -1236,31 +1233,26 @@ input:checked + .slider:before {
   border-radius: 3px;
 }
 
-.zoom-slider {
-    position: absolute;
-    right: 8%;
-}
-
 .zoom-slider::before {
   content: '-';
   color: white;
   font-size: 30px;
-  position: absolute;
-  left: -20px;
-  top: -5.0px;
+  position: relative;
+  left: 0px;
+  top: -4.0px;
 }
 
 .zoom-slider::after {
   content: '+';
   color: white;
   font-size: 20px;
-  position: absolute;
-  right: -20px;
-  top: 1px;
+  position: relative;
+  right: 0px;
+  top: -6px;
 }
 
 .custom-range {
-  width: 140px;
+  width: 80px;
 }
 .custom-range::-moz-range-track {
   height: 1px;
@@ -1311,8 +1303,9 @@ input[type='range']::-webkit-slider-thumb {
   position: absolute;
   right: 6px;
   transform: translateX(-50%);
-  top: 21px;
+  top: 16px;
   cursor: pointer;
+  border-radius: 1px;
 }
 
 .ce-hidden,.prop-hidden {
