@@ -235,6 +235,7 @@ function drawCombinationalAnalysis(combinationalData, inputList, outputListNames
                     logixNodes[index].connect(v);
                     logixNodes[index] = v;
                     v.connect(andGate.inp[k - misses]);
+                    currentPosY += c * 10 + 30;
                 }
             } else {
                 for (var k = 0; k < combinationalData[i][j].length; k++) {
@@ -246,22 +247,23 @@ function drawCombinationalAnalysis(combinationalData, inputList, outputListNames
                     logixNodes[index] = v;
                     v.connect(andGateSubstituteNode);
                     andGateNodes.push(andGateSubstituteNode);
+                    currentPosY += c * 10 + 30;
                 }
 
                 // control here implies combinationalData[i][j] is dashes only
                 if(andGateNodes.length === 0) {
-                   for(var k = 0; k <= combinationalData[i][j].length; k++){
+                   for(var k = 0; k < 2*combinationalData[i][j].length; k++){
                         var index = k;
-                        var andGateSubstituteNode = new Node(andPosX, currentPosY + 30 * index, 2, scope.root);
+                        var andGateSubstituteNode = new Node(andPosX, currentPosY, 2, scope.root);
                         var v = new Node(logixNodes[index].absX(), andGateSubstituteNode.absY(), 2, scope.root);
                         logixNodes[index].connect(v);
                         logixNodes[index] = v;
                         v.connect(andGateSubstituteNode);
                         andGateNodes.push(andGateSubstituteNode);
-                    } 
+                        currentPosY += c * 10 + 30;
+                    }
                 }
             }
-            currentPosY += c * 10 + 30;
         }
 
         var andGateCount = andGateNodes.length;
