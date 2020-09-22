@@ -6,6 +6,7 @@ cache:
 environment:
   RAILS_ENV: test
   COVERALLS_SERVICE_NAME: appveyor
+  nodejs_version: "12"
 
 services:
   - postgresql95
