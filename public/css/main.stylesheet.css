@@ -329,7 +329,6 @@ input[type="text"]:focus {
   cursor: pointer;
   padding-bottom: 7px;
   padding-top: 7px;
-  transition: all 0.2s ease-in-out;
   user-select: none;
   border-radius: 5px;
 }
