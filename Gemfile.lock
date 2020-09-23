@@ -281,6 +281,7 @@ GEM
     multi_xml (0.6.0)
     multipart-post (2.1.1)
     nested_form (0.3.2)
+    newrelic_rpm (6.13.0)
     nio4r (2.5.4)
     nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
@@ -622,6 +623,7 @@ DEPENDENCIES
   language_filter
   listen (>= 3.0.5, < 3.3)
   meta-tags
+  newrelic_rpm (~> 6.13)
   omniauth
   omniauth-facebook
   omniauth-github
