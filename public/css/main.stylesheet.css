@@ -878,7 +878,7 @@ input:checked + .slider:before {
   border-radius: 50%;
   display: block;
   position: absolute;
-  left: 5px;
+  left: 2px;
   top: 50%;
   transform: translateY(-50%);
 }
@@ -1136,13 +1136,13 @@ input:checked + .slider:before {
 }
 
 #insertSubcircuitDialog > label {
-  height: 20px;
+  height: 30px;
   border-radius: 3px;
   margin: 0 5px;
   margin-bottom: 4px;
   justify-content: center;
+  padding-left: 10px;
 }
-
 
 #miniMap {
   position: fixed;

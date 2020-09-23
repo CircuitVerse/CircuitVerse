@@ -463,9 +463,6 @@ function onMouseUp(e) {
     wireToBeCheckedSet(1);
 
     scheduleUpdate(1);
-    console.log('mo', simulationArea)
-    let latest = globalScope.backups[globalScope.backups.length-1]
-    console.log(JSON.parse(latest))
     simulationArea.mouseDown = false;
 
     for (var i = 0; i < 2; i++) {
