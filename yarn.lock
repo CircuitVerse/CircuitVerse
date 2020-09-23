@@ -5682,6 +5682,11 @@ jest-worker@^25.1.0:
     merge-stream "^2.0.0"
     supports-color "^7.0.0"
 
+jquery-ui-css@^1.11.5:
+  version "1.11.5"
+  resolved "https://registry.yarnpkg.com/jquery-ui-css/-/jquery-ui-css-1.11.5.tgz#34a1b24c371c80671f321908ad5ee0307c3a4585"
+  integrity sha512-bdCMquWHJVOn/5QQM03zbgyb5jOD1DtgfqwAOy6Dy6YDdCFs6GoX95J/sZq42lDR/L/fSMjhu8NORagedYi7LQ==
+
 jquery-ui-dist@^1.12.1:
   version "1.12.1"
   resolved "https://registry.yarnpkg.com/jquery-ui-dist/-/jquery-ui-dist-1.12.1.tgz#5c0815d3cc6f90ff5faaf5b268a6e23b4ca904fa"

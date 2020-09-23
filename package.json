@@ -19,8 +19,8 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
-    "@babel/preset-env": "^7.10.2",
     "@babel/plugin-proposal-numeric-separator": "^7.10.1",
+    "@babel/preset-env": "^7.10.2",
     "@fortawesome/fontawesome-free": "^5.12.1",
     "@rails/webpacker": "4.2.2",
     "better-docs": "^2.0.1",
@@ -30,6 +30,7 @@
     "expose-loader": "^0.7.5",
     "jquery": "^3.4.1",
     "jquery-ui": "^1.12.1",
+    "jquery-ui-css": "^1.11.5",
     "jquery-ui-dist": "^1.12.1",
     "jquery-ujs": "^1.2.2",
     "jsdoc-export-default-interop": "^0.3.1",
