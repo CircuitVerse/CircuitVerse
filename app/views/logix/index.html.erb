@@ -223,12 +223,25 @@
 <script type="application/ld+json">
   {
     "@context" : "http://schema.org",
-    "@type" : "SoftwareApplication",
+    "@type" : "WebApplication",
     "name" : "<%= Rails.configuration.site_name %>",
     "image" : "<%= Rails.configuration.site_image %>",
     "url" : "<%= Rails.configuration.site_url %>",
     "applicationCategory" : "<%= Rails.configuration.site_category %>",
-    "downloadUrl" : "<%= Rails.configuration.site_download_url %>"
+    "downloadUrl" : "<%= Rails.configuration.site_download_url %>",
+    "operatingSystem": "All"
+  }
+</script>
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "url" : "<%= Rails.configuration.site_url %>",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "<%= Rails.configuration.site_url %>/search?resource=Projects&q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
   }
 </script>
 
