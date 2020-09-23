@@ -15,6 +15,7 @@ import './embed';
 import { newCircuit } from './circuit';
 import load from './data/load';
 import save from './data/save';
+import showTourGuide from './tutorials';
 
 window.width = undefined;
 window.height = undefined;
@@ -170,4 +171,9 @@ export function setup() {
             showMessage("We have detected that you did not save your last work. Don't worry we have recovered them. Access them using Project->Recover");
         }
     }, 1000);
+
+    if (!localStorage.tutorials_tour_done) {
+        setTimeout(()=> {showTourGuide();}, 2000);
+    }
+    
 }
