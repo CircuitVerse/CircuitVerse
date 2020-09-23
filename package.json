@@ -25,6 +25,7 @@
     "better-docs": "^2.0.1",
     "bootstrap": "^4.3.1",
     "css-vars": "^2.2.0",
+    "driver.js": "^0.9.8",
     "expose-loader": "^0.7.5",
     "jquery": "^3.4.1",
     "jquery-ui": "^1.12.1",

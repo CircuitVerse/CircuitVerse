@@ -30,13 +30,13 @@
       <li class="dropdown">
         <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Project<span></span></a>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item logixButton" id="newProject">New Project</a></li>
-          <li><a class="dropdown-item logixButton" id="clearProject">Clear Project</a></li>
-          <li><a class="dropdown-item logixButton" id="save">Save Online</a></li>
-          <li><a class="dropdown-item logixButton" id="saveOffline">Save Offline</a></li>
-          <li><a class="dropdown-item logixButton" id="createOpenLocalPrompt">Open Offline</a></li>
-          <li><a class="dropdown-item logixButton" id="recoverProject">Recover Project</a></li>
-          <li><a class="dropdown-item logixButton" id="fullViewOption">Preview Circuit</a></li>
+          <li><a class="dropdown-item logixButton text-left pl-1" id="newProject">New Project</a></li>
+          <li><a class="dropdown-item logixButton text-left pl-1" id="clearProject">Clear Project</a></li>
+          <li><a class="dropdown-item logixButton text-left pl-1" id="save">Save Online</a></li>
+          <li><a class="dropdown-item logixButton text-left pl-1" id="saveOffline">Save Offline</a></li>
+          <li><a class="dropdown-item logixButton text-left pl-1" id="createOpenLocalPrompt">Open Offline</a></li>
+          <li><a class="dropdown-item logixButton text-left pl-1" id="recoverProject">Recover Project</a></li>
+          <li><a class="dropdown-item logixButton text-left pl-1" id="fullViewOption">Preview Circuit</a></li>
         </ul>
       </li>
       <li class="dropdown">
@@ -57,17 +57,16 @@
           <li><a class="dropdown-item text-left pl-1" id="customShortcut">Custom Shortcut</a></li>
         </ul>
       </li>
-      <!--      <li class="dropdown">
-        <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Window<span></span></a>
+      <li  class="dropdown tour-help">
+        <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Help<span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item logixButton" id="createCombinationalAnalysisPrompt">Combinational</br>Analysis</a></li>
-          <li><a class="dropdown-item logixButton" id="startPlot">Start Plot</a></li>
-          <li><a class="dropdown-item logixButton" id="createSaveAsImgPrompt">Download Image</a>
+            <li><a class="dropdown-item text-left pl-1 logixButton" id="showTourGuide">Tutorial Guide</a></li>
+            <li><a class="dropdown-item text-left pl-1" href="https://docs.circuitverse.org" class="" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">User Manual</a></li>
+            <li class><a class="dropdown-item text-left pl-1" href="https://circuitverse.org/forum" class="forum-tab" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">Discussion Forum</a></li>
         </ul>
-      </li> -->
-      <li class="">
-        <a href="https://docs.circuitverse.org" class="" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">Help</a>
       </li>
+      
+      
     </ul>
     <span class="projectName noSelect defaultCursor font-weight-bold" id="projectName">
       Untitled
@@ -166,7 +165,7 @@
   <button class="logixButton" id="newCircuit" onclick="">&#43;</button>
 </div>
 
-<div class="modules noSelect defaultCursor ce-panel">
+<div class="modules noSelect defaultCursor ce-panel" id="guide_1">
   <div id="modules-header">Circuit Elements</div>
   <span id='ceMinimize' class="minimize"></span>
   <div style="position: relative;">
@@ -177,7 +176,7 @@
   <div class="accordion" id="menu"></div>
 </div>
 
-<div class="moduleProperty noSelect effect1 properties-panel" id="moduleProperty">
+<div class="moduleProperty noSelect effect1 properties-panel guide_2" id="moduleProperty">
   <div id="moduleProperty-title" class="noSelect">Properties</div>
   <span id='propsMinimize' class="minimize"></span>
   <div id="moduleProperty-inner"></div>
