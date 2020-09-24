@@ -33,7 +33,6 @@ class Project < ApplicationRecord
 
   include PgSearch::Model
   pg_search_scope :text_search, against: %i[name description], associated_against: {
-    author: :name,
     tags: :name
   }
 
