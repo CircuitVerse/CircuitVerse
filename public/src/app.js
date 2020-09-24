@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             "dev3": {
                 "label": "$and$/tmp/tmp-53067TiR5Q2lxIueD.sv:2$1",
-                "type": "Ne",
+                "type": "Le",
                 "bits": 3
             }
         },

@@ -388,6 +388,63 @@ class verilogLtGate extends verilogBinaryGate{
     constructor(deviceJSON) {
         super(deviceJSON);
         this.constant7 = new ConstantVal(0, 0, undefined, undefined, 3, "111");
+        this.alu = new ALU(0, 0, undefined, undefined, this.bitWidth);
+        this.splitter = new Splitter(0, 0, undefined, undefined, this.bitWidth, [1]);
+
+        this.constant7.output1.connect(this.alu.controlSignalInput);
+        this.alu.output.connect(this.splitter.inp1);
+
+        this.input = [this.alu.inp1, this.alu.inp2];
+        this.output = this.splitter.outputs[0];
+    }
+}
+
+class verilogGtGate extends verilogBinaryGate{
+    constructor(deviceJSON) {
+        super(deviceJSON);
+        this.constant7 = new ConstantVal(0, 0, undefined, undefined, 3, "111");
+        this.alu = new ALU(0, 0, undefined, undefined, this.bitWidth);
+        this.splitter = new Splitter(0, 0, undefined, undefined, this.bitWidth, [1]);
+
+        this.constant7.output1.connect(this.alu.controlSignalInput);
+        this.alu.output.connect(this.splitter.inp1);
+
+        this.input = [this.alu.inp2, this.alu.inp1];
+        this.output = this.splitter.outputs[0];
+    }
+}
+
+class verilogGeGate extends verilogBinaryGate{
+    constructor(deviceJSON) {
+        super(deviceJSON);
+        this.constant7 = new ConstantVal(0, 0, undefined, undefined, 3, "111");
+        this.alu = new ALU(0, 0, undefined, undefined, this.bitWidth);
+        this.splitter = new Splitter(0, 0, undefined, undefined, this.bitWidth, [1]);
+        this.notGate = new NotGate(0, 0);
+
+        this.constant7.output1.connect(this.alu.controlSignalInput);
+        this.alu.output.connect(this.splitter.inp1);
+        this.splitter.outputs[0].connect(this.notGate.inp1);
+
+        this.input = [this.alu.inp1, this.alu.inp2];
+        this.output = this.notGate.output1;
+    }
+}
+
+class verilogLeGate extends verilogBinaryGate{
+    constructor(deviceJSON) {
+        super(deviceJSON);
+        this.constant7 = new ConstantVal(0, 0, undefined, undefined, 3, "111");
+        this.alu = new ALU(0, 0, undefined, undefined, this.bitWidth);
+        this.splitter = new Splitter(0, 0, undefined, undefined, this.bitWidth, [1]);
+        this.notGate = new NotGate(0, 0);
+
+        this.constant7.output1.connect(this.alu.controlSignalInput);
+        this.alu.output.connect(this.splitter.inp1);
+        this.splitter.outputs[0].connect(this.notGate.inp1);
+
+        this.input = [this.alu.inp2, this.alu.inp1];
+        this.output = this.notGate.output1;
     }
 }
 
@@ -413,6 +470,11 @@ typeToNode["XnorReduce"] = verilogReduceXnorGate;
 typeToNode["Eq"] = verilogEqGate;
 typeToNode["Ne"] = verilogNeGate;
 
+
+typeToNode["Lt"] = verilogLtGate;
+typeToNode["Le"] = verilogLeGate;
+typeToNode["Ge"] = verilogGeGate;
+typeToNode["Gt"] = verilogGtGate;
 
 
 export default function YosysJSON2CV(JSON){
