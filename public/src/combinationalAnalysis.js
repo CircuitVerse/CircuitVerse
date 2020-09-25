@@ -5,6 +5,7 @@ import Node from './node';
 import { scheduleBackup } from './data/backupCircuit';
 import BooleanMinimize from './quinMcCluskey';
 import Input from './modules/Input';
+import ConstantVal from './modules/ConstantVal';
 import Output from './modules/Output';
 import AndGate from './modules/AndGate';
 import OrGate from './modules/OrGate';
@@ -112,17 +113,30 @@ function createBooleanPrompt(inputListNames, outputListNames, scope = globalScop
                     $(this).dialog('close');
                     var data = generateBooleanTableData(outputListNamesInteger);
                     // passing the hash values to avoid spaces being passed which is causing a problem
-                    var minmizedCircuit = [];
+                    var minimizedCircuit = [];
+                    let inputCount = inputListNames.length;
                     for (const output in data) {
-                        const temp = new BooleanMinimize(
-                            inputListNames.length,
-                            data[output][1].map(Number),
-                            data[output].x.map(Number),
-                        );
-                        minmizedCircuit.push(temp.result);
+                        let oneCount = data[output][1].length; // Number of ones
+                        let zeroCount = data[output][0].length; // Number of zeroes
+                        if(oneCount == 0) {
+                            // Hardcode to 0 as output
+                            minimizedCircuit.push(['-'.repeat(inputCount) + '0']);
+                        }
+                        else if(zeroCount == 0) {
+                            // Hardcode to 1 as output
+                            minimizedCircuit.push(['-'.repeat(inputCount) + '1']);
+                        }
+                        else {
+                            // Perform KMap like minimzation
+                            const temp = new BooleanMinimize(
+                                inputListNames.length,
+                                data[output][1].map(Number),
+                                data[output].x.map(Number),
+                            );
+                            minimizedCircuit.push(temp.result);
+                        }
                     }
-                    // //console.log(dataSample);
-                    drawCombinationalAnalysis(minmizedCircuit, inputListNames, outputListNames, scope);
+                    drawCombinationalAnalysis(minimizedCircuit, inputListNames, outputListNames, scope);
                 },
             },
             {
@@ -181,16 +195,26 @@ function drawCombinationalAnalysis(combinationalData, inputList, outputListNames
     var startPosY = 200;
 
     var currentPosY = 300;
-    var andPosX = startPosX + inputCount * 40 + 40;
+    var andPosX = startPosX + inputCount * 40 + 40 + 40;
     var orPosX = andPosX + Math.floor(maxTerms / 2) * 10 + 80;
     var outputPosX = orPosX + 60;
     var inputObjects = [];
 
     var logixNodes = [];
 
-    for (var i = 0; i < inputCount; i++) {
-        inputObjects.push(new Input(startPosX + i * 40, startPosY, scope, 'DOWN', 1));
-        inputObjects[i].setLabel(inputList[i]);
+    // Appending constant input to the end of inputObjects
+    for (var i = 0; i <= inputCount; i++) {
+        if(i < inputCount) {
+            // Regular Input
+            inputObjects.push(new Input(startPosX + i * 40, startPosY, scope, 'DOWN', 1));
+            inputObjects[i].setLabel(inputList[i]);
+        }
+        else {
+            // Constant Input
+            inputObjects.push(new ConstantVal(startPosX + i * 40, startPosY, scope, 'DOWN', 1, '1'));
+            inputObjects[i].setLabel('_C_');
+        }
+        
         inputObjects[i].newLabelDirection('UP');
         var v1 = new Node(startPosX + i * 40, startPosY + 20, 2, scope.root);
         inputObjects[i].output1.connect(v1);
