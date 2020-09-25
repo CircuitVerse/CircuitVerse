@@ -30,7 +30,7 @@ class GroupMembersController < ApplicationController
   def create
     dummy = GroupMember.new
     dummy.group_id = group_member_params[:group_id]
-    authorize dummy, :mentor?
+    authorize dummy, :owner?
 
     @group = Group.find(group_member_params[:group_id])
 
@@ -115,6 +115,6 @@ class GroupMembersController < ApplicationController
     end
 
     def check_access
-      authorize @group_member, :mentor?
+      authorize @group_member, :owner?
     end
 end

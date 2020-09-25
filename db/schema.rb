@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_10_140442) do
+ActiveRecord::Schema.define(version: 2020_09_20_120825) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -207,13 +207,22 @@ ActiveRecord::Schema.define(version: 2020_07_10_140442) do
     t.index ["user_id"], name: "index_group_members_on_user_id"
   end
 
+  create_table "group_mentors", force: :cascade do |t|
+    t.bigint "group_id"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["group_id"], name: "index_group_mentors_on_group_id"
+    t.index ["user_id"], name: "index_group_mentors_on_user_id"
+  end
+
   create_table "groups", force: :cascade do |t|
     t.string "name"
-    t.bigint "mentor_id"
+    t.bigint "owner_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "group_members_count"
-    t.index ["mentor_id"], name: "index_groups_on_mentor_id"
+    t.index ["owner_id"], name: "index_groups_on_owner_id"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -379,7 +388,9 @@ ActiveRecord::Schema.define(version: 2020_07_10_140442) do
   add_foreign_key "grades", "users"
   add_foreign_key "group_members", "groups"
   add_foreign_key "group_members", "users"
-  add_foreign_key "groups", "users", column: "mentor_id"
+  add_foreign_key "group_mentors", "groups"
+  add_foreign_key "group_mentors", "users"
+  add_foreign_key "groups", "users", column: "owner_id"
   add_foreign_key "pending_invitations", "groups"
   add_foreign_key "projects", "assignments"
   add_foreign_key "projects", "projects", column: "forked_project_id"

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe GroupMembersController, type: :request do
+describe GroupMentorsController, type: :request do
   before do
     @owner = FactoryBot.create(:user)
     @group = FactoryBot.create(:group, owner: @owner)
@@ -26,9 +26,9 @@ describe GroupMembersController, type: :request do
     end
 
     context "owner is logged in" do
-      it "creates members that are not present and pending invitations for others" do
+      it "creates mentors that are not present and pending invitations for others" do
         expect {
-          post group_members_path, params: create_params
+          post group_mentors_path, params: create_params
         }.to change { GroupMember.count }.by(1)
          .and change { PendingInvitation.count }.by(1)
       end
@@ -37,7 +37,7 @@ describe GroupMembersController, type: :request do
     context "user other than owner is logged in" do
       it "throws unauthorized error" do
         sign_in_random_user
-        post group_members_path, params: create_params
+        post group_mentors_path, params: create_params
         check_not_authorized(response)
       end
     end

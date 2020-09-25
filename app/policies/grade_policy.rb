@@ -9,6 +9,6 @@ class GradePolicy < ApplicationPolicy
   end
 
   def mentor?
-    grade.assignment&.group&.mentor_id == user.id
+    grade.assignment&.group&.owner_id == user.id || grade.assignment&.group&.group_mentors.exists?(user_id: user.id)
   end
 end

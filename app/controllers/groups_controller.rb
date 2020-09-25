@@ -10,6 +10,7 @@ class GroupsController < ApplicationController
   # GET /groups/1.json
   def show
     @group_member = @group.group_members.new
+    @group_mentor = @group.group_mentors.new
     @group.assignments.each do |assignment|
       if (assignment.status == "reopening") && (assignment.deadline < Time.zone.now)
         assignment.status = "closed"
@@ -29,6 +30,7 @@ class GroupsController < ApplicationController
   # POST /groups
   # POST /groups.json
   def create
+    @group = current_user.groups_owned.new(group_params)
     @group = current_user.groups_mentored.new(group_params)
 
     respond_to do |format|
@@ -75,7 +77,7 @@ class GroupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def group_params
-      params.require(:group).permit(:name, :mentor_id)
+      params.require(:group).permit(:name, :owner_id)
     end
 
     def check_show_access

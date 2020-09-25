@@ -8,7 +8,7 @@ class GroupMemberPolicy < ApplicationPolicy
     @group_member = group_member
   end
 
-  def mentor?
-    (group_member.group.mentor_id == user.id || user.admin?)
+  def owner?
+    (group_member.group.owner_id == user.id || user.admin?)
   end
 end

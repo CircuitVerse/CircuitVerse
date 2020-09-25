@@ -4,13 +4,14 @@ require "rails_helper"
 
 RSpec.describe Group, type: :model do
   before do
-    @mentor = FactoryBot.create(:user)
+    @owner = FactoryBot.create(:user)
   end
 
   describe "associations" do
-    it { should belong_to(:mentor) }
+    it { should belong_to(:owner) }
     it { should have_many(:users) }
     it { should have_many(:group_members) }
+    it { should have_many(:group_mentor) }
     it { should have_many(:assignments) }
     it { should have_many(:pending_invitations) }
   end
@@ -24,7 +25,7 @@ RSpec.describe Group, type: :model do
 
   describe "public methods" do
     it "should send group creation mail" do
-      group = FactoryBot.create(:group, mentor: @mentor)
+      group = FactoryBot.create(:group, mentor: @owner)
       expect {
         group.send_creation_mail
       }.to have_enqueued_job.on_queue("mailers")

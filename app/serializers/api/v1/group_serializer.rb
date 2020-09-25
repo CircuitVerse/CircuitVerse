@@ -7,12 +7,13 @@ class Api::V1::GroupSerializer
     group.group_members.size
   end
 
-  attributes :mentor_name do |group|
-    group.mentor.name
+  attributes :owner_name do |group|
+    group.owner.name
   end
 
-  attributes :name, :mentor_id, :created_at, :updated_at
+  attributes :name, :owner_id, :created_at, :updated_at
 
   has_many :group_members
+  has_many :group_mentors
   has_many :assignments
 end
