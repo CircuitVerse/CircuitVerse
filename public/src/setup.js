@@ -15,6 +15,7 @@ import './embed';
 import { newCircuit } from './circuit';
 import load from './data/load';
 import save from './data/save';
+import showTourGuide from './tutorials';
 
 window.width = undefined;
 window.height = undefined;
@@ -105,18 +106,16 @@ function setupElementLists() {
     window.elementHierarchy = metadata.elementHierarchy;
     for (const category in elementHierarchy) {
         let htmlIcons = '';
-
         const categoryData = elementHierarchy[category];
-
         for (let i = 0; i < categoryData.length; i++) {
             const element = categoryData[i];
             htmlIcons += createIcon(element);
         }
 
         const accordionData = `<div class="panelHeader">${category}</div>
-            <div class="panel customScroll">
-              ${htmlIcons}
-            </div>`;
+        <div class="panel customScroll">
+        ${htmlIcons}
+        </div>`;
 
         $('#menu').append(accordionData);
     }
@@ -172,4 +171,9 @@ export function setup() {
             showMessage("We have detected that you did not save your last work. Don't worry we have recovered them. Access them using Project->Recover");
         }
     }, 1000);
+
+    if (!localStorage.tutorials_tour_done) {
+        setTimeout(()=> {showTourGuide();}, 2000);
+    }
+    
 }

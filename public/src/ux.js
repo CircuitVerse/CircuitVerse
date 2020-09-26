@@ -14,10 +14,8 @@ import { newCircuit, circuitProperty } from './circuit';
 import modules from './modules';
 import { updateRestrictedElementsInScope } from './restrictedElementDiv';
 import { paste } from './events';
+import { changeScale } from './canvasApi';
 import updateTheme from "./themer/themer";
-
-
-
 
 
 export const uxvar = {
@@ -180,6 +178,21 @@ export function setupUI() {
     //     Save();
     // });
     // $('#moduleProperty').draggable();
+}
+
+export const selectElement = (ele) => {
+    // ////console.log(uxvar.smartDropXX,uxvar.smartDropYY);
+    if (simulationArea.lastSelected && simulationArea.lastSelected.newElement) simulationArea.lastSelected.delete();
+    var obj = new modules[ele](); // (simulationArea.mouseX,simulationArea.mouseY);
+    // obj = new modules[this.id](); // (simulationArea.mouseX,simulationArea.mouseY);
+    simulationArea.lastSelected = obj;
+    // simulationArea.lastSelected=obj;
+    // simulationArea.mouseDown=true;
+    uxvar.smartDropXX += 70;
+    if (uxvar.smartDropXX / globalScope.scale > width) {
+        uxvar.smartDropXX = 50;
+        uxvar.smartDropYY += 80;
+    }
 }
 
 /**
@@ -418,4 +431,62 @@ $('#octalInput').on('keyup', () => {
     setBaseValues(x);
 });
 
+window.addEventListener('DOMContentLoaded', () => {
+    $('#moduleProperty-title').on('mousedown', () => $('#moduleProperty').draggable({ disabled: false }));
+    $('#moduleProperty-title').on('mouseup', () => $('#moduleProperty').draggable({ disabled: true }));
+    $('#modules-header').on('mousedown', () => $('.ce-panel').draggable({ disabled: false }));
+    $('#modules-header').on('mouseup', () => $('.ce-panel').draggable({ disabled: true }));
+    $('#dragQPanel')
+        .on('mousedown', () => $('.quick-btn').draggable({ disabled: false }))
+        .on('mouseup', () => $('.quick-btn').draggable({ disabled: true }));
+
+    $('.ce-panel').on('mousedown', () => {
+        $('#moduleProperty').css('z-index', '99')
+        $('.ce-panel').css('z-index', '100')
+    })
+
+    $('#moduleProperty').on('mousedown', () => {
+        $('#moduleProperty').css('z-index', '100')
+        $('.ce-panel').css('z-index', '99')
+    })
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+    $('#ceMinimize').on('click', () => {
+        const markUp = `<div class='ce-hidden'>Circuit Elements<span id='ce-expand' style="right: 15px;position: absolute; cursor:pointer;"><i  onclick=" (() => {$('.modules').children().css('display', 'block'); $('.ce-hidden').remove(); $('#filter').css('display', 'none');})();" class="fas fa-external-link-square-alt"></i></span><div>`
+        $('.modules').children().css('display', 'none');
+        $('.modules').append(markUp);
+        // Set draggable on minimize
+        $('.ce-hidden').on('mousedown', () => $('.modules').draggable({ disabled: false }));
+        $('.ce-hidden').on('mouseup', () => $('.modules').draggable({ disabled: true }));
+    })
+    $('#propsMinimize').on('click', () => {
+        const markUp = `<div class='prop-hidden'>properties<span id='prop-expand' style="right: 15px;position: absolute; cursor:pointer;"><i  onclick=" (() => {$('#moduleProperty').children().css('display', 'block'); $('.prop-hidden').remove();})();" class="fas fa-external-link-square-alt"></i></span><div>`
+        $('#moduleProperty').children().css('display', 'none');
+        $('.moduleProperty').append(markUp);
+        // Set draggable on minimize
+        $('.prop-hidden').on('mousedown', () => $('#moduleProperty').draggable({ disabled: false }));
+        $('.prop-hidden').on('mouseup', () => $('#moduleProperty').draggable({ disabled: true }));
+    })
+    function exitFull() {
+        $('.navbar').show()
+        $('.modules').show()
+        $('.report-sidebar').show()
+        $('#tabsBar').show()
+        $('#moduleProperty').show()
+        $('#exitView').hide();
+    }
+
+})
+
+export function fullView () {
+    const onClick = `onclick="(() => {$('.navbar').show(); $('.modules').show(); $('.report-sidebar').show(); $('#tabsBar').show(); $('#exitViewBtn').remove(); $('#moduleProperty').show();})()"`
+    const markUp = `<button id='exitViewBtn' ${onClick} >Exit Full Preview</button>`
+    $('.navbar').hide()
+    $('.modules').hide()
+    $('.report-sidebar').hide()
+    $('#tabsBar').hide()
+    $('#moduleProperty').hide()
+    $('#exitView').append(markUp);
+}
 

@@ -26,6 +26,7 @@ export default {
         "--bg-secondary": "#bbbbbb",
         "--canvas-stroke": "#eee",
         "--canvas-fill": "white",
+        "--context-text": "white",
         "--bg-toggle-btn-primary": "#42b983",
         "--primary-btn-hov": "#3ca877",
         "--btn-danger": "#dc5656",
@@ -74,6 +75,7 @@ export default {
         "--bg-secondary": "#536c84", //border color input button,
         "--canvas-fill": "#1B2C33", //canvas bg
         "--canvas-stroke": "#6A7980", //canvas stroke
+        "--context-text": "white",
         "--bg-toggle-btn-primary": "#48a69d",
         "--primary-btn-hov": "#3f9189",
         "--btn-danger": "#c33c6c",

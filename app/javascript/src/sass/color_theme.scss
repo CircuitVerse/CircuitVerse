@@ -163,8 +163,6 @@ $output-rect: blue;
 .quick-btn {
   //neumorph
   background: var(--bg-navbar);
-  box-shadow: 4px 4px 5px var(--qp-box-shadow-2),
-    -4px -4px 5px var(--qp-box-shadow-1);
   border-top: 1.5px solid var(--qp-br-tl);
   border-left: 1.5px solid var(--qp-br-tl);
   border-right: 1.5px solid var(--qp-br-rd);
@@ -227,12 +225,36 @@ $output-rect: blue;
   box-shadow: 0px 0px 10px #4545457f;
 }
 
-#modules-header {
+#modules-header, #moduleProperty-title {
+  color: var(--text-panel);
+  background: var(--primary);
+  border-bottom: 1px solid var(--br-secondary);
+}
+
+#modules-header::before, #moduleProperty-title::before{
+  border-top: 2px solid var(--text-panel);
+}
+
+.minimize {
+  border: 4px solid var(--text-panel);
+
+}
+
+#element {
+  color: var(--text-panel);
+  border: 1px solid var(--br-secondary);
+}
+
+#filter, .filterX {
   color: var(--text-panel);
 }
 
-.panel {
-  // background-color: white;
+#exitViewBtn {
+  border: 1px solid var(--br-primary);
+}
+.ce-hidden,.prop-hidden, #exitViewBtn {
+  color: var(--text-panel);
+  background: var(--primary);
 }
 
 .ui-accordion-header {

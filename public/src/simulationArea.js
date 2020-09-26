@@ -64,6 +64,7 @@ const simulationArea = {
     mouseDownX: 0,
     mouseDownY: 0,
     simulationQueue: undefined,
+    multiAddElement: false,
 
     clickCount: 0, // double click
     lock: 'unlocked',
