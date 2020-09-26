@@ -23,6 +23,20 @@ RSpec.describe Api::V1::ProjectsController, "#index", type: :request do
       end
     end
 
+    context "when not authenticated and includes author details" do
+      before do
+        FactoryBot.create_list(:project, 2, project_access_type: "Public")
+        FactoryBot.create_list(:project, 2)
+        get "/api/v1/projects?include=author", as: :json
+      end
+
+      it "returns all public projects including author details" do
+        expect(response).to have_http_status(200)
+        expect(response).to match_response_schema("projects_with_author")
+        expect(response.parsed_body["data"].length).to eq(2)
+      end
+    end
+
     context "when projects sorted by views" do
       before do
         # creates 4 public projects with random views

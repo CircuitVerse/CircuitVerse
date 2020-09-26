@@ -1,0 +1,6 @@
+.navbar,
+.navbar-search-active,
+.footer-empty-div,
+.footer-container-fluid {
+  display: none;
+}

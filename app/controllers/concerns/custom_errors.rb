@@ -3,7 +3,7 @@
 module CustomErrors
   extend ActiveSupport::Concern
 
-  class UnauthenticatedError < StandardError; end
+  class InvalidOAuthToken < StandardError; end
 
-  class MissingAuthHeader < StandardError; end
+  class UnsupportedOAuthProvider < StandardError; end
 end

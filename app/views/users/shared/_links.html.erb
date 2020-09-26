@@ -1,60 +1,18 @@
-<!-- <br>
-<%- if controller_name != 'sessions' %>
-  <%= link_to "Log in", new_session_path(resource_name) ,class:"btn-sm btn-outline-secondary" %><br />
-<% end -%>
-
-
-
-
-<%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-  <%= link_to "New User? Sign up", new_registration_path(resource_name) ,class:"btn-sm btn-outline-secondary"%><br />
-<% end -%>
-
-
-<%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
-  <%= link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name) %><br />
-<% end -%>
-
-<%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
-  <%= link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name) %><br />
-<% end -%>
-<br /> -->
-
-
-<div class="field form-group">
+<div class="field form-group users-shared">
   <div class="input-group">
-    <span class="help-text mt-2 mr-2">Log In With:</span>
-    <a href="/users/auth/google_oauth2">
-      <%= image_tag "SVGs/google-plus.svg", alt: "google-icon", :class => "center-block ml-1 mr-1 social-links" %>
-    </a>
-    <a href="/users/auth/facebook">
-      <%= image_tag "SVGs/facebook.svg",alt: "facebook-icon", :class => "center-block ml-1 mr-1 social-links" %>
-    </a>
-    <a href="/users/auth/github">
-      <%= image_tag "SVGs/github.svg",alt: "github-icon", :class => "center-block ml-1 mr-1 social-links" %>
-    </a>
-  </div>
-</div>
-
-<%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
-  <div class="field form-group">
-    <div class="input-group">
-      <span class="help-text">Forgot password?</span>
-      <div class="input-group-addon pt-2" onclick="togglePassword()">
-        <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
-        <%= link_to "Reset your Password", new_password_path(resource_name),class:"link-text pl-1" %>
-        <% end -%>
-      </div>
+    <div class="row center-row users-shared-row">
+      <h6 class="users-shared-row">Log In With</h6>
+    </div>
+    <div class="row center-row">
+      <a href="/users/auth/google_oauth2">
+        <%= image_tag "SVGs/google-plus.svg", alt: "Google Icon", :class => "users-social-links" %>
+      </a>
+      <a href="/users/auth/facebook">
+        <%= image_tag "SVGs/facebook.svg",alt: "Facebook Icon", :class => "users-social-links" %>
+      </a>
+      <a href="/users/auth/github">
+        <%= image_tag "SVGs/github.svg",alt: "Github Icon", :class => "users-social-links" %>
+      </a>
     </div>
   </div>
-<% end -%>
-
-<%- if devise_mapping.omniauthable? %>
-  <%- resource_class.omniauth_providers.each do |provider| %>
-    <%- unless current_user%>
-      <% link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider) %>
-    <%- else %>
-      <% link_to "Logout", destroy_user_session_path,method: :delete %>
-    <% end -%>
-  <% end -%>
-<% end -%>
+</div>

@@ -1,27 +1,25 @@
 <% content_for :title, "CircuitVerse - Editor Picks" %>
-    <div class="jumbotron">
-        <div class="container">
-            <div class="row">
-                <div class="col-9">
-                    <h1 class="display-3 ">Editor Picks</h1>
-                    <p>These circuits have been hand-picked by our authors for their awesomeness</p>
-                </div>
 
+<div class="container">
+  <div class="row center-row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <h1 class="main-heading">Editor Picks</h1>
+      <p class="main-description">These circuits have been hand-picked by our authors for their awesomeness</p>
+    </div>
+  </div>
+  <div class="row center-row examples-container">
+    <% @projects.each do |project| %>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+        <div class="card circuit-card">
+          <%= image_tag project.image_preview.url, alt: project.name, :class => "card-img-top circuit-card-image" %>
+          <div class="card-footer circuit-card-footer">
+            <div class="circuit-card-name">
+              <p><%= project.name %></p>
             </div>
-        </div>
-    </div>
-    <div class="container">
-        <% @projects.each do |project| -%>
-          <div class="row feature">
-                 <div class="col-12 col-md-8">
-                     <h3 class="card-title"><%= project.name %></h4>
-                     <p class="card-text"></p>
-                          <a class="btn btn-dark btn-lg" target="_blank" href="<%= user_project_url(project.author, project) %>" role="button">View Example &raquo;</a>
-                 </div>
-                 <div class="col">
-                     <img src="<%= project.image_preview.url %>" class="img-fluid img-thumbnail" alt="Responsive image">
-                 </div>
+            <a class="btn primary-button circuit-card-primary-button" target="_blank" href="<%= user_project_url(project.author, project) %>">View</a>
           </div>
-          <br />
-        <% end -%>
-    </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

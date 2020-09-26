@@ -6,12 +6,6 @@ class GroupsController < ApplicationController
   before_action :check_show_access, only: %i[show edit update destroy]
   before_action :check_edit_access, only: %i[edit update destroy]
 
-  # GET /groups
-  # GET /groups.json
-  def index
-    @groups = Group.all
-  end
-
   # GET /groups/1
   # GET /groups/1.json
   def show
@@ -67,7 +61,7 @@ class GroupsController < ApplicationController
   def destroy
     @group.destroy
     respond_to do |format|
-      format.html { redirect_to user_groups_path(current_user), notice: "Group was successfully destroyed." }
+      format.html { redirect_to user_groups_path(current_user), notice: "Group was successfully deleted." }
       format.json { head :no_content }
     end
   end

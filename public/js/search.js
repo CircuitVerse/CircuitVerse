@@ -1,16 +1,12 @@
 /* jshint esversion: 6 */
 
 $(document).ready(() => {
-    // remove search in nav bar on the search page
-    if (window.location.href.includes('search')) {
-        $('#nav-search').remove();
-    }
 
     // Highlight searched text
-    var searchText = $('.search-bar-input').val().trim();
+    var searchText = $('.navbar-search-bar-input').val().trim();
 
     if (searchText !== '') {
-        $('.feature').find('p, .card-title, .card-text, .description, .text-muted').each(function highlight() {
+        $('.search-container').find('.search-project-name, .search-project-description p').each(function highlight() {
             // Loop over each result
             var text = $(this).html();
 

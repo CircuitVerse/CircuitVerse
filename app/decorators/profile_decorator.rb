@@ -21,4 +21,8 @@ class ProfileDecorator < SimpleDelegator
   def mail_subscription
     profile.subscribed? ? "Subscribed" : "Not Subscribed"
   end
+
+  def total_circuits
+    profile.projects.exists? ?  profile.projects.count : "No circuits"
+  end
 end

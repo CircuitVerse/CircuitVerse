@@ -1,0 +1,90 @@
+{
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string" },
+        "attributes": {
+          "type": "object",
+          "properties": {
+            "creator_name": { "type": "string" },
+            "upvotes": { "type": "integer" },
+            "downvotes": { "type": "integer" },
+            "vote_status": { "type": ["null", "string"] },
+            "is_deleted": { "type": "boolean" },
+            "has_edit_access": { "type": "boolean" },
+            "has_delete_access": { "type": "boolean" },
+            "creator_type": { "type": "string" },
+            "body": { "type": "string" },
+            "created_at": { "type": "string" },
+            "updated_at": { "type": "string" }
+          },
+          "required": [
+            "creator_name",
+            "upvotes",
+            "downvotes",
+            "vote_status",
+            "is_deleted",
+            "has_edit_access",
+            "has_delete_access",
+            "creator_type",
+            "body",
+            "created_at",
+            "updated_at"
+          ]
+        },
+        "relationships": {
+          "type": "object",
+          "properties": {
+            "thread": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "string" },
+                    "type": { "type": "string" }
+                  },
+                  "required": ["id", "type"]
+                }
+              },
+              "required": ["data"]
+            },
+            "editor": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": ["null", "object"],
+                  "properties": {
+                    "id": { "type": "string" },
+                    "type": { "type": "string" }
+                  },
+                  "required": ["id", "type"]
+                }
+              }
+            },
+            "creator": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "string" },
+                    "type": { "type": "string" }
+                  },
+                  "required": ["id", "type"]
+                }
+              },
+              "required": ["data"]
+            }
+          },
+          "required": ["thread", "editor", "creator"]
+        }
+      },
+      "required": ["id", "type", "attributes", "relationships"]
+    }
+  },
+  "required": ["data"]
+}

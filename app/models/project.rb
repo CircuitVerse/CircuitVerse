@@ -1,9 +1,13 @@
 # frozen_string_literal: true
 
 # rubocop:disable Metrics/ClassLength
+
+require "pg_search"
+require "custom_optional_target/web_push"
 class Project < ApplicationRecord
-  require "pg_search"
-  require "custom_optional_target/web_push"
+  extend FriendlyId
+  friendly_id :name, use: :slugged
+
   validates :name, length: { minimum: 1 }
   belongs_to :author, class_name: "User"
   has_many :forks, class_name: "Project", foreign_key: "forked_project_id", dependent: :nullify
@@ -27,7 +31,7 @@ class Project < ApplicationRecord
 
   scope :by, ->(author_id) { where(author_id: author_id) }
 
-  include PgSearch
+  include PgSearch::Model
   pg_search_scope :text_search, against: %i[name description], associated_against: {
     author: :name,
     tags: :name
@@ -154,6 +158,10 @@ class Project < ApplicationRecord
       if saved_change_to_project_access_type? && saved_changes["project_access_type"][1] != "Public"
         FeaturedCircuit.find_by(project_id: id)&.destroy
       end
+    end
+
+    def should_generate_new_friendly_id?
+      name_changed?
     end
 end
 # rubocop:enable Metrics/ClassLength

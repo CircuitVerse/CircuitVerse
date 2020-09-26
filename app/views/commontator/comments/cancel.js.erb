@@ -1,19 +1,17 @@
-<% unless @comment.try(:id).blank? %>
-  <% @comment.reload %>
-  $("#comment_<%= @comment.id.to_s %>_body_div").html("<%= j(
-    render partial: 'body', locals: { comment: @comment }) %>");
-<% end %>
+<% if @comment.nil? || @comment.new_record? %>
+  <%
+    id = @comment.nil? || @comment.parent.nil? ?
+      "commontator-thread-#{@commontator_thread.id}-new-comment" :
+      "commontator-comment-#{@comment.parent.id}-reply"
+  %>
 
-<% unless @new_comment.nil? %>
-  $("#thread_<%= @thread.id %>_new_comment_form_div").html("<%= j(
-    render partial: 'form',
-           locals: { comment: @new_comment,
-                        thread: @thread,
-                        per_page: @per_page }) %>");
+  $("#<%= id %>").hide();
+
+  $("#<%= id %>-link").fadeIn();
 <% else %>
-  $("#thread_<%= @thread.id %>_new_comment_form_div").hide();
-
-  $("#thread_<%= @thread.id %>_new_comment_link_div").fadeIn();
+  $("#commontator-comment-<%= @comment.id %>-body").html("<%= escape_javascript(
+    render partial: 'body', locals: { comment: @comment }
+  ) %>");
 <% end %>
 
 <%= javascript_proc %>
