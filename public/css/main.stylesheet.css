@@ -1348,6 +1348,10 @@ input[type='range']::-webkit-slider-thumb {
   width: 1px; */
 }
 
+.ce-hidden, .prop-hidden {
+  cursor: move;
+}
+
 #canvasArea, #backgroundArea, #simulationArea, canvas {
   /* cursor: wait !important; */
 }

@@ -456,11 +456,17 @@ window.addEventListener('DOMContentLoaded', () => {
         const markUp = `<div class='ce-hidden'>Circuit Elements<span id='ce-expand' style="right: 15px;position: absolute; cursor:pointer;"><i  onclick=" (() => {$('.modules').children().css('display', 'block'); $('.ce-hidden').remove(); $('#filter').css('display', 'none');})();" class="fas fa-external-link-square-alt"></i></span><div>`
         $('.modules').children().css('display', 'none');
         $('.modules').append(markUp);
+        // Set draggable on minimize
+        $('.ce-hidden').on('mousedown', () => $('.modules').draggable({ disabled: false }));
+        $('.ce-hidden').on('mouseup', () => $('.modules').draggable({ disabled: true }));
     })
     $('#propsMinimize').on('click', () => {
         const markUp = `<div class='prop-hidden'>properties<span id='prop-expand' style="right: 15px;position: absolute; cursor:pointer;"><i  onclick=" (() => {$('#moduleProperty').children().css('display', 'block'); $('.prop-hidden').remove();})();" class="fas fa-external-link-square-alt"></i></span><div>`
         $('#moduleProperty').children().css('display', 'none');
         $('.moduleProperty').append(markUp);
+        // Set draggable on minimize
+        $('.prop-hidden').on('mousedown', () => $('#moduleProperty').draggable({ disabled: false }));
+        $('.prop-hidden').on('mouseup', () => $('#moduleProperty').draggable({ disabled: true }));
     })
     function exitFull() {
         $('.navbar').show()
