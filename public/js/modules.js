@@ -3363,7 +3363,7 @@ function PriorityEncoder(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1)
         this.output1.push(a);
     }
 
-    this.enable = new Node(10, 20 + this.inp1[this.inputSize - 1].y, 1, this, 1);
+    this.valid = new Node(10, 20 + this.inp1[this.inputSize - 1].y, 1, this, 1);
 
 
 }
@@ -3377,7 +3377,7 @@ PriorityEncoder.prototype.customSave = function () {
         nodes: {
             inp1: this.inp1.map(findNode),
             output1: this.output1.map(findNode),
-            enable: findNode(this.enable)
+            valid: findNode(this.valid)
         },
         constructorParamaters: [this.direction, this.bitWidth],
     }
@@ -3407,11 +3407,11 @@ PriorityEncoder.prototype.resolve = function () {
     temp = out;
 
     if (out.length != undefined) {
-        this.enable.value = 1;
+        this.valid.value = 1;
     } else {
-        this.enable.value = 0;
+        this.valid.value = 0;
     }
-    simulationArea.simulationQueue.add(this.enable);
+    simulationArea.simulationQueue.add(this.valid);
 
     if (temp.length == undefined) {
         temp = "0";
@@ -3457,7 +3457,7 @@ PriorityEncoder.prototype.customDraw = function () {
     for (var i = 0; i < this.bitWidth; i++) {
         fillText(ctx, String(i), xx + this.output1[0].x - 10, yy + this.output1[i].y + 2, 10);
     }
-    fillText(ctx, "EN", xx + this.enable.x, yy + this.enable.y - 5, 10);
+    fillText(ctx, "V", xx + this.valid.x, yy + this.valid.y - 5, 10);
     ctx.fill();
 
 }
