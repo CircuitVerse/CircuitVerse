@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class GroupMember < ApplicationRecord
-  belongs_to :group
+  belongs_to :group, counter_cache: true
   belongs_to :user
   has_many :assignments, through: :group
 

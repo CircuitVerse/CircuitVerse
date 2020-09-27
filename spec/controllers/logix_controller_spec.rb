@@ -8,18 +8,8 @@ describe LogixController, type: :request do
     expect(response.status).to eq(200)
   end
 
-  it "should get gettingStarted" do
-    get gettingStarted_path
-    expect(response.status).to eq(200)
-  end
-
   it "should get examples page" do
     get examples_path
-    expect(response.status).to eq(200)
-  end
-
-  it "should get features page" do
-    get features_path
     expect(response.status).to eq(200)
   end
 

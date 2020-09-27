@@ -24,6 +24,8 @@
               },
               "description": { "type": "string" },
               "view": { "type": "integer" },
+              "is_starred": { "type": ["boolean", "null"] },
+              "author_name": { "type": "string" },
               "stars_count": { "type": "integer" },
               "tags": {
                 "type": "array",
@@ -37,7 +39,10 @@
                   },
                   "required": ["id", "name", "created_at", "updated_at"]
                 }
-              }
+              },
+              "thread_id": { "type": "integer" },
+              "is_thread_subscribed": { "type": ["boolean", "null"] },
+              "is_thread_closed": { "type": "boolean" }
             },
             "required": [
               "name",
@@ -47,8 +52,13 @@
               "image_preview",
               "description",
               "view",
+              "is_starred",
+              "author_name",
               "stars_count",
-              "tags"
+              "tags",
+              "thread_id",
+              "is_thread_subscribed",
+              "is_thread_closed"
             ]
           },
           "relationships": {
@@ -67,33 +77,8 @@
                   }
                 },
                 "required": ["data"]
-              }
-            },
-            "required": ["author"]
-          }
-        },
-        "required": ["id", "type", "attributes"]
-      }
-    },
-    "included": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "id": { "type": "string" },
-          "type": { "type": "string" },
-          "attributes": {
-            "type": "object",
-            "properties": {
-              "name": { "type": "string" },
-              "email": { "type": "string" }
-            },
-            "required": ["name", "email"]
-          },
-          "relationships": {
-            "type": "object",
-            "properties": {
-              "projects": {
+              },
+              "collaborators": {
                 "type": "object",
                 "properties": {
                   "data": {
@@ -111,10 +96,10 @@
                 "required": ["data"]
               }
             },
-            "required": ["projects"]
+            "required": ["author", "collaborators"]
           }
         },
-        "required": ["id", "type", "attributes", "relationships"]
+        "required": ["id", "type", "attributes"]
       }
     },
     "links": {
@@ -129,5 +114,5 @@
       "required": ["self", "first", "prev", "next", "last"]
     }
   },
-  "required": ["data", "included", "links"]
+  "required": ["data", "links"]
 }

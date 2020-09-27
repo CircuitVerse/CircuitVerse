@@ -3,7 +3,6 @@
 class Api::V1::BaseController < ActionController::API
   include Pundit
   include CustomErrors
-  attr_reader :current_user
 
   DEFAULT_PER_PAGE = 5
 
@@ -15,8 +14,12 @@ class Api::V1::BaseController < ActionController::API
     unauthorized!
   end
 
-  rescue_from MissingAuthHeader do
-    api_error(status: 401, errors: "Authentication header is missing")
+  rescue_from InvalidOAuthToken do
+    api_error(status: 401, errors: "OAuth token is invalid")
+  end
+
+  rescue_from UnsupportedOAuthProvider do
+    api_error(status: 404, errors: "OAuth provider not supported")
   end
 
   rescue_from ActiveRecord::RecordNotFound do
@@ -27,32 +30,12 @@ class Api::V1::BaseController < ActionController::API
     api_error(status: 422, errors: "resource invalid!")
   end
 
-  rescue_from UnauthenticatedError do
-    unauthenticated!
+  rescue_from Commontator::SecurityTransgression do
+    api_error(status: 403, errors: "not authorized for this action")
   end
 
-  def authenticate_user
-    header = request.headers["Authorization"]
-    return if header.blank?
-
-    auth_header = header.split(" ").last
-    begin
-      @decoded = JsonWebToken.decode(auth_header)[0]
-      @current_user = User.find(@decoded["user_id"])
-    rescue JWT::DecodeError => e
-      api_error(status: 401, errors: e.message)
-    end
-  end
-
-  def authenticate_user!
-    raise MissingAuthHeader if request.headers["Authorization"].blank?
-
-    authenticate_user
-    raise UnauthenticatedError if current_user.nil?
-  end
-
-  def unauthenticated!
-    api_error(status: 401, errors: "not authenticated")
+  def security_transgression_unless(check)
+    raise Commontator::SecurityTransgression unless check
   end
 
   def unauthorized!

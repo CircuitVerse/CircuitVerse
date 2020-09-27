@@ -1,29 +1,11 @@
 # frozen_string_literal: true
 
 class CollaborationsController < ApplicationController
-  before_action :set_collaboration, only: %i[show edit update destroy]
+  before_action :set_collaboration, only: %i[update destroy]
 
   def self.policy_class
     ProjectPolicy
   end
-
-  # GET /collaborations
-  # GET /collaborations.json
-  def index
-    @collaborations = Collaboration.all
-  end
-
-  # GET /collaborations/1
-  # GET /collaborations/1.json
-  def show; end
-
-  # GET /collaborations/new
-  def new
-    @collaboration = Collaboration.new
-  end
-
-  # GET /collaborations/1/edit
-  def edit; end
 
   # POST /collaborations
   # POST /collaborations.json
@@ -54,7 +36,7 @@ class CollaborationsController < ApplicationController
     notice = Utils.mail_notice(collaboration_params[:emails], collaboration_emails, newly_added)
 
     if collaboration_params[:emails].include?(current_user.email)
-      notice.prepend("You can't invite yourself. ")
+      notice = "You can't invite yourself. " + notice
     end
 
     respond_to do |format|

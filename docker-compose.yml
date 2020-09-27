@@ -1,4 +1,4 @@
-version: '3.1'
+version: "3.1"
 services:
   db:
     image: postgres
@@ -12,6 +12,8 @@ services:
     build: .
     command: bundle exec sidekiq -q default -q mailers
     volumes:
+      - /circuitverse/.bundle
+      - /circuitverse/node_modules
       - .:/circuitverse
       - ./config/database.docker.yml:/circuitverse/config/database.yml
     environment:
@@ -20,6 +22,8 @@ services:
     build: .
     entrypoint: /circuitverse/bin/docker_run
     volumes:
+      - /circuitverse/.bundle
+      - /circuitverse/node_modules
       - .:/circuitverse
       - ./config/database.docker.yml:/circuitverse/config/database.yml
     ports:
@@ -34,5 +38,5 @@ services:
   redis:
     image: redis
 # volumes:
-  # app:
-  # public:
+# app:
+# public:
