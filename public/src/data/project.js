@@ -40,6 +40,7 @@ export function openOffline() {
     }
     if (flag) $('#openProjectDialog').append('<p>Looks like no circuit has been saved yet. Create a new one and save it!</p>');
     $('#openProjectDialog').dialog({
+        resizable:false,
         width: 'auto',
         buttons: !flag ? [{
             text: 'Open Project',

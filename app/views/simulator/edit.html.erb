@@ -148,8 +148,8 @@
     <ul class="nav navbar-nav noSelect pointerCursor pull-right account-btn">
       <li class="dropdown pull-right">
         <% if user_signed_in? %>
-          <a href="#" class="cur-user" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %><span class="caret"></span></a>
-          <ul class="dropdown-menu">
+          <a href="#" class="acc-drop" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %><span class="caret acc-caret"></span></a>
+          <ul class="dropdown-menu mw-override">
             <li><a class="dropdown-item" href=<%= user_path(current_user) %>>Dashboard</a></li>
             <li><a class="dropdown-item" href=<%= user_groups_path(current_user) %>>My Groups</a></li>
             <div class="dropdown-divider"></div>

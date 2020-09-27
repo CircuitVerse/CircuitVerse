@@ -382,6 +382,7 @@ $('#bitconverterprompt').append(`
  */
 $('#bitconverter').click(() => {
     $('#bitconverterprompt').dialog({
+        resizable:false,
         buttons: [
             {
                 text: 'Reset',
@@ -467,6 +468,9 @@ window.addEventListener('DOMContentLoaded', () => {
         // Set draggable on minimize
         $('.prop-hidden').on('mousedown', () => $('#moduleProperty').draggable({ disabled: false }));
         $('.prop-hidden').on('mouseup', () => $('#moduleProperty').draggable({ disabled: true }));
+    })
+    $('#projectName').on('click', () => {
+        $("input[name='setProjectName']").focus().select();
     })
     function exitFull() {
         $('.navbar').show()
