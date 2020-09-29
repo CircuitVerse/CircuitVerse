@@ -135,7 +135,7 @@ export function setup() {
 
     // Load project data after 1 second - needs to be improved, delay needs to be eliminated
     setTimeout(() => {
-        if (__logix_project_id !== 0) {
+        if (__logix_project_id != 0) {
             $('.loadingIcon').fadeIn();
             $.ajax({
                 url: '/simulator/get_data',
