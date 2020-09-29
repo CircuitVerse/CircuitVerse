@@ -1,4 +1,3 @@
-
 import AndGate from './modules/AndGate';
 import NandGate from './modules/NandGate';
 import Multiplexer from './modules/Multiplexer';
@@ -92,8 +91,6 @@ class verilogUnaryGate{
     }
 }
 
-var c1 = 200;
-
 class verilogInput extends verilogUnaryGate{
     constructor(deviceJSON){
         super(deviceJSON);
@@ -101,11 +98,10 @@ class verilogInput extends verilogUnaryGate{
             this.element = new Clock(0, 0);
             this.output = this.element.output1;
         } else {
-            this.element = new Input(200, c1, undefined, undefined, this.bitWidth);
+            this.element = new Input(0, 0, undefined, undefined, this.bitWidth);
             this.output = this.element.output1;
         }
         this.element.label = deviceJSON["net"];
-        c1 += 50;
     }
 }
 
@@ -266,8 +262,6 @@ class verilogReduceXnorGate extends verilogUnaryGate{
     }
 }
 
-
-
 class verilogBusSlice extends verilogUnaryGate {
     constructor(deviceJSON) {
         super(deviceJSON);
@@ -390,41 +384,37 @@ class verilogMathGate extends verilogBinaryGate {
 
         if(extraBits != 0)
         {
-            this.in1Splitter = new Splitter(200, 200, undefined, undefined, this.bitWidth, [this.in1BitWidth, extraBits]);
+            this.in1Splitter = new Splitter(0, 0, undefined, undefined, this.bitWidth, [this.in1BitWidth, extraBits]);
             
             var zeroState = '';
             for(var i = 0; i < extraBits; i++)
             {
                 zeroState += '0';
             }
-            
-            this.in1ZeroConstant = new ConstantVal(200, 100, undefined, undefined, extraBits, zeroState);
-            
+            this.in1ZeroConstant = new ConstantVal(0, 0, undefined, undefined, extraBits, zeroState);
             this.in1ZeroConstant.output1.connect(this.in1Splitter.outputs[1]);
         }
         else
         {
-            this.in1Splitter = new Splitter(200, 200, undefined, undefined, this.bitWidth, [this.bitWidth]);
+            this.in1Splitter = new Splitter(0, 0, undefined, undefined, this.bitWidth, [this.bitWidth]);
         }
 
         var extraBits = this.bitWidth - this.in2BitWidth;
         if(extraBits != 0)
         {
-            this.in2Splitter = new Splitter(400, 400, undefined, undefined, this.bitWidth, [this.in2BitWidth, extraBits]);
-
+            this.in2Splitter = new Splitter(0, 0, undefined, undefined, this.bitWidth, [this.in2BitWidth, extraBits]);
             var zeroState = '';
             for(var i = 0; i < extraBits; i++)
             {
                 zeroState += '0';
             }
 
-            this.in2ZeroConstant = new ConstantVal(300, 300, undefined, undefined, extraBits, zeroState);
-            
+            this.in2ZeroConstant = new ConstantVal(0, 0, undefined, undefined, extraBits, zeroState);
             this.in2ZeroConstant.output1.connect(this.in2Splitter.outputs[1]);
         }
         else
         {
-            this.in2Splitter = new Splitter(400, 400, undefined, undefined, this.bitWidth, [this.bitWidth]);
+            this.in2Splitter = new Splitter(0, 0, undefined, undefined, this.bitWidth, [this.bitWidth]);
         }
 
         this.input = [this.in1Splitter.outputs[0], this.in2Splitter.outputs[0]];
@@ -444,7 +434,6 @@ class verilogEqGate extends verilogMathGate {
         this.xnorGate = new XnorGate(0, 0, undefined, undefined, undefined, this.bitWidth);
         this.splitter = new Splitter(0, 0, undefined, undefined, this.bitWidth, bitWidthSplit);
         this.andGate = new AndGate(0, 0, undefined, undefined, this.bitWidth);
-
         this.in1Splitter.inp1.connect(this.xnorGate.inp[0]);
         this.in2Splitter.inp1.connect(this.xnorGate.inp[1]);
 
@@ -505,9 +494,9 @@ class verilogLtGate extends verilogMathGate {
 class verilogGtGate extends verilogMathGate {
     constructor(deviceJSON) {
         super(deviceJSON);
-        this.constant7 = new ConstantVal(500, 0, undefined, undefined, 3, "111");
-        this.alu = new ALU(500, 500, undefined, undefined, this.bitWidth);
-        this.splitter = new Splitter(600, 60, undefined, undefined, this.bitWidth, [1]);
+        this.constant7 = new ConstantVal(0, 0, undefined, undefined, 3, "111");
+        this.alu = new ALU(0, 0, undefined, undefined, this.bitWidth);
+        this.splitter = new Splitter(0, 0, undefined, undefined, this.bitWidth, [1]);
 
         this.in1Splitter.inp1.connect(this.alu.inp1);
         this.in2Splitter.inp1.connect(this.alu.inp2);
@@ -563,7 +552,7 @@ class verilogAdditionGate extends verilogMathGate {
 
         this.outBitWidth = deviceJSON["bits"]["out"];
 
-        this.adder = new Adder(500, 500, undefined, undefined, this.bitWidth);
+        this.adder = new Adder(0, 0, undefined, undefined, this.bitWidth);
 
         this.in1Splitter.inp1.connect(this.adder.inpA);
         this.in2Splitter.inp1.connect(this.adder.inpB);
@@ -574,8 +563,7 @@ class verilogAdditionGate extends verilogMathGate {
         }
         else if(this.outBitWidth == this.bitWidth + 1)
         {
-            console.log("here");
-            this.outputSplitter = new Splitter(600, 600, undefined, undefined, this.outBitWidth, [this.bitWidth, 1]);
+            this.outputSplitter = new Splitter(0, 0, undefined, undefined, this.outBitWidth, [this.bitWidth, 1]);
             this.adder.sum.connect(this.outputSplitter.outputs[0]);
             this.adder.carryOut.connect(this.outputSplitter.outputs[1]);
             this.output = this.outputSplitter.inp1;
@@ -670,9 +658,61 @@ class verilogMultiplexer {
         this.multiplexer = new Multiplexer(0, 0, undefined, undefined, this.bitWidth, this.selectBitWidth);
 
         this.input = this.multiplexer.inp;
-        this.output = this.multiplexer.output1;
         this.selectInput = this.multiplexer.controlSignalInput;
+        this.output = this.multiplexer.output1;
+    }
 
+    getPort(portName) {
+        if(portName == "sel") {
+            return this.selectInput;
+        }
+        else if(portName == "out") {
+            return this.output;
+        }
+        else {
+            var len = portName.length;
+            var index = parseInt(portName.substring(2, len));
+
+            return this.input[index];
+        }
+    }
+}
+
+class verilogMultiplexer1Hot {
+    constructor(deviceJSON) {
+        this.bitWidth = 1;
+        this.selectBitWidth = undefined;
+        if (deviceJSON["bits"]["in"] != undefined) {
+            this.bitWidth = deviceJSON["bits"]["in"];
+        }
+
+        if (deviceJSON["bits"]["sel"] != undefined) {
+            this.selectBitWidth = deviceJSON["bits"]["sel"];
+        }
+
+        this.multiplexer = new Multiplexer(0, 0, undefined, undefined, this.bitWidth, this.selectBitWidth);
+        this.lsb = new LSB(0, 0, undefined, undefined, this.selectBitWidth);
+        this.adder = new Adder(0, 0, undefined, undefined, this.selectBitWidth);
+
+        this.zeroState = '';
+        for(var i = 0; i < this.selectBitWidth - 1; i++)
+        {
+            this.zeroState += '0';
+        }
+        this.zeroPadEnable = new ConstantVal(0, 0, undefined, undefined, this.selectBitWidth - 1,this.zeroState);
+
+        this.enbaleSplitter = new Splitter(0, 0, undefined, undefined, this.selectBitWidth, [1, this.selectBitWidth - 1]);
+
+        this.lsb.enable.connect(this.enbaleSplitter.outputs[0]);
+        this.zeroPadEnable.output1.connect(this.enbaleSplitter.outputs[1]);
+
+        this.adder.inpA.connect(this.lsb.output1);
+        this.adder.inpB.connect(this.enbaleSplitter.inp1);
+
+        this.adder.sum.connect(this.multiplexer.controlSignalInput);
+        this.input = this.multiplexer.inp;
+        this.selectInput = this.lsb.inp1;
+        this.output = this.multiplexer.output1;
     }
 
     getPort(portName) {
@@ -745,8 +785,6 @@ class verilogBusUngroup {
     }
 }
 
-
-
 let typeToNode = {};
 
 typeToNode["Not"] = verilogNotGate;
@@ -769,15 +807,14 @@ typeToNode["XnorReduce"] = verilogReduceXnorGate;
 typeToNode["Eq"] = verilogEqGate;
 typeToNode["Ne"] = verilogNeGate;
 
-
 typeToNode["Lt"] = verilogLtGate;
 typeToNode["Le"] = verilogLeGate;
 typeToNode["Ge"] = verilogGeGate;
 typeToNode["Gt"] = verilogGtGate;
 
-
 typeToNode["Dff"] = verilogDff;
 typeToNode["Mux"] = verilogMultiplexer;
+typeToNode["Mux1Hot"] = verilogMultiplexer1Hot;
 typeToNode["BusSlice"] = verilogBusSlice;
 typeToNode["BusGroup"] = verilogBusGroup;
 typeToNode["BusUngroup"] = verilogBusUngroup;
@@ -818,4 +855,3 @@ export default function YosysJSON2CV(JSON){
     var veriSubCircuit = new SubCircuit(500, 500, undefined, subScopeID);
     return veriSubCircuit;
 }
-

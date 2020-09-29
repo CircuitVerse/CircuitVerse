@@ -10,74 +10,230 @@ document.addEventListener('DOMContentLoaded', () => {
         "devices": {
             "dev0": {
                 "type": "Input",
-                "net": "A",
+                "net": "clk",
                 "order": 0,
-                "bits": 2
+                "bits": 1
             },
             "dev1": {
                 "type": "Input",
-                "net": "B",
+                "net": "rst",
                 "order": 1,
                 "bits": 1
             },
             "dev2": {
-                "type": "Output",
-                "net": "sum",
+                "type": "Input",
+                "net": "en",
                 "order": 2,
-                "bits": 3
+                "bits": 1
             },
             "dev3": {
-                "label": "$add$/tmp/tmp-54207VCkh01QnefeF.sv:5$1",
+                "type": "Output",
+                "net": "count",
+                "order": 3,
+                "bits": 4
+            },
+            "dev4": {
+                "label": "$add$/tmp/tmp-1593055CwLmFIwiXL.sv:10$2",
                 "type": "Addition",
                 "bits": {
-                    "in1": 2,
+                    "in1": 4,
                     "in2": 1,
-                    "out": 3
+                    "out": 4
                 },
                 "signed": {
                     "in1": false,
                     "in2": false
                 }
+            },
+            "dev5": {
+                "label": "$auto$dff2dffe.cc:159:make_patterns_logic$10",
+                "type": "Ne",
+                "bits": {
+                    "in1": 2,
+                    "in2": 1
+                },
+                "signed": {
+                    "in1": false,
+                    "in2": false
+                }
+            },
+            "dev6": {
+                "label": "$auto$dff2dffe.cc:215:handle_dff_cell$11",
+                "type": "Dff",
+                "bits": 4,
+                "polarity": {
+                    "clock": true,
+                    "enable": true
+                }
+            },
+            "dev7": {
+                "label": "$procmux$6",
+                "type": "Mux",
+                "bits": {
+                    "in": 4,
+                    "sel": 1
+                }
+            },
+            "dev8": {
+                "type": "BusGroup",
+                "groups": [
+                    1,
+                    1
+                ]
+            },
+            "dev9": {
+                "type": "Constant",
+                "constant": "1"
+            },
+            "dev10": {
+                "type": "Constant",
+                "constant": "0"
+            },
+            "dev11": {
+                "type": "Constant",
+                "constant": "0000"
             }
         },
         "connectors": [
             {
                 "to": {
-                    "id": "dev3",
-                    "port": "in1"
+                    "id": "dev6",
+                    "port": "clk"
                 },
                 "from": {
                     "id": "dev0",
                     "port": "out"
                 },
-                "name": "A"
+                "name": "clk"
             },
             {
                 "to": {
-                    "id": "dev3",
-                    "port": "in2"
+                    "id": "dev7",
+                    "port": "sel"
                 },
                 "from": {
                     "id": "dev1",
                     "port": "out"
                 },
-                "name": "B"
+                "name": "rst"
             },
             {
                 "to": {
+                    "id": "dev8",
+                    "port": "in0"
+                },
+                "from": {
+                    "id": "dev1",
+                    "port": "out"
+                },
+                "name": "rst"
+            },
+            {
+                "to": {
+                    "id": "dev8",
+                    "port": "in1"
+                },
+                "from": {
                     "id": "dev2",
+                    "port": "out"
+                },
+                "name": "en"
+            },
+            {
+                "to": {
+                    "id": "dev3",
                     "port": "in"
                 },
                 "from": {
-                    "id": "dev3",
+                    "id": "dev6",
                     "port": "out"
                 },
-                "name": "sum"
+                "name": "count"
+            },
+            {
+                "to": {
+                    "id": "dev4",
+                    "port": "in1"
+                },
+                "from": {
+                    "id": "dev6",
+                    "port": "out"
+                },
+                "name": "count"
+            },
+            {
+                "to": {
+                    "id": "dev4",
+                    "port": "in2"
+                },
+                "from": {
+                    "id": "dev9",
+                    "port": "out"
+                }
+            },
+            {
+                "to": {
+                    "id": "dev7",
+                    "port": "in0"
+                },
+                "from": {
+                    "id": "dev4",
+                    "port": "out"
+                }
+            },
+            {
+                "to": {
+                    "id": "dev5",
+                    "port": "in1"
+                },
+                "from": {
+                    "id": "dev8",
+                    "port": "out"
+                }
+            },
+            {
+                "to": {
+                    "id": "dev5",
+                    "port": "in2"
+                },
+                "from": {
+                    "id": "dev10",
+                    "port": "out"
+                }
+            },
+            {
+                "to": {
+                    "id": "dev6",
+                    "port": "en"
+                },
+                "from": {
+                    "id": "dev5",
+                    "port": "out"
+                }
+            },
+            {
+                "to": {
+                    "id": "dev6",
+                    "port": "in"
+                },
+                "from": {
+                    "id": "dev7",
+                    "port": "out"
+                }
+            },
+            {
+                "to": {
+                    "id": "dev7",
+                    "port": "in1"
+                },
+                "from": {
+                    "id": "dev11",
+                    "port": "out"
+                }
             }
         ],
         "subcircuits": {}
     };
-
     YosysJSON2CV(js);
     keyBinder();
 });
