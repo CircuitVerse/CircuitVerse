@@ -1,0 +1,307 @@
+//passwords
+.users-image {
+  margin-bottom: 15px;
+  margin-top: 30px;
+  max-height: 400px;
+  max-width: 80%;
+}
+
+.users-main-heading {
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+
+.users-primary-button {
+  margin-left: 0;
+  margin-right: 15px;
+  padding: 8px 20px;
+}
+
+.users-form-container {
+  margin-left: 40px;
+  margin-top: 30px;
+  max-width: 80%;
+}
+
+.users-text {
+  font-weight: 500;
+  padding-right: 5px;
+}
+
+.users-primary-checkpoint {
+  h6 {
+    display: inline-block;
+    margin-bottom: 0;
+    margin-right: 10px;
+  }
+}
+
+.users-text-container {
+  padding-left: 4px;
+  padding-top: 9px;
+}
+
+//breakpoints
+@media (max-width: 766px) {
+  .users-image,
+  .users-image-text {
+    display: none;
+  }
+
+  .users-text-container {
+    display: block;
+    padding-top: 6px;
+  }
+}
+
+@media (max-width: 400px) {
+  .users-form-container {
+    margin-left: 10px;
+    margin-top: 15px;
+    max-width: 90%;
+  }
+}
+//passwords ends
+
+//shared
+.users-shared {
+  margin-bottom: 30px;
+  margin-top: 40px;
+}
+
+.users-shared-row {
+  width: 100%;
+}
+
+.users-social-links {
+  height: 50px;
+  margin-left: 5px;
+  margin-right: 5px;
+  padding-top: 10px;
+  width: 40px;
+
+  &:hover {
+    opacity: .7;
+  }
+}
+//shared ends
+
+//login-register
+.users-remember-me-text {
+  display: inline-block;
+}
+
+.password-icon {
+  color: $secondary-green;
+  height: 40px;
+  width: 40px;
+}
+
+.users-password-input {
+  border: 0;
+}
+
+.users-forgot-password-text {
+  margin-left: auto;
+  text-align: right;
+}
+
+.users-login-primary-button {
+  padding: 8px 25px;
+}
+//login-register ends
+
+//user edit
+.users-edit-asterisk {
+  color: $primary-red;
+  font-size: 10px;
+}
+
+.users-edit-image {
+  border-radius: 50%;
+  height: 150px;
+  width: 150px;
+}
+
+.users-edit-image-button {
+  border: 1px solid $secondary-green;
+  border-radius: 4px;
+  cursor: pointer;
+  height: 35px;
+  margin-bottom: 20px;
+  margin-left: 10px;
+  padding-top: 5px;
+  text-align: center;
+  width: 120px;
+}
+
+.users-edit-image-button-hidden {
+  display: none;
+}
+
+.users-edit-primary-checkpoint {
+  margin-bottom: 20px;
+  padding-top: 40px;
+}
+
+.users-edit-primary-button {
+  margin-right: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.users-delete-button-container {
+  margin-left: auto;
+  text-align: right;
+}
+//user edit ends
+
+//user profile (WIP)
+.no-projects {
+  padding-top: 20px;
+  text-align: center;
+}
+
+.no-projects-here {
+  color: $primary;
+}
+//////////////
+.users-details-container {
+  border: 1px solid $form-border-grey;
+  margin-top: 20px;
+  max-width: 600px;
+  padding-bottom: 20px;
+  padding-top: 30px;
+}
+
+.users-user-name {
+  font-weight: 600;
+  padding-bottom: 5px;
+  text-align: left;
+}
+
+.users-circuits-container {
+  border: 1px solid $form-border-grey;
+  margin-top: 0;
+  padding-bottom: 20px;
+  padding-top: 30px;
+}
+
+.users-circuits-column {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.users-card {
+  border: 1px solid $primary-green;
+  border-radius: 0;
+  display: inline-block;
+  max-height: 370px;
+  margin-bottom: 15px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 15px;
+  max-width: 350px;
+  min-width: 260px;
+  width: 92%;
+}
+
+.users-card-header {
+  background-color: $card-green;
+  border-bottom: 1px solid $primary-green;
+  border-radius: 0;
+  padding-top: 4px;
+}
+
+.users-card-name {
+  display: block;
+  font-size: 18px;
+  font-weight: 600;
+  max-height: 30px;
+  max-width: 340px;
+  padding-bottom: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  p {
+    margin-bottom: 0;
+  }
+}
+
+.users-tag-container {
+  display: inline-block;
+  margin-top: 0;
+}
+
+.users-card-body {
+  padding: 0;
+}
+
+.users-card-image {
+  width: 100%;
+}
+
+.users-iframe-container {
+  border: 1px solid $secondary-green;
+  border-radius: 0;
+}
+.users-card-footer {
+  background-color: $card-green;
+  border-top: 1px solid $primary-green;
+}
+
+.users-circuits-tab {
+  background-color: $form-border-grey;
+  border-radius: 0;
+  color: $black;
+  font-size: 18px;
+  padding: 7px 25px;
+  margin: 0;
+  margin-top: 20px;
+
+  &:hover {
+    color: $black;
+    text-decoration: none;
+  }
+
+  &.active {
+    background-color: $primary-green;
+    color: $white;
+
+    &:hover {
+      color: $white;
+      text-decoration: none;
+    }
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 .2rem $form-input-focus-green;
+    outline: 0;
+  }
+}
+
+#favourites-div {
+  display: none;
+}
+
+#circuits-div,
+#favourites-div {
+  width: 100%;
+}
+
+.users-favourites-tab {
+  margin-left: -5px;
+}
+
+//breakpoints
+@media (max-width: 400px) {
+  .users-card {
+    max-width: 140px;
+  }
+
+  .users-circuits-tab {
+    font-size: 16px;
+    padding: 4px 15px;
+  }
+}
+//user profile ends

@@ -1,7 +1,7 @@
-import CircuitElement from '../circuitElement';
-import Node, { findNode, dec2bin } from '../node';
-import simulationArea from '../simulationArea';
-import { correctWidth, rect, fillText } from '../canvasApi';
+import CircuitElement from "../circuitElement";
+import Node, { findNode, dec2bin } from "../node";
+import simulationArea from "../simulationArea";
+import { correctWidth, rect, fillText } from "../canvasApi";
 /**
  * @class
  * PriorityEncoder
@@ -13,13 +13,15 @@ import { correctWidth, rect, fillText } from '../canvasApi';
  * @param {number=} bitWidth - bit width per node.
  * @category modules
  */
+import { colors } from "../themer/themer";
+
 export default class PriorityEncoder extends CircuitElement {
-    constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
+    constructor(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
         /* this is done in this.baseSetup() now
         this.scope['PriorityEncoder'].push(this);
         */
-        this.bitWidth = bitWidth || parseInt(prompt('Enter bitWidth'), 10);
+        this.bitWidth = bitWidth || parseInt(prompt("Enter bitWidth"), 10);
         this.inputSize = 1 << this.bitWidth;
 
         this.yOff = 1;
@@ -27,23 +29,41 @@ export default class PriorityEncoder extends CircuitElement {
             this.yOff = 2;
         }
 
-        this.setDimensions(20, this.yOff * 5 * (this.inputSize));
+        this.setDimensions(20, this.yOff * 5 * this.inputSize);
         this.directionFixed = true;
         this.rectangleObject = false;
 
         this.inp1 = [];
         for (let i = 0; i < this.inputSize; i++) {
-            const a = new Node(-10, +this.yOff * 10 * (i - this.inputSize / 2) + 10, 0, this, 1);
+            const a = new Node(
+                -10,
+                +this.yOff * 10 * (i - this.inputSize / 2) + 10,
+                0,
+                this,
+                1
+            );
             this.inp1.push(a);
         }
 
         this.output1 = [];
         for (let i = 0; i < this.bitWidth; i++) {
-            const a = new Node(30, +2 * 10 * (i - this.bitWidth / 2) + 10, 1, this, 1);
+            const a = new Node(
+                30,
+                +2 * 10 * (i - this.bitWidth / 2) + 10,
+                1,
+                this,
+                1
+            );
             this.output1.push(a);
         }
 
-        this.enable = new Node(10, 20 + this.inp1[this.inputSize - 1].y, 1, this, 1);
+        this.enable = new Node(
+            10,
+            20 + this.inp1[this.inputSize - 1].y,
+            1,
+            this,
+            1
+        );
     }
 
     /**
@@ -53,7 +73,6 @@ export default class PriorityEncoder extends CircuitElement {
      */
     customSave() {
         const data = {
-
             nodes: {
                 inp1: this.inp1.map(findNode),
                 output1: this.output1.map(findNode),
@@ -74,7 +93,13 @@ export default class PriorityEncoder extends CircuitElement {
         if (this.bitWidth === bitWidth) return;
 
         this.bitWidth = bitWidth;
-        const obj = new PriorityEncoder(this.x, this.y, this.scope, this.direction, this.bitWidth);
+        const obj = new PriorityEncoder(
+            this.x,
+            this.y,
+            this.scope,
+            this.direction,
+            this.bitWidth
+        );
         this.inputSize = 1 << bitWidth;
 
         this.cleanDelete();
@@ -105,7 +130,7 @@ export default class PriorityEncoder extends CircuitElement {
         simulationArea.simulationQueue.add(this.enable);
 
         if (temp.length === undefined) {
-            temp = '0';
+            temp = "0";
             for (let i = 0; i < this.bitWidth - 1; i++) {
                 temp = `0${temp}`;
             }
@@ -119,7 +144,9 @@ export default class PriorityEncoder extends CircuitElement {
 
         for (let i = this.bitWidth - 1; i >= 0; i--) {
             this.output1[this.bitWidth - 1 - i].value = Number(temp[i]);
-            simulationArea.simulationQueue.add(this.output1[this.bitWidth - 1 - i]);
+            simulationArea.simulationQueue.add(
+                this.output1[this.bitWidth - 1 - i]
+            );
         }
     }
 
@@ -130,26 +157,53 @@ export default class PriorityEncoder extends CircuitElement {
     customDraw() {
         var ctx = simulationArea.context;
         ctx.beginPath();
-        ctx.strokeStyle = 'black';
-        ctx.fillStyle = 'white';
+        ctx.strokeStyle = colors["stroke"];
+        ctx.fillStyle = colors["fill"];
         ctx.lineWidth = correctWidth(3);
         const xx = this.x;
         const yy = this.y;
-        if (this.bitWidth <= 3) { rect(ctx, xx - 10, yy - 10 - this.yOff * 5 * (this.inputSize), 40, 20 * (this.inputSize + 1)); } else { rect(ctx, xx - 10, yy - 10 - this.yOff * 5 * (this.inputSize), 40, 10 * (this.inputSize + 3)); }
-        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = 'rgba(255, 255, 32,0.8)';
+        if (this.bitWidth <= 3) {
+            rect(
+                ctx,
+                xx - 10,
+                yy - 10 - this.yOff * 5 * this.inputSize,
+                40,
+                20 * (this.inputSize + 1)
+            );
+        } else {
+            rect(
+                ctx,
+                xx - 10,
+                yy - 10 - this.yOff * 5 * this.inputSize,
+                40,
+                10 * (this.inputSize + 3)
+            );
+        }
+        if (
+            (this.hover && !simulationArea.shiftDown) ||
+            simulationArea.lastSelected === this ||
+            simulationArea.multipleObjectSelections.contains(this)
+        )
+            ctx.fillStyle = colors["hover_select"];
         ctx.fill();
         ctx.stroke();
 
         ctx.beginPath();
-        ctx.fillStyle = 'black';
-        ctx.textAlign = 'center';
+        ctx.fillStyle = "black";
+        ctx.textAlign = "center";
         for (let i = 0; i < this.inputSize; i++) {
             fillText(ctx, String(i), xx, yy + this.inp1[i].y + 2, 10);
         }
         for (let i = 0; i < this.bitWidth; i++) {
-            fillText(ctx, String(i), xx + this.output1[0].x - 10, yy + this.output1[i].y + 2, 10);
+            fillText(
+                ctx,
+                String(i),
+                xx + this.output1[0].x - 10,
+                yy + this.output1[i].y + 2,
+                10
+            );
         }
-        fillText(ctx, 'EN', xx + this.enable.x, yy + this.enable.y - 5, 10);
+        fillText(ctx, "EN", xx + this.enable.x, yy + this.enable.y - 5, 10);
         ctx.fill();
     }
 }
@@ -160,6 +214,8 @@ export default class PriorityEncoder extends CircuitElement {
  * @type {string}
  * @category modules
  */
-PriorityEncoder.prototype.tooltipText = 'Priority Encoder ToolTip : Compresses binary inputs into a smaller number of outputs.';
-PriorityEncoder.prototype.helplink = 'https://docs.circuitverse.org/#/decodersandplexers?id=priority-encoder';
-PriorityEncoder.prototype.objectType = 'PriorityEncoder';
+PriorityEncoder.prototype.tooltipText =
+    "Priority Encoder ToolTip : Compresses binary inputs into a smaller number of outputs.";
+PriorityEncoder.prototype.helplink =
+    "https://docs.circuitverse.org/#/decodersandplexers?id=priority-encoder";
+PriorityEncoder.prototype.objectType = "PriorityEncoder";

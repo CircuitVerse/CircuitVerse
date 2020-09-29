@@ -1,17 +1,18 @@
 <%= form_with(model: custom_mail, local: true, multipart: true, id:"mailsForm") do |form| %>
-
-  <div class="field">
-    <%= form.label :subject %>
-    <%= form.text_field :subject %>
+  <div class="field form-group">
+    <h6><%= form.label :subject %></h6>
+    <div class="input-group">
+      <%= form.text_field :subject, class: "form-control form-input" %>
+    </div>
   </div>
-
-  <div class="field" id="description">
-    <%= form.label :content %><br>
-    <%= render :partial => 'editor/index', :locals => {:content => @mail.content} %>
+  <div class="field form-group" id="description">
+    <h6><%= form.label :content %></h6>
+    <div class="input-group">
+      <%= render :partial => 'editor/index', :locals => {:content => custom_mail.content} %>
+    </div>
   </div>
-
-  <div class="actions" onclick="before_submit()">
-    <%= form.submit() %>
+  <div onclick="before_submit()">
+    <%= form.submit class: "btn primary-button" %>
   </div>
 <% end %>
 

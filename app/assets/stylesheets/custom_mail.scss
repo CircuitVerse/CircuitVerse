@@ -1,0 +1,43 @@
+.custom-mail-table {
+  background-color: $card-grey;
+  border-collapse: collapse;
+  box-sizing: border-box;
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  width: 80%;
+
+  td,
+  th {
+    max-width: 300px;
+    padding: 8px 15px;
+    text-align: center;
+  }
+
+  th {
+    font-size: 18px;
+    font-weight: 500;
+  }
+}
+
+.custom-mail-thead {
+  background-color: $primary-green;
+  color: $white;
+}
+
+.custom-mail-primary-button {
+  margin-bottom: 20px;
+  margin-top: 0;
+}
+
+.custom-mail-heading {
+  width: 100%;
+}
+
+.custom-mail-status {
+  display: block;
+  font-weight: 600;
+  margin-top: 20px;
+  width: 100%;
+}

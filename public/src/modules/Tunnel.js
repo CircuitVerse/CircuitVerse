@@ -1,8 +1,8 @@
-import CircuitElement from '../circuitElement';
-import Node, { findNode } from '../node';
-import simulationArea from '../simulationArea';
-import { correctWidth, rect2, fillText } from '../canvasApi';
-import plotArea from '../plotArea';
+import CircuitElement from "../circuitElement";
+import Node, { findNode } from "../node";
+import simulationArea from "../simulationArea";
+import { correctWidth, rect2, fillText } from "../canvasApi";
+import plotArea from "../plotArea";
 /**
  * @class
  * Tunnel
@@ -15,8 +15,17 @@ import plotArea from '../plotArea';
  * @param {string=} identifier - number of input nodes
  * @category modules
  */
+import { colors } from "../themer/themer";
+
 export default class Tunnel extends CircuitElement {
-    constructor(x, y, scope = globalScope, dir = 'LEFT', bitWidth = 1, identifier) {
+    constructor(
+        x,
+        y,
+        scope = globalScope,
+        dir = "LEFT",
+        bitWidth = 1,
+        identifier
+    ) {
         super(x, y, scope, dir, bitWidth);
         /* this is done in this.baseSetup() now
         this.scope['Tunnel'].push(this);
@@ -26,7 +35,7 @@ export default class Tunnel extends CircuitElement {
         this.xSize = 10;
         this.plotValues = [];
         this.inp1 = new Node(0, 0, 0, this);
-        this.setIdentifier(identifier || 'T');
+        this.setIdentifier(identifier || "T");
         this.setBounds();
     }
 
@@ -44,13 +53,13 @@ export default class Tunnel extends CircuitElement {
     setBounds() {
         let xRotate = 0;
         let yRotate = 0;
-        if (this.direction === 'LEFT') {
+        if (this.direction === "LEFT") {
             xRotate = 0;
             yRotate = 0;
-        } else if (this.direction === 'RIGHT') {
+        } else if (this.direction === "RIGHT") {
             xRotate = 120 - this.xSize;
             yRotate = 0;
-        } else if (this.direction === 'UP') {
+        } else if (this.direction === "UP") {
             xRotate = 60 - this.xSize / 2;
             yRotate = -20;
         } else {
@@ -86,9 +95,18 @@ export default class Tunnel extends CircuitElement {
      * resolve output values based on inputData
      */
     resolve() {
-        for (let i = 0; i < this.scope.tunnelList[this.identifier].length; i++) {
-            if (this.scope.tunnelList[this.identifier][i].inp1.value !== this.inp1.value) {
-                this.scope.tunnelList[this.identifier][i].setTunnelValue(this.inp1.value);
+        for (
+            let i = 0;
+            i < this.scope.tunnelList[this.identifier].length;
+            i++
+        ) {
+            if (
+                this.scope.tunnelList[this.identifier][i].inp1.value !==
+                this.inp1.value
+            ) {
+                this.scope.tunnelList[this.identifier][i].setTunnelValue(
+                    this.inp1.value
+                );
             }
         }
     }
@@ -111,14 +129,23 @@ export default class Tunnel extends CircuitElement {
      */
     setPlotValue() {
         const time = plotArea.stopWatch.ElapsedMilliseconds;
-        if (this.plotValues.length && this.plotValues[this.plotValues.length - 1][0] === time) { this.plotValues.pop(); }
+        if (
+            this.plotValues.length &&
+            this.plotValues[this.plotValues.length - 1][0] === time
+        ) {
+            this.plotValues.pop();
+        }
 
         if (this.plotValues.length === 0) {
             this.plotValues.push([time, this.inp1.value]);
             return;
         }
 
-        if (this.plotValues[this.plotValues.length - 1][1] === this.inp1.value) { return; }
+        if (
+            this.plotValues[this.plotValues.length - 1][1] === this.inp1.value
+        ) {
+            return;
+        }
         this.plotValues.push([time, this.inp1.value]);
     }
 
@@ -129,7 +156,11 @@ export default class Tunnel extends CircuitElement {
      */
     customSave() {
         const data = {
-            constructorParamaters: [this.direction, this.bitWidth, this.identifier],
+            constructorParamaters: [
+                this.direction,
+                this.bitWidth,
+                this.identifier,
+            ],
             nodes: {
                 inp1: findNode(this.inp1),
             },
@@ -145,11 +176,13 @@ export default class Tunnel extends CircuitElement {
      * function to set tunnel value
      * @param {string=} id - id so that every link is unique
      */
-    setIdentifier(id = '') {
+    setIdentifier(id = "") {
         if (id.length === 0) return;
-        if (this.scope.tunnelList[this.identifier]) this.scope.tunnelList[this.identifier].clean(this);
+        if (this.scope.tunnelList[this.identifier])
+            this.scope.tunnelList[this.identifier].clean(this);
         this.identifier = id;
-        if (this.scope.tunnelList[this.identifier]) this.scope.tunnelList[this.identifier].push(this);
+        if (this.scope.tunnelList[this.identifier])
+            this.scope.tunnelList[this.identifier].push(this);
         else this.scope.tunnelList[this.identifier] = [this];
         const len = this.identifier.length;
         if (len === 1) this.xSize = 40;
@@ -166,7 +199,7 @@ export default class Tunnel extends CircuitElement {
         this.scope.Tunnel.clean(this);
         this.scope.tunnelList[this.identifier].clean(this);
         super.delete();
-        this.scope['Tunnel'].push(this);
+        this.scope["Tunnel"].push(this);
     }
 
     /**
@@ -176,21 +209,21 @@ export default class Tunnel extends CircuitElement {
     customDraw() {
         var ctx = simulationArea.context;
         ctx.beginPath();
-        ctx.strokeStyle = 'grey';
-        ctx.fillStyle = '#fcfcfc';
+        ctx.strokeStyle = colors["stroke"];
+        ctx.fillStyle = colors["fill"];
         ctx.lineWidth = correctWidth(1);
         const xx = this.x;
         const yy = this.y;
 
         let xRotate = 0;
         let yRotate = 0;
-        if (this.direction === 'LEFT') {
+        if (this.direction === "LEFT") {
             xRotate = 0;
             yRotate = 0;
-        } else if (this.direction === 'RIGHT') {
+        } else if (this.direction === "RIGHT") {
             xRotate = 120 - this.xSize;
             yRotate = 0;
-        } else if (this.direction === 'UP') {
+        } else if (this.direction === "UP") {
             xRotate = 60 - this.xSize / 2;
             yRotate = -20;
         } else {
@@ -198,31 +231,71 @@ export default class Tunnel extends CircuitElement {
             yRotate = 20;
         }
 
-        rect2(ctx, -120 + xRotate + this.xSize, -20 + yRotate, 120 - this.xSize, 40, xx, yy, 'RIGHT');
-        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) { ctx.fillStyle = 'rgba(255, 255, 32,0.8)'; }
+        rect2(
+            ctx,
+            -120 + xRotate + this.xSize,
+            -20 + yRotate,
+            120 - this.xSize,
+            40,
+            xx,
+            yy,
+            "RIGHT"
+        );
+        if (
+            (this.hover && !simulationArea.shiftDown) ||
+            simulationArea.lastSelected === this ||
+            simulationArea.multipleObjectSelections.contains(this)
+        ) {
+            ctx.fillStyle = colors["hover_select"];
+        }
         ctx.fill();
         ctx.stroke();
 
-        ctx.font = '14px Georgia';
+        ctx.font = "14px Georgia";
         this.xOff = ctx.measureText(this.identifier).width;
         ctx.beginPath();
-        rect2(ctx, -105 + xRotate + this.xSize, -11 + yRotate, this.xOff + 10, 23, xx, yy, 'RIGHT');
-        ctx.fillStyle = '#eee';
-        ctx.strokeStyle = '#ccc';
+        rect2(
+            ctx,
+            -105 + xRotate + this.xSize,
+            -11 + yRotate,
+            this.xOff + 10,
+            23,
+            xx,
+            yy,
+            "RIGHT"
+        );
+        ctx.fillStyle = "#eee";
+        ctx.strokeStyle = "#ccc";
         ctx.fill();
         ctx.stroke();
 
         ctx.beginPath();
-        ctx.textAlign = 'center';
-        ctx.fillStyle = 'black';
-        fillText(ctx, this.identifier, xx - 100 + this.xOff / 2 + xRotate + this.xSize, yy + 6 + yRotate, 14);
+        ctx.textAlign = "center";
+        ctx.fillStyle = "black";
+        fillText(
+            ctx,
+            this.identifier,
+            xx - 100 + this.xOff / 2 + xRotate + this.xSize,
+            yy + 6 + yRotate,
+            14
+        );
         ctx.fill();
 
         ctx.beginPath();
-        ctx.font = '30px Georgia';
-        ctx.textAlign = 'center';
-        ctx.fillStyle = ['blue', 'red'][+(this.inp1.value === undefined)];
-        if (this.inp1.value !== undefined) { fillText(ctx, this.inp1.value.toString(16), xx - 23 + xRotate, yy + 8 + yRotate, 25); } else { fillText(ctx, 'x', xx - 23 + xRotate, yy + 8 + yRotate, 25); }
+        ctx.font = "30px Georgia";
+        ctx.textAlign = "center";
+        ctx.fillStyle = ["blue", "red"][+(this.inp1.value === undefined)];
+        if (this.inp1.value !== undefined) {
+            fillText(
+                ctx,
+                this.inp1.value.toString(16),
+                xx - 23 + xRotate,
+                yy + 8 + yRotate,
+                25
+            );
+        } else {
+            fillText(ctx, "x", xx - 23 + xRotate, yy + 8 + yRotate, 25);
+        }
         ctx.fill();
     }
 }
@@ -233,8 +306,9 @@ export default class Tunnel extends CircuitElement {
  * @type {string}
  * @category modules
  */
-Tunnel.prototype.tooltipText = 'Tunnel ToolTip : Tunnel Selected.';
-Tunnel.prototype.helplink = 'https://docs.circuitverse.org/#/miscellaneous?id=tunnel';
+Tunnel.prototype.tooltipText = "Tunnel ToolTip : Tunnel Selected.";
+Tunnel.prototype.helplink =
+    "https://docs.circuitverse.org/#/miscellaneous?id=tunnel";
 
 Tunnel.prototype.overrideDirectionRotation = true;
 
@@ -246,10 +320,10 @@ Tunnel.prototype.overrideDirectionRotation = true;
  */
 Tunnel.prototype.mutableProperties = {
     identifier: {
-        name: 'Debug Flag identifier',
-        type: 'text',
-        maxlength: '5',
-        func: 'setIdentifier',
+        name: "Debug Flag identifier",
+        type: "text",
+        maxlength: "5",
+        func: "setIdentifier",
     },
 };
-Tunnel.prototype.objectType = 'Tunnel';
+Tunnel.prototype.objectType = "Tunnel";

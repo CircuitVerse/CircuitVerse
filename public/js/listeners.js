@@ -161,8 +161,9 @@ function startListeners() {
             }
         }
 
-        if (e.key == "Delete") {
-            if (simulationArea.lastSelected) delete_selected();
+        if (e.keyCode == 8 || e.key == "Delete") {
+            e.preventDefault();
+            delete_selected();
         }
 
         if (simulationArea.controlDown && e.key.charCodeAt(0) == 122) { // detect the special CTRL-Z code
@@ -191,38 +192,6 @@ function startListeners() {
             simulationArea.multipleObjectSelections = [];
             simulationArea.lastSelected = undefined;
             e.preventDefault();
-        }
-
-        //change direction fns
-        if (simulationArea.lastSelected != undefined) {
-            let direction = "";
-            switch (e.keyCode) {
-                case 37:
-                case 65:
-                    direction = "LEFT";
-                    break;
-
-                case 38:
-                case 87:
-                    direction = "UP";
-                    break;
-
-                case 39:
-                case 68:
-                    direction = "RIGHT";
-                    break;
-
-                case 40:
-                case 83:
-                    direction = "DOWN";
-                    break;
-
-                default:
-                    break;
-            }
-            if (direction !== ""){
-                simulationArea.lastSelected.newDirection(direction);
-            }
         }
 
         if ((e.keyCode == 113 || e.keyCode == 81) && simulationArea.lastSelected != undefined) {

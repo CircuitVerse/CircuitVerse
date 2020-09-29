@@ -2,6 +2,7 @@ import { setup } from './setup';
 import Array from './arrayHelpers';
 import 'bootstrap';
 import YosysJSON2CV from './Verilog2CV'
+import { keyBinder } from './hotkey_binder/keyBinder';
 
 document.addEventListener('DOMContentLoaded', () => {
     setup();
@@ -78,6 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     YosysJSON2CV(js);
+    keyBinder();
 });
 
 window.Array = Array;

@@ -1,10 +1,10 @@
-import CircuitElement from '../circuitElement';
-import Node, { findNode } from '../node';
-import simulationArea from '../simulationArea';
-import {
-    correctWidth, lineTo, moveTo, arc,
-} from '../canvasApi';
-import { changeInputSize } from '../modules';
+import CircuitElement from "../circuitElement";
+import Node, { findNode } from "../node";
+import simulationArea from "../simulationArea";
+import { correctWidth, lineTo, moveTo, arc } from "../canvasApi";
+import { changeInputSize } from "../modules";
+import { colors } from "../themer/themer";
+
 /**
  * @class
  * AndGate
@@ -18,7 +18,14 @@ import { changeInputSize } from '../modules';
  * @category modules
  */
 export default class AndGate extends CircuitElement {
-    constructor(x, y, scope = globalScope, dir = 'RIGHT', inputLength = 2, bitWidth = 1) {
+    constructor(
+        x,
+        y,
+        scope = globalScope,
+        dir = "RIGHT",
+        inputLength = 2,
+        bitWidth = 1
+    ) {
         /**
          * super call
          */
@@ -49,7 +56,12 @@ export default class AndGate extends CircuitElement {
                 this.inp.push(a);
             }
             for (let i = inputLength / 2; i < inputLength; i++) {
-                const a = new Node(-10, 10 * (i + 1 - inputLength / 2), 0, this);
+                const a = new Node(
+                    -10,
+                    10 * (i + 1 - inputLength / 2),
+                    0,
+                    this
+                );
                 this.inp.push(a);
             }
         }
@@ -64,12 +76,15 @@ export default class AndGate extends CircuitElement {
      */
     customSave() {
         const data = {
-            constructorParamaters: [this.direction, this.inputSize, this.bitWidth],
+            constructorParamaters: [
+                this.direction,
+                this.inputSize,
+                this.bitWidth,
+            ],
             nodes: {
                 inp: this.inp.map(findNode),
                 output1: findNode(this.output1),
             },
-
         };
         return data;
     }
@@ -83,7 +98,8 @@ export default class AndGate extends CircuitElement {
         if (this.isResolvable() === false) {
             return;
         }
-        for (let i = 1; i < this.inputSize; i++) result &= ((this.inp[i].value) || 0);
+        for (let i = 1; i < this.inputSize; i++)
+            result &= this.inp[i].value || 0;
         this.output1.value = result;
         simulationArea.simulationQueue.add(this.output1);
     }
@@ -94,22 +110,26 @@ export default class AndGate extends CircuitElement {
      */
     customDraw() {
         var ctx = simulationArea.context;
-
         ctx.beginPath();
         ctx.lineWidth = correctWidth(3);
-        ctx.strokeStyle = 'black'; // ("rgba(0,0,0,1)");
-        ctx.fillStyle = 'white';
+        ctx.strokeStyle = colors["stroke"]; // ("rgba(0,0,0,1)");
+        ctx.fillStyle = colors["fill"];
         const xx = this.x;
         const yy = this.y;
 
         moveTo(ctx, -10, -20, xx, yy, this.direction);
         lineTo(ctx, 0, -20, xx, yy, this.direction);
-        arc(ctx, 0, 0, 20, (-Math.PI / 2), (Math.PI / 2), xx, yy, this.direction);
+        arc(ctx, 0, 0, 20, -Math.PI / 2, Math.PI / 2, xx, yy, this.direction);
         lineTo(ctx, -10, 20, xx, yy, this.direction);
         lineTo(ctx, -10, -20, xx, yy, this.direction);
         ctx.closePath();
 
-        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = 'rgba(255, 255, 32,0.8)';
+        if (
+            (this.hover && !simulationArea.shiftDown) ||
+            simulationArea.lastSelected === this ||
+            simulationArea.multipleObjectSelections.contains(this)
+        )
+            ctx.fillStyle = colors["hover_select"];
         ctx.fill();
         ctx.stroke();
     }
@@ -121,7 +141,8 @@ export default class AndGate extends CircuitElement {
  * @type {string}
  * @category modules
  */
-AndGate.prototype.tooltipText = 'And Gate Tooltip : Implements logical conjunction';
+AndGate.prototype.tooltipText =
+    "And Gate Tooltip : Implements logical conjunction";
 
 /**
  * @memberof AndGate
@@ -135,7 +156,7 @@ AndGate.prototype.alwaysResolve = true;
  * @type {string}
  * @category modules
  */
-AndGate.prototype.verilogType = 'and';
+AndGate.prototype.verilogType = "and";
 
 /**
  * @memberof AndGate
@@ -143,5 +164,6 @@ AndGate.prototype.verilogType = 'and';
  * @category modules
  */
 AndGate.prototype.changeInputSize = changeInputSize;
-AndGate.prototype.helplink = 'https://docs.circuitverse.org/#/gates?id=and-gate';
-AndGate.prototype.objectType = 'AndGate';
+AndGate.prototype.helplink =
+    "https://docs.circuitverse.org/#/gates?id=and-gate";
+AndGate.prototype.objectType = "AndGate";

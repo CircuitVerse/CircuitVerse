@@ -10,7 +10,7 @@ class Assignment < ApplicationRecord
   after_commit :send_update_mail, on: :update
 
   enum grading_scale: { no_scale: 0, letter: 1, percent: 2, custom: 3 }
-
+  default_scope { order(deadline: :asc)}
   has_many :grades, dependent: :destroy
 
   def send_new_assignment_mail
@@ -48,5 +48,19 @@ class Assignment < ApplicationRecord
   def project_order
     projects.includes(:grade, :author).sort_by { |p| p.author.name }
             .map { |project| ProjectDecorator.new(project) }
+  end
+
+  def check_reopening_status
+    projects.each do |proj|
+      next unless proj.project_submission == true
+
+      old_project = Project.find_by(id: proj.forked_project_id)
+      if old_project.nil?
+        proj.update(project_submission: false)
+      else
+        old_project.update(assignment_id: proj.assignment_id)
+        proj.destroy
+      end
+    end
   end
 end

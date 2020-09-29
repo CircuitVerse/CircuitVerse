@@ -1,3 +1,4 @@
+import { fullView } from './ux';
 import { createSubCircuitPrompt } from './subcircuit';
 import save from './data/save';
 import load from './data/load';
@@ -5,6 +6,9 @@ import createSaveAsImgPrompt from './data/saveImage'
 import { clearProject, newProject, saveOffline, openOffline, recoverProject } from './data/project'
 import { newCircuit } from './circuit'
 import { createCombinationalAnalysisPrompt } from './combinationalAnalysis';
+import { colorThemes } from "./themer/themer";
+import { showTourGuide } from './tutorials';
+
 const logixFunction = {};
 logixFunction.save = save;
 logixFunction.load = load;
@@ -17,4 +21,12 @@ logixFunction.createOpenLocalPrompt = openOffline;
 logixFunction.recoverProject = recoverProject;
 logixFunction.createSubCircuitPrompt = createSubCircuitPrompt;
 logixFunction.createCombinationalAnalysisPrompt = createCombinationalAnalysisPrompt;
+logixFunction.fullViewOption = fullView;
+logixFunction.colorThemes = colorThemes;
+logixFunction.showTourGuide = showTourGuideHelper;
 export default logixFunction;
+
+// Hack to restart tour guide
+function showTourGuideHelper() {
+    setTimeout(()=> {showTourGuide();}, 100);
+}

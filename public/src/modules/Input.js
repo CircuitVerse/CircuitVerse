@@ -19,6 +19,8 @@ import { generateId } from '../utils';
  * @param {Object=} layoutProperties - x,y and id
  * @category modules
  */
+import { colors } from '../themer/themer';
+
 
 function bin2dec(binString) {
     return parseInt(binString, 2);
@@ -127,13 +129,11 @@ export default class Input extends CircuitElement {
     customDraw() {
         var ctx = simulationArea.context;
         ctx.beginPath();
-        ctx.strokeStyle = ('rgba(0,0,0,1)');
         ctx.lineWidth = correctWidth(3);
         const xx = this.x;
         const yy = this.y;
-
         ctx.beginPath();
-        ctx.fillStyle = 'green';
+        ctx.fillStyle = colors['input_text'];
         ctx.textAlign = 'center';
         const bin = dec2bin(this.state, this.bitWidth);
         for (let k = 0; k < this.bitWidth; k++) { fillText(ctx, bin[k], xx - 10 * this.bitWidth + 10 + (k) * 20, yy + 5); }
