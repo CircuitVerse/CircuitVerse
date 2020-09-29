@@ -74,7 +74,7 @@ GEM
       safely_block (>= 0.2.1)
     ast (2.4.1)
     bcrypt (3.1.15)
-    better_html (1.0.14)
+    better_html (1.0.15)
       actionview (>= 4.0)
       activesupport (>= 4.0)
       ast (~> 2.0)
@@ -156,12 +156,13 @@ GEM
     dotenv-rails (2.7.6)
       dotenv (= 2.7.6)
       railties (>= 3.2)
-    erb_lint (0.0.30)
+    erb_lint (0.0.35)
       activesupport
       better_html (~> 1.0.7)
       html_tokenizer
+      parser (>= 2.7.1.4)
       rainbow
-      rubocop (~> 0.51)
+      rubocop (~> 0.79)
       smart_properties
     errbase (0.2.0)
     erubi (1.9.0)
@@ -405,7 +406,7 @@ GEM
     recaptcha (5.5.0)
       json
     redis (4.2.2)
-    regexp_parser (1.7.1)
+    regexp_parser (1.8.1)
     remotipart (1.4.4)
     responders (3.0.1)
       actionpack (>= 5.0)
@@ -442,9 +443,8 @@ GEM
       rubocop-ast (>= 0.5.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 2.0)
-    rubocop-ast (0.7.0)
+    rubocop-ast (0.7.1)
       parser (>= 2.7.1.5)
-      strscan (>= 1.0.0)
     rubocop-performance (1.7.1)
       rubocop (>= 0.82.0)
     rubocop-rails (2.6.0)
@@ -521,7 +521,6 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    strscan (1.0.3)
     sunspot (2.5.0)
       pr_geohash (~> 1.0)
       rsolr (>= 1.1.1, < 3)
