@@ -326,9 +326,8 @@ export function showProperties(obj) {
                 circuitProperty[this.name](this.checked); 
             }
     });
-    $(function () {
-        $("input[type='number']").inputSpinner();
-    });
+    
+    $("input[type='number']").inputSpinner();
 }
 
 /**
