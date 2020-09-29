@@ -15,10 +15,10 @@ Rails.application.routes.draw do
   # resources :assignment_submissions
   resources :group_members, only: %i[create destroy]
   resources :groups, except: %i[index] do
-    resources :assignments
+    resources :assignments, except: %i[index]
   end
 
-  resources :custom_mails, only: %i[index new create edit show update]
+  resources :custom_mails, except: %i[destroy]
   get "/custom_mails/send_mail/:id", to: "custom_mails#send_mail", as: "send_custom_mail"
   get "/custom_mails/send_mail_to_self/:id", to: "custom_mails#send_mail_self",
                                              as: "send_custom_mail_self"
@@ -50,7 +50,8 @@ Rails.application.routes.draw do
 
   get "/users/edit", to: redirect('/')
   devise_for :users, controllers: {
-    registrations: "users/registrations", omniauth_callbacks: "users/omniauth_callbacks"
+    registrations: "users/registrations", omniauth_callbacks: "users/omniauth_callbacks",
+    sessions: "users/sessions"
   }
 
   # Logix web pages resources
@@ -101,13 +102,14 @@ Rails.application.routes.draw do
   # get 'simulator/embed_cross/:id', to: 'simulator#embed_cross', as: 'simulator_embed_cross'
 
   resources :users do
-    resources :projects, only: %i[show edit update new create destroy]
+    resources :projects, except: %i[index]
   end
   resources :collaborations, only: %i[create destroy update]
 
   # redirects
   get "/facebook", to: redirect("https://www.facebook.com/CircuitVerse")
   get "/twitter", to: redirect("https://www.twitter.com/CircuitVerse")
+  get "/linkedin", to: redirect("https://www.linkedin.com/company/circuitverse")
   get "/slack", to: redirect(
     "https://join.slack.com/t/circuitverse-team/shared_invite/enQtNjc4MzcyNDE5OTA3LTdjYTM5NjFiZWZlZGI2MmU1MmYzYzczNmZlZDg5MjYxYmQ4ODRjMjQxM2UyMWI5ODUzODQzMDU2ZDEzNjI4NmE"
   )
@@ -115,6 +117,7 @@ Rails.application.routes.draw do
   get "/github", to: redirect("https://github.com/CircuitVerse")
   get "/learn", to: redirect("https://learn.circuitverse.org")
   get "/docs", to: redirect("https://docs.circuitverse.org")
+  get "/features", to: redirect("/#home-features-section")
 
   # get 'comments/create_reply/:id', to: 'comments#create_reply', as: 'reply_comment'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

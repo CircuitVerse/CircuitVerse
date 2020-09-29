@@ -90,7 +90,7 @@ GEM
     bugsnag (6.16.0)
       concurrent-ruby (~> 1.0)
     builder (3.2.4)
-    byebug (11.0.1)
+    byebug (11.1.3)
     capybara (3.33.0)
       addressable
       mini_mime (>= 0.1.3)
@@ -121,7 +121,7 @@ GEM
       rails (>= 5.2)
       will_paginate
     concurrent-ruby (1.1.7)
-    connection_pool (2.2.2)
+    connection_pool (2.2.3)
     countries (3.0.0)
       i18n_data (~> 0.8.0)
       sixarm_ruby_unaccent (~> 1.1)
@@ -148,6 +148,7 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.4.4)
+    disposable_mail (0.1.7)
     docile (1.3.2)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
@@ -165,13 +166,13 @@ GEM
     errbase (0.2.0)
     erubi (1.9.0)
     execjs (2.7.0)
-    factory_bot (5.1.1)
-      activesupport (>= 4.2.0)
-    factory_bot_rails (5.1.1)
-      factory_bot (~> 5.1.0)
-      railties (>= 4.2.0)
-    faker (2.7.0)
-      i18n (>= 1.6, < 1.8)
+    factory_bot (6.1.0)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.1.0)
+      factory_bot (~> 6.1.0)
+      railties (>= 5.0.0)
+    faker (2.14.0)
+      i18n (>= 1.6, < 2)
     faraday (1.0.1)
       multipart-post (>= 1.2, < 3)
     fast_jsonapi (1.5)
@@ -217,7 +218,7 @@ GEM
     http-form_data (2.3.0)
     http-parser (1.2.1)
       ffi-compiler (>= 1.0, < 2.0)
-    i18n (1.7.1)
+    i18n (1.8.5)
       concurrent-ruby (~> 1.0)
     i18n_data (0.8.0)
     image_processing (1.11.0)
@@ -226,6 +227,8 @@ GEM
     inline_svg (1.7.1)
       activesupport (>= 3.0)
       nokogiri (>= 1.6)
+    invisible_captcha (1.1.0)
+      rails (>= 4.2)
     jbuilder (2.10.0)
       activesupport (>= 5.0.0)
     jquery-rails (4.4.0)
@@ -237,7 +240,7 @@ GEM
     json (2.3.1)
     json-schema (2.8.1)
       addressable (>= 2.4)
-    jwt (2.2.1)
+    jwt (2.2.2)
     kaminari (1.2.1)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.2.1)
@@ -254,7 +257,7 @@ GEM
     listen (3.2.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
-    loofah (2.6.0)
+    loofah (2.7.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.1)
@@ -271,14 +274,15 @@ GEM
     mini_magick (4.10.1)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
-    minitest (5.14.1)
+    minitest (5.14.2)
     msgpack (1.3.1)
     msgpack (1.3.1-x64-mingw32)
     multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
     nested_form (0.3.2)
-    nio4r (2.5.2)
+    newrelic_rpm (6.13.0)
+    nio4r (2.5.4)
     nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
     nokogiri (1.10.10-x64-mingw32)
@@ -336,7 +340,7 @@ GEM
     pry-rails (0.3.9)
       pry (>= 0.10.4)
     public_suffix (4.0.5)
-    puma (4.3.5)
+    puma (5.0.0)
       nio4r (~> 2.0)
     pundit (2.1.0)
       activesupport (>= 3.0.0)
@@ -344,7 +348,7 @@ GEM
     rack-pjax (1.1.0)
       nokogiri (~> 1.5)
       rack (>= 1.1)
-    rack-protection (2.0.7)
+    rack-protection (2.0.8.1)
       rack
     rack-proxy (0.6.5)
       rack
@@ -398,7 +402,9 @@ GEM
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    redis (4.1.3)
+    recaptcha (5.5.0)
+      json
+    redis (4.2.2)
     regexp_parser (1.7.1)
     remotipart (1.4.4)
     responders (3.0.1)
@@ -435,20 +441,21 @@ GEM
       rubocop-ast (>= 0.0.3)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 2.0)
-    rubocop-ast (0.2.0)
-      parser (>= 2.7.0.1)
+    rubocop-ast (0.3.0)
+      parser (>= 2.7.1.4)
     rubocop-performance (1.7.1)
       rubocop (>= 0.82.0)
-    rubocop-rails (2.4.2)
+    rubocop-rails (2.6.0)
+      activesupport (>= 4.2.0)
       rack (>= 1.1)
-      rubocop (>= 0.72.0)
+      rubocop (>= 0.82.0)
     rubocop-rspec (1.41.0)
       rubocop (>= 0.68.1)
     ruby-graphviz (1.2.4)
     ruby-progressbar (1.10.1)
     ruby-vips (2.0.17)
       ffi (~> 1.9)
-    rubyzip (2.0.0)
+    rubyzip (2.3.0)
     safe_yaml (1.0.5)
     safely_block (0.3.0)
       errbase (>= 0.1.1)
@@ -473,18 +480,17 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    selenium-webdriver (3.142.6)
+    selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
     serviceworker-rails (0.6.0)
       railties (>= 3.1)
-    shoulda-matchers (4.1.2)
+    shoulda-matchers (4.4.1)
       activesupport (>= 4.2.0)
-    sidekiq (6.0.3)
+    sidekiq (6.1.2)
       connection_pool (>= 2.2.2)
-      rack (>= 2.0.0)
-      rack-protection (>= 2.0.0)
-      redis (>= 4.1.0)
+      rack (~> 2.0)
+      redis (>= 4.2.0)
     simple_discussion (1.2.0)
       font-awesome-sass (~> 5.13.0)
       friendly_id (>= 5.2.0)
@@ -594,6 +600,7 @@ DEPENDENCIES
   country_select (~> 4.0)
   coveralls
   devise
+  disposable_mail (~> 0.1)
   dotenv-rails
   erb_lint
   factory_bot_rails
@@ -607,6 +614,7 @@ DEPENDENCIES
   hirb
   http
   inline_svg
+  invisible_captcha (~> 1.1)
   jbuilder (~> 2.10)
   jquery-rails
   json-schema
@@ -614,6 +622,7 @@ DEPENDENCIES
   language_filter
   listen (>= 3.0.5, < 3.3)
   meta-tags
+  newrelic_rpm (~> 6.13)
   omniauth
   omniauth-facebook
   omniauth-github
@@ -624,11 +633,12 @@ DEPENDENCIES
   pg_search
   premailer-rails (~> 1.11, >= 1.11.1)
   pry-rails
-  puma (~> 4.3)
+  puma (~> 5.0)
   pundit
   rails (~> 6.0)
   rails-erd
   rails_admin (~> 2.0)
+  recaptcha
   rspec-rails (~> 4.0)
   rspec_junit_formatter
   rubocop

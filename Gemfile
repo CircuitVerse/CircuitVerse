@@ -18,7 +18,7 @@ gem 'omniauth-github'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0'
 # Use Puma as the app server
-gem 'puma', '~> 4.3'
+gem 'puma', '~> 5.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -102,6 +102,8 @@ gem 'flipper-ui'
 gem 'friendly_id', '~> 5.3.0'
 gem 'simple_discussion', '~> 1.2'
 gem 'inline_svg'
+gem 'disposable_mail', '~> 0.1'
+gem 'recaptcha'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -147,3 +149,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'premailer-rails', '~> 1.11', '>= 1.11.1'
 
 gem "bugsnag", "~> 6.16"
+
+gem "invisible_captcha", "~> 1.1"
+
+gem "newrelic_rpm", "~> 6.13"
