@@ -1037,6 +1037,7 @@ input:checked + .slider:before {
 .navbar .nav.pull-right {
   float: right;
   margin-right: 10px;
+  min-width: 85px;
 }
 
 /*! download dialog styling end here */
