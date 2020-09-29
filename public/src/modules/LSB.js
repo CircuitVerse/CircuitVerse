@@ -72,7 +72,7 @@ export default class LSB extends CircuitElement {
         const inp = dec2bin(this.inp1.value);
         let out = 0;
         for (let i = inp.length - 1; i >= 0; i--) {
-            if (inp[i] === 1) {
+            if (inp[i] === '1') {
                 out = inp.length - 1 - i;
                 break;
             }
