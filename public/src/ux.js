@@ -14,6 +14,7 @@ import { newCircuit, circuitProperty } from './circuit';
 import modules from './modules';
 import { updateRestrictedElementsInScope } from './restrictedElementDiv';
 import { paste } from './events';
+import { setProjectName, getProjectName } from './data/save';
 import { changeScale } from './canvasApi';
 import updateTheme from "./themer/themer";
 
@@ -222,7 +223,7 @@ export function showProperties(obj) {
     if (simulationArea.lastSelected === undefined || ['Wire', 'CircuitElement', 'Node'].indexOf(simulationArea.lastSelected.objectType) !== -1) {
         $('#moduleProperty').show();
         $('#moduleProperty-inner').append("<div id='moduleProperty-header'>" + 'Project Properties' + '</div>');
-        $('#moduleProperty-inner').append(`<p><span>Project:</span> <input class='objectPropertyAttribute' type='text'  name='setProjectName'  value='${projectName || 'Untitled'}'></p>`);
+        $('#moduleProperty-inner').append(`<p><span>Project:</span> <input class='objectPropertyAttribute' type='text'  name='setProjectName'  value='${getProjectName() || 'Untitled'}'></p>`);
         $('#moduleProperty-inner').append(`<p><span>Circuit:</span> <input class='objectPropertyAttribute' type='text'  name='changeCircuitName'  value='${globalScope.name || 'Untitled'}'></p>`);
         $('#moduleProperty-inner').append(`<p><span>Clock Time (ms):</span> <input class='objectPropertyAttribute' min='50' type='number' style='width:100px' step='10' name='changeClockTime'  value='${simulationArea.timePeriod}'></p>`);
         $('#moduleProperty-inner').append(`<p><span>Clock Enabled:</span> <label class='switch'> <input type='checkbox' ${['', 'checked'][simulationArea.clockEnabled + 0]} class='objectPropertyAttributeChecked' name='changeClockEnable' > <span class='slider'></span></label></p>`);

@@ -6,7 +6,7 @@
 import { resetScopeList, scopeList, newCircuit } from '../circuit';
 import { showMessage, showError } from '../utils';
 import { checkIfBackup } from './backupCircuit';
-import {generateSaveData} from './save';
+import {generateSaveData, getProjectName, setProjectName} from './save';
 import load from './load';
 
 /**
@@ -71,7 +71,7 @@ export function saveOffline() {
     const data = generateSaveData();
     localStorage.setItem(projectId, data);
     const temp = JSON.parse(localStorage.getItem('projectList')) || {};
-    temp[projectId] = projectName;
+    temp[projectId] = getProjectName();
     localStorage.setItem('projectList', JSON.stringify(temp));
     showMessage(`We have saved your project: ${projectName} in your browser's localStorage`);
 }
@@ -131,7 +131,7 @@ export function newProject(verify) {
         localStorage.removeItem('recover');
         window.location = '/simulator';
 
-        projectName = undefined;
+        setProjectName(undefined);
         projectId = generateId();
         showMessage('New Project has been created!');
     }

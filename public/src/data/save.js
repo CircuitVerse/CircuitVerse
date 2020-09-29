@@ -8,16 +8,33 @@ import backgroundArea from '../backgroundArea';
 import { findDimensions } from '../canvasApi';
 import { projectSavedSet } from './project';
 
+var projectName = undefined;
+
 /**
  * Function to set the name of project.
  * @param {string} name - name for project
  * @category data
  */
 export function setProjectName(name) {
+    if(name == undefined || name == 'Untitled') {
+        projectName = undefined;
+        $('#projectName').html('Untitled');
+        return;
+    }
     name = stripTags(name);
-    var projectName = name;
+    projectName = name;
     $('#projectName').html(name);
 }
+
+/**
+ * Function to set the name of project.
+ * @param {string} name - name for project
+ * @category data
+ */
+export function getProjectName() {
+    return projectName;
+}
+
 
 /**
  * Helper function to save canvas as image based on image type
@@ -43,9 +60,8 @@ export function generateSaveData(name) {
     data = {};
 
     // Prompts for name, defaults to Untitled
-    name = projectName || name || prompt('Enter Project Name:') || 'Untitled';
+    name = getProjectName() || name || prompt('Enter Project Name:') || 'Untitled';
     data.name = stripTags(name);
-    projectName = data.name;
     setProjectName(projectName);
 
     // Save project details
@@ -257,6 +273,8 @@ export default function save() {
     $('.loadingIcon').fadeIn();
     const data = generateSaveData();
 
+    const projectName = getProjectName();
+
     if (!userSignedIn) {
         // user not signed in, save locally temporarily and force user to sign in
         localStorage.setItem('recover_login', data);
@@ -264,7 +282,7 @@ export default function save() {
         if (confirm('You have to login to save the project, you will be redirected to the login page.')) window.location.href = '/users/sign_in';
         else $('.loadingIcon').fadeOut();
         // eslint-disable-next-line camelcase
-    } else if (logix_project_id === 0) {
+    } else if (__logix_project_id === 0) {
         // Create new project - this part needs to be improved and optimised
         const form = $('<form/>', {
             action: '/simulator/create_data',
@@ -312,7 +330,7 @@ export default function save() {
             },
             data: {
                 data,
-                id: logix_project_id,
+                id: __logix_project_id,
                 image: generateImageForOnline(),
                 name: projectName,
             },

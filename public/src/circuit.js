@@ -24,7 +24,7 @@ import {
     forceResetNodesSet, changeLightMode
 } from './engine';
 import { toggleLayoutMode, layoutModeGet } from './layoutMode';
-import { setProjectName } from './data/save';
+import { setProjectName, getProjectName } from './data/save';
 import { changeClockEnable } from './sequential';
 import { changeInputSize } from './modules';
 
