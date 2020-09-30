@@ -214,10 +214,6 @@ input[type="text"]:focus {
   }
 }
 
-.header {
-  height: 50px;
-}
-
 .logo {
   background: url(./assets/logo.svg) center/cover;
   height: 30px;
