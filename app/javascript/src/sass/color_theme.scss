@@ -352,7 +352,7 @@ $output-rect: blue;
 
 .moduleProperty input,
 .moduleProperty select {
-  border-bottom: 0.5px solid var(--bg-secondary) !important;
+  border: 0.5px solid var(--bg-secondary) !important;
   color: var(--text-panel);
 }
 
