@@ -13,7 +13,14 @@ function newCircuit(name, id) {
     var $maxwidth = ($windowsize - $sideBarsize);
     var resizer = "max-width:" + ($maxwidth - 30);
     $('.circuits').removeClass("current");
-    $('#tabsBar').append("<a href = '#' data-toggle = 'tooltip' title='" + name + "'><div class='circuits toolbarButton current' id='" + scope.id + "' style='" + resizer + "'>" + name + "<span class ='tabsCloseButton' onclick='deleteCurrentCircuit()'  ><i class='fa fa-times'></i></span></div></a>");
+    $("#tabsBar")
+  .append(`<div class="circuits toolbarButton current" id="${scope.id}" style="display: flex;">
+<span>${name}</span>
+<span class="tabsCloseButton" onclick="deleteCurrentCircuit()">
+  x
+</span>
+</div>`);
+
     $('.circuits').click(function() {
         switchCircuit(this.id)
     });
@@ -751,13 +758,14 @@ createSaveAsImgPrompt = function(scope = globalScope) {
                 generateImage($('input[name=imgType]:checked').val(), $('input[name=view]:checked').val(), $('input[name=transparent]:checked').val(), $('input[name=resolution]:checked').val());
                 $(this).dialog("close");
             },
+            class: "render-btn"
         }]
-
     });
     $("input[name=imgType]").change(function() {
         $('input[name=resolution]').prop("disabled", false);
         $('input[name=transparent]').prop("disabled", false);
         var imgType = $('input[name=imgType]:checked').val();
+        imgType == 'svg'? $('.btn-group-toggle, .download-dialog-section-3').addClass('disable') : $('.btn-group-toggle, .download-dialog-section-3, .cb-inner').removeClass('disable')
         if (imgType == 'svg') {
             $('input[name=resolution][value=1]').click();
             $('input[name=view][value="full"]').click();
@@ -766,9 +774,11 @@ createSaveAsImgPrompt = function(scope = globalScope) {
         } else if (imgType != 'png') {
             $('input[name=transparent]').attr('checked', false);
             $('input[name=transparent]').prop("disabled", true);
+            $('.cb-inner').addClass('disable');
             $('input[name=view]').prop("disabled", false);
         } else {
-            $('input[name=view]').prop("disabled", false);
+            $('input[name=view]').prop("disabled", false);            
+            $('.cb-inner').removeClass('disable');
         }
     });
 }
@@ -795,7 +805,7 @@ createOpenLocalPrompt = function() {
     var flag = true;
     for (id in projectList) {
         flag = false;
-        $('#openProjectDialog').append('<label class="option"><input type="radio" name="projectId" value="' + id + '" />' + projectList[id] + '<i class="fa fa-times deleteOfflineProject" onclick="deleteOfflineProject(\'' + id + '\')"></i></label>');
+        $('#openProjectDialog').append('<label class="option custom-radio"><input type="radio" name="projectId" value="' + id + '" />' + projectList[id] + '<span></span><i class="fa fa-trash deleteOfflineProject" onclick="deleteOfflineProject(\'' + id + '\')"></i></label>');
     }
     if (flag) $('#openProjectDialog').append('<p>Looks like no circuit has been saved yet. Create a new one and save it!</p>')
     $('#openProjectDialog').dialog({
@@ -807,7 +817,8 @@ createOpenLocalPrompt = function() {
                 load(JSON.parse(localStorage.getItem($("input[name=projectId]:checked").val())));
                 $(this).dialog("close");
             },
-        }] : []
+        },
+] : []
 
     });
 
@@ -820,7 +831,7 @@ createSubCircuitPrompt = function(scope = globalScope) {
     for (id in scopeList) {
         if (!scopeList[id].checkDependency(scope.id)) {
             flag = false;
-            $('#insertSubcircuitDialog').append('<label class="option"><input type="radio" name="subCircuitId" value="' + id + '" />' + scopeList[id].name + '</label>');
+            $('#insertSubcircuitDialog').append('<label style="height: 30px;" class="option custom-radio"><input style="margin-right: 10px;" type="radio" name="subCircuitId" value="' + id + '" />' + scopeList[id].name + '<span></span></label>');
         }
     }
     if (flag) $('#insertSubcircuitDialog').append('<p>Looks like there are no other circuits which doesn\'t have this circuit as a dependency. Create a new one!</p>')
@@ -836,10 +847,10 @@ createSubCircuitPrompt = function(scope = globalScope) {
                 simulationArea.lastSelected = new SubCircuit(undefined, undefined, globalScope, $("input[name=subCircuitId]:checked").val());
                 $(this).dialog("close");
             },
-        }] : []
-
+        },
+] : [
+]
     });
-
 }
 
 // Helper function to store to localStorage -- needs to be deprecated/removed

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="241.324" height="241.324" preserveAspectRatio="xMidYMid meet" viewBox="0 0 241.324 241.324">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #DDDDDD;
+      }
+    </style>
+  </defs>
+  <path id="ic_photo_library_24px" class="cls-1" d="M243.324,170.927V26.132A24.2,24.2,0,0,0,219.192,2H74.4A24.2,24.2,0,0,0,50.265,26.132V170.927A24.2,24.2,0,0,0,74.4,195.059H219.192A24.2,24.2,0,0,0,243.324,170.927ZM110.6,122.662l24.494,32.7L170.927,110.6l48.265,60.331H74.4ZM2,50.265V219.192a24.2,24.2,0,0,0,24.132,24.132H195.059V219.192H26.132V50.265Z" transform="translate(-2 -2)"/>
+</svg>
