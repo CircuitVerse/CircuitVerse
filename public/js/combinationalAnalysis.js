@@ -41,6 +41,15 @@ createCombinationalAnalysisPrompt=function(scope=globalScope){
 function createBooleanPrompt(inputListNames,outputListNames,scope=globalScope){
     inputListNames=inputListNames||(prompt("Enter inputs separated by commas").split(','));
     outputListNames=outputListNames||(prompt("Enter outputs separated by commas").split(','));
+    
+    //Strip HTML tags from inputListName
+    for(var i = 0; i < inputListNames.length; i++ )
+        inputListNames[i] = stripTags(inputListNames[i]);
+
+    //Strip HTML tags from outputListName
+    for(var i = 0; i < outputListNames.length; i++ )
+        outputListNames[i] = stripTags(outputListNames[i]); 
+
     outputListNamesInteger=[];
     for (var i = 0; i < outputListNames.length; i++)
         outputListNamesInteger[i] = 7*i + 13;//assigning an integer to the value, 7*i + 13 is random
