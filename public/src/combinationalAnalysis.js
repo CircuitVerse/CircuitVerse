@@ -35,8 +35,9 @@ export function createCombinationalAnalysisPrompt(scope = globalScope) {
             {
                 text: 'Next',
                 click() {
-                    var inputList = $('#inputNameList').val().split(',');
-                    var outputList = $('#outputNameList').val().split(',');
+                    var inputList = stripTags($("#inputNameList").val()).strip(', ');
+                    var outputList = stripTags($("#outputNameList").val()).strip(', ');
+                   
                     inputList = inputList.map((x) => x.trim());
                     inputList = inputList.filter((e) => e);
                     outputList = outputList.map((x) => x.trim());
