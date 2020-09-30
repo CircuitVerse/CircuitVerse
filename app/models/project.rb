@@ -6,7 +6,7 @@ require "pg_search"
 require "custom_optional_target/web_push"
 class Project < ApplicationRecord
   extend FriendlyId
-  friendly_id :name, use: %i[slugged history scoped], scope: :author
+  friendly_id :name, use: %i[slugged history scoped], scope: :author_id
 
   validates :name, length: { minimum: 1 }
   belongs_to :author, class_name: "User"
