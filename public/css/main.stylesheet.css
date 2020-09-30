@@ -138,7 +138,7 @@ input[type="text"]:focus {
   margin-right: 10px;
 }
 
-.navbar-menu > li > a span {
+.navbar-menu > li > a span, .acc-caret {
   content: "";
   background: url(./assets/small-components/chevron-down.svg) center/cover
     no-repeat;
@@ -154,11 +154,14 @@ input[type="text"]:focus {
   transition: all 0.2s ease-in-out;
 }
 
-/* .navbar-menu > li > a:hover {
-  border: 1px solid white;
-} */
+.acc-caret {
+  right: -17px;
+}
+.navbar-menu > li > a:hover {
+  font-weight: bold;
+}
 
-.navbar-menu > li > a:hover span {
+.navbar-menu > li > a:hover span, .acc-drop:hover .acc-caret {
   background: none;
 }
 
@@ -167,6 +170,7 @@ input[type="text"]:focus {
   left: 50%;
   transform: translateX(-50%);
   font-size: 1.4em;
+  cursor: pointer;
 }
 
 .account-btn {
@@ -176,6 +180,14 @@ input[type="text"]:focus {
   border: 1px solid transparent;
   border-radius: 1px;
   transition: all 0.2s ease-in-out;
+}
+
+.account-btn:hover {
+  font-weight: bold;
+}
+
+.signIn-btn {
+  color: var(--text-primary);
 }
 
 .cur-user, .signIn-btn {
@@ -212,6 +224,7 @@ input[type="text"]:focus {
 .quick-btn > div {
   margin: auto;
 }
+
 .quick-btn > div > button {
   margin: auto;
   border: none;
@@ -286,6 +299,10 @@ input[type="text"]:focus {
   }
 }
 
+.mw-override {
+  min-width: 110px;
+}
+
 .dropdown > ul::before {
   background-color: transparent;
   content: "";
@@ -311,6 +328,8 @@ input[type="text"]:focus {
   width: 90%;
   margin: auto;
   transition: all 0.2s ease-in-out;
+  text-align: left;
+  padding-left: 10px;
 }
 
 .dropdown-menu > li > a:hover {
@@ -445,23 +464,33 @@ input[type="text"]:focus {
 .panelHeader:after,
 .panelHeader:before {
   content: "";
-  height: 11px;
+  height: 8px;
   display: inline-block;
   right: 15px;
   position: absolute;
   border-radius: 5px;
   top: 50%;
-  transform: translateY(-50%);
-  transition: 0.5s ease-out;
+  transform: translateY(-50%) rotate(132deg);
+  transition: 0.2s ease-out;
+  background-color: white;
 }
 
 .panelHeader:after {
-  transform: translateY(-50%) rotate(90deg);
+  transform: translate(325%, -50%) rotate(226deg);
 }
 
 .ui-accordion-header-active:before {
-  height: 0;
-  transition: 0.5s ease-out;
+  transition: 0.2s ease-out;
+  transform-origin: left;
+  transform: translate(29%, -40%) rotate(50deg);
+  top: 46%;
+}
+
+.ui-accordion-header-active:after {
+  transform-origin: bottom;
+  transform: translate(541%, -50%) rotate(310deg);
+  transition: 0.2s ease-out;
+  top: 46%;
 }
 
 .ui-accordion-header-active:hover {
@@ -627,12 +656,21 @@ div.icon img {
   margin-bottom: 15px;
 }
 
-.moduleProperty input,
 .moduleProperty select {
   background-color: transparent;
   border: none;
   margin: auto;
   outline: none;
+}
+
+.moduleProperty input {
+  background-color: transparent;
+  color: #fff;
+  margin-top: 7px;
+  outline: none;
+  border: 1px solid white;
+  padding: 5px 5px;
+  width: 100%;
 }
 
 .moduleProperty input:focus,
@@ -730,9 +768,11 @@ input:checked + .slider:before {
 
 #HelpButton {
   background-color: transparent;
+  border: 2px solid white;
   width: 90%;
   margin-bottom: 15px;
   margin-top: 15px;
+  font-weight: bold;
 }
 
 .btn-parent {
@@ -865,6 +905,7 @@ input:checked + .slider:before {
   justify-content: space-around;
   padding: 0 7px;
   position: relative;
+  cursor: pointer;
 }
 
 .option input[type="radio"] {
@@ -1054,11 +1095,15 @@ input:checked + .slider:before {
 }
 
 #combinationalAnalysis p input {
-  border: none;
+  border: 1px solid white;
   background: transparent;
   font: inherit;
-  float: right;
   text-align: center;
+}
+
+#combinationalAnalysis p input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: white;
+  opacity: .7; /* Firefox */
 }
 
 #combinationalAnalysis table {
