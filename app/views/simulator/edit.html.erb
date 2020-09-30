@@ -580,7 +580,7 @@
 <script src="/js/verilog.js"></script>
 <script type="text/javascript" src="/js/metadata.json"></script>
 <script src="/js/canvas2svg.js"></script>
-<script src="/js/data.js"></script>
+
 
 
 <script >
@@ -634,5 +634,24 @@ $(".download-dialog-section-2_2").checkBo();
 $('.Layout-btn').ripple({
 duration: 500
 });
+
+function postUserIssue(message) {
+    $.ajax({
+        url: '/simulator/post_issue',
+        type: 'POST',
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+        },
+        data: {
+            "text": message,
+        },
+        success: function(response) {
+            $('#result').html("<i class='fa fa-check' style='color:green'></i> You've successfully submitted the issue. Thanks for improving our platform.");
+        },
+        failure: function(err) {
+            $('#result').html("<i class='fa fa-check' style='color:red'></i> There seems to be a network issue. Please reach out to us at support@ciruitverse.org");
+        }
+    });
+}
 </script>
 <script src = './'>
