@@ -16,8 +16,7 @@ var projectName = undefined;
  * @category data
  */
 export function setProjectName(name) {
-    if(name == undefined || name == 'Untitled') {
-        projectName = undefined;
+    if(name == undefined) {
         $('#projectName').html('Untitled');
         return;
     }
@@ -62,7 +61,7 @@ export function generateSaveData(name) {
     // Prompts for name, defaults to Untitled
     name = getProjectName() || name || prompt('Enter Project Name:') || 'Untitled';
     data.name = stripTags(name);
-    setProjectName(projectName);
+    setProjectName(data.name);
 
     // Save project details
     data.timePeriod = simulationArea.timePeriod;
@@ -282,7 +281,7 @@ export default function save() {
         if (confirm('You have to login to save the project, you will be redirected to the login page.')) window.location.href = '/users/sign_in';
         else $('.loadingIcon').fadeOut();
         // eslint-disable-next-line camelcase
-    } else if (__logix_project_id === 0) {
+    } else if (__logix_project_id == "0") {
         // Create new project - this part needs to be improved and optimised
         const form = $('<form/>', {
             action: '/simulator/create_data',
