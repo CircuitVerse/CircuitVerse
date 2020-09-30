@@ -238,9 +238,8 @@ export function showProperties(obj) {
         if (!obj.fixedBitWidth) { $('#moduleProperty-inner').append(`<p><span>BitWidth:</span> <input class='objectPropertyAttribute' type='number'  name='newBitWidth' min='1' max='32' value=${obj.bitWidth}></p>`); }
 
         if (obj.changeInputSize) { $('#moduleProperty-inner').append(`<p><span>Input Size:</span> <input class='objectPropertyAttribute' type='number'  name='changeInputSize' min='2' max='10' value=${obj.inputSize}></p>`); }
-
+        
         if (!obj.propagationDelayFixed) { $('#moduleProperty-inner').append(`<p><span>Delay:</span> <input class='objectPropertyAttribute' type='number'  name='changePropagationDelay' min='0' max='100000' value=${obj.propagationDelay}></p>`); }
-
 
         $('#moduleProperty-inner').append(`<p><span>Label:</span> <input class='objectPropertyAttribute' type='text'  name='setLabel'  value='${escapeHtml(obj.label)}'></p>`);
 
