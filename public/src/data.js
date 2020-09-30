@@ -1,4 +1,4 @@
-import { fullView } from './ux';
+import { fullView, deleteSelected } from './ux';
 import { createSubCircuitPrompt } from './subcircuit';
 import save from './data/save';
 import load from './data/load';
@@ -24,6 +24,7 @@ logixFunction.createCombinationalAnalysisPrompt = createCombinationalAnalysisPro
 logixFunction.fullViewOption = fullView;
 logixFunction.colorThemes = colorThemes;
 logixFunction.showTourGuide = showTourGuideHelper;
+logixFunction.deleteSelected = deleteSelected;
 export default logixFunction;
 
 // Hack to restart tour guide
