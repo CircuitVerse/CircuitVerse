@@ -298,17 +298,20 @@ export function showProperties(obj) {
     }
 
     $('.objectPropertyAttribute').on('change keyup paste click', function () {
-        // return;
-        // ////console.log(this.name+":"+this.value);
         checkValidBitWidth();
         scheduleUpdate();
         updateCanvasSet(true);
         wireToBeCheckedSet(1);
-        if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) { 
-            simulationArea.lastSelected[this.name](this.value)
+        let { value } = this;
+        if (this.type === 'number') {
+            value = parseFloat(value);
+        }
+        if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) {
+            simulationArea.lastSelected[this.name](value);
             // Commented out due to property menu refresh bug
             // prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet(); 
-        } else { circuitProperty[this.name](this.value); 
+        } else { 
+            circuitProperty[this.name](value);
         }
     });
     $('.objectPropertyAttributeChecked').on('change keyup paste click', function () {

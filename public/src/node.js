@@ -379,7 +379,7 @@ export default class Node {
         for (var i = 0; i < this.connections.length; i++) {
             const node = this.connections[i];
 
-            if (node.value != this.value) {
+            if (node.value != this.value || node.bitWidth != this.bitWidth) {
                 if (node.type == 1 && node.value != undefined && node.parent.objectType != 'TriState' && !(node.subcircuitOverride && node.scope != this.scope)) {
                     this.highlighted = true;
                     node.highlighted = true;
