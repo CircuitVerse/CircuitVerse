@@ -574,6 +574,12 @@ div.icon img {
   box-shadow: none !important;
 }
 
+.tabsCirDeleteIcon {
+  margin: 5px;
+  margin-right: 6px;
+  font-size: 16px;
+}
+
 /*! tab bar styling ends */
 /** Module property styling starts here */
 

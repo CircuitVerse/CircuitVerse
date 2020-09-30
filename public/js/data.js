@@ -17,7 +17,7 @@ function newCircuit(name, id) {
   .append(`<div class="circuits toolbarButton current" id="${scope.id}" style="display: flex;">
 <span>${name}</span>
 <span class="tabsCloseButton" onclick="deleteCurrentCircuit()">
-  x
+<i class="fa tabsCirDeleteIcon fa-trash" aria-hidden="true"></i>
 </span>
 </div>`);
 
