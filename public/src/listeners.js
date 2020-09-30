@@ -254,7 +254,18 @@ export default function startListeners() {
             // f1 key for opening the documentation page
             if (e.keyCode === 112) {
                 e.preventDefault();
-                window.open('https://docs.circuitverse.org/', '_blank');
+                const type = simulationArea.lastSelected;
+                // except Wire Node
+                if (simulationArea.lastSelected == undefined) {
+                    // didn't select any element
+                    window.open("https://docs.circuitverse.org/", "_blank");
+                } else if (type === "Wire" || type === "Node") {
+                    // WIRE OR NODE
+                } else if (type === "Clock" || type === "ControlledInverter" || type === "RGBLedMatrix") {
+                    // NOT FOUND
+                } else {
+                    window.open(type.helplink);
+                }
             }
         }
     });
