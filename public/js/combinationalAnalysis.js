@@ -15,6 +15,7 @@ createCombinationalAnalysisPrompt=function(scope=globalScope){
     $('#combinationalAnalysis').append("<label class='cb-checkbox'>I need a decimal column.<input id='decimalColumnBox' type='checkbox'></label>");
     $('#combinationalAnalysis').dialog({
         width:"auto",
+        resizable:false,
       buttons: [
        {
           text: "Next",
@@ -87,6 +88,7 @@ function createBooleanPrompt(inputListNames,outputListNames,scope=globalScope){
     $('#combinationalAnalysis').append(s)
     $('#combinationalAnalysis').dialog({
         width:"auto",
+        resizable:false,
       buttons: [
         {
           text: "Generate Circuit",

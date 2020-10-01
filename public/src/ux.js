@@ -384,6 +384,7 @@ $('#bitconverterprompt').append(`
  */
 $('#bitconverter').click(() => {
     $('#bitconverterprompt').dialog({
+    resizable:false,
         buttons: [
             {
                 text: 'Reset',
@@ -434,12 +435,12 @@ $('#octalInput').on('keyup', () => {
 });
 
 window.addEventListener('DOMContentLoaded', () => {
-    $('#moduleProperty-title').on('mousedown', () => $('#moduleProperty').draggable({ disabled: false }));
+    $('#moduleProperty-title').on('mousedown', () => $('#moduleProperty').draggable({ disabled: false, containment: 'window' }));
     $('#moduleProperty-title').on('mouseup', () => $('#moduleProperty').draggable({ disabled: true }));
-    $('#modules-header').on('mousedown', () => $('.ce-panel').draggable({ disabled: false }));
+    $('#modules-header').on('mousedown', () => $('.ce-panel').draggable({ disabled: false, containment: 'window'}));
     $('#modules-header').on('mouseup', () => $('.ce-panel').draggable({ disabled: true }));
     $('#dragQPanel')
-        .on('mousedown', () => $('.quick-btn').draggable({ disabled: false }))
+        .on('mousedown', () => $('.quick-btn').draggable({ disabled: false, containment: 'window' }))
         .on('mouseup', () => $('.quick-btn').draggable({ disabled: true }));
 
     $('.ce-panel').on('mousedown', () => {
@@ -492,3 +493,8 @@ export function fullView () {
     $('#exitView').append(markUp);
 }
 
+document.addEventListener('DOMContentLoaded', (event) => {
+    $('#projectName').on('click', () => {
+        $("input[name='setProjectName']").focus().select();
+    })
+});
