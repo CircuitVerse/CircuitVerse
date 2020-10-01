@@ -169,7 +169,7 @@ input[type="text"]:focus {
   font-size: 1.4em;
   text-align: center;
   display: inline-block;
-  width: 15rem;
+  width: 35vw;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -199,18 +199,16 @@ input[type="text"]:focus {
 
 .user-field {
   display: inline-block;
-  width: 7rem;
+  max-width: 14rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  text-align: center;
+  text-align: right;
 }
 
 @media(max-width: 992px) {
   .user-field {
-    position: fixed;
-    top: 1rem;
-    right: 5rem;
+    visibility: hidden;
   }
 }
 
