@@ -71,9 +71,19 @@
       
       
     </ul>
-    <span class="projectName noSelect defaultCursor font-weight-bold" id="projectName">
-      Untitled
-    </span>
+
+
+    <% if @project.nil? %>
+      <span class="projectName noSelect defaultCursor font-weight-bold" id="projectName">
+         Untitled
+      </span>
+    <% else %>
+      <a role='button' class="projectName noSelect font-weight-bold" href=<%= user_project_url(@project.author, @project) %>>
+        <span id="projectName">
+          Untitled
+        </span>
+      </a>
+    <% end %>
 
 
     <div ondrag="(() => {$('.quick-btn').css({'box-shadow': 'none', 'background': 'var(--bg-navbar)'})})()" class='quick-btn'>
