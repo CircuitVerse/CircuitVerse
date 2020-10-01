@@ -9,6 +9,8 @@ class Project < ApplicationRecord
   friendly_id :name, use: %i[slugged history scoped], scope: :author_id
 
   validates :name, length: { minimum: 1 }
+  validates :slug, uniqueness: { scope: :author_id }
+
   belongs_to :author, class_name: "User"
   has_many :forks, class_name: "Project", foreign_key: "forked_project_id", dependent: :nullify
   belongs_to :forked_project, class_name: "Project", optional: true
