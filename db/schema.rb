@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_10_140442) do
+ActiveRecord::Schema.define(version: 2020_09_30_135954) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -264,7 +264,7 @@ ActiveRecord::Schema.define(version: 2020_07_10_140442) do
     t.index ["assignment_id"], name: "index_projects_on_assignment_id"
     t.index ["author_id"], name: "index_projects_on_author_id"
     t.index ["forked_project_id"], name: "index_projects_on_forked_project_id"
-    t.index ["slug"], name: "index_projects_on_slug", unique: true
+    t.index ["slug", "author_id"], name: "index_projects_on_slug_and_author_id", unique: true
   end
 
   create_table "push_subscriptions", force: :cascade do |t|
