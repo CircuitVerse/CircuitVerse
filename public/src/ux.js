@@ -480,6 +480,9 @@ window.addEventListener('DOMContentLoaded', () => {
         $('#exitView').hide();
     }
 
+    $('#projectName').on('click', () => {
+        $("input[name='setProjectName']").focus().select();
+    });
 })
 
 export function fullView () {
@@ -493,8 +496,3 @@ export function fullView () {
     $('#exitView').append(markUp);
 }
 
-document.addEventListener('DOMContentLoaded', (event) => {
-    $('#projectName').on('click', () => {
-        $("input[name='setProjectName']").focus().select();
-    })
-});

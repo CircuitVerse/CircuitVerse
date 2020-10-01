@@ -158,7 +158,7 @@ input[type="text"]:focus {
   right: -17px;
 }
 .navbar-menu > li > a:hover {
-  font-weight: bold;
+  border-bottom: 1px solid white;
 }
 
 .navbar-menu > li > a:hover span, .acc-drop:hover .acc-caret {
@@ -183,7 +183,7 @@ input[type="text"]:focus {
 }
 
 .account-btn:hover {
-  font-weight: bold;
+  border-bottom: 1px solid white;
 }
 
 .signIn-btn {
