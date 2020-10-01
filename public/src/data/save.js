@@ -7,6 +7,7 @@ import simulationArea from '../simulationArea';
 import backgroundArea from '../backgroundArea';
 import { findDimensions } from '../canvasApi';
 import { projectSavedSet } from './project';
+import { colors } from '../themer/themer';
 
 var projectName = undefined;
 
@@ -191,7 +192,7 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
 
     // Background
     if (!transparent) {
-        simulationArea.context.fillStyle = 'white';
+        simulationArea.context.fillStyle = colors["canvas_fill"];
         simulationArea.context.rect(0, 0, width, height);
         simulationArea.context.fill();
     }

@@ -310,7 +310,7 @@ export function showProperties(obj) {
             simulationArea.lastSelected[this.name](value);
             // Commented out due to property menu refresh bug
             // prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet(); 
-        } else { 
+        } else {
             circuitProperty[this.name](value);
         }
     });
