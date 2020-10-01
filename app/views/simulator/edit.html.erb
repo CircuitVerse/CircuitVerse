@@ -29,7 +29,7 @@
   </button>
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="navbar-nav navbar-menu noSelect pointerCursor" id="toolbar">
-      <li class="dropdown">
+      <li class="dropdown nav-dropdown">
         <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Project<span></span></a>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item logixButton text-left pl-1" id="newProject">New Project</a></li>
@@ -41,14 +41,14 @@
           <li><a class="dropdown-item logixButton text-left pl-1" id="fullViewOption">Preview Circuit</a></li>
         </ul>
       </li>
-      <li class="dropdown">
+      <li class="dropdown nav-dropdown">
         <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Circuit<span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item text-left logixButton pl-1" id="newCircuit">New Circuit +</a></li>
           <li><a class="dropdown-item logixButton text-left pl-1" id="createSubCircuitPrompt">Insert SubCircuit</a></li>
         </ul>
       </li>
-      <li class="dropdown">
+      <li class="dropdown nav-dropdown">
         <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tools<span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item text-left pl-1 logixButton" id="createCombinationalAnalysisPrompt">Combinational<br>Analysis</a></li>
@@ -59,7 +59,7 @@
           <li><a class="dropdown-item text-left pl-1" id="customShortcut">Custom Shortcut</a></li>
         </ul>
       </li>
-      <li  class="dropdown tour-help">
+      <li class="dropdown tour-help nav-dropdown">
         <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Help<span class="caret"></span></a>
         <ul class="dropdown-menu">
             <li><a class="dropdown-item text-left pl-1 logixButton" id="showTourGuide">Tutorial Guide</a></li>
@@ -148,7 +148,7 @@
     <ul class="nav navbar-nav noSelect pointerCursor pull-right account-btn">
       <li class="dropdown pull-right">
         <% if user_signed_in? %>
-          <a href="#" class="cur-user" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %><span class="caret"></span></a>
+          <a href="#" class="cur-user user-field" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %><span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href=<%= user_path(current_user) %>>Dashboard</a></li>
             <li><a class="dropdown-item" href=<%= user_groups_path(current_user) %>>My Groups</a></li>
@@ -156,7 +156,7 @@
             <li><a class="dropdown-item" rel="nofollow" data-method="delete" href=<%= destroy_user_session_path %>>Sign Out</a></li>
           </ul>
         <% else %>
-          <a class="navbar-nav signIn-btn" href=<%= new_user_session_path %>> Sign In </a>
+          <a class="navbar-nav signIn-btn user-field" href=<%= new_user_session_path %>> Sign In </a>
         <% end %>
       </li>
     </ul>

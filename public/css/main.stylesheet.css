@@ -167,6 +167,17 @@ input[type="text"]:focus {
   left: 50%;
   transform: translateX(-50%);
   font-size: 1.4em;
+  text-align: center;
+  display: inline-block;
+  width: 15rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media(max-width: 992px) {
+  .projectName {
+    visibility: hidden;
+  }
 }
 
 .account-btn {
@@ -186,8 +197,21 @@ input[type="text"]:focus {
   color: var(--text-primary);
 }
 
-.header {
-  height: 50px;
+.user-field {
+  display: inline-block;
+  width: 7rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+@media(max-width: 992px) {
+  .user-field {
+    position: fixed;
+    top: 1rem;
+    right: 5rem;
+  }
 }
 
 .logo {
@@ -316,6 +340,13 @@ input[type="text"]:focus {
 .dropdown-menu > li > a:hover {
   border-radius: 7px;
   opacity: 1;
+}
+
+@media(max-width: 992px) {
+  .navbar-nav .dropdown-menu {
+    position: absolute;
+    float: none;
+  }
 }
 
 #contextMenu {
@@ -1038,6 +1069,21 @@ input:checked + .slider:before {
   float: right;
   margin-right: 10px;
   min-width: 85px;
+}
+
+@media(max-width: 992px) {
+  .navbar .nav.pull-right {
+    margin-right: 7rem;
+    position: absolute;
+    top: 25px;
+  }
+}
+
+@media(max-width:992px) {
+  .nav-dropdown {
+    text-align: center;
+    padding-top: 20px;
+  }
 }
 
 /*! download dialog styling end here */
