@@ -7,7 +7,8 @@ import {
     insertLabel,
     labelDirection,
     openHotkey,
-    moveElement
+	moveElement,
+	openDocumentation
 } from './actions';
 import save from '../../data/save';
 import { saveOffline, openOffline } from '../../data/project';
@@ -84,6 +85,9 @@ export const addShortcut = (keys, action) => {
 			break;
 		case "Hotkey Preference":
 			callback = openHotkey;
+			break;
+		case "Open Documentation":
+			callback = openDocumentation;
 			break;
 			
 		default:
