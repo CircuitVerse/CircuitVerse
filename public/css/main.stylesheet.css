@@ -609,7 +609,7 @@ div.icon img {
 .moduleProperty {
   display: none;
   font: inherit;
-  width: 242px;
+  width: 250px;
   border-radius: 5px;
   position: fixed;
   top: 90px;
@@ -659,7 +659,7 @@ div.icon img {
 .moduleProperty select {
   background-color: transparent;
   border: none;
-  margin: auto;
+  margin-left: 2px;
   outline: none;
 }
 
@@ -667,9 +667,14 @@ div.icon img {
   background-color: transparent;
   margin-top: 7px;
   outline: none;
-  border: 1px solid white;
   padding: 5px 5px;
   width: 100%;
+}
+
+
+.moduleProperty select,
+.moduleProperty input {
+  border-radius: 7px !important;
 }
 
 .moduleProperty input:focus,
