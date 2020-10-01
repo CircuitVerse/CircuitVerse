@@ -32,6 +32,9 @@
       <li class="dropdown">
         <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Project<span></span></a>
         <ul class="dropdown-menu">
+          <% if not @project.nil? %>
+             <li><a class="dropdown-item logixButton text-left pl-1" href="<%= user_project_url(@project.author, @project) %>"><%= @projectName %></a></li>
+          <% end %>
           <li><a class="dropdown-item logixButton text-left pl-1" id="newProject">New Project</a></li>
           <li><a class="dropdown-item logixButton text-left pl-1" id="clearProject">Clear Project</a></li>
           <li><a class="dropdown-item logixButton text-left pl-1" id="save">Save Online</a></li>
@@ -71,17 +74,9 @@
       
       
     </ul>
-    <% if @project.nil? %>
       <span class="projectName noSelect defaultCursor font-weight-bold" id="projectName">
          Untitled
       </span>
-    <% else %>
-      <a role='button' class="projectName noSelect font-weight-bold" href=<%= user_project_url(@project.author, @project) %>>
-        <span id="projectName">
-          Untitled
-        </span>
-      </a>
-    <% end %>
 
 
     <div ondrag="(() => {$('.quick-btn').css({'box-shadow': 'none', 'background': 'var(--bg-navbar)'})})()" class='quick-btn'>
