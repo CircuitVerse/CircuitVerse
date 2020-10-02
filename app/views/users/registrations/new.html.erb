@@ -50,7 +50,9 @@
             <div class="input-group">
               <% if Flipper.enabled?(:recaptcha) %>
                 <%= flash[:recaptcha_error] %>
-                <%= recaptcha_tags %>
+                <div style="padding-bottom: 10px;">
+                  <%= recaptcha_tags %>
+                </div>
               <% end %>
               <%= f.submit "Sign up" ,class:"btn primary-button users-login-primary-button" %>
               <div class="users-text-container">
