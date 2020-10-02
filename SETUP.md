@@ -74,7 +74,7 @@ Additional software:
 * To start sidekiq: `bundle exec sidekiq -e development -q default -q mailers -d -L tmp/sidekiq.log` (In development)
 
 #### Webpack 
-**Note:** The new_UI uses webpack to bundle the javascript module and assets. 
+**Note:** CircuitVerse uses webpack to bundle the javascript module and assets. 
 So to see any changes made to the simulator code aka. Hot Reload, on the local server, you need to start the `webpack-dev-server`.
 This can be done by running the command:
 ```
