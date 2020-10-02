@@ -300,7 +300,7 @@ function startListeners() {
         if (isIe) {
             window.clipboardData.setData('Text', textToPutOnClipboard);
         } else {
-            e.clipboardData.setData('text/plain', textToPutOnClipboard);
+            e.clipboardData.setData('application/json', textToPutOnClipboard);
         }
     }
     });
@@ -327,7 +327,7 @@ function startListeners() {
         if (isIe) {
             window.clipboardData.setData('Text', textToPutOnClipboard);
         } else {
-            e.clipboardData.setData('text/plain', textToPutOnClipboard);
+            e.clipboardData.setData('application/json', textToPutOnClipboard);
         }
     }
     });
@@ -341,7 +341,7 @@ function startListeners() {
         if (isIe) {
             data = window.clipboardData.getData('Text');
         } else {
-            data = e.clipboardData.getData('text/plain');
+            data = e.clipboardData.getData('application/json');
         }
 
         paste(data);
