@@ -30,18 +30,18 @@ export function loadSubCircuit(savedData, scope) {
  */
 export function createSubCircuitPrompt(scope = globalScope) {
     console.log("hey");
-    $("#insertSubcircuitDialog").empty();
     let flag = true;
     for (id in scopeList) {
         if (!scopeList[id].checkDependency(scope.id)) {
             flag = false;
+            $("#insertSubcircuitDialog").empty();
             $("#insertSubcircuitDialog").append(
                 `<label class="option custom-radio inline"><input type="radio" name="subCircuitId" value="${id}" />${scopeList[id].name}<span></span></label>`
             );
         }
     }
     if (flag)
-        $("#insertSubcircuitDialog").append(
+        $("#insertSubcircuitDialogText").append(
             "<p>Looks like there are no other circuits which doesn't have this circuit as a dependency. Create a new one!</p>"
         );
     $("#insertSubcircuitDialog").dialog({
