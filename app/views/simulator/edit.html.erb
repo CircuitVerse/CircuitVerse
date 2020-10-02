@@ -33,7 +33,7 @@
         <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Project<span></span></a>
         <ul class="dropdown-menu">
           <% if not @project.nil? %>
-             <li><a class="dropdown-item logixButton text-left pl-1" href="<%= user_project_url(@project.author, @project) %>">View Project Page</a></li>
+             <li><a class="dropdown-item logixButton text-left pl-1" href="<%= user_project_url(@project.author, @project) %>" target="_blank">Project Page</a></li>
           <% end %>
           <li><a class="dropdown-item logixButton text-left pl-1" id="newProject">New Project</a></li>
           <li><a class="dropdown-item logixButton text-left pl-1" id="clearProject">Clear Project</a></li>
