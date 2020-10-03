@@ -251,11 +251,6 @@ export default function startListeners() {
             // e.preventDefault(); //browsers normally open a new tab
                 simulationArea.changeClockTime(prompt('Enter Time:'));
             }
-            // f1 key for opening the documentation page
-            if (e.keyCode === 112) {
-                e.preventDefault();
-                window.open('https://docs.circuitverse.org/', '_blank');
-            }
         }
     });
 

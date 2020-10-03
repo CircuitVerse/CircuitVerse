@@ -178,6 +178,15 @@ export const openHotkey = () => $("#customShortcut").click();
 
 export const newCircuitCall = () => $("#newCircuit").click();
 
+export const openDocumentation = () => {
+    if (simulationArea.lastSelected == undefined || simulationArea.lastSelected.helplink == undefined) {
+        // didn't select any element or documentation not found
+        window.open("https://docs.circuitverse.org/", "_blank");
+    } else {
+        window.open(simulationArea.lastSelected.helplink, "_blank");
+    }
+}
+
 function updateSystem() {
     updateCanvasSet(true);
     wireToBeCheckedSet(1);
