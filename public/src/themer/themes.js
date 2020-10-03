@@ -231,7 +231,6 @@ export default {
         "--qp-box-shadow-1": "#0D0D0D", //lil lighten base .. top left shadow
         "--qp-box-shadow-2": "#0D0D0D", //lil darken base //down right shadow
         "--bg-tabs": "black", //tabs bar primary bg,
-        "--text-circuit": "black",
         "--br-circuit-cur": "#F38518",
         "--bg-circuit": "#B6B6B6",
         "--br-circuit": "#F38518",
@@ -286,7 +285,6 @@ export default {
         "--qp-box-shadow-1": "#4f4a38", //lil lighten base .. top left shadow
         "--qp-box-shadow-2": "#302d23", //lil darken base //down right shadow
         "--bg-tabs": "#2e2b21", //tabs bar primary bg,
-        "--text-circuit": "black",
         "--br-circuit-cur": "#e2dad1",
         "--bg-circuit": "#B6B6B6",
         "--br-circuit": "#e2dad1",

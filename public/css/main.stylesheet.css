@@ -574,9 +574,8 @@ div.icon img {
 }
 
 .tabsCirDeleteIcon {
-  margin: 5px;
-  margin-right: 6px;
-  font-size: 16px;
+  font-size: 11px;
+  margin-top: 2px;
 }
 
 /*! tab bar styling ends */
@@ -902,6 +901,10 @@ input:checked + .slider:before {
 
 .custom-radio input[type="radio"]:checked ~ span:after {
   transform: translate(-50%, -50%) scale(1);
+}
+
+.custom-radio input[type="radio"] {
+  margin: 5px;
 }
 
 

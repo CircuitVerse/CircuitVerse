@@ -18,7 +18,6 @@ $bg-tabs-grey: #8b8b8b;
 $bg-circuit: #bbbbbb;
 $br-circuit: #454545; //bg of inative circuit
 $br-circuit-cur: white;
-$text-circuit: white;
 
 //dialog background
 $bg-moz: hsla(0, 0%, 27%, 0.902); //blur bg
@@ -91,7 +90,6 @@ $output-rect: blue;
   --text-lite: $text-lite;
   --text-dark: $text-dark;
   --text-panel: $text-panel;
-  --text-circuit: $text-circuit;
 
   --context-text: $context-text;
   --context-text-hov: $context-text-hov;
@@ -308,7 +306,6 @@ $output-rect: blue;
 }
 
 #tabsBar .circuits {
-  color: var(--text-circuit);
   background-color: var(--bg-circuit);
 }
 
@@ -333,10 +330,6 @@ $output-rect: blue;
   color: var(--primary);
   background: var(--bg-circuit);
   border: 1px solid var(--primary);
-}
-
-.tabsCirDeleteIcon {
-  color: var(--text-panel);
 }
 
 .moduleProperty input {
