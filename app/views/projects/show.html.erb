@@ -92,8 +92,8 @@
                 </a>
               <% end %>
               <%= link_to create_fork_project_path(@project), class: "btn primary-button projects-primary-button" do %>
-                <%= image_tag("SVGs/forkProject.svg", alt: "Fork Project") %>
-                <span>Fork</span>
+                <%= image_tag("SVGs/forkProject.svg", alt: "Create Copy") %>
+                <span>Create Copy</span>
               <% end %>
               <% if @project.stars.exists?(user_id: current_user.id) %>
                 <i id="toggleStarButton" class="fas fa-star btn primary-button projects-primary-button projects-button-star-icon" aria-hidden="true" onclick="toggleStar()"></i>
