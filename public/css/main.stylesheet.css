@@ -9,7 +9,6 @@
 @import "./2-basics/base.scss";
 @import "./2-basics/reset.scss";
 @import "./shortcut.panel.css";
-@import "./plugin-stylesheets/simple-button-radios.css";
 @import "./plugin-stylesheets/checkBo.min.css";
 @import "./plugin-stylesheets/jquery-pseudo-ripple.css";
 
@@ -883,7 +882,7 @@ input:checked + .slider:before {
   border-radius: 50%;
   display: block;
   position: absolute;
-  left: 2px;
+  left: 5px;
   top: 50%;
   transform: translateY(-50%);
 }
