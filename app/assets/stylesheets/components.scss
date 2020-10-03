@@ -251,13 +251,13 @@
 }
 
 .primary-checkpoint-container {
+  bottom: 1rem;
   cursor: pointer;
   display: inline-block;
   font-size: 22px;
-  position: relative;
   left: 7rem;
-  bottom: 1rem;
-
+  position: relative;
+  
   input {
     height: 0;
     opacity: 0;
