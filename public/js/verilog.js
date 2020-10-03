@@ -76,7 +76,7 @@ verilog={
         for(var i=0;i<scope.SubCircuit.length;i++){
             order.push(scope.SubCircuit[i]);
             scope.SubCircuit[i].processVerilog();
-        }        
+        }         
 
 
         while (scope.stack.length || scope.pending.length) {
@@ -150,7 +150,7 @@ verilog={
 
     },
     generateHeader:function(scope=globalScope){
-        return "module "+this.fixName(scope.name)+" (" + scope.Input.map(function(x){return x.label}).join(",") + ","+scope.Output.map(function(x){return x.label}).join(",")  +");\n";
+        return "module "+this.fixName(scope.name)+" (" + scope.Output.map(function(x){return x.label}).join(",") + ","+scope.Input.map(function(x){return x.label}).join(",")  +");\n";
     },
     generateInputList:function(scope=globalScope){
 
