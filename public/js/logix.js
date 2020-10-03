@@ -1419,6 +1419,7 @@ CircuitElement.prototype.resolve = function() {
 }
 
 CircuitElement.prototype.processVerilog = function() {
+    
     var output_count = 0;
     for (var i = 0; i < this.nodeList.length; i++) {
         if (this.nodeList[i].type == NODE_OUTPUT) {
@@ -1475,7 +1476,6 @@ CircuitElement.prototype.verilogName = function() {
 }
 
 CircuitElement.prototype.generateVerilog = function() {
-
     var inputs = [];
     var outputs = [];
 

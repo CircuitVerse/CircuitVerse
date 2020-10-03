@@ -11,9 +11,9 @@ verilog={
             dependencyList[id] = scopeList[id].getDependencies();
 
         var output="";
-        for (id in scopeList)
+        for (id in scopeList) {
             output+=this.exportVerilogScope_r(id,completed,dependencyList);
-
+	    }
         return output;
 
     },
@@ -71,6 +71,13 @@ verilog={
         var elem = undefined;
 
         var order=[];
+        
+//This part is explicitely added to add the SubCircuit and process its outputs
+        for(var i=0;i<scope.SubCircuit.length;i++){
+            order.push(scope.SubCircuit[i]);
+            scope.SubCircuit[i].processVerilog();
+        }        
+
 
         while (scope.stack.length || scope.pending.length) {
             if (errorDetected) return;
@@ -78,9 +85,9 @@ verilog={
                 elem = scope.stack.pop();
             else
                 elem = scope.pending.pop();
-            // console.log(elem)
+//            console.log(elem)
             elem.processVerilog();
-            if(elem.objectType!="Node" && elem.objectType!="Input"&& elem.objectType!="Splitter") {
+            if(elem.objectType!="Node"&& elem.objectType!="Input"&& elem.objectType!="Splitter") {
                 if(!order.contains(elem))
                     order.push(elem);
             }
@@ -91,8 +98,9 @@ verilog={
                 return;
             }
         }
-        for(var i=0;i<order.length;i++)
+        for(var i=0;i<order.length;i++) {
             res += order[i].generateVerilog() + "\n";
+        }
         return res;
     },
 
@@ -125,9 +133,16 @@ verilog={
             else
                 scope.Output[i].label=this.fixName(scope.Output[i].label)
         }
+        for(var i=0;i<scope.SubCircuit.length;i++){
+//            if(scope.SubCircuit[i].label=="")
+                scope.SubCircuit[i].label=scope.SubCircuit[i].data.name+"_"+i;
+//            else
+//                scope.SubCircuit[i].label=this.fixName(scope.SubCircuit[i].label)
+        }
 
         for(var i=0;i<moduleList.length;i++){
             var m = moduleList[i];
+//            console.log(m)
             for(var j=0;j<scope[m].length;j++){
                 scope[m][j].verilogLabel = this.fixName(scope[m][j].label) || (scope[m][j].verilogName()+"_"+j);
             }

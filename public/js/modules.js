@@ -53,9 +53,9 @@ function AndGate(x, y, scope = globalScope, dir = "RIGHT", inputLength = 2, bitW
 AndGate.prototype = Object.create(CircuitElement.prototype);
 AndGate.prototype.constructor = AndGate;
 AndGate.prototype.tooltipText = "And Gate Tooltip : Implements logical conjunction";
+AndGate.prototype.changeInputSize = changeInputSize;
 AndGate.prototype.alwaysResolve = true;
 AndGate.prototype.verilogType = "and";
-AndGate.prototype.changeInputSize = changeInputSize;
 AndGate.prototype.helplink = "https://docs.circuitverse.org/#/gates?id=and-gate";
 //fn to create save Json Data of object
 AndGate.prototype.customSave = function () {
@@ -942,6 +942,7 @@ function NotGate(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
 NotGate.prototype = Object.create(CircuitElement.prototype);
 NotGate.prototype.constructor = NotGate;
 NotGate.prototype.tooltipText = "Not Gate Tooltip : Inverts the input digital signal.";
+NotGate.prototype.verilogType = "not";
 NotGate.prototype.helplink = "https://docs.circuitverse.org/#/gates?id=not-gate";
 NotGate.prototype.customSave = function () {
     var data = {

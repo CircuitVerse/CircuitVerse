@@ -105,6 +105,27 @@ function SubCircuit(x, y, scope = globalScope, id = undefined, savedData = undef
 SubCircuit.prototype = Object.create(CircuitElement.prototype);
 SubCircuit.prototype.constructor = SubCircuit;
 
+//This is copied from CircuitElement, but is required to make things work
+SubCircuit.prototype.processVerilog = function() {
+    //console.log("sc.prV")
+    var output_count = 0;
+    for (var i = 0; i < this.nodeList.length; i++) {
+        //console.log(this.nodeList[i])
+        if (this.nodeList[i].type == NODE_OUTPUT) {
+            this.nodeList[i].verilogLabel = this.nodeList[i].verilogLabel || (this.verilogLabel + "_" + (verilog.fixName(this.nodeList[i].label) || ("out_" + output_count)));
+            if (this.objectType != "Input" && this.nodeList[i].connections.length > 0) {
+                if (this.scope.verilogWireList[this.bitWidth] != undefined) {
+                    if (!this.scope.verilogWireList[this.bitWidth].contains(this.nodeList[i].verilogLabel))
+                        this.scope.verilogWireList[this.bitWidth].push(this.nodeList[i].verilogLabel);
+                } else
+                    this.scope.verilogWireList[this.bitWidth] = [this.nodeList[i].verilogLabel];
+            }
+            this.scope.stack.push(this.nodeList[i]);
+            output_count++;
+        }
+    }
+}
+
 SubCircuit.prototype.makeConnections = function() {
     for (let i = 0; i < this.inputNodes.length; i++) {
         this.localScope.Input[i].output1.connectWireLess(this.inputNodes[i]);
