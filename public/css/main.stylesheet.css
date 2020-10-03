@@ -841,7 +841,7 @@ input:checked + .slider:before {
   border-radius: 5px;
   width: 600px;
   height: 320px;
-  padding: 10px 17px;
+  padding: 10px 17px !important;
   padding-bottom: 0;
   /* border: none !important; */
 }
