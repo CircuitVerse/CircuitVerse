@@ -244,6 +244,19 @@
     }
   }
 </script>
+<script>
+let centerRow = $(".center-row")[3];
+let search = window["search"];
+$(search).on('click', function () {
+  if ($(centerRow).attr('data-click-state') == 1) {
+    $(centerRow).attr('data-click-state', 0);
+    $(centerRow).css('padding-top', '0px');
+  } else {
+    $(centerRow).attr('data-click-state', 1);
+    $(centerRow).css('padding-top', '73px');
+  }
+});
+</script>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
