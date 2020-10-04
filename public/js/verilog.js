@@ -1,21 +1,15 @@
-
-
-
-
 verilog={
-
     exportVerilog:function(){
         var dependencyList = {};
         var completed = {};
         for (id in scopeList)
             dependencyList[id] = scopeList[id].getDependencies();
-
-        var output="";
+  
+  		var output="";
         for (id in scopeList) {
             output+=this.exportVerilogScope_r(id,completed,dependencyList);
 	    }
         return output;
-
     },
     exportVerilogScope:function(scope=globalScope){
         var dependencyList = {};
@@ -130,7 +124,7 @@ verilog={
         for(var i=0;i<scope.Output.length;i++){
             if(scope.Output[i].label=="")
                 scope.Output[i].label="Out_"+i;
-            else
+            else 
                 scope.Output[i].label=this.fixName(scope.Output[i].label)
         }
         for(var i=0;i<scope.SubCircuit.length;i++){
@@ -150,7 +144,7 @@ verilog={
 
     },
     generateHeader:function(scope=globalScope){
-        return "module "+this.fixName(scope.name)+" (" + scope.Output.map(function(x){return x.label}).join(",") + ","+scope.Input.map(function(x){return x.label}).join(",")  +");\n";
+        return "module "+this.fixName(scope.name)+" (" + scope.Input.map(function(x){return x.label}).join(",") + ","+scope.Output.map(function(x){return x.label}).join(",")  +");\n";
     },
     generateInputList:function(scope=globalScope){
 
@@ -192,6 +186,4 @@ verilog={
     fixName: function(name){
         return name.replace(/ /g , "_");
     }
-
-
 }

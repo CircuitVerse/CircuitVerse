@@ -105,27 +105,6 @@ function SubCircuit(x, y, scope = globalScope, id = undefined, savedData = undef
 SubCircuit.prototype = Object.create(CircuitElement.prototype);
 SubCircuit.prototype.constructor = SubCircuit;
 
-//This is copied from CircuitElement, but is required to make things work
-SubCircuit.prototype.processVerilog = function() {
-    //console.log("sc.prV")
-    var output_count = 0;
-    for (var i = 0; i < this.nodeList.length; i++) {
-        //console.log(this.nodeList[i])
-        if (this.nodeList[i].type == NODE_OUTPUT) {
-            this.nodeList[i].verilogLabel = this.nodeList[i].verilogLabel || (this.verilogLabel + "_" + (verilog.fixName(this.nodeList[i].label) || ("out_" + output_count)));
-            if (this.objectType != "Input" && this.nodeList[i].connections.length > 0) {
-                if (this.scope.verilogWireList[this.bitWidth] != undefined) {
-                    if (!this.scope.verilogWireList[this.bitWidth].contains(this.nodeList[i].verilogLabel))
-                        this.scope.verilogWireList[this.bitWidth].push(this.nodeList[i].verilogLabel);
-                } else
-                    this.scope.verilogWireList[this.bitWidth] = [this.nodeList[i].verilogLabel];
-            }
-            this.scope.stack.push(this.nodeList[i]);
-            output_count++;
-        }
-    }
-}
-
 SubCircuit.prototype.makeConnections = function() {
     for (let i = 0; i < this.inputNodes.length; i++) {
         this.localScope.Input[i].output1.connectWireLess(this.inputNodes[i]);
@@ -136,7 +115,6 @@ SubCircuit.prototype.makeConnections = function() {
         this.localScope.Output[i].inp1.connectWireLess(this.outputNodes[i]);
         this.outputNodes[i].subcircuitOverride = true;
     }
-
 }
 
 SubCircuit.prototype.removeConnections = function() {
@@ -147,6 +125,7 @@ SubCircuit.prototype.removeConnections = function() {
     for (let i = 0; i < this.outputNodes.length; i++)
         this.localScope.Output[i].inp1.disconnectWireLess(this.outputNodes[i]);
 }
+
 
 SubCircuit.prototype.buildCircuit = function() {
 
@@ -368,6 +347,27 @@ SubCircuit.prototype.resolve = function() {
 
 SubCircuit.prototype.isResolvable = function() {
     return false
+}
+
+SubCircuit.prototype.generateVerilog = function() {
+    var inputs = [];
+    var outputs = [];
+
+
+    for (var i = 0; i < this.nodeList.length; i++) {
+        if (this.nodeList[i].type == NODE_INPUT) {
+            inputs.push(this.nodeList[i]);
+        } else {
+            outputs.push(this.nodeList[i]);
+        }
+    }
+
+    var list = inputs.concat(outputs);
+    var res = this.verilogName() + " " + this.verilogLabel + " (" + list.map(function(x) {
+        return x.verilogLabel
+    }).join(",") + ");";
+
+    return res;
 }
 
 SubCircuit.prototype.verilogName = function() {
