@@ -9,7 +9,7 @@ module SimulatorHelper
 
     else
       jpeg       = Base64.decode64(str)
-      image_file = File.new("preview_#{Time.zone.now}.jpeg", "wb")
+      image_file = File.new("preview_#{Time.zone.now.to_f.to_s.sub('.', '')}.jpeg", "wb")
       image_file.write(jpeg)
     end
 
