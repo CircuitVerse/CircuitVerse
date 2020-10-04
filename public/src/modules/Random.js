@@ -103,6 +103,11 @@ export default class Random extends CircuitElement {
         lineTo(ctx, -20, 15, xx, yy, this.direction);
         ctx.stroke();
     }
+
+    // Draws the element in the subcuircuit. Used in layout mode
+    subcircuitDraw() {
+        customDraw();
+    }
 }
 
 Random.prototype.tooltipText = 'Random ToolTip : Random Selected.';
@@ -110,3 +115,5 @@ Random.prototype.tooltipText = 'Random ToolTip : Random Selected.';
 Random.prototype.helplink = 'https://docs.circuitverse.org/#/inputElements?id=random';
 
 Random.prototype.objectType = 'Random';
+
+Random.prototype.canShowInSubcircuit = true

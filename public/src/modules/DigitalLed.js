@@ -111,6 +111,23 @@ export default class DigitalLed extends CircuitElement {
             ctx.fillStyle = colors["hover_select"];
         ctx.fill();
     }
+
+    // Draws the element in the subcuircuit. Used in layout mode
+    subcuircuitDraw() {
+        var ctx = simulationArea.context;
+
+        var xx = this.subcircuitMetadata.x;
+        var yy = this.subcircuitMetadata.y;
+
+        ctx.strokeStyle = "#d3d4d5";
+        ctx.fillStyle = ["rgba(227,228,229,0.8)", this.actualColor][this.inp1.value || 0];
+        ctx.lineWidth = correctWidth(1);
+
+        drawCircle2(ctx, 0, 0, 6, xx, yy, this.direction);
+
+        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = "rgba(255, 255, 32,0.8)";
+        ctx.fill();
+    }
 }
 
 /**
@@ -145,3 +162,4 @@ DigitalLed.prototype.mutableProperties = {
     },
 };
 DigitalLed.prototype.objectType = "DigitalLed";
+DigitalLed.ptototype.canShowInSubcircuit = true;

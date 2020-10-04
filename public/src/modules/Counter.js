@@ -118,8 +118,30 @@ export default class Counter extends CircuitElement {
         lineTo(ctx, -20, 15, xx, yy, this.direction);
         ctx.stroke();
     }
+
+    // Draws the element in the subcuircuit. Used in layout mode
+    subcircuitDraw() {
+        var ctx = simulationArea.context;
+        var xx = this.subcircuitMetadata.x;
+        var yy = this.subcircuitMetadata.y;
+
+        ctx.beginPath();
+        ctx.font = "20px Georgia";
+        ctx.fillStyle = "green";
+        ctx.textAlign = "center";
+        fillText(ctx, '0', this.subcircuitMetadata.x, this.subcircuitMetadata.y + 5);
+        ctx.fill();
+
+        ctx.beginPath();
+        moveTo(ctx, -20, 5, xx, yy, this.direction);
+        lineTo(ctx, -15, 10, xx, yy, this.direction);
+        lineTo(ctx, -20, 15, xx, yy, this.direction);
+        ctx.stroke();
+        console.log('drawing');
+    }
 }
 
 Counter.prototype.tooltipText = "Counter: a binary counter from zero to a given maximum value";
 Counter.prototype.helplink = "https://docs.circuitverse.org/#/inputElements?id=counter"; Counter.prototype.objectType = 'Counter';
 Counter.prototype.objectType = 'Counter';
+Counter.prototype.canShowInSubcircuit = true;

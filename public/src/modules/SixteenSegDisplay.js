@@ -111,6 +111,11 @@ export default class SixteenSegDisplay extends CircuitElement {
         rect(ctx, xx + 22, yy + 42, 2, 2);
         ctx.stroke();
     }
+
+    // Draws the element in the subcuircuit. Used in layout mode
+    subcircuitDraw() {
+        customDraw();
+    }
 }
 
 /**
@@ -129,3 +134,4 @@ SixteenSegDisplay.prototype.tooltipText = 'Sixteen Display ToolTip: Consists of 
  */
 SixteenSegDisplay.prototype.helplink = 'https://docs.circuitverse.org/#/outputs?id=sixteen-segment-display';
 SixteenSegDisplay.prototype.objectType = 'SixteenSegDisplay';
+SixteenSegDisplay.prototype.canShowInSubcircuit = true;

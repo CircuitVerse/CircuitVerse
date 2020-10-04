@@ -139,6 +139,11 @@ export default class HexDisplay extends CircuitElement {
         this.customDrawSegment(-17, 0, 17, 0, ["lightgrey", "red"][g]);
         this.customDrawSegment(-15, 38, 17, 38, ["lightgrey", "red"][d]);
     }
+
+    // Draws the element in the subcuircuit. Used in layout mode
+    subcircuitDraw() {
+        customDraw();
+    }
 }
 
 /**
@@ -159,3 +164,4 @@ HexDisplay.prototype.tooltipText =
 HexDisplay.prototype.helplink =
     "https://docs.circuitverse.org/#/outputs?id=hex-display";
 HexDisplay.prototype.objectType = "HexDisplay";
+HexDisplay.prototype.canShowInSubcircuit = true;

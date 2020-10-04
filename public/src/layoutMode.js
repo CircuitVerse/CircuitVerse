@@ -11,6 +11,7 @@ import {
 } from './engine';
 import miniMapArea from './minimap';
 import { showMessage } from './utils';
+import * as metadata from './metadata.json';
 
 /**
  * Layout.js - all subcircuit layout related code is here
@@ -333,11 +334,13 @@ export function toggleLayoutMode() {
     if (layoutModeGet()) {
         (layoutModeSet(false));
         $('#layoutDialog').fadeOut();
+        $('#menu').css('display', 'block');
         globalScope.centerFocus(false);
         dots();
     } else {
         (layoutModeSet(true));
         $('#layoutDialog').fadeIn();
+        $('#menu').css('display', 'none');
         globalScope.ox = 0;
         globalScope.oy = 0;
         globalScope.scale = DPR * 1.3;

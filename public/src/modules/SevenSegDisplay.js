@@ -96,6 +96,11 @@ export default class SevenSegDisplay extends CircuitElement {
         rect(ctx, xx + 22, yy + 42, 2, 2);
         ctx.stroke();
     }
+
+    // Draws the element in the subcuircuit. Used in layout mode
+    subcircuitDraw() {
+        customDraw();
+    }
 }
 
 /**
@@ -114,3 +119,4 @@ SevenSegDisplay.prototype.tooltipText = 'Seven Display ToolTip: Consists of 7+1 
  */
 SevenSegDisplay.prototype.helplink = 'https://docs.circuitverse.org/#/outputs?id=seven-segment-display';
 SevenSegDisplay.prototype.objectType = 'SevenSegDisplay';
+SevenSegDisplay.prototype.canShowInSubcircuit = true;
