@@ -6,7 +6,6 @@ $borderDefault: #fff;
 
 //nav
 $bg-navbar: #454545;
-$text-navbar: white;
 $text-navbar--alt: black;
 $qp-br-tl: #333333;
 $qp-br-rd: #535353;
@@ -78,7 +77,6 @@ $output-rect: blue;
   --primary: $baseDefault;
 
   --bg-navbar: $bg-navbar;
-  --text-navbar: $text-navbar;
   --text-navbar--alt: $text-navbar--alt;
   --qp-br-tl: $qp-br-tl;
   --qp-br-rd: $qp-br-rd;
@@ -149,11 +147,11 @@ $output-rect: blue;
 }
 
 .navbar-menu > li > a {
-  color: var(--text-navbar);
+  color: #fff;
 }
 
 .projectName {
-  color: var(--text-navbar);
+  color: #fff;
 }
 
 .header {
@@ -190,11 +188,11 @@ $output-rect: blue;
 }
 
 .dropdown-menu > li > a {
-  color: var(--text-navbar) !important;
+  color: #fff !important;
 }
 
 .signIn-btn {
-  color: var(--text-navbar) !important;
+  color: #fff !important;
 }
 
 .dropdown-menu > li > a:hover {
