@@ -6,9 +6,11 @@ require "pg_search"
 require "custom_optional_target/web_push"
 class Project < ApplicationRecord
   extend FriendlyId
-  friendly_id :name, use: :slugged
+  friendly_id :name, use: %i[slugged history scoped], scope: :author_id
 
   validates :name, length: { minimum: 1 }
+  validates :slug, uniqueness: { scope: :author_id }
+
   belongs_to :author, class_name: "User"
   has_many :forks, class_name: "Project", foreign_key: "forked_project_id", dependent: :nullify
   belongs_to :forked_project, class_name: "Project", optional: true
@@ -33,7 +35,6 @@ class Project < ApplicationRecord
 
   include PgSearch::Model
   pg_search_scope :text_search, against: %i[name description], associated_against: {
-    author: :name,
     tags: :name
   }
 

@@ -117,6 +117,7 @@ Rails.application.routes.draw do
   get "/github", to: redirect("https://github.com/CircuitVerse")
   get "/learn", to: redirect("https://learn.circuitverse.org")
   get "/docs", to: redirect("https://docs.circuitverse.org")
+  get "/features", to: redirect("/#home-features-section")
 
   # get 'comments/create_reply/:id', to: 'comments#create_reply', as: 'reply_comment'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
