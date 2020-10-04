@@ -616,7 +616,6 @@ DEPENDENCIES
   hirb
   http
   i18n-js
-  jbuilder (~> 2.5)
   inline_svg
   invisible_captcha (~> 1.1)
   jbuilder (~> 2.10)
