@@ -90,4 +90,6 @@
   if (window.location.href.includes('search')) {
       searchBar.style.display = "block";
   }
+  let searchElement = document.getElementsByClassName("navbar-search-icon-container");
+  window["search"] = searchElement[1];  
 </script>
