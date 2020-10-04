@@ -365,7 +365,7 @@ input[type="text"]:focus {
 
 .ce-panel {
   font: inherit;
-  width: 220px;
+  width: 235px;
   border-radius: 5px;
   position: fixed;
   top: 90px;
@@ -1286,14 +1286,14 @@ input[type='range']::-webkit-slider-thumb {
 
 }
 
-#modules-header::before, #moduleProperty-title::before {
+#modules-header::before, #moduleProperty-title::before, .prop-hidden::before, .ce-hidden::before {
   content: '';
   width: 34px;
   border-radius: 2px;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  top: 6px;
+  top: 5px;
 }
 
 .minimize {
