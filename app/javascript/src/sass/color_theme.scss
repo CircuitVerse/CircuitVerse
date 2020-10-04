@@ -231,7 +231,7 @@ $output-rect: blue;
   border-bottom: 1px solid var(--br-secondary);
 }
 
-#modules-header::before, #moduleProperty-title::before{
+#modules-header::before, #moduleProperty-title::before, .prop-hidden::before, .ce-hidden::before{
   border-top: 2px solid var(--text-panel);
 }
 
