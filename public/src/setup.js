@@ -109,7 +109,9 @@ function setupElementLists() {
         const categoryData = elementHierarchy[category];
         for (let i = 0; i < categoryData.length; i++) {
             const element = categoryData[i];
-            htmlIcons += createIcon(element);
+            if(!element.startsWith("verilog")) {
+                htmlIcons += createIcon(element);
+            }
         }
 
         const accordionData = `<div class="panelHeader">${category}</div>

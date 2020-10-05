@@ -15,6 +15,11 @@ import TriState from './modules/TriState';
 import Buffer from './modules/Buffer';
 import ControlledInverter from './modules/ControlledInverter';
 import Adder from './modules/Adder';
+import verilogMultiplier from './modules/verilogMultiplier';
+import verilogDivider from './modules/verilogDivider';
+import verilogPower from './modules/verilogPower';
+import verilogShiftLeft from './modules/verilogShiftLeft';
+import verilogShiftRight from './modules/verilogShiftRight';
 import TwoComplement from './modules/TwoComplement';
 import Splitter from './modules/Splitter';
 import Ground from './modules/Ground';
@@ -101,6 +106,11 @@ const modules = {
     Buffer,
     ControlledInverter,
     Adder,
+    verilogMultiplier,
+    verilogDivider,
+    verilogPower,
+    verilogShiftLeft,
+    verilogShiftRight,
     TwoComplement,
     Splitter,
     Ground,
