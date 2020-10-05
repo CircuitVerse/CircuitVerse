@@ -6,10 +6,10 @@ require "pg_search"
 require "custom_optional_target/web_push"
 class Project < ApplicationRecord
   extend FriendlyId
-  friendly_id :name, use: %i[slugged history scoped], scope: :author_id
+  friendly_id :name, use: %i[slugged history]
 
   validates :name, length: { minimum: 1 }
-  validates :slug, uniqueness: { scope: :author_id }
+  validates :slug, uniqueness: true
 
   belongs_to :author, class_name: "User"
   has_many :forks, class_name: "Project", foreign_key: "forked_project_id", dependent: :nullify
@@ -162,7 +162,8 @@ class Project < ApplicationRecord
     end
 
     def should_generate_new_friendly_id?
-      name_changed?
+      # FIXME Remove extra query once production data is resolved
+      name_changed? || Project.where(slug: slug).count > 1
     end
 end
 # rubocop:enable Metrics/ClassLength
