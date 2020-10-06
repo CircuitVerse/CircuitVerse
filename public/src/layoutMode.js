@@ -5,7 +5,7 @@ import {
 } from './canvasApi';
 import LayoutBuffer from './layout/layoutBuffer';
 import simulationArea from './simulationArea';
-import { hideProperties } from './ux';
+import { hideProperties, fillSubcircuitElements } from './ux';
 import {
     update, scheduleUpdate, willBeUpdatedSet, gridUpdateSet,
 } from './engine';
@@ -131,6 +131,23 @@ export function renderLayout(scope = globalScope) {
 
     if (gridUpdateSet(false)) {
         dots();
+    }
+
+     // Update UI position
+    for(let i = 0; i < tempBuffer.subElements.length; i++){
+        console.log(tempBuffer.subElements);
+        tempBuffer.subElements[i].update();
+
+        // element nodes
+        for(let j = 0; j < tempBuffer.subElements[i].nodeList.length; j++)
+            tempBuffer.subElements[i].nodeList[j].update();
+    }
+
+    // Render objects
+    for(let i = 0; i < tempBuffer.subElements.length; i++){
+        tempBuffer.subElements[i].draw();
+        for(let j = 0; j < tempBuffer.subElements[i].nodeList.length; j++)
+            tempBuffer.subElements[i].nodeList[j].subcuircuitDraw();
     }
 }
 
@@ -334,6 +351,8 @@ export function toggleLayoutMode() {
     if (layoutModeGet()) {
         (layoutModeSet(false));
         $('#layoutDialog').fadeOut();
+        $('#subcircuitMenu').empty();
+        $('#subcircuitMenu').css('display', 'none');
         $('#menu').css('display', 'block');
         globalScope.centerFocus(false);
         dots();
@@ -341,6 +360,14 @@ export function toggleLayoutMode() {
         (layoutModeSet(true));
         $('#layoutDialog').fadeIn();
         $('#menu').css('display', 'none');
+        $('#subcircuitMenu').css('display', 'block');
+        fillSubcircuitElements();
+        $('#subcircuitMenu').accordion("refresh");
+        $('.draggableSubcircuitElement').draggable({
+            helper: "clone",
+            appendTo: "body",
+            zIndex: 100
+        });
         globalScope.ox = 0;
         globalScope.oy = 0;
         globalScope.scale = DPR * 1.3;

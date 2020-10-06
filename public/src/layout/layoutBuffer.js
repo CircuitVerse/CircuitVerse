@@ -31,6 +31,9 @@ export default class LayoutBuffer {
         // Push Output Nodes
         this.Output = [];
         for (let i = 0; i < scope.Output.length; i++) { this.Output.push(new LayoutNode(scope.Output[i].layoutProperties.x, scope.Output[i].layoutProperties.y, scope.Output[i].layoutProperties.id, scope.Output[i].label, xx, yy, scope.Output[i].type, scope.Output[i])); }
+        
+        // holds subcircuit elements
+        this.subElements = []
     }
 
     /**

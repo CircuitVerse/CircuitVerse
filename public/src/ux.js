@@ -128,7 +128,7 @@ export function setupUI() {
         handles: 'e',
         // minWidth:270,
     });
-    $('#menu').accordion({
+    $('#menu, #subcircuitMenu').accordion({
         collapsible: true,
         active: false,
         heightStyle: 'content',
@@ -491,4 +491,30 @@ export function fullView () {
     $('#moduleProperty').hide()
     $('#exitView').append(markUp);
 }
+
+export function fillSubcircuitElements() {
+    const subcircuitElements = [
+        "DigitalLed", "VariableLed", "RGBLed", "SquareRGBLed",
+        "SevenSegDisplay","HexDisplay",
+        "Button", "Random", "Counter"];
+
+    for(let el of subcircuitElements) {
+        if(globalScope[el].length === 0) continue;
+        let tempHTML = '';
+
+        // add a panel for each existing group
+        tempHTML += `<div class="panelHeader">${el}s</div>`;
+        tempHTML += `<div class="panel">`;
+
+        // add an SVG for each element
+        for(let i = 0; i < globalScope[el].length; i++){
+            tempHTML += `<div class="icon logixModules draggableSubcircuitElement" id="${el}-${i}" data-element-id="${i}" data-element-name="${el}">`;
+            tempHTML += `<img src= "/img/${el}.svg">`;
+            tempHTML += `<p class="img__description">${(globalScope[el][i].label !== "")? globalScope[el][i].label : 'unlabeled'}</p>`;
+            tempHTML += '</div>';
+        }
+        tempHTML += '</div>';
+        $('#subcircuitMenu').append(tempHTML);
+    }
+} 
 

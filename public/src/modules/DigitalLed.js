@@ -162,4 +162,4 @@ DigitalLed.prototype.mutableProperties = {
     },
 };
 DigitalLed.prototype.objectType = "DigitalLed";
-DigitalLed.ptototype.canShowInSubcircuit = true;
+DigitalLed.prototype.canShowInSubcircuit = true;
