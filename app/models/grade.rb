@@ -12,6 +12,9 @@ class Grade < ApplicationRecord
   validate :grading_scale, :assignment_project
   validates :project_id, uniqueness: { scope: :assignment_id }
 
+  after_create :send_project_graded_notif
+  after_update :send_grade_updated_notif
+
   private
 
     def grading_scale
@@ -30,9 +33,31 @@ class Grade < ApplicationRecord
     end
 
     def assignment_project
-      if project&.assignment_id != assignment&.id
-        errors.add(:project, "is not a part of the assignment")
-      end
+      return unless project&.assignment_id != assignment&.id
+
+      errors.add(:project, "is not a part of the assignment")
+    end
+
+    def send_project_graded_notif
+      author_fcm = project.author.fcm
+      return if author_fcm.nil?
+
+      FcmNotification.send(
+        author_fcm.token,
+        "#{project.name} Graded",
+        "Grade - #{grade.grade} | Remarks - #{grade.remarks}"
+      )
+    end
+
+    def send_grade_updated_notif
+      author_fcm = project.author.fcm
+      return if author_fcm.nil?
+
+      FcmNotification.send(
+        author_fcm.token,
+        "#{project.name}'s Grade Updated",
+        "Grade - #{grade.grade} | Remarks - #{grade.remarks}"
+      )
     end
 
     def self.to_csv(assignment_id)

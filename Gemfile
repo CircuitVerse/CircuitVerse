@@ -104,6 +104,7 @@ gem 'simple_discussion', '~> 1.2'
 gem 'inline_svg'
 gem 'disposable_mail', '~> 0.1'
 gem 'recaptcha'
+gem 'fcm'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -5,9 +5,9 @@ class Assignment < ApplicationRecord
   belongs_to :group
   has_many :projects, class_name: "Project", foreign_key: "assignment_id", dependent: :nullify
 
-  after_commit :send_new_assignment_mail, on: :create
   after_commit :set_deadline_job
-  after_commit :send_update_mail, on: :update
+  after_create :send_new_assignment_mail, :send_new_assignment_notif
+  after_update :send_update_mail, :send_update_notif
 
   enum grading_scale: { no_scale: 0, letter: 1, percent: 2, custom: 3 }
   default_scope { order(deadline: :asc)}
@@ -20,22 +20,44 @@ class Assignment < ApplicationRecord
   end
 
   def send_update_mail
-    if status != "closed"
-      group.group_members.each do |group_member|
-        AssignmentMailer.update_assignment_email(group_member.user, self).deliver_later
-      end
+    return unless status != "closed"
+
+    group.group_members.each do |group_member|
+      AssignmentMailer.update_assignment_email(group_member.user, self).deliver_later
     end
   end
 
+  def send_new_assignment_notif
+    tokens = group.group_members
+                  .reject { |member| member.user.fcm.nil? }
+                  .map { |member| member.user.fcm.token }
+
+    FcmNotification.send(tokens, "New Assignment", "New Assignment in #{group.name}")
+  end
+
+  def send_update_notif
+    return unless status != "closed"
+
+    tokens = group.group_members
+                  .reject { |member| member.user.fcm.nil? }
+                  .map { |member| member.user.fcm.token }
+
+    FcmNotification.send(tokens, "Assignment Updated", "Assignment Updated in #{group.name}")
+  end
+
+  # rubocop:disable Metrics/AbcSize
   def set_deadline_job
-    if status != "closed"
-      if deadline - Time.zone.now > 0
-        AssignmentDeadlineSubmissionJob.set(wait: ((deadline - Time.zone.now) / 60).minute).perform_later(id)
-      else
-        AssignmentDeadlineSubmissionJob.perform_later(id)
-      end
+    return unless status != "closed"
+
+    if (deadline - Time.zone.now).positive?
+      AssignmentDeadlineSubmissionJob.set(
+        wait: ((deadline - Time.zone.now) / 60).minute
+      ).perform_later(id)
+    else
+      AssignmentDeadlineSubmissionJob.perform_later(id)
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   def graded?
     grading_scale != "no_scale"

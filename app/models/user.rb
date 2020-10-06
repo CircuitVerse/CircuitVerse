@@ -29,6 +29,8 @@ class User < ApplicationRecord
   # Multiple push_subscriptions over many devices
   has_many :push_subscriptions, dependent: :destroy
 
+  has_one :fcm, dependent: :destroy
+
   after_commit :send_welcome_mail, on: :create
   after_commit :create_members_from_invitations, on: :create
 
