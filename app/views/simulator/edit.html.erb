@@ -7,9 +7,33 @@
   crossorigin="anonymous"
 ></script>
 -->
-<!-- 
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
+<!--
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 -->
+<script type="text/javascript">
+  function zoomIn() {
+      console.log("clicked zoom in");
+      var canvasLayout = document.getElementById("backgroundArea");
+      //console.log(canvasLayout.style.top);
+      var currLeft = canvasLayout.style.left;
+      console.log(currLeft);
+      var currTop = canvasLayout.style.top;
+      canvasLayout.style.left = (currLeft - 10)+"px";
+      canvasLayout.style.top = (currTop - 10)+"px";
+  }
+
+  function zoomOut() {
+      console.log("clicked zoom out");
+      var canvasLayout = document.getElementById("backgroundArea");
+      var currLeft = canvasLayout.style.left;
+      var currTop = canvasLayout.style.top;
+      if(currTop+10<=0 && currLeft+10<=0){
+        canvasLayout.style.left = (currLeft + 10)+"px";
+        canvasLayout.style.top = (currTop + 10)+"px";
+      }
+
+  }
+</script>
 
 <script src="/js/plugins/jquery.twbs-toggle-buttons.min.js"></script>
 <script src="/js/plugins/checkBo.min.js"></script>
@@ -71,13 +95,11 @@
             <li><a class="dropdown-item text-left pl-1" href="https://circuitverse.org/forum" class="forum-tab" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">Discussion Forum</a></li>
         </ul>
       </li>
-      
-      
+
     </ul>
       <span class="projectName noSelect defaultCursor font-weight-bold" id="projectName">
          Untitled
       </span>
-
 
     <div ondrag="(() => {$('.quick-btn').css({'box-shadow': 'none', 'background': 'var(--bg-navbar)'})})()" class='quick-btn'>
       <div id='dragQPanel' class='panel-drag'>
@@ -116,16 +138,16 @@
       <div>
         <button type="button" class="quick-btn-save logixButton"  id="saveOffline" title="Save Offline" onclick="">
         </button>
-      </div>          
+      </div>
       <div>
         <button type="button" class="quick-btn-delete" title="Delete Selected" id="deleteSelected">
         </button>
-      </div>     
+      </div>
       <div>
         <button type="button" class="quick-btn-download logixButton" id="createSaveAsImgPrompt" title="Download as Image" onclick="">
         </button>
       </div>
-      <div>    
+      <div>
         <button type="button" class="quick-btn-zoom-fit" title="Fit to Screen" onclick="globalScope.centerFocus(false)">
         </button>
       </div>
@@ -141,11 +163,17 @@
         <button type="button" class="quick-btn-redo logixButton" title="Redo" onclick="">
         </button> -->
         <div class="zoom-slider">
-          <input type="range" class="custom-range" min="0" max="45" step="1"  id="customRange1">
-          <span id='slider_value'></span>
+            <button type="button" onclick="zoomOut()">
+                 <i class="fa fa-minus" aria-hidden="true" ></i>
+            </button>
+            <input type="range" class="custom-range" min="0" max="45" step="1"  id="customRange1">
+            <span id='slider_value'></span>
+            <button type="button" onclick="zoomIn()">
+                <i class="fa fa-plus" aria-hidden="true" ></i>
+            </button>
         </div>
       </div>
-      
+
     </div>
 
     <ul class="nav navbar-nav noSelect pointerCursor pull-right account-btn">
@@ -255,7 +283,7 @@
           </g>
           <path id="Path_36" data-name="Path 36" d="M4.7,6.1,0,1.4,1.4,0,4.7,3.3,8,0,9.4,1.4Z" transform="translate(19.4 17.755) rotate(180)" fill="#fff"/>
         </svg>
-        
+
       </button>
         <button
           type="button"
@@ -269,7 +297,7 @@
           </g>
           <path id="Path_36" data-name="Path 36" d="M4.7,6.1,0,1.4,1.4,0,4.7,3.3,8,0,9.4,1.4Z" transform="translate(10 11.655)" fill="#fff"/>
         </svg>
-        
+
       </button>
         <button
           type="button"
@@ -295,7 +323,7 @@
             <rect x="1" y="1" width="28" height="28" rx="9" fill="none"/>
           </g>
           <path id="Path_36" data-name="Path 36" d="M4.7,6.1,0,1.4,1.4,0,4.7,3.3,8,0,9.4,1.4Z" transform="translate(12 19.055) rotate(-90)" fill="#fff"/>
-        </svg>  
+        </svg>
       </button>
     </div>
     </div>
@@ -602,7 +630,7 @@
     $('#emailtext').val("");
     $('#report').show();
     $('#report-label').show();
-  }) 
+  })
   $('#reportIssue').click(function() {
     var listenToSimulator=false
   })
@@ -619,7 +647,7 @@
 $(function(){
     $(".btn-group-toggle").twbsToggleButtons();
   });
-  
+
 $(function(){
 $("#openProjectDialog").checkBo();
 $(".download-dialog-section-2_2").checkBo();
