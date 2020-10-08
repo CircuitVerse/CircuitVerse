@@ -362,10 +362,11 @@ SubCircuit.prototype.generateVerilog = function() {
         }
     }
 
-    var list = inputs.concat(outputs);
-    var res = this.verilogName() + " " + this.verilogLabel + " (" + list.map(function(x) {
+    //changes space
+    var list = outputs.concat(inputs);
+    var res = this.verilogName() + " " + this.verilogLabel + "(" + list.map(function(x) {
         return x.verilogLabel
-    }).join(",") + ");";
+    }).join(", ") + ");";
 
     return res;
 }

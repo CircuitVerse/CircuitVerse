@@ -1420,10 +1420,16 @@ CircuitElement.prototype.resolve = function() {
 
 CircuitElement.prototype.processVerilog = function() {
     
+    var output_total = 0;
+    for (var i = 0; i < this.nodeList.length; i++) {
+        if (this.nodeList[i].type == NODE_OUTPUT) 
+          output_total++;
+    }
+
     var output_count = 0;
     for (var i = 0; i < this.nodeList.length; i++) {
         if (this.nodeList[i].type == NODE_OUTPUT) {
-            this.nodeList[i].verilogLabel = this.nodeList[i].verilogLabel || (this.verilogLabel + "_" + (verilog.fixName(this.nodeList[i].label) || ("out_" + output_count)));
+            this.nodeList[i].verilogLabel = this.nodeList[i].verilogLabel || (this.verilogLabel + "_" + (verilog.fixNameInv(this.nodeList[i].label) || ((output_total>1)?"out_" + output_count:"out")));
             if (this.objectType != "Input" && this.nodeList[i].connections.length > 0) {
                 if (this.scope.verilogWireList[this.bitWidth] != undefined) {
                     if (!this.scope.verilogWireList[this.bitWidth].contains(this.nodeList[i].verilogLabel))
@@ -1489,9 +1495,15 @@ CircuitElement.prototype.generateVerilog = function() {
     }
 
     var list = outputs.concat(inputs);
-    var res = this.verilogName() + " " + this.verilogLabel + " (" + list.map(function(x) {
+    var res = this.verilogName();
+
+    //add this for mult-bit inputs
+    if (this.bitWidth != undefined && this.bitWidth > 1)
+      res += " #(" + this.bitWidth + ")";
+
+    res += " " + this.verilogLabel + "(" + list.map(function(x) {
         return x.verilogLabel
-    }).join(",") + ");";
+    }).join(", ") + ");";
 
     return res;
 }
