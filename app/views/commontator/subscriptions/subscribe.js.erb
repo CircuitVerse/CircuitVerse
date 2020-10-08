@@ -1,6 +1,5 @@
-$("#thread_<%= @thread.id.to_s %>_subscription_span").html("<%= j (
-  render partial: 'link',
-         locals: { thread: @thread,
-                      user: @user }) %>");
+$("#commontator-thread-<%= @commontator_thread.id %>-subscription").html("<%= escape_javascript(
+  render partial: 'link', locals: { thread: @commontator_thread, user: @commontator_user }
+) %>");
 
 <%= javascript_proc %>

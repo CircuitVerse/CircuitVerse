@@ -8,19 +8,19 @@
     "postinstall": "opencollective-postinstall || true"
   },
   "devDependencies": {
-    "eslint": "^6.0.0",
-    "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-plugin-import": "^2.20.0",
+    "eslint": "^7.9.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0",
     "expose-loader": "^0.7.5",
-    "webpack-dev-server": "^3.10.3"
+    "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.12.1",
+    "@fortawesome/fontawesome-free": "^5.15.1",
     "@rails/webpacker": "4.2.2",
-    "bootstrap": "^4.3.1",
-    "jquery": "^3.4.1",
-    "opencollective-postinstall": "^2.0.2",
-    "popper.js": "^1.16.0",
+    "bootstrap": "^4.5.0",
+    "jquery": "^3.5.1",
+    "opencollective-postinstall": "^2.0.3",
+    "popper.js": "^1.16.1",
     "trumbowyg": "^2.21.0"
   },
   "collective": {

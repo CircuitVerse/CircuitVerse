@@ -24,6 +24,7 @@
               },
               "description": { "type": "string" },
               "view": { "type": "integer" },
+              "is_starred": { "type": ["boolean", "null"] },
               "author_name": { "type": "string" },
               "stars_count": { "type": "integer" },
               "tags": {
@@ -38,7 +39,10 @@
                   },
                   "required": ["id", "name", "created_at", "updated_at"]
                 }
-              }
+              },
+              "thread_id": { "type": "integer" },
+              "is_thread_subscribed": { "type": ["boolean", "null"] },
+              "is_thread_closed": { "type": "boolean" }
             },
             "required": [
               "name",
@@ -48,9 +52,13 @@
               "image_preview",
               "description",
               "view",
+              "is_starred",
               "author_name",
               "stars_count",
-              "tags"
+              "tags",
+              "thread_id",
+              "is_thread_subscribed",
+              "is_thread_closed"
             ]
           },
           "relationships": {
@@ -69,15 +77,32 @@
                   }
                 },
                 "required": ["data"]
+              },
+              "collaborators": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": { "type": "string" },
+                        "type": { "type": "string" }
+                      },
+                      "required": ["id", "type"]
+                    }
+                  }
+                },
+                "required": ["data"]
               }
             },
-            "required": ["author"]
+            "required": ["author", "collaborators"]
           }
         },
         "required": ["id", "type", "attributes"]
       }
     },
-        "included": {
+    "included": {
       "type": "array",
       "items": {
         "type": "object",

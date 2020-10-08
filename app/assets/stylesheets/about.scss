@@ -1,100 +1,18 @@
-* {
-  box-sizing: border-box;
-}
-
-.row-about {
-  text-align: center;
-  margin-left:auto;
-  margin-right:auto;
-  max-width:1344px;
-}
-
-#about {
-  text-align: justify;
-  margin: 30px 0 30px 0;
-}
-
-.heading {
-  color: $teal;
-  // font-family: 'Open Sans';
-  margin-top: 40px;
-  margin-bottom: 10px;
-}
-
-#tab a, .card-body a{
-  text-decoration: none;
+.about-social-anchor {
   color: $black;
+  text-decoration: none;
+
+  &:hover {
+    color: $black;
+    text-decoration: none;
+  }
+
+  p {
+    text-align: center;
+  }
 }
 
-.btn-about{
-  background-color: $green;
-  color: white;
-  transition: all 0.3s ease 0s;
-  margin: 5px;
-}
-
-.btn-about:hover{
-  color:white;
-  background-color: $teal;
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-  transform: translateY(-7px);
-}
-
-.contact{
-  display: inline-block;
-  background-color: $gray-100;
-  box-shadow: 0px 2px 7px $shadow-black;
-  opacity: 0.89;
-  height: 89px;
-  margin-top: 50px;
-  margin-left: 7px;
-  margin-right: 7px;
-  margin-bottom: 40px;
-  width: 300px;
-  padding: 15px;
-  cursor: pointer;
-  transition: box-shadow 0.2s ease-in;
-}
-
-.contact:hover {
- box-shadow: 0 7px 7px $shadow-black;
-}
-
-.contact img {
-  float: left;
-}
-
-#tab {
-  text-align: center;
-}
-
-.team-heading h2 {
-  margin-top: 30px;
-  justify-content: center;
-}
-
-.card-about{
-  display: inline-block;
-  width: 250px;
-  background-color: $lightgrey;
-  opacity: 1;
-  margin-top: 30px;
-  margin-left: 15px;
-  margin-right: 15px;
-  margin-bottom: 30px;
-}
-
-.cardbody-about p{
-  text-align: center;
-}
-
-.team{
-  background-color: $green;
-  opacity: 1;
-  color: white;
-}
-
-.flex-container-about {
+.about-contributors-section {
   align-items: center;
   display: flex;
   flex-wrap: wrap;
@@ -103,30 +21,41 @@
   justify-content: center;
 }
 
-.contributor-about {
+.about-contributor {
   height: 100px;
   padding: 10px;
   width: 100px;
 }
 
-.contributor-image-about {
-  border: 2px solid $green;
+.about-contributor-image {
+  border: 2px solid $primary-green;
   border-radius: 50%;
+  transition: all .3s ease-in;
   width: 100%;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
 }
 
-@media (max-width:350px) {
-  .about-card-image {
-    display: none;
-  }
+.about-primary-button {
+  margin-top: 20px;
+  padding: 12px 30px;
+}
 
-  .contact {
+//breakpoints
+@media (max-width: 576px) {
+  .about-social-card-1 {
+    margin-top: 50px;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-social-card-1 {
     margin-bottom: 10px;
-    margin-top: 10px;
-    width: 230px;
   }
 
-  .card-about {
-    margin: 30px 8px;
+  .about-social-card-2 {
+    margin-top: 10px;
   }
 }

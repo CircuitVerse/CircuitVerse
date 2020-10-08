@@ -1,20 +1,21 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class Api::V1::ProjectsController < Api::V1::BaseController
   include ActionView::Helpers::SanitizeHelper
 
-  before_action :authenticate_user, only: %i[index show]
-  before_action :authenticate_user!, except: %i[index show]
+  before_action :authenticate_user!, only: %i[update destroy toggle_star create_fork]
   before_action :load_index_projects, only: %i[index]
   before_action :load_user_projects, only: %i[user_projects]
   before_action :load_featured_circuits, only: %i[featured_circuits]
+  before_action :load_user_favourites, only: %i[user_favourites]
   before_action :set_project, only: %i[show update destroy toggle_star create_fork]
-  before_action :set_options, except: %i[destroy toggle_star]
-  before_action :filter, only: %i[index user_projects featured_circuits]
-  before_action :sort, only: %i[index user_projects featured_circuits]
+  before_action :set_options, except: %i[destroy toggle_star image_preview]
+  before_action :filter, only: %i[index user_projects featured_circuits user_favourites]
+  before_action :sort, only: %i[index user_projects featured_circuits user_favourites]
 
   SORTABLE_FIELDS = %i[view created_at].freeze
-  WHITELISTED_INCLUDE_ATTRIBUTES = %i[author].freeze
+  WHITELISTED_INCLUDE_ATTRIBUTES = %i[author collaborators].freeze
 
   # GET /api/v1/projects
   def index
@@ -28,11 +29,22 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     render json: Api::V1::ProjectSerializer.new(paginate(@projects), @options)
   end
 
+  # GET /api/v1/users/:id/favourites
+  def user_favourites
+    @options[:links] = link_attrs(paginate(@projects), favourites_api_v1_user_url)
+    render json: Api::V1::ProjectSerializer.new(paginate(@projects), @options)
+  end
+
   # GET /api/v1/projects/:id
   def show
     authorize @project, :check_view_access?
-    @project.increase_views(@current_user)
+    @project.increase_views(current_user)
     render json: Api::V1::ProjectSerializer.new(@project, @options)
+  end
+
+  def image_preview
+    @project = Project.open.find(params[:id])
+    render json: { "project_preview": request.base_url + @project.image_preview.url }
   end
 
   # PATCH /api/v1/projects/:id
@@ -62,7 +74,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
   # GET /api/v1/projects/:id/toggle-star
   def toggle_star
-    if @project.toggle_star(@current_user)
+    if @project.toggle_star(current_user)
       render json: { "message": "Starred successfully!" }, status: :ok
     else
       render json: { "message": "Unstarred successfully!" }, status: :ok
@@ -71,34 +83,56 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
   # /api/v1/projects/:id/fork
   def create_fork
-    if @current_user.id == @project.author_id
+    if current_user.id == @project.author_id
       api_error(status: 409, errors: "Cannot fork your own project!")
     else
-      @forked_project = @project.fork(@current_user)
+      @forked_project = @project.fork(current_user)
       render json: Api::V1::ProjectSerializer.new(@forked_project, @options)
     end
   end
 
   private
 
+    # rubocop:disable Metrics/AbcSize
     def set_project
-      @project = Project.find(params[:id])
-      @author = @project.author
+      if params[:user_id]
+        @author = User.find(params[:user_id])
+        @project = @author.projects.friendly.find(params[:id])
+      else
+        @project = Project.friendly.find(params[:id])
+        @author = @project.author
+      end
     end
+    # rubocop:enable Metrics/AbcSize
 
     def load_index_projects
-      @projects = if @current_user.nil?
+      @projects = if current_user.nil?
         Project.open
       else
-        Project.open.or(Project.by(@current_user.id))
+        Project.open.or(Project.by(current_user.id))
       end
     end
 
     def load_user_projects
-      @projects = if @current_user.id == params[:id].to_i
-        @current_user.projects
-      else
+      # if user is not authenticated or authenticated as some other user
+      # return only user's public projects else all
+      @projects = if current_user.nil? || current_user.id != params[:id].to_i
         Project.open.by(params[:id])
+      else
+        current_user.projects
+      end
+    end
+
+    def load_user_favourites
+      @projects = Project.joins(:stars)
+                         .where(stars: { user_id: params[:id].to_i })
+
+      # if user is not authenticated or authenticated as some other user
+      # return only user's public favourites else all
+      @projects = if current_user.nil? || current_user.id != params[:id].to_i
+        @projects.open
+      else
+        @projects
       end
     end
 
@@ -116,6 +150,10 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     def set_options
       @options = {}
       @options[:include] = include_resource if params.key?(:include)
+      @options[:params] = {
+        current_user: current_user,
+        only_name: true
+      }
     end
 
     def filter
@@ -132,3 +170,4 @@ class Api::V1::ProjectsController < Api::V1::BaseController
       params.require(:project).permit(:name, :project_access_type, :description, :tag_list)
     end
 end
+# rubocop:enable Metrics/ClassLength

@@ -124,8 +124,13 @@ class ProjectsController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_project
-      @project = Project.find(params[:id])
-      @author = @project.author
+      if params[:user_id]
+        @author = User.find(params[:user_id])
+        @project = @author.projects.friendly.find(params[:id])
+      else
+        @project = Project.friendly.find(params[:id])
+        @author = @project.author
+      end
     end
 
     def check_access
