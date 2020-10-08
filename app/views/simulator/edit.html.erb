@@ -9,7 +9,7 @@
   logix_project_id = "<%= @logix_project_id %>";
   projectName = "<%= @projectName %>"
 </script>
-<main>
+<main class="hidden">
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="/">CircuitVerse</a>
     <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-controls="collapsedNavbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -346,7 +346,7 @@
     <ul>
       <li>A mouse is not connected</li>
       <li>The screen size is too small</li>
-      <li>JavaScript is not running</li>
+      <li>JavaScript is disabled</li>
     </ul>
     <br>
     <a id='go-back-button' type="button" class="btn btn-primary btn-lg btn-block" href="/">Home</a>
@@ -386,4 +386,5 @@ $('#reportIssue').click(function(){
 </script>
 
 
-    <script src="/js/canvas2svg.js"></script>
+<script src="/js/canvas2svg.js"></script>
+<script src="/js/simulator-checker.js"></script>
