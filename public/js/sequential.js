@@ -53,25 +53,25 @@ TflipFlop.prototype.isResolvable = function() {
 }
 //add this to output the modue
 TflipFlop.moduleVerilog = function() {
-    var output="";
-    output+="\n";
-    output+="module TflipFlop(q, q_inv, clk, t, a_rst, pre, en);\n";
-    output+="  parameter WIDTH = 1;\n";
-    output+="  output reg [WIDTH-1:0] q, q_inv;\n";
-    output+="  input clk, a_rst, pre, en;\n";
-    output+="  input [WIDTH-1:0] t;\n";
-    output+="  \n";    
-    output+="  always @ (posedge clk or posedge a_rst)\n";
-    output+="    if (a_rst) begin\n";
-    output+="      q <= 'b0;\n";
-    output+="      q_inv <= 'b1;\n";
-    output+="    end else if (en == 0) ;\n";
-    output+="    else if (t) begin\n";
-    output+="      q <= q ^ t;\n";
-    output+="      q_inv <= ~q ^ t;\n";
-    output+="    end\n";
-    output+="endmodule\n";
-    output+="\n";
+    var output = "";
+    output += "\n";
+    output += "module TflipFlop(q, q_inv, clk, t, a_rst, pre, en);\n";
+    output += "  parameter WIDTH = 1;\n";
+    output += "  output reg [WIDTH-1:0] q, q_inv;\n";
+    output += "  input clk, a_rst, pre, en;\n";
+    output += "  input [WIDTH-1:0] t;\n";
+    output += "  \n";
+    output += "  always @ (posedge clk or posedge a_rst)\n";
+    output += "    if (a_rst) begin\n";
+    output += "      q <= 'b0;\n";
+    output += "      q_inv <= 'b1;\n";
+    output += "    end else if (en == 0) ;\n";
+    output += "    else if (t) begin\n";
+    output += "      q <= q ^ t;\n";
+    output += "      q_inv <= ~q ^ t;\n";
+    output += "    end\n";
+    output += "endmodule\n";
+    output += "\n";
     return output;
 }
 TflipFlop.prototype.newBitWidth = function(bitWidth) {
@@ -225,25 +225,25 @@ DflipFlop.prototype.resolve = function() {
 }
 //add this to output the modue
 DflipFlop.moduleVerilog = function() {
-    var output="";
-    output+="\n";
-    output+="module DflipFlop(q, q_inv, clk, d, a_rst, pre, en);\n";
-    output+="  parameter WIDTH = 1;\n";
-    output+="  output reg [WIDTH-1:0] q, q_inv;\n";
-    output+="  input clk, a_rst, pre, en;\n";
-    output+="  input [WIDTH-1:0] d;\n";
-    output+="  \n";    
-    output+="  always @ (posedge clk or posedge a_rst)\n";
-    output+="    if (a_rst) begin\n";
-    output+="      q <= 'b0;\n";
-    output+="      q_inv <= 'b1;\n";
-    output+="    end else if (en == 0) ;\n";
-    output+="    else begin\n";
-    output+="      q <= d;\n";
-    output+="      q_inv <= ~d;\n";
-    output+="    end\n";
-    output+="endmodule\n";
-    output+="\n";
+    var output = "";
+    output += "\n";
+    output += "module DflipFlop(q, q_inv, clk, d, a_rst, pre, en);\n";
+    output += "  parameter WIDTH = 1;\n";
+    output += "  output reg [WIDTH-1:0] q, q_inv;\n";
+    output += "  input clk, a_rst, pre, en;\n";
+    output += "  input [WIDTH-1:0] d;\n";
+    output += "  \n";
+    output += "  always @ (posedge clk or posedge a_rst)\n";
+    output += "    if (a_rst) begin\n";
+    output += "      q <= 'b0;\n";
+    output += "      q_inv <= 'b1;\n";
+    output += "    end else if (en == 0) ;\n";
+    output += "    else begin\n";
+    output += "      q <= d;\n";
+    output += "      q_inv <= ~d;\n";
+    output += "    end\n";
+    output += "endmodule\n";
+    output += "\n";
     return output;
 }
 DflipFlop.prototype.customSave = function() {
@@ -1037,17 +1037,17 @@ Clock.prototype.customDraw = function() {
 }
 //add this to output the modue
 Clock.moduleVerilog = function() {
-    var output="";
-    output+="\n";
-    output+="module Clock(clk);\n";
-    output+="  output reg clk;\n";
-    output+="  always begin\n";
-    output+="    #10\n";
-    output+="    clk=1'b0;\n";
-    output+="    #10\n";
-    output+="    clk=1'b0;\n";
-    output+="  end\n";
-    output+="endmodule\n";
-    output+="\n";
+    var output = "";
+    output += "\n";
+    output += "module Clock(clk);\n";
+    output += "  output reg clk;\n";
+    output += "  always begin\n";
+    output += "    #10\n";
+    output += "    clk=1'b0;\n";
+    output += "    #10\n";
+    output += "    clk=1'b0;\n";
+    output += "  end\n";
+    output += "endmodule\n";
+    output += "\n";
     return output;
 }

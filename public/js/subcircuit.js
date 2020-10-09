@@ -364,7 +364,8 @@ SubCircuit.prototype.generateVerilog = function() {
 
     //changes space
     var list = outputs.concat(inputs);
-    var res = this.verilogName() + " " + this.verilogLabel + "(" + list.map(function(x) {
+    var res = this.verilogName() + " " + this.verilogLabel
+    + "(" + list.map(function(x) {
         return x.verilogLabel
     }).join(", ") + ");";
 

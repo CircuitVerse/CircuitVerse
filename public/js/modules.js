@@ -1724,9 +1724,9 @@ Splitter.prototype.reset = function () {
     this.prevInpValue = undefined;
 }
 Splitter.prototype.processVerilog = function () {
-//    console.log(this);
-    for (var j=0; j < this.outputs.length; j++) {
-//        console.log(this.inp1.verilogLabel +":"+ this.outputs[j].verilogLabel);
+    // console.log(this);
+    for (var j = 0; j < this.outputs.length; j++) {
+        // console.log(this.inp1.verilogLabel +":"+ this.outputs[j].verilogLabel);
         if (this.inp1.verilogLabel != "" && this.outputs[j].verilogLabel == "") {
             var bitCount = 0;
             for (var i = 0; i < this.splitCount; i++) {
@@ -1741,11 +1741,10 @@ Splitter.prototype.processVerilog = function () {
                 }
                 bitCount += this.bitWidthSplit[i];
             }
-        } 
-
+        }
     }
     if (this.inp1.verilogLabel == "") {
-        this.inp1.verilogLabel = this.verilogLabel+"_inp";
+        this.inp1.verilogLabel = this.verilogLabel + "_inp";
         if (this.scope.verilogWireList[this.bitWidth] != undefined) {
             if (!this.scope.verilogWireList[this.bitWidth].contains(this.inp1.verilogLabel))
                 this.scope.verilogWireList[this.bitWidth].push(this.inp1.verilogLabel);
@@ -1757,10 +1756,10 @@ Splitter.prototype.processVerilog = function () {
 //added to generate Splitter INPUTS
 Splitter.prototype.generateVerilog = function () {
 //    console.log(scope.Splitter[i]);
-    var res = "assign "+this.inp1.verilogLabel+" = {";
-    for (var i = this.outputs.length-1; i>0;i--)
-      res += this.outputs[i].verilogLabel+",";
-    res += this.outputs[0].verilogLabel+"};";
+    var res = "assign " + this.inp1.verilogLabel + " = {";
+    for (var i = this.outputs.length - 1; i > 0; i--)
+      res += this.outputs[i].verilogLabel + ",";
+    res += this.outputs[0].verilogLabel + "};";
 
 
     return res;
