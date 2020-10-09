@@ -251,12 +251,17 @@
 }
 
 .primary-checkpoint-container {
-  cursor: pointer;
   display: block;
-  font-size: 22px;
   position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  user-select: none;
 
+  
   input {
+    cursor: pointer;
     height: 0;
     opacity: 0;
     position: absolute;
