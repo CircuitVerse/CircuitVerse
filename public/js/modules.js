@@ -1756,18 +1756,16 @@ Splitter.prototype.processVerilog = function () {
 }
 //added to generate Splitter INPUTS
 Splitter.prototype.generateVerilog = function () {
-//    console.log(scope.Splitter[i]);
+	// console.log(scope.Splitter[i]);
     var res = "";
-    
+
     if (!this.selfRef) {
-//    if (!this.scope.verilogWireList[this.bitWidth].contains(this.inp1.verilogLabel)) {
         res += "assign " + this.inp1.verilogLabel + " = {";
         for (var i = this.outputs.length - 1; i > 0; i--)
           res += this.outputs[i].verilogLabel + ",";
         res += this.outputs[0].verilogLabel + "};";
     }
     return res;
-    
 }
 
 Splitter.prototype.customDraw = function () {
