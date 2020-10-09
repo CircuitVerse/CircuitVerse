@@ -1,15 +1,15 @@
-function convertVerilog(){
-	var data = verilog.exportVerilog();
+function convertVerilog() {
+    var data = verilog.exportVerilog();
 
-	var element = document.createElement('a');
-	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(data));
-	element.setAttribute('download', projectName + ".v");
-	element.style.display = 'none';
-	document.body.appendChild(element);
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(data));
+    element.setAttribute('download', projectName + ".v");
+    element.style.display = 'none';
+    document.body.appendChild(element);
 
-	element.click();
+    element.click();
 
-	document.body.removeChild(element);
+    document.body.removeChild(element);
 }
 verilog = {
     exportVerilog:function(){
@@ -97,7 +97,7 @@ verilog = {
         // This part is explicitely added to add the SubCircuit and process its outputs
         for(var i = 0; i < scope.Output.length; i++){
             order.push(scope.Output[i]);
-			// scope.Output[i].processVerilog();
+            // scope.Output[i].processVerilog();
         }
 
         // This part is explicitely added to add the Splitter INPUTS and process its outputs
