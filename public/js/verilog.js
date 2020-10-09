@@ -1,24 +1,17 @@
-
-
 function convertVerilog(){
-    function download(filename, text) {
-        var element = document.createElement('a');
-        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-        element.setAttribute('download', filename);
+        var data = verilog.exportVerilog();
 
+        var element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(data));
+        element.setAttribute('download', projectName + ".v");
         element.style.display = 'none';
         document.body.appendChild(element);
 
         element.click();
 
         document.body.removeChild(element);
-    }
-    
-    var data = verilog.exportVerilog();
-    download(projectName + ".v", data);
 }
-
-verilog={
+verilog = {
     exportVerilog:function(){
         var dependencyList = {};
         var completed = {};
@@ -180,8 +173,8 @@ verilog={
     },
     generateHeader:function(scope=globalScope){
         return "\nmodule " + this.fixName(scope.name)
-        + "(" + scope.Input.map(function(x){return x.label}).join(", ")
-        + ", " + scope.Output.map(function(x){return x.label}).join(", ") + ");\n";
+        + "(" + scope.Output.map(function(x){return x.label}).join(", ")
+        + ", " + scope.Input.map(function(x){return x.label}).join(", ") + ");\n";
     },
     generateInputList:function(scope=globalScope){
 
