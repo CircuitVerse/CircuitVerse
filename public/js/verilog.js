@@ -94,14 +94,21 @@ verilog = {
             scope.SubCircuit[i].processVerilog();
         }
 
+        // This part is explicitely added to add the SubCircuit and process its outputs
+        for(var i = 0; i < scope.Output.length; i++){
+            order.push(scope.Output[i]);
+//            scope.Output[i].processVerilog();
+        }
 
         // This part is explicitely added to add the Splitter INPUTS and process its outputs
         for(var i = 0; i < scope.Splitter.length; i++){
-            if (scope.Splitter[i].inp1.connections[0].type == 2) {
-                scope.Splitter[i].processVerilog();
+            if (scope.Splitter[i].inp1.connections[0].type != 1) {
                 order.push(scope.Splitter[i]);
+                scope.Splitter[i].processVerilog();
             }
         }
+
+
 
         while (scope.stack.length || scope.pending.length) {
             if (errorDetected) return;
