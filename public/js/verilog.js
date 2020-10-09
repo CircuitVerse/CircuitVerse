@@ -75,14 +75,14 @@ verilog={
 
         var order=[];
 
-// This part is explicitely added to add the SubCircuit and process its outputs
+        // This part is explicitely added to add the SubCircuit and process its outputs
         for(var i = 0; i < scope.SubCircuit.length; i++){
             order.push(scope.SubCircuit[i]);
             scope.SubCircuit[i].processVerilog();
         }
 
 
-// This part is explicitely added to add the Splitter INPUTS and process its outputs
+        // This part is explicitely added to add the Splitter INPUTS and process its outputs
         for(var i = 0; i < scope.Splitter.length; i++){
             if (scope.Splitter[i].inp1.connections[0].type == 2) {
                 scope.Splitter[i].processVerilog();
@@ -151,7 +151,7 @@ verilog={
         }
         for(var i=0;i<moduleList.length;i++){
             var m = moduleList[i];
-//            console.log(m)
+            // console.log(m)
             for(var j=0;j<scope[m].length;j++){
                 scope[m][j].verilogLabel = this.fixName(scope[m][j].label) || (scope[m][j].verilogName()+"_"+j);
             }
@@ -159,7 +159,7 @@ verilog={
 
     },
     generateHeader:function(scope=globalScope){
-        return "\n" + "module " + this.fixName(scope.name)
+        return "\nmodule " + this.fixName(scope.name)
         + "(" + scope.Input.map(function(x){return x.label}).join(", ")
         + ", " + scope.Output.map(function(x){return x.label}).join(", ") + ");\n";
     },

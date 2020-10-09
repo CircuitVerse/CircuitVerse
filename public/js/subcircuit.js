@@ -353,7 +353,6 @@ SubCircuit.prototype.generateVerilog = function() {
     var inputs = [];
     var outputs = [];
 
-
     for (var i = 0; i < this.nodeList.length; i++) {
         if (this.nodeList[i].type == NODE_INPUT) {
             inputs.push(this.nodeList[i]);
@@ -364,10 +363,10 @@ SubCircuit.prototype.generateVerilog = function() {
 
     //changes space
     var list = outputs.concat(inputs);
-    var res = this.verilogName() + " " + this.verilogLabel
-    + "(" + list.map(function(x) {
-        return x.verilogLabel
-    }).join(", ") + ");";
+    var res = this.verilogName() + " " + this.verilogLabel + "(" +
+        list.map(function(x) {
+            return x.verilogLabel
+        }).join(", ") + ");";
 
     return res;
 }
