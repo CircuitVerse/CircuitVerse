@@ -1035,19 +1035,19 @@ Clock.prototype.customDraw = function() {
     ctx.stroke();
 
 }
-//add this to output the modue
-Clock.moduleVerilog = function() {
-    var output = "";
-    output += "\n";
-    output += "module Clock(clk);\n";
-    output += "  output reg clk;\n";
-    output += "  always begin\n";
-    output += "    #10\n";
-    output += "    clk=1'b0;\n";
-    output += "    #10\n";
-    output += "    clk=1'b0;\n";
-    output += "  end\n";
-    output += "endmodule\n";
-    output += "\n";
-    return output;
-}
+// //add this to output the modue
+// Clock.moduleVerilog = function() {
+//     var output = "";
+//     output += "\n";
+//     output += "module Clock(clk);\n";
+//     output += "  output reg clk;\n";
+//     output += "  always begin\n";
+//     output += "    #10\n";
+//     output += "    clk=1'b0;\n";
+//     output += "    #10\n";
+//     output += "    clk=1'b0;\n";
+//     output += "  end\n";
+//     output += "endmodule\n";
+//     output += "\n";
+//     return output;
+// }

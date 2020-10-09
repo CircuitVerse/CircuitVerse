@@ -118,7 +118,7 @@ verilog = {
                 elem = scope.pending.pop();
             // console.log(elem)
             elem.processVerilog();
-            if(elem.objectType!="Node"&& elem.objectType!="Input"&& elem.objectType!="Splitter") {
+            if(elem.objectType!="Node"&&elem.objectType!="Clock"&&elem.objectType!="Input"&& elem.objectType!="Splitter") {
                 if(!order.contains(elem))
                     order.push(elem);
             }
@@ -179,13 +179,39 @@ verilog = {
 
     },
     generateHeader:function(scope=globalScope){
-        return "\nmodule " + this.fixName(scope.name)
-        + "(" + scope.Output.map(function(x){return x.label}).join(", ")
-        + ", " + scope.Input.map(function(x){return x.label}).join(", ") + ");\n";
+        var res="\nmodule " + this.fixName(scope.name) + "(";
+    
+        var pins = [];
+        for(var i=0;i<scope.Output.length;i++){
+            pins.push(scope.Output[i].label);
+        }
+        for(var i=0;i<scope.Clock.length;i++){
+            pins.push(scope.Clock[i].label);
+        }
+        for(var i=0;i<scope.Input.length;i++){
+            pins.push(scope.Input[i].label);
+        }
+
+        res += pins.join(", ");
+
+//         res += [
+//             scope.Output.map(function(x){return x.label}).join(", "),
+//             scope.Clock.map(function(x){return x.label}).join(", "), 
+//             scope.Input.map(function(x){return x.label}).join(", ")
+//             ].join(", ");
+
+        res += ");\n";
+        return res;
     },
     generateInputList:function(scope=globalScope){
 
         var inputs={}
+        for(var i=0;i<scope.Clock.length;i++){
+            if(inputs[1])
+                inputs[1].push(scope.Clock[i].label);
+            else
+                inputs[1] = [scope.Clock[i].label];
+        }
         for(var i=0;i<scope.Input.length;i++){
             if(inputs[scope.Input[i].bitWidth])
                 inputs[scope.Input[i].bitWidth].push(scope.Input[i].label);
