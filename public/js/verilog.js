@@ -108,8 +108,6 @@ verilog = {
             }
         }
 
-
-
         while (scope.stack.length || scope.pending.length) {
             if (errorDetected) return;
             if(scope.stack.length)
@@ -176,7 +174,6 @@ verilog = {
                 scope[m][j].verilogLabel = this.fixName(scope[m][j].label) || (scope[m][j].verilogName()+"_"+j);
             }
         }
-
     },
     generateHeader:function(scope=globalScope){
         var res="\nmodule " + this.fixName(scope.name) + "(";
@@ -197,7 +194,6 @@ verilog = {
         return res;
     },
     generateInputList:function(scope=globalScope){
-
         var inputs={}
         for(var i=0;i<scope.Clock.length;i++){
             if(inputs[1])

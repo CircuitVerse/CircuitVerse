@@ -1429,8 +1429,8 @@ CircuitElement.prototype.processVerilog = function() {
     var output_count = 0;
     for (var i = 0; i < this.nodeList.length; i++) {
         if (this.objectType == "Clock") {
-            this.nodeList[i].verilogLabel = verilog.fixNameInv(this.label);
-        } 
+            this.nodeList[i].verilogLabel = verilog.fixName(this.label);
+        }
         if (this.nodeList[i].type == NODE_OUTPUT) {
             this.nodeList[i].verilogLabel = this.nodeList[i].verilogLabel 
                 || (this.verilogLabel + "_" + (verilog.fixNameInv(this.nodeList[i].label) 
