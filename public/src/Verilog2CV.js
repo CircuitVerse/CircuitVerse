@@ -56,6 +56,7 @@ import TTY from './sequential/TTY';
 import Keyboard from './sequential/Keyboard';
 import Clock from './sequential/Clock';
 import RAM from './sequential/RAM';
+import verilogRAM from './sequential/verilogRAM'
 import EEPROM from './sequential/EEPROM';
 import Rom from './sequential/Rom';
 import TB_Input from './testbench/testbenchInput';
@@ -996,6 +997,97 @@ class verilogBusUngroup {
     }
 }
 
+class verilogMemory {
+    constructor(deviceJSON) {
+
+        this.memData = deviceJSON["memdata"];
+        this.dataBitWidth = deviceJSON["bits"];
+        this.addressBitWidth = deviceJSON["abits"];
+        this.words = deviceJSON["words"];
+
+        this.numRead = deviceJSON["rdports"].length;
+        this.numWrite = deviceJSON["wrports"].length;
+
+        this.verilogRAM = new verilogRAM(
+            0, 0, undefined, undefined, this.dataBitWidth, 
+            this.addressBitWidth, this.memData, this.words, 
+            this.numRead, this.numWrite, deviceJSON["rdports"], deviceJSON["wrports"]
+        );
+        
+        this.writeAddressInput = this.verilogRAM.writeAddress;
+        this.readAddressInput = this.verilogRAM.readAddress;
+        this.writeDataInput = this.verilogRAM.writeDataIn;
+        this.writeEnableInput = this.verilogRAM.writeEnable;
+        this.readDataOutput = this.verilogRAM.dataOut;
+        this.readDffOut = this.verilogRAM.readDff;
+
+        for (var i = 0; i < this.numWrite; i++) {
+            var writeEnInput = new Input(0, 0, undefined, undefined, 1, undefined);
+            writeEnInput.label = "en" + i.toString();
+            writeEnInput.output1.connect(this.verilogRAM.writeEnable[i]);
+        }
+
+    }
+
+    getPort(portName) {
+        var len = portName.length;
+        var isPortAddr = portName.slice(len - 4, len) == "addr";
+        var isPortData = portName.slice(len - 4, len) == "data";
+        var isPortClk = portName.slice(len - 3, len) == "clk";
+        var isPortEn = portName.slice(len - 2, len) == "en";
+        if(portName.startsWith("rd")) {
+            if(isPortAddr) {
+                var portNum = portName.slice(2, len - 4);
+                portNum = parseInt(portNum);
+
+                return this.readAddressInput[portNum];
+            }
+            if(isPortData) {
+                var portNum = portName.slice(2, len - 4);
+                portNum = parseInt(portNum);
+                return this.verilogRAM.readDffQOutput[portNum];
+            }
+            if(isPortClk) {
+                var portNum = portName.slice(2, len - 3);
+                portNum = parseInt(portNum);
+
+                return this.verilogRAM.readDffClock[portNum];
+            }
+            if(isPortEn) {
+                var portNum = portName.slice(2, len - 2);
+                portNum = parseInt(portNum);
+
+                return this.verilogRAM.readDffEn[portNum];
+            }
+            
+        }
+        else {
+            if(isPortAddr) {
+                var portNum = portName.slice(2, len - 4);
+                portNum = parseInt(portNum);
+                return this.writeAddressInput[portNum];
+            }
+            if(isPortData) {
+                var portNum = portName.slice(2, len - 4);
+                portNum = parseInt(portNum);
+                return this.writeDataInput[portNum];
+            }
+            if(isPortClk) {
+                var portNum = portName.slice(2, len - 3);
+                portNum = parseInt(portNum);
+
+                return this.verilogRAM.writeDffClock[portNum];
+            }
+            if(isPortEn) {
+                var portNum = portName.slice(2, len - 2);
+                portNum = parseInt(portNum);
+
+                return this.verilogRAM.writeDffEn[portNum];
+            }
+        }
+    }
+}
+
 let typeToNode = {};
 
 typeToNode["Not"] = verilogNotGate;
@@ -1047,6 +1139,7 @@ typeToNode["Clock"] = verilogClock;
 typeToNode["Lamp"] = verilogLamp;
 typeToNode["Button"] = verilogButton;
 
+typeToNode["Memory"] = verilogMemory;
 
 export default function YosysJSON2CV(JSON){
     var mainID = (globalScope.id);

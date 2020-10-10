@@ -57,6 +57,7 @@ import TTY from './sequential/TTY';
 import Keyboard from './sequential/Keyboard';
 import Clock from './sequential/Clock';
 import RAM from './sequential/RAM';
+import verilogRAM from './sequential/verilogRAM'
 import EEPROM from './sequential/EEPROM';
 import Rom from './sequential/Rom';
 import TB_Input from './testbench/testbenchInput';
@@ -147,6 +148,7 @@ const modules = {
     Rom,
     EEPROM,
     RAM,
+    verilogRAM,
     TB_Input,
     TB_Output,
     ForceGate,

@@ -28,6 +28,7 @@
         "verilogShiftRight",
         "Rom",
         "RAM",
+        "verilogRAM",
         "EEPROM",
         "TflipFlop",
         "JKflipFlop",
@@ -149,6 +150,7 @@
             "Clock",
             "Rom",
             "RAM",
+            "verilogRAM",
             "EEPROM"
         ],
         "Test Bench": [
