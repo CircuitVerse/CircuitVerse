@@ -94,8 +94,9 @@ class SimulatorController < ApplicationController
       @project = Project.friendly.find(params[:id])
     end
 
+    # FIXME remove this logic after fixing production data
     def set_user_project
-      @project = current_user.projects.friendly.find(params[:id])
+      @project = current_user.projects.friendly.find_by(id: params[:id]) || Project.friendly.find(params[:id])
     end
 
 
