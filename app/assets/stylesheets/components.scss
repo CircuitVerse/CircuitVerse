@@ -128,10 +128,10 @@
   }
 
   .tooltiptext {
-    background-color: #42b983;
+    background-color: var(--green);
     border-radius: 6px;
     bottom: 100%;
-    color: #fff;
+    color: var(--white);
     left: 50%;
     margin-left: -60px;
     opacity: 0;
