@@ -1,8 +1,8 @@
-<%= form_for :announcement, url:announcements_path do |form| %>
+<%=form_with(model: announcement, local: true)  do |form| %>
 <div class="field form-group">
     <h6><%= form.label :body %></h6>
     <div class="input-group">
-      <%= form.text_field :body, class: "form-control form-input" %>
+      <%= form.text_area :body, class: "form-control form-input" %>
     </div>
   </div>
   <div class="field form-group">

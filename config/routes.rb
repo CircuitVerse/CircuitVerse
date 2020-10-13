@@ -62,7 +62,7 @@ Rails.application.routes.draw do
   get  "/contribute", to: "logix#contribute"
 
   #announcements
-  resources :announcements,  except: %i[index show]
+  resources :announcements, except: %i[show]
 
   # users
 

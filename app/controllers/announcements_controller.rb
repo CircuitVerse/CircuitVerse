@@ -3,7 +3,7 @@
 class AnnouncementsController < ApplicationController
   before_action :authenticate_user!
   before_action :authorize_admin
-  before_action :set_announcement, only: %i[edit update show ]
+  before_action :set_announcement, only: %i[edit update]
 
   def index
     @announcements = Announcement.all
@@ -22,7 +22,7 @@ class AnnouncementsController < ApplicationController
   def create
     @announcement = Announcement.new(announcement_params)
     if @announcement.save
-      redirect_to "/"
+      redirect_to "/announcements"
     else
       render "new"
     end
@@ -35,7 +35,7 @@ class AnnouncementsController < ApplicationController
   def update
     @announcement = Announcement.find(params[:id])
     if @announcement.update(announcement_params)
-      redirect_to @announcement
+      redirect_to "/announcements"
     else
       render "edit"
     end
