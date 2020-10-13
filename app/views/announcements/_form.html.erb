@@ -1,0 +1,23 @@
+<%= form_for :announcement, url:announcements_path do |form| %>
+<div class="field form-group">
+    <h6><%= form.label :body %></h6>
+    <div class="input-group">
+      <%= form.text_field :body, class: "form-control form-input" %>
+    </div>
+  </div>
+  <div class="field form-group">
+    <h6><%= form.label :start_time %></h6>
+    <div class="input-group">
+      <%= form.date_field :start_time, class: "form-control form-input" %>
+    </div>
+  </div>
+   <div class="field form-group">
+    <h6><%= form.label :end_time %></h6>
+    <div class="input-group">
+      <%= form.date_field :end_time, class: "form-control form-input" %>
+    </div>
+  </div>
+  <div >
+    <%= form.submit class: "btn primary-button" %>
+  </div>
+<%end%>

@@ -61,6 +61,9 @@ Rails.application.routes.draw do
   get  "/teachers", to: "logix#teachers"
   get  "/contribute", to: "logix#contribute"
 
+  #announcements
+  resources :announcements,  except: %i[index show]
+
   # users
 
   notify_to :users, controller: "users/notifications"
