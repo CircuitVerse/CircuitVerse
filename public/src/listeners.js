@@ -251,11 +251,6 @@ export default function startListeners() {
             // e.preventDefault(); //browsers normally open a new tab
                 simulationArea.changeClockTime(prompt('Enter Time:'));
             }
-            // f1 key for opening the documentation page
-            if (e.keyCode === 112) {
-                e.preventDefault();
-                window.open('https://docs.circuitverse.org/', '_blank');
-            }
         }
     });
 
@@ -449,7 +444,6 @@ function onMouseMove(e) {
 function onMouseUp(e) {
     createNodeSet(simulationArea.controlDown);
     simulationArea.mouseDown = false;
-    console.log(createNode);
     if (!lightMode) {
         updatelastMinimapShown();
         setTimeout(removeMiniMap, 2000);
@@ -484,7 +478,6 @@ function onMouseUp(e) {
         uxvar.smartDropXX = simulationArea.mouseX + 100; // Math.round(((simulationArea.mouseRawX - globalScope.ox+100) / globalScope.scale) / unit) * unit;
         uxvar.smartDropYY = simulationArea.mouseY - 50; // Math.round(((simulationArea.mouseRawY - globalScope.oy+100) / globalScope.scale) / unit) * unit;
     }
-    console.log(simulationArea)
     if (simulationArea.controlDown) selectElement(simulationArea.lastSelected.title);
 }
 

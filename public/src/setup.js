@@ -16,6 +16,8 @@ import { newCircuit } from './circuit';
 import load from './data/load';
 import save from './data/save';
 import showTourGuide from './tutorials';
+import setupModules from './moduleSetup'
+
 
 window.width = undefined;
 window.height = undefined;
@@ -71,6 +73,7 @@ window.addEventListener('orientationchange', resetup); // listener
  * @category setup
  */
 function setupEnvironment() {
+    setupModules();
     const projectId = generateId();
     updateSimulationSet(true);
     const DPR = window.devicePixelRatio || 1;
@@ -137,7 +140,7 @@ export function setup() {
 
     // Load project data after 1 second - needs to be improved, delay needs to be eliminated
     setTimeout(() => {
-        if (logix_project_id !== 0) {
+        if (__logix_project_id != 0) {
             $('.loadingIcon').fadeIn();
             $.ajax({
                 url: '/simulator/get_data',
@@ -146,7 +149,7 @@ export function setup() {
                     xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
                 },
                 data: {
-                    id: logix_project_id,
+                    id: __logix_project_id,
                 },
                 success(response) {
                     var data = (response);
@@ -179,3 +182,5 @@ export function setup() {
     }
     
 }
+
+

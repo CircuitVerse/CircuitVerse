@@ -25,5 +25,6 @@ export const defaultKeys = {
   "Move Element Left": "Shift + Left",
   "Move Element Right": "Shift + Right",
   "Hotkey Preference": "F8",
+  "Open Documentation": "F1",
 };
 

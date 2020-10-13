@@ -14,6 +14,7 @@ import { newCircuit, circuitProperty } from './circuit';
 import modules from './modules';
 import { updateRestrictedElementsInScope } from './restrictedElementDiv';
 import { paste } from './events';
+import { setProjectName, getProjectName } from './data/save';
 import { changeScale } from './canvasApi';
 import updateTheme from "./themer/themer";
 
@@ -222,7 +223,7 @@ export function showProperties(obj) {
     if (simulationArea.lastSelected === undefined || ['Wire', 'CircuitElement', 'Node'].indexOf(simulationArea.lastSelected.objectType) !== -1) {
         $('#moduleProperty').show();
         $('#moduleProperty-inner').append("<div id='moduleProperty-header'>" + 'Project Properties' + '</div>');
-        $('#moduleProperty-inner').append(`<p><span>Project:</span> <input class='objectPropertyAttribute' type='text'  name='setProjectName'  value='${projectName || 'Untitled'}'></p>`);
+        $('#moduleProperty-inner').append(`<p><span>Project:</span> <input class='objectPropertyAttribute' type='text'  name='setProjectName'  value='${getProjectName() || 'Untitled'}'></p>`);
         $('#moduleProperty-inner').append(`<p><span>Circuit:</span> <input class='objectPropertyAttribute' type='text'  name='changeCircuitName'  value='${globalScope.name || 'Untitled'}'></p>`);
         $('#moduleProperty-inner').append(`<p><span>Clock Time (ms):</span> <input class='objectPropertyAttribute' min='50' type='number' style='width:100px' step='10' name='changeClockTime'  value='${simulationArea.timePeriod}'></p>`);
         $('#moduleProperty-inner').append(`<p><span>Clock Enabled:</span> <label class='switch'> <input type='checkbox' ${['', 'checked'][simulationArea.clockEnabled + 0]} class='objectPropertyAttributeChecked' name='changeClockEnable' > <span class='slider'></span></label></p>`);
@@ -237,9 +238,8 @@ export function showProperties(obj) {
         if (!obj.fixedBitWidth) { $('#moduleProperty-inner').append(`<p><span>BitWidth:</span> <input class='objectPropertyAttribute' type='number'  name='newBitWidth' min='1' max='32' value=${obj.bitWidth}></p>`); }
 
         if (obj.changeInputSize) { $('#moduleProperty-inner').append(`<p><span>Input Size:</span> <input class='objectPropertyAttribute' type='number'  name='changeInputSize' min='2' max='10' value=${obj.inputSize}></p>`); }
-
+        
         if (!obj.propagationDelayFixed) { $('#moduleProperty-inner').append(`<p><span>Delay:</span> <input class='objectPropertyAttribute' type='number'  name='changePropagationDelay' min='0' max='100000' value=${obj.propagationDelay}></p>`); }
-
 
         $('#moduleProperty-inner').append(`<p><span>Label:</span> <input class='objectPropertyAttribute' type='text'  name='setLabel'  value='${escapeHtml(obj.label)}'></p>`);
 
@@ -298,17 +298,20 @@ export function showProperties(obj) {
     }
 
     $('.objectPropertyAttribute').on('change keyup paste click', function () {
-        // return;
-        // ////console.log(this.name+":"+this.value);
         checkValidBitWidth();
         scheduleUpdate();
         updateCanvasSet(true);
         wireToBeCheckedSet(1);
-        if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) { 
-            simulationArea.lastSelected[this.name](this.value)
+        let { value } = this;
+        if (this.type === 'number') {
+            value = parseFloat(value);
+        }
+        if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) {
+            simulationArea.lastSelected[this.name](value);
             // Commented out due to property menu refresh bug
             // prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet(); 
-        } else { circuitProperty[this.name](this.value); 
+        } else {
+            circuitProperty[this.name](value);
         }
     });
     $('.objectPropertyAttributeChecked').on('change keyup paste click', function () {
@@ -325,9 +328,8 @@ export function showProperties(obj) {
                 circuitProperty[this.name](this.checked); 
             }
     });
-    $(function () {
-        $("input[type='number']").inputSpinner();
-    });
+    
+    $("input[type='number']").inputSpinner();
 }
 
 /**

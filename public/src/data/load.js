@@ -156,20 +156,18 @@ export function loadScope(scope, data) {
 export default function load(data) {
     // If project is new and no data is there, then just set project name
     if (!data) {
-        setProjectName(projectName);
+        setProjectName(__projectName);
         return;
     }
 
     var { projectId } = data;
-    var projectName = data.name;
-
-    if (data.name === 'Untitled') { projectName = undefined; } else { setProjectName(data.name); }
+    setProjectName(data.name);
 
     globalScope = undefined;
     resetScopeList(); // Remove default scope
     $('.circuits').remove(); // Delete default scope
 
-    // Load all circuits according to the dependency order
+    // Load all  according to the dependency order
     for (let i = 0; i < data.scopes.length; i++) {
         // Create new circuit
         const scope = newCircuit(data.scopes[i].name || 'Untitled', data.scopes[i].id);

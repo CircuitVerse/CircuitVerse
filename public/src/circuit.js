@@ -24,7 +24,7 @@ import {
     forceResetNodesSet, changeLightMode
 } from './engine';
 import { toggleLayoutMode, layoutModeGet } from './layoutMode';
-import { setProjectName } from './data/save';
+import { setProjectName, getProjectName } from './data/save';
 import { changeClockEnable } from './sequential';
 import { changeInputSize } from './modules';
 
@@ -281,6 +281,9 @@ export default class Scope {
     centerFocus(zoomIn = true) {
         if (layoutModeGet()) return;
         findDimensions(this);
+
+        var ytoolbarOffset = 120; // Some part ofcanvas is hidden behind the toolbar
+
         var minX = simulationArea.minWidth || 0;
         var minY = simulationArea.minHeight || 0;
         var maxX = simulationArea.maxWidth || 0;
@@ -289,12 +292,12 @@ export default class Scope {
         var reqWidth = maxX - minX + 150;
         var reqHeight = maxY - minY + 150;
 
-        this.scale = Math.min(width / reqWidth, height / reqHeight);
+        this.scale = Math.min(width / reqWidth, (height - ytoolbarOffset) / reqHeight);
 
         if (!zoomIn) { this.scale = Math.min(this.scale, DPR); }
         this.scale = Math.max(this.scale, DPR / 10);
 
         this.ox = (-minX) * this.scale + (width - (maxX - minX) * this.scale) / 2;
-        this.oy = (-minY) * this.scale + (height - (maxY - minY) * this.scale) / 2;
+        this.oy = (-minY) * this.scale + (height - ytoolbarOffset - (maxY - minY) * this.scale) / 2;
     }
 }
