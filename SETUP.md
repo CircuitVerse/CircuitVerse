@@ -35,6 +35,11 @@ Instructions are available in our [wiki](https://github.com/CircuitVerse/Circuit
 - [Redis](https://redis.io/) - Data structure store
 - [ImageMagick](https://imagemagick.org/) - Image manipulation library
 
+##### Redis on Windows
+Redis can be installed from the [MicrosoftArchive Redis repository](https://github.com/MicrosoftArchive/redis/releases).
+
+It can also be run natively or through [Docker Desktop](https://hub.docker.com/_/redis) if you have the [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/about) enabled.
+
 #### Cloning From GitHub
 To clone the repository, either use the Git GUI if you have one installed or enter the following commands:
 ```sh
