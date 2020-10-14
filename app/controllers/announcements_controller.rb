@@ -10,11 +10,6 @@ class AnnouncementsController < ApplicationController
     @user = current_user
   end
 
-  def show
-    @announcement = Announcement.find(params[:id])
-    @user = current_user
-  end
-
   def new
     @announcement = Announcement.new
   end
