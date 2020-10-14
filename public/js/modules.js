@@ -53,9 +53,9 @@ function AndGate(x, y, scope = globalScope, dir = "RIGHT", inputLength = 2, bitW
 AndGate.prototype = Object.create(CircuitElement.prototype);
 AndGate.prototype.constructor = AndGate;
 AndGate.prototype.tooltipText = "And Gate Tooltip : Implements logical conjunction";
+AndGate.prototype.changeInputSize = changeInputSize;
 AndGate.prototype.alwaysResolve = true;
 AndGate.prototype.verilogType = "and";
-AndGate.prototype.changeInputSize = changeInputSize;
 AndGate.prototype.helplink = "https://docs.circuitverse.org/#/gates?id=and-gate";
 //fn to create save Json Data of object
 AndGate.prototype.customSave = function () {
@@ -942,6 +942,7 @@ function NotGate(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
 NotGate.prototype = Object.create(CircuitElement.prototype);
 NotGate.prototype.constructor = NotGate;
 NotGate.prototype.tooltipText = "Not Gate Tooltip : Inverts the input digital signal.";
+NotGate.prototype.verilogType = "not";
 NotGate.prototype.helplink = "https://docs.circuitverse.org/#/gates?id=not-gate";
 NotGate.prototype.customSave = function () {
     var data = {
@@ -1723,35 +1724,50 @@ Splitter.prototype.reset = function () {
     this.prevInpValue = undefined;
 }
 Splitter.prototype.processVerilog = function () {
-
-    // console.log(this.inp1.verilogLabel +":"+ this.outputs[0].verilogLabel);
-    if (this.inp1.verilogLabel != "" && this.outputs[0].verilogLabel == "") {
-        var bitCount = 0;
-        for (var i = 0; i < this.splitCount; i++) {
-            // var bitSplitValue = extractBits(this.inp1.value, bitCount, bitCount + this.bitWidthSplit[i] - 1);
-            if (this.bitWidthSplit[i] > 1)
-                var label = this.inp1.verilogLabel + '[' + (bitCount + this.bitWidthSplit[i] - 1) + ":" + bitCount + "]";
-            else
-                var label = this.inp1.verilogLabel + '[' + bitCount + "]";
-            if (this.outputs[i].verilogLabel != label) {
-                this.outputs[i].verilogLabel = label;
-                this.scope.stack.push(this.outputs[i]);
+    // console.log(this);
+    for (var j = 0; j < this.outputs.length; j++) {
+        // console.log(this.inp1.verilogLabel +":"+ this.outputs[j].verilogLabel);
+        if (this.inp1.verilogLabel != "" && this.outputs[j].verilogLabel == "") {
+            this.selfRef = true;
+            var bitCount = 0;
+            for (var i = 0; i < this.splitCount; i++) {
+                // var bitSplitValue = extractBits(this.inp1.value, bitCount, bitCount + this.bitWidthSplit[i] - 1);
+                if (this.bitWidthSplit[i] > 1)
+                    var label = this.inp1.verilogLabel + '[' + (bitCount + this.bitWidthSplit[i] - 1) + ":" + bitCount + "]";
+                else
+                    var label = this.inp1.verilogLabel + '[' + bitCount + "]";
+                if (this.outputs[i].verilogLabel != label) {
+                    this.outputs[i].verilogLabel = label;
+                    this.scope.stack.push(this.outputs[i]);
+                }
+                bitCount += this.bitWidthSplit[i];
             }
-            bitCount += this.bitWidthSplit[i];
-        }
-    } else if (this.inp1.verilogLabel == "" && this.outputs[0].verilogLabel != "") {
-
-
-        var label = "{" + this.outputs.map((x) => {
-            return x.verilogLabel
-        }).join(",") + "}";
-        // console.log("HIT",label)
-        if (this.inp1.verilogLabel != label) {
-            this.inp1.verilogLabel = label;
-            this.scope.stack.push(this.inp1);
         }
     }
+    if (this.inp1.verilogLabel == "") {
+        this.inp1.verilogLabel = this.verilogLabel + "_inp";
+        if (this.scope.verilogWireList[this.bitWidth] != undefined) {
+            if (!this.scope.verilogWireList[this.bitWidth].contains(this.inp1.verilogLabel))
+                this.scope.verilogWireList[this.bitWidth].push(this.inp1.verilogLabel);
+        } else
+            this.scope.verilogWireList[this.bitWidth] = [this.inp1.verilogLabel];
+        this.scope.stack.push(this.inp1);
+    }
 }
+//added to generate Splitter INPUTS
+Splitter.prototype.generateVerilog = function () {
+	// console.log(scope.Splitter[i]);
+    var res = "";
+
+    if (!this.selfRef) {
+        res += "assign " + this.inp1.verilogLabel + " = {";
+        for (var i = this.outputs.length - 1; i > 0; i--)
+          res += this.outputs[i].verilogLabel + ",";
+        res += this.outputs[0].verilogLabel + "};";
+    }
+    return res;
+}
+
 Splitter.prototype.customDraw = function () {
 
     ctx = simulationArea.context;

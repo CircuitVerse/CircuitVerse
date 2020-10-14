@@ -3,8 +3,8 @@ var width;
 var height;
 var listenToSimulator=true; //enables key down listener on the simulator
 
-var createNode=false //Flag to create node when its value ==true 
-var stopWire=true //flag for stopoing making Nodes when the second terminal reaches a Node (closed path) 
+var createNode=false //Flag to create node when its value ==true
+var stopWire=true //flag for stopoing making Nodes when the second terminal reaches a Node (closed path)
 
 uniqueIdCounter = 0; // To be deprecated
 unit = 10; // size of each division/ not used everywhere, to be deprecated
@@ -1419,10 +1419,22 @@ CircuitElement.prototype.resolve = function() {
 }
 
 CircuitElement.prototype.processVerilog = function() {
+
+    var output_total = 0;
+    for (var i = 0; i < this.nodeList.length; i++) {
+        if (this.nodeList[i].type == NODE_OUTPUT)
+          output_total++;
+    }
+
     var output_count = 0;
     for (var i = 0; i < this.nodeList.length; i++) {
+        if (this.objectType == "Clock") {
+            this.nodeList[i].verilogLabel = verilog.fixName(this.label);
+        }
         if (this.nodeList[i].type == NODE_OUTPUT) {
-            this.nodeList[i].verilogLabel = this.nodeList[i].verilogLabel || (this.verilogLabel + "_" + (verilog.fixName(this.nodeList[i].label) || ("out_" + output_count)));
+            this.nodeList[i].verilogLabel = this.nodeList[i].verilogLabel 
+                || (this.verilogLabel + "_" + (verilog.fixNameInv(this.nodeList[i].label) 
+                || ((output_total>1)?"out_" + output_count:"out")));
             if (this.objectType != "Input" && this.nodeList[i].connections.length > 0) {
                 if (this.scope.verilogWireList[this.bitWidth] != undefined) {
                     if (!this.scope.verilogWireList[this.bitWidth].contains(this.nodeList[i].verilogLabel))
@@ -1475,10 +1487,8 @@ CircuitElement.prototype.verilogName = function() {
 }
 
 CircuitElement.prototype.generateVerilog = function() {
-
     var inputs = [];
     var outputs = [];
-
 
     for (var i = 0; i < this.nodeList.length; i++) {
         if (this.nodeList[i].type == NODE_INPUT) {
@@ -1489,9 +1499,15 @@ CircuitElement.prototype.generateVerilog = function() {
     }
 
     var list = outputs.concat(inputs);
-    var res = this.verilogName() + " " + this.verilogLabel + " (" + list.map(function(x) {
+    var res = this.verilogName();
+
+    //add this for mult-bit inputs
+    if (this.bitWidth != undefined && this.bitWidth > 1)
+      res += " #(" + this.bitWidth + ")";
+
+    res += " " + this.verilogLabel + "(" + list.map(function(x) {
         return x.verilogLabel
-    }).join(",") + ");";
+    }).join(", ") + ");";
 
     return res;
 }

@@ -115,7 +115,6 @@ SubCircuit.prototype.makeConnections = function() {
         this.localScope.Output[i].inp1.connectWireLess(this.outputNodes[i]);
         this.outputNodes[i].subcircuitOverride = true;
     }
-
 }
 
 SubCircuit.prototype.removeConnections = function() {
@@ -126,6 +125,7 @@ SubCircuit.prototype.removeConnections = function() {
     for (let i = 0; i < this.outputNodes.length; i++)
         this.localScope.Output[i].inp1.disconnectWireLess(this.outputNodes[i]);
 }
+
 
 SubCircuit.prototype.buildCircuit = function() {
 
@@ -347,6 +347,27 @@ SubCircuit.prototype.resolve = function() {
 
 SubCircuit.prototype.isResolvable = function() {
     return false
+}
+
+SubCircuit.prototype.generateVerilog = function() {
+    var inputs = [];
+    var outputs = [];
+
+    for (var i = 0; i < this.nodeList.length; i++) {
+        if (this.nodeList[i].type == NODE_INPUT) {
+            inputs.push(this.nodeList[i]);
+        } else {
+            outputs.push(this.nodeList[i]);
+        }
+    }
+
+    //changes space
+    var list = outputs.concat(inputs);
+    var res = this.verilogName() + " " + this.verilogLabel + "(" + list.map(function(x) {
+        	return x.verilogLabel
+    	}).join(", ") + ");";
+
+    return res;
 }
 
 SubCircuit.prototype.verilogName = function() {
