@@ -349,6 +349,10 @@ SubCircuit.prototype.isResolvable = function() {
     return false
 }
 
+SubCircuit.prototype.blah = function () {
+    return "sub";
+}
+
 SubCircuit.prototype.generateVerilog = function() {
     var inputs = [];
     var outputs = [];
@@ -364,8 +368,8 @@ SubCircuit.prototype.generateVerilog = function() {
     //changes space
     var list = outputs.concat(inputs);
     var res = this.verilogName() + " " + this.verilogLabel + "(" + list.map(function(x) {
-        	return x.verilogLabel
-    	}).join(", ") + ");";
+            return x.verilogLabel
+        }).join(", ") + ");";
 
     return res;
 }

@@ -460,6 +460,24 @@ Random.prototype.customDraw = function() {
 
 }
 
+//add this to output the modue
+Random.moduleVerilog = function () {
+    var output = "";
+    output += "\n";
+    output += "module Random(val, clk, max);\n";
+    output += "  parameter WIDTH = 1;\n";
+    output += "  output reg [WIDTH-1:0] val;\n";
+    output += "  input clk;\n";
+    output += "  input [WIDTH-1:0] max;\n";
+    output += "\n";
+    output += "  always @ (posedge clk)\n";
+    output += "    val = $urandom_range(0, max);\n";
+    output += "endmodule\n";
+    output += "\n";
+    return output;
+}
+
+
 function SRflipFlop(x, y, scope = globalScope, dir = "RIGHT") {
     CircuitElement.call(this, x, y, scope, dir, 1);
     this.directionFixed = true;
@@ -1035,19 +1053,21 @@ Clock.prototype.customDraw = function() {
     ctx.stroke();
 
 }
-// //add this to output the modue
-// Clock.moduleVerilog = function() {
-//     var output = "";
-//     output += "\n";
-//     output += "module Clock(clk);\n";
-//     output += "  output reg clk;\n";
-//     output += "  always begin\n";
-//     output += "    #10\n";
-//     output += "    clk=1'b0;\n";
-//     output += "    #10\n";
-//     output += "    clk=1'b0;\n";
-//     output += "  end\n";
-//     output += "endmodule\n";
-//     output += "\n";
-//     return output;
-// }
+// This code is for internal clock, may reactivate
+/*
+Clock.moduleVerilog = function() {
+    var output = "";
+    output += "\n";
+    output += "module Clock(clk);\n";
+    output += "  output reg clk;\n";
+    output += "  always begin\n";
+    output += "    #10\n";
+    output += "    clk=1'b0;\n";
+    output += "    #10\n";
+    output += "    clk=1'b0;\n";
+    output += "  end\n";
+    output += "endmodule\n";
+    output += "\n";
+    return output;
+}
+*/

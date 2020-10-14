@@ -18,16 +18,27 @@ verilog = {
         for (id in scopeList)
             dependencyList[id] = scopeList[id].getDependencies();
 
-        var output = "";
-        for (id in scopeList) {
-            output+=this.exportVerilogScope_r(id,completed,dependencyList);
+		//call resetVerilog for the element if it exists 
+		//currently for Mux, Demux, Enc, Dec, can be useful for others
+		//**** is there a way to not use eval()?
+        for (var i = 0; i < circuitElementList.length; i++) {            
+            var str = circuitElementList[i] + ".resetVerilog"; // make sure this exists
+            if (eval(str)) {
+                output += eval(str + "();");
+            }
         }
 
-        for (t = 0; t < circuitElementList.length; t++) {
-            var str = circuitElementList[t] + ".moduleVerilog"; // make sure this exists
-            // console.log(eval(str))
+        var output = "";
+        for (id in scopeList) {
+            output  +=this.exportVerilogScope_r(id,completed,dependencyList);
+        }
+
+		//call moduleVerilog to generate the element definition
+		//currently for DFF, TFF, Mux, Demux, Enc, Dec, can be useful for others
+		//**** is there a way to not use eval()?
+        for (var i = 0; i < circuitElementList.length; i++) {            
+            var str = circuitElementList[i] + ".moduleVerilog"; // make sure this exists
             if (eval(str)) {
-                // console.log(circuitElementList[t])
                 output += eval(str + "();");
             }
         }
@@ -45,7 +56,7 @@ verilog = {
 
     },
     exportVerilogScope_r: function(id,completed={},dependencyList={}){
-        var output="";
+        var output = "";
         if (completed[id]) return output;
 
         for (var i = 0; i < dependencyList[id].length; i++)
@@ -53,6 +64,14 @@ verilog = {
         completed[id] = true;
 
         var scope = scopeList[id];
+    	// This part is explicitely added to add the SubCircuit and process its outputs
+        for(var i = 0; i < scope.Clock.length; i++) {
+//            console.log(scope.Clock[i].label);
+            if (scope.Clock[i].label == "") {
+                scope.Clock[i].label = "clk"+i;
+//                console.log(scope.Clock[i].label);
+            }
+        }
         this.resetLabels(scope);
         this.getReady(scope);
 
@@ -66,17 +85,16 @@ verilog = {
             else
                 output += "  wire [" +(bitWidth-1)+":0] " + scope.verilogWireList[bitWidth].join(", ") + ";\n";
         }
-        output+=res;
+        output += res;
 
-        output+="endmodule\n";
+        output += "endmodule\n";
         return output;
     },
     processGraph: function(scope=globalScope){
-
-        var res=""
-        scope.stack=[];
-        scope.pending=[];
-        scope.verilogWireList={};
+        var res = "";
+        scope.stack = [];
+        scope.pending = [];
+        scope.verilogWireList = {};
 
         for (var i = 0; i < inputList.length; i++) {
             for (var j = 0; j < scope[inputList[i]].length; j++) {
@@ -86,20 +104,35 @@ verilog = {
         var stepCount = 0;
         var elem = undefined;
 
-        var order=[];
-
+        var order = [];
+        
         // This part is explicitely added to add the SubCircuit and process its outputs
         for(var i = 0; i < scope.SubCircuit.length; i++){
             order.push(scope.SubCircuit[i]);
             scope.SubCircuit[i].processVerilog();
         }
 
-        // This part is explicitely added to add the SubCircuit and process its outputs
+        // This part is explicitely added to add the Outputs and process its outputs
         for(var i = 0; i < scope.Output.length; i++){
             order.push(scope.Output[i]);
             // scope.Output[i].processVerilog();
         }
 
+        /* for making DigitalLed Output
+        // This part is explicitely added to add the DigitalLed and process its outputs
+        for(var i = 0; i < scope.DigitalLed.length; i++){
+            order.push(scope.DigitalLed[i]);
+            // scope.DigitalLed[i].processVerilog();
+        }
+
+		// for making HexDisplay Output
+        // This part is explicitely added to add the HexDisplay and process its outputs
+        for(var i = 0; i < scope.HexDisplay.length; i++){
+            order.push(scope.HexDisplay[i]);
+            // scope.HexDisplay[i].processVerilog();
+        }
+        */
+        
         // This part is explicitely added to add the Splitter INPUTS and process its outputs
         for(var i = 0; i < scope.Splitter.length; i++){
             if (scope.Splitter[i].inp1.connections[0].type != 1) {
@@ -107,7 +140,7 @@ verilog = {
                 scope.Splitter[i].processVerilog();
             }
         }
-
+        
         while (scope.stack.length || scope.pending.length) {
             if (errorDetected) return;
             if(scope.stack.length)
@@ -116,7 +149,8 @@ verilog = {
                 elem = scope.pending.pop();
             // console.log(elem)
             elem.processVerilog();
-            if(elem.objectType!="Node"&&elem.objectType!="Clock"&&elem.objectType!="Input"&& elem.objectType!="Splitter") {
+            if(elem.objectType != "Node" && elem.objectType != "Clock" 
+                && elem.objectType != "Input" && elem.objectType != "Splitter") {
                 if(!order.contains(elem))
                     order.push(elem);
             }
@@ -127,8 +161,11 @@ verilog = {
                 return;
             }
         }
-        for(var i=0;i<order.length;i++) {
-            res += "  " + order[i].generateVerilog() + "\n";
+        for(var i = 0; i < order.length;i++) {
+            elem = order[i];
+            // console.log(elem.objectType);
+            // if (elem.blah) console.log(elem.blah());
+            res += "  " + elem.generateVerilog() + "\n";
         }
         return res;
     },
@@ -161,6 +198,20 @@ verilog = {
             else
                 scope.Output[i].label=this.fixName(scope.Output[i].label)
         }
+        /* for making them output
+        for(var i=0;i<scope.DigitalLed.length;i++){
+            if(scope.DigitalLed[i].label=="")
+                scope.DigitalLed[i].label="led_"+i;
+            else
+                scope.DigitalLed[i].label=this.fixName(scope.DigitalLed[i].label)
+        }
+        for(var i=0;i<scope.HexDisplay.length;i++){
+            if(scope.HexDisplay[i].label=="")
+                scope.HexDisplay[i].label="hexdisp_"+i;
+            else
+                scope.HexDisplay[i].label=this.fixName(scope.HexDisplay[i].label)
+        }
+        */
         for(var i=0;i<scope.SubCircuit.length;i++){
             if(scope.SubCircuit[i].label=="")
                 scope.SubCircuit[i].label=scope.SubCircuit[i].data.name+"_"+i;
@@ -182,6 +233,14 @@ verilog = {
         for(var i=0;i<scope.Output.length;i++){
             pins.push(scope.Output[i].label);
         }
+        /* for making them output
+        for(var i=0;i<scope.DigitalLed.length;i++){
+            pins.push(scope.DigitalLed[i].label);
+        }  
+        for(var i=0;i<scope.HexDisplay.length;i++){
+            pins.push(scope.HexDisplay[i].label);
+        }
+        */              
         for(var i=0;i<scope.Clock.length;i++){
             pins.push(scope.Clock[i].label);
         }
@@ -225,6 +284,20 @@ verilog = {
             else
                 outputs[scope.Output[i].bitWidth] = [scope.Output[i].label];
         }
+        /* for making them output
+        for(var i=0;i<scope.DigitalLed.length;i++){
+            if(outputs[scope.DigitalLed[i].bitWidth])
+                outputs[scope.DigitalLed[i].bitWidth].push(scope.DigitalLed[i].label);
+            else
+                outputs[scope.DigitalLed[i].bitWidth] = [scope.DigitalLed[i].label];
+        }
+        for(var i=0;i<scope.HexDisplay.length;i++){
+            if(outputs[scope.HexDisplay[i].bitWidth])
+                outputs[scope.HexDisplay[i].bitWidth].push(scope.HexDisplay[i].label);
+            else
+                outputs[scope.HexDisplay[i].bitWidth] = [scope.HexDisplay[i].label];
+        }
+        */
         var res="";
         for (bitWidth in outputs){
             if(bitWidth==1)
