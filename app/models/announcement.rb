@@ -6,6 +6,6 @@ class Announcement < ApplicationRecord
   end
 
   def exists?
-    !new_record?
+    persisted?
   end
 end

@@ -1,4 +1,4 @@
-<%=form_with(model: announcement, local: true)  do |form| %>
+<%= form_with(model: announcement, local: true)  do |form| %>
 <div class="field form-group">
     <h6><%= form.label :body %></h6>
     <div class="input-group">
@@ -17,7 +17,7 @@
       <%= form.date_field :end_time, class: "form-control form-input", required: true %>
     </div>
   </div>
-  <div >
+  <div>
     <%= form.submit class: "btn primary-button" %>
   </div>
-<%end%>
+<% end %>
