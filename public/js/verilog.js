@@ -62,7 +62,10 @@ verilog = {
         output += this.generateInputList(scope);
         var res = this.processGraph(scope);
         // Note: Process verilog populates scope.verilogWireList
-        for (bitWidth in scope.verilogWireList){
+
+        for (var bitWidth = 1; bitWidth<= 32; bitWidth++){
+            if(scope.verilogWireList[bitWidth].length == 0) 
+                continue;
             if(bitWidth == 1)
                 output += "  wire " + scope.verilogWireList[bitWidth].join(", ") + ";\n";
             else
@@ -78,7 +81,10 @@ verilog = {
         var res=""
         scope.stack=[];
         scope.pending=[];
-        scope.verilogWireList={};
+        scope.verilogWireList = [];
+        for(var i = 0; i <= 32; i++)
+            scope.verilogWireList.push(new Array());
+            
         // Start DFS from inputs
         for (var i = 0; i < inputList.length; i++) {
             for (var j = 0; j < scope[inputList[i]].length; j++) {
@@ -114,26 +120,18 @@ verilog = {
         //     }
         // }
         
-        while (scope.stack.length || scope.pending.length) {
+        while (scope.stack.length) {
             if (errorDetected) return;
-            if(scope.stack.length)
-                elem = scope.stack.pop();
-            else
-                elem = scope.pending.pop();
+            elem = scope.stack.pop();
 
             if(verilogResolvedSet.has(elem))
                 continue;
 
             elem.processVerilog();
-            if(elem.objectType!="Node"&&elem.objectType!="Input") {
+
+            if(elem.objectType!="Node" && elem.objectType!="Input") {
                 verilogResolvedList.push(elem);
                 verilogResolvedSet.add(elem);
-            }
-            stepCount++;
-            if (stepCount > 10000) {
-                // console.log(elem)
-                showError("Simulation Stack limit exceeded: maybe due to cyclic paths or contention");
-                return;
             }
         }
         for(var i=0;i<verilogResolvedList.length;i++) {
@@ -229,7 +227,6 @@ verilog = {
                 inputs[scope.Input[i].bitWidth] = [scope.Input[i].label];
         }
         var res="";
-        console.log(inputs);
         for (bitWidth in inputs){
             if(bitWidth==1)
                 res+="  input "+ inputs[1].join(", ") + ";\n";

@@ -1433,11 +1433,8 @@ CircuitElement.prototype.processVerilog = function() {
             this.nodeList[i].verilogLabel = 
             verilog.generateNodeName(this.nodeList[i], output_count, output_total);
             if (this.objectType != "Input" && this.nodeList[i].connections.length > 0) {
-                if (this.scope.verilogWireList[this.bitWidth] != undefined) {
-                    if (!this.scope.verilogWireList[this.bitWidth].contains(this.nodeList[i].verilogLabel))
-                        this.scope.verilogWireList[this.bitWidth].push(this.nodeList[i].verilogLabel);
-                } else
-                    this.scope.verilogWireList[this.bitWidth] = [this.nodeList[i].verilogLabel];
+                if (!this.scope.verilogWireList[this.bitWidth].contains(this.nodeList[i].verilogLabel))
+                    this.scope.verilogWireList[this.bitWidth].push(this.nodeList[i].verilogLabel);
             }
             this.scope.stack.push(this.nodeList[i]);
             output_count++;

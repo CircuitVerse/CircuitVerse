@@ -1746,11 +1746,8 @@ Splitter.prototype.processVerilog = function () {
     }
     if (this.inp1.verilogLabel == "") {
         this.inp1.verilogLabel = this.verilogLabel + "_inp";
-        if (this.scope.verilogWireList[this.bitWidth] != undefined) {
-            if (!this.scope.verilogWireList[this.bitWidth].contains(this.inp1.verilogLabel))
-                this.scope.verilogWireList[this.bitWidth].push(this.inp1.verilogLabel);
-        } else
-            this.scope.verilogWireList[this.bitWidth] = [this.inp1.verilogLabel];
+        if (!this.scope.verilogWireList[this.bitWidth].contains(this.inp1.verilogLabel))
+            this.scope.verilogWireList[this.bitWidth].push(this.inp1.verilogLabel);
         this.scope.stack.push(this.inp1);
     }
 }
