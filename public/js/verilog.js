@@ -92,27 +92,27 @@ verilog = {
         var verilogResolvedSet = new Set();
 
         // This part is explicitly added to add the SubCircuit and process its outputs
-        for(var i = 0; i < scope.SubCircuit.length; i++){
-            verilogResolvedList.push(scope.SubCircuit[i]);
-            verilogResolvedSet.add(scope.SubCircuit[i]);
-            scope.SubCircuit[i].processVerilog();
-        }
+        // for(var i = 0; i < scope.SubCircuit.length; i++){
+        //     verilogResolvedList.push(scope.SubCircuit[i]);
+        //     verilogResolvedSet.add(scope.SubCircuit[i]);
+        //     scope.SubCircuit[i].processVerilog();
+        // }
 
         // This part is explicitly added to add the SubCircuit and process its outputs
-        for(var i = 0; i < scope.Output.length; i++){
-            verilogResolvedList.push(scope.Output[i]);
-            verilogResolvedSet.add(scope.Output[i]);
-            // scope.Output[i].processVerilog();
-        }
+        // for(var i = 0; i < scope.Output.length; i++){
+        //     verilogResolvedList.push(scope.Output[i]);
+        //     verilogResolvedSet.add(scope.Output[i]);
+        //     // scope.Output[i].processVerilog();
+        // }
 
         // This part is explicitly added to add the Splitter INPUTS and process its outputs
-        for(var i = 0; i < scope.Splitter.length; i++){
-            if (scope.Splitter[i].inp1.connections[0].type != 1) {
-                verilogResolvedList.push(scope.Splitter[i]);
-                verilogResolvedSet.add(scope.Splitter[i]);
-                scope.Splitter[i].processVerilog();
-            }
-        }
+        // for(var i = 0; i < scope.Splitter.length; i++){
+        //     if (scope.Splitter[i].inp1.connections[0].type != 1) {
+        //         verilogResolvedList.push(scope.Splitter[i]);
+        //         verilogResolvedSet.add(scope.Splitter[i]);
+        //         scope.Splitter[i].processVerilog();
+        //     }
+        // }
         
         while (scope.stack.length || scope.pending.length) {
             if (errorDetected) return;
@@ -120,13 +120,14 @@ verilog = {
                 elem = scope.stack.pop();
             else
                 elem = scope.pending.pop();
-            // console.log(elem)
+
+            if(verilogResolvedSet.has(elem))
+                continue;
+
             elem.processVerilog();
-            if(elem.objectType!="Node"&&elem.objectType!="Clock"&&elem.objectType!="Input"&& elem.objectType!="Splitter") {
-                if(!verilogResolvedSet.has(elem)) {
-                    verilogResolvedList.push(elem);
-                    verilogResolvedSet.add(elem);
-                }
+            if(elem.objectType!="Node"&&elem.objectType!="Input") {
+                verilogResolvedList.push(elem);
+                verilogResolvedSet.add(elem);
             }
             stepCount++;
             if (stepCount > 10000) {
@@ -161,6 +162,14 @@ verilog = {
             // copy label to node
             scope.Input[i].output1.verilogLabel = scope.Input[i].label;
         }
+        // for(var i=0;i<scope.Clock.length;i++){
+        //     if(scope.Clock[i].label=="")
+        //         scope.Clock[i].label="clk_"+i;
+        //     else
+        //         scope.Clock[i].label=this.fixName(scope.Clock[i].label)
+        //     // copy label to node
+        //     scope.Clock[i].output1.verilogLabel = scope.Clock[i].label;
+        // }
         for(var i=0;i<scope.ConstantVal.length;i++){
             if(scope.ConstantVal[i].label=="")
                 scope.ConstantVal[i].label="const_"+i;
@@ -207,12 +216,12 @@ verilog = {
     },
     generateInputList:function(scope=globalScope){
         var inputs={}
-        for(var i=0;i<scope.Clock.length;i++){
-            if(inputs[1])
-                inputs[1].push(scope.Clock[i].label);
-            else
-                inputs[1] = [scope.Clock[i].label];
-        }
+        // for(var i=0;i<scope.Clock.length;i++){
+        //     if(inputs[1])
+        //         inputs[1].push(scope.Clock[i].label);
+        //     else
+        //         inputs[1] = [scope.Clock[i].label];
+        // }
         for(var i=0;i<scope.Input.length;i++){
             if(inputs[scope.Input[i].bitWidth])
                 inputs[scope.Input[i].bitWidth].push(scope.Input[i].label);
@@ -220,6 +229,7 @@ verilog = {
                 inputs[scope.Input[i].bitWidth] = [scope.Input[i].label];
         }
         var res="";
+        console.log(inputs);
         for (bitWidth in inputs){
             if(bitWidth==1)
                 res+="  input "+ inputs[1].join(", ") + ";\n";
@@ -248,10 +258,7 @@ verilog = {
 
         return res;
     },
-    fixNameInv: function(name){
+    fixName: function(name){
         return name.replace(/ Inverse/g, "_inv").replace(/ /g , "_");
     },
-    fixName: function(name){
-        return name.replace(/ /g , "_");
-    }
 }

@@ -1428,12 +1428,9 @@ CircuitElement.prototype.processVerilog = function() {
 
     var output_count = 0;
     for (var i = 0; i < this.nodeList.length; i++) {
-        if (this.objectType == "Clock") {
-            this.nodeList[i].verilogLabel = verilog.fixName(this.label);
-        }
         if (this.nodeList[i].type == NODE_OUTPUT) {
             this.nodeList[i].verilogLabel = this.nodeList[i].verilogLabel 
-                || (this.verilogLabel + "_" + (verilog.fixNameInv(this.nodeList[i].label) 
+                || (this.verilogLabel + "_" + (verilog.fixName(this.nodeList[i].label) 
                 || ((output_total>1)?"out_" + output_count:"out")));
             if (this.objectType != "Input" && this.nodeList[i].connections.length > 0) {
                 if (this.scope.verilogWireList[this.bitWidth] != undefined) {
@@ -1449,6 +1446,8 @@ CircuitElement.prototype.processVerilog = function() {
 }
 
 CircuitElement.prototype.isVerilogResolvable = function() {
+    // Always return true
+    return true;
 
     var backupValues = []
     for (var i = 0; i < this.nodeList.length; i++) {
