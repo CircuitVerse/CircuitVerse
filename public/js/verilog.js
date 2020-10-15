@@ -261,4 +261,16 @@ verilog = {
     fixName: function(name){
         return name.replace(/ Inverse/g, "_inv").replace(/ /g , "_");
     },
+    generateNodeName: function(node, currentCount, totalCount) {
+        if(node.verilogLabel) return node.verilogLabel;
+        var parentVerilogLabel = node.verilogLabel;
+        var nodeName;
+        if(node.label) {
+            nodeName = verilog.fixName(node.label);
+        }
+        else {
+            nodeName = (totalCount > 1) ? "out_" + currentCount: "out";
+        }
+        return parentVerilogLabel + "_" + nodeName;
+    }
 }
