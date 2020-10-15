@@ -1501,7 +1501,7 @@ CircuitElement.prototype.generateVerilog = function() {
     var list = outputs.concat(inputs);
     var res = this.verilogName();
 
-    //add this for mult-bit inputs
+    //add this for multi-bit inputs
     if (this.bitWidth != undefined && this.bitWidth > 1)
       res += " #(" + this.bitWidth + ")";
 

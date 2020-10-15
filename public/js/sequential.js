@@ -51,29 +51,27 @@ TflipFlop.prototype.isResolvable = function() {
     if (this.clockInp.value != undefined && this.dInp.value != undefined) return true;
     return false;
 }
-//add this to output the modue
-TflipFlop.moduleVerilog = function() {
-    var output = "";
-    output += "\n";
-    output += "module TflipFlop(q, q_inv, clk, t, a_rst, pre, en);\n";
-    output += "  parameter WIDTH = 1;\n";
-    output += "  output reg [WIDTH-1:0] q, q_inv;\n";
-    output += "  input clk, a_rst, pre, en;\n";
-    output += "  input [WIDTH-1:0] t;\n";
-    output += "  \n";
-    output += "  always @ (posedge clk or posedge a_rst)\n";
-    output += "    if (a_rst) begin\n";
-    output += "      q <= 'b0;\n";
-    output += "      q_inv <= 'b1;\n";
-    output += "    end else if (en == 0) ;\n";
-    output += "    else if (t) begin\n";
-    output += "      q <= q ^ t;\n";
-    output += "      q_inv <= ~q ^ t;\n";
-    output += "    end\n";
-    output += "endmodule\n";
-    output += "\n";
-    return output;
-}
+
+//add this to output the module
+TflipFlop.moduleVerilog = `
+module TflipFlop(q, q_inv, clk, t, a_rst, pre, en);
+  parameter WIDTH = 1;
+  output reg [WIDTH-1:0] q, q_inv;
+  input clk, a_rst, pre, en;
+  input [WIDTH-1:0] t;
+  
+  always @ (posedge clk or posedge a_rst)
+    if (a_rst) begin
+      q <= 'b0;
+      q_inv <= 'b1;
+    end else if (en == 0) ;
+    else if (t) begin
+      q <= q ^ t;
+      q_inv <= ~q ^ t;
+    end
+endmodule
+`
+
 TflipFlop.prototype.newBitWidth = function(bitWidth) {
     this.bitWidth = bitWidth;
     this.dInp.bitWidth = bitWidth;
@@ -223,29 +221,26 @@ DflipFlop.prototype.resolve = function() {
         simulationArea.simulationQueue.add(this.qInvOutput);
     }
 }
-//add this to output the modue
-DflipFlop.moduleVerilog = function() {
-    var output = "";
-    output += "\n";
-    output += "module DflipFlop(q, q_inv, clk, d, a_rst, pre, en);\n";
-    output += "  parameter WIDTH = 1;\n";
-    output += "  output reg [WIDTH-1:0] q, q_inv;\n";
-    output += "  input clk, a_rst, pre, en;\n";
-    output += "  input [WIDTH-1:0] d;\n";
-    output += "  \n";
-    output += "  always @ (posedge clk or posedge a_rst)\n";
-    output += "    if (a_rst) begin\n";
-    output += "      q <= 'b0;\n";
-    output += "      q_inv <= 'b1;\n";
-    output += "    end else if (en == 0) ;\n";
-    output += "    else begin\n";
-    output += "      q <= d;\n";
-    output += "      q_inv <= ~d;\n";
-    output += "    end\n";
-    output += "endmodule\n";
-    output += "\n";
-    return output;
-}
+
+//add this to output the module
+DflipFlop.moduleVerilog = `
+module DflipFlop(q, q_inv, clk, d, a_rst, pre, en);
+  parameter WIDTH = 1;
+  output reg [WIDTH-1:0] q, q_inv;
+  input clk, a_rst, pre, en;
+  input [WIDTH-1:0] d;
+  
+  always @ (posedge clk or posedge a_rst)
+    if (a_rst) begin
+      q <= 'b0;
+      q_inv <= 'b1;
+    end else if (en == 0) ;
+    else begin
+      q <= d;
+      q_inv <= ~d;
+    end
+endmodule
+`
 DflipFlop.prototype.customSave = function() {
     var data = {
         nodes: {
@@ -1035,19 +1030,14 @@ Clock.prototype.customDraw = function() {
     ctx.stroke();
 
 }
-// //add this to output the modue
-// Clock.moduleVerilog = function() {
-//     var output = "";
-//     output += "\n";
-//     output += "module Clock(clk);\n";
-//     output += "  output reg clk;\n";
-//     output += "  always begin\n";
-//     output += "    #10\n";
-//     output += "    clk=1'b0;\n";
-//     output += "    #10\n";
-//     output += "    clk=1'b0;\n";
-//     output += "  end\n";
-//     output += "endmodule\n";
-//     output += "\n";
-//     return output;
-// }
+Clock.moduleVerilog = `
+module Clock(clk);
+  output reg clk;
+  always begin
+    #10
+    clk=1'b0;
+    #10
+    clk=1'b0;
+  end
+endmodule
+`
