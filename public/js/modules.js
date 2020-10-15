@@ -1724,14 +1724,12 @@ Splitter.prototype.reset = function () {
     this.prevInpValue = undefined;
 }
 Splitter.prototype.processVerilog = function () {
-    // console.log(this);
+    // Splitter
     for (var j = 0; j < this.outputs.length; j++) {
-        // console.log(this.inp1.verilogLabel +":"+ this.outputs[j].verilogLabel);
         if (this.inp1.verilogLabel != "" && this.outputs[j].verilogLabel == "") {
             this.selfRef = true;
             var bitCount = 0;
             for (var i = 0; i < this.splitCount; i++) {
-                // var bitSplitValue = extractBits(this.inp1.value, bitCount, bitCount + this.bitWidthSplit[i] - 1);
                 if (this.bitWidthSplit[i] > 1)
                     var label = this.inp1.verilogLabel + '[' + (bitCount + this.bitWidthSplit[i] - 1) + ":" + bitCount + "]";
                 else
@@ -1744,6 +1742,7 @@ Splitter.prototype.processVerilog = function () {
             }
         }
     }
+    // Joiner
     if (this.inp1.verilogLabel == "") {
         this.inp1.verilogLabel = this.verilogLabel + "_inp";
         if (!this.scope.verilogWireList[this.bitWidth].contains(this.inp1.verilogLabel))
@@ -1753,7 +1752,6 @@ Splitter.prototype.processVerilog = function () {
 }
 //added to generate Splitter INPUTS
 Splitter.prototype.generateVerilog = function () {
-	// console.log(scope.Splitter[i]);
     var res = "";
 
     if (!this.selfRef) {

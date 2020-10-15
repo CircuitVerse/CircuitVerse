@@ -55,9 +55,11 @@ verilog = {
         output += this.generateHeader(scope);
         output += this.generateOutputList(scope); // generate output first to be consistent
         output += this.generateInputList(scope);
-        var res = this.processGraph(scope, elementTypesUsed);
-        // Note: Process verilog populates scope.verilogWireList
 
+         // Note: processGraph function populates scope.verilogWireList
+        var res = this.processGraph(scope, elementTypesUsed);
+
+        // Generate Wire Initialization Code
         for (var bitWidth = 1; bitWidth<= 32; bitWidth++){
             if(scope.verilogWireList[bitWidth].length == 0) 
                 continue;
@@ -66,19 +68,24 @@ verilog = {
             else
                 output += "  wire [" +(bitWidth-1)+":0] " + scope.verilogWireList[bitWidth].join(", ") + ";\n";
         }
-        output+=res;
 
-        output+="endmodule\n";
+        // Append Wire connections and module instantiations
+        output += res;
+
+        // Append footer
+        output += "endmodule\n";
         return output;
     },
     // Performs DFS on the graph and generates netlist of wires and connections
     processGraph: function(scope, elementTypesUsed){
-        var res=""
-        scope.stack=[];
-        scope.pending=[];
+        // Initializations
+        var res = "";
+        scope.stack = [];
         scope.verilogWireList = [];
         for(var i = 0; i <= 32; i++)
             scope.verilogWireList.push(new Array());
+
+        var verilogResolvedSet = new Set();
             
         // Start DFS from inputs
         for (var i = 0; i < inputList.length; i++) {
@@ -86,52 +93,29 @@ verilog = {
                 scope.stack.push(scope[inputList[i]][j]);
             }
         }
-        var stepCount = 0;
-        var elem = undefined;
-
-        var verilogResolvedList=[];
-        var verilogResolvedSet = new Set();
-
-        // This part is explicitly added to add the SubCircuit and process its outputs
-        // for(var i = 0; i < scope.SubCircuit.length; i++){
-        //     verilogResolvedList.push(scope.SubCircuit[i]);
-        //     verilogResolvedSet.add(scope.SubCircuit[i]);
-        //     scope.SubCircuit[i].processVerilog();
-        // }
-
-        // This part is explicitly added to add the SubCircuit and process its outputs
-        // for(var i = 0; i < scope.Output.length; i++){
-        //     verilogResolvedList.push(scope.Output[i]);
-        //     verilogResolvedSet.add(scope.Output[i]);
-        //     // scope.Output[i].processVerilog();
-        // }
-
-        // This part is explicitly added to add the Splitter INPUTS and process its outputs
-        // for(var i = 0; i < scope.Splitter.length; i++){
-        //     if (scope.Splitter[i].inp1.connections[0].type != 1) {
-        //         verilogResolvedList.push(scope.Splitter[i]);
-        //         verilogResolvedSet.add(scope.Splitter[i]);
-        //         scope.Splitter[i].processVerilog();
-        //     }
-        // }
         
+        // Iterative DFS on circuit graph
         while (scope.stack.length) {
             if (errorDetected) return;
-            elem = scope.stack.pop();
+            var elem = scope.stack.pop();
 
             if(verilogResolvedSet.has(elem))
                 continue;
 
+            // Process verilog creates variable names and adds elements to DFS stack
             elem.processVerilog();
+
+            // Record usage of element type
             elementTypesUsed.add(elem.objectType);
 
             if(elem.objectType!="Node" && elem.objectType!="Input") {
-                verilogResolvedList.push(elem);
                 verilogResolvedSet.add(elem);
             }
         }
-        for(var i=0;i<verilogResolvedList.length;i++) {
-            res += "  " + verilogResolvedList[i].generateVerilog() + "\n";
+
+        // Generate connection verilog code and module instantiations
+        for(var elem of verilogResolvedSet) {
+            res += "  " + elem.generateVerilog() + "\n";
         }
         return res;
     },
@@ -156,14 +140,6 @@ verilog = {
             // copy label to node
             scope.Input[i].output1.verilogLabel = scope.Input[i].label;
         }
-        // for(var i=0;i<scope.Clock.length;i++){
-        //     if(scope.Clock[i].label=="")
-        //         scope.Clock[i].label="clk_"+i;
-        //     else
-        //         scope.Clock[i].label=this.fixName(scope.Clock[i].label)
-        //     // copy label to node
-        //     scope.Clock[i].output1.verilogLabel = scope.Clock[i].label;
-        // }
         for(var i=0;i<scope.ConstantVal.length;i++){
             if(scope.ConstantVal[i].label=="")
                 scope.ConstantVal[i].label="const_"+i;
@@ -210,12 +186,6 @@ verilog = {
     },
     generateInputList:function(scope=globalScope){
         var inputs={}
-        // for(var i=0;i<scope.Clock.length;i++){
-        //     if(inputs[1])
-        //         inputs[1].push(scope.Clock[i].label);
-        //     else
-        //         inputs[1] = [scope.Clock[i].label];
-        // }
         for(var i=0;i<scope.Input.length;i++){
             if(inputs[scope.Input[i].bitWidth])
                 inputs[scope.Input[i].bitWidth].push(scope.Input[i].label);

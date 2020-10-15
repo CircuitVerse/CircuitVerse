@@ -1418,7 +1418,7 @@ CircuitElement.prototype.resolve = function() {
 
 }
 
-// Graph algorithm to resolve verilog wires
+// Graph algorithm to resolve verilog wire labels 
 CircuitElement.prototype.processVerilog = function() {
     // Output count used to sanitize output
     var output_total = 0;
@@ -1442,31 +1442,6 @@ CircuitElement.prototype.processVerilog = function() {
     }
 }
 
-CircuitElement.prototype.isVerilogResolvable = function() {
-    // Always return true
-    return true;
-
-    var backupValues = []
-    for (var i = 0; i < this.nodeList.length; i++) {
-        backupValues.push(this.nodeList[i].value);
-        this.nodeList[i].value = undefined;
-    }
-
-    for (var i = 0; i < this.nodeList.length; i++) {
-        if (this.nodeList[i].verilogLabel) {
-            this.nodeList[i].value = 1;
-        }
-    }
-
-    var res = this.isResolvable();
-
-    for (var i = 0; i < this.nodeList.length; i++) {
-        this.nodeList[i].value = backupValues[i];
-    }
-
-    return res;
-}
-
 CircuitElement.prototype.removePropagation = function() {
     for (var i = 0; i < this.nodeList.length; i++) {
         if (this.nodeList[i].type == NODE_OUTPUT) {
@@ -1482,7 +1457,9 @@ CircuitElement.prototype.verilogName = function() {
     return this.verilogType || this.objectType;
 }
 
+// Generates final verilog code for each element
 CircuitElement.prototype.generateVerilog = function() {
+    // Example: and and_1(_out, _out, _Q[0]);
     var inputs = [];
     var outputs = [];
 
@@ -1497,14 +1474,14 @@ CircuitElement.prototype.generateVerilog = function() {
     var list = outputs.concat(inputs);
     var res = this.verilogName();
 
-    //add this for multi-bit inputs
+    // Suffix bitwidth for multi-bit inputs
+    // Example: DflipFlop #(2) DflipFlop_0
     if (this.bitWidth != undefined && this.bitWidth > 1)
       res += " #(" + this.bitWidth + ")";
 
     res += " " + this.verilogLabel + "(" + list.map(function(x) {
         return x.verilogLabel
     }).join(", ") + ");";
-
     return res;
 }
 
