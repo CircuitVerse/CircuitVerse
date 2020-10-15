@@ -1,7 +1,16 @@
-function convertVerilog() {
+/*
+    # Primary Developers
+    1) James H-J Yeh, Ph.D.
+    2) Satvik Ramaprasad
+
+    refer verilog_documentation.md 
+*/
+
+function generateVerilog() {
     var data = verilog.exportVerilog();
     download(projectName + ".v", data);
 }
+
 verilog = {
     // Entry point to verilog generation
     // scope = undefined means export all circuits
@@ -18,12 +27,12 @@ verilog = {
         var output = "";
         if(scope) {
             // generate verilog only for scope
-            output += this.exportVerilogScope_r(scope.id,visited,dependencyList, elementTypesUsed);
+            output += this.exportVerilogScope(scope.id,visited,dependencyList, elementTypesUsed);
         }
         else {
             // generate verilog for everything
             for (id in scopeList) {
-                output += this.exportVerilogScope_r(id,visited,dependencyList, elementTypesUsed);
+                output += this.exportVerilogScope(id,visited,dependencyList, elementTypesUsed);
             }
         }
         // Add Circuit Element - Module Specific Verilog Code
@@ -36,7 +45,7 @@ verilog = {
         return output;
     },
     // Recursive DFS function
-    exportVerilogScope_r: function(id,visited,dependencyList, elementTypesUsed){
+    exportVerilogScope: function(id,visited,dependencyList, elementTypesUsed){
         // Already Visited
         if (visited[id]) return "";
         // Mark as Visited
@@ -45,7 +54,7 @@ verilog = {
         var output = "";
         // DFS on dependencies
         for (var i = 0; i < dependencyList[id].length; i++)
-            output += this.exportVerilogScope_r(dependencyList[id][i],visited,dependencyList, elementTypesUsed)+"\n";
+            output += this.exportVerilogScope(dependencyList[id][i],visited,dependencyList, elementTypesUsed)+"\n";
 
         var scope = scopeList[id];
         // Initialize labels for all elements
@@ -130,13 +139,13 @@ verilog = {
         /**
          * Sets a name for each element. If element is already labeled,
          * the element is used directly, otherwise an automated label is provided
-         * fixName is a helper function to escape white spaces
+         * santizeLabel is a helper function to escape white spaces
          */
         for(var i=0;i<scope.Input.length;i++){
             if(scope.Input[i].label=="")
                 scope.Input[i].label="inp_"+i;
             else
-                scope.Input[i].label=this.fixName(scope.Input[i].label)
+                scope.Input[i].label=this.santizeLabel(scope.Input[i].label)
             // copy label to node
             scope.Input[i].output1.verilogLabel = scope.Input[i].label;
         }
@@ -144,7 +153,7 @@ verilog = {
             if(scope.ConstantVal[i].label=="")
                 scope.ConstantVal[i].label="const_"+i;
             else
-                scope.ConstantVal[i].label=this.fixName(scope.ConstantVal[i].label)
+                scope.ConstantVal[i].label=this.santizeLabel(scope.ConstantVal[i].label)
             // copy label to node
             scope.ConstantVal[i].output1.verilogLabel=scope.ConstantVal[i].label;
         }
@@ -152,24 +161,24 @@ verilog = {
             if(scope.Output[i].label=="")
                 scope.Output[i].label="out_"+i;
             else
-                scope.Output[i].label=this.fixName(scope.Output[i].label)
+                scope.Output[i].label=this.santizeLabel(scope.Output[i].label)
         }
         for(var i=0;i<scope.SubCircuit.length;i++){
             if(scope.SubCircuit[i].label=="")
                 scope.SubCircuit[i].label=scope.SubCircuit[i].data.name+"_"+i;
             else
-                scope.SubCircuit[i].label=this.fixName(scope.SubCircuit[i].label)
+                scope.SubCircuit[i].label=this.santizeLabel(scope.SubCircuit[i].label)
         }
         for(var i=0;i<moduleList.length;i++){
             var m = moduleList[i];
             for(var j=0;j<scope[m].length;j++){
-                scope[m][j].verilogLabel = this.fixName(scope[m][j].label) || (scope[m][j].verilogName()+"_"+j);
+                scope[m][j].verilogLabel = this.santizeLabel(scope[m][j].label) || (scope[m][j].verilogName()+"_"+j);
             }
         }
     },
     generateHeader:function(scope=globalScope){
         // Example: module HalfAdder (a,b,s,c);
-        var res="\nmodule " + this.fixName(scope.name) + "(";
+        var res="\nmodule " + this.santizeLabel(scope.name) + "(";
         var pins = [];
         for(var i=0;i<scope.Output.length;i++){
             pins.push(scope.Output[i].label);
@@ -221,7 +230,7 @@ verilog = {
 
         return res;
     },
-    fixName: function(name){
+    santizeLabel: function(name){
         return name.replace(/ Inverse/g, "_inv").replace(/ /g , "_");
     },
     generateNodeName: function(node, currentCount, totalCount) {
@@ -229,7 +238,7 @@ verilog = {
         var parentVerilogLabel = node.verilogLabel;
         var nodeName;
         if(node.label) {
-            nodeName = verilog.fixName(node.label);
+            nodeName = verilog.santizeLabel(node.label);
         }
         else {
             nodeName = (totalCount > 1) ? "out_" + currentCount: "out";
