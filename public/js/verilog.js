@@ -4,7 +4,8 @@ function convertVerilog() {
 }
 verilog = {
     // Entry point to verilog generation
-    exportVerilog:function(){
+    // scope = undefined means export all circuits
+    exportVerilog:function(scope = undefined){
         var dependencyList = {};
         
         // Generate SubCircuit Dependency Graph
@@ -13,35 +14,29 @@ verilog = {
 
         // DFS on SubCircuit Dependency Graph
         var visited = {};
+        var elementTypesUsed = new Set();
         var output = "";
-        for (id in scopeList) {
-            output += this.exportVerilogScope_r(id,visited,dependencyList);
+        if(scope) {
+            // generate verilog only for scope
+            output += this.exportVerilogScope_r(scope.id,visited,dependencyList, elementTypesUsed);
         }
-
+        else {
+            // generate verilog for everything
+            for (id in scopeList) {
+                output += this.exportVerilogScope_r(id,visited,dependencyList, elementTypesUsed);
+            }
+        }
         // Add Circuit Element - Module Specific Verilog Code
-        // TODO: Add only elements that are actually present in the circuit
-        for (t = 0; t < circuitElementList.length; t++) {
+        for(var element of elementTypesUsed) {
             // If element has custom verilog
-            if (window[circuitElementList[t]].moduleVerilog) {
-                output += window[circuitElementList[t]].moduleVerilog;
+            if (window[element].moduleVerilog) {
+                output += window[element].moduleVerilog;
             }
         }
         return output;
     },
-    // TODO: to be deprecated/merged with exportVerilog
-    exportVerilogScope:function(scope=globalScope){
-        var dependencyList = {};
-        var visited = {};
-        for (id in scopeList)
-            dependencyList[id] = scopeList[id].getDependencies();
-
-        var output = this.exportVerilogScope_r(scope.id,visited,dependencyList);
-
-        return output;
-
-    },
     // Recursive DFS function
-    exportVerilogScope_r: function(id,visited={},dependencyList={}){
+    exportVerilogScope_r: function(id,visited,dependencyList, elementTypesUsed){
         // Already Visited
         if (visited[id]) return "";
         // Mark as Visited
@@ -50,7 +45,7 @@ verilog = {
         var output = "";
         // DFS on dependencies
         for (var i = 0; i < dependencyList[id].length; i++)
-            output += this.exportVerilogScope_r(dependencyList[id][i],visited,dependencyList)+"\n";
+            output += this.exportVerilogScope_r(dependencyList[id][i],visited,dependencyList, elementTypesUsed)+"\n";
 
         var scope = scopeList[id];
         // Initialize labels for all elements
@@ -60,7 +55,7 @@ verilog = {
         output += this.generateHeader(scope);
         output += this.generateOutputList(scope); // generate output first to be consistent
         output += this.generateInputList(scope);
-        var res = this.processGraph(scope);
+        var res = this.processGraph(scope, elementTypesUsed);
         // Note: Process verilog populates scope.verilogWireList
 
         for (var bitWidth = 1; bitWidth<= 32; bitWidth++){
@@ -77,7 +72,7 @@ verilog = {
         return output;
     },
     // Performs DFS on the graph and generates netlist of wires and connections
-    processGraph: function(scope=globalScope){
+    processGraph: function(scope, elementTypesUsed){
         var res=""
         scope.stack=[];
         scope.pending=[];
@@ -128,6 +123,7 @@ verilog = {
                 continue;
 
             elem.processVerilog();
+            elementTypesUsed.add(elem.objectType);
 
             if(elem.objectType!="Node" && elem.objectType!="Input") {
                 verilogResolvedList.push(elem);
