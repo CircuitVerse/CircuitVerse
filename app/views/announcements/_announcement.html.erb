@@ -1,7 +1,10 @@
-  <% if announcement_exists?(current_announcement) %>
-    <% if current_announcement.start_time <= Date.current && current_announcement.end_time >= Date.current %>
-      <div class=" alert alert-success  container text-center">
-        <p><%== current_announcement.body %></p>
-      </div>
-    <% end %>
+<% if current_announcement %>
+  <% if current_announcement.start_date <= Date.current && current_announcement.end_date >= Date.current %>
+    <div class=" alert alert-success  container text-center">
+      <p><%== current_announcement.body %></p>
+      <% if current_announcement.link? %>
+        <a href="<%= current_announcement.link %>">read more!!</a>
+      <% end %>
+    </div>
   <% end %>
+<% end %>

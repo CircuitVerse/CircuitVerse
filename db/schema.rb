@@ -56,8 +56,9 @@ ActiveRecord::Schema.define(version: 2020_10_13_035451) do
 
   create_table "announcements", force: :cascade do |t|
     t.text "body"
-    t.datetime "start_time"
-    t.datetime "end_time"
+    t.text "link"
+    t.datetime "start_date"
+    t.datetime "end_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

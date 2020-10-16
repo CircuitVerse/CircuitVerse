@@ -49,6 +49,6 @@ class AnnouncementsController < ApplicationController
     end
 
     def announcement_params
-      params.require(:announcement).permit(:body, :start_time, :end_time)
+      params.require(:announcement).permit(:body, :link, :start_date, :end_date)
     end
 end
