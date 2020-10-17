@@ -17,6 +17,13 @@ verilog = {
     exportVerilog:function(scope = undefined){
         var dependencyList = {};
         
+        // Reset Verilog Element State
+        for (var i = 0; i < circuitElementList.length; i++) {            
+            if (window[circuitElementList[i]].resetVerilog) {
+                window[circuitElementList[i]].resetVerilog();
+            }
+        }
+
         // Generate SubCircuit Dependency Graph
         for (id in scopeList)
             dependencyList[id] = scopeList[id].getDependencies();

@@ -100,3 +100,32 @@ Counter.prototype.customDraw = function () {
     lineTo(ctx, -20, 15, xx, yy, this.direction);
     ctx.stroke();
 }
+
+//add this to output the modue
+Counter.moduleVerilog = function () {
+    var output = "";
+    output += "\n";
+    output += "module Counter(val, zero, max, clk, rst);\n";
+    output += "  parameter WIDTH = 1;\n";
+    output += "  output reg [WIDTH-1:0] val;\n";
+    output += "  output reg zero;\n";
+    output += "  input [WIDTH-1:0] max;\n";
+    output += "  input clk, rst;\n";
+    output += "\n";  
+    output += "  always @ (posedge clk or posedge rst)\n";
+    output += "    if (rst)\n";
+    output += "      val <= 'b0;\n";
+    output += "    else begin\n";
+    output += "      if (val < max) begin\n";
+    output += "        val <= val + 1;\n";
+    output += "        zero <= 0;\n";
+    output += "      end \n";
+    output += "      else begin\n";
+    output += "        val <= 0;\n";
+    output += "        zero <= 1;\n";
+    output += "      end\n";
+    output += "    end\n";
+    output += "endmodule\n";
+    output += "\n";
+    return output;
+}

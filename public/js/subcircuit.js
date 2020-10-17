@@ -350,6 +350,31 @@ SubCircuit.prototype.isResolvable = function() {
     return false
 }
 
+SubCircuit.prototype.blah = function () {
+    return "sub";
+}
+
+SubCircuit.prototype.generateVerilog = function() {
+    var inputs = [];
+    var outputs = [];
+
+    for (var i = 0; i < this.nodeList.length; i++) {
+        if (this.nodeList[i].type == NODE_INPUT) {
+            inputs.push(this.nodeList[i]);
+        } else {
+            outputs.push(this.nodeList[i]);
+        }
+    }
+
+    //changes space
+    var list = outputs.concat(inputs);
+    var res = this.verilogName() + " " + this.verilogLabel + "(" + list.map(function(x) {
+            return x.verilogLabel
+        }).join(", ") + ");";
+
+    return res;
+}
+
 SubCircuit.prototype.verilogName = function() {
     return verilog.santizeLabel(scopeList[this.id].name);
 }
