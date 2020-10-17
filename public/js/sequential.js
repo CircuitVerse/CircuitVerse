@@ -53,7 +53,8 @@ TflipFlop.prototype.isResolvable = function() {
 }
 
 //add this to output the module
-TflipFlop.moduleVerilog = `
+TflipFlop.moduleVerilog = function(){
+return `
 module TflipFlop(q, q_inv, clk, t, a_rst, pre, en);
   parameter WIDTH = 1;
   output reg [WIDTH-1:0] q, q_inv;
@@ -71,6 +72,7 @@ module TflipFlop(q, q_inv, clk, t, a_rst, pre, en);
     end
 endmodule
 `
+}
 
 TflipFlop.prototype.newBitWidth = function(bitWidth) {
     this.bitWidth = bitWidth;
@@ -223,7 +225,8 @@ DflipFlop.prototype.resolve = function() {
 }
 
 //add this to output the module
-DflipFlop.moduleVerilog = `
+DflipFlop.moduleVerilog = function(){
+    return `
 module DflipFlop(q, q_inv, clk, d, a_rst, pre, en);
   parameter WIDTH = 1;
   output reg [WIDTH-1:0] q, q_inv;
@@ -241,6 +244,7 @@ module DflipFlop(q, q_inv, clk, d, a_rst, pre, en);
     end
 endmodule
 `
+}
 DflipFlop.prototype.customSave = function() {
     var data = {
         nodes: {
@@ -1030,7 +1034,8 @@ Clock.prototype.customDraw = function() {
     ctx.stroke();
 
 }
-Clock.moduleVerilog = `
+Clock.moduleVerilog = function() {
+    return `
 module Clock(clk);
   output reg clk;
   always begin
@@ -1041,3 +1046,4 @@ module Clock(clk);
   end
 endmodule
 `
+}

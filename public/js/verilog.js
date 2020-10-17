@@ -39,7 +39,7 @@ verilog = {
         for(var element of elementTypesUsed) {
             // If element has custom verilog
             if (window[element].moduleVerilog) {
-                output += window[element].moduleVerilog;
+                output += window[element].moduleVerilog();
             }
         }
         return output;
