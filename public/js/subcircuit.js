@@ -118,6 +118,7 @@ SubCircuit.prototype.makeConnections = function() {
 }
 
 SubCircuit.prototype.removeConnections = function() {
+    
     for (let i = 0; i < this.inputNodes.length; i++) {
         this.localScope.Input[i].output1.disconnectWireLess(this.inputNodes[i]);
     }
@@ -349,29 +350,8 @@ SubCircuit.prototype.isResolvable = function() {
     return false
 }
 
-SubCircuit.prototype.generateVerilog = function() {
-    var inputs = [];
-    var outputs = [];
-
-    for (var i = 0; i < this.nodeList.length; i++) {
-        if (this.nodeList[i].type == NODE_INPUT) {
-            inputs.push(this.nodeList[i]);
-        } else {
-            outputs.push(this.nodeList[i]);
-        }
-    }
-
-    //changes space
-    var list = outputs.concat(inputs);
-    var res = this.verilogName() + " " + this.verilogLabel + "(" + list.map(function(x) {
-        	return x.verilogLabel
-    	}).join(", ") + ");";
-
-    return res;
-}
-
 SubCircuit.prototype.verilogName = function() {
-    return verilog.fixName(scopeList[this.id].name);
+    return verilog.santizeLabel(scopeList[this.id].name);
 }
 
 SubCircuit.prototype.customDraw = function() {
