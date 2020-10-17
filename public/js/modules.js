@@ -327,66 +327,46 @@ Multiplexer.prototype.customDraw = function () {
     }
     ctx.fill();
 }
+
+Multiplexer.prototype.verilogBaseType = function() {
+    return this.verilogName() + this.inp.length;
+}
+
 //this code to generate Verilog
 Multiplexer.prototype.generateVerilog = function () {
-    var inputs = [];
-    var outputs = [];
-
-    for (var i = 0; i < this.nodeList.length; i++) {
-        if (this.nodeList[i].type == NODE_INPUT) {
-            inputs.push(this.nodeList[i]);
-        } else {
-            outputs.push(this.nodeList[i]);
-        }
-    }
-
-    var list = outputs.concat(inputs);
-    var res = this.verilogName()+this.inp.length;
-    if (!Multiplexer.selSizes.contains(this.controlSignalSize))
-        Multiplexer.selSizes.push(this.controlSignalSize);
-
-    //add this for mult-bit inputs
-    if (this.bitWidth != undefined && this.bitWidth > 1)
-      res += " #(" + this.bitWidth + ")";
-
-    res += " " + this.verilogLabel + "(" + list.map(function(x) {
-        return x.verilogLabel
-    }).join(", ") + ");";
-
-    return res;
+    Multiplexer.selSizes.add(this.controlSignalSize);
+    return CircuitElement.prototype.generateVerilog.call(this);
 }
 //This code to determine what sizes are used to generate the needed modules
-Multiplexer.selSizes = [];
+Multiplexer.selSizes = new Set();
 //generate the needed modules
 Multiplexer.moduleVerilog = function () {
     var output = "";
 
-    for (var i = 0; i < Multiplexer.selSizes.length; i++) {
-        var numInput = 1 << Multiplexer.selSizes[i];
-        output += "\n";
-        output += "module Multiplexer" + numInput;
-        output += "(out, ";
+    for (var size of Multiplexer.selSizes) {
+        var numInput = 1 << size;
+        var inpString = "";
         for (var j = 0; j < numInput; j++) {
-            output += "in" + j + ", ";
+            inpString += `in${j}, `;
         }
-        output += "sel);\n";
-
+        output += `\nmodule Multiplexer${numInput}(out, ${inpString}sel);\n`;
+        
         output += "  parameter WIDTH = 1;\n";
         output += "  output reg [WIDTH-1:0] out;\n";
         
         output += "  input [WIDTH-1:0] "
         for (var j = 0; j < numInput-1; j++) {
-            output += "in" + j + ", ";
+            output += `in${j}, `;
         }
         output += "in" + (numInput-1) + ";\n";
 
-        output += "  input [" + (Multiplexer.selSizes[i]-1) +":0] sel;\n";
+        output += `  input [${size-1}:0] sel;\n`;
         output += "  \n";
 
         output += "  always @ (*)\n";
         output += "    case (sel)\n";
         for (var j = 0; j < numInput; j++) {
-            output += "      " + j + " : " + "out = in" + j + ";\n";
+            output += `      ${j} : out = in${j};\n`;
         }        
         output += "    endcase\n";
         output += "endmodule\n";
@@ -397,7 +377,7 @@ Multiplexer.moduleVerilog = function () {
 }
 //reset the sized before Verilog generation
 Multiplexer.resetVerilog = function () {
-    Multiplexer.selSizes = [];
+    Multiplexer.selSizes = new Set();
 }
 
 function XorGate(x, y, scope = globalScope, dir = "RIGHT", inputs = 2, bitWidth = 1) {
@@ -760,13 +740,10 @@ HexDisplay.prototype.generateVerilog = function () {
 */
 //Use $display
 HexDisplay.prototype.generateVerilog = function () {
-    var output = "";
-    output += "\n";
-    output += "  always @ (" + this.inp.verilogLabel + ")\n";
-    output += "    $display(\"" + this.inp.verilogLabel + " = %d\", " 
-        + this.inp.verilogLabel + ");\n";
-    return output;
-
+    return `
+  always @ (${this.inp.verilogLabel})
+    $display("${this.inp.verilogLabel} = %d", ${this.inp.verilogLabel});
+    `;
 }
 HexDisplay.prototype.customSave = function () {
     var data = {
@@ -1065,7 +1042,7 @@ NotGate.prototype.customDraw = function () {
     ctx.stroke();
 
 }
-//translate to not for single bit, assign for multu bit
+//translate to not for single bit, assign for multi bit
 NotGate.prototype.generateVerilog = function () {
     if (this.bitWidth == 1) 
         return "not " + this.verilogLabel + "(" + this.output1.verilogLabel + ", " + this.inp1.verilogLabel + ");"
@@ -2342,7 +2319,7 @@ ConstantVal.prototype.helplink = "https://docs.circuitverse.org/#/inputElements?
 ConstantVal.prototype.propagationDelay = 0;
 //ConstantValue translated into assign
 ConstantVal.prototype.generateVerilog = function () {
-    return "assign " + this.verilogLabel + "=" + this.bitWidth + "'b" + this.state + ";";
+    return `assign ${this.verilogLabel}=${this.bitWidth}'b${this.state};`;
 }
 ConstantVal.prototype.customSave = function () {
     var data = {
@@ -3026,42 +3003,22 @@ Demultiplexer.prototype.customDraw = function () {
     }
     ctx.fill();
 }
+Demultiplexer.prototype.verilogBaseType = function() {
+    return this.verilogName() + this.output1.length;
+}
 //this code to generate Verilog
 Demultiplexer.prototype.generateVerilog = function () {
-    var inputs = [];
-    var outputs = [];
-
-    for (var i = 0; i < this.nodeList.length; i++) {
-        if (this.nodeList[i].type == NODE_INPUT) {
-            inputs.push(this.nodeList[i]);
-        } else {
-            outputs.push(this.nodeList[i]);
-        }
-    }
-
-    var list = outputs.concat(inputs);
-    var res = this.verilogName()+outputs.length;
-    if (!Demultiplexer.selSizes.contains(this.controlSignalSize))
-        Demultiplexer.selSizes.push(this.controlSignalSize);
-
-    //add this for mult-bit inputs
-    if (this.bitWidth != undefined && this.bitWidth > 1)
-      res += " #(" + this.bitWidth + ")";
-
-    res += " " + this.verilogLabel + "(" + list.map(function(x) {
-        return x.verilogLabel
-    }).join(", ") + ");";
-
-    return res;
+    Demultiplexer.selSizes.add(this.controlSignalSize);
+    return CircuitElement.prototype.generateVerilog.call(this);
 }
 //This code to determine what sizes are used to generate the needed modules
-Demultiplexer.selSizes = [];
+Demultiplexer.selSizes = new Set();
 //generate the needed modules
 Demultiplexer.moduleVerilog = function () {
     var output = "";
 
-    for (var i = 0; i < Demultiplexer.selSizes.length; i++) {
-        var numOutput = 1 << Demultiplexer.selSizes[i];
+    for (var size of Demultiplexer.selSizes) {
+        var numOutput = 1 << size;
         output += "\n";
         output += "module Demultiplexer" + numOutput;
         output += "(";
@@ -3078,7 +3035,7 @@ Demultiplexer.moduleVerilog = function () {
         output += "out" + (numOutput-1) + ";\n";
 
         output += "  input [WIDTH-1:0] in;\n"
-        output += "  input [" + (Demultiplexer.selSizes[i]-1) +":0] sel;\n";
+        output += "  input [" + (size-1) +":0] sel;\n";
         output += "  \n";
 
         output += "  always @ (*) begin\n";
@@ -3099,7 +3056,7 @@ Demultiplexer.moduleVerilog = function () {
 }
 //reset the sized before Verilog generation
 Demultiplexer.resetVerilog = function () {
-    Demultiplexer.selSizes = [];
+    Demultiplexer.selSizes = new Set();
 }
 
 function Decoder(x, y, scope = globalScope, dir = "LEFT", bitWidth = 1) {
@@ -3227,40 +3184,22 @@ Decoder.prototype.customDraw = function () {
     ctx.fill();
 }
 
-Decoder.prototype.generateVerilog = function () {
-    var inputs = [];
-    var outputs = [];
-
-    for (var i = 0; i < this.nodeList.length; i++) {
-        if (this.nodeList[i].type == NODE_INPUT) {
-            inputs.push(this.nodeList[i]);
-        } else {
-            outputs.push(this.nodeList[i]);
-        }
-    }
-
-    var list = outputs.concat(inputs);
-    var res = this.verilogName()+outputs.length;
-    if (!Decoder.selSizes.contains(this.bitWidth))
-        Decoder.selSizes.push(this.bitWidth);
-
-    //add this for mult-bit inputs
-    if (this.bitWidth != undefined && this.bitWidth > 1)
-      res += " #(" + this.bitWidth + ")";
-
-    res += " " + this.verilogLabel + "(" + list.map(function(x) {
-        return x.verilogLabel
-    }).join(", ") + ");";
-
-    return res;
+Decoder.prototype.verilogBaseType = function() {
+    return this.verilogName() + this.output1.length;
 }
-Decoder.selSizes = [];
+//this code to generate Verilog
+Decoder.prototype.generateVerilog = function () {
+    Decoder.selSizes.add(this.controlSignalSize);
+    return CircuitElement.prototype.generateVerilog.call(this);
+}
+
+Decoder.selSizes = new Set();
 //generate the needed modules
 Decoder.moduleVerilog = function () {
     var output = "";
 
-    for (var i = 0; i < Decoder.selSizes.length; i++) {
-        var numOutput = 1 << Decoder.selSizes[i];
+    for (var size of Decoder.selSizes) {
+        var numOutput = 1 << size;
         output += "\n";
         output += "module Decoder" + numOutput;
         output += "(";
@@ -3275,7 +3214,7 @@ Decoder.moduleVerilog = function () {
         }
         output += "out" + (numOutput-1) + ";\n";
 
-        output += "  input [" + (Decoder.selSizes[i]-1) +":0] sel;\n";
+        output += "  input [" + (size-1) +":0] sel;\n";
         output += "  \n";
 
         output += "  always @ (*) begin\n";
@@ -3296,7 +3235,7 @@ Decoder.moduleVerilog = function () {
 }
 //reset the sized before Verilog generation
 Decoder.resetVerilog = function () {
-    Decoder.selSizes = [];
+    Decoder.selSizes = new Set();
 }
 
 function Flag(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1, identifier) {
@@ -3725,41 +3664,21 @@ PriorityEncoder.prototype.customDraw = function () {
     ctx.fill();
 
 }
+PriorityEncoder.prototype.verilogBaseType = function() {
+    return this.verilogName() + this.inp1.length;
+}
 
 PriorityEncoder.prototype.generateVerilog = function () {
-    var inputs = [];
-    var outputs = [];
-
-    for (var i = 0; i < this.nodeList.length; i++) {
-        if (this.nodeList[i].type == NODE_INPUT) {
-            inputs.push(this.nodeList[i]);
-        } else {
-            outputs.push(this.nodeList[i]);
-        }
-    }
-
-    var list = outputs.concat(inputs);
-    var res = this.verilogName()+inputs.length;
-    if (!PriorityEncoder.selSizes.contains(this.bitWidth))
-        PriorityEncoder.selSizes.push(this.bitWidth);
-
-    //add this for mult-bit inputs
-    if (this.bitWidth != undefined && this.bitWidth > 1)
-      res += " #(" + this.bitWidth + ")";
-
-    res += " " + this.verilogLabel + "(" + list.map(function(x) {
-        return x.verilogLabel
-    }).join(", ") + ");";
-
-    return res;
+    PriorityEncoder.selSizes.add(this.bitWidth);
+    return CircuitElement.prototype.generateVerilog.call(this);
 }
-PriorityEncoder.selSizes = [];
+PriorityEncoder.selSizes = new Set();
 //generate the needed modules
 PriorityEncoder.moduleVerilog = function () {
     var output = "";
 
-    for (var i = 0; i < PriorityEncoder.selSizes.length; i++) {
-        var numInput = 1 << PriorityEncoder.selSizes[i];
+    for (var size of PriorityEncoder.selSizes) {
+        var numInput = 1 << size;
         output += "\n";
         output += "module PriorityEncoder" + numInput;
         output += "(sel, ze, ";
@@ -3768,7 +3687,7 @@ PriorityEncoder.moduleVerilog = function () {
         }
         output += "in" + (numInput-1) + ");\n";
 
-        output += "  output reg [" + (PriorityEncoder.selSizes[i]-1) + ":0] sel;\n";
+        output += "  output reg [" + (size-1) + ":0] sel;\n";
         output += "  output reg ze;\n";        
         
         output += "  input "
@@ -3798,7 +3717,7 @@ PriorityEncoder.moduleVerilog = function () {
 }
 //reset the sized before Verilog generation
 PriorityEncoder.resetVerilog = function () {
-    PriorityEncoder.selSizes = [];
+    PriorityEncoder.selSizes = new Set
 }
 
 function Tunnel(x, y, scope = globalScope, dir = "LEFT", bitWidth = 1, identifier) {

@@ -101,7 +101,6 @@ Counter.prototype.customDraw = function () {
     ctx.stroke();
 }
 
-
 Counter.moduleVerilog = function () {
     return `module Counter(val, zero, max, clk, rst);
     parameter WIDTH = 1;

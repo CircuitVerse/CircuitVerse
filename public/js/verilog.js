@@ -242,7 +242,7 @@ verilog = {
     },
     generateNodeName: function(node, currentCount, totalCount) {
         if(node.verilogLabel) return node.verilogLabel;
-        var parentVerilogLabel = node.verilogLabel;
+        var parentVerilogLabel = node.parent.verilogLabel;
         var nodeName;
         if(node.label) {
             nodeName = verilog.santizeLabel(node.label);

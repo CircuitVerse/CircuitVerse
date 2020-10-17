@@ -1457,6 +1457,19 @@ CircuitElement.prototype.verilogName = function() {
     return this.verilogType || this.objectType;
 }
 
+CircuitElement.prototype.verilogBaseType = function() {
+    return this.verilogName();
+}
+
+CircuitElement.prototype.verilogParametrizedType = function() {
+    var type = this.verilogBaseType();
+    // Suffix bitwidth for multi-bit inputs
+    // Example: DflipFlop #(2) DflipFlop_0
+    if (this.bitWidth != undefined && this.bitWidth > 1)
+        type += " #(" + this.bitWidth + ")";
+    return type
+}
+
 // Generates final verilog code for each element
 CircuitElement.prototype.generateVerilog = function() {
     // Example: and and_1(_out, _out, _Q[0]);
@@ -1472,12 +1485,7 @@ CircuitElement.prototype.generateVerilog = function() {
     }
 
     var list = outputs.concat(inputs);
-    var res = this.verilogName();
-
-    // Suffix bitwidth for multi-bit inputs
-    // Example: DflipFlop #(2) DflipFlop_0
-    if (this.bitWidth != undefined && this.bitWidth > 1)
-      res += " #(" + this.bitWidth + ")";
+    var res = this.verilogParametrizedType();
 
     res += " " + this.verilogLabel + "(" + list.map(function(x) {
         return x.verilogLabel
