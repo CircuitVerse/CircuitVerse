@@ -52,11 +52,6 @@ function AndGate(x, y, scope = globalScope, dir = "RIGHT", inputLength = 2, bitW
 
 AndGate.prototype = Object.create(CircuitElement.prototype);
 AndGate.prototype.constructor = AndGate;
-/* Test code to make sure prototype definition is loaded - good for Google Dev
-AndGate.prototype.blah = function () {
-    return "and";
-}
-*/
 AndGate.prototype.tooltipText = "And Gate Tooltip : Implements logical conjunction";
 AndGate.prototype.changeInputSize = changeInputSize;
 AndGate.prototype.alwaysResolve = true;
@@ -243,11 +238,6 @@ Multiplexer.prototype = Object.create(CircuitElement.prototype);
 Multiplexer.prototype.constructor = Multiplexer;
 Multiplexer.prototype.tooltipText = "Multiplexer ToolTip : Multiple inputs and a single line output.";
 Multiplexer.prototype.helplink = "https://docs.circuitverse.org/#/decodersandplexers?id=multiplexer";
-/*
-Multiplexer.prototype.blah = function () {
-    return "mux";
-}
-*/
 Multiplexer.prototype.changeControlSignalSize = function (size) {
     if (size == undefined || size < 1 || size > 8) return;
     if (this.controlSignalSize == size) return;
@@ -763,13 +753,9 @@ HexDisplay.prototype = Object.create(CircuitElement.prototype);
 HexDisplay.prototype.constructor = HexDisplay;
 HexDisplay.prototype.tooltipText = "Hex Display ToolTip: Inputs a 4 Bit Hex number and displays it."
 HexDisplay.prototype.helplink = "https://docs.circuitverse.org/#/outputs?id=hex-display";
-
 /* Older code convert HexDisplay to output
 HexDisplay.prototype.generateVerilog = function () {
     return "assign " + this.label + " = " + this.inp.verilogLabel + ";"
-}
-HexDisplay.prototype.blah = function () {
-    return "hexdisp";
 }
 */
 //Use $display
@@ -2185,11 +2171,6 @@ Output.prototype.propagationDelay = 0;
 Output.prototype.generateVerilog = function () {
     return "assign " + this.label + " = " + this.inp1.verilogLabel + ";"
 }
-/*
-Output.prototype.blah = function () {
-    return "out";
-}
-*/
 Output.prototype.customSave = function () {
     var data = {
         nodes: {
