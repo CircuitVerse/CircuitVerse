@@ -1,0 +1,42 @@
+.announcements {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.content-wrapper {
+  align-items: center;
+  background: var(--green);
+  border-radius: .3rem;
+  color: var(--white);
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 1.2rem;
+  justify-content: center;
+  margin-top: .3rem;
+  word-break: break-all;
+
+  span {
+    display: inline-block;
+    flex: 50%;
+    margin: 1.3rem;
+  }
+
+  a {
+    background: var(--red);
+    border-radius: .3rem;
+    color: var(--white);
+    font-weight: 700;
+    padding: .3rem 1rem;
+  }
+
+}
+
+@media(max-width: 992px) {
+  .content-wrapper span {
+    flex: 100%;
+  }
+}
+
+
+

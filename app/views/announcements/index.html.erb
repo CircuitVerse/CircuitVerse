@@ -6,9 +6,7 @@
         <%= link_to "New Annnouncement", new_announcement_path, class: "btn primary-button custom-mail-primary-button" %>
         <% @announcements.each do |announcement| %>
           <div class="mb-3 border border-success ">
-          <div>
-           <p> <%== announcement.body %></p>
-           </div>
+            <span class="announcements"><%== announcement.body %></span>
             <%= link_to 'Edit', edit_announcement_url(announcement), class: "anchor-text" %>
             <%= link_to "Delete",announcement_url(announcement),method: :delete, data: {confirm:'Are you sure?'},class: "anchor-text" %>
           </div>
