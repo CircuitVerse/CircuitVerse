@@ -63,7 +63,7 @@ describe SimulatorController, type: :request do
         it "throws project access error" do
           sign_in_random_user
           post "/simulator/update_data", params: update_params
-          expect(response.status).to eq(404)
+          expect(response.status).to eq(403)
         end
       end
     end
