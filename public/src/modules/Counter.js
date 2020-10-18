@@ -129,13 +129,12 @@ export default class Counter extends CircuitElement {
         ctx.font = "20px Georgia";
         ctx.fillStyle = "green";
         ctx.textAlign = "center";
-        fillText(ctx, '0', this.subcircuitMetadata.x, this.subcircuitMetadata.y + 5);
+        fillText(ctx, this.value.toString(16), this.subcircuitMetadata.x + 10, this.subcircuitMetadata.y + 17);
         ctx.fill();
 
         ctx.beginPath();
-        moveTo(ctx, -20, 5, xx, yy, this.direction);
-        lineTo(ctx, -15, 10, xx, yy, this.direction);
-        lineTo(ctx, -20, 15, xx, yy, this.direction);
+        ctx.lineWidth = correctWidth(1);
+        rect2(ctx, 0, 0, 20, 20, xx, yy, this.direction);
         ctx.stroke();
         console.log('drawing');
     }
@@ -145,3 +144,9 @@ Counter.prototype.tooltipText = "Counter: a binary counter from zero to a given 
 Counter.prototype.helplink = "https://docs.circuitverse.org/#/inputElements?id=counter"; Counter.prototype.objectType = 'Counter';
 Counter.prototype.objectType = 'Counter';
 Counter.prototype.canShowInSubcircuit = true;
+Counter.prototype.layoutProperties = {
+    rightDimensionX : 20,
+    leftDimensionX : 0,
+    upDimensionY : 0,
+    downDimensionY: 20
+}

@@ -104,9 +104,23 @@ export default class Random extends CircuitElement {
         ctx.stroke();
     }
 
-    // Draws the element in the subcuircuit. Used in layout mode
+    // Draws the element in the subcircuit. Used in layout mode
     subcircuitDraw() {
-        customDraw();
+        var ctx = simulationArea.context;
+        var xx = this.subcircuitMetadata.x;
+        var yy = this.subcircuitMetadata.y;
+
+        ctx.beginPath();
+        ctx.font = "20px Georgia";
+        ctx.fillStyle = "green";
+        ctx.textAlign = "center";
+        fillText(ctx, this.currentRandomNo.toString(16), this.subcircuitMetadata.x + 10, this.subcircuitMetadata.y + 17);
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.lineWidth = correctWidth(1);
+        rect2(ctx, 0, 0, 20, 20, xx, yy, this.direction);
+        ctx.stroke();
     }
 }
 
@@ -117,3 +131,9 @@ Random.prototype.helplink = 'https://docs.circuitverse.org/#/inputElements?id=ra
 Random.prototype.objectType = 'Random';
 
 Random.prototype.canShowInSubcircuit = true
+Random.prototype.layoutProperties = {
+    rightDimensionX : 20,
+    leftDimensionX : 0,
+    upDimensionY : 0,
+    downDimensionY: 20
+}

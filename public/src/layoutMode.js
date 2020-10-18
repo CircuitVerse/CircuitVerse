@@ -146,8 +146,10 @@ export function renderLayout(scope = globalScope) {
     // Render objects
     for(let i = 0; i < tempBuffer.subElements.length; i++){
         tempBuffer.subElements[i].draw();
-        for(let j = 0; j < tempBuffer.subElements[i].nodeList.length; j++)
-            tempBuffer.subElements[i].nodeList[j].subcuircuitDraw();
+        for(let j = 0; j < tempBuffer.subElements[i].nodeList.length; j++){
+            // console.log("THE ELEMENT IS ", tempBuffer.subElements[i].nodeList[j] )
+            tempBuffer.subElements[i].nodeList[j].parent.subcircuitDraw();
+        }
     }
 }
 

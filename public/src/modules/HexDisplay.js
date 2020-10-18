@@ -140,9 +140,96 @@ export default class HexDisplay extends CircuitElement {
         this.customDrawSegment(-15, 38, 17, 38, ["lightgrey", "red"][d]);
     }
 
-    // Draws the element in the subcuircuit. Used in layout mode
+
+    subcircuitDrawSegment(x1, y1, x2, y2, color) {
+        if (color == undefined) color = "lightgrey";
+        ctx = simulationArea.context;
+        ctx.beginPath();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = correctWidth(3);
+        xx = this.subcircuitMetadata.x;
+        yy = this.subcircuitMetadata.y;
+
+        moveTo(ctx, x1, y1, xx, yy, this.direction);
+        lineTo(ctx, x2, y2, xx, yy, this.direction);
+        ctx.closePath();
+        ctx.stroke();
+    }
+    // Draws the element in the subcircuit. Used in layout mode
     subcircuitDraw() {
-        customDraw();
+        ctx = simulationArea.context;
+
+        var xx = this.subcircuitMetadata.x;
+        var yy = this.subcircuitMetadata.y;
+
+        ctx.strokeStyle = "black";
+        ctx.lineWidth = correctWidth(3);
+        var a = b = c = d = e = f = g = 0;
+        switch (this.inp.value) {
+            case 0:
+                a = b = c = d = e = f = 1;
+                break;
+            case 1:
+                b = c = 1;
+                break;
+            case 2:
+                a = b = g = e = d = 1;
+                break;
+            case 3:
+                a = b = g = c = d = 1;
+                break;
+            case 4:
+                f = g = b = c = 1;
+                break;
+            case 5:
+                a = f = g = c = d = 1;
+                break;
+            case 6:
+                a = f = g = e = c = d = 1;
+                break;
+            case 7:
+                a = b = c = 1;
+                break;
+            case 8:
+                a = b = c = d = e = g = f = 1;
+                break;
+            case 9:
+                a = f = g = b = c = 1;
+                break;
+            case 0xA:
+                a = f = b = c = g = e = 1;
+                break;
+            case 0xB:
+                f = e = g = c = d = 1;
+                break;
+            case 0xC:
+                a = f = e = d = 1;
+                break;
+            case 0xD:
+                b = c = g = e = d = 1;
+                break;
+            case 0xE:
+                a = f = g = e = d = 1;
+                break;
+            case 0xF:
+                a = f = g = e = 1;
+                break;
+            default:
+
+        }
+        this.layoutDrawSegment(10, -20, 10, -38, ["lightgrey", "red"][b]);
+        this.layoutDrawSegment(10, -17, 10, 1, ["lightgrey", "red"][c]);
+        this.layoutDrawSegment(-10, -20, -10, -38, ["lightgrey", "red"][f]);
+        this.layoutDrawSegment(-10, -17, -10, 1, ["lightgrey", "red"][e]);
+        this.layoutDrawSegment(-8, -38, 8, -38, ["lightgrey", "red"][a]);
+        this.layoutDrawSegment(-8, -18, 8, -18, ["lightgrey", "red"][g]);
+        this.layoutDrawSegment(-8, 1, 8, 1, ["lightgrey", "red"][d]);
+
+        ctx.beginPath();
+        ctx.strokeStyle = "black";
+        ctx.lineWidth = correctWidth(1);
+        rect2(ctx, -15, -42, 33, 51, xx, yy, this.direction);
+        ctx.stroke();
     }
 }
 
@@ -165,3 +252,9 @@ HexDisplay.prototype.helplink =
     "https://docs.circuitverse.org/#/outputs?id=hex-display";
 HexDisplay.prototype.objectType = "HexDisplay";
 HexDisplay.prototype.canShowInSubcircuit = true;
+HexDisplay.prototype.layoutProperties = {
+    rightDimensionX : 20,
+    leftDimensionX : 15,
+    upDimensionY : 42,
+    downDimensionY: 10
+}

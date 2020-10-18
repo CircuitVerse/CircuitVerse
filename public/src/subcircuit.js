@@ -629,6 +629,17 @@ export default class SubCircuit extends CircuitElement {
         for (let i = 0; i < this.inputNodes.length; i++) {
             this.inputNodes[i].draw();
         }
+
+         // draw subcircuitElements
+        for(let el of circuitElementList){
+            if(this.localScope[el].length === 0) continue;
+            if(!this.localScope[el][0].canShowInSubcircuit) continue;
+            for(let i = 0; i < this.localScope[el].length; i++){
+                if (this.localScope[el][i].subcircuitMetadata.showInSubcircuit) {
+                    this.localScope[el][i].customDraw();
+                }
+            }
+        }
     }
 }
 

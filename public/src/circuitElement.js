@@ -63,6 +63,16 @@ export default class CircuitElement {
             time: undefined,
             index: undefined,
         };
+
+        if (this.canShowInSubcircuit) {
+        this.subcircuitMetadata = {
+            showInSubcircuit: false,
+            showLabelInSubcircuit: false,
+            labelDirection: this.labelDirection,
+            x : 0,
+            y : 0
+        }
+    }
     }
 
     /**
@@ -651,3 +661,5 @@ CircuitElement.prototype.propagationDelay = 10;
 CircuitElement.prototype.tooltip = undefined;
 CircuitElement.prototype.propagationDelayFixed = false;
 CircuitElement.prototype.objectType = 'CircuitElement';
+CircuitElement.prototype.canShowInSubcircuit = false;
+CircuitElement.prototype.subcircuitMetadata = {};

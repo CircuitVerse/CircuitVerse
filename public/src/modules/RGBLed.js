@@ -1,7 +1,7 @@
 import CircuitElement from "../circuitElement";
 import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
-import { correctWidth, lineTo, moveTo, arc } from "../canvasApi";
+import { correctWidth, lineTo, moveTo, arc, drawCircle2 } from "../canvasApi";
 import { changeInputSize } from "../modules";
 /**
  * @class
@@ -127,7 +127,7 @@ export default class RGBLed extends CircuitElement {
 
         var xx = this.subcircuitMetadata.x;
         var yy = this.subcircuitMetadata.y;
-        var dimensionSize = 5;
+        var dimensionSize = 6;
         // var size = this.subcircuitMetadata.size;
         // if (size === "medium")
         //      dimensionSize = 7;
@@ -137,7 +137,7 @@ export default class RGBLed extends CircuitElement {
         var a = this.inp1.value;
         var b = this.inp2.value;
         var c = this.inp3.value;
-        ctx.strokeStyle = "#d3d4d5";
+        ctx.strokeStyle = "#090a0a";
         ctx.fillStyle = ["rgba(" + a + ", " + b + ", " + c + ", 0.8)", "rgba(227, 228, 229, 0.8)"][((a === undefined || b === undefined || c === undefined)) + 0]
         //ctx.fillStyle = ["rgba(200, 200, 200, 0.3)","rgba(227, 228, 229, 0.8)"][((a === undefined || b === undefined || c === undefined) || (a == 0 && b == 0 && c == 0)) + 0];
         ctx.lineWidth = correctWidth(1);

@@ -1,7 +1,7 @@
 import CircuitElement from "../circuitElement";
 import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
-import { correctWidth, lineTo, moveTo, arc } from "../canvasApi";
+import { correctWidth, lineTo, moveTo, arc, drawCircle2 } from "../canvasApi";
 import { changeInputSize } from "../modules";
 /**
  * @class
@@ -102,7 +102,9 @@ export default class VariableLed extends CircuitElement {
         ctx.fillStyle = ["rgba(255,29,43," + alpha + ")", "rgba(227, 228, 229, 0.8)"][(c === undefined || c == 0) + 0];
         ctx.lineWidth = correctWidth(1);
 
+        ctx.beginPath();
         drawCircle2(ctx, 0, 0, 6, xx, yy, this.direction);
+        ctx.stroke();
 
         if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = "rgba(255, 255, 32,0.8)";
         ctx.fill();

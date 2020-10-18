@@ -97,9 +97,46 @@ export default class SevenSegDisplay extends CircuitElement {
         ctx.stroke();
     }
 
+    subcircuitDrawSegment(x1, y1, x2, y2, color) {
+        if (color == undefined) color = "lightgrey";
+        ctx = simulationArea.context;
+        ctx.beginPath();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = correctWidth(3);
+        xx = this.subcircuitMetadata.x;
+        yy = this.subcircuitMetadata.y;
+        moveTo(ctx, x1, y1, xx, yy, this.direction);
+        lineTo(ctx, x2, y2, xx, yy, this.direction);
+        ctx.closePath();
+        ctx.stroke();
+    }
+
     // Draws the element in the subcuircuit. Used in layout mode
     subcircuitDraw() {
-        customDraw();
+        ctx = simulationArea.context;
+
+        var xx = this.subcircuitMetadata.x;
+        var yy = this.subcircuitMetadata.y;
+
+        this.layoutDrawSegment(10, -20, 10, -38, ["lightgrey", "red"][this.b.value]);
+        this.layoutDrawSegment(10, -17, 10, 1, ["lightgrey", "red"][this.c.value]);
+        this.layoutDrawSegment(-10, -20, -10, -38, ["lightgrey", "red"][this.f.value]);
+        this.layoutDrawSegment(-10, -17, -10, 1, ["lightgrey", "red"][this.e.value]);
+        this.layoutDrawSegment(-8, -38, 8, -38, ["lightgrey", "red"][this.a.value]);
+        this.layoutDrawSegment(-8, -18, 8, -18, ["lightgrey", "red"][this.g.value]);
+        this.layoutDrawSegment(-8, 1, 8, 1, ["lightgrey", "red"][this.d.value]);
+
+        ctx.beginPath();
+        var dotColor = ["lightgrey", "red"][this.dot.value] || "lightgrey"
+        ctx.strokeStyle = dotColor;
+        rect(ctx, xx + 13, yy + 5, 1, 1);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.strokeStyle = "black";
+        ctx.lineWidth = correctWidth(1);
+        rect2(ctx, -15, -42, 33, 51, xx, yy, this.direction);
+        ctx.stroke();
     }
 }
 
@@ -120,3 +157,9 @@ SevenSegDisplay.prototype.tooltipText = 'Seven Display ToolTip: Consists of 7+1 
 SevenSegDisplay.prototype.helplink = 'https://docs.circuitverse.org/#/outputs?id=seven-segment-display';
 SevenSegDisplay.prototype.objectType = 'SevenSegDisplay';
 SevenSegDisplay.prototype.canShowInSubcircuit = true;
+SevenSegDisplay.prototype.layoutProperties = {
+    rightDimensionX : 20,
+    leftDimensionX : 15,
+    upDimensionY : 42,
+    downDimensionY: 10
+}

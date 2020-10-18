@@ -112,9 +112,72 @@ export default class SixteenSegDisplay extends CircuitElement {
         ctx.stroke();
     }
 
-    // Draws the element in the subcuircuit. Used in layout mode
+    subcircuitDrawSegment(x1, y1, x2, y2, color) {
+        if (color == undefined) color = "lightgrey";
+        ctx = simulationArea.context;
+        ctx.beginPath();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = correctWidth(3);
+        xx = this.subcircuitMetadata.x;
+        yy = this.subcircuitMetadata.y;
+        moveTo(ctx, x1, y1, xx, yy, this.direction);
+        lineTo(ctx, x2, y2, xx, yy, this.direction);
+        ctx.closePath();
+        ctx.stroke();
+    }
+
+    subcircuitDrawSegmentSlant(x1, y1, x2, y2, color) {
+        if (color == undefined) color = "lightgrey";
+        ctx = simulationArea.context;
+        ctx.beginPath();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = correctWidth(2);
+        xx = this.subcircuitMetadata.x;
+        yy = this.subcircuitMetadata.y;
+        moveTo(ctx, x1, y1, xx, yy, this.direction);
+        lineTo(ctx, x2, y2, xx, yy, this.direction);
+        ctx.closePath();
+        ctx.stroke();
+    }
+
+    // Draws the element in the subcircuit. Used in layout mode
     subcircuitDraw() {
-        customDraw();
+        ctx = simulationArea.context;
+
+        var xx = this.subcircuitMetadata.x;
+        var yy = this.subcircuitMetadata.y;
+
+        var color = ["lightgrey", "red"];
+        var value = this.input1.value;
+
+        this.layoutDrawSegment(-10, -38, 0, -38, ["lightgrey", "red"][(value >> 15) & 1]);      //a1
+        this.layoutDrawSegment(10, -38, 0, -38, ["lightgrey", "red"][(value >> 14) & 1]);       //a2    
+        this.layoutDrawSegment(11.5, -19, 11.5, -36, ["lightgrey", "red"][(value >> 13) & 1]);  //b
+        this.layoutDrawSegment(11.5, 2, 11.5, -15, ["lightgrey", "red"][(value >> 12) & 1]);        //c
+        this.layoutDrawSegment(-10, 4, 0, 4, ["lightgrey", "red"][(value >> 11) & 1]);      //d1
+        this.layoutDrawSegment(10, 4, 0, 4, ["lightgrey", "red"][(value >> 10) & 1]);           //d2
+        this.layoutDrawSegment(-11.5, 2, -11.5, -15, ["lightgrey", "red"][(value >> 9) & 1]);   //e
+        this.layoutDrawSegment(-11.5, -36, -11.5, -19, ["lightgrey", "red"][(value >> 8) & 1]); //f
+        this.layoutDrawSegment(-10, -17, 0, -17, ["lightgrey", "red"][(value >> 7) & 1]);           //g1
+        this.layoutDrawSegment(10, -17, 0, -17, ["lightgrey", "red"][(value >> 6) & 1]);            //g2
+        this.layoutDrawSegmentSlant(0, -17, -9, -36, ["lightgrey", "red"][(value >> 5) & 1]);   //h
+        this.layoutDrawSegment(0, -36, 0, -19, ["lightgrey", "red"][(value >> 4) & 1]);         //i
+        this.layoutDrawSegmentSlant(0, -17, 9, -36, ["lightgrey", "red"][(value >> 3) & 1]);        //j
+        this.layoutDrawSegmentSlant(0, -17, 9, 0, ["lightgrey", "red"][(value >> 2) & 1]);      //k
+        this.layoutDrawSegment(0, -17, 0, 2, ["lightgrey", "red"][(value >> 1) & 1]);           //l
+        this.layoutDrawSegmentSlant(0, -17, -9, 0, ["lightgrey", "red"][(value >> 0) & 1]);     //m
+
+        ctx.beginPath();
+        var dotColor = ["lightgrey", "red"][this.dot.value] || "lightgrey"
+        ctx.strokeStyle = dotColor;
+        rect(ctx, xx + 13, yy + 5, 1, 1);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.strokeStyle = "black";
+        ctx.lineWidth = correctWidth(1);
+        rect2(ctx, -15, -42, 33, 51, xx, yy, this.direction);
+        ctx.stroke();
     }
 }
 
@@ -135,3 +198,10 @@ SixteenSegDisplay.prototype.tooltipText = 'Sixteen Display ToolTip: Consists of 
 SixteenSegDisplay.prototype.helplink = 'https://docs.circuitverse.org/#/outputs?id=sixteen-segment-display';
 SixteenSegDisplay.prototype.objectType = 'SixteenSegDisplay';
 SixteenSegDisplay.prototype.canShowInSubcircuit = true;
+SixteenSegDisplay.prototype.layoutProperties = {
+    rightDimensionX : 20,
+    leftDimensionX : 15,
+    upDimensionY : 42,
+    downDimensionY: 10
+}
+
