@@ -20,6 +20,7 @@
     display: inline-block;
     flex: 50%;
     margin: 1.3rem;
+    text-align: center;
   }
 
   a {
@@ -27,9 +28,9 @@
     border-radius: .3rem;
     color: var(--white);
     font-weight: 700;
+    margin: .3rem;
     padding: .3rem 1rem;
   }
-
 }
 
 @media(max-width: 992px) {
@@ -37,6 +38,3 @@
     flex: 100%;
   }
 }
-
-
-
