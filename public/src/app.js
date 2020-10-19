@@ -218,7 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ],
         "subcircuits": {}
     };
-    YosysJSON2CV(js);
+    // YosysJSON2CV(js);
     
     // var hii = new AndGate(0, 0, undefined, undefined);
     keyBinder();

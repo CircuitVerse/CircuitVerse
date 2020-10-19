@@ -102,12 +102,11 @@ class verilogInput extends verilogUnaryGate {
         super(deviceJSON);
         if (deviceJSON["net"] == "clk" || deviceJSON["net"] == "clock") {
             this.element = new Clock(0, 0);
-            this.output = this.element.output1;
         } 
         else {
             this.element = new Input(0, 0, undefined, undefined, this.bitWidth);
-            this.output = this.element.output1;
         }
+        this.output = this.element.output1;
         this.element.label = deviceJSON["net"];
     }
 }
@@ -1141,14 +1140,57 @@ typeToNode["Button"] = verilogButton;
 
 typeToNode["Memory"] = verilogMemory;
 
-export default function YosysJSON2CV(JSON){
-    var mainID = (globalScope.id);
+class verilogSubCircuit {
+    constructor(circuit) {
+        this.circuit = circuit;
+    }
+
+    getPort(portName) {
+        var numInputs = this.circuit.inputNodes.length;
+        var numOutputs = this.circuit.outputNodes.length
+
+        for(var i = 0; i < numInputs; i++) {
+            if(this.circuit.data.Input[i].label == portName){
+                return this.circuit.inputNodes[i];
+            }
+        }
+
+        for(var i = 0; i < numOutputs; i++) {
+            if(this.circuit.data.Output[i].label == portName) {
+                return this.circuit.outputNodes[i];
+            }
+        }
+    }
+}
+
+export function YosysJSON2CV(JSON, parentScope = globalScope){
+    var parentID = (parentScope.id);
     let subScope = newCircuit("verilog");
     var subScopeID = subScope.id;
     var circuitDevices = {};
+
+    var isPresent = {};
+
     for (var device in JSON.devices) {
         var deviceType = JSON.devices[device].type;
-        circuitDevices[device] = new typeToNode[deviceType](JSON.devices[device]);
+        if(deviceType == "Subcircuit") {
+            var subCircuitName = JSON.devices[device].celltype;
+            for (var subCircuit in JSON.subcircuits) {
+                if(subCircuit == subCircuitName) {
+                    if(isPresent[subCircuitName] == undefined) {
+                        circuitDevices[device] = new verilogSubCircuit(YosysJSON2CV(JSON.subcircuits[subCircuitName], subScope));
+                        isPresent[subCircuitName] = circuitDevices[device].circuit.id;
+
+                    }
+                    else {
+                        circuitDevices[device] = new verilogSubCircuit(new SubCircuit(500, 500, undefined, isPresent[subCircuitName]));
+                    }
+                }
+            }
+        }
+        else {
+            circuitDevices[device] = new typeToNode[deviceType](JSON.devices[device]);
+        }
     }
 
     for (var connection in JSON.connectors) {
@@ -1164,11 +1206,39 @@ export default function YosysJSON2CV(JSON){
 
         var fromPortNode = fromObj.getPort(fromPort);
         var toPortNode = toObj.getPort(toPort);
-
+       
         fromPortNode.connect(toPortNode);
     }
     
-    switchCircuit(mainID);
+    switchCircuit(parentID);
     var veriSubCircuit = new SubCircuit(500, 500, undefined, subScopeID);
     return veriSubCircuit;
+}
+
+async function postData(url = '', data = {}) {
+    // Default options are marked with *
+    const response = await fetch(url, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+            'content-type': 'application/json'
+        },
+        processData: false,
+        body: JSON.stringify(data)// body data type must match "Content-Type" header
+    });
+    return response.json(); // parses JSON response into native JavaScript objects
+}
+
+export default function addVerilogElement(verilogCode) {
+    // var verilogCode = window.prompt("Enter the verilog code");
+
+    // const http = new XMLHttpRequest();
+    const url='http://127.0.0.1:3040/getJSON';
+
+    var params = {"code": verilogCode};
+    postData(url, params)
+        .then(data => {
+            YosysJSON2CV(data);
+        });
 }
