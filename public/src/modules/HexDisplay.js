@@ -1,7 +1,7 @@
 import CircuitElement from "../circuitElement";
 import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
-import { correctWidth, lineTo, moveTo, arc } from "../canvasApi";
+import { correctWidth, lineTo, moveTo, arc, rect2 } from "../canvasApi";
 import { changeInputSize } from "../modules";
 /**
  * @class
@@ -143,12 +143,12 @@ export default class HexDisplay extends CircuitElement {
 
     subcircuitDrawSegment(x1, y1, x2, y2, color, xxSegment, yySegment) {
         if (color == undefined) color = "lightgrey";
-        ctx = simulationArea.context;
+        var ctx = simulationArea.context;
         ctx.beginPath();
         ctx.strokeStyle = color;
         ctx.lineWidth = correctWidth(3);
-        xx = xxSegment;
-        yy = yySegment;
+        var xx = xxSegment;
+        var yy = yySegment;
 
         moveTo(ctx, x1, y1, xx, yy, this.direction);
         lineTo(ctx, x2, y2, xx, yy, this.direction);
@@ -157,14 +157,21 @@ export default class HexDisplay extends CircuitElement {
     }
     // Draws the element in the subcircuit. Used in layout mode
     subcircuitDraw(xOffset = 0, yOffset = 0) {
-        ctx = simulationArea.context;
+        var ctx = simulationArea.context;
 
         var xx = this.subcircuitMetadata.x + xOffset;
         var yy = this.subcircuitMetadata.y + yOffset;
 
         ctx.strokeStyle = "black";
         ctx.lineWidth = correctWidth(3);
-        var a = b = c = d = e = f = g = 0;
+        let a = 0,
+            b = 0,
+            c = 0,
+            d = 0,
+            e = 0,
+            f = 0,
+            g = 0;
+
         switch (this.inp.value) {
             case 0:
                 a = b = c = d = e = f = 1;

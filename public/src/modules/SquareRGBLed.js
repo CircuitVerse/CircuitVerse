@@ -135,10 +135,10 @@ export default class SquareRGBLed extends CircuitElement {
         ctx.fill();
     }
     // Draws the element in the subcuircuit. Used in layout mode
-    subcircuitDraw() {
+    subcircuitDraw(xOffset = 0, yOffset = 0) {
         var ctx = simulationArea.context;
-        var xx = this.subcircuitMetadata.x;
-        var yy = this.subcircuitMetadata.y;
+        var xx = this.subcircuitMetadata.x + xOffset;
+        var yy = this.subcircuitMetadata.y + yOffset;
         var r = this.inp1.value;
         var g = this.inp2.value;
         var b = this.inp3.value;

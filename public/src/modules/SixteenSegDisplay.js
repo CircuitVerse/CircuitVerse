@@ -2,7 +2,7 @@ import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import {
-    correctWidth, lineTo, moveTo, rect,
+    correctWidth, lineTo, moveTo, rect, rect2
 } from '../canvasApi';
 import { changeInputSize } from '../modules';
 /**
@@ -114,12 +114,12 @@ export default class SixteenSegDisplay extends CircuitElement {
 
     subcircuitDrawSegment(x1, y1, x2, y2, color, xxSegment, yySegment) {
         if (color == undefined) color = "lightgrey";
-        ctx = simulationArea.context;
+        var ctx = simulationArea.context;
         ctx.beginPath();
         ctx.strokeStyle = color;
         ctx.lineWidth = correctWidth(3);
-        xx = xxSegment;
-        yy = yySegment;
+        var xx = xxSegment;
+        var yy = yySegment;
         moveTo(ctx, x1, y1, xx, yy, this.direction);
         lineTo(ctx, x2, y2, xx, yy, this.direction);
         ctx.closePath();
@@ -128,12 +128,12 @@ export default class SixteenSegDisplay extends CircuitElement {
 
     subcircuitDrawSegmentSlant(x1, y1, x2, y2, color, xxSegment, yySegment) {
         if (color == undefined) color = "lightgrey";
-        ctx = simulationArea.context;
+        var ctx = simulationArea.context;
         ctx.beginPath();
         ctx.strokeStyle = color;
         ctx.lineWidth = correctWidth(2);
-        xx = xxSegment;
-        yy = yySegment;
+        var xx = xxSegment;
+        var yy = yySegment;
         moveTo(ctx, x1, y1, xx, yy, this.direction);
         lineTo(ctx, x2, y2, xx, yy, this.direction);
         ctx.closePath();

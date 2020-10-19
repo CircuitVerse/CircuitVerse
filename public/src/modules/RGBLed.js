@@ -122,11 +122,11 @@ export default class RGBLed extends CircuitElement {
     }
 
     // Draws the element in the subcuircuit. Used in layout mode
-    subcircuitDraw() {
+    subcircuitDraw(xOffset = 0, yOffset = 0) {
         var ctx = simulationArea.context;
 
-        var xx = this.subcircuitMetadata.x;
-        var yy = this.subcircuitMetadata.y;
+        var xx = this.subcircuitMetadata.x + xOffset;
+        var yy = this.subcircuitMetadata.y + yOffset;
         var dimensionSize = 6;
         // var size = this.subcircuitMetadata.size;
         // if (size === "medium")
