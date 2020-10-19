@@ -493,28 +493,51 @@ export function fullView () {
 }
 
 export function fillSubcircuitElements() {
-    const subcircuitElements = [
-        "DigitalLed", "VariableLed", "RGBLed", "SquareRGBLed",
-        "SevenSegDisplay","HexDisplay",
-        "Button", "Random", "Counter"];
+    $('#subcircuitMenu').empty();
 
-    for(let el of subcircuitElements) {
+    for(let el of circuitElementList) {
         if(globalScope[el].length === 0) continue;
+        if(!globalScope[el][0].canShowInSubcircuit) continue;
         let tempHTML = '';
 
         // add a panel for each existing group
         tempHTML += `<div class="panelHeader">${el}s</div>`;
         tempHTML += `<div class="panel">`;
 
+        let available = false;
+
         // add an SVG for each element
         for(let i = 0; i < globalScope[el].length; i++){
-            tempHTML += `<div class="icon logixModules draggableSubcircuitElement" id="${el}-${i}" data-element-id="${i}" data-element-name="${el}">`;
-            tempHTML += `<img src= "/img/${el}.svg">`;
-            tempHTML += `<p class="img__description">${(globalScope[el][i].label !== "")? globalScope[el][i].label : 'unlabeled'}</p>`;
-            tempHTML += '</div>';
+            if (!globalScope[el][i].subcircuitMetadata.showInSubcircuit) {
+                tempHTML += `<div class="icon subcircuitModule" id="${el}-${i}" data-element-id="${i}" data-element-name="${el}">`;
+                tempHTML += `<img src= "/img/${el}.svg">`;
+                tempHTML += `<p class="img__description">${(globalScope[el][i].label !== "")? globalScope[el][i].label : 'unlabeled'}</p>`;
+                tempHTML += '</div>';
+                available = true;
+            }
+
         }
         tempHTML += '</div>';
-        $('#subcircuitMenu').append(tempHTML);
+
+        if (available)
+            $('#subcircuitMenu').append(tempHTML);
     }
+
+    $('#subcircuitMenu').accordion("refresh");
+
+    $('.subcircuitModule').mousedown(function () {
+
+        let elementName = this.dataset.elementName;
+        let elementIndex = this.dataset.elementId;
+
+        let element = globalScope[elementName][elementIndex];
+
+        element.subcircuitMetadata.showInSubcircuit = true;
+        element.newElement = true;
+        simulationArea.lastSelected = element;
+        this.parentElement.removeChild(this);
+
+
+    });
 } 
 

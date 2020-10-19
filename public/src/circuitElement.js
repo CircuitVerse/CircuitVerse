@@ -6,6 +6,8 @@ import {
     fixDirection, fillText, correctWidth, rect2, oppositeDirection,
 } from './canvasApi';
 import { colors } from './themer/themer';
+import { layoutMode, tempBuffer } from './layoutMode'
+import { fillSubcircuitElements } from './ux'
 
 /**
  * Base class for circuit elements.
@@ -156,6 +158,8 @@ export default class CircuitElement {
             propagationDelay: this.propagationDelay,
             customData: this.customSave(),
         };
+
+        if(this.canShowInSubcircuit) data.subcircuitMetadata = this.subcircuitMetadata;
         return data;
     }
 
@@ -229,8 +233,14 @@ export default class CircuitElement {
      * Helper Function to drag element to a new position
      */
     startDragging() {
-        this.oldx = this.x;
-        this.oldy = this.y;
+        if(!layoutMode){
+            this.oldx = this.x;
+            this.oldy = this.y;
+        }
+        else{
+            this.oldx = this.subcircuitMetadata.x;
+            this.oldy = this.subcircuitMetadata.y;
+        }
     }
 
     /**
@@ -238,8 +248,14 @@ export default class CircuitElement {
     * @memberof CircuitElement
     */
     drag() {
-        this.x = this.oldx + simulationArea.mouseX - simulationArea.mouseDownX;
-        this.y = this.oldy + simulationArea.mouseY - simulationArea.mouseDownY;
+        if(!layoutMode){
+            this.x = this.oldx + simulationArea.mouseX - simulationArea.mouseDownX;
+            this.y = this.oldy + simulationArea.mouseY - simulationArea.mouseDownY;
+        }
+        else{
+            this.subcircuitMetadata.x = this.oldx + simulationArea.mouseX - simulationArea.mouseDownX;
+            this.subcircuitMetadata.y = this.oldy + simulationArea.mouseY - simulationArea.mouseDownY;
+        }
     }
 
     /**
@@ -248,6 +264,9 @@ export default class CircuitElement {
      * NOT OVERRIDABLE
      */
     update() {
+        if (layoutMode) {
+            return this.layoutUpdate();
+        }
         let update = false;
 
         update |= this.newElement;
@@ -306,6 +325,7 @@ export default class CircuitElement {
             if (this.clicked) simulationArea.selected = false;
             this.clicked = false;
             this.wasClicked = false;
+            if(this.wasClicked && !this.clicked) this.releaseClick();
         }
 
         if (simulationArea.mouseDown && !this.wasClicked) {
@@ -323,6 +343,103 @@ export default class CircuitElement {
                     simulationArea.lastSelected = this;
                 }
             }
+        }
+
+        return update;
+    }
+
+    /**
+     * Used to update the state of the elements inside the subcircuit in layout mode
+     * Return Value: true if the state has changed, false otherwise
+    **/
+
+    layoutUpdate(){
+        var update = false;
+        console.log(this.newElement);
+        update |= this.newElement;
+        if (this.newElement) {
+            this.subcircuitMetadata.x = simulationArea.mouseX;
+            this.subcircuitMetadata.y = simulationArea.mouseY;
+
+            if (simulationArea.mouseDown) {
+                this.newElement = false;
+                simulationArea.lastSelected = this;
+            } else return;
+        }
+
+        if (!simulationArea.hover || simulationArea.hover == this)
+            this.hover = this.isHover();
+
+        // if (!simulationArea.mouseDown) this.hover = false;
+
+        if ((this.clicked || !simulationArea.hover) && this.isHover()) {
+            this.hover = true;
+            simulationArea.hover = this;
+        } else if (!simulationArea.mouseDown && this.hover && this.isHover() == false) {
+            if (this.hover) simulationArea.hover = undefined;
+            this.hover = false;
+        }
+
+        if (simulationArea.mouseDown && (this.clicked)) {
+
+            this.drag();
+            // if (!simulationArea.shiftDown && simulationArea.multipleObjectSelections.contains(this)) {
+            //     for (var i = 0; i < simulationArea.multipleObjectSelections.length; i++) {
+            //         simulationArea.multipleObjectSelections[i].drag();
+            //     }
+            // }
+
+            update |= true;
+        } else if (simulationArea.mouseDown && !simulationArea.selected) {
+
+            this.startDragging();
+            // if (!simulationArea.shiftDown && simulationArea.multipleObjectSelections.contains(this)) {
+            //     for (var i = 0; i < simulationArea.multipleObjectSelections.length; i++) {
+            //         simulationArea.multipleObjectSelections[i].startDragging();
+            //     }
+            // }
+            simulationArea.selected = this.clicked = this.hover;
+
+            update |= this.clicked;
+        } else {
+            if (this.clicked) simulationArea.selected = false;
+            this.clicked = false;
+            this.wasClicked = false;
+        }
+
+        if (simulationArea.mouseDown && !this.wasClicked) {
+            if (this.clicked) {
+                this.wasClicked = true;
+                // if (this.click) this.click();
+                if (simulationArea.shiftDown) {
+                //     simulationArea.lastSelected = undefined;
+                //     if (simulationArea.multipleObjectSelections.contains(this)) {
+                //         simulationArea.multipleObjectSelections.clean(this);
+                //     } else {
+                //         simulationArea.multipleObjectSelections.push(this);
+                //     }
+                } else {
+                    simulationArea.lastSelected = this;
+                }
+            }
+        }
+
+        if (!this.clicked && !this.newElement) {
+            let x = this.subcircuitMetadata.x;
+            let y = this.subcircuitMetadata.y; 
+            let yy = tempBuffer.layout.height;
+            let xx = tempBuffer.layout.width;
+
+            let rX = this.layoutProperties.rightDimensionX;
+            let lX = this.layoutProperties.leftDimensionX;
+            let uY = this.layoutProperties.upDimensionY;
+            let dY = this.layoutProperties.downDimensionY;
+
+            if (lX <= x && x + rX <= xx && y >= uY && y + dY <= yy)
+                return;
+
+            this.subcircuitMetadata.showInSubcircuit = false;
+            fillSubcircuitElements();
         }
 
         return update;
@@ -349,6 +466,17 @@ export default class CircuitElement {
         var lX = this.leftDimensionX;
         var uY = this.upDimensionY;
         var dY = this.downDimensionY;
+
+        if (layoutMode) {
+
+            var mX = simulationArea.mouseXf - this.subcircuitMetadata.x;
+            var mY = this.subcircuitMetadata.y - simulationArea.mouseYf;
+
+            var rX = this.layoutProperties.rightDimensionX;
+            var lX = this.layoutProperties.leftDimensionX;
+            var uY = this.layoutProperties.upDimensionY;
+            var dY = this.layoutProperties.downDimensionY;
+       }
 
         if (!this.directionFixed && !this.overrideDirectionRotation) {
             if (this.direction === 'LEFT') {
@@ -458,6 +586,47 @@ export default class CircuitElement {
         //     this.nodeList[i].draw();
     }
 
+    drawLayoutMode(xOffset = 0, yOffset = 0){
+        var ctx = simulationArea.context;
+        this.checkHover();
+        if (this.subcircuitMetadata.x * this.scope.scale + this.scope.ox < -this.layoutProperties.rightDimensionX * this.scope.scale  || this.subcircuitMetadata.x * this.scope.scale + this.scope.ox > width + this.layoutProperties.leftDimensionX * this.scope.scale  || this.subcircuitMetadata.y * this.scope.scale + this.scope.oy < -this.layoutProperties.downDimensionY * this.scope.scale  || this.subcircuitMetadata.y * this.scope.scale + this.scope.oy > height + this.layoutProperties.upDimensionY * this.scope.scale) return;
+
+        if (this.subcircuitMetadata.showLabelInSubcircuit) {
+            var rX = this.layoutProperties.rightDimensionX;
+            var lX = this.layoutProperties.leftDimensionX;
+            var uY = this.layoutProperties.upDimensionY;
+            var dY = this.layoutProperties.downDimensionY;
+
+            // this.subcircuitMetadata.labelDirection
+            if (this.subcircuitMetadata.labelDirection == "LEFT") {
+                ctx.beginPath();
+                ctx.textAlign = "right";
+                ctx.fillStyle = "black";
+                fillText(ctx, this.label, this.subcircuitMetadata.x + xOffset - lX - 10, this.subcircuitMetadata.y + yOffset + 5, 10);
+                ctx.fill();
+            } else if (this.subcircuitMetadata.labelDirection == "RIGHT") {
+                ctx.beginPath();
+                ctx.textAlign = "left";
+                ctx.fillStyle = "black";
+                fillText(ctx, this.label, this.subcircuitMetadata.x + xOffset + rX + 10, this.subcircuitMetadata.y + yOffset + 5, 10);
+                ctx.fill();
+            } else if (this.subcircuitMetadata.labelDirection == "UP") {
+                ctx.beginPath();
+                ctx.textAlign = "center";
+                ctx.fillStyle = "black";
+                fillText(ctx, this.label, this.subcircuitMetadata.x + xOffset, this.subcircuitMetadata.y + yOffset + 5 - uY - 10, 10);
+                ctx.fill();
+            } else if (this.subcircuitMetadata.labelDirection == "DOWN") {
+                ctx.beginPath();
+                ctx.textAlign = "center";
+                ctx.fillStyle = "black";
+                fillText(ctx, this.label, this.subcircuitMetadata.x + xOffset, this.subcircuitMetadata.y + yOffset + 5 + dY + 10, 10);
+                ctx.fill();
+            }
+        }
+        this.subcircuitDraw(xOffset, yOffset);
+    }
+
     // method to delete object
     // OVERRIDE WITH CAUTION
     delete() {
@@ -515,7 +684,8 @@ export default class CircuitElement {
     * @param {string} dir - new direction
     */
     newLabelDirection(dir) {
-        this.labelDirection = dir;
+        if(layoutMode) this.subcircuitMetadata.labelDirection = dir;
+        else this.labelDirection = dir;
     }
 
     /**
@@ -654,6 +824,7 @@ export default class CircuitElement {
 
         return res;
     }
+
 }
 
 CircuitElement.prototype.alwaysResolve = false;
@@ -663,3 +834,21 @@ CircuitElement.prototype.propagationDelayFixed = false;
 CircuitElement.prototype.objectType = 'CircuitElement';
 CircuitElement.prototype.canShowInSubcircuit = false;
 CircuitElement.prototype.subcircuitMetadata = {};
+CircuitElement.prototype.layoutProperties = {
+    rightDimensionX : 5,
+    leftDimensionX : 5,
+    upDimensionY : 5,
+    downDimensionY: 5
+};
+CircuitElement.prototype.subcircuitMutableProperties = {
+    "label": {
+        name: "label: ",
+        type: "text",
+        func: "setLabel"
+    },
+    "show label": {
+        name: "show label ",
+        type: "checkbox",
+        func: "toggleLabelInLayoutMode"
+    }
+};

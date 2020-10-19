@@ -5,7 +5,7 @@ import {
 } from './canvasApi';
 import LayoutBuffer from './layout/layoutBuffer';
 import simulationArea from './simulationArea';
-import { hideProperties, fillSubcircuitElements } from './ux';
+import { hideProperties, fillSubcircuitElements, prevPropertyObj, showProperties } from './ux';
 import {
     update, scheduleUpdate, willBeUpdatedSet, gridUpdateSet,
 } from './engine';
@@ -20,7 +20,7 @@ import * as metadata from './metadata.json';
  * @category layoutMode
  */
 
-var layoutMode = false;
+export var layoutMode = false;
 
 export function layoutModeSet(param) {
     layoutMode = param;
@@ -86,8 +86,6 @@ export function paneLayout(scope = globalScope) {
  */
 export function renderLayout(scope = globalScope) {
     if (!layoutModeGet()) return;
-    var { xx } = tempBuffer;
-    var { yy } = tempBuffer;
     var ctx = simulationArea.context;
     simulationArea.clear();
     ctx.strokeStyle = 'black';
@@ -95,14 +93,14 @@ export function renderLayout(scope = globalScope) {
     ctx.lineWidth = correctWidth(3);
     // Draw base rectangle
     ctx.beginPath();
-    rect2(ctx, 0, 0, tempBuffer.layout.width, tempBuffer.layout.height, xx, yy, 'RIGHT');
+    rect2(ctx, 0, 0, tempBuffer.layout.width, tempBuffer.layout.height, 0, 0, "RIGHT");
     ctx.fill();
     ctx.stroke();
     ctx.beginPath();
     ctx.textAlign = 'center';
     ctx.fillStyle = 'black';
     if (tempBuffer.layout.titleEnabled) {
-        fillText(ctx, scope.name, tempBuffer.layout.title_x + xx, yy + tempBuffer.layout.title_y, 11);
+        fillText(ctx, scope.name, tempBuffer.layout.title_x, tempBuffer.layout.title_y, 11);
     }
 
     // Draw labels
@@ -111,13 +109,13 @@ export function renderLayout(scope = globalScope) {
         if (!tempBuffer.Input[i].label) continue;
         info = determineLabel(tempBuffer.Input[i].x, tempBuffer.Input[i].y, scope);
         [ctx.textAlign] = info;
-        fillText(ctx, tempBuffer.Input[i].label, tempBuffer.Input[i].x + info[1] + xx, yy + tempBuffer.Input[i].y + info[2], 12);
+        fillText(ctx, temp_buffer.Input[i].label, temp_buffer.Input[i].x + info[1], temp_buffer.Input[i].y + info[2], 12);
     }
     for (let i = 0; i < tempBuffer.Output.length; i++) {
         if (!tempBuffer.Output[i].label) continue;
         info = determineLabel(tempBuffer.Output[i].x, tempBuffer.Output[i].y, scope);
         [ctx.textAlign] = info;
-        fillText(ctx, tempBuffer.Output[i].label, tempBuffer.Output[i].x + info[1] + xx, yy + tempBuffer.Output[i].y + info[2], 12);
+        fillText(ctx, temp_buffer.Output[i].label, temp_buffer.Output[i].x + info[1], temp_buffer.Output[i].y + info[2], 12);
     }
     ctx.fill();
 
@@ -144,11 +142,18 @@ export function renderLayout(scope = globalScope) {
     }
 
     // Render objects
-    for(let i = 0; i < tempBuffer.subElements.length; i++){
-        tempBuffer.subElements[i].draw();
-        for(let j = 0; j < tempBuffer.subElements[i].nodeList.length; j++){
-            // console.log("THE ELEMENT IS ", tempBuffer.subElements[i].nodeList[j] )
-            tempBuffer.subElements[i].nodeList[j].parent.subcircuitDraw();
+    for(let i = 0; i < circuitElementList.length; i++){
+        if(globalScope[circuitElementList[i]].length === 0) continue;
+        if (!globalScope[circuitElementList[i]][0].canShowInSubcircuit) continue;
+
+        let elementName = circuitElementList[i];
+
+        for(let j = 0; j < globalScope[elementName].length; j++){
+
+            if (globalScope[elementName][j].subcircuitMetadata.showInSubcircuit) {
+                globalScope[elementName][j].drawLayoutMode();
+            }
+
         }
     }
 }
@@ -166,6 +171,21 @@ export function layoutUpdate(scope = globalScope) {
     }
     for (let i = 0; i < tempBuffer.Output.length; i++) {
         tempBuffer.Output[i].update();
+    }
+
+    for(let i = 0; i < circuitElementList.length; i++){
+        if(globalScope[circuitElementList[i]].length === 0) continue;
+        if(!globalScope[circuitElementList[i]][0].canShowInSubcircuit) continue;
+        console.log(globalScope[circuitElementList[i]].length, circuitElementList[i]);
+        let elementName = circuitElementList[i];
+
+        for(let j = 0; j < globalScope[elementName].length; j++){
+            if (globalScope[elementName][j].subcircuitMetadata.showInSubcircuit) {
+                globalScope[elementName][j].layoutUpdate();
+                console.log(globalScope[elementName]);
+            }
+
+        }
     }
     paneLayout(scope);
     renderLayout(scope);
@@ -331,6 +351,7 @@ function cancelLayout() {
 function saveLayout() {
     if (layoutModeGet()) {
         for (let i = 0; i < tempBuffer.Input.length; i++) {
+            console.log(tempBuffer);
             tempBuffer.Input[i].parent.layoutProperties.x = tempBuffer.Input[i].x;
             tempBuffer.Input[i].parent.layoutProperties.y = tempBuffer.Input[i].y;
         }
@@ -364,12 +385,7 @@ export function toggleLayoutMode() {
         $('#menu').css('display', 'none');
         $('#subcircuitMenu').css('display', 'block');
         fillSubcircuitElements();
-        $('#subcircuitMenu').accordion("refresh");
-        $('.draggableSubcircuitElement').draggable({
-            helper: "clone",
-            appendTo: "body",
-            zIndex: 100
-        });
+        
         globalScope.ox = 0;
         globalScope.oy = 0;
         globalScope.scale = DPR * 1.3;

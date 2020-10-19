@@ -361,18 +361,19 @@ export default function startListeners() {
         const sideBarWidth = $('#guide_1')[0].clientWidth;
         let tempElement;
 
+        console.log("LISTENERDRAGG", ui);
         if( ui.position.top > 10 && ui.position.left > sideBarWidth){
             // make a shallow copy of the element with the new coordinates
             tempElement = globalScope[this.dataset.elementName][this.dataset.elementId];
             
-            /*
-            Changing the coordinate doesn't work yet, nodes get far from element
+            
+            // Changing the coordinate doesn't work yet, nodes get far from element
             tempElement.x = ui.position.left - sideBarWidth;
             tempElement.y = ui.position.top;
             for(let node of tempElement.nodeList){
                 node.x = ui.position.left - sideBarWidth;
                 node.y = ui.position.top
-            } */
+            } 
 
             tempBuffer.subElements.push(tempElement);
             this.parentElement.removeChild(this);

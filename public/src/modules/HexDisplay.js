@@ -141,14 +141,14 @@ export default class HexDisplay extends CircuitElement {
     }
 
 
-    subcircuitDrawSegment(x1, y1, x2, y2, color) {
+    subcircuitDrawSegment(x1, y1, x2, y2, color, xxSegment, yySegment) {
         if (color == undefined) color = "lightgrey";
         ctx = simulationArea.context;
         ctx.beginPath();
         ctx.strokeStyle = color;
         ctx.lineWidth = correctWidth(3);
-        xx = this.subcircuitMetadata.x;
-        yy = this.subcircuitMetadata.y;
+        xx = xxSegment;
+        yy = yySegment;
 
         moveTo(ctx, x1, y1, xx, yy, this.direction);
         lineTo(ctx, x2, y2, xx, yy, this.direction);
@@ -156,11 +156,11 @@ export default class HexDisplay extends CircuitElement {
         ctx.stroke();
     }
     // Draws the element in the subcircuit. Used in layout mode
-    subcircuitDraw() {
+    subcircuitDraw(xOffset = 0, yOffset = 0) {
         ctx = simulationArea.context;
 
-        var xx = this.subcircuitMetadata.x;
-        var yy = this.subcircuitMetadata.y;
+        var xx = this.subcircuitMetadata.x + xOffset;
+        var yy = this.subcircuitMetadata.y + yOffset;
 
         ctx.strokeStyle = "black";
         ctx.lineWidth = correctWidth(3);
@@ -217,13 +217,13 @@ export default class HexDisplay extends CircuitElement {
             default:
 
         }
-        this.layoutDrawSegment(10, -20, 10, -38, ["lightgrey", "red"][b]);
-        this.layoutDrawSegment(10, -17, 10, 1, ["lightgrey", "red"][c]);
-        this.layoutDrawSegment(-10, -20, -10, -38, ["lightgrey", "red"][f]);
-        this.layoutDrawSegment(-10, -17, -10, 1, ["lightgrey", "red"][e]);
-        this.layoutDrawSegment(-8, -38, 8, -38, ["lightgrey", "red"][a]);
-        this.layoutDrawSegment(-8, -18, 8, -18, ["lightgrey", "red"][g]);
-        this.layoutDrawSegment(-8, 1, 8, 1, ["lightgrey", "red"][d]);
+        this.subcircuitDrawSegment(10, -20, 10, -38, ["lightgrey", "red"][b],xx, yy);
+        this.subcircuitDrawSegment(10, -17, 10, 1, ["lightgrey", "red"][c],xx, yy);
+        this.subcircuitDrawSegment(-10, -20, -10, -38, ["lightgrey", "red"][f],xx, yy);
+        this.subcircuitDrawSegment(-10, -17, -10, 1, ["lightgrey", "red"][e],xx, yy);
+        this.subcircuitDrawSegment(-8, -38, 8, -38, ["lightgrey", "red"][a],xx, yy);
+        this.subcircuitDrawSegment(-8, -18, 8, -18, ["lightgrey", "red"][g],xx, yy);
+        this.subcircuitDrawSegment(-8, 1, 8, 1, ["lightgrey", "red"][d],xx, yy);
 
         ctx.beginPath();
         ctx.strokeStyle = "black";

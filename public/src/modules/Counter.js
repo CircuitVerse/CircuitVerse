@@ -1,7 +1,7 @@
 import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
-import { lineTo, moveTo, fillText } from '../canvasApi';
+import { lineTo, moveTo, fillText, correctWidth, rect2 } from '../canvasApi';
 import { colors } from '../themer/themer';
 
 
@@ -120,16 +120,16 @@ export default class Counter extends CircuitElement {
     }
 
     // Draws the element in the subcuircuit. Used in layout mode
-    subcircuitDraw() {
+    subcircuitDraw(xOffset = 0, yOffset = 0) {
         var ctx = simulationArea.context;
-        var xx = this.subcircuitMetadata.x;
-        var yy = this.subcircuitMetadata.y;
+        var xx = this.subcircuitMetadata.x + xOffset;
+        var yy = this.subcircuitMetadata.y + yOffset;
 
         ctx.beginPath();
         ctx.font = "20px Georgia";
         ctx.fillStyle = "green";
         ctx.textAlign = "center";
-        fillText(ctx, this.value.toString(16), this.subcircuitMetadata.x + 10, this.subcircuitMetadata.y + 17);
+        fillText(ctx, this.value.toString(16), xx + 10, yy + 17);
         ctx.fill();
 
         ctx.beginPath();

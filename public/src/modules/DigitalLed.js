@@ -1,7 +1,7 @@
 import CircuitElement from "../circuitElement";
 import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
-import { correctWidth, lineTo, moveTo, arc, colorToRGBA, drawCircle2 } from "../canvasApi";
+import { correctWidth, lineTo, moveTo, arc, colorToRGBA, drawCircle2, validColor} from "../canvasApi";
 import { changeInputSize } from "../modules";
 /**
  * @class
@@ -113,12 +113,12 @@ export default class DigitalLed extends CircuitElement {
     }
 
     // Draws the element in the subcircuit. Used in layout mode
-    subcircuitDraw() {
+    subcircuitDraw(xOffset = 0, yOffset = 0) {
         var ctx = simulationArea.context;
 
-        var xx = this.subcircuitMetadata.x;
-        var yy = this.subcircuitMetadata.y;
-
+        var xx = this.subcircuitMetadata.x + xOffset;
+        var yy = this.subcircuitMetadata.y + yOffset;
+        
         ctx.strokeStyle = "#090a0a";
         ctx.fillStyle = ["rgba(227,228,229,0.8)", this.actualColor][this.inp1.value || 0];
         ctx.lineWidth = correctWidth(1);

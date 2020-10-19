@@ -103,8 +103,8 @@ export default class SevenSegDisplay extends CircuitElement {
         ctx.beginPath();
         ctx.strokeStyle = color;
         ctx.lineWidth = correctWidth(3);
-        xx = this.subcircuitMetadata.x;
-        yy = this.subcircuitMetadata.y;
+        xx = xxSegment;
+        yy = yySegment;
         moveTo(ctx, x1, y1, xx, yy, this.direction);
         lineTo(ctx, x2, y2, xx, yy, this.direction);
         ctx.closePath();
@@ -112,19 +112,19 @@ export default class SevenSegDisplay extends CircuitElement {
     }
 
     // Draws the element in the subcuircuit. Used in layout mode
-    subcircuitDraw() {
+    subcircuitDraw(xOffset = 0, yOffset = 0) {
         ctx = simulationArea.context;
 
-        var xx = this.subcircuitMetadata.x;
-        var yy = this.subcircuitMetadata.y;
+        var xx = this.subcircuitMetadata.x + xOffset;
+        var yy = this.subcircuitMetadata.y + yOffset;
 
-        this.layoutDrawSegment(10, -20, 10, -38, ["lightgrey", "red"][this.b.value]);
-        this.layoutDrawSegment(10, -17, 10, 1, ["lightgrey", "red"][this.c.value]);
-        this.layoutDrawSegment(-10, -20, -10, -38, ["lightgrey", "red"][this.f.value]);
-        this.layoutDrawSegment(-10, -17, -10, 1, ["lightgrey", "red"][this.e.value]);
-        this.layoutDrawSegment(-8, -38, 8, -38, ["lightgrey", "red"][this.a.value]);
-        this.layoutDrawSegment(-8, -18, 8, -18, ["lightgrey", "red"][this.g.value]);
-        this.layoutDrawSegment(-8, 1, 8, 1, ["lightgrey", "red"][this.d.value]);
+        this.subcircuitDrawSegment(10, -20, 10, -38, ["lightgrey", "red"][this.b.value], xx, yy);
+        this.subcircuitDrawSegment(10, -17, 10, 1, ["lightgrey", "red"][this.c.value], xx, yy);
+        this.subcircuitDrawSegment(-10, -20, -10, -38, ["lightgrey", "red"][this.f.value], xx, yy);
+        this.subcircuitDrawSegment(-10, -17, -10, 1, ["lightgrey", "red"][this.e.value], xx, yy);
+        this.subcircuitDrawSegment(-8, -38, 8, -38, ["lightgrey", "red"][this.a.value], xx, yy);
+        this.subcircuitDrawSegment(-8, -18, 8, -18, ["lightgrey", "red"][this.g.value], xx, yy);
+        this.subcircuitDrawSegment(-8, 1, 8, 1, ["lightgrey", "red"][this.d.value], xx, yy);
 
         ctx.beginPath();
         var dotColor = ["lightgrey", "red"][this.dot.value] || "lightgrey"
