@@ -101,8 +101,6 @@ function menuItemClicked(id, code="") {
     } else if (id === 7) {
         globalScope.centerFocus(false);
     } else if (id == 8) {
-        console.log("qweqwe");
-        console.log(code);
         addVerilogElement(code);
     }
 }

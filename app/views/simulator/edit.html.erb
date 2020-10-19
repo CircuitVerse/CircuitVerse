@@ -17,7 +17,7 @@
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  z-index: 1000; /* Sit on top */
   padding-top: 100px; /* Location of the box */
   left: 0;
   top: 0;
@@ -637,12 +637,19 @@
 <!-- The Modal -->
 <div id="myModal" class="modal">
 
-  <!-- Modal content -->
+  <!-- Modal content --> 
   <div class="modal-content">
-    <textarea id="myCode"></textarea>
-    <button onclick="closeFunction1()"> Submit </button>
-  </div>
+    <div class="modal-header">
+      <h4 class="modal-title"> Enter Verilog Code </h4>
+    </div>
 
+    <textarea id="myCode"></textarea>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary active" onclick="closeFunction1()"> Submit </button>
+      <button type="button" class="btn btn-primary active" onclick="closeFunction2()"> Cancel </button>
+    </div>
+  </div>
 </div>
 
 <script >
@@ -704,11 +711,11 @@ duration: 500
 
 var myTextarea = document.getElementById("myCode");
 editor = CodeMirror.fromTextArea(myTextarea, {
+  mode:  "verilog",
+  lineNumbers: true,
   value: "function myScript(){return 100;}\n",
-  mode:  "javascript",
-  lineNumbers: true
 });
-
+editor.refresh();
 
 // Get the modal
 var modal = document.getElementById("myModal");
@@ -721,6 +728,10 @@ function closeFunction1() {
   modal.style.display = "none";
   var code = editor.getValue();
   menuItemClicked(8, code);
+}
+
+function closeFunction2() {
+  modal.style.display = "none";
 }
 
 </script>
