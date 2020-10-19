@@ -132,7 +132,7 @@ Before making a pull request, it is a good idea to check that all tests are pass
 ## Docker Instructions
 [Docker](https://www.docker.com/) creates a virtual machine on your PC, which negates the need to install other software or issue the setup instructions manually. This is optional.
 
-**Note:** Docker will not run on Windows 10 Home Edition.
+**Note:** Docker runs on windows version 2004 or higher in Windows 10 Home Edition.
 
 ### Usage
 * Run `docker-compose up` to run the instance
