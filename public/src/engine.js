@@ -3,9 +3,8 @@
 /* eslint-disable no-continue */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-bitwise */
-import { layoutModeGet } from './layoutMode';
+import { layoutModeGet, layoutUpdate } from './layoutMode';
 import plotArea from './plotArea';
-import { layoutUpdate } from './layoutMode';
 import simulationArea from './simulationArea';
 import {
     dots, canvasMessage, findDimensions, rect2,
@@ -198,7 +197,6 @@ var updateSubcircuit = true;
  * @category engine
  */
 export function updateSubcircuitSet(param) {
-    // console.log(updateSubcircuit,param);
     if (updateSubcircuit != param) {
         updateSubcircuit = param;
         return true;
@@ -380,7 +378,6 @@ export function play(scope = globalScope, resetNodes = false) {
     // else{
     //     // clearBuses(scope);
     //     for(var i=0;i<scope.TriState.length;i++) {
-    //         // console.log("HIT2",i);
     //         scope.TriState[i].removePropagation();
     //     }
     // }
@@ -412,7 +409,6 @@ export function play(scope = globalScope, resetNodes = false) {
     }
     // Check for TriState Contentions
     if (simulationArea.contentionPending.length) {
-        console.log(simulationArea.contentionPending);
         showError('Contention at TriState');
         forceResetNodesSet(true);
         errorDetectedSet(true);

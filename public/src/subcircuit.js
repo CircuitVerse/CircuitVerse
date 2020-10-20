@@ -30,7 +30,6 @@ export function loadSubCircuit(savedData, scope) {
  * @category subcircuit
  */
 export function createSubCircuitPrompt(scope = globalScope) {
-    console.log("hey");
     $("#insertSubcircuitDialog").empty();
     let flag = true;
     for (id in scopeList) {
@@ -252,7 +251,6 @@ export default class SubCircuit extends CircuitElement {
             this.upDimensionY = 0;
             this.rightDimensionX = subcircuitScope.layout.width;
             this.downDimensionY = subcircuitScope.layout.height;
-            console.log(subcircuitScope.Output.length);
             for (var i = 0; i < subcircuitScope.Output.length; i++) {
                 var a = new Node(
                     subcircuitScope.Output[i].layoutProperties.x,
@@ -262,7 +260,6 @@ export default class SubCircuit extends CircuitElement {
                     subcircuitScope.Output[i].bitWidth
                 );
                 a.layout_id = subcircuitScope.Output[i].layoutProperties.id;
-                console.log(a.absX(), a.absY());
                 this.outputNodes.push(a);
             }
             for (var i = 0; i < subcircuitScope.Input.length; i++) {
@@ -274,7 +271,6 @@ export default class SubCircuit extends CircuitElement {
                     subcircuitScope.Input[i].bitWidth
                 );
                 a.layout_id = subcircuitScope.Input[i].layoutProperties.id;
-                console.log(a.absX(), a.absY());
                 this.inputNodes.push(a);
             }
         }
@@ -665,8 +661,6 @@ export default class SubCircuit extends CircuitElement {
             );
         }
         ctx.fill();
-        // console.log("input",this.inputNodes)
-        // console.log("oput",this.outputNodes)
         for (let i = 0; i < this.outputNodes.length; i++) {
             this.outputNodes[i].draw();
         }

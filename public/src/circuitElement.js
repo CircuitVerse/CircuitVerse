@@ -6,7 +6,7 @@ import {
     fixDirection, fillText, correctWidth, rect2, oppositeDirection,
 } from './canvasApi';
 import { colors } from './themer/themer';
-import { layoutMode, tempBuffer } from './layoutMode'
+import { layoutModeGet, tempBuffer } from './layoutMode'
 import { fillSubcircuitElements } from './ux'
 
 /**
@@ -233,7 +233,7 @@ export default class CircuitElement {
      * Helper Function to drag element to a new position
      */
     startDragging() {
-        if(!layoutMode){
+        if(!layoutModeGet()){
             this.oldx = this.x;
             this.oldy = this.y;
         }
@@ -248,7 +248,7 @@ export default class CircuitElement {
     * @memberof CircuitElement
     */
     drag() {
-        if(!layoutMode){
+        if(!layoutModeGet()){
             this.x = this.oldx + simulationArea.mouseX - simulationArea.mouseDownX;
             this.y = this.oldy + simulationArea.mouseY - simulationArea.mouseDownY;
         }
@@ -264,7 +264,7 @@ export default class CircuitElement {
      * NOT OVERRIDABLE
      */
     update() {
-        if (layoutMode) {
+        if (layoutModeGet()) {
             return this.layoutUpdate();
         }
         let update = false;
@@ -356,7 +356,6 @@ export default class CircuitElement {
 
     layoutUpdate(){
         var update = false;
-        console.log(this.newElement);
         update |= this.newElement;
         if (this.newElement) {
             this.subcircuitMetadata.x = simulationArea.mouseX;
@@ -468,7 +467,7 @@ export default class CircuitElement {
         var uY = this.upDimensionY;
         var dY = this.downDimensionY;
 
-        if (layoutMode) {
+        if (layoutModeGet()) {
 
             var mX = simulationArea.mouseXf - this.subcircuitMetadata.x;
             var mY = this.subcircuitMetadata.y - simulationArea.mouseYf;
@@ -685,7 +684,7 @@ export default class CircuitElement {
     * @param {string} dir - new direction
     */
     newLabelDirection(dir) {
-        if(layoutMode) this.subcircuitMetadata.labelDirection = dir;
+        if(layoutModeGet()) this.subcircuitMetadata.labelDirection = dir;
         else this.labelDirection = dir;
     }
 

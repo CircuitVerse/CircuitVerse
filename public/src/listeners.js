@@ -1,5 +1,5 @@
 // Most Listeners are stored here
-import { layoutModeGet, tempBuffer } from './layoutMode';
+import { layoutModeGet, tempBuffer, layoutUpdate } from './layoutMode';
 import simulationArea from './simulationArea';
 import {
     scheduleUpdate, update, updateSelectionsAndPane,
@@ -16,7 +16,6 @@ import { removeMiniMap, updatelastMinimapShown } from './minimap';
 import undo from './data/undo';
 import { copy, paste, selectAll } from './events';
 import save from './data/save';
-import { layoutUpdate } from './layoutMode';
 import { selectElement } from './ux';
 
 var unit = 10;

@@ -20,7 +20,7 @@ import * as metadata from './metadata.json';
  * @category layoutMode
  */
 
-export var layoutMode = false;
+var layoutMode = false;
 
 export function layoutModeSet(param) {
     layoutMode = param;
@@ -142,7 +142,6 @@ export function renderLayout(scope = globalScope) {
 
     // Show properties of selected element
     if (!embed && prevPropertyObj != simulationArea.lastSelected) {
-        // console.log(['Wire', 'CircuitElement', 'Node'].indexOf(simulationArea.lastSelected.objectType));
         if (simulationArea.lastSelected) {
             showProperties(simulationArea.lastSelected);
         }
@@ -356,7 +355,6 @@ function cancelLayout() {
 function saveLayout() {
     if (layoutModeGet()) {
         for (let i = 0; i < tempBuffer.Input.length; i++) {
-            console.log(tempBuffer);
             tempBuffer.Input[i].parent.layoutProperties.x = tempBuffer.Input[i].x;
             tempBuffer.Input[i].parent.layoutProperties.y = tempBuffer.Input[i].y;
         }
@@ -401,7 +399,6 @@ export function toggleLayoutMode() {
     hideProperties();
     update(globalScope, true);
     scheduleUpdate();
-    // console.log(document.querySelector('#layoutDialog'))
     $('#decreaseLayoutWidth').click(() => {
         decreaseLayoutWidth();
     });

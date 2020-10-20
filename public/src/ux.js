@@ -139,7 +139,6 @@ export function setupUI() {
     // });
 
     $('.logixModules').mousedown(function () {
-        // ////console.log(uxvar.smartDropXX,uxvar.smartDropYY);
         if (simulationArea.lastSelected && simulationArea.lastSelected.newElement) simulationArea.lastSelected.delete();
         var obj = new modules[this.id](); // (simulationArea.mouseX,simulationArea.mouseY);
         // obj = new modules[this.id](); // (simulationArea.mouseX,simulationArea.mouseY);
@@ -164,7 +163,6 @@ export function setupUI() {
         if (!tooltipText) return;
         $('#Help').addClass('show');
         $('#Help').empty();
-        // //console.log("SHOWING")
         $('#Help').append(tooltipText);
     }); // code goes in document ready fn only
     $('.logixModules').mouseleave(() => {
@@ -182,7 +180,6 @@ export function setupUI() {
 }
 
 export const selectElement = (ele) => {
-    // ////console.log(uxvar.smartDropXX,uxvar.smartDropYY);
     if (simulationArea.lastSelected && simulationArea.lastSelected.newElement) simulationArea.lastSelected.delete();
     var obj = new modules[ele](); // (simulationArea.mouseX,simulationArea.mouseY);
     // obj = new modules[this.id](); // (simulationArea.mouseX,simulationArea.mouseY);
@@ -216,8 +213,6 @@ export function prevPropertyObjGet() {
  * @category ux
  */
 export function showProperties(obj) {
-    // console.log(obj)
-    console.log(prevPropertyObjGet());
     if (obj === prevPropertyObjGet()) return;
     hideProperties();
     prevPropertyObjSet(obj);
@@ -351,8 +346,6 @@ export function showProperties(obj) {
         }
     });
     $('.objectPropertyAttributeChecked').on('change keyup paste click', function () {
-        // return;
-        // console.log(this.name+":"+this.value);
         scheduleUpdate();
         updateCanvasSet(true);
         wireToBeCheckedSet(1);
