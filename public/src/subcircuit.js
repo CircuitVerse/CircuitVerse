@@ -99,6 +99,8 @@ export default class SubCircuit extends CircuitElement {
         this.inputNodes = [];
         this.outputNodes = [];
         this.localScope = new Scope();
+        this.preventCircuitSwitch = false; // prevents from switching circuit if double clicking button
+
         var subcircuitScope = scopeList[this.id]; // Scope of the subcircuit
         // Error handing
         if (subcircuitScope == undefined) {
@@ -493,6 +495,10 @@ export default class SubCircuit extends CircuitElement {
                 if ((-lX <= mX && mX <= rX && -dY <= mY && mY <= uY)){
                         this.lastClickedElement = i;
                         this.localScope["Button"][i].wasClicked = true;
+                        this.preventCircuitSwitch = true;
+                }
+                else{
+                    this.preventCircuitSwitch = false;
                 }
             }
         } 
@@ -531,6 +537,7 @@ export default class SubCircuit extends CircuitElement {
     }
 
     dblclick() {
+        if(this.preventCircuitSwitch) return;
         switchCircuit(this.id);
     }
 

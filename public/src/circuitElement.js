@@ -325,9 +325,10 @@ export default class CircuitElement {
             if (this.clicked) simulationArea.selected = false;
             this.clicked = false;
             this.wasClicked = false;
+            // If this is SubCircuit, then call releaseClick to recursively release clicks on each subcircuit object
             if(this.objectType == "SubCircuit") this.releaseClick();
         }
-        console.log(simulationArea.mouseDown, this);
+
         if (simulationArea.mouseDown && !this.wasClicked) {
             if (this.clicked) {
                 this.wasClicked = true;
