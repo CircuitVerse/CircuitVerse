@@ -114,11 +114,6 @@
   display: block;
 }
 
-.search-user-container {
-  padding-top: 20px;
-  width: 70%;
-}
-
 .search-usersearch-image {
   display: block;
   margin-bottom: 20px;
@@ -131,17 +126,18 @@
   text-align: center;
 }
 
+.search-username-wrapper {
+  margin: .5rem auto;
+  width: 80%;
+}
+
 .search-username {
   display: block;
   font-size: 25px;
   font-weight: 500;
-}
-
-.username-contain {
-  margin: 0 auto;
   overflow: hidden;
-  width: 100%;
-  word-wrap: break-word;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .search-userdetails-container {
@@ -201,8 +197,4 @@
     padding-bottom: 5px;
   }
 
-  .search-user-container {
-    padding-top: 10px;
-    width: 90%;
-  }
 }
