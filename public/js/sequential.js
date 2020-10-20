@@ -459,6 +459,24 @@ Random.prototype.customDraw = function() {
 
 }
 
+
+Random.moduleVerilog = function () {
+  return `
+module Random(val, clk, max);
+  parameter WIDTH = 1;
+  output reg [WIDTH-1:0] val;
+  input clk;
+  input [WIDTH-1:0] max;
+
+  always @ (posedge clk)
+    if (^max === 1'bX)
+      val = $urandom();
+    else
+      val = $urandom_range(0, max);
+endmodule
+`;
+}
+
 function SRflipFlop(x, y, scope = globalScope, dir = "RIGHT") {
     CircuitElement.call(this, x, y, scope, dir, 1);
     this.directionFixed = true;
@@ -1034,6 +1052,7 @@ Clock.prototype.customDraw = function() {
     ctx.stroke();
 
 }
+/*
 Clock.moduleVerilog = function() {
     return `
 module Clock(clk);
@@ -1047,3 +1066,4 @@ module Clock(clk);
 endmodule
 `
 }
+*/

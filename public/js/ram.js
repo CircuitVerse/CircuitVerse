@@ -176,3 +176,26 @@ RAM.prototype.dump = function () {
         console.groupEnd();
     }
 }
+//This is a RAM without a clock - not normal
+//reset is not supported
+RAM.moduleVerilog = function () {
+  return `
+module RAM(dout, addr, din, we, dmp, rst);
+  parameter WIDTH = 8;
+  parameter ADDR = 10;
+  output [WIDTH-1:0] dout;
+  input [ADDR-1:0] addr;
+  input [WIDTH-1:0] din;
+  input we;
+  input dmp;
+  input rst;
+  reg [WIDTH-1:0] cell [2**ADDR-1:0];
+
+  always @ (*) begin
+    if (!we)
+      cell[addr] = din;
+    dout = cell[addr];
+  end
+endmodule
+`;
+}
