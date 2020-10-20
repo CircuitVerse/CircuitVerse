@@ -361,7 +361,6 @@ export default function startListeners() {
         const sideBarWidth = $('#guide_1')[0].clientWidth;
         let tempElement;
 
-        console.log("LISTENERDRAGG", ui);
         if( ui.position.top > 10 && ui.position.left > sideBarWidth){
             // make a shallow copy of the element with the new coordinates
             tempElement = globalScope[this.dataset.elementName][this.dataset.elementId];

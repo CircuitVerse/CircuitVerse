@@ -133,12 +133,19 @@ export function renderLayout(scope = globalScope) {
 
      // Update UI position
     for(let i = 0; i < tempBuffer.subElements.length; i++){
-        console.log(tempBuffer.subElements);
         tempBuffer.subElements[i].update();
 
         // element nodes
         for(let j = 0; j < tempBuffer.subElements[i].nodeList.length; j++)
             tempBuffer.subElements[i].nodeList[j].update();
+    }
+
+    // Show properties of selected element
+    if (!embed && prevPropertyObj != simulationArea.lastSelected) {
+        // console.log(['Wire', 'CircuitElement', 'Node'].indexOf(simulationArea.lastSelected.objectType));
+        if (simulationArea.lastSelected) {
+            showProperties(simulationArea.lastSelected);
+        }
     }
 
     // Render objects
@@ -176,13 +183,11 @@ export function layoutUpdate(scope = globalScope) {
     for(let i = 0; i < circuitElementList.length; i++){
         if(globalScope[circuitElementList[i]].length === 0) continue;
         if(!globalScope[circuitElementList[i]][0].canShowInSubcircuit) continue;
-        console.log(globalScope[circuitElementList[i]].length, circuitElementList[i]);
         let elementName = circuitElementList[i];
 
         for(let j = 0; j < globalScope[elementName].length; j++){
             if (globalScope[elementName][j].subcircuitMetadata.showInSubcircuit) {
                 globalScope[elementName][j].layoutUpdate();
-                console.log(globalScope[elementName]);
             }
 
         }

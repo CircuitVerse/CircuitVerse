@@ -69,7 +69,7 @@ export default class CircuitElement {
         if (this.canShowInSubcircuit) {
         this.subcircuitMetadata = {
             showInSubcircuit: false,
-            showLabelInSubcircuit: false,
+            showLabelInSubcircuit: true,
             labelDirection: this.labelDirection,
             x : 0,
             y : 0
@@ -325,9 +325,9 @@ export default class CircuitElement {
             if (this.clicked) simulationArea.selected = false;
             this.clicked = false;
             this.wasClicked = false;
-            if(this.wasClicked && !this.clicked) this.releaseClick();
+            if(this.objectType == "SubCircuit") this.releaseClick();
         }
-
+        console.log(simulationArea.mouseDown, this);
         if (simulationArea.mouseDown && !this.wasClicked) {
             if (this.clicked) {
                 this.wasClicked = true;
@@ -823,6 +823,10 @@ export default class CircuitElement {
         var res = `${this.verilogName()} ${this.verilogLabel} (${list.map((x) => x.verilogLabel).join(',')});`;
 
         return res;
+    }
+
+    toggleLabelInLayoutMode(){
+        this.subcircuitMetadata.showLabelInSubcircuit = !this.subcircuitMetadata.showLabelInSubcircuit;
     }
 
 }

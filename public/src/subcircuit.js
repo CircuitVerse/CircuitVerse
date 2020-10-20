@@ -15,6 +15,7 @@ import { showError } from "./utils";
 import Node, { findNode } from "./node";
 import { fillText } from "./canvasApi";
 import { colors } from "./themer/themer";
+import { layoutModeGet } from "./layoutMode"
 /**
  * Function to load a subcicuit
  * @category subcircuit
@@ -472,7 +473,7 @@ export default class SubCircuit extends CircuitElement {
                 var uY = this.layoutProperties.upDimensionY;
                 var dY = this.layoutProperties.downDimensionY;
 
-                if (!layoutMode && !this.directionFixed && !this.overrideDirectionRotation) {
+                if (!layoutModeGet() && !this.directionFixed && !this.overrideDirectionRotation) {
                     if (this.direction == "LEFT") {
                         lX = this.rightDimensionX;
                         rX = this.leftDimensionX
