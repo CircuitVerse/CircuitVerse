@@ -117,36 +117,36 @@
 .circuit-card-name {
   float: left;
   font-weight: 600;
-  margin-top: 5px;
+  margin-top: 10px;
   position: relative;
   text-align: left;
 
   p {
-    max-height: 50px;
+    max-height: 30px;
     max-width: 150px;
     overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .tooltiptext {
-    background-color: var(--green);
+    background-color: $primary-green;
     border-radius: 6px;
     bottom: 100%;
-    color: var(--white);
-    left: 50%;
-    margin-left: -60px;
+    color: $white;
+    font-size: .8rem;
+    max-width: 160px;
     opacity: 0;
     padding: 5px 0;
     position: absolute;
     text-align: center;
     transition: opacity .5s;
     visibility: hidden;
-    width: 120px;
     z-index: 1;
   }
 
-
   .tooltiptext::after {
-    border-color: var(--green) transparent transparent;
+    border-color: $primary-green transparent transparent;
     border-style: solid;
     border-width: 5px;
     content: '';
