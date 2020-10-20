@@ -304,10 +304,15 @@ export default class SubCircuit extends CircuitElement {
             subcircuitScope.SubCircuit[i].reset();
         }
 
-        if (
-            subcircuitScope.Input.length == 0 &&
-            subcircuitScope.Output.length == 0
-        ) {
+        let emptyCircuit = true;
+        for(let element of circuitElementList){
+            if(subcircuitScope[element].length > 0 && subcircuitScope[element][0].canShowInSubcircuit){
+                emptyCircuit = false;
+                break;
+            }
+        }
+
+        if (emptyCircuit) {
             showError(
                 `SubCircuit : ${subcircuitScope.name} is an empty circuit`
             );
