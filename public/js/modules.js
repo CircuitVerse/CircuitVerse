@@ -12,6 +12,9 @@ function changeInputSize(size) {
 
 }
 
+// Splitter fixed
+
+
 function AndGate(x, y, scope = globalScope, dir = "RIGHT", inputLength = 2, bitWidth = 1) {
 
     CircuitElement.call(this, x, y, scope, dir, bitWidth);
