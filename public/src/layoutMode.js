@@ -80,7 +80,7 @@ export function paneLayout(scope = globalScope) {
 
 
 /**
- * Function to render layout on screen
+ * Function to render layout on screen in layoutMode
  * @param {Scope=} scope
  * @category layoutMode
  */
@@ -146,7 +146,6 @@ export function renderLayout(scope = globalScope) {
             showProperties(simulationArea.lastSelected);
         }
     }
-
     // Render objects
     for(let i = 0; i < circuitElementList.length; i++){
         if(globalScope[circuitElementList[i]].length === 0) continue;

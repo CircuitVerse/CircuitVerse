@@ -217,6 +217,7 @@ export function showProperties(obj) {
     hideProperties();
     prevPropertyObjSet(obj);
     if(layoutModeGet()){
+        // if an element is selected, show its properties instead of the layout dialog
         if (simulationArea.lastSelected === undefined || ['Wire', 'CircuitElement', 'Node'].indexOf(simulationArea.lastSelected.objectType) !== -1){
             $('#moduleProperty').hide();
             $('#layoutDialog').show();
@@ -226,6 +227,7 @@ export function showProperties(obj) {
         $('#moduleProperty').show();
         $('#layoutDialog').hide();
         $('#moduleProperty-inner').append("<div id='moduleProperty-header'>" + obj.objectType + "</div>");
+
         if (obj.subcircuitMutableProperties && obj.canShowInSubcircuit) {
             for (let attr in obj.subcircuitMutableProperties) {
                 var prop = obj.subcircuitMutableProperties[attr];
@@ -345,11 +347,13 @@ export function showProperties(obj) {
             circuitProperty[this.name](value);
         }
     });
+
     $('.objectPropertyAttributeChecked').on('change keyup paste click', function () {
+        if(this.name === "toggleLabelInLayoutMode") return; // Hack to prevent toggleLabelInLayoutMode from toggling twice
         scheduleUpdate();
         updateCanvasSet(true);
         wireToBeCheckedSet(1);
-        if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) { 
+        if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) {
             simulationArea.lastSelected[this.name](this.value);
             // Commented out due to property menu refresh bug
             // prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet(); 
@@ -357,7 +361,21 @@ export function showProperties(obj) {
                 circuitProperty[this.name](this.checked); 
             }
     });
-    
+
+    $('.objectPropertyAttributeChecked').on('click', function () {
+        if(this.name !== "toggleLabelInLayoutMode") return; // Hack to prevent toggleLabelInLayoutMode from toggling twice
+        scheduleUpdate();
+        updateCanvasSet(true);
+        wireToBeCheckedSet(1);
+        if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) {
+            simulationArea.lastSelected[this.name](this.value);
+            // Commented out due to property menu refresh bug
+            // prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet(); 
+        } else { 
+                circuitProperty[this.name](this.checked); 
+            }
+    });
+
     $("input[type='number']").inputSpinner();
 }
 
@@ -521,6 +539,9 @@ export function fullView () {
     $('#exitView').append(markUp);
 }
 
+/** 
+    Fills the elements that can be displayed in the subcircuit, in the subcircuit menu
+**/
 export function fillSubcircuitElements() {
     $('#subcircuitMenu').empty();
 

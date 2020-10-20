@@ -465,6 +465,9 @@ export default class SubCircuit extends CircuitElement {
         this.makeConnections();
     }
 
+    /**
+     * Procedure after a button is clicked inside a subcircuit 
+    **/
     click() {
         for(let i = 0; i < this.localScope["Button"].length; i++){
             if (this.localScope["Button"][i].subcircuitMetadata.showInSubcircuit){
@@ -493,6 +496,8 @@ export default class SubCircuit extends CircuitElement {
                     }
                 }
 
+                // if the button was clicked, set its wasClicked to true and prevent double clicks from switching
+                // to the subcircuit's circuit
                 if ((-lX <= mX && mX <= rX && -dY <= mY && mY <= uY)){
                         this.lastClickedElement = i;
                         this.localScope["Button"][i].wasClicked = true;
@@ -504,7 +509,9 @@ export default class SubCircuit extends CircuitElement {
             }
         } 
     }
-
+    /**
+      * Sets the buttons' wasClicked property in the subcircuit to false
+    **/
     releaseClick(){
         if(this.lastClickedElement !== undefined) this.localScope["Button"][this.lastClickedElement].wasClicked = false;
     }
@@ -537,11 +544,18 @@ export default class SubCircuit extends CircuitElement {
         return false;
     }
 
+    /**
+     * Procedure if any element is double clicked inside a subcircuit
+    **/
     dblclick() {
         if(this.preventCircuitSwitch) return;
         switchCircuit(this.id);
     }
 
+    /**
+     * Returns a javascript object of subcircuit data.
+     * Does not include data of subcircuit elements apart from Input and Output (that is a part of element.subcircuitMetadata)
+    **/
     saveObject() {
         var data = {
             x: this.x,
@@ -598,6 +612,10 @@ export default class SubCircuit extends CircuitElement {
         return ["center", 0, -6];
     }
 
+    /**
+     * Draws the subcircuit (and contained elements) on the screen when the subcircuit is included
+       in another circuit
+    **/
     customDraw() {
         var subcircuitScope = scopeList[this.id];
 

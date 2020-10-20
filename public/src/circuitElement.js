@@ -68,9 +68,10 @@ export default class CircuitElement {
 
         if (this.canShowInSubcircuit) {
         this.subcircuitMetadata = {
-            showInSubcircuit: false,
-            showLabelInSubcircuit: true,
-            labelDirection: this.labelDirection,
+            showInSubcircuit: false, // if canShowInSubcircuit == true, showInSubcircuit determines wheter the user has added the element in the subcircuit
+            showLabelInSubcircuit: true, // determines whether the label of the element is to be showin the subcircuit
+            labelDirection: this.labelDirection, // determines the direction of the label of the element in the subcircuit
+            // coordinates of the element in the subcircuit relative to the subcircuit
             x : 0,
             y : 0
         }
@@ -586,6 +587,14 @@ export default class CircuitElement {
         //     this.nodeList[i].draw();
     }
 
+    /**
+        Draws element in layout mode (inside the subcircuit)
+        @param {number} xOffset - x position of the subcircuit
+        @param {number} yOffset - y position of the subcircuit 
+
+        Called by subcirucit.js/customDraw() - for drawing as a part of another circuit
+        and layoutMode.js/renderLayout() -  for drawing in layoutMode
+    **/
     drawLayoutMode(xOffset = 0, yOffset = 0){
         var ctx = simulationArea.context;
         this.checkHover();
@@ -624,6 +633,7 @@ export default class CircuitElement {
                 ctx.fill();
             }
         }
+        // calls the subcircuitDraw function in the element to draw it to canvas
         this.subcircuitDraw(xOffset, yOffset);
     }
 
@@ -825,6 +835,9 @@ export default class CircuitElement {
         return res;
     }
 
+    /**
+     * Toggles the visibility of the labels of subcircuit elements. Called by event handlers in ux.js
+    **/
     toggleLabelInLayoutMode(){
         this.subcircuitMetadata.showLabelInSubcircuit = !this.subcircuitMetadata.showLabelInSubcircuit;
     }
@@ -836,8 +849,8 @@ CircuitElement.prototype.propagationDelay = 10;
 CircuitElement.prototype.tooltip = undefined;
 CircuitElement.prototype.propagationDelayFixed = false;
 CircuitElement.prototype.objectType = 'CircuitElement';
-CircuitElement.prototype.canShowInSubcircuit = false;
-CircuitElement.prototype.subcircuitMetadata = {};
+CircuitElement.prototype.canShowInSubcircuit = false; // determines whether the element is supported to be shown inside a subcircuit
+CircuitElement.prototype.subcircuitMetadata = {}; // stores the coordinates and stuff for the elements in the subcircuit
 CircuitElement.prototype.layoutProperties = {
     rightDimensionX : 5,
     leftDimensionX : 5,
