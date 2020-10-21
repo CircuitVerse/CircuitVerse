@@ -632,6 +632,12 @@ SevenSegDisplay.prototype.customDraw = function () {
     rect(ctx, xx + 22, yy + 42, 2, 2);
     ctx.stroke();
 }
+SevenSegDisplay.prototype.generateVerilog = function () {
+    return `
+  always @ (${this.a.verilogLabel} or ${this.b.verilogLabel} or ${this.c.verilogLabel} or ${this.d.verilogLabel} or ${this.e.verilogLabel} or ${this.f.verilogLabel} or ${this.g.verilogLabel} or ${this.dot.verilogLabel})
+    $display("${this.verilogLabel}:abcdefg. = %b%b%b%b%b%b%b%b}", 
+             ${this.a.verilogLabel}, ${this.b.verilogLabel}, ${this.c.verilogLabel}, ${this.d.verilogLabel}, ${this.e.verilogLabel}, ${this.f.verilogLabel}, ${this.g.verilogLabel}, ${this.dot.verilogLabel});`;
+}
 
 function SixteenSegDisplay(x, y, scope = globalScope) {
     CircuitElement.call(this, x, y, scope, "RIGHT", 16);
@@ -718,6 +724,11 @@ SixteenSegDisplay.prototype.customDraw = function () {
     rect(ctx, xx + 22, yy + 42, 2, 2);
     ctx.stroke();
 }
+SixteenSegDisplay.prototype.generateVerilog = function () {
+    return `
+  always @ (${this.input1.verilogLabel} or ${this.dot.verilogLabel})
+    $display("{${this.input1.verilogLabel} = %16b, ${this.dot.verilogLabel} = %1b", ${this.input1.verilogLabel}, ${this.dot.verilogLabel});`;
+}
 
 function HexDisplay(x, y, scope = globalScope) {
     CircuitElement.call(this, x, y, scope, "RIGHT", 4);
@@ -742,8 +753,7 @@ HexDisplay.prototype.generateVerilog = function () {
 HexDisplay.prototype.generateVerilog = function () {
     return `
   always @ (${this.inp.verilogLabel})
-    $display("${this.inp.verilogLabel} = %d", ${this.inp.verilogLabel});
-    `;
+    $display("${this.inp.verilogLabel} = %d", ${this.inp.verilogLabel});`;
 }
 HexDisplay.prototype.customSave = function () {
     var data = {
@@ -1280,6 +1290,9 @@ TriState.prototype.customDraw = function () {
     ctx.stroke();
 
 }
+TriState.prototype.generateVerilog = function () {
+    return `assign ${this.output1.verilogLabel} = (${this.state.verilogLabel}!=0) ? ${this.inp1.verilogLabel} : ${this.inp1.bitWidth}'b?;`;
+}
 
 function Buffer(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
     CircuitElement.call(this, x, y, scope, dir, bitWidth);
@@ -1348,6 +1361,9 @@ Buffer.prototype.customDraw = function () {
     ctx.stroke();
 
 }
+Buffer.prototype.generateVerilog = function () {
+    return "assign " + this.output1.verilogLabel + " = " + this.inp1.verilogLabel + ";"
+}
 
 function ControlledInverter(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
     CircuitElement.call(this, x, y, scope, dir, bitWidth);
@@ -1413,6 +1429,9 @@ ControlledInverter.prototype.customDraw = function () {
     ctx.stroke();
 
 }
+ControlledInverter.prototype.generateVerilog = function () {
+    return `assign ${this.output1.verilogLabel} = (${this.state.verilogLabel}!=0) ? ~${this.inp1.verilogLabel} : ${this.inp1.verilogLabel};`;
+}
 
 function Adder(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
 
@@ -1467,6 +1486,10 @@ Adder.prototype.resolve = function () {
     simulationArea.simulationQueue.add(this.carryOut);
     simulationArea.simulationQueue.add(this.sum);
 }
+Adder.prototype.generateVerilog = function () {
+    return `assign ${this.sum.verilogLabel} = ${this.inpA.verilogLabel} + ${this.inpB.verilogLabel};`;
+}
+
 
 function TwoComplement(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
 
@@ -1518,7 +1541,9 @@ TwoComplement.prototype.customDraw = function () {
     drawCircle2(ctx, 5, 0, 15, xx, yy, this.direction);
     ctx.stroke();
 }
-
+TwoComplement.prototype.generateVerilog = function () {
+    return `assign ${this.output1.verilogLabel} = ~${this.inp1.verilogLabel} + 1;`;
+}
 
 function Rom(x, y, scope = globalScope, data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]) {
 
@@ -1675,6 +1700,33 @@ Rom.prototype.resolve = function () {
     }
     this.dataOut.value = this.data[this.memAddr.value];
     simulationArea.simulationQueue.add(this.dataOut);
+}
+//This is a Rom without a clock - not normal
+Rom.moduleVerilog = function () {
+  var output = `
+module ROM(dout, addr, en);
+  parameter WIDTH = 8;
+  parameter ADDR = 6;
+  output [WIDTH-1:0] dout;
+  input [ADDR-1:0] addr;
+  input en;
+
+  always @ (*) begin
+    if (en)
+      case (addr) begin
+`;
+    for (var i = 0; i < (1 << 6); i++) {
+        output += "        " + i + " : dout = " + this.data[i];
+    }
+
+    output += `
+      endcase
+    else
+      dout = WIDTH'z;
+  end
+endmodule
+`;
+    return output;
 }
 
 function Splitter(x, y, scope = globalScope, dir = "RIGHT", bitWidth = undefined, bitWidthSplit = undefined) {
@@ -1920,7 +1972,10 @@ Ground.prototype.customDraw = function () {
     lineTo(ctx, 2.5, 10, xx, yy, this.direction);
     ctx.stroke();
 }
-
+//Ground translated into assign
+Ground.prototype.generateVerilog = function () {
+    return `assign ${this.output1.verilogLabel} = ${this.bitWidth}'b0;`;
+}
 
 function Power(x, y, scope = globalScope, bitWidth = 1) {
 
@@ -1972,6 +2027,10 @@ Power.prototype.customDraw = function () {
     lineTo(ctx, 0, 10, xx, yy, this.direction);
     ctx.stroke();
 
+}
+//Power translated into assign
+Power.prototype.generateVerilog = function () {
+    return `assign ${this.output1.verilogLabel} = ~${this.bitWidth}'b0;`;
 }
 
 function get_next_position(x = 0, scope = globalScope) {
@@ -2146,8 +2205,9 @@ Output.prototype.tooltipText = "Output ToolTip: Simple output element showing ou
 Output.prototype.helplink = "https://docs.circuitverse.org/#/outputs?id=output";
 Output.prototype.propagationDelay = 0;
 Output.prototype.generateVerilog = function () {
-    return "assign " + this.label + " = " + this.inp1.verilogLabel + ";"
+    return "assign " + this.verilogLabel + " = " + this.inp1.verilogLabel + ";"
 }
+
 Output.prototype.customSave = function () {
     var data = {
         nodes: {
@@ -2297,6 +2357,9 @@ BitSelector.prototype.customDraw = function () {
     fillText(ctx, bit, xx, yy + 5);
     ctx.fill();
 }
+BitSelector.prototype.generateVerilog = function () {
+    return `assign ${this.output1.verilogLabel} = ${this.inp1.verilogLabel} >> ${this.bitSelectorInp.verilogLabel};`;
+}
 
 function ConstantVal(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1, state = "0") {
     this.state = state || prompt("Enter value");
@@ -2317,10 +2380,6 @@ ConstantVal.prototype.constructor = ConstantVal;
 ConstantVal.prototype.tooltipText = "Constant ToolTip: Bits are fixed. Double click element to change the bits."
 ConstantVal.prototype.helplink = "https://docs.circuitverse.org/#/inputElements?id=constantval";
 ConstantVal.prototype.propagationDelay = 0;
-//ConstantValue translated into assign
-ConstantVal.prototype.generateVerilog = function () {
-    return `assign ${this.verilogLabel}=${this.bitWidth}'b${this.state};`;
-}
 ConstantVal.prototype.customSave = function () {
     var data = {
         nodes: {
@@ -2336,7 +2395,7 @@ ConstantVal.prototype.resolve = function () {
 }
 ConstantVal.prototype.dblclick = function () {
     this.state = prompt("Re enter the value") || "0";
-    console.log(this.state);
+    //console.log(this.state);
     this.newBitWidth(this.state.toString().length);
     //console.log(this.state, this.bitWidth);
 }
@@ -2392,6 +2451,10 @@ ConstantVal.prototype.newDirection = function (dir) {
 
     this.output1.refresh();
     this.labelDirection = oppositeDirection[this.direction];
+}
+//ConstantValue translated into assign
+ConstantVal.prototype.generateVerilog = function () {
+    return `assign ${this.output1.verilogLabel} = ${this.bitWidth}'b${this.state};`;
 }
 
 function NorGate(x, y, scope = globalScope, dir = "RIGHT", inputs = 2, bitWidth = 1) {
@@ -2569,6 +2632,26 @@ DigitalLed.prototype.customDraw = function () {
     ctx.fill();
 
 }
+//Use $display
+DigitalLed.prototype.generateVerilog = function () {
+    return `
+  always @ (${this.inp1.verilogLabel})
+    $display("${this.inp1.verilogLabel} = %d", ${this.inp1.verilogLabel});`;
+}
+/* Outdated, was translating into Output
+DigitalLed.prototype.generateVerilog = function () {
+    return "assign " + this.label + " = " + this.inp1.verilogLabel + ";"
+}
+*/
+//DigitalLed translated into $display
+// DigitalLed.prototype.generateVerilog = function () {
+//     var output = "";
+//     output += "  always @ (" + this.inp1.verilogLabel + ")\n";
+//     output += "    $display(\"" + this.inp1.verilogLabel + " = %d\", " 
+//         + this.inp1.verilogLabel + ");";
+//     return output;
+// }
+
 
 function VariableLed(x, y, scope = globalScope) {
     // Calling base class constructor
@@ -2621,13 +2704,17 @@ VariableLed.prototype.customDraw = function () {
     lineTo(ctx, -20, 9, xx, yy, this.direction);
     /*lineTo(ctx,-18,12,xx,yy,this.direction);
     arc(ctx,0,0,Math.sqrt(468),((Math.PI/2) + Math.acos(12/Math.sqrt(468))),((-Math.PI/2) - Math.asin(18/Math.sqrt(468))),xx,yy,this.direction);
-
     */
     lineTo(ctx, -20, -9, xx, yy, this.direction);
     ctx.stroke();
     if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = "rgba(255, 255, 32,0.8)";
     ctx.fill();
 
+}
+VariableLed.prototype.generateVerilog = function () {
+    return `
+  always @ (${this.inp1.verilogLabel})
+    $display("${this.inp1.verilogLabel} = %d", ${this.inp1.verilogLabel});`;
 }
 
 function Button(x, y, scope = globalScope, dir = "RIGHT") {
@@ -2776,6 +2863,11 @@ RGBLed.prototype.customDraw = function () {
     if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = "rgba(255, 255, 32,0.8)";
     ctx.fill();
 }
+RGBLed.prototype.generateVerilog = function () {
+    return `
+  always @ (${this.inp1.verilogLabel} or ${this.inp2.verilogLabel} or ${this.inp3.verilogLabel})
+    $display("{${this.inp1.verilogLabel},${this.inp3.verilogLabel},${this.inp3.verilogLabel}} = {%d,%d,%d}", ${this.inp1.verilogLabel}, ${this.inp2.verilogLabel}, ${this.inp3.verilogLabel});`;
+}
 
 function SquareRGBLed(x, y, scope = globalScope, dir = "UP", pinLength = 1) {
     CircuitElement.call(this, x, y, scope, dir, 8);
@@ -2880,6 +2972,9 @@ SquareRGBLed.prototype.customDraw = function () {
     }
 
     ctx.fill();
+}
+SquareRGBLed.prototype.generateVerilog = function () {
+    return RGBLed.prototype.generateVerilog.call(this);
 }
 
 function Demultiplexer(x, y, scope = globalScope, dir = "LEFT", bitWidth = 1, controlSignalSize = 1) {
@@ -3049,7 +3144,6 @@ Demultiplexer.moduleVerilog = function () {
         output += "    endcase\n";
         output += "  end\n";
         output += "endmodule\n";
-        output += "\n";
     }
 
     return output;
@@ -3228,7 +3322,6 @@ Decoder.moduleVerilog = function () {
         output += "    endcase\n";
         output += "  end\n";
         output += "endmodule\n";
-        output += "\n";
     }
 
     return output;
@@ -3446,6 +3539,9 @@ MSB.prototype.customDraw = function () {
     ctx.stroke();
     ctx.fill();
 }
+MSB.prototype.generateVerilog = function () {
+    return `assign ${this.output1.verilogLabel} = (${this.enable.verilogLabel}!=0) ? ${this.inp1.verilogLabel}[${this.inp1.bitWidth-1}] : 0;`;
+}
 
 function LSB(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
 
@@ -3537,6 +3633,9 @@ LSB.prototype.customDraw = function () {
     }
     ctx.stroke();
     ctx.fill();
+}
+LSB.prototype.generateVerilog = function () {
+    return `assign ${this.output1.verilogLabel} = (${this.enable.verilogLabel}!=0) ? ${this.inp1.verilogLabel}[0] : 0;`;
 }
 
 function PriorityEncoder(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
@@ -3710,7 +3809,6 @@ PriorityEncoder.moduleVerilog = function () {
         output += "      ze = 1;\n"
         output += "  end\n";
         output += "endmodule\n";
-        output += "\n";
     }
 
     return output;

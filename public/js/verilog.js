@@ -8,6 +8,7 @@
 
 function generateVerilog() {
     var data = verilog.exportVerilog();
+    console.log(data);
     download(projectName + ".v", data);
 }
 
@@ -124,7 +125,7 @@ verilog = {
             // Record usage of element type
             elementTypesUsed.add(elem.objectType);
 
-            if(elem.objectType!="Node" && elem.objectType!="Input") {
+            if(elem.objectType!="Node" && elem.objectType!="Input" && elem.objectType!="Clock") {
                 verilogResolvedSet.add(elem);
             }
         }
@@ -164,6 +165,16 @@ verilog = {
             // copy label to node
             scope.ConstantVal[i].output1.verilogLabel=scope.ConstantVal[i].label;
         }
+
+        // copy label to clock
+        for(var i = 0; i < scope.Clock.length; i++) {
+            if (scope.Clock[i].label == "")
+                scope.Clock[i].label = "clk_"+i;
+            else
+                scope.Clock[i].label=this.santizeLabel(scope.Clock[i].label);
+            scope.Clock[i].output1.verilogLabel = scope.Clock[i].label;
+        }
+
         for(var i=0;i<scope.Output.length;i++){
             if(scope.Output[i].label=="")
                 scope.Output[i].label="out_"+i;
@@ -202,14 +213,20 @@ verilog = {
     },
     generateInputList:function(scope=globalScope){
         var inputs={}
+        for(var i = 1; i <= 32; i++)
+            inputs[i] = [];
+
         for(var i=0;i<scope.Input.length;i++){
-            if(inputs[scope.Input[i].bitWidth])
-                inputs[scope.Input[i].bitWidth].push(scope.Input[i].label);
-            else
-                inputs[scope.Input[i].bitWidth] = [scope.Input[i].label];
+            inputs[scope.Input[i].bitWidth].push(scope.Input[i].label);
         }
+
+        for(var i=0;i<scope.Clock.length;i++){
+            inputs[scope.Clock[i].bitWidth].push(scope.Clock[i].label);
+        }
+
         var res="";
         for (bitWidth in inputs){
+            if(inputs[bitWidth].length == 0) continue;
             if(bitWidth==1)
                 res+="  input "+ inputs[1].join(", ") + ";\n";
             else
