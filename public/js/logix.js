@@ -1432,7 +1432,7 @@ CircuitElement.prototype.processVerilog = function() {
         if (this.nodeList[i].type == NODE_OUTPUT) {
             this.nodeList[i].verilogLabel = 
             verilog.generateNodeName(this.nodeList[i], output_count, output_total);
-            if (this.objectType != "Input" && this.nodeList[i].connections.length > 0) {
+            if (this.objectType != "Input" && this.objectType != "Clock" && this.nodeList[i].connections.length > 0) {
                 if (!this.scope.verilogWireList[this.bitWidth].contains(this.nodeList[i].verilogLabel))
                     this.scope.verilogWireList[this.bitWidth].push(this.nodeList[i].verilogLabel);
             }
