@@ -100,3 +100,27 @@ Counter.prototype.customDraw = function () {
     lineTo(ctx, -20, 15, xx, yy, this.direction);
     ctx.stroke();
 }
+
+Counter.moduleVerilog = function () {
+    return `module Counter(val, zero, max, clk, rst);
+    parameter WIDTH = 1;
+    output reg [WIDTH-1:0] val;
+    output reg zero;
+    input [WIDTH-1:0] max;
+    input clk, rst;
+  
+    always @ (posedge clk or posedge rst)
+      if (rst)
+        val <= 'b0;
+      else begin
+        if (val < max) begin
+          val <= val + 1;
+          zero <= 0;
+        end 
+        else begin
+          val <= 0;
+          zero <= 1;
+        end
+      end
+  endmodule`;
+}
