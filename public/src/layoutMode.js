@@ -109,13 +109,13 @@ export function renderLayout(scope = globalScope) {
         if (!tempBuffer.Input[i].label) continue;
         info = determineLabel(tempBuffer.Input[i].x, tempBuffer.Input[i].y, scope);
         [ctx.textAlign] = info;
-        fillText(ctx, temp_buffer.Input[i].label, temp_buffer.Input[i].x + info[1], temp_buffer.Input[i].y + info[2], 12);
+        fillText(ctx, tempBuffer.Input[i].label, tempBuffer.Input[i].x + info[1], tempBuffer.Input[i].y + info[2], 12);
     }
     for (let i = 0; i < tempBuffer.Output.length; i++) {
         if (!tempBuffer.Output[i].label) continue;
         info = determineLabel(tempBuffer.Output[i].x, tempBuffer.Output[i].y, scope);
         [ctx.textAlign] = info;
-        fillText(ctx, temp_buffer.Output[i].label, temp_buffer.Output[i].x + info[1], temp_buffer.Output[i].y + info[2], 12);
+        fillText(ctx, tempBuffer.Output[i].label, tempBuffer.Output[i].x + info[1], tempBuffer.Output[i].y + info[2], 12);
     }
     ctx.fill();
 
