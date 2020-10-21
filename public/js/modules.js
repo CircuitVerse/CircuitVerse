@@ -1790,37 +1790,37 @@ Splitter.prototype.reset = function () {
     this.prevInpValue = undefined;
 }
 Splitter.prototype.processVerilog = function () {
-    // Splitter
-    for (var j = 0; j < this.outputs.length; j++) {
-        if (this.inp1.verilogLabel != "" && this.outputs[j].verilogLabel == "") {
-            this.selfRef = true;
-            var bitCount = 0;
-            for (var i = 0; i < this.splitCount; i++) {
-                if (this.bitWidthSplit[i] > 1)
-                    var label = this.inp1.verilogLabel + '[' + (bitCount + this.bitWidthSplit[i] - 1) + ":" + bitCount + "]";
-                else
-                    var label = this.inp1.verilogLabel + '[' + bitCount + "]";
-                if (this.outputs[i].verilogLabel != label) {
-                    this.outputs[i].verilogLabel = label;
-                    this.scope.stack.push(this.outputs[i]);
-                }
-                bitCount += this.bitWidthSplit[i];
-            }
-        }
-    }
-    // Joiner
+    // Combiner
     if (this.inp1.verilogLabel == "") {
+        this.isSplitter = false;
         this.inp1.verilogLabel = this.verilogLabel + "_inp";
         if (!this.scope.verilogWireList[this.bitWidth].contains(this.inp1.verilogLabel))
             this.scope.verilogWireList[this.bitWidth].push(this.inp1.verilogLabel);
         this.scope.stack.push(this.inp1);
+        return;
+    }
+
+    // Splitter
+    this.isSplitter = true;
+    for (var j = 0; j < this.outputs.length; j++) {
+        var bitCount = 0;
+        for (var i = 0; i < this.splitCount; i++) {
+            if (this.bitWidthSplit[i] > 1)
+                var label = this.inp1.verilogLabel + '[' + (bitCount + this.bitWidthSplit[i] - 1) + ":" + bitCount + "]";
+            else
+                var label = this.inp1.verilogLabel + '[' + bitCount + "]";
+            if (this.outputs[i].verilogLabel != label) {
+                this.outputs[i].verilogLabel = label;
+                this.scope.stack.push(this.outputs[i]);
+            }
+            bitCount += this.bitWidthSplit[i];
+        }
     }
 }
 //added to generate Splitter INPUTS
 Splitter.prototype.generateVerilog = function () {
     var res = "";
-
-    if (!this.selfRef) {
+    if (!this.isSplitter) {
         res += "assign " + this.inp1.verilogLabel + " = {";
         for (var i = this.outputs.length - 1; i > 0; i--)
           res += this.outputs[i].verilogLabel + ",";
