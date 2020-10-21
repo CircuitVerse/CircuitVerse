@@ -1,9 +1,9 @@
 <% if current_announcement %>
   <% if current_announcement.start_date <= Date.current && current_announcement.end_date >= Date.current %>
-    <div class="container content-wrapper">
+    <div class="container announcements-content-wrapper">
       <span><%== current_announcement.body %></span>
       <% if current_announcement.link? %>
-        <%= link_to "Read more ->", current_announcement.link, class: "btn" %>
+        <%= link_to "Read more", current_announcement.link, class: "btn primary-delete-button" %>
       <% end %>
     </div>
   <% end %>
