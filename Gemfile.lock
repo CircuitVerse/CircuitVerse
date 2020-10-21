@@ -262,6 +262,8 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.7.1)
       mini_mime (>= 0.1.1)
+    mailkick (0.4.2)
+      activesupport (>= 5)
     marcel (0.3.3)
       mimemagic (~> 0.3.2)
     meta-tags (2.13.0)
@@ -624,6 +626,7 @@ DEPENDENCIES
   jwt
   language_filter
   listen (>= 3.0.5, < 3.3)
+  mailkick
   meta-tags
   newrelic_rpm (~> 6.13)
   omniauth
