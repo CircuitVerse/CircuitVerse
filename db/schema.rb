@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_13_035451) do
+ActiveRecord::Schema.define(version: 2020_10_21_112654) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -225,6 +225,19 @@ ActiveRecord::Schema.define(version: 2020_10_13_035451) do
     t.index ["mentor_id"], name: "index_groups_on_mentor_id"
   end
 
+  create_table "mailkick_opt_outs", force: :cascade do |t|
+    t.string "email"
+    t.string "user_type"
+    t.bigint "user_id"
+    t.boolean "active", default: true, null: false
+    t.string "reason"
+    t.string "list"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_mailkick_opt_outs_on_email"
+    t.index ["user_type", "user_id"], name: "index_mailkick_opt_outs_on_user_type_and_user_id"
+  end
+
   create_table "notifications", force: :cascade do |t|
     t.string "target_type", null: false
     t.bigint "target_id", null: false
@@ -347,12 +360,18 @@ ActiveRecord::Schema.define(version: 2020_10_13_035451) do
     t.string "uid"
     t.string "profile_picture_file_name"
     t.string "profile_picture_content_type"
-    t.bigint "profile_picture_file_size"
+    t.integer "profile_picture_file_size"
     t.datetime "profile_picture_updated_at"
     t.boolean "admin", default: false
     t.string "country"
     t.string "educational_institute"
-    t.boolean "subscribed", default: true
+    t.boolean "subscribed", default: false
+    t.boolean "accepted_privacy_policy", default: false
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
