@@ -3,7 +3,6 @@
 class AnnouncementsController < ApplicationController
   before_action :authenticate_user!
   before_action :authorize_admin
-  before_action :set_announcement, only: %i[edit update]
 
   def index
     @announcements = Announcement.all
