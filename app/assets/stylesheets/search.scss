@@ -29,6 +29,14 @@
   padding: 20px 8px;
 }
 
+.search-user-card-container {
+  border: 1px solid $form-border-grey;
+  border-radius: 0;
+  margin-bottom: 1rem;
+  padding-top: 1rem;
+  width: 70%;
+}
+
 .search-tag-search-container {
   border: 1px solid $form-border-grey;
   border-radius: 0;
