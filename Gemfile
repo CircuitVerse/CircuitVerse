@@ -16,6 +16,7 @@ gem 'omniauth-facebook'
 gem 'omniauth-microsoft-office365'
 gem 'omniauth-github'
 gem 'mailkick'
+gem 'aws-sdk-rails'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0'
 # Use Puma as the app server
