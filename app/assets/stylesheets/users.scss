@@ -214,23 +214,29 @@
 }
 
 .users-card-name {
-  display: block;
+  display: inline-block;
   font-size: 18px;
   font-weight: 600;
-  max-height: 30px;
-  max-width: 340px;
   padding-bottom: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  position: relative;
 
   p {
     margin-bottom: 0;
+    max-height: 30px;
+    max-width: 340px;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
+.users-card-name:hover .tooltiptext {
+  opacity: 1;
+  visibility: visible;
+}
+
 .users-tag-container {
-  display: inline-block;
-  margin-top: 0;
+  display: block;
+  margin-top: -.5rem;
 }
 
 .users-card-body {

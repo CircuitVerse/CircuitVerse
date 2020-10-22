@@ -123,39 +123,39 @@
 
   p {
     max-height: 30px;
-    max-width: 150px;
+    max-width: 160px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
+}
 
-  .tooltiptext {
-    background-color: $primary-green;
-    border-radius: 6px;
-    bottom: 100%;
-    color: $white;
-    font-size: .8rem;
-    max-width: 160px;
-    opacity: 0;
-    padding: 5px 0;
-    position: absolute;
-    text-align: center;
-    transition: opacity .5s;
-    visibility: hidden;
-    z-index: 1;
-  }
+.tooltiptext {
+  background-color: $primary-green;
+  border-radius: .3rem;
+  bottom: 100%;
+  color: $white;
+  font-size: .8rem;
+  left: 0%;
+  max-width: 100%;
+  opacity: 0;
+  padding: .3rem;
+  position: absolute;
+  text-align: center;
+  transition: opacity .5s;
+  visibility: hidden;
+  z-index: 1;
 
-  .tooltiptext::after {
+  &::after {
     border-color: $primary-green transparent transparent;
     border-style: solid;
-    border-width: 5px;
+    border-width: .3rem;
     content: '';
     left: 50%;
-    margin-left: -5px;
+    margin-left: -.3rem;
     position: absolute;
     top: 100%;
   }
-
 }
 
 .circuit-card-name:hover .tooltiptext {
