@@ -314,7 +314,7 @@ class verilogBusSlice extends verilogUnaryGate {
             }
             else
             {
-                this.splitter = new Splitter(0, 0, undefined, undefined, this.bitWidth, [this.count]);
+                this.splitter = new Splitter(0, 0, undefined, undefined, this.bitWidth, [this.count, this.bitWidth - this.count]);
             }
             
             this.input = this.splitter.inp1;
@@ -322,7 +322,14 @@ class verilogBusSlice extends verilogUnaryGate {
         }
         else
         {
-            this.splitter = new Splitter(0, 0, undefined, undefined, this.bitWidth, [this.start, this.count]);
+            if(this.start + this.count == this.bitWidth)
+            {
+                this.splitter = new Splitter(0, 0, undefined, undefined, this.bitWidth, [this.start, this.count]);
+            }
+            else
+            {
+                this.splitter = new Splitter(0, 0, undefined, undefined, this.bitWidth, [this.start, this.count, this.bitWidth - this.start - this.count]);   
+            }
             this.input = this.splitter.inp1;
             this.output = this.splitter.outputs[1];
         }
@@ -408,7 +415,7 @@ class verilogBinaryGate{
 
     getPort(portName) {
         if(portName == "in1") {
-            return this.input[0];deviceJSON["arst_value"]
+            return this.input[0];
         }
         else if(portName == "in2") {
             return this.input[1];
@@ -1163,30 +1170,22 @@ class verilogSubCircuit {
     }
 }
 
-export function YosysJSON2CV(JSON, parentScope = globalScope){
+export function YosysJSON2CV(JSON, parentScope = globalScope, name = "verilogCircuit", subCircuitScope = {}){
     var parentID = (parentScope.id);
-    let subScope = newCircuit("verilog");
+    let subScope = newCircuit(name);
     var subScopeID = subScope.id;
     var circuitDevices = {};
 
-    var isPresent = {};
+    for (var subCircuitName in JSON.subcircuits) {
+        var subCircuit = new verilogSubCircuit(YosysJSON2CV(JSON.subcircuits[subCircuitName], subScope, subCircuitName, subCircuitScope));
+        subCircuitScope[subCircuitName] = subCircuit.circuit.id; 
+    }
 
     for (var device in JSON.devices) {
         var deviceType = JSON.devices[device].type;
         if(deviceType == "Subcircuit") {
             var subCircuitName = JSON.devices[device].celltype;
-            for (var subCircuit in JSON.subcircuits) {
-                if(subCircuit == subCircuitName) {
-                    if(isPresent[subCircuitName] == undefined) {
-                        circuitDevices[device] = new verilogSubCircuit(YosysJSON2CV(JSON.subcircuits[subCircuitName], subScope));
-                        isPresent[subCircuitName] = circuitDevices[device].circuit.id;
-
-                    }
-                    else {
-                        circuitDevices[device] = new verilogSubCircuit(new SubCircuit(500, 500, undefined, isPresent[subCircuitName]));
-                    }
-                }
-            }
+            circuitDevices[device] = new verilogSubCircuit(new SubCircuit(500, 500, undefined, subCircuitScope[subCircuitName]));
         }
         else {
             circuitDevices[device] = new typeToNode[deviceType](JSON.devices[device]);
