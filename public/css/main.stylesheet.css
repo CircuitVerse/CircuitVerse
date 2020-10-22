@@ -167,6 +167,7 @@ input[type="text"]:focus {
   left: 50%;
   transform: translateX(-50%);
   font-size: 1.4em;
+  cursor: text;
 }
 
 .account-btn {
@@ -552,6 +553,10 @@ div.icon img {
 #tabsBar .circuits {
   text-align: center;
   padding: 1px;
+}
+
+.circuitName{
+  cursor: text;
 }
 
 #tabsBar button {
