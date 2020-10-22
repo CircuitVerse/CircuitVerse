@@ -223,9 +223,10 @@
   p {
     margin-bottom: 0;
     max-height: 30px;
-    max-width: 340px;
+    max-width: 300px;
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
 
