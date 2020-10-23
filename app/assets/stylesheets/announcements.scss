@@ -8,7 +8,7 @@
   font-size: 1.2rem;
   justify-content: center;
   margin-top: .3rem;
-  word-break: break-all;
+  overflow-wrap: break-word;
 
   span {
     display: inline-block;
