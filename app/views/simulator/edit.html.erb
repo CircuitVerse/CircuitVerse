@@ -539,9 +539,13 @@
             rows="3"
           ></textarea>
         </div>
+        <label for="emailtext" id="email-label" style="font-weight: lighter"><b>Email</b><span> [Optional]</span>:</label>
+        <div class="form-group">
+          <input class="form-control border-primary"  type="email" id="emailtext" rows="3"/>
+        </div>
         <div class="container">
           <center>
-            <button type="submit" id="report" disabled class="btn btn-primary">
+            <button type="submit" id="report" class="btn btn-primary">
               Report
             </button>
           </center>
@@ -576,6 +580,8 @@
 <script src="/js/verilog.js"></script>
 <script type="text/javascript" src="/js/metadata.json"></script>
 <script src="/js/canvas2svg.js"></script>
+
+
 
 <script >
   $('button').click(function() {
