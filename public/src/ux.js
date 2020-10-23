@@ -171,6 +171,33 @@ export function setupUI() {
         $('#Help').removeClass('show');
     }); // code goes in document ready fn only
 
+    $('#report').click(function(){
+         var message=$('#issuetext').val();
+         var email=$('#emailtext').val();
+         message += "\nEmail:"+ email
+         message += "\nURL: " + window.location.href;
+         message += `\nUser Id: <%= user_signed_in? ? " #{current_user.id.to_s} : #{current_user.name}" : "Guest user" %>`
+         postUserIssue(message)
+         $('#issuetext').hide();
+         $('#emailtext').hide();
+         $('#report').hide();
+         $('#report-label').hide();
+         $('#email-label').hide();
+        })
+       $('.issue').on('hide.bs.modal', function(e) {
+         listenToSimulator=true
+         $('#result').html("");
+         $('#issuetext').show();
+         $('#emailtext').show();
+         $('#issuetext').val("");
+         $('#emailtext').val("");
+         $('#report').show();
+         $('#report-label').show();
+         $('#email-label').show();
+     })
+     $('#reportIssue').click(function(){
+       listenToSimulator=false
+     })
 
     // $('#saveAsImg').click(function(){
     //     saveAsImg();
@@ -492,3 +519,21 @@ export function fullView () {
     $('#exitView').append(markUp);
 }
 
+function postUserIssue(message) {
+    $.ajax({
+        url: '/simulator/post_issue',
+        type: 'POST',
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+        },
+        data: {
+            "text": message,
+        },
+        success: function(response) {
+            $('#result').html("<i class='fa fa-check' style='color:green'></i> You've successfully submitted the issue. Thanks for improving our platform.");
+        },
+        failure: function(err) {
+            $('#result').html("<i class='fa fa-check' style='color:red'></i> There seems to be a network issue. Please reach out to us at support@ciruitverse.org");
+        }
+    });
+}
