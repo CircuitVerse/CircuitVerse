@@ -1418,7 +1418,7 @@ CircuitElement.prototype.resolve = function() {
 
 }
 
-// Graph algorithm to resolve verilog wire labels 
+// Graph algorithm to resolve verilog wire labels
 CircuitElement.prototype.processVerilog = function() {
     // Output count used to sanitize output
     var output_total = 0;
@@ -1430,11 +1430,11 @@ CircuitElement.prototype.processVerilog = function() {
     var output_count = 0;
     for (var i = 0; i < this.nodeList.length; i++) {
         if (this.nodeList[i].type == NODE_OUTPUT) {
-            this.nodeList[i].verilogLabel = 
+            this.nodeList[i].verilogLabel =
             verilog.generateNodeName(this.nodeList[i], output_count, output_total);
             if (this.objectType != "Input" && this.objectType != "Clock" && this.nodeList[i].connections.length > 0) {
-                if (!this.scope.verilogWireList[this.bitWidth].contains(this.nodeList[i].verilogLabel))
-                    this.scope.verilogWireList[this.bitWidth].push(this.nodeList[i].verilogLabel);
+                if (!this.scope.verilogWireList[this.nodeList[i].bitWidth].contains(this.nodeList[i].verilogLabel))
+                    this.scope.verilogWireList[this.nodeList[i].bitWidth].push(this.nodeList[i].verilogLabel);
             }
             this.scope.stack.push(this.nodeList[i]);
             output_count++;

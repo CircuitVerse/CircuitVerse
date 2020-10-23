@@ -350,10 +350,10 @@ Multiplexer.moduleVerilog = function () {
             inpString += `in${j}, `;
         }
         output += `\nmodule Multiplexer${numInput}(out, ${inpString}sel);\n`;
-        
+
         output += "  parameter WIDTH = 1;\n";
         output += "  output reg [WIDTH-1:0] out;\n";
-        
+
         output += "  input [WIDTH-1:0] "
         for (var j = 0; j < numInput-1; j++) {
             output += `in${j}, `;
@@ -367,7 +367,7 @@ Multiplexer.moduleVerilog = function () {
         output += "    case (sel)\n";
         for (var j = 0; j < numInput; j++) {
             output += `      ${j} : out = in${j};\n`;
-        }        
+        }
         output += "    endcase\n";
         output += "endmodule\n";
         output += "\n";
@@ -635,7 +635,7 @@ SevenSegDisplay.prototype.customDraw = function () {
 SevenSegDisplay.prototype.generateVerilog = function () {
     return `
   always @ (${this.a.verilogLabel} or ${this.b.verilogLabel} or ${this.c.verilogLabel} or ${this.d.verilogLabel} or ${this.e.verilogLabel} or ${this.f.verilogLabel} or ${this.g.verilogLabel} or ${this.dot.verilogLabel})
-    $display("${this.verilogLabel}:abcdefg. = %b%b%b%b%b%b%b%b}", 
+    $display("${this.verilogLabel}:abcdefg. = %b%b%b%b%b%b%b%b}",
              ${this.a.verilogLabel}, ${this.b.verilogLabel}, ${this.c.verilogLabel}, ${this.d.verilogLabel}, ${this.e.verilogLabel}, ${this.f.verilogLabel}, ${this.g.verilogLabel}, ${this.dot.verilogLabel});`;
 }
 
@@ -1054,7 +1054,7 @@ NotGate.prototype.customDraw = function () {
 }
 //translate to not for single bit, assign for multi bit
 NotGate.prototype.generateVerilog = function () {
-    if (this.bitWidth == 1) 
+    if (this.bitWidth == 1)
         return "not " + this.verilogLabel + "(" + this.output1.verilogLabel + ", " + this.inp1.verilogLabel + ");"
     else
         return "assign " + this.output1.verilogLabel + " = ~" + this.inp1.verilogLabel + ";"
@@ -2568,7 +2568,7 @@ DigitalLed.prototype.generateVerilog = function () {
     var output = "";
     output += "\n";
     output += "  always @ (" + this.inp1.verilogLabel + ")\n";
-    output += "    $display(\"" + this.inp1.verilogLabel + " = %d\", " 
+    output += "    $display(\"" + this.inp1.verilogLabel + " = %d\", "
         + this.inp1.verilogLabel + ");\n";
     return output;
 
@@ -2647,7 +2647,7 @@ DigitalLed.prototype.generateVerilog = function () {
 // DigitalLed.prototype.generateVerilog = function () {
 //     var output = "";
 //     output += "  always @ (" + this.inp1.verilogLabel + ")\n";
-//     output += "    $display(\"" + this.inp1.verilogLabel + " = %d\", " 
+//     output += "    $display(\"" + this.inp1.verilogLabel + " = %d\", "
 //         + this.inp1.verilogLabel + ");";
 //     return output;
 // }
@@ -3140,7 +3140,7 @@ Demultiplexer.moduleVerilog = function () {
         output += "    case (sel)\n";
         for (var j = 0; j < numOutput; j++) {
             output += "      " + j + " : out" + j + " = in;\n";
-        }        
+        }
         output += "    endcase\n";
         output += "  end\n";
         output += "endmodule\n";
@@ -3283,7 +3283,7 @@ Decoder.prototype.verilogBaseType = function() {
 }
 //this code to generate Verilog
 Decoder.prototype.generateVerilog = function () {
-    Decoder.selSizes.add(this.controlSignalSize);
+    Decoder.selSizes.add(this.bitWidth);
     return CircuitElement.prototype.generateVerilog.call(this);
 }
 
@@ -3318,7 +3318,7 @@ Decoder.moduleVerilog = function () {
         output += "    case (sel)\n";
         for (var j = 0; j < numOutput; j++) {
             output += "      " + j + " : out" + j + " = 1;\n";
-        }        
+        }
         output += "    endcase\n";
         output += "  end\n";
         output += "endmodule\n";
@@ -3787,8 +3787,8 @@ PriorityEncoder.moduleVerilog = function () {
         output += "in" + (numInput-1) + ");\n";
 
         output += "  output reg [" + (size-1) + ":0] sel;\n";
-        output += "  output reg ze;\n";        
-        
+        output += "  output reg ze;\n";
+
         output += "  input "
         for (var j = 0; j < numInput-1; j++) {
             output += "in" + j + ", ";
