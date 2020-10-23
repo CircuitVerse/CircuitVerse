@@ -73,6 +73,14 @@ Additional software:
 * Start Redis server process.
 * To start sidekiq: `bundle exec sidekiq -e development -q default -q mailers -d -L tmp/sidekiq.log` (In development)
 
+#### Webpack 
+**Note:** CircuitVerse uses webpack to bundle the javascript module and assets. 
+So to see any changes made to the simulator code aka. Hot Reload, on the local server, you need to start the `webpack-dev-server`.
+This can be done by running the command:
+```
+bin/webpack-dev-server
+```
+
 ### Development
 Developers can quickly get started by setting up the dev environment using the instructions above. To seed the database with some sample data, run `bundle exec rake db:seed`. The admin credentials after seeding will be:
 ```

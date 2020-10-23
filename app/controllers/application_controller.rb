@@ -13,10 +13,10 @@ class ApplicationController < ActionController::Base
   end
 
   def custom_auth_error(exception)
-    render plain: "Not Authorized: #{exception.custom_message}"
+    render plain: "Not Authorized: #{exception.custom_message}", status: :forbidden
   end
 
   def not_found
-    render "errors/not_found.html.erb"
+    render "errors/not_found.html.erb", status: :not_found
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_10_140442) do
+ActiveRecord::Schema.define(version: 2020_10_13_035451) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,15 @@ ActiveRecord::Schema.define(version: 2020_07_10_140442) do
     t.datetime "started_at"
     t.index ["user_id"], name: "index_ahoy_visits_on_user_id"
     t.index ["visit_token"], name: "index_ahoy_visits_on_visit_token", unique: true
+  end
+
+  create_table "announcements", force: :cascade do |t|
+    t.text "body"
+    t.text "link"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "assignments", force: :cascade do |t|
@@ -264,7 +273,7 @@ ActiveRecord::Schema.define(version: 2020_07_10_140442) do
     t.index ["assignment_id"], name: "index_projects_on_assignment_id"
     t.index ["author_id"], name: "index_projects_on_author_id"
     t.index ["forked_project_id"], name: "index_projects_on_forked_project_id"
-    t.index ["slug"], name: "index_projects_on_slug", unique: true
+    t.index ["slug", "author_id"], name: "index_projects_on_slug_and_author_id", unique: true
   end
 
   create_table "push_subscriptions", force: :cascade do |t|
