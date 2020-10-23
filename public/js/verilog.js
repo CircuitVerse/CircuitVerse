@@ -3,7 +3,7 @@
     1) James H-J Yeh, Ph.D.
     2) Satvik Ramaprasad
 
-    refer verilog_documentation.md 
+    refer verilog_documentation.md
 */
 
 function generateVerilog() {
@@ -17,9 +17,9 @@ verilog = {
     // scope = undefined means export all circuits
     exportVerilog:function(scope = undefined){
         var dependencyList = {};
-        
+
         // Reset Verilog Element State
-        for (var i = 0; i < circuitElementList.length; i++) {            
+        for (var i = 0; i < circuitElementList.length; i++) {
             if (window[circuitElementList[i]].resetVerilog) {
                 window[circuitElementList[i]].resetVerilog();
             }
@@ -78,7 +78,7 @@ verilog = {
 
         // Generate Wire Initialization Code
         for (var bitWidth = 1; bitWidth<= 32; bitWidth++){
-            if(scope.verilogWireList[bitWidth].length == 0) 
+            if(scope.verilogWireList[bitWidth].length == 0)
                 continue;
             if(bitWidth == 1)
                 output += "  wire " + scope.verilogWireList[bitWidth].join(", ") + ";\n";
@@ -103,14 +103,14 @@ verilog = {
             scope.verilogWireList.push(new Array());
 
         var verilogResolvedSet = new Set();
-            
+
         // Start DFS from inputs
         for (var i = 0; i < inputList.length; i++) {
             for (var j = 0; j < scope[inputList[i]].length; j++) {
                 scope.stack.push(scope[inputList[i]][j]);
             }
         }
-        
+
         // Iterative DFS on circuit graph
         while (scope.stack.length) {
             if (errorDetected) return;
@@ -255,7 +255,20 @@ verilog = {
         return res;
     },
     santizeLabel: function(name){
-        return name.replace(/ Inverse/g, "_inv").replace(/ /g , "_");
+//        return name.replace(/ Inverse/g, "_inv").replace(/ /g , "_");
+
+        var temp = name;
+        if (temp.search(/ /g) < temp.length-1 && temp.search(/ /g) >= 0) {
+            temp = temp.replace(/ Inverse/g, "_inv");
+            temp = temp.replace(/ /g , "_");
+        }
+
+        if (temp.substring(0,1).search(/\\/g) < 0) {
+            if (temp.search(/[\W]/g) > -1 || temp.substring(0,1).search(/[0-9]/g) > -1)
+                temp = "\\" + temp + " ";
+        }
+
+        return temp;
     },
     generateNodeName: function(node, currentCount, totalCount) {
         if(node.verilogLabel) return node.verilogLabel;

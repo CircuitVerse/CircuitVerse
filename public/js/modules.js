@@ -1701,12 +1701,62 @@ Rom.prototype.resolve = function () {
     this.dataOut.value = this.data[this.memAddr.value];
     simulationArea.simulationQueue.add(this.dataOut);
 }
+
+Rom.prototype.verilogBaseType = function() {
+    return this.verilogName() + Rom.selSizes.length;
+}
+//this code to generate Verilog
+Rom.prototype.generateVerilog = function () {
+    Rom.selSizes.push(this.data);
+    return CircuitElement.prototype.generateVerilog.call(this);
+}
+//This code to determine what sizes are used to generate the needed modules
+Rom.selSizes = [];
+//generate the needed modules
+Rom.moduleVerilog = function () {
+    var output = "";
+
+    for (var i = 0; i < Rom.selSizes.length; i++) {
+         output += `
+module Rom${i+1}(dout, addr, en);
+  parameter WIDTH = 8;
+  parameter ADDR = 4;
+  output reg [WIDTH-1:0] dout;
+  input [ADDR-1:0] addr;
+  input en;
+
+  always @ (*) begin
+    if (en)
+      case (addr)
+`;
+        for (var j = 0; j < (1 << 4); j++) {
+          output += "        " + j + " : dout = " + Rom.selSizes[i][j] + ";\n";
+        }
+
+    output += `      endcase
+    else
+      dout = {WIDTH{1'bz}};
+  end
+endmodule
+`;
+    }
+
+    return output;
+}
+//reset the sized before Verilog generation
+Rom.resetVerilog = function () {
+    Rom.selSizes = [];
+}
+
+
+/*
+
 //This is a Rom without a clock - not normal
 Rom.moduleVerilog = function () {
   var output = `
 module ROM(dout, addr, en);
   parameter WIDTH = 8;
-  parameter ADDR = 6;
+  parameter ADDR = 4;
   output [WIDTH-1:0] dout;
   input [ADDR-1:0] addr;
   input en;
@@ -1715,7 +1765,7 @@ module ROM(dout, addr, en);
     if (en)
       case (addr) begin
 `;
-    for (var i = 0; i < (1 << 6); i++) {
+    for (var i = 0; i < (1 << 4); i++) {
         output += "        " + i + " : dout = " + this.data[i];
     }
 
@@ -1728,6 +1778,7 @@ endmodule
 `;
     return output;
 }
+*/
 
 function Splitter(x, y, scope = globalScope, dir = "RIGHT", bitWidth = undefined, bitWidthSplit = undefined) {
 
