@@ -581,39 +581,6 @@
 <script type="text/javascript" src="/js/metadata.json"></script>
 <script src="/js/canvas2svg.js"></script>
 
-
-
-<script >
-  $('button').click(function() {
-   if (this.id== 'report'){
-    var message=$('#issuetext').val();
-    var email=$('#emailtext').val();
-    message += "\nEmail:"+ email
-    message += "\nURL: " + window.location.href;
-    message += `\nUser Id: <%= user_signed_in? ? " #{current_user.id.to_s} : #{current_user.name}" : "Guest user" %>`
-    postUserIssue(message)
-    $('#issuetext').hide();
-    $('#emailtext').hide();
-    $('#report').hide();
-    $('#report-label').hide();
-    $('#email-label').hide();
-  }
-   })
-  $('.issue').on('hide.bs.modal', function(e) {
-    var listenToSimulator=true
-    $('#result').html("");
-    $('#issuetext').show();
-    $('#emailtext').show();
-    $('#issuetext').val("");
-    $('#emailtext').val("");
-    $('#report').show();
-    $('#report-label').show();
-  }) 
-  $('#reportIssue').click(function() {
-    var listenToSimulator=false
-  })
-</script>
-
 <script>
   $(document).tooltip({
     show: null,
