@@ -1052,6 +1052,9 @@ Clock.prototype.customDraw = function() {
     ctx.stroke();
 
 }
+Clock.verilogInstructions = function() {
+    return "Clock - Use a single global clock\n";
+}
 /*
 Clock.moduleVerilog = function() {
     return `

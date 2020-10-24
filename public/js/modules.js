@@ -1981,7 +1981,7 @@ Ground.prototype.customSave = function () {
     var data = {
         nodes: {
             output1: findNode(this.output1)
-        },
+        }, 
         values: {
             state: this.state
         },
@@ -2833,6 +2833,9 @@ Button.prototype.customDraw = function () {
     if (this.wasClicked)
         ctx.fillStyle = "rgba(232, 13, 13,0.8)";
     ctx.fill();
+}
+Button.verilogInstructions = function() {
+    return `Button - Buttons are not natively supported in verilog, consider using Inputs instead\n`;
 }
 
 function RGBLed(x, y, scope = globalScope) {
