@@ -106,8 +106,10 @@ verilog = {
     },
     generateTestBenchCode: function(DUTs) {
         var output = "// Sample Testbench Code\n";
+        output += "//  Remove comment symbols to use\n";
         if(DUTs.length == 0)return "";
 
+        output += "\n/*\n";
         output += "module test();\n";
         var registers = {};
         var wires = {};
@@ -200,6 +202,9 @@ verilog = {
         output += `${sp(1)}end\n`;
 
         output += "endmodule\n";
+
+        output += "\n*/\n";
+
         return output;
     },
     // Recursive DFS function

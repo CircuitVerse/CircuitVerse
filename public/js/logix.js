@@ -1480,7 +1480,10 @@ CircuitElement.prototype.generateVerilog = function() {
         if (this.nodeList[i].type == NODE_INPUT) {
             inputs.push(this.nodeList[i]);
         } else {
-            outputs.push(this.nodeList[i]);
+            if (this.nodeList[i].connections.length > 0)
+                outputs.push(this.nodeList[i]);
+            else
+                outputs.push("");
         }
     }
 
