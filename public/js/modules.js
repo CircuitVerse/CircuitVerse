@@ -1709,8 +1709,8 @@ Splitter.prototype.resolve = function () {
             n <<= this.bitWidthSplit[i];
             n += this.outputs[i].value;
         }
-        if (this.inp1.value != n) {
-            this.inp1.value = n;
+        if (this.inp1.value != (n >>> 0)) {
+            this.inp1.value = (n >>> 0);
             simulationArea.simulationQueue.add(this.inp1);
         }
         // else if (this.inp1.value != n) {
