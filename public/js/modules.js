@@ -1703,7 +1703,7 @@ Rom.prototype.resolve = function () {
 }
 
 Rom.prototype.verilogBaseType = function() {
-    return this.verilogName() + Rom.selSizes.length;
+    return this.verilogName() + (Rom.selSizes.length-1);
 }
 //this code to generate Verilog
 Rom.prototype.generateVerilog = function () {
@@ -1718,7 +1718,7 @@ Rom.moduleVerilog = function () {
 
     for (var i = 0; i < Rom.selSizes.length; i++) {
          output += `
-module Rom${i+1}(dout, addr, en);
+module Rom${i}(dout, addr, en);
   parameter WIDTH = 8;
   parameter ADDR = 4;
   output reg [WIDTH-1:0] dout;
@@ -1726,7 +1726,9 @@ module Rom${i+1}(dout, addr, en);
   input en;
 
   always @ (*) begin
-    if (en)
+    if (en == 0)
+      dout = {WIDTH{1'bz}};
+    else
       case (addr)
 `;
         for (var j = 0; j < (1 << 4); j++) {
@@ -1734,8 +1736,6 @@ module Rom${i+1}(dout, addr, en);
         }
 
     output += `      endcase
-    else
-      dout = {WIDTH{1'bz}};
   end
 endmodule
 `;
