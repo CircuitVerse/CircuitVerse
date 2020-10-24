@@ -131,7 +131,7 @@
 }
 
 .tooltiptext {
-  background-color: $primary-green;
+  background-color: $navbar-dark-grey;
   border-radius: .3rem;
   bottom: 100%;
   color: $white;
@@ -147,7 +147,7 @@
   z-index: 1;
 
   &::after {
-    border-color: $primary-green transparent transparent;
+    border-color: $navbar-dark-grey transparent transparent;
     border-style: solid;
     border-width: .3rem;
     content: '';
