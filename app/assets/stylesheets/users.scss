@@ -214,7 +214,7 @@
 }
 
 .users-card-name {
-  display: inline-block;
+  display: block;
   font-size: 18px;
   font-weight: 600;
   padding-bottom: 0;
@@ -236,8 +236,8 @@
 }
 
 .users-tag-container {
-  display: block;
-  margin-top: -.5rem;
+  display: inline-block;
+  margin-top: 0;
 }
 
 .users-card-body {
