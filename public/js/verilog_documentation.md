@@ -54,7 +54,7 @@ done on individual sub circuit (scope).
 1. `verilog.generateHeader()` - Generates Verilog Module Header
 1. `verilog.generateInputList()` - Generates Verilog Module Input List
 1. `verilog.generateOutputList()` - Generates Verilog Module Output List
-1. `verilog.santizeLabel()` - Sanitizes label for node/wire
+1. `verilog.sanitizeLabel()` - Sanitizes label for node/wire
 1. `verilog.generateNodeName()` - Helper function to resolve node/wire name
 
 **CircuitElement Functions:**
