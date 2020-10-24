@@ -302,7 +302,7 @@ export function drawLine(ctx, x1, y1, x2, y2, color, width) {
 }
 
 // Checks if string color is a valid color using a hack
-function validColor(color) {
+export function validColor(color) {
     var $div = $('<div>');
     $div.css('border', `1px solid ${color}`);
     return ($div.css('border-color') !== '');
@@ -310,8 +310,8 @@ function validColor(color) {
 
 // Helper function to color "RED" to RGBA
 export function colorToRGBA(color) {
-    var cvs; var
-        ctx;
+    var cvs; 
+    var ctx;
     cvs = document.createElement('canvas');
     cvs.height = 1;
     cvs.width = 1;
