@@ -107,7 +107,7 @@ verilog = {
     generateTestBenchCode: function(DUTs) {
         var output = "// Sample Testbench Code\n";
         if(DUTs.length == 0)return "";
-        
+
         output += "module test();\n";
         var registers = {};
         var wires = {};
@@ -244,7 +244,7 @@ verilog = {
 
         // Append footer
         output += "endmodule\n";
-        
+
         return output;
     },
     // Performs DFS on the graph and generates netlist of wires and connections
@@ -418,6 +418,25 @@ verilog = {
         return res;
     },
     sanitizeLabel: function(name){
+//        return name.replace(/ Inverse/g, "_inv").replace(/ /g , "_");
+        var temp = name;
+        //if there is a space anywhere but the last place
+        //replace spaces by "_"
+        //last space is required for escaped id
+        if (temp.search(/ /g) < temp.length-1 && temp.search(/ /g) >= 0) {
+            temp = temp.replace(/ Inverse/g, "_inv");
+            temp = temp.replace(/ /g , "_");
+        }
+        //if first character is not \ already
+        if (temp.substring(0,1).search(/\\/g) < 0) {
+            //if there are non-alphanum_ character, or first character is num, add \
+            if (temp.search(/[\W]/g) > -1 || temp.substring(0,1).search(/[0-9]/g) > -1)
+                temp = "\\" + temp + " ";
+        }
+        return temp;
+    },
+    /*
+    sanitizeLabel: function(name){
         // Replace spaces by "_"
         name = name.replace(/ /g , "_");
         // Replace Hyphens by "_"
@@ -428,7 +447,7 @@ verilog = {
         name = name.replace(/~/g , "inv_");
         // Shorten Inverse to inv
         name = name.replace(/Inverse/g , "inv");
-        
+
         // If first character is a number
         if(name.substring(0, 1).search(/[0-9]/g) > -1) {
             name = "w_" + name;
@@ -442,6 +461,7 @@ verilog = {
         }
         return name;
     },
+    */
     generateNodeName: function(node, currentCount, totalCount) {
         if(node.verilogLabel) return node.verilogLabel;
         var parentVerilogLabel = node.parent.verilogLabel;
@@ -458,14 +478,14 @@ verilog = {
 
 /*
     Helper function to generate spaces for indentation
-*/ 
+*/
 function sp(indentation) {
     return " ".repeat(indentation * 2);
 }
 
 /*
     Helper function to indent paragraph
-*/ 
+*/
 function indent(indentation, string) {
     var result = string.split('\n');
     if(result[result.length - 1] == '') {

@@ -470,7 +470,7 @@ module Random(val, clk, max);
 
   always @ (posedge clk)
     if (^max === 1'bX)
-      val = $urandom({WIDTH{1'b1}});
+      val = $urandom_range(0, {WIDTH{1'b1}});
     else
       val = $urandom_range(0, max);
 endmodule
