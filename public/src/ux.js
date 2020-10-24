@@ -176,7 +176,7 @@ export function setupUI() {
          var email=$('#emailtext').val();
          message += "\nEmail:"+ email
          message += "\nURL: " + window.location.href;
-         message += `\nUser Id: <%= user_signed_in? ? " #{current_user.id.to_s} : #{current_user.name}" : "Guest user" %>`
+         message += `\nUser Id: ${window.user_id}`
          postUserIssue(message)
          $('#issuetext').hide();
          $('#emailtext').hide();
