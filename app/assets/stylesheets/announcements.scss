@@ -8,12 +8,13 @@
   font-size: 1.2rem;
   justify-content: center;
   margin-top: .3rem;
-  word-break: break-all;
+  overflow-wrap: break-word;
 
   span {
     display: inline-block;
     flex: 50%;
-    margin: 1.3rem;
+    margin-right: 1rem;
+    margin-top: 1rem;
     text-align: center;
   }
 
