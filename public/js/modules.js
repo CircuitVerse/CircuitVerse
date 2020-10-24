@@ -634,8 +634,8 @@ SevenSegDisplay.prototype.customDraw = function () {
 }
 SevenSegDisplay.prototype.generateVerilog = function () {
     return `
-  always @ (${this.a.verilogLabel} or ${this.b.verilogLabel} or ${this.c.verilogLabel} or ${this.d.verilogLabel} or ${this.e.verilogLabel} or ${this.f.verilogLabel} or ${this.g.verilogLabel} or ${this.dot.verilogLabel})
-    $display("${this.verilogLabel}:abcdefg. = %b%b%b%b%b%b%b%b}",
+  always @ (*)
+    $display("SevenSegDisplay:${this.verilogLabel}.abcdefg. = %b%b%b%b%b%b%b%b}",
              ${this.a.verilogLabel}, ${this.b.verilogLabel}, ${this.c.verilogLabel}, ${this.d.verilogLabel}, ${this.e.verilogLabel}, ${this.f.verilogLabel}, ${this.g.verilogLabel}, ${this.dot.verilogLabel});`;
 }
 
@@ -726,8 +726,8 @@ SixteenSegDisplay.prototype.customDraw = function () {
 }
 SixteenSegDisplay.prototype.generateVerilog = function () {
     return `
-  always @ (${this.input1.verilogLabel} or ${this.dot.verilogLabel})
-    $display("{${this.input1.verilogLabel} = %16b, ${this.dot.verilogLabel} = %1b", ${this.input1.verilogLabel}, ${this.dot.verilogLabel});`;
+  always @ (*)
+    $display("SixteenSegDisplay:{${this.input1.verilogLabel},${this.dot.verilogLabel}} = {%16b,%1b}", ${this.input1.verilogLabel}, ${this.dot.verilogLabel});`;
 }
 
 function HexDisplay(x, y, scope = globalScope) {
@@ -752,8 +752,8 @@ HexDisplay.prototype.generateVerilog = function () {
 //Use $display
 HexDisplay.prototype.generateVerilog = function () {
     return `
-  always @ (${this.inp.verilogLabel})
-    $display("${this.inp.verilogLabel} = %d", ${this.inp.verilogLabel});`;
+  always @ (*)
+    $display("HexDisplay:${this.inp.verilogLabel}=%d", ${this.inp.verilogLabel});`;
 }
 HexDisplay.prototype.customSave = function () {
     var data = {
@@ -2614,6 +2614,7 @@ DigitalLed.prototype.generateVerilog = function () {
     return "assign " + this.label + " = " + this.inp1.verilogLabel + ";"
 }
 */
+/*
 //DigitalLed translated into $display
 DigitalLed.prototype.generateVerilog = function () {
     var output = "";
@@ -2624,6 +2625,7 @@ DigitalLed.prototype.generateVerilog = function () {
     return output;
 
 }
+*/
 DigitalLed.prototype.tooltipText = "Digital Led ToolTip: Digital LED glows high when input is High(1)."
 DigitalLed.prototype.helplink = "https://docs.circuitverse.org/#/outputs?id=digital-led";
 
@@ -2686,8 +2688,8 @@ DigitalLed.prototype.customDraw = function () {
 //Use $display
 DigitalLed.prototype.generateVerilog = function () {
     return `
-  always @ (${this.inp1.verilogLabel})
-    $display("${this.inp1.verilogLabel} = %d", ${this.inp1.verilogLabel});`;
+  always @ (*)
+    $display("DigitalLed:${this.inp1.verilogLabel}=%d", ${this.inp1.verilogLabel});`;
 }
 /* Outdated, was translating into Output
 DigitalLed.prototype.generateVerilog = function () {
@@ -2764,8 +2766,8 @@ VariableLed.prototype.customDraw = function () {
 }
 VariableLed.prototype.generateVerilog = function () {
     return `
-  always @ (${this.inp1.verilogLabel})
-    $display("${this.inp1.verilogLabel} = %d", ${this.inp1.verilogLabel});`;
+  always @ (*)
+    $display("VeriableLed:${this.inp1.verilogLabel}=%d", ${this.inp1.verilogLabel});`;
 }
 
 function Button(x, y, scope = globalScope, dir = "RIGHT") {
@@ -2916,8 +2918,8 @@ RGBLed.prototype.customDraw = function () {
 }
 RGBLed.prototype.generateVerilog = function () {
     return `
-  always @ (${this.inp1.verilogLabel} or ${this.inp2.verilogLabel} or ${this.inp3.verilogLabel})
-    $display("{${this.inp1.verilogLabel},${this.inp3.verilogLabel},${this.inp3.verilogLabel}} = {%d,%d,%d}", ${this.inp1.verilogLabel}, ${this.inp2.verilogLabel}, ${this.inp3.verilogLabel});`;
+  always @ (*)
+    $display("RGBLed:{${this.inp1.verilogLabel},${this.inp2.verilogLabel},${this.inp3.verilogLabel}} = {%d,%d,%d}", ${this.inp1.verilogLabel}, ${this.inp2.verilogLabel}, ${this.inp3.verilogLabel});`;
 }
 
 function SquareRGBLed(x, y, scope = globalScope, dir = "UP", pinLength = 1) {
@@ -4191,7 +4193,60 @@ ALU.prototype.resolve = function () {
     }
 
 }
+ALU.moduleVerilog = function () {
+  return `
+module ALU(out, carryOut, inp1, inp2, controlSignalInput);
+  parameter WIDTH = 1;
+  output reg [WIDTH-1:0] out;
+  output reg carryOut;
+  input [WIDTH-1:0] inp1, inp2;
+  input [2:0] controlSignalInput;
 
+  always @ (*)
+    case (controlSignalInput)
+      0 :
+        begin
+          out = inp1 & inp2;
+          carryOut = 0;
+        end
+      1 :
+        begin
+          out = inp1 | inp2;
+          carryOut = 0;
+        end
+      2 :
+        begin
+          {carryOut, out} = inp1 + inp2;
+        end
+      4 :
+        begin
+          out = inp1 & ~inp2;
+          carryOut = 0;
+        end
+      5 :
+        begin
+          out = inp1 | ~inp2;
+          carryOut = 0;
+        end
+      6 :
+        begin
+          out = inp1 < inp2;
+          carryOut = 0;
+        end
+      7 :
+        begin
+          out = inp1 & inp2;
+          carryOut = 0;
+        end
+      default :
+        begin
+          out = inp1 & inp2;
+          carryOut = 0;
+        end
+    endcase
+endmodule
+`;
+}
 
 function Rectangle(x, y, scope = globalScope, rows = 15, cols = 20) {
     CircuitElement.call(this, x, y, scope, "RIGHT", 1);

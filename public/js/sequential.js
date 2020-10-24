@@ -60,7 +60,7 @@ module TflipFlop(q, q_inv, clk, t, a_rst, pre, en);
   output reg [WIDTH-1:0] q, q_inv;
   input clk, a_rst, pre, en;
   input [WIDTH-1:0] t;
-  
+
   always @ (posedge clk or posedge a_rst)
     if (a_rst) begin
       q <= 'b0;
@@ -232,7 +232,7 @@ module DflipFlop(q, q_inv, clk, d, a_rst, pre, en);
   output reg [WIDTH-1:0] q, q_inv;
   input clk, a_rst, pre, en;
   input [WIDTH-1:0] d;
-  
+
   always @ (posedge clk or posedge a_rst)
     if (a_rst) begin
       q <= 'b0;
@@ -470,7 +470,7 @@ module Random(val, clk, max);
 
   always @ (posedge clk)
     if (^max === 1'bX)
-      val = $urandom();
+      val = $urandom({WIDTH{1'b1}});
     else
       val = $urandom_range(0, max);
 endmodule
