@@ -189,12 +189,12 @@ module RAM(dout, addr, din, we, dmp, rst);
   input we;
   input dmp;
   input rst;
-  reg [WIDTH-1:0] cell [2**ADDR-1:0];
+  reg [WIDTH-1:0] mem [2**ADDR-1:0];
 
   always @ (*) begin
     if (!we)
-      cell[addr] = din;
-    dout = cell[addr];
+      mem[addr] = din;
+    dout = mem[addr];
   end
 endmodule
 `;

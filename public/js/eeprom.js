@@ -47,7 +47,7 @@ EEPROM.prototype.customSave = function () {
 
 //This is a EERAM without a clock - not normal
 //reset is supported
-RAM.moduleVerilog = function () {
+EEPROM.moduleVerilog = function () {
   return `
 module EEPROM(dout, addr, din, we, dmp, rst);
   parameter WIDTH = 8;
