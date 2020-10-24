@@ -1981,7 +1981,7 @@ Ground.prototype.customSave = function () {
     var data = {
         nodes: {
             output1: findNode(this.output1)
-        }, 
+        },
         values: {
             state: this.state
         },
@@ -2836,6 +2836,40 @@ Button.prototype.customDraw = function () {
 }
 Button.verilogInstructions = function() {
     return `Button - Buttons are not natively supported in verilog, consider using Inputs instead\n`;
+}
+Button.prototype.verilogBaseType = function() {
+    return this.verilogName() + (Button.selSizes.length-1);
+}
+//this code to generate Verilog
+Button.prototype.generateVerilog = function () {
+    Button.selSizes.push(this.data);
+    return CircuitElement.prototype.generateVerilog.call(this);
+}
+//This code to determine what sizes are used to generate the needed modules
+Button.selSizes = [];
+//generate the needed modules
+Button.moduleVerilog = function () {
+    var output = "";
+
+    for (var i = 0; i < Button.selSizes.length; i++) {
+         output += `// Skeleton for Button${i}
+/*
+module Button${i}(out);
+  output reg out;
+
+  initial begin
+    //do something with the button here
+  end
+endmodule
+*/
+`;
+    }
+
+    return output;
+}
+//reset the sized before Verilog generation
+Button.resetVerilog = function () {
+    Button.selSizes = [];
 }
 
 function RGBLed(x, y, scope = globalScope) {

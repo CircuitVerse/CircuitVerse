@@ -110,7 +110,7 @@ verilog = {
         if(DUTs.length == 0)return "";
 
         output += "\n/*\n";
-        output += "module test();\n";
+        output += "module TestBench();\n";
         var registers = {};
         var wires = {};
         for(var i = 1; i <= 32; i++)
