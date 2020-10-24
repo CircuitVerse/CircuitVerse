@@ -86,17 +86,6 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :ses
   config.action_mailer.default_url_options = { host: "https://circuitverse.org/" }
 
-  # config.action_mailer.delivery_method = :smtp
-  # config.action_mailer.smtp_settings = {
-  #   :user_name => 'apikey',
-  #   :password => ENV["CIRCUITVERSE_EMAIL_PASSWORD"],
-  #   :domain => 'circuitverse.org',
-  #   :address => 'smtp.sendgrid.net',
-  #   :port => 587,
-  #   :authentication => :plain,
-  #   :enable_starttls_auto => true
-  # }
-
   config.vapid_public_key = ENV["VAPID_PUBLIC_KEY"]
   config.vapid_private_key = ENV["VAPID_PRIVATE_KEY"]
 
