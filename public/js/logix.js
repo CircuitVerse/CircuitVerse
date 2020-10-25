@@ -1471,7 +1471,8 @@ CircuitElement.prototype.verilogParametrizedType = function() {
 }
 
 // Generates final verilog code for each element
-CircuitElement.prototype.generateVerilog = function() {
+// if gate is defined, generate verilog using gate symbol
+CircuitElement.prototype.generateVerilog = function(gate=undefined,not=undefined) {
     // Example: and and_1(_out, _out, _Q[0]);
     var inputs = [];
     var outputs = [];
@@ -1480,6 +1481,7 @@ CircuitElement.prototype.generateVerilog = function() {
         if (this.nodeList[i].type == NODE_INPUT) {
             inputs.push(this.nodeList[i]);
         } else {
+//            outputs.push(this.nodeList[i]);
             if (this.nodeList[i].connections.length > 0)
                 outputs.push(this.nodeList[i]);
             else
@@ -1487,12 +1489,25 @@ CircuitElement.prototype.generateVerilog = function() {
         }
     }
 
-    var list = outputs.concat(inputs);
-    var res = this.verilogParametrizedType();
+    if (gate) {
+        var res = "assign ";
+        if (outputs.length == 1)
+            res += outputs[0].verilogLabel;
+        else
+            res += "{" + outputs.map(function(x) {
+                return x.verilogLabel
+            }).join(", ")  + "}";
+        res +=  " = " + (not?not+"(":"") +inputs.map(function(x) {
+            return x.verilogLabel
+        }).join(" "+gate+" ") + (not?")":"") + ";";
+    } else {
+        var list = outputs.concat(inputs);
+        var res = this.verilogParametrizedType();
 
-    res += " " + this.verilogLabel + "(" + list.map(function(x) {
-        return x.verilogLabel
-    }).join(", ") + ");";
+        res += " " + this.verilogLabel + "(" + list.map(function(x) {
+            return x.verilogLabel
+        }).join(", ") + ");";
+    }
     return res;
 }
 

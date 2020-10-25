@@ -191,10 +191,11 @@ module RAM(dout, addr, din, we, dmp, rst);
   input rst;
   reg [WIDTH-1:0] mem [2**ADDR-1:0];
 
+  assign dout = mem[addr];
+
   always @ (*) begin
     if (!we)
       mem[addr] = din;
-    dout = mem[addr];
   end
 endmodule
 `;
