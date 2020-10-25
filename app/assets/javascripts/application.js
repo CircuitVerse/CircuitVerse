@@ -21,3 +21,5 @@
 //= require time.js
 //= require scroll.js
 //= require trumbowyg/dist/trumbowyg.min.js
+//= require trumbowyg/dist/plugins/colors/trumbowyg.colors.js
+//= require trumbowyg/dist/plugins/pasteembed/trumbowyg.pasteembed.min.js

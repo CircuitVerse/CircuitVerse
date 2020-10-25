@@ -5,22 +5,19 @@
     $('#trumbowyg').trumbowyg({
       svgPath: "https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.20.0/ui/icons.svg",
       btns: [
-        ['simpleFormatting'],
-        ['strong', 'em', 'del'],
-        ['undo', 'redo'], // Only supported in Blink browsers
+        ['viewHTML'],
+        ['undo', 'redo'],
+        ['formatting'],
+        ['strong', 'em', 'foreColor', 'backColor', 'del'],
+        ['superscript', 'subscript'],
         ['link'],
+        ['insertImage'],
         ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
         ['unorderedList', 'orderedList'],
         ['horizontalRule'],
-        ['removeformat']
-      ],
-      btnsDef: {
-        simpleFormatting: {
-          dropdown: ['p', 'h1', 'h2'],
-          title: 'Formatting',
-          ico: 'p'
-        }
-      }
+        ['removeformat'],
+        ['fullscreen']
+      ]
     });
   });
   $.fn.cleanHtml = function () {
