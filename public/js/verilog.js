@@ -9,7 +9,7 @@
 function generateVerilog() {
     var data = verilog.exportVerilog();
     console.log(data);
-    download(projectName + ".v", data);
+    // download(projectName + ".v", data);
 }
 
 verilog = {
@@ -105,6 +105,7 @@ verilog = {
         return output;
     },
     generateTestBenchCode: function(DUTs) {
+        return '';
         var output = "// Sample Testbench Code\n";
         if(DUTs.length == 0)return "";
         

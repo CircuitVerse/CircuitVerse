@@ -1435,6 +1435,10 @@ CircuitElement.prototype.processVerilog = function() {
             if (this.objectType != "Input" && this.objectType != "Clock" && this.nodeList[i].connections.length > 0) {
                 if (!this.scope.verilogWireList[this.nodeList[i].bitWidth].contains(this.nodeList[i].verilogLabel))
                     this.scope.verilogWireList[this.nodeList[i].bitWidth].push(this.nodeList[i].verilogLabel);
+                else {
+                    console.log(this.objectType, this.nodeList[i].verilogLabel);
+                    console.log("Duplicate ERROR");
+                }
             }
             this.scope.stack.push(this.nodeList[i]);
             output_count++;

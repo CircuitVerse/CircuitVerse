@@ -753,7 +753,7 @@ HexDisplay.prototype.generateVerilog = function () {
 HexDisplay.prototype.generateVerilog = function () {
     return `
   always @ (*)
-    $display("HexDisplay:${this.inp.verilogLabel}=%d", ${this.inp.verilogLabel});`;
+    $display("HexDisplay:${this.verilogLabel}=%d", ${this.inp.verilogLabel});`;
 }
 HexDisplay.prototype.customSave = function () {
     var data = {
@@ -2687,9 +2687,11 @@ DigitalLed.prototype.customDraw = function () {
 }
 //Use $display
 DigitalLed.prototype.generateVerilog = function () {
+
+    var label = this.label ? this.verilogLabel : this.inp1.verilogLabel;
     return `
   always @ (*)
-    $display("DigitalLed:${this.inp1.verilogLabel}=%d", ${this.inp1.verilogLabel});`;
+    $display("DigitalLed:${label}=%d", ${this.inp1.verilogLabel});`;
 }
 /* Outdated, was translating into Output
 DigitalLed.prototype.generateVerilog = function () {
