@@ -477,7 +477,11 @@ verilog = {
         else {
             nodeName = (totalCount > 1) ? "out_" + currentCount: "out";
         }
-        return parentVerilogLabel + "_" + nodeName;
+        if (parentVerilogLabel.substring(0,1).search(/\\/g) < 0)
+            return (parentVerilogLabel) + "_" + nodeName;
+        else
+            return (parentVerilogLabel.substring(0,parentVerilogLabel.length-1)) + "_" + nodeName + " ";
+
     }
 }
 
