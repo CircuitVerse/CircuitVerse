@@ -113,14 +113,15 @@ module Counter(val, zero, max, clk, rst);
   initial
     val = 0;
 
-  always @ (posedge clk or posedge rst) begin
+  always @ (val)
     if (val == 0)
       zero = 1;
     else
       zero = 0;
 
+  always @ (posedge clk or posedge rst) begin
     if (rst)
-      val <= 'b0;
+      val <= 0;
     else
       if (val == max)
         val <= 0;

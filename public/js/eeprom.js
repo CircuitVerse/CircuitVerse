@@ -61,6 +61,8 @@ module EEPROM(dout, addr, din, we, dmp, rst);
   reg [WIDTH-1:0] mem[2**ADDR-1:0];
   integer j;
 
+  assign dout = mem[addr];
+
   always @ (*) begin
     if (!rst)
         for (j=0; j < 2**ADDR-1; j=j+1) begin
