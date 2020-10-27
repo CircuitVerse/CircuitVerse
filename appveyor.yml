@@ -9,7 +9,7 @@ environment:
   nodejs_version: "12"
 
 services:
-  - postgresql95
+  - postgresql124
   
   # Install scripts. (runs after repo cloning)
 install:

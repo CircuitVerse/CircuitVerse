@@ -11,7 +11,7 @@ jobs: # a collection of steps
           PGHOST: 127.0.0.1
           PGUSER: postgres
           RAILS_ENV: test
-      - image: circleci/postgres:12.4-alpine # database image
+      - image: postgres/postgres:12.3-alpine # database image
         environment: # environment variables for database
           POSTGRES_USER: postgres
           POSTGRES_DB: circuitverse_test
