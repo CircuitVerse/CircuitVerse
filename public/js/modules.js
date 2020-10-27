@@ -107,7 +107,7 @@ AndGate.prototype.customDraw = function () {
 }
 //translate to gate for single bit, assign for multi bit
 AndGate.prototype.generateVerilog = function () {
-    return CircuitElement.prototype.generateVerilog.call(this, (this.bitWidth == 1)?undefined:"&");
+    return gateGenerateVerilog.call(this, '&');
 }
 
 
@@ -208,7 +208,7 @@ NandGate.prototype.customDraw = function () {
 }
 //translate to gate for single bit, assign for multi bit
 NandGate.prototype.generateVerilog = function () {
-    return CircuitElement.prototype.generateVerilog.call(this, (this.bitWidth == 1)?undefined:"&", "~");
+    return gateGenerateVerilog.call(this, '&', true);
 }
 
 
@@ -479,7 +479,7 @@ XorGate.prototype.customDraw = function () {
 }
 //translate to gate for single bit, assign for multi bit
 XorGate.prototype.generateVerilog = function () {
-    return CircuitElement.prototype.generateVerilog.call(this, (this.bitWidth == 1)?undefined:"^");
+    return gateGenerateVerilog.call(this, '^');
 }
 
 
@@ -574,7 +574,7 @@ XnorGate.prototype.customDraw = function () {
 }
 //translate to gate for single bit, assign for multi bit
 XnorGate.prototype.generateVerilog = function () {
-    return CircuitElement.prototype.generateVerilog.call(this, (this.bitWidth == 1)?undefined:"^", "~");
+    return gateGenerateVerilog.call(this,'^', true);
 }
 
 
@@ -971,7 +971,7 @@ OrGate.prototype.customDraw = function () {
 
 }
 OrGate.prototype.generateVerilog = function () {
-    return CircuitElement.prototype.generateVerilog.call(this, (this.bitWidth == 1)?undefined:"|");
+    return gateGenerateVerilog.call(this, '|');
 }
 
 
@@ -1078,10 +1078,7 @@ NotGate.prototype.customDraw = function () {
 }
 //translate to gate for single bit, assign for multi bit
 NotGate.prototype.generateVerilog = function () {
-    if (this.bitWidth == 1)
-        return "not " + this.verilogLabel + "(" + this.output1.verilogLabel + ", " + this.inp1.verilogLabel + ");"
-    else
-        return "assign " + this.output1.verilogLabel + " = ~" + this.inp1.verilogLabel + ";"
+    return "assign " + this.output1.verilogLabel + " = ~" + this.inp1.verilogLabel + ";"
 }
 
 
@@ -2628,7 +2625,7 @@ NorGate.prototype.customDraw = function () {
 }
 //translate to gate for single bit, assign for multi bit
 NorGate.prototype.generateVerilog = function () {
-    return CircuitElement.prototype.generateVerilog.call(this, (this.bitWidth == 1)?undefined:"|", "~");
+    return gateGenerateVerilog.call(this, '|', true);
 }
 
 
