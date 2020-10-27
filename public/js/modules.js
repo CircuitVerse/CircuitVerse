@@ -105,6 +105,11 @@ AndGate.prototype.customDraw = function () {
     ctx.stroke();
 
 }
+//translate to gate for single bit, assign for multi bit
+AndGate.prototype.generateVerilog = function () {
+    return CircuitElement.prototype.generateVerilog.call(this, (this.bitWidth == 1)?undefined:"&");
+}
+
 
 function NandGate(x, y, scope = globalScope, dir = "RIGHT", inputLength = 2, bitWidth = 1) {
     CircuitElement.call(this, x, y, scope, dir, bitWidth);
@@ -200,6 +205,10 @@ NandGate.prototype.customDraw = function () {
     ctx.stroke();
 
 
+}
+//translate to gate for single bit, assign for multi bit
+NandGate.prototype.generateVerilog = function () {
+    return CircuitElement.prototype.generateVerilog.call(this, (this.bitWidth == 1)?undefined:"&", "~");
 }
 
 
@@ -468,6 +477,12 @@ XorGate.prototype.customDraw = function () {
 
 
 }
+//translate to gate for single bit, assign for multi bit
+XorGate.prototype.generateVerilog = function () {
+    return CircuitElement.prototype.generateVerilog.call(this, (this.bitWidth == 1)?undefined:"^");
+}
+
+
 
 function XnorGate(x, y, scope = globalScope, dir = "RIGHT", inputs = 2, bitWidth = 1) {
     CircuitElement.call(this, x, y, scope, dir, bitWidth);
@@ -557,6 +572,11 @@ XnorGate.prototype.customDraw = function () {
     ctx.stroke();
 
 }
+//translate to gate for single bit, assign for multi bit
+XnorGate.prototype.generateVerilog = function () {
+    return CircuitElement.prototype.generateVerilog.call(this, (this.bitWidth == 1)?undefined:"^", "~");
+}
+
 
 
 function SevenSegDisplay(x, y, scope = globalScope) {
@@ -950,6 +970,10 @@ OrGate.prototype.customDraw = function () {
 
 
 }
+OrGate.prototype.generateVerilog = function () {
+    return CircuitElement.prototype.generateVerilog.call(this, (this.bitWidth == 1)?undefined:"|");
+}
+
 
 function Stepper(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 8) {
 
@@ -1052,7 +1076,7 @@ NotGate.prototype.customDraw = function () {
     ctx.stroke();
 
 }
-//translate to not for single bit, assign for multi bit
+//translate to gate for single bit, assign for multi bit
 NotGate.prototype.generateVerilog = function () {
     if (this.bitWidth == 1)
         return "not " + this.verilogLabel + "(" + this.output1.verilogLabel + ", " + this.inp1.verilogLabel + ");"
@@ -1899,7 +1923,7 @@ Splitter.prototype.processVerilog = function () {
     // Combiner
     if (this.inp1.verilogLabel == "") {
         this.isSplitter = false;
-        this.inp1.verilogLabel = this.verilogLabel + "_inp";
+        this.inp1.verilogLabel = this.verilogLabel + "_cmb";
         if (!this.scope.verilogWireList[this.bitWidth].contains(this.inp1.verilogLabel))
             this.scope.verilogWireList[this.bitWidth].push(this.inp1.verilogLabel);
         this.scope.stack.push(this.inp1);
@@ -1992,7 +2016,7 @@ Ground.prototype.customSave = function () {
     var data = {
         nodes: {
             output1: findNode(this.output1)
-        }, 
+        },
         values: {
             state: this.state
         },
@@ -2602,6 +2626,11 @@ NorGate.prototype.customDraw = function () {
     ctx.stroke();
     //for debugging
 }
+//translate to gate for single bit, assign for multi bit
+NorGate.prototype.generateVerilog = function () {
+    return CircuitElement.prototype.generateVerilog.call(this, (this.bitWidth == 1)?undefined:"|", "~");
+}
+
 
 function DigitalLed(x, y, scope = globalScope, color = "Red") {
     // Calling base class constructor
@@ -2849,6 +2878,40 @@ Button.prototype.customDraw = function () {
 }
 Button.verilogInstructions = function() {
     return `Button - Buttons are not natively supported in verilog, consider using Inputs instead\n`;
+}
+Button.prototype.verilogBaseType = function() {
+    return this.verilogName() + (Button.selSizes.length-1);
+}
+//this code to generate Verilog
+Button.prototype.generateVerilog = function () {
+    Button.selSizes.push(this.data);
+    return CircuitElement.prototype.generateVerilog.call(this);
+}
+//This code to determine what sizes are used to generate the needed modules
+Button.selSizes = [];
+//generate the needed modules
+Button.moduleVerilog = function () {
+    var output = "";
+
+    for (var i = 0; i < Button.selSizes.length; i++) {
+         output += `// Skeleton for Button${i}
+/*
+module Button${i}(out);
+  output reg out;
+
+  initial begin
+    //do something with the button here
+  end
+endmodule
+*/
+`;
+    }
+
+    return output;
+}
+//reset the sized before Verilog generation
+Button.resetVerilog = function () {
+    Button.selSizes = [];
 }
 
 function RGBLed(x, y, scope = globalScope) {
