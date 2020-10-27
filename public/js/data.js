@@ -621,6 +621,10 @@ function loadModule(data, scope) {
     obj.propagationDelay = data["propagationDelay"] || obj.propagationDelay;
     obj.fixDirection();
 
+    // save metadata if exists
+    if(obj.subcircuitMetadata)
+        obj.subcircuitMetadata = data["subcircuitMetadata"];
+    
     // Restore other values
     if (data.customData["values"])
         for (prop in data.customData["values"]) {

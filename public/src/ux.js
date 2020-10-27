@@ -128,7 +128,7 @@ export function setupUI() {
         handles: 'e',
         // minWidth:270,
     });
-    $('#menu').accordion({
+    $('#menu, #subcircuitMenu').accordion({
         collapsible: true,
         active: false,
         heightStyle: 'content',
@@ -139,7 +139,6 @@ export function setupUI() {
     // });
 
     $('.logixModules').mousedown(function () {
-        // ////console.log(uxvar.smartDropXX,uxvar.smartDropYY);
         if (simulationArea.lastSelected && simulationArea.lastSelected.newElement) simulationArea.lastSelected.delete();
         var obj = new modules[this.id](); // (simulationArea.mouseX,simulationArea.mouseY);
         // obj = new modules[this.id](); // (simulationArea.mouseX,simulationArea.mouseY);
@@ -164,7 +163,6 @@ export function setupUI() {
         if (!tooltipText) return;
         $('#Help').addClass('show');
         $('#Help').empty();
-        // //console.log("SHOWING")
         $('#Help').append(tooltipText);
     }); // code goes in document ready fn only
     $('.logixModules').mouseleave(() => {
@@ -209,7 +207,6 @@ export function setupUI() {
 }
 
 export const selectElement = (ele) => {
-    // ////console.log(uxvar.smartDropXX,uxvar.smartDropYY);
     if (simulationArea.lastSelected && simulationArea.lastSelected.newElement) simulationArea.lastSelected.delete();
     var obj = new modules[ele](); // (simulationArea.mouseX,simulationArea.mouseY);
     // obj = new modules[this.id](); // (simulationArea.mouseX,simulationArea.mouseY);
@@ -243,11 +240,47 @@ export function prevPropertyObjGet() {
  * @category ux
  */
 export function showProperties(obj) {
-    // console.log(obj)
     if (obj === prevPropertyObjGet()) return;
     hideProperties();
     prevPropertyObjSet(obj);
-    if (simulationArea.lastSelected === undefined || ['Wire', 'CircuitElement', 'Node'].indexOf(simulationArea.lastSelected.objectType) !== -1) {
+    if(layoutModeGet()){
+        // if an element is selected, show its properties instead of the layout dialog
+        if (simulationArea.lastSelected === undefined || ['Wire', 'CircuitElement', 'Node'].indexOf(simulationArea.lastSelected.objectType) !== -1){
+            $('#moduleProperty').hide();
+            $('#layoutDialog').show();
+            return;
+        }
+
+        $('#moduleProperty').show();
+        $('#layoutDialog').hide();
+        $('#moduleProperty-inner').append("<div id='moduleProperty-header'>" + obj.objectType + "</div>");
+
+        if (obj.subcircuitMutableProperties && obj.canShowInSubcircuit) {
+            for (let attr in obj.subcircuitMutableProperties) {
+                var prop = obj.subcircuitMutableProperties[attr];
+                if (obj.subcircuitMutableProperties[attr].type == "number") {
+                    var s = "<p>" + prop.name + "<input class='objectPropertyAttribute' type='number'  name='" + prop.func + "' min='" + (prop.min || 0) + "' max='" + (prop.max || 200) + "' value=" + obj[attr] + "></p>";
+                    $('#moduleProperty-inner').append(s);
+                }
+                else if (obj.subcircuitMutableProperties[attr].type == "text") {
+                    var s = "<p>" + prop.name + "<input class='objectPropertyAttribute' type='text'  name='" + prop.func + "' maxlength='" + (prop.maxlength || 200) + "' value=" + obj[attr] + "></p>";
+                    $('#moduleProperty-inner').append(s);
+                }
+                else if (obj.subcircuitMutableProperties[attr].type == "checkbox"){
+                    var s = "<p>" + prop.name + "<label class='switch'> <input type='checkbox' " + ["", "checked"][obj.subcircuitMetadata.showLabelInSubcircuit + 0] + " class='objectPropertyAttributeChecked' name='" + prop.func + "'> <span class='slider'></span> </label></p>";
+                    $('#moduleProperty-inner').append(s);
+                }
+            }
+            if (!obj.labelDirectionFixed) {
+                if(!obj.subcircuitMetadata.labelDirection) obj.subcircuitMetadata.labelDirection = obj.labelDirection;
+                var s = $("<select class='objectPropertyAttribute' name='newLabelDirection'>" + "<option value='RIGHT' " + ["", "selected"][+(obj.subcircuitMetadata.labelDirection == "RIGHT")] + " >RIGHT</option><option value='DOWN' " + ["", "selected"][+(obj.subcircuitMetadata.labelDirection == "DOWN")] + " >DOWN</option><option value='LEFT' " + "<option value='RIGHT'" + ["", "selected"][+(obj.subcircuitMetadata.labelDirection == "LEFT")] + " >LEFT</option><option value='UP' " + "<option value='RIGHT'" + ["", "selected"][+(obj.subcircuitMetadata.labelDirection == "UP")] + " >UP</option>" + "</select>");
+                s.val(obj.subcircuitMetadata.labelDirection);
+                $('#moduleProperty-inner').append("<p>Label Direction: " + $(s).prop('outerHTML') + "</p>");
+            }
+        }
+            
+    }
+    else if (simulationArea.lastSelected === undefined || ['Wire', 'CircuitElement', 'Node'].indexOf(simulationArea.lastSelected.objectType) !== -1) {
         $('#moduleProperty').show();
         $('#moduleProperty-inner').append("<div id='moduleProperty-header'>" + 'Project Properties' + '</div>');
         $('#moduleProperty-inner').append(`<p><span>Project:</span> <input id='projname' class='objectPropertyAttribute' type='text'  name='setProjectName'  value='${getProjectName() || 'Untitled'}'></p>`);
@@ -341,13 +374,13 @@ export function showProperties(obj) {
             circuitProperty[this.name](value);
         }
     });
+
     $('.objectPropertyAttributeChecked').on('change keyup paste click', function () {
-        // return;
-        // console.log(this.name+":"+this.value);
+        if(this.name === "toggleLabelInLayoutMode") return; // Hack to prevent toggleLabelInLayoutMode from toggling twice
         scheduleUpdate();
         updateCanvasSet(true);
         wireToBeCheckedSet(1);
-        if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) { 
+        if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) {
             simulationArea.lastSelected[this.name](this.value);
             // Commented out due to property menu refresh bug
             // prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet(); 
@@ -355,7 +388,21 @@ export function showProperties(obj) {
                 circuitProperty[this.name](this.checked); 
             }
     });
-    
+
+    $('.objectPropertyAttributeChecked').on('click', function () {
+        if(this.name !== "toggleLabelInLayoutMode") return; // Hack to prevent toggleLabelInLayoutMode from toggling twice
+        scheduleUpdate();
+        updateCanvasSet(true);
+        wireToBeCheckedSet(1);
+        if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) {
+            simulationArea.lastSelected[this.name](this.value);
+            // Commented out due to property menu refresh bug
+            // prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet(); 
+        } else { 
+                circuitProperty[this.name](this.checked); 
+            }
+    });
+
     $("input[type='number']").inputSpinner();
 }
 
@@ -518,6 +565,58 @@ export function fullView () {
     $('#moduleProperty').hide()
     $('#exitView').append(markUp);
 }
+
+/** 
+    Fills the elements that can be displayed in the subcircuit, in the subcircuit menu
+**/
+export function fillSubcircuitElements() {
+    $('#subcircuitMenu').empty();
+
+    for(let el of circuitElementList) {
+        if(globalScope[el].length === 0) continue;
+        if(!globalScope[el][0].canShowInSubcircuit) continue;
+        let tempHTML = '';
+
+        // add a panel for each existing group
+        tempHTML += `<div class="panelHeader">${el}s</div>`;
+        tempHTML += `<div class="panel">`;
+
+        let available = false;
+
+        // add an SVG for each element
+        for(let i = 0; i < globalScope[el].length; i++){
+            if (!globalScope[el][i].subcircuitMetadata.showInSubcircuit) {
+                tempHTML += `<div class="icon subcircuitModule" id="${el}-${i}" data-element-id="${i}" data-element-name="${el}">`;
+                tempHTML += `<img src= "/img/${el}.svg">`;
+                tempHTML += `<p class="img__description">${(globalScope[el][i].label !== "")? globalScope[el][i].label : 'unlabeled'}</p>`;
+                tempHTML += '</div>';
+                available = true;
+            }
+
+        }
+        tempHTML += '</div>';
+
+        if (available)
+            $('#subcircuitMenu').append(tempHTML);
+    }
+
+    $('#subcircuitMenu').accordion("refresh");
+
+    $('.subcircuitModule').mousedown(function () {
+
+        let elementName = this.dataset.elementName;
+        let elementIndex = this.dataset.elementId;
+
+        let element = globalScope[elementName][elementIndex];
+
+        element.subcircuitMetadata.showInSubcircuit = true;
+        element.newElement = true;
+        simulationArea.lastSelected = element;
+        this.parentElement.removeChild(this);
+
+
+    });
+} 
 
 function postUserIssue(message) {
     $.ajax({

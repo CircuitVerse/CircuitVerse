@@ -1,7 +1,7 @@
 import CircuitElement from "../circuitElement";
 import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
-import { correctWidth, lineTo, moveTo, arc, colorToRGBA, validColor } from '../canvasApi';
+import { correctWidth, lineTo, moveTo, arc, colorToRGBA, drawCircle2, validColor} from "../canvasApi";
 import { changeInputSize } from "../modules";
 /**
  * @class
@@ -111,6 +111,25 @@ export default class DigitalLed extends CircuitElement {
             ctx.fillStyle = colors["hover_select"];
         ctx.fill();
     }
+
+    // Draws the element in the subcircuit. Used in layout mode
+    subcircuitDraw(xOffset = 0, yOffset = 0) {
+        var ctx = simulationArea.context;
+
+        var xx = this.subcircuitMetadata.x + xOffset;
+        var yy = this.subcircuitMetadata.y + yOffset;
+        
+        ctx.strokeStyle = "#090a0a";
+        ctx.fillStyle = ["rgba(227,228,229,0.8)", this.actualColor][this.inp1.value || 0];
+        ctx.lineWidth = correctWidth(1);
+
+        ctx.beginPath();
+        drawCircle2(ctx, 0, 0, 6, xx, yy, this.direction);
+        ctx.stroke();
+
+        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = "rgba(255, 255, 32,0.8)";
+        ctx.fill();
+    }
 }
 
 /**
@@ -145,3 +164,4 @@ DigitalLed.prototype.mutableProperties = {
     },
 };
 DigitalLed.prototype.objectType = "DigitalLed";
+DigitalLed.prototype.canShowInSubcircuit = true;

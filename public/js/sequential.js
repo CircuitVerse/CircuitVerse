@@ -413,6 +413,29 @@ Random.prototype.customDraw = function() {
 
 
 }
+Random.prototype.layoutProperties = {
+    rightDimensionX : 20,
+    leftDimensionX : 0,
+    upDimensionY : 0,
+    downDimensionY: 20
+}
+Random.prototype.layoutDraw = function(xOffset = 0, yOffset = 0) {
+    var ctx = simulationArea.context;
+    var xx = this.subcircuitMetadata.x + xOffset;
+    var yy = this.subcircuitMetadata.y + yOffset;
+
+    ctx.beginPath();
+    ctx.font = "20px Georgia";
+    ctx.fillStyle = "green";
+    ctx.textAlign = "center";
+    fillText(ctx, this.currentRandomNo.toString(16), xx + 10, yy + 17);
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.lineWidth = correctWidth(1);
+    rect2(ctx, 0, 0, 20, 20, xx, yy, this.direction);
+    ctx.stroke();
+}
 
 function SRflipFlop(x, y, scope = globalScope, dir = "RIGHT") {
     CircuitElement.call(this, x, y, scope, dir, 1);

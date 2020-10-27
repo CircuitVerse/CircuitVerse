@@ -15,6 +15,7 @@ import { showError } from "./utils";
 import Node, { findNode } from "./node";
 import { fillText } from "./canvasApi";
 import { colors } from "./themer/themer";
+import { layoutModeGet } from "./layoutMode"
 /**
  * Function to load a subcicuit
  * @category subcircuit
@@ -29,7 +30,6 @@ export function loadSubCircuit(savedData, scope) {
  * @category subcircuit
  */
 export function createSubCircuitPrompt(scope = globalScope) {
-    console.log("hey");
     $("#insertSubcircuitDialog").empty();
     let flag = true;
     for (id in scopeList) {
@@ -98,6 +98,8 @@ export default class SubCircuit extends CircuitElement {
         this.inputNodes = [];
         this.outputNodes = [];
         this.localScope = new Scope();
+        this.preventCircuitSwitch = false; // prevents from switching circuit if double clicking button
+
         var subcircuitScope = scopeList[this.id]; // Scope of the subcircuit
         // Error handing
         if (subcircuitScope == undefined) {
@@ -249,7 +251,6 @@ export default class SubCircuit extends CircuitElement {
             this.upDimensionY = 0;
             this.rightDimensionX = subcircuitScope.layout.width;
             this.downDimensionY = subcircuitScope.layout.height;
-            console.log(subcircuitScope.Output.length);
             for (var i = 0; i < subcircuitScope.Output.length; i++) {
                 var a = new Node(
                     subcircuitScope.Output[i].layoutProperties.x,
@@ -259,7 +260,6 @@ export default class SubCircuit extends CircuitElement {
                     subcircuitScope.Output[i].bitWidth
                 );
                 a.layout_id = subcircuitScope.Output[i].layoutProperties.id;
-                console.log(a.absX(), a.absY());
                 this.outputNodes.push(a);
             }
             for (var i = 0; i < subcircuitScope.Input.length; i++) {
@@ -271,7 +271,6 @@ export default class SubCircuit extends CircuitElement {
                     subcircuitScope.Input[i].bitWidth
                 );
                 a.layout_id = subcircuitScope.Input[i].layoutProperties.id;
-                console.log(a.absX(), a.absY());
                 this.inputNodes.push(a);
             }
         }
@@ -305,10 +304,15 @@ export default class SubCircuit extends CircuitElement {
             subcircuitScope.SubCircuit[i].reset();
         }
 
-        if (
-            subcircuitScope.Input.length == 0 &&
-            subcircuitScope.Output.length == 0
-        ) {
+        let emptyCircuit = true;
+        for(let element of circuitElementList){
+            if(subcircuitScope[element].length > 0 && subcircuitScope[element][0].canShowInSubcircuit){
+                emptyCircuit = false;
+                break;
+            }
+        }
+
+        if (emptyCircuit) {
             showError(
                 `SubCircuit : ${subcircuitScope.name} is an empty circuit`
             );
@@ -461,8 +465,55 @@ export default class SubCircuit extends CircuitElement {
         this.makeConnections();
     }
 
+    /**
+     * Procedure after a button is clicked inside a subcircuit 
+    **/
     click() {
-        // this.id=prompt();
+        for(let i = 0; i < this.localScope["Button"].length; i++){
+            if (this.localScope["Button"][i].subcircuitMetadata.showInSubcircuit){
+                var mX = simulationArea.mouseXf - (this.x + this.localScope["Button"][i].subcircuitMetadata.x);
+                var mY = (this.y + this.localScope["Button"][i].subcircuitMetadata.y) - simulationArea.mouseYf;
+
+                var rX = this.layoutProperties.rightDimensionX;
+                var lX = this.layoutProperties.leftDimensionX;
+                var uY = this.layoutProperties.upDimensionY;
+                var dY = this.layoutProperties.downDimensionY;
+
+                if (!layoutModeGet() && !this.directionFixed && !this.overrideDirectionRotation) {
+                    if (this.direction == "LEFT") {
+                        lX = this.rightDimensionX;
+                        rX = this.leftDimensionX
+                    } else if (this.direction == "DOWN") {
+                        lX = this.downDimensionY;
+                        rX = this.upDimensionY;
+                        uY = this.leftDimensionX;
+                        dY = this.rightDimensionX;
+                    } else if (this.direction == "UP") {
+                        lX = this.downDimensionY;
+                        rX = this.upDimensionY;
+                        dY = this.leftDimensionX;
+                        uY = this.rightDimensionX;
+                    }
+                }
+
+                // if the button was clicked, set its wasClicked to true and prevent double clicks from switching
+                // to the subcircuit's circuit
+                if ((-lX <= mX && mX <= rX && -dY <= mY && mY <= uY)){
+                        this.lastClickedElement = i;
+                        this.localScope["Button"][i].wasClicked = true;
+                        this.preventCircuitSwitch = true;
+                }
+                else{
+                    this.preventCircuitSwitch = false;
+                }
+            }
+        } 
+    }
+    /**
+      * Sets the buttons' wasClicked property in the subcircuit to false
+    **/
+    releaseClick(){
+        if(this.lastClickedElement !== undefined) this.localScope["Button"][this.lastClickedElement].wasClicked = false;
     }
 
     /**
@@ -493,10 +544,18 @@ export default class SubCircuit extends CircuitElement {
         return false;
     }
 
+    /**
+     * Procedure if any element is double clicked inside a subcircuit
+    **/
     dblclick() {
+        if(this.preventCircuitSwitch) return;
         switchCircuit(this.id);
     }
 
+    /**
+     * Returns a javascript object of subcircuit data.
+     * Does not include data of subcircuit elements apart from Input and Output (that is a part of element.subcircuitMetadata)
+    **/
     saveObject() {
         var data = {
             x: this.x,
@@ -553,6 +612,10 @@ export default class SubCircuit extends CircuitElement {
         return ["center", 0, -6];
     }
 
+    /**
+     * Draws the subcircuit (and contained elements) on the screen when the subcircuit is included
+       in another circuit
+    **/
     customDraw() {
         var subcircuitScope = scopeList[this.id];
 
@@ -621,13 +684,22 @@ export default class SubCircuit extends CircuitElement {
             );
         }
         ctx.fill();
-        // console.log("input",this.inputNodes)
-        // console.log("oput",this.outputNodes)
         for (let i = 0; i < this.outputNodes.length; i++) {
             this.outputNodes[i].draw();
         }
         for (let i = 0; i < this.inputNodes.length; i++) {
             this.inputNodes[i].draw();
+        }
+
+         // draw subcircuitElements
+        for(let el of circuitElementList){
+            if(this.localScope[el].length === 0) continue;
+            if(!this.localScope[el][0].canShowInSubcircuit) continue;
+            for(let i = 0; i < this.localScope[el].length; i++){
+                if (this.localScope[el][i].subcircuitMetadata.showInSubcircuit) {
+                    this.localScope[el][i].drawLayoutMode(this.x, this.y);
+                }
+            }
         }
     }
 }

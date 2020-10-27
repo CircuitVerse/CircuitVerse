@@ -882,7 +882,6 @@ function copy(copyList, cut = false) {
             var obj = globalScope[updateOrder[i]][j];
             if (obj.objectType != 'Wire') { //}&&obj.objectType!='CircuitElement'){//}&&(obj.objectType!='Node'||obj.type==2)){
                 if (!copyList.contains(globalScope[updateOrder[i]][j])) {
-                    ////console.log("DELETE:", globalScope[updateOrder[i]][j]);
                     globalScope[updateOrder[i]][j].cleanDelete();
                 }
             }
@@ -1016,6 +1015,16 @@ function CircuitElement(x, y, scope, dir, bitWidth) {
         index: undefined,
     }
 
+    if (this.canShowInSubcircuit) {
+        this.subcircuitMetadata = {
+            showInSubcircuit: false,
+            showLabelInSubcircuit: false,
+            labelDirection: this.labelDirection,
+            x : 0,
+            y : 0
+        }
+    }
+
 }
 
 CircuitElement.prototype.alwaysResolve = false
@@ -1065,6 +1074,10 @@ CircuitElement.prototype.saveObject = function() {
         propagationDelay: this.propagationDelay,
         customData: this.customSave()
     }
+
+    if (this.canShowInSubcircuit)
+        data.subcircuitMetadata = this.subcircuitMetadata;
+    
     return data;
 
 }
@@ -1119,14 +1132,32 @@ CircuitElement.prototype.setHeight = function(height) {
 CircuitElement.prototype.overrideDirectionRotation = false;
 
 CircuitElement.prototype.startDragging = function() {
-    this.oldx = this.x;
-    this.oldy = this.y;
+    if (layoutMode) {
+        this.oldx = this.subcircuitMetadata.x;
+        this.oldy = this.subcircuitMetadata.y;
+    }
+    else { 
+        this.oldx = this.x;
+        this.oldy = this.y;
+    }
+    
 }
 CircuitElement.prototype.drag = function() {
-    this.x = this.oldx + simulationArea.mouseX - simulationArea.mouseDownX;
-    this.y = this.oldy + simulationArea.mouseY - simulationArea.mouseDownY;
+    if (layoutMode) {
+        this.subcircuitMetadata.x = this.oldx + simulationArea.mouseX - simulationArea.mouseDownX;
+        this.subcircuitMetadata.y = this.oldy + simulationArea.mouseY - simulationArea.mouseDownY;
+    }
+    else {
+        this.x = this.oldx + simulationArea.mouseX - simulationArea.mouseDownX;
+        this.y = this.oldy + simulationArea.mouseY - simulationArea.mouseDownY;
+    }
+    
 }
 CircuitElement.prototype.update = function() {
+
+    if (layoutMode) {
+        return this.layoutUpdate();
+    }
 
     var update = false;
 
@@ -1188,6 +1219,7 @@ CircuitElement.prototype.update = function() {
     } else {
         if (this.clicked) simulationArea.selected = false;
         this.clicked = false;
+        if(this.wasClicked && !this.clicked) this.releaseClick();
         this.wasClicked = false;
     }
 
@@ -1210,7 +1242,9 @@ CircuitElement.prototype.update = function() {
 
     return update;
 }
-
+CircuitElement.prototype.releaseClick = function() {
+    // no use, overridden by subcircuit class only
+}
 CircuitElement.prototype.fixDirection = function() {
     this.direction = fixDirection[this.direction] || this.direction;
     this.labelDirection = fixDirection[this.labelDirection] || this.labelDirection;
@@ -1229,7 +1263,18 @@ CircuitElement.prototype.isHover = function() {
     var uY = this.upDimensionY;
     var dY = this.downDimensionY;
 
-    if (!this.directionFixed && !this.overrideDirectionRotation) {
+    if (layoutMode) {
+
+        var mX = simulationArea.mouseXf - this.subcircuitMetadata.x;
+        var mY = this.subcircuitMetadata.y - simulationArea.mouseYf;
+
+        var rX = this.layoutProperties.rightDimensionX;
+        var lX = this.layoutProperties.leftDimensionX;
+        var uY = this.layoutProperties.upDimensionY;
+        var dY = this.layoutProperties.downDimensionY;
+    }
+
+    if (!layoutMode && !this.directionFixed && !this.overrideDirectionRotation) {
         if (this.direction == "LEFT") {
             lX = this.rightDimensionX;
             rX = this.leftDimensionX
@@ -1377,7 +1422,10 @@ CircuitElement.prototype.newDirection = function(dir) {
 }
 
 CircuitElement.prototype.newLabelDirection = function(dir) {
-    this.labelDirection = dir;
+    if(layoutMode)
+        this.subcircuitMetadata.labelDirection = dir;
+    else
+        this.labelDirection = dir;
 }
 
 //Method to check if object can be resolved
@@ -1433,6 +1481,35 @@ CircuitElement.prototype.processVerilog = function() {
             output_count++;
         }
     }
+}
+
+CircuitElement.prototype.canShowInSubcircuit = false;
+
+// Default layout properties when canShowInSubcircuit is true
+CircuitElement.prototype.layoutProperties = {
+    rightDimensionX : 5,
+    leftDimensionX : 5,
+    upDimensionY : 5,
+    downDimensionY: 5
+};
+
+// Default mutable properties in layout mode 
+// Should we define it for subcircuit elements only??
+CircuitElement.prototype.subcircuitMutableProperties = {
+    "label": {
+        name: "label: ",
+        type: "text",
+        func: "setLabel"
+    },
+    "show label": {
+        name: "show label ",
+        type: "checkbox",
+        func: "toggleLabelInLayoutMode"
+    }
+}
+
+CircuitElement.prototype.toggleLabelInLayoutMode = function(val) {
+    this.subcircuitMetadata.showLabelInSubcircuit = val;
 }
 
 CircuitElement.prototype.isVerilogResolvable = function() {
@@ -1493,6 +1570,140 @@ CircuitElement.prototype.generateVerilog = function() {
     }).join(",") + ");";
 
     return res;
+}
+
+CircuitElement.prototype.drawLayoutMode = function (xOffset = 0, yOffset = 0) {
+    var ctx = simulationArea.context;
+    this.checkHover();
+    if (this.subcircuitMetadata.x * this.scope.scale + this.scope.ox < -this.layoutProperties.rightDimensionX * this.scope.scale - 00 || this.subcircuitMetadata.x * this.scope.scale + this.scope.ox > width + this.layoutProperties.leftDimensionX * this.scope.scale + 00 || this.subcircuitMetadata.y * this.scope.scale + this.scope.oy < -this.layoutProperties.downDimensionY * this.scope.scale - 00 || this.subcircuitMetadata.y * this.scope.scale + this.scope.oy > height + 00 + this.layoutProperties.upDimensionY * this.scope.scale) return;
+
+    if (this.subcircuitMetadata.showLabelInSubcircuit) {
+        var rX = this.layoutProperties.rightDimensionX;
+        var lX = this.layoutProperties.leftDimensionX;
+        var uY = this.layoutProperties.upDimensionY;
+        var dY = this.layoutProperties.downDimensionY;
+
+        // this.subcircuitMetadata.labelDirection
+        if (this.subcircuitMetadata.labelDirection == "LEFT") {
+            ctx.beginPath();
+            ctx.textAlign = "right";
+            ctx.fillStyle = "black";
+            fillText(ctx, this.label, this.subcircuitMetadata.x + xOffset - lX - 10, this.subcircuitMetadata.y + yOffset + 5, 10);
+            ctx.fill();
+        } else if (this.subcircuitMetadata.labelDirection == "RIGHT") {
+            ctx.beginPath();
+            ctx.textAlign = "left";
+            ctx.fillStyle = "black";
+            fillText(ctx, this.label, this.subcircuitMetadata.x + xOffset + rX + 10, this.subcircuitMetadata.y + yOffset + 5, 10);
+            ctx.fill();
+        } else if (this.subcircuitMetadata.labelDirection == "UP") {
+            ctx.beginPath();
+            ctx.textAlign = "center";
+            ctx.fillStyle = "black";
+            fillText(ctx, this.label, this.subcircuitMetadata.x + xOffset, this.subcircuitMetadata.y + yOffset + 5 - uY - 10, 10);
+            ctx.fill();
+        } else if (this.subcircuitMetadata.labelDirection == "DOWN") {
+            ctx.beginPath();
+            ctx.textAlign = "center";
+            ctx.fillStyle = "black";
+            fillText(ctx, this.label, this.subcircuitMetadata.x + xOffset, this.subcircuitMetadata.y + yOffset + 5 + dY + 10, 10);
+            ctx.fill();
+        }
+    }
+    this.layoutDraw(xOffset, yOffset);
+}
+
+CircuitElement.prototype.layoutUpdate = function () {
+
+        var update = false;
+    
+        update |= this.newElement;
+        if (this.newElement) {
+            this.subcircuitMetadata.x = simulationArea.mouseX;
+            this.subcircuitMetadata.y = simulationArea.mouseY;
+            
+            if (simulationArea.mouseDown) {
+                this.newElement = false;
+                simulationArea.lastSelected = this;
+            } else return;
+        }
+    
+        if (!simulationArea.hover || simulationArea.hover == this)
+            this.hover = this.isHover();
+    
+        // if (!simulationArea.mouseDown) this.hover = false;
+    
+        if ((this.clicked || !simulationArea.hover) && this.isHover()) {
+            this.hover = true;
+            simulationArea.hover = this;
+        } else if (!simulationArea.mouseDown && this.hover && this.isHover() == false) {
+            if (this.hover) simulationArea.hover = undefined;
+            this.hover = false;
+        }
+    
+        if (simulationArea.mouseDown && (this.clicked)) {
+    
+            this.drag();
+            // if (!simulationArea.shiftDown && simulationArea.multipleObjectSelections.contains(this)) {
+            //     for (var i = 0; i < simulationArea.multipleObjectSelections.length; i++) {
+            //         simulationArea.multipleObjectSelections[i].drag();
+            //     }
+            // }
+    
+            update |= true;
+        } else if (simulationArea.mouseDown && !simulationArea.selected) {
+    
+            this.startDragging();
+            // if (!simulationArea.shiftDown && simulationArea.multipleObjectSelections.contains(this)) {
+            //     for (var i = 0; i < simulationArea.multipleObjectSelections.length; i++) {
+            //         simulationArea.multipleObjectSelections[i].startDragging();
+            //     }
+            // }
+            simulationArea.selected = this.clicked = this.hover;
+    
+            update |= this.clicked;
+        } else {
+            if (this.clicked) simulationArea.selected = false;
+            this.clicked = false;
+            this.wasClicked = false;
+        }
+    
+        if (simulationArea.mouseDown && !this.wasClicked) {
+            if (this.clicked) {
+                this.wasClicked = true;
+                // if (this.click) this.click();
+                if (simulationArea.shiftDown) {
+                //     simulationArea.lastSelected = undefined;
+                //     if (simulationArea.multipleObjectSelections.contains(this)) {
+                //         simulationArea.multipleObjectSelections.clean(this);
+                //     } else {
+                //         simulationArea.multipleObjectSelections.push(this);
+                //     }
+                } else {
+                    simulationArea.lastSelected = this;
+                }
+            }
+        }
+
+        if (!this.clicked && !this.newElement) {
+            let x = this.subcircuitMetadata.x;
+            let y = this.subcircuitMetadata.y; 
+            let yy = temp_buffer.layout.height;
+            let xx = temp_buffer.layout.width;
+
+            let rX = this.layoutProperties.rightDimensionX;
+            let lX = this.layoutProperties.leftDimensionX;
+            let uY = this.layoutProperties.upDimensionY;
+            let dY = this.layoutProperties.downDimensionY;
+
+            if (lX <= x && x + rX <= xx && y >= uY && y + dY <= yy)
+                return;
+            
+            this.subcircuitMetadata.showInSubcircuit = false;
+            fillSubcircuitElements();
+        }
+    
+        return update;
 }
 
 function distance(x1, y1, x2, y2) {
