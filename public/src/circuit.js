@@ -124,9 +124,16 @@ export function newCircuit(name, id) {
     scopeList[scope.id] = scope;
     globalScope = scope;
     $('.circuits').removeClass('current');
-    $('#tabsBar').append(`<div style='display: flex' class='circuits toolbarButton current' id='${scope.id}'><span>${name}</span><span class ='tabsCloseButton' id='${scope.id}'  >x</span></div>`);
+    $('#tabsBar').append(`<div style='display: flex' class='circuits toolbarButton current' id='${scope.id}'><span class='circuitName'>${name}</span><span class ='tabsCloseButton' id='${scope.id}'  >x</span></div>`);
     $('.circuits').click(function () {
         switchCircuit(this.id);
+    });
+    $('.circuitName').click((e) => {
+        console.log(globalScope);
+        simulationArea.lastSelected = globalScope.root;
+        setTimeout(() => {
+            document.getElementById('circname').select();
+        }, 100);
     });
     $('.tabsCloseButton').click(function (e) {
         e.stopPropagation();
@@ -148,7 +155,7 @@ export function newCircuit(name, id) {
 export function changeCircuitName(name, id = globalScope.id) {
     name = name || 'Untitled';
     name = stripTags(name);
-    $(`#${id}`).html(name);
+    $(`#${id} .circuitName`).html(`${name}`);
     scopeList[id].name = name;
 }
 

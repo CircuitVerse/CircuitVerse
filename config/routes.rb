@@ -96,6 +96,7 @@ Rails.application.routes.draw do
     post "/update_data", to: "simulator#update"
     post "/update_image", to: "simulator#update_image"
     post "/create_data", to: "simulator#create"
+    post "/verilogcv", to: "simulator#fetchJSON"
     get "/", to: "simulator#new", as: "simulator_new"
     get "/embed/:id", to: "simulator#embed", as: "simulator_embed"
   end
