@@ -1233,11 +1233,29 @@ export default function addVerilogElement(verilogCode) {
     // var verilogCode = window.prompt("Enter the verilog code");
 
     // const http = new XMLHttpRequest();
-    const url='http://127.0.0.1:3040/getJSON';
 
+
+    const url='http://127.0.0.1:8080/simulator/verilogcv';
+    
     var params = {"code": verilogCode};
-    postData(url, params)
-        .then(data => {
-            YosysJSON2CV(data);
-        });
+    $.ajax({
+        url: url,
+        type: 'POST',
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+        },
+        data: params,
+        success: function(response) {
+            console.log(response);
+            YosysJSON2CV(JSON.parse(response[0]));
+        },
+        failure: function(err) {
+            // TODO
+        }
+    });
+
+    // postData(url, params)
+    //     .then(data => {
+    //         YosysJSON2CV(data);
+    //     });
 }
