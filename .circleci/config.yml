@@ -69,7 +69,7 @@ jobs: # a collection of steps
 
       - run:
           name: Database setup
-          command: bin/rails db:schema:load
+          command: bin/rails db:structure:load
 
       - run:
           name: Run rspec in parallel

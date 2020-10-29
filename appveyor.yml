@@ -27,7 +27,7 @@ before_test:
   - bundle -v
   - copy config\database.appveyor.yml config\database.yml
   - ruby bin\rake db:create
-  - ruby bin\rails db:schema:load
+  - ruby bin\rails db:structure:load
   - openssl genrsa  -out config/private.pem 2048
   - openssl rsa -in config/private.pem -outform PEM -pubout -out config/public.pem
 
