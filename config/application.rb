@@ -18,6 +18,8 @@ module Logix
     # configuring mailer previews directory
     config.action_mailer.preview_path = "#{Rails.root}/lib/mailer_previews"
 
+    config.active_record.schema_format = :sql
+
     # Site config
     config.site_url = "https://circuitverse.org/"
     config.site_name = "CircuitVerse"
