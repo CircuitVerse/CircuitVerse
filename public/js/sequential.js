@@ -51,6 +51,29 @@ TflipFlop.prototype.isResolvable = function() {
     if (this.clockInp.value != undefined && this.dInp.value != undefined) return true;
     return false;
 }
+
+//add this to output the module
+TflipFlop.moduleVerilog = function(){
+return `
+module TflipFlop(q, q_inv, clk, t, a_rst, pre, en);
+  parameter WIDTH = 1;
+  output reg [WIDTH-1:0] q, q_inv;
+  input clk, a_rst, pre, en;
+  input [WIDTH-1:0] t;
+
+  always @ (posedge clk or posedge a_rst)
+    if (a_rst) begin
+      q <= 'b0;
+      q_inv <= 'b1;
+    end else if (en == 0) ;
+    else if (t) begin
+      q <= q ^ t;
+      q_inv <= ~q ^ t;
+    end
+endmodule
+`
+}
+
 TflipFlop.prototype.newBitWidth = function(bitWidth) {
     this.bitWidth = bitWidth;
     this.dInp.bitWidth = bitWidth;
@@ -199,6 +222,28 @@ DflipFlop.prototype.resolve = function() {
         simulationArea.simulationQueue.add(this.qOutput);
         simulationArea.simulationQueue.add(this.qInvOutput);
     }
+}
+
+//add this to output the module
+DflipFlop.moduleVerilog = function(){
+    return `
+module DflipFlop(q, q_inv, clk, d, a_rst, pre, en);
+  parameter WIDTH = 1;
+  output reg [WIDTH-1:0] q, q_inv;
+  input clk, a_rst, pre, en;
+  input [WIDTH-1:0] d;
+
+  always @ (posedge clk or posedge a_rst)
+    if (a_rst) begin
+      q <= 'b0;
+      q_inv <= 'b1;
+    end else if (en == 0) ;
+    else begin
+      q <= d;
+      q_inv <= ~d;
+    end
+endmodule
+`
 }
 DflipFlop.prototype.customSave = function() {
     var data = {
@@ -412,6 +457,24 @@ Random.prototype.customDraw = function() {
     ctx.stroke();
 
 
+}
+
+
+Random.moduleVerilog = function () {
+  return `
+module Random(val, clk, max);
+  parameter WIDTH = 1;
+  output reg [WIDTH-1:0] val;
+  input clk;
+  input [WIDTH-1:0] max;
+
+  always @ (posedge clk)
+    if (^max === 1'bX)
+      val = $urandom_range(0, {WIDTH{1'b1}});
+    else
+      val = $urandom_range(0, max);
+endmodule
+`;
 }
 
 function SRflipFlop(x, y, scope = globalScope, dir = "RIGHT") {
@@ -989,3 +1052,21 @@ Clock.prototype.customDraw = function() {
     ctx.stroke();
 
 }
+Clock.verilogInstructions = function() {
+    return "Clock - Use a single global clock\n";
+}
+/*
+Clock.moduleVerilog = function() {
+    return `
+module Clock(clk);
+  output reg clk;
+  always begin
+    #10
+    clk=1'b0;
+    #10
+    clk=1'b0;
+  end
+endmodule
+`
+}
+*/

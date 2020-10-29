@@ -429,7 +429,7 @@ function generateImageForOnline() {
     // Ensure image is approximately 700 x 440
     resolution = Math.min(700 / (simulationArea.maxWidth - simulationArea.minWidth), 440 / (simulationArea.maxHeight - simulationArea.minHeight));
 
-    data = generateImage("jpeg", "current", false, resolution, download = false);
+    data = generateImage("jpeg", "current", false, resolution, false);
 
     // Restores Focus
     globalScope.centerFocus(false);

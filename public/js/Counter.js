@@ -1,12 +1,12 @@
 /**
  * Counter component.
- * 
+ *
  * Counts from zero to a particular maximum value, which is either
  * specified by an input pin or determined by the Counter's bitWidth.
- * 
+ *
  * The counter outputs its current value and a flag that indicates
  * when the output value is zero and the clock is 1.
- * 
+ *
  * The counter can be reset to zero at any point using the RESET pin.
  */
 function Counter(x, y, scope = globalScope, bitWidth = 8) {
@@ -99,4 +99,34 @@ Counter.prototype.customDraw = function () {
     lineTo(ctx, -15, 10, xx, yy, this.direction);
     lineTo(ctx, -20, 15, xx, yy, this.direction);
     ctx.stroke();
+}
+
+Counter.moduleVerilog = function () {
+    return `
+module Counter(val, zero, max, clk, rst);
+  parameter WIDTH = 1;
+  output reg [WIDTH-1:0] val;
+  output reg zero;
+  input [WIDTH-1:0] max;
+  input clk, rst;
+
+  initial
+    val = 0;
+
+  always @ (val)
+    if (val == 0)
+      zero = 1;
+    else
+      zero = 0;
+
+  always @ (posedge clk or posedge rst) begin
+    if (rst)
+      val <= 0;
+    else
+      if (val == max)
+        val <= 0;
+      else
+        val <= val + 1;
+  end
+endmodule`;
 }
