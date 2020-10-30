@@ -53,13 +53,7 @@
 }
 </style>
 
-<link rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.css">
-</link>
 
-<script type="text/javascript"
-  src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.js">
-</script>
 
 <script src="/js/plugins/jquery.twbs-toggle-buttons.min.js"></script>
 <script src="/js/plugins/checkBo.min.js"></script>
@@ -705,34 +699,4 @@ duration: 500
 });
 </script>
 
-
-
-<script>
-
-var myTextarea = document.getElementById("myCode");
-editor = CodeMirror.fromTextArea(myTextarea, {
-  mode:  "verilog",
-  lineNumbers: true,
-  value: "function myScript(){return 100;}\n",
-});
-editor.refresh();
-
-// Get the modal
-var modal = document.getElementById("myModal");
-
-function myFunction() {
-  modal.style.display = "block";
-}
-
-function closeFunction1() {
-  modal.style.display = "none";
-  var code = editor.getValue();
-  menuItemClicked(8, code);
-}
-
-function closeFunction2() {
-  modal.style.display = "none";
-}
-
-</script>
 <script src = './'>

@@ -16,7 +16,16 @@ import { newCircuit } from './circuit';
 import load from './data/load';
 import save from './data/save';
 import showTourGuide from './tutorials';
-import setupModules from './moduleSetup'
+import setupModules from './moduleSetup';
+import CodeMirror from 'codemirror/lib/codemirror.js';
+import 'codemirror/lib/codemirror.css';
+import 'codemirror/addon/hint/show-hint.css';
+import 'codemirror/mode/javascript/javascript.js'; // verilog.js from codemirror is not working because array prototype is changed.
+import 'codemirror/addon/edit/closebrackets.js';
+import 'codemirror/addon/hint/anyword-hint.js';
+import 'codemirror/addon/hint/show-hint.js';
+
+
 
 
 window.width = undefined;
@@ -80,6 +89,7 @@ function setupEnvironment() {
     newCircuit('Main');
     window.data = {};
     resetup();
+    setupCodeMirrorEnvironment();
 }
 
 /**
@@ -183,4 +193,45 @@ export function setup() {
     
 }
 
+function setupCodeMirrorEnvironment() {
 
+
+var myTextarea = document.getElementById("myCode");
+
+CodeMirror.commands.autocomplete = function(cm) {
+    cm.showHint({hint: CodeMirror.hint.anyword});
+}
+
+var editor = CodeMirror.fromTextArea(myTextarea, {
+  mode: "javascript",
+  indentUnit: 4,
+  styleActiveLine: true,
+  lineNumbers: true,
+  autoCloseBrackets: true,
+  extraKeys: {"Ctrl-Space": "autocomplete"}
+    });
+    editor.refresh();
+
+    console.log(editor);
+
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    function myFunction() {
+    modal.style.display = "block";
+    }
+
+    function closeFunction1() {
+    modal.style.display = "none";
+    var code = editor.getValue();
+    menuItemClicked(8, code);
+    }
+
+    function closeFunction2() {
+    modal.style.display = "none";
+    }
+
+    window.myFunction = myFunction;
+    window.closeFunction1 = closeFunction1;
+    window.closeFunction2 = closeFunction2;
+}

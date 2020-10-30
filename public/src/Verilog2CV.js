@@ -1177,8 +1177,8 @@ export function YosysJSON2CV(JSON, parentScope = globalScope, name = "verilogCir
     var circuitDevices = {};
 
     for (var subCircuitName in JSON.subcircuits) {
-        var subCircuit = new verilogSubCircuit(YosysJSON2CV(JSON.subcircuits[subCircuitName], subScope, subCircuitName, subCircuitScope));
-        subCircuitScope[subCircuitName] = subCircuit.circuit.id; 
+        var subCircuit = YosysJSON2CV(JSON.subcircuits[subCircuitName], subScope, subCircuitName, subCircuitScope);
+        subCircuitScope[subCircuitName] = subCircuit.id; 
     }
 
     for (var device in JSON.devices) {

@@ -86,7 +86,6 @@ class SimulatorController < ApplicationController
 
   def fetchJSON
     url = "http://127.0.0.1:3040/getJSON"
-    # params = {"code": "module andgate (a, b, y); input a, b; output y; assign y = a & b; endmodule"}
     response = HTTP.post(url, json: {"code": params[:code]})
     render json: response.body.to_json
   end
