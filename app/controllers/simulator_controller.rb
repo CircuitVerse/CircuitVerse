@@ -55,6 +55,7 @@ class SimulatorController < ApplicationController
     @project.name = sanitize(params[:name])
     @project.save
 
+    image_file.close if image_file
     File.delete(image_file) if check_to_delete(params[:image])
 
     render plain: "success"
