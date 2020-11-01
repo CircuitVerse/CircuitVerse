@@ -43,7 +43,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
   end
 
   def image_preview
-    @project = Project.open.find(params[:id])
+    @project = Project.open.friendly.find(params[:id])
     render json: { "project_preview": request.base_url + @project.image_preview.url }
   end
 

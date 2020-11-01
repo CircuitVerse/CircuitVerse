@@ -171,6 +171,33 @@ export function setupUI() {
         $('#Help').removeClass('show');
     }); // code goes in document ready fn only
 
+    $('#report').click(function(){
+         var message=$('#issuetext').val();
+         var email=$('#emailtext').val();
+         message += "\nEmail:"+ email
+         message += "\nURL: " + window.location.href;
+         message += `\nUser Id: ${window.user_id}`
+         postUserIssue(message)
+         $('#issuetext').hide();
+         $('#emailtext').hide();
+         $('#report').hide();
+         $('#report-label').hide();
+         $('#email-label').hide();
+        })
+       $('.issue').on('hide.bs.modal', function(e) {
+         listenToSimulator=true
+         $('#result').html("");
+         $('#issuetext').show();
+         $('#emailtext').show();
+         $('#issuetext').val("");
+         $('#emailtext').val("");
+         $('#report').show();
+         $('#report-label').show();
+         $('#email-label').show();
+     })
+     $('#reportIssue').click(function(){
+       listenToSimulator=false
+     })
 
     // $('#saveAsImg').click(function(){
     //     saveAsImg();
@@ -223,8 +250,8 @@ export function showProperties(obj) {
     if (simulationArea.lastSelected === undefined || ['Wire', 'CircuitElement', 'Node'].indexOf(simulationArea.lastSelected.objectType) !== -1) {
         $('#moduleProperty').show();
         $('#moduleProperty-inner').append("<div id='moduleProperty-header'>" + 'Project Properties' + '</div>');
-        $('#moduleProperty-inner').append(`<p><span>Project:</span> <input class='objectPropertyAttribute' type='text' autocomplete='off' name='setProjectName'  value='${getProjectName() || 'Untitled'}'></p>`);
-        $('#moduleProperty-inner').append(`<p><span>Circuit:</span> <input class='objectPropertyAttribute' type='text' autocomplete='off' name='changeCircuitName'  value='${globalScope.name || 'Untitled'}'></p>`);
+        $('#moduleProperty-inner').append(`<p><span>Project:</span> <input id='projname' class='objectPropertyAttribute' type='text' autocomplete='off' name='setProjectName'  value='${getProjectName() || 'Untitled'}'></p>`);
+        $('#moduleProperty-inner').append(`<p><span>Circuit:</span> <input id='circname' class='objectPropertyAttribute' type='text' autocomplete='off' name='changeCircuitName'  value='${globalScope.name || 'Untitled'}'></p>`);
         $('#moduleProperty-inner').append(`<p><span>Clock Time (ms):</span> <input class='objectPropertyAttribute' min='50' type='number' style='width:100px' step='10' name='changeClockTime'  value='${simulationArea.timePeriod}'></p>`);
         $('#moduleProperty-inner').append(`<p><span>Clock Enabled:</span> <label class='switch'> <input type='checkbox' ${['', 'checked'][simulationArea.clockEnabled + 0]} class='objectPropertyAttributeChecked' name='changeClockEnable' > <span class='slider'></span></label></p>`);
         $('#moduleProperty-inner').append(`<p><span>Lite Mode:</span> <label class='switch'> <input type='checkbox' ${['', 'checked'][lightMode + 0]} class='objectPropertyAttributeChecked' name='changeLightMode' > <span class='slider'></span> </label></p>`);
@@ -496,3 +523,21 @@ export function fullView () {
     $('#exitView').append(markUp);
 }
 
+function postUserIssue(message) {
+    $.ajax({
+        url: '/simulator/post_issue',
+        type: 'POST',
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+        },
+        data: {
+            "text": message,
+        },
+        success: function(response) {
+            $('#result').html("<i class='fa fa-check' style='color:green'></i> You've successfully submitted the issue. Thanks for improving our platform.");
+        },
+        failure: function(err) {
+            $('#result').html("<i class='fa fa-check' style='color:red'></i> There seems to be a network issue. Please reach out to us at support@ciruitverse.org");
+        }
+    });
+}

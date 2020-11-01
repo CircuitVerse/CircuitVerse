@@ -68,7 +68,7 @@ class ProjectsController < ApplicationController
 
     @project_new = @project.dup
     @project_new.view = 1
-    @project_new.remove_image_preview!
+    @project_new.image_preview = @project.image_preview
     @project_new.author_id = current_user.id
     @project_new.forked_project_id = @project.id
     @project_new.name = @project.name

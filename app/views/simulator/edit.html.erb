@@ -32,11 +32,14 @@
       <li class="dropdown">
         <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Project<span></span></a>
         <ul class="dropdown-menu">
+          <% if not @project.nil? %>
+             <li><a class="dropdown-item logixButton text-left pl-1" href="<%= user_project_url(@project.author, @project) %>" target="_blank">Project Page</a></li>
+          <% end %>
           <li><a class="dropdown-item logixButton text-left pl-1" id="newProject">New Project</a></li>
-          <li><a class="dropdown-item logixButton text-left pl-1" id="clearProject">Clear Project</a></li>
           <li><a class="dropdown-item logixButton text-left pl-1" id="save">Save Online</a></li>
           <li><a class="dropdown-item logixButton text-left pl-1" id="saveOffline">Save Offline</a></li>
           <li><a class="dropdown-item logixButton text-left pl-1" id="createOpenLocalPrompt">Open Offline</a></li>
+           <li><a class="dropdown-item logixButton text-left pl-1" id="clearProject">Clear Project</a></li>
           <li><a class="dropdown-item logixButton text-left pl-1" id="recoverProject">Recover Project</a></li>
           <li><a class="dropdown-item logixButton text-left pl-1" id="fullViewOption">Preview Circuit</a></li>
         </ul>
@@ -71,9 +74,9 @@
       
       
     </ul>
-    <span class="projectName noSelect defaultCursor font-weight-bold" id="projectName">
-      Untitled
-    </span>
+      <span class="projectName noSelect defaultCursor font-weight-bold" id="projectName">
+         Untitled
+      </span>
 
 
     <div ondrag="(() => {$('.quick-btn').css({'box-shadow': 'none', 'background': 'var(--bg-navbar)'})})()" class='quick-btn'>
@@ -536,9 +539,13 @@
             rows="3"
           ></textarea>
         </div>
+        <label for="emailtext" id="email-label" style="font-weight: lighter"><b>Email</b><span> [Optional]</span>:</label>
+        <div class="form-group">
+          <input class="form-control border-primary"  type="email" id="emailtext" rows="3"/>
+        </div>
         <div class="container">
           <center>
-            <button type="submit" id="report" disabled class="btn btn-primary">
+            <button type="submit" id="report" class="btn btn-primary">
               Report
             </button>
           </center>
@@ -551,6 +558,7 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
   const embed = false;
+  user_id = "<%= user_signed_in? ? " #{current_user.id.to_s} - #{current_user.name}" : "Guest user" %>";
   var listenToSimulator=true
   <% if @project&.assignment_id.present? %>
   restrictedElements = JSON.parse('<%= raw @project&.assignment.restrictions %>');
@@ -573,37 +581,6 @@
 <script src="/js/verilog.js"></script>
 <script type="text/javascript" src="/js/metadata.json"></script>
 <script src="/js/canvas2svg.js"></script>
-
-<script >
-  $('button').click(function() {
-   if (this.id== 'report'){
-    var message=$('#issuetext').val();
-    var email=$('#emailtext').val();
-    message += "\nEmail:"+ email
-    message += "\nURL: " + window.location.href;
-    message += `\nUser Id: <%= user_signed_in? ? " #{current_user.id.to_s} : #{current_user.name}" : "Guest user" %>`
-    postUserIssue(message)
-    $('#issuetext').hide();
-    $('#emailtext').hide();
-    $('#report').hide();
-    $('#report-label').hide();
-    $('#email-label').hide();
-  }
-   })
-  $('.issue').on('hide.bs.modal', function(e) {
-    var listenToSimulator=true
-    $('#result').html("");
-    $('#issuetext').show();
-    $('#emailtext').show();
-    $('#issuetext').val("");
-    $('#emailtext').val("");
-    $('#report').show();
-    $('#report-label').show();
-  }) 
-  $('#reportIssue').click(function() {
-    var listenToSimulator=false
-  })
-</script>
 
 <script>
   $(document).tooltip({

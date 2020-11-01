@@ -54,6 +54,16 @@ export default function startListeners() {
     $('#viewButton').click(() => {
         fullView();
     });
+
+    $('#projectName').click(() => {
+        console.log('here');
+        simulationArea.lastSelected = globalScope.root;
+        setTimeout(() => {
+            document.getElementById("projname").select();
+        }, 100);
+    });
+
+
     // $('#exitViewBtn').click(() => showAll());
     window.addEventListener('keyup', (e) => {
         scheduleUpdate(1);
@@ -250,11 +260,6 @@ export default function startListeners() {
             if (simulationArea.controlDown && (e.key == 'T' || e.key == 't')) {
             // e.preventDefault(); //browsers normally open a new tab
                 simulationArea.changeClockTime(prompt('Enter Time:'));
-            }
-            // f1 key for opening the documentation page
-            if (e.keyCode === 112) {
-                e.preventDefault();
-                window.open('https://docs.circuitverse.org/', '_blank');
             }
         }
     });

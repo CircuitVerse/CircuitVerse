@@ -583,6 +583,10 @@ div.icon img {
   padding: 1px;
 }
 
+.circuitName{
+  cursor: text;
+}
+
 #tabsBar button {
   order: 99; /* could have better solution */
   width: 20px;
