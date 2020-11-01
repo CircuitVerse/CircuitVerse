@@ -80,6 +80,10 @@ export default class Power extends CircuitElement {
         lineTo(ctx, 0, 10, xx, yy, this.direction);
         ctx.stroke();
     }
+
+    generateVerilog() {
+        return `assign ${this.output1.verilogLabel} = ~${this.bitWidth}'b0;`;
+    }
 }
 
 /**

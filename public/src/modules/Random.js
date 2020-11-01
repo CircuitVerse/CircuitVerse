@@ -103,6 +103,23 @@ export default class Random extends CircuitElement {
         lineTo(ctx, -20, 15, xx, yy, this.direction);
         ctx.stroke();
     }
+    
+    moduleVerilog() {
+        return `
+      module Random(val, clk, max);
+        parameter WIDTH = 1;
+        output reg [WIDTH-1:0] val;
+        input clk;
+        input [WIDTH-1:0] max;
+      
+        always @ (posedge clk)
+          if (^max === 1'bX)
+            val = $urandom_range(0, {WIDTH{1'b1}});
+          else
+            val = $urandom_range(0, max);
+      endmodule
+      `;
+    }
 }
 
 Random.prototype.tooltipText = 'Random ToolTip : Random Selected.';

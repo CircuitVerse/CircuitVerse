@@ -182,6 +182,10 @@ export default class ConstantVal extends CircuitElement {
         this.output1.refresh();
         this.labelDirection = oppositeDirection[this.direction];
     }
+
+    generateVerilog() {
+        return `assign ${this.output1.verilogLabel} = ${this.bitWidth}'b${this.state};`;
+    }
 }
 
 /**

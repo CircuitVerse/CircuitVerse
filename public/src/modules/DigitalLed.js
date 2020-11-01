@@ -111,6 +111,14 @@ export default class DigitalLed extends CircuitElement {
             ctx.fillStyle = colors["hover_select"];
         ctx.fill();
     }
+
+    generateVerilog() {
+
+        var label = this.label ? this.verilogLabel : this.inp1.verilogLabel;
+        return `
+      always @ (*)
+        $display("DigitalLed:${label}=%d", ${this.inp1.verilogLabel});`;
+    }
 }
 
 /**

@@ -96,6 +96,13 @@ export default class SevenSegDisplay extends CircuitElement {
         rect(ctx, xx + 22, yy + 42, 2, 2);
         ctx.stroke();
     }
+
+    generateVerilog(){
+        return `
+      always @ (*)
+        $display("SevenSegDisplay:${this.verilogLabel}.abcdefg. = %b%b%b%b%b%b%b%b}",
+                 ${this.a.verilogLabel}, ${this.b.verilogLabel}, ${this.c.verilogLabel}, ${this.d.verilogLabel}, ${this.e.verilogLabel}, ${this.f.verilogLabel}, ${this.g.verilogLabel}, ${this.dot.verilogLabel});`;
+    }
 }
 
 /**

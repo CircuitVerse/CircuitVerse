@@ -779,3 +779,15 @@ Node.prototype.propagationDelay = 0;
  * @category node
  */
 Node.prototype.cleanDelete = Node.prototype.delete;
+
+Node.prototype.processVerilog = function() {
+    if (this.type == NODE_INPUT) {
+        this.scope.stack.push(this.parent);
+    }
+    for (var i = 0; i < this.connections.length; i++) {
+        if (this.connections[i].verilogLabel != this.verilogLabel) {
+            this.connections[i].verilogLabel = this.verilogLabel;
+            this.scope.stack.push(this.connections[i]);
+        }
+    }
+}

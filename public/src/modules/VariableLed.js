@@ -88,6 +88,12 @@ export default class VariableLed extends CircuitElement {
             ctx.fillStyle = colors["hover_select"];
         ctx.fill();
     }
+
+    generateVerilog() {
+        return `
+      always @ (*)
+        $display("VeriableLed:${this.inp1.verilogLabel}=%d", ${this.inp1.verilogLabel});`;
+    }
 }
 
 /**

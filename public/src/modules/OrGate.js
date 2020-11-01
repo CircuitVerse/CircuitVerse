@@ -3,6 +3,8 @@ import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
 import { correctWidth, bezierCurveTo, moveTo, arc2 } from "../canvasApi";
 import { changeInputSize } from "../modules";
+import { gateGenerateVerilog } from '../utils';
+
 /**
  * @class
  * OrGate
@@ -133,6 +135,10 @@ export default class OrGate extends CircuitElement {
             ctx.fillStyle = colors["hover_select"];
         ctx.fill();
         ctx.stroke();
+    }
+
+    generateVerilog(){
+        return gateGenerateVerilog.call(this, '|');
     }
 }
 

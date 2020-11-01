@@ -139,6 +139,12 @@ export default class HexDisplay extends CircuitElement {
         this.customDrawSegment(-17, 0, 17, 0, ["lightgrey", "red"][g]);
         this.customDrawSegment(-15, 38, 17, 38, ["lightgrey", "red"][d]);
     }
+
+    generateVerilog() {
+        return `
+      always @ (*)
+        $display("HexDisplay:${this.verilogLabel}=%d", ${this.inp.verilogLabel});`;
+    }
 }
 
 /**

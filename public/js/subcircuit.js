@@ -115,10 +115,10 @@ SubCircuit.prototype.makeConnections = function() {
         this.localScope.Output[i].inp1.connectWireLess(this.outputNodes[i]);
         this.outputNodes[i].subcircuitOverride = true;
     }
-
 }
 
 SubCircuit.prototype.removeConnections = function() {
+    
     for (let i = 0; i < this.inputNodes.length; i++) {
         this.localScope.Input[i].output1.disconnectWireLess(this.inputNodes[i]);
     }
@@ -126,6 +126,7 @@ SubCircuit.prototype.removeConnections = function() {
     for (let i = 0; i < this.outputNodes.length; i++)
         this.localScope.Output[i].inp1.disconnectWireLess(this.outputNodes[i]);
 }
+
 
 SubCircuit.prototype.buildCircuit = function() {
 
@@ -350,7 +351,7 @@ SubCircuit.prototype.isResolvable = function() {
 }
 
 SubCircuit.prototype.verilogName = function() {
-    return verilog.fixName(scopeList[this.id].name);
+    return verilog.sanitizeLabel(scopeList[this.id].name);
 }
 
 SubCircuit.prototype.customDraw = function() {
