@@ -138,20 +138,8 @@ export function setupUI() {
     //     // minHeight:200,
     // });
 
-    $('.logixModules').mousedown(function () {
-        // ////console.log(uxvar.smartDropXX,uxvar.smartDropYY);
-        if (simulationArea.lastSelected && simulationArea.lastSelected.newElement) simulationArea.lastSelected.delete();
-        var obj = new modules[this.id](); // (simulationArea.mouseX,simulationArea.mouseY);
-        // obj = new modules[this.id](); // (simulationArea.mouseX,simulationArea.mouseY);
-        simulationArea.lastSelected = obj;
-        // simulationArea.lastSelected=obj;
-        // simulationArea.mouseDown=true;
-        uxvar.smartDropXX += 70;
-        if (uxvar.smartDropXX / globalScope.scale > width) {
-            uxvar.smartDropXX = 50;
-            uxvar.smartDropYY += 80;
-        }
-    });
+    $('.logixModules').mousedown(createElement);
+
     $('.logixButton').click(function () {
         logixFunction[this.id]();
     });
@@ -208,14 +196,10 @@ export function setupUI() {
     // $('#moduleProperty').draggable();
 }
 
-export const selectElement = (ele) => {
-    // ////console.log(uxvar.smartDropXX,uxvar.smartDropYY);
+export function createElement() {
     if (simulationArea.lastSelected && simulationArea.lastSelected.newElement) simulationArea.lastSelected.delete();
-    var obj = new modules[ele](); // (simulationArea.mouseX,simulationArea.mouseY);
-    // obj = new modules[this.id](); // (simulationArea.mouseX,simulationArea.mouseY);
+    var obj = new modules[this.id](); 
     simulationArea.lastSelected = obj;
-    // simulationArea.lastSelected=obj;
-    // simulationArea.mouseDown=true;
     uxvar.smartDropXX += 70;
     if (uxvar.smartDropXX / globalScope.scale > width) {
         uxvar.smartDropXX = 50;
