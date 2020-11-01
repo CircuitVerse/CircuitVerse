@@ -250,8 +250,8 @@ export function showProperties(obj) {
     if (simulationArea.lastSelected === undefined || ['Wire', 'CircuitElement', 'Node'].indexOf(simulationArea.lastSelected.objectType) !== -1) {
         $('#moduleProperty').show();
         $('#moduleProperty-inner').append("<div id='moduleProperty-header'>" + 'Project Properties' + '</div>');
-        $('#moduleProperty-inner').append(`<p><span>Project:</span> <input id='projname' class='objectPropertyAttribute' type='text'  name='setProjectName'  value='${getProjectName() || 'Untitled'}'></p>`);
-        $('#moduleProperty-inner').append(`<p><span>Circuit:</span> <input id='circname' class='objectPropertyAttribute' type='text'  name='changeCircuitName'  value='${globalScope.name || 'Untitled'}'></p>`);
+        $('#moduleProperty-inner').append(`<p><span>Project:</span> <input id='projname' class='objectPropertyAttribute' type='text' autocomplete='off' name='setProjectName'  value='${getProjectName() || 'Untitled'}'></p>`);
+        $('#moduleProperty-inner').append(`<p><span>Circuit:</span> <input id='circname' class='objectPropertyAttribute' type='text' autocomplete='off' name='changeCircuitName'  value='${globalScope.name || 'Untitled'}'></p>`);
         $('#moduleProperty-inner').append(`<p><span>Clock Time (ms):</span> <input class='objectPropertyAttribute' min='50' type='number' style='width:100px' step='10' name='changeClockTime'  value='${simulationArea.timePeriod}'></p>`);
         $('#moduleProperty-inner').append(`<p><span>Clock Enabled:</span> <label class='switch'> <input type='checkbox' ${['', 'checked'][simulationArea.clockEnabled + 0]} class='objectPropertyAttributeChecked' name='changeClockEnable' > <span class='slider'></span></label></p>`);
         $('#moduleProperty-inner').append(`<p><span>Lite Mode:</span> <label class='switch'> <input type='checkbox' ${['', 'checked'][lightMode + 0]} class='objectPropertyAttributeChecked' name='changeLightMode' > <span class='slider'></span> </label></p>`);
@@ -268,7 +268,7 @@ export function showProperties(obj) {
         
         if (!obj.propagationDelayFixed) { $('#moduleProperty-inner').append(`<p><span>Delay:</span> <input class='objectPropertyAttribute' type='number'  name='changePropagationDelay' min='0' max='100000' value=${obj.propagationDelay}></p>`); }
 
-        $('#moduleProperty-inner').append(`<p><span>Label:</span> <input class='objectPropertyAttribute' type='text'  name='setLabel'  value='${escapeHtml(obj.label)}'></p>`);
+        $('#moduleProperty-inner').append(`<p><span>Label:</span> <input class='objectPropertyAttribute' type='text'  name='setLabel' autocomplete='off'  value='${escapeHtml(obj.label)}'></p>`);
 
         var s;
         if (!obj.labelDirectionFixed) {
@@ -293,7 +293,7 @@ export function showProperties(obj) {
                     s = `<p><span>${prop.name}</span><input class='objectPropertyAttribute' type='number'  name='${prop.func}' min='${prop.min || 0}' max='${prop.max || 200}' value=${obj[attr]}></p>`;
                     $('#moduleProperty-inner').append(s);
                 } else if (obj.mutableProperties[attr].type === 'text') {
-                    s = `<p><span>${prop.name}</span><input class='objectPropertyAttribute' type='text'  name='${prop.func}' maxlength='${prop.maxlength || 200}' value=${obj[attr]}></p>`;
+                    s = `<p><span>${prop.name}</span><input class='objectPropertyAttribute' type='text' autocomplete='off'  name='${prop.func}' maxlength='${prop.maxlength || 200}' value=${obj[attr]}></p>`;
                     $('#moduleProperty-inner').append(s);
                 } else if (obj.mutableProperties[attr].type === 'button') {
                     s = `<p class='btn-parent'><button class='objectPropertyAttribute btn custom-btn--secondary' type='button'  name='${prop.func}'>${prop.name}</button></p>`;
@@ -411,6 +411,7 @@ $('#bitconverterprompt').append(`
  */
 $('#bitconverter').click(() => {
     $('#bitconverterprompt').dialog({
+    resizable:false,
         buttons: [
             {
                 text: 'Reset',
@@ -461,12 +462,12 @@ $('#octalInput').on('keyup', () => {
 });
 
 window.addEventListener('DOMContentLoaded', () => {
-    $('#moduleProperty-title').on('mousedown', () => $('#moduleProperty').draggable({ disabled: false }));
+    $('#moduleProperty-title').on('mousedown', () => $('#moduleProperty').draggable({ disabled: false, containment: 'window' }));
     $('#moduleProperty-title').on('mouseup', () => $('#moduleProperty').draggable({ disabled: true }));
-    $('#modules-header').on('mousedown', () => $('.ce-panel').draggable({ disabled: false }));
+    $('#modules-header').on('mousedown', () => $('.ce-panel').draggable({ disabled: false, containment: 'window'}));
     $('#modules-header').on('mouseup', () => $('.ce-panel').draggable({ disabled: true }));
     $('#dragQPanel')
-        .on('mousedown', () => $('.quick-btn').draggable({ disabled: false }))
+        .on('mousedown', () => $('.quick-btn').draggable({ disabled: false, containment: 'window' }))
         .on('mouseup', () => $('.quick-btn').draggable({ disabled: true }));
 
     $('.ce-panel').on('mousedown', () => {
@@ -506,6 +507,9 @@ window.addEventListener('DOMContentLoaded', () => {
         $('#exitView').hide();
     }
 
+    $('#projectName').on('click', () => {
+        $("input[name='setProjectName']").focus().select();
+    });
 })
 
 export function fullView () {
