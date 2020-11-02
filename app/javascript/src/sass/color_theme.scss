@@ -228,10 +228,13 @@ $output-rect: blue;
 #modules-header, #moduleProperty-title {
   color: var(--text-panel);
   background: var(--primary);
-  border-bottom: 1px solid var(--br-secondary);
 }
 
-#modules-header::before, #moduleProperty-title::before{
+.panel-body {
+  border-top: 1px solid var(--br-secondary);
+}
+
+.panel-header::before {
   border-top: 2px solid var(--text-panel);
 }
 
@@ -443,7 +446,7 @@ select {
 }
 
 .panel-heading {
-color: var(--text-panel)
+  color: var(--text-panel)
 }
 
 .ui-dialog {

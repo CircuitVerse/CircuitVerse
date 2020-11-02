@@ -170,29 +170,41 @@
   <button class="logixButton" id="newCircuit" onclick="">&#43;</button>
 </div>
 
-<div class="modules noSelect defaultCursor ce-panel" id="guide_1">
-  <div id="modules-header">Circuit Elements</div>
-  <span id='ceMinimize' class="minimize"></span>
-  <div style="position: relative;">
+<div class="modules noSelect defaultCursor ce-panel elementPanel draggable-panel" id="guide_1">
+  <div id="modules-header" class="panel-header">Circuit Elements
+  <span class="minimize"></span>
+  <span class="fas fa-external-link-square-alt maximize"></span>
+  </div>
+  
+  <div class="panel-body">
+    <div style="position: relative;">
     <input type="text" id="element" value="" placeholder="Search..">
     <span id='searchX'><i class="fas filterX fa-times-circle"></i></span>
+    </div>
+    <div id='filter' class="customScroll"></div>
+    <div class="accordion" id="menu"></div>
+    <div class="accordion" id="subcircuitMenu"></div>
   </div>
-  <div id='filter' class="customScroll"></div>
-  <div class="accordion" id="menu"></div>
-  <div class="accordion" id="subcircuitMenu"></div>
 </div>
 
-<div class="moduleProperty noSelect effect1 properties-panel guide_2" id="moduleProperty">
-  <div id="moduleProperty-title" class="noSelect">Properties</div>
-  <span id='propsMinimize' class="minimize"></span>
-  <div id="moduleProperty-inner"></div>
+<div class="moduleProperty noSelect effect1 properties-panel draggable-panel guide_2" id="moduleProperty">
+  <div id="moduleProperty-title" class="noSelect panel-header">Properties
+  <span class="minimize"></span>
+  <span class="fas fa-external-link-square-alt maximize"></span>
+  </div>
+  <div class='panel-body'> <div id="moduleProperty-inner"></div></div>
 </div>
 
 <div id="customShortcutDialog" title="Keybinding Preference"></div>
 
-<div id="layoutDialog" style="display: none;" class="">
-  <div class="">
-    <div class="panel-heading">Layout</div>
+
+<div id="layoutDialog"  class="draggable-panel">
+  <div class="panel-header">Layout
+      <span class="minimize"></span>
+      <span class="fas fa-external-link-square-alt maximize"></span>
+  </div>
+  <div class="layout-body panel-body" id="layout-body">
+    
     <div class="">
       <button
         class="zoomButton btn-lg"

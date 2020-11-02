@@ -495,55 +495,46 @@ $('#octalInput').on('keyup', () => {
 });
 
 window.addEventListener('DOMContentLoaded', () => {
-    $('#moduleProperty-title').on('mousedown', () => $('#moduleProperty').draggable({ disabled: false, containment: 'window' }));
-    $('#moduleProperty-title').on('mouseup', () => $('#moduleProperty').draggable({ disabled: true }));
-    $('#modules-header').on('mousedown', () => $('.ce-panel').draggable({ disabled: false, containment: 'window'}));
-    $('#modules-header').on('mouseup', () => $('.ce-panel').draggable({ disabled: true }));
     $('#dragQPanel')
         .on('mousedown', () => $('.quick-btn').draggable({ disabled: false, containment: 'window' }))
         .on('mouseup', () => $('.quick-btn').draggable({ disabled: true }));
 
-    $('.ce-panel').on('mousedown', () => {
-        $('#moduleProperty').css('z-index', '99')
-        $('.ce-panel').css('z-index', '100')
-    })
-
-    $('#moduleProperty').on('mousedown', () => {
-        $('#moduleProperty').css('z-index', '100')
-        $('.ce-panel').css('z-index', '99')
-    })
-});
-
-window.addEventListener('DOMContentLoaded', () => {
-    $('#ceMinimize').on('click', () => {
-        const markUp = `<div class='ce-hidden'>Circuit Elements<span id='ce-expand' style="right: 15px;position: absolute; cursor:pointer;"><i  onclick=" (() => {$('.modules').children().css('display', 'block'); $('.ce-hidden').remove(); $('#filter').css('display', 'none');})();" class="fas fa-external-link-square-alt"></i></span><div>`
-        $('.modules').children().css('display', 'none');
-        $('.modules').append(markUp);
-        // Set draggable on minimize
-        $('.ce-hidden').on('mousedown', () => $('.modules').draggable({ disabled: false }));
-        $('.ce-hidden').on('mouseup', () => $('.modules').draggable({ disabled: true }));
-    })
-    $('#propsMinimize').on('click', () => {
-        const markUp = `<div class='prop-hidden'>properties<span id='prop-expand' style="right: 15px;position: absolute; cursor:pointer;"><i  onclick=" (() => {$('#moduleProperty').children().css('display', 'block'); $('.prop-hidden').remove();})();" class="fas fa-external-link-square-alt"></i></span><div>`
-        $('#moduleProperty').children().css('display', 'none');
-        $('.moduleProperty').append(markUp);
-        // Set draggable on minimize
-        $('.prop-hidden').on('mousedown', () => $('#moduleProperty').draggable({ disabled: false }));
-        $('.prop-hidden').on('mouseup', () => $('#moduleProperty').draggable({ disabled: true }));
-    })
-    function exitFull() {
-        $('.navbar').show()
-        $('.modules').show()
-        $('.report-sidebar').show()
-        $('#tabsBar').show()
-        $('#moduleProperty').show()
-        $('#exitView').hide();
-    }
+    setupPanelListeners('.elementPanel');
+    setupPanelListeners('#moduleProperty');
+    setupPanelListeners('#layoutDialog');
 
     $('#projectName').on('click', () => {
         $("input[name='setProjectName']").focus().select();
     });
-})
+});
+
+function setupPanelListeners(panelSelector) {
+    var headerSelector = `${panelSelector} .panel-header`;
+    var minimizeSelector = `${panelSelector} .minimize`;
+    var maximizeSelector = `${panelSelector} .maximize`;
+    var bodySelector = `${panelSelector} > .panel-body`;
+    // Drag Start
+    $(headerSelector).on('mousedown', () => $(panelSelector).draggable({ disabled: false, containment: 'window'}));
+    // Drag End
+    $(headerSelector).on('mouseup', () => $(panelSelector).draggable({ disabled: true }));
+    // Current Panel on Top
+    $(panelSelector).on('mousedown', () => {
+        $(`.draggable-panel:not(${panelSelector})`).css('z-index', '99');
+        $(panelSelector).css('z-index', '100');
+    })
+    // Minimize
+    $(minimizeSelector).on('click', () => {
+        $(bodySelector).hide();
+        $(minimizeSelector).hide();
+        $(maximizeSelector).show();
+    });
+    // Maximize
+    $(maximizeSelector).on('click', () => {
+        $(bodySelector).show();
+        $(minimizeSelector).show();
+        $(maximizeSelector).hide();
+    });
+}
 
 export function fullView () {
     const onClick = `onclick="(() => {$('.navbar').show(); $('.modules').show(); $('.report-sidebar').show(); $('#tabsBar').show(); $('#exitViewBtn').remove(); $('#moduleProperty').show();})()"`
