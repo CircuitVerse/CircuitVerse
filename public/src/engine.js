@@ -374,6 +374,7 @@ export function updateSelectionsAndPane(scope = globalScope) {
  * @category engine
  */
 export function play(scope = globalScope, resetNodes = false) {
+    if(layoutModeGet()) return; // Don't simulate in layout mode
     if (errorDetected) return; // Don't simulate until error is fixed
     if (loading === true) return; // Don't simulate until loaded
     if (!embed) plotArea.stopWatch.Stop(); // Waveform thing

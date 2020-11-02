@@ -470,6 +470,14 @@ export default class SubCircuit extends CircuitElement {
      * Procedure after a button is clicked inside a subcircuit 
     **/
     click() {
+        var buttonClicked = this.getButtonHover();
+        if(buttonClicked) {
+            this.lastClickedElement = buttonClicked;
+            buttonClicked.wasClicked = true;
+        }
+    }
+
+    getButtonHover() {
         for(let i = 0; i < this.localScope["Button"].length; i++){
             if (this.localScope["Button"][i].subcircuitMetadata.showInSubcircuit){
                 var mX = simulationArea.mouseXf - (this.x + this.localScope["Button"][i].subcircuitMetadata.x);
@@ -500,21 +508,20 @@ export default class SubCircuit extends CircuitElement {
                 // if the button was clicked, set its wasClicked to true and prevent double clicks from switching
                 // to the subcircuit's circuit
                 if ((-lX <= mX && mX <= rX && -dY <= mY && mY <= uY)){
-                        this.lastClickedElement = i;
-                        this.localScope["Button"][i].wasClicked = true;
-                        this.preventCircuitSwitch = true;
-                }
-                else{
-                    this.preventCircuitSwitch = false;
+                        return this.localScope["Button"][i];
                 }
             }
         } 
     }
+    
     /**
       * Sets the buttons' wasClicked property in the subcircuit to false
     **/
     releaseClick(){
-        if(this.lastClickedElement !== undefined) this.localScope["Button"][this.lastClickedElement].wasClicked = false;
+        if(this.lastClickedElement !== undefined) {
+            this.lastClickedElement.wasClicked = false;
+            this.lastClickedElement = undefined
+        }
     }
 
     /**
@@ -549,7 +556,7 @@ export default class SubCircuit extends CircuitElement {
      * Procedure if any element is double clicked inside a subcircuit
     **/
     dblclick() {
-        if(this.preventCircuitSwitch) return;
+        if(this.getButtonHover()) return;
         switchCircuit(this.id);
     }
 
