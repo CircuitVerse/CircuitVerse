@@ -123,6 +123,8 @@
 }
 </script>
 
+<%= render partial: "view_project_modal" %>
+
 <script type="text/javascript">
   $(function() {
 
@@ -147,7 +149,17 @@
         let project = $(e.currentTarget).data('currentproject').id;
         $("#projectPreview").attr("src","/simulator/" + project.toString() );
         console.log(project);
-        $("#projectModal").tab('show')
-    })
+        $("#projectModal").tab('show');
+    });
+    $("#projectModal").on("show.bs.modal", function(e) {
+        let projectSlug = $(e.relatedTarget).data('currentproject').slug;
+        let projectId = $(e.relatedTarget).data('currentproject').id;
+        $(e.currentTarget).find('#project-launch-button').attr("href",
+        "/simulator/edit/" + projectSlug);
+        $(e.currentTarget).find('#project-fork-button').attr("href",
+        "/projects/create_fork/" + projectId.toString());
+        $(e.currentTarget).find('#project-more-button').attr("href",
+        "/users/" + <%= @user.id.to_s %> + "/projects/" + projectSlug);
+    });
   });
 </script>
