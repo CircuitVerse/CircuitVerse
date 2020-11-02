@@ -16,7 +16,8 @@ import { removeMiniMap, updatelastMinimapShown } from './minimap';
 import undo from './data/undo';
 import { copy, paste, selectAll } from './events';
 import save from './data/save';
-import { selectElement } from './ux';
+import { layoutUpdate } from './layoutMode';
+import { createElement } from './ux';
 
 var unit = 10;
 var createNode = false; // Flag to create node when its value ==tru)e
@@ -429,12 +430,12 @@ export default function startListeners() {
         else {
             result.forEach( e => htmlIcons += createIcon(e));
             $('#filter')
-              .html(htmlIcons)
-              .on('click', e => selectElement($(e.target)[0].parentElement.classList[0]));
+              .html(htmlIcons);
+            $('.filterElements').mousedown(createElement);
         }
     });
     function createIcon(element) {
-        return `<div class="${element} icon" id="${element} filter" title="${element}">
+        return `<div class="${element} icon logixModules filterElements" id="${element}" title="${element}">
             <img  src= "/img/${element}.svg" >
         </div>`;
     }

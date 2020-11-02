@@ -45,6 +45,7 @@ export function createSubCircuitPrompt(scope = globalScope) {
             "<p>Looks like there are no other circuits which doesn't have this circuit as a dependency. Create a new one!</p>"
         );
     $("#insertSubcircuitDialog").dialog({
+        resizable:false,
         maxHeight: 800,
         width: 450,
         maxWidth: 800,
