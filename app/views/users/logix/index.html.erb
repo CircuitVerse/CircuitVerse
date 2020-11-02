@@ -52,12 +52,13 @@
   </div>
   <div class="row">
     <div class="col-12">
-      <a id="my-circuits" href="#" class="btn users-circuits-tab active">My Circuits</a>
-      <a id="favourite-circuits" href="#" class="btn users-circuits-tab users-favourites-tab">Favourite Circuits</a>
+      <button id="my-circuits" class="btn users-circuits-tab active">My Circuits</button>
+      <button id="favourite-circuits" class="btn users-circuits-tab users-favourites-tab">Favourite Circuits</button>
+      <button id="collaborator-circuits" class="btn users-circuits-tab users-collaborators-tab">Collaborated Circuits</button>
     </div>
   </div>
   <div class="users-circuits-container">
-    <div id="circuits-div" class="row center-row">
+    <div id="my-circuits-div" class="row center-row">
       <% if @user.projects.blank? %>
       <div class="col-12">
         <div class="search-no-results-image">
@@ -73,7 +74,7 @@
         <%= render partial: "dashboard" , locals: {projects: @user.projects} %>
       <% end %>
     </div>
-    <div id="favourites-div" class="row center-row">
+    <div id="favourite-circuits-div" class="row center-row">
       <% if @projects.blank? %>
         <div class="col-12">
           <div class="search-no-results-image">
@@ -87,6 +88,23 @@
         </div>
       <% else %>
         <%= render partial: "dashboard" , locals: {projects: @projects} %>
+      <% end %>
+    </div>
+    <div id="collaborator-circuits-div" class="row center-row">
+      <% collaborated_projects = @user.collaborated_projects %>
+      <% if collaborated_projects.count == 0 %>
+        <div class="col-12">
+          <div class="search-no-results-image">
+            <%= image_tag "SVGs/noProject.svg", alt: "No result image" %>
+            <% if current_user == @user %>
+              <h6>You are not a collaborator of any project. </h6>
+            <% else %>
+              <h6><%= @user.name %> is not a collaborator of any project.</h6>
+            <% end %>
+          </div>
+        </div>
+      <% else %>
+        <%= render partial: "dashboard" , locals: {projects: collaborated_projects} %>
       <% end %>
     </div>
 
@@ -106,35 +124,30 @@
 </script>
 
 <script type="text/javascript">
-  $( function() {
-    $('#my-circuits').on('click', function (e) {
-      if(!$(e.currentTarget).hasClass("active")) {
-        $(e.currentTarget).addClass("active");
-        $('#favourite-circuits').removeClass("active");
-        $('#circuits-div').css("display", "flex");
-        $('#favourites-div').css("display", "none");
-      }
-    });
+  $(function() {
+
+    var circuitTabs = ['favourite-circuits', 'my-circuits', 'collaborator-circuits'];
+    $('.users-circuits-tab').on('click', function (e) {
+      if(!$(this).hasClass("active")) {
+        var id = this.id;
+        $(this).addClass("active");
+        circuitTabs.forEach(element => {
+          var div = `#${element}-div`;
+          if(element == id) {
+            $(div).css("display", "flex");
+          }
+          else {
+            $('#' + element).removeClass("active");
+            $(div).css("display", "none");
+          }
+        });
+      }});
+    $('.previewButton').on('click', function (e) {
+        e.preventDefault()
+        let project = $(e.currentTarget).data('currentproject').id;
+        $("#projectPreview").attr("src","/simulator/" + project.toString() );
+        console.log(project);
+        $("#projectModal").tab('show')
+    })
   });
-  $( function() {
-    $('#favourite-circuits').on('click', function (e) {
-      if(!$(e.currentTarget).hasClass("active")) {
-        $(e.currentTarget).addClass("active");
-        $('#my-circuits').removeClass("active");
-        $('#favourites-div').css("display", "flex");
-        $('#circuits-div').css("display", "none");
-      }
-    });
-  });
-</script>
-<script>
-    $( function() {
-        $('.previewButton').on('click', function (e) {
-            e.preventDefault()
-            let project = $(e.currentTarget).data('currentproject').id;
-            $("#projectPreview").attr("src","/simulator/" + project.toString() );
-            console.log(project);
-            $("#projectModal").tab('show')
-        })
-    } );
 </script>
