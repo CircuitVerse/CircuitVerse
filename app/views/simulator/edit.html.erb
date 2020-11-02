@@ -171,18 +171,29 @@
 </div>
 
 <div class="modules noSelect defaultCursor ce-panel elementPanel draggable-panel" id="guide_1">
-  <div id="modules-header" class="panel-header">Circuit Elements
+  <div class="panel-header">Circuit Elements
+  <span class="minimize"></span>
+  <span class="fas fa-external-link-square-alt maximize"></span>
+  </div>
+  
+  <div class="panel-body" id="testid">
+    <div style="position: relative;">
+    <input type="text" class="search-input" value="" placeholder="Search..">
+    <span><i class="fas search-close fa-times-circle"></i></span>
+    </div>
+    <div class="search-results"></div>
+    <div class="accordion" id="menu"></div>
+  </div>
+</div>
+
+<div class="noSelect defaultCursor layoutElementPanel draggable-panel">
+  <div class="panel-header">Layout Elements
   <span class="minimize"></span>
   <span class="fas fa-external-link-square-alt maximize"></span>
   </div>
   
   <div class="panel-body">
-    <div style="position: relative;">
-    <input type="text" id="element" value="" placeholder="Search..">
-    <span id='searchX'><i class="fas filterX fa-times-circle"></i></span>
-    </div>
-    <div id='filter' class="customScroll"></div>
-    <div class="accordion" id="menu"></div>
+    <div class="search-results"></div>
     <div class="accordion" id="subcircuitMenu"></div>
   </div>
 </div>
@@ -242,8 +253,7 @@
     <div class="">
       <span>Reset all nodes:</span>
       <button
-        type="button"
-        class="btn zoomButton btn-lg"
+        class="zoomButton btn-lg"
         id="layoutResetNodes"
       >
         <span class="fa fa-sync" aria-hidden="true" title="Reset"></span>
@@ -253,8 +263,7 @@
       <span>Title</span>
       <div class="layout--btn-group">
         <button
-          type="button"
-          class="btn zoomButton-up btn-lg"
+          class="zoomButton-up btn-lg no-select"
           id="layoutTitleUp"
         >
         <svg id="Group_304" data-name="Group 304" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
@@ -267,8 +276,7 @@
         
       </button>
         <button
-          type="button"
-          class="btn zoomButton-down btn-lg"
+          class="zoomButton-down btn-lg no-select"
           id="layoutTitleDown"
         >
         <svg id="Group_305" data-name="Group 305" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
@@ -281,8 +289,7 @@
         
       </button>
         <button
-          type="button"
-          class="btn zoomButton-left btn-lg"
+          class="zoomButton-left btn-lg no-select"
           id="layoutTitleLeft"
         >
         <svg id="Group_306" data-name="Group 306" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
@@ -294,8 +301,7 @@
         </svg>
         </button>
         <button
-          type="button"
-          class="btn zoomButton-right btn-lg"
+          class="zoomButton-right btn-lg no-select"
           id="layoutTitleRight"
         >
         <svg id="Group_307" data-name="Group 307" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
@@ -321,16 +327,14 @@
     </div>
     <div class="">
       <button
-        type="button"
-        class="btn Layout-btn custom-btn--primary"
+        class="Layout-btn custom-btn--primary"
         id="saveLayout"
       >
         Save
       </button>
 
       <button
-        type="button"
-        class="btn Layout-btn custom-btn--tertiary"
+        class="Layout-btn custom-btn--tertiary"
         id="cancelLayout"
       >
         Cancel

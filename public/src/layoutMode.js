@@ -7,7 +7,7 @@ import LayoutBuffer from './layout/layoutBuffer';
 import simulationArea from './simulationArea';
 import { hideProperties, fillSubcircuitElements, prevPropertyObjGet, prevPropertyObjSet, showProperties } from './ux';
 import {
-    update, scheduleUpdate, willBeUpdatedSet, gridUpdateSet,
+    update, scheduleUpdate, willBeUpdatedSet, gridUpdateSet, gridUpdateGet
 } from './engine';
 import miniMapArea from './minimap';
 import { showMessage } from './utils';
@@ -127,7 +127,7 @@ export function renderLayout(scope = globalScope) {
         tempBuffer.Output[i].draw();
     }
 
-    if (gridUpdateSet(false)) {
+    if (gridUpdateGet()) {
         dots();
     }
 
@@ -374,18 +374,17 @@ function saveLayout() {
  */
 export function toggleLayoutMode() {
     if (layoutModeGet()) {
-        (layoutModeSet(false));
+        layoutModeSet(false);
         $('#layoutDialog').fadeOut();
-        $('#subcircuitMenu').empty();
-        $('#subcircuitMenu').css('display', 'none');
-        $('#menu').css('display', 'block');
+        $('.layoutElementPanel').fadeOut();
+        $('.elementPanel').fadeIn();
         globalScope.centerFocus(false);
         dots();
     } else {
-        (layoutModeSet(true));
+        layoutModeSet(true);
         $('#layoutDialog').fadeIn();
-        $('#menu').css('display', 'none');
-        $('#subcircuitMenu').css('display', 'block');
+        $('.layoutElementPanel').fadeIn();
+        $('.elementPanel').fadeOut();
         fillSubcircuitElements();
         
         globalScope.ox = 0;

@@ -130,6 +130,15 @@ var gridUpdate = true;
 export function gridUpdateSet(param) {
     gridUpdate = param;
 }
+
+/**
+ * used to get gridUpdate
+ * @return {boolean}
+ * @category engine
+ */
+export function gridUpdateGet() {
+    return gridUpdate;
+}
 /**
  *  Flag for updating grid
  * @type {boolean}

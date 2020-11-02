@@ -405,30 +405,36 @@ export default function startListeners() {
         "Buffer", "SubCircuit", "Flag", "MSB", "LSB", "PriorityEncoder", "Tunnel", "ALU", "Decoder", "Random", "Counter", "Dlatch", "TB_Input", "TB_Output", "ForceGate",
     ];
 
-    $("#element").val('');
-    $("#element").on("keyup", function() {
-        $('#filter').css('display', 'block');
-        $('.filterX').on('click', () => {
-            $('#element').val('');
-            $('#menu').css('display', 'block');
-            $('#filter').css('display', 'none');
-            $('.filteX').css('display', 'none');
-        });
+    $(".search-input").on("keyup", function() {
+        var parentElement = $(this).parent().parent();
+        var closeButton =  $('.search-close', parentElement);
+        var searchInput =  $('.search-input', parentElement);
+        var searchResults =  $('.search-results', parentElement);
+        var menu =  $('.accordion', parentElement);
+
+        searchResults.css('display', 'block');
+        closeButton.css('display', 'block');
+        menu.css('display', 'none');
         const value = $(this).val().toLowerCase();
+
+        closeButton.on('click', () => {
+            searchInput.val('');
+            menu.css('display', 'block');
+            searchResults.css('display', 'none');
+            closeButton.css('display', 'none');
+        });
         if (value.length === 0) {
-            $('#filter').css('display', 'none').empty();
-            $('.filterX').css('display', 'none');
-            $('#menu').css('display', 'block');
+            menu.css('display', 'block');
+            searchResults.css('display', 'none');
+            closeButton.css('display', 'none');
             return;
         }
-        $('.filterX').css('display', 'block');
-        $('#menu').css('display', 'none');
         let htmlIcons = '';
         const result = circuitElementList.filter(ele => ele.toLowerCase().includes(value));
-        if(!result.length) $('#filter').text('No elements found ...');
+        if(!result.length) searchResults.text('No elements found ...');
         else {
             result.forEach( e => htmlIcons += createIcon(e));
-            $('#filter')
+            searchResults
               .html(htmlIcons);
             $('.filterElements').mousedown(createElement);
         }

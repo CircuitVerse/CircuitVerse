@@ -498,8 +498,9 @@ window.addEventListener('DOMContentLoaded', () => {
     $('#dragQPanel')
         .on('mousedown', () => $('.quick-btn').draggable({ disabled: false, containment: 'window' }))
         .on('mouseup', () => $('.quick-btn').draggable({ disabled: true }));
-
+    
     setupPanelListeners('.elementPanel');
+    setupPanelListeners('.layoutElementPanel');
     setupPanelListeners('#moduleProperty');
     setupPanelListeners('#layoutDialog');
 
@@ -552,7 +553,7 @@ export function fullView () {
 **/
 export function fillSubcircuitElements() {
     $('#subcircuitMenu').empty();
-
+    var subCircuitElementExists = false;
     for(let el of circuitElementList) {
         if(globalScope[el].length === 0) continue;
         if(!globalScope[el][0].canShowInSubcircuit) continue;
@@ -576,12 +577,19 @@ export function fillSubcircuitElements() {
 
         }
         tempHTML += '</div>';
-
+        subCircuitElementExists = subCircuitElementExists || available;
         if (available)
             $('#subcircuitMenu').append(tempHTML);
     }
 
-    $('#subcircuitMenu').accordion("refresh");
+    if(subCircuitElementExists) {
+        $('#subcircuitMenu').accordion("refresh");
+    }   
+    else {
+        $('#subcircuitMenu').append("<p>No layout elements available</p>");
+    }
+
+    
 
     $('.subcircuitModule').mousedown(function () {
 

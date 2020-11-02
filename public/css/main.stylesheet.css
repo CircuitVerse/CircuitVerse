@@ -545,11 +545,11 @@ div.icon img {
 
 /** custom scroll  styling starts here  */
 
-.customScroll {
+.search-results {
   scrollbar-width: thin; /* for firefox */
 }
 
-.customScroll::-webkit-scrollbar {
+.search-results::-webkit-scrollbar {
   margin-right: 3px;
   width: 6px;
 }
@@ -621,6 +621,14 @@ div.icon img {
   width: 250px;
   top: 90px;
   right: 10px;
+}
+
+.layoutElementPanel {
+  width: 220px;
+  font: inherit;
+  display: none;
+  top: 90px;
+  left: 10px;
 }
 
 #moduleProperty-toolTip {
@@ -1228,7 +1236,7 @@ input:checked + .slider:before {
   background: #42b983;
 }
 
-#element {
+.search-input {
   margin: 0 10px;
   padding: 3px 10px;
   width: 90%;
@@ -1237,12 +1245,12 @@ input:checked + .slider:before {
   background: transparent !important;
 }
 
-#element:focus {
+.search-input:focus {
   outline: none !important;
 }
 
 
-.filterX {
+.search-close {
   position: absolute;
   right: 19px;
   top: 6px;
@@ -1250,7 +1258,7 @@ input:checked + .slider:before {
   display: none;
 }
 
-#filter {
+.search-results {
   display: none;
   padding: 15px;
   transition: all .5s ease;
@@ -1260,7 +1268,7 @@ input:checked + .slider:before {
 
 }
 
-#filter div{
+.search-results div{
   border-radius: 3px;
 }
 
