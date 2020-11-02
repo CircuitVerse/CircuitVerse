@@ -8,8 +8,8 @@ import LayoutNode from './layoutNode';
 export default class LayoutBuffer {
     constructor(scope = globalScope) {
 
-        var w = Math.round((width / globalScope.scale) * 0.01) * 20; // 20% width of screen in layoutMode
-        var h = Math.round((height / globalScope.scale) * 0.01) * 10; // 10% height of screen in layoutMode
+        var w = 300 * DPR;
+        var h = 50 * DPR;
 
         globalScope.ox = w;
         globalScope.oy = h;

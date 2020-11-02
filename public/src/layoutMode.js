@@ -398,6 +398,10 @@ export function toggleLayoutMode() {
     hideProperties();
     update(globalScope, true);
     scheduleUpdate();
+    
+}
+
+export function setupLayoutModePanelListeners() {
     $('#decreaseLayoutWidth').click(() => {
         decreaseLayoutWidth();
     });
