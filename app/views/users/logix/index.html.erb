@@ -148,7 +148,6 @@
         e.preventDefault()
         let project = $(e.currentTarget).data('currentproject').id;
         $("#projectPreview").attr("src","/simulator/" + project.toString() );
-        console.log(project);
         $("#projectModal").tab('show');
     });
     $("#projectModal").on("show.bs.modal", function(e) {
@@ -161,5 +160,7 @@
         $(e.currentTarget).find('#project-more-button').attr("href",
         "/users/" + <%= @user.id.to_s %> + "/projects/" + projectSlug);
     });
+        $("#projectModal").tab('show')
+    })
   });
 </script>
