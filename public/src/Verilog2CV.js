@@ -69,9 +69,11 @@ import CodeMirror from 'codemirror/lib/codemirror.js';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/addon/hint/show-hint.css';
 import 'codemirror/mode/javascript/javascript.js'; // verilog.js from codemirror is not working because array prototype is changed.
+import 'codemirror/mode/verilog/verilog.js'; // verilog.js from codemirror is not working because array prototype is changed.
 import 'codemirror/addon/edit/closebrackets.js';
 import 'codemirror/addon/hint/anyword-hint.js';
 import 'codemirror/addon/hint/show-hint.js';
+import 'codemirror/addon/display/autorefresh.js';
 
 function getBitWidth(bitsJSON) {
     if (Number.isInteger(bitsJSON)) {
@@ -1277,21 +1279,22 @@ export function setupCodeMirrorEnvironment() {
     }
     
     var editor = CodeMirror.fromTextArea(myTextarea, {
-      mode: "javascript",
+      mode: "verilog",
       indentUnit: 4,
+      autoRefresh:true,
       styleActiveLine: true,
       lineNumbers: true,
       autoCloseBrackets: true,
       extraKeys: {"Ctrl-Space": "autocomplete"}
-        });
-        editor.refresh();
+    });
     
-        console.log(editor);
-    
+        editor.setValue("// Write Some Verilog Code Here!")
+        setTimeout(function() {
+            editor.refresh();
+        },1);
+        
         // Get the modal
         var modal = document.getElementById("myModal");
-
-        
     
         function closeFunction1() {
             modal.style.display = "none";
@@ -1309,5 +1312,5 @@ export function setupCodeMirrorEnvironment() {
 
     export function myFunction() {
         var modal = document.getElementById("myModal");
-        modal.style.display = "block";
+        $('#code-window').show();
     }
