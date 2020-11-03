@@ -64,7 +64,7 @@ function loadModule(data, scope) {
             }
         }
     }
-    if(obj.subcircuitMetadata)
+    if(data.subcircuitMetadata)
         obj.subcircuitMetadata = data["subcircuitMetadata"];
 }
 
