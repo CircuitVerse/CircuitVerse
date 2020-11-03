@@ -306,7 +306,9 @@ export default class SubCircuit extends CircuitElement {
             subcircuitScope.SubCircuit[i].reset();
         }
 
-        let emptyCircuit = true;
+        // No Inputs or Outputs
+        let emptyCircuit = subcircuitScope.Input.length == 0 && subcircuitScope.Output.length == 0;
+        // No LayoutElements
         for(let element of circuitElementList){
             if(subcircuitScope[element].length > 0 && subcircuitScope[element][0].canShowInSubcircuit){
                 emptyCircuit = false;
