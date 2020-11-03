@@ -18,8 +18,6 @@ import { setProjectName, getProjectName } from './data/save';
 import { changeScale } from './canvasApi';
 import updateTheme from "./themer/themer";
 
-import addVerilogElement from './Verilog2CV';
-
 export const uxvar = {
     smartDropXX: 50,
     smartDropYY: 80,
@@ -100,8 +98,6 @@ function menuItemClicked(id, code="") {
         logixFunction.createSubCircuitPrompt();
     } else if (id === 7) {
         globalScope.centerFocus(false);
-    } else if (id == 8) {
-        addVerilogElement(code);
     }
 }
 window.menuItemClicked = menuItemClicked;
@@ -230,6 +226,7 @@ export function prevPropertyObjGet() {
  */
 export function showProperties(obj) {
     if (obj === prevPropertyObjGet()) return;
+    console.log("hit", obj);
     hideProperties();
     prevPropertyObjSet(obj);
     if(layoutModeGet()){
@@ -506,6 +503,7 @@ window.addEventListener('DOMContentLoaded', () => {
     setupPanelListeners('.layoutElementPanel');
     setupPanelListeners('#moduleProperty');
     setupPanelListeners('#layoutDialog');
+    setupPanelListeners('#verilogEditorPanel');
 
     $('#projectName').on('click', () => {
         $("input[name='setProjectName']").focus().select();

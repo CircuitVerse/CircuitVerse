@@ -118,6 +118,12 @@ export function loadScope(scope, data) {
         x.updateData(scope);
     });
     removeBugNodes(scope); // To be deprecated
+
+    // If Verilog Circuit Metadata exists, then restore
+    if (data.verilogMetadata) {
+        scope.verilogMetadata = data.verilogMetadata;
+    }
+
     // If layout exists, then restore
     if (data.layout) {
         scope.layout = data.layout;
@@ -171,8 +177,15 @@ export default function load(data) {
 
     // Load all  according to the dependency order
     for (let i = 0; i < data.scopes.length; i++) {
+
+        var isVerilogCircuit = false;
+        var isVerilogMainCircuit = false;
+        if(data.scopes[i].verilogMetadata) {
+            isVerilogCircuit = data.scopes[i].verilogMetadata.isVerilogCircuit;
+            isVerilogMainCircuit = data.scopes[i].verilogMetadata.isVerilogMainCircuit;
+        }
         // Create new circuit
-        const scope = newCircuit(data.scopes[i].name || 'Untitled', data.scopes[i].id);
+        const scope = newCircuit(data.scopes[i].name || 'Untitled', data.scopes[i].id, isVerilogCircuit, isVerilogMainCircuit);
 
         // Load circuit data
         loadScope(scope, data.scopes[i]);

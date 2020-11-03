@@ -26,6 +26,9 @@ export function backUp(scope = globalScope) {
     // Storing layout
     data.layout = scope.layout;
 
+    // Storing Verilog Properties
+    data.verilogMetadata = scope.verilogMetadata;
+
     // Storing all nodes
     data.allNodes = scope.allNodes.map(extract);
 

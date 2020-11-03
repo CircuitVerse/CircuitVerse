@@ -631,6 +631,14 @@ div.icon img {
   left: 10px;
 }
 
+#verilogEditorPanel {
+  width: 220px;
+  font: inherit;
+  display: none;
+  top: 90px;
+  right: 300px;
+}
+
 #moduleProperty-toolTip {
   padding: 10px;
 }
@@ -807,7 +815,7 @@ input:checked + .slider:before {
 
 /** layout dialog styling starts here */
 
-#layout-body {
+.layout-body {
   text-align: center;
   padding: 10px;
   padding-bottom: 17px;
@@ -1362,6 +1370,12 @@ input[type='range']::-webkit-slider-thumb {
   border-radius: 5px;
 }
 
+.largeButton.btn {
+  width: 100%;
+  margin-bottom: 5px;
+  margin-left: 0 !important;
+}
+
 .objectPropertyAttributeChecked {
   margin-left: 0 !important;
 }
@@ -1458,7 +1472,7 @@ input[type='range']::-webkit-slider-thumb {
   display: none;
 }
 
-#myCode {
+#codeTextArea {
   width: 100%;
   height: 100%;
   display: none;

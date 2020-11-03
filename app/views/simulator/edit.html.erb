@@ -217,7 +217,7 @@
 <div id="tabsBar" class="noSelect pointerCursor">
   <button class="logixButton" id="newCircuit" onclick="">&#43;</button>
 </div>
-<div id="code-window"><textarea id="myCode"></textarea></div>
+<div id="code-window"><textarea id="codeTextArea"></textarea></div>
 <div class="modules noSelect defaultCursor ce-panel elementPanel draggable-panel" id="guide_1">
   <div class="panel-header">Circuit Elements
   <span class="minimize"></span>
@@ -241,6 +241,20 @@
   <div class="panel-body">
     <div class="search-results"></div>
     <div class="accordion" id="subcircuitMenu"></div>
+  </div>
+</div>
+
+<div class="noSelect defaultCursor draggable-panel" id="verilogEditorPanel">
+  <div class="panel-header">Verilog Module
+  <span class="minimize"></span>
+  <span class="fas fa-external-link-square-alt maximize"></span>
+  </div>
+  <div class="panel-body">
+    <div class="layout-body">
+      <button class="largeButton btn logixButton btn-xs custom-btn--tertiary" id="resetVerilogCode">Reset Code</button>
+      <button class="largeButton btn logixButton btn-xs custom-btn--primary" id="saveVerilogCode">Save Code</button>
+      <div id="verilogOutput"></div>
+    </div>
   </div>
 </div>
 
@@ -661,9 +675,3 @@ $('.Layout-btn').ripple({
 duration: 500
 });
 </script>
-<<<<<<< HEAD
-<script src = './'>
-=======
-
-<script src = './'>
->>>>>>> 20bb08c65177c3525ee0d695930c42788c2057bb

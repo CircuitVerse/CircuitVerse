@@ -27,6 +27,7 @@ import { toggleLayoutMode, layoutModeGet } from './layoutMode';
 import { setProjectName, getProjectName } from './data/save';
 import { changeClockEnable } from './sequential';
 import { changeInputSize } from './modules';
+import { verilogModeGet, verilogModeSet } from './Verilog2CV';
 
 export const circuitProperty = {
     toggleLayoutMode, setProjectName, changeCircuitName, changeClockTime, deleteCurrentCircuit, changeClockEnable, changeInputSize, changeLightMode,
@@ -45,6 +46,7 @@ export function resetScopeList() {
  */
 export function switchCircuit(id) {
     if (layoutModeGet()) { toggleLayoutMode(); }
+    if (verilogModeGet()) { verilogModeSet(false);}
 
     // globalScope.fixLayout();
     scheduleBackup();
@@ -55,6 +57,9 @@ export function switchCircuit(id) {
     simulationArea.multipleObjectSelections = [];
     simulationArea.copyList = [];
     globalScope = scopeList[id];
+    if (globalScope.verilogMetadata.isVerilogCircuit) {
+        verilogModeSet(true);
+    }
     updateSimulationSet(true);
     updateSubcircuitSet(true);
     forceResetNodesSet(true);
@@ -115,33 +120,42 @@ function deleteCurrentCircuit(scopeId = globalScope.id) {
  * @param {string} id - identifier for circuit
  * @category circuit
  */
-export function newCircuit(name, id) {
+export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
+    if (layoutModeGet()) { toggleLayoutMode(); }
+    if (verilogModeGet()) { verilogModeSet(false);}
     name = name || prompt('Enter circuit name:');
     name = stripTags(name);
     if (!name) return;
     const scope = new Scope(name);
     if (id) scope.id = id;
     scopeList[scope.id] = scope;
-    globalScope = scope;
-    $('.circuits').removeClass('current');
-    $('#tabsBar').append(`<div style='display: flex' class='circuits toolbarButton current' id='${scope.id}'><span class='circuitName'>${name}</span><span class ='tabsCloseButton' id='${scope.id}'  >x</span></div>`);
-    $('.circuits').click(function () {
-        switchCircuit(this.id);
-    });
-    $('.circuitName').click((e) => {
-        simulationArea.lastSelected = globalScope.root;
-        setTimeout(() => {
-            document.getElementById('circname').select();
-        }, 100);
-    });
-    $('.tabsCloseButton').click(function (e) {
-        e.stopPropagation();
-        deleteCurrentCircuit(this.id);
-    });
-    if (!embed) {
-        showProperties(scope.root);
+    if(isVerilog) {
+        scope.verilogMetadata.isVerilogCircuit = true;
+        scope.verilogMetadata.isMainCircuit = isVerilogMain;
     }
-    dots(false);
+    if (!isVerilog || isVerilogMain) {
+        globalScope = scope;
+        $('.circuits').removeClass('current');
+        $('#tabsBar').append(`<div style='display: flex' class='circuits toolbarButton current' id='${scope.id}'><span class='circuitName'>${name}</span><span class ='tabsCloseButton' id='${scope.id}'  >x</span></div>`);
+        $('.circuits').click(function () {
+            switchCircuit(this.id);
+        });
+        $('.circuitName').click((e) => {
+            simulationArea.lastSelected = globalScope.root;
+            setTimeout(() => {
+                document.getElementById('circname').select();
+            }, 100);
+        });
+        $('.tabsCloseButton').click(function (e) {
+            e.stopPropagation();
+            deleteCurrentCircuit(this.id);
+        });
+        if (!embed) {
+            showProperties(scope.root);
+        }
+        dots(false);
+    }
+    
     return scope;
 }
 
@@ -175,23 +189,19 @@ export default class Scope {
         this.root = new CircuitElement(0, 0, this, 'RIGHT', 1);
         this.backups = [];
         this.timeStamp = new Date().getTime();
+        this.verilogMetadata = {
+            isVerilogCircuit: false,
+            isMainCircuit: false,
+            code: "// Write Some Verilog Code Here!",
+            subCircuitScopeIds: []
+        }
 
         this.ox = 0;
         this.oy = 0;
         this.scale = DPR;
-        this.tunnelList = {};
         this.stack = [];
-
-        this.name = name;
-        this.pending = [];
-        this.nodes = []; // intermediate nodes only
-        this.allNodes = [];
-        this.wires = [];
-
-        // Creating arrays for other module elements
-        for (let i = 0; i < moduleList.length; i++) {
-            this[moduleList[i]] = [];
-        }
+        
+        this.initialize();
 
         // Setting default layout
         this.layout = { // default position
@@ -209,6 +219,20 @@ export default class Scope {
         // CHANGE/ REMOVE WITH CAUTION
         // this.objects = ["wires", ...circuitElementList, "nodes", ...annotationList];
         // this.renderObjectOrder = [ ...(moduleList.slice().reverse()), "wires", "allNodes"];
+    }
+
+    initialize() {
+        this.tunnelList = {};
+        this.name = name;
+        this.pending = [];
+        this.nodes = []; // intermediate nodes only
+        this.allNodes = [];
+        this.wires = [];
+
+        // Creating arrays for other module elements
+        for (let i = 0; i < moduleList.length; i++) {
+            this[moduleList[i]] = [];
+        }
     }
 
     /**

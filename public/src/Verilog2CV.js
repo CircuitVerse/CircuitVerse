@@ -74,6 +74,55 @@ import 'codemirror/addon/edit/closebrackets.js';
 import 'codemirror/addon/hint/anyword-hint.js';
 import 'codemirror/addon/hint/show-hint.js';
 import 'codemirror/addon/display/autorefresh.js';
+import { showError } from './utils';
+import { showProperties } from './ux';
+
+var editor;
+var verilogMode = false;
+
+
+export function createVerilogCircuit() {
+    var circuit = newCircuit(undefined, undefined, true, true);
+    verilogModeSet(true);
+}
+
+export function saveVerilogCode() {
+    var code = editor.getValue();
+    globalScope.verilogMetadata.code = code;
+    generateVerilogCircuit(code);
+}
+
+export function resetVerilogCode() {
+    editor.setValue(globalScope.verilogMetadata.code);
+}
+
+
+export function verilogModeGet() {
+    return verilogMode;
+}
+
+export function verilogModeSet(mode) {
+    if(mode == verilogMode) return;
+    verilogMode = mode;
+    if(mode) {
+        $('#code-window').show();
+        $('.elementPanel').hide();
+        $('.quick-btn').hide();
+        $('#verilogEditorPanel').show();
+        if (!embed) {
+            simulationArea.lastSelected = globalScope.root;
+            showProperties(undefined);
+            showProperties(simulationArea.lastSelected);
+        }
+        resetVerilogCode();
+    }
+    else {
+        $('#code-window').hide();
+        $('.elementPanel').show();
+        $('.quick-btn').show();
+        $('#verilogEditorPanel').hide();
+    }
+}
 
 function getBitWidth(bitsJSON) {
     if (Number.isInteger(bitsJSON)) {
@@ -87,6 +136,7 @@ function getBitWidth(bitsJSON) {
         return ans;
     }
 }
+
 
 class verilogUnaryGate{
     constructor(deviceJSON){
@@ -1180,9 +1230,9 @@ class verilogSubCircuit {
     }
 }
 
-export function YosysJSON2CV(JSON, parentScope = globalScope, name = "verilogCircuit", subCircuitScope = {}){
+export function YosysJSON2CV(JSON, parentScope = globalScope, name = "verilogCircuit", subCircuitScope = {}, root = false){
     var parentID = (parentScope.id);
-    let subScope = newCircuit(name);
+    var subScope = newCircuit(name);
     var subScopeID = subScope.id;
     var circuitDevices = {};
 
@@ -1224,29 +1274,8 @@ export function YosysJSON2CV(JSON, parentScope = globalScope, name = "verilogCir
     return veriSubCircuit;
 }
 
-async function postData(url = '', data = {}) {
-    // Default options are marked with *
-    const response = await fetch(url, {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        mode: 'cors', // no-cors, *cors, same-origin
-        credentials: 'same-origin', // include, *same-origin, omit
-        headers: {
-            'content-type': 'application/json'
-        },
-        processData: false,
-        body: JSON.stringify(data)// body data type must match "Content-Type" header
-    });
-    return response.json(); // parses JSON response into native JavaScript objects
-}
-
-export default function addVerilogElement(verilogCode) {
-    // var verilogCode = window.prompt("Enter the verilog code");
-
-    // const http = new XMLHttpRequest();
-
-
+export default function generateVerilogCircuit(verilogCode, scope = globalScope) {
     const url='/simulator/verilogcv';
-    
     var params = {"code": verilogCode};
     $.ajax({
         url: url,
@@ -1256,61 +1285,40 @@ export default function addVerilogElement(verilogCode) {
         },
         data: params,
         success: function(response) {
-            console.log(response);
-            YosysJSON2CV(JSON.parse(response[0]));
+            var circuitData = JSON.parse(response[0]);
+            scope.initialize();
+            for(var id in scope.verilogMetadata.subCircuitScopeIds)
+                delete scopeList[id];
+            scope.verilogMetadata.subCircuitScopeIds = [];
+            scope.verilogMetadata.code = verilogCode;
+            var subCircuitScope = {};
+            YosysJSON2CV(circuitData, globalScope, "verilogCircuit", subCircuitScope, true);
         },
         failure: function(err) {
-            // TODO
+            showError("Could not connect to Yosys");
         }
     });
-
-    // postData(url, params)
-    //     .then(data => {
-    //         YosysJSON2CV(data);
-    //     });
 }
 
-
 export function setupCodeMirrorEnvironment() {
-    var myTextarea = document.getElementById("myCode");
-    
+    var myTextarea = document.getElementById("codeTextArea");
+
     CodeMirror.commands.autocomplete = function(cm) {
         cm.showHint({hint: CodeMirror.hint.anyword});
     }
-    
-    var editor = CodeMirror.fromTextArea(myTextarea, {
-      mode: "verilog",
-      indentUnit: 4,
-      autoRefresh:true,
-      styleActiveLine: true,
-      lineNumbers: true,
-      autoCloseBrackets: true,
-      extraKeys: {"Ctrl-Space": "autocomplete"}
-    });
-    
-        editor.setValue("// Write Some Verilog Code Here!")
-        setTimeout(function() {
-            editor.refresh();
-        },1);
-        
-        // Get the modal
-        var modal = document.getElementById("myModal");
-    
-        function closeFunction1() {
-            modal.style.display = "none";
-            var code = editor.getValue();
-            menuItemClicked(8, code);
-        }
-    
-        function closeFunction2() {
-            modal.style.display = "none";
-        }
-    
-        window.closeFunction1 = closeFunction1;
-        window.closeFunction2 = closeFunction2;
-    }
 
-    export function myFunction() {
-        var modal = document.getElementById("myModal");
-        $('#code-window').show();
-    }
+    editor = CodeMirror.fromTextArea(myTextarea, {
+        mode: "verilog",
+        indentUnit: 4,
+        autoRefresh:true,
+        styleActiveLine: true,
+        lineNumbers: true,
+        autoCloseBrackets: true,
+        extraKeys: {"Ctrl-Space": "autocomplete"}
+    });
+
+    editor.setValue("// Write Some Verilog Code Here!")
+    setTimeout(function() {
+        editor.refresh();
+    },1);
+}
