@@ -11,6 +11,50 @@
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
 -->
 
+<style>
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1000; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+</style>
+
+
+
 <script src="/js/plugins/jquery.twbs-toggle-buttons.min.js"></script>
 <script src="/js/plugins/checkBo.min.js"></script>
 <script src="/js/plugins/jquery-pseudo-ripple.js"></script>
@@ -21,6 +65,9 @@
   __logix_project_id = "<%= @logix_project_id %>";
   __projectName = "<%= @projectName %>"
 </script>
+
+
+
 <div id='exitView'></div>
 <nav class="navbar navbar-expand-lg navbar-dark header">
   <a href="/"><span class='logo'></span></a>
@@ -47,7 +94,8 @@
       <li class="dropdown">
         <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Circuit<span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item text-left logixButton pl-1" id="newCircuit">New Circuit +</a></li>
+          <li><a class="dropdown-item text-left logixButton pl-1" id="newCircuit">New Circuit + </a></li>
+          <li><a class="dropdown-item text-left logixButton pl-1" id="newVerilogModule">New Verilog <br> Module</a></li>
           <li><a class="dropdown-item logixButton text-left pl-1" id="createSubCircuitPrompt">Insert SubCircuit</a></li>
         </ul>
       </li>
@@ -584,11 +632,30 @@
 
 <link rel="stylesheet" type="text/css" href="/css/restrictedElements.css">
 
+
+
+
 <script src="/js/dec-bin-hex-converter.js"></script>
 <script src="/js/verilog.js"></script>
 <script type="text/javascript" src="/js/metadata.json"></script>
 <script src="/js/canvas2svg.js"></script>
 
+<div id="myModal" class="modal">
+
+  <!-- Modal content --> 
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title"> Enter Verilog Code </h4>
+    </div>
+
+    <textarea id="myCode"></textarea>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary active" onclick="closeFunction1()"> Submit </button>
+      <button type="button" class="btn btn-primary active" onclick="closeFunction2()"> Cancel </button>
+    </div>
+  </div>
+</div>
 <script>
   $(document).tooltip({
     show: null,
@@ -610,4 +677,9 @@ $('.Layout-btn').ripple({
 duration: 500
 });
 </script>
+<<<<<<< HEAD
 <script src = './'>
+=======
+
+<script src = './'>
+>>>>>>> 20bb08c65177c3525ee0d695930c42788c2057bb

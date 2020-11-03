@@ -18,6 +18,7 @@ import { setProjectName, getProjectName } from './data/save';
 import { changeScale } from './canvasApi';
 import updateTheme from "./themer/themer";
 
+import addVerilogElement from './Verilog2CV';
 
 export const uxvar = {
     smartDropXX: 50,
@@ -79,7 +80,7 @@ function showContextMenu() {
  * @param {number} id - id of the optoin selected
  * @category ux
  */
-function menuItemClicked(id) {
+function menuItemClicked(id, code="") {
     hideContextMenu();
     if (id === 0) {
         document.execCommand('copy');
@@ -99,6 +100,8 @@ function menuItemClicked(id) {
         logixFunction.createSubCircuitPrompt();
     } else if (id === 7) {
         globalScope.centerFocus(false);
+    } else if (id == 8) {
+        addVerilogElement(code);
     }
 }
 window.menuItemClicked = menuItemClicked;

@@ -84,6 +84,12 @@ class SimulatorController < ApplicationController
     redirect_to edit_user_project_url(current_user, @project)
   end
 
+  def fetchJSON
+    url = "http://127.0.0.1:3040/getJSON"
+    response = HTTP.post(url, json: {"code": params[:code]})
+    render json: response.body.to_json
+  end
+
   private
 
     def allow_iframe

@@ -8,6 +8,7 @@ import { newCircuit } from './circuit'
 import { createCombinationalAnalysisPrompt } from './combinationalAnalysis';
 import { colorThemes } from "./themer/themer";
 import { showTourGuide } from './tutorials';
+import {myFunction} from './Verilog2CV';
 
 const logixFunction = {};
 logixFunction.save = save;
@@ -25,6 +26,7 @@ logixFunction.fullViewOption = fullView;
 logixFunction.colorThemes = colorThemes;
 logixFunction.showTourGuide = showTourGuideHelper;
 logixFunction.deleteSelected = deleteSelected;
+logixFunction.newVerilogModule = myFunction;
 export default logixFunction;
 
 // Hack to restart tour guide
