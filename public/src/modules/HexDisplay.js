@@ -237,6 +237,11 @@ export default class HexDisplay extends CircuitElement {
         ctx.lineWidth = correctWidth(1);
         rect2(ctx, -15, -42, 33, 51, xx, yy, this.direction);
         ctx.stroke();
+
+        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) {
+            ctx.fillStyle = "rgba(255, 255, 32,0.6)";
+            ctx.fill();
+        } 
     }
 }
 

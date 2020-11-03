@@ -121,6 +121,11 @@ export default class Random extends CircuitElement {
         ctx.lineWidth = correctWidth(1);
         rect2(ctx, 0, 0, 20, 20, xx, yy, this.direction);
         ctx.stroke();
+
+        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) {
+            ctx.fillStyle = "rgba(255, 255, 32,0.6)";
+            ctx.fill();
+        }
     }
 }
 

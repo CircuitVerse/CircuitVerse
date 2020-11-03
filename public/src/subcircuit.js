@@ -99,7 +99,7 @@ export default class SubCircuit extends CircuitElement {
         this.inputNodes = [];
         this.outputNodes = [];
         this.localScope = new Scope();
-        this.preventCircuitSwitch = false; // prevents from switching circuit if double clicking button
+        this.preventCircuitSwitch = false; // prevents from switching circuit if double clicking element
         this.rectangleObject = false;
 
         var subcircuitScope = scopeList[this.id]; // Scope of the subcircuit
@@ -468,17 +468,17 @@ export default class SubCircuit extends CircuitElement {
     }
 
     /**
-     * Procedure after a button is clicked inside a subcircuit 
+     * Procedure after a element is clicked inside a subcircuit 
     **/
     click() {
-        var buttonClicked = this.getButtonHover();
-        if(buttonClicked) {
-            this.lastClickedElement = buttonClicked;
-            buttonClicked.wasClicked = true;
+        var elementClicked = this.getElementHover();
+        if(elementClicked) {
+            this.lastClickedElement = elementClicked;
+            elementClicked.wasClicked = true;
         }
     }
 
-    getButtonHover() {
+    getElementHover() {
 
         var rX = this.layoutProperties.rightDimensionX;
         var lX = this.layoutProperties.leftDimensionX;
@@ -498,7 +498,7 @@ export default class SubCircuit extends CircuitElement {
     }
     
     /**
-      * Sets the buttons' wasClicked property in the subcircuit to false
+      * Sets the elements' wasClicked property in the subcircuit to false
     **/
     releaseClick(){
         if(this.lastClickedElement !== undefined) {
@@ -539,7 +539,7 @@ export default class SubCircuit extends CircuitElement {
      * Procedure if any element is double clicked inside a subcircuit
     **/
     dblclick() {
-        if(this.getButtonHover()) return;
+        if(this.elementHover) return;
         switchCircuit(this.id);
     }
 
@@ -605,17 +605,17 @@ export default class SubCircuit extends CircuitElement {
 
     checkHover() {
         super.checkHover();
-        if(this.buttonHover) {
-            this.buttonHover.hover = false;
-            this.buttonHover = undefined;
+        if(this.elementHover) {
+            this.elementHover.hover = false;
+            this.elementHover = undefined;
             simulationArea.hover = undefined;
         }
-        var buttonHover = this.getButtonHover();
-        if(buttonHover) {
-            buttonHover.hover = true;
-            this.buttonHover = buttonHover;
+        var elementHover = this.getElementHover();
+        if(elementHover) {
+            elementHover.hover = true;
+            this.elementHover = elementHover;
             this.hover = false;
-            simulationArea.hover = buttonHover;
+            simulationArea.hover = elementHover;
         }
     }
 
@@ -639,7 +639,7 @@ export default class SubCircuit extends CircuitElement {
         ctx.lineWidth = correctWidth(3);
         ctx.beginPath();
         rect2(ctx, -this.leftDimensionX, -this.upDimensionY, this.leftDimensionX + this.rightDimensionX, this.upDimensionY + this.downDimensionY, this.x, this.y, [this.direction, 'RIGHT'][+this.directionFixed]);
-        if(!this.buttonHover) {
+        if(!this.elementHover) {
             if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) 
                 ctx.fillStyle = colors["hover_select"];
         }
