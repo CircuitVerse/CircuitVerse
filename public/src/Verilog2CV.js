@@ -1232,7 +1232,13 @@ class verilogSubCircuit {
 
 export function YosysJSON2CV(JSON, parentScope = globalScope, name = "verilogCircuit", subCircuitScope = {}, root = false){
     var parentID = (parentScope.id);
-    var subScope = newCircuit(name);
+    var subScope;
+    if(root) {
+        subScope = parentScope;
+    }
+    else {
+        subScope = newCircuit(name);
+    }
     var subScopeID = subScope.id;
     var circuitDevices = {};
 
@@ -1269,9 +1275,11 @@ export function YosysJSON2CV(JSON, parentScope = globalScope, name = "verilogCir
         fromPortNode.connect(toPortNode);
     }
     
-    switchCircuit(parentID);
-    var veriSubCircuit = new SubCircuit(500, 500, undefined, subScopeID);
-    return veriSubCircuit;
+    if(!root) {
+        switchCircuit(parentID);
+        var veriSubCircuit = new SubCircuit(500, 500, undefined, subScopeID);
+        return veriSubCircuit;
+    }
 }
 
 export default function generateVerilogCircuit(verilogCode, scope = globalScope) {
