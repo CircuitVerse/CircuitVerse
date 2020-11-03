@@ -1,5 +1,5 @@
 // Most Listeners are stored here
-import { layoutModeGet } from './layoutMode';
+import { layoutModeGet, tempBuffer, layoutUpdate, setupLayoutModePanelListeners} from './layoutMode';
 import simulationArea from './simulationArea';
 import {
     scheduleUpdate, update, updateSelectionsAndPane,
@@ -16,7 +16,6 @@ import { removeMiniMap, updatelastMinimapShown } from './minimap';
 import undo from './data/undo';
 import { copy, paste, selectAll } from './events';
 import save from './data/save';
-import { layoutUpdate } from './layoutMode';
 import { createElement } from './ux';
 
 var unit = 10;
@@ -366,6 +365,28 @@ export default function startListeners() {
         }
     });
 
+    // 'drag and drop' event listener for subcircuit elements in layout mode 
+    $('#subcircuitMenu').on('dragstop', '.draggableSubcircuitElement', function(event, ui){
+        const sideBarWidth = $('#guide_1')[0].clientWidth;
+        let tempElement;
+
+        if( ui.position.top > 10 && ui.position.left > sideBarWidth){
+            // make a shallow copy of the element with the new coordinates
+            tempElement = globalScope[this.dataset.elementName][this.dataset.elementId];
+            
+            // Changing the coordinate doesn't work yet, nodes get far from element
+            tempElement.x = ui.position.left - sideBarWidth;
+            tempElement.y = ui.position.top;
+            for(let node of tempElement.nodeList){
+                node.x = ui.position.left - sideBarWidth;
+                node.y = ui.position.top
+            } 
+
+            tempBuffer.subElements.push(tempElement);
+            this.parentElement.removeChild(this);
+        }
+    });
+
     restrictedElements.forEach((element) => {
         $(`#${element}`).mouseover(() => {
             showRestricted();
@@ -383,30 +404,36 @@ export default function startListeners() {
         "Buffer", "SubCircuit", "Flag", "MSB", "LSB", "PriorityEncoder", "Tunnel", "ALU", "Decoder", "Random", "Counter", "Dlatch", "TB_Input", "TB_Output", "ForceGate",
     ];
 
-    $("#element").val('');
-    $("#element").on("keyup", function() {
-        $('#filter').css('display', 'block');
-        $('.filterX').on('click', () => {
-            $('#element').val('');
-            $('#menu').css('display', 'block');
-            $('#filter').css('display', 'none');
-            $('.filteX').css('display', 'none');
-        });
+    $(".search-input").on("keyup", function() {
+        var parentElement = $(this).parent().parent();
+        var closeButton =  $('.search-close', parentElement);
+        var searchInput =  $('.search-input', parentElement);
+        var searchResults =  $('.search-results', parentElement);
+        var menu =  $('.accordion', parentElement);
+
+        searchResults.css('display', 'block');
+        closeButton.css('display', 'block');
+        menu.css('display', 'none');
         const value = $(this).val().toLowerCase();
+
+        closeButton.on('click', () => {
+            searchInput.val('');
+            menu.css('display', 'block');
+            searchResults.css('display', 'none');
+            closeButton.css('display', 'none');
+        });
         if (value.length === 0) {
-            $('#filter').css('display', 'none').empty();
-            $('.filterX').css('display', 'none');
-            $('#menu').css('display', 'block');
+            menu.css('display', 'block');
+            searchResults.css('display', 'none');
+            closeButton.css('display', 'none');
             return;
         }
-        $('.filterX').css('display', 'block');
-        $('#menu').css('display', 'none');
         let htmlIcons = '';
         const result = circuitElementList.filter(ele => ele.toLowerCase().includes(value));
-        if(!result.length) $('#filter').text('No elements found ...');
+        if(!result.length) searchResults.text('No elements found ...');
         else {
             result.forEach( e => htmlIcons += createIcon(e));
-            $('#filter')
+            searchResults
               .html(htmlIcons);
             $('.filterElements').mousedown(createElement);
         }
@@ -416,6 +443,8 @@ export default function startListeners() {
             <img  src= "/img/${element}.svg" >
         </div>`;
     }
+
+    setupLayoutModePanelListeners();
 }
 
 var isIe = (navigator.userAgent.toLowerCase().indexOf('msie') != -1
@@ -488,7 +517,6 @@ function onMouseUp(e) {
         uxvar.smartDropXX = simulationArea.mouseX + 100; // Math.round(((simulationArea.mouseRawX - globalScope.ox+100) / globalScope.scale) / unit) * unit;
         uxvar.smartDropYY = simulationArea.mouseY - 50; // Math.round(((simulationArea.mouseRawY - globalScope.oy+100) / globalScope.scale) / unit) * unit;
     }
-    if (simulationArea.controlDown) selectElement(simulationArea.lastSelected.title);
 }
 
 function resizeTabs() {

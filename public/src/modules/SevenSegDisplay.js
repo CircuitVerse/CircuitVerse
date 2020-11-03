@@ -2,7 +2,7 @@ import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import {
-    correctWidth, lineTo, moveTo, rect,
+    correctWidth, lineTo, moveTo, rect, rect2
 } from '../canvasApi';
 
 /**
@@ -96,6 +96,53 @@ export default class SevenSegDisplay extends CircuitElement {
         rect(ctx, xx + 22, yy + 42, 2, 2);
         ctx.stroke();
     }
+
+    subcircuitDrawSegment(x1, y1, x2, y2, color, xxSegment, yySegment) {
+        if (color == undefined) color = "lightgrey";
+        var ctx = simulationArea.context;
+        ctx.beginPath();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = correctWidth(3);
+        var xx = xxSegment;
+        var yy = yySegment;
+        moveTo(ctx, x1, y1, xx, yy, this.direction);
+        lineTo(ctx, x2, y2, xx, yy, this.direction);
+        ctx.closePath();
+        ctx.stroke();
+    }
+
+    // Draws the element in the subcuircuit. Used in layout mode
+    subcircuitDraw(xOffset = 0, yOffset = 0) {
+        var ctx = simulationArea.context;
+
+        var xx = this.subcircuitMetadata.x + xOffset;
+        var yy = this.subcircuitMetadata.y + yOffset;
+
+        this.subcircuitDrawSegment(10, -20, 10, -38, ["lightgrey", "red"][this.b.value], xx, yy);
+        this.subcircuitDrawSegment(10, -17, 10, 1, ["lightgrey", "red"][this.c.value], xx, yy);
+        this.subcircuitDrawSegment(-10, -20, -10, -38, ["lightgrey", "red"][this.f.value], xx, yy);
+        this.subcircuitDrawSegment(-10, -17, -10, 1, ["lightgrey", "red"][this.e.value], xx, yy);
+        this.subcircuitDrawSegment(-8, -38, 8, -38, ["lightgrey", "red"][this.a.value], xx, yy);
+        this.subcircuitDrawSegment(-8, -18, 8, -18, ["lightgrey", "red"][this.g.value], xx, yy);
+        this.subcircuitDrawSegment(-8, 1, 8, 1, ["lightgrey", "red"][this.d.value], xx, yy);
+
+        ctx.beginPath();
+        var dotColor = ["lightgrey", "red"][this.dot.value] || "lightgrey"
+        ctx.strokeStyle = dotColor;
+        rect(ctx, xx + 13, yy + 5, 1, 1);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.strokeStyle = "black";
+        ctx.lineWidth = correctWidth(1);
+        rect2(ctx, -15, -42, 33, 51, xx, yy, this.direction);
+        ctx.stroke();
+
+        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) {
+            ctx.fillStyle = "rgba(255, 255, 32,0.6)";
+            ctx.fill();
+        }   
+    }
 }
 
 /**
@@ -114,3 +161,10 @@ SevenSegDisplay.prototype.tooltipText = 'Seven Display ToolTip: Consists of 7+1 
  */
 SevenSegDisplay.prototype.helplink = 'https://docs.circuitverse.org/#/outputs?id=seven-segment-display';
 SevenSegDisplay.prototype.objectType = 'SevenSegDisplay';
+SevenSegDisplay.prototype.canShowInSubcircuit = true;
+SevenSegDisplay.prototype.layoutProperties = {
+    rightDimensionX : 20,
+    leftDimensionX : 15,
+    upDimensionY : 42,
+    downDimensionY: 10
+}

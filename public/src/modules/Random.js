@@ -1,7 +1,7 @@
 import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
-import { fillText, lineTo, moveTo } from '../canvasApi';
+import { fillText, lineTo, moveTo, correctWidth, rect2 } from '../canvasApi';
 /**
  * @class
  * Random
@@ -103,6 +103,30 @@ export default class Random extends CircuitElement {
         lineTo(ctx, -20, 15, xx, yy, this.direction);
         ctx.stroke();
     }
+
+    // Draws the element in the subcircuit. Used in layout mode
+    subcircuitDraw(xOffset = 0, yOffset = 0) {
+        var ctx = simulationArea.context;
+        var xx = this.subcircuitMetadata.x + xOffset;
+        var yy = this.subcircuitMetadata.y + yOffset;
+
+        ctx.beginPath();
+        ctx.font = "20px Georgia";
+        ctx.fillStyle = "green";
+        ctx.textAlign = "center";
+        fillText(ctx, this.currentRandomNo.toString(16), xx + 10, yy + 17);
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.lineWidth = correctWidth(1);
+        rect2(ctx, 0, 0, 20, 20, xx, yy, this.direction);
+        ctx.stroke();
+
+        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) {
+            ctx.fillStyle = "rgba(255, 255, 32,0.6)";
+            ctx.fill();
+        }
+    }
 }
 
 Random.prototype.tooltipText = 'Random ToolTip : Random Selected.';
@@ -110,3 +134,11 @@ Random.prototype.tooltipText = 'Random ToolTip : Random Selected.';
 Random.prototype.helplink = 'https://docs.circuitverse.org/#/inputElements?id=random';
 
 Random.prototype.objectType = 'Random';
+
+Random.prototype.canShowInSubcircuit = true
+Random.prototype.layoutProperties = {
+    rightDimensionX : 20,
+    leftDimensionX : 0,
+    upDimensionY : 0,
+    downDimensionY: 20
+}

@@ -293,6 +293,13 @@ input[type="text"]:focus {
   transform: translate(-50%, 13px);
 }
 
+.draggable-panel {
+  border-radius: 5px;
+  z-index: 100;
+  transition: background .5s ease-out; 
+  position: fixed;
+}
+
 @supports (backdrop-filter: blur()) {
   .dropdown > ul {
     backdrop-filter: blur(5px);
@@ -385,22 +392,16 @@ input[type="text"]:focus {
 .ce-panel {
   font: inherit;
   width: 220px;
-  border-radius: 5px;
-  position: fixed;
   top: 90px;
   left: 10px;
-  z-index: 100;
-  transition: background .5s ease-out; 
-
 }
 
 .accordion:last-child {
   margin-bottom: 15px;
 }
 
-#modules-header {
-  margin-bottom: 10px;
-  border-top-left-radius: 5px;
+.panel-header {
+  border-radius: 5px;
   border-top-right-radius: 5px;
   padding-top: 15px;
   padding: 10px;
@@ -411,6 +412,10 @@ input[type="text"]:focus {
   text-transform: uppercase;
   text-align: left;
   cursor: move;
+}
+
+.panel-body {
+  padding-top: 10px;
 }
 
 .panel {
@@ -540,11 +545,11 @@ div.icon img {
 
 /** custom scroll  styling starts here  */
 
-.customScroll {
+.search-results {
   scrollbar-width: thin; /* for firefox */
 }
 
-.customScroll::-webkit-scrollbar {
+.search-results::-webkit-scrollbar {
   margin-right: 3px;
   width: 6px;
 }
@@ -614,24 +619,20 @@ div.icon img {
   display: none;
   font: inherit;
   width: 250px;
-  border-radius: 5px;
-  position: fixed;
   top: 90px;
   right: 10px;
-  z-index: 100;
-  transition: background .5s ease-out; 
+}
+
+.layoutElementPanel {
+  width: 220px;
+  font: inherit;
+  display: none;
+  top: 90px;
+  left: 10px;
 }
 
 #moduleProperty-toolTip {
   padding: 10px;
-}
-
-#moduleProperty-title {
-  padding: 10px;
-  font-weight: bold;
-  font-size: 16px;
-  text-transform: uppercase;
-  text-align: left;
 }
 
 #moduleProperty-inner {
@@ -806,33 +807,18 @@ input:checked + .slider:before {
 
 /** layout dialog styling starts here */
 
-#layoutDialog {
-  position: absolute;
-  right: 10px;
-  top: 90px;
-  z-index: 100;
-  width: 220px;
-  height: 330px;
-  border-radius: 5px;
+#layout-body {
   text-align: center;
   padding: 10px;
   padding-bottom: 17px;
   font-weight: bold;
 }
 
-#layoutDialog > div {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-}
-
-
-.panel-heading {
-  margin: 10px;
-  font: Bold 20px;
-  text-transform: uppercase;
-  text-align: center;
+#layoutDialog {
+  display: none;
+  right: 10px;
+  top: 90px;
+  width: 220px;
 }
 
 .layout-title span {
@@ -1250,7 +1236,7 @@ input:checked + .slider:before {
   background: #42b983;
 }
 
-#element {
+.search-input {
   margin: 0 10px;
   padding: 3px 10px;
   width: 90%;
@@ -1259,12 +1245,12 @@ input:checked + .slider:before {
   background: transparent !important;
 }
 
-#element:focus {
+.search-input:focus {
   outline: none !important;
 }
 
 
-.filterX {
+.search-close {
   position: absolute;
   right: 19px;
   top: 6px;
@@ -1272,7 +1258,7 @@ input:checked + .slider:before {
   display: none;
 }
 
-#filter {
+.search-results {
   display: none;
   padding: 15px;
   transition: all .5s ease;
@@ -1282,7 +1268,7 @@ input:checked + .slider:before {
 
 }
 
-#filter div{
+.search-results div{
   border-radius: 3px;
 }
 
@@ -1339,7 +1325,7 @@ input[type='range']::-webkit-slider-thumb {
 
 }
 
-#modules-header::before, #moduleProperty-title::before {
+.panel-header::before {
   content: '';
   width: 34px;
   border-radius: 2px;
@@ -1361,21 +1347,19 @@ input[type='range']::-webkit-slider-thumb {
   border-radius: 1px;
 }
 
+.maximize {
+  position: absolute;
+  right: 15px;
+  display: none;
+  cursor: pointer;
+}
+
 .ce-hidden,.prop-hidden {
   font-weight: bold;
   padding: 10px;
   font-size: 16px;
   text-transform: uppercase;
   border-radius: 5px;
-}
-
-#moduleProperty-title {
-  padding-left: 16px;
-  margin-bottom: 10px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  padding-top: 15px;
-  cursor: move;
 }
 
 .objectPropertyAttributeChecked {

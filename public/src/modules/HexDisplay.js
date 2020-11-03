@@ -1,7 +1,7 @@
 import CircuitElement from "../circuitElement";
 import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
-import { correctWidth, lineTo, moveTo, arc } from "../canvasApi";
+import { correctWidth, lineTo, moveTo, arc, rect2 } from "../canvasApi";
 import { changeInputSize } from "../modules";
 /**
  * @class
@@ -139,6 +139,110 @@ export default class HexDisplay extends CircuitElement {
         this.customDrawSegment(-17, 0, 17, 0, ["lightgrey", "red"][g]);
         this.customDrawSegment(-15, 38, 17, 38, ["lightgrey", "red"][d]);
     }
+
+
+    subcircuitDrawSegment(x1, y1, x2, y2, color, xxSegment, yySegment) {
+        if (color == undefined) color = "lightgrey";
+        var ctx = simulationArea.context;
+        ctx.beginPath();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = correctWidth(3);
+        var xx = xxSegment;
+        var yy = yySegment;
+
+        moveTo(ctx, x1, y1, xx, yy, this.direction);
+        lineTo(ctx, x2, y2, xx, yy, this.direction);
+        ctx.closePath();
+        ctx.stroke();
+    }
+    // Draws the element in the subcircuit. Used in layout mode
+    subcircuitDraw(xOffset = 0, yOffset = 0) {
+        var ctx = simulationArea.context;
+
+        var xx = this.subcircuitMetadata.x + xOffset;
+        var yy = this.subcircuitMetadata.y + yOffset;
+
+        ctx.strokeStyle = "black";
+        ctx.lineWidth = correctWidth(3);
+        let a = 0,
+            b = 0,
+            c = 0,
+            d = 0,
+            e = 0,
+            f = 0,
+            g = 0;
+
+        switch (this.inp.value) {
+            case 0:
+                a = b = c = d = e = f = 1;
+                break;
+            case 1:
+                b = c = 1;
+                break;
+            case 2:
+                a = b = g = e = d = 1;
+                break;
+            case 3:
+                a = b = g = c = d = 1;
+                break;
+            case 4:
+                f = g = b = c = 1;
+                break;
+            case 5:
+                a = f = g = c = d = 1;
+                break;
+            case 6:
+                a = f = g = e = c = d = 1;
+                break;
+            case 7:
+                a = b = c = 1;
+                break;
+            case 8:
+                a = b = c = d = e = g = f = 1;
+                break;
+            case 9:
+                a = f = g = b = c = 1;
+                break;
+            case 0xA:
+                a = f = b = c = g = e = 1;
+                break;
+            case 0xB:
+                f = e = g = c = d = 1;
+                break;
+            case 0xC:
+                a = f = e = d = 1;
+                break;
+            case 0xD:
+                b = c = g = e = d = 1;
+                break;
+            case 0xE:
+                a = f = g = e = d = 1;
+                break;
+            case 0xF:
+                a = f = g = e = 1;
+                break;
+            default:
+
+        }
+        this.subcircuitDrawSegment(10, -20, 10, -38, ["lightgrey", "red"][b],xx, yy);
+        this.subcircuitDrawSegment(10, -17, 10, 1, ["lightgrey", "red"][c],xx, yy);
+        this.subcircuitDrawSegment(-10, -20, -10, -38, ["lightgrey", "red"][f],xx, yy);
+        this.subcircuitDrawSegment(-10, -17, -10, 1, ["lightgrey", "red"][e],xx, yy);
+        this.subcircuitDrawSegment(-8, -38, 8, -38, ["lightgrey", "red"][a],xx, yy);
+        this.subcircuitDrawSegment(-8, -18, 8, -18, ["lightgrey", "red"][g],xx, yy);
+        this.subcircuitDrawSegment(-8, 1, 8, 1, ["lightgrey", "red"][d],xx, yy);
+
+        ctx.beginPath();
+        ctx.strokeStyle = "black";
+        ctx.lineWidth = correctWidth(1);
+        rect2(ctx, -15, -42, 33, 51, xx, yy, this.direction);
+        ctx.stroke();
+
+        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) {
+            ctx.fillStyle = "rgba(255, 255, 32,0.6)";
+            ctx.fill();
+        } 
+    }
 }
 
 /**
@@ -159,3 +263,10 @@ HexDisplay.prototype.tooltipText =
 HexDisplay.prototype.helplink =
     "https://docs.circuitverse.org/#/outputs?id=hex-display";
 HexDisplay.prototype.objectType = "HexDisplay";
+HexDisplay.prototype.canShowInSubcircuit = true;
+HexDisplay.prototype.layoutProperties = {
+    rightDimensionX : 20,
+    leftDimensionX : 15,
+    upDimensionY : 42,
+    downDimensionY: 10
+}

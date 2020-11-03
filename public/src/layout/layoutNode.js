@@ -15,12 +15,10 @@ import { tempBuffer } from '../layoutMode';
  * @category layout
  */
 export default class LayoutNode {
-    constructor(x, y, id, label = '', xx, yy, type, parent) {
+    constructor(x, y, id, label = '', type, parent) {
         this.type = type;
         this.id = id;
 
-        this.xx = xx; // Position of parent
-        this.yy = yy; // Position of parent
         this.label = label;
 
         this.prevx = undefined;
@@ -35,14 +33,15 @@ export default class LayoutNode {
         this.prev = 'a';
         this.count = 0;
         this.parent = parent;
+        this.objectType = "Layout Node";
     }
 
     absX() {
-        return this.x + this.xx;
+        return this.x;
     }
 
     absY() {
-        return this.y + this.yy;
+        return this.y;
     }
 
     update() {
@@ -77,9 +76,9 @@ export default class LayoutNode {
             simulationArea.lastSelected = this;
         } else if (this.wasClicked && this.clicked) {
             // Check if valid position and update accordingly
-            if (tempBuffer.isAllowed(simulationArea.mouseX - this.xx, simulationArea.mouseY - this.yy) && !tempBuffer.isNodeAt(simulationArea.mouseX - this.xx, simulationArea.mouseY - this.yy)) {
-                this.x = simulationArea.mouseX - this.xx;
-                this.y = simulationArea.mouseY - this.yy;
+            if (tempBuffer.isAllowed(simulationArea.mouseX, simulationArea.mouseY) && !tempBuffer.isNodeAt(simulationArea.mouseX, simulationArea.mouseY)) {
+                this.x = simulationArea.mouseX;
+                this.y = simulationArea.mouseY;
             }
         }
     }

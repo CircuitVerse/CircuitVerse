@@ -290,6 +290,43 @@ SubCircuit.prototype.reset = function() {
 
 SubCircuit.prototype.click = function() {
     // this.id=prompt();
+    for(let i = 0; i < this.localScope["Button"].length; i++){
+        if (this.localScope["Button"][i].subcircuitMetadata.showInSubcircuit){
+            var mX = simulationArea.mouseXf - (this.x + this.localScope["Button"][i].subcircuitMetadata.x);
+            var mY = (this.y + this.localScope["Button"][i].subcircuitMetadata.y) - simulationArea.mouseYf;
+
+            var rX = this.layoutProperties.rightDimensionX;
+            var lX = this.layoutProperties.leftDimensionX;
+            var uY = this.layoutProperties.upDimensionY;
+            var dY = this.layoutProperties.downDimensionY;
+
+            if (!layoutMode && !this.directionFixed && !this.overrideDirectionRotation) {
+                if (this.direction == "LEFT") {
+                    lX = this.rightDimensionX;
+                    rX = this.leftDimensionX
+                } else if (this.direction == "DOWN") {
+                    lX = this.downDimensionY;
+                    rX = this.upDimensionY;
+                    uY = this.leftDimensionX;
+                    dY = this.rightDimensionX;
+                } else if (this.direction == "UP") {
+                    lX = this.downDimensionY;
+                    rX = this.upDimensionY;
+                    dY = this.leftDimensionX;
+                    uY = this.rightDimensionX;
+                }
+            }
+            
+            if ((-lX <= mX && mX <= rX && -dY <= mY && mY <= uY)){
+                    this.lastClickedElement = i;
+                    this.localScope["Button"][i].wasClicked = true;
+            }
+        }
+    }    
+}
+
+SubCircuit.prototype.releaseClick = function(){
+    if(this.lastClickedElement !== undefined) this.localScope["Button"][this.lastClickedElement].wasClicked = false;
 }
 
 SubCircuit.prototype.addInputs = function() {
@@ -398,6 +435,17 @@ SubCircuit.prototype.customDraw = function() {
         this.inputNodes[i].draw();
     for (var i = 0; i < this.outputNodes.length; i++)
         this.outputNodes[i].draw();
+
+    // draw subcircuitElements
+    for(let el of circuitElementList){
+        if(!window[el].prototype.canShowInSubcircuit || this.localScope[el].length === 0) continue;
+        
+        for(let i = 0; i < this.localScope[el].length; i++){
+            if (this.localScope[el][i].subcircuitMetadata.showInSubcircuit) {
+                this.localScope[el][i].drawLayoutMode(this.x, this.y);
+            }
+        }
+    }
 
 }
 SubCircuit.prototype.centerElement = true; // To center subcircuit when new

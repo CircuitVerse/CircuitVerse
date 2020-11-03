@@ -2,6 +2,7 @@ import simulationArea from './simulationArea';
 import {
     scheduleUpdate, play, updateCanvasSet, errorDetectedSet, errorDetectedGet,
 } from './engine';
+import { layoutModeGet } from './layoutMode';
 
 window.globalScope = undefined;
 window.lightMode = false; // To be deprecated
@@ -29,6 +30,7 @@ export function stripTags(string = '') {
 export function clockTick() {
     if (!simulationArea.clockEnabled) return;
     if (errorDetectedGet()) return;
+    if (layoutModeGet()) return;
     updateCanvasSet(true);
     globalScope.clockTick();
     play();

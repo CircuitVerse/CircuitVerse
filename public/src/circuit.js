@@ -129,7 +129,6 @@ export function newCircuit(name, id) {
         switchCircuit(this.id);
     });
     $('.circuitName').click((e) => {
-        console.log(globalScope);
         simulationArea.lastSelected = globalScope.root;
         setTimeout(() => {
             document.getElementById('circname').select();
