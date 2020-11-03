@@ -74,7 +74,7 @@ import 'codemirror/addon/edit/closebrackets.js';
 import 'codemirror/addon/hint/anyword-hint.js';
 import 'codemirror/addon/hint/show-hint.js';
 import 'codemirror/addon/display/autorefresh.js';
-import { showError } from './utils';
+import { showError, showMessage } from './utils';
 import { showProperties } from './ux';
 
 var editor;
@@ -1237,7 +1237,7 @@ export function YosysJSON2CV(JSON, parentScope = globalScope, name = "verilogCir
         subScope = parentScope;
     }
     else {
-        subScope = newCircuit(name);
+        subScope = newCircuit(name, undefined, true, false);
     }
     var subScopeID = subScope.id;
     var circuitDevices = {};
@@ -1301,6 +1301,7 @@ export default function generateVerilogCircuit(verilogCode, scope = globalScope)
             scope.verilogMetadata.code = verilogCode;
             var subCircuitScope = {};
             YosysJSON2CV(circuitData, globalScope, "verilogCircuit", subCircuitScope, true);
+            showMessage('Verilog Circuit Successfully Created');
         },
         failure: function(err) {
             showError("Could not connect to Yosys");

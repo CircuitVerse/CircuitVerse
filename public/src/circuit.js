@@ -106,6 +106,11 @@ function deleteCurrentCircuit(scopeId = globalScope.id) {
 
     const confirmation = confirm(`Are you sure want to delete: ${scope.name}\nThis cannot be undone.`);
     if (confirmation) {
+        if (scope.verilogMetadata.isVerilogCircuit) {
+            scope.initialize();
+            for(var id in scope.verilogMetadata.subCircuitScopeIds)
+                delete scopeList[id];
+        }
         $(`#${scope.id}`).remove();
         delete scopeList[scope.id];
         switchCircuit(Object.keys(scopeList)[0]);
@@ -133,8 +138,8 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
         scope.verilogMetadata.isVerilogCircuit = true;
         scope.verilogMetadata.isMainCircuit = isVerilogMain;
     }
+    globalScope = scope;
     if (!isVerilog || isVerilogMain) {
-        globalScope = scope;
         $('.circuits').removeClass('current');
         $('#tabsBar').append(`<div style='display: flex' class='circuits toolbarButton current' id='${scope.id}'><span class='circuitName'>${name}</span><span class ='tabsCloseButton' id='${scope.id}'  >x</span></div>`);
         $('.circuits').click(function () {
@@ -184,6 +189,7 @@ export default class Scope {
         this.restrictedCircuitElementsUsed = [];
         this.id = id || Math.floor((Math.random() * 100000000000) + 1);
         this.CircuitElement = [];
+        this.name = name;
 
         // root object for referring to main canvas - intermediate node uses this
         this.root = new CircuitElement(0, 0, this, 'RIGHT', 1);
@@ -221,9 +227,13 @@ export default class Scope {
         // this.renderObjectOrder = [ ...(moduleList.slice().reverse()), "wires", "allNodes"];
     }
 
+    visibleCircuit() {
+        if(!this.verilogMetadata.isVerilogCircuit)return true;
+        return this.verilogMetadata.isMainCircuit;
+    }
+
     initialize() {
         this.tunnelList = {};
-        this.name = name;
         this.pending = [];
         this.nodes = []; // intermediate nodes only
         this.allNodes = [];

@@ -33,7 +33,7 @@ export function createSubCircuitPrompt(scope = globalScope) {
     $("#insertSubcircuitDialog").empty();
     let flag = true;
     for (id in scopeList) {
-        if (!scopeList[id].checkDependency(scope.id)) {
+        if (!scopeList[id].checkDependency(scope.id) && scopeList[id].visibleCircuit()) {
             flag = false;
             $("#insertSubcircuitDialog").append(
                 `<label class="option custom-radio inline"><input type="radio" name="subCircuitId" value="${id}" />${scopeList[id].name}<span></span></label>`
