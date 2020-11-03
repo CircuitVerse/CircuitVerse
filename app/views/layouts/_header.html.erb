@@ -3,7 +3,7 @@
     <%= image_tag("CircuitVerse.svg", class: "navbar-logo", alt: "CircuitVerse Logo") %>
   </a>
   <div class="center-row navbar-search-icon-container navbar-search-icon-oncollapse">
-    <i class="fa fa-search <%= request.path == '/search' ? 'active' : '' %>" tabindex="0" aria-label="search"></i>
+    <i class="fa fa-search search-icon <%= request.path == '/search' ? 'active' : '' %>" tabindex="0" aria-label="search"></i>
   </div>
   <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse" data-target="#collapsed-navbar"
   aria-controls="collapsedNavbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -13,7 +13,7 @@
     <ul class="navbar-nav ml-auto navigationBar-item">
       <li class="nav-item px-1 pt-1 navbar-search-icon-onexpand">
         <div class="center-row navbar-search-icon-container">
-          <i class="fa fa-search <%= request.path == '/search' ? 'active' : '' %>" tabindex="0" aria-label="search"></i>
+          <i class="fa fa-search search-icon <%= request.path == '/search' ? 'active' : '' %>" tabindex="0" aria-label="search"></i>
         </div>
       </li>
       <li class="nav-item px-1">
