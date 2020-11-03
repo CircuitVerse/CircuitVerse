@@ -8,6 +8,7 @@ import backgroundArea from '../backgroundArea';
 import { findDimensions } from '../canvasApi';
 import { projectSavedSet } from './project';
 import { colors } from '../themer/themer';
+import {layoutModeGet, toggleLayoutMode} from '../layoutMode'
 
 var projectName = undefined;
 
@@ -268,6 +269,9 @@ function generateImageForOnline() {
  * @exports save
  */
 export default function save() {
+    if(layoutModeGet())
+        toggleLayoutMode();
+
     projectSavedSet(true);
 
     $('.loadingIcon').fadeIn();

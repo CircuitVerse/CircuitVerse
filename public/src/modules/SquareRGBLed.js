@@ -177,3 +177,9 @@ SquareRGBLed.prototype.tooltipText = 'Square RGB Led ToolTip: RGB Led inputs 8 b
 SquareRGBLed.prototype.helplink = 'https://docs.circuitverse.org/#/outputs?id=square-rgb-led';
 SquareRGBLed.prototype.objectType = 'SquareRGBLed';
 SquareRGBLed.prototype.canShowInSubcircuit = true;
+SquareRGBLed.prototype.layoutProperties = {
+    rightDimensionX : 15,
+    leftDimensionX : 0,
+    upDimensionY : 15,
+    downDimensionY: 0
+}

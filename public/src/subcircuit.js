@@ -13,7 +13,7 @@ import { loadScope } from "./data/load";
 import { showError } from "./utils";
 
 import Node, { findNode } from "./node";
-import { fillText } from "./canvasApi";
+import { fillText, correctWidth, rect2} from "./canvasApi";
 import { colors } from "./themer/themer";
 import { layoutModeGet } from "./layoutMode"
 /**
@@ -100,6 +100,7 @@ export default class SubCircuit extends CircuitElement {
         this.outputNodes = [];
         this.localScope = new Scope();
         this.preventCircuitSwitch = false; // prevents from switching circuit if double clicking button
+        this.rectangleObject = false;
 
         var subcircuitScope = scopeList[this.id]; // Scope of the subcircuit
         // Error handing
@@ -478,40 +479,22 @@ export default class SubCircuit extends CircuitElement {
     }
 
     getButtonHover() {
-        for(let i = 0; i < this.localScope["Button"].length; i++){
-            if (this.localScope["Button"][i].subcircuitMetadata.showInSubcircuit){
-                var mX = simulationArea.mouseXf - (this.x + this.localScope["Button"][i].subcircuitMetadata.x);
-                var mY = (this.y + this.localScope["Button"][i].subcircuitMetadata.y) - simulationArea.mouseYf;
 
-                var rX = this.layoutProperties.rightDimensionX;
-                var lX = this.layoutProperties.leftDimensionX;
-                var uY = this.layoutProperties.upDimensionY;
-                var dY = this.layoutProperties.downDimensionY;
+        var rX = this.layoutProperties.rightDimensionX;
+        var lX = this.layoutProperties.leftDimensionX;
+        var uY = this.layoutProperties.upDimensionY;
+        var dY = this.layoutProperties.downDimensionY;
 
-                if (!layoutModeGet() && !this.directionFixed && !this.overrideDirectionRotation) {
-                    if (this.direction == "LEFT") {
-                        lX = this.rightDimensionX;
-                        rX = this.leftDimensionX
-                    } else if (this.direction == "DOWN") {
-                        lX = this.downDimensionY;
-                        rX = this.upDimensionY;
-                        uY = this.leftDimensionX;
-                        dY = this.rightDimensionX;
-                    } else if (this.direction == "UP") {
-                        lX = this.downDimensionY;
-                        rX = this.upDimensionY;
-                        dY = this.leftDimensionX;
-                        uY = this.rightDimensionX;
-                    }
-                }
-
-                // if the button was clicked, set its wasClicked to true and prevent double clicks from switching
-                // to the subcircuit's circuit
-                if ((-lX <= mX && mX <= rX && -dY <= mY && mY <= uY)){
-                        return this.localScope["Button"][i];
+        for(let el of circuitElementList){
+            if(this.localScope[el].length === 0) continue;
+            if(!this.localScope[el][0].canShowInSubcircuit) continue;
+            for(let i = 0; i < this.localScope[el].length; i++){
+                var obj = this.localScope[el][i];
+                if (obj.subcircuitMetadata.showInSubcircuit && obj.isSubcircuitHover(this.x, this.y)) {
+                    return obj;
                 }
             }
-        } 
+        }
     }
     
     /**
@@ -620,6 +603,22 @@ export default class SubCircuit extends CircuitElement {
         return ["center", 0, -6];
     }
 
+    checkHover() {
+        super.checkHover();
+        if(this.buttonHover) {
+            this.buttonHover.hover = false;
+            this.buttonHover = undefined;
+            simulationArea.hover = undefined;
+        }
+        var buttonHover = this.getButtonHover();
+        if(buttonHover) {
+            buttonHover.hover = true;
+            this.buttonHover = buttonHover;
+            this.hover = false;
+            simulationArea.hover = buttonHover;
+        }
+    }
+
     /**
      * Draws the subcircuit (and contained elements) on the screen when the subcircuit is included
        in another circuit
@@ -634,10 +633,23 @@ export default class SubCircuit extends CircuitElement {
         ctx.fillStyle = colors["fill"];
         var xx = this.x;
         var yy = this.y;
+
+        ctx.strokeStyle = colors['stroke'];
+        ctx.fillStyle = colors['fill'];
+        ctx.lineWidth = correctWidth(3);
+        ctx.beginPath();
+        rect2(ctx, -this.leftDimensionX, -this.upDimensionY, this.leftDimensionX + this.rightDimensionX, this.upDimensionY + this.downDimensionY, this.x, this.y, [this.direction, 'RIGHT'][+this.directionFixed]);
+        if(!this.buttonHover) {
+            if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) 
+                ctx.fillStyle = colors["hover_select"];
+        }
+        ctx.fill();
+        ctx.stroke();
+
         ctx.beginPath();
 
         ctx.textAlign = "center";
-        ctx.fillStyle = "black"; //colors['text_alt'];
+        ctx.fillStyle = "black";
         if (this.version == "1.0") {
             fillText(
                 ctx,
@@ -711,5 +723,4 @@ export default class SubCircuit extends CircuitElement {
         }
     }
 }
-
 SubCircuit.prototype.centerElement = true; // To center subcircuit when new

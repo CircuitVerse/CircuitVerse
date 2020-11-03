@@ -97,7 +97,7 @@ export default class SevenSegDisplay extends CircuitElement {
         ctx.stroke();
     }
 
-    subcircuitDrawSegment(x1, y1, x2, y2, color) {
+    subcircuitDrawSegment(x1, y1, x2, y2, color, xxSegment, yySegment) {
         if (color == undefined) color = "lightgrey";
         var ctx = simulationArea.context;
         ctx.beginPath();

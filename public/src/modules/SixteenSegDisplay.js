@@ -168,7 +168,7 @@ export default class SixteenSegDisplay extends CircuitElement {
         this.subcircuitDrawSegmentSlant(0, -17, -9, 0, ["lightgrey", "red"][(value >> 0) & 1], xx, yy);     //m
 
         ctx.beginPath();
-        var dotColor = ["lightgrey", "red"][this.dot.value] || "lightgrey"
+        var dotColor = ["lightgrey", "red"][this.dot.value] || "lightgrey";
         ctx.strokeStyle = dotColor;
         rect(ctx, xx + 13, yy + 5, 1, 1);
         ctx.stroke();

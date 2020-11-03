@@ -108,7 +108,6 @@ export default class Button extends CircuitElement {
             ctx.fillStyle = "rgba(232, 13, 13,0.8)";
         ctx.fill();
     }
-
 }
 
 /**

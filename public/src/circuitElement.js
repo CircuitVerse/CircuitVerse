@@ -499,6 +499,18 @@ export default class CircuitElement {
         return -lX <= mX && mX <= rX && -dY <= mY && mY <= uY;
     }
 
+    isSubcircuitHover(xoffset = 0, yoffset = 0) {
+        var mX = simulationArea.mouseXf - this.subcircuitMetadata.x - xoffset;
+        var mY = yoffset + this.subcircuitMetadata.y - simulationArea.mouseYf;
+
+        var rX = this.layoutProperties.rightDimensionX;
+        var lX = this.layoutProperties.leftDimensionX;
+        var uY = this.layoutProperties.upDimensionY;
+        var dY = this.layoutProperties.downDimensionY;
+       
+        return -lX <= mX && mX <= rX && -dY <= mY && mY <= uY;
+    }
+
     /**
     * Helper Function to set label of an element.
     * @memberof CircuitElement
@@ -597,7 +609,9 @@ export default class CircuitElement {
     **/
     drawLayoutMode(xOffset = 0, yOffset = 0){
         var ctx = simulationArea.context;
-        this.checkHover();
+        if(layoutModeGet()) {
+            this.checkHover();
+        }
         if (this.subcircuitMetadata.x * this.scope.scale + this.scope.ox < -this.layoutProperties.rightDimensionX * this.scope.scale  || this.subcircuitMetadata.x * this.scope.scale + this.scope.ox > width + this.layoutProperties.leftDimensionX * this.scope.scale  || this.subcircuitMetadata.y * this.scope.scale + this.scope.oy < -this.layoutProperties.downDimensionY * this.scope.scale  || this.subcircuitMetadata.y * this.scope.scale + this.scope.oy > height + this.layoutProperties.upDimensionY * this.scope.scale) return;
 
         if (this.subcircuitMetadata.showLabelInSubcircuit) {

@@ -145,3 +145,4 @@ Text.prototype.mutableProperties = {
     },
 };
 Text.prototype.objectType = 'Text';
+Text.prototype.propagationDelayFixed = true;

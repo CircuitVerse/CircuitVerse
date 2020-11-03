@@ -518,7 +518,6 @@ function onMouseUp(e) {
         uxvar.smartDropXX = simulationArea.mouseX + 100; // Math.round(((simulationArea.mouseRawX - globalScope.ox+100) / globalScope.scale) / unit) * unit;
         uxvar.smartDropYY = simulationArea.mouseY - 50; // Math.round(((simulationArea.mouseRawY - globalScope.oy+100) / globalScope.scale) / unit) * unit;
     }
-    if (simulationArea.controlDown) selectElement(simulationArea.lastSelected.title);
 }
 
 function resizeTabs() {

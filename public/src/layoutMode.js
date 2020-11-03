@@ -187,7 +187,6 @@ export function layoutUpdate(scope = globalScope) {
             if (globalScope[elementName][j].subcircuitMetadata.showInSubcircuit) {
                 globalScope[elementName][j].layoutUpdate();
             }
-
         }
     }
     paneLayout(scope);

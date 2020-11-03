@@ -374,7 +374,6 @@ export function updateSelectionsAndPane(scope = globalScope) {
  * @category engine
  */
 export function play(scope = globalScope, resetNodes = false) {
-    if(layoutModeGet()) return; // Don't simulate in layout mode
     if (errorDetected) return; // Don't simulate until error is fixed
     if (loading === true) return; // Don't simulate until loaded
     if (!embed) plotArea.stopWatch.Stop(); // Waveform thing
@@ -384,13 +383,7 @@ export function play(scope = globalScope, resetNodes = false) {
         simulationArea.simulationQueue.reset();
         forceResetNodesSet(false);
     }
-    // Temporarily kept for for future uses
-    // else{
-    //     // clearBuses(scope);
-    //     for(var i=0;i<scope.TriState.length;i++) {
-    //         scope.TriState[i].removePropagation();
-    //     }
-    // }
+
     // Add subcircuits if they can be resolved -- needs to be removed/ deprecated
     for (let i = 0; i < scope.SubCircuit.length; i++) {
         if (scope.SubCircuit[i].isResolvable()) simulationArea.simulationQueue.add(scope.SubCircuit[i]);
@@ -436,23 +429,20 @@ export function play(scope = globalScope, resetNodes = false) {
  */
 export function scheduleUpdate(count = 0, time = 100, fn) {
     if (lightMode) time *= 5;
-    if (count && !layoutModeGet()) { // Force update
-        update();
-        for (let i = 0; i < count; i++) { setTimeout(update, 10 + 50 * i); }
+    var updateFn = layoutModeGet() ? layoutUpdate : update;
+    if (count) { // Force update
+        updateFn();
+        for (let i = 0; i < count; i++) { setTimeout(updateFn, 10 + 50 * i); }
     }
     if (willBeUpdated) return; // Throttling
     willBeUpdatedSet(true);
-    if (layoutModeGet()) {
-        setTimeout(layoutUpdate, time); // Update layout, different algorithm
-        return;
-    }
     // Call a function before update ..
     if (fn) {
         setTimeout(() => {
             fn();
-            update();
+            updateFn();
         }, time);
-    } else setTimeout(update, time);
+    } else setTimeout(updateFn, time);
 }
 
 /**

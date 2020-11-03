@@ -136,7 +136,6 @@ export default class Counter extends CircuitElement {
         ctx.lineWidth = correctWidth(1);
         rect2(ctx, 0, 0, 20, 20, xx, yy, this.direction);
         ctx.stroke();
-        console.log('drawing');
     }
 }
 
