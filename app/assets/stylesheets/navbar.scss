@@ -15,6 +15,10 @@
   height: 40px;
   position: relative;
   width: 40px;
+
+  .search-icon {
+    cursor: pointer;
+  }
 }
 
 .navbar-search-icon-oncollapse {
@@ -48,7 +52,7 @@
   border: 2px solid $primary-green;
   color: $navbar-dark-grey;
   font-weight: 500;
-  transition: all .3s ease-in;
+  transition: all 0.3s ease-in;
 
   &:hover {
     background: $primary-green;
@@ -68,7 +72,7 @@
   &::after {
     margin-left: 0;
     padding-left: 0;
-    vertical-align: .5em;
+    vertical-align: 0.5em;
   }
 }
 
@@ -155,10 +159,25 @@
   border: 1px solid $primary-green;
   cursor: pointer;
   font-size: 18px;
-  height: 38px;
+  height: 40px;
   margin-right: 6px;
   margin-top: 5px;
-  max-width: 90px;
+  min-width: 100px;
+  max-width: 100px;
+  appearance: none; // to hide the default dropdown icon
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E"),
+    // svg dropdown icon
+    linear-gradient(
+        to bottom,
+        #ffffff 0%,
+        #ffffff 100%
+      ); // background gradient color for select bar
+  background-repeat: no-repeat, repeat;
+  background-position: right 0.3em top 50%, 0 0; /* arrow icon position (0.3em from the right, 50% vertical) , then gradient position*/
+  background-size: 0.45em auto, 100%; /* icon size, then gradient */
+  padding-left: 5px;
 }
 
 //breakpoints
