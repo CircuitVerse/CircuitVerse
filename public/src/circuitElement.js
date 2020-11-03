@@ -355,7 +355,7 @@ export default class CircuitElement {
      * Return Value: true if the state has changed, false otherwise
     **/
 
-    layoutUpdate(){
+    layoutUpdate() {
         var update = false;
         update |= this.newElement;
         if (this.newElement) {
@@ -371,8 +371,6 @@ export default class CircuitElement {
         if (!simulationArea.hover || simulationArea.hover == this)
             this.hover = this.isHover();
 
-        // if (!simulationArea.mouseDown) this.hover = false;
-
         if ((this.clicked || !simulationArea.hover) && this.isHover()) {
             this.hover = true;
             simulationArea.hover = this;
@@ -382,25 +380,11 @@ export default class CircuitElement {
         }
 
         if (simulationArea.mouseDown && (this.clicked)) {
-
             this.drag();
-            // if (!simulationArea.shiftDown && simulationArea.multipleObjectSelections.contains(this)) {
-            //     for (var i = 0; i < simulationArea.multipleObjectSelections.length; i++) {
-            //         simulationArea.multipleObjectSelections[i].drag();
-            //     }
-            // }
-
             update |= true;
         } else if (simulationArea.mouseDown && !simulationArea.selected) {
-
             this.startDragging();
-            // if (!simulationArea.shiftDown && simulationArea.multipleObjectSelections.contains(this)) {
-            //     for (var i = 0; i < simulationArea.multipleObjectSelections.length; i++) {
-            //         simulationArea.multipleObjectSelections[i].startDragging();
-            //     }
-            // }
             simulationArea.selected = this.clicked = this.hover;
-
             update |= this.clicked;
         } else {
             if (this.clicked) simulationArea.selected = false;
@@ -411,17 +395,7 @@ export default class CircuitElement {
         if (simulationArea.mouseDown && !this.wasClicked) {
             if (this.clicked) {
                 this.wasClicked = true;
-                // if (this.click) this.click();
-                if (simulationArea.shiftDown) {
-                //     simulationArea.lastSelected = undefined;
-                //     if (simulationArea.multipleObjectSelections.contains(this)) {
-                //         simulationArea.multipleObjectSelections.clean(this);
-                //     } else {
-                //         simulationArea.multipleObjectSelections.push(this);
-                //     }
-                } else {
-                    simulationArea.lastSelected = this;
-                }
+                simulationArea.lastSelected = this;
             }
         }
 
@@ -469,7 +443,6 @@ export default class CircuitElement {
         var dY = this.downDimensionY;
 
         if (layoutModeGet()) {
-
             var mX = simulationArea.mouseXf - this.subcircuitMetadata.x;
             var mY = this.subcircuitMetadata.y - simulationArea.mouseYf;
 

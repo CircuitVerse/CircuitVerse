@@ -374,7 +374,6 @@ export default function startListeners() {
             // make a shallow copy of the element with the new coordinates
             tempElement = globalScope[this.dataset.elementName][this.dataset.elementId];
             
-            
             // Changing the coordinate doesn't work yet, nodes get far from element
             tempElement.x = ui.position.left - sideBarWidth;
             tempElement.y = ui.position.top;

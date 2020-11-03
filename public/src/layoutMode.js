@@ -154,11 +154,9 @@ export function renderLayout(scope = globalScope) {
         let elementName = circuitElementList[i];
 
         for(let j = 0; j < globalScope[elementName].length; j++){
-
             if (globalScope[elementName][j].subcircuitMetadata.showInSubcircuit) {
                 globalScope[elementName][j].drawLayoutMode();
             }
-
         }
     }
 }

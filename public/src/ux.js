@@ -589,10 +589,7 @@ export function fillSubcircuitElements() {
         $('#subcircuitMenu').append("<p>No layout elements available</p>");
     }
 
-    
-
     $('.subcircuitModule').mousedown(function () {
-
         let elementName = this.dataset.elementName;
         let elementIndex = this.dataset.elementId;
 
@@ -602,8 +599,6 @@ export function fillSubcircuitElements() {
         element.newElement = true;
         simulationArea.lastSelected = element;
         this.parentElement.removeChild(this);
-
-
     });
 } 
 
