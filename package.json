@@ -28,6 +28,7 @@
     "bootstrap": "^4.5.0",
     "codemirror": "^5.58.2",
     "css-vars": "^2.2.0",
+    "dom-to-image": "^2.6.0",
     "driver.js": "^0.9.8",
     "expose-loader": "^0.7.5",
     "jquery": "^3.5.1",
