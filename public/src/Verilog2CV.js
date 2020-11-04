@@ -1242,12 +1242,11 @@ export function YosysJSON2CV(JSON, parentScope = globalScope, name = "verilogCir
     else {
         subScope = newCircuit(name, undefined, true, false);
     }
-    var subScopeID = subScope.id;
     var circuitDevices = {};
 
     for (var subCircuitName in JSON.subcircuits) {
-        var subCircuit = YosysJSON2CV(JSON.subcircuits[subCircuitName], subScope, subCircuitName, subCircuitScope);
-        subCircuitScope[subCircuitName] = subCircuit.id; 
+        var scope = YosysJSON2CV(JSON.subcircuits[subCircuitName], subScope, subCircuitName, subCircuitScope);
+        subCircuitScope[subCircuitName] = scope.id; 
     }
 
     for (var device in JSON.devices) {
@@ -1278,8 +1277,7 @@ export function YosysJSON2CV(JSON, parentScope = globalScope, name = "verilogCir
     
     if (!root) {
         switchCircuit(parentID);
-        var veriSubCircuit = new SubCircuit(500, 500, undefined, subScopeID);
-        return veriSubCircuit;
+        return subScope;
     }
 }
 
