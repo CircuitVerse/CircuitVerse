@@ -152,8 +152,8 @@ function showProperties(obj) {
 
         // setting the name of the title bar as same as it is in the side bar
         $('.projectName').val($('[name="setProjectName"]').val()); // setting the initial value of title heading
-        $('[name="setProjectName"]').on('input', (e) => $('.projectName').val(e.target.value));// setting the value of header title on sidebar title change
-        $('.projectName').on('input', (e) => $('[name="setProjectName"]').val(e.target.value));// setting the value of sidebar title on header title change
+        $('[name="setProjectName"]').on('input', (e) => { $('.projectName').val(e.target.value); }); // setting the value of header title on sidebar title change
+        $('.projectName').on('input', (e) => { $('[name="setProjectName"]').val(e.target.value); }); // setting the value of sidebar title on header title change
     } else {
         $('#moduleProperty').show();
 
