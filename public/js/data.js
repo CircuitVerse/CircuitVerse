@@ -429,7 +429,7 @@ function generateImageForOnline() {
     // Ensure image is approximately 700 x 440
     resolution = Math.min(700 / (simulationArea.maxWidth - simulationArea.minWidth), 440 / (simulationArea.maxHeight - simulationArea.minHeight));
 
-    data = generateImage("jpeg", "current", false, resolution, download = false);
+    data = generateImage("jpeg", "current", false, resolution, false);
 
     // Restores Focus
     globalScope.centerFocus(false);
@@ -988,7 +988,22 @@ function promptSave(){
     save()
 }
 
-function postUserIssue(message) {
+async function postUserIssue(message) {
+    var img = generateImage("jpeg", "full", false, 1, false).split(',')[1];
+    const result = await $.ajax({
+            url: 'https://api.imgur.com/3/image',
+            type: 'POST',
+            data: {
+                image: img
+            },
+            dataType: 'json',
+            headers: {
+                Authorization: 'Client-ID 9a33b3b370f1054'
+            },
+        });
+
+    message += "\n" + result.data.link;
+    
     $.ajax({
         url: '/simulator/post_issue',
         type: 'POST',
