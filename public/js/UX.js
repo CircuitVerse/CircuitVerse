@@ -149,6 +149,11 @@ function showProperties(obj) {
         $('#moduleProperty-inner').append("<p>Lite Mode : <label class='switch'> <input type='checkbox' " + ["", "checked"][lightMode + 0] + " class='objectPropertyAttributeChecked' name='changeLightMode' > <span class='slider'></span> </label></p>");
         // $('#moduleProperty-inner').append("<p>  ");
         $('#moduleProperty-inner').append("<p><button type='button' class='objectPropertyAttributeChecked btn btn-danger btn-xs' name='deleteCurrentCircuit' >Delete Circuit</button>  <button type='button' class='objectPropertyAttributeChecked btn btn-primary btn-xs' name='toggleLayoutMode' >Edit Layout</button> </p>");
+
+        // setting the name of the title bar as same as it is in the side bar
+        $('.projectName').val($('[name="setProjectName"]').val()); // setting the initial value of title heading
+        $('[name="setProjectName"]').on('input', (e) => $('.projectName').val(e.target.value));// setting the value of header title on sidebar title change
+        $('.projectName').on('input', (e) => $('[name="setProjectName"]').val(e.target.value));// setting the value of sidebar title on header title change
     } else {
         $('#moduleProperty').show();
 
