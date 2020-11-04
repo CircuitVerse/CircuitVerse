@@ -87,21 +87,18 @@ button:focus {
     overflow-x: hidden;
 }
 
-.labelForProjectName {
-    margin: 0 auto;
-    position: static;
-    left: 50%;
-    margin-left: -250px;
-}
-
 .projectName {
     /*margin:3px;*/
     color: #0099ff;
+    margin: 0 auto;
     text-align: center;
     font-size: 1.4em;
+    position: static;
+    left: 50%;
     display: block;
     width: 500px;
     text-align: center;
+    margin-left: -250px;
     border: none;
     border-bottom: 1px solid transparent;
     background: transparent;
