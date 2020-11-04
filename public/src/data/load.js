@@ -179,13 +179,13 @@ export default function load(data) {
     for (let i = 0; i < data.scopes.length; i++) {
 
         var isVerilogCircuit = false;
-        var isVerilogMainCircuit = false;
+        var isMainCircuit = false;
         if(data.scopes[i].verilogMetadata) {
             isVerilogCircuit = data.scopes[i].verilogMetadata.isVerilogCircuit;
-            isVerilogMainCircuit = data.scopes[i].verilogMetadata.isVerilogMainCircuit;
+            isMainCircuit = data.scopes[i].verilogMetadata.isMainCircuit;
         }
         // Create new circuit
-        const scope = newCircuit(data.scopes[i].name || 'Untitled', data.scopes[i].id, isVerilogCircuit, isVerilogMainCircuit);
+        const scope = newCircuit(data.scopes[i].name || 'Untitled', data.scopes[i].id, isVerilogCircuit, isMainCircuit);
 
         // Load circuit data
         loadScope(scope, data.scopes[i]);
@@ -213,8 +213,8 @@ export default function load(data) {
     if (!embed) { showProperties(simulationArea.lastSelected); }
 
     // Switch to last focussedCircuit
-    if (data.focussedCircuit) switchCircuit(data.focussedCircuit);
-
+    if (data.focussedCircuit) 
+        switchCircuit(data.focussedCircuit);
 
     updateSimulationSet(true);
     updateCanvasSet(true);

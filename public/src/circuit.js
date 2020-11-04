@@ -128,7 +128,7 @@ function deleteCurrentCircuit(scopeId = globalScope.id) {
 export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
     if (layoutModeGet()) { toggleLayoutMode(); }
     if (verilogModeGet()) { verilogModeSet(false);}
-    name = name || prompt('Enter circuit name:');
+    name = name || prompt('Enter circuit name:') || 'Untitled-Circuit';
     name = stripTags(name);
     if (!name) return;
     const scope = new Scope(name);

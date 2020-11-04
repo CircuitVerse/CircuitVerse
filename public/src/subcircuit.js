@@ -16,6 +16,7 @@ import Node, { findNode } from "./node";
 import { fillText, correctWidth, rect2} from "./canvasApi";
 import { colors } from "./themer/themer";
 import { layoutModeGet } from "./layoutMode"
+import { verilogModeGet } from "./Verilog2CV"
 /**
  * Function to load a subcicuit
  * @category subcircuit
@@ -30,6 +31,10 @@ export function loadSubCircuit(savedData, scope) {
  * @category subcircuit
  */
 export function createSubCircuitPrompt(scope = globalScope) {
+    if(verilogModeGet() || layoutModeGet()) {
+        showError("Subcircuit cannot be inserted in this mode");
+        return;
+    }
     $("#insertSubcircuitDialog").empty();
     let flag = true;
     for (id in scopeList) {

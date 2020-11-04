@@ -62,7 +62,7 @@ import Rom from './sequential/Rom';
 import TB_Input from './testbench/testbenchInput';
 import TB_Output from './testbench/testbenchOutput';
 import ForceGate from './testbench/ForceGate';
-import { newCircuit, switchCircuit } from './circuit'
+import { newCircuit, switchCircuit, changeCircuitName} from './circuit'
 import SubCircuit from './subcircuit';
 
 import CodeMirror from 'codemirror/lib/codemirror.js';
@@ -82,7 +82,7 @@ var verilogMode = false;
 
 
 export function createVerilogCircuit() {
-    var circuit = newCircuit(undefined, undefined, true, true);
+    newCircuit(undefined, undefined, true, true);
     verilogModeSet(true);
 }
 
@@ -96,6 +96,9 @@ export function resetVerilogCode() {
     editor.setValue(globalScope.verilogMetadata.code);
 }
 
+export function hasVerilogCodeChanges() {
+    return editor.getValue() != globalScope.verilogMetadata.code;
+}
 
 export function verilogModeGet() {
     return verilogMode;
@@ -1259,8 +1262,6 @@ export function YosysJSON2CV(JSON, parentScope = globalScope, name = "verilogCir
     }
 
     for (var connection in JSON.connectors) {
-        if (connection == "clean") break;
-
         var fromId = JSON.connectors[connection]["from"]["id"];
         var fromPort = JSON.connectors[connection]["from"]["port"];
         var toId = JSON.connectors[connection]["to"]["id"];
@@ -1275,7 +1276,7 @@ export function YosysJSON2CV(JSON, parentScope = globalScope, name = "verilogCir
         fromPortNode.connect(toPortNode);
     }
     
-    if(!root) {
+    if (!root) {
         switchCircuit(parentID);
         var veriSubCircuit = new SubCircuit(500, 500, undefined, subScopeID);
         return veriSubCircuit;
@@ -1293,7 +1294,8 @@ export default function generateVerilogCircuit(verilogCode, scope = globalScope)
         },
         data: params,
         success: function(response) {
-            var circuitData = JSON.parse(response[0]);
+            var circuitData = response;
+            console.log(circuitData);
             scope.initialize();
             for(var id in scope.verilogMetadata.subCircuitScopeIds)
                 delete scopeList[id];
@@ -1301,10 +1303,23 @@ export default function generateVerilogCircuit(verilogCode, scope = globalScope)
             scope.verilogMetadata.code = verilogCode;
             var subCircuitScope = {};
             YosysJSON2CV(circuitData, globalScope, "verilogCircuit", subCircuitScope, true);
+            changeCircuitName(circuitData.name);
             showMessage('Verilog Circuit Successfully Created');
+            $('#verilogOutput').empty();
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            var errorCode = XMLHttpRequest.status;
+            if (errorCode == 500) {
+                showError("Could not connect to Yosys");
+            }
+            else {
+                showError("There is some issue with the code");
+            }
+            var errorMessage = XMLHttpRequest.responseJSON;
+            $('#verilogOutput').html(errorMessage.message);
         },
         failure: function(err) {
-            showError("Could not connect to Yosys");
+            
         }
     });
 }

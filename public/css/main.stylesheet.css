@@ -1463,17 +1463,14 @@ input[type='range']::-webkit-slider-thumb {
 /*! Color them dialog styles ends here*/
 
 .CodeMirror {
-  height: 100%;
+  height: calc(100% - 78px);
+  overflow: scroll;
 }
 
 #code-window {
-  width: 100%;
-  height: 100%;
   display: none;
 }
 
-#codeTextArea {
-  width: 100%;
-  height: 100%;
-  display: none;
+#verilogOutput {
+  font-size: 12px;
 }
