@@ -99,6 +99,15 @@ button:focus {
     width: 500px;
     text-align: center;
     margin-left: -250px;
+    border: none;
+    border-bottom: 1px solid transparent;
+    background: transparent;
+    cursor: text;
+    transition: .1s ease-in-out;
+}
+
+.projectName:hover, .projectName:focus {
+    border-bottom-color: rgb(216, 216, 216);
 }
 
 .inline {
