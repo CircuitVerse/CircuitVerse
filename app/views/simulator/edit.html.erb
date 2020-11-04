@@ -48,7 +48,9 @@
         <a href="https://docs.circuitverse.org" class="text-light" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">Help</a>
       </li>
     </ul>
-    <input type="text" class="projectName font-weight-bold" id="projectName" placeholder="Project Name">
+    <label for="projectName" class="labelForProjectName">
+      <input type="text" class="projectName font-weight-bold" id="projectName" placeholder="Project Name">
+    </label>
     <ul class="nav navbar-nav noSelect pointerCursor pull-right">
       <li class="dropdown pull-right">
         <% if user_signed_in? %>
