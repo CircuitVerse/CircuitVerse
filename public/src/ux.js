@@ -17,7 +17,7 @@ import { paste } from './events';
 import { setProjectName, getProjectName } from './data/save';
 import { changeScale } from './canvasApi';
 import updateTheme from "./themer/themer";
-
+import { generateImage } from './data/save';
 
 export const uxvar = {
     smartDropXX: 50,
@@ -602,7 +602,23 @@ export function fillSubcircuitElements() {
     });
 } 
 
-function postUserIssue(message) {
+async function postUserIssue(message) {
+
+    var img = generateImage("jpeg", "full", false, 1, false).split(',')[1];
+    const result = await $.ajax({
+            url: 'https://api.imgur.com/3/image',
+            type: 'POST',
+            data: {
+                image: img
+            },
+            dataType: 'json',
+            headers: {
+                Authorization: 'Client-ID 9a33b3b370f1054'
+            },
+        });
+
+    message += "\n" + result.data.link;
+
     $.ajax({
         url: '/simulator/post_issue',
         type: 'POST',
