@@ -182,7 +182,7 @@ export function setup() {
         }
     }, 1000);
 
-    if (!localStorage.tutorials_tour_done) {
+    if (!localStorage.tutorials_tour_done && !embed) {
         setTimeout(()=> {showTourGuide();}, 2000);
     }
     

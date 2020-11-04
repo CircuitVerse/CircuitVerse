@@ -17,6 +17,7 @@ import undo from './data/undo';
 import { copy, paste, selectAll } from './events';
 import save from './data/save';
 import { createElement } from './ux';
+import { verilogModeGet } from './Verilog2CV';
 
 var unit = 10;
 var createNode = false; // Flag to create node when its value ==tru)e
@@ -294,6 +295,7 @@ export default function startListeners() {
     }
 
     document.addEventListener('cut', (e) => {
+        if (verilogModeGet()) return;
         if (document.activeElement.tagName == 'INPUT') return;
 
         if (listenToSimulator) {
@@ -320,6 +322,7 @@ export default function startListeners() {
     });
 
     document.addEventListener('copy', (e) => {
+        if (verilogModeGet()) return;
         if (document.activeElement.tagName == 'INPUT') return;
 
         if (listenToSimulator) {

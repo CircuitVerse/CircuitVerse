@@ -23,7 +23,13 @@ export function paste(copyData) {
     var currentScopeId = globalScope.id;
     for (let i = 0; i < data.scopes.length; i++) {
         if (scopeList[data.scopes[i].id] === undefined) {
-            var scope = newCircuit(data.scopes[i].name, data.scopes[i].id);
+            var isVerilogCircuit = false;
+            var isMainCircuit = false;
+            if(data.scopes[i].verilogMetadata) {
+                isVerilogCircuit = data.scopes[i].verilogMetadata.isVerilogCircuit;
+                isMainCircuit = data.scopes[i].verilogMetadata.isMainCircuit;
+            }
+            var scope = newCircuit(data.scopes[i].name, data.scopes[i].id, isVerilogCircuit, isMainCircuit);
             loadScope(scope, data.scopes[i]);
             scopeList[data.scopes[i].id] = scope;
         }
