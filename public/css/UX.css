@@ -87,18 +87,21 @@ button:focus {
     overflow-x: hidden;
 }
 
+.labelForProjectName {
+    margin: 0 auto;
+    position: static;
+    left: 50%;
+    margin-left: -250px;
+}
+
 .projectName {
     /*margin:3px;*/
     color: #0099ff;
-    margin: 0 auto;
     text-align: center;
     font-size: 1.4em;
-    position: static;
-    left: 50%;
     display: block;
     width: 500px;
     text-align: center;
-    margin-left: -250px;
     border: none;
     border-bottom: 1px solid transparent;
     background: transparent;
@@ -108,6 +111,12 @@ button:focus {
 
 .projectName:hover, .projectName:focus {
     border-bottom-color: rgb(216, 216, 216);
+}
+
+@media only screen and (max-width: 1344px) {
+    .projectName:hover, .projectName:focus {
+        border-bottom-color: transparent;
+    }
 }
 
 .inline {
