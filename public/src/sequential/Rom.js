@@ -34,7 +34,6 @@ export default class Rom extends CircuitElement {
         this.en = new Node(0, 50, 0, this, 1, 'Enable');
         this.dataOut = new Node(80, 0, 1, this, 8, 'DataOut');
         this.data = data || prompt('Enter data').split(' ').map((lambda) => parseInt(lambda, 16));
-        // console.log(this.data);
     }
 
     /**

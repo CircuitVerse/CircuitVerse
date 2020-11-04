@@ -55,7 +55,6 @@ export default class Random extends CircuitElement {
      * Random number is generated less then the maxValue.
      */
     resolve() {
-        // console.log("HIT")
         var maxValue = this.maxValue.connections.length ? this.maxValue.value + 1 : (2 << (this.bitWidth - 1));
         if (this.clockInp.value != undefined) {
             if (this.clockInp.value != this.prevClockState) {

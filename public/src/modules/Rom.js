@@ -38,7 +38,6 @@ export default class Rom extends CircuitElement {
             prompt("Enter data")
                 .split(" ")
                 .map((lambda) => parseInt(lambda, 16));
-        // console.log(this.data);
     }
 
     /**

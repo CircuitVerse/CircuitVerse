@@ -431,7 +431,6 @@ export default class Node {
      * this function draw a node
      */
     draw() {
-        // console.log(this.id)
         const ctx = simulationArea.context;
         //        
         const color = colors["color_wire_draw"];

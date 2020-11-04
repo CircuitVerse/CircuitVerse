@@ -41,7 +41,6 @@ export default class Text extends CircuitElement {
         ctx.font = `${this.fontSize}px Georgia`;
         this.leftDimensionX = 10;
         this.rightDimensionX = ctx.measureText(this.label).width + 10;
-        // console.log(this.leftDimensionX,this.rightDimensionX,ctx.measureText(this.label))
     }
 
     /**

@@ -198,7 +198,6 @@ export const shortcut = {
         modifiers.alt.pressed == modifiers.alt.wanted &&
         modifiers.meta.pressed == modifiers.meta.wanted
       ) {
-        // console.log(callback);
         callback(e);
 
         if (!opt["propagate"]) {

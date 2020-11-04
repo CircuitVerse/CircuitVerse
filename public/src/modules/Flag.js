@@ -51,7 +51,6 @@ export default class Flag extends CircuitElement {
     setPlotValue() {
         const time = plotArea.stopWatch.ElapsedMilliseconds;
 
-        // //console.log("DEB:",time);
         if (
             this.plotValues.length &&
             this.plotValues[this.plotValues.length - 1][0] === time

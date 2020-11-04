@@ -186,7 +186,6 @@ export default class Decoder extends CircuitElement {
         ctx.fillStyle = "black";
         ctx.textAlign = "center";
         // [xFill,yFill] = rotate(xx + this.output1[i].x - 7, yy + this.output1[i].y + 2);
-        // //console.log([xFill,yFill])
         for (let i = 0; i < this.outputsize; i++) {
             if (this.direction === "LEFT")
                 fillText(

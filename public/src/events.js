@@ -221,7 +221,6 @@ export function copy(copyList, cutflag = false) {
             const obj = globalScope[updateOrder[i]][j];
             if (obj.objectType != 'Wire') { // }&&obj.objectType!='CircuitElement'){//}&&(obj.objectType!='Node'||obj.type==2)){
                 if (!copyList.contains(globalScope[updateOrder[i]][j])) {
-                    // //console.log("DELETE:", globalScope[updateOrder[i]][j]);
                     globalScope[updateOrder[i]][j].cleanDelete();
                 }
             }

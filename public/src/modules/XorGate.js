@@ -66,7 +66,6 @@ export default class XorGate extends CircuitElement {
      * @return {JSON}
      */
     customSave() {
-        // //console.log(this.scope.allNodes);
         const data = {
             constructorParamaters: [
                 this.direction,

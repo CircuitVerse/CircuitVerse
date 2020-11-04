@@ -51,14 +51,16 @@ export function switchCircuit(id) {
     // globalScope.fixLayout();
     scheduleBackup();
     if (id === globalScope.id) return;
-    $(`#${globalScope.id}`).removeClass('current');
-    $(`#${id}`).addClass('current');
+    $(`.circuits`).removeClass('current');
     simulationArea.lastSelected = undefined;
     simulationArea.multipleObjectSelections = [];
     simulationArea.copyList = [];
     globalScope = scopeList[id];
     if (globalScope.verilogMetadata.isVerilogCircuit) {
         verilogModeSet(true);
+    }
+    if (globalScope.isVisible()) {
+        $(`#${id}`).addClass('current');
     }
     updateSimulationSet(true);
     updateSubcircuitSet(true);
@@ -139,8 +141,8 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
         scope.verilogMetadata.isMainCircuit = isVerilogMain;
     }
     globalScope = scope;
+    $('.circuits').removeClass('current');
     if (!isVerilog || isVerilogMain) {
-        $('.circuits').removeClass('current');
         $('#tabsBar').append(`<div style='display: flex' class='circuits toolbarButton current' id='${scope.id}'><span class='circuitName'>${name}</span><span class ='tabsCloseButton' id='${scope.id}'  >x</span></div>`);
         $('.circuits').click(function () {
             switchCircuit(this.id);
@@ -227,7 +229,7 @@ export default class Scope {
         // this.renderObjectOrder = [ ...(moduleList.slice().reverse()), "wires", "allNodes"];
     }
 
-    visibleCircuit() {
+    isVisible() {
         if(!this.verilogMetadata.isVerilogCircuit)return true;
         return this.verilogMetadata.isMainCircuit;
     }

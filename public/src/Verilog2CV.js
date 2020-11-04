@@ -1295,7 +1295,6 @@ export default function generateVerilogCircuit(verilogCode, scope = globalScope)
         data: params,
         success: function(response) {
             var circuitData = response;
-            console.log(circuitData);
             scope.initialize();
             for(var id in scope.verilogMetadata.subCircuitScopeIds)
                 delete scopeList[id];
@@ -1314,9 +1313,9 @@ export default function generateVerilogCircuit(verilogCode, scope = globalScope)
             }
             else {
                 showError("There is some issue with the code");
+                var errorMessage = XMLHttpRequest.responseJSON;
+                $('#verilogOutput').html(errorMessage.message);
             }
-            var errorMessage = XMLHttpRequest.responseJSON;
-            $('#verilogOutput').html(errorMessage.message);
         },
         failure: function(err) {
             

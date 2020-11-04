@@ -226,7 +226,6 @@ export function prevPropertyObjGet() {
  */
 export function showProperties(obj) {
     if (obj === prevPropertyObjGet()) return;
-    console.log("hit", obj);
     hideProperties();
     prevPropertyObjSet(obj);
     if(layoutModeGet()){
