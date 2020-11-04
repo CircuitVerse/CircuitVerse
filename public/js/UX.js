@@ -9,9 +9,7 @@ var ctxPos = {
 };
 
 // Function updates the values of project inputs accordingly
-function watchOneInputChangeAndUpdateAnother(objectToListen, objectToChange) {
-    $(`${objectToListen}`).on('input', (e) => { $(`${objectToChange}`).val(e.target.value); }); // setting the value of header title on sidebar title change
-}
+const watchOneInputChangeAndUpdateAnother = (objectToListen, objectToChange) => $(`${objectToListen}`).on('input', (e) => { $(`${objectToChange}`).val(e.target.value); }); // setting the value of header title on sidebar title change
 
 // Function hides the context menu
 function hideContextMenu() {
