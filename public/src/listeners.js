@@ -55,7 +55,6 @@ export default function startListeners() {
     });
 
     $('#projectName').click(() => {
-        console.log('here');
         simulationArea.lastSelected = globalScope.root;
         setTimeout(() => {
             document.getElementById("projname").select();
