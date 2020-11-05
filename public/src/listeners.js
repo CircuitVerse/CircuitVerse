@@ -54,14 +54,6 @@ export default function startListeners() {
         fullView();
     });
 
-    $('#projectName').click(() => {
-        simulationArea.lastSelected = globalScope.root;
-        setTimeout(() => {
-            document.getElementById("projname").select();
-        }, 100);
-    });
-
-
     // $('#exitViewBtn').click(() => showAll());
     window.addEventListener('keyup', (e) => {
         scheduleUpdate(1);
