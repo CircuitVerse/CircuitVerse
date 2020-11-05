@@ -583,4 +583,22 @@ window.addEventListener('DOMContentLoaded', (event) => {
             curLevel = zoomLevel;
         }
     }
+      $("#decrement").click(function () {
+          sliderZoomButton(-1);
+      });
+
+      $("#increment").click(function () {
+          sliderZoomButton(1);
+      });
+
+      function sliderZoomButton(direction) {
+          var zoomSlider = $("#customRange1");
+          var currentSliderValue = parseInt(zoomSlider.val());
+          if (direction === -1) {
+              currentSliderValue--;
+          } else {
+              currentSliderValue++;
+          }
+          zoomSlider.val(currentSliderValue).change();
+      }
 });
