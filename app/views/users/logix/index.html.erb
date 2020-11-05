@@ -127,7 +127,8 @@
 
 <script type="text/javascript">
   $(function() {
-
+    $('#favourite-circuits-div').hide();
+    $('#collaborator-circuits-div').hide();
     var circuitTabs = ['favourite-circuits', 'my-circuits', 'collaborator-circuits'];
     $('.users-circuits-tab').on('click', function (e) {
       if(!$(this).hasClass("active")) {
@@ -153,12 +154,13 @@
     $("#projectModal").on("show.bs.modal", function(e) {
         let projectSlug = $(e.relatedTarget).data('currentproject').slug;
         let projectId = $(e.relatedTarget).data('currentproject').id;
+        var id = projectSlug ? projectSlug : projectId;
         $(e.currentTarget).find('#project-launch-button').attr("href",
-        "/simulator/edit/" + projectSlug);
+        "/simulator/edit/" + id);
         $(e.currentTarget).find('#project-fork-button').attr("href",
         "/projects/create_fork/" + projectId.toString());
         $(e.currentTarget).find('#project-more-button').attr("href",
-        "/users/" + <%= @user.id.to_s %> + "/projects/" + projectSlug);
+        "/users/" + <%= @user.id.to_s %> + "/projects/" + id);
     });
   });
 </script>
