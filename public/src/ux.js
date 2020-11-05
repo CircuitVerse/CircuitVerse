@@ -494,19 +494,23 @@ $('#octalInput').on('keyup', () => {
     setBaseValues(x);
 });
 
+// Function updates the values of project inputs accordingly
+const watchOneInputChangeAndUpdateAnother = (objectToListen, objectToChange) => $(`${objectToListen}`).on('input', (e) => { $(`${objectToChange}`).val(e.target.value); });
+
 window.addEventListener('DOMContentLoaded', () => {
     $('#dragQPanel')
         .on('mousedown', () => $('.quick-btn').draggable({ disabled: false, containment: 'window' }))
         .on('mouseup', () => $('.quick-btn').draggable({ disabled: true }));
-    
+
     setupPanelListeners('.elementPanel');
     setupPanelListeners('.layoutElementPanel');
     setupPanelListeners('#moduleProperty');
     setupPanelListeners('#layoutDialog');
 
-    $('#projectName').on('click', () => {
-        $("input[name='setProjectName']").focus().select();
-    });
+    // setting the name of the title bar as same as it is in the side bar
+    $('.projectName').val($('[name="setProjectName"]').val()); // setting the initial value of title heading
+    watchOneInputChangeAndUpdateAnother('[name="setProjectName"]', '.projectName'); // setting the value of header title on sidebar title change
+    watchOneInputChangeAndUpdateAnother('.projectName', '[name="setProjectName"]'); // setting the value of sidebar title on header title change
 });
 
 function setupPanelListeners(panelSelector) {
