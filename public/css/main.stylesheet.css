@@ -165,12 +165,19 @@ input[type="text"]:focus {
   background: none;
 }
 
-.projectName {
+.project-name-label {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+  top: 20%;
+}
+
+.projectName {
   font-size: 1.4em;
-  cursor: pointer;
+  cursor: text;
+  background: transparent;
+  border: none;
+  text-align: center;
 }
 
 .account-btn {
