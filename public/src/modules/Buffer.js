@@ -109,6 +109,10 @@ export default class Buffer extends CircuitElement {
         ctx.fill();
         ctx.stroke();
     }
+
+    generateVerilog() {
+        return "assign " + this.output1.verilogLabel + " = " + this.inp1.verilogLabel + ";"
+    }
 }
 
 /**

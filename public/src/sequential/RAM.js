@@ -177,6 +177,31 @@ export default class RAM extends CircuitElement {
             console.groupEnd();
         }
     }
+
+    //This is a RAM without a clock - not normal
+    //reset is not supported
+    static moduleVerilog() {
+        return `
+    module RAM(dout, addr, din, we, dmp, rst);
+        parameter WIDTH = 8;
+        parameter ADDR = 10;
+        output [WIDTH-1:0] dout;
+        input [ADDR-1:0] addr;
+        input [WIDTH-1:0] din;
+        input we;
+        input dmp;
+        input rst;
+        reg [WIDTH-1:0] mem [2**ADDR-1:0];
+    
+        assign dout = mem[addr];
+    
+        always @ (*) begin
+        if (!we)
+            mem[addr] = din;
+        end
+    endmodule
+    `;
+    }
 }
 
 RAM.prototype.tooltipText = 'Random Access Memory';

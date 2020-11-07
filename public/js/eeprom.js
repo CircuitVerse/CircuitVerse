@@ -45,3 +45,33 @@ EEPROM.prototype.customSave = function () {
     return saveInfo;
 }
 
+//This is a EERAM without a clock - not normal
+//reset is supported
+EEPROM.moduleVerilog = function () {
+  return `
+module EEPROM(dout, addr, din, we, dmp, rst);
+  parameter WIDTH = 8;
+  parameter ADDR = 10;
+  output [WIDTH-1:0] dout;
+  input [ADDR-1:0] addr;
+  input [WIDTH-1:0] din;
+  input we;
+  input dmp;
+  input rst;
+  reg [WIDTH-1:0] mem[2**ADDR-1:0];
+  integer j;
+
+  assign dout = mem[addr];
+
+  always @ (*) begin
+    if (!rst)
+        for (j=0; j < 2**ADDR-1; j=j+1) begin
+            mem[j] = 0;
+        end
+    if (!we)
+      mem[addr] = din;
+    dout = mem[addr];
+  end
+endmodule
+`;
+}

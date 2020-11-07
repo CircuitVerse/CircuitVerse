@@ -108,6 +108,43 @@ export default class Button extends CircuitElement {
             ctx.fillStyle = "rgba(232, 13, 13,0.8)";
         ctx.fill();
     }
+    static verilogInstructions() {
+        return `Button - Buttons are not natively supported in verilog, consider using Inputs instead\n`;
+    }
+    verilogBaseType() {
+        return this.verilogName() + (Button.selSizes.length-1);
+    }
+
+    //this code to generate Verilog
+    generateVerilog() {
+        Button.selSizes.push(this.data);
+        return CircuitElement.prototype.generateVerilog.call(this);
+    }
+
+    static moduleVerilog() {
+        var output = "";
+    
+        for (var i = 0; i < Button.selSizes.length; i++) {
+             output += `// Skeleton for Button${i}
+    /*
+    module Button${i}(out);
+      output reg out;
+    
+      initial begin
+        //do something with the button here
+      end
+    endmodule
+    */
+    `;
+        }
+    
+        return output;
+    }
+
+    //reset the sized before Verilog generation
+    static resetVerilog() {
+        Button.selSizes = [];
+    }
 }
 
 /**

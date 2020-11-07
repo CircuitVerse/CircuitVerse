@@ -222,6 +222,59 @@ export default class Decoder extends CircuitElement {
         }
         ctx.fill();
     }
+
+    verilogBaseType() {
+        return this.verilogName() + this.output1.length;
+    }
+
+    //this code to generate Verilog
+    generateVerilog() {
+        Decoder.selSizes.add(this.bitWidth);
+        return CircuitElement.prototype.generateVerilog.call(this);
+    }
+
+    static moduleVerilog() {
+        var output = "";
+    
+        for (var size of Decoder.selSizes) {
+            var numOutput = 1 << size;
+            output += "\n";
+            output += "module Decoder" + numOutput;
+            output += "(";
+            for (var j = 0; j < numOutput; j++) {
+                output += "out" + j + ", ";
+            }
+            output += "sel);\n";
+    
+            output += "  output reg ";
+            for (var j = 0; j < numOutput-1; j++) {
+                output += "out" + j + ", ";
+            }
+            output += "out" + (numOutput-1) + ";\n";
+    
+            output += "  input [" + (size-1) +":0] sel;\n";
+            output += "  \n";
+    
+            output += "  always @ (*) begin\n";
+            for (var j = 0; j < numOutput; j++) {
+                output += "    out" + j + " = 0;\n";
+            }
+            output += "    case (sel)\n";
+            for (var j = 0; j < numOutput; j++) {
+                output += "      " + j + " : out" + j + " = 1;\n";
+            }
+            output += "    endcase\n";
+            output += "  end\n";
+            output += "endmodule\n";
+        }
+    
+        return output;
+    }
+
+    //reset the sized before Verilog generation
+    static resetVerilog() {
+        Decoder.selSizes = new Set();
+    }
 }
 
 /**

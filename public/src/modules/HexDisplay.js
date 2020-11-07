@@ -140,7 +140,6 @@ export default class HexDisplay extends CircuitElement {
         this.customDrawSegment(-15, 38, 17, 38, ["lightgrey", "red"][d]);
     }
 
-
     subcircuitDrawSegment(x1, y1, x2, y2, color, xxSegment, yySegment) {
         if (color == undefined) color = "lightgrey";
         var ctx = simulationArea.context;
@@ -242,6 +241,11 @@ export default class HexDisplay extends CircuitElement {
             ctx.fillStyle = "rgba(255, 255, 32,0.6)";
             ctx.fill();
         } 
+    }
+    generateVerilog() {
+        return `
+      always @ (*)
+        $display("HexDisplay:${this.verilogLabel}=%d", ${this.inp.verilogLabel});`;
     }
 }
 

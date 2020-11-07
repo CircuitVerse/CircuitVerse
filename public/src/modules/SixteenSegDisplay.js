@@ -184,6 +184,11 @@ export default class SixteenSegDisplay extends CircuitElement {
             ctx.fill();
         }  
     }
+    generateVerilog() {
+        return `
+      always @ (*)
+        $display("SixteenSegDisplay:{${this.input1.verilogLabel},${this.dot.verilogLabel}} = {%16b,%1b}", ${this.input1.verilogLabel}, ${this.dot.verilogLabel});`;
+    }
 }
 
 /**

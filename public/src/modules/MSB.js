@@ -120,6 +120,10 @@ export default class MSB extends CircuitElement {
         ctx.stroke();
         ctx.fill();
     }
+
+    generateVerilog() {
+        return `assign ${this.output1.verilogLabel} = (${this.enable.verilogLabel}!=0) ? ${this.inp1.verilogLabel}[${this.inp1.bitWidth-1}] : 0;`;
+    }
 }
 
 /**

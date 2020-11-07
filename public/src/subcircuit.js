@@ -596,10 +596,9 @@ export default class SubCircuit extends CircuitElement {
         return false;
     }
 
-    verilogName() {
-        return verilog.fixName(scopeList[this.id].name);
+    verilogName(){
+        return verilog.sanitizeLabel(scopeList[this.id].name);
     }
-
     /**
      * determines where to show label
      */
