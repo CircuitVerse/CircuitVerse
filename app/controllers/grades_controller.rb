@@ -40,7 +40,7 @@ class GradesController < ApplicationController
     respond_to do |format|
       format.csv do
         send_data Grade.to_csv(params[:assignment_id].to_i),
-                  filename: "#{assignment.name}.csv"
+                  filename: "#{@assignment.name}.csv"
       end
     end
   end
