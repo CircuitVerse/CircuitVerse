@@ -64,7 +64,7 @@ export default function startListeners() {
 
 
     // $('#exitViewBtn').click(() => showAll());
-    window.addEventListener('keyup', (e) => {
+    document.getElementById('simulationArea').addEventListener('keyup', (e) => {
         scheduleUpdate(1);
         simulationArea.shiftDown = e.shiftKey;
         if (e.keyCode == 16) {
@@ -127,10 +127,34 @@ export default function startListeners() {
             ) { simulationArea.multipleObjectSelections = []; }
         }
     });
-    window.addEventListener('mousemove', onMouseMove);
+    document.getElementById('simulationArea').addEventListener('mousemove', onMouseMove);
 
+    window.addEventListener('keydown', e => {
+        simulationArea.shiftDown = e.shiftKey;
+        if (e.key == 'Meta' || e.key == 'Control') {
+            simulationArea.controlDown = true;
+        }
+        if (e.keyCode == 8 || e.key == 'Delete') {
+            deleteSelected();
+        }
+        if (simulationArea.controlDown && e.key.charCodeAt(0) == 122) { // detect the special CTRL-Z code
+            undo();
+        }
+    })
 
-    window.addEventListener('keydown', (e) => {
+    window.addEventListener('keyup', e => {
+        simulationArea.shiftDown = e.shiftKey;
+        if (e.key == 'Meta' || e.key == 'Control') {
+            simulationArea.controlDown = false;
+        }
+        if (e.keyCode == 8 || e.key == 'Delete') {
+            deleteSelected();
+        }
+        if (simulationArea.controlDown && e.key.charCodeAt(0) == 122) { // detect the special CTRL-Z code
+            undo();
+        }
+    })
+    document.getElementById('simulationArea').addEventListener('keydown', (e) => {
         if (document.activeElement.tagName == 'INPUT') return;
 
         if (listenToSimulator) {
@@ -219,14 +243,6 @@ export default function startListeners() {
                 }
             }
 
-            if (e.keyCode == 8 || e.key == 'Delete') {
-                deleteSelected();
-            }
-
-            if (simulationArea.controlDown && e.key.charCodeAt(0) == 122) { // detect the special CTRL-Z code
-                undo();
-            }
-
             // Detect online save shortcut (CTRL+S)
             if (simulationArea.controlDown && e.keyCode == 83 && !simulationArea.shiftDown) {
                 save();
@@ -274,7 +290,7 @@ export default function startListeners() {
         }
     });
 
-    window.addEventListener('mouseup', onMouseUp);
+    document.getElementById('simulationArea').addEventListener('mouseup', onMouseUp);
 
     document.getElementById('simulationArea').addEventListener('mousewheel', MouseScroll);
     document.getElementById('simulationArea').addEventListener('DOMMouseScroll', MouseScroll);
@@ -297,6 +313,7 @@ export default function startListeners() {
     document.addEventListener('cut', (e) => {
         if (verilogModeGet()) return;
         if (document.activeElement.tagName == 'INPUT') return;
+        if (document.activeElement.tagName != 'BODY') return;
 
         if (listenToSimulator) {
             simulationArea.copyList = simulationArea.multipleObjectSelections.slice();
@@ -324,6 +341,7 @@ export default function startListeners() {
     document.addEventListener('copy', (e) => {
         if (verilogModeGet()) return;
         if (document.activeElement.tagName == 'INPUT') return;
+        if (document.activeElement.tagName != 'BODY') return;
 
         if (listenToSimulator) {
             simulationArea.copyList = simulationArea.multipleObjectSelections.slice();
@@ -349,6 +367,7 @@ export default function startListeners() {
 
     document.addEventListener('paste', (e) => {
         if (document.activeElement.tagName == 'INPUT') return;
+        if (document.activeElement.tagName != 'BODY') return;
 
         if (listenToSimulator) {
             var data;

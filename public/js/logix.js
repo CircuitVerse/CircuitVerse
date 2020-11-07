@@ -185,12 +185,6 @@ function showMessage(mes) {
     }, 2500);
 }
 
-// Helper function to open a new tab
-function openInNewTab(url) {
-    var win = window.open(url, '_blank');
-    win.focus();
-}
-
 // Following function need to be improved - remove mutability etc
 //fn to remove elem in array
 Array.prototype.clean = function(deleteValue) {

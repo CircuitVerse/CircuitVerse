@@ -11,12 +11,67 @@ import { download } from "./utils";
 import { getProjectName } from "./data/save";
 import modules from './modules';
 import { sanitizeLabel } from './verilogHelpers';
+import CodeMirror from 'codemirror/lib/codemirror.js';
+import 'codemirror/lib/codemirror.css';
+import 'codemirror/addon/hint/show-hint.css';
+import 'codemirror/mode/verilog/verilog.js';
+import 'codemirror/addon/edit/closebrackets.js';
+import 'codemirror/addon/hint/anyword-hint.js';
+import 'codemirror/addon/hint/show-hint.js';
+import 'codemirror/addon/display/autorefresh.js';
+import {openInNewTab, copyToClipboard, showMessage} from './utils';
+
+var editor;
 
 export function generateVerilog() {
-    console.log("getting called");
+    var dialog = $('#verilog-export-code-window-div');
     var data = verilog.exportVerilog();
-    console.log(data);
-    download(getProjectName() + ".v", data);
+    editor.setValue(data);
+    $('#verilog-export-code-window-div .CodeMirror').css('height', $(window).height() - 200);
+    dialog.dialog({
+        resizable:false,
+        width: '90%',
+        height: 'auto',
+        position: { my: "center", at: "center", of: window
+     },
+        buttons: [
+            {
+                text: 'Download Verilog File',
+                click() {
+                    var fileName = getProjectName() || 'Untitled';
+                    download(fileName + ".v", editor.getValue());
+                },
+            },
+            {
+                text: 'Copy to Clipboard',
+                click() {
+                    copyToClipboard(editor.getValue());
+                    showMessage('Code has been copied');
+                },
+            },
+            {
+                text: 'Try in EDA Playground',
+                click() {
+                    copyToClipboard(editor.getValue());
+                    openInNewTab('https://www.edaplayground.com/x/XZpY');
+                },
+            }
+        ],
+    });
+}
+
+export function setupVerilogExportCodeWindow () {
+    var myTextarea = document.getElementById("verilog-export-code-window");
+    editor = CodeMirror.fromTextArea(myTextarea, {
+        mode: "verilog",
+        autoRefresh:true,
+        styleActiveLine: true,
+        lineNumbers: true,
+        autoCloseBrackets: true,
+        smartIndent: true,
+        indentWithTabs: true,
+        extraKeys: {"Ctrl-Space": "autocomplete"}
+    });
 }
 
 export var verilog = {

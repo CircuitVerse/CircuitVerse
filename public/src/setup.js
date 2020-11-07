@@ -24,6 +24,7 @@ import 'codemirror/addon/edit/closebrackets.js';
 import 'codemirror/addon/hint/anyword-hint.js';
 import 'codemirror/addon/hint/show-hint.js';
 import {setupCodeMirrorEnvironment} from './Verilog2CV';
+import {setupVerilogExportCodeWindow} from './verilog';
 
 window.width = undefined;
 window.height = undefined;
@@ -86,6 +87,7 @@ function setupEnvironment() {
     window.data = {};
     resetup();
     setupCodeMirrorEnvironment();
+    setupVerilogExportCodeWindow();
 }
 
 /**
