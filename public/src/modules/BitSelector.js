@@ -138,6 +138,10 @@ export default class BitSelector extends CircuitElement {
         fillText(ctx, bit, xx, yy + 5);
         ctx.fill();
     }
+
+    generateVerilog() {
+        return `assign ${this.output1.verilogLabel} = ${this.inp1.verilogLabel} >> ${this.bitSelectorInp.verilogLabel};`;
+    }
 }
 
 /**

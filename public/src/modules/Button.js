@@ -26,6 +26,7 @@ export default class Button extends CircuitElement {
         this.wasClicked = false;
         this.rectangleObject = false;
         this.setDimensions(10, 10);
+        this.selSizes = [];
     }
 
     /**
@@ -107,6 +108,43 @@ export default class Button extends CircuitElement {
         if (this.wasClicked)
             ctx.fillStyle = "rgba(232, 13, 13,0.8)";
         ctx.fill();
+    }
+    verilogInstructions() {
+        return `Button - Buttons are not natively supported in verilog, consider using Inputs instead\n`;
+    }
+    verilogBaseType() {
+        return this.verilogName() + (this.selSizes.length-1);
+    }
+
+    //this code to generate Verilog
+    generateVerilog() {
+        this.selSizes.push(this.data);
+        return CircuitElement.prototype.generateVerilog.call(this);
+    }
+
+    moduleVerilog() {
+        var output = "";
+    
+        for (var i = 0; i < Button.selSizes.length; i++) {
+             output += `// Skeleton for Button${i}
+    /*
+    module Button${i}(out);
+      output reg out;
+    
+      initial begin
+        //do something with the button here
+      end
+    endmodule
+    */
+    `;
+        }
+    
+        return output;
+    }
+
+    //reset the sized before Verilog generation
+    resetVerilog() {
+        this.selSizes = [];
     }
 }
 

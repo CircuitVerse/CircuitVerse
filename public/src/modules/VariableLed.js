@@ -109,6 +109,12 @@ export default class VariableLed extends CircuitElement {
         if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = "rgba(255, 255, 32,0.8)";
         ctx.fill();
     }
+    
+    generateVerilog() {
+        return `
+      always @ (*)
+        $display("VeriableLed:${this.inp1.verilogLabel}=%d", ${this.inp1.verilogLabel});`;
+    }
 }
 
 /**

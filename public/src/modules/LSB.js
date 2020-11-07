@@ -126,6 +126,9 @@ export default class LSB extends CircuitElement {
         ctx.stroke();
         ctx.fill();
     }
+    generateVerilog() {
+        return `assign ${this.output1.verilogLabel} = (${this.enable.verilogLabel}!=0) ? ${this.inp1.verilogLabel}[0] : 0;`;
+    }
 }
 
 /**

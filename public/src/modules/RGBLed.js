@@ -142,6 +142,11 @@ export default class RGBLed extends CircuitElement {
         if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = "rgba(255, 255, 32,0.8)";
         ctx.fill();
     }
+    generateVerilog() {
+        return `
+      always @ (*)
+        $display("RGBLed:{${this.inp1.verilogLabel},${this.inp2.verilogLabel},${this.inp3.verilogLabel}} = {%d,%d,%d}", ${this.inp1.verilogLabel}, ${this.inp2.verilogLabel}, ${this.inp3.verilogLabel});`;
+    }
 }
 
 /**

@@ -5,23 +5,28 @@
 
     refer verilog_documentation.md
 */
+import { scopeList } from "./circuit";
+import { errorDetectedGet } from "./engine"; 
+import { download } from "./utils";
+import { getProjectName } from "./data/save";
 
-function generateVerilog() {
+export function generateVerilog() {
+    console.log("getting called");
     var data = verilog.exportVerilog();
     console.log(data);
-    download(projectName + ".v", data);
+    download(getProjectName() + ".v", data);
 }
 
-verilog = {
+var verilog = {
     // Entry point to verilog generation
     // scope = undefined means export all circuits
     exportVerilog:function(scope = undefined){
         var dependencyList = {};
-
         // Reset Verilog Element State
         for (var i = 0; i < circuitElementList.length; i++) {
-            if (window[circuitElementList[i]].resetVerilog) {
-                window[circuitElementList[i]].resetVerilog();
+            // Not sure if globalScope here is correct.
+            if (globalScope[circuitElementList[i]].resetVerilog) {
+                globalScope[circuitElementList[i]].resetVerilog();
             }
         }
 
@@ -271,7 +276,7 @@ verilog = {
 
         // Iterative DFS on circuit graph
         while (scope.stack.length) {
-            if (errorDetected) return;
+            if (errorDetectedGet()) return;
             var elem = scope.stack.pop();
 
             if(verilogResolvedSet.has(elem))
@@ -392,7 +397,7 @@ verilog = {
         }
 
         var res="";
-        for (bitWidth in inputs){
+        for (var bitWidth in inputs){
             if(inputs[bitWidth].length == 0) continue;
             if(bitWidth==1)
                 res+="  input "+ inputs[1].join(", ") + ";\n";
@@ -412,7 +417,7 @@ verilog = {
                 outputs[scope.Output[i].bitWidth] = [scope.Output[i].label];
         }
         var res="";
-        for (bitWidth in outputs){
+        for (var bitWidth in outputs){
             if(bitWidth==1)
                 res+="  output "+ outputs[1].join(",  ") + ";\n";
             else

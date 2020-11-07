@@ -38,6 +38,7 @@ export default class Rom extends CircuitElement {
             prompt("Enter data")
                 .split(" ")
                 .map((lambda) => parseInt(lambda, 16));
+        this.selSizes = [];
     }
 
     /**
@@ -286,6 +287,52 @@ export default class Rom extends CircuitElement {
         this.dataOut.value = this.data[this.memAddr.value];
         simulationArea.simulationQueue.add(this.dataOut);
     }
+
+    verilogBaseType() {
+        return this.verilogName() + (this.selSizes.length-1);
+    }
+    //this code to generate Verilog
+    generateVerilog() {
+        this.selSizes.push(this.data);
+        return CircuitElement.prototype.generateVerilog.call(this);
+    }
+    //This code to determine what sizes are used to generate the needed modules
+    //generate the needed modules
+    moduleVerilog() {
+        var output = "";
+
+        for (var i = 0; i < this.selSizes.length; i++) {
+            output += `
+    module Rom${i}(dout, addr, en);
+    parameter WIDTH = 8;
+    parameter ADDR = 4;
+    output reg [WIDTH-1:0] dout;
+    input [ADDR-1:0] addr;
+    input en;
+
+    always @ (*) begin
+        if (en == 0)
+        dout = {WIDTH{1'bz}};
+        else
+        case (addr)
+    `;
+            for (var j = 0; j < (1 << 4); j++) {
+            output += "        " + j + " : dout = " + this.selSizes[i][j] + ";\n";
+            }
+
+        output += `      endcase
+    end
+    endmodule
+    `;
+        }
+
+        return output;
+    }
+    //reset the sized before Verilog generation
+    resetVerilog() {
+        this.selSizes = [];
+    }
+
 }
 
 /**

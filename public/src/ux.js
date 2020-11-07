@@ -141,6 +141,7 @@ export function setupUI() {
     $('.logixModules').mousedown(createElement);
 
     $('.logixButton').click(function () {
+        console.log(this.id);
         logixFunction[this.id]();
     });
     // var dummyCounter=0;

@@ -86,6 +86,13 @@ export default class Adder extends CircuitElement {
         simulationArea.simulationQueue.add(this.carryOut);
         simulationArea.simulationQueue.add(this.sum);
     }
+
+    generateVerilog() {
+        if(this.carryIn.verilogLabel) {
+            return `assign ${this.sum.verilogLabel} = ${this.inpA.verilogLabel} + ${this.inpB.verilogLabel} + ${this.carryIn.verilogLabel};`;
+        }
+        return `assign ${this.sum.verilogLabel} = ${this.inpA.verilogLabel} + ${this.inpB.verilogLabel};`;
+    }
 }
 
 /**
