@@ -6,8 +6,9 @@ import {
     fixDirection, fillText, correctWidth, rect2, oppositeDirection,
 } from './canvasApi';
 import { colors } from './themer/themer';
-import { layoutModeGet, tempBuffer } from './layoutMode'
-import { fillSubcircuitElements } from './ux'
+import { layoutModeGet, tempBuffer } from './layoutMode';
+import { fillSubcircuitElements } from './ux';
+import { generateNodeName } from './verilogHelpers';
 
 /**
  * Base class for circuit elements.
@@ -748,7 +749,7 @@ export default class CircuitElement {
             if (this.nodeList[i].type == NODE_OUTPUT) {
                 if (this.objectType != "Input" && this.objectType != "Clock" && this.nodeList[i].connections.length > 0) {
                     this.nodeList[i].verilogLabel =
-                        verilog.generateNodeName(this.nodeList[i], output_count, output_total);
+                        generateNodeName(this.nodeList[i], output_count, output_total);
 
                     if (!this.scope.verilogWireList[this.nodeList[i].bitWidth].contains(this.nodeList[i].verilogLabel))
                         this.scope.verilogWireList[this.nodeList[i].bitWidth].push(this.nodeList[i].verilogLabel);

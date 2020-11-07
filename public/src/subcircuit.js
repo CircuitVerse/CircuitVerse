@@ -17,6 +17,7 @@ import { fillText, correctWidth, rect2} from "./canvasApi";
 import { colors } from "./themer/themer";
 import { layoutModeGet } from "./layoutMode"
 import { verilogModeGet } from "./Verilog2CV"
+import { sanitizeLabel } from './verilogHelpers';
 /**
  * Function to load a subcicuit
  * @category subcircuit
@@ -597,7 +598,7 @@ export default class SubCircuit extends CircuitElement {
     }
 
     verilogName(){
-        return verilog.sanitizeLabel(scopeList[this.id].name);
+        return sanitizeLabel(scopeList[this.id].name);
     }
     /**
      * determines where to show label

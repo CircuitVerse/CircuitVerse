@@ -10,6 +10,7 @@ import { errorDetectedGet } from "./engine";
 import { download } from "./utils";
 import { getProjectName } from "./data/save";
 import modules from './modules';
+import { sanitizeLabel } from './verilogHelpers';
 
 export function generateVerilog() {
     console.log("getting called");
@@ -18,7 +19,7 @@ export function generateVerilog() {
     download(getProjectName() + ".v", data);
 }
 
-var verilog = {
+export var verilog = {
     // Entry point to verilog generation
     // scope = undefined means export all circuits
     exportVerilog:function(scope = undefined){
@@ -145,7 +146,7 @@ var verilog = {
                 registers[1].add(inp.label);
                 clocks.add(inp.label);
             }
-            var circuitName = this.sanitizeLabel(DUT.name);
+            var circuitName = sanitizeLabel(DUT.name);
             var dutHeader = this.generateHeaderHelper(DUT);
             deviceInstantiations += `${sp(1)}${circuitName} DUT${i}${dutHeader}\n`;
         }
@@ -321,7 +322,7 @@ var verilog = {
             if(scope.Input[i].label=="")
                 scope.Input[i].label="inp_"+i;
             else
-                scope.Input[i].label=this.sanitizeLabel(scope.Input[i].label)
+                scope.Input[i].label=sanitizeLabel(scope.Input[i].label)
             // copy label to node
             scope.Input[i].output1.verilogLabel = scope.Input[i].label;
         }
@@ -329,7 +330,7 @@ var verilog = {
             if(scope.ConstantVal[i].label=="")
                 scope.ConstantVal[i].label="const_"+i;
             else
-                scope.ConstantVal[i].label=this.sanitizeLabel(scope.ConstantVal[i].label)
+                scope.ConstantVal[i].label=sanitizeLabel(scope.ConstantVal[i].label)
             // copy label to node
             scope.ConstantVal[i].output1.verilogLabel=scope.ConstantVal[i].label;
         }
@@ -339,7 +340,7 @@ var verilog = {
             if (scope.Clock[i].label == "")
                 scope.Clock[i].label = "clk_"+i;
             else
-                scope.Clock[i].label=this.sanitizeLabel(scope.Clock[i].label);
+                scope.Clock[i].label=sanitizeLabel(scope.Clock[i].label);
             scope.Clock[i].output1.verilogLabel = scope.Clock[i].label;
         }
 
@@ -347,24 +348,24 @@ var verilog = {
             if(scope.Output[i].label=="")
                 scope.Output[i].label="out_"+i;
             else
-                scope.Output[i].label=this.sanitizeLabel(scope.Output[i].label)
+                scope.Output[i].label=sanitizeLabel(scope.Output[i].label)
         }
         for(var i=0;i<scope.SubCircuit.length;i++){
             if(scope.SubCircuit[i].label=="")
                 scope.SubCircuit[i].label=scope.SubCircuit[i].data.name+"_"+i;
             else
-                scope.SubCircuit[i].label=this.sanitizeLabel(scope.SubCircuit[i].label)
+                scope.SubCircuit[i].label=sanitizeLabel(scope.SubCircuit[i].label)
         }
         for(var i=0;i<moduleList.length;i++){
             var m = moduleList[i];
             for(var j=0;j<scope[m].length;j++){
-                scope[m][j].verilogLabel = this.sanitizeLabel(scope[m][j].label) || (scope[m][j].verilogName()+"_"+j);
+                scope[m][j].verilogLabel = sanitizeLabel(scope[m][j].label) || (scope[m][j].verilogName()+"_"+j);
             }
         }
     },
     generateHeader:function(scope=globalScope){
         // Example: module HalfAdder (a,b,s,c);
-        var res="\nmodule " + this.sanitizeLabel(scope.name);
+        var res="\nmodule " + sanitizeLabel(scope.name);
         res += this.generateHeaderHelper(scope);
         return res;
     },
@@ -428,24 +429,6 @@ var verilog = {
 
         return res;
     },
-    sanitizeLabel: function(name){
-//        return name.replace(/ Inverse/g, "_inv").replace(/ /g , "_");
-        var temp = name;
-        //if there is a space anywhere but the last place
-        //replace spaces by "_"
-        //last space is required for escaped id
-        if (temp.search(/ /g) < temp.length-1 && temp.search(/ /g) >= 0) {
-            temp = temp.replace(/ Inverse/g, "_inv");
-            temp = temp.replace(/ /g , "_");
-        }
-        //if first character is not \ already
-        if (temp.substring(0,1).search(/\\/g) < 0) {
-            //if there are non-alphanum_ character, or first character is num, add \
-            if (temp.search(/[\W]/g) > -1 || temp.substring(0,1).search(/[0-9]/g) > -1)
-                temp = "\\" + temp + " ";
-        }
-        return temp;
-    },
     /*
     sanitizeLabel: function(name){
         // Replace spaces by "_"
@@ -473,22 +456,6 @@ var verilog = {
         return name;
     },
     */
-    generateNodeName: function(node, currentCount, totalCount) {
-        if(node.verilogLabel) return node.verilogLabel;
-        var parentVerilogLabel = node.parent.verilogLabel;
-        var nodeName;
-        if(node.label) {
-            nodeName = verilog.sanitizeLabel(node.label);
-        }
-        else {
-            nodeName = (totalCount > 1) ? "out_" + currentCount: "out";
-        }
-        if (parentVerilogLabel.substring(0,1).search(/\\/g) < 0)
-            return (parentVerilogLabel) + "_" + nodeName;
-        else
-            return (parentVerilogLabel.substring(0,parentVerilogLabel.length-1)) + "_" + nodeName + " ";
-
-    }
 }
 
 /*
