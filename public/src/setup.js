@@ -86,8 +86,10 @@ function setupEnvironment() {
     newCircuit('Main');
     window.data = {};
     resetup();
-    setupCodeMirrorEnvironment();
-    setupVerilogExportCodeWindow();
+    if (!embed) {
+        setupCodeMirrorEnvironment();
+        setupVerilogExportCodeWindow();
+    }
 }
 
 /**
