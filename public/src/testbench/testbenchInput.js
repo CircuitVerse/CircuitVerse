@@ -113,7 +113,6 @@ export default class TB_Input extends CircuitElement {
         }
         if (this.running && this.iteration) {
             for (var i = 0; i < this.testData.inputs.length; i++) {
-                console.log(this.testData.inputs[i].values[this.iteration - 1]);
                 this.outputs[i].value = parseInt(this.testData.inputs[i].values[this.iteration - 1], 2);
                 simulationArea.simulationQueue.add(this.outputs[i]);
             }

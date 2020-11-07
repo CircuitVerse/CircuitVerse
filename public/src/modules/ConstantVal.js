@@ -90,7 +90,6 @@ export default class ConstantVal extends CircuitElement {
     dblclick() {
         this.state = prompt("Re enter the value") || "0";
         this.newBitWidth(this.state.toString().length);
-        // console.log(this.state, this.bitWidth);
     }
 
     /**

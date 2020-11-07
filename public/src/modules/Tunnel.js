@@ -120,7 +120,6 @@ export default class Tunnel extends CircuitElement {
         this.scope = scope;
         this.inp1.updateScope(scope);
         this.setIdentifier(this.identifier);
-        // console.log("ShouldWork!");
     }
 
     /**

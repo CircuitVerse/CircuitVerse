@@ -79,7 +79,7 @@ function showContextMenu() {
  * @param {number} id - id of the optoin selected
  * @category ux
  */
-function menuItemClicked(id) {
+function menuItemClicked(id, code="") {
     hideContextMenu();
     if (id === 0) {
         document.execCommand('copy');
@@ -503,6 +503,7 @@ window.addEventListener('DOMContentLoaded', () => {
     setupPanelListeners('.layoutElementPanel');
     setupPanelListeners('#moduleProperty');
     setupPanelListeners('#layoutDialog');
+    setupPanelListeners('#verilogEditorPanel');
 
     $('#projectName').on('click', () => {
         $("input[name='setProjectName']").focus().select();
