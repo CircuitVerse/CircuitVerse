@@ -64,8 +64,6 @@ export default class PriorityEncoder extends CircuitElement {
             this,
             1
         );
-
-        this.selSizes = new Set();
     }
 
     /**
@@ -214,14 +212,14 @@ export default class PriorityEncoder extends CircuitElement {
     }
 
     generateVerilog() {
-        this.selSizes.add(this.bitWidth);
+        PriorityEncoder.selSizes.add(this.bitWidth);
         return CircuitElement.prototype.generateVerilog.call(this);
     }
 
-    moduleVerilog() {
+    static moduleVerilog() {
         var output = "";
     
-        for (var size of this.selSizes) {
+        for (var size of PriorityEncoder.selSizes) {
             var numInput = 1 << size;
             output += "\n";
             output += "module PriorityEncoder" + numInput;
@@ -260,8 +258,8 @@ export default class PriorityEncoder extends CircuitElement {
     }
 
     //reset the sized before Verilog generation
-    resetVerilog() {
-        this.selSizes = new Set
+    static resetVerilog() {
+        PriorityEncoder.selSizes = new Set
     }
 }
 

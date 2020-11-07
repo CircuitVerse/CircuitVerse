@@ -32,8 +32,6 @@ export default class Decoder extends CircuitElement {
             this.yOff = 2;
         }
 
-        this.selSizes = new Set();
-
         // this.changeControlSignalSize = function(size) {
         //     if (size === undefined || size < 1 || size > 32) return;
         //     if (this.controlSignalSize === size) return;
@@ -87,8 +85,6 @@ export default class Decoder extends CircuitElement {
             );
             this.output1.push(a);
         }
-
-        this.selSizes = new Set();
 
         // this.controlSignalInput = new Node(0,this.yOff * 10 * (this.outputsize / 2 - 1) +this.xOff + 10, 0, this, this.controlSignalSize,"Control Signal");
     }
@@ -233,14 +229,14 @@ export default class Decoder extends CircuitElement {
 
     //this code to generate Verilog
     generateVerilog() {
-        this.selSizes.add(this.bitWidth);
+        Decoder.selSizes.add(this.bitWidth);
         return CircuitElement.prototype.generateVerilog.call(this);
     }
 
-    moduleVerilog() {
+    static moduleVerilog() {
         var output = "";
     
-        for (var size of this.selSizes) {
+        for (var size of Decoder.selSizes) {
             var numOutput = 1 << size;
             output += "\n";
             output += "module Decoder" + numOutput;
@@ -276,8 +272,8 @@ export default class Decoder extends CircuitElement {
     }
 
     //reset the sized before Verilog generation
-    resetVerilog() {
-        this.selSizes = new Set();
+    static resetVerilog() {
+        Decoder.selSizes = new Set();
     }
 }
 

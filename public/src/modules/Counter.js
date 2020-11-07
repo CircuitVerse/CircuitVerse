@@ -142,7 +142,7 @@ export default class Counter extends CircuitElement {
             ctx.fill();
         }
     }  
-    moduleVerilog() {
+    static moduleVerilog() {
         return `
     module Counter(val, zero, max, clk, rst);
       parameter WIDTH = 1;

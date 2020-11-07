@@ -145,7 +145,7 @@ export default class TflipFlop extends CircuitElement {
         ctx.fill();
     }
 
-    moduleVerilog(){
+    static moduleVerilog(){
         return `
         module TflipFlop(q, q_inv, clk, t, a_rst, pre, en);
           parameter WIDTH = 1;

@@ -98,7 +98,6 @@ export default class Demultiplexer extends CircuitElement {
             this.controlSignalSize,
             "Control Signal"
         );
-        this.selSizes = new Set();
     }
 
     /**
@@ -261,15 +260,15 @@ export default class Demultiplexer extends CircuitElement {
 
     //this code to generate Verilog
     generateVerilog() {
-        this.selSizes.add(this.controlSignalSize);
+        Demultiplexer.selSizes.add(this.controlSignalSize);
         return CircuitElement.prototype.generateVerilog.call(this);
     }
 
     //generate the needed modules
-    moduleVerilog() {
+    static moduleVerilog() {
         var output = "";
 
-        for (var size of this.selSizes) {
+        for (var size of Demultiplexer.selSizes) {
             var numOutput = 1 << size;
             output += "\n";
             output += "module Demultiplexer" + numOutput;
@@ -307,8 +306,8 @@ export default class Demultiplexer extends CircuitElement {
     }
 
     //reset the sized before Verilog generation
-    resetVerilog() {
-        this.selSizes = new Set();
+    static resetVerilog() {
+        Demultiplexer.selSizes = new Set();
     }
 }
 

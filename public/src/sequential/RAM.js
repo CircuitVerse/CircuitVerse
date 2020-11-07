@@ -180,7 +180,7 @@ export default class RAM extends CircuitElement {
 
     //This is a RAM without a clock - not normal
     //reset is not supported
-    moduleVerilog() {
+    static moduleVerilog() {
         return `
     module RAM(dout, addr, din, we, dmp, rst);
         parameter WIDTH = 8;

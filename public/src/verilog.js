@@ -9,6 +9,7 @@ import { scopeList } from "./circuit";
 import { errorDetectedGet } from "./engine"; 
 import { download } from "./utils";
 import { getProjectName } from "./data/save";
+import modules from './modules';
 
 export function generateVerilog() {
     console.log("getting called");
@@ -23,10 +24,11 @@ var verilog = {
     exportVerilog:function(scope = undefined){
         var dependencyList = {};
         // Reset Verilog Element State
-        for (var i = 0; i < circuitElementList.length; i++) {
+        for (var elem in modules) {
             // Not sure if globalScope here is correct.
-            if (globalScope[circuitElementList[i]].resetVerilog) {
-                globalScope[circuitElementList[i]].resetVerilog();
+            if (modules[elem].resetVerilog) {
+                console.log(elem);
+                modules[elem].resetVerilog();
             }
         }
 
@@ -64,8 +66,8 @@ var verilog = {
         // Add Circuit Element - Module Specific Verilog Code
         for(var element in elementTypesUsed) {
             // If element has custom verilog
-            if (window[element].moduleVerilog) {
-                output += window[element].moduleVerilog();
+            if (modules[element] && modules[element].moduleVerilog) {
+                output += modules[element].moduleVerilog();
             }
         }
 
@@ -101,8 +103,8 @@ var verilog = {
         instructions += sp(2) + "Warnings - Connect all optional inputs to remove warnings\n";
         for(var elem in elementTypesUsed) {
             // If element has custom instructions
-            if (window[elem].verilogInstructions) {
-                instructions += indent(2, window[elem].verilogInstructions());
+            if (modules[elem] && modules[elem].verilogInstructions) {
+                instructions += indent(2, modules[elem].verilogInstructions());
             }
         }
         output += instructions

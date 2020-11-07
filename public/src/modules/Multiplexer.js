@@ -63,7 +63,6 @@ export default class Multiplexer extends CircuitElement {
             this.controlSignalSize,
             "Control Signal"
         );
-        this.selSizes = new Set();
     }
 
     /**
@@ -270,15 +269,16 @@ export default class Multiplexer extends CircuitElement {
 
     //this code to generate Verilog
     generateVerilog() {
-        this.selSizes.add(this.controlSignalSize);
+        console.log(Multiplexer.selSizes);
+        Multiplexer.selSizes.add(this.controlSignalSize);
         return CircuitElement.prototype.generateVerilog.call(this);
     }
 
     //generate the needed modules
-    moduleVerilog() {
+    static moduleVerilog() {
         var output = "";
 
-        for (var size of this.selSizes) {
+        for (var size of Multiplexer.selSizes) {
             var numInput = 1 << size;
             var inpString = "";
             for (var j = 0; j < numInput; j++) {
@@ -311,8 +311,8 @@ export default class Multiplexer extends CircuitElement {
         return output;
     }
     //reset the sized before Verilog generation
-    resetVerilog(){
-        this.selSizes = new Set();
+    static resetVerilog() {
+        Multiplexer.selSizes = new Set();
     }
 }
 

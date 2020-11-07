@@ -80,7 +80,7 @@ export default class Clock extends CircuitElement {
         ctx.stroke();
     }
 
-    verilogInstructions() {
+    static verilogInstructions() {
         return "Clock - Use a single global clock\n";
     }
 }

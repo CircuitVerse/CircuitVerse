@@ -52,7 +52,7 @@ export default class EEPROM extends RAM {
 
     //This is a EERAM without a clock - not normal
     //reset is supported
-    moduleVerilog() {
+    static moduleVerilog() {
         return `
     module EEPROM(dout, addr, din, we, dmp, rst);
         parameter WIDTH = 8;

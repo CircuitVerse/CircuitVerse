@@ -127,7 +127,7 @@ export default class Random extends CircuitElement {
         }
     }
     
-    moduleVerilog() {
+    static moduleVerilog() {
         return `
       module Random(val, clk, max);
         parameter WIDTH = 1;
