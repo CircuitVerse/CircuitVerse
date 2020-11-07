@@ -398,6 +398,7 @@ export function showProperties(obj) {
  * @category ux
  */
 export function hideProperties() {
+    console.trace();
     $('#moduleProperty-inner').empty();
     $('#moduleProperty').hide();
     prevPropertyObjSet(undefined);
@@ -419,11 +420,17 @@ function escapeHtml(unsafe) {
 
 export function deleteSelected() {
     $('input').blur();
-    if (simulationArea.lastSelected && !(simulationArea.lastSelected.objectType === 'Node' && simulationArea.lastSelected.type !== 2)) simulationArea.lastSelected.delete();
-    for (var i = 0; i < simulationArea.multipleObjectSelections.length; i++) {
-        if (!(simulationArea.multipleObjectSelections[i].objectType === 'Node' && simulationArea.multipleObjectSelections[i].type !== 2)) simulationArea.multipleObjectSelections[i].cleanDelete();
+    if (simulationArea.lastSelected && !(simulationArea.lastSelected.objectType === 'Node' && simulationArea.lastSelected.type !== 2)) {
+        simulationArea.lastSelected.delete();
+        hideProperties();
     }
-    hideProperties();
+        
+    for (var i = 0; i < simulationArea.multipleObjectSelections.length; i++) {
+        if (!(simulationArea.multipleObjectSelections[i].objectType === 'Node' && simulationArea.multipleObjectSelections[i].type !== 2)) 
+            simulationArea.multipleObjectSelections[i].cleanDelete();
+        hideProperties();
+    }
+    
     simulationArea.multipleObjectSelections = [];
 
     // Updated restricted elements

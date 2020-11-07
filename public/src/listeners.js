@@ -130,19 +130,15 @@ export default function startListeners() {
     document.getElementById('simulationArea').addEventListener('mousemove', onMouseMove);
 
     window.addEventListener('keydown', e => {
+        if (document.activeElement != document.body) return;
         simulationArea.shiftDown = e.shiftKey;
         if (e.key == 'Meta' || e.key == 'Control') {
             simulationArea.controlDown = true;
         }
-        if (e.keyCode == 8 || e.key == 'Delete') {
-            deleteSelected();
-        }
-        if (simulationArea.controlDown && e.key.charCodeAt(0) == 122) { // detect the special CTRL-Z code
-            undo();
-        }
     })
 
     window.addEventListener('keyup', e => {
+        if (document.activeElement != document.body) return;
         simulationArea.shiftDown = e.shiftKey;
         if (e.key == 'Meta' || e.key == 'Control') {
             simulationArea.controlDown = false;
@@ -156,6 +152,7 @@ export default function startListeners() {
     })
     document.getElementById('simulationArea').addEventListener('keydown', (e) => {
         if (document.activeElement.tagName == 'INPUT') return;
+        if (document.activeElement != document.body) return;
 
         if (listenToSimulator) {
         // If mouse is focusing on input element, then override any action
