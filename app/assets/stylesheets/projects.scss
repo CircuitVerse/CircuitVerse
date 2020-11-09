@@ -172,11 +172,26 @@
   padding: 10px;
 }
 
+.projects-collaborators-data-and-hr-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.projects-collaborators-data-container {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+}
+
 .projects-collaborators-data {
   overflow: hidden;
   padding: 5px 15px;
   text-align: left;
   text-overflow: ellipsis;
+  text-align: center;
 }
 
 .projects-collaborators-button-container {
@@ -191,13 +206,19 @@
 }
 
 .projects-collaborators-horizontal-rule {
-  width: 80%;
+  width: 95%;
 }
 
 //breakpoints
 @media (max-width: 575px) {
   .projects-collaborators-button-container {
     margin-top: 5px;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .projects-collaborators-data-container {
+    flex-direction: column;
   }
 }
 //project details ends
