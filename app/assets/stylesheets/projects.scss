@@ -180,16 +180,15 @@
 }
 
 .projects-collaborators-data-container {
-  display: flex;
-  width: 100%;
-  justify-content: space-around;
   align-items: center;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
 }
 
 .projects-collaborators-data {
   overflow: hidden;
   padding: 5px 15px;
-  text-align: left;
   text-overflow: ellipsis;
   text-align: center;
 }
