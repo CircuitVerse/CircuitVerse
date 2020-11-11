@@ -62,19 +62,6 @@ export default function startListeners() {
         }, 100);
     });
 
-
-    // $('#exitViewBtn').click(() => showAll());
-    document.getElementById('simulationArea').addEventListener('keyup', (e) => {
-        scheduleUpdate(1);
-        simulationArea.shiftDown = e.shiftKey;
-        if (e.keyCode == 16) {
-            simulationArea.shiftDown = false;
-        }
-        if (e.key == 'Meta' || e.key == 'Control') {
-            simulationArea.controlDown = false;
-        }
-    });
-
     document.getElementById('simulationArea').addEventListener('mousedown', (e) => {
         createNodeSet(true);
         stopWireSet(false);
@@ -129,30 +116,32 @@ export default function startListeners() {
     });
     document.getElementById('simulationArea').addEventListener('mousemove', onMouseMove);
 
-    window.addEventListener('keydown', e => {
+    window.addEventListener('keyup', e => {
+        scheduleUpdate(1);
+        simulationArea.shiftDown = e.shiftKey;
+        if (e.keyCode == 16) {
+            simulationArea.shiftDown = false;
+        }
+        if (e.key == 'Meta' || e.key == 'Control') {
+            simulationArea.controlDown = false;
+        }
+    })
+
+    window.addEventListener('keydown', (e) => {
+        if (document.activeElement.tagName == 'INPUT') return;
         if (document.activeElement != document.body) return;
+
         simulationArea.shiftDown = e.shiftKey;
         if (e.key == 'Meta' || e.key == 'Control') {
             simulationArea.controlDown = true;
         }
-    })
 
-    window.addEventListener('keyup', e => {
-        if (document.activeElement != document.body) return;
-        simulationArea.shiftDown = e.shiftKey;
-        if (e.key == 'Meta' || e.key == 'Control') {
-            simulationArea.controlDown = false;
-        }
         if (e.keyCode == 8 || e.key == 'Delete') {
             deleteSelected();
         }
         if (simulationArea.controlDown && e.key.charCodeAt(0) == 122) { // detect the special CTRL-Z code
             undo();
         }
-    })
-    document.getElementById('simulationArea').addEventListener('keydown', (e) => {
-        if (document.activeElement.tagName == 'INPUT') return;
-        if (document.activeElement != document.body) return;
 
         if (listenToSimulator) {
         // If mouse is focusing on input element, then override any action

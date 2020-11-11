@@ -286,7 +286,7 @@ export function copy(copyList, cutflag = false) {
  * @category events
  */
 export function selectAll(scope = globalScope) {
-    circuitElementList.forEach((val, _, __) => {
+    moduleList.forEach((val, _, __) => {
         if (scope.hasOwnProperty(val)) {
             simulationArea.multipleObjectSelections.push(...scope[val]);
         }

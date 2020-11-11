@@ -589,7 +589,7 @@ div.icon img {
 }
 
 .circuitName{
-  cursor: text;
+  cursor: pointer;
 }
 
 #tabsBar button {
