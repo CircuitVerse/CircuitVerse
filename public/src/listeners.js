@@ -419,7 +419,7 @@ export default function startListeners() {
         "Input", "Output", "NotGate", "OrGate", "AndGate", "NorGate", "NandGate", "XorGate", "XnorGate", "SevenSegDisplay", "SixteenSegDisplay", "HexDisplay",
         "Multiplexer", "BitSelector", "Splitter", "Power", "Ground", "ConstantVal", "ControlledInverter", "TriState", "Adder", "Rom", "RAM", "EEPROM", "TflipFlop",
         "JKflipFlop", "SRflipFlop", "DflipFlop", "TTY", "Keyboard", "Clock", "DigitalLed", "Stepper", "VariableLed", "RGBLed", "SquareRGBLed", "RGBLedMatrix", "Button", "Demultiplexer",
-        "Buffer", "SubCircuit", "Flag", "MSB", "LSB", "PriorityEncoder", "Tunnel", "ALU", "Decoder", "Random", "Counter", "Dlatch", "TB_Input", "TB_Output", "ForceGate",
+        "Buffer", "Flag", "MSB", "LSB", "PriorityEncoder", "Tunnel", "ALU", "Decoder", "Random", "Counter", "Dlatch", "TB_Input", "TB_Output", "ForceGate",
     ];
 
     $(".search-input").on("keyup", function() {
@@ -461,6 +461,8 @@ export default function startListeners() {
             <img  src= "/img/${element}.svg" >
         </div>`;
     }
+
+    zoomSliderListeners();
 
     setupLayoutModePanelListeners();
 }
@@ -571,7 +573,7 @@ function ZoomOut() {
     handleZoom(-1);
 }
 
-window.addEventListener('DOMContentLoaded', (event) => {
+function zoomSliderListeners() {
     document.getElementById("customRange1").value = 5;
     document.getElementById('simulationArea').addEventListener('DOMMouseScroll',zoomSliderScroll);
     document.getElementById('simulationArea').addEventListener('mousewheel', zoomSliderScroll);
@@ -601,4 +603,4 @@ window.addEventListener('DOMContentLoaded', (event) => {
             curLevel = zoomLevel;
         }
     }
-});
+}

@@ -87,9 +87,9 @@ function setupEnvironment() {
     window.data = {};
     resetup();
     if (!embed) {
-        setupCodeMirrorEnvironment();
         setupVerilogExportCodeWindow();
     }
+    setupCodeMirrorEnvironment();
 }
 
 /**

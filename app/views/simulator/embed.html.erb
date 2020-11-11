@@ -19,9 +19,10 @@
 
     <div class="simulation" id="simulation" style="height:100%;width:100%">
 
-        <div id="tabsBar" class="noSelect pointerCursor" style="position: absolute; left: 0; top: 0; z-index: 2">
+        <div id="tabsBar" class="noSelect pointerCursor">
           <!-- <div> Circuits: </div> -->
         </div>
+        <div id="code-window-embed"><textarea id="codeTextArea"></textarea></div>
         <% if @project&.assignment_id.present? && @project&.assignment.elements_restricted? %>
           <div id="restrictedElementsDiv" class="alert alert-danger">
             <div> <span style="font-style: italic"> Restricted elements used: </span> <span id="restrictedElementsDiv--list"> </span></div>
