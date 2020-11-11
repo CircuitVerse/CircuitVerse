@@ -587,6 +587,7 @@ div.icon img {
 #tabsBar .circuits {
   text-align: center;
   padding: 1px;
+  border-radius: 3px;
 }
 
 .circuitName{
@@ -602,6 +603,8 @@ div.icon img {
   outline: none;
   border-radius: 1px;
   transition: all 0.1s ease-in-out;
+  border-radius: 4px;
+  margin-left: 1px;
 }
 
 #tabsBar button:focus{

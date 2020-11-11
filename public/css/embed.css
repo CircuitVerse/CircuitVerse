@@ -57,7 +57,7 @@
     transition: .4s;
 }
 input:checked + .slider {
-    background-color: #2196F3;
+    /* background-color: #2196F3; */
 }
 
 input:focus + .slider {
@@ -73,7 +73,7 @@ input:checked + .slider:before {
 #tabsBar .circuits {
     color: #000;
     text-align: center;
-    background-color: white;
+    /* background-color: white; */
     padding-left: 0.5em;
     padding-right: 0.5em;
     border: 1px solid #111;
@@ -91,8 +91,8 @@ button:focus {outline:0;}
 }
 #tabsBar .current {
     /*background-color: #0086b3;*/
-    color:white;
-    background-color: grey;
+    /* color:white; */
+    /* background-color: grey; */
     transition-duration: 100ms
     /*border: 1px solid #0099ff;*/
 
