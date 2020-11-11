@@ -23,7 +23,7 @@
     "@babel/plugin-proposal-numeric-separator": "^7.10.1",
     "@babel/preset-env": "^7.10.2",
     "@fortawesome/fontawesome-free": "^5.14.0",
-    "@rails/webpacker": "4.2.2",
+    "@rails/webpacker": "5.2.1",
     "better-docs": "^2.0.1",
     "bootstrap": "^4.5.0",
     "codemirror": "^5.58.2",
