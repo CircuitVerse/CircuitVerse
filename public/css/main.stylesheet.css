@@ -9,6 +9,7 @@
 @import "./2-basics/base.scss";
 @import "./2-basics/reset.scss";
 @import "./shortcut.panel.css";
+@import "./embed.css";
 @import "./plugin-stylesheets/simple-button-radios.css";
 @import "./plugin-stylesheets/checkBo.min.css";
 @import "./plugin-stylesheets/jquery-pseudo-ripple.css";
@@ -563,7 +564,7 @@ div.icon img {
 #tabsBar {
   width: 100%;
   /* height: 23.5px; */
-  display: flex;
+  display: block;
   align-items: center;
   z-index: 100;
 }
@@ -571,9 +572,9 @@ div.icon img {
 #tabsBar div {
   justify-content: space-between;
   border-radius: 1px;
-  display: inline-block;
+  display: inline-block; 
   margin: 2px;
-  min-width: 110px;
+  /* min-width: 110px; */
   font-size: 14px;
   transition: all 0.2s ease-in-out;
 }
