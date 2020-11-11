@@ -269,10 +269,7 @@
       "box-shadow": "0 0 0 0.2rem rgba(66, 185, 131, 0.25)",
     };
 
-    // changing the border colors when input is filled
-    if(($('.collaborators-emails-input').val().trim().length) > -1) {
-      $('.collaborators-emails-input').css(styles);
-    }
+    $('.collaborators-emails-input').css(styles); // changing the colors
   })
 </script>
 
