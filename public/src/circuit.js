@@ -143,8 +143,14 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
     globalScope = scope;
     $('.circuits').removeClass('current');
     if (!isVerilog || isVerilogMain) {
-        var html = `<div style='' class='circuits toolbarButton current' id='${scope.id}'><span class='circuitName noSelect'>${name}</span><span class ='tabsCloseButton' id='${scope.id}'  >x</span></div>`;
-        $('#tabsBar').children().last().before(html);
+        if(embed) {
+            var html = `<div style='' class='circuits toolbarButton current' id='${scope.id}'><span class='circuitName noSelect'>${name}</span></div>`;
+            $('#tabsBar').append(html);
+        }
+        else {
+            var html = `<div style='' class='circuits toolbarButton current' id='${scope.id}'><span class='circuitName noSelect'>${name}</span><span class ='tabsCloseButton' id='${scope.id}'  >x</span></div>`;
+            $('#tabsBar').children().last().before(html);
+        }
         $('.circuits').click(function () {
             switchCircuit(this.id);
         });
