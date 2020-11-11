@@ -73,11 +73,9 @@ input:checked + .slider:before {
 #tabsBar .circuits {
     color: #000;
     text-align: center;
-    /* background-color: white; */
     padding-left: 0.5em;
     padding-right: 0.5em;
     border: 1px solid #111;
-    /*border-radius: 0.1em;*/
     display: inline-block;
 
 
@@ -90,14 +88,9 @@ button:focus {outline:0;}
 
 }
 #tabsBar .current {
-    /*background-color: #0086b3;*/
-    /* color:white; */
-    /* background-color: grey; */
     transition-duration: 100ms
-    /*border: 1px solid #0099ff;*/
-
-
 }
+
 .noSelect {
     -moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;
 }
@@ -239,7 +232,7 @@ button:focus {outline:0;}
 .zoom-wrapper {
     position: absolute;
     bottom: 1px;
-    right: -10px;
+    right: 0px;
     font-size: 10px;
     opacity: .3;
     z-index: 100;

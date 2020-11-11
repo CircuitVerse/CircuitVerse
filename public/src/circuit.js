@@ -187,7 +187,7 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
 export function changeCircuitName(name, id = globalScope.id) {
     name = name || 'Untitled';
     name = stripTags(name);
-    $(`#${id} .circuitName`).html(`${name}`);
+    $(`#${id} .circuitName`).html(`${truncateString(name, 18)}`);
     scopeList[id].name = name;
 }
 
