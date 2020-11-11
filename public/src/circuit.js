@@ -150,6 +150,7 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
         if(embed) {
             var html = `<div style='' class='circuits toolbarButton current' id='${scope.id}'><span class='circuitName noSelect'>${truncateString(name, 18)}</span></div>`;
             $('#tabsBar').append(html);
+            $("#tabsBar").addClass('embed-tabs');
         }
         else {
             var html = `<div style='' class='circuits toolbarButton current' id='${scope.id}'><span class='circuitName noSelect'>${truncateString(name, 18)}</span><span class ='tabsCloseButton' id='${scope.id}'  >x</span></div>`;

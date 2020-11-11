@@ -34,21 +34,21 @@
 
 #clockProperty{
     padding: 10px;
-    border-radius: 2px;
-    background-color: gainsboro;
 }
+
 #clockPropertyHeader{
+    border-radius: 3px;
 
 }
 #clockProperty{
-    font-size: 12px;
-    padding: 5px;
-    border-radius: 2px;
-    background-color: gainsboro;
+    padding: 10px;
+    border-radius: 6px;
     opacity: 0.1;
-    border: 1px solid #0D3349;
-    -webkit-transition: .4s;
     transition: .4s;
+    height: 109px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
 }
 #clockProperty:hover{
@@ -234,4 +234,17 @@ button:focus {outline:0;}
 #restrictedElementsDiv:hover {
     opacity: 1;
     transition: .4s;
+}
+
+.zoom-wrapper {
+    position: absolute;
+    bottom: 1px;
+    right: -10px;
+    font-size: 10px;
+    opacity: .3;
+    z-index: 100;
+}
+
+.zoom-wrapper:hover {
+    opacity: 1;
 }

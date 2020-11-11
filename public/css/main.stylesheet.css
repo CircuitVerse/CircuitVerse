@@ -569,6 +569,10 @@ div.icon img {
   z-index: 100;
 }
 
+.embed-tabs {
+    background-color: transparent !important;
+}
+
 #tabsBar div {
   justify-content: space-between;
   border-radius: 1px;
@@ -1465,6 +1469,9 @@ input[type='range']::-webkit-slider-thumb {
 }
 
 /*! Color them dialog styles ends here*/
+
+
+
 
 .code-window .CodeMirror {
   height: calc(100% - 78px);

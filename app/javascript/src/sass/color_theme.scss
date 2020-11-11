@@ -628,10 +628,6 @@ select {
   color: var(--text-panel) !important;
 }
 
-svg:hover {
-  fill: red;
-}
-
 #Rectangle_1072 {
   stroke: var(--text-panel);
 }
@@ -644,4 +640,16 @@ svg:hover {
   display: block;
   margin-right: 25px;
   margin-top: -10px;
+}
+
+// Ember view
+#clockProperty{
+  background: var(--primary);
+  border: 1px solid var(--br-primary);
+  color: var(--text-panel);
+}
+
+.embed-fullscreen-btn {
+  width: auto !important;
+  height: 22px;
 }
