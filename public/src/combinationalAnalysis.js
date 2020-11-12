@@ -27,6 +27,8 @@ export function createCombinationalAnalysisPrompt(scope = globalScope) {
     $('#combinationalAnalysis').empty();
     $('#combinationalAnalysis').append("<p>Enter Input names separated by commas: <input id='inputNameList' type='text'  placeHolder='eg. In A, In B'></p>");
     $('#combinationalAnalysis').append("<p>Enter Output names separated by commas: <input id='outputNameList' type='text'  placeHolder='eg. Out X, Out Y'></p>");
+    $('#combinationalAnalysis').append("<p style='text-align:center;'>OR</p>");
+    $('#combinationalAnalysis').append("<p>Enter Boolean Function: <input class='truth_table_input' autofocus id='booleanExpression' placeholder='Example: (AB)'C+D' type='text'></p>");
     $('#combinationalAnalysis').append("<label class='cb-checkbox'>I need a decimal column.<input id='decimalColumnBox' type='checkbox'></label>");
     $('#combinationalAnalysis').dialog({
         resizable:false,
@@ -37,15 +39,37 @@ export function createCombinationalAnalysisPrompt(scope = globalScope) {
                 click() {
                     var inputList = $('#inputNameList').val().split(',');
                     var outputList = $('#outputNameList').val().split(',');
+                    var booleanExpression = $('#booleanExpression').val();
                     inputList = inputList.map((x) => x.trim());
                     inputList = inputList.filter((e) => e);
                     outputList = outputList.map((x) => x.trim());
                     outputList = outputList.filter((e) => e);
-                    if (inputList.length > 0 && outputList.length > 0) {
+                    booleanExpression = booleanExpression.replace(/ /g, '');
+                    booleanExpression = booleanExpression.toUpperCase();
+                    
+                    var booleanInputVariables = [];
+                    for (var i = 0; i < booleanExpression.length; i++) {
+                        if ((booleanExpression[i] >= 'A' && booleanExpression[i] <= 'Z')) {
+                            if (booleanExpression.indexOf(booleanExpression[i]) == i) {
+                                booleanInputVariables.push(booleanExpression[i]);
+                            }
+                        }
+                    }
+                    booleanInputVariables.sort();
+                    
+                    if (inputList.length > 0 && outputList.length > 0 && booleanInputVariables.length == 0) {
                         $(this).dialog('close');
                         createBooleanPrompt(inputList, outputList, scope);
-                    } else {
-                        alert('Enter Input / Output Variable(s) !');
+                    } 
+                    else if (booleanInputVariables.length > 0 && inputList.length == 0 && outputList.length == 0){
+                        $(this).dialog('close');
+                        booleanFunction(booleanInputVariables, booleanExpression, scope);
+                    }
+                    else if (( inputList.length == 0 || outputList.length == 0 ) && booleanInputVariables == 0) {
+                        alert('Enter Input / Output Variable(s) OR Boolean Function!');
+                    }
+                    else {
+                        alert('Use Either Combinational Analysis Or Boolean Function To Generate Circuit!');
                     }
                 },
             },
@@ -295,4 +319,147 @@ function drawCombinationalAnalysis(combinationalData, inputList, outputListNames
             logixNodes[i].connect(v);
         }
     }
+}
+
+function booleanFunction(inputListNames, booleanExpression, scope = globalScope){
+    let i, j;
+    let output = [];
+
+    if (booleanExpression.match(/[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01+'() ]/g) != null) {
+        alert('One of the characters is not allowed.');
+        return;
+    }
+
+    if (inputListNames.length > 8) {
+        alert('You can only have 8 variables at a time.');
+        return;
+    }
+
+    var s = '<table  class="content-table">';
+    s += '<tbody style="display:block; max-height:70vh; overflow-y:scroll" >';
+    s += '<tr>';
+    if ($('#decimalColumnBox').is(':checked')) { s += '<th>' + 'dec' + '</th>'; }
+    for ( i = 0; i < inputListNames.length; i++) { s += `<th>${inputListNames[i]}</th>`; }
+    s += `<th>${booleanExpression}</th>`;
+    s += '</tr>';
+    var matrix = [];
+    for ( i = 0; i < inputListNames.length; i++) {
+        matrix[i] = new Array((inputListNames.length));
+    }
+
+    for ( i = 0; i < inputListNames.length; i++) {
+        for ( j = 0; j < (1 << inputListNames.length); j++) {
+            matrix[i][j] = (+((j & (1 << (inputListNames.length - i - 1))) != 0));
+        }
+    }
+
+    for (i = 0; i < Math.pow(2, inputListNames.length); i++) {
+        let data = [];
+        for (j = 0; j < inputListNames.length; j++) {
+            data[j] = Math.floor(i / Math.pow(2, inputListNames.length - j - 1)) % 2;
+        } 
+        let equation = booleanExpression;
+        for (j = 0; j < inputListNames.length; j++) {
+            equation = equation.replace(new RegExp(inputListNames[j], 'g'), data[j]);
+        }
+
+        output[i] = solve(equation);
+    }
+     
+    for ( j = 0; j < (1 << inputListNames.length); j++) {
+        s += '<tr>';
+        if ($('#decimalColumnBox').is(':checked')) { s += `<td>${j}</td>`; }
+        for ( i = 0; i < inputListNames.length; i++) {
+            s += `<td>${matrix[i][j]}</td>`;
+        }
+        
+        s += `<td class="13" id="${j}">` + `${output[j]}` + '</td>';
+        s += '</tr>';
+    }
+
+    s += '</tbody>';
+    s += '</table>';
+   
+    function solve(equation) {
+        while (equation.indexOf("(") != -1) {
+            let start = equation.lastIndexOf("(");
+            let end = equation.indexOf(")", start);
+            if (start != -1)
+                equation = equation.substring(0, start)
+                    + solve(equation.substring(start + 1, end))
+                    + equation.substring(end + 1);
+        }
+        equation = equation.replace(/''/g, '');
+        equation = equation.replace(/0'/g, '1');
+        equation = equation.replace(/1'/g, '0');
+        for (let i = 0; i < equation.length - 1; i++)
+            if ((equation[i] == '0' || equation[i] == '1') && (equation[i + 1] == '0' || equation[i + 1] == '1'))
+                equation = equation.substring(0, i + 1) + '*' + equation.substring(i + 1, equation.length);
+        try {
+            let safeEval = eval;
+            let answer = safeEval(equation);
+            if (answer == 0)
+                return 0;
+            if (answer > 0)
+                return 1;
+            return '';
+        } catch (e) {
+            return '';
+        }
+    }
+ 
+    $('#combinationalAnalysis').empty();
+    $('#combinationalAnalysis').append(s);
+    $('#combinationalAnalysis').dialog({
+        resizable: false,
+        width: 'auto',
+        buttons: [
+            {
+                text: 'Generate Circuit',
+                click() {
+                    $(this).dialog('close');
+                    var data = generateBooleanTableData([13]);
+                    var minimizedCircuit = [];
+                    let inputCount = inputListNames.length;
+                    for (const output in data) {
+                        let oneCount = data[output][1].length;
+                        let zeroCount = data[output][0].length;
+                        if (oneCount == 0) {
+                            minimizedCircuit.push(['-'.repeat(inputCount) + '0']);
+                        }
+                        else if (zeroCount == 0) {
+                            minimizedCircuit.push(['-'.repeat(inputCount) + '1']);
+                        }
+                        else {
+                            const temp = new BooleanMinimize(
+                                inputListNames.length,
+                                data[output][1].map(Number),
+                                data[output].x.map(Number),
+                            );
+                            minimizedCircuit.push(temp.result);
+                        }
+                        
+                    }
+                    drawCombinationalAnalysis(minimizedCircuit, inputListNames, [`${booleanExpression}`], scope);
+                },
+            },
+            {
+                text: 'Print Truth Table',
+                click() {
+                    var sTable = document.getElementById('combinationalAnalysis').innerHTML;
+                    var style = '<style> table {font: 20px Calibri;} table, th, td {border: solid 1px #DDD;border-collapse: collapse;} padding: 2px 3px;text-align: center;} </style>';
+                    var win = window.open('', '', 'height=700,width=700');
+                    win.document.write('<html><head>');
+                    win.document.write('<title>Boolean Logic Table</title>');
+                    win.document.write(style);
+                    win.document.write('</head>');
+                    win.document.write('<body>');
+                    win.document.write(`<center>${sTable}</center>`);
+                    win.document.write('</body></html>');
+                    win.document.close();
+                    win.print();
+                },
+            },    
+        ],
+    });
 }
