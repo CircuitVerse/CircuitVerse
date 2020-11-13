@@ -169,14 +169,14 @@ function createBooleanPrompt(inputListNames, outputListNames, scope = globalScop
                     var sTable = document.getElementById('combinationalAnalysis').innerHTML;
                     var style = '<style> table {font: 20px Calibri;} table, th, td {border: solid 1px #DDD;border-collapse: collapse;} padding: 2px 3px;text-align: center;} </style>';
                     var win = window.open('', '', 'height=700,width=700');
-                    var htmlbody = '<html><head>';
-                    htmlbody += '<title>Boolean Logic Table</title>';
-                    htmlbody += style;
-                    htmlbody += '</head>';
-                    htmlbody += '<body>';
-                    htmlbody += `<center>${sTable}</center>`;
-                    htmlbody += '</body></html>';
-                    win.document.write(htmlbody);
+                    var htmlBody = '<html><head>';
+                    htmlBody += '<title>Boolean Logic Table</title>';
+                    htmlBody += style;
+                    htmlBody += '</head>';
+                    htmlBody += '<body>';
+                    htmlBody += `<center>${sTable}</center>`;
+                    htmlBody += '</body></html>';
+                    win.document.write(htmlBody);
                     win.document.close();
                     win.print();
                 },
@@ -450,14 +450,14 @@ function booleanFunction(inputListNames, booleanExpression, scope = globalScope)
                     var sTable = document.getElementById('combinationalAnalysis').innerHTML;
                     var style = '<style> table {font: 20px Calibri;} table, th, td {border: solid 1px #DDD;border-collapse: collapse;} padding: 2px 3px;text-align: center;} </style>';
                     var win = window.open('', '', 'height=700,width=700');
-                    var htmlbody = '<html><head>';
-                    htmlbody += '<title>Boolean Logic Table</title>';
-                    htmlbody += style;
-                    htmlbody += '</head>';
-                    htmlbody += '<body>';
-                    htmlbody += `<center>${sTable}</center>`;
-                    htmlbody += '</body></html>';
-                    win.document.write(htmlbody);
+                    var htmlBody = '<html><head>';
+                    htmlBody += '<title>Boolean Logic Table</title>';
+                    htmlBody += style;
+                    htmlBody += '</head>';
+                    htmlBody += '<body>';
+                    htmlBody += `<center>${sTable}</center>`;
+                    htmlBody += '</body></html>';
+                    win.document.write(htmlBody);
                     win.document.close();
                     win.print();
                 },
