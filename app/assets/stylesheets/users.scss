@@ -82,7 +82,7 @@
   height: 42px;
   margin: 8px;
   width: 184px;
-  
+
   .icon-wrapper {
     background-color: $white;
     border-radius: 2px;
@@ -98,9 +98,9 @@
     margin-left: -11px;
     margin-top: 11px;
     position: absolute;
-    width: 18px;  
+    width: 18px;
   }
-  
+
   .btn-text {
     color: $white;
     float: right;
@@ -117,6 +117,7 @@
   &:hover {
     box-shadow: 0 0 6px $google-btn-hover;
   }
+
   &:active {
     background: $btn-active;
   }
@@ -129,6 +130,7 @@
   &:hover {
     box-shadow: 0 0 6px $fb-btn-hover;
   }
+
   &:active {
     background: $btn-active;
   }
@@ -140,6 +142,7 @@
   &:hover {
     box-shadow: 0 0 6px $github-hover;
   }
+
   &:active {
     background: $btn-active;
   }
