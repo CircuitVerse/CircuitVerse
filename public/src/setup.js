@@ -16,8 +16,15 @@ import { newCircuit } from './circuit';
 import load from './data/load';
 import save from './data/save';
 import showTourGuide from './tutorials';
-import setupModules from './moduleSetup'
-
+import setupModules from './moduleSetup';
+import 'codemirror/lib/codemirror.css';
+import 'codemirror/addon/hint/show-hint.css';
+import 'codemirror/mode/javascript/javascript.js'; // verilog.js from codemirror is not working because array prototype is changed.
+import 'codemirror/addon/edit/closebrackets.js';
+import 'codemirror/addon/hint/anyword-hint.js';
+import 'codemirror/addon/hint/show-hint.js';
+import {setupCodeMirrorEnvironment} from './Verilog2CV';
+import {setupVerilogExportCodeWindow} from './verilog';
 
 window.width = undefined;
 window.height = undefined;
@@ -79,6 +86,10 @@ function setupEnvironment() {
     newCircuit('Main');
     window.data = {};
     resetup();
+    if (!embed) {
+        setupVerilogExportCodeWindow();
+    }
+    setupCodeMirrorEnvironment();
 }
 
 /**
@@ -111,7 +122,9 @@ function setupElementLists() {
         const categoryData = elementHierarchy[category];
         for (let i = 0; i < categoryData.length; i++) {
             const element = categoryData[i];
-            htmlIcons += createIcon(element);
+            if(!element.startsWith("verilog")) {
+                htmlIcons += createIcon(element);
+            }
         }
 
         const accordionData = `<div class="panelHeader">${category}</div>
@@ -173,10 +186,8 @@ export function setup() {
         }
     }, 1000);
 
-    if (!localStorage.tutorials_tour_done) {
+    if (!localStorage.tutorials_tour_done && !embed) {
         setTimeout(()=> {showTourGuide();}, 2000);
     }
     
 }
-
-

@@ -193,6 +193,10 @@ export default class Output extends CircuitElement {
         this.inp1.refresh();
         this.labelDirection = oppositeDirection[this.direction];
     }
+
+    generateVerilog() {
+        return "assign " + this.verilogLabel + " = " + this.inp1.verilogLabel + ";"
+    }
 }
 
 /**

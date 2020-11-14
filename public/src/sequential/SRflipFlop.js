@@ -69,7 +69,6 @@ export default class SRflipFlop extends CircuitElement {
             this.state = this.S.value;
         }
 
-        // console.log(this.reset.value != 1 && this.en.value && this.S.value && this.R.value && this.S.value ^ this.R.value);
         if (this.qOutput.value != this.state) {
             this.qOutput.value = this.state;
             this.qInvOutput.value = this.flipBits(this.state);

@@ -55,7 +55,6 @@ export default class Random extends CircuitElement {
      * Random number is generated less then the maxValue.
      */
     resolve() {
-        // console.log("HIT")
         var maxValue = this.maxValue.connections.length ? this.maxValue.value + 1 : (2 << (this.bitWidth - 1));
         if (this.clockInp.value != undefined) {
             if (this.clockInp.value != this.prevClockState) {
@@ -126,6 +125,23 @@ export default class Random extends CircuitElement {
             ctx.fillStyle = "rgba(255, 255, 32,0.6)";
             ctx.fill();
         }
+    }
+    
+    static moduleVerilog() {
+        return `
+      module Random(val, clk, max);
+        parameter WIDTH = 1;
+        output reg [WIDTH-1:0] val;
+        input clk;
+        input [WIDTH-1:0] max;
+      
+        always @ (posedge clk)
+          if (^max === 1'bX)
+            val = $urandom_range(0, {WIDTH{1'b1}});
+          else
+            val = $urandom_range(0, max);
+      endmodule
+      `;
     }
 }
 

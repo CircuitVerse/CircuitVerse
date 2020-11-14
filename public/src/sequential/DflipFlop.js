@@ -134,6 +134,27 @@ export default class DflipFlop extends CircuitElement {
         fillText(ctx, this.slaveState.toString(16), xx, yy + 5);
         ctx.fill();
     }
+
+    static moduleVerilog(){
+        return `
+module DflipFlop(q, q_inv, clk, d, a_rst, pre, en);
+    parameter WIDTH = 1;
+    output reg [WIDTH-1:0] q, q_inv;
+    input clk, a_rst, pre, en;
+    input [WIDTH-1:0] d;
+
+    always @ (posedge clk or posedge a_rst)
+    if (a_rst) begin
+        q <= 'b0;
+        q_inv <= 'b1;
+    end else if (en == 0) ;
+    else begin
+        q <= d;
+        q_inv <= ~d;
+    end
+endmodule
+    `
+    }
 }
 
 DflipFlop.prototype.tooltipText = 'D FlipFlop ToolTip : Introduces delay in timing circuit.';

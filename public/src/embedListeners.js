@@ -10,6 +10,8 @@ import {
 import { changeScale } from './canvasApi';
 import { copy, paste } from './events';
 
+var unit = 10;
+
 export default function startListeners() {
     window.addEventListener('keyup', (e) => {
         scheduleUpdate(1);

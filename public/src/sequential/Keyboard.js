@@ -62,7 +62,6 @@ export default class Keyboard extends CircuitElement {
         if (key.length != 1) return;
         this.buffer += key;
         if (this.buffer.length > this.bufferSize) { this.buffer = this.buffer.slice(1); }
-        // console.log(key)
     }
 
     /**

@@ -88,6 +88,10 @@ export default class NotGate extends CircuitElement {
         drawCircle2(ctx, 15, 0, 5, xx, yy, this.direction);
         ctx.stroke();
     }
+
+    generateVerilog() {
+        return "assign " + this.output1.verilogLabel + " = ~" + this.inp1.verilogLabel + ";"
+    }
 }
 
 /**
@@ -101,3 +105,4 @@ NotGate.prototype.tooltipText =
 NotGate.prototype.helplink =
     "https://docs.circuitverse.org/#/gates?id=not-gate";
 NotGate.prototype.objectType = "NotGate";
+NotGate.prototype.verilogType = "not";

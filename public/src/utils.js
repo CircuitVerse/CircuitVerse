@@ -81,3 +81,113 @@ export function uniq(a) {
     const tmp = a.filter((item) => (seen.hasOwnProperty(item) ? false : (seen[item] = true)));
     return tmp;
 }
+
+// Generates final verilog code for each element
+// Gate = &/|/^
+// Invert is true for xNor, Nor, Nand
+export function gateGenerateVerilog(gate, invert = false) {
+    var inputs = [];
+    var outputs = [];
+
+    for (var i = 0; i < this.nodeList.length; i++) {
+        if (this.nodeList[i].type == NODE_INPUT) {
+            inputs.push(this.nodeList[i]);
+        } else {
+            if (this.nodeList[i].connections.length > 0)
+                outputs.push(this.nodeList[i]);
+            else
+                outputs.push(""); // Don't create a wire
+        }
+    }
+
+    var res = "assign ";
+    if (outputs.length == 1)
+        res += outputs[0].verilogLabel;
+    else
+        res += `{${outputs.map(x => x.verilogLabel).join(", ")}}`;
+
+    res += " = ";
+
+    var inputParams = inputs.map(x => x.verilogLabel).join(` ${gate} `);
+    if(invert) {
+        res += `~(${inputParams});`;
+    }
+    else {
+        res += inputParams + ';';
+    }
+    return res;
+}
+
+// Helper function to download text
+export function download(filename, text) {
+    var pom = document.createElement('a');
+    pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    pom.setAttribute('download', filename);
+
+
+    if (document.createEvent) {
+        var event = document.createEvent('MouseEvents');
+        event.initEvent('click', true, true);
+        pom.dispatchEvent(event);
+    } else {
+        pom.click();
+    }
+}
+
+// Helper function to open a new tab
+export function openInNewTab(url) {
+    var win = window.open(url, '_blank');
+    win.focus();
+}
+
+export function copyToClipboard(text) {
+    const textarea = document.createElement('textarea');
+    
+    // Move it off-screen.
+    textarea.style.cssText = 'position: absolute; left: -99999em';
+
+    // Set to readonly to prevent mobile devices opening a keyboard when
+    // text is .select()'ed.
+    textarea.setAttribute('readonly', true);
+
+    document.body.appendChild(textarea);
+      textarea.value = text;
+  
+      // Check if there is any content selected previously.
+      const selected = document.getSelection().rangeCount > 0 ?
+        document.getSelection().getRangeAt(0) : false;
+  
+      // iOS Safari blocks programmatic execCommand copying normally, without this hack.
+      // https://stackoverflow.com/questions/34045777/copy-to-clipboard-using-javascript-in-ios
+      if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
+        const editable = textarea.contentEditable;
+        textarea.contentEditable = true;
+        const range = document.createRange();
+        range.selectNodeContents(textarea);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        textarea.setSelectionRange(0, 999999);
+        textarea.contentEditable = editable;
+      }
+      else {
+        textarea.select();
+      }
+  
+      try {
+        const result = document.execCommand('copy');
+  
+        // Restore previous selection.
+        if (selected) {
+          document.getSelection().removeAllRanges();
+          document.getSelection().addRange(selected);
+        }
+        textarea.remove();
+        return result;
+      }
+      catch (err) {
+        console.error(err);
+        textarea.remove();
+        return false;
+      }
+};

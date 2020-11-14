@@ -487,6 +487,7 @@ GEM
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
+    semantic_range (2.3.0)
     serviceworker-rails (0.6.0)
       railties (>= 3.1)
     shoulda-matchers (4.4.1)
@@ -543,7 +544,7 @@ GEM
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
-    tzinfo (1.2.7)
+    tzinfo (1.2.8)
       thread_safe (~> 0.1)
     tzinfo-data (1.2019.3)
       tzinfo (>= 1.0.0)
@@ -569,10 +570,11 @@ GEM
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
-    webpacker (4.2.2)
-      activesupport (>= 4.2)
+    webpacker (5.2.1)
+      activesupport (>= 5.2)
       rack-proxy (>= 0.6.1)
-      railties (>= 4.2)
+      railties (>= 5.2)
+      semantic_range (>= 2.3.0)
     webpush (1.0.0)
       hkdf (~> 0.2)
       jwt (~> 2.0)
@@ -584,7 +586,7 @@ GEM
       will_paginate (>= 3.0.3)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.4.0)
+    zeitwerk (2.4.1)
 
 PLATFORMS
   ruby
@@ -619,7 +621,6 @@ DEPENDENCIES
   hirb
   http
   i18n-js
-  jbuilder (~> 2.5)
   inline_svg
   invisible_captcha (~> 1.1)
   jbuilder (~> 2.10)
@@ -669,7 +670,7 @@ DEPENDENCIES
   web-console (>= 3.3.0)
   webdrivers (~> 4.0)
   webmock
-  webpacker (~> 4.x)
+  webpacker (~> 5.x)
   webpush
   will_paginate (~> 3.3.0)
   will_paginate-bootstrap

@@ -21,6 +21,7 @@
   __logix_project_id = "<%= @logix_project_id %>";
   __projectName = "<%= @projectName %>"
 </script>
+
 <div id='exitView'></div>
 <nav class="navbar navbar-expand-lg navbar-dark header">
   <a href="/"><span class='logo'></span></a>
@@ -47,7 +48,8 @@
       <li class="dropdown">
         <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Circuit<span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item text-left logixButton pl-1" id="newCircuit">New Circuit +</a></li>
+          <li><a class="dropdown-item text-left logixButton pl-1" id="newCircuit">New Circuit + </a></li>
+          <li><a class="dropdown-item text-left logixButton pl-1" id="newVerilogModule">New Verilog <br> Module</a></li>
           <li><a class="dropdown-item logixButton text-left pl-1" id="createSubCircuitPrompt">Insert SubCircuit</a></li>
         </ul>
       </li>
@@ -60,6 +62,7 @@
           <li><a class="dropdown-item text-left pl-1 logixButton" id="createSaveAsImgPrompt">Download Image</a>
           <li><a class="dropdown-item text-left pl-1 logixButton" id="colorThemes">Themes</a>
           <li><a class="dropdown-item text-left pl-1" id="customShortcut">Custom Shortcut</a></li>
+          <li><a class="dropdown-item text-left pl-1 logixButton" id="generateVerilog">Export Verilog</a>
         </ul>
       </li>
       <li  class="dropdown tour-help">
@@ -169,7 +172,8 @@
 <div id="tabsBar" class="noSelect pointerCursor">
   <button class="logixButton" id="newCircuit" onclick="">&#43;</button>
 </div>
-
+<div title="Export Verilog" id="verilog-export-code-window-div" style="display:none"><textarea id="verilog-export-code-window"></textarea></div>
+<div id="code-window" class='code-window'><textarea id="codeTextArea"></textarea></div>
 <div class="modules noSelect defaultCursor ce-panel elementPanel draggable-panel" id="guide_1">
   <div class="panel-header">Circuit Elements
   <span class="minimize"></span>
@@ -193,6 +197,22 @@
   <div class="panel-body">
     <div class="search-results"></div>
     <div class="accordion" id="subcircuitMenu"></div>
+  </div>
+</div>
+<div id="MessageDiv"></div>
+<div class="noSelect defaultCursor draggable-panel" id="verilogEditorPanel">
+  <div class="panel-header">Verilog Module
+  <span class="minimize"></span>
+  <span class="fas fa-external-link-square-alt maximize"></span>
+  </div>
+  <div class="panel-body">
+    <div class="layout-body">
+      <button class="largeButton btn logixButton btn-xs custom-btn--tertiary" id="resetVerilogCode">Reset Code</button>
+      <button class="largeButton btn logixButton btn-xs custom-btn--primary" id="saveVerilogCode">Save Code</button>
+      <div id="verilogOutput">
+      This is an experimental module. The code is not saved unless the "Save Code" button is clicked.
+      </div>
+    </div>
   </div>
 </div>
 
@@ -420,7 +440,6 @@
     </div>
   </div>
   <% end %>
-  <div id="MessageDiv"></div>
   <div class="canvasArea" id="canvasArea">
     <canvas
       id="backgroundArea"
@@ -584,10 +603,11 @@
 
 <link rel="stylesheet" type="text/css" href="/css/restrictedElements.css">
 
+
+
+
 <script src="/js/dec-bin-hex-converter.js"></script>
-<script src="/js/verilog.js"></script>
 <script type="text/javascript" src="/js/metadata.json"></script>
-<script src="/js/canvas2svg.js"></script>
 
 <script>
   $(document).tooltip({
@@ -610,4 +630,3 @@ $('.Layout-btn').ripple({
 duration: 500
 });
 </script>
-<script src = './'>

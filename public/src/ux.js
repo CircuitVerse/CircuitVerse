@@ -79,7 +79,7 @@ function showContextMenu() {
  * @param {number} id - id of the optoin selected
  * @category ux
  */
-function menuItemClicked(id) {
+function menuItemClicked(id, code="") {
     hideContextMenu();
     if (id === 0) {
         document.execCommand('copy');
@@ -141,6 +141,7 @@ export function setupUI() {
     $('.logixModules').mousedown(createElement);
 
     $('.logixButton').click(function () {
+        console.log(this.id);
         logixFunction[this.id]();
     });
     // var dummyCounter=0;
@@ -397,6 +398,7 @@ export function showProperties(obj) {
  * @category ux
  */
 export function hideProperties() {
+    console.trace();
     $('#moduleProperty-inner').empty();
     $('#moduleProperty').hide();
     prevPropertyObjSet(undefined);
@@ -418,11 +420,17 @@ function escapeHtml(unsafe) {
 
 export function deleteSelected() {
     $('input').blur();
-    if (simulationArea.lastSelected && !(simulationArea.lastSelected.objectType === 'Node' && simulationArea.lastSelected.type !== 2)) simulationArea.lastSelected.delete();
-    for (var i = 0; i < simulationArea.multipleObjectSelections.length; i++) {
-        if (!(simulationArea.multipleObjectSelections[i].objectType === 'Node' && simulationArea.multipleObjectSelections[i].type !== 2)) simulationArea.multipleObjectSelections[i].cleanDelete();
+    if (simulationArea.lastSelected && !(simulationArea.lastSelected.objectType === 'Node' && simulationArea.lastSelected.type !== 2)) {
+        simulationArea.lastSelected.delete();
+        hideProperties();
     }
-    hideProperties();
+        
+    for (var i = 0; i < simulationArea.multipleObjectSelections.length; i++) {
+        if (!(simulationArea.multipleObjectSelections[i].objectType === 'Node' && simulationArea.multipleObjectSelections[i].type !== 2)) 
+            simulationArea.multipleObjectSelections[i].cleanDelete();
+        hideProperties();
+    }
+    
     simulationArea.multipleObjectSelections = [];
 
     // Updated restricted elements
@@ -506,6 +514,7 @@ window.addEventListener('DOMContentLoaded', () => {
     setupPanelListeners('.layoutElementPanel');
     setupPanelListeners('#moduleProperty');
     setupPanelListeners('#layoutDialog');
+    setupPanelListeners('#verilogEditorPanel');
 
     // setting the name of the title bar as same as it is in the side bar
     $('.projectName').val($('[name="setProjectName"]').val()); // setting the initial value of title heading

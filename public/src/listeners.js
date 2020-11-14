@@ -17,6 +17,7 @@ import undo from './data/undo';
 import { copy, paste, selectAll } from './events';
 import save from './data/save';
 import { createElement } from './ux';
+import { verilogModeGet } from './Verilog2CV';
 
 var unit = 10;
 var createNode = false; // Flag to create node when its value ==tru)e
@@ -118,11 +119,34 @@ export default function startListeners() {
             ) { simulationArea.multipleObjectSelections = []; }
         }
     });
-    window.addEventListener('mousemove', onMouseMove);
+    document.getElementById('simulationArea').addEventListener('mousemove', onMouseMove);
 
+    window.addEventListener('keyup', e => {
+        scheduleUpdate(1);
+        simulationArea.shiftDown = e.shiftKey;
+        if (e.keyCode == 16) {
+            simulationArea.shiftDown = false;
+        }
+        if (e.key == 'Meta' || e.key == 'Control') {
+            simulationArea.controlDown = false;
+        }
+    })
 
     window.addEventListener('keydown', (e) => {
         if (document.activeElement.tagName == 'INPUT') return;
+        if (document.activeElement != document.body) return;
+
+        simulationArea.shiftDown = e.shiftKey;
+        if (e.key == 'Meta' || e.key == 'Control') {
+            simulationArea.controlDown = true;
+        }
+
+        if (e.keyCode == 8 || e.key == 'Delete') {
+            deleteSelected();
+        }
+        if (simulationArea.controlDown && e.key.charCodeAt(0) == 122) { // detect the special CTRL-Z code
+            undo();
+        }
 
         if (listenToSimulator) {
         // If mouse is focusing on input element, then override any action
@@ -210,14 +234,6 @@ export default function startListeners() {
                 }
             }
 
-            if (e.keyCode == 8 || e.key == 'Delete') {
-                deleteSelected();
-            }
-
-            if (simulationArea.controlDown && e.key.charCodeAt(0) == 122) { // detect the special CTRL-Z code
-                undo();
-            }
-
             // Detect online save shortcut (CTRL+S)
             if (simulationArea.controlDown && e.keyCode == 83 && !simulationArea.shiftDown) {
                 save();
@@ -265,7 +281,7 @@ export default function startListeners() {
         }
     });
 
-    window.addEventListener('mouseup', onMouseUp);
+    document.getElementById('simulationArea').addEventListener('mouseup', onMouseUp);
 
     document.getElementById('simulationArea').addEventListener('mousewheel', MouseScroll);
     document.getElementById('simulationArea').addEventListener('DOMMouseScroll', MouseScroll);
@@ -286,7 +302,9 @@ export default function startListeners() {
     }
 
     document.addEventListener('cut', (e) => {
+        if (verilogModeGet()) return;
         if (document.activeElement.tagName == 'INPUT') return;
+        if (document.activeElement.tagName != 'BODY') return;
 
         if (listenToSimulator) {
             simulationArea.copyList = simulationArea.multipleObjectSelections.slice();
@@ -312,7 +330,9 @@ export default function startListeners() {
     });
 
     document.addEventListener('copy', (e) => {
+        if (verilogModeGet()) return;
         if (document.activeElement.tagName == 'INPUT') return;
+        if (document.activeElement.tagName != 'BODY') return;
 
         if (listenToSimulator) {
             simulationArea.copyList = simulationArea.multipleObjectSelections.slice();
@@ -338,6 +358,7 @@ export default function startListeners() {
 
     document.addEventListener('paste', (e) => {
         if (document.activeElement.tagName == 'INPUT') return;
+        if (document.activeElement.tagName != 'BODY') return;
 
         if (listenToSimulator) {
             var data;
@@ -392,7 +413,7 @@ export default function startListeners() {
         "Input", "Output", "NotGate", "OrGate", "AndGate", "NorGate", "NandGate", "XorGate", "XnorGate", "SevenSegDisplay", "SixteenSegDisplay", "HexDisplay",
         "Multiplexer", "BitSelector", "Splitter", "Power", "Ground", "ConstantVal", "ControlledInverter", "TriState", "Adder", "Rom", "RAM", "EEPROM", "TflipFlop",
         "JKflipFlop", "SRflipFlop", "DflipFlop", "TTY", "Keyboard", "Clock", "DigitalLed", "Stepper", "VariableLed", "RGBLed", "SquareRGBLed", "RGBLedMatrix", "Button", "Demultiplexer",
-        "Buffer", "SubCircuit", "Flag", "MSB", "LSB", "PriorityEncoder", "Tunnel", "ALU", "Decoder", "Random", "Counter", "Dlatch", "TB_Input", "TB_Output", "ForceGate",
+        "Buffer", "Flag", "MSB", "LSB", "PriorityEncoder", "Tunnel", "ALU", "Decoder", "Random", "Counter", "Dlatch", "TB_Input", "TB_Output", "ForceGate",
     ];
 
     $(".search-input").on("keyup", function() {
@@ -434,6 +455,8 @@ export default function startListeners() {
             <img  src= "/img/${element}.svg" >
         </div>`;
     }
+
+    zoomSliderListeners();
 
     setupLayoutModePanelListeners();
 }
@@ -544,7 +567,7 @@ function ZoomOut() {
     handleZoom(-1);
 }
 
-window.addEventListener('DOMContentLoaded', (event) => {
+function zoomSliderListeners() {
     document.getElementById("customRange1").value = 5;
     document.getElementById('simulationArea').addEventListener('DOMMouseScroll',zoomSliderScroll);
     document.getElementById('simulationArea').addEventListener('mousewheel', zoomSliderScroll);
@@ -574,4 +597,4 @@ window.addEventListener('DOMContentLoaded', (event) => {
             curLevel = zoomLevel;
         }
     }
-});
+}

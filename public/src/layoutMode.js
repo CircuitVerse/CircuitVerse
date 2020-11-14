@@ -12,6 +12,7 @@ import {
 import miniMapArea from './minimap';
 import { showMessage } from './utils';
 import * as metadata from './metadata.json';
+import { verilogModeGet, verilogModeSet } from './Verilog2CV';
 
 /**
  * Layout.js - all subcircuit layout related code is here
@@ -370,15 +371,19 @@ function saveLayout() {
  * @category layoutMode
  */
 export function toggleLayoutMode() {
+    hideProperties();
     if (layoutModeGet()) {
         layoutModeSet(false);
         $('#layoutDialog').fadeOut();
         $('.layoutElementPanel').fadeOut();
         $('.elementPanel').fadeIn();
         globalScope.centerFocus(false);
+        if(globalScope.verilogMetadata.isVerilogCircuit)
+            verilogModeSet(true);
         dots();
     } else {
         layoutModeSet(true);
+        verilogModeSet(false);
         $('#layoutDialog').fadeIn();
         $('.layoutElementPanel').fadeIn();
         $('.elementPanel').fadeOut();
@@ -391,10 +396,8 @@ export function toggleLayoutMode() {
         tempBuffer = new LayoutBuffer();
         $('#toggleLayoutTitle')[0].checked = tempBuffer.layout.titleEnabled;
     }
-    hideProperties();
     update(globalScope, true);
     scheduleUpdate();
-    
 }
 
 export function setupLayoutModePanelListeners() {

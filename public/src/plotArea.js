@@ -114,14 +114,10 @@ const plotArea = {
 
 
             while (j < arr.length && 80 + (arr[j][0] * unit) - plotArea.ox < 0) {
-                // console.log("HIT2");
                 j++;
-                // start=
             }
             while (j < arr.length && j > 0 && 80 + (arr[j][0] * unit) - plotArea.ox > 0) {
-                // console.log("HIT1");
                 j--;
-                // start=
             }
             if (j) j--;
             globalScope.Flag[i].cachedIndex = j;
@@ -266,7 +262,6 @@ if (document.getElementById('plotArea') !== null) {
             plotArea.mouseDown = true;
 
             plotArea.prevX = x;
-            console.log('HIT');
         }
     });
     document.getElementById('plotArea').addEventListener('mouseup', (e) => {

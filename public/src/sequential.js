@@ -17,7 +17,6 @@ export function changeClockEnable(val) {
 export function runTest(n = 10) {
     var t = new Date().getTime();
     for (var i = 0; i < n; i++) { clockTick(); }
-    // console.log((new Date().getTime()-t)/n);
     updateCanvasSet(true);
     play();
     scheduleUpdate();
