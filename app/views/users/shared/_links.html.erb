@@ -3,16 +3,38 @@
     <div class="row center-row users-shared-row">
       <h6 class="users-shared-row">Log In With</h6>
     </div>
-    <div class="row center-row">
+   <div class="center-row">
       <a href="/users/auth/google_oauth2">
-        <%= image_tag "SVGs/google-plus.svg", alt: "Google Icon", :class => "users-social-links" %>
+       <div class="btn google-btn">
+        <div class="icon-wrapper">
+         <%= image_tag "https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg", alt: "Google Icon", :class => "icon" %>
+        </div>
+       <h6 class="btn-text"><strong>Sign in with Google</strong></h6>
+       </div>
       </a>
+    </div>
+
+    <div class="center-row">
       <a href="/users/auth/facebook">
-        <%= image_tag "SVGs/facebook.svg",alt: "Facebook Icon", :class => "users-social-links" %>
+       <div class="btn facebook-btn">
+        <div class="icon-wrapper">
+          <%= image_tag "SVGs/facebook.svg",alt: "Facebook Icon", :class => "icon" %>
+        </div>
+       <h6 class="btn-text"><strong>Sign in with facebook</strong></h6>
+       </div>
       </a>
+    </div>
+
+    <div class="center-row">
       <a href="/users/auth/github">
-        <%= image_tag "SVGs/github.svg",alt: "Github Icon", :class => "users-social-links" %>
+       <div class="btn github-btn">
+        <div class="icon-wrapper">
+          <%= image_tag "SVGs/github.svg",alt: "Github Icon", :class => "icon" %>
+        </div>
+       <h6 class="btn-text"><strong>Sign in with GitHub</strong></h6>
+       </div>
       </a>
     </div>
   </div>
 </div>
+

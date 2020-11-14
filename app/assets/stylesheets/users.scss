@@ -75,15 +75,73 @@
   width: 100%;
 }
 
-.users-social-links {
-  height: 50px;
-  margin-left: 5px;
-  margin-right: 5px;
-  padding-top: 10px;
-  width: 40px;
+//standard sign-in button style
+.btn {
+  width: 184px;
+  height: 42px;
+  margin: 8px;
+  border-radius: 2px;
+  box-shadow: 0 3px 4px 0 rgba(0,0,0,.25);
+  .icon-wrapper {
+    position: absolute;
+    margin-top: -6px;
+    margin-left: -12px;
+    width: 40px;
+    height: 40px;
+    border-radius: 2px;
+    background-color: #fff;
+  }
+  .icon {
+    position: absolute;
+    margin-top: 11px;
+    margin-left: -11px;
+    width: 18px;
+    height: 18px;
+  }
+  .btn-text {
+    float: right;
+    margin-top: 8px;
+    color: #fff;
+    font-size: 14px;
+    letter-spacing: 0.1px;
+    font-family: "Roboto";
+  }
+}
+
+//Google button utilities
+.google-btn {
+  background-color: #1257c7;
+  
+  &:hover {
+    box-shadow: 0 0 6px #4285f4;
+  }
+  &:active {
+    background: #1669F2;
+  }
+}
+
+//Facebook button utilities
+.facebook-btn {
+  background-color: #023e9e;
+  width: 187px;
+  
+  &:hover {
+    box-shadow: 0 0 6px #1257c7;
+  }
+  &:active {
+    background: #1669F2;
+  }
+}
+
+//GitHub button utilities
+.github-btn {
+  background-color: #020c1b;
 
   &:hover {
-    opacity: .7;
+    box-shadow: 0 0 6px #020c1b;
+  }
+  &:active {
+    background: #1669F2;
   }
 }
 //shared ends
