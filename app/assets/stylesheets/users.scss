@@ -77,71 +77,71 @@
 
 //standard sign-in button style
 .btn {
-  width: 184px;
+  border-radius: 2px;
+  box-shadow: 0 3px 4px 0 $sign-in-box-shadow;
   height: 42px;
   margin: 8px;
-  border-radius: 2px;
-  box-shadow: 0 3px 4px 0 rgba(0,0,0,.25);
+  width: 184px;
+  
   .icon-wrapper {
-    position: absolute;
-    margin-top: -6px;
-    margin-left: -12px;
-    width: 40px;
-    height: 40px;
+    background-color: $white;
     border-radius: 2px;
-    background-color: #fff;
-  }
-  .icon {
+    height: 40px;
+    margin-left: -12px;
+    margin-top: -6px;
     position: absolute;
-    margin-top: 11px;
-    margin-left: -11px;
-    width: 18px;
-    height: 18px;
+    width: 40px;
   }
+
+  .icon {
+    height: 18px;
+    margin-left: -11px;
+    margin-top: 11px;
+    position: absolute;
+    width: 18px;  
+  }
+  
   .btn-text {
+    color: $white;
     float: right;
-    margin-top: 8px;
-    color: #fff;
+    font-family: 'Roboto';
     font-size: 14px;
-    letter-spacing: 0.1px;
-    font-family: "Roboto";
+    letter-spacing: .1px;
+    margin-top: 8px;
   }
 }
 
 //Google button utilities
 .google-btn {
-  background-color: #1257c7;
-  
+  background-color: $google-btn-background;
   &:hover {
-    box-shadow: 0 0 6px #4285f4;
+    box-shadow: 0 0 6px $google-btn-hover;
   }
   &:active {
-    background: #1669F2;
+    background: $btn-active;
   }
 }
 
 //Facebook button utilities
 .facebook-btn {
-  background-color: #023e9e;
+  background-color: $fb-btn-background;
   width: 187px;
-  
   &:hover {
-    box-shadow: 0 0 6px #1257c7;
+    box-shadow: 0 0 6px $fb-btn-hover;
   }
   &:active {
-    background: #1669F2;
+    background: $btn-active;
   }
 }
 
 //GitHub button utilities
 .github-btn {
-  background-color: #020c1b;
-
+  background-color: $github-btn-background;
   &:hover {
-    box-shadow: 0 0 6px #020c1b;
+    box-shadow: 0 0 6px $github-hover;
   }
   &:active {
-    background: #1669F2;
+    background: $btn-active;
   }
 }
 //shared ends
