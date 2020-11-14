@@ -114,6 +114,7 @@
 //Google button utilities
 .google-btn {
   background-color: $google-btn-background;
+
   &:hover {
     box-shadow: 0 0 6px $google-btn-hover;
   }
@@ -127,6 +128,7 @@
 .facebook-btn {
   background-color: $fb-btn-background;
   width: 187px;
+
   &:hover {
     box-shadow: 0 0 6px $fb-btn-hover;
   }
@@ -139,6 +141,7 @@
 //GitHub button utilities
 .github-btn {
   background-color: $github-btn-background;
+
   &:hover {
     box-shadow: 0 0 6px $github-hover;
   }
