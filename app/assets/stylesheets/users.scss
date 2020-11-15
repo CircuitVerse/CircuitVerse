@@ -1,10 +1,11 @@
 $white: #fff;
 $google-blue: #4285f4;
-$button-active-blue: #1669F2;
+$button-active-blue: #1669f2;
 $button-active-darkblue: #3a5999;
 $button-active-black: rgb(31, 30, 30);
-$facebook-blue: #4267B2;
+$facebook-blue: #4267b2;
 $github-black: #333;
+$auth-btn-shadow: rgba(0, 0, 0, .25);
 
 // roboto font family for Google
 @import url(https://fonts.googleapis.com/css?family=Roboto:500);
@@ -95,42 +96,46 @@ $github-black: #333;
 
 // sign in button styles
 .auth-btn {
-  width: 190px;
-  height: 42px;
   border-radius: 2px;
-  box-shadow: 0 3px 4px 0 rgba(0,0,0,.25);
+  box-shadow: 0 3px 4px 0 $auth-btn-shadow;
+  height: 42px;
+  width: 190px;
+
   .auth-icon-wrapper {
-    position: absolute;
-    margin-top: 1px;
-    margin-left: 1px;
-    width: 40px;
-    height: 40px;
-    border-radius: 2px;
-    background-color: $white;
-    display: flex;
-    justify-content: center;
     align-items: center;
+    background-color: $white;
+    border-radius: 2px;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    margin-left: 1px;
+    margin-top: 1px;
+    position: absolute;
+    width: 40px;
   }
-  
+
   .auth-icon {
-    width: 18px;
     height: 18px;
+    width: 18px;
   }
+
   .btn-text {
-    float: right;
-    margin: 11px 11px 0 0;
     color: $white;
+    float: right;
+    font-family: 'Roboto';
     font-size: 14px;
-    letter-spacing: 0.2px;
-    font-family: "Roboto";
+    letter-spacing: .2px;
+    margin: 11px 11px 0 0;
   }
 }
 // google sign in button styles
 .google-btn {
   background-color: $google-blue;
+
   &:hover {
     box-shadow: 0 0 6px $google-blue;
   }
+  
   &:active {
     background: $button-active-blue;
   }
