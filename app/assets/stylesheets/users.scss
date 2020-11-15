@@ -135,7 +135,7 @@ $auth-btn-shadow: rgba(0, 0, 0, .25);
   &:hover {
     box-shadow: 0 0 6px $google-blue;
   }
-  
+
   &:active {
     background: $button-active-blue;
   }
@@ -150,6 +150,7 @@ $auth-btn-shadow: rgba(0, 0, 0, .25);
   &:hover {
     box-shadow: 0 0 6px $facebook-blue;
   }
+
   &:active {
     background: $button-active-darkblue;
   }
@@ -158,9 +159,11 @@ $auth-btn-shadow: rgba(0, 0, 0, .25);
 // github sign in
 .github-btn {
   background-color: $github-black;
+
   &:hover {
     box-shadow: 0 0 6px $github-black;
   }
+
   &:active {
     background: $button-active-black;
   }
