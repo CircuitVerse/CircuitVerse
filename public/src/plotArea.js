@@ -51,7 +51,7 @@ const plotArea = {
     ox: 0,
     oy: 0,
     unit: 0,
-    c: document.getElementById('plotArea'),
+    canvas: document.getElementById('plotArea'),
 
     count: 0,
     specificTimeX: 0,
@@ -60,12 +60,25 @@ const plotArea = {
     startTime: new Date(),
     endTime: new Date(),
     scroll: 1,
+    width: 0,
+    height: 0,
+    resize() {
+        this.DPR = window.devicePixelRatio || 1;
+        this.width = document.getElementById('simulationArea').clientWidth * this.DPR;
+        this.height = (globalScope.Flag.length * 30 + 40) * this.DPR;
+        this.canvas.width = this.width;
+        this.canvas.height = this.height;
+        document.getElementById('plot').style.height = this.canvas.height / this.DPR;
+        document.getElementById('plot').style.width = this.canvas.width / this.DPR;
+        document.getElementById('plotArea').style.height = this.canvas.height / this.DPR;
+        document.getElementById('plotArea').style.width = this.canvas.width / this.DPR;
+    },
     setup() {
-        this.c = document.getElementById('plotArea');
+        this.canvas = document.getElementById('plotArea');
         this.stopWatch = new StopWatch();
         this.stopWatch.Start();
         if (!embed) {
-            this.ctx = this.c.getContext('2d');
+            this.ctx = this.canvas.getContext('2d');
         }
         startPlot();
         this.timeOutPlot = setInterval(() => {
@@ -77,34 +90,25 @@ const plotArea = {
         var time = this.stopWatch.ElapsedMilliseconds;
         if (embed) return;
         if (globalScope.Flag.length == 0) {
-            this.c.width = this.c.height = 0;
+            this.canvas.width = this.canvas.height = 0;
             return;
         }
-        this.c.width = document.getElementById('simulationArea').clientWidth; // innerWidth;
 
-        this.c.height = globalScope.Flag.length * 30 + 40;
-
-        // if(document.getElementById("plot").style.height!=this.c.height+"px"){
-        document.getElementById('plot').style.height = Math.min(this.c.height, 400);
-        document.getElementById('plot').style.width = this.c.width;
-        // }
-        // else if(document.getElementById("plot").style.width!=this.c.width+"px"){
-        // document.getElementById("plot").style.height = this.c.height ;
-        // document.getElementById("plot").style.width = this.c.width ;
-        // }
+        this.resize();
 
         if (this.scroll) {
-            this.ox = Math.max(0, (time / this.unit) * this.pixel - this.c.width + 70);
+            this.ox = Math.max(0, (time / this.unit) * this.pixel - this.canvas.width + 70);
         } else if (!plotArea.mouseDown) {
             this.ox -= plotArea.scrollAcc;
             plotArea.scrollAcc *= 0.95;
             if (this.ox < 0) plotArea.scrollAcc = -0.2 + 0.2 * this.ox;
             if (Math.abs(this.ox) < 0.5) this.ox = 0;
         }
-        var { ctx } = this;
+        var ctx = this.canvas.getContext('2d');
+        console.log(ctx);
         this.clear(ctx);
         ctx.fillStyle = 'black';
-        ctx.fillRect(0, 0, this.c.width, this.c.height);
+        ctx.fillRect(0, 0, this.width, this.height);
         var unit = (this.pixel / (plotArea.unit * plotArea.scale));
         ctx.strokeStyle = 'cyan';
         ctx.lineWidth = 2;
@@ -175,7 +179,7 @@ const plotArea = {
                     break;
                 }
 
-                if (80 + (end * unit) - plotArea.ox > this.c.width) break;
+                if (80 + (end * unit) - plotArea.ox > this.canvas.width) break;
             }
 
             ctx.stroke();
@@ -184,7 +188,7 @@ const plotArea = {
         // 2 rectangles showing the time and labels
 
         ctx.fillStyle = '#eee';
-        ctx.fillRect(0, 0, this.c.width, 30);
+        ctx.fillRect(0, 0, this.canvas.width, 30);
         ctx.font = '14px Georgia';
         ctx.fillStyle = 'black';
         for (var i = 1; i * Math.round(plotArea.unit * plotArea.scale) <= time + Math.round(plotArea.unit * plotArea.scale); i++) {
@@ -192,7 +196,7 @@ const plotArea = {
         }
 
         ctx.fillStyle = '#eee';
-        ctx.fillRect(0, 0, 75, this.c.height);
+        ctx.fillRect(0, 0, 75, this.canvas.height);
         ctx.font = '15px Georgia';
         ctx.fillStyle = 'black';
         for (var i = 0; i < globalScope.Flag.length; i++) {
@@ -211,7 +215,7 @@ const plotArea = {
         var specificTime = (plotArea.specificTimeX + plotArea.ox - 80) * Math.round(plotArea.unit * plotArea.scale) / (this.pixel);
         // ctx.strokeStyle = 'white';
         // ctx.moveTo(plotArea.specificTimeX,0);
-        // ctx.lineTo(plotArea.specificTimeX,plotArea.c.height);
+        // ctx.lineTo(plotArea.specificTimeX,plotArea.canvas.height);
         // ctx.stroke();
         if (1.115 * plotArea.specificTimeX >= 80) {
             ctx.fillStyle = 'black';
@@ -227,24 +231,24 @@ const plotArea = {
         ctx.lineWidth = 2;
         ctx.beginPath();
         ctx.moveTo(0, 0);
-        ctx.lineTo(0, this.c.height);
-        //   ctx.fillRect(0, 0, 3, this.c.height);
+        ctx.lineTo(0, this.canvas.height);
+        //   ctx.fillRect(0, 0, 3, this.canvas.height);
 
         ctx.moveTo(74, 0);
-        ctx.lineTo(74, this.c.height);
-        //   ctx.fillRect(74, 0, 3, this.c.height);
+        ctx.lineTo(74, this.canvas.height);
+        //   ctx.fillRect(74, 0, 3, this.canvas.height);
 
         ctx.moveTo(0, 0);
-        ctx.lineTo(this.c.width, 0);
-        //   ctx.fillRect(0, 0, this.c.width, 3);
+        ctx.lineTo(this.canvas.width, 0);
+        //   ctx.fillRect(0, 0, this.canvas.width, 3);
 
         // ctx.moveTo(0,27);
-        // ctx.lineTo(this.c.width,27);
-        //   ctx.fillRect(0, 27, this.c.width, 3);
+        // ctx.lineTo(this.canvas.width,27);
+        //   ctx.fillRect(0, 27, this.canvas.width, 3);
         ctx.stroke();
     },
     clear(ctx) {
-        ctx.clearRect(0, 0, plotArea.c.width, plotArea.c.height);
+        ctx.clearRect(0, 0, plotArea.canvas.width, plotArea.canvas.height);
         // clearInterval(timeOutPlot);
     },
 
@@ -255,7 +259,7 @@ if (document.getElementById('plotArea') !== null) {
      * Event listeners for the Plot
      */
     document.getElementById('plotArea').addEventListener('mousedown', (e) => {
-        var rect = plotArea.c.getBoundingClientRect();
+        var rect = plotArea.canvas.getBoundingClientRect();
         var x = e.clientX - rect.left;
         plotArea.scrollAcc = 0;
         if (e.shiftKey) {
@@ -272,7 +276,7 @@ if (document.getElementById('plotArea') !== null) {
     });
 
     document.getElementById('plotArea').addEventListener('mousemove', (e) => {
-        var rect = plotArea.c.getBoundingClientRect();
+        var rect = plotArea.canvas.getBoundingClientRect();
         var x = e.clientX - rect.left;
         if (!e.shiftKey && plotArea.mouseDown) {
             plotArea.ox -= x - plotArea.prevX;
