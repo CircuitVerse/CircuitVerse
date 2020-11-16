@@ -47,7 +47,7 @@ export function resetup() {
     }
     // setup simulationArea and backgroundArea variables used to make changes to canvas.
     backgroundArea.setup();
-    if (!embed) plotArea.setup();
+    plotArea.setup();
     simulationArea.setup();
     // redraw grid
     dots();

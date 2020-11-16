@@ -552,13 +552,14 @@ function handleZoom(direction) {
         changeScale(direction * 0.1 * DPR);
     }
     gridUpdateSet(true);
+    scheduleUpdate();
 }
 
-function ZoomIn() {
+export function ZoomIn() {
     handleZoom(1);
 }
 
-function ZoomOut() {
+export function ZoomOut() {
     handleZoom(-1);
 }
 

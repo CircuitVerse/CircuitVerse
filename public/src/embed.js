@@ -6,7 +6,7 @@ import {
     scheduleUpdate, wireToBeCheckedSet, updateCanvasSet, gridUpdateSet,
 } from './engine';
 import { prevPropertyObjGet, prevPropertyObjSet } from './ux';
-import { changeScale } from './canvasApi';
+import { ZoomIn, ZoomOut} from './listeners';
 
 circuitProperty.toggleFullScreen = toggleFullScreen;
 $(document).ready(() => {
@@ -39,8 +39,9 @@ $(document).ready(() => {
         if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) { prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet(); } else { circuitProperty[this.name](this.checked); }
     });
 
-    $('#zoom-in-embed').on('click', () => changeScale(0.2,'zoomButton','zoomButton',2));
-    $('#zoom-out-embed').on('click', () => changeScale(-0.2,'zoomButton','zoomButton',2));
+    $('#zoom-in-embed').on('click', () => ZoomIn());
+
+    $('#zoom-out-embed').on('click', () => ZoomOut());
 });
 
 // Full screen toggle helper function

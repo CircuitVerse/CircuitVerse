@@ -234,11 +234,13 @@ button:focus {outline:0;}
     bottom: 1px;
     right: 0px;
     font-size: 10px;
-    opacity: .3;
     z-index: 100;
 }
 
-.zoom-wrapper:hover {
+.zoom-wrapper button {
+    opacity: .3;
+}
+.zoom-wrapper button:hover {
     opacity: 1;
 }
 

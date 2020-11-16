@@ -64,19 +64,22 @@ const plotArea = {
         this.c = document.getElementById('plotArea');
         this.stopWatch = new StopWatch();
         this.stopWatch.Start();
-        this.ctx = this.c.getContext('2d');
+        if (!embed) {
+            this.ctx = this.c.getContext('2d');
+        }
         startPlot();
         this.timeOutPlot = setInterval(() => {
             plotArea.plot();
         }, 100);
     },
     plot() {
+        this.stopWatch.Stop();
+        var time = this.stopWatch.ElapsedMilliseconds;
+        if (embed) return;
         if (globalScope.Flag.length == 0) {
             this.c.width = this.c.height = 0;
             return;
         }
-        this.stopWatch.Stop();
-        var time = this.stopWatch.ElapsedMilliseconds;
         this.c.width = document.getElementById('simulationArea').clientWidth; // innerWidth;
 
         this.c.height = globalScope.Flag.length * 30 + 40;
