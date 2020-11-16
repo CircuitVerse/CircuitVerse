@@ -13,10 +13,10 @@
 @import "./plugin-stylesheets/simple-button-radios.css";
 @import "./plugin-stylesheets/checkBo.min.css";
 @import "./plugin-stylesheets/jquery-pseudo-ripple.css";
+@import url(https://fonts.googleapis.com/css?family=Raleway);
 
 /** new UI ruleset starts here */
 /*! Adding color variables to root, required later for hokey binding */
-
 
 /* typography */
 @font-face {

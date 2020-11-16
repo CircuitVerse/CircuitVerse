@@ -363,7 +363,7 @@ export function canvasMessage(ctx, str, x1, y1, fontSize = 10) {
 export function fillText(ctx, str, x1, y1, fontSize = 20) {
     x1 *= globalScope.scale;
     y1 *= globalScope.scale;
-    ctx.font = `${Math.round(fontSize * globalScope.scale)}px Georgia`;
+    ctx.font = `${Math.round(fontSize * globalScope.scale)}px Raleway`;
     ctx.fillText(str, Math.round(x1 + globalScope.ox), Math.round(y1 + globalScope.oy));
 }
 
