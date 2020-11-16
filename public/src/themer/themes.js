@@ -15,7 +15,7 @@ export default {
         "--qp-br-rd": "#535353",
         "--qp-box-shadow-1": "#3b3b3b",
         "--qp-box-shadow-2": "#4f4f4f",
-        "--bg-circuit": "#bbbbbb",
+        "--bg-circuit": "#ddd",
         "--br-circuit": "#454545",
         "--br-primary": "#fff",
         "--bg-primary-moz": "#454545e6",
