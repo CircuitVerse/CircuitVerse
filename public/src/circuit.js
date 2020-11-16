@@ -12,7 +12,11 @@
 import CircuitElement from './circuitElement';
 import simulationArea, { changeClockTime } from './simulationArea';
 import {
-    stripTags, uniq, showMessage, showError,
+    stripTags,
+    uniq,
+    showMessage,
+    showError,
+    truncateString
 } from './utils';
 import { findDimensions, dots } from './canvasApi';
 import { updateRestrictedElementsList } from './restrictedElementDiv';
@@ -144,11 +148,12 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
     $('.circuits').removeClass('current');
     if (!isVerilog || isVerilogMain) {
         if(embed) {
-            var html = `<div style='' class='circuits toolbarButton current' id='${scope.id}'><span class='circuitName noSelect'>${name}</span></div>`;
+            var html = `<div style='' class='circuits toolbarButton current' id='${scope.id}'><span class='circuitName noSelect'>${truncateString(name, 18)}</span></div>`;
             $('#tabsBar').append(html);
+            $("#tabsBar").addClass('embed-tabs');
         }
         else {
-            var html = `<div style='' class='circuits toolbarButton current' id='${scope.id}'><span class='circuitName noSelect'>${name}</span><span class ='tabsCloseButton' id='${scope.id}'  >x</span></div>`;
+            var html = `<div style='' class='circuits toolbarButton current' id='${scope.id}'><span class='circuitName noSelect'>${truncateString(name, 18)}</span><span class ='tabsCloseButton' id='${scope.id}'  >x</span></div>`;
             $('#tabsBar').children().last().before(html);
         }
         $('.circuits').click(function () {
@@ -182,7 +187,7 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
 export function changeCircuitName(name, id = globalScope.id) {
     name = name || 'Untitled';
     name = stripTags(name);
-    $(`#${id} .circuitName`).html(`${name}`);
+    $(`#${id} .circuitName`).html(`${truncateString(name, 18)}`);
     scopeList[id].name = name;
 }
 

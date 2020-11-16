@@ -313,17 +313,17 @@ $output-rect: blue;
 
 #tabsBar .circuits {
   color: var(--text-circuit);
-  background-color: var(--bg-circuit);
+  background-color: var(--bg-tabs);
 }
 
 #tabsBar .current {
-  color: var(--text-panel);
-  background-color: var(--primary);
+  color: var(--text-circuit);
+  background-color: var(--bg-circuit);
   border: 1px solid var(--br-circuit-cur);
 }
 
 #tabsBar .current > span {
-  color: var(--text-panel);
+  // color: var(--text-panel);
 
 }
 
@@ -334,9 +334,10 @@ $output-rect: blue;
 }
 
 #tabsBar button:hover {
-  color: var(--primary);
-  background: var(--bg-circuit);
-  border: 1px solid var(--primary);
+  color: var(--text-panel);
+  // background: var(--bg-tabs);
+  // border: 1px solid var(--primary);
+  border: 1px solid var(--br-circuit-cur);
 }
 
 .moduleProperty input {
@@ -627,10 +628,6 @@ select {
   color: var(--text-panel) !important;
 }
 
-svg:hover {
-  fill: red;
-}
-
 #Rectangle_1072 {
   stroke: var(--text-panel);
 }
@@ -643,4 +640,11 @@ svg:hover {
   display: block;
   margin-right: 25px;
   margin-top: -10px;
+}
+
+// Ember view
+#clockProperty{
+  background: var(--primary);
+  border: 1px solid var(--br-primary);
+  color: var(--text-panel);
 }

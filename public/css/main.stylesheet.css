@@ -569,6 +569,10 @@ div.icon img {
   z-index: 100;
 }
 
+.embed-tabs {
+    background-color: transparent !important;
+}
+
 #tabsBar div {
   justify-content: space-between;
   border-radius: 1px;
@@ -587,6 +591,7 @@ div.icon img {
 #tabsBar .circuits {
   text-align: center;
   padding: 1px;
+  border-radius: 3px;
 }
 
 .circuitName{
@@ -602,6 +607,8 @@ div.icon img {
   outline: none;
   border-radius: 1px;
   transition: all 0.1s ease-in-out;
+  border-radius: 4px;
+  margin-left: 1px;
 }
 
 #tabsBar button:focus{
@@ -1462,6 +1469,9 @@ input[type='range']::-webkit-slider-thumb {
 }
 
 /*! Color them dialog styles ends here*/
+
+
+
 
 .code-window .CodeMirror {
   height: calc(100% - 78px);
