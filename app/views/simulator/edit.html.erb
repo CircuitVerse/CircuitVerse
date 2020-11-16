@@ -517,8 +517,12 @@
   title="Insert SubCircuit"
 ></div>
 <div id="openProjectDialog" style="display: none;" title="Open Project"></div>
-<div id="bitconverterprompt" title="Dec-Bin-Hex-Converter" style="display: none;"></div>
-
+<div id="bitconverterprompt" title="Dec-Bin-Hex-Converter" style="display: none;">
+    <label >Decimal value</label><br><input  type='text' id='decimalInput' value='16' label="Decimal" name='text1'><br><br>
+    <label >Binary value</label><br><input  type='text' id='binaryInput'  value='0b10000' label="Binary" name='text1'><br><br>
+    <label >Octal value</label><br><input  type='text' id='octalInput' value='020' label="Octal" name='text1'><br><br>
+    <label >Hexadecimal value</label><br><input  type='text' id='hexInput' value='0x10' label="Hex" name='text1'><br><br>
+</div>
 <!---issue reporting-system----->
 <div class="report-sidebar">
   <a
@@ -603,10 +607,6 @@
 
 <link rel="stylesheet" type="text/css" href="/css/restrictedElements.css">
 
-
-
-
-<script src="/js/dec-bin-hex-converter.js"></script>
 <script type="text/javascript" src="/js/metadata.json"></script>
 
 <script>

@@ -6,13 +6,13 @@ import {
     scheduleUpdate, wireToBeCheckedSet, updateCanvasSet, gridUpdateSet,
 } from './engine';
 import { prevPropertyObjGet, prevPropertyObjSet } from './ux';
-
+import { changeScale } from './canvasApi';
 
 circuitProperty.toggleFullScreen = toggleFullScreen;
 $(document).ready(() => {
     // Clock features
     $("#clockProperty").append(
-        "<input type='button' class='objectPropertyAttributeEmbed embed-fullscreen-btn custom-btn--secondary' name='toggleFullScreen' value='Fullscreen'> </input>"
+        "<input type='button' class='objectPropertyAttributeEmbed custom-btn--secondary embed-fullscreen-btn' name='toggleFullScreen' value='Full Screen'> </input>"
     );
     $("#clockProperty").append(
         `<div>Time: <input class='objectPropertyAttributeEmbed' min='50' type='number' style='width:48px' step='10' name='changeClockTime'  value='${simulationArea.timePeriod}'></div>`
@@ -38,6 +38,9 @@ $(document).ready(() => {
         wireToBeCheckedSet(1);
         if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) { prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet(); } else { circuitProperty[this.name](this.checked); }
     });
+
+    $('#zoom-in-embed').on('click', () => changeScale(0.2,'zoomButton','zoomButton',2));
+    $('#zoom-out-embed').on('click', () => changeScale(-0.2,'zoomButton','zoomButton',2));
 });
 
 // Full screen toggle helper function

@@ -241,3 +241,7 @@ button:focus {outline:0;}
 .zoom-wrapper:hover {
     opacity: 1;
 }
+
+.embed-fullscreen-btn {
+    border-radius: 20px;
+}

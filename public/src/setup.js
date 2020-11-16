@@ -2,7 +2,7 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable guard-for-in */
 import * as metadata from './metadata.json';
-import { generateId, showMessage } from './utils';
+import { generateId, showMessage, setupBitConvertor} from './utils';
 import backgroundArea from './backgroundArea';
 import plotArea from './plotArea';
 import simulationArea from './simulationArea';
@@ -88,6 +88,7 @@ function setupEnvironment() {
     resetup();
     if (!embed) {
         setupVerilogExportCodeWindow();
+        setupBitConvertor();
     }
     setupCodeMirrorEnvironment();
 }

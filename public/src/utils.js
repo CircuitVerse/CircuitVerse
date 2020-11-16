@@ -201,3 +201,58 @@ export function truncateString(str, num) {
     // Return str truncated with '...' concatenated to the end of str.
     return str.slice(0, num) + "...";
 }
+
+export function bitConverterDialog() {
+    $('#bitconverterprompt').dialog({
+        buttons: [
+            {
+                text: "Reset",
+                click: function () {
+                    setBaseValues(0);
+                }
+            }
+        ]
+    });
+}
+
+// convertors
+var convertors = {
+    dec2bin: x => "0b" + x.toString(2),
+    dec2hex: x => "0x" + x.toString(16),
+    dec2octal: x => "0" + x.toString(8),
+}
+
+function setBaseValues(x) {
+    if (isNaN(x)) return;
+    $("#binaryInput").val(convertors.dec2bin(x));
+    $("#octalInput").val(convertors.dec2octal(x));
+    $("#hexInput").val(convertors.dec2hex(x));
+    $("#decimalInput").val(x);
+}
+
+export function setupBitConvertor() {
+    $("#decimalInput").on('keyup', function () {
+        var x = parseInt($("#decimalInput").val(), 10);
+        setBaseValues(x);
+    })
+
+    $("#binaryInput").on('keyup', function () {
+        var inp = $("#binaryInput").val();
+        var x;
+        if (inp.slice(0, 2) == '0b')
+            x = parseInt(inp.slice(2), 2);
+        else 
+            x = parseInt(inp, 2);
+        setBaseValues(x);
+    })
+
+    $("#hexInput").on('keyup', function () {
+        var x = parseInt($("#hexInput").val(), 16);
+        setBaseValues(x);
+    })
+
+    $("#octalInput").on('keyup', function () {
+        var x = parseInt($("#octalInput").val(), 8);
+        setBaseValues(x);
+    })
+}

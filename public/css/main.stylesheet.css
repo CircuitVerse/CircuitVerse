@@ -1112,7 +1112,7 @@ input:checked + .slider:before {
   text-align: center;
 }
 
-#combinationalAnalysis p input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+.ui-dialog input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: white;
   opacity: .7; /* Firefox */
 }
@@ -1499,4 +1499,9 @@ input[type='range']::-webkit-slider-thumb {
 
 #verilogOutput {
   font-size: 12px;
+}
+
+.embed-fullscreen-btn {
+  border-radius: 3px;
+  width: auto;
 }
