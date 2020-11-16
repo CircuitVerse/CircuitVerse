@@ -18,6 +18,8 @@ import { setProjectName, getProjectName } from './data/save';
 import { changeScale } from './canvasApi';
 import updateTheme from "./themer/themer";
 import { generateImage } from './data/save';
+import { setupVerilogExportCodeWindow } from './verilog';
+import { setupBitConvertor} from './utils';
 
 export const uxvar = {
     smartDropXX: 50,
@@ -133,10 +135,6 @@ export function setupUI() {
         active: false,
         heightStyle: 'content',
     });
-    // $( "#plot" ).resizable({
-    // handles: 'n',
-    //     // minHeight:200,
-    // });
 
     $('.logixModules').mousedown(createElement);
 
@@ -194,6 +192,9 @@ export function setupUI() {
     //     Save();
     // });
     // $('#moduleProperty').draggable();
+    setupPanels();
+    setupVerilogExportCodeWindow();
+    setupBitConvertor();
 }
 
 export function createElement() {
@@ -390,7 +391,7 @@ export function showProperties(obj) {
             }
     });
 
-    $("input[type='number']").inputSpinner();
+    $(".moduleProperty input[type='number']").inputSpinner();
 }
 
 /**
@@ -398,7 +399,6 @@ export function showProperties(obj) {
  * @category ux
  */
 export function hideProperties() {
-    console.trace();
     $('#moduleProperty-inner').empty();
     $('#moduleProperty').hide();
     prevPropertyObjSet(undefined);
@@ -438,13 +438,6 @@ export function deleteSelected() {
     scheduleUpdate();
     updateRestrictedElementsInScope();
 }
-
-$('#bitconverterprompt').append(`
-<label style='color:grey'>Decimal value</label><br><input  type='text' id='decimalInput' label="Decimal" name='text1'><br><br>
-<label  style='color:grey'>Binary value</label><br><input  type='text' id='binaryInput' label="Binary" name='text1'><br><br>
-<label  style='color:grey'>Octal value</label><br><input  type='text' id='octalInput' label="Octal" name='text1'><br><br>
-<label  style='color:grey'>Hexadecimal value</label><br><input  type='text' id='hexInput' label="Hex" name='text1'><br><br>
-`);
 
 /**
  * listener for opening the prompt for bin conversion
@@ -502,7 +495,7 @@ $('#octalInput').on('keyup', () => {
     setBaseValues(x);
 });
 
-window.addEventListener('DOMContentLoaded', () => {
+export function setupPanels() {
     $('#dragQPanel')
         .on('mousedown', () => $('.quick-btn').draggable({ disabled: false, containment: 'window' }))
         .on('mouseup', () => $('.quick-btn').draggable({ disabled: true }));
@@ -512,11 +505,18 @@ window.addEventListener('DOMContentLoaded', () => {
     setupPanelListeners('#moduleProperty');
     setupPanelListeners('#layoutDialog');
     setupPanelListeners('#verilogEditorPanel');
-
+    setupPanelListeners('.timing-diagram-panel');
+    // $('.timing-diagram-panel').resizable({
+    //     grid: 50,
+    //     resize: function(event, ui) {
+    //         $('.also').css("width",ui.size.width+"px");
+    //     }
+    // });
+    
     $('#projectName').on('click', () => {
         $("input[name='setProjectName']").focus().select();
     });
-});
+}
 
 function setupPanelListeners(panelSelector) {
     var headerSelector = `${panelSelector} .panel-header`;

@@ -1,3 +1,5 @@
+import simulationArea from './simulationArea';
+
 /**
  * @module plotArea
  * @category plotArea
@@ -64,12 +66,13 @@ const plotArea = {
     height: 0,
     resize() {
         this.DPR = window.devicePixelRatio || 1;
-        this.width = document.getElementById('simulationArea').clientWidth * this.DPR;
+        var oldHeight = this.height;
+        var oldWidth = this.width;
+        this.width = document.getElementById('plot').clientWidth * this.DPR;
         this.height = (globalScope.Flag.length * 30 + 40) * this.DPR;
+        if (oldHeight == this.height && oldWidth == this.width) return;
         this.canvas.width = this.width;
         this.canvas.height = this.height;
-        document.getElementById('plot').style.height = this.canvas.height / this.DPR;
-        document.getElementById('plot').style.width = this.canvas.width / this.DPR;
         document.getElementById('plotArea').style.height = this.canvas.height / this.DPR;
         document.getElementById('plotArea').style.width = this.canvas.width / this.DPR;
     },
@@ -79,6 +82,8 @@ const plotArea = {
         this.stopWatch.Start();
         if (!embed) {
             this.ctx = this.canvas.getContext('2d');
+            setupTimingListeners();
+            // $('.timing-diagram-panel').on('resize', () => this.resize());
         }
         startPlot();
         this.timeOutPlot = setInterval(() => {
@@ -86,6 +91,26 @@ const plotArea = {
         }, 100);
     },
     plot() {
+        var dangerColor = '#dc5656';
+        var normalColor = '#42b983';
+
+        var unitUsed = simulationArea.simulationQueue.time;
+        var units = $('#timing-diagram-units').val();
+        var utilization = Math.round(unitUsed * 10000 / units) / 100;
+        $('#timing-diagram-log').html(`Utilization: ${Math.round(unitUsed)} Units (${utilization}%)`);
+        if (utilization >= 90 || utilization <= 10) {
+            var recommendedUnit = Math.round(unitUsed * 1.2);
+            $('#timing-diagram-log').append(` Recommended Units: ${recommendedUnit}`);
+            $('#timing-diagram-log').css('background-color', dangerColor);
+            if (utilization >= 100) {
+                this.clear();
+                return;
+            }
+        }
+        else {
+            $('#timing-diagram-log').css('background-color', normalColor);
+        }
+
         this.stopWatch.Stop();
         var time = this.stopWatch.ElapsedMilliseconds;
         if (embed) return;
@@ -105,7 +130,6 @@ const plotArea = {
             if (Math.abs(this.ox) < 0.5) this.ox = 0;
         }
         var ctx = this.canvas.getContext('2d');
-        console.log(ctx);
         this.clear(ctx);
         ctx.fillStyle = 'black';
         ctx.fillRect(0, 0, this.width, this.height);
@@ -247,17 +271,23 @@ const plotArea = {
         //   ctx.fillRect(0, 27, this.canvas.width, 3);
         ctx.stroke();
     },
-    clear(ctx) {
-        ctx.clearRect(0, 0, plotArea.canvas.width, plotArea.canvas.height);
+    clear() {
+        this.ctx.clearRect(0, 0, plotArea.canvas.width, plotArea.canvas.height);
         // clearInterval(timeOutPlot);
     },
 
 };
 export default plotArea;
-if (document.getElementById('plotArea') !== null) {
-    /**
-     * Event listeners for the Plot
-     */
+
+function setupTimingListeners() {
+    $('.timing-diagram-smaller').on('click', () => {
+        $('#plot').width($('#plot').width() - 20)
+        plotArea.resize();
+    })
+    $('.timing-diagram-larger').on('click', () => {
+        $('#plot').width($('#plot').width() + 20)
+        plotArea.resize();
+    })
     document.getElementById('plotArea').addEventListener('mousedown', (e) => {
         var rect = plotArea.canvas.getBoundingClientRect();
         var x = e.clientX - rect.left;
@@ -288,6 +318,7 @@ if (document.getElementById('plotArea') !== null) {
         }
     });
 }
+
 /**
  * sets plot values of all flags and it add(s)Plot().
  * @category plotArea

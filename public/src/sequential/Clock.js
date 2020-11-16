@@ -89,3 +89,4 @@ Clock.prototype.tooltipText = "Clock";
 
 Clock.prototype.click = Clock.prototype.toggleState;
 Clock.prototype.objectType = "Clock";
+Clock.prototype.propagationDelay = 0;

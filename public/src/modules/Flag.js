@@ -233,3 +233,4 @@ Flag.prototype.mutableProperties = {
     },
 };
 Flag.prototype.objectType = "Flag";
+Flag.prototype.propagationDelay = 0;

@@ -1,10 +1,6 @@
 import { setup } from './setup';
 import Array from './arrayHelpers';
 import 'bootstrap';
-import YosysJSON2CV from './Verilog2CV'
-import { keyBinder } from './hotkey_binder/keyBinder';
-import verilogRAM from './sequential/verilogRAM';
-import AndGate from './modules/AndGate';
 
 document.addEventListener('DOMContentLoaded', () => {
     setup();
@@ -218,10 +214,6 @@ document.addEventListener('DOMContentLoaded', () => {
         ],
         "subcircuits": {}
     };
-    // YosysJSON2CV(js);
-    
-    // var hii = new AndGate(0, 0, undefined, undefined);
-    keyBinder();
 });
 
 window.Array = Array;

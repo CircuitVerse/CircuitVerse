@@ -2,7 +2,7 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable guard-for-in */
 import * as metadata from './metadata.json';
-import { generateId, showMessage, setupBitConvertor} from './utils';
+import { generateId, showMessage} from './utils';
 import backgroundArea from './backgroundArea';
 import plotArea from './plotArea';
 import simulationArea from './simulationArea';
@@ -24,7 +24,7 @@ import 'codemirror/addon/edit/closebrackets.js';
 import 'codemirror/addon/hint/anyword-hint.js';
 import 'codemirror/addon/hint/show-hint.js';
 import {setupCodeMirrorEnvironment} from './Verilog2CV';
-import {setupVerilogExportCodeWindow} from './verilog';
+import { keyBinder } from './hotkey_binder/keyBinder';
 
 window.width = undefined;
 window.height = undefined;
@@ -85,10 +85,6 @@ function setupEnvironment() {
     newCircuit('Main');
     window.data = {};
     resetup();
-    if (!embed) {
-        setupVerilogExportCodeWindow();
-        setupBitConvertor();
-    }
     setupCodeMirrorEnvironment();
 }
 
@@ -146,7 +142,7 @@ export function setup() {
     setupEnvironment();
     if (!embed) { setupUI(); }
     startListeners();
-
+    keyBinder();
     // Load project data after 1 second - needs to be improved, delay needs to be eliminated
     setTimeout(() => {
         if (__logix_project_id != 0) {

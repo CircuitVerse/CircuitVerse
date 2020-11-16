@@ -377,6 +377,7 @@ export function updateSelectionsAndPane(scope = globalScope) {
 export function play(scope = globalScope, resetNodes = false) {
     if (errorDetected) return; // Don't simulate until error is fixed
     if (loading === true) return; // Don't simulate until loaded
+    simulationArea.simulationQueue.reset();
     plotArea.stopWatch.Stop(); // Waveform thing
     // Reset Nodes if required
     if (resetNodes || forceResetNodes) {

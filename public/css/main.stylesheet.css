@@ -294,7 +294,7 @@ input[type="text"]:focus {
   transform: translate(-50%, 13px);
 }
 
-.draggable-panel {
+.draggable-panel-css {
   border-radius: 5px;
   z-index: 100;
   transition: background .5s ease-out; 
@@ -401,7 +401,7 @@ input[type="text"]:focus {
   margin-bottom: 15px;
 }
 
-.panel-header {
+.draggable-panel-css .panel-header {
   border-radius: 5px;
   border-top-right-radius: 5px;
   padding-top: 15px;
@@ -415,11 +415,21 @@ input[type="text"]:focus {
   cursor: move;
 }
 
-.panel-body {
+.draggable-panel-css .panel-header::before {
+  content: '';
+  width: 34px;
+  border-radius: 2px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 6px;
+}
+
+.draggable-panel-css .panel-body {
   padding-top: 10px;
 }
 
-.panel {
+.draggable-panel-css .panel {
   padding: 0em;
   margin: 0;
   border-radius: 0;
@@ -639,6 +649,31 @@ div.icon img {
   left: 10px;
 }
 
+.timing-diagram-panel {
+  border-radius: 5px;
+  z-index: 100;
+  transition: background .5s ease-out; 
+  position: fixed;
+  cursor: pointer;
+  left: 2vw;
+  top: calc(100% - 200px);
+}
+
+.timing-diagram-panel .panel-header {
+  border-radius: 5px;
+  border-top-right-radius: 5px;
+  padding: 3px;
+  font-weight: bold;
+  font-size: 16px;
+  text-transform: uppercase;
+  text-align: left;
+  cursor: move;
+}
+
+#plotArea {
+  padding: 3px;
+}
+
 #verilogEditorPanel {
   width: 220px;
   font: inherit;
@@ -766,13 +801,9 @@ input:checked + .slider:before {
 /** custom button styling */
 
 .custom-btn--primary {
-  font-weight: bold;
   border-radius: 1px;
 }
 
-.custom-btn--primary:hover {
-  border-radius: 1px;
-}
 
 .custom-btn--secondary {
   background-color: transparent;
@@ -1265,7 +1296,6 @@ font: inherit;
   outline: none !important;
 }
 
-
 .search-close {
   position: absolute;
   right: 19px;
@@ -1338,36 +1368,30 @@ input[type='range']::-webkit-slider-thumb {
   border: 0;
   border-radius: 50%;
   cursor: pointer;
-
 }
 
-.panel-header::before {
-  content: '';
-  width: 34px;
-  border-radius: 2px;
+.draggable-panel-css .minimize {
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 6px;
-}
-
-.minimize {
-  content: '';
-  width: 17px;
-  height: 9.5px;
-  position: absolute;
-  right: 6px;
-  transform: translateX(-50%);
-  top: 16px;
+  right: 15px;
   cursor: pointer;
-  border-radius: 1px;
+}
+
+.panel-button-icon {
+  cursor: pointer;
+}
+
+.panel-button {
+  padding: 2px;
+}
+
+.draggable-panel-css .maximize {
+  position: absolute;
+  right: 15px;
+  cursor: pointer;
 }
 
 .maximize {
-  position: absolute;
-  right: 15px;
   display: none;
-  cursor: pointer;
 }
 
 .ce-hidden,.prop-hidden {
@@ -1504,4 +1528,27 @@ input[type='range']::-webkit-slider-thumb {
 .embed-fullscreen-btn {
   border-radius: 3px;
   width: auto;
+}
+
+#plot {
+  width:800px;
+}
+
+.timing-diagram-toolbar {
+  padding-left: 4px;
+  padding: 2px;
+  cursor: default;
+}
+
+.timing-diagram-toolbar input {
+  width: 80px;
+  background: transparent !important;
+}
+
+#timing-diagram-log {
+  font-size: 12.5px;
+  padding: 3px;
+  margin-left: 5px;
+  /* margin-bottom: 5px; */
+  border-radius: 3px;
 }
