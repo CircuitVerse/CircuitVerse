@@ -51,10 +51,13 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-12">
-      <button id="my-circuits" class="btn users-circuits-tab active">My Circuits</button>
-      <button id="favourite-circuits" class="btn users-circuits-tab users-favourites-tab">Favourite Circuits</button>
-      <button id="collaborator-circuits" class="btn users-circuits-tab users-collaborators-tab">Collaborated Circuits</button>
+    <div class="col-12 users-circuits-navbar">
+      <div class="users-circuits-navbar-buttons">
+        <button id="my-circuits" class="btn users-circuits-tab active">My Circuits</button>
+        <button id="favourite-circuits" class="btn users-circuits-tab users-favourites-tab">Favourite Circuits</button>
+        <button id="collaborator-circuits" class="btn users-circuits-tab users-collaborators-tab">Collaborated Circuits</button>
+      </div>
+      <input type="search" class="users-circuits-search" placeholder="Search circuits...">
     </div>
   </div>
   <div class="users-circuits-container">
@@ -124,6 +127,32 @@
 </script>
 
 <%= render partial: "view_project_modal" %>
+
+<%# for user projects search %>
+<script type="text/javascript">
+
+  const projectTitles = Array.from(document.querySelectorAll('.users-card-name p')); // collecting all the title tags
+
+  // on key up
+  $('.users-circuits-search').keyup(() => {
+    const searchQuery = $('.users-circuits-search').val().toLowerCase().trim();
+    // if searchQuery is not empty
+    if(searchQuery) {
+      projectTitles.forEach(projectTitle => {
+        if(projectTitle.textContent.toLowerCase().indexOf(searchQuery) > -1) { // if searchQuery is present in project title
+          projectTitle.parentElement.parentElement.parentElement.parentElement.style.display = "block";
+        } else { // else
+          projectTitle.parentElement.parentElement.parentElement.parentElement.style.display = "none";
+        }
+      })
+    } else { // if searchQuery is empty
+      projectTitles.forEach((projectTitle) => {
+        projectTitle.parentElement.parentElement.parentElement.parentElement.style.display = "block"
+      });
+    }
+  })
+
+</script>
 
 <script type="text/javascript">
   $(function() {
