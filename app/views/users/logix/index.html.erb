@@ -131,7 +131,7 @@
 <%# for user projects search %>
 <script type="text/javascript">
 
-  const projectTitles = Array.from(document.querySelectorAll('.users-card-name p'));
+  const projectTitles = Array.from(document.querySelectorAll('.users-card-name p')); // collecting all the title tags
   
   // on key up
   $('.users-circuits-search').keyup(() => {
@@ -150,8 +150,6 @@
         projectTitle.parentElement.parentElement.parentElement.parentElement.style.display = "block"
       });
     }
-    
-    projectTitles.forEach(title => console.log(title))
   })
 
 </script>
