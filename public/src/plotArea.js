@@ -17,33 +17,8 @@ function addPlot() {
     plotArea.specificTimeX = 0;
 }
 
-/**
- * Used as a stopwatch to
- * record time side of the plot
- * @category plotArea
- */
-class StopWatch {
-    constructor() {
-        this.StartMilliseconds = 0;
-        this.ElapsedMilliseconds = 0;
-    }
 
-    /**
-     * @memberof StopWatch
-     * used to start the stopwatch
-     */
-    Start() {
-        this.StartMilliseconds = new Date().getTime();
-    }
-
-    /**
-    * @memberof StopWatch
-    * used to get time elapsed.
-    */
-    Stop() {
-        this.ElapsedMilliseconds = new Date().getTime() - this.StartMilliseconds;
-    }
-}
+// var 
 
 /**
  * @type {Object} plotArea
@@ -54,7 +29,9 @@ const plotArea = {
     oy: 0,
     unit: 0,
     canvas: document.getElementById('plotArea'),
-
+    cycleCount: 0,
+    cycleTime: 0,
+    executionStartTime: 0,
     count: 0,
     specificTimeX: 0,
     scale: 1,
@@ -64,12 +41,32 @@ const plotArea = {
     scroll: 1,
     width: 0,
     height: 0,
+    unitUsed: 0,
+    cycleUnit: 10000,
+    reset() {
+        this.cycleCount = 0;
+        this.cycleTime = new Date().getTime();
+        for (var i = 0; i < globalScope.Flag.length; i++) {
+            globalScope.Flag[i].plotValues = [[0, globalScope.Flag[i].inp1.value]];
+            globalScope.Flag[i].cachedIndex = 0;
+        }
+        this.scroll = 1;
+        this.unitUsed = 0;
+    },
+    nextCycle() {
+        this.cycleCount++;
+        this.cycleTime = new Date().getTime();
+    },
+    setExecutionTime() {
+        this.executionStartTime = new Date().getTime();
+    },
     resize() {
         this.DPR = window.devicePixelRatio || 1;
+        this.DPR = 1;
         var oldHeight = this.height;
         var oldWidth = this.width;
         this.width = document.getElementById('plot').clientWidth * this.DPR;
-        this.height = (globalScope.Flag.length * 30 + 40) * this.DPR;
+        this.height = (globalScope.Flag.length * 30 + 30) * this.DPR;
         if (oldHeight == this.height && oldWidth == this.width) return;
         this.canvas.width = this.width;
         this.canvas.height = this.height;
@@ -78,24 +75,37 @@ const plotArea = {
     },
     setup() {
         this.canvas = document.getElementById('plotArea');
-        this.stopWatch = new StopWatch();
-        this.stopWatch.Start();
         if (!embed) {
             this.ctx = this.canvas.getContext('2d');
             setupTimingListeners();
-            // $('.timing-diagram-panel').on('resize', () => this.resize());
         }
-        startPlot();
         this.timeOutPlot = setInterval(() => {
             plotArea.plot();
         }, 100);
+        this.reset();
+    },
+    getPlotTime(timeUnit) {
+        var time = this.cycleCount * this.cycleUnit;
+        time += timeUnit;
+        // For user interactions like buttons
+        var timePeriod = simulationArea.timePeriod;
+        var executionDelay = (this.executionStartTime - this.cycleTime);
+        var delayFraction = executionDelay / timePeriod; 
+        time += delayFraction * this.cycleUnit; 
+        return time;
     },
     plot() {
+        if (embed) return;
+        if (globalScope.Flag.length == 0) {
+            this.canvas.width = this.canvas.height = 0;
+            return;
+        }
+        this.resize();
         var dangerColor = '#dc5656';
         var normalColor = '#42b983';
-
-        var unitUsed = simulationArea.simulationQueue.time;
-        var units = $('#timing-diagram-units').val();
+        this.unitUsed = Math.max(this.unitUsed, simulationArea.simulationQueue.time);
+        var unitUsed = this.unitUsed;
+        var units = this.cycleUnit;
         var utilization = Math.round(unitUsed * 10000 / units) / 100;
         $('#timing-diagram-log').html(`Utilization: ${Math.round(unitUsed)} Units (${utilization}%)`);
         if (utilization >= 90 || utilization <= 10) {
@@ -111,15 +121,7 @@ const plotArea = {
             $('#timing-diagram-log').css('background-color', normalColor);
         }
 
-        this.stopWatch.Stop();
-        var time = this.stopWatch.ElapsedMilliseconds;
-        if (embed) return;
-        if (globalScope.Flag.length == 0) {
-            this.canvas.width = this.canvas.height = 0;
-            return;
-        }
-
-        this.resize();
+        var time = this.cycleCount;
 
         if (this.scroll) {
             this.ox = Math.max(0, (time / this.unit) * this.pixel - this.canvas.width + 70);
@@ -129,103 +131,118 @@ const plotArea = {
             if (this.ox < 0) plotArea.scrollAcc = -0.2 + 0.2 * this.ox;
             if (Math.abs(this.ox) < 0.5) this.ox = 0;
         }
+
+        // Reset canvas
         var ctx = this.canvas.getContext('2d');
         this.clear(ctx);
+
+         // Background Color
         ctx.fillStyle = 'black';
         ctx.fillRect(0, 0, this.width, this.height);
+
         var unit = (this.pixel / (plotArea.unit * plotArea.scale));
         ctx.strokeStyle = 'cyan';
         ctx.lineWidth = 2;
+        ctx.fillStyle = '#eee';
+        ctx.rect(0, 0, 75, this.canvas.height);
+        ctx.fill();
+
+        ctx.font = '15px Georgia';
+        ctx.fillStyle = 'black';
+
         for (var i = 0; i < globalScope.Flag.length; i++) {
-            var arr = globalScope.Flag[i].plotValues;
-
-            var j = 0;
-            // var start=arr[j][0];
-            if (globalScope.Flag[i].cachedIndex) { j = globalScope.Flag[i].cachedIndex; }
-
-
-            while (j < arr.length && 80 + (arr[j][0] * unit) - plotArea.ox < 0) {
-                j++;
-            }
-            while (j < arr.length && j > 0 && 80 + (arr[j][0] * unit) - plotArea.ox > 0) {
-                j--;
-            }
-            if (j) j--;
-            globalScope.Flag[i].cachedIndex = j;
-
-            for (; j < arr.length; j++) {
-                var start = arr[j][0];
-
-                if (j + 1 == arr.length) { var end = time; } else { var end = arr[j + 1][0]; }
-
-                if (start <= time) {
-                    if (globalScope.Flag[i].bitWidth == 1) {
-                        if (arr[j][1] !== undefined) {
-                            if (ctx.strokeStyle == '#000000') {
-                                ctx.stroke();
-                                ctx.beginPath();
-                                ctx.lineWidth = 2;
-                                //   ctx.moveTo(80+(start*unit)-plotArea.ox,2*(30+i*15-yOff)-plotArea.oy)
-                                ctx.strokeStyle = 'cyan';
-                            }
-                            var yOff = 5 * arr[j][1];
-                        } else {
-                            ctx.stroke();
-                            ctx.beginPath();
-                            // ctx.moveTo(80+(start*unit)-plotArea.ox,2*(30+i*15-yOff)-plotArea.oy);
-                            ctx.lineWidth = 12;
-                            ctx.strokeStyle = '#000000'; // DIABLED Z STATE FOR NOW
-                            yOff = 2.5;
-                        }
-                        ctx.lineTo(80 + (start * unit) - plotArea.ox, 2 * (30 + i * 15 - yOff) - plotArea.oy);
-                        ctx.lineTo(80 + (end * unit) - plotArea.ox, 2 * (30 + i * 15 - yOff) - plotArea.oy);
-                    } else {
-                        ctx.beginPath();
-                        ctx.moveTo(80 + (end * unit) - plotArea.ox, 55 + 30 * i - plotArea.oy);
-                        ctx.lineTo(80 + (end * unit) - 5 - plotArea.ox, 2 * (25 + i * 15) - plotArea.oy);
-                        ctx.lineTo(80 + (start * unit) + 5 - plotArea.ox, 2 * (25 + i * 15) - plotArea.oy);
-                        ctx.lineTo(80 + (start * unit) - plotArea.ox, 55 + 30 * i - plotArea.oy);
-                        ctx.lineTo(80 + (start * unit) + 5 - plotArea.ox, 2 * (30 + i * 15) - plotArea.oy);
-                        ctx.lineTo(80 + (end * unit) - 5 - plotArea.ox, 2 * (30 + i * 15) - plotArea.oy);
-                        ctx.lineTo(80 + (end * unit) - plotArea.ox, 55 + 30 * i - plotArea.oy);
-                        var mid = 80 + ((end + start) / Math.round(plotArea.unit * plotArea.scale)) * this.pixel / 2;
-                        ctx.font = '12px Georgia';
-                        ctx.fillStyle = 'white';
-                        if ((start * unit) + 10 - plotArea.ox <= 0 && (end * unit) + 10 - plotArea.ox >= 0) {
-                            mid = 80 + ((end - 3000) / Math.round(plotArea.unit * plotArea.scale)) * this.pixel;
-                        }
-
-                        ctx.fillText(arr[j][1].toString() || 'x', mid - plotArea.ox, 57 + 30 * i - plotArea.oy);
-                        ctx.stroke();
-                    }
-                } else {
-                    break;
-                }
-
-                if (80 + (end * unit) - plotArea.ox > this.canvas.width) break;
-            }
-
-            ctx.stroke();
-            ctx.beginPath();
+            ctx.fillText(globalScope.Flag[i].identifier, 5, 2 * (25 + i * 15) - plotArea.oy);
+            ctx.fillRect(0, 2 * (13 + i * 15) + 4 - plotArea.oy, 75, 3);
         }
+
+        // for (var i = 0; i < globalScope.Flag.length; i++) {
+        //     var arr = globalScope.Flag[i].plotValues;
+        //     console.log(i, arr);
+        //     var j = 0;
+        //     // var start=arr[j][0];
+        //     if (globalScope.Flag[i].cachedIndex) { 
+        //         j = globalScope.Flag[i].cachedIndex; 
+        //     }
+
+        //     while (j < arr.length && 80 + (arr[j][0] * unit) - plotArea.ox < 0) {
+        //         j++;
+        //     }
+        //     while (j < arr.length && j > 0 && 80 + (arr[j][0] * unit) - plotArea.ox > 0) {
+        //         j--;
+        //     }
+        //     if (j) j--;
+        //     globalScope.Flag[i].cachedIndex = j;
+        //     console.log("HIT");
+        //     continue;
+
+        //     for (; j < arr.length; j++) {
+        //         var start = arr[j][0];
+
+        //         if (j + 1 == arr.length) { var end = time; } else { var end = arr[j + 1][0]; }
+
+        //         if (start <= time) {
+        //             if (globalScope.Flag[i].bitWidth == 1) {
+        //                 if (arr[j][1] !== undefined) {
+        //                     if (ctx.strokeStyle == '#000000') {
+        //                         ctx.stroke();
+        //                         ctx.beginPath();
+        //                         ctx.lineWidth = 2;
+        //                         //   ctx.moveTo(80+(start*unit)-plotArea.ox,2*(30+i*15-yOff)-plotArea.oy)
+        //                         ctx.strokeStyle = 'cyan';
+        //                     }
+        //                     var yOff = 5 * arr[j][1];
+        //                 } else {
+        //                     ctx.stroke();
+        //                     ctx.beginPath();
+        //                     // ctx.moveTo(80+(start*unit)-plotArea.ox,2*(30+i*15-yOff)-plotArea.oy);
+        //                     ctx.lineWidth = 12;
+        //                     ctx.strokeStyle = '#000000'; // DIABLED Z STATE FOR NOW
+        //                     yOff = 2.5;
+        //                 }
+        //                 ctx.lineTo(80 + (start * unit) - plotArea.ox, 2 * (30 + i * 15 - yOff) - plotArea.oy);
+        //                 ctx.lineTo(80 + (end * unit) - plotArea.ox, 2 * (30 + i * 15 - yOff) - plotArea.oy);
+        //             } else {
+        //                 ctx.beginPath();
+        //                 ctx.moveTo(80 + (end * unit) - plotArea.ox, 55 + 30 * i - plotArea.oy);
+        //                 ctx.lineTo(80 + (end * unit) - 5 - plotArea.ox, 2 * (25 + i * 15) - plotArea.oy);
+        //                 ctx.lineTo(80 + (start * unit) + 5 - plotArea.ox, 2 * (25 + i * 15) - plotArea.oy);
+        //                 ctx.lineTo(80 + (start * unit) - plotArea.ox, 55 + 30 * i - plotArea.oy);
+        //                 ctx.lineTo(80 + (start * unit) + 5 - plotArea.ox, 2 * (30 + i * 15) - plotArea.oy);
+        //                 ctx.lineTo(80 + (end * unit) - 5 - plotArea.ox, 2 * (30 + i * 15) - plotArea.oy);
+        //                 ctx.lineTo(80 + (end * unit) - plotArea.ox, 55 + 30 * i - plotArea.oy);
+        //                 var mid = 80 + ((end + start) / Math.round(plotArea.unit * plotArea.scale)) * this.pixel / 2;
+        //                 ctx.font = '12px Georgia';
+        //                 ctx.fillStyle = 'white';
+        //                 if ((start * unit) + 10 - plotArea.ox <= 0 && (end * unit) + 10 - plotArea.ox >= 0) {
+        //                     mid = 80 + ((end - 3000) / Math.round(plotArea.unit * plotArea.scale)) * this.pixel;
+        //                 }
+
+        //                 ctx.fillText(arr[j][1].toString() || 'x', mid - plotArea.ox, 57 + 30 * i - plotArea.oy);
+        //                 ctx.stroke();
+        //             }
+        //         } else {
+        //             break;
+        //         }
+
+        //         if (80 + (end * unit) - plotArea.ox > this.canvas.width) break;
+        //     }
+
+        //     ctx.stroke();
+        //     ctx.beginPath();
+        // }
         // 2 rectangles showing the time and labels
 
         ctx.fillStyle = '#eee';
         ctx.fillRect(0, 0, this.canvas.width, 30);
         ctx.font = '14px Georgia';
         ctx.fillStyle = 'black';
+        console.log(plotArea.unit, plotArea.scale, time);
+        return;
         for (var i = 1; i * Math.round(plotArea.unit * plotArea.scale) <= time + Math.round(plotArea.unit * plotArea.scale); i++) {
+            console.log(i);
             ctx.fillText(`${Math.round(plotArea.unit * plotArea.scale) * i / 1000}s`, 48 + this.pixel * i - plotArea.ox, 20);
         }
-
-        ctx.fillStyle = '#eee';
-        ctx.fillRect(0, 0, 75, this.canvas.height);
-        ctx.font = '15px Georgia';
-        ctx.fillStyle = 'black';
-        for (var i = 0; i < globalScope.Flag.length; i++) {
-            ctx.fillText(globalScope.Flag[i].identifier, 5, 2 * (25 + i * 15) - plotArea.oy);
-            ctx.fillRect(0, 2 * (13 + i * 15) + 4 - plotArea.oy, 75, 3);
-        }
+        return;
         ctx.fillStyle = '#eee';
         ctx.fillRect(0, 0, 75, 30);
         ctx.fillStyle = 'black';
@@ -272,7 +289,6 @@ const plotArea = {
     },
     clear() {
         this.ctx.clearRect(0, 0, plotArea.canvas.width, plotArea.canvas.height);
-        // clearInterval(timeOutPlot);
     },
 
 };
@@ -286,6 +302,17 @@ function setupTimingListeners() {
     $('.timing-diagram-larger').on('click', () => {
         $('#plot').width($('#plot').width() + 20)
         plotArea.resize();
+    })
+    $('.timing-diagram-reset').on('click', () => {
+        plotArea.reset();
+    })
+    $('.timing-diagram-resume').on('click', () => {
+        plotArea.resume();
+    })
+    $('#timing-diagram-units').on('change paste keyup', function() {
+        var timeUnits = parseInt($(this).val(), 10);
+        if (isNaN(timeUnits) || timeUnits < 1) return;
+        plotArea.cycleUnit = timeUnits;
     })
     document.getElementById('plotArea').addEventListener('mousedown', (e) => {
         var rect = plotArea.canvas.getBoundingClientRect();
@@ -316,19 +343,4 @@ function setupTimingListeners() {
             plotArea.mouseDown = false;
         }
     });
-}
-
-/**
- * sets plot values of all flags and it add(s)Plot().
- * @category plotArea
- */
-function startPlot() {
-    plotArea.stopWatch.Start();
-    for (var i = 0; i < globalScope.Flag.length; i++) {
-        globalScope.Flag[i].plotValues = [[0, globalScope.Flag[i].inp1.value]];
-        globalScope.Flag[i].cachedIndex = 0;
-    }
-    // play();
-    plotArea.scroll = 1;
-    addPlot();
 }

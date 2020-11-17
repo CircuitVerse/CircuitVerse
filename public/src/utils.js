@@ -3,6 +3,7 @@ import {
     scheduleUpdate, play, updateCanvasSet, errorDetectedSet, errorDetectedGet,
 } from './engine';
 import { layoutModeGet } from './layoutMode';
+import plotArea from './plotArea';
 
 window.globalScope = undefined;
 window.lightMode = false; // To be deprecated
@@ -33,6 +34,7 @@ export function clockTick() {
     if (layoutModeGet()) return;
     updateCanvasSet(true);
     globalScope.clockTick();
+    plotArea.nextCycle();
     play();
     scheduleUpdate(0, 20);
 }

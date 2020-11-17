@@ -124,6 +124,7 @@ export default class TB_Input extends CircuitElement {
      * was a function to plot values incase any flag used as output to this element
      */
     setPlotValue() {
+        return;
         var time = plotArea.stopWatch.ElapsedMilliseconds;
         if (this.plotValues.length && this.plotValues[this.plotValues.length - 1][0] == time) { this.plotValues.pop(); }
 

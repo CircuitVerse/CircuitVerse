@@ -127,6 +127,7 @@ export default class Tunnel extends CircuitElement {
      * function to set plot value
      */
     setPlotValue() {
+        return;
         const time = plotArea.stopWatch.ElapsedMilliseconds;
         if (
             this.plotValues.length &&

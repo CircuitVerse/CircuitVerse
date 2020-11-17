@@ -13,6 +13,7 @@ import { constructNodeConnections, loadNode, replace } from '../node';
 import { generateId } from '../utils';
 import modules from '../modules';
 import { oppositeDirection } from '../canvasApi';
+import plotArea from '../plotArea';
 
 /**
  * Backward compatibility - needs to be deprecated
@@ -219,5 +220,7 @@ export default function load(data) {
     updateSimulationSet(true);
     updateCanvasSet(true);
     gridUpdateSet(true);
-    scheduleUpdate();
+    // Reset Timing
+    plotArea.reset();
+    scheduleUpdate(1);
 }

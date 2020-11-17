@@ -858,7 +858,7 @@ export default class CircuitElement {
 }
 
 CircuitElement.prototype.alwaysResolve = false;
-CircuitElement.prototype.propagationDelay = 100;
+CircuitElement.prototype.propagationDelay = 10;
 CircuitElement.prototype.tooltip = undefined;
 CircuitElement.prototype.propagationDelayFixed = false;
 CircuitElement.prototype.objectType = 'CircuitElement';

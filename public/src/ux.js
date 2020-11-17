@@ -506,12 +506,9 @@ export function setupPanels() {
     setupPanelListeners('#layoutDialog');
     setupPanelListeners('#verilogEditorPanel');
     setupPanelListeners('.timing-diagram-panel');
-    // $('.timing-diagram-panel').resizable({
-    //     grid: 50,
-    //     resize: function(event, ui) {
-    //         $('.also').css("width",ui.size.width+"px");
-    //     }
-    // });
+
+    // Minimize Timing Diagram (takes too much space)
+    // $('.timing-diagram-panel .minimize').click();
     
     $('#projectName').on('click', () => {
         $("input[name='setProjectName']").focus().select();

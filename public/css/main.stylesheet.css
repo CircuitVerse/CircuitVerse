@@ -1232,7 +1232,7 @@ font: inherit;
 
 #miniMap {
   position: fixed;
-  z-index: 100;
+  z-index: 3;
   bottom: 20px;
   right: 40px;
   overflow-y: scroll;
