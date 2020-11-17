@@ -51,14 +51,17 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-12">
-      <button id="my-circuits" class="btn users-circuits-tab active">My Circuits</button>
-      <button id="favourite-circuits" class="btn users-circuits-tab users-favourites-tab">Favourite Circuits</button>
-      <button id="collaborator-circuits" class="btn users-circuits-tab users-collaborators-tab">Collaborated Circuits</button>
+    <div class="col-12 users-circuits-navbar">
+      <div class="users-circuits-navbar-buttons">
+        <button id="my-circuits" class="btn users-circuits-tab active">My Circuits</button>
+        <button id="favourite-circuits" class="btn users-circuits-tab users-favourites-tab">Favourite Circuits</button>
+        <button id="collaborator-circuits" class="btn users-circuits-tab users-collaborators-tab">Collaborated Circuits</button>
+      </div>
+      <input type="search" class="users-circuits-search" placeholder="Search circuits...">
     </div>
   </div>
   <div class="users-circuits-container">
-    <div id="my-circuits-div" class="row center-row">
+    <div id="my-circuits-div" class="row center-row circuit-page">
       <% if @user.projects.blank? %>
       <div class="col-12">
         <div class="search-no-results-image">
@@ -74,7 +77,7 @@
         <%= render partial: "dashboard" , locals: {projects: @user.projects} %>
       <% end %>
     </div>
-    <div id="favourite-circuits-div" class="row center-row">
+    <div id="favourite-circuits-div" class="row center-row circuit-page">
       <% if @projects.blank? %>
         <div class="col-12">
           <div class="search-no-results-image">
@@ -90,7 +93,7 @@
         <%= render partial: "dashboard" , locals: {projects: @projects} %>
       <% end %>
     </div>
-    <div id="collaborator-circuits-div" class="row center-row">
+    <div id="collaborator-circuits-div" class="row center-row circuit-page">
       <% collaborated_projects = @user.collaborated_projects %>
       <% if collaborated_projects.count == 0 %>
         <div class="col-12">
@@ -124,6 +127,77 @@
 </script>
 
 <%= render partial: "view_project_modal" %>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.3"></script>
+<%# for user projects search %>
+<script type="text/javascript">
+
+  function getTitle(circuitDiv) {
+      return $('.users-card-name p', circuitDiv)[0].textContent;
+  }
+  var projects = $('.circuit-card-js'); // collecting all the title tags
+  projectList = [];
+  projects.each((i, project) => projectList.push({title: getTitle(project), domObj: project}));
+
+  const options = {
+    // isCaseSensitive: false,
+    // includeScore: false,
+    // shouldSort: true,
+    // includeMatches: false,
+    // findAllMatches: true,
+    // minMatchCharLength: 1,
+    // location: 0,
+    // threshold: 0.6,
+    // distance: 100,
+    // useExtendedSearch: false,
+    // ignoreLocation: false,
+    // ignoreFieldNorm: false,
+    keys: [
+      "title"
+    ]
+  };
+
+  const fuse = new Fuse(projectList, options);
+  
+  // on key up
+  $('.users-circuits-search').keyup(() => {
+    const searchQuery = $('.users-circuits-search').val().toLowerCase().trim();
+    // if searchQuery is not empty
+    if(searchQuery) {
+      // Mark everything as hidden initially
+      projects.hide();
+      // Find matches
+      var matches = fuse.search(searchQuery);
+      var matchMap = {}
+      matches.forEach((match, i) => {
+          matchMap[match.item.title] = i;
+          // mark matches as visible
+          $(match.item.domObj).show();
+      })
+      // Helper function used for sorting cards
+      function getSortIndex(circuitDiv) {
+        var title = getTitle(circuitDiv);
+        if (title in matchMap) return matchMap[title];
+        return matches.length;
+      }
+
+      // Sort cards
+      var dashboards = $('.circuit-page');
+      dashboards.each((i, dashboard) => {
+        var circuitCards = $(dashboard).children();
+        circuitCards.detach().sort((a, b) => {
+          a = getSortIndex(a);
+          b = getSortIndex(b);
+          if (a == b) return 0;
+          return a > b ? 1 : -1;
+        })
+        $(dashboard).append(circuitCards);
+      });
+    } else { // if searchQuery is empty -> display everything
+      projects.show();
+    }
+  })
+
+</script>
 
 <script type="text/javascript">
   $(function() {
