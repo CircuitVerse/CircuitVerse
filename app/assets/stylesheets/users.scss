@@ -186,9 +186,9 @@
 .users-circuits-container {
   border: 1px solid $form-border-grey;
   margin-top: 0;
+  min-height: 348px;
   padding-bottom: 20px;
   padding-top: 30px;
-  min-height: 348px;
 }
 
 .users-circuits-column {
@@ -255,23 +255,23 @@
 }
 
 .users-circuits-navbar {
-  display: flex;
   align-items: center;
+  display: flex;
   justify-content: space-between;
 
   input {
-    border: none;
+    border: 0;
     border-left: 1px solid $form-border-grey;
     border-radius: 0;
-    padding: 7px 10px;
     font-size: 16px;
     margin: 0;
     margin-top: 20px;
-    transition: 0.2s ease-in-out;
+    padding: 7px 10px;
+    transition: .2s ease-in-out;
 
     &:focus {
       border-color: $primary-green;
-      transition: 0.2s ease-in-out;
+      transition: .2s ease-in-out;
     }
   }
 }
