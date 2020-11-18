@@ -116,6 +116,7 @@ export default class ImageAnnotation extends CircuitElement {
      * Procedure if image is double clicked
     **/
     dblclick() {
+        if (embed)return;
         this.uploadImage();
     }
 
