@@ -38,7 +38,6 @@ export function getProjectName() {
     return projectName;
 }
 
-
 /**
  * Helper function to save canvas as image based on image type
  * @param {string} name -name of the circuit
