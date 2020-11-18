@@ -44,6 +44,7 @@ export function verilogModeSet(mode) {
     if(mode) {
         $('#code-window').show();
         $('.elementPanel').hide();
+        $('.timing-diagram-panel').hide();
         $('.quick-btn').hide();
         $('#verilogEditorPanel').show();
         if (!embed) {
@@ -56,6 +57,7 @@ export function verilogModeSet(mode) {
     else {
         $('#code-window').hide();
         $('.elementPanel').show();
+        $('.timing-diagram-panel').show();
         $('.quick-btn').show();
         $('#verilogEditorPanel').hide();
     }

@@ -10,6 +10,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-alert */
 import CircuitElement from './circuitElement';
+import plotArea from './plotArea';
 import simulationArea, { changeClockTime } from './simulationArea';
 import {
     stripTags,
@@ -79,6 +80,7 @@ export function switchCircuit(id) {
 
     // to update the restricted elements information
     updateRestrictedElementsList();
+    plotArea.reset();
 }
 
 /**
