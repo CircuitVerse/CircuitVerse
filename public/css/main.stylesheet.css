@@ -437,8 +437,6 @@ input[type="text"]:focus {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   max-height: 185px;
-  overflow: hidden;
-  overflow-x: scroll;
   border-radius: 2px;
 }
 
