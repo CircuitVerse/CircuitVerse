@@ -30,7 +30,7 @@ export function findDimensions(scope = globalScope) {
                     if (obj.x + obj.rightDimensionX > simulationArea.maxWidth) { simulationArea.maxWidth = obj.x + obj.rightDimensionX; }
                 } else {
                     if (obj.absY() < simulationArea.minHeight) { simulationArea.minHeight = obj.absY(); }
-                    if (obj.absY() > simulationArea.maxxHeight) { simulationArea.maxHeight = obj.absY(); }
+                    if (obj.absY() > simulationArea.maxHeight) { simulationArea.maxHeight = obj.absY(); }
                     if (obj.absX() < simulationArea.minWidth) { simulationArea.minWidth = obj.absX(); }
                     if (obj.absX() > simulationArea.maxWidth) { simulationArea.maxWidth = obj.absX(); }
                 }

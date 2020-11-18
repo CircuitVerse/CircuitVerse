@@ -508,7 +508,7 @@ export function setupPanels() {
     setupPanelListeners('.timing-diagram-panel');
 
     // Minimize Timing Diagram (takes too much space)
-    // $('.timing-diagram-panel .minimize').click();
+    $('.timing-diagram-panel .minimize').click();
     
     $('#projectName').on('click', () => {
         $("input[name='setProjectName']").focus().select();
