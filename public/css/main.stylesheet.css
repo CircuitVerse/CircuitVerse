@@ -13,16 +13,21 @@
 @import "./plugin-stylesheets/simple-button-radios.css";
 @import "./plugin-stylesheets/checkBo.min.css";
 @import "./plugin-stylesheets/jquery-pseudo-ripple.css";
-@import url(https://fonts.googleapis.com/css?family=Raleway);
-
 /** new UI ruleset starts here */
 /*! Adding color variables to root, required later for hokey binding */
+
+/* typography */
+@font-face {
+  font-family: Raleway;
+  src: url("https://fonts.gstatic.com/s/raleway/v18/1Ptxg8zYS_SKggPN4iEgvnHyvveLxVvaorCIPrcVIT9d0c8.woff");
+}
 
 /* typography */
 @font-face {
   font-family: "Nunito", sans-serif;
   src: url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;1,200&display=swap");
 }
+
 
 /** Global Styles starts here */
 
