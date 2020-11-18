@@ -250,6 +250,17 @@ export function rect(ctx, x1, y1, x2, y2) {
     ctx.rect(Math.round(globalScope.ox + x1 - correction) + correction, Math.round(globalScope.oy + y1 - correction) + correction, Math.round(x2), Math.round(y2));
 }
 
+export function drawImage(ctx,img, x1, y1, w_canvas, h_canvas) {
+    x1 *= globalScope.scale;
+    y1 *= globalScope.scale;
+    x1 += globalScope.ox;
+    y1 += globalScope.oy;
+    
+    w_canvas *= globalScope.scale;
+    h_canvas *= globalScope.scale;
+    ctx.drawImage(img, x1, y1, w_canvas, h_canvas);
+}
+
 export function rect2(ctx, x1, y1, x2, y2, xx, yy, dir = 'RIGHT') {
     var correction = 0.5 * (ctx.lineWidth % 2);
     [x1, y1] = rotate(x1, y1, dir);

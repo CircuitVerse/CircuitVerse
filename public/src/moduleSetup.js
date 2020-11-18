@@ -3,6 +3,7 @@ import Adder from './modules/Adder';
 import ALU from './modules/ALU';
 import AndGate from './modules/AndGate';
 import Arrow from './modules/Arrow';
+import ImageAnnotation from './modules/ImageAnnotation';
 import BitSelector from './modules/BitSelector';
 import Buffer from './modules/Buffer';
 import Button from './modules/Button';
@@ -112,6 +113,7 @@ export default function setupModules() {
         ALU,
         Rectangle,
         Arrow,
+        ImageAnnotation,
         RGBLedMatrix,
         TflipFlop,
         DflipFlop,

@@ -217,6 +217,16 @@ export function bitConverterDialog() {
     });
 }
 
+export function getImageDimensions(file) {
+    return new Promise (function (resolved, rejected) {
+      var i = new Image()
+      i.onload = function(){
+        resolved({w: i.width, h: i.height})
+      };
+      i.src = file
+    })
+  }
+
 // convertors
 export var convertors = {
     dec2bin: x => "0b" + x.toString(2),
@@ -257,4 +267,24 @@ export function setupBitConvertor() {
         var x = parseInt($("#octalInput").val(), 8);
         setBaseValues(x);
     })
+}
+
+export function promptFile(contentType, multiple) {
+    var input = document.createElement("input");
+    input.type = "file";
+    input.multiple = multiple;
+    input.accept = contentType;
+    return new Promise(function(resolve) {
+      document.activeElement.onfocus = function() {
+        document.activeElement.onfocus = null;
+        setTimeout(resolve, 500);
+      };
+      input.onchange = function() {
+        var files = Array.from(input.files);
+        if (multiple)
+          return resolve(files);
+        resolve(files[0]);
+      };
+      input.click();
+    });
 }

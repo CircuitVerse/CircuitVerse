@@ -233,14 +233,6 @@ export default class Scope {
             title_y: 13,
             titleEnabled: true,
         };
-
-
-        // FOR SOME UNKNOWN REASON, MAKING THE COPY OF THE LIST COMMON
-        // TO ALL SCOPES EITHER BY PROTOTYPE OR JUST BY REFERNCE IS CAUSING ISSUES
-        // The issue comes regarding copy/paste operation, after 5-6 operations it becomes slow for unknown reasons
-        // CHANGE/ REMOVE WITH CAUTION
-        // this.objects = ["wires", ...circuitElementList, "nodes", ...annotationList];
-        // this.renderObjectOrder = [ ...(moduleList.slice().reverse()), "wires", "allNodes"];
     }
 
     isVisible() {

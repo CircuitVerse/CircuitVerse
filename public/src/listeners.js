@@ -404,13 +404,6 @@ export default function startListeners() {
         });
     });
 
-    const circuitElementList = [
-        "Input", "Output", "NotGate", "OrGate", "AndGate", "NorGate", "NandGate", "XorGate", "XnorGate", "SevenSegDisplay", "SixteenSegDisplay", "HexDisplay",
-        "Multiplexer", "BitSelector", "Splitter", "Power", "Ground", "ConstantVal", "ControlledInverter", "TriState", "Adder", "Rom", "RAM", "EEPROM", "TflipFlop",
-        "JKflipFlop", "SRflipFlop", "DflipFlop", "TTY", "Keyboard", "Clock", "DigitalLed", "Stepper", "VariableLed", "RGBLed", "SquareRGBLed", "RGBLedMatrix", "Button", "Demultiplexer",
-        "Buffer", "Flag", "MSB", "LSB", "PriorityEncoder", "Tunnel", "ALU", "Decoder", "Random", "Counter", "Dlatch", "TB_Input", "TB_Output", "ForceGate",
-    ];
-
     $(".search-input").on("keyup", function() {
         var parentElement = $(this).parent().parent();
         var closeButton =  $('.search-close', parentElement);
@@ -436,7 +429,7 @@ export default function startListeners() {
             return;
         }
         let htmlIcons = '';
-        const result = circuitElementList.filter(ele => ele.toLowerCase().includes(value));
+        const result = elementPanelList.filter(ele => ele.toLowerCase().includes(value));
         if(!result.length) searchResults.text('No elements found ...');
         else {
             result.forEach( e => htmlIcons += createIcon(e));
