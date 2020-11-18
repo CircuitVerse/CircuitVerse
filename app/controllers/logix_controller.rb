@@ -7,6 +7,7 @@ class LogixController < ApplicationController
   def index
     @projects = Project.select(:id, :author_id, :image_preview, :name, :slug)
                        .public_and_not_forked
+                       .where.not(image_preview: "default.png")
                        .order(id: :desc)
                        .limit(Project.per_page)
 
