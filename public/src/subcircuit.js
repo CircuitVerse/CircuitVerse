@@ -731,3 +731,4 @@ export default class SubCircuit extends CircuitElement {
     }
 }
 SubCircuit.prototype.centerElement = true; // To center subcircuit when new
+SubCircuit.prototype.propagationDelayFixed = true;

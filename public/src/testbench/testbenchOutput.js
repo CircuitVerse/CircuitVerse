@@ -148,7 +148,7 @@ export default class TB_Output extends CircuitElement {
         // ctx.fill();
         // ctx.stroke();
         //
-        // ctx.font = "14px Georgia";
+        // ctx.font = "14px Raleway";
         // this.xOff = ctx.measureText(this.identifier).width;
         // ctx.beginPath();
         // rect2(ctx, -105+xRotate+this.xSize, -11+yRotate,this.xOff + 10, 23, xx, yy, "RIGHT");
@@ -172,7 +172,7 @@ export default class TB_Output extends CircuitElement {
 
         if (this.testBenchInput) {
             ctx.beginPath();
-            ctx.font = '30px Georgia';
+            ctx.font = '30px Raleway';
             ctx.textAlign = 'left';
             ctx.fillStyle = 'blue';
             for (var i = 0; i < this.testBenchInput.testData.outputs.length; i++) {
@@ -183,7 +183,7 @@ export default class TB_Output extends CircuitElement {
 
             if (this.testBenchInput.running && this.testBenchInput.iteration) {
                 ctx.beginPath();
-                ctx.font = '30px Georgia';
+                ctx.font = '30px Raleway';
                 ctx.textAlign = 'right';
                 ctx.fillStyle = 'blue';
                 ctx.beginPath();
@@ -196,7 +196,7 @@ export default class TB_Output extends CircuitElement {
 
             if (this.testBenchInput.running && this.testBenchInput.iteration) {
                 ctx.beginPath();
-                ctx.font = '30px Georgia';
+                ctx.font = '30px Raleway';
                 ctx.textAlign = 'center';
                 ctx.fillStyle = 'blue';
 

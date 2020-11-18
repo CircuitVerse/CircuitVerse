@@ -91,7 +91,7 @@ export default class Random extends CircuitElement {
         ctx.beginPath();
         var xx = this.x;
         var yy = this.y;
-        ctx.font = '20px Georgia';
+        ctx.font = '20px Raleway';
         ctx.fillStyle = colors['input_text'];
         ctx.textAlign = 'center';
         fillText(ctx, this.currentRandomNo.toString(10), this.x, this.y + 5);
@@ -110,7 +110,7 @@ export default class Random extends CircuitElement {
         var yy = this.subcircuitMetadata.y + yOffset;
 
         ctx.beginPath();
-        ctx.font = "20px Georgia";
+        ctx.font = "20px Raleway";
         ctx.fillStyle = "green";
         ctx.textAlign = "center";
         fillText(ctx, this.currentRandomNo.toString(16), xx + 10, yy + 17);

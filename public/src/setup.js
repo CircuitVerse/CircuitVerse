@@ -2,7 +2,7 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable guard-for-in */
 import * as metadata from './metadata.json';
-import { generateId, showMessage, setupBitConvertor} from './utils';
+import { generateId, showMessage} from './utils';
 import backgroundArea from './backgroundArea';
 import plotArea from './plotArea';
 import simulationArea from './simulationArea';
@@ -24,7 +24,7 @@ import 'codemirror/addon/edit/closebrackets.js';
 import 'codemirror/addon/hint/anyword-hint.js';
 import 'codemirror/addon/hint/show-hint.js';
 import {setupCodeMirrorEnvironment} from './Verilog2CV';
-import {setupVerilogExportCodeWindow} from './verilog';
+import { keyBinder } from './hotkey_binder/keyBinder';
 
 window.width = undefined;
 window.height = undefined;
@@ -47,7 +47,6 @@ export function resetup() {
     }
     // setup simulationArea and backgroundArea variables used to make changes to canvas.
     backgroundArea.setup();
-    plotArea.setup();
     simulationArea.setup();
     // redraw grid
     dots();
@@ -59,8 +58,7 @@ export function resetup() {
     backgroundArea.canvas.width = width + 100 * DPR;
     backgroundArea.canvas.height = height + 100 * DPR;
     if (!embed) {
-        plotArea.c.width = document.getElementById('plot').clientWidth;
-        plotArea.c.height = document.getElementById('plot').clientHeight;
+        plotArea.setup();
     }
     updateCanvasSet(true);
     update(); // INEFFICIENT, needs to be deprecated
@@ -86,10 +84,6 @@ function setupEnvironment() {
     newCircuit('Main');
     window.data = {};
     resetup();
-    if (!embed) {
-        setupVerilogExportCodeWindow();
-        setupBitConvertor();
-    }
     setupCodeMirrorEnvironment();
 }
 
@@ -147,7 +141,7 @@ export function setup() {
     setupEnvironment();
     if (!embed) { setupUI(); }
     startListeners();
-
+    keyBinder();
     // Load project data after 1 second - needs to be improved, delay needs to be eliminated
     setTimeout(() => {
         if (__logix_project_id != 0) {

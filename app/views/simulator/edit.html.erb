@@ -58,7 +58,6 @@
         <ul class="dropdown-menu">
           <li><a class="dropdown-item text-left pl-1 logixButton" id="createCombinationalAnalysisPrompt">Combinational<br>Analysis</a></li>
           <li><a class="dropdown-item text-left pl-1 logixButton" id="bitconverter">Hex-Bin-Dec<br>Converter</a></li>
-          <li><a class="dropdown-item text-left pl-1 logixButton" id="startPlot">Start Plot</a></li>
           <li><a class="dropdown-item text-left pl-1 logixButton" id="createSaveAsImgPrompt">Download Image</a>
           <li><a class="dropdown-item text-left pl-1 logixButton" id="colorThemes">Themes</a>
           <li><a class="dropdown-item text-left pl-1" id="customShortcut">Custom Shortcut</a></li>
@@ -174,9 +173,9 @@
 </div>
 <div title="Export Verilog" id="verilog-export-code-window-div" style="display:none"><textarea id="verilog-export-code-window"></textarea></div>
 <div id="code-window" class='code-window'><textarea id="codeTextArea"></textarea></div>
-<div class="modules noSelect defaultCursor ce-panel elementPanel draggable-panel" id="guide_1">
+<div class="modules noSelect defaultCursor ce-panel elementPanel draggable-panel draggable-panel-css " id="guide_1">
   <div class="panel-header">Circuit Elements
-  <span class="minimize"></span>
+  <span class="fas fa-minus-square minimize"></span>
   <span class="fas fa-external-link-square-alt maximize"></span>
   </div>
   <div class="panel-body" id="testid">
@@ -189,9 +188,9 @@
   </div>
 </div>
 
-<div class="noSelect defaultCursor layoutElementPanel draggable-panel">
+<div class="noSelect defaultCursor layoutElementPanel draggable-panel draggable-panel-css ">
   <div class="panel-header">Layout Elements
-  <span class="minimize"></span>
+  <span class="fas fa-minus-square minimize"></span>
   <span class="fas fa-external-link-square-alt maximize"></span>
   </div>
   <div class="panel-body">
@@ -199,10 +198,36 @@
     <div class="accordion" id="subcircuitMenu"></div>
   </div>
 </div>
+<div class="timing-diagram-panel draggable-panel">
+<div class="panel-header">Timing Diagram
+  <span class="fas fa-minus-square minimize panel-button"></span>
+  <span class="fas fa-external-link-square-alt maximize panel-button-icon"></span>
+  </div>
+  <div class="panel-body">
+    <div class='timing-diagram-toolbar noSelect'>
+      <button class='custom-btn--primary panel-button' title="Decrease Size"><span class="fas fa-chevron-left timing-diagram-smaller panel-button-icon"></span></button>
+      <button class='custom-btn--primary panel-button' title="Increase Size"><span class="fas fa-chevron-right timing-diagram-larger panel-button-icon"></span></button>
+      <button class='custom-btn--primary panel-button' title="Download As Image"><span class="fas fa-download timing-diagram-download"></button>
+      <button class='custom-btn--tertiary panel-button' title="Reset Timing Diagram"><span class="fas fa-undo timing-diagram-reset"></button>
+      <button class='custom-btn--tertiary panel-button' title="Autocalibrate Cycle Units"><span class="fas fa-magic timing-diagram-calibrate"></button>
+      <button class='custom-btn--primary panel-button' title="Zoom In"><span class="fas fa-search-plus timing-diagram-zoom-in"></button>
+      <button class='custom-btn--primary panel-button' title="Zoom Out"><span class="fas fa-search-minus timing-diagram-zoom-out"></button>
+      <button class='custom-btn--primary panel-button' title="Resume Timing Diagram"><span class="fas fa-play timing-diagram-resume"></button>
+      1 cycle = 
+      <input id="timing-diagram-units" type="number" min="1" autocomplete="off" value="1000">
+      Units
+      <span id='timing-diagram-log'></span>
+    </div>
+    <div id="plot">
+      <canvas id="plotArea"
+      ></canvas>
+    </div>
+  </div>
+</div>
 <div id="MessageDiv"></div>
-<div class="noSelect defaultCursor draggable-panel" id="verilogEditorPanel">
+<div class="noSelect defaultCursor draggable-panel draggable-panel-css" id="verilogEditorPanel">
   <div class="panel-header">Verilog Module
-  <span class="minimize"></span>
+  <span class="fas fa-minus-square minimize"></span>
   <span class="fas fa-external-link-square-alt maximize"></span>
   </div>
   <div class="panel-body">
@@ -216,17 +241,17 @@
   </div>
 </div>
 
-<div class="moduleProperty noSelect effect1 properties-panel draggable-panel guide_2" id="moduleProperty">
+<div class="moduleProperty noSelect effect1 properties-panel draggable-panel draggable-panel-css  guide_2" id="moduleProperty">
   <div id="moduleProperty-title" class="noSelect panel-header">Properties
-  <span class="minimize"></span>
+  <span class="fas fa-minus-square minimize"></span>
   <span class="fas fa-external-link-square-alt maximize"></span>
   </div>
   <div class='panel-body'> <div id="moduleProperty-inner"></div></div>
 </div>
 <div id="customShortcutDialog" title="Keybinding Preference"></div>
-<div id="layoutDialog" class="draggable-panel">
+<div id="layoutDialog" class="draggable-panel draggable-panel-css ">
   <div class="panel-header">Layout
-      <span class="minimize"></span>
+      <span class="fas fa-minus-square minimize"></span>
       <span class="fas fa-external-link-square-alt maximize"></span>
   </div>
   <div class="layout-body panel-body" id="layout-body">
@@ -463,12 +488,6 @@
         height: 100%;
       "
     ></canvas>
-    <div id="plot">
-      <canvas
-        id="plotArea"
-        style="position: absolute; left: 0; top: 0; z-index: 2;"
-      ></canvas>
-    </div>
     <div id="miniMap">
       <canvas
         id="miniMapArea"

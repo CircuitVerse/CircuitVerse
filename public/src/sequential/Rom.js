@@ -151,9 +151,9 @@ export default class Rom extends CircuitElement {
 
         ctx.beginPath();
         ctx.fillStyle = 'Black';
-        fillText3(ctx, 'A', -65, 5, xx, yy, 16, 'Georgia', 'right');
-        fillText3(ctx, 'D', 75, 5, xx, yy, 16, 'Georgia', 'right');
-        fillText3(ctx, 'En', 5, 47, xx, yy, 16, 'Georgia', 'right');
+        fillText3(ctx, 'A', -65, 5, xx, yy, 16, 'Raleway', 'right');
+        fillText3(ctx, 'D', 75, 5, xx, yy, 16, 'Raleway', 'right');
+        fillText3(ctx, 'En', 5, 47, xx, yy, 16, 'Raleway', 'right');
         ctx.fill();
 
         ctx.beginPath();
@@ -162,7 +162,7 @@ export default class Rom extends CircuitElement {
             for (let j = i; j < i + 4; j++) {
                 let s = this.data[j].toString(16);
                 if (s.length < 2) s = `0${s}`;
-                fillText3(ctx, s, (j % 4) * 20, i * 4, xx - 35 + 10, yy - 35 + 12, 14, 'Georgia', 'center');
+                fillText3(ctx, s, (j % 4) * 20, i * 4, xx - 35 + 10, yy - 35 + 12, 14, 'Raleway', 'center');
             }
         }
         ctx.fill();
@@ -172,7 +172,7 @@ export default class Rom extends CircuitElement {
         for (let i = 0; i < 16; i += 4) {
             let s = i.toString(16);
             if (s.length < 2) s = `0${s}`;
-            fillText3(ctx, s, 0, i * 4, xx - 40, yy - 35 + 12, 14, 'Georgia', 'right');
+            fillText3(ctx, s, 0, i * 4, xx - 40, yy - 35 + 12, 14, 'Raleway', 'right');
         }
         ctx.fill();
     }
