@@ -221,7 +221,7 @@ export default class TB_Input extends CircuitElement {
         ctx.fill();
 
 
-        ctx.font = '30px Georgia';
+        ctx.font = '30px Raleway';
         ctx.textAlign = 'right';
         ctx.fillStyle = 'blue';
         ctx.beginPath();
@@ -232,7 +232,7 @@ export default class TB_Input extends CircuitElement {
 
         ctx.fill();
         if (this.running && this.iteration) {
-            ctx.font = '30px Georgia';
+            ctx.font = '30px Raleway';
             ctx.textAlign = 'left';
             ctx.fillStyle = 'blue';
             ctx.beginPath();

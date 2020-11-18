@@ -141,7 +141,7 @@ export default class Flag extends CircuitElement {
         ctx.fill();
         ctx.stroke();
 
-        ctx.font = "14px Georgia";
+        ctx.font = "14px Raleway";
         this.xOff = ctx.measureText(this.identifier).width;
 
         ctx.beginPath();
@@ -164,7 +164,7 @@ export default class Flag extends CircuitElement {
         ctx.fill();
 
         ctx.beginPath();
-        ctx.font = "30px Georgia";
+        ctx.font = "30px Raleway";
         ctx.textAlign = "center";
         ctx.fillStyle = ["blue", "red"][+(this.inp1.value === undefined)];
         if (this.inp1.value !== undefined) {

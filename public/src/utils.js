@@ -218,7 +218,7 @@ export function bitConverterDialog() {
 }
 
 // convertors
-var convertors = {
+export var convertors = {
     dec2bin: x => "0b" + x.toString(2),
     dec2hex: x => "0x" + x.toString(16),
     dec2octal: x => "0" + x.toString(8),

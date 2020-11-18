@@ -47,7 +47,6 @@ export function resetup() {
     }
     // setup simulationArea and backgroundArea variables used to make changes to canvas.
     backgroundArea.setup();
-    plotArea.setup();
     simulationArea.setup();
     // redraw grid
     dots();
@@ -59,7 +58,7 @@ export function resetup() {
     backgroundArea.canvas.width = width + 100 * DPR;
     backgroundArea.canvas.height = height + 100 * DPR;
     if (!embed) {
-        plotArea.resize();
+        plotArea.setup();
     }
     updateCanvasSet(true);
     update(); // INEFFICIENT, needs to be deprecated

@@ -1,4 +1,5 @@
 import simulationArea from './simulationArea';
+import {convertors} from './utils';
 
 /**
  * @module plotArea
@@ -17,17 +18,46 @@ function addPlot() {
     plotArea.specificTimeX = 0;
 }
 
+var DPR = window.devicePixelRatio || 1;
 
-// var 
+function sh(x) {
+    return x * DPR;
+}
+
+var frameInterval = 100;
+var timeLineHeight = sh(20);
+var padding = sh(2);
+var plotHeight = sh(20);
+var waveFormPadding = sh(5);
+var waveFormHeight = plotHeight - 2 * waveFormPadding;
+var flagLabelWidth = sh(75);
+var cycleWidth = sh(30);
+var backgroundColor = 'black';
+var foregroundColor = '#eee';
+var textColor = 'black';
+var waveFormColor = 'cyan';
+var timeLineStartX = flagLabelWidth + padding;
+
+function getFullHeight(flagCount) {
+    return timeLineHeight + (plotHeight + padding) * flagCount;
+}
+
+function getFlagStartY(flagIndex) {
+    return getFullHeight(flagIndex) + padding;
+}
+
+function getCycleStartX(cycleNumber) {
+    return timeLineStartX + (cycleNumber - plotArea.cycleOffset) * cycleWidth;
+}
 
 /**
  * @type {Object} plotArea
  * @category plotArea
  */
 const plotArea = {
-    ox: 0,
-    oy: 0,
+    cycleOffset: 0,
     unit: 0,
+    DPR: window.devicePixelRatio || 1,
     canvas: document.getElementById('plotArea'),
     cycleCount: 0,
     cycleTime: 0,
@@ -38,11 +68,12 @@ const plotArea = {
     pixel: 100,
     startTime: new Date(),
     endTime: new Date(),
-    scroll: 1,
+    autoScroll: true,
     width: 0,
     height: 0,
     unitUsed: 0,
-    cycleUnit: 10000,
+    cycleUnit: 1000,
+    mouseDown: false,
     reset() {
         this.cycleCount = 0;
         this.cycleTime = new Date().getTime();
@@ -50,8 +81,12 @@ const plotArea = {
             globalScope.Flag[i].plotValues = [[0, globalScope.Flag[i].inp1.value]];
             globalScope.Flag[i].cachedIndex = 0;
         }
-        this.scroll = 1;
+        this.autoScroll = true;
         this.unitUsed = 0;
+        this.resize();
+    },
+    resume() {
+        this.autoScroll = true;
     },
     nextCycle() {
         this.cycleCount++;
@@ -61,17 +96,16 @@ const plotArea = {
         this.executionStartTime = new Date().getTime();
     },
     resize() {
-        this.DPR = window.devicePixelRatio || 1;
-        this.DPR = 1;
         var oldHeight = this.height;
         var oldWidth = this.width;
         this.width = document.getElementById('plot').clientWidth * this.DPR;
-        this.height = (globalScope.Flag.length * 30 + 30) * this.DPR;
+        this.height = getFullHeight(globalScope.Flag.length);
         if (oldHeight == this.height && oldWidth == this.width) return;
         this.canvas.width = this.width;
         this.canvas.height = this.height;
         document.getElementById('plotArea').style.height = this.canvas.height / this.DPR;
         document.getElementById('plotArea').style.width = this.canvas.width / this.DPR;
+        this.plot();
     },
     setup() {
         this.canvas = document.getElementById('plotArea');
@@ -81,17 +115,31 @@ const plotArea = {
         }
         this.timeOutPlot = setInterval(() => {
             plotArea.plot();
-        }, 100);
+        }, frameInterval);
         this.reset();
     },
-    getPlotTime(timeUnit) {
-        var time = this.cycleCount * this.cycleUnit;
-        time += timeUnit;
+    getPlotTime(timeUnit, delay = undefined) {
+        var time = this.cycleCount;
+        time += timeUnit / this.cycleUnit;
         // For user interactions like buttons
         var timePeriod = simulationArea.timePeriod;
         var executionDelay = (this.executionStartTime - this.cycleTime);
         var delayFraction = executionDelay / timePeriod; 
-        time += delayFraction * this.cycleUnit; 
+        time += delayFraction; 
+        return time;
+    },
+    calibrate() {
+        var recommendedUnit = Math.max(20, Math.round(this.unitUsed * 3));
+        this.cycleUnit = recommendedUnit;
+        $('#timing-diagram-units').val(recommendedUnit);
+        this.reset();
+    },
+    getCurrentTime() {
+        var time = this.cycleCount;
+        var timePeriod = simulationArea.timePeriod;
+        var delay = new Date().getTime() - this.cycleTime;
+        var delayFraction = delay / timePeriod; 
+        time += delayFraction; 
         return time;
     },
     plot() {
@@ -109,7 +157,7 @@ const plotArea = {
         var utilization = Math.round(unitUsed * 10000 / units) / 100;
         $('#timing-diagram-log').html(`Utilization: ${Math.round(unitUsed)} Units (${utilization}%)`);
         if (utilization >= 90 || utilization <= 10) {
-            var recommendedUnit = Math.round(unitUsed * 1.2);
+            var recommendedUnit = Math.max(20, Math.round(unitUsed * 3));
             $('#timing-diagram-log').append(` Recommended Units: ${recommendedUnit}`);
             $('#timing-diagram-log').css('background-color', dangerColor);
             if (utilization >= 100) {
@@ -120,41 +168,197 @@ const plotArea = {
         else {
             $('#timing-diagram-log').css('background-color', normalColor);
         }
-
+        
         var time = this.cycleCount;
-
-        if (this.scroll) {
-            this.ox = Math.max(0, (time / this.unit) * this.pixel - this.canvas.width + 70);
+        var width = this.width;
+        var height = this.height;
+        
+        // Calculating endTime
+        var endTime = this.getCurrentTime();
+        if (this.autoScroll) {
+            // Formula used: 
+            // (endTime - x) * cycleWidth = width - timeLineStartX;
+            // x = endTime - (width - timeLineStartX) / cycleWidth
+            this.cycleOffset = Math.max(0, endTime - (width - timeLineStartX) / cycleWidth);
         } else if (!plotArea.mouseDown) {
-            this.ox -= plotArea.scrollAcc;
+            // Scroll
+            this.cycleOffset -= plotArea.scrollAcc;
+            // Friction
             plotArea.scrollAcc *= 0.95;
-            if (this.ox < 0) plotArea.scrollAcc = -0.2 + 0.2 * this.ox;
-            if (Math.abs(this.ox) < 0.5) this.ox = 0;
+            // No negative numbers allowed, so negative scroll to 0
+            if (this.cycleOffset < 0) 
+                plotArea.scrollAcc = this.cycleOffset / 5;
+            // Set position to 0, to avoid infinite scrolling 
+            if (Math.abs(this.cycleOffset) < 0.01) this.cycleOffset = 0;
         }
 
         // Reset canvas
         var ctx = this.canvas.getContext('2d');
         this.clear(ctx);
+        ctx.lineWidth = sh(1);
 
          // Background Color
-        ctx.fillStyle = 'black';
-        ctx.fillRect(0, 0, this.width, this.height);
+        ctx.fillStyle = backgroundColor;
+        ctx.fillRect(0, 0, width, height);
 
-        var unit = (this.pixel / (plotArea.unit * plotArea.scale));
-        ctx.strokeStyle = 'cyan';
-        ctx.lineWidth = 2;
-        ctx.fillStyle = '#eee';
-        ctx.rect(0, 0, 75, this.canvas.height);
-        ctx.fill();
+        ctx.font = `${sh(15)}px Raleway`;
+        ctx.textAlign = 'left';
 
-        ctx.font = '15px Georgia';
-        ctx.fillStyle = 'black';
+        // Timeline
+        ctx.fillStyle = foregroundColor;
+        ctx.fillRect(timeLineStartX, 0, this.canvas.width, timeLineHeight);
+        ctx.fillRect(0, 0, flagLabelWidth, timeLineHeight);
+        ctx.fillStyle = textColor;
+        ctx.fillText('Time', sh(5), timeLineHeight * 0.7);
 
+        // Timeline numbers
+        ctx.font = `${sh(9)}px Times New Roman`;
+        ctx.strokeStyle = textColor;
+        ctx.textAlign = 'center';
+        for (var i = Math.floor(plotArea.cycleOffset); getCycleStartX(i) <= width ; i++) {
+            var x = getCycleStartX(i);
+            if (x >= timeLineStartX) {
+                ctx.fillText(`${i}`, x, timeLineHeight - sh(15)/2);
+                ctx.beginPath();
+                ctx.moveTo(x, timeLineHeight - sh(5));
+                ctx.lineTo(x, timeLineHeight);
+                ctx.stroke();
+            }
+            for(var j = 1; j < 5; j++) {
+                var x1 = x + Math.round(j * cycleWidth / 5);
+                if (x1 >= timeLineStartX) {
+                    ctx.beginPath();
+                    ctx.moveTo(x1, timeLineHeight - sh(2));
+                    ctx.lineTo(x1, timeLineHeight);
+                    ctx.stroke();
+                }
+            }
+        }
+        
+        // Labels
+        ctx.textAlign = 'left';
         for (var i = 0; i < globalScope.Flag.length; i++) {
-            ctx.fillText(globalScope.Flag[i].identifier, 5, 2 * (25 + i * 15) - plotArea.oy);
-            ctx.fillRect(0, 2 * (13 + i * 15) + 4 - plotArea.oy, 75, 3);
+            var startHeight = getFlagStartY(i); 
+            ctx.fillStyle = foregroundColor;
+            ctx.fillRect(0, startHeight, flagLabelWidth, plotHeight);
+            ctx.fillStyle = textColor;
+            ctx.fillText(globalScope.Flag[i].identifier, sh(5), startHeight + plotHeight * 0.7);
         }
 
+        const WAVEFORM_NOT_STARTED = 0;
+        const WAVEFORM_STARTED = 1;
+        const WAVEFORM_OVER = 3;
+
+
+        // Waveform
+        ctx.strokeStyle = waveFormColor;
+        ctx.textAlign = 'center';
+        var endX = Math.min(getCycleStartX(endTime), width);
+        
+        for (var i = 0; i < globalScope.Flag.length; i++) {
+            var plotValues = globalScope.Flag[i].plotValues;
+            var startHeight = getFlagStartY(i) + waveFormPadding;
+            var yTop = startHeight;
+            var yMid = startHeight + waveFormHeight / 2;
+            var yBottom = startHeight + waveFormHeight;
+            var state = WAVEFORM_NOT_STARTED;
+            var prevY;
+
+            var j = 0;
+            if (globalScope.Flag[i].cachedIndex) { 
+                j = globalScope.Flag[i].cachedIndex; 
+            }
+
+            while (j + 1 < plotValues.length && getCycleStartX(plotValues[j][0]) < timeLineStartX) {
+                j++;
+            }
+
+            while (j > 0 && getCycleStartX(plotValues[j][0]) > timeLineStartX) {
+                j--;
+            }
+
+            globalScope.Flag[i].cachedIndex = j;
+
+            for (; j < plotValues.length; j++) {
+                var x = getCycleStartX(plotValues[j][0]);
+
+                // Handle out of bound
+                if (x < timeLineStartX) {
+                    if(j + 1 != plotValues.length) {
+                        // Next one also is out of bound, so skip this one completely
+                        var x1 = getCycleStartX(plotValues[j + 1][0]);
+                        if (x1 < timeLineStartX) 
+                            continue;
+                    }
+                    x = timeLineStartX;
+                }
+                
+                var value = plotValues[j][1];
+                if(value === undefined) {
+                    if (state == WAVEFORM_STARTED) {
+                        ctx.stroke();
+                    }
+                    state = WAVEFORM_NOT_STARTED;
+                    continue;
+                }
+                if (globalScope.Flag[i].bitWidth == 1) {
+                    if (x > endX) break;
+                    var y = value == 1 ? yTop : yBottom;
+                    if (state == WAVEFORM_NOT_STARTED) {
+                        // Start new plot
+                        state = WAVEFORM_STARTED;
+                        ctx.beginPath();
+                        ctx.moveTo(x, y);
+                    }
+                    else {
+                        ctx.lineTo(x, prevY);
+                        ctx.lineTo(x, y);
+                    }
+                    prevY = y;
+                }
+                else {
+                    var endX;
+                    if (j + 1 == plotValues.length) {
+                        endX = getCycleStartX(endTime);
+                    }
+                    else {
+                        endX = getCycleStartX(plotValues[j + 1][0]);
+                    }
+                    var smallOffset = waveFormHeight / 2;
+                    ctx.beginPath();
+                    ctx.moveTo(endX, yMid);
+                    ctx.lineTo(endX - smallOffset, yTop);
+                    ctx.lineTo(x + smallOffset, yTop);
+                    ctx.lineTo(x, yMid);
+                    ctx.lineTo(x + smallOffset, yBottom);
+                    ctx.lineTo(endX - smallOffset, yBottom);
+                    ctx.closePath();
+                    ctx.stroke();
+
+                    // Text position
+                    // Clamp start and end are within the screen
+                    var x1 = Math.max(x, timeLineStartX);
+                    var x2 = Math.min(endX, width);
+                    var textPositionX = (x1 + x2) / 2 ;
+                    
+                    ctx.font = `${sh(9)}px Times New Roman`;
+                    ctx.fillStyle = 'white';
+                    ctx.fillText(convertors.dec2hex(value), textPositionX, yMid + sh(3));
+                }
+                if (x > width) {
+                    state = WAVEFORM_OVER;
+                    ctx.stroke();
+                    break;
+                }
+            }
+            if (state == WAVEFORM_STARTED) {
+                if (globalScope.Flag[i].bitWidth == 1) {
+                    ctx.lineTo(endX, prevY);
+                }
+                ctx.stroke();
+            }
+        }
+        
         // for (var i = 0; i < globalScope.Flag.length; i++) {
         //     var arr = globalScope.Flag[i].plotValues;
         //     console.log(i, arr);
@@ -211,7 +415,7 @@ const plotArea = {
         //                 ctx.lineTo(80 + (end * unit) - 5 - plotArea.ox, 2 * (30 + i * 15) - plotArea.oy);
         //                 ctx.lineTo(80 + (end * unit) - plotArea.ox, 55 + 30 * i - plotArea.oy);
         //                 var mid = 80 + ((end + start) / Math.round(plotArea.unit * plotArea.scale)) * this.pixel / 2;
-        //                 ctx.font = '12px Georgia';
+        //                 ctx.font = '12px Raleway';
         //                 ctx.fillStyle = 'white';
         //                 if ((start * unit) + 10 - plotArea.ox <= 0 && (end * unit) + 10 - plotArea.ox >= 0) {
         //                     mid = 80 + ((end - 3000) / Math.round(plotArea.unit * plotArea.scale)) * this.pixel;
@@ -232,21 +436,13 @@ const plotArea = {
         // }
         // 2 rectangles showing the time and labels
 
-        ctx.fillStyle = '#eee';
-        ctx.fillRect(0, 0, this.canvas.width, 30);
-        ctx.font = '14px Georgia';
-        ctx.fillStyle = 'black';
-        console.log(plotArea.unit, plotArea.scale, time);
         return;
-        for (var i = 1; i * Math.round(plotArea.unit * plotArea.scale) <= time + Math.round(plotArea.unit * plotArea.scale); i++) {
-            console.log(i);
-            ctx.fillText(`${Math.round(plotArea.unit * plotArea.scale) * i / 1000}s`, 48 + this.pixel * i - plotArea.ox, 20);
-        }
+        
         return;
         ctx.fillStyle = '#eee';
         ctx.fillRect(0, 0, 75, 30);
         ctx.fillStyle = 'black';
-        ctx.font = '16px Georgia';
+        ctx.font = '16px Raleway';
         ctx.fillText('Time', 10, 20);
         ctx.strokeStyle = 'black';
         ctx.moveTo(0, 25);
@@ -262,7 +458,7 @@ const plotArea = {
             ctx.fillRect(plotArea.specificTimeX - 35, 0, 70, 30);
             ctx.fillStyle = 'red';
             ctx.fillRect(plotArea.specificTimeX - 30, 2, 60, 26);
-            ctx.font = '12px Georgia';
+            ctx.font = '12px Raleway';
             ctx.fillStyle = 'black';
             ctx.fillText(`${Math.round(specificTime)}ms`, plotArea.specificTimeX - 25, 20);
         }
@@ -306,6 +502,9 @@ function setupTimingListeners() {
     $('.timing-diagram-reset').on('click', () => {
         plotArea.reset();
     })
+    $('.timing-diagram-calibrate').on('click', () => {
+        plotArea.calibrate();
+    })
     $('.timing-diagram-resume').on('click', () => {
         plotArea.resume();
     })
@@ -316,29 +515,28 @@ function setupTimingListeners() {
     })
     document.getElementById('plotArea').addEventListener('mousedown', (e) => {
         var rect = plotArea.canvas.getBoundingClientRect();
-        var x = e.clientX - rect.left;
+        var x = sh(e.clientX - rect.left);
         plotArea.scrollAcc = 0;
-        if (e.shiftKey) {
-            plotArea.specificTimeX = x;
-        } else {
-            plotArea.scroll = 0;
-            plotArea.mouseDown = true;
-
-            plotArea.prevX = x;
-        }
+        plotArea.autoScroll = false;
+        plotArea.mouseDown = true;
+        plotArea.prevX = x;
+        plotArea.mouseDownX = x;
+        plotArea.mouseDownTime = new Date().getTime();
     });
     document.getElementById('plotArea').addEventListener('mouseup', (e) => {
         plotArea.mouseDown = false;
+        var time = new Date().getTime() - plotArea.mouseDownTime;
+        var offset = (plotArea.prevX - plotArea.mouseDownX) / cycleWidth;
+        console.log(offset, time);
+        plotArea.scrollAcc = offset * frameInterval / time;
     });
 
     document.getElementById('plotArea').addEventListener('mousemove', (e) => {
         var rect = plotArea.canvas.getBoundingClientRect();
-        var x = e.clientX - rect.left;
-        if (!e.shiftKey && plotArea.mouseDown) {
-            plotArea.ox -= x - plotArea.prevX;
-            plotArea.scrollAcc = x - plotArea.prevX;
+        var x = sh(e.clientX - rect.left);
+        if (plotArea.mouseDown) {
+            plotArea.cycleOffset -= (x - plotArea.prevX) / cycleWidth;
             plotArea.prevX = x;
-            // plotArea.ox=Math.max(0,plotArea.ox)
         } else {
             plotArea.mouseDown = false;
         }

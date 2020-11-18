@@ -53,7 +53,7 @@ export default class Stepper extends CircuitElement {
     customDraw() {
         var ctx = simulationArea.context;
         ctx.beginPath();
-        ctx.font = '20px Georgia';
+        ctx.font = '20px Raleway';
         ctx.fillStyle = colors['input_text'];
         ctx.textAlign = 'center';
         fillText(ctx, this.state.toString(16), this.x, this.y + 5);

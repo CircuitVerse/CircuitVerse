@@ -30,7 +30,7 @@ export function findDimensions(scope = globalScope) {
                     if (obj.x + obj.rightDimensionX > simulationArea.maxWidth) { simulationArea.maxWidth = obj.x + obj.rightDimensionX; }
                 } else {
                     if (obj.absY() < simulationArea.minHeight) { simulationArea.minHeight = obj.absY(); }
-                    if (obj.absY() > simulationArea.maxHeight) { simulationArea.maxHeight = obj.absY(); }
+                    if (obj.absY() > simulationArea.maxxHeight) { simulationArea.maxHeight = obj.absY(); }
                     if (obj.absX() < simulationArea.minWidth) { simulationArea.minWidth = obj.absX(); }
                     if (obj.absX() > simulationArea.maxWidth) { simulationArea.maxWidth = obj.absX(); }
                 }
@@ -335,7 +335,7 @@ export function drawCircle(ctx, x1, y1, r, color) {
 export function canvasMessage(ctx, str, x1, y1, fontSize = 10) {
     if (!str || !str.length) return;
 
-    ctx.font = `${Math.round(fontSize * globalScope.scale)}px Georgia`;
+    ctx.font = `${Math.round(fontSize * globalScope.scale)}px Raleway`;
     ctx.textAlign = 'center';
     var width = ctx.measureText(str).width / globalScope.scale + 8;
     var height = 13;
@@ -380,7 +380,7 @@ export function fillText2(ctx, str, x1, y1, xx, yy, dir) {
     xx *= globalScope.scale;
     yy *= globalScope.scale;
 
-    ctx.font = `${Math.round(14 * globalScope.scale)}px Georgia`;
+    ctx.font = `${Math.round(14 * globalScope.scale)}px Raleway`;
     ctx.save();
     ctx.translate(Math.round(xx + x1 + globalScope.ox), Math.round(yy + y1 + globalScope.oy));
     ctx.rotate(angle[dir]);
@@ -402,13 +402,13 @@ export function fillText4(ctx, str, x1, y1, xx, yy, dir, fontSize = 14, textAlig
     xx *= globalScope.scale;
     yy *= globalScope.scale;
 
-    ctx.font = `${Math.round(fontSize * globalScope.scale)}px Georgia`;
-    // ctx.font = 20+"px Georgia";
+    ctx.font = `${Math.round(fontSize * globalScope.scale)}px Raleway`;
+    // ctx.font = 20+"px Raleway";
     ctx.textAlign = textAlign;
     ctx.fillText(str, xx + x1 + globalScope.ox, yy + y1 + globalScope.oy + Math.round(fontSize / 3 * globalScope.scale));
 }
 
-export function fillText3(ctx, str, x1, y1, xx = 0, yy = 0, fontSize = 14, font = 'Georgia', textAlign = 'center') {
+export function fillText3(ctx, str, x1, y1, xx = 0, yy = 0, fontSize = 14, font = 'Raleway', textAlign = 'center') {
     x1 *= globalScope.scale;
     y1 *= globalScope.scale;
     xx *= globalScope.scale;

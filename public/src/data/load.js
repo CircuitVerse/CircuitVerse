@@ -221,6 +221,7 @@ export default function load(data) {
     updateCanvasSet(true);
     gridUpdateSet(true);
     // Reset Timing
-    plotArea.reset();
+    if(!embed)
+        plotArea.reset();
     scheduleUpdate(1);
 }
