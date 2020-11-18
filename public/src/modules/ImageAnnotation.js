@@ -85,7 +85,7 @@ export default class ImageAnnotation extends CircuitElement {
         const yy = this.y;
         var w = this.elementWidth;
         var h = this.elementHeight;
-        if(this.image) {
+        if(this.image && this.image.complete) {
             drawImage(ctx, this.image, xx - w / 2, yy - h / 2, w, h);
         }
         else {
@@ -116,7 +116,7 @@ export default class ImageAnnotation extends CircuitElement {
      * Procedure if image is double clicked
     **/
     dblclick() {
-        if (embed)return;
+        if (embed) return;
         this.uploadImage();
     }
 

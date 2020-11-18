@@ -123,7 +123,6 @@ const plotArea = {
         this.canvas = document.getElementById('plotArea');
         if (!embed) {
             this.ctx = this.canvas.getContext('2d');
-            setupTimingListeners();
         }
         this.timeOutPlot = setInterval(() => {
             plotArea.plot();
@@ -395,7 +394,7 @@ const plotArea = {
 };
 export default plotArea;
 
-function setupTimingListeners() {
+export function setupTimingListeners() {
     $('.timing-diagram-smaller').on('click', () => {
         $('#plot').width(Math.max($('#plot').width() - 20, 560));
         plotArea.resize();

@@ -18,6 +18,7 @@ import { copy, paste, selectAll } from './events';
 import save from './data/save';
 import { createElement } from './ux';
 import { verilogModeGet } from './Verilog2CV';
+import { setupTimingListeners } from './plotArea';
 
 var unit = 10;
 var createNode = false; // Flag to create node when its value ==tru)e
@@ -445,8 +446,10 @@ export default function startListeners() {
     }
 
     zoomSliderListeners();
-
     setupLayoutModePanelListeners();
+    if (!embed) {
+        setupTimingListeners();
+    }
 }
 
 var isIe = (navigator.userAgent.toLowerCase().indexOf('msie') != -1
