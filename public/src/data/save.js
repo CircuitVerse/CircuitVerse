@@ -38,7 +38,6 @@ export function getProjectName() {
     return projectName;
 }
 
-
 /**
  * Helper function to save canvas as image based on image type
  * @param {string} name -name of the circuit
@@ -236,20 +235,7 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
     if (!down) return returnData;
 }
 
-function getImageDimensions(file) {
-    return new Promise (function (resolved, rejected) {
-      var i = new Image()
-      i.onload = function(){
-        resolved({w: i.width, h: i.height})
-      };
-      i.src = file
-    })
-  }
-
 async function crop(dataURL, w, h) {
-
-  var originalDimensions = await getImageDimensions(dataURL);
-
   //get empty second canvas
   var myCanvas = document.createElement("CANVAS");
   myCanvas.width = w;

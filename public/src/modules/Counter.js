@@ -105,7 +105,7 @@ export default class Counter extends CircuitElement {
         var yy = this.y;
         
         ctx.beginPath();
-        ctx.font = "20px Georgia";
+        ctx.font = "20px Raleway";
         ctx.fillStyle = colors['input_text'];
         ctx.textAlign = "center";
         fillText(ctx, this.value.toString(16), this.x, this.y + 5);
@@ -126,7 +126,7 @@ export default class Counter extends CircuitElement {
         var yy = this.subcircuitMetadata.y + yOffset;
 
         ctx.beginPath();
-        ctx.font = "20px Georgia";
+        ctx.font = "20px Raleway";
         ctx.fillStyle = "green";
         ctx.textAlign = "center";
         fillText(ctx, this.value.toString(16), xx + 10, yy + 17);

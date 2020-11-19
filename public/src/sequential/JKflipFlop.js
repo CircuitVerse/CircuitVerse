@@ -132,7 +132,7 @@ export default class JKflipFlop extends CircuitElement {
         ctx.stroke();
 
         ctx.beginPath();
-        ctx.font = '20px Georgia';
+        ctx.font = '20px Raleway';
         ctx.fillStyle = colors['input_text'];
         ctx.textAlign = 'center';
         fillText(ctx, this.slaveState.toString(16), xx, yy + 5);

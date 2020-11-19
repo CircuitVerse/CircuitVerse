@@ -10,9 +10,14 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-alert */
 import CircuitElement from './circuitElement';
+import plotArea from './plotArea';
 import simulationArea, { changeClockTime } from './simulationArea';
 import {
-    stripTags, uniq, showMessage, showError,
+    stripTags,
+    uniq,
+    showMessage,
+    showError,
+    truncateString
 } from './utils';
 import { findDimensions, dots } from './canvasApi';
 import { updateRestrictedElementsList } from './restrictedElementDiv';
@@ -75,6 +80,7 @@ export function switchCircuit(id) {
 
     // to update the restricted elements information
     updateRestrictedElementsList();
+    plotArea.reset();
 }
 
 /**
@@ -144,11 +150,12 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
     $('.circuits').removeClass('current');
     if (!isVerilog || isVerilogMain) {
         if(embed) {
-            var html = `<div style='' class='circuits toolbarButton current' id='${scope.id}'><span class='circuitName noSelect'>${name}</span></div>`;
+            var html = `<div style='' class='circuits toolbarButton current' id='${scope.id}'><span class='circuitName noSelect'>${truncateString(name, 18)}</span></div>`;
             $('#tabsBar').append(html);
+            $("#tabsBar").addClass('embed-tabs');
         }
         else {
-            var html = `<div style='' class='circuits toolbarButton current' id='${scope.id}'><span class='circuitName noSelect'>${name}</span><span class ='tabsCloseButton' id='${scope.id}'  >x</span></div>`;
+            var html = `<div style='' class='circuits toolbarButton current' id='${scope.id}'><span class='circuitName noSelect'>${truncateString(name, 18)}</span><span class ='tabsCloseButton' id='${scope.id}'  >x</span></div>`;
             $('#tabsBar').children().last().before(html);
         }
         $('.circuits').click(function () {
@@ -182,7 +189,7 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
 export function changeCircuitName(name, id = globalScope.id) {
     name = name || 'Untitled';
     name = stripTags(name);
-    $(`#${id} .circuitName`).html(`${name}`);
+    $(`#${id} .circuitName`).html(`${truncateString(name, 18)}`);
     scopeList[id].name = name;
 }
 
@@ -226,14 +233,6 @@ export default class Scope {
             title_y: 13,
             titleEnabled: true,
         };
-
-
-        // FOR SOME UNKNOWN REASON, MAKING THE COPY OF THE LIST COMMON
-        // TO ALL SCOPES EITHER BY PROTOTYPE OR JUST BY REFERNCE IS CAUSING ISSUES
-        // The issue comes regarding copy/paste operation, after 5-6 operations it becomes slow for unknown reasons
-        // CHANGE/ REMOVE WITH CAUTION
-        // this.objects = ["wires", ...circuitElementList, "nodes", ...annotationList];
-        // this.renderObjectOrder = [ ...(moduleList.slice().reverse()), "wires", "allNodes"];
     }
 
     isVisible() {

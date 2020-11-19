@@ -10,6 +10,7 @@ import { colorThemes } from "./themer/themer";
 import { showTourGuide } from './tutorials';
 import {createVerilogCircuit, saveVerilogCode, resetVerilogCode} from './Verilog2CV';
 import { generateVerilog } from './verilog';
+import { bitConverterDialog } from './utils';
 
 const logixFunction = {};
 logixFunction.save = save;
@@ -31,6 +32,7 @@ logixFunction.newVerilogModule = createVerilogCircuit;
 logixFunction.saveVerilogCode = saveVerilogCode;
 logixFunction.resetVerilogCode = resetVerilogCode;
 logixFunction.generateVerilog = generateVerilog;
+logixFunction.bitconverter = bitConverterDialog;
 export default logixFunction;
 
 // Hack to restart tour guide

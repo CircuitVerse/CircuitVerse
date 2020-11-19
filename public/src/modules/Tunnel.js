@@ -127,6 +127,7 @@ export default class Tunnel extends CircuitElement {
      * function to set plot value
      */
     setPlotValue() {
+        return;
         const time = plotArea.stopWatch.ElapsedMilliseconds;
         if (
             this.plotValues.length &&
@@ -250,7 +251,7 @@ export default class Tunnel extends CircuitElement {
         ctx.fill();
         ctx.stroke();
 
-        ctx.font = "14px Georgia";
+        ctx.font = "14px Raleway";
         this.xOff = ctx.measureText(this.identifier).width;
         ctx.beginPath();
         rect2(
@@ -281,7 +282,7 @@ export default class Tunnel extends CircuitElement {
         ctx.fill();
 
         ctx.beginPath();
-        ctx.font = "30px Georgia";
+        ctx.font = "30px Raleway";
         ctx.textAlign = "center";
         ctx.fillStyle = ["blue", "red"][+(this.inp1.value === undefined)];
         if (this.inp1.value !== undefined) {

@@ -138,7 +138,7 @@ export default class TflipFlop extends CircuitElement {
         // if ((this.b.hover&&!simulationArea.shiftDown)|| simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = "rgba(255, 255, 32,0.8)";ctx.fill();
         ctx.stroke();
         ctx.beginPath();
-        ctx.font = '20px Georgia';
+        ctx.font = '20px Raleway';
         ctx.fillStyle = colors['input_text'];
         ctx.textAlign = 'center';
         fillText(ctx, this.slaveState.toString(16), xx, yy + 5);

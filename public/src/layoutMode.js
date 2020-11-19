@@ -377,6 +377,7 @@ export function toggleLayoutMode() {
         $('#layoutDialog').fadeOut();
         $('.layoutElementPanel').fadeOut();
         $('.elementPanel').fadeIn();
+        $('.timing-diagram-panel').fadeIn();
         globalScope.centerFocus(false);
         if(globalScope.verilogMetadata.isVerilogCircuit)
             verilogModeSet(true);
@@ -387,6 +388,7 @@ export function toggleLayoutMode() {
         $('#layoutDialog').fadeIn();
         $('.layoutElementPanel').fadeIn();
         $('.elementPanel').fadeOut();
+        $('.timing-diagram-panel').fadeOut();
         fillSubcircuitElements();
         
         globalScope.ox = 0;

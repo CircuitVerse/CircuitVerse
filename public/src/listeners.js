@@ -18,6 +18,7 @@ import { copy, paste, selectAll } from './events';
 import save from './data/save';
 import { createElement } from './ux';
 import { verilogModeGet } from './Verilog2CV';
+import { setupTimingListeners } from './plotArea';
 
 var unit = 10;
 var createNode = false; // Flag to create node when its value ==tru)e
@@ -404,13 +405,6 @@ export default function startListeners() {
         });
     });
 
-    const circuitElementList = [
-        "Input", "Output", "NotGate", "OrGate", "AndGate", "NorGate", "NandGate", "XorGate", "XnorGate", "SevenSegDisplay", "SixteenSegDisplay", "HexDisplay",
-        "Multiplexer", "BitSelector", "Splitter", "Power", "Ground", "ConstantVal", "ControlledInverter", "TriState", "Adder", "Rom", "RAM", "EEPROM", "TflipFlop",
-        "JKflipFlop", "SRflipFlop", "DflipFlop", "TTY", "Keyboard", "Clock", "DigitalLed", "Stepper", "VariableLed", "RGBLed", "SquareRGBLed", "RGBLedMatrix", "Button", "Demultiplexer",
-        "Buffer", "Flag", "MSB", "LSB", "PriorityEncoder", "Tunnel", "ALU", "Decoder", "Random", "Counter", "Dlatch", "TB_Input", "TB_Output", "ForceGate",
-    ];
-
     $(".search-input").on("keyup", function() {
         var parentElement = $(this).parent().parent();
         var closeButton =  $('.search-close', parentElement);
@@ -436,7 +430,7 @@ export default function startListeners() {
             return;
         }
         let htmlIcons = '';
-        const result = circuitElementList.filter(ele => ele.toLowerCase().includes(value));
+        const result = elementPanelList.filter(ele => ele.toLowerCase().includes(value));
         if(!result.length) searchResults.text('No elements found ...');
         else {
             result.forEach( e => htmlIcons += createIcon(e));
@@ -452,8 +446,10 @@ export default function startListeners() {
     }
 
     zoomSliderListeners();
-
     setupLayoutModePanelListeners();
+    if (!embed) {
+        setupTimingListeners();
+    }
 }
 
 var isIe = (navigator.userAgent.toLowerCase().indexOf('msie') != -1
@@ -552,13 +548,14 @@ function handleZoom(direction) {
         changeScale(direction * 0.1 * DPR);
     }
     gridUpdateSet(true);
+    scheduleUpdate();
 }
 
-function ZoomIn() {
+export function ZoomIn() {
     handleZoom(1);
 }
 
-function ZoomOut() {
+export function ZoomOut() {
     handleZoom(-1);
 }
 
