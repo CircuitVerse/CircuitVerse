@@ -419,8 +419,6 @@ export function play(scope = globalScope, resetNodes = false) {
         forceResetNodesSet(true);
         errorDetectedSet(true);
     }
-    // Setting Flag Values
-    for (let i = 0; i < scope.Flag.length; i++) { scope.Flag[i].setPlotValue(); }
 }
 
 /**
