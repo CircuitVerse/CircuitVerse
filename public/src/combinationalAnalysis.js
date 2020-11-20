@@ -40,7 +40,7 @@ export function createCombinationalAnalysisPrompt(scope = globalScope) {
                 click() {
                     var inputList = stripTags($("#inputNameList").val()).split(',');
                     var outputList = stripTags($("#outputNameList").val()).split(',');
-                   
+                    var booleanExpression = $('#booleanExpression').val();
                     inputList = inputList.map((x) => x.trim());
                     inputList = inputList.filter((e) => e);
                     outputList = outputList.map((x) => x.trim());
@@ -60,11 +60,14 @@ export function createCombinationalAnalysisPrompt(scope = globalScope) {
                     
                     if (inputList.length > 0 && outputList.length > 0 && booleanInputVariables.length == 0) {
                         $(this).dialog('close');
-                        createBooleanPrompt(inputList, outputList, scope);
+                        createBooleanPrompt(inputList, outputList, null, scope);
                     } 
                     else if (booleanInputVariables.length > 0 && inputList.length == 0 && outputList.length == 0){
                         $(this).dialog('close');
-                        booleanFunction(booleanInputVariables, booleanExpression, scope);
+                        var output = booleanFunction(booleanInputVariables, booleanExpression);
+                        if(output != null) {
+                        createBooleanPrompt(booleanInputVariables, booleanExpression, output, scope);
+                        }
                     }
                     else if (( inputList.length == 0 || outputList.length == 0 ) && booleanInputVariables == 0) {
                         alert('Enter Input / Output Variable(s) OR Boolean Function!');
@@ -87,18 +90,22 @@ export function createCombinationalAnalysisPrompt(scope = globalScope) {
  * @param {Scope=} scope - h circuit
  * @category combinationalAnalysis
  */
-function createBooleanPrompt(inputListNames, outputListNames, scope = globalScope) {
+function createBooleanPrompt(inputListNames, outputListNames, output, scope = globalScope) {
     var inputListNames = inputListNames || (prompt('Enter inputs separated by commas').split(','));
     var outputListNames = outputListNames || (prompt('Enter outputs separated by commas').split(','));
     var outputListNamesInteger = [];
+    if(output == null) {
     for (var i = 0; i < outputListNames.length; i++) { outputListNamesInteger[i] = 7 * i + 13; }// assigning an integer to the value, 7*i + 13 is random
-
+    } else {
+      outputListNamesInteger = [13];
+    }
     var s = '<table  class="content-table">';
     s += '<tbody style="display:block; max-height:70vh; overflow-y:scroll" >';
     s += '<tr>';
     if ($('#decimalColumnBox').is(':checked')) { s += '<th>' + 'dec' + '</th>'; }
     for (var i = 0; i < inputListNames.length; i++) { s += `<th>${inputListNames[i]}</th>`; }
-    for (var i = 0; i < outputListNames.length; i++) { s += `<th>${outputListNames[i]}</th>`; }
+   if(output == null) { for (var i = 0; i < outputListNames.length; i++) { s += `<th>${outputListNames[i]}</th>`; } }
+   else { s += `<th>${outputListNames}</th>`; }
     s += '</tr>';
 
     var matrix = [];
@@ -119,8 +126,13 @@ function createBooleanPrompt(inputListNames, outputListNames, scope = globalScop
             s += `<td>${matrix[i][j]}</td>`;
         }
         for (var i = 0; i < outputListNamesInteger.length; i++) {
+            if(output == null) {
             s += `<td class ="output ${outputListNamesInteger[i]}" id="${j}">` + 'x' + '</td>';
             // using hash values as they'll be used in the generateBooleanTableData function
+            }
+        }
+        if(output != null) {
+          s += `<td class="${outputListNamesInteger[0]}" id="${j}">` + `${output[j]}` + '</td>';
         }
         s += '</tr>';
     }
@@ -161,7 +173,12 @@ function createBooleanPrompt(inputListNames, outputListNames, scope = globalScop
                             minimizedCircuit.push(temp.result);
                         }
                     }
+                    if(output == null){
                     drawCombinationalAnalysis(minimizedCircuit, inputListNames, outputListNames, scope);
+                    }
+                    else {
+                    drawCombinationalAnalysis(minimizedCircuit, inputListNames, [`${outputListNames}`], scope);
+                    }
                 },
             },
             {
@@ -327,16 +344,14 @@ function drawCombinationalAnalysis(combinationalData, inputList, outputListNames
 }
 
 /**
- * This function solves booleanExpression and
- * generates truth table for corresponding expression.
- * This function generates proper datapipeline connecting to
- * DrawcombinationalAnalysis to generate circuit.
- * @param {Array} inputListNames - labels of input nodes
- * @param {String} booleanExpression - BooleanExpression which is to be solved
- * @param {Scope=} scope - h circuit
+ * This function solves passed boolean expression and returns
+ * output array which contains solution of the truth table
+ * of given boolean expression
+ * @param {Array}  inputListNames - labels for input nodes
+ * @param {String} booleanExpression - boolean expression which is to be solved 
  */
 
-function booleanFunction(inputListNames, booleanExpression, scope = globalScope){
+function booleanFunction(inputListNames, booleanExpression){
     let i, j;
     let output = [];
 
@@ -394,7 +409,7 @@ function booleanFunction(inputListNames, booleanExpression, scope = globalScope)
 
     s += '</tbody>';
     s += '</table>';
-   
+    //generates solution for the truth table of booleanexpression
     function solve(equation) {
         while (equation.indexOf("(") != -1) {
             let start = equation.lastIndexOf("(");
@@ -422,62 +437,6 @@ function booleanFunction(inputListNames, booleanExpression, scope = globalScope)
             return '';
         }
     }
- 
-    $('#combinationalAnalysis').empty();
-    $('#combinationalAnalysis').append(s);
-    $('#combinationalAnalysis').dialog({
-        resizable: false,
-        width: 'auto',
-        buttons: [
-            {
-                text: 'Generate Circuit',
-                click() {
-                    $(this).dialog('close');
-                    var data = generateBooleanTableData([13]);
-                    var minimizedCircuit = [];
-                    let inputCount = inputListNames.length;
-                    for (const output in data) {
-                        let oneCount = data[output][1].length;
-                        let zeroCount = data[output][0].length;
-                        if (oneCount == 0) {
-                            minimizedCircuit.push(['-'.repeat(inputCount) + '0']);
-                        }
-                        else if (zeroCount == 0) {
-                            minimizedCircuit.push(['-'.repeat(inputCount) + '1']);
-                        }
-                        else {
-                            const temp = new BooleanMinimize(
-                                inputListNames.length,
-                                data[output][1].map(Number),
-                                data[output].x.map(Number),
-                            );
-                            minimizedCircuit.push(temp.result);
-                        }
-                        
-                    }
-                    drawCombinationalAnalysis(minimizedCircuit, inputListNames, [`${booleanExpression}`], scope);
-                },
-            },
-            {
-                text: 'Print Truth Table',
-                click() {
-                    var sTable = document.getElementById('combinationalAnalysis').innerHTML;
-                    var style = '<style> table {font: 20px Calibri;} table, th, td {border: solid 1px #DDD;border-collapse: collapse;} padding: 2px 3px;text-align: center;} </style>';
-                    var win = window.open('', '', 'height=700,width=700');
-                    var htmlBody = `
-                      <html><head>\
-                      <title>Boolean Logic Table</title>\
-                      ${style}\
-                      </head>\
-                      <body>\
-                      <center>${sTable}</center>\
-                      </body></html>
-                    `;
-                    win.document.write(htmlBody);
-                    win.document.close();
-                    win.print();
-                },
-            },    
-        ],
-    });
+
+     return output; 
 }
