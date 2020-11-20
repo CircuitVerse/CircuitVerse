@@ -510,6 +510,7 @@ window.addEventListener('DOMContentLoaded', () => {
     // setting the name of the title bar as same as it is in the side bar
     $('.project-name-label').append(`<input type="text" class="projectName" id="projectName" placeholder="Project Name" autocomplete='off' value='${getProjectName() || 'Untitled'}'>`) // adding input bar into the DOM simulator header
 
+    setProjectName($('#projectName').val()); // setting initial value
     $('#projectName').on('input', () => { // setting project name on change
         setProjectName($('#projectName').val());
     })
