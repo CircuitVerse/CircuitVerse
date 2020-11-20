@@ -168,6 +168,9 @@ class verilogConstantVal extends verilogUnaryGate {
         super(deviceJSON);
         this.bitWidth = deviceJSON["constant"].length;
         this.state = deviceJSON["constant"];
+        if (this.state[0] == 'x') {
+            this.state = undefined;
+        }
         this.element = new ConstantVal(0, 0, undefined, undefined, this.bitWidth, this.state);
         this.input = this.element.inp1;
         this.output = this.element.output1;
