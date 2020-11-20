@@ -10,6 +10,7 @@ import Output from './modules/Output';
 import AndGate from './modules/AndGate';
 import OrGate from './modules/OrGate';
 import NotGate from './modules/NotGate';
+import { stripTags } from './utils';
 
 var inputSample = 5;
 var dataSample = [['01---', '11110', '01---', '00000'], ['01110', '1-1-1', '----0'], ['01---', '11110', '01110', '1-1-1', '0---0'], ['----1']];
@@ -23,7 +24,6 @@ var sampleOutputListNames = ['X'];
  * @category combinationalAnalysis
  */
 export function createCombinationalAnalysisPrompt(scope = globalScope) {
-    // console.log("Ya");
     scheduleBackup();
     $('#combinationalAnalysis').empty();
     $('#combinationalAnalysis').append("<p>Enter Input names separated by commas: <input id='inputNameList' type='text'  placeHolder='eg. In A, In B'></p>");
@@ -36,8 +36,9 @@ export function createCombinationalAnalysisPrompt(scope = globalScope) {
             {
                 text: 'Next',
                 click() {
-                    var inputList = $('#inputNameList').val().split(',');
-                    var outputList = $('#outputNameList').val().split(',');
+                    var inputList = stripTags($("#inputNameList").val()).split(',');
+                    var outputList = stripTags($("#outputNameList").val()).split(',');
+                   
                     inputList = inputList.map((x) => x.trim());
                     inputList = inputList.filter((e) => e);
                     outputList = outputList.map((x) => x.trim());
@@ -102,7 +103,6 @@ function createBooleanPrompt(inputListNames, outputListNames, scope = globalScop
     }
     s += '</tbody>';
     s += '</table>';
-    // console.log(s)
     $('#combinationalAnalysis').empty();
     $('#combinationalAnalysis').append(s);
     $('#combinationalAnalysis').dialog({
@@ -161,7 +161,7 @@ function createBooleanPrompt(inputListNames, outputListNames, scope = globalScop
         ],
     });
 
-    $('.output').click(function () {
+    $('.output').on('click',function () {
         var v = $(this).html();
         if (v == 0)v = $(this).html(1);
         else if (v == 1)v = $(this).html('x');
@@ -179,16 +179,13 @@ function generateBooleanTableData(outputListNames) {
         };
         var rows = $(`.${outputListNames[i]}`);
         for (let j = 0; j < rows.length; j++) {
-            // console.log($rows[j].innerHTML)
             data[outputListNames[i]][rows[j].innerHTML].push(rows[j].id);
         }
     }
-    // console.log(data);
     return data;
 }
 
 function drawCombinationalAnalysis(combinationalData, inputList, outputListNames, scope = globalScope) {
-    // console.log(combinationalData);
     var inputCount = inputList.length;
     var maxTerms = 0;
     for (var i = 0; i < combinationalData.length; i++) { maxTerms = Math.max(maxTerms, combinationalData[i].length); }
@@ -235,7 +232,6 @@ function drawCombinationalAnalysis(combinationalData, inputList, outputListNames
     }
 
     for (var i = 0; i < combinationalData.length; i++) {
-        // //console.log(combinationalData[i]);
         var andGateNodes = [];
         for (var j = 0; j < combinationalData[i].length; j++) {
             var c = countTerm(combinationalData[i][j]);
@@ -246,8 +242,6 @@ function drawCombinationalAnalysis(combinationalData, inputList, outputListNames
                 for (var k = 0; k < combinationalData[i][j].length; k++) {
                     if (combinationalData[i][j][k] == '-') { misses++; continue; }
                     var index = 2 * k + (combinationalData[i][j][k] == 0);
-                    // console.log(index);
-                    // console.log(andGate);
                     var v = new Node(logixNodes[index].absX(), andGate.inp[k - misses].absY(), 2, scope.root);
                     logixNodes[index].connect(v);
                     logixNodes[index] = v;

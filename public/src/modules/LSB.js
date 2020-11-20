@@ -27,7 +27,8 @@ export default class LSB extends CircuitElement {
         this.directionFixed = true;
         this.bitWidth = bitWidth || parseInt(prompt("Enter bitWidth"), 10);
         this.rectangleObject = false;
-        this.inputSize = 1 << this.bitWidth;
+        // this.inputSize = 1 << this.bitWidth;
+        this.intputSize = this.bitWidth;
 
         this.inp1 = new Node(-10, 0, 0, this, this.inputSize);
         this.output1 = new Node(20, 0, 1, this, this.bitWidth);
@@ -79,7 +80,7 @@ export default class LSB extends CircuitElement {
         }
         this.output1.value = out;
         simulationArea.simulationQueue.add(this.output1);
-        if (inp !== 0) {
+        if (inp != 0) {
             this.enable.value = 1;
         } else {
             this.enable.value = 0;
@@ -124,6 +125,9 @@ export default class LSB extends CircuitElement {
         }
         ctx.stroke();
         ctx.fill();
+    }
+    generateVerilog() {
+        return `assign ${this.output1.verilogLabel} = (${this.enable.verilogLabel}!=0) ? ${this.inp1.verilogLabel}[0] : 0;`;
     }
 }
 

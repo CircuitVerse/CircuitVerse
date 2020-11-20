@@ -158,6 +158,10 @@ export default class SquareRGBLed extends CircuitElement {
 
         ctx.fill();
     }
+
+    generateVerilog() {
+        return this.generateVerilog.call(this);
+    }
 }
 
 /**

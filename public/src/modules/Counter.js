@@ -105,7 +105,7 @@ export default class Counter extends CircuitElement {
         var yy = this.y;
         
         ctx.beginPath();
-        ctx.font = "20px Georgia";
+        ctx.font = "20px Raleway";
         ctx.fillStyle = colors['input_text'];
         ctx.textAlign = "center";
         fillText(ctx, this.value.toString(16), this.x, this.y + 5);
@@ -126,7 +126,7 @@ export default class Counter extends CircuitElement {
         var yy = this.subcircuitMetadata.y + yOffset;
 
         ctx.beginPath();
-        ctx.font = "20px Georgia";
+        ctx.font = "20px Raleway";
         ctx.fillStyle = "green";
         ctx.textAlign = "center";
         fillText(ctx, this.value.toString(16), xx + 10, yy + 17);
@@ -140,7 +140,36 @@ export default class Counter extends CircuitElement {
         if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) {
             ctx.fillStyle = "rgba(255, 255, 32,0.6)";
             ctx.fill();
-        }  
+        }
+    }  
+    static moduleVerilog() {
+        return `
+    module Counter(val, zero, max, clk, rst);
+      parameter WIDTH = 1;
+      output reg [WIDTH-1:0] val;
+      output reg zero;
+      input [WIDTH-1:0] max;
+      input clk, rst;
+    
+      initial
+        val = 0;
+    
+      always @ (val)
+        if (val == 0)
+          zero = 1;
+        else
+          zero = 0;
+    
+      always @ (posedge clk or posedge rst) begin
+        if (rst)
+          val <= 0;
+        else
+          if (val == max)
+            val <= 0;
+          else
+            val <= val + 1;
+      end
+    endmodule`;
     }
 }
 

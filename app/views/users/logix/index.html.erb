@@ -133,7 +133,6 @@
             e.preventDefault()
             let project = $(e.currentTarget).data('currentproject').id;
             $("#projectPreview").attr("src","/simulator/" + project.toString() );
-            console.log(project);
             $("#projectModal").tab('show')
         })
     } );

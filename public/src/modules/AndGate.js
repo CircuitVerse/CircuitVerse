@@ -4,6 +4,7 @@ import simulationArea from "../simulationArea";
 import { correctWidth, lineTo, moveTo, arc } from "../canvasApi";
 import { changeInputSize } from "../modules";
 import { colors } from "../themer/themer";
+import { gateGenerateVerilog } from '../utils';
 
 /**
  * @class
@@ -132,6 +133,10 @@ export default class AndGate extends CircuitElement {
             ctx.fillStyle = colors["hover_select"];
         ctx.fill();
         ctx.stroke();
+    }
+
+    generateVerilog() {
+        return gateGenerateVerilog.call(this, '&');
     }
 }
 

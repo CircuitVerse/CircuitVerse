@@ -169,7 +169,6 @@ var data={n:0,inputs:[],outputs:[]}
             i++;
         }
         var testData={n:data.length-1,inputs:[],outputs:[]}
-        console.log(attrs)
         var d={}
         for(attr in data[0]){
             d[attr]= {bitWidth:data[0][attr],label:attr,values:[]}
@@ -206,7 +205,6 @@ var data={n:0,inputs:[],outputs:[]}
     }
 
     loadData(data);
-    console.log(generateTestData());
 
 
     function addInpButton(){

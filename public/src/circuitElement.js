@@ -6,8 +6,9 @@ import {
     fixDirection, fillText, correctWidth, rect2, oppositeDirection,
 } from './canvasApi';
 import { colors } from './themer/themer';
-import { layoutModeGet, tempBuffer } from './layoutMode'
-import { fillSubcircuitElements } from './ux'
+import { layoutModeGet, tempBuffer } from './layoutMode';
+import { fillSubcircuitElements } from './ux';
+import { generateNodeName } from './verilogHelpers';
 
 /**
  * Base class for circuit elements.
@@ -45,7 +46,6 @@ export default class CircuitElement {
         this.upDimensionY = 10;
         this.downDimensionY = 10;
 
-        this.rectangleObject = true;
         this.label = '';
         this.scope = scope;
         this.baseSetup();
@@ -735,18 +735,26 @@ export default class CircuitElement {
     /**
     * Helper Function to process verilog
     */
-    processVerilog() {
-        var outputCount = 0;
-        for (let i = 0; i < this.nodeList.length; i++) {
-            if (this.nodeList[i].type === NODE_OUTPUT) {
-                this.nodeList[i].verilogLabel = this.nodeList[i].verilogLabel || (`${this.verilogLabel}_${verilog.fixName(this.nodeList[i].label) || (`out_${outputCount}`)}`);
-                if (this.objectType !== 'Input' && this.nodeList[i].connections.length > 0) {
-                    if (this.scope.verilogWireList[this.bitWidth] !== undefined) {
-                        if (!this.scope.verilogWireList[this.bitWidth].contains(this.nodeList[i].verilogLabel)) { this.scope.verilogWireList[this.bitWidth].push(this.nodeList[i].verilogLabel); }
-                    } else { this.scope.verilogWireList[this.bitWidth] = [this.nodeList[i].verilogLabel]; }
+   processVerilog(){
+        // Output count used to sanitize output
+        var output_total = 0;
+        for (var i = 0; i < this.nodeList.length; i++) {
+            if (this.nodeList[i].type == NODE_OUTPUT && this.nodeList[i].connections.length > 0)
+            output_total++;
+        }
+
+        var output_count = 0;
+        for (var i = 0; i < this.nodeList.length; i++) {
+            if (this.nodeList[i].type == NODE_OUTPUT) {
+                if (this.objectType != "Input" && this.objectType != "Clock" && this.nodeList[i].connections.length > 0) {
+                    this.nodeList[i].verilogLabel =
+                        generateNodeName(this.nodeList[i], output_count, output_total);
+
+                    if (!this.scope.verilogWireList[this.nodeList[i].bitWidth].contains(this.nodeList[i].verilogLabel))
+                        this.scope.verilogWireList[this.nodeList[i].bitWidth].push(this.nodeList[i].verilogLabel);
+                    output_count++;
                 }
                 this.scope.stack.push(this.nodeList[i]);
-                outputCount++;
             }
         }
     }
@@ -799,26 +807,43 @@ export default class CircuitElement {
         return this.verilogType || this.objectType;
     }
 
+    verilogBaseType() {
+        return this.verilogName();
+    }
+
+    verilogParametrizedType() {
+        var type = this.verilogBaseType();
+        // Suffix bitwidth for multi-bit inputs
+        // Example: DflipFlop #(2) DflipFlop_0
+        if (this.bitWidth != undefined && this.bitWidth > 1)
+            type += " #(" + this.bitWidth + ")";
+        return type
+    }
+
     /**
     * Helper Function to generate verilog
     * @return {JSON}
     */
     generateVerilog() {
+        // Example: and and_1(_out, _out, _Q[0]);
         var inputs = [];
         var outputs = [];
 
-
-        for (let i = 0; i < this.nodeList.length; i++) {
-            if (this.nodeList[i].type === NODE_INPUT) {
+        for (var i = 0; i < this.nodeList.length; i++) {
+            if (this.nodeList[i].type == NODE_INPUT) {
                 inputs.push(this.nodeList[i]);
             } else {
-                outputs.push(this.nodeList[i]);
+                if (this.nodeList[i].connections.length > 0)
+                    outputs.push(this.nodeList[i]);
+                else
+                    outputs.push(""); // Don't create a wire
             }
         }
 
         var list = outputs.concat(inputs);
-        var res = `${this.verilogName()} ${this.verilogLabel} (${list.map((x) => x.verilogLabel).join(',')});`;
-
+        var res = this.verilogParametrizedType();
+        var moduleParams = list.map(x => x.verilogLabel).join(", ");
+        res += ` ${this.verilogLabel}(${moduleParams});`;
         return res;
     }
 
@@ -835,6 +860,7 @@ CircuitElement.prototype.alwaysResolve = false;
 CircuitElement.prototype.propagationDelay = 10;
 CircuitElement.prototype.tooltip = undefined;
 CircuitElement.prototype.propagationDelayFixed = false;
+CircuitElement.prototype.rectangleObject = true;
 CircuitElement.prototype.objectType = 'CircuitElement';
 CircuitElement.prototype.canShowInSubcircuit = false; // determines whether the element is supported to be shown inside a subcircuit
 CircuitElement.prototype.subcircuitMetadata = {}; // stores the coordinates and stuff for the elements in the subcircuit

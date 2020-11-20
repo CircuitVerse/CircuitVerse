@@ -105,6 +105,10 @@ export default class ControlledInverter extends CircuitElement {
         drawCircle2(ctx, 25, 0, 5, xx, yy, this.direction);
         ctx.stroke();
     }
+
+    generateVerilog() {
+        return `assign ${this.output1.verilogLabel} = (${this.state.verilogLabel}!=0) ? ~${this.inp1.verilogLabel} : ${this.inp1.verilogLabel};`;
+    }
 }
 
 /**

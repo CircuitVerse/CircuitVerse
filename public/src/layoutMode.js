@@ -12,6 +12,7 @@ import {
 import miniMapArea from './minimap';
 import { showMessage } from './utils';
 import * as metadata from './metadata.json';
+import { verilogModeGet, verilogModeSet } from './Verilog2CV';
 
 /**
  * Layout.js - all subcircuit layout related code is here
@@ -370,18 +371,24 @@ function saveLayout() {
  * @category layoutMode
  */
 export function toggleLayoutMode() {
+    hideProperties();
     if (layoutModeGet()) {
         layoutModeSet(false);
         $('#layoutDialog').fadeOut();
         $('.layoutElementPanel').fadeOut();
         $('.elementPanel').fadeIn();
+        $('.timing-diagram-panel').fadeIn();
         globalScope.centerFocus(false);
+        if(globalScope.verilogMetadata.isVerilogCircuit)
+            verilogModeSet(true);
         dots();
     } else {
         layoutModeSet(true);
+        verilogModeSet(false);
         $('#layoutDialog').fadeIn();
         $('.layoutElementPanel').fadeIn();
         $('.elementPanel').fadeOut();
+        $('.timing-diagram-panel').fadeOut();
         fillSubcircuitElements();
         
         globalScope.ox = 0;
@@ -391,47 +398,51 @@ export function toggleLayoutMode() {
         tempBuffer = new LayoutBuffer();
         $('#toggleLayoutTitle')[0].checked = tempBuffer.layout.titleEnabled;
     }
-    hideProperties();
     update(globalScope, true);
     scheduleUpdate();
-    
 }
 
 export function setupLayoutModePanelListeners() {
-    $('#decreaseLayoutWidth').click(() => {
+    $('#decreaseLayoutWidth').on('click',() => {
         decreaseLayoutWidth();
     });
-    $('#increaseLayoutWidth').click(() => {
+    $('#increaseLayoutWidth').on('click',() => {
         increaseLayoutWidth();
     });
-    $('#decreaseLayoutHeight').click(() => {
+    $('#decreaseLayoutHeight').on('click',() => {
         decreaseLayoutHeight();
     });
-    $('#increaseLayoutHeight').click(() => {
+    $('#increaseLayoutHeight').on('click',() => {
         increaseLayoutHeight();
     });
-    $('#layoutResetNodes').click(() => {
+    $('#layoutResetNodes').on('click',() => {
         layoutResetNodes();
     });
-    $('#layoutTitleUp').click(() => {
+    $('#layoutTitleUp').on('click',() => {
         layoutTitleUp();
     });
-    $('#layoutTitleDown').click(() => {
+    $('#layoutTitleDown').on('click',() => {
         layoutTitleDown();
     });
-    $('#layoutTitleLeft').click(() => {
+    $('#layoutTitleLeft').on('click',() => {
         layoutTitleLeft();
     });
-    $('#layoutTitleRight').click(() => {
+    $('#layoutTitleRight').on('click',() => {
         layoutTitleRight();
     });
-    $('#toggleLayoutTitle').click(() => {
+    $('#toggleLayoutTitle').on('click',() => {
         toggleLayoutTitle();
     });
-    $('#saveLayout').click(() => {
+    $('#saveLayout').on('click',() => {
         saveLayout();
     });
-    $('#cancelLayout').click(() => {
+    $('#cancelLayout').on('click',() => {
         cancelLayout();
+    });
+    $('#layoutDialog button').on('click', () => {
+        scheduleUpdate();
+    });
+    $('#layoutDialog input').on('click', () => {
+        scheduleUpdate();
     });
 }

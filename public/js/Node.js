@@ -659,12 +659,9 @@ Node.prototype.nodeConnect = function() {
 }
 Node.prototype.cleanDelete = Node.prototype.delete;
 Node.prototype.processVerilog = function() {
-
     if (this.type == NODE_INPUT) {
-        if (this.parent.isVerilogResolvable())
-            this.scope.stack.push(this.parent);
+        this.scope.stack.push(this.parent);
     }
-
     for (var i = 0; i < this.connections.length; i++) {
         if (this.connections[i].verilogLabel != this.verilogLabel) {
             this.connections[i].verilogLabel = this.verilogLabel;

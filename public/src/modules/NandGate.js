@@ -3,6 +3,8 @@ import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
 import { correctWidth, lineTo, moveTo, drawCircle2, arc } from "../canvasApi";
 import { changeInputSize } from "../modules";
+import { gateGenerateVerilog } from '../utils';
+
 /**
  * @class
  * NandGate
@@ -131,6 +133,10 @@ export default class NandGate extends CircuitElement {
         ctx.beginPath();
         drawCircle2(ctx, 25, 0, 5, xx, yy, this.direction);
         ctx.stroke();
+    }
+
+    generateVerilog() {
+        return gateGenerateVerilog.call(this, '&', true);
     }
 }
 

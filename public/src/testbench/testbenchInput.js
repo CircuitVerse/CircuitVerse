@@ -113,7 +113,6 @@ export default class TB_Input extends CircuitElement {
         }
         if (this.running && this.iteration) {
             for (var i = 0; i < this.testData.inputs.length; i++) {
-                console.log(this.testData.inputs[i].values[this.iteration - 1]);
                 this.outputs[i].value = parseInt(this.testData.inputs[i].values[this.iteration - 1], 2);
                 simulationArea.simulationQueue.add(this.outputs[i]);
             }
@@ -125,6 +124,7 @@ export default class TB_Input extends CircuitElement {
      * was a function to plot values incase any flag used as output to this element
      */
     setPlotValue() {
+        return;
         var time = plotArea.stopWatch.ElapsedMilliseconds;
         if (this.plotValues.length && this.plotValues[this.plotValues.length - 1][0] == time) { this.plotValues.pop(); }
 
@@ -221,7 +221,7 @@ export default class TB_Input extends CircuitElement {
         ctx.fill();
 
 
-        ctx.font = '30px Georgia';
+        ctx.font = '30px Raleway';
         ctx.textAlign = 'right';
         ctx.fillStyle = 'blue';
         ctx.beginPath();
@@ -232,7 +232,7 @@ export default class TB_Input extends CircuitElement {
 
         ctx.fill();
         if (this.running && this.iteration) {
-            ctx.font = '30px Georgia';
+            ctx.font = '30px Raleway';
             ctx.textAlign = 'left';
             ctx.fillStyle = 'blue';
             ctx.beginPath();

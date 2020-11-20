@@ -14,6 +14,7 @@ import { showError } from './utils';
 import miniMapArea from './minimap';
 import { createNodeGet } from './listeners';
 import { resetup } from './setup';
+import { verilogModeGet } from './Verilog2CV';
 
 /**
  * Core of the simulation and rendering algorithm.
@@ -239,7 +240,7 @@ export function changeLightMode(val) {
  * @category engine
  */
 export function renderCanvas(scope) {
-    if (layoutModeGet()) { // Different Algorithm
+    if (layoutModeGet() || verilogModeGet()) { // Different Algorithm
         return;
     }
     var ctx = simulationArea.context;
@@ -376,7 +377,9 @@ export function updateSelectionsAndPane(scope = globalScope) {
 export function play(scope = globalScope, resetNodes = false) {
     if (errorDetected) return; // Don't simulate until error is fixed
     if (loading === true) return; // Don't simulate until loaded
-    if (!embed) plotArea.stopWatch.Stop(); // Waveform thing
+
+    simulationArea.simulationQueue.reset();
+    plotArea.setExecutionTime(); // Waveform thing
     // Reset Nodes if required
     if (resetNodes || forceResetNodes) {
         scope.reset();

@@ -34,7 +34,6 @@ export default class Rom extends CircuitElement {
         this.en = new Node(0, 50, 0, this, 1, 'Enable');
         this.dataOut = new Node(80, 0, 1, this, 8, 'DataOut');
         this.data = data || prompt('Enter data').split(' ').map((lambda) => parseInt(lambda, 16));
-        // console.log(this.data);
     }
 
     /**
@@ -152,9 +151,9 @@ export default class Rom extends CircuitElement {
 
         ctx.beginPath();
         ctx.fillStyle = 'Black';
-        fillText3(ctx, 'A', -65, 5, xx, yy, 16, 'Georgia', 'right');
-        fillText3(ctx, 'D', 75, 5, xx, yy, 16, 'Georgia', 'right');
-        fillText3(ctx, 'En', 5, 47, xx, yy, 16, 'Georgia', 'right');
+        fillText3(ctx, 'A', -65, 5, xx, yy, 16, 'Raleway', 'right');
+        fillText3(ctx, 'D', 75, 5, xx, yy, 16, 'Raleway', 'right');
+        fillText3(ctx, 'En', 5, 47, xx, yy, 16, 'Raleway', 'right');
         ctx.fill();
 
         ctx.beginPath();
@@ -163,7 +162,7 @@ export default class Rom extends CircuitElement {
             for (let j = i; j < i + 4; j++) {
                 let s = this.data[j].toString(16);
                 if (s.length < 2) s = `0${s}`;
-                fillText3(ctx, s, (j % 4) * 20, i * 4, xx - 35 + 10, yy - 35 + 12, 14, 'Georgia', 'center');
+                fillText3(ctx, s, (j % 4) * 20, i * 4, xx - 35 + 10, yy - 35 + 12, 14, 'Raleway', 'center');
             }
         }
         ctx.fill();
@@ -173,7 +172,7 @@ export default class Rom extends CircuitElement {
         for (let i = 0; i < 16; i += 4) {
             let s = i.toString(16);
             if (s.length < 2) s = `0${s}`;
-            fillText3(ctx, s, 0, i * 4, xx - 40, yy - 35 + 12, 14, 'Georgia', 'right');
+            fillText3(ctx, s, 0, i * 4, xx - 40, yy - 35 + 12, 14, 'Raleway', 'right');
         }
         ctx.fill();
     }
@@ -188,6 +187,52 @@ export default class Rom extends CircuitElement {
         }
         this.dataOut.value = this.data[this.memAddr.value];
         simulationArea.simulationQueue.add(this.dataOut);
+    }
+
+    verilogBaseType() {
+        return this.verilogName() + (Rom.selSizes.length-1);
+    }
+    //this code to generate Verilog
+    generateVerilog() {
+        Rom.selSizes.push(this.data);
+        return CircuitElement.prototype.generateVerilog.call(this);
+    }
+    
+    //This code to determine what sizes are used to generate the needed modules
+    //generate the needed modules
+    static moduleVerilog() {
+        var output = "";
+
+        for (var i = 0; i < Rom.selSizes.length; i++) {
+            output += `
+    module Rom${i}(dout, addr, en);
+    parameter WIDTH = 8;
+    parameter ADDR = 4;
+    output reg [WIDTH-1:0] dout;
+    input [ADDR-1:0] addr;
+    input en;
+
+    always @ (*) begin
+        if (en == 0)
+        dout = {WIDTH{1'bz}};
+        else
+        case (addr)
+    `;
+            for (var j = 0; j < (1 << 4); j++) {
+            output += "        " + j + " : dout = " + Rom.selSizes[i][j] + ";\n";
+            }
+
+        output += `      endcase
+    end
+    endmodule
+    `;
+        }
+
+        return output;
+    }
+    //reset the sized before Verilog generation
+    static resetVerilog() {
+        Rom.selSizes = [];
     }
 }
 

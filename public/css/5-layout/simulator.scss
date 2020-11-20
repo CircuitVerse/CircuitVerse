@@ -48,9 +48,9 @@
 
 #MessageDiv {
   position: absolute;
-  margin-left: 30px;
-  bottom: 100px;
-  z-index: 100;
+  left: 30px;
+  bottom: 30px;
+  z-index: 110;
 }
 
 .errorMessage {
@@ -87,15 +87,6 @@
   height: 100%;
   overflow: hidden;
   background-color: "white";
-}
-
-#plot {
-  position: fixed;
-  z-index: 1;
-  bottom: 0;
-  right: 0;
-  overflow-y: scroll;
-  background-color: #eee;
 }
 
 .left {

@@ -15,7 +15,7 @@ export default {
         "--qp-br-rd": "#535353",
         "--qp-box-shadow-1": "#3b3b3b",
         "--qp-box-shadow-2": "#4f4f4f",
-        "--bg-circuit": "#bbbbbb",
+        "--bg-circuit": "#ddd",
         "--br-circuit": "#454545",
         "--br-primary": "#fff",
         "--bg-primary-moz": "#454545e6",
@@ -66,7 +66,7 @@ export default {
         "--br-circuit": "#0F111A", //panel border, tabbar circuit border
         "--br-primary": "#665627", //panel border, tabbar circuit border
         "--br-circuit-cur": "#cccccc",
-        "--bg-circuit": "#727d8d",
+        "--bg-circuit": "#bdc2ca",
         "--bg-primary-moz": "#0f111ae6", //dialog bg
         "--bg-primary-chr": "#0f111ab3", //dialog bg
         "--bg-tabs": "#727d8d", //tabs bar primary bg,
@@ -104,7 +104,7 @@ export default {
         "--wire-norm": "#277F7C",
         "--node-norm": "#FFC231",
         "--splitter": "#0284A8",
-        "--disable": "#4F74B0"
+        "--disable": "#4F74B0",
     },
     "Lite-born Spring": {
         "--text-navbar--alt": "#000",
@@ -121,9 +121,9 @@ export default {
         "--qp-box-shadow-1": "#747474", //lil lighten base .. top left shadow
         "--qp-box-shadow-2": "#5f5f5f", //lil darken base //down right shadow
         // "--bg-tabs": "#EAEAEB", //tabs bar primary bg,
-        "--bg-tabs": "#D7D7D7", //tabs bar primary bg,
+        "--bg-tabs": "#A4A4A4", //tabs bar primary bg,
         "--br-circuit-cur": "#42B983",
-        "--bg-circuit": "#A4A4A4",
+        "--bg-circuit": "#D7D7D7",
         "--br-circuit": "#42B983",
         "--br-primary": "#42B983", //panel border, tabbar circuit border
         "--context-text-hov": "#6B6B6B",
@@ -159,7 +159,7 @@ export default {
         "--wire-norm": "#006839",
         "--node-norm": "#FFC231",
         "--splitter": "#00B462",
-        "--disable": '#656565',
+        "--disable": "#656565",
     },
     "G&W": {
         "--text-navbar--alt": "#000",
@@ -176,9 +176,9 @@ export default {
         "--qp-box-shadow-1": "#747474", //lil lighten base .. top left shadow
         "--qp-box-shadow-2": "#5f5f5f", //lil darken base //down right shadow
         // "--bg-tabs": "#EAEAEB", //tabs bar primary bg,
-        "--bg-tabs": "#D7D7D7", //tabs bar primary bg,
+        "--bg-tabs": "#A4A4A4", //tabs bar primary bg,
         "--br-circuit-cur": "#6b6b6b",
-        "--bg-circuit": "#A4A4A4",
+        "--bg-circuit": "#D7D7D7",
         "--br-circuit": "#6b6b6b",
         "--br-primary": "#6B6B6B", //panel border, tabbar circuit border
         "--context-text-hov": "#6B6B6B",
@@ -230,7 +230,7 @@ export default {
         "--qp-br-rd": "#F38518",
         "--qp-box-shadow-1": "#0D0D0D", //lil lighten base .. top left shadow
         "--qp-box-shadow-2": "#0D0D0D", //lil darken base //down right shadow
-        "--bg-tabs": "black", //tabs bar primary bg,
+        "--bg-tabs": "#616161", //tabs bar primary bg,
         "--text-circuit": "black",
         "--br-circuit-cur": "#F38518",
         "--bg-circuit": "#B6B6B6",
@@ -285,10 +285,10 @@ export default {
         "--qp-br-rd": "#6c654d",
         "--qp-box-shadow-1": "#4f4a38", //lil lighten base .. top left shadow
         "--qp-box-shadow-2": "#302d23", //lil darken base //down right shadow
-        "--bg-tabs": "#2e2b21", //tabs bar primary bg,
+        "--bg-tabs": "#9a9a9a", //tabs bar primary bg,
         "--text-circuit": "black",
         "--br-circuit-cur": "#e2dad1",
-        "--bg-circuit": "#B6B6B6",
+        "--bg-circuit": "#d6d6d6",
         "--br-circuit": "#e2dad1",
         "--br-primary": "#e2dad1", //panel border, tabbar circuit border
         "--context-text-hov": "black",

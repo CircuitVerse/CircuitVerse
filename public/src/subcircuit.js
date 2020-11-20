@@ -16,6 +16,8 @@ import Node, { findNode } from "./node";
 import { fillText, correctWidth, rect2} from "./canvasApi";
 import { colors } from "./themer/themer";
 import { layoutModeGet } from "./layoutMode"
+import { verilogModeGet } from "./Verilog2CV"
+import { sanitizeLabel } from './verilogHelpers';
 /**
  * Function to load a subcicuit
  * @category subcircuit
@@ -30,10 +32,14 @@ export function loadSubCircuit(savedData, scope) {
  * @category subcircuit
  */
 export function createSubCircuitPrompt(scope = globalScope) {
+    if(verilogModeGet() || layoutModeGet()) {
+        showError("Subcircuit cannot be inserted in this mode");
+        return;
+    }
     $("#insertSubcircuitDialog").empty();
     let flag = true;
     for (id in scopeList) {
-        if (!scopeList[id].checkDependency(scope.id)) {
+        if (!scopeList[id].checkDependency(scope.id) && scopeList[id].isVisible()) {
             flag = false;
             $("#insertSubcircuitDialog").append(
                 `<label class="option custom-radio inline"><input type="radio" name="subCircuitId" value="${id}" />${scopeList[id].name}<span></span></label>`
@@ -591,10 +597,9 @@ export default class SubCircuit extends CircuitElement {
         return false;
     }
 
-    verilogName() {
-        return verilog.fixName(scopeList[this.id].name);
+    verilogName(){
+        return sanitizeLabel(scopeList[this.id].name);
     }
-
     /**
      * determines where to show label
      */
@@ -671,7 +676,7 @@ export default class SubCircuit extends CircuitElement {
                 );
             }
         } else {
-            console.log(this.version);
+            console.log("Unknown Version: ", this.version);
         }
 
         for (var i = 0; i < subcircuitScope.Input.length; i++) {
@@ -726,3 +731,4 @@ export default class SubCircuit extends CircuitElement {
     }
 }
 SubCircuit.prototype.centerElement = true; // To center subcircuit when new
+SubCircuit.prototype.propagationDelayFixed = true;

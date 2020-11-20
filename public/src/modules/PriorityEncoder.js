@@ -206,6 +206,61 @@ export default class PriorityEncoder extends CircuitElement {
         fillText(ctx, "EN", xx + this.enable.x, yy + this.enable.y - 5, 10);
         ctx.fill();
     }
+
+    verilogBaseType() {
+        return this.verilogName() + this.inp1.length;
+    }
+
+    generateVerilog() {
+        PriorityEncoder.selSizes.add(this.bitWidth);
+        return CircuitElement.prototype.generateVerilog.call(this);
+    }
+
+    static moduleVerilog() {
+        var output = "";
+    
+        for (var size of PriorityEncoder.selSizes) {
+            var numInput = 1 << size;
+            output += "\n";
+            output += "module PriorityEncoder" + numInput;
+            output += "(sel, ze, ";
+            for (var j = 0; j < numInput-1; j++) {
+                output += "in" + j + ", ";
+            }
+            output += "in" + (numInput-1) + ");\n";
+    
+            output += "  output reg [" + (size-1) + ":0] sel;\n";
+            output += "  output reg ze;\n";
+    
+            output += "  input "
+            for (var j = 0; j < numInput-1; j++) {
+                output += "in" + j + ", ";
+            }
+            output += "in" + (numInput-1) + ";\n";
+            output += "\n";
+    
+            output += "  always @ (*) begin\n";
+            output += "    sel = 0;\n";
+            output += "    ze = 0;\n";
+            output += "    if (in" + (numInput-1) + ")\n";
+            output += "      sel = " + (numInput-1) + ";\n";
+            for (var j = numInput-2; j <= 0; j++) {
+                output += "    else if (in" + j + ")\n";
+                output += "      sel = " + j + ";\n";
+            }
+            output += "    else\n";
+            output += "      ze = 1;\n"
+            output += "  end\n";
+            output += "endmodule\n";
+        }
+    
+        return output;
+    }
+
+    //reset the sized before Verilog generation
+    static resetVerilog() {
+        PriorityEncoder.selSizes = new Set
+    }
 }
 
 /**

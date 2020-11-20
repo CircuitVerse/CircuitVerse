@@ -217,7 +217,6 @@ export default class Demultiplexer extends CircuitElement {
         ctx.fillStyle = "black";
         ctx.textAlign = "center";
         // [xFill,yFill] = rotate(xx + this.output1[i].x - 7, yy + this.output1[i].y + 2);
-        // //console.log([xFill,yFill])
         for (let i = 0; i < this.outputsize; i++) {
             if (this.direction === "LEFT")
                 fillText(
@@ -253,6 +252,62 @@ export default class Demultiplexer extends CircuitElement {
                 );
         }
         ctx.fill();
+    }
+
+    verilogBaseType() {
+        return this.verilogName() + this.output1.length;
+    }
+
+    //this code to generate Verilog
+    generateVerilog() {
+        Demultiplexer.selSizes.add(this.controlSignalSize);
+        return CircuitElement.prototype.generateVerilog.call(this);
+    }
+
+    //generate the needed modules
+    static moduleVerilog() {
+        var output = "";
+
+        for (var size of Demultiplexer.selSizes) {
+            var numOutput = 1 << size;
+            output += "\n";
+            output += "module Demultiplexer" + numOutput;
+            output += "(";
+            for (var j = 0; j < numOutput; j++) {
+                output += "out" + j + ", ";
+            }
+            output += "in, sel);\n";
+
+            output += "  parameter WIDTH = 1;\n";
+            output += "  output reg [WIDTH-1:0] ";
+            for (var j = 0; j < numOutput-1; j++) {
+                output += "out" + j + ", ";
+            }
+            output += "out" + (numOutput-1) + ";\n";
+
+            output += "  input [WIDTH-1:0] in;\n"
+            output += "  input [" + (size-1) +":0] sel;\n";
+            output += "  \n";
+
+            output += "  always @ (*) begin\n";
+            for (var j = 0; j < numOutput; j++) {
+                output += "    out" + j + " = 0;\n";
+            }
+            output += "    case (sel)\n";
+            for (var j = 0; j < numOutput; j++) {
+                output += "      " + j + " : out" + j + " = in;\n";
+            }
+            output += "    endcase\n";
+            output += "  end\n";
+            output += "endmodule\n";
+        }
+
+        return output;
+    }
+
+    //reset the sized before Verilog generation
+    static resetVerilog() {
+        Demultiplexer.selSizes = new Set();
     }
 }
 

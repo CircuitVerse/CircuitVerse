@@ -296,7 +296,7 @@ function play(scope = globalScope, resetNodes = false) {
 
     if (loading == true) return; // Don't simulate until loaded
 
-    if (!embed) plotArea.stopWatch.Stop(); // Waveform thing
+    plotArea.stopWatch.Stop(); // Waveform thing
 
     // Reset Nodes if required
     if (resetNodes || forceResetNodes) {
