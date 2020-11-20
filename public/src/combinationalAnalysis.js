@@ -10,6 +10,7 @@ import Output from './modules/Output';
 import AndGate from './modules/AndGate';
 import OrGate from './modules/OrGate';
 import NotGate from './modules/NotGate';
+import { stripTags } from './utils';
 
 var inputSample = 5;
 var dataSample = [['01---', '11110', '01---', '00000'], ['01110', '1-1-1', '----0'], ['01---', '11110', '01110', '1-1-1', '0---0'], ['----1']];
@@ -35,8 +36,9 @@ export function createCombinationalAnalysisPrompt(scope = globalScope) {
             {
                 text: 'Next',
                 click() {
-                    var inputList = $('#inputNameList').val().split(',');
-                    var outputList = $('#outputNameList').val().split(',');
+                    var inputList = stripTags($("#inputNameList").val()).split(',');
+                    var outputList = stripTags($("#outputNameList").val()).split(',');
+                   
                     inputList = inputList.map((x) => x.trim());
                     inputList = inputList.filter((e) => e);
                     outputList = outputList.map((x) => x.trim());
