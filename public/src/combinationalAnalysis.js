@@ -295,4 +295,5 @@ function drawCombinationalAnalysis(combinationalData, inputList, outputListNames
             logixNodes[i].connect(v);
         }
     }
+    globalScope.centerFocus();
 }
