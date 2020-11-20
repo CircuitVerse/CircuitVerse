@@ -158,16 +158,16 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
             var html = `<div style='' class='circuits toolbarButton current' id='${scope.id}'><span class='circuitName noSelect'>${truncateString(name, 18)}</span><span class ='tabsCloseButton' id='${scope.id}'  >x</span></div>`;
             $('#tabsBar').children().last().before(html);
         }
-        $('.circuits').click(function () {
+        $('.circuits').on('click',function () {
             switchCircuit(this.id);
         });
-        $('.circuitName').click((e) => {
+        $('.circuitName').on('click',(e) => {
             simulationArea.lastSelected = globalScope.root;
             setTimeout(() => {
                 document.getElementById('circname').select();
             }, 100);
         });
-        $('.tabsCloseButton').click(function (e) {
+        $('.tabsCloseButton').on('click',function (e) {
             e.stopPropagation();
             deleteCurrentCircuit(this.id);
         });

@@ -9,7 +9,6 @@ export default {
         "--text-lite": "#fff",
         "--text-dark": "#000",
         "--text-panel": "white",
-        "--text-navbar": "white",
         "--bg-navbar": "#454545",
         "--qp-br-tl": "#333333",
         "--qp-br-rd": "#535353",
@@ -115,7 +114,6 @@ export default {
         "--text-lite": "white", //text state on hover, on drop down menu , context menu
         "--text-panel": "#6B6B6B",
         "--bg-navbar": "#6b6b6b",
-        "--text-navbar": "white",
         "--qp-br-tl": "#969696", //more ligthen than qp box shadow 1
         "--qp-br-rd": "#545454",
         "--qp-box-shadow-1": "#747474", //lil lighten base .. top left shadow
@@ -170,7 +168,6 @@ export default {
         "--text-lite": "white", //text state on hover, on drop down menu , context menu
         "--text-panel": "#656565",
         "--bg-navbar": "#6b6b6b",
-        "--text-navbar": "white",
         "--qp-br-tl": "#969696", //more ligthen than qp box shadow 1
         "--qp-br-rd": "#545454",
         "--qp-box-shadow-1": "#747474", //lil lighten base .. top left shadow
@@ -225,7 +222,6 @@ export default {
         "--text-lite": "white", //text state on hover, on drop down menu , context menu
         "--text-panel": "white",
         "--bg-navbar": "black",
-        "--text-navbar": "white",
         "--qp-br-tl": "#F38518", //more ligthen than qp box shadow 1
         "--qp-br-rd": "#F38518",
         "--qp-box-shadow-1": "#0D0D0D", //lil lighten base .. top left shadow
@@ -280,7 +276,6 @@ export default {
         "--text-lite": "white", //text state on hover, on drop down menu , context menu
         "--text-panel": "white",
         "--bg-navbar": "#2e2b21",
-        "--text-navbar": "white",
         "--qp-br-tl": "#716950", //more ligthen than qp box shadow 1
         "--qp-br-rd": "#6c654d",
         "--qp-box-shadow-1": "#4f4a38", //lil lighten base .. top left shadow

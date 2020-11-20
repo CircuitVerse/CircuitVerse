@@ -175,8 +175,7 @@ export default class ImageAnnotation extends CircuitElement {
  * @type {string}
  * @category modules
  */
-ImageAnnotation.prototype.tooltipText = 'Image ToolTip : Used to Box the Circuit or area you want to highlight.';
-ImageAnnotation.prototype.helplink = 'https://docs.circuitverse.org/#/annotation?id=Image';
+ImageAnnotation.prototype.tooltipText = 'Image ToolTip: Embed an image in the circuit for annotation';
 ImageAnnotation.prototype.propagationDelayFixed = true;
 
 /**
