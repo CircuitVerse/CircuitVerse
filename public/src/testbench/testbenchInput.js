@@ -124,6 +124,7 @@ export default class TB_Input extends CircuitElement {
      * was a function to plot values incase any flag used as output to this element
      */
     setPlotValue() {
+        return;
         var time = plotArea.stopWatch.ElapsedMilliseconds;
         if (this.plotValues.length && this.plotValues[this.plotValues.length - 1][0] == time) { this.plotValues.pop(); }
 
@@ -220,7 +221,7 @@ export default class TB_Input extends CircuitElement {
         ctx.fill();
 
 
-        ctx.font = '30px Georgia';
+        ctx.font = '30px Raleway';
         ctx.textAlign = 'right';
         ctx.fillStyle = 'blue';
         ctx.beginPath();
@@ -231,7 +232,7 @@ export default class TB_Input extends CircuitElement {
 
         ctx.fill();
         if (this.running && this.iteration) {
-            ctx.font = '30px Georgia';
+            ctx.font = '30px Raleway';
             ctx.textAlign = 'left';
             ctx.fillStyle = 'blue';
             ctx.beginPath();

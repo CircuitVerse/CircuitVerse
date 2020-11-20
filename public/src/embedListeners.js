@@ -9,6 +9,7 @@ import {
 } from './engine';
 import { changeScale } from './canvasApi';
 import { copy, paste } from './events';
+import { ZoomIn, ZoomOut} from './listeners';
 
 var unit = 10;
 
@@ -104,13 +105,13 @@ export default function startListeners() {
 
         if (simulationArea.controlDown && (e.keyCode == 187 || e.KeyCode == 171)) {
             e.preventDefault();
-            if (globalScope.scale < 4 * DPR) { changeScale(0.1 * DPR); }
+            ZoomIn();
         }
 
         // zoom out (-)
         if (simulationArea.controlDown && (e.keyCode == 189 || e.Keycode == 173)) {
             e.preventDefault();
-            if (globalScope.scale > 0.5 * DPR) { changeScale(-0.1 * DPR); }
+            ZoomOut();
         }
 
 

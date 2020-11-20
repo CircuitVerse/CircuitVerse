@@ -46,7 +46,6 @@ export default class CircuitElement {
         this.upDimensionY = 10;
         this.downDimensionY = 10;
 
-        this.rectangleObject = true;
         this.label = '';
         this.scope = scope;
         this.baseSetup();
@@ -861,6 +860,7 @@ CircuitElement.prototype.alwaysResolve = false;
 CircuitElement.prototype.propagationDelay = 10;
 CircuitElement.prototype.tooltip = undefined;
 CircuitElement.prototype.propagationDelayFixed = false;
+CircuitElement.prototype.rectangleObject = true;
 CircuitElement.prototype.objectType = 'CircuitElement';
 CircuitElement.prototype.canShowInSubcircuit = false; // determines whether the element is supported to be shown inside a subcircuit
 CircuitElement.prototype.subcircuitMetadata = {}; // stores the coordinates and stuff for the elements in the subcircuit

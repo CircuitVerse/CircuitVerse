@@ -3,6 +3,7 @@ import {
     scheduleUpdate, play, updateCanvasSet, errorDetectedSet, errorDetectedGet,
 } from './engine';
 import { layoutModeGet } from './layoutMode';
+import plotArea from './plotArea';
 
 window.globalScope = undefined;
 window.lightMode = false; // To be deprecated
@@ -33,6 +34,7 @@ export function clockTick() {
     if (layoutModeGet()) return;
     updateCanvasSet(true);
     globalScope.clockTick();
+    plotArea.nextCycle();
     play();
     scheduleUpdate(0, 20);
 }
@@ -191,3 +193,98 @@ export function copyToClipboard(text) {
         return false;
       }
 };
+
+export function truncateString(str, num) {
+    // If the length of str is less than or equal to num
+    // just return str--don't truncate it.
+    if (str.length <= num) {
+        return str;
+    }
+    // Return str truncated with '...' concatenated to the end of str.
+    return str.slice(0, num) + "...";
+}
+
+export function bitConverterDialog() {
+    $('#bitconverterprompt').dialog({
+        buttons: [
+            {
+                text: "Reset",
+                click: function () {
+                    setBaseValues(0);
+                }
+            }
+        ]
+    });
+}
+
+export function getImageDimensions(file) {
+    return new Promise (function (resolved, rejected) {
+      var i = new Image()
+      i.onload = function(){
+        resolved({w: i.width, h: i.height})
+      };
+      i.src = file
+    })
+  }
+
+// convertors
+export var convertors = {
+    dec2bin: x => "0b" + x.toString(2),
+    dec2hex: x => "0x" + x.toString(16),
+    dec2octal: x => "0" + x.toString(8),
+}
+
+function setBaseValues(x) {
+    if (isNaN(x)) return;
+    $("#binaryInput").val(convertors.dec2bin(x));
+    $("#octalInput").val(convertors.dec2octal(x));
+    $("#hexInput").val(convertors.dec2hex(x));
+    $("#decimalInput").val(x);
+}
+
+export function setupBitConvertor() {
+    $("#decimalInput").on('keyup', function () {
+        var x = parseInt($("#decimalInput").val(), 10);
+        setBaseValues(x);
+    })
+
+    $("#binaryInput").on('keyup', function () {
+        var inp = $("#binaryInput").val();
+        var x;
+        if (inp.slice(0, 2) == '0b')
+            x = parseInt(inp.slice(2), 2);
+        else 
+            x = parseInt(inp, 2);
+        setBaseValues(x);
+    })
+
+    $("#hexInput").on('keyup', function () {
+        var x = parseInt($("#hexInput").val(), 16);
+        setBaseValues(x);
+    })
+
+    $("#octalInput").on('keyup', function () {
+        var x = parseInt($("#octalInput").val(), 8);
+        setBaseValues(x);
+    })
+}
+
+export function promptFile(contentType, multiple) {
+    var input = document.createElement("input");
+    input.type = "file";
+    input.multiple = multiple;
+    input.accept = contentType;
+    return new Promise(function(resolve) {
+      document.activeElement.onfocus = function() {
+        document.activeElement.onfocus = null;
+        setTimeout(resolve, 500);
+      };
+      input.onchange = function() {
+        var files = Array.from(input.files);
+        if (multiple)
+          return resolve(files);
+        resolve(files[0]);
+      };
+      input.click();
+    });
+}

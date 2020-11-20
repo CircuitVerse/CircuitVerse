@@ -3,6 +3,7 @@ import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
 import { correctWidth, rect2, fillText } from "../canvasApi";
 import plotArea from "../plotArea";
+import EventQueue from '../eventQueue';
 /**
  * @class
  * Flag
@@ -39,8 +40,13 @@ export default class Flag extends CircuitElement {
         this.plotValues = [];
 
         this.xSize = 10;
+        this.flagTimeUnit = 0;
 
         this.inp1 = new Node(40, 0, 0, this);
+    }
+
+    resolve() {
+        this.flagTimeUnit = simulationArea.simulationQueue.time;
     }
 
     /**
@@ -49,7 +55,7 @@ export default class Flag extends CircuitElement {
      * @type {string}
      */
     setPlotValue() {
-        const time = plotArea.stopWatch.ElapsedMilliseconds;
+        const time = plotArea.getPlotTime(this.flagTimeUnit);
 
         if (
             this.plotValues.length &&
@@ -135,7 +141,7 @@ export default class Flag extends CircuitElement {
         ctx.fill();
         ctx.stroke();
 
-        ctx.font = "14px Georgia";
+        ctx.font = "14px Raleway";
         this.xOff = ctx.measureText(this.identifier).width;
 
         ctx.beginPath();
@@ -158,7 +164,7 @@ export default class Flag extends CircuitElement {
         ctx.fill();
 
         ctx.beginPath();
-        ctx.font = "30px Georgia";
+        ctx.font = "30px Raleway";
         ctx.textAlign = "center";
         ctx.fillStyle = ["blue", "red"][+(this.inp1.value === undefined)];
         if (this.inp1.value !== undefined) {
@@ -233,3 +239,4 @@ Flag.prototype.mutableProperties = {
     },
 };
 Flag.prototype.objectType = "Flag";
+Flag.prototype.propagationDelay = 0;

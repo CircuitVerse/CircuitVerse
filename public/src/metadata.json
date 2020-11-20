@@ -64,7 +64,8 @@
     "annotationList": [
         "Text",
         "Rectangle",
-        "Arrow"
+        "Arrow",
+        "ImageAnnotation"
     ],
     "inputList": [
         "Random",
@@ -173,6 +174,7 @@
             "ALU",
             "Rectangle",
             "Arrow",
+            "ImageAnnotation",
             "Text",
             "Tunnel"
         ]

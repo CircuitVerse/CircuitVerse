@@ -125,7 +125,7 @@ export default class BitSelector extends CircuitElement {
         ctx.stroke();
 
         ctx.beginPath();
-        ctx.font = "20px Georgia";
+        ctx.font = "20px Raleway";
         ctx.fillStyle = colors["input_text"];
         ctx.textAlign = "center";
         var bit;

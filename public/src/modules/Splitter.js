@@ -137,8 +137,8 @@ export default class Splitter extends CircuitElement {
                 n <<= this.bitWidthSplit[i];
                 n += this.outputs[i].value;
             }
-            if (this.inp1.value !== n) {
-                this.inp1.value = n;
+            if (this.inp1.value !== (n >>> 0)) {
+                this.inp1.value = (n >>> 0);
                 simulationArea.simulationQueue.add(this.inp1);
             }
             // else if (this.inp1.value !== n) {
@@ -208,7 +208,7 @@ export default class Splitter extends CircuitElement {
         ctx.beginPath();
         ctx.fillStyle = colors['text'];
         for (let i = this.splitCount - 1; i >= 0; i--) {
-            fillText2(ctx, `${bitCount}:${bitCount + this.bitWidthSplit[this.splitCount - i - 1]}`, 12, -20 * i + this.yOffset + 10, xx, yy, this.direction);
+            fillText2(ctx, `${bitCount}:${bitCount + this.bitWidthSplit[this.splitCount - i - 1] - 1}`, 12, -20 * i + this.yOffset + 10, xx, yy, this.direction);
             bitCount += this.bitWidthSplit[this.splitCount - i - 1];
         }
         ctx.fill();

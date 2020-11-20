@@ -13,16 +13,21 @@
 @import "./plugin-stylesheets/simple-button-radios.css";
 @import "./plugin-stylesheets/checkBo.min.css";
 @import "./plugin-stylesheets/jquery-pseudo-ripple.css";
-
 /** new UI ruleset starts here */
 /*! Adding color variables to root, required later for hokey binding */
 
+/* typography */
+@font-face {
+  font-family: Raleway;
+  src: url("https://fonts.gstatic.com/s/raleway/v18/1Ptxg8zYS_SKggPN4iEgvnHyvveLxVvaorCIPrcVIT9d0c8.woff");
+}
 
 /* typography */
 @font-face {
   font-family: "Nunito", sans-serif;
   src: url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;1,200&display=swap");
 }
+
 
 /** Global Styles starts here */
 
@@ -194,6 +199,21 @@ input[type="text"]:focus {
   border-bottom: 1px solid white;
 }
 
+.user-field {
+  display: inline-block;
+  max-width: 11rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: right;
+}
+
+@media(max-width: 992px) {
+  .user-field {
+    visibility: hidden;
+  }
+}
+
 .signIn-btn {
   color: var(--text-primary);
 }
@@ -204,10 +224,6 @@ input[type="text"]:focus {
 
 .signIn-btn:hover {
   color: var(--text-primary);
-}
-
-.header {
-  height: 50px;
 }
 
 .logo {
@@ -301,7 +317,7 @@ input[type="text"]:focus {
   transform: translate(-50%, 13px);
 }
 
-.draggable-panel {
+.draggable-panel-css {
   border-radius: 5px;
   z-index: 100;
   transition: background .5s ease-out; 
@@ -352,6 +368,13 @@ input[type="text"]:focus {
   opacity: 1;
 }
 
+@media(max-width: 992px) {
+  .navbar-nav .dropdown-menu {
+    position: absolute;
+    float: none;
+  }
+}
+
 #contextMenu {
   width: 150px;
   visibility: hidden;
@@ -399,7 +422,7 @@ input[type="text"]:focus {
 
 .ce-panel {
   font: inherit;
-  width: 220px;
+  width: 240px;
   top: 90px;
   left: 10px;
 }
@@ -408,7 +431,7 @@ input[type="text"]:focus {
   margin-bottom: 15px;
 }
 
-.panel-header {
+.draggable-panel-css .panel-header {
   border-radius: 5px;
   border-top-right-radius: 5px;
   padding-top: 15px;
@@ -422,11 +445,21 @@ input[type="text"]:focus {
   cursor: move;
 }
 
-.panel-body {
+.draggable-panel-css .panel-header::before {
+  content: '';
+  width: 34px;
+  border-radius: 2px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 6px;
+}
+
+.draggable-panel-css .panel-body {
   padding-top: 10px;
 }
 
-.panel {
+.draggable-panel-css .panel {
   padding: 0em;
   margin: 0;
   border-radius: 0;
@@ -434,8 +467,6 @@ input[type="text"]:focus {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   max-height: 185px;
-  overflow: hidden;
-  overflow-x: scroll;
   border-radius: 2px;
 }
 
@@ -576,6 +607,10 @@ div.icon img {
   z-index: 100;
 }
 
+.embed-tabs {
+    background-color: transparent !important;
+}
+
 #tabsBar div {
   justify-content: space-between;
   border-radius: 1px;
@@ -594,6 +629,7 @@ div.icon img {
 #tabsBar .circuits {
   text-align: center;
   padding: 1px;
+  border-radius: 3px;
 }
 
 .circuitName{
@@ -609,6 +645,8 @@ div.icon img {
   outline: none;
   border-radius: 1px;
   transition: all 0.1s ease-in-out;
+  border-radius: 4px;
+  margin-left: 1px;
 }
 
 #tabsBar button:focus{
@@ -637,6 +675,31 @@ div.icon img {
   display: none;
   top: 90px;
   left: 10px;
+}
+
+.timing-diagram-panel {
+  border-radius: 5px;
+  z-index: 100;
+  transition: background .5s ease-out; 
+  position: fixed;
+  cursor: pointer;
+  left: 300px;
+  top: 90px;
+}
+
+.timing-diagram-panel .panel-header {
+  border-radius: 5px;
+  border-top-right-radius: 5px;
+  padding: 3px;
+  font-weight: bold;
+  font-size: 16px;
+  text-transform: uppercase;
+  text-align: left;
+  cursor: move;
+}
+
+#plotArea {
+  padding: 3px;
 }
 
 #verilogEditorPanel {
@@ -766,13 +829,9 @@ input:checked + .slider:before {
 /** custom button styling */
 
 .custom-btn--primary {
-  font-weight: bold;
   border-radius: 1px;
 }
 
-.custom-btn--primary:hover {
-  border-radius: 1px;
-}
 
 .custom-btn--secondary {
   background-color: transparent;
@@ -1091,6 +1150,19 @@ input:checked + .slider:before {
   min-width: 85px;
 }
 
+@media(max-width: 992px) {
+  .navbar .nav.pull-right {
+    display: none;
+  }
+}
+
+@media(max-width:992px) {
+  .nav-dropdown {
+    text-align: center;
+    padding-top: 20px;
+  }
+}
+
 /*! download dialog styling end here */
 
 /** combinationalAnalysis dialog styling starts here */
@@ -1108,11 +1180,11 @@ input:checked + .slider:before {
 #combinationalAnalysis p input {
   border: 1px solid white;
   background: transparent;
-  font: inherit;
+font: inherit;
   text-align: center;
 }
 
-#combinationalAnalysis p input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+.ui-dialog input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: white;
   opacity: .7; /* Firefox */
 }
@@ -1201,7 +1273,7 @@ input:checked + .slider:before {
 
 #miniMap {
   position: fixed;
-  z-index: 100;
+  z-index: 3;
   bottom: 20px;
   right: 40px;
   overflow-y: scroll;
@@ -1264,7 +1336,6 @@ input:checked + .slider:before {
 .search-input:focus {
   outline: none !important;
 }
-
 
 .search-close {
   position: absolute;
@@ -1338,36 +1409,30 @@ input[type='range']::-webkit-slider-thumb {
   border: 0;
   border-radius: 50%;
   cursor: pointer;
-
 }
 
-.panel-header::before {
-  content: '';
-  width: 34px;
-  border-radius: 2px;
+.draggable-panel-css .minimize {
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 6px;
-}
-
-.minimize {
-  content: '';
-  width: 17px;
-  height: 9.5px;
-  position: absolute;
-  right: 6px;
-  transform: translateX(-50%);
-  top: 16px;
+  right: 15px;
   cursor: pointer;
-  border-radius: 1px;
+}
+
+.panel-button-icon {
+  cursor: pointer;
+}
+
+.panel-button {
+  padding: 2px;
+}
+
+.draggable-panel-css .maximize {
+  position: absolute;
+  right: 15px;
+  cursor: pointer;
 }
 
 .maximize {
-  position: absolute;
-  right: 15px;
   display: none;
-  cursor: pointer;
 }
 
 .ce-hidden,.prop-hidden {
@@ -1470,6 +1535,9 @@ input[type='range']::-webkit-slider-thumb {
 
 /*! Color them dialog styles ends here*/
 
+
+
+
 .code-window .CodeMirror {
   height: calc(100% - 78px);
   overflow: scroll;
@@ -1496,4 +1564,32 @@ input[type='range']::-webkit-slider-thumb {
 
 #verilogOutput {
   font-size: 12px;
+}
+
+.embed-fullscreen-btn {
+  border-radius: 3px;
+  width: auto;
+}
+
+#plot {
+  width:800px;
+}
+
+.timing-diagram-toolbar {
+  padding-left: 4px;
+  padding: 2px;
+  cursor: default;
+}
+
+.timing-diagram-toolbar input {
+  width: 80px;
+  background: transparent !important;
+}
+
+#timing-diagram-log {
+  font-size: 12.5px;
+  padding: 3px;
+  margin-left: 5px;
+  /* margin-bottom: 5px; */
+  border-radius: 3px;
 }
