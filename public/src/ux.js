@@ -508,7 +508,12 @@ window.addEventListener('DOMContentLoaded', () => {
     setupPanelListeners('#layoutDialog');
 
     // setting the name of the title bar as same as it is in the side bar
-    $('.projectName').val($('[name="setProjectName"]').val()); // setting the initial value of title heading
+    $('.project-name-label').append(`<input type="text" class="projectName" id="projectName" placeholder="Project Name" autocomplete='off' value='${getProjectName() || 'Untitled'}'>`) // adding input bar into the DOM simulator header
+
+    $('#projectName').on('input', () => { // setting project name on change
+        setProjectName($('#projectName').val());
+    })
+
     watchOneInputChangeAndUpdateAnother('[name="setProjectName"]', '.projectName'); // setting the value of header title on sidebar title change
     watchOneInputChangeAndUpdateAnother('.projectName', '[name="setProjectName"]'); // setting the value of sidebar title on header title change
 });
