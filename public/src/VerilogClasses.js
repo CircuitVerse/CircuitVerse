@@ -181,12 +181,12 @@ class verilogReduceAndGate extends verilogUnaryGate {
     constructor(deviceJSON) {
         super(deviceJSON);
         
-        bitWidthSplit = [];
+        this.bitWidthSplit = [];
         for (var i = 0; i < this.bitWidth; i++) {
-            bitWidthSplit.push(1);
+            this.bitWidthSplit.push(1);
         }
         
-        this.splitter = new Splitter(0, 0, undefined, undefined, this.bitWidth, bitWidthSplit);
+        this.splitter = new Splitter(0, 0, undefined, undefined, this.bitWidth, this.bitWidthSplit);
         this.andGate = new AndGate(0, 0, undefined, undefined, this.bitWidth, 1);
 
         for(var i = 0; i < this.bitWidth; i++) {
@@ -202,12 +202,12 @@ class verilogReduceNandGate extends verilogUnaryGate {
     constructor(deviceJSON) {
         super(deviceJSON);
         
-        bitWidthSplit = [];
+        this.bitWidthSplit = [];
         for (var i = 0; i < this.bitWidth; i++) {
-            bitWidthSplit.push(1);
+            this.bitWidthSplit.push(1);
         }
         
-        this.splitter = new Splitter(0, 0, undefined, undefined, this.bitWidth, bitWidthSplit);
+        this.splitter = new Splitter(0, 0, undefined, undefined, this.bitWidth, this.bitWidthSplit);
         this.nandGate = new NandGate(0, 0, undefined, undefined, this.bitWidth, 1);
 
         for(var i = 0; i < this.bitWidth; i++) {
@@ -223,12 +223,12 @@ class verilogReduceOrGate extends verilogUnaryGate {
     constructor(deviceJSON) {
         super(deviceJSON);
         
-        bitWidthSplit = [];
+        this.bitWidthSplit = [];
         for (var i = 0; i < this.bitWidth; i++) {
-            bitWidthSplit.push(1);
+            this.bitWidthSplit.push(1);
         }
         
-        this.splitter = new Splitter(0, 0, undefined, undefined, this.bitWidth, bitWidthSplit);
+        this.splitter = new Splitter(0, 0, undefined, undefined, this.bitWidth, this.bitWidthSplit);
         this.orGate = new OrGate(0, 0, undefined, undefined, this.bitWidth, 1);
 
         for(var i = 0; i < this.bitWidth; i++) {
@@ -244,12 +244,12 @@ class verilogReduceNorGate extends verilogUnaryGate {
     constructor(deviceJSON) {
         super(deviceJSON);
         
-        bitWidthSplit = [];
+        this.bitWidthSplit = [];
         for (var i = 0; i < this.bitWidth; i++) {
-            bitWidthSplit.push(1);
+            this.bitWidthSplit.push(1);
         }
         
-        this.splitter = new Splitter(0, 0, undefined, undefined, this.bitWidth, bitWidthSplit);
+        this.splitter = new Splitter(0, 0, undefined, undefined, this.bitWidth, this.bitWidthSplit);
         this.norGate = new NorGate(0, 0, undefined, undefined, this.bitWidth, 1);
 
         for(var i = 0; i < this.bitWidth; i++) {
@@ -265,12 +265,12 @@ class verilogReduceXorGate extends verilogUnaryGate {
     constructor(deviceJSON) {
         super(deviceJSON);
         
-        bitWidthSplit = [];
+        this.bitWidthSplit = [];
         for (var i = 0; i < this.bitWidth; i++) {
-            bitWidthSplit.push(1);
+            this.bitWidthSplit.push(1);
         }
         
-        this.splitter = new Splitter(0, 0, undefined, undefined, this.bitWidth, bitWidthSplit);
+        this.splitter = new Splitter(0, 0, undefined, undefined, this.bitWidth, this.bitWidthSplit);
         this.xorGate = new XorGate(0, 0, undefined, undefined, this.bitWidth, 1);
 
         for(var i = 0; i < this.bitWidth; i++) {
@@ -286,12 +286,12 @@ class verilogReduceXnorGate extends verilogUnaryGate {
     constructor(deviceJSON) {
         super(deviceJSON);
         
-        bitWidthSplit = [];
+        this.bitWidthSplit = [];
         for (var i = 0; i < this.bitWidth; i++) {
-            bitWidthSplit.push(1);
+            this.bitWidthSplit.push(1);
         }
         
-        this.splitter = new Splitter(0, 0, undefined, undefined, this.bitWidth, bitWidthSplit);
+        this.splitter = new Splitter(0, 0, undefined, undefined, this.bitWidth, this.bitWidthSplit);
         this.xnorGate = new XnorGate(0, 0, undefined, undefined, this.bitWidth, 1);
 
         for(var i = 0; i < this.bitWidth; i++) {
