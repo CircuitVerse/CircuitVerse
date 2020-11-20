@@ -174,7 +174,7 @@ input[type="text"]:focus {
 .projectName {
   position: relative;
   left: .5rem;
-  font-size: 1.4em;
+  font-size: 1em;
   text-align: center;
   display: inline-block;
   width: 35vw;
