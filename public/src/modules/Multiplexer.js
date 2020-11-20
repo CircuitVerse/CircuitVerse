@@ -269,7 +269,6 @@ export default class Multiplexer extends CircuitElement {
 
     //this code to generate Verilog
     generateVerilog() {
-        console.log(Multiplexer.selSizes);
         Multiplexer.selSizes.add(this.controlSignalSize);
         return CircuitElement.prototype.generateVerilog.call(this);
     }

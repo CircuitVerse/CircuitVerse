@@ -36,27 +36,27 @@ export function stopWireSet(param) {
 
 
 export default function startListeners() {
-    $('#deleteSelected').click(() => {
+    $('#deleteSelected').on('click',() => {
         deleteSelected();
     });
 
-    $('#zoomIn').click(() => {
+    $('#zoomIn').on('click',() => {
         changeScale(0.2, 'zoomButton', 'zoomButton', 2);
     });
 
-    $('#zoomOut').click(() => {
+    $('#zoomOut').on('click',() => {
         changeScale(-0.2, 'zoomButton', 'zoomButton', 2);
     });
 
-    $('#undoButton').click(() => {
+    $('#undoButton').on('click',() => {
         undo();
     });
 
-    $('#viewButton').click(() => {
+    $('#viewButton').on('click',() => {
         fullView();
     });
 
-    $('#projectName').click(() => {
+    $('#projectName').on('click',() => {
         simulationArea.lastSelected = globalScope.root;
         setTimeout(() => {
             document.getElementById("projname").select();

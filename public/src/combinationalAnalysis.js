@@ -159,7 +159,7 @@ function createBooleanPrompt(inputListNames, outputListNames, scope = globalScop
         ],
     });
 
-    $('.output').click(function () {
+    $('.output').on('click',function () {
         var v = $(this).html();
         if (v == 0)v = $(this).html(1);
         else if (v == 1)v = $(this).html('x');

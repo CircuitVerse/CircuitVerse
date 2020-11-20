@@ -83,7 +83,6 @@ export var verilog = {
         for (var elem in modules) {
             // Not sure if globalScope here is correct.
             if (modules[elem].resetVerilog) {
-                console.log(elem);
                 modules[elem].resetVerilog();
             }
         }

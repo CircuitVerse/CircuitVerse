@@ -685,8 +685,8 @@ div.icon img {
   transition: background .5s ease-out; 
   position: fixed;
   cursor: pointer;
-  left: 2vw;
-  top: calc(100% - 200px);
+  left: 300px;
+  top: 90px;
 }
 
 .timing-diagram-panel .panel-header {

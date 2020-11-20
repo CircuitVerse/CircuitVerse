@@ -16,7 +16,7 @@ export function keyBinder() {
     $("#customShortcutDialog").append(editPanel);
     $("#customShortcutDialog").append(heading);
     $("#customShortcutDialog").append(markUp);
-    $("#customShortcut").click(() => {
+    $("#customShortcut").on('click',() => {
         closeEdit();
         $("#customShortcutDialog").dialog({
             resizable: false,
@@ -48,7 +48,7 @@ export function keyBinder() {
 
     //** targetPref is assigned to the target key option to be edited */
     let targetPref = null;
-    $("#preference").click((e) => {
+    $("#preference").on('click',(e) => {
         $("#pressedKeys").text("");
         $("#warning").text("");
         $("#edit").css("border", "none");

@@ -403,40 +403,46 @@ export function toggleLayoutMode() {
 }
 
 export function setupLayoutModePanelListeners() {
-    $('#decreaseLayoutWidth').click(() => {
+    $('#decreaseLayoutWidth').on('click',() => {
         decreaseLayoutWidth();
     });
-    $('#increaseLayoutWidth').click(() => {
+    $('#increaseLayoutWidth').on('click',() => {
         increaseLayoutWidth();
     });
-    $('#decreaseLayoutHeight').click(() => {
+    $('#decreaseLayoutHeight').on('click',() => {
         decreaseLayoutHeight();
     });
-    $('#increaseLayoutHeight').click(() => {
+    $('#increaseLayoutHeight').on('click',() => {
         increaseLayoutHeight();
     });
-    $('#layoutResetNodes').click(() => {
+    $('#layoutResetNodes').on('click',() => {
         layoutResetNodes();
     });
-    $('#layoutTitleUp').click(() => {
+    $('#layoutTitleUp').on('click',() => {
         layoutTitleUp();
     });
-    $('#layoutTitleDown').click(() => {
+    $('#layoutTitleDown').on('click',() => {
         layoutTitleDown();
     });
-    $('#layoutTitleLeft').click(() => {
+    $('#layoutTitleLeft').on('click',() => {
         layoutTitleLeft();
     });
-    $('#layoutTitleRight').click(() => {
+    $('#layoutTitleRight').on('click',() => {
         layoutTitleRight();
     });
-    $('#toggleLayoutTitle').click(() => {
+    $('#toggleLayoutTitle').on('click',() => {
         toggleLayoutTitle();
     });
-    $('#saveLayout').click(() => {
+    $('#saveLayout').on('click',() => {
         saveLayout();
     });
-    $('#cancelLayout').click(() => {
+    $('#cancelLayout').on('click',() => {
         cancelLayout();
+    });
+    $('#layoutDialog button').on('click', () => {
+        scheduleUpdate();
+    });
+    $('#layoutDialog input').on('click', () => {
+        scheduleUpdate();
     });
 }

@@ -138,8 +138,7 @@ export function setupUI() {
 
     $('.logixModules').mousedown(createElement);
 
-    $('.logixButton').click(function () {
-        console.log(this.id);
+    $('.logixButton').on('click',function () {
         logixFunction[this.id]();
     });
     // var dummyCounter=0;
@@ -157,7 +156,7 @@ export function setupUI() {
         $('#Help').removeClass('show');
     }); // code goes in document ready fn only
 
-    $('#report').click(function(){
+    $('#report').on('click',function(){
          var message=$('#issuetext').val();
          var email=$('#emailtext').val();
          message += "\nEmail:"+ email
@@ -181,14 +180,14 @@ export function setupUI() {
          $('#report-label').show();
          $('#email-label').show();
      })
-     $('#reportIssue').click(function(){
+     $('#reportIssue').on('click',function(){
        listenToSimulator=false
      })
 
-    // $('#saveAsImg').click(function(){
+    // $('#saveAsImg').on('click',function(){
     //     saveAsImg();
     // });
-    // $('#Save').click(function(){
+    // $('#Save').on('click',function(){
     //     Save();
     // });
     // $('#moduleProperty').draggable();
@@ -327,7 +326,7 @@ export function showProperties(obj) {
     var helplink = obj && (obj.helplink);
     if (helplink) {
         $('#moduleProperty-inner').append('<p class="btn-parent"><button id="HelpButton" class="btn btn-primary btn-xs" type="button" >&#9432 Help</button></p>');
-        $('#HelpButton').click(() => {
+        $('#HelpButton').on('click',() => {
             window.open(helplink);
         });
     }
@@ -443,7 +442,7 @@ export function deleteSelected() {
  * listener for opening the prompt for bin conversion
  * @category ux
  */
-$('#bitconverter').click(() => {
+$('#bitconverter').on('click',() => {
     $('#bitconverterprompt').dialog({
     resizable:false,
         buttons: [
@@ -508,7 +507,7 @@ export function setupPanels() {
     setupPanelListeners('.timing-diagram-panel');
 
     // Minimize Timing Diagram (takes too much space)
-    $('.timing-diagram-panel .minimize').click();
+    $('.timing-diagram-panel .minimize').trigger('click');
     
     $('#projectName').on('click', () => {
         $("input[name='setProjectName']").focus().select();
@@ -529,17 +528,23 @@ function setupPanelListeners(panelSelector) {
         $(`.draggable-panel:not(${panelSelector})`).css('z-index', '99');
         $(panelSelector).css('z-index', '100');
     })
+    var minimized = false;
+    $(headerSelector).on('dblclick', ()=> minimized ? 
+                                        $(maximizeSelector).trigger('click') : 
+                                        $(minimizeSelector).trigger('click'));
     // Minimize
     $(minimizeSelector).on('click', () => {
         $(bodySelector).hide();
         $(minimizeSelector).hide();
         $(maximizeSelector).show();
+        minimized = true;
     });
     // Maximize
     $(maximizeSelector).on('click', () => {
         $(bodySelector).show();
         $(minimizeSelector).show();
         $(maximizeSelector).hide();
+        minimized = false;
     });
 }
 
