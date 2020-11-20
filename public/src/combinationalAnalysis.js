@@ -324,6 +324,16 @@ function drawCombinationalAnalysis(combinationalData, inputList, outputListNames
     }
 }
 
+/**
+ * This function solves booleanExpression and
+ * generates truth table for corresponding expression.
+ * This function generates proper datapipeline connecting to
+ * DrawcombinationalAnalysis to generate circuit.
+ * @param {Array} inputListNames - labels of input nodes
+ * @param {String} booleanExpression - BooleanExpression which is to be solved
+ * @param {Scope=} scope - h circuit
+ */
+
 function booleanFunction(inputListNames, booleanExpression, scope = globalScope){
     let i, j;
     let output = [];
@@ -355,7 +365,7 @@ function booleanFunction(inputListNames, booleanExpression, scope = globalScope)
             matrix[i][j] = (+((j & (1 << (inputListNames.length - i - 1))) != 0));
         }
     }
-
+    //generate equivalent expression by replacing input vars with possible combinations of o and 1
     for (i = 0; i < Math.pow(2, inputListNames.length); i++) {
         let data = [];
         for (j = 0; j < inputListNames.length; j++) {
