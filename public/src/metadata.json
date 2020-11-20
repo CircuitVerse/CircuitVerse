@@ -21,8 +21,14 @@
         "ControlledInverter",
         "TriState",
         "Adder",
+        "verilogMultiplier",
+        "verilogDivider",
+        "verilogPower",
+        "verilogShiftLeft",
+        "verilogShiftRight",
         "Rom",
         "RAM",
+        "verilogRAM",
         "EEPROM",
         "TflipFlop",
         "JKflipFlop",
@@ -58,7 +64,8 @@
     "annotationList": [
         "Text",
         "Rectangle",
-        "Arrow"
+        "Arrow",
+        "ImageAnnotation"
     ],
     "inputList": [
         "Random",
@@ -144,6 +151,7 @@
             "Clock",
             "Rom",
             "RAM",
+            "verilogRAM",
             "EEPROM"
         ],
         "Test Bench": [
@@ -155,12 +163,18 @@
             "Flag",
             "Splitter",
             "Adder",
+            "verilogMultiplier",
+            "verilogDivider",
+            "verilogPower",
+            "verilogShiftLeft",
+            "verilogShiftRight",
             "TriState",
             "Buffer",
             "ControlledInverter",
             "ALU",
             "Rectangle",
             "Arrow",
+            "ImageAnnotation",
             "Text",
             "Tunnel"
         ]

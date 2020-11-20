@@ -5,12 +5,14 @@ import {
 } from './canvasApi';
 import LayoutBuffer from './layout/layoutBuffer';
 import simulationArea from './simulationArea';
-import { hideProperties } from './ux';
+import { hideProperties, fillSubcircuitElements, prevPropertyObjGet, prevPropertyObjSet, showProperties } from './ux';
 import {
-    update, scheduleUpdate, willBeUpdatedSet, gridUpdateSet,
+    update, scheduleUpdate, willBeUpdatedSet, gridUpdateSet, gridUpdateGet
 } from './engine';
 import miniMapArea from './minimap';
 import { showMessage } from './utils';
+import * as metadata from './metadata.json';
+import { verilogModeGet, verilogModeSet } from './Verilog2CV';
 
 /**
  * Layout.js - all subcircuit layout related code is here
@@ -79,14 +81,12 @@ export function paneLayout(scope = globalScope) {
 
 
 /**
- * Function to render layout on screen
+ * Function to render layout on screen in layoutMode
  * @param {Scope=} scope
  * @category layoutMode
  */
 export function renderLayout(scope = globalScope) {
     if (!layoutModeGet()) return;
-    var { xx } = tempBuffer;
-    var { yy } = tempBuffer;
     var ctx = simulationArea.context;
     simulationArea.clear();
     ctx.strokeStyle = 'black';
@@ -94,14 +94,14 @@ export function renderLayout(scope = globalScope) {
     ctx.lineWidth = correctWidth(3);
     // Draw base rectangle
     ctx.beginPath();
-    rect2(ctx, 0, 0, tempBuffer.layout.width, tempBuffer.layout.height, xx, yy, 'RIGHT');
+    rect2(ctx, 0, 0, tempBuffer.layout.width, tempBuffer.layout.height, 0, 0, "RIGHT");
     ctx.fill();
     ctx.stroke();
     ctx.beginPath();
     ctx.textAlign = 'center';
     ctx.fillStyle = 'black';
     if (tempBuffer.layout.titleEnabled) {
-        fillText(ctx, scope.name, tempBuffer.layout.title_x + xx, yy + tempBuffer.layout.title_y, 11);
+        fillText(ctx, scope.name, tempBuffer.layout.title_x, tempBuffer.layout.title_y, 11);
     }
 
     // Draw labels
@@ -110,13 +110,13 @@ export function renderLayout(scope = globalScope) {
         if (!tempBuffer.Input[i].label) continue;
         info = determineLabel(tempBuffer.Input[i].x, tempBuffer.Input[i].y, scope);
         [ctx.textAlign] = info;
-        fillText(ctx, tempBuffer.Input[i].label, tempBuffer.Input[i].x + info[1] + xx, yy + tempBuffer.Input[i].y + info[2], 12);
+        fillText(ctx, tempBuffer.Input[i].label, tempBuffer.Input[i].x + info[1], tempBuffer.Input[i].y + info[2], 12);
     }
     for (let i = 0; i < tempBuffer.Output.length; i++) {
         if (!tempBuffer.Output[i].label) continue;
         info = determineLabel(tempBuffer.Output[i].x, tempBuffer.Output[i].y, scope);
         [ctx.textAlign] = info;
-        fillText(ctx, tempBuffer.Output[i].label, tempBuffer.Output[i].x + info[1] + xx, yy + tempBuffer.Output[i].y + info[2], 12);
+        fillText(ctx, tempBuffer.Output[i].label, tempBuffer.Output[i].x + info[1], tempBuffer.Output[i].y + info[2], 12);
     }
     ctx.fill();
 
@@ -128,8 +128,37 @@ export function renderLayout(scope = globalScope) {
         tempBuffer.Output[i].draw();
     }
 
-    if (gridUpdateSet(false)) {
+    if (gridUpdateGet()) {
         dots();
+    }
+
+     // Update UI position
+    for(let i = 0; i < tempBuffer.subElements.length; i++){
+        tempBuffer.subElements[i].update();
+
+        // element nodes
+        for(let j = 0; j < tempBuffer.subElements[i].nodeList.length; j++)
+            tempBuffer.subElements[i].nodeList[j].update();
+    }
+
+    // Show properties of selected element
+    if (!embed && prevPropertyObjGet() != simulationArea.lastSelected) {
+        if (simulationArea.lastSelected) {
+            showProperties(simulationArea.lastSelected);
+        }
+    }
+    // Render objects
+    for(let i = 0; i < circuitElementList.length; i++){
+        if(globalScope[circuitElementList[i]].length === 0) continue;
+        if (!globalScope[circuitElementList[i]][0].canShowInSubcircuit) continue;
+
+        let elementName = circuitElementList[i];
+
+        for(let j = 0; j < globalScope[elementName].length; j++){
+            if (globalScope[elementName][j].subcircuitMetadata.showInSubcircuit) {
+                globalScope[elementName][j].drawLayoutMode();
+            }
+        }
     }
 }
 
@@ -146,6 +175,18 @@ export function layoutUpdate(scope = globalScope) {
     }
     for (let i = 0; i < tempBuffer.Output.length; i++) {
         tempBuffer.Output[i].update();
+    }
+
+    for(let i = 0; i < circuitElementList.length; i++){
+        if(globalScope[circuitElementList[i]].length === 0) continue;
+        if(!globalScope[circuitElementList[i]][0].canShowInSubcircuit) continue;
+        let elementName = circuitElementList[i];
+
+        for(let j = 0; j < globalScope[elementName].length; j++){
+            if (globalScope[elementName][j].subcircuitMetadata.showInSubcircuit) {
+                globalScope[elementName][j].layoutUpdate();
+            }
+        }
     }
     paneLayout(scope);
     renderLayout(scope);
@@ -330,14 +371,26 @@ function saveLayout() {
  * @category layoutMode
  */
 export function toggleLayoutMode() {
+    hideProperties();
     if (layoutModeGet()) {
-        (layoutModeSet(false));
+        layoutModeSet(false);
         $('#layoutDialog').fadeOut();
+        $('.layoutElementPanel').fadeOut();
+        $('.elementPanel').fadeIn();
+        $('.timing-diagram-panel').fadeIn();
         globalScope.centerFocus(false);
+        if(globalScope.verilogMetadata.isVerilogCircuit)
+            verilogModeSet(true);
         dots();
     } else {
-        (layoutModeSet(true));
+        layoutModeSet(true);
+        verilogModeSet(false);
         $('#layoutDialog').fadeIn();
+        $('.layoutElementPanel').fadeIn();
+        $('.elementPanel').fadeOut();
+        $('.timing-diagram-panel').fadeOut();
+        fillSubcircuitElements();
+        
         globalScope.ox = 0;
         globalScope.oy = 0;
         globalScope.scale = DPR * 1.3;
@@ -345,44 +398,51 @@ export function toggleLayoutMode() {
         tempBuffer = new LayoutBuffer();
         $('#toggleLayoutTitle')[0].checked = tempBuffer.layout.titleEnabled;
     }
-    hideProperties();
     update(globalScope, true);
     scheduleUpdate();
-    // console.log(document.querySelector('#layoutDialog'))
-    $('#decreaseLayoutWidth').click(() => {
+}
+
+export function setupLayoutModePanelListeners() {
+    $('#decreaseLayoutWidth').on('click',() => {
         decreaseLayoutWidth();
     });
-    $('#increaseLayoutWidth').click(() => {
+    $('#increaseLayoutWidth').on('click',() => {
         increaseLayoutWidth();
     });
-    $('#decreaseLayoutHeight').click(() => {
+    $('#decreaseLayoutHeight').on('click',() => {
         decreaseLayoutHeight();
     });
-    $('#increaseLayoutHeight').click(() => {
+    $('#increaseLayoutHeight').on('click',() => {
         increaseLayoutHeight();
     });
-    $('#layoutResetNodes').click(() => {
+    $('#layoutResetNodes').on('click',() => {
         layoutResetNodes();
     });
-    $('#layoutTitleUp').click(() => {
+    $('#layoutTitleUp').on('click',() => {
         layoutTitleUp();
     });
-    $('#layoutTitleDown').click(() => {
+    $('#layoutTitleDown').on('click',() => {
         layoutTitleDown();
     });
-    $('#layoutTitleLeft').click(() => {
+    $('#layoutTitleLeft').on('click',() => {
         layoutTitleLeft();
     });
-    $('#layoutTitleRight').click(() => {
+    $('#layoutTitleRight').on('click',() => {
         layoutTitleRight();
     });
-    $('#toggleLayoutTitle').click(() => {
+    $('#toggleLayoutTitle').on('click',() => {
         toggleLayoutTitle();
     });
-    $('#saveLayout').click(() => {
+    $('#saveLayout').on('click',() => {
         saveLayout();
     });
-    $('#cancelLayout').click(() => {
+    $('#cancelLayout').on('click',() => {
         cancelLayout();
+    });
+    $('#layoutDialog button').on('click', () => {
+        scheduleUpdate();
+    });
+    $('#layoutDialog input').on('click', () => {
+        scheduleUpdate();
     });
 }

@@ -3,9 +3,8 @@
 /* eslint-disable no-continue */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-bitwise */
-import { layoutModeGet } from './layoutMode';
+import { layoutModeGet, layoutUpdate } from './layoutMode';
 import plotArea from './plotArea';
-import { layoutUpdate } from './layoutMode';
 import simulationArea from './simulationArea';
 import {
     dots, canvasMessage, findDimensions, rect2,
@@ -15,6 +14,7 @@ import { showError } from './utils';
 import miniMapArea from './minimap';
 import { createNodeGet } from './listeners';
 import { resetup } from './setup';
+import { verilogModeGet } from './Verilog2CV';
 
 /**
  * Core of the simulation and rendering algorithm.
@@ -131,6 +131,15 @@ var gridUpdate = true;
 export function gridUpdateSet(param) {
     gridUpdate = param;
 }
+
+/**
+ * used to get gridUpdate
+ * @return {boolean}
+ * @category engine
+ */
+export function gridUpdateGet() {
+    return gridUpdate;
+}
 /**
  *  Flag for updating grid
  * @type {boolean}
@@ -198,7 +207,6 @@ var updateSubcircuit = true;
  * @category engine
  */
 export function updateSubcircuitSet(param) {
-    // console.log(updateSubcircuit,param);
     if (updateSubcircuit != param) {
         updateSubcircuit = param;
         return true;
@@ -232,7 +240,7 @@ export function changeLightMode(val) {
  * @category engine
  */
 export function renderCanvas(scope) {
-    if (layoutModeGet()) { // Different Algorithm
+    if (layoutModeGet() || verilogModeGet()) { // Different Algorithm
         return;
     }
     var ctx = simulationArea.context;
@@ -369,21 +377,16 @@ export function updateSelectionsAndPane(scope = globalScope) {
 export function play(scope = globalScope, resetNodes = false) {
     if (errorDetected) return; // Don't simulate until error is fixed
     if (loading === true) return; // Don't simulate until loaded
-    if (!embed) plotArea.stopWatch.Stop(); // Waveform thing
+
+    simulationArea.simulationQueue.reset();
+    plotArea.setExecutionTime(); // Waveform thing
     // Reset Nodes if required
     if (resetNodes || forceResetNodes) {
         scope.reset();
         simulationArea.simulationQueue.reset();
         forceResetNodesSet(false);
     }
-    // Temporarily kept for for future uses
-    // else{
-    //     // clearBuses(scope);
-    //     for(var i=0;i<scope.TriState.length;i++) {
-    //         // console.log("HIT2",i);
-    //         scope.TriState[i].removePropagation();
-    //     }
-    // }
+
     // Add subcircuits if they can be resolved -- needs to be removed/ deprecated
     for (let i = 0; i < scope.SubCircuit.length; i++) {
         if (scope.SubCircuit[i].isResolvable()) simulationArea.simulationQueue.add(scope.SubCircuit[i]);
@@ -412,7 +415,6 @@ export function play(scope = globalScope, resetNodes = false) {
     }
     // Check for TriState Contentions
     if (simulationArea.contentionPending.length) {
-        console.log(simulationArea.contentionPending);
         showError('Contention at TriState');
         forceResetNodesSet(true);
         errorDetectedSet(true);
@@ -430,23 +432,20 @@ export function play(scope = globalScope, resetNodes = false) {
  */
 export function scheduleUpdate(count = 0, time = 100, fn) {
     if (lightMode) time *= 5;
-    if (count && !layoutModeGet()) { // Force update
-        update();
-        for (let i = 0; i < count; i++) { setTimeout(update, 10 + 50 * i); }
+    var updateFn = layoutModeGet() ? layoutUpdate : update;
+    if (count) { // Force update
+        updateFn();
+        for (let i = 0; i < count; i++) { setTimeout(updateFn, 10 + 50 * i); }
     }
     if (willBeUpdated) return; // Throttling
     willBeUpdatedSet(true);
-    if (layoutModeGet()) {
-        setTimeout(layoutUpdate, time); // Update layout, different algorithm
-        return;
-    }
     // Call a function before update ..
     if (fn) {
         setTimeout(() => {
             fn();
-            update();
+            updateFn();
         }, time);
-    } else setTimeout(update, time);
+    } else setTimeout(updateFn, time);
 }
 
 /**

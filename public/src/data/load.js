@@ -13,6 +13,7 @@ import { constructNodeConnections, loadNode, replace } from '../node';
 import { generateId } from '../utils';
 import modules from '../modules';
 import { oppositeDirection } from '../canvasApi';
+import plotArea from '../plotArea';
 
 /**
  * Backward compatibility - needs to be deprecated
@@ -64,6 +65,8 @@ function loadModule(data, scope) {
             }
         }
     }
+    if(data.subcircuitMetadata)
+        obj.subcircuitMetadata = data["subcircuitMetadata"];
 }
 
 /**
@@ -116,6 +119,12 @@ export function loadScope(scope, data) {
         x.updateData(scope);
     });
     removeBugNodes(scope); // To be deprecated
+
+    // If Verilog Circuit Metadata exists, then restore
+    if (data.verilogMetadata) {
+        scope.verilogMetadata = data.verilogMetadata;
+    }
+
     // If layout exists, then restore
     if (data.layout) {
         scope.layout = data.layout;
@@ -169,8 +178,15 @@ export default function load(data) {
 
     // Load all  according to the dependency order
     for (let i = 0; i < data.scopes.length; i++) {
+
+        var isVerilogCircuit = false;
+        var isMainCircuit = false;
+        if(data.scopes[i].verilogMetadata) {
+            isVerilogCircuit = data.scopes[i].verilogMetadata.isVerilogCircuit;
+            isMainCircuit = data.scopes[i].verilogMetadata.isMainCircuit;
+        }
         // Create new circuit
-        const scope = newCircuit(data.scopes[i].name || 'Untitled', data.scopes[i].id);
+        const scope = newCircuit(data.scopes[i].name || 'Untitled', data.scopes[i].id, isVerilogCircuit, isMainCircuit);
 
         // Load circuit data
         loadScope(scope, data.scopes[i]);
@@ -198,11 +214,14 @@ export default function load(data) {
     if (!embed) { showProperties(simulationArea.lastSelected); }
 
     // Switch to last focussedCircuit
-    if (data.focussedCircuit) switchCircuit(data.focussedCircuit);
-
+    if (data.focussedCircuit) 
+        switchCircuit(data.focussedCircuit);
 
     updateSimulationSet(true);
     updateCanvasSet(true);
     gridUpdateSet(true);
-    scheduleUpdate();
+    // Reset Timing
+    if(!embed)
+        plotArea.reset();
+    scheduleUpdate(1);
 }

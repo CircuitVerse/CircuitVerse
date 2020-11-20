@@ -23,7 +23,13 @@ export function paste(copyData) {
     var currentScopeId = globalScope.id;
     for (let i = 0; i < data.scopes.length; i++) {
         if (scopeList[data.scopes[i].id] === undefined) {
-            var scope = newCircuit(data.scopes[i].name, data.scopes[i].id);
+            var isVerilogCircuit = false;
+            var isMainCircuit = false;
+            if(data.scopes[i].verilogMetadata) {
+                isVerilogCircuit = data.scopes[i].verilogMetadata.isVerilogCircuit;
+                isMainCircuit = data.scopes[i].verilogMetadata.isMainCircuit;
+            }
+            var scope = newCircuit(data.scopes[i].name, data.scopes[i].id, isVerilogCircuit, isMainCircuit);
             loadScope(scope, data.scopes[i]);
             scopeList[data.scopes[i].id] = scope;
         }
@@ -221,7 +227,6 @@ export function copy(copyList, cutflag = false) {
             const obj = globalScope[updateOrder[i]][j];
             if (obj.objectType != 'Wire') { // }&&obj.objectType!='CircuitElement'){//}&&(obj.objectType!='Node'||obj.type==2)){
                 if (!copyList.contains(globalScope[updateOrder[i]][j])) {
-                    // //console.log("DELETE:", globalScope[updateOrder[i]][j]);
                     globalScope[updateOrder[i]][j].cleanDelete();
                 }
             }
@@ -281,7 +286,7 @@ export function copy(copyList, cutflag = false) {
  * @category events
  */
 export function selectAll(scope = globalScope) {
-    circuitElementList.forEach((val, _, __) => {
+    moduleList.forEach((val, _, __) => {
         if (scope.hasOwnProperty(val)) {
             simulationArea.multipleObjectSelections.push(...scope[val]);
         }

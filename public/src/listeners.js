@@ -1,5 +1,5 @@
 // Most Listeners are stored here
-import { layoutModeGet } from './layoutMode';
+import { layoutModeGet, tempBuffer, layoutUpdate, setupLayoutModePanelListeners} from './layoutMode';
 import simulationArea from './simulationArea';
 import {
     scheduleUpdate, update, updateSelectionsAndPane,
@@ -16,8 +16,9 @@ import { removeMiniMap, updatelastMinimapShown } from './minimap';
 import undo from './data/undo';
 import { copy, paste, selectAll } from './events';
 import save from './data/save';
-import { layoutUpdate } from './layoutMode';
-import { selectElement } from './ux';
+import { createElement } from './ux';
+import { verilogModeGet } from './Verilog2CV';
+import { setupTimingListeners } from './plotArea';
 
 var unit = 10;
 var createNode = false; // Flag to create node when its value ==tru)e
@@ -35,45 +36,31 @@ export function stopWireSet(param) {
 
 
 export default function startListeners() {
-    $('#deleteSelected').click(() => {
+    $('#deleteSelected').on('click',() => {
         deleteSelected();
     });
 
-    $('#zoomIn').click(() => {
+    $('#zoomIn').on('click',() => {
         changeScale(0.2, 'zoomButton', 'zoomButton', 2);
     });
 
-    $('#zoomOut').click(() => {
+    $('#zoomOut').on('click',() => {
         changeScale(-0.2, 'zoomButton', 'zoomButton', 2);
     });
 
-    $('#undoButton').click(() => {
+    $('#undoButton').on('click',() => {
         undo();
     });
 
-    $('#viewButton').click(() => {
+    $('#viewButton').on('click',() => {
         fullView();
     });
 
-    $('#projectName').click(() => {
-        console.log('here');
+    $('#projectName').on('click',() => {
         simulationArea.lastSelected = globalScope.root;
         setTimeout(() => {
             document.getElementById("projname").select();
         }, 100);
-    });
-
-
-    // $('#exitViewBtn').click(() => showAll());
-    window.addEventListener('keyup', (e) => {
-        scheduleUpdate(1);
-        simulationArea.shiftDown = e.shiftKey;
-        if (e.keyCode == 16) {
-            simulationArea.shiftDown = false;
-        }
-        if (e.key == 'Meta' || e.key == 'Control') {
-            simulationArea.controlDown = false;
-        }
     });
 
     document.getElementById('simulationArea').addEventListener('mousedown', (e) => {
@@ -128,11 +115,34 @@ export default function startListeners() {
             ) { simulationArea.multipleObjectSelections = []; }
         }
     });
-    window.addEventListener('mousemove', onMouseMove);
+    document.getElementById('simulationArea').addEventListener('mousemove', onMouseMove);
 
+    window.addEventListener('keyup', e => {
+        scheduleUpdate(1);
+        simulationArea.shiftDown = e.shiftKey;
+        if (e.keyCode == 16) {
+            simulationArea.shiftDown = false;
+        }
+        if (e.key == 'Meta' || e.key == 'Control') {
+            simulationArea.controlDown = false;
+        }
+    })
 
     window.addEventListener('keydown', (e) => {
         if (document.activeElement.tagName == 'INPUT') return;
+        if (document.activeElement != document.body) return;
+
+        simulationArea.shiftDown = e.shiftKey;
+        if (e.key == 'Meta' || e.key == 'Control') {
+            simulationArea.controlDown = true;
+        }
+
+        if (e.keyCode == 8 || e.key == 'Delete') {
+            deleteSelected();
+        }
+        if (simulationArea.controlDown && e.key.charCodeAt(0) == 122) { // detect the special CTRL-Z code
+            undo();
+        }
 
         if (listenToSimulator) {
         // If mouse is focusing on input element, then override any action
@@ -220,14 +230,6 @@ export default function startListeners() {
                 }
             }
 
-            if (e.keyCode == 8 || e.key == 'Delete') {
-                deleteSelected();
-            }
-
-            if (simulationArea.controlDown && e.key.charCodeAt(0) == 122) { // detect the special CTRL-Z code
-                undo();
-            }
-
             // Detect online save shortcut (CTRL+S)
             if (simulationArea.controlDown && e.keyCode == 83 && !simulationArea.shiftDown) {
                 save();
@@ -275,7 +277,7 @@ export default function startListeners() {
         }
     });
 
-    window.addEventListener('mouseup', onMouseUp);
+    document.getElementById('simulationArea').addEventListener('mouseup', onMouseUp);
 
     document.getElementById('simulationArea').addEventListener('mousewheel', MouseScroll);
     document.getElementById('simulationArea').addEventListener('DOMMouseScroll', MouseScroll);
@@ -296,7 +298,9 @@ export default function startListeners() {
     }
 
     document.addEventListener('cut', (e) => {
+        if (verilogModeGet()) return;
         if (document.activeElement.tagName == 'INPUT') return;
+        if (document.activeElement.tagName != 'BODY') return;
 
         if (listenToSimulator) {
             simulationArea.copyList = simulationArea.multipleObjectSelections.slice();
@@ -322,7 +326,9 @@ export default function startListeners() {
     });
 
     document.addEventListener('copy', (e) => {
+        if (verilogModeGet()) return;
         if (document.activeElement.tagName == 'INPUT') return;
+        if (document.activeElement.tagName != 'BODY') return;
 
         if (listenToSimulator) {
             simulationArea.copyList = simulationArea.multipleObjectSelections.slice();
@@ -348,6 +354,7 @@ export default function startListeners() {
 
     document.addEventListener('paste', (e) => {
         if (document.activeElement.tagName == 'INPUT') return;
+        if (document.activeElement.tagName != 'BODY') return;
 
         if (listenToSimulator) {
             var data;
@@ -366,6 +373,28 @@ export default function startListeners() {
         }
     });
 
+    // 'drag and drop' event listener for subcircuit elements in layout mode 
+    $('#subcircuitMenu').on('dragstop', '.draggableSubcircuitElement', function(event, ui){
+        const sideBarWidth = $('#guide_1')[0].clientWidth;
+        let tempElement;
+
+        if( ui.position.top > 10 && ui.position.left > sideBarWidth){
+            // make a shallow copy of the element with the new coordinates
+            tempElement = globalScope[this.dataset.elementName][this.dataset.elementId];
+            
+            // Changing the coordinate doesn't work yet, nodes get far from element
+            tempElement.x = ui.position.left - sideBarWidth;
+            tempElement.y = ui.position.top;
+            for(let node of tempElement.nodeList){
+                node.x = ui.position.left - sideBarWidth;
+                node.y = ui.position.top
+            } 
+
+            tempBuffer.subElements.push(tempElement);
+            this.parentElement.removeChild(this);
+        }
+    });
+
     restrictedElements.forEach((element) => {
         $(`#${element}`).mouseover(() => {
             showRestricted();
@@ -376,45 +405,50 @@ export default function startListeners() {
         });
     });
 
-    const circuitElementList = [
-        "Input", "Output", "NotGate", "OrGate", "AndGate", "NorGate", "NandGate", "XorGate", "XnorGate", "SevenSegDisplay", "SixteenSegDisplay", "HexDisplay",
-        "Multiplexer", "BitSelector", "Splitter", "Power", "Ground", "ConstantVal", "ControlledInverter", "TriState", "Adder", "Rom", "RAM", "EEPROM", "TflipFlop",
-        "JKflipFlop", "SRflipFlop", "DflipFlop", "TTY", "Keyboard", "Clock", "DigitalLed", "Stepper", "VariableLed", "RGBLed", "SquareRGBLed", "RGBLedMatrix", "Button", "Demultiplexer",
-        "Buffer", "SubCircuit", "Flag", "MSB", "LSB", "PriorityEncoder", "Tunnel", "ALU", "Decoder", "Random", "Counter", "Dlatch", "TB_Input", "TB_Output", "ForceGate",
-    ];
+    $(".search-input").on("keyup", function() {
+        var parentElement = $(this).parent().parent();
+        var closeButton =  $('.search-close', parentElement);
+        var searchInput =  $('.search-input', parentElement);
+        var searchResults =  $('.search-results', parentElement);
+        var menu =  $('.accordion', parentElement);
 
-    $("#element").val('');
-    $("#element").on("keyup", function() {
-        $('#filter').css('display', 'block');
-        $('.filterX').on('click', () => {
-            $('#element').val('');
-            $('#menu').css('display', 'block');
-            $('#filter').css('display', 'none');
-            $('.filteX').css('display', 'none');
-        });
+        searchResults.css('display', 'block');
+        closeButton.css('display', 'block');
+        menu.css('display', 'none');
         const value = $(this).val().toLowerCase();
+
+        closeButton.on('click', () => {
+            searchInput.val('');
+            menu.css('display', 'block');
+            searchResults.css('display', 'none');
+            closeButton.css('display', 'none');
+        });
         if (value.length === 0) {
-            $('#filter').css('display', 'none').empty();
-            $('.filterX').css('display', 'none');
-            $('#menu').css('display', 'block');
+            menu.css('display', 'block');
+            searchResults.css('display', 'none');
+            closeButton.css('display', 'none');
             return;
         }
-        $('.filterX').css('display', 'block');
-        $('#menu').css('display', 'none');
         let htmlIcons = '';
-        const result = circuitElementList.filter(ele => ele.toLowerCase().includes(value));
-        if(!result.length) $('#filter').text('No elements found ...');
+        const result = elementPanelList.filter(ele => ele.toLowerCase().includes(value));
+        if(!result.length) searchResults.text('No elements found ...');
         else {
             result.forEach( e => htmlIcons += createIcon(e));
-            $('#filter')
-              .html(htmlIcons)
-              .on('click', e => selectElement($(e.target)[0].parentElement.classList[0]));
+            searchResults
+              .html(htmlIcons);
+            $('.filterElements').mousedown(createElement);
         }
     });
     function createIcon(element) {
-        return `<div class="${element} icon" id="${element} filter" title="${element}">
+        return `<div class="${element} icon logixModules filterElements" id="${element}" title="${element}">
             <img  src= "/img/${element}.svg" >
         </div>`;
+    }
+
+    zoomSliderListeners();
+    setupLayoutModePanelListeners();
+    if (!embed) {
+        setupTimingListeners();
     }
 }
 
@@ -488,7 +522,6 @@ function onMouseUp(e) {
         uxvar.smartDropXX = simulationArea.mouseX + 100; // Math.round(((simulationArea.mouseRawX - globalScope.ox+100) / globalScope.scale) / unit) * unit;
         uxvar.smartDropYY = simulationArea.mouseY - 50; // Math.round(((simulationArea.mouseRawY - globalScope.oy+100) / globalScope.scale) / unit) * unit;
     }
-    if (simulationArea.controlDown) selectElement(simulationArea.lastSelected.title);
 }
 
 function resizeTabs() {
@@ -515,17 +548,18 @@ function handleZoom(direction) {
         changeScale(direction * 0.1 * DPR);
     }
     gridUpdateSet(true);
+    scheduleUpdate();
 }
 
-function ZoomIn() {
+export function ZoomIn() {
     handleZoom(1);
 }
 
-function ZoomOut() {
+export function ZoomOut() {
     handleZoom(-1);
 }
 
-window.addEventListener('DOMContentLoaded', (event) => {
+function zoomSliderListeners() {
     document.getElementById("customRange1").value = 5;
     document.getElementById('simulationArea').addEventListener('DOMMouseScroll',zoomSliderScroll);
     document.getElementById('simulationArea').addEventListener('mousewheel', zoomSliderScroll);
@@ -555,4 +589,4 @@ window.addEventListener('DOMContentLoaded', (event) => {
             curLevel = zoomLevel;
         }
     }
-});
+}

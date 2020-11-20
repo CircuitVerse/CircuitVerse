@@ -7,30 +7,28 @@ import LayoutNode from './layoutNode';
  */
 export default class LayoutBuffer {
     constructor(scope = globalScope) {
-        // Position of screen in layoutMode -- needs to be deprecated, reset screen position instead
-        var x = -Math.round(globalScope.ox / 10) * 10;
-        var y = -Math.round(globalScope.oy / 10) * 10;
 
-        var w = Math.round((width / globalScope.scale) * 0.01) * 20; // 20% width of screen in layoutMode
-        var h = Math.round((height / globalScope.scale) * 0.01) * 10; // 10% height of screen in layoutMode
+        var w = 300 * DPR;
+        var h = 50 * DPR;
 
-        var xx = x + w;
-        var yy = y + h;
-
-        // Position of subcircuit
-        this.xx = xx;
-        this.yy = yy;
+        globalScope.ox = w;
+        globalScope.oy = h;
 
         // Assign layout if exist or create new one
         this.layout = { ...scope.layout }; // Object.create(scope.layout);
 
         // Push Input Nodes
         this.Input = [];
-        for (let i = 0; i < scope.Input.length; i++) { this.Input.push(new LayoutNode(scope.Input[i].layoutProperties.x, scope.Input[i].layoutProperties.y, scope.Input[i].layoutProperties.id, scope.Input[i].label, xx, yy, scope.Input[i].type, scope.Input[i])); }
+        for (let i = 0; i < scope.Input.length; i++)
+            this.Input.push(new LayoutNode(scope.Input[i].layoutProperties.x, scope.Input[i].layoutProperties.y, scope.Input[i].layoutProperties.id, scope.Input[i].label, scope.Input[i].type, scope.Input[i]));
 
         // Push Output Nodes
         this.Output = [];
-        for (let i = 0; i < scope.Output.length; i++) { this.Output.push(new LayoutNode(scope.Output[i].layoutProperties.x, scope.Output[i].layoutProperties.y, scope.Output[i].layoutProperties.id, scope.Output[i].label, xx, yy, scope.Output[i].type, scope.Output[i])); }
+        for (let i = 0; i < scope.Output.length; i++)
+            this.Output.push(new LayoutNode(scope.Output[i].layoutProperties.x, scope.Output[i].layoutProperties.y, scope.Output[i].layoutProperties.id, scope.Output[i].label, scope.Output[i].type, scope.Output[i]));
+        
+        // holds subcircuit elements
+        this.subElements = []
     }
 
     /**

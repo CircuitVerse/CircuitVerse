@@ -21,8 +21,6 @@ import { colors } from '../themer/themer';
  */
 export default class ALU extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
-        // //console.log("HIT");
-        // //console.log(x,y,scope,dir,bitWidth,controlSignalSize);
         super(x, y, scope, dir, bitWidth);
         /* this is done in this.baseSetup() now
         this.scope['ALU'].push(this);

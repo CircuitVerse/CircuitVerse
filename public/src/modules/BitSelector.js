@@ -125,7 +125,7 @@ export default class BitSelector extends CircuitElement {
         ctx.stroke();
 
         ctx.beginPath();
-        ctx.font = "20px Georgia";
+        ctx.font = "20px Raleway";
         ctx.fillStyle = colors["input_text"];
         ctx.textAlign = "center";
         var bit;
@@ -137,6 +137,10 @@ export default class BitSelector extends CircuitElement {
 
         fillText(ctx, bit, xx, yy + 5);
         ctx.fill();
+    }
+
+    generateVerilog() {
+        return `assign ${this.output1.verilogLabel} = ${this.inp1.verilogLabel} >> ${this.bitSelectorInp.verilogLabel};`;
     }
 }
 

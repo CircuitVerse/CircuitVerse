@@ -7,7 +7,7 @@ var totalObjects = 0;
 function scheduleUpdate(count = 0, time = 100, fn) {
 
     if (lightMode) time *= 5;
-
+    
     if (count && !layoutMode) { // Force update
         update();
         for (var i = 0; i < count; i++)
@@ -296,7 +296,7 @@ function play(scope = globalScope, resetNodes = false) {
 
     if (loading == true) return; // Don't simulate until loaded
 
-    if (!embed) plotArea.stopWatch.Stop(); // Waveform thing
+    plotArea.stopWatch.Stop(); // Waveform thing
 
     // Reset Nodes if required
     if (resetNodes || forceResetNodes) {
@@ -348,7 +348,6 @@ function play(scope = globalScope, resetNodes = false) {
 
     // Check for TriState Contentions
     if (simulationArea.contentionPending.length) {
-        console.log(simulationArea.contentionPending)
         showError("Contention at TriState");
         forceResetNodes = true
         errorDetected = true;

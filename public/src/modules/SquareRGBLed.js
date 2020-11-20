@@ -134,6 +134,34 @@ export default class SquareRGBLed extends CircuitElement {
 
         ctx.fill();
     }
+    // Draws the element in the subcuircuit. Used in layout mode
+    subcircuitDraw(xOffset = 0, yOffset = 0) {
+        var ctx = simulationArea.context;
+        var xx = this.subcircuitMetadata.x + xOffset;
+        var yy = this.subcircuitMetadata.y + yOffset;
+        var r = this.inp1.value;
+        var g = this.inp2.value;
+        var b = this.inp3.value;
+
+        ctx.strokeStyle = "#d3d4d5";
+        ctx.fillStyle = (r === undefined && g === undefined && b === undefined) ? "rgb(227, 228, 229)" : "rgb(" + (r || 0) + ", " + (g || 0) + ", " + (b || 0) + ")";
+        ctx.lineWidth = correctWidth(1);
+        ctx.beginPath();
+        rect2(ctx, 0, 0, 15, 15, xx, yy, this.direction);
+        ctx.stroke();
+
+        if ((this.hover && !simulationArea.shiftDown) ||
+            simulationArea.lastSelected == this ||
+            simulationArea.multipleObjectSelections.contains(this)) {
+            ctx.fillStyle = "rgba(255, 255, 32)";
+        }
+
+        ctx.fill();
+    }
+
+    generateVerilog() {
+        return this.generateVerilog.call(this);
+    }
 }
 
 /**
@@ -152,3 +180,10 @@ SquareRGBLed.prototype.tooltipText = 'Square RGB Led ToolTip: RGB Led inputs 8 b
  */
 SquareRGBLed.prototype.helplink = 'https://docs.circuitverse.org/#/outputs?id=square-rgb-led';
 SquareRGBLed.prototype.objectType = 'SquareRGBLed';
+SquareRGBLed.prototype.canShowInSubcircuit = true;
+SquareRGBLed.prototype.layoutProperties = {
+    rightDimensionX : 15,
+    leftDimensionX : 0,
+    upDimensionY : 15,
+    downDimensionY: 0
+}

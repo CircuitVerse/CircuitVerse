@@ -1,7 +1,7 @@
 import CircuitElement from "../circuitElement";
 import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
-import { correctWidth, lineTo, moveTo, arc } from "../canvasApi";
+import { correctWidth, lineTo, moveTo, arc, drawCircle2 } from "../canvasApi";
 import { changeInputSize } from "../modules";
 /**
  * @class
@@ -120,6 +120,33 @@ export default class RGBLed extends CircuitElement {
             ctx.fillStyle = colors["hover_select"];
         ctx.fill();
     }
+
+    // Draws the element in the subcuircuit. Used in layout mode
+    subcircuitDraw(xOffset = 0, yOffset = 0) {
+        var ctx = simulationArea.context;
+
+        var xx = this.subcircuitMetadata.x + xOffset;
+        var yy = this.subcircuitMetadata.y + yOffset;
+        var dimensionSize = 6;
+
+        var a = this.inp1.value;
+        var b = this.inp2.value;
+        var c = this.inp3.value;
+        ctx.strokeStyle = "#090a0a";
+        ctx.fillStyle = ["rgba(" + a + ", " + b + ", " + c + ", 0.8)", "rgba(227, 228, 229, 0.8)"][((a === undefined || b === undefined || c === undefined)) + 0]
+        ctx.lineWidth = correctWidth(1);
+
+        ctx.beginPath();
+        drawCircle2(ctx, 0, 0, dimensionSize, xx, yy, this.direction);           
+        ctx.stroke();
+        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = "rgba(255, 255, 32,0.8)";
+        ctx.fill();
+    }
+    generateVerilog() {
+        return `
+      always @ (*)
+        $display("RGBLed:{${this.inp1.verilogLabel},${this.inp2.verilogLabel},${this.inp3.verilogLabel}} = {%d,%d,%d}", ${this.inp1.verilogLabel}, ${this.inp2.verilogLabel}, ${this.inp3.verilogLabel});`;
+    }
 }
 
 /**
@@ -140,3 +167,4 @@ RGBLed.prototype.tooltipText =
 RGBLed.prototype.helplink =
     "https://docs.circuitverse.org/#/outputs?id=rgb-led";
 RGBLed.prototype.objectType = "RGBLed";
+RGBLed.prototype.canShowInSubcircuit = true;

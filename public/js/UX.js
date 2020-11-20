@@ -88,7 +88,6 @@ function setupUI() {
     // });
 
     $('.logixModules').mousedown(function () {
-        //////console.log(smartDropXX,smartDropYY);
         if (simulationArea.lastSelected && simulationArea.lastSelected.newElement) simulationArea.lastSelected.delete();
         var obj = new window[this.id](); //(simulationArea.mouseX,simulationArea.mouseY);
         simulationArea.lastSelected = obj;
@@ -99,7 +98,10 @@ function setupUI() {
             smartDropXX = 50;
             smartDropYY += 80;
         }
+
     });
+
+
     $('.logixButton').click(function () {
         window[this.id]();
     });
@@ -112,7 +114,6 @@ function setupUI() {
         if (!tooltipText) return;
         $("#Help").addClass("show");
         $("#Help").empty();
-        ////console.log("SHOWING")
         $("#Help").append(tooltipText);
     }); // code goes in document ready fn only
     $('.logixModules').mouseleave(function () {
@@ -324,6 +325,7 @@ function showProperties(obj) {
       $("#HelpButton").click(function () {
         window.open(helplink);
       });
+
     }
   
     function checkValidBitWidth() {
@@ -369,7 +371,6 @@ function showProperties(obj) {
       });
     
   }
-  
 
 
 function hideProperties() {
@@ -416,6 +417,7 @@ $('#bitconverterprompt').append(`
 `);
 $('#bitconverter').click(function () {
     $('#bitconverterprompt').dialog({
+      resizable:false,
         buttons: [
             {
                 text: "Reset",

@@ -119,7 +119,7 @@ export const colorThemes = () => {
       }
     })
 
-    $('.selected label').click();
+    $('.selected label').trigger('click');
     $('#colorThemesDialog').dialog({
         resizable: false,
         close() {
@@ -139,7 +139,7 @@ export const colorThemes = () => {
     });
 
     $('#colorThemesDialog').focus();
-    $('.ui-dialog[aria-describedby="colorThemesDialog"]').click(() => $('#colorThemesDialog').focus()) //hack for losing focus
+    $('.ui-dialog[aria-describedby="colorThemesDialog"]').on('click',() => $('#colorThemesDialog').focus()) //hack for losing focus
 
     $('.themeSel').on('mousedown', (e) => {
         e.preventDefault();
@@ -148,7 +148,7 @@ export const colorThemes = () => {
         themeCard.addClass('selected');
         // Extract radio button
         var radioButton = themeCard.find('input[type=radio]');
-        radioButton.click(); // Mark as selected
+        radioButton.trigger('click'); // Mark as selected
         updateThemeForStyle(themeCard.find('label').text()); // Extract theme name and set
         updateBG();
     })

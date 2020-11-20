@@ -8,6 +8,9 @@ import backgroundArea from '../backgroundArea';
 import { findDimensions } from '../canvasApi';
 import { projectSavedSet } from './project';
 import { colors } from '../themer/themer';
+import {layoutModeGet, toggleLayoutMode} from '../layoutMode';
+import {verilogModeGet} from '../Verilog2CV';
+import domtoimage from 'dom-to-image';
 
 var projectName = undefined;
 
@@ -34,7 +37,6 @@ export function setProjectName(name) {
 export function getProjectName() {
     return projectName;
 }
-
 
 /**
  * Helper function to save canvas as image based on image type
@@ -233,18 +235,58 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
     if (!down) return returnData;
 }
 
+async function crop(dataURL, w, h) {
+  //get empty second canvas
+  var myCanvas = document.createElement("CANVAS");
+  myCanvas.width = w;
+  myCanvas.height = h;
+  var myContext = myCanvas.getContext('2d');
+  var myImage;
+  var img = new Image();
+  return new Promise (function (resolved, rejected) {
+        img.src = dataURL;
+        img.onload = () => {
+        myContext.drawImage(img, 0, 0, w, h,0,0, w ,h);
+        myContext.save();
+
+        //create a new data URL
+        myImage = myCanvas.toDataURL('image/jpeg');
+        resolved(myImage);}
+    })
+}
 
 /**
  * Function that is used to save image for display in the website
  * @return {JSON}
  * @category data
  */
-function generateImageForOnline() {
+async function generateImageForOnline() {
+    // Verilog Mode -> Different logic
+    // Fix aspect ratio to 1.6
+    // Ensure image is approximately 700 x 440
+    var ratio = 1.6
+    if(verilogModeGet()) {
+        var node = document.getElementsByClassName('CodeMirror')[0];
+        // var node = document.getElementsByClassName('CodeMirror')[0];
+        var prevHeight = $(node).css('height');
+        var prevWidth = $(node).css('width');
+        var baseWidth = 500;
+        var baseHeight = Math.round(baseWidth / ratio);
+        $(node).css('height', baseHeight);
+        $(node).css('width', baseWidth);
+        
+        var data = await domtoimage.toJpeg(node);
+        $(node).css('width', prevWidth);
+        $(node).css('height', prevHeight);
+        data = await crop(data, baseWidth, baseHeight);
+        return data;
+    }
+
     simulationArea.lastSelected = undefined; // Unselect any selections
 
     // Fix aspect ratio to 1.6
-    if (width > height * 1.6) {
-        height = width / 1.6;
+    if (width > height * ratio) {
+        height = width / ratio;
     } else {
         width = height * 1.6;
     }
@@ -267,13 +309,17 @@ function generateImageForOnline() {
  * @category data
  * @exports save
  */
-export default function save() {
+export default async function save() {
+    if(layoutModeGet())
+        toggleLayoutMode();
+
     projectSavedSet(true);
 
     $('.loadingIcon').fadeIn();
     const data = generateSaveData();
 
     const projectName = getProjectName();
+    var imageData = await generateImageForOnline();
 
     if (!userSignedIn) {
         // user not signed in, save locally temporarily and force user to sign in
@@ -306,7 +352,7 @@ export default function save() {
             $('<input>', {
                 type: 'text',
                 name: 'image',
-                value: generateImageForOnline(),
+                value: imageData,
             }),
         );
 
@@ -331,7 +377,7 @@ export default function save() {
             data: {
                 data,
                 id: __logix_project_id,
-                image: generateImageForOnline(),
+                image: imageData,
                 name: projectName,
             },
             success(response) {

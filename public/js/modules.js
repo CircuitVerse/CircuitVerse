@@ -53,9 +53,9 @@ function AndGate(x, y, scope = globalScope, dir = "RIGHT", inputLength = 2, bitW
 AndGate.prototype = Object.create(CircuitElement.prototype);
 AndGate.prototype.constructor = AndGate;
 AndGate.prototype.tooltipText = "And Gate Tooltip : Implements logical conjunction";
+AndGate.prototype.changeInputSize = changeInputSize;
 AndGate.prototype.alwaysResolve = true;
 AndGate.prototype.verilogType = "and";
-AndGate.prototype.changeInputSize = changeInputSize;
 AndGate.prototype.helplink = "https://docs.circuitverse.org/#/gates?id=and-gate";
 //fn to create save Json Data of object
 AndGate.prototype.customSave = function () {
@@ -65,7 +65,6 @@ AndGate.prototype.customSave = function () {
             inp: this.inp.map(findNode),
             output1: findNode(this.output1)
         },
-
     }
     return data;
 }
@@ -106,6 +105,11 @@ AndGate.prototype.customDraw = function () {
     ctx.stroke();
 
 }
+//translate to gate for single bit, assign for multi bit
+AndGate.prototype.generateVerilog = function () {
+    return gateGenerateVerilog.call(this, '&');
+}
+
 
 function NandGate(x, y, scope = globalScope, dir = "RIGHT", inputLength = 2, bitWidth = 1) {
     CircuitElement.call(this, x, y, scope, dir, bitWidth);
@@ -202,10 +206,14 @@ NandGate.prototype.customDraw = function () {
 
 
 }
+//translate to gate for single bit, assign for multi bit
+NandGate.prototype.generateVerilog = function () {
+    return gateGenerateVerilog.call(this, '&', true);
+}
 
 
 function Multiplexer(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1, controlSignalSize = 1) {
-    // //console.log("HIT");
+
     // //console.log(x,y,scope,dir,bitWidth,controlSignalSize);
     CircuitElement.call(this, x, y, scope, dir, bitWidth);
 
@@ -240,7 +248,7 @@ Multiplexer.prototype.constructor = Multiplexer;
 Multiplexer.prototype.tooltipText = "Multiplexer ToolTip : Multiple inputs and a single line output.";
 Multiplexer.prototype.helplink = "https://docs.circuitverse.org/#/decodersandplexers?id=multiplexer";
 Multiplexer.prototype.changeControlSignalSize = function (size) {
-    if (size == undefined || size < 1 || size > 32) return;
+    if (size == undefined || size < 1 || size > 8) return;
     if (this.controlSignalSize == size) return;
     var obj = new window[this.objectType](this.x, this.y, this.scope, this.direction, this.bitWidth, size);
     this.cleanDelete();
@@ -251,7 +259,7 @@ Multiplexer.prototype.mutableProperties = {
     "controlSignalSize": {
         name: "Control Signal Size",
         type: "number",
-        max: "32",
+        max: "8",
         min: "1",
         func: "changeControlSignalSize",
     },
@@ -263,8 +271,6 @@ Multiplexer.prototype.newBitWidth = function (bitWidth) {
     }
     this.output1.bitWidth = bitWidth;
 }
-
-
 //fn to create save Json Data of object
 Multiplexer.prototype.isResolvable = function () {
     if (this.controlSignalInput.value != undefined && this.inp[this.controlSignalInput.value].value != undefined) return true;
@@ -317,8 +323,6 @@ Multiplexer.prototype.customDraw = function () {
     ctx.fill();
     ctx.stroke();
 
-
-
     ctx.beginPath();
     // ctx.lineWidth = correctWidth(2);
     ctx.fillStyle = "black";
@@ -331,6 +335,58 @@ Multiplexer.prototype.customDraw = function () {
         else fillText(ctx, String(i), xx + this.inp[i].x, yy + this.inp[i].y + 10, 10);
     }
     ctx.fill();
+}
+
+Multiplexer.prototype.verilogBaseType = function() {
+    return this.verilogName() + this.inp.length;
+}
+
+//this code to generate Verilog
+Multiplexer.prototype.generateVerilog = function () {
+    Multiplexer.selSizes.add(this.controlSignalSize);
+    return CircuitElement.prototype.generateVerilog.call(this);
+}
+//This code to determine what sizes are used to generate the needed modules
+Multiplexer.selSizes = new Set();
+//generate the needed modules
+Multiplexer.moduleVerilog = function () {
+    var output = "";
+
+    for (var size of Multiplexer.selSizes) {
+        var numInput = 1 << size;
+        var inpString = "";
+        for (var j = 0; j < numInput; j++) {
+            inpString += `in${j}, `;
+        }
+        output += `\nmodule Multiplexer${numInput}(out, ${inpString}sel);\n`;
+
+        output += "  parameter WIDTH = 1;\n";
+        output += "  output reg [WIDTH-1:0] out;\n";
+
+        output += "  input [WIDTH-1:0] "
+        for (var j = 0; j < numInput-1; j++) {
+            output += `in${j}, `;
+        }
+        output += "in" + (numInput-1) + ";\n";
+
+        output += `  input [${size-1}:0] sel;\n`;
+        output += "  \n";
+
+        output += "  always @ (*)\n";
+        output += "    case (sel)\n";
+        for (var j = 0; j < numInput; j++) {
+            output += `      ${j} : out = in${j};\n`;
+        }
+        output += "    endcase\n";
+        output += "endmodule\n";
+        output += "\n";
+    }
+
+    return output;
+}
+//reset the sized before Verilog generation
+Multiplexer.resetVerilog = function () {
+    Multiplexer.selSizes = new Set();
 }
 
 function XorGate(x, y, scope = globalScope, dir = "RIGHT", inputs = 2, bitWidth = 1) {
@@ -421,6 +477,12 @@ XorGate.prototype.customDraw = function () {
 
 
 }
+//translate to gate for single bit, assign for multi bit
+XorGate.prototype.generateVerilog = function () {
+    return gateGenerateVerilog.call(this, '^');
+}
+
+
 
 function XnorGate(x, y, scope = globalScope, dir = "RIGHT", inputs = 2, bitWidth = 1) {
     CircuitElement.call(this, x, y, scope, dir, bitWidth);
@@ -510,6 +572,11 @@ XnorGate.prototype.customDraw = function () {
     ctx.stroke();
 
 }
+//translate to gate for single bit, assign for multi bit
+XnorGate.prototype.generateVerilog = function () {
+    return gateGenerateVerilog.call(this,'^', true);
+}
+
 
 
 function SevenSegDisplay(x, y, scope = globalScope) {
@@ -585,6 +652,52 @@ SevenSegDisplay.prototype.customDraw = function () {
     rect(ctx, xx + 22, yy + 42, 2, 2);
     ctx.stroke();
 }
+SevenSegDisplay.prototype.layoutProperties = {
+    rightDimensionX : 20,
+    leftDimensionX : 15,
+    upDimensionY : 42,
+    downDimensionY: 10
+}
+SevenSegDisplay.prototype.layoutDrawSegment = function (x1, y1, x2, y2, color, xxSegment, yySegment) {
+    if (color == undefined) color = "lightgrey";
+    ctx = simulationArea.context;
+    ctx.beginPath();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = correctWidth(3);
+    xx = xxSegment;
+    yy = yySegment;
+    moveTo(ctx, x1, y1, xx, yy, this.direction);
+    lineTo(ctx, x2, y2, xx, yy, this.direction);
+    ctx.closePath();
+    ctx.stroke();
+}
+
+SevenSegDisplay.prototype.layoutDraw = function (xOffset = 0, yOffset = 0) {
+    ctx = simulationArea.context;
+
+    var xx = this.subcircuitMetadata.x + xOffset;
+    var yy = this.subcircuitMetadata.y + yOffset;
+
+    this.layoutDrawSegment(10, -20, 10, -38, ["lightgrey", "red"][this.b.value], xx, yy);
+    this.layoutDrawSegment(10, -17, 10, 1, ["lightgrey", "red"][this.c.value], xx, yy);
+    this.layoutDrawSegment(-10, -20, -10, -38, ["lightgrey", "red"][this.f.value], xx, yy);
+    this.layoutDrawSegment(-10, -17, -10, 1, ["lightgrey", "red"][this.e.value], xx, yy);
+    this.layoutDrawSegment(-8, -38, 8, -38, ["lightgrey", "red"][this.a.value], xx, yy);
+    this.layoutDrawSegment(-8, -18, 8, -18, ["lightgrey", "red"][this.g.value], xx, yy);
+    this.layoutDrawSegment(-8, 1, 8, 1, ["lightgrey", "red"][this.d.value], xx, yy);
+
+    ctx.beginPath();
+    var dotColor = ["lightgrey", "red"][this.dot.value] || "lightgrey"
+    ctx.strokeStyle = dotColor;
+    rect(ctx, xx + 13, yy + 5, 1, 1);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = correctWidth(1);
+    rect2(ctx, -15, -42, 33, 51, xx, yy, this.direction);
+    ctx.stroke();
+}
 
 function SixteenSegDisplay(x, y, scope = globalScope) {
     CircuitElement.call(this, x, y, scope, "RIGHT", 16);
@@ -600,6 +713,7 @@ function SixteenSegDisplay(x, y, scope = globalScope) {
 SixteenSegDisplay.prototype = Object.create(CircuitElement.prototype);
 SixteenSegDisplay.prototype.constructor = SixteenSegDisplay;
 SixteenSegDisplay.prototype.tooltipText = "Sixteen Display ToolTip: Consists of 16+1 bit inputs.";
+
 SixteenSegDisplay.prototype.helplink = "https://docs.circuitverse.org/#/outputs?id=sixteen-segment-display";
 SixteenSegDisplay.prototype.customSave = function () {
     var data = {
@@ -671,6 +785,76 @@ SixteenSegDisplay.prototype.customDraw = function () {
     rect(ctx, xx + 22, yy + 42, 2, 2);
     ctx.stroke();
 }
+SixteenSegDisplay.prototype.layoutProperties = {
+    rightDimensionX : 20,
+    leftDimensionX : 15,
+    upDimensionY : 42,
+    downDimensionY: 10
+}
+SixteenSegDisplay.prototype.layoutDrawSegment = function (x1, y1, x2, y2, color, xxSegment, yySegment) {
+    if (color == undefined) color = "lightgrey";
+    ctx = simulationArea.context;
+    ctx.beginPath();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = correctWidth(3);
+    xx = xxSegment;
+    yy = yySegment;
+    moveTo(ctx, x1, y1, xx, yy, this.direction);
+    lineTo(ctx, x2, y2, xx, yy, this.direction);
+    ctx.closePath();
+    ctx.stroke();
+}
+SixteenSegDisplay.prototype.layoutDrawSegmentSlant = function (x1, y1, x2, y2, color, xxSegment, yySegment) {
+    if (color == undefined) color = "lightgrey";
+    ctx = simulationArea.context;
+    ctx.beginPath();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = correctWidth(2);
+    xx = xxSegment;
+    yy = yySegment;
+    moveTo(ctx, x1, y1, xx, yy, this.direction);
+    lineTo(ctx, x2, y2, xx, yy, this.direction);
+    ctx.closePath();
+    ctx.stroke();
+}
+SixteenSegDisplay.prototype.layoutDraw = function (xOffset = 0, yOffset = 0) {
+    ctx = simulationArea.context;
+
+    var xx = this.subcircuitMetadata.x + xOffset;
+    var yy = this.subcircuitMetadata.y + yOffset;
+
+    var color = ["lightgrey", "red"];
+    var value = this.input1.value;
+
+    this.layoutDrawSegment(-10, -38, 0, -38, ["lightgrey", "red"][(value >> 15) & 1], xx, yy);		//a1
+    this.layoutDrawSegment(10, -38, 0, -38, ["lightgrey", "red"][(value >> 14) & 1], xx, yy);		//a2    
+    this.layoutDrawSegment(11.5, -19, 11.5, -36, ["lightgrey", "red"][(value >> 13) & 1], xx, yy);	//b
+    this.layoutDrawSegment(11.5, 2, 11.5, -15, ["lightgrey", "red"][(value >> 12) & 1], xx, yy);		//c
+    this.layoutDrawSegment(-10, 4, 0, 4, ["lightgrey", "red"][(value >> 11) & 1], xx, yy);		//d1
+    this.layoutDrawSegment(10, 4, 0, 4, ["lightgrey", "red"][(value >> 10) & 1], xx, yy);			//d2
+    this.layoutDrawSegment(-11.5, 2, -11.5, -15, ["lightgrey", "red"][(value >> 9) & 1], xx, yy);	//e
+    this.layoutDrawSegment(-11.5, -36, -11.5, -19, ["lightgrey", "red"][(value >> 8) & 1], xx, yy);	//f
+    this.layoutDrawSegment(-10, -17, 0, -17, ["lightgrey", "red"][(value >> 7) & 1], xx, yy);			//g1
+    this.layoutDrawSegment(10, -17, 0, -17, ["lightgrey", "red"][(value >> 6) & 1], xx, yy);			//g2
+    this.layoutDrawSegmentSlant(0, -17, -9, -36, ["lightgrey", "red"][(value >> 5) & 1], xx, yy);	//h
+    this.layoutDrawSegment(0, -36, 0, -19, ["lightgrey", "red"][(value >> 4) & 1], xx, yy);			//i
+    this.layoutDrawSegmentSlant(0, -17, 9, -36, ["lightgrey", "red"][(value >> 3) & 1], xx, yy);		//j
+    this.layoutDrawSegmentSlant(0, -17, 9, 0, ["lightgrey", "red"][(value >> 2) & 1], xx, yy);		//k
+    this.layoutDrawSegment(0, -17, 0, 2, ["lightgrey", "red"][(value >> 1) & 1], xx, yy);			//l
+    this.layoutDrawSegmentSlant(0, -17, -9, 0, ["lightgrey", "red"][(value >> 0) & 1], xx, yy);		//m
+
+    ctx.beginPath();
+    var dotColor = ["lightgrey", "red"][this.dot.value] || "lightgrey"
+    ctx.strokeStyle = dotColor;
+    rect(ctx, xx + 13, yy + 5, 1, 1);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = correctWidth(1);
+    rect2(ctx, -15, -42, 33, 51, xx, yy, this.direction);
+    ctx.stroke();
+}
 
 function HexDisplay(x, y, scope = globalScope) {
     CircuitElement.call(this, x, y, scope, "RIGHT", 4);
@@ -686,6 +870,17 @@ HexDisplay.prototype = Object.create(CircuitElement.prototype);
 HexDisplay.prototype.constructor = HexDisplay;
 HexDisplay.prototype.tooltipText = "Hex Display ToolTip: Inputs a 4 Bit Hex number and displays it."
 HexDisplay.prototype.helplink = "https://docs.circuitverse.org/#/outputs?id=hex-display";
+/* Older code convert HexDisplay to output
+HexDisplay.prototype.generateVerilog = function () {
+    return "assign " + this.label + " = " + this.inp.verilogLabel + ";"
+}
+*/
+//Use $display
+HexDisplay.prototype.generateVerilog = function () {
+    return `
+  always @ (*)
+    $display("HexDisplay:${this.verilogLabel}=%d", ${this.inp.verilogLabel});`;
+}
 HexDisplay.prototype.customSave = function () {
     var data = {
 
@@ -780,6 +975,101 @@ HexDisplay.prototype.customDraw = function () {
     this.customDrawSegment(-17, 0, 17, 0, ["lightgrey", "red"][g]);
     this.customDrawSegment(-15, 38, 17, 38, ["lightgrey", "red"][d]);
 
+}
+HexDisplay.prototype.layoutProperties = {
+    rightDimensionX : 20,
+    leftDimensionX : 15,
+    upDimensionY : 42,
+    downDimensionY: 10
+}
+HexDisplay.prototype.layoutDrawSegment = function (x1, y1, x2, y2, color, xxSegment, yySegment) {
+    if (color == undefined) color = "lightgrey";
+    ctx = simulationArea.context;
+    ctx.beginPath();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = correctWidth(3);
+    xx = xxSegment;
+    yy = yySegment;
+
+    moveTo(ctx, x1, y1, xx, yy, this.direction);
+    lineTo(ctx, x2, y2, xx, yy, this.direction);
+    ctx.closePath();
+    ctx.stroke();
+}
+HexDisplay.prototype.layoutDraw = function (xOffset = 0, yOffset = 0) {
+    ctx = simulationArea.context;
+
+    var xx = this.subcircuitMetadata.x + xOffset;
+    var yy = this.subcircuitMetadata.y + yOffset;
+
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = correctWidth(3);
+    var a = b = c = d = e = f = g = 0;
+    switch (this.inp.value) {
+        case 0:
+            a = b = c = d = e = f = 1;
+            break;
+        case 1:
+            b = c = 1;
+            break;
+        case 2:
+            a = b = g = e = d = 1;
+            break;
+        case 3:
+            a = b = g = c = d = 1;
+            break;
+        case 4:
+            f = g = b = c = 1;
+            break;
+        case 5:
+            a = f = g = c = d = 1;
+            break;
+        case 6:
+            a = f = g = e = c = d = 1;
+            break;
+        case 7:
+            a = b = c = 1;
+            break;
+        case 8:
+            a = b = c = d = e = g = f = 1;
+            break;
+        case 9:
+            a = f = g = b = c = 1;
+            break;
+        case 0xA:
+            a = f = b = c = g = e = 1;
+            break;
+        case 0xB:
+            f = e = g = c = d = 1;
+            break;
+        case 0xC:
+            a = f = e = d = 1;
+            break;
+        case 0xD:
+            b = c = g = e = d = 1;
+            break;
+        case 0xE:
+            a = f = g = e = d = 1;
+            break;
+        case 0xF:
+            a = f = g = e = 1;
+            break;
+        default:
+
+    }
+    this.layoutDrawSegment(10, -20, 10, -38, ["lightgrey", "red"][b],xx, yy);
+    this.layoutDrawSegment(10, -17, 10, 1, ["lightgrey", "red"][c],xx, yy);
+    this.layoutDrawSegment(-10, -20, -10, -38, ["lightgrey", "red"][f],xx, yy);
+    this.layoutDrawSegment(-10, -17, -10, 1, ["lightgrey", "red"][e],xx, yy);
+    this.layoutDrawSegment(-8, -38, 8, -38, ["lightgrey", "red"][a],xx, yy);
+    this.layoutDrawSegment(-8, -18, 8, -18, ["lightgrey", "red"][g],xx, yy);
+    this.layoutDrawSegment(-8, 1, 8, 1, ["lightgrey", "red"][d],xx, yy);
+
+    ctx.beginPath();
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = correctWidth(1);
+    rect2(ctx, -15, -42, 33, 51, xx, yy, this.direction);
+    ctx.stroke();
 }
 
 function OrGate(x, y, scope = globalScope, dir = "RIGHT", inputs = 2, bitWidth = 1) {
@@ -881,6 +1171,10 @@ OrGate.prototype.customDraw = function () {
 
 
 }
+OrGate.prototype.generateVerilog = function () {
+    return gateGenerateVerilog.call(this, '|');
+}
+
 
 function Stepper(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 8) {
 
@@ -942,6 +1236,7 @@ function NotGate(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
 NotGate.prototype = Object.create(CircuitElement.prototype);
 NotGate.prototype.constructor = NotGate;
 NotGate.prototype.tooltipText = "Not Gate Tooltip : Inverts the input digital signal.";
+NotGate.prototype.verilogType = "not";
 NotGate.prototype.helplink = "https://docs.circuitverse.org/#/gates?id=not-gate";
 NotGate.prototype.customSave = function () {
     var data = {
@@ -981,6 +1276,10 @@ NotGate.prototype.customDraw = function () {
     drawCircle2(ctx, 15, 0, 5, xx, yy, this.direction);
     ctx.stroke();
 
+}
+//translate to gate for single bit, assign for multi bit
+NotGate.prototype.generateVerilog = function () {
+    return "assign " + this.output1.verilogLabel + " = ~" + this.inp1.verilogLabel + ";"
 }
 
 
@@ -1213,6 +1512,9 @@ TriState.prototype.customDraw = function () {
     ctx.stroke();
 
 }
+TriState.prototype.generateVerilog = function () {
+    return `assign ${this.output1.verilogLabel} = (${this.state.verilogLabel}!=0) ? ${this.inp1.verilogLabel} : ${this.inp1.bitWidth}'b?;`;
+}
 
 function Buffer(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
     CircuitElement.call(this, x, y, scope, dir, bitWidth);
@@ -1281,6 +1583,9 @@ Buffer.prototype.customDraw = function () {
     ctx.stroke();
 
 }
+Buffer.prototype.generateVerilog = function () {
+    return "assign " + this.output1.verilogLabel + " = " + this.inp1.verilogLabel + ";"
+}
 
 function ControlledInverter(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
     CircuitElement.call(this, x, y, scope, dir, bitWidth);
@@ -1346,6 +1651,9 @@ ControlledInverter.prototype.customDraw = function () {
     ctx.stroke();
 
 }
+ControlledInverter.prototype.generateVerilog = function () {
+    return `assign ${this.output1.verilogLabel} = (${this.state.verilogLabel}!=0) ? ~${this.inp1.verilogLabel} : ${this.inp1.verilogLabel};`;
+}
 
 function Adder(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
 
@@ -1400,6 +1708,13 @@ Adder.prototype.resolve = function () {
     simulationArea.simulationQueue.add(this.carryOut);
     simulationArea.simulationQueue.add(this.sum);
 }
+Adder.prototype.generateVerilog = function () {
+    if(this.carryIn.verilogLabel) {
+        return `assign ${this.sum.verilogLabel} = ${this.inpA.verilogLabel} + ${this.inpB.verilogLabel} + ${this.carryIn.verilogLabel};`;
+    }
+    return `assign ${this.sum.verilogLabel} = ${this.inpA.verilogLabel} + ${this.inpB.verilogLabel};`;
+}
+
 
 function TwoComplement(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
 
@@ -1451,7 +1766,9 @@ TwoComplement.prototype.customDraw = function () {
     drawCircle2(ctx, 5, 0, 15, xx, yy, this.direction);
     ctx.stroke();
 }
-
+TwoComplement.prototype.generateVerilog = function () {
+    return `assign ${this.output1.verilogLabel} = ~${this.inp1.verilogLabel} + 1;`;
+}
 
 function Rom(x, y, scope = globalScope, data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]) {
 
@@ -1610,6 +1927,84 @@ Rom.prototype.resolve = function () {
     simulationArea.simulationQueue.add(this.dataOut);
 }
 
+Rom.prototype.verilogBaseType = function() {
+    return this.verilogName() + (Rom.selSizes.length-1);
+}
+//this code to generate Verilog
+Rom.prototype.generateVerilog = function () {
+    Rom.selSizes.push(this.data);
+    return CircuitElement.prototype.generateVerilog.call(this);
+}
+//This code to determine what sizes are used to generate the needed modules
+Rom.selSizes = [];
+//generate the needed modules
+Rom.moduleVerilog = function () {
+    var output = "";
+
+    for (var i = 0; i < Rom.selSizes.length; i++) {
+         output += `
+module Rom${i}(dout, addr, en);
+  parameter WIDTH = 8;
+  parameter ADDR = 4;
+  output reg [WIDTH-1:0] dout;
+  input [ADDR-1:0] addr;
+  input en;
+
+  always @ (*) begin
+    if (en == 0)
+      dout = {WIDTH{1'bz}};
+    else
+      case (addr)
+`;
+        for (var j = 0; j < (1 << 4); j++) {
+          output += "        " + j + " : dout = " + Rom.selSizes[i][j] + ";\n";
+        }
+
+    output += `      endcase
+  end
+endmodule
+`;
+    }
+
+    return output;
+}
+//reset the sized before Verilog generation
+Rom.resetVerilog = function () {
+    Rom.selSizes = [];
+}
+
+
+/*
+
+//This is a Rom without a clock - not normal
+Rom.moduleVerilog = function () {
+  var output = `
+module ROM(dout, addr, en);
+  parameter WIDTH = 8;
+  parameter ADDR = 4;
+  output [WIDTH-1:0] dout;
+  input [ADDR-1:0] addr;
+  input en;
+
+  always @ (*) begin
+    if (en)
+      case (addr) begin
+`;
+    for (var i = 0; i < (1 << 4); i++) {
+        output += "        " + i + " : dout = " + this.data[i];
+    }
+
+    output += `
+      endcase
+    else
+      dout = WIDTH'z;
+  end
+endmodule
+`;
+    return output;
+}
+*/
+
 function Splitter(x, y, scope = globalScope, dir = "RIGHT", bitWidth = undefined, bitWidthSplit = undefined) {
 
     CircuitElement.call(this, x, y, scope, dir, bitWidth);
@@ -1723,16 +2118,31 @@ Splitter.prototype.reset = function () {
     this.prevInpValue = undefined;
 }
 Splitter.prototype.processVerilog = function () {
+    // Combiner
+    if (this.inp1.verilogLabel == "") {
+        this.isSplitter = false;
+        this.inp1.verilogLabel = this.verilogLabel + "_cmb";
+        if (!this.scope.verilogWireList[this.bitWidth].contains(this.inp1.verilogLabel))
+            this.scope.verilogWireList[this.bitWidth].push(this.inp1.verilogLabel);
+        this.scope.stack.push(this.inp1);
+        return;
+    }
 
-    // console.log(this.inp1.verilogLabel +":"+ this.outputs[0].verilogLabel);
     if (this.inp1.verilogLabel != "" && this.outputs[0].verilogLabel == "") {
         var bitCount = 0;
+        var inpLabel = this.inp1.verilogLabel;
+        // Already Split Regex
+        var re = /^(.*)\[(\d*):(\d*)\]$/;
+        if(re.test(inpLabel)) {
+            var matches = inpLabel.match(re);
+            inpLabel = matches[1];
+            bitCount = parseInt(matches[3]);
+        }
         for (var i = 0; i < this.splitCount; i++) {
-            // var bitSplitValue = extractBits(this.inp1.value, bitCount, bitCount + this.bitWidthSplit[i] - 1);
             if (this.bitWidthSplit[i] > 1)
-                var label = this.inp1.verilogLabel + '[' + (bitCount + this.bitWidthSplit[i] - 1) + ":" + bitCount + "]";
+                var label = inpLabel + '[' + (bitCount + this.bitWidthSplit[i] - 1) + ":" + bitCount + "]";
             else
-                var label = this.inp1.verilogLabel + '[' + bitCount + "]";
+                var label = inpLabel + '[' + bitCount + "]";
             if (this.outputs[i].verilogLabel != label) {
                 this.outputs[i].verilogLabel = label;
                 this.scope.stack.push(this.outputs[i]);
@@ -1745,13 +2155,24 @@ Splitter.prototype.processVerilog = function () {
         var label = "{" + this.outputs.map((x) => {
             return x.verilogLabel
         }).join(",") + "}";
-        // console.log("HIT",label)
         if (this.inp1.verilogLabel != label) {
             this.inp1.verilogLabel = label;
             this.scope.stack.push(this.inp1);
         }
     }
 }
+//added to generate Splitter INPUTS
+Splitter.prototype.generateVerilog = function () {
+    var res = "";
+    if (!this.isSplitter) {
+        res += "assign " + this.inp1.verilogLabel + " = {";
+        for (var i = this.outputs.length - 1; i > 0; i--)
+          res += this.outputs[i].verilogLabel + ",";
+        res += this.outputs[0].verilogLabel + "};";
+    }
+    return res;
+}
+
 Splitter.prototype.customDraw = function () {
 
     ctx = simulationArea.context;
@@ -1843,7 +2264,10 @@ Ground.prototype.customDraw = function () {
     lineTo(ctx, 2.5, 10, xx, yy, this.direction);
     ctx.stroke();
 }
-
+//Ground translated into assign
+Ground.prototype.generateVerilog = function () {
+    return `assign ${this.output1.verilogLabel} = ${this.bitWidth}'b0;`;
+}
 
 function Power(x, y, scope = globalScope, bitWidth = 1) {
 
@@ -1896,6 +2320,10 @@ Power.prototype.customDraw = function () {
     ctx.stroke();
 
 }
+//Power translated into assign
+Power.prototype.generateVerilog = function () {
+    return `assign ${this.output1.verilogLabel} = ~${this.bitWidth}'b0;`;
+}
 
 function get_next_position(x = 0, scope = globalScope) {
     var possible_y = 20;
@@ -1908,7 +2336,6 @@ function get_next_position(x = 0, scope = globalScope) {
         if (scope.Output[i].layoutProperties.x == x)
             done[scope.Output[i].layoutProperties.y] = 1
 
-    // console.log(done)
     // return possible_y;
 
     while (done[possible_y] || done[possible_y + 10] || done[possible_y - 10])
@@ -2069,8 +2496,9 @@ Output.prototype.tooltipText = "Output ToolTip: Simple output element showing ou
 Output.prototype.helplink = "https://docs.circuitverse.org/#/outputs?id=output";
 Output.prototype.propagationDelay = 0;
 Output.prototype.generateVerilog = function () {
-    return "assign " + this.label + " = " + this.inp1.verilogLabel + ";"
+    return "assign " + this.verilogLabel + " = " + this.inp1.verilogLabel + ";"
 }
+
 Output.prototype.customSave = function () {
     var data = {
         nodes: {
@@ -2220,6 +2648,9 @@ BitSelector.prototype.customDraw = function () {
     fillText(ctx, bit, xx, yy + 5);
     ctx.fill();
 }
+BitSelector.prototype.generateVerilog = function () {
+    return `assign ${this.output1.verilogLabel} = ${this.inp1.verilogLabel} >> ${this.bitSelectorInp.verilogLabel};`;
+}
 
 function ConstantVal(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1, state = "0") {
     this.state = state || prompt("Enter value");
@@ -2240,9 +2671,6 @@ ConstantVal.prototype.constructor = ConstantVal;
 ConstantVal.prototype.tooltipText = "Constant ToolTip: Bits are fixed. Double click element to change the bits."
 ConstantVal.prototype.helplink = "https://docs.circuitverse.org/#/inputElements?id=constantval";
 ConstantVal.prototype.propagationDelay = 0;
-ConstantVal.prototype.generateVerilog = function () {
-    return "localparam [" + (this.bitWidth - 1) + ":0] " + this.verilogLabel + "=" + this.bitWidth + "b'" + this.state + ";";
-}
 ConstantVal.prototype.customSave = function () {
     var data = {
         nodes: {
@@ -2258,7 +2686,6 @@ ConstantVal.prototype.resolve = function () {
 }
 ConstantVal.prototype.dblclick = function () {
     this.state = prompt("Re enter the value") || "0";
-    console.log(this.state);
     this.newBitWidth(this.state.toString().length);
     //console.log(this.state, this.bitWidth);
 }
@@ -2314,6 +2741,10 @@ ConstantVal.prototype.newDirection = function (dir) {
 
     this.output1.refresh();
     this.labelDirection = oppositeDirection[this.direction];
+}
+//ConstantValue translated into assign
+ConstantVal.prototype.generateVerilog = function () {
+    return `assign ${this.output1.verilogLabel} = ${this.bitWidth}'b${this.state};`;
 }
 
 function NorGate(x, y, scope = globalScope, dir = "RIGHT", inputs = 2, bitWidth = 1) {
@@ -2399,6 +2830,11 @@ NorGate.prototype.customDraw = function () {
     ctx.stroke();
     //for debugging
 }
+//translate to gate for single bit, assign for multi bit
+NorGate.prototype.generateVerilog = function () {
+    return gateGenerateVerilog.call(this, '|', true);
+}
+
 
 function DigitalLed(x, y, scope = globalScope, color = "Red") {
     // Calling base class constructor
@@ -2417,9 +2853,25 @@ function DigitalLed(x, y, scope = globalScope, color = "Red") {
 }
 DigitalLed.prototype = Object.create(CircuitElement.prototype);
 DigitalLed.prototype.constructor = DigitalLed;
+/* Outdated, was translating into Output
+DigitalLed.prototype.generateVerilog = function () {
+    return "assign " + this.label + " = " + this.inp1.verilogLabel + ";"
+}
+*/
+/*
+//DigitalLed translated into $display
+DigitalLed.prototype.generateVerilog = function () {
+    var output = "";
+    output += "\n";
+    output += "  always @ (" + this.inp1.verilogLabel + ")\n";
+    output += "    $display(\"" + this.inp1.verilogLabel + " = %d\", "
+        + this.inp1.verilogLabel + ");\n";
+    return output;
+
+}
+*/
 DigitalLed.prototype.tooltipText = "Digital Led ToolTip: Digital LED glows high when input is High(1)."
 DigitalLed.prototype.helplink = "https://docs.circuitverse.org/#/outputs?id=digital-led";
-
 DigitalLed.prototype.customSave = function () {
     var data = {
         constructorParamaters: [this.color],
@@ -2476,6 +2928,23 @@ DigitalLed.prototype.customDraw = function () {
     ctx.fill();
 
 }
+DigitalLed.prototype.layoutDraw = function(xOffset = 0, yOffset = 0) {
+    ctx = simulationArea.context;
+
+    var xx = this.subcircuitMetadata.x + xOffset;
+    var yy = this.subcircuitMetadata.y + yOffset;
+
+    ctx.strokeStyle = "#090a0a";
+    ctx.fillStyle = ["rgba(227,228,229,0.8)", this.actualColor][this.inp1.value || 0];
+    ctx.lineWidth = correctWidth(1);
+    
+    ctx.beginPath();
+    drawCircle2(ctx, 0, 0, 6, xx, yy, this.direction);
+    ctx.stroke();
+
+    if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = "rgba(255, 255, 32,0.8)";
+    ctx.fill();
+}
 
 function VariableLed(x, y, scope = globalScope) {
     // Calling base class constructor
@@ -2528,13 +2997,36 @@ VariableLed.prototype.customDraw = function () {
     lineTo(ctx, -20, 9, xx, yy, this.direction);
     /*lineTo(ctx,-18,12,xx,yy,this.direction);
     arc(ctx,0,0,Math.sqrt(468),((Math.PI/2) + Math.acos(12/Math.sqrt(468))),((-Math.PI/2) - Math.asin(18/Math.sqrt(468))),xx,yy,this.direction);
-
     */
     lineTo(ctx, -20, -9, xx, yy, this.direction);
     ctx.stroke();
     if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = "rgba(255, 255, 32,0.8)";
     ctx.fill();
 
+}
+VariableLed.prototype.generateVerilog = function () {
+    return `
+  always @ (*)
+    $display("VeriableLed:${this.inp1.verilogLabel}=%d", ${this.inp1.verilogLabel});`;
+}
+
+VariableLed.prototype.layoutDraw = function(xOffset = 0, yOffset = 0) {
+    ctx = simulationArea.context;
+
+    var xx = this.subcircuitMetadata.x + xOffset;
+    var yy = this.subcircuitMetadata.y + yOffset;
+
+    var c = this.inp1.value;
+    var alpha = c / 255;
+    ctx.strokeStyle = "#090a0a";
+    ctx.fillStyle = ["rgba(255,29,43," + alpha + ")", "rgba(227, 228, 229, 0.8)"][(c === undefined || c == 0) + 0];
+    ctx.lineWidth = correctWidth(1);
+    ctx.beginPath();
+    drawCircle2(ctx, 0, 0, 6, xx, yy, this.direction);
+    ctx.stroke();
+
+    if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = "rgba(255, 255, 32,0.8)";
+    ctx.fill();
 }
 
 function Button(x, y, scope = globalScope, dir = "RIGHT") {
@@ -2544,14 +3036,13 @@ function Button(x, y, scope = globalScope, dir = "RIGHT") {
     this.wasClicked = false;
     this.rectangleObject = false;
     this.setDimensions(10, 10);
-
-
 }
 Button.prototype = Object.create(CircuitElement.prototype);
 Button.prototype.constructor = Button;
 Button.prototype.tooltipText = "Button ToolTip: High(1) when pressed and Low(0) when released."
 Button.prototype.helplink = "https://docs.circuitverse.org/#/inputElements?id=button";
 Button.prototype.propagationDelay = 0;
+Button.prototype.canShowInSubcircuit = true;
 Button.prototype.customSave = function () {
     var data = {
         nodes: {
@@ -2592,6 +3083,65 @@ Button.prototype.customDraw = function () {
     ctx.beginPath();
 
     drawCircle2(ctx, 0, 0, 12, xx, yy, this.direction);
+    ctx.stroke();
+
+    if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this))
+        ctx.fillStyle = "rgba(232, 13, 13,0.6)"
+
+    if (this.wasClicked)
+        ctx.fillStyle = "rgba(232, 13, 13,0.8)";
+    ctx.fill();
+}
+Button.verilogInstructions = function() {
+    return `Button - Buttons are not natively supported in verilog, consider using Inputs instead\n`;
+}
+Button.prototype.verilogBaseType = function() {
+    return this.verilogName() + (Button.selSizes.length-1);
+}
+//this code to generate Verilog
+Button.prototype.generateVerilog = function () {
+    Button.selSizes.push(this.data);
+    return CircuitElement.prototype.generateVerilog.call(this);
+}
+//This code to determine what sizes are used to generate the needed modules
+Button.selSizes = [];
+//generate the needed modules
+Button.moduleVerilog = function () {
+    var output = "";
+
+    for (var i = 0; i < Button.selSizes.length; i++) {
+         output += `// Skeleton for Button${i}
+/*
+module Button${i}(out);
+  output reg out;
+
+  initial begin
+    //do something with the button here
+  end
+endmodule
+*/
+`;
+    }
+
+    return output;
+}
+//reset the sized before Verilog generation
+Button.resetVerilog = function () {
+    Button.selSizes = [];
+}
+
+Button.prototype.layoutDraw = function (xOffset = 0, yOffset = 0) {
+    ctx = simulationArea.context;
+    var xx = this.subcircuitMetadata.x + xOffset;
+    var yy = this.subcircuitMetadata.y + yOffset;
+    ctx.fillStyle = "#ddd";
+
+    ctx.strokeStyle = "#353535";
+    ctx.lineWidth = correctWidth(3);
+
+    ctx.beginPath();
+
+    drawCircle2(ctx, 0, 0, 6, xx, yy, this.direction);
     ctx.stroke();
 
     if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this))
@@ -2679,6 +3229,38 @@ RGBLed.prototype.customDraw = function () {
     lineTo(ctx, -21, 15, xx, yy, this.direction);
     arc(ctx, 0, 0, Math.sqrt(666), ((Math.PI / 2) + Math.acos(15 / Math.sqrt(666))), ((-Math.PI / 2) - Math.asin(21 / Math.sqrt(666))), xx, yy, this.direction);
     lineTo(ctx, -18, -11, xx, yy, this.direction);
+    ctx.stroke();
+    if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = "rgba(255, 255, 32,0.8)";
+    ctx.fill();
+}
+RGBLed.prototype.generateVerilog = function () {
+    return `
+  always @ (*)
+    $display("RGBLed:{${this.inp1.verilogLabel},${this.inp2.verilogLabel},${this.inp3.verilogLabel}} = {%d,%d,%d}", ${this.inp1.verilogLabel}, ${this.inp2.verilogLabel}, ${this.inp3.verilogLabel});`;
+}
+
+RGBLed.prototype.layoutDraw = function(xOffset = 0, yOffset = 0) {
+    ctx = simulationArea.context;
+
+    var xx = this.subcircuitMetadata.x + xOffset;
+    var yy = this.subcircuitMetadata.y + yOffset;
+    var dimensionSize = 6;
+    // var size = this.subcircuitMetadata.size;
+    // if (size === "medium")
+    //      dimensionSize = 7;
+    // else if (size === "Large")
+    //      dimensionSize = 10;
+
+    var a = this.inp1.value;
+    var b = this.inp2.value;
+    var c = this.inp3.value;
+    ctx.strokeStyle = "#090a0a";
+    ctx.fillStyle = ["rgba(" + a + ", " + b + ", " + c + ", 0.8)", "rgba(227, 228, 229, 0.8)"][((a === undefined || b === undefined || c === undefined)) + 0]
+    //ctx.fillStyle = ["rgba(200, 200, 200, 0.3)","rgba(227, 228, 229, 0.8)"][((a === undefined || b === undefined || c === undefined) || (a == 0 && b == 0 && c == 0)) + 0];
+    ctx.lineWidth = correctWidth(1);
+
+    ctx.beginPath();
+    drawCircle2(ctx, 0, 0, dimensionSize, xx, yy, this.direction);           
     ctx.stroke();
     if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = "rgba(255, 255, 32,0.8)";
     ctx.fill();
@@ -2778,6 +3360,35 @@ SquareRGBLed.prototype.customDraw = function () {
     ctx.lineWidth = correctWidth(1);
     ctx.beginPath();
     rect2(ctx, -15, -15, 30, 30, xx, yy, this.direction);
+    ctx.stroke();
+
+    if ((this.hover && !simulationArea.shiftDown) ||
+        simulationArea.lastSelected == this ||
+        simulationArea.multipleObjectSelections.contains(this)) {
+        ctx.fillStyle = "rgba(255, 255, 32)";
+    }
+
+    ctx.fill();
+}
+SquareRGBLed.prototype.layoutProperties = {
+    rightDimensionX: 15,
+    leftDimensionX: 0,
+    upDimensionY: 15,
+    downDimensionY:0
+}
+SquareRGBLed.prototype.layoutDraw = function(xOffset = 0, yOffset = 0) {
+    var ctx = simulationArea.context;
+    var xx = this.subcircuitMetadata.x + xOffset;
+    var yy = this.subcircuitMetadata.y + yOffset;
+    var r = this.inp1.value;
+    var g = this.inp2.value;
+    var b = this.inp3.value;
+
+    ctx.strokeStyle = "#d3d4d5";
+    ctx.fillStyle = (r === undefined && g === undefined && b === undefined) ? "rgb(227, 228, 229)" : "rgb(" + (r || 0) + ", " + (g || 0) + ", " + (b || 0) + ")";
+    ctx.lineWidth = correctWidth(1);
+    ctx.beginPath();
+    rect2(ctx, 0, 0, 15, 15, xx, yy, this.direction);
     ctx.stroke();
 
     if ((this.hover && !simulationArea.shiftDown) ||
@@ -2910,6 +3521,60 @@ Demultiplexer.prototype.customDraw = function () {
     }
     ctx.fill();
 }
+Demultiplexer.prototype.verilogBaseType = function() {
+    return this.verilogName() + this.output1.length;
+}
+//this code to generate Verilog
+Demultiplexer.prototype.generateVerilog = function () {
+    Demultiplexer.selSizes.add(this.controlSignalSize);
+    return CircuitElement.prototype.generateVerilog.call(this);
+}
+//This code to determine what sizes are used to generate the needed modules
+Demultiplexer.selSizes = new Set();
+//generate the needed modules
+Demultiplexer.moduleVerilog = function () {
+    var output = "";
+
+    for (var size of Demultiplexer.selSizes) {
+        var numOutput = 1 << size;
+        output += "\n";
+        output += "module Demultiplexer" + numOutput;
+        output += "(";
+        for (var j = 0; j < numOutput; j++) {
+            output += "out" + j + ", ";
+        }
+        output += "in, sel);\n";
+
+        output += "  parameter WIDTH = 1;\n";
+        output += "  output reg [WIDTH-1:0] ";
+        for (var j = 0; j < numOutput-1; j++) {
+            output += "out" + j + ", ";
+        }
+        output += "out" + (numOutput-1) + ";\n";
+
+        output += "  input [WIDTH-1:0] in;\n"
+        output += "  input [" + (size-1) +":0] sel;\n";
+        output += "  \n";
+
+        output += "  always @ (*) begin\n";
+        for (var j = 0; j < numOutput; j++) {
+            output += "    out" + j + " = 0;\n";
+        }
+        output += "    case (sel)\n";
+        for (var j = 0; j < numOutput; j++) {
+            output += "      " + j + " : out" + j + " = in;\n";
+        }
+        output += "    endcase\n";
+        output += "  end\n";
+        output += "endmodule\n";
+    }
+
+    return output;
+}
+//reset the sized before Verilog generation
+Demultiplexer.resetVerilog = function () {
+    Demultiplexer.selSizes = new Set();
+}
 
 function Decoder(x, y, scope = globalScope, dir = "LEFT", bitWidth = 1) {
 
@@ -3036,6 +3701,59 @@ Decoder.prototype.customDraw = function () {
     ctx.fill();
 }
 
+Decoder.prototype.verilogBaseType = function() {
+    return this.verilogName() + this.output1.length;
+}
+//this code to generate Verilog
+Decoder.prototype.generateVerilog = function () {
+    Decoder.selSizes.add(this.bitWidth);
+    return CircuitElement.prototype.generateVerilog.call(this);
+}
+
+Decoder.selSizes = new Set();
+//generate the needed modules
+Decoder.moduleVerilog = function () {
+    var output = "";
+
+    for (var size of Decoder.selSizes) {
+        var numOutput = 1 << size;
+        output += "\n";
+        output += "module Decoder" + numOutput;
+        output += "(";
+        for (var j = 0; j < numOutput; j++) {
+            output += "out" + j + ", ";
+        }
+        output += "sel);\n";
+
+        output += "  output reg ";
+        for (var j = 0; j < numOutput-1; j++) {
+            output += "out" + j + ", ";
+        }
+        output += "out" + (numOutput-1) + ";\n";
+
+        output += "  input [" + (size-1) +":0] sel;\n";
+        output += "  \n";
+
+        output += "  always @ (*) begin\n";
+        for (var j = 0; j < numOutput; j++) {
+            output += "    out" + j + " = 0;\n";
+        }
+        output += "    case (sel)\n";
+        for (var j = 0; j < numOutput; j++) {
+            output += "      " + j + " : out" + j + " = 1;\n";
+        }
+        output += "    endcase\n";
+        output += "  end\n";
+        output += "endmodule\n";
+    }
+
+    return output;
+}
+//reset the sized before Verilog generation
+Decoder.resetVerilog = function () {
+    Decoder.selSizes = new Set();
+}
+
 function Flag(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1, identifier) {
 
     CircuitElement.call(this, x, y, scope, dir, bitWidth);
@@ -3051,6 +3769,7 @@ function Flag(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1, identifier
 
     this.inp1 = new Node(40, 0, 0, this);
 }
+
 Flag.prototype = Object.create(CircuitElement.prototype);
 Flag.prototype.constructor = Flag;
 Flag.prototype.tooltipText = "FLag ToolTip: Use this for debugging and plotting."
@@ -3243,6 +3962,9 @@ MSB.prototype.customDraw = function () {
     ctx.stroke();
     ctx.fill();
 }
+MSB.prototype.generateVerilog = function () {
+    return `assign ${this.output1.verilogLabel} = (${this.enable.verilogLabel}!=0) ? ${this.inp1.verilogLabel}[${this.inp1.bitWidth-1}] : 0;`;
+}
 
 function LSB(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
 
@@ -3334,6 +4056,9 @@ LSB.prototype.customDraw = function () {
     }
     ctx.stroke();
     ctx.fill();
+}
+LSB.prototype.generateVerilog = function () {
+    return `assign ${this.output1.verilogLabel} = (${this.enable.verilogLabel}!=0) ? ${this.inp1.verilogLabel}[0] : 0;`;
 }
 
 function PriorityEncoder(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
@@ -3461,6 +4186,60 @@ PriorityEncoder.prototype.customDraw = function () {
     ctx.fill();
 
 }
+PriorityEncoder.prototype.verilogBaseType = function() {
+    return this.verilogName() + this.inp1.length;
+}
+
+PriorityEncoder.prototype.generateVerilog = function () {
+    PriorityEncoder.selSizes.add(this.bitWidth);
+    return CircuitElement.prototype.generateVerilog.call(this);
+}
+PriorityEncoder.selSizes = new Set();
+//generate the needed modules
+PriorityEncoder.moduleVerilog = function () {
+    var output = "";
+
+    for (var size of PriorityEncoder.selSizes) {
+        var numInput = 1 << size;
+        output += "\n";
+        output += "module PriorityEncoder" + numInput;
+        output += "(sel, ze, ";
+        for (var j = 0; j < numInput-1; j++) {
+            output += "in" + j + ", ";
+        }
+        output += "in" + (numInput-1) + ");\n";
+
+        output += "  output reg [" + (size-1) + ":0] sel;\n";
+        output += "  output reg ze;\n";
+
+        output += "  input "
+        for (var j = 0; j < numInput-1; j++) {
+            output += "in" + j + ", ";
+        }
+        output += "in" + (numInput-1) + ";\n";
+        output += "\n";
+
+        output += "  always @ (*) begin\n";
+        output += "    sel = 0;\n";
+        output += "    ze = 0;\n";
+        output += "    if (in" + (numInput-1) + ")\n";
+        output += "      sel = " + (numInput-1) + ";\n";
+        for (var j = numInput-2; j <= 0; j++) {
+            output += "    else if (in" + j + ")\n";
+            output += "      sel = " + j + ";\n";
+        }
+        output += "    else\n";
+        output += "      ze = 1;\n"
+        output += "  end\n";
+        output += "endmodule\n";
+    }
+
+    return output;
+}
+//reset the sized before Verilog generation
+PriorityEncoder.resetVerilog = function () {
+    PriorityEncoder.selSizes = new Set
+}
 
 function Tunnel(x, y, scope = globalScope, dir = "LEFT", bitWidth = 1, identifier) {
 
@@ -3508,8 +4287,6 @@ Tunnel.prototype.setBounds = function () {
     this.upDimensionY = Math.abs(-20 + yRotate);
     this.rightDimensionX = Math.abs(xRotate)
     this.downDimensionY = Math.abs(20 + yRotate);
-    console.log(this.leftDimensionX, this.upDimensionY, this.rightDimensionX, this.downDimensionY);
-
     // rect2(ctx, -120 + xRotate + this.xSize, -20 + yRotate, 120 - this.xSize, 40, xx, yy, "RIGHT");
 
 
@@ -3648,7 +4425,6 @@ Tunnel.prototype.customDraw = function () {
 }
 
 function ALU(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
-    // //console.log("HIT");
     // //console.log(x,y,scope,dir,bitWidth,controlSignalSize);
     CircuitElement.call(this, x, y, scope, dir, bitWidth);
     this.message = "ALU";
@@ -3784,7 +4560,60 @@ ALU.prototype.resolve = function () {
     }
 
 }
+ALU.moduleVerilog = function () {
+  return `
+module ALU(out, carryOut, inp1, inp2, controlSignalInput);
+  parameter WIDTH = 1;
+  output reg [WIDTH-1:0] out;
+  output reg carryOut;
+  input [WIDTH-1:0] inp1, inp2;
+  input [2:0] controlSignalInput;
 
+  always @ (*)
+    case (controlSignalInput)
+      0 :
+        begin
+          out = inp1 & inp2;
+          carryOut = 0;
+        end
+      1 :
+        begin
+          out = inp1 | inp2;
+          carryOut = 0;
+        end
+      2 :
+        begin
+          {carryOut, out} = inp1 + inp2;
+        end
+      4 :
+        begin
+          out = inp1 & ~inp2;
+          carryOut = 0;
+        end
+      5 :
+        begin
+          out = inp1 | ~inp2;
+          carryOut = 0;
+        end
+      6 :
+        begin
+          out = inp1 < inp2;
+          carryOut = 0;
+        end
+      7 :
+        begin
+          out = inp1 & inp2;
+          carryOut = 0;
+        end
+      default :
+        begin
+          out = inp1 & inp2;
+          carryOut = 0;
+        end
+    endcase
+endmodule
+`;
+}
 
 function Rectangle(x, y, scope = globalScope, rows = 15, cols = 20) {
     CircuitElement.call(this, x, y, scope, "RIGHT", 1);

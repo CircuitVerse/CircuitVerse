@@ -1,7 +1,7 @@
 import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
-import { lineTo, moveTo, fillText } from '../canvasApi';
+import { lineTo, moveTo, fillText, correctWidth, rect2 } from '../canvasApi';
 import { colors } from '../themer/themer';
 
 
@@ -105,7 +105,7 @@ export default class Counter extends CircuitElement {
         var yy = this.y;
         
         ctx.beginPath();
-        ctx.font = "20px Georgia";
+        ctx.font = "20px Raleway";
         ctx.fillStyle = colors['input_text'];
         ctx.textAlign = "center";
         fillText(ctx, this.value.toString(16), this.x, this.y + 5);
@@ -118,8 +118,68 @@ export default class Counter extends CircuitElement {
         lineTo(ctx, -20, 15, xx, yy, this.direction);
         ctx.stroke();
     }
+
+    // Draws the element in the subcuircuit. Used in layout mode
+    subcircuitDraw(xOffset = 0, yOffset = 0) {
+        var ctx = simulationArea.context;
+        var xx = this.subcircuitMetadata.x + xOffset;
+        var yy = this.subcircuitMetadata.y + yOffset;
+
+        ctx.beginPath();
+        ctx.font = "20px Raleway";
+        ctx.fillStyle = "green";
+        ctx.textAlign = "center";
+        fillText(ctx, this.value.toString(16), xx + 10, yy + 17);
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.lineWidth = correctWidth(1);
+        rect2(ctx, 0, 0, 20, 20, xx, yy, this.direction);
+        ctx.stroke();
+
+        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) {
+            ctx.fillStyle = "rgba(255, 255, 32,0.6)";
+            ctx.fill();
+        }
+    }  
+    static moduleVerilog() {
+        return `
+    module Counter(val, zero, max, clk, rst);
+      parameter WIDTH = 1;
+      output reg [WIDTH-1:0] val;
+      output reg zero;
+      input [WIDTH-1:0] max;
+      input clk, rst;
+    
+      initial
+        val = 0;
+    
+      always @ (val)
+        if (val == 0)
+          zero = 1;
+        else
+          zero = 0;
+    
+      always @ (posedge clk or posedge rst) begin
+        if (rst)
+          val <= 0;
+        else
+          if (val == max)
+            val <= 0;
+          else
+            val <= val + 1;
+      end
+    endmodule`;
+    }
 }
 
 Counter.prototype.tooltipText = "Counter: a binary counter from zero to a given maximum value";
 Counter.prototype.helplink = "https://docs.circuitverse.org/#/inputElements?id=counter"; Counter.prototype.objectType = 'Counter';
 Counter.prototype.objectType = 'Counter';
+Counter.prototype.canShowInSubcircuit = true;
+Counter.prototype.layoutProperties = {
+    rightDimensionX : 20,
+    leftDimensionX : 0,
+    upDimensionY : 0,
+    downDimensionY: 20
+}

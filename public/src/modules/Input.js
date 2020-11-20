@@ -56,7 +56,6 @@ export default class Input extends CircuitElement {
         this.directionFixed = true;
         this.setWidth(this.bitWidth * 10);
         this.rectangleObject = true; // Trying to make use of base class draw
-        console.log(this);
     }
 
     /**

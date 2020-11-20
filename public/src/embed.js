@@ -6,14 +6,22 @@ import {
     scheduleUpdate, wireToBeCheckedSet, updateCanvasSet, gridUpdateSet,
 } from './engine';
 import { prevPropertyObjGet, prevPropertyObjSet } from './ux';
-
+import { ZoomIn, ZoomOut} from './listeners';
 
 circuitProperty.toggleFullScreen = toggleFullScreen;
 $(document).ready(() => {
     // Clock features
-    $('#clockProperty').append("<label class=''> <input type='button' class='objectPropertyAttributeEmbed' name='toggleFullScreen' value='Fullscreen' style='font-size: 20px'> </input> </label></br>");
-    $('#clockProperty').append(`Time: <input class='objectPropertyAttributeEmbed' min='50' type='number' style='width:48px' step='10' name='changeClockTime'  value='${simulationArea.timePeriod}'><br>`);
-    $('#clockProperty').append(`Clock: <label class='switch'> <input type='checkbox' ${['', 'checked'][simulationArea.clockEnabled + 0]} class='objectPropertyAttributeEmbedChecked' name='changeClockEnable' > <span class='slider'></span> </label><br>`);
+    $("#clockProperty").append(
+        "<input type='button' class='objectPropertyAttributeEmbed custom-btn--secondary embed-fullscreen-btn' name='toggleFullScreen' value='Full Screen'> </input>"
+    );
+    $("#clockProperty").append(
+        `<div>Time: <input class='objectPropertyAttributeEmbed' min='50' type='number' style='width:48px' step='10' name='changeClockTime'  value='${simulationArea.timePeriod}'></div>`
+    );
+    $("#clockProperty").append(
+        `<div>Clock: <label class='switch'> <input type='checkbox' ${
+            ["", "checked"][simulationArea.clockEnabled + 0]
+        } class='objectPropertyAttributeEmbedChecked' name='changeClockEnable' > <span class='slider'></span> </label><div>`
+    );
 
     // Following codes need to be removed
     $('.objectPropertyAttributeEmbed').on('change keyup paste click', function () {
@@ -30,6 +38,10 @@ $(document).ready(() => {
         wireToBeCheckedSet(1);
         if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) { prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet(); } else { circuitProperty[this.name](this.checked); }
     });
+
+    $('#zoom-in-embed').on('click', () => ZoomIn());
+
+    $('#zoom-out-embed').on('click', () => ZoomOut());
 });
 
 // Full screen toggle helper function

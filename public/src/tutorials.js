@@ -100,7 +100,7 @@ export const tutorialWrapper = () => {
             localStorage.setItem('tutorials', 'done');
         }
     })
-    $('.icon').click(() => {
+    $('.icon').on('click',() => {
         panelHighlight.reset(true);
     });
 }

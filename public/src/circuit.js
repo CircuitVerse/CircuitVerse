@@ -10,9 +10,14 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-alert */
 import CircuitElement from './circuitElement';
+import plotArea from './plotArea';
 import simulationArea, { changeClockTime } from './simulationArea';
 import {
-    stripTags, uniq, showMessage, showError,
+    stripTags,
+    uniq,
+    showMessage,
+    showError,
+    truncateString
 } from './utils';
 import { findDimensions, dots } from './canvasApi';
 import { updateRestrictedElementsList } from './restrictedElementDiv';
@@ -27,6 +32,7 @@ import { toggleLayoutMode, layoutModeGet } from './layoutMode';
 import { setProjectName, getProjectName } from './data/save';
 import { changeClockEnable } from './sequential';
 import { changeInputSize } from './modules';
+import { verilogModeGet, verilogModeSet } from './Verilog2CV';
 
 export const circuitProperty = {
     toggleLayoutMode, setProjectName, changeCircuitName, changeClockTime, deleteCurrentCircuit, changeClockEnable, changeInputSize, changeLightMode,
@@ -45,16 +51,22 @@ export function resetScopeList() {
  */
 export function switchCircuit(id) {
     if (layoutModeGet()) { toggleLayoutMode(); }
+    if (verilogModeGet()) { verilogModeSet(false);}
 
     // globalScope.fixLayout();
     scheduleBackup();
     if (id === globalScope.id) return;
-    $(`#${globalScope.id}`).removeClass('current');
-    $(`#${id}`).addClass('current');
+    $(`.circuits`).removeClass('current');
     simulationArea.lastSelected = undefined;
     simulationArea.multipleObjectSelections = [];
     simulationArea.copyList = [];
     globalScope = scopeList[id];
+    if (globalScope.verilogMetadata.isVerilogCircuit) {
+        verilogModeSet(true);
+    }
+    if (globalScope.isVisible()) {
+        $(`#${id}`).addClass('current');
+    }
     updateSimulationSet(true);
     updateSubcircuitSet(true);
     forceResetNodesSet(true);
@@ -68,6 +80,7 @@ export function switchCircuit(id) {
 
     // to update the restricted elements information
     updateRestrictedElementsList();
+    plotArea.reset();
 }
 
 /**
@@ -101,6 +114,11 @@ function deleteCurrentCircuit(scopeId = globalScope.id) {
 
     const confirmation = confirm(`Are you sure want to delete: ${scope.name}\nThis cannot be undone.`);
     if (confirmation) {
+        if (scope.verilogMetadata.isVerilogCircuit) {
+            scope.initialize();
+            for(var id in scope.verilogMetadata.subCircuitScopeIds)
+                delete scopeList[id];
+        }
         $(`#${scope.id}`).remove();
         delete scopeList[scope.id];
         switchCircuit(Object.keys(scopeList)[0]);
@@ -115,34 +133,50 @@ function deleteCurrentCircuit(scopeId = globalScope.id) {
  * @param {string} id - identifier for circuit
  * @category circuit
  */
-export function newCircuit(name, id) {
-    name = name || prompt('Enter circuit name:');
+export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
+    if (layoutModeGet()) { toggleLayoutMode(); }
+    if (verilogModeGet()) { verilogModeSet(false);}
+    name = name || prompt('Enter circuit name:') || 'Untitled-Circuit';
     name = stripTags(name);
     if (!name) return;
     const scope = new Scope(name);
     if (id) scope.id = id;
     scopeList[scope.id] = scope;
+    if(isVerilog) {
+        scope.verilogMetadata.isVerilogCircuit = true;
+        scope.verilogMetadata.isMainCircuit = isVerilogMain;
+    }
     globalScope = scope;
     $('.circuits').removeClass('current');
-    $('#tabsBar').append(`<div style='display: flex' class='circuits toolbarButton current' id='${scope.id}'><span class='circuitName'>${name}</span><span class ='tabsCloseButton' id='${scope.id}'  >x</span></div>`);
-    $('.circuits').click(function () {
-        switchCircuit(this.id);
-    });
-    $('.circuitName').click((e) => {
-        console.log(globalScope);
-        simulationArea.lastSelected = globalScope.root;
-        setTimeout(() => {
-            document.getElementById('circname').select();
-        }, 100);
-    });
-    $('.tabsCloseButton').click(function (e) {
-        e.stopPropagation();
-        deleteCurrentCircuit(this.id);
-    });
-    if (!embed) {
-        showProperties(scope.root);
+    if (!isVerilog || isVerilogMain) {
+        if(embed) {
+            var html = `<div style='' class='circuits toolbarButton current' id='${scope.id}'><span class='circuitName noSelect'>${truncateString(name, 18)}</span></div>`;
+            $('#tabsBar').append(html);
+            $("#tabsBar").addClass('embed-tabs');
+        }
+        else {
+            var html = `<div style='' class='circuits toolbarButton current' id='${scope.id}'><span class='circuitName noSelect'>${truncateString(name, 18)}</span><span class ='tabsCloseButton' id='${scope.id}'  >x</span></div>`;
+            $('#tabsBar').children().last().before(html);
+        }
+        $('.circuits').on('click',function () {
+            switchCircuit(this.id);
+        });
+        $('.circuitName').on('click',(e) => {
+            simulationArea.lastSelected = globalScope.root;
+            setTimeout(() => {
+                document.getElementById('circname').select();
+            }, 100);
+        });
+        $('.tabsCloseButton').on('click',function (e) {
+            e.stopPropagation();
+            deleteCurrentCircuit(this.id);
+        });
+        if (!embed) {
+            showProperties(scope.root);
+        }
+        dots(false);
     }
-    dots(false);
+    
     return scope;
 }
 
@@ -155,7 +189,7 @@ export function newCircuit(name, id) {
 export function changeCircuitName(name, id = globalScope.id) {
     name = name || 'Untitled';
     name = stripTags(name);
-    $(`#${id} .circuitName`).html(`${name}`);
+    $(`#${id} .circuitName`).html(`${truncateString(name, 18)}`);
     scopeList[id].name = name;
 }
 
@@ -171,28 +205,25 @@ export default class Scope {
         this.restrictedCircuitElementsUsed = [];
         this.id = id || Math.floor((Math.random() * 100000000000) + 1);
         this.CircuitElement = [];
+        this.name = name;
 
         // root object for referring to main canvas - intermediate node uses this
         this.root = new CircuitElement(0, 0, this, 'RIGHT', 1);
         this.backups = [];
         this.timeStamp = new Date().getTime();
+        this.verilogMetadata = {
+            isVerilogCircuit: false,
+            isMainCircuit: false,
+            code: "// Write Some Verilog Code Here!",
+            subCircuitScopeIds: []
+        }
 
         this.ox = 0;
         this.oy = 0;
         this.scale = DPR;
-        this.tunnelList = {};
         this.stack = [];
-
-        this.name = name;
-        this.pending = [];
-        this.nodes = []; // intermediate nodes only
-        this.allNodes = [];
-        this.wires = [];
-
-        // Creating arrays for other module elements
-        for (let i = 0; i < moduleList.length; i++) {
-            this[moduleList[i]] = [];
-        }
+        
+        this.initialize();
 
         // Setting default layout
         this.layout = { // default position
@@ -202,14 +233,24 @@ export default class Scope {
             title_y: 13,
             titleEnabled: true,
         };
+    }
 
+    isVisible() {
+        if(!this.verilogMetadata.isVerilogCircuit)return true;
+        return this.verilogMetadata.isMainCircuit;
+    }
 
-        // FOR SOME UNKNOWN REASON, MAKING THE COPY OF THE LIST COMMON
-        // TO ALL SCOPES EITHER BY PROTOTYPE OR JUST BY REFERNCE IS CAUSING ISSUES
-        // The issue comes regarding copy/paste operation, after 5-6 operations it becomes slow for unknown reasons
-        // CHANGE/ REMOVE WITH CAUTION
-        // this.objects = ["wires", ...circuitElementList, "nodes", ...annotationList];
-        // this.renderObjectOrder = [ ...(moduleList.slice().reverse()), "wires", "allNodes"];
+    initialize() {
+        this.tunnelList = {};
+        this.pending = [];
+        this.nodes = []; // intermediate nodes only
+        this.allNodes = [];
+        this.wires = [];
+
+        // Creating arrays for other module elements
+        for (let i = 0; i < moduleList.length; i++) {
+            this[moduleList[i]] = [];
+        }
     }
 
     /**

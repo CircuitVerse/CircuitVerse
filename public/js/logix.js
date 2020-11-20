@@ -3,8 +3,8 @@ var width;
 var height;
 var listenToSimulator=true; //enables key down listener on the simulator
 
-var createNode=false //Flag to create node when its value ==true 
-var stopWire=true //flag for stopoing making Nodes when the second terminal reaches a Node (closed path) 
+var createNode=false //Flag to create node when its value ==true
+var stopWire=true //flag for stopoing making Nodes when the second terminal reaches a Node (closed path)
 
 uniqueIdCounter = 0; // To be deprecated
 unit = 10; // size of each division/ not used everywhere, to be deprecated
@@ -183,12 +183,6 @@ function showMessage(mes) {
         prevShowMessage = undefined;
         $('#' + id).fadeOut()
     }, 2500);
-}
-
-// Helper function to open a new tab
-function openInNewTab(url) {
-    var win = window.open(url, '_blank');
-    win.focus();
 }
 
 // Following function need to be improved - remove mutability etc
@@ -882,7 +876,6 @@ function copy(copyList, cut = false) {
             var obj = globalScope[updateOrder[i]][j];
             if (obj.objectType != 'Wire') { //}&&obj.objectType!='CircuitElement'){//}&&(obj.objectType!='Node'||obj.type==2)){
                 if (!copyList.contains(globalScope[updateOrder[i]][j])) {
-                    ////console.log("DELETE:", globalScope[updateOrder[i]][j]);
                     globalScope[updateOrder[i]][j].cleanDelete();
                 }
             }
@@ -1016,6 +1009,16 @@ function CircuitElement(x, y, scope, dir, bitWidth) {
         index: undefined,
     }
 
+    if (this.canShowInSubcircuit) {
+        this.subcircuitMetadata = {
+            showInSubcircuit: false,
+            showLabelInSubcircuit: false,
+            labelDirection: this.labelDirection,
+            x : 0,
+            y : 0
+        }
+    }
+
 }
 
 CircuitElement.prototype.alwaysResolve = false
@@ -1065,6 +1068,10 @@ CircuitElement.prototype.saveObject = function() {
         propagationDelay: this.propagationDelay,
         customData: this.customSave()
     }
+
+    if (this.canShowInSubcircuit)
+        data.subcircuitMetadata = this.subcircuitMetadata;
+    
     return data;
 
 }
@@ -1119,14 +1126,32 @@ CircuitElement.prototype.setHeight = function(height) {
 CircuitElement.prototype.overrideDirectionRotation = false;
 
 CircuitElement.prototype.startDragging = function() {
-    this.oldx = this.x;
-    this.oldy = this.y;
+    if (layoutMode) {
+        this.oldx = this.subcircuitMetadata.x;
+        this.oldy = this.subcircuitMetadata.y;
+    }
+    else { 
+        this.oldx = this.x;
+        this.oldy = this.y;
+    }
+    
 }
 CircuitElement.prototype.drag = function() {
-    this.x = this.oldx + simulationArea.mouseX - simulationArea.mouseDownX;
-    this.y = this.oldy + simulationArea.mouseY - simulationArea.mouseDownY;
+    if (layoutMode) {
+        this.subcircuitMetadata.x = this.oldx + simulationArea.mouseX - simulationArea.mouseDownX;
+        this.subcircuitMetadata.y = this.oldy + simulationArea.mouseY - simulationArea.mouseDownY;
+    }
+    else {
+        this.x = this.oldx + simulationArea.mouseX - simulationArea.mouseDownX;
+        this.y = this.oldy + simulationArea.mouseY - simulationArea.mouseDownY;
+    }
+    
 }
 CircuitElement.prototype.update = function() {
+
+    if (layoutMode) {
+        return this.layoutUpdate();
+    }
 
     var update = false;
 
@@ -1188,6 +1213,7 @@ CircuitElement.prototype.update = function() {
     } else {
         if (this.clicked) simulationArea.selected = false;
         this.clicked = false;
+        if(this.wasClicked && !this.clicked) this.releaseClick();
         this.wasClicked = false;
     }
 
@@ -1210,7 +1236,9 @@ CircuitElement.prototype.update = function() {
 
     return update;
 }
-
+CircuitElement.prototype.releaseClick = function() {
+    // no use, overridden by subcircuit class only
+}
 CircuitElement.prototype.fixDirection = function() {
     this.direction = fixDirection[this.direction] || this.direction;
     this.labelDirection = fixDirection[this.labelDirection] || this.labelDirection;
@@ -1229,7 +1257,18 @@ CircuitElement.prototype.isHover = function() {
     var uY = this.upDimensionY;
     var dY = this.downDimensionY;
 
-    if (!this.directionFixed && !this.overrideDirectionRotation) {
+    if (layoutMode) {
+
+        var mX = simulationArea.mouseXf - this.subcircuitMetadata.x;
+        var mY = this.subcircuitMetadata.y - simulationArea.mouseYf;
+
+        var rX = this.layoutProperties.rightDimensionX;
+        var lX = this.layoutProperties.leftDimensionX;
+        var uY = this.layoutProperties.upDimensionY;
+        var dY = this.layoutProperties.downDimensionY;
+    }
+
+    if (!layoutMode && !this.directionFixed && !this.overrideDirectionRotation) {
         if (this.direction == "LEFT") {
             lX = this.rightDimensionX;
             rX = this.leftDimensionX
@@ -1377,7 +1416,10 @@ CircuitElement.prototype.newDirection = function(dir) {
 }
 
 CircuitElement.prototype.newLabelDirection = function(dir) {
-    this.labelDirection = dir;
+    if(layoutMode)
+        this.subcircuitMetadata.labelDirection = dir;
+    else
+        this.labelDirection = dir;
 }
 
 //Method to check if object can be resolved
@@ -1417,45 +1459,60 @@ CircuitElement.prototype.resolve = function() {
 
 }
 
+// Graph algorithm to resolve verilog wire labels
 CircuitElement.prototype.processVerilog = function() {
-    var output_count = 0;
+    // Output count used to sanitize output
+    var output_total = 0;
     for (var i = 0; i < this.nodeList.length; i++) {
-        if (this.nodeList[i].type == NODE_OUTPUT) {
-            this.nodeList[i].verilogLabel = this.nodeList[i].verilogLabel || (this.verilogLabel + "_" + (verilog.fixName(this.nodeList[i].label) || ("out_" + output_count)));
-            if (this.objectType != "Input" && this.nodeList[i].connections.length > 0) {
-                if (this.scope.verilogWireList[this.bitWidth] != undefined) {
-                    if (!this.scope.verilogWireList[this.bitWidth].contains(this.nodeList[i].verilogLabel))
-                        this.scope.verilogWireList[this.bitWidth].push(this.nodeList[i].verilogLabel);
-                } else
-                    this.scope.verilogWireList[this.bitWidth] = [this.nodeList[i].verilogLabel];
-            }
-            this.scope.stack.push(this.nodeList[i]);
-            output_count++;
-        }
+        if (this.nodeList[i].type == NODE_OUTPUT && this.nodeList[i].connections.length > 0)
+          output_total++;
     }
+
+CircuitElement.prototype.canShowInSubcircuit = false;
+
+// Default layout properties when canShowInSubcircuit is true
+CircuitElement.prototype.layoutProperties = {
+    rightDimensionX : 5,
+    leftDimensionX : 5,
+    upDimensionY : 5,
+    downDimensionY: 5
+};
+
+// Default mutable properties in layout mode 
+// Should we define it for subcircuit elements only??
+CircuitElement.prototype.subcircuitMutableProperties = {
+    "label": {
+        name: "label: ",
+        type: "text",
+        func: "setLabel"
+    },
+    "show label": {
+        name: "show label ",
+        type: "checkbox",
+        func: "toggleLabelInLayoutMode"
+    }
+}
+
+CircuitElement.prototype.toggleLabelInLayoutMode = function(val) {
+    this.subcircuitMetadata.showLabelInSubcircuit = val;
 }
 
 CircuitElement.prototype.isVerilogResolvable = function() {
 
     var backupValues = []
     for (var i = 0; i < this.nodeList.length; i++) {
-        backupValues.push(this.nodeList[i].value);
-        this.nodeList[i].value = undefined;
-    }
+        if (this.nodeList[i].type == NODE_OUTPUT) {
+            if (this.objectType != "Input" && this.objectType != "Clock" && this.nodeList[i].connections.length > 0) {
+                this.nodeList[i].verilogLabel =
+                    verilog.generateNodeName(this.nodeList[i], output_count, output_total);
 
-    for (var i = 0; i < this.nodeList.length; i++) {
-        if (this.nodeList[i].verilogLabel) {
-            this.nodeList[i].value = 1;
+                if (!this.scope.verilogWireList[this.nodeList[i].bitWidth].contains(this.nodeList[i].verilogLabel))
+                    this.scope.verilogWireList[this.nodeList[i].bitWidth].push(this.nodeList[i].verilogLabel);
+                output_count++;
+            }
+            this.scope.stack.push(this.nodeList[i]);
         }
     }
-
-    var res = this.isResolvable();
-
-    for (var i = 0; i < this.nodeList.length; i++) {
-        this.nodeList[i].value = backupValues[i];
-    }
-
-    return res;
 }
 
 CircuitElement.prototype.removePropagation = function() {
@@ -1473,26 +1530,211 @@ CircuitElement.prototype.verilogName = function() {
     return this.verilogType || this.objectType;
 }
 
-CircuitElement.prototype.generateVerilog = function() {
+CircuitElement.prototype.verilogBaseType = function() {
+    return this.verilogName();
+}
 
+CircuitElement.prototype.verilogParametrizedType = function() {
+    var type = this.verilogBaseType();
+    // Suffix bitwidth for multi-bit inputs
+    // Example: DflipFlop #(2) DflipFlop_0
+    if (this.bitWidth != undefined && this.bitWidth > 1)
+        type += " #(" + this.bitWidth + ")";
+    return type
+}
+
+// Generates final verilog code for each element
+CircuitElement.prototype.generateVerilog = function() {
+    // Example: and and_1(_out, _out, _Q[0]);
     var inputs = [];
     var outputs = [];
-
 
     for (var i = 0; i < this.nodeList.length; i++) {
         if (this.nodeList[i].type == NODE_INPUT) {
             inputs.push(this.nodeList[i]);
         } else {
-            outputs.push(this.nodeList[i]);
+            if (this.nodeList[i].connections.length > 0)
+                outputs.push(this.nodeList[i]);
+            else
+                outputs.push(""); // Don't create a wire
         }
     }
 
     var list = outputs.concat(inputs);
-    var res = this.verilogName() + " " + this.verilogLabel + " (" + list.map(function(x) {
-        return x.verilogLabel
-    }).join(",") + ");";
-
+    var res = this.verilogParametrizedType();
+    var moduleParams = list.map(x => x.verilogLabel).join(", ");
+    res += ` ${this.verilogLabel}(${moduleParams});`;
     return res;
+}
+
+// Generates final verilog code for each element
+// Gate = &/|/^
+// Invert is true for xNor, Nor, Nand
+function gateGenerateVerilog(gate, invert = false) {
+    var inputs = [];
+    var outputs = [];
+
+    for (var i = 0; i < this.nodeList.length; i++) {
+        if (this.nodeList[i].type == NODE_INPUT) {
+            inputs.push(this.nodeList[i]);
+        } else {
+            if (this.nodeList[i].connections.length > 0)
+                outputs.push(this.nodeList[i]);
+            else
+                outputs.push(""); // Don't create a wire
+        }
+    }
+
+    var res = "assign ";
+    if (outputs.length == 1)
+        res += outputs[0].verilogLabel;
+    else
+        res += `{${outputs.map(x => x.verilogLabel).join(", ")}}`;
+
+    res += " = ";
+
+    var inputParams = inputs.map(x => x.verilogLabel).join(` ${gate} `);
+    if(invert) {
+        res += `~(${inputParams});`;
+    }
+    else {
+        res += inputParams + ';';
+    }
+    return res;
+}
+
+CircuitElement.prototype.drawLayoutMode = function (xOffset = 0, yOffset = 0) {
+    var ctx = simulationArea.context;
+    this.checkHover();
+    if (this.subcircuitMetadata.x * this.scope.scale + this.scope.ox < -this.layoutProperties.rightDimensionX * this.scope.scale - 00 || this.subcircuitMetadata.x * this.scope.scale + this.scope.ox > width + this.layoutProperties.leftDimensionX * this.scope.scale + 00 || this.subcircuitMetadata.y * this.scope.scale + this.scope.oy < -this.layoutProperties.downDimensionY * this.scope.scale - 00 || this.subcircuitMetadata.y * this.scope.scale + this.scope.oy > height + 00 + this.layoutProperties.upDimensionY * this.scope.scale) return;
+
+    if (this.subcircuitMetadata.showLabelInSubcircuit) {
+        var rX = this.layoutProperties.rightDimensionX;
+        var lX = this.layoutProperties.leftDimensionX;
+        var uY = this.layoutProperties.upDimensionY;
+        var dY = this.layoutProperties.downDimensionY;
+
+        // this.subcircuitMetadata.labelDirection
+        if (this.subcircuitMetadata.labelDirection == "LEFT") {
+            ctx.beginPath();
+            ctx.textAlign = "right";
+            ctx.fillStyle = "black";
+            fillText(ctx, this.label, this.subcircuitMetadata.x + xOffset - lX - 10, this.subcircuitMetadata.y + yOffset + 5, 10);
+            ctx.fill();
+        } else if (this.subcircuitMetadata.labelDirection == "RIGHT") {
+            ctx.beginPath();
+            ctx.textAlign = "left";
+            ctx.fillStyle = "black";
+            fillText(ctx, this.label, this.subcircuitMetadata.x + xOffset + rX + 10, this.subcircuitMetadata.y + yOffset + 5, 10);
+            ctx.fill();
+        } else if (this.subcircuitMetadata.labelDirection == "UP") {
+            ctx.beginPath();
+            ctx.textAlign = "center";
+            ctx.fillStyle = "black";
+            fillText(ctx, this.label, this.subcircuitMetadata.x + xOffset, this.subcircuitMetadata.y + yOffset + 5 - uY - 10, 10);
+            ctx.fill();
+        } else if (this.subcircuitMetadata.labelDirection == "DOWN") {
+            ctx.beginPath();
+            ctx.textAlign = "center";
+            ctx.fillStyle = "black";
+            fillText(ctx, this.label, this.subcircuitMetadata.x + xOffset, this.subcircuitMetadata.y + yOffset + 5 + dY + 10, 10);
+            ctx.fill();
+        }
+    }
+    this.layoutDraw(xOffset, yOffset);
+}
+
+CircuitElement.prototype.layoutUpdate = function () {
+
+        var update = false;
+    
+        update |= this.newElement;
+        if (this.newElement) {
+            this.subcircuitMetadata.x = simulationArea.mouseX;
+            this.subcircuitMetadata.y = simulationArea.mouseY;
+            
+            if (simulationArea.mouseDown) {
+                this.newElement = false;
+                simulationArea.lastSelected = this;
+            } else return;
+        }
+    
+        if (!simulationArea.hover || simulationArea.hover == this)
+            this.hover = this.isHover();
+    
+        // if (!simulationArea.mouseDown) this.hover = false;
+    
+        if ((this.clicked || !simulationArea.hover) && this.isHover()) {
+            this.hover = true;
+            simulationArea.hover = this;
+        } else if (!simulationArea.mouseDown && this.hover && this.isHover() == false) {
+            if (this.hover) simulationArea.hover = undefined;
+            this.hover = false;
+        }
+    
+        if (simulationArea.mouseDown && (this.clicked)) {
+    
+            this.drag();
+            // if (!simulationArea.shiftDown && simulationArea.multipleObjectSelections.contains(this)) {
+            //     for (var i = 0; i < simulationArea.multipleObjectSelections.length; i++) {
+            //         simulationArea.multipleObjectSelections[i].drag();
+            //     }
+            // }
+    
+            update |= true;
+        } else if (simulationArea.mouseDown && !simulationArea.selected) {
+    
+            this.startDragging();
+            // if (!simulationArea.shiftDown && simulationArea.multipleObjectSelections.contains(this)) {
+            //     for (var i = 0; i < simulationArea.multipleObjectSelections.length; i++) {
+            //         simulationArea.multipleObjectSelections[i].startDragging();
+            //     }
+            // }
+            simulationArea.selected = this.clicked = this.hover;
+    
+            update |= this.clicked;
+        } else {
+            if (this.clicked) simulationArea.selected = false;
+            this.clicked = false;
+            this.wasClicked = false;
+        }
+    
+        if (simulationArea.mouseDown && !this.wasClicked) {
+            if (this.clicked) {
+                this.wasClicked = true;
+                // if (this.click) this.click();
+                if (simulationArea.shiftDown) {
+                //     simulationArea.lastSelected = undefined;
+                //     if (simulationArea.multipleObjectSelections.contains(this)) {
+                //         simulationArea.multipleObjectSelections.clean(this);
+                //     } else {
+                //         simulationArea.multipleObjectSelections.push(this);
+                //     }
+                } else {
+                    simulationArea.lastSelected = this;
+                }
+            }
+        }
+
+        if (!this.clicked && !this.newElement) {
+            let x = this.subcircuitMetadata.x;
+            let y = this.subcircuitMetadata.y; 
+            let yy = temp_buffer.layout.height;
+            let xx = temp_buffer.layout.width;
+
+            let rX = this.layoutProperties.rightDimensionX;
+            let lX = this.layoutProperties.leftDimensionX;
+            let uY = this.layoutProperties.upDimensionY;
+            let dY = this.layoutProperties.downDimensionY;
+
+            if (lX <= x && x + rX <= xx && y >= uY && y + dY <= yy)
+                return;
+            
+            this.subcircuitMetadata.showInSubcircuit = false;
+            fillSubcircuitElements();
+        }
+    
+        return update;
 }
 
 function distance(x1, y1, x2, y2) {

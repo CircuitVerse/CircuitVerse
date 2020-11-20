@@ -1,7 +1,7 @@
 import CircuitElement from "../circuitElement";
 import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
-import { correctWidth, lineTo, moveTo, arc } from "../canvasApi";
+import { correctWidth, lineTo, moveTo, arc, drawCircle2 } from "../canvasApi";
 import { changeInputSize } from "../modules";
 /**
  * @class
@@ -88,6 +88,33 @@ export default class VariableLed extends CircuitElement {
             ctx.fillStyle = colors["hover_select"];
         ctx.fill();
     }
+
+    // Draws the element in the subcuircuit. Used in layout mode
+    subcircuitDraw(xOffset = 0, yOffset = 0) {
+        var ctx = simulationArea.context;
+
+        var xx = this.subcircuitMetadata.x + xOffset;
+        var yy = this.subcircuitMetadata.y + yOffset;
+
+        var c = this.inp1.value;
+        var alpha = c / 255;
+        ctx.strokeStyle = "#090a0a";
+        ctx.fillStyle = ["rgba(255,29,43," + alpha + ")", "rgba(227, 228, 229, 0.8)"][(c === undefined || c == 0) + 0];
+        ctx.lineWidth = correctWidth(1);
+
+        ctx.beginPath();
+        drawCircle2(ctx, 0, 0, 6, xx, yy, this.direction);
+        ctx.stroke();
+
+        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = "rgba(255, 255, 32,0.8)";
+        ctx.fill();
+    }
+
+    generateVerilog() {
+        return `
+      always @ (*)
+        $display("VeriableLed:${this.inp1.verilogLabel}=%d", ${this.inp1.verilogLabel});`;
+    }
 }
 
 /**
@@ -108,3 +135,4 @@ VariableLed.prototype.tooltipText =
 VariableLed.prototype.helplink =
     "https://docs.circuitverse.org/#/outputs?id=variable-led";
 VariableLed.prototype.objectType = "VariableLed";
+VariableLed.prototype.canShowInSubcircuit = true;

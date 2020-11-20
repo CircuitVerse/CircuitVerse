@@ -1,7 +1,7 @@
 import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
-import { fillText, lineTo, moveTo } from '../canvasApi';
+import { fillText, lineTo, moveTo, correctWidth, rect2 } from '../canvasApi';
 /**
  * @class
  * Random
@@ -55,7 +55,6 @@ export default class Random extends CircuitElement {
      * Random number is generated less then the maxValue.
      */
     resolve() {
-        // console.log("HIT")
         var maxValue = this.maxValue.connections.length ? this.maxValue.value + 1 : (2 << (this.bitWidth - 1));
         if (this.clockInp.value != undefined) {
             if (this.clockInp.value != this.prevClockState) {
@@ -92,7 +91,7 @@ export default class Random extends CircuitElement {
         ctx.beginPath();
         var xx = this.x;
         var yy = this.y;
-        ctx.font = '20px Georgia';
+        ctx.font = '20px Raleway';
         ctx.fillStyle = colors['input_text'];
         ctx.textAlign = 'center';
         fillText(ctx, this.currentRandomNo.toString(10), this.x, this.y + 5);
@@ -103,6 +102,47 @@ export default class Random extends CircuitElement {
         lineTo(ctx, -20, 15, xx, yy, this.direction);
         ctx.stroke();
     }
+
+    // Draws the element in the subcircuit. Used in layout mode
+    subcircuitDraw(xOffset = 0, yOffset = 0) {
+        var ctx = simulationArea.context;
+        var xx = this.subcircuitMetadata.x + xOffset;
+        var yy = this.subcircuitMetadata.y + yOffset;
+
+        ctx.beginPath();
+        ctx.font = "20px Raleway";
+        ctx.fillStyle = "green";
+        ctx.textAlign = "center";
+        fillText(ctx, this.currentRandomNo.toString(16), xx + 10, yy + 17);
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.lineWidth = correctWidth(1);
+        rect2(ctx, 0, 0, 20, 20, xx, yy, this.direction);
+        ctx.stroke();
+
+        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) {
+            ctx.fillStyle = "rgba(255, 255, 32,0.6)";
+            ctx.fill();
+        }
+    }
+    
+    static moduleVerilog() {
+        return `
+      module Random(val, clk, max);
+        parameter WIDTH = 1;
+        output reg [WIDTH-1:0] val;
+        input clk;
+        input [WIDTH-1:0] max;
+      
+        always @ (posedge clk)
+          if (^max === 1'bX)
+            val = $urandom_range(0, {WIDTH{1'b1}});
+          else
+            val = $urandom_range(0, max);
+      endmodule
+      `;
+    }
 }
 
 Random.prototype.tooltipText = 'Random ToolTip : Random Selected.';
@@ -110,3 +150,11 @@ Random.prototype.tooltipText = 'Random ToolTip : Random Selected.';
 Random.prototype.helplink = 'https://docs.circuitverse.org/#/inputElements?id=random';
 
 Random.prototype.objectType = 'Random';
+
+Random.prototype.canShowInSubcircuit = true
+Random.prototype.layoutProperties = {
+    rightDimensionX : 20,
+    leftDimensionX : 0,
+    upDimensionY : 0,
+    downDimensionY: 20
+}

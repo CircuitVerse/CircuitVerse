@@ -17,7 +17,9 @@ import { paste } from './events';
 import { setProjectName, getProjectName } from './data/save';
 import { changeScale } from './canvasApi';
 import updateTheme from "./themer/themer";
-
+import { generateImage } from './data/save';
+import { setupVerilogExportCodeWindow } from './verilog';
+import { setupBitConvertor} from './utils';
 
 export const uxvar = {
     smartDropXX: 50,
@@ -79,7 +81,7 @@ function showContextMenu() {
  * @param {number} id - id of the optoin selected
  * @category ux
  */
-function menuItemClicked(id) {
+function menuItemClicked(id, code="") {
     hideContextMenu();
     if (id === 0) {
         document.execCommand('copy');
@@ -128,31 +130,15 @@ export function setupUI() {
         handles: 'e',
         // minWidth:270,
     });
-    $('#menu').accordion({
+    $('#menu, #subcircuitMenu').accordion({
         collapsible: true,
         active: false,
         heightStyle: 'content',
     });
-    // $( "#plot" ).resizable({
-    // handles: 'n',
-    //     // minHeight:200,
-    // });
 
-    $('.logixModules').mousedown(function () {
-        // ////console.log(uxvar.smartDropXX,uxvar.smartDropYY);
-        if (simulationArea.lastSelected && simulationArea.lastSelected.newElement) simulationArea.lastSelected.delete();
-        var obj = new modules[this.id](); // (simulationArea.mouseX,simulationArea.mouseY);
-        // obj = new modules[this.id](); // (simulationArea.mouseX,simulationArea.mouseY);
-        simulationArea.lastSelected = obj;
-        // simulationArea.lastSelected=obj;
-        // simulationArea.mouseDown=true;
-        uxvar.smartDropXX += 70;
-        if (uxvar.smartDropXX / globalScope.scale > width) {
-            uxvar.smartDropXX = 50;
-            uxvar.smartDropYY += 80;
-        }
-    });
-    $('.logixButton').click(function () {
+    $('.logixModules').mousedown(createElement);
+
+    $('.logixButton').on('click',function () {
         logixFunction[this.id]();
     });
     // var dummyCounter=0;
@@ -164,14 +150,13 @@ export function setupUI() {
         if (!tooltipText) return;
         $('#Help').addClass('show');
         $('#Help').empty();
-        // //console.log("SHOWING")
         $('#Help').append(tooltipText);
     }); // code goes in document ready fn only
     $('.logixModules').mouseleave(() => {
         $('#Help').removeClass('show');
     }); // code goes in document ready fn only
 
-    $('#report').click(function(){
+    $('#report').on('click',function(){
          var message=$('#issuetext').val();
          var email=$('#emailtext').val();
          message += "\nEmail:"+ email
@@ -195,27 +180,26 @@ export function setupUI() {
          $('#report-label').show();
          $('#email-label').show();
      })
-     $('#reportIssue').click(function(){
+     $('#reportIssue').on('click',function(){
        listenToSimulator=false
      })
 
-    // $('#saveAsImg').click(function(){
+    // $('#saveAsImg').on('click',function(){
     //     saveAsImg();
     // });
-    // $('#Save').click(function(){
+    // $('#Save').on('click',function(){
     //     Save();
     // });
     // $('#moduleProperty').draggable();
+    setupPanels();
+    setupVerilogExportCodeWindow();
+    setupBitConvertor();
 }
 
-export const selectElement = (ele) => {
-    // ////console.log(uxvar.smartDropXX,uxvar.smartDropYY);
+export function createElement() {
     if (simulationArea.lastSelected && simulationArea.lastSelected.newElement) simulationArea.lastSelected.delete();
-    var obj = new modules[ele](); // (simulationArea.mouseX,simulationArea.mouseY);
-    // obj = new modules[this.id](); // (simulationArea.mouseX,simulationArea.mouseY);
+    var obj = new modules[this.id](); 
     simulationArea.lastSelected = obj;
-    // simulationArea.lastSelected=obj;
-    // simulationArea.mouseDown=true;
     uxvar.smartDropXX += 70;
     if (uxvar.smartDropXX / globalScope.scale > width) {
         uxvar.smartDropXX = 50;
@@ -243,15 +227,51 @@ export function prevPropertyObjGet() {
  * @category ux
  */
 export function showProperties(obj) {
-    // console.log(obj)
     if (obj === prevPropertyObjGet()) return;
     hideProperties();
     prevPropertyObjSet(obj);
-    if (simulationArea.lastSelected === undefined || ['Wire', 'CircuitElement', 'Node'].indexOf(simulationArea.lastSelected.objectType) !== -1) {
+    if(layoutModeGet()){
+        // if an element is selected, show its properties instead of the layout dialog
+        if (simulationArea.lastSelected === undefined || ['Wire', 'CircuitElement', 'Node'].indexOf(simulationArea.lastSelected.objectType) !== -1){
+            $('#moduleProperty').hide();
+            $('#layoutDialog').show();
+            return;
+        }
+
+        $('#moduleProperty').show();
+        $('#layoutDialog').hide();
+        $('#moduleProperty-inner').append("<div id='moduleProperty-header'>" + obj.objectType + "</div>");
+
+        if (obj.subcircuitMutableProperties && obj.canShowInSubcircuit) {
+            for (let attr in obj.subcircuitMutableProperties) {
+                var prop = obj.subcircuitMutableProperties[attr];
+                if (obj.subcircuitMutableProperties[attr].type == "number") {
+                    var s = "<p>" + prop.name + "<input class='objectPropertyAttribute' type='number'  name='" + prop.func + "' min='" + (prop.min || 0) + "' max='" + (prop.max || 200) + "' value=" + obj[attr] + "></p>";
+                    $('#moduleProperty-inner').append(s);
+                }
+                else if (obj.subcircuitMutableProperties[attr].type == "text") {
+                    var s = "<p>" + prop.name + "<input class='objectPropertyAttribute' type='text'  name='" + prop.func + "' maxlength='" + (prop.maxlength || 200) + "' value=" + obj[attr] + "></p>";
+                    $('#moduleProperty-inner').append(s);
+                }
+                else if (obj.subcircuitMutableProperties[attr].type == "checkbox"){
+                    var s = "<p>" + prop.name + "<label class='switch'> <input type='checkbox' " + ["", "checked"][obj.subcircuitMetadata.showLabelInSubcircuit + 0] + " class='objectPropertyAttributeChecked' name='" + prop.func + "'> <span class='slider'></span> </label></p>";
+                    $('#moduleProperty-inner').append(s);
+                }
+            }
+            if (!obj.labelDirectionFixed) {
+                if(!obj.subcircuitMetadata.labelDirection) obj.subcircuitMetadata.labelDirection = obj.labelDirection;
+                var s = $("<select class='objectPropertyAttribute' name='newLabelDirection'>" + "<option value='RIGHT' " + ["", "selected"][+(obj.subcircuitMetadata.labelDirection == "RIGHT")] + " >RIGHT</option><option value='DOWN' " + ["", "selected"][+(obj.subcircuitMetadata.labelDirection == "DOWN")] + " >DOWN</option><option value='LEFT' " + "<option value='RIGHT'" + ["", "selected"][+(obj.subcircuitMetadata.labelDirection == "LEFT")] + " >LEFT</option><option value='UP' " + "<option value='RIGHT'" + ["", "selected"][+(obj.subcircuitMetadata.labelDirection == "UP")] + " >UP</option>" + "</select>");
+                s.val(obj.subcircuitMetadata.labelDirection);
+                $('#moduleProperty-inner').append("<p>Label Direction: " + $(s).prop('outerHTML') + "</p>");
+            }
+        }
+            
+    }
+    else if (simulationArea.lastSelected === undefined || ['Wire', 'CircuitElement', 'Node'].indexOf(simulationArea.lastSelected.objectType) !== -1) {
         $('#moduleProperty').show();
         $('#moduleProperty-inner').append("<div id='moduleProperty-header'>" + 'Project Properties' + '</div>');
-        $('#moduleProperty-inner').append(`<p><span>Project:</span> <input id='projname' class='objectPropertyAttribute' type='text'  name='setProjectName'  value='${getProjectName() || 'Untitled'}'></p>`);
-        $('#moduleProperty-inner').append(`<p><span>Circuit:</span> <input id='circname' class='objectPropertyAttribute' type='text'  name='changeCircuitName'  value='${globalScope.name || 'Untitled'}'></p>`);
+        $('#moduleProperty-inner').append(`<p><span>Project:</span> <input id='projname' class='objectPropertyAttribute' type='text' autocomplete='off' name='setProjectName'  value='${getProjectName() || 'Untitled'}'></p>`);
+        $('#moduleProperty-inner').append(`<p><span>Circuit:</span> <input id='circname' class='objectPropertyAttribute' type='text' autocomplete='off' name='changeCircuitName'  value='${globalScope.name || 'Untitled'}'></p>`);
         $('#moduleProperty-inner').append(`<p><span>Clock Time (ms):</span> <input class='objectPropertyAttribute' min='50' type='number' style='width:100px' step='10' name='changeClockTime'  value='${simulationArea.timePeriod}'></p>`);
         $('#moduleProperty-inner').append(`<p><span>Clock Enabled:</span> <label class='switch'> <input type='checkbox' ${['', 'checked'][simulationArea.clockEnabled + 0]} class='objectPropertyAttributeChecked' name='changeClockEnable' > <span class='slider'></span></label></p>`);
         $('#moduleProperty-inner').append(`<p><span>Lite Mode:</span> <label class='switch'> <input type='checkbox' ${['', 'checked'][lightMode + 0]} class='objectPropertyAttributeChecked' name='changeLightMode' > <span class='slider'></span> </label></p>`);
@@ -268,7 +288,7 @@ export function showProperties(obj) {
         
         if (!obj.propagationDelayFixed) { $('#moduleProperty-inner').append(`<p><span>Delay:</span> <input class='objectPropertyAttribute' type='number'  name='changePropagationDelay' min='0' max='100000' value=${obj.propagationDelay}></p>`); }
 
-        $('#moduleProperty-inner').append(`<p><span>Label:</span> <input class='objectPropertyAttribute' type='text'  name='setLabel'  value='${escapeHtml(obj.label)}'></p>`);
+        $('#moduleProperty-inner').append(`<p><span>Label:</span> <input class='objectPropertyAttribute' type='text'  name='setLabel' autocomplete='off'  value='${escapeHtml(obj.label)}'></p>`);
 
         var s;
         if (!obj.labelDirectionFixed) {
@@ -293,7 +313,7 @@ export function showProperties(obj) {
                     s = `<p><span>${prop.name}</span><input class='objectPropertyAttribute' type='number'  name='${prop.func}' min='${prop.min || 0}' max='${prop.max || 200}' value=${obj[attr]}></p>`;
                     $('#moduleProperty-inner').append(s);
                 } else if (obj.mutableProperties[attr].type === 'text') {
-                    s = `<p><span>${prop.name}</span><input class='objectPropertyAttribute' type='text'  name='${prop.func}' maxlength='${prop.maxlength || 200}' value=${obj[attr]}></p>`;
+                    s = `<p><span>${prop.name}</span><input class='objectPropertyAttribute' type='text' autocomplete='off'  name='${prop.func}' maxlength='${prop.maxlength || 200}' value=${obj[attr]}></p>`;
                     $('#moduleProperty-inner').append(s);
                 } else if (obj.mutableProperties[attr].type === 'button') {
                     s = `<p class='btn-parent'><button class='objectPropertyAttribute btn custom-btn--secondary' type='button'  name='${prop.func}'>${prop.name}</button></p>`;
@@ -306,7 +326,7 @@ export function showProperties(obj) {
     var helplink = obj && (obj.helplink);
     if (helplink) {
         $('#moduleProperty-inner').append('<p class="btn-parent"><button id="HelpButton" class="btn btn-primary btn-xs" type="button" >&#9432 Help</button></p>');
-        $('#HelpButton').click(() => {
+        $('#HelpButton').on('click',() => {
             window.open(helplink);
         });
     }
@@ -341,13 +361,13 @@ export function showProperties(obj) {
             circuitProperty[this.name](value);
         }
     });
+
     $('.objectPropertyAttributeChecked').on('change keyup paste click', function () {
-        // return;
-        // console.log(this.name+":"+this.value);
+        if(this.name === "toggleLabelInLayoutMode") return; // Hack to prevent toggleLabelInLayoutMode from toggling twice
         scheduleUpdate();
         updateCanvasSet(true);
         wireToBeCheckedSet(1);
-        if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) { 
+        if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) {
             simulationArea.lastSelected[this.name](this.value);
             // Commented out due to property menu refresh bug
             // prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet(); 
@@ -355,8 +375,22 @@ export function showProperties(obj) {
                 circuitProperty[this.name](this.checked); 
             }
     });
-    
-    $("input[type='number']").inputSpinner();
+
+    $('.objectPropertyAttributeChecked').on('click', function () {
+        if(this.name !== "toggleLabelInLayoutMode") return; // Hack to prevent toggleLabelInLayoutMode from toggling twice
+        scheduleUpdate();
+        updateCanvasSet(true);
+        wireToBeCheckedSet(1);
+        if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) {
+            simulationArea.lastSelected[this.name](this.value);
+            // Commented out due to property menu refresh bug
+            // prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet(); 
+        } else { 
+                circuitProperty[this.name](this.checked); 
+            }
+    });
+
+    $(".moduleProperty input[type='number']").inputSpinner();
 }
 
 /**
@@ -385,11 +419,17 @@ function escapeHtml(unsafe) {
 
 export function deleteSelected() {
     $('input').blur();
-    if (simulationArea.lastSelected && !(simulationArea.lastSelected.objectType === 'Node' && simulationArea.lastSelected.type !== 2)) simulationArea.lastSelected.delete();
-    for (var i = 0; i < simulationArea.multipleObjectSelections.length; i++) {
-        if (!(simulationArea.multipleObjectSelections[i].objectType === 'Node' && simulationArea.multipleObjectSelections[i].type !== 2)) simulationArea.multipleObjectSelections[i].cleanDelete();
+    if (simulationArea.lastSelected && !(simulationArea.lastSelected.objectType === 'Node' && simulationArea.lastSelected.type !== 2)) {
+        simulationArea.lastSelected.delete();
+        hideProperties();
     }
-    hideProperties();
+        
+    for (var i = 0; i < simulationArea.multipleObjectSelections.length; i++) {
+        if (!(simulationArea.multipleObjectSelections[i].objectType === 'Node' && simulationArea.multipleObjectSelections[i].type !== 2)) 
+            simulationArea.multipleObjectSelections[i].cleanDelete();
+        hideProperties();
+    }
+    
     simulationArea.multipleObjectSelections = [];
 
     // Updated restricted elements
@@ -398,19 +438,13 @@ export function deleteSelected() {
     updateRestrictedElementsInScope();
 }
 
-$('#bitconverterprompt').append(`
-<label style='color:grey'>Decimal value</label><br><input  type='text' id='decimalInput' label="Decimal" name='text1'><br><br>
-<label  style='color:grey'>Binary value</label><br><input  type='text' id='binaryInput' label="Binary" name='text1'><br><br>
-<label  style='color:grey'>Octal value</label><br><input  type='text' id='octalInput' label="Octal" name='text1'><br><br>
-<label  style='color:grey'>Hexadecimal value</label><br><input  type='text' id='hexInput' label="Hex" name='text1'><br><br>
-`);
-
 /**
  * listener for opening the prompt for bin conversion
  * @category ux
  */
-$('#bitconverter').click(() => {
+$('#bitconverter').on('click',() => {
     $('#bitconverterprompt').dialog({
+    resizable:false,
         buttons: [
             {
                 text: 'Reset',
@@ -460,53 +494,59 @@ $('#octalInput').on('keyup', () => {
     setBaseValues(x);
 });
 
-window.addEventListener('DOMContentLoaded', () => {
-    $('#moduleProperty-title').on('mousedown', () => $('#moduleProperty').draggable({ disabled: false }));
-    $('#moduleProperty-title').on('mouseup', () => $('#moduleProperty').draggable({ disabled: true }));
-    $('#modules-header').on('mousedown', () => $('.ce-panel').draggable({ disabled: false }));
-    $('#modules-header').on('mouseup', () => $('.ce-panel').draggable({ disabled: true }));
+export function setupPanels() {
     $('#dragQPanel')
-        .on('mousedown', () => $('.quick-btn').draggable({ disabled: false }))
+        .on('mousedown', () => $('.quick-btn').draggable({ disabled: false, containment: 'window' }))
         .on('mouseup', () => $('.quick-btn').draggable({ disabled: true }));
+    
+    setupPanelListeners('.elementPanel');
+    setupPanelListeners('.layoutElementPanel');
+    setupPanelListeners('#moduleProperty');
+    setupPanelListeners('#layoutDialog');
+    setupPanelListeners('#verilogEditorPanel');
+    setupPanelListeners('.timing-diagram-panel');
 
-    $('.ce-panel').on('mousedown', () => {
-        $('#moduleProperty').css('z-index', '99')
-        $('.ce-panel').css('z-index', '100')
-    })
+    // Minimize Timing Diagram (takes too much space)
+    $('.timing-diagram-panel .minimize').trigger('click');
+    
+    $('#projectName').on('click', () => {
+        $("input[name='setProjectName']").focus().select();
+    });
+}
 
-    $('#moduleProperty').on('mousedown', () => {
-        $('#moduleProperty').css('z-index', '100')
-        $('.ce-panel').css('z-index', '99')
+function setupPanelListeners(panelSelector) {
+    var headerSelector = `${panelSelector} .panel-header`;
+    var minimizeSelector = `${panelSelector} .minimize`;
+    var maximizeSelector = `${panelSelector} .maximize`;
+    var bodySelector = `${panelSelector} > .panel-body`;
+    // Drag Start
+    $(headerSelector).on('mousedown', () => $(panelSelector).draggable({ disabled: false, containment: 'window'}));
+    // Drag End
+    $(headerSelector).on('mouseup', () => $(panelSelector).draggable({ disabled: true }));
+    // Current Panel on Top
+    $(panelSelector).on('mousedown', () => {
+        $(`.draggable-panel:not(${panelSelector})`).css('z-index', '99');
+        $(panelSelector).css('z-index', '100');
     })
-});
-
-window.addEventListener('DOMContentLoaded', () => {
-    $('#ceMinimize').on('click', () => {
-        const markUp = `<div class='ce-hidden'>Circuit Elements<span id='ce-expand' style="right: 15px;position: absolute; cursor:pointer;"><i  onclick=" (() => {$('.modules').children().css('display', 'block'); $('.ce-hidden').remove(); $('#filter').css('display', 'none');})();" class="fas fa-external-link-square-alt"></i></span><div>`
-        $('.modules').children().css('display', 'none');
-        $('.modules').append(markUp);
-        // Set draggable on minimize
-        $('.ce-hidden').on('mousedown', () => $('.modules').draggable({ disabled: false }));
-        $('.ce-hidden').on('mouseup', () => $('.modules').draggable({ disabled: true }));
-    })
-    $('#propsMinimize').on('click', () => {
-        const markUp = `<div class='prop-hidden'>properties<span id='prop-expand' style="right: 15px;position: absolute; cursor:pointer;"><i  onclick=" (() => {$('#moduleProperty').children().css('display', 'block'); $('.prop-hidden').remove();})();" class="fas fa-external-link-square-alt"></i></span><div>`
-        $('#moduleProperty').children().css('display', 'none');
-        $('.moduleProperty').append(markUp);
-        // Set draggable on minimize
-        $('.prop-hidden').on('mousedown', () => $('#moduleProperty').draggable({ disabled: false }));
-        $('.prop-hidden').on('mouseup', () => $('#moduleProperty').draggable({ disabled: true }));
-    })
-    function exitFull() {
-        $('.navbar').show()
-        $('.modules').show()
-        $('.report-sidebar').show()
-        $('#tabsBar').show()
-        $('#moduleProperty').show()
-        $('#exitView').hide();
-    }
-
-})
+    var minimized = false;
+    $(headerSelector).on('dblclick', ()=> minimized ? 
+                                        $(maximizeSelector).trigger('click') : 
+                                        $(minimizeSelector).trigger('click'));
+    // Minimize
+    $(minimizeSelector).on('click', () => {
+        $(bodySelector).hide();
+        $(minimizeSelector).hide();
+        $(maximizeSelector).show();
+        minimized = true;
+    });
+    // Maximize
+    $(maximizeSelector).on('click', () => {
+        $(bodySelector).show();
+        $(minimizeSelector).show();
+        $(maximizeSelector).hide();
+        minimized = false;
+    });
+}
 
 export function fullView () {
     const onClick = `onclick="(() => {$('.navbar').show(); $('.modules').show(); $('.report-sidebar').show(); $('#tabsBar').show(); $('#exitViewBtn').remove(); $('#moduleProperty').show();})()"`
@@ -519,7 +559,77 @@ export function fullView () {
     $('#exitView').append(markUp);
 }
 
-function postUserIssue(message) {
+/** 
+    Fills the elements that can be displayed in the subcircuit, in the subcircuit menu
+**/
+export function fillSubcircuitElements() {
+    $('#subcircuitMenu').empty();
+    var subCircuitElementExists = false;
+    for(let el of circuitElementList) {
+        if(globalScope[el].length === 0) continue;
+        if(!globalScope[el][0].canShowInSubcircuit) continue;
+        let tempHTML = '';
+
+        // add a panel for each existing group
+        tempHTML += `<div class="panelHeader">${el}s</div>`;
+        tempHTML += `<div class="panel">`;
+
+        let available = false;
+
+        // add an SVG for each element
+        for(let i = 0; i < globalScope[el].length; i++){
+            if (!globalScope[el][i].subcircuitMetadata.showInSubcircuit) {
+                tempHTML += `<div class="icon subcircuitModule" id="${el}-${i}" data-element-id="${i}" data-element-name="${el}">`;
+                tempHTML += `<img src= "/img/${el}.svg">`;
+                tempHTML += `<p class="img__description">${(globalScope[el][i].label !== "")? globalScope[el][i].label : 'unlabeled'}</p>`;
+                tempHTML += '</div>';
+                available = true;
+            }
+
+        }
+        tempHTML += '</div>';
+        subCircuitElementExists = subCircuitElementExists || available;
+        if (available)
+            $('#subcircuitMenu').append(tempHTML);
+    }
+
+    if(subCircuitElementExists) {
+        $('#subcircuitMenu').accordion("refresh");
+    }   
+    else {
+        $('#subcircuitMenu').append("<p>No layout elements available</p>");
+    }
+
+    $('.subcircuitModule').mousedown(function () {
+        let elementName = this.dataset.elementName;
+        let elementIndex = this.dataset.elementId;
+
+        let element = globalScope[elementName][elementIndex];
+
+        element.subcircuitMetadata.showInSubcircuit = true;
+        element.newElement = true;
+        simulationArea.lastSelected = element;
+        this.parentElement.removeChild(this);
+    });
+} 
+
+async function postUserIssue(message) {
+
+    var img = generateImage("jpeg", "full", false, 1, false).split(',')[1];
+    const result = await $.ajax({
+            url: 'https://api.imgur.com/3/image',
+            type: 'POST',
+            data: {
+                image: img
+            },
+            dataType: 'json',
+            headers: {
+                Authorization: 'Client-ID 9a33b3b370f1054'
+            },
+        });
+
+    message += "\n" + result.data.link;
+
     $.ajax({
         url: '/simulator/post_issue',
         type: 'POST',

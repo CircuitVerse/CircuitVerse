@@ -14,6 +14,7 @@ import { generateImage } from './save';
  */
 export default function createSaveAsImgPrompt(scope = globalScope) {
     $('#saveImageDialog').dialog({
+        resizable:false,
         width: 'auto',
         buttons: [{
             text: 'Render Circuit Image',
@@ -31,8 +32,8 @@ export default function createSaveAsImgPrompt(scope = globalScope) {
         const imgType = $('input[name=imgType]:checked').val();
         imgType == 'svg'? $('.btn-group-toggle, .download-dialog-section-3').addClass('disable') : $('.btn-group-toggle, .download-dialog-section-3, .cb-inner').removeClass('disable');
         if (imgType === 'svg') {
-            $('input[name=resolution][value=1]').click();
-            $('input[name=view][value="full"]').click();
+            $('input[name=resolution][value=1]').trigger('click');
+            $('input[name=view][value="full"]').trigger('click');
             $('input[name=resolution]').prop('disabled', true);
             $('input[name=view]').prop('disabled', true);
         } else if (imgType !== 'png') {

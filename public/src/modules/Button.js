@@ -90,6 +90,61 @@ export default class Button extends CircuitElement {
         if (this.wasClicked) { ctx.fillStyle = 'rgba(232, 13, 13,0.8)'; }
         ctx.fill();
     }
+
+    subcircuitDraw(xOffset = 0, yOffset = 0) {
+        var ctx = simulationArea.context; 
+        var xx = this.subcircuitMetadata.x + xOffset;
+        var yy = this.subcircuitMetadata.y + yOffset;
+        ctx.fillStyle = "#ddd";
+
+        ctx.strokeStyle = "#353535";
+        ctx.lineWidth = correctWidth(3);
+        ctx.beginPath();
+        drawCircle2(ctx, 0, 0, 6, xx, yy, this.direction);
+        ctx.stroke();
+        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this))
+            ctx.fillStyle = "rgba(232, 13, 13,0.6)"
+        if (this.wasClicked)
+            ctx.fillStyle = "rgba(232, 13, 13,0.8)";
+        ctx.fill();
+    }
+    static verilogInstructions() {
+        return `Button - Buttons are not natively supported in verilog, consider using Inputs instead\n`;
+    }
+    verilogBaseType() {
+        return this.verilogName() + (Button.selSizes.length-1);
+    }
+
+    //this code to generate Verilog
+    generateVerilog() {
+        Button.selSizes.push(this.data);
+        return CircuitElement.prototype.generateVerilog.call(this);
+    }
+
+    static moduleVerilog() {
+        var output = "";
+    
+        for (var i = 0; i < Button.selSizes.length; i++) {
+             output += `// Skeleton for Button${i}
+    /*
+    module Button${i}(out);
+      output reg out;
+    
+      initial begin
+        //do something with the button here
+      end
+    endmodule
+    */
+    `;
+        }
+    
+        return output;
+    }
+
+    //reset the sized before Verilog generation
+    static resetVerilog() {
+        Button.selSizes = [];
+    }
 }
 
 /**
@@ -115,3 +170,4 @@ Button.prototype.helplink = 'https://docs.circuitverse.org/#/inputElements?id=bu
  */
 Button.prototype.propagationDelay = 0;
 Button.prototype.objectType = 'Button';
+Button.prototype.canShowInSubcircuit = true;

@@ -2,7 +2,7 @@ import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import {
-    correctWidth, lineTo, moveTo, rect,
+    correctWidth, lineTo, moveTo, rect, rect2
 } from '../canvasApi';
 import { changeInputSize } from '../modules';
 /**
@@ -111,6 +111,84 @@ export default class SixteenSegDisplay extends CircuitElement {
         rect(ctx, xx + 22, yy + 42, 2, 2);
         ctx.stroke();
     }
+
+    subcircuitDrawSegment(x1, y1, x2, y2, color, xxSegment, yySegment) {
+        if (color == undefined) color = "lightgrey";
+        var ctx = simulationArea.context;
+        ctx.beginPath();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = correctWidth(3);
+        var xx = xxSegment;
+        var yy = yySegment;
+        moveTo(ctx, x1, y1, xx, yy, this.direction);
+        lineTo(ctx, x2, y2, xx, yy, this.direction);
+        ctx.closePath();
+        ctx.stroke();
+    }
+
+    subcircuitDrawSegmentSlant(x1, y1, x2, y2, color, xxSegment, yySegment) {
+        if (color == undefined) color = "lightgrey";
+        var ctx = simulationArea.context;
+        ctx.beginPath();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = correctWidth(2);
+        var xx = xxSegment;
+        var yy = yySegment;
+        moveTo(ctx, x1, y1, xx, yy, this.direction);
+        lineTo(ctx, x2, y2, xx, yy, this.direction);
+        ctx.closePath();
+        ctx.stroke();
+    }
+
+    // Draws the element in the subcircuit. Used in layout mode
+    subcircuitDraw(xOffset = 0, yOffset = 0) {
+        var ctx = simulationArea.context;
+
+        var xx = this.subcircuitMetadata.x + xOffset;
+        var yy = this.subcircuitMetadata.y + yOffset;
+
+        var color = ["lightgrey", "red"];
+        var value = this.input1.value;
+
+        this.subcircuitDrawSegment(-10, -38, 0, -38, ["lightgrey", "red"][(value >> 15) & 1], xx, yy);      //a1
+        this.subcircuitDrawSegment(10, -38, 0, -38, ["lightgrey", "red"][(value >> 14) & 1], xx, yy);       //a2    
+        this.subcircuitDrawSegment(11.5, -19, 11.5, -36, ["lightgrey", "red"][(value >> 13) & 1], xx, yy);  //b
+        this.subcircuitDrawSegment(11.5, 2, 11.5, -15, ["lightgrey", "red"][(value >> 12) & 1], xx, yy);        //c
+        this.subcircuitDrawSegment(-10, 4, 0, 4, ["lightgrey", "red"][(value >> 11) & 1], xx, yy);      //d1
+        this.subcircuitDrawSegment(10, 4, 0, 4, ["lightgrey", "red"][(value >> 10) & 1], xx, yy);           //d2
+        this.subcircuitDrawSegment(-11.5, 2, -11.5, -15, ["lightgrey", "red"][(value >> 9) & 1], xx, yy);   //e
+        this.subcircuitDrawSegment(-11.5, -36, -11.5, -19, ["lightgrey", "red"][(value >> 8) & 1], xx, yy); //f
+        this.subcircuitDrawSegment(-10, -17, 0, -17, ["lightgrey", "red"][(value >> 7) & 1], xx, yy);           //g1
+        this.subcircuitDrawSegment(10, -17, 0, -17, ["lightgrey", "red"][(value >> 6) & 1], xx, yy);            //g2
+        this.subcircuitDrawSegmentSlant(0, -17, -9, -36, ["lightgrey", "red"][(value >> 5) & 1], xx, yy);   //h
+        this.subcircuitDrawSegment(0, -36, 0, -19, ["lightgrey", "red"][(value >> 4) & 1], xx, yy);         //i
+        this.subcircuitDrawSegmentSlant(0, -17, 9, -36, ["lightgrey", "red"][(value >> 3) & 1], xx, yy);        //j
+        this.subcircuitDrawSegmentSlant(0, -17, 9, 0, ["lightgrey", "red"][(value >> 2) & 1], xx, yy);      //k
+        this.subcircuitDrawSegment(0, -17, 0, 2, ["lightgrey", "red"][(value >> 1) & 1], xx, yy);           //l
+        this.subcircuitDrawSegmentSlant(0, -17, -9, 0, ["lightgrey", "red"][(value >> 0) & 1], xx, yy);     //m
+
+        ctx.beginPath();
+        var dotColor = ["lightgrey", "red"][this.dot.value] || "lightgrey";
+        ctx.strokeStyle = dotColor;
+        rect(ctx, xx + 13, yy + 5, 1, 1);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.strokeStyle = "black";
+        ctx.lineWidth = correctWidth(1);
+        rect2(ctx, -15, -42, 33, 51, xx, yy, this.direction);
+        ctx.stroke();
+
+        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) {
+            ctx.fillStyle = "rgba(255, 255, 32,0.6)";
+            ctx.fill();
+        }  
+    }
+    generateVerilog() {
+        return `
+      always @ (*)
+        $display("SixteenSegDisplay:{${this.input1.verilogLabel},${this.dot.verilogLabel}} = {%16b,%1b}", ${this.input1.verilogLabel}, ${this.dot.verilogLabel});`;
+    }
 }
 
 /**
@@ -129,3 +207,11 @@ SixteenSegDisplay.prototype.tooltipText = 'Sixteen Display ToolTip: Consists of 
  */
 SixteenSegDisplay.prototype.helplink = 'https://docs.circuitverse.org/#/outputs?id=sixteen-segment-display';
 SixteenSegDisplay.prototype.objectType = 'SixteenSegDisplay';
+SixteenSegDisplay.prototype.canShowInSubcircuit = true;
+SixteenSegDisplay.prototype.layoutProperties = {
+    rightDimensionX : 20,
+    leftDimensionX : 15,
+    upDimensionY : 42,
+    downDimensionY: 10
+}
+

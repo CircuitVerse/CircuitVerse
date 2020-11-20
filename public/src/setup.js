@@ -2,7 +2,7 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable guard-for-in */
 import * as metadata from './metadata.json';
-import { generateId, showMessage } from './utils';
+import { generateId, showMessage} from './utils';
 import backgroundArea from './backgroundArea';
 import plotArea from './plotArea';
 import simulationArea from './simulationArea';
@@ -16,8 +16,15 @@ import { newCircuit } from './circuit';
 import load from './data/load';
 import save from './data/save';
 import showTourGuide from './tutorials';
-import setupModules from './moduleSetup'
-
+import setupModules from './moduleSetup';
+import 'codemirror/lib/codemirror.css';
+import 'codemirror/addon/hint/show-hint.css';
+import 'codemirror/mode/javascript/javascript.js'; // verilog.js from codemirror is not working because array prototype is changed.
+import 'codemirror/addon/edit/closebrackets.js';
+import 'codemirror/addon/hint/anyword-hint.js';
+import 'codemirror/addon/hint/show-hint.js';
+import {setupCodeMirrorEnvironment} from './Verilog2CV';
+import { keyBinder } from './hotkey_binder/keyBinder';
 
 window.width = undefined;
 window.height = undefined;
@@ -40,9 +47,7 @@ export function resetup() {
     }
     // setup simulationArea and backgroundArea variables used to make changes to canvas.
     backgroundArea.setup();
-    if (!embed) plotArea.setup();
     simulationArea.setup();
-    console.log(simulationArea);
     // redraw grid
     dots();
     document.getElementById('backgroundArea').style.height = height / DPR + 100;
@@ -53,8 +58,7 @@ export function resetup() {
     backgroundArea.canvas.width = width + 100 * DPR;
     backgroundArea.canvas.height = height + 100 * DPR;
     if (!embed) {
-        plotArea.c.width = document.getElementById('plot').clientWidth;
-        plotArea.c.height = document.getElementById('plot').clientHeight;
+        plotArea.setup();
     }
     updateCanvasSet(true);
     update(); // INEFFICIENT, needs to be deprecated
@@ -80,6 +84,7 @@ function setupEnvironment() {
     newCircuit('Main');
     window.data = {};
     resetup();
+    setupCodeMirrorEnvironment();
 }
 
 /**
@@ -107,12 +112,16 @@ function setupElementLists() {
     }
 
     window.elementHierarchy = metadata.elementHierarchy;
+    window.elementPanelList = [];
     for (const category in elementHierarchy) {
         let htmlIcons = '';
         const categoryData = elementHierarchy[category];
         for (let i = 0; i < categoryData.length; i++) {
             const element = categoryData[i];
-            htmlIcons += createIcon(element);
+            if(!element.startsWith("verilog")) {
+                htmlIcons += createIcon(element);
+                window.elementPanelList.push(element);
+            }
         }
 
         const accordionData = `<div class="panelHeader">${category}</div>
@@ -129,13 +138,12 @@ function setupElementLists() {
  * @category setup
  */
 export function setup() {
-    console.log(embed);
     const startListeners = embed ? startEmbedListeners : startMainListeners;
     setupElementLists();
     setupEnvironment();
     if (!embed) { setupUI(); }
     startListeners();
-
+    keyBinder();
     // Load project data after 1 second - needs to be improved, delay needs to be eliminated
     setTimeout(() => {
         if (__logix_project_id != 0) {
@@ -175,10 +183,8 @@ export function setup() {
         }
     }, 1000);
 
-    if (!localStorage.tutorials_tour_done) {
+    if (!localStorage.tutorials_tour_done && !embed) {
         setTimeout(()=> {showTourGuide();}, 2000);
     }
     
 }
-
-

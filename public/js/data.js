@@ -621,6 +621,10 @@ function loadModule(data, scope) {
     obj.propagationDelay = data["propagationDelay"] || obj.propagationDelay;
     obj.fixDirection();
 
+    // save metadata if exists
+    if(obj.subcircuitMetadata)
+        obj.subcircuitMetadata = data["subcircuitMetadata"];
+    
     // Restore other values
     if (data.customData["values"])
         for (prop in data.customData["values"]) {
@@ -751,6 +755,7 @@ function removeBugNodes(scope = globalScope) {
 // Options - resolution, image type, view
 createSaveAsImgPrompt = function(scope = globalScope) {
     $('#saveImageDialog').dialog({
+        resizable:false,
         width: "auto",
         buttons: [{
             text: "Render Circuit Image",
@@ -809,6 +814,7 @@ createOpenLocalPrompt = function() {
     }
     if (flag) $('#openProjectDialog').append('<p>Looks like no circuit has been saved yet. Create a new one and save it!</p>')
     $('#openProjectDialog').dialog({
+        resizable:false,
         width: "auto",
         buttons: !flag ? [{
             text: "Open Project",
@@ -836,6 +842,7 @@ createSubCircuitPrompt = function(scope = globalScope) {
     }
     if (flag) $('#insertSubcircuitDialog').append('<p>Looks like there are no other circuits which doesn\'t have this circuit as a dependency. Create a new one!</p>')
     $('#insertSubcircuitDialog').dialog({
+        resizable:false,
         maxHeight: 350,
         width: 250,
         maxWidth: 250,
