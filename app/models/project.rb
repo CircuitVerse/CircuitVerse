@@ -36,7 +36,9 @@ class Project < ApplicationRecord
   include PgSearch::Model
   pg_search_scope :text_search, against: %i[name description], associated_against: {
     tags: :name
-  }
+  }, using: { tsearch: {
+    dictionary: "english", tsvector_column: "searchable"
+  } }
 
   searchable do
     text :name
@@ -162,7 +164,7 @@ class Project < ApplicationRecord
     end
 
     def should_generate_new_friendly_id?
-      # FIXME Remove extra query once production data is resolved
+      # FIXME: Remove extra query once production data is resolved
       name_changed? || Project.where(slug: slug).count > 1
     end
 end
