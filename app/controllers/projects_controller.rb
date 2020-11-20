@@ -76,7 +76,7 @@ class ProjectsController < ApplicationController
 
     @project_new.notify :users, key: "project.fork"
 
-    redirect_to user_project_path(current_user, @project_new)
+    redirect_to user_project_path(@project_new.author_id, @project_new)
   end
 
   # POST /projects
@@ -86,7 +86,7 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
-        format.html { redirect_to user_project_path(current_user, @project), notice: "Project was successfully created." }
+        format.html { redirect_to user_project_path(@project.author_id, @project), notice: "Project was successfully created." }
         format.json { render :show, status: :created, location: @project }
       else
         format.html { render :new }
@@ -101,7 +101,7 @@ class ProjectsController < ApplicationController
     @project.description = params["description"]
     respond_to do |format|
       if @project.update(project_params)
-        format.html { redirect_to user_project_path(current_user, @project), notice: "Project was successfully updated." }
+        format.html { redirect_to user_project_path(@project.author_id, @project), notice: "Project was successfully updated." }
         format.json { render :show, status: :ok, location: @project }
       else
         format.html { render :edit }
