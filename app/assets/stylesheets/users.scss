@@ -37,6 +37,7 @@
 }
 
 .users-text-container {
+  margin-top: 20px;
   padding-left: 4px;
   padding-top: 9px;
 }
@@ -50,6 +51,7 @@
 
   .users-text-container {
     display: block;
+    margin-top: 20px;
     padding-top: 6px;
   }
 }
@@ -107,6 +109,7 @@
 }
 
 .users-login-primary-button {
+  margin-top: 20px;
   padding: 8px 25px;
 }
 //login-register ends
@@ -183,6 +186,7 @@
 .users-circuits-container {
   border: 1px solid $form-border-grey;
   margin-top: 0;
+  min-height: 348px;
   padding-bottom: 20px;
   padding-top: 30px;
 }
@@ -250,6 +254,28 @@
   border-top: 1px solid $primary-green;
 }
 
+.users-circuits-navbar {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+
+  input {
+    border: 0;
+    border-left: 1px solid $form-border-grey;
+    border-radius: 0;
+    font-size: 16px;
+    margin: 0;
+    margin-top: 20px;
+    padding: 7px 10px;
+    transition: .2s ease-in-out;
+
+    &:focus {
+      border-color: $primary-green;
+      transition: .2s ease-in-out;
+    }
+  }
+}
+
 .users-circuits-tab {
   background-color: $form-border-grey;
   border-radius: 0;
@@ -287,10 +313,6 @@
 #circuits-div,
 #favourites-div {
   width: 100%;
-}
-
-.users-favourites-tab {
-  margin-left: -5px;
 }
 
 //breakpoints
