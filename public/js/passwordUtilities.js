@@ -1,4 +1,4 @@
-//Function for password toggler
+// Function for password toggler
 function togglePassword() {
     if ($('.users-password-input').attr('type') === 'text') {
         $('.users-password-input').attr('type', 'password');
@@ -11,10 +11,11 @@ function togglePassword() {
     }
 }
 
-//Function for capsLock Alert
+// Function for capsLock alert
 function capsLock(e) {
-    var kc = e.keyCode ? e.keyCode : e.which;
-    var sk = e.shiftKey ? e.shiftKey : kc === 16;
-    var visibility = ((kc >= 65 && kc <=90) && !sk) || ((kc >= 97 && kc <= 122) && sk) ? 'visible' : 'hidden';
-    document.getElementById('caps-alert').style.visibility = visibility;
+    if (e.getModifierState('CapsLock') || e.getModifierState('Shift')) {
+        document.getElementById('caps-alert').style.visibility = 'visible';
+    } else {
+        document.getElementById('caps-alert').style.visibility = 'hidden';
+    }
 }
