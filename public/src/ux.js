@@ -18,6 +18,8 @@ import { setProjectName, getProjectName } from './data/save';
 import { changeScale } from './canvasApi';
 import updateTheme from "./themer/themer";
 import { generateImage } from './data/save';
+import { setupVerilogExportCodeWindow } from './verilog';
+import { setupBitConvertor} from './utils';
 
 export const uxvar = {
     smartDropXX: 50,
@@ -79,7 +81,7 @@ function showContextMenu() {
  * @param {number} id - id of the optoin selected
  * @category ux
  */
-function menuItemClicked(id) {
+function menuItemClicked(id, code="") {
     hideContextMenu();
     if (id === 0) {
         document.execCommand('copy');
@@ -133,14 +135,10 @@ export function setupUI() {
         active: false,
         heightStyle: 'content',
     });
-    // $( "#plot" ).resizable({
-    // handles: 'n',
-    //     // minHeight:200,
-    // });
 
     $('.logixModules').mousedown(createElement);
 
-    $('.logixButton').click(function () {
+    $('.logixButton').on('click',function () {
         logixFunction[this.id]();
     });
     // var dummyCounter=0;
@@ -158,7 +156,7 @@ export function setupUI() {
         $('#Help').removeClass('show');
     }); // code goes in document ready fn only
 
-    $('#report').click(function(){
+    $('#report').on('click',function(){
          var message=$('#issuetext').val();
          var email=$('#emailtext').val();
          message += "\nEmail:"+ email
@@ -182,17 +180,20 @@ export function setupUI() {
          $('#report-label').show();
          $('#email-label').show();
      })
-     $('#reportIssue').click(function(){
+     $('#reportIssue').on('click',function(){
        listenToSimulator=false
      })
 
-    // $('#saveAsImg').click(function(){
+    // $('#saveAsImg').on('click',function(){
     //     saveAsImg();
     // });
-    // $('#Save').click(function(){
+    // $('#Save').on('click',function(){
     //     Save();
     // });
     // $('#moduleProperty').draggable();
+    setupPanels();
+    setupVerilogExportCodeWindow();
+    setupBitConvertor();
 }
 
 export function createElement() {
@@ -325,7 +326,7 @@ export function showProperties(obj) {
     var helplink = obj && (obj.helplink);
     if (helplink) {
         $('#moduleProperty-inner').append('<p class="btn-parent"><button id="HelpButton" class="btn btn-primary btn-xs" type="button" >&#9432 Help</button></p>');
-        $('#HelpButton').click(() => {
+        $('#HelpButton').on('click',() => {
             window.open(helplink);
         });
     }
@@ -389,7 +390,7 @@ export function showProperties(obj) {
             }
     });
 
-    $("input[type='number']").inputSpinner();
+    $(".moduleProperty input[type='number']").inputSpinner();
 }
 
 /**
@@ -418,11 +419,17 @@ function escapeHtml(unsafe) {
 
 export function deleteSelected() {
     $('input').blur();
-    if (simulationArea.lastSelected && !(simulationArea.lastSelected.objectType === 'Node' && simulationArea.lastSelected.type !== 2)) simulationArea.lastSelected.delete();
-    for (var i = 0; i < simulationArea.multipleObjectSelections.length; i++) {
-        if (!(simulationArea.multipleObjectSelections[i].objectType === 'Node' && simulationArea.multipleObjectSelections[i].type !== 2)) simulationArea.multipleObjectSelections[i].cleanDelete();
+    if (simulationArea.lastSelected && !(simulationArea.lastSelected.objectType === 'Node' && simulationArea.lastSelected.type !== 2)) {
+        simulationArea.lastSelected.delete();
+        hideProperties();
     }
-    hideProperties();
+        
+    for (var i = 0; i < simulationArea.multipleObjectSelections.length; i++) {
+        if (!(simulationArea.multipleObjectSelections[i].objectType === 'Node' && simulationArea.multipleObjectSelections[i].type !== 2)) 
+            simulationArea.multipleObjectSelections[i].cleanDelete();
+        hideProperties();
+    }
+    
     simulationArea.multipleObjectSelections = [];
 
     // Updated restricted elements
@@ -431,18 +438,11 @@ export function deleteSelected() {
     updateRestrictedElementsInScope();
 }
 
-$('#bitconverterprompt').append(`
-<label style='color:grey'>Decimal value</label><br><input  type='text' id='decimalInput' label="Decimal" name='text1'><br><br>
-<label  style='color:grey'>Binary value</label><br><input  type='text' id='binaryInput' label="Binary" name='text1'><br><br>
-<label  style='color:grey'>Octal value</label><br><input  type='text' id='octalInput' label="Octal" name='text1'><br><br>
-<label  style='color:grey'>Hexadecimal value</label><br><input  type='text' id='hexInput' label="Hex" name='text1'><br><br>
-`);
-
 /**
  * listener for opening the prompt for bin conversion
  * @category ux
  */
-$('#bitconverter').click(() => {
+$('#bitconverter').on('click',() => {
     $('#bitconverterprompt').dialog({
     resizable:false,
         buttons: [
@@ -494,7 +494,7 @@ $('#octalInput').on('keyup', () => {
     setBaseValues(x);
 });
 
-window.addEventListener('DOMContentLoaded', () => {
+export function setupPanels() {
     $('#dragQPanel')
         .on('mousedown', () => $('.quick-btn').draggable({ disabled: false, containment: 'window' }))
         .on('mouseup', () => $('.quick-btn').draggable({ disabled: true }));
@@ -503,11 +503,16 @@ window.addEventListener('DOMContentLoaded', () => {
     setupPanelListeners('.layoutElementPanel');
     setupPanelListeners('#moduleProperty');
     setupPanelListeners('#layoutDialog');
+    setupPanelListeners('#verilogEditorPanel');
+    setupPanelListeners('.timing-diagram-panel');
 
+    // Minimize Timing Diagram (takes too much space)
+    $('.timing-diagram-panel .minimize').trigger('click');
+    
     $('#projectName').on('click', () => {
         $("input[name='setProjectName']").focus().select();
     });
-});
+}
 
 function setupPanelListeners(panelSelector) {
     var headerSelector = `${panelSelector} .panel-header`;
@@ -523,17 +528,23 @@ function setupPanelListeners(panelSelector) {
         $(`.draggable-panel:not(${panelSelector})`).css('z-index', '99');
         $(panelSelector).css('z-index', '100');
     })
+    var minimized = false;
+    $(headerSelector).on('dblclick', ()=> minimized ? 
+                                        $(maximizeSelector).trigger('click') : 
+                                        $(minimizeSelector).trigger('click'));
     // Minimize
     $(minimizeSelector).on('click', () => {
         $(bodySelector).hide();
         $(minimizeSelector).hide();
         $(maximizeSelector).show();
+        minimized = true;
     });
     // Maximize
     $(maximizeSelector).on('click', () => {
         $(bodySelector).show();
         $(minimizeSelector).show();
         $(maximizeSelector).hide();
+        minimized = false;
     });
 }
 

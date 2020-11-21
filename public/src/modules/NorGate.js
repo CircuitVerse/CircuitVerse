@@ -1,6 +1,8 @@
 import CircuitElement from "../circuitElement";
 import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
+import { gateGenerateVerilog } from '../utils';
+
 import {
     correctWidth,
     bezierCurveTo,
@@ -141,6 +143,10 @@ export default class NorGate extends CircuitElement {
         drawCircle2(ctx, 25, 0, 5, xx, yy, this.direction);
         ctx.stroke();
         // for debugging
+    }
+
+    generateVerilog() {
+        return gateGenerateVerilog.call(this, '|', true);
     }
 }
 

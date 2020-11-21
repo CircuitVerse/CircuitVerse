@@ -90,7 +90,6 @@ export default class ConstantVal extends CircuitElement {
     dblclick() {
         this.state = prompt("Re enter the value") || "0";
         this.newBitWidth(this.state.toString().length);
-        // console.log(this.state, this.bitWidth);
     }
 
     /**
@@ -181,6 +180,10 @@ export default class ConstantVal extends CircuitElement {
 
         this.output1.refresh();
         this.labelDirection = oppositeDirection[this.direction];
+    }
+
+    generateVerilog() {
+        return `assign ${this.output1.verilogLabel} = ${this.bitWidth}'b${this.state};`;
     }
 }
 

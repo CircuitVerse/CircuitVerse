@@ -174,9 +174,9 @@ export const moveElement = (direct) => () => {
     }
 };
 
-export const openHotkey = () => $("#customShortcut").click();
+export const openHotkey = () => $("#customShortcut").trigger('click');
 
-export const newCircuitCall = () => $("#newCircuit").click();
+export const newCircuitCall = () => $("#newCircuit").trigger('click');
 
 export const openDocumentation = () => {
     if (simulationArea.lastSelected == undefined || simulationArea.lastSelected.helplink == undefined) {

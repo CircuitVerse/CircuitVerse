@@ -137,8 +137,8 @@ export default class Splitter extends CircuitElement {
                 n <<= this.bitWidthSplit[i];
                 n += this.outputs[i].value;
             }
-            if (this.inp1.value !== n) {
-                this.inp1.value = n;
+            if (this.inp1.value !== (n >>> 0)) {
+                this.inp1.value = (n >>> 0);
                 simulationArea.simulationQueue.add(this.inp1);
             }
             // else if (this.inp1.value !== n) {
@@ -208,10 +208,58 @@ export default class Splitter extends CircuitElement {
         ctx.beginPath();
         ctx.fillStyle = colors['text'];
         for (let i = this.splitCount - 1; i >= 0; i--) {
-            fillText2(ctx, `${bitCount}:${bitCount + this.bitWidthSplit[this.splitCount - i - 1]}`, 12, -20 * i + this.yOffset + 10, xx, yy, this.direction);
+            fillText2(ctx, `${bitCount}:${bitCount + this.bitWidthSplit[this.splitCount - i - 1] - 1}`, 12, -20 * i + this.yOffset + 10, xx, yy, this.direction);
             bitCount += this.bitWidthSplit[this.splitCount - i - 1];
         }
         ctx.fill();
+    }
+
+    processVerilog() {
+        // Combiner
+        if (this.inp1.verilogLabel == "") {
+            this.isSplitter = false;
+            this.inp1.verilogLabel = this.verilogLabel + "_cmb";
+            if (!this.scope.verilogWireList[this.bitWidth].contains(this.inp1.verilogLabel))
+                this.scope.verilogWireList[this.bitWidth].push(this.inp1.verilogLabel);
+            this.scope.stack.push(this.inp1);
+            return;
+        }
+
+        // Splitter
+        this.isSplitter = true;
+        for (var j = 0; j < this.outputs.length; j++) {
+            var bitCount = 0;
+            var inpLabel = this.inp1.verilogLabel;
+            // Already Split Regex
+            var re = /^(.*)\[(\d*):(\d*)\]$/;
+            if(re.test(inpLabel)) {
+                var matches = inpLabel.match(re);
+                inpLabel = matches[1];
+                bitCount = parseInt(matches[3]);
+            }
+            for (var i = 0; i < this.splitCount; i++) {
+                if (this.bitWidthSplit[i] > 1)
+                    var label = inpLabel + '[' + (bitCount + this.bitWidthSplit[i] - 1) + ":" + bitCount + "]";
+                else
+                    var label = inpLabel + '[' + bitCount + "]";
+                if (this.outputs[i].verilogLabel != label) {
+                    this.outputs[i].verilogLabel = label;
+                    this.scope.stack.push(this.outputs[i]);
+                }
+                bitCount += this.bitWidthSplit[i];
+            }
+        }
+    }
+    //added to generate Splitter INPUTS
+    generateVerilog() {
+        var res = "";
+        if (!this.isSplitter) {
+            res += "assign " + this.inp1.verilogLabel + " = {";
+            for (var i = this.outputs.length - 1; i > 0; i--)
+            res += this.outputs[i].verilogLabel + ",";
+            res += this.outputs[0].verilogLabel + "};";
+        }
+        return res;
     }
 }
 

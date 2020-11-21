@@ -3,6 +3,7 @@ import Adder from './modules/Adder';
 import ALU from './modules/ALU';
 import AndGate from './modules/AndGate';
 import Arrow from './modules/Arrow';
+import ImageAnnotation from './modules/ImageAnnotation';
 import BitSelector from './modules/BitSelector';
 import Buffer from './modules/Buffer';
 import Button from './modules/Button';
@@ -56,6 +57,12 @@ import TTY from './sequential/TTY';
 import ForceGate from './testbench/ForceGate';
 import TB_Input from './testbench/testbenchInput';
 import TB_Output from './testbench/testbenchOutput';
+import verilogMultiplier from './modules/verilogMultiplier';
+import verilogDivider from './modules/verilogDivider';
+import verilogPower from './modules/verilogPower';
+import verilogShiftLeft from './modules/verilogShiftLeft';
+import verilogShiftRight from './modules/verilogShiftRight';
+import verilogRAM from './sequential/verilogRAM';
 
 export default function setupModules() {
     var moduleSet = {
@@ -77,6 +84,11 @@ export default function setupModules() {
         Buffer,
         ControlledInverter,
         Adder,
+        verilogMultiplier,
+        verilogDivider,
+        verilogPower,
+        verilogShiftLeft,
+        verilogShiftRight,
         TwoComplement,
         Splitter,
         Ground,
@@ -101,6 +113,7 @@ export default function setupModules() {
         ALU,
         Rectangle,
         Arrow,
+        ImageAnnotation,
         RGBLedMatrix,
         TflipFlop,
         DflipFlop,
@@ -113,6 +126,7 @@ export default function setupModules() {
         Rom,
         EEPROM,
         RAM,
+        verilogRAM,
         TB_Input,
         TB_Output,
         ForceGate,

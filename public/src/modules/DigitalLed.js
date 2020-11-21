@@ -130,6 +130,13 @@ export default class DigitalLed extends CircuitElement {
         if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = "rgba(255, 255, 32,0.8)";
         ctx.fill();
     }
+    generateVerilog() {
+
+        var label = this.label ? this.verilogLabel : this.inp1.verilogLabel;
+        return `
+      always @ (*)
+        $display("DigitalLed:${label}=%d", ${this.inp1.verilogLabel});`;
+    }
 }
 
 /**

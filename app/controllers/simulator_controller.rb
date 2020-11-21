@@ -84,6 +84,12 @@ class SimulatorController < ApplicationController
     redirect_to edit_user_project_url(current_user, @project)
   end
 
+  def verilog_cv
+    url = "http://127.0.0.1:3040/getJSON"
+    response = HTTP.post(url, json: {"code": params[:code]})
+    render json: response.to_s, status: response.code
+  end
+
   private
 
     def allow_iframe

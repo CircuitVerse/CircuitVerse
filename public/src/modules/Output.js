@@ -152,7 +152,7 @@ export default class Output extends CircuitElement {
         ctx.stroke();
 
         ctx.beginPath();
-        ctx.font = "20px Georgia";
+        ctx.font = "20px Raleway";
         ctx.fillStyle = colors["input_text"];
         ctx.textAlign = "center";
         let bin;
@@ -192,6 +192,10 @@ export default class Output extends CircuitElement {
 
         this.inp1.refresh();
         this.labelDirection = oppositeDirection[this.direction];
+    }
+
+    generateVerilog() {
+        return "assign " + this.verilogLabel + " = " + this.inp1.verilogLabel + ";"
     }
 }
 

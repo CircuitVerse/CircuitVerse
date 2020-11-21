@@ -15,6 +15,8 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-facebook'
 gem 'omniauth-microsoft-office365'
 gem 'omniauth-github'
+gem 'mailkick'
+gem 'aws-sdk-rails'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0'
 # Use Puma as the app server
@@ -90,7 +92,7 @@ gem 'activity_notification'
 gem 'serviceworker-rails'
 gem 'webpush'
 
-gem 'webpacker', '~> 4.x'
+gem 'webpacker', '~> 5.x'
 
 gem 'bootsnap', require: false
 
@@ -100,7 +102,7 @@ gem 'jwt'
 gem 'fast_jsonapi'
 gem 'flipper-redis'
 gem 'flipper-ui'
-gem 'friendly_id', '~> 5.3.0'
+gem 'friendly_id', '~> 5.4.1'
 gem 'simple_discussion', '~> 1.2'
 gem 'inline_svg'
 gem 'disposable_mail', '~> 0.1'
@@ -149,7 +151,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 #mails
 gem 'premailer-rails', '~> 1.11', '>= 1.11.1'
 
-gem "bugsnag", "~> 6.16"
+gem "bugsnag", "~> 6.18"
 
 gem "invisible_captcha", "~> 1.1"
 

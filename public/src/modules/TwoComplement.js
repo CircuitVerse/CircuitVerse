@@ -92,6 +92,10 @@ export default class TwoComplement extends CircuitElement {
         drawCircle2(ctx, 5, 0, 15, xx, yy, this.direction);
         ctx.stroke();
     }
+
+    generateVerilog() {
+        return `assign ${this.output1.verilogLabel} = ~${this.inp1.verilogLabel} + 1;`;
+    }
 }
 
 /**

@@ -95,6 +95,10 @@ export default class Ground extends CircuitElement {
         lineTo(ctx, 2.5, 10, xx, yy, this.direction);
         ctx.stroke();
     }
+
+    generateVerilog() {
+        return `assign ${this.output1.verilogLabel} = ${this.bitWidth}'b0;`;
+    }
 }
 
 /**

@@ -17,6 +17,8 @@ import undo from './data/undo';
 import { copy, paste, selectAll } from './events';
 import save from './data/save';
 import { createElement } from './ux';
+import { verilogModeGet } from './Verilog2CV';
+import { setupTimingListeners } from './plotArea';
 
 var unit = 10;
 var createNode = false; // Flag to create node when its value ==tru)e
@@ -34,45 +36,31 @@ export function stopWireSet(param) {
 
 
 export default function startListeners() {
-    $('#deleteSelected').click(() => {
+    $('#deleteSelected').on('click',() => {
         deleteSelected();
     });
 
-    $('#zoomIn').click(() => {
+    $('#zoomIn').on('click',() => {
         changeScale(0.2, 'zoomButton', 'zoomButton', 2);
     });
 
-    $('#zoomOut').click(() => {
+    $('#zoomOut').on('click',() => {
         changeScale(-0.2, 'zoomButton', 'zoomButton', 2);
     });
 
-    $('#undoButton').click(() => {
+    $('#undoButton').on('click',() => {
         undo();
     });
 
-    $('#viewButton').click(() => {
+    $('#viewButton').on('click',() => {
         fullView();
     });
 
-    $('#projectName').click(() => {
-        console.log('here');
+    $('#projectName').on('click',() => {
         simulationArea.lastSelected = globalScope.root;
         setTimeout(() => {
             document.getElementById("projname").select();
         }, 100);
-    });
-
-
-    // $('#exitViewBtn').click(() => showAll());
-    window.addEventListener('keyup', (e) => {
-        scheduleUpdate(1);
-        simulationArea.shiftDown = e.shiftKey;
-        if (e.keyCode == 16) {
-            simulationArea.shiftDown = false;
-        }
-        if (e.key == 'Meta' || e.key == 'Control') {
-            simulationArea.controlDown = false;
-        }
     });
 
     document.getElementById('simulationArea').addEventListener('mousedown', (e) => {
@@ -127,11 +115,34 @@ export default function startListeners() {
             ) { simulationArea.multipleObjectSelections = []; }
         }
     });
-    window.addEventListener('mousemove', onMouseMove);
+    document.getElementById('simulationArea').addEventListener('mousemove', onMouseMove);
 
+    window.addEventListener('keyup', e => {
+        scheduleUpdate(1);
+        simulationArea.shiftDown = e.shiftKey;
+        if (e.keyCode == 16) {
+            simulationArea.shiftDown = false;
+        }
+        if (e.key == 'Meta' || e.key == 'Control') {
+            simulationArea.controlDown = false;
+        }
+    })
 
     window.addEventListener('keydown', (e) => {
         if (document.activeElement.tagName == 'INPUT') return;
+        if (document.activeElement != document.body) return;
+
+        simulationArea.shiftDown = e.shiftKey;
+        if (e.key == 'Meta' || e.key == 'Control') {
+            simulationArea.controlDown = true;
+        }
+
+        if (e.keyCode == 8 || e.key == 'Delete') {
+            deleteSelected();
+        }
+        if (simulationArea.controlDown && e.key.charCodeAt(0) == 122) { // detect the special CTRL-Z code
+            undo();
+        }
 
         if (listenToSimulator) {
         // If mouse is focusing on input element, then override any action
@@ -219,14 +230,6 @@ export default function startListeners() {
                 }
             }
 
-            if (e.keyCode == 8 || e.key == 'Delete') {
-                deleteSelected();
-            }
-
-            if (simulationArea.controlDown && e.key.charCodeAt(0) == 122) { // detect the special CTRL-Z code
-                undo();
-            }
-
             // Detect online save shortcut (CTRL+S)
             if (simulationArea.controlDown && e.keyCode == 83 && !simulationArea.shiftDown) {
                 save();
@@ -274,7 +277,7 @@ export default function startListeners() {
         }
     });
 
-    window.addEventListener('mouseup', onMouseUp);
+    document.getElementById('simulationArea').addEventListener('mouseup', onMouseUp);
 
     document.getElementById('simulationArea').addEventListener('mousewheel', MouseScroll);
     document.getElementById('simulationArea').addEventListener('DOMMouseScroll', MouseScroll);
@@ -295,7 +298,9 @@ export default function startListeners() {
     }
 
     document.addEventListener('cut', (e) => {
+        if (verilogModeGet()) return;
         if (document.activeElement.tagName == 'INPUT') return;
+        if (document.activeElement.tagName != 'BODY') return;
 
         if (listenToSimulator) {
             simulationArea.copyList = simulationArea.multipleObjectSelections.slice();
@@ -321,7 +326,9 @@ export default function startListeners() {
     });
 
     document.addEventListener('copy', (e) => {
+        if (verilogModeGet()) return;
         if (document.activeElement.tagName == 'INPUT') return;
+        if (document.activeElement.tagName != 'BODY') return;
 
         if (listenToSimulator) {
             simulationArea.copyList = simulationArea.multipleObjectSelections.slice();
@@ -347,6 +354,7 @@ export default function startListeners() {
 
     document.addEventListener('paste', (e) => {
         if (document.activeElement.tagName == 'INPUT') return;
+        if (document.activeElement.tagName != 'BODY') return;
 
         if (listenToSimulator) {
             var data;
@@ -397,13 +405,6 @@ export default function startListeners() {
         });
     });
 
-    const circuitElementList = [
-        "Input", "Output", "NotGate", "OrGate", "AndGate", "NorGate", "NandGate", "XorGate", "XnorGate", "SevenSegDisplay", "SixteenSegDisplay", "HexDisplay",
-        "Multiplexer", "BitSelector", "Splitter", "Power", "Ground", "ConstantVal", "ControlledInverter", "TriState", "Adder", "Rom", "RAM", "EEPROM", "TflipFlop",
-        "JKflipFlop", "SRflipFlop", "DflipFlop", "TTY", "Keyboard", "Clock", "DigitalLed", "Stepper", "VariableLed", "RGBLed", "SquareRGBLed", "RGBLedMatrix", "Button", "Demultiplexer",
-        "Buffer", "SubCircuit", "Flag", "MSB", "LSB", "PriorityEncoder", "Tunnel", "ALU", "Decoder", "Random", "Counter", "Dlatch", "TB_Input", "TB_Output", "ForceGate",
-    ];
-
     $(".search-input").on("keyup", function() {
         var parentElement = $(this).parent().parent();
         var closeButton =  $('.search-close', parentElement);
@@ -429,7 +430,7 @@ export default function startListeners() {
             return;
         }
         let htmlIcons = '';
-        const result = circuitElementList.filter(ele => ele.toLowerCase().includes(value));
+        const result = elementPanelList.filter(ele => ele.toLowerCase().includes(value));
         if(!result.length) searchResults.text('No elements found ...');
         else {
             result.forEach( e => htmlIcons += createIcon(e));
@@ -444,7 +445,11 @@ export default function startListeners() {
         </div>`;
     }
 
+    zoomSliderListeners();
     setupLayoutModePanelListeners();
+    if (!embed) {
+        setupTimingListeners();
+    }
 }
 
 var isIe = (navigator.userAgent.toLowerCase().indexOf('msie') != -1
@@ -543,17 +548,18 @@ function handleZoom(direction) {
         changeScale(direction * 0.1 * DPR);
     }
     gridUpdateSet(true);
+    scheduleUpdate();
 }
 
-function ZoomIn() {
+export function ZoomIn() {
     handleZoom(1);
 }
 
-function ZoomOut() {
+export function ZoomOut() {
     handleZoom(-1);
 }
 
-window.addEventListener('DOMContentLoaded', (event) => {
+function zoomSliderListeners() {
     document.getElementById("customRange1").value = 5;
     document.getElementById('simulationArea').addEventListener('DOMMouseScroll',zoomSliderScroll);
     document.getElementById('simulationArea').addEventListener('mousewheel', zoomSliderScroll);
@@ -583,22 +589,22 @@ window.addEventListener('DOMContentLoaded', (event) => {
             curLevel = zoomLevel;
         }
     }
-      $("#decrement").click(function () {
-          sliderZoomButton(-1);
-      });
+    $("#decrement").click(function () {
+      sliderZoomButton(-1);
+    });
 
-      $("#increment").click(function () {
-          sliderZoomButton(1);
-      });
+    $("#increment").click(function () {
+      sliderZoomButton(1);
+    });
 
-      function sliderZoomButton(direction) {
-          var zoomSlider = $("#customRange1");
-          var currentSliderValue = parseInt(zoomSlider.val());
-          if (direction === -1) {
-              currentSliderValue--;
-          } else {
-              currentSliderValue++;
-          }
-          zoomSlider.val(currentSliderValue).change();
-      }
-});
+    function sliderZoomButton(direction) {
+      var zoomSlider = $("#customRange1");
+      var currentSliderValue = parseInt(zoomSlider.val());
+      if (direction === -1) {
+        currentSliderValue--;
+      } else {
+        currentSliderValue++;
+        }
+        zoomSlider.val(currentSliderValue).change();
+    }
+}

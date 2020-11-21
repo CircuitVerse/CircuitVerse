@@ -79,9 +79,15 @@ export default class Clock extends CircuitElement {
         }
         ctx.stroke();
     }
+
+    static verilogInstructions() {
+        return "Clock - Use a single global clock\n";
+    }
 }
 
 Clock.prototype.tooltipText = "Clock";
 
 Clock.prototype.click = Clock.prototype.toggleState;
 Clock.prototype.objectType = "Clock";
+Clock.prototype.propagationDelay = 0;
+Clock.prototype.propagationDelayFixed = true;

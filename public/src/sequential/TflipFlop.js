@@ -138,12 +138,33 @@ export default class TflipFlop extends CircuitElement {
         // if ((this.b.hover&&!simulationArea.shiftDown)|| simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = "rgba(255, 255, 32,0.8)";ctx.fill();
         ctx.stroke();
         ctx.beginPath();
-        ctx.font = '20px Georgia';
+        ctx.font = '20px Raleway';
         ctx.fillStyle = colors['input_text'];
         ctx.textAlign = 'center';
         fillText(ctx, this.slaveState.toString(16), xx, yy + 5);
         ctx.fill();
     }
+
+    static moduleVerilog(){
+        return `
+        module TflipFlop(q, q_inv, clk, t, a_rst, pre, en);
+          parameter WIDTH = 1;
+          output reg [WIDTH-1:0] q, q_inv;
+          input clk, a_rst, pre, en;
+          input [WIDTH-1:0] t;
+        
+          always @ (posedge clk or posedge a_rst)
+            if (a_rst) begin
+              q <= 'b0;
+              q_inv <= 'b1;
+            end else if (en == 0) ;
+            else if (t) begin
+              q <= q ^ t;
+              q_inv <= ~q ^ t;
+            end
+        endmodule
+        `
+        }
 }
 
 TflipFlop.prototype.tooltipText = 'T FlipFlop ToolTip :  Changes state / Toggles whenever the clock input is strobed.';
