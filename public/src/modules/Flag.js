@@ -47,14 +47,6 @@ export default class Flag extends CircuitElement {
 
     resolve() {
         this.flagTimeUnit = simulationArea.simulationQueue.time;
-    }
-
-    /**
-     * @memberof Flag
-     * funtion to Set plot values
-     * @type {string}
-     */
-    setPlotValue() {
         const time = plotArea.getPlotTime(this.flagTimeUnit);
 
         if (

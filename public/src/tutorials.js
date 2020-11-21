@@ -49,6 +49,17 @@ export const tour = [
             offset: 250,
         },
     },
+    {
+        element: '.timing-diagram-panel',
+        popover: {
+            title: 'Timing Diagram Panel (Waveform)',
+            description: "This panel displays the waveform created by circuits and can be used for resolving race conditions and debugging circuits.",
+            position: 'bottom',
+            offset: 0,
+        },
+    },
+    
+    
     // {
     //     element: '#delCirGuide',
     //     popover: {
@@ -113,6 +124,7 @@ const animatedTourDriver = new Driver({
 });
 
 export function showTourGuide() {
+    $('.draggable-panel .maximize').trigger('click');
     animatedTourDriver.defineSteps(tour);
     animatedTourDriver.start();
     localStorage.setItem('tutorials_tour_done', true);
