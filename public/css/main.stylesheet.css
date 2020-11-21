@@ -135,6 +135,14 @@ input[type="text"]:focus {
   transition: all 0.2s ease-in-out;
 
 }
+.nav_edit {
+  position:relative;
+  z-index:103 !important;
+} 
+.nav_over {
+  position:relative;
+  z-index:101 !important;
+}
 
 .navbar-menu > li > a {
   border: 1px solid transparent;
@@ -180,11 +188,21 @@ input[type="text"]:focus {
   width: 35vw;
   overflow: hidden;
   text-overflow: ellipsis;
+  padding-right: 100px;
+  
 }
 
-@media(max-width: 992px) {
+/* @media(max-width: 992px) {
   .projectName {
     visibility: hidden;
+  } 
+}
+*/
+@media(min-width: 992px) {
+  .projectName {
+    position:absolute;
+    float:right;
+    left:29rem;
   }
 }
 
@@ -210,11 +228,11 @@ input[type="text"]:focus {
   text-align: right;
 }
 
-@media(max-width: 992px) {
+/* @media(max-width: 992px) {
   .user-field {
     visibility: hidden;
   }
-}
+} */
 
 .signIn-btn {
   color: var(--text-primary);
@@ -245,6 +263,11 @@ input[type="text"]:focus {
   right: 280px;
   border-radius: 7px;
   z-index: 100;
+}
+@media (max-width:1175px) {
+  .quick-btn {
+    top: 120px;
+  }
 }
 
 .quick-btn > div {
@@ -1148,13 +1171,15 @@ input:checked + .slider:before {
 
 .navbar .nav.pull-right {
   float: right;
-  margin-right: 10px;
-  min-width: 85px;
+  margin-right: 20px;
+  /* min-width: 85px; */
 }
 
 @media(max-width: 992px) {
   .navbar .nav.pull-right {
-    display: none;
+    position:absolute;
+    right:3rem;
+    top:15px;
   }
 }
 
