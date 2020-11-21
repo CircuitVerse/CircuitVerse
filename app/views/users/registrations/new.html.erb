@@ -38,12 +38,16 @@
               <span>(Minimum <%= @minimum_password_length %> characters)</span>
             <% end %>
           </h6>
+        </div>
         <div class="input-group form-input">
-          <%= f.password_field :password, autocomplete: "off" ,class:"form-control users-password-input" %>
+          <%= f.password_field :password, autocomplete: "off", class:"form-control users-password-input", onkeypress:"capsLock(event)"%>
           <div class="input-group-addon ml-3 mt-2" onclick="togglePassword()">
             <i class="far fa-eye-slash password-icon" aria-hidden="true" id="toggle-icon"></i>
           </div>
         </div>
+          <div id="caps-alert" style="visibility:hidden; color:red;">
+            <span>Caps lock is ON!</span>
+          </div>
       </div>
         <div class="field form-group">
           <div class="field form-group">
@@ -52,7 +56,7 @@
                 <%= flash[:recaptcha_error] %>
                 <%= recaptcha_tags %>
               <% end %>
-              <%= f.submit "Sign up" ,class:"btn primary-button users-login-primary-button" %>
+              <%= f.submit "Sign up", class:"btn primary-button users-login-primary-button" %>
               <div class="users-text-container">
                 <span class="users-text">Already Registered?</span>
                 <%= link_to "Log In", new_user_session_path ,class:"anchor-text" %>
@@ -61,10 +65,9 @@
           </div>
           <%= render "users/shared/links" %>
         </div>
-        <% end %>
-      </div>
+      <% end %>
     </div>
   </div>
 </div>
 
-<script src="/js/togglePassword.js"></script>
+<script src="/js/passwordUtilities.js"></script>
