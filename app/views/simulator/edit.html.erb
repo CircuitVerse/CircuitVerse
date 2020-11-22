@@ -26,10 +26,10 @@
 <nav class="navbar navbar-expand-lg navbar-dark header nav_edit">
   <a href="/"><span class='logo'></span></a>
   <div class="projectName noSelect defaultCursor font-weight-bold" id="projectName">
-  <span >
+    <span >
          Untitled
-      </span>
-      </div>
+    </span>
+  </div>
   <button class="navbar-toggler collapsed float-right" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-controls="collapsedNavbar" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -78,17 +78,9 @@
             <li><a class="dropdown-item text-left pl-1" href="https://circuitverse.org/forum" class="forum-tab" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">Discussion Forum</a></li>
         </ul>
       </li>
-      
-      
     </ul>
-      
-
-</div>
-
-
-      
-
-    <ul class="nav navbar-nav noSelect pointerCursor pull-right account-btn">
+  </div>
+      <ul class="nav navbar-nav noSelect pointerCursor pull-right account-btn">
       <li class="dropdown pull-right">
         <% if user_signed_in? %>
           <a href="#" class="cur-user acc-drop user-field" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %><span class="caret acc-caret"></span></a>
@@ -125,7 +117,6 @@
     <div class="accordion" id="menu"></div>
   </div>
 </div>
-
 <div ondrag="(() => {$('.quick-btn').css({'box-shadow': 'none', 'background': 'var(--bg-navbar)'})})()" class='quick-btn'>
       <div id='dragQPanel' class='panel-drag'>
       <span><svg style="height: 20px;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18" height="31" viewBox="0 0 18 31">
@@ -192,7 +183,6 @@
           <span id='slider_value'></span>
         </div>
       </div>
-
 <div class="noSelect defaultCursor layoutElementPanel draggable-panel draggable-panel-css ">
   <div class="panel-header">Layout Elements
   <span class="fas fa-minus-square minimize"></span>
