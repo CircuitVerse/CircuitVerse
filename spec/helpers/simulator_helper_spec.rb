@@ -32,7 +32,7 @@ describe SimulatorHelper do
       end
 
       it "creates new preview file" do
-        expect(File).to receive(:new).with(/^preview_.*\.jpeg$/, "wb")
+        expect(File).to receive(:new).with(/^tmp\/preview_.*\.jpeg$/, "wb")
         return_image_file(data_url(Faker::Alphanumeric.alpha))
       end
     end

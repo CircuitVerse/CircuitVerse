@@ -239,7 +239,7 @@ input[type="text"]:focus {
 }
 
 .cur-user, .signIn-btn {
-  color: var(--text-navbar);
+  color: #fff
 }
 
 .signIn-btn:hover {

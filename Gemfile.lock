@@ -60,10 +60,11 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
       zeitwerk (~> 2.2, >= 2.2.2)
-    activity_notification (2.0.0)
+    activity_notification (2.1.3)
       i18n (>= 0.5.0)
       jquery-rails (>= 3.1.1)
       railties (>= 4.2.0, < 6.1)
+      swagger-blocks (>= 3.0.0)
     acts_as_votable (0.12.1)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
@@ -73,8 +74,23 @@ GEM
       geocoder (>= 1.4.5)
       safely_block (>= 0.2.1)
     ast (2.4.1)
+    aws-eventstream (1.1.0)
+    aws-partitions (1.384.0)
+    aws-sdk-core (3.109.1)
+      aws-eventstream (~> 1, >= 1.0.2)
+      aws-partitions (~> 1, >= 1.239.0)
+      aws-sigv4 (~> 1.1)
+      jmespath (~> 1.0)
+    aws-sdk-rails (3.1.0)
+      aws-sdk-ses (~> 1)
+      railties (>= 5.2.0)
+    aws-sdk-ses (1.36.0)
+      aws-sdk-core (~> 3, >= 3.109.0)
+      aws-sigv4 (~> 1.1)
+    aws-sigv4 (1.2.2)
+      aws-eventstream (~> 1, >= 1.0.2)
     bcrypt (3.1.15)
-    better_html (1.0.14)
+    better_html (1.0.15)
       actionview (>= 4.0)
       activesupport (>= 4.0)
       ast (~> 2.0)
@@ -87,7 +103,7 @@ GEM
       msgpack (~> 1.0)
     bootstrap-typeahead-rails (0.10.5.1)
       railties (>= 3.0)
-    bugsnag (6.16.0)
+    bugsnag (6.18.0)
       concurrent-ruby (~> 1.0)
     builder (3.2.4)
     byebug (11.1.3)
@@ -156,12 +172,13 @@ GEM
     dotenv-rails (2.7.6)
       dotenv (= 2.7.6)
       railties (>= 3.2)
-    erb_lint (0.0.30)
+    erb_lint (0.0.35)
       activesupport
       better_html (~> 1.0.7)
       html_tokenizer
+      parser (>= 2.7.1.4)
       rainbow
-      rubocop (~> 0.51)
+      rubocop (~> 0.79)
       smart_properties
     errbase (0.2.0)
     erubi (1.9.0)
@@ -193,7 +210,7 @@ GEM
       rack-protection (>= 1.5.3, < 2.1.0)
     font-awesome-sass (5.13.0)
       sassc (>= 1.11)
-    friendly_id (5.3.0)
+    friendly_id (5.4.1)
       activerecord (>= 4.0.0)
     geocoder (1.6.3)
     globalid (0.4.2)
@@ -233,6 +250,7 @@ GEM
       rails (>= 4.2)
     jbuilder (2.10.0)
       activesupport (>= 5.0.0)
+    jmespath (1.4.0)
     jquery-rails (4.4.0)
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
@@ -264,6 +282,8 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.7.1)
       mini_mime (>= 0.1.1)
+    mailkick (0.4.2)
+      activesupport (>= 5)
     marcel (0.3.3)
       mimemagic (~> 0.3.2)
     meta-tags (2.13.0)
@@ -325,9 +345,9 @@ GEM
       ast (~> 2.4.1)
     pg (1.2.3)
     pg (1.2.3-x64-mingw32)
-    pg_search (2.3.0)
-      activerecord (>= 4.2)
-      activesupport (>= 4.2)
+    pg_search (2.3.5)
+      activerecord (>= 5.2)
+      activesupport (>= 5.2)
     pr_geohash (1.0.0)
     premailer (1.13.1)
       addressable
@@ -407,7 +427,7 @@ GEM
     recaptcha (5.5.0)
       json
     redis (4.2.2)
-    regexp_parser (1.7.1)
+    regexp_parser (1.8.1)
     remotipart (1.4.4)
     responders (3.0.1)
       actionpack (>= 5.0)
@@ -444,9 +464,8 @@ GEM
       rubocop-ast (>= 0.5.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 2.0)
-    rubocop-ast (0.7.0)
+    rubocop-ast (0.7.1)
       parser (>= 2.7.1.5)
-      strscan (>= 1.0.0)
     rubocop-performance (1.7.1)
       rubocop (>= 0.82.0)
     rubocop-rails (2.6.0)
@@ -524,7 +543,6 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    strscan (1.0.3)
     sunspot (2.5.0)
       pr_geohash (~> 1.0)
       rsolr (>= 1.1.1, < 3)
@@ -532,6 +550,7 @@ GEM
       rails (>= 3)
       sunspot (= 2.5.0)
     sunspot_solr (2.5.0)
+    swagger-blocks (3.0.0)
     temple (0.8.2)
     term-ansicolor (1.7.1)
       tins (~> 1.0)
@@ -596,9 +615,10 @@ DEPENDENCIES
   activity_notification
   acts_as_votable (~> 0.12.0)
   ahoy_matey
+  aws-sdk-rails
   bootsnap
   bootstrap-typeahead-rails
-  bugsnag (~> 6.16)
+  bugsnag (~> 6.18)
   byebug
   capybara (~> 3.33)
   carrierwave (~> 2.1)
@@ -616,7 +636,7 @@ DEPENDENCIES
   flipper-redis
   flipper-ui
   font-awesome-sass (~> 5.13.0)
-  friendly_id (~> 5.3.0)
+  friendly_id (~> 5.4.1)
   geocoder
   hirb
   http
@@ -629,6 +649,7 @@ DEPENDENCIES
   jwt
   language_filter
   listen (>= 3.0.5, < 3.3)
+  mailkick
   meta-tags
   newrelic_rpm (~> 6.13)
   omniauth
