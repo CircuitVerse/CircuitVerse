@@ -7,7 +7,8 @@ class User < ApplicationRecord
 
   validates :email, format: { with: Devise.email_regexp },
                     undisposable: { message: "Sorry, but we do not accept your mail provider." }
-  validates :name, format: { with: /\A[a-zA-Z ]{3,36}\z/ }
+  validates :name, format: { with: /\A[a-zA-Z ]{3,36}\z/,
+                             message: "can contain only alphabets and spaces" }
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
