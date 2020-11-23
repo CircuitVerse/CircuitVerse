@@ -51,8 +51,10 @@ export default class Wire {
     }
 
     dblclick() {
-        simulationArea.multipleObjectSelections = [this.node1, this.node2];
-        simulationArea.lastSelected = undefined;
+        if(this.node1.parent == globalScope.root && this.node2.parent == globalScope.root) {
+            simulationArea.multipleObjectSelections = [this.node1, this.node2];
+            simulationArea.lastSelected = undefined;
+        }
     }
 
     update() {
