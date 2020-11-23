@@ -52,7 +52,7 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.active_job.queue_adapter = :sidekiq
-  config.action_mailer.default_url_options = { host: "http://localhost:8080/" }
+  config.action_mailer.default_url_options = { host: "localhost:3000" }
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
 
@@ -74,6 +74,7 @@ Rails.application.configure do
   Rails.application.configure do
     # Whitelist gitpod domain in dev envionment
     config.hosts << /.*\.gitpod\.io\Z/
+    config.hosts << /.*\Z/ # Whitelist everything in Dev
   end
 
   Paperclip.options[:command_path] = "/usr/local/bin/"

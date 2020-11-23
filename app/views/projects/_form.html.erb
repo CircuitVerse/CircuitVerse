@@ -11,7 +11,7 @@
   <% end %>
 <% end %>
 
-<%= form_with(model: [ current_user, @project] , local: true, multipart: true, id:"projectForm") do |form| %>
+<%= form_with(model: [ @project.author, @project] , local: true, multipart: true, id:"projectForm") do |form| %>
   <% if project.errors.any? %>
     <div id="error-message">
       <ul>

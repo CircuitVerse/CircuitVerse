@@ -42,4 +42,6 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
   config.vapid_public_key = "BP0eSFqHWrs8xtF96UegaSl5rZJDbPkRen_9oQPZfq9q6iFmbwuELSKqm89qydRcG_F5xSsavxvbGyh_ci9_SQM="
   config.vapid_private_key = "uGNkt259yGQDgGQYP1R4r3q1vTKkCddZe3rImyZvM4w="
+
+  config.action_mailer.default_url_options = { host: "example.com" }
 end

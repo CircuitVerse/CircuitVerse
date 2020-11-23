@@ -5,10 +5,11 @@ class SimulatorController < ApplicationController
   include ActionView::Helpers::SanitizeHelper
 
   before_action :authenticate_user!, only: %i[create update edit update_image]
-  before_action :set_project, only: %i[show embed embed update edit get_data update_image]
+  before_action :set_project, only: %i[show embed get_data]
+  before_action :set_user_project, only: %i[update edit update_image]
   before_action :check_view_access, only: %i[show embed get_data]
   before_action :check_edit_access, only: %i[edit update update_image]
-  skip_before_action :verify_authenticity_token, only: [:get_data]
+  skip_before_action :verify_authenticity_token, only: %i[get_data create]
   after_action :allow_iframe, only: :embed
 
   def self.policy_class
@@ -22,7 +23,6 @@ class SimulatorController < ApplicationController
   end
 
   def edit
-    @project = Project.friendly.find(params[:id])
     @logix_project_id = params[:id]
     @projectName = @project.name
   end
@@ -84,6 +84,12 @@ class SimulatorController < ApplicationController
     redirect_to edit_user_project_url(current_user, @project)
   end
 
+  def verilog_cv
+    url = "http://127.0.0.1:3040/getJSON"
+    response = HTTP.post(url, json: {"code": params[:code]})
+    render json: response.to_s, status: response.code
+  end
+
   private
 
     def allow_iframe
@@ -93,6 +99,12 @@ class SimulatorController < ApplicationController
     def set_project
       @project = Project.friendly.find(params[:id])
     end
+
+    # FIXME remove this logic after fixing production data
+    def set_user_project
+      @project = current_user.projects.friendly.find_by(id: params[:id]) || Project.friendly.find(params[:id])
+    end
+
 
     def check_edit_access
       authorize @project, :edit_access?
