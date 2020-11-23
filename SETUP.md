@@ -70,6 +70,12 @@ Additional instructions can be found [here](https://www.howtoforge.com/tutorial/
 - If you are facing difficulties installing RVM, most probably it is because of an older version of rvm shipped with Ubuntu's desktop edition and updating the same resolves the problem.
 - [Run Terminal as a login shell](https://rvm.io/integration/gnome-terminal/) so ruby and rails will be available.
 
+### CircuitVerse API documentation setup instructions
+To setup CircuitVerse API documentation, refer [docs/README.md](docs/README.md)
+
+### Additional setup instructions
+[Yarn](https://yarnpkg.com/lang/en/) is a package manager for the JavaScript ecosystem.
+CircuitVerse uses Yarn for frontend package and asset management.
   - Removing RVM
     ```
     sudo apt-get --purge remove ruby-rvm
@@ -81,7 +87,6 @@ Additional instructions can be found [here](https://www.howtoforge.com/tutorial/
     bash -s stable --ruby --autolibs=enable --auto-dotfiles
     ```
 - If you are facing errors running the `rails db:create` ensure that the socket file(i.e `mysql.sock`) is present in that location. Some possible locations where it might be present is `/run/mysqld/mysqld.sock` or `/var/lib/mysql/mysql.sock`.
-
 ### Heroku Deployment
 [Heroku](https://www.heroku.com) is a free cloud platform that can be used for deployment of CircuitVerse
 
