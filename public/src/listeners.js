@@ -137,9 +137,6 @@ export default function startListeners() {
             simulationArea.controlDown = true;
         }
 
-        if (e.keyCode == 8 || e.key == 'Delete') {
-            deleteSelected();
-        }
         if (simulationArea.controlDown && e.key.charCodeAt(0) == 122) { // detect the special CTRL-Z code
             undo();
         }
@@ -264,17 +261,22 @@ export default function startListeners() {
                 simulationArea.changeClockTime(prompt('Enter Time:'));
             }
         }
+
+        if (e.keyCode == 8 || e.key == 'Delete') {
+            deleteSelected();
+        }
     });
 
 
     document.getElementById('simulationArea').addEventListener('dblclick', (e) => {
-        scheduleUpdate(2);
+        updateCanvasSet(true);
         if (simulationArea.lastSelected && simulationArea.lastSelected.dblclick !== undefined) {
             simulationArea.lastSelected.dblclick();
         }
-        if (!simulationArea.shiftDown) {
+        else if (!simulationArea.shiftDown) {
             simulationArea.multipleObjectSelections = [];
         }
+        scheduleUpdate(2);
     });
 
     document.getElementById('simulationArea').addEventListener('mouseup', onMouseUp);

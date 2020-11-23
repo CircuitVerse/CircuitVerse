@@ -79,6 +79,7 @@ export default class Text extends CircuitElement {
         } else if (key === 'Backspace') {
             if (this.label === 'Enter Text Here') { this.setLabel(''); } else { this.setLabel(this.label.slice(0, -1)); }
         }
+        $('input[name=setLabel]').val(this.label);
     }
 
     /**
