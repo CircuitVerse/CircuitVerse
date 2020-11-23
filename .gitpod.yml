@@ -29,6 +29,7 @@ tasks:
       bundle exec rails db:migrate &&
       bundle exec rake sunspot:solr:start &&
       bundle exec rails db:seed &&
+      (./bin/webpack-dev-server . &) &&
       bundle exec rails server
 github:
     prebuilds:

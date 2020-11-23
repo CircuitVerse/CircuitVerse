@@ -69,6 +69,7 @@ gem 'pundit'
 
 # for analytics
 gem 'ahoy_matey'
+gem 'i18n-js'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
@@ -91,7 +92,7 @@ gem 'activity_notification'
 gem 'serviceworker-rails'
 gem 'webpush'
 
-gem 'webpacker', '~> 4.x'
+gem 'webpacker', '~> 5.x'
 
 gem 'bootsnap', require: false
 

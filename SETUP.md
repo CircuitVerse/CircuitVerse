@@ -61,6 +61,7 @@ cd CircuitVerse
 5. Create database: `rails db:create`
 6. Run database migrations: `rails db:migrate`
 7. Start Sidekiq (background processes & job queue): `bundle exec sidekiq -e development -q default -q mailers -d -L tmp/sidekiq.log`
+1. ./bin/webpack-dev-server for Hot Module reload for  fast development or transpile using ./bin/webpack.
 
 Then, local development can be started with `rails s -b 127.0.0.1 -p 8080`. Navigate to `127.0.0.1:8080` in your web browser to access the website.
 
