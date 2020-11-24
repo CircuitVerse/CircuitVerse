@@ -1,0 +1,306 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> setup.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#fillSubcircuitElements">fillSubcircuitElements</a></li><li><a href="global.html#frameInterval">frameInterval</a></li><li><a href="global.html#modules">modules</a></li></ul></div><div class="category"><h2>c2s</h2><h3>Classes</h3><ul><li><a href="CanvasGradient.html">CanvasGradient</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ctx">ctx</a></li><li><a href="global.html#normalize">normalize</a></li></ul></div><div class="category"><h2>circuit</h2><h3>Classes</h3><ul><li><a href="Scope.html">Scope</a></li></ul><h3>Global</h3><ul><li><a href="global.html#changeCircuitName">changeCircuitName</a></li><li><a href="global.html#deleteCurrentCircuit">deleteCurrentCircuit</a></li><li><a href="global.html#newCircuit">newCircuit</a></li><li><a href="global.html#switchCircuit">switchCircuit</a></li></ul></div><div class="category"><h2>circuitElement</h2><h3>Classes</h3><ul><li><a href="CircuitElement.html">CircuitElement</a></li></ul></div><div class="category"><h2>combinationalAnalysis</h2><h3>Global</h3><ul><li><a href="global.html#createBooleanPrompt">createBooleanPrompt</a></li><li><a href="global.html#createCombinationalAnalysisPrompt">createCombinationalAnalysisPrompt</a></li></ul></div><div class="category"><h2>engine</h2><h3>Global</h3><ul><li><a href="global.html#canvasMessageData">canvasMessageData</a></li><li><a href="global.html#changeLightMode">changeLightMode</a></li><li><a href="global.html#errorDetected">errorDetected</a></li><li><a href="global.html#errorDetectedGet">errorDetectedGet</a></li><li><a href="global.html#errorDetectedSet">errorDetectedSet</a></li><li><a href="global.html#forceResetNodes">forceResetNodes</a></li><li><a href="global.html#forceResetNodesSet">forceResetNodesSet</a></li><li><a href="global.html#gridUpdate">gridUpdate</a></li><li><a href="global.html#gridUpdateGet">gridUpdateGet</a></li><li><a href="global.html#gridUpdateSet">gridUpdateSet</a></li><li><a href="global.html#objectSelection">objectSelection</a></li><li><a href="global.html#objectSelectionSet">objectSelectionSet</a></li><li><a href="global.html#play">play</a></li><li><a href="global.html#renderCanvas">renderCanvas</a></li><li><a href="global.html#scheduleUpdate">scheduleUpdate</a></li><li><a href="global.html#update">update</a></li><li><a href="global.html#updateCanvas">updateCanvas</a></li><li><a href="global.html#updateCanvasSet">updateCanvasSet</a></li><li><a href="global.html#updatePosition">updatePosition</a></li><li><a href="global.html#updatePositionSet">updatePositionSet</a></li><li><a href="global.html#updateSelectionsAndPane">updateSelectionsAndPane</a></li><li><a href="global.html#updateSimulation">updateSimulation</a></li><li><a href="global.html#updateSimulationSet">updateSimulationSet</a></li><li><a href="global.html#updateSubcircuit">updateSubcircuit</a></li><li><a href="global.html#updateSubcircuitSet">updateSubcircuitSet</a></li><li><a href="global.html#willBeUpdated">willBeUpdated</a></li><li><a href="global.html#willBeUpdatedSet">willBeUpdatedSet</a></li><li><a href="global.html#wireToBeChecked">wireToBeChecked</a></li><li><a href="global.html#wireToBeCheckedSet">wireToBeCheckedSet</a></li></ul></div><div class="category"><h2>eventQueue</h2><h3>Classes</h3><ul><li><a href="EventQueue.html">EventQueue</a></li></ul></div><div class="category"><h2>events</h2><h3>Global</h3><ul><li><a href="global.html#copy">copy</a></li><li><a href="global.html#cut">cut</a></li><li><a href="global.html#paste">paste</a></li><li><a href="global.html#selectAll">selectAll</a></li></ul></div><div class="category"><h2>layoutMode</h2><h3>Global</h3><ul><li><a href="global.html#cancelLayout">cancelLayout</a></li><li><a href="global.html#decreaseLayoutHeight">decreaseLayoutHeight</a></li><li><a href="global.html#decreaseLayoutWidth">decreaseLayoutWidth</a></li><li><a href="global.html#determineLabel">determineLabel</a></li><li><a href="global.html#increaseLayoutHeight">increaseLayoutHeight</a></li><li><a href="global.html#increaseLayoutWidth">increaseLayoutWidth</a></li><li><a href="global.html#layoutMode">layoutMode</a></li><li><a href="global.html#layoutResetNodes">layoutResetNodes</a></li><li><a href="global.html#layoutTitleDown">layoutTitleDown</a></li><li><a href="global.html#layoutTitleLeft">layoutTitleLeft</a></li><li><a href="global.html#layoutTitleRight">layoutTitleRight</a></li><li><a href="global.html#layoutTitleUp">layoutTitleUp</a></li><li><a href="global.html#layoutUpdate">layoutUpdate</a></li><li><a href="global.html#paneLayout">paneLayout</a></li><li><a href="global.html#renderLayout">renderLayout</a></li><li><a href="global.html#saveLayout">saveLayout</a></li><li><a href="global.html#tempBuffer">tempBuffer</a></li><li><a href="global.html#toggleLayoutMode">toggleLayoutMode</a></li><li><a href="global.html#toggleLayoutTitle">toggleLayoutTitle</a></li></ul></div><div class="category"><h2>minimap</h2><h3>Global</h3><ul><li><a href="global.html#miniMapArea">miniMapArea</a></li></ul></div><div class="category"><h2>node</h2><h3>Classes</h3><ul><li><a href="Node.html">Node</a></li></ul><h3>Global</h3><ul><li><a href="global.html#constructNodeConnections">constructNodeConnections</a></li><li><a href="global.html#extractNode">extractNode</a></li><li><a href="global.html#findNode">findNode</a></li><li><a href="global.html#loadNode">loadNode</a></li><li><a href="global.html#replace">replace</a></li><li><a href="global.html#uniqueIdCounter">uniqueIdCounter</a></li></ul></div><div class="category"><h2>plotArea</h2><h3>Global</h3><ul><li><a href="global.html#plotArea">plotArea</a></li></ul></div><div class="category"><h2>sequential</h2><h3>Global</h3><ul><li><a href="global.html#changeClockEnable">changeClockEnable</a></li><li><a href="global.html#runTest">runTest</a></li></ul></div><div class="category"><h2>setup</h2><h3>Global</h3><ul><li><a href="global.html#resetup">resetup</a></li><li><a href="global.html#setup">setup</a></li><li><a href="global.html#setupElementLists">setupElementLists</a></li><li><a href="global.html#setupEnvironment">setupEnvironment</a></li></ul></div><div class="category"><h2>simulationArea</h2><h3>Global</h3><ul><li><a href="global.html#simulationArea">simulationArea</a></li></ul></div><div class="category"><h2>subcircuit</h2><h3>Classes</h3><ul><li><a href="SubCircuit.html">SubCircuit</a></li></ul><h3>Global</h3><ul><li><a href="global.html#createSubCircuitPrompt">createSubCircuitPrompt</a></li><li><a href="global.html#loadSubCircuit">loadSubCircuit</a></li></ul></div><div class="category"><h2>utils</h2><h3>Global</h3><ul><li><a href="global.html#showError">showError</a></li><li><a href="global.html#uniq">uniq</a></li></ul></div><div class="category"><h2>ux</h2><h3>Global</h3><ul><li><a href="global.html#ctxPos">ctxPos</a></li><li><a href="global.html#escapeHtml">escapeHtml</a></li><li><a href="global.html#hideContextMenu">hideContextMenu</a></li><li><a href="global.html#hideProperties">hideProperties</a></li><li><a href="global.html#menuItemClicked">menuItemClicked</a></li><li><a href="global.html#prevPropertyObj">prevPropertyObj</a></li><li><a href="global.html#setupUI">setupUI</a></li><li><a href="global.html#showContextMenu">showContextMenu</a></li><li><a href="global.html#showProperties">showProperties</a></li></ul></div><div class="category"><h2>wire</h2><h3>Classes</h3><ul><li><a href="module-wire.Wire.html">Wire</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>setup.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* eslint-disable import/no-cycle */
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable guard-for-in */
+import * as metadata from './metadata.json';
+import { generateId, showMessage} from './utils';
+import backgroundArea from './backgroundArea';
+import plotArea from './plotArea';
+import simulationArea from './simulationArea';
+import { dots } from './canvasApi';
+import { update, updateSimulationSet, updateCanvasSet } from './engine';
+import { setupUI } from './ux';
+import startMainListeners from './listeners';
+import startEmbedListeners from './embedListeners';
+import './embed';
+import { newCircuit } from './circuit';
+import load from './data/load';
+import save from './data/save';
+import showTourGuide from './tutorials';
+import setupModules from './moduleSetup';
+import 'codemirror/lib/codemirror.css';
+import 'codemirror/addon/hint/show-hint.css';
+import 'codemirror/mode/javascript/javascript.js'; // verilog.js from codemirror is not working because array prototype is changed.
+import 'codemirror/addon/edit/closebrackets.js';
+import 'codemirror/addon/hint/anyword-hint.js';
+import 'codemirror/addon/hint/show-hint.js';
+import {setupCodeMirrorEnvironment} from './Verilog2CV';
+import { keyBinder } from './hotkey_binder/keyBinder';
+
+window.width = undefined;
+window.height = undefined;
+window.DPR = window.devicePixelRatio || 1; // devicePixelRatio, 2 for retina displays, 1 for low resolution displays
+
+/**
+ * to resize window and setup things it
+ * sets up new width for the canvas variables.
+ * Also redraws the grid.
+ * @category setup
+ */
+export function resetup() {
+    DPR = window.devicePixelRatio || 1;
+    if (lightMode) { DPR = 1; }
+    width = document.getElementById('simulationArea').clientWidth * DPR;
+    if (!embed) {
+        height = (document.getElementById('simulation').clientHeight - document.getElementById('toolbar').clientHeight) * DPR;
+    } else {
+        height = (document.getElementById('simulation').clientHeight) * DPR;
+    }
+    // setup simulationArea and backgroundArea variables used to make changes to canvas.
+    backgroundArea.setup();
+    simulationArea.setup();
+    // redraw grid
+    dots();
+    document.getElementById('backgroundArea').style.height = height / DPR + 100;
+    document.getElementById('backgroundArea').style.width = width / DPR + 100;
+    document.getElementById('canvasArea').style.height = height / DPR;
+    simulationArea.canvas.width = width;
+    simulationArea.canvas.height = height;
+    backgroundArea.canvas.width = width + 100 * DPR;
+    backgroundArea.canvas.height = height + 100 * DPR;
+    if (!embed) {
+        plotArea.setup();
+    }
+    updateCanvasSet(true);
+    update(); // INEFFICIENT, needs to be deprecated
+    simulationArea.prevScale = 0;
+    dots();
+}
+
+window.onresize = resetup; // listener
+window.onorientationchange = resetup; // listener
+
+// for mobiles
+window.addEventListener('orientationchange', resetup); // listener
+
+/**
+ * function to setup environment variables like projectId and DPR
+ * @category setup
+ */
+function setupEnvironment() {
+    setupModules();
+    const projectId = generateId();
+    updateSimulationSet(true);
+    const DPR = window.devicePixelRatio || 1;
+    newCircuit('Main');
+    window.data = {};
+    resetup();
+    setupCodeMirrorEnvironment();
+}
+
+/**
+ * It initializes some useful array which are helpful
+ * while simulating, saving and loading project.
+ * It also draws icons in the sidebar
+ * @category setup
+ */
+function setupElementLists() {
+    $('#menu').empty();
+
+    window.circuitElementList = metadata.circuitElementList;
+    window.annotationList = metadata.annotationList;
+    window.inputList = metadata.inputList;
+    window.subCircuitInputList = metadata.subCircuitInputList;
+    window.moduleList = [...circuitElementList, ...annotationList];
+    window.updateOrder = ['wires', ...circuitElementList, 'nodes', ...annotationList]; // Order of update
+    window.renderOrder = [...(moduleList.slice().reverse()), 'wires', 'allNodes']; // Order of render
+
+
+    function createIcon(element) {
+        return `&lt;div class="icon logixModules" id="${element}" title="${element}">
+            &lt;img src= "/img/${element}.svg" >
+        &lt;/div>`;
+    }
+
+    window.elementHierarchy = metadata.elementHierarchy;
+    window.elementPanelList = [];
+    for (const category in elementHierarchy) {
+        let htmlIcons = '';
+        const categoryData = elementHierarchy[category];
+        for (let i = 0; i &lt; categoryData.length; i++) {
+            const element = categoryData[i];
+            if(!element.startsWith("verilog")) {
+                htmlIcons += createIcon(element);
+                window.elementPanelList.push(element);
+            }
+        }
+
+        const accordionData = `&lt;div class="panelHeader">${category}&lt;/div>
+        &lt;div class="panel customScroll">
+        ${htmlIcons}
+        &lt;/div>`;
+
+        $('#menu').append(accordionData);
+    }
+}
+
+/**
+ * The first function to be called to setup the whole simulator
+ * @category setup
+ */
+export function setup() {
+    const startListeners = embed ? startEmbedListeners : startMainListeners;
+    setupElementLists();
+    setupEnvironment();
+    if (!embed) { setupUI(); }
+    startListeners();
+    keyBinder();
+    // Load project data after 1 second - needs to be improved, delay needs to be eliminated
+    setTimeout(() => {
+        if (__logix_project_id != 0) {
+            $('.loadingIcon').fadeIn();
+            $.ajax({
+                url: '/simulator/get_data',
+                type: 'POST',
+                beforeSend(xhr) {
+                    xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+                },
+                data: {
+                    id: __logix_project_id,
+                },
+                success(response) {
+                    var data = (response);
+                    if (data) {
+                        load(data);
+                        simulationArea.changeClockTime(data.timePeriod || 500);
+                    }
+                    $('.loadingIcon').fadeOut();
+                },
+                failure() {
+                    alert('Error: could not load ');
+                    $('.loadingIcon').fadeOut();
+                },
+            });
+        } else if (localStorage.getItem('recover_login') &amp;&amp; userSignedIn) {
+            // Restore unsaved data and save
+            var data = JSON.parse(localStorage.getItem('recover_login'));
+            load(data);
+            localStorage.removeItem('recover');
+            localStorage.removeItem('recover_login');
+            save();
+        } else if (localStorage.getItem('recover')) {
+            // Restore unsaved data which didn't get saved due to error
+            showMessage("We have detected that you did not save your last work. Don't worry we have recovered them. Access them using Project->Recover");
+        }
+    }, 1000);
+
+    if (!localStorage.tutorials_tour_done &amp;&amp; !embed) {
+        setTimeout(()=> {showTourGuide();}, 2000);
+    }
+    
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.4</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+</body>
+</html>

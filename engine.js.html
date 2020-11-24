@@ -1,0 +1,636 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> engine.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#fillSubcircuitElements">fillSubcircuitElements</a></li><li><a href="global.html#frameInterval">frameInterval</a></li><li><a href="global.html#modules">modules</a></li></ul></div><div class="category"><h2>c2s</h2><h3>Classes</h3><ul><li><a href="CanvasGradient.html">CanvasGradient</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ctx">ctx</a></li><li><a href="global.html#normalize">normalize</a></li></ul></div><div class="category"><h2>circuit</h2><h3>Classes</h3><ul><li><a href="Scope.html">Scope</a></li></ul><h3>Global</h3><ul><li><a href="global.html#changeCircuitName">changeCircuitName</a></li><li><a href="global.html#deleteCurrentCircuit">deleteCurrentCircuit</a></li><li><a href="global.html#newCircuit">newCircuit</a></li><li><a href="global.html#switchCircuit">switchCircuit</a></li></ul></div><div class="category"><h2>circuitElement</h2><h3>Classes</h3><ul><li><a href="CircuitElement.html">CircuitElement</a></li></ul></div><div class="category"><h2>combinationalAnalysis</h2><h3>Global</h3><ul><li><a href="global.html#createBooleanPrompt">createBooleanPrompt</a></li><li><a href="global.html#createCombinationalAnalysisPrompt">createCombinationalAnalysisPrompt</a></li></ul></div><div class="category"><h2>engine</h2><h3>Global</h3><ul><li><a href="global.html#canvasMessageData">canvasMessageData</a></li><li><a href="global.html#changeLightMode">changeLightMode</a></li><li><a href="global.html#errorDetected">errorDetected</a></li><li><a href="global.html#errorDetectedGet">errorDetectedGet</a></li><li><a href="global.html#errorDetectedSet">errorDetectedSet</a></li><li><a href="global.html#forceResetNodes">forceResetNodes</a></li><li><a href="global.html#forceResetNodesSet">forceResetNodesSet</a></li><li><a href="global.html#gridUpdate">gridUpdate</a></li><li><a href="global.html#gridUpdateGet">gridUpdateGet</a></li><li><a href="global.html#gridUpdateSet">gridUpdateSet</a></li><li><a href="global.html#objectSelection">objectSelection</a></li><li><a href="global.html#objectSelectionSet">objectSelectionSet</a></li><li><a href="global.html#play">play</a></li><li><a href="global.html#renderCanvas">renderCanvas</a></li><li><a href="global.html#scheduleUpdate">scheduleUpdate</a></li><li><a href="global.html#update">update</a></li><li><a href="global.html#updateCanvas">updateCanvas</a></li><li><a href="global.html#updateCanvasSet">updateCanvasSet</a></li><li><a href="global.html#updatePosition">updatePosition</a></li><li><a href="global.html#updatePositionSet">updatePositionSet</a></li><li><a href="global.html#updateSelectionsAndPane">updateSelectionsAndPane</a></li><li><a href="global.html#updateSimulation">updateSimulation</a></li><li><a href="global.html#updateSimulationSet">updateSimulationSet</a></li><li><a href="global.html#updateSubcircuit">updateSubcircuit</a></li><li><a href="global.html#updateSubcircuitSet">updateSubcircuitSet</a></li><li><a href="global.html#willBeUpdated">willBeUpdated</a></li><li><a href="global.html#willBeUpdatedSet">willBeUpdatedSet</a></li><li><a href="global.html#wireToBeChecked">wireToBeChecked</a></li><li><a href="global.html#wireToBeCheckedSet">wireToBeCheckedSet</a></li></ul></div><div class="category"><h2>eventQueue</h2><h3>Classes</h3><ul><li><a href="EventQueue.html">EventQueue</a></li></ul></div><div class="category"><h2>events</h2><h3>Global</h3><ul><li><a href="global.html#copy">copy</a></li><li><a href="global.html#cut">cut</a></li><li><a href="global.html#paste">paste</a></li><li><a href="global.html#selectAll">selectAll</a></li></ul></div><div class="category"><h2>layoutMode</h2><h3>Global</h3><ul><li><a href="global.html#cancelLayout">cancelLayout</a></li><li><a href="global.html#decreaseLayoutHeight">decreaseLayoutHeight</a></li><li><a href="global.html#decreaseLayoutWidth">decreaseLayoutWidth</a></li><li><a href="global.html#determineLabel">determineLabel</a></li><li><a href="global.html#increaseLayoutHeight">increaseLayoutHeight</a></li><li><a href="global.html#increaseLayoutWidth">increaseLayoutWidth</a></li><li><a href="global.html#layoutMode">layoutMode</a></li><li><a href="global.html#layoutResetNodes">layoutResetNodes</a></li><li><a href="global.html#layoutTitleDown">layoutTitleDown</a></li><li><a href="global.html#layoutTitleLeft">layoutTitleLeft</a></li><li><a href="global.html#layoutTitleRight">layoutTitleRight</a></li><li><a href="global.html#layoutTitleUp">layoutTitleUp</a></li><li><a href="global.html#layoutUpdate">layoutUpdate</a></li><li><a href="global.html#paneLayout">paneLayout</a></li><li><a href="global.html#renderLayout">renderLayout</a></li><li><a href="global.html#saveLayout">saveLayout</a></li><li><a href="global.html#tempBuffer">tempBuffer</a></li><li><a href="global.html#toggleLayoutMode">toggleLayoutMode</a></li><li><a href="global.html#toggleLayoutTitle">toggleLayoutTitle</a></li></ul></div><div class="category"><h2>minimap</h2><h3>Global</h3><ul><li><a href="global.html#miniMapArea">miniMapArea</a></li></ul></div><div class="category"><h2>node</h2><h3>Classes</h3><ul><li><a href="Node.html">Node</a></li></ul><h3>Global</h3><ul><li><a href="global.html#constructNodeConnections">constructNodeConnections</a></li><li><a href="global.html#extractNode">extractNode</a></li><li><a href="global.html#findNode">findNode</a></li><li><a href="global.html#loadNode">loadNode</a></li><li><a href="global.html#replace">replace</a></li><li><a href="global.html#uniqueIdCounter">uniqueIdCounter</a></li></ul></div><div class="category"><h2>plotArea</h2><h3>Global</h3><ul><li><a href="global.html#plotArea">plotArea</a></li></ul></div><div class="category"><h2>sequential</h2><h3>Global</h3><ul><li><a href="global.html#changeClockEnable">changeClockEnable</a></li><li><a href="global.html#runTest">runTest</a></li></ul></div><div class="category"><h2>setup</h2><h3>Global</h3><ul><li><a href="global.html#resetup">resetup</a></li><li><a href="global.html#setup">setup</a></li><li><a href="global.html#setupElementLists">setupElementLists</a></li><li><a href="global.html#setupEnvironment">setupEnvironment</a></li></ul></div><div class="category"><h2>simulationArea</h2><h3>Global</h3><ul><li><a href="global.html#simulationArea">simulationArea</a></li></ul></div><div class="category"><h2>subcircuit</h2><h3>Classes</h3><ul><li><a href="SubCircuit.html">SubCircuit</a></li></ul><h3>Global</h3><ul><li><a href="global.html#createSubCircuitPrompt">createSubCircuitPrompt</a></li><li><a href="global.html#loadSubCircuit">loadSubCircuit</a></li></ul></div><div class="category"><h2>utils</h2><h3>Global</h3><ul><li><a href="global.html#showError">showError</a></li><li><a href="global.html#uniq">uniq</a></li></ul></div><div class="category"><h2>ux</h2><h3>Global</h3><ul><li><a href="global.html#ctxPos">ctxPos</a></li><li><a href="global.html#escapeHtml">escapeHtml</a></li><li><a href="global.html#hideContextMenu">hideContextMenu</a></li><li><a href="global.html#hideProperties">hideProperties</a></li><li><a href="global.html#menuItemClicked">menuItemClicked</a></li><li><a href="global.html#prevPropertyObj">prevPropertyObj</a></li><li><a href="global.html#setupUI">setupUI</a></li><li><a href="global.html#showContextMenu">showContextMenu</a></li><li><a href="global.html#showProperties">showProperties</a></li></ul></div><div class="category"><h2>wire</h2><h3>Classes</h3><ul><li><a href="module-wire.Wire.html">Wire</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>engine.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* eslint-disable import/no-cycle */
+/* eslint-disable no-use-before-define */
+/* eslint-disable no-continue */
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-bitwise */
+import { layoutModeGet, layoutUpdate } from './layoutMode';
+import plotArea from './plotArea';
+import simulationArea from './simulationArea';
+import {
+    dots, canvasMessage, findDimensions, rect2,
+} from './canvasApi';
+import { showProperties, prevPropertyObjGet } from './ux';
+import { showError } from './utils';
+import miniMapArea from './minimap';
+import { createNodeGet } from './listeners';
+import { resetup } from './setup';
+import { verilogModeGet } from './Verilog2CV';
+
+/**
+ * Core of the simulation and rendering algorithm.
+ */
+
+/**
+ * @type {number} engine
+ * @category engine
+ */
+var wireToBeChecked = 0;
+
+/**
+ * Used to set wireChecked boolean which updates wires in UI if true (or 1). 2 if some problem and it is handled.
+ * @param {number} param - value of wirechecked
+ * @category engine
+ */
+export function wireToBeCheckedSet(param) {
+    wireToBeChecked = param;
+}
+
+/**
+ * scheduleUpdate() will be called if true
+ * @type {boolean}
+ * @category engine
+ */
+var willBeUpdated = false;
+
+/**
+ * used to set willBeUpdated variable
+ * @type {boolean}
+ * @category engine
+ * @category engine
+ */
+export function willBeUpdatedSet(param) {
+    willBeUpdated = param;
+}
+
+/**
+ * true if we have an element selected and 
+ * is used when we are paning the grid.
+ * @type {boolean}
+ * @category engine
+ */
+var objectSelection = false;
+
+/**
+ * used to set the value of object selection,
+ * @param {boolean} param 
+ * @category engine
+ */
+export function objectSelectionSet(param) {
+    objectSelection = param;
+}
+
+/**
+ * Flag for updating position
+ * @type {boolean}
+ * @category engine
+ */
+var updatePosition = true;
+
+/**
+ * used to set the value of updatePosition.
+ * @param {boolean} param 
+ * @category engine
+ */
+export function updatePositionSet(param) {
+    updatePosition = param;
+}
+
+/**
+ * Flag for updating simulation
+ * @type {boolean}
+ * @category engine
+ */
+var updateSimulation = true;
+
+/**
+ * used to set the value of updateSimulation.
+ * @param {boolean} param
+ * @category engine
+ */
+export function updateSimulationSet(param) {
+    updateSimulation = param;
+}
+/**
+ * Flag for rendering
+ * @type {boolean}
+ * @category engine
+ */
+var updateCanvas = true;
+
+/**
+ * used to set the value of updateCanvas.
+ * @param {boolean} param
+ * @category engine
+ */
+export function updateCanvasSet(param) {
+    updateCanvas = param;
+}
+
+/**
+ *  Flag for updating grid
+ * @type {boolean}
+ * @category engine
+ */
+var gridUpdate = true;
+
+/**
+ * used to set gridUpdate
+ * @param {boolean} param
+ * @category engine
+ */
+export function gridUpdateSet(param) {
+    gridUpdate = param;
+}
+
+/**
+ * used to get gridUpdate
+ * @return {boolean}
+ * @category engine
+ */
+export function gridUpdateGet() {
+    return gridUpdate;
+}
+/**
+ *  Flag for updating grid
+ * @type {boolean}
+ * @category engine
+ */
+var forceResetNodes = true;
+
+/**
+ * used to set forceResetNodes
+ * @param {boolean} param
+ * @category engine
+ */
+export function forceResetNodesSet(param) {
+    forceResetNodes = param;
+}
+/**
+ *  Flag for updating grid
+ * @type {boolean}
+ * @category engine
+ */
+var errorDetected = false;
+
+/**
+ * used to set errorDetected
+ * @param {boolean} param
+ * @category engine
+ */
+export function errorDetectedSet(param) {
+    errorDetected = param;
+}
+
+/**
+ * used to set errorDetected
+ * @returns {boolean} errorDetected
+ * @category engine
+ */
+export function errorDetectedGet() {
+    return errorDetected;
+}
+
+/**
+ * details of where and what canvas message has to be shown.
+ * @type {Object}
+ * @property {number} x - x cordinate of message
+ * @property {number} y - x cordinate of message
+ * @property {number} string - the message
+ * @category engine
+*/
+export var canvasMessageData = {
+    x: undefined,
+    y: undefined,
+    string: undefined,
+};
+
+/**
+ *  Flag for updating subCircuits
+ * @type {boolean}
+ * @category engine
+ */
+var updateSubcircuit = true;
+
+/**
+ * used to set updateSubcircuit
+ * @param {boolean} param
+ * @category engine
+ */
+export function updateSubcircuitSet(param) {
+    if (updateSubcircuit != param) {
+        updateSubcircuit = param;
+        return true;
+    }
+    updateSubcircuit = param;
+    return false;
+}
+
+/**
+ * turn light mode on
+ * @param {boolean} val -- new value for light mode
+ * @category engine
+ */
+export function changeLightMode(val) {
+    if (!val &amp;&amp; lightMode) {
+        lightMode = false;
+        DPR = window.devicePixelRatio || 1;
+        globalScope.scale *= DPR;
+    } else if (val &amp;&amp; !lightMode) {
+        lightMode = true;
+        globalScope.scale /= DPR;
+        DPR = 1
+        $('#miniMap').fadeOut('fast');
+    }
+    resetup();
+}
+
+/**
+ * Function to render Canvas according th renderupdate order
+ * @param {Scope} scope - The circuit whose canvas we want to render
+ * @category engine
+ */
+export function renderCanvas(scope) {
+    if (layoutModeGet() || verilogModeGet()) { // Different Algorithm
+        return;
+    }
+    var ctx = simulationArea.context;
+    // Reset canvas
+    simulationArea.clear();
+    // Update Grid
+    if (gridUpdate) {
+        gridUpdateSet(false);
+        dots();
+    }
+    canvasMessageData = {
+        x: undefined,
+        y: undefined,
+        string: undefined,
+    }; //  Globally set in draw fn ()
+    // Render objects
+    for (let i = 0; i &lt; renderOrder.length; i++) {
+        for (var j = 0; j &lt; scope[renderOrder[i]].length; j++) { scope[renderOrder[i]][j].draw(); }
+    }
+    // Show any message
+    if (canvasMessageData.string !== undefined) {
+        canvasMessage(ctx, canvasMessageData.string, canvasMessageData.x, canvasMessageData.y);
+    }
+    // If multiple object selections are going on, show selected area
+    if (objectSelection) {
+        ctx.beginPath();
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = 'black';
+        ctx.fillStyle = 'rgba(0,0,0,0.1)';
+        rect2(ctx, simulationArea.mouseDownX, simulationArea.mouseDownY, simulationArea.mouseX - simulationArea.mouseDownX, simulationArea.mouseY - simulationArea.mouseDownY, 0, 0, 'RIGHT');
+        ctx.stroke();
+        ctx.fill();
+    }
+    if (simulationArea.hover !== undefined) {
+        simulationArea.canvas.style.cursor = 'pointer';
+    } else if (createNodeGet()) {
+        simulationArea.canvas.style.cursor = 'grabbing';
+    } else {
+        simulationArea.canvas.style.cursor = 'default';
+    }
+}
+
+/**
+ * Function to move multiple objects and panes window
+ * deselected using dblclick right now (PR open for esc key)
+ * @param {Scope=} scope - the circuit in which we are selecting stuff
+ * @category engine
+ */
+export function updateSelectionsAndPane(scope = globalScope) {
+    if (!simulationArea.selected &amp;&amp; simulationArea.mouseDown) {
+        simulationArea.selected = true;
+        simulationArea.lastSelected = scope.root;
+        simulationArea.hover = scope.root;
+        // Selecting multiple objects
+        if (simulationArea.shiftDown) {
+            objectSelectionSet(true);
+        } else if (!embed) {
+            findDimensions(scope);
+            miniMapArea.setup();
+            $('#miniMap').show();
+        }
+    } else if (simulationArea.lastSelected === scope.root &amp;&amp; simulationArea.mouseDown) {
+        // pane canvas to give an idea of grid moving
+        if (!objectSelection) {
+            globalScope.ox = (simulationArea.mouseRawX - simulationArea.mouseDownRawX) + simulationArea.oldx;
+            globalScope.oy = (simulationArea.mouseRawY - simulationArea.mouseDownRawY) + simulationArea.oldy;
+            globalScope.ox = Math.round(globalScope.ox);
+            globalScope.oy = Math.round(globalScope.oy);
+            gridUpdateSet(true);
+            if (!embed &amp;&amp; !lightMode) miniMapArea.setup();
+        } else {
+            // idea: kind of empty
+        }
+    } else if (simulationArea.lastSelected === scope.root) {
+        /*
+        Select multiple objects by adding them to the array
+        simulationArea.multipleObjectSelections when we select
+        using shift + mouse movement to select an area but
+        not shift + click
+        */
+        simulationArea.lastSelected = undefined;
+        simulationArea.selected = false;
+        simulationArea.hover = undefined;
+        if (objectSelection) {
+            objectSelectionSet(false);
+            var x1 = simulationArea.mouseDownX;
+            var x2 = simulationArea.mouseX;
+            var y1 = simulationArea.mouseDownY;
+            var y2 = simulationArea.mouseY;
+            // Sort those four points to make a selection pane
+            if (x1 > x2) {
+                const temp = x1;
+                x1 = x2;
+                x2 = temp;
+            }
+            if (y1 > y2) {
+                const temp = y1;
+                y1 = y2;
+                y2 = temp;
+            }
+            // Select the objects, push them into a list
+            for (let i = 0; i &lt; updateOrder.length; i++) {
+                for (var j = 0; j &lt; scope[updateOrder[i]].length; j++) {
+                    var obj = scope[updateOrder[i]][j];
+                    if (simulationArea.multipleObjectSelections.contains(obj)) continue;
+                    var x; var
+                        y;
+                    if (obj.objectType === 'Node') {
+                        x = obj.absX();
+                        y = obj.absY();
+                    } else if (obj.objectType !== 'Wire') {
+                        x = obj.x;
+                        y = obj.y;
+                    } else {
+                        continue;
+                    }
+                    if (x > x1 &amp;&amp; x &lt; x2 &amp;&amp; y > y1 &amp;&amp; y &lt; y2) {
+                        simulationArea.multipleObjectSelections.push(obj);
+                    }
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Main fn that resolves circuit using event driven simulation
+ * All inputs are added to a scope using scope.addinput() and
+ * the simulation starts to play.
+ * @param {Scope=} scope - the circuit we want to simulate
+ * @param {boolean} resetNodes - boolean to reset all nodes
+ * @category engine
+ */
+export function play(scope = globalScope, resetNodes = false) {
+    if (errorDetected) return; // Don't simulate until error is fixed
+    if (loading === true) return; // Don't simulate until loaded
+
+    simulationArea.simulationQueue.reset();
+    plotArea.setExecutionTime(); // Waveform thing
+    // Reset Nodes if required
+    if (resetNodes || forceResetNodes) {
+        scope.reset();
+        simulationArea.simulationQueue.reset();
+        forceResetNodesSet(false);
+    }
+
+    // Add subcircuits if they can be resolved -- needs to be removed/ deprecated
+    for (let i = 0; i &lt; scope.SubCircuit.length; i++) {
+        if (scope.SubCircuit[i].isResolvable()) simulationArea.simulationQueue.add(scope.SubCircuit[i]);
+    }
+    // To store list of circuitselements that have shown contention but kept temporarily
+    // Mainly to resolve tristate bus issues
+    simulationArea.contentionPending = [];
+    // add inputs to the simulation queue
+    scope.addInputs();
+    // to check if we have infinite loop in circuit
+    let stepCount = 0;
+    let elem;
+    while (!simulationArea.simulationQueue.isEmpty()) {
+        if (errorDetected) {
+            simulationArea.simulationQueue.reset();
+            return;
+        }
+        elem = simulationArea.simulationQueue.pop();
+        elem.resolve();
+        stepCount++;
+        if (stepCount > 1000000) { // Cyclic or infinite Circuit Detection
+            showError('Simulation Stack limit exceeded: maybe due to cyclic paths or contention');
+            errorDetectedSet(true);
+            forceResetNodesSet(true);
+        }
+    }
+    // Check for TriState Contentions
+    if (simulationArea.contentionPending.length) {
+        showError('Contention at TriState');
+        forceResetNodesSet(true);
+        errorDetectedSet(true);
+    }
+}
+
+/**
+ * Function to check for any UI update, it is throttled by time
+ * @param {number=} count - this is used to force update
+ * @param {number=} time - the time throttling parameter
+ * @param {function} fn - function to run before updating UI
+ * @category engine
+ */
+export function scheduleUpdate(count = 0, time = 100, fn) {
+    if (lightMode) time *= 5;
+    var updateFn = layoutModeGet() ? layoutUpdate : update;
+    if (count) { // Force update
+        updateFn();
+        for (let i = 0; i &lt; count; i++) { setTimeout(updateFn, 10 + 50 * i); }
+    }
+    if (willBeUpdated) return; // Throttling
+    willBeUpdatedSet(true);
+    // Call a function before update ..
+    if (fn) {
+        setTimeout(() => {
+            fn();
+            updateFn();
+        }, time);
+    } else setTimeout(updateFn, time);
+}
+
+/**
+ * fn that calls update on everything else. If any change
+ * is there, it resolves the circuit and draws it again.
+ * Also updates simulations, selection, minimap, resolves
+ * circuit and redraws canvas if required.
+ * @param {Scope=} scope - the circuit to be updated
+ * @param {boolean=} updateEverything - if true we update the wires, nodes and modules
+ * @category engine
+ */
+export function update(scope = globalScope, updateEverything = false) {
+    willBeUpdatedSet(false);
+    if (loading === true || layoutModeGet()) return;
+    var updated = false;
+    simulationArea.hover = undefined;
+    // Update wires
+    if (wireToBeChecked || updateEverything) {
+        if (wireToBeChecked === 2) wireToBeChecked = 0; // this required due to timing issues
+        else wireToBeChecked++;
+        // WHY IS THIS REQUIRED ???? we are checking inside wire ALSO
+        // Idea: we can just call length again instead of doing it during loop.
+        var prevLength = scope.wires.length;
+        for (let i = 0; i &lt; scope.wires.length; i++) {
+            scope.wires[i].checkConnections();
+            if (scope.wires.length !== prevLength) {
+                prevLength--;
+                i--;
+            }
+        }
+        scheduleUpdate();
+    }
+    // Update subcircuits
+    if (updateSubcircuit || updateEverything) {
+        for (let i = 0; i &lt; scope.SubCircuit.length; i++) { scope.SubCircuit[i].reset(); }
+        updateSubcircuitSet(false);
+    }
+    // Update UI position
+    if (updatePosition || updateEverything) {
+        for (let i = 0; i &lt; updateOrder.length; i++) {
+            for (let j = 0; j &lt; scope[updateOrder[i]].length; j++) {
+                updated |= scope[updateOrder[i]][j].update();
+            }
+        }
+    }
+    // Updates multiple objectselections and panes window
+    if (updatePosition || updateEverything) {
+        updateSelectionsAndPane(scope);
+    }
+    // Update MiniMap
+    if (!embed &amp;&amp; simulationArea.mouseDown &amp;&amp; simulationArea.lastSelected &amp;&amp; simulationArea.lastSelected !== globalScope.root) {
+        if (!lightMode) { $('#miniMap').fadeOut('fast'); }
+    }
+    // Run simulation
+    if (updateSimulation) {
+        play();
+    }
+    // Show properties of selected element
+    if (!embed &amp;&amp; prevPropertyObjGet() !== simulationArea.lastSelected) {
+        if (simulationArea.lastSelected &amp;&amp; simulationArea.lastSelected.objectType !== 'Wire') {
+            // ideas: why show properties of project in Nodes but not wires?
+            showProperties(simulationArea.lastSelected);
+        } else {
+            // hideProperties();
+        }
+    }
+    // Draw, render everything
+    if (updateCanvas) {
+        renderCanvas(scope);
+    }
+    updateSimulationSet(false);
+    updateCanvas = false;
+    updatePositionSet(false);
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.4</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+</body>
+</html>
