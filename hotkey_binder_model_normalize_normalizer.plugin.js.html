@@ -1,0 +1,515 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> hotkey_binder/model/normalize/normalizer.plugin.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#addKeys">addKeys</a></li><li><a href="global.html#checkUpdate">checkUpdate</a></li><li><a href="global.html#colors">colors</a></li><li><a href="global.html#colorThemes">colorThemes</a></li><li><a href="global.html#createElements">createElements</a></li><li><a href="global.html#defaultKeys">defaultKeys</a></li><li><a href="global.html#fillSubcircuitElements">fillSubcircuitElements</a></li><li><a href="global.html#frameInterval">frameInterval</a></li><li><a href="global.html#getCanvasColors">getCanvasColors</a></li><li><a href="global.html#getThemeCard">getThemeCard</a></li><li><a href="global.html#getThemeCardSvg">getThemeCardSvg</a></li><li><a href="global.html#modules">modules</a></li><li><a href="global.html#override">override</a></li><li><a href="global.html#setDefault">setDefault</a></li><li><a href="global.html#setUserKeys">setUserKeys</a></li><li><a href="global.html#updateHTML">updateHTML</a></li><li><a href="global.html#updateThemeForStyle">updateThemeForStyle</a></li><li><a href="global.html#warnOverride">warnOverride</a></li></ul></div><div class="category"><h2>c2s</h2><h3>Classes</h3><ul><li><a href="CanvasGradient.html">CanvasGradient</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ctx">ctx</a></li><li><a href="global.html#normalize">normalize</a></li></ul></div><div class="category"><h2>circuit</h2><h3>Classes</h3><ul><li><a href="Scope.html">Scope</a></li></ul><h3>Global</h3><ul><li><a href="global.html#changeCircuitName">changeCircuitName</a></li><li><a href="global.html#deleteCurrentCircuit">deleteCurrentCircuit</a></li><li><a href="global.html#newCircuit">newCircuit</a></li><li><a href="global.html#switchCircuit">switchCircuit</a></li></ul></div><div class="category"><h2>circuitElement</h2><h3>Classes</h3><ul><li><a href="CircuitElement.html">CircuitElement</a></li></ul></div><div class="category"><h2>combinationalAnalysis</h2><h3>Global</h3><ul><li><a href="global.html#createBooleanPrompt">createBooleanPrompt</a></li><li><a href="global.html#createCombinationalAnalysisPrompt">createCombinationalAnalysisPrompt</a></li></ul></div><div class="category"><h2>data</h2><h3>Modules</h3><ul><li><a href="module-createSaveAsImgPrompt.html">createSaveAsImgPrompt</a></li><li><a href="module-load.html">load</a></li><li><a href="module-save.html">save</a></li><li><a href="module-undo.html">undo</a></li></ul><h3>Global</h3><ul><li><a href="global.html#checkIfBackup">checkIfBackup</a></li><li><a href="global.html#checkToSave">checkToSave</a></li><li><a href="global.html#clearProject">clearProject</a></li><li><a href="global.html#downloadAsImg">downloadAsImg</a></li><li><a href="global.html#generateImage">generateImage</a></li><li><a href="global.html#generateImageForOnline">generateImageForOnline</a></li><li><a href="global.html#generateSaveData">generateSaveData</a></li><li><a href="global.html#getProjectName">getProjectName</a></li><li><a href="global.html#loadModule">loadModule</a></li><li><a href="global.html#loadScope">loadScope</a></li><li><a href="global.html#newProject">newProject</a></li><li><a href="global.html#openOffline">openOffline</a></li><li><a href="global.html#projectSaved">projectSaved</a></li><li><a href="global.html#recoverProject">recoverProject</a></li><li><a href="global.html#rectifyObjectType">rectifyObjectType</a></li><li><a href="global.html#removeBugNodes">removeBugNodes</a></li><li><a href="global.html#saveOffline">saveOffline</a></li><li><a href="global.html#setProjectName">setProjectName</a></li></ul></div><div class="category"><h2>engine</h2><h3>Global</h3><ul><li><a href="global.html#canvasMessageData">canvasMessageData</a></li><li><a href="global.html#changeLightMode">changeLightMode</a></li><li><a href="global.html#errorDetected">errorDetected</a></li><li><a href="global.html#errorDetectedGet">errorDetectedGet</a></li><li><a href="global.html#errorDetectedSet">errorDetectedSet</a></li><li><a href="global.html#forceResetNodes">forceResetNodes</a></li><li><a href="global.html#forceResetNodesSet">forceResetNodesSet</a></li><li><a href="global.html#gridUpdate">gridUpdate</a></li><li><a href="global.html#gridUpdateGet">gridUpdateGet</a></li><li><a href="global.html#gridUpdateSet">gridUpdateSet</a></li><li><a href="global.html#objectSelection">objectSelection</a></li><li><a href="global.html#objectSelectionSet">objectSelectionSet</a></li><li><a href="global.html#play">play</a></li><li><a href="global.html#renderCanvas">renderCanvas</a></li><li><a href="global.html#scheduleUpdate">scheduleUpdate</a></li><li><a href="global.html#update">update</a></li><li><a href="global.html#updateCanvas">updateCanvas</a></li><li><a href="global.html#updateCanvasSet">updateCanvasSet</a></li><li><a href="global.html#updatePosition">updatePosition</a></li><li><a href="global.html#updatePositionSet">updatePositionSet</a></li><li><a href="global.html#updateSelectionsAndPane">updateSelectionsAndPane</a></li><li><a href="global.html#updateSimulation">updateSimulation</a></li><li><a href="global.html#updateSimulationSet">updateSimulationSet</a></li><li><a href="global.html#updateSubcircuit">updateSubcircuit</a></li><li><a href="global.html#updateSubcircuitSet">updateSubcircuitSet</a></li><li><a href="global.html#willBeUpdated">willBeUpdated</a></li><li><a href="global.html#willBeUpdatedSet">willBeUpdatedSet</a></li><li><a href="global.html#wireToBeChecked">wireToBeChecked</a></li><li><a href="global.html#wireToBeCheckedSet">wireToBeCheckedSet</a></li></ul></div><div class="category"><h2>eventQueue</h2><h3>Classes</h3><ul><li><a href="EventQueue.html">EventQueue</a></li></ul></div><div class="category"><h2>events</h2><h3>Global</h3><ul><li><a href="global.html#copy">copy</a></li><li><a href="global.html#cut">cut</a></li><li><a href="global.html#paste">paste</a></li><li><a href="global.html#selectAll">selectAll</a></li></ul></div><div class="category"><h2>layout</h2><h3>Classes</h3><ul><li><a href="LayoutBuffer.html">LayoutBuffer</a></li><li><a href="LayoutNode.html">LayoutNode</a></li></ul></div><div class="category"><h2>layoutMode</h2><h3>Global</h3><ul><li><a href="global.html#cancelLayout">cancelLayout</a></li><li><a href="global.html#decreaseLayoutHeight">decreaseLayoutHeight</a></li><li><a href="global.html#decreaseLayoutWidth">decreaseLayoutWidth</a></li><li><a href="global.html#determineLabel">determineLabel</a></li><li><a href="global.html#increaseLayoutHeight">increaseLayoutHeight</a></li><li><a href="global.html#increaseLayoutWidth">increaseLayoutWidth</a></li><li><a href="global.html#layoutMode">layoutMode</a></li><li><a href="global.html#layoutResetNodes">layoutResetNodes</a></li><li><a href="global.html#layoutTitleDown">layoutTitleDown</a></li><li><a href="global.html#layoutTitleLeft">layoutTitleLeft</a></li><li><a href="global.html#layoutTitleRight">layoutTitleRight</a></li><li><a href="global.html#layoutTitleUp">layoutTitleUp</a></li><li><a href="global.html#layoutUpdate">layoutUpdate</a></li><li><a href="global.html#paneLayout">paneLayout</a></li><li><a href="global.html#renderLayout">renderLayout</a></li><li><a href="global.html#saveLayout">saveLayout</a></li><li><a href="global.html#tempBuffer">tempBuffer</a></li><li><a href="global.html#toggleLayoutMode">toggleLayoutMode</a></li><li><a href="global.html#toggleLayoutTitle">toggleLayoutTitle</a></li></ul></div><div class="category"><h2>minimap</h2><h3>Global</h3><ul><li><a href="global.html#miniMapArea">miniMapArea</a></li></ul></div><div class="category"><h2>modules</h2><h3>Classes</h3><ul><li><a href="Adder.html">Adder</a></li><li><a href="ALU.html">ALU</a></li><li><a href="AndGate.html">AndGate</a></li><li><a href="Arrow.html">Arrow</a></li><li><a href="BitSelector.html">BitSelector</a></li><li><a href="Buffer.html">Buffer</a></li><li><a href="Button.html">Button</a></li><li><a href="ConstantVal.html">ConstantVal</a></li><li><a href="ControlledInverter.html">ControlledInverter</a></li><li><a href="Counter.html">Counter</a></li><li><a href="Decoder.html">Decoder</a></li><li><a href="Demultiplexer.html">Demultiplexer</a></li><li><a href="DigitalLed.html">DigitalLed</a></li><li><a href="Flag.html">Flag</a></li><li><a href="Ground.html">Ground</a></li><li><a href="HexDisplay.html">HexDisplay</a></li><li><a href="Image.html">Image</a></li><li><a href="Input.html">Input</a></li><li><a href="LSB.html">LSB</a></li><li><a href="MSB.html">MSB</a></li><li><a href="Multiplexer.html">Multiplexer</a></li><li><a href="NandGate.html">NandGate</a></li><li><a href="NorGate.html">NorGate</a></li><li><a href="NotGate.html">NotGate</a></li><li><a href="OrGate.html">OrGate</a></li><li><a href="Output.html">Output</a></li><li><a href="Power.html">Power</a></li><li><a href="PriorityEncoder.html">PriorityEncoder</a></li><li><a href="Rectangle.html">Rectangle</a></li><li><a href="RGBLed.html">RGBLed</a></li><li><a href="RGBLedMatrix.html">RGBLedMatrix</a></li><li><a href="SevenSegDisplay.html">SevenSegDisplay</a></li><li><a href="SixteenSegDisplay.html">SixteenSegDisplay</a></li><li><a href="Splitter.html">Splitter</a></li><li><a href="SquareRGBLed.html">SquareRGBLed</a></li><li><a href="Stepper.html">Stepper</a></li><li><a href="Text.html">Text</a></li><li><a href="TriState.html">TriState</a></li><li><a href="Tunnel.html">Tunnel</a></li><li><a href="TwoComplement.html">TwoComplement</a></li><li><a href="VariableLed.html">VariableLed</a></li><li><a href="verilogDivider.html">verilogDivider</a></li><li><a href="verilogMultiplier.html">verilogMultiplier</a></li><li><a href="verilogPower.html">verilogPower</a></li><li><a href="verilogShiftLeft.html">verilogShiftLeft</a></li><li><a href="verilogShiftRight.html">verilogShiftRight</a></li><li><a href="XnorGate.html">XnorGate</a></li><li><a href="XorGate.html">XorGate</a></li></ul></div><div class="category"><h2>node</h2><h3>Classes</h3><ul><li><a href="Node.html">Node</a></li></ul><h3>Global</h3><ul><li><a href="global.html#constructNodeConnections">constructNodeConnections</a></li><li><a href="global.html#extractNode">extractNode</a></li><li><a href="global.html#findNode">findNode</a></li><li><a href="global.html#loadNode">loadNode</a></li><li><a href="global.html#replace">replace</a></li><li><a href="global.html#uniqueIdCounter">uniqueIdCounter</a></li></ul></div><div class="category"><h2>plotArea</h2><h3>Global</h3><ul><li><a href="global.html#plotArea">plotArea</a></li></ul></div><div class="category"><h2>sequential</h2><h3>Classes</h3><ul><li><a href="Clock.html">Clock</a></li><li><a href="DflipFlop.html">DflipFlop</a></li><li><a href="EEPROM.html">EEPROM</a></li><li><a href="Rom.html">Rom</a></li><li><a href="TflipFlop.html">TflipFlop</a></li><li><a href="TTY.html">TTY</a></li></ul><h3>Global</h3><ul><li><a href="global.html#changeClockEnable">changeClockEnable</a></li><li><a href="global.html#runTest">runTest</a></li></ul></div><div class="category"><h2>setup</h2><h3>Global</h3><ul><li><a href="global.html#resetup">resetup</a></li><li><a href="global.html#setup">setup</a></li><li><a href="global.html#setupElementLists">setupElementLists</a></li><li><a href="global.html#setupEnvironment">setupEnvironment</a></li></ul></div><div class="category"><h2>simulationArea</h2><h3>Global</h3><ul><li><a href="global.html#simulationArea">simulationArea</a></li></ul></div><div class="category"><h2>subcircuit</h2><h3>Classes</h3><ul><li><a href="SubCircuit.html">SubCircuit</a></li></ul><h3>Global</h3><ul><li><a href="global.html#createSubCircuitPrompt">createSubCircuitPrompt</a></li><li><a href="global.html#loadSubCircuit">loadSubCircuit</a></li></ul></div><div class="category"><h2>testbench</h2><h3>Classes</h3><ul><li><a href="ForceGate.html">ForceGate</a></li><li><a href="TB_Input.html">TB_Input</a></li><li><a href="TB_Output.html">TB_Output</a></li></ul></div><div class="category"><h2>utils</h2><h3>Global</h3><ul><li><a href="global.html#showError">showError</a></li><li><a href="global.html#uniq">uniq</a></li></ul></div><div class="category"><h2>ux</h2><h3>Global</h3><ul><li><a href="global.html#ctxPos">ctxPos</a></li><li><a href="global.html#escapeHtml">escapeHtml</a></li><li><a href="global.html#hideContextMenu">hideContextMenu</a></li><li><a href="global.html#hideProperties">hideProperties</a></li><li><a href="global.html#menuItemClicked">menuItemClicked</a></li><li><a href="global.html#prevPropertyObj">prevPropertyObj</a></li><li><a href="global.html#setupUI">setupUI</a></li><li><a href="global.html#showContextMenu">showContextMenu</a></li><li><a href="global.html#showProperties">showProperties</a></li></ul></div><div class="category"><h2>wire</h2><h3>Classes</h3><ul><li><a href="module-wire.Wire.html">Wire</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>hotkey_binder/model/normalize/normalizer.plugin.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * This plugin has been modified to support metakeys
+ */
+
+/*
+ * Library to normalize key codes across browsers.  This works with keydown
+ * events; keypress events are not fired for all keys, and the codes are
+ * different for them.  It returns an object with the following fields:
+ * { int code, bool shift, bool alt, bool ctrl }.  The normalized keycodes
+ * obey the following rules:
+ *
+ * For alphabetic characters, the ASCII code of the uppercase version
+ *
+ * For codes that are identical across all browsers (this includes all
+ * modifiers, esc, delete, arrows, etc.), the common keycode
+ *
+ * For numeric keypad keys, the value returned by numkey().
+ * (Usually 96 + the number)
+ *
+ * For symbols, the ASCII code of the character that appears when shift
+ * is not held down, EXCEPT for '" => 222 (conflicts with right-arrow/pagedown),
+ * .> => 190 (conflicts with Delete) and `~ => 126 (conflicts with Num0).
+ *
+ * Basic usage:
+ * document.onkeydown = function(e) {
+ *    do_something_with(KeyCode.translateEvent(e)
+ * };
+ *
+ * The naming conventions for functions use 'code' to represent an integer
+ * keycode, 'key' to represent a key description (specified above), and 'e'
+ * to represent an event object.
+ *
+ * There's also functionality to track and detect which keys are currently
+ * being held down: install 'key_up' and 'key_down' on their respective event
+ * handlers, and then check with 'is_down'.
+ *
+ * @fileoverview
+ * @author Jonathan Tang
+ * @version 0.9
+ * @license BSD
+ */
+
+/*
+Copyright (c) 2008 Jonathan Tang
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+1. Redistributions of source code must retain the above copyright
+   notice, this list of conditions and the following disclaimer.
+2. Redistributions in binary form must reproduce the above copyright
+   notice, this list of conditions and the following disclaimer in the
+   documentation and/or other materials provided with the distribution.
+3. The name of the author may not be used to endorse or promote products
+   derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
+INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+var modifiers = ['ctrl', 'alt', 'shift', 'meta'], KEY_MAP = {},
+    shifted_symbols = {
+      58: 59,   // : -> ;
+      43: 61,   // = -> +
+      60: 44,   // &lt; -> ,
+      95: 45,   // _ -> -
+      62: 46,   // > -> .
+      63: 47,   // ? -> /
+      96: 192,  // ` -> ~
+      124: 92,  // | -> \
+      39: 222,  // ' -> 222
+      34: 222,  // " -> 222
+      33: 49,   // ! -> 1
+      64: 50,   // @ -> 2
+      35: 51,   // # -> 3
+      36: 52,   // $ -> 4
+      37: 53,   // % -> 5
+      94: 54,   // ^ -> 6
+      38: 55,   // &amp; -> 7
+      42: 56,   // * -> 8
+      40: 57,   // ( -> 9
+      41: 58,   // ) -> 0
+      123: 91,  // { -> [
+      125: 93,  // } -> ]
+    };
+
+function isLower(ascii) {
+  return ascii >= 97 &amp;&amp; ascii &lt;= 122;
+}
+function capitalize(str) {
+  return str.substr(0, 1).toUpperCase() + str.substr(1).toLowerCase();
+}
+
+var is_gecko = navigator.userAgent.indexOf('Gecko') != -1,
+    is_ie = navigator.userAgent.indexOf('MSIE') != -1,
+    is_windows = navigator.platform.indexOf('Win') != -1,
+    is_opera = window.opera &amp;&amp; window.opera.version() &lt; 9.5,
+    is_konqueror = navigator.vendor &amp;&amp; navigator.vendor.indexOf('KDE') != -1,
+    is_icab = navigator.vendor &amp;&amp; navigator.vendor.indexOf('iCab') != -1;
+
+var GECKO_IE_KEYMAP = {
+  186: 59,   // ;: in IE
+  187: 61,   // =+ in IE
+  188: 44,   // ,&lt;
+  109: 95,   // -_ in Mozilla
+  107: 61,   // =+ in Mozilla
+  189: 95,   // -_ in IE
+  190: 62,   // .>
+  191: 47,   // /?
+  192: 126,  // `~
+  219: 91,   // {[
+  220: 92,   // \|
+  221: 93,   // }]
+};
+
+var OPERA_KEYMAP = {};
+
+// Browser detection taken from quirksmode.org
+if (is_opera &amp;&amp; is_windows) {
+  KEY_MAP = OPERA_KEYMAP;
+} else if (is_opera || is_konqueror || is_icab) {
+  var unshift = [
+    33,
+    64,
+    35,
+    36,
+    37,
+    94,
+    38,
+    42,
+    40,
+    41,
+    58,
+    43,
+    60,
+    95,
+    62,
+    63,
+    124,
+    34,
+  ];
+  KEY_MAP = OPERA_KEYMAP;
+  for (var i = 0; i &lt; unshift.length; ++i) {
+    KEY_MAP[unshift[i]] = shifted_symbols[unshift[i]];
+  }
+} else {
+  // IE and Gecko are close enough that we can use the same map for both,
+  // and the rest of the world (eg. Opera 9.50) seems to be standardizing
+  // on them
+  KEY_MAP = GECKO_IE_KEYMAP;
+}
+
+if (is_konqueror) {
+  KEY_MAP[0] = 45;
+  KEY_MAP[127] = 46;
+  KEY_MAP[45] = 95;
+}
+
+var key_names = {
+  32: 'SPACE',
+  13: 'ENTER',
+  9: 'TAB',
+  8: 'BACKSPACE',
+  16: 'SHIFT',
+  17: 'CTRL',
+  18: 'ALT',
+  20: 'CAPS_LOCK',
+  144: 'NUM_LOCK',
+  145: 'SCROLL_LOCK',
+  37: 'LEFT',
+  38: 'UP',
+  39: 'RIGHT',
+  40: 'DOWN',
+  33: 'PAGE_UP',
+  34: 'PAGE_DOWN',
+  36: 'HOME',
+  35: 'END',
+  45: 'INSERT',
+  46: 'DELETE',
+  27: 'ESCAPE',
+  19: 'PAUSE',
+  222: '\'',
+  91: 'META'
+};
+function fn_name(code) {
+  if (code >= 112 &amp;&amp; code &lt;= 123) return 'F' + (code - 111);
+  return false;
+}
+function num_name(code) {
+  if (code >= 96 &amp;&amp; code &lt; 106) return 'Num' + (code - 96);
+  switch (code) {
+    case 106:
+      return 'Num*';
+    case 111:
+      return 'Num/';
+    case 110:
+      return 'Num.';
+    default:
+      return false;
+  }
+}
+
+var current_keys = {
+  codes: {},
+  ctrl: false,
+  alt: false,
+  shift: false,
+  meta: false,
+};
+
+function update_current_modifiers(key) {
+  current_keys.ctrl = key.ctrl;
+  current_keys.alt = key.alt;
+  current_keys.shift = key.shift;
+  current_keys.meta = key.meta;
+}
+
+function same_modifiers(key1, key2) {
+  return (
+      key1.ctrl === key2.ctrl &amp;&amp; key1.alt === key2.alt &amp;&amp;
+      key1.shift === key2.shift &amp;&amp; key1.meta === key2.meta);
+}
+
+if (typeof window.KeyCode != 'undefined') {
+  var _KeyCode = window.KeyCode;
+}
+
+export const KeyCode = {
+  no_conflict: function() {
+    window.KeyCode = _KeyCode;
+    return KeyCode;
+  },
+
+  /** Generates a function key code from a number between 1 and 12 */
+  fkey: function(num) {
+    return 111 + num;
+  },
+
+  /**
+   * Generates a numeric keypad code from a number between 0 and 9.
+   * Also works for (some) arithmetic operators.  The mappings are:
+   *
+   * *: 106, /: 111, .: 110
+   *
+   * + and - are not supported because the keycodes generated by Mozilla
+   * conflict with the non-keypad codes.  The same applies to all the
+   * arithmetic keypad keys on Konqueror and early Opera.
+   */
+  numkey: function(num) {
+    switch (num) {
+      case '*':
+        return 106;
+      case '/':
+        return 111;
+      case '.':
+        return 110;
+      default:
+        return 96 + num;
+    }
+  },
+
+  /**
+   * Generates a key code from the ASCII code of (the first character of) a
+   * string.
+   */
+  key: function(str) {
+    var c = str.charCodeAt(0);
+    if (isLower(c)) return c - 32;
+    return shifted_symbols[c] || c;
+  },
+
+  /** Checks if two key objects are equal. */
+  key_equals: function(key1, key2) {
+    return key1.code == key2.code &amp;&amp; same_modifiers(key1, key2);
+  },
+
+  /** Translates a keycode to its normalized value. */
+  translate_key_code: function(code) {
+    return KEY_MAP[code] || code;
+  },
+
+  /**
+   * Translates a keyDown event to a normalized key event object.  The
+   * object has the following fields:
+   * { int code; boolean shift, boolean alt, boolean ctrl }
+   */
+  translate_event: function(e) {
+    e = e || window.event;
+    var code = e.which || e.keyCode;
+    return {
+      code: KeyCode.translate_key_code(code),
+      shift: e.shiftKey,
+      alt: e.altKey,
+      ctrl: e.ctrlKey,
+      meta: e.metaKey
+    };
+  },
+
+  /**
+   * Keydown event listener to update internal state of which keys are
+   * currently pressed.
+   */
+
+  key_down: function(e) {
+    var key = KeyCode.translate_event(e);
+    current_keys.codes[key.code] = key.code;
+    update_current_modifiers(key);
+  },
+
+  /**
+   * Keyup event listener to update internal state.
+   */
+  key_up: function(e) {
+    var key = KeyCode.translate_event(e);
+    delete current_keys.codes[key.code];
+    update_current_modifiers(key);
+  },
+
+  /**
+   * Returns true if the key spec (as returned by translate_event) is
+   * currently held down.
+   */
+  is_down: function(key) {
+    var code = key.code;
+    if (code == KeyCode.CTRL) return current_keys.ctrl;
+    if (code == KeyCode.ALT) return current_keys.alt;
+    if (code == KeyCode.SHIFT) return current_keys.shift;
+
+    return (
+        current_keys.codes[code] !== undefined &amp;&amp;
+        same_modifiers(key, current_keys));
+  },
+
+  /**
+   * Returns a string representation of a key event suitable for the
+   * shortcut.js or JQuery HotKeys plugins.  Also makes a decent UI display.
+   */
+  hot_key: function(key) {
+    var pieces = [];
+    for (var i = 0; i &lt; modifiers.length; ++i) {
+      var modifier = modifiers[i];
+      if (key[modifier] &amp;&amp; modifier.toUpperCase() != key_names[key.code]) {
+        pieces.push(capitalize(modifier));
+      }
+    }
+
+    var c = key.code;
+    var key_name =
+        key_names[c] || fn_name(c) || num_name(c) || String.fromCharCode(c);
+    pieces.push(capitalize(key_name));
+    return pieces.join('+');
+  },
+};
+
+// Add key constants
+for (var code in key_names) {
+  KeyCode[key_names[code]] = code;
+}
+
+
+// var fields = ['charCode', 'keyCode', 'which', 'type', 'timeStamp',
+//               'altKey', 'ctrlKey', 'shiftKey', 'metaKey'];
+// var types = ['keydown', 'keypress', 'keyup'];
+
+// function show_event(type) {
+//     return function(e) {
+//         var lines = [];
+//         for(var i = 0; i &lt; fields.length; ++i) {
+//             lines.push('&lt;b>' + fields[i] + '&lt;/b>: ' + e[fields[i]] + '&lt;br />');
+//         }
+//         document.getElementByI(type).innerHTML = lines.join('\n');
+//         return false;
+//     }
+// };
+
+// function show_is_key_down(id, code, ctrl, alt, shift) {
+//     document.getElementById(id + '_down').innerHTML = KeyCode.is_down({
+//         code: code,
+//         ctrl: ctrl,
+//         alt: alt,
+//         shift: shift
+//     });
+// };
+
+// function update_key_downs() {
+//     show_is_key_down('x', KeyCode.key('x'), false, false, false);
+//     show_is_key_down('shift_x', KeyCode.key('x'), false, false, true);
+//     show_is_key_down('shift_c', KeyCode.key('c'), false, false, true);
+//     show_is_key_down('ctrl_a', KeyCode.key('a'), true, false, false);
+// };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.4</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+</body>
+</html>

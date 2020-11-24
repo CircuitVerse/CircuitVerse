@@ -1,0 +1,513 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> data/save.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#addKeys">addKeys</a></li><li><a href="global.html#checkUpdate">checkUpdate</a></li><li><a href="global.html#colors">colors</a></li><li><a href="global.html#colorThemes">colorThemes</a></li><li><a href="global.html#createElements">createElements</a></li><li><a href="global.html#defaultKeys">defaultKeys</a></li><li><a href="global.html#fillSubcircuitElements">fillSubcircuitElements</a></li><li><a href="global.html#frameInterval">frameInterval</a></li><li><a href="global.html#getCanvasColors">getCanvasColors</a></li><li><a href="global.html#getThemeCard">getThemeCard</a></li><li><a href="global.html#getThemeCardSvg">getThemeCardSvg</a></li><li><a href="global.html#modules">modules</a></li><li><a href="global.html#override">override</a></li><li><a href="global.html#setDefault">setDefault</a></li><li><a href="global.html#setUserKeys">setUserKeys</a></li><li><a href="global.html#updateHTML">updateHTML</a></li><li><a href="global.html#updateThemeForStyle">updateThemeForStyle</a></li><li><a href="global.html#warnOverride">warnOverride</a></li></ul></div><div class="category"><h2>c2s</h2><h3>Classes</h3><ul><li><a href="CanvasGradient.html">CanvasGradient</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ctx">ctx</a></li><li><a href="global.html#normalize">normalize</a></li></ul></div><div class="category"><h2>circuit</h2><h3>Classes</h3><ul><li><a href="Scope.html">Scope</a></li></ul><h3>Global</h3><ul><li><a href="global.html#changeCircuitName">changeCircuitName</a></li><li><a href="global.html#deleteCurrentCircuit">deleteCurrentCircuit</a></li><li><a href="global.html#newCircuit">newCircuit</a></li><li><a href="global.html#switchCircuit">switchCircuit</a></li></ul></div><div class="category"><h2>circuitElement</h2><h3>Classes</h3><ul><li><a href="CircuitElement.html">CircuitElement</a></li></ul></div><div class="category"><h2>combinationalAnalysis</h2><h3>Global</h3><ul><li><a href="global.html#createBooleanPrompt">createBooleanPrompt</a></li><li><a href="global.html#createCombinationalAnalysisPrompt">createCombinationalAnalysisPrompt</a></li></ul></div><div class="category"><h2>data</h2><h3>Modules</h3><ul><li><a href="module-createSaveAsImgPrompt.html">createSaveAsImgPrompt</a></li><li><a href="module-load.html">load</a></li><li><a href="module-save.html">save</a></li><li><a href="module-undo.html">undo</a></li></ul><h3>Global</h3><ul><li><a href="global.html#checkIfBackup">checkIfBackup</a></li><li><a href="global.html#checkToSave">checkToSave</a></li><li><a href="global.html#clearProject">clearProject</a></li><li><a href="global.html#downloadAsImg">downloadAsImg</a></li><li><a href="global.html#generateImage">generateImage</a></li><li><a href="global.html#generateImageForOnline">generateImageForOnline</a></li><li><a href="global.html#generateSaveData">generateSaveData</a></li><li><a href="global.html#getProjectName">getProjectName</a></li><li><a href="global.html#loadModule">loadModule</a></li><li><a href="global.html#loadScope">loadScope</a></li><li><a href="global.html#newProject">newProject</a></li><li><a href="global.html#openOffline">openOffline</a></li><li><a href="global.html#projectSaved">projectSaved</a></li><li><a href="global.html#recoverProject">recoverProject</a></li><li><a href="global.html#rectifyObjectType">rectifyObjectType</a></li><li><a href="global.html#removeBugNodes">removeBugNodes</a></li><li><a href="global.html#saveOffline">saveOffline</a></li><li><a href="global.html#setProjectName">setProjectName</a></li></ul></div><div class="category"><h2>engine</h2><h3>Global</h3><ul><li><a href="global.html#canvasMessageData">canvasMessageData</a></li><li><a href="global.html#changeLightMode">changeLightMode</a></li><li><a href="global.html#errorDetected">errorDetected</a></li><li><a href="global.html#errorDetectedGet">errorDetectedGet</a></li><li><a href="global.html#errorDetectedSet">errorDetectedSet</a></li><li><a href="global.html#forceResetNodes">forceResetNodes</a></li><li><a href="global.html#forceResetNodesSet">forceResetNodesSet</a></li><li><a href="global.html#gridUpdate">gridUpdate</a></li><li><a href="global.html#gridUpdateGet">gridUpdateGet</a></li><li><a href="global.html#gridUpdateSet">gridUpdateSet</a></li><li><a href="global.html#objectSelection">objectSelection</a></li><li><a href="global.html#objectSelectionSet">objectSelectionSet</a></li><li><a href="global.html#play">play</a></li><li><a href="global.html#renderCanvas">renderCanvas</a></li><li><a href="global.html#scheduleUpdate">scheduleUpdate</a></li><li><a href="global.html#update">update</a></li><li><a href="global.html#updateCanvas">updateCanvas</a></li><li><a href="global.html#updateCanvasSet">updateCanvasSet</a></li><li><a href="global.html#updatePosition">updatePosition</a></li><li><a href="global.html#updatePositionSet">updatePositionSet</a></li><li><a href="global.html#updateSelectionsAndPane">updateSelectionsAndPane</a></li><li><a href="global.html#updateSimulation">updateSimulation</a></li><li><a href="global.html#updateSimulationSet">updateSimulationSet</a></li><li><a href="global.html#updateSubcircuit">updateSubcircuit</a></li><li><a href="global.html#updateSubcircuitSet">updateSubcircuitSet</a></li><li><a href="global.html#willBeUpdated">willBeUpdated</a></li><li><a href="global.html#willBeUpdatedSet">willBeUpdatedSet</a></li><li><a href="global.html#wireToBeChecked">wireToBeChecked</a></li><li><a href="global.html#wireToBeCheckedSet">wireToBeCheckedSet</a></li></ul></div><div class="category"><h2>eventQueue</h2><h3>Classes</h3><ul><li><a href="EventQueue.html">EventQueue</a></li></ul></div><div class="category"><h2>events</h2><h3>Global</h3><ul><li><a href="global.html#copy">copy</a></li><li><a href="global.html#cut">cut</a></li><li><a href="global.html#paste">paste</a></li><li><a href="global.html#selectAll">selectAll</a></li></ul></div><div class="category"><h2>layout</h2><h3>Classes</h3><ul><li><a href="LayoutBuffer.html">LayoutBuffer</a></li><li><a href="LayoutNode.html">LayoutNode</a></li></ul></div><div class="category"><h2>layoutMode</h2><h3>Global</h3><ul><li><a href="global.html#cancelLayout">cancelLayout</a></li><li><a href="global.html#decreaseLayoutHeight">decreaseLayoutHeight</a></li><li><a href="global.html#decreaseLayoutWidth">decreaseLayoutWidth</a></li><li><a href="global.html#determineLabel">determineLabel</a></li><li><a href="global.html#increaseLayoutHeight">increaseLayoutHeight</a></li><li><a href="global.html#increaseLayoutWidth">increaseLayoutWidth</a></li><li><a href="global.html#layoutMode">layoutMode</a></li><li><a href="global.html#layoutResetNodes">layoutResetNodes</a></li><li><a href="global.html#layoutTitleDown">layoutTitleDown</a></li><li><a href="global.html#layoutTitleLeft">layoutTitleLeft</a></li><li><a href="global.html#layoutTitleRight">layoutTitleRight</a></li><li><a href="global.html#layoutTitleUp">layoutTitleUp</a></li><li><a href="global.html#layoutUpdate">layoutUpdate</a></li><li><a href="global.html#paneLayout">paneLayout</a></li><li><a href="global.html#renderLayout">renderLayout</a></li><li><a href="global.html#saveLayout">saveLayout</a></li><li><a href="global.html#tempBuffer">tempBuffer</a></li><li><a href="global.html#toggleLayoutMode">toggleLayoutMode</a></li><li><a href="global.html#toggleLayoutTitle">toggleLayoutTitle</a></li></ul></div><div class="category"><h2>minimap</h2><h3>Global</h3><ul><li><a href="global.html#miniMapArea">miniMapArea</a></li></ul></div><div class="category"><h2>modules</h2><h3>Classes</h3><ul><li><a href="Adder.html">Adder</a></li><li><a href="ALU.html">ALU</a></li><li><a href="AndGate.html">AndGate</a></li><li><a href="Arrow.html">Arrow</a></li><li><a href="BitSelector.html">BitSelector</a></li><li><a href="Buffer.html">Buffer</a></li><li><a href="Button.html">Button</a></li><li><a href="ConstantVal.html">ConstantVal</a></li><li><a href="ControlledInverter.html">ControlledInverter</a></li><li><a href="Counter.html">Counter</a></li><li><a href="Decoder.html">Decoder</a></li><li><a href="Demultiplexer.html">Demultiplexer</a></li><li><a href="DigitalLed.html">DigitalLed</a></li><li><a href="Flag.html">Flag</a></li><li><a href="Ground.html">Ground</a></li><li><a href="HexDisplay.html">HexDisplay</a></li><li><a href="Image.html">Image</a></li><li><a href="Input.html">Input</a></li><li><a href="LSB.html">LSB</a></li><li><a href="MSB.html">MSB</a></li><li><a href="Multiplexer.html">Multiplexer</a></li><li><a href="NandGate.html">NandGate</a></li><li><a href="NorGate.html">NorGate</a></li><li><a href="NotGate.html">NotGate</a></li><li><a href="OrGate.html">OrGate</a></li><li><a href="Output.html">Output</a></li><li><a href="Power.html">Power</a></li><li><a href="PriorityEncoder.html">PriorityEncoder</a></li><li><a href="Rectangle.html">Rectangle</a></li><li><a href="RGBLed.html">RGBLed</a></li><li><a href="RGBLedMatrix.html">RGBLedMatrix</a></li><li><a href="SevenSegDisplay.html">SevenSegDisplay</a></li><li><a href="SixteenSegDisplay.html">SixteenSegDisplay</a></li><li><a href="Splitter.html">Splitter</a></li><li><a href="SquareRGBLed.html">SquareRGBLed</a></li><li><a href="Stepper.html">Stepper</a></li><li><a href="Text.html">Text</a></li><li><a href="TriState.html">TriState</a></li><li><a href="Tunnel.html">Tunnel</a></li><li><a href="TwoComplement.html">TwoComplement</a></li><li><a href="VariableLed.html">VariableLed</a></li><li><a href="verilogDivider.html">verilogDivider</a></li><li><a href="verilogMultiplier.html">verilogMultiplier</a></li><li><a href="verilogPower.html">verilogPower</a></li><li><a href="verilogShiftLeft.html">verilogShiftLeft</a></li><li><a href="verilogShiftRight.html">verilogShiftRight</a></li><li><a href="XnorGate.html">XnorGate</a></li><li><a href="XorGate.html">XorGate</a></li></ul></div><div class="category"><h2>node</h2><h3>Classes</h3><ul><li><a href="Node.html">Node</a></li></ul><h3>Global</h3><ul><li><a href="global.html#constructNodeConnections">constructNodeConnections</a></li><li><a href="global.html#extractNode">extractNode</a></li><li><a href="global.html#findNode">findNode</a></li><li><a href="global.html#loadNode">loadNode</a></li><li><a href="global.html#replace">replace</a></li><li><a href="global.html#uniqueIdCounter">uniqueIdCounter</a></li></ul></div><div class="category"><h2>plotArea</h2><h3>Global</h3><ul><li><a href="global.html#plotArea">plotArea</a></li></ul></div><div class="category"><h2>sequential</h2><h3>Classes</h3><ul><li><a href="Clock.html">Clock</a></li><li><a href="DflipFlop.html">DflipFlop</a></li><li><a href="EEPROM.html">EEPROM</a></li><li><a href="Rom.html">Rom</a></li><li><a href="TflipFlop.html">TflipFlop</a></li><li><a href="TTY.html">TTY</a></li></ul><h3>Global</h3><ul><li><a href="global.html#changeClockEnable">changeClockEnable</a></li><li><a href="global.html#runTest">runTest</a></li></ul></div><div class="category"><h2>setup</h2><h3>Global</h3><ul><li><a href="global.html#resetup">resetup</a></li><li><a href="global.html#setup">setup</a></li><li><a href="global.html#setupElementLists">setupElementLists</a></li><li><a href="global.html#setupEnvironment">setupEnvironment</a></li></ul></div><div class="category"><h2>simulationArea</h2><h3>Global</h3><ul><li><a href="global.html#simulationArea">simulationArea</a></li></ul></div><div class="category"><h2>subcircuit</h2><h3>Classes</h3><ul><li><a href="SubCircuit.html">SubCircuit</a></li></ul><h3>Global</h3><ul><li><a href="global.html#createSubCircuitPrompt">createSubCircuitPrompt</a></li><li><a href="global.html#loadSubCircuit">loadSubCircuit</a></li></ul></div><div class="category"><h2>testbench</h2><h3>Classes</h3><ul><li><a href="ForceGate.html">ForceGate</a></li><li><a href="TB_Input.html">TB_Input</a></li><li><a href="TB_Output.html">TB_Output</a></li></ul></div><div class="category"><h2>utils</h2><h3>Global</h3><ul><li><a href="global.html#showError">showError</a></li><li><a href="global.html#uniq">uniq</a></li></ul></div><div class="category"><h2>ux</h2><h3>Global</h3><ul><li><a href="global.html#ctxPos">ctxPos</a></li><li><a href="global.html#escapeHtml">escapeHtml</a></li><li><a href="global.html#hideContextMenu">hideContextMenu</a></li><li><a href="global.html#hideProperties">hideProperties</a></li><li><a href="global.html#menuItemClicked">menuItemClicked</a></li><li><a href="global.html#prevPropertyObj">prevPropertyObj</a></li><li><a href="global.html#setupUI">setupUI</a></li><li><a href="global.html#showContextMenu">showContextMenu</a></li><li><a href="global.html#showProperties">showProperties</a></li></ul></div><div class="category"><h2>wire</h2><h3>Classes</h3><ul><li><a href="module-wire.Wire.html">Wire</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>data/save.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { scopeList } from '../circuit';
+import { resetup } from '../setup';
+import { update } from '../engine';
+import { stripTags, showMessage } from '../utils';
+import { backUp } from './backupCircuit';
+import simulationArea from '../simulationArea';
+import backgroundArea from '../backgroundArea';
+import { findDimensions } from '../canvasApi';
+import { projectSavedSet } from './project';
+import { colors } from '../themer/themer';
+import {layoutModeGet, toggleLayoutMode} from '../layoutMode';
+import {verilogModeGet} from '../Verilog2CV';
+import domtoimage from 'dom-to-image';
+
+var projectName = undefined;
+
+/**
+ * Function to set the name of project.
+ * @param {string} name - name for project
+ * @category data
+ */
+export function setProjectName(name) {
+    if(name == undefined) {
+        $('#projectName').html('Untitled');
+        return;
+    }
+    name = stripTags(name);
+    projectName = name;
+    $('#projectName').html(name);
+}
+
+/**
+ * Function to set the name of project.
+ * @param {string} name - name for project
+ * @category data
+ */
+export function getProjectName() {
+    return projectName;
+}
+
+/**
+ * Helper function to save canvas as image based on image type
+ * @param {string} name -name of the circuit
+ * @param {string} imgType - image type ex: png,jpg etc.
+ * @category data
+ */
+function downloadAsImg(name, imgType) {
+    const gh = simulationArea.canvas.toDataURL(`image/${imgType}`);
+    const anchor = document.createElement('a');
+    anchor.href = gh;
+    anchor.download = `${name}.${imgType}`;
+    anchor.click();
+}
+
+/**
+ * Generates JSON of the entire project
+ * @param {string} name - the name of project
+ * @return {JSON}
+ * @category data
+ */
+export function generateSaveData(name) {
+    data = {};
+
+    // Prompts for name, defaults to Untitled
+    name = getProjectName() || name || prompt('Enter Project Name:') || 'Untitled';
+    data.name = stripTags(name);
+    setProjectName(data.name);
+
+    // Save project details
+    data.timePeriod = simulationArea.timePeriod;
+    data.clockEnabled = simulationArea.clockEnabled;
+    data.projectId = projectId;
+    data.focussedCircuit = globalScope.id;
+
+    // Project Circuits, each scope is one circuit
+    data.scopes = [];
+    const dependencyList = {};
+    const completed = {};
+
+    // Getting list of dependencies for each circuit
+    for (id in scopeList) { dependencyList[id] = scopeList[id].getDependencies(); }
+
+    // Helper function to save Scope
+    // Recursively saves inner subcircuits first, before saving parent circuits
+    function saveScope(id) {
+        if (completed[id]) return;
+
+        for (let i = 0; i &lt; dependencyList[id].length; i++) {
+            // Save inner subcircuits
+            saveScope(dependencyList[id][i]);
+        }
+
+        completed[id] = true;
+
+        update(scopeList[id], true); // For any pending integrity checks on subcircuits
+
+        data.scopes.push(backUp(scopeList[id]));
+    }
+
+    // Save all circuits
+    for (id in scopeList) { saveScope(id); }
+
+    // convert to text
+    data = JSON.stringify(data);
+    return data;
+}
+
+// Helper function to download text
+function download(filename, text) {
+    var pom = document.createElement('a');
+    pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    pom.setAttribute('download', filename);
+
+
+    if (document.createEvent) {
+        var event = document.createEvent('MouseEvents');
+        event.initEvent('click', true, true);
+        pom.dispatchEvent(event);
+    } else {
+        pom.click();
+    }
+}
+
+/**
+ * Function to generate image for the circuit
+ * @param {string} imgType - ex: png,jpg etc.
+ * @param {string} view - view type ex: full
+ * @param {boolean} transparent - tranparent bg or not
+ * @param {number} resolution - resolution of the image
+ * @param {boolean=} down - will download if true
+ * @category data
+ */
+export function generateImage(imgType, view, transparent, resolution, down = true) {
+    // Backup all data
+    const backUpOx = globalScope.ox;
+    const backUpOy = globalScope.oy;
+    const backUpWidth = width;
+    const backUpHeight = height;
+    const backUpScale = globalScope.scale;
+    const backUpContextBackground = backgroundArea.context;
+    const backUpContextSimulation = simulationArea.context;
+
+    backgroundArea.context = simulationArea.context;
+
+    globalScope.ox *= 1 / backUpScale;
+    globalScope.oy *= 1 / backUpScale;
+
+    // If SVG, create SVG context - using canvas2svg here
+    if (imgType === 'svg') {
+        simulationArea.context = new C2S(width, height);
+        resolution = 1;
+    } else if (imgType !== 'png') {
+        transparent = false;
+    }
+
+    globalScope.scale = resolution;
+
+    const scope = globalScope;
+
+    // Focus circuit
+    var flag = 1;
+    if (flag) {
+        if (view === 'full') {
+            findDimensions();
+            const minX = simulationArea.minWidth;
+            const minY = simulationArea.minHeight;
+            const maxX = simulationArea.maxWidth;
+            const maxY = simulationArea.maxHeight;
+            width = (maxX - minX + 100) * resolution;
+            height = (maxY - minY + 100) * resolution;
+
+            globalScope.ox = (-minX + 50) * resolution;
+            globalScope.oy = (-minY + 50) * resolution;
+        } else {
+            globalScope.ox *= resolution;
+            globalScope.oy *= resolution;
+            width = (width * resolution) / backUpScale;
+            height = (height * resolution) / backUpScale;
+        }
+    }
+
+    globalScope.ox = Math.round(globalScope.ox);
+    globalScope.oy = Math.round(globalScope.oy);
+
+    simulationArea.canvas.width = width;
+    simulationArea.canvas.height = height;
+    backgroundArea.canvas.width = width;
+    backgroundArea.canvas.height = height;
+
+
+    backgroundArea.context = simulationArea.context;
+
+    simulationArea.clear();
+
+    // Background
+    if (!transparent) {
+        simulationArea.context.fillStyle = colors["canvas_fill"];
+        simulationArea.context.rect(0, 0, width, height);
+        simulationArea.context.fill();
+    }
+
+    // Draw circuits, why is it updateOrder and not renderOrder?
+    for (let i = 0; i &lt; renderOrder.length; i++) {
+        for (let j = 0; j &lt; scope[renderOrder[i]].length; j++) { scope[renderOrder[i]][j].draw(); }
+    }
+
+    let returnData;
+    // If circuit is to be downloaded, download, other wise return dataURL
+    if (down) {
+        if (imgType === 'svg') {
+            const mySerializedSVG = simulationArea.context.getSerializedSvg(); // true here, if you need to convert named to numbered entities.
+            download(`${globalScope.name}.svg`, mySerializedSVG);
+        } else {
+            downloadAsImg(globalScope.name, imgType);
+        }
+    } else {
+        returnData = simulationArea.canvas.toDataURL(`image/${imgType}`);
+    }
+
+    // Restore everything
+    width = backUpWidth;
+    height = backUpHeight;
+    simulationArea.canvas.width = width;
+    simulationArea.canvas.height = height;
+    backgroundArea.canvas.width = width;
+    backgroundArea.canvas.height = height;
+    globalScope.scale = backUpScale;
+    backgroundArea.context = backUpContextBackground;
+    simulationArea.context = backUpContextSimulation;
+    globalScope.ox = backUpOx;
+    globalScope.oy = backUpOy;
+
+    resetup();
+
+    if (!down) return returnData;
+}
+
+async function crop(dataURL, w, h) {
+  //get empty second canvas
+  var myCanvas = document.createElement("CANVAS");
+  myCanvas.width = w;
+  myCanvas.height = h;
+  var myContext = myCanvas.getContext('2d');
+  var myImage;
+  var img = new Image();
+  return new Promise (function (resolved, rejected) {
+        img.src = dataURL;
+        img.onload = () => {
+        myContext.drawImage(img, 0, 0, w, h,0,0, w ,h);
+        myContext.save();
+
+        //create a new data URL
+        myImage = myCanvas.toDataURL('image/jpeg');
+        resolved(myImage);}
+    })
+}
+
+/**
+ * Function that is used to save image for display in the website
+ * @return {JSON}
+ * @category data
+ */
+async function generateImageForOnline() {
+    // Verilog Mode -> Different logic
+    // Fix aspect ratio to 1.6
+    // Ensure image is approximately 700 x 440
+    var ratio = 1.6
+    if(verilogModeGet()) {
+        var node = document.getElementsByClassName('CodeMirror')[0];
+        // var node = document.getElementsByClassName('CodeMirror')[0];
+        var prevHeight = $(node).css('height');
+        var prevWidth = $(node).css('width');
+        var baseWidth = 500;
+        var baseHeight = Math.round(baseWidth / ratio);
+        $(node).css('height', baseHeight);
+        $(node).css('width', baseWidth);
+        
+        var data = await domtoimage.toJpeg(node);
+        $(node).css('width', prevWidth);
+        $(node).css('height', prevHeight);
+        data = await crop(data, baseWidth, baseHeight);
+        return data;
+    }
+
+    simulationArea.lastSelected = undefined; // Unselect any selections
+
+    // Fix aspect ratio to 1.6
+    if (width > height * ratio) {
+        height = width / ratio;
+    } else {
+        width = height * 1.6;
+    }
+
+    // Center circuits
+    globalScope.centerFocus();
+
+    // Ensure image is approximately 700 x 440
+    const resolution = Math.min(700 / (simulationArea.maxWidth - simulationArea.minWidth), 440 / (simulationArea.maxHeight - simulationArea.minHeight));
+
+    data = generateImage('jpeg', 'current', false, resolution, false);
+
+    // Restores Focus
+    globalScope.centerFocus(false);
+    return data;
+    
+}
+/**
+ * Function called when you save acircuit online
+ * @category data
+ * @exports save
+ */
+export default async function save() {
+    if(layoutModeGet())
+        toggleLayoutMode();
+
+    projectSavedSet(true);
+
+    $('.loadingIcon').fadeIn();
+    const data = generateSaveData();
+
+    const projectName = getProjectName();
+    var imageData = await generateImageForOnline();
+
+    if (!userSignedIn) {
+        // user not signed in, save locally temporarily and force user to sign in
+        localStorage.setItem('recover_login', data);
+        // Asking user whether they want to login.
+        if (confirm('You have to login to save the project, you will be redirected to the login page.')) window.location.href = '/users/sign_in';
+        else $('.loadingIcon').fadeOut();
+        // eslint-disable-next-line camelcase
+    } else if (__logix_project_id == "0") {
+        // Create new project - this part needs to be improved and optimised
+        const form = $('&lt;form/>', {
+            action: '/simulator/create_data',
+            method: 'post',
+        });
+        form.append(
+            $('&lt;input>', {
+                type: 'hidden',
+                name: 'authenticity_token',
+                value: $('meta[name="csrf-token"]').attr('content'),
+            }),
+        );
+        form.append(
+            $('&lt;input>', {
+                type: 'text',
+                name: 'data',
+                value: data,
+            }),
+        );
+        form.append(
+            $('&lt;input>', {
+                type: 'text',
+                name: 'image',
+                value: imageData,
+            }),
+        );
+
+        form.append(
+            $('&lt;input>', {
+                type: 'text',
+                name: 'name',
+                value: projectName,
+            }),
+        );
+
+        $('body').append(form);
+        form.submit();
+    } else {
+        // updates project - this part needs to be improved and optimised
+        $.ajax({
+            url: '/simulator/update_data',
+            type: 'POST',
+            beforeSend(xhr) {
+                xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+            },
+            data: {
+                data,
+                id: __logix_project_id,
+                image: imageData,
+                name: projectName,
+            },
+            success(response) {
+                showMessage(`We have saved your project: ${projectName} in our servers.`);
+                $('.loadingIcon').fadeOut();
+                localStorage.removeItem('recover');
+            },
+            failure(err) {
+                showMessage("There was an error, we couldn't save to our servers");
+                $('.loadingIcon').fadeOut();
+            },
+        });
+    }
+
+    // Restore everything
+    resetup();
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.4</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+</body>
+</html>

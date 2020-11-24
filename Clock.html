@@ -1,0 +1,5033 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> Clock</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#addKeys">addKeys</a></li><li><a href="global.html#checkUpdate">checkUpdate</a></li><li><a href="global.html#colors">colors</a></li><li><a href="global.html#colorThemes">colorThemes</a></li><li><a href="global.html#createElements">createElements</a></li><li><a href="global.html#defaultKeys">defaultKeys</a></li><li><a href="global.html#fillSubcircuitElements">fillSubcircuitElements</a></li><li><a href="global.html#frameInterval">frameInterval</a></li><li><a href="global.html#getCanvasColors">getCanvasColors</a></li><li><a href="global.html#getThemeCard">getThemeCard</a></li><li><a href="global.html#getThemeCardSvg">getThemeCardSvg</a></li><li><a href="global.html#modules">modules</a></li><li><a href="global.html#override">override</a></li><li><a href="global.html#setDefault">setDefault</a></li><li><a href="global.html#setUserKeys">setUserKeys</a></li><li><a href="global.html#updateHTML">updateHTML</a></li><li><a href="global.html#updateThemeForStyle">updateThemeForStyle</a></li><li><a href="global.html#warnOverride">warnOverride</a></li></ul></div><div class="category"><h2>c2s</h2><h3>Classes</h3><ul><li><a href="CanvasGradient.html">CanvasGradient</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ctx">ctx</a></li><li><a href="global.html#normalize">normalize</a></li></ul></div><div class="category"><h2>circuit</h2><h3>Classes</h3><ul><li><a href="Scope.html">Scope</a></li></ul><h3>Global</h3><ul><li><a href="global.html#changeCircuitName">changeCircuitName</a></li><li><a href="global.html#deleteCurrentCircuit">deleteCurrentCircuit</a></li><li><a href="global.html#newCircuit">newCircuit</a></li><li><a href="global.html#switchCircuit">switchCircuit</a></li></ul></div><div class="category"><h2>circuitElement</h2><h3>Classes</h3><ul><li><a href="CircuitElement.html">CircuitElement</a></li></ul></div><div class="category"><h2>combinationalAnalysis</h2><h3>Global</h3><ul><li><a href="global.html#createBooleanPrompt">createBooleanPrompt</a></li><li><a href="global.html#createCombinationalAnalysisPrompt">createCombinationalAnalysisPrompt</a></li></ul></div><div class="category"><h2>data</h2><h3>Modules</h3><ul><li><a href="module-createSaveAsImgPrompt.html">createSaveAsImgPrompt</a></li><li><a href="module-load.html">load</a></li><li><a href="module-save.html">save</a></li><li><a href="module-undo.html">undo</a></li></ul><h3>Global</h3><ul><li><a href="global.html#checkIfBackup">checkIfBackup</a></li><li><a href="global.html#checkToSave">checkToSave</a></li><li><a href="global.html#clearProject">clearProject</a></li><li><a href="global.html#downloadAsImg">downloadAsImg</a></li><li><a href="global.html#generateImage">generateImage</a></li><li><a href="global.html#generateImageForOnline">generateImageForOnline</a></li><li><a href="global.html#generateSaveData">generateSaveData</a></li><li><a href="global.html#getProjectName">getProjectName</a></li><li><a href="global.html#loadModule">loadModule</a></li><li><a href="global.html#loadScope">loadScope</a></li><li><a href="global.html#newProject">newProject</a></li><li><a href="global.html#openOffline">openOffline</a></li><li><a href="global.html#projectSaved">projectSaved</a></li><li><a href="global.html#recoverProject">recoverProject</a></li><li><a href="global.html#rectifyObjectType">rectifyObjectType</a></li><li><a href="global.html#removeBugNodes">removeBugNodes</a></li><li><a href="global.html#saveOffline">saveOffline</a></li><li><a href="global.html#setProjectName">setProjectName</a></li></ul></div><div class="category"><h2>engine</h2><h3>Global</h3><ul><li><a href="global.html#canvasMessageData">canvasMessageData</a></li><li><a href="global.html#changeLightMode">changeLightMode</a></li><li><a href="global.html#errorDetected">errorDetected</a></li><li><a href="global.html#errorDetectedGet">errorDetectedGet</a></li><li><a href="global.html#errorDetectedSet">errorDetectedSet</a></li><li><a href="global.html#forceResetNodes">forceResetNodes</a></li><li><a href="global.html#forceResetNodesSet">forceResetNodesSet</a></li><li><a href="global.html#gridUpdate">gridUpdate</a></li><li><a href="global.html#gridUpdateGet">gridUpdateGet</a></li><li><a href="global.html#gridUpdateSet">gridUpdateSet</a></li><li><a href="global.html#objectSelection">objectSelection</a></li><li><a href="global.html#objectSelectionSet">objectSelectionSet</a></li><li><a href="global.html#play">play</a></li><li><a href="global.html#renderCanvas">renderCanvas</a></li><li><a href="global.html#scheduleUpdate">scheduleUpdate</a></li><li><a href="global.html#update">update</a></li><li><a href="global.html#updateCanvas">updateCanvas</a></li><li><a href="global.html#updateCanvasSet">updateCanvasSet</a></li><li><a href="global.html#updatePosition">updatePosition</a></li><li><a href="global.html#updatePositionSet">updatePositionSet</a></li><li><a href="global.html#updateSelectionsAndPane">updateSelectionsAndPane</a></li><li><a href="global.html#updateSimulation">updateSimulation</a></li><li><a href="global.html#updateSimulationSet">updateSimulationSet</a></li><li><a href="global.html#updateSubcircuit">updateSubcircuit</a></li><li><a href="global.html#updateSubcircuitSet">updateSubcircuitSet</a></li><li><a href="global.html#willBeUpdated">willBeUpdated</a></li><li><a href="global.html#willBeUpdatedSet">willBeUpdatedSet</a></li><li><a href="global.html#wireToBeChecked">wireToBeChecked</a></li><li><a href="global.html#wireToBeCheckedSet">wireToBeCheckedSet</a></li></ul></div><div class="category"><h2>eventQueue</h2><h3>Classes</h3><ul><li><a href="EventQueue.html">EventQueue</a></li></ul></div><div class="category"><h2>events</h2><h3>Global</h3><ul><li><a href="global.html#copy">copy</a></li><li><a href="global.html#cut">cut</a></li><li><a href="global.html#paste">paste</a></li><li><a href="global.html#selectAll">selectAll</a></li></ul></div><div class="category"><h2>layout</h2><h3>Classes</h3><ul><li><a href="LayoutBuffer.html">LayoutBuffer</a></li><li><a href="LayoutNode.html">LayoutNode</a></li></ul></div><div class="category"><h2>layoutMode</h2><h3>Global</h3><ul><li><a href="global.html#cancelLayout">cancelLayout</a></li><li><a href="global.html#decreaseLayoutHeight">decreaseLayoutHeight</a></li><li><a href="global.html#decreaseLayoutWidth">decreaseLayoutWidth</a></li><li><a href="global.html#determineLabel">determineLabel</a></li><li><a href="global.html#increaseLayoutHeight">increaseLayoutHeight</a></li><li><a href="global.html#increaseLayoutWidth">increaseLayoutWidth</a></li><li><a href="global.html#layoutMode">layoutMode</a></li><li><a href="global.html#layoutResetNodes">layoutResetNodes</a></li><li><a href="global.html#layoutTitleDown">layoutTitleDown</a></li><li><a href="global.html#layoutTitleLeft">layoutTitleLeft</a></li><li><a href="global.html#layoutTitleRight">layoutTitleRight</a></li><li><a href="global.html#layoutTitleUp">layoutTitleUp</a></li><li><a href="global.html#layoutUpdate">layoutUpdate</a></li><li><a href="global.html#paneLayout">paneLayout</a></li><li><a href="global.html#renderLayout">renderLayout</a></li><li><a href="global.html#saveLayout">saveLayout</a></li><li><a href="global.html#tempBuffer">tempBuffer</a></li><li><a href="global.html#toggleLayoutMode">toggleLayoutMode</a></li><li><a href="global.html#toggleLayoutTitle">toggleLayoutTitle</a></li></ul></div><div class="category"><h2>minimap</h2><h3>Global</h3><ul><li><a href="global.html#miniMapArea">miniMapArea</a></li></ul></div><div class="category"><h2>modules</h2><h3>Classes</h3><ul><li><a href="Adder.html">Adder</a></li><li><a href="ALU.html">ALU</a></li><li><a href="AndGate.html">AndGate</a></li><li><a href="Arrow.html">Arrow</a></li><li><a href="BitSelector.html">BitSelector</a></li><li><a href="Buffer.html">Buffer</a></li><li><a href="Button.html">Button</a></li><li><a href="ConstantVal.html">ConstantVal</a></li><li><a href="ControlledInverter.html">ControlledInverter</a></li><li><a href="Counter.html">Counter</a></li><li><a href="Decoder.html">Decoder</a></li><li><a href="Demultiplexer.html">Demultiplexer</a></li><li><a href="DigitalLed.html">DigitalLed</a></li><li><a href="Flag.html">Flag</a></li><li><a href="Ground.html">Ground</a></li><li><a href="HexDisplay.html">HexDisplay</a></li><li><a href="Image.html">Image</a></li><li><a href="Input.html">Input</a></li><li><a href="LSB.html">LSB</a></li><li><a href="MSB.html">MSB</a></li><li><a href="Multiplexer.html">Multiplexer</a></li><li><a href="NandGate.html">NandGate</a></li><li><a href="NorGate.html">NorGate</a></li><li><a href="NotGate.html">NotGate</a></li><li><a href="OrGate.html">OrGate</a></li><li><a href="Output.html">Output</a></li><li><a href="Power.html">Power</a></li><li><a href="PriorityEncoder.html">PriorityEncoder</a></li><li><a href="Rectangle.html">Rectangle</a></li><li><a href="RGBLed.html">RGBLed</a></li><li><a href="RGBLedMatrix.html">RGBLedMatrix</a></li><li><a href="SevenSegDisplay.html">SevenSegDisplay</a></li><li><a href="SixteenSegDisplay.html">SixteenSegDisplay</a></li><li><a href="Splitter.html">Splitter</a></li><li><a href="SquareRGBLed.html">SquareRGBLed</a></li><li><a href="Stepper.html">Stepper</a></li><li><a href="Text.html">Text</a></li><li><a href="TriState.html">TriState</a></li><li><a href="Tunnel.html">Tunnel</a></li><li><a href="TwoComplement.html">TwoComplement</a></li><li><a href="VariableLed.html">VariableLed</a></li><li><a href="verilogDivider.html">verilogDivider</a></li><li><a href="verilogMultiplier.html">verilogMultiplier</a></li><li><a href="verilogPower.html">verilogPower</a></li><li><a href="verilogShiftLeft.html">verilogShiftLeft</a></li><li><a href="verilogShiftRight.html">verilogShiftRight</a></li><li><a href="XnorGate.html">XnorGate</a></li><li><a href="XorGate.html">XorGate</a></li></ul></div><div class="category"><h2>node</h2><h3>Classes</h3><ul><li><a href="Node.html">Node</a></li></ul><h3>Global</h3><ul><li><a href="global.html#constructNodeConnections">constructNodeConnections</a></li><li><a href="global.html#extractNode">extractNode</a></li><li><a href="global.html#findNode">findNode</a></li><li><a href="global.html#loadNode">loadNode</a></li><li><a href="global.html#replace">replace</a></li><li><a href="global.html#uniqueIdCounter">uniqueIdCounter</a></li></ul></div><div class="category"><h2>plotArea</h2><h3>Global</h3><ul><li><a href="global.html#plotArea">plotArea</a></li></ul></div><div class="category"><h2>sequential</h2><h3>Classes</h3><ul><li><a href="Clock.html">Clock</a></li><li><a href="DflipFlop.html">DflipFlop</a></li><li><a href="EEPROM.html">EEPROM</a></li><li><a href="Rom.html">Rom</a></li><li><a href="TflipFlop.html">TflipFlop</a></li><li><a href="TTY.html">TTY</a></li></ul><h3>Global</h3><ul><li><a href="global.html#changeClockEnable">changeClockEnable</a></li><li><a href="global.html#runTest">runTest</a></li></ul></div><div class="category"><h2>setup</h2><h3>Global</h3><ul><li><a href="global.html#resetup">resetup</a></li><li><a href="global.html#setup">setup</a></li><li><a href="global.html#setupElementLists">setupElementLists</a></li><li><a href="global.html#setupEnvironment">setupEnvironment</a></li></ul></div><div class="category"><h2>simulationArea</h2><h3>Global</h3><ul><li><a href="global.html#simulationArea">simulationArea</a></li></ul></div><div class="category"><h2>subcircuit</h2><h3>Classes</h3><ul><li><a href="SubCircuit.html">SubCircuit</a></li></ul><h3>Global</h3><ul><li><a href="global.html#createSubCircuitPrompt">createSubCircuitPrompt</a></li><li><a href="global.html#loadSubCircuit">loadSubCircuit</a></li></ul></div><div class="category"><h2>testbench</h2><h3>Classes</h3><ul><li><a href="ForceGate.html">ForceGate</a></li><li><a href="TB_Input.html">TB_Input</a></li><li><a href="TB_Output.html">TB_Output</a></li></ul></div><div class="category"><h2>utils</h2><h3>Global</h3><ul><li><a href="global.html#showError">showError</a></li><li><a href="global.html#uniq">uniq</a></li></ul></div><div class="category"><h2>ux</h2><h3>Global</h3><ul><li><a href="global.html#ctxPos">ctxPos</a></li><li><a href="global.html#escapeHtml">escapeHtml</a></li><li><a href="global.html#hideContextMenu">hideContextMenu</a></li><li><a href="global.html#hideProperties">hideProperties</a></li><li><a href="global.html#menuItemClicked">menuItemClicked</a></li><li><a href="global.html#prevPropertyObj">prevPropertyObj</a></li><li><a href="global.html#setupUI">setupUI</a></li><li><a href="global.html#showContextMenu">showContextMenu</a></li><li><a href="global.html#showProperties">showProperties</a></li></ul></div><div class="category"><h2>wire</h2><h3>Classes</h3><ul><li><a href="module-wire.Wire.html">Wire</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Class</p>
+                    <h1>Clock</h1>
+                </header>
+                
+
+
+
+
+<section>
+
+<header>
+    
+        <h2><span class="attribs"><span class="type-signature"></span></span>Clock<span class="signature">(x, y, scope<span class="signature-attributes">opt</span>, dir<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h2>
+        
+            <div class="class-description">Clock
+Clock</div>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class='vertical-section'>
+                <div class="members">
+                    <div class="member">
+                        <div class=name>
+                            <span class="tag">Constructor</span>
+                        </div>
+                        
+
+
+    
+    <h4 class="name" id="Clock">
+        <a class="href-link" href="#Clock">#</a>
+        
+        <span class="code-name">
+            
+                new Clock<span class="signature">(x, y, scope<span class="signature-attributes">opt</span>, dir<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+            <th>Attributes</th>
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>x</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">number</span>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+
+      
+
+      
+      </td>
+  
+
+  
+
+  <td class="description last">x coord of element</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>y</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">number</span>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+
+      
+
+      
+      </td>
+  
+
+  
+
+  <td class="description last">y coord of element</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>scope</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type"><a href="Scope.html">Scope</a></span>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+          &lt;optional><br>
+      
+
+      
+
+      
+      </td>
+  
+
+  
+
+  <td class="description last">the ciruit in which we want the Element</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>dir</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+          &lt;optional><br>
+      
+
+      
+
+      
+      </td>
+  
+
+  
+
+  <td class="description last">direcion in which element has to drawn</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="sequential_Clock.js.html" class="button">View Source</a>
+            <span>
+                <a href="sequential_Clock.js.html">sequential/Clock.js</a>, <a href="sequential_Clock.js.html#line17">line 17</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        
+    
+    </div>
+    
+    
+        <h3 class="subsection-title">Extends</h3>
+
+        
+
+
+    <ul>
+        <li><a href="CircuitElement.html">CircuitElement</a></li>
+    </ul>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <div class='vertical-section'>
+            <h1>Methods</h1>
+            <div class="members">
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="absX">
+        <a class="href-link" href="#absX">#</a>
+        
+        <span class="code-name">
+            
+                absX<span class="signature">(x)</span><span class="type-signature"> &rarr; {number}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Function to get absolute value of x coordinate of the element
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>x</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">number</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">value of x coordinate of the element</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="CircuitElement.html#absX">CircuitElement#absX</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="circuitElement.js.html" class="button">View Source</a>
+            <span>
+                <a href="circuitElement.js.html">circuitElement.js</a>, <a href="circuitElement.js.html#line95">line 95</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'>- absolute value of x</div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">number</span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="absY">
+        <a class="href-link" href="#absY">#</a>
+        
+        <span class="code-name">
+            
+                absY<span class="signature">(y)</span><span class="type-signature"> &rarr; {number}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Function to get absolute value of y coordinate of the element
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>y</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">number</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">value of y coordinate of the element</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="CircuitElement.html#absY">CircuitElement#absY</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="circuitElement.js.html" class="button">View Source</a>
+            <span>
+                <a href="circuitElement.js.html">circuitElement.js</a>, <a href="circuitElement.js.html#line104">line 104</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'>- absolute value of y</div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">number</span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="baseSetup">
+        <a class="href-link" href="#baseSetup">#</a>
+        
+        <span class="code-name">
+            
+                baseSetup<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        adds the element to scopeList
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="CircuitElement.html#baseSetup">CircuitElement#baseSetup</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="circuitElement.js.html" class="button">View Source</a>
+            <span>
+                <a href="circuitElement.js.html">circuitElement.js</a>, <a href="circuitElement.js.html#line111">line 111</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="changePropagationDelay">
+        <a class="href-link" href="#changePropagationDelay">#</a>
+        
+        <span class="code-name">
+            
+                changePropagationDelay<span class="signature">(delay)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Method to change object delay
+OVERRIDE if necessary
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>delay</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">number</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">new delay</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="CircuitElement.html#changePropagationDelay">CircuitElement#changePropagationDelay</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="circuitElement.js.html" class="button">View Source</a>
+            <span>
+                <a href="circuitElement.js.html">circuitElement.js</a>, <a href="circuitElement.js.html#line718">line 718</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="checkHover">
+        <a class="href-link" href="#checkHover">#</a>
+        
+        <span class="code-name">
+            
+                checkHover<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        check hover over the element
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="CircuitElement.html#checkHover">CircuitElement#checkHover</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="circuitElement.js.html" class="button">View Source</a>
+            <span>
+                <a href="circuitElement.js.html">circuitElement.js</a>, <a href="circuitElement.js.html#line185">line 185</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">boolean</span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="cleanDelete">
+        <a class="href-link" href="#cleanDelete">#</a>
+        
+        <span class="code-name">
+            
+                cleanDelete<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        method to delete object
+OVERRIDE WITH CAUTION
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="CircuitElement.html#cleanDelete">CircuitElement#cleanDelete</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="circuitElement.js.html" class="button">View Source</a>
+            <span>
+                <a href="circuitElement.js.html">circuitElement.js</a>, <a href="circuitElement.js.html#line645">line 645</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="copyFrom">
+        <a class="href-link" href="#copyFrom">#</a>
+        
+        <span class="code-name">
+            
+                copyFrom<span class="signature">(obj)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Function to copy the circuit element obj to a new circuit element
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>obj</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type"><a href="CircuitElement.html">CircuitElement</a></span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">element to be copied from</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="CircuitElement.html#copyFrom">CircuitElement#copyFrom</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="circuitElement.js.html" class="button">View Source</a>
+            <span>
+                <a href="circuitElement.js.html">circuitElement.js</a>, <a href="circuitElement.js.html#line119">line 119</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="customSave">
+        <a class="href-link" href="#customSave">#</a>
+        
+        <span class="code-name">
+            
+                customSave<span class="signature">()</span><span class="type-signature"> &rarr; {JSON}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Always overriden
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="CircuitElement.html#customSave">CircuitElement#customSave</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="circuitElement.js.html" class="button">View Source</a>
+            <span>
+                <a href="circuitElement.js.html">circuitElement.js</a>, <a href="circuitElement.js.html#line173">line 173</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'>- the data to be saved</div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">JSON</span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="deleteNodes">
+        <a class="href-link" href="#deleteNodes">#</a>
+        
+        <span class="code-name">
+            
+                deleteNodes<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Helper Function to delete the element and all the node attached to it.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="CircuitElement.html#deleteNodes">CircuitElement#deleteNodes</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="circuitElement.js.html" class="button">View Source</a>
+            <span>
+                <a href="circuitElement.js.html">circuitElement.js</a>, <a href="circuitElement.js.html#line653">line 653</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="drag">
+        <a class="href-link" href="#drag">#</a>
+        
+        <span class="code-name">
+            
+                drag<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Helper Function to drag element to a new position
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="CircuitElement.html#drag">CircuitElement#drag</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="circuitElement.js.html" class="button">View Source</a>
+            <span>
+                <a href="circuitElement.js.html">circuitElement.js</a>, <a href="circuitElement.js.html#line251">line 251</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="draw">
+        <a class="href-link" href="#draw">#</a>
+        
+        <span class="code-name">
+            
+                draw<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Method that draws the outline of the module and calls draw function on module Nodes.
+NOT OVERRIDABLE
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="CircuitElement.html#draw">CircuitElement#draw</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="circuitElement.js.html" class="button">View Source</a>
+            <span>
+                <a href="circuitElement.js.html">circuitElement.js</a>, <a href="circuitElement.js.html#line500">line 500</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="drawLayoutMode">
+        <a class="href-link" href="#drawLayoutMode">#</a>
+        
+        <span class="code-name">
+            
+                drawLayoutMode<span class="signature">(xOffset, yOffset)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Draws element in layout mode (inside the subcircuit)
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+            <th>Default</th>
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>xOffset</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">number</span>
+
+
+  
+  </td>
+
+  
+
+  
+      <td class="default">
+      
+          0
+      
+      </td>
+  
+
+  <td class="description last">x position of the subcircuit</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>yOffset</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">number</span>
+
+
+  
+  </td>
+
+  
+
+  
+      <td class="default">
+      
+          0
+      
+      </td>
+  
+
+  <td class="description last">y position of the subcircuit 
+
+        Called by subcirucit.js/customDraw() - for drawing as a part of another circuit
+        and layoutMode.js/renderLayout() -  for drawing in layoutMode</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="CircuitElement.html#drawLayoutMode">CircuitElement#drawLayoutMode</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="circuitElement.js.html" class="button">View Source</a>
+            <span>
+                <a href="circuitElement.js.html">circuitElement.js</a>, <a href="circuitElement.js.html#line583">line 583</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="fixDirection">
+        <a class="href-link" href="#fixDirection">#</a>
+        
+        <span class="code-name">
+            
+                fixDirection<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Helper Function to correct the direction of element
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="CircuitElement.html#fixDirection">CircuitElement#fixDirection</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="circuitElement.js.html" class="button">View Source</a>
+            <span>
+                <a href="circuitElement.js.html">circuitElement.js</a>, <a href="circuitElement.js.html#line426">line 426</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="flipBits">
+        <a class="href-link" href="#flipBits">#</a>
+        
+        <span class="code-name">
+            
+                flipBits<span class="signature">(val)</span><span class="type-signature"> &rarr; {number}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Function to flip bits
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>val</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">number</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">the value of flipped bits</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="CircuitElement.html#flipBits">CircuitElement#flipBits</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="circuitElement.js.html" class="button">View Source</a>
+            <span>
+                <a href="circuitElement.js.html">circuitElement.js</a>, <a href="circuitElement.js.html#line86">line 86</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'>- The number of flipped bits</div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">number</span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="generateVerilog">
+        <a class="href-link" href="#generateVerilog">#</a>
+        
+        <span class="code-name">
+            
+                generateVerilog<span class="signature">()</span><span class="type-signature"> &rarr; {JSON}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Helper Function to generate verilog
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="CircuitElement.html#generateVerilog">CircuitElement#generateVerilog</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="circuitElement.js.html" class="button">View Source</a>
+            <span>
+                <a href="circuitElement.js.html">circuitElement.js</a>, <a href="circuitElement.js.html#line827">line 827</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">JSON</span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="isHover">
+        <a class="href-link" href="#isHover">#</a>
+        
+        <span class="code-name">
+            
+                isHover<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        The isHover method is used to check if the mouse is hovering over the object.
+Return Value: true if mouse is hovering over object else false
+NOT OVERRIDABLE
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="CircuitElement.html#isHover">CircuitElement#isHover</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="circuitElement.js.html" class="button">View Source</a>
+            <span>
+                <a href="circuitElement.js.html">circuitElement.js</a>, <a href="circuitElement.js.html#line436">line 436</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="isResolvable">
+        <a class="href-link" href="#isResolvable">#</a>
+        
+        <span class="code-name">
+            
+                isResolvable<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Method to check if object can be resolved
+OVERRIDE if necessary
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="CircuitElement.html#isResolvable">CircuitElement#isResolvable</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="circuitElement.js.html" class="button">View Source</a>
+            <span>
+                <a href="circuitElement.js.html">circuitElement.js</a>, <a href="circuitElement.js.html#line693">line 693</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">boolean</span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="isVerilogResolvable">
+        <a class="href-link" href="#isVerilogResolvable">#</a>
+        
+        <span class="code-name">
+            
+                isVerilogResolvable<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Helper Function to check if verilog resolvable
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="CircuitElement.html#isVerilogResolvable">CircuitElement#isVerilogResolvable</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="circuitElement.js.html" class="button">View Source</a>
+            <span>
+                <a href="circuitElement.js.html">circuitElement.js</a>, <a href="circuitElement.js.html#line766">line 766</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">boolean</span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="layoutUpdate">
+        <a class="href-link" href="#layoutUpdate">#</a>
+        
+        <span class="code-name">
+            
+                layoutUpdate<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Used to update the state of the elements inside the subcircuit in layout mode
+Return Value: true if the state has changed, false otherwise
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="CircuitElement.html#layoutUpdate">CircuitElement#layoutUpdate</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="circuitElement.js.html" class="button">View Source</a>
+            <span>
+                <a href="circuitElement.js.html">circuitElement.js</a>, <a href="circuitElement.js.html#line358">line 358</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="newBitWidth">
+        <a class="href-link" href="#newBitWidth">#</a>
+        
+        <span class="code-name">
+            
+                newBitWidth<span class="signature">(bitWidth)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Method to change object Bitwidth
+OVERRIDE if necessary
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>bitWidth</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">number</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">new bitwidth</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="CircuitElement.html#newBitWidth">CircuitElement#newBitWidth</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="circuitElement.js.html" class="button">View Source</a>
+            <span>
+                <a href="circuitElement.js.html">circuitElement.js</a>, <a href="circuitElement.js.html#line705">line 705</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="newDirection">
+        <a class="href-link" href="#newDirection">#</a>
+        
+        <span class="code-name">
+            
+                newDirection<span class="signature">(dir)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        method to change direction
+OVERRIDE WITH CAUTION
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>dir</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">new direction</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="CircuitElement.html#newDirection">CircuitElement#newDirection</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="circuitElement.js.html" class="button">View Source</a>
+            <span>
+                <a href="circuitElement.js.html">circuitElement.js</a>, <a href="circuitElement.js.html#line662">line 662</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="newLabelDirection">
+        <a class="href-link" href="#newLabelDirection">#</a>
+        
+        <span class="code-name">
+            
+                newLabelDirection<span class="signature">(dir)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Helper Function to change label direction of the element.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>dir</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">new direction</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="CircuitElement.html#newLabelDirection">CircuitElement#newLabelDirection</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="circuitElement.js.html" class="button">View Source</a>
+            <span>
+                <a href="circuitElement.js.html">circuitElement.js</a>, <a href="circuitElement.js.html#line683">line 683</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="processVerilog">
+        <a class="href-link" href="#processVerilog">#</a>
+        
+        <span class="code-name">
+            
+                processVerilog<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Helper Function to process verilog
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="CircuitElement.html#processVerilog">CircuitElement#processVerilog</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="circuitElement.js.html" class="button">View Source</a>
+            <span>
+                <a href="circuitElement.js.html">circuitElement.js</a>, <a href="circuitElement.js.html#line738">line 738</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="removePropagation">
+        <a class="href-link" href="#removePropagation">#</a>
+        
+        <span class="code-name">
+            
+                removePropagation<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Helper Function to remove proporgation.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="CircuitElement.html#removePropagation">CircuitElement#removePropagation</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="circuitElement.js.html" class="button">View Source</a>
+            <span>
+                <a href="circuitElement.js.html">circuitElement.js</a>, <a href="circuitElement.js.html#line791">line 791</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="resolve">
+        <a class="href-link" href="#resolve">#</a>
+        
+        <span class="code-name">
+            
+                resolve<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Dummy resolve function
+OVERRIDE if necessary
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="CircuitElement.html#resolve">CircuitElement#resolve</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="circuitElement.js.html" class="button">View Source</a>
+            <span>
+                <a href="circuitElement.js.html">circuitElement.js</a>, <a href="circuitElement.js.html#line731">line 731</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="saveObject">
+        <a class="href-link" href="#saveObject">#</a>
+        
+        <span class="code-name">
+            
+                saveObject<span class="signature">()</span><span class="type-signature"> &rarr; {JSON}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        To generate JSON-safe data that can be loaded
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="CircuitElement.html#saveObject">CircuitElement#saveObject</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="circuitElement.js.html" class="button">View Source</a>
+            <span>
+                <a href="circuitElement.js.html">circuitElement.js</a>, <a href="circuitElement.js.html#line151">line 151</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'>- the data to be saved</div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">JSON</span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="setDimensions">
+        <a class="href-link" href="#setDimensions">#</a>
+        
+        <span class="code-name">
+            
+                setDimensions<span class="signature">(w, h)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        This sets the width and height of the element if its rectangular
+and the reference point is at the center of the object.
+width and height define the X and Y distance from the center.
+Effectively HALF the actual width and height.
+NOT OVERRIDABLE
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>w</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">number</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">width</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>h</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">number</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">height</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="CircuitElement.html#setDimensions">CircuitElement#setDimensions</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="circuitElement.js.html" class="button">View Source</a>
+            <span>
+                <a href="circuitElement.js.html">circuitElement.js</a>, <a href="circuitElement.js.html#line213">line 213</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="setHeight">
+        <a class="href-link" href="#setHeight">#</a>
+        
+        <span class="code-name">
+            
+                setHeight<span class="signature">(h)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>h</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">number</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">height</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="CircuitElement.html#setHeight">CircuitElement#setHeight</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="circuitElement.js.html" class="button">View Source</a>
+            <span>
+                <a href="circuitElement.js.html">circuitElement.js</a>, <a href="circuitElement.js.html#line229">line 229</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="setLabel">
+        <a class="href-link" href="#setLabel">#</a>
+        
+        <span class="code-name">
+            
+                setLabel<span class="signature">(label)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Helper Function to set label of an element.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>label</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">the label for element</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="CircuitElement.html#setLabel">CircuitElement#setLabel</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="circuitElement.js.html" class="button">View Source</a>
+            <span>
+                <a href="circuitElement.js.html">circuitElement.js</a>, <a href="circuitElement.js.html#line492">line 492</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="setWidth">
+        <a class="href-link" href="#setWidth">#</a>
+        
+        <span class="code-name">
+            
+                setWidth<span class="signature">(w)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>w</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">number</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">width</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="CircuitElement.html#setWidth">CircuitElement#setWidth</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="circuitElement.js.html" class="button">View Source</a>
+            <span>
+                <a href="circuitElement.js.html">circuitElement.js</a>, <a href="circuitElement.js.html#line222">line 222</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="startDragging">
+        <a class="href-link" href="#startDragging">#</a>
+        
+        <span class="code-name">
+            
+                startDragging<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Helper Function to drag element to a new position
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="CircuitElement.html#startDragging">CircuitElement#startDragging</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="circuitElement.js.html" class="button">View Source</a>
+            <span>
+                <a href="circuitElement.js.html">circuitElement.js</a>, <a href="circuitElement.js.html#line236">line 236</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="toggleLabelInLayoutMode">
+        <a class="href-link" href="#toggleLabelInLayoutMode">#</a>
+        
+        <span class="code-name">
+            
+                toggleLabelInLayoutMode<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Toggles the visibility of the labels of subcircuit elements. Called by event handlers in ux.js
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="CircuitElement.html#toggleLabelInLayoutMode">CircuitElement#toggleLabelInLayoutMode</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="circuitElement.js.html" class="button">View Source</a>
+            <span>
+                <a href="circuitElement.js.html">circuitElement.js</a>, <a href="circuitElement.js.html#line853">line 853</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="update">
+        <a class="href-link" href="#update">#</a>
+        
+        <span class="code-name">
+            
+                update<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        The update method is used to change the parameters of the object on mouse click and hover.
+Return Value: true if state has changed else false
+NOT OVERRIDABLE
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="CircuitElement.html#update">CircuitElement#update</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="circuitElement.js.html" class="button">View Source</a>
+            <span>
+                <a href="circuitElement.js.html">circuitElement.js</a>, <a href="circuitElement.js.html#line267">line 267</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="updateScope">
+        <a class="href-link" href="#updateScope">#</a>
+        
+        <span class="code-name">
+            
+                updateScope<span class="signature">(scope)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Function to update the scope when a new element is added.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>scope</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type"><a href="Scope.html">Scope</a></span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">the circuit in which we add element</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="CircuitElement.html#updateScope">CircuitElement#updateScope</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="circuitElement.js.html" class="button">View Source</a>
+            <span>
+                <a href="circuitElement.js.html">circuitElement.js</a>, <a href="circuitElement.js.html#line141">line 141</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="verilogName">
+        <a class="href-link" href="#verilogName">#</a>
+        
+        <span class="code-name">
+            
+                verilogName<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Helper Function to name the verilog.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="CircuitElement.html#verilogName">CircuitElement#verilogName</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="circuitElement.js.html" class="button">View Source</a>
+            <span>
+                <a href="circuitElement.js.html">circuitElement.js</a>, <a href="circuitElement.js.html#line806">line 806</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">string</span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+            </div>
+        </div>
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.4</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+</body>
+</html>
