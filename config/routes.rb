@@ -151,7 +151,7 @@ Rails.application.routes.draw do
       post "/forgot_password", to: "users#forgot_password"
       resources :users, only: %i[index show update]
       get "/projects/featured", to: "projects#featured_circuits"
-      resources :projects do
+      resources :projects, only: %i[index show update destroy] do
         member do
           get "toggle-star", to: "projects#toggle_star"
           get "fork", to: "projects#create_fork"
