@@ -1,9 +1,6 @@
 name: docs
 
-on:
-  push:
-    branches:
-      - setting-up-webpacker
+on: [push]
 
 jobs:
   deploy:
