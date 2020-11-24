@@ -25,7 +25,6 @@ export default class Text extends CircuitElement {
         this.fixedBitWidth = true;
         this.directionFixed = true;
         this.labelDirectionFixed = true;
-        this.setHeight(10);
         this.setLabel(label);
         this.setFontSize(fontSize);
     }
@@ -41,6 +40,7 @@ export default class Text extends CircuitElement {
         ctx.font = `${this.fontSize}px Raleway`;
         this.leftDimensionX = 10;
         this.rightDimensionX = ctx.measureText(this.label).width + 10;
+        this.setTextboxSize();
     }
 
     /**
@@ -52,8 +52,17 @@ export default class Text extends CircuitElement {
         this.fontSize = fontSize;
         var ctx = simulationArea.context;
         ctx.font = `${this.fontSize}px Raleway`;
+        this.setTextboxSize();
+    }
+
+    setTextboxSize() {
         this.leftDimensionX = 10;
-        this.rightDimensionX = ctx.measureText(this.label).width + 10;
+        var maxWidth = 0;
+        var labels = this.label.split('\n');
+        var ctx = simulationArea.context;
+        labels.forEach(l => maxWidth = Math.max(maxWidth, ctx.measureText(l).width));
+        this.rightDimensionX = maxWidth + 10;
+        this.downDimensionY = labels.length * this.fontSize;
     }
 
     /**
@@ -78,8 +87,10 @@ export default class Text extends CircuitElement {
             if (this.label === 'Enter Text Here') { this.setLabel(key); } else { this.setLabel(this.label + key); }
         } else if (key === 'Backspace') {
             if (this.label === 'Enter Text Here') { this.setLabel(''); } else { this.setLabel(this.label.slice(0, -1)); }
+        } else if (key === 'Enter') {
+            if (this.label === 'Enter Text Here') { this.setLabel(''); } else { this.setLabel(this.label + '\n'); }
         }
-        $('input[name=setLabel]').val(this.label);
+        $('[name=setLabel]').val(this.label);
     }
 
     /**
@@ -97,10 +108,10 @@ export default class Text extends CircuitElement {
         if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) {
             ctx.beginPath();
             ctx.fillStyle = colors['fill'];
-            const magicDimenstion = this.fontSize - 14;
-            rect2(ctx, -this.leftDimensionX, -this.upDimensionY - magicDimenstion,
+            const magicDimension = this.fontSize - 14;
+            rect2(ctx, -this.leftDimensionX, -this.upDimensionY - magicDimension,
                 this.leftDimensionX + this.rightDimensionX,
-                this.upDimensionY + this.downDimensionY + magicDimenstion, this.x, this.y, 'RIGHT');
+                this.upDimensionY + this.downDimensionY + magicDimension, this.x, this.y, 'RIGHT');
             ctx.fillStyle = 'rgba(255, 255, 32,0.1)';
             ctx.fill();
             ctx.stroke();
@@ -108,7 +119,10 @@ export default class Text extends CircuitElement {
         ctx.beginPath();
         ctx.textAlign = 'left';
         ctx.fillStyle = colors['text'];
-        fillText(ctx, this.label, xx, yy + 5, this.fontSize);
+        var labels = this.label.split('\n');
+        for(var i = 0; i < labels.length; i++) {
+            fillText(ctx, labels[i], xx, yy + 5 + i * this.fontSize, this.fontSize);
+        }
         ctx.fill();
     }
 }
@@ -143,6 +157,12 @@ Text.prototype.mutableProperties = {
         min: '14',
         func: 'setFontSize',
     },
+    label: {
+        name: 'Text: ',
+        type: 'textarea',
+        func: 'setLabel',
+    },
 };
+Text.prototype.disableLabel = true;
 Text.prototype.objectType = 'Text';
 Text.prototype.propagationDelayFixed = true;

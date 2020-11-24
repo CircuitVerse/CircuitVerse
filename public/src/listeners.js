@@ -200,8 +200,16 @@ export default function startListeners() {
 
 
             if (simulationArea.lastSelected && simulationArea.lastSelected.keyDown) {
-                if (e.key.toString().length == 1 || e.key.toString() == 'Backspace') {
+                if (e.key.toString().length == 1 || e.key.toString() == 'Backspace' || e.key.toString() == 'Enter') {
                     simulationArea.lastSelected.keyDown(e.key.toString());
+                    e.cancelBubble = true;
+                    e.returnValue = false;
+
+                    //e.stopPropagation works in Firefox.
+                    if (e.stopPropagation) {
+                        e.stopPropagation();
+                        e.preventDefault();
+                    }
                     return;
                 }
             }
@@ -265,7 +273,7 @@ export default function startListeners() {
         if (e.keyCode == 8 || e.key == 'Delete') {
             deleteSelected();
         }
-    });
+    }, true);
 
 
     document.getElementById('simulationArea').addEventListener('dblclick', (e) => {

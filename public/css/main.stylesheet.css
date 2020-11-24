@@ -749,7 +749,8 @@ div.icon img {
   outline: none;
 }
 
-.moduleProperty input {
+.moduleProperty input, 
+.moduleProperty textarea {
   background-color: transparent;
   margin-top: 7px;
   outline: none;
@@ -757,14 +758,15 @@ div.icon img {
   width: 100%;
 }
 
-
 .moduleProperty select,
-.moduleProperty input {
+.moduleProperty input, 
+.moduleProperty textarea {
   border-radius: 7px !important;
 }
 
 .moduleProperty input:focus,
-.moduleProperty select:focus {
+.moduleProperty select:focus, 
+.moduleProperty textarea {
   outline-width: 0;
   outline: none;
   box-shadow: none;

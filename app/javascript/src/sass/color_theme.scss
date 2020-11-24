@@ -342,7 +342,8 @@ $output-rect: blue;
   border: 1px solid var(--br-circuit-cur);
 }
 
-.moduleProperty input {
+.moduleProperty input, 
+.moduleProperty textarea {
   color: var(--text-panel);
 }
 
@@ -358,13 +359,15 @@ $output-rect: blue;
 }
 
 .moduleProperty input,
-.moduleProperty select {
+.moduleProperty select,
+.moduleProperty textarea {
   border: 1px solid var(--br-secondary) !important;
   color: var(--text-panel);
 }
 
 .moduleProperty input:focus,
-.moduleProperty select:focus {
+.moduleProperty select:focus,
+.moduleProperty textarea:focus {
   color: var(--text-panel);
   border-color: var(--br-primary) !important;
 }

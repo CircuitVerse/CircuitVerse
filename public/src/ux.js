@@ -287,7 +287,8 @@ export function showProperties(obj) {
         if (obj.changeInputSize) { $('#moduleProperty-inner').append(`<p><span>Input Size:</span> <input class='objectPropertyAttribute' type='number'  name='changeInputSize' min='2' max='10' value=${obj.inputSize}></p>`); }
         
         if (!obj.propagationDelayFixed) { $('#moduleProperty-inner').append(`<p><span>Delay:</span> <input class='objectPropertyAttribute' type='number'  name='changePropagationDelay' min='0' max='100000' value=${obj.propagationDelay}></p>`); }
-
+        
+        if (!obj.disableLabel)
         $('#moduleProperty-inner').append(`<p><span>Label:</span> <input class='objectPropertyAttribute' type='text'  name='setLabel' autocomplete='off'  value='${escapeHtml(obj.label)}'></p>`);
 
         var s;
@@ -317,6 +318,10 @@ export function showProperties(obj) {
                     $('#moduleProperty-inner').append(s);
                 } else if (obj.mutableProperties[attr].type === 'button') {
                     s = `<p class='btn-parent'><button class='objectPropertyAttribute btn custom-btn--secondary' type='button'  name='${prop.func}'>${prop.name}</button></p>`;
+                    $('#moduleProperty-inner').append(s);
+                }
+                else if (obj.mutableProperties[attr].type === 'textarea') {
+                    s = `<p><span>${prop.name}</span><textarea class='objectPropertyAttribute' type='text' autocomplete='off' rows="9" name='${prop.func}'>${obj[attr]}</textarea></p>`;
                     $('#moduleProperty-inner').append(s);
                 }
             }
