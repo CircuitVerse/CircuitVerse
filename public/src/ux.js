@@ -21,6 +21,23 @@ import { generateImage } from './data/save';
 import { setupVerilogExportCodeWindow } from './verilog';
 import { setupBitConvertor} from './utils';
 
+// script related to project title
+$(document).ready(() => {
+    // Function updates the values of project inputs accordingly
+    const watchOneInputChangeAndUpdateAnother = (objectToListen, objectToChange) => $(`${objectToListen}`).on('input', (e) => { $(`${objectToChange}`).val(e.target.value); });
+
+    // setting the name of the title bar as same as it is in the side bar
+    $('.project-name-label').append(`<input type="text" class="projectName" id="projectName" placeholder="Project Name" autocomplete='off' value='${getProjectName() || 'Untitled'}'>`) // adding input bar into the DOM simulator header
+
+    setProjectName($('#projectName').val()); // setting initial value
+    $('#projectName').on('input', () => { // setting project name on change
+        setProjectName($('#projectName').val());
+    })
+
+    watchOneInputChangeAndUpdateAnother('[name="setProjectName"]', '.projectName'); // setting the value of header title on sidebar title change
+    watchOneInputChangeAndUpdateAnother('.projectName', '[name="setProjectName"]'); // setting the value of sidebar title on header title change
+})
+
 export const uxvar = {
     smartDropXX: 50,
     smartDropYY: 80,
@@ -513,10 +530,6 @@ export function setupPanels() {
 
     // Minimize Timing Diagram (takes too much space)
     $('.timing-diagram-panel .minimize').trigger('click');
-    
-    $('#projectName').on('click', () => {
-        $("input[name='setProjectName']").focus().select();
-    });
 }
 
 function setupPanelListeners(panelSelector) {
