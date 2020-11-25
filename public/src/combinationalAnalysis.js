@@ -64,7 +64,7 @@ export function createCombinationalAnalysisPrompt(scope = globalScope) {
                     } 
                     else if (booleanInputVariables.length > 0 && inputList.length == 0 && outputList.length == 0) {
                         $(this).dialog('close');
-                        var output = booleanFunction(booleanInputVariables, booleanExpression);
+                        var output = solveBooleanFunction(booleanInputVariables, booleanExpression);
                         if(output != null) {
                             createBooleanPrompt(booleanInputVariables, booleanExpression, output, scope);
                         }
@@ -350,8 +350,7 @@ function drawCombinationalAnalysis(combinationalData, inputList, outputListNames
  * @param {Array}  inputListNames - labels for input nodes
  * @param {String} booleanExpression - boolean expression which is to be solved 
  */
-
-function booleanFunction(inputListNames, booleanExpression) {
+function solveBooleanFunction(inputListNames, booleanExpression) {
     let i;
     let j;
     let output = [];
