@@ -254,7 +254,6 @@ export default function startListeners() {
 
             // deselect all Shortcut
             if (e.keyCode == 27) {
-            $('input').blur();
                 simulationArea.multipleObjectSelections = [];
                 simulationArea.lastSelected = undefined;
                 e.preventDefault();
