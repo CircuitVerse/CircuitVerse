@@ -433,16 +433,16 @@ function booleanFunction(inputListNames, booleanExpression) {
             const safeEval = eval;
             const answer = safeEval(equation);
             if (answer == 0) {
-                return 0
+                return 0;
             }
             if (answer > 0) {
-                return 1
+                return 1;
             }    
-            return ''
+            return '';
         } catch (e) {
-            return ''
+            return '';
         }
     }
 
-    return output
+    return output;
 }
