@@ -510,7 +510,6 @@ function escapeHtml(unsafe) {
 }
 
 export function deleteSelected() {
-    $('input').blur();
     if (simulationArea.lastSelected &amp;&amp; !(simulationArea.lastSelected.objectType === 'Node' &amp;&amp; simulationArea.lastSelected.type !== 2)) {
         simulationArea.lastSelected.delete();
         hideProperties();
