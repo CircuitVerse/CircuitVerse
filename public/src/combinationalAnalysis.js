@@ -66,7 +66,7 @@ export function createCombinationalAnalysisPrompt(scope = globalScope) {
                         $(this).dialog('close');
                         var output = booleanFunction(booleanInputVariables, booleanExpression);
                         if(output != null) {
-                        createBooleanPrompt(booleanInputVariables, booleanExpression, output, scope);
+                            createBooleanPrompt(booleanInputVariables, booleanExpression, output, scope);
                         }
                     }
                     else if ((inputList.length == 0 || outputList.length == 0) && booleanInputVariables == 0) {
@@ -95,17 +95,17 @@ function createBooleanPrompt(inputListNames, outputListNames, output, scope = gl
     var outputListNames = outputListNames || (prompt('Enter outputs separated by commas').split(','));
     var outputListNamesInteger = [];
     if(output == null) {
-    for (var i = 0; i < outputListNames.length; i++) { outputListNamesInteger[i] = 7 * i + 13; }// assigning an integer to the value, 7*i + 13 is random
+        for (var i = 0; i < outputListNames.length; i++) { outputListNamesInteger[i] = 7 * i + 13; }// assigning an integer to the value, 7*i + 13 is random
     } else {
-      outputListNamesInteger = [13];
+        outputListNamesInteger = [13];
     }
     var s = '<table  class="content-table">';
     s += '<tbody style="display:block; max-height:70vh; overflow-y:scroll" >';
     s += '<tr>';
     if ($('#decimalColumnBox').is(':checked')) { s += '<th>' + 'dec' + '</th>'; }
     for (var i = 0; i < inputListNames.length; i++) { s += `<th>${inputListNames[i]}</th>`; }
-   if(output == null) { for (var i = 0; i < outputListNames.length; i++) { s += `<th>${outputListNames[i]}</th>`; } }
-   else { s += `<th>${outputListNames}</th>`; }
+    if (output == null) { for (var i = 0; i < outputListNames.length; i++) { s += `<th>${outputListNames[i]}</th>`; } }
+    else { s += `<th>${outputListNames}</th>`; }
     s += '</tr>';
 
     var matrix = [];
@@ -126,13 +126,13 @@ function createBooleanPrompt(inputListNames, outputListNames, output, scope = gl
             s += `<td>${matrix[i][j]}</td>`;
         }
         for (var i = 0; i < outputListNamesInteger.length; i++) {
-            if(output == null) {
-            s += `<td class ="output ${outputListNamesInteger[i]}" id="${j}">` + 'x' + '</td>';
+            if (output == null) {
+                s += `<td class ="output ${outputListNamesInteger[i]}" id="${j}">` + 'x' + '</td>';
             // using hash values as they'll be used in the generateBooleanTableData function
             }
         }
-        if(output != null) {
-          s += `<td class="${outputListNamesInteger[0]}" id="${j}">` + `${output[j]}` + '</td>';
+        if (output != null) {
+            s += `<td class="${outputListNamesInteger[0]}" id="${j}">` + `${output[j]}` + '</td>';
         }
         s += '</tr>';
     }
@@ -141,7 +141,7 @@ function createBooleanPrompt(inputListNames, outputListNames, output, scope = gl
     $('#combinationalAnalysis').empty();
     $('#combinationalAnalysis').append(s);
     $('#combinationalAnalysis').dialog({
-        resizable:false,
+        resizable: false,
         width: 'auto',
         buttons: [
             {
@@ -173,11 +173,11 @@ function createBooleanPrompt(inputListNames, outputListNames, output, scope = gl
                             minimizedCircuit.push(temp.result);
                         }
                     }
-                    if(output == null) {
-                    drawCombinationalAnalysis(minimizedCircuit, inputListNames, outputListNames, scope);
+                    if (output == null) {
+                        drawCombinationalAnalysis(minimizedCircuit, inputListNames, outputListNames, scope);
                     }
                     else {
-                    drawCombinationalAnalysis(minimizedCircuit, inputListNames, [`${outputListNames}`], scope);
+                        drawCombinationalAnalysis(minimizedCircuit, inputListNames, [`${outputListNames}`], scope);
                     }
                 },
             },
@@ -384,8 +384,8 @@ function booleanFunction(inputListNames, booleanExpression) {
         }
     }
     // generate equivalent expression by replacing input vars with possible combinations of o and 1
-    for (i = 0; i < Math.pow(2, inputListNames.length); i++) {
-        let data = [];
+    for (i = 0; i < (2 ** inputListNames.length); i++) {
+        const data = [];
         for (j = 0; j < inputListNames.length; j++) {
             data[j] = Math.floor(i / Math.pow(2, inputListNames.length - j - 1)) % 2;
         }
@@ -413,32 +413,36 @@ function booleanFunction(inputListNames, booleanExpression) {
     // generates solution for the truth table of booleanexpression
     function solve(equation) {
         while (equation.indexOf("(") != -1) {
-            let start = equation.lastIndexOf("(");
-            let end = equation.indexOf(")", start);
+            const start = equation.lastIndexOf("(");
+            const end = equation.indexOf(")", start);
             if (start != -1) {
                 equation = equation.substring(0, start)
-                    + solve(equation.substring(start + 1, end))
-                    + equation.substring(end + 1);
+                + solve(equation.substring(start + 1, end))
+                + equation.substring(end + 1);
             }       
         }
         equation = equation.replace(/''/g, '');
         equation = equation.replace(/0'/g, '1');
         equation = equation.replace(/1'/g, '0');
-        for (let i = 0; i < equation.length - 1; i++)
-            if ((equation[i] == '0' || equation[i] == '1') && (equation[i + 1] == '0' || equation[i + 1] == '1'))
+        for (let i = 0; i < equation.length - 1; i++) {
+            if ((equation[i] == '0' || equation[i] == '1') && (equation[i + 1] == '0' || equation[i + 1] == '1')) {
                 equation = equation.substring(0, i + 1) + '*' + equation.substring(i + 1, equation.length);
+            }
+        }        
         try {
-            let safeEval = eval;
-            let answer = safeEval(equation);
-            if (answer == 0)
-                return 0;
-            if (answer > 0)
-                return 1;
-            return '';
+            const safeEval = eval;
+            const answer = safeEval(equation);
+            if (answer == 0) {
+                return 0
+            }
+            if (answer > 0) {
+                return 1
+            }    
+            return ''
         } catch (e) {
-            return '';
+            return ''
         }
     }
 
-    return output;
+    return output
 }
