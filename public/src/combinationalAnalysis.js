@@ -62,14 +62,14 @@ export function createCombinationalAnalysisPrompt(scope = globalScope) {
                         $(this).dialog('close');
                         createBooleanPrompt(inputList, outputList, null, scope);
                     } 
-                    else if (booleanInputVariables.length > 0 && inputList.length == 0 && outputList.length == 0){
+                    else if (booleanInputVariables.length > 0 && inputList.length == 0 && outputList.length == 0) {
                         $(this).dialog('close');
                         var output = booleanFunction(booleanInputVariables, booleanExpression);
                         if(output != null) {
                         createBooleanPrompt(booleanInputVariables, booleanExpression, output, scope);
                         }
                     }
-                    else if (( inputList.length == 0 || outputList.length == 0 ) && booleanInputVariables == 0) {
+                    else if ((inputList.length == 0 || outputList.length == 0) && booleanInputVariables == 0) {
                         alert('Enter Input / Output Variable(s) OR Boolean Function!');
                     }
                     else {
@@ -347,11 +347,13 @@ function drawCombinationalAnalysis(combinationalData, inputList, outputListNames
  * This function solves passed boolean expression and returns
  * output array which contains solution of the truth table
  * of given boolean expression
+ * @param {Array}  inputListNames - labels for input nodes
  * @param {String} booleanExpression - boolean expression which is to be solved 
  */
 
 function booleanFunction(inputListNames, booleanExpression) {
-    let i, j;
+    let i;
+    let j;
     let output = [];
 
     if (booleanExpression.match(/[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01+'() ]/g) != null) {
@@ -381,7 +383,7 @@ function booleanFunction(inputListNames, booleanExpression) {
             matrix[i][j] = (+((j & (1 << (inputListNames.length - i - 1))) != 0));
         }
     }
-    //generate equivalent expression by replacing input vars with possible combinations of o and 1
+    // generate equivalent expression by replacing input vars with possible combinations of o and 1
     for (i = 0; i < Math.pow(2, inputListNames.length); i++) {
         let data = [];
         for (j = 0; j < inputListNames.length; j++) {
@@ -408,15 +410,16 @@ function booleanFunction(inputListNames, booleanExpression) {
 
     s += '</tbody>';
     s += '</table>';
-    //generates solution for the truth table of booleanexpression
+    // generates solution for the truth table of booleanexpression
     function solve(equation) {
         while (equation.indexOf("(") != -1) {
             let start = equation.lastIndexOf("(");
             let end = equation.indexOf(")", start);
-            if (start != -1)
+            if (start != -1) {
                 equation = equation.substring(0, start)
                     + solve(equation.substring(start + 1, end))
                     + equation.substring(end + 1);
+            }       
         }
         equation = equation.replace(/''/g, '');
         equation = equation.replace(/0'/g, '1');
