@@ -3417,10 +3417,13 @@ expand-tilde@^2.0.0, expand-tilde@^2.0.2:
   dependencies:
     homedir-polyfill "^1.0.1"
 
-expose-loader@^0.7.5:
-  version "0.7.5"
-  resolved "https://registry.yarnpkg.com/expose-loader/-/expose-loader-0.7.5.tgz#e29ea2d9aeeed3254a3faa1b35f502db9f9c3f6f"
-  integrity sha512-iPowgKUZkTPX5PznYsmifVj9Bob0w2wTHVkt/eYNPSzyebkUgIedmskf/kcfEIWpiWjg3JRjnW+a17XypySMuw==
+expose-loader@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/expose-loader/-/expose-loader-1.0.2.tgz#cc7eff961373fdc25f07ba07ed02cee9f0a74339"
+  integrity sha512-XYXIQ61XzyqUYNWt0ET/Nl8vdYZwgdZND3DKbiZrfHYr6VbnllTxMBTH+hK0Mk8pwNQVx+sfjeTixvvyXBo6jg==
+  dependencies:
+    loader-utils "^2.0.0"
+    schema-utils "^3.0.0"
 
 express@^4.17.1:
   version "4.17.1"
