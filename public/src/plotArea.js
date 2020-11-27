@@ -404,14 +404,14 @@ export function setupTimingListeners() {
         plotArea.resize();
     })
     $('.timing-diagram-small-height').on('click', () => {
-        if(plotHeight > 20) {
-            plotHeight -= 10;
+        if(plotHeight >= sh(20)) {
+            plotHeight -= sh(5);
             waveFormHeight = plotHeight - 2 * waveFormPadding;
         }
     })
     $('.timing-diagram-large-height').on('click', () => {
-        if(plotHeight < 100) {
-            plotHeight += 10;
+        if(plotHeight < sh(50)) {
+            plotHeight += sh(5);
             waveFormHeight = plotHeight - 2 * waveFormPadding;
         }
     })
