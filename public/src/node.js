@@ -8,7 +8,6 @@ import {
     canvasMessageData,
 } from './engine';
 import Wire from './wire';
-import { createNodeGet, createNodeSet, stopWireSet } from './listeners';
 // import { colors } from './themer/themer';
 import { colors } from './themer/themer';
 
@@ -510,7 +509,7 @@ export default class Node {
         if (this == simulationArea.hover) simulationArea.hover = undefined;
         this.hover = this.isHover();
 
-        if (createNodeGet()) {
+        if (!simulationArea.mouseDown) {
             if (this.absX() != this.prevx || this.absY() != this.prevy) { // Connect to any node
                 this.prevx = this.absX();
                 this.prevy = this.absY();
@@ -522,7 +521,7 @@ export default class Node {
             simulationArea.hover = this;
         }
 
-        if (createNodeGet() && ((this.hover && !simulationArea.selected) || simulationArea.lastSelected == this)) {
+        if (simulationArea.mouseDown && ((this.hover && !simulationArea.selected) || simulationArea.lastSelected == this)) {
             simulationArea.selected = true;
             simulationArea.lastSelected = this;
             this.clicked = true;
@@ -633,7 +632,6 @@ export default class Node {
                 for (var i = 0; i < this.parent.scope.allNodes.length; i++) {
                     if (x1 == this.parent.scope.allNodes[i].absX() && y1 == this.parent.scope.allNodes[i].absY()) {
                         n1 = this.parent.scope.allNodes[i];
-                        stopWireSet(true);
                         break;
                     }
                 }
@@ -653,8 +651,6 @@ export default class Node {
             for (var i = 0; i < this.parent.scope.allNodes.length; i++) {
                 if (x2 == this.parent.scope.allNodes[i].absX() && y2 == this.parent.scope.allNodes[i].absY()) {
                     n2 = this.parent.scope.allNodes[i];
-                    stopWireSet(true);
-                    createNodeSet(false);
                     break;
                 }
             }
@@ -673,7 +669,7 @@ export default class Node {
             if (simulationArea.lastSelected == this) simulationArea.lastSelected = n2;
         }
 
-        if (this.type == 2 && !createNodeGet()) {
+        if (this.type == 2 && simulationArea.mouseDown == false) {
             if (this.connections.length == 2) {
                 if ((this.connections[0].absX() == this.connections[1].absX()) || (this.connections[0].absY() == this.connections[1].absY())) {
                     this.connections[0].connect(this.connections[1]);

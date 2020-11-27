@@ -21,19 +21,6 @@ import { verilogModeGet } from './Verilog2CV';
 import { setupTimingListeners } from './plotArea';
 
 var unit = 10;
-var createNode = false; // Flag to create node when its value ==tru)e
-export function createNodeSet(param) {
-    createNode = param;
-}
-export function createNodeGet(param) {
-    return createNode;
-}
-
-var stopWire = true; // flag for stopoing making Nodes when the second terminal reaches a Node (closed path)
-export function stopWireSet(param) {
-    stopWire = param;
-}
-
 
 export default function startListeners() {
     $('#deleteSelected').on('click',() => {
@@ -64,8 +51,6 @@ export default function startListeners() {
     });
 
     document.getElementById('simulationArea').addEventListener('mousedown', (e) => {
-        createNodeSet(true);
-        stopWireSet(false);
         simulationArea.mouseDown = true;
 
         // Deselect Input
@@ -162,15 +147,9 @@ export default function startListeners() {
             updatePositionSet(true);
             simulationArea.shiftDown = e.shiftKey;
 
-            //  stop making wires when we connect the 2nd termial to a node
-            if (stopWire) {
-                createNodeSet(false);
-            }
-
             if (e.key == 'Meta' || e.key == 'Control') {
                 simulationArea.controlDown = true;
             }
-
 
             // zoom in (+)
             if ((simulationArea.controlDown && (e.keyCode == 187 || e.keyCode == 171)) || e.keyCode == 107) {
@@ -495,7 +474,6 @@ function onMouseMove(e) {
 }
 
 function onMouseUp(e) {
-    createNodeSet(simulationArea.controlDown);
     simulationArea.mouseDown = false;
     if (!lightMode) {
         updatelastMinimapShown();
