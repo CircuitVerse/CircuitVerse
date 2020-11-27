@@ -10,7 +10,7 @@ import {
 } from './engine';
 import simulationArea from './simulationArea';
 import logixFunction from './data';
-import { newCircuit, circuitProperty } from './circuit';
+import { newCircuit, circuitProperty, switchCircuit } from './circuit';
 import modules from './modules';
 import { updateRestrictedElementsInScope } from './restrictedElementDiv';
 import { paste } from './events';
@@ -512,6 +512,7 @@ export function setupPanels() {
     $('#projectName').on('click', () => {
         $("input[name='setProjectName']").focus().select();
     });
+
 }
 
 function setupPanelListeners(panelSelector) {
@@ -646,4 +647,68 @@ async function postUserIssue(message) {
             $('#result').html("<i class='fa fa-check' style='color:red'></i> There seems to be a network issue. Please reach out to us at support@ciruitverse.org");
         }
     });
+}
+
+export function tabsOnDrag(eve, el) {
+    var els = document.getElementsByClassName('circuits');
+    var newpos = -1;
+    var oldpos = -1;
+    var tmp = [];
+    for (let i = 0; i < els.length; ++i) {
+        if (els[i].id === el.id) {
+            oldpos = i;
+        }
+        var x = els[i].getBoundingClientRect();
+        if (x.left + x.width / 2 < eve.pageX) {
+            newpos = i;
+        }
+        tmp.push(els[i]);
+    }
+    if (newpos === -1) return;
+
+    if (newpos > oldpos) {
+        for (let i = oldpos; i < newpos; ++i) {
+            tmp[i] = tmp[i + 1];
+        }
+        tmp[newpos] = el;
+    }
+
+    if (oldpos > newpos) {
+        for (let i = oldpos; i > newpos; --i) {
+            tmp[i] = tmp[i - 1];
+        }
+        tmp[newpos] = el;
+    }
+
+    if (tmp.length !== els.length) return;
+
+    var tabBar = document.getElementById('tabsBar');
+    tabBar.innerHTML = '';
+    for (let i = 0; i < tmp.length; ++i) {
+        tabBar.appendChild(tmp[i]);
+    }
+    tabBar.innerHTML += '<button class="logixButton" id="newCircuit" onclick="">+</button>';
+
+    // rebind event handlers
+    $('.circuits').on('drag', (event) => {
+        tabsOnDrag(event, event.target);
+    })
+
+    $('.circuits').on('click',function () {
+        switchCircuit(this.id);
+    });
+
+    $('.circuits').on('dragstart',function () {
+        $('.circuits').removeClass('h');
+    });
+
+    $('.circuits').on('dragend',function () {
+        $('.circuits').addClass('h');
+    });
+
+    $('.logixButton').off('click');
+    $('.logixButton').on('click',function () {
+        logixFunction[this.id]();
+    });
+
 }
