@@ -337,6 +337,7 @@ export default class SubCircuit extends CircuitElement {
     buildCircuit() {
         var subcircuitScope = scopeList[this.id];
         loadScope(this.localScope, this.data);
+        this.localScope.name = this.data.name;
         this.lastUpdated = this.localScope.timeStamp;
         updateSimulationSet(true);
         updateCanvasSet(true);
@@ -384,7 +385,7 @@ export default class SubCircuit extends CircuitElement {
      */
     reBuildCircuit() {
         this.data = JSON.parse(scheduleBackup(scopeList[this.id]));
-        this.localScope = new Scope();
+        this.localScope = new Scope(data.name);
         loadScope(this.localScope, this.data);
         this.lastUpdated = this.localScope.timeStamp;
         this.scope.timeStamp = this.localScope.timeStamp;
