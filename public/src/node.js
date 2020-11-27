@@ -379,11 +379,15 @@ export default class Node {
             const node = this.connections[i];
 
             if (node.value != this.value || node.bitWidth != this.bitWidth) {
-                if (node.type == 1 && node.value != undefined && node.parent.objectType != 'TriState' && !(node.subcircuitOverride && node.scope != this.scope)) {
+                if (node.type == 1 && node.value != undefined 
+                    && node.parent.objectType != 'TriState' 
+                    && !(node.subcircuitOverride && node.scope != this.scope) // Subcircuit Input Node Output Override
+                    && node.parent.objectType != 'SubCircuit') { // Subcircuit Output Node Override
                     this.highlighted = true;
                     node.highlighted = true;
-
-                    showError(`Contention Error: ${this.value} and ${node.value}`);
+                    var circuitName = node.scope.name;
+                    var circuitElementName = node.parent.objectType;
+                    showError(`Contention Error: ${this.value} and ${node.value} at ${circuitElementName} in ${circuitName}`);
                 } else if (node.bitWidth == this.bitWidth || node.type == 2) {
                     if (node.parent.objectType == 'TriState' && node.value != undefined && node.type == 1) {
                         if (node.parent.state.value) { simulationArea.contentionPending.push(node.parent); }
