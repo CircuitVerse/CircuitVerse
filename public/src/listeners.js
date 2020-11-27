@@ -56,13 +56,6 @@ export default function startListeners() {
         fullView();
     });
 
-    $('#projectName').on('click',() => {
-        simulationArea.lastSelected = globalScope.root;
-        setTimeout(() => {
-            document.getElementById("projname").select();
-        }, 100);
-    });
-
     document.getElementById('simulationArea').addEventListener('mousedown', (e) => {
         createNodeSet(true);
         stopWireSet(false);
