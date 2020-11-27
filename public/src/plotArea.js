@@ -19,7 +19,7 @@ function sh(x) {
 var frameInterval = 100; // Refresh rate
 var timeLineHeight = sh(20);
 var padding = sh(2);
-var plotHeight = sh(20);
+var plotHeight = sh(20); // change this
 var waveFormPadding = sh(5);
 var waveFormHeight = plotHeight - 2 * waveFormPadding;
 var flagLabelWidth = sh(75);
@@ -402,6 +402,18 @@ export function setupTimingListeners() {
     $('.timing-diagram-larger').on('click', () => {
         $('#plot').width($('#plot').width() + 20)
         plotArea.resize();
+    })
+    $('.timing-diagram-small-height').on('click', () => {
+        if(plotHeight > 20) {
+            plotHeight -= 10;
+            waveFormHeight = plotHeight - 2 * waveFormPadding;
+        }
+    })
+    $('.timing-diagram-large-height').on('click', () => {
+        if(plotHeight < 100) {
+            plotHeight += 10;
+            waveFormHeight = plotHeight - 2 * waveFormPadding;
+        }
     })
     $('.timing-diagram-reset').on('click', () => {
         plotArea.reset();
