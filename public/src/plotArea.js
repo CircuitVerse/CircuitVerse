@@ -19,7 +19,7 @@ function sh(x) {
 var frameInterval = 100; // Refresh rate
 var timeLineHeight = sh(20);
 var padding = sh(2);
-var plotHeight = sh(20); // change this
+var plotHeight = sh(20);
 var waveFormPadding = sh(5);
 var waveFormHeight = plotHeight - 2 * waveFormPadding;
 var flagLabelWidth = sh(75);
