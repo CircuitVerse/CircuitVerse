@@ -56,7 +56,7 @@ export default updateThemeForStyle;
  * Theme Preview Card SVG
  * Sets the SVG colors according to theme
  * @param {string} themeName Name of theme
- * @returns {SVG Text}
+ * @returns {SVG}
  */
 const getThemeCardSvg = (themeName) => {
   const colors = themeOptions[themeName];

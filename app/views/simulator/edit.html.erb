@@ -43,6 +43,7 @@
            <li><a class="dropdown-item logixButton text-left pl-1" id="clearProject">Clear Project</a></li>
           <li><a class="dropdown-item logixButton text-left pl-1" id="recoverProject">Recover Project</a></li>
           <li><a class="dropdown-item logixButton text-left pl-1" id="fullViewOption">Preview Circuit</a></li>
+          <li><a class="dropdown-item logixButton text-left pl-1" onclick="old_ui_redirect()">View Previous UI</a></li>
         </ul>
       </li>
       <li class="dropdown nav-dropdown">
@@ -149,7 +150,6 @@
       </div>
       
     </div>
-
     <ul class="nav navbar-nav noSelect pointerCursor pull-right account-btn">
       <li class="dropdown pull-right">
         <% if user_signed_in? %>
@@ -648,4 +648,8 @@ $(".download-dialog-section-2_2").checkBo();
 $('.Layout-btn').ripple({
 duration: 500
 });
+
+function old_ui_redirect() {
+  window.location.href = window.location.href.replace("/simulator", "/simulator_old")
+}
 </script>

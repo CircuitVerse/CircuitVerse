@@ -171,6 +171,8 @@ export default class RAM extends CircuitElement {
             console.group(this.label);
         }
 
+        console.log(this.data);
+
         if (logLabel) {
             console.groupEnd();
         }

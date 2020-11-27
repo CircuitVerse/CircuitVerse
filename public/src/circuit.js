@@ -74,13 +74,13 @@ export function switchCircuit(id) {
     simulationArea.lastSelected = globalScope.root;
     if (!embed) {
         showProperties(simulationArea.lastSelected);
+        plotArea.reset();
     }
     updateCanvasSet(true);
     scheduleUpdate();
 
     // to update the restricted elements information
     updateRestrictedElementsList();
-    plotArea.reset();
 }
 
 /**

@@ -208,7 +208,13 @@ export default class Splitter extends CircuitElement {
         ctx.beginPath();
         ctx.fillStyle = colors['text'];
         for (let i = this.splitCount - 1; i >= 0; i--) {
-            fillText2(ctx, `${bitCount}:${bitCount + this.bitWidthSplit[this.splitCount - i - 1] - 1}`, 12, -20 * i + this.yOffset + 10, xx, yy, this.direction);
+            var splitLabel;
+            if (this.bitWidthSplit[this.splitCount - i - 1] == 1)
+                splitLabel = `${bitCount}`;
+            else 
+                splitLabel = `${bitCount}:${bitCount + this.bitWidthSplit[this.splitCount - i - 1] - 1}`;
+
+            fillText2(ctx, splitLabel, 16, -20 * i + this.yOffset + 10, xx, yy, this.direction);
             bitCount += this.bitWidthSplit[this.splitCount - i - 1];
         }
         ctx.fill();

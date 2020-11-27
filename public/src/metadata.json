@@ -154,29 +154,29 @@
             "verilogRAM",
             "EEPROM"
         ],
-        "Test Bench": [
-            "TB_Input",
-            "TB_Output",
-            "ForceGate"
+        "Annotation": [
+            "Rectangle",
+            "Arrow",
+            "ImageAnnotation",
+            "Text"
         ],
         "Misc": [
             "Flag",
             "Splitter",
             "Adder",
+            "ALU",
+            "TriState",
+            "Tunnel",
             "verilogMultiplier",
             "verilogDivider",
             "verilogPower",
             "verilogShiftLeft",
             "verilogShiftRight",
-            "TriState",
             "Buffer",
             "ControlledInverter",
-            "ALU",
-            "Rectangle",
-            "Arrow",
-            "ImageAnnotation",
-            "Text",
-            "Tunnel"
+            "TB_Input",
+            "TB_Output",
+            "ForceGate"
         ]
     }
 }

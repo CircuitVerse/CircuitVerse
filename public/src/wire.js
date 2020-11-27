@@ -50,6 +50,13 @@ export default class Wire {
         return check;
     }
 
+    dblclick() {
+        if(this.node1.parent == globalScope.root && this.node2.parent == globalScope.root) {
+            simulationArea.multipleObjectSelections = [this.node1, this.node2];
+            simulationArea.lastSelected = undefined;
+        }
+    }
+
     update() {
         var updated = false;
         if (embed) return updated;
@@ -68,10 +75,7 @@ export default class Wire {
         // } // SLOW , REMOVE
         if (simulationArea.shiftDown === false && simulationArea.mouseDown === true && simulationArea.selected === false && this.checkWithin(simulationArea.mouseDownX, simulationArea.mouseDownY)) {
             simulationArea.selected = true;
-
-
             simulationArea.lastSelected = this;
-
             updated = true;
         } else if (simulationArea.mouseDown && simulationArea.lastSelected === this && !this.checkWithin(simulationArea.mouseX, simulationArea.mouseY)) {
             var n = new Node(simulationArea.mouseDownX, simulationArea.mouseDownY, 2, this.scope.root);
