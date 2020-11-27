@@ -37,10 +37,11 @@ class GradesController < ApplicationController
   end
 
   def to_csv
+    assignment_id = params[:assignment_id].to_i
     respond_to do |format|
       format.csv do
-        send_data Grade.to_csv(params[:assignment_id].to_i),
-                  filename: "assignment-grades.csv"
+        send_data Grade.to_csv(assignment_id),
+                  filename: "#{Assignment.find(assignment_id).name} grades.csv"
       end
     end
   end
