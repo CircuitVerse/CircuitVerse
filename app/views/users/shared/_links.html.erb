@@ -1,31 +1,31 @@
 <div class="field form-group users-shared">
   <div class="input-group">
     <div class="row center-row users-shared-row">
-      <h6 class="users-shared-row">or</h6>
+      <h6 class="users-shared-row">Log In With</h6>
     </div>
-    <div class="row center-row auth-btns-container">
+    <div class="row center-row users-social-btns-container">
       <a href="/users/auth/google_oauth2">
-        <div class="google-btn auth-btn">
-          <div class="google-icon-wrapper auth-icon-wrapper">
-            <img class="google-icon auth-icon" alt="Google Icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
+        <div class="users-google-btn users-social-btn">
+          <div class="users-google-icon-wrapper users-social-btn-icon-wrapper">
+            <%= image_tag "SVGs/google.svg", class: "users-google-icon users-social-btn-icon", alt: "Google Icon" %>
           </div>
-          <p class="btn-text"><b>Sign in with Google</b></p>
+          <p class="users-btn-text"><b>Sign in with Google</b></p>
         </div>
       </a>
       <a href="/users/auth/facebook">
-        <div class="facebook-btn auth-btn">
-          <div class="facebook-icon-wrapper auth-icon-wrapper">
-            <img class="facebook-icon auth-icon" alt="Facebook Icon" src="https://upload.wikimedia.org/wikipedia/commons/c/c2/F_icon.svg"/>
+        <div class="users-facebook-btn users-social-btn">
+          <div class="users-facebook-icon-wrapper users-social-btn-icon-wrapper">
+            <%= image_tag "SVGs/facebook.svg", class: "users-google-icon users-social-btn-icon", alt: "Facebook Icon" %>
           </div>
-          <p class="btn-text"><b>Sign in with Facebook</b></p>
+          <p class="users-btn-text"><b>Sign in with Facebook</b></p>
         </div>
       </a>
       <a href="/users/auth/github">
-        <div class="github-btn auth-btn">
-          <div class="github-icon-wrapper auth-icon-wrapper">
-            <img class="github-icon auth-icon" alt="GitHub Icon" src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg"/>
+        <div class="users-github-btn users-social-btn">
+          <div class="users-github-icon-wrapper users-social-btn-icon-wrapper">
+            <%= image_tag "SVGs/github.svg", class: "users-github-icon users-social-btn-icon", alt: "GitHub Icon" %>
           </div>
-          <p class="btn-text"><b>Sign in with GitHub</b></p>
+          <p class="users-btn-text"><b>Sign in with GitHub</b></p>
         </div>
       </a>
     </div>

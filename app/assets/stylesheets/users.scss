@@ -1,14 +1,9 @@
-$white: #fff;
-$google-blue: #4285f4;
-$button-active-blue: #1669f2;
-$button-active-darkblue: #3a5999;
-$button-active-black: rgb(31, 30, 30);
-$facebook-blue: #4267b2;
-$github-black: #333;
-$auth-btn-shadow: rgba(0, 0, 0, .25);
-
-// roboto font family for Google
-@import url(https://fonts.googleapis.com/css?family=Roboto:500);
+@font-face {
+  font-family: 'Roboto';
+  src: font-url('Roboto.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 
 //passwords
 .users-image {
@@ -88,20 +83,20 @@ $auth-btn-shadow: rgba(0, 0, 0, .25);
 }
 
 
-.auth-btns-container {
+.users-social-btns-container {
   display: flex;
   flex-wrap: wrap;
   height: 120px;
 }
 
 // sign in button styles
-.auth-btn {
+.users-social-btn {
   border-radius: 2px;
-  box-shadow: 0 3px 4px 0 $auth-btn-shadow;
+  box-shadow: 0 3px 4px 0 $shadow-black;
   height: 42px;
   width: 190px;
 
-  .auth-icon-wrapper {
+  .users-social-btn-icon-wrapper {
     align-items: center;
     background-color: $white;
     border-radius: 2px;
@@ -114,12 +109,12 @@ $auth-btn-shadow: rgba(0, 0, 0, .25);
     width: 40px;
   }
 
-  .auth-icon {
+  .users-social-btn-icon {
     height: 18px;
     width: 18px;
   }
 
-  .btn-text {
+  .users-btn-text {
     color: $white;
     float: right;
     font-family: 'Roboto';
@@ -129,7 +124,7 @@ $auth-btn-shadow: rgba(0, 0, 0, .25);
   }
 }
 // google sign in button styles
-.google-btn {
+.users-google-btn {
   background-color: $google-blue;
 
   &:hover {
@@ -142,7 +137,7 @@ $auth-btn-shadow: rgba(0, 0, 0, .25);
 }
 
 // facebook sign in
-.facebook-btn {
+.users-facebook-btn {
   background-color: $facebook-blue;
   margin-left: 20px;
   width: 210px;
@@ -157,7 +152,7 @@ $auth-btn-shadow: rgba(0, 0, 0, .25);
 }
 
 // github sign in
-.github-btn {
+.users-github-btn {
   background-color: $github-black;
 
   &:hover {
@@ -387,14 +382,15 @@ $auth-btn-shadow: rgba(0, 0, 0, .25);
 }
 
 @media (max-width: 1024px) {
-  .auth-btns-container {
+  .users-social-btns-container {
     flex-direction: column;
     flex-wrap: nowrap;
     height: 140px;
+    align-items: center;
     justify-content: space-between;
   }
 
-  .facebook-btn {
+  .users-facebook-btn {
     margin-left: 0;
   }
 }
