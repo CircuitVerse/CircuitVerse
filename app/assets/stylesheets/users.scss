@@ -383,10 +383,10 @@
 
 @media (max-width: 1024px) {
   .users-social-btns-container {
+    align-items: center;
     flex-direction: column;
     flex-wrap: nowrap;
     height: 140px;
-    align-items: center;
     justify-content: space-between;
   }
 
