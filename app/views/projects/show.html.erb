@@ -140,36 +140,41 @@
     <% if collaborators.count!=0 %>
       <div class="row center-row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-          <div class="row center-row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 projects-collaborators-heading">
-              <div class="">
-                Collaborators
+          <div class="projects-collaborators-container">
+            <div class="row center-row">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 projects-collaborators-heading">
+                <div class="">
+                  Collaborators
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <% end %>
-      <% @project.collaborators.each do |user| %>
-        <div class="projects-collaborators-data-and-hr-container">
-          <div class="projects-collaborators-data-container">
-            <div class="projectshow-collaborators-userdata">
-              <%= link_to user.name, user, class: "anchor-text" %>
-            </div>
-            <% if policy(@project).author_access? %>
-              <div class="projects-collaborators-data">
-                <%= user.email %>
-              </div>
-              <div class="projects-collaborators-button-container">
-                <%= link_to "#", data: {toggle: "modal", target: "#deletecollaborationModal", currentcollaboration: Collaboration.find_by(user_id:user.id, project_id:@project.id).id }, class: "btn primary-delete-button" do %>
-                  <%= image_tag("SVGs/deleteGroup.svg", alt: "Delete Collaboration") %>
-                  <span>Remove</span>
+            <% @project.collaborators.each do |user| %>
+              <div class="row center-row">
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                  <div class="projectshow-collaborators-userdata">
+                    <%= link_to user.name, user, class: "anchor-text" %>
+                  </div>
+                </div>
+                <% if policy(@project).author_access? %>
+                  <div class="col-xs-8 col-sm-8 col-md-5 col-lg-5">
+                    <div class="projects-collaborators-data">
+                      <%= user.email %>
+                    </div>
+                  </div>
+                  <div class="col-xs-4 col-sm-4 col-md-3 col-lg-3">
+                    <div class="projects-collaborators-button-container">
+                      <%= link_to "#", data: {toggle: "modal", target: "#deletecollaborationModal", currentcollaboration: Collaboration.find_by(user_id:user.id, project_id:@project.id).id }, class: "btn primary-delete-button" do %>
+                        <%= image_tag("SVGs/deleteGroup.svg", alt: "Delete Collaboration") %>
+                        <span>Remove</span>
+                      <% end %>
+                    </div>
+                  </div>
                 <% end %>
+                <hr class="projects-collaborators-horizontal-rule">
               </div>
-            <% end %>
           </div>
-          <hr class="projects-collaborators-horizontal-rule">
         </div>
+      <% end %>
     <% end %>
 
     <%= render partial: "add_collaborator_modal" %>

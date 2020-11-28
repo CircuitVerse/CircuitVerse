@@ -172,24 +172,10 @@
   padding: 10px;
 }
 
-.projects-collaborators-data-and-hr-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.projects-collaborators-data-container {
-  align-items: center;
-  display: flex;
-  justify-content: space-around;
-  width: 100%;
-}
-
 .projects-collaborators-data {
   overflow: hidden;
   padding: 5px 15px;
-  text-align: center;
+  text-align: left;
   text-overflow: ellipsis;
 }
 
@@ -215,9 +201,4 @@
   }
 }
 
-@media only screen and (max-width: 425px) {
-  .projects-collaborators-data-container {
-    flex-direction: column;
-  }
-}
 //project details ends
