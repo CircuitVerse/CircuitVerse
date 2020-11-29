@@ -8,7 +8,7 @@ import {
 } from './engine';
 import { changeScale } from './canvasApi';
 import { scheduleBackup } from './data/backupCircuit';
-import { hideProperties, deleteSelected, uxvar, fullView, tabsOnDrag, tabsOnStart, tabsOnDragEnd } from './ux';
+import { hideProperties, deleteSelected, uxvar, fullView } from './ux';
 import {
     updateRestrictedElementsList, updateRestrictedElementsInScope, hideRestricted, showRestricted,
 } from './restrictedElementDiv';
@@ -49,15 +49,12 @@ export default function startListeners() {
             document.getElementById("projname").select();
         }, 100);
     });
-
-    $('.circuits').on('drag', (event) => {
-        tabsOnDrag(event, event.target);
-    })
-
-    // $('#tabsBar').on('dragover', (event) => {
-    //     event.preventDefault();
-    // })
-
+    /* Makes tabs reordering possible by making them sortable */
+    $("#tabsBar").sortable({
+        containment: 'parent',
+        items: '> div',
+        revert: false,
+    });
 
     document.getElementById('simulationArea').addEventListener('mousedown', (e) => {
         simulationArea.mouseDown = true;
