@@ -611,25 +611,38 @@ div.icon img {
     background-color: transparent !important;
 }
 
-#tabsBar div {
+#tabsBar .placeholder {
   justify-content: space-between;
-  border-radius: 1px;
+  padding: 1px;
   display: inline-block; 
   margin: 2px;
+  text-align: center;
   /* min-width: 110px; */
   font-size: 14px;
   transition: all 0.2s ease-in-out;
 }
 
-#tabsBar div > span {
+.placeholder::before {
   display: inline-block;
   padding: 2px 5px;
+  content: "|"
 }
 
 #tabsBar .circuits {
-  text-align: center;
-  padding: 1px;
+  justify-content: space-between;
   border-radius: 3px;
+  padding: 1px;
+  display: inline-block; 
+  margin: 2px;
+  text-align: center;
+  /* min-width: 110px; */
+  font-size: 14px;
+  transition: all 0.2s ease-in-out;
+}
+
+#tabsBar .circuits > span {
+  display: inline-block;
+  padding: 2px 5px;
 }
 
 .circuitName{

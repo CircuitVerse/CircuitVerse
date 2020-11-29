@@ -924,10 +924,6 @@ div.icon img {
     animation-delay: 0.9s;
 }
 
-.placeholder {
-    visibility: visible;
-}
-
 @-webkit-keyframes sk-foldCubeAngle {
     0%,
     10% {
