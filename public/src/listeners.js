@@ -311,7 +311,7 @@ export default function startListeners() {
 
             // Updated restricted elements
             updateRestrictedElementsInScope();
-
+            localStorage.setItem('clipboardData', textToPutOnClipboard);
             e.preventDefault();
             if (textToPutOnClipboard == undefined) return;
             if (isIe) {
@@ -337,7 +337,7 @@ export default function startListeners() {
 
             // Updated restricted elements
             updateRestrictedElementsInScope();
-
+            localStorage.setItem('clipboardData', textToPutOnClipboard);
             e.preventDefault();
             if (textToPutOnClipboard == undefined) return;
             if (isIe) {
