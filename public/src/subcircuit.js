@@ -131,8 +131,7 @@ export default class SubCircuit extends CircuitElement {
         // Error handling, cleanup
         if (
             subcircuitScope == undefined ||
-            subcircuitScope.checkDependency(scope.id) ||
-            !checkIfBackup(subcircuitScope)
+            subcircuitScope.checkDependency(scope.id)
         ) {
             if (savedData) {
                 for (var i = 0; i < savedData.inputNodes.length; i++) {
@@ -327,9 +326,6 @@ export default class SubCircuit extends CircuitElement {
             showError(
                 `SubCircuit : ${subcircuitScope.name} is an empty circuit`
             );
-            this.delete();
-            this.scope.backups = [];
-            return;
         }
 
         subcircuitScope.layout.height = subcircuitScope.layout.height;
