@@ -22,7 +22,7 @@ import {
 import { findDimensions, dots } from './canvasApi';
 import { updateRestrictedElementsList } from './restrictedElementDiv';
 import { scheduleBackup } from './data/backupCircuit';
-import { showProperties, tabsOnDrag, tabsOnStart, tabsOnDragEnd } from './ux';
+import { showProperties } from './ux';
 import {
     scheduleUpdate, updateSimulationSet,
     updateCanvasSet, updateSubcircuitSet,
@@ -158,20 +158,9 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
             var html = `<div style='' class='circuits toolbarButton current' draggable='true' id='${scope.id}'><span class='circuitName noSelect'>${truncateString(name, 18)}</span><span class ='tabsCloseButton' id='${scope.id}'  >x</span></div>`;
             $('#tabsBar').children().last().before(html);
         }
-        $('.circuits').on('drag', (event) => {
-            tabsOnDrag(event, event.target);
-        });
 
         $('.circuits').on('click',function () {
             switchCircuit(this.id);
-        });
-
-        $('.circuits').on('dragstart',function () {
-            $('.circuits').removeClass('h');
-        });
-
-        $('.circuits').on('dragend',function () {
-            $('.circuits').addClass('h');
         });
 
         $('.circuitName').on('click',(e) => {
@@ -180,6 +169,7 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
                 document.getElementById('circname').select();
             }, 100);
         });
+        
         $('.tabsCloseButton').on('click',function (e) {
             e.stopPropagation();
             deleteCurrentCircuit(this.id);
