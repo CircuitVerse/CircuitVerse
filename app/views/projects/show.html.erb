@@ -243,33 +243,20 @@
     });
   }
 
-  //  if there is a click on 'add collaborators' button and input is empty
-  $('.add-collaborators-button').click((e) => {
-    const inputBox = $('.collaborators-emails-input');
-    const inputValue = $('.collaborators-emails-input').val().trim();
+  // setting the disabled true as default
+  const submitButton = $('.add-collaborators-button');
+  submitButton.attr('disabled', true);
 
-    //  styles for input box
-    const stylesWhenEmpty = {
-      "box-shadow": "0 0 0 0.2rem #ffc4c4",
-      "border-color": "#e38890"
-    }
+  //  if there is a click on 'add collaborators' button and input is empty
+  $('.collaborators-emails-input').keyup(() => {
+    const inputValue = $('.collaborators-emails-input').val().trim();
 
     //  if input is empty
     if(!inputValue) {
-      e.preventDefault();
-      inputBox.focus();
-      inputBox.css(stylesWhenEmpty);
+      submitButton.attr('disabled', true);
+    } else {
+      submitButton.attr('disabled', false);
     }
-  })
-
-  // if there is key down in input box then remove the red border and apply green one
-  $('.collaborators-emails-input').keydown(() => {
-    const styles = {
-      "border-color": "#9edcc0",
-      "box-shadow": "0 0 0 0.2rem rgba(66, 185, 131, 0.25)",
-    };
-
-    $('.collaborators-emails-input').css(styles); // changing the colors
   })
 </script>
 
