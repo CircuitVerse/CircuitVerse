@@ -25,6 +25,7 @@
         "verilogDivider",
         "verilogPower",
         "verilogShiftLeft",
+        "TwoComplement",
         "verilogShiftRight",
         "Rom",
         "RAM",
@@ -161,6 +162,7 @@
             "Text"
         ],
         "Misc": [
+            "TwoComplement",
             "Flag",
             "Splitter",
             "Adder",
