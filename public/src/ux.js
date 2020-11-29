@@ -516,6 +516,7 @@ export function setupPanels() {
     $('#projectName').on('click', () => {
         $("input[name='setProjectName']").focus().select();
     });
+
 }
 
 function setupPanelListeners(panelSelector) {
