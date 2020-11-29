@@ -143,9 +143,7 @@
           <div class="projects-collaborators-container">
             <div class="row center-row">
               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 projects-collaborators-heading">
-                <div class="">
-                  Collaborators
-                </div>
+                Collaborators
               </div>
             </div>
             <% @project.collaborators.each do |user| %>
@@ -175,6 +173,7 @@
             <% end %>
           </div>
         </div>
+      </div>
     <% end %>
 
     <%= render partial: "add_collaborator_modal" %>
