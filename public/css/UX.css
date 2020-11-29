@@ -322,7 +322,7 @@ select {
     border-radius: 0.1em;
 }
 
-#tabsBar .circuits.h:hover {
+#tabsBar .circuits:hover {
     background-color: #00ace6;
     /*border: 1px solid #0099ff;*/
     transition-duration: 100ms;
@@ -922,6 +922,10 @@ div.icon img {
 .sk-folding-cube .sk-cube4:before {
     -webkit-animation-delay: 0.9s;
     animation-delay: 0.9s;
+}
+
+.placeholder {
+    visibility: visible;
 }
 
 @-webkit-keyframes sk-foldCubeAngle {
