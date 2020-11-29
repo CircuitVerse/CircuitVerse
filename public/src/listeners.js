@@ -67,6 +67,10 @@ export default function startListeners() {
         containment: 'parent',
         items: '> div',
         revert: false,
+        opacity: 0.5,
+        tolerance: 'pointer',
+        placeholder: 'placeholder',
+        forcePlaceholderSize: true,
     });
 
     document.getElementById('simulationArea').addEventListener('mousedown', (e) => {
