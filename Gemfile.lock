@@ -274,7 +274,7 @@ GEM
       kaminari-core (= 1.2.1)
     kaminari-core (1.2.1)
     language_filter (0.3.01)
-    listen (3.2.1)
+    listen (3.3.3)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     loofah (2.7.0)
@@ -648,7 +648,7 @@ DEPENDENCIES
   json-schema
   jwt
   language_filter
-  listen (>= 3.0.5, < 3.3)
+  listen (>= 3.0.5, < 3.4)
   mailkick
   meta-tags
   newrelic_rpm (~> 6.13)
