@@ -82,11 +82,11 @@
   width: 100%;
 }
 
-
 .users-social-btns-container {
   display: flex;
   flex-wrap: wrap;
   height: 120px;
+  justify-content: space-between;
 }
 
 // sign in button styles
@@ -139,7 +139,6 @@
 // facebook sign in
 .users-facebook-btn {
   background-color: $facebook-blue;
-  margin-left: 20px;
   width: 210px;
 
   &:hover {
@@ -381,17 +380,13 @@
   }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
   .users-social-btns-container {
     align-items: center;
     flex-direction: column;
     flex-wrap: nowrap;
     height: 140px;
     justify-content: space-between;
-  }
-
-  .users-facebook-btn {
-    margin-left: 0;
   }
 }
 //user profile ends
