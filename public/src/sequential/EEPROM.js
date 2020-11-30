@@ -37,14 +37,17 @@ export default class EEPROM extends RAM {
         this.data = data || this.data;
     }
 
+    clearData() {
+        super.clearData();
+        for (var i = 0; i < this.data.length; i++)
+            this.data[i] = this.data[i] || 0;
+    }
+
     customSave() {
-        var saveInfo = RAM.prototype.customSave.call(this);
+        var saveInfo = super.customSave(this);
 
         // Normalize this.data to use zeroes instead of null when serialized.
         var {data} = this;
-        for (var i = 0; i < data.length; i++) {
-            data[i] = data[i] || 0;
-        }
 
         saveInfo.constructorParamaters.push(data);
         return saveInfo;
@@ -94,6 +97,7 @@ EEPROM.prototype.mutableProperties = {
         func: 'changeAddressWidth',
     },
     dump: RAM.prototype.mutableProperties.dump,
+    load: RAM.prototype.mutableProperties.load,
     reset: RAM.prototype.mutableProperties.reset,
 };
 EEPROM.prototype.objectType = 'EEPROM';

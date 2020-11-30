@@ -2,6 +2,7 @@ import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import { correctWidth, fillText2, fillText4, drawCircle2 } from '../canvasApi';
+import {parseNumber, showMessage} from '../utils';
 /**
  * @class
  * RAM Component.
@@ -43,6 +44,7 @@ import { correctWidth, fillText2, fillText4, drawCircle2 } from '../canvasApi';
  * @category sequential
  */
 import { colors } from '../themer/themer';
+import { showError } from '../utils';
 export default class RAM extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 8, addressWidth = 10) {
         super(x, y, scope, dir, Math.min(Math.max(1, bitWidth), 32));
@@ -171,10 +173,52 @@ export default class RAM extends CircuitElement {
             console.group(this.label);
         }
 
-        console.log(this.data);
+        showMessage("Data dumped to developer Console");
+
+        console.log(JSON.stringify(this.data));
 
         if (logLabel) {
             console.groupEnd();
+        }
+    }
+
+    dblclick() {
+        this.promptData();
+    }
+
+    promptData() {
+        var data = prompt("Enter Data (separated by space, comma, tab or newline) (data can be in hex, binary, octal or decimal)");
+        if (!data) {
+            showError("No data entered.");
+            return;
+        }
+        var oldData = this.data;
+        try {
+            var ramSize = 1 << this.addressWidth;
+            var maxNumber = 1 << this.bitWidth;
+            this.clearData();
+
+            data = data.split(/[, \n\t]/);
+            data = data.filter(x => x.length);
+            if (data.length > ramSize) {
+                throw `Capacity: ${ramSize}. But ${data.length} data cells found`;
+            }
+
+            for (var i = 0; i < data.length; i++) {
+                var dataCell = parseNumber(data[i]);
+                if (isNaN(dataCell))
+                    throw `Address ${i}: ${data[i]} is not a number`;
+                if (dataCell < 0)
+                    throw `Address ${i}: ${data[i]} is negative`;
+                if (dataCell >= maxNumber)
+                    throw `Address ${i}: ${data[i]} is too large`;
+                this.data[i] = dataCell;
+            }
+            showMessage(`${data.length} data cells loaded`);
+        }
+        catch (e) {
+            this.data = oldData;
+            showError(e);
         }
     }
 
@@ -219,6 +263,11 @@ RAM.prototype.mutableProperties = {
         name: 'Core Dump',
         type: 'button',
         func: 'dump',
+    },
+    load: {
+        name: 'Load Data',
+        type: 'button',
+        func: 'promptData',
     },
     reset: {
         name: 'Reset',

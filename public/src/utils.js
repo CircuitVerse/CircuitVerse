@@ -242,6 +242,17 @@ function setBaseValues(x) {
     $("#decimalInput").val(x);
 }
 
+export function parseNumber(num) {
+    if (num instanceof Number) return num; 
+    if (num.slice(0, 2).toLocaleLowerCase() == '0b')
+        return parseInt(num.slice(2), 2);
+    if (num.slice(0, 2).toLocaleLowerCase() == '0x')
+        return parseInt(num.slice(2), 16);
+    if (num.slice(0, 1).toLocaleLowerCase() == '0')
+        return parseInt(num, 8);
+    return parseInt(num);
+}
+
 export function setupBitConvertor() {
     $("#decimalInput").on('keyup', function () {
         var x = parseInt($("#decimalInput").val(), 10);

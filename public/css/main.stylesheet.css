@@ -675,7 +675,6 @@ div.icon img {
 /** Module property styling starts here */
 
 .moduleProperty {
-  display: none;
   font: inherit;
   width: 250px;
   top: 90px;
