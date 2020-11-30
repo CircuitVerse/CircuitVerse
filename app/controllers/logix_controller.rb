@@ -31,7 +31,7 @@ class LogixController < ApplicationController
 
   def examples
     @examples = [{ name: "Full Adder from 2-Half Adders", id: "users/3/projects/247",
-                   img: "examples/fullAdder_n.jpeg" },
+                   img: "examples/fullAdder_n.jpg" },
                  { name: "16 Bit ripple carry adder", id: "users/3/projects/248",
                    img: "examples/RippleCarry_n.jpg" },
                  { name: "Asynchronous Counter", id: "users/3/projects/249",
