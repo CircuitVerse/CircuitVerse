@@ -390,22 +390,6 @@ const plotArea = {
     clear() {
         this.ctx.clearRect(0, 0, plotArea.canvas.width, plotArea.canvas.height);
     },
-    handleMouseDownForTimingDiagramPause(e) {
-        var rect = plotArea.canvas.getBoundingClientRect();
-        var x = sh(e.clientX - rect.left);
-        plotArea.scrollAcc = 0;
-        plotArea.autoScroll = false;
-        plotArea.mouseDown = true;
-        plotArea.mouseX = x;
-        plotArea.mouseDownX = x;
-        plotArea.mouseDownTime = new Date().getTime();
-    },
-    handleMouseUpForTimingDiagramPause() {
-        plotArea.mouseDown = false;
-        var time = new Date().getTime() - plotArea.mouseDownTime;
-        var offset = (plotArea.mouseX - plotArea.mouseDownX) / cycleWidth;
-        plotArea.scrollAcc = offset * frameInterval / time;
-    },
 };
 export default plotArea;
 
@@ -439,12 +423,6 @@ export function setupTimingListeners() {
     $('.timing-diagram-resume').on('click', () => {
         plotArea.resume();
     })
-    $('.timing-diagram-pause').on('mousedown', (e) => {
-        plotArea.handleMouseDownForTimingDiagramPause(e);
-    })
-    $('.timing-diagram-pause').on('mouseup', () => {
-        plotArea.handleMouseUpForTimingDiagramPause();
-    })
     $('.timing-diagram-download').on('click', () => {
         plotArea.download();
     })
@@ -460,10 +438,20 @@ export function setupTimingListeners() {
         plotArea.cycleUnit = timeUnits;
     })
     document.getElementById('plotArea').addEventListener('mousedown', (e) => {
-        plotArea.handleMouseDownForTimingDiagramPause(e);
+        var rect = plotArea.canvas.getBoundingClientRect();
+        var x = sh(e.clientX - rect.left);
+        plotArea.scrollAcc = 0;
+        plotArea.autoScroll = false;
+        plotArea.mouseDown = true;
+        plotArea.mouseX = x;
+        plotArea.mouseDownX = x;
+        plotArea.mouseDownTime = new Date().getTime();
     });
     document.getElementById('plotArea').addEventListener('mouseup', () => {
-        plotArea.handleMouseUpForTimingDiagramPause();
+        plotArea.mouseDown = false;
+        var time = new Date().getTime() - plotArea.mouseDownTime;
+        var offset = (plotArea.mouseX - plotArea.mouseDownX) / cycleWidth;
+        plotArea.scrollAcc = offset * frameInterval / time;
     });
 
     document.getElementById('plotArea').addEventListener('mousemove', (e) => {
