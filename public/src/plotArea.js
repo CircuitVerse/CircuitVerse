@@ -80,6 +80,11 @@ const plotArea = {
     resume() {
         this.autoScroll = true;
     },
+    // pause autoscroll
+    pause() {
+        this.autoScroll = false;
+        plotArea.scrollAcc = 0;
+    },
     // Called every time clock is ticked
     nextCycle() {
         this.cycleCount++;
@@ -423,6 +428,9 @@ export function setupTimingListeners() {
     $('.timing-diagram-resume').on('click', () => {
         plotArea.resume();
     })
+    $('.timing-diagram-pause').on('click', () => {
+        plotArea.pause();
+    })
     $('.timing-diagram-download').on('click', () => {
         plotArea.download();
     })
@@ -447,7 +455,7 @@ export function setupTimingListeners() {
         plotArea.mouseDownX = x;
         plotArea.mouseDownTime = new Date().getTime();
     });
-    document.getElementById('plotArea').addEventListener('mouseup', () => {
+    document.getElementById('plotArea').addEventListener('mouseup', (e) => {
         plotArea.mouseDown = false;
         var time = new Date().getTime() - plotArea.mouseDownTime;
         var offset = (plotArea.mouseX - plotArea.mouseDownX) / cycleWidth;
