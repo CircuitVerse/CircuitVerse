@@ -17,9 +17,9 @@ class Group < ApplicationRecord
   end
 
   def self.group_token_generate
-    where('updated_at <= ? OR group_token IS ? ',12.days.ago,nil).each do |m|
+    where("updated_at <= ? OR group_token IS ?", 12.days.ago, nil).each do |m|
       m.regenerate_group_token
     end
   end
-  
+
 end
