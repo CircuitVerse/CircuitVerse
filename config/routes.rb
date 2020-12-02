@@ -40,6 +40,8 @@ Rails.application.routes.draw do
   resources :privacy, only: :index
 
   scope "/groups" do
+    get ":id/invite/:group_token", to: "groups#group_invite", as: "group_invite"
+    post ":id", to: "groups#group_token_check",as: "group_token_check"
     get "/:group_id/assignments/:id/reopen", to: "assignments#reopen", as: "reopen_group_assignment"
     get "/:group_id/assignments/:id/start", to: "assignments#start", as: "assignment_start"
   end

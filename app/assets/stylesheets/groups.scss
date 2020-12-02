@@ -195,6 +195,12 @@
   }
 }
 
+.group-invite-link-text {
+  border: 1.5px solid $secondary-green;
+  font-size: 12px;
+  text-align: left;
+}
+
 //breakpoints
 @media (max-width: 1200px) {
   .groups-members-scroll-row {
