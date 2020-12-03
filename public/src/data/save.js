@@ -11,6 +11,7 @@ import { colors } from '../themer/themer';
 import {layoutModeGet, toggleLayoutMode} from '../layoutMode';
 import {verilogModeGet} from '../Verilog2CV';
 import domtoimage from 'dom-to-image';
+import C2S from 'canvas2svg';
 
 var projectName = undefined;
 
