@@ -39,15 +39,16 @@
 
 <script>
 $(document).ready(() => {
+  // docs: http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/examples/
   $('#emails').tagsinput({
-		trimValue: true,
+    trimValue: true,
     confirmKeys: [13, 44, 32],
   });
 
   $('.bootstrap-tagsinput input').attr('maxlength', '30'); // to limit the no. of chars entered in input box to avoid the overflow
 
   $('.add-collaborators-button').attr('disabled', true); // setting submit button to disabled initially
-  
+
   $('.bootstrap-tagsinput input').on('keyup', () => {
     if($('.bootstrap-tagsinput').children().length > 1) { // checking for 1 because there is already a child (input tag)
       $('.add-collaborators-button').attr('disabled', false);
@@ -63,5 +64,29 @@ $(document).ready(() => {
       $('.add-collaborators-button').attr('disabled', true);
     }
   })
+
+  document.querySelector('.bootstrap-tagsinput input').addEventListener('paste', (e) => { // listening for paste event
+    e.preventDefault();
+    let pastedEmails = '';
+    if (window.clipboardData && window.clipboardData.getData) { // IE
+      pastedEmails = window.clipboardData.getData('Text');
+    } else if (e.clipboardData && e.clipboardData.getData) { // other browsers
+      pastedEmails = e.clipboardData.getData('text/plain');
+    }
+
+    if(pastedEmails.includes('\n')) {
+      const newLinesIntoSpaces = pastedEmails.replace(/\n/g, ' '); // converting new lines in to spaces
+      const newLinesIntoSpacesSplitted = newLinesIntoSpaces.split(' '); // splitting emails by space
+      this.value = pastedEmails.replace(/./g, ''); // removing the pasted values from input box
+      newLinesIntoSpacesSplitted.forEach(value => $('#emails').tagsinput('add', value)) // adding each value as an input
+      $('.add-collaborators-button').attr('disabled', false)
+    } else {
+      const pastedEmailsSplittedBySpace = pastedEmails.split(' '); // splitting emails by space
+      this.value = pastedEmails.replace(/./g, ''); // removing the pasted values from input box
+      pastedEmailsSplittedBySpace.forEach(value => $('#emails').tagsinput('add', value)) // adding each value as an input
+      $('.add-collaborators-button').attr('disabled', false)
+    }
+  });
 });
+
 </script>

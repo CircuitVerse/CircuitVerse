@@ -204,33 +204,37 @@
 
 // collaborators tags input
 .bootstrap-tagsinput {
-  margin: 0;
-	width: 100%;
-	padding: 0.5rem 0.75rem;
-	font-size: 1rem;
-  line-height: 1.25;
   border: 1px solid $secondary-green;
-  transition: border-color 0.15s ease-in-out;
-  min-height: 180px;
   cursor: text;
-	
-	.label-info {
-    display: inline-block;
-    color: $white;
-		background-color: $primary-green;
-		padding: 0 .4em .15em;
+  font-size: 1rem;
+  line-height: 1.25;
+  margin: 0;
+  max-height: 180px;
+  min-height: 150px;
+  overflow-y: scroll;
+  padding: .5rem .75rem;
+  transition: border-color .15s ease-in-out;
+  width: 100%;
+
+  .label-info {
+    background-color: $primary-green;
     border-radius: .25rem;
-    margin-bottom: 0.4em;
+    color: $white;
+    display: inline-block;
+    margin-bottom: .4em;
+    padding: 0 .4em .15em;
 	}
-  
+
   input {
     border: 0;
   }
 }
 
-.bootstrap-tagsinput .tag [data-role="remove"]:after {
+.tag [data-role="remove"]::after {
   content: '\00d7';
   cursor: pointer;
-  margin-left: 5px;
   font-size: 18px;
+  margin-left: 5px;
 }
+
+// collaborators tags input closes
