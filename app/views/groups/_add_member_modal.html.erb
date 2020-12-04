@@ -31,10 +31,10 @@
       </div>
       <div class="mx-auto text-center p-3">
         <p>OR USE</p>
-        <a class="btn primary-button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" onclick="linkGenerate()">
+        <%= button_to generate_token_group_path,{remote:true,method: :put,class: 'btn primary-button', 'data-toggle':'collapse', 'href':'#collapseExample', 'aria-expanded':'false', 'aria-controls':'collapseExample'} do  %>
           <i class="fas fa-external-link-alt"></i>
           <span>Group Invite Link</span>
-        </a>
+        <%end%>
         <div class="collapse" id="collapseExample">
           <textarea id="embedInviteLink" class="group-invite-link-text" rows="4" cols="35"><%= group_url(@group) %>/invite/<%= @group.group_token %></textarea>
         </div>
@@ -44,17 +44,9 @@
 </div>
 
 <script>
-   function linkGenerate() {
-    $.ajax({
-      url: "<%= group_token_check_path %>",
-      type: 'POST',
-      beforeSend: function (xhr) {
-        xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
-      },
-      success: function (response) {
-      var token = response["updated"][0]["group_token"]
-      document.getElementById("embedInviteLink").innerHTML = `<%= group_url(@group) %>/invite/${token}`
-    }
-    });
-  }
+document.body.addEventListener('ajax:success', function(event) {
+  var detail = event.detail;
+  var token = detail[0][0]["group_token"];
+  document.getElementById("embedInviteLink").innerHTML = `<%= group_url(@group) %>/invite/${token}`
+});
 </script>
