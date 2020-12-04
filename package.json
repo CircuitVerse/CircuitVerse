@@ -43,7 +43,7 @@
     "nodemon": "^2.0.4",
     "opencollective-postinstall": "^2.0.3",
     "popper.js": "^1.16.1",
-    "trumbowyg": "^2.21.0",
+    "trumbowyg": "^2.22.0",
     "turbolinks": "^5.2.0"
   },
   "collective": {

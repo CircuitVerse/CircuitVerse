@@ -8617,10 +8617,10 @@ trim-newlines@^1.0.0:
   dependencies:
     glob "^7.1.2"
 
-trumbowyg@^2.21.0:
-  version "2.21.0"
-  resolved "https://registry.yarnpkg.com/trumbowyg/-/trumbowyg-2.21.0.tgz#ca133bb960d3302d362ca73358e268d3830c74cc"
-  integrity sha512-TUatXrv2PgaYjgIZdh4G0UgZsFd9cmkw4ZGrQBWrXNDtf2cn+1TEgLGd/jVj0MWGxEYfbrZXmURf9UQlEMLGFg==
+trumbowyg@^2.22.0:
+  version "2.22.0"
+  resolved "https://registry.yarnpkg.com/trumbowyg/-/trumbowyg-2.22.0.tgz#179ae097029e321a8d977658ffeff17fc5f374fb"
+  integrity sha512-ABZ5mpg5Y/MX0nDeLyg5N0nHwpIcxehAdhuC/MpF6FD2Un2ThB1L3TySXwGOx/Q6LtaErmEgQK2lp+Jq4KW40A==
 
 ts-map@^1.0.3:
   version "1.0.3"
