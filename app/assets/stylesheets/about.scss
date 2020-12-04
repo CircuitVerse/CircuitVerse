@@ -12,6 +12,26 @@
   }
 }
 
+.members-container {
+  margin-top: 20px;
+  padding: 20px;
+}
+
+.member-card-button {
+  float: right;
+  margin-bottom: 25px;
+}
+
+.member-github-link {
+  margin-left: 5px;
+  margin-right: 5px;
+  width: 40px;
+  
+  &:hover {
+    opacity: .6;
+  }
+}
+
 .about-contributors-section {
   align-items: center;
   display: flex;
