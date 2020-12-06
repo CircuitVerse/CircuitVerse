@@ -131,8 +131,7 @@ export default class SubCircuit extends CircuitElement {
         // Error handling, cleanup
         if (
             subcircuitScope == undefined ||
-            subcircuitScope.checkDependency(scope.id) ||
-            !checkIfBackup(subcircuitScope)
+            subcircuitScope.checkDependency(scope.id)
         ) {
             if (savedData) {
                 for (var i = 0; i < savedData.inputNodes.length; i++) {
@@ -250,6 +249,7 @@ export default class SubCircuit extends CircuitElement {
     buildCircuit() {
         var subcircuitScope = scopeList[this.id];
         loadScope(this.localScope, this.data);
+        this.localScope.name = this.data.name;
         this.lastUpdated = this.localScope.timeStamp;
         updateSimulationSet(true);
         updateCanvasSet(true);
@@ -297,7 +297,7 @@ export default class SubCircuit extends CircuitElement {
      */
     reBuildCircuit() {
         this.data = JSON.parse(scheduleBackup(scopeList[this.id]));
-        this.localScope = new Scope();
+        this.localScope = new Scope(data.name);
         loadScope(this.localScope, this.data);
         this.lastUpdated = this.localScope.timeStamp;
         this.scope.timeStamp = this.localScope.timeStamp;
@@ -326,9 +326,6 @@ export default class SubCircuit extends CircuitElement {
             showError(
                 `SubCircuit : ${subcircuitScope.name} is an empty circuit`
             );
-            this.delete();
-            this.scope.backups = [];
-            return;
         }
 
         subcircuitScope.layout.height = subcircuitScope.layout.height;

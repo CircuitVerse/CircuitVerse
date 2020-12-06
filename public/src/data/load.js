@@ -213,6 +213,14 @@ export default function load(data) {
 
     if (!embed) { showProperties(simulationArea.lastSelected); }
 
+    // Reorder tabs according to the saved order
+    if (data.orderedTabs) {
+        var unorderedTabs = $('.circuits').detach();
+        var plusButton = $('#tabsBar').children().detach();
+        for (const tab of data.orderedTabs) { $('#tabsBar').append(unorderedTabs.filter(`#${tab}`)); }
+        $('#tabsBar').append(plusButton); 
+    }
+
     // Switch to last focussedCircuit
     if (data.focussedCircuit) 
         switchCircuit(data.focussedCircuit);

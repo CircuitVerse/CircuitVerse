@@ -20,12 +20,13 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
-    "@babel/plugin-proposal-numeric-separator": "^7.10.1",
-    "@babel/preset-env": "^7.10.2",
+    "@babel/plugin-proposal-numeric-separator": "^7.12.7",
+    "@babel/preset-env": "^7.12.7",
     "@fortawesome/fontawesome-free": "^5.14.0",
     "@rails/webpacker": "5.2.1",
     "better-docs": "^2.0.1",
     "bootstrap": "^4.5.0",
+    "canvas2svg": "^1.0.16",
     "codemirror": "^5.58.2",
     "css-vars": "^2.2.0",
     "dom-to-image": "^2.6.0",
@@ -38,11 +39,11 @@
     "jquery-ujs": "^1.2.2",
     "jsdoc-export-default-interop": "^0.3.1",
     "livereload": "^0.9.1",
-    "nodemon": "^2.0.4",
     "jquery-resizable-dom": "^0.35.0",
+    "nodemon": "^2.0.4",
     "opencollective-postinstall": "^2.0.3",
     "popper.js": "^1.16.1",
-    "trumbowyg": "^2.21.0",
+    "trumbowyg": "^2.22.0",
     "turbolinks": "^5.2.0"
   },
   "collective": {

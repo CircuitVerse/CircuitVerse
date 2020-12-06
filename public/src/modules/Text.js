@@ -25,8 +25,8 @@ export default class Text extends CircuitElement {
         this.fixedBitWidth = true;
         this.directionFixed = true;
         this.labelDirectionFixed = true;
-        this.setFontSize(fontSize);
         this.setLabel(label);
+        this.setFontSize(fontSize);
     }
 
     /**

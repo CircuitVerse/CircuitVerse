@@ -28,6 +28,8 @@ export function createCombinationalAnalysisPrompt(scope = globalScope) {
     $('#combinationalAnalysis').empty();
     $('#combinationalAnalysis').append("<p>Enter Input names separated by commas: <input id='inputNameList' type='text'  placeHolder='eg. In A, In B'></p>");
     $('#combinationalAnalysis').append("<p>Enter Output names separated by commas: <input id='outputNameList' type='text'  placeHolder='eg. Out X, Out Y'></p>");
+    $('#combinationalAnalysis').append("<p style='text-align:center;'>OR</p>");
+    $('#combinationalAnalysis').append("<p>Enter Boolean Function: <input class='truth_table_input' autofocus id='booleanExpression' placeholder='Example: (AB)' type='text'></p>");
     $('#combinationalAnalysis').append("<label class='cb-checkbox'>I need a decimal column.<input id='decimalColumnBox' type='checkbox'></label>");
     $('#combinationalAnalysis').dialog({
         resizable:false,
@@ -38,16 +40,40 @@ export function createCombinationalAnalysisPrompt(scope = globalScope) {
                 click() {
                     var inputList = stripTags($("#inputNameList").val()).split(',');
                     var outputList = stripTags($("#outputNameList").val()).split(',');
-                   
+                    var booleanExpression = $('#booleanExpression').val();
                     inputList = inputList.map((x) => x.trim());
                     inputList = inputList.filter((e) => e);
                     outputList = outputList.map((x) => x.trim());
                     outputList = outputList.filter((e) => e);
-                    if (inputList.length > 0 && outputList.length > 0) {
+                    booleanExpression = booleanExpression.replace(/ /g, '');
+                    booleanExpression = booleanExpression.toUpperCase();
+                    
+                    var booleanInputVariables = [];
+                    for (var i = 0; i < booleanExpression.length; i++) {
+                        if ((booleanExpression[i] >= 'A' && booleanExpression[i] <= 'Z')) {
+                            if (booleanExpression.indexOf(booleanExpression[i]) == i) {
+                                booleanInputVariables.push(booleanExpression[i]);
+                            }
+                        }
+                    }
+                    booleanInputVariables.sort();
+                    
+                    if (inputList.length > 0 && outputList.length > 0 && booleanInputVariables.length == 0) {
                         $(this).dialog('close');
-                        createBooleanPrompt(inputList, outputList, scope);
-                    } else {
-                        alert('Enter Input / Output Variable(s) !');
+                        createBooleanPrompt(inputList, outputList, null, scope);
+                    } 
+                    else if (booleanInputVariables.length > 0 && inputList.length == 0 && outputList.length == 0) {
+                        $(this).dialog('close');
+                        var output = solveBooleanFunction(booleanInputVariables, booleanExpression);
+                        if(output != null) {
+                            createBooleanPrompt(booleanInputVariables, booleanExpression, output, scope);
+                        }
+                    }
+                    else if ((inputList.length == 0 || outputList.length == 0) && booleanInputVariables == 0) {
+                        alert('Enter Input / Output Variable(s) OR Boolean Function!');
+                    }
+                    else {
+                        alert('Use Either Combinational Analysis Or Boolean Function To Generate Circuit!');
                     }
                 },
             },
@@ -64,18 +90,22 @@ export function createCombinationalAnalysisPrompt(scope = globalScope) {
  * @param {Scope=} scope - h circuit
  * @category combinationalAnalysis
  */
-function createBooleanPrompt(inputListNames, outputListNames, scope = globalScope) {
+function createBooleanPrompt(inputListNames, outputListNames, output, scope = globalScope) {
     var inputListNames = inputListNames || (prompt('Enter inputs separated by commas').split(','));
     var outputListNames = outputListNames || (prompt('Enter outputs separated by commas').split(','));
     var outputListNamesInteger = [];
-    for (var i = 0; i < outputListNames.length; i++) { outputListNamesInteger[i] = 7 * i + 13; }// assigning an integer to the value, 7*i + 13 is random
-
+    if(output == null) {
+        for (var i = 0; i < outputListNames.length; i++) { outputListNamesInteger[i] = 7 * i + 13; }// assigning an integer to the value, 7*i + 13 is random
+    } else {
+        outputListNamesInteger = [13];
+    }
     var s = '<table  class="content-table">';
     s += '<tbody style="display:block; max-height:70vh; overflow-y:scroll" >';
     s += '<tr>';
     if ($('#decimalColumnBox').is(':checked')) { s += '<th>' + 'dec' + '</th>'; }
     for (var i = 0; i < inputListNames.length; i++) { s += `<th>${inputListNames[i]}</th>`; }
-    for (var i = 0; i < outputListNames.length; i++) { s += `<th>${outputListNames[i]}</th>`; }
+    if (output == null) { for (var i = 0; i < outputListNames.length; i++) { s += `<th>${outputListNames[i]}</th>`; } }
+    else { s += `<th>${outputListNames}</th>`; }
     s += '</tr>';
 
     var matrix = [];
@@ -96,8 +126,13 @@ function createBooleanPrompt(inputListNames, outputListNames, scope = globalScop
             s += `<td>${matrix[i][j]}</td>`;
         }
         for (var i = 0; i < outputListNamesInteger.length; i++) {
-            s += `<td class ="output ${outputListNamesInteger[i]}" id="${j}">` + 'x' + '</td>';
+            if (output == null) {
+                s += `<td class ="output ${outputListNamesInteger[i]}" id="${j}">` + 'x' + '</td>';
             // using hash values as they'll be used in the generateBooleanTableData function
+            }
+        }
+        if (output != null) {
+            s += `<td class="${outputListNamesInteger[0]}" id="${j}">` + `${output[j]}` + '</td>';
         }
         s += '</tr>';
     }
@@ -106,7 +141,7 @@ function createBooleanPrompt(inputListNames, outputListNames, scope = globalScop
     $('#combinationalAnalysis').empty();
     $('#combinationalAnalysis').append(s);
     $('#combinationalAnalysis').dialog({
-        resizable:false,
+        resizable: false,
         width: 'auto',
         buttons: [
             {
@@ -138,7 +173,12 @@ function createBooleanPrompt(inputListNames, outputListNames, scope = globalScop
                             minimizedCircuit.push(temp.result);
                         }
                     }
-                    drawCombinationalAnalysis(minimizedCircuit, inputListNames, outputListNames, scope);
+                    if (output == null) {
+                        drawCombinationalAnalysis(minimizedCircuit, inputListNames, outputListNames, scope);
+                    }
+                    else {
+                        drawCombinationalAnalysis(minimizedCircuit, inputListNames, [`${outputListNames}`], scope);
+                    }
                 },
             },
             {
@@ -147,13 +187,16 @@ function createBooleanPrompt(inputListNames, outputListNames, scope = globalScop
                     var sTable = document.getElementById('combinationalAnalysis').innerHTML;
                     var style = '<style> table {font: 20px Calibri;} table, th, td {border: solid 1px #DDD;border-collapse: collapse;} padding: 2px 3px;text-align: center;} </style>';
                     var win = window.open('', '', 'height=700,width=700');
-                    win.document.write('<html><head>');
-                    win.document.write('<title>Boolean Logic Table</title>');
-                    win.document.write(style);
-                    win.document.write('</head>');
-                    win.document.write('<body>');
-                    win.document.write(`<center>${sTable}</center>`);
-                    win.document.write('</body></html>');
+                    var htmlBody = `
+                      <html><head>\
+                      <title>Boolean Logic Table</title>\
+                      ${style}\
+                      </head>\
+                      <body>\
+                      <center>${sTable}</center>\
+                      </body></html>
+                    `;
+                    win.document.write(htmlBody);
                     win.document.close();
                     win.print();
                 },
@@ -298,4 +341,107 @@ function drawCombinationalAnalysis(combinationalData, inputList, outputListNames
         }
     }
     globalScope.centerFocus();
+}
+
+/**
+ * This function solves passed boolean expression and returns
+ * output array which contains solution of the truth table
+ * of given boolean expression
+ * @param {Array}  inputListNames - labels for input nodes
+ * @param {String} booleanExpression - boolean expression which is to be solved 
+ */
+function solveBooleanFunction(inputListNames, booleanExpression) {
+    let i;
+    let j;
+    let output = [];
+
+    if (booleanExpression.match(/[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01+'() ]/g) != null) {
+        alert('One of the characters is not allowed.');
+        return;
+    }
+
+    if (inputListNames.length > 8) {
+        alert('You can only have 8 variables at a time.');
+        return;
+    }
+
+    var s = '<table  class="content-table">';
+    s += '<tbody style="display:block; max-height:70vh; overflow-y:scroll" >';
+    s += '<tr>';
+    if ($('#decimalColumnBox').is(':checked')) { s += '<th>' + 'dec' + '</th>'; }
+    for (i = 0; i < inputListNames.length; i++) { s += `<th>${inputListNames[i]}</th>`; }
+    s += `<th>${booleanExpression}</th>`;
+    s += '</tr>';
+    var matrix = [];
+    for (i = 0; i < inputListNames.length; i++) {
+        matrix[i] = new Array((inputListNames.length));
+    }
+
+    for (i = 0; i < inputListNames.length; i++) {
+        for (j = 0; j < (1 << inputListNames.length); j++) {
+            matrix[i][j] = (+((j & (1 << (inputListNames.length - i - 1))) != 0));
+        }
+    }
+    // generate equivalent expression by replacing input vars with possible combinations of o and 1
+    for (i = 0; i < (2 ** inputListNames.length); i++) {
+        const data = [];
+        for (j = 0; j < inputListNames.length; j++) {
+            data[j] = Math.floor(i / Math.pow(2, inputListNames.length - j - 1)) % 2;
+        }
+        let equation = booleanExpression;
+        for (j = 0; j < inputListNames.length; j++) {
+            equation = equation.replace(new RegExp(inputListNames[j], 'g'), data[j]);
+        }
+
+        output[i] = solve(equation);
+    }
+
+    for (j = 0; j < (1 << inputListNames.length); j++) {
+        s += '<tr>';
+        if ($('#decimalColumnBox').is(':checked')) { s += `<td>${j}</td>`; }
+        for (i = 0; i < inputListNames.length; i++) {
+            s += `<td>${matrix[i][j]}</td>`;
+        }
+
+        s += `<td class="13" id="${j}">` + `${output[j]}` + '</td>';
+        s += '</tr>';
+    }
+
+    s += '</tbody>';
+    s += '</table>';
+    // generates solution for the truth table of booleanexpression
+    function solve(equation) {
+        while (equation.indexOf("(") != -1) {
+            const start = equation.lastIndexOf("(");
+            const end = equation.indexOf(")", start);
+            if (start != -1) {
+                equation = equation.substring(0, start)
+                + solve(equation.substring(start + 1, end))
+                + equation.substring(end + 1);
+            }       
+        }
+        equation = equation.replace(/''/g, '');
+        equation = equation.replace(/0'/g, '1');
+        equation = equation.replace(/1'/g, '0');
+        for (let i = 0; i < equation.length - 1; i++) {
+            if ((equation[i] == '0' || equation[i] == '1') && (equation[i + 1] == '0' || equation[i + 1] == '1')) {
+                equation = equation.substring(0, i + 1) + '*' + equation.substring(i + 1, equation.length);
+            }
+        }        
+        try {
+            const safeEval = eval;
+            const answer = safeEval(equation);
+            if (answer == 0) {
+                return 0;
+            }
+            if (answer > 0) {
+                return 1;
+            }    
+            return '';
+        } catch (e) {
+            return '';
+        }
+    }
+
+    return output;
 }

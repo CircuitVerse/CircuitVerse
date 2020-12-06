@@ -11,6 +11,7 @@ import { colors } from '../themer/themer';
 import {layoutModeGet, toggleLayoutMode} from '../layoutMode';
 import {verilogModeGet} from '../Verilog2CV';
 import domtoimage from 'dom-to-image';
+import C2S from 'canvas2svg';
 
 var projectName = undefined;
 
@@ -53,6 +54,18 @@ function downloadAsImg(name, imgType) {
 }
 
 /**
+ * Returns the order of tabs in the project
+*/
+export function getTabsOrder() {
+    var tabs = $("#tabsBar").children().not('button');
+    var order = [];
+    for (let i = 0; i < tabs.length; i++) {
+         order.push(tabs[i].id);
+    }
+    return order
+}
+
+/**
  * Generates JSON of the entire project
  * @param {string} name - the name of project
  * @return {JSON}
@@ -71,6 +84,7 @@ export function generateSaveData(name) {
     data.clockEnabled = simulationArea.clockEnabled;
     data.projectId = projectId;
     data.focussedCircuit = globalScope.id;
+    data.orderedTabs = getTabsOrder();
 
     // Project Circuits, each scope is one circuit
     data.scopes = [];

@@ -8,6 +8,7 @@ tasks:
   - init: >
       rvm autolibs disable &&
       rvm install 2.6.5 &&
+      nvm install 12 &&
       gem install bundler &&
       cp config/database.example.yml config/database.yml &&
       createuser -s postgres &&

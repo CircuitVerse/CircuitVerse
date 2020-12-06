@@ -199,7 +199,6 @@ export default class Tunnel extends CircuitElement {
         this.scope.Tunnel.clean(this);
         this.scope.tunnelList[this.identifier].clean(this);
         super.delete();
-        this.scope["Tunnel"].push(this);
     }
 
     /**

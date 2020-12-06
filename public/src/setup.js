@@ -41,7 +41,7 @@ export function resetup() {
     if (lightMode) { DPR = 1; }
     width = document.getElementById('simulationArea').clientWidth * DPR;
     if (!embed) {
-        height = (document.getElementById('simulation').clientHeight - document.getElementById('toolbar').clientHeight) * DPR;
+        height = (document.body.clientHeight - document.getElementById('toolbar').clientHeight) * DPR;
     } else {
         height = (document.getElementById('simulation').clientHeight) * DPR;
     }

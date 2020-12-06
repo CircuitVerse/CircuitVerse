@@ -12,7 +12,6 @@ import {
 import { showProperties, prevPropertyObjGet } from './ux';
 import { showError } from './utils';
 import miniMapArea from './minimap';
-import { createNodeGet } from './listeners';
 import { resetup } from './setup';
 import { verilogModeGet } from './Verilog2CV';
 
@@ -276,7 +275,7 @@ export function renderCanvas(scope) {
     }
     if (simulationArea.hover !== undefined) {
         simulationArea.canvas.style.cursor = 'pointer';
-    } else if (createNodeGet()) {
+    } else if (simulationArea.mouseDown) {
         simulationArea.canvas.style.cursor = 'grabbing';
     } else {
         simulationArea.canvas.style.cursor = 'default';
