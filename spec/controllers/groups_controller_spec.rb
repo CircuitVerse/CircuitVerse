@@ -5,6 +5,8 @@ require "rails_helper"
 describe GroupsController, type: :request do
   before do
     @mentor = FactoryBot.create(:user)
+    @user = FactoryBot.create(:user)
+    @group = FactoryBot.create(:group, name: "test group", mentor: @mentor)
   end
 
   describe "#create" do
@@ -17,10 +19,6 @@ describe GroupsController, type: :request do
   end
 
   describe "#destroy" do
-    before do
-      @group = FactoryBot.create(:group, mentor: @mentor)
-    end
-
     context "mentor is signed_in" do
       it "destroys group" do
         sign_in @mentor
@@ -40,10 +38,6 @@ describe GroupsController, type: :request do
   end
 
   describe "#show" do
-    before do
-      @group = FactoryBot.create(:group, mentor: @mentor)
-    end
-
     context "group member is signed in", :focus do
       before do
         @assignment = FactoryBot.create(:assignment, group: @group,
@@ -68,10 +62,6 @@ describe GroupsController, type: :request do
   end
 
   describe "#update" do
-    before do
-      @group = FactoryBot.create(:group, name: "test group", mentor: @mentor)
-    end
-
     context "mentor is signed in" do
       it "updates group" do
         sign_in @mentor
@@ -89,4 +79,63 @@ describe GroupsController, type: :request do
       end
     end
   end
+  
+  describe "#invite" do
+    before do
+      @already_present = FactoryBot.create(:user)
+      FactoryBot.create(:group_member, user: @already_present, group: @group)
+    end
+
+    context "user enters a valid link" do
+      it "adds member to the group if group token matches" do
+        sign_in @user
+        expect {
+          get invite_group_path(id: @group.id,token: @group.group_token)
+        }.to change { GroupMember.count }.by(1)
+      end
+    end
+
+    context "user is already present in the group" do
+      it "does not add member to the group" do
+        sign_in @already_present
+        expect {
+          get invite_group_path(id: @group.id,token: @group.group_token)
+        }.to change { GroupMember.count }.by(0)
+      end
+    end
+
+    context "user enters a expired url" do
+      before do
+        @group.update(updated_at: 13.days.ago)
+      end
+      it "does not add member to group and generates error message" do
+        sign_in @user
+        get invite_group_path(id: @group.id,token: @group.group_token)
+        expect(response.status).to eq(302)
+        expect(flash[:notice]).to eq("Url is expired, request a new one from owner of the group.")
+      end
+    end
+
+    context "user enters invalid url" do
+      it "does not add member to the group and generates error message" do
+        sign_in @user
+        get invite_group_path(id: @group.id,token: 'abc')
+        expect(response.status).to eq(302)
+      end
+    end
+  end
+
+  describe "#generate_token" do
+    before do
+      @group.update(updated_at: 13.days.ago,group_token: nil)
+    end
+    context "group does not have any token or token is expired" do
+      it "regenerates the group token" do
+        sign_in @mentor
+        put generate_token_group_path(@group.id)
+        parsed_body = JSON.parse(response.body)
+        expect(parsed_body).not_to eq(nil)     
+      end
+    end
+  end 
 end

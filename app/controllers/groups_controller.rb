@@ -35,7 +35,7 @@ class GroupsController < ApplicationController
         redirect_to group_path(@group), notice: "Group member was successfully added."
       end
     else
-      if Group.where(group_token: params[:group_token]).exists?
+      if Group.where(group_token: params[:token]).exists?
         redirect_to group_path(@group), notice: "Url is expired, request a new one from owner of the group."
       else
         redirect_to group_path(@group), notice: "Invalid url"

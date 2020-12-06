@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   resources :groups, except: %i[index] do
     resources :assignments, except: %i[index]
     member do
-      get "invite/:token", to: "groups#group_invite"
+      get "invite/:token", to: "groups#group_invite", as: "invite"
       put :generate_token
     end
   end
