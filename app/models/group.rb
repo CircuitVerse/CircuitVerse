@@ -16,11 +16,4 @@ class Group < ApplicationRecord
   def send_creation_mail
     GroupMailer.new_group_email(mentor, self).deliver_later
   end
-
-  def self.group_token_generate
-    where("updated_at <= ? OR group_token IS ?", 12.days.ago, nil).each do |m|
-      m.regenerate_group_token
-    end
-  end
-
 end

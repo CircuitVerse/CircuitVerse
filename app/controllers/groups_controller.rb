@@ -19,27 +19,25 @@ class GroupsController < ApplicationController
   end
 
   def generate_token
-    @group = Group.where(id: params[:id])
-    @group.group_token_generate
-    render json: @group
+    @group = Group.find(params[:id])
+    return unless @group.updated_at <= 12.days.ago || @group.group_token.nil?
+
+    @group.regenerate_group_token
   end
 
   def group_invite
     @group = Group.find(params[:id])
-    @current_user = current_user.id
     if Group.with_valid_token.where(group_token: params[:token]).exists?
-      if GroupMember.where(group_id: @group, user_id: @current_user).exists?
+      if GroupMember.where(group_id: @group, user_id: current_user.id).exists?
         redirect_to group_path(@group), notice: "Member is already present in the group."
       else
-        GroupMember.where(group_id: @group, user_id: @current_user).first_or_create
+        GroupMember.where(group_id: @group, user_id: current_user.id).first_or_create
         redirect_to group_path(@group), notice: "Group member was successfully added."
       end
+    elsif Group.where(group_token: params[:token]).exists?
+      redirect_to group_path(@group), notice: "Url is expired, request a new one from owner of the group."
     else
-      if Group.where(group_token: params[:token]).exists?
-        redirect_to group_path(@group), notice: "Url is expired, request a new one from owner of the group."
-      else
-        redirect_to group_path(@group), notice: "Invalid url"
-      end
+      redirect_to group_path(@group), notice: "Invalid url"
     end
   end
 
