@@ -20,7 +20,10 @@ class GroupsController < ApplicationController
 
   def generate_token
     @group = Group.find(params[:id])
-    return unless @group.updated_at <= 12.days.ago || @group.group_token.nil?
+    if @group.token_expires_at.nil? || (@group.token_expires_at < Time.zone.now)
+      @group.update(token_expires_at: Time.zone.now + 12.days)
+    end
+    return unless @group.group_token.nil? || (@group.token_expires_at < Time.zone.now)
 
     @group.regenerate_group_token
   end

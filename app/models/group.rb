@@ -11,7 +11,7 @@ class Group < ApplicationRecord
   has_many :pending_invitations, dependent: :destroy
 
   after_commit :send_creation_mail, on: :create
-  scope :with_valid_token, -> { where("updated_at >= ?", 12.days.ago) }
+  scope :with_valid_token, -> { where("token_expires_at >= ?", Time.zone.now) }
 
   def send_creation_mail
     GroupMailer.new_group_email(mentor, self).deliver_later

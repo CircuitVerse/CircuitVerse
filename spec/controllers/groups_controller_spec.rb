@@ -83,6 +83,7 @@ describe GroupsController, type: :request do
   describe "#invite" do
     before do
       @already_present = FactoryBot.create(:user)
+      @group.update(token_expires_at: Time.zone.now + 12.days)
       FactoryBot.create(:group_member, user: @already_present, group: @group)
     end
 
@@ -106,7 +107,7 @@ describe GroupsController, type: :request do
 
     context "when user enters a expired url" do
       before do
-        @group.update(updated_at: 13.days.ago)
+        @group.update(token_expires_at: 1.day.ago)
       end
 
       it "does not add member to group and generates error message" do
@@ -128,7 +129,7 @@ describe GroupsController, type: :request do
 
   describe "#generate_token" do
     before do
-      @group.update(updated_at: 13.days.ago, group_token: nil)
+      @group.update(token_expires_at: 1.day.ago, group_token: nil)
     end
 
     context "when group does not have any token or token is expired" do
