@@ -22,6 +22,7 @@ import { generateNodeName } from './verilogHelpers';
 export default class CircuitElement {
     constructor(x, y, scope, dir, bitWidth) {
         // Data member initializations
+        const Diodeflag = 0 ; 
         this.x = x;
         this.y = y;
         this.hover = false;
@@ -221,6 +222,16 @@ export default class CircuitElement {
     */
     setWidth(width) {
         this.leftDimensionX = this.rightDimensionX = width;
+    }
+
+    setDiodeFlag() 
+    {
+        this.Diodeflag = 1 ; 
+    }
+
+    getDiodeFlag() 
+    {
+        return this.Diodeflag ;
     }
 
     /**
