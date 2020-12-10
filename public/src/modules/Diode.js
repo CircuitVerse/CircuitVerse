@@ -1,14 +1,14 @@
-import CircuitElement from "../circuitElement";
-import Node, { findNode } from "../node";
-import simulationArea from "../simulationArea";
-import { correctWidth, lineTo, moveTo, arc } from "../canvasApi";
-import { changeInputSize } from "../modules";
-import { colors } from "../themer/themer";
+import CircuitElement from '../circuitElement';
+import Node, { findNode } from '../node';
+import simulationArea from '../simulationArea';
+import { correctWidth, lineTo, moveTo, arc } from '../canvasApi';
+import { changeInputSize } from '../modules';
+import { colors } from '../themer/themer';
 import { gateGenerateVerilog } from '../utils';
 
 
 export default class Diode extends CircuitElement {
-	constructor(
+    constructor(
         x,
         y,
         scope = globalScope,
@@ -19,10 +19,10 @@ export default class Diode extends CircuitElement {
 
 		super(x, y, scope, dir, bitWidth);
 
+        this.setDiodeFlag() ; 
+        this.fixedBitWidth = true ; 
 		this.rectangleObject = false;
-        this.setDimensions(15, 15);
-        this.state = 0;
-        this.preState = 0;
+        this.setDimensions(15, 15) ;
         this.inp1 = new Node(-10, 0, 0, this);
         this.output1 = new Node(20, 0, 1, this);
 
@@ -37,12 +37,6 @@ export default class Diode extends CircuitElement {
             },
         };
         return data;
-    }
-
-    newBitWidth(bitWidth) {
-        this.inp1.bitWidth = bitWidth;
-        this.output1.bitWidth = bitWidth;
-        this.bitWidth = bitWidth;
     }
 
     isResolvable() {
@@ -102,4 +96,4 @@ export default class Diode extends CircuitElement {
  */
 Diode.prototype.tooltipText =
     "Diode ToolTip : Isolate the input from the output.";
-Diode.prototype.objectType = "Buffer";
+Diode.prototype.objectType = "Diode";
