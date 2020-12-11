@@ -29,5 +29,13 @@ RSpec.describe Group, type: :model do
         group.send_creation_mail
       }.to have_enqueued_job.on_queue("mailers")
     end
+
+    it "reset the group_token and update expiration date" do
+      group = FactoryBot.create(:group, mentor: @mentor)
+      expect {
+        group.reset_group_token
+      }.to change(group, :group_token)
+        .and change(group, :token_expires_at)
+    end
   end
 end

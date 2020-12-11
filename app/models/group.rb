@@ -12,8 +12,20 @@ class Group < ApplicationRecord
 
   after_commit :send_creation_mail, on: :create
   scope :with_valid_token, -> { where("token_expires_at >= ?", Time.zone.now) }
+  TOKEN_DURATION = 12.days
 
   def send_creation_mail
     GroupMailer.new_group_email(mentor, self).deliver_later
+  end
+
+  def has_valid_token?
+    token_expires_at.present? && token_expires_at > Time.zone.now
+  end
+
+  def reset_group_token
+    transaction do
+      regenerate_group_token
+      update(token_expires_at: Time.zone.now + TOKEN_DURATION)
+    end
   end
 end
