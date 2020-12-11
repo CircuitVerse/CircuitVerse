@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class GroupsController < ApplicationController
-  before_action :set_group, only: %i[show edit update destroy]
+  before_action :set_group, only: %i[show edit update destroy group_invite]
   before_action :authenticate_user!
   before_action :check_show_access, only: %i[show edit update destroy]
   before_action :check_edit_access, only: %i[edit update destroy]
@@ -24,19 +24,19 @@ class GroupsController < ApplicationController
   end
 
   def group_invite
-    @group = Group.find(params[:id])
     if Group.with_valid_token.exists?(group_token: params[:token])
-      if GroupMember.exists?(group_id: @group, user_id: current_user.id)
-        redirect_to group_path(@group), notice: "Member is already present in the group."
+      if current_user.groups.exists?(id: @group)
+        notice = "Member is already present in the group."
       else
-        GroupMember.where(group_id: @group, user_id: current_user.id).first_or_create
-        redirect_to group_path(@group), notice: "Group member was successfully added."
+        current_user.group_members.create!(group: @group)
+        notice = "Group member was successfully added."
       end
     elsif Group.exists?(group_token: params[:token])
-      redirect_to group_path(@group), notice: "Url is expired, request a new one from owner of the group."
+      notice = "Url is expired, request a new one from owner of the group."
     else
-      redirect_to group_path(@group), notice: "Invalid url"
+      notice = "Invalid url"
     end
+    redirect_to group_path(@group), notice: notice
   end
 
   # GET /groups/new
