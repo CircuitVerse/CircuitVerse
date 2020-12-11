@@ -10,7 +10,7 @@ RSpec.describe Api::V1::AuthenticationController, "#forgot_password", type: :req
       end
 
       it "returns status 404 and should have jsonapi errors" do
-        expect(response).to have_http_status(404)
+        expect(response).to have_http_status(:not_found)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -23,7 +23,7 @@ RSpec.describe Api::V1::AuthenticationController, "#forgot_password", type: :req
       end
 
       it "returns status 200 and should send reset password instructions" do
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
         # checks if the last mail sent contains reset password instructions
         expect(ActionMailer::Base.deliveries.last.subject).to eq("Reset password instructions")
       end

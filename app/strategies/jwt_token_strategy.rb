@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class JwtTokenStrategy < Warden::Strategies::Base
   def valid?
     token.present?
@@ -9,7 +11,7 @@ class JwtTokenStrategy < Warden::Strategies::Base
     if user
       success!(user)
     else
-      fail!('Invalid')
+      fail!("Invalid")
     end
   rescue JWT::DecodeError => e
     fail!("Unable to decode the token #{e.message}")
@@ -17,7 +19,7 @@ class JwtTokenStrategy < Warden::Strategies::Base
 
   private
 
-  def token
-    env['HTTP_AUTHORIZATION'].to_s.remove("Token ")
-  end
+    def token
+      env["HTTP_AUTHORIZATION"].to_s.remove("Token ")
+    end
 end

@@ -14,7 +14,7 @@ RSpec.describe Api::V1::CollaboratorsController, "#create", type: :request do
       end
 
       it "returns status unauthenticated" do
-        expect(response).to have_http_status(401)
+        expect(response).to have_http_status(:unauthorized)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -28,7 +28,7 @@ RSpec.describe Api::V1::CollaboratorsController, "#create", type: :request do
       end
 
       it "returns status unauthorized" do
-        expect(response).to have_http_status(403)
+        expect(response).to have_http_status(:forbidden)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -42,7 +42,7 @@ RSpec.describe Api::V1::CollaboratorsController, "#create", type: :request do
       end
 
       it "returns status not_found" do
-        expect(response).to have_http_status(404)
+        expect(response).to have_http_status(:not_found)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -59,7 +59,7 @@ RSpec.describe Api::V1::CollaboratorsController, "#create", type: :request do
       end
 
       it "returns status code 200" do
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
       end
 
       it "returns the added, already_existing & invalid mails (author being invalid)" do

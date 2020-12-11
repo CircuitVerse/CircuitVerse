@@ -9,7 +9,7 @@ describe GroupMembersController, type: :request do
   end
 
   describe "#create" do
-    let(:create_params) {
+    let(:create_params) do
       {
         group_member: {
           group_id: @group.id,
@@ -17,7 +17,7 @@ describe GroupMembersController, type: :request do
            #{FactoryBot.create(:user).email} #{Faker::Internet.email}"
         }
       }
-    }
+    end
 
     before do
       @already_present = FactoryBot.create(:user)
@@ -27,10 +27,10 @@ describe GroupMembersController, type: :request do
 
     context "mentor is logged in" do
       it "creates members that are not present and pending invitations for others" do
-        expect {
+        expect do
           post group_members_path, params: create_params
-        }.to change { GroupMember.count }.by(1)
-         .and change { PendingInvitation.count }.by(1)
+        end.to change(GroupMember, :count).by(1)
+                                          .and change(PendingInvitation, :count).by(1)
       end
     end
 
@@ -52,9 +52,9 @@ describe GroupMembersController, type: :request do
     context "mentor is signed in" do
       it "destroys group member" do
         sign_in @mentor
-        expect {
+        expect do
           delete group_member_path(@group_member)
-        }.to change { GroupMember.count }.by(-1)
+        end.to change(GroupMember, :count).by(-1)
       end
     end
 

@@ -20,21 +20,19 @@ class GroupsController < ApplicationController
 
   def generate_token
     @group = Group.find(params[:id])
-    if !@group.has_valid_token?
-      @group.reset_group_token
-    end
+    @group.reset_group_token unless @group.has_valid_token?
   end
 
   def group_invite
     @group = Group.find(params[:id])
-    if Group.with_valid_token.where(group_token: params[:token]).exists?
-      if GroupMember.where(group_id: @group, user_id: current_user.id).exists?
+    if Group.with_valid_token.exists?(group_token: params[:token])
+      if GroupMember.exists?(group_id: @group, user_id: current_user.id)
         redirect_to group_path(@group), notice: "Member is already present in the group."
       else
         GroupMember.where(group_id: @group, user_id: current_user.id).first_or_create
         redirect_to group_path(@group), notice: "Group member was successfully added."
       end
-    elsif Group.where(group_token: params[:token]).exists?
+    elsif Group.exists?(group_token: params[:token])
       redirect_to group_path(@group), notice: "Url is expired, request a new one from owner of the group."
     else
       redirect_to group_path(@group), notice: "Invalid url"

@@ -12,9 +12,9 @@ describe GroupsController, type: :request do
   describe "#create" do
     it "creates a group" do
       sign_in @mentor
-      expect {
+      expect do
         post groups_path, params: { group: { name: "test group", mentor_id: @mentor.id } }
-      }.to change(Group, :count).by(1)
+      end.to change(Group, :count).by(1)
     end
   end
 
@@ -22,9 +22,9 @@ describe GroupsController, type: :request do
     context "mentor is signed_in" do
       it "destroys group" do
         sign_in @mentor
-        expect {
+        expect do
           delete group_path(@group)
-        }.to change(Group, :count).by(-1)
+        end.to change(Group, :count).by(-1)
       end
     end
 
@@ -41,7 +41,7 @@ describe GroupsController, type: :request do
     context "group member is signed in", :focus do
       before do
         @assignment = FactoryBot.create(:assignment, group: @group,
-          status: "reopening", deadline: Time.now - 2.days)
+                                                     status: "reopening", deadline: Time.zone.now - 2.days)
         sign_in get_group_member(@group)
       end
 
@@ -90,18 +90,18 @@ describe GroupsController, type: :request do
     context "when user enters a valid link" do
       it "adds member to the group if group token matches" do
         sign_in @user
-        expect {
+        expect do
           get invite_group_path(id: @group.id, token: @group.group_token)
-        }.to change(GroupMember, :count).by(1)
+        end.to change(GroupMember, :count).by(1)
       end
     end
 
     context "when user is already present in the group" do
       it "does not add member to the group" do
         sign_in @already_present
-        expect {
+        expect do
           get invite_group_path(id: @group.id, token: @group.group_token)
-        }.to change(GroupMember, :count).by(0)
+        end.to change(GroupMember, :count).by(0)
       end
     end
 

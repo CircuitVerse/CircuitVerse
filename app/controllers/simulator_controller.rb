@@ -86,7 +86,7 @@ class SimulatorController < ApplicationController
 
   def verilog_cv
     url = "http://127.0.0.1:3040/getJSON"
-    response = HTTP.post(url, json: {"code": params[:code]})
+    response = HTTP.post(url, json: { "code": params[:code] })
     render json: response.to_s, status: response.code
   end
 
@@ -100,11 +100,10 @@ class SimulatorController < ApplicationController
       @project = Project.friendly.find(params[:id])
     end
 
-    # FIXME remove this logic after fixing production data
+    # FIXME: remove this logic after fixing production data
     def set_user_project
       @project = current_user.projects.friendly.find_by(id: params[:id]) || Project.friendly.find(params[:id])
     end
-
 
     def check_edit_access
       authorize @project, :edit_access?

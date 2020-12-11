@@ -9,7 +9,7 @@ RSpec.describe GroupMailer, type: :mailer do
   end
 
   describe "new_group_email" do
-    let(:mail) { GroupMailer.new_group_email(@mentor, @group) }
+    let(:mail) { described_class.new_group_email(@mentor, @group) }
 
     it "sends new group email" do
       expect(mail.to).to eq([@mentor.email])
@@ -22,7 +22,7 @@ RSpec.describe GroupMailer, type: :mailer do
       @user = FactoryBot.create(:user)
     end
 
-    let(:mail) { GroupMailer.new_member_email(@user, @group) }
+    let(:mail) { described_class.new_member_email(@user, @group) }
 
     it "sends new member email" do
       expect(mail.to).to eq([@user.email])

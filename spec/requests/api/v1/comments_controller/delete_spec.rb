@@ -18,7 +18,7 @@ RSpec.describe Api::V1::CommentsController, "#delete", type: :request do
       end
 
       it "returns status unauthorized" do
-        expect(response).to have_http_status(401)
+        expect(response).to have_http_status(:unauthorized)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -31,7 +31,7 @@ RSpec.describe Api::V1::CommentsController, "#delete", type: :request do
       end
 
       it "returns status forbidden" do
-        expect(response).to have_http_status(403)
+        expect(response).to have_http_status(:forbidden)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -45,7 +45,7 @@ RSpec.describe Api::V1::CommentsController, "#delete", type: :request do
       end
 
       it "returns status conflict & 'already deleted' error" do
-        expect(response).to have_http_status(409)
+        expect(response).to have_http_status(:conflict)
         expect(response.parsed_body).to have_jsonapi_error("already deleted")
       end
     end
@@ -61,7 +61,7 @@ RSpec.describe Api::V1::CommentsController, "#delete", type: :request do
       end
 
       it "deletes comment & returns status no_content" do
-        expect(response).to have_http_status(204)
+        expect(response).to have_http_status(:no_content)
         expect(comment.is_deleted?).to be true
       end
     end
