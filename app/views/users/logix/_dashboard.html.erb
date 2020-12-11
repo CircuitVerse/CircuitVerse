@@ -1,4 +1,5 @@
-<% projects.each do |project| %>
+<% if projects.map{ |project| policy(project).check_direct_view_access? }.include?(true) %>
+  <% projects.each do |project| %>
   <% if policy(project).check_direct_view_access? %>
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 users-circuits-column circuit-card-js">
       <div class="card text-center users-card">
@@ -28,5 +29,13 @@
       </div>
     </div>
   <% end %>
-
 <% end %>
+<% else %>
+  <div class="col-12">
+    <div class="search-no-results-image">
+      <%= image_tag "SVGs/noProject.svg", alt: "No result image" %>
+      <h6><%= @user.name %> doesn't have any projects.</h6>
+    </div>
+  </div>
+<% end %>
+
