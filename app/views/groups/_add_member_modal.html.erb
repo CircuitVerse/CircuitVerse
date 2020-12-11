@@ -22,12 +22,22 @@
           </div>
           <div class="form-group">
             <label for="emails">Email IDs:</label>
-            <textarea class="form-control form-input" rows="5" id="emails" name="group_member[emails]"></textarea>
+            <textarea class="form-control form-input" rows="4" id="emails" name="group_member[emails]"></textarea>
           </div>
           <div class="modal-footer">
             <%= form.submit "Add members", class: 'btn primary-button' %>
           </div>
         <% end %>
+      </div>
+      <div class="mx-auto text-center p-3">
+        <p>OR USE</p>
+        <%= button_to generate_token_group_path,{remote: true,method: :put,class: 'btn primary-button', 'data-toggle':'collapse', 'href':'#collapseExample', 'aria-expanded':'false', 'aria-controls':'collapseExample'} do %>
+          <i class="fas fa-external-link-alt"></i>
+          <span>Group Invite Link</span>
+        <% end %>
+        <div class="collapse" id="collapseExample">
+          <textarea id="embedInviteLink" class="group-invite-link-text" rows="4" cols="35"></textarea>
+        </div>
       </div>
     </div>
   </div>
