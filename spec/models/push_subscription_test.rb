@@ -4,6 +4,6 @@ require "rails_helper"
 
 RSpec.describe PushSubscription, type: :model do
   describe "associations" do
-    it { should belong_to(:user) }
+    it { is_expected.to belong_to(:user) }
   end
 end

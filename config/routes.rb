@@ -16,6 +16,10 @@ Rails.application.routes.draw do
   resources :group_members, only: %i[create destroy]
   resources :groups, except: %i[index] do
     resources :assignments, except: %i[index]
+    member do
+      get "invite/:token", to: "groups#group_invite", as: "invite"
+      put :generate_token
+    end
   end
 
   resources :custom_mails, except: %i[destroy]

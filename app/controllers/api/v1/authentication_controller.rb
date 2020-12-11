@@ -39,7 +39,6 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
   end
 
   # POST api/v1/oauth/signup
-  # rubocop:disable Metrics/AbcSize
   def oauth_signup
     if User.exists?(email: @oauth_user["email"])
       api_error(status: 409, errors: "user already exists")
@@ -56,7 +55,6 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
       end
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   # POST api/v1/forgot_password
   def forgot_password

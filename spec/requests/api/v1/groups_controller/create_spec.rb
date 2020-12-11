@@ -12,7 +12,7 @@ RSpec.describe Api::V1::GroupsController, "#create", type: :request do
       end
 
       it "returns status unauthenticated" do
-        expect(response).to have_http_status(401)
+        expect(response).to have_http_status(:unauthorized)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -26,7 +26,7 @@ RSpec.describe Api::V1::GroupsController, "#create", type: :request do
       end
 
       it "returns status bad_request" do
-        expect(response).to have_http_status(400)
+        expect(response).to have_http_status(:bad_request)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -40,7 +40,7 @@ RSpec.describe Api::V1::GroupsController, "#create", type: :request do
       end
 
       it "returns status created & group details" do
-        expect(response).to have_http_status(201)
+        expect(response).to have_http_status(:created)
         expect(response).to match_response_schema("group")
         expect(response.parsed_body["data"]["attributes"]["name"]).to eq("Test Group")
       end

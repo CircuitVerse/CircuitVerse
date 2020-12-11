@@ -13,7 +13,7 @@ RSpec.describe Api::V1::ProjectsController, "#toggle_star", type: :request do
       end
 
       it "returns status :not_authorized" do
-        expect(response).to have_http_status(401)
+        expect(response).to have_http_status(:unauthorized)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -26,7 +26,7 @@ RSpec.describe Api::V1::ProjectsController, "#toggle_star", type: :request do
       end
 
       it "returns status :not_found" do
-        expect(response).to have_http_status(404)
+        expect(response).to have_http_status(:not_found)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -39,7 +39,7 @@ RSpec.describe Api::V1::ProjectsController, "#toggle_star", type: :request do
       end
 
       it "returns status :ok & starred message" do
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
         expect(response.parsed_body["message"]).to eq("Starred successfully!")
       end
     end
@@ -53,7 +53,7 @@ RSpec.describe Api::V1::ProjectsController, "#toggle_star", type: :request do
       end
 
       it "returns status :ok & starred message" do
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
         expect(response.parsed_body["message"]).to eq("Unstarred successfully!")
       end
     end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class UserPolicy < Struct.new(:user, :requested_user)
+UserPolicy = Struct.new(:user, :requested_user) do
   attr_reader :current_user, :requested_user
 
   def initialize(current_user, requested_user)

@@ -15,7 +15,7 @@ RSpec.describe Api::V1::ProjectsController, "#update", type: :request do
       end
 
       it "returns status unauthorized" do
-        expect(response).to have_http_status(401)
+        expect(response).to have_http_status(:unauthorized)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -29,7 +29,7 @@ RSpec.describe Api::V1::ProjectsController, "#update", type: :request do
       end
 
       it "returns status bad_request" do
-        expect(response).to have_http_status(400)
+        expect(response).to have_http_status(:bad_request)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -43,7 +43,7 @@ RSpec.describe Api::V1::ProjectsController, "#update", type: :request do
       end
 
       it "returns status :forbidden" do
-        expect(response).to have_http_status(403)
+        expect(response).to have_http_status(:forbidden)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -57,7 +57,7 @@ RSpec.describe Api::V1::ProjectsController, "#update", type: :request do
       end
 
       it "returns updated project details" do
-        expect(response).to have_http_status(202)
+        expect(response).to have_http_status(:accepted)
         expect(response).to match_response_schema("project")
         expect(response.parsed_body["data"]["attributes"]["name"]).to eq("Project Name Updated")
       end
@@ -72,7 +72,7 @@ RSpec.describe Api::V1::ProjectsController, "#update", type: :request do
       end
 
       it "returns status :not_found" do
-        expect(response).to have_http_status(404)
+        expect(response).to have_http_status(:not_found)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
