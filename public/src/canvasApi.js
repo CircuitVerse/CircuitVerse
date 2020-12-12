@@ -92,7 +92,7 @@ export function changeScale(delta, xx, yy, method = 1) {
 // Otherwise for normal panning, the canvas itself is moved to give the illusion of movement
 
 export function dots(dots = true, transparentBackground = false, force = false) {
-
+    
     var scale = unit * globalScope.scale;
     var ox = globalScope.ox % scale; // offset
     var oy = globalScope.oy % scale; // offset
@@ -118,18 +118,18 @@ export function dots(dots = true, transparentBackground = false, force = false) 
         ctx.fill();
     }
 
-
-    var correction = 0.5 * (ctx.lineWidth % 2);
-    for (var i = 0; i < canvasWidth; i += scale) {
-        ctx.moveTo(Math.round(i + correction) - correction, 0);
-        ctx.lineTo(Math.round(i + correction) - correction, canvasHeight);
+    if (!embed) {
+        var correction = 0.5 * (ctx.lineWidth % 2);
+        for (var i = 0; i < canvasWidth; i += scale) {
+            ctx.moveTo(Math.round(i + correction) - correction, 0);
+            ctx.lineTo(Math.round(i + correction) - correction, canvasHeight);
+        }
+        for (var j = 0; j < canvasHeight; j += scale) {
+            ctx.moveTo(0, Math.round(j + correction) - correction);
+            ctx.lineTo(canvasWidth, Math.round(j + correction) - correction);
+        }
+        ctx.stroke();
     }
-    for (var j = 0; j < canvasHeight; j += scale) {
-        ctx.moveTo(0, Math.round(j + correction) - correction);
-        ctx.lineTo(canvasWidth, Math.round(j + correction) - correction);
-    }
-    ctx.stroke();
-
 
     // Old Code
     // function drawPixel(x, y, r, g, b, a) {
