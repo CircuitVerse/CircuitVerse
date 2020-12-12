@@ -8,6 +8,7 @@ import {
     updateSimulationSet,
     updateCanvasSet,
     updateSubcircuitSet,
+    forceResetNodesSet
 } from "./engine";
 import { loadScope } from "./data/load";
 import { showError } from "./utils";
@@ -466,8 +467,13 @@ export default class SubCircuit extends CircuitElement {
         if (subcircuitScope.timeStamp > this.lastUpdated) {
             this.reBuildCircuit();
         }
-
-        this.localScope.reset();
+        
+        // Should this be done here or only when this.reBuildCircuit() is called?
+        {
+            this.localScope.reset();
+            updateSimulationSet(true);
+            forceResetNodesSet(true);
+        }
 
         this.makeConnections();
     }
