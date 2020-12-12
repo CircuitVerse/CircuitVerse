@@ -74,7 +74,7 @@
         </div>
       </div>
       <% else %>
-        <%= render partial: "dashboard" , locals: {projects: @user.projects} %>
+        <%= render partial: "dashboard" , locals: {projects: @user.projects, publicProjectsExist: @publicProjectsExist } %>
       <% end %>
     </div>
     <div id="favourite-circuits-div" class="row center-row circuit-page">
