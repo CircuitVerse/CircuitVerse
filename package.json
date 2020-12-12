@@ -26,7 +26,7 @@
     "@rails/webpacker": "5.2.1",
     "better-docs": "^2.0.1",
     "bootstrap": "^4.5.0",
-    "codemirror": "^5.58.2",
+    "codemirror": "^5.58.3",
     "css-vars": "^2.2.0",
     "dom-to-image": "^2.6.0",
     "driver.js": "^0.9.8",
