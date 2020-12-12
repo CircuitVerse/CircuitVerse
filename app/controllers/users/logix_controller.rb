@@ -11,9 +11,10 @@ class Users::LogixController < ApplicationController
   def index
     @profile = ProfileDecorator.new(@user)
     @projects = @user.rated_projects
-    @public_projects_exist = @user.projects.map { 
-      |project| policy(project).check_direct_view_access? 
-    }.include?(true)
+    public_projects = @user.projects.map do |project|
+      policy(project).check_direct_view_access?
+    end
+    @public_projects_exist = public_projects.include?(true)
   end
 
   def edit; end
