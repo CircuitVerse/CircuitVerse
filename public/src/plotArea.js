@@ -80,6 +80,11 @@ const plotArea = {
     resume() {
         this.autoScroll = true;
     },
+    // pause autoscroll
+    pause() {
+        this.autoScroll = false;
+        plotArea.scrollAcc = 0;
+    },
     // Called every time clock is ticked
     nextCycle() {
         this.cycleCount++;
@@ -390,7 +395,6 @@ const plotArea = {
     clear() {
         this.ctx.clearRect(0, 0, plotArea.canvas.width, plotArea.canvas.height);
     },
-
 };
 export default plotArea;
 
@@ -423,6 +427,9 @@ export function setupTimingListeners() {
     })
     $('.timing-diagram-resume').on('click', () => {
         plotArea.resume();
+    })
+    $('.timing-diagram-pause').on('click', () => {
+        plotArea.pause();
     })
     $('.timing-diagram-download').on('click', () => {
         plotArea.download();
