@@ -110,6 +110,23 @@ window.menuItemClicked = menuItemClicked;
  * menu also attaches listeners to sidebar
  * @category ux
  */
+// function to set up project name listeners
+function setUpProjectNameListeners() {
+    // Function updates the values of project inputs accordingly
+    const watchOneInputChangeAndUpdateAnother = (objectToListen, objectToChange) => $(`${objectToListen}`).on('input', (e) => { $(`${objectToChange}`).val(e.target.value); });
+
+    // setting the name of the title bar as same as it is in the side bar
+    $('.project-name-label').append(`<input type="text" class="projectName" id="projectName" placeholder="Project Name" autocomplete='off' value='${getProjectName() || 'Untitled'}'>`) // adding input bar into the DOM simulator header
+
+    setProjectName($('#projectName').val()); // setting initial value
+    $('#projectName').on('input', () => { // setting project name on change
+        setProjectName($('#projectName').val());
+    })
+
+    watchOneInputChangeAndUpdateAnother('[name="setProjectName"]', '.projectName'); // setting the value of header title on sidebar title change
+    watchOneInputChangeAndUpdateAnother('.projectName', '[name="setProjectName"]'); // setting the value of sidebar title on header title change
+}
+
 export function setupUI() {
     var ctxEl = document.getElementById('contextMenu');
     document.addEventListener('mousedown', (e) => {
@@ -143,21 +160,8 @@ export function setupUI() {
     });
     // var dummyCounter=0;
 
-
-    // Function updates the values of project inputs accordingly
-    const watchOneInputChangeAndUpdateAnother = (objectToListen, objectToChange) => $(`${objectToListen}`).on('input', (e) => { $(`${objectToChange}`).val(e.target.value); });
-
-    // setting the name of the title bar as same as it is in the side bar
-    $('.project-name-label').append(`<input type="text" class="projectName" id="projectName" placeholder="Project Name" autocomplete='off' value='${getProjectName() || 'Untitled'}'>`) // adding input bar into the DOM simulator header
-
-    setProjectName($('#projectName').val()); // setting initial value
-    $('#projectName').on('input', () => { // setting project name on change
-        setProjectName($('#projectName').val());
-    })
-
-    watchOneInputChangeAndUpdateAnother('[name="setProjectName"]', '.projectName'); // setting the value of header title on sidebar title change
-    watchOneInputChangeAndUpdateAnother('.projectName', '[name="setProjectName"]'); // setting the value of sidebar title on header title change
-
+    // setting up project name listeners
+    setUpProjectNameListeners();
 
     $('.logixModules').hover(function () {
         // Tooltip can be statically defined in the prototype.
