@@ -43,6 +43,17 @@ export default function startListeners() {
         fullView();
     });
 
+    /* Makes tabs reordering possible by making them sortable */
+    $("#tabsBar").sortable({
+        containment: 'parent',
+        items: '> div',
+        revert: false,
+        opacity: 0.5,
+        tolerance: 'pointer',
+        placeholder: 'placeholder',
+        forcePlaceholderSize: true,
+    });
+
     document.getElementById('simulationArea').addEventListener('mousedown', (e) => {
         simulationArea.mouseDown = true;
 
