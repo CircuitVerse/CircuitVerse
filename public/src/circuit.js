@@ -159,6 +159,12 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
             $('#tabsBar').children().last().before(html);
         }
 
+        // Remove listeners
+        $('.circuits').off('click');
+        $('.circuitName').off('click');
+        $('.tabsCloseButton').off('click');
+
+        // Add listeners
         $('.circuits').on('click',function () {
             switchCircuit(this.id);
         });
