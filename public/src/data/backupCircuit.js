@@ -46,7 +46,7 @@ export function backUp(scope = globalScope) {
 
     // Storing intermediate nodes (nodes in wires)
     data.nodes = [];
-    for (let i = 0; i < scope.nodes.length; i++) { data.nodes.push(scope.allNodes.indexOf(scope.nodes[i])); }
+    for (let i = 0; i < scope.nodes.length; i++) { data.nodes.push(scope.allNodes.cacheIndexOf(scope.nodes[i])); }
 
     // Restoring the connections
     for (let i = 0; i < scope.SubCircuit.length; i++) { scope.SubCircuit[i].makeConnections(); }

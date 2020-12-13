@@ -22,6 +22,7 @@ import { generateNodeName } from './verilogHelpers';
 export default class CircuitElement {
     constructor(x, y, scope, dir, bitWidth) {
         // Data member initializations
+        this.arrayIndexMap = {}
         this.x = x;
         this.y = y;
         this.hover = false;
@@ -109,7 +110,7 @@ export default class CircuitElement {
      * adds the element to scopeList
      */
     baseSetup() {
-        this.scope[this.objectType].push(this);
+        this.scope[this.objectType].push_with_index(this);
     }
 
     /**
@@ -339,7 +340,7 @@ export default class CircuitElement {
                     if (simulationArea.multipleObjectSelections.contains(this)) {
                         simulationArea.multipleObjectSelections.clean(this);
                     } else {
-                        simulationArea.multipleObjectSelections.push(this);
+                        simulationArea.multipleObjectSelections.push_with_index(this);
                     }
                 } else {
                     simulationArea.lastSelected = this;
@@ -751,7 +752,7 @@ export default class CircuitElement {
                         generateNodeName(this.nodeList[i], output_count, output_total);
 
                     if (!this.scope.verilogWireList[this.nodeList[i].bitWidth].contains(this.nodeList[i].verilogLabel))
-                        this.scope.verilogWireList[this.nodeList[i].bitWidth].push(this.nodeList[i].verilogLabel);
+                        this.scope.verilogWireList[this.nodeList[i].bitWidth].push_with_index(this.nodeList[i].verilogLabel);
                     output_count++;
                 }
                 this.scope.stack.push(this.nodeList[i]);

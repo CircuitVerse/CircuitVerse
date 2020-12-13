@@ -17,6 +17,7 @@ import { colors } from './themer/themer';
  */
 export default class Wire {
     constructor(node1, node2, scope) {
+        this.arrayIndexMap = {}
         this.objectType = 'Wire';
         this.node1 = node1;
         this.scope = scope;

@@ -357,7 +357,7 @@ export function updateSelectionsAndPane(scope = globalScope) {
                         continue;
                     }
                     if (x > x1 && x < x2 && y > y1 && y < y2) {
-                        simulationArea.multipleObjectSelections.push(obj);
+                        simulationArea.multipleObjectSelections.push_with_index(obj);
                     }
                 }
             }

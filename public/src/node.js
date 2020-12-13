@@ -66,7 +66,7 @@ export function dec2bin(dec, bitWidth = undefined) {
  * @category node
  */
 export function findNode(x) {
-    return x.scope.allNodes.indexOf(x);
+    return x.scope.allNodes.cacheIndexOf(x);
 }
 
 /**
@@ -123,6 +123,7 @@ var uniqueIdCounter = 10;
  */
 export default class Node {
     constructor(x, y, type, parent, bitWidth = undefined, label = '') {
+        this.arrayIndexMap = {}
         // Should never raise, but just in case
         if (isNaN(x) || isNaN(y)) {
             this.delete();
@@ -137,7 +138,7 @@ export default class Node {
         this.id = `node${uniqueIdCounter}`;
         uniqueIdCounter++;
         this.parent = parent;
-        if (type != 2 && this.parent.nodeList !== undefined) { this.parent.nodeList.push(this); }
+        if (type != 2 && this.parent.nodeList !== undefined) { this.parent.nodeList.push_with_index(this); }
 
         if (bitWidth == undefined) {
             this.bitWidth = parent.bitWidth;
@@ -174,9 +175,9 @@ export default class Node {
         // This fn is called during rotations and setup
         this.refresh();
 
-        if (this.type == 2) { this.parent.scope.nodes.push(this); }
+        if (this.type == 2) { this.parent.scope.nodes.push_with_index(this); }
 
-        this.parent.scope.allNodes.push(this);
+        this.parent.scope.allNodes.push_with_index(this);
 
         this.queueProperties = {
             inQueue: false,
@@ -201,7 +202,7 @@ export default class Node {
         this.x = this.absX();
         this.y = this.absY();
         this.parent = this.scope.root;
-        this.scope.nodes.push(this);
+        this.scope.nodes.push_with_index(this);
     }
 
     /**
@@ -308,8 +309,8 @@ export default class Node {
         if (n == this) return;
         if (n.connections.contains(this)) return;
         var w = new Wire(this, n, this.parent.scope);
-        this.connections.push(n);
-        n.connections.push(this);
+        this.connections.push_with_index(n);
+        n.connections.push_with_index(this);
 
         updateCanvasSet(true);
         updateSimulationSet(true);
@@ -322,8 +323,8 @@ export default class Node {
     connectWireLess(n) {
         if (n == this) return;
         if (n.connections.contains(this)) return;
-        this.connections.push(n);
-        n.connections.push(this);
+        this.connections.push_with_index(n);
+        n.connections.push_with_index(this);
 
         updateCanvasSet(true);
         updateSimulationSet(true);
@@ -548,7 +549,7 @@ export default class Node {
                     if (simulationArea.multipleObjectSelections.contains(this)) {
                         simulationArea.multipleObjectSelections.clean(this);
                     } else {
-                        simulationArea.multipleObjectSelections.push(this);
+                        simulationArea.multipleObjectSelections.push_with_index(this);
                     }
                 } else {
                     simulationArea.lastSelected = this;
@@ -755,13 +756,13 @@ export default class Node {
 
     processVerilog() {
         if (this.type == NODE_INPUT) {
-            if (this.parent.isVerilogResolvable()) { this.scope.stack.push(this.parent); }
+            if (this.parent.isVerilogResolvable()) { this.scope.stack.push_with_index(this.parent); }
         }
 
         for (var i = 0; i < this.connections.length; i++) {
             if (this.connections[i].verilogLabel != this.verilogLabel) {
                 this.connections[i].verilogLabel = this.verilogLabel;
-                this.scope.stack.push(this.connections[i]);
+                this.scope.stack.push_with_index(this.connections[i]);
             }
         }
     }

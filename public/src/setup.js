@@ -148,6 +148,7 @@ export function setup() {
     // Load project data after 1 second - needs to be improved, delay needs to be eliminated
     setTimeout(() => {
         if (__logix_project_id != 0) {
+            window.startTime = new Date().getTime();
             $('.loadingIcon').fadeIn();
             $.ajax({
                 url: '/simulator/get_data',
@@ -160,10 +161,12 @@ export function setup() {
                 },
                 success(response) {
                     var data = (response);
+                    console.log("Data Downloaded ", new Date().getTime() - startTime);
                     if (data) {
                         load(data);
                         simulationArea.changeClockTime(data.timePeriod || 500);
                     }
+                    console.log("Circuit Loaded ", new Date().getTime() - startTime);
                     $('.loadingIcon').fadeOut();
                 },
                 failure() {

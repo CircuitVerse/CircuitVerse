@@ -176,8 +176,11 @@ export default function load(data) {
     resetScopeList(); // Remove default scope
     $('.circuits').remove(); // Delete default scope
 
+    console.log("Circuit Loading ", new Date().getTime() - window.startTime);
+
     // Load all  according to the dependency order
     for (let i = 0; i < data.scopes.length; i++) {
+        console.log("Circuit Loading ", i, data.scopes[i].name , new Date().getTime() - window.startTime);
 
         var isVerilogCircuit = false;
         var isMainCircuit = false;
@@ -205,7 +208,7 @@ export default function load(data) {
 
         scheduleBackup();
     }
-
+    console.log("Circuit Loading ", new Date().getTime() - window.startTime);
     // Restore clock
     simulationArea.changeClockTime(data.timePeriod || 500);
     simulationArea.clockEnabled = data.clockEnabled === undefined ? true : data.clockEnabled;
