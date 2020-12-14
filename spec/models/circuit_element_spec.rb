@@ -22,7 +22,7 @@ RSpec.describe CircuitElement, type: :model do
 
   let(:test_bench) { ["TB_Input", "TB_Output", "ForceGate"] }
 
-  let(:misc) { ["Flag", "Splitter", "Adder", "TriState", "Buffer", "ControlledInverter", "ALU",
+  let(:misc) { ["Flag", "Splitter", "Adder", "TriState", "Buffer", "ControlledInverter", "ControlledBuffer", "ALU",
    "Rectangle", "Arrow", "Text", "Tunnel"] }
 
   describe "methods" do
