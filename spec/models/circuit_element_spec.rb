@@ -5,25 +5,25 @@ require "rails_helper"
 
 RSpec.describe CircuitElement, type: :model do
   let(:category_list) { ["Input", "Output", "Gates", "Decoders & Plexers",
-    "Sequential Elements", "Test Bench", "Misc"] }
+  "Sequential Elements", "Test Bench", "Misc"] }
 
   let(:input) { ["Input", "Button", "Power", "Ground", "ConstantVal", "Stepper", "Random",
-   "Counter"] }
+  "Counter"] }
 
   let(:output) { ["Output", "RGBLed", "DigitalLed", "VariableLed", "HexDisplay", "SevenSegDisplay",
-    "SixteenSegDisplay", "SquareRGBLed", "RGBLedMatrix"] }
+  "SixteenSegDisplay", "SquareRGBLed", "RGBLedMatrix"] }
   let(:gates) { ["AndGate", "OrGate", "NotGate", "XorGate", "NandGate", "NorGate", "XnorGate"] }
 
   let(:decoders_and_plexers) { ["Multiplexer", "Demultiplexer", "BitSelector", "MSB", "LSB",
   "PriorityEncoder", "Decoder"] }
 
   let(:sequential_elements) { ["DflipFlop", "Dlatch", "TflipFlop", "JKflipFlop", "SRflipFlop",
-    "TTY", "Keyboard", "Clock", "Rom", "RAM", "EEPROM"] }
+  "TTY", "Keyboard", "Clock", "Rom", "RAM", "EEPROM"] }
 
   let(:test_bench) { ["TB_Input", "TB_Output", "ForceGate"] }
 
   let(:misc) { ["Flag", "Splitter", "Adder", "TriState", "Buffer", "ControlledInverter", 
-   "ControlledBuffer", "ALU", "Rectangle", "Arrow", "Text", "Tunnel"] }
+  "ControlledBuffer", "ALU", "Rectangle", "Arrow", "Text", "Tunnel"] }
 
   describe "methods" do
     it "should return category wise element lists" do
