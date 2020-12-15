@@ -1,0 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+
+html {
+  font-family: "Montserrat", sans-serif;
+  line-height: 1.5rem;
+  background-color: #ecf8f8;
+}
+
+body {
+  margin: 8rem;
+}
+
+.contributor h2 {
+  text-decoration: underline;
+  font-weight: bolder;
+  text-transform: uppercase;
+}
+
+.contributor ul b {
+  color: green;
+}
