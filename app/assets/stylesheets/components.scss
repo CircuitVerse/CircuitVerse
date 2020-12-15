@@ -92,7 +92,8 @@
   float: left;
 }
 
-.circuit-card {
+.circuit-card,
+.member-card {
   border: 1px solid $primary-green;
   border-radius: 0;
   display: inline-block;
@@ -103,18 +104,33 @@
   min-width: 260px;
 }
 
-.circuit-card-image {
+.member-card {
+  border-radius: 8%;
+}
+
+.member-card-image {
+  border-radius: 20px 20px 0 0;
+
+  &:hover {
+    border-radius: 25px 70px;
+  }
+}
+
+.circuit-card-image,
+.member-card-image {
   max-height: 180px;
   max-width: 100%;
 }
 
-.circuit-card-footer {
+.circuit-card-footer,
+.member-card-footer {
   background-color: $white;
   border-top: 1px solid $primary-green;
   padding-top: 10px;
 }
 
-.circuit-card-name {
+.circuit-card-name,
+.member-name {
   display: inline-block;
   float: left;
   font-weight: 600;
