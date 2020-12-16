@@ -14,12 +14,13 @@ export default class Diode extends CircuitElement {
         scope = globalScope,
         dir = "RIGHT",
         inputLength = 1,
-        bitWidth = 1
+        bitWidth = 1, 
+        DiodeFlag = 0 
     ) {
 
 		super(x, y, scope, dir, bitWidth);
 
-        this.setDiodeFlag() ; 
+        this.DiodeFlag = DiodeFlag; 
         this.fixedBitWidth = true ; 
 		this.rectangleObject = false;
         this.setDimensions(15, 15) ;
@@ -27,6 +28,7 @@ export default class Diode extends CircuitElement {
         this.output1 = new Node(20, 0, 1, this);
 
     }
+
 
     customSave() {
         const data = {
@@ -44,6 +46,8 @@ export default class Diode extends CircuitElement {
     }
 
     resolve() {
+        this.DiodeFlag = 1 ; 
+
         if (this.inp1.value === 0) {
             this.state = undefined;
         }
@@ -88,6 +92,10 @@ export default class Diode extends CircuitElement {
     }
 }
 
+export function getDiodeFlag() {
+        return this.DiodeFlag ; 
+    }
+
 /**
  * @memberof Buffer
  * Help Tip
@@ -97,3 +105,4 @@ export default class Diode extends CircuitElement {
 Diode.prototype.tooltipText =
     "Diode ToolTip : Isolate the input from the output.";
 Diode.prototype.objectType = "Diode";
+
