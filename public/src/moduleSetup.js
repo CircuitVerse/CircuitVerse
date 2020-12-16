@@ -134,6 +134,7 @@ export default function setupModules() {
         TB_Input,
         TB_Output,
         ForceGate,
+        Buzzer,
     };
     Object.assign(modules, moduleSet);
 }
