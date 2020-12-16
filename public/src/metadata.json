@@ -9,6 +9,7 @@
         "NandGate",
         "XorGate",
         "XnorGate",
+        "Diode",
         "SevenSegDisplay",
         "SixteenSegDisplay",
         "HexDisplay",
@@ -60,7 +61,8 @@
         "Dlatch",
         "TB_Input",
         "TB_Output",
-        "ForceGate"
+        "ForceGate",
+        "Buzzer" 
     ],
     "annotationList": [
         "Text",
@@ -130,7 +132,8 @@
             "XorGate",
             "NandGate",
             "NorGate",
-            "XnorGate"
+            "XnorGate", 
+            "Diode"
         ],
         "Decoders & Plexers": [
             "Multiplexer",
@@ -178,7 +181,8 @@
             "ControlledInverter",
             "TB_Input",
             "TB_Output",
-            "ForceGate"
+            "ForceGate", 
+            "Buzzer"
         ]
     }
 }

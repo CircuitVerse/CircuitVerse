@@ -233,7 +233,7 @@ export function showProperties(obj) {
     if(layoutModeGet()){
         // if an element is selected, show its properties instead of the layout dialog
         if (simulationArea.lastSelected === undefined || ['Wire', 'CircuitElement', 'Node'].indexOf(simulationArea.lastSelected.objectType) !== -1){
-            $('#moduleProperty').hide();
+            $('#modulePropshowPropertieserty').hide();
             $('#layoutDialog').show();
             return;
         }
@@ -282,10 +282,10 @@ export function showProperties(obj) {
 
         $('#moduleProperty-inner').append(`<div id='moduleProperty-header'>${obj.objectType}</div>`);
         // $('#moduleProperty').append("<input type='range' name='points' min='1' max='32' value="+obj.bitWidth+">");
-        if (!obj.fixedBitWidth) { $('#moduleProperty-inner').append(`<p><span>BitWidth:</span> <input class='objectPropertyAttribute' type='number'  name='newBitWidth' min='1' max='32' value=${obj.bitWidth}></p>`); }
+        if (!obj.fixedBitWidth ) { $('#moduleProperty-inner').append(`<p><span>BitWidth:</span> <input class='objectPropertyAttribute' type='number'  name='newBitWidth' min='1' max='32' value=${obj.bitWidth}></p>`); }
 
-        if (obj.changeInputSize) { $('#moduleProperty-inner').append(`<p><span>Input Size:</span> <input class='objectPropertyAttribute' type='number'  name='changeInputSize' min='2' max='10' value=${obj.inputSize}></p>`); }
-        
+        if (obj.changeInputSize ) { $('#moduleProperty-inner').append(`<p><span>Input Size:</span> <input class='objectPropertyAttribute' type='number'  name='changeInputSize' min='2' max='10' value=${obj.inputSize}></p>`); }
+
         if (!obj.propagationDelayFixed) { $('#moduleProperty-inner').append(`<p><span>Delay:</span> <input class='objectPropertyAttribute' type='number'  name='changePropagationDelay' min='0' max='100000' value=${obj.propagationDelay}></p>`); }
         
         if (!obj.disableLabel)
@@ -322,6 +322,10 @@ export function showProperties(obj) {
                 }
                 else if (obj.mutableProperties[attr].type === 'textarea') {
                     s = `<p><span>${prop.name}</span><textarea class='objectPropertyAttribute' type='text' autocomplete='off' rows="9" name='${prop.func}'>${obj[attr]}</textarea></p>`;
+                    $('#moduleProperty-inner').append(s);
+                }
+                else if (obj.mutableProperties[attr].type === 'checkbox') { 
+                    s = `<p><span>${prop.name}</span> <label class='switch'> <input type='checkbox' ${['', 'checked'][prop.name + 0]} class='objectPropertyAttributeChecked' name='${prop.func}'> <span class='slider'></span> </label></p>`;
                     $('#moduleProperty-inner').append(s);
                 }
             }
