@@ -22,7 +22,6 @@ import { generateNodeName } from './verilogHelpers';
 export default class CircuitElement {
     constructor(x, y, scope, dir, bitWidth) {
         // Data member initializations
-        const Diodeflag = 0 ; 
         this.x = x;
         this.y = y;
         this.hover = false;
@@ -38,7 +37,7 @@ export default class CircuitElement {
 
         this.oldx = x;
         this.oldy = y;
-
+        
         // The following attributes help in setting the touch area bound. They are the distances from the center.
         // Note they are all positive distances from center. They will automatically be rotated when direction is changed.
         // To stop the rotation when direction is changed, check overrideDirectionRotation attribute.
@@ -222,16 +221,6 @@ export default class CircuitElement {
     */
     setWidth(width) {
         this.leftDimensionX = this.rightDimensionX = width;
-    }
-
-    setDiodeFlag() 
-    {
-        this.Diodeflag = 1 ; 
-    }
-
-    getDiodeFlag() 
-    {
-        return this.Diodeflag ;
     }
 
     /**
