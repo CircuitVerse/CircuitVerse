@@ -43,6 +43,7 @@ import TwoComplement from './modules/TwoComplement';
 import VariableLed from './modules/VariableLed';
 import XnorGate from './modules/XnorGate';
 import XorGate from './modules/XorGate';
+import Diode from './modules/Diode' ; 
 import Clock from './sequential/Clock';
 import DflipFlop from './sequential/DflipFlop';
 import Dlatch from './sequential/Dlatch';
@@ -63,6 +64,8 @@ import verilogPower from './modules/verilogPower';
 import verilogShiftLeft from './modules/verilogShiftLeft';
 import verilogShiftRight from './modules/verilogShiftRight';
 import verilogRAM from './sequential/verilogRAM';
+import Buzzer from './modules/Buzzer'; 
+
 
 export default function setupModules() {
     var moduleSet = {
@@ -73,6 +76,7 @@ export default function setupModules() {
         Multiplexer,
         XorGate,
         XnorGate,
+        Diode ,
         SevenSegDisplay,
         SixteenSegDisplay,
         HexDisplay,
