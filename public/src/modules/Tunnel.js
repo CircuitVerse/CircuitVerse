@@ -36,6 +36,7 @@ export default class Tunnel extends CircuitElement {
         this.xSize = 10;
         this.plotValues = [];
         this.inp1 = new Node(0, 0, 0, this);
+        this.checked = false; // has this tunnel been checked by another paired tunnel
         this.setIdentifier(identifier || "T");
         this.setBounds();
         // if tunnels with this's identifier exist, then set the bitwidth to that of those tunnels
@@ -85,6 +86,11 @@ export default class Tunnel extends CircuitElement {
      * resolve output values based on inputData
      */
     resolve() {
+        // Don't check for paired tunnels' value if already checked by another paired tunnel (O(n))
+        if (this.checked) {
+            this.checked = false;
+            return;
+        }
         // Check for bitwidth error since it bypasses node's resolve() function which usually checks bitwidths
         for (const tunnel of this.scope.tunnelList[this.identifier]) {
             if (tunnel.inp1.bitWidth !== this.inp1.bitWidth) {
@@ -96,6 +102,7 @@ export default class Tunnel extends CircuitElement {
                 tunnel.inp1.value = this.inp1.value;
                 simulationArea.simulationQueue.add(tunnel.inp1);
             }
+            if (tunnel !== this) tunnel.checked = true;
         }
     }
 
@@ -174,8 +181,8 @@ export default class Tunnel extends CircuitElement {
         else this.scope.tunnelList[this.identifier] = [this];
 
         // Change the bitwidth to be same as the other elements with this.identifier
-        if(this.scope.tunnelList[this.identifier] && this.scope.tunnelList[this.identifier].length > 1) {
-            this.newBitWidth(this.scope.tunnelList[this.identifier][0].bitWidth);
+        if (this.scope.tunnelList[this.identifier] && this.scope.tunnelList[this.identifier].length > 1) {
+            this.bitWidth = this.inp1.bitWidth = this.scope.tunnelList[this.identifier][0].bitWidth;
         }
 
         const len = this.identifier.length;
