@@ -80,6 +80,14 @@
             </p>
             <div class="projects-details-description"><%= sanitize@project.description %></div>
           <% end %>
+          <p>
+            <strong>Date Created : </strong>
+            <%= @project.created_at.strftime("%B %d, %Y %H:%M") %>
+          </p>
+          <p>
+            <strong>Date Modified : </strong>
+            <%= @project.updated_at.strftime("%B %d, %Y %H:%M") %>
+          </p>
           <% if user_signed_in? %>
             <p>
               <hr class="projects-horizontal-rule">
