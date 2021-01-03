@@ -3,7 +3,9 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   prepend_before_action :check_captcha, only: [:create]
   before_action :configure_sign_up_params, only: [:create]
-  invisible_captcha only: %i[create update], honeypot: :subtitle unless Rails.env.test?
+  before_action :configure_account_update_params, only: [:update]
+  respond_to :html, :js
+  invisible_captcha only: %i[create], honeypot: :subtitle unless Rails.env.test?
   # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
@@ -40,13 +42,21 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
-  # protected
+  protected
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
     devise_parameter_sanitizer.permit(:sign_up, keys: %i[name age])
   end
 
+  def configure_account_update_params
+    devise_parameter_sanitizer.permit(:account_update, keys: [:accepted_privacy_policy])
+  end
+
+  def update_resource(resource, params)
+    resource.update_without_password(params)
+  end
+  
   private
 
     def check_captcha

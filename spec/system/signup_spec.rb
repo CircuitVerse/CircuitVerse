@@ -48,6 +48,18 @@ describe "Sign up", type: :system do
     fill_in "Password", with: "secret"
     click_button "Sign up"
 
+    expect(page).to have_text("Cookies and Privacy Policy")
     expect(page).to have_text("Welcome! You have signed up successfully.")
+  end
+
+  it "should let users in after GDPR confirmation check" do
+    fill_in "Name", with: "user1"
+    fill_in "Email", with: "user1@example.com"
+    fill_in "Password", with: "secret"
+    click_button "Sign up"
+    page.find("#label-privacy-check").click
+    click_button "Agree"
+
+    expect(page).not_to have_text("Cookies and Privacy Policy")
   end
 end

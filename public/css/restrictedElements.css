@@ -18,3 +18,116 @@
   margin-bottom: 6px;
   margin-top: 6px;
 }
+
+/* privacy modal styles */
+.primary-modal-dialog {
+  border-radius: 4px;
+  box-shadow: none;
+  font-weight: 300;
+  line-height: 1.4;
+  padding-right: 0;
+}
+
+.primary-modal-header {
+  background-color: #42b983;
+  border: 1px solid #42b983;
+  box-shadow: none;
+}
+
+.primary-modal-header 
+.modal-title {
+  color: #fff;
+}
+
+.primary-modal-header
+.close {
+  color: #fff;
+  opacity: 1;
+}
+
+@media (max-width: 400px) {
+  .primary-modal-dialog {
+    max-width: 100%;
+  }
+}
+
+.primary-checkpoint {
+  background-color: #d5d5d5;
+  bottom: 0;
+  display: inline-block;
+  height: 25px;
+  margin-top: 15px;
+  position: absolute;
+  width: 25px;
+}
+
+.primary-checkpoint::after {
+  content: '';
+  display: none;
+  position: absolute;
+}
+
+.primary-checkpoint-container {
+  cursor: pointer;
+  display: block;
+  font-size: 22px;
+  position: relative;
+}
+
+.primary-checkpoint-container
+input {
+  height: 0;
+  opacity: 0;
+  position: absolute;
+  width: 0;
+}
+
+.primary-checkpoint-container
+h6 {
+  display: inline-block;
+  font-weight: 400;
+  margin-bottom: 0;
+  margin-right: 10px;
+}
+
+.primary-checkpoint-container
+input:checked ~ .primary-checkpoint {
+  background-color: #42b983;
+}
+
+.primary-checkpoint-container
+input:checked ~ .primary-checkpoint::after {
+  border: solid #fff;
+  border-width: 0 3px 3px 0;
+  display: block;
+  height: 12px;
+  left: 9px;
+  top: 5px;
+  transform: rotate(45deg);
+  width: 8px;
+}
+
+.primary-button {
+  background-color: #42b983;
+  border-radius: 4px;
+  color: #fff;
+  margin: 5px;
+  transition: all .3s ease 0s;
+}
+
+.primary-button:hover {
+  background-color: #026e57;
+  box-shadow: 0 8px 15px #00000029;
+  color: #fff;
+  transform: translateY(-7px);
+}
+
+.anchor-text {
+  color: #026e57;
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.anchor-text:hover {
+  color: #42b983;
+}

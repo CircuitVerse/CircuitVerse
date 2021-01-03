@@ -1,0 +1,24 @@
+<div id="privacyModal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog primary-modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header primary-modal-header">
+        <h4 class="modal-title">Cookies and Privacy Policy</h4>
+      </div>
+      <div class="modal-body">
+        <p>We have made some changes to our Privacy Policy to be completely transparent about how we process users' data and give the control back to them in compliance to <a href="https://gdpr.eu/" class="anchor-text" target="_blank">EU General Data Protection Regulation (GDPR)</a>.</p>
+        <p>Please read through the <%= link_to "Privacy Policy", privacy_index_path, class: "anchor-text", target: "_blank" %> and <%= link_to "Terms of Service", tos_path, class: "anchor-text", target: "_blank" %> confirming your agreement to the same.</p>
+        <%= form_with(model: resource, as: resource_name, url: registration_path(resource_name), method: :put, remote: true) do |f| %>
+          <div class="form-group newproject-checkbox">
+            <label class="primary-checkpoint-container projects-checkbox-label" id="label-privacy-check"><h6>I agree to the Privacy Policy and Terms of Service</h6>
+              <%= f.check_box :accepted_privacy_policy %>
+              <div class="primary-checkpoint"></div>
+            </label>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <%= f.submit "Agree", class: "btn primary-button" %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

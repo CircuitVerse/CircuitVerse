@@ -336,7 +336,19 @@
 </div>
 
 
+<%= render partial: "layouts/privacy_confirmation_modal" %>
 
+<% if user_signed_in? %>
+  <% unless current_user.accepted_privacy_policy %>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        if (window.location.pathname != "/privacy" && window.location.pathname != "/tos"){
+          $("#privacyModal").modal("show");
+        }
+      })
+    </script>
+  <% end %>
+<% end %>
 
 <script >
   $('button').click(function(){
