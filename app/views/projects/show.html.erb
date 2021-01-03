@@ -203,11 +203,11 @@
 </script>
 <script>
   function embedOther() {
-    if(document.getElementsByClassName("projects-embed-button")[0].ariaExpanded=="false") {
-      document.getElementsByClassName("projects-embed-button")[0].classList.add("active");
+    if(document.getElementsByClassName("projects-others-embed-button")[0].ariaExpanded=="false") {
+      document.getElementsByClassName("projects-others-embed-button")[0].classList.add("active");
     }
     else {
-      document.getElementsByClassName("projects-embed-button")[0].classList.remove("active");
+      document.getElementsByClassName("projects-others-embed-button")[0].classList.remove("active");
     }
     setTimeout(function(){$("#embedTextArea").select();document.execCommand("copy")},100);
   }
