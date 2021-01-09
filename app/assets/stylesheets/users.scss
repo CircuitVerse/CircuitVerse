@@ -83,10 +83,11 @@
 }
 
 .users-social-btns-container {
+  width: 90%;
   display: flex;
   flex-wrap: wrap;
   height: 120px;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 // sign in button styles
