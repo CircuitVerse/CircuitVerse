@@ -263,6 +263,7 @@
 .users-circuits-container {
   border: 1px solid $form-border-grey;
   margin-top: 0;
+  min-height: 348px;
   padding-bottom: 20px;
   padding-top: 30px;
 }
@@ -328,6 +329,28 @@
 .users-card-footer {
   background-color: $card-green;
   border-top: 1px solid $primary-green;
+}
+
+.users-circuits-navbar {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+
+  input {
+    border: 0;
+    border-left: 1px solid $form-border-grey;
+    border-radius: 0;
+    font-size: 16px;
+    margin: 0;
+    margin-top: 20px;
+    padding: 7px 10px;
+    transition: .2s ease-in-out;
+
+    &:focus {
+      border-color: $primary-green;
+      transition: .2s ease-in-out;
+    }
+  }
 }
 
 .users-circuits-tab {

@@ -5,11 +5,11 @@ require "rails_helper"
 describe FeaturedCircuitsController, type: :request do
   before do
     @project = FactoryBot.create(:project, author: FactoryBot.create(:user), \
-      project_access_type: "Public")
+                                           project_access_type: "Public")
   end
 
   describe "#index" do
-    it "should get index page" do
+    it "gets index page" do
       get featured_circuits_path
       expect(response.status).to eq(200)
     end
@@ -20,7 +20,7 @@ describe FeaturedCircuitsController, type: :request do
       sign_in FactoryBot.create(:user)
     end
 
-    it "should not authorize" do
+    it "does not authorize" do
       post featured_circuits_path, params: { featured: "1", project_id: @project.id }
       expect(response.body).to eq("You are not authorized to do the requested operation")
       delete featured_circuits_path, params: { featured: "0", project_id: @project.id }
@@ -34,19 +34,19 @@ describe FeaturedCircuitsController, type: :request do
     end
 
     it "creates featured_circuit" do
-      expect {
+      expect do
         post featured_circuits_path, params: { featured_circuit: \
           { featured: "1", project_id: @project.id } }
-      }.to change { FeaturedCircuit.count }.by(1)
+      end.to change(FeaturedCircuit, :count).by(1)
     end
 
     it "deletes featured_circuit" do
       FactoryBot.create(:featured_circuit, project: @project)
 
-      expect {
+      expect do
         delete featured_circuits_path, params: { featured_circuit: \
           { featured: "0", project_id: @project.id } }
-      }.to change { FeaturedCircuit.count }.by(-1)
+      end.to change(FeaturedCircuit, :count).by(-1)
     end
   end
 end

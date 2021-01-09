@@ -8,26 +8,34 @@ RSpec.describe Group, type: :model do
   end
 
   describe "associations" do
-    it { should belong_to(:mentor) }
-    it { should have_many(:users) }
-    it { should have_many(:group_members) }
-    it { should have_many(:assignments) }
-    it { should have_many(:pending_invitations) }
+    it { is_expected.to belong_to(:mentor) }
+    it { is_expected.to have_many(:users) }
+    it { is_expected.to have_many(:group_members) }
+    it { is_expected.to have_many(:assignments) }
+    it { is_expected.to have_many(:pending_invitations) }
   end
 
   describe "callbacks" do
-    it "should call respective callbacks" do
-      expect_any_instance_of(Group).to receive(:send_creation_mail)
+    it "calls respective callbacks" do
+      expect_any_instance_of(described_class).to receive(:send_creation_mail)
       FactoryBot.create(:group, mentor: @mentor)
     end
   end
 
   describe "public methods" do
-    it "should send group creation mail" do
+    it "sends group creation mail" do
       group = FactoryBot.create(:group, mentor: @mentor)
-      expect {
+      expect do
         group.send_creation_mail
-      }.to have_enqueued_job.on_queue("mailers")
+      end.to have_enqueued_job.on_queue("mailers")
+    end
+
+    it "reset the group_token and update expiration date" do
+      group = FactoryBot.create(:group, mentor: @mentor)
+      expect do
+        group.reset_group_token
+      end.to change(group, :group_token)
+        .and change(group, :token_expires_at)
     end
   end
 end

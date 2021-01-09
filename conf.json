@@ -1,0 +1,18 @@
+{
+    "tags": {
+        "allowUnknownTags": true
+    },
+    "source": {
+        "includePattern": ".+\\.js(doc|x)?$",
+        "excludePattern": "(^|\\/|\\\\)_"
+    },
+    "plugins": ["node_modules/jsdoc-export-default-interop/dist/index",
+                "node_modules/better-docs/category"],
+    "templates": {
+        "cleverLinks": true,
+        "monospaceLinks": false,
+        "default": {
+            "outputSourceFiles": true
+        }
+    }
+}

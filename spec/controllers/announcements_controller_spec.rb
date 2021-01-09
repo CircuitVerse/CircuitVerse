@@ -45,10 +45,10 @@ RSpec.describe AnnouncementsController, type: :request do
       end
 
       it "updates announcements" do
-        expect {
+        expect do
           put announcement_path(@announcement), params: update_params
           @announcement.reload
-        }.to change { @announcement.body }
+        end.to change { @announcement.body }
           .to("Updated Announcement")
           .and change { @announcement.link }
           .to("Updated Link")

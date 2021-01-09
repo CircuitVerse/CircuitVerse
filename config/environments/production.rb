@@ -85,6 +85,8 @@ Rails.application.configure do
   # Mailer settings
   config.action_mailer.delivery_method = :ses
   config.action_mailer.default_url_options = { host: "https://circuitverse.org/" }
+  config.action_mailer.asset_host = 'https://circuitverse.org'
+
 
   config.vapid_public_key = ENV["VAPID_PUBLIC_KEY"]
   config.vapid_private_key = ENV["VAPID_PRIVATE_KEY"]
@@ -96,6 +98,7 @@ Rails.application.configure do
   end
 
 
+  config.action_controller.forgery_protection_origin_check = false 
   Paperclip.options[:command_path] = "/usr/bin/"
   config.active_job.queue_adapter = :sidekiq
 

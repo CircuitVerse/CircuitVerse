@@ -84,6 +84,12 @@ class SimulatorController < ApplicationController
     redirect_to edit_user_project_url(current_user, @project)
   end
 
+  def verilog_cv
+    url = "http://127.0.0.1:3040/getJSON"
+    response = HTTP.post(url, json: { "code": params[:code] })
+    render json: response.to_s, status: response.code
+  end
+
   private
 
     def allow_iframe
@@ -94,11 +100,10 @@ class SimulatorController < ApplicationController
       @project = Project.friendly.find(params[:id])
     end
 
-    # FIXME remove this logic after fixing production data
+    # FIXME: remove this logic after fixing production data
     def set_user_project
       @project = current_user.projects.friendly.find_by(id: params[:id]) || Project.friendly.find(params[:id])
     end
-
 
     def check_edit_access
       authorize @project, :edit_access?

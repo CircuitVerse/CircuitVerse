@@ -3,7 +3,8 @@
 require "rails_helper"
 
 describe GroupMemberPolicy do
-  subject { GroupMemberPolicy.new(user, group_member) }
+  subject { described_class.new(user, group_member) }
+
   let(:group_member) { @group_member }
 
   before do
@@ -15,11 +16,13 @@ describe GroupMemberPolicy do
 
   context "user is mentor" do
     let(:user) { @mentor }
-    it { should permit(:mentor) }
+
+    it { is_expected.to permit(:mentor) }
   end
 
   context "user is group member" do
     let(:user) { @user }
-    it { should_not permit(:mentor) }
+
+    it { is_expected.not_to permit(:mentor) }
   end
 end

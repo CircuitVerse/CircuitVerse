@@ -12,9 +12,6 @@
   overflow-y: auto;
 }
 
-.moduleProperty input {
-  color: #fff;
-}
 
 .side {
   width: 330px;
@@ -24,17 +21,16 @@
   overflow-y: scroll;
 }
 
-.report-sidebar a {
-  border-radius: 30px 5px 5px 30px;
+.report-sidebar a {   
   color: $white;
   font-size: 13px;
   padding: 15px;
   position: absolute;
-  right: -111px;
+  right: -119px;
   text-decoration: none;
-  top: 90%;
+  bottom: 30px;
   transition: .3s;
-  width: 150px;
+  width: 160px;
   z-index: 999;
 }
 

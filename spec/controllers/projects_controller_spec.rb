@@ -10,8 +10,8 @@ describe ProjectsController, type: :request do
   describe "#get_projects" do
     before do
       @tag = FactoryBot.create(:tag)
-      @projects = [ FactoryBot.create(:project, author: @author),
-      FactoryBot.create(:project, author: @author) ]
+      @projects = [FactoryBot.create(:project, author: @author),
+                   FactoryBot.create(:project, author: @author)]
       @projects.each { |project| FactoryBot.create(:tagging, project: project, tag: @tag) }
     end
 
@@ -33,10 +33,10 @@ describe ProjectsController, type: :request do
 
       context "new visit" do
         it "shows project and increases views" do
-          expect {
+          expect do
             get user_project_path(@author, @project)
             @project.reload
-          }.to change { @project.view }.by(1)
+          end.to change { @project.view }.by(1)
 
           expect(response.body).to include(@project.name)
         end
@@ -47,11 +47,11 @@ describe ProjectsController, type: :request do
           FactoryBot.create(:ahoy_event, visit: @visit, name: "Visited project #{@project.id}")
         end
 
-        it "should not increase view" do
-          expect {
+        it "does not increase view" do
+          expect do
             get user_project_path(@author, @project)
             @project.reload
-          }.to change { @project.view }.by(0)
+          end.to change { @project.view }.by(0)
         end
       end
     end
@@ -77,9 +77,9 @@ describe ProjectsController, type: :request do
 
     context "user has not already starred" do
       it "creates a star" do
-        expect {
+        expect do
           get change_stars_path(@project), xhr: true
-        }.to change { Star.count }.by(1)
+        end.to change(Star, :count).by(1)
       end
     end
 
@@ -89,9 +89,9 @@ describe ProjectsController, type: :request do
       end
 
       it "deletes the star" do
-        expect {
+        expect do
           get change_stars_path(@project), xhr: true
-        }.to change { Star.count }.by(-1)
+        end.to change(Star, :count).by(-1)
       end
     end
   end
@@ -104,10 +104,10 @@ describe ProjectsController, type: :request do
 
     context "project is not an assignment" do
       it "creates a fork" do
-        expect {
+        expect do
           get create_fork_project_path(@project)
           @user.reload
-        }.to change { @user.projects.count }.by(1)
+        end.to change { @user.projects.count }.by(1)
         expect(@user.projects.order("created_at").last.forked_project_id).to eq(@project.id)
       end
     end
@@ -130,19 +130,19 @@ describe ProjectsController, type: :request do
         @user = sign_in_random_user
       end
 
-      let(:create_params) {
+      let(:create_params) do
         {
           project: {
             name: "Test Project",
-            project_access_type: "Public",
+            project_access_type: "Public"
           }
         }
-      }
+      end
 
       it "creates project" do
-        expect {
+        expect do
           post "/users/#{@user.id}/projects", params: create_params
-        }.to change { Project.count }.by(1)
+        end.to change(Project, :count).by(1)
 
         project = Project.all.order("created_at").last
         expect(project.name).to eq("Test Project")
@@ -151,13 +151,13 @@ describe ProjectsController, type: :request do
     end
 
     describe "#update" do
-      let(:update_params) {
+      let(:update_params) do
         {
           project: {
             name: "Updated Name"
           }
         }
-      }
+      end
 
       before do
         @project = FactoryBot.create(:project, author: @author, name: "Test Name")
@@ -192,9 +192,9 @@ describe ProjectsController, type: :request do
       context "author is signed in" do
         it "destroys project" do
           sign_in @author
-          expect {
+          expect do
             delete user_project_path(@author, @project)
-          }.to change { Project.count }.by(-1)
+          end.to change(Project, :count).by(-1)
         end
       end
 

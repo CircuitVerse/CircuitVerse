@@ -69,6 +69,7 @@ gem 'pundit'
 
 # for analytics
 gem 'ahoy_matey'
+gem 'i18n-js'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
@@ -91,7 +92,7 @@ gem 'activity_notification'
 gem 'serviceworker-rails'
 gem 'webpush'
 
-gem 'webpacker', '~> 4.x'
+gem 'webpacker', '~> 5.x'
 
 gem 'bootsnap', require: false
 
@@ -135,7 +136,7 @@ end
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'
-  gem 'listen', '>= 3.0.5', '< 3.3'
+  gem 'listen', '>= 3.0.5', '< 3.4'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'

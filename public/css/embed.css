@@ -34,21 +34,21 @@
 
 #clockProperty{
     padding: 10px;
-    border-radius: 2px;
-    background-color: gainsboro;
 }
+
 #clockPropertyHeader{
+    border-radius: 3px;
 
 }
 #clockProperty{
-    font-size: 12px;
-    padding: 5px;
-    border-radius: 2px;
-    background-color: gainsboro;
+    padding: 10px;
+    border-radius: 6px;
     opacity: 0.1;
-    border: 1px solid #0D3349;
-    -webkit-transition: .4s;
     transition: .4s;
+    height: 109px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
 }
 #clockProperty:hover{
@@ -57,7 +57,7 @@
     transition: .4s;
 }
 input:checked + .slider {
-    background-color: #2196F3;
+    /* background-color: #2196F3; */
 }
 
 input:focus + .slider {
@@ -73,11 +73,9 @@ input:checked + .slider:before {
 #tabsBar .circuits {
     color: #000;
     text-align: center;
-    background-color: white;
     padding-left: 0.5em;
     padding-right: 0.5em;
     border: 1px solid #111;
-    /*border-radius: 0.1em;*/
     display: inline-block;
 
 
@@ -90,14 +88,9 @@ button:focus {outline:0;}
 
 }
 #tabsBar .current {
-    /*background-color: #0086b3;*/
-    color:white;
-    background-color: grey;
     transition-duration: 100ms
-    /*border: 1px solid #0099ff;*/
-
-
 }
+
 .noSelect {
     -moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;
 }
@@ -234,4 +227,23 @@ button:focus {outline:0;}
 #restrictedElementsDiv:hover {
     opacity: 1;
     transition: .4s;
+}
+
+.zoom-wrapper {
+    position: absolute;
+    bottom: 1px;
+    right: 0px;
+    font-size: 10px;
+    z-index: 100;
+}
+
+.zoom-wrapper button {
+    opacity: .3;
+}
+.zoom-wrapper button:hover {
+    opacity: 1;
+}
+
+.embed-fullscreen-btn {
+    border-radius: 20px;
 }

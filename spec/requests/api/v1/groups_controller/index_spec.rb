@@ -13,7 +13,7 @@ RSpec.describe Api::V1::GroupsController, "#index", type: :request do
       end
 
       it "returns status unauthorized" do
-        expect(response).to have_http_status(401)
+        expect(response).to have_http_status(:unauthorized)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -30,7 +30,7 @@ RSpec.describe Api::V1::GroupsController, "#index", type: :request do
       end
 
       it "returns all groups signed in user is member of" do
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
         expect(response).to match_response_schema("groups")
         expect(response.parsed_body["data"].length).to eq(3)
       end
@@ -49,7 +49,7 @@ RSpec.describe Api::V1::GroupsController, "#index", type: :request do
       end
 
       it "returns all groups including assignments signed in user is member of" do
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
         expect(response).to match_response_schema("groups_with_assignments")
         expect(response.parsed_body["data"].length).to eq(3)
         expect(response.parsed_body["included"].length).to eq(3)
@@ -71,7 +71,7 @@ RSpec.describe Api::V1::GroupsController, "#index", type: :request do
       end
 
       it "returns all groups including group_members signed in user is member of" do
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
         expect(response).to match_response_schema("groups_with_members")
         expect(response.parsed_body["data"].length).to eq(3)
         expect(response.parsed_body["included"].length).to eq(6)

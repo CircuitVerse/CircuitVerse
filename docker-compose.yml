@@ -37,6 +37,17 @@ services:
       CIRCUITVERSE_USE_SOLR: "false"
   redis:
     image: redis
+  webpacker:
+    build: .
+    environment:
+      - NODE_ENV=development
+      - RAILS_ENV=development
+      - WEBPACKER_DEV_SERVER_HOST=0.0.0.0
+    command: ./bin/webpack-dev-server
+    volumes:
+      - .:/circuitverse
+    ports:
+      - '127.0.0.1:3035:3035'
 # volumes:
 # app:
 # public:

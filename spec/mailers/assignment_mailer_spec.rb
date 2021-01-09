@@ -10,7 +10,7 @@ RSpec.describe AssignmentMailer, type: :mailer do
   end
 
   describe "#new_assignment_email" do
-    let(:mail) { AssignmentMailer.new_assignment_email(@user, @assignment) }
+    let(:mail) { described_class.new_assignment_email(@user, @assignment) }
 
     it "sends new assignment mail" do
       expect(mail.to).to eq([@user.email])
@@ -19,7 +19,7 @@ RSpec.describe AssignmentMailer, type: :mailer do
   end
 
   describe "#update_assignment_email" do
-    let(:mail) { AssignmentMailer.update_assignment_email(@user, @assignment) }
+    let(:mail) { described_class.update_assignment_email(@user, @assignment) }
 
     it "sends update assignment link" do
       expect(mail.to).to eq([@user.email])
