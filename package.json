@@ -17,7 +17,7 @@
     "eslint-plugin-import": "^2.22.0",
     "expose-loader": "^0.7.5",
     "jsdoc": "3.6.3",
-    "webpack-dev-server": "^3.11.0"
+    "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
     "@babel/plugin-proposal-numeric-separator": "^7.12.7",
