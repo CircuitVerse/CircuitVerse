@@ -4,7 +4,7 @@
 /* eslint-disable no-restricted-globals */
 /* eslint-disable no-alert */
 import { resetScopeList, scopeList, newCircuit } from '../circuit';
-import { showMessage, showError } from '../utils';
+import { showMessage, showError, generateId } from '../utils';
 import { checkIfBackup } from './backupCircuit';
 import {generateSaveData, getProjectName, setProjectName} from './save';
 import load from './load';

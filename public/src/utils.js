@@ -7,7 +7,7 @@ import plotArea from './plotArea';
 
 window.globalScope = undefined;
 window.lightMode = false; // To be deprecated
-window.projectId = undefined;
+window.projectId = generateId();
 window.id = undefined;
 window.loading = false; // Flag - all assets are loaded
 
