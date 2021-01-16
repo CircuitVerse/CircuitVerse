@@ -47,6 +47,7 @@ export function openOffline() {
             click() {
                 if (!$('input[name=projectId]:checked').val()) return;
                 load(JSON.parse(localStorage.getItem($('input[name=projectId]:checked').val())));
+                window.projectId = $('input[name=projectId]:checked').val();
                 $(this).dialog('close');
             },
         }] : [],
