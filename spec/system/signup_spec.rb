@@ -15,7 +15,9 @@ describe "Sign up", type: :system do
     click_button "Sign up"
 
     expect(page).to have_text("Email can't be blank")
+    expect(page).to have_text("Email is invalid")
     expect(page).to have_text("Password can't be blank")
+    expect(page).to have_text("Name can't be blank")
   end
 
   it "does not sign-up when password is empty" do
