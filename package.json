@@ -15,7 +15,7 @@
     "eslint": "^7.18.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",
-    "expose-loader": "^0.7.5",
+    "expose-loader": "^1.0.3",
     "jsdoc": "3.6.3",
     "webpack-dev-server": "^3.11.2"
   },
@@ -30,7 +30,7 @@
     "css-vars": "^2.2.0",
     "dom-to-image": "^2.6.0",
     "driver.js": "^0.9.8",
-    "expose-loader": "^0.7.5",
+    "expose-loader": "^1.0.3",
     "jquery": "^3.5.1",
     "jquery-ui": "^1.12.1",
     "jquery-ui-css": "^1.11.5",
