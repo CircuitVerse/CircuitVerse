@@ -16,7 +16,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable,
          :validatable, :omniauthable, omniauth_providers: %i[google_oauth2 facebook github]
 
-  validates_format_of :name, :without => /\A["!@#$%^&*()-+?<>"]*\z/,:message=> 'Error: only alphabets, numbers and underscores are allowed, no special symbols.'
+  validates :name, format: { without: /\A["!@#$%^&*()-+?<>"]*\z/, message:
+                    "Error: only alphabets, numbers and underscores are allowed, no special symbols." } 
 
   # has_many :assignments, foreign_key: 'mentor_id', dependent: :destroy
   has_many :group_members, dependent: :destroy
