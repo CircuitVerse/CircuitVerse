@@ -17,7 +17,7 @@ class User < ApplicationRecord
          :validatable, :omniauthable, omniauth_providers: %i[google_oauth2 facebook github]
 
   validates :name, format: { without: /\A["!@#$%^&*()-+?<>"]*\z/,
-    message: "Error: only alphabets, numbers and underscores are allowed, no special symbols." } 
+                   message: "Error: only alphabets, numbers and underscores are allowed, no special symbols." }
 
   # has_many :assignments, foreign_key: 'mentor_id', dependent: :destroy
   has_many :group_members, dependent: :destroy
