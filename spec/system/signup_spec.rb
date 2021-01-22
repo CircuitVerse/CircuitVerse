@@ -44,15 +44,6 @@ describe "Sign up", type: :system do
     expect(page).to have_text("Password is too short (minimum is 6 characters)")
   end
 
-  it "it does not signup when name contains special characters" do
-    fill_in "Name", with: /\A["!@#$%^&*()-+?<>"]*\z/
-    fill_in "Email", with: "user1@example.com"
-    fill_in "Password", with: "secret"
-    click_button "Sign up"
-
-    expect(page).to have_text("No special symbols are allowed.")
-  end
-
   it "signs-up only when username does not contain special characters" do
     fill_in "Name", with: /\A[a-zA-Z0-9_]*\z/
     fill_in "Email", with: "user1@example.com"
