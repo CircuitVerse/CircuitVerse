@@ -33,7 +33,7 @@ describe "Sign up", type: :system do
     fill_in "Password", with: "secret"
     click_button "Sign up"
 
-    expect(page).to have_text("Email can't be blank")
+    expect(page).to have_text("Email should not be blank")
   end
 
   it "does not sign-up when password is less than 6 characters" do
