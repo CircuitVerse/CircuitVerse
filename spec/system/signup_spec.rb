@@ -44,14 +44,13 @@ describe "Sign up", type: :system do
     expect(page).to have_text("Password is too short (minimum is 6 characters)")
   end
 
-  it "does not sign-up when username contains special characters" do
-    fill_in "Name", with: /\A["!@#$%^&*()-+?<>"]*\z/
+  it "signs-up only when username does not contain special characters" do
+    fill_in "Name", without: /\A["!@#$%^&*()-+?<>"]*\z/
     fill_in "Email", with: "user1@example.com"
     fill_in "Password", with: "secret"
     click_button "Sign up"
 
-    expect(page).to have_text("only alphabets, numbers and underscores are allowed,
-                              no special symbols.")
+    expect(page).to have_text("Welcome! You have signed up successfully.")
   end
 
   it "sign-ups even when username is in different language" do
