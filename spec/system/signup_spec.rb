@@ -33,7 +33,7 @@ describe "Sign up", type: :system do
     fill_in "Password", with: "secret"
     click_button "Sign up"
 
-    expect(page).to have_text("Email should not be blank")
+    expect(page).to have_text("Email can't be blank")
   end
 
   it "does not sign-up when password is less than 6 characters" do
@@ -42,6 +42,15 @@ describe "Sign up", type: :system do
     click_button "Sign up"
 
     expect(page).to have_text("Password is too short (minimum is 6 characters)")
+  end
+
+  it "does not signup with special symbols" do
+    fill_in "Name", with: /\A["!@#$%^&*()-+?<>"]*\z/
+    fill_in "Email", with: "user1@example.com"
+    fill_in "Password", with: "secret"
+    click_button "Sign up"
+    
+    expect(page).to have_text("Name Error: no special symbols are allowed")
   end
 
   it "signs-up only when username does not contain special characters" do
