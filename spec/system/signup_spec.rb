@@ -45,7 +45,7 @@ describe "Sign up", type: :system do
   end
 
   it "signs-up only when username does not contain special characters" do
-    fill_in "Name", without: /\A["!@#$%^&*()-+?<>"]*\z/
+    fill_in "Name", with: /\A[a-zA-Z0-9]*\z/
     fill_in "Email", with: "user1@example.com"
     fill_in "Password", with: "secret"
     click_button "Sign up"
