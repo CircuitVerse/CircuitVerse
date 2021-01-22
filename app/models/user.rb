@@ -16,9 +16,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable,
          :validatable, :omniauthable, omniauth_providers: %i[google_oauth2 facebook github]
 
-  validates :name, format: { without: /\A["!@#$%^&*()-+?<>"]*\z/,
-                             message: "Error: no special symbols are allowed" }
-
   # has_many :assignments, foreign_key: 'mentor_id', dependent: :destroy
   has_many :group_members, dependent: :destroy
   has_many :groups, through: :group_members
@@ -41,7 +38,10 @@ class User < ApplicationRecord
   # validations for user
 
   validates_attachment_content_type :profile_picture, content_type: %r{\Aimage/.*\z}
-  validates :name, presence: true
+
+  validates :name, presence: true, format: { without: /\A["!@#$%^&*()-+?<>"]*\z/,
+                                             message: "Error: no special symbols are allowed" }
+                                             
   validates :email, presence: true, format: /\A[^@,\s]+@[^@,\s]+\.[^@,\s]+\z/
 
   scope :subscribed, -> { where(subscribed: true) }
