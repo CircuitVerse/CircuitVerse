@@ -209,8 +209,8 @@ GEM
       ruby2_keywords
     fast_jsonapi (1.5)
       activesupport (>= 4.2)
-    ffi (1.13.1)
-    ffi (1.13.1-x64-mingw32)
+    ffi (1.14.2)
+    ffi (1.14.2-x64-mingw32)
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
@@ -223,7 +223,7 @@ GEM
       flipper (~> 0.18.0)
       rack (>= 1.4, < 3)
       rack-protection (>= 1.5.3, < 2.1.0)
-    font-awesome-sass (5.13.0)
+    font-awesome-sass (5.13.1)
       sassc (>= 1.11)
     friendly_id (5.4.1)
       activerecord (>= 4.0.0)
@@ -655,7 +655,7 @@ DEPENDENCIES
   fast_jsonapi
   flipper-redis
   flipper-ui
-  font-awesome-sass (~> 5.13.0)
+  font-awesome-sass (~> 5.13.1)
   friendly_id (~> 5.4.1)
   geocoder
   hirb

@@ -96,7 +96,7 @@ gem "webpacker", "~> 5.x"
 
 gem "bootsnap", require: false
 
-gem "font-awesome-sass", "~> 5.13.0"
+gem "font-awesome-sass", "~> 5.13.1"
 
 gem "disposable_mail", "~> 0.1"
 gem "fast_jsonapi"
