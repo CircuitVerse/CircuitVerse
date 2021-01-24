@@ -151,7 +151,7 @@ GEM
     commontator (6.3.0)
       rails (>= 5.2)
       will_paginate
-    concurrent-ruby (1.1.7)
+    concurrent-ruby (1.1.8)
     connection_pool (2.2.3)
     countries (3.0.0)
       i18n_data (~> 0.8.0)
@@ -263,7 +263,7 @@ GEM
       nokogiri (>= 1.6)
     invisible_captcha (1.1.0)
       rails (>= 4.2)
-    jbuilder (2.10.0)
+    jbuilder (2.11.1)
       activesupport (>= 5.0.0)
     jmespath (1.4.0)
     jquery-rails (4.4.0)
@@ -663,7 +663,7 @@ DEPENDENCIES
   i18n-js
   inline_svg
   invisible_captcha (~> 1.1)
-  jbuilder (~> 2.10)
+  jbuilder (~> 2.11)
   jquery-rails
   json-schema
   jwt
