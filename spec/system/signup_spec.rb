@@ -45,7 +45,7 @@ describe "Sign up", type: :system do
   end
 
   it "does not signup with special symbols" do
-    fill_in "Name", with: "user@123"
+    fill_in "Name", with: "!@#$%^&"
     fill_in "Email", with: "user1@example.com"
     fill_in "Password", with: "secret"
     click_button "Sign up"
