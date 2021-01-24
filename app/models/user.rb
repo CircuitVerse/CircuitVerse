@@ -39,8 +39,8 @@ class User < ApplicationRecord
 
   validates_attachment_content_type :profile_picture, content_type: %r{\Aimage/.*\z}
 
-  validates :name, presence: true, format: { without: /\A["!@#$%^&*()-+?<>"]*\z/,
-                                             message: "can contain only letters, underscores and spaces" }
+  validates :name, presence: true, format: { with: /\A[a-zA-Z ]{3,36}\z/,
+                                             message: "can only contain letters and spaces" }
 
   validates :email, presence: true, format: /\A[^@,\s]+@[^@,\s]+\.[^@,\s]+\z/
 
