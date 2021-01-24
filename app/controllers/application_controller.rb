@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :store_user_location!, if: :storable_location?
+  around_action :switch_locale
 
   rescue_from Pundit::NotAuthorizedError, with: :auth_error
   rescue_from ApplicationPolicy::CustomAuthException, with: :custom_auth_error
@@ -22,7 +23,18 @@ class ApplicationController < ActionController::Base
     render "errors/not_found.html.erb", status: :not_found
   end
 
+  def switch_locale(&action)
+    logger.debug "* Accept-Language: #{request.env['HTTP_ACCEPT_LANGUAGE']}"
+    locale = current_user&.locale || extract_locale_from_accept_language_header || I18n.default_locale
+    logger.debug "* Locale set to '#{locale}'"
+    I18n.with_locale(locale, &action)
+  end
+
   private
+
+    def extract_locale_from_accept_language_header
+      request.env["HTTP_ACCEPT_LANGUAGE"].scan(/^[a-z]{2}/).first
+    end
 
     def storable_location?
       request.get? && is_navigational_format? && !devise_controller? && !request.xhr?
