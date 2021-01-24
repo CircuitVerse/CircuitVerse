@@ -68,7 +68,7 @@ GEM
     acts_as_votable (0.12.1)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
-    ahoy_matey (3.0.4)
+    ahoy_matey (3.1.0)
       activesupport (>= 5)
       device_detector
       geocoder (>= 1.4.5)
@@ -151,7 +151,7 @@ GEM
     commontator (6.3.0)
       rails (>= 5.2)
       will_paginate
-    concurrent-ruby (1.1.7)
+    concurrent-ruby (1.1.8)
     connection_pool (2.2.3)
     countries (3.0.0)
       i18n_data (~> 0.8.0)
@@ -170,7 +170,7 @@ GEM
     crass (1.0.6)
     css_parser (1.7.1)
       addressable
-    device_detector (1.0.4)
+    device_detector (1.0.5)
     devise (4.7.3)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -194,7 +194,7 @@ GEM
       rainbow
       rubocop (~> 0.79)
       smart_properties
-    errbase (0.2.0)
+    errbase (0.2.1)
     erubi (1.10.0)
     execjs (2.7.0)
     factory_bot (6.1.0)
