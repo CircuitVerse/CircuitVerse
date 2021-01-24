@@ -44,8 +44,17 @@ describe "Sign up", type: :system do
     expect(page).to have_text("Password is too short (minimum is 6 characters)")
   end
 
-  it "sign-ups when valid credentials" do
-    fill_in "Name", with: "user1"
+  it "does not signup with special symbols" do
+    fill_in "Name", with: "!@#$%^&"
+    fill_in "Email", with: "user1@example.com"
+    fill_in "Password", with: "secret"
+    click_button "Sign up"
+
+    expect(page).to have_text("Name can only contain letters and spaces")
+  end
+
+  it "does sign-up when valid credentials" do
+    fill_in "Name", with: "user"
     fill_in "Email", with: "user1@example.com"
     fill_in "Password", with: "secret"
     click_button "Sign up"
