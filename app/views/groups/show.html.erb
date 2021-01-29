@@ -21,12 +21,20 @@
         <% end %>
       </h1>
       <h4 class="group-mentor-heading">
-        <strong>Mentor:</strong>
-        <%= @group.mentor.name %>
+        <strong>Owner:</strong>
+        <%= @group.owner.name %>
       </h4>
     </div>
   </div>
   <div class="row center-row groups-row">
+    <h3>MENTORS</h3>
+  </div>
+  <hr>
+  <div class="row center-row groups-members-scroll-row">
+    <%= render partial: "group_mentors", locals: {group: @group} %>
+  </div>
+  <div class="row center-row groups-row">
+
     <h3>MEMBERS</h3>
     <% if policy(@group).admin_access? %>
       <button type="button" class="btn primary-button groups-primary-button" data-toggle="modal" data-target="#addmemberModal">+ Add Members</button>
@@ -38,7 +46,7 @@
   </div>
   <div class="row center-row groups-row">
     <h3>ASSIGNMENTS</h3>
-    <% if policy(@group).admin_access? %>
+    <% if policy(@group).mentor_access? %>
       <%= link_to '+ Add Assignment', new_group_assignment_path(@group), class: "btn primary-button groups-primary-button" %>
     <% end %>
   </div>
@@ -88,7 +96,7 @@
                 <span>View</span>
               <% end %>
             </div>
-            <% if policy(@group).admin_access? %>
+            <% if policy(@group).mentor_access? %>
               <% if AssignmentDecorator.new(assignment).closed? %>
                 <div class="groups-assignment-details">
                   <%= link_to reopen_group_assignment_path(@group,assignment), class:"mini-button groups-reopen-mini-button" do %>
@@ -308,6 +316,7 @@
   <%= render partial: "delete_member_confirmation_modal" %>
   <%= render partial: "delete_assignment_confirmation_modal" %>
   <%= render partial: "add_member_modal", locals: {group_member: @group_member} %>
+  <%= render partial: "promote_member_confirmation_modal" %>
 </div>
 
 <script>
@@ -328,6 +337,16 @@
     $("#deletememberModal").on("show.bs.modal", function(e) {
         let groupmember = $(e.relatedTarget).data('currentgroupmember');
         $(e.currentTarget).find('#groups-member-delete-button').attr("href",
+        "/group_members/" + groupmember.toString());
+    });
+    $("#promotememberModal").on("show.bs.modal", function(e) {
+        let groupmember = $(e.relatedTarget).data('currentgroupmember');
+        $(e.currentTarget).find('#groups-member-promote-button').parent().attr("action",
+        "/group_members/" + groupmember.toString());
+    });
+    $("#demotememberModal").on("show.bs.modal", function(e) {
+        let groupmember = $(e.relatedTarget).data('currentgroupmember');
+        $(e.currentTarget).find('#groups-member-demote-button').parent().attr("action",
         "/group_members/" + groupmember.toString());
     });
   });

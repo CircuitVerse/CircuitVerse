@@ -2,7 +2,7 @@
 
 class GroupMembersController < ApplicationController
   before_action :set_group_member, only: %i[show edit update destroy]
-  before_action :check_access, only: %i[edit update destroy]
+  before_action :check_access, only: %i[update edit destroy]
   before_action :authenticate_user!
 
   # GET /group_members
@@ -77,17 +77,22 @@ class GroupMembersController < ApplicationController
 
   # PATCH/PUT /group_members/1
   # PATCH/PUT /group_members/1.json
-  # def update
-  #   respond_to do |format|
-  #     if @group_member.update(group_member_params)
-  #       format.html { redirect_to @group_member, notice: 'Group member was successfully updated.' }
-  #       format.json { render :show, status: :ok, location: @group_member }
-  #     else
-  #       format.html { render :edit }
-  #       format.json { render json: @group_member.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
+  # Only used to add or remove mentorship
+  def update
+    mentr = group_member_params['mentor']
+    if mentr
+      @group_member.mentor = mentr.to_i == 1
+      @group_member.save
+
+    end
+    respond_to do |format|
+      format.html do
+        redirect_to group_path(@group_member.group),
+                    notice: "Group member was successfully promoted/demoted."
+      end
+        format.json { head :no_content }
+    end
+  end
 
   # DELETE /group_members/1
   # DELETE /group_members/1.json
@@ -111,10 +116,10 @@ class GroupMembersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def group_member_params
-      params.require(:group_member).permit(:group_id, :user_id, :emails)
+      params.require(:group_member).permit(:group_id, :user_id, :emails, :mentor)
     end
 
     def check_access
-      authorize @group_member, :mentor?
+      authorize @group_member, :owner?
     end
 end

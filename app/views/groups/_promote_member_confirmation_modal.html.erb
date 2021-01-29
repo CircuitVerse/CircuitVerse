@@ -1,0 +1,50 @@
+<div id="promotememberModal" class="modal fade" role="dialog">
+  <div class="modal-dialog primary-modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header secondary-modal-header">
+        <h4 class="modal-title">Promote</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to promote this member to a mentor?</p>
+        <p>Mentors can:</p>
+        <ul>
+          <li>Create and delete assignments</li>
+          <li>Grade assignments</li>
+          <li>Reopen closed assignments</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <%= button_to "#",params: { group_member: {mentor: 1} }, method: :patch, class: "btn btn-success btn-md", id: "groups-member-promote-button" do %>
+          Promote
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="demotememberModal" class="modal fade" role="dialog">
+  <div class="modal-dialog primary-modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header secondary-modal-header">
+        <h4 class="modal-title">Demote</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to demote this mentor to a member?</p>
+        <p>This member will no longer be able to:</p>
+        <ul>
+          <li>Create and delete assignments</li>
+          <li>Grade assignments</li>
+          <li>Reopen closed assignments</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <%= button_to "#",params: { group_member: {mentor: 0} }, method: :patch, class: "btn btn-success btn-md", id: "groups-member-demote-button" do %>
+          Demote
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+

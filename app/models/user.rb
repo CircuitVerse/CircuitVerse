@@ -12,7 +12,7 @@ class User < ApplicationRecord
   has_many :projects, foreign_key: "author_id", dependent: :destroy
   has_many :stars
   has_many :rated_projects, through: :stars, dependent: :destroy, source: "project"
-  has_many :groups_mentored, class_name: "Group",  foreign_key: "mentor_id", dependent: :destroy
+  has_many :groups_mentored, class_name: "Group",  foreign_key: "owner_id", dependent: :destroy
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable,
          :validatable, :omniauthable, omniauth_providers: %i[google_oauth2 facebook github]
 

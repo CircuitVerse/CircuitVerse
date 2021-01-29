@@ -36,7 +36,7 @@ class AssignmentsController < ApplicationController
     @assignment = Assignment.new
     @assignment.group_id = params[:group_id]
     @assignment.deadline = Time.zone.now + 1.week
-    authorize @assignment, :admin_access?
+    authorize @assignment, :mentor_access?
   end
 
   # GET /assignments/1/edit
@@ -61,7 +61,7 @@ class AssignmentsController < ApplicationController
     # params[:deadline] = params[:deadline].to_time
 
     @assignment = @group.assignments.new(params)
-    authorize @assignment, :admin_access?
+    authorize @assignment, :mentor_access?
 
     puts(params)
     @assignment.description = description
@@ -135,6 +135,6 @@ class AssignmentsController < ApplicationController
     end
 
     def check_access
-      authorize @assignment, :admin_access?
+      authorize @assignment, :mentor_access?
     end
 end
