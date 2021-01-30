@@ -4,15 +4,15 @@ require "rails_helper"
 
 RSpec.describe GroupMailer, type: :mailer do
   before do
-    @mentor = FactoryBot.create(:user)
-    @group = FactoryBot.create(:group, mentor: @mentor)
+    @owner = FactoryBot.create(:user)
+    @group = FactoryBot.create(:group, owner: @owner)
   end
 
   describe "new_group_email" do
-    let(:mail) { described_class.new_group_email(@mentor, @group) }
+    let(:mail) { described_class.new_group_email(@owner, @group) }
 
     it "sends new group email" do
-      expect(mail.to).to eq([@mentor.email])
+      expect(mail.to).to eq([@owner.email])
       expect(mail.subject).to eq("New Group Created ")
     end
   end

@@ -4,8 +4,8 @@ require "rails_helper"
 
 RSpec.describe Assignment, type: :model do
   before do
-    @mentor = FactoryBot.create(:user)
-    @group = FactoryBot.create(:group, mentor: @mentor)
+    @owner = FactoryBot.create(:user)
+    @group = FactoryBot.create(:group, owner: @owner)
   end
 
   describe "associations" do

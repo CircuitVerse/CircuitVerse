@@ -4,8 +4,8 @@ require "rails_helper"
 
 describe GradesController, type: :request do
   before do
-    @mentor = FactoryBot.create(:user)
-    @group = FactoryBot.create(:group, mentor: @mentor)
+    @owner = FactoryBot.create(:user)
+    @group = FactoryBot.create(:group, owner: @owner)
     @assignment = FactoryBot.create(:assignment, group: @group, grading_scale: :letter)
     @assignment_project = FactoryBot.create(:project, assignment: @assignment,
                                                       author: FactoryBot.create(:user))
@@ -17,7 +17,7 @@ describe GradesController, type: :request do
         grade: {
           project_id: @assignment_project.id,
           assignment_id: @assignment.id,
-          user_id: @mentor.id,
+          user_id: @owner.id,
           grade: "A",
           remarks: "Some remarks"
         },
@@ -25,9 +25,9 @@ describe GradesController, type: :request do
       }
     end
 
-    context "mentor is singed in" do
+    context "owner is singed in" do
       before do
-        sign_in @mentor
+        sign_in @owner
       end
 
       context "grade is valid" do
@@ -81,13 +81,13 @@ describe GradesController, type: :request do
     end
 
     before do
-      @grade = FactoryBot.create(:grade, project: @assignment_project, grader: @mentor,
+      @grade = FactoryBot.create(:grade, project: @assignment_project, grader: @owner,
                                          grade: "A", assignment: @assignment)
     end
 
-    context "mentor is logged in" do
+    context "owner is logged in" do
       before do
-        sign_in @mentor
+        sign_in @owner
       end
 
       context "grades have not been finalized" do
@@ -108,7 +108,7 @@ describe GradesController, type: :request do
       # end
     end
 
-    context "user other than mentor is logged in" do
+    context "user other than owner/mentor is logged in" do
       it "throws unauthorized error" do
         sign_in FactoryBot.create(:user)
         expect do
@@ -122,13 +122,13 @@ describe GradesController, type: :request do
   describe "#to_csv" do
     before do
       FactoryBot.create(:group_member, user: @assignment_project.author, group: @group)
-      @grade = FactoryBot.create(:grade, project: @assignment_project, grader: @mentor,
+      @grade = FactoryBot.create(:grade, project: @assignment_project, grader: @owner,
                                          grade: "A", assignment: @assignment, remarks: "remarks")
     end
 
-    context "signed user is mentor" do
+    context "signed user is owner" do
       it "creates csv file for grades" do
-        sign_in @mentor
+        sign_in @owner
         get grades_to_csv_path(@assignment, format: :csv)
         expect(response.body).to include("#{@assignment_project.author.email}," \
           "#{@assignment_project.author.name},#{@grade.grade},#{@grade.remarks}")

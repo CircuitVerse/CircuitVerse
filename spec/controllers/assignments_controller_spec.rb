@@ -4,15 +4,15 @@ require "rails_helper"
 
 describe AssignmentsController, type: :request do
   before do
-    @mentor = FactoryBot.create(:user)
-    @group = FactoryBot.create(:group, mentor: @mentor)
+    @owner = FactoryBot.create(:user)
+    @group = FactoryBot.create(:group, owner: @owner)
     @assignment = FactoryBot.create(:assignment, group: @group)
     @member = FactoryBot.create(:user)
     FactoryBot.create(:group_member, user: @member, group: @group)
   end
 
   describe "#new" do
-    context "user is not mentor" do
+    context "user is not owner" do
       it "restricts access" do
         sign_in FactoryBot.create(:user)
         get new_group_assignment_path(@group)
@@ -20,9 +20,9 @@ describe AssignmentsController, type: :request do
       end
     end
 
-    context "user is mentor" do
+    context "user is owner" do
       it "renders required template" do
-        sign_in @mentor
+        sign_in @owner
         get new_group_assignment_path(@group)
         expect(response.body).to include("New Assignment")
       end
@@ -89,9 +89,9 @@ describe AssignmentsController, type: :request do
       }
     end
 
-    context "mentor is signed in" do
+    context "owner is signed in" do
       it "updates the assignment" do
-        sign_in @mentor
+        sign_in @owner
         put group_assignment_path(@group, @assignment), params: update_params
         @assignment.reload
         expect(@assignment.description).to eq("updated description")
@@ -109,7 +109,7 @@ describe AssignmentsController, type: :request do
 
   describe "#check_reopening_status" do
     before do
-      sign_in @mentor
+      sign_in @owner
     end
 
     context "the project is forked" do
@@ -146,7 +146,7 @@ describe AssignmentsController, type: :request do
 
   describe "#reopen" do
     before do
-      sign_in @mentor
+      sign_in @owner
       @closed_assignment = FactoryBot.create(:assignment, group: @group, status: "closed")
     end
 
@@ -159,9 +159,9 @@ describe AssignmentsController, type: :request do
   end
 
   describe "#create" do
-    context "mentor is logged in" do
+    context "owner is logged in" do
       it "creates a new assignment" do
-        sign_in @mentor
+        sign_in @owner
         expect do
           post group_assignments_path(@group), params: { assignment:
             { description: "group assignment", name: "Test Name" } }
@@ -169,7 +169,7 @@ describe AssignmentsController, type: :request do
       end
     end
 
-    context "user other than the mentor is logged in" do
+    context "user other than the owner is logged in" do
       it "does not create assignment" do
         sign_in FactoryBot.create(:user)
         expect do

@@ -50,7 +50,7 @@ class GroupsController < ApplicationController
   # POST /groups
   # POST /groups.json
   def create
-    @group = current_user.groups_mentored.new(group_params)
+    @group = current_user.groups_owned.new(group_params)
 
     respond_to do |format|
       if @group.save

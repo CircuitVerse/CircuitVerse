@@ -4,31 +4,31 @@ require "rails_helper"
 
 describe GroupsController, type: :request do
   before do
-    @mentor = FactoryBot.create(:user)
+    @owner = FactoryBot.create(:user)
     @user = FactoryBot.create(:user)
-    @group = FactoryBot.create(:group, name: "test group", mentor: @mentor)
+    @group = FactoryBot.create(:group, name: "test group", owner: @owner)
   end
 
   describe "#create" do
     it "creates a group" do
-      sign_in @mentor
+      sign_in @owner
       expect do
-        post groups_path, params: { group: { name: "test group", mentor_id: @mentor.id } }
+        post groups_path, params: { group: { name: "test group", mentor_id: @owner.id } }
       end.to change(Group, :count).by(1)
     end
   end
 
   describe "#destroy" do
-    context "mentor is signed_in" do
+    context "owner is signed_in" do
       it "destroys group" do
-        sign_in @mentor
+        sign_in @owner
         expect do
           delete group_path(@group)
         end.to change(Group, :count).by(-1)
       end
     end
 
-    context "user other than mentor is signed in" do
+    context "user other than owner is signed in" do
       it "throws not authorized error" do
         sign_in_random_user
         delete group_path(@group)
@@ -62,9 +62,9 @@ describe GroupsController, type: :request do
   end
 
   describe "#update" do
-    context "mentor is signed in" do
+    context "owner is signed in" do
       it "updates group" do
-        sign_in @mentor
+        sign_in @owner
         put group_path(@group), params: { group: { name: "updated group" } }
         @group.reload
         expect(@group.name).to eq("updated group")
@@ -134,7 +134,7 @@ describe GroupsController, type: :request do
 
     context "when group does not have any token or token is expired" do
       it "regenerates the group token" do
-        sign_in @mentor
+        sign_in @owner
         put generate_token_group_path(id: @group.id), xhr: true
         expect(response.status).to eq(200)
       end
