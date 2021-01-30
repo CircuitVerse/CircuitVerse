@@ -221,15 +221,22 @@
   display: block;
   font-size: 18px;
   font-weight: 600;
-  max-height: 30px;
-  max-width: 340px;
   padding-bottom: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  position: relative;
 
   p {
     margin-bottom: 0;
+    max-height: 30px;
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
+}
+
+.users-card-name:hover .tooltiptext {
+  opacity: 1;
+  visibility: visible;
 }
 
 .users-tag-container {
