@@ -217,7 +217,6 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
     }
 
     let returnData;
-    var gifflag = 0;
 
     // If circuit is to be downloaded, download, other wise return dataURL
     if (down) {
@@ -301,9 +300,14 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
                 else {
                     alert("Error Loading GIF \n Requirement:Firefox 17+, Chrome 21+, Opera 18+, Blackberry Browser 10+, Opera Mobile 12+, Chrome For Android 35+, Firefox for Android 29+");
                 }
+                
             }
 
 
+
+        }
+        else {
+            downloadAsImg(globalScope.name, imgType);
         }
     }
     else {
@@ -330,7 +334,7 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
 
 async function crop(dataURL, w, h) {
     //get empty second canvas
-    var myCanvas = document.createElement("CANVAS");
+    var myCanvas = document.createElement("HIDDEN-CANVAS");
     myCanvas.width = w;
     myCanvas.height = h;
     var myContext = myCanvas.getContext('2d');

@@ -1164,6 +1164,18 @@ input:checked + .slider:before {
   margin-right: 10px;
   min-width: 85px;
 }
+@media(max-width: 992px) {
+  .navbar .nav.pull-right {
+    display: none;
+  }
+}
+@media(max-width:992px) {
+  .nav-dropdown {
+    text-align: center;
+    padding-top: 20px;
+  }
+}
+
 .blink {
   animation: blink 2s steps(5, start) infinite;
   -webkit-animation: blink 1s steps(5, start) infinite;
