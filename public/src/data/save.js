@@ -8,10 +8,11 @@ import backgroundArea from '../backgroundArea';
 import { findDimensions } from '../canvasApi';
 import { projectSavedSet } from './project';
 import { colors } from '../themer/themer';
-import {layoutModeGet, toggleLayoutMode} from '../layoutMode';
-import {verilogModeGet} from '../Verilog2CV';
+import { layoutModeGet, toggleLayoutMode } from '../layoutMode';
+import { verilogModeGet } from '../Verilog2CV';
 import domtoimage from 'dom-to-image';
 import C2S from '../canvas2svg';
+import gifshot from './gifshot';
 
 var projectName = undefined;
 
@@ -21,7 +22,7 @@ var projectName = undefined;
  * @category data
  */
 export function setProjectName(name) {
-    if(name == undefined) {
+    if (name == undefined) {
         $('#projectName').html('Untitled');
         return;
     }
@@ -60,7 +61,7 @@ export function getTabsOrder() {
     var tabs = $("#tabsBar").children().not('button');
     var order = [];
     for (let i = 0; i < tabs.length; i++) {
-         order.push(tabs[i].id);
+        order.push(tabs[i].id);
     }
     return order
 }
@@ -216,15 +217,96 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
     }
 
     let returnData;
+    var gifflag = 0;
+
     // If circuit is to be downloaded, download, other wise return dataURL
     if (down) {
         if (imgType === 'svg') {
             const mySerializedSVG = simulationArea.context.getSerializedSvg(); // true here, if you need to convert named to numbered entities.
             download(`${globalScope.name}.svg`, mySerializedSVG);
-        } else {
-            downloadAsImg(globalScope.name, imgType);
         }
-    } else {
+        //Seperate Code to downlaod in GIF because GIF needs external tools to make it 
+        //Library used her is GIFSHOT free and open source.
+        /*
+        LOGIC OF BELOW CODE 
+        1.When click on download 15 photos will be taken using DATA URL method
+        2.These photos will ne send to gifshot library 
+        3.GIFSHOT will directly make GIF of photos and export it offine 
+        */
+        else if (imgType === 'gif') {
+             alert("Press Ok to start GIF recording \n Duration of recording will be 15 sec");
+            var loadrecordingicon = document.getElementsByClassName('bi bi-record-circle blink');
+            function recordicon(load) {
+                if (load === 1)
+                    loadrecordingicon[0].style.visibility = "visible";
+                else
+                    loadrecordingicon[0].style.visibility = "hidden";
+            };
+            /* Since we need photo every second (15 sec exactly)
+            to make it possible i have use hidden cavas to save current instance and update it every new instance
+            and here image download in data url using hidden canvas and store in array so that it can be send to G */
+            var offScreenCanvas = document.createElement('canvas');
+            offScreenCanvas.width = simulationArea.canvas.width;
+            offScreenCanvas.height = simulationArea.canvas.height;
+            var context = offScreenCanvas.getContext("2d");
+            context.fillStyle = 'white'; //set fill color
+            context.fillRect(0, 0, simulationArea.canvas.width, simulationArea.canvas.height);
+            var gh = [];
+            gifcapture();
+            function gifcapture() {
+                recordicon(1);
+
+                for (var start = 1; start < 11; start++) {
+                    cavanstogif(start);
+                }
+                function cavanstogif(start) {
+                    setTimeout(function () {
+                        context.drawImage(simulationArea.canvas, 0, 0);
+                        gh[start] = offScreenCanvas.toDataURL(`image/png`);
+                        if (start === 10)
+                            gifshotcall(gh);
+
+                    }, 1000 * start)
+                }
+
+            }
+
+            function gifshotcall(gh) {
+                
+                if (gifshot.isExistingImagesGIFSupported()) {
+                    gifshot.createGIF({
+                        'images': [gh[1], gh[2], gh[3], gh[4], gh[5], gh[6], gh[7], gh[8], gh[9], gh[10]],
+                        'gifWidth': simulationArea.canvas.width,
+                        'gifHeight': simulationArea.canvas.height,
+                        'interval': 0.5,
+                        'numFrames': 10,
+                        'frameDuration': 1,
+                        'crossOrigin': '*',
+                    }, function (obj) {
+                        if (!obj.error) {
+                            var image = obj.image,
+                                animatedImage = document.createElement('img');
+                            animatedImage.src = image;
+                            const anchor = document.createElement('a');
+                            anchor.href = image;
+                            anchor.download = `${globalScope.name}.${imgType}`;
+                            anchor.click();
+                            recordicon(0);
+
+                        }
+                    });
+
+                }
+
+                else {
+                    alert("Error Loading GIF \n Requirement:Firefox 17+, Chrome 21+, Opera 18+, Blackberry Browser 10+, Opera Mobile 12+, Chrome For Android 35+, Firefox for Android 29+");
+                }
+            }
+
+
+        }
+    }
+    else {
         returnData = simulationArea.canvas.toDataURL(`image/${imgType}`);
     }
 
@@ -247,22 +329,23 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
 }
 
 async function crop(dataURL, w, h) {
-  //get empty second canvas
-  var myCanvas = document.createElement("CANVAS");
-  myCanvas.width = w;
-  myCanvas.height = h;
-  var myContext = myCanvas.getContext('2d');
-  var myImage;
-  var img = new Image();
-  return new Promise (function (resolved, rejected) {
+    //get empty second canvas
+    var myCanvas = document.createElement("CANVAS");
+    myCanvas.width = w;
+    myCanvas.height = h;
+    var myContext = myCanvas.getContext('2d');
+    var myImage;
+    var img = new Image();
+    return new Promise(function (resolved, rejected) {
         img.src = dataURL;
         img.onload = () => {
-        myContext.drawImage(img, 0, 0, w, h,0,0, w ,h);
-        myContext.save();
+            myContext.drawImage(img, 0, 0, w, h, 0, 0, w, h);
+            myContext.save();
 
-        //create a new data URL
-        myImage = myCanvas.toDataURL('image/jpeg');
-        resolved(myImage);}
+            //create a new data URL
+            myImage = myCanvas.toDataURL('image/jpeg');
+            resolved(myImage);
+        }
     })
 }
 
@@ -276,7 +359,7 @@ async function generateImageForOnline() {
     // Fix aspect ratio to 1.6
     // Ensure image is approximately 700 x 440
     var ratio = 1.6
-    if(verilogModeGet()) {
+    if (verilogModeGet()) {
         var node = document.getElementsByClassName('CodeMirror')[0];
         // var node = document.getElementsByClassName('CodeMirror')[0];
         var prevHeight = $(node).css('height');
@@ -285,7 +368,7 @@ async function generateImageForOnline() {
         var baseHeight = Math.round(baseWidth / ratio);
         $(node).css('height', baseHeight);
         $(node).css('width', baseWidth);
-        
+
         var data = await domtoimage.toJpeg(node);
         $(node).css('width', prevWidth);
         $(node).css('height', prevHeight);
@@ -313,7 +396,7 @@ async function generateImageForOnline() {
     // Restores Focus
     globalScope.centerFocus(false);
     return data;
-    
+
 }
 /**
  * Function called when you save acircuit online
@@ -321,7 +404,7 @@ async function generateImageForOnline() {
  * @exports save
  */
 export default async function save() {
-    if(layoutModeGet())
+    if (layoutModeGet())
         toggleLayoutMode();
 
     projectSavedSet(true);

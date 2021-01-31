@@ -1153,6 +1153,7 @@ input:checked + .slider:before {
   height: 35px;
   border-radius: 1px;
 }
+
 .navbar {
   transition: background .5s ease-out; 
 }
@@ -1163,17 +1164,25 @@ input:checked + .slider:before {
   margin-right: 10px;
   min-width: 85px;
 }
-
-@media(max-width: 992px) {
-  .navbar .nav.pull-right {
-    display: none;
+.blink {
+  animation: blink 2s steps(5, start) infinite;
+  -webkit-animation: blink 1s steps(5, start) infinite;
+  position: fixed;
+  bottom: 10%;
+  right: 50%;
+  height: 50px;
+  width: 50px;
+  visibility: hidden;
+    
+}
+@keyframes blink {
+  to {
+    visibility: hidden;
   }
 }
-
-@media(max-width:992px) {
-  .nav-dropdown {
-    text-align: center;
-    padding-top: 20px;
+@-webkit-keyframes blink {
+  to {
+    visibility: hidden;
   }
 }
 
