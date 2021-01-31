@@ -291,15 +291,10 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
                             anchor.download = `${globalScope.name}.${imgType}`;
                             anchor.click();
                             recordicon(0);
-
-                        }
-                    });
-
-                }
-
-                else {
-                    alert("Error Loading GIF \n Requirement:Firefox 17+, Chrome 21+, Opera 18+, Blackberry Browser 10+, Opera Mobile 12+, Chrome For Android 35+, Firefox for Android 29+");
-                }
+                         }});}
+                         else {
+                             alert("Error Loading GIF \n Requirement:Firefox 17+, Chrome 21+, Opera 18+, Blackberry Browser 10+, Opera Mobile 12+, Chrome For Android 35+, Firefox for Android 29+");
+                            }
                 
             }
 
@@ -334,7 +329,7 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
 
 async function crop(dataURL, w, h) {
     //get empty second canvas
-    var myCanvas = document.createElement("HIDDEN-CANVAS");
+    var myCanvas = document.createElement("CANVAS");
     myCanvas.width = w;
     myCanvas.height = h;
     var myContext = myCanvas.getContext('2d');
@@ -343,7 +338,7 @@ async function crop(dataURL, w, h) {
     return new Promise(function (resolved, rejected) {
         img.src = dataURL;
         img.onload = () => {
-            myContext.drawImage(img, 0, 0, w, h, 0, 0, w, h);
+            myContext.drawImage(img,0,0,w,h,0,0,w,h);
             myContext.save();
 
             //create a new data URL
