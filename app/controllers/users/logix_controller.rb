@@ -13,6 +13,11 @@ class Users::LogixController < ApplicationController
     @projects = @user.rated_projects
   end
 
+  def profile
+    @profile = ProfileDecorator.new(@user)
+    @projects = @user.rated_projects
+  end
+
   def edit; end
 
   def typeahead_educational_institute
