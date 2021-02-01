@@ -15,7 +15,7 @@ describe Users::LogixController, type: :request do
 
   it "gets user profile" do
     get profile_path(id: @user.id)
-    expect(response).to redirect_to(user_projects_path(id: @user.id))
+    expect(response.status).to eq(200)
     expect(response.status).to eq(200)
   end
 
