@@ -172,7 +172,7 @@ Rails.application.routes.draw do
       end
       post "/assignments/:assignment_id/projects/:project_id/grades", to: "grades#create"
       resources :grades, only: %i[update destroy]
-      get "/groups/mentored", to: "groups#groups_mentored"
+      get "/groups/owned", to: "groups#groups_owned"
       resources :groups, only: %i[index show update destroy]
       delete "/group/members/:id", to: "group_members#destroy"
       resources :groups do

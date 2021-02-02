@@ -4,15 +4,15 @@ require "rails_helper"
 
 RSpec.describe Api::V1::AssignmentsController, "#reopen", type: :request do
   describe "reopen specific assignment" do
-    let!(:mentor) { FactoryBot.create(:user) }
+    let!(:owner) { FactoryBot.create(:user) }
     let!(:assignment) do
       FactoryBot.create(
-        :assignment, group: FactoryBot.create(:group, mentor: mentor)
+        :assignment, group: FactoryBot.create(:group, owner: owner)
       )
     end
     let!(:open_assignment) do
       FactoryBot.create(
-        :assignment, group: FactoryBot.create(:group, mentor: mentor), status: "open"
+        :assignment, group: FactoryBot.create(:group, owner: owner), status: "open"
       )
     end
 
@@ -40,9 +40,9 @@ RSpec.describe Api::V1::AssignmentsController, "#reopen", type: :request do
       end
     end
 
-    context "when authorized as mentor but tries to open already opened assignment" do
+    context "when authorized as owner but tries to open already opened assignment" do
       before do
-        token = get_auth_token(mentor)
+        token = get_auth_token(owner)
         patch "/api/v1/assignments/#{open_assignment.id}/reopen",
               headers: { "Authorization": "Token #{token}" }, as: :json
       end
@@ -55,7 +55,7 @@ RSpec.describe Api::V1::AssignmentsController, "#reopen", type: :request do
 
     context "when authorized but tries to reopen non existent assignment" do
       before do
-        token = get_auth_token(mentor)
+        token = get_auth_token(owner)
         patch "/api/v1/assignments/0/reopen",
               headers: { "Authorization": "Token #{token}" }, as: :json
       end
@@ -68,7 +68,7 @@ RSpec.describe Api::V1::AssignmentsController, "#reopen", type: :request do
 
     context "when authorized and has access to reopen assignment" do
       before do
-        token = get_auth_token(mentor)
+        token = get_auth_token(owner)
         patch "/api/v1/assignments/#{assignment.id}/reopen",
               headers: { "Authorization": "Token #{token}" }, as: :json
       end

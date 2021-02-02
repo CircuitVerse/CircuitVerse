@@ -4,8 +4,8 @@ require "rails_helper"
 
 RSpec.describe Api::V1::AssignmentsController, "#create", type: :request do
   describe "create/add an assignment" do
-    let!(:mentor) { FactoryBot.create(:user) }
-    let!(:group) { FactoryBot.create(:group, mentor: mentor) }
+    let!(:owner) { FactoryBot.create(:user) }
+    let!(:group) { FactoryBot.create(:group, owner: owner) }
 
     context "when not authenticated" do
       before do
@@ -34,7 +34,7 @@ RSpec.describe Api::V1::AssignmentsController, "#create", type: :request do
 
     context "when authorized but tries to add assignments to non existent group" do
       before do
-        token = get_auth_token(mentor)
+        token = get_auth_token(owner)
         post "/api/v1/groups/0/assignments",
              headers: { "Authorization": "Token #{token}" },
              params: create_params, as: :json
@@ -48,7 +48,7 @@ RSpec.describe Api::V1::AssignmentsController, "#create", type: :request do
 
     context "when authorized but tries to add assignment with invalid params" do
       before do
-        token = get_auth_token(mentor)
+        token = get_auth_token(owner)
         post "/api/v1/groups/#{group.id}/assignments",
              headers: { "Authorization": "Token #{token}" },
              params: { "invalid": "invalid params" }, as: :json
@@ -62,7 +62,7 @@ RSpec.describe Api::V1::AssignmentsController, "#create", type: :request do
 
     context "when authorized and has access to add assignments" do
       before do
-        token = get_auth_token(mentor)
+        token = get_auth_token(owner)
         post "/api/v1/groups/#{group.id}/assignments",
              headers: { "Authorization": "Token #{token}" },
              params: create_params, as: :json

@@ -211,6 +211,7 @@ ActiveRecord::Schema.define(version: 2021_04_25_045536) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "mentor", default: false
     t.index ["group_id", "user_id"], name: "index_group_members_on_group_id_and_user_id", unique: true
     t.index ["group_id"], name: "index_group_members_on_group_id"
     t.index ["user_id"], name: "index_group_members_on_user_id"
@@ -218,14 +219,14 @@ ActiveRecord::Schema.define(version: 2021_04_25_045536) do
 
   create_table "groups", force: :cascade do |t|
     t.string "name"
-    t.bigint "mentor_id"
+    t.bigint "owner_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "group_members_count"
     t.string "group_token"
     t.datetime "token_expires_at"
     t.index ["group_token"], name: "index_groups_on_group_token", unique: true
-    t.index ["mentor_id"], name: "index_groups_on_mentor_id"
+    t.index ["owner_id"], name: "index_groups_on_owner_id"
   end
 
   create_table "mailkick_opt_outs", force: :cascade do |t|
@@ -414,7 +415,7 @@ ActiveRecord::Schema.define(version: 2021_04_25_045536) do
   add_foreign_key "grades", "users"
   add_foreign_key "group_members", "groups"
   add_foreign_key "group_members", "users"
-  add_foreign_key "groups", "users", column: "mentor_id"
+  add_foreign_key "groups", "users", column: "owner_id"
   add_foreign_key "pending_invitations", "groups"
   add_foreign_key "project_data", "projects"
   add_foreign_key "projects", "assignments"

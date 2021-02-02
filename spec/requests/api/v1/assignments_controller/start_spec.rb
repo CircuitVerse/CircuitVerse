@@ -7,13 +7,13 @@ RSpec.describe Api::V1::AssignmentsController, "#start", type: :request do
     let!(:user) { FactoryBot.create(:user) }
     let!(:assignment) do
       FactoryBot.create(
-        :assignment, group: FactoryBot.create(:group, mentor: FactoryBot.create(:user))
+        :assignment, group: FactoryBot.create(:group, owner: FactoryBot.create(:user))
       )
     end
     let!(:closed_assignment) do
       FactoryBot.create(
         :assignment, group: FactoryBot.create(
-          :group, mentor: FactoryBot.create(:user)
+          :group, owner: FactoryBot.create(:user)
         ), status: "closed"
       )
     end

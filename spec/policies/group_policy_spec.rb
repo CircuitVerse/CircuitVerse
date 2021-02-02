@@ -6,12 +6,12 @@ describe GroupPolicy do
   subject { described_class.new(user, group) }
 
   before do
-    @mentor = FactoryBot.create(:user)
-    @group = FactoryBot.create(:group, mentor: @mentor)
+    @owner = FactoryBot.create(:user)
+    @group = FactoryBot.create(:group, owner: @owner)
   end
 
-  context "user is mentor" do
-    let(:user) { @mentor }
+  context "user is owner" do
+    let(:user) { @owner }
     let(:group) { @group }
 
     it { is_expected.to permit(:show_access) }

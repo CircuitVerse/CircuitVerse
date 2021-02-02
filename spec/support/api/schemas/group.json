@@ -10,17 +10,17 @@
           "type": "object",
           "properties": {
             "member_count": { "type": "integer" },
-            "mentor_name": { "type": "string" },
+            "owner_name": { "type": "string" },
             "name": { "type": "string" },
-            "mentor_id": { "type": "integer" },
+            "owner_id": { "type": "integer" },
             "created_at": { "type": "string" },
             "updated_at": { "type": "string" }
           },
           "required": [
             "member_count",
-            "mentor_name",
+            "owner_name",
             "name",
-            "mentor_id",
+            "owner_id",
             "created_at",
             "updated_at"
           ]

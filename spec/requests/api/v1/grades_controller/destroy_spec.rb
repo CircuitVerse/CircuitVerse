@@ -4,14 +4,14 @@ require "rails_helper"
 
 RSpec.describe Api::V1::GradesController, "#destroy", type: :request do
   describe "delete specific grade" do
-    let!(:mentor) { FactoryBot.create(:user) }
-    let!(:group) { FactoryBot.create(:group, mentor: mentor) }
+    let!(:owner) { FactoryBot.create(:user) }
+    let!(:group) { FactoryBot.create(:group, owner: owner) }
     let!(:assignment) { FactoryBot.create(:assignment, group: group, grading_scale: :letter) }
     let!(:project) { FactoryBot.create(:project, assignment: assignment) }
     let!(:grade) do
       FactoryBot.create(
         :grade, project: project, assignment: assignment, \
-                user_id: mentor.id, grade: "A", remarks: "Good"
+                user_id: owner.id, grade: "A", remarks: "Good"
       )
     end
 
@@ -41,7 +41,7 @@ RSpec.describe Api::V1::GradesController, "#destroy", type: :request do
 
     context "when authorized but tries to delete non existent grade" do
       before do
-        token = get_auth_token(mentor)
+        token = get_auth_token(owner)
         delete "/api/v1/grades/0",
                headers: { "Authorization": "Token #{token}" }, as: :json
       end
@@ -54,7 +54,7 @@ RSpec.describe Api::V1::GradesController, "#destroy", type: :request do
 
     context "when authorized to delete grade" do
       before do
-        token = get_auth_token(mentor)
+        token = get_auth_token(owner)
         delete "/api/v1/grades/#{grade.id}",
                headers: { "Authorization": "Token #{token}" }, as: :json
       end

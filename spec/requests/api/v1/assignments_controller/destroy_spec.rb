@@ -4,10 +4,10 @@ require "rails_helper"
 
 RSpec.describe Api::V1::AssignmentsController, "#destroy", type: :request do
   describe "delete specific assignment" do
-    let!(:mentor) { FactoryBot.create(:user) }
+    let!(:owner) { FactoryBot.create(:user) }
     let!(:assignment) do
       FactoryBot.create(
-        :assignment, group: FactoryBot.create(:group, mentor: mentor)
+        :assignment, group: FactoryBot.create(:group, owner: owner)
       )
     end
 
@@ -37,7 +37,7 @@ RSpec.describe Api::V1::AssignmentsController, "#destroy", type: :request do
 
     context "when authorized but tries to delete non existent assignment" do
       before do
-        token = get_auth_token(mentor)
+        token = get_auth_token(owner)
         delete "/api/v1/assignments/0",
                headers: { "Authorization": "Token #{token}" }, as: :json
       end
@@ -50,7 +50,7 @@ RSpec.describe Api::V1::AssignmentsController, "#destroy", type: :request do
 
     context "when authenticated and has access to delete assignment" do
       before do
-        token = get_auth_token(mentor)
+        token = get_auth_token(owner)
         delete "/api/v1/assignments/#{assignment.id}",
                headers: { "Authorization": "Token #{token}" }, as: :json
       end
