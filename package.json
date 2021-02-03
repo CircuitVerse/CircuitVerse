@@ -20,7 +20,7 @@
     "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
-    "@babel/plugin-proposal-numeric-separator": "^7.12.7",
+    "@babel/plugin-proposal-numeric-separator": "^7.12.13",
     "@babel/preset-env": "^7.12.7",
     "@fortawesome/fontawesome-free": "^5.15.2",
     "@rails/webpacker": "5.2.1",
