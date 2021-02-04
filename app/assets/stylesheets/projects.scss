@@ -201,3 +201,40 @@
   }
 }
 //project details ends
+
+// collaborators tags input
+.bootstrap-tagsinput {
+  border: 1px solid $secondary-green;
+  cursor: text;
+  font-size: 1rem;
+  line-height: 1.25;
+  margin: 0;
+  max-height: 180px;
+  min-height: 150px;
+  overflow-y: scroll;
+  padding: .5rem .75rem;
+  transition: border-color .15s ease-in-out;
+  width: 100%;
+
+  .label-info {
+    background-color: $primary-green;
+    border-radius: .25rem;
+    color: $white;
+    display: inline-block;
+    margin-bottom: .4em;
+    padding: 0 .4em .15em;
+	}
+
+  input {
+    border: 0;
+  }
+}
+
+.tag [data-role="remove"]::after {
+  content: '\00d7';
+  cursor: pointer;
+  font-size: 18px;
+  margin-left: 5px;
+}
+
+// collaborators tags input closes

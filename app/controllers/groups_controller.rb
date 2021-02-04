@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class GroupsController < ApplicationController
-  before_action :set_group, only: %i[show edit update destroy group_invite]
+  before_action :set_group, only: %i[show edit update destroy group_invite generate_token]
   before_action :authenticate_user!
   before_action :check_show_access, only: %i[show edit update destroy]
-  before_action :check_edit_access, only: %i[edit update destroy]
+  before_action :check_edit_access, only: %i[edit update destroy generate_token]
 
   # GET /groups/1
   # GET /groups/1.json

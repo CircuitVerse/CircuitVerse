@@ -115,15 +115,52 @@
 }
 
 .circuit-card-name {
-  display: inline-block;
   float: left;
   font-weight: 600;
   margin-top: 10px;
-  max-height: 30px;
-  max-width: 150px;
-  overflow: hidden;
+  position: relative;
   text-align: left;
-  text-overflow: ellipsis;
+
+  p {
+    max-height: 30px;
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.tooltiptext {
+  background-color: $navbar-dark-grey;
+  border-radius: .3rem;
+  bottom: 100%;
+  color: $white;
+  font-size: .8rem;
+  left: 0%;
+  max-width: 100%;
+  opacity: 0;
+  padding: .3rem;
+  position: absolute;
+  text-align: center;
+  transition: opacity .5s;
+  visibility: hidden;
+  z-index: 1;
+
+  &::after {
+    border-color: $navbar-dark-grey transparent transparent;
+    border-style: solid;
+    border-width: .3rem;
+    content: '';
+    left: 50%;
+    margin-left: -.3rem;
+    position: absolute;
+    top: 100%;
+  }
+}
+
+.circuit-card-name:hover .tooltiptext {
+  opacity: 1;
+  visibility: visible;
 }
 
 .circuit-card-primary-button {
