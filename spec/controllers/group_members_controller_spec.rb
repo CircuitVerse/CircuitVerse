@@ -34,6 +34,14 @@ describe GroupMembersController, type: :request do
       end
     end
 
+    context "a mentor is logged in" do
+      it "throws unauthorized error" do
+        sign_in_group_mentor(@group)
+        post group_members_path, params: create_params
+        check_not_authorized(response)
+      end
+    end
+
     context "user other than owner is logged in" do
       it "throws unauthorized error" do
         sign_in_random_user
@@ -55,6 +63,14 @@ describe GroupMembersController, type: :request do
         expect do
           delete group_member_path(@group_member)
         end.to change(GroupMember, :count).by(-1)
+      end
+    end
+
+    context "a mentor is signed in" do
+      it "throws unauthorized error" do
+        sign_in_group_mentor(@group)
+        delete group_member_path(@group_member)
+        check_not_authorized(response)
       end
     end
 

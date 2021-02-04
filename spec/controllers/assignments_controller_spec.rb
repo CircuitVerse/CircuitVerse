@@ -12,7 +12,7 @@ describe AssignmentsController, type: :request do
   end
 
   describe "#new" do
-    context "user is not owner" do
+    context "random user is signed in" do
       it "restricts access" do
         sign_in FactoryBot.create(:user)
         get new_group_assignment_path(@group)
@@ -20,7 +20,15 @@ describe AssignmentsController, type: :request do
       end
     end
 
-    context "user is owner" do
+    context "a mentor is signed in" do
+      it "renders required template" do
+        sign_in_group_mentor(@group)
+        get new_group_assignment_path(@group)
+        expect(response.body).to include("New Assignment")
+      end
+    end
+
+    context "owner is signed in" do
       it "renders required template" do
         sign_in @owner
         get new_group_assignment_path(@group)
@@ -98,7 +106,16 @@ describe AssignmentsController, type: :request do
       end
     end
 
-    context "user is signed in" do
+    context "a mentor is signed in" do
+      it "updates the assignment" do
+        sign_in_group_mentor(@group)
+        put group_assignment_path(@group, @assignment), params: update_params
+        @assignment.reload
+        expect(@assignment.description).to eq("updated description")
+      end
+    end
+
+    context "random user is signed in" do
       it "returns unauthorized error" do
         sign_in_random_user
         put group_assignment_path(@group, @assignment), params: update_params
@@ -146,15 +163,37 @@ describe AssignmentsController, type: :request do
 
   describe "#reopen" do
     before do
-      sign_in @owner
       @closed_assignment = FactoryBot.create(:assignment, group: @group, status: "closed")
     end
 
-    it "changes status to open" do
-      expect(@closed_assignment.status).to eq("closed")
-      get reopen_group_assignment_path(@group, @closed_assignment)
-      @closed_assignment.reload
-      expect(@closed_assignment.status).to eq("open")
+    context "owner is signed in" do
+      it "changes status to open" do
+        sign_in @owner
+        expect(@closed_assignment.status).to eq("closed")
+        get reopen_group_assignment_path(@group, @closed_assignment)
+        @closed_assignment.reload
+        expect(@closed_assignment.status).to eq("open")
+      end
+    end
+
+    context "a mentor is signed in" do
+      it "changes status to open" do
+        sign_in_group_mentor(@group)
+        expect(@closed_assignment.status).to eq("closed")
+        get reopen_group_assignment_path(@group, @closed_assignment)
+        @closed_assignment.reload
+        expect(@closed_assignment.status).to eq("open")
+      end
+    end
+
+    context "random user is signed in" do
+      it "throws not authorized error" do
+        sign_in_random_user
+        expect(@closed_assignment.status).to eq("closed")
+        get reopen_group_assignment_path(@group, @closed_assignment)
+        expect(response.body).to eq("You are not authorized to do the requested operation")
+        expect(@closed_assignment.status).to eq("closed")
+      end
     end
   end
 
@@ -169,7 +208,17 @@ describe AssignmentsController, type: :request do
       end
     end
 
-    context "user other than the owner is logged in" do
+    context "a mentor is logged in" do
+      it "creates a new assignment" do
+        sign_in_group_mentor(@group)
+        expect do
+          post group_assignments_path(@group), params: { assignment:
+            { description: "group assignment", name: "Test Name" } }
+        end.to change(Assignment, :count).by(1)
+      end
+    end
+
+    context "random user is logged in" do
       it "does not create assignment" do
         sign_in FactoryBot.create(:user)
         expect do

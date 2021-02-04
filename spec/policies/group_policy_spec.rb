@@ -18,6 +18,20 @@ describe GroupPolicy do
     it { is_expected.to permit(:admin_access) }
   end
 
+  context "user is a mentor" do
+    before do
+      @mentor = FactoryBot.create(:user)
+      FactoryBot.create(:group_member, group: @group, user: @mentor, mentor: true)
+    end
+
+    let(:user) { @mentor }
+    let(:group) { @group }
+
+    it { is_expected.to permit(:show_access) }
+    it { is_expected.not_to permit(:admin_access) }
+    it { is_expected.to permit(:mentor_access) }
+  end
+
   context "user is a group_member" do
     let(:user) { @member }
     let(:group) { @group }
@@ -29,6 +43,7 @@ describe GroupPolicy do
 
     it { is_expected.to permit(:show_access) }
     it { is_expected.not_to permit(:admin_access) }
+    it { is_expected.not_to permit(:mentor_access) }
   end
 
   context "user is not a group_member" do
@@ -37,5 +52,6 @@ describe GroupPolicy do
 
     it { is_expected.not_to permit(:show_access) }
     it { is_expected.not_to permit(:admin_access) }
+    it { is_expected.not_to permit(:mentor_access) }
   end
 end

@@ -28,6 +28,14 @@ describe GroupsController, type: :request do
       end
     end
 
+    context "a group mentor is signed in" do
+      it "throws not authorized error" do
+        sign_in_group_mentor(@group)
+        delete group_path(@group)
+        check_not_authorized(response)
+      end
+    end
+
     context "user other than owner is signed in" do
       it "throws not authorized error" do
         sign_in_random_user
@@ -68,6 +76,14 @@ describe GroupsController, type: :request do
         put group_path(@group), params: { group: { name: "updated group" } }
         @group.reload
         expect(@group.name).to eq("updated group")
+      end
+    end
+
+    context "a mentor is signed in" do
+      it "updates group" do
+        sign_in_group_mentor(@group)
+        put group_path(@group), params: { group: { name: "updated group" } }
+        check_not_authorized(response)
       end
     end
 

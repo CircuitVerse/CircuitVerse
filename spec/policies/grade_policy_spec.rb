@@ -24,6 +24,18 @@ describe GradePolicy do
     it { is_expected.to permit(:mentor) }
   end
 
+  context "user is a mentor" do
+    before do
+      @mentor = FactoryBot.create(:user)
+      FactoryBot.create(:group_member, group: @group, user: @mentor, mentor: true)
+    end
+
+    let(:user) { @mentor }
+
+    it { is_expected.to permit(:mentor) }
+  end
+
+
   # context "user is mentor but grades have been finalized" do
   #   let(:user) { @mentor }
 

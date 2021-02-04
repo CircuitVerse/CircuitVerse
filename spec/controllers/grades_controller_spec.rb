@@ -61,6 +61,42 @@ describe GradesController, type: :request do
       # end
     end
 
+    context "a mentor is singed in" do
+      before do
+        sign_in_group_mentor(@group)
+      end
+
+      context "grade is valid" do
+        it "creates grade" do
+          expect do
+            post grades_path, params: create_params
+          end.to change(Grade, :count).by(1)
+          expect(JSON.parse(response.body).keys.sort).to eq(%w[assignment_id grade id project_id
+                                                               remarks])
+          expect(response.content_type).to eq("application/json; charset=utf-8")
+        end
+      end
+
+      context "grade is invalid" do
+        it "throws bad request error" do
+          invalid_params = create_params
+          create_params[:grade][:grade] = "90"
+          post grades_path, params: invalid_params
+          expect(response.status).to eq(400)
+          expect(JSON.parse(response.body)["error"]).to eq("Grade is invalid")
+        end
+      end
+
+      # context "grades have been finalized" do
+      #   it "throws unauthorized error" do
+      #     @assignment.grades_finalized = true
+      #     @assignment.save
+      #     post grades_path, params: create_params
+      #     expect(response.body).to eq("You are not authorized to do the requested operation")
+      #   end
+      # end
+    end
+
     context "some other user is signed in" do
       it "gives unauthorized error" do
         sign_in FactoryBot.create(:user)
@@ -88,6 +124,29 @@ describe GradesController, type: :request do
     context "owner is logged in" do
       before do
         sign_in @owner
+      end
+
+      context "grades have not been finalized" do
+        it "destroys grade" do
+          expect do
+            delete grades_path, params: destroy_params
+          end.to change(Grade, :count).by(-1)
+        end
+      end
+
+      # context "grades have been finalized" do
+      #   it "throws unauthorized error" do
+      #     @assignment.grades_finalized = true
+      #     @assignment.save
+      #     delete grades_path, params: destroy_params
+      #     expect(response.body).to eq("You are not authorized to do the requested operation")
+      #   end
+      # end
+    end
+
+    context "a mentor is logged in" do
+      before do
+        sign_in_group_mentor(@group)
       end
 
       context "grades have not been finalized" do
