@@ -95,7 +95,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
-    redcarpet (3.4.0)
+    redcarpet (3.5.1)
     rouge (2.0.7)
     sass (3.7.4)
       sass-listen (~> 4.0.0)
@@ -127,7 +127,7 @@ DEPENDENCIES
   middleman-sprockets (~> 4.1)
   middleman-syntax (~> 3.0)
   nokogiri (~> 1.11.0)
-  redcarpet (~> 3.4.0)
+  redcarpet (~> 3.5.1)
   rouge (~> 2.0.5)
   sass
 
