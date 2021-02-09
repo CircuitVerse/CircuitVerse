@@ -175,6 +175,8 @@ Rails.application.routes.draw do
       get "/groups/owned", to: "groups#groups_owned"
       resources :groups, only: %i[index show update destroy]
       delete "/group/members/:id", to: "group_members#destroy"
+      put "/group/members/:id", to: "group_members#update"
+      patch "/group/members/:id", to: "group_members#update"
       resources :groups do
         resources :members, controller: "group_members", shallow: true, only: %i[index create]
         resources :assignments, shallow: true

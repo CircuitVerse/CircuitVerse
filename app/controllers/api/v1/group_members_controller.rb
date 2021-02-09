@@ -3,10 +3,10 @@
 class Api::V1::GroupMembersController < Api::V1::BaseController
   before_action :authenticate_user!
   before_action :set_group, only: %i[index create]
-  before_action :set_group_member, only: %i[destroy]
+  before_action :set_group_member, only: %i[destroy update]
   before_action :check_show_access, only: %i[index]
   before_action :check_edit_access, only: %i[create]
-  before_action :check_owner_access, only: %i[destroy]
+  before_action :check_owner_access, only: %i[destroy update]
 
   # GET /api/v1/groups/:group_id/members/
   def index
@@ -33,6 +33,17 @@ class Api::V1::GroupMembersController < Api::V1::BaseController
   # DELETE /api/v1/group/members/:id
   def destroy
     @group_member.destroy!
+    render json: {}, status: :no_content
+  end
+
+  # PATCH/PUT /api/v1/group/members/:id
+  # Only used to set / revoke mentorship
+  def update
+    if !params[:mentor]
+      return render json: {}, status: :no_content
+    end
+    @group_member.mentor = params[:mentor].to_i == 1
+    @group_member.save
     render json: {}, status: :no_content
   end
 
