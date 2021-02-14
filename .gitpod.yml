@@ -21,8 +21,9 @@ tasks:
       bundle exec rake sunspot:solr:start &&
       bundle exec rails db:seed
     command: >
+      sleep 5 &&
       createuser -s postgres &&
-      (redis-server &) &&
+      redis-server --daemonize yes &&
       bundle install --without production --path vendor/bundle &&
       yarn &&
       bundle exec rails db:create &&
