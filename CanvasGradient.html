@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +5,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> modules/verilogMultiplier.js</title>
+  <title> CanvasGradient</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -75,110 +73,304 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Source</p>
-                    <h1>modules/verilogMultiplier.js</h1>
+                    <p>Class</p>
+                    <h1>CanvasGradient</h1>
                 </header>
                 
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/* eslint-disable no-bitwise */
-import CircuitElement from '../circuitElement';
-import Node, { findNode } from '../node';
-import simulationArea from '../simulationArea';
+        <h2><span class="attribs"><span class="type-signature"></span></span>CanvasGradient<span class="signature">(gradientNode)</span><span class="type-signature"></span></h2>
+        
+    
+</header>
 
-/**
- * @class
- * verilogMultiplier
- * @extends CircuitElement
- * @param {number} x - x coordinate of element.
- * @param {number} y - y coordinate of element.
- * @param {Scope=} scope - Cirucit on which element is drawn
- * @param {string=} dir - direction of element
- * @param {number=} bitWidth - bit width per node. modules
- * @category modules
- */
-export default class verilogMultiplier extends CircuitElement {
-    constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1, outputBitWidth = 1) {
-        super(x, y, scope, dir, bitWidth);
-        /* this is done in this.baseSetup() now
-        this.scope['verilogMultiplier'].push(this);
-        */
-        this.setDimensions(20, 20);
-        this.outputBitWidth = outputBitWidth;
-        this.inpA = new Node(-20, -10, 0, this, this.bitWidth, 'A');
-        this.inpB = new Node(-20, 0, 0, this, this.bitWidth, 'B');
-        this.product = new Node(20, 0, 1, this, this.outputBitWidth, 'Product');
-    }
+<article>
+    <div class="container-overview">
+    
+        
+            <div class='vertical-section'>
+                <div class="members">
+                    <div class="member">
+                        <div class=name>
+                            <span class="tag">Constructor</span>
+                        </div>
+                        
 
-    /**
-     * @memberof verilogMultiplier
-     * fn to create save Json Data of object
-     * @return {JSON}
-     */
-    customSave() {
-        const data = {
-            constructorParamaters: [this.direction, this.bitWidth, this.outputBitWidth],
-            nodes: {
-                inpA: findNode(this.inpA),
-                inpB: findNode(this.inpB),
-                product: findNode(this.product),
-            },
-        };
-        return data;
-    }
 
-    /**
-     * @memberof verilogMultiplier
-     * Checks if the element is resolvable
-     * @return {boolean}
-     */
-    isResolvable() {
-        return this.inpA.value !== undefined &amp;&amp; this.inpB.value !== undefined;
-    }
+    
+    <h4 class="name" id="CanvasGradient">
+        <a class="href-link" href="#CanvasGradient">#</a>
+        
+        <span class="code-name">
+            
+                new CanvasGradient<span class="signature">(gradientNode)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
 
-    /**
-     * @memberof verilogMultiplier
-     * function to change bitwidth of the element
-     * @param {number} bitWidth - new bitwidth
-     */
-    newBitWidth(bitWidth) {
-        this.bitWidth = bitWidth;
-        this.inpA.bitWidth = bitWidth;
-        this.inpB.bitWidth = bitWidth;
-        this.product.bitWidth = bitWidth;
-    }
+    
+    
 
-    /**
-     * @memberof verilogMultiplier
-     * resolve output values based on inputData
-     */
-    resolve() {
-        if (this.isResolvable() === false) {
-            return;
-        }
-        const product = this.inpA.value * this.inpB.value;
 
-        this.product.value = ((product) &lt;&lt; (32 - this.outputBitWidth)) >>> (32 - this.outputBitWidth);
-        simulationArea.simulationQueue.add(this.product);
-    }
-}
 
-/**
- * @memberof verilogMultiplier
- * Help Tip
- * @type {string}
- * @category modules
- */
-verilogMultiplier.prototype.tooltipText = 'verilogMultiplier ToolTip : Performs addition of numbers.';
-verilogMultiplier.prototype.helplink = 'https://docs.circuitverse.org/#/miscellaneous?id=verilogMultiplier';
-verilogMultiplier.prototype.objectType = 'verilogMultiplier';
-</code></pre>
-        </article>
-    </section>
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>gradientNode</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">reference to the gradient</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="canvas2svg.js.html" class="button">View Source</a>
+            <span>
+                <a href="canvas2svg.js.html">canvas2svg.js</a>, <a href="canvas2svg.js.html#line188">line 188</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        
+    
+    </div>
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <div class='vertical-section'>
+            <h1>Methods</h1>
+            <div class="members">
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="addColorStop">
+        <a class="href-link" href="#addColorStop">#</a>
+        
+        <span class="code-name">
+            
+                addColorStop<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Adds a color stop to the gradient root
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="canvas2svg.js.html" class="button">View Source</a>
+            <span>
+                <a href="canvas2svg.js.html">canvas2svg.js</a>, <a href="canvas2svg.js.html#line196">line 196</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+            </div>
+        </div>
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 
