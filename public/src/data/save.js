@@ -12,7 +12,7 @@ import { layoutModeGet, toggleLayoutMode } from '../layoutMode';
 import { verilogModeGet } from '../Verilog2CV';
 import domtoimage from 'dom-to-image';
 import C2S from '../canvas2svg';
-import gifshot from './gifshot';
+import gifshot from 'gifshot';
 
 var projectName = undefined;
 
@@ -56,7 +56,7 @@ function downloadAsImg(name, imgType) {
 
 /**
  * Returns the order of tabs in the project
-*/
+ */
 export function getTabsOrder() {
     var tabs = $("#tabsBar").children().not('button');
     var order = [];
@@ -233,8 +233,9 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
         3.GIFSHOT will directly make GIF of photos and export it offine 
         */
         else if (imgType === 'gif') {
-             alert("Press Ok to start GIF recording \n Duration of recording will be 15 sec");
+            alert("Press Ok to start GIF recording \n Duration of recording will be 15 sec");
             var loadrecordingicon = document.getElementsByClassName('bi bi-record-circle blink');
+
             function recordicon(load) {
                 if (load === 1)
                     loadrecordingicon[0].style.visibility = "visible";
@@ -252,14 +253,16 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
             context.fillRect(0, 0, simulationArea.canvas.width, simulationArea.canvas.height);
             var gh = [];
             gifcapture();
+
             function gifcapture() {
                 recordicon(1);
 
                 for (var start = 1; start < 11; start++) {
                     cavanstogif(start);
                 }
+
                 function cavanstogif(start) {
-                    setTimeout(function () {
+                    setTimeout(function() {
                         context.drawImage(simulationArea.canvas, 0, 0);
                         gh[start] = offScreenCanvas.toDataURL(`image/png`);
                         if (start === 10)
@@ -271,7 +274,7 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
             }
 
             function gifshotcall(gh) {
-                
+
                 if (gifshot.isExistingImagesGIFSupported()) {
                     gifshot.createGIF({
                         'images': [gh[1], gh[2], gh[3], gh[4], gh[5], gh[6], gh[7], gh[8], gh[9], gh[10]],
@@ -281,7 +284,7 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
                         'numFrames': 10,
                         'frameDuration': 1,
                         'crossOrigin': '*',
-                    }, function (obj) {
+                    }, function(obj) {
                         if (!obj.error) {
                             var image = obj.image,
                                 animatedImage = document.createElement('img');
@@ -291,21 +294,20 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
                             anchor.download = `${globalScope.name}.${imgType}`;
                             anchor.click();
                             recordicon(0);
-                         }});}
-                         else {
-                             alert("Error Loading GIF \n Requirement:Firefox 17+, Chrome 21+, Opera 18+, Blackberry Browser 10+, Opera Mobile 12+, Chrome For Android 35+, Firefox for Android 29+");
-                            }
-                
+                        }
+                    });
+                } else {
+                    alert("Error Loading GIF \n Requirement:Firefox 17+, Chrome 21+, Opera 18+, Blackberry Browser 10+, Opera Mobile 12+, Chrome For Android 35+, Firefox for Android 29+");
+                }
+
             }
 
 
 
-        }
-        else {
+        } else {
             downloadAsImg(globalScope.name, imgType);
         }
-    }
-    else {
+    } else {
         returnData = simulationArea.canvas.toDataURL(`image/${imgType}`);
     }
 
@@ -335,10 +337,10 @@ async function crop(dataURL, w, h) {
     var myContext = myCanvas.getContext('2d');
     var myImage;
     var img = new Image();
-    return new Promise(function (resolved, rejected) {
+    return new Promise(function(resolved, rejected) {
         img.src = dataURL;
         img.onload = () => {
-            myContext.drawImage(img,0,0,w,h,0,0,w,h);
+            myContext.drawImage(img, 0, 0, w, h, 0, 0, w, h);
             myContext.save();
 
             //create a new data URL
