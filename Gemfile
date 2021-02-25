@@ -159,3 +159,6 @@ gem "invisible_captcha", "~> 1.1"
 gem "newrelic_rpm", "~> 6.13"
 
 gem "oj", "~> 3.11"
+
+
+gem 'wdm', '>= 0.1.0' if Gem.win_platform?

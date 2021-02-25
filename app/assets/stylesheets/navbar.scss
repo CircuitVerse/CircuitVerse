@@ -48,7 +48,7 @@
   border: 2px solid $primary-green;
   color: $navbar-dark-grey;
   font-weight: 500;
-  transition: all .3s ease-in;
+  transition: all 0.3s ease-in;
 
   &:hover {
     background: $primary-green;
@@ -68,7 +68,7 @@
   &::after {
     margin-left: 0;
     padding-left: 0;
-    vertical-align: .5em;
+    vertical-align: 0.5em;
   }
 }
 
