@@ -5,6 +5,10 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
+$white: #fff;
+$shadow-grey: #d5d5d5;
+$primary-green: #42b983;
+$secondary-green: #026e57;
 
 .subcircuitdialog {
   display: none;
@@ -48,16 +52,16 @@
 }
 
 .primary-modal-header {
-  background-color: #42b983;
-  border: 1px solid #42b983;
+  background-color: $primary-green;
+  border: 1px solid $primary-green;
   box-shadow: none;
 
   .modal-title {
-    color: #fff;
+    color: $white;
   }
 
   .close {
-    color: #fff;
+    color: $white;
     opacity: 1;
   }
 }
@@ -69,7 +73,7 @@
 }
 
 .primary-checkpoint {
-  background-color: #d5d5d5;
+  background-color: $shadow-grey;
   bottom: 0;
   display: inline-block;
   height: 25px;
@@ -105,10 +109,10 @@
   }
 
   input:checked ~ .primary-checkpoint {
-    background-color: #42b983;
+    background-color: $primary-green;
 
     &::after {
-      border: solid #fff;
+      border: solid $white;
       border-width: 0 3px 3px 0;
       display: block;
       height: 12px;
@@ -121,27 +125,27 @@
 }
 
 .primary-button {
-  background-color: #42b983;
+  background-color: $primary-green;
   border-radius: 4px;
-  color: #fff;
+  color: $white;
   margin: 5px;
   transition: all .3s ease 0s;
 
   &:hover {
-    background-color: #026e57;
+    background-color: $secondary-green;
     box-shadow: 0 8px 15px #00000029;
-    color: #fff;
+    color: $white;
     transform: translateY(-7px);
   }
 }
 
 
 .anchor-text {
-  color: #026e57;
+  color: $secondary-green;
   font-weight: 500;
   text-decoration: underline;
 
   &:hover {
-    color: #42b983;
+    color: $primary-green;
   }
 }
