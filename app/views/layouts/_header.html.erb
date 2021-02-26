@@ -35,7 +35,7 @@
         <a class="nav-link navbar-item navbar-text <%= request.path == '/teachers' ? 'active' : '' %>" href="/teachers">Teachers</a>
       </li>
       <li class="nav-item px-1">
-        <a class="nav-link navbar-item navbar-text <%= request.path == '/about' ? 'active' : '' %>" href="/about">About</a>
+        <a class="nav-link navbar-item navbar-text <%= request.path == '/about' ? 'active' : '' %>" href="/about"><%= t('headers.about') %></a>
       </li>
       <% if user_signed_in? %>
       <div class="navbar-nav nav-item dropdown">

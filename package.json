@@ -12,17 +12,17 @@
     "postinstall": "opencollective-postinstall || true"
   },
   "devDependencies": {
-    "eslint": "^7.9.0",
+    "eslint": "^7.18.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",
     "expose-loader": "^0.7.5",
     "jsdoc": "3.6.3",
-    "webpack-dev-server": "^3.11.0"
+    "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
     "@babel/plugin-proposal-numeric-separator": "^7.12.7",
     "@babel/preset-env": "^7.12.7",
-    "@fortawesome/fontawesome-free": "^5.14.0",
+    "@fortawesome/fontawesome-free": "^5.15.2",
     "@rails/webpacker": "5.2.1",
     "better-docs": "^2.0.1",
     "bootstrap": "^4.5.0",
@@ -39,10 +39,10 @@
     "jsdoc-export-default-interop": "^0.3.1",
     "livereload": "^0.9.1",
     "jquery-resizable-dom": "^0.35.0",
-    "nodemon": "^2.0.4",
+    "nodemon": "^2.0.7",
     "opencollective-postinstall": "^2.0.3",
     "popper.js": "^1.16.1",
-    "trumbowyg": "^2.22.0",
+    "trumbowyg": "^2.23.0",
     "turbolinks": "^5.2.0"
   },
   "collective": {

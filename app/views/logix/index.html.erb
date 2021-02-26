@@ -57,7 +57,7 @@
       <div id="home-features-section" class="row center-row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
           <h3>Features</h3>
-          <p>Design circuits quickly and easily with a modern and intuitive user interface with drag-and-drop, copy/paste, zoom and more.</p>
+          <p>Design circuits quickly and easily with a modern and intuitive user interface with drag-and-drop, copy/paste, zoom, and more.</p>
         </div>
       </div>
       <div class="row center-row justify-content-center">
@@ -66,7 +66,7 @@
             <%= image_tag "homepage/export-hd.png", alt: "Export HD", :class => "card-img-top" %>
             <div class="card-body">
               <h5 class="card-title">Export High-Resolution Images</h5>
-              <p class="card-text">CircuitVerse can export high resolution images in multiple formats including SVG.</p>
+              <p class="card-text">CircuitVerse can export high-resolution images in multiple formats including SVG.</p>
             </div>
           </div>
         </div>
@@ -102,7 +102,7 @@
             <%= image_tag "homepage/multi-bit-bus.png", alt: "Multi Bit Bus", :class => "card-img-top" %>
             <div class="card-body">
               <h5 class="card-title">Multi Bit Buses and components</h5>
-              <p class="card-text">CircuitVerse supports multi bit wires, this means circuit design is easier, faster and uncluttered.</p>
+              <p class="card-text">CircuitVerse supports multi bit-wires, this means circuit design is easier, faster, and uncluttered.</p>
             </div>
           </div>
         </div>
@@ -122,6 +122,7 @@
             <div class="card-footer circuit-card-footer">
               <div class="circuit-card-name">
                 <p>16-bit Ripple Carry Adder</p>
+                <span class="tooltiptext">16-bit Ripple Carry Adder</span>
               </div>
               <a class="btn primary-button circuit-card-primary-button" target="_blank" href="https://circuitverse.org/users/3/projects/248">View</a>
             </div>
@@ -133,6 +134,7 @@
             <div class="card-footer circuit-card-footer">
               <div class="circuit-card-name">
                 <p>SAP-1</p>
+                <span class="tooltiptext">SAP-1</span>
               </div>
               <a class="btn primary-button circuit-card-primary-button" target="_blank" href="https://circuitverse.org/users/3/projects/67">View</a>
             </div>
@@ -144,6 +146,7 @@
             <div class="card-footer circuit-card-footer">
               <div class="circuit-card-name">
                 <p>Full Adder from 2 Half Adders</p>
+                <span class="tooltiptext">Full Adder from 2 Half Adders</span>
               </div>
               <a class="btn primary-button circuit-card-primary-button" target="_blank" href="https://circuitverse.org/users/3/projects/247">View</a>
             </div>
@@ -172,6 +175,7 @@
                 <div class="card-footer circuit-card-footer">
                   <div class="circuit-card-name">
                     <p><%= circuit.name %></p>
+                    <span class="tooltiptext"><%= circuit.name %></span>
                   </div>
                   <a class="btn primary-button circuit-card-primary-button" target="_blank" href="<%= user_project_url(circuit.author, circuit) %>">View</a>
                 </div>
@@ -201,6 +205,7 @@
               <div class="card-footer circuit-card-footer">
                 <div class="circuit-card-name">
                   <p><%= project.name %></p>
+                  <span class="tooltiptext"><%= project.name %></span>
                 </div>
                 <a class="btn primary-button circuit-card-primary-button" target="_blank" href="<%= user_project_url(project.author, project) %>">View</a>
               </div>

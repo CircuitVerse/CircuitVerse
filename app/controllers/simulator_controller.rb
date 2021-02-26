@@ -54,6 +54,7 @@ class SimulatorController < ApplicationController
     @project.image_preview = image_file
     @project.name = sanitize(params[:name])
     @project.save
+    image_file.close
 
     File.delete(image_file) if check_to_delete(params[:image])
 
@@ -76,6 +77,7 @@ class SimulatorController < ApplicationController
 
     @project.image_preview = image_file
     @project.save!
+    image_file.close
 
     File.delete(image_file) if check_to_delete(params[:image])
 
