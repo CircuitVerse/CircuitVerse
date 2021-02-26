@@ -52,7 +52,7 @@ describe "Sign up", type: :system do
     expect(page).to have_text("Welcome! You have signed up successfully.")
   end
 
-  it "should let users in after GDPR confirmation check" do
+  it "let users in after GDPR confirmation check" do
     fill_in "Name", with: "user1"
     fill_in "Email", with: "user1@example.com"
     fill_in "Password", with: "secret"
