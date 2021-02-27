@@ -986,7 +986,7 @@ input:checked + .slider:before {
   border-radius: 7px;
   align-items: center;
   justify-content: space-around;
-  padding: 0 7px;
+  padding: 0 55px;
   position: relative;
   cursor: pointer;
 }
@@ -1078,13 +1078,13 @@ input:checked + .slider:before {
   justify-content: space-between;
   align-items: center;
   padding: 6px 10px;
-  width: 320px;
+  width: 500px;
   position: inherit;
 }
 
 
 .download-dialog-section-3 > label {
-  width: 60px;
+  width: 110px;
   height: 25px;
   margin-bottom: 0;
 }
@@ -1179,12 +1179,13 @@ input:checked + .slider:before {
 .blink {
   animation: blink 2s steps(5, start) infinite;
   -webkit-animation: blink 1s steps(5, start) infinite;
-  position: fixed;
   bottom: 10%;
   right: 50%;
   height: 50px;
   width: 50px;
   visibility: hidden;
+  position: fixed;
+  cursor: pointer;
     
 }
 @keyframes blink {
@@ -1197,7 +1198,70 @@ input:checked + .slider:before {
     visibility: hidden;
   }
 }
+#rec_Button {
+	width: 50px;
+	height: 50px;
+  bottom: 10%;
+  right: 50%;
+	font-size: 0;
+	background-color: red;
+	border: 0;
+	border-radius: 35px;
+	margin: 18px;
+	outline: none;
+  position: fixed;
+  visibility: hidden;
+  z-index: 1;
+}
 
+#notRec{
+	background-color: darkred;
+}
+
+.Rec{
+	animation-name: pulse;
+	animation-duration: 1s;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+  z-index: 1;
+  width: 50px;
+	height: 50px;
+  bottom: 10%;
+  right: 50%;
+}
+
+
+
+@keyframes pulse{
+	0%{
+		box-shadow: 0px 0px 5px 0px rgba(173,0,0,.3);
+	}
+	65%{
+		box-shadow: 0px 0px 5px 13px rgba(173,0,0,.3);
+	}
+	90%{
+		box-shadow: 0px 0px 5px 13px rgba(173,0,0,0);
+	}
+}
+
+
+.loader {
+  border: 10px solid   	#909090; /* Light grey */
+  border-top: 10px solid #42b983; /* Blue */
+  border-radius: 100px;
+  width: 85px;
+  height: 85px;
+  bottom: 50%;
+  right: 50%;
+  animation: spin 2s linear infinite;
+  position: relative;
+  visibility: none; 
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 /*! download dialog styling end here */
 
 /** combinationalAnalysis dialog styling starts here */
