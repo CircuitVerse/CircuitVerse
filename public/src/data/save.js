@@ -173,7 +173,7 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
     // Focus circuit
     var flag = 1;
     if (flag) {
-        if (view === 'full' && imgType != 'anim-gif') {
+        if (view === 'full' && imgType !== 'anim-gif') {
             findDimensions();
             const minX = simulationArea.minWidth;
             const minY = simulationArea.minHeight;
@@ -242,7 +242,6 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
             alert("Press Ok to start GIF recording \n Max duration of recoding is 120sec");
             var loadrecordingicon = document.getElementsByClassName("loader");
             $('#rec_Button').click(function () {
-                console.log("CLICK LOGO");
                 rec_stop = true;
                 loadrecordingicon[0].style.visibility = "visible";
                 loadrecordingicon[0].style.position = "absolute";
@@ -281,27 +280,17 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
             gifcapture();
             function gifcapture() {
                 recordicon(1);
-                console.log("return");
-
-                while (rec_stop || start <= 120) {
-
-                    console.log("In while loop");
-                    console.log(start);
-
+                 while (rec_stop || start <= 120) {
                     cavanstogif(start);
                     start++;
                 }
-
-                function cavanstogif(start) {
+function cavanstogif(start) {
                     if (rec_stop === false) {
-                        console.log("storing images");
                         setTimeout(function () {
                             if (rec_stop === false) {
                                 img_rec++;
                                 context.drawImage(simulationArea.canvas, 0, 0);
                                 gh[start] = offScreenCanvas.toDataURL(`image/png`);
-                                console.log(start);
-                                console.log(gh[start]);
                                 if (img_rec === 120) {
                                     gifshotcall(); recordicon(0); loadrecordingicon[0].style.visibility = "visible";
                                     loadrecordingicon[0].style.position = "absolute";
@@ -313,10 +302,7 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
             }
             function gifshotcall() {
                 if (gifshot.isExistingImagesGIFSupported()) {
-
-
-                    gifshot.createGIF({
-
+                     gifshot.createGIF({
                         'images': gh,
                         'gifWidth': simulationArea.canvas.width,
                         'gifHeight': simulationArea.canvas.height,
@@ -340,12 +326,9 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
                 } else {
                     alert("Error Loading GIF \n Requirement:Firefox 17+, Chrome 21+, Opera 18+, Blackberry Browser 10+, Opera Mobile 12+, Chrome For Android 35+, Firefox for Android 29+");
                 }
-
             }
-
-
-
-        } else {
+        }
+        else {
             downloadAsImg(globalScope.name, imgType);
         }
     } else {
