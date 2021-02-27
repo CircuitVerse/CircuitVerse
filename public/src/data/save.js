@@ -14,6 +14,7 @@ import domtoimage from 'dom-to-image';
 import C2S from '../canvas2svg';
 import gifshot from 'gifshot';
 import { loadScope } from './load';
+import plotArea from '../plotArea';
 
 var projectName = undefined;
 
@@ -234,12 +235,14 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
         3.GIFSHOT will directly make GIF of photos and export it offine 
         */
         else if (imgType === 'anim-gif') {
+            var framerate = prompt('Press Ok to start GIF recording \n Max duration of recoding is 120sec \nEnter frame-rate:', 10);
+            //simulationArea.canvas.style.position = "fixed";
             var rec_stop = false;
             var gh = [];
             var counter = 0;
             var start = 0;
             var img_rec = 0;
-            alert("Press Ok to start GIF recording \n Max duration of recoding is 120sec");
+            //alert("Press Ok to start GIF recording \n Max duration of recoding is 120sec");
             var loadrecordingicon = document.getElementsByClassName("loader");
             $('#rec_Button').click(function () {
                 rec_stop = true;
@@ -250,19 +253,13 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
                     gifshotcall();
                 }
                 counter++;
-
             });
-
-
-
             function recordicon(load) {
                 if (load === 1) {
-                    simulationArea.lock = "locked"; -
-                        $('#rec_Button').addClass("Rec");
+
+                    $('#rec_Button').addClass("Rec");
                     //loadrecordingicon.style.visibility = "visible";
                     $('#rec_Button').css("visibility", "visible");
-
-
                 }
                 else
                     $('#rec_Button').css("visibility", "hidden");
@@ -280,11 +277,11 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
             gifcapture();
             function gifcapture() {
                 recordicon(1);
-                 while (rec_stop || start <= 120) {
+                while (rec_stop || start <= 120) {
                     cavanstogif(start);
                     start++;
                 }
-function cavanstogif(start) {
+                function cavanstogif(start) {
                     if (rec_stop === false) {
                         setTimeout(function () {
                             if (rec_stop === false) {
@@ -302,12 +299,12 @@ function cavanstogif(start) {
             }
             function gifshotcall() {
                 if (gifshot.isExistingImagesGIFSupported()) {
-                     gifshot.createGIF({
+                    gifshot.createGIF({
                         'images': gh,
                         'gifWidth': simulationArea.canvas.width,
                         'gifHeight': simulationArea.canvas.height,
                         'interval': 0.5,
-                        'numFrames': 10,
+                        'numFrames': framerate,
                         'frameDuration': 1,
                         'crossOrigin': '*',
                     }, function (obj) {
@@ -328,10 +325,57 @@ function cavanstogif(start) {
                 }
             }
         }
+        else if (imgType === "video") {
+            var framerate = prompt('Press ok to start recording \n Enter frame-rate:', 30);
+            var videoStream = simulationArea.canvas.captureStream(framerate);
+            var mediaRecorder = new MediaRecorder(videoStream);
+
+            var chunks = [];
+            mediaRecorder.ondataavailable = function (e) {
+                chunks.push(e.data);
+            };
+
+            mediaRecorder.onstop = function (e) {
+                var blob = new Blob(chunks, { 'type': 'video/mp4' });
+                chunks = [];
+                var videoURL = URL.createObjectURL(blob);
+                const anchor = document.createElement('a');
+                anchor.href = videoURL;
+                anchor.download = `${globalScope.name}.${imgType}`;
+                anchor.click();
+                loadrecordingicon[0].style.visibility = "none";
+                loadrecordingicon[0].style.position = "relative";
+            };
+            mediaRecorder.ondataavailable = function (e) {
+                chunks.push(e.data);
+            };
+            function recordicon_vid(load) {
+                if (load === 1) {
+                        $('#rec_Button').addClass("Rec");
+                    $('#rec_Button').css("visibility", "visible");
+                }
+                else
+                    $('#rec_Button').css("visibility", "hidden");
+            };
+            mediaRecorder.start();
+            recordicon_vid(1);
+            var rec_stop = false;
+            var counter = 0;
+            $('#rec_Button').click(function () {
+                rec_stop = true;
+                recordicon_vid(0);
+                if (counter === 0) {
+                    mediaRecorder.stop();
+                }
+                counter++;
+            });
+        }
         else {
             downloadAsImg(globalScope.name, imgType);
         }
-    } else {
+
+    }
+    else {
         returnData = simulationArea.canvas.toDataURL(`image/${imgType}`);
     }
 
