@@ -75,7 +75,7 @@ export function saveOffline() {
     const temp = JSON.parse(localStorage.getItem('projectList')) || {};
     temp[projectId] = getProjectName();
     localStorage.setItem('projectList', JSON.stringify(temp));
-    showMessage(`We have saved your project: ${projectName} in your browser's localStorage`);
+    showMessage(`We have saved your project: ${getProjectName()} in your browser's localStorage`);
 }
 
 /**
