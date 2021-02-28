@@ -222,6 +222,7 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
 
     // If circuit is to be downloaded, download, other wise return dataURL
     if (down) {
+        var loadrecordingicon = document.getElementsByClassName("loader");
         if (imgType === 'svg') {
             const mySerializedSVG = simulationArea.context.getSerializedSvg(); // true here, if you need to convert named to numbered entities.
             download(`${globalScope.name}.svg`, mySerializedSVG);
@@ -243,11 +244,13 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
             var start = 0;
             var img_rec = 0;
             //alert("Press Ok to start GIF recording \n Max duration of recoding is 120sec");
-            var loadrecordingicon = document.getElementsByClassName("loader");
+          
             $('#rec_Button').click(function () {
+                if(imgType=="anim-gif"){ loadrecordingicon[0].style.visibility = "visible";
+                loadrecordingicon[0].style.position = "absolute";}
                 rec_stop = true;
-                loadrecordingicon[0].style.visibility = "visible";
-                loadrecordingicon[0].style.position = "absolute";
+             //console.log("i am here in GIF-here");
+               
                 recordicon(0);
                 if (counter === 0) {
                     gifshotcall();
@@ -362,6 +365,7 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
             var rec_stop = false;
             var counter = 0;
             $('#rec_Button').click(function () {
+                //console.log("i am here in video");
                 rec_stop = true;
                 recordicon_vid(0);
                 if (counter === 0) {
