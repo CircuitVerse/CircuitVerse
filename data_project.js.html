@@ -91,7 +91,7 @@
 /* eslint-disable no-restricted-globals */
 /* eslint-disable no-alert */
 import { resetScopeList, scopeList, newCircuit } from '../circuit';
-import { showMessage, showError } from '../utils';
+import { showMessage, showError, generateId } from '../utils';
 import { checkIfBackup } from './backupCircuit';
 import {generateSaveData, getProjectName, setProjectName} from './save';
 import load from './load';
@@ -134,6 +134,7 @@ export function openOffline() {
             click() {
                 if (!$('input[name=projectId]:checked').val()) return;
                 load(JSON.parse(localStorage.getItem($('input[name=projectId]:checked').val())));
+                window.projectId = $('input[name=projectId]:checked').val();
                 $(this).dialog('close');
             },
         }] : [],
@@ -161,7 +162,7 @@ export function saveOffline() {
     const temp = JSON.parse(localStorage.getItem('projectList')) || {};
     temp[projectId] = getProjectName();
     localStorage.setItem('projectList', JSON.stringify(temp));
-    showMessage(`We have saved your project: ${projectName} in your browser's localStorage`);
+    showMessage(`We have saved your project: ${getProjectName()} in your browser's localStorage`);
 }
 
 /**
