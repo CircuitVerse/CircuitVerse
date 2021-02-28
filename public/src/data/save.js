@@ -243,14 +243,12 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
             var counter = 0;
             var start = 0;
             var img_rec = 0;
-            //alert("Press Ok to start GIF recording \n Max duration of recoding is 120sec");
-          
             $('#rec_Button').click(function () {
-                if(imgType=="anim-gif"){ loadrecordingicon[0].style.visibility = "visible";
-                loadrecordingicon[0].style.position = "absolute";}
+                if (imgType == "anim-gif") {
+                    loadrecordingicon[0].style.visibility = "visible";
+                    loadrecordingicon[0].style.position = "absolute";
+                }
                 rec_stop = true;
-             //console.log("i am here in GIF-here");
-               
                 recordicon(0);
                 if (counter === 0) {
                     gifshotcall();
@@ -354,7 +352,7 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
             };
             function recordicon_vid(load) {
                 if (load === 1) {
-                        $('#rec_Button').addClass("Rec");
+                    $('#rec_Button').addClass("Rec");
                     $('#rec_Button').css("visibility", "visible");
                 }
                 else
@@ -365,7 +363,6 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
             var rec_stop = false;
             var counter = 0;
             $('#rec_Button').click(function () {
-                //console.log("i am here in video");
                 rec_stop = true;
                 recordicon_vid(0);
                 if (counter === 0) {
