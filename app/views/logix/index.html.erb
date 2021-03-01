@@ -167,7 +167,7 @@
             <p>These circuits have been hand-picked by our authors for their awesomeness</p>
           </div>
         </div>
-        <% cache :featured_circuits, expires_in: 5.hours do%>
+        <% cache :featured_circuits, expires_in: 6.hours do%>
           <div class="row center-row justify-content-center">
             <% @featured_circuits.each do |circuit| %>
               <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
@@ -192,7 +192,7 @@
         </div>
       </div>
     </div>
-    <% cache :recent_circuits, expires_in: 5.minutes do%>
+    <% cache @projects, expires_in: 5.minutes do%>
       <div class="container" id="recent">
         <div class="row center-row home-circuit-card-row">
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
