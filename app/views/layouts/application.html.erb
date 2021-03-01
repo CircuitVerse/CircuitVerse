@@ -16,7 +16,7 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <%= render partial: "layouts/google_analytics" %>
+    <%= render partial: "layouts/google_analytics" if Rails.env.production? %>
   </head>
 
   <body>
