@@ -192,7 +192,7 @@
         </div>
       </div>
     </div>
-    <% cache @projects, expires_in: 5.minutes do%>
+    <% cache "recent-projects-#{params[:page]}", expires_in: 10.minutes do%>
       <div class="container" id="recent">
         <div class="row center-row home-circuit-card-row">
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
