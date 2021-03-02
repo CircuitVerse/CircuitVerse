@@ -1071,6 +1071,17 @@ input:checked + .slider:before {
   align-items: center;
   justify-content: center;
 }
+.frame-rate-dialog {
+  color: white;
+  font-weight: 200;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: inherit;
+  visibility: hidden;
+  
+}
+
 
 .download-dialog-section-3 {
   border-radius: 2px;

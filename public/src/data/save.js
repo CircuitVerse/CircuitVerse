@@ -236,8 +236,8 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
         3.GIFSHOT will directly make GIF of photos and export it offine 
         */
         else if (imgType === 'anim-gif') {
-            var framerate = prompt('Press Ok to start GIF recording \n Max duration of recoding is 120sec \nEnter frame-rate:', 10);
-            //simulationArea.canvas.style.position = "fixed";
+            var framerate = $('#fname').val();
+            alert('Press Ok to start GIF recording \n Max duration of recoding is 120sec');
             var rec_stop = false;
             var gh = [];
             var counter = 0;
@@ -305,7 +305,7 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
                         'gifWidth': simulationArea.canvas.width,
                         'gifHeight': simulationArea.canvas.height,
                         'interval': 0.5,
-                        'numFrames': framerate,
+                        'numFrames': framerate||10,
                         'frameDuration': 1,
                         'crossOrigin': '*',
                     }, function (obj) {
@@ -327,8 +327,9 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
             }
         }
         else if (imgType === "video") {
-            var framerate = prompt('Press ok to start recording \n Enter frame-rate:', 30);
-            var videoStream = simulationArea.canvas.captureStream(framerate);
+            var framerate = $('#fname').val(); 
+            alert('Press ok to start recording');
+            var videoStream = simulationArea.canvas.captureStream(framerate||30);
             var mediaRecorder = new MediaRecorder(videoStream);
 
             var chunks = [];
@@ -344,6 +345,7 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
                 anchor.href = videoURL;
                 anchor.download = `${globalScope.name}.${imgType}`;
                 anchor.click();
+                $('#fname').val("");
                 loadrecordingicon[0].style.visibility = "none";
                 loadrecordingicon[0].style.position = "relative";
             };
