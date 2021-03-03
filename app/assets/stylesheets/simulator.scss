@@ -22,7 +22,7 @@
 .report-sidebar a {
   color: $white;
   font-size: 13px;
-  padding: 15px;
+  padding: 10px;
   position: absolute;
   right: -119px;
   text-decoration: none;
@@ -32,20 +32,27 @@
   z-index: 999;
 }
 
+.report-sidebar span {
+  font-size: 1.2em;
+  padding-right: 20px;
+}
+
 .report-sidebar a:hover {
   right: 0;
 }
 
 @media only screen and (max-width: 991px) {
   .quick-btn {
+    position: inherit;
     margin: auto;
-    position: inherit !important;
-    width: 85vw !important;
+    width: 85vw;
   }
+
   .ce-panel {
-    top: inherit !important;
+    top: inherit;
   }
+
   .moduleProperty {
-    top: inherit !important;
+    top: inherit;
   }
 }

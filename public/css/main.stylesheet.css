@@ -525,7 +525,7 @@ input[type="text"]:focus {
 }
 
 .panelHeader:after {
-    transform: translate(325%, -50%) rotate(226deg);
+    transform: translate(260%, -50%) rotate(226deg);
 }
 
 .ui-accordion-header-active:before {
@@ -537,7 +537,7 @@ input[type="text"]:focus {
 
 .ui-accordion-header-active:after {
     transform-origin: bottom;
-    transform: translate(541%, -50%) rotate(310deg);
+    transform: translate(420%, -50%) rotate(310deg);
     transition: 0.2s ease-out;
     top: 46%;
 }
@@ -1432,6 +1432,7 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .panel-button {
+    cursor: pointer;
     padding: 2px;
 }
 
