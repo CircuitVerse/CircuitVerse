@@ -18,6 +18,5 @@ bundle exec rails db:seed
 
 rm -f /circuitverse/tmp/pids/server.pid
 
-/circuitverse/bin/webpack-dev-server &
 echo "Starting on 127.0.0.1:3000"
 bundle exec rails s -p 3000 -b '0.0.0.0'
