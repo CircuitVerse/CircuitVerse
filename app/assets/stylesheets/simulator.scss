@@ -38,14 +38,16 @@
 
 @media only screen and (max-width: 991px) {
   .quick-btn {
-    position: inherit !important;
+    position: inherit;
     margin: auto;
-    width: 85vw !important;
+    width: 85vw;
   }
+
   .ce-panel {
-    top: inherit !important;
+    top: inherit;
   }
+
   .moduleProperty {
-    top: inherit !important;
+    top: inherit;
   }
 }
