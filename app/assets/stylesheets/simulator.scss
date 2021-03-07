@@ -5,6 +5,10 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
+$white: #fff;
+$shadow-grey: #d5d5d5;
+$primary-green: #42b983;
+$secondary-green: #026e57;
 
 .subcircuitdialog {
   display: none;
@@ -41,4 +45,112 @@
 
 .report-sidebar a:hover {
   right: 0;
+}
+
+//privacy modal styles
+.primary-modal-dialog {
+  border-radius: 4px;
+  box-shadow: none;
+  font-weight: 300;
+  line-height: 1.4;
+  padding-right: 0;
+}
+
+.primary-modal-header {
+  background-color: $primary-green;
+  border: 1px solid $primary-green;
+  box-shadow: none;
+
+  .modal-title {
+    color: $white;
+  }
+
+  .close {
+    color: $white;
+    opacity: 1;
+  }
+}
+
+@media (max-width: 400px) {
+  .primary-modal-dialog {
+    max-width: 100%;
+  }
+}
+
+.primary-checkpoint {
+  background-color: $shadow-grey;
+  bottom: 0;
+  display: inline-block;
+  height: 25px;
+  margin-top: 15px;
+  position: absolute;
+  width: 25px;
+
+  &::after {
+    content: '';
+    display: none;
+    position: absolute;
+  }
+}
+
+.primary-checkpoint-container {
+  cursor: pointer;
+  display: block;
+  font-size: 22px;
+  position: relative;
+
+  input {
+    height: 0;
+    opacity: 0;
+    position: absolute;
+    width: 0;
+  }
+
+  h6 {
+    display: inline-block;
+    font-weight: 500;
+    margin-bottom: 0;
+    margin-right: 10px;
+  }
+
+  input:checked ~ .primary-checkpoint {
+    background-color: $primary-green;
+
+    &::after {
+      border: solid $white;
+      border-width: 0 3px 3px 0;
+      display: block;
+      height: 12px;
+      left: 9px;
+      top: 5px;
+      transform: rotate(45deg);
+      width: 8px;
+    }
+  }
+}
+
+.primary-button {
+  background-color: $primary-green;
+  border-radius: 4px;
+  color: $white;
+  margin: 5px;
+  transition: all .3s ease 0s;
+
+  &:hover {
+    background-color: $secondary-green;
+    box-shadow: 0 8px 15px #00000029;
+    color: $white;
+    transform: translateY(-7px);
+  }
+}
+
+
+.anchor-text {
+  color: $secondary-green;
+  font-weight: 500;
+  text-decoration: underline;
+
+  &:hover {
+    color: $primary-green;
+  }
 }
