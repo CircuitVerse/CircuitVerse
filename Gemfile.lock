@@ -65,7 +65,7 @@ GEM
       jquery-rails (>= 3.1.1)
       railties (>= 5.0.0, < 6.1)
       swagger-blocks (>= 3.0.0)
-    acts_as_votable (0.12.1)
+    acts_as_votable (0.13.1)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     ahoy_matey (3.2.0)
@@ -634,7 +634,7 @@ PLATFORMS
 
 DEPENDENCIES
   activity_notification
-  acts_as_votable (~> 0.12.0)
+  acts_as_votable (~> 0.13.1)
   ahoy_matey
   aws-sdk-rails
   bootsnap
