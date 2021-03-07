@@ -14,6 +14,7 @@ import { showError } from './utils';
 import miniMapArea from './minimap';
 import { resetup } from './setup';
 import { verilogModeGet } from './Verilog2CV';
+import { getDiodeFlag } from './modules/Diode' ; 
 
 /**
  * Core of the simulation and rendering algorithm.
@@ -233,6 +234,7 @@ export function changeLightMode(val) {
     resetup();
 }
 
+
 /**
  * Function to render Canvas according th renderupdate order
  * @param {Scope} scope - The circuit whose canvas we want to render
@@ -406,7 +408,7 @@ export function play(scope = globalScope, resetNodes = false) {
         elem = simulationArea.simulationQueue.pop();
         elem.resolve();
         stepCount++;
-        if (stepCount > 1000000) { // Cyclic or infinite Circuit Detection
+        if (stepCount > 1000000 && !getDiodeFlag()) { // Cyclic or infinite Circuit Detection
             showError('Simulation Stack limit exceeded: maybe due to cyclic paths or contention');
             errorDetectedSet(true);
             forceResetNodesSet(true);
