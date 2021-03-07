@@ -31,7 +31,7 @@
     "dom-to-image": "^2.6.0",
     "driver.js": "^0.9.8",
     "expose-loader": "^0.7.5",
-    "jquery": "^3.5.1",
+    "jquery": "^3.6.0",
     "jquery-ui": "^1.12.1",
     "jquery-ui-css": "^1.11.5",
     "jquery-ui-dist": "^1.12.1",
