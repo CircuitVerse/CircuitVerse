@@ -55,5 +55,5 @@ Support this project with your organization. Your logo will show up here with a 
 
 ### Code Contributors
 
-This project only exists thanks to all the people who have [contributed]((CONTRIBUTING.md)).
+This project exists because of all the people who have [contributed]((CONTRIBUTING.md)).
 <a href="https://github.com/CircuitVerse/CircuitVerse/graphs/contributors"><img src="https://opencollective.com/CircuitVerse/contributors.svg?width=890&button=false" alt="Code contributors" /></a>

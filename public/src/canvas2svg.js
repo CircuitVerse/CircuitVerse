@@ -461,7 +461,7 @@ ctx.prototype.getSerializedSvg = function (fixNamedEntities) {
 
 /**
  * Returns the root svg
- * @return
+ * @return svg
  */
 ctx.prototype.getSvg = function () {
     return this.__root;

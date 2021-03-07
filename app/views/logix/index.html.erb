@@ -57,7 +57,7 @@
       <div id="home-features-section" class="row center-row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
           <h3>Features</h3>
-          <p>Design circuits quickly and easily with a modern and intuitive user interface with drag-and-drop, copy/paste, zoom and more.</p>
+          <p>Design circuits quickly and easily with a modern and intuitive user interface with drag-and-drop, copy/paste, zoom, and more.</p>
         </div>
       </div>
       <div class="row center-row justify-content-center">
@@ -66,7 +66,7 @@
             <%= image_tag "homepage/export-hd.png", alt: "Export HD", :class => "card-img-top" %>
             <div class="card-body">
               <h5 class="card-title">Export High-Resolution Images</h5>
-              <p class="card-text">CircuitVerse can export high resolution images in multiple formats including SVG.</p>
+              <p class="card-text">CircuitVerse can export high-resolution images in multiple formats including SVG.</p>
             </div>
           </div>
         </div>
@@ -102,7 +102,7 @@
             <%= image_tag "homepage/multi-bit-bus.png", alt: "Multi Bit Bus", :class => "card-img-top" %>
             <div class="card-body">
               <h5 class="card-title">Multi Bit Buses and components</h5>
-              <p class="card-text">CircuitVerse supports multi bit wires, this means circuit design is easier, faster and uncluttered.</p>
+              <p class="card-text">CircuitVerse supports multi bit-wires, this means circuit design is easier, faster, and uncluttered.</p>
             </div>
           </div>
         </div>
@@ -142,7 +142,7 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
           <div class="card circuit-card">
-            <%= image_tag "homepage/fullAdder.jpg", alt: "Full Adder", :class => "card-img-top circuit-card-image examples-circuit-card-image" %>
+            <%= image_tag "homepage/fullAdder.jpg", alt: "Full Adder", class: "card-img-top circuit-card-image examples-circuit-card-image", height: '180', width: '288' %>
             <div class="card-footer circuit-card-footer">
               <div class="circuit-card-name">
                 <p>Full Adder from 2 Half Adders</p>
@@ -167,22 +167,24 @@
             <p>These circuits have been hand-picked by our authors for their awesomeness</p>
           </div>
         </div>
-        <div class="row center-row justify-content-center">
-          <% @featured_circuits.each do |circuit| %>
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-              <div class="card circuit-card">
-                <%= image_tag circuit.image_preview.url, alt: circuit.name, :class => "card-img-top circuit-card-image" %>
-                <div class="card-footer circuit-card-footer">
-                  <div class="circuit-card-name">
-                    <p><%= circuit.name %></p>
-                    <span class="tooltiptext"><%= circuit.name %></span>
+        <% cache :featured_circuits, expires_in: 6.hours do%>
+          <div class="row center-row justify-content-center">
+            <% @featured_circuits.each do |circuit| %>
+              <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                <div class="card circuit-card">
+                  <%= image_tag circuit.image_preview.url, alt: circuit.name, class: "card-img-top circuit-card-image", height: '180', width: '288' %>
+                  <div class="card-footer circuit-card-footer">
+                    <div class="circuit-card-name">
+                      <p><%= circuit.name %></p>
+                      <span class="tooltiptext"><%= circuit.name %></span>
+                    </div>
+                    <a class="btn primary-button circuit-card-primary-button" target="_blank" href="<%= user_project_url(circuit.author, circuit) %>">View</a>
                   </div>
-                  <a class="btn primary-button circuit-card-primary-button" target="_blank" href="<%= user_project_url(circuit.author, circuit) %>">View</a>
                 </div>
               </div>
-            </div>
-          <% end %>
-        </div>
+            <% end %>
+          </div>
+        <% end %>
         <div class="row center-row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
               <a class="btn primary-button homepage-primary-button-feature" href="/featured_circuits">Explore More</a>
@@ -190,33 +192,35 @@
         </div>
       </div>
     </div>
-    <div class="container" id="recent">
-      <div class="row center-row home-circuit-card-row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-          <h3>Recent Circuits</h3>
-          <p>Explore the latest circuits by our awesome users</p>
+    <% cache "recent-projects-#{params[:page]}", expires_in: 10.minutes do%>
+      <div class="container" id="recent">
+        <div class="row center-row home-circuit-card-row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <h3>Recent Circuits</h3>
+            <p>Explore the latest circuits by our awesome users</p>
+          </div>
         </div>
-      </div>
-      <div class="row center-row justify-content-center">
-        <% @projects.each do |project| %>
-          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-            <div class="card circuit-card">
-              <%= image_tag project.image_preview.url, alt: project.name, :class => "card-img-top circuit-card-image" %>
-              <div class="card-footer circuit-card-footer">
-                <div class="circuit-card-name">
-                  <p><%= project.name %></p>
-                  <span class="tooltiptext"><%= project.name %></span>
+        <div class="row center-row justify-content-center">
+          <% @projects.each do |project| %>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+              <div class="card circuit-card">
+                <%= image_tag project.image_preview.url, alt: project.name, :class => "card-img-top circuit-card-image" %>
+                <div class="card-footer circuit-card-footer">
+                  <div class="circuit-card-name">
+                    <p><%= project.name %></p>
+                    <span class="tooltiptext"><%= project.name %></span>
+                  </div>
+                  <a class="btn primary-button circuit-card-primary-button" target="_blank" href="<%= user_project_url(project.author, project) %>">View</a>
                 </div>
-                <a class="btn primary-button circuit-card-primary-button" target="_blank" href="<%= user_project_url(project.author, project) %>">View</a>
               </div>
             </div>
-          </div>
-        <% end %>
+          <% end %>
+        </div>
+        <div class="container pagination-cont">
+          <%= will_paginate @projects, renderer: PaginateRenderer %>
+        </div>
       </div>
-      <div class="container pagination-cont">
-        <%= will_paginate @projects, renderer: PaginateRenderer %>
-      </div>
-    </div>
+    <% end %>
 
     <% if user_signed_in? %>
     <script>

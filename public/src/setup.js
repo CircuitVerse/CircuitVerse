@@ -79,6 +79,7 @@ window.addEventListener('orientationchange', resetup); // listener
 function setupEnvironment() {
     setupModules();
     const projectId = generateId();
+    window.projectId = projectId;
     updateSimulationSet(true);
     const DPR = window.devicePixelRatio || 1;
     newCircuit('Main');
@@ -150,14 +151,8 @@ export function setup() {
         if (__logix_project_id != 0) {
             $('.loadingIcon').fadeIn();
             $.ajax({
-                url: '/simulator/get_data',
-                type: 'POST',
-                beforeSend(xhr) {
-                    xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
-                },
-                data: {
-                    id: __logix_project_id,
-                },
+                url: `/simulator/get_data/${__logix_project_id}`,
+                type: 'GET',
                 success(response) {
                     var data = (response);
                     if (data) {

@@ -3,6 +3,8 @@
 class Api::V1::BaseController < ActionController::API
   include Pundit
   include CustomErrors
+  include ActionController::RequestForgeryProtection
+  protect_from_forgery with: :exception, if: -> { request.headers["Authorization"].blank? && current_user }
 
   DEFAULT_PER_PAGE = 5
 
@@ -31,6 +33,10 @@ class Api::V1::BaseController < ActionController::API
   end
 
   rescue_from Commontator::SecurityTransgression do
+    api_error(status: 403, errors: "not authorized for this action")
+  end
+
+  rescue_from ActionController::InvalidAuthenticityToken do
     api_error(status: 403, errors: "not authorized for this action")
   end
 
