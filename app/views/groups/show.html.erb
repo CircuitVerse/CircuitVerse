@@ -122,7 +122,7 @@
                     </div>
                   <% else %>
                     <div class="groups-assignment-details">
-                      <%= link_to user_project_path(current_user,project_assignment), class:"mini-button groups-reopen-mini-button" do %>
+                      <%= link_to user_project_path(project_assignment.author_id,project_assignment), class:"mini-button groups-reopen-mini-button" do %>
                         <%= image_tag("SVGs/viewGroup.svg", alt: "View work") %>
                         <span>View your Work</span>
                       <% end %>
@@ -133,7 +133,7 @@
                     <h6 class="groups-no-assignment-submission-text">Not submitted!</h6>
                   <% else %>
                     <div class="groups-assignment-details">
-                      <%= link_to user_project_path(current_user,project_assignment), class:"mini-button groups-reopen-mini-button" do %>
+                      <%= link_to user_project_path(project_assignment.author_id,project_assignment), class:"mini-button groups-reopen-mini-button" do %>
                         <%= image_tag("SVGs/viewGroup.svg", alt: "View submission") %>
                         <span>View Submission</span>
                       <% end %>
@@ -246,7 +246,7 @@
                         </div>
                       <% else %>
                         <div class="groups-assignment-details">
-                          <%= link_to user_project_path(current_user,project_assignment), class:"mini-button groups-reopen-mini-button" do %>
+                          <%= link_to user_project_path(project_assignment.author_id,project_assignment), class:"mini-button groups-reopen-mini-button" do %>
                             <%= image_tag("SVGs/viewGroup.svg", alt: "View work") %>
                             <span>View your Work</span>
                           <% end %>
@@ -261,7 +261,7 @@
                       </div>
                       <% else %>
                         <div class="groups-assignment-details">
-                          <%= link_to user_project_path(current_user,project_assignment), class:"mini-button groups-reopen-mini-button" do %>
+                          <%= link_to user_project_path(project_assignment.author_id,project_assignment), class:"mini-button groups-reopen-mini-button" do %>
                             <%= image_tag("SVGs/viewGroup.svg", alt: "View submission") %>
                             <span>View Submission</span>
                           <% end %>

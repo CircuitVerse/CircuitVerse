@@ -27,7 +27,7 @@ class AssignmentsController < ApplicationController
     @project.assignment_id = @assignment.id
     @project.project_access_type = "Private"
     @project.save
-    redirect_to user_project_path(current_user, @project)
+    redirect_to user_project_path(@project.author_id, @project)
   end
 
   # GET /assignments/new

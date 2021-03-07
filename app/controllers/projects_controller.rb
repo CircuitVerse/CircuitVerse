@@ -76,7 +76,7 @@ class ProjectsController < ApplicationController
 
     @project_new.notify :users, key: "project.fork"
 
-    redirect_to user_project_path(current_user, @project_new)
+    redirect_to user_project_path(@project_new.author_id, @project_new)
   end
 
   # POST /projects
