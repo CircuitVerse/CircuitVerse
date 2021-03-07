@@ -169,15 +169,19 @@ input[type="text"]:focus {
   background: none;
 }
 
+.project-name-label {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 20%;
+}
+
 .projectName {
-  position: relative;
-  left: .5rem;
-  font-size: 1em;
+  font-size: 1.4em;
+  cursor: text;
+  background: transparent;
+  border: none;
   text-align: center;
-  display: inline-block;
-  width: 35vw;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 @media(max-width: 992px) {
