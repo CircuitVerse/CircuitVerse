@@ -697,6 +697,7 @@ div.icon img {
   cursor: pointer;
   left: 300px;
   top: 90px;
+  width: 500px;
 }
 
 .timing-diagram-panel .panel-header {
