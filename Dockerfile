@@ -1,4 +1,4 @@
-FROM ruby:2.6.5
+FROM ruby:2.6.5-slim-buster
 
 # set up workdir
 RUN mkdir /circuitverse
