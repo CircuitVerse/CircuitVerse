@@ -5,7 +5,18 @@ RUN mkdir /circuitverse
 WORKDIR /circuitverse
 
 # install dependencies
-RUN apt-get update -qq && apt-get install -y imagemagick && apt-get clean
+RUN apt-get update -qq \
+  && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
+    build-essential \
+    gnupg2 \
+    curl \
+    less \
+    git \
+    imagemagick \
+  && apt-get clean \
+  && rm -rf /var/cache/apt/archives/* \
+  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+  && truncate -s 0 /var/log/*log
 
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash \
  && apt-get update && apt-get install -y nodejs && rm -rf /var/lib/apt/lists/* \
