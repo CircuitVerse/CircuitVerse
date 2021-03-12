@@ -31,7 +31,7 @@ COPY package.json /circuitverse/package.json
 COPY yarn.lock /circuitverse/yarn.lock
 
 RUN gem install bundler
-RUN bundle install  --without production
+RUN bundle config without production && bundle
 RUN yarn install
 
 
