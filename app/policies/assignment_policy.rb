@@ -9,7 +9,7 @@ class AssignmentPolicy < ApplicationPolicy
   end
 
   def show?
-    assignment.group.mentor_id == user.id || user.groups.where(id: assignment.group.id).exists? \
+    assignment.group.mentor_id == user.id || user.groups.exists?(id: assignment.group.id) \
     || user.admin?
   end
 
@@ -34,7 +34,7 @@ class AssignmentPolicy < ApplicationPolicy
   end
 
   def can_be_graded?
-    admin_access? && assignment.graded? && assignment.deadline - Time.current < 0
+    admin_access? && assignment.graded? && (assignment.deadline - Time.current).negative?
   end
 
   def show_grades?

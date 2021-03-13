@@ -19,7 +19,7 @@ RSpec.describe Api::V1::AssignmentsController, "#show", type: :request do
       end
 
       it "returns status unauthenticated" do
-        expect(response).to have_http_status(401)
+        expect(response).to have_http_status(:unauthorized)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -32,7 +32,7 @@ RSpec.describe Api::V1::AssignmentsController, "#show", type: :request do
       end
 
       it "returns status unauthorized" do
-        expect(response).to have_http_status(403)
+        expect(response).to have_http_status(:forbidden)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -45,7 +45,7 @@ RSpec.describe Api::V1::AssignmentsController, "#show", type: :request do
       end
 
       it "returns status not_found" do
-        expect(response).to have_http_status(404)
+        expect(response).to have_http_status(:not_found)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -58,7 +58,7 @@ RSpec.describe Api::V1::AssignmentsController, "#show", type: :request do
       end
 
       it "returns the group details" do
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
         expect(response).to match_response_schema("assignment")
       end
     end
@@ -74,7 +74,7 @@ RSpec.describe Api::V1::AssignmentsController, "#show", type: :request do
       end
 
       it "returns assignment with projects that belongs to the assignment" do
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
         expect(response).to match_response_schema("assignment_with_projects")
         expect(response.parsed_body["included"].length).to eq(1)
       end
@@ -93,7 +93,7 @@ RSpec.describe Api::V1::AssignmentsController, "#show", type: :request do
       end
 
       it "returns assignment with grades that belongs to the assignment" do
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
         expect(response).to match_response_schema("assignment_with_grades")
         expect(response.parsed_body["included"].length).to eq(1)
       end

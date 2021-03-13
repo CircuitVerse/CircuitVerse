@@ -45,9 +45,9 @@ class Grade < ApplicationRecord
         csv << attributes
 
         group_members.each do |member|
-          submission = submissions.find do |s| (
-
-                         s.author_id == member.id &&
+          submission = submissions.find do |s|
+            (
+            s.author_id == member.id &&
             s.assignment_id == assignment_id)
           end
           grade = submission&.grade&.grade

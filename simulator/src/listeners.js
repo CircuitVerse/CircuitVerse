@@ -224,11 +224,6 @@ export default function startListeners() {
                 }
             }
 
-            // Detect online save shortcut (CTRL+S)
-            if (simulationArea.controlDown && e.keyCode == 83 && !simulationArea.shiftDown) {
-                save();
-                e.preventDefault();
-            }
             // Detect offline save shortcut (CTRL+SHIFT+S)
             if (simulationArea.controlDown && e.keyCode == 83 && simulationArea.shiftDown) {
                 saveOffline();

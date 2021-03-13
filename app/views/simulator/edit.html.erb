@@ -1,15 +1,4 @@
 <% content_for(:html_title) { 'CircuitVerse - Digital Simulator' } %>
-<!--Displays the loading screen  -->
-
-<!-- <script
-  src="https://code.jquery.com/jquery-3.5.1.min.js"
-  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-  crossorigin="anonymous"
-></script>
--->
-<!-- 
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
--->
 
 <script src="/js/plugins/jquery.twbs-toggle-buttons.min.js"></script>
 <script src="/js/plugins/checkBo.min.js"></script>
@@ -214,6 +203,7 @@
       <button class='custom-btn--primary panel-button' title="Zoom In"><span class="fas fa-search-plus timing-diagram-zoom-in"></button>
       <button class='custom-btn--primary panel-button' title="Zoom Out"><span class="fas fa-search-minus timing-diagram-zoom-out"></button>
       <button class='custom-btn--primary panel-button' title="Resume Timing Diagram"><span class="fas fa-play timing-diagram-resume"></button>
+      <button class='custom-btn--primary panel-button' title="Pause Timing Diagram"><span class="fas fa-pause timing-diagram-pause"></button>
       1 cycle = 
       <input id="timing-diagram-units" type="number" min="1" autocomplete="off" value="1000">
       Units
@@ -605,7 +595,6 @@
   </div>
 </div>
 
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
   const embed = false;
   user_id = "<%= user_signed_in? ? " #{current_user.id.to_s} - #{current_user.name}" : "Guest user" %>";

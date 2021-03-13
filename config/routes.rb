@@ -16,6 +16,10 @@ Rails.application.routes.draw do
   resources :group_members, only: %i[create destroy]
   resources :groups, except: %i[index] do
     resources :assignments, except: %i[index]
+    member do
+      get "invite/:token", to: "groups#group_invite", as: "invite"
+      put :generate_token
+    end
   end
 
   resources :custom_mails, except: %i[destroy]
@@ -95,6 +99,7 @@ Rails.application.routes.draw do
     get "/:id", to: "simulator#show", as: "simulator"
     get "/edit/:id", to: "simulator#edit", as: "simulator_edit"
     post "/get_data", to: "simulator#get_data"
+    get "get_data/:id", to: "simulator#get_data"
     post "/post_issue", to: "simulator#post_issue"
     post "/update_data", to: "simulator#update"
     post "/update_image", to: "simulator#update_image"

@@ -14,7 +14,7 @@ RSpec.describe Api::V1::AuthenticationController, "#signup", type: :request do
       end
 
       it "return status 422 and should have jsonapi errors" do
-        expect(response).to have_http_status(422)
+        expect(response).to have_http_status(:unprocessable_entity)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -27,7 +27,7 @@ RSpec.describe Api::V1::AuthenticationController, "#signup", type: :request do
       end
 
       it "return status 422 and should have jsonapi errors" do
-        expect(response).to have_http_status(422)
+        expect(response).to have_http_status(:unprocessable_entity)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -41,7 +41,7 @@ RSpec.describe Api::V1::AuthenticationController, "#signup", type: :request do
       end
 
       it "return status 409 and should have jsonapi errors" do
-        expect(response).to have_http_status(409)
+        expect(response).to have_http_status(:conflict)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -54,7 +54,7 @@ RSpec.describe Api::V1::AuthenticationController, "#signup", type: :request do
       end
 
       it "return status 201 and respond with token" do
-        expect(response).to have_http_status(201)
+        expect(response).to have_http_status(:created)
         expect(response.parsed_body).to have_key("token")
       end
     end

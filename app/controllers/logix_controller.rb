@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class LogixController < ApplicationController
-
   MAXIMUM_FEATURED_CIRCUITS = 3
 
   def index
@@ -9,6 +8,7 @@ class LogixController < ApplicationController
                        .public_and_not_forked
                        .where.not(image_preview: "default.png")
                        .order(id: :desc)
+                       .includes(:author)
                        .limit(Project.per_page)
 
     page = params[:page].to_i
@@ -19,7 +19,8 @@ class LogixController < ApplicationController
     end
 
     @featured_circuits = Project.joins(:featured_circuit)
-      .order("featured_circuits.created_at DESC")
+                                .order("featured_circuits.created_at DESC")
+                                .includes(:author)
                                 .limit(MAXIMUM_FEATURED_CIRCUITS)
 
     respond_to do |format|

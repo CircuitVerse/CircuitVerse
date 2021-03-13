@@ -17,7 +17,7 @@ describe CollaborationsController, type: :request do
     let(:create_params) do
       { collaboration:
       { project_id: @project.id,
-      emails: "#{@new_collaboration.email} #{@user.email}" } }
+        emails: "#{@new_collaboration.email} #{@user.email}" } }
     end
 
     context "author is logged in", :focus do
@@ -28,9 +28,9 @@ describe CollaborationsController, type: :request do
 
       it "creates collaboration" do
         expect(Utils).to receive(:mail_notice)
-        expect {
+        expect do
           post collaborations_path, params: create_params
-        }.to change { Collaboration.count }.by(1)
+        end.to change(Collaboration, :count).by(1)
       end
     end
 
@@ -52,9 +52,9 @@ describe CollaborationsController, type: :request do
     context "author of project is logged in" do
       it "destroys collaboration" do
         sign_in @author
-        expect {
+        expect do
           delete collaboration_path(@collaboration)
-        }.to change { Collaboration.count }.by(-1)
+        end.to change(Collaboration, :count).by(-1)
       end
     end
 
@@ -71,16 +71,16 @@ describe CollaborationsController, type: :request do
     before do
       @new_project = FactoryBot.create(:project)
       @collaboration = FactoryBot.create(:collaboration, project: @project,
-        user: FactoryBot.create(:user))
+                                                         user: FactoryBot.create(:user))
     end
 
-    let(:update_params) {
+    let(:update_params) do
       {
         collaboration: {
           project_id: @new_project.id
         }
       }
-    }
+    end
 
     context "author is signed in" do
       it "updates the collaboration" do

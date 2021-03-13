@@ -4,8 +4,11 @@ class Search
   def initialize(query_params, relation)
     @relation = relation
     @query_params = query_params
-    @adapter = ENV["CIRCUITVERSE_USE_SOLR"] == "true" ?
-    Adapters::SolrAdapter.new : Adapters::PgAdapter.new
+    @adapter = if ENV["CIRCUITVERSE_USE_SOLR"] == "true"
+      Adapters::SolrAdapter.new
+    else
+      Adapters::PgAdapter.new
+    end
   end
 
   def call

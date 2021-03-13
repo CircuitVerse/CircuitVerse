@@ -31,7 +31,7 @@ RSpec.describe Api::V1::ProjectsController, "#user_favourites", type: :request d
       end
 
       it "returns all public projects starred by user" do
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
         expect(response).to match_response_schema("projects")
         expect(response.parsed_body["data"].length).to eq(2)
       end
@@ -45,7 +45,7 @@ RSpec.describe Api::V1::ProjectsController, "#user_favourites", type: :request d
       end
 
       it "returns all public projects starred by user" do
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
         expect(response).to match_response_schema("projects")
         expect(response.parsed_body["data"].length).to eq(2)
       end
@@ -59,7 +59,7 @@ RSpec.describe Api::V1::ProjectsController, "#user_favourites", type: :request d
       end
 
       it "returns all projects including privates starred by user" do
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
         expect(response).to match_response_schema("projects")
         expect(response.parsed_body["data"].length).to eq(3)
       end

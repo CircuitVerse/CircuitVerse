@@ -11,7 +11,7 @@ import { colors } from '../themer/themer';
 import {layoutModeGet, toggleLayoutMode} from '../layoutMode';
 import {verilogModeGet} from '../Verilog2CV';
 import domtoimage from 'dom-to-image';
-import C2S from 'canvas2svg';
+import C2S from '../../vendor/canvas2svg';
 
 var projectName = undefined;
 
@@ -90,7 +90,6 @@ export function generateSaveData(name) {
     data.scopes = [];
     const dependencyList = {};
     const completed = {};
-
     // Getting list of dependencies for each circuit
     for (id in scopeList) { dependencyList[id] = scopeList[id].getDependencies(); }
 
@@ -105,14 +104,12 @@ export function generateSaveData(name) {
         }
 
         completed[id] = true;
-
         update(scopeList[id], true); // For any pending integrity checks on subcircuits
-
         data.scopes.push(backUp(scopeList[id]));
     }
 
     // Save all circuits
-    for (id in scopeList) { saveScope(id); }
+    for (let id in scopeList) { saveScope(id); }
 
     // convert to text
     data = JSON.stringify(data);
@@ -385,15 +382,16 @@ export default async function save() {
         $.ajax({
             url: '/simulator/update_data',
             type: 'POST',
+            contentType: 'application/json',
             beforeSend(xhr) {
                 xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
             },
-            data: {
+            data: JSON.stringify({
                 data,
                 id: __logix_project_id,
                 image: imageData,
                 name: projectName,
-            },
+            }),
             success(response) {
                 showMessage(`We have saved your project: ${projectName} in our servers.`);
                 $('.loadingIcon').fadeOut();

@@ -8,11 +8,11 @@ describe GradesController, type: :request do
     @group = FactoryBot.create(:group, mentor: @mentor)
     @assignment = FactoryBot.create(:assignment, group: @group, grading_scale: :letter)
     @assignment_project = FactoryBot.create(:project, assignment: @assignment,
-      author: FactoryBot.create(:user))
+                                                      author: FactoryBot.create(:user))
   end
 
   describe "#create" do
-    let(:create_params) {
+    let(:create_params) do
       {
         grade: {
           project_id: @assignment_project.id,
@@ -23,7 +23,7 @@ describe GradesController, type: :request do
         },
         format: :json
       }
-    }
+    end
 
     context "mentor is singed in" do
       before do
@@ -32,11 +32,11 @@ describe GradesController, type: :request do
 
       context "grade is valid" do
         it "creates grade" do
-          expect {
+          expect do
             post grades_path, params: create_params
-          }.to change { Grade.count }.by(1)
+          end.to change(Grade, :count).by(1)
           expect(JSON.parse(response.body).keys.sort).to eq(%w[assignment_id grade id project_id
-            remarks])
+                                                               remarks])
           expect(response.content_type).to eq("application/json; charset=utf-8")
         end
       end
@@ -71,18 +71,18 @@ describe GradesController, type: :request do
   end
 
   describe "#destroy" do
-    let(:destroy_params) {
+    let(:destroy_params) do
       {
         grade: {
           project_id: @assignment_project.id,
           assignment_id: @assignment.id
         }
       }
-    }
+    end
 
     before do
       @grade = FactoryBot.create(:grade, project: @assignment_project, grader: @mentor,
-        grade: "A", assignment: @assignment)
+                                         grade: "A", assignment: @assignment)
     end
 
     context "mentor is logged in" do
@@ -92,9 +92,9 @@ describe GradesController, type: :request do
 
       context "grades have not been finalized" do
         it "destroys grade" do
-          expect {
+          expect do
             delete grades_path, params: destroy_params
-          }.to change { Grade.count }.by(-1)
+          end.to change(Grade, :count).by(-1)
         end
       end
 
@@ -111,9 +111,9 @@ describe GradesController, type: :request do
     context "user other than mentor is logged in" do
       it "throws unauthorized error" do
         sign_in FactoryBot.create(:user)
-        expect {
+        expect do
           delete grades_path, params: destroy_params
-        }.to_not change { Grade.count }
+        end.not_to change(Grade, :count)
         expect(response.body).to eq("You are not authorized to do the requested operation")
       end
     end
@@ -123,14 +123,14 @@ describe GradesController, type: :request do
     before do
       FactoryBot.create(:group_member, user: @assignment_project.author, group: @group)
       @grade = FactoryBot.create(:grade, project: @assignment_project, grader: @mentor,
-        grade: "A", assignment: @assignment, remarks: "remarks")
+                                         grade: "A", assignment: @assignment, remarks: "remarks")
     end
 
     context "signed user is mentor" do
       it "creates csv file for grades" do
         sign_in @mentor
         get grades_to_csv_path(@assignment, format: :csv)
-        expect(response.body).to include("#{@assignment_project.author.email}," +
+        expect(response.body).to include("#{@assignment_project.author.email}," \
           "#{@assignment_project.author.name},#{@grade.grade},#{@grade.remarks}")
       end
     end

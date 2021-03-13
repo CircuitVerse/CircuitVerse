@@ -44,6 +44,7 @@ describe AssignmentsController, type: :request do
 
     context "api endpoint" do
       let(:assignment_keys) { %w[created_at deadline description id name updated_at url] }
+
       it "returns required json response" do
         get group_assignment_path(@group, @assignment), params: { format: :json }
         res = JSON.parse(response.body)
@@ -79,7 +80,7 @@ describe AssignmentsController, type: :request do
     end
   end
 
-  describe "#update"  do
+  describe "#update" do
     let(:update_params) do
       {
         assignment: {
@@ -115,8 +116,8 @@ describe AssignmentsController, type: :request do
       before do
         @project = FactoryBot.create(:project, author: @member)
         @forked_project = FactoryBot.create(:project,
-        author: @member, forked_project: @project, assignment:
-         @assignment, project_submission: true)
+                                            author: @member, forked_project: @project, assignment:
+                                             @assignment, project_submission: true)
       end
 
       it "adds old project as assignment submission" do
@@ -131,7 +132,7 @@ describe AssignmentsController, type: :request do
     context "no forked project exists" do
       before do
         @project = FactoryBot.create(:project,
-        author: @member, assignment: @assignment, project_submission: true)
+                                     author: @member, assignment: @assignment, project_submission: true)
       end
 
       it "sets project submission to false" do
@@ -161,19 +162,19 @@ describe AssignmentsController, type: :request do
     context "mentor is logged in" do
       it "creates a new assignment" do
         sign_in @mentor
-        expect {
+        expect do
           post group_assignments_path(@group), params: { assignment:
             { description: "group assignment", name: "Test Name" } }
-        }.to change { Assignment.count }.by(1)
+        end.to change(Assignment, :count).by(1)
       end
     end
 
     context "user other than the mentor is logged in" do
       it "does not create assignment" do
         sign_in FactoryBot.create(:user)
-        expect {
+        expect do
           post group_assignments_path(@assignment)
-        }.to change { Assignment.count }.by(0)
+        end.to change(Assignment, :count).by(0)
       end
     end
   end

@@ -136,7 +136,7 @@ function deleteCurrentCircuit(scopeId = globalScope.id) {
 export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
     if (layoutModeGet()) { toggleLayoutMode(); }
     if (verilogModeGet()) { verilogModeSet(false);}
-    name = name || prompt('Enter circuit name:') || 'Untitled-Circuit';
+    name = name || prompt('Enter circuit name:','Untitled-Circuit');
     name = stripTags(name);
     if (!name) return;
     const scope = new Scope(name);
@@ -159,6 +159,12 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
             $('#tabsBar').children().last().before(html);
         }
 
+        // Remove listeners
+        $('.circuits').off('click');
+        $('.circuitName').off('click');
+        $('.tabsCloseButton').off('click');
+
+        // Add listeners
         $('.circuits').on('click',function () {
             switchCircuit(this.id);
         });
@@ -333,15 +339,15 @@ export default class Scope {
         if (layoutModeGet()) return;
         findDimensions(this);
 
-        var ytoolbarOffset = 120; // Some part ofcanvas is hidden behind the toolbar
+        var ytoolbarOffset = embed ? 0 : 60 * DPR; // Some part ofcanvas is hidden behind the toolbar
 
         var minX = simulationArea.minWidth || 0;
         var minY = simulationArea.minHeight || 0;
         var maxX = simulationArea.maxWidth || 0;
         var maxY = simulationArea.maxHeight || 0;
 
-        var reqWidth = maxX - minX + 150;
-        var reqHeight = maxY - minY + 150;
+        var reqWidth = maxX - minX + 75 * DPR;
+        var reqHeight = maxY - minY + 75 * DPR;
 
         this.scale = Math.min(width / reqWidth, (height - ytoolbarOffset) / reqHeight);
 
