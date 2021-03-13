@@ -332,7 +332,9 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
                     alert("Error Loading GIF \n Requirement:Firefox 17+, Chrome 21+, Opera 18+, Blackberry Browser 10+, Opera Mobile 12+, Chrome For Android 35+, Firefox for Android 29+");
                 }
             }
-        } else if (imgType === "video") {
+        }
+        //this code for recording video 
+        else if (imgType === "video") {
             var framerate = $('#fname').val();
             alert('Press ok to start recording');
             var videoStream = simulationArea.canvas.captureStream(framerate || 30);
