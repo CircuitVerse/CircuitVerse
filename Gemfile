@@ -5,7 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem "acts_as_votable", "~> 0.12.0"
+gem "acts_as_votable", "~> 0.13.1"
 gem "aws-sdk-rails"
 gem "dotenv-rails", groups: %i[development test]
 gem "hirb"
@@ -33,7 +33,7 @@ gem "coffee-rails", "~> 5.0"
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem "turbolinks", "~> 5"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem "jbuilder", "~> 2.10"
+gem "jbuilder", "~> 2.11"
 
 gem "devise"
 
@@ -96,7 +96,7 @@ gem "webpacker", "~> 5.x"
 
 gem "bootsnap", require: false
 
-gem "font-awesome-sass", "~> 5.13.0"
+gem "font-awesome-sass", "~> 5.13.1"
 
 gem "disposable_mail", "~> 0.1"
 gem "fast_jsonapi"
