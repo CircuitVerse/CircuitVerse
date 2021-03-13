@@ -231,8 +231,8 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
         //Library used her is GIFSHOT free and open source.
         /*
         LOGIC OF BELOW CODE 
-        1.When click on download  photos will be taken using DATA URL method
-        2.These photos will ne send to gifshot library 
+        1.When click on download  photos will be taken using DATA URL method them they are stored in array
+        2.These photos will Be send to gifshot library 
         3.GIFSHOT will directly make GIF of photos and export it offine 
         */
         else if (imgType === 'anim-gif') {
