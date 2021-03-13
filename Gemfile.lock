@@ -209,8 +209,8 @@ GEM
       ruby2_keywords
     fast_jsonapi (1.5)
       activesupport (>= 4.2)
-    ffi (1.14.2)
-    ffi (1.14.2-x64-mingw32)
+    ffi (1.15.0)
+    ffi (1.15.0-x64-mingw32)
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
@@ -240,7 +240,7 @@ GEM
     hkdf (0.3.0)
     html_tokenizer (0.0.7)
     htmlentities (4.3.4)
-    http (4.4.0)
+    http (4.4.1)
       addressable (~> 2.3)
       http-cookie (~> 1.0)
       http-form_data (~> 2.2)
@@ -248,7 +248,7 @@ GEM
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     http-form_data (2.3.0)
-    http-parser (1.2.1)
+    http-parser (1.2.3)
       ffi-compiler (>= 1.0, < 2.0)
     i18n (1.8.9)
       concurrent-ruby (~> 1.0)
@@ -592,7 +592,8 @@ GEM
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.7.6)
+    unf_ext (0.0.7.7)
+    unf_ext (0.0.7.7-x64-mingw32)
     unicode-display_width (1.7.0)
     unicode_utils (1.4.0)
     warden (1.2.9)
