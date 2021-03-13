@@ -19,7 +19,7 @@
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",
     "expose-loader": "^2.0.0",
-    "jsdoc": "3.6.3",
+    "jsdoc": "3.6.6",
     "webpack-bundle-analyzer": "^4.4.0",
     "webpack-dev-server": "^3.11.2"
   },
