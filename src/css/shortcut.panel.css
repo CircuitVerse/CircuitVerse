@@ -1,0 +1,146 @@
+.ui-dialog[aria-describedby="customShortcutDialog"] {
+    min-width: 680px;
+}
+
+#edit {
+    display: none;
+    position: absolute;
+    width: 490px;
+    height: 150px;
+    background: #2d302e;
+    border-radius: 5px;
+    z-index: 10000;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: none;
+}
+
+#edit > span {
+    margin-top: 10px;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+}
+
+#pressedKeys {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+}
+
+#warning {
+    position: absolute;
+    bottom: 5px;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    color: #dc5656;
+}
+
+#customShortcutDialog {
+    display: none;
+    align-items: center;
+    color: white;
+    flex-direction: column;
+    max-height: 430px !important;
+    overflow: hidden !important;
+}
+
+#closeDialog {
+    font-size: 25px;
+    color: white;
+    transform: rotate(45deg);
+    position: absolute;
+    top: 0%;
+    right: 2%;
+    cursor: pointer;
+    user-select: none;
+    -moz-user-select: none;
+}
+
+#dialogTitle {
+    position: absolute;
+    top: 2%;
+    left: 3%;
+    user-select: none;
+    -moz-user-select: none;
+}
+
+#heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    width: 100%;
+    height: 35px;
+    user-select: none;
+    padding-bottom: 10px;
+}
+
+#heading > span {
+    padding: 0 20px;
+}
+
+#preference {
+    width: 100%;
+    overflow-y: auto;
+}
+
+#preference div {
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 35px;
+    cursor: pointer;
+    user-select: none;
+    -moz-user-select: none;
+    width: 100%;
+    padding-left: 5px;
+    padding-right: 7px;
+}
+
+#preference div:not("#edit-icon") > span {
+    padding: 0 30px;
+}
+
+#preference > div:hover {
+    background-color: #7474743f;
+}
+
+#preference > div:hover span {
+    visibility: visible;
+}
+
+#edit-icon {
+    background: url(../img/edit_icon.png) no-repeat;
+    background-size: 15px 15px;
+    display: inline-block;
+    visibility: hidden;
+    width: 15px;
+    height: 15px;
+}
+
+@keyframes shake {
+    10%,
+    90% {
+        transform: translate(-50.5%, -50%);
+    }
+
+    20%,
+    80% {
+        transform: translate(-49.5%, -50%);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translate(-50.5%, -50%);
+    }
+
+    40%,
+    60% {
+        transform: translate(-49.5%, -50%);
+    }
+}
