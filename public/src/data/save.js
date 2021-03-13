@@ -243,7 +243,7 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
             var counter = 0;
             var start = 0;
             var img_rec = 0;
-            $('#rec_Button').click(function () {
+            $('#rec_Button').click(function() {
                 if (imgType == "anim-gif") {
                     loadrecordingicon[0].style.visibility = "visible";
                     loadrecordingicon[0].style.position = "absolute";
@@ -255,20 +255,20 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
                 }
                 counter++;
             });
+
             function recordicon(load) {
                 if (load === 1) {
 
                     $('#rec_Button').addClass("Rec");
                     //loadrecordingicon.style.visibility = "visible";
                     $('#rec_Button').css("visibility", "visible");
-                }
-                else
+                } else
                     $('#rec_Button').css("visibility", "hidden");
             };
 
             /* 
             to make it possible i have use hidden cavas to save current instance and update it every new instance
-            and here image download in data url using hidden canvas and store in array so that it can be send to G */
+            and here image download in data url using hidden canvas and store in array so that it can be send to GIFSHOT */
             var offScreenCanvas = document.createElement('canvas');
             offScreenCanvas.width = simulationArea.canvas.width;
             offScreenCanvas.height = simulationArea.canvas.height;
@@ -276,21 +276,26 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
             context.fillStyle = 'white'; //set fill color
             context.fillRect(0, 0, simulationArea.canvas.width, simulationArea.canvas.height);
             gifcapture();
+
             function gifcapture() {
                 recordicon(1);
                 while (rec_stop || start <= 120) {
                     cavanstogif(start);
                     start++;
+
                 }
+
                 function cavanstogif(start) {
                     if (rec_stop === false) {
-                        setTimeout(function () {
+                        setTimeout(function() {
                             if (rec_stop === false) {
                                 img_rec++;
                                 context.drawImage(simulationArea.canvas, 0, 0);
                                 gh[start] = offScreenCanvas.toDataURL(`image/png`);
                                 if (img_rec === 120) {
-                                    gifshotcall(); recordicon(0); loadrecordingicon[0].style.visibility = "visible";
+                                    gifshotcall();
+                                    recordicon(0);
+                                    loadrecordingicon[0].style.visibility = "visible";
                                     loadrecordingicon[0].style.position = "absolute";
                                 }
                             }
@@ -298,6 +303,7 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
                     } else { return; }
                 }
             }
+
             function gifshotcall() {
                 if (gifshot.isExistingImagesGIFSupported()) {
                     gifshot.createGIF({
@@ -305,10 +311,10 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
                         'gifWidth': simulationArea.canvas.width,
                         'gifHeight': simulationArea.canvas.height,
                         'interval': 0.5,
-                        'numFrames': framerate||10,
+                        'numFrames': framerate || 10,
                         'frameDuration': 1,
                         'crossOrigin': '*',
-                    }, function (obj) {
+                    }, function(obj) {
                         if (!obj.error) {
                             var image = obj.image,
                                 animatedImage = document.createElement('img');
@@ -325,19 +331,18 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
                     alert("Error Loading GIF \n Requirement:Firefox 17+, Chrome 21+, Opera 18+, Blackberry Browser 10+, Opera Mobile 12+, Chrome For Android 35+, Firefox for Android 29+");
                 }
             }
-        }
-        else if (imgType === "video") {
-            var framerate = $('#fname').val(); 
+        } else if (imgType === "video") {
+            var framerate = $('#fname').val();
             alert('Press ok to start recording');
-            var videoStream = simulationArea.canvas.captureStream(framerate||30);
+            var videoStream = simulationArea.canvas.captureStream(framerate || 30);
             var mediaRecorder = new MediaRecorder(videoStream);
 
             var chunks = [];
-            mediaRecorder.ondataavailable = function (e) {
+            mediaRecorder.ondataavailable = function(e) {
                 chunks.push(e.data);
             };
 
-            mediaRecorder.onstop = function (e) {
+            mediaRecorder.onstop = function(e) {
                 var blob = new Blob(chunks, { 'type': 'video/mp4' });
                 chunks = [];
                 var videoURL = URL.createObjectURL(blob);
@@ -349,22 +354,22 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
                 loadrecordingicon[0].style.visibility = "none";
                 loadrecordingicon[0].style.position = "relative";
             };
-            mediaRecorder.ondataavailable = function (e) {
+            mediaRecorder.ondataavailable = function(e) {
                 chunks.push(e.data);
             };
+
             function recordicon_vid(load) {
                 if (load === 1) {
                     $('#rec_Button').addClass("Rec");
                     $('#rec_Button').css("visibility", "visible");
-                }
-                else
+                } else
                     $('#rec_Button').css("visibility", "hidden");
             };
             mediaRecorder.start();
             recordicon_vid(1);
             var rec_stop = false;
             var counter = 0;
-            $('#rec_Button').click(function () {
+            $('#rec_Button').click(function() {
                 rec_stop = true;
                 recordicon_vid(0);
                 if (counter === 0) {
@@ -372,13 +377,11 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
                 }
                 counter++;
             });
-        }
-        else {
+        } else {
             downloadAsImg(globalScope.name, imgType);
         }
 
-    }
-    else {
+    } else {
         returnData = simulationArea.canvas.toDataURL(`image/${imgType}`);
     }
 
@@ -408,7 +411,7 @@ async function crop(dataURL, w, h) {
     var myContext = myCanvas.getContext('2d');
     var myImage;
     var img = new Image();
-    return new Promise(function (resolved, rejected) {
+    return new Promise(function(resolved, rejected) {
         img.src = dataURL;
         img.onload = () => {
             myContext.drawImage(img, 0, 0, w, h, 0, 0, w, h);
