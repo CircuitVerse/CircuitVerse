@@ -16,7 +16,7 @@ jobs:
       - name: jsdocs-action
         uses: andstor/jsdoc-action@v1.2.0
         with:
-          source_dir: ./public/src
+          source_dir: ./simulator/src
           recurse: true
           output_dir: ./out
           config_file: ./conf.json
