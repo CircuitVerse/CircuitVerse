@@ -11,7 +11,7 @@ import { colors } from '../themer/themer';
 import { layoutModeGet, toggleLayoutMode } from '../layoutMode';
 import { verilogModeGet } from '../Verilog2CV';
 import domtoimage from 'dom-to-image';
-import C2S from '../canvas2svg';
+import C2S from '../../vendor/canvas2svg';
 import gifshot from 'gifshot';
 import { loadScope } from './load';
 import plotArea from '../plotArea';
@@ -321,7 +321,8 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
                             animatedImage.src = image;
                             const anchor = document.createElement('a');
                             anchor.href = image;
-                            anchor.download = `${globalScope.name}.${imgType}`;
+                            var gifname = "gif"
+                            anchor.download = `${globalScope.name}.${gifname}`;
                             anchor.click();
                             loadrecordingicon[0].style.visibility = "none";
                             loadrecordingicon[0].style.position = "relative";
@@ -348,7 +349,8 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
                 var videoURL = URL.createObjectURL(blob);
                 const anchor = document.createElement('a');
                 anchor.href = videoURL;
-                anchor.download = `${globalScope.name}.${imgType}`;
+                var mp4 = "mp4"
+                anchor.download = `${globalScope.name}.${mp4}`;
                 anchor.click();
                 $('#fname').val("");
                 loadrecordingicon[0].style.visibility = "none";
