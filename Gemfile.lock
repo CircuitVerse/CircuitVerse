@@ -297,7 +297,7 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.7.1)
       mini_mime (>= 0.1.1)
-    mailkick (0.4.2)
+    mailkick (0.4.3)
       activesupport (>= 5)
     marcel (0.3.3)
       mimemagic (~> 0.3.2)
