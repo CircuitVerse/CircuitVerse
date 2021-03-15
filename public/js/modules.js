@@ -1,5 +1,7 @@
 //AndGate - (x,y)-position , scope - circuit level, inputLength - no of nodes, dir - direction of gate
 
+import { colorToRGBA } from "../src/canvasApi";
+
 function changeInputSize(size) {
     if (size == undefined || size < 2 || size > 10) return;
     if (this.inputSize == size) return;
@@ -2745,7 +2747,7 @@ DigitalLed.prototype.generateVerilog = function () {
 // }
 
 
-function VariableLed(x, y, scope = globalScope) {
+function VariableLed(x, y, scope = globalScope, color = "Red") {
     // Calling base class constructor
 
     CircuitElement.call(this, x, y, scope, "UP", 8);
@@ -2754,8 +2756,8 @@ function VariableLed(x, y, scope = globalScope) {
     this.inp1 = new Node(-40, 0, 0, this, 8);
     this.directionFixed = true;
     this.fixedBitWidth = true;
-
-
+    this.color = color;
+    this.actualColor = colorToRGBA(this.color);
 }
 VariableLed.prototype = Object.create(CircuitElement.prototype);
 VariableLed.prototype.constructor = VariableLed;
@@ -2763,11 +2765,25 @@ VariableLed.prototype.tooltipText = "Variable Led ToolTip: Variable LED inputs a
 VariableLed.prototype.helplink = "https://docs.circuitverse.org/#/outputs?id=variable-led";
 VariableLed.prototype.customSave = function () {
     var data = {
+        constructorParamaters: [this.color],
         nodes: {
             inp1: findNode(this.inp1)
         },
     }
     return data;
+}
+VariableLed.prototype.mutableProperties = {
+    color: {
+        name: "Color: ",
+        type: "text",
+        func: "changeColor",
+    },
+}
+VariableLed.prototype.changeColor = function (value) {
+    if (validColor(value)) {
+        this.color = value;
+        this.actualColor = colorToRGBA(this.color);
+    }
 }
 VariableLed.prototype.customDraw = function () {
 
@@ -2785,7 +2801,7 @@ VariableLed.prototype.customDraw = function () {
     var c = this.inp1.value;
     var alpha = c / 255;
     ctx.strokeStyle = "#090a0a";
-    ctx.fillStyle = ["rgba(255,29,43," + alpha + ")", "rgba(227, 228, 229, 0.8)"][(c === undefined || c == 0) + 0];
+    ctx.fillStyle = ["rgba(" + this.actualColor[0] + ", " + this.actualColor[1] +  "," + this.actualColor[2] + "," + alpha + ")", "rgba(227, 228, 229, 0.8)"][(c === undefined || c == 0) + 0];
     ctx.lineWidth = correctWidth(1);
 
     ctx.beginPath();
