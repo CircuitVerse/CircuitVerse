@@ -2,7 +2,7 @@ import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import {
-    correctWidth, lineTo, moveTo, rect, rect2
+    correctWidth, lineTo, moveTo, rect, colorToRGBA, rect2, validColor
 } from '../canvasApi';
 
 /**
@@ -12,10 +12,11 @@ import {
  * @param {number} x - x coordinate of element.
  * @param {number} y - y coordinate of element.
  * @param {Scope=} scope - Cirucit on which element is drawn
+ * @param {string=} color - color of display elements
  * @category modules
  */
 export default class SevenSegDisplay extends CircuitElement {
-    constructor(x, y, scope = globalScope) {
+    constructor(x, y, scope = globalScope, color = "Red") {
         super(x, y, scope, 'RIGHT', 1);
         /* this is done in this.baseSetup() now
         this.scope['SevenSegDisplay'].push(this);
@@ -33,6 +34,9 @@ export default class SevenSegDisplay extends CircuitElement {
         this.c = new Node(+10, +50, 0, this);
         this.dot = new Node(+20, +50, 0, this);
         this.direction = 'RIGHT';
+        this.color = color;
+        const temp = colorToRGBA(this.color);
+        this.actualColor = `rgba(${temp[0]},${temp[1]},${temp[2]},${0.8})`;
     }
 
     /**
@@ -42,7 +46,7 @@ export default class SevenSegDisplay extends CircuitElement {
      */
     customSave() {
         const data = {
-
+            constructorParamaters: [this.color],    
             nodes: {
                 g: findNode(this.g),
                 f: findNode(this.f),
@@ -55,6 +59,18 @@ export default class SevenSegDisplay extends CircuitElement {
             },
         };
         return data;
+    }
+
+    /**
+     * @memberof SevenSegDisplay
+     * function to change color of the led
+     */
+     changeColor(value) {
+        if (validColor(value)) {
+            this.color = value;
+            const temp = colorToRGBA(this.color);
+            this.actualColor = `rgba(${temp[0]},${temp[1]},${temp[2]},${0.8})`;
+        }
     }
 
     /**
@@ -83,15 +99,15 @@ export default class SevenSegDisplay extends CircuitElement {
         var ctx = simulationArea.context;
         const xx = this.x;
         const yy = this.y;
-        this.customDrawSegment(18, -3, 18, -38, ['lightgrey', 'red'][this.b.value]);
-        this.customDrawSegment(18, 3, 18, 38, ['lightgrey', 'red'][this.c.value]);
-        this.customDrawSegment(-18, -3, -18, -38, ['lightgrey', 'red'][this.f.value]);
-        this.customDrawSegment(-18, 3, -18, 38, ['lightgrey', 'red'][this.e.value]);
-        this.customDrawSegment(-17, -38, 17, -38, ['lightgrey', 'red'][this.a.value]);
-        this.customDrawSegment(-17, 0, 17, 0, ['lightgrey', 'red'][this.g.value]);
-        this.customDrawSegment(-15, 38, 17, 38, ['lightgrey', 'red'][this.d.value]);
+        this.customDrawSegment(18, -3, 18, -38, ['lightgrey', this.actualColor][this.b.value]);
+        this.customDrawSegment(18, 3, 18, 38, ['lightgrey', this.actualColor][this.c.value]);
+        this.customDrawSegment(-18, -3, -18, -38, ['lightgrey', this.actualColor][this.f.value]);
+        this.customDrawSegment(-18, 3, -18, 38, ['lightgrey', this.actualColor][this.e.value]);
+        this.customDrawSegment(-17, -38, 17, -38, ['lightgrey', this.actualColor][this.a.value]);
+        this.customDrawSegment(-17, 0, 17, 0, ['lightgrey', this.actualColor][this.g.value]);
+        this.customDrawSegment(-15, 38, 17, 38, ['lightgrey', this.actualColor][this.d.value]);
         ctx.beginPath();
-        const dotColor = ['lightgrey', 'red'][this.dot.value] || 'lightgrey';
+        const dotColor = ['lightgrey', this.actualColor][this.dot.value] || 'lightgrey';
         ctx.strokeStyle = dotColor;
         rect(ctx, xx + 22, yy + 42, 2, 2);
         ctx.stroke();
@@ -118,16 +134,16 @@ export default class SevenSegDisplay extends CircuitElement {
         var xx = this.subcircuitMetadata.x + xOffset;
         var yy = this.subcircuitMetadata.y + yOffset;
 
-        this.subcircuitDrawSegment(10, -20, 10, -38, ["lightgrey", "red"][this.b.value], xx, yy);
-        this.subcircuitDrawSegment(10, -17, 10, 1, ["lightgrey", "red"][this.c.value], xx, yy);
-        this.subcircuitDrawSegment(-10, -20, -10, -38, ["lightgrey", "red"][this.f.value], xx, yy);
-        this.subcircuitDrawSegment(-10, -17, -10, 1, ["lightgrey", "red"][this.e.value], xx, yy);
-        this.subcircuitDrawSegment(-8, -38, 8, -38, ["lightgrey", "red"][this.a.value], xx, yy);
-        this.subcircuitDrawSegment(-8, -18, 8, -18, ["lightgrey", "red"][this.g.value], xx, yy);
-        this.subcircuitDrawSegment(-8, 1, 8, 1, ["lightgrey", "red"][this.d.value], xx, yy);
+        this.subcircuitDrawSegment(10, -20, 10, -38, ["lightgrey", this.actualColor][this.b.value], xx, yy);
+        this.subcircuitDrawSegment(10, -17, 10, 1, ["lightgrey", this.actualColor][this.c.value], xx, yy);
+        this.subcircuitDrawSegment(-10, -20, -10, -38, ["lightgrey", this.actualColor][this.f.value], xx, yy);
+        this.subcircuitDrawSegment(-10, -17, -10, 1, ["lightgrey", this.actualColor][this.e.value], xx, yy);
+        this.subcircuitDrawSegment(-8, -38, 8, -38, ["lightgrey", this.actualColor][this.a.value], xx, yy);
+        this.subcircuitDrawSegment(-8, -18, 8, -18, ["lightgrey", this.actualColor][this.g.value], xx, yy);
+        this.subcircuitDrawSegment(-8, 1, 8, 1, ["lightgrey", this.actualColor][this.d.value], xx, yy);
 
         ctx.beginPath();
-        var dotColor = ["lightgrey", "red"][this.dot.value] || "lightgrey"
+        var dotColor = ["lightgrey", this.actualColor][this.dot.value] || "lightgrey"
         ctx.strokeStyle = dotColor;
         rect(ctx, xx + 13, yy + 5, 1, 1);
         ctx.stroke();
@@ -166,6 +182,19 @@ SevenSegDisplay.prototype.tooltipText = 'Seven Display ToolTip: Consists of 7+1 
  * @category modules
  */
 SevenSegDisplay.prototype.helplink = 'https://docs.circuitverse.org/#/outputs?id=seven-segment-display';
+/**
+ * @memberof HexDisplay
+ * Mutable properties of the element
+ * @type {JSON}
+ * @category modules
+ */
+ SevenSegDisplay.prototype.mutableProperties = {
+    color: {
+        name: "Color: ",
+        type: "text",
+        func: "changeColor",
+    },
+};
 SevenSegDisplay.prototype.objectType = 'SevenSegDisplay';
 SevenSegDisplay.prototype.canShowInSubcircuit = true;
 SevenSegDisplay.prototype.layoutProperties = {

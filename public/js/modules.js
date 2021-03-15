@@ -581,7 +581,7 @@ XnorGate.prototype.generateVerilog = function () {
 
 
 
-function SevenSegDisplay(x, y, scope = globalScope) {
+function SevenSegDisplay(x, y, scope = globalScope, color = "Red") {
     CircuitElement.call(this, x, y, scope, "RIGHT", 1);
     this.fixedBitWidth = true;
     this.directionFixed = true;
@@ -596,8 +596,9 @@ function SevenSegDisplay(x, y, scope = globalScope) {
     this.c = new Node(+10, +50, 0, this);
     this.dot = new Node(+20, +50, 0, this);
     this.direction = "RIGHT";
-
-
+    this.color = color;
+    const temp = colorToRGBA(this.color);
+    this.actualColor = `rgba(${temp[0]},${temp[1]},${temp[2]},${0.8})`;
 }
 SevenSegDisplay.prototype = Object.create(CircuitElement.prototype);
 SevenSegDisplay.prototype.constructor = SevenSegDisplay;
@@ -605,7 +606,7 @@ SevenSegDisplay.prototype.tooltipText = "Seven Display ToolTip: Consists of 7+1 
 SevenSegDisplay.prototype.helplink = "https://docs.circuitverse.org/#/outputs?id=seven-segment-display";
 SevenSegDisplay.prototype.customSave = function () {
     var data = {
-
+        constructorParamaters: [this.color],
         nodes: {
             g: findNode(this.g),
             f: findNode(this.f),
@@ -619,6 +620,21 @@ SevenSegDisplay.prototype.customSave = function () {
         },
     }
     return data;
+}
+SevenSegDisplay.prototype.mutableProperties = {
+    "color": {
+        name: "Color: ",
+        type: "text",
+        func: "changeColor",
+    },
+}
+SevenSegDisplay.prototype.changeColor = function (value) {
+    if (validColor(value)) {
+        this.color = value;
+        var temp = colorToRGBA(this.color)
+        this.actualColor = "rgba(" + temp[0] + "," + temp[1] + "," + temp[2] + "," + 0.8 + ")";
+    }
+
 }
 SevenSegDisplay.prototype.customDrawSegment = function (x1, y1, x2, y2, color) {
     if (color == undefined) color = "lightgrey";
@@ -640,16 +656,16 @@ SevenSegDisplay.prototype.customDraw = function () {
     var xx = this.x;
     var yy = this.y;
 
-    this.customDrawSegment(18, -3, 18, -38, ["lightgrey", "red"][this.b.value]);
-    this.customDrawSegment(18, 3, 18, 38, ["lightgrey", "red"][this.c.value]);
-    this.customDrawSegment(-18, -3, -18, -38, ["lightgrey", "red"][this.f.value]);
-    this.customDrawSegment(-18, 3, -18, 38, ["lightgrey", "red"][this.e.value]);
-    this.customDrawSegment(-17, -38, 17, -38, ["lightgrey", "red"][this.a.value]);
-    this.customDrawSegment(-17, 0, 17, 0, ["lightgrey", "red"][this.g.value]);
-    this.customDrawSegment(-15, 38, 17, 38, ["lightgrey", "red"][this.d.value]);
+    this.customDrawSegment(18, -3, 18, -38, ["lightgrey", this.actualColor][this.b.value]);
+    this.customDrawSegment(18, 3, 18, 38, ["lightgrey", this.actualColor][this.c.value]);
+    this.customDrawSegment(-18, -3, -18, -38, ["lightgrey", this.actualColor][this.f.value]);
+    this.customDrawSegment(-18, 3, -18, 38, ["lightgrey", this.actualColor][this.e.value]);
+    this.customDrawSegment(-17, -38, 17, -38, ["lightgrey", this.actualColor][this.a.value]);
+    this.customDrawSegment(-17, 0, 17, 0, ["lightgrey", this.actualColor][this.g.value]);
+    this.customDrawSegment(-15, 38, 17, 38, ["lightgrey", this.actualColor][this.d.value]);
 
     ctx.beginPath();
-    var dotColor = ["lightgrey", "red"][this.dot.value] || "lightgrey"
+    var dotColor = ["lightgrey", this.actualColor][this.dot.value] || "lightgrey"
     ctx.strokeStyle = dotColor;
     rect(ctx, xx + 22, yy + 42, 2, 2);
     ctx.stroke();

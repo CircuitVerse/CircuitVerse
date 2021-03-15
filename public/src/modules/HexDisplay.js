@@ -1,7 +1,7 @@
 import CircuitElement from "../circuitElement";
 import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
-import { correctWidth, lineTo, moveTo, arc,  colorToRGBA, rect2, validColor } from "../canvasApi";
+import { correctWidth, lineTo, moveTo, arc, colorToRGBA, rect2, validColor } from "../canvasApi";
 import { changeInputSize } from "../modules";
 /**
  * @class
