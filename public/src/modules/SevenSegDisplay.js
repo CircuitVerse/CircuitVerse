@@ -65,7 +65,7 @@ export default class SevenSegDisplay extends CircuitElement {
      * @memberof SevenSegDisplay
      * function to change color of the led
      */
-     changeColor(value) {
+    changeColor(value) {
         if (validColor(value)) {
             this.color = value;
             const temp = colorToRGBA(this.color);
@@ -183,12 +183,12 @@ SevenSegDisplay.prototype.tooltipText = 'Seven Display ToolTip: Consists of 7+1 
  */
 SevenSegDisplay.prototype.helplink = 'https://docs.circuitverse.org/#/outputs?id=seven-segment-display';
 /**
- * @memberof HexDisplay
+ * @memberof SevenSegDisplay
  * Mutable properties of the element
  * @type {JSON}
  * @category modules
  */
- SevenSegDisplay.prototype.mutableProperties = {
+SevenSegDisplay.prototype.mutableProperties = {
     color: {
         name: "Color: ",
         type: "text",
