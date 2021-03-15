@@ -752,7 +752,7 @@ SixteenSegDisplay.prototype.generateVerilog = function () {
     $display("SixteenSegDisplay:{${this.input1.verilogLabel},${this.dot.verilogLabel}} = {%16b,%1b}", ${this.input1.verilogLabel}, ${this.dot.verilogLabel});`;
 }
 
-function HexDisplay(x, y, scope = globalScope) {
+function HexDisplay(x, y, scope = globalScope, color = "Red") {
     CircuitElement.call(this, x, y, scope, "RIGHT", 4);
     this.directionFixed = true;
     this.fixedBitWidth = true;
@@ -760,6 +760,9 @@ function HexDisplay(x, y, scope = globalScope) {
 
     this.inp = new Node(0, -50, 0, this, 4);
     this.direction = "RIGHT";
+    this.color = color;
+    const temp = colorToRGBA(this.color);
+    this.actualColor = `rgba(${temp[0]},${temp[1]},${temp[2]},${0.8})`;
 }
 
 HexDisplay.prototype = Object.create(CircuitElement.prototype);
@@ -779,14 +782,28 @@ HexDisplay.prototype.generateVerilog = function () {
 }
 HexDisplay.prototype.customSave = function () {
     var data = {
-
-
+        constructorParamaters: [this.color],
         nodes: {
             inp: findNode(this.inp)
         }
 
     }
     return data;
+}
+HexDisplay.prototype.mutableProperties = {
+    "color": {
+        name: "Color: ",
+        type: "text",
+        func: "changeColor",
+    },
+}
+HexDisplay.prototype.changeColor = function (value) {
+    if (validColor(value)) {
+        this.color = value;
+        var temp = colorToRGBA(this.color)
+        this.actualColor = "rgba(" + temp[0] + "," + temp[1] + "," + temp[2] + "," + 0.8 + ")";
+    }
+
 }
 HexDisplay.prototype.customDrawSegment = function (x1, y1, x2, y2, color) {
     if (color == undefined) color = "lightgrey";
@@ -863,13 +880,13 @@ HexDisplay.prototype.customDraw = function () {
         default:
 
     }
-    this.customDrawSegment(18, -3, 18, -38, ["lightgrey", "red"][b]);
-    this.customDrawSegment(18, 3, 18, 38, ["lightgrey", "red"][c]);
-    this.customDrawSegment(-18, -3, -18, -38, ["lightgrey", "red"][f]);
-    this.customDrawSegment(-18, 3, -18, 38, ["lightgrey", "red"][e]);
-    this.customDrawSegment(-17, -38, 17, -38, ["lightgrey", "red"][a]);
-    this.customDrawSegment(-17, 0, 17, 0, ["lightgrey", "red"][g]);
-    this.customDrawSegment(-15, 38, 17, 38, ["lightgrey", "red"][d]);
+    this.customDrawSegment(18, -3, 18, -38, ["lightgrey", this.actualColor][b]);
+    this.customDrawSegment(18, 3, 18, 38, ["lightgrey", this.actualColor][c]);
+    this.customDrawSegment(-18, -3, -18, -38, ["lightgrey", this.actualColor][f]);
+    this.customDrawSegment(-18, 3, -18, 38, ["lightgrey", this.actualColor][e]);
+    this.customDrawSegment(-17, -38, 17, -38, ["lightgrey", this.actualColor][a]);
+    this.customDrawSegment(-17, 0, 17, 0, ["lightgrey", this.actualColor][g]);
+    this.customDrawSegment(-15, 38, 17, 38, ["lightgrey", this.actualColor][d]);
 
 }
 
@@ -2643,9 +2660,8 @@ function DigitalLed(x, y, scope = globalScope, color = "Red") {
     this.color = color;
     var temp = colorToRGBA(this.color)
     this.actualColor = "rgba(" + temp[0] + "," + temp[1] + "," + temp[2] + "," + 0.8 + ")";
-
-
 }
+
 DigitalLed.prototype = Object.create(CircuitElement.prototype);
 DigitalLed.prototype.constructor = DigitalLed;
 /* Outdated, was translating into Output
@@ -2801,7 +2817,7 @@ VariableLed.prototype.customDraw = function () {
     var c = this.inp1.value;
     var alpha = c / 255;
     ctx.strokeStyle = "#090a0a";
-    ctx.fillStyle = ["rgba(" + this.actualColor[0] + ", " + this.actualColor[1] +  "," + this.actualColor[2] + "," + alpha + ")", "rgba(227, 228, 229, 0.8)"][(c === undefined || c == 0) + 0];
+    ctx.fillStyle = ["rgba(" + this.actualColor[0] + "," + this.actualColor[1] + "," + this.actualColor[2] + "," + alpha + ")", "rgba(227, 228, 229, 0.8)"][(c === undefined || c == 0) + 0];
     ctx.lineWidth = correctWidth(1);
 
     ctx.beginPath();

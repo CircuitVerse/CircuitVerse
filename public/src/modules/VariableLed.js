@@ -1,7 +1,7 @@
 import CircuitElement from "../circuitElement";
 import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
-import { correctWidth, lineTo, moveTo, arc, colorToRGBA, drawCircle2, validColor} from "../canvasApi";
+import { correctWidth, lineTo, moveTo, arc, colorToRGBA, drawCircle2, validColor } from "../canvasApi";
 import { changeInputSize } from "../modules";
 /**
  * @class
@@ -114,7 +114,7 @@ export default class VariableLed extends CircuitElement {
         var c = this.inp1.value;
         var alpha = c / 255;
         ctx.strokeStyle = "#090a0a";
-        ctx.fillStyle = ["rgba(" + this.actualColor[0] + ", " + this.actualColor[1] +  "," + this.actualColor[2] + "," + alpha + ")", "rgba(227, 228, 229, 0.8)"][(c === undefined || c == 0) + 0];
+        ctx.fillStyle = ["rgba(" + this.actualColor[0] + "," + this.actualColor[1] + "," + this.actualColor[2] + "," + alpha + ")", "rgba(227, 228, 229, 0.8)"][(c === undefined || c == 0) + 0];
         ctx.lineWidth = correctWidth(1);
 
         ctx.beginPath();
