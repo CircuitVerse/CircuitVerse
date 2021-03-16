@@ -1,0 +1,1610 @@
+
+/* 
+************
+* This stylesheet is to be made modular later
+************
+*/
+
+@import "./5-layout/simulator.scss";
+@import "./2-basics/base.scss";
+@import "./2-basics/reset.scss";
+@import "./shortcut.panel.css";
+@import "./embed.css";
+@import "./plugin-stylesheets/checkBo.min.css";
+/** new UI ruleset starts here */
+/*! Adding color variables to root, required later for hokey binding */
+
+/* typography */
+@font-face {
+  font-family: Raleway;
+  src: url("https://fonts.gstatic.com/s/raleway/v18/1Ptxg8zYS_SKggPN4iEgvnHyvveLxVvaorCIPrcVIT9d0c8.woff");
+}
+
+/* typography */
+@font-face {
+  font-family: "Nunito", sans-serif;
+  src: url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;1,200&display=swap");
+}
+
+
+/** Global Styles starts here */
+
+body,
+html {
+  font-family: "Nunito", sans-serif;
+  font-weight: 200;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  position: fixed;
+}
+
+button:focus {
+  outline: 0;
+}
+
+a {
+  color: var(--text-primary);
+}
+
+a:hover {
+  color: white;
+  text-decoration: none;
+}
+
+select > option {
+  color: black;
+  padding: 2px 4px;
+  margin-right: 5px;
+}
+
+select:focus,
+select > option:focus {
+  border: none;
+  outline: none;
+}
+
+input[type="number"]:focus {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  color: white;
+}
+
+table {
+  border-collapse: collapse;
+  -webkit-user-select: none;
+  /* Chrome/Safari */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* IE10+ */
+  /* Rules below not implemented in browsers yet */
+  -o-user-select: none;
+  user-select: none;
+}
+
+button {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  box-shadow: none;
+}
+
+button:not(".quick-btn button"):active {
+  background: transparent !important;
+}
+
+button:active,
+button:focus {
+  box-shadow: none !important;
+  border: none;
+  outline: none;
+  /* border-color: white !important; */
+}
+
+button:focus {
+  box-shadow: none;
+}
+
+input[type="text"]:focus {
+  background: transparent;
+  /* color: white; */
+}
+
+/*! Global styles ends here */
+
+.noSelect {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -o-user-select: none;
+}
+
+.navbar-menu {
+  position: relative;
+  transition: all 0.2s ease-in-out;
+
+}
+
+.navbar-menu > li > a {
+  border: 1px solid transparent;
+  border-radius: 1px;
+  padding: 2px 8px;
+  transition: all 0.2s ease-in-out;
+  margin-right: 10px;
+}
+
+.navbar-menu > li > a span, .acc-caret {
+  content: "";
+  background: url(./assets/small-components/chevron-down.svg) center/cover
+    no-repeat;
+  display: inline-block;
+  height: 5px;
+  width: 5px;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-66%);
+  padding: 4px;
+  margin: 0 5px;
+  transition: all 0.2s ease-in-out;
+}
+
+.acc-caret {
+  right: -17px;
+}
+.navbar-menu > li > a:hover {
+  border-bottom: 1px solid white;
+}
+
+.navbar-menu > li > a:hover span, .acc-drop:hover .acc-caret {
+  background: none;
+}
+
+.projectName {
+  position: relative;
+  left: .5rem;
+  font-size: 1em;
+  text-align: center;
+  display: inline-block;
+  width: 35vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media(max-width: 992px) {
+  .projectName {
+    visibility: hidden;
+  }
+}
+
+.account-btn {
+  position: absolute;
+  right: 13px;
+  padding: 4px 10px;
+  border: 1px solid transparent;
+  border-radius: 1px;
+  transition: all 0.2s ease-in-out;
+}
+
+.account-btn:hover {
+  border-bottom: 1px solid white;
+}
+
+.user-field {
+  display: inline-block;
+  max-width: 11rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: right;
+}
+
+@media(max-width: 992px) {
+  .user-field {
+    visibility: hidden;
+  }
+}
+
+.signIn-btn {
+  color: var(--text-primary);
+}
+
+.cur-user, .signIn-btn {
+  color: #fff
+}
+
+.signIn-btn:hover {
+  color: var(--text-primary);
+}
+
+.logo {
+  background: url(./assets/logo.svg) center/cover;
+  height: 30px;
+  width: 105px;
+  display: inline-block;
+  margin-right: 36px;
+}
+
+.quick-btn {
+  display: flex;
+  position: absolute;
+  width: 400px;
+  height: 33px;
+  top: 90px;
+  right: 280px;
+  border-radius: 7px;
+  z-index: 100;
+}
+
+.quick-btn > div {
+  margin: auto;
+}
+
+.quick-btn > div > button {
+  margin: auto;
+  border: none;
+}
+
+.quick-btn-save-online {
+  background: url(./assets/shorcuts/save-online.svg) center/cover;
+  width: 21.43px;
+  height: 15.2px;
+  display: block;
+}
+
+.quick-btn-save {
+  background: url(./assets/shorcuts/save.svg) center/cover;
+  width: 15.2px;
+  height: 15.2px;
+  display: block;
+}
+
+.quick-btn-delete {
+  background: url(./assets/shorcuts/delete.svg) center/cover;
+  width: 20px;
+  height: 15.2px;
+  display: block;
+}
+
+.quick-btn-download {
+  background: url(./assets/shorcuts/download.svg) center/cover;
+  width: 15.2px;
+  height: 15.2px;
+  display: block;
+}
+
+.quick-btn-zoom-fit {
+  background: url(./assets/shorcuts/fit.svg) center/cover;
+  width: 15.2px;
+  height: 15.2px;
+  display: block;
+}
+
+.quick-btn-undo {
+  background: url(./assets/shorcuts/undo.svg) center/cover;
+  width: 15.2px;
+  height: 16.2px;
+  display: block;
+}
+
+.quick-btn-redo {
+  background: url(./assets/shorcuts/redo.svg) center/cover;
+  width: 15.2px;
+  height: 16.2px;
+  display: block;
+}
+
+.quick-btn-view {
+  color: white;
+
+}
+/* dropdown-menu styles */
+
+.dropdown > ul {
+  border-radius: 5px;
+  text-align: center;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 13px);
+}
+
+.draggable-panel-css {
+  border-radius: 5px;
+  z-index: 100;
+  transition: background .5s ease-out; 
+  position: fixed;
+}
+
+@supports (backdrop-filter: blur()) {
+  .dropdown > ul {
+    backdrop-filter: blur(5px);
+  }
+}
+
+.mw-override {
+  min-width: 110px;
+}
+
+.dropdown > ul::before {
+  background-color: transparent;
+  content: "";
+  width: 10px;
+  display: inline-block;
+  height: 10px;
+  position: absolute;
+  transform: translate(-50%, -13px) rotate(-45deg);
+}
+
+.dropdown > ul::after {
+  content: "";
+  width: 11.5px;
+  display: inline-block;
+  height: 10px;
+  position: absolute;
+  transform: translate(-50%, -15.5px);
+  top: 14.5px;
+}
+
+.dropdown-menu > li > a {
+  padding: 7px 0;
+  width: 90%;
+  margin: auto;
+  transition: all 0.2s ease-in-out;
+  text-align: left;
+  padding-left: 10px;
+}
+
+.dropdown-menu > li > a:hover {
+  border-radius: 7px;
+  opacity: 1;
+}
+
+@media(max-width: 992px) {
+  .navbar-nav .dropdown-menu {
+    position: absolute;
+    float: none;
+  }
+}
+
+#contextMenu {
+  width: 150px;
+  visibility: hidden;
+  position: fixed;
+  z-index: 1000;
+  opacity: 0;
+  top: 100;
+  left: 100;
+  cursor: pointer;
+  padding-bottom: 7px;
+  padding-top: 7px;
+  user-select: none;
+  border-radius: 5px;
+}
+
+#contextMenu ul {
+  margin: 0;
+  padding: 0;
+}
+
+#contextMenu ul li {
+  list-style: none;
+  padding: 8px;
+  padding-left: 20px;
+  width: 90%;
+  margin: auto;
+}
+
+#contextMenu ul li:hover {
+  border-radius: 7px;
+  opacity: 1;
+}
+
+@supports (backdrop-filter: blur()) {
+  #contextMenu {
+    backdrop-filter: blur(5px);
+  }
+  #contextMenu ul li:hover {
+    backdrop-filter: blur(50px);
+    -webkit-backdrop-filter: blur(50px);
+  }
+}
+
+/** ce-panel styling  starts */
+
+.ce-panel {
+  font: inherit;
+  width: 240px;
+  top: 90px;
+  left: 10px;
+}
+
+.accordion:last-child {
+  margin-bottom: 15px;
+}
+
+.draggable-panel-css .panel-header {
+  border-radius: 5px;
+  border-top-right-radius: 5px;
+  padding-top: 15px;
+  padding: 10px;
+  padding-top: 15px;
+  padding-left: 17px;
+  font-weight: bold;
+  font-size: 16px;
+  text-transform: uppercase;
+  text-align: left;
+  cursor: move;
+}
+
+.draggable-panel-css .panel-header::before {
+  content: '';
+  width: 34px;
+  border-radius: 2px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 6px;
+}
+
+.draggable-panel-css .panel-body {
+  padding-top: 10px;
+}
+
+.draggable-panel-css .panel {
+  padding: 0em;
+  margin: 0;
+  border-radius: 0;
+  margin-bottom: 0em;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  max-height: 185px;
+  border-radius: 2px;
+}
+
+.ui-accordion-header {
+  background-color: transparent;
+  margin: 0em;
+  padding: 0em;
+  outline: none;
+}
+
+.ui-accordion-header.ui-accordion-header-active.ui-state-active {
+  outline: none;
+}
+
+.ui-accordion-header.ui-state-hover {
+  outline: none;
+}
+
+.ui-accordion-header-icon.ui-icon {
+  display: none;
+}
+
+.accordion {
+  width: 90%;
+  margin: auto;
+  position: relative;
+}
+
+.panelHeader {
+  border: none;
+  border-radius: 0;
+  transition: all 0.2s ease-in-out;
+}
+
+.panelHeader:hover {
+  border-radius: 3px;
+}
+
+.panelHeader:after,
+.panelHeader:before {
+  content: "";
+  height: 8px;
+  display: inline-block;
+  right: 15px;
+  position: absolute;
+  border-radius: 5px;
+  top: 50%;
+  transform: translateY(-50%) rotate(132deg);
+  transition: 0.2s ease-out;
+  background-color: white;
+}
+
+.panelHeader:after {
+  transform: translate(260%, -50%) rotate(226deg);
+}
+
+.ui-accordion-header-active:before {
+  transition: 0.2s ease-out;
+  transform-origin: left;
+  transform: translate(29%, -40%) rotate(50deg);
+  top: 46%;
+}
+
+.ui-accordion-header-active:after {
+  transform-origin: bottom;
+  transform: translate(420%, -50%) rotate(310deg);
+  transition: 0.2s ease-out;
+  top: 46%;
+}
+
+.ui-accordion-header-active:hover {
+  background-color: transparent;
+}
+
+.ui-accordion .ui-accordion-content {
+  border: none;
+  padding: 0;
+}
+
+.icon {
+  position: relative;
+  width: 50px;
+  margin: 5px;
+  display: inline-block;
+  text-align: center;
+  font-size: 8px;
+}
+
+img {
+  display: none;
+}
+
+div.icon img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  width: 100%;
+  display: inline-block;
+}
+
+.custom-tooltip-styling {
+  box-shadow: none;
+  border-radius: 3px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 100;
+}
+
+.icon:hover {
+  border-radius: 3px;
+}
+
+/*! ce-panel styling  ends */
+
+/** custom scroll  styling starts here  */
+
+.search-results {
+  scrollbar-width: thin; /* for firefox */
+}
+
+.search-results::-webkit-scrollbar {
+  margin-right: 3px;
+  width: 6px;
+}
+
+/*! custom scroll  styling starts ends here  */
+
+/*! ce-panel styling  ends */
+
+/** tab bar styling starts */
+
+#tabsBar {
+  width: 100%;
+  /* height: 23.5px; */
+  display: block;
+  align-items: center;
+  z-index: 100;
+}
+
+.embed-tabs {
+    background-color: transparent !important;
+}
+
+#tabsBar .placeholder {
+  justify-content: space-between;
+  padding: 1px;
+  display: inline-block; 
+  margin: 2px;
+  text-align: center;
+  /* min-width: 110px; */
+  font-size: 14px;
+  transition: all 0.2s ease-in-out;
+}
+
+.placeholder::before {
+  display: inline-block;
+  padding: 2px 5px;
+  content: "|"
+}
+
+#tabsBar .circuits {
+  justify-content: space-between;
+  border-radius: 3px;
+  padding: 1px;
+  display: inline-block; 
+  margin: 2px;
+  text-align: center;
+  /* min-width: 110px; */
+  font-size: 14px;
+  transition: all 0.2s ease-in-out;
+}
+
+#tabsBar .circuits > span {
+  display: inline-block;
+  padding: 2px 5px;
+}
+
+.circuitName{
+  cursor: pointer;
+}
+
+#tabsBar button {
+  order: 99; /* could have better solution */
+  width: 20px;
+  align-items: center;
+  padding: 1px;
+  text-decoration: none;
+  outline: none;
+  border-radius: 1px;
+  transition: all 0.1s ease-in-out;
+  border-radius: 4px;
+  margin-left: 1px;
+}
+
+#tabsBar button:focus{
+  outline: none !important;
+  box-shadow: none !important;
+}
+#tabsBar button:active{
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/*! tab bar styling ends */
+/** Module property styling starts here */
+
+.moduleProperty {
+  font: inherit;
+  width: 250px;
+  top: 90px;
+  right: 10px;
+}
+
+.layoutElementPanel {
+  width: 220px;
+  font: inherit;
+  display: none;
+  top: 90px;
+  left: 10px;
+}
+
+.timing-diagram-panel {
+  border-radius: 5px;
+  z-index: 100;
+  transition: background .5s ease-out; 
+  position: fixed;
+  cursor: pointer;
+  left: 300px;
+  top: 90px;
+}
+
+.timing-diagram-panel .panel-header {
+  border-radius: 5px;
+  border-top-right-radius: 5px;
+  padding: 3px;
+  font-weight: bold;
+  font-size: 16px;
+  text-transform: uppercase;
+  text-align: left;
+  cursor: move;
+}
+
+#plotArea {
+  padding: 3px;
+}
+
+#verilogEditorPanel {
+  width: 220px;
+  font: inherit;
+  display: none;
+  top: 90px;
+  right: 300px;
+}
+
+#moduleProperty-toolTip {
+  padding: 10px;
+}
+
+#moduleProperty-inner {
+  width: 85%;
+  margin: auto;
+}
+
+#moduleProperty-header {
+  font-size: 1.1em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+#moduleProperty-inner > p span {
+  display: inline-block;
+  font-weight: bold;
+}
+
+#moduleProperty-inner > p button {
+  border-radius: 2px;
+  margin: 3px;
+}
+
+#moduleProperty-inner:last-child {
+  margin-bottom: 15px;
+}
+
+.moduleProperty select {
+  background-color: transparent;
+  border: none;
+  margin-left: 2px;
+  outline: none;
+}
+
+.moduleProperty input, 
+.moduleProperty textarea {
+  background-color: transparent;
+  margin-top: 7px;
+  outline: none;
+  padding: 5px 5px;
+  width: 100%;
+}
+
+.moduleProperty select,
+.moduleProperty input, 
+.moduleProperty textarea {
+  border-radius: 7px !important;
+}
+
+.moduleProperty input:focus,
+.moduleProperty select:focus, 
+.moduleProperty textarea {
+  outline-width: 0;
+  outline: none;
+  box-shadow: none;
+}
+
+.input-group-prepend button {
+  margin-right: 5px;
+}
+.input-group-append button {
+  margin-left: 5px;
+}
+
+.input-group-prepend button:hover {
+  border-radius: 3px !important;
+}
+.input-group-append button:hover {
+  border-radius: 3px !important;
+}
+
+/* toogle */
+
+.switch {
+  position: relative;
+  width: 43px;
+  height: 17px;
+  margin-bottom: 0px;
+  float: right;
+}
+
+.switch input {
+  display: none;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  -webkit-transition: 0.2s all ease;
+  transition: 0.2s all ease;
+  border-radius: 25px;
+  width: 35px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: -3px;
+  top: 50%;
+  transform: translateY(-51%);
+  -webkit-transition: 0.2s all ease-in-out;
+  transition: 0.2s all ease-in-out;
+  border-radius: 50%;
+}
+
+input:checked + .slider:before {
+  transform: translate(21px, -51%);
+}
+
+/** custom button styling */
+
+.custom-btn--primary {
+  border-radius: 1px;
+}
+
+
+.custom-btn--secondary {
+  background-color: transparent;
+  border-radius: 1px;
+  width: 90%;
+  display: inline-block;
+  line-height: inherit;
+}
+
+.custom-btn--secondary:hover {
+  /* color: white; */
+  transition: all 0.3s ease;
+}
+
+.custom-btn--tertiary {
+  border-radius: 1px;
+}
+
+#HelpButton {
+  background-color: transparent;
+  border: 2px solid white;
+  width: 90%;
+  margin-bottom: 15px;
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+.btn-parent {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+}
+
+/* custom spin button */
+
+/*! Module property styling starts here */
+
+/** selects styling starts here */
+
+.moduleProperty select {
+  padding-left: 5px;
+  width: 81px;
+  float: right;
+}
+
+/*! selects styling end here */
+
+/** layout dialog styling starts here */
+
+.layout-body {
+  text-align: center;
+  padding: 10px;
+  padding-bottom: 17px;
+  font-weight: bold;
+}
+
+#layoutDialog {
+  display: none;
+  right: 10px;
+  top: 90px;
+  width: 220px;
+}
+
+.layout-title span {
+  display: block;
+  font-weight: bold;
+  margin: 8px;
+}
+
+.layout-title--enable {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 0;
+  padding: 0 8px;
+}
+
+.Layout-btn {
+  width: 48%;
+  height: 30px;
+  line-height: inherit;
+}
+
+.zoomButton-up {
+  /* background: url(./assets/layout-panel/up.svg) center/cover no-repeat; */
+  display: inline-block;
+  height: 35px;
+  width: 35px;
+}
+.zoomButton-down {
+  /* background: url(./assets/layout-panel/down.svg) center/cover no-repeat; */
+  display: inline-block;
+  height: 35px;
+  width: 35px;
+}
+.zoomButton-left {
+  /* background: url(./assets/layout-panel/left.svg) center/cover no-repeat; */
+  display: inline-block;
+  height: 35px;
+  width: 35px;
+}
+.zoomButton-right {
+  /* background: url(./assets/layout-panel/right.svg) center/cover no-repeat; */
+  display: inline-block;
+  height: 35px;
+  width: 35px;
+}
+
+/*! layout dialog styling ends here */
+
+/** download dialog styling starts here */
+
+.ui-dialog {
+  /*this also affects all dialog created using jquery UI, needs to be more universe */
+  font: inherit;
+  border-radius: 5px;
+  width: 600px;
+  height: 320px;
+  padding: 10px 17px;
+  padding-bottom: 0;
+  /* border: none !important; */
+}
+
+@supports (backdrop-filter: blur()) {
+  .ui-dialog {
+    backdrop-filter: blur(5px);
+  }
+}
+
+.ui-widget-header {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+}
+
+.option {
+  display: inline-flex;
+  border-radius: 7px;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 7px;
+  position: relative;
+  cursor: pointer;
+}
+
+.option input[type="radio"] {
+  visibility: hidden;
+}
+
+.custom-radio span {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  display: block;
+  position: absolute;
+  left: 2px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.custom-radio span:after {
+  content: "";
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: 300ms ease-in-out 0s;
+}
+
+.custom-radio input[type="radio"]:checked ~ span:after {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+
+#saveImageDialog {
+  border-radius: 2px;
+  padding: 13px;
+  margin: 0;
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 188px !important;
+}
+
+.download-dialog-section-2 .option {
+  padding: 0;
+}
+
+.download-dialog-section-1 > label {
+  height: 30px;
+  width: 85px;
+}
+
+.download-dialog-section-2 {
+  background: transparent;
+  width: 100%;
+  display: inline-flex;
+  justify-content: space-around;
+}
+
+.btn-group-toggle {
+  background-color: transparent;
+  overflow: hidden;
+}
+.download-dialog-section-2 .active-btn {
+  box-shadow: none;
+}
+
+
+.download-dialog-section-2 .btn input[type="radio"]:disabled {
+  background: red !important;
+  color: red !important;
+}
+
+.download-dialog-section-2_2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.download-dialog-section-3 {
+  border-radius: 2px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 10px;
+  width: 320px;
+  position: inherit;
+}
+
+
+.download-dialog-section-3 > label {
+  width: 60px;
+  height: 25px;
+  margin-bottom: 0;
+}
+
+.ui-dialog-buttonpane {
+  background: transparent;
+}
+
+.ui-dialog .ui-dialog-titlebar {
+  padding: 0;
+  padding-bottom: 8px;
+  font: inherit;
+  line-height: inherit;
+  font-weight: bold;
+}
+
+.ui-dialog-titlebar-close {
+  border: none;
+  color: white;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  visibility: hidden;
+}
+
+.ui-dialog-titlebar-close::after {
+  content: "";
+  display: block;
+  position: absolute;
+  background: url(./assets/small-components/close.svg) center/cover no-repeat;
+  height: 15px;
+  width: 15px;
+  visibility: visible;
+  right: 0;
+  top: 0;
+}
+
+.ui-dialog-titlebar-close::hover {
+  border: none;
+}
+
+.ui-dialog .ui-dialog-buttonpane {
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 12px;
+}
+
+.ui-dialog .ui-dialog-buttonpane button {
+  background: transparent;
+  color: white;
+  line-height: inherit;
+  border-radius: 1px;
+  font: inherit;
+}
+
+.ui-dialog .ui-dialog-buttonpane button:hover {
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.render-btn {
+  height: 35px;
+  border-radius: 1px;
+}
+.navbar {
+  transition: background .5s ease-out; 
+}
+
+
+.navbar .nav.pull-right {
+  float: right;
+  margin-right: 10px;
+  min-width: 85px;
+}
+
+@media(max-width: 992px) {
+  .navbar .nav.pull-right {
+    display: none;
+  }
+}
+
+@media(max-width:992px) {
+  .nav-dropdown {
+    text-align: center;
+    padding-top: 20px;
+  }
+}
+
+/*! download dialog styling end here */
+
+/** combinationalAnalysis dialog styling starts here */
+
+.ui-dialog[aria-describedby="combinationalAnalysis"] {
+  width: 460px;
+  min-height: 210px;
+  border: none;
+}
+
+#combinationalAnalysis {
+  margin-top: 10px;
+}
+
+#combinationalAnalysis p input {
+  border: 1px solid white;
+  background: transparent;
+font: inherit;
+  text-align: center;
+}
+
+.ui-dialog input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: white;
+  opacity: .7; /* Firefox */
+}
+
+#combinationalAnalysis table {
+  width: 460px;
+}
+
+#booleanTable {
+  width: 200px;
+}
+
+.content-table {
+  border-collapse: collapse;
+  font-size: 0.9em;
+  min-width: 400px;
+}
+
+.content-table tr th {
+  font-weight: bold;
+}
+
+.content-table th,
+.content-table td {
+  padding: 5px 15px;
+  margin: 0 3px;
+  width: 20%;
+  border-radius: 2px;
+}
+
+.content-table tbody tr {
+  text-align: center;
+  display: flex;
+  margin-bottom: 4px;
+}
+
+.content-table tbody {
+  display: table-row-group;
+  overflow: auto !important;
+}
+
+.output {
+  cursor: pointer;
+}
+
+/*! combinationalAnalysis dialog styling end here */
+
+/** openProjectDialog styling starts here */
+
+#openProjectDialog {
+  display: grid;
+  /* grid-template-columns: 1fr 1fr 1fr; */
+  /* grid-gap: 0 10px; */
+  align-items: center;
+}
+
+#openProjectDialog > label {
+  margin: 4px;
+  padding: 10px;
+  background: transparent;
+  border-radius: 1px;
+  width: 100%;
+}
+
+
+/*! openProjectDialog styling ends here */
+
+#insertSubcircuitDialog {
+  display: block;
+  padding-bottom: 0;
+  overflow: visible;
+}
+
+#insertSubcircuitDialog > p {
+  margin-bottom: 0;
+}
+
+#insertSubcircuitDialog > label {
+  height: 30px;
+  border-radius: 3px;
+  margin: 0 5px;
+  margin-bottom: 4px;
+  justify-content: center;
+  padding-left: 10px;
+}
+
+#miniMap {
+  position: fixed;
+  z-index: 3;
+  bottom: 20px;
+  right: 40px;
+  overflow-y: scroll;
+  opacity: 0.5;
+  overflow: hidden;
+  border: none;
+}
+
+.disable::after {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  cursor: not-allowed;
+  left: 0;
+}
+
+#bitconverterprompt {
+  text-align: center;
+  font: inherit;
+  border: none;
+  margin-top: 15px;
+  padding: 0;
+}
+
+#bitconverterprompt input {
+  background: transparent;
+  border: none;
+  outline: none;
+  text-align: center;
+  font: inherit;
+}
+
+#bitconverterprompt input:focus {
+  border: none;
+}
+
+
+.ui-dialog .ui-dialog-buttonpane button {
+  margin-left: .4em;
+}
+
+.ui-dialog-titlebar-close:hover {
+  border: none;
+}
+
+.radio-green {
+  background: #42b983;
+}
+
+.search-input {
+  margin: 0 10px;
+  padding: 3px 10px;
+  width: 90%;
+  border-radius: 13px;
+  margin-bottom: 10px;
+  background: transparent !important;
+}
+
+.search-input:focus {
+  outline: none !important;
+}
+
+.search-close {
+  position: absolute;
+  right: 19px;
+  top: 6px;
+  cursor: pointer;
+  display: none;
+}
+
+.search-results {
+  display: none;
+  padding: 15px;
+  transition: all .5s ease;
+  max-height: 340px;
+  overflow-y: scroll;
+  padding-right: 0;
+
+}
+
+.search-results div{
+  border-radius: 3px;
+}
+
+.zoom-slider::before {
+  content: '-';
+  color: white;
+  font-size: 30px;
+  position: relative;
+  left: 0px;
+  top: -4.0px;
+}
+
+.zoom-slider::after {
+  content: '+';
+  color: white;
+  font-size: 20px;
+  position: relative;
+  right: 0px;
+  top: -6px;
+}
+
+.custom-range {
+  width: 80px;
+}
+.custom-range::-moz-range-track {
+  height: 1px;
+}
+
+.custom-range::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+  background-color: white;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+
+}
+.custom-range:focus::-moz-range-thumb {
+  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(75, 86, 99, 0.25);
+}
+
+input[type='range']::-webkit-slider-runnable-track {
+  height: 1px;
+}
+
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 10px;
+  height: 10px;
+  background-color: white;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.draggable-panel-css .minimize {
+  position: absolute;
+  right: 15px;
+  cursor: pointer;
+}
+
+.panel-button-icon {
+  cursor: pointer;
+}
+
+.panel-button {
+  cursor: pointer;
+  padding: 2px;
+}
+
+.draggable-panel-css .maximize {
+  position: absolute;
+  right: 15px;
+  cursor: pointer;
+}
+
+.maximize {
+  display: none;
+}
+
+.ce-hidden,.prop-hidden {
+  font-weight: bold;
+  padding: 10px;
+  font-size: 16px;
+  text-transform: uppercase;
+  border-radius: 5px;
+}
+
+.largeButton.btn {
+  width: 100%;
+  margin-bottom: 5px;
+  margin-left: 0 !important;
+}
+
+.objectPropertyAttributeChecked {
+  margin-left: 0 !important;
+}
+
+#exitViewBtn {
+    position: fixed;
+    z-index: 1000000000;
+    right: 2%;
+    top: 3%;
+    box-shadow: 0px 0px 10Xpx #4545457f;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+.panel-drag {
+  cursor: move;
+  opacity: .6;
+  /* display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+  padding: 6px 0;
+  width: 1px; */
+}
+
+.ce-hidden, .prop-hidden {
+  cursor: move;
+}
+
+#canvasArea, #backgroundArea, #simulationArea, canvas {
+  /* cursor: wait !important; */
+}
+
+/** Color them dialog styles starts here*/
+
+.ui-dialog[aria-describedby="colorThemesDialog"] {
+  min-width: 760px;
+  user-select: none;
+}
+
+.colorThemesDialog {
+  height: 390px !important;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  overflow-y: auto;
+  margin-top: 10px;
+  border: 1px solid white !important;
+}
+
+.colorThemesDialog input {
+  margin: 15px;
+}
+
+.colorThemesDialog label {
+  margin-bottom: 0;
+}
+
+.theme {
+  color: white;
+  width: 202.5px;
+  line-height: 30px;
+  user-select: none;
+  margin: 15px 0;
+  border-radius: 1.5px;
+  transition: all .1s ease-out;
+  position: relative;
+  overflow-x: hidden;
+  height: 154px;
+  margin: auto;
+}
+
+.themeNameBox {
+  display: block;
+  width: 100%;
+  cursor: pointer;
+}
+
+.themeSel {
+  background: transparent;
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+/*! Color them dialog styles ends here*/
+
+
+
+
+.code-window .CodeMirror {
+  height: calc(100% - 78px);
+  overflow: scroll;
+}
+
+.code-window-embed .CodeMirror {
+  height: 100%;
+  overflow: scroll;
+}
+
+.code-window-embed {
+  position: absolute;
+  top: 28px;
+  height: 100%;
+  width: 100%;
+  overflow: scroll;
+  z-index: 3;
+  display: none;
+}
+
+.code-window {
+  display: none;
+}
+
+#verilogOutput {
+  font-size: 12px;
+}
+
+.embed-fullscreen-btn {
+  border-radius: 3px;
+  width: auto;
+}
+
+#plot {
+  width:800px;
+}
+
+.timing-diagram-toolbar {
+  padding-left: 4px;
+  padding: 2px;
+  cursor: default;
+}
+
+.timing-diagram-toolbar input {
+  width: 80px;
+  background: transparent !important;
+}
+
+#timing-diagram-log {
+  font-size: 12.5px;
+  padding: 3px;
+  margin-left: 5px;
+  /* margin-bottom: 5px; */
+  border-radius: 3px;
+}

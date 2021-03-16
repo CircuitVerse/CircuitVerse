@@ -2,14 +2,16 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import 'bootstrap/scss/bootstrap';
-@import 'font-awesome-sprockets';
-@import 'font-awesome';
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
 
 .subcircuitdialog {
   display: none;
   overflow-x: hidden;
   overflow-y: auto;
 }
+
 
 .side {
   width: 330px;
@@ -19,7 +21,7 @@
   overflow-y: scroll;
 }
 
-.report-sidebar a {
+.report-sidebar a {   
   color: $white;
   font-size: 13px;
   padding: 10px;
@@ -40,6 +42,7 @@
 .report-sidebar a:hover {
   right: 0;
 }
+
 
 @media only screen and (max-width: 991px) {
   .quick-btn {
