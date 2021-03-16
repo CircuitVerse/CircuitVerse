@@ -17,7 +17,7 @@ RSpec.describe Api::V1::ProjectsController, "#show", type: :request do
       end
 
       it "returns project details with is_starred as nil" do
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
         expect(response).to match_response_schema("project")
         expect(response.parsed_body["data"]["attributes"]["is_starred"]).to be_nil
       end
@@ -29,7 +29,7 @@ RSpec.describe Api::V1::ProjectsController, "#show", type: :request do
       end
 
       it "returns project details including author details" do
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
         expect(response).to match_response_schema("project_with_author")
       end
     end
@@ -42,7 +42,7 @@ RSpec.describe Api::V1::ProjectsController, "#show", type: :request do
       end
 
       it "returns project details including collaborators" do
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
         expect(response).to match_response_schema("project_with_collaborators")
       end
     end
@@ -53,7 +53,7 @@ RSpec.describe Api::V1::ProjectsController, "#show", type: :request do
       end
 
       it "returns status unauthorized" do
-        expect(response).to have_http_status(403)
+        expect(response).to have_http_status(:forbidden)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -66,7 +66,7 @@ RSpec.describe Api::V1::ProjectsController, "#show", type: :request do
       end
 
       it "returns project details" do
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
         expect(response).to match_response_schema("project")
       end
     end
@@ -79,7 +79,7 @@ RSpec.describe Api::V1::ProjectsController, "#show", type: :request do
       end
 
       it "returns project details" do
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
         expect(response).to match_response_schema("project")
       end
     end
@@ -92,7 +92,7 @@ RSpec.describe Api::V1::ProjectsController, "#show", type: :request do
       end
 
       it "returns project details" do
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
         expect(response).to match_response_schema("project")
       end
     end
@@ -105,7 +105,7 @@ RSpec.describe Api::V1::ProjectsController, "#show", type: :request do
       end
 
       it "returns status :forbidden" do
-        expect(response).to have_http_status(403)
+        expect(response).to have_http_status(:forbidden)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -119,7 +119,7 @@ RSpec.describe Api::V1::ProjectsController, "#show", type: :request do
       end
 
       it "returns project details with is_starred attr to be true" do
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
         expect(response).to match_response_schema("project")
         expect(response.parsed_body["data"]["attributes"]["is_starred"]).to be true
       end
@@ -133,7 +133,7 @@ RSpec.describe Api::V1::ProjectsController, "#show", type: :request do
       end
 
       it "returns project details with is_starred attr to be false" do
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
         expect(response).to match_response_schema("project")
         expect(response.parsed_body["data"]["attributes"]["is_starred"]).to be false
       end

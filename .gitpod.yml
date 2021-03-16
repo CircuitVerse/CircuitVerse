@@ -8,6 +8,7 @@ tasks:
   - init: >
       rvm autolibs disable &&
       rvm install 2.6.5 &&
+      nvm install 12 &&
       gem install bundler &&
       cp config/database.example.yml config/database.yml &&
       createuser -s postgres &&
@@ -20,8 +21,9 @@ tasks:
       bundle exec rake sunspot:solr:start &&
       bundle exec rails db:seed
     command: >
+      sleep 5 &&
       createuser -s postgres &&
-      (redis-server &) &&
+      redis-server --daemonize yes &&
       bundle install --without production --path vendor/bundle &&
       yarn &&
       bundle exec rails db:create &&
@@ -29,6 +31,7 @@ tasks:
       bundle exec rails db:migrate &&
       bundle exec rake sunspot:solr:start &&
       bundle exec rails db:seed &&
+      (./bin/webpack-dev-server . &) &&
       bundle exec rails server
 github:
     prebuilds:

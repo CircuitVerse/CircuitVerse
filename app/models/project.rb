@@ -70,12 +70,12 @@ class Project < ApplicationRecord
   # returns true if starred, false if unstarred
   def toggle_star(user)
     star = Star.find_by(user_id: user.id, project_id: id)
-    if !star.nil?
-      star.destroy!
-      false
-    else
+    if star.nil?
       @star = Star.create!(user_id: user.id, project_id: id)
       true
+    else
+      star.destroy!
+      false
     end
   end
 
@@ -91,10 +91,8 @@ class Project < ApplicationRecord
   def send_mail
     if forked_project_id.nil?
       UserMailer.new_project_email(author, self).deliver_later if project_submission == false
-    else
-      if project_submission == false
-        UserMailer.forked_project_email(author, forked_project, self).deliver_later
-      end
+    elsif project_submission == false
+      UserMailer.forked_project_email(author, forked_project, self).deliver_later
     end
   end
 
@@ -162,7 +160,7 @@ class Project < ApplicationRecord
     end
 
     def should_generate_new_friendly_id?
-      # FIXME Remove extra query once production data is resolved
+      # FIXME: Remove extra query once production data is resolved
       name_changed? || Project.where(slug: slug).count > 1
     end
 end

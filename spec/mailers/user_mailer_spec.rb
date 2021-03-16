@@ -7,11 +7,11 @@ RSpec.describe UserMailer, type: :mailer do
     @user = FactoryBot.create(:user)
     @project = FactoryBot.create(:project, author: @user)
     @mail = FactoryBot.create(:custom_mail, subject: "Test subject",
-      content: "Test content", sender: FactoryBot.create(:user))
+                                            content: "Test content", sender: FactoryBot.create(:user))
   end
 
   describe "#custom_email" do
-    let(:mail) { UserMailer.custom_email(@user, @mail) }
+    let(:mail) { described_class.custom_email(@user, @mail) }
 
     it "sends custom mail" do
       expect(mail.to).to eq([@user.email])
@@ -20,7 +20,7 @@ RSpec.describe UserMailer, type: :mailer do
   end
 
   describe "#welcome_email" do
-    let(:mail) { UserMailer.welcome_email(@user) }
+    let(:mail) { described_class.welcome_email(@user) }
 
     it "sends welcome mail" do
       expect(mail.to).to eq([@user.email])
@@ -29,7 +29,7 @@ RSpec.describe UserMailer, type: :mailer do
   end
 
   describe "#new_project_email" do
-    let(:mail) { UserMailer.new_project_email(@user, @project) }
+    let(:mail) { described_class.new_project_email(@user, @project) }
 
     it "sends new project mail" do
       expect(mail.to).to eq([@user.email])
@@ -38,7 +38,7 @@ RSpec.describe UserMailer, type: :mailer do
   end
 
   describe "#forked_project_email" do
-    let(:mail) { UserMailer.forked_project_email(@user, @old_project, @forked_project) }
+    let(:mail) { described_class.forked_project_email(@user, @old_project, @forked_project) }
 
     before do
       @old_project = FactoryBot.create(:project, author: FactoryBot.create(:user))
@@ -52,7 +52,7 @@ RSpec.describe UserMailer, type: :mailer do
   end
 
   describe "#featured_circuit_email" do
-    let(:mail) { UserMailer.featured_circuit_email(@user, @project) }
+    let(:mail) { described_class.featured_circuit_email(@user, @project) }
 
     it "sends featured circuit mail" do
       expect(mail.to).to eq([@user.email])

@@ -7,7 +7,7 @@ describe "Sign up", type: :system do
     driven_by(:selenium)
   end
 
-  before(:each) do
+  before do
     visit "/users/sign_up"
   end
 
@@ -16,7 +16,7 @@ describe "Sign up", type: :system do
     fill_in "Email", with: "user1@example.com"
     fill_in "Password", with: "secret"
     click_button "Sign up"
-
+    
     expect(page).to have_text("Name can contain only alphabets and spaces")
   end
 
@@ -29,7 +29,7 @@ describe "Sign up", type: :system do
     expect(page).to have_text("Password is too short (minimum is 6 characters)")
   end
 
-  it "should sign-up when valid credentials" do
+  it "does sign-up when valid credentials" do
     fill_in "Name", with: "user"
     fill_in "Email", with: "user1@example.com"
     fill_in "Password", with: "secret"

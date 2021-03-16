@@ -42,6 +42,7 @@ public/.DS_Store
 
 .DS_Store
 
+out
 dump.rdb
 # db/schema.rb
 

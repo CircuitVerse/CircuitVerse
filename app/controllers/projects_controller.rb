@@ -27,7 +27,7 @@ class ProjectsController < ApplicationController
   def show
     if current_visit && !Ahoy::Event.exists?(visit_id: current_visit.id,
                                              name: "Visited project #{@project.id}")
-      ahoy.track("Visited project " + @project.id.to_s)
+      ahoy.track("Visited project #{@project.id}")
       @project.increase_views(current_user)
     end
     @collaboration = @project.collaborations.new
@@ -45,16 +45,16 @@ class ProjectsController < ApplicationController
 
   def change_stars
     star = Star.find_by(user_id: current_user.id, project_id: @project.id)
-    if !star.nil?
-      star.destroy
-      render js: "1"
-    else
+    if star.nil?
       @star = Star.new
       @star.user_id = current_user.id
       @star.project_id = @project.id
       @star.save
       @star.notify :users
       render js: "2"
+    else
+      star.destroy
+      render js: "1"
     end
   end
 

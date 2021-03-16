@@ -13,7 +13,7 @@ RSpec.describe Api::V1::ProjectsController, "#image_preview", type: :request do
       end
 
       it "returns status :not_found" do
-        expect(response).to have_http_status(404)
+        expect(response).to have_http_status(:not_found)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -24,7 +24,7 @@ RSpec.describe Api::V1::ProjectsController, "#image_preview", type: :request do
       end
 
       it "returns image preview" do
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
         expect(response.parsed_body["project_preview"]).to eq(
           request.base_url + public_project.image_preview.url
         )

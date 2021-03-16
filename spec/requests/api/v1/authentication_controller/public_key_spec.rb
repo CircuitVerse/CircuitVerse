@@ -6,7 +6,7 @@ RSpec.describe Api::V1::AuthenticationController, "#public_key", type: :request 
   describe "GET public key" do
     it "returns the public key" do
       get "/api/v1/public_key.pem"
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(:ok)
     end
   end
 end
