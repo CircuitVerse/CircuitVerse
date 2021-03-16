@@ -20,47 +20,37 @@ Instructions are available in our [wiki](https://github.com/CircuitVerse/Circuit
 
 **Note**: Please follow [these](https://docs.docker.com/docker-for-windows/install-windows-home/) instructions for installing Docker on Windows 10 Home
 
-### Installation for ubuntu linux(also for ubuntu based)
+## Installation for Ubuntu(also for Ubuntu based)
 
+#### Install docker and docker-compose
 
-Install docker and docker-compose
+`sudo apt install docker docker-compose`
 
-sudo apt install docker docker-compose
+### Enable docker service
 
-Enable docker service
+`sudo systemctl enable docker.service`
+`sudo systemctl enable containerd.service`
 
-sudo systemctl enable docker.service
-sudo systemctl enable containerd.service
+### Start docker service
 
-Start docker service
+`sudo systemctl start docker.service`
+`sudo systemctl start containerd.service`
 
-sudo systemctl start docker.service
-sudo systemctl start containerd.service
+### Add docker usergroup
+#### Creating docker user-group
 
-Add docker usergroup
+`sudo groupadd docker`
 
-Creating docker user-group
+#### Add docker group to your User group
 
-sudo groupadd docker
+`sudo usermod -aG docker $USER`
 
-Add docker group to your User group
+#### Logout and Login
+### Check the installation
+#### Run
 
-sudo usermod -aG docker $USER
-
-Logout and Login
-
-Check the installation
-
-Run
-
-docker info
-
-docker run hello-world
-
-Check versions
-
-docker --version
-docker-compose --version
+`docker info`
+`docker run hello-world`
 
 
 #### Usage
