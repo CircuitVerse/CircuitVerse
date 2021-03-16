@@ -114,7 +114,7 @@ GEM
       parser (>= 2.4)
       smart_properties
     bindex (0.8.1)
-    bootsnap (1.4.5)
+    bootsnap (1.7.2)
       msgpack (~> 1.0)
     bootstrap-typeahead-rails (0.10.5.1)
       railties (>= 3.0)
@@ -313,8 +313,7 @@ GEM
     mini_mime (1.0.2)
     mini_portile2 (2.5.0)
     minitest (5.14.4)
-    msgpack (1.3.1)
-    msgpack (1.3.1-x64-mingw32)
+    msgpack (1.4.2)
     multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
