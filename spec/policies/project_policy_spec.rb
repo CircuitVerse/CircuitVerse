@@ -3,15 +3,15 @@
 require "rails_helper"
 
 describe ProjectPolicy do
-  subject { ProjectPolicy.new(user, project) }
+  subject { described_class.new(user, project) }
 
   def permit_all
-    should permit(:user_access)
-    should permit(:edit_access)
-    should permit(:view_access)
-    should permit(:direct_view_access)
-    should permit(:create_fork)
-    should permit(:author_access)
+    expect(subject).to permit(:user_access)
+    expect(subject).to permit(:edit_access)
+    expect(subject).to permit(:view_access)
+    expect(subject).to permit(:direct_view_access)
+    expect(subject).to permit(:create_fork)
+    expect(subject).to permit(:author_access)
   end
 
   before do
@@ -23,24 +23,25 @@ describe ProjectPolicy do
 
     context "for author" do
       let(:user) { @author }
+
       it "permits all" do
         permit_all
       end
 
-      it { should_not permit(:can_feature) }
+      it { is_expected.not_to permit(:can_feature) }
     end
 
     context "for a visitor" do
       let(:user) { FactoryBot.create(:user) }
 
-      it { should permit(:view_access) }
-      it { should permit(:direct_view_access) }
-      it { should permit(:create_fork) }
-      it { should permit(:embed) }
-      it { should_not permit(:author_access) }
-      it { should_not permit(:user_access) }
+      it { is_expected.to permit(:view_access) }
+      it { is_expected.to permit(:direct_view_access) }
+      it { is_expected.to permit(:create_fork) }
+      it { is_expected.to permit(:embed) }
+      it { is_expected.not_to permit(:author_access) }
+      it { is_expected.not_to permit(:user_access) }
 
-      it "should raise error for edit access" do
+      it "raises error for edit access" do
         check_auth_exception(subject, :edit_access)
       end
     end
@@ -48,7 +49,7 @@ describe ProjectPolicy do
     context "for admin" do
       let(:user) { FactoryBot.create(:user, admin: true) }
 
-      it { should permit(:can_feature) }
+      it { is_expected.to permit(:can_feature) }
     end
   end
 
@@ -62,7 +63,7 @@ describe ProjectPolicy do
       @assignment = FactoryBot.create(:assignment, group: group)
     end
 
-    it { should_not permit(:create_fork) }
+    it { is_expected.not_to permit(:create_fork) }
   end
 
   context "project is assignment submission" do
@@ -73,8 +74,9 @@ describe ProjectPolicy do
       project.project_submission = true
     end
 
-    it { should permit(:view_access) }
-    it "should raise error for edit access" do
+    it { is_expected.to permit(:view_access) }
+
+    it "raises error for edit access" do
       check_auth_exception(subject, :edit_access)
     end
   end
@@ -84,6 +86,7 @@ describe ProjectPolicy do
 
     context "for author" do
       let(:user) { @author }
+
       it "permits all" do
         permit_all
       end
@@ -92,13 +95,13 @@ describe ProjectPolicy do
     context "for admin" do
       let(:user) { FactoryBot.create(:user, admin: true) }
 
-      it { should_not permit(:can_feature) }
+      it { is_expected.not_to permit(:can_feature) }
     end
 
     context "for a visitor" do
       let(:user) { FactoryBot.create(:user) }
 
-      it "should raise error" do
+      it "raises error" do
         check_auth_exception(subject, :edit_access)
         check_auth_exception(subject, :view_access)
         check_auth_exception(subject, :direct_view_access)

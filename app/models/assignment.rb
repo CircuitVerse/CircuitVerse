@@ -3,14 +3,14 @@
 class Assignment < ApplicationRecord
   validates :name, length: { minimum: 1 }
   belongs_to :group
-  has_many :projects, class_name: "Project", foreign_key: "assignment_id", dependent: :nullify
+  has_many :projects, class_name: "Project", dependent: :nullify
 
   after_commit :send_new_assignment_mail, on: :create
   after_commit :set_deadline_job
   after_commit :send_update_mail, on: :update
 
   enum grading_scale: { no_scale: 0, letter: 1, percent: 2, custom: 3 }
-  default_scope { order(deadline: :asc)}
+  default_scope { order(deadline: :asc) }
   has_many :grades, dependent: :destroy
 
   def send_new_assignment_mail
@@ -29,7 +29,7 @@ class Assignment < ApplicationRecord
 
   def set_deadline_job
     if status != "closed"
-      if deadline - Time.zone.now > 0
+      if (deadline - Time.zone.now).positive?
         AssignmentDeadlineSubmissionJob.set(wait: ((deadline - Time.zone.now) / 60).minute).perform_later(id)
       else
         AssignmentDeadlineSubmissionJob.perform_later(id)

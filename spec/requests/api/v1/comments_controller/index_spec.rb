@@ -15,7 +15,7 @@ RSpec.describe Api::V1::CommentsController, "#index", type: :request do
       end
 
       it "returns all comments" do
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
         expect(response).to match_response_schema("comments")
         expect(response.parsed_body["data"].length).to eq(3)
       end
@@ -28,7 +28,7 @@ RSpec.describe Api::V1::CommentsController, "#index", type: :request do
       end
 
       it "returns status forbidden" do
-        expect(response).to have_http_status(403)
+        expect(response).to have_http_status(:forbidden)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -42,7 +42,7 @@ RSpec.describe Api::V1::CommentsController, "#index", type: :request do
       end
 
       it "returns all comments" do
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
         expect(response).to match_response_schema("comments")
         expect(response.parsed_body["data"].length).to eq(3)
       end
@@ -57,7 +57,7 @@ RSpec.describe Api::V1::CommentsController, "#index", type: :request do
       end
 
       it "returns status forbidden" do
-        expect(response).to have_http_status(403)
+        expect(response).to have_http_status(:forbidden)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -71,7 +71,7 @@ RSpec.describe Api::V1::CommentsController, "#index", type: :request do
       end
 
       it "returns all comments" do
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
         expect(response).to match_response_schema("comments")
         expect(response.parsed_body["data"].length).to eq(3)
       end

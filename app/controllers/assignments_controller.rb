@@ -23,7 +23,7 @@ class AssignmentsController < ApplicationController
   def start
     authorize @assignment
     @project = current_user.projects.new
-    @project.name = current_user.name + "/" + @assignment.name
+    @project.name = "#{current_user.name}/#{@assignment.name}"
     @project.assignment_id = @assignment.id
     @project.project_access_type = "Private"
     @project.save

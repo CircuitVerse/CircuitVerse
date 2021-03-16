@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module AssignmentsHelper
-
   def deadline_year(assignment)
     assignment.deadline.strftime("%Y")
   end

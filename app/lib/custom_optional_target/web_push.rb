@@ -6,8 +6,7 @@ module CustomOptionalTarget
 
     def notify(notification, _options = {})
       @user = notification.target
-      message = notification.notifier.printable_notifier_name +
-                " " + notification.notifiable.printable_notifiable_name(@user)
+      message = "#{notification.notifier.printable_notifier_name} #{notification.notifiable.printable_notifiable_name(@user)}"
       @user.send_push_notification(message, notification.notifiable
           .notifiable_path(User, notification.key))
     end
