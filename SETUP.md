@@ -20,7 +20,8 @@ Instructions are available in our [wiki](https://github.com/CircuitVerse/Circuit
 
 **Note**: Please follow [these](https://docs.docker.com/docker-for-windows/install-windows-home/) instructions for installing Docker on Windows 10 Home
 
-Installation for ubuntu linux(also for ubuntu based)
+### Installation for ubuntu linux(also for ubuntu based)
+
 
 Install docker and docker-compose
 
