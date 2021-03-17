@@ -8,13 +8,19 @@ ports:
 tasks:
   - name: CircuitVerse
     init: >
+      echo "Installing rvm" &&
       rvm autolibs disable &&
       rvm install 2.6.5 &&
-      gem install bundler
+      echo "Installing ruby bundler" &&
+      gem install bundler &&
+      echo "Installing ruby dependencies" &&
       bundle install --without production --path vendor/bundle &&
+      echo "Installing yarn dependencies" &&
       yarn &&
       cp config/database.example.yml config/database.yml &&
+      echo "Creating postgres user" &&
       createuser -s postgres &&
+      echo "Setting up database" &&
       bundle exec rails db:create &&
       bundle exec rails db:schema:load &&
       bundle exec rails db:migrate &&
