@@ -2,35 +2,29 @@ image:
   file: .gitpod.Dockerfile
 
 ports:
-  - port: 3000
+  - port: 3000 #client
     onOpen: open-preview
+
 tasks:
-  - init: >
+  - name: CircuitVerse
+    init: >
       rvm autolibs disable &&
       rvm install 2.6.5 &&
-      nvm install 12 &&
-      gem install bundler &&
-      cp config/database.example.yml config/database.yml &&
-      createuser -s postgres &&
-      (redis-server &) &&
+      gem install bundler
       bundle install --without production --path vendor/bundle &&
       yarn &&
+      cp config/database.example.yml config/database.yml &&
+      createuser -s postgres &&
       bundle exec rails db:create &&
       bundle exec rails db:schema:load &&
       bundle exec rails db:migrate &&
       bundle exec rails db:seed
     command: >
-      sleep 5 &&
       redis-server --daemonize yes &&
-      bundle install --without production --path vendor/bundle &&
-      yarn &&
-      bundle exec rails db:create &&
-      bundle exec rails db:schema:load &&
-      bundle exec rails db:migrate &&
       bundle exec rake sunspot:solr:start &&
-      bundle exec rails db:seed &&
-      (./bin/webpack-dev-server . &) &&
-      bundle exec rails server
+      bundle exec rails server &&
+      ./bin/webpack-dev-server
+
 github:
     prebuilds:
         pullRequestsFromForks: true
