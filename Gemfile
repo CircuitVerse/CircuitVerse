@@ -92,7 +92,7 @@ gem "activity_notification"
 gem "serviceworker-rails"
 gem "webpush"
 
-gem "webpacker", "~> 5.x"
+gem "webpacker", "~> 6.pre"
 
 gem "bootsnap", require: false
 
