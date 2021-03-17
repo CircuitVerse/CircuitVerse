@@ -4,9 +4,15 @@ image:
 ports:
   - port: 3000 #client
     onOpen: open-preview
+  - port: 5432 #postgres
+    onOpen: ignore
+  - port: 6379 #redis
+    onOpen: ignore
 
 tasks:
   - name: CircuitVerse
+    before: >
+      redis-server --daemonize yes
     init: >
       echo "Installing rvm" &&
       rvm autolibs disable &&
@@ -26,7 +32,6 @@ tasks:
       bundle exec rails db:migrate &&
       bundle exec rails db:seed
     command: >
-      redis-server --daemonize yes &&
       bundle exec rake sunspot:solr:start &&
       bundle exec rails server &&
       ./bin/webpack-dev-server
