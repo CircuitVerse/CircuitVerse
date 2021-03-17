@@ -80,6 +80,22 @@
             </p>
             <div class="projects-details-description"><%= sanitize@project.description %></div>
           <% end %>
+          <p title="<%= @project.created_at.strftime("%B %d, %Y, %l:%M %p UTC %:z") %>">
+            <strong>Date Created : </strong>
+            <% if @project.created_at >= 14.days.ago %>
+              <%= time_ago_in_words(@project.created_at, include_seconds: true) + " ago" %>
+            <% else %>
+             <%= @project.created_at.strftime("%b %d, %Y") %>
+            <% end %>
+          </p>
+          <p title="<%= @project.updated_at.strftime("%B %d, %Y, %l:%M %p UTC %:z") %>">
+            <strong>Date Modified : </strong>
+            <% if @project.updated_at >= 14.days.ago %>
+              <%= time_ago_in_words(@project.updated_at, include_seconds: true) + " ago" %>
+            <% else %>
+              <%= @project.updated_at.strftime("%b %d, %Y") %>
+            <% end %>
+          </p>
           <% if user_signed_in? %>
             <p>
               <hr class="projects-horizontal-rule">
