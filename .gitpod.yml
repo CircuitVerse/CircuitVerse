@@ -2,17 +2,23 @@ image:
   file: .gitpod.Dockerfile
 
 ports:
-  - port: 3000 #client
-    onOpen: open-preview
-  - port: 5432 #postgres
+  - port: 3000 # client
+    onOpen: open-browser
+  - port: 5432 # postgres
     onOpen: ignore
-  - port: 6379 #redis
+  - port: 6379 # redis
+    onOpen: ignore
+  - port: 8982 # sunspot solr
+    onOpen: ignore
+  - port: 7982
     onOpen: ignore
 
 tasks:
   - name: CircuitVerse
     before: >
       redis-server --daemonize yes
+    # init is not executed for prebuilt workspaces and restarts,
+    # so we should put all the heavy initialization here
     init: >
       echo "Installing rvm" &&
       rvm autolibs disable &&
