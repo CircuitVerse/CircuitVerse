@@ -227,6 +227,7 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
             const mySerializedSVG = simulationArea.context.getSerializedSvg(); // true here, if you need to convert named to numbered entities.
             download(`${globalScope.name}.svg`, mySerializedSVG);
         }
+
         //Seperate Code to downlaod in GIF because GIF needs external tools to make it 
         //Library used her is GIFSHOT free and open source.
         /*
