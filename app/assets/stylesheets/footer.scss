@@ -27,27 +27,28 @@
 }
 
 .footer-social {
-   width: 50px;
-  height: 50px;
-  background-color: #fff;
-  text-align: center;
-  font-size: 30px;
-  margin: 3px 10px;
-  display: block;
+  background-color:$white;
+  border: 3px solid $white;
   border-radius: 50%;
-  position: relative;
+  display: block;
+  font-size: 30px;
+  height: 50px;
+  margin: 3px 10px;
   overflow: hidden;
-  border: 3px solid #fff;
+  position: relative;
+  text-align: center;
+  width: 50px;
   z-index: 1;
 }
 
 .footer-social-icon {
+  color: $footer-dark-grey;
   position: relative;
-  color: #262626;
   transition: .5s;
-  z-index: 0.1;
-   &:hover {
-    color: #3ca877;
+  z-index: .1;
+
+  &:hover {
+    color: $primary-green;
     size: 110%;
   }
 }
