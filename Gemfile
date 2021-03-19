@@ -127,7 +127,7 @@ group :test do
   gem "capybara", "~> 3.33"
   gem "json-schema"
   gem "rspec_junit_formatter"
-  gem "rspec-rails", "~> 4.0"
+  gem "rspec-rails", "~> 5.0"
   gem "selenium-webdriver"
   gem "shoulda-matchers"
   gem "webdrivers", "~> 4.0"
