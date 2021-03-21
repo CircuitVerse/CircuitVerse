@@ -2,7 +2,7 @@ image:
   file: .gitpod.Dockerfile
 
 ports:
-  - port: 3000 # client
+  - port: 3000 # client (rails-web)
     onOpen: open-browser
   - port: 5432 # postgres
     onOpen: ignore
@@ -39,8 +39,8 @@ tasks:
       bundle exec rails db:seed
     command: >
       bundle exec rake sunspot:solr:start &&
-      bundle exec rails server &&
-      ./bin/webpack-dev-server
+      (./bin/webpack-dev-server . &) &&
+      bundle exec rails server
 
 github:
     prebuilds:
