@@ -12,6 +12,8 @@ ports:
     onOpen: ignore
   - port: 7982
     onOpen: ignore
+  - port: 3035
+    onOpen: ignore
 
 tasks:
   - name: CircuitVerse
