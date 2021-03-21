@@ -1373,22 +1373,18 @@ font: inherit;
   border-radius: 3px;
 }
 
-.zoom-slider::before {
-  content: '-';
-  color: white;
-  font-size: 30px;
-  position: relative;
-  left: 0px;
-  top: -4.0px;
-}
-
-.zoom-slider::after {
-  content: '+';
+.zoom-slider {
   color: white;
   font-size: 20px;
+}
+
+.zoom-slider-increment {
   position: relative;
-  right: 0px;
-  top: -6px;
+  bottom: .3rem;
+}
+.zoom-slider-decrement {
+  position: relative;
+  bottom: .4rem;
 }
 
 .custom-range {
@@ -1409,6 +1405,10 @@ font: inherit;
 }
 .custom-range:focus::-moz-range-thumb {
   box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(75, 86, 99, 0.25);
+}
+
+input[type=range] {
+  -webkit-appearance: none;
 }
 
 input[type='range']::-webkit-slider-runnable-track {
