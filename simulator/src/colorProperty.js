@@ -16,15 +16,15 @@ export default class ColorProperty {
      * @return {string} updated color value
      */
     changeColor(newColor) {
-        if(validColor(newColor)) {
+        if (validColor(newColor)) {
             this.color = newColor;
-            this.actualColor = colorToRGBA(this.color); 
-        } 
+            this.actualColor = colorToRGBA(this.color);
+        }
         return this.color;
     }
 
     /**
-     * Get rgba value with custom alpha value 
+     * Get rgba value with custom alpha value
      * @param {number} alpha - alpha value of returned color
      * @return {string} rgba value of color
      */
@@ -34,7 +34,7 @@ export default class ColorProperty {
 
     /**
      * Creates a mutable color property object
-     * @param {string} onChange - name of function triggered when property changed 
+     * @param {string} onChange - name of function triggered when property changed  
      * @return {JSON} color object as mutable property
      */
     static createMutableColorProp(onChange) {
@@ -42,9 +42,8 @@ export default class ColorProperty {
             color: {
                 name: "Color: ",
                 type: "text",
-                func: onChange, 
+                func: onChange,
             },
         };
     }
-
 }
