@@ -1,7 +1,8 @@
 import CircuitElement from "../circuitElement";
 import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
-import { correctWidth, lineTo, moveTo, arc, colorToRGBA, rect2, validColor } from "../canvasApi";
+import { correctWidth, lineTo, moveTo, arc, rect2 } from "../canvasApi";
+import ColorProperty from "../colorProperty";
 import { changeInputSize } from "../modules";
 /**
  * @class
@@ -26,9 +27,8 @@ export default class HexDisplay extends CircuitElement {
         this.setDimensions(30, 50);
         this.inp = new Node(0, -50, 0, this, 4);
         this.direction = "RIGHT";
-        this.color = color;
-        const temp = colorToRGBA(this.color);
-        this.actualColor = `rgba(${temp[0]},${temp[1]},${temp[2]},${0.8})`;
+        this.colorProp = new ColorProperty(color);
+        this.color = this.colorProp.color;
     }
 
     /**
@@ -51,11 +51,7 @@ export default class HexDisplay extends CircuitElement {
      * function to change color of the led
      */
     changeColor(value) {
-        if (validColor(value)) {
-            this.color = value;
-            const temp = colorToRGBA(this.color);
-            this.actualColor = `rgba(${temp[0]},${temp[1]},${temp[2]},${0.8})`;
-        }
+        this.color = this.colorProp.changeColor(value);
     }
 
     /**
@@ -148,13 +144,13 @@ export default class HexDisplay extends CircuitElement {
                 break;
             default:
         }
-        this.customDrawSegment(18, -3, 18, -38, ["lightgrey", this.actualColor][b]);
-        this.customDrawSegment(18, 3, 18, 38, ["lightgrey", this.actualColor][c]);
-        this.customDrawSegment(-18, -3, -18, -38, ["lightgrey", this.actualColor][f]);
-        this.customDrawSegment(-18, 3, -18, 38, ["lightgrey", this.actualColor][e]);
-        this.customDrawSegment(-17, -38, 17, -38, ["lightgrey", this.actualColor][a]);
-        this.customDrawSegment(-17, 0, 17, 0, ["lightgrey", this.actualColor][g]);
-        this.customDrawSegment(-15, 38, 17, 38, ["lightgrey", this.actualColor][d]);
+        this.customDrawSegment(18, -3, 18, -38, ["lightgrey", this.colorProp.getRGBA()][b]);
+        this.customDrawSegment(18, 3, 18, 38, ["lightgrey", this.colorProp.getRGBA()][c]);
+        this.customDrawSegment(-18, -3, -18, -38, ["lightgrey", this.colorProp.getRGBA()][f]);
+        this.customDrawSegment(-18, 3, -18, 38, ["lightgrey", this.colorProp.getRGBA()][e]);
+        this.customDrawSegment(-17, -38, 17, -38, ["lightgrey", this.colorProp.getRGBA()][a]);
+        this.customDrawSegment(-17, 0, 17, 0, ["lightgrey", this.colorProp.getRGBA()][g]);
+        this.customDrawSegment(-15, 38, 17, 38, ["lightgrey", this.colorProp.getRGBA()][d]);
     }
 
     subcircuitDrawSegment(x1, y1, x2, y2, color, xxSegment, yySegment) {
@@ -240,13 +236,13 @@ export default class HexDisplay extends CircuitElement {
             default:
 
         }
-        this.subcircuitDrawSegment(10, -20, 10, -38, ["lightgrey", this.actualColor][b],xx, yy);
-        this.subcircuitDrawSegment(10, -17, 10, 1, ["lightgrey", this.actualColor][c],xx, yy);
-        this.subcircuitDrawSegment(-10, -20, -10, -38, ["lightgrey", this.actualColor][f],xx, yy);
-        this.subcircuitDrawSegment(-10, -17, -10, 1, ["lightgrey", this.actualColor][e],xx, yy);
-        this.subcircuitDrawSegment(-8, -38, 8, -38, ["lightgrey", this.actualColor][a],xx, yy);
-        this.subcircuitDrawSegment(-8, -18, 8, -18, ["lightgrey", this.actualColor][g],xx, yy);
-        this.subcircuitDrawSegment(-8, 1, 8, 1, ["lightgrey", this.actualColor][d],xx, yy);
+        this.subcircuitDrawSegment(10, -20, 10, -38, ["lightgrey", this.colorProp.getRGBA()][b],xx, yy);
+        this.subcircuitDrawSegment(10, -17, 10, 1, ["lightgrey", this.colorProp.getRGBA()][c],xx, yy);
+        this.subcircuitDrawSegment(-10, -20, -10, -38, ["lightgrey", this.colorProp.getRGBA()][f],xx, yy);
+        this.subcircuitDrawSegment(-10, -17, -10, 1, ["lightgrey", this.colorProp.getRGBA()][e],xx, yy);
+        this.subcircuitDrawSegment(-8, -38, 8, -38, ["lightgrey", this.colorProp.getRGBA()][a],xx, yy);
+        this.subcircuitDrawSegment(-8, -18, 8, -18, ["lightgrey", this.colorProp.getRGBA()][g],xx, yy);
+        this.subcircuitDrawSegment(-8, 1, 8, 1, ["lightgrey", this.colorProp.getRGBA()][d],xx, yy);
 
         ctx.beginPath();
         ctx.strokeStyle = "black";
@@ -289,13 +285,7 @@ HexDisplay.prototype.helplink =
  * @type {JSON}
  * @category modules
  */
-HexDisplay.prototype.mutableProperties = {
-    color: {
-        name: "Color: ",
-        type: "text",
-        func: "changeColor",
-    },
-};
+HexDisplay.prototype.mutableProperties = ColorProperty.createMutableColorProp("changeColor");
 HexDisplay.prototype.objectType = "HexDisplay";
 HexDisplay.prototype.canShowInSubcircuit = true;
 HexDisplay.prototype.layoutProperties = {

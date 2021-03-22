@@ -1,7 +1,8 @@
 import CircuitElement from "../circuitElement";
 import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
-import { correctWidth, lineTo, moveTo, arc, colorToRGBA, drawCircle2, validColor } from "../canvasApi";
+import { correctWidth, lineTo, moveTo, arc, drawCircle2 } from "../canvasApi";
+import ColorProperty from "../colorProperty";
 import { changeInputSize } from "../modules";
 /**
  * @class
@@ -28,8 +29,8 @@ export default class VariableLed extends CircuitElement {
         this.inp1 = new Node(-40, 0, 0, this, 8);
         this.directionFixed = true;
         this.fixedBitWidth = true;
-        this.color = color;
-        this.actualColor = colorToRGBA(this.color);
+        this.colorProp = new ColorProperty(color);
+        this.color = this.colorProp.color;
     }
 
     /**
@@ -37,10 +38,7 @@ export default class VariableLed extends CircuitElement {
      * function to change color of the led
      */
     changeColor(value) {
-        if (validColor(value)) {
-            this.color = value;
-            this.actualColor = colorToRGBA(this.color);
-        }
+        this.color = this.colorProp.changeColor(value);
     }
 
     /**
@@ -78,7 +76,7 @@ export default class VariableLed extends CircuitElement {
         const alpha = c / 255;
         ctx.strokeStyle = "#090a0a";
         ctx.fillStyle = [
-            `rgba(${this.actualColor[0]},${this.actualColor[1]},${this.actualColor[2]},${alpha})`,
+            this.colorProp.getRGBA(alpha),
             "rgba(227, 228, 229, 0.8)",
         ][(c === undefined || c === 0) + 0];
         ctx.lineWidth = correctWidth(1);
@@ -114,7 +112,7 @@ export default class VariableLed extends CircuitElement {
         var c = this.inp1.value;
         var alpha = c / 255;
         ctx.strokeStyle = "#090a0a";
-        ctx.fillStyle = ["rgba(" + this.actualColor[0] + "," + this.actualColor[1] + "," + this.actualColor[2] + "," + alpha + ")", "rgba(227, 228, 229, 0.8)"][(c === undefined || c == 0) + 0];
+        ctx.fillStyle = [this.colorProp.getRGBA(alpha), "rgba(227, 228, 229, 0.8)"][(c === undefined || c == 0) + 0];
         ctx.lineWidth = correctWidth(1);
 
         ctx.beginPath();
@@ -155,12 +153,6 @@ VariableLed.prototype.helplink =
  * @type {JSON}
  * @category modules
  */
-VariableLed.prototype.mutableProperties = {
-    color: {
-        name: "Color: ",
-        type: "text",
-        func: "changeColor",
-    },
-};
+VariableLed.prototype.mutableProperties = ColorProperty.createMutableColorProp("changeColor");
 VariableLed.prototype.objectType = "VariableLed";
 VariableLed.prototype.canShowInSubcircuit = true;

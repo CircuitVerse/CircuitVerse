@@ -1,6 +1,7 @@
 //AndGate - (x,y)-position , scope - circuit level, inputLength - no of nodes, dir - direction of gate
 
 import { colorToRGBA } from "../src/canvasApi";
+import ColorProperty from "../../simulator/src/colorProperty";
 
 function changeInputSize(size) {
     if (size == undefined || size < 2 || size > 10) return;
@@ -596,9 +597,8 @@ function SevenSegDisplay(x, y, scope = globalScope, color = "Red") {
     this.c = new Node(+10, +50, 0, this);
     this.dot = new Node(+20, +50, 0, this);
     this.direction = "RIGHT";
-    this.color = color;
-    const temp = colorToRGBA(this.color);
-    this.actualColor = `rgba(${temp[0]},${temp[1]},${temp[2]},${0.8})`;
+    this.colorProp = new ColorProperty(color);
+    this.color = this.colorProp.color;
 }
 SevenSegDisplay.prototype = Object.create(CircuitElement.prototype);
 SevenSegDisplay.prototype.constructor = SevenSegDisplay;
@@ -621,20 +621,9 @@ SevenSegDisplay.prototype.customSave = function () {
     }
     return data;
 }
-SevenSegDisplay.prototype.mutableProperties = {
-    "color": {
-        name: "Color: ",
-        type: "text",
-        func: "changeColor",
-    },
-}
+SevenSegDisplay.prototype.mutableProperties = ColorProperty.createMutableColorProp("changeColor");
 SevenSegDisplay.prototype.changeColor = function (value) {
-    if (validColor(value)) {
-        this.color = value;
-        var temp = colorToRGBA(this.color)
-        this.actualColor = "rgba(" + temp[0] + "," + temp[1] + "," + temp[2] + "," + 0.8 + ")";
-    }
-
+    this.color = this.colorProp.changeColor(value);
 }
 SevenSegDisplay.prototype.customDrawSegment = function (x1, y1, x2, y2, color) {
     if (color == undefined) color = "lightgrey";
@@ -656,16 +645,16 @@ SevenSegDisplay.prototype.customDraw = function () {
     var xx = this.x;
     var yy = this.y;
 
-    this.customDrawSegment(18, -3, 18, -38, ["lightgrey", this.actualColor][this.b.value]);
-    this.customDrawSegment(18, 3, 18, 38, ["lightgrey", this.actualColor][this.c.value]);
-    this.customDrawSegment(-18, -3, -18, -38, ["lightgrey", this.actualColor][this.f.value]);
-    this.customDrawSegment(-18, 3, -18, 38, ["lightgrey", this.actualColor][this.e.value]);
-    this.customDrawSegment(-17, -38, 17, -38, ["lightgrey", this.actualColor][this.a.value]);
-    this.customDrawSegment(-17, 0, 17, 0, ["lightgrey", this.actualColor][this.g.value]);
-    this.customDrawSegment(-15, 38, 17, 38, ["lightgrey", this.actualColor][this.d.value]);
+    this.customDrawSegment(18, -3, 18, -38, ["lightgrey", this.colorProp.getRGBA()][this.b.value]);
+    this.customDrawSegment(18, 3, 18, 38, ["lightgrey", this.colorProp.getRGBA()][this.c.value]);
+    this.customDrawSegment(-18, -3, -18, -38, ["lightgrey", this.colorProp.getRGBA()][this.f.value]);
+    this.customDrawSegment(-18, 3, -18, 38, ["lightgrey", this.colorProp.getRGBA()][this.e.value]);
+    this.customDrawSegment(-17, -38, 17, -38, ["lightgrey", this.colorProp.getRGBA()][this.a.value]);
+    this.customDrawSegment(-17, 0, 17, 0, ["lightgrey", this.colorProp.getRGBA()][this.g.value]);
+    this.customDrawSegment(-15, 38, 17, 38, ["lightgrey", this.colorProp.getRGBA()][this.d.value]);
 
     ctx.beginPath();
-    var dotColor = ["lightgrey", this.actualColor][this.dot.value] || "lightgrey"
+    var dotColor = ["lightgrey", this.colorProp.getRGBA()][this.dot.value] || "lightgrey"
     ctx.strokeStyle = dotColor;
     rect(ctx, xx + 22, yy + 42, 2, 2);
     ctx.stroke();
@@ -776,9 +765,8 @@ function HexDisplay(x, y, scope = globalScope, color = "Red") {
 
     this.inp = new Node(0, -50, 0, this, 4);
     this.direction = "RIGHT";
-    this.color = color;
-    const temp = colorToRGBA(this.color);
-    this.actualColor = `rgba(${temp[0]},${temp[1]},${temp[2]},${0.8})`;
+    this.colorProp = new ColorProperty(color);
+    this.color = this.colorProp.color;
 }
 
 HexDisplay.prototype = Object.create(CircuitElement.prototype);
@@ -806,20 +794,9 @@ HexDisplay.prototype.customSave = function () {
     }
     return data;
 }
-HexDisplay.prototype.mutableProperties = {
-    "color": {
-        name: "Color: ",
-        type: "text",
-        func: "changeColor",
-    },
-}
+HexDisplay.prototype.mutableProperties = ColorProperty.createMutableColorProp("changeColor");
 HexDisplay.prototype.changeColor = function (value) {
-    if (validColor(value)) {
-        this.color = value;
-        var temp = colorToRGBA(this.color)
-        this.actualColor = "rgba(" + temp[0] + "," + temp[1] + "," + temp[2] + "," + 0.8 + ")";
-    }
-
+    this.color = this.colorProp.changeColor(value);
 }
 HexDisplay.prototype.customDrawSegment = function (x1, y1, x2, y2, color) {
     if (color == undefined) color = "lightgrey";
@@ -896,13 +873,13 @@ HexDisplay.prototype.customDraw = function () {
         default:
 
     }
-    this.customDrawSegment(18, -3, 18, -38, ["lightgrey", this.actualColor][b]);
-    this.customDrawSegment(18, 3, 18, 38, ["lightgrey", this.actualColor][c]);
-    this.customDrawSegment(-18, -3, -18, -38, ["lightgrey", this.actualColor][f]);
-    this.customDrawSegment(-18, 3, -18, 38, ["lightgrey", this.actualColor][e]);
-    this.customDrawSegment(-17, -38, 17, -38, ["lightgrey", this.actualColor][a]);
-    this.customDrawSegment(-17, 0, 17, 0, ["lightgrey", this.actualColor][g]);
-    this.customDrawSegment(-15, 38, 17, 38, ["lightgrey", this.actualColor][d]);
+    this.customDrawSegment(18, -3, 18, -38, ["lightgrey", this.colorProp.getRGBA()][b]);
+    this.customDrawSegment(18, 3, 18, 38, ["lightgrey", this.colorProp.getRGBA()][c]);
+    this.customDrawSegment(-18, -3, -18, -38, ["lightgrey", this.colorProp.getRGBA()][f]);
+    this.customDrawSegment(-18, 3, -18, 38, ["lightgrey", this.colorProp.getRGBA()][e]);
+    this.customDrawSegment(-17, -38, 17, -38, ["lightgrey", this.colorProp.getRGBA()][a]);
+    this.customDrawSegment(-17, 0, 17, 0, ["lightgrey", this.colorProp.getRGBA()][g]);
+    this.customDrawSegment(-15, 38, 17, 38, ["lightgrey", this.colorProp.getRGBA()][d]);
 
 }
 
@@ -2673,9 +2650,8 @@ function DigitalLed(x, y, scope = globalScope, color = "Red") {
     this.inp1 = new Node(-40, 0, 0, this, 1);
     this.directionFixed = true;
     this.fixedBitWidth = true;
-    this.color = color;
-    var temp = colorToRGBA(this.color)
-    this.actualColor = "rgba(" + temp[0] + "," + temp[1] + "," + temp[2] + "," + 0.8 + ")";
+    this.colorProp = new ColorProperty(color);
+    this.color = this.colorProp.color;
 }
 
 DigitalLed.prototype = Object.create(CircuitElement.prototype);
@@ -2709,20 +2685,9 @@ DigitalLed.prototype.customSave = function () {
     }
     return data;
 }
-DigitalLed.prototype.mutableProperties = {
-    "color": {
-        name: "Color: ",
-        type: "text",
-        func: "changeColor",
-    },
-}
+DigitalLed.prototype.mutableProperties = ColorProperty.createMutableColorProp("changeColor");
 DigitalLed.prototype.changeColor = function (value) {
-    if (validColor(value)) {
-        this.color = value;
-        var temp = colorToRGBA(this.color)
-        this.actualColor = "rgba(" + temp[0] + "," + temp[1] + "," + temp[2] + "," + 0.8 + ")";
-    }
-
+    this.color = this.colorProp.changeColor(value);
 }
 DigitalLed.prototype.customDraw = function () {
 
@@ -2739,7 +2704,7 @@ DigitalLed.prototype.customDraw = function () {
     ctx.stroke();
 
     ctx.strokeStyle = "#d3d4d5";
-    ctx.fillStyle = ["rgba(227,228,229,0.8)", this.actualColor][this.inp1.value || 0];
+    ctx.fillStyle = ["rgba(227,228,229,0.8)", this.colorProp.getRGBA()][this.inp1.value || 0];
     ctx.lineWidth = correctWidth(1);
 
     ctx.beginPath();
@@ -2788,8 +2753,8 @@ function VariableLed(x, y, scope = globalScope, color = "Red") {
     this.inp1 = new Node(-40, 0, 0, this, 8);
     this.directionFixed = true;
     this.fixedBitWidth = true;
-    this.color = color;
-    this.actualColor = colorToRGBA(this.color);
+    this.colorProp = new ColorProperty(color);
+    this.color = this.colorProp.color;
 }
 VariableLed.prototype = Object.create(CircuitElement.prototype);
 VariableLed.prototype.constructor = VariableLed;
@@ -2804,18 +2769,9 @@ VariableLed.prototype.customSave = function () {
     }
     return data;
 }
-VariableLed.prototype.mutableProperties = {
-    color: {
-        name: "Color: ",
-        type: "text",
-        func: "changeColor",
-    },
-}
+VariableLed.prototype.mutableProperties = ColorProperty.createMutableColorProp("changeColor");
 VariableLed.prototype.changeColor = function (value) {
-    if (validColor(value)) {
-        this.color = value;
-        this.actualColor = colorToRGBA(this.color);
-    }
+    this.color = this.colorProp.changeColor(value);
 }
 VariableLed.prototype.customDraw = function () {
 
@@ -2833,7 +2789,7 @@ VariableLed.prototype.customDraw = function () {
     var c = this.inp1.value;
     var alpha = c / 255;
     ctx.strokeStyle = "#090a0a";
-    ctx.fillStyle = ["rgba(" + this.actualColor[0] + "," + this.actualColor[1] + "," + this.actualColor[2] + "," + alpha + ")", "rgba(227, 228, 229, 0.8)"][(c === undefined || c == 0) + 0];
+    ctx.fillStyle = [this.colorProp.getRGBA(alpha), "rgba(227, 228, 229, 0.8)"][(c === undefined || c == 0) + 0];
     ctx.lineWidth = correctWidth(1);
 
     ctx.beginPath();
