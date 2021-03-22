@@ -34,7 +34,7 @@ export default class ColorProperty {
 
     /**
      * Creates a mutable color property object
-     * @param {string} onChange - name of function triggered when property changed  
+     * @param {string} onChange - name of function triggered when property changed
      * @return {JSON} color object as mutable property
      */
     static createMutableColorProp(onChange) {
