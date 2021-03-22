@@ -61,7 +61,7 @@
             <% end %>
           </div>
           <p>
-            <strong>Author : </strong>
+            <strong>Author: </strong>
             <%= link_to @project.author.name, @project.author, class: "anchor-text" %>
           </p>
           <% if !@project.forked_project.nil? %>
@@ -71,17 +71,17 @@
             </p>
           <% end %>
           <p>
-            <strong>Project access type : </strong>
+            <strong>Project access type: </strong>
             <%= @project.project_access_type %>
           </p>
           <% if !@project.description.nil? %>
             <p>
-              <strong>Description : </strong>
+              <strong>Description: </strong>
             </p>
             <div class="projects-details-description"><%= sanitize@project.description %></div>
           <% end %>
           <p title="<%= @project.created_at.strftime("%B %d, %Y, %l:%M %p UTC %:z") %>">
-            <strong>Date Created : </strong>
+            <strong>Created: </strong>
             <% if @project.created_at >= 14.days.ago %>
               <%= time_ago_in_words(@project.created_at, include_seconds: true) + " ago" %>
             <% else %>
@@ -89,7 +89,7 @@
             <% end %>
           </p>
           <p title="<%= @project.updated_at.strftime("%B %d, %Y, %l:%M %p UTC %:z") %>">
-            <strong>Date Modified : </strong>
+            <strong>Updated: </strong>
             <% if @project.updated_at >= 14.days.ago %>
               <%= time_ago_in_words(@project.updated_at, include_seconds: true) + " ago" %>
             <% else %>
