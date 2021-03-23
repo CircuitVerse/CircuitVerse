@@ -1,0 +1,14 @@
+en:
+  teachers:
+    title: "CircuitVerse - Teachers"
+    main_heading: "TEACHERS"
+    main_description: "CircuitVerse has been designed to be very easy to use in class. The platform has features to assist teachers in class and assignments."
+    benefits: "Benefits"
+    create_group_heading: "Create Groups and add your students"
+    post_assignment_heading: "Post Assignments"
+    grade_assignment_heading: "Grading assignments"
+    use_interactive_circuit_heading: "Use Interactive Circuits in your Blogs, Study Materials, or PowerPoint presentations"
+    create_group_description: "You can create groups and add your students to them! If students are already registered with CircuitVerse they will be added automatically. If they are not registered with CircuitVerse yet, an invitation will be sent to register. Once they register, they will be added automatically."
+    post_assignment_description: "To create an assignment, simply click the add new assignment button. Give the details of the assignment and the deadline. The assignment will automatically close at the deadline. Students cannot continue their assignment unless the teacher reopens the assignment again."
+    grade_assignment_description: "Grade assignments very easily with the in build preview. Simply select the student, to his/her assignment work."
+    use_interactive_circuit_description: "Make sure the project is public. Click on embed, to get the embed HTML5 code, then simply embed the circuit. You may need to use a PowerPoint plugin like Live Slides to embed the live Circuit."
