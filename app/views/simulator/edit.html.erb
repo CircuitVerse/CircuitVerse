@@ -19,7 +19,7 @@
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="navbar-nav navbar-menu noSelect pointerCursor" id="toolbar">
       <li class="dropdown nav-dropdown">
-        <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Project<span></span></a>
+        <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.project") %><span></span></a>
         <ul class="dropdown-menu">
           <% if not @project.nil? %>
              <li><a class="dropdown-item logixButton text-left pl-1" href="<%= user_project_url(@project.author, @project) %>" target="_blank">Project Page</a></li>
@@ -35,7 +35,7 @@
         </ul>
       </li>
       <li class="dropdown nav-dropdown">
-        <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Circuit<span class="caret"></span></a>
+        <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.circuit") %><span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item text-left logixButton pl-1" id="newCircuit">New Circuit + </a></li>
           <li><a class="dropdown-item text-left logixButton pl-1" id="newVerilogModule">New Verilog <br> Module</a></li>
@@ -43,7 +43,7 @@
         </ul>
       </li>
       <li class="dropdown nav-dropdown">
-        <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tools<span class="caret"></span></a>
+        <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.tools") %><span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item text-left pl-1 logixButton" id="createCombinationalAnalysisPrompt">Combinational<br>Analysis</a></li>
           <li><a class="dropdown-item text-left pl-1 logixButton" id="bitconverter">Hex-Bin-Dec<br>Converter</a></li>
@@ -54,7 +54,7 @@
         </ul>
       </li>
       <li class="dropdown tour-help nav-dropdown">
-        <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Help<span class="caret"></span></a>
+        <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.help") %><span class="caret"></span></a>
         <ul class="dropdown-menu">
             <li><a class="dropdown-item text-left pl-1 logixButton" id="showTourGuide">Tutorial Guide</a></li>
             <li><a class="dropdown-item text-left pl-1" href="https://docs.circuitverse.org" class="" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">User Manual</a></li>
