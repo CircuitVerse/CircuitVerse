@@ -53,7 +53,7 @@ describe AssignmentPolicy do
       FactoryBot.create(:group_member, group: @group, user: @mentor, mentor: true)
     end
 
-    it { is_expected.not_to permit(:admin_access)}
+    it { is_expected.not_to permit(:admin_access) }
     it { is_expected.to permit(:mentor_access) }
 
     context "assignment is graded and past deadline" do
@@ -93,7 +93,7 @@ describe AssignmentPolicy do
       FactoryBot.create(:group_member, group: @group, user: @member)
     end
 
-    it { is_expected.not_to permit(:admin_access)}
+    it { is_expected.not_to permit(:admin_access) }
     it { is_expected.not_to permit(:mentor_access) }
 
     context "assignment is graded and past deadline" do

@@ -18,7 +18,7 @@ class AssignmentPolicy < ApplicationPolicy
   end
 
   def mentor_access?
-    assignment.group&.group_members.exists?(user_id: user.id, mentor: true) || admin_access?
+    assignment.group&.group_members&.exists?(user_id: user.id, mentor: true) || admin_access?
   end
 
   def start?

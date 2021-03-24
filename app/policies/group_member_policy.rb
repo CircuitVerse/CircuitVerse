@@ -9,7 +9,7 @@ class GroupMemberPolicy < ApplicationPolicy
   end
 
   def primary_mentor?
-  	(group_member.group.primary_mentor_id == user.id || user.admin?)
+    (group_member.group.primary_mentor_id == user.id || user.admin?)
   end
 
   def mentor?

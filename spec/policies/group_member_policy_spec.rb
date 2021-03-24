@@ -28,7 +28,7 @@ describe GroupMemberPolicy do
 
     let(:user) { @mentor }
 
-    it { is_expected.to permit(:mentor)}
+    it { is_expected.to permit(:mentor) }
     it { is_expected.not_to permit(:primary_mentor) }
   end
 

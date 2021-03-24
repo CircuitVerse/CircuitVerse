@@ -39,9 +39,10 @@ class Api::V1::GroupMembersController < Api::V1::BaseController
   # PATCH/PUT /api/v1/group/members/:id
   # Only used to set / revoke mentorship
   def update
-    if !params[:mentor]
+    unless params[:mentor]
       return render json: {}, status: :no_content
     end
+
     @group_member.mentor = params[:mentor].to_i == 1
     @group_member.save
     render json: {}, status: :no_content

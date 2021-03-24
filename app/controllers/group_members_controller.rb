@@ -34,7 +34,7 @@ class GroupMembersController < ApplicationController
 
     @group = Group.find(group_member_params[:group_id])
     is_mentor = false
-    if group_member_params[:mentor] then
+    if group_member_params[:mentor]
       is_mentor = group_member_params[:mentor].to_i == 1
     end
     group_member_emails = Utils.parse_mails(group_member_params[:emails])
@@ -82,7 +82,7 @@ class GroupMembersController < ApplicationController
   # PATCH/PUT /group_members/1.json
   # Only used to add or remove mentorship
   def update
-    mentr = group_member_params['mentor']
+    mentr = group_member_params["mentor"]
     if mentr
       @group_member.mentor = mentr.to_i == 1
       @group_member.save
@@ -93,7 +93,7 @@ class GroupMembersController < ApplicationController
         redirect_to group_path(@group_member.group),
                     notice: "Group member was successfully promoted/demoted."
       end
-        format.json { head :no_content }
+      format.json { head :no_content }
     end
   end
 

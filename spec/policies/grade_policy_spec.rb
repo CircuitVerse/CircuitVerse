@@ -35,7 +35,6 @@ describe GradePolicy do
     it { is_expected.to permit(:mentor) }
   end
 
-
   # context "user is mentor but grades have been finalized" do
   #   let(:user) { @mentor }
 
