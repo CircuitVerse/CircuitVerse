@@ -32,7 +32,7 @@ class GroupsController < ApplicationController
         notice = "Group member was successfully added."
       end
     elsif Group.exists?(group_token: params[:token])
-      notice = "Url is expired, request a new one from owner of the group."
+      notice = "Url is expired, request a new one from primary_mentor of the group."
     else
       notice = "Invalid url"
     end
@@ -96,7 +96,7 @@ class GroupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def group_params
-      params.require(:group).permit(:name, :owner_id)
+      params.require(:group).permit(:name, :primary_mentor_id)
     end
 
     def check_show_access

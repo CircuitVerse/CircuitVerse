@@ -4,8 +4,8 @@ require "rails_helper"
 
 RSpec.describe Api::V1::AssignmentsController, "#show", type: :request do
   describe "list specific assignment" do
-    let!(:owner) { FactoryBot.create(:user) }
-    let!(:group) { FactoryBot.create(:group, owner: owner) }
+    let!(:primary_mentor) { FactoryBot.create(:user) }
+    let!(:group) { FactoryBot.create(:group, primary_mentor: primary_mentor) }
     let!(:group_member) do
       FactoryBot.create(:group_member, group: group, user: FactoryBot.create(:user))
     end
@@ -68,7 +68,7 @@ RSpec.describe Api::V1::AssignmentsController, "#show", type: :request do
         # creates a project for the assignment..
         FactoryBot.create(:project, assignment: assignment)
 
-        token = get_auth_token(owner)
+        token = get_auth_token(primary_mentor)
         get "/api/v1/assignments/#{assignment.id}?include=projects",
             headers: { "Authorization": "Token #{token}" }, as: :json
       end
@@ -85,9 +85,9 @@ RSpec.describe Api::V1::AssignmentsController, "#show", type: :request do
         # creates a project and corresponding grade for the assignment..
         project = FactoryBot.create(:project, assignment: assignment)
         FactoryBot.create(
-          :grade, user_id: owner.id, assignment: assignment, project: project, grade: "A"
+          :grade, user_id: primary_mentor.id, assignment: assignment, project: project, grade: "A"
         )
-        token = get_auth_token(owner)
+        token = get_auth_token(primary_mentor)
         get "/api/v1/assignments/#{assignment.id}?include=grades",
             headers: { "Authorization": "Token #{token}" }, as: :json
       end

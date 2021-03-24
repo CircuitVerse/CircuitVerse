@@ -30,10 +30,13 @@ class GroupMembersController < ApplicationController
   def create
     dummy = GroupMember.new
     dummy.group_id = group_member_params[:group_id]
-    authorize dummy, :owner?
+    authorize dummy, :primary_mentor?
 
     @group = Group.find(group_member_params[:group_id])
-
+    is_mentor = false
+    if group_member_params[:mentor] then
+      is_mentor = group_member_params[:mentor].to_i == 1
+    end
     group_member_emails = Utils.parse_mails(group_member_params[:emails])
 
     present_members = User.where(id: @group.group_members.pluck(:user_id)).pluck(:email)
@@ -46,7 +49,7 @@ class GroupMembersController < ApplicationController
         PendingInvitation.where(group_id: @group.id, email: email).first_or_create
         # @group.pending_invitations.create(email:email)
       else
-        GroupMember.where(group_id: @group.id, user_id: user.id).first_or_create
+        GroupMember.where(group_id: @group.id, user_id: user.id, mentor: is_mentor).first_or_create
 
         # group_member = @group.group_members.new
         # group_member.user_id = user.id
@@ -120,6 +123,6 @@ class GroupMembersController < ApplicationController
     end
 
     def check_access
-      authorize @group_member, :owner?
+      authorize @group_member, :primary_mentor?
     end
 end

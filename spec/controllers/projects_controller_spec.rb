@@ -114,7 +114,7 @@ describe ProjectsController, type: :request do
 
     context "project is an assignment" do
       before do
-        group = FactoryBot.create(:group, owner: FactoryBot.create(:user))
+        group = FactoryBot.create(:group, primary_mentor: FactoryBot.create(:user))
         assignment = FactoryBot.create(:assignment, group: group)
         @assignment_project = FactoryBot.create(:project, author: @author, assignment: assignment)
       end

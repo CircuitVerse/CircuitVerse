@@ -4,8 +4,8 @@ require "rails_helper"
 
 describe AssignmentsController, type: :request do
   before do
-    @owner = FactoryBot.create(:user)
-    @group = FactoryBot.create(:group, owner: @owner)
+    @primary_mentor = FactoryBot.create(:user)
+    @group = FactoryBot.create(:group, primary_mentor: @primary_mentor)
     @assignment = FactoryBot.create(:assignment, group: @group)
     @member = FactoryBot.create(:user)
     FactoryBot.create(:group_member, user: @member, group: @group)
@@ -28,9 +28,9 @@ describe AssignmentsController, type: :request do
       end
     end
 
-    context "owner is signed in" do
+    context "primary_mentor is signed in" do
       it "renders required template" do
-        sign_in @owner
+        sign_in @primary_mentor
         get new_group_assignment_path(@group)
         expect(response.body).to include("New Assignment")
       end
@@ -97,9 +97,9 @@ describe AssignmentsController, type: :request do
       }
     end
 
-    context "owner is signed in" do
+    context "primary_mentor is signed in" do
       it "updates the assignment" do
-        sign_in @owner
+        sign_in @primary_mentor
         put group_assignment_path(@group, @assignment), params: update_params
         @assignment.reload
         expect(@assignment.description).to eq("updated description")
@@ -126,7 +126,7 @@ describe AssignmentsController, type: :request do
 
   describe "#check_reopening_status" do
     before do
-      sign_in @owner
+      sign_in @primary_mentor
     end
 
     context "the project is forked" do
@@ -166,9 +166,9 @@ describe AssignmentsController, type: :request do
       @closed_assignment = FactoryBot.create(:assignment, group: @group, status: "closed")
     end
 
-    context "owner is signed in" do
+    context "primary_mentor is signed in" do
       it "changes status to open" do
-        sign_in @owner
+        sign_in @primary_mentor
         expect(@closed_assignment.status).to eq("closed")
         get reopen_group_assignment_path(@group, @closed_assignment)
         @closed_assignment.reload
@@ -198,9 +198,9 @@ describe AssignmentsController, type: :request do
   end
 
   describe "#create" do
-    context "owner is logged in" do
+    context "primary_mentor is logged in" do
       it "creates a new assignment" do
-        sign_in @owner
+        sign_in @primary_mentor
         expect do
           post group_assignments_path(@group), params: { assignment:
             { description: "group assignment", name: "Test Name" } }

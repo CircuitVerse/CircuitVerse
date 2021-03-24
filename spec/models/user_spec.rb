@@ -33,8 +33,8 @@ RSpec.describe User, type: :model do
 
   describe "public methods" do
     before do
-      owner = FactoryBot.create(:user)
-      group = FactoryBot.create(:group, owner: owner)
+      primary_mentor = FactoryBot.create(:user)
+      group = FactoryBot.create(:group, primary_mentor: primary_mentor)
       @user = FactoryBot.create(:user)
       FactoryBot.create(:pending_invitation, group: group, email: @user.email)
     end

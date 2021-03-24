@@ -21,13 +21,16 @@
         <% end %>
       </h1>
       <h4 class="group-mentor-heading">
-        <strong>Owner:</strong>
-        <%= @group.owner.name %>
+        <strong>Primary Mentor:</strong>
+        <%= @group.primary_mentor.name %>
       </h4>
     </div>
   </div>
   <div class="row center-row groups-row">
     <h3>MENTORS</h3>
+    <% if policy(@group).admin_access? %>
+      <button type="button" class="btn primary-button groups-primary-button" data-toggle="modal" data-target="#addmentorModal">+ Add Mentors</button>
+    <% end %>
   </div>
   <hr>
   <div class="row center-row groups-members-scroll-row">
@@ -316,6 +319,7 @@
   <%= render partial: "delete_member_confirmation_modal" %>
   <%= render partial: "delete_assignment_confirmation_modal" %>
   <%= render partial: "add_member_modal", locals: {group_member: @group_member} %>
+  <%= render partial: "add_mentor_modal", locals: {group_member: @group_member} %>
   <%= render partial: "promote_member_confirmation_modal" %>
 </div>
 

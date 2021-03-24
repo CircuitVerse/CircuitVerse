@@ -6,12 +6,12 @@ describe AssignmentPolicy do
   subject { described_class.new(user, assignment) }
 
   before do
-    @owner = FactoryBot.create(:user)
-    @group = FactoryBot.create(:group, owner: @owner)
+    @primary_mentor = FactoryBot.create(:user)
+    @group = FactoryBot.create(:group, primary_mentor: @primary_mentor)
   end
 
-  context "user is owner" do
-    let(:user) { @owner }
+  context "user is primary_mentor" do
+    let(:user) { @primary_mentor }
     let(:assignment) { FactoryBot.create(:assignment, group: @group) }
 
     it { is_expected.to permit(:admin_access) }

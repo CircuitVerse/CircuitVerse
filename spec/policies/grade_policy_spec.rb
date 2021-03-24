@@ -6,20 +6,20 @@ describe GradePolicy do
   subject { described_class.new(user, grade) }
 
   before do
-    @owner = FactoryBot.create(:user)
-    @group = FactoryBot.create(:group, owner: @owner)
+    @primary_mentor = FactoryBot.create(:user)
+    @group = FactoryBot.create(:group, primary_mentor: @primary_mentor)
     @assignment = FactoryBot.create(:assignment, group: @group, grading_scale: :letter,
                                                  grades_finalized: false)
     @assignment_project = FactoryBot.create(:project, assignment: @assignment,
                                                       author: FactoryBot.create(:user))
-    @grade = FactoryBot.create(:grade, project: @assignment_project, grader: @owner,
+    @grade = FactoryBot.create(:grade, project: @assignment_project, grader: @primary_mentor,
                                        grade: "A", assignment: @assignment)
   end
 
   let(:grade) { @grade }
 
-  context "user is owner and grades have not been finalized" do
-    let(:user) { @owner }
+  context "user is primary_mentor and grades have not been finalized" do
+    let(:user) { @primary_mentor }
 
     it { is_expected.to permit(:mentor) }
   end

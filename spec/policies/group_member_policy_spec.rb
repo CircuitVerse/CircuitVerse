@@ -8,16 +8,16 @@ describe GroupMemberPolicy do
   let(:group_member) { @group_member }
 
   before do
-    @owner = FactoryBot.create(:user)
-    @group = FactoryBot.create(:group, owner: @owner)
+    @primary_mentor = FactoryBot.create(:user)
+    @group = FactoryBot.create(:group, primary_mentor: @primary_mentor)
     @user = FactoryBot.create(:user)
     @group_member = FactoryBot.create(:group_member, group: @group, user: @user)
   end
 
-  context "user is owner" do
-    let(:user) { @owner }
+  context "user is primary_mentor" do
+    let(:user) { @primary_mentor }
 
-    it { is_expected.to permit(:owner) }
+    it { is_expected.to permit(:primary_mentor) }
   end
 
   context "user is a mentor" do
@@ -29,13 +29,13 @@ describe GroupMemberPolicy do
     let(:user) { @mentor }
 
     it { is_expected.to permit(:mentor)}
-    it { is_expected.not_to permit(:owner) }
+    it { is_expected.not_to permit(:primary_mentor) }
   end
 
   context "user is group member" do
     let(:user) { @user }
 
-    it { is_expected.not_to permit(:owner) }
+    it { is_expected.not_to permit(:primary_mentor) }
     it { is_expected.not_to permit(:mentor) }
   end
 end

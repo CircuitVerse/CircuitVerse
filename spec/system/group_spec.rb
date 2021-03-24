@@ -6,7 +6,7 @@ describe "Group management", type: :system do
   before(:all) do
     @user = FactoryBot.create(:user)
     @user2 = FactoryBot.create(:user)
-    @group = FactoryBot.create(:group, owner: @user)
+    @group = FactoryBot.create(:group, primary_mentor: @user)
   end
 
   before do

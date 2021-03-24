@@ -4,15 +4,15 @@ require "rails_helper"
 
 describe "Assignments", type: :system do
   before do
-    @owner = FactoryBot.create(:user)
-    @group = FactoryBot.create(:group, owner: @owner)
+    @primary_mentor = FactoryBot.create(:user)
+    @group = FactoryBot.create(:group, primary_mentor: @primary_mentor)
     @member = FactoryBot.create(:user)
     FactoryBot.create(:group_member, group: @group, user: @member)
   end
 
-  context "when user is owner" do
+  context "when user is primary_mentor" do
     it "creates assignment" do
-      sign_in @owner
+      sign_in @primary_mentor
       visit new_group_assignment_path(@group)
       name = Faker::Lorem.word
       deadline = Faker::Date.forward(days: 23)
@@ -27,7 +27,7 @@ describe "Assignments", type: :system do
     end
 
     it "does not create assignment when name is blank" do
-      sign_in @owner
+      sign_in @primary_mentor
       visit new_group_assignment_path(@group)
 
       name = nil
@@ -41,7 +41,7 @@ describe "Assignments", type: :system do
     end
 
     it "is able to edit assignment" do
-      sign_in @owner
+      sign_in @primary_mentor
       @assignment = FactoryBot.create(:assignment, group: @group)
       visit edit_group_assignment_path(@group, @assignment)
       name = Faker::Lorem.word

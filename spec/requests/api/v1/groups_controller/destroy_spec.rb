@@ -5,8 +5,8 @@ require "rails_helper"
 RSpec.describe Api::V1::GroupsController, "#destroy", type: :request do
   describe "delete specific group" do
     let!(:user) { FactoryBot.create(:user) }
-    let!(:owner) { FactoryBot.create(:user) }
-    let!(:group) { FactoryBot.create(:group, owner: owner) }
+    let!(:primary_mentor) { FactoryBot.create(:user) }
+    let!(:group) { FactoryBot.create(:group, primary_mentor: primary_mentor) }
 
     context "when not authenticated" do
       before do
@@ -34,7 +34,7 @@ RSpec.describe Api::V1::GroupsController, "#destroy", type: :request do
 
     context "when authorized but tries to delete non existent group" do
       before do
-        token = get_auth_token(owner)
+        token = get_auth_token(primary_mentor)
         delete "/api/v1/groups/0",
                headers: { "Authorization": "Token #{token}" }, as: :json
       end
@@ -47,7 +47,7 @@ RSpec.describe Api::V1::GroupsController, "#destroy", type: :request do
 
     context "when authorized and has access to delete group" do
       before do
-        token = get_auth_token(owner)
+        token = get_auth_token(primary_mentor)
         delete "/api/v1/groups/#{group.id}",
                headers: { "Authorization": "Token #{token}" }, as: :json
       end

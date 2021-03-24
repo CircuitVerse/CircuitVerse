@@ -4,24 +4,24 @@ require "rails_helper"
 
 describe GroupsController, type: :request do
   before do
-    @owner = FactoryBot.create(:user)
+    @primary_mentor = FactoryBot.create(:user)
     @user = FactoryBot.create(:user)
-    @group = FactoryBot.create(:group, name: "test group", owner: @owner)
+    @group = FactoryBot.create(:group, name: "test group", primary_mentor: @primary_mentor)
   end
 
   describe "#create" do
     it "creates a group" do
-      sign_in @owner
+      sign_in @primary_mentor
       expect do
-        post groups_path, params: { group: { name: "test group", mentor_id: @owner.id } }
+        post groups_path, params: { group: { name: "test group", primary_mentor_id: @primary_mentor.id } }
       end.to change(Group, :count).by(1)
     end
   end
 
   describe "#destroy" do
-    context "owner is signed_in" do
+    context "primary_mentor is signed_in" do
       it "destroys group" do
-        sign_in @owner
+        sign_in @primary_mentor
         expect do
           delete group_path(@group)
         end.to change(Group, :count).by(-1)
@@ -36,7 +36,7 @@ describe GroupsController, type: :request do
       end
     end
 
-    context "user other than owner is signed in" do
+    context "user other than primary_mentor is signed in" do
       it "throws not authorized error" do
         sign_in_random_user
         delete group_path(@group)
@@ -70,9 +70,9 @@ describe GroupsController, type: :request do
   end
 
   describe "#update" do
-    context "owner is signed in" do
+    context "primary_mentor is signed in" do
       it "updates group" do
-        sign_in @owner
+        sign_in @primary_mentor
         put group_path(@group), params: { group: { name: "updated group" } }
         @group.reload
         expect(@group.name).to eq("updated group")
@@ -130,7 +130,7 @@ describe GroupsController, type: :request do
         sign_in @user
         get invite_group_path(id: @group.id, token: @group.group_token)
         expect(response.status).to eq(302)
-        expect(flash[:notice]).to eq("Url is expired, request a new one from owner of the group.")
+        expect(flash[:notice]).to eq("Url is expired, request a new one from primary_mentor of the group.")
       end
     end
 
@@ -150,7 +150,7 @@ describe GroupsController, type: :request do
 
     context "when group does not have any token or token is expired" do
       it "regenerates the group token" do
-        sign_in @owner
+        sign_in @primary_mentor
         put generate_token_group_path(id: @group.id), xhr: true
         expect(response.status).to eq(200)
       end

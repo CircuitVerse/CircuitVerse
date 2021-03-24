@@ -6,7 +6,7 @@ class Api::V1::GroupMembersController < Api::V1::BaseController
   before_action :set_group_member, only: %i[destroy update]
   before_action :check_show_access, only: %i[index]
   before_action :check_edit_access, only: %i[create]
-  before_action :check_owner_access, only: %i[destroy update]
+  before_action :check_primary_mentor_access, only: %i[destroy update]
 
   # GET /api/v1/groups/:group_id/members/
   def index
@@ -67,9 +67,9 @@ class Api::V1::GroupMembersController < Api::V1::BaseController
       authorize @group_member, :mentor?
     end
 
-    def check_owner_access
-      # checks if current user is owner
-      authorize @group_member, :owner?
+    def check_primary_mentor_access
+      # checks if current user is primary_mentor
+      authorize @group_member, :primary_mentor?
     end
 
     def check_edit_access
