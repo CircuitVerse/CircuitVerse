@@ -57,7 +57,7 @@ function gifshotcall(framerate) {
             }
         });
     } else {
-        alert("Error Loading GIF \n Requirement:Firefox 17+, Chrome 21+, Opera 18+, Blackberry Browser 10+, Opera Mobile 12+, Chrome For Android 35+, Firefox for Android 29+");
+        alert('Error Loading GIF \n Requirement:Firefox 17+, Chrome 21+, Opera 18+, Blackberry Browser 10+, Opera Mobile 12+, Chrome For Android 35+, Firefox for Android 29+');
     }
 }
 
@@ -270,12 +270,8 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
     simulationArea.canvas.height = height;
     backgroundArea.canvas.width = width;
     backgroundArea.canvas.height = height;
-
-
     backgroundArea.context = simulationArea.context;
-
     simulationArea.clear();
-
     // Background
     if (!transparent) {
         simulationArea.context.fillStyle = colors["canvas_fill"];
@@ -338,39 +334,31 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
             var mediaRecorder = new MediaRecorder(videoStream);
 
             var chunks = [];
-            mediaRecorder.ondataavailable = function(e) {
+            mediaRecorder.ondataavailable = (e) => {
                 chunks.push(e.data);
             };
 
-            mediaRecorder.onstop = function(e) {
+            mediaRecorder.onstop = (e) => {
                 var blob = new Blob(chunks, { 'type': 'video/mp4' });
                 chunks = [];
                 var videoURL = URL.createObjectURL(blob);
                 const anchor = document.createElement('a');
                 anchor.href = videoURL;
-                var mp4 = "mp4"
+                var mp4 = 'mp4';
                 anchor.download = `${globalScope.name}.${mp4}`;
                 anchor.click();
-                $('#fname').val("");
-                loadrecordingicon[0].style.visibility = "none";
-                loadrecordingicon[0].style.position = "relative";
+                $('#fname').val('');
+                loadrecordingicon[0].style.visibility = 'none';
+                loadrecordingicon[0].style.position = 'relative';
             };
-            mediaRecorder.ondataavailable = function(e) {
+            mediaRecorder.ondataavailable = (e) => {
                 chunks.push(e.data);
             };
-
-            function recordicon_vid(load) {
-                if (load === 1) {
-                    $('#rec_Button').addClass("Rec");
-                    $('#rec_Button').css("visibility", "visible");
-                } else
-                    $('#rec_Button').css("visibility", "hidden");
-            };
             mediaRecorder.start();
-            recordicon_vid(1);
+            recordicon(1);
             var countervideo = 0;
-            $('#rec_Button').click(function() {
-                recordicon_vid(0);
+            $('#rec_Button').click(() => {
+                recordicon(0);
                 if (countervideo === 0) {
                     mediaRecorder.stop();
                 }
@@ -379,13 +367,9 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
         } else {
             downloadAsImg(globalScope.name, imgType);
         }
-
     } else {
         returnData = simulationArea.canvas.toDataURL(`image/${imgType}`);
-    }
-
-
-    // Restore everything
+    } /* Restore everything */
     width = backUpWidth;
     height = backUpHeight;
     simulationArea.canvas.width = width;
@@ -404,7 +388,7 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
 }
 
 async function crop(dataURL, w, h) {
-    //get empty second canvas
+    /* get empty second canvas */
     var myCanvas = document.createElement("CANVAS");
     myCanvas.width = w;
     myCanvas.height = h;
