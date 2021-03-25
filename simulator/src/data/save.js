@@ -16,7 +16,77 @@ import gifshot from 'gifshot';
 import { loadScope } from './load';
 import plotArea from '../plotArea';
 
-var projectName = undefined;
+var projectName;
+var recstop = false;
+var gh = [];
+var counter = 0;
+var imgrec = 0;
+var loadrecordingicon = document.getElementsByClassName('loader');
+
+function recordicon(load) {
+    if (load === 1) {
+        $('#rec_Button').addClass('Rec');
+        $('#rec_Button').css('visibility', 'visible');
+    } else {
+        $('#rec_Button').css('visibility', 'hidden');
+    }
+}
+/* eslint quote-props: ["error", "always"] */
+function gifshotcall(framerate) {
+    if (gifshot.isExistingImagesGIFSupported()) {
+        gifshot.createGIF({
+            'images': gh,
+            'gifWidth': simulationArea.canvas.width,
+            'gifHeight': simulationArea.canvas.height,
+            'interval': 0.5,
+            'numFrames': framerate || 10,
+            'frameDuration': 1,
+            'crossOrigin': '*',
+        }, (obj) => {
+            if (!obj.error) {
+                var { 'image': images } = obj;
+                animatedImage = document.createElement('img');
+                animatedImage.src = image;
+                const anchor = document.createElement('a');
+                anchor.href = images;
+                var gifname = 'gif';
+                anchor.download = `${globalScope.name}.${gifname}`;
+                anchor.click();
+                loadrecordingicon[0].style.visibility = 'none';
+                loadrecordingicon[0].style.position = 'relative';
+            }
+        });
+    } else {
+        alert("Error Loading GIF \n Requirement:Firefox 17+, Chrome 21+, Opera 18+, Blackberry Browser 10+, Opera Mobile 12+, Chrome For Android 35+, Firefox for Android 29+");
+    }
+}
+
+function cavanstogif(start, framerate) {
+    if (recstop === false) {
+        setTimeout(() => {
+            if (recstop === false) {
+                imgrec++;
+                context.drawImage(simulationArea.canvas, 0, 0);
+                gh[start] = offScreenCanvas.toDataURL('image/png');
+                if (imgrec === 120) {
+                    gifshotcall(framerate);
+                    recordicon(0);
+                    loadrecordingicon[0].style.visibility = 'visible';
+                    loadrecordingicon[0].style.position = 'absolute';
+                }
+            }
+        }, 1000 * start);
+    }
+}
+
+function gifcapture(framerate) {
+    recordicon(1);
+    var start = 0;
+    while (recstop || start <= 120) {
+        cavanstogif(start, framerate);
+        start++;
+    }
+}
 
 /**
  * Function to set the name of project.
@@ -24,7 +94,7 @@ var projectName = undefined;
  * @category data
  */
 export function setProjectName(name) {
-    if (name == undefined) {
+    if (name === undefined) {
         $('#projectName').html('Untitled');
         return;
     }
@@ -60,12 +130,12 @@ function downloadAsImg(name, imgType) {
  * Returns the order of tabs in the project
  */
 export function getTabsOrder() {
-    var tabs = $("#tabsBar").children().not('button');
+    var tabs = $('#tabsBar"=').children().not('button');
     var order = [];
     for (let i = 0; i < tabs.length; i++) {
         order.push(tabs[i].id);
     }
-    return order
+    return order;
 }
 
 /**
@@ -78,7 +148,7 @@ export function generateSaveData(name) {
     data = {};
 
     // Prompts for name, defaults to Untitled
-    name = getProjectName() || name || prompt('Enter Project Name:') || 'Untitled';
+    name = getProjectName() || name || prompt('Enter Project Name:', 'Untitled');
     data.name = stripTags(name);
     setProjectName(data.name);
 
@@ -222,123 +292,49 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
 
     // If circuit is to be downloaded, download, other wise return dataURL
     if (down) {
-        var loadrecordingicon = document.getElementsByClassName("loader");
         if (imgType === 'svg') {
             const mySerializedSVG = simulationArea.context.getSerializedSvg(); // true here, if you need to convert named to numbered entities.
             download(`${globalScope.name}.svg`, mySerializedSVG);
         }
-
-        //Seperate Code to downlaod in GIF because GIF needs external tools to make it 
-        //Library used her is GIFSHOT free and open source.
         /*
-        LOGIC OF BELOW CODE 
-        1.When click on download  photos will be taken using DATA URL method them they are stored in array
-        2.These photos will Be send to gifshot library 
-        3.GIFSHOT will directly make GIF of photos and export it offine 
+           Seperate Code to downlaod in GIF because GIF needs external tools to make it
+           Library used her is GIFSHOT free and open source.
+           LOGIC OF BELOW CODE
+            1.When click on download  photos will be taken using DATA URL method them they are stored in array
+            2.These photos will Be send to gifshot library
+            3.GIFSHOT will directly make GIF of photos and export it offine
         */
         else if (imgType === 'anim-gif') {
             var framerate = $('#fname').val();
             alert('Press Ok to start GIF recording \n Max duration of recoding is 120sec');
-            var rec_stop = false;
-            var gh = [];
-            var counter = 0;
-            var start = 0;
-            var img_rec = 0;
-            $('#rec_Button').click(function() {
-                if (imgType == "anim-gif") {
-                    loadrecordingicon[0].style.visibility = "visible";
-                    loadrecordingicon[0].style.position = "absolute";
+            $('#rec_Button').click(() => {
+                if (imgType === 'anim-gif') {
+                    loadrecordingicon[0].style.visibility = 'visible';
+                    loadrecordingicon[0].style.position = 'absolute';
                 }
-                rec_stop = true;
+                recstop = true;
                 recordicon(0);
                 if (counter === 0) {
-                    gifshotcall();
+                    gifshotcall(framerate);
                 }
                 counter++;
             });
-
-            function recordicon(load) {
-                if (load === 1) {
-
-                    $('#rec_Button').addClass("Rec");
-                    //loadrecordingicon.style.visibility = "visible";
-                    $('#rec_Button').css("visibility", "visible");
-                } else
-                    $('#rec_Button').css("visibility", "hidden");
-            };
-
-            /* 
+            /*
             to make it possible i have use hidden cavas to save current instance and update it every new instance
             and here image download in data url using hidden canvas and store in array so that it can be send to GIFSHOT */
             var offScreenCanvas = document.createElement('canvas');
             offScreenCanvas.width = simulationArea.canvas.width;
             offScreenCanvas.height = simulationArea.canvas.height;
-            var context = offScreenCanvas.getContext("2d");
-            context.fillStyle = 'white'; //set fill color
+            var context = offScreenCanvas.getContext('2d');
+            context.fillStyle = 'white';
             context.fillRect(0, 0, simulationArea.canvas.width, simulationArea.canvas.height);
-            gifcapture();
-
-            function gifcapture() {
-                recordicon(1);
-                while (rec_stop || start <= 120) {
-                    cavanstogif(start);
-                    start++;
-
-                }
-
-                function cavanstogif(start) {
-                    if (rec_stop === false) {
-                        setTimeout(function() {
-                            if (rec_stop === false) {
-                                img_rec++;
-                                context.drawImage(simulationArea.canvas, 0, 0);
-                                gh[start] = offScreenCanvas.toDataURL(`image/png`);
-                                if (img_rec === 120) {
-                                    gifshotcall();
-                                    recordicon(0);
-                                    loadrecordingicon[0].style.visibility = "visible";
-                                    loadrecordingicon[0].style.position = "absolute";
-                                }
-                            }
-                        }, 1000 * start);
-                    } else { return; }
-                }
-            }
-
-            function gifshotcall() {
-                if (gifshot.isExistingImagesGIFSupported()) {
-                    gifshot.createGIF({
-                        'images': gh,
-                        'gifWidth': simulationArea.canvas.width,
-                        'gifHeight': simulationArea.canvas.height,
-                        'interval': 0.5,
-                        'numFrames': framerate || 10,
-                        'frameDuration': 1,
-                        'crossOrigin': '*',
-                    }, function(obj) {
-                        if (!obj.error) {
-                            var image = obj.image,
-                                animatedImage = document.createElement('img');
-                            animatedImage.src = image;
-                            const anchor = document.createElement('a');
-                            anchor.href = image;
-                            var gifname = "gif"
-                            anchor.download = `${globalScope.name}.${gifname}`;
-                            anchor.click();
-                            loadrecordingicon[0].style.visibility = "none";
-                            loadrecordingicon[0].style.position = "relative";
-                        }
-                    });
-                } else {
-                    alert("Error Loading GIF \n Requirement:Firefox 17+, Chrome 21+, Opera 18+, Blackberry Browser 10+, Opera Mobile 12+, Chrome For Android 35+, Firefox for Android 29+");
-                }
-            }
+            gifcapture(framerate);
         }
-        //this code for recording video 
-        else if (imgType === "video") {
-            var framerate = $('#fname').val();
+        /* this code for recording video */
+        else if (imgType === 'video') {
+            var frameratevideo = $('#fname').val();
             alert('Press ok to start recording');
-            var videoStream = simulationArea.canvas.captureStream(framerate || 30);
+            var videoStream = simulationArea.canvas.captureStream(frameratevideo || 30);
             var mediaRecorder = new MediaRecorder(videoStream);
 
             var chunks = [];
@@ -372,15 +368,13 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
             };
             mediaRecorder.start();
             recordicon_vid(1);
-            var rec_stop = false;
-            var counter = 0;
+            var countervideo = 0;
             $('#rec_Button').click(function() {
-                rec_stop = true;
                 recordicon_vid(0);
-                if (counter === 0) {
+                if (countervideo === 0) {
                     mediaRecorder.stop();
                 }
-                counter++;
+                countervideo++;
             });
         } else {
             downloadAsImg(globalScope.name, imgType);
@@ -389,6 +383,7 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
     } else {
         returnData = simulationArea.canvas.toDataURL(`image/${imgType}`);
     }
+
 
     // Restore everything
     width = backUpWidth;
