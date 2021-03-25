@@ -19,7 +19,7 @@ describe GroupsController, type: :request do
   end
 
   describe "#destroy" do
-    context "primary_mentor is signed_in" do
+    context "when primary_mentor is signed_in" do
       it "destroys group" do
         sign_in @primary_mentor
         expect do
@@ -28,7 +28,7 @@ describe GroupsController, type: :request do
       end
     end
 
-    context "a group mentor is signed in" do
+    context "when a group mentor is signed in" do
       it "throws not authorized error" do
         sign_in_group_mentor(@group)
         delete group_path(@group)
@@ -36,7 +36,7 @@ describe GroupsController, type: :request do
       end
     end
 
-    context "user other than primary_mentor is signed in" do
+    context "when a user other than primary_mentor is signed in" do
       it "throws not authorized error" do
         sign_in_random_user
         delete group_path(@group)
@@ -46,7 +46,7 @@ describe GroupsController, type: :request do
   end
 
   describe "#show" do
-    context "group member is signed in", :focus do
+    context "when a group member is signed in", :focus do
       before do
         @assignment = FactoryBot.create(:assignment, group: @group,
                                                      status: "reopening", deadline: Time.zone.now - 2.days)
@@ -60,7 +60,7 @@ describe GroupsController, type: :request do
       end
     end
 
-    context "random user is signed in" do
+    context "when a random user is signed in" do
       it "throws not authorized error" do
         sign_in_random_user
         get group_path(@group)
@@ -70,7 +70,7 @@ describe GroupsController, type: :request do
   end
 
   describe "#update" do
-    context "primary_mentor is signed in" do
+    context "when primary_mentor is signed in" do
       it "updates group" do
         sign_in @primary_mentor
         put group_path(@group), params: { group: { name: "updated group" } }
@@ -79,7 +79,7 @@ describe GroupsController, type: :request do
       end
     end
 
-    context "a mentor is signed in" do
+    context "when a mentor is signed in" do
       it "updates group" do
         sign_in_group_mentor(@group)
         put group_path(@group), params: { group: { name: "updated group" } }
@@ -87,7 +87,7 @@ describe GroupsController, type: :request do
       end
     end
 
-    context "another user is signed in" do
+    context "when another user is signed in" do
       it "throws not authorized error" do
         sign_in_random_user
         put group_path(@group), params: { group: { name: "updated group" } }
@@ -130,7 +130,8 @@ describe GroupsController, type: :request do
         sign_in @user
         get invite_group_path(id: @group.id, token: @group.group_token)
         expect(response.status).to eq(302)
-        expect(flash[:notice]).to eq("Url is expired, request a new one from primary_mentor of the group.")
+        expect(flash[:notice])
+          .to eq("Url is expired, request a new one from primary_mentor of the group.")
       end
     end
 

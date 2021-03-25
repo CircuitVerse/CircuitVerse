@@ -25,7 +25,7 @@ describe GroupMembersController, type: :request do
       sign_in @primary_mentor
     end
 
-    context "primary_mentor is logged in" do
+    context "when primary_mentor is logged in" do
       it "creates members that are not present and pending invitations for others" do
         expect do
           post group_members_path, params: create_params
@@ -34,7 +34,7 @@ describe GroupMembersController, type: :request do
       end
     end
 
-    context "a mentor is logged in" do
+    context "when a mentor is logged in" do
       it "throws unauthorized error" do
         sign_in_group_mentor(@group)
         post group_members_path, params: create_params
@@ -42,7 +42,7 @@ describe GroupMembersController, type: :request do
       end
     end
 
-    context "user other than primary_mentor is logged in" do
+    context "when user other than primary_mentor is logged in" do
       it "throws unauthorized error" do
         sign_in_random_user
         post group_members_path, params: create_params
@@ -57,7 +57,7 @@ describe GroupMembersController, type: :request do
                                                        group: @group)
     end
 
-    context "primary_mentor is signed in" do
+    context "when primary_mentor is signed in" do
       it "destroys group member" do
         sign_in @primary_mentor
         expect do
@@ -66,7 +66,7 @@ describe GroupMembersController, type: :request do
       end
     end
 
-    context "a mentor is signed in" do
+    context "when a mentor is signed in" do
       it "throws unauthorized error" do
         sign_in_group_mentor(@group)
         delete group_member_path(@group_member)
@@ -74,7 +74,7 @@ describe GroupMembersController, type: :request do
       end
     end
 
-    context "user other than the primary_mentor is logged in" do
+    context "when user other than the primary_mentor is logged in" do
       it "throws unauthorized error" do
         sign_in_random_user
         delete group_member_path(@group_member)

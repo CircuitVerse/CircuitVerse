@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class GroupMembersController < ApplicationController
-  before_action :set_group_member, only: %i[show edit update destroy]
-  before_action :check_access, only: %i[update edit destroy]
+  before_action :set_group_member, only: %i[update destroy]
+  before_action :check_access, only: %i[update destroy]
   before_action :authenticate_user!
 
   # GET /group_members
@@ -34,9 +34,7 @@ class GroupMembersController < ApplicationController
 
     @group = Group.find(group_member_params[:group_id])
     is_mentor = false
-    if group_member_params[:mentor]
-      is_mentor = group_member_params[:mentor].to_i == 1
-    end
+    is_mentor = group_member_params[:mentor].to_i == 1 if group_member_params[:mentor]
     group_member_emails = Utils.parse_mails(group_member_params[:emails])
 
     present_members = User.where(id: @group.group_members.pluck(:user_id)).pluck(:email)
@@ -61,7 +59,9 @@ class GroupMembersController < ApplicationController
 
     respond_to do |format|
       format.html do
-        redirect_to group_path(@group), notice: Utils.mail_notice(group_member_params[:emails], group_member_emails, newly_added)
+        redirect_to group_path(@group),
+                    notice: Utils.mail_notice(group_member_params[:emails], group_member_emails,
+                                              newly_added)
       end
     end
     # redirect_to group_path(@group)

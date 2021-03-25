@@ -63,7 +63,6 @@ class AssignmentsController < ApplicationController
     @assignment = @group.assignments.new(params)
     authorize @assignment, :mentor_access?
 
-    puts(params)
     @assignment.description = description
     @assignment.status = "open"
     @assignment.deadline = Time.zone.now + 1.year if @assignment.deadline.nil?

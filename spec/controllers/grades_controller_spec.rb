@@ -25,12 +25,12 @@ describe GradesController, type: :request do
       }
     end
 
-    context "primary_mentor is singed in" do
+    context "when primary_mentor is singed in" do
       before do
         sign_in @primary_mentor
       end
 
-      context "grade is valid" do
+      context "when grade is valid" do
         it "creates grade" do
           expect do
             post grades_path, params: create_params
@@ -41,7 +41,7 @@ describe GradesController, type: :request do
         end
       end
 
-      context "grade is invalid" do
+      context "when grade is invalid" do
         it "throws bad request error" do
           invalid_params = create_params
           create_params[:grade][:grade] = "90"
@@ -61,12 +61,12 @@ describe GradesController, type: :request do
       # end
     end
 
-    context "a mentor is singed in" do
+    context "when a mentor is singed in" do
       before do
         sign_in_group_mentor(@group)
       end
 
-      context "grade is valid" do
+      context "when grade is valid" do
         it "creates grade" do
           expect do
             post grades_path, params: create_params
@@ -77,7 +77,7 @@ describe GradesController, type: :request do
         end
       end
 
-      context "grade is invalid" do
+      context "when grade is invalid" do
         it "throws bad request error" do
           invalid_params = create_params
           create_params[:grade][:grade] = "90"
@@ -97,7 +97,7 @@ describe GradesController, type: :request do
       # end
     end
 
-    context "some other user is signed in" do
+    context "when some other user is signed in" do
       it "gives unauthorized error" do
         sign_in FactoryBot.create(:user)
         post grades_path, params: create_params
@@ -121,12 +121,12 @@ describe GradesController, type: :request do
                                          grade: "A", assignment: @assignment)
     end
 
-    context "primary_mentor is logged in" do
+    context "when primary_mentor is logged in" do
       before do
         sign_in @primary_mentor
       end
 
-      context "grades have not been finalized" do
+      context "when grades have not been finalized" do
         it "destroys grade" do
           expect do
             delete grades_path, params: destroy_params
@@ -144,12 +144,12 @@ describe GradesController, type: :request do
       # end
     end
 
-    context "a mentor is logged in" do
+    context "when a mentor is logged in" do
       before do
         sign_in_group_mentor(@group)
       end
 
-      context "grades have not been finalized" do
+      context "when grades have not been finalized" do
         it "destroys grade" do
           expect do
             delete grades_path, params: destroy_params
@@ -167,7 +167,7 @@ describe GradesController, type: :request do
       # end
     end
 
-    context "user other than primary_mentor/mentor is logged in" do
+    context "when a user other than primary_mentor/mentor is logged in" do
       it "throws unauthorized error" do
         sign_in FactoryBot.create(:user)
         expect do
@@ -185,7 +185,7 @@ describe GradesController, type: :request do
                                          grade: "A", assignment: @assignment, remarks: "remarks")
     end
 
-    context "signed user is primary_mentor" do
+    context "when signed user is primary_mentor" do
       it "creates csv file for grades" do
         sign_in @primary_mentor
         get grades_to_csv_path(@assignment, format: :csv)

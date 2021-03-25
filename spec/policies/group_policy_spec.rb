@@ -10,7 +10,7 @@ describe GroupPolicy do
     @group = FactoryBot.create(:group, primary_mentor: @primary_mentor)
   end
 
-  context "user is primary_mentor" do
+  context "when the user is primary_mentor" do
     let(:user) { @primary_mentor }
     let(:group) { @group }
 
@@ -18,7 +18,7 @@ describe GroupPolicy do
     it { is_expected.to permit(:admin_access) }
   end
 
-  context "user is a mentor" do
+  context "when the user is a mentor" do
     before do
       @mentor = FactoryBot.create(:user)
       FactoryBot.create(:group_member, group: @group, user: @mentor, mentor: true)
@@ -32,7 +32,7 @@ describe GroupPolicy do
     it { is_expected.to permit(:mentor_access) }
   end
 
-  context "user is a group_member" do
+  context "when the user is a group_member" do
     let(:user) { @member }
     let(:group) { @group }
 
@@ -46,7 +46,7 @@ describe GroupPolicy do
     it { is_expected.not_to permit(:mentor_access) }
   end
 
-  context "user is not a group_member" do
+  context "when the user is not a group_member" do
     let(:user) { FactoryBot.create(:user) }
     let(:group) { @group }
 

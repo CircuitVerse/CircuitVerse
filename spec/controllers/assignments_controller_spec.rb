@@ -12,7 +12,7 @@ describe AssignmentsController, type: :request do
   end
 
   describe "#new" do
-    context "random user is signed in" do
+    context "when a random user is signed in" do
       it "restricts access" do
         sign_in FactoryBot.create(:user)
         get new_group_assignment_path(@group)
@@ -20,7 +20,7 @@ describe AssignmentsController, type: :request do
       end
     end
 
-    context "a mentor is signed in" do
+    context "when a mentor is signed in" do
       it "renders required template" do
         sign_in_group_mentor(@group)
         get new_group_assignment_path(@group)
@@ -28,7 +28,7 @@ describe AssignmentsController, type: :request do
       end
     end
 
-    context "primary_mentor is signed in" do
+    context "when primary_mentor is signed in" do
       it "renders required template" do
         sign_in @primary_mentor
         get new_group_assignment_path(@group)
@@ -67,7 +67,7 @@ describe AssignmentsController, type: :request do
       sign_in @member
     end
 
-    context "assignment is closed or project already exists" do
+    context "when assignment is closed or project already exists" do
       before do
         @closed_assignment = FactoryBot.create(:assignment, group: @group, status: "closed")
         FactoryBot.create(:project, assignment: @assignment, author: @member)
@@ -97,7 +97,7 @@ describe AssignmentsController, type: :request do
       }
     end
 
-    context "primary_mentor is signed in" do
+    context "when primary_mentor is signed in" do
       it "updates the assignment" do
         sign_in @primary_mentor
         put group_assignment_path(@group, @assignment), params: update_params
@@ -106,7 +106,7 @@ describe AssignmentsController, type: :request do
       end
     end
 
-    context "a mentor is signed in" do
+    context "when a mentor is signed in" do
       it "updates the assignment" do
         sign_in_group_mentor(@group)
         put group_assignment_path(@group, @assignment), params: update_params
@@ -115,7 +115,7 @@ describe AssignmentsController, type: :request do
       end
     end
 
-    context "random user is signed in" do
+    context "when a random user is signed in" do
       it "returns unauthorized error" do
         sign_in_random_user
         put group_assignment_path(@group, @assignment), params: update_params
@@ -129,7 +129,7 @@ describe AssignmentsController, type: :request do
       sign_in @primary_mentor
     end
 
-    context "the project is forked" do
+    context "when the project is forked" do
       before do
         @project = FactoryBot.create(:project, author: @member)
         @forked_project = FactoryBot.create(:project,
@@ -146,7 +146,7 @@ describe AssignmentsController, type: :request do
       end
     end
 
-    context "no forked project exists" do
+    context "when no forked project exists" do
       before do
         @project = FactoryBot.create(:project,
                                      author: @member, assignment: @assignment, project_submission: true)
@@ -166,7 +166,7 @@ describe AssignmentsController, type: :request do
       @closed_assignment = FactoryBot.create(:assignment, group: @group, status: "closed")
     end
 
-    context "primary_mentor is signed in" do
+    context "when primary_mentor is signed in" do
       it "changes status to open" do
         sign_in @primary_mentor
         expect(@closed_assignment.status).to eq("closed")
@@ -176,7 +176,7 @@ describe AssignmentsController, type: :request do
       end
     end
 
-    context "a mentor is signed in" do
+    context "when a mentor is signed in" do
       it "changes status to open" do
         sign_in_group_mentor(@group)
         expect(@closed_assignment.status).to eq("closed")
@@ -186,7 +186,7 @@ describe AssignmentsController, type: :request do
       end
     end
 
-    context "random user is signed in" do
+    context "when a random user is signed in" do
       it "throws not authorized error" do
         sign_in_random_user
         expect(@closed_assignment.status).to eq("closed")
@@ -198,7 +198,7 @@ describe AssignmentsController, type: :request do
   end
 
   describe "#create" do
-    context "primary_mentor is logged in" do
+    context "when primary_mentor is logged in" do
       it "creates a new assignment" do
         sign_in @primary_mentor
         expect do
@@ -208,7 +208,7 @@ describe AssignmentsController, type: :request do
       end
     end
 
-    context "a mentor is logged in" do
+    context "when a mentor is logged in" do
       it "creates a new assignment" do
         sign_in_group_mentor(@group)
         expect do
@@ -218,7 +218,7 @@ describe AssignmentsController, type: :request do
       end
     end
 
-    context "random user is logged in" do
+    context "when a random user is logged in" do
       it "does not create assignment" do
         sign_in FactoryBot.create(:user)
         expect do

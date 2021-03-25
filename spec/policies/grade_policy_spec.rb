@@ -18,13 +18,13 @@ describe GradePolicy do
 
   let(:grade) { @grade }
 
-  context "user is primary_mentor and grades have not been finalized" do
+  context "when the user is primary_mentor and grades have not been finalized" do
     let(:user) { @primary_mentor }
 
     it { is_expected.to permit(:mentor) }
   end
 
-  context "user is a mentor" do
+  context "when the user is a mentor" do
     before do
       @mentor = FactoryBot.create(:user)
       FactoryBot.create(:group_member, group: @group, user: @mentor, mentor: true)
@@ -46,7 +46,7 @@ describe GradePolicy do
   #   it { should_not permit(:mentor) }
   # end
 
-  context "user is random" do
+  context "when the user is random" do
     let(:user) { FactoryBot.create(:user) }
 
     it { is_expected.not_to permit(:mentor) }
