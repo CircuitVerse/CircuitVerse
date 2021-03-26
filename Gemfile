@@ -20,7 +20,7 @@ gem "paperclip", ">= 5.2.0"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 6.0"
 # Use Puma as the app server
-gem "puma", "~> 5.0"
+gem "puma", "~> 5.2"
 # Use SCSS for stylesheets
 gem "sass-rails", "~> 5.0"
 # Use Uglifier as compressor for JavaScript assets
@@ -48,7 +48,7 @@ gem "jquery-rails"
 
 gem "carrierwave", "~> 2.1"
 
-gem "rails_admin", "~> 2.0"
+gem "rails_admin", "~> 2.1"
 
 # gem 'cancancan', '~>2.0'
 
@@ -108,6 +108,7 @@ gem "jwt"
 gem "rails-i18n", "~> 6.0.0"
 gem "recaptcha"
 gem "simple_discussion", "~> 1.2"
+gem 'strong_migrations'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -127,7 +128,7 @@ group :test do
   gem "capybara", "~> 3.33"
   gem "json-schema"
   gem "rspec_junit_formatter"
-  gem "rspec-rails", "~> 4.0"
+  gem "rspec-rails", "~> 5.0"
   gem "selenium-webdriver"
   gem "shoulda-matchers"
   gem "webdrivers", "~> 4.0"
