@@ -1,0 +1,14 @@
+zh-cn: 
+  teachers_html:
+    title: CircuitVerse-教师
+    rawstring_TEACHERS: 教师
+    description: CircuitVerse被设计的非常适合课堂教学。平台具有丰富的特性可以帮助进行课堂教学和布置作业。
+    rawstring_Benefits: 好处
+    create_group_heading: 创建群组并且让学生们加入
+    create_group_description: 你可以创建群组并且让你的学生们加入其中。如果学生们已经注册了CircuitVerse那么他们会被自动添加。否则的话我们将发送一封邀请给他，当他接受邀请后即可被自动添加到群组。
+    rawstring_Post_assignments: 布置作业
+    post_assignments_description: 布置作业非常简单。只需要点击新建作业按钮。写明截止日期和作业要求即可。作业提交窗口会在截止日期之后自动关闭，学生将不能再继续提交作业除非教师重新打开了窗口。
+    rawstring_Grading_assignments: 打分
+    grade_assignment_description: 给作业打分非常简单。只需要选择学生名字即可看到他的作业并且进行打分。
+    rawstring_use_interactive_circuits: 在你的博客，PPT，学习资料中使用交互式电路
+    use_interactive_circuits_description: 首先确保项目是公共的，其次点击嵌入选项，来得到嵌入式的HTML5代码，之后即可使用。对于PPT，您可能需要使用插件来完成嵌入。
