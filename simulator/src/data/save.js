@@ -29,7 +29,7 @@ function recordicon(load) {
         $('#rec_Button').css('visibility', 'hidden');
     }
 }
-/* eslint quote-props: ["error", "always"] */
+/* eslint quote-props: ["error", "as-needed", { "keywords": true, "unnecessary": false }] */
 function gifshotcall(framerate, gifgh) {
     if (gifshot.isExistingImagesGIFSupported()) {
         gifshot.createGIF({
@@ -57,7 +57,7 @@ function gifshotcall(framerate, gifgh) {
             }
         });
     } else {
-        alert('Error Loading GIF \n Requirement:Firefox 17+, Chrome 21+, Opera 18+, Blackberry Browser 10+, Opera Mobile 12+, Chrome For Android 35+, Firefox for Android 29+');
+        alert('Error Loading GIF \n Requirement:Firefox 17+, Chrome 21+, Opera 18+, Blackberry Browser 10+, Opera Mobile 12+, Chrome For Android 35+, Firefox for Android 29+'); // eslint-disable-line no-alert
     }
 }
 
@@ -150,7 +150,7 @@ export function generateSaveData(name) {
     data = {};
 
     // Prompts for name, defaults to Untitled
-    name = getProjectName() || name || prompt('Enter Project Name:', 'Untitled');
+    name = getProjectName() || name || prompt('Enter Project Name:', 'Untitled'); // eslint-disable-line no-alert
     data.name = stripTags(name);
     setProjectName(data.name);
 
@@ -307,7 +307,7 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
             gifgh = [];
             var counter = 0;
             var framerate = $('#fname').val();
-            alert('Press Ok to start GIF recording \n Max duration of recoding is 120sec');
+            alert('Press Ok to start GIF recording \n Max duration of recoding is 120sec'); // eslint-disable-line no-alert
             var offScreenCanvas = document.createElement('canvas');
             offScreenCanvas.width = simulationArea.canvas.width;
             offScreenCanvas.height = simulationArea.canvas.height;
@@ -335,7 +335,7 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
         /* this code for recording video */
         else if (imgType === 'video') {
             var frameratevideo = $('#fname').val();
-            alert('Press ok to start recording');
+            alert('Press ok to start recording'); // eslint-disable-line no-alert
             var videoStream = simulationArea.canvas.captureStream(frameratevideo || 30);
             var mediaRecorder = new MediaRecorder(videoStream);
 
