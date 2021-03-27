@@ -18,8 +18,6 @@ import plotArea from '../plotArea';
 
 var projectName;
 var recstop = false;
-var gh = [];
-var counter = 0;
 var imgrec = 0;
 var loadrecordingicon = document.getElementsByClassName('loader');
 
@@ -32,10 +30,10 @@ function recordicon(load) {
     }
 }
 /* eslint quote-props: ["error", "always"] */
-function gifshotcall(framerate) {
+function gifshotcall(framerate, gifgh) {
     if (gifshot.isExistingImagesGIFSupported()) {
         gifshot.createGIF({
-            'images': gh,
+            'images': gifgh,
             'gifWidth': simulationArea.canvas.width,
             'gifHeight': simulationArea.canvas.height,
             'interval': 0.5,
@@ -45,8 +43,8 @@ function gifshotcall(framerate) {
         }, (obj) => {
             if (!obj.error) {
                 var { 'image': images } = obj;
-                animatedImage = document.createElement('img');
-                animatedImage.src = image;
+                var animatedImage = document.createElement('img');
+                animatedImage.src = obj.images;
                 const anchor = document.createElement('a');
                 anchor.href = images;
                 var gifname = 'gif';
@@ -54,6 +52,8 @@ function gifshotcall(framerate) {
                 anchor.click();
                 loadrecordingicon[0].style.visibility = 'none';
                 loadrecordingicon[0].style.position = 'relative';
+                recstop = false;
+                imgrec = 0;
             }
         });
     } else {
@@ -61,7 +61,9 @@ function gifshotcall(framerate) {
     }
 }
 
-function cavanstogif(start, framerate) {
+function cavanstogif(start, framerate, context, offScreenCanvas, gifgh) {
+    var gh = [];
+    gh = gifgh;
     if (recstop === false) {
         setTimeout(() => {
             if (recstop === false) {
@@ -69,7 +71,7 @@ function cavanstogif(start, framerate) {
                 context.drawImage(simulationArea.canvas, 0, 0);
                 gh[start] = offScreenCanvas.toDataURL('image/png');
                 if (imgrec === 120) {
-                    gifshotcall(framerate);
+                    gifshotcall(framerate, gh);
                     recordicon(0);
                     loadrecordingicon[0].style.visibility = 'visible';
                     loadrecordingicon[0].style.position = 'absolute';
@@ -79,11 +81,11 @@ function cavanstogif(start, framerate) {
     }
 }
 
-function gifcapture(framerate) {
+function gifcapture(framerate, context, offScreenCanvas, gifgh) {
     recordicon(1);
     var start = 0;
     while (recstop || start <= 120) {
-        cavanstogif(start, framerate);
+        cavanstogif(start, framerate, context, offScreenCanvas, gifgh);
         start++;
     }
 }
@@ -301,8 +303,17 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
             3.GIFSHOT will directly make GIF of photos and export it offine
         */
         else if (imgType === 'anim-gif') {
+            var gifgh;
+            gifgh = [];
+            var counter = 0;
             var framerate = $('#fname').val();
             alert('Press Ok to start GIF recording \n Max duration of recoding is 120sec');
+            var offScreenCanvas = document.createElement('canvas');
+            offScreenCanvas.width = simulationArea.canvas.width;
+            offScreenCanvas.height = simulationArea.canvas.height;
+            var context = offScreenCanvas.getContext('2d');
+            context.fillStyle = 'white';
+            context.fillRect(0, 0, simulationArea.canvas.width, simulationArea.canvas.height);
             $('#rec_Button').click(() => {
                 if (imgType === 'anim-gif') {
                     loadrecordingicon[0].style.visibility = 'visible';
@@ -311,20 +322,15 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
                 recstop = true;
                 recordicon(0);
                 if (counter === 0) {
-                    gifshotcall(framerate);
+                    gifshotcall(framerate, gifgh);
                 }
                 counter++;
             });
             /*
             to make it possible i have use hidden cavas to save current instance and update it every new instance
             and here image download in data url using hidden canvas and store in array so that it can be send to GIFSHOT */
-            var offScreenCanvas = document.createElement('canvas');
-            offScreenCanvas.width = simulationArea.canvas.width;
-            offScreenCanvas.height = simulationArea.canvas.height;
-            var context = offScreenCanvas.getContext('2d');
-            context.fillStyle = 'white';
-            context.fillRect(0, 0, simulationArea.canvas.width, simulationArea.canvas.height);
-            gifcapture(framerate);
+
+            gifcapture(framerate, context, offScreenCanvas, gifgh);
         }
         /* this code for recording video */
         else if (imgType === 'video') {
@@ -383,8 +389,9 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
     globalScope.oy = backUpOy;
 
     resetup();
-
-    if (!down) return returnData;
+    if (!down) {
+        return returnData;
+    }
 }
 
 async function crop(dataURL, w, h) {
