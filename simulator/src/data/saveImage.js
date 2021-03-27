@@ -22,7 +22,7 @@ export default function createSaveAsImgPrompt(scope = globalScope) {
                 generateImage($('input[name=imgType]:checked').val(), $('input[name=view]:checked').val(), $('input[name=transparent]:checked').val(), $('input[name=resolution]:checked').val());
                 $(this).dialog('close');
             },
-            class: "render-btn",
+            class: 'render-btn',
         }],
 
     });
@@ -30,9 +30,9 @@ export default function createSaveAsImgPrompt(scope = globalScope) {
     $('input[name=imgType]').change(() => {
         $('input[name=resolution]').prop('disabled', false);
         $('input[name=transparent]').prop('disabled', false);
-        $('#fname').val("");
+        $('#fname').val('');
         const imgType = $('input[name=imgType]:checked').val();
-        if ((imgType === 'video') || (imgType === 'anim-gif')) { $('.frame-rate-dialog').css("visibility", "visible"); } else { $('.frame-rate-dialog').css("visibility", "hidden"); }
+        if ((imgType === 'video') || (imgType === 'anim-gif')) { $('.frame-rate-dialog').css('visibility', 'visible'); } else { $('.frame-rate-dialog').css('visibility', 'hidden'); }
         imgType === 'svg' ? $('.btn-group-toggle, .download-dialog-section-3').addClass('disable') : $('.btn-group-toggle, .download-dialog-section-3, .cb-inner').removeClass('disable');
         if (imgType === 'svg') {
             $('input[name=resolution][value=1]').trigger('click');

@@ -19,6 +19,7 @@ import plotArea from '../plotArea';
 var recstop = false;
 var imgrec = 0;
 var loadrecordingicon = document.getElementsByClassName('loader');
+var gifgh;
 
 function recordicon(load) {
     if (load === 1) {
@@ -29,7 +30,7 @@ function recordicon(load) {
     }
 }
 /* eslint quote-props: ["error", "as-needed", { "keywords": true, "unnecessary": false }] */
-function gifshotcall(framerate, gifgh) {
+function gifshotcall(framerate) {
     if (gifshot.isExistingImagesGIFSupported()) {
         gifshot.createGIF({
             'images': gifgh,
@@ -59,9 +60,8 @@ function gifshotcall(framerate, gifgh) {
         alert('Error Loading GIF \n Requirement:Firefox 17+, Chrome 21+, Opera 18+, Blackberry Browser 10+, Opera Mobile 12+, Chrome For Android 35+, Firefox for Android 29+'); // eslint-disable-line no-alert
     }
 }
-/* eslint max-params: ["error", 5] */
-/* eslint-env es6 */
-function cavanstogif(start, framerate, context, offScreenCanvas, gifgh) {
+
+function cavanstogif(start, framerate, context, offScreenCanvas) {
     var gh = [];
     gh = gifgh;
     if (recstop === false) {
@@ -81,15 +81,79 @@ function cavanstogif(start, framerate, context, offScreenCanvas, gifgh) {
     }
 }
 
-function gifcapture(framerate, context, offScreenCanvas, gifgh) {
+function gifcapture(framerate, context, offScreenCanvas) {
     recordicon(1);
     var start = 0;
     while (recstop || start <= 120) {
-        cavanstogif(start, framerate, context, offScreenCanvas, gifgh);
+        cavanstogif(start, framerate, context, offScreenCanvas);
         start++;
     }
 }
 
+function gif(imgType) {
+    gifgh = [];
+    var counter = 0;
+    var framerate = $('#fname').val();
+    alert('Press Ok to start GIF recording \n Max duration of recoding is 120sec'); // eslint-disable-line no-alert
+    var offScreenCanvas = document.createElement('canvas');
+    offScreenCanvas.width = simulationArea.canvas.width;
+    offScreenCanvas.height = simulationArea.canvas.height;
+    var context = offScreenCanvas.getContext('2d');
+    context.fillStyle = 'white';
+    context.fillRect(0, 0, simulationArea.canvas.width, simulationArea.canvas.height);
+    $('#rec_Button').click(() => {
+        if (imgType === 'anim-gif') {
+            loadrecordingicon[0].style.visibility = 'visible';
+            loadrecordingicon[0].style.position = 'absolute';
+        }
+        recstop = true;
+        recordicon(0);
+        if (counter === 0) {
+            gifshotcall(framerate);
+        }
+        counter++;
+    });
+    gifcapture(framerate, context, offScreenCanvas);
+}
+
+function videorecording() {
+    var frameratevideo = $('#fname').val();
+    alert('Press ok to start recording'); // eslint-disable-line no-alert
+    var videoStream = simulationArea.canvas.captureStream(frameratevideo || 30);
+    var mediaRecorder = new MediaRecorder(videoStream);
+
+    var chunks = [];
+    mediaRecorder.ondataavailable = (e) => {
+        chunks.push(e.data);
+    };
+
+    mediaRecorder.onstop = (e) => {
+        var blob = new Blob(chunks, { 'type': 'video/mp4' });
+        chunks = [];
+        var videoURL = URL.createObjectURL(blob);
+        const anchor = document.createElement('a');
+        anchor.href = videoURL;
+        var mp4 = 'mp4';
+        anchor.download = `${globalScope.name}.${mp4}`;
+        anchor.click();
+        $('#fname').val('');
+        loadrecordingicon[0].style.visibility = 'none';
+        loadrecordingicon[0].style.position = 'relative';
+    };
+    mediaRecorder.ondataavailable = (e) => {
+        chunks.push(e.data);
+    };
+    mediaRecorder.start();
+    recordicon(1);
+    var countervideo = 0;
+    $('#rec_Button').click(() => {
+        recordicon(0);
+        if (countervideo === 0) {
+            mediaRecorder.stop();
+        }
+        countervideo++;
+    });
+}
 /**
  * Function to set the name of project.
  * @param {string} name - name for project
@@ -283,67 +347,9 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
             const mySerializedSVG = simulationArea.context.getSerializedSvg(); // true here, if you need to convert named to numbered entities.
             download(`${globalScope.name}.svg`, mySerializedSVG);
         } else if (imgType === 'anim-gif') {
-            var gifgh;
-            gifgh = [];
-            var counter = 0;
-            var framerate = $('#fname').val();
-            alert('Press Ok to start GIF recording \n Max duration of recoding is 120sec'); // eslint-disable-line no-alert
-            var offScreenCanvas = document.createElement('canvas');
-            offScreenCanvas.width = simulationArea.canvas.width;
-            offScreenCanvas.height = simulationArea.canvas.height;
-            var context = offScreenCanvas.getContext('2d');
-            context.fillStyle = 'white';
-            context.fillRect(0, 0, simulationArea.canvas.width, simulationArea.canvas.height);
-            $('#rec_Button').click(() => {
-                if (imgType === 'anim-gif') {
-                    loadrecordingicon[0].style.visibility = 'visible';
-                    loadrecordingicon[0].style.position = 'absolute';
-                }
-                recstop = true;
-                recordicon(0);
-                if (counter === 0) {
-                    gifshotcall(framerate, gifgh);
-                }
-                counter++;
-            });
-            gifcapture(framerate, context, offScreenCanvas, gifgh);
+            gif(imgType);
         } else if (imgType === 'video') {
-            var frameratevideo = $('#fname').val();
-            alert('Press ok to start recording'); // eslint-disable-line no-alert
-            var videoStream = simulationArea.canvas.captureStream(frameratevideo || 30);
-            var mediaRecorder = new MediaRecorder(videoStream);
-
-            var chunks = [];
-            mediaRecorder.ondataavailable = (e) => {
-                chunks.push(e.data);
-            };
-
-            mediaRecorder.onstop = (e) => {
-                var blob = new Blob(chunks, { 'type': 'video/mp4' });
-                chunks = [];
-                var videoURL = URL.createObjectURL(blob);
-                const anchor = document.createElement('a');
-                anchor.href = videoURL;
-                var mp4 = 'mp4';
-                anchor.download = `${globalScope.name}.${mp4}`;
-                anchor.click();
-                $('#fname').val('');
-                loadrecordingicon[0].style.visibility = 'none';
-                loadrecordingicon[0].style.position = 'relative';
-            };
-            mediaRecorder.ondataavailable = (e) => {
-                chunks.push(e.data);
-            };
-            mediaRecorder.start();
-            recordicon(1);
-            var countervideo = 0;
-            $('#rec_Button').click(() => {
-                recordicon(0);
-                if (countervideo === 0) {
-                    mediaRecorder.stop();
-                }
-                countervideo++;
-            });
+            videorecording();
         } else {
             downloadAsImg(globalScope.name, imgType);
         }
@@ -376,7 +382,7 @@ async function crop(dataURL, w, h) {
     var myContext = myCanvas.getContext('2d');
     var myImage;
     var img = new Image();
-    return new Promise(function(resolved, rejected) {
+    return new Promise((resolved, rejected) => {
         img.src = dataURL;
         img.onload = () => {
             myContext.drawImage(img, 0, 0, w, h, 0, 0, w, h);
@@ -384,8 +390,8 @@ async function crop(dataURL, w, h) {
             // create a new data URL
             myImage = myCanvas.toDataURL('image/jpeg');
             resolved(myImage);
-        }
-    })
+        };
+    });
 }
 
 /**
@@ -527,4 +533,5 @@ export default async function save() {
 
     // Restore everything
     resetup();
+    // eslint-disable-next-line eol-last
 }
