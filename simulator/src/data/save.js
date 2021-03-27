@@ -407,8 +407,7 @@ async function crop(dataURL, w, h) {
         img.onload = () => {
             myContext.drawImage(img, 0, 0, w, h, 0, 0, w, h);
             myContext.save();
-
-            //create a new data URL
+            // create a new data URL
             myImage = myCanvas.toDataURL('image/jpeg');
             resolved(myImage);
         }
