@@ -16,7 +16,6 @@ import gifshot from 'gifshot';
 import { loadScope } from './load';
 import plotArea from '../plotArea';
 
-var projectName;
 var recstop = false;
 var imgrec = 0;
 var loadrecordingicon = document.getElementsByClassName('loader');
@@ -60,7 +59,8 @@ function gifshotcall(framerate, gifgh) {
         alert('Error Loading GIF \n Requirement:Firefox 17+, Chrome 21+, Opera 18+, Blackberry Browser 10+, Opera Mobile 12+, Chrome For Android 35+, Firefox for Android 29+'); // eslint-disable-line no-alert
     }
 }
-
+/* eslint max-params: ["error", 5] */
+/* eslint-env es6 */
 function cavanstogif(start, framerate, context, offScreenCanvas, gifgh) {
     var gh = [];
     gh = gifgh;
@@ -216,6 +216,7 @@ function download(filename, text) {
  * @param {boolean=} down - will download if true
  * @category data
  */
+/* eslint max-lines-per-function: ["error", 200] */
 export function generateImage(imgType, view, transparent, resolution, down = true) {
     // Backup all data
     const backUpOx = globalScope.ox;
@@ -225,12 +226,9 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
     const backUpScale = globalScope.scale;
     const backUpContextBackground = backgroundArea.context;
     const backUpContextSimulation = simulationArea.context;
-
     backgroundArea.context = simulationArea.context;
-
     globalScope.ox *= 1 / backUpScale;
     globalScope.oy *= 1 / backUpScale;
-
     // If SVG, create SVG context - using canvas2svg here
     if (imgType === 'svg') {
         simulationArea.context = new C2S(width, height);
@@ -238,11 +236,8 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
     } else if (imgType !== 'png') {
         transparent = false;
     }
-
     globalScope.scale = resolution;
-
     const scope = globalScope;
-
     // Focus circuit
     var flag = 1;
     if (flag) {
@@ -254,7 +249,6 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
             const maxY = simulationArea.maxHeight;
             width = (maxX - minX + 100) * resolution;
             height = (maxY - minY + 100) * resolution;
-
             globalScope.ox = (-minX + 50) * resolution;
             globalScope.oy = (-minY + 50) * resolution;
         } else {
@@ -264,10 +258,8 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
             height = (height * resolution) / backUpScale;
         }
     }
-
     globalScope.ox = Math.round(globalScope.ox);
     globalScope.oy = Math.round(globalScope.oy);
-
     simulationArea.canvas.width = width;
     simulationArea.canvas.height = height;
     backgroundArea.canvas.width = width;
@@ -280,29 +272,17 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
         simulationArea.context.rect(0, 0, width, height);
         simulationArea.context.fill();
     }
-
     // Draw circuits, why is it updateOrder and not renderOrder?
     for (let i = 0; i < renderOrder.length; i++) {
         for (let j = 0; j < scope[renderOrder[i]].length; j++) { scope[renderOrder[i]][j].draw(); }
     }
-
     let returnData;
-
     // If circuit is to be downloaded, download, other wise return dataURL
     if (down) {
         if (imgType === 'svg') {
             const mySerializedSVG = simulationArea.context.getSerializedSvg(); // true here, if you need to convert named to numbered entities.
             download(`${globalScope.name}.svg`, mySerializedSVG);
-        }
-        /*
-           Seperate Code to downlaod in GIF because GIF needs external tools to make it
-           Library used her is GIFSHOT free and open source.
-           LOGIC OF BELOW CODE
-            1.When click on download  photos will be taken using DATA URL method them they are stored in array
-            2.These photos will Be send to gifshot library
-            3.GIFSHOT will directly make GIF of photos and export it offine
-        */
-        else if (imgType === 'anim-gif') {
+        } else if (imgType === 'anim-gif') {
             var gifgh;
             gifgh = [];
             var counter = 0;
@@ -326,14 +306,8 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
                 }
                 counter++;
             });
-            /*
-            to make it possible i have use hidden cavas to save current instance and update it every new instance
-            and here image download in data url using hidden canvas and store in array so that it can be send to GIFSHOT */
-
             gifcapture(framerate, context, offScreenCanvas, gifgh);
-        }
-        /* this code for recording video */
-        else if (imgType === 'video') {
+        } else if (imgType === 'video') {
             var frameratevideo = $('#fname').val();
             alert('Press ok to start recording'); // eslint-disable-line no-alert
             var videoStream = simulationArea.canvas.captureStream(frameratevideo || 30);
@@ -423,7 +397,7 @@ async function generateImageForOnline() {
     // Verilog Mode -> Different logic
     // Fix aspect ratio to 1.6
     // Ensure image is approximately 700 x 440
-    var ratio = 1.6
+    var ratio = 1.6;
     if (verilogModeGet()) {
         var node = document.getElementsByClassName('CodeMirror')[0];
         // var node = document.getElementsByClassName('CodeMirror')[0];
@@ -461,7 +435,6 @@ async function generateImageForOnline() {
     // Restores Focus
     globalScope.centerFocus(false);
     return data;
-
 }
 /**
  * Function called when you save acircuit online
