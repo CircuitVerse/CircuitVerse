@@ -18,11 +18,11 @@ gem "omniauth-google-oauth2"
 gem "omniauth-microsoft-office365"
 gem "paperclip", ">= 5.2.0"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 6.0"
+gem "rails", "~> 6.1"
 # Use Puma as the app server
 gem "puma", "~> 5.2"
 # Use SCSS for stylesheets
-gem "sass-rails", "~> 5.0"
+gem "sass-rails", "~> 6.0"
 # Use Uglifier as compressor for JavaScript assets
 gem "uglifier", ">= 1.3.0"
 # See https://github.com/rails/execjs#readme for more supported runtimes
