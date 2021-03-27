@@ -1,3 +1,4 @@
+/* eslint-disable eol-last */
 /**
  * Helper function to show prompt to save image
  * Options - resolution, image type, view
