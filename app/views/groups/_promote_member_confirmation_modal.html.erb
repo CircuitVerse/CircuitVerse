@@ -15,7 +15,7 @@
         </ul>
       </div>
       <div class="modal-footer">
-        <%= button_to "#",params: { group_member: {mentor: 1} }, method: :patch, class: "btn primary-button", id: "groups-member-promote-button" do %>
+        <%= button_to "#",params: { group_member: {mentor: true} }, method: :patch, class: "btn primary-button", id: "groups-member-promote-button" do %>
           Promote
         <% end %>
       </div>
@@ -40,7 +40,7 @@
         </ul>
       </div>
       <div class="modal-footer">
-        <%= button_to "#",params: { group_member: {mentor: 0} }, method: :patch, class: "btn primary-delete-button", id: "groups-member-demote-button" do %>
+        <%= button_to "#",params: { group_member: {mentor: false} }, method: :patch, class: "btn primary-delete-button", id: "groups-member-demote-button" do %>
           Demote
         <% end %>
       </div>

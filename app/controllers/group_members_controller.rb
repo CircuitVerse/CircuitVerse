@@ -34,7 +34,7 @@ class GroupMembersController < ApplicationController
 
     @group = Group.find(group_member_params[:group_id])
     is_mentor = false
-    is_mentor = group_member_params[:mentor].to_i == 1 if group_member_params[:mentor]
+    is_mentor = group_member_params[:mentor] == "true" if group_member_params[:mentor]
     group_member_emails = Utils.parse_mails(group_member_params[:emails])
 
     present_members = User.where(id: @group.group_members.pluck(:user_id)).pluck(:email)
@@ -82,12 +82,7 @@ class GroupMembersController < ApplicationController
   # PATCH/PUT /group_members/1.json
   # Only used to add or remove mentorship
   def update
-    mentr = group_member_params["mentor"]
-    if mentr
-      @group_member.mentor = mentr.to_i == 1
-      @group_member.save
-
-    end
+    @group_member.update(group_member_update_params)
     respond_to do |format|
       format.html do
         redirect_to group_path(@group_member.group),
@@ -120,6 +115,14 @@ class GroupMembersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def group_member_params
       params.require(:group_member).permit(:group_id, :user_id, :emails, :mentor)
+    end
+
+    # Using different params for update
+    # Using group_member_params could result in changing the group_id
+    # which would allow changing users of arbitrary groups since
+    # the check_access happens before the group is changed and passes
+    def group_member_update_params
+      params.require(:group_member).permit(:mentor)
     end
 
     def check_access

@@ -32,7 +32,7 @@ class GroupsController < ApplicationController
         notice = "Group member was successfully added."
       end
     elsif Group.exists?(group_token: params[:token])
-      notice = "Url is expired, request a new one from primary_mentor of the group."
+      notice = "Url is expired, request a new one from the primary mentor of the group."
     else
       notice = "Invalid url"
     end

@@ -37,8 +37,7 @@ class Users::LogixController < ApplicationController
     @user = authorize @user
     @groups_owned = Group.where(id: Group.joins(:primary_mentor).where(primary_mentor: @user))
                          .select("groups.*, COUNT(group_members.id) as group_member_count")
-                         .joins("left outer join group_members on \
-                              (group_members.group_id = groups.id)")
+                         .left_outer_joins(:group_members)
                          .group("groups.id")
   end
 

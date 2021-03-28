@@ -26,10 +26,12 @@
           <div class="field">
             <%= form.hidden_field :group_id, id: :group_member_group_id %>
           </div>
+          <div class="field">
+            <%= form.hidden_field :mentor, value: true %>
+          </div>
           <div class="form-group">
             <label for="emails">Email IDs:</label>
             <textarea class="form-control form-input" rows="4" id="emails" name="group_member[emails]"></textarea>
-            <input type="hidden" name="group_member[mentor]" value="1">
           </div>
           <div class="modal-footer">
             <%= form.submit "Add mentors", class: 'btn primary-button' %>

@@ -75,4 +75,8 @@ class Api::V1::GroupMembersController < Api::V1::BaseController
       # check if current user has admin/mentor rights to create group members
       authorize @group, :admin_access?
     end
+
+    def group_member_params
+      @group_member.require(:group_member).permit(:mentor)
+    end
 end
