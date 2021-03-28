@@ -26,30 +26,12 @@
   margin-left: 15px;
 }
 
-.footer-social {
-  background-color: $white;
-  border: 3px solid $white;
-  border-radius: 50%;
-  display: block;
-  font-size: 30px;
-  height: 50px;
-  margin: 3px 10px;
-  overflow: hidden;
-  position: relative;
-  text-align: center;
-  width: 50px;
-  z-index: 1;
-}
-
 .footer-social-icon {
-  color: $footer-dark-grey;
-  position: relative;
-  transition: .5s;
-  z-index: .1;
+  margin-left: 15px;
+  width: 32px;
 
   &:hover {
-    color: $primary-green;
-    size: 110%;
+    transform: scale(1.4);
   }
 }
 
