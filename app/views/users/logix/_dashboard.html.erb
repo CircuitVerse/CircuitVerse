@@ -4,7 +4,8 @@
       <div class="card text-center users-card">
         <div class="card-header users-card-header">
           <div class="users-card-name">
-            <p title="<%= project.name %>"><%= project.name %></p>
+            <p><%= project.name %></p>
+            <span class="tooltiptext"><%= project.name %></span>
           </div>
           <div class="users-tag-container">
             <% if !project.assignment_id.nil? %>

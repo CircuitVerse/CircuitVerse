@@ -11,7 +11,7 @@ import { colors } from '../themer/themer';
 import {layoutModeGet, toggleLayoutMode} from '../layoutMode';
 import {verilogModeGet} from '../Verilog2CV';
 import domtoimage from 'dom-to-image';
-import C2S from '../canvas2svg';
+import C2S from '../../vendor/canvas2svg';
 
 var projectName = undefined;
 
@@ -382,15 +382,16 @@ export default async function save() {
         $.ajax({
             url: '/simulator/update_data',
             type: 'POST',
+            contentType: 'application/json',
             beforeSend(xhr) {
                 xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
             },
-            data: {
+            data: JSON.stringify({
                 data,
                 id: __logix_project_id,
                 image: imageData,
                 name: projectName,
-            },
+            }),
             success(response) {
                 showMessage(`We have saved your project: ${projectName} in our servers.`);
                 $('.loadingIcon').fadeOut();

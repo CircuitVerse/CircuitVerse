@@ -520,7 +520,7 @@ input[type="text"]:focus {
 }
 
 .panelHeader:after {
-  transform: translate(325%, -50%) rotate(226deg);
+  transform: translate(260%, -50%) rotate(226deg);
 }
 
 .ui-accordion-header-active:before {
@@ -532,7 +532,7 @@ input[type="text"]:focus {
 
 .ui-accordion-header-active:after {
   transform-origin: bottom;
-  transform: translate(541%, -50%) rotate(310deg);
+  transform: translate(420%, -50%) rotate(310deg);
   transition: 0.2s ease-out;
   top: 46%;
 }
@@ -1373,22 +1373,18 @@ font: inherit;
   border-radius: 3px;
 }
 
-.zoom-slider::before {
-  content: '-';
-  color: white;
-  font-size: 30px;
-  position: relative;
-  left: 0px;
-  top: -4.0px;
-}
-
-.zoom-slider::after {
-  content: '+';
+.zoom-slider {
   color: white;
   font-size: 20px;
+}
+
+.zoom-slider-increment {
   position: relative;
-  right: 0px;
-  top: -6px;
+  bottom: .3rem;
+}
+.zoom-slider-decrement {
+  position: relative;
+  bottom: .4rem;
 }
 
 .custom-range {
@@ -1409,6 +1405,10 @@ font: inherit;
 }
 .custom-range:focus::-moz-range-thumb {
   box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(75, 86, 99, 0.25);
+}
+
+input[type=range] {
+  -webkit-appearance: none;
 }
 
 input[type='range']::-webkit-slider-runnable-track {
@@ -1436,6 +1436,7 @@ input[type='range']::-webkit-slider-thumb {
 }
 
 .panel-button {
+  cursor: pointer;
   padding: 2px;
 }
 

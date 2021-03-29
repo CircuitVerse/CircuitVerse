@@ -26,6 +26,22 @@ import 'codemirror/addon/hint/show-hint.js';
 import {setupCodeMirrorEnvironment} from './Verilog2CV';
 import { keyBinder } from './hotkey_binder/keyBinder';
 
+// TODO include subset of bootstrap we use instead of whole framework
+import 'bootstrap';
+
+import 'jquery-ui/themes/base/core.css';
+import 'jquery-ui/themes/base/resizable.css';
+import 'jquery-ui/themes/base/accordion.css';
+import 'jquery-ui/themes/base/dialog.css';
+import 'jquery-ui/themes/base/tooltip.css';
+import 'jquery-ui/themes/base/theme.css';
+
+import autocomplete from 'jquery-ui/ui/widgets/resizable';
+import accordion from 'jquery-ui/ui/widgets/accordion';
+import dialog from 'jquery-ui/ui/widgets/dialog';
+import tooltip from 'jquery-ui/ui/widgets/tooltip';
+import sortable from 'jquery-ui/ui/widgets/sortable';
+
 window.width = undefined;
 window.height = undefined;
 window.DPR = window.devicePixelRatio || 1; // devicePixelRatio, 2 for retina displays, 1 for low resolution displays
@@ -79,6 +95,7 @@ window.addEventListener('orientationchange', resetup); // listener
 function setupEnvironment() {
     setupModules();
     const projectId = generateId();
+    window.projectId = projectId;
     updateSimulationSet(true);
     const DPR = window.devicePixelRatio || 1;
     newCircuit('Main');
@@ -150,14 +167,8 @@ export function setup() {
         if (__logix_project_id != 0) {
             $('.loadingIcon').fadeIn();
             $.ajax({
-                url: '/simulator/get_data',
-                type: 'POST',
-                beforeSend(xhr) {
-                    xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
-                },
-                data: {
-                    id: __logix_project_id,
-                },
+                url: `/simulator/get_data/${__logix_project_id}`,
+                type: 'GET',
                 success(response) {
                     var data = (response);
                     if (data) {
