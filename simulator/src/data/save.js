@@ -16,6 +16,7 @@ import gifshot from 'gifshot';
 import { loadScope } from './load';
 import plotArea from '../plotArea';
 
+var projectName = undefined;
 var recstop = false;
 var imgrec = 0;
 var loadrecordingicon = document.getElementsByClassName('loader');
@@ -54,6 +55,7 @@ function gifshotcall(framerate) {
                 loadrecordingicon[0].style.position = 'relative';
                 recstop = false;
                 imgrec = 0;
+                simulationArea.canvas.style.pointerEvents = 'auto';
             }
         });
     } else {
@@ -91,6 +93,8 @@ function gifcapture(framerate, context, offScreenCanvas) {
 }
 
 function gif(imgType) {
+    simulationArea.canvas.style.pointerEvents = 'none';
+
     gifgh = [];
     var counter = 0;
     var framerate = $('#fname').val();
@@ -214,7 +218,7 @@ export function generateSaveData(name) {
     data = {};
 
     // Prompts for name, defaults to Untitled
-    name = getProjectName() || name || prompt('Enter Project Name:', 'Untitled'); // eslint-disable-line no-alert
+    name = getProjectName() || name || prompt('Enter Project Name:') || 'untitled'; // eslint-disable-line no-alert
     data.name = stripTags(name);
     setProjectName(data.name);
 

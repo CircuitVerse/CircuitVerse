@@ -41,12 +41,12 @@ function setProjectName(name) {
 }
 
 function clearProject() {
-    if (confirm("Would you like to clear the project?")){
-    globalScope = undefined;
-    scopeList = {};
-    $('.circuits').remove();
-    newCircuit("main");
-    showMessage("Your project is as good as new!");
+    if (confirm("Would you like to clear the project?")) {
+        globalScope = undefined;
+        scopeList = {};
+        $('.circuits').remove();
+        newCircuit("main");
+        showMessage("Your project is as good as new!");
     }
 }
 
@@ -184,7 +184,7 @@ function switchCircuit(id) {
     if (!embed) {
         showProperties(simulationArea.lastSelected);
     }
-    updateCanvas=true;
+    updateCanvas = true;
     scheduleUpdate();
 
     // to update the restricted elements information
@@ -204,7 +204,7 @@ function downloadAsImg(name, imgType) {
 
 // Function to restore copy from backup
 function undo(scope = globalScope) {
-    if(layoutMode)return;
+    if (layoutMode) return;
     if (scope.backups.length == 0) return;
     var backupOx = globalScope.ox;
     var backupOy = globalScope.oy;
@@ -365,7 +365,7 @@ function generateSaveData(name) {
     data = {};
 
     // Prompts for name, defaults to Untitled
-    name = projectName || name || prompt("Enter Project Name:") || "Untitled";
+    name = projectName || name || 'Untitled' || prompt("Enter Project Name:");
     data["name"] = stripTags(name)
     projectName = data["name"];
     setProjectName(projectName)
@@ -447,7 +447,7 @@ function save() {
         // user not signed in, save locally temporarily and force user to sign in
         localStorage.setItem("recover_login", data);
         // Asking user whether they want to login.
-        if(confirm("You have to login to save the project, you will be redirected to the login page.")) window.location.href = "/users/sign_in";
+        if (confirm("You have to login to save the project, you will be redirected to the login page.")) window.location.href = "/users/sign_in";
         else $('.loadingIcon').fadeOut();
     } else if (logix_project_id == 0) {
 
@@ -721,8 +721,8 @@ function loadScope(scope, data) {
     }
 
     // Backward compatibility
-    if(scope.layout.titleEnabled==undefined)
-        scope.layout.titleEnabled=true;
+    if (scope.layout.titleEnabled == undefined)
+        scope.layout.titleEnabled = true;
 
 }
 
@@ -774,7 +774,7 @@ createSaveAsImgPrompt = function(scope = globalScope) {
 }
 
 // Function to delete offline project of selected id
-deleteOfflineProject = function (projectId) {
+deleteOfflineProject = function(projectId) {
     var projectList = JSON.parse(localStorage.getItem("projectList"));
     var confirmation = confirm("Are You Sure You Want To Delete Project " + projectList[projectId] + " ?");
     if (confirmation) {
@@ -980,30 +980,30 @@ function generateImage(imgType, view, transparent, resolution, down = true) {
 }
 
 if (logix_project_id == 0)
-setTimeout(promptSave,120000);
+    setTimeout(promptSave, 120000);
 
-function promptSave(){
+function promptSave() {
     console.log("PROMPT")
-    if(confirm("You have not saved your creation! Would you like save your project online? "))
-    save()
+    if (confirm("You have not saved your creation! Would you like save your project online? "))
+        save()
 }
 
 async function postUserIssue(message) {
     var img = generateImage("jpeg", "full", false, 1, false).split(',')[1];
     const result = await $.ajax({
-            url: 'https://api.imgur.com/3/image',
-            type: 'POST',
-            data: {
-                image: img
-            },
-            dataType: 'json',
-            headers: {
-                Authorization: 'Client-ID 9a33b3b370f1054'
-            },
-        });
+        url: 'https://api.imgur.com/3/image',
+        type: 'POST',
+        data: {
+            image: img
+        },
+        dataType: 'json',
+        headers: {
+            Authorization: 'Client-ID 9a33b3b370f1054'
+        },
+    });
 
     message += "\n" + result.data.link;
-    
+
     $.ajax({
         url: '/simulator/post_issue',
         type: 'POST',
