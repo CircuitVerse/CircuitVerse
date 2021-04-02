@@ -5,6 +5,19 @@ import miniMapArea, { removeMiniMap, updatelastMinimapShown } from './minimap';
 import { colors } from './themer/themer';
 
 var unit = 10;
+// function to calculate the label width
+function getTextWidth(inputText = '') {
+    if (inputText === '') { return 0; }
+    // not sure about font but small string  up to 25 lenght is works correct
+    var font = 150;
+    var canvas = document.createElement('canvas');
+    var context = canvas.getContext('2d');
+    context.font = font;
+    var { width } = context.measureText(inputText);
+    var formattedWidth = Math.ceil(width);
+    // +50 for saafer size
+    return formattedWidth + 50;
+}
 
 export function findDimensions(scope = globalScope) {
     var totalObjects = 0;
@@ -27,8 +40,8 @@ export function findDimensions(scope = globalScope) {
                 if (obj.objectType !== 'Node') {
                     if (obj.y - obj.upDimensionY < simulationArea.minHeight) { simulationArea.minHeight = obj.y - obj.upDimensionY; }
                     if (obj.y + obj.downDimensionY > simulationArea.maxHeight) { simulationArea.maxHeight = obj.y + obj.downDimensionY; }
-                    if (obj.x - (obj.leftDimensionX + getTextWidth(obj.label)) < simulationArea.minWidth) { simulationArea.minWidth = obj.x - (obj.leftDimensionX + getTextWidth(obj.label)) }
-                    if (obj.x + (obj.rightDimensionX + getTextWidth(obj.label)) > simulationArea.maxWidth) { simulationArea.maxWidth = obj.x + (obj.rightDimensionX + getTextWidth(obj.label)) }
+                    if (obj.x - (obj.leftDimensionX + getTextWidth(obj.label)) < simulationArea.minWidth) { simulationArea.minWidth = obj.x - (obj.leftDimensionX + getTextWidth(obj.label)); }
+                    if (obj.x + (obj.rightDimensionX + getTextWidth(obj.label)) > simulationArea.maxWidth) { simulationArea.maxWidth = obj.x + (obj.rightDimensionX + getTextWidth(obj.label)); }
                 } else {
                     if (obj.absY() < simulationArea.minHeight) { simulationArea.minHeight = obj.absY(); }
                     if (obj.absY() > simulationArea.maxHeight) { simulationArea.maxHeight = obj.absY(); }
@@ -40,20 +53,6 @@ export function findDimensions(scope = globalScope) {
     }
     simulationArea.objectList = updateOrder;
 }
-//function to calculate the label width 
-function getTextWidth(inputText = '') {
-    if (inputText === '') { return 0 }
-    //not sure about font but small string  up to 25 lenght is works correct
-    var font = 150;
-    var canvas = document.createElement("canvas");
-    var context = canvas.getContext("2d");
-    context.font = font;
-    var width = context.measureText(inputText).width;
-    var formattedWidth = Math.ceil(width);
-    //+50 for saafer size
-    return formattedWidth + 50;
-}
-
 // Function used to change the zoom level wrt to a point
 // fn to change scale (zoom) - It also shifts origin so that the position
 // of the object in focus doesn't change
@@ -80,16 +79,12 @@ export function changeScale(delta, xx, yy, method = 1) {
             }
         }
     }
-
-
     var oldScale = globalScope.scale;
     globalScope.scale = Math.max(0.5, Math.min(4 * DPR, globalScope.scale + delta));
     globalScope.scale = Math.round(globalScope.scale * 10) / 10;
     globalScope.ox -= Math.round(xx * (globalScope.scale - oldScale)); // Shift accordingly, so that we zoom wrt to the selected point
     globalScope.oy -= Math.round(yy * (globalScope.scale - oldScale));
     // dots(true,false);
-
-
     // MiniMap
     if (!embed && !lightMode) {
         findDimensions(globalScope);
