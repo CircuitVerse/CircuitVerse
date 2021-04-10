@@ -139,7 +139,6 @@ $output-rect: blue;
 }
 
 .quick-btn {
-    //neumorph
     background: var(--bg-navbar);
     border-top: 1.5px solid var(--qp-br-tl);
     border-left: 1.5px solid var(--qp-br-tl);
@@ -512,44 +511,44 @@ select {
 }
 
 .frame-rate-dialog {
-    background: var(--primary);
-    border: 1px solid var(--br-primary);
-    box-shadow: 0px 0px 10px #4545457f;
-    color: var(--text-panel);
+    border: 1px solid var(--br-secondary);
 }
 
 .frame-rate-dialog input:focus,
 .frame-rate-dialog select:focus,
 .frame-rate-dialog textarea:focus {
-    color: var(--text-panel);
-    border-color: var(--br-primary) !important;
+    border-color: 1px solid var(--br-secondary);
 }
 
 .frame-rate-dialog input,
 .frame-rate-dialog select,
 .frame-rate-dialog textarea {
-    border: 1px solid var(--br-secondary) !important;
-    color: var(--text-panel);
+    border: 1px solid var(--br-secondary);
 }
 
 #fname {
-    background: var(--primary);
+    background: var(--bg-primary-chr) !important;
     background-color: var(--primary);
     width: 50%;
+    color: var(--text-lite);
 }
 
 #fname input:focus,
 #fname select:focus,
 #fname textarea:focus {
-    color: var(--text-panel);
-    border-color: var(--br-primary) !important;
+    border-color: .5px solid var(--br-primary) !important;
+    color: var(--text-lite);
 }
 
 #fname input,
 #fname select,
 #fname textarea {
-    border: 1px solid var(--br-secondary) !important;
-    color: var(--text-panel);
+    border: 1px solid var(--br-secondary);
+    color: var(--text-lite);
+}
+
+#fnamelabel {
+    color: var(--text-lite);
 }
 
 .render-btn:active {

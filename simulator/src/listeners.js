@@ -281,11 +281,12 @@ export default function startListeners() {
     document.getElementById('simulationArea').addEventListener('DOMMouseScroll', MouseScroll);
 
     function MouseScroll(event) {
+        if (simulationArea.stopPan === true) { return; }
         updateCanvasSet(true);
         event.preventDefault();
         var deltaY = event.wheelDelta ? event.wheelDelta : -event.detail;
         event.preventDefault();
-        var  deltaY  =  event.wheelDelta  ?  event.wheelDelta  :  -event.detail;
+        var deltaY = event.wheelDelta ? event.wheelDelta : -event.detail;
         const  direction  =  deltaY  >  0  ?  1  :  -1;
         handleZoom(direction);
         updateCanvasSet(true);

@@ -3,13 +3,19 @@
 // Refer listeners.js
 import simulationArea from './simulationArea';
 import {
-    scheduleUpdate, update, updateSelectionsAndPane,
-    wireToBeCheckedSet, updatePositionSet, updateSimulationSet,
-    updateCanvasSet, gridUpdateSet, errorDetectedSet,
+    scheduleUpdate,
+    update,
+    updateSelectionsAndPane,
+    wireToBeCheckedSet,
+    updatePositionSet,
+    updateSimulationSet,
+    updateCanvasSet,
+    gridUpdateSet,
+    errorDetectedSet,
 } from './engine';
 import { changeScale } from './canvasApi';
 import { copy, paste } from './events';
-import { ZoomIn, ZoomOut} from './listeners';
+import { ZoomIn, ZoomOut } from './listeners';
 
 var unit = 10;
 
@@ -85,7 +91,7 @@ export default function startListeners() {
         if (simulationArea.lastSelected == globalScope.root) {
             updateCanvasSet(true);
             var fn;
-            fn = function () {
+            fn = function() {
                 updateSelectionsAndPane();
             };
             scheduleUpdate(0, 20, fn);
@@ -164,7 +170,7 @@ export default function startListeners() {
 
         scheduleUpdate(1);
     });
-    window.addEventListener('mousedown', function (e) {
+    window.addEventListener('mousedown', function(e) {
         this.focus();
     });
 
@@ -201,5 +207,5 @@ export default function startListeners() {
     }
 }
 
-var isIe = (navigator.userAgent.toLowerCase().indexOf('msie') != -1
-    || navigator.userAgent.toLowerCase().indexOf('trident') != -1);
+var isIe = (navigator.userAgent.toLowerCase().indexOf('msie') != -1 ||
+    navigator.userAgent.toLowerCase().indexOf('trident') != -1);

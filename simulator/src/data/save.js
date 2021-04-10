@@ -16,6 +16,7 @@ import gifshot from 'gifshot';
 import { loadScope } from './load';
 import plotArea from '../plotArea';
 
+// eslint-disable-next-line no-undef-init
 var projectName = undefined;
 var recstop = false;
 var imgrec = 0;
@@ -55,7 +56,7 @@ function gifshotcall(framerate) {
                 loadrecordingicon[0].style.position = 'relative';
                 recstop = false;
                 imgrec = 0;
-                simulationArea.canvas.style.pointerEvents = 'auto';
+                simulationArea.stopPan = false;
             }
         });
     } else {
@@ -93,7 +94,8 @@ function gifcapture(framerate, context, offScreenCanvas) {
 }
 
 function gif(imgType) {
-    simulationArea.canvas.style.pointerEvents = 'none';
+    simulationArea.stopPan = true;
+    // simulationArea.canvas.style.pointerEvents = 'none';
 
     gifgh = [];
     var counter = 0;
