@@ -307,6 +307,18 @@ input[type="text"]:focus {
   color: white;
 
 }
+
+@media(max-width: 1150px) {
+  .quick-btn {
+    top: 130px;
+  }
+}
+
+@media(max-width: 990px) {
+  .quick-btn {
+    position: unset;
+  }
+}
 /* dropdown-menu styles */
 
 .dropdown > ul {
@@ -604,7 +616,8 @@ div.icon img {
   /* height: 23.5px; */
   display: block;
   align-items: center;
-  z-index: 100;
+  position: relative;
+  z-index: 1000;
 }
 
 .embed-tabs {
@@ -1154,7 +1167,8 @@ input:checked + .slider:before {
   border-radius: 1px;
 }
 .navbar {
-  transition: background .5s ease-out; 
+  transition: background .5s ease-out;
+  z-index: 1000;
 }
 
 
