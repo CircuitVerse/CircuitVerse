@@ -94,7 +94,7 @@ export default class OrGate extends CircuitElement {
         }
         for (let i = 1; i < this.inputSize; i++)
             result |= this.inp[i].value || 0;
-        this.output1.value = result;
+        this.output1.value = result >>> 0;
         simulationArea.simulationQueue.add(this.output1);
     }
 
