@@ -4,7 +4,8 @@ class User < ApplicationRecord
   mailkick_user
   require "pg_search"
   include SimpleDiscussion::ForumUser
-
+  extend FriendlyId
+  friendly_id :name, use: :slugged
   validates :email, undisposable: { message: "Sorry, but we do not accept your mail provider." }
 
   # Include default devise modules. Others available are:

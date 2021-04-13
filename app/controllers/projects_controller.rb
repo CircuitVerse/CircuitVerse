@@ -14,7 +14,7 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @author = User.find(params[:user_id])
+    @author = User.friendly.find(params[:user_id])
   end
 
   # GET /projects/tags/[tag]
@@ -125,7 +125,7 @@ class ProjectsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_project
       if params[:user_id]
-        @author = User.find(params[:user_id])
+        @author = User.friendly.find(params[:user_id])
         @project = @author.projects.friendly.find(params[:id])
       else
         @project = Project.friendly.find(params[:id])
