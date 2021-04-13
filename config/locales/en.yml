@@ -33,6 +33,43 @@ en:
   hello: "Hello world"
 
 # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
+  teachers:
+    title: "CircuitVerse - Teachers"
+    teacher: 
+      title: "TEACHERS"
+      description: "CircuitVerse has been designed to be very easy to use in class. The platform has features to assist teachers in class and assignments."
+    benefits:
+      title: "Benefits"
+      create_group:
+        heading: "Create Groups and add your students"
+        description: "You can create groups and add your students to them! If students are already registered with CircuitVerse they will be added automatically. If they are not registered with CircuitVerse yet, an invitation will be sent to register. Once they register, they will be added automatically."
+      post_assignments:
+        heading: "Post Assignments"
+        description: "To create an assignment, simply click the add new assignment button. Give the details of the assignment and the deadline. The assignment will automatically close at the deadline. Students cannot continue their assignment unless the teacher reopens the assignment again."
+      grade_assignment:
+        heading: "Grading assignments"
+        description: "Grade assignments very easily with the in build preview. Simply select the student, to his/her assignment work."
+      use_interactive_circuits:
+        heading: "Use Interactive Circuits in your Blogs, Study Materials, or PowerPoint presentations"
+        description: "Make sure the project is public. Click on embed, to get the embed HTML5 code, then simply embed the circuit. You may need to use a PowerPoint plugin like Live Slides to embed the live Circuit." 
+  
+  simulator:
+    project:
+      title: "Project"
+      new_project: "New Project"
+
+    circuit:
+      title: "Circuit"
+      new_circuit_plus: "New Circuit +"
+
+    tools:
+      title: "Tools"
+      combinational_analysis: "Combinational Analysis"
+
+    help:
+      title: "Help"
+      tutorial_guide: "Tutorial Guide"
+  
   datetime:
     distance_in_words:
       half_a_minute: "half a minute"

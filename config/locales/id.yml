@@ -1,0 +1,75 @@
+id:
+# Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
+  teachers:
+    title: "CircuitVerse - Pengajar"
+    teacher: 
+      title: "PENGAJAR"
+      description: "CircuitVerse telah di desain untuk digunakan secara mudah di kelas. Platform ini memiliki banyak fitur untuk membantu pengajar di kelas maupun pengerjaan tugas."
+    benefits:
+      title: "Keuntungan"
+      create_group:
+        heading: "Buat Grup dan tambahkan siswa anda."
+        description: "Anda dapat membuat grup dan menambahkan siswa Anda ke dalamnya! Jika siswa sudah terdaftar dengan CircuitVerse, mereka akan ditambahkan secara otomatis. Jika mereka belum terdaftar di CircuitVerse, undangan akan dikirim untuk mendaftar. Setelah mereka mendaftar, mereka akan ditambahkan secara otomatis."
+      post_assignments:
+        heading: "Posting tugas"
+        description: "Untuk membuat tugas, cukup klik tombol tambahkan tugas baru. Berikan detail tugas dan tenggat waktunya. Tugas akan ditutup secara otomatis pada tenggat waktu. Siswa tidak dapat melanjutkan tugasnya kecuali pengajar membuka kembali tugasnya."
+      grade_assignment:
+        heading: "Menilai tugas"
+        description: "Menilai tugas dengan sangat mudah dengan pratinjau dalam versi build. Cukup pilih siswa dan tugas yang ia kerjakan."
+      use_interactive_circuits:
+        heading: "Gunakan Sirkuit Interaktif di Blog, Materi Studi, atau presentasi PowerPoint Anda."
+        description: "Pastikan proyek tersebut publik. Klik sematkan, untuk mendapatkan kode embed HTML5, lalu cukup sematkan sirkuit. Anda mungkin perlu menggunakan plugin PowerPoint seperti Live Slides untuk menyematkan Sirkuit langsung." 
+
+  simulator:
+    project:
+      title: "Proyek"
+      new_project: "Buat Proyek"
+
+    circuit:
+      title: "Sirkuit"
+      new_circuit_plus: "Tambah Sirkuit"
+
+    tools:
+      title: "Alat"
+      combinational_analysis: "Analisis Kombinasi"
+
+    help:
+      title: "Bantuan"
+      tutorial_guide: "Bantuan Tutorial"
+  
+  datetime:
+    distance_in_words:
+      half_a_minute: "setengah menit"
+      less_than_x_seconds:
+        one:   "1 detik" # default was: "less than 1 second"
+        other: "%{count} detik" # default was: "less than %{count} seconds"
+      x_seconds:
+        one:   "1 detik"
+        other: "%{count} detik"
+      less_than_x_minutes:
+        one:   "a menit" # default was: "less than a minute"
+        other: "%{count} menit" # default was: "less than %{count} minutes"
+      x_minutes:
+        one:   "1 menit"
+        other: "%{count} menit"
+      about_x_hours:
+        one:   "1 jam" # default was: "about 1 hour"
+        other: "%{count} jam" # default was: "about %{count} hours"
+      x_days:
+        one:   "1 hari"
+        other: "%{count} hari"
+      about_x_months:
+        one:   "1 bulan" # default was: "about 1 month"
+        other: "%{count} bulan" # default was: "about %{count} months"
+      x_months:
+        one:   "1 bulan"
+        other: "%{count} bulan"
+      about_x_years:
+        one:   "1 tahun" # default was: "about 1 year"
+        other: "%{count} tahun" # default was: "about %{count} years"
+      over_x_years:
+        one:   "1 tahun" # default was: "over 1 year"
+        other: "%{count} tahun" # default was: "over %{count} years"
+      almost_x_years:
+        one:   "1 tahun" # default was: "almost 1 year"
+        other: "%{count} tahun" # default was: "almost %{count} years"

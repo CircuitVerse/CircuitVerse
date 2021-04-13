@@ -1,0 +1,65 @@
+# Additional translations at https://github.com/plataformatec/devise/wiki/I18n
+
+id:
+  devise:
+    confirmations:
+      confirmed: "Email anda telah berhasil dikonfirmasi."
+      send_instructions: "Anda akan menerima sebuah email dengan instruksi bagaimana cara untuk mengkonfirmasikan email anda."
+      send_paranoid_instructions: "Jika email anda telah terdaftar, anda akan menerima email dengan instruksi bagaimana cara untuk mengkonfirmasikan email anda."
+    failure:
+      already_authenticated: "Anda telah masuk."
+      inactive: "Akun anda belum diaktifkan."
+      invalid: "%{authentication_keys} atau sandi anda tidak cocok."
+      locked: "Akun anda terkunci."
+      last_attempt: "Anda memiliki 1 kali kesempatan sebelum akun anda dikunci."
+      not_found_in_database: "%{authentication_keys} atau sandi anda tidak cocok."
+      timeout: "Sesi anda telah berakhir. Silahkan masuk kembali untuk melanjutkan"
+      unauthenticated: "Anda perlu untuk masuk atau daftar sebelum melanjutkan."
+      unconfirmed: "Anda harus mengkonfirmasi email anda terlebih dahulu sebelum melanjutkan."
+    mailer:
+      confirmation_instructions:
+        subject: "Instruksi untuk Konfirmasi"
+      reset_password_instructions:
+        subject: "Instruksi untuk Mereset Sandi"
+      unlock_instructions:
+        subject: "Instruksi untuk Membuka Kunci"
+      email_changed:
+        subject: "Email berubah"
+      password_change:
+        subject: "Sandi berubah"
+    omniauth_callbacks:
+      failure: 'Tidak dapat mengautentikasi anda dari %{kind} dikarenakan "%{reason}".'
+      success: "Autentikasi berhasil dari akun %{kind}."
+    passwords:
+      no_token: "Anda tidak dapat mengakses halaman ini tanpa melalui email yang menginstruksikan cara untuk mereset sandi. Jika anda benar membuka tautan dari email reset password, maka pastikan anda memasukkan URL secara utuh."
+      send_instructions: "Anda akan menerima email dengan instruksi cara untuk mereset sandi anda."
+      send_paranoid_instructions: "Jika email anda telah terdaftar, anda akan menerima tautan untuk memulihkan sandi anda."
+      updated: "Sandi anda berhasil diubah dan anda telah dimasukkan."
+      updated_not_active: "Sandi anda berhasil diubah."
+    registrations:
+      destroyed: "Sampai jumpa! Akun anda telah dibatalkan. Kami berharap bertemu lagi dengan anda."
+      signed_up: "Selamat Datang! Anda telah berhasil masuk."
+      signed_up_but_inactive: "Anda telah berhasil terdaftar. Tetapi, kami tidak dapat memasukkan anda dikarenakan akun anda belum diaktifkan."
+      signed_up_but_locked: "Anda telah berhasil terdaftar. Tetapi, kami tidak dapat memasukkan anda dikarenakan akun anda terkunci."
+      signed_up_but_unconfirmed: "Sebuah pesan dengan tautan untuk konfirmasi telah di kirim ke alamat email anda. Mohon untuk mengikuti tautan yang ada untuk mengaktifkan akun anda."
+      update_needs_confirmation: "Akun anda telah berhasil diubah, mohon verifikasi email anda. Cek email anda dan ikuti cara yang dicantumkan untuk mengkonfirmasi email anda."
+      updated: "Akun anda telah berhasil diubah."
+      updated_but_not_signed_in: "Akun Anda telah berhasil diperbarui, tetapi karena kata sandi Anda diubah, Anda harus masuk lagi"
+    sessions:
+      signed_in: "Anda telah berhasil masuk."
+      signed_out: "Anda telah berhasil keluar."
+      already_signed_out: "Anda telah berhasil keluar."
+    unlocks:
+      send_instructions: "Anda akan menerima email dengan instruksi bagaimana cara untuk membuka kunci pada akun anda."
+      send_paranoid_instructions: "Jika akun anda terdaftar, anda akan menerima email dengan instruksi bagaimana cara untuk membuka kunci pada akun anda."
+      unlocked: "Akun anda telah berhasil dibuka. Silahkan masuk untuk melanjutkan."
+  errors:
+    messages:
+      already_confirmed: "telah dikonfirmasi, Silahkan coba untuk masuk"
+      confirmation_period_expired: "butuh dikonfirmasi dalam waktu %{period}, tolong anda minta kembali"
+      expired: "telah habis masa berlakunya, tolong anda minta kembali"
+      not_found: "tidak dapat kami temukan"
+      not_locked: "tidak terkunci"
+      not_saved:
+        one: "1 masalah menghalangi %{resource} untuk dapat disimpan:"
+        other: "%{count} masalah menghalangi %{resource} untuk dapat disimpan:"
