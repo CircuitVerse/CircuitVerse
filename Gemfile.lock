@@ -232,6 +232,10 @@ GEM
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     gravatar_image_tag (1.2.0)
+    hairtrigger (0.2.24)
+      activerecord (>= 5.0, < 7)
+      ruby2ruby (~> 2.4)
+      ruby_parser (~> 3.10)
     haml (5.2.1)
       temple (>= 0.8.0)
       tilt
@@ -502,6 +506,11 @@ GEM
     ruby-vips (2.1.0)
       ffi (~> 1.12)
     ruby2_keywords (0.0.2)
+    ruby2ruby (2.4.4)
+      ruby_parser (~> 3.1)
+      sexp_processor (~> 4.6)
+    ruby_parser (3.15.1)
+      sexp_processor (~> 4.9)
     rubyzip (2.3.0)
     safely_block (0.3.0)
       errbase (>= 0.1.1)
@@ -532,6 +541,7 @@ GEM
     semantic_range (2.3.0)
     serviceworker-rails (0.6.0)
       railties (>= 3.1)
+    sexp_processor (4.15.2)
     shoulda-matchers (4.4.1)
       activesupport (>= 4.2.0)
     sidekiq (6.1.2)
@@ -664,6 +674,7 @@ DEPENDENCIES
   font-awesome-sass (~> 5.13.1)
   friendly_id (~> 5.4.1)
   geocoder
+  hairtrigger (~> 0.2.24)
   hirb
   http
   i18n-js
