@@ -47,6 +47,7 @@ class SimulatorController < ApplicationController
   end
 
   def update
+    @project.build_project_datum unless ProjectDatum.exists?(project_id: @project.id)
     @project.project_datum.data = sanitize_data(@project, params[:data])
 
     image_file = return_image_file(params[:image])
