@@ -36,7 +36,17 @@ class Project < ApplicationRecord
   include PgSearch::Model
   pg_search_scope :text_search, against: %i[name description], associated_against: {
     tags: :name
+  }, using: {
+    tsearch: {
+      dictionary: "english", tsvector_column: "searchable"
+    }
   }
+
+  trigger.before(:insert, :update) do
+    "tsvector_update_trigger(
+        searchable, 'pg_catalog.english', description, name
+      );"
+  end
 
   searchable do
     text :name

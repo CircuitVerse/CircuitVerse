@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_24_143139) do
+ActiveRecord::Schema.define(version: 2021_04_18_104007) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -286,9 +286,11 @@ ActiveRecord::Schema.define(version: 2021_01_24_143139) do
     t.text "description"
     t.bigint "view", default: 1
     t.string "slug"
+    t.tsvector "searchable"
     t.index ["assignment_id"], name: "index_projects_on_assignment_id"
     t.index ["author_id"], name: "index_projects_on_author_id"
     t.index ["forked_project_id"], name: "index_projects_on_forked_project_id"
+    t.index ["searchable"], name: "index_projects_on_searchable", using: :gin
     t.index ["slug", "author_id"], name: "index_projects_on_slug_and_author_id", unique: true
   end
 
@@ -414,4 +416,24 @@ ActiveRecord::Schema.define(version: 2021_01_24_143139) do
   add_foreign_key "stars", "users"
   add_foreign_key "taggings", "projects"
   add_foreign_key "taggings", "tags"
+  # no candidate create_trigger statement could be found, creating an adapter-specific one
+  execute(<<-SQL)
+CREATE OR REPLACE FUNCTION pg_catalog.tsvector_update_trigger()
+ RETURNS trigger
+ LANGUAGE internal
+ PARALLEL SAFE
+AS $function$tsvector_update_trigger_byid$function$
+  SQL
+
+  create_trigger("projects_after_insert_update_row_tr", :generated => true, :compatibility => 1).
+      on("projects").
+      before(:insert, :update).
+      nowrap(true) do
+    <<-SQL_ACTIONS
+tsvector_update_trigger(
+  searchable, 'pg_catalog.english', description, name
+);
+    SQL_ACTIONS
+  end
+
 end
