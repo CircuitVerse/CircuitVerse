@@ -71,9 +71,7 @@ class Project < ApplicationRecord
 
   def increase_views(user)
     if user.nil? || (user.id != author_id)
-      self.view ||= 0
-      self.view += 1
-      save
+      increment!(:view)
     end
   end
 
