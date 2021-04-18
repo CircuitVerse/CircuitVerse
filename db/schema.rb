@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_18_104007) do
+ActiveRecord::Schema.define(version: 2021_04_18_155754) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -272,6 +272,14 @@ ActiveRecord::Schema.define(version: 2021_04_18_104007) do
     t.index ["group_id"], name: "index_pending_invitations_on_group_id"
   end
 
+  create_table "project_data", force: :cascade do |t|
+    t.bigint "project_id", null: false
+    t.text "data"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["project_id"], name: "index_project_data_on_project_id", unique: true
+  end
+
   create_table "projects", force: :cascade do |t|
     t.string "name"
     t.bigint "author_id"
@@ -409,6 +417,7 @@ ActiveRecord::Schema.define(version: 2021_04_18_104007) do
   add_foreign_key "group_members", "users"
   add_foreign_key "groups", "users", column: "mentor_id"
   add_foreign_key "pending_invitations", "groups"
+  add_foreign_key "project_data", "projects"
   add_foreign_key "projects", "assignments"
   add_foreign_key "projects", "projects", column: "forked_project_id"
   add_foreign_key "projects", "users", column: "author_id"

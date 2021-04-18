@@ -37,7 +37,7 @@ class SimulatorController < ApplicationController
   end
 
   def get_data
-    render json: @project.data
+    render json: @project.project_datum.data
   end
 
   def new
@@ -47,13 +47,14 @@ class SimulatorController < ApplicationController
   end
 
   def update
-    @project.data = sanitize_data(@project, params[:data])
+    @project.project_datum.data = sanitize_data(@project, params[:data])
 
     image_file = return_image_file(params[:image])
 
     @project.image_preview = image_file
     @project.name = sanitize(params[:name])
     @project.save
+    @project.project_datum.save
     image_file.close
 
     File.delete(image_file) if check_to_delete(params[:image])
@@ -69,7 +70,7 @@ class SimulatorController < ApplicationController
 
   def create
     @project = Project.new
-    @project.data = sanitize_data(@project, params[:data])
+    @project.build_project_datum.data = sanitize_data(@project, params[:data])
     @project.name = sanitize(params[:name])
     @project.author = current_user
 

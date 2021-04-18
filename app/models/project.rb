@@ -25,6 +25,7 @@ class Project < ApplicationRecord
   mount_uploader :image_preview, ImagePreviewUploader
   has_one :featured_circuit
   has_one :grade, dependent: :destroy
+  has_one :project_datum, dependent: :destroy
 
   scope :public_and_not_forked,
         -> { where(project_access_type: "Public", forked_project_id: nil) }
@@ -90,12 +91,13 @@ class Project < ApplicationRecord
   end
 
   def fork(user)
-    @forked_project = dup
-    @forked_project.image_preview = image_preview
-    @forked_project.update!(
+    forked_project = dup
+    forked_project.build_project_datum.data = project_datum&.data
+    forked_project.image_preview = image_preview
+    forked_project.update!(
       view: 1, author_id: user.id, forked_project_id: id, name: name
     )
-    @forked_project
+    forked_project
   end
 
   def send_mail
