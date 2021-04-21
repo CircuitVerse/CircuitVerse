@@ -1,7 +1,8 @@
 import CircuitElement from "../circuitElement";
 import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
-import { correctWidth, lineTo, moveTo, arc, colorToRGBA, drawCircle2, validColor} from "../canvasApi";
+import { correctWidth, lineTo, moveTo, arc, drawCircle2 } from "../canvasApi";
+import ColorProperty from "../colorProperty";
 import { changeInputSize } from "../modules";
 /**
  * @class
@@ -28,9 +29,8 @@ export default class DigitalLed extends CircuitElement {
         this.inp1 = new Node(-40, 0, 0, this, 1);
         this.directionFixed = true;
         this.fixedBitWidth = true;
-        this.color = color;
-        const temp = colorToRGBA(this.color);
-        this.actualColor = `rgba(${temp[0]},${temp[1]},${temp[2]},${0.8})`;
+        this.colorProp = new ColorProperty(color);
+        this.color = this.colorProp.color;
     }
 
     /**
@@ -53,11 +53,7 @@ export default class DigitalLed extends CircuitElement {
      * function to change color of the led
      */
     changeColor(value) {
-        if (validColor(value)) {
-            this.color = value;
-            const temp = colorToRGBA(this.color);
-            this.actualColor = `rgba(${temp[0]},${temp[1]},${temp[2]},${0.8})`;
-        }
+        this.color = this.colorProp.changeColor(value);
     }
 
     /**
@@ -78,7 +74,7 @@ export default class DigitalLed extends CircuitElement {
         ctx.stroke();
 
         ctx.strokeStyle = "#d3d4d5";
-        ctx.fillStyle = ["rgba(227,228,229,0.8)", this.actualColor][
+        ctx.fillStyle = ["rgba(227,228,229,0.8)", this.colorProp.getRGBA()][
             this.inp1.value || 0
         ];
         ctx.lineWidth = correctWidth(1);
@@ -120,7 +116,7 @@ export default class DigitalLed extends CircuitElement {
         var yy = this.subcircuitMetadata.y + yOffset;
         
         ctx.strokeStyle = "#090a0a";
-        ctx.fillStyle = ["rgba(227,228,229,0.8)", this.actualColor][this.inp1.value || 0];
+        ctx.fillStyle = ["rgba(227,228,229,0.8)", this.colorProp.getRGBA()][this.inp1.value || 0];
         ctx.lineWidth = correctWidth(1);
 
         ctx.beginPath();
@@ -163,12 +159,6 @@ DigitalLed.prototype.helplink =
  * @type {JSON}
  * @category modules
  */
-DigitalLed.prototype.mutableProperties = {
-    color: {
-        name: "Color: ",
-        type: "text",
-        func: "changeColor",
-    },
-};
+DigitalLed.prototype.mutableProperties = ColorProperty.createMutableColorProp("changeColor");
 DigitalLed.prototype.objectType = "DigitalLed";
 DigitalLed.prototype.canShowInSubcircuit = true;
