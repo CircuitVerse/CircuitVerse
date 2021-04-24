@@ -59,23 +59,10 @@ class ProjectsController < ApplicationController
   end
 
   def create_fork
-    # Relaxing fork constraints for now
-    # if current_user.id == @project.author_id
-    #   render plain: "Cannot fork your own project" and return
-    # end
-
     authorize @project
-
-    @project_new = @project.dup
-    @project_new.view = 1
-    @project_new.image_preview = @project.image_preview
-    @project_new.author_id = current_user.id
-    @project_new.forked_project_id = @project.id
-    @project_new.name = @project.name
-    @project_new.save
-
+    @project_new = @project.fork(current_user)
+    @project_new.save!
     @project_new.notify :users, key: "project.fork"
-
     redirect_to user_project_path(current_user, @project_new)
   end
 
