@@ -37,7 +37,7 @@ class SimulatorController < ApplicationController
   end
 
   def get_data
-    render json: @project.project_datum.data
+    render json: ProjectDatum.find_by(project: @project)&.data
   end
 
   def new
