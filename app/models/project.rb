@@ -7,6 +7,7 @@ require "custom_optional_target/web_push"
 class Project < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: %i[slugged history]
+  self.ignored_columns = ["data"]
 
   validates :name, length: { minimum: 1 }
   validates :slug, uniqueness: true
@@ -71,9 +72,7 @@ class Project < ApplicationRecord
   # after_commit :send_mail, on: :create
 
   def increase_views(user)
-    if user.nil? || (user.id != author_id)
-      increment!(:view)
-    end
+    increment!(:view) if user.nil? || (user.id != author_id)
   end
 
   # returns true if starred, false if unstarred
