@@ -273,7 +273,7 @@
     font-size: 16px;
     margin: 0;
     margin-top: 20px;
-    padding: 7px 10px;
+    padding: 7px 10px 7px 40px;
     transition: .2s ease-in-out;
 
     &:focus {
@@ -282,6 +282,19 @@
     }
   }
 }
+
+.users-circuits-search {
+  position: relative;
+}
+
+.users-circuits-search i{
+  position: absolute;
+  left: 0;
+  top: 20px;
+  padding: 9px ;
+  pointer-events: none;
+}
+
 
 .users-circuits-tab {
   background-color: $form-border-grey;
