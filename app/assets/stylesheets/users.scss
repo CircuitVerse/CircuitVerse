@@ -285,16 +285,15 @@
 
 .users-circuits-search {
   position: relative;
-}
 
-.users-circuits-search i{
-  position: absolute;
-  left: 0;
-  top: 20px;
-  padding: 9px ;
-  pointer-events: none;
+  i {
+    left: 0;
+    padding: 9px;
+    pointer-events: none;
+    position: absolute;
+    top: 20px;
+  }
 }
-
 
 .users-circuits-tab {
   background-color: $form-border-grey;
