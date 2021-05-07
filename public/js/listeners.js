@@ -1,5 +1,7 @@
 // Most Listeners are stored here
 
+import { saveOffline } from "../../simulator/src/data/project";
+
 
 function startListeners() {
     window.addEventListener('keyup', function(e) {
@@ -176,7 +178,7 @@ function startListeners() {
         }
          // Detect offline save shortcut (CTRL+SHIFT+S)
         if (simulationArea.controlDown && e.keyCode == 83 && simulationArea.shiftDown) {
-            downloadProject();
+           saveOffline();
             e.preventDefault();
         }
 
