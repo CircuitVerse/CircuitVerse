@@ -3,7 +3,7 @@ import { createSubCircuitPrompt } from './subcircuit';
 import save from './data/save';
 import load from './data/load';
 import createSaveAsImgPrompt from './data/saveImage'
-import { clearProject, newProject, saveOffline, openOffline, recoverProject } from './data/project'
+import { clearProject, newProject, saveOffline, downloadProject,openOffline, recoverProject } from './data/project'
 import { newCircuit } from './circuit'
 import { createCombinationalAnalysisPrompt } from './combinationalAnalysis';
 import { colorThemes } from "./themer/themer";
@@ -19,6 +19,7 @@ logixFunction.createSaveAsImgPrompt = createSaveAsImgPrompt;
 logixFunction.clearProject = clearProject;
 logixFunction.newProject = newProject;
 logixFunction.saveOffline = saveOffline;
+logixFunction.downloadProject = downloadProject;
 logixFunction.newCircuit = newCircuit;
 logixFunction.createOpenLocalPrompt = openOffline;
 logixFunction.recoverProject = recoverProject;

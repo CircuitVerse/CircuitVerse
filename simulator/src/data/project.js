@@ -38,7 +38,7 @@ export function openOffline() {
         flag = false;
         $('#openProjectDialog').append(`<label class="option custom-radio"><input type="radio" name="projectId" value="${id}" />${projectList[id]}<span></span><i class="fa fa-trash deleteOfflineProject" onclick="deleteOfflineProject('${id}')"></i></label>`);
     }
-    if (flag) $('#openProjectDialog').append('<p>Looks like no circuit has been saved yet. Create a new one and save it!</p>');
+    if (flag) $('#openProjectDialog').append('<p>Looks like no circuit has been saved yet. Create or upload a new one and save it!</p>');
     $('#openProjectDialog').dialog({
         resizable:false,
         width: 'auto',
@@ -50,7 +50,71 @@ export function openOffline() {
                 window.projectId = $('input[name=projectId]:checked').val();
                 $(this).dialog('close');
             },
-        }] : [],
+        },
+        {
+            text: 'Upload Project',
+            click() {
+               const a = document.createElement('input');
+               const reader = new FileReader();
+               a.type='file';
+               a.accept = '.json';
+
+               a.onchange = function(){
+                if(!a.files[0]){
+                    console.log('file greater than 5MB')
+                    $(this).dialog('close');
+                }else{
+                    reader.readAsText(a.files[0])
+                    reader.addEventListener('load', (event) => {
+                     
+                      const project = event.target.result;
+                    localStorage.setItem(project.projectId, project);
+                    const temp = JSON.parse(localStorage.getItem('projectList')) || {};
+                    temp[projectId] = project.projectId;
+                    localStorage.setItem('projectList', JSON.stringify(temp));
+                    load(JSON.parse(localStorage.getItem(project.projectId)));
+                 window.projectId = project.projectId
+                      });
+                     
+                    $(this).dialog('close');
+                }
+               }.bind(this)
+             
+               a.click();
+            },
+        }
+    ] : [{
+        text: 'Upload Circuit',
+        click() {
+           const a = document.createElement('input');
+           const reader = new FileReader();
+           a.type='file';
+           a.accept = '.json';
+
+           a.onchange = function(){
+            if(!a.files[0]){
+                console.log('file greater than 5MB')
+                $(this).dialog('close');
+            }else{
+                reader.readAsText(a.files[0])
+                reader.addEventListener('load', (event) => {
+                 
+                  const project = event.target.result;
+                localStorage.setItem(project.projectId, project);
+                const temp = JSON.parse(localStorage.getItem('projectList')) || {};
+                temp[projectId] = project.projectId;
+                localStorage.setItem('projectList', JSON.stringify(temp));
+                load(JSON.parse(localStorage.getItem(project.projectId)));
+             window.projectId = project.projectId
+                  });
+                 
+                $(this).dialog('close');
+            }
+           }.bind(this)
+         
+           a.click();
+        },
+    }],
 
     });
 }
@@ -77,6 +141,26 @@ export function saveOffline() {
     localStorage.setItem('projectList', JSON.stringify(temp));
     showMessage(`We have saved your project: ${getProjectName()} in your browser's localStorage`);
 }
+
+/**
+ * Helper function to store to localStorage -- needs to be deprecated/removed
+ * @category data
+ */
+ export function downloadProject() {
+    const data = generateSaveData();
+    localStorage.setItem(projectId, data);
+    const temp = JSON.parse(localStorage.getItem('projectList')) || {};
+    temp[projectId] = getProjectName();
+    localStorage.setItem('projectList', JSON.stringify(temp));
+    const project = localStorage.getItem(projectId);
+    showMessage(`We have also saved your project: ${getProjectName()} in your browser's localStorage`);
+
+    const a = document.getElementById("downloadProject");
+    const file = new Blob([project], { type: "text/plain" });
+    a.href = URL.createObjectURL(file);
+    a.download = `${getProjectName()}.json`;
+}
+
 
 /**
  * Checks if any circuit has unsaved data
