@@ -108,6 +108,7 @@ gem "jwt"
 gem "rails-i18n", "~> 6.0.0"
 gem "recaptcha"
 gem "simple_discussion", "~> 1.2"
+gem 'strong_migrations'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -121,13 +122,13 @@ group :development, :test do
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
   gem "rubocop-rspec", require: false
+  gem "rspec-rails", "~> 5.0"
 end
 
 group :test do
   gem "capybara", "~> 3.33"
   gem "json-schema"
   gem "rspec_junit_formatter"
-  gem "rspec-rails", "~> 5.0"
   gem "selenium-webdriver"
   gem "shoulda-matchers"
   gem "webdrivers", "~> 4.0"
@@ -159,3 +160,5 @@ gem "invisible_captcha", "~> 1.1"
 gem "newrelic_rpm", "~> 6.13"
 
 gem "oj", "~> 3.11"
+
+gem "hairtrigger", "~> 0.2.24"

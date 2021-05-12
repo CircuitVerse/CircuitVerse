@@ -63,7 +63,7 @@ cd CircuitVerse
 7. Start Sidekiq (background processes & job queue): `bundle exec sidekiq -e development -q default -q mailers -d -L tmp/sidekiq.log`
 1. ./bin/webpack-dev-server for Hot Module reload for  fast development or transpile using ./bin/webpack.
 
-Then, local development can be started with `rails s -b 127.0.0.1 -p 8080`. Navigate to `127.0.0.1:8080` in your web browser to access the website.
+Then, local development can be started with `rails s -b 127.0.0.1`. Navigate to `localhost:3000` in your web browser to access the website.
 
 #### Additional instructions for Ubuntu
 Additional instructions can be found [here](https://www.howtoforge.com/tutorial/ubuntu-ruby-on-rails/) and there are some extra notes for single user installations:
