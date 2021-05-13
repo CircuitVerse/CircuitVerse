@@ -69,6 +69,7 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
     @project.name = "#{current_user.name}/#{@assignment.name}"
     @project.assignment_id = @assignment.id
     @project.project_access_type = "Private"
+    @project.build_project_datum
     @project.save!
     render json: {
       "message": "Voila! Project set up under name #{@project.name}"

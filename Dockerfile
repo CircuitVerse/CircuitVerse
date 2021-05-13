@@ -5,7 +5,7 @@ RUN mkdir /circuitverse
 WORKDIR /circuitverse
 
 # install dependencies
-RUN apt-get update -qq && apt-get install -y imagemagick && apt-get clean
+RUN apt-get update -qq && apt-get install -y imagemagick shared-mime-info && apt-get clean
 
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash \
  && apt-get update && apt-get install -y nodejs && rm -rf /var/lib/apt/lists/* \
