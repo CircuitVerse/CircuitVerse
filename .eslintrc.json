@@ -10,7 +10,10 @@
         "no-plusplus": 0,
         "vars-on-top": 0,
         "no-unused-vars": 0,
-        "max-lines-per-function": 0
+        "max-lines-per-function": 0,
+        "linebreak-style": ["error", "windows"],
+        "import/no-cycle": [2, { "maxDepth": "∞" }]
+        
     }
 
 }
