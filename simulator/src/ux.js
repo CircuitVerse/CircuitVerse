@@ -72,50 +72,50 @@ function showContextMenu() {
     });
     var windowHeight = $(window).height() / 2;
     var windowWidth = $(window).width() / 2;
-    //for top, left, right, bottom position calculation
-    var t;
-    var l;
-    var r;
-    var b;
+    // for top, left, right, bottom
+    var topPos;
+    var leftPos;
+    var rightPos;
+    var bottomPos;
     if (ctxPos.y > windowHeight && ctxPos.x <= windowWidth) {
         //When user click on bottom-left part of window
-        l = ctxPos.x;
-        b = $(window).height() - ctxPos.y;
+        leftPos = ctxPos.x;
+        bottomPos = $(window).height() - ctxPos.y;
         $("#contextMenu").css({
-            left: `${l}px`,
-            bottom: `${b}px`,
+            left: `${leftPos}px`,
+            bottom: `${bottomPos}px`,
             right: 'auto',
             top: 'auto',
         });
     } else if (ctxPos.y > windowHeight && ctxPos.x > windowWidth) {
         //When user click on bottom-right part of window
-        b = $(window).height() - ctxPos.y;
-        r = $(window).width() - ctxPos.x;
+        bottomPos = $(window).height() - ctxPos.y;
+        rightPos = $(window).width() - ctxPos.x;
         $("#contextMenu").css({
             left: 'auto',
-            bottom: `${b}px`,
-            right: `${r}px`,
+            bottom: `${bottomPos}px`,
+            right: `${rightPos}px`,
             top: 'auto',
         });
     } else if (ctxPos.y <= windowHeight && ctxPos.x <= windowWidth) {
         //When user click on top-left part of window
-        l = ctxPos.x;
-        t = ctxPos.y;
+        leftPos = ctxPos.x;
+        topPos = ctxPos.y;
         $("#contextMenu").css({
-            left: `${l}px`,
+            left: `${leftPos}px`,
             bottom: 'auto',
             right: 'auto',
-            top: `${t}px`,
+            top: `${topPos}px`,
         });
     } else {
         //When user click on top-right part of window
-        r = $(window).width() - ctxPos.x;
-        t = ctxPos.y;
+        rightPos = $(window).width() - ctxPos.x;
+        topPos = ctxPos.y;
         $("#contextMenu").css({
             left: 'auto',
             bottom: 'auto',
-            right: `${r}px`,
-            top: `${t}px`,
+            right: `${rightPos}px`,
+            top: `${topPos}px`,
         });
     }
     ctxPos.visible = true;
