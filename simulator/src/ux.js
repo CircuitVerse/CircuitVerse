@@ -72,37 +72,46 @@ function showContextMenu() {
     });
     var windowHeight = $(window).height() / 2;
     var windowWidth = $(window).width() / 2;
+    var t, l, r, b;    // for top, left, right, bottom
     if (ctxPos.y > windowHeight && ctxPos.x <= windowWidth) {
         //When user click on bottom-left part of window
+        l = ctxPos.x;
+        b = $(window).height() - ctxPos.y;
         $("#contextMenu").css({
-            left: ctxPos.x + 'px',
-            bottom: $(window).height() - ctxPos.y + 'px',
+            left: `${l}px`,
+            bottom: `${b}px`,
             right: 'auto',
             top: 'auto',
         });
     } else if (ctxPos.y > windowHeight && ctxPos.x > windowWidth) {
         //When user click on bottom-right part of window
+        b = $(window).height() - ctxPos.y;
+        r = $(window).width() - ctxPos.x;
         $("#contextMenu").css({
             left: 'auto',
-            bottom: $(window).height() - ctxPos.y + 'px',
-            right: $(window).width() - ctxPos.x + 'px',
+            bottom: `${b}px`,
+            right: `${r}px`,
             top: 'auto',
         });
     } else if (ctxPos.y <= windowHeight && ctxPos.x <= windowWidth) {
         //When user click on top-left part of window
+        l = ctxPos.x;
+        t = ctxPos.y;
         $("#contextMenu").css({
-            left: ctxPos.x + 'px',
+            left: `${l}px`,
             bottom: 'auto',
             right: 'auto',
-            top: ctxPos.y + 'px',
+            top: `${t}px`,
         });
     } else {
         //When user click on top-right part of window
+        r = $(window).width() - ctxPos.x;
+        t = ctxPos.y;
         $("#contextMenu").css({
             left: 'auto',
             bottom: 'auto',
-            right: $(window).width() - ctxPos.x + 'px',
-            top: ctxPos.y + 'px',
+            right: `${r}px`,
+            top: `${t}px`,
         });
     }
     ctxPos.visible = true;
