@@ -69,9 +69,42 @@ function showContextMenu() {
     $('#contextMenu').css({
         visibility: 'visible',
         opacity: 1,
-        top: `${ctxPos.y}px`,
-        left: `${ctxPos.x}px`,
     });
+    var windowHeight = $(window).height() / 2;
+    var windowWidth = $(window).width() / 2;
+    if (ctxPos.y > windowHeight && ctxPos.x <= windowWidth) {
+        //When user click on bottom-left part of window
+        $("#contextMenu").css({
+            left: ctxPos.x + 'px',
+            bottom: $(window).height() - ctxPos.y + 'px',
+            right: 'auto',
+            top: 'auto',
+        });
+    } else if (ctxPos.y > windowHeight && ctxPos.x > windowWidth) {
+        //When user click on bottom-right part of window
+        $("#contextMenu").css({
+            left: 'auto',
+            bottom: $(window).height() - ctxPos.y + 'px',
+            right: $(window).width() - ctxPos.x + 'px',
+            top: 'auto',
+        });
+    } else if (ctxPos.y <= windowHeight && ctxPos.x <= windowWidth) {
+        //When user click on top-left part of window
+        $("#contextMenu").css({
+            left: ctxPos.x + 'px',
+            bottom: 'auto',
+            right: 'auto',
+            top: ctxPos.y + 'px',
+        });
+    } else {
+        //When user click on top-right part of window
+        $("#contextMenu").css({
+            left: 'auto',
+            bottom: 'auto',
+            right: $(window).width() - ctxPos.x + 'px',
+            top: ctxPos.y + 'px',
+        });
+    }
     ctxPos.visible = true;
     return false;
 }
