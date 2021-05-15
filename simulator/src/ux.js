@@ -72,7 +72,11 @@ function showContextMenu() {
     });
     var windowHeight = $(window).height() / 2;
     var windowWidth = $(window).width() / 2;
-    var t, l, r, b;    // for top, left, right, bottom
+    //for top, left, right, bottom position calculation
+    var t;
+    var l;
+    var r;
+    var b;
     if (ctxPos.y > windowHeight && ctxPos.x <= windowWidth) {
         //When user click on bottom-left part of window
         l = ctxPos.x;
