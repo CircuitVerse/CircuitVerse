@@ -26,6 +26,6 @@ module Logix
     config.site_download_url = "https://circuitverse.org/simulator"
     config.site_image = "https://circuitverse.org/img/circuitverse2.svg"
     config.site_description = "Explore Digital circuits online with CircuitVerse. With our easy to use simulator interface, you will be building circuits in no time."
-    config.slack_url = "https://join.slack.com/t/circuitverse-team/shared_invite/enQtNjc4MzcyNDE5OTA3LTdjYTM5NjFiZWZlZGI2MmU1MmYzYzczNmZlZDg5MjYxYmQ4ODRjMjQxM2UyMWI5ODUzODQzMDU2ZDEzNjI4NmE"
+    config.slack_url = "https://circuitverse.org/slack"
   end
 end
