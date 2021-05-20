@@ -131,7 +131,7 @@ describe GroupsController, type: :request do
         get invite_group_path(id: @group.id, token: @group.group_token)
         expect(response.status).to eq(302)
         expect(flash[:notice])
-          .to eq("Url is expired, request a new one from primary_mentor of the group.")
+          .to eq("Url is expired, request a new one from the primary mentor of the group.")
       end
     end
 

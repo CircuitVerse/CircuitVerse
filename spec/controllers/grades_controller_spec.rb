@@ -50,15 +50,6 @@ describe GradesController, type: :request do
           expect(JSON.parse(response.body)["error"]).to eq("Grade is invalid")
         end
       end
-
-      # context "grades have been finalized" do
-      #   it "throws unauthorized error" do
-      #     @assignment.grades_finalized = true
-      #     @assignment.save
-      #     post grades_path, params: create_params
-      #     expect(response.body).to eq("You are not authorized to do the requested operation")
-      #   end
-      # end
     end
 
     context "when a mentor is singed in" do
@@ -86,15 +77,6 @@ describe GradesController, type: :request do
           expect(JSON.parse(response.body)["error"]).to eq("Grade is invalid")
         end
       end
-
-      # context "grades have been finalized" do
-      #   it "throws unauthorized error" do
-      #     @assignment.grades_finalized = true
-      #     @assignment.save
-      #     post grades_path, params: create_params
-      #     expect(response.body).to eq("You are not authorized to do the requested operation")
-      #   end
-      # end
     end
 
     context "when some other user is signed in" do
@@ -133,15 +115,6 @@ describe GradesController, type: :request do
           end.to change(Grade, :count).by(-1)
         end
       end
-
-      # context "grades have been finalized" do
-      #   it "throws unauthorized error" do
-      #     @assignment.grades_finalized = true
-      #     @assignment.save
-      #     delete grades_path, params: destroy_params
-      #     expect(response.body).to eq("You are not authorized to do the requested operation")
-      #   end
-      # end
     end
 
     context "when a mentor is logged in" do
@@ -156,15 +129,6 @@ describe GradesController, type: :request do
           end.to change(Grade, :count).by(-1)
         end
       end
-
-      # context "grades have been finalized" do
-      #   it "throws unauthorized error" do
-      #     @assignment.grades_finalized = true
-      #     @assignment.save
-      #     delete grades_path, params: destroy_params
-      #     expect(response.body).to eq("You are not authorized to do the requested operation")
-      #   end
-      # end
     end
 
     context "when a user other than primary_mentor/mentor is logged in" do

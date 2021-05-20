@@ -51,7 +51,7 @@ HTTP/1.1 200 OK
         "updated_at": "2020-05-24T11:47:40.244Z",
         "status": "open",
         "restrictions": "[\"Input\",\"ConstantVal\",\"Splitter\",\"Random\"]",
-        "has_mentor_access": true,
+        "has_primary_mentor_access": true,
         "current_user_project_id": null,
         "grading_scale": "no_scale",
         "grades_finalized": false
@@ -86,7 +86,7 @@ HTTP/1.1 200 OK
         "updated_at": "2020-05-24T11:47:40.244Z",
         "status": "open",
         "restrictions": "[\"Input\",\"ConstantVal\",\"Splitter\",\"Random\"]",
-        "has_mentor_access": true,
+        "has_primary_mentor_access": true,
         "current_user_project_id": null,
         "grading_scale": "no_scale",
         "grades_finalized": false
@@ -263,7 +263,7 @@ HTTP/1.1 200 OK
       "updated_at": "2020-05-24T11:47:40.244Z",
       "status": "open",
       "restrictions": "[\"Input\",\"ConstantVal\",\"Splitter\",\"Random\"]",
-      "has_mentor_access": true,
+      "has_primary_mentor_access": true,
       "current_user_project_id": null,
       "grading_scale": "no_scale",
       "grades_finalized": false
@@ -410,7 +410,7 @@ Content-Type: application/json
       "description": "",
       "status": "open",
       "restrictions": "[\"Input\",\"ConstantVal\",\"Splitter\",\"Random\"]",
-      "has_mentor_access": true,
+      "has_primary_mentor_access": true,
       "current_user_project_id": null,
       "created_at": "2020-06-11T10:34:55.009Z",
       "updated_at": "2020-06-25T16:55:42.317Z",
@@ -491,7 +491,7 @@ Content-Type: application/json
       "description": "Test description",
       "status": "open",
       "restrictions": "[\"Input\",\"Splitter\",\"Random\"]",
-      "has_mentor_access": true,
+      "has_primary_mentor_access": true,
       "current_user_project_id": null,
       "created_at": "2020-06-11T10:34:55.009Z",
       "updated_at": "2020-06-25T16:55:42.317Z",
@@ -512,7 +512,7 @@ Content-Type: application/json
 
 ## DELETE Assignment
 
-Group mentor can DELETE a assignment (identified by `:id`) in `/api/v1/assignments/:id/`. Authentication `token` is passed through `Authorization` header and is **required**.
+Any Group mentor can DELETE an assignment (identified by `:id`) in `/api/v1/assignments/:id/`. Authentication `token` is passed through `Authorization` header and is **required**.
 
 ### URL Parameters
 
@@ -544,7 +544,7 @@ Content-Type: application/json
 
 ## REOPEN Assignment
 
-Mentor can REOPEN a closed assignment to extend the deadline by 1 day in `/api/v1/assignments/:id/reopen`. Authentication `token` is passed through `Authorization` header and is **required**.
+A Mentor can REOPEN a closed assignment to extend the deadline by 1 day in `/api/v1/assignments/:id/reopen`. Authentication `token` is passed through `Authorization` header and is **required**.
 
 ### URL Parameters
 
