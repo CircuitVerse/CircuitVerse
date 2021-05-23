@@ -11,6 +11,13 @@
   <% end %>
   <div class="row center-row">
     <div class="col-xs col-sm col-md col-lg">
+        <%# show a logo if the group imported from an lms %>
+          <% if @group.lmstype == "moodle" %>
+            <div class="mini-button groups-mentor-card-view-large-lmslogo">
+              <%= image_tag("lms/moodle/moodle-banner.png", alt: "View Group") %>
+            </div>
+          <% end %>
+        <%# logo end %>
       <h1 class="submain-heading">
         <%= @group.name %>
         <% if policy(@group).admin_access? %>

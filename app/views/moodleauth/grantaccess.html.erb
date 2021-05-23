@@ -1,0 +1,99 @@
+<script>
+  $(document).ready(function(){
+    $("#alertdiv").delay(5000).fadeOut(600);
+  });
+</script>
+
+<% content_for :title, "CircuitVerse - Online Digital Logic Circuit Simulator" %>
+
+<% set_meta_tags twitter: {
+  card: "summary_large_image",
+  title: yield(:title),
+  description: Rails.configuration.site_description,
+  image: {
+    src: "#{Rails.configuration.site_url}img/logixBanner2.png"
+  }
+} %>
+
+<% set_meta_tags og: {
+  title: yield(:title),
+  image: "#{Rails.configuration.site_url}img/logixBanner2.png",
+  description: Rails.configuration.site_description,
+  type: "article",
+  site_name: Rails.configuration.site_name
+} %>
+
+    <% if notice %>
+    <div class="row" id='alertdiv'>
+      <div class="alert alert-success alert-dismissible container text-center">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <h6><%= notice %></h6>
+      </div>
+    </div>
+    <% end %>
+    <%= render "announcements/announcement" %>
+    <div class="container">
+      <div class="row center-row">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+          <div class="home-main-content">
+            <h1>You can now submit your moodle assignments using CircuitVerse</h1><br>
+            <p>From simple gates to complex sequential circuits, plot timing diagrams, automatic circuit generation, explore standard ICs, and much more</p>
+            <div class="home-buttons-container justify-content-center">
+              <%# ToDo: Implement the Grant Access Logic, 
+                onClick => it should update the value of User table isMoodleGranted to true 
+                and should redirect the user to redirect_to "/groups/"+params[:group_id]
+            
+              %>
+              
+              <%= link_to '#', class: "btn primary-button home-simulator-button" do %>
+                Grant Access to Moodle
+              <% end %>
+              
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+          <%= image_tag "lms/moodle/moodle-banner.png", alt: "HomepageSketch", :class => "home-image-cover" %>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+
+    <% if user_signed_in? %>
+    <script>
+        if(localStorage.getItem("recover_login")){
+            window.location.href = "/simulator"
+        }
+    </script>
+    <% end %>
+
+<script type="application/ld+json">
+  {
+    "@context" : "http://schema.org",
+    "@type" : "WebApplication",
+    "name" : "<%= Rails.configuration.site_name %>",
+    "image" : "<%= Rails.configuration.site_image %>",
+    "url" : "<%= Rails.configuration.site_url %>",
+    "applicationCategory" : "<%= Rails.configuration.site_category %>",
+    "downloadUrl" : "<%= Rails.configuration.site_download_url %>",
+    "operatingSystem": "All"
+  }
+</script>
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "url" : "<%= Rails.configuration.site_url %>",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "<%= Rails.configuration.site_url %>/search?resource=Projects&q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+</script>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->

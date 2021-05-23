@@ -46,7 +46,7 @@ class Users::LogixController < ApplicationController
 
     def profile_params
       params.require(:user).permit(:name, :profile_picture, :country, :educational_institute,
-                                   :subscribed, :locale)
+                                   :subscribed, :locale,:isMoodleGranted)
     end
 
     def set_user

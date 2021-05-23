@@ -68,6 +68,12 @@ Rails.application.routes.draw do
   #announcements
   resources :announcements, except: %i[show]
 
+  # moodlelms
+  scope "moodleauth" do
+    get "/:id", to:"moodleauth#grantaccess"
+    get "/grantaccesscheck", to:"moodleauth#moodlegrantedpermissionupdate"
+  end
+
   # users
 
   notify_to :users, controller: "users/notifications"

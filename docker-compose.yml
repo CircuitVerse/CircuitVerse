@@ -5,6 +5,8 @@ services:
     environment:
       POSTGRES_DB: circuitverse_development
       POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
   sidekiq:
     depends_on:
       - db

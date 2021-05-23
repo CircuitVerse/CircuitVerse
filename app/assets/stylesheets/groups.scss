@@ -419,6 +419,40 @@
   }
 }
 
+.groups-mentor-card-view-mini-lmslogo {
+  transition: transform .2s ease-in;
+  width: 75px;
+
+  img {
+    height: 35px;
+    padding-bottom: 0px;
+    width: 35px;
+  }
+
+  &:hover {
+    color: $white;
+    text-decoration: none;
+    transform: translateY(-4px);
+  }
+}
+
+.groups-mentor-card-view-large-lmslogo {
+  transition: transform .2s ease-in;
+  width: 75px;
+
+  img {
+    height: auto;
+    padding-bottom: 0px;
+    width: 160px;
+  }
+
+  &:hover {
+    color: $white;
+    text-decoration: none;
+    transform: translateY(-4px);
+  }
+}
+
 .groups-member-card {
   align-items: center;
   border-left: 10px solid $primary-green;
