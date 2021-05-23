@@ -5,6 +5,7 @@ class MoodleauthController < ApplicationController
 
 
     private
+    
         def check_grantaccess_and_redirect
             @group = Group.find(params[:group_id])
             @isMoodleGranted = current_user.isMoodleGranted
@@ -16,4 +17,5 @@ class MoodleauthController < ApplicationController
             end
 
         end
+
 end
