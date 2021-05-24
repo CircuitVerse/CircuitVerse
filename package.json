@@ -15,7 +15,7 @@
     "webpack:analyze_json": "webpack-bundle-analyzer tmp/webpack-stats.json public/packs"
   },
   "devDependencies": {
-    "eslint": "^7.21.0",
+    "eslint": "^7.27.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",
     "expose-loader": "^0.7.5",
