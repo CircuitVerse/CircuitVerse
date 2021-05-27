@@ -36,6 +36,7 @@
     "dom-to-image": "^2.6.0",
     "driver.js": "^0.9.8",
     "expose-loader": "^0.7.5",
+    "i18n-js": "^3.8.0",
     "jquery": "^3.6.0",
     "jquery-resizable-dom": "^0.35.0",
     "jquery-ui": "1.12.1",
@@ -47,6 +48,7 @@
     "nodemon": "^2.0.7",
     "opencollective-postinstall": "^2.0.3",
     "popper.js": "^1.16.1",
+    "rails-erb-loader": "^5.5.2",
     "trumbowyg": "^2.23.0",
     "turbolinks": "^5.2.0"
   },
