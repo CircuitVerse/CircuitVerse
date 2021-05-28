@@ -26,11 +26,7 @@
 #     only: "*"
 #
 translations:
-- file: 'app/javascript/bundles/i18n/en.js'
+- file: 'app/javascript/bundles/i18n/%{locale}.js'
   prefix: "import I18n from 'i18n-js';\n"
   pretty_print: true
-  only: 'en.*'
-- file: 'app/javascript/bundles/i18n/ja.js'
-  prefix: "import I18n from 'i18n-js';\n"
-  pretty_print: true
-  only: 'ja.*'
+  only: '*.simulator.*'

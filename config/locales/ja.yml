@@ -1,2 +1,4 @@
 ja:
-  hello: "こんにちは 世界"
+  simulator:
+    hello: "こんにちは 世界"
+    agc: "japan"

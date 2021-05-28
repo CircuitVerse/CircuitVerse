@@ -4,8 +4,9 @@
     <title>CircuitVerse - Digital Circuit Simulator online</title>
     <%= csrf_meta_tags %>
     <script src="/js/pace.js"></script>
-    <%= javascript_include_tag "i18n" %>
-    <%= javascript_include_tag "translations", skip_pipeline: true %>
+    <script src="/javascripts/i18n.js"></script>
+    
+    <script src="/javascripts/translations"></script>
     <script type="text/javascript">
       I18n.defaultLocale = "<%= I18n.default_locale %>"
       I18n.locale = "<%= I18n.locale || I18n.default_locale %>"

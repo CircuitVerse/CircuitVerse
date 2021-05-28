@@ -12,7 +12,7 @@ import OrGate from './modules/OrGate';
 import NotGate from './modules/NotGate';
 import { stripTags } from './utils';
 import I18n from 'i18n-js/index.js.erb'
-console.log(I18n.t('hello'))
+console.log(I18n.t('simulator.agc'))
 
 var inputSample = 5;
 var dataSample = [['01---', '11110', '01---', '00000'], ['01110', '1-1-1', '----0'], ['01---', '11110', '01110', '1-1-1', '0---0'], ['----1']];
@@ -28,7 +28,7 @@ var sampleOutputListNames = ['X'];
 export function createCombinationalAnalysisPrompt(scope = globalScope) {
     scheduleBackup();
     $('#combinationalAnalysis').empty();
-    $('#combinationalAnalysis').append(I18n.t('hello'));
+    $('#combinationalAnalysis').append(I18n.t('simulator.hello'));
     $('#combinationalAnalysis').append("<p>Enter Output names separated by commas: <input id='outputNameList' type='text'  placeHolder='eg. Out X, Out Y'></p>");
     $('#combinationalAnalysis').append("<p style='text-align:center;'>OR</p>");
     $('#combinationalAnalysis').append("<p>Enter Boolean Function: <input class='truth_table_input' autofocus id='booleanExpression' placeholder='Example: (AB)' type='text'></p>");
