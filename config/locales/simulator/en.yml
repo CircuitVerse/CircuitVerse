@@ -1,0 +1,7 @@
+en:
+  hello: "hello in %{name}"
+  inbox:
+    counting:
+      one: You have 1 new message
+      other: You have {{count}} new messages
+      zero: You have no messages

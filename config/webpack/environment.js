@@ -12,6 +12,11 @@ environment.loaders.append('expose', {
     }]
 })
 
+environment.loaders.append(
+    'yaml',
+    { test: /\.ya?ml$/, use: 'yaml-loader', type: 'json' },
+);
+
 environment.plugins.append('Provide', new webpack.ProvidePlugin({
     $: 'jquery',
     jQuery: 'jquery',

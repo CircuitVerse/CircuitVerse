@@ -11,6 +11,17 @@ import AndGate from './modules/AndGate';
 import OrGate from './modules/OrGate';
 import NotGate from './modules/NotGate';
 import { stripTags } from './utils';
+import I18n from "i18n-js/config"
+
+//current locale check
+console.log(I18n.currentLocale());
+//interpolation check
+console.log(I18n.t("hello", { name: "John Doe" }));
+//pluralization check
+console.log(I18n.t("inbox.counting", { count: 10 }));
+//other i18n-js function working check
+console.log(I18n.toCurrency(1000));
+
 
 var inputSample = 5;
 var dataSample = [['01---', '11110', '01---', '00000'], ['01110', '1-1-1', '----0'], ['01---', '11110', '01110', '1-1-1', '0---0'], ['----1']];
