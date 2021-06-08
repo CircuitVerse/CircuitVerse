@@ -1,3 +1,4 @@
+<% content_for :title, "CircuitVerse - Create Test Set" %>
 <body style="font-family: sans-serif;">
     <br><br>
     <div class="container" style="position: relative;">
@@ -43,9 +44,15 @@
         <div class="buttons-alignment" style="display: inline-flex;">
             <button class="lower-button" onclick="addGroup()">New Group</button>
         </div>
-        <div style="float: right; display: inline-block;">
-            <button onclick="parse();" class="lower-button save-buton">Save</button>
-        </div>
+        <%=  form_for @test_set, url: '/testbench/create', html: { id:'tb-form' } do |f| %>
+            <%=  f.hidden_field 'title', id:'tb-title-field', value:'Untitled' %>
+            <%=  f.hidden_field 'description', id:'tb-desc-field' %>
+            <%=  f.hidden_field 'data', id:'tb-data-field' %>
+            <%=  f.hidden_field 'testset_access_type', id:'tb-access-field', value: 'Public' %>
+            <div style="float: right; display: inline-block;">
+                <%=  f.button "Save", class: 'lower-button save-buton' %>
+            </div>
+        <% end %>
     </div>
 
 </body>
@@ -171,6 +178,13 @@
 
 
 <script>
+
+    /* Listen to submit click */
+    $("#tb-form").submit(function(event) {
+      const data = parse();
+      $("#tb-data-field").val(JSON.stringify(data));
+    })
+
     var mode = "comb";
     var groupIndex = 0;
     var inputCount = 3;
@@ -328,8 +342,8 @@
         return data;
     }
 
+    /* Loads data from JSON string into the table */
     function loadData(data) {
-
     }
 
 

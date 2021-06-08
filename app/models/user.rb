@@ -10,6 +10,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   has_many :projects, foreign_key: "author_id", dependent: :destroy
+  has_many :test_sets, foreign_key: "author_id", dependent: :destroy
   has_many :stars
   has_many :rated_projects, through: :stars, dependent: :destroy, source: "project"
   has_many :groups_mentored, class_name: "Group",  foreign_key: "mentor_id", dependent: :destroy

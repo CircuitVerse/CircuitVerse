@@ -4,6 +4,7 @@ class Assignment < ApplicationRecord
   validates :name, length: { minimum: 1 }
   belongs_to :group
   has_many :projects, class_name: "Project", dependent: :nullify
+  has_one :test_set, dependent: :destroy
 
   after_commit :send_new_assignment_mail, on: :create
   after_commit :set_deadline_job

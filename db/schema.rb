@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_25_045536) do
+ActiveRecord::Schema.define(version: 2021_06_07_054054) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,7 +74,9 @@ ActiveRecord::Schema.define(version: 2021_04_25_045536) do
     t.integer "grading_scale", default: 0
     t.boolean "grades_finalized", default: false
     t.json "restrictions", default: "[]"
+    t.bigint "test_set_id"
     t.index ["group_id"], name: "index_assignments_on_group_id"
+    t.index ["test_set_id"], name: "index_assignments_on_test_set_id"
   end
 
   create_table "collaborations", force: :cascade do |t|
@@ -354,6 +356,19 @@ ActiveRecord::Schema.define(version: 2021_04_25_045536) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "test_sets", force: :cascade do |t|
+    t.string "title"
+    t.string "testset_access_type"
+    t.text "description"
+    t.text "data"
+    t.bigint "author_id"
+    t.bigint "forked_testset_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["author_id"], name: "index_test_sets_on_author_id"
+    t.index ["forked_testset_id"], name: "index_test_sets_on_forked_testset_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -398,6 +413,7 @@ ActiveRecord::Schema.define(version: 2021_04_25_045536) do
   end
 
   add_foreign_key "assignments", "groups"
+  add_foreign_key "assignments", "test_sets"
   add_foreign_key "collaborations", "projects"
   add_foreign_key "collaborations", "users"
   add_foreign_key "commontator_comments", "commontator_comments", column: "parent_id", on_update: :restrict, on_delete: :cascade
@@ -424,6 +440,8 @@ ActiveRecord::Schema.define(version: 2021_04_25_045536) do
   add_foreign_key "stars", "users"
   add_foreign_key "taggings", "projects"
   add_foreign_key "taggings", "tags"
+  add_foreign_key "test_sets", "test_sets", column: "forked_testset_id"
+  add_foreign_key "test_sets", "users", column: "author_id"
   # no candidate create_trigger statement could be found, creating an adapter-specific one
   execute(<<-SQL)
 CREATE OR REPLACE FUNCTION pg_catalog.tsvector_update_trigger()

@@ -123,8 +123,8 @@ Rails.application.routes.draw do
   end
 
   scope "/testbench" do
-    get "/", to: "testbench#new", as: "testbench_new"
-    post "/create", to: "testbench#create", as: "testbench_create"
+    get "/", to: "test_sets#new", as: "testbench_new"
+    post "/create", to: "test_sets#create", as: "testbench_create"
   end
   # get 'simulator/embed_cross/:id', to: 'simulator#embed_cross', as: 'simulator_embed_cross'
 
