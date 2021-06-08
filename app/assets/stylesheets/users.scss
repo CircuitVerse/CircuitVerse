@@ -273,13 +273,25 @@
     font-size: 16px;
     margin: 0;
     margin-top: 20px;
-    padding: 7px 10px;
+    padding: 7px 10px 7px 40px;
     transition: .2s ease-in-out;
 
     &:focus {
       border-color: $primary-green;
       transition: .2s ease-in-out;
     }
+  }
+}
+
+.users-circuits-search {
+  position: relative;
+
+  i {
+    left: 0;
+    padding: 9px;
+    pointer-events: none;
+    position: absolute;
+    top: 20px;
   }
 }
 
