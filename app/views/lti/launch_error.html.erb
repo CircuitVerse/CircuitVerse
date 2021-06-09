@@ -1,21 +1,20 @@
 <% content_for :title, "CircuitVerse - LTI Error" %>
 <div class="container">
-<% if notice %>
+  <% if notice %>
     <div class="row" id='alertdiv'>
         <div class="alert alert-success alert-dismissible container text-center">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             <h6><%= notice %></h6>
         </div>
     </div>
-<% end %>
-<div class="row center-row">
-  <div class="col-12">
-    <h1 class="main-heading">Something Error Happend</h1>
-    <div class="teacher-main-description-container">
-      <p class="main-description">The content you are requesting is not available at this moment, or you are not authorized to access the content.</p>
+  <% end %>
+  <div class="row center-row">
+    <div class="col-12">
+      <h1 class="main-heading">Something Error Happend</h1>
+      <div class="teacher-main-description-container">
+        <p class="main-description">The content you are requesting is not available at this moment, or you are not authorized to access the content.</p>
+      </div>
     </div>
   </div>
-</div>
-
 </div>
 

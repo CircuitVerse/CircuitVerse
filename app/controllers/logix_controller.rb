@@ -53,6 +53,6 @@ class LogixController < ApplicationController
   def contribute; end
 
   def allow_iframe
-    response.headers.except! 'X-Frame-Options'
+    response.headers.except! "X-Frame-Options"
   end
 end

@@ -7,7 +7,7 @@ class LtiController < ApplicationController
     session[:isLTI]=true # the lti session starting
     require 'oauth/request_proxy/action_controller_request'
     
-    if @group.present? #if there is a valid group based for the lti_token_key
+    if @group.present? # if there is a valid group based for the lti_token_key
       @provider = IMS::LTI::ToolProvider.new(
         params[:oauth_consumer_key], # lms_oauth_consumer_key
         @group.lti_token, # the group's lti_token
@@ -20,7 +20,7 @@ class LtiController < ApplicationController
       end
 
       @@launch_params=params;
-      user = User.find_by(email: @email_from_lms) # find the user whose email matches with the email from lms
+      user = User.find_by(email: @email_from_lms) # find user by matching email with circuitverse and lms 
 
       if user.present? # user is present in cv
         sign_in(user) # passwordless sign_in the user as the authenticity is verified via lms
@@ -40,7 +40,7 @@ class LtiController < ApplicationController
         render :launch_error, status: 401 
         return
       end
-    else #if there is no valid group present for the lti_token_key
+    else # if there is no valid group present for the lti_token_key
       flash[:notice] = "There is no group in CircuitVerse associated with your current LMS, Please ask your LMS Admin/Teacher to create one"
       render :launch_error, status: 401
       return
