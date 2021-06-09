@@ -263,6 +263,9 @@ GEM
     image_processing (1.12.1)
       mini_magick (>= 4.9.5, < 5)
       ruby-vips (>= 2.0.17, < 3)
+    ims-lti (1.1.13)
+      builder
+      oauth (>= 0.4.5, < 0.6)
     inline_svg (1.7.1)
       activesupport (>= 3.0)
       nokogiri (>= 1.6)
@@ -330,6 +333,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.11.4-x64-mingw32)
       racc (~> 1.4)
+    oauth (0.5.6)
     oauth2 (1.4.4)
       faraday (>= 0.8, < 2.0)
       jwt (>= 1.0, < 3.0)
@@ -678,6 +682,7 @@ DEPENDENCIES
   hirb
   http
   i18n-js
+  ims-lti (~> 1.1.8)
   inline_svg
   invisible_captcha (~> 1.1)
   jbuilder (~> 2.11)
@@ -737,4 +742,4 @@ DEPENDENCIES
   will_paginate-bootstrap
 
 BUNDLED WITH
-   2.1.4
+   2.2.17

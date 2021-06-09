@@ -71,6 +71,9 @@ gem "pundit"
 gem "ahoy_matey"
 gem "i18n-js"
 
+# for lti provider
+gem "ims-lti", "~> 1.1.8"
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password

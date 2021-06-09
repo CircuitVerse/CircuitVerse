@@ -2,6 +2,7 @@
 
 class LogixController < ApplicationController
   MAXIMUM_FEATURED_CIRCUITS = 3
+  after_action :allow_iframe, only: %i[index]
 
   def index
     @projects = Project.select(:id, :author_id, :image_preview, :name, :slug)
@@ -50,4 +51,8 @@ class LogixController < ApplicationController
   def teachers; end
 
   def contribute; end
+
+  def allow_iframe
+    response.headers.except! 'X-Frame-Options'
+  end
 end

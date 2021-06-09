@@ -5,6 +5,7 @@ class GroupsController < ApplicationController
   before_action :authenticate_user!
   before_action :check_show_access, only: %i[show edit update destroy]
   before_action :check_edit_access, only: %i[edit update destroy generate_token]
+  after_action :allow_iframe, only: %i[show edit]
 
   # GET /groups/1
   # GET /groups/1.json
@@ -105,5 +106,9 @@ class GroupsController < ApplicationController
 
     def check_edit_access
       authorize @group, :admin_access?
+    end
+
+    def allow_iframe
+      response.headers.except! 'X-Frame-Options'
     end
 end

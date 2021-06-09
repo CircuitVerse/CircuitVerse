@@ -10,6 +10,7 @@ class ProjectsController < ApplicationController
   before_action :check_delete_access, only: [:destroy]
   before_action :check_view_access, only: %i[show create_fork]
   before_action :sanitize_name, only: %i[create update]
+  after_action :allow_iframe, only: %i[show edit] 
 
   # GET /projects
   # GET /projects.json
@@ -139,5 +140,9 @@ class ProjectsController < ApplicationController
 
     def sanitize_name
       params[:project][:name] = sanitize(project_params[:name])
+    end
+
+    def allow_iframe
+      response.headers.except! 'X-Frame-Options'
     end
 end

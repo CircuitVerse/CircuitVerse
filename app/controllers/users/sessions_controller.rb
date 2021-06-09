@@ -2,6 +2,7 @@
 
 class Users::SessionsController < Devise::SessionsController
   prepend_before_action :check_captcha, only: [:create]
+  after_action :allow_iframe, only: %i[new]
 
   # before_action :configure_sign_in_params, only: [:create]
 
@@ -34,5 +35,9 @@ class Users::SessionsController < Devise::SessionsController
         self.resource = resource_class.new sign_in_params
         respond_with_navigational(resource) { render :new }
       end
+    end
+    
+    def allow_iframe
+      response.headers.except! 'X-Frame-Options'
     end
 end

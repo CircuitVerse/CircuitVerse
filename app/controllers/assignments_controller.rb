@@ -6,6 +6,7 @@ class AssignmentsController < ApplicationController
   before_action :set_group
   before_action :check_access, only: %i[edit update destroy reopen]
   after_action :check_reopening_status, only: [:update]
+  after_action :allow_iframe, only: %i[new edit show] 
 
   # GET /assignments
   # GET /assignments.json
@@ -136,5 +137,9 @@ class AssignmentsController < ApplicationController
 
     def check_access
       authorize @assignment, :admin_access?
+    end
+
+    def allow_iframe
+      response.headers.except! 'X-Frame-Options'
     end
 end

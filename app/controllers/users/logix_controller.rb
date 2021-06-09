@@ -7,6 +7,7 @@ class Users::LogixController < ApplicationController
 
   before_action :authenticate_user!, only: %i[edit update groups]
   before_action :set_user, except: [:typeahead_educational_institute]
+  after_action :allow_iframe, only: %i[groups index]
 
   def index
     @profile = ProfileDecorator.new(@user)
@@ -52,5 +53,9 @@ class Users::LogixController < ApplicationController
     def set_user
       @profile = current_user
       @user = User.find(params[:id])
+    end
+
+    def allow_iframe
+      response.headers.except! 'X-Frame-Options'
     end
 end
