@@ -3,13 +3,19 @@
 // Refer listeners.js
 import simulationArea from './simulationArea';
 import {
-    scheduleUpdate, update, updateSelectionsAndPane,
-    wireToBeCheckedSet, updatePositionSet, updateSimulationSet,
-    updateCanvasSet, gridUpdateSet, errorDetectedSet,
+    scheduleUpdate,
+    update,
+    updateSelectionsAndPane,
+    wireToBeCheckedSet,
+    updatePositionSet,
+    updateSimulationSet,
+    updateCanvasSet,
+    gridUpdateSet,
+    errorDetectedSet,
 } from './engine';
 import { changeScale } from './canvasApi';
 import { copy, paste } from './events';
-import { ZoomIn, ZoomOut} from './listeners';
+import { ZoomIn, ZoomOut } from './listeners';
 
 var unit = 10;
 
@@ -34,11 +40,11 @@ export default function startListeners() {
         simulationArea.selected = false;
         simulationArea.hover = undefined;
         var rect = simulationArea.canvas.getBoundingClientRect();
-        simulationArea.mouseDownRawX = (e.clientX - rect.left) * DPR;
-        simulationArea.mouseDownRawY = (e.clientY - rect.top) * DPR;
-        simulationArea.mouseDownX = Math.round(((simulationArea.mouseDownRawX - globalScope.ox) / globalScope.scale) / unit) * unit;
-        simulationArea.mouseDownY = Math.round(((simulationArea.mouseDownRawY - globalScope.oy) / globalScope.scale) / unit) * unit;
-        simulationArea.mouseDown = true;
+        simulationArea.DownRawX = (e.clientX - rect.left) * DPR;
+        simulationArea.DownRawY = (e.clientY - rect.top) * DPR;
+        simulationArea.DownX = Math.round(((simulationArea.DownRawX - globalScope.ox) / globalScope.scale) / unit) * unit;
+        simulationArea.DownY = Math.round(((simulationArea.DownRawY - globalScope.oy) / globalScope.scale) / unit) * unit;
+        simulationArea.touchMouseDown = true;
         simulationArea.oldx = globalScope.ox;
         simulationArea.oldy = globalScope.oy;
 
@@ -74,18 +80,18 @@ export default function startListeners() {
 
     window.addEventListener('mousemove', (e) => {
         var rect = simulationArea.canvas.getBoundingClientRect();
-        simulationArea.mouseRawX = (e.clientX - rect.left) * DPR;
-        simulationArea.mouseRawY = (e.clientY - rect.top) * DPR;
-        simulationArea.mouseXf = (simulationArea.mouseRawX - globalScope.ox) / globalScope.scale;
-        simulationArea.mouseYf = (simulationArea.mouseRawY - globalScope.oy) / globalScope.scale;
-        simulationArea.mouseX = Math.round(simulationArea.mouseXf / unit) * unit;
-        simulationArea.mouseY = Math.round(simulationArea.mouseYf / unit) * unit;
+        simulationArea.RawX = (e.clientX - rect.left) * DPR;
+        simulationArea.RawY = (e.clientY - rect.top) * DPR;
+        simulationArea.Xf = (simulationArea.RawX - globalScope.ox) / globalScope.scale;
+        simulationArea.Yf = (simulationArea.RawY - globalScope.oy) / globalScope.scale;
+        simulationArea.x = Math.round(simulationArea.Xf / unit) * unit;
+        simulationArea.y = Math.round(simulationArea.Yf / unit) * unit;
 
         updateCanvasSet(true);
         if (simulationArea.lastSelected == globalScope.root) {
             updateCanvasSet(true);
             var fn;
-            fn = function () {
+            fn = function() {
                 updateSelectionsAndPane();
             };
             scheduleUpdate(0, 20, fn);
@@ -115,7 +121,7 @@ export default function startListeners() {
         }
 
 
-        if (simulationArea.mouseRawX < 0 || simulationArea.mouseRawY < 0 || simulationArea.mouseRawX > width || simulationArea.mouseRawY > height) return;
+        if (simulationArea.RawX < 0 || simulationArea.RawY < 0 || simulationArea.RawX > width || simulationArea.RawY > height) return;
 
         scheduleUpdate(1);
         updateCanvasSet(true);
@@ -154,7 +160,7 @@ export default function startListeners() {
 
 
     window.addEventListener('mouseup', (e) => {
-        simulationArea.mouseDown = false;
+        simulationArea.touchMouseDown = false;
         errorDetectedSet(false);
         updateSimulationSet(true);
         updatePositionSet(true);
@@ -164,7 +170,7 @@ export default function startListeners() {
 
         scheduleUpdate(1);
     });
-    window.addEventListener('mousedown', function (e) {
+    window.addEventListener('mousedown', function(e) {
         this.focus();
     });
 
@@ -201,5 +207,5 @@ export default function startListeners() {
     }
 }
 
-var isIe = (navigator.userAgent.toLowerCase().indexOf('msie') != -1
-    || navigator.userAgent.toLowerCase().indexOf('trident') != -1);
+var isIe = (navigator.userAgent.toLowerCase().indexOf('msie') != -1 ||
+    navigator.userAgent.toLowerCase().indexOf('trident') != -1);

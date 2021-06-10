@@ -25,10 +25,10 @@ import { clockTick } from './utils';
  * @property {boolean} shiftDown - shift down or not
  * @property {boolean} controlDown - contol down or not
  * @property {number} timePeriod - time period
- * @property {number} mouseX - mouse x
- * @property {number} mouseY - mouse y
- * @property {number} mouseDownX - mouse click x
- * @property {number} mouseDownY - mouse click y
+ * @property {number} x - mouse and touch x
+ * @property {number} y - mouse and touch y
+ * @property {number} DownX - mouse Click Or touch Tap  x
+ * @property {number} DownY - mouse Click Or touch tap  y
  * @property {Array} simulationQueue - simulation queue
  * @property {number} clickCount - number of clicks
  * @property {string} lock - locked or unlocked
@@ -59,12 +59,13 @@ const simulationArea = {
     shiftDown: false,
     controlDown: false,
     timePeriod: 500,
-    mouseX: 0,
-    mouseY: 0,
-    mouseDownX: 0,
-    mouseDownY: 0,
+    x: 0,
+    y: 0,
+    DownX: 0,
+    DownY: 0,
     simulationQueue: undefined,
     multiAddElement: false,
+    touch: false,
 
     clickCount: 0, // double click
     lock: 'unlocked',
@@ -81,7 +82,7 @@ const simulationArea = {
         this.simulationQueue = new EventQueue(10000);
         this.context = this.canvas.getContext('2d');
         simulationArea.changeClockTime(simulationArea.timePeriod);
-        this.mouseDown = false;
+        this.touchMouseDown = false;
     },
     changeClockTime(t) {
         if (t < 50) return;

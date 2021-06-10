@@ -7,7 +7,10 @@ import { layoutModeGet, layoutUpdate } from './layoutMode';
 import plotArea from './plotArea';
 import simulationArea from './simulationArea';
 import {
-    dots, canvasMessage, findDimensions, rect2,
+    dots,
+    canvasMessage,
+    findDimensions,
+    rect2,
 } from './canvasApi';
 import { showProperties, prevPropertyObjGet } from './ux';
 import { showError } from './utils';
@@ -186,7 +189,7 @@ export function errorDetectedGet() {
  * @property {number} y - x cordinate of message
  * @property {number} string - the message
  * @category engine
-*/
+ */
 export var canvasMessageData = {
     x: undefined,
     y: undefined,
@@ -269,13 +272,13 @@ export function renderCanvas(scope) {
         ctx.lineWidth = 2;
         ctx.strokeStyle = 'black';
         ctx.fillStyle = 'rgba(0,0,0,0.1)';
-        rect2(ctx, simulationArea.mouseDownX, simulationArea.mouseDownY, simulationArea.mouseX - simulationArea.mouseDownX, simulationArea.mouseY - simulationArea.mouseDownY, 0, 0, 'RIGHT');
+        rect2(ctx, simulationArea.DownX, simulationArea.DownY, simulationArea.x - simulationArea.DownX, simulationArea.y - simulationArea.DownY, 0, 0, 'RIGHT');
         ctx.stroke();
         ctx.fill();
     }
     if (simulationArea.hover !== undefined) {
         simulationArea.canvas.style.cursor = 'pointer';
-    } else if (simulationArea.mouseDown) {
+    } else if (simulationArea.touchMouseDown) {
         simulationArea.canvas.style.cursor = 'grabbing';
     } else {
         simulationArea.canvas.style.cursor = 'default';
@@ -289,7 +292,7 @@ export function renderCanvas(scope) {
  * @category engine
  */
 export function updateSelectionsAndPane(scope = globalScope) {
-    if (!simulationArea.selected && simulationArea.mouseDown) {
+    if (!simulationArea.selected && simulationArea.touchMouseDown) {
         simulationArea.selected = true;
         simulationArea.lastSelected = scope.root;
         simulationArea.hover = scope.root;
@@ -301,11 +304,11 @@ export function updateSelectionsAndPane(scope = globalScope) {
             miniMapArea.setup();
             $('#miniMap').show();
         }
-    } else if (simulationArea.lastSelected === scope.root && simulationArea.mouseDown) {
+    } else if (simulationArea.lastSelected === scope.root && simulationArea.touchMouseDown) {
         // pane canvas to give an idea of grid moving
         if (!objectSelection) {
-            globalScope.ox = (simulationArea.mouseRawX - simulationArea.mouseDownRawX) + simulationArea.oldx;
-            globalScope.oy = (simulationArea.mouseRawY - simulationArea.mouseDownRawY) + simulationArea.oldy;
+            globalScope.ox = (simulationArea.RawX - simulationArea.DownRawX) + simulationArea.oldx;
+            globalScope.oy = (simulationArea.RawY - simulationArea.DownRawY) + simulationArea.oldy;
             globalScope.ox = Math.round(globalScope.ox);
             globalScope.oy = Math.round(globalScope.oy);
             gridUpdateSet(true);
@@ -325,10 +328,10 @@ export function updateSelectionsAndPane(scope = globalScope) {
         simulationArea.hover = undefined;
         if (objectSelection) {
             objectSelectionSet(false);
-            var x1 = simulationArea.mouseDownX;
-            var x2 = simulationArea.mouseX;
-            var y1 = simulationArea.mouseDownY;
-            var y2 = simulationArea.mouseY;
+            var x1 = simulationArea.DownX;
+            var x2 = simulationArea.x;
+            var y1 = simulationArea.DownY;
+            var y2 = simulationArea.y;
             // Sort those four points to make a selection pane
             if (x1 > x2) {
                 const temp = x1;
@@ -345,7 +348,8 @@ export function updateSelectionsAndPane(scope = globalScope) {
                 for (var j = 0; j < scope[updateOrder[i]].length; j++) {
                     var obj = scope[updateOrder[i]][j];
                     if (simulationArea.multipleObjectSelections.contains(obj)) continue;
-                    var x; var
+                    var x;
+                    var
                         y;
                     if (obj.objectType === 'Node') {
                         x = obj.absX();
@@ -493,7 +497,7 @@ export function update(scope = globalScope, updateEverything = false) {
         updateSelectionsAndPane(scope);
     }
     // Update MiniMap
-    if (!embed && simulationArea.mouseDown && simulationArea.lastSelected && simulationArea.lastSelected !== globalScope.root) {
+    if (!embed && simulationArea.touchMouseDown && simulationArea.lastSelected && simulationArea.lastSelected !== globalScope.root) {
         if (!lightMode) { $('#miniMap').fadeOut('fast'); }
     }
     // Run simulation

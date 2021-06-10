@@ -50,7 +50,7 @@ export default class LayoutNode {
         if (this === simulationArea.hover) simulationArea.hover = undefined;
         this.hover = this.isHover();
 
-        if (!simulationArea.mouseDown) {
+        if (!simulationArea.touchMouseDown) {
             if (this.absX() !== this.prevx || this.absY() !== this.prevy) {
                 // Store position before clicked
                 this.prevx = this.absX();
@@ -62,7 +62,7 @@ export default class LayoutNode {
             simulationArea.hover = this;
         }
 
-        if (simulationArea.mouseDown && ((this.hover && !simulationArea.selected) || simulationArea.lastSelected === this)) {
+        if (simulationArea.touchMouseDown && ((this.hover && !simulationArea.selected) || simulationArea.lastSelected === this)) {
             simulationArea.selected = true;
             simulationArea.lastSelected = this;
             this.clicked = true;
@@ -76,9 +76,9 @@ export default class LayoutNode {
             simulationArea.lastSelected = this;
         } else if (this.wasClicked && this.clicked) {
             // Check if valid position and update accordingly
-            if (tempBuffer.isAllowed(simulationArea.mouseX, simulationArea.mouseY) && !tempBuffer.isNodeAt(simulationArea.mouseX, simulationArea.mouseY)) {
-                this.x = simulationArea.mouseX;
-                this.y = simulationArea.mouseY;
+            if (tempBuffer.isAllowed(simulationArea.x, simulationArea.y) && !tempBuffer.isNodeAt(simulationArea.x, simulationArea.y)) {
+                this.x = simulationArea.x;
+                this.y = simulationArea.x;
             }
         }
     }
@@ -97,6 +97,6 @@ export default class LayoutNode {
      * this function is used to check if hover
      */
     isHover() {
-        return this.absX() === simulationArea.mouseX && this.absY() === simulationArea.mouseY;
+        return this.absX() === simulationArea.x && this.absY() === simulationArea.y;
     }
 }

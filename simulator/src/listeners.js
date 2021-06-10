@@ -1,16 +1,26 @@
 // Most Listeners are stored here
-import { layoutModeGet, tempBuffer, layoutUpdate, setupLayoutModePanelListeners} from './layoutMode';
+import { layoutModeGet, tempBuffer, layoutUpdate, setupLayoutModePanelListeners } from './layoutMode';
 import simulationArea from './simulationArea';
 import {
-    scheduleUpdate, update, updateSelectionsAndPane,
-    wireToBeCheckedSet, updatePositionSet, updateSimulationSet,
-    updateCanvasSet, gridUpdateSet, errorDetectedSet,
+    scheduleUpdate,
+    update,
+    updateSelectionsAndPane,
+    wireToBeCheckedSet,
+    updatePositionSet,
+    updateSimulationSet,
+    updateCanvasSet,
+    gridUpdateSet,
+    errorDetectedSet,
 } from './engine';
 import { changeScale } from './canvasApi';
+import { findDimensions } from './canvasApi';
 import { scheduleBackup } from './data/backupCircuit';
 import { hideProperties, deleteSelected, uxvar, fullView } from './ux';
 import {
-    updateRestrictedElementsList, updateRestrictedElementsInScope, hideRestricted, showRestricted,
+    updateRestrictedElementsList,
+    updateRestrictedElementsInScope,
+    hideRestricted,
+    showRestricted,
 } from './restrictedElementDiv';
 import { removeMiniMap, updatelastMinimapShown } from './minimap';
 import undo from './data/undo';
@@ -21,29 +31,34 @@ import { verilogModeGet } from './Verilog2CV';
 import { setupTimingListeners } from './plotArea';
 
 var unit = 10;
+var currDistance = 0;
+var distance = 0;
+var pinchZ = 0;
+var centreX;
+var centreY;
 
 export default function startListeners() {
-    $('#deleteSelected').on('click',() => {
+    $('#deleteSelected').on('click', () => {
         deleteSelected();
     });
 
-    $('#zoomIn').on('click',() => {
+    $('#zoomIn').on('click', () => {
         changeScale(0.2, 'zoomButton', 'zoomButton', 2);
     });
 
-    $('#zoomOut').on('click',() => {
+    $('#zoomOut').on('click', () => {
         changeScale(-0.2, 'zoomButton', 'zoomButton', 2);
     });
 
-    $('#undoButton').on('click',() => {
+    $('#undoButton').on('click', () => {
         undo();
     });
 
-    $('#viewButton').on('click',() => {
+    $('#viewButton').on('click', () => {
         fullView();
     });
 
-    $('#projectName').on('click',() => {
+    $('#projectName').on('click', () => {
         simulationArea.lastSelected = globalScope.root;
         setTimeout(() => {
             document.getElementById("projname").select();
@@ -60,57 +75,60 @@ export default function startListeners() {
         forcePlaceholderSize: true,
     });
 
-    document.getElementById('simulationArea').addEventListener('mousedown', (e) => {
-        simulationArea.mouseDown = true;
-
-        // Deselect Input
-        if (document.activeElement instanceof HTMLElement)
-            document.activeElement.blur();
-
-        errorDetectedSet(false);
-        updateSimulationSet(true);
-        updatePositionSet(true);
-        updateCanvasSet(true);
-
-        simulationArea.lastSelected = undefined;
-        simulationArea.selected = false;
-        simulationArea.hover = undefined;
-        var rect = simulationArea.canvas.getBoundingClientRect();
-        simulationArea.mouseDownRawX = (e.clientX - rect.left) * DPR;
-        simulationArea.mouseDownRawY = (e.clientY - rect.top) * DPR;
-        simulationArea.mouseDownX = Math.round(((simulationArea.mouseDownRawX - globalScope.ox) / globalScope.scale) / unit) * unit;
-        simulationArea.mouseDownY = Math.round(((simulationArea.mouseDownRawY - globalScope.oy) / globalScope.scale) / unit) * unit;
-        simulationArea.oldx = globalScope.ox;
-        simulationArea.oldy = globalScope.oy;
-
-        e.preventDefault();
-        scheduleBackup();
-        scheduleUpdate(1);
-        $('.dropdown.open').removeClass('open');
+    document.getElementById('simulationArea').addEventListener('mousedown', e => {
+        simulationArea.touch = false;
+        panStart(e);
     });
+
+
+    //Main pan is done From this Three listerrs
+
     document.getElementById('simulationArea').addEventListener('mouseup', (e) => {
         if (simulationArea.lastSelected) simulationArea.lastSelected.newElement = false;
         /*
         handling restricted circuit elements
         */
 
-        if (simulationArea.lastSelected && restrictedElements.includes(simulationArea.lastSelected.objectType)
-            && !globalScope.restrictedCircuitElementsUsed.includes(simulationArea.lastSelected.objectType)) {
+        if (simulationArea.lastSelected && restrictedElements.includes(simulationArea.lastSelected.objectType) &&
+            !globalScope.restrictedCircuitElementsUsed.includes(simulationArea.lastSelected.objectType)) {
             globalScope.restrictedCircuitElementsUsed.push(simulationArea.lastSelected.objectType);
             updateRestrictedElementsList();
         }
 
         //       deselect multible elements with click
-        if (!simulationArea.shiftDown && simulationArea.multipleObjectSelections.length > 0
-        ) {
-            if (
-                !simulationArea.multipleObjectSelections.includes(
+        if (!simulationArea.shiftDown && simulationArea.multipleObjectSelections.length > 0) {
+            if (!simulationArea.multipleObjectSelections.includes(
                     simulationArea.lastSelected,
-                )
-            ) { simulationArea.multipleObjectSelections = []; }
+                )) { simulationArea.multipleObjectSelections = []; }
         }
     });
-    document.getElementById('simulationArea').addEventListener('mousemove', onMouseMove);
+    document.getElementById('simulationArea').addEventListener('mousemove', e => {
+        simulationArea.touch = false;
+        panMove(e);
+    });
+
+    document.getElementById('simulationArea').addEventListener('mouseup', e => {
+        panStop(e);
+    });
+
+    /*
+        Implementating touch listerners
+          *All Main basic touch listerners are
+          present here 
+    */
+
+    document.getElementById('simulationArea').addEventListener('touchstart', e => {
+        simulationArea.touch = true;
+        panStart(e);
+    });
+    document.getElementById('simulationArea').addEventListener('touchmove', e => {
+        simulationArea.touch = true;
+        panMove(e);
+    });
+    document.getElementById('simulationArea').addEventListener('touchend', e => {
+        panStop(e);
+    });
+
 
     window.addEventListener('keyup', e => {
         scheduleUpdate(1);
@@ -137,12 +155,12 @@ export default function startListeners() {
         }
 
         if (listenToSimulator) {
-        // If mouse is focusing on input element, then override any action
-        // if($(':focus').length){
-        //     return;
-        // }
+            // If mouse is focusing on input element, then override any action
+            // if($(':focus').length){
+            //     return;
+            // }
 
-            if (document.activeElement.tagName == 'INPUT' || simulationArea.mouseRawX < 0 || simulationArea.mouseRawY < 0 || simulationArea.mouseRawX > width || simulationArea.mouseRawY > height) {
+            if (document.activeElement.tagName == 'INPUT' || simulationArea.RawX < 0 || simulationArea.RawY < 0 || simulationArea.RawX > width || simulationArea.RawY > height) {
                 return;
             }
             // HACK TO REMOVE FOCUS ON PROPERTIES
@@ -172,7 +190,7 @@ export default function startListeners() {
                 ZoomOut();
             }
 
-            if (simulationArea.mouseRawX < 0 || simulationArea.mouseRawY < 0 || simulationArea.mouseRawX > width || simulationArea.mouseRawY > height) return;
+            if (simulationArea.RawX < 0 || simulationArea.RawY < 0 || simulationArea.RawX > width || simulationArea.RawY > height) return;
 
             scheduleUpdate(1);
             updateCanvasSet(true);
@@ -180,11 +198,11 @@ export default function startListeners() {
 
             // Needs to be deprecated, moved to more recent listeners
             if (simulationArea.controlDown && (e.key == 'C' || e.key == 'c')) {
-            //    simulationArea.copyList=simulationArea.multipleObjectSelections.slice();
-            //    if(simulationArea.lastSelected&&simulationArea.lastSelected!==simulationArea.root&&!simulationArea.copyList.contains(simulationArea.lastSelected)){
-            //        simulationArea.copyList.push(simulationArea.lastSelected);
-            //    }
-            //    copy(simulationArea.copyList);
+                //    simulationArea.copyList=simulationArea.multipleObjectSelections.slice();
+                //    if(simulationArea.lastSelected&&simulationArea.lastSelected!==simulationArea.root&&!simulationArea.copyList.contains(simulationArea.lastSelected)){
+                //        simulationArea.copyList.push(simulationArea.lastSelected);
+                //    }
+                //    copy(simulationArea.copyList);
             }
 
 
@@ -248,7 +266,7 @@ export default function startListeners() {
             }
 
             if (simulationArea.controlDown && (e.key == 'T' || e.key == 't')) {
-            // e.preventDefault(); //browsers normally open a new tab
+                // e.preventDefault(); //browsers normally open a new tab
                 simulationArea.changeClockTime(prompt('Enter Time:'));
             }
         }
@@ -263,14 +281,13 @@ export default function startListeners() {
         updateCanvasSet(true);
         if (simulationArea.lastSelected && simulationArea.lastSelected.dblclick !== undefined) {
             simulationArea.lastSelected.dblclick();
-        }
-        else if (!simulationArea.shiftDown) {
+        } else if (!simulationArea.shiftDown) {
             simulationArea.multipleObjectSelections = [];
         }
         scheduleUpdate(2);
     });
 
-    document.getElementById('simulationArea').addEventListener('mouseup', onMouseUp);
+
 
     document.getElementById('simulationArea').addEventListener('mousewheel', MouseScroll);
     document.getElementById('simulationArea').addEventListener('DOMMouseScroll', MouseScroll);
@@ -280,13 +297,13 @@ export default function startListeners() {
         event.preventDefault();
         var deltaY = event.wheelDelta ? event.wheelDelta : -event.detail;
         event.preventDefault();
-        var deltaY = event.wheelDelta ? event.wheelDelta : -event.detail;
-        const direction = deltaY > 0 ? 1 : -1;
+        var  deltaY  =  event.wheelDelta  ?  event.wheelDelta  :  -event.detail;
+        const  direction  =  deltaY  >  0  ?  1  :  -1;
         handleZoom(direction);
         updateCanvasSet(true);
         gridUpdateSet(true);
 
-        if (layoutModeGet())layoutUpdate();
+        if (layoutModeGet()) layoutUpdate();
         else update(); // Schedule update not working, this is INEFFICIENT
     }
 
@@ -365,21 +382,21 @@ export default function startListeners() {
     });
 
     // 'drag and drop' event listener for subcircuit elements in layout mode 
-    $('#subcircuitMenu').on('dragstop', '.draggableSubcircuitElement', function(event, ui){
+    $('#subcircuitMenu').on('dragstop', '.draggableSubcircuitElement', function(event, ui) {
         const sideBarWidth = $('#guide_1')[0].clientWidth;
         let tempElement;
 
-        if( ui.position.top > 10 && ui.position.left > sideBarWidth){
+        if (ui.position.top > 10 && ui.position.left > sideBarWidth) {
             // make a shallow copy of the element with the new coordinates
             tempElement = globalScope[this.dataset.elementName][this.dataset.elementId];
-            
+
             // Changing the coordinate doesn't work yet, nodes get far from element
             tempElement.x = ui.position.left - sideBarWidth;
             tempElement.y = ui.position.top;
-            for(let node of tempElement.nodeList){
+            for (let node of tempElement.nodeList) {
                 node.x = ui.position.left - sideBarWidth;
                 node.y = ui.position.top
-            } 
+            }
 
             tempBuffer.subElements.push(tempElement);
             this.parentElement.removeChild(this);
@@ -398,10 +415,10 @@ export default function startListeners() {
 
     $(".search-input").on("keyup", function() {
         var parentElement = $(this).parent().parent();
-        var closeButton =  $('.search-close', parentElement);
-        var searchInput =  $('.search-input', parentElement);
-        var searchResults =  $('.search-results', parentElement);
-        var menu =  $('.accordion', parentElement);
+        var closeButton = $('.search-close', parentElement);
+        var searchInput = $('.search-input', parentElement);
+        var searchResults = $('.search-results', parentElement);
+        var menu = $('.accordion', parentElement);
 
         searchResults.css('display', 'block');
         closeButton.css('display', 'block');
@@ -422,14 +439,15 @@ export default function startListeners() {
         }
         let htmlIcons = '';
         const result = elementPanelList.filter(ele => ele.toLowerCase().includes(value));
-        if(!result.length) searchResults.text('No elements found ...');
+        if (!result.length) searchResults.text('No elements found ...');
         else {
-            result.forEach( e => htmlIcons += createIcon(e));
+            result.forEach(e => htmlIcons += createIcon(e));
             searchResults
-              .html(htmlIcons);
+                .html(htmlIcons);
             $('.filterElements').mousedown(createElement);
         }
     });
+
     function createIcon(element) {
         return `<div class="${element} icon logixModules filterElements" id="${element}" title="${element}">
             <img  src= "/img/${element}.svg" >
@@ -443,41 +461,13 @@ export default function startListeners() {
     }
 }
 
-var isIe = (navigator.userAgent.toLowerCase().indexOf('msie') != -1
-    || navigator.userAgent.toLowerCase().indexOf('trident') != -1);
+var isIe = (navigator.userAgent.toLowerCase().indexOf('msie') != -1 ||
+    navigator.userAgent.toLowerCase().indexOf('trident') != -1);
 
-function onMouseMove(e) {
-    var rect = simulationArea.canvas.getBoundingClientRect();
-    simulationArea.mouseRawX = (e.clientX - rect.left) * DPR;
-    simulationArea.mouseRawY = (e.clientY - rect.top) * DPR;
-    simulationArea.mouseXf = (simulationArea.mouseRawX - globalScope.ox) / globalScope.scale;
-    simulationArea.mouseYf = (simulationArea.mouseRawY - globalScope.oy) / globalScope.scale;
-    simulationArea.mouseX = Math.round(simulationArea.mouseXf / unit) * unit;
-    simulationArea.mouseY = Math.round(simulationArea.mouseYf / unit) * unit;
 
-    updateCanvasSet(true);
 
-    if (simulationArea.lastSelected && (simulationArea.mouseDown || simulationArea.lastSelected.newElement)) {
-        updateCanvasSet(true);
-        var fn;
-
-        if (simulationArea.lastSelected == globalScope.root) {
-            fn = function () {
-                updateSelectionsAndPane();
-            };
-        } else {
-            fn = function () {
-                if (simulationArea.lastSelected) { simulationArea.lastSelected.update(); }
-            };
-        }
-        scheduleUpdate(0, 20, fn);
-    } else {
-        scheduleUpdate(0, 200);
-    }
-}
-
-function onMouseUp(e) {
-    simulationArea.mouseDown = false;
+function panStop(e) {
+    simulationArea.touchMouseDown = false;
     if (!lightMode) {
         updatelastMinimapShown();
         setTimeout(removeMiniMap, 2000);
@@ -491,7 +481,7 @@ function onMouseUp(e) {
     wireToBeCheckedSet(1);
 
     scheduleUpdate(1);
-    simulationArea.mouseDown = false;
+    simulationArea.touchMouseDown = false;
 
     for (var i = 0; i < 2; i++) {
         updatePositionSet(true);
@@ -508,17 +498,17 @@ function onMouseUp(e) {
     scheduleUpdate(1);
     var rect = simulationArea.canvas.getBoundingClientRect();
 
-    if (!(simulationArea.mouseRawX < 0 || simulationArea.mouseRawY < 0 || simulationArea.mouseRawX > width || simulationArea.mouseRawY > height)) {
-        uxvar.smartDropXX = simulationArea.mouseX + 100; // Math.round(((simulationArea.mouseRawX - globalScope.ox+100) / globalScope.scale) / unit) * unit;
-        uxvar.smartDropYY = simulationArea.mouseY - 50; // Math.round(((simulationArea.mouseRawY - globalScope.oy+100) / globalScope.scale) / unit) * unit;
+    if (!(simulationArea.RawX < 0 || simulationArea.RawY < 0 || simulationArea.RawX > width || simulationArea.RawY > height)) {
+        uxvar.smartDropXX = simulationArea.x + 100; // Math.round(((simulationArea.mouseRawX - globalScope.ox+100) / globalScope.scale) / unit) * unit;
+        uxvar.smartDropYY = simulationArea.moyseY - 50; // Math.round(((simulationArea.mouseRawY - globalScope.oy+100) / globalScope.scale) / unit) * unit;
     }
 }
-
+//CHanges To Be Done inabove  Area
 function resizeTabs() {
     var $windowsize = $('body').width();
     var $sideBarsize = $('.side').width();
     var $maxwidth = ($windowsize - $sideBarsize);
-    $('#tabsBar div').each(function (e) {
+    $('#tabsBar div').each(function(e) {
         $(this).css({ 'max-width': $maxwidth - 30 });
     });
 }
@@ -531,30 +521,31 @@ $(() => {
 });
 
 // direction is only 1 or -1
-function handleZoom(direction) {
-    if (globalScope.scale > 0.5 * DPR) {
-        changeScale(direction * 0.1 * DPR);
-    } else if (globalScope.scale < 4 * DPR) {
-        changeScale(direction * 0.1 * DPR);
+function  handleZoom(direction) {
+    if  (globalScope.scale  >  0.5  *  DPR)  {
+        changeScale(direction  *  0.1  *  DPR);
+    } 
+    else  if  (globalScope.scale  <  4  *  DPR)  {
+        changeScale(direction  *  0.1  *  DPR);
     }
     gridUpdateSet(true);
     scheduleUpdate();
 }
 
-export function ZoomIn() {
+export function  ZoomIn()  {
     handleZoom(1);
 }
 
-export function ZoomOut() {
+export function  ZoomOut()  {
     handleZoom(-1);
 }
 
 function zoomSliderListeners() {
     document.getElementById("customRange1").value = 5;
-    document.getElementById('simulationArea').addEventListener('DOMMouseScroll',zoomSliderScroll);
+    document.getElementById('simulationArea').addEventListener('DOMMouseScroll', zoomSliderScroll);
     document.getElementById('simulationArea').addEventListener('mousewheel', zoomSliderScroll);
     let curLevel = document.getElementById("customRange1").value;
-    $(document).on('input change', '#customRange1', function (e) {
+    $(document).on('input change', '#customRange1', function(e) {
         let newValue = $(this).val();
         let changeInScale = newValue - curLevel;
         updateCanvasSet(true);
@@ -562,16 +553,17 @@ function zoomSliderListeners() {
         gridUpdateSet(true);
         curLevel = newValue;
     });
+
     function zoomSliderScroll(e) {
         let zoomLevel = document.getElementById("customRange1").value;
-        let deltaY = e.wheelDelta ? e.wheelDelta : -e.detail;
-        const directionY = deltaY > 0 ? 1 : -1;
+        let  deltaY  =  e.wheelDelta  ? e.wheelDelta  :  -e.detail;
+        const  directionY  =  deltaY  >  0  ?  1  :  -1;
         if (directionY > 0) zoomLevel++
-        else zoomLevel--
-        if (zoomLevel >= 45) {
-            zoomLevel = 45;
-            document.getElementById("customRange1").value = 45;
-        } else if (zoomLevel <= 0) {
+            else zoomLevel--
+                if (zoomLevel >= 45) {
+                    zoomLevel = 45;
+                    document.getElementById("customRange1").value = 45;
+                } else if (zoomLevel <= 0) {
             zoomLevel = 0;
             document.getElementById("customRange1").value = 0;
         } else {
@@ -579,6 +571,7 @@ function zoomSliderListeners() {
             curLevel = zoomLevel;
         }
     }
+
     function sliderZoomButton(direction) {
         var zoomSlider = $('#customRange1');
         var currentSliderValue = parseInt(zoomSlider.val(), 10);
@@ -596,4 +589,152 @@ function zoomSliderListeners() {
     $('#increment').click(() => {
         sliderZoomButton(1);
     });
+}
+
+/*
+ *Function to start the pan in simulator
+ *Works for both touch and Mouse
+ */
+function panStart(e) {
+    var x = 0,
+        y = 0;
+    if (simulationArea.touch) {
+        x = e.touches[0].clientX;
+        y = e.touches[0].clientY;
+
+
+    } else {
+        x = e.clientX;
+        y = e.clientY;
+    }
+    simulationArea.touchMouseDown = true;
+
+    // Deselect Input
+    if (document.activeElement instanceof HTMLElement)
+        document.activeElement.blur();
+
+    errorDetectedSet(false);
+    updateSimulationSet(true);
+    updatePositionSet(true);
+    updateCanvasSet(true);
+
+    simulationArea.lastSelected = undefined;
+    simulationArea.selected = false;
+    simulationArea.hover = undefined;
+    var rect = simulationArea.canvas.getBoundingClientRect();
+    simulationArea.DownRawX = (x - rect.left) * DPR;
+    simulationArea.DownRawY = (y - rect.top) * DPR;
+    simulationArea.DownX = Math.round(((simulationArea.DownRawX - globalScope.ox) / globalScope.scale) / unit) * unit;
+    simulationArea.DownY = Math.round(((simulationArea.DownRawY - globalScope.oy) / globalScope.scale) / unit) * unit;
+    if (simulationArea.touch) {
+        simulationArea.x = simulationArea.DownX;
+        simulationArea.y = simulationArea.DownY;
+    }
+    simulationArea.oldx = globalScope.ox;
+    simulationArea.oldy = globalScope.oy;
+
+    e.preventDefault();
+    scheduleBackup();
+    scheduleUpdate(1);
+    $('.dropdown.open').removeClass('open');
+
+
+}
+
+
+/*
+ * Function to pan in simulator
+ * Works for both touch and Mouse
+ * Pinch to zoom also implemented in the same
+ */
+
+function panMove(e) {
+    var x = 0,
+        y = 0;
+    if (simulationArea.touch) {
+        x = e.touches[0].clientX;
+        y = e.touches[0].clientY;
+    } else {
+        x = e.clientX;
+        y = e.clientY;
+    }
+    if (!simulationArea.touch || e.touches.length === 1) {
+        var rect = simulationArea.canvas.getBoundingClientRect();
+        simulationArea.RawX = (x - rect.left) * DPR;
+        simulationArea.RawY = (y - rect.top) * DPR;
+        simulationArea.Xf = (simulationArea.RawX - globalScope.ox) / globalScope.scale;
+        simulationArea.Yf = (simulationArea.RawY - globalScope.oy) / globalScope.scale;
+        simulationArea.x = Math.round(simulationArea.Xf / unit) * unit;
+        simulationArea.y = Math.round(simulationArea.Yf / unit) * unit;
+
+
+        updateCanvasSet(true);
+
+        if (simulationArea.lastSelected && (simulationArea.touchMouseDown || simulationArea.lastSelected.newElement)) {
+            updateCanvasSet(true);
+            var fn;
+
+            if (simulationArea.lastSelected == globalScope.root) {
+                fn = function() {
+                    updateSelectionsAndPane();
+                };
+            } else {
+                fn = function() {
+                    if (simulationArea.lastSelected) { simulationArea.lastSelected.update(); }
+                };
+            }
+            scheduleUpdate(0, 20, fn);
+        } else {
+            scheduleUpdate(0, 200);
+        }
+    }
+
+    if (simulationArea.touch && e.touches.length === 2) {
+        pinchZoom(e);
+
+    }
+}
+
+function pinchZoom(e) {
+
+    gridUpdateSet(true);
+    scheduleUpdate();
+    updateSimulationSet(true);
+    updatePositionSet(true);
+    updateCanvasSet(true);
+    distance = Math.sqrt(
+        (e.touches[1].clientX - e.touches[0].clientX) * (e.touches[1].clientX - e.touches[0].clientX),
+        (e.touches[1].clientY - e.touches[0].clientY) * (e.touches[1].clientY - e.touches[0].clientY));
+    if (e.touches.length === 2) {
+        centreX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+        centreY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+    }
+    if (distance >= currDistance) {
+        pinchZ += 0.05;
+        currDistance = distance;
+    } else if (currDistance >= distance) {
+        pinchZ -= 0.05;
+        currDistance = distance;
+    }
+    if (pinchZ >= 4.5) {
+        pinchZ = 4.5;
+    } else if (pinchZ <= 1) {
+        pinchZ = 1;
+    }
+    globalScope.scale = Math.max(0.5, Math.min(4 * DPR, pinchZ * 2));
+    globalScope.scale = Math.round(globalScope.scale * 10) / 10;
+    globalScope.ox -= Math.round(centreX * (globalScope.scale - oldScale));
+    globalScope.oy -= Math.round(centreY * (globalScope.scale - oldScale));
+    if (!embed && !lightMode) {
+        findDimensions(globalScope);
+        miniMapArea.setup();
+        $('#miniMap').show();
+        updatelastMinimapShown();
+        $('#miniMap').show();
+        setTimeout(removeMiniMap, 2000);
+    }
+
+    gridUpdateSet(true);
+    scheduleUpdate(1);
+
 }

@@ -3,7 +3,11 @@
 import { scheduleUpdate } from './engine';
 import simulationArea from './simulationArea';
 import {
-    fixDirection, fillText, correctWidth, rect2, oppositeDirection,
+    fixDirection,
+    fillText,
+    correctWidth,
+    rect2,
+    oppositeDirection,
 } from './canvasApi';
 import { colors } from './themer/themer';
 import { layoutModeGet, tempBuffer } from './layoutMode';
@@ -26,8 +30,8 @@ export default class CircuitElement {
         this.y = y;
         this.hover = false;
         if (this.x === undefined || this.y === undefined) {
-            this.x = simulationArea.mouseX;
-            this.y = simulationArea.mouseY;
+            this.x = simulationArea.x;
+            this.y = simulationArea.y;
             this.newElement = true;
             this.hover = true;
         }
@@ -67,15 +71,15 @@ export default class CircuitElement {
         };
 
         if (this.canShowInSubcircuit) {
-        this.subcircuitMetadata = {
-            showInSubcircuit: false, // if canShowInSubcircuit == true, showInSubcircuit determines wheter the user has added the element in the subcircuit
-            showLabelInSubcircuit: true, // determines whether the label of the element is to be showin the subcircuit
-            labelDirection: this.labelDirection, // determines the direction of the label of the element in the subcircuit
-            // coordinates of the element in the subcircuit relative to the subcircuit
-            x : 0,
-            y : 0
+            this.subcircuitMetadata = {
+                showInSubcircuit: false, // if canShowInSubcircuit == true, showInSubcircuit determines wheter the user has added the element in the subcircuit
+                showLabelInSubcircuit: true, // determines whether the label of the element is to be showin the subcircuit
+                labelDirection: this.labelDirection, // determines the direction of the label of the element in the subcircuit
+                // coordinates of the element in the subcircuit relative to the subcircuit
+                x: 0,
+                y: 0
+            }
         }
-    }
     }
 
     /**
@@ -124,13 +128,13 @@ export default class CircuitElement {
     }
 
     /** Methods to be Implemented for derivedClass
-    * saveObject(); //To generate JSON-safe data that can be loaded
-    * customDraw(); //This is to draw the custom design of the circuit(Optional)
-    * resolve(); // To execute digital logic(Optional)
-    * override isResolvable(); // custom logic for checking if module is ready
-    * override newDirection(dir) //To implement custom direction logic(Optional)
-    * newOrientation(dir) //To implement custom orientation logic(Optional)
-    */
+     * saveObject(); //To generate JSON-safe data that can be loaded
+     * customDraw(); //This is to draw the custom design of the circuit(Optional)
+     * resolve(); // To execute digital logic(Optional)
+     * override isResolvable(); // custom logic for checking if module is ready
+     * override newDirection(dir) //To implement custom direction logic(Optional)
+     * newOrientation(dir) //To implement custom orientation logic(Optional)
+     */
 
     // Method definitions
 
@@ -144,10 +148,10 @@ export default class CircuitElement {
     }
 
     /**
-    * To generate JSON-safe data that can be loaded
-    * @memberof CircuitElement
-    * @return {JSON} - the data to be saved
-    */
+     * To generate JSON-safe data that can be loaded
+     * @memberof CircuitElement
+     * @return {JSON} - the data to be saved
+     */
     saveObject() {
         var data = {
             x: this.x,
@@ -160,15 +164,15 @@ export default class CircuitElement {
             customData: this.customSave(),
         };
 
-        if(this.canShowInSubcircuit) data.subcircuitMetadata = this.subcircuitMetadata;
+        if (this.canShowInSubcircuit) data.subcircuitMetadata = this.subcircuitMetadata;
         return data;
     }
 
     /**
-    * Always overriden
-    * @memberof CircuitElement
-    * @return {JSON} - the data to be saved
-    */
+     * Always overriden
+     * @memberof CircuitElement
+     * @return {JSON} - the data to be saved
+     */
     // eslint-disable-next-line class-methods-use-this
     customSave() {
         return {
@@ -183,11 +187,11 @@ export default class CircuitElement {
      * @return {boolean}
      */
     checkHover() {
-        if (simulationArea.mouseDown) return;
+        if (simulationArea.touchMouseDown) return;
         for (let i = 0; i < this.nodeList.length; i++) {
             this.nodeList[i].checkHover();
         }
-        if (!simulationArea.mouseDown) {
+        if (!simulationArea.touchMouseDown) {
             if (simulationArea.hover === this) {
                 this.hover = this.isHover();
                 if (!this.hover) simulationArea.hover = undefined;
@@ -216,9 +220,9 @@ export default class CircuitElement {
     }
 
     /**
-    * @memberof CircuitElement
-    * @param {number} w -width
-    */
+     * @memberof CircuitElement
+     * @param {number} w -width
+     */
     setWidth(width) {
         this.leftDimensionX = this.rightDimensionX = width;
     }
@@ -234,28 +238,26 @@ export default class CircuitElement {
      * Helper Function to drag element to a new position
      */
     startDragging() {
-        if(!layoutModeGet()){
+        if (!layoutModeGet()) {
             this.oldx = this.x;
             this.oldy = this.y;
-        }
-        else{
+        } else {
             this.oldx = this.subcircuitMetadata.x;
             this.oldy = this.subcircuitMetadata.y;
         }
     }
 
     /**
-    * Helper Function to drag element to a new position
-    * @memberof CircuitElement
-    */
+     * Helper Function to drag element to a new position
+     * @memberof CircuitElement
+     */
     drag() {
-        if(!layoutModeGet()){
-            this.x = this.oldx + simulationArea.mouseX - simulationArea.mouseDownX;
-            this.y = this.oldy + simulationArea.mouseY - simulationArea.mouseDownY;
-        }
-        else{
-            this.subcircuitMetadata.x = this.oldx + simulationArea.mouseX - simulationArea.mouseDownX;
-            this.subcircuitMetadata.y = this.oldy + simulationArea.mouseY - simulationArea.mouseDownY;
+        if (!layoutModeGet()) {
+            this.x = this.oldx + simulationArea.x - simulationArea.DownX;
+            this.y = this.oldy + simulationArea.y - simulationArea.DownY;
+        } else {
+            this.subcircuitMetadata.x = this.oldx + simulationArea.x - simulationArea.DownX;
+            this.subcircuitMetadata.y = this.oldy + simulationArea.y - simulationArea.DownY;
         }
     }
 
@@ -273,14 +275,14 @@ export default class CircuitElement {
         update |= this.newElement;
         if (this.newElement) {
             if (this.centerElement) {
-                this.x = Math.round((simulationArea.mouseX - (this.rightDimensionX - this.leftDimensionX) / 2) / 10) * 10;
-                this.y = Math.round((simulationArea.mouseY - (this.downDimensionY - this.upDimensionY) / 2) / 10) * 10;
+                this.x = Math.round((simulationArea.x - (this.rightDimensionX - this.leftDimensionX) / 2) / 10) * 10;
+                this.y = Math.round((simulationArea.y - (this.downDimensionY - this.upDimensionY) / 2) / 10) * 10;
             } else {
-                this.x = simulationArea.mouseX;
-                this.y = simulationArea.mouseY;
+                this.x = simulationArea.x;
+                this.y = simulationArea.y;
             }
 
-            if (simulationArea.mouseDown) {
+            if (simulationArea.touchMouseDown) {
                 this.newElement = false;
                 simulationArea.lastSelected = this;
             } else return update;
@@ -292,18 +294,18 @@ export default class CircuitElement {
 
         if (!simulationArea.hover || simulationArea.hover === this) { this.hover = this.isHover(); }
 
-        if (!simulationArea.mouseDown) this.hover = false;
+        if (!simulationArea.touchMouseDown) this.hover = false;
 
 
         if ((this.clicked || !simulationArea.hover) && this.isHover()) {
             this.hover = true;
             simulationArea.hover = this;
-        } else if (!simulationArea.mouseDown && this.hover && this.isHover() === false) {
+        } else if (!simulationArea.touchMouseDown && this.hover && this.isHover() === false) {
             if (this.hover) simulationArea.hover = undefined;
             this.hover = false;
         }
 
-        if (simulationArea.mouseDown && (this.clicked)) {
+        if (simulationArea.touchMouseDown && (this.clicked)) {
             this.drag();
             if (!simulationArea.shiftDown && simulationArea.multipleObjectSelections.contains(this)) {
                 for (let i = 0; i < simulationArea.multipleObjectSelections.length; i++) {
@@ -312,7 +314,7 @@ export default class CircuitElement {
             }
 
             update |= true;
-        } else if (simulationArea.mouseDown && !simulationArea.selected) {
+        } else if (simulationArea.touchMouseDown && !simulationArea.selected) {
             this.startDragging();
             if (!simulationArea.shiftDown && simulationArea.multipleObjectSelections.contains(this)) {
                 for (let i = 0; i < simulationArea.multipleObjectSelections.length; i++) {
@@ -327,10 +329,10 @@ export default class CircuitElement {
             this.clicked = false;
             this.wasClicked = false;
             // If this is SubCircuit, then call releaseClick to recursively release clicks on each subcircuit object
-            if(this.objectType == "SubCircuit") this.releaseClick();
+            if (this.objectType == "SubCircuit") this.releaseClick();
         }
 
-        if (simulationArea.mouseDown && !this.wasClicked) {
+        if (simulationArea.touchMouseDown && !this.wasClicked) {
             if (this.clicked) {
                 this.wasClicked = true;
                 if (this.click) this.click();
@@ -353,16 +355,16 @@ export default class CircuitElement {
     /**
      * Used to update the state of the elements inside the subcircuit in layout mode
      * Return Value: true if the state has changed, false otherwise
-    **/
+     **/
 
     layoutUpdate() {
         var update = false;
         update |= this.newElement;
         if (this.newElement) {
-            this.subcircuitMetadata.x = simulationArea.mouseX;
-            this.subcircuitMetadata.y = simulationArea.mouseY;
+            this.subcircuitMetadata.x = simulationArea.x;
+            this.subcircuitMetadata.y = simulationArea.y;
 
-            if (simulationArea.mouseDown) {
+            if (simulationArea.touchMouseDown) {
                 this.newElement = false;
                 simulationArea.lastSelected = this;
             } else return;
@@ -374,15 +376,15 @@ export default class CircuitElement {
         if ((this.clicked || !simulationArea.hover) && this.isHover()) {
             this.hover = true;
             simulationArea.hover = this;
-        } else if (!simulationArea.mouseDown && this.hover && this.isHover() == false) {
+        } else if (!simulationArea.touchMouseDown && this.hover && this.isHover() == false) {
             if (this.hover) simulationArea.hover = undefined;
             this.hover = false;
         }
 
-        if (simulationArea.mouseDown && (this.clicked)) {
+        if (simulationArea.touchMouseDown && (this.clicked)) {
             this.drag();
             update |= true;
-        } else if (simulationArea.mouseDown && !simulationArea.selected) {
+        } else if (simulationArea.touchMouseDown && !simulationArea.selected) {
             this.startDragging();
             simulationArea.selected = this.clicked = this.hover;
             update |= this.clicked;
@@ -392,7 +394,7 @@ export default class CircuitElement {
             this.wasClicked = false;
         }
 
-        if (simulationArea.mouseDown && !this.wasClicked) {
+        if (simulationArea.touchMouseDown && !this.wasClicked) {
             if (this.clicked) {
                 this.wasClicked = true;
                 simulationArea.lastSelected = this;
@@ -401,7 +403,7 @@ export default class CircuitElement {
 
         if (!this.clicked && !this.newElement) {
             let x = this.subcircuitMetadata.x;
-            let y = this.subcircuitMetadata.y; 
+            let y = this.subcircuitMetadata.y;
             let yy = tempBuffer.layout.height;
             let xx = tempBuffer.layout.width;
 
@@ -432,10 +434,10 @@ export default class CircuitElement {
      * The isHover method is used to check if the mouse is hovering over the object.
      * Return Value: true if mouse is hovering over object else false
      * NOT OVERRIDABLE
-    */
+     */
     isHover() {
-        var mX = simulationArea.mouseXf - this.x;
-        var mY = this.y - simulationArea.mouseYf;
+        var mX = simulationArea.touch ? simulationArea.x - this.x : simulationArea.Xf - this.x;
+        var mY = simulationArea.touch ? this.y - simulationArea.y : this.y - simulationArea.Yf;
 
         var rX = this.rightDimensionX;
         var lX = this.leftDimensionX;
@@ -443,14 +445,15 @@ export default class CircuitElement {
         var dY = this.downDimensionY;
 
         if (layoutModeGet()) {
-            var mX = simulationArea.mouseXf - this.subcircuitMetadata.x;
-            var mY = this.subcircuitMetadata.y - simulationArea.mouseYf;
+
+            var mX = simulationArea.touch ? this.subcircuitMetadata.x - simulationArea.x : this.subcircuitMetadata.x - simulationArea.Xf;
+            var mY = simulationArea.touch ? this.subcircuitMetadata.x - simulationArea.y : this.subcircuitMetadata.y - simulationArea.Yf;
 
             var rX = this.layoutProperties.rightDimensionX;
             var lX = this.layoutProperties.leftDimensionX;
             var uY = this.layoutProperties.upDimensionY;
             var dY = this.layoutProperties.downDimensionY;
-       }
+        }
 
         if (!this.directionFixed && !this.overrideDirectionRotation) {
             if (this.direction === 'LEFT') {
@@ -473,22 +476,22 @@ export default class CircuitElement {
     }
 
     isSubcircuitHover(xoffset = 0, yoffset = 0) {
-        var mX = simulationArea.mouseXf - this.subcircuitMetadata.x - xoffset;
-        var mY = yoffset + this.subcircuitMetadata.y - simulationArea.mouseYf;
+        var mX = simulationArea.Xf - this.subcircuitMetadata.x - xoffset;
+        var mY = yoffset + this.subcircuitMetadata.y - simulationArea.Yf;
 
         var rX = this.layoutProperties.rightDimensionX;
         var lX = this.layoutProperties.leftDimensionX;
         var uY = this.layoutProperties.upDimensionY;
         var dY = this.layoutProperties.downDimensionY;
-       
+
         return -lX <= mX && mX <= rX && -dY <= mY && mY <= uY;
     }
 
     /**
-    * Helper Function to set label of an element.
-    * @memberof CircuitElement
-    * @param {string} label - the label for element
-    */
+     * Helper Function to set label of an element.
+     * @memberof CircuitElement
+     * @param {string} label - the label for element
+     */
     setLabel(label) {
         this.label = label || '';
     }
@@ -580,12 +583,12 @@ export default class CircuitElement {
         Called by subcirucit.js/customDraw() - for drawing as a part of another circuit
         and layoutMode.js/renderLayout() -  for drawing in layoutMode
     **/
-    drawLayoutMode(xOffset = 0, yOffset = 0){
+    drawLayoutMode(xOffset = 0, yOffset = 0) {
         var ctx = simulationArea.context;
-        if(layoutModeGet()) {
+        if (layoutModeGet()) {
             this.checkHover();
         }
-        if (this.subcircuitMetadata.x * this.scope.scale + this.scope.ox < -this.layoutProperties.rightDimensionX * this.scope.scale  || this.subcircuitMetadata.x * this.scope.scale + this.scope.ox > width + this.layoutProperties.leftDimensionX * this.scope.scale  || this.subcircuitMetadata.y * this.scope.scale + this.scope.oy < -this.layoutProperties.downDimensionY * this.scope.scale  || this.subcircuitMetadata.y * this.scope.scale + this.scope.oy > height + this.layoutProperties.upDimensionY * this.scope.scale) return;
+        if (this.subcircuitMetadata.x * this.scope.scale + this.scope.ox < -this.layoutProperties.rightDimensionX * this.scope.scale || this.subcircuitMetadata.x * this.scope.scale + this.scope.ox > width + this.layoutProperties.leftDimensionX * this.scope.scale || this.subcircuitMetadata.y * this.scope.scale + this.scope.oy < -this.layoutProperties.downDimensionY * this.scope.scale || this.subcircuitMetadata.y * this.scope.scale + this.scope.oy > height + this.layoutProperties.upDimensionY * this.scope.scale) return;
 
         if (this.subcircuitMetadata.showLabelInSubcircuit) {
             var rX = this.layoutProperties.rightDimensionX;
@@ -638,10 +641,10 @@ export default class CircuitElement {
     }
 
     /**
-    * method to delete object
-    * OVERRIDE WITH CAUTION
-    * @memberof CircuitElement
-    */
+     * method to delete object
+     * OVERRIDE WITH CAUTION
+     * @memberof CircuitElement
+     */
     cleanDelete() {
         this.deleteNodesWhenDeleted = true;
         this.delete();
@@ -676,12 +679,12 @@ export default class CircuitElement {
     }
 
     /**
-    * Helper Function to change label direction of the element.
-    * @memberof CircuitElement
-    * @param {string} dir - new direction
-    */
+     * Helper Function to change label direction of the element.
+     * @memberof CircuitElement
+     * @param {string} dir - new direction
+     */
     newLabelDirection(dir) {
-        if(layoutModeGet()) this.subcircuitMetadata.labelDirection = dir;
+        if (layoutModeGet()) this.subcircuitMetadata.labelDirection = dir;
         else this.labelDirection = dir;
     }
 
@@ -725,22 +728,22 @@ export default class CircuitElement {
     }
 
     /**
-    * Dummy resolve function
-    * OVERRIDE if necessary
-    */
+     * Dummy resolve function
+     * OVERRIDE if necessary
+     */
     resolve() {
 
     }
 
     /**
-    * Helper Function to process verilog
-    */
-   processVerilog(){
+     * Helper Function to process verilog
+     */
+    processVerilog() {
         // Output count used to sanitize output
         var output_total = 0;
         for (var i = 0; i < this.nodeList.length; i++) {
             if (this.nodeList[i].type == NODE_OUTPUT && this.nodeList[i].connections.length > 0)
-            output_total++;
+                output_total++;
         }
 
         var output_count = 0;
@@ -760,9 +763,9 @@ export default class CircuitElement {
     }
 
     /**
-    * Helper Function to check if verilog resolvable
-    * @return {boolean}
-    */
+     * Helper Function to check if verilog resolvable
+     * @return {boolean}
+     */
     isVerilogResolvable() {
         var backupValues = [];
         for (let i = 0; i < this.nodeList.length; i++) {
@@ -786,8 +789,8 @@ export default class CircuitElement {
     }
 
     /**
-    * Helper Function to remove proporgation.
-    */
+     * Helper Function to remove proporgation.
+     */
     removePropagation() {
         for (let i = 0; i < this.nodeList.length; i++) {
             if (this.nodeList[i].type === NODE_OUTPUT) {
@@ -800,9 +803,9 @@ export default class CircuitElement {
     }
 
     /**
-    * Helper Function to name the verilog.
-    * @return {string}
-    */
+     * Helper Function to name the verilog.
+     * @return {string}
+     */
     verilogName() {
         return this.verilogType || this.objectType;
     }
@@ -821,9 +824,9 @@ export default class CircuitElement {
     }
 
     /**
-    * Helper Function to generate verilog
-    * @return {JSON}
-    */
+     * Helper Function to generate verilog
+     * @return {JSON}
+     */
     generateVerilog() {
         // Example: and and_1(_out, _out, _Q[0]);
         var inputs = [];
@@ -849,8 +852,8 @@ export default class CircuitElement {
 
     /**
      * Toggles the visibility of the labels of subcircuit elements. Called by event handlers in ux.js
-    **/
-    toggleLabelInLayoutMode(){
+     **/
+    toggleLabelInLayoutMode() {
         this.subcircuitMetadata.showLabelInSubcircuit = !this.subcircuitMetadata.showLabelInSubcircuit;
     }
 
@@ -865,9 +868,9 @@ CircuitElement.prototype.objectType = 'CircuitElement';
 CircuitElement.prototype.canShowInSubcircuit = false; // determines whether the element is supported to be shown inside a subcircuit
 CircuitElement.prototype.subcircuitMetadata = {}; // stores the coordinates and stuff for the elements in the subcircuit
 CircuitElement.prototype.layoutProperties = {
-    rightDimensionX : 5,
-    leftDimensionX : 5,
-    upDimensionY : 5,
+    rightDimensionX: 5,
+    leftDimensionX: 5,
+    upDimensionY: 5,
     downDimensionY: 5
 };
 CircuitElement.prototype.subcircuitMutableProperties = {

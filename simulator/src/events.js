@@ -3,7 +3,10 @@ import Scope, { scopeList, switchCircuit, newCircuit } from './circuit';
 
 import { loadScope } from './data/load';
 import {
-    scheduleUpdate, updateSimulationSet, updateSubcircuitSet, forceResetNodesSet,
+    scheduleUpdate,
+    updateSimulationSet,
+    updateSubcircuitSet,
+    forceResetNodesSet,
 } from './engine';
 import { backUp } from './data/backupCircuit';
 import { getNextPosition } from './modules';
@@ -25,7 +28,7 @@ export function paste(copyData) {
         if (scopeList[data.scopes[i].id] === undefined) {
             var isVerilogCircuit = false;
             var isMainCircuit = false;
-            if(data.scopes[i].verilogMetadata) {
+            if (data.scopes[i].verilogMetadata) {
                 isVerilogCircuit = data.scopes[i].verilogMetadata.isVerilogCircuit;
                 isMainCircuit = data.scopes[i].verilogMetadata.isMainCircuit;
             }
@@ -83,8 +86,8 @@ export function paste(copyData) {
         for (let j = 0; j < tempScope[updateOrder[i]].length; j++) {
             const obj = tempScope[updateOrder[i]][j];
             if (obj.objectType !== 'Wire') {
-                obj.x += simulationArea.mouseX - approxX;
-                obj.y += simulationArea.mouseY - approxY;
+                obj.x += simulationArea.x - approxX;
+                obj.y += simulationArea.y - approxY;
             }
         }
     }
@@ -257,6 +260,7 @@ export function copy(copyList, cutflag = false) {
     Object.keys(scopeList).forEach((id) => {
         dependencyList[id] = scopeList[id].getDependencies();
     });
+
     function saveScope(id) {
         if (completed[id]) return;
         for (let i = 0; i < dependencyList[id].length; i++) { saveScope(dependencyList[id][i]); }

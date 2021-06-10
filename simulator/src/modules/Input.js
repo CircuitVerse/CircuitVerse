@@ -3,7 +3,9 @@ import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import {
-    correctWidth, oppositeDirection, fillText,
+    correctWidth,
+    oppositeDirection,
+    fillText,
 } from '../canvasApi';
 import { getNextPosition } from '../modules';
 import { generateId } from '../utils';
@@ -165,7 +167,7 @@ export default class Input extends CircuitElement {
      * function to find position of mouse click
      */
     findPos() {
-        return Math.round((simulationArea.mouseX - this.x + 10 * this.bitWidth) / 20.0);
+        return Math.round((simulationArea.x - this.x + 10 * this.bitWidth) / 20.0);
     }
 }
 

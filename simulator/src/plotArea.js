@@ -1,5 +1,5 @@
 import simulationArea from './simulationArea';
-import {convertors} from './utils';
+import { convertors } from './utils';
 
 var DPR = window.devicePixelRatio || 1;
 
@@ -60,16 +60,18 @@ const plotArea = {
     height: 0, // canvas height
     unitUsed: 0, // Number of simulation units used by the engine
     cycleUnit: 1000, // Number of simulation units per cycle
-    mouseDown: false,
-    mouseX: 0, // Current mouse position
-    mouseDownX: 0, // position of mouse when clicked
+    touchMouseDown: false,
+    x: 0, // Current mouse and touch position
+    DownX: 0, // position of mouse when clicked
     mouseDownTime: 0, // time when mouse clicked (in ms)
     // Reset timeline to 0 and resume autoscroll
     reset() {
         this.cycleCount = 0;
         this.cycleTime = new Date().getTime();
         for (var i = 0; i < globalScope.Flag.length; i++) {
-            globalScope.Flag[i].plotValues = [[0, globalScope.Flag[i].inp1.value]];
+            globalScope.Flag[i].plotValues = [
+                [0, globalScope.Flag[i].inp1.value]
+            ];
             globalScope.Flag[i].cachedIndex = 0;
         }
         this.unitUsed = 0;
@@ -141,9 +143,9 @@ const plotArea = {
         // For user interactions like buttons - calculate time since clock tick
         var timePeriod = simulationArea.timePeriod;
         var executionDelay = (this.executionStartTime - this.cycleTime);
-        var delayFraction = executionDelay / timePeriod; 
+        var delayFraction = executionDelay / timePeriod;
         // Add time since clock tick
-        time += delayFraction; 
+        time += delayFraction;
         return time;
     },
     // Auto calibrate clock simulation units based on usage
@@ -158,8 +160,8 @@ const plotArea = {
         var time = this.cycleCount;
         var timePeriod = simulationArea.timePeriod;
         var delay = new Date().getTime() - this.cycleTime;
-        var delayFraction = delay / timePeriod; 
-        time += delayFraction; 
+        var delayFraction = delay / timePeriod;
+        time += delayFraction;
         return time;
     },
     update() {
@@ -179,26 +181,25 @@ const plotArea = {
                 this.clear();
                 return;
             }
-        }
-        else {
+        } else {
             $('#timing-diagram-log').css('background-color', normalColor);
         }
-        
+
         var width = this.width;
         var endTime = this.getCurrentTime();
-    
+
         if (this.autoScroll) {
             // Formula used: 
             // (endTime - x) * cycleWidth = width - timeLineStartX;
             // x = endTime - (width - timeLineStartX) / cycleWidth
             this.cycleOffset = Math.max(0, endTime - (width - timeLineStartX) / cycleWidth);
-        } else if (!plotArea.mouseDown) {
+        } else if (!plotArea.touchMouseDown) {
             // Scroll
             this.cycleOffset -= plotArea.scrollAcc;
             // Friction
             plotArea.scrollAcc *= 0.95;
             // No negative numbers allowed, so negative scroll to 0
-            if (this.cycleOffset < 0) 
+            if (this.cycleOffset < 0)
                 plotArea.scrollAcc = this.cycleOffset / 5;
             // Set position to 0, to avoid infinite scrolling 
             if (Math.abs(this.cycleOffset) < 0.01) this.cycleOffset = 0;
@@ -215,7 +216,7 @@ const plotArea = {
         // Background Color
         ctx.fillStyle = backgroundColor;
         ctx.fillRect(0, 0, width, height);
-        
+
         ctx.lineWidth = sh(1);
         ctx.font = `${sh(15)}px Raleway`;
         ctx.textAlign = 'left';
@@ -231,19 +232,19 @@ const plotArea = {
         ctx.font = `${sh(9)}px Times New Roman`;
         ctx.strokeStyle = textColor;
         ctx.textAlign = 'center';
-        for (var i = Math.floor(plotArea.cycleOffset); getCycleStartX(i) <= width ; i++) {
+        for (var i = Math.floor(plotArea.cycleOffset); getCycleStartX(i) <= width; i++) {
             var x = getCycleStartX(i);
             // Large ticks + number
             // @TODO - collapse number if it doesn't fit
             if (x >= timeLineStartX) {
-                ctx.fillText(`${i}`, x, timeLineHeight - sh(15)/2);
+                ctx.fillText(`${i}`, x, timeLineHeight - sh(15) / 2);
                 ctx.beginPath();
                 ctx.moveTo(x, timeLineHeight - sh(5));
                 ctx.lineTo(x, timeLineHeight);
                 ctx.stroke();
             }
             // Small ticks
-            for(var j = 1; j < 5; j++) {
+            for (var j = 1; j < 5; j++) {
                 var x1 = x + Math.round(j * cycleWidth / 5);
                 if (x1 >= timeLineStartX) {
                     ctx.beginPath();
@@ -253,11 +254,11 @@ const plotArea = {
                 }
             }
         }
-        
+
         // Flag Labels
         ctx.textAlign = 'left';
         for (var i = 0; i < globalScope.Flag.length; i++) {
-            var startHeight = getFlagStartY(i); 
+            var startHeight = getFlagStartY(i);
             ctx.fillStyle = foregroundColor;
             ctx.fillRect(0, startHeight, flagLabelWidth, plotHeight);
             ctx.fillStyle = textColor;
@@ -273,7 +274,7 @@ const plotArea = {
         ctx.strokeStyle = waveFormColor;
         ctx.textAlign = 'center';
         var endX = Math.min(getCycleStartX(endTime), width);
-        
+
         for (var i = 0; i < globalScope.Flag.length; i++) {
             var plotValues = globalScope.Flag[i].plotValues;
             var startHeight = getFlagStartY(i) + waveFormPadding;
@@ -286,8 +287,8 @@ const plotArea = {
             // Find correct index to start plotting from
             var j = 0;
             // Using caching for optimal performance
-            if (globalScope.Flag[i].cachedIndex) { 
-                j = globalScope.Flag[i].cachedIndex; 
+            if (globalScope.Flag[i].cachedIndex) {
+                j = globalScope.Flag[i].cachedIndex;
             }
             // Move to beyond timeLineStartX
             while (j + 1 < plotValues.length && getCycleStartX(plotValues[j][0]) < timeLineStartX) {
@@ -306,17 +307,17 @@ const plotArea = {
 
                 // Handle out of bound
                 if (x < timeLineStartX) {
-                    if(j + 1 != plotValues.length) {
+                    if (j + 1 != plotValues.length) {
                         // Next one also is out of bound, so skip this one completely
                         var x1 = getCycleStartX(plotValues[j + 1][0]);
-                        if (x1 < timeLineStartX) 
+                        if (x1 < timeLineStartX)
                             continue;
                     }
                     x = timeLineStartX;
                 }
-                
+
                 var value = plotValues[j][1];
-                if(value === undefined) {
+                if (value === undefined) {
                     if (state == WAVEFORM_STARTED) {
                         ctx.stroke();
                     }
@@ -331,19 +332,16 @@ const plotArea = {
                         state = WAVEFORM_STARTED;
                         ctx.beginPath();
                         ctx.moveTo(x, y);
-                    }
-                    else {
+                    } else {
                         ctx.lineTo(x, prevY);
                         ctx.lineTo(x, y);
                     }
                     prevY = y;
-                }
-                else {
+                } else {
                     var endX;
                     if (j + 1 == plotValues.length) {
                         endX = getCycleStartX(endTime);
-                    }
-                    else {
+                    } else {
                         endX = getCycleStartX(plotValues[j + 1][0]);
                     }
                     var smallOffset = waveFormHeight / 2;
@@ -361,8 +359,8 @@ const plotArea = {
                     // Clamp start and end are within the screen
                     var x1 = Math.max(x, timeLineStartX);
                     var x2 = Math.min(endX, width);
-                    var textPositionX = (x1 + x2) / 2 ;
-                    
+                    var textPositionX = (x1 + x2) / 2;
+
                     ctx.font = `${sh(9)}px Times New Roman`;
                     ctx.fillStyle = 'white';
                     ctx.fillText(convertors.dec2hex(value), textPositionX, yMid + sh(3));
@@ -388,7 +386,7 @@ const plotArea = {
             this.canvas.width = this.canvas.height = 0;
             return;
         }
-        
+
         this.update();
         this.render();
     },
@@ -408,13 +406,13 @@ export function setupTimingListeners() {
         plotArea.resize();
     })
     $('.timing-diagram-small-height').on('click', () => {
-        if(plotHeight >= sh(20)) {
+        if (plotHeight >= sh(20)) {
             plotHeight -= sh(5);
             waveFormHeight = plotHeight - 2 * waveFormPadding;
         }
     })
     $('.timing-diagram-large-height').on('click', () => {
-        if(plotHeight < sh(50)) {
+        if (plotHeight < sh(50)) {
             plotHeight += sh(5);
             waveFormHeight = plotHeight - 2 * waveFormPadding;
         }
@@ -450,26 +448,26 @@ export function setupTimingListeners() {
         var x = sh(e.clientX - rect.left);
         plotArea.scrollAcc = 0;
         plotArea.autoScroll = false;
-        plotArea.mouseDown = true;
-        plotArea.mouseX = x;
-        plotArea.mouseDownX = x;
+        plotArea.touchMouseDown = true;
+        plotArea.x = x;
+        plotArea.DownX = x;
         plotArea.mouseDownTime = new Date().getTime();
     });
     document.getElementById('plotArea').addEventListener('mouseup', (e) => {
-        plotArea.mouseDown = false;
+        plotArea.touchMouseDown = false;
         var time = new Date().getTime() - plotArea.mouseDownTime;
-        var offset = (plotArea.mouseX - plotArea.mouseDownX) / cycleWidth;
+        var offset = (plotArea.x - plotArea.DownX) / cycleWidth;
         plotArea.scrollAcc = offset * frameInterval / time;
     });
 
     document.getElementById('plotArea').addEventListener('mousemove', (e) => {
         var rect = plotArea.canvas.getBoundingClientRect();
         var x = sh(e.clientX - rect.left);
-        if (plotArea.mouseDown) {
-            plotArea.cycleOffset -= (x - plotArea.mouseX) / cycleWidth;
-            plotArea.mouseX = x;
+        if (plotArea.touchMouseDown) {
+            plotArea.cycleOffset -= (x - plotArea.x) / cycleWidth;
+            plotArea.x = x;
         } else {
-            plotArea.mouseDown = false;
+            plotArea.touchMouseDown = false;
         }
     });
 }

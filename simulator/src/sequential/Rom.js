@@ -2,7 +2,9 @@ import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import {
-    correctWidth, rect2, fillText3,
+    correctWidth,
+    rect2,
+    fillText3,
 } from '../canvasApi';
 /**
  * @class
@@ -70,8 +72,8 @@ export default class Rom extends CircuitElement {
      * @return {number}
      */
     findPos() {
-        const i = Math.floor((simulationArea.mouseX - this.x + 35) / 20);
-        const j = Math.floor((simulationArea.mouseY - this.y + 35) / 16);
+        const i = Math.floor((simulationArea.x - this.x + 35) / 20);
+        const j = Math.floor((simulationArea.y - this.y + 35) / 16);
         if (i < 0 || j < 0 || i > 3 || j > 3) return undefined;
         return j * 4 + i;
     }
@@ -190,21 +192,21 @@ export default class Rom extends CircuitElement {
     }
 
     verilogBaseType() {
-        return this.verilogName() + (Rom.selSizes.length-1);
-    }
-    //this code to generate Verilog
+            return this.verilogName() + (Rom.selSizes.length - 1);
+        }
+        //this code to generate Verilog
     generateVerilog() {
         Rom.selSizes.push(this.data);
         return CircuitElement.prototype.generateVerilog.call(this);
     }
-    
+
     //This code to determine what sizes are used to generate the needed modules
     //generate the needed modules
     static moduleVerilog() {
-        var output = "";
+            var output = "";
 
-        for (var i = 0; i < Rom.selSizes.length; i++) {
-            output += `
+            for (var i = 0; i < Rom.selSizes.length; i++) {
+                output += `
     module Rom${i}(dout, addr, en);
     parameter WIDTH = 8;
     parameter ADDR = 4;
@@ -218,19 +220,19 @@ export default class Rom extends CircuitElement {
         else
         case (addr)
     `;
-            for (var j = 0; j < (1 << 4); j++) {
-            output += "        " + j + " : dout = " + Rom.selSizes[i][j] + ";\n";
-            }
+                for (var j = 0; j < (1 << 4); j++) {
+                    output += "        " + j + " : dout = " + Rom.selSizes[i][j] + ";\n";
+                }
 
-        output += `      endcase
+                output += `      endcase
     end
     endmodule
     `;
-        }
+            }
 
-        return output;
-    }
-    //reset the sized before Verilog generation
+            return output;
+        }
+        //reset the sized before Verilog generation
     static resetVerilog() {
         Rom.selSizes = [];
     }
