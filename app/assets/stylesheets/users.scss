@@ -100,7 +100,8 @@
 }
 
 .users-password-input {
-  border: 0;
+  border: 1px solid $secondary-green;
+  margin: -1px;
 }
 
 .users-forgot-password-text {
