@@ -1,3 +1,6 @@
+/* eslint-disable no-undef */
+/* eslint-disable eqeqeq */
+/* eslint-disable semi */
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-continue */
@@ -6,12 +9,7 @@
 import { layoutModeGet, layoutUpdate } from './layoutMode';
 import plotArea from './plotArea';
 import simulationArea from './simulationArea';
-import {
-    dots,
-    canvasMessage,
-    findDimensions,
-    rect2,
-} from './canvasApi';
+import { dots, canvasMessage, findDimensions, rect2 } from './canvasApi';
 import { showProperties, prevPropertyObjGet } from './ux';
 import { showError } from './utils';
 import miniMapArea from './minimap';
@@ -26,15 +24,15 @@ import { verilogModeGet } from './Verilog2CV';
  * @type {number} engine
  * @category engine
  */
-var wireToBeChecked = 0;
+let wireToBeChecked = 0;
 
 /**
  * Used to set wireChecked boolean which updates wires in UI if true (or 1). 2 if some problem and it is handled.
  * @param {number} param - value of wirechecked
  * @category engine
  */
-export function wireToBeCheckedSet(param) {
-    wireToBeChecked = param;
+export function wireToBeCheckedSet (param) {
+  wireToBeChecked = param;
 }
 
 /**
@@ -42,7 +40,7 @@ export function wireToBeCheckedSet(param) {
  * @type {boolean}
  * @category engine
  */
-var willBeUpdated = false;
+let willBeUpdated = false;
 
 /**
  * used to set willBeUpdated variable
@@ -50,25 +48,25 @@ var willBeUpdated = false;
  * @category engine
  * @category engine
  */
-export function willBeUpdatedSet(param) {
-    willBeUpdated = param;
+export function willBeUpdatedSet (param) {
+  willBeUpdated = param;
 }
 
 /**
- * true if we have an element selected and 
+ * true if we have an element selected and
  * is used when we are paning the grid.
  * @type {boolean}
  * @category engine
  */
-var objectSelection = false;
+let objectSelection = false;
 
 /**
  * used to set the value of object selection,
- * @param {boolean} param 
+ * @param {boolean} param
  * @category engine
  */
-export function objectSelectionSet(param) {
-    objectSelection = param;
+export function objectSelectionSet (param) {
+  objectSelection = param;
 }
 
 /**
@@ -76,15 +74,15 @@ export function objectSelectionSet(param) {
  * @type {boolean}
  * @category engine
  */
-var updatePosition = true;
+let updatePosition = true;
 
 /**
  * used to set the value of updatePosition.
- * @param {boolean} param 
+ * @param {boolean} param
  * @category engine
  */
-export function updatePositionSet(param) {
-    updatePosition = param;
+export function updatePositionSet (param) {
+  updatePosition = param;
 }
 
 /**
@@ -92,30 +90,30 @@ export function updatePositionSet(param) {
  * @type {boolean}
  * @category engine
  */
-var updateSimulation = true;
+let updateSimulation = true;
 
 /**
  * used to set the value of updateSimulation.
  * @param {boolean} param
  * @category engine
  */
-export function updateSimulationSet(param) {
-    updateSimulation = param;
+export function updateSimulationSet (param) {
+  updateSimulation = param;
 }
 /**
  * Flag for rendering
  * @type {boolean}
  * @category engine
  */
-var updateCanvas = true;
+let updateCanvas = true;
 
 /**
  * used to set the value of updateCanvas.
  * @param {boolean} param
  * @category engine
  */
-export function updateCanvasSet(param) {
-    updateCanvas = param;
+export function updateCanvasSet (param) {
+  updateCanvas = param;
 }
 
 /**
@@ -123,15 +121,15 @@ export function updateCanvasSet(param) {
  * @type {boolean}
  * @category engine
  */
-var gridUpdate = true;
+let gridUpdate = true;
 
 /**
  * used to set gridUpdate
  * @param {boolean} param
  * @category engine
  */
-export function gridUpdateSet(param) {
-    gridUpdate = param;
+export function gridUpdateSet (param) {
+  gridUpdate = param;
 }
 
 /**
@@ -139,38 +137,38 @@ export function gridUpdateSet(param) {
  * @return {boolean}
  * @category engine
  */
-export function gridUpdateGet() {
-    return gridUpdate;
+export function gridUpdateGet () {
+  return gridUpdate;
 }
 /**
  *  Flag for updating grid
  * @type {boolean}
  * @category engine
  */
-var forceResetNodes = true;
+let forceResetNodes = true;
 
 /**
  * used to set forceResetNodes
  * @param {boolean} param
  * @category engine
  */
-export function forceResetNodesSet(param) {
-    forceResetNodes = param;
+export function forceResetNodesSet (param) {
+  forceResetNodes = param;
 }
 /**
  *  Flag for updating grid
  * @type {boolean}
  * @category engine
  */
-var errorDetected = false;
+let errorDetected = false;
 
 /**
  * used to set errorDetected
  * @param {boolean} param
  * @category engine
  */
-export function errorDetectedSet(param) {
-    errorDetected = param;
+export function errorDetectedSet (param) {
+  errorDetected = param;
 }
 
 /**
@@ -178,8 +176,8 @@ export function errorDetectedSet(param) {
  * @returns {boolean} errorDetected
  * @category engine
  */
-export function errorDetectedGet() {
-    return errorDetected;
+export function errorDetectedGet () {
+  return errorDetected;
 }
 
 /**
@@ -190,10 +188,11 @@ export function errorDetectedGet() {
  * @property {number} string - the message
  * @category engine
  */
+// eslint-disable-next-line no-var
 export var canvasMessageData = {
-    x: undefined,
-    y: undefined,
-    string: undefined,
+  x: undefined,
+  y: undefined,
+  string: undefined
 };
 
 /**
@@ -201,20 +200,20 @@ export var canvasMessageData = {
  * @type {boolean}
  * @category engine
  */
-var updateSubcircuit = true;
+let updateSubcircuit = true;
 
 /**
  * used to set updateSubcircuit
  * @param {boolean} param
  * @category engine
  */
-export function updateSubcircuitSet(param) {
-    if (updateSubcircuit != param) {
-        updateSubcircuit = param;
-        return true;
-    }
+export function updateSubcircuitSet (param) {
+  if (updateSubcircuit != param) {
     updateSubcircuit = param;
-    return false;
+    return true;
+  }
+  updateSubcircuit = param;
+  return false;
 }
 
 /**
@@ -222,18 +221,18 @@ export function updateSubcircuitSet(param) {
  * @param {boolean} val -- new value for light mode
  * @category engine
  */
-export function changeLightMode(val) {
-    if (!val && lightMode) {
-        lightMode = false;
-        DPR = window.devicePixelRatio || 1;
-        globalScope.scale *= DPR;
-    } else if (val && !lightMode) {
-        lightMode = true;
-        globalScope.scale /= DPR;
-        DPR = 1
-        $('#miniMap').fadeOut('fast');
-    }
-    resetup();
+export function changeLightMode (val) {
+  if (!val && lightMode) {
+    lightMode = false;
+    DPR = window.devicePixelRatio || 1;
+    globalScope.scale *= DPR;
+  } else if (val && !lightMode) {
+    lightMode = true;
+    globalScope.scale /= DPR;
+    DPR = 1
+    $('#miniMap').fadeOut('fast');
+  }
+  resetup();
 }
 
 /**
@@ -241,48 +240,48 @@ export function changeLightMode(val) {
  * @param {Scope} scope - The circuit whose canvas we want to render
  * @category engine
  */
-export function renderCanvas(scope) {
-    if (layoutModeGet() || verilogModeGet()) { // Different Algorithm
-        return;
-    }
-    var ctx = simulationArea.context;
-    // Reset canvas
-    simulationArea.clear();
-    // Update Grid
-    if (gridUpdate) {
-        gridUpdateSet(false);
-        dots();
-    }
-    canvasMessageData = {
-        x: undefined,
-        y: undefined,
-        string: undefined,
-    }; //  Globally set in draw fn ()
-    // Render objects
-    for (let i = 0; i < renderOrder.length; i++) {
-        for (var j = 0; j < scope[renderOrder[i]].length; j++) { scope[renderOrder[i]][j].draw(); }
-    }
-    // Show any message
-    if (canvasMessageData.string !== undefined) {
-        canvasMessage(ctx, canvasMessageData.string, canvasMessageData.x, canvasMessageData.y);
-    }
-    // If multiple object selections are going on, show selected area
-    if (objectSelection) {
-        ctx.beginPath();
-        ctx.lineWidth = 2;
-        ctx.strokeStyle = 'black';
-        ctx.fillStyle = 'rgba(0,0,0,0.1)';
-        rect2(ctx, simulationArea.DownX, simulationArea.DownY, simulationArea.x - simulationArea.DownX, simulationArea.y - simulationArea.DownY, 0, 0, 'RIGHT');
-        ctx.stroke();
-        ctx.fill();
-    }
-    if (simulationArea.hover !== undefined) {
-        simulationArea.canvas.style.cursor = 'pointer';
-    } else if (simulationArea.touchMouseDown) {
-        simulationArea.canvas.style.cursor = 'grabbing';
-    } else {
-        simulationArea.canvas.style.cursor = 'default';
-    }
+export function renderCanvas (scope) {
+  if (layoutModeGet() || verilogModeGet()) { // Different Algorithm
+    return;
+  }
+  const ctx = simulationArea.context;
+  // Reset canvas
+  simulationArea.clear();
+  // Update Grid
+  if (gridUpdate) {
+    gridUpdateSet(false);
+    dots();
+  }
+  canvasMessageData = {
+    x: undefined,
+    y: undefined,
+    string: undefined
+  }; //  Globally set in draw fn ()
+  // Render objects
+  for (let i = 0; i < renderOrder.length; i++) {
+    for (let j = 0; j < scope[renderOrder[i]].length; j++) { scope[renderOrder[i]][j].draw(); }
+  }
+  // Show any message
+  if (canvasMessageData.string !== undefined) {
+    canvasMessage(ctx, canvasMessageData.string, canvasMessageData.x, canvasMessageData.y);
+  }
+  // If multiple object selections are going on, show selected area
+  if (objectSelection) {
+    ctx.beginPath();
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = 'black';
+    ctx.fillStyle = 'rgba(0,0,0,0.1)';
+    rect2(ctx, simulationArea.DownX, simulationArea.DownY, simulationArea.x - simulationArea.DownX, simulationArea.y - simulationArea.DownY, 0, 0, 'RIGHT');
+    ctx.stroke();
+    ctx.fill();
+  }
+  if (simulationArea.hover !== undefined) {
+    simulationArea.canvas.style.cursor = 'pointer';
+  } else if (simulationArea.touchMouseDown) {
+    simulationArea.canvas.style.cursor = 'grabbing';
+  } else {
+    simulationArea.canvas.style.cursor = 'default';
+  }
 }
 
 /**
@@ -291,82 +290,83 @@ export function renderCanvas(scope) {
  * @param {Scope=} scope - the circuit in which we are selecting stuff
  * @category engine
  */
-export function updateSelectionsAndPane(scope = globalScope) {
-    if (!simulationArea.selected && simulationArea.touchMouseDown) {
-        simulationArea.selected = true;
-        simulationArea.lastSelected = scope.root;
-        simulationArea.hover = scope.root;
-        // Selecting multiple objects
-        if (simulationArea.shiftDown) {
-            objectSelectionSet(true);
-        } else if (!embed) {
-            findDimensions(scope);
-            miniMapArea.setup();
-            $('#miniMap').show();
-        }
-    } else if (simulationArea.lastSelected === scope.root && simulationArea.touchMouseDown) {
-        // pane canvas to give an idea of grid moving
-        if (!objectSelection) {
-            globalScope.ox = (simulationArea.RawX - simulationArea.DownRawX) + simulationArea.oldx;
-            globalScope.oy = (simulationArea.RawY - simulationArea.DownRawY) + simulationArea.oldy;
-            globalScope.ox = Math.round(globalScope.ox);
-            globalScope.oy = Math.round(globalScope.oy);
-            gridUpdateSet(true);
-            if (!embed && !lightMode) miniMapArea.setup();
-        } else {
-            // idea: kind of empty
-        }
-    } else if (simulationArea.lastSelected === scope.root) {
-        /*
+export function updateSelectionsAndPane (scope = globalScope) {
+  if (!simulationArea.selected && simulationArea.touchMouseDown) {
+    simulationArea.selected = true;
+    simulationArea.lastSelected = scope.root;
+    simulationArea.hover = scope.root;
+    // Selecting multiple objects
+    if (simulationArea.shiftDown) {
+      objectSelectionSet(true);
+    } else if (!embed) {
+      findDimensions(scope);
+      miniMapArea.setup();
+      $('#miniMap').show();
+    }
+  } else if (simulationArea.lastSelected === scope.root && simulationArea.touchMouseDown) {
+    // pane canvas to give an idea of grid moving
+    if (!objectSelection) {
+      globalScope.ox = (simulationArea.RawX - simulationArea.DownRawX) + simulationArea.oldx;
+      globalScope.oy = (simulationArea.RawY - simulationArea.DownRawY) + simulationArea.oldy;
+      globalScope.ox = Math.round(globalScope.ox);
+      globalScope.oy = Math.round(globalScope.oy);
+      gridUpdateSet(true);
+      if (!embed && !lightMode) miniMapArea.setup();
+    } else {
+      // idea: kind of empty
+    }
+  } else if (simulationArea.lastSelected === scope.root) {
+    /*
         Select multiple objects by adding them to the array
         simulationArea.multipleObjectSelections when we select
         using shift + mouse movement to select an area but
         not shift + click
         */
-        simulationArea.lastSelected = undefined;
-        simulationArea.selected = false;
-        simulationArea.hover = undefined;
-        if (objectSelection) {
-            objectSelectionSet(false);
-            var x1 = simulationArea.DownX;
-            var x2 = simulationArea.x;
-            var y1 = simulationArea.DownY;
-            var y2 = simulationArea.y;
-            // Sort those four points to make a selection pane
-            if (x1 > x2) {
-                const temp = x1;
-                x1 = x2;
-                x2 = temp;
-            }
-            if (y1 > y2) {
-                const temp = y1;
-                y1 = y2;
-                y2 = temp;
-            }
-            // Select the objects, push them into a list
-            for (let i = 0; i < updateOrder.length; i++) {
-                for (var j = 0; j < scope[updateOrder[i]].length; j++) {
-                    var obj = scope[updateOrder[i]][j];
-                    if (simulationArea.multipleObjectSelections.contains(obj)) continue;
-                    var x;
-                    var
-                        y;
-                    if (obj.objectType === 'Node') {
-                        x = obj.absX();
-                        y = obj.absY();
-                    } else if (obj.objectType !== 'Wire') {
-                        x = obj.x;
-                        y = obj.y;
-                    } else {
-                        continue;
-                    }
-                    if (x > x1 && x < x2 && y > y1 && y < y2) {
-                        simulationArea.multipleObjectSelections.push(obj);
-                    }
-                }
-            }
+    simulationArea.lastSelected = undefined;
+    simulationArea.selected = false;
+    simulationArea.hover = undefined;
+    if (objectSelection) {
+      objectSelectionSet(false);
+      let x1 = simulationArea.DownX;
+      let x2 = simulationArea.x;
+      let y1 = simulationArea.DownY;
+      let y2 = simulationArea.y;
+      // Sort those four points to make a selection pane
+      if (x1 > x2) {
+        const temp = x1;
+        x1 = x2;
+        x2 = temp;
+      }
+      if (y1 > y2) {
+        const temp = y1;
+        y1 = y2;
+        y2 = temp;
+      }
+      // Select the objects, push them into a list
+      for (let i = 0; i < updateOrder.length; i++) {
+        for (let j = 0; j < scope[updateOrder[i]].length; j++) {
+          const obj = scope[updateOrder[i]][j];
+          if (simulationArea.multipleObjectSelections.contains(obj)) continue;
+          // eslint-disable-next-line no-var
+          var x;
+          // eslint-disable-next-line no-var
+          var y;
+          if (obj.objectType === 'Node') {
+            x = obj.absX();
+            y = obj.absY();
+          } else if (obj.objectType !== 'Wire') {
+            x = obj.x;
+            y = obj.y;
+          } else {
+            continue;
+          }
+          if (x > x1 && x < x2 && y > y1 && y < y2) {
+            simulationArea.multipleObjectSelections.push(obj);
+          }
         }
+      }
     }
+  }
 }
 
 /**
@@ -377,51 +377,51 @@ export function updateSelectionsAndPane(scope = globalScope) {
  * @param {boolean} resetNodes - boolean to reset all nodes
  * @category engine
  */
-export function play(scope = globalScope, resetNodes = false) {
-    if (errorDetected) return; // Don't simulate until error is fixed
-    if (loading === true) return; // Don't simulate until loaded
+export function play (scope = globalScope, resetNodes = false) {
+  if (errorDetected) return; // Don't simulate until error is fixed
+  if (loading === true) return; // Don't simulate until loaded
 
+  simulationArea.simulationQueue.reset();
+  plotArea.setExecutionTime(); // Waveform thing
+  // Reset Nodes if required
+  if (resetNodes || forceResetNodes) {
+    scope.reset();
     simulationArea.simulationQueue.reset();
-    plotArea.setExecutionTime(); // Waveform thing
-    // Reset Nodes if required
-    if (resetNodes || forceResetNodes) {
-        scope.reset();
-        simulationArea.simulationQueue.reset();
-        forceResetNodesSet(false);
-    }
+    forceResetNodesSet(false);
+  }
 
-    // Add subcircuits if they can be resolved -- needs to be removed/ deprecated
-    for (let i = 0; i < scope.SubCircuit.length; i++) {
-        if (scope.SubCircuit[i].isResolvable()) simulationArea.simulationQueue.add(scope.SubCircuit[i]);
+  // Add subcircuits if they can be resolved -- needs to be removed/ deprecated
+  for (let i = 0; i < scope.SubCircuit.length; i++) {
+    if (scope.SubCircuit[i].isResolvable()) simulationArea.simulationQueue.add(scope.SubCircuit[i]);
+  }
+  // To store list of circuitselements that have shown contention but kept temporarily
+  // Mainly to resolve tristate bus issues
+  simulationArea.contentionPending = [];
+  // add inputs to the simulation queue
+  scope.addInputs();
+  // to check if we have infinite loop in circuit
+  let stepCount = 0;
+  let elem;
+  while (!simulationArea.simulationQueue.isEmpty()) {
+    if (errorDetected) {
+      simulationArea.simulationQueue.reset();
+      return;
     }
-    // To store list of circuitselements that have shown contention but kept temporarily
-    // Mainly to resolve tristate bus issues
-    simulationArea.contentionPending = [];
-    // add inputs to the simulation queue
-    scope.addInputs();
-    // to check if we have infinite loop in circuit
-    let stepCount = 0;
-    let elem;
-    while (!simulationArea.simulationQueue.isEmpty()) {
-        if (errorDetected) {
-            simulationArea.simulationQueue.reset();
-            return;
-        }
-        elem = simulationArea.simulationQueue.pop();
-        elem.resolve();
-        stepCount++;
-        if (stepCount > 1000000) { // Cyclic or infinite Circuit Detection
-            showError('Simulation Stack limit exceeded: maybe due to cyclic paths or contention');
-            errorDetectedSet(true);
-            forceResetNodesSet(true);
-        }
+    elem = simulationArea.simulationQueue.pop();
+    elem.resolve();
+    stepCount++;
+    if (stepCount > 1000000) { // Cyclic or infinite Circuit Detection
+      showError('Simulation Stack limit exceeded: maybe due to cyclic paths or contention');
+      errorDetectedSet(true);
+      forceResetNodesSet(true);
     }
-    // Check for TriState Contentions
-    if (simulationArea.contentionPending.length) {
-        showError('Contention at TriState');
-        forceResetNodesSet(true);
-        errorDetectedSet(true);
-    }
+  }
+  // Check for TriState Contentions
+  if (simulationArea.contentionPending.length) {
+    showError('Contention at TriState');
+    forceResetNodesSet(true);
+    errorDetectedSet(true);
+  }
 }
 
 /**
@@ -431,22 +431,22 @@ export function play(scope = globalScope, resetNodes = false) {
  * @param {function} fn - function to run before updating UI
  * @category engine
  */
-export function scheduleUpdate(count = 0, time = 100, fn) {
-    if (lightMode) time *= 5;
-    var updateFn = layoutModeGet() ? layoutUpdate : update;
-    if (count) { // Force update
-        updateFn();
-        for (let i = 0; i < count; i++) { setTimeout(updateFn, 10 + 50 * i); }
-    }
-    if (willBeUpdated) return; // Throttling
-    willBeUpdatedSet(true);
-    // Call a function before update ..
-    if (fn) {
-        setTimeout(() => {
-            fn();
-            updateFn();
-        }, time);
-    } else setTimeout(updateFn, time);
+export function scheduleUpdate (count = 0, time = 100, fn) {
+  if (lightMode) time *= 5;
+  const updateFn = layoutModeGet() ? layoutUpdate : update;
+  if (count) { // Force update
+    updateFn();
+    for (let i = 0; i < count; i++) { setTimeout(updateFn, 10 + 50 * i); }
+  }
+  if (willBeUpdated) return; // Throttling
+  willBeUpdatedSet(true);
+  // Call a function before update ..
+  if (fn) {
+    setTimeout(() => {
+      fn();
+      updateFn();
+    }, time);
+  } else setTimeout(updateFn, time);
 }
 
 /**
@@ -458,66 +458,67 @@ export function scheduleUpdate(count = 0, time = 100, fn) {
  * @param {boolean=} updateEverything - if true we update the wires, nodes and modules
  * @category engine
  */
-export function update(scope = globalScope, updateEverything = false) {
-    willBeUpdatedSet(false);
-    if (loading === true || layoutModeGet()) return;
-    var updated = false;
-    simulationArea.hover = undefined;
-    // Update wires
-    if (wireToBeChecked || updateEverything) {
-        if (wireToBeChecked === 2) wireToBeChecked = 0; // this required due to timing issues
-        else wireToBeChecked++;
-        // WHY IS THIS REQUIRED ???? we are checking inside wire ALSO
-        // Idea: we can just call length again instead of doing it during loop.
-        var prevLength = scope.wires.length;
-        for (let i = 0; i < scope.wires.length; i++) {
-            scope.wires[i].checkConnections();
-            if (scope.wires.length !== prevLength) {
-                prevLength--;
-                i--;
-            }
-        }
-        scheduleUpdate();
+export function update (scope = globalScope, updateEverything = false) {
+  willBeUpdatedSet(false);
+  if (loading === true || layoutModeGet()) return;
+  let updated = false;
+  simulationArea.hover = undefined;
+  // Update wires
+  if (wireToBeChecked || updateEverything) {
+    if (wireToBeChecked === 2) wireToBeChecked = 0; // this required due to timing issues
+    else wireToBeChecked++;
+    // WHY IS THIS REQUIRED ???? we are checking inside wire ALSO
+    // Idea: we can just call length again instead of doing it during loop.
+    let prevLength = scope.wires.length;
+    for (let i = 0; i < scope.wires.length; i++) {
+      scope.wires[i].checkConnections();
+      if (scope.wires.length !== prevLength) {
+        prevLength--;
+        i--;
+      }
     }
-    // Update subcircuits
-    if (updateSubcircuit || updateEverything) {
-        for (let i = 0; i < scope.SubCircuit.length; i++) { scope.SubCircuit[i].reset(); }
-        updateSubcircuitSet(false);
+    scheduleUpdate();
+  }
+  // Update subcircuits
+  if (updateSubcircuit || updateEverything) {
+    for (let i = 0; i < scope.SubCircuit.length; i++) { scope.SubCircuit[i].reset(); }
+    updateSubcircuitSet(false);
+  }
+  // Update UI position
+  if (updatePosition || updateEverything) {
+    for (let i = 0; i < updateOrder.length; i++) {
+      for (let j = 0; j < scope[updateOrder[i]].length; j++) {
+        // eslint-disable-next-line no-unused-vars
+        updated |= scope[updateOrder[i]][j].update();
+      }
     }
-    // Update UI position
-    if (updatePosition || updateEverything) {
-        for (let i = 0; i < updateOrder.length; i++) {
-            for (let j = 0; j < scope[updateOrder[i]].length; j++) {
-                updated |= scope[updateOrder[i]][j].update();
-            }
-        }
+  }
+  // Updates multiple objectselections and panes window
+  if (updatePosition || updateEverything) {
+    updateSelectionsAndPane(scope);
+  }
+  // Update MiniMap
+  if (!embed && simulationArea.touchMouseDown && simulationArea.lastSelected && simulationArea.lastSelected !== globalScope.root) {
+    if (!lightMode) { $('#miniMap').fadeOut('fast'); }
+  }
+  // Run simulation
+  if (updateSimulation) {
+    play();
+  }
+  // Show properties of selected element
+  if (!embed && prevPropertyObjGet() !== simulationArea.lastSelected) {
+    if (simulationArea.lastSelected && simulationArea.lastSelected.objectType !== 'Wire') {
+      // ideas: why show properties of project in Nodes but not wires?
+      showProperties(simulationArea.lastSelected);
+    } else {
+      // hideProperties();
     }
-    // Updates multiple objectselections and panes window
-    if (updatePosition || updateEverything) {
-        updateSelectionsAndPane(scope);
-    }
-    // Update MiniMap
-    if (!embed && simulationArea.touchMouseDown && simulationArea.lastSelected && simulationArea.lastSelected !== globalScope.root) {
-        if (!lightMode) { $('#miniMap').fadeOut('fast'); }
-    }
-    // Run simulation
-    if (updateSimulation) {
-        play();
-    }
-    // Show properties of selected element
-    if (!embed && prevPropertyObjGet() !== simulationArea.lastSelected) {
-        if (simulationArea.lastSelected && simulationArea.lastSelected.objectType !== 'Wire') {
-            // ideas: why show properties of project in Nodes but not wires?
-            showProperties(simulationArea.lastSelected);
-        } else {
-            // hideProperties();
-        }
-    }
-    // Draw, render everything
-    if (updateCanvas) {
-        renderCanvas(scope);
-    }
-    updateSimulationSet(false);
-    updateCanvas = false;
-    updatePositionSet(false);
+  }
+  // Draw, render everything
+  if (updateCanvas) {
+    renderCanvas(scope);
+  }
+  updateSimulationSet(false);
+  updateCanvas = false;
+  updatePositionSet(false);
 }

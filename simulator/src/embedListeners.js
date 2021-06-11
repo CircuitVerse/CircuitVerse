@@ -1,211 +1,204 @@
+/* eslint-disable no-undef */
+/* eslint-disable eqeqeq */
+/* eslint-disable semi */
 /* eslint-disable import/no-cycle */
 // Listeners when circuit is embedded
 // Refer listeners.js
 import simulationArea from './simulationArea';
-import {
-    scheduleUpdate,
-    update,
-    updateSelectionsAndPane,
-    wireToBeCheckedSet,
-    updatePositionSet,
-    updateSimulationSet,
-    updateCanvasSet,
-    gridUpdateSet,
-    errorDetectedSet,
-} from './engine';
+import { scheduleUpdate, update, updateSelectionsAndPane, wireToBeCheckedSet, updatePositionSet, updateSimulationSet, updateCanvasSet, gridUpdateSet, errorDetectedSet } from './engine';
 import { changeScale } from './canvasApi';
+// eslint-disable-next-line no-unused-vars
 import { copy, paste } from './events';
 import { ZoomIn, ZoomOut } from './listeners';
 
-var unit = 10;
+const unit = 10;
 
-export default function startListeners() {
-    window.addEventListener('keyup', (e) => {
-        scheduleUpdate(1);
-        if (e.keyCode == 16) {
-            simulationArea.shiftDown = false;
-        }
-        if (e.key == 'Meta' || e.key == 'Control') {
-            simulationArea.controlDown = false;
-        }
-    });
-
-    document.getElementById('simulationArea').addEventListener('mousedown', (e) => {
-        errorDetectedSet(false);
-        updateSimulationSet(true);
-        updatePositionSet(true);
-        updateCanvasSet(true);
-
-        simulationArea.lastSelected = undefined;
-        simulationArea.selected = false;
-        simulationArea.hover = undefined;
-        var rect = simulationArea.canvas.getBoundingClientRect();
-        simulationArea.DownRawX = (e.clientX - rect.left) * DPR;
-        simulationArea.DownRawY = (e.clientY - rect.top) * DPR;
-        simulationArea.DownX = Math.round(((simulationArea.DownRawX - globalScope.ox) / globalScope.scale) / unit) * unit;
-        simulationArea.DownY = Math.round(((simulationArea.DownRawY - globalScope.oy) / globalScope.scale) / unit) * unit;
-        simulationArea.touchMouseDown = true;
-        simulationArea.oldx = globalScope.ox;
-        simulationArea.oldy = globalScope.oy;
-
-
-        e.preventDefault();
-        scheduleUpdate(1);
-    });
-
-    document.getElementById('simulationArea').addEventListener('mousemove', () => {
-        var ele = document.getElementById('elementName');
-        if (globalScope && simulationArea && simulationArea.objectList) {
-            var { objectList } = simulationArea;
-            objectList = objectList.filter((val) => val !== 'wires');
-
-            for (var i = 0; i < objectList.length; i++) {
-                for (var j = 0; j < globalScope[objectList[i]].length; j++) {
-                    if (globalScope[objectList[i]][j].isHover()) {
-                        ele.style.display = 'block';
-                        if (objectList[i] === 'SubCircuit') {
-                            ele.innerHTML = `Subcircuit: ${globalScope.SubCircuit[j].data.name}`;
-                        } else {
-                            ele.innerHTML = `CircuitElement: ${objectList[i]}`;
-                        }
-                        return;
-                    }
-                }
-            }
-        }
-
-        ele.style.display = 'none';
-        document.getElementById('elementName').innerHTML = '';
-    });
-
-    window.addEventListener('mousemove', (e) => {
-        var rect = simulationArea.canvas.getBoundingClientRect();
-        simulationArea.RawX = (e.clientX - rect.left) * DPR;
-        simulationArea.RawY = (e.clientY - rect.top) * DPR;
-        simulationArea.Xf = (simulationArea.RawX - globalScope.ox) / globalScope.scale;
-        simulationArea.Yf = (simulationArea.RawY - globalScope.oy) / globalScope.scale;
-        simulationArea.x = Math.round(simulationArea.Xf / unit) * unit;
-        simulationArea.y = Math.round(simulationArea.Yf / unit) * unit;
-
-        updateCanvasSet(true);
-        if (simulationArea.lastSelected == globalScope.root) {
-            updateCanvasSet(true);
-            var fn;
-            fn = function() {
-                updateSelectionsAndPane();
-            };
-            scheduleUpdate(0, 20, fn);
-        } else {
-            scheduleUpdate(0, 200);
-        }
-    });
-    window.addEventListener('keydown', (e) => {
-        errorDetectedSet(false);
-        updateSimulationSet(true);
-        updatePositionSet(true);
-
-        // zoom in (+)
-        if (e.key == 'Meta' || e.key == 'Control') {
-            simulationArea.controlDown = true;
-        }
-
-        if (simulationArea.controlDown && (e.keyCode == 187 || e.KeyCode == 171)) {
-            e.preventDefault();
-            ZoomIn();
-        }
-
-        // zoom out (-)
-        if (simulationArea.controlDown && (e.keyCode == 189 || e.Keycode == 173)) {
-            e.preventDefault();
-            ZoomOut();
-        }
-
-
-        if (simulationArea.RawX < 0 || simulationArea.RawY < 0 || simulationArea.RawX > width || simulationArea.RawY > height) return;
-
-        scheduleUpdate(1);
-        updateCanvasSet(true);
-
-        if (simulationArea.lastSelected && simulationArea.lastSelected.keyDown) {
-            if (e.key.toString().length == 1 || e.key.toString() == 'Backspace') {
-                simulationArea.lastSelected.keyDown(e.key.toString());
-                return;
-            }
-        }
-        if (simulationArea.lastSelected && simulationArea.lastSelected.keyDown2) {
-            if (e.key.toString().length == 1) {
-                simulationArea.lastSelected.keyDown2(e.key.toString());
-                return;
-            }
-        }
-
-        // if (simulationArea.lastSelected && simulationArea.lastSelected.keyDown3) {
-        //     if (e.key.toString() != "Backspace" && e.key.toString() != "Delete") {
-        //         simulationArea.lastSelected.keyDown3(e.key.toString());
-        //         return;
-        //     }
-
-        // }
-
-        if (e.key == 'T' || e.key == 't') {
-            simulationArea.changeClockTime(prompt('Enter Time:'));
-        }
-    });
-    document.getElementById('simulationArea').addEventListener('dblclick', (e) => {
-        scheduleUpdate(2);
-        if (simulationArea.lastSelected && simulationArea.lastSelected.dblclick !== undefined) {
-            simulationArea.lastSelected.dblclick();
-        }
-    });
-
-
-    window.addEventListener('mouseup', (e) => {
-        simulationArea.touchMouseDown = false;
-        errorDetectedSet(false);
-        updateSimulationSet(true);
-        updatePositionSet(true);
-        updateCanvasSet(true);
-        gridUpdateSet(true);
-        wireToBeCheckedSet(1);
-
-        scheduleUpdate(1);
-    });
-    window.addEventListener('mousedown', function(e) {
-        this.focus();
-    });
-
-    document.getElementById('simulationArea').addEventListener('mousewheel', MouseScroll);
-    document.getElementById('simulationArea').addEventListener('DOMMouseScroll', MouseScroll);
-
-    function MouseScroll(event) {
-        updateCanvasSet(true);
-
-        event.preventDefault();
-        var deltaY = event.wheelDelta ? event.wheelDelta : -event.detail;
-        var scrolledUp = deltaY < 0;
-        var scrolledDown = deltaY > 0;
-
-        if (event.ctrlKey) {
-            if (scrolledUp && globalScope.scale > 0.5 * DPR) {
-                changeScale(-0.1 * DPR);
-            }
-            if (scrolledDown && globalScope.scale < 4 * DPR) {
-                changeScale(0.1 * DPR);
-            }
-        } else {
-            if (scrolledUp && globalScope.scale < 4 * DPR) {
-                changeScale(0.1 * DPR);
-            }
-            if (scrolledDown && globalScope.scale > 0.5 * DPR) {
-                changeScale(-0.1 * DPR);
-            }
-        }
-
-        updateCanvasSet(true);
-        gridUpdateSet(true);
-        update(); // Schedule update not working, this is INEFFICENT
+export default function startListeners () {
+  window.addEventListener('keyup', (e) => {
+    scheduleUpdate(1);
+    if (e.keyCode == 16) {
+      simulationArea.shiftDown = false;
     }
+    if (e.key == 'Meta' || e.key == 'Control') {
+      simulationArea.controlDown = false;
+    }
+  });
+
+  document.getElementById('simulationArea').addEventListener('mousedown', (e) => {
+    errorDetectedSet(false);
+    updateSimulationSet(true);
+    updatePositionSet(true);
+    updateCanvasSet(true);
+
+    simulationArea.lastSelected = undefined;
+    simulationArea.selected = false;
+    simulationArea.hover = undefined;
+    const rect = simulationArea.canvas.getBoundingClientRect();
+    simulationArea.DownRawX = (e.clientX - rect.left) * DPR;
+    simulationArea.DownRawY = (e.clientY - rect.top) * DPR;
+    simulationArea.DownX = Math.round(((simulationArea.DownRawX - globalScope.ox) / globalScope.scale) / unit) * unit;
+    simulationArea.DownY = Math.round(((simulationArea.DownRawY - globalScope.oy) / globalScope.scale) / unit) * unit;
+    simulationArea.touchMouseDown = true;
+    simulationArea.oldx = globalScope.ox;
+    simulationArea.oldy = globalScope.oy;
+
+    e.preventDefault();
+    scheduleUpdate(1);
+  });
+
+  document.getElementById('simulationArea').addEventListener('mousemove', () => {
+    const ele = document.getElementById('elementName');
+    if (globalScope && simulationArea && simulationArea.objectList) {
+      let { objectList } = simulationArea;
+      objectList = objectList.filter((val) => val !== 'wires');
+
+      for (let i = 0; i < objectList.length; i++) {
+        for (let j = 0; j < globalScope[objectList[i]].length; j++) {
+          if (globalScope[objectList[i]][j].isHover()) {
+            ele.style.display = 'block';
+            if (objectList[i] === 'SubCircuit') {
+              ele.innerHTML = `Subcircuit: ${globalScope.SubCircuit[j].data.name}`;
+            } else {
+              ele.innerHTML = `CircuitElement: ${objectList[i]}`;
+            }
+            return;
+          }
+        }
+      }
+    }
+
+    ele.style.display = 'none';
+    document.getElementById('elementName').innerHTML = '';
+  });
+
+  window.addEventListener('mousemove', (e) => {
+    const rect = simulationArea.canvas.getBoundingClientRect();
+    simulationArea.RawX = (e.clientX - rect.left) * DPR;
+    simulationArea.RawY = (e.clientY - rect.top) * DPR;
+    simulationArea.Xf = (simulationArea.RawX - globalScope.ox) / globalScope.scale;
+    simulationArea.Yf = (simulationArea.RawY - globalScope.oy) / globalScope.scale;
+    simulationArea.x = Math.round(simulationArea.Xf / unit) * unit;
+    simulationArea.y = Math.round(simulationArea.Yf / unit) * unit;
+
+    updateCanvasSet(true);
+    if (simulationArea.lastSelected == globalScope.root) {
+      updateCanvasSet(true);
+      let fn;
+      // eslint-disable-next-line prefer-const
+      fn = function () {
+        updateSelectionsAndPane();
+      };
+      scheduleUpdate(0, 20, fn);
+    } else {
+      scheduleUpdate(0, 200);
+    }
+  });
+  window.addEventListener('keydown', (e) => {
+    errorDetectedSet(false);
+    updateSimulationSet(true);
+    updatePositionSet(true);
+
+    // zoom in (+)
+    if (e.key == 'Meta' || e.key == 'Control') {
+      simulationArea.controlDown = true;
+    }
+
+    if (simulationArea.controlDown && (e.keyCode == 187 || e.KeyCode == 171)) {
+      e.preventDefault();
+      ZoomIn();
+    }
+
+    // zoom out (-)
+    if (simulationArea.controlDown && (e.keyCode == 189 || e.Keycode == 173)) {
+      e.preventDefault();
+      ZoomOut();
+    }
+
+    if (simulationArea.RawX < 0 || simulationArea.RawY < 0 || simulationArea.RawX > width || simulationArea.RawY > height) return;
+
+    scheduleUpdate(1);
+    updateCanvasSet(true);
+
+    if (simulationArea.lastSelected && simulationArea.lastSelected.keyDown) {
+      if (e.key.toString().length == 1 || e.key.toString() == 'Backspace') {
+        simulationArea.lastSelected.keyDown(e.key.toString());
+        return;
+      }
+    }
+    if (simulationArea.lastSelected && simulationArea.lastSelected.keyDown2) {
+      if (e.key.toString().length == 1) {
+        simulationArea.lastSelected.keyDown2(e.key.toString());
+        return;
+      }
+    }
+
+    // if (simulationArea.lastSelected && simulationArea.lastSelected.keyDown3) {
+    //     if (e.key.toString() != "Backspace" && e.key.toString() != "Delete") {
+    //         simulationArea.lastSelected.keyDown3(e.key.toString());
+    //         return;
+    //     }
+
+    // }
+
+    if (e.key == 'T' || e.key == 't') {
+      simulationArea.changeClockTime(prompt('Enter Time:'));
+    }
+  });
+  document.getElementById('simulationArea').addEventListener('dblclick', (e) => {
+    scheduleUpdate(2);
+    if (simulationArea.lastSelected && simulationArea.lastSelected.dblclick !== undefined) {
+      simulationArea.lastSelected.dblclick();
+    }
+  });
+
+  window.addEventListener('mouseup', (e) => {
+    simulationArea.touchMouseDown = false;
+    errorDetectedSet(false);
+    updateSimulationSet(true);
+    updatePositionSet(true);
+    updateCanvasSet(true);
+    gridUpdateSet(true);
+    wireToBeCheckedSet(1);
+
+    scheduleUpdate(1);
+  });
+  window.addEventListener('mousedown', function (e) {
+    this.focus();
+  });
+
+  document.getElementById('simulationArea').addEventListener('mousewheel', MouseScroll);
+  document.getElementById('simulationArea').addEventListener('DOMMouseScroll', MouseScroll);
+
+  function MouseScroll (event) {
+    updateCanvasSet(true);
+
+    event.preventDefault();
+    const deltaY = event.wheelDelta ? event.wheelDelta : -event.detail;
+    const scrolledUp = deltaY < 0;
+    const scrolledDown = deltaY > 0;
+
+    if (event.ctrlKey) {
+      if (scrolledUp && globalScope.scale > 0.5 * DPR) {
+        changeScale(-0.1 * DPR);
+      }
+      if (scrolledDown && globalScope.scale < 4 * DPR) {
+        changeScale(0.1 * DPR);
+      }
+    } else {
+      if (scrolledUp && globalScope.scale < 4 * DPR) {
+        changeScale(0.1 * DPR);
+      }
+      if (scrolledDown && globalScope.scale > 0.5 * DPR) {
+        changeScale(-0.1 * DPR);
+      }
+    }
+
+    updateCanvasSet(true);
+    gridUpdateSet(true);
+    update(); // Schedule update not working, this is INEFFICENT
+  }
 }
 
-var isIe = (navigator.userAgent.toLowerCase().indexOf('msie') != -1 ||
+// eslint-disable-next-line no-unused-vars
+const isIe = (navigator.userAgent.toLowerCase().indexOf('msie') != -1 ||
     navigator.userAgent.toLowerCase().indexOf('trident') != -1);
