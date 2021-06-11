@@ -37,6 +37,9 @@
       <li class="nav-item px-1">
         <a class="nav-link navbar-item navbar-text <%= request.path == '/about' ? 'active' : '' %>" href="/about"><%= t('headers.about') %></a>
       </li>
+       <li class="nav-item px-1">
+        <a class="nav-link navbar-item navbar-text" href="https://blog.circuitverse.org">Blog</a>
+      </li>
       <% if user_signed_in? %>
       <div class="navbar-nav nav-item dropdown">
         <li class="nav-item px-1">
