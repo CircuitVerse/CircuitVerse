@@ -25,7 +25,7 @@ class GroupsController < ApplicationController
 
   def group_invite
     if Group.with_valid_token.exists?(group_token: params[:token])
-      if current_user.groups.exists?(id: @group)
+      if current_user.groups.exists?(id: @group) || current_user.id == @group.mentor_id
         notice = "Member is already present in the group."
       else
         current_user.group_members.create!(group: @group)
