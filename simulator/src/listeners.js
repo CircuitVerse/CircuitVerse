@@ -21,6 +21,11 @@ import { verilogModeGet } from './Verilog2CV';
 import { setupTimingListeners } from './plotArea';
 
 var unit = 10;
+let coordinate;
+const returnCoordinate = {
+  x: 0,
+  y: 0
+}
 
 export default function startListeners() {
     $('#deleteSelected').on('click',() => {
@@ -61,6 +66,7 @@ export default function startListeners() {
     });
 
     document.getElementById('simulationArea').addEventListener('mousedown', (e) => {
+       simulationArea.touch = false;
        panStart(e);
     });
     document.getElementById('simulationArea').addEventListener('mouseup', (e) => {
@@ -86,9 +92,11 @@ export default function startListeners() {
         }
     });
     document.getElementById('simulationArea').addEventListener('mousemove',e =>{
+        simulationArea.touch = false;
         panMove(e);
     });
     document.getElementById('simulationArea').addEventListener('mouseup', e=>{
+        simulationArea.touch = false;
         panStop(e);
     });
 
@@ -98,12 +106,18 @@ export default function startListeners() {
            present here
     */
   document.getElementById('simulationArea').addEventListener('touchstart', e => {
+    simulationArea.touch = true;
+    panStart(e);
 
   });
   document.getElementById('simulationArea').addEventListener('touchmove', e => {
+    simulationArea.touch = true;
+    panMove(e);
     
   });
   document.getElementById('simulationArea').addEventListener('touchend', e => {
+    simulationArea.touch = true;
+    panStop(e);
 });
 window.addEventListener('keyup', e => {
         scheduleUpdate(1);
@@ -438,7 +452,14 @@ window.addEventListener('keyup', e => {
 
 var isIe = (navigator.userAgent.toLowerCase().indexOf('msie') != -1
     || navigator.userAgent.toLowerCase().indexOf('trident') != -1);
+/*
+ *Function to start the pan in simulator
+ *Works for both touch and Mouse
+ *For now variable name starts from mouse like mouseDown are used both 
+  touch and mouse will change in future
+ */
 function panStart(e){
+    coordinate = getCoordinate(e);
     simulationArea.mouseDown = true;
     
     // Deselect Input
@@ -454,10 +475,14 @@ function panStart(e){
     simulationArea.selected = false;
     simulationArea.hover = undefined;
     var rect = simulationArea.canvas.getBoundingClientRect();
-    simulationArea.mouseDownRawX = (e.clientX - rect.left) * DPR;
-    simulationArea.mouseDownRawY = (e.clientY - rect.top) * DPR;
+    simulationArea.mouseDownRawX = (coordinate.x - rect.left) * DPR;
+    simulationArea.mouseDownRawY = (coordinate.y - rect.top) * DPR;
     simulationArea.mouseDownX = Math.round(((simulationArea.mouseDownRawX - globalScope.ox) / globalScope.scale) / unit) * unit;
     simulationArea.mouseDownY = Math.round(((simulationArea.mouseDownRawY - globalScope.oy) / globalScope.scale) / unit) * unit;
+    if (simulationArea.touch){
+        simulationArea.mouseX = simulationArea.mouseDownX;
+        simulationArea.mouseY = simulationArea.mouseDownY;
+    }
     simulationArea.oldx = globalScope.ox;
     simulationArea.oldy = globalScope.oy;
     
@@ -467,10 +492,20 @@ function panStart(e){
     $('.dropdown.open').removeClass('open');
 }
 
+/*
+ * Function to pan in simulator
+ * Works for both touch and Mouse
+ * Pinch to zoom also implemented in the same
+ * For now variable name starts from mouse like mouseDown are used both 
+   touch and mouse will change in future
+ */
+
 function panMove(e) {
+    coordinate = getCoordinate(e);
+    if (!simulationArea.touch || e.touches.length === 1) {
     var rect = simulationArea.canvas.getBoundingClientRect();
-    simulationArea.mouseRawX = (e.clientX - rect.left) * DPR;
-    simulationArea.mouseRawY = (e.clientY - rect.top) * DPR;
+    simulationArea.mouseRawX = (coordinate.x- rect.left) * DPR;
+    simulationArea.mouseRawY = (coordinate.y - rect.top) * DPR;
     simulationArea.mouseXf = (simulationArea.mouseRawX - globalScope.ox) / globalScope.scale;
     simulationArea.mouseYf = (simulationArea.mouseRawY - globalScope.oy) / globalScope.scale;
     simulationArea.mouseX = Math.round(simulationArea.mouseXf / unit) * unit;
@@ -496,6 +531,14 @@ function panMove(e) {
         scheduleUpdate(0, 200);
     }
 }
+   if (simulationArea.touch && e.touches.length === 2) {}
+
+}
+
+/* Function for Panstop on simulator 
+   *For now variable name starts from mouse like mouseDown are used both 
+    touch and mouse will change in future
+*/
 
 function panStop(e) {
     simulationArea.mouseDown = false;
@@ -618,3 +661,18 @@ function zoomSliderListeners() {
         sliderZoomButton(1);
     });
 }
+/* Function to getCoordinate
+    *If touch is enable then it will return touch coordinate
+    *else it will return mouse coordinate
+ */
+function getCoordinate (e) {
+    if (simulationArea.touch) {
+      returnCoordinate.x = e.touches[0].clientX;
+      returnCoordinate.y = e.touches[0].clientY;
+      return returnCoordinate;
+    } else {
+      returnCoordinate.x = e.clientX;
+      returnCoordinate.y = e.clientY;
+      return returnCoordinate;
+    }
+  }

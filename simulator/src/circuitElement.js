@@ -434,8 +434,8 @@ export default class CircuitElement {
      * NOT OVERRIDABLE
     */
     isHover() {
-        var mX = simulationArea.mouseXf - this.x;
-        var mY = this.y - simulationArea.mouseYf;
+        var mX = simulationArea.touch ? simulationArea.mouseX - this.x : simulationArea.mouseXf - this.x;
+        var mY = simulationArea.touch ? this.y - simulationArea.mouseY : this.y - simulationArea.mouseYf;
 
         var rX = this.rightDimensionX;
         var lX = this.leftDimensionX;
