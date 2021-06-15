@@ -26,6 +26,11 @@ const returnCoordinate = {
   x: 0,
   y: 0
 }
+let currDistance = 0;
+let distance = 0;
+let pinchZ = 0;
+let centreX;
+let centreY;
 
 export default function startListeners() {
     $('#deleteSelected').on('click',() => {
@@ -531,12 +536,14 @@ function panMove(e) {
         scheduleUpdate(0, 200);
     }
 }
-   if (simulationArea.touch && e.touches.length === 2) {}
+   if (simulationArea.touch && e.touches.length === 2) {
+    pinchZoom(e);
+   }
 
 }
 
 /* Function for Panstop on simulator 
-   *For now variable name starts from mouse like mouseDown are used both 
+   *For now variable name starts with mouse like mouseDown are used both 
     touch and mouse will change in future
 */
 
@@ -675,4 +682,46 @@ function getCoordinate (e) {
       returnCoordinate.y = e.clientY;
       return returnCoordinate;
     }
+  }
+/* Function for Pinch zoom
+    *This function is used to ZoomIN and Zoomout on Simulator
+*/
+function pinchZoom (e) {
+    gridUpdateSet(true);
+    scheduleUpdate();
+    updateSimulationSet(true);
+    updatePositionSet(true);
+    updateCanvasSet(true);
+    distance = Math.sqrt(
+      (e.touches[1].clientX - e.touches[0].clientX) * (e.touches[1].clientX - e.touches[0].clientX),
+      (e.touches[1].clientY - e.touches[0].clientY) * (e.touches[1].clientY - e.touches[0].clientY));
+    centreX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+    centreY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+    if (distance >= currDistance) {
+      pinchZ += 0.05;
+      currDistance = distance;
+    } else if (currDistance >= distance) {
+      pinchZ -= 0.05;
+      currDistance = distance;
+    }
+    if (pinchZ >= 4.5) {
+      pinchZ = 4.5;
+    } else if (pinchZ <= 1) {
+      pinchZ = 1;
+    }
+    globalScope.scale = Math.max(0.5, Math.min(4 * DPR, pinchZ * 2));
+    globalScope.scale = Math.round(globalScope.scale * 10) / 10;
+    globalScope.ox -= Math.round(centreX * (globalScope.scale - oldScale));
+    globalScope.oy -= Math.round(centreY * (globalScope.scale - oldScale));
+    if (!embed && !lightMode) {
+      findDimensions(globalScope);
+      miniMapArea.setup();
+      $('#miniMap').show();
+      updatelastMinimapShown();
+      $('#miniMap').show();
+      setTimeout(removeMiniMap, 2000);
+    }
+  
+    gridUpdateSet(true);
+    scheduleUpdate(1);
   }
