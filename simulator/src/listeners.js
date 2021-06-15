@@ -112,7 +112,20 @@ export default function startListeners() {
     });
     document.getElementById('simulationArea').addEventListener('mousemove', onMouseMove);
 
-    window.addEventListener('keyup', e => {
+    
+    /** Implementating touch listerners
+          *All Main basic touch listerners are
+           present here
+    */
+  document.getElementById('simulationArea').addEventListener('touchstart', e => {
+
+  });
+  document.getElementById('simulationArea').addEventListener('touchmove', e => {
+    
+  });
+  document.getElementById('simulationArea').addEventListener('touchend', e => {
+});
+window.addEventListener('keyup', e => {
         scheduleUpdate(1);
         simulationArea.shiftDown = e.shiftKey;
         if (e.keyCode == 16) {
