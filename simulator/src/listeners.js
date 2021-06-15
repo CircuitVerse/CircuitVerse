@@ -61,32 +61,7 @@ export default function startListeners() {
     });
 
     document.getElementById('simulationArea').addEventListener('mousedown', (e) => {
-        simulationArea.mouseDown = true;
-
-        // Deselect Input
-        if (document.activeElement instanceof HTMLElement)
-            document.activeElement.blur();
-
-        errorDetectedSet(false);
-        updateSimulationSet(true);
-        updatePositionSet(true);
-        updateCanvasSet(true);
-
-        simulationArea.lastSelected = undefined;
-        simulationArea.selected = false;
-        simulationArea.hover = undefined;
-        var rect = simulationArea.canvas.getBoundingClientRect();
-        simulationArea.mouseDownRawX = (e.clientX - rect.left) * DPR;
-        simulationArea.mouseDownRawY = (e.clientY - rect.top) * DPR;
-        simulationArea.mouseDownX = Math.round(((simulationArea.mouseDownRawX - globalScope.ox) / globalScope.scale) / unit) * unit;
-        simulationArea.mouseDownY = Math.round(((simulationArea.mouseDownRawY - globalScope.oy) / globalScope.scale) / unit) * unit;
-        simulationArea.oldx = globalScope.ox;
-        simulationArea.oldy = globalScope.oy;
-
-        e.preventDefault();
-        scheduleBackup();
-        scheduleUpdate(1);
-        $('.dropdown.open').removeClass('open');
+       panStart(e);
     });
     document.getElementById('simulationArea').addEventListener('mouseup', (e) => {
         if (simulationArea.lastSelected) simulationArea.lastSelected.newElement = false;
@@ -110,7 +85,12 @@ export default function startListeners() {
             ) { simulationArea.multipleObjectSelections = []; }
         }
     });
-    document.getElementById('simulationArea').addEventListener('mousemove', onMouseMove);
+    document.getElementById('simulationArea').addEventListener('mousemove',e =>{
+        panMove(e);
+    });
+    document.getElementById('simulationArea').addEventListener('mouseup', e=>{
+        panStop(e);
+    });
 
     
     /** Implementating touch listerners
@@ -283,7 +263,7 @@ window.addEventListener('keyup', e => {
         scheduleUpdate(2);
     });
 
-    document.getElementById('simulationArea').addEventListener('mouseup', onMouseUp);
+    
 
     document.getElementById('simulationArea').addEventListener('mousewheel', MouseScroll);
     document.getElementById('simulationArea').addEventListener('DOMMouseScroll', MouseScroll);
@@ -458,8 +438,36 @@ window.addEventListener('keyup', e => {
 
 var isIe = (navigator.userAgent.toLowerCase().indexOf('msie') != -1
     || navigator.userAgent.toLowerCase().indexOf('trident') != -1);
+function panStart(e){
+    simulationArea.mouseDown = true;
+    
+    // Deselect Input
+    if (document.activeElement instanceof HTMLElement)
+        document.activeElement.blur();
+    
+    errorDetectedSet(false);
+    updateSimulationSet(true);
+    updatePositionSet(true);
+    updateCanvasSet(true);
+    
+    simulationArea.lastSelected = undefined;
+    simulationArea.selected = false;
+    simulationArea.hover = undefined;
+    var rect = simulationArea.canvas.getBoundingClientRect();
+    simulationArea.mouseDownRawX = (e.clientX - rect.left) * DPR;
+    simulationArea.mouseDownRawY = (e.clientY - rect.top) * DPR;
+    simulationArea.mouseDownX = Math.round(((simulationArea.mouseDownRawX - globalScope.ox) / globalScope.scale) / unit) * unit;
+    simulationArea.mouseDownY = Math.round(((simulationArea.mouseDownRawY - globalScope.oy) / globalScope.scale) / unit) * unit;
+    simulationArea.oldx = globalScope.ox;
+    simulationArea.oldy = globalScope.oy;
+    
+    e.preventDefault();
+    scheduleBackup();
+    scheduleUpdate(1);
+    $('.dropdown.open').removeClass('open');
+}
 
-function onMouseMove(e) {
+function panMove(e) {
     var rect = simulationArea.canvas.getBoundingClientRect();
     simulationArea.mouseRawX = (e.clientX - rect.left) * DPR;
     simulationArea.mouseRawY = (e.clientY - rect.top) * DPR;
@@ -489,7 +497,7 @@ function onMouseMove(e) {
     }
 }
 
-function onMouseUp(e) {
+function panStop(e) {
     simulationArea.mouseDown = false;
     if (!lightMode) {
         updatelastMinimapShown();
