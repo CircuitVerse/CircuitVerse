@@ -30,6 +30,9 @@
   margin-left: 15px;
   width: 32px;
   transition: transform .5s ease;
+  &:hover{
+    transform: scale(1.5);
+  }
 }
 
 .footer-links {
