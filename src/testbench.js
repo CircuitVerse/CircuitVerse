@@ -3,7 +3,7 @@
  */
 
 import { scheduleBackup } from './data/backupCircuit';
-import simulationArea from './simulationArea';
+import { changeClockEnable } from './sequential';
 import startListeners from './listeners';
 import { renderCanvas, update, scheduleUpdate, play } from './engine';
 import plotArea from './plotArea'
@@ -27,6 +27,10 @@ const MODE = {
     MODE_MANUAL: 1
 }
 
+// Do we have any other function to do this?
+function dec2bin(dec) {
+  return (dec >>> 0).toString(2);
+}
 
 export function createTestBenchPrompt() {
     scheduleBackup();
@@ -85,32 +89,38 @@ export function runTestBench(data, scope=globalScope, mode=MODE.MODE_RUNALL, run
 function runAll(data, scope) {
     // Stop the clocks it's amazing
     // TestBench will now take over clock toggling
-    simulationArea.clockEnabled = false;
+    changeClockEnable(false);
 
-    let copyScope = scope;
-    let { inputs, outputs, clock, reset } = bindIO(data, copyScope);
+    let { inputs, outputs, clock, reset } = bindIO(data, scope);
     for(const group of data.groups){
         for(const output of group.outputs) output.results = [];
         for(let case_i = 0; case_i < group.n; case_i++){
             for(const input of group.inputs){
                 inputs[input.label].state = parseInt(input.values[case_i], 2);
             }
-            // Simulate without rendering
-            play(copyScope)
+            // Propagate inputs
+            play(scope);
+            // If sequential, trigger clock now
+            if(data.type === "seq") tickClock(scope);
             // Put results in the data
             for(const dataOutput of group.outputs){
                 // Using node value because output state only changes on rendering
-                dataOutput.results.push(outputs[dataOutput.label].nodeList[0].value);
+                const resultValue = outputs[dataOutput.label].nodeList[0].value;
+                dataOutput.results.push(dec2bin(resultValue));
             }
 
         }
+
+        // If sequential, trigger reset at the end of group (set)
+        if(data.type === "seq") triggerReset(reset);
     }
 
     // Tests done, restart the clock
-    simulationArea.clockEnabled = true;
+    changeClockEnable(true);
 
     // Return results
-    return data;
+    const results = data.groups.map(function(group) { return { group: group.label, outputs: group.outputs } });
+    return results;
 }
 
 /**
@@ -130,12 +140,11 @@ function validate(data, scope=globalScope) {
         if(!matchIO) return { status: "fail", message: "Some inputs/outputs not present in circuit or wrong bitwidths" };
     }
 
-    // Validate presence of clock and reset if test is sequential
+    // Validate presence of reset if test is sequential
     if(data.type === "seq"){
-        const clockPresent = scope.Clock.some(function(simulatorClock) { return simulatorClock.label === "CLK" });
         const resetPresent = scope.Input.some(function(simulatorReset) { return simulatorReset.label === "RST" });
 
-        if(!(clockPresent && resetPresent)) return {status: "fail", message: "Reset/Clock not present in circuit"};
+        if(!(resetPresent)) return {status: "fail", message: "Reset(RST) not present in circuit"};
     }
 
     return { status: "ok" };
@@ -184,6 +193,28 @@ function bindIO(data, scope) {
     }
 
     return { inputs: inputs, outputs: outputs, clock: clock, reset: reset };
+}
+
+/**
+ * Ticks clock recursively one full cycle (Only used in testbench context)
+ * @param {Scope} scope - the circuit whose clock to be ticked
+ */
+function tickClock(scope){
+    scope.clockTick();
+    play();
+    scope.clockTick();
+    play();
+}
+
+/**
+ * Triggers reset (Only used in testbench context)
+ * @param {Input} reset - reset pin to be triggered
+ */
+function triggerReset(reset){
+    reset.state = 1;
+    play();
+    reset.state = 0;
+    play();
 }
 
 /**
