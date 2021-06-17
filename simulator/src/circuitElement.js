@@ -9,7 +9,6 @@ import { colors } from './themer/themer';
 import { layoutModeGet, tempBuffer } from './layoutMode';
 import { fillSubcircuitElements } from './ux';
 import { generateNodeName } from './verilogHelpers';
-import { elementDirection } from './hotkey_binder/model/actions';
 
 /**
  * Base class for circuit elements.
@@ -435,9 +434,6 @@ export default class CircuitElement {
      * NOT OVERRIDABLE
     */
     isHover() {
-        // mouseXf are coordinate when we are hovering on some elementDirection.
-        // if touch is true select mouseDownX since there not such hover property present in touch 
-        // else select mouseXf
         var mX = simulationArea.touch ? simulationArea.mouseDownX - this.x : simulationArea.mouseXf - this.x;
         var mY = simulationArea.touch ? this.y - simulationArea.mouseD : this.y - simulationArea.mouseYf;
 

@@ -7,7 +7,7 @@ import simulationArea from './simulationArea';
 import {
   scheduleUpdate, update, updateSelectionsAndPane,
   wireToBeCheckedSet, updatePositionSet, updateSimulationSet,
-  updateCanvasSet, gridUpdateSet, errorDetectedSet
+  updateCanvasSet, gridUpdateSet, errorDetectedSet,
 } from './engine';
 import { changeScale } from './canvasApi';
 import { scheduleBackup } from './data/backupCircuit';
@@ -33,13 +33,65 @@ let centreX;
 let centreY;
 
 var isIe = (navigator.userAgent.toLowerCase().indexOf('msie') != -1 || navigator.userAgent.toLowerCase().indexOf('trident') != -1);
+
+/* Function to getCoordinate
+    *If touch is enable then it will return touch coordinate
+    *else it will return mouse coordinate
+ */
+function getCoordinate (e){
+  if (simulationArea.touch) {
+    returnCoordinate.x = e.touches[0].clientX;
+    returnCoordinate.y = e.touches[0].clientY;
+    return returnCoordinate;
+  }
+  if (!simulationArea.touch) {
+    returnCoordinate.x = e.clientX;
+    returnCoordinate.y = e.clientY;
+    return returnCoordinate;
+  }
+  return returnCoordinate;
+}
+/* Function for Panstop on simulator
+   *For now variable name starts with mouse like mouseDown are used both
+    touch and mouse will change in future
+*/
+function pinchZoom (e){
+  gridUpdateSet(true);
+  scheduleUpdate();
+  updateSimulationSet(true);
+  updatePositionSet(true);
+  updateCanvasSet(true);
+  // calculating distance between touch to see if its pinchIN or pinchOut
+  distance = Math.sqrt((e.touches[1].clientX - e.touches[0].clientX ) * (e.touches[1].clientX - e.touches[0].clientX),(e.touches[1].clientY - e.touches[0].clientY ) * (e.touches[1].clientY - e.touches[0].clientY ));
+  centreX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+  centreY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+  if (distance >= currDistance) {
+    pinchZ += 0.05;
+    currDistance = distance;
+  } else if (currDistance >= distance) {
+    pinchZ -= 0.05;
+    currDistance = distance;
+  }
+  if (pinchZ >= 4.5) {
+    pinchZ = 4.5;
+  } else if (pinchZ <= 1) {
+    pinchZ = 1;
+  }
+  globalScope.scale = Math.max(0.5, Math.min(4 * DPR, pinchZ * 2));
+  globalScope.scale = Math.round(globalScope.scale * 10) / 10;
+  globalScope.ox -= Math.round(centreX * (globalScope.scale - oldScale));
+  globalScope.oy -= Math.round(centreY * (globalScope.scale - oldScale));
+  gridUpdateSet(true);
+  scheduleUpdate(1);
+}
+
 /*
  *Function to start the pan in simulator
  *Works for both touch and Mouse
  *For now variable name starts from mouse like mouseDown are used both
   touch and mouse will change in future
  */
-function panStart (e) {
+function panStart (e){
   coordinate = getCoordinate(e);
   simulationArea.mouseDown = true;
   // Deselect Input
@@ -76,7 +128,7 @@ function panStart (e) {
    touch and mouse will change in future
  */
 
-function panMove (e) {
+function panMove (e){
 // if only one figure it touched
 // pan left or right
   if (!simulationArea.touch || e.touches.length === 1) {
@@ -113,12 +165,8 @@ function panMove (e) {
     pinchZoom(e);
   }
 }
-/* Function for Panstop on simulator
-   *For now variable name starts with mouse like mouseDown are used both
-    touch and mouse will change in future
-*/
 
-function panStop () {
+function panStop (){
   simulationArea.mouseDown = false;
   if (!lightMode) {
     updatelastMinimapShown();
@@ -155,57 +203,12 @@ function panStop () {
     uxvar.smartDropYY = simulationArea.mouseY - 50; // Math.round(((simulationArea.mouseRawY - globalScope.oy+100) / globalScope.scale) / unit) * unit;
   }
 }
-/* Function to getCoordinate
-    *If touch is enable then it will return touch coordinate
-    *else it will return mouse coordinate
- */
-function getCoordinate (e) {
-  if (simulationArea.touch) {
-    returnCoordinate.x = e.touches[0].clientX;
-    returnCoordinate.y = e.touches[0].clientY;
-    return returnCoordinate;
-  }
-  if (!simulationArea.touch) {
-    returnCoordinate.x = e.clientX;
-    returnCoordinate.y = e.clientY;
-    return returnCoordinate;
-  }
-}
-/* Function for Pinch zoom
-    *This function is used to ZoomIN and Zoomout on Simulator
-*/
-function pinchZoom (e) {
-  gridUpdateSet(true);
-  scheduleUpdate();
-  updateSimulationSet(true);
-  updatePositionSet(true);
-  updateCanvasSet(true);
-  distance = Math.sqrt(
-    (e.touches[1].clientX - e.touches[0].clientX) * (e.touches[1].clientX - e.touches[0].clientX),
-    (e.touches[1].clientY - e.touches[0].clientY) * (e.touches[1].clientY - e.touches[0].clientY));
-  centreX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
-  centreY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
-  if (distance >= currDistance) {
-    pinchZ += 0.05;
-    currDistance = distance;
-  } else if (currDistance >= distance) {
-    pinchZ -= 0.05;
-    currDistance = distance;
-  }
-  if (pinchZ >= 4.5) {
-    pinchZ = 4.5;
-  } else if (pinchZ <= 1) {
-    pinchZ = 1;
-  }
-  globalScope.scale = Math.max(0.5, Math.min(4 * DPR, pinchZ * 2));
-  globalScope.scale = Math.round(globalScope.scale * 10) / 10;
-  globalScope.ox -= Math.round(centreX * (globalScope.scale - oldScale));
-  globalScope.oy -= Math.round(centreY * (globalScope.scale - oldScale));
-  gridUpdateSet(true);
-  scheduleUpdate(1);
-}
 
-export default function startListeners () {
+/* Function for Pinch zoom
+    *This function is used to ZoomIN and Zoomout on Simulator using touch
+*/
+
+export default function startListeners (){
   $('#deleteSelected').on('click', () => {
     deleteSelected();
   });
@@ -449,7 +452,7 @@ export default function startListeners () {
   document.getElementById('simulationArea').addEventListener('mousewheel', MouseScroll);
   document.getElementById('simulationArea').addEventListener('DOMMouseScroll', MouseScroll);
 
-  function MouseScroll (event) {
+  function MouseScroll (event){
     updateCanvasSet(true);
     event.preventDefault();
     var deltaY = event.wheelDelta ? event.wheelDelta : -event.detail;
@@ -603,7 +606,7 @@ export default function startListeners () {
       $('.filterElements').mousedown(createElement);
     }
   });
-  function createIcon (element) {
+  function createIcon (element){
     return `<div class="${element} icon logixModules filterElements" id="${element}" title="${element}">
             <img  src= "/img/${element}.svg" >
         </div>`;
@@ -615,7 +618,7 @@ export default function startListeners () {
     setupTimingListeners();
   }
 }
-function resizeTabs () {
+function resizeTabs (){
   var $windowsize = $('body').width();
   var $sideBarsize = $('.side').width();
   var $maxwidth = ($windowsize - $sideBarsize);
@@ -629,7 +632,7 @@ $(() => {
   $('[data-toggle="tooltip"]').tooltip();
 });
 // direction is only 1 or -1
-function handleZoom (direction) {
+function handleZoom (direction){
   if (globalScope.scale > 0.5 * DPR) {
     changeScale(direction * 0.1 * DPR);
   } else if (globalScope.scale < 4 * DPR) {
@@ -638,13 +641,13 @@ function handleZoom (direction) {
   gridUpdateSet(true);
   scheduleUpdate();
 }
-export function ZoomIn () {
+export function ZoomIn (){
   handleZoom(1);
 }
-export function ZoomOut () {
+export function ZoomOut (){
   handleZoom(-1);
 }
-function zoomSliderListeners () {
+function zoomSliderListeners (){
   document.getElementById("customRange1").value = 5;
   document.getElementById('simulationArea').addEventListener('DOMMouseScroll', zoomSliderScroll);
   document.getElementById('simulationArea').addEventListener('mousewheel', zoomSliderScroll);
@@ -657,7 +660,7 @@ function zoomSliderListeners () {
     gridUpdateSet(true);
     curLevel = newValue;
   });
-  function zoomSliderScroll (e) {
+  function zoomSliderScroll (e){
     let zoomLevel = document.getElementById("customRange1").value;
     const deltaY = e.wheelDelta ? e.wheelDelta : -e.detail;
     const directionY = deltaY > 0 ? 1 : -1;
@@ -674,7 +677,7 @@ function zoomSliderListeners () {
       curLevel = zoomLevel;
     }
   }
-  function sliderZoomButton (direction) {
+  function sliderZoomButton (direction){
     var zoomSlider = $('#customRange1');
     var currentSliderValue = parseInt(zoomSlider.val(), 10);
     if (direction === -1) {
