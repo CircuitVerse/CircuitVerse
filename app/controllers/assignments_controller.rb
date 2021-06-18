@@ -110,9 +110,8 @@ class AssignmentsController < ApplicationController
   end
 
   def allow_iframe
-    if session[:isLTI]
-      response.headers.except! "X-Frame-Options"
-    end
+    return unless session[:isLTI]
+    response.headers.except! "X-Frame-Options"
   end
 
   private

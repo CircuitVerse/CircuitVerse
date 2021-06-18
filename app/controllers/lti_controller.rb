@@ -38,26 +38,23 @@ class LtiController < ApplicationController
           user_in_group = GroupMember.find_by(user_id:@user.id,group_id:@group.id) # check if the user belongs to the cv group
 
           if user_in_group.present? # user is member of the group
-            #render the button
+            # render the button
             flash[:notice] = "Please open the Assigment in CircuitVerse"
             render :open_incv
 
           else # user is not a member of the group
-            #send the user an email
+            # send the user an email
             flash[:notice] = "Check your email for a group invitation from "+@group.name+" group, first join the group then try again."
             render :launch_error, status: 401
-            return
           end 
         end
       else # no such user in circuitverse,showing a notice to create an account in cv
         flash[:notice] = "You have no account associated with email "+@email_from_lms+", please create first and try again."
         render :launch_error, status: 400
-        return
       end
     else # there is no valid group present for the lti_consumer_key
       flash[:notice] = "There is no group in CircuitVerse associated with your current LMS, Please ask your LMS Admin/Teacher to create one"
       render :launch_error, status: 400
-      return
     end
   end
 
@@ -68,11 +65,12 @@ class LtiController < ApplicationController
   end
 
   private
+
     def set_group_assignment # query db and check lms_oauth_consumer_key is equal to which assignment and find the group also
-        @assignment = Assignment.find_by(lti_consumer_key: params[:oauth_consumer_key])
-        if @assignment.present?
-            @group = Group.find_by(id: @assignment.group_id)
-        end
+      @assignment = Assignment.find_by(lti_consumer_key: params[:oauth_consumer_key])
+      if @assignment.present?
+        @group = Group.find_by(id: @assignment.group_id)
+      end
     end
     
     def set_lti_params # get some of the parameters from the lti request
