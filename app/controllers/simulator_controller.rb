@@ -10,7 +10,8 @@ class SimulatorController < ApplicationController
   before_action :check_view_access, only: %i[show embed get_data]
   before_action :check_edit_access, only: %i[edit update update_image]
   skip_before_action :verify_authenticity_token, only: %i[get_data create]
-  after_action :allow_iframe, only: %i[show embed]
+  after_action :allow_iframe, only: %i[embed]
+  after_action :allow_iframe_lti, only: %i[show]
 
   def self.policy_class
     ProjectPolicy
@@ -92,6 +93,12 @@ class SimulatorController < ApplicationController
     url = "http://127.0.0.1:3040/getJSON"
     response = HTTP.post(url, json: { "code": params[:code] })
     render json: response.to_s, status: response.code
+  end
+
+  def allow_iframe_lti
+    return unless session[:isLTI]
+    
+    response.headers.except! "X-Frame-Options"
   end
 
   private

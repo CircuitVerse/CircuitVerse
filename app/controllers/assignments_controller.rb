@@ -6,7 +6,7 @@ class AssignmentsController < ApplicationController
   before_action :set_group
   before_action :check_access, only: %i[edit update destroy reopen]
   after_action :check_reopening_status, only: [:update]
-  after_action :allow_iframe, only: %i[show]
+  after_action :allow_iframe_lti, only: %i[show]
 
   # GET /assignments
   # GET /assignments.json
@@ -109,8 +109,9 @@ class AssignmentsController < ApplicationController
     end
   end
 
-  def allow_iframe
+  def allow_iframe_lti
     return unless session[:isLTI]
+
     response.headers.except! "X-Frame-Options"
   end
 
