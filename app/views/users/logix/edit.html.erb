@@ -34,7 +34,7 @@
           </div>
           <div class="field form-group">
             <h6><%= f.label :locale %></h6>
-            <%= f.select :locale, I18n.available_locales, { prompt: 'Select the locale' }, { class: 'form-control form-input' } %>
+            <%= f.select :locale, options_for_select(I18nSupport.locale_names), { prompt: 'Select the locale' }, { class: 'form-control form-input' } %>
           </div>
           <div class="field form-group users-edit-primary-checkpoint">
             <label for="profile_subscribed" class="primary-checkpoint-container"><h6>Subscribed to mails?</h6>

@@ -6,6 +6,7 @@ class AssignmentsController < ApplicationController
   before_action :set_group
   before_action :check_access, only: %i[edit update destroy reopen]
   after_action :check_reopening_status, only: [:update]
+  after_action :allow_iframe, only: %i[show]
 
   # GET /assignments
   # GET /assignments.json
@@ -106,6 +107,11 @@ class AssignmentsController < ApplicationController
       format.html { redirect_to @group, notice: "Assignment was successfully deleted." }
       format.json { head :no_content }
     end
+  end
+
+  def allow_iframe
+    return unless session[:isLTI]
+    response.headers.except! "X-Frame-Options"
   end
 
   private

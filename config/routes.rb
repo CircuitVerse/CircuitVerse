@@ -92,6 +92,12 @@ Rails.application.routes.draw do
     get "tags/:tag", to: "projects#get_projects", as: "tag"
   end
 
+  # lti
+  get 'lti/launch'
+  post 'lti/launch'
+  get 'lti/submitscore'
+  post 'lti/submitscore'
+
   mount Commontator::Engine => "/commontator"
 
   # simulator

@@ -10,7 +10,7 @@ class SimulatorController < ApplicationController
   before_action :check_view_access, only: %i[show embed get_data]
   before_action :check_edit_access, only: %i[edit update update_image]
   skip_before_action :verify_authenticity_token, only: %i[get_data create]
-  after_action :allow_iframe, only: :embed
+  after_action :allow_iframe, only: %i[show embed]
 
   def self.policy_class
     ProjectPolicy

@@ -1,0 +1,15 @@
+<% content_for :title, @group.name %>
+
+    <% if notice %>
+        <div class="row" id='alertdiv'>
+            <div class="alert alert-success alert-dismissible container text-center">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <h6><%= notice %></h6>
+            </div>
+        </div>
+    <% end %>
+    <%# <a class="btn tertiary-button" >Open in CircuitVerse</a> %>
+    <%= link_to group_path(@group) ,target: :_blank, class:"btn tertiary-button" do %>
+        <span>Open in CircuitVerse</span>
+    <% end %>
+    
