@@ -93,10 +93,10 @@ Rails.application.routes.draw do
   end
 
   # lti
-  get 'lti/launch'
-  post 'lti/launch'
-  get 'lti/submitscore'
-  post 'lti/submitscore'
+  scope "/lti" do
+    get "/launch", to: "lti#launch"
+    post "/launch", to: "lti#launch"
+  end
 
   mount Commontator::Engine => "/commontator"
 

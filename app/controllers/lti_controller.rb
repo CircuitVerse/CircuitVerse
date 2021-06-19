@@ -1,4 +1,5 @@
 class LtiController < ApplicationController
+  skip_before_action :verify_authenticity_token, only: :launch # for lti integration
   before_action :set_group_assignment, only: %i[launch]
   before_action :set_lti_params, only: %i[launch]
   after_action :allow_iframe_lti, only: %i[launch]

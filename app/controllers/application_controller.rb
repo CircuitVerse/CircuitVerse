@@ -3,7 +3,6 @@
 class ApplicationController < ActionController::Base
   include Pundit
   protect_from_forgery with: :exception
-  skip_before_action :verify_authenticity_token, only: :launch # for lti integration
 
   before_action :store_user_location!, if: :storable_location?
   around_action :switch_locale
