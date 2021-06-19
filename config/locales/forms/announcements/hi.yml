@@ -1,0 +1,12 @@
+hi:
+  helpers:
+    label:
+      announcement:
+        body: "घोषणा निकाय"
+        link: "अधिक जानें लिंक"
+        start_date: "आरंभ करने की तिथि"
+        end_date: "समाप्ति तिथि"
+    submit:
+      announcement:
+        create: "नई घोषणा"
+        update: "अद्यतन घोषणा"
