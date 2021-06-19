@@ -6,11 +6,10 @@ class LtiController < ApplicationController
   
   def launch
     session[:isLTI]=true # the lti session starting
-    require 'oauth/request_proxy/action_controller_request'
 
-    if !@assignment.present?
+    if @assignment.blank?
       # if no assignment is found
-      flash[:notice] = "No such Assignment is present in CircuitVerse, please contact your LMS Administrator/Teacher"
+      flash[:notice] = t("lti.launch.notice_no_assignment")
       render :launch_error, status: 401
       return
     end
@@ -22,7 +21,7 @@ class LtiController < ApplicationController
         params
       )
 
-      if not @provider.valid_request?(request) # checking the lti request from the lms end
+      if !@provider.valid_request?(request) # checking the lti request from the lms end
         render :launch_error, status: 401
         return
       end
@@ -30,30 +29,30 @@ class LtiController < ApplicationController
       @user = User.find_by(email: @email_from_lms) # find user by matching email with circuitverse and lms 
 
       if @user.present? # user is present in cv 
-        if @user.id === @group.mentor_id # user is teacher
+        if @user.id == @group.mentor_id # user is teacher
           sign_in(@user) # passwordless sign_in the user as the authenticity is verified via lms
-          lms_auth_success_notice = "Logged in as #{@email_from_lms} via #{@lms_type} for course #{@course_title_from_lms}"
-          redirect_to group_assignment_path(@group,@assignment), notice: lms_auth_success_notice # if auth_success send to group page
+          lms_auth_success_notice = t("lti.launch.notice_lms_auth_success_teacher", email_from_lms: @email_from_lms, lms_type: @lms_type, course_title_from_lms: @course_title_from_lms)
+          redirect_to group_assignment_path(@group, @assignment), notice: lms_auth_success_notice # if auth_success send to group page
         else
           user_in_group = GroupMember.find_by(user_id:@user.id,group_id:@group.id) # check if the user belongs to the cv group
 
           if user_in_group.present? # user is member of the group
             # render the button
-            flash[:notice] = "Please open the Assigment in CircuitVerse"
+            flash[:notice] =  t("lti.launch.notice_students_open_in_cv")
             render :open_incv
 
           else # user is not a member of the group
             # send the user an email
-            flash[:notice] = "Please ask your teacher to add you in the CircuitVerse group associated with this course."
+            flash[:notice] = t("lti.launch.notice_ask_teacher")
             render :launch_error, status: 401
           end 
         end
       else # no such user in circuitverse,showing a notice to create an account in cv
-        flash[:notice] = "You have no account associated with email #{@email_from_lms} please create first and try again."
+        flash[:notice] = t("lti.launch.notice_no_account_in_cv", email_from_lms: @email_from_lms )
         render :launch_error, status: 400
       end
     else # there is no valid group present for the lti_consumer_key
-      flash[:notice] = "There is no group in CircuitVerse associated with your current LMS, Please ask your LMS Admin/Teacher to create one"
+      flash[:notice] = t("lti.launch.notice_invalid_group")
       render :launch_error, status: 400
     end
   end
