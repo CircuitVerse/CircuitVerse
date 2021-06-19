@@ -182,7 +182,7 @@ export default class CircuitElement {
      * check hover over the element
      * @return {boolean}
      */
-    checkHover() {
+    checkHover () {
         if (simulationArea.mouseDown) return;
         for (let i = 0; i < this.nodeList.length; i++) {
             this.nodeList[i].checkHover();
@@ -435,7 +435,7 @@ export default class CircuitElement {
     */
     isHover() {
         var mX = simulationArea.touch ? simulationArea.mouseDownX - this.x : simulationArea.mouseXf - this.x;
-        var mY = simulationArea.touch ? this.y - simulationArea.mouseD : this.y - simulationArea.mouseYf;
+        var mY = simulationArea.touch ? this.y - simulationArea.mouseDownY : this.y - simulationArea.mouseYf;
 
         var rX = this.rightDimensionX;
         var lX = this.leftDimensionX;
