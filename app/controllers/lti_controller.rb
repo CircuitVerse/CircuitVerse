@@ -6,6 +6,7 @@ class LtiController < ApplicationController
   
   def launch
     session[:isLTI]=true # the lti session starting
+    require 'oauth/request_proxy/action_controller_request'
 
     if @assignment.blank?
       # if no assignment is found
@@ -39,7 +40,7 @@ class LtiController < ApplicationController
           if user_in_group.present? # user is member of the group
             # render the button
             flash[:notice] =  t("lti.launch.notice_students_open_in_cv")
-            render :open_incv
+            render :open_incv, status: 200
 
           else # user is not a member of the group
             # send the user an email
