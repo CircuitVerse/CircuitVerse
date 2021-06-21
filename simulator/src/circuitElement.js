@@ -1,5 +1,6 @@
 /* eslint-disable no-multi-assign */
 /* eslint-disable no-bitwise */
+/* eslint-disable */
 import { scheduleUpdate } from './engine';
 import simulationArea from './simulationArea';
 import {

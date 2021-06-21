@@ -1,7 +1,9 @@
+/* eslint-disable max-depth */
 /* eslint-disable no-alert */
 /* eslint-disable eqeqeq */
 /* eslint-disable no-undef */
 /* eslint-disable no-var */
+/* eslint-disable import/no-cycle */
 // Listeners when circuit is embedded
 // Refer listeners.js
 import simulationArea from './simulationArea';
@@ -261,5 +263,6 @@ export default function startListeners() {
 	}
 }
 
+// eslint-disable-next-line no-unused-vars
 var isIe = (navigator.userAgent.toLowerCase().indexOf('msie') != -1
     || navigator.userAgent.toLowerCase().indexOf('trident') != -1);
