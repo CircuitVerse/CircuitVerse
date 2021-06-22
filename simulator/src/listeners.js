@@ -10,7 +10,7 @@
 /* eslint-disable no-param-reassign */
 // Most Listeners are stored here
 import {
-    layoutModeGet, tempBuffer, layoutUpdate, setupLayoutModePanelListeners,
+    layoutModeGet, tempBuffer, layoutUpdate, setupLayoutModePanelListeners
 } from './layoutMode';
 import simulationArea from './simulationArea';
 import {
@@ -21,7 +21,7 @@ import {
 import { changeScale, findDimensions } from './canvasApi';
 import { scheduleBackup } from './data/backupCircuit';
 import {
-    hideProperties, deleteSelected, uxvar, fullView, createElement,
+    hideProperties, deleteSelected, uxvar, fullView, createElement
 } from './ux';
 import {
     updateRestrictedElementsList, updateRestrictedElementsInScope, hideRestricted, showRestricted,
@@ -133,9 +133,8 @@ export function getCoordinate(e) {
     return returnCoordinate;
 }
 
-/* Function for Panstop on simulator
-   *For now variable name starts with mouse like mouseDown are used both
-    touch and mouse will change in future
+/* Function for Pinch zoom
+    *This function is used to ZoomIN and Zoomout on Simulator using touch
 */
 export function pinchZoom(e, globalScope) {
     gridUpdateSet(true);
@@ -221,7 +220,6 @@ function panStart(e) {
 /*
  * Function to pan in simulator
  * Works for both touch and Mouse
- * Pinch to zoom also implemented in the same
  * For now variable name starts from mouse like mouseDown are used both
    touch and mouse will change in future
  */
@@ -268,6 +266,11 @@ function panMove(e) {
     }
 }
 
+/* Function for Panstop on simulator
+   *For now variable name starts with mouse like mouseDown are used both
+    touch and mouse will change in future
+*/
+
 function panStop(e) {
     simulationArea.mouseDown = false;
     if (!lightMode) {
@@ -308,17 +311,13 @@ function panStop(e) {
     }
 
     if (simulationArea.touch) {
-    // Current circuit element should not spwan above last circuit element
+    // small hack so Current circuit element should not spwan above last circuit element
         findDimensions(globalScope);
         simulationArea.mouseX = 100 + simulationArea.maxWidth || 0;
         simulationArea.mouseY = simulationArea.minHeight || 0;
         getTap(e);
     }
 }
-
-/* Function for Pinch zoom
-    *This function is used to ZoomIN and Zoomout on Simulator using touch
-*/
 
 export default function startListeners() {
     $('#deleteSelected').on('click', () => {
@@ -785,6 +784,7 @@ export default function startListeners() {
 
     /**
  * Listerners of CircuitElement panel ,properties panel,time diagram, quichbtn
+ * Some users use touch on laptop so to scroll imp panel on desktop UI
  */
     const modulePropertyListners = document.getElementById('moduleProperty');
     const moduleQueryslector = document.querySelector('#moduleProperty');
