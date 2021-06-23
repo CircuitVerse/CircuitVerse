@@ -218,6 +218,46 @@
     </div>
   </div>
 </div>
+<div class="testbench-manual-panel draggable-panel">
+  <div class="panel-header">Testbench - Manual Mode
+    <span class="fas fa-external-link-square-alt maximize panel-button-icon"></span>
+  </div>
+  <div class="panel-body">
+    <div class='testbench-manual-toolbar noSelect'>
+      <div class="tb-manual-test-data">
+        <span class="tb-data" id="data-group"><b>Group:</b> <span>3</span></span>
+        <span class="tb-data" id="data-case"><b>Case:</b> <span>2</span></span>
+      </div>
+      <div>
+        <table class="tb-manual-table">
+            <tr>
+                <th colspan="1"></th>
+                <th colspan="2" id="tb-manual-table-inputs-head">INPUTS</th>
+                <th colspan="1" id="tb-manual-table-outputs-head">OUTPUTS</th>
+            </tr>
+            <tr id="tb-manual-table-labels">
+                <th>Label</th>
+            </tr>
+            <tr id="tb-manual-table-bitwidths">
+                <td>Bitwidth</td>
+            </tr>
+            <tr id="tb-manual-table-current-case">
+              <td>Current Case</td>
+            </tr>
+            <tr id="tb-manual-table-test-result">
+              <td>Result</td>
+            </tr>
+        </table>
+      </div>
+      <div class="testbench-manual-panel-buttons">
+        <button class="custom-btn--primary panel-button tb-dialog-button" id="prev-case-btn">Previous Case</button>
+        <button class="custom-btn--primary panel-button tb-dialog-button" id="next-case-btn">Next Case</button>
+        <button class="custom-btn--primary panel-button tb-dialog-button" id="run-case-btn">Run Case</button>
+        <button class="custom-btn--primary panel-button tb-dialog-button" id="close-btn">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 <div id="MessageDiv"></div>
 <div class="noSelect defaultCursor draggable-panel draggable-panel-css" id="verilogEditorPanel">
   <div class="panel-header">Verilog Module

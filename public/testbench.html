@@ -327,6 +327,7 @@
             // Push all the inputs in the group
             for(let inp_i = 0; inp_i < inputCount; inp_i++){
                 const label = Object.keys(bitwidths)[inp_i];
+                label = label.slice(0, label.length - 1);
                 let input = { label: label, bitWidth: bitwidths[label], values: [] };
                 group_table.find("tr").each(function() {
                     input.values.push($(this).find("td").slice(1).eq(inp_i).html());

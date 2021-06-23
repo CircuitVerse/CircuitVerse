@@ -710,6 +710,77 @@ div.icon img {
   cursor: move;
 }
 
+.testbench-manual-panel {
+  border-radius: 5px;
+  z-index: 100;
+  transition: background .5s ease-out; 
+  position: fixed;
+  cursor: pointer;
+  left: 300px;
+  bottom: 90px;
+  width: 800px;
+  height: 320px;
+  visibility: hidden;
+}
+
+.testbench-manual-panel .panel-header {
+  border-radius: 5px;
+  border-top-right-radius: 5px;
+  padding: 3px;
+  font-weight: bold;
+  font-size: 16px;
+  text-transform: uppercase;
+  text-align: left;
+  cursor: move;
+}
+
+.testbench-manual-panel b {
+  font-weight: bold;
+}
+
+.tb-manual-test-data {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.tb-manual-test-data .tb-data {
+  margin-right: 10px;
+}
+
+.tb-manual-table {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  color: white;
+  left: 0px;
+}
+
+.tb-manual-table td, .tb-manual-table th {
+  padding-right: 30px;
+  padding-top: 15px;
+  text-align: center;
+}
+
+.tb-manual-table th {
+}
+
+.testbench-manual-panel-buttons {
+  position: relative;
+  flex-wrap: wrap;
+  right: 0px;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.tb-dialog-button {
+  display: inline;
+  margin: 10px;
+  border-radius: 2px !important;
+  height: 30px;
+  min-width: 100px;
+}
+
 #plotArea {
   padding: 3px;
 }
