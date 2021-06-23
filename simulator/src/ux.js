@@ -509,6 +509,7 @@ export function setupPanels() {
     setupPanelListeners('#layoutDialog');
     setupPanelListeners('#verilogEditorPanel');
     setupPanelListeners('.timing-diagram-panel');
+    setupPanelListeners('.testbench-manual-panel');
 
     // Minimize Timing Diagram (takes too much space)
     $('.timing-diagram-panel .minimize').trigger('click');
