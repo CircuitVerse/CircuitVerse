@@ -53,14 +53,14 @@ export default function startListeners() {
             var { objectList } = simulationArea;
             objectList = objectList.filter((val) => val !== 'wires');
 
-            for (var i = 0; i < objectList.length; i++) {
-                for (var j = 0; j < globalScope[objectList[i]].length; j++) {
-                    if (globalScope[objectList[i]][j].isHover()) {
+            for (let obj of objectList) {
+                for (let globalObj of globalScope[obj].length) {
+                    if (globalObj[obj].isHover()) {
                         ele.style.display = 'block';
-                        if (objectList[i] === 'SubCircuit') {
-                            ele.innerHTML = `Subcircuit: ${globalScope.SubCircuit[j].data.name}`;
+                        if (obj === 'SubCircuit') {
+                            ele.innerHTML = `Subcircuit: ${globalScope.SubCircuit[globalObj].data.name}`;
                         } else {
-                            ele.innerHTML = `CircuitElement: ${objectList[i]}`;
+                            ele.innerHTML = `CircuitElement: ${obj}`;
                         }
                         return;
                     }
@@ -133,13 +133,6 @@ export default function startListeners() {
             }
         }
 
-        // if (simulationArea.lastSelected && simulationArea.lastSelected.keyDown3) {
-        //     if (e.key.toString() != "Backspace" && e.key.toString() != "Delete") {
-        //         simulationArea.lastSelected.keyDown3(e.key.toString());
-        //         return;
-        //     }
-
-        // }
 
         if (e.key == 'T' || e.key == 't') {
             simulationArea.changeClockTime(prompt('Enter Time:'));
