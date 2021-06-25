@@ -718,7 +718,7 @@ div.icon img {
   cursor: pointer;
   left: 300px;
   bottom: 90px;
-  width: 800px;
+  width: auto;
   height: 320px;
   visibility: hidden;
 }
@@ -760,9 +760,6 @@ div.icon img {
   padding-right: 30px;
   padding-top: 15px;
   text-align: center;
-}
-
-.tb-manual-table th {
 }
 
 .testbench-manual-panel-buttons {
