@@ -326,9 +326,8 @@
 
             // Push all the inputs in the group
             for(let inp_i = 0; inp_i < inputCount; inp_i++){
-                const label = Object.keys(bitwidths)[inp_i];
-                label = label.slice(0, label.length - 1);
-                let input = { label: label, bitWidth: bitwidths[label], values: [] };
+                let label = Object.keys(bitwidths)[inp_i];
+                let input = { label: label.slice(0, label.length - 1), bitWidth: bitwidths[label], values: [] };
                 group_table.find("tr").each(function() {
                     input.values.push($(this).find("td").slice(1).eq(inp_i).html());
                 });
@@ -339,7 +338,7 @@
             // Push all the outputs in the group
             for(let out_i = 0; out_i < outputCount; out_i++){
                 const label = Object.keys(bitwidths)[inputCount + out_i];
-                let output = { label: label, bitWidth: bitwidths[label], values: [] };
+                let output = { label: label.slice(0, label.length - 1), bitWidth: bitwidths[label], values: [] };
                 group_table.find("tr").each(function() {
                     output.values.push($(this).find("td").slice(1).eq(inputCount + out_i).html());
                 });

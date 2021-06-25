@@ -446,8 +446,8 @@ function initManualUI(data) {
     const outputCount = data.groups[0].outputs.length;
     $('.testbench-manual-panel .tb-data#data-group').children().eq(1).text(1);
     $('.testbench-manual-panel .tb-data#data-case').children().eq(1).text(1);
-    $('.tb-manual-table#tb-manual-table-inputs-head').attr('colspan', inputCount);
-    $('.tb-manual-table#tb-manual-table-outputs-head').attr('colspan', outputCount);
+    $('#tb-manual-table-inputs-head').attr('colspan', inputCount);
+    $('#tb-manual-table-outputs-head').attr('colspan', outputCount);
 
     $('#tb-manual-table-labels').html('<th>Label</th>');
     $('#tb-manual-table-bitwidths').html('<td>Bitwidth</td>');
