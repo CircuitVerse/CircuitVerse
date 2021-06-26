@@ -6,6 +6,7 @@ import { scheduleBackup } from './data/backupCircuit';
 import { changeClockEnable } from './sequential';
 import { play } from './engine';
 import Scope from './circuit';
+import { showError } from './utils';
 
 /**
  * @typedef {number} RunContext
@@ -78,14 +79,18 @@ export function runTestBench(data, scope = globalScope, mode = MODE.MODE_RUNALL,
         return;
     }
     const isValidData = validate(data, scope);
-    if (!isValidData.ok) return console.log(isValidData);
+    if (!isValidData.ok){
+        showError(`TestBench: ${isValidData.message}`);
+        return;
+    }
 
     let results;
     if (mode === MODE.MODE_RUNALL) results = runAll(data, scope);
     else if (mode === MODE.MODE_MANUAL) {
         runManual(data, scope);
+        return;
     } else {
-        // Bad mode
+        showError('TestBench: Bad Test Mode');
         return;
     }
 
