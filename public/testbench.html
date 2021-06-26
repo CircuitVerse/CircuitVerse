@@ -19,9 +19,9 @@
             </tr>
             <tr>
                 <th>Label</th>
-                <th style="background-color: #aaf" id="tb-inp-label-1"><span contenteditable="true">inp1</span> <a onclick="deleteInput($(this));"><span class="fa fa-minus-square tb-minus"></span></a></th>
-                <th style="background-color: #aaf"><span contenteditable="true">inp2</span> <a onclick="deleteInput($(this));"><span class="fa fa-minus-square tb-minus" id="tb-inp-label-2"></span></a></th>
-                <th style="background-color: #afa" id="tb-out-label-1"><span contenteditable="true">out1</span> <a onclick="deleteOutput($(this));"><span class="fa fa-minus-square tb-minus"></span></a></th>
+                <th style="background-color: #aaf" id="tb-inp-label-1"><span contenteditable="true">inp1</span> <a onclick="deleteInput($(this));"><span class="fa fa-minus-square tb-minus">&#8722;</span></a></th>
+                <th style="background-color: #aaf" id="tb-inp-label-2"><span contenteditable="true">inp2</span> <a onclick="deleteInput($(this));"><span class="fa fa-minus-square tb-minus">&#8722;</span></a></th>
+                <th style="background-color: #afa" id="tb-out-label-1"><span contenteditable="true">out1</span> <a onclick="deleteOutput($(this));"><span class="fa fa-minus-square tb-minus">&#8722;</span></a></th>
             </tr>
             <tr>
                 <td>Bitwidth</td>
@@ -34,7 +34,7 @@
             <div id="data-group-1" class="data-group">
                 <h3 id="data-group-title-1" contenteditable="true">Group 1</h3>
                 <h5>Click + to add tests to the group</h5>
-                <table style="width:100%" contenteditable="true" class="tb-table" id="data-table-1">
+                <table style="width:100%" class="tb-table" id="data-table-1">
                 </table>
                 <button class="lower-button plus-button latest-button" id="plus-1" onclick="addCase(0)">+</button>
             </div>
@@ -171,7 +171,10 @@
     .label-table {
         margin-top: 100px;
     }
+    /*temp*/
+    .tb-minus {
 
+    }
 
 </style>
 
@@ -190,13 +193,13 @@
     var mode = "comb";
     var groupIndex = 0;
     var inputCount = 2;
+    var nextInputIndex = 2;
     var outputCount = 1;
+    var nextOutputIndex = 1;
     var cases = [0];
 
     function dataReset() {
         groupIndex = -1;
-        inputCount = 2;
-        outputCount = 1;
         cases = [0];
     }
 
@@ -218,12 +221,21 @@
         addGroup();
     }
 
+    /* Adds case to a group */
     function addCase(grp) {
         let current_group_table = $(`#data-table-${grp + 1}`);
-        let s = `<tr>\n<td>${++cases[grp]}</td>\n`;
-        for(let i = 0; i < inputCount + outputCount; i ++) s += "<td>0</td>";
-        s += "</tr>"
+        let s = `<tr>\n<td><span>${++cases[grp]}</span> <a onclick="deleteCase($(this))"class="fa fa-minus-square tb-minus">&#8722;</span></td></span>\n`;
+        for(let i = 0; i < inputCount + outputCount; i ++) s += '<td contenteditable="true">0</td>';
+        s += '</tr>';
         current_group_table.append(s);
+    }
+
+    /* Deletes case from a group */
+    function deleteCase(element) {
+        const row = element.parent().parent();
+        const grp = Number(row.parent().attr('id').split('-').pop());
+
+        row.remove();
     }
 
     /* Adds group with default name 'Group N' or name supplied in @param groupName */
@@ -237,7 +249,7 @@
         <div id="data-group-${groupIndex + 1}" class="data-group">
             <h3 id="data-group-title-${groupIndex + 1}" contenteditable="true">${groupName}</h3>
             <h5>Click + to add tests to the ${mode === "comb"? "group" : "set"}</h5>
-            <table style="width:100%" contenteditable="true" class="tb-table" id="data-table-${groupIndex + 1}">
+            <table style="width:100%" class="tb-table" id="data-table-${groupIndex + 1}">
             </table>
             <button class="lower-button plus-button latest-button" id="plus-${groupIndex + 1}" onclick="addCase(${groupIndex})" style="font-size: 25px;">+</button>
         </div>
@@ -246,12 +258,20 @@
         $("#dataGroup").append(s);
     }
 
+    /* Deletes a group */
+    function deleteGroup(element) {
+        const groupDiv = element.parent();
+        const grp = Number(groupDiv.attr('id').split('-').pop());
+        groupDiv.remove();
+    }
+
     /* Adds input with default value 0 or values supplied in @param inputData */
     /* Used without params for UI, used with params by loadData() */
-    function addInput(label=`inp${inputCount + 1}`, inputData=[], bitwidth=1) {
-        // Change head table contents
+    function addInput(label=`inp${nextInputIndex + 1}`, inputData=[], bitwidth=1) {
+        nextInputIndex++;
         inputCount++;
-        const s_head = `<th style="background-color: #aaf" id="tb-inp-label-${inputCount}"><span contenteditable="true">${label}</span> <a onclick="deleteInput($(this));"><span class="fa fa-minus-square tb-minus"></span></a></th>`;
+        // Change head table contents
+        const s_head = `<th style="background-color: #aaf" id="tb-inp-label-${nextInputIndex}"><span contenteditable="true">${label}</span> <a onclick="deleteInput($(this));"><span class="fa fa-minus-square tb-minus">&#8722;</span></a></th>`;
         const s_data = `<td contenteditable="true">${bitwidth}</td>`;
         $("#testBenchTable").find("tr").eq(1).find("th").eq(inputCount - 1).after(s_head);
         $("#testBenchTable").find("tr").eq(2).find("td").eq(inputCount - 1).after(s_data);
@@ -271,10 +291,11 @@
 
     /* Adds output with default value 0 or values supplied in @param outputData */
     /* Used without params for UI, used with params by loadData() */
-    function addOutput(label=`out${outputCount + 1}`, outputData=[], bitwidth=1) {
+    function addOutput(label=`out${nextOutputIndex + 1}`, outputData=[], bitwidth=1) {
+        nextOutputIndex++;
         outputCount++;
         // Change head table contents
-        const s_head = `<th style="background-color: #afa" id="tb-inp-label-${outputCount}"><span contenteditable="true">out${outputCount}</span> <a onclick="deleteOutput($(this));"><span class="fa fa-minus-square tb-minus"></span></a></th>`
+        const s_head = `<th style="background-color: #afa" id="tb-out-label-${nextOutputIndex}"><span contenteditable="true">${label}</span> <a onclick="deleteOutput($(this));"><span class="fa fa-minus-square tb-minus">&#8722;</span></a></th>`
         const s_data = `<td contenteditable="true">${bitwidth}</td>`;
         $("#testBenchTable").find("tr").eq(1).find("th").eq(inputCount + outputCount - 1).after(s_head);
         $("#testBenchTable").find("tr").eq(2).find("td").eq(inputCount + outputCount - 1).after(s_data);
@@ -291,12 +312,32 @@
 
     }
 
+    /* Deletes input unless there's only one input */
     function deleteInput(element) {
-        console.log(element.parent());
+        if(inputCount === 1) return;
+        const columnIndex = element.parent().eq(0).index();
+
+
+        $('#testBenchTable tr, .data-group tr').slice(1).each(function() {
+            $(this).find('td, th').eq(columnIndex).remove();
+        });
+
+        inputCount--;
+        $("#tb-inputs-head").attr("colspan", inputCount);
+
     }
 
+    /* Deletes output unless there's only one output */
     function deleteOutput(element) {
-        console.log(element);
+        if(outputCount === 1) return;
+        const columnIndex = element.parent().eq(0).index();
+
+        $('#testBenchTable tr, .data-group tr').slice(1).each(function() {
+            $(this).find('td, th').eq(columnIndex).remove();
+        });
+
+        outputCount--;
+        $("#tb-outputs-head").attr("colspan", outputCount);
     }
 
     /* Returns input/output(keys) and their bitwidths(values) */
@@ -311,11 +352,14 @@
         return bitwidths;
     }
 
+    /* Returns data for all the groups for all inputs and outputs */
+    /* Called by parse() */
     function getData() {
 
         const bitwidths = getBitWidths();
         let groups = []
-        for(let group_i = 0; group_i <= groupIndex; group_i++){
+        const groupCount = $('#dataGroup').children().length;
+        for(let group_i = 0; group_i < groupCount; group_i++){
             let group = {};
             group.label = $(`#data-group-title-${group_i + 1}`).html();
             group.inputs = [];
