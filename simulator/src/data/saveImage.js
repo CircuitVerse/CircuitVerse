@@ -1,3 +1,4 @@
+/* eslint-disable eol-last */
 /**
  * Helper function to show prompt to save image
  * Options - resolution, image type, view
@@ -14,7 +15,7 @@ import { generateImage } from './save';
  */
 export default function createSaveAsImgPrompt(scope = globalScope) {
     $('#saveImageDialog').dialog({
-        resizable:false,
+        resizable: false,
         width: 'auto',
         buttons: [{
             text: 'Render Circuit Image',
@@ -22,15 +23,18 @@ export default function createSaveAsImgPrompt(scope = globalScope) {
                 generateImage($('input[name=imgType]:checked').val(), $('input[name=view]:checked').val(), $('input[name=transparent]:checked').val(), $('input[name=resolution]:checked').val());
                 $(this).dialog('close');
             },
-            class: "render-btn",
+            class: 'render-btn',
         }],
 
     });
+    // document.getElementsByClassName("frame-rate-dialog").disabled = true;
     $('input[name=imgType]').change(() => {
         $('input[name=resolution]').prop('disabled', false);
         $('input[name=transparent]').prop('disabled', false);
+        $('#fname').val('');
         const imgType = $('input[name=imgType]:checked').val();
-        imgType == 'svg'? $('.btn-group-toggle, .download-dialog-section-3').addClass('disable') : $('.btn-group-toggle, .download-dialog-section-3, .cb-inner').removeClass('disable');
+        if ((imgType === 'video') || (imgType === 'anim-gif')) { $('.frame-rate-dialog').css('visibility', 'visible'); } else { $('.frame-rate-dialog').css('visibility', 'hidden'); }
+        imgType === 'svg' ? $('.btn-group-toggle, .download-dialog-section-3').addClass('disable') : $('.btn-group-toggle, .download-dialog-section-3, .cb-inner').removeClass('disable');
         if (imgType === 'svg') {
             $('input[name=resolution][value=1]').trigger('click');
             $('input[name=view][value="full"]').trigger('click');
@@ -42,7 +46,7 @@ export default function createSaveAsImgPrompt(scope = globalScope) {
             $('input[name=view]').prop('disabled', false);
             $('.cb-inner').addClass('disable');
         } else {
-            $('input[name=view]').prop("disabled", false);
+            $('input[name=view]').prop('disabled', false);
             $('.cb-inner').removeClass('disable');
         }
     });

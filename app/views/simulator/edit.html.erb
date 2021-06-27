@@ -396,8 +396,14 @@
       ><input type="radio" name="imgType" value="gif" />GIF<span></span
     ></label>
     <label class="option custom-radio inline"
-      ><input type="radio" name="imgType" value="tiff" />TIFF<span></span
+      ><input type="radio" name="imgType" value="anim-gif" />AnimGIF<span></span
     ></label>
+    <label class="option custom-radio inline"
+    ><input type="radio" name="imgType" value="tiff" />TIFF<span></span
+  ></label>
+  <label class="option custom-radio inline"
+  ><input type="radio" name="imgType" value="video" />VIDEO<span></span
+></label>
   </div>
   <div class="download-dialog-section-2">
     <div
@@ -426,6 +432,10 @@
         />Transparent Background</label
       >
     </div>
+    <div class = "frame-rate-dialog">
+    <label for="fname" id="fnamelabel">FrameRate</label>
+  <input type="text" id="fname" name="fname" placeholder="30" ><br><br>
+  </div>
   </div>
   <div class="download-dialog-section-3">
     <span>Resolution:</span>
@@ -642,3 +652,12 @@ function old_ui_redirect() {
   window.location.href = window.location.href.replace("/simulator", "/simulator_old")
 }
 </script>
+<!-- recoding icon loading code  in GIF feature -->
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-record-circle blink" viewBox="0 0 16 16">
+  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+  <path d="M11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+  
+</svg>
+<button id="rec_Button">STOP</button>
+
+<div class="loader"></div> 
