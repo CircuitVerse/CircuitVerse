@@ -1,0 +1,12 @@
+{
+    "@metadata": {
+        "authors": [
+            "Pavan"
+        ],
+        "last-updated": "2021-06-27",
+        "locale": "hi",
+        "message-documentation": "qqq"
+    },
+    "appname-title": "सर्किटवर्स में आपका स्वागत है",
+    "result": "$1 परिणाम {{PLURAL:$1|मिला|मीले}}"
+}

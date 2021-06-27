@@ -12,6 +12,12 @@ import OrGate from './modules/OrGate';
 import NotGate from './modules/NotGate';
 import { stripTags } from './utils';
 
+// library basic test
+console.log(banana.i18n('appname-title'));
+// interpolation and plurals check
+console.log(banana.i18n('result', 1));
+console.log(banana.i18n('result', 4));
+
 var inputSample = 5;
 var dataSample = [['01---', '11110', '01---', '00000'], ['01110', '1-1-1', '----0'], ['01---', '11110', '01110', '1-1-1', '0---0'], ['----1']];
 
@@ -26,7 +32,7 @@ var sampleOutputListNames = ['X'];
 export function createCombinationalAnalysisPrompt(scope = globalScope) {
     scheduleBackup();
     $('#combinationalAnalysis').empty();
-    $('#combinationalAnalysis').append("<p>Enter Input names separated by commas: <input id='inputNameList' type='text'  placeHolder='eg. In A, In B'></p>");
+    $('#combinationalAnalysis').append(banana.i18n('appname-title'));
     $('#combinationalAnalysis').append("<p>Enter Output names separated by commas: <input id='outputNameList' type='text'  placeHolder='eg. Out X, Out Y'></p>");
     $('#combinationalAnalysis').append("<p style='text-align:center;'>OR</p>");
     $('#combinationalAnalysis').append("<p>Enter Boolean Function: <input class='truth_table_input' autofocus id='booleanExpression' placeholder='Example: (AB)' type='text'></p>");

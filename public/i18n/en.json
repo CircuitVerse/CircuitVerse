@@ -1,0 +1,12 @@
+{
+    "@metadata": {
+        "authors": [
+            "Pavan"
+        ],
+        "last-updated": "2021-06-27",
+        "locale": "en",
+        "message-documentation": "qqq"
+    },
+    "appname-title": "welcome to CircuitVerse",
+    "result": "Found $1 {{PLURAL:$1|result|results}}"
+}
