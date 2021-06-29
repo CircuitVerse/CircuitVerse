@@ -5,7 +5,7 @@ class LtiController < ApplicationController
   after_action :allow_iframe_lti, only: %i[launch]
   
   def launch
-    session[:isLTI]=true # the lti session starting
+    session[:is_lti]=true # the lti session starting
     require 'oauth/request_proxy/action_controller_request'
 
     if @assignment.blank?
@@ -26,6 +26,9 @@ class LtiController < ApplicationController
         render :launch_error, status: 401
         return
       end
+
+      lms_lti_host = URI.join @launch_url_from_lms, '/' # identifies the domain and saves in session
+      session[:lms_domain]=lms_lti_host
 
       @user = User.find_by(email: @email_from_lms) # find user by matching email with circuitverse and lms 
 
@@ -59,9 +62,9 @@ class LtiController < ApplicationController
   end
 
   def allow_iframe_lti
-    return unless session[:isLTI]
+    return unless session[:is_lti]
     
-    response.headers.except! "X-Frame-Options"
+    response.headers["X-FRAME-OPTIONS"] = "ALLOW-FROM #{session[:lms_domain]}"
   end
 
   private
@@ -69,7 +72,7 @@ class LtiController < ApplicationController
     def set_group_assignment # query db and check lms_oauth_consumer_key is equal to which assignment and find the group also
       @assignment = Assignment.find_by(lti_consumer_key: params[:oauth_consumer_key])
       if @assignment.present?
-        @group = Group.find_by(id: @assignment.group_id)
+        @group =@assignment.group
       end
     end
     
@@ -77,5 +80,6 @@ class LtiController < ApplicationController
       @email_from_lms = params[:lis_person_contact_email_primary] # the email from the LMS
       @lms_type = params[:tool_consumer_info_product_family_code] # type of lms like moodle/canvas
       @course_title_from_lms = params[:context_title] # the course titile from lms
+      @launch_url_from_lms = params[:launch_presentation_return_url]
     end
 end
