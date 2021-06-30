@@ -1,0 +1,19 @@
+<% content_for :title, t("launch_error.title") %>
+<div class="container">
+  <% if notice %>
+    <div class="row" id='alertdiv'>
+        <div class="alert alert-success alert-dismissible container text-center">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <h6><%= notice %></h6>
+        </div>
+    </div>
+  <% end %>
+  <div class="row center-row">
+    <div class="col-12">
+      <h1 class="main-heading"><%= t("launch_error.main-heading") %></h1>
+      <div class="teacher-main-description-container">
+        <p class="main-description"><%= t("launch_error.main-description") %></p>
+      </div>
+    </div>
+  </div>
+</div>
