@@ -2,3 +2,8 @@ en:
   general:
     edit: "Edit"
     delete: "Delete"
+    view: "View"
+    launch_simulator: "Launch Simulator"
+    email_us_heading: "Email us at"
+    join_at_slack_heading: "Join and chat with us at"
+    join_at_slack_description: "Slack Channel"
