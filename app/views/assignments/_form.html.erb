@@ -150,10 +150,8 @@
         .attr('value', JSON.stringify(updated_restrictions))
         .appendTo('#assignmentForm');
   }
-
   function generateLtiKeys(){
-    let lti_credentials_needed = false; 
-    
+    let lti_credentials_needed = false;
     if ($('#lms-integration-check').is(":checked")) {
       lti_credentials_needed = true;
     }
