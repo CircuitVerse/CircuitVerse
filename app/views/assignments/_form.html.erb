@@ -152,19 +152,14 @@
   }
 
   function generateLtiKeys(){
-    let lti_consumer_key = null;
-    let lti_shared_secret = null;
+    let lti_credentials_needed = false; 
+    
     if ($('#lms-integration-check').is(":checked")) {
-      lti_consumer_key = "<%= assignment.lti_consumer_key.presence || SecureRandom.hex(4) %>"; // if key is present and then on updation it keeps the previous key
-      lti_shared_secret = "<%= assignment.lti_shared_secret.presence || SecureRandom.hex(4) %>"; // if key is present and then on updation it keeps the previous secret
+      lti_credentials_needed = true;
     }
     $('<input />').attr('type', 'hidden')
-        .attr('name', 'lti_consumer_key')
-        .attr('value', lti_consumer_key)
-        .appendTo('#assignmentForm');
-    $('<input />').attr('type', 'hidden')
-        .attr('name', 'lti_shared_secret')
-        .attr('value', lti_shared_secret)
+        .attr('name', 'lti_credentials_needed')
+        .attr('value', lti_credentials_needed)
         .appendTo('#assignmentForm');
   }
 

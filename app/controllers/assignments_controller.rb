@@ -58,8 +58,10 @@ class AssignmentsController < ApplicationController
   # POST /assignments.json
   def create
     description = params["description"]
-    lti_consumer_key = params["lti_consumer_key"]
-    lti_shared_secret = params["lti_shared_secret"]
+    if params["lti_credentials_needed"]
+      lti_consumer_key = SecureRandom.hex(4)
+      lti_shared_secret = SecureRandom.hex(4)
+    end
     params = assignment_create_params
     # params[:deadline] = params[:deadline].to_time
 
@@ -88,8 +90,10 @@ class AssignmentsController < ApplicationController
   # PATCH/PUT /assignments/1.json
   def update
     description = params["description"]
-    lti_consumer_key = params["lti_consumer_key"]
-    lti_shared_secret = params["lti_shared_secret"]
+    if params["lti_credentials_needed"]
+      lti_consumer_key = @assignment.lti_consumer_key.presence || SecureRandom.hex(4)
+      lti_shared_secret = @assignment.lti_shared_secret.presence || SecureRandom.hex(4)
+    end
     params = assignment_update_params
     @assignment.description = description
     @assignment.lti_consumer_key = lti_consumer_key
