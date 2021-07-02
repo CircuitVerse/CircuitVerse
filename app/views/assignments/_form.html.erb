@@ -17,7 +17,7 @@
       <%= check_box_tag "lms-integration-check", checked: @assignment.lti_integrated? %>
       <div class="primary-checkpoint"></div>
     </label>
-    <div class="lms-integration-message"> <!-- Operated by script --> 
+    <div class="lms-integration-message"> <!-- Operated by script -->
       <p>We will generate the required keys for integration after assignment creation. <a href="https://www.example.com" target="_blank">Learn how to integrate CircuitVerse assignments with any LMS</a></p>
     </div>
   </div>
@@ -155,8 +155,8 @@
     let lti_consumer_key = null;
     let lti_shared_secret = null;
     if ($('#lms-integration-check').is(":checked")) {
-      lti_consumer_key = "<%=assignment.lti_consumer_key.presence || SecureRandom.hex(4)%>"; // if key is present and then on updation it keeps the previous key
-      lti_shared_secret = "<%=assignment.lti_shared_secret.presence || SecureRandom.hex(4)%>"; // if key is present and then on updation it keeps the previous secret
+      lti_consumer_key = "<%= assignment.lti_consumer_key.presence || SecureRandom.hex(4) %>"; // if key is present and then on updation it keeps the previous key
+      lti_shared_secret = "<%= assignment.lti_shared_secret.presence || SecureRandom.hex(4) %>"; // if key is present and then on updation it keeps the previous secret
     }
     $('<input />').attr('type', 'hidden')
         .attr('name', 'lti_consumer_key')
