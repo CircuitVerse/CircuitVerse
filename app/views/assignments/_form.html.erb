@@ -12,6 +12,16 @@
     </div>
   <% end %>
 
+  <div id="lms-integration-field" class="field form-group">
+    <label for="lms-integration-check" class="primary-checkpoint-container" id="lms-integration-check-elements"><h6>Integrate with LMS</h6>
+      <%= check_box_tag "lms-integration-check", checked: @assignment.lti_integrated? %>
+      <div class="primary-checkpoint"></div>
+    </label>
+    <div class="lms-integration-message"> <!-- Operated by script --> 
+      <p>We will generate the required keys for integration after assignment creation. <a href="https://www.example.com" target="_blank">Learn how to integrate CircuitVerse assignments with any LMS</a></p>
+    </div>
+  </div>
+
   <div id="name-field" class="field form-group">
     <h6><%= form.label :name %></h6>
     <%= form.text_field :name, id: :assignment_name, class: 'form-control form-input' %>
@@ -54,7 +64,22 @@
   $(document).ready(function() {
     loadRestrictions(`JSON.parse(<%= raw @assignment.restrictions %>)`);
     loadDeadlinePicker();
+    loadltiIntegration();
   })
+
+  function loadltiIntegration(){
+    $('#lms-integration-check').change(function (e) {
+        e.preventDefault();
+        var radio = $(e.currentTarget);
+
+        if (radio.is(':checked')) {
+            $('.lms-integration-message').css("display", "block");
+        } else {
+            $('.lms-integration-message').css("display", "none");
+        }
+    });
+    $('#lms-integration-check').trigger('change');
+  }
 
   function loadDeadlinePicker() {
     $('#assignment_deadline').datetimepicker({
@@ -95,6 +120,7 @@
       cleanEditor();
       generateRestrictions();
       generateDate();
+      generateLtiKeys();
   }
   function generateDate() {
     const splittedDate = $('#assignment_deadline').val().split(/[\s,/:]+/);
@@ -122,6 +148,23 @@
     $('<input />').attr('type', 'hidden')
         .attr('name', 'assignment[restrictions]')
         .attr('value', JSON.stringify(updated_restrictions))
+        .appendTo('#assignmentForm');
+  }
+
+  function generateLtiKeys(){
+    let lti_consumer_key = null;
+    let lti_shared_secret = null;
+    if ($('#lms-integration-check').is(":checked")) {
+      lti_consumer_key = "<%=assignment.lti_consumer_key.presence || SecureRandom.hex(4)%>"; // if key is present and then on updation it keeps the previous key
+      lti_shared_secret = "<%=assignment.lti_shared_secret.presence || SecureRandom.hex(4)%>"; // if key is present and then on updation it keeps the previous secret
+    }
+    $('<input />').attr('type', 'hidden')
+        .attr('name', 'lti_consumer_key')
+        .attr('value', lti_consumer_key)
+        .appendTo('#assignmentForm');
+    $('<input />').attr('type', 'hidden')
+        .attr('name', 'lti_shared_secret')
+        .attr('value', lti_shared_secret)
         .appendTo('#assignmentForm');
   }
 
