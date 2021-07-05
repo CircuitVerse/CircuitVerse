@@ -7,6 +7,7 @@ class AssignmentsController < ApplicationController
   before_action :check_access, only: %i[edit update destroy reopen]
   after_action :check_reopening_status, only: [:update]
   after_action :allow_iframe_lti, only: %i[show]
+  before_action :set_lms_tutorial
 
   # GET /assignments
   # GET /assignments.json
@@ -156,5 +157,9 @@ class AssignmentsController < ApplicationController
 
     def check_access
       authorize @assignment, :admin_access?
+    end
+
+    def set_lms_tutorial
+      @lms_integration_tutorial = "https://www.example.com" # link to the tutorial of linking cv assignment with LMS
     end
 end
