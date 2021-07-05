@@ -5,7 +5,6 @@ class GroupsController < ApplicationController
   before_action :authenticate_user!
   before_action :check_show_access, only: %i[show edit update destroy]
   before_action :check_edit_access, only: %i[edit update destroy generate_token]
-  before_action :set_lms_tutorial
 
   # GET /groups/1
   # GET /groups/1.json
@@ -106,9 +105,5 @@ class GroupsController < ApplicationController
 
     def check_edit_access
       authorize @group, :admin_access?
-    end
-
-    def set_lms_tutorial
-      @lms_integration_tutorial = "https://www.example.com" # link to the tutorial of linking cv assignment with LMS
     end
 end

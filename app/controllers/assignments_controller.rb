@@ -7,7 +7,6 @@ class AssignmentsController < ApplicationController
   before_action :check_access, only: %i[edit update destroy reopen]
   after_action :check_reopening_status, only: [:update]
   after_action :allow_iframe_lti, only: %i[show]
-  before_action :set_lms_tutorial
 
   # GET /assignments
   # GET /assignments.json
@@ -59,7 +58,7 @@ class AssignmentsController < ApplicationController
   # POST /assignments.json
   def create
     description = params["description"]
-    if params["lti_credentials_needed"]
+    if params["lms-integration-check"]
       lti_consumer_key = SecureRandom.hex(4)
       lti_shared_secret = SecureRandom.hex(4)
     end
@@ -91,7 +90,7 @@ class AssignmentsController < ApplicationController
   # PATCH/PUT /assignments/1.json
   def update
     description = params["description"]
-    if params["lti_credentials_needed"]
+    if params["lms-integration-check"]
       lti_consumer_key = @assignment.lti_consumer_key.presence || SecureRandom.hex(4)
       lti_shared_secret = @assignment.lti_shared_secret.presence || SecureRandom.hex(4)
     end
@@ -157,9 +156,5 @@ class AssignmentsController < ApplicationController
 
     def check_access
       authorize @assignment, :admin_access?
-    end
-
-    def set_lms_tutorial
-      @lms_integration_tutorial = "https://www.example.com" # link to the tutorial of linking cv assignment with LMS
     end
 end

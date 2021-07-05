@@ -18,7 +18,7 @@
       <div class="primary-checkpoint"></div>
     </label>
     <div class="lms-integration-message"> <!-- Operated by script -->
-      <p>We will generate the required keys for integration after assignment creation. <a href=<%= @lms_integration_tutorial %> target="_blank">Learn how to integrate CircuitVerse assignments with any LMS</a></p>
+      <p>We will generate the required keys for integration after assignment creation. <a href=<%= lms_integration_tutorial %> target="_blank">Learn how to integrate CircuitVerse assignments with any LMS</a></p>
     </div>
   </div>
 
@@ -120,7 +120,6 @@
       cleanEditor();
       generateRestrictions();
       generateDate();
-      generateLtiKeys();
   }
   function generateDate() {
     const splittedDate = $('#assignment_deadline').val().split(/[\s,/:]+/);
@@ -150,17 +149,6 @@
         .attr('value', JSON.stringify(updated_restrictions))
         .appendTo('#assignmentForm');
   }
-  function generateLtiKeys(){
-    let lti_credentials_needed = false;
-    if ($('#lms-integration-check').is(":checked")) {
-      lti_credentials_needed = true;
-    }
-    $('<input />').attr('type', 'hidden')
-        .attr('name', 'lti_credentials_needed')
-        .attr('value', lti_credentials_needed)
-        .appendTo('#assignmentForm');
-  }
-
 </script>
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.4.5/jquery.datetimepicker.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.4.5/jquery.datetimepicker.min.js"></script>
