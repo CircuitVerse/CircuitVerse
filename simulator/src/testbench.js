@@ -47,7 +47,9 @@ export function createTestBenchPrompt() {
                 text: 'Run All',
                 click() {
                     const testJSON = $('#testJSON').val();
-                    runTestBench(JSON.parse(testJSON), globalScope, MODE.MODE_RUNALL, CONTEXT.CONTEXT_SIMULATOR);
+                    const testData = validateAndParseJSON(testJSON);
+                    if (testData.ok) runTestBench(testData.data, globalScope, MODE.MODE_RUNALL, CONTEXT.CONTEXT_SIMULATOR);
+                    // else display data.errorMessage
                 },
             },
 
@@ -55,8 +57,10 @@ export function createTestBenchPrompt() {
                 text: 'Run Manually',
                 click() {
                     const testJSON = $('#testJSON').val();
+                    const testData = validateAndParseJSON(testJSON);
                     $(this).dialog('close');
-                    runTestBench(JSON.parse(testJSON), globalScope, MODE.MODE_MANUAL, CONTEXT.CONTEXT_SIMULATOR);
+                    if (testData.ok) runTestBench(testData.data, globalScope, MODE.MODE_MANUAL, CONTEXT.CONTEXT_SIMULATOR);
+                    // else display data.errorMessage
                 },
             },
         ],
@@ -79,7 +83,7 @@ export function runTestBench(data, scope = globalScope, mode = MODE.MODE_RUNALL,
         return;
     }
     const isValidData = validate(data, scope);
-    if (!isValidData.ok){
+    if (!isValidData.ok) {
         showError(`TestBench: ${isValidData.message}`);
         return;
     }
@@ -119,6 +123,7 @@ function runAll(data, scope) {
             const caseResult = getOutputValues(data, outputs);
             // Put the results in the data
             for (const outName of caseResult.keys()) {
+                // TODO: find() is not the best idea because of O(n)
                 const output = group.outputs.find((dataOutput) => dataOutput.label === outName);
                 output.results.push(caseResult.get(outName));
             }
@@ -279,6 +284,20 @@ function getOutputValues(data, outputs) {
     }
 
     return values;
+}
+
+/**
+ * Validates JSON syntax and returns parsed object
+ * Called by createTestBenchPrompt()
+ * @param {Object} dataJSON - JSON of test data
+ */
+function validateAndParseJSON(dataJSON) {
+    try {
+        const data = JSON.parse(dataJSON);
+        return { ok: true, data };
+    } catch (error) {
+        return { ok: false, errorMessage: 'Corrupt/Invalid Test Data' };
+    }
 }
 
 /**
