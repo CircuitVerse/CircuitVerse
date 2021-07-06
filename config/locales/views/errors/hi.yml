@@ -1,0 +1,12 @@
+hi:
+  errors:
+    return_to_homepage: "होमपेज पर वापस आएं"
+    internal_error:
+      error_code: "५००"
+      error_description: "सर्वर त्रुटिपूर्ण!, यह मेरी वजह से है आप नहीं, आइए फिर से प्रयास करें :)"
+    not_found:
+      error_code: "४०४"
+      error_description: "ओह, आप जिस पेज की तलाश कर रहे हैं वह नहीं मिल रहा है!"
+    unacceptable:
+      error_code: "४२२"
+      error_description: "इस एंटिटी को प्रोसेस नहीं किया जा सकता!, अनुरोध संसाधित नहीं किया जा सका :("
