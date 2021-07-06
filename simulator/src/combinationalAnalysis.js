@@ -12,8 +12,6 @@ import OrGate from './modules/OrGate';
 import NotGate from './modules/NotGate';
 import { stripTags } from './utils';
 import banana from './config-i18n';
-
-
 // library basic test
 console.log(banana.i18n('appname-title'));
 // interpolation and plurals check
