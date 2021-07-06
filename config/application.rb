@@ -17,10 +17,12 @@ module Logix
 
     # configuring mailer previews directory
     config.action_mailer.preview_path = "#{Rails.root}/lib/mailer_previews"
+    # I18n config
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
     config.i18n.available_locales = [:en, :hi]
     config.i18n.default_locale = :en
-
+    #workaround for localzied custom error pages
+    config.exceptions_app = self.routes
     # Site config
     config.site_url = "https://circuitverse.org/"
     config.site_name = "CircuitVerse"

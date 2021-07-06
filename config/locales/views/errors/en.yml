@@ -1,0 +1,12 @@
+en:
+  errors:
+    return_to_homepage: "Return To Homepage"
+    internal_error:
+      error_code: "500"
+      error_description: "SERVER ERRORED!, IT'S ME NOT YOU, LET'S TRY AGAIN :)"
+    not_found:
+      error_code: "404"
+      error_description: "OOPS,THE PAGE YOU ARE LOOKING FOR CAN'T BE FOUND!"
+    unacceptable:
+      error_code: "422"
+      error_description: "UNPROCESSABLE ENTITY!, REQUEST COULD NOT BE PROCESSED :("

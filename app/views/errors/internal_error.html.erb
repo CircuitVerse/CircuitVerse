@@ -3,17 +3,17 @@
 <div class="container text-center">
   <div class="row row-errorpage">
 	  <div class="col-xs col-sm col-md col-lg">
-      <div class="error-code bold pt-5">500</div>
+      <div class="error-code bold pt-5"><%= t("errors.internal_error.error_code") %></div>
     </div>
   </div>
   <div class="row row-errorpage">
     <div class="col-xs col-sm col-md col-lg">
-      <div class="help-text-main mb-4">SERVER ERRORED!, IT'S ME NOT YOU, LET'S TRY AGAIN :)</div>
+      <div class="help-text-main mb-4"><%= t("errors.internal_error.error_description") %></div>
     </div>
   </div>
   <div class="row row-errorpage">
     <div class="col-xs col-sm col-md col-lg">
-      <a href="https://circuitverse.org/" class="return text-decoration-none pb-5"><i class="fa fa-chevron-left pr-2"></i>Return To Homepage</a>
+      <a href="https://circuitverse.org/" class="return text-decoration-none pb-5"><i class="fa fa-chevron-left pr-2"></i><%= t("errors.return_to_homepage") %></a>
     </div>
   </div>
 </div>
