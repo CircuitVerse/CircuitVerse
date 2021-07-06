@@ -1,9 +1,0 @@
-hi:
-  general:
-    edit: "एडिट करे"
-    delete: "इसे मिटायें"
-    view: "यहाँ देखे"
-    launch_simulator: "सिम्युलेटर लॉन्च करें"
-    email_us_heading: "हमें ईमेल करें"
-    join_at_slack_heading: "हमारे साथ जुड़ें और चैट करें"
-    join_at_slack_description: "स्लैक चैनल"
