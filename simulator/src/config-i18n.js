@@ -1,3 +1,4 @@
+import Banana from 'banana-i18n';
 // initialize banana-i18n constructor
 const banana = new Banana();
 // set locale
@@ -5,7 +6,7 @@ banana.setLocale(window.locale);
 //  constant locale holding value of banana.locale
 const { locale } = banana;
 // fallback language
-const finalFallback = "en";
+const finalFallback = 'en';
 // loading  fallback language en.json by default into object
 const messages = {
     [finalFallback]: require(`./i18n/${finalFallback}.json`),
