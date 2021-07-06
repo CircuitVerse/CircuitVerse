@@ -26,7 +26,7 @@
   "dependencies": {
     "@babel/plugin-proposal-numeric-separator": "^7.12.7",
     "@babel/preset-env": "^7.13.10",
-    "@fortawesome/fontawesome-free": "^5.15.2",
+    "@fortawesome/fontawesome-free": "^5.15.3",
     "@rails/webpacker": "5.2.1",
     "banana-i18n": "^2.1.0",
     "better-docs": "^2.0.1",
