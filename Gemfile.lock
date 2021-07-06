@@ -458,7 +458,7 @@ GEM
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
-    rexml (3.2.4)
+    rexml (3.2.5)
     rsolr (2.2.1)
       builder (>= 2.1.2)
       faraday (>= 0.9.0)
