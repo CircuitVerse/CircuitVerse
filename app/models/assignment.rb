@@ -45,6 +45,10 @@ class Assignment < ApplicationRecord
     restrictions != "[]"
   end
 
+  def lti_integrated?
+    lti_consumer_key.present? && lti_shared_secret.present?
+  end
+
   def project_order
     projects.includes(:grade, :author).sort_by { |p| p.author.name }
             .map { |project| ProjectDecorator.new(project) }

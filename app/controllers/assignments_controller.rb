@@ -58,6 +58,10 @@ class AssignmentsController < ApplicationController
   # POST /assignments.json
   def create
     description = params["description"]
+    if params["lms-integration-check"]
+      lti_consumer_key = SecureRandom.hex(4)
+      lti_shared_secret = SecureRandom.hex(4)
+    end
     params = assignment_create_params
     # params[:deadline] = params[:deadline].to_time
 
@@ -68,6 +72,8 @@ class AssignmentsController < ApplicationController
     @assignment.description = description
     @assignment.status = "open"
     @assignment.deadline = Time.zone.now + 1.year if @assignment.deadline.nil?
+    @assignment.lti_consumer_key = lti_consumer_key
+    @assignment.lti_shared_secret = lti_shared_secret
 
     respond_to do |format|
       if @assignment.save
@@ -84,8 +90,15 @@ class AssignmentsController < ApplicationController
   # PATCH/PUT /assignments/1.json
   def update
     description = params["description"]
+    if params["lms-integration-check"]
+      lti_consumer_key = @assignment.lti_consumer_key.presence || SecureRandom.hex(4)
+      lti_shared_secret = @assignment.lti_shared_secret.presence || SecureRandom.hex(4)
+    end
     params = assignment_update_params
     @assignment.description = description
+    @assignment.lti_consumer_key = lti_consumer_key
+    @assignment.lti_shared_secret = lti_shared_secret
+
     # params[:deadline] = params[:deadline].to_time
 
     respond_to do |format|
