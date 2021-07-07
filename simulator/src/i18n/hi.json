@@ -3,8 +3,21 @@
         "authors": [
             "Pavan"
         ],
-        "last-updated": "2021-07-06",
+        "last-updated": "2021-07-07",
         "locale": "hi",
         "message-documentation": "qqq"
-    }
+    },
+    "combinationalAnalysis-input-name-list": "<p>अल्पविराम द्वारा अलग किए गए इनपुट नाम दर्ज करें: <input id='inputNameList' type='text' placeHolder='उदाहरण. इनपुट A, इनपुट B'></p>",
+    "combinationalAnalysis-output-name-list": "<p>अल्पविराम द्वारा अलग किए गए आउटपुट नाम दर्ज करें: <input id='outputNameList' type='text' placeHolder='उदाहरण. आउटपुट A, आउटपुट B'></p>",
+    "combinationalAnalysis-or-use-alternate-method": "<p style='text-align:center;'>या</p>",
+    "combinationalAnalysis-enter-boolean-function": "<p>बूलियन फ़ंक्शन दर्ज करें: <input class='truth_table_input' autofocus id='booleanExpression' placeholder='उदाहरण: (AB)' type='text'></p>",
+    "combinationalAnalysis-need-decimal-column": "<label class='cb-checkbox'>मुझे डेसीमल कॉलम चाहिए।<input id='decimalColumnBox' type='checkbox'></label>",
+    "combinationalAnalysis-buttons-next": "आगे जाये",
+    "combinationalAnalysis-alert-var-or-boolean": "इनपुट / आउटपुट वेरिएबल या बूलियन फंक्शन दर्ज करें!",
+    "combinationalAnalysis-alert-combinational-or-boolean": "सर्किट की रचना करने के लिए या तो कॉम्बिनेशनल एनालिसिस या बूलियन फ़ंक्शन का उपयोग करें!",
+    "combinationalAnalysis-prompt-enter-inputs": "अल्पविराम द्वारा अलग किए गए इनपुट नाम दर्ज करें",
+    "combinationalAnalysis-prompt-enter-outputs": "अल्पविराम द्वारा अलग किए गए आउटपुट नाम दर्ज करें",
+    "combinationalAnalysis-buttons-generate-circuit": "सर्किट की रचना करें",
+    "combinationalAnalysis-buttons-print-truth-table": "ट्रुथ टेबल प्रिंट करे",
+    "combinationalAnalysis-decimal-column": "डेसीमल"
 }

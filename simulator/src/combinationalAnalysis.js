@@ -11,6 +11,7 @@ import AndGate from './modules/AndGate';
 import OrGate from './modules/OrGate';
 import NotGate from './modules/NotGate';
 import { stripTags } from './utils';
+import banana from './i18n';
 
 var inputSample = 5;
 var dataSample = [['01---', '11110', '01---', '00000'], ['01110', '1-1-1', '----0'], ['01---', '11110', '01110', '1-1-1', '0---0'], ['----1']];
@@ -26,17 +27,17 @@ var sampleOutputListNames = ['X'];
 export function createCombinationalAnalysisPrompt(scope = globalScope) {
     scheduleBackup();
     $('#combinationalAnalysis').empty();
-    $('#combinationalAnalysis').append("<p>Enter Input names separated by commas: <input id='inputNameList' type='text'  placeHolder='eg. In A, In B'></p>");
-    $('#combinationalAnalysis').append("<p>Enter Output names separated by commas: <input id='outputNameList' type='text'  placeHolder='eg. Out X, Out Y'></p>");
-    $('#combinationalAnalysis').append("<p style='text-align:center;'>OR</p>");
-    $('#combinationalAnalysis').append("<p>Enter Boolean Function: <input class='truth_table_input' autofocus id='booleanExpression' placeholder='Example: (AB)' type='text'></p>");
-    $('#combinationalAnalysis').append("<label class='cb-checkbox'>I need a decimal column.<input id='decimalColumnBox' type='checkbox'></label>");
+    $('#combinationalAnalysis').append(banana.i18n('combinationalAnalysis-input-name-list'));
+    $('#combinationalAnalysis').append(banana.i18n('combinationalAnalysis-output-name-list'));
+    $('#combinationalAnalysis').append(banana.i18n('combinationalAnalysis-or-use-alternate-method'));
+    $('#combinationalAnalysis').append(banana.i18n('combinationalAnalysis-enter-boolean-function'));
+    $('#combinationalAnalysis').append(banana.i18n('combinationalAnalysis-need-decimal-column'));
     $('#combinationalAnalysis').dialog({
         resizable:false,
         width: 'auto',
         buttons: [
             {
-                text: 'Next',
+                text: banana.i18n('combinationalAnalysis-buttons-next'),
                 click() {
                     var inputList = stripTags($("#inputNameList").val()).split(',');
                     var outputList = stripTags($("#outputNameList").val()).split(',');
@@ -70,10 +71,10 @@ export function createCombinationalAnalysisPrompt(scope = globalScope) {
                         }
                     }
                     else if ((inputList.length == 0 || outputList.length == 0) && booleanInputVariables == 0) {
-                        alert('Enter Input / Output Variable(s) OR Boolean Function!');
+                        alert(banana.i18n('combinationalAnalysis-alert-var-or-boolean'));
                     }
                     else {
-                        alert('Use Either Combinational Analysis Or Boolean Function To Generate Circuit!');
+                        alert(banana.i18n('combinationalAnalysis-alert-combinational-or-boolean'));
                     }
                 },
             },
@@ -91,8 +92,8 @@ export function createCombinationalAnalysisPrompt(scope = globalScope) {
  * @category combinationalAnalysis
  */
 function createBooleanPrompt(inputListNames, outputListNames, output, scope = globalScope) {
-    var inputListNames = inputListNames || (prompt('Enter inputs separated by commas').split(','));
-    var outputListNames = outputListNames || (prompt('Enter outputs separated by commas').split(','));
+    var inputListNames = inputListNames || (prompt(banana.i18n('combinationalAnalysis-prompt-enter-inputs')).split(','));
+    var outputListNames = outputListNames || (prompt(banana.i18n('combinationalAnalysis-prompt-enter-outputs')).split(','));
     var outputListNamesInteger = [];
     if(output == null) {
         for (var i = 0; i < outputListNames.length; i++) { outputListNamesInteger[i] = 7 * i + 13; }// assigning an integer to the value, 7*i + 13 is random
@@ -102,7 +103,7 @@ function createBooleanPrompt(inputListNames, outputListNames, output, scope = gl
     var s = '<table  class="content-table">';
     s += '<tbody style="display:block; max-height:70vh; overflow-y:scroll" >';
     s += '<tr>';
-    if ($('#decimalColumnBox').is(':checked')) { s += '<th>' + 'dec' + '</th>'; }
+    if ($('#decimalColumnBox').is(':checked')) { s += '<th>' + banana.i18n('combinationalAnalysis-decimal-column') + '</th>'; }
     for (var i = 0; i < inputListNames.length; i++) { s += `<th>${inputListNames[i]}</th>`; }
     if (output == null) { for (var i = 0; i < outputListNames.length; i++) { s += `<th>${outputListNames[i]}</th>`; } }
     else { s += `<th>${outputListNames}</th>`; }
@@ -145,7 +146,7 @@ function createBooleanPrompt(inputListNames, outputListNames, output, scope = gl
         width: 'auto',
         buttons: [
             {
-                text: 'Generate Circuit',
+                text: banana.i18n('combinationalAnalysis-buttons-generate-circuit'),
                 click() {
                     $(this).dialog('close');
                     var data = generateBooleanTableData(outputListNamesInteger);
@@ -182,7 +183,7 @@ function createBooleanPrompt(inputListNames, outputListNames, output, scope = gl
                 },
             },
             {
-                text: 'Print Truth Table',
+                text: banana.i18n('combinationalAnalysis-buttons-print-truth-table'),
                 click() {
                     var sTable = document.getElementById('combinationalAnalysis').innerHTML;
                     var style = '<style> table {font: 20px Calibri;} table, th, td {border: solid 1px #DDD;border-collapse: collapse;} padding: 2px 3px;text-align: center;} </style>';
