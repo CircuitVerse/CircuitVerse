@@ -1194,8 +1194,9 @@ input:checked + .slider:before {
 #combinationalAnalysis p input {
   border: 1px solid white;
   background: transparent;
-font: inherit;
+  font: inherit;
   text-align: center;
+  width: 12.5rem;
 }
 
 .ui-dialog input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
