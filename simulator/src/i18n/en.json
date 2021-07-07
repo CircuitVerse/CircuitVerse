@@ -3,8 +3,21 @@
         "authors": [
             "Pavan"
         ],
-        "last-updated": "2021-07-06",
+        "last-updated": "2021-07-07",
         "locale": "en",
         "message-documentation": "qqq"
-    }
+    },
+    "combinationalAnalysis-input-name-list": "<p>Enter Input names separated by commas: <input id='inputNameList' type='text'  placeHolder='eg. In A, In B'></p>",
+    "combinationalAnalysis-output-name-list": "<p>Enter Output names separated by commas: <input id='outputNameList' type='text'  placeHolder='eg. Out X, Out Y'></p>",
+    "combinationalAnalysis-or-use-alternate-method": "<p style='text-align:center;'>OR</p>",
+    "combinationalAnalysis-enter-boolean-function": "<p>Enter Boolean Function: <input class='truth_table_input' autofocus id='booleanExpression' placeholder='Example: (AB)' type='text'></p>",
+    "combinationalAnalysis-need-decimal-column": "<label class='cb-checkbox'>I need a decimal column.<input id='decimalColumnBox' type='checkbox'></label>",
+    "combinationalAnalysis-buttons-next": "Next",
+    "combinationalAnalysis-alert-var-or-boolean": "Enter Input / Output Variable(s) OR Boolean Function!",
+    "combinationalAnalysis-alert-combinational-or-boolean": "Use Either Combinational Analysis Or Boolean Function To Generate Circuit!",
+    "combinationalAnalysis-prompt-enter-inputs": "Enter inputs separated by commas",
+    "combinationalAnalysis-prompt-enter-outputs": "Enter outputs separated by commas",
+    "combinationalAnalysis-buttons-generate-circuit": "Generate Circuit",
+    "combinationalAnalysis-buttons-print-truth-table": "Print Truth Table",
+    "combinationalAnalysis-decimal-column": "dec"
 }
