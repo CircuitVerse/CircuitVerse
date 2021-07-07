@@ -53,7 +53,7 @@
           <%= link_to 'Back', group_path(@group), class: "anchor-text" %>
           <br> <br>
           <hr class="assignments-horizontal-rule">
-          <% if policy(@assignment).admin_access? %>
+          <% if policy(@assignment).mentor_access? %>
             <h3 class="assignments-submission-heading">Submissions :</h3>
             <script>
               $( function() {

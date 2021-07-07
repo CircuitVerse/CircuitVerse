@@ -47,7 +47,7 @@ describe SimulatorHelper do
     end
 
     before do
-      group = FactoryBot.create(:group, mentor: FactoryBot.create(:user))
+      group = FactoryBot.create(:group, primary_mentor: FactoryBot.create(:user))
       assignment = FactoryBot.create(:assignment, group: group, restrictions: ["Element"].to_json)
       @project = FactoryBot.create(:project,
                                    author: FactoryBot.create(:user), assignment: assignment)

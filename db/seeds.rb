@@ -49,7 +49,7 @@ description: 'description' }])
 #groups
 puts "Creating Groups"
 group = Group.create(name: 'group1',
-  mentor_id: users.first.id,
+  owner_id: users.first.id,
 )
 GroupMember.create(group_id: group.id,
   user_id: users.second.id,

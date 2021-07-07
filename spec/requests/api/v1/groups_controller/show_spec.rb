@@ -5,8 +5,8 @@ require "rails_helper"
 RSpec.describe Api::V1::GroupsController, "#show", type: :request do
   describe "list specific group" do
     let!(:user) { FactoryBot.create(:user) }
-    let!(:mentor) { FactoryBot.create(:user) }
-    let!(:group) { FactoryBot.create(:group, mentor: mentor) }
+    let!(:primary_mentor) { FactoryBot.create(:user) }
+    let!(:group) { FactoryBot.create(:group, primary_mentor: primary_mentor) }
 
     context "when not authenticated" do
       before do

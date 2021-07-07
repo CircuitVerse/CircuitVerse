@@ -7,7 +7,7 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_many(:projects) }
     it { is_expected.to have_many(:stars) }
     it { is_expected.to have_many(:rated_projects) }
-    it { is_expected.to have_many(:groups_mentored) }
+    it { is_expected.to have_many(:groups_owned) }
     it { is_expected.to have_many(:group_members) }
     it { is_expected.to have_many(:groups) }
     it { is_expected.to have_many(:collaborations) }
@@ -33,8 +33,8 @@ RSpec.describe User, type: :model do
 
   describe "public methods" do
     before do
-      mentor = FactoryBot.create(:user)
-      group = FactoryBot.create(:group, mentor: mentor)
+      primary_mentor = FactoryBot.create(:user)
+      group = FactoryBot.create(:group, primary_mentor: primary_mentor)
       @user = FactoryBot.create(:user)
       FactoryBot.create(:pending_invitation, group: group, email: @user.email)
     end

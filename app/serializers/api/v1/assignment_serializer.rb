@@ -5,8 +5,8 @@ class Api::V1::AssignmentSerializer
 
   attributes :name, :deadline, :description, :status, :restrictions
 
-  attributes :has_mentor_access do |assignment, params|
-    (assignment.group.mentor_id == params[:current_user].id) || params[:current_user].admin?
+  attributes :has_primary_mentor_access do |assignment, params|
+    (assignment.group.primary_mentor_id == params[:current_user].id) || params[:current_user].admin?
   end
 
   attributes :current_user_project_id do |assignment, params|

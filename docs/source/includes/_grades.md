@@ -11,7 +11,7 @@ You can grade an assignment in `/api/v1/assignments/:assignment_id/projects/:pro
 | `assignment_id` | The `id` of the assignment project belongs to |
 | `project_id`    | The `id` of the the project you wish to grade |
 
-<aside class="warning">The assignment can only be graded by group mentor</aside>
+<aside class="warning">The assignment can only be graded by a group mentor</aside>
 
 ### Possible exceptions
 
@@ -77,7 +77,7 @@ You can update grade identified by `:id` in `/api/v1/grades/:id`. Authentication
 | --------- | ----------------------------------- |
 | `id`      | The `id` of the grade to be updated |
 
-<aside class="warning">The grade can only be updated by group mentor</aside>
+<aside class="warning">The grade can only be updated by a group mentor</aside>
 
 ### Possible exceptions
 
@@ -135,7 +135,7 @@ HTTP/1.1 202 ACCEPTED
 
 ## DELETE Grade
 
-Group mentor can DELETE a grade (identified by `:id`) in `/api/v1/grades/:id/`. Authentication `token` is passed through `Authorization` header and is **required**.
+A Group mentor can DELETE a grade (identified by `:id`) in `/api/v1/grades/:id/`. Authentication `token` is passed through `Authorization` header and is **required**.
 
 ### URL Parameters
 

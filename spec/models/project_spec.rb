@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe Project, type: :model do
   before do
     @user = FactoryBot.create(:user)
-    group = FactoryBot.create(:group, mentor: @user)
+    group = FactoryBot.create(:group, primary_mentor: @user)
     @assignment = FactoryBot.create(:assignment, group: group)
   end
 
