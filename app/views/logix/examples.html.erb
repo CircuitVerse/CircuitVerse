@@ -1,9 +1,9 @@
-<% content_for :title, "CircuitVerse - Examples" %>
+<% content_for :title, t("logix.examples.title") %>
 <div class="container">
   <div class="row center-row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <h1 class="main-heading">EXAMPLES</h1>
-      <p class="main-description">Learn and get inspired from the best examples and users</p>
+      <h1 class="main-heading"><%= t("logix.examples.main_heading") %></h1>
+      <p class="main-description"><%= t("logix.examples.main_description") %></p>
     </div>
   </div>
   <div class="row center-row examples-container">
@@ -16,7 +16,7 @@
               <p><%= example[:name] %></p>
               <span class="tooltiptext"><%= example[:name] %></span>
             </div>
-            <a class="btn primary-button circuit-card-primary-button" target="_blank" href="https://circuitverse.org/<%= example[:id] %>">View</a>
+            <a class="btn primary-button circuit-card-primary-button" target="_blank" href="https://circuitverse.org/<%= example[:id] %>"><%= t("view") %></a>
           </div>
         </div>
       </div>
