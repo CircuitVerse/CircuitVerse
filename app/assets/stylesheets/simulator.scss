@@ -42,3 +42,14 @@
 .report-sidebar a:hover {
   right: 0;
 }
+
+.navbar {
+  align-items: center;
+  border-bottom: 1px solid var(--br-primary);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: .5rem 1rem;
+  position: relative;
+  z-index: 200;
+}
