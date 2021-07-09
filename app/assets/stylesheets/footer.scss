@@ -29,6 +29,10 @@
 .footer-social-icon {
   margin-left: 15px;
   width: 32px;
+
+  &:hover {
+    transform: scale(1.4);
+  }
 }
 
 .footer-links {
