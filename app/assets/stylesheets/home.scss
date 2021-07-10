@@ -22,7 +22,12 @@
   max-width: 350px;
 
   img {
-    max-width: 60%;
+    max-width: 50%;
+  }
+
+  .card-body {
+    padding-top: 0;
+    padding-bottom: 0;
   }
 }
 
