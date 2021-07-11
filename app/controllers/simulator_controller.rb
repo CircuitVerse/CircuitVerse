@@ -58,6 +58,7 @@ class SimulatorController < ApplicationController
     @project.project_datum.save
     image_file.close
 
+    image_file.close if image_file
     File.delete(image_file) if check_to_delete(params[:image])
 
     render plain: "success"
