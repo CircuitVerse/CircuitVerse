@@ -446,7 +446,9 @@
   padding: 5px 10px;
 }
 
-.groups-lmsmodal-link-text {
-  display: inline;
+.groups-lms-modal {
+  .link-text {
+    display: inline;
+  }
 }
 //groups ends
