@@ -1,12 +1,13 @@
 /**
- * this file can contain any specific function for testbench modules
+ * This file contains all functions related the the testbench
+ * Contains the the testbench engine and UI modules
  */
 
 import { scheduleBackup } from './data/backupCircuit';
 import { changeClockEnable } from './sequential';
 import { play } from './engine';
 import Scope from './circuit';
-import { showError } from './utils';
+import { showError, showMessage } from './utils';
 
 /**
  * @typedef {number} RunContext
@@ -16,13 +17,6 @@ const CONTEXT = {
     CONTEXT_ASSIGNMENTS: 1,
 };
 
-/**
- * @typedef {number} Mode
- */
-const MODE = {
-    MODE_RUNALL: 0,
-    MODE_MANUAL: 1,
-};
 
 // Do we have any other function to do this?
 // Utility function. Converts decimal number to binary string
@@ -44,22 +38,12 @@ export function createTestBenchPrompt() {
         width: 'auto',
         buttons: [
             {
-                text: 'Run All',
-                click() {
-                    const testJSON = $('#testJSON').val();
-                    const testData = validateAndParseJSON(testJSON);
-                    if (testData.ok) runTestBench(testData.data, globalScope, MODE.MODE_RUNALL, CONTEXT.CONTEXT_SIMULATOR);
-                    // else display data.errorMessage
-                },
-            },
-
-            {
-                text: 'Run Manually',
+                text: 'Ok',
                 click() {
                     const testJSON = $('#testJSON').val();
                     const testData = validateAndParseJSON(testJSON);
                     $(this).dialog('close');
-                    if (testData.ok) runTestBench(testData.data, globalScope, MODE.MODE_MANUAL, CONTEXT.CONTEXT_SIMULATOR);
+                    if (testData.ok) runTestBench(testData.data, globalScope, CONTEXT.CONTEXT_SIMULATOR);
                     // else display data.errorMessage
                 },
             },
@@ -73,32 +57,145 @@ export function createTestBenchPrompt() {
 /**
  * Interface function to run testbench. Called by testbench prompt on simulator or assignments
  * @param {Object} data - Object containing Test Data
- * @param {Mode=} mode - To run all tests automatically or let user manually control tests
  * @param {RunContext=} runContext - Whether simulator or Assignment called this function
  * @param {Scope=} scope - the circuit
  */
-export function runTestBench(data, scope = globalScope, mode = MODE.MODE_RUNALL, runContext = CONTEXT.CONTEXT_SIMULATOR) {
-    if (mode === MODE.MODE_MANUAL && runContext === CONTEXT.CONTEXT_ASSIGNMENTS) {
-        // Assignment does not support MANUAL mode
-        return;
-    }
+export function runTestBench(data, scope = globalScope, runContext = CONTEXT.CONTEXT_SIMULATOR) {
+
     const isValidData = validate(data, scope);
     if (!isValidData.ok) {
         showError(`TestBench: ${isValidData.message}`);
         return;
     }
 
-    let results;
-    if (mode === MODE.MODE_RUNALL) results = runAll(data, scope);
-    else if (mode === MODE.MODE_MANUAL) {
-        runManual(data, scope);
-        return;
-    } else {
-        showError('TestBench: Bad Test Mode');
+    if (runContext === CONTEXT.CONTEXT_SIMULATOR) {
+        globalScope.test = data;
+        updateTestbenchUI();
+        return
+    }
+
+    if(runContext === CONTEXT.CONTEXT_ASSIGNMENTS) {
+        // Not implemented
         return;
     }
 
-    console.log(results);
+}
+
+/**
+ * Updates the TestBench UI on the simulator with the current test attached
+ * If no test is attached then shows the 'No test attached' screen
+ * Called by runTestBench() when test is set, also called by UX/setupPanelListeners()
+ * whenever ux change requires this UI to update(such as clicking on a different circuit)
+ */
+export function updateTestbenchUI() {
+    // Remove all listeners from buttons
+    $('.tb-dialog-button').off('click');
+    $('.tb-case-button').off('click');
+
+    setupTestbenchUI();
+    if (globalScope.test != undefined) {
+
+        let currentGroup = 0;
+        let currentCase = 0;
+        let result;
+
+        // Initialize the UI
+        initManualUI(globalScope.test);
+
+        // Add listeners to buttons
+        // Previous Case Button
+        $('.tb-case-button#prev-case-btn').on('click', () => {
+            if (currentCase === 0) {
+                if (currentGroup === 0) return;
+                currentGroup--;
+                currentCase = globalScope.test.groups[currentGroup].n - 1;
+            } else currentCase--;
+            manualUISetCurrentCase(globalScope.test, currentGroup, currentCase);
+
+            result = runSingleTest(globalScope.test, currentGroup, currentCase, globalScope);
+            manualUISetResult(globalScope.test, currentGroup, currentCase, result);
+        });
+
+        // Next Case Button
+        $('.tb-case-button#next-case-btn').on('click', () => {
+            if (currentCase >= globalScope.test.groups[currentGroup].n - 1) {
+                if (currentGroup >= globalScope.test.groups.length - 1) return;
+                currentGroup++;
+                currentCase = 0;
+            } else currentCase++;
+            manualUISetCurrentCase(globalScope.test, currentGroup, currentCase);
+
+            result = runSingleTest(globalScope.test, currentGroup, currentCase, globalScope);
+            manualUISetResult(globalScope.test, currentGroup, currentCase, result);
+        });
+
+        // Prev Group Button
+        $('.tb-case-button#prev-group-btn').on('click', () => {
+            if (currentGroup === 0) return;
+            currentGroup--;
+            currentCase = 0;
+            manualUISetCurrentCase(globalScope.test, currentGroup, currentCase);
+
+            result = runSingleTest(globalScope.test, currentGroup, currentCase, globalScope);
+            manualUISetResult(globalScope.test, currentGroup, currentCase, result);
+        });
+
+        // Next Group Button
+        $('.tb-case-button#next-group-btn').on('click', () => {
+            if (currentGroup >= globalScope.test.groups.length - 1) return;
+            currentGroup++;
+            currentCase = 0;
+            manualUISetCurrentCase(globalScope.test, currentGroup, currentCase);
+
+            result = runSingleTest(globalScope.test, currentGroup, currentCase, globalScope);
+            manualUISetResult(globalScope.test, currentGroup, currentCase, result);
+        });
+
+        // Change test button
+        $('.tb-dialog-button#change-test-btn').on('click', () => {
+            createTestBenchPrompt();
+        });
+
+        // Run all button
+        $('.tb-dialog-button#runall-btn').on('click', () => {
+            const results = runAll(globalScope.test, globalScope);
+            const passed = results.summary.passed;
+            const total = results.summary.total;
+            const resultURL = `/testbench?result=${JSON.stringify(results.detailed)}`;
+            $('#runall-summary').text(`${passed} out of ${total}`);
+            $('#runall-detailed-link').attr('href', resultURL);
+            $('.testbench-runall-label').css('display','table-cell');
+            $('.testbench-runall-label').delay(5000).fadeOut('slow');
+        });
+
+        // Validate button
+        $('.tb-dialog-button#edit-test-btn').on('click', () => {
+            const resultURL = `/testbench?data=${JSON.stringify(globalScope.test)}`;
+            window.open(resultURL, '_blank').focus();
+        });
+
+        $('.tb-dialog-button#validate-btn').on('click', () => {
+            const isValid = validate(globalScope.test, globalScope);
+            if(isValid.ok) showMessage("Testbench: Test is valid");
+            else showError(`Testbench: ${isValid.message}`);
+        });
+    }
+
+    // Attach test button
+    $('.tb-dialog-button#attach-test-btn').on('click', () => {
+        createTestBenchPrompt();
+    });
+}
+
+export function setupTestbenchUI() {
+    if (globalScope.test === undefined) {
+        $('.tb-test-not-null').hide();
+        $('.tb-test-null').show();
+        return;
+    }
+
+    $('.tb-test-null').hide();
+    $('.tb-test-not-null').show();
 }
 
 /**
@@ -112,9 +209,12 @@ function runAll(data, scope) {
     changeClockEnable(false);
 
     const { inputs, outputs, reset } = bindIO(data, scope);
+    let totalCases = 0;
+    let passedCases = 0;
     for (const group of data.groups) {
         for (const output of group.outputs) output.results = [];
         for (let case_i = 0; case_i < group.n; case_i++) {
+            totalCases++;
             // Set and propagate the inputs
             setInputValues(inputs, group, case_i, scope);
             // If sequential, trigger clock now
@@ -122,11 +222,18 @@ function runAll(data, scope) {
             // Get output values
             const caseResult = getOutputValues(data, outputs);
             // Put the results in the data
+
+            let casePassed = true; // Tracks if current case passed or failed
             for (const outName of caseResult.keys()) {
                 // TODO: find() is not the best idea because of O(n)
                 const output = group.outputs.find((dataOutput) => dataOutput.label === outName);
                 output.results.push(caseResult.get(outName));
+
+                if (output.values[case_i] !== caseResult.get(outName)) casePassed = false;
             }
+
+            // If current case passed, then increment passedCases
+            if(casePassed) passedCases++;
         }
 
         // If sequential, trigger reset at the end of group (set)
@@ -137,70 +244,33 @@ function runAll(data, scope) {
     changeClockEnable(true);
 
     // Return results
-    const results = data.groups.map((group) => ({ group: group.label, outputs: group.outputs }));
+    const results = {} 
+    results.detailed = data;
+    results.summary = { passed: passedCases, total: totalCases };
+    console.log(JSON.stringify(results.detailed));
     return results;
 }
 
 /**
- * Run the tests manually. Spawns UI and binds listeneres to the UI
- * Called by runTestBench()
- * @param {Object} data - Object containing the test data
- * @param {Scope} scope - The circuit to run the tests on
+ * Runs single test
+ * @param {Object} data - Object containing Test Data
+ * @param {number} groupIndex - Index of the group to be tested
+ * @param {number} caseIndex - Index of the case inside the group
+ * @param {Scope} scope - The circuit
  */
-function runManual(data, scope) {
-    let currentGroup = 0;
-    let currentCase = 0;
+function runSingleTest(data, groupIndex, caseIndex, scope) {
     let result;
+    if (data.type === 'comb') {
+        result = runSingleCombinational(data, groupIndex, caseIndex, scope);
+    } else if (data.type === 'seq') {
+        result = runSingleSequential(data, groupIndex, caseIndex, scope);
+    }
 
-    // Initialize the UI
-    initManualUI(data);
-
-    // Show the UI
-    $('.testbench-manual-panel').css('visibility', 'visible');
-
-    // Add listeners to buttons
-    // Previous Case Button
-    $('.tb-dialog-button#prev-case-btn').on('click', () => {
-        if (currentCase === 0) {
-            if (currentGroup === 0) return;
-            currentGroup--;
-            currentCase = data.groups[currentGroup].n - 1;
-        } else currentCase--;
-        manualUISetCurrentCase(data, currentGroup, currentCase);
-    });
-
-    // Next Case Button
-    $('.tb-dialog-button#next-case-btn').on('click', () => {
-        if (currentCase === data.groups[currentGroup].n - 1) {
-            if (currentGroup === data.groups.length - 1) return;
-            currentGroup++;
-            currentCase = 0;
-        } else currentCase++;
-        manualUISetCurrentCase(data, currentGroup, currentCase);
-    });
-
-    // Run Case Button
-    $('.tb-dialog-button#run-case-btn').on('click', () => {
-        if (data.type === 'comb') {
-            result = runSingleCombinational(data, currentGroup, currentCase, scope);
-        } else if (data.type === 'seq') {
-            result = runSingleSequential(data, currentGroup, currentCase, scope);
-        }
-
-        console.log(result);
-        manualUISetResult(data, result);
-    });
-
-    // Close Button
-    $('.tb-dialog-button#close-btn').on('click', () => {
-        $('.tb-dialog-button').off('click');
-        $('.testbench-manual-panel').css('visibility', 'hidden');
-    });
+    return result;
 }
 
 /**
  * Runs single combinational test
- * Used in MANUAL mode
  * @param {Object} data - Object containing Test Data
  * @param {number} groupIndex - Index of the group to be tested
  * @param {number} caseIndex - Index of the case inside the group
@@ -462,7 +532,7 @@ function triggerReset(reset, scope) {
 /**
  * UI Function
  * Initialize Manual mode UI
- * Called by runManual()
+ * Called by simulatorRunTestbench()
  * @param {Object} data - Object containing the test data
  */
 function initManualUI(data) {
@@ -506,8 +576,8 @@ function manualUISetCurrentCase(data, groupIndex, caseIndex) {
         currCaseElement.append(`<td>${output.values[caseIndex]}</td>`);
     }
 
-    $('.testbench-manual-panel .tb-data#data-group').children().eq(1).text(groupIndex + 1);
-    $('.testbench-manual-panel .tb-data#data-case').children().eq(1).text(caseIndex + 1);
+    $('.testbench-manual-panel .group-label').text(data.groups[groupIndex].label);
+    $('.testbench-manual-panel .case-label').text(caseIndex + 1);
 }
 
 /**
@@ -516,7 +586,7 @@ function manualUISetCurrentCase(data, groupIndex, caseIndex) {
  * @param {Object} data - Object containing the test data
  * @param {Map} result - Map containing the output values (returned by getOutputValues())
  */
-function manualUISetResult(data, result) {
+function manualUISetResult(data, groupIndex, caseIndex, result) {
     const resultElement = $('#tb-manual-table-test-result');
     let inputCount = data.groups[0].inputs.length;
     resultElement.empty();
@@ -525,7 +595,10 @@ function manualUISetResult(data, result) {
         resultElement.append('<td> - </td>');
     }
 
-    for (const resultValue of result.values()) {
-        resultElement.append(`<td>${resultValue}</td>`);
+    for (const output of result.keys()) {
+        const resultValue = result.get(output);
+        const expectedValue = data.groups[groupIndex].outputs.find((dataOutput) => dataOutput.label === output).values[caseIndex];
+        const color = resultValue === expectedValue ? "#17FC12" : "#FF1616";
+        resultElement.append(`<td style="color: ${color}">${resultValue}</td>`);
     }
 }

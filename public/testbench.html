@@ -8,26 +8,26 @@
     <div class="container" style="position: relative;">
         <h1 style="text-align: center"><b>Create Test</b></h1>
         
-        <button class="tablink" id="seqSelect" onclick="changeMode('seq')">Sequential Test</button>
-        <button class="tablink tab-selected" id="combSelect" onclick="changeMode('comb')">Combinational Test</button>
+        <button class="tablink" id="seqSelect" onclick="changeMode('seq'); addGroup();">Sequential Test</button>
+        <button class="tablink tab-selected" id="combSelect" onclick="changeMode('comb'); addGroup();">Combinational Test</button>
         <!-- Default table -->
         <table class="tb-table label-table" id="testBenchTable">
             <tr>
                 <th colspan="1"></th>
-                <th colspan="2" id="tb-inputs-head">INPUTS<button class="table-button" id="plus-1" onclick="addInput()">+</button>
-                <th colspan="1" id="tb-outputs-head">OUTPUTS<button class="table-button" id="plus-1" onclick="addOutput()">+</button>
+                <th colspan="0" id="tb-inputs-head">INPUTS<button class="table-button" id="plus-1" onclick="addInput()">+</button>
+                <th colspan="0" id="tb-outputs-head">OUTPUTS<button class="table-button" id="plus-1" onclick="addOutput()">+</button>
             </tr>
             <tr>
                 <th>Label</th>
-                <th style="background-color: #aaf" id="tb-inp-label-1"><span contenteditable="true">inp1</span> <a onclick="deleteInput($(this));"><span class="fa fa-minus-square tb-minus">&#8722;</span></a></th>
+                <!-- <th style="background-color: #aaf" id="tb-inp-label-1"><span contenteditable="true">inp1</span> <a onclick="deleteInput($(this));"><span class="fa fa-minus-square tb-minus">&#8722;</span></a></th>
                 <th style="background-color: #aaf" id="tb-inp-label-2"><span contenteditable="true">inp2</span> <a onclick="deleteInput($(this));"><span class="fa fa-minus-square tb-minus">&#8722;</span></a></th>
-                <th style="background-color: #afa" id="tb-out-label-1"><span contenteditable="true">out1</span> <a onclick="deleteOutput($(this));"><span class="fa fa-minus-square tb-minus">&#8722;</span></a></th>
+                <th style="background-color: #afa" id="tb-out-label-1"><span contenteditable="true">out1</span> <a onclick="deleteOutput($(this));"><span class="fa fa-minus-square tb-minus">&#8722;</span></a></th> -->
             </tr>
             <tr>
                 <td>Bitwidth</td>
+                <!-- <td contenteditable="true">1</td>
                 <td contenteditable="true">1</td>
-                <td contenteditable="true">1</td>
-                <td contenteditable="true">1</td>
+                <td contenteditable="true">1</td> -->
             </tr>
         </table>
         <div id="dataGroup">
@@ -190,12 +190,29 @@
       */
     })
 
+    window.onload = () => {
+        const query = new URLSearchParams(window.location.search);
+        if (query.has('data')) {
+            loadData(query.get('data'));
+            return;
+        }
+
+        if (query.has('result')) {
+            loadResult(query.get('result'));
+            makeContentUneditable();
+            return;
+        }
+
+        addInput();
+        addOutput();
+    }
+
     var mode = "comb";
     var groupIndex = 0;
-    var inputCount = 2;
-    var nextInputIndex = 2;
-    var outputCount = 1;
-    var nextOutputIndex = 1;
+    var inputCount = 0;
+    var nextInputIndex = 0;
+    var outputCount = 0;
+    var nextOutputIndex = 0;
     var cases = [0];
 
     function dataReset() {
@@ -205,7 +222,7 @@
 
     /* Change UI mode between Combinational(comb) and Sequential(seq) */
     function changeMode(m) {
-        if(mode === m) return;
+        // if(mode === m) return;
         dataReset();
         mode = m;
         $(`#combSelect`).removeClass('tab-selected');
@@ -213,12 +230,6 @@
         $("#tb-new-group").css("visibility", m === "seq" ? "visible" : "hidden");
         $(`#${m}Select`).addClass('tab-selected');
         $("#dataGroup").empty();
-        initTable();
-
-    }
-
-    function initTable() {
-        addGroup();
     }
 
     /* Adds case to a group */
@@ -267,7 +278,7 @@
 
     /* Adds input with default value 0 or values supplied in @param inputData */
     /* Used without params for UI, used with params by loadData() */
-    function addInput(label=`inp${nextInputIndex + 1}`, inputData=[], bitwidth=1) {
+    function addInput(label=`inp${nextInputIndex + 1}`, bitwidth=1, inputData=[]) {
         nextInputIndex++;
         inputCount++;
         // Change head table contents
@@ -278,10 +289,9 @@
         $("#tb-inputs-head").attr("colspan", inputCount);
 
         // Change data tables' contents
-
-        $("#dataGroup").find("table").each(function() {
-            $(this).find("tr").each(function(i) {
-                let s = `<td contenteditable="true">${inputData[i] || 0}</td>`;
+        $("#dataGroup").find("table").each(function(group_i) {
+            $(this).find("tr").each(function(case_i) {
+                let s = `<td contenteditable="true">${inputData.length ? inputData[group_i][case_i] : 0}</td>`;
                 $(this).find("td").eq(inputCount - 1).after(s);
             });
         });
@@ -291,7 +301,7 @@
 
     /* Adds output with default value 0 or values supplied in @param outputData */
     /* Used without params for UI, used with params by loadData() */
-    function addOutput(label=`out${nextOutputIndex + 1}`, outputData=[], bitwidth=1) {
+    function addOutput(label=`out${nextOutputIndex + 1}`, bitwidth=1, outputData=[]) {
         nextOutputIndex++;
         outputCount++;
         // Change head table contents
@@ -303,9 +313,9 @@
 
         // Change data tables' contents
 
-        $("#dataGroup").find("table").each(function() {
-            $(this).find("tr").each(function(i) {
-                let s = `<td contenteditable="true">${outputData[i] || 0}</td>`;
+        $("#dataGroup").find("table").each(function(group_i) {
+            $(this).find("tr").each(function(case_i) {
+                let s = `<td contenteditable="true">${outputData.length ? outputData[group_i][case_i] : 0}</td>`;
                 $(this).find("td").eq(inputCount + outputCount - 1).after(s);
             });
         });
@@ -411,12 +421,79 @@
     /* Loads data from JSON string into the table */
     function loadData(data) {
         data = JSON.parse(data);
-        inputCount = data.inputs.length;
-        outputCount = data.outputs.length;
-        if(inputCount > 0){
-            groupIndex = data.inputs[0].groups.length - 1;
+        changeMode(data.type);
+        for (let group_i = 0; group_i < data.groups.length; group_i ++) {
+            const group = data.groups[group_i];
+            addGroup(group.label);
+            for (let case_i = 0; case_i < group.inputs[0].values.length; case_i ++) {
+                // console.log(case_i);
+                addCase(group_i);
+            }
         }
-        
+
+        // Add input values
+        for (let input_i in data.groups[0].inputs) {
+            const input = data.groups[0].inputs[input_i];
+            const values = data.groups.map(group => { return group.inputs[input_i].values; });
+
+            addInput(input.label, input.bitWidth, values);
+        }
+
+        // Add output values
+        for (let output_i in data.groups[0].outputs) {
+            const output = data.groups[0].outputs[output_i];
+            const values = data.groups.map(group => { return group.outputs[output_i].values; });
+
+            addOutput(output.label, output.bitWidth, values);
+        }
+
+    }
+
+    function loadResult(data) {
+        data = JSON.parse(data);
+        changeMode(data.type);
+        for (let group_i = 0; group_i < data.groups.length; group_i ++) {
+            const group = data.groups[group_i];
+            addGroup(group.label);
+            for (let case_i = 0; case_i < group.inputs[0].values.length; case_i ++) {
+                // console.log(case_i);
+                addCase(group_i);
+            }
+        }
+
+        // Add input values
+        for (let input_i in data.groups[0].inputs) {
+            const input = data.groups[0].inputs[input_i];
+            const values = data.groups.map(group => { return group.inputs[input_i].values; });
+
+            addInput(input.label, input.bitWidth, values);
+        }
+
+        // Add output values
+        for (let output_i in data.groups[0].outputs) {
+            const output = data.groups[0].outputs[output_i];
+            const values = data.groups.map(group => { return group.outputs[output_i].values; });
+            const results = data.groups.map(group => { return group.outputs[output_i].results; });
+            const tableResult = [];
+
+            for (let group_i in values) {
+                const res = [];
+                for (let val_i in values[group_i]) {
+                    res.push(`${values[group_i][val_i]} - ${results[group_i][val_i]}`);
+                }
+
+                tableResult.push(res);
+            }
+
+            console.log(values);
+            addOutput(output.label, output.bitWidth, tableResult);
+        }
+    }
+
+    function makeContentUneditable() {
+        $('body').find('td, th, span, h3').each(function() {
+            $(this).attr('contenteditable', 'false');
+        });
     }
 
 
