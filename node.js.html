@@ -474,7 +474,7 @@ export default class Node {
                     node.highlighted = true;
                     var circuitName = node.scope.name;
                     var circuitElementName = node.parent.objectType;
-                    showError(`Contention Error: ${this.value} and ${node.value} at ${circuitElementName} in ${circuitName}`);
+                    showError(`ConstVal set to Non-binary value.`);
                 } else if (node.bitWidth == this.bitWidth || node.type == 2) {
                     if (node.parent.objectType == 'TriState' &amp;&amp; node.value != undefined &amp;&amp; node.type == 1) {
                         if (node.parent.state.value) { simulationArea.contentionPending.push(node.parent); }
@@ -876,7 +876,8 @@ Node.prototype.processVerilog = function() {
             this.scope.stack.push(this.connections[i]);
         }
     }
-}</code></pre>
+}
+</code></pre>
         </article>
     </section>
 
