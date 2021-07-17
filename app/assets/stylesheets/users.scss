@@ -83,7 +83,7 @@
   width: 40px;
 
   &:hover {
-    opacity: .7;
+    opacity: 0.7;
   }
 }
 //shared ends
@@ -272,22 +272,31 @@
     border-radius: 0;
     font-size: 16px;
     margin: 0;
-    padding: 7px 10px;
-    transition: .2s ease-in-out;
+    padding: 7px 10px 7px 35px;
+    transition: 0.2s ease-in-out;
 
     &:focus {
       border-color: $primary-green;
-      transition: .2s ease-in-out;
+      transition: 0.2s ease-in-out;
     }
   }
 }
-.users-search{
+
+.users-circuits-search {
   align-items: center;
   display: flex;
   flex-wrap: nowrap;
   justify-content: center;
   padding-top: 20px;
 }
+
+span.fa.fa-search.user-circuits-search-icon {
+  margin-right: -28px;
+  margin-left: 28px;
+  z-index: 2;
+  color:#636c72;
+}
+
 .users-circuits-tab {
   background-color: $form-border-grey;
   border-radius: 0;
@@ -313,7 +322,7 @@
   }
 
   &:focus {
-    box-shadow: 0 0 0 .2rem $form-input-focus-green;
+    box-shadow: 0 0 0 0.2rem $form-input-focus-green;
     outline: 0;
   }
 }
