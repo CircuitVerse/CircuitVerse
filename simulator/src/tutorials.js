@@ -1,4 +1,5 @@
 import Driver from 'driver.js';
+import banana from './i18n';
 
 export const tour = [
     {
@@ -6,8 +7,8 @@ export const tour = [
         className: 'guide_1',
         popover: {
             className: '',
-            title: 'Circuit Elements panel',
-            description: 'This is where you can find all the circuit elements that are offered to build amazing circuits.',
+            title: banana.i18n('tutorials-guide1-title'),
+            description: banana.i18n('tutorials-guide1-description'),
             position: 'right',
             offset: 160,
         },
@@ -15,8 +16,8 @@ export const tour = [
     {
         element: '.guide_2',
         popover: {
-            title: 'Properties Panel',
-            description: 'This panel lets you change element properties as they are selected. When no elements are selected, the panel displays project properties.',
+            title: banana.i18n('tutorials-guide2-title'),
+            description: banana.i18n('tutorials-guide2-description'),
             position: 'left',
             offset: 200,
         },
@@ -24,8 +25,8 @@ export const tour = [
     {
         element: '.quick-btn',
         popover: {
-            title: 'Quick Access Panel',
-            description: "This movable panel offers to perform some actions like Save Online, Open, Download quickly. Hover over the icons and see for yourself",
+            title: banana.i18n('tutorials-quick-btn-title'),
+            description: banana.i18n('tutorials-quick-btn-description'),
             position: 'bottom',
             // offset: 750,
         },
@@ -43,8 +44,8 @@ export const tour = [
     {
         element: '#tabsBar',
         popover: {
-            title: 'Circuit Tabs',
-            description: "This section displays all the circuits you have in your project. You can easily add and delete circuits.",
+            title: banana.i18n('tutorials-tabs-bar-title'),
+            description: banana.i18n('tutorials-tabs-bar-description'),
             position: 'bottom',
             offset: 250,
         },
@@ -52,8 +53,8 @@ export const tour = [
     {
         element: '.timing-diagram-panel',
         popover: {
-            title: 'Timing Diagram Panel (Waveform)',
-            description: "This panel displays the waveform created by circuits and can be used for resolving race conditions and debugging circuits.",
+            title: banana.i18n('tutorials-timing-diagram-panel-title'),
+            description: banana.i18n('tutorials-timing-diagram-panel-description'),
             position: 'bottom',
             offset: 0,
         },
@@ -73,8 +74,8 @@ export const tour = [
         element: '.fa-bug',
         popover: {
             className: "bug-guide",
-            title: 'Report System',
-            description: "You can report any issues/bugs you face through this issue reporting button there and then quickly.",
+            title: banana.i18n('tutorials-bug-guide-title'),
+            description: banana.i18n('tutorials-bug-guide-description'),
             position: 'left',
             offset: -105,
         },
@@ -83,8 +84,8 @@ export const tour = [
         element: '.tour-help',
         popover: {
             className: 'tourHelpStep',
-            title: 'Restart tutorial anytime',
-            description: 'You can restart this tutorial anytime by clicking on "Tutorial Guide" under this dropdown.',
+            title: banana.i18n('tutorials-tour-help-title'),
+            description: banana.i18n('tutorials-tour-help-description'),
             position: 'right',
             offset: 0,
         },

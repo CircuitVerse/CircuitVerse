@@ -19,5 +19,19 @@
     "combinationalAnalysis-prompt-enter-outputs": "अल्पविराम द्वारा अलग किए गए आउटपुट नाम दर्ज करें",
     "combinationalAnalysis-buttons-generate-circuit": "सर्किट की रचना करें",
     "combinationalAnalysis-buttons-print-truth-table": "ट्रुथ टेबल प्रिंट करे",
-    "combinationalAnalysis-decimal-column": "डेसीमल"
+    "combinationalAnalysis-decimal-column": "डेसीमल",
+    "tutorials-guide1-title": "सर्किट के मूल तत्वों के लिए पैनल",
+    "tutorials-guide1-description": "यह वह जगह है जहां आप सभी सर्किट के तत्व पा सकते हैं जिनका अद्भुत सर्किट बनाने के लिए उपयोग किया जाता हैं।",
+    "tutorials-guide2-title": "तत्वों के गुणों के लिए पैनल",
+    "tutorials-guide2-description": "यह पैनल तत्वों के चयनित होने पर तत्वों के गुणों को बदलने देता है। जब कोई तत्व नहीं चुना जाता है, तो पैनल परियोजना के गुणों प्रदर्शित करता है।",
+    "tutorials-quick-btn-title": "शीघ्रता से कुछ कार्य करने के लिए पैनल",
+    "tutorials-quick-btn-description": "यह मूवेबल पैनल कुछ क्रियाएं करने की पेशकश करता है जैसे परियोजना ऑनलाइन सेव करे, खोलें, डाउनलोड करें। दिए गए आइकन पर होवर करें और स्वयं देखे।",
+    "tutorials-tabs-bar-title": "सर्किट के नाम प्रदर्शित करने हेतु टैब",
+    "tutorials-tabs-bar-description": "यह टैब आपके परियोजना में मौजूद सभी सर्किटों को प्रदर्शित करता है। आप सर्किट को आसानी से जोड़ और हटा सकते हैं। ",
+    "tutorials-timing-diagram-panel-title": "टाइमिंग डायग्राम के लिए पैनल (वेवफॉर्म)",
+    "tutorials-timing-diagram-panel-description": "यह पैनल सर्किट द्वारा बनाए गए वेवफॉर्म को प्रदर्शित करता है और इसका उपयोग रेस कंडीशंस को हल करने और सर्किट डिबग करने के लिए किया जा सकता है।",
+    "tutorials-bug-guide-title": "रिपोर्ट सिस्टम",
+    "tutorials-bug-guide-description": "आप इस रिपोर्टिंग बटन के माध्यम से आपकी किसी भी समस्या/बग को जल्दी से रिपोर्ट कर सकते हैं।",
+    "tutorials-tour-help-title": "कभी भी ट्यूटोरियल पुनः आरंभ करें",
+    "tutorials-tour-help-description": "आप इस ड्रॉपडाउन के अंतर्गत \"ट्यूटोरियल गाइड\" पर क्लिक करके कभी भी इस ट्यूटोरियल को फिर से शुरू कर सकते हैं।"
 }
