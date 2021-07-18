@@ -19,5 +19,19 @@
     "combinationalAnalysis-prompt-enter-outputs": "Enter outputs separated by commas",
     "combinationalAnalysis-buttons-generate-circuit": "Generate Circuit",
     "combinationalAnalysis-buttons-print-truth-table": "Print Truth Table",
-    "combinationalAnalysis-decimal-column": "dec"
+    "combinationalAnalysis-decimal-column": "dec",
+    "tutorials-guide1-title": "Circuit Elements panel",
+    "tutorials-guide1-description": "This is where you can find all the circuit elements that are offered to build amazing circuits.",
+    "tutorials-guide2-title": "Properties Panel",
+    "tutorials-guide2-description": "This panel lets you change element properties as they are selected. When no elements are selected, the panel displays project properties.",
+    "tutorials-quick-btn-title": "Quick Access Panel",
+    "tutorials-quick-btn-description": "This movable panel offers to perform some actions like Save Online, Open, Download quickly. Hover over the icons and see for yourself",
+    "tutorials-tabs-bar-title": "Circuit Tabs",
+    "tutorials-tabs-bar-description": "This section displays all the circuits you have in your project. You can easily add and delete circuits.",
+    "tutorials-timing-diagram-panel-title": "Timing Diagram Panel (Waveform)",
+    "tutorials-timing-diagram-panel-description": "This panel displays the waveform created by circuits and can be used for resolving race conditions and debugging circuits.",
+    "tutorials-bug-guide-title": "Report System",
+    "tutorials-bug-guide-description": "You can report any issues/bugs you face through this issue reporting button there and then quickly.",
+    "tutorials-tour-help-title": "Restart tutorial anytime",
+    "tutorials-tour-help-description": "You can restart this tutorial anytime by clicking on \"Tutorial Guide\" under this dropdown."
 }
