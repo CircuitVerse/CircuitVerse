@@ -7,7 +7,10 @@
     <br><br>
     <div class="container" style="position: relative;">
         <h1 style="text-align: center"><b>Create Test</b></h1>
-        
+        <div class="test-title">
+            <div style="width: 20%; font-weight: bolder;">Title:</div>
+            <div id="test-title-label" contenteditable="true">Untitled</div>
+        </div>
         <button class="tablink" id="seqSelect" onclick="changeMode('seq'); addGroup();">Sequential Test</button>
         <button class="tablink tab-selected" id="combSelect" onclick="changeMode('comb'); addGroup();">Combinational Test</button>
         <!-- Default table -->
@@ -124,6 +127,7 @@
       color: white;
       float: left;
       border: 1px solid white;
+      border-radius: 5px;
       outline: none;
       cursor: pointer;
       padding: 14px 16px;
@@ -171,24 +175,25 @@
     .label-table {
         margin-top: 100px;
     }
-    /*temp*/
-    .tb-minus {
 
+    .test-title {
+        display: flex; width: 100%;
+        font-size: 25px;
+        margin-top: 20px;
+        margin-bottom: 10px;
     }
+
+    .test-title #test-title-label {
+        width: 80%;
+        border: 1px solid;
+        border-radius: 5px;
+    }
+    
 
 </style>
 
 
 <script>
-
-    /* Listen to submit click */
-    $("#tb-form").submit(function(event) {
-      const data = parse();
-      $("#tb-data-field").val(JSON.stringify(data));
-      /*
-        TODO: Add Title, Description, AccessType to hidden fields
-      */
-    })
 
     window.onload = () => {
         const query = new URLSearchParams(window.location.search);
@@ -411,10 +416,10 @@
         let data = {};
         const tableData = getData();
         data.type = mode;
+        data.title = $('#test-title-label').text();
         data.groups = tableData;
-
         console.log(data);
-        console.log(JSON.stringify(data))
+        console.log(JSON.stringify(data));
         return data;
     }
 
@@ -451,6 +456,7 @@
 
     function loadResult(data) {
         data = JSON.parse(data);
+        data.title = $('#test-title-label').text(data.title);
         changeMode(data.type);
         for (let group_i = 0; group_i < data.groups.length; group_i ++) {
             const group = data.groups[group_i];

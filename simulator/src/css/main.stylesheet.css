@@ -779,7 +779,7 @@ div.icon img {
   text-overflow: ellipsis;
 }
 
-.tb-data#data-name {
+.tb-data#data-title {
   float: left;
 }
 
@@ -825,7 +825,7 @@ div.icon img {
 
 .tb-dialog-button {
   display: inline;
-  margin: 10px;
+  margin: 8px;
   border-radius: 5px !important;
   padding-left: 8px !important;
   padding-right: 8px !important;
@@ -888,7 +888,9 @@ div.icon img {
   float:right;
 }
 
-.
+.tb-test-null {
+  width: 350px !important;
+}
 
 /* Testbench UI styling end */
 
