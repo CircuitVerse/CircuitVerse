@@ -2,19 +2,20 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <body style="font-family: sans-serif;">
     <br><br>
     <div class="container" style="position: relative;">
-        <h1 style="text-align: center"><b>Create Test</b></h1>
+        <h1 style="text-align: center" id="tb-creator-head"><b>Create Test</b></h1>
         <div class="test-title">
             <div style="width: 20%; font-weight: bolder;">Title:</div>
             <div id="test-title-label" contenteditable="true">Untitled</div>
         </div>
-        <button class="tablink" id="seqSelect" onclick="changeMode('seq'); addGroup();">Sequential Test</button>
-        <button class="tablink tab-selected" id="combSelect" onclick="changeMode('comb'); addGroup();">Combinational Test</button>
+        <button class="tablink tablink-no-override" id="seqSelect" onclick="changeMode('seq') && addGroup();">Sequential Test</button>
+        <button class="tablink tab-selected tablink-no-override" id="combSelect" onclick="changeMode('comb') && addGroup();">Combinational Test</button>
         <!-- Default table -->
-        <table class="tb-table label-table" id="testBenchTable">
+        <table class="tb-table label-table ui-sortable" id="testBenchTable">
             <tr>
                 <th colspan="1"></th>
                 <th colspan="0" id="tb-inputs-head">INPUTS<button class="table-button" id="plus-1" onclick="addInput()">+</button>
@@ -59,7 +60,7 @@
 </body>
 <style>
 
-    .tb-test-title{
+    .tb-test-title {
         text-align: center;
         margin-top: 50px;
     }
@@ -136,12 +137,12 @@
     }
 
 /* Change background color of buttons on hover */
-    .tablink:hover {
+    .tablink:hover.tablink-no-override {
       background-color: #a5dfc5;
     }
 
-    .tablink:active {
-      outline: none;
+    .tablink-hover-override {
+
     }
 
     .tablink.tab-selected {
@@ -158,10 +159,17 @@
         border: 2px solid black;
         border-collapse: collapse;
     }
+
+    .tb-table tr th:first-child, 
+              tr td:first-child {
+        width: 250px;
+    }
+
     .tb-table th, td {
         padding: 15px;
         text-align: center;
     }
+
     .tb-table th {
         text-align: center;
     }
@@ -188,6 +196,11 @@
         border: 1px solid;
         border-radius: 5px;
     }
+
+    .tb-handle {
+        padding: 0px !important;
+        border: 0px !important;
+    }
     
 
 </style>
@@ -198,18 +211,21 @@
     window.onload = () => {
         const query = new URLSearchParams(window.location.search);
         if (query.has('data')) {
+            $("#tb-creator-head").html("<b>Edit Test</b>")
             loadData(query.get('data'));
             return;
         }
 
         if (query.has('result')) {
+            $("#tb-creator-head").html("<b>Test Result</b>")
             loadResult(query.get('result'));
-            makeContentUneditable();
+            readOnlyUI();
             return;
         }
 
         addInput();
         addOutput();
+        makeSortable();
     }
 
     var mode = "comb";
@@ -227,7 +243,7 @@
 
     /* Change UI mode between Combinational(comb) and Sequential(seq) */
     function changeMode(m) {
-        // if(mode === m) return;
+        if(mode === m) return false;
         dataReset();
         mode = m;
         $(`#combSelect`).removeClass('tab-selected');
@@ -235,12 +251,15 @@
         $("#tb-new-group").css("visibility", m === "seq" ? "visible" : "hidden");
         $(`#${m}Select`).addClass('tab-selected');
         $("#dataGroup").empty();
+
+        return true;
     }
 
     /* Adds case to a group */
     function addCase(grp) {
         let current_group_table = $(`#data-table-${grp + 1}`);
-        let s = `<tr>\n<td><span>${++cases[grp]}</span> <a onclick="deleteCase($(this))"class="fa fa-minus-square tb-minus">&#8722;</span></td></span>\n`;
+
+        let s = `<tr><td class="tb-handle"><div onclick="deleteCase($(this))"class="fa fa-minus-square tb-minus">&#8722;</div></td>\n`;
         for(let i = 0; i < inputCount + outputCount; i ++) s += '<td contenteditable="true">0</td>';
         s += '</tr>';
         current_group_table.append(s);
@@ -263,8 +282,8 @@
         const s = 
         `
         <div id="data-group-${groupIndex + 1}" class="data-group">
-            <h3 id="data-group-title-${groupIndex + 1}" contenteditable="true">${groupName}</h3>
-            <h5>Click + to add tests to the ${mode === "comb"? "group" : "set"}</h5>
+            <h3 id="data-group-title-${groupIndex + 1}" contenteditable="true">${escapeHtml(groupName)}</h3>
+            <h5 class="handle">Click + to add tests to the ${mode === "comb"? "group" : "set"}</h5>
             <table style="width:100%" class="tb-table" id="data-table-${groupIndex + 1}">
             </table>
             <button class="lower-button plus-button latest-button" id="plus-${groupIndex + 1}" onclick="addCase(${groupIndex})" style="font-size: 25px;">+</button>
@@ -272,6 +291,8 @@
         `;
         cases[groupIndex] = 0;
         $("#dataGroup").append(s);
+
+        makeSortable();
     }
 
     /* Deletes a group */
@@ -287,8 +308,8 @@
         nextInputIndex++;
         inputCount++;
         // Change head table contents
-        const s_head = `<th style="background-color: #aaf" id="tb-inp-label-${nextInputIndex}"><span contenteditable="true">${label}</span> <a onclick="deleteInput($(this));"><span class="fa fa-minus-square tb-minus">&#8722;</span></a></th>`;
-        const s_data = `<td contenteditable="true">${bitwidth}</td>`;
+        const s_head = `<th style="background-color: #aaf" id="tb-inp-label-${nextInputIndex}"><span contenteditable="true">${escapeHtml(label)}</span> <a onclick="deleteInput($(this));"><span class="fa fa-minus-square tb-minus">&#8722;</span></a></th>`;
+        const s_data = `<td contenteditable="true">${escapeHtml(bitwidth.toString())}</td>`;
         $("#testBenchTable").find("tr").eq(1).find("th").eq(inputCount - 1).after(s_head);
         $("#testBenchTable").find("tr").eq(2).find("td").eq(inputCount - 1).after(s_data);
         $("#tb-inputs-head").attr("colspan", inputCount);
@@ -296,7 +317,7 @@
         // Change data tables' contents
         $("#dataGroup").find("table").each(function(group_i) {
             $(this).find("tr").each(function(case_i) {
-                let s = `<td contenteditable="true">${inputData.length ? inputData[group_i][case_i] : 0}</td>`;
+                let s = `<td contenteditable="true">${inputData.length ? escapeHtml(inputData[group_i][case_i]) : 0}</td>`;
                 $(this).find("td").eq(inputCount - 1).after(s);
             });
         });
@@ -310,8 +331,8 @@
         nextOutputIndex++;
         outputCount++;
         // Change head table contents
-        const s_head = `<th style="background-color: #afa" id="tb-out-label-${nextOutputIndex}"><span contenteditable="true">${label}</span> <a onclick="deleteOutput($(this));"><span class="fa fa-minus-square tb-minus">&#8722;</span></a></th>`
-        const s_data = `<td contenteditable="true">${bitwidth}</td>`;
+        const s_head = `<th style="background-color: #afa" id="tb-out-label-${nextOutputIndex}"><span contenteditable="true">${escapeHtml(label)}</span> <a onclick="deleteOutput($(this));"><span class="fa fa-minus-square tb-minus">&#8722;</span></a></th>`
+        const s_data = `<td contenteditable="true">${escapeHtml(bitwidth.toString())}</td>`;
         $("#testBenchTable").find("tr").eq(1).find("th").eq(inputCount + outputCount - 1).after(s_head);
         $("#testBenchTable").find("tr").eq(2).find("td").eq(inputCount + outputCount - 1).after(s_data);
         $("#tb-outputs-head").attr("colspan", outputCount);
@@ -320,7 +341,7 @@
 
         $("#dataGroup").find("table").each(function(group_i) {
             $(this).find("tr").each(function(case_i) {
-                let s = `<td contenteditable="true">${outputData.length ? outputData[group_i][case_i] : 0}</td>`;
+                let s = `<td contenteditable="true">${outputData.length ? escapeHtml(outputData[group_i][case_i]) : 0}</td>`;
                 $(this).find("td").eq(inputCount + outputCount - 1).after(s);
             });
         });
@@ -420,12 +441,14 @@
         data.groups = tableData;
         console.log(data);
         console.log(JSON.stringify(data));
+        prompt("Ctrl + C to copy", JSON.stringify(data))
         return data;
     }
 
     /* Loads data from JSON string into the table */
     function loadData(data) {
         data = JSON.parse(data);
+        if(data.title) $('#test-title-label').text(data.title);
         changeMode(data.type);
         for (let group_i = 0; group_i < data.groups.length; group_i ++) {
             const group = data.groups[group_i];
@@ -456,7 +479,7 @@
 
     function loadResult(data) {
         data = JSON.parse(data);
-        data.title = $('#test-title-label').text(data.title);
+        if(data.title) $('#test-title-label').text(data.title);
         changeMode(data.type);
         for (let group_i = 0; group_i < data.groups.length; group_i ++) {
             const group = data.groups[group_i];
@@ -491,16 +514,60 @@
                 tableResult.push(res);
             }
 
-            console.log(values);
             addOutput(output.label, output.bitWidth, tableResult);
         }
     }
 
+    function readOnlyUI() {
+        makeContentUneditable();
+        makeUnsortable();
+        $(".lower-button, .table-button, .tb-minus").hide();
+        $(".tablink").attr('disabled', 'disabled');
+        $(".tablink").removeClass('tablink-no-override');
+    }
+
     function makeContentUneditable() {
-        $('body').find('td, th, span, h3').each(function() {
+        $('body').find('td, th, span, h3, div').each(function() {
             $(this).attr('contenteditable', 'false');
         });
     }
 
+    function makeSortable() {
+
+        const helper = function(e, ui) {
+            let helperE = ui.clone();
+            helperE.children().each(function(child_i) {
+                $(this).width(ui.children().eq(child_i).width());
+            });
+
+            return helperE;
+        };
+
+        const makePlaceholder = function(e, ui) {
+            ui.placeholder.children().each(function() { $(this).css('border', '0px'); })
+        }
+
+        $(".data-group table").sortable({ 
+            handle: '.tb-handle',
+            helper: helper,
+            start: makePlaceholder,
+            placeholder: 'clone',
+            connectWith: '.data-group table',
+            scroll: false
+        });
+    }
+
+    function makeUnsortable() {
+        $(".data-group table").sortable({ disabled: true });
+    }
+
+    function escapeHtml(unsafe) {
+        return unsafe
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+    }
 
 </script>
