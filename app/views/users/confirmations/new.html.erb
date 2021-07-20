@@ -2,11 +2,11 @@
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 center-image">
       <%= image_tag "SVGs/login.svg", alt: "Login Logo", :class => "users-image" %>
-      <h5 class="users-image-text">Welcome back to the Digital Circuit Universe!</h5>
+      <h5 class="users-image-text"><%= t("welcome_back_text") %></h5>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
       <div class="users-form-container">
-        <h2 class="users-main-heading">Resend confirmation instructions</h2>
+        <h2 class="users-main-heading"><%= t("users.confirmations.resend_confirmation_instructions") %></h2>
         <%= form_with(model: resource, as: resource_name, url: confirmation_path(resource_name), method: :post, local: true) do |f| %>
           <%= devise_error_messages! %>
           <div class="field form-group">
@@ -17,7 +17,7 @@
           </div>
           <div class="field form-group">
             <div class="input-group">
-              <%= f.submit "Resend confirmation instructions" ,class:"btn primary-button users-primary-button" %>
+              <%= f.submit t("users.confirmations.resend_confirmation_instructions") class:"btn primary-button users-primary-button" %>
             </div>
           </div>
           <%= render "users/shared/links" %>

@@ -2,12 +2,12 @@
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 center-image">
       <%= image_tag "SVGs/signup.svg", alt: "Signup Sketch", :class => "users-image" %>
-      <h5>Get yourself registered to start away with saving circuits, building groups and much more!</h5>
+      <h5><%= t("users.registrations.get_started") %></h5>
     </div>
 
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
       <div class="form-container">
-        <h1 class="users-main-heading">Sign Up</h1>
+        <h1 class="users-main-heading"><%= t("sign_up") %></h1>
         <%= form_with(model: resource, as: resource_name, url: registration_path(resource_name), local: true) do |f| %>
           <%= f.invisible_captcha :subtitle %>
         <% if !resource.errors.empty? %>
@@ -35,7 +35,7 @@
           <h6>
             <%= f.label :password %>
             <% if @minimum_password_length %>
-              <span>(Minimum <%= @minimum_password_length %> characters)</span>
+              <span> <%= t("users.minimum_password_length", minimum_password_length: @minimum_password_length) %></span>
             <% end %>
           </h6>
         <div class="input-group form-input">
@@ -52,10 +52,10 @@
                 <%= flash[:recaptcha_error] %>
                 <%= recaptcha_tags %>
               <% end %>
-              <%= f.submit "Sign up" ,class:"btn primary-button users-login-primary-button" %>
+              <%= f.submit t("sign_up"), class:"btn primary-button users-login-primary-button" %>
               <div class="users-text-container">
-                <span class="users-text">Already Registered?</span>
-                <%= link_to "Log In", new_user_session_path ,class:"anchor-text" %>
+                <span class="users-text"><%= t("users.registrations.ask_already_registered") %></span>
+                <%= link_to t("login"), new_user_session_path ,class:"anchor-text" %>
               </div>
             </div>
           </div>
