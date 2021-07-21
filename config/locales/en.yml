@@ -38,6 +38,17 @@ en:
   email_us_heading: "Email us at"
   join_at_slack_heading: "Join and chat with us at"
   join_at_slack_description: "Slack Channel"
+  welcome_back_text: "Welcome back to the Digital Circuit Universe!"
+  save: "Save"
+  back: "Back"
+  login: "Login"
+  sign_up: "Sign Up"
+  assignment: "Assignment"
+  launch: "Launch"
+  fork: "Fork"
+  more: "More"
+  features_heading: "Features"
+  features_description: "Design circuits quickly and easily with a modern and intuitive user interface with drag-and-drop, copy/paste, zoom and more."
 
 # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
