@@ -67,7 +67,7 @@
         <div class="search-no-results-image">
           <%= image_tag "SVGs/noProject.svg", alt: "No result image" %>
           <% if current_user == @user %>
-            <h6><%= t("users.logix.index.no_projects_heading_html", simulator_new_url: link_to(t("users.logix.index.create_here"), simulator_new_url, class: 'anchor-text') )%></h6>
+            <h6><%= t("users.logix.index.no_projects_heading_html", simulator_new_url: link_to(t("users.logix.index.create_here"), simulator_new_url, class: 'anchor-text')) %></h6>
           <% else %>
             <h6><%= t("users.logix.index.no_user_projects", name: @user.name ) %></h6>
           <% end %>
@@ -83,7 +83,7 @@
           <div class="search-no-results-image">
             <%= image_tag "SVGs/noProject.svg", alt: "No result image" %>
             <% if current_user == @user %>
-              <h6><%= t("users.logix.index.no_favourites_heading_html", simulator_new_url: link_to(t("users.logix.index.create_here"), simulator_new_url, class: 'anchor-text') )%></h6>
+              <h6><%= t("users.logix.index.no_favourites_heading_html", simulator_new_url: link_to(t("users.logix.index.create_here"), simulator_new_url, class: 'anchor-text')) %></h6>
             <% else %>
               <h6><%= t("users.logix.index.no_user_favourites", name: @user.name ) %></h6>
             <% end %>

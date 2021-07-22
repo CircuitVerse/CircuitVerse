@@ -6,6 +6,6 @@ hi:
         name: "नाम"
         country: "देश"
         educational_institute: "शैक्षिक संस्थान"
-        locale: "लोकेल"
+        locale: "भाषा"
         password: "पासवर्ड"
         password_confirmation: "पासवर्ड की पुष्टि"
