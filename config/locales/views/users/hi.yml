@@ -1,12 +1,12 @@
 hi:
   users:
     minimum_password_length: "(न्यूनतम %{minimum_password_length} अक्षर)"
-    ask_new_user: "नए उपयोगकर्ता?"
+    ask_new_user: "क्या आप नए उपयोगकर्ता है?"
     confirmations:
       resend_confirmation_instructions: "पुष्टिकरण निर्देश फिर से भेजें"
     logix:
       delete_group_confirmation: "क्या आप वाकई इस समूह को हटाना चाहते हैं?"
-      delete_user_confirmation: "क्या आप इस खाते को हटाने के लिए सुनिश्चित हैं? इस कार्रवाई को वापस नहीं किया जा सकता." 
+      delete_user_confirmation: "क्या आप इस खाते को हटाने के लिए सुनिश्चित हैं? इस कार्रवाई को वापस नहीं किया जा सकता."
       preview_project: "परियोजना पूर्वावलोकन"
       member_since_html: "<strong>सदस्य कितने दिनों से:</strong> %{member_since} दिन"
       educational_institutes_html: "<strong>शैक्षिक संस्था:</strong> %{educational_institute}"
@@ -20,7 +20,7 @@ hi:
         choose_file: "फ़ाइल चुनें"
         country_select_placeholder: "दर्ज न करना पसंद करें"
         select_locale_prompt: "लोकेल चुनें"
-        subscribe_mail_checkpoint: "आपने ईमेल की सदस्यता ली?"
+        subscribe_mail_checkpoint: "क्या आपने ईमेल की सदस्यता ली?"
         delete_account_heading: "अपने खाते को नष्ट करे"
         delete_account_notice: "सावधानी के साथ आगे बढ़ें! इस क्रिया को पूर्ववत नहीं किया जा सकता है।"
         delete_account: "खाता हटाएं"
@@ -66,13 +66,13 @@ hi:
       change_password_heading: "अपना पासवर्ड बदलें"
       change_password: "मेरा पासवर्ड बदले"
       link_to_login_page: "लॉग इन पेज पर जाएं"
-      forgot_password_heading: "आप अपना पासवर्ड भूल गए?"
+      forgot_password_heading: "क्या आप अपना पासवर्ड भूल गए?"
       send_reset_link: "पासवर्ड रीसेट लिंक भेजें"
     registrations:
-      get_started: "सर्किट्स को सेव करने, समूह निर्माण करने और बहुत कुछ शुरू करने के लिए खुद को रजिस्टर करें!"
-      ask_already_registered: "आप पहले से रजिस्टर्ड हैं?"
+      get_started: "सर्किट्स को सेव करने, समूह निर्माण करने और बहुत कुछ शुरू करने के लिए आप यहाँ रजिस्टर करे!"
+      ask_already_registered: "क्या आप पहले से रजिस्टर्ड हैं?"
     sessions:
-      forgot_password: "आप पासवर्ड भूल गए?"
+      forgot_password: "क्या आप पासवर्ड भूल गए?"
       remember_me: "मेरा लॉगिन याद रखे "
     shared:
       login_with: "इनके उपयोग द्वारा लॉग इन करें"
