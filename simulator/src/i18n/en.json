@@ -66,5 +66,6 @@
     "circuit-delete-failure": "Circuit was not deleted",
     "circuit-prompt-enter-circuit-name": "Enter circuit name:",
     "circuit-prompt-default-circuit-name": "Untitled-Circuit",
-    "circuit-write-verilog-code-here": "// Write Some Verilog Code Here!"
+    "circuit-write-verilog-code-here": "// Write Some Verilog Code Here!",
+    "circuitElement-prompt-enter-bitwidth": "Enter bitWidth"
 }

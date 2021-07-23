@@ -66,5 +66,6 @@
     "circuit-delete-failure": "सर्किट नहीं हटाया गया है",
     "circuit-prompt-enter-circuit-name": "सर्किट का नाम दर्ज करें:",
     "circuit-prompt-default-circuit-name": "शीर्षकहीन-सर्किट",
-    "circuit-write-verilog-code-here": "// यहां कुछ वेरिलोग कोड लिखें!"
+    "circuit-write-verilog-code-here": "// यहां कुछ वेरिलोग कोड लिखें!",
+    "circuitElement-prompt-enter-bitwidth": "बिटविड्थ दर्ज करें"
 }

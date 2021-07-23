@@ -9,6 +9,7 @@ import { colors } from './themer/themer';
 import { layoutModeGet, tempBuffer } from './layoutMode';
 import { fillSubcircuitElements } from './ux';
 import { generateNodeName } from './verilogHelpers';
+import banana from './i18n';
 
 /**
  * Base class for circuit elements.
@@ -50,7 +51,7 @@ export default class CircuitElement {
         this.scope = scope;
         this.baseSetup();
 
-        this.bitWidth = bitWidth || parseInt(prompt('Enter bitWidth'), 10) || 1;
+        this.bitWidth = bitWidth || parseInt(prompt(banana.i18n('circuitElement-prompt-enter-bitwidth')), 10) || 1;
         this.direction = dir;
         this.directionFixed = false;
         this.labelDirectionFixed = false;
