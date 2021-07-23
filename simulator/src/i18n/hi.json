@@ -58,5 +58,13 @@
     "ux-subcircuit-menu-no-layout-elements": "<p>कोई लेआउट एलिमेंट्स उपलब्ध नहीं है</p>",
     "ux-report-issue-success": "<i class='fa fa-check' style='color:green'></i> आपने समस्या सफलतापूर्वक सबमिट कर दी है. हमारे मंच को बेहतर बनाने के लिए धन्यवाद।",
     "ux-report-issue-failure": "<i class='fa fa-check' style='color:red'></i> ऐसा लगता है कि कोई नेटवर्क समस्या है। कृपया support@ciruitverse.org पर हमसे संपर्क करें।",
-    "ux-unlabeled": "लेबल रहित"
+    "ux-unlabeled": "लेबल रहित",
+    "circuit-error-delete-current-circuit": "सर्किट को हटाने के लिए कम से कम 2 सर्किट होने चाहिए।",
+    "circuit-alert-dependent-circuit": "\nनिम्न सर्किट $1: $2 पर निर्भर हैं\n $1 को हटाने का प्रयास करने से पहले $1 के सब-सर्किट हटाएं",
+    "circuit-delete-circuit-confirmation": "क्या आप वाकई हटाना चाहते हैं: $1\nइसे पूर्ववत नहीं किया जा सकता है।",
+    "circuit-delete-success": "सर्किट सफलतापूर्वक हटा दिया गया है",
+    "circuit-delete-failure": "सर्किट नहीं हटाया गया है",
+    "circuit-prompt-enter-circuit-name": "सर्किट का नाम दर्ज करें:",
+    "circuit-prompt-default-circuit-name": "शीर्षकहीन-सर्किट",
+    "circuit-write-verilog-code-here": "// यहां कुछ वेरिलोग कोड लिखें!"
 }

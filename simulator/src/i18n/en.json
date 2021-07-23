@@ -58,8 +58,13 @@
     "ux-subcircuit-menu-no-layout-elements": "<p>No layout elements available</p>",
     "ux-report-issue-success": "<i class='fa fa-check' style='color:green'></i> You've successfully submitted the issue. Thanks for improving our platform.",
     "ux-report-issue-failure": "<i class='fa fa-check' style='color:red'></i> There seems to be a network issue. Please reach out to us at support@ciruitverse.org",
-    "ux-unlabeled": "unlabeled"
-
-
-
+    "ux-unlabeled": "unlabeled",
+    "circuit-error-delete-current-circuit": "At least 2 circuits need to be there in order to delete a circuit.",
+    "circuit-alert-dependent-circuit": "\nThe following circuits are depending on $1: $2\nDelete subcircuits of $1 before trying to delete $1",
+    "circuit-delete-circuit-confirmation": "Are you sure want to delete: $1\nThis cannot be undone.",
+    "circuit-delete-success": "Circuit was successfully deleted",
+    "circuit-delete-failure": "Circuit was not deleted",
+    "circuit-prompt-enter-circuit-name": "Enter circuit name:",
+    "circuit-prompt-default-circuit-name": "Untitled-Circuit",
+    "circuit-write-verilog-code-here": "// Write Some Verilog Code Here!"
 }
