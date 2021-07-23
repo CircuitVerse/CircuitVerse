@@ -791,7 +791,7 @@ div.icon img {
   position: relative;
   display: inline-block;
   margin-top: 10px;
-  color: white;
+  color: var(--text-panel);
   max-width: 500px;
   overflow-x: auto;
   white-space: nowrap;
@@ -807,7 +807,7 @@ div.icon img {
 }
 
 .tb-manual-table th {
-  background: #3d3d3d;
+  background: var(--table-head-dark);
 }
 
 .testbench-manual-panel-buttons {
