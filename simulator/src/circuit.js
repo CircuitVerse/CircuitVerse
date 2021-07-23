@@ -33,6 +33,7 @@ import { setProjectName, getProjectName } from './data/save';
 import { changeClockEnable } from './sequential';
 import { changeInputSize } from './modules';
 import { verilogModeGet, verilogModeSet } from './Verilog2CV';
+import banana from './i18n';
 
 export const circuitProperty = {
     toggleLayoutMode, setProjectName, changeCircuitName, changeClockTime, deleteCurrentCircuit, changeClockEnable, changeInputSize, changeLightMode,
@@ -93,7 +94,7 @@ export function switchCircuit(id) {
 function deleteCurrentCircuit(scopeId = globalScope.id) {
     const scope = scopeList[scopeId];
     if (Object.keys(scopeList).length <= 1) {
-        showError('At least 2 circuits need to be there in order to delete a circuit.');
+        showError(banana.i18n('circuit-error-delete-current-circuit'));
         return;
     }
     let dependencies = '';
@@ -107,12 +108,12 @@ function deleteCurrentCircuit(scopeId = globalScope.id) {
         }
     }
     if (dependencies) {
-        dependencies = `\nThe following circuits are depending on '${scope.name}': ${dependencies}\nDelete subcircuits of ${scope.name} before trying to delete ${scope.name}`;
+        dependencies = banana.i18n('circuit-alert-dependent-circuit', scope.name, dependencies);
         alert(dependencies);
         return;
     }
 
-    const confirmation = confirm(`Are you sure want to delete: ${scope.name}\nThis cannot be undone.`);
+    const confirmation = confirm(banana.i18n('circuit-delete-circuit-confirmation', scope.name));
     if (confirmation) {
         if (scope.verilogMetadata.isVerilogCircuit) {
             scope.initialize();
@@ -122,8 +123,8 @@ function deleteCurrentCircuit(scopeId = globalScope.id) {
         $(`#${scope.id}`).remove();
         delete scopeList[scope.id];
         switchCircuit(Object.keys(scopeList)[0]);
-        showMessage('Circuit was successfully deleted');
-    } else { showMessage('Circuit was not deleted'); }
+        showMessage(banana.i18n('circuit-delete-success'));
+    } else { showMessage(banana.i18n('circuit-delete-failure')); }
 }
 
 /**
@@ -136,7 +137,7 @@ function deleteCurrentCircuit(scopeId = globalScope.id) {
 export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
     if (layoutModeGet()) { toggleLayoutMode(); }
     if (verilogModeGet()) { verilogModeSet(false);}
-    name = name || prompt('Enter circuit name:','Untitled-Circuit');
+    name = name || prompt(banana.i18n('circuit-prompt-enter-circuit-name'), banana.i18n('circuit-prompt-default-circuit-name'));
     name = stripTags(name);
     if (!name) return;
     const scope = new Scope(name);
@@ -196,7 +197,7 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
  * @category circuit
  */
 export function changeCircuitName(name, id = globalScope.id) {
-    name = name || 'Untitled';
+    name = name || banana.i18n('untitled');
     name = stripTags(name);
     $(`#${id} .circuitName`).html(`${truncateString(name, 18)}`);
     scopeList[id].name = name;
@@ -223,7 +224,7 @@ export default class Scope {
         this.verilogMetadata = {
             isVerilogCircuit: false,
             isMainCircuit: false,
-            code: "// Write Some Verilog Code Here!",
+            code: banana.i18n('circuit-write-verilog-code-here'),
             subCircuitScopeIds: []
         }
 
