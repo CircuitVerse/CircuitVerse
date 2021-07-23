@@ -33,5 +33,33 @@
     "tutorials-bug-guide-title": "Report System",
     "tutorials-bug-guide-description": "You can report any issues/bugs you face through this issue reporting button there and then quickly.",
     "tutorials-tour-help-title": "Restart tutorial anytime",
-    "tutorials-tour-help-description": "You can restart this tutorial anytime by clicking on \"Tutorial Guide\" under this dropdown."
+    "tutorials-tour-help-description": "You can restart this tutorial anytime by clicking on \"Tutorial Guide\" under this dropdown.",
+    "ux-module-property-project-properties-title": "<div id='moduleProperty-header'>Project Properties</div>",
+    "ux-module-property-project": "Project",
+    "untitled": "Untitled",
+    "ux-module-property-circuit": "Circuit",
+    "ux-module-property-clock-time": "Clock Time (ms)",
+    "ux-module-property-clock-enable": "Clock Enabled",
+    "ux-module-property-light-mode": "Lite Mode",
+    "ux-module-property-edit-layout-and-delete-circuit": "<p><button type='button' class='objectPropertyAttributeChecked btn btn-xs custom-btn--primary' name='toggleLayoutMode' >Edit Layout</button><button type='button' class='objectPropertyAttributeChecked btn btn-xs custom-btn--tertiary' name='deleteCurrentCircuit' >Delete Circuit</button> </p>",
+    "ux-module-property-bitwidth": "BitWidth:",
+    "ux-module-property-input-size": "Input Size:",
+    "ux-module-property-delay": "Delay:",
+    "ux-module-property-label": "Label:",
+    "ux-module-property-label-right": "RIGHT",
+    "ux-module-property-label-down": "DOWN",
+    "ux-module-property-label-left": "LEFT",
+    "ux-module-property-label-up": "UP",
+    "ux-module-property-label-direction": "Label Direction:",
+    "ux-module-property-direction": "Direction:",
+    "ux-module-property-orientation": "Orientation:",
+    "ux-module-property-buttons-help": "<p class='btn-parent'><button id='HelpButton' class='btn btn-primary btn-xs' type='button' >&#9432 Help</button></p>",
+    "ux-buttons-exit-full-preview": "Exit Full Preview",
+    "ux-subcircuit-menu-no-layout-elements": "<p>No layout elements available</p>",
+    "ux-report-issue-success": "<i class='fa fa-check' style='color:green'></i> You've successfully submitted the issue. Thanks for improving our platform.",
+    "ux-report-issue-failure": "<i class='fa fa-check' style='color:red'></i> There seems to be a network issue. Please reach out to us at support@ciruitverse.org",
+    "ux-unlabeled": "unlabeled"
+
+
+
 }

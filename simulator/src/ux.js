@@ -20,6 +20,7 @@ import updateTheme from "./themer/themer";
 import { generateImage } from './data/save';
 import { setupVerilogExportCodeWindow } from './verilog';
 import { setupBitConvertor} from './utils';
+import banana from './i18n';
 
 export const uxvar = {
     smartDropXX: 50,
@@ -269,42 +270,42 @@ export function showProperties(obj) {
     }
     else if (simulationArea.lastSelected === undefined || ['Wire', 'CircuitElement', 'Node'].indexOf(simulationArea.lastSelected.objectType) !== -1) {
         $('#moduleProperty').show();
-        $('#moduleProperty-inner').append("<div id='moduleProperty-header'>" + 'Project Properties' + '</div>');
-        $('#moduleProperty-inner').append(`<p><span>Project:</span> <input id='projname' class='objectPropertyAttribute' type='text' autocomplete='off' name='setProjectName'  value='${getProjectName() || 'Untitled'}'></p>`);
-        $('#moduleProperty-inner').append(`<p><span>Circuit:</span> <input id='circname' class='objectPropertyAttribute' type='text' autocomplete='off' name='changeCircuitName'  value='${globalScope.name || 'Untitled'}'></p>`);
-        $('#moduleProperty-inner').append(`<p><span>Clock Time (ms):</span> <input class='objectPropertyAttribute' min='50' type='number' style='width:100px' step='10' name='changeClockTime'  value='${simulationArea.timePeriod}'></p>`);
-        $('#moduleProperty-inner').append(`<p><span>Clock Enabled:</span> <label class='switch'> <input type='checkbox' ${['', 'checked'][simulationArea.clockEnabled + 0]} class='objectPropertyAttributeChecked' name='changeClockEnable' > <span class='slider'></span></label></p>`);
-        $('#moduleProperty-inner').append(`<p><span>Lite Mode:</span> <label class='switch'> <input type='checkbox' ${['', 'checked'][lightMode + 0]} class='objectPropertyAttributeChecked' name='changeLightMode' > <span class='slider'></span> </label></p>`);
-        $('#moduleProperty-inner').append("<p><button type='button' class='objectPropertyAttributeChecked btn btn-xs custom-btn--primary' name='toggleLayoutMode' >Edit Layout</button><button type='button' class='objectPropertyAttributeChecked btn btn-xs custom-btn--tertiary' name='deleteCurrentCircuit' >Delete Circuit</button> </p>");
+        $('#moduleProperty-inner').append(banana.i18n('ux-module-property-project-properties-title'));
+        $('#moduleProperty-inner').append(`<p><span>${banana.i18n('ux-module-property-project')}:</span> <input id='projname' class='objectPropertyAttribute' type='text' autocomplete='off' name='setProjectName'  value='${getProjectName() || banana.i18n('untitled')}'></p>`);
+        $('#moduleProperty-inner').append(`<p><span>${banana.i18n('ux-module-property-circuit')}:</span> <input id='circname' class='objectPropertyAttribute' type='text' autocomplete='off' name='changeCircuitName'  value='${globalScope.name || banana.i18n('untitled')}'></p>`);
+        $('#moduleProperty-inner').append(`<p><span>${banana.i18n('ux-module-property-clock-time')}:</span> <input class='objectPropertyAttribute' min='50' type='number' style='width:100px' step='10' name='changeClockTime'  value='${simulationArea.timePeriod}'></p>`);
+        $('#moduleProperty-inner').append(`<p><span>${banana.i18n('ux-module-property-clock-enable')}:</span> <label class='switch'> <input type='checkbox' ${['', 'checked'][simulationArea.clockEnabled + 0]} class='objectPropertyAttributeChecked' name='changeClockEnable' > <span class='slider'></span></label></p>`);
+        $('#moduleProperty-inner').append(`<p><span>${banana.i18n('ux-module-property-light-mode')}:</span> <label class='switch'> <input type='checkbox' ${['', 'checked'][lightMode + 0]} class='objectPropertyAttributeChecked' name='changeLightMode' > <span class='slider'></span> </label></p>`);
+        $('#moduleProperty-inner').append(banana.i18n('ux-module-property-edit-layout-and-delete-circuit'));
         // $('#moduleProperty-inner').append("<p>  ");
     } else {
         $('#moduleProperty').show();
 
         $('#moduleProperty-inner').append(`<div id='moduleProperty-header'>${obj.objectType}</div>`);
         // $('#moduleProperty').append("<input type='range' name='points' min='1' max='32' value="+obj.bitWidth+">");
-        if (!obj.fixedBitWidth) { $('#moduleProperty-inner').append(`<p><span>BitWidth:</span> <input class='objectPropertyAttribute' type='number'  name='newBitWidth' min='1' max='32' value=${obj.bitWidth}></p>`); }
+        if (!obj.fixedBitWidth) { $('#moduleProperty-inner').append(`<p><span>${banana.i18n('ux-module-property-bitwidth')}</span> <input class='objectPropertyAttribute' type='number'  name='newBitWidth' min='1' max='32' value=${obj.bitWidth}></p>`); }
 
-        if (obj.changeInputSize) { $('#moduleProperty-inner').append(`<p><span>Input Size:</span> <input class='objectPropertyAttribute' type='number'  name='changeInputSize' min='2' max='10' value=${obj.inputSize}></p>`); }
+        if (obj.changeInputSize) { $('#moduleProperty-inner').append(`<p><span>${banana.i18n('ux-module-property-input-size')}</span> <input class='objectPropertyAttribute' type='number'  name='changeInputSize' min='2' max='10' value=${obj.inputSize}></p>`); }
         
-        if (!obj.propagationDelayFixed) { $('#moduleProperty-inner').append(`<p><span>Delay:</span> <input class='objectPropertyAttribute' type='number'  name='changePropagationDelay' min='0' max='100000' value=${obj.propagationDelay}></p>`); }
+        if (!obj.propagationDelayFixed) { $('#moduleProperty-inner').append(`<p><span>${banana.i18n('ux-module-property-delay')}</span> <input class='objectPropertyAttribute' type='number'  name='changePropagationDelay' min='0' max='100000' value=${obj.propagationDelay}></p>`); }
         
         if (!obj.disableLabel)
-        $('#moduleProperty-inner').append(`<p><span>Label:</span> <input class='objectPropertyAttribute' type='text'  name='setLabel' autocomplete='off'  value='${escapeHtml(obj.label)}'></p>`);
+        $('#moduleProperty-inner').append(`<p><span>${banana.i18n('ux-module-property-label')}</span> <input class='objectPropertyAttribute' type='text'  name='setLabel' autocomplete='off'  value='${escapeHtml(obj.label)}'></p>`);
 
         var s;
         if (!obj.labelDirectionFixed) {
-            s = $(`${"<select class='objectPropertyAttribute' name='newLabelDirection'>" + "<option value='RIGHT' "}${['', 'selected'][+(obj.labelDirection === 'RIGHT')]} >RIGHT</option><option value='DOWN' ${['', 'selected'][+(obj.labelDirection === 'DOWN')]} >DOWN</option><option value='LEFT' ` + `<option value='RIGHT'${['', 'selected'][+(obj.labelDirection === 'LEFT')]} >LEFT</option><option value='UP' ` + `<option value='RIGHT'${['', 'selected'][+(obj.labelDirection === 'UP')]} >UP</option>` + '</select>');
+            s = $(`${"<select class='objectPropertyAttribute' name='newLabelDirection'>" + "<option value='RIGHT' "}${['', 'selected'][+(obj.labelDirection === 'RIGHT')]} >${banana.i18n('ux-module-property-label-right')}</option><option value='DOWN' ${['', 'selected'][+(obj.labelDirection === 'DOWN')]} >${banana.i18n('ux-module-property-label-down')}</option><option value='LEFT' ` + `<option value='RIGHT'${['', 'selected'][+(obj.labelDirection === 'LEFT')]} >${banana.i18n('ux-module-property-label-left')}</option><option value='UP' ` + `<option value='RIGHT'${['', 'selected'][+(obj.labelDirection === 'UP')]} >${banana.i18n('ux-module-property-label-up')}</option>` + '</select>');
             s.val(obj.labelDirection);
-            $('#moduleProperty-inner').append(`<p><span>Label Direction:</span> ${$(s).prop('outerHTML')}</p>`);
+            $('#moduleProperty-inner').append(`<p><span>${banana.i18n('ux-module-property-label-direction')}</span> ${$(s).prop('outerHTML')}</p>`);
         }
 
 
         if (!obj.directionFixed) {
-            s = $(`${"<select class='objectPropertyAttribute' name='newDirection'>" + "<option value='RIGHT' "}${['', 'selected'][+(obj.direction === 'RIGHT')]} >RIGHT</option><option value='DOWN' ${['', 'selected'][+(obj.direction === 'DOWN')]} >DOWN</option><option value='LEFT' ` + `<option value='RIGHT'${['', 'selected'][+(obj.direction === 'LEFT')]} >LEFT</option><option value='UP' ` + `<option value='RIGHT'${['', 'selected'][+(obj.direction === 'UP')]} >UP</option>` + '</select>');
-            $('#moduleProperty-inner').append(`<p><span>Direction:</span> ${$(s).prop('outerHTML')}</p>`);
+            s = $(`${"<select class='objectPropertyAttribute' name='newDirection'>" + "<option value='RIGHT' "}${['', 'selected'][+(obj.direction === 'RIGHT')]} >${banana.i18n('ux-module-property-label-right')}</option><option value='DOWN' ${['', 'selected'][+(obj.direction === 'DOWN')]} >${banana.i18n('ux-module-property-label-down')}</option><option value='LEFT' ` + `<option value='RIGHT'${['', 'selected'][+(obj.direction === 'LEFT')]} >${banana.i18n('ux-module-property-label-left')}</option><option value='UP' ` + `<option value='RIGHT'${['', 'selected'][+(obj.direction === 'UP')]} >${banana.i18n('ux-module-property-label-up')}</option>` + '</select>');
+            $('#moduleProperty-inner').append(`<p><span>${banana.i18n('ux-module-property-direction')}</span> ${$(s).prop('outerHTML')}</p>`);
         } else if (!obj.orientationFixed) {
-            s = $(`${"<select class='objectPropertyAttribute' name='newDirection'>" + "<option value='RIGHT' "}${['', 'selected'][+(obj.direction === 'RIGHT')]} >RIGHT</option><option value='DOWN' ${['', 'selected'][+(obj.direction === 'DOWN')]} >DOWN</option><option value='LEFT' ` + `<option value='RIGHT'${['', 'selected'][+(obj.direction === 'LEFT')]} >LEFT</option><option value='UP' ` + `<option value='RIGHT'${['', 'selected'][+(obj.direction === 'UP')]} >UP</option>` + '</select>');
-            $('#moduleProperty-inner').append(`<p><span>Orientation:</span> ${$(s).prop('outerHTML')}</p>`);
+            s = $(`${"<select class='objectPropertyAttribute' name='newDirection'>" + "<option value='RIGHT' "}${['', 'selected'][+(obj.direction === 'RIGHT')]} >${banana.i18n('ux-module-property-label-right')}</option><option value='DOWN' ${['', 'selected'][+(obj.direction === 'DOWN')]} >${banana.i18n('ux-module-property-label-down')}</option><option value='LEFT' ` + `<option value='RIGHT'${['', 'selected'][+(obj.direction === 'LEFT')]} >${banana.i18n('ux-module-property-label-left')}</option><option value='UP' ` + `<option value='RIGHT'${['', 'selected'][+(obj.direction === 'UP')]} >${banana.i18n('ux-module-property-label-up')}</option>` + '</select>');
+            $('#moduleProperty-inner').append(`<p><span>${banana.i18n('ux-module-property-orientation')}</span> ${$(s).prop('outerHTML')}</p>`);
         }
 
         if (obj.mutableProperties) {
@@ -330,7 +331,7 @@ export function showProperties(obj) {
 
     var helplink = obj && (obj.helplink);
     if (helplink) {
-        $('#moduleProperty-inner').append('<p class="btn-parent"><button id="HelpButton" class="btn btn-primary btn-xs" type="button" >&#9432 Help</button></p>');
+        $('#moduleProperty-inner').append(banana.i18n('ux-module-property-buttons-help'));
         $('#HelpButton').on('click',() => {
             window.open(helplink);
         });
@@ -555,7 +556,7 @@ function setupPanelListeners(panelSelector) {
 
 export function fullView () {
     const onClick = `onclick="(() => {$('.navbar').show(); $('.modules').show(); $('.report-sidebar').show(); $('#tabsBar').show(); $('#exitViewBtn').remove(); $('#moduleProperty').show();})()"`
-    const markUp = `<button id='exitViewBtn' ${onClick} >Exit Full Preview</button>`
+    const markUp = `<button id='exitViewBtn' ${onClick} >${banana.i18n('ux-buttons-exit-full-preview')}</button>`
     $('.navbar').hide()
     $('.modules').hide()
     $('.report-sidebar').hide()
@@ -586,7 +587,7 @@ export function fillSubcircuitElements() {
             if (!globalScope[el][i].subcircuitMetadata.showInSubcircuit) {
                 tempHTML += `<div class="icon subcircuitModule" id="${el}-${i}" data-element-id="${i}" data-element-name="${el}">`;
                 tempHTML += `<img src= "/img/${el}.svg">`;
-                tempHTML += `<p class="img__description">${(globalScope[el][i].label !== "")? globalScope[el][i].label : 'unlabeled'}</p>`;
+                tempHTML += `<p class="img__description">${(globalScope[el][i].label !== "")? globalScope[el][i].label : banana.i18n('ux-unlabeled')}</p>`;
                 tempHTML += '</div>';
                 available = true;
             }
@@ -602,7 +603,7 @@ export function fillSubcircuitElements() {
         $('#subcircuitMenu').accordion("refresh");
     }   
     else {
-        $('#subcircuitMenu').append("<p>No layout elements available</p>");
+        $('#subcircuitMenu').append(banana.i18n('ux-subcircuit-menu-no-layout-elements'));
     }
 
     $('.subcircuitModule').mousedown(function () {
@@ -645,10 +646,10 @@ async function postUserIssue(message) {
             "text": message,
         },
         success: function(response) {
-            $('#result').html("<i class='fa fa-check' style='color:green'></i> You've successfully submitted the issue. Thanks for improving our platform.");
+            $('#result').html(banana.i18n('ux-report-issue-success'));
         },
         failure: function(err) {
-            $('#result').html("<i class='fa fa-check' style='color:red'></i> There seems to be a network issue. Please reach out to us at support@ciruitverse.org");
+            $('#result').html(banana.i18n('ux-report-issue-failure'));
         }
     });
 }
