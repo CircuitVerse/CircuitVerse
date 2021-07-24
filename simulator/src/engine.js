@@ -14,6 +14,7 @@ import { showError } from './utils';
 import miniMapArea from './minimap';
 import { resetup } from './setup';
 import { verilogModeGet } from './Verilog2CV';
+import banana from './i18n';
 
 /**
  * Core of the simulation and rendering algorithm.
@@ -403,14 +404,14 @@ export function play(scope = globalScope, resetNodes = false) {
         elem.resolve();
         stepCount++;
         if (stepCount > 1000000) { // Cyclic or infinite Circuit Detection
-            showError('Simulation Stack limit exceeded: maybe due to cyclic paths or contention');
+            showError(banana.i18n('engine-cyclic-circuit-detection-error'));
             errorDetectedSet(true);
             forceResetNodesSet(true);
         }
     }
     // Check for TriState Contentions
     if (simulationArea.contentionPending.length) {
-        showError('Contention at TriState');
+        showError(banana.i18n('engine-tristate-contention-error'));
         forceResetNodesSet(true);
         errorDetectedSet(true);
     }

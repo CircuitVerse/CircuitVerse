@@ -71,5 +71,7 @@
     "embed-clock-property-button-full-screen": "Full Screen",
     "embed-clock-property-time-period": "Time:",
     "embed-clock-property-clock": "Clock:",
-    "embedListeners-prompt-change-clock-time": "Enter Time:"
+    "embedListeners-prompt-change-clock-time": "Enter Time:",
+    "engine-cyclic-circuit-detection-error": "Simulation Stack limit exceeded: maybe due to cyclic paths or contention",
+    "engine-tristate-contention-error": "Contention at TriState"
 }
