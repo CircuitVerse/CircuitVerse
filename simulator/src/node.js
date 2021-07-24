@@ -10,6 +10,7 @@ import {
 import Wire from './wire';
 // import { colors } from './themer/themer';
 import { colors } from './themer/themer';
+import banana from './i18n';
 
 /**
 * Constructs all the connections of Node node
@@ -126,7 +127,7 @@ export default class Node {
         // Should never raise, but just in case
         if (isNaN(x) || isNaN(y)) {
             this.delete();
-            showError('Fatal error occurred');
+            showError(banana.i18n('node-fatal-error-occurred'));
             return;
         }
 
@@ -387,7 +388,7 @@ export default class Node {
                     node.highlighted = true;
                     var circuitName = node.scope.name;
                     var circuitElementName = node.parent.objectType;
-                    showError(`ConstVal set to Non-binary value.`);
+                    showError(banana.i18n('node-contention-error', this.value, node.value, circuitElementName, circuitName));
                 } else if (node.bitWidth == this.bitWidth || node.type == 2) {
                     if (node.parent.objectType == 'TriState' && node.value != undefined && node.type == 1) {
                         if (node.parent.state.value) { simulationArea.contentionPending.push(node.parent); }
@@ -399,7 +400,7 @@ export default class Node {
                 } else {
                     this.highlighted = true;
                     node.highlighted = true;
-                    showError(`BitWidth Error: ${this.bitWidth} and ${node.bitWidth}`);
+                    showError(banana.i18n('node-bitwidth-error', this.bitWidth, node.bitWidth));
                 }
             }
         }

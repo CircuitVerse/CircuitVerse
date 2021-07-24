@@ -74,5 +74,8 @@
     "embedListeners-prompt-change-clock-time": "समय दर्ज करें:",
     "engine-cyclic-circuit-detection-error": "सिमुलेशन स्टैक की लिमिट पूरी हो गई: शायद साइक्लिक पात या किसी विवाद के कारण",
     "engine-tristate-contention-error": "त्रिस्टेट पर विवाद",
-    "layoutMode-no-space-message": "कोई अतिरिक्त जगह नहीं। जगह बनाने के लिए कुछ नोड्स को मूव करें या हटाएं।"
+    "layoutMode-no-space-message": "कोई अतिरिक्त जगह नहीं। जगह बनाने के लिए कुछ नोड्स को मूव करें या हटाएं।",
+    "node-fatal-error-occurred": "घातक त्रुटि हुई",
+    "node-contention-error": "विवादास्पक त्रुटि हुई: $4 में $3 पर और $1 और $2 के बिच",
+    "node-bitwidth-error": "बिटविड्थ त्रुटि हुई: $1 और $2 के बिच"
 }
