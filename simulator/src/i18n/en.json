@@ -67,5 +67,8 @@
     "circuit-prompt-enter-circuit-name": "Enter circuit name:",
     "circuit-prompt-default-circuit-name": "Untitled-Circuit",
     "circuit-write-verilog-code-here": "// Write Some Verilog Code Here!",
-    "circuitElement-prompt-enter-bitwidth": "Enter bitWidth"
+    "circuitElement-prompt-enter-bitwidth": "Enter bitWidth",
+    "embed-clock-property-button-full-screen": "Full Screen",
+    "embed-clock-property-time-period": "Time:",
+    "embed-clock-property-clock": "Clock:"
 }

@@ -7,18 +7,19 @@ import {
 } from './engine';
 import { prevPropertyObjGet, prevPropertyObjSet } from './ux';
 import { ZoomIn, ZoomOut} from './listeners';
+import banana from './i18n';
 
 circuitProperty.toggleFullScreen = toggleFullScreen;
 $(document).ready(() => {
     // Clock features
     $("#clockProperty").append(
-        "<input type='button' class='objectPropertyAttributeEmbed custom-btn--secondary embed-fullscreen-btn' name='toggleFullScreen' value='Full Screen'> </input>"
+        `<input type='button' class='objectPropertyAttributeEmbed custom-btn--secondary embed-fullscreen-btn' name='toggleFullScreen' value='${banana.i18n('embed-clock-property-button-full-screen')}'> </input>`
     );
     $("#clockProperty").append(
-        `<div>Time: <input class='objectPropertyAttributeEmbed' min='50' type='number' style='width:48px' step='10' name='changeClockTime'  value='${simulationArea.timePeriod}'></div>`
+        `<div>${banana.i18n('embed-clock-property-time-period')} <input class='objectPropertyAttributeEmbed' min='50' type='number' style='width:48px' step='10' name='changeClockTime'  value='${simulationArea.timePeriod}'></div>`
     );
     $("#clockProperty").append(
-        `<div>Clock: <label class='switch'> <input type='checkbox' ${
+        `<div>${banana.i18n('embed-clock-property-clock')} <label class='switch'> <input type='checkbox' ${
             ["", "checked"][simulationArea.clockEnabled + 0]
         } class='objectPropertyAttributeEmbedChecked' name='changeClockEnable' > <span class='slider'></span> </label><div>`
     );

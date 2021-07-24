@@ -67,5 +67,8 @@
     "circuit-prompt-enter-circuit-name": "सर्किट का नाम दर्ज करें:",
     "circuit-prompt-default-circuit-name": "शीर्षकहीन-सर्किट",
     "circuit-write-verilog-code-here": "// यहां कुछ वेरिलोग कोड लिखें!",
-    "circuitElement-prompt-enter-bitwidth": "बिटविड्थ दर्ज करें"
+    "circuitElement-prompt-enter-bitwidth": "बिटविड्थ दर्ज करें",
+    "embed-clock-property-button-full-screen": "फुल स्क्रीन",
+    "embed-clock-property-time-period": "समय:",
+    "embed-clock-property-clock": "क्लॉक:"
 }
