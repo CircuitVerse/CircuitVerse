@@ -77,5 +77,7 @@
     "layoutMode-no-space-message": "कोई अतिरिक्त जगह नहीं। जगह बनाने के लिए कुछ नोड्स को मूव करें या हटाएं।",
     "node-fatal-error-occurred": "घातक त्रुटि हुई",
     "node-contention-error": "विवादास्पक त्रुटि हुई: $4 में $3 पर और $1 और $2 के बिच",
-    "node-bitwidth-error": "बिटविड्थ त्रुटि हुई: $1 और $2 के बिच"
+    "node-bitwidth-error": "बिटविड्थ त्रुटि हुई: $1 और $2 के बिच",
+    "plotArea-timing-diagram-recommended-units": "अनुशंसित यूनिट्स: $1",
+    "plotArea-timing-diagram-utilization": "यूटिलाइजेशन: $1 यूनिट्स ($2%)"
 }

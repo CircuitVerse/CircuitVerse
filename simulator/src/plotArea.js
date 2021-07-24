@@ -1,5 +1,6 @@
 import simulationArea from './simulationArea';
 import {convertors} from './utils';
+import banana from './i18n';
 
 var DPR = window.devicePixelRatio || 1;
 
@@ -170,10 +171,10 @@ const plotArea = {
         var unitUsed = this.unitUsed;
         var units = this.cycleUnit;
         var utilization = Math.round(unitUsed * 10000 / units) / 100;
-        $('#timing-diagram-log').html(`Utilization: ${Math.round(unitUsed)} Units (${utilization}%)`);
+        $('#timing-diagram-log').html(banana.i18n('plotArea-timing-diagram-utilization', Math.round(unitUsed), utilization));
         if (utilization >= 90 || utilization <= 10) {
             var recommendedUnit = Math.max(20, Math.round(unitUsed * 3));
-            $('#timing-diagram-log').append(` Recommended Units: ${recommendedUnit}`);
+            $('#timing-diagram-log').append(banana.i18n('plotArea-timing-diagram-recommended-units', recommendedUnit));
             $('#timing-diagram-log').css('background-color', dangerColor);
             if (utilization >= 100) {
                 this.clear();
