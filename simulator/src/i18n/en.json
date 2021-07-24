@@ -70,5 +70,6 @@
     "circuitElement-prompt-enter-bitwidth": "Enter bitWidth",
     "embed-clock-property-button-full-screen": "Full Screen",
     "embed-clock-property-time-period": "Time:",
-    "embed-clock-property-clock": "Clock:"
+    "embed-clock-property-clock": "Clock:",
+    "embedListeners-prompt-change-clock-time": "Enter Time:"
 }
