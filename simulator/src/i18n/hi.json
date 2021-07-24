@@ -73,5 +73,6 @@
     "embed-clock-property-clock": "क्लॉक:",
     "embedListeners-prompt-change-clock-time": "समय दर्ज करें:",
     "engine-cyclic-circuit-detection-error": "सिमुलेशन स्टैक की लिमिट पूरी हो गई: शायद साइक्लिक पात या किसी विवाद के कारण",
-    "engine-tristate-contention-error": "त्रिस्टेट पर विवाद"
+    "engine-tristate-contention-error": "त्रिस्टेट पर विवाद",
+    "layoutMode-no-space-message": "कोई अतिरिक्त जगह नहीं। जगह बनाने के लिए कुछ नोड्स को मूव करें या हटाएं।"
 }
