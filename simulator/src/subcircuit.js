@@ -539,13 +539,6 @@ export default class SubCircuit extends CircuitElement {
         }
     }
 
-    isResolvable() {
-        if (CircuitElement.prototype.isResolvable.call(this)) {
-            return true;
-        }
-        return false;
-    }
-
     /**
      * Procedure if any element is double clicked inside a subcircuit
     **/
@@ -571,33 +564,17 @@ export default class SubCircuit extends CircuitElement {
     }
 
     /**
-     * not used because for now everythiing is added onto the globalscope
+     * Not resolvable. Subcircuit's scope is added to the main scope directly
      */
-    resolve() {
-        // deprecated
-        // var subcircuitScope = this.localScope;//scopeList[this.id];
-        // // this.scope.pending.clean(this); // To remove any pending instances
-        // // return;
-        //
-        // for (i = 0; i < subcircuitScope.Input.length; i++) {
-        //     subcircuitScope.Input[i].state = this.inputNodes[i].value;
-        // }
-        //
-        // for (i = 0; i < subcircuitScope.Input.length; i++) {
-        //     simulationArea.simulationQueue.add(subcircuitScope.Input[i]);
-        // }
-        // play(subcircuitScope);
-        //
-        // for (i = 0; i < subcircuitScope.Output.length; i++) {
-        //     this.outputNodes[i].value = subcircuitScope.Output[i].inp1.value;
-        // }
-        // for (i = 0; i < subcircuitScope.Output.length; i++) {
-        //     this.scope.stack.push(this.outputNodes[i]);
-        // }
-    }
-
     isResolvable() {
         return false;
+    }
+
+    /**
+     * Leave this to the scope of the subcircuit. Do nothing.
+     */
+    removePropagation() {
+        return;
     }
 
     verilogName(){
