@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_13_095100) do
+ActiveRecord::Schema.define(version: 2021_07_23_103800) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -296,6 +296,7 @@ ActiveRecord::Schema.define(version: 2021_06_13_095100) do
     t.bigint "view", default: 1
     t.string "slug"
     t.tsvector "searchable"
+    t.string "lis_result_sourcedid"
     t.index ["assignment_id"], name: "index_projects_on_assignment_id"
     t.index ["author_id"], name: "index_projects_on_author_id"
     t.index ["forked_project_id"], name: "index_projects_on_forked_project_id"
