@@ -79,5 +79,6 @@
     "node-contention-error": "Contention Error: $1 and $2 at $3 in $4",
     "node-bitwidth-error": "BitWidth Error: $1 and $2",
     "plotArea-timing-diagram-recommended-units": "Recommended Units: $1",
-    "plotArea-timing-diagram-utilization": "Utilization: $1 Units ($2%)"
+    "plotArea-timing-diagram-utilization": "Utilization: $1 Units ($2%)",
+    "restrictedElementDiv-element-restricted-message": "The element has been restricted by mentor. Usage might lead to deduction in marks"
 }
