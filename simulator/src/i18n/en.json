@@ -73,5 +73,6 @@
     "embed-clock-property-clock": "Clock:",
     "embedListeners-prompt-change-clock-time": "Enter Time:",
     "engine-cyclic-circuit-detection-error": "Simulation Stack limit exceeded: maybe due to cyclic paths or contention",
-    "engine-tristate-contention-error": "Contention at TriState"
+    "engine-tristate-contention-error": "Contention at TriState",
+    "layoutMode-no-space-message": "No space. Move or delete some nodes to make space."
 }

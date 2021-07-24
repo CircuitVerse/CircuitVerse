@@ -13,6 +13,7 @@ import miniMapArea from './minimap';
 import { showMessage } from './utils';
 import * as metadata from './metadata.json';
 import { verilogModeGet, verilogModeSet } from './Verilog2CV';
+import banana from './i18n';
 
 /**
  * Layout.js - all subcircuit layout related code is here
@@ -245,13 +246,13 @@ export function decreaseLayoutWidth() {
     if (tempBuffer.layout.width < 30) return;
     for (let i = 0; i < tempBuffer.Input.length; i++) {
         if (tempBuffer.Input[i].x === tempBuffer.layout.width - 10) {
-            showMessage('No space. Move or delete some nodes to make space.');
+            showMessage(banana.i18n('layoutMode-no-space-message'));
             return;
         }
     }
     for (let i = 0; i < tempBuffer.Output.length; i++) {
         if (tempBuffer.Output[i].x === tempBuffer.layout.width - 10) {
-            showMessage('No space. Move or delete some nodes to make space.');
+            showMessage(banana.i18n('layoutMode-no-space-message'));
             return;
         }
     }
@@ -273,13 +274,13 @@ export function decreaseLayoutHeight() {
     if (tempBuffer.layout.height < 30) return;
     for (let i = 0; i < tempBuffer.Input.length; i++) {
         if (tempBuffer.Input[i].y === tempBuffer.layout.height - 10) {
-            showMessage('No space. Move or delete some nodes to make space.');
+            showMessage(banana.i18n('layoutMode-no-space-message'));
             return;
         }
     }
     for (let i = 0; i < tempBuffer.Output.length; i++) {
         if (tempBuffer.Output[i].y === tempBuffer.layout.height - 10) {
-            showMessage('No space. Move or delete some nodes to make space.');
+            showMessage(banana.i18n('layoutMode-no-space-message'));
             return;
         }
     }
