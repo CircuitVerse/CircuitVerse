@@ -653,3 +653,9 @@ select {
   border: 1px solid var(--br-primary);
   color: var(--text-panel);
 }
+ /*Css for mobile version UI */
+ #lockPortaidMode{
+  background-color:var(--primary);
+  color: var(--text-panel);
+  border: 3px solid var(--br-secondary );
+}
