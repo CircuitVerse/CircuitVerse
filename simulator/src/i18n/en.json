@@ -80,5 +80,8 @@
     "node-bitwidth-error": "BitWidth Error: $1 and $2",
     "plotArea-timing-diagram-recommended-units": "Recommended Units: $1",
     "plotArea-timing-diagram-utilization": "Utilization: $1 Units ($2%)",
-    "restrictedElementDiv-element-restricted-message": "The element has been restricted by mentor. Usage might lead to deduction in marks"
+    "restrictedElementDiv-element-restricted-message": "The element has been restricted by mentor. Usage might lead to deduction in marks",
+    "setup-default-circuit-name": "Main",
+    "setup-alert-icon-loading-error": "Error: could not load",
+    "setup-restore-unsaved-data-message": "We have detected that you did not save your last work. Don't worry we have recovered them. Access them using Project->Recover"
 }

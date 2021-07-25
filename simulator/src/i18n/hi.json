@@ -80,5 +80,9 @@
     "node-bitwidth-error": "बिटविड्थ त्रुटि हुई: $1 और $2 के बिच",
     "plotArea-timing-diagram-recommended-units": "अनुशंसित यूनिट्स: $1",
     "plotArea-timing-diagram-utilization": "यूटिलाइजेशन: $1 यूनिट्स ($2%)",
-    "restrictedElementDiv-element-restricted-message": "यह एलिमेंट संरक्षक द्वारा प्रतिबंधित कर दिया गया है।इसके उपयोग से अंकों में कटौती हो सकती है"
+    "restrictedElementDiv-element-restricted-message": "यह एलिमेंट संरक्षक द्वारा प्रतिबंधित कर दिया गया है।इसके उपयोग से अंकों में कटौती हो सकती है",
+    "setup-default-circuit-name": "मुख्य",
+    "setup-alert-icon-loading-error": "त्रुटि हुई: लोड नहीं हो सके",
+    "setup-restore-unsaved-data-message": "हमने पाया है कि आपने अपना पिछला कार्य सेव नहीं किया है। चिंता न करें हमने उन्हें बरामद कर लिया है। परियोजना -> रिकवर. का उपयोग करके उन तक पहुंचें"
+
 }
