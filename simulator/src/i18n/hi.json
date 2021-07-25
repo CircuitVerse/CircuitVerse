@@ -91,5 +91,6 @@
     "subcircuit-prompt-enter-id": "आईडी दर्ज करें:",
     "subcircuit-no-subcircuit-found-error": "सब-सर्किट : $1 नहीं मिला",
     "subcircuit-empty-circuit-error": "सबसर्किट : $1 एक खाली सर्किट है",
-    "subcircuit-cyclic-circuit-error": "साइक्लिक सर्किट में त्रुटि हुई"
+    "subcircuit-cyclic-circuit-error": "साइक्लिक सर्किट में त्रुटि हुई",
+    "utils-bit-converter-buttons-reset": "रीसेट करे"
 }
