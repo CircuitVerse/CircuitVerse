@@ -83,5 +83,6 @@
     "restrictedElementDiv-element-restricted-message": "The element has been restricted by mentor. Usage might lead to deduction in marks",
     "setup-default-circuit-name": "Main",
     "setup-alert-icon-loading-error": "Error: could not load",
-    "setup-restore-unsaved-data-message": "We have detected that you did not save your last work. Don't worry we have recovered them. Access them using Project->Recover"
+    "setup-restore-unsaved-data-message": "We have detected that you did not save your last work. Don't worry we have recovered them. Access them using Project->Recover",
+    "simulationArea-prompt-enter-time-period": "Enter Time Period:"
 }
