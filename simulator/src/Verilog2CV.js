@@ -11,6 +11,7 @@ import 'codemirror/addon/hint/show-hint.js';
 import 'codemirror/addon/display/autorefresh.js';
 import { showError, showMessage } from './utils';
 import { showProperties } from './ux';
+import banana from './i18n';
 
 var editor;
 var verilogMode = false;
@@ -156,16 +157,16 @@ export default function generateVerilogCircuit(verilogCode, scope = globalScope)
             var subCircuitScope = {};
             YosysJSON2CV(circuitData, globalScope, "verilogCircuit", subCircuitScope, true);
             changeCircuitName(circuitData.name);
-            showMessage('Verilog Circuit Successfully Created');
+            showMessage(banana.i18n('verilog2CV-circuit-created-message'));
             $('#verilogOutput').empty();
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             var errorCode = XMLHttpRequest.status;
             if (errorCode == 500) {
-                showError("Could not connect to Yosys");
+                showError(banana.i18n('verilog2CV-yosys-connection-error'));
             }
             else {
-                showError("There is some issue with the code");
+                showError(banana.i18n('verilog2CV-code-error'));
                 var errorMessage = XMLHttpRequest.responseJSON;
                 $('#verilogOutput').html(errorMessage.message);
             }

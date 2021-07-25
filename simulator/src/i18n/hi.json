@@ -96,5 +96,8 @@
     "verilog-buttons-download-verilog-file": "वेरिलोग फ़ाइल डाउनलोड करें",
     "verilog-buttons-copy-to-clipboard": "क्लिपबोर्ड में कॉपी करें",
     "verilog-message-code-copied": "कोड कॉपी कर दिया गया है",
-    "verilog-buttons-eda-playground": "ईडीए प्लेग्राउंड में प्रयास करें"
+    "verilog-buttons-eda-playground": "ईडीए प्लेग्राउंड में प्रयास करें",
+    "verilog2CV-circuit-created-message": "वेरिलोग सर्किट सफलतापूर्वक बनाया गया",
+    "verilog2CV-yosys-connection-error": "Yosys से कनेक्ट नहीं हो सका",
+    "verilog2CV-code-error": "कोड के साथ कुछ समस्या है"
 }
