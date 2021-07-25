@@ -8,7 +8,7 @@
 <% sub_string = is_subscribed ? 'unsubscribe' : 'subscribe' %>
 &nbsp;
 <%= link_to t("commontator.subscription.actions.#{sub_string}"),
-            commontator.polymorphic_path([sub_string, thread]),
+            commontator.polymorphic_path([sub_string.to_sym, thread]),
             method: :put,
             id: "commontator-thread-#{thread.id}-#{sub_string}",
             class: "anchor-text sub_string mt-0 pt-0",
