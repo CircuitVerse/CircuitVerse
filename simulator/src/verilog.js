@@ -20,6 +20,7 @@ import 'codemirror/addon/hint/anyword-hint.js';
 import 'codemirror/addon/hint/show-hint.js';
 import 'codemirror/addon/display/autorefresh.js';
 import {openInNewTab, copyToClipboard, showMessage} from './utils';
+import banana from './i18n';
 
 var editor;
 
@@ -36,21 +37,21 @@ export function generateVerilog() {
      },
         buttons: [
             {
-                text: 'Download Verilog File',
+                text: banana.i18n('verilog-buttons-download-verilog-file'),
                 click() {
                     var fileName = getProjectName() || 'Untitled';
                     download(fileName + ".v", editor.getValue());
                 },
             },
             {
-                text: 'Copy to Clipboard',
+                text: banana.i18n('verilog-buttons-copy-to-clipboard'),
                 click() {
                     copyToClipboard(editor.getValue());
-                    showMessage('Code has been copied');
+                    showMessage(banana.i18n('verilog-message-code-copied'));
                 },
             },
             {
-                text: 'Try in EDA Playground',
+                text: banana.i18n('verilog-buttons-eda-playground'),
                 click() {
                     copyToClipboard(editor.getValue());
                     openInNewTab('https://www.edaplayground.com/x/XZpY');

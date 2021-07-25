@@ -92,7 +92,11 @@
     "subcircuit-no-subcircuit-found-error": "SubCircuit : $1 Not found",
     "subcircuit-empty-circuit-error": "SubCircuit : $1 is an empty circuit",
     "subcircuit-cyclic-circuit-error": "Cyclic Circuit Error",
-    "utils-bit-converter-buttons-reset": "Reset"
+    "utils-bit-converter-buttons-reset": "Reset",
+    "verilog-buttons-download-verilog-file": "Download Verilog File",
+    "verilog-buttons-copy-to-clipboard": "Copy to Clipboard",
+    "verilog-message-code-copied": "Code has been copied",
+    "verilog-buttons-eda-playground": "Try in EDA Playground"
 
 
 
