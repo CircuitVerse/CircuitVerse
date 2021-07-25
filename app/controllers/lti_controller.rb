@@ -1,5 +1,4 @@
 class LtiController < ApplicationController
-  include LtiHelper
   skip_before_action :verify_authenticity_token, only: :launch # for lti integration
   before_action :set_group_assignment, only: %i[launch]
   before_action :set_lti_params, only: %i[launch]
@@ -44,7 +43,7 @@ class LtiController < ApplicationController
           if user_in_group.present? # user is member of the group
             # render the button
             flash[:notice] =  t("lti.launch.notice_students_open_in_cv")
-            create_project_if_student_present() # create project with lis_result_sourcedid for the student
+            create_project_if_student_present() # create project with lis_result_sourced_id for the student
             render :open_incv, status: 200
 
           else # user is not a member of the group
@@ -78,7 +77,7 @@ class LtiController < ApplicationController
       @project.assignment_id = @assignment.id
       @project.project_access_type = "Private"
       @project.build_project_datum
-      @project.lis_result_sourcedid = params[:lis_result_sourcedid] # this param is required for grade submission
+      @project.lis_result_sourced_id = params[:lis_result_sourcedid] # this param is required for grade submission
       @project.save
     end
   end

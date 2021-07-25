@@ -2,7 +2,6 @@
 
 class GradesController < ApplicationController
   include ActionView::Helpers::SanitizeHelper
-  include LtiHelper
 
   before_action :authenticate_user!
   before_action :set_grade, only: %i[create destroy]
@@ -23,9 +22,9 @@ class GradesController < ApplicationController
 
     # pass grade back to the LMS if session is LTI
     if session[:is_lti]
-      @project = Project.find_by(id: grade_params[:project_id])
-      @grade_normalized = grade.to_f / 100 # conversion to 0-0.100 scale as per IMS Global specification
-      lti_score_submit(@project.lis_result_sourcedid, @grade_normalized) # LTI score submission, see app/helpers/lti_helper.rb
+      project = Project.find(grade_params[:project_id])
+      grade_normalized = grade.to_f / 100 # conversion to 0-0.100 scale as per IMS Global specification
+      LtiSupport.new(session[:oauth_consumer_key]).lti_score_submit(project.lis_result_sourced_id, grade_normalized, session[:lis_outcome_service_url]) # LTI score submission, see app/helpers/lti_helper.rb
     end
 
     unless @grade.save
