@@ -84,5 +84,15 @@
     "setup-default-circuit-name": "Main",
     "setup-alert-icon-loading-error": "Error: could not load",
     "setup-restore-unsaved-data-message": "We have detected that you did not save your last work. Don't worry we have recovered them. Access them using Project->Recover",
-    "simulationArea-prompt-enter-time-period": "Enter Time Period:"
+    "simulationArea-prompt-enter-time-period": "Enter Time Period:",
+    "subcircuit-error-insertion-in-wrong-mode": "Subcircuit cannot be inserted in this mode",
+    "subcircuit-no-other-subcircuit-create-one": "<p>Looks like there are no other circuits which doesn't have this circuit as a dependency. Create a new one!</p>",
+    "subcircuit-buttons-insert-subcircuit": "Insert SubCircuit",
+    "subcircuit-prompt-enter-id": "Enter Id:",
+    "subcircuit-no-subcircuit-found-error": "SubCircuit : $1 Not found",
+    "subcircuit-empty-circuit-error": "SubCircuit : $1 is an empty circuit",
+    "subcircuit-cyclic-circuit-error": "Cyclic Circuit Error"
+
+
+
 }
