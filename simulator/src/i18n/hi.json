@@ -84,5 +84,12 @@
     "setup-default-circuit-name": "मुख्य",
     "setup-alert-icon-loading-error": "त्रुटि हुई: लोड नहीं हो सके",
     "setup-restore-unsaved-data-message": "हमने पाया है कि आपने अपना पिछला कार्य सेव नहीं किया है। चिंता न करें हमने उन्हें बरामद कर लिया है। परियोजना -> रिकवर. का उपयोग करके उन तक पहुंचें",
-    "simulationArea-prompt-enter-time-period": "समय की अवधि दर्ज करें:"
+    "simulationArea-prompt-enter-time-period": "समय की अवधि दर्ज करें:",
+    "subcircuit-error-insertion-in-wrong-mode": "इस मोड में सब-सर्किट सम्मिलित नहीं किया जा सकता",
+    "subcircuit-no-other-subcircuit-create-one": "<p>ऐसा लगता है कि कोई अन्य सर्किट नहीं है जिसमें यह सर्किट निर्भरता के रूप में नहीं है। एक नया बनाएँ!</p>",
+    "subcircuit-buttons-insert-subcircuit": "सब-सर्किट सम्मिलित करे",
+    "subcircuit-prompt-enter-id": "आईडी दर्ज करें:",
+    "subcircuit-no-subcircuit-found-error": "सब-सर्किट : $1 नहीं मिला",
+    "subcircuit-empty-circuit-error": "सबसर्किट : $1 एक खाली सर्किट है",
+    "subcircuit-cyclic-circuit-error": "साइक्लिक सर्किट में त्रुटि हुई"
 }
