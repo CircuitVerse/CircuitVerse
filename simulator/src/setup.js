@@ -25,6 +25,7 @@ import 'codemirror/addon/hint/anyword-hint.js';
 import 'codemirror/addon/hint/show-hint.js';
 import {setupCodeMirrorEnvironment} from './Verilog2CV';
 import { keyBinder } from './hotkey_binder/keyBinder';
+import banana from './i18n';
 
 // TODO include subset of bootstrap we use instead of whole framework
 import 'bootstrap';
@@ -98,7 +99,7 @@ function setupEnvironment() {
     window.projectId = projectId;
     updateSimulationSet(true);
     const DPR = window.devicePixelRatio || 1;
-    newCircuit('Main');
+    newCircuit(banana.i18n('setup-default-circuit-name'));
     window.data = {};
     resetup();
     setupCodeMirrorEnvironment();
@@ -178,7 +179,7 @@ export function setup() {
                     $('.loadingIcon').fadeOut();
                 },
                 failure() {
-                    alert('Error: could not load ');
+                    alert(banana.i18n('setup-alert-icon-loading-error'));
                     $('.loadingIcon').fadeOut();
                 },
             });
@@ -191,7 +192,7 @@ export function setup() {
             save();
         } else if (localStorage.getItem('recover')) {
             // Restore unsaved data which didn't get saved due to error
-            showMessage("We have detected that you did not save your last work. Don't worry we have recovered them. Access them using Project->Recover");
+            showMessage(banana.i18n('setup-restore-unsaved-data-message'));
         }
     }, 1000);
 
