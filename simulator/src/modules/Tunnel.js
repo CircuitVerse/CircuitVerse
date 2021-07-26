@@ -4,6 +4,7 @@ import simulationArea from "../simulationArea";
 import { correctWidth, rect2, fillText } from "../canvasApi";
 import plotArea from "../plotArea";
 import { showError } from "../utils";
+import banana from '../i18n';
 /**
  * @class
  * Tunnel
@@ -320,7 +321,7 @@ export default class Tunnel extends CircuitElement {
  * @type {string}
  * @category modules
  */
-Tunnel.prototype.tooltipText = "Tunnel ToolTip : Tunnel Selected.";
+Tunnel.prototype.tooltipText = banana.i18n('modules-Tunnel-tooltip-text');
 Tunnel.prototype.helplink =
     "https://docs.circuitverse.org/#/miscellaneous?id=tunnel";
 

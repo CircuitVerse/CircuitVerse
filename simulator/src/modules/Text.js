@@ -2,6 +2,7 @@ import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import { rect2, fillText } from '../canvasApi';
+import banana from '../i18n';
 /**
  * @class
  * Text
@@ -133,7 +134,7 @@ export default class Text extends CircuitElement {
  * @type {string}
  * @category modules
  */
-Text.prototype.tooltipText = 'Text ToolTip: Use this to document your circuit.';
+Text.prototype.tooltipText = banana.i18n('modules-Text-tooltip-text');
 
 /**
  * @memberof Text

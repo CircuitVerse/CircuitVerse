@@ -3,6 +3,7 @@ import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
 import { correctWidth, lineTo, moveTo, arc } from "../canvasApi";
 import { changeInputSize } from "../modules";
+import banana from '../i18n';
 /**
  * @class
  * Buffer
@@ -121,8 +122,7 @@ export default class Buffer extends CircuitElement {
  * @type {string}
  * @category modules
  */
-Buffer.prototype.tooltipText =
-    "Buffer ToolTip : Isolate the input from the output.";
+Buffer.prototype.tooltipText = banana.i18n('modules-Buffer-tooltip-text');
 Buffer.prototype.helplink =
     "https://docs.circuitverse.org/#/miscellaneous?id=buffer";
 Buffer.prototype.objectType = "Buffer";

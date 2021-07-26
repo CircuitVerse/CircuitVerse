@@ -2,6 +2,7 @@
 import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
+import banana from '../i18n';
 
 /**
  * @class
@@ -86,6 +87,6 @@ export default class verilogMultiplier extends CircuitElement {
  * @type {string}
  * @category modules
  */
-verilogMultiplier.prototype.tooltipText = 'verilogMultiplier ToolTip : Performs addition of numbers.';
+verilogMultiplier.prototype.tooltipText = banana.i18n('modules-verilogMultiplier-tooltip-text');
 verilogMultiplier.prototype.helplink = 'https://docs.circuitverse.org/#/miscellaneous?id=verilogMultiplier';
 verilogMultiplier.prototype.objectType = 'verilogMultiplier';

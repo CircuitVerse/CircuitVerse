@@ -2,6 +2,7 @@ import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import { correctWidth, fillText } from '../canvasApi';
+import banana from '../i18n';
 /**
  * @class
  * SRflipFlop
@@ -122,7 +123,7 @@ export default class SRflipFlop extends CircuitElement {
     }
 }
 
-SRflipFlop.prototype.tooltipText = 'SR FlipFlop ToolTip : SR FlipFlop Selected.';
+SRflipFlop.prototype.tooltipText = banana.i18n('sequential-SRflipFlop-tooltip-text');
 
 SRflipFlop.prototype.helplink = 'https://docs.circuitverse.org/#/Sequential?id=sr-flip-flop';
 

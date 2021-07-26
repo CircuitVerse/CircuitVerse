@@ -4,6 +4,7 @@ import simulationArea from "../simulationArea";
 import { correctWidth, bezierCurveTo, moveTo, arc2 } from "../canvasApi";
 import { changeInputSize } from "../modules";
 import { gateGenerateVerilog } from '../utils';
+import banana from '../i18n';
 
 /**
  * @class
@@ -161,8 +162,7 @@ export default class XorGate extends CircuitElement {
  * @type {string}
  * @category modules
  */
-XorGate.prototype.tooltipText =
-    "Xor Gate Tooltip : Implements an exclusive OR.";
+XorGate.prototype.tooltipText = banana.i18n('modules-XorGate-tooltip-text');
 
 /**
  * @memberof XorGate

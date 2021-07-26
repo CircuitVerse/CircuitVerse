@@ -3,6 +3,7 @@ import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
 import { correctWidth, lineTo, moveTo, drawCircle2 } from "../canvasApi";
 import { changeInputSize } from "../modules";
+import banana from '../i18n';
 /**
  * @class
  * ControlledInverter
@@ -117,6 +118,5 @@ export default class ControlledInverter extends CircuitElement {
  * @type {string}
  * @category modules
  */
-ControlledInverter.prototype.tooltipText =
-    "Controlled Inverter ToolTip : Controlled buffer and NOT gate.";
+ControlledInverter.prototype.tooltipText = banana.i18n('modules-ControlledInverter-tooltip-text');
 ControlledInverter.prototype.objectType = "ControlledInverter";

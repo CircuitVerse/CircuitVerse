@@ -2,6 +2,7 @@ import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import { correctWidth, lineTo, moveTo, fillText3, fontSize } from '../canvasApi';
+import banana from '../i18n';
 /**
  * @class
  * Keyboard
@@ -165,7 +166,7 @@ export default class Keyboard extends CircuitElement {
     }
 }
 
-Keyboard.prototype.tooltipText = 'Keyboard';
+Keyboard.prototype.tooltipText = banana.i18n('sequential-Keyboard-tooltip-text');
 Keyboard.prototype.helplink = 'https://docs.circuitverse.org/#/Sequential?id=keyboard';
 
 Keyboard.prototype.mutableProperties = {

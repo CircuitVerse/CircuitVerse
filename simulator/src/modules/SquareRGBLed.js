@@ -4,6 +4,7 @@ import simulationArea from '../simulationArea';
 import {
     correctWidth, lineTo, moveTo, rect2,
 } from '../canvasApi';
+import banana from '../i18n';
 
 /**
  * @class
@@ -170,7 +171,7 @@ export default class SquareRGBLed extends CircuitElement {
  * @type {string}
  * @category modules
  */
-SquareRGBLed.prototype.tooltipText = 'Square RGB Led ToolTip: RGB Led inputs 8 bit values for the colors RED, GREEN and BLUE.';
+SquareRGBLed.prototype.tooltipText = banana.i18n('modules-SquareRGBLed-tooltip-text');
 
 /**
  * @memberof SquareRGBLed

@@ -2,6 +2,7 @@ import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import { correctWidth, lineTo, moveTo, fillText } from '../canvasApi';
+import banana from '../i18n';
 /**
  * @class
  * Dlatch
@@ -112,7 +113,7 @@ export default class Dlatch extends CircuitElement {
     }
 }
 
-Dlatch.prototype.tooltipText = 'D Latch : Single input Flip flop or D FlipFlop';
+Dlatch.prototype.tooltipText = banana.i18n('sequential-Dlatch-tooltip-text');
 Dlatch.prototype.helplink = 'https://docs.circuitverse.org/#/Sequential?id=d-latch';
 
 Dlatch.prototype.objectType = 'Dlatch';

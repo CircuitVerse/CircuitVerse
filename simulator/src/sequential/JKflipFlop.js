@@ -2,6 +2,7 @@ import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import { correctWidth, lineTo, moveTo, fillText } from '../canvasApi';
+import banana from '../i18n';
 /**
  * @class
  * JKflipFlop
@@ -140,7 +141,7 @@ export default class JKflipFlop extends CircuitElement {
     }
 }
 
-JKflipFlop.prototype.tooltipText = 'JK FlipFlop ToolTip : gated SR flip-flop with the addition of a clock input.';
+JKflipFlop.prototype.tooltipText = banana.i18n('sequential-JKflipFlop-tooltip-text');
 
 JKflipFlop.prototype.helplink = 'https://docs.circuitverse.org/#/Sequential?id=jk-flip-flop';
 

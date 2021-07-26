@@ -4,6 +4,7 @@ import simulationArea from '../simulationArea';
 import {
     correctWidth, lineTo, moveTo, rect, rect2
 } from '../canvasApi';
+import banana from '../i18n';
 
 /**
  * @class
@@ -157,7 +158,7 @@ export default class SevenSegDisplay extends CircuitElement {
  * @type {string}
  * @category modules
  */
-SevenSegDisplay.prototype.tooltipText = 'Seven Display ToolTip: Consists of 7+1 single bit inputs.';
+SevenSegDisplay.prototype.tooltipText = banana.i18n('modules-SevenSegDisplay-tooltip-text');
 
 /**
  * @memberof SevenSegDisplay

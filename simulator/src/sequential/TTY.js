@@ -3,6 +3,7 @@ import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import { correctWidth, lineTo, moveTo, fillText3 } from '../canvasApi';
 import { colors } from '../themer/themer';
+import banana from '../i18n';
 
 /**
  * @class
@@ -163,7 +164,7 @@ export default class TTY extends CircuitElement {
     }
 }
 
-TTY.prototype.tooltipText = 'TTY ToolTip : Tele typewriter selected.';
+TTY.prototype.tooltipText = banana.i18n('sequential-TTY-tooltip-text');
 TTY.prototype.helplink = 'https://docs.circuitverse.org/#/Sequential?id=tty';
 
 TTY.prototype.mutableProperties = {

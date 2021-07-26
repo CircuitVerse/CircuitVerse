@@ -2,6 +2,7 @@ import CircuitElement from "../circuitElement";
 import Node, { findNode, dec2bin } from "../node";
 import simulationArea from "../simulationArea";
 import { correctWidth, rect, fillText } from "../canvasApi";
+import banana from '../i18n';
 /**
  * @class
  * PriorityEncoder
@@ -269,8 +270,7 @@ export default class PriorityEncoder extends CircuitElement {
  * @type {string}
  * @category modules
  */
-PriorityEncoder.prototype.tooltipText =
-    "Priority Encoder ToolTip : Compresses binary inputs into a smaller number of outputs.";
+PriorityEncoder.prototype.tooltipText = banana.i18n('modules-PriorityEncoder-tooltip-text');
 PriorityEncoder.prototype.helplink =
     "https://docs.circuitverse.org/#/decodersandplexers?id=priority-encoder";
 PriorityEncoder.prototype.objectType = "PriorityEncoder";

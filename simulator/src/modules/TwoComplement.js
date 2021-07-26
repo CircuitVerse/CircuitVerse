@@ -3,6 +3,7 @@ import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
 import { correctWidth, fillText, drawCircle2 } from "../canvasApi";
 import { changeInputSize } from "../modules";
+import banana from '../i18n';
 /**
  * @class
  * TwoComplement
@@ -104,6 +105,5 @@ export default class TwoComplement extends CircuitElement {
  * @type {string}
  * @category modules
  */
-TwoComplement.prototype.tooltipText =
-    "Two's Complement Tooltip : Calculates the two's complement";
+TwoComplement.prototype.tooltipText = banana.i18n('modules-TwoComplement-tooltip-text');
 TwoComplement.prototype.objectType = "TwoComplement";

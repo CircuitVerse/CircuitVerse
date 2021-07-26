@@ -5,6 +5,7 @@ import {
     correctWidth, lineTo, moveTo, fillText2,
 } from '../canvasApi';
 import { colors } from '../themer/themer';
+import banana from '../i18n';
 
 
 function extractBits(num, start, end) {
@@ -275,7 +276,7 @@ export default class Splitter extends CircuitElement {
  * @type {string}
  * @category modules
  */
-Splitter.prototype.tooltipText = 'Splitter ToolTip: Split multiBit Input into smaller bitwidths or vice versa.';
+Splitter.prototype.tooltipText = banana.i18n('modules-Splitter-tooltip-text');
 
 /**
  * @memberof Splitter

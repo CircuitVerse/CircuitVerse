@@ -3,6 +3,7 @@ import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
 import { correctWidth, lineTo, moveTo, arc, drawCircle2 } from "../canvasApi";
 import { changeInputSize } from "../modules";
+import banana from '../i18n';
 /**
  * @class
  * RGBLed
@@ -155,8 +156,7 @@ export default class RGBLed extends CircuitElement {
  * @type {string}
  * @category modules
  */
-RGBLed.prototype.tooltipText =
-    "RGB Led ToolTip: RGB Led inputs 8 bit values for the colors RED, GREEN and BLUE.";
+RGBLed.prototype.tooltipText = banana.i18n('modules-RGBLed-tooltip-text');
 
 /**
  * @memberof RGBLed

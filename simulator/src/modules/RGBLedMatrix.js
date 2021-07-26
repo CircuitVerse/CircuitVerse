@@ -2,6 +2,7 @@ import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import { correctWidth, rect2, rotate, lineTo, moveTo } from '../canvasApi';
+import banana from '../i18n';
 
 /**
  * @class
@@ -286,7 +287,7 @@ export default class RGBLedMatrix extends CircuitElement {
     }
 }
 
-RGBLedMatrix.prototype.tooltipText = 'RGB Led Matrix';
+RGBLedMatrix.prototype.tooltipText = banana.i18n('modules-RGBLedMatrix-tooltip-text');
 
 // Limit the size of the matrix otherwise the simulation starts to lag.
 RGBLedMatrix.prototype.maxRows = 128;

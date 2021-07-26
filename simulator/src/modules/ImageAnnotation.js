@@ -4,6 +4,7 @@ import simulationArea from '../simulationArea';
 import { correctWidth, rect, fillText, drawImage} from '../canvasApi';
 import { colors } from '../themer/themer';
 import { promptFile, showMessage, getImageDimensions} from '../utils'
+import banana from '../i18n';
 /**
  * @class
  * Image
@@ -175,7 +176,7 @@ export default class ImageAnnotation extends CircuitElement {
  * @type {string}
  * @category modules
  */
-ImageAnnotation.prototype.tooltipText = 'Image ToolTip: Embed an image in the circuit for annotation';
+ImageAnnotation.prototype.tooltipText = banana.i18n('modules-ImageAnnotation-tooltip-text');
 ImageAnnotation.prototype.propagationDelayFixed = true;
 
 /**

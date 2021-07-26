@@ -6,6 +6,7 @@ import {
     correctWidth, lineTo, moveTo, fillText4,
 } from '../canvasApi';
 import { colors } from '../themer/themer';
+import banana from '../i18n';
 
 
 /**
@@ -176,7 +177,7 @@ export default class ALU extends CircuitElement {
  * @type {string}
  * @category modules
  */
-ALU.prototype.tooltipText = 'ALU ToolTip: 0: A&B, 1:A|B, 2:A+B, 4:A&~B, 5:A|~B, 6:A-B, 7:SLT ';
+ALU.prototype.tooltipText = banana.i18n('modules-ALU-tooltip-text');
 
 /**
  * @memberof ALU

@@ -4,6 +4,7 @@ import simulationArea from '../simulationArea';
 import {
     correctWidth, lineTo, moveTo, drawCircle2,
 } from '../canvasApi';
+import banana from '../i18n';
 
 /**
  * @class
@@ -153,7 +154,7 @@ export default class Button extends CircuitElement {
  * @type {string}
  * @category modules
  */
-Button.prototype.tooltipText = 'Button ToolTip: High(1) when pressed and Low(0) when released.';
+Button.prototype.tooltipText = banana.i18n('modules-Button-tooltip-text');
 
 /**
  * @memberof Button

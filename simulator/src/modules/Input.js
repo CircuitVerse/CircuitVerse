@@ -7,6 +7,7 @@ import {
 } from '../canvasApi';
 import { getNextPosition } from '../modules';
 import { generateId } from '../utils';
+import banana from '../i18n';
 /**
  * @class
  * Input
@@ -175,7 +176,7 @@ export default class Input extends CircuitElement {
  * @type {string}
  * @category modules
  */
-Input.prototype.tooltipText = 'Input ToolTip: Toggle the individual bits by clicking on them.';
+Input.prototype.tooltipText = banana.i18n('modules-Input-tooltip-text');
 
 /**
  * @memberof Input

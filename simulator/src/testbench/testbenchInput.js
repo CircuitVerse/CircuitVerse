@@ -3,6 +3,7 @@ import simulationArea from '../simulationArea';
 import { correctWidth, lineTo, moveTo, fillText } from '../canvasApi';
 import Node, { findNode } from '../node';
 import plotArea from '../plotArea';
+import banana from '../i18n';
 
 
 /**
@@ -257,7 +258,7 @@ export default class TB_Input extends CircuitElement {
     }
 }
 
-TB_Input.prototype.tooltipText = 'Test Bench Input Selected';
+TB_Input.prototype.tooltipText = banana.i18n('testbench-testbenchInput-tooltip-text');
 
 /**
  * @memberof TB_Input

@@ -3,6 +3,7 @@ import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import { correctWidth, fillText2, fillText4, drawCircle2 } from '../canvasApi';
 import {parseNumber, showMessage} from '../utils';
+import banana from '../i18n';
 /**
  * @class
  * RAM Component.
@@ -248,7 +249,7 @@ export default class RAM extends CircuitElement {
     }
 }
 
-RAM.prototype.tooltipText = 'Random Access Memory';
+RAM.prototype.tooltipText = banana.i18n('RAM');
 RAM.prototype.shortName = 'RAM';
 RAM.prototype.maxAddressWidth = 20;
 RAM.prototype.mutableProperties = {

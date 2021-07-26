@@ -19,7 +19,7 @@ $(document).ready(() => {
         `<div>${banana.i18n('embed-clock-property-time-period')} <input class='objectPropertyAttributeEmbed' min='50' type='number' style='width:48px' step='10' name='changeClockTime'  value='${simulationArea.timePeriod}'></div>`
     );
     $("#clockProperty").append(
-        `<div>${banana.i18n('embed-clock-property-clock')} <label class='switch'> <input type='checkbox' ${
+        `<div>${banana.i18n('clock')} <label class='switch'> <input type='checkbox' ${
             ["", "checked"][simulationArea.clockEnabled + 0]
         } class='objectPropertyAttributeEmbedChecked' name='changeClockEnable' > <span class='slider'></span> </label><div>`
     );

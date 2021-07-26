@@ -3,6 +3,7 @@ import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
 import { correctWidth, lineTo, moveTo, arc, colorToRGBA, drawCircle2, validColor} from "../canvasApi";
 import { changeInputSize } from "../modules";
+import banana from '../i18n';
 /**
  * @class
  * DigitalLed
@@ -145,8 +146,7 @@ export default class DigitalLed extends CircuitElement {
  * @type {string}
  * @category modules
  */
-DigitalLed.prototype.tooltipText =
-    "Digital Led ToolTip: Digital LED glows high when input is High(1).";
+DigitalLed.prototype.tooltipText = banana.i18n('modules-DigitalLed-tooltip-text');
 
 /**
  * @memberof DigitalLed

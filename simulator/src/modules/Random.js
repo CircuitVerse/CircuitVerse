@@ -2,6 +2,7 @@ import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import { fillText, lineTo, moveTo, correctWidth, rect2 } from '../canvasApi';
+import banana from '../i18n';
 /**
  * @class
  * Random
@@ -145,7 +146,7 @@ export default class Random extends CircuitElement {
     }
 }
 
-Random.prototype.tooltipText = 'Random ToolTip : Random Selected.';
+Random.prototype.tooltipText = banana.i18n('modules-Random-tooltip-text');
 
 Random.prototype.helplink = 'https://docs.circuitverse.org/#/inputElements?id=random';
 

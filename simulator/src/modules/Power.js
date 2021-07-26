@@ -3,6 +3,7 @@ import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
 import { correctWidth, lineTo, moveTo, arc } from "../canvasApi";
 import { changeInputSize } from "../modules";
+import banana from '../i18n';
 /**
  * @class
  * Power
@@ -92,7 +93,7 @@ export default class Power extends CircuitElement {
  * @type {string}
  * @category modules
  */
-Power.prototype.tooltipText = "Power: All bits are High(1).";
+Power.prototype.tooltipText = banana.i18n('modules-Power-tooltip-text');
 
 /**
  * @memberof Power

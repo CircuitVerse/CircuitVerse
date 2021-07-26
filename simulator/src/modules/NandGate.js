@@ -4,6 +4,7 @@ import simulationArea from "../simulationArea";
 import { correctWidth, lineTo, moveTo, drawCircle2, arc } from "../canvasApi";
 import { changeInputSize } from "../modules";
 import { gateGenerateVerilog } from '../utils';
+import banana from '../i18n';
 
 /**
  * @class
@@ -146,8 +147,7 @@ export default class NandGate extends CircuitElement {
  * @type {string}
  * @category modules
  */
-NandGate.prototype.tooltipText =
-    "Nand Gate ToolTip : Combination of AND and NOT gates";
+NandGate.prototype.tooltipText = banana.i18n('modules-NandGate-tooltip-text');
 
 /**
  * @memberof NandGate

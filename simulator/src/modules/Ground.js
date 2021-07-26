@@ -5,6 +5,7 @@ import {
     correctWidth, lineTo, moveTo, arc,
 } from '../canvasApi';
 import { changeInputSize } from '../modules';
+import banana from '../i18n';
 /**
  * @class
  * Ground
@@ -107,7 +108,7 @@ export default class Ground extends CircuitElement {
  * @type {string}
  * @category modules
  */
-Ground.prototype.tooltipText = 'Ground: All bits are Low(0).';
+Ground.prototype.tooltipText = banana.i18n('modules-Ground-tooltip-text');
 
 /**
  * @memberof Ground

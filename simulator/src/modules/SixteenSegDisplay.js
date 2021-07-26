@@ -5,6 +5,7 @@ import {
     correctWidth, lineTo, moveTo, rect, rect2
 } from '../canvasApi';
 import { changeInputSize } from '../modules';
+import banana from '../i18n';
 /**
  * @class
  * SixteenSegDisplay
@@ -197,7 +198,7 @@ export default class SixteenSegDisplay extends CircuitElement {
  * @type {string}
  * @category modules
  */
-SixteenSegDisplay.prototype.tooltipText = 'Sixteen Display ToolTip: Consists of 16+1 bit inputs.';
+SixteenSegDisplay.prototype.tooltipText = banana.i18n('modules-SixteenSegDisplay-tooltip-text');
 
 /**
  * @memberof SixteenSegDisplay

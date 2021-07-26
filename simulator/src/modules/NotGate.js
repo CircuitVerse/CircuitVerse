@@ -3,6 +3,7 @@ import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
 import { correctWidth, lineTo, moveTo, drawCircle2 } from "../canvasApi";
 import { changeInputSize } from "../modules";
+import banana from '../i18n';
 /**
  * @class
  * NotGate
@@ -100,8 +101,7 @@ export default class NotGate extends CircuitElement {
  * @type {string}
  * @category modules
  */
-NotGate.prototype.tooltipText =
-    "Not Gate Tooltip : Inverts the input digital signal.";
+NotGate.prototype.tooltipText = banana.i18n('modules-NotGate-tooltip-text');
 NotGate.prototype.helplink =
     "https://docs.circuitverse.org/#/gates?id=not-gate";
 NotGate.prototype.objectType = "NotGate";

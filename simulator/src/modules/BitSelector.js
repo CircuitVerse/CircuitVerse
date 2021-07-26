@@ -2,6 +2,7 @@ import CircuitElement from "../circuitElement";
 import Node, { findNode, extractBits } from "../node";
 import simulationArea from "../simulationArea";
 import { correctWidth, rect, fillText } from "../canvasApi";
+import banana from '../i18n';
 /**
  * @class
  * BitSelector
@@ -150,8 +151,7 @@ export default class BitSelector extends CircuitElement {
  * @type {string}
  * @category modules
  */
-BitSelector.prototype.tooltipText =
-    "BitSelector ToolTip : Divides input bits into several equal-sized groups.";
+BitSelector.prototype.tooltipText = banana.i18n('modules-BitSelector-tooltip-text');
 BitSelector.prototype.helplink =
     "https://docs.circuitverse.org/#/decodersandplexers?id=bit-selector";
 

@@ -3,6 +3,7 @@ import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
 import { correctWidth, lineTo, moveTo, arc } from "../canvasApi";
 import { changeInputSize } from "../modules";
+import banana from '../i18n';
 /**
  * @class
  * TriState
@@ -122,8 +123,7 @@ export default class TriState extends CircuitElement {
  * @type {string}
  * @category modules
  */
-TriState.prototype.tooltipText =
-    "TriState ToolTip : Effectively removes the output from the circuit.";
+TriState.prototype.tooltipText = banana.i18n('modules-TriState-tooltip-text');
 TriState.prototype.helplink =
     "https://docs.circuitverse.org/#/miscellaneous?id=tri-state-buffer";
 TriState.prototype.objectType = "TriState";

@@ -2,6 +2,7 @@ import CircuitElement from "../circuitElement";
 import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
 import { correctWidth, lineTo, moveTo, rect, fillText } from "../canvasApi";
+import banana from '../i18n';
 /**
  * @class
  * Decoder
@@ -283,8 +284,7 @@ export default class Decoder extends CircuitElement {
  * @type {string}
  * @category modules
  */
-Decoder.prototype.tooltipText =
-    "Decoder ToolTip : Converts coded inputs into coded outputs.";
+Decoder.prototype.tooltipText = banana.i18n('modules-Decoder-tooltip-text');
 Decoder.prototype.helplink =
     "https://docs.circuitverse.org/#/decodersandplexers?id=decoder";
 Decoder.prototype.objectType = "Decoder";
