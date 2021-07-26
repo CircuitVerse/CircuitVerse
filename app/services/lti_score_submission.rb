@@ -60,6 +60,3 @@ class LtiScoreSubmission
       (SecureRandom.random_number(9e7) + 1e7).to_i # generating a 8 digit random number like 12341234
     end
 end
-
-
-  
