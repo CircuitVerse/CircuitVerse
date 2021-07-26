@@ -4,6 +4,7 @@ import simulationArea from "../simulationArea";
 import { correctWidth, rect2, fillText } from "../canvasApi";
 import plotArea from "../plotArea";
 import EventQueue from '../eventQueue';
+import banana from '../i18n';
 /**
  * @class
  * Flag
@@ -202,8 +203,7 @@ export default class Flag extends CircuitElement {
  * @type {string}
  * @category modules
  */
-Flag.prototype.tooltipText =
-    "FLag ToolTip: Use this for debugging and plotting.";
+Flag.prototype.tooltipText = banana.i18n('modules-Flag-tooltip-text');
 Flag.prototype.helplink =
     "https://docs.circuitverse.org/#/timing_diagrams?id=using-flags";
 

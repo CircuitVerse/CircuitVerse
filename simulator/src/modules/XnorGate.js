@@ -11,6 +11,7 @@ import {
 import { gateGenerateVerilog } from '../utils';
 
 import { changeInputSize } from "../modules";
+import banana from '../i18n';
 /**
  * @class
  * XnorGate
@@ -178,8 +179,7 @@ XnorGate.prototype.alwaysResolve = true;
  * @type {string}
  * @category modules
  */
-XnorGate.prototype.tooltipText =
-    "Xnor Gate ToolTip : Logical complement of the XOR gate";
+XnorGate.prototype.tooltipText = banana.i18n('modules-XnorGate-tooltip-text');
 
 /**
  * @memberof XnorGate

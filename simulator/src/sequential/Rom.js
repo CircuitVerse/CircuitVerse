@@ -4,6 +4,7 @@ import simulationArea from '../simulationArea';
 import {
     correctWidth, rect2, fillText3,
 } from '../canvasApi';
+import banana from '../i18n';
 /**
  * @class
  * Rom
@@ -242,6 +243,6 @@ export default class Rom extends CircuitElement {
  * @type {string}
  * @category sequential
  */
-Rom.prototype.tooltipText = 'Read-only memory';
+Rom.prototype.tooltipText = banana.i18n('sequential-Rom-tooltip-text');
 Rom.prototype.helplink = 'https://docs.circuitverse.org/#/memoryElements?id=rom';
 Rom.prototype.objectType = 'Rom';

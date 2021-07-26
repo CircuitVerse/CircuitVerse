@@ -2,6 +2,7 @@ import CircuitElement from "../circuitElement";
 import Node, { findNode, dec2bin } from "../node";
 import simulationArea from "../simulationArea";
 import { correctWidth, rect, fillText } from "../canvasApi";
+import banana from '../i18n';
 /**
  * @class
  * MSB
@@ -132,8 +133,7 @@ export default class MSB extends CircuitElement {
  * @type {string}
  * @category modules
  */
-MSB.prototype.tooltipText =
-    "MSB ToolTip : The most significant bit or the high-order bit.";
+MSB.prototype.tooltipText = banana.i18n('modules-MSB-tooltip-text');
 MSB.prototype.helplink =
     "https://docs.circuitverse.org/#/decodersandplexers?id=most-significant-bit-msb-detector";
 MSB.prototype.objectType = "MSB";

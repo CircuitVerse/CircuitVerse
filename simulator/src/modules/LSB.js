@@ -2,6 +2,7 @@ import CircuitElement from "../circuitElement";
 import Node, { findNode, dec2bin } from "../node";
 import simulationArea from "../simulationArea";
 import { correctWidth, rect, fillText } from "../canvasApi";
+import banana from '../i18n';
 /**
  * @class
  * LSB
@@ -137,8 +138,7 @@ export default class LSB extends CircuitElement {
  * @type {string}
  * @category modules
  */
-LSB.prototype.tooltipText =
-    "LSB ToolTip : The least significant bit or the low-order bit.";
+LSB.prototype.tooltipText = banana.i18n('modules-LSB-tooltip-text');
 LSB.prototype.helplink =
     "https://docs.circuitverse.org/#/decodersandplexers?id=least-significant-bit-lsb-detector";
 LSB.prototype.objectType = "LSB";

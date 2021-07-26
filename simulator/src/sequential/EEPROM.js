@@ -1,4 +1,5 @@
 import RAM from './RAM';
+import banana from '../i18n';
 /**
  * @class
  * EEPROM Component.
@@ -85,7 +86,7 @@ export default class EEPROM extends RAM {
     }
 }
 
-EEPROM.prototype.tooltipText = 'Electrically Erasable Programmable Read-Only Memory';
+EEPROM.prototype.tooltipText = banana.i18n('sequential-EEPROM-tooltip-text');
 EEPROM.prototype.shortName = 'EEPROM';
 EEPROM.prototype.maxAddressWidth = 10;
 EEPROM.prototype.mutableProperties = {

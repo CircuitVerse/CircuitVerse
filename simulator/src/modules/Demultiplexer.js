@@ -2,6 +2,7 @@ import CircuitElement from "../circuitElement";
 import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
 import { correctWidth, lineTo, moveTo, fillText } from "../canvasApi";
+import banana from '../i18n';
 /**
  * @class
  * Demultiplexer
@@ -317,8 +318,7 @@ export default class Demultiplexer extends CircuitElement {
  * @type {string}
  * @category modules
  */
-Demultiplexer.prototype.tooltipText =
-    "DeMultiplexer ToolTip : Multiple outputs and a single line input.";
+Demultiplexer.prototype.tooltipText = banana.i18n('modules-Demultiplexer-tooltip-text');
 Demultiplexer.prototype.helplink =
     "https://docs.circuitverse.org/#/decodersandplexers?id=demultiplexer";
 Demultiplexer.prototype.objectType = "Demultiplexer";

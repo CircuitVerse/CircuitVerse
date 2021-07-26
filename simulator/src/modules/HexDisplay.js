@@ -3,6 +3,7 @@ import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
 import { correctWidth, lineTo, moveTo, arc, rect2 } from "../canvasApi";
 import { changeInputSize } from "../modules";
+import banana from '../i18n';
 /**
  * @class
  * HexDisplay
@@ -255,8 +256,7 @@ export default class HexDisplay extends CircuitElement {
  * @type {string}
  * @category modules
  */
-HexDisplay.prototype.tooltipText =
-    "Hex Display ToolTip: Inputs a 4 Bit Hex number and displays it.";
+HexDisplay.prototype.tooltipText = banana.i18n('modules-HexDisplay-tooltip-text');
 
 /**
  * @memberof HexDisplay

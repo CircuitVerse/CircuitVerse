@@ -3,6 +3,7 @@ import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import { fillText } from '../canvasApi';
 import { changeInputSize } from '../modules';
+import banana from '../i18n';
 /**
  * @class
  * Stepper
@@ -87,7 +88,7 @@ export default class Stepper extends CircuitElement {
  * @type {string}
  * @category modules
  */
-Stepper.prototype.tooltipText = 'Stepper ToolTip: Increase/Decrease value by selecting the stepper and using +/- keys.';
+Stepper.prototype.tooltipText = banana.i18n('modules-Stepper-tooltip-text');
 
 /**
  * @memberof Stepper

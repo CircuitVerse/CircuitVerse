@@ -2,6 +2,7 @@ import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import { correctWidth, fillText2, fillText4, drawCircle2 } from '../canvasApi';
+import banana from '../i18n';
 /**
  * @class
  * verilogRAM Component.
@@ -454,7 +455,7 @@ export default class verilogRAM extends CircuitElement {
     }
 }
 
-verilogRAM.prototype.tooltipText = 'Random Access Memory';
+verilogRAM.prototype.tooltipText = banana.i18n('RAM');
 verilogRAM.prototype.shortName = 'verilogRAM';
 verilogRAM.prototype.maxAddressWidth = 20;
 verilogRAM.prototype.mutableProperties = {

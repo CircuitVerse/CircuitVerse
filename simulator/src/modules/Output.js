@@ -5,6 +5,7 @@ import { correctWidth, fillText, rect2, oppositeDirection } from "../canvasApi";
 import { getNextPosition } from "../modules";
 import { generateId } from "../utils";
 import { colors } from "../themer/themer";
+import banana from '../i18n';
 
 function bin2dec(binString) {
     return parseInt(binString, 2);
@@ -205,8 +206,7 @@ export default class Output extends CircuitElement {
  * @type {string}
  * @category modules
  */
-Output.prototype.tooltipText =
-    "Output ToolTip: Simple output element showing output in binary.";
+Output.prototype.tooltipText = banana.i18n('modules-Output-tooltip-text');
 
 /**
  * @memberof Output
