@@ -123,6 +123,10 @@ Rails.application.routes.draw do
   end
   # get 'simulator/embed_cross/:id', to: 'simulator#embed_cross', as: 'simulator_embed_cross'
 
+  scope "/testbench" do
+    get "/", to: "testbench#creator", as: "testbench_creator"
+  end
+
   resources :users do
     resources :projects, except: %i[index]
   end

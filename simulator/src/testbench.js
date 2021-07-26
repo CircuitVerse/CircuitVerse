@@ -38,7 +38,7 @@ export function createTestBenchPrompt() {
         width: 'auto',
         buttons: [
             {
-                text: 'Ok',
+                text: 'Attach',
                 click() {
                     const testJSON = $('#testJSON').val();
                     const testData = validateAndParseJSON(testJSON);
@@ -47,6 +47,13 @@ export function createTestBenchPrompt() {
                     // else display data.errorMessage
                 },
             },
+
+            {
+                text: 'Create Test',
+                click() {
+                    window.open('/testbench', '_blank');
+                },
+            }
         ],
     });
 
