@@ -176,7 +176,21 @@
     "testbench-testbenchInput-tooltip-text": "Test Bench Input Selected",
     "testbench-testbenchInput-prompt-enter-json": "Enter TestBench Json",
     "testbench-testbenchOutput-tooltip-text": "Test Bench Output Selected",
-    "themer-themer-buttons-apply-theme": "Apply Theme"
-
-
+    "themer-themer-buttons-apply-theme": "Apply Theme",
+    "data-project-recover-project": "Would you like to recover: $1",
+    "data-project-no-recover-project": "No recover project found",
+    "data-project-no-project-saved": "<p>Looks like no circuit has been saved yet. Create a new one and save it!</p>",
+    "data-project-buttons-open-project": "Open Project",
+    "data-project-project-saved": "We have saved your project: $1 in your browser's localStorage",
+    "data-project-alert-unsaved-changes": "You have unsaved changes on this page. Do you want to leave this page and discard your changes or stay on this page?",
+    "data-project-leave-page": "Are u sure u want to leave? Any unsaved changes may not be recoverable",
+    "data-project-clear-project": "Would you like to clear the project?",
+    "data-project-project-cleared": "Your project is as good as new!",
+    "data-project-start-new-project": "What you like to start a new project? Any unsaved changes will be lost.",
+    "data-project-new-project-created": "New Project has been created!",
+    "data-save-prompt-enter-project-name": "Enter Project Name:",
+    "data-save-login-first": "You have to login to save the project, you will be redirected to the login page.",
+    "data-save-project-saved": "We have saved your project: $1 in our servers.",
+    "data-save-project-save-fail": "There was an error, we couldn't save to our servers",
+    "data-saveImage-buttons-render-circuit-image": "Render Circuit Image"
 }
