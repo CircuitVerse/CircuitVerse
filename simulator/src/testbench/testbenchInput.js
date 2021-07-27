@@ -39,7 +39,7 @@ export default class TB_Input extends CircuitElement {
      * Takes iput when double clicked. For help on generation of input refer to TB_Input.helplink
      */
     dblclick() {
-        this.testData = JSON.parse(prompt('Enter TestBench Json'));
+        this.testData = JSON.parse(prompt(banana.i18n('testbench-testbenchInput-prompt-enter-json')));
         this.setup();
     }
 

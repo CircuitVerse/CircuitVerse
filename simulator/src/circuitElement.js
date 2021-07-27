@@ -51,7 +51,7 @@ export default class CircuitElement {
         this.scope = scope;
         this.baseSetup();
 
-        this.bitWidth = bitWidth || parseInt(prompt(banana.i18n('circuitElement-prompt-enter-bitwidth')), 10) || 1;
+        this.bitWidth = bitWidth || parseInt(prompt(banana.i18n('enter-bitwidth')), 10) || 1;
         this.direction = dir;
         this.directionFixed = false;
         this.labelDirectionFixed = false;

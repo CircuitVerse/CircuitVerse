@@ -32,7 +32,7 @@ export default class Demultiplexer extends CircuitElement {
         */
         this.controlSignalSize =
             controlSignalSize ||
-            parseInt(prompt("Enter control signal bitWidth"), 10);
+            parseInt(prompt(banana.i18n('enter-control-signal-bitwidth')), 10);
         this.outputsize = 1 << this.controlSignalSize;
         this.xOff = 0;
         this.yOff = 1;

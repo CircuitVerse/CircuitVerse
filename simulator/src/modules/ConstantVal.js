@@ -89,7 +89,7 @@ export default class ConstantVal extends CircuitElement {
      * updates state using a prompt when dbl clicked
      */
     dblclick() {
-        this.state = prompt("Re enter the value") || "0";
+        this.state = prompt(banana.i18n('modules-ConstantVal-prompt-reenter-value')) || "0";
         this.newBitWidth(this.state.toString().length);
     }
 

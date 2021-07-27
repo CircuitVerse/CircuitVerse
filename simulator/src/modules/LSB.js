@@ -26,7 +26,7 @@ export default class LSB extends CircuitElement {
         this.rightDimensionX = 20;
         this.setHeight(30);
         this.directionFixed = true;
-        this.bitWidth = bitWidth || parseInt(prompt("Enter bitWidth"), 10);
+        this.bitWidth = bitWidth || parseInt(prompt(banana.i18n('enter-bitwidth')), 10);
         this.rectangleObject = false;
         // this.inputSize = 1 << this.bitWidth;
         this.intputSize = this.bitWidth;
