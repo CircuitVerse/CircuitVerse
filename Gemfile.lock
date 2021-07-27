@@ -105,7 +105,7 @@ GEM
     aws-sigv4 (1.2.3)
       aws-eventstream (~> 1, >= 1.0.2)
     bcrypt (3.1.16)
-    better_html (1.0.15)
+    better_html (1.0.16)
       actionview (>= 4.0)
       activesupport (>= 4.0)
       ast (~> 2.0)
@@ -187,13 +187,13 @@ GEM
     dotenv-rails (2.7.6)
       dotenv (= 2.7.6)
       railties (>= 3.2)
-    erb_lint (0.0.35)
+    erb_lint (0.1.0)
       activesupport
       better_html (~> 1.0.7)
       html_tokenizer
       parser (>= 2.7.1.4)
       rainbow
-      rubocop (~> 0.79)
+      rubocop
       smart_properties
     errbase (0.2.1)
     erubi (1.10.0)
@@ -363,7 +363,7 @@ GEM
       mimemagic (~> 0.3.0)
       terrapin (~> 0.6.0)
     parallel (1.20.1)
-    parser (3.0.0.0)
+    parser (3.0.2.0)
       ast (~> 2.4.1)
     pg (1.2.3)
     pg (1.2.3-x64-mingw32)
@@ -458,7 +458,7 @@ GEM
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
-    rexml (3.2.4)
+    rexml (3.2.5)
     rsolr (2.2.1)
       builder (>= 2.1.2)
       faraday (>= 0.9.0)
@@ -490,8 +490,8 @@ GEM
       rubocop-ast (>= 0.5.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 2.0)
-    rubocop-ast (1.4.1)
-      parser (>= 2.7.1.5)
+    rubocop-ast (1.8.0)
+      parser (>= 3.0.1.1)
     rubocop-performance (1.10.1)
       rubocop (>= 0.90.0, < 2.0)
       rubocop-ast (>= 0.4.0)
