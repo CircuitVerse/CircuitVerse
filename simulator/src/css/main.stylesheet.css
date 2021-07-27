@@ -1705,6 +1705,9 @@ input[type='range']::-webkit-slider-thumb {
 #quickMenu{
   display: none;
 }
+#touchMenu{
+  display: none;
+ }
 @media screen and (orientation:portrait) and (max-device-width: 1024px) {
   #lockPortaidMode{
     display: flex;
@@ -2097,4 +2100,22 @@ font-size: 20px;
   align-items: center;
   margin: 10px;
 }
+#touchMenu{
+  display: flex;
+  flex-direction: column;
+  z-index: 99;
+  position: fixed;
+  top: 100px;
+  right: 10px;
+}
+
+.touchMenuIcon{
+  font-size: 30px;
+  text-align: center;
+  padding: 10px;
+  height: 60px;
+  width: 60px;
+  border-radius: 10px;
+}
+
 }

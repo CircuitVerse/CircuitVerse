@@ -935,26 +935,7 @@ function zoomSliderListeners() {
         sliderZoomButton(1);
     });
 
-    /**
-     * Function For Menu Button Color
-     */
-    function  onTapColor(classList,currentIndex,color){
-        if(classList[currentIndex].style.backgroundColor === color){
-            classList[currentIndex].style.backgroundColor = '';
-        }
-        else{
-            classList[currentIndex].style.backgroundColor = color;
-        }
-        for(i=0;i<classList.length;i++){
-            if(i == currentIndex){
-                continue;
-            }
-            else{
-                classList[i].style.backgroundColor = '';
-            }
-        }
-    }
-
+    
     /**
  * Mobile navbar
  */
@@ -1104,7 +1085,27 @@ function zoomSliderListeners() {
             }
         }
     }
-   
+
+    /*
+    *Function for Touchmenu 
+    */
+    var TouchMenuButton = document.getElementsByClassName('touchMenuIcon');
+    for(i=0;i<TouchMenuButton.length;i++){
+        (function(index){
+            
+            TouchMenuButton[index].addEventListener('touchstart', (e)=>{
+                onTapColor(TouchMenuButton,index,'green');
+                openCurrMenu(index);
+                e.preventDefault();
+            });
+            TouchMenuButton[index].addEventListener('mousedown', (e)=>{
+                onTapColor(TouchMenuButton,index,'green');
+                openCurrMenu(index);
+                e.preventDefault();
+            });
+        })(i);
+            
+    }
     /**Function for QuicKMenu */
     var quickMenu = document.getElementsByClassName('quicMenu-align');
     // here lenght-2 is done because last two button are used for diff purpose 
@@ -1184,4 +1185,48 @@ export function currentScreen(){
         uniqid.tdLog = '#touch-timing-diagram-log';
     }
     return uniqid;
+}
+function openCurrMenu(index) {
+    var element = getID(index);
+    if(element.style.visibility === 'visible')
+    {element.style.visibility = 'hidden';}
+    else
+    {element.style.visibility = 'visible'}
+    for(var i=0;i<4;i++){
+        if(i == index){
+            continue;
+        }
+        else
+        {
+            var closelemnt = getID(i);
+            closelemnt.style.visibility = 'hidden';
+        }
+    }
+}
+/**
+     * Function For Menu Button Color
+     */
+function  onTapColor(classList,currentIndex,color){
+    if(classList[currentIndex].style.backgroundColor === color){
+        classList[currentIndex].style.backgroundColor = '';
+    }
+    else{
+        classList[currentIndex].style.backgroundColor = color;
+    }
+    for( var i=0;i<classList.length;i++){
+        if(i == currentIndex){
+            continue;
+        }
+        else{
+            classList[i].style.backgroundColor = '';
+        }
+    }
+}
+function getID(index){
+    switch(index){
+    case 0: return document.getElementById('TouchCe-panel');
+    case 1:return document.getElementById('touchElement-property');
+    case 2: return document.getElementById('touch-time-daigram');
+    case 3: return document.getElementById('quickMenu');
+    }
 }
