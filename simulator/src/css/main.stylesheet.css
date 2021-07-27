@@ -1690,6 +1690,9 @@ input[type='range']::-webkit-slider-thumb {
 #smallNavbarMenu-btn{
   display: none;
 }
+#TouchCe-panel{
+  display: none;
+}
 @media screen and (orientation:portrait) and (max-device-width: 1024px) {
   #lockPortaidMode{
     display: flex;
@@ -1743,7 +1746,10 @@ input[type='range']::-webkit-slider-thumb {
 }
 
 @media screen and (max-device-width: 1366px) {
-  .navbar {
+.ce-panel{
+  display: none;
+}
+.navbar {
     display: none;
 }
 #smallNavbarMenu-btn{
@@ -1789,4 +1795,95 @@ input[type='range']::-webkit-slider-thumb {
 .projectName {
   font-size: 25px;
 }
+
+#miniMapArea{
+  display: none;
+}
+.report-sidebar{
+  display: none;
+}
+#TouchCe-panel {
+  display: flex;
+  border-radius: 5px;
+  z-index: 99;
+  transition: background .5s ease-out;
+  position: fixed;
+  font: inherit;
+  width: 240px;
+  top: 100px;
+  right: 80px;
+  height: 310px;
+  margin: auto;
+  padding-top: 10px;
+  visibility: hidden;
+  
+}
+#TouchCe-panel::before {
+position: absolute;
+top: 5px;
+content: "";
+right: calc(50% - 150px);
+border-style: solid;
+border-width: 0px 15px 15px 15px;
+transform: rotate(90deg);
+transition: background .5s ease-out;
+padding-top: 30px;
+
+} 
+.touch-Ce-Menu {
+border-radius: 5px;
+z-index: 99;
+transition: background .5s ease-out;
+position: absolute;
+font: inherit;
+width: 270px;
+top: 10px;
+right: 9px;
+overflow: auto;
+overflow-x: hidden;
+height: 350px;
+margin: auto;
+padding-top: 10px;
+font-weight: bold;
+box-shadow: rgba(155, 160, 165, 0.2) 0px 8px 24px;
+}
+#ce-name{
+padding: 35px;
+font-size: 20px;
+}
+#Mobile-menu {
+  font: inherit;
+  height: 240px;
+  transition: background .5s ease-out;
+}
+.mobilepanelHeader {
+  border: none;
+  border-radius: 0;
+  transition: background .5s ease-out;
+  ;
+}
+
+.mobilepanelHeader:hover {
+  border-radius: 3px;
+  opacity: 0.9;
+}
+
+.mobilepanelHeader:after,
+.mobilepanelHeader:before {
+  content: "";
+  height: 8px;
+  display: inline-block;
+  right: 15px;
+  position: absolute;
+  border-radius: 5px;
+  top: 50%;
+  transform: translateY(-50%) rotate(132deg);
+  transition: 0.2s ease-out;
+  background-color: white;
+}
+
+.mobilepanelHeader:after {
+  transform: translate(260%, -50%) rotate(226deg);
+}
+
 }

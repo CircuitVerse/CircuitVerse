@@ -673,3 +673,11 @@ select {
   color: var(--text-panel);
   border: 3px solid var(--br-secondary );
 }
+.touch-Ce-Menu{
+  background-color:var(--primary);
+  color: var(--text-panel);
+  border: 1px solid var(--br-secondary);
+}
+#TouchCe-panel::before{
+  border-color: transparent transparent var(--br-secondary);
+}

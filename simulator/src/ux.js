@@ -135,6 +135,11 @@ export function setupUI() {
         active: false,
         heightStyle: 'content',
     });
+    $('#menu2, #subcircuitMenu').accordion({
+        collapsible: true,
+        active: false,
+        heightStyle: 'content',
+    });
 
     $('.logixModules').mousedown(createElement);
 
