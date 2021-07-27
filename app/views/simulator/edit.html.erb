@@ -178,6 +178,63 @@
   </div>
 </div>
 
+<div id="smallNavbarMenu-btn">
+<i class="fas fa-bars"></i>
+</div>
+
+<!-- navBar-for-small-screen -->
+<div class="smallscreen-navbar">
+<div id="logoWrap">
+  <a href="/"><span class='logo'></span></a>
+  </div>
+  <div id="ProjectID">Undefined</div>
+    <div class="smallNavbar-navbar-ul"><i class="fas fa-project-diagram"></i> Projects</div>
+    <div class="Smallscreen-navbar-inner">
+    <li class="SmallScreen-Navbar-li"> New Project</li>
+    <li class="SmallScreen-Navbar-li"> Save Online</li>
+    <li class="SmallScreen-Navbar-li"> Save Offine</li>
+    <li class="SmallScreen-Navbar-li"> Open Offine</li>
+    <li class="SmallScreen-Navbar-li"> Clear Project</li>
+    <li class="SmallScreen-Navbar-li"> Recover Project</li>
+    </div>
+    
+    <div class="smallNavbar-navbar-ul"><i class="fas fa-plus"></i> Circuits</div>
+    <div class="Smallscreen-navbar-inner">
+    <li class="SmallScreen-Navbar-li"> New Circuit + </li>
+    <li class="SmallScreen-Navbar-li"> New Verilog Module</li>
+    <li class="SmallScreen-Navbar-li"> Insert SubCircuit</li>
+    </div>
+    
+    <div class="smallNavbar-navbar-ul"><i class="fas fa-tools"></i> Tools </div>
+    <div class="Smallscreen-navbar-inner">
+    <li class="SmallScreen-Navbar-li"> Combinational Analysis</li>
+    <li class="SmallScreen-Navbar-li"> Hex-Bin-Dec Converter</li>
+    <li class="SmallScreen-Navbar-li"> Download Image</li>
+    <li class="SmallScreen-Navbar-li"> Theme</li>
+    <li class="SmallScreen-Navbar-li"> Export Verilog</li>
+    </div>
+    
+    <div class="smallNavbar-navbar-ul"><i class="fas fa-question-circle"></i> Help </div>
+    <div class="Smallscreen-navbar-inner">
+    <li class="SmallScreen-Navbar-li"> Tutorial</li>
+    <li class="SmallScreen-Navbar-li"> User Manual</li>
+    <li class="SmallScreen-Navbar-li"> Learn Digital Logic</li>
+    <li class="SmallScreen-Navbar-li"> Discussion Forum</li>
+    </div>
+
+    <ul class="smallNavbar-navbar-ul"><i class="fas fa-user"></i>
+    <% if user_signed_in? %>
+     <%= current_user.name %> </ul>
+    <div class="Smallscreen-navbar-inner">
+      <li class="SmallScreen-Navbar-li"><a href=<%= user_path(current_user) %>>Dashboard</a></li>
+      <li class="SmallScreen-Navbar-li"><a href=<%= user_groups_path(current_user) %>>My Groups</a></li>
+      <div class="dropdown-divider"></div>
+      <li class="SmallScreen-Navbar-li"><a rel="nofollow" data-method="delete" href=<%= destroy_user_session_path %>>Sign Out</a></li>
+      </div>
+  <% else %>
+    <a class="navbar-nav signIn-btn user-field" href=<%= new_user_session_path %>> Sign In </a>
+  <% end %>
+  </div>
 
 <!-- /.Potriad Mode Lock -->
 <div id="potraidLockBg">

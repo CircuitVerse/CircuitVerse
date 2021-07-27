@@ -1618,6 +1618,78 @@ input[type='range']::-webkit-slider-thumb {
 #potraidLockBg{
  display: none;
 }
+#smallNavbarMenu-btn{
+  display: none;
+}
+.smallscreen-navbar {
+  display: block;
+  height:0%;
+  width: 100%;
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  overflow-x: hidden;
+  transition: 0.5s;
+}
+.smallscreen-navbar-inner{
+  display: none;
+  width: auto;
+  max-height: inherit;
+  
+}
+.smallscreen-navbar-inner li{
+  list-style-type:none;
+  font-size: 17px;
+  font-weight: bold;
+  margin: 10px;
+  width: 140px;
+  height: 60px;
+  text-align: center;
+  border-radius: 10px;
+  padding: 10px;
+  font-family: inherit;
+
+}
+.smallNavbar-navbar-ul{
+  display: inline-flexbox;
+  font-family: inherit;
+  font-weight: bold;
+  font-size: 35px;
+  margin: 10px;
+  padding: 25px;
+  width: 250px;
+  text-align: center;
+  border-radius: 10px;
+
+}
+#ProjectID{
+  font-family: inherit;
+  font-weight: bold;
+  font-size: 25px;
+  padding: 5px;
+  padding-left: 10px;
+  text-align: center;
+}
+
+.mobileUserSignIn{
+  font-size: 20px;
+}
+
+.fa-chevron-down{
+  font-size: 20px;
+  padding-left: 20px;
+}
+#logoWrap{
+  height: 80px;
+  text-align: center;
+  padding: auto;
+  padding-top: 4px;
+  opacity: .7;
+}
+#smallNavbarMenu-btn{
+  display: none;
+}
 @media screen and (orientation:portrait) and (max-device-width: 1024px) {
   #lockPortaidMode{
     display: flex;
@@ -1670,3 +1742,51 @@ input[type='range']::-webkit-slider-thumb {
   }
 }
 
+@media screen and (max-device-width: 1366px) {
+  .navbar {
+    display: none;
+}
+#smallNavbarMenu-btn{
+  display: flex;
+  position: absolute;
+  width: 35px;
+  height: 35px;
+  z-index: 999;
+  padding: 8px;
+  top: 8px;
+  right:15px;
+  font-size: 15px;
+
+}
+#tabsBar {
+  height: 50px;
+  overflow-x: scroll;
+  padding-right: 40px;
+  
+}
+.circuits {
+  height: 35px;
+}
+.circuitName {
+  font-size: large;
+}
+.logixButton {
+  line-height: 1em;
+  display: inline-block;
+  text-decoration: none;
+  padding: 5px;
+  margin: 10px;
+}
+.logixButton:hover {
+  color: seagreen;
+}
+.logo {
+  padding-top: 25px;
+  height: 70px;
+  width: 250px;
+  padding-bottom: 15px;
+}
+.projectName {
+  font-size: 25px;
+}
+}

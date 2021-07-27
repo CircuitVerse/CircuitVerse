@@ -659,3 +659,17 @@ select {
   color: var(--text-panel);
   border: 3px solid var(--br-secondary );
 }
+.smallscreen-navbar{
+  background-color:var(--primary);
+    color: var(--text-panel);
+}
+.smallscreen-navbar-inner li{
+  background-color:var(--primary);
+  color: var(--text-panel);
+  border: 3px solid var(--br-secondary);
+}
+#smallNavbarMenu-btn{
+  background-color:var(--primary);
+  color: var(--text-panel);
+  border: 3px solid var(--br-secondary );
+}
