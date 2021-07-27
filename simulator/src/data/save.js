@@ -12,6 +12,7 @@ import {layoutModeGet, toggleLayoutMode} from '../layoutMode';
 import {verilogModeGet} from '../Verilog2CV';
 import domtoimage from 'dom-to-image';
 import C2S from '../../vendor/canvas2svg';
+import banana from '../i18n';
 
 var projectName = undefined;
 
@@ -22,7 +23,7 @@ var projectName = undefined;
  */
 export function setProjectName(name) {
     if(name == undefined) {
-        $('#projectName').html('Untitled');
+        $('#projectName').html(banana.i18n('untitled'));
         return;
     }
     name = stripTags(name);
@@ -75,7 +76,7 @@ export function generateSaveData(name) {
     data = {};
 
     // Prompts for name, defaults to Untitled
-    name = getProjectName() || name || prompt('Enter Project Name:') || 'Untitled';
+    name = getProjectName() || name || prompt(banana.i18n('data-save-prompt-enter-project-name')) || banana.i18n('untitled');
     data.name = stripTags(name);
     setProjectName(data.name);
 
@@ -336,7 +337,7 @@ export default async function save() {
         // user not signed in, save locally temporarily and force user to sign in
         localStorage.setItem('recover_login', data);
         // Asking user whether they want to login.
-        if (confirm('You have to login to save the project, you will be redirected to the login page.')) window.location.href = '/users/sign_in';
+        if (confirm(banana.i18n('data-save-login-first'))) window.location.href = '/users/sign_in';
         else $('.loadingIcon').fadeOut();
         // eslint-disable-next-line camelcase
     } else if (__logix_project_id == "0") {
@@ -393,12 +394,12 @@ export default async function save() {
                 name: projectName,
             }),
             success(response) {
-                showMessage(`We have saved your project: ${projectName} in our servers.`);
+                showMessage(banana.i18n('data-save-project-saved', projectName));
                 $('.loadingIcon').fadeOut();
                 localStorage.removeItem('recover');
             },
             failure(err) {
-                showMessage("There was an error, we couldn't save to our servers");
+                showMessage(banana.i18n('data-save-project-save-fail'));
                 $('.loadingIcon').fadeOut();
             },
         });

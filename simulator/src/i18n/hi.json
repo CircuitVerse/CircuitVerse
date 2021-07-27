@@ -176,5 +176,21 @@
     "testbench-testbenchInput-tooltip-text": "टेस्ट बेंच इनपुट का चयन करते है। ",
     "testbench-testbenchInput-prompt-enter-json": "टेस्टबेंच जेसन दर्ज करें",
     "testbench-testbenchOutput-tooltip-text": "टेस्ट बेंच आउटपुट का चयन करता है।",
-    "themer-themer-buttons-apply-theme": "थीम लागू करें"
+    "themer-themer-buttons-apply-theme": "थीम लागू करें",
+    "data-project-recover-project": "क्या आप $1 की पुनर्प्राप्ति करना चाहेंगे",
+    "data-project-no-recover-project": "पुनर्प्राप्ति के लिए कोई परियोजना नहीं मिली",
+    "data-project-no-project-saved": "<p>ऐसा लगता है कि अभी तक कोई सर्किट सेव नहीं किया गया है। एक नया बनाएं और इसे सेव करें!</p>",
+    "data-project-buttons-open-project": "परियोजना को खोलें ",
+    "data-project-project-saved-offline": "हमने आपका प्रोजेक्ट सेव कर लिया है: $1 आपके ब्राउज़र के लोकलस्टोरेज में",
+    "data-project-alert-unsaved-changes": "आपके पास इस पेज पर सेव नहीं किये गए परिवर्तन हैं। क्या आप इस पेज को छोड़ना चाहते हैं और अपने परिवर्तनों को त्यागना चाहते हैं या फिर इस पेज पर बने रहना चाहते हैं?",
+    "data-project-leave-page": "क्या आप सुनिश्चित हैं कि आप छोड़ना चाहते हैं? कोई भी सेव नहीं किया गया परिवर्तन पुनर्प्राप्त करने योग्य नहीं हो सकता है",
+    "data-project-clear-project": "क्या आप प्रोजेक्ट को क्लियर करना चाहेंगे?",
+    "data-project-project-cleared": "आपके प्रोजेक्ट को क्लियर कर दिया गया है।",
+    "data-project-start-new-project": "आप एक नई परियोजना शुरू करना क्या पसंद करते हैं? कोई भी सेव नहीं किया गया परिवर्तन खो जाएगा।",
+    "data-project-new-project-created": "नया प्रोजेक्ट बना दिया गया है!",
+    "data-save-prompt-enter-project-name": "परियोजना का नाम दर्ज करें:",
+    "data-save-login-first": "प्रोजेक्ट को सेव करने के लिए आपको लॉग इन करना होगा, आपको लॉग इन पेज पर रीडायरेक्ट कर दिया जाएगा।",
+    "data-save-project-saved": "हमने आपका परियोजना सेव कर ली है: $1 हमारे सर्वर में।",
+    "data-save-project-save-fail": "एक त्रुटि हुई, हम अपने सर्वर पर सेव नहीं कर सके",
+    "data-saveImage-buttons-render-circuit-image": "सर्किट की छवि रेंडर करें"
 }
