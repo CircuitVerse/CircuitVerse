@@ -175,5 +175,6 @@
     "testbench-ForceGate-tooltip-text": "फोर्स गेट टूलटिप: फोर्सगेट का चयन करता है।",
     "testbench-testbenchInput-tooltip-text": "टेस्ट बेंच इनपुट का चयन करते है। ",
     "testbench-testbenchInput-prompt-enter-json": "टेस्टबेंच जेसन दर्ज करें",
-    "testbench-testbenchOutput-tooltip-text": "टेस्ट बेंच आउटपुट का चयन करता है।"
+    "testbench-testbenchOutput-tooltip-text": "टेस्ट बेंच आउटपुट का चयन करता है।",
+    "themer-themer-buttons-apply-theme": "थीम लागू करें"
 }
