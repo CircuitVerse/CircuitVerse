@@ -23,8 +23,8 @@ export default class Rectangle extends CircuitElement {
         this.directionFixed = true;
         this.fixedBitWidth = true;
         this.rectangleObject = false;
-        this.cols = cols || parseInt(prompt('Enter cols:'), 10);
-        this.rows = rows || parseInt(prompt('Enter rows:'), 10);
+        this.cols = cols || parseInt(prompt(banana.i18n('enter-cols')), 10);
+        this.rows = rows || parseInt(prompt(banana.i18n('enter-rows')), 10);
         this.setSize();
     }
 

@@ -97,7 +97,7 @@ export default class Tunnel extends CircuitElement {
             if (tunnel.inp1.bitWidth !== this.inp1.bitWidth) {
                 this.inp1.highlighted = true;
                 tunnel.inp1.highlighted = true;
-                showError(`BitWidth Error: ${this.inp1.bitWidth} and ${tunnel.inp1.bitWidth}`);
+                showError(banana.i18n('bitwidth-error', this.inp1.bitWidth, tunnel.inp1.bitWidth));
             }
             if (tunnel.inp1.value !== this.inp1.value) {
                 tunnel.inp1.value = this.inp1.value;

@@ -32,7 +32,7 @@ export default class BitSelector extends CircuitElement {
         */
         this.setDimensions(20, 20);
         this.selectorBitWidth =
-            selectorBitWidth || parseInt(prompt("Enter Selector bitWidth"), 10);
+            selectorBitWidth || parseInt(prompt(banana.i18n('modules-BitSelector-prompt-enter-bitwidth')), 10);
         this.rectangleObject = false;
         this.inp1 = new Node(-20, 0, 0, this, this.bitWidth, "Input");
         this.output1 = new Node(20, 0, 1, this, 1, "Output");

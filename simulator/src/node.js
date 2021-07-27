@@ -400,7 +400,7 @@ export default class Node {
                 } else {
                     this.highlighted = true;
                     node.highlighted = true;
-                    showError(banana.i18n('node-bitwidth-error', this.bitWidth, node.bitWidth));
+                    showError(banana.i18n('bitwidth-error', this.bitWidth, node.bitWidth));
                 }
             }
         }

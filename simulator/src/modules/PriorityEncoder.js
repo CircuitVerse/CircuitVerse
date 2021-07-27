@@ -22,7 +22,7 @@ export default class PriorityEncoder extends CircuitElement {
         /* this is done in this.baseSetup() now
         this.scope['PriorityEncoder'].push(this);
         */
-        this.bitWidth = bitWidth || parseInt(prompt("Enter bitWidth"), 10);
+        this.bitWidth = bitWidth || parseInt(prompt(banana.i18n('enter-bitwidth')), 10);
         this.inputSize = 1 << this.bitWidth;
 
         this.yOff = 1;

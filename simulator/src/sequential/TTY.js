@@ -27,8 +27,8 @@ export default class TTY extends CircuitElement {
         */
         this.directionFixed = true;
         this.fixedBitWidth = true;
-        this.cols = cols || parseInt(prompt('Enter cols:'));
-        this.rows = rows || parseInt(prompt('Enter rows:'));
+        this.cols = cols || parseInt(prompt(banana.i18n('enter-cols')));
+        this.rows = rows || parseInt(prompt(banana.i18n('enter-rows')));
 
         this.elementWidth = Math.max(40, Math.ceil(this.cols / 2) * 20);
         this.elementHeight = Math.max(40, Math.ceil(this.rows * 15 / 20) * 20);

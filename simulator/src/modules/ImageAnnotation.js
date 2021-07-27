@@ -22,8 +22,8 @@ export default class ImageAnnotation extends CircuitElement {
         this.directionFixed = true;
         this.fixedBitWidth = true;
         this.imageUrl = imageUrl;
-        this.cols = cols || parseInt(prompt('Enter cols:'), 10);
-        this.rows = rows || parseInt(prompt('Enter rows:'), 10);
+        this.cols = cols || parseInt(prompt(banana.i18n('enter-cols')), 10);
+        this.rows = rows || parseInt(prompt(banana.i18n('enter-rows')), 10);
         this.setSize();
         this.loadImage();
     }
@@ -106,7 +106,7 @@ export default class ImageAnnotation extends CircuitElement {
             ctx.beginPath();
             ctx.textAlign = 'center';
             ctx.fillStyle = colors['text'];
-            fillText(ctx, "Double Click to Insert Image", xx, yy, 10);
+            fillText(ctx, banana.i18n('modules-ImageAnnotation-insert-image'), xx, yy, 10);
             ctx.fill();
 
             ctx.setLineDash([]);
@@ -143,9 +143,9 @@ export default class ImageAnnotation extends CircuitElement {
 
         // Response contains stringified JSON
         // Image URL available at response.data.link
-        showMessage('Uploading Image');
+        showMessage(banana.i18n('modules-ImageAnnotation-uploading-image'));
         var response = await $.ajax(settings);
-        showMessage('Image Uploaded');
+        showMessage(banana.i18n('modules-ImageAnnotation-image-uploaded'));
         this.imageUrl = JSON.parse(response).data.link;
         this.loadImage();
     }

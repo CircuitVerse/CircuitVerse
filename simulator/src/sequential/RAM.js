@@ -174,7 +174,7 @@ export default class RAM extends CircuitElement {
             console.group(this.label);
         }
 
-        showMessage("Data dumped to developer Console");
+        showMessage(banana.i18n('sequential-RAM-data-dumped'));
 
         console.log(JSON.stringify(this.data));
 
@@ -188,9 +188,9 @@ export default class RAM extends CircuitElement {
     }
 
     promptData() {
-        var data = prompt("Enter Data (separated by space, comma, tab or newline) (data can be in hex, binary, octal or decimal)");
+        var data = prompt(banana.i18n('sequential-RAM-prompt-enter-data'));
         if (!data) {
-            showError("No data entered.");
+            showError(banana.i18n('sequential-RAM-no-data-entered'));
             return;
         }
         var oldData = this.data;
@@ -215,7 +215,7 @@ export default class RAM extends CircuitElement {
                     throw `Address ${i}: ${data[i]} is too large`;
                 this.data[i] = dataCell;
             }
-            showMessage(`${data.length} data cells loaded`);
+            showMessage(banana.i18n('sequential-RAM-data-cells-loaded', data.length));
         }
         catch (e) {
             this.data = oldData;
