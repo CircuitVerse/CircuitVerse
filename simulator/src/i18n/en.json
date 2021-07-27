@@ -175,7 +175,8 @@
     "testbench-ForceGate-tooltip-text": "Force Gate ToolTip : ForceGate Selected.",
     "testbench-testbenchInput-tooltip-text": "Test Bench Input Selected",
     "testbench-testbenchInput-prompt-enter-json": "Enter TestBench Json",
-    "testbench-testbenchOutput-tooltip-text": "Test Bench Output Selected"
+    "testbench-testbenchOutput-tooltip-text": "Test Bench Output Selected",
+    "themer-themer-buttons-apply-theme": "Apply Theme"
 
 
 }

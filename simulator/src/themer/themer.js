@@ -1,6 +1,7 @@
 import { dots } from '../canvasApi';
 import themeOptions from "./themes";
 import themeCardSvg from "./themeCardSvg";
+import banana from '../i18n';
 
 /**
  * Extracts canvas theme colors from CSS-Variables and returns a JSON Object
@@ -128,7 +129,7 @@ export const colorThemes = () => {
             updateBG();
         },
         buttons: [{
-            text: "Apply Theme",
+            text: banana.i18n('themer-themer-buttons-apply-theme'),
             click() {
                 localStorage.setItem('theme', $('.selected label').text());
                 $('.set').removeClass('set');
