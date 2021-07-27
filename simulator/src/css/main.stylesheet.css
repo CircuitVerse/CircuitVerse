@@ -1693,6 +1693,12 @@ input[type='range']::-webkit-slider-thumb {
 #TouchCe-panel{
   display: none;
 }
+#touch-module-property{
+  display: none;
+}
+#moduleProperty-inner-2 {
+  display: none;
+}
 @media screen and (orientation:portrait) and (max-device-width: 1024px) {
   #lockPortaidMode{
     display: flex;
@@ -1886,4 +1892,75 @@ font-size: 20px;
   transform: translate(260%, -50%) rotate(226deg);
 }
 
+.properties-panel{
+  visibility: hidden;
+}
+#touchElement-property {
+  font: inherit;
+  width: 240px;
+  top: 105px;
+  right: 88px;
+  position: absolute;
+  height: 310px;
+  margin: auto;
+  transition: background .5s ease-out;
+  z-index: 99;
+  visibility: hidden;
+  box-shadow: rgba(155, 160, 165, 0.2) 0px 8px 24px;
+}
+
+#touchElement-property:before {
+  position: absolute;
+  top: 80px;
+  content: "";
+  right: calc(50% - 158px);
+  border-style: solid;
+  border-width: 0px 15px 15px 15px;
+  transform: rotate(90deg);
+  transition: background .5s ease-out;
+  padding-top: 30px;
+}
+#touch-module-property {
+  display: inline;
+  font: inherit;
+  width: 270px;
+  top: 7px;
+  right: 2px;
+  position: absolute;
+  overflow: scroll;
+  height: 350px;
+  visibility: none;
+  margin: auto;
+  transition: background .5s ease-out;
+  z-index: 99;
+  padding: 5px;
+  
+}
+#moduleProperty-inner-2 {
+  display: inline;
+  width: 85%;
+  margin: auto;
+  transition: background .5s ease-out;
+  z-index: 100;
+}
+
+#moduleProperty-inner-2>p span {
+  display: inline-block;
+  font-weight: bold;
+}
+
+#moduleProperty-inner-2>p button {
+  border-radius: 2px;
+  margin: 3px;
+}
+
+#moduleProperty-inner-2:last-child {
+  margin-bottom: 15px;
+}
+.slider{
+  transition: background .5s ease-out;
+}
+.slider::before{
+  transition: background .5s ease-out;
+}
 }

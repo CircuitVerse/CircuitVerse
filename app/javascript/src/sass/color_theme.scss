@@ -681,3 +681,16 @@ select {
 #TouchCe-panel::before{
   border-color: transparent transparent var(--br-secondary);
 }
+#touch-module-property {
+  background-color:var(--primary);
+  color: var(--text-panel);
+  border: 1px solid var(--br-secondary);
+}
+#touchElement-property:before{
+  border-color: transparent transparent var(--br-secondary) transparent;
+}
+#touch-time-daigram{
+  background-color:var(--primary);
+  color: var(--text-panel);
+  border: 1px solid var(--br-secondary);
+}

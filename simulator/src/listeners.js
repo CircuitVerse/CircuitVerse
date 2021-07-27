@@ -42,6 +42,12 @@ const returnCoordinate = {
     x: 0,
     y: 0,
 };
+var uniqid = {
+    modulePropertyInner:'',
+    PlotAreaId:'',
+    plotID:'',
+    tdLog:'',
+};
 
 let currDistance = 0;
 let distance = 0;
@@ -1099,4 +1105,18 @@ function zoomSliderListeners() {
         }
     }
 
+}
+export function currentScreen(){
+    if (window.screen.width > 1367) 
+    { uniqid.modulePropertyInner = '#moduleProperty-inner';
+        uniqid.PlotAreaId = 'plotArea';
+        uniqid.plotID = 'plot';
+        uniqid.tdLog = '#timing-diagram-log'; } 
+    else {
+        uniqid.modulePropertyInner = '#moduleProperty-inner-2';
+        // uniqid.PlotAreaId = 
+        // uniqid.plotID = 
+        // uniqid.tdLog = 
+    }
+    return uniqid;
 }
