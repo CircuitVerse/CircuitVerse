@@ -2138,3 +2138,68 @@ font-size: 20px;
   margin:0px;
 }
 }
+@media screen and (max-device-width: 1024px) {
+
+  #Mobile-menu {
+  font: inherit;
+  height: 240px;
+  transition: background .5s ease-out;
+}
+.mobilepanelHeader {
+  border: none;
+  border-radius: 0;
+  transition: background .5s ease-out;
+  ;
+}
+
+.mobilepanelHeader:hover {
+  border-radius: 3px;
+  opacity: 0.9;
+}
+#touch-time-daigram::before {
+  right: calc(50% - 462px);
+}
+
+#quickMenu::before{
+  right: calc(50% - 462px);
+  }
+
+}
+
+
+@media screen and (max-device-width: 823px) {
+.touch-Ce-Menu{
+  height: 300px;
+}
+
+#touch-module-property {
+  height: 300px;
+}
+#touch-time-daigram {
+  top: 200px;
+  right: 89px;
+  max-height: 245px;
+}
+#touch-time-daigram::before {
+  right: calc(50% - 440px);
+}
+#quickMenu{
+  top:90px;
+}
+#quickMenu::before{
+  
+  right: calc(50% - 440px);
+  
+}
+#liveMenu{
+  right: 100px;
+}
+}
+@media screen and (max-device-width: 736px) {
+  .touch-Ce-Menu{
+    height: 350px;
+  }
+  #touch-module-property {
+    height: 350px;
+  }
+}
