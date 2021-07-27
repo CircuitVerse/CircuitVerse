@@ -694,3 +694,14 @@ select {
   color: var(--text-panel);
   border: 1px solid var(--br-secondary);
 }
+#touch-time-daigram{
+  background-color:var(--primary);
+  color: var(--text-panel);
+  border: 1px solid var(--br-secondary);
+}
+#touch-time-daigram::before{
+  border-color: transparent transparent var(--br-secondary) transparent;
+}
+#touch-timing-diagram-toolbar{
+  background-color: var(--bg-tabs);
+}

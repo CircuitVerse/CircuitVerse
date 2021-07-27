@@ -1114,9 +1114,9 @@ export function currentScreen(){
         uniqid.tdLog = '#timing-diagram-log'; } 
     else {
         uniqid.modulePropertyInner = '#moduleProperty-inner-2';
-        // uniqid.PlotAreaId = 
-        // uniqid.plotID = 
-        // uniqid.tdLog = 
+        uniqid.PlotAreaId = 'plotArea-touchpanel';
+        uniqid.plotID = 'plot-touchpanel';
+        uniqid.tdLog = '#touch-timing-diagram-log';
     }
     return uniqid;
 }

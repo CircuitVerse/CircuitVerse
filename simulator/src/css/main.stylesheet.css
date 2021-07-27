@@ -1699,6 +1699,9 @@ input[type='range']::-webkit-slider-thumb {
 #moduleProperty-inner-2 {
   display: none;
 }
+#touch-time-daigram {
+  display: none;
+}
 @media screen and (orientation:portrait) and (max-device-width: 1024px) {
   #lockPortaidMode{
     display: flex;
@@ -1962,5 +1965,67 @@ font-size: 20px;
 }
 .slider::before{
   transition: background .5s ease-out;
+}
+
+.timing-diagram-panel{
+  display: none;
+}
+#touch-time-daigram {
+  display: inline;
+  font: inherit;
+  width: 611px;
+  top: 250px;
+  right: 89px;
+  position: fixed;
+  overflow: scroll;
+  margin: auto;
+  transition: background .5s ease-out;
+  z-index: 99;
+  padding: 5px;
+  visibility: hidden;
+  max-height: 200px;
+  box-shadow: rgba(155, 160, 165, 0.2) 0px 8px 24px;
+}
+#touch-time-daigram::before {
+  position: fixed;
+  top: 260px;
+  content: "";
+  right: calc(50% - 635px);
+  border-style: solid;
+  border-width: 0px 15px 15px 15px;
+  transform: rotate(90deg);
+  transition: background .5s ease-out;
+  padding-top: 30px;
+}
+
+.touch-timing-diagram-toolbar {
+    padding-left: 4px;
+    padding: 2px;
+    cursor: default;
+}
+
+.touch-timing-diagram-toolbar input {
+    width: 150px;
+    background: transparent !important;
+}
+
+
+.touch-panel-button {
+    cursor: pointer;
+    display: inline;
+    width: 50px;
+    height: 50px;
+    text-align:center;
+}
+
+#touch-cycle-unit {
+    background-color: brown;
+}
+
+#touch-timing-diagram-log {
+    font-size: 12.5px;
+    margin-left: 5px;
+    border-radius: 3px;
+    padding: 3px;
 }
 }
