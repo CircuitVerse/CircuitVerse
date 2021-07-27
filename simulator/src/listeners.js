@@ -1104,6 +1104,71 @@ function zoomSliderListeners() {
             }
         }
     }
+   
+    /**Function for QuicKMenu */
+    var quickMenu = document.getElementsByClassName('quicMenu-align');
+    // here lenght-2 is done because last two button are used for diff purpose 
+    for(i=0;i<quickMenu.length-2;i++){
+        (function(index){
+            quickMenu[index].addEventListener('touchstart', (e)=>{
+                onTapColor(quickMenu,index,'green');
+                e.preventDefault();
+
+            });
+            quickMenu[index].addEventListener('touchend', (e)=>{
+                onTapColor(quickMenu,index,'');
+                onQuickmenuTap(index);
+                e.preventDefault();
+            });
+            quickMenu[index].addEventListener('mousedown', (e)=>{
+                onTapColor(quickMenu,index,'green');
+                e.preventDefault();
+
+            });
+            quickMenu[index].addEventListener('mouseup', (e)=>{
+                onTapColor(quickMenu,index,'');
+                onQuickmenuTap(index);
+                e.preventDefault();
+            });
+        })(i);
+       
+    }
+    function onQuickmenuTap(i){
+        console.log(`Tap on ${i}`);
+        switch(i){
+        case 0:save();
+            break;
+        case 1:saveOffline();
+            break;
+        case 2: showMessage('What!!!!!!!!!!!!!1'); reportBug();
+            break;
+        case 3:createSaveAsImgPrompt();
+            break;
+        case 4:globalScope.centerFocus(false);updateCanvasSet(true);  gridUpdateSet(true);
+            break;
+        }
+    } 
+    quickMenu[5].addEventListener('touchstart',(e) =>{
+        onTapColor(quickMenu,5,'green');
+        console.log('shiftdown');
+        if(simulationArea.shiftDown == false)
+            simulationArea.shiftDown = true;
+        else
+            simulationArea.shiftDown = false;
+        e.preventDefault();
+    });
+    quickMenu[5].addEventListener('mousedown',(e) =>{
+        onTapColor(quickMenu,5,'green');
+        console.log('shiftdown');
+        if(simulationArea.shiftDown == false)
+            simulationArea.shiftDown = true;
+        else
+            simulationArea.shiftDown = false;   
+        e.preventDefault();     
+    });
+    function reportBug(){
+    
+    }
 
 }
 export function currentScreen(){

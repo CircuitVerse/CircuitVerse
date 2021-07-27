@@ -705,3 +705,16 @@ select {
 #touch-timing-diagram-toolbar{
   background-color: var(--bg-tabs);
 }
+#quickMenu{
+  background-color:var(--primary);
+  color: var(--text-panel);
+  border: 1px solid var(--br-secondary);
+}
+#quickMenu::before{
+  border-color: transparent transparent var(--br-secondary);
+}
+.quicMenu-align{
+  background-color:var(--primary);
+  color: var(--text-panel);
+  border: 2px solid var(--br-secondary);
+}

@@ -1702,6 +1702,9 @@ input[type='range']::-webkit-slider-thumb {
 #touch-time-daigram {
   display: none;
 }
+#quickMenu{
+  display: none;
+}
 @media screen and (orientation:portrait) and (max-device-width: 1024px) {
   #lockPortaidMode{
     display: flex;
@@ -1742,6 +1745,12 @@ input[type='range']::-webkit-slider-thumb {
     z-index: 1000;
   }
   .ce-panel{
+    display: none;
+  }
+  .properties-panel{
+    visibility: hidden;
+  }
+  .timing-diagram-panel{
     display: none;
   }
 }
@@ -2027,5 +2036,65 @@ font-size: 20px;
     margin-left: 5px;
     border-radius: 3px;
     padding: 3px;
+}
+#quickMenu{
+  display: inline;
+  border-radius: 5px;
+  padding: 10px;
+  z-index: 99;
+  top:200px;
+  right: 90px;
+  position: fixed;
+  margin: auto;
+  width: 290px;
+  padding-left: 0px;
+  font: inherit;
+  font-weight: bold;
+  text-align: center;
+  font-size: 25px;
+  box-shadow: rgba(155, 160, 165, 0.2) 0px 8px 24px;
+  visibility: hidden;
+}
+
+#quickMenu-Inner{
+   display: flex;
+    flex-wrap: wrap;
+    justify-content:center;
+    padding-top: 10px;
+    padding-left: 10px;
+
+}
+#quickMenu::before{
+  position: fixed;
+  top: 332px;
+  content: "";
+  right: calc(50% - 635px);
+  border-style: solid;
+  border-width: 0px 15px 15px 15px;
+  transform: rotate(90deg);
+  transition: background .5s ease-out;
+  padding-top: 30px;
+}
+
+.QuickMenuIcon{
+ font-size: 20px;
+  padding: 10px;
+ 
+}
+.QuickMenuIcon:hover{
+  background-color: #42b983;
+}
+.quicMenu-align{
+  width: 110px;
+  height: 50px;
+  display:flex;
+  padding: 10px;
+  font-size: 15px;
+  transition: 0.5s; 
+  text-align: center;
+  border-radius: 35px;
+  transition: background .5s ease-out;
+  align-items: center;
+  margin: 10px;
 }
 }
