@@ -60,6 +60,8 @@ let initX;
 let initY;
 let currX;
 let currY;
+var navMenuButtonHeight;
+var navMenuButton;
 
 /**
  *
@@ -940,8 +942,7 @@ function zoomSliderListeners() {
  * Mobile navbar
  */
     var smallnavbar = document.getElementById('smallNavbarMenu-btn');
-    var navMenuButtonHeight;
-    var navMenuButton;
+    
     function ChangeIconColor(Id,color){
         if(Id.style.backgroundColor === color){
             Id.style.backgroundColor = '';
@@ -1025,47 +1026,7 @@ function zoomSliderListeners() {
         })(i);
     }
  
-    function onTapSmallNavbar(i){
-        console.log(`Tap on ${i}`);
-        switch(i){
-        case 0:logixFunction.newProject();  navMenuButton[0].style.height = '0';
-            break;
-        case 1:logixFunction.save();
-            break;
-        case 2:logixFunction.saveOffline(); 
-            break;
-        case 3:logixFunction.createOpenLocalPrompt(); navMenuButton[0].style.height = '0';  //createSaveAsImgPrompt();
-            break;
-        case 4:logixFunction.clearProject(); navMenuButton[0].style.height = '0';
-            break;
-        case 5:logixFunction.recoverProject(); navMenuButton[0].style.height = '0';
-            break;
-        case 6:logixFunction.newCircuit(); navMenuButton[0].style.height = '0';
-            break;
-        case 7:logixFunction.newVerilogModule(); navMenuButton[0].style.height = '0';
-            break;
-        case 8:logixFunction.createSubCircuitPrompt(); navMenuButton[0].style.height = '0';
-            break;
-        case 9:logixFunction.createCombinationalAnalysisPrompt(); navMenuButton[0].style.height = '0';
-            break;
-        case 10:logixFunction.bitconverter(); navMenuButton[0].style.height = '0';
-            break;
-        case 11:createSaveAsImgPrompt(); navMenuButton[0].style.height = '0';
-            break;
-        case 12:logixFunction.colorThemes(); navMenuButton[0].style.height = '0';
-            break;
-        case 13:logixFunction.generateVerilog(); navMenuButton[0].style.height = '0';
-            break;
-        case 14:logixFunction.showTourGuide(); navMenuButton[0].style.height = '0';
-            break;
-        case 15:window.open('https://docs.circuitverse.org');
-            break;
-        case 16:window.open('https://learn.circuitverse.org');
-            break;
-        case 17:window.open('https://circuitverse.org/forum');
-            break;
-        }
-    } 
+   
  
     var smallScreemInner = document.getElementsByClassName('Smallscreen-navbar-inner');
     function NavCollapsible(index){
@@ -1134,21 +1095,7 @@ function zoomSliderListeners() {
         })(i);
        
     }
-    function onQuickmenuTap(i){
-        console.log(`Tap on ${i}`);
-        switch(i){
-        case 0:save();
-            break;
-        case 1:saveOffline();
-            break;
-        case 2: showMessage('What!!!!!!!!!!!!!1'); reportBug();
-            break;
-        case 3:createSaveAsImgPrompt();
-            break;
-        case 4:globalScope.centerFocus(false);updateCanvasSet(true);  gridUpdateSet(true);
-            break;
-        }
-    } 
+    
     quickMenu[5].addEventListener('touchstart',(e) =>{
         onTapColor(quickMenu,5,'green');
         console.log('shiftdown');
@@ -1167,8 +1114,35 @@ function zoomSliderListeners() {
             simulationArea.shiftDown = false;   
         e.preventDefault();     
     });
-    function reportBug(){
-    
+
+    /**Function for live Menu 
+      * Undo,Delete,Fit to screen
+    */
+    var liveMenu = document.getElementsByClassName('liveMenuIcon');
+    for(i=0;i<liveMenu.length;i++){
+        (function(index){
+            liveMenu[index].addEventListener('touchstart', (e)=>{
+                onTapColor(liveMenu,index,'green');
+                e.preventDefault();
+            });
+            liveMenu[index].addEventListener('touchend', (e)=>{
+                onTapColor(liveMenu,index,'');
+                console.log(index);
+                onTapliveMenu(index);
+                e.preventDefault();
+            });
+            liveMenu[index].addEventListener('mousedown', (e)=>{
+                onTapColor(liveMenu,index,'green');
+                e.preventDefault();
+            });
+            liveMenu[index].addEventListener('mouseup', (e)=>{
+                onTapColor(liveMenu,index,'');
+                console.log(index);
+                onTapliveMenu(index);
+                e.preventDefault();
+            });
+        })(i);
+          
     }
 
 }
@@ -1230,3 +1204,70 @@ function getID(index){
     case 3: return document.getElementById('quickMenu');
     }
 }
+function onTapliveMenu(index){
+    switch(index){
+    case 0:globalScope.centerFocus(false);updateCanvasSet(true);  gridUpdateSet(true);
+        break;
+    case 1:deleteSelected();
+        break;
+    case 2:undo();
+        break;
+    }
+}
+function onQuickmenuTap(i){
+    console.log(`Tap on ${i}`);
+    switch(i){
+    case 0:save();
+        break;
+    case 1:saveOffline();
+        break;
+    case 2: showMessage('What!!!!!!!!!!!!!1'); reportBug();
+        break;
+    case 3:createSaveAsImgPrompt();
+        break;
+    case 4:globalScope.centerFocus(false);updateCanvasSet(true);  gridUpdateSet(true);
+        break;
+    }
+} 
+function onTapSmallNavbar(i){
+    console.log(`Tap on ${i}`);
+    switch(i){
+    case 0:logixFunction.newProject();  navMenuButton[0].style.height = '0';
+        break;
+    case 1:logixFunction.save();
+        break;
+    case 2:logixFunction.saveOffline(); 
+        break;
+    case 3:logixFunction.createOpenLocalPrompt(); navMenuButton[0].style.height = '0';  //createSaveAsImgPrompt();
+        break;
+    case 4:logixFunction.clearProject(); navMenuButton[0].style.height = '0';
+        break;
+    case 5:logixFunction.recoverProject(); navMenuButton[0].style.height = '0';
+        break;
+    case 6:logixFunction.newCircuit(); navMenuButton[0].style.height = '0';
+        break;
+    case 7:logixFunction.newVerilogModule(); navMenuButton[0].style.height = '0';
+        break;
+    case 8:logixFunction.createSubCircuitPrompt(); navMenuButton[0].style.height = '0';
+        break;
+    case 9:logixFunction.createCombinationalAnalysisPrompt(); navMenuButton[0].style.height = '0';
+        break;
+    case 10:logixFunction.bitconverter(); navMenuButton[0].style.height = '0';
+        break;
+    case 11:createSaveAsImgPrompt(); navMenuButton[0].style.height = '0';
+        break;
+    case 12:logixFunction.colorThemes(); navMenuButton[0].style.height = '0';
+        break;
+    case 13:logixFunction.generateVerilog(); navMenuButton[0].style.height = '0';
+        break;
+    case 14:logixFunction.showTourGuide(); navMenuButton[0].style.height = '0';
+        break;
+    case 15:window.open('https://docs.circuitverse.org');
+        break;
+    case 16:window.open('https://learn.circuitverse.org');
+        break;
+    case 17:window.open('https://circuitverse.org/forum');
+        break;
+    }
+} 
+
