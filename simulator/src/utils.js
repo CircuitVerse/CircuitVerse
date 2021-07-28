@@ -209,7 +209,7 @@ export function bitConverterDialog() {
     $('#bitconverterprompt').dialog({
         buttons: [
             {
-                text: banana.i18n('utils-bit-converter-buttons-reset'),
+                text: banana.i18n('reset'),
                 click: function () {
                     setBaseValues(0);
                 }

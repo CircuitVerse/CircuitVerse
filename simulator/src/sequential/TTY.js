@@ -169,14 +169,14 @@ TTY.prototype.helplink = 'https://docs.circuitverse.org/#/Sequential?id=tty';
 
 TTY.prototype.mutableProperties = {
     'cols': {
-        name: 'Columns',
+        name: banana.i18n('columns'),
         type: 'number',
         max: '100',
         min: '20',
         func: 'changeColSize',
     },
     'rows': {
-        name: 'Rows',
+        name: banana.i18n('rows'),
         type: 'number',
         max: '10',
         min: '1',

@@ -298,28 +298,28 @@ RGBLedMatrix.prototype.maxLedSize = 3;
 
 RGBLedMatrix.prototype.mutableProperties = {
     rows: {
-        name: 'Rows',
+        name: banana.i18n('rows'),
         type: 'number',
         max: RGBLedMatrix.prototype.maxRows,
         min: 1,
         func: 'changeRows',
     },
     columns: {
-        name: 'Columns',
+        name: banana.i18n('columns'),
         type: 'number',
         max: RGBLedMatrix.prototype.maxColumns,
         min: 1,
         func: 'changeColumns',
     },
     ledSize: {
-        name: 'LED Size',
+        name: banana.i18n('modules-RGBLedMatrix-led-size'),
         type: 'number',
         max: RGBLedMatrix.prototype.maxLedSize,
         min: 1,
         func: 'changeLedSize',
     },
     showGrid: {
-        name: 'Toggle Grid',
+        name: banana.i18n('modules-RGBLedMatrix-buttons-toggle-grid'),
         type: 'button',
         max: RGBLedMatrix.prototype.maxLedSize,
         min: 1,

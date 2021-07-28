@@ -10,6 +10,7 @@ import {
 
 import {getOS} from './utils.js'
 import {shortcut} from './shortcuts.plugin.js'
+import banana from '../../i18n';
 /**
  * Function used to add or change keys user or default
  * grabs the keycombo from localstorage &
@@ -112,9 +113,7 @@ export const warnOverride = (combo, target) => {
         ) {
             const assignee = $("#preference").children()[x].children[1]
                 .children[0].innerText;
-            $("#warning").text(
-                `This key(s) is already assigned to: ${assignee}, press Enter to override.`
-            );
+            $("#warning").text(banana.i18n('hotkey-binder-actions-key-already-assigned', assignee));
             $("#edit").css("border", "1.5px solid #dc5656");
             return;
         } else {

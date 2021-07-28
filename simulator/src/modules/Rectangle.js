@@ -130,14 +130,14 @@ Rectangle.prototype.propagationDelayFixed = true;
  */
 Rectangle.prototype.mutableProperties = {
     cols: {
-        name: 'Columns',
+        name: banana.i18n('columns'),
         type: 'number',
         max: '1000',
         min: '5',
         func: 'changeColSize',
     },
     rows: {
-        name: 'Rows',
+        name: banana.i18n('rows'),
         type: 'number',
         max: '1000',
         min: '5',

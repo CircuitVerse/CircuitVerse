@@ -254,24 +254,24 @@ RAM.prototype.shortName = 'RAM';
 RAM.prototype.maxAddressWidth = 20;
 RAM.prototype.mutableProperties = {
     addressWidth: {
-        name: 'Address Width',
+        name: banana.i18n('address-width'),
         type: 'number',
         max: '20',
         min: '1',
         func: 'changeAddressWidth',
     },
     dump: {
-        name: 'Core Dump',
+        name: banana.i18n('core-dump'),
         type: 'button',
         func: 'dump',
     },
     load: {
-        name: 'Load Data',
+        name: banana.i18n('load-data'),
         type: 'button',
         func: 'promptData',
     },
     reset: {
-        name: 'Reset',
+        name: banana.i18n('reset'),
         type: 'button',
         func: 'clearData',
     },

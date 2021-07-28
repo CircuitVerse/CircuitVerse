@@ -165,7 +165,7 @@ DigitalLed.prototype.helplink =
  */
 DigitalLed.prototype.mutableProperties = {
     color: {
-        name: "Color: ",
+        name: banana.i18n('modules-DigitalLed-color'),
         type: "text",
         func: "changeColor",
     },

@@ -171,7 +171,7 @@ Keyboard.prototype.helplink = 'https://docs.circuitverse.org/#/Sequential?id=key
 
 Keyboard.prototype.mutableProperties = {
     'bufferSize': {
-        name: 'Buffer Size',
+        name: banana.i18n('sequential-Keyboard-buffer-size'),
         type: 'number',
         max: '100',
         min: '20',

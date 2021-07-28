@@ -185,6 +185,8 @@ ImageAnnotation.prototype.propagationDelayFixed = true;
  * @type {JSON}
  * @category modules
  */
+ //repetition of imageannotation this can be removed
+
 ImageAnnotation.prototype.mutableProperties = {
     cols: {
         name: 'Columns',
@@ -205,19 +207,19 @@ ImageAnnotation.prototype.objectType = 'ImageAnnotation';
 ImageAnnotation.prototype.rectangleObject = false;
 ImageAnnotation.prototype.mutableProperties = {
     imageUrl: {
-        name: 'Upload Image',
+        name: banana.i18n('modules-ImageAnnotation-buttons-upload-image'),
         type: 'button',
         func: 'uploadImage',
     },
     cols: {
-        name: 'Columns',
+        name: banana.i18n('columns'),
         type: 'number',
         max: '1000',
         min: '5',
         func: 'changeColSize',
     },
     rows: {
-        name: 'Rows',
+        name: banana.i18n('rows'),
         type: 'number',
         max: '1000',
         min: '5',

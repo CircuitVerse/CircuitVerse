@@ -271,18 +271,18 @@ TB_Input.prototype.helplink = 'https://docs.circuitverse.org/#/testbench';
 
 TB_Input.prototype.mutableProperties = {
     identifier: {
-        name: 'TestBench Name:',
+        name: banana.i18n('testbench-name'),
         type: 'text',
         maxlength: '10',
         func: 'setIdentifier',
     },
     iteration: {
-        name: 'Reset Iterations',
+        name: banana.i18n('testbench-testbenchInput-buttons-iterations'),
         type: 'button',
         func: 'resetIterations',
     },
     toggleState: {
-        name: 'Toggle State',
+        name: banana.i18n('testbench-testbenchInput-buttons-toggle-state'),
         type: 'button',
         func: 'toggleState',
     },
