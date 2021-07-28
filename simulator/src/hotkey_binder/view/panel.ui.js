@@ -1,5 +1,6 @@
 import { defaultKeys } from '../defaultKeys';
 import { setUserKeys } from '../model/actions';
+import banana from '../../i18n';
 
 /**
  * function to generate the specific HTML for the hotkey panel
@@ -23,14 +24,14 @@ const createElements = (metadata) => {
 export const markUp = createElements(defaultKeys);
 
 export const editPanel = `<div id="edit" tabindex="0">
-<span style="font-size: 14px;">Press Desire Key Combination & press Enter or press ESC to cancel.</span>
+<span style="font-size: 14px;">${banana.i18n('hotkey-binder-panel-ui-change-key-combination')}</span>
 <div id="pressedKeys"></div>
 <div id="warning"></div>
 </div>`;
 
 export const heading = `<div id="heading">
-  <span>Command</span>
-  <span>Keymapping</span>
+  <span>${banana.i18n('hotkey-binder-panel-ui-command')}</span>
+  <span>${banana.i18n('hotkey-binder-panel-ui-keymapping')}</span>
 </div>`;
 
 /**

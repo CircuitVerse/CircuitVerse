@@ -163,7 +163,7 @@ BitSelector.prototype.helplink =
  */
 BitSelector.prototype.mutableProperties = {
     selectorBitWidth: {
-        name: "Selector Bit Width: ",
+        name: banana.i18n('modules-BitSelector-selector-bitwidth'),
         type: "number",
         max: "32",
         min: "1",

@@ -334,7 +334,7 @@ Multiplexer.prototype.helplink =
  */
 Multiplexer.prototype.mutableProperties = {
     controlSignalSize: {
-        name: "Control Signal Size",
+        name: banana.i18n('control-signal-size'),
         type: "number",
         max: "32",
         min: "1",

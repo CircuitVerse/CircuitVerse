@@ -59,7 +59,7 @@ export default class SquareRGBLed extends CircuitElement {
 
         this.mutableProperties = {
             pinLength: {
-                name: 'Pin Length',
+                name: banana.i18n('modules-SquareRGBLed-pin-length'),
                 type: 'number',
                 max: '1000',
                 min: '0',

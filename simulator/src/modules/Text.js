@@ -152,14 +152,14 @@ Text.prototype.helplink = 'https://docs.circuitverse.org/#/annotation?id=adding-
  */
 Text.prototype.mutableProperties = {
     fontSize: {
-        name: 'Font size: ',
+        name: banana.i18n('modules-Text-font-size'),
         type: 'number',
         max: '84',
         min: '14',
         func: 'setFontSize',
     },
     label: {
-        name: 'Text: ',
+        name: banana.i18n('modules-Text-textarea'),
         type: 'textarea',
         func: 'setLabel',
     },

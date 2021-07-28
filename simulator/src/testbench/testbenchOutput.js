@@ -224,7 +224,7 @@ TB_Output.prototype.helplink = 'https://docs.circuitverse.org/#/testbench';
 TB_Output.prototype.centerElement = true;
 TB_Output.prototype.mutableProperties = {
     identifier: {
-        name: 'TestBench Name:',
+        name: banana.i18n('testbench-name'),
         type: 'text',
         maxlength: '10',
         func: 'setIdentifier',

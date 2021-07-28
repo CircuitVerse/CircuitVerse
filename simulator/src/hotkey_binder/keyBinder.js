@@ -10,6 +10,7 @@ import {
 import { setDefault, checkUpdate, addKeys, warnOverride } from './model/actions';
 import { KeyCode } from './model/normalize/normalizer.plugin.js'
 import {checkRestricted} from './model/utils.js'
+import banana from '../i18n';
 
 //** keyBinder dialog */
 export function keyBinder() {
@@ -22,19 +23,15 @@ export function keyBinder() {
             resizable: false,
             buttons: [
                 {
-                    text: "Reset to default",
+                    text: banana.i18n('hotkey-binder-KeyBinder-buttons-reset'),
                     click: () => {
-                        if (
-                            confirm(
-                                "Remove all custom keys & set the default keys?"
-                            )
-                        )
+                        if (confirm(banana.i18n('hotkey-binder-KeyBinder-remove-custom-keys')))
                             setDefault();
                     },
                     id: "resetDefault",
                 },
                 {
-                    text: "Save",
+                    text: banana.i18n('save'),
                     click: () => {
                         submit();
                         $("#customShortcutDialog").dialog("close");
@@ -74,7 +71,7 @@ export function keyBinder() {
         if (e.keyCode === 27) closeEdit();
         if (e.keyCode === 13) {
             if ($("#pressedKeys").text() === "") {
-                $("#warning").text("Please enter some key(s)");
+                $("#warning").text(banana.i18n('hotkey-binder-KeyBinder-enter-some-key'));
                 $("#edit").css("animation", "shake .3s linear");
                 return;
             }
@@ -84,7 +81,7 @@ export function keyBinder() {
                 $("#pressedKeys").text("");
                 $("#edit").css("display", "none");
             } else {
-                $("#warning").text("Please enter different key(s).");
+                $("#warning").text(banana.i18n('hotkey-binder-KeyBinder-enter-different-key'));
                 $("#edit").css("animation", "shake .3s linear");
                 $("#pressedKeys").text("");
             }
@@ -125,7 +122,7 @@ export function keyBinder() {
         }
         warnOverride($("#pressedKeys").text(), targetPref);
         if (checkRestricted($("#pressedKeys").text())) {
-            $("#warning").text("The above combination is a system default shortcut & cannot be set.");
+            $("#warning").text(banana.i18n('hotkey-binder-KeyBinder-default-shortcut-entered'));
         }
     });
 

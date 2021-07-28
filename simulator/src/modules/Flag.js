@@ -224,7 +224,7 @@ Flag.prototype.helplink =
  */
 Flag.prototype.mutableProperties = {
     identifier: {
-        name: "Debug Flag identifier",
+        name: banana.i18n('debug-flag-identifier'),
         type: "text",
         maxlength: "5",
         func: "setIdentifier",

@@ -60,7 +60,7 @@ export default class Demultiplexer extends CircuitElement {
         };
         this.mutableProperties = {
             controlSignalSize: {
-                name: "Control Signal Size",
+                name: banana.i18n('control-signal-size'),
                 type: "number",
                 max: "32",
                 min: "1",
