@@ -1991,7 +1991,7 @@ font-size: 20px;
   width: 611px;
   top: 250px;
   right: 89px;
-  position: fixed;
+  position: absolute;
   overflow: scroll;
   margin: auto;
   transition: background .5s ease-out;
@@ -2050,7 +2050,7 @@ font-size: 20px;
   z-index: 99;
   top:200px;
   right: 90px;
-  position: fixed;
+  position: absolute;
   margin: auto;
   width: 290px;
   padding-left: 0px;
@@ -2071,10 +2071,10 @@ font-size: 20px;
 
 }
 #quickMenu::before{
-  position: fixed;
-  top: 332px;
+  position: absolute;
+  top: 135px;
   content: "";
-  right: calc(50% - 635px);
+  right: calc(50% - 185px);
   border-style: solid;
   border-width: 0px 15px 15px 15px;
   transform: rotate(90deg);
@@ -2122,7 +2122,7 @@ font-size: 20px;
 }
 #liveMenu{
   display: flex;
-  z-index: 99;
+  z-index: 98;
   position: fixed;
   bottom: 10px;
   right: 70px;
@@ -2138,6 +2138,11 @@ font-size: 20px;
   margin:0px;
 }
 }
+
+
+
+  
+  
 @media screen and (max-device-width: 1024px) {
 
   #Mobile-menu {
@@ -2160,9 +2165,8 @@ font-size: 20px;
   right: calc(50% - 462px);
 }
 
-#quickMenu::before{
-  right: calc(50% - 462px);
-  }
+
+
 
 }
 
@@ -2183,23 +2187,15 @@ font-size: 20px;
 #touch-time-daigram::before {
   right: calc(50% - 440px);
 }
-#quickMenu{
-  top:90px;
-}
-#quickMenu::before{
-  
-  right: calc(50% - 440px);
-  
-}
+
 #liveMenu{
   right: 100px;
 }
+#quickMenu{
+  top:100px
 }
-@media screen and (max-device-width: 736px) {
-  .touch-Ce-Menu{
-    height: 350px;
-  }
-  #touch-module-property {
-    height: 350px;
-  }
+#quickMenu::before{
+  top: 230px;
+ }
 }
+

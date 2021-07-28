@@ -805,6 +805,10 @@ export default function startListeners() {
     const QuickPanelQuerySelector = document.querySelector('#quick-btn-id');
     const timingDiagramListner = document.getElementById('time-Diagram');
     const timingDiagramQuerySelector = document.querySelector('#time-Diagram');
+    const layoutListner = document.getElementById('layoutDialog');
+    const layoutQuerySelector = document.querySelector('#layoutDialog');
+    const layoutElementPanelListner = document.getElementsByClassName('layoutElementPanel')[0];
+
 
     moduleQueryslector.addEventListener('touchstart', (e) => {
         dragStart(e, modulePropertyListners);
@@ -843,6 +847,30 @@ export default function startListeners() {
         dragMove(e, timingDiagramListner);
     });
     timingDiagramQuerySelector.addEventListener('touchend', () => {
+        dragEnd();
+    });
+    
+    layoutQuerySelector.addEventListener('touchstart', (e) => {
+        $('.timing-diagram-panel').draggable().draggable('enable');
+        timingDiagramListner.style.position = 'absolute';
+        dragStart(e, layoutListner);
+    });
+    layoutQuerySelector.addEventListener('touchmove', (e) => {
+        dragMove(e, layoutListner);
+    });
+    layoutQuerySelector.addEventListener('touchend', () => {
+        dragEnd();
+    });
+
+    layoutElementPanelListner.addEventListener('touchstart', (e) => {
+        $('.timing-diagram-panel').draggable().draggable('enable');
+        timingDiagramListner.style.position = 'absolute';
+        dragStart(e, layoutElementPanelListner);
+    });
+    layoutElementPanelListner.addEventListener('touchmove', (e) => {
+        dragMove(e, layoutElementPanelListner);
+    });
+    layoutElementPanelListner.addEventListener('touchend', () => {
         dragEnd();
     });
 }
@@ -1165,7 +1193,7 @@ function openCurrMenu(index) {
     if(element.style.visibility === 'visible')
     {element.style.visibility = 'hidden';}
     else
-    {element.style.visibility = 'visible'}
+    {element.style.visibility = 'visible';}
     for(var i=0;i<4;i++){
         if(i == index){
             continue;
