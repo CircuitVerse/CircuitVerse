@@ -564,17 +564,21 @@ export default class SubCircuit extends CircuitElement {
     }
 
     /**
-     * Not resolvable. Subcircuit's scope is added to the main scope directly
+     * By design, subcircuit element's input and output nodes are wirelessly
+     * connected to the localscope (clone of the scope of the subcircuit's
+     * circuit). So it is almost like the actual circuit is copied in the
+     * location of the subcircuit element. Therefore no resolve needed.
      */
     isResolvable() {
         return false;
     }
 
     /**
-     * Leave this to the scope of the subcircuit. Do nothing.
+     * If element not resolvable (always in subcircuits), removePropagation
+     * is called on it.
      */
     removePropagation() {
-        return;
+        // Leave this to the scope of the subcircuit. Do nothing.
     }
 
     verilogName(){
