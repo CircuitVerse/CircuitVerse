@@ -1378,7 +1378,7 @@ input:checked + .slider:before {
 #combinationalAnalysis p input {
   border: 1px solid white;
   background: transparent;
-font: inherit;
+  font: inherit;
   text-align: center;
 }
 
@@ -1429,6 +1429,23 @@ font: inherit;
 }
 
 /*! combinationalAnalysis dialog styling end here */
+
+#setTestbenchData {
+  
+}
+
+#setTestbenchData input {
+  border: 1px solid white;
+  background: transparent;
+  text-align: center;
+  font: inherit;
+  color: white;
+}
+
+#setTestbenchData p {
+  font: inherit;
+  color: white;
+}
 
 /** openProjectDialog styling starts here */
 

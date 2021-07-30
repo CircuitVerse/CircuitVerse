@@ -33,7 +33,7 @@ export function backUp(scope = globalScope) {
     data.allNodes = scope.allNodes.map(extract);
 
     // Storing test attached to scope
-    data.test = scope.test;
+    data.testBenchData = scope.testBenchData;
 
     // Storing other details
     data.id = scope.id;

@@ -127,8 +127,8 @@ export function loadScope(scope, data) {
     }
 
     // If Test exists, then restore
-    if (data.test) {
-        scope.test = data.test;
+    if (data.testBenchData) {
+        globalScope.testBenchData = data.testBenchData;
     }
 
     // If layout exists, then restore

@@ -4,7 +4,7 @@ import save from './data/save';
 import load from './data/load';
 import createSaveAsImgPrompt from './data/saveImage'
 import { clearProject, newProject, saveOffline, openOffline, recoverProject } from './data/project'
-import { newCircuit } from './circuit'
+import { newCircuit, createNewCircuitScope } from './circuit'
 import { createCombinationalAnalysisPrompt } from './combinationalAnalysis';
 import { colorThemes } from "./themer/themer";
 import { showTourGuide } from './tutorials';
@@ -35,6 +35,7 @@ logixFunction.resetVerilogCode = resetVerilogCode;
 logixFunction.generateVerilog = generateVerilog;
 logixFunction.bitconverter = bitConverterDialog;
 logixFunction.createTestBenchPrompt = createTestBenchPrompt;
+logixFunction.createNewCircuitScope = createNewCircuitScope;
 export default logixFunction;
 
 // Hack to restart tour guide

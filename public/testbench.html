@@ -84,16 +84,13 @@
     .table-button {
         height: 20px;
         width: 20px;
-        /*min-width: 40px;*/
         background-color: #ffffff;
         border: 2px solid black;
         color: black;
-        /*padding: 20px;*/
-        text-align: center;
         text-decoration: none;
         display: inline-block;
-        /*font-size: 16px;*/
-        margin: 4px 2px;
+        margin: 4px 4px;
+        padding: 0px;
         border-radius: 5px;
     }
 
@@ -407,7 +404,7 @@
             // Push all the inputs in the group
             for(let inp_i = 0; inp_i < inputCount; inp_i++){
                 let label = Object.keys(bitwidths)[inp_i];
-                let input = { label: label.slice(0, label.length - 1), bitWidth: bitwidths[label], values: [] };
+                let input = { label: label.slice(0, label.length - 2), bitWidth: bitwidths[label], values: [] };
                 group_table.find("tr").each(function() {
                     input.values.push($(this).find("td").slice(1).eq(inp_i).html());
                 });
@@ -418,7 +415,7 @@
             // Push all the outputs in the group
             for(let out_i = 0; out_i < outputCount; out_i++){
                 const label = Object.keys(bitwidths)[inputCount + out_i];
-                let output = { label: label.slice(0, label.length - 1), bitWidth: bitwidths[label], values: [] };
+                let output = { label: label.slice(0, label.length - 2), bitWidth: bitwidths[label], values: [] };
                 group_table.find("tr").each(function() {
                     output.values.push($(this).find("td").slice(1).eq(inputCount + out_i).html());
                 });
@@ -449,6 +446,7 @@
     function loadData(data) {
         data = JSON.parse(data);
         if(data.title) $('#test-title-label').text(data.title);
+        changeMode();
         changeMode(data.type);
         for (let group_i = 0; group_i < data.groups.length; group_i ++) {
             const group = data.groups[group_i];
@@ -480,6 +478,7 @@
     function loadResult(data) {
         data = JSON.parse(data);
         if(data.title) $('#test-title-label').text(data.title);
+        changeMode();
         changeMode(data.type);
         for (let group_i = 0; group_i < data.groups.length; group_i ++) {
             const group = data.groups[group_i];

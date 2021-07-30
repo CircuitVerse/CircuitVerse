@@ -129,6 +129,18 @@ function deleteCurrentCircuit(scopeId = globalScope.id) {
 }
 
 /**
+ * Wrapper function around newCircuit to be called from + button on UI
+ */
+export function createNewCircuitScope() {
+    const scope = newCircuit();
+    if (!embed) {
+        showProperties(simulationArea.lastSelected);
+        updateTestbenchUI();
+        plotArea.reset();
+    }
+}
+
+/**
  * Function to create new circuit
  * Function creates button in tab, creates scope and switches to this circuit
  * @param {string} name - name of the new circuit
