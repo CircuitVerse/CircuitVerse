@@ -1124,18 +1124,15 @@ function zoomSliderListeners() {
        
     }
     
-    quickMenu[5].addEventListener('touchstart',(e) =>{
-        onTapColor(quickMenu,5,'green');
-        console.log('shiftdown');
+    quickMenu[6].addEventListener('touchstart',(e) =>{
+        onTapColor(quickMenu,6,'green');
         if(simulationArea.shiftDown == false)
             simulationArea.shiftDown = true;
         else
             simulationArea.shiftDown = false;
         e.preventDefault();
     });
-    quickMenu[5].addEventListener('mousedown',(e) =>{
-        onTapColor(quickMenu,5,'green');
-        console.log('shiftdown');
+    quickMenu[6].addEventListener('mousedown',(e) =>{
         if(simulationArea.shiftDown == false)
             simulationArea.shiftDown = true;
         else
@@ -1174,6 +1171,10 @@ function zoomSliderListeners() {
     }
 
 }
+/**
+ * 
+ * Function to return id or class of panel according to screen width 
+ */
 export function currentScreen(){
     if (window.screen.width > 1367) 
     { uniqid.modulePropertyInner = '#moduleProperty-inner';
@@ -1243,22 +1244,22 @@ function onTapliveMenu(index){
     }
 }
 function onQuickmenuTap(i){
-    console.log(`Tap on ${i}`);
     switch(i){
-    case 0:save();
+    case 0:logixFunction.save();
         break;
-    case 1:saveOffline();
+    case 1:logixFunction.saveOffline();
         break;
-    case 2: showMessage('What!!!!!!!!!!!!!1'); reportBug();
+    case 2: logixFunction.createOpenLocalPrompt();
         break;
     case 3:createSaveAsImgPrompt();
         break;
-    case 4:globalScope.centerFocus(false);updateCanvasSet(true);  gridUpdateSet(true);
+    case 4:  document.execCommand('copy'); simulationArea.shiftDown = false;
+        break;
+    case 5:  paste(localStorage.getItem('clipboardData'));
         break;
     }
 } 
 function onTapSmallNavbar(i){
-    console.log(`Tap on ${i}`);
     switch(i){
     case 0:logixFunction.newProject();  navMenuButton[0].style.height = '0';
         break;
@@ -1297,5 +1298,6 @@ function onTapSmallNavbar(i){
     case 17:window.open('https://circuitverse.org/forum');
         break;
     }
+    
 } 
 
