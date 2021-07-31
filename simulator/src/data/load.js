@@ -14,7 +14,7 @@ import { generateId } from '../utils';
 import modules from '../modules';
 import { oppositeDirection } from '../canvasApi';
 import plotArea from '../plotArea';
-import { updateTestbenchUI } from '../testbench';
+import { updateTestbenchUI, TestbenchData } from '../testbench';
 
 /**
  * Backward compatibility - needs to be deprecated
@@ -127,8 +127,12 @@ export function loadScope(scope, data) {
     }
 
     // If Test exists, then restore
-    if (data.testBenchData) {
-        globalScope.testBenchData = data.testBenchData;
+    if (data.testbenchData) {
+        globalScope.testbenchData = new TestbenchData(
+            data.testbenchData.testData,
+            data.testbenchData.currentGroup,
+            data.testbenchData.currentCase
+        );
     }
 
     // If layout exists, then restore

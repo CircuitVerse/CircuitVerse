@@ -7,7 +7,7 @@ import { scheduleBackup } from './data/backupCircuit';
 import { changeClockEnable } from './sequential';
 import { play } from './engine';
 import Scope from './circuit';
-import { showError, showMessage, escapeHtml } from './utils';
+import { showMessage, escapeHtml } from './utils';
 
 /**
  * @typedef {number} RunContext
@@ -22,6 +22,136 @@ const CONTEXT = {
 // Utility function. Converts decimal number to binary string
 function dec2bin(dec) {
     return (dec >>> 0).toString(2);
+}
+
+/**
+ * Class to store all data related to the testbench and functions to use it
+ * @param {Object} data - Javascript object of the test data
+ * @param {number=} currentGroup - Current group index in the test
+ * @param {number=} currentCase - Current case index in the group
+ */
+export class TestbenchData {
+    constructor(data, currentGroup = 0, currentCase = 0) {
+        this.currentCase = currentCase;
+        this.currentGroup = currentGroup;
+        this.testData = data;
+    }
+
+    /**
+     * Checks whether given case-group pair exists in the test
+     */
+    isCaseValid() {
+        if(this.currentGroup >= this.data.groups.length || this.currentGroup < 0) return false;
+        const caseCount = this.testData.groups[this.currentGroup].inputs[0].values.length;
+        if(this.currentCase >= caseCount || this.currentCase < 0) return false;
+
+        return true;
+    }
+
+    /**
+     * Validate and set case and group in the test
+     * @param {number} groupIndex - Group index to set
+     * @param {number} caseIndex -  Case index to set
+     */
+    setCase(groupIndex, caseIndex) {
+        const newCase = new TestbenchData(this.testData, groupIndex, caseIndex);
+        if(newCase.isCaseValid()) {
+            this.currentGroup = groupIndex;
+            this.currentCase = caseIndex;
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Validate and go to the next group.
+     * Skips over empty groups
+     */
+    groupNext() {
+        const newCase = new TestbenchData(this.testData, this.currentGroup, 0);
+        const groupCount = newCase.testData.groups.length;
+        let caseCount = newCase.testData.groups[newCase.currentGroup].inputs[0].values.length;
+
+        while (caseCount === 0 || this.currentGroup === newCase.currentGroup) {
+            newCase.currentGroup++;
+            if (newCase.currentGroup >= groupCount) return false;
+            caseCount = newCase.testData.groups[newCase.currentGroup].inputs[0].values.length; 
+        }
+
+        this.currentGroup = newCase.currentGroup;
+        this.currentCase = newCase.currentCase;
+        return true;
+
+    }
+
+    /**
+     * Validate and go to the previous group.
+     * Skips over empty groups
+     */
+    groupPrev() {
+        const newCase = new TestbenchData(this.testData, this.currentGroup, 0);
+        const groupCount = newCase.testData.groups.length;
+        let caseCount = newCase.testData.groups[newCase.currentGroup].inputs[0].values.length;
+
+        while (caseCount === 0 || this.currentGroup === newCase.currentGroup) {
+            newCase.currentGroup--;
+            if (newCase.currentGroup < 0) return false;
+            caseCount = newCase.testData.groups[newCase.currentGroup].inputs[0].values.length; 
+        }
+
+        this.currentGroup = newCase.currentGroup;
+        this.currentCase = newCase.currentCase;
+        return true;
+    }
+
+    /**
+     * Validate and go to the next case
+     */
+    caseNext() {
+        const caseCount = this.testData.groups[this.currentGroup].inputs[0].values.length;
+        if (this.currentCase >= caseCount - 1) return this.groupNext();
+        this.currentCase++;
+        return true;
+    }
+
+    /**
+     * Validate and go to the previous case
+     */
+    casePrev() {
+        if (this.currentCase <= 0) {
+            if(!this.groupPrev()) return false;
+            const caseCount = this.testData.groups[this.currentGroup].inputs[0].values.length;
+            this.currentCase = caseCount - 1;
+            return true;
+        }
+
+        this.currentCase--;
+        return true;
+    }
+
+    /**
+     * Finds and switches to the first non empty group to start the test from
+     */
+    goToFirstValidGroup() {
+        const newCase = new TestbenchData(this.testData, 0, 0);
+        const caseCount = newCase.testData.groups[this.currentGroup].inputs[0].values.length;
+
+        // If the first group is not empty, do nothing
+        if (caseCount > 0) return true;
+
+        // Otherwise go next until non empty group
+        const validExists = newCase.groupNext()
+
+        // If all groups empty return false
+        if (!validExists) return false;
+
+        // else set case to the non empty group
+        this.currentGroup = newCase.currentGroup;
+        this.currentCase = newCase.currentCase;
+        return true;
+
+    }
 }
 
 /**
@@ -62,14 +192,20 @@ export function createTestBenchPrompt() {
  */
 export function runTestBench(data, scope = globalScope, runContext = CONTEXT.CONTEXT_SIMULATOR) {
 
-    const isValidData = validate(data, scope);
-    if (!isValidData.ok) {
-        showError(`TestBench: ${isValidData.message}`);
-        return;
+    const isValid = validate(data, scope);
+    if (!isValid.ok) {
+        showMessage('Testbench: Add all the expected components');
     }
 
     if (runContext === CONTEXT.CONTEXT_SIMULATOR) {
-        globalScope.testBenchData = data;
+        const tempTestbenchData = new TestbenchData(data);
+        if (!tempTestbenchData.goToFirstValidGroup()) {
+            showMessage('Testbench: The test is empty');
+            return;
+        }
+
+        globalScope.testbenchData = tempTestbenchData;
+
         updateTestbenchUI();
         return
     }
@@ -94,107 +230,127 @@ export function updateTestbenchUI() {
     $('.tb-case-button').off('click');
 
     setupTestbenchUI();
-    if (globalScope.testBenchData != undefined) {
+    if (globalScope.testbenchData != undefined) {
 
-        let currentGroup = 0;
-        let currentCase = 0;
-        let result;
+        const testbenchData = globalScope.testbenchData;
 
         // Initialize the UI
-        setUITableHeaders(globalScope.testBenchData);
+        setUITableHeaders(testbenchData);
 
         // Add listeners to buttons
-        // Previous Case Button
-        $('.tb-case-button#prev-case-btn').on('click', () => {
-            if (currentCase === 0) {
-                if (currentGroup === 0) return;
-                currentGroup--;
-                currentCase = globalScope.testBenchData.groups[currentGroup].n - 1;
-            } else currentCase--;
-            setUICurrentCase(globalScope.testBenchData, currentGroup, currentCase);
-
-            result = runSingleTest(globalScope.testBenchData, currentGroup, currentCase, globalScope);
-            setUIResult(globalScope.testBenchData, currentGroup, currentCase, result);
-        });
-
-        // Next Case Button
-        $('.tb-case-button#next-case-btn').on('click', () => {
-            if (currentCase >= globalScope.testBenchData.groups[currentGroup].n - 1) {
-                if (currentGroup >= globalScope.testBenchData.groups.length - 1) return;
-                currentGroup++;
-                currentCase = 0;
-            } else currentCase++;
-            setUICurrentCase(globalScope.testBenchData, currentGroup, currentCase);
-
-            result = runSingleTest(globalScope.testBenchData, currentGroup, currentCase, globalScope);
-            setUIResult(globalScope.testBenchData, currentGroup, currentCase, result);
-        });
-
-        // Prev Group Button
-        $('.tb-case-button#prev-group-btn').on('click', () => {
-            if (currentGroup === 0) return;
-            currentGroup--;
-            currentCase = 0;
-            setUICurrentCase(globalScope.testBenchData, currentGroup, currentCase);
-
-            result = runSingleTest(globalScope.testBenchData, currentGroup, currentCase, globalScope);
-            setUIResult(globalScope.testBenchData, currentGroup, currentCase, result);
-        });
-
-        // Next Group Button
-        $('.tb-case-button#next-group-btn').on('click', () => {
-            if (currentGroup >= globalScope.testBenchData.groups.length - 1) return;
-            currentGroup++;
-            currentCase = 0;
-            setUICurrentCase(globalScope.testBenchData, currentGroup, currentCase);
-
-            result = runSingleTest(globalScope.testBenchData, currentGroup, currentCase, globalScope);
-            setUIResult(globalScope.testBenchData, currentGroup, currentCase, result);
-        });
-
-        // Change test button
-        $('.tb-dialog-button#change-test-btn').on('click', () => {
-            createTestBenchPrompt();
-        });
-
-        // Run all button
-        $('.tb-dialog-button#runall-btn').on('click', () => {
-            const results = runAll(globalScope.testBenchData, globalScope);
-            const passed = results.summary.passed;
-            const total = results.summary.total;
-            const resultURL = `/testbench?result=${JSON.stringify(results.detailed)}`;
-            $('#runall-summary').text(`${passed} out of ${total}`);
-            $('#runall-detailed-link').attr('href', resultURL);
-            $('.testbench-runall-label').css('display','table-cell');
-            $('.testbench-runall-label').delay(5000).fadeOut('slow');
-        });
-
-        // Validate button
-        $('.tb-dialog-button#edit-test-btn').on('click', () => {
-            const resultURL = `/testbench?data=${JSON.stringify(globalScope.testBenchData)}`;
-            window.open(resultURL, '_blank').focus();
-        });
-
-        $('.tb-dialog-button#validate-btn').on('click', () => {
-            const isValid = validate(globalScope.testBenchData, globalScope);
-            if(isValid.ok) showMessage("Testbench: Test is valid");
-            else showError(`Testbench: ${isValid.message}`);
-        });
-
-        $('.tb-dialog-button#remove-test-btn').on('click', () => {
-        	if (confirm("Are you sure you want to remove the test from the circuit?")) {
-        		globalScope.testBenchData = undefined;
-            	setupTestbenchUI();
-        	}
-        });
+        $('.tb-case-button#prev-case-btn').on('click', buttonListenerFunctions.previousCaseButton);
+        $('.tb-case-button#next-case-btn').on('click', buttonListenerFunctions.nextCaseButton);
+        $('.tb-case-button#prev-group-btn').on('click', buttonListenerFunctions.previousGroupButton);
+        $('.tb-case-button#next-group-btn').on('click', buttonListenerFunctions.nextGroupButton);
+        $('.tb-dialog-button#change-test-btn').on('click', buttonListenerFunctions.changeTestButton);
+        $('.tb-dialog-button#runall-btn').on('click', buttonListenerFunctions.runAllButton);
+        $('.tb-dialog-button#edit-test-btn').on('click', buttonListenerFunctions.editTestButton);
+        $('.tb-dialog-button#validate-btn').on('click', buttonListenerFunctions.validateButton);
+        $('.tb-dialog-button#remove-test-btn').on('click', buttonListenerFunctions.removeTestButton);
 
     }
 
-    // Attach test button
-    $('.tb-dialog-button#attach-test-btn').on('click', () => {
-        createTestBenchPrompt();
-    });
+    // Add listener to attach test button
+    $('.tb-dialog-button#attach-test-btn').on('click', buttonListenerFunctions.attachTestButton);
 }
+
+/**
+ * Defines all the functions called as event listeners for buttons on the UI
+ */
+const buttonListenerFunctions = {
+
+    previousCaseButton: () => {
+        const isValid = validate(globalScope.testbenchData.testData, globalScope);
+        if (!isValid.ok) {
+            showMessage(`Testbench: ${isValid.message}`);
+            return;
+        }
+        globalScope.testbenchData.casePrev();
+        buttonListenerFunctions.computeCase();
+    },
+
+    nextCaseButton: () => {
+        const isValid = validate(globalScope.testbenchData.testData, globalScope);
+        if (!isValid.ok) {
+            showMessage(`Testbench: ${isValid.message}`);
+            return;
+        }
+        globalScope.testbenchData.caseNext();
+        buttonListenerFunctions.computeCase();
+    },
+
+    previousGroupButton: () => {
+        const isValid = validate(globalScope.testbenchData.testData, globalScope);
+        if (!isValid.ok) {
+            showMessage(`Testbench: ${isValid.message}`);
+            return;
+        }
+        globalScope.testbenchData.groupPrev();
+        buttonListenerFunctions.computeCase();
+    },
+
+    nextGroupButton: () => {
+        const isValid = validate(globalScope.testbenchData.testData, globalScope);
+        if (!isValid.ok) {
+            showMessage(`Testbench: ${isValid.message}`);
+            return;
+        }
+        globalScope.testbenchData.groupNext();
+        buttonListenerFunctions.computeCase();
+    },
+
+    changeTestButton: () => {
+        createTestBenchPrompt();
+    },
+
+    runAllButton: () => {
+        const isValid = validate(globalScope.testbenchData.testData, globalScope);
+        if (!isValid.ok) {
+            showMessage(`Testbench: ${isValid.message}`);
+            return;
+        }
+        const results = runAll(globalScope.testbenchData.testData, globalScope);
+        const passed = results.summary.passed;
+        const total = results.summary.total;
+        const resultURL = `/testbench?result=${JSON.stringify(results.detailed)}`;
+        $('#runall-summary').text(`${passed} out of ${total}`);
+        $('#runall-detailed-link').attr('href', resultURL);
+        $('.testbench-runall-label').css('display','table-cell');
+        $('.testbench-runall-label').delay(5000).fadeOut('slow');
+    },
+
+    editTestButton: () => {
+        const resultURL = `/testbench?data=${JSON.stringify(globalScope.testbenchData.testData)}`;
+        window.open(resultURL, '_blank').focus();
+    },
+
+    validateButton: () => {
+        const isValid = validate(globalScope.testbenchData.testData, globalScope);
+        if(isValid.ok) showMessage("Testbench: Test is valid");
+        else showMessage(`Testbench: ${isValid.message}`);
+    },
+
+    removeTestButton: () => {
+        if (confirm("Are you sure you want to remove the test from the circuit?")) {
+            globalScope.testbenchData = undefined;
+            setupTestbenchUI();
+        }
+    },
+
+    attachTestButton: () => {
+        createTestBenchPrompt();
+    },
+
+    rerunTestButton: () => {
+        buttonListenerFunctions.computeCase();
+    },
+
+    computeCase: () => {
+        setUICurrentCase(globalScope.testbenchData);
+        const result = runSingleTest(globalScope.testbenchData, globalScope);
+        setUIResult(globalScope.testbenchData, result);
+    }
+};
 
 /**
  * UI Function
@@ -205,7 +361,7 @@ export function setupTestbenchUI() {
     if ($('.testbench-manual-panel .minimize').css('display') === 'none')
         return;
 
-    if (globalScope.testBenchData === undefined) {
+    if (globalScope.testbenchData === undefined) {
         $('.tb-test-not-null').hide();
         $('.tb-test-null').show();
         return;
@@ -275,12 +431,14 @@ function runAll(data, scope) {
  * @param {number} caseIndex - Index of the case inside the group
  * @param {Scope} scope - The circuit
  */
-function runSingleTest(data, groupIndex, caseIndex, scope) {
+function runSingleTest(testbenchData, scope) {
+    const data = testbenchData.testData;
+
     let result;
     if (data.type === 'comb') {
-        result = runSingleCombinational(data, groupIndex, caseIndex, scope);
+        result = runSingleCombinational(testbenchData, scope);
     } else if (data.type === 'seq') {
-        result = runSingleSequential(data, groupIndex, caseIndex, scope);
+        result = runSingleSequential(testbenchData, scope);
     }
 
     return result;
@@ -293,7 +451,11 @@ function runSingleTest(data, groupIndex, caseIndex, scope) {
  * @param {number} caseIndex - Index of the case inside the group
  * @param {Scope} scope - The circuit
  */
-function runSingleCombinational(data, groupIndex, caseIndex, scope) {
+function runSingleCombinational(testbenchData, scope) {
+    const data = testbenchData.testData;
+    const groupIndex = testbenchData.currentGroup;
+    const caseIndex = testbenchData.currentCase;
+
     const { inputs, outputs } = bindIO(data, scope);
     const group = data.groups[groupIndex];
 
@@ -317,7 +479,11 @@ function runSingleCombinational(data, groupIndex, caseIndex, scope) {
  * @param {number} caseIndex - Index of the case inside the group
  * @param {Scope} scope - The circuit
  */
-function runSingleSequential(data, groupIndex, caseIndex, scope) {
+function runSingleSequential(testbenchData, scope) {
+    const data = testbenchData.testData;
+    const groupIndex = testbenchData.currentGroup;
+    const caseIndex = testbenchData.currentCase;
+
     const { inputs, outputs, reset } = bindIO(data, scope);
     const group = data.groups[groupIndex];
 
@@ -552,11 +718,10 @@ function triggerReset(reset, scope) {
  * Called by simulatorRunTestbench()
  * @param {Object} data - Object containing the test data
  */
-function setUITableHeaders(data) {
+function setUITableHeaders(testbenchData) {
+    const data = testbenchData.testData;
     const inputCount = data.groups[0].inputs.length;
     const outputCount = data.groups[0].outputs.length;
-    $('.testbench-manual-panel .tb-data#data-group').children().eq(1).text("1");
-    $('.testbench-manual-panel .tb-data#data-case').children().eq(1).text("1");
 
     $('#tb-manual-table-inputs-head').attr('colspan', inputCount);
     $('#tb-manual-table-outputs-head').attr('colspan', outputCount);
@@ -575,7 +740,7 @@ function setUITableHeaders(data) {
         $('#tb-manual-table-bitwidths').append(bw);
     }
 
-    setUICurrentCase(data, 0, 0);
+    setUICurrentCase(testbenchData);
 }
 
 /**
@@ -585,7 +750,11 @@ function setUITableHeaders(data) {
  * @param {number} groupIndex - Index of the group of current case
  * @param {number} caseIndex - Index of the case within the group
  */
-function setUICurrentCase(data, groupIndex, caseIndex) {
+function setUICurrentCase(testbenchData) {
+    const data = testbenchData.testData;
+    const groupIndex = testbenchData.currentGroup;
+    const caseIndex = testbenchData.currentCase;
+
     const currCaseElement = $('#tb-manual-table-current-case');
     currCaseElement.empty();
     currCaseElement.append('<td>Current Case</td>');
@@ -609,7 +778,10 @@ function setUICurrentCase(data, groupIndex, caseIndex) {
  * @param {Object} data - Object containing the test data
  * @param {Map} result - Map containing the output values (returned by getOutputValues())
  */
-function setUIResult(data, groupIndex, caseIndex, result) {
+function setUIResult(testbenchData, result) {
+    const data = testbenchData.testData;
+    const groupIndex = testbenchData.currentGroup;
+    const caseIndex = testbenchData.currentCase;
     const resultElement = $('#tb-manual-table-test-result');
     let inputCount = data.groups[0].inputs.length;
     resultElement.empty();
