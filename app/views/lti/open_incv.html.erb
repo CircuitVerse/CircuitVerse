@@ -1,14 +1,13 @@
 <% content_for :title, @group.name %>
-
-    <% if notice %>
-        <div class="row" id='alertdiv'>
-            <div class="alert alert-success alert-dismissible container text-center">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <h6><%= notice %></h6>
-            </div>
-        </div>
-    <% end %>
-    <%# <a class="btn tertiary-button" >Open in CircuitVerse</a> %>
-    <%= link_to group_path(@group) ,target: :_blank, class:"btn tertiary-button" do %>
-        <span>Open in CircuitVerse</span>
-    <% end %>
+<div class="open_invc_container">
+    <h4>Please wait while we open this assignment in CircuitVerse...</h4>
+    <h6>If it doesn't work, please click the button below</h6>
+    <a class="btn rounded-0 navbar-simulator-text" href="<%= group_path(@group) %>" target="_blank">Open assignment</a> 
+</div>
+<script>
+    jQuery(document).ready(function() {
+            $.get("#{group_path(@group)}", function(data) {
+                window.location.replace("<%= group_path(@group) %>")
+            });
+        });
+</script>
