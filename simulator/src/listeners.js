@@ -49,20 +49,20 @@ var uniqid = {
     tdLog:'',
 };
 
-let currDistance = 0;
-let distance = 0;
-let pinchZ = 0;
-let centreX;
-let centreY;
-let timeout;
-let lastTap = 0;
-let initX;
-let initY;
-let currX;
-let currY;
+var currDistance = 0;
+var distance = 0;
+var pinchZ = 0;
+var centreX;
+var centreY;
+var timeout;
+var lastTap = 0;
+var initX;
+var initY;
+var currX;
+var currY;
 var navMenuButtonHeight;
 var navMenuButton;
-
+var isCopy = false;
 /**
  *
  * @param {event} e
@@ -148,6 +148,7 @@ export function getCoordinate(e) {
     *This function is used to ZoomIN and Zoomout on Simulator using touch
 */
 export function pinchZoom(e, globalScope) {
+    e.preventDefault();
     gridUpdateSet(true);
     scheduleUpdate();
     updateSimulationSet(true);
@@ -157,15 +158,6 @@ export function pinchZoom(e, globalScope) {
     distance = Math.sqrt((e.touches[1].clientX - e.touches[0].clientX)
   * (e.touches[1].clientX - e.touches[0].clientX), (e.touches[1].clientY - e.touches[0].clientY)
   * (e.touches[1].clientY - e.touches[0].clientY));
-    centreX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
-    centreY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
-    const rect = simulationArea.canvas.getBoundingClientRect();
-    const RawX = (centreX - rect.left) * DPR;
-    const RawY = (centreY - rect.top) * DPR;
-    const Xf = (RawX - globalScope.ox) / globalScope.scale;
-    const Yf = (RawY - globalScope.oy) / globalScope.scale;
-    const currCentreX = Math.round(Xf / unit) * unit;
-    const currCentreY = Math.round(Yf / unit) * unit;
     if (distance >= currDistance) {
         pinchZ += 0.03;
         currDistance = distance;
@@ -179,14 +171,25 @@ export function pinchZoom(e, globalScope) {
     } else if (pinchZ <= 1) {
         pinchZ = 1;
     }
+    // This is not working as expected
+    centreX = (e.touches[0].clientX + e.touches[1].clientX)/2;
+    centreY = (e.touches[0].clientY + e.touches[1].clientY)/2;
+    const rect = simulationArea.canvas.getBoundingClientRect();
+    const RawX = (centreX - rect.left) * DPR;
+    const RawY = (centreY - rect.top) * DPR;
+    const Xf = Math.round(((RawX - globalScope.ox) / globalScope.scale) / unit);
+    const Yf = Math.round(((RawY - globalScope.ox) / globalScope.scale) / unit);
+    const currCentreX = Math.round(Xf / unit) * unit;
+    const currCentreY = Math.round(Yf / unit) * unit;
 
     const oldScale = globalScope.scale;
     globalScope.scale = Math.max(0.5, Math.min(4 * DPR, pinchZ * 2));
     globalScope.scale = Math.round(globalScope.scale * 10) / 10;
-    globalScope.ox -= Math.round(currCentreX * (globalScope.scale - oldScale));
-    globalScope.oy -= Math.round(currCentreY * (globalScope.scale - oldScale));
+    globalScope.ox = Math.round(currCentreX * (globalScope.scale - oldScale));
+    globalScope.oy = Math.round(currCentreY * (globalScope.scale - oldScale));
     gridUpdateSet(true);
     scheduleUpdate(1);
+    return;
 }
 
 /*
@@ -323,10 +326,12 @@ function panStop(e) {
 
     if (simulationArea.touch) {
     // small hack so Current circuit element should not spwan above last circuit element
-        findDimensions(globalScope);
-        simulationArea.mouseX = 100 + simulationArea.maxWidth || 0;
-        simulationArea.mouseY = simulationArea.minHeight || 0;
-        getTap(e);
+        if(!isCopy){
+            findDimensions(globalScope);
+            simulationArea.mouseX = 200 + simulationArea.maxWidth || 0;
+            simulationArea.mouseY = simulationArea.minHeight || 0;
+            getTap(e);
+        }
     }
 }
 
@@ -808,6 +813,7 @@ export default function startListeners() {
     const layoutListner = document.getElementById('layoutDialog');
     const layoutQuerySelector = document.querySelector('#layoutDialog');
     const layoutElementPanelListner = document.getElementsByClassName('layoutElementPanel')[0];
+    //const colorThemesDialogListner = document.getElementById('colorThemesDialog');
 
 
     moduleQueryslector.addEventListener('touchstart', (e) => {
@@ -874,7 +880,6 @@ export default function startListeners() {
         dragEnd();
     });
 }
-
 function resizeTabs() {
     const $windowsize = $('body').width();
     const $sideBarsize = $('.side').width();
@@ -965,6 +970,7 @@ function zoomSliderListeners() {
         sliderZoomButton(1);
     });
 
+    var buttoncolor = 'var(--br-secondary)';
     
     /**
  * Mobile navbar
@@ -980,7 +986,7 @@ function zoomSliderListeners() {
         }
     }
     smallnavbar.addEventListener('touchstart',(e)=>{
-        ChangeIconColor(smallnavbar,'green');
+        ChangeIconColor(smallnavbar,buttoncolor);
         e.preventDefault();
     });
     smallnavbar.addEventListener('touchend',(e)=>{
@@ -989,7 +995,7 @@ function zoomSliderListeners() {
         e.preventDefault();
     });
     smallnavbar.addEventListener('mousedown',(e)=>{
-        ChangeIconColor(smallnavbar,'green');
+        ChangeIconColor(smallnavbar,buttoncolor);
         e.preventDefault();
     });
     smallnavbar.addEventListener('mouseup',(e)=>{
@@ -1004,49 +1010,49 @@ function zoomSliderListeners() {
         if(navMenuButtonHeight === 0){
             navMenuButton[0].style.height = '100%';
         }
-        else{
+        else {
             navMenuButton[0].style.height = '0';
         }
         var projectname = document.getElementById('ProjectID');
         var Uniqueprojectname = getProjectName();
-        projectname.innerHTML = `<p> Project:${Uniqueprojectname}<p>`;
+        projectname.innerHTML = `<p>${Uniqueprojectname}<p>`;
     }
-    document.getElementById('smallNavbarMenu-btn').addEventListener('touchend',()=>{
+    document.getElementById('smallNavbarMenu-btn').addEventListener('touchend',()=> { 
     });
  
     /**Improved Collapsible navbar */
     var smallNavbarUl = document.getElementsByClassName('smallNavbar-navbar-ul');
-    for(i=0;i<smallNavbarUl.length;i++){
+    for(var i=0;i<smallNavbarUl.length;i++){
         (function(index){
-            smallNavbarUl[index].addEventListener('touchstart', (e)=>{
-                onTapColor(smallNavbarUl,index,'green');
+            smallNavbarUl[index].addEventListener('touchstart', (e)=> {
+                onTapColor(smallNavbarUl,index,buttoncolor);
                 NavCollapsible(index);
                 e.preventDefault();
             });
-            smallNavbarUl[index].addEventListener('mousedown', (e)=>{
-                onTapColor(smallNavbarUl,index,'green');
+            smallNavbarUl[index].addEventListener('mousedown', (e)=> {
+                onTapColor(smallNavbarUl,index,buttoncolor);
                 NavCollapsible(index);
                 e.preventDefault();
             });
         })(i);
     }
     var SmallScreenLi = document.getElementsByClassName('SmallScreen-Navbar-li');
-    for(var i=0;i<SmallScreenLi.length;i++){
+    for(i=0;i<SmallScreenLi.length;i++){
         (function(index){
-            SmallScreenLi[index].addEventListener('touchstart', (e)=>{
-                onTapColor(SmallScreenLi,index,'green');
+            SmallScreenLi[index].addEventListener('touchstart', (e)=> {
+                onTapColor(SmallScreenLi,index,buttoncolor);
                 e.preventDefault();
             });
-            SmallScreenLi[index].addEventListener('touchend', (e)=>{
+            SmallScreenLi[index].addEventListener('touchend', (e)=> {
                 onTapSmallNavbar(index);
                 onTapColor(SmallScreenLi,index,'');
                 e.preventDefault();
             }); 
-            SmallScreenLi[index].addEventListener('mousedown', (e)=>{
-                onTapColor(SmallScreenLi,index,'green');
+            SmallScreenLi[index].addEventListener('mousedown', (e)=> {
+                onTapColor(SmallScreenLi,index,buttoncolor);
                 e.preventDefault();
             });
-            SmallScreenLi[index].addEventListener('mouseup', (e)=>{
+            SmallScreenLi[index].addEventListener('mouseup', (e)=> {
                 onTapSmallNavbar(index);
                 onTapColor(SmallScreenLi,index,'');
                 e.preventDefault();
@@ -1057,19 +1063,19 @@ function zoomSliderListeners() {
    
  
     var smallScreemInner = document.getElementsByClassName('Smallscreen-navbar-inner');
-    function NavCollapsible(index){
+    function NavCollapsible(index) {
       
-        if(smallScreemInner[index].style.display === 'flex'){
+        if(smallScreemInner[index].style.display === 'inline-block') {
             smallScreemInner[index].style.display = 'none';
         }
-        else{
-            smallScreemInner[index].style.display ='flex';
+        else {
+            smallScreemInner[index].style.display ='inline-block';
         }
-        for(var i = 0; i < smallNavbarUl.length-1 ;i++){
-            if(i === index){
+        for(var i = 0; i < smallNavbarUl.length-1 ;i++) {
+            if(i === index) {
                 continue;
             }
-            else{
+            else {
                 smallScreemInner[i].style.display = 'none';
             }
         }
@@ -1078,17 +1084,29 @@ function zoomSliderListeners() {
     /*
     *Function for Touchmenu 
     */
+   
     var TouchMenuButton = document.getElementsByClassName('touchMenuIcon');
+    var panelclose = document.getElementsByClassName('panelclose');
     for(i=0;i<TouchMenuButton.length;i++){
         (function(index){
             
-            TouchMenuButton[index].addEventListener('touchstart', (e)=>{
-                onTapColor(TouchMenuButton,index,'green');
+            TouchMenuButton[index].addEventListener('touchstart', (e)=> {
+                onTapColor(TouchMenuButton,index,buttoncolor);
                 openCurrMenu(index);
                 e.preventDefault();
             });
-            TouchMenuButton[index].addEventListener('mousedown', (e)=>{
-                onTapColor(TouchMenuButton,index,'green');
+            TouchMenuButton[index].addEventListener('mousedown', (e)=> {
+                onTapColor(TouchMenuButton,index,buttoncolor);
+                openCurrMenu(index);
+                e.preventDefault();
+            });
+            panelclose[index].addEventListener('touchstart', (e)=> {
+                onTapColor(TouchMenuButton,index,buttoncolor);
+                openCurrMenu(index);
+                e.preventDefault();
+            });
+            panelclose[index].addEventListener('mousedown', (e)=> {
+                onTapColor(TouchMenuButton,index,buttoncolor);
                 openCurrMenu(index);
                 e.preventDefault();
             });
@@ -1100,22 +1118,22 @@ function zoomSliderListeners() {
     // here lenght-2 is done because last two button are used for diff purpose 
     for(i=0;i<quickMenu.length-2;i++){
         (function(index){
-            quickMenu[index].addEventListener('touchstart', (e)=>{
-                onTapColor(quickMenu,index,'green');
+            quickMenu[index].addEventListener('touchstart', (e)=> {
+                onTapColor(quickMenu,index,buttoncolor);
                 e.preventDefault();
 
             });
-            quickMenu[index].addEventListener('touchend', (e)=>{
+            quickMenu[index].addEventListener('touchend', (e)=> {
                 onTapColor(quickMenu,index,'');
                 onQuickmenuTap(index);
                 e.preventDefault();
             });
-            quickMenu[index].addEventListener('mousedown', (e)=>{
-                onTapColor(quickMenu,index,'green');
+            quickMenu[index].addEventListener('mousedown', (e)=> {
+                onTapColor(quickMenu,index,buttoncolor);
                 e.preventDefault();
 
             });
-            quickMenu[index].addEventListener('mouseup', (e)=>{
+            quickMenu[index].addEventListener('mouseup', (e)=> {
                 onTapColor(quickMenu,index,'');
                 onQuickmenuTap(index);
                 e.preventDefault();
@@ -1124,15 +1142,15 @@ function zoomSliderListeners() {
        
     }
     
-    quickMenu[6].addEventListener('touchstart',(e) =>{
-        onTapColor(quickMenu,6,'green');
+    quickMenu[6].addEventListener('touchstart',(e) => {
+        onTapColor(quickMenu,6,buttoncolor);
         if(simulationArea.shiftDown == false)
             simulationArea.shiftDown = true;
         else
             simulationArea.shiftDown = false;
         e.preventDefault();
     });
-    quickMenu[6].addEventListener('mousedown',(e) =>{
+    quickMenu[6].addEventListener('mousedown',(e) => {
         if(simulationArea.shiftDown == false)
             simulationArea.shiftDown = true;
         else
@@ -1146,36 +1164,36 @@ function zoomSliderListeners() {
     var liveMenu = document.getElementsByClassName('liveMenuIcon');
     for(i=0;i<liveMenu.length;i++){
         (function(index){
-            liveMenu[index].addEventListener('touchstart', (e)=>{
-                onTapColor(liveMenu,index,'green');
+            liveMenu[index].addEventListener('touchstart', (e)=> {
+                onTapColor(liveMenu,index,buttoncolor);
                 e.preventDefault();
             });
-            liveMenu[index].addEventListener('touchend', (e)=>{
+            liveMenu[index].addEventListener('touchend', (e)=> {
                 onTapColor(liveMenu,index,'');
-                console.log(index);
                 onTapliveMenu(index);
                 e.preventDefault();
             });
-            liveMenu[index].addEventListener('mousedown', (e)=>{
-                onTapColor(liveMenu,index,'green');
+            liveMenu[index].addEventListener('mousedown', (e)=> {
+                onTapColor(liveMenu,index,buttoncolor);
                 e.preventDefault();
             });
-            liveMenu[index].addEventListener('mouseup', (e)=>{
+            liveMenu[index].addEventListener('mouseup', (e)=> {
                 onTapColor(liveMenu,index,'');
-                console.log(index);
                 onTapliveMenu(index);
                 e.preventDefault();
             });
         })(i);
           
     }
+    
+
 
 }
 /**
  * 
  * Function to return id or class of panel according to screen width 
  */
-export function currentScreen(){
+export function currentScreen() {
     if (window.screen.width > 1367) 
     { uniqid.modulePropertyInner = '#moduleProperty-inner';
         uniqid.PlotAreaId = 'plotArea';
@@ -1190,6 +1208,7 @@ export function currentScreen(){
     return uniqid;
 }
 function openCurrMenu(index) {
+    $('#Help').removeClass('show');
     var element = getID(index);
     if(element.style.visibility === 'visible')
     {element.style.visibility = 'hidden';}
@@ -1209,7 +1228,7 @@ function openCurrMenu(index) {
 /**
      * Function For Menu Button Color
      */
-function  onTapColor(classList,currentIndex,color){
+function  onTapColor(classList,currentIndex,color) {
     if(classList[currentIndex].style.backgroundColor === color){
         classList[currentIndex].style.backgroundColor = '';
     }
@@ -1225,25 +1244,28 @@ function  onTapColor(classList,currentIndex,color){
         }
     }
 }
-function getID(index){
+function getID(index) {
     switch(index){
     case 0: return document.getElementById('TouchCe-panel');
     case 1:return document.getElementById('touchElement-property');
-    case 2: return document.getElementById('touch-time-daigram');
-    case 3: return document.getElementById('quickMenu');
+    case 2: return document.getElementById('touchtD-popover');
+    case 3: return document.getElementById('quickmenu-Popover');
+    default:break;
     }
 }
-function onTapliveMenu(index){
-    switch(index){
+function onTapliveMenu(index) {
+    switch(index) {
     case 0:globalScope.centerFocus(false);updateCanvasSet(true);  gridUpdateSet(true);
         break;
     case 1:deleteSelected();
         break;
     case 2:undo();
         break;
+    default:
+        break;    
     }
 }
-function onQuickmenuTap(i){
+function onQuickmenuTap(i) {
     switch(i){
     case 0:logixFunction.save();
         break;
@@ -1253,17 +1275,19 @@ function onQuickmenuTap(i){
         break;
     case 3:createSaveAsImgPrompt();
         break;
-    case 4:  document.execCommand('copy'); simulationArea.shiftDown = false;
+    case 4:  document.execCommand('copy'); simulationArea.shiftDown = false; isCopy=true; 
         break;
-    case 5:  paste(localStorage.getItem('clipboardData'));
+    case 5:  paste(localStorage.getItem('clipboardData')); isCopy=false;
+        break;
+    default:
         break;
     }
 } 
-function onTapSmallNavbar(i){
+function onTapSmallNavbar(i) {
     switch(i){
     case 0:logixFunction.newProject();  navMenuButton[0].style.height = '0';
         break;
-    case 1:logixFunction.save();
+    case 1:logixFunction.save(); 
         break;
     case 2:logixFunction.saveOffline(); 
         break;
@@ -1297,7 +1321,9 @@ function onTapSmallNavbar(i){
         break;
     case 17:window.open('https://circuitverse.org/forum');
         break;
+    default:
+        navMenuButton[0].style.height = '0';
+        break;
     }
     
-} 
-
+}

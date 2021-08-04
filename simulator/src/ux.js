@@ -247,7 +247,7 @@ export function showProperties(obj) {
 
         $('#moduleProperty').show();
         $('#layoutDialog').hide();
-        $(moduleProperty.modulePropertyInner).append("<div id='moduleProperty-header'>" + obj.objectType + "</div>");
+        $(moduleProperty.modulePropertyInner).append("<div class='moduleProperty-header'>" + obj.objectType + "</div>");
 
         if (obj.subcircuitMutableProperties && obj.canShowInSubcircuit) {
             for (let attr in obj.subcircuitMutableProperties) {
@@ -276,7 +276,7 @@ export function showProperties(obj) {
     }
     else if (simulationArea.lastSelected === undefined || ['Wire', 'CircuitElement', 'Node'].indexOf(simulationArea.lastSelected.objectType) !== -1) {
         $('#moduleProperty').show();
-        $(moduleProperty.modulePropertyInner).append("<div id='moduleProperty-header'>" + 'Project Properties' + '</div>');
+        $(moduleProperty.modulePropertyInner).append("<div class='moduleProperty-header'>" + 'Project Properties' + '</div>');
         $(moduleProperty.modulePropertyInner).append(`<p><span>Project:</span> <input id='projname' class='objectPropertyAttribute' type='text' autocomplete='off' name='setProjectName'  value='${getProjectName() || 'Untitled'}'></p>`);
         $(moduleProperty.modulePropertyInner).append(`<p><span>Circuit:</span> <input id='circname' class='objectPropertyAttribute' type='text' autocomplete='off' name='changeCircuitName'  value='${globalScope.name || 'Untitled'}'></p>`);
         $(moduleProperty.modulePropertyInner).append(`<p><span>Clock Time (ms):</span> <input class='objectPropertyAttribute' min='50' type='number' style='width:100px' step='10' name='changeClockTime'  value='${simulationArea.timePeriod}'></p>`);
@@ -287,7 +287,7 @@ export function showProperties(obj) {
     } else {
         $('#moduleProperty').show();
 
-        $(moduleProperty.modulePropertyInner).append(`<div id='moduleProperty-header'>${obj.objectType}</div>`);
+        $(moduleProperty.modulePropertyInner).append(`<div class='moduleProperty-header'>${obj.objectType}</div>`);
         // $('#moduleProperty').append("<input type='range' name='points' min='1' max='32' value="+obj.bitWidth+">");
         if (!obj.fixedBitWidth) { $(moduleProperty.modulePropertyInner).append(`<p><span>BitWidth:</span> <input class='objectPropertyAttribute' type='number'  name='newBitWidth' min='1' max='32' value=${obj.bitWidth}></p>`); }
 

@@ -145,11 +145,11 @@ export default function startListeners() {
         simulationArea.touch = false;
         blockElementPan();
     });
-    document.getElementById('simulationArea').addEventListener('touchstart', () => {
+    document.getElementById('simulationArea').addEventListener('touchstart', (e) => {
         simulationArea.touch = true;
         embedPanStart(e);
     });
-    document.getElementById('simulationArea').addEventListener('touchmove', () => {
+    document.getElementById('simulationArea').addEventListener('touchmove', (e) => {
         simulationArea.touch = true;
         blockElementPan();
     });

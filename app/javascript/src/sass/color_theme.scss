@@ -273,6 +273,7 @@ $output-rect: blue;
   border: 1px solid var(--br-primary);
 }
 
+
 .ui-accordion .ui-accordion-content {
   background-color: white;
 }
@@ -662,16 +663,16 @@ select {
 .smallscreen-navbar{
   background-color:var(--primary);
     color: var(--text-panel);
+    opacity: 0.9;
 }
 .smallscreen-navbar-inner li{
-  background-color:var(--primary);
-  color: var(--text-panel);
-  border: 3px solid var(--br-secondary);
+  background-color: var(--text-panel);
+  color: var(--primary);
+  border: 1px solid var(--br-secondary);
 }
 #smallNavbarMenu-btn{
   background-color:var(--primary);
   color: var(--text-panel);
-  border: 3px solid var(--br-secondary );
 }
 .touch-Ce-Menu{
   background-color:var(--primary);
@@ -686,22 +687,29 @@ select {
   color: var(--text-panel);
   border: 1px solid var(--br-secondary);
 }
+.mobilepanelHeader:after,
+.mobilepanelHeader:before {
+  background-color: var(--br-primary);
+  border: 1px solid var(--br-primary);
+}
 #touchElement-property:before{
   border-color: transparent transparent var(--br-secondary) transparent;
 }
-#touch-time-daigram{
+#touchtD-popover{
   background-color:var(--primary);
   color: var(--text-panel);
   border: 1px solid var(--br-secondary);
 }
-#touch-time-daigram{
-  background-color:var(--primary);
-  color: var(--text-panel);
-  border: 1px solid var(--br-secondary);
-}
-#touch-time-daigram::before{
+#touchtD-popover::before{
   border-color: transparent transparent var(--br-secondary) transparent;
 }
+#touch-time-daigram{
+  background-color:var(--primary);
+  color: var(--text-panel);
+  border: 1px solid var(--br-secondary);
+}
+
+
 #touch-timing-diagram-toolbar{
   background-color: var(--bg-tabs);
 }
@@ -710,12 +718,20 @@ select {
   color: var(--text-panel);
   border: 1px solid var(--br-secondary);
 }
-#quickMenu::before{
+#quickmenu-Popover{
+  background-color:var(--primary);
+  color: var(--text-panel);
+  border: 1px solid var(--br-secondary);
+}
+#touchElement-property:before{
+  border-color: transparent transparent var(--br-secondary) transparent;
+}
+#quickmenu-Popover::before{
   border-color: transparent transparent var(--br-secondary);
 }
 .quicMenu-align{
-  background-color:var(--primary);
-  color: var(--text-panel);
+  background-color:var(--text-panel);
+  color:var(--primary);
   border: 2px solid var(--br-secondary);
 }
 .touchMenuIcon{
@@ -726,5 +742,40 @@ select {
 .liveMenuIcon{
   background-color:var(--primary);
   color: var(--text-panel);
+  border: 1px solid var(--br-secondary);
+  
+}
+.ce-name{
+  border-bottom: 2px solid var(--br-secondary);
+}
+.quickMenu-name{
+  border-bottom: 2px solid var(--br-secondary);
+}
+.modulepropertiesInput input, 
+.modulepropertiesInput textarea {
+  background-color:var(--primary);
+  color: var(--text-panel);
   border: 2px solid var(--br-secondary);
+}
+
+.modulepropertiesInput select,
+.modulepropertiesInput input, 
+.modulepropertiesInput textarea {
+  background-color:var(--primary);
+  color: var(--text-panel);
+  border: 2px solid var(--br-secondary);
+}
+
+.modulepropertiesInput input:focus,
+.modulepropertiesInput select:focus, 
+.modulepropertiesInput textarea {
+  background-color:var(--primary);
+  color: var(--text-panel);
+  border: 2px solid var(--br-secondary);
+}
+.touchNavlogo{
+  background-color:var(--text-panel);
+}
+#logoWrap{
+  border-bottom:5px solid var(--br-secondary);
 }

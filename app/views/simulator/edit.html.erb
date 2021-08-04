@@ -185,7 +185,7 @@
 <!-- navBar-for-small-screen -->
 <div class="smallscreen-navbar">
 <div id="logoWrap">
-  <a href="/"><span class='logo'></span></a>
+  <a href="/"><span class='touchNavlogo'> </span></a>
   </div>
   <div id="ProjectID">Undefined</div>
     <div class="smallNavbar-navbar-ul"><i class="fas fa-project-diagram"></i> Projects</div>
@@ -246,9 +246,11 @@
 
   <!-- CircuitElementPanel  Responsive Versions -->
   <div id="TouchCe-panel">
-  <div class="Touch-Ce-Menu" id=""><span id="ce-name">Circuit Elements</span>
+  <div class="Touch-Ce-Menu" id=""><div class="ce-name">Circuit Elements <i class="fas fa-times panelclose"></i></div>
+  <div style="position: relative;">
   <input type="text" class="search-input" value="" placeholder="Search..">
   <span><i class="fas search-close fa-times-circle"></i></span>
+  </div>
   <div class="search-results" id="Mobile-menu"></div>
   <div class="accordion" id="menu2">
   </div>
@@ -256,13 +258,13 @@
   </div>
 
   <!-- Properties Panel  Responsive Versions -->
+
   <div id="touchElement-property">
-  <div id="touch-module-property">
-  <div class='panel-body'> <div id="moduleProperty-inner-2"></div></div>
-  </div>
+  <div class="moduleProperty" id="touch-module-property"><div class="ce-name">Properties <i class="fas fa-times panelclose"></i></div><div id="moduleProperty-inner-2"></div></div>
   </div>
 
   <!-- Timediagram For Responsive Versions -->
+  <div id="touchtD-popover"> <div class="td-name">Timediagram <i class="fas fa-times panelclose"></i></div>
   <div id="touch-time-daigram">
     <div class='touch-timing-diagram-toolbar noSelect'>
       <button class='custom-btn--primary touch-panel-button' title="Decrease Size"><span class="fas fa-caret-left timing-diagram-smaller panel-button-icon"></span></button>
@@ -290,10 +292,12 @@
       ></canvas>
     </div>
 </div>
+</div>
 
 <!-- Quick Menu Panel  -->
+<div id="quickmenu-Popover">
 <div id="quickMenu">
-<span>Quick Menu</span>
+<div class="quickMenu-name">Quick Menu <i class="fas fa-times panelclose"></i></div>
 <div id="quickMenu-Inner">
 <div class="quicMenu-align"><i class="fas fa-cloud-download-alt"></i>Save Online</div>
 <div class="quicMenu-align"><i class="fas fa-download"></i>Save Offine</div>
@@ -310,6 +314,7 @@ data-target=".issue"
 ></div>
 </div>
 </div>
+</div>
 
 <!-- Live Menu button  -->
 <div id='liveMenu'>
@@ -323,7 +328,7 @@ data-target=".issue"
 </div>
 <div id="lockPortaidMode">
 <i class="fas fa-mobile" id="portaidIcon"></i>
-<span id="portaidModeText">Switch to Landscape Mode</span>
+<span id="portaidModeText">Switch to Landscape Mode and Refresh</span>
 </div>
 
 

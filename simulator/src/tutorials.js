@@ -115,7 +115,7 @@ export const touchTour = [
             title: 'Quick Tools',
             description: 'This are Quick Tools 1.Fit to screen 2.Delete 3.Undo',
             position: 'down',
-            offset: 50,
+            offset: 1,
         },
     },
     {
@@ -134,8 +134,8 @@ export const touchTour = [
             className: '',
             title: 'Navmenu Button',
             description: 'This button is use to access Navmenu',
-            position: 'up',
-            offset: 200,
+            position: 'left',
+            offset: 0,
         },
     },
 ];
