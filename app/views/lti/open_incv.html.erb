@@ -1,5 +1,4 @@
 <% content_for :title, @group.name %>
-<<<<<<< HEAD
 <div class="container">
   <% if notice %>
     <div class="row" id='alertdiv'>
@@ -29,17 +28,4 @@
         }
     }
     redirectAfterLoad();
-=======
-<div class="open_invc_container">
-    <h4>Please wait while we open this assignment in CircuitVerse...</h4>
-    <h6>If it doesn't work, please click the button below</h6>
-    <a class="btn rounded-0 navbar-simulator-text" href="<%= group_path(@group) %>" target="_blank">Open assignment</a> 
-</div>
-<script>
-    jQuery(document).ready(function() {
-            $.get("#{group_path(@group)}", function(data) {
-                window.location.replace("<%= group_path(@group) %>")
-            });
-        });
->>>>>>> e95e9f7518d6105ffaba6c885782fc798188cda4
 </script>
