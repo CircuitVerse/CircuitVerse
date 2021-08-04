@@ -149,6 +149,14 @@
   /* 30px from the bottom */
   opacity: 0;
 }
+@media screen and (max-device-width: 1366px){
+  #Help{
+    right: 500px;
+    left: 150px;
+    bottom: 60px;
+    margin-left: -125px;
+  }
+}
 
 #Help.show {
   visibility: visible;
