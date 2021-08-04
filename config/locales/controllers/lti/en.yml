@@ -7,4 +7,3 @@ en:
       notice_ask_teacher: "Please ask your teacher to add you in the CircuitVerse group associated with this course."
       notice_no_account_in_cv: "You have no account associated with email %{email_from_lms} please create first and try again."
       notice_invalid_group: "There is no group in CircuitVerse associated with your current LMS, Please ask your LMS Admin/Teacher to create one"
-    
