@@ -1,0 +1,11 @@
+name: Commit Lint
+
+on: pull_request
+
+jobs:
+  commitlint:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Commitsar Action
+      uses: aevea/commitsar@v0.16.0
+
