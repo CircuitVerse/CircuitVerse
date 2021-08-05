@@ -79,7 +79,7 @@ for j in range(0,len(dat)):
         
         #the remaining ones (46 in this case) are stored for re-ranking
         else:
-            li.append((dat[i]["star_count"]+dat[i]["view"], i))
+            li.append((5 * dat[i]["star_count"]+dat[i]["view"], i))
         count+=1
 
     # Re-ranking begins
