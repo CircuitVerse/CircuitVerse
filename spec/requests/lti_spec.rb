@@ -23,7 +23,7 @@ describe LtiController, type: :request do
             @member = FactoryBot.create(:user)
             @not_member = FactoryBot.create(:user)
             FactoryBot.create(:group_member, user: @member, group: @group)
-            @assignment = FactoryBot.create(:assignment, group: @group, lti_consumer_key: @oauth_consumer_key_fromlms, lti_shared_secret: @oauth_shared_secret_fromlms)
+            @assignment = FactoryBot.create(:assignment, group: @group, grading_scale: 2, lti_consumer_key: @oauth_consumer_key_fromlms, lti_shared_secret: @oauth_shared_secret_fromlms)
         end
 
         context "when lti parameters are valid" do
