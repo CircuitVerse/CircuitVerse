@@ -37,22 +37,21 @@ def preprocess(text):
 #if lemmitization isn't included
 data_words = pd.Series(combined)
 
+#loading the models
 loaded_vector = joblib.load(r'.\Models\CVfitted.pkl')
 data_vectorized = loaded_vector.transform(data_words)
-
 loaded_model = joblib.load(r'.\Models\ldafitted.pkl')
-
 data_vectorized = loaded_model.transform(data_vectorized)
-
 loaded_tree = joblib.load(r'.\Models\finaltree.pkl')
-
 dist, ind = loaded_tree.query(data_vectorized, k = 50)
+
 
 print("Testing Circuit Text: {}". format(combined))
 print()
 count = 0
 split = 5  
 li = []
+#printing results
 for i in ind[0].tolist():
     count += 1
     if count < split:
