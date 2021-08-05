@@ -1,6 +1,6 @@
 
 # Recommendation System
-The recommendation system is the first ML project for [CircuitVerse](https://github.com/CircuitVerse/CircuitVerse). The basic idea is to recommend similar circuits (which are also popular) to the users to increase user engagement and reach of good projects.
+The recommendation system is the first ML project for [CircuitVerse](https://github.com/CircuitVerse/CircuitVerse). The basic idea is to recommend similar circuits (which are also popular) to the users to increase user engagement and reach of good projects. In this Readme.md file, we have explained every decision or technology in simple words to give a better understanding and to give an idea of why we did, what we did.
 
 ## Why use an unsupervised learning-based model?
 The data that was available for us (check out the [database schema](https://github.com/CircuitVerse/CircuitVerse/blob/master/db/schema.rb#L275)) to use didn't have a response variable (typically a X and a Y to train and test the model and improve the accuracy). Therefore, we had to rely on the usage of unsupervised learning-based algorithms to find the intrinsic pattern and hidden structures in the data and present it to the user.
