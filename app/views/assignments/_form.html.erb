@@ -38,6 +38,9 @@
     <h6><%= form.label :grading_scale %></h6>
     <% if @assignment.new_record? %>
       <span> (Cannot be changed once set)</span>
+      <div class="lms-grade-fixed-message"> <!-- Operated by script -->
+        <p>Grading Scale needs to be fixed at 1-100 for passing the grade back to LMS</a></p>
+      </div>
       <%= form.select :grading_scale, [["No Grade", :no_scale], ["Letter(A-F)", :letter], ["Percent(1-100)", :percent], ["Custom", :custom]], {}, class: 'form-control form-input' %>
     <% else %>
       <div class="assignments-noedit-grade-field">
@@ -71,11 +74,15 @@
     $('#lms-integration-check').change(function (e) {
         e.preventDefault();
         var radio = $(e.currentTarget);
-
         if (radio.is(':checked')) {
-            $('.lms-integration-message').css("display", "block");
+          $('.lms-integration-message').css("display", "block");
+          $('.lms-grade-fixed-message').css("display", "block");
+          $('#assignment_grading_scale').attr('readonly', 'readonly');
+          $('#assignment_grading_scale').val('percent');
         } else {
-            $('.lms-integration-message').css("display", "none");
+          $('.lms-integration-message').css("display", "none");
+          $('.lms-grade-fixed-message').css("display", "none");
+          $('#assignment_grading_scale').removeAttr('readonly');
         }
     });
     $('#lms-integration-check').trigger('change');
