@@ -1,14 +1,31 @@
 <% content_for :title, @group.name %>
-
-    <% if notice %>
-        <div class="row" id='alertdiv'>
-            <div class="alert alert-success alert-dismissible container text-center">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <h6><%= notice %></h6>
-            </div>
+<div class="container">
+  <% if notice %>
+    <div class="row" id='alertdiv'>
+        <div class="alert alert-success alert-dismissible container text-center">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <h6><%= notice %></h6>
         </div>
-    <% end %>
-    <%# <a class="btn tertiary-button" >Open in CircuitVerse</a> %>
-    <%= link_to group_path(@group) ,target: :_blank, class:"btn tertiary-button" do %>
-        <span>Open in CircuitVerse</span>
-    <% end %>
+    </div>
+  <% end %>
+  <div class="row center-row">
+    <div class="col-12">
+      <h2 class="main-heading"><%= t("open_incv.notice_wait_in_open_incv") %></h2>
+      <div class="teacher-main-description-container">
+        <p class="main-description"><%= t("open_incv.notice_redirection_error") %></p>
+      </div>
+      <a class="btn rounded-0 navbar-simulator-text" href="<%= group_path(@group) %>" target="_blank">Open assignment</a> 
+    </div>
+  </div>
+</div>
+<script>
+    function redirectAfterLoad() {
+        window.onload = function() {
+            window.open(
+                    "<%= group_path(@group) %>",
+                    "_blank"
+            );
+        }
+    }
+    redirectAfterLoad();
+</script>
