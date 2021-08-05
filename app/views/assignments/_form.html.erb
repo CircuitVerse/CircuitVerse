@@ -75,14 +75,14 @@
         e.preventDefault();
         var radio = $(e.currentTarget);
         if (radio.is(':checked')) {
-            $('.lms-integration-message').css("display", "block");
-            $('.lms-grade-fixed-message').css("display", "block");
-            $('#assignment_grading_scale').val('percent');
-            $('#assignment_grading_scale').attr('disabled', 'disabled');
+          $('.lms-integration-message').css("display", "block");
+          $('.lms-grade-fixed-message').css("display", "block");
+          $('#assignment_grading_scale').attr('readonly', 'readonly');
+          $('#assignment_grading_scale').val('percent');
         } else {
-            $('.lms-integration-message').css("display", "none");
-            $('.lms-grade-fixed-message').css("display", "none");
-            $('#assignment_grading_scale').removeAttr('disabled');
+          $('.lms-integration-message').css("display", "none");
+          $('.lms-grade-fixed-message').css("display", "none");
+          $('#assignment_grading_scale').removeAttr('readonly');
         }
     });
     $('#lms-integration-check').trigger('change');

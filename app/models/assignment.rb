@@ -2,6 +2,7 @@
 
 class Assignment < ApplicationRecord
   validates :name, length: { minimum: 1 }
+  validates :grading_scale, inclusion: { in: %w(percent), message: "needs to be fixed at 1-100 for passing the grade back to LMS" }, if: :lti_integrated?
   belongs_to :group
   has_many :projects, class_name: "Project", dependent: :nullify
 
