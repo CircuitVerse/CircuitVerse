@@ -1,3 +1,4 @@
+#importing libraries
 from sklearn.decomposition import LatentDirichletAllocation
 from sklearn.feature_extraction.text import CountVectorizer
 import pandas as pd
@@ -6,19 +7,18 @@ import gensim
 from nltk.stem import WordNetLemmatizer
 from sklearn.neighbors import KDTree
 import nltk
-import sys
 import time
-import json
 import joblib
+
 start = time.time()
 
-
-DATA_DIR = r'C:\Users\devan\OneDrive\Desktop\Results\datasetcleaned.json'
+#opening the  cleaned file
+DATA_DIR = r'.\Results\datasetcleaned.json'
 df = pd.read_json(DATA_DIR)
 np.random.seed(2018)
 nltk.download('wordnet')
 
-#lemmitization and stemming
+#lemmitization and stemming before LDA
 
 wnl = WordNetLemmatizer()
 
@@ -30,30 +30,36 @@ def lemmatize_stemming(text):
 
 def preprocess(text):
     result = ""
-    # print(gensim.utils.simple_preprocess(text))
     for token in gensim.utils.simple_preprocess(text):
         if token not in gensim.parsing.preprocessing.STOPWORDS and len(token) >= 3:
             result += lemmatize_stemming(token) + " "
     return result
 
-
+#pre-processing the combined values (name + description)
 data_words = df['combined'].map(preprocess)
 print(data_words)
 
-vectorizer = CountVectorizer(max_df=0.95, min_df=2, stop_words='english')
-joblib.dump(vectorizer.fit(data_words), r'C:\Users\devan\OneDrive\Desktop\Results\models\CVfitted.pkl')
+# Feature extraction using CountVectorizer
+vectorizer = CountVectorizer(max_df=0.90, min_df=1, stop_words='english')
+joblib.dump(vectorizer.fit(data_words), r'.\Models\CVfitted.pkl')
 print("vectorizer fitted")
 data_vectorized = vectorizer.fit_transform(data_words)
 
-no_topics = 20
+#number  of  topics for LDA model
+no_topics = 10
 lda = LatentDirichletAllocation(n_components=no_topics, random_state=0, learning_method='online')
 lda_fitted = lda.fit(data_vectorized)
 lda_output = lda.fit_transform(data_vectorized)
-joblib.dump(lda_fitted, r'C:\Users\devan\OneDrive\Desktop\Results\models\ldafitted20.pkl') # change the name of the files
-joblib.dump(lda_output, r'C:\Users\devan\OneDrive\Desktop\Results\models\ldamodel20.pkl')
 
+# storing the LDA models 
+joblib.dump(lda_fitted, r'.\Models\ldafitted.pkl') 
+joblib.dump(lda_output, r'.\Models\ldamodel.pkl')
 print("lda model made")
+
+# K-D Tree created post - LDA
 tree = KDTree(lda_output, leaf_size = 2)
-joblib.dump(tree, r'C:\Users\devan\OneDrive\Desktop\Results\models\fintree20.pkl')
+joblib.dump(tree, r'.\Models\finaltree.pkl')
+
+#Printing the runtime
 end = time.time()
 print(end - start)

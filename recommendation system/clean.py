@@ -1,30 +1,19 @@
-# from _typeshed import NoneType
-
-import csv
-# import pandas as pd
 from io import StringIO
 from html.parser import HTMLParser
 import json
-import string
-import re
-# from datetime import datetime
-
-# startTime = datetime.now()
-
-printable = set(string.printable)
+import joblib
 
 # Opening JSON file
-f = open(r'C:\Users\devan\OneDrive\Desktop\Results\dataset.json', encoding="ascii", errors= "ignore")
+f = open(r'.\Results\dataset.json', encoding="ascii", errors= "ignore")
 
-# returns JSON object as
-# a dictionary
+# returns JSON object as a dictionary
 data = json.load(f)
-# df = pd.read_excel(r'C:\Users\devan\OneDrive\Desktop\cv_data.csv')
 
-# define punctuation
+
+# define punctuation to remove
 punctuations = '''()[]{};:-",<>.?@#$_~'''
 
-
+#function to remove punctuations
 def removepunct(s):
 
     no_punct = ""
@@ -32,10 +21,9 @@ def removepunct(s):
         if char in punctuations:
             s = s.replace(char," ")
     
-
-    # display the unpunctuated string
     return s
 
+#function to remove the HTML tags
 class MLStripper(HTMLParser):
     def __init__(self):
         super().__init__()
@@ -51,30 +39,26 @@ class MLStripper(HTMLParser):
         return self.text.getvalue()
 
 
-
 def strip_tags(html):
     s = MLStripper()
     s.feed(html)
     return s.get_data()
 
-
-# def chcnull(value):
-#     if value == None:
-#         return ""
-
-#     else:
-#         return value
-
-
-f = open(r'C:\Users\devan\OneDrive\Desktop\Results\datasetcleaned.json','w')
-
+#opening the  cleaned datset file to write 
+f = open(r'.\Results\datasetcleaned.json','w')
 li = []
+di = {}
+#cleaning the dataset
 for j in range(len(data)):
-    
+    di[data[j]["id"]] = j
     data[j]["name"] = data[j]["name"].lower().replace("untitled", "")
+    encoded = data[j]["name"].encode("ascii", "ignore")
+    data[j]["name"] = encoded.decode()
+    data[j]["name"] = data[j]["name"].replace("\r\n", "")
+    data[j]["name"] = removepunct(data[j]["name"])
      
     if data[j]["description"] == "" or data[j]["description"] == None:
-        data[j]["combined"] = data[j]["name"]
+        data[j]["combined"] = data[j]["name"] + " " + data[j]["name"]
         encoded = data[j]["combined"].encode("ascii", "ignore")
         data[j]["combined"] = encoded.decode()
         data[j]["combined"] = data[j]["combined"].replace("\r\n", "")
@@ -84,7 +68,7 @@ for j in range(len(data)):
         data[j]["description"] = data[j]["description"].encode("ascii", "ignore")
         data[j]["description"] = data[j]["description"].decode()
         data[j]["description"] = removepunct(data[j]["description"])
-        data[j]["combined"] = data[j]["description"] + " " + data[j]["name"]
+        data[j]["combined"] = data[j]["description"] + " " + data[j]["name"] + " " + data[j]["name"]
         encoded = data[j]["combined"].encode("ascii", "ignore")
         data[j]["combined"] = encoded.decode()
         data[j]["combined"] = data[j]["combined"].replace("\r\n", "")
@@ -92,6 +76,7 @@ for j in range(len(data)):
         
     li.append(data[j])
 
+#storing the cleaned dataset
 json.dump(li, f, ensure_ascii=True, indent=2)
+joblib.dump(di, r'.\Models\mapping.pkl')
 
-# print(datetime.now() - startTime)
