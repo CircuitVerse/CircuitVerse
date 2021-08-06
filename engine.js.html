@@ -473,10 +473,6 @@ export function play(scope = globalScope, resetNodes = false) {
         forceResetNodesSet(false);
     }
 
-    // Add subcircuits if they can be resolved -- needs to be removed/ deprecated
-    for (let i = 0; i &lt; scope.SubCircuit.length; i++) {
-        if (scope.SubCircuit[i].isResolvable()) simulationArea.simulationQueue.add(scope.SubCircuit[i]);
-    }
     // To store list of circuitselements that have shown contention but kept temporarily
     // Mainly to resolve tristate bus issues
     simulationArea.contentionPending = [];
