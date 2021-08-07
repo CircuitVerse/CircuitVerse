@@ -6,7 +6,8 @@ require "flipper/adapters/redis"
 default_flipper_features = {
   'recaptcha': false,
   'forum': false,
-  'project_comments': true
+  'project_comments': true,
+  'lms_integration': false,
 }
 
 Flipper.configure do |config|

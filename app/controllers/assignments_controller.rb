@@ -6,7 +6,9 @@ class AssignmentsController < ApplicationController
   before_action :set_group
   before_action :check_access, only: %i[edit update destroy reopen]
   after_action :check_reopening_status, only: [:update]
-  after_action :allow_iframe_lti, only: %i[show]
+  if Flipper.enabled?(:lms_integration)
+    after_action :allow_iframe_lti, only: %i[show]
+  end
 
   # GET /assignments
   # GET /assignments.json
@@ -58,10 +60,14 @@ class AssignmentsController < ApplicationController
   # POST /assignments.json
   def create
     description = params["description"]
-    if params["lms-integration-check"]
-      lti_consumer_key = SecureRandom.hex(4)
-      lti_shared_secret = SecureRandom.hex(4)
+    
+    if Flipper.enabled?(:lms_integration)
+      if params["lms-integration-check"]
+        lti_consumer_key = SecureRandom.hex(4)
+        lti_shared_secret = SecureRandom.hex(4)
+      end
     end
+    
     params = assignment_create_params
     # params[:deadline] = params[:deadline].to_time
 
@@ -72,9 +78,12 @@ class AssignmentsController < ApplicationController
     @assignment.description = description
     @assignment.status = "open"
     @assignment.deadline = Time.zone.now + 1.year if @assignment.deadline.nil?
-    @assignment.lti_consumer_key = lti_consumer_key
-    @assignment.lti_shared_secret = lti_shared_secret
-
+    
+    if Flipper.enabled?(:lms_integration)
+      @assignment.lti_consumer_key = lti_consumer_key
+      @assignment.lti_shared_secret = lti_shared_secret
+    end
+  
     respond_to do |format|
       if @assignment.save
         format.html { redirect_to @group, notice: "Assignment was successfully created." }
@@ -90,15 +99,21 @@ class AssignmentsController < ApplicationController
   # PATCH/PUT /assignments/1.json
   def update
     description = params["description"]
-    if params["lms-integration-check"]
-      lti_consumer_key = @assignment.lti_consumer_key.presence || SecureRandom.hex(4)
-      lti_shared_secret = @assignment.lti_shared_secret.presence || SecureRandom.hex(4)
+    
+    if Flipper.enabled?(:lms_integration)
+      if params["lms-integration-check"]
+        lti_consumer_key = @assignment.lti_consumer_key.presence || SecureRandom.hex(4)
+        lti_shared_secret = @assignment.lti_shared_secret.presence || SecureRandom.hex(4)
+      end
     end
+    
     params = assignment_update_params
     @assignment.description = description
-    @assignment.lti_consumer_key = lti_consumer_key
-    @assignment.lti_shared_secret = lti_shared_secret
-
+    
+    if Flipper.enabled?(:lms_integration)
+      @assignment.lti_consumer_key = lti_consumer_key
+      @assignment.lti_shared_secret = lti_shared_secret
+    end
     # params[:deadline] = params[:deadline].to_time
 
     respond_to do |format|

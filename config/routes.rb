@@ -92,10 +92,12 @@ Rails.application.routes.draw do
     get "tags/:tag", to: "projects#get_projects", as: "tag"
   end
 
-  # lti
-  scope "/lti" do
-    get "/launch", to: "lti#launch"
-    post "/launch", to: "lti#launch"
+  if Flipper.enabled?(:lms_integration)
+    # lti
+    scope "/lti" do
+      get "/launch", to: "lti#launch"
+      post "/launch", to: "lti#launch"
+    end
   end
 
   mount Commontator::Engine => "/commontator"
