@@ -72,6 +72,7 @@ K-Means had the following issues:
 -	Increased runtime for new projects.
 Hence we replaced K-Means with K-D Trees.
 3. **Inclusion of Tag names:** Just 1800 out of 1,80,000 projects had tag names and we felt they would add unnecessary noise to our model. We also weren't sure what additional information would they be able to provide us (scope for future contributions). 
+4. **Gensim module for LDA:** Though Gensim was faster than Sci-Kit Learn module for LDA modelling but it had one major problem which was multi-processing. Multi-processing / threading created issues which we couldn't resolve (like freezing your local setup) and since  Sci-Kit Learn was a stong option and gave better results, we switched.
 
 ## Scope for future contributions 
 Since this project was the first recommendation system for the organization, there's tremendous scope for improvement in the project and we would love you to contribute to anything that seems interesting🎉.
