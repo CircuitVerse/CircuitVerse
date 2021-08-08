@@ -16,6 +16,10 @@ describe LtiController, type: :request do
     @port = request.port
   end
 
+  after(:all) do
+    Flipper.disable(:lms_integration)
+  end
+
   describe "CircuitVerse as LTI Provider" do
     before do
       # creation of assignment and required users
