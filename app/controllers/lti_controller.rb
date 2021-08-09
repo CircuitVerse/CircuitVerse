@@ -30,20 +30,28 @@ class LtiController < ApplicationController
       lms_lti_host = URI.join @launch_url_from_lms, "/" # identifies the domain and saves in session
       session[:lms_domain] = lms_lti_host
 
-      @user = User.find_by(email: @email_from_lms) # find user by matching email with circuitverse and lms
+      # find user by matching email with circuitverse and lms
+      @user = User.find_by(email: @email_from_lms)
 
       if @user.present? # user is present in cv
         if @user.id == @group.mentor_id # user is teacher
-          sign_in(@user) # passwordless sign_in the user as the authenticity is verified via lms
-          lms_auth_success_notice = t("lti.launch.notice_lms_auth_success_teacher", email_from_lms: @email_from_lms, lms_type: @lms_type, course_title_from_lms: @course_title_from_lms)
-          redirect_to group_assignment_path(@group, @assignment), notice: lms_auth_success_notice # if auth_success send to group page
+          # passwordless sign_in the user as the authenticity is verified via lms
+          sign_in(@user)
+          lms_auth_success_notice = t("lti.launch.notice_lms_auth_success_teacher",
+                                      email_from_lms: @email_from_lms,
+                                      lms_type: @lms_type,
+                                      course_title_from_lms: @course_title_from_lms)
+          # if auth_success send to group page
+          redirect_to group_assignment_path(@group, @assignment), notice: lms_auth_success_notice
         else
-          user_in_group = GroupMember.find_by(user_id: @user.id, group_id: @group.id) # check if the user belongs to the cv group
+          # check if the user belongs to the cv group
+          user_in_group = GroupMember.find_by(user_id: @user.id, group_id: @group.id)
 
           if user_in_group.present? # user is member of the group
             # render the button
             flash[:notice] = t("lti.launch.notice_students_open_in_cv")
-            create_project_if_student_present # create project with lis_result_sourced_id for the student
+            # create project with lis_result_sourced_id for the student
+            create_project_if_student_present
             render :open_incv, status: :ok
 
           else # user is not a member of the group
@@ -70,26 +78,28 @@ class LtiController < ApplicationController
 
   def create_project_if_student_present
     @user = User.find_by(email: @email_from_lms)
-    @project = Project.find_by(author_id: @user.id, assignment_id: @assignment.id) # find if the project is already present
+    # find if the project is already present
+    @project = Project.find_by(author_id: @user.id, assignment_id: @assignment.id)
     if @project.blank? # if not then create one
       @project = @user.projects.new
       @project.name = "#{@user.name}/#{@assignment.name}"
       @project.assignment_id = @assignment.id
       @project.project_access_type = "Private"
       @project.build_project_datum
-      @project.lis_result_sourced_id = params[:lis_result_sourcedid] # this param is required for grade submission
+      @project.lis_result_sourced_id = params[:lis_result_sourcedid]
       @project.save
     end
   end
 
   private
 
-    def set_group_assignment # query db and check lms_oauth_consumer_key is equal to which assignment and find the group also
+    def set_group_assignment
       @assignment = Assignment.find_by(lti_consumer_key: params[:oauth_consumer_key])
       @group = @assignment.group if @assignment.present?
     end
 
-    def set_lti_params # get some of the parameters from the lti request
+    def set_lti_params
+      # get some of the parameters from the lti request
       @email_from_lms = params[:lis_person_contact_email_primary] # the email from the LMS
       @lms_type = params[:tool_consumer_info_product_family_code] # type of lms like moodle/canvas
       @course_title_from_lms = params[:context_title] # the course titile from lms
