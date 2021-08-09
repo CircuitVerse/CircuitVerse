@@ -6,7 +6,9 @@ class AssignmentsController < ApplicationController
   before_action :set_group
   before_action :check_access, only: %i[edit update destroy reopen]
   after_action :check_reopening_status, only: [:update]
-  after_action :allow_iframe_lti, only: %i[show], constraints: -> { Flipper.enabled?(:lms_integration) }
+  after_action :allow_iframe_lti, only: %i[show], constraints: lambda {
+    Flipper.enabled?(:lms_integration)
+  }
 
   # GET /assignments
   # GET /assignments.json
