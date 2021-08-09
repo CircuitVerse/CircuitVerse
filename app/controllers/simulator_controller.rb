@@ -11,7 +11,7 @@ class SimulatorController < ApplicationController
   before_action :check_edit_access, only: %i[edit update update_image]
   skip_before_action :verify_authenticity_token, only: %i[get_data create]
   after_action :allow_iframe, only: %i[embed]
-  after_action :allow_iframe_lti, only: %i[show]
+  after_action :allow_iframe_lti, only: %i[show], constraints: -> { Flipper.enabled?(:lms_integration) }
 
   def self.policy_class
     ProjectPolicy

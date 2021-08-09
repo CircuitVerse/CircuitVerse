@@ -93,9 +93,8 @@ Rails.application.routes.draw do
   end
 
   # lti
-  scope "/lti" do
-    get "/launch", to: "lti#launch"
-    post "/launch", to: "lti#launch"
+  scope "lti"  do
+    match 'launch', to: 'lti#launch', via: [:get, :post], constraints: -> { Flipper.enabled?(:lms_integration) } 
   end
 
   mount Commontator::Engine => "/commontator"
