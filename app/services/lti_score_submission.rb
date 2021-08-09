@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class LtiScoreSubmission
-  def initialize(assignment: , lis_result_sourced_id:, score: , lis_outcome_service_url: )
+  def initialize(assignment:, lis_result_sourced_id:, score:, lis_outcome_service_url:)
     @assignment = assignment
     @lis_result_sourced_id = lis_result_sourced_id
     @score = score
@@ -9,7 +9,7 @@ class LtiScoreSubmission
   end
 
   def call
-    response = oauth_token.post(lis_outcome_service_url, score_body.to_xml, 'Content-Type' => 'application/xml')
+    response = oauth_token.post(lis_outcome_service_url, score_body.to_xml, "Content-Type" => "application/xml")
     if response.body.match(/\bsuccess\b/)
       puts "score submitted"
       return true
@@ -20,13 +20,13 @@ class LtiScoreSubmission
   end
 
   private
-  
+
     attr_reader :lis_result_sourced_id, :assignment, :score, :lis_outcome_service_url
 
     def oauth_token
       consumer = OAuth::Consumer.new(assignment.lti_consumer_key, assignment.lti_shared_secret)
       OAuth::AccessToken.new(consumer)
-    end 
+    end
 
     def score_body
       Nokogiri::XML::Builder.new do |xml|
