@@ -9,7 +9,10 @@ class LtiScoreSubmission
   end
 
   def call
-    response = oauth_token.post(lis_outcome_service_url, score_body.to_xml, "Content-Type" => "application/xml")
+    response = oauth_token.post(
+      lis_outcome_service_url, 
+      score_body.to_xml, "Content-Type" => "application/xml"
+    )
     if response.body.match(/\bsuccess\b/)
       puts "score submitted"
       return true
@@ -57,6 +60,7 @@ class LtiScoreSubmission
     end
 
     def message_identifier
-      (SecureRandom.random_number(9e7) + 1e7).to_i # generating a 8 digit random number like 12341234
+      # generating a 8 digit random number like 12341234
+      (SecureRandom.random_number(9e7) + 1e7).to_i
     end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LtiController < ApplicationController
   skip_before_action :verify_authenticity_token, only: :launch # for lti integration
   before_action :set_group_assignment, only: %i[launch]
@@ -100,11 +102,11 @@ class LtiController < ApplicationController
 
     def set_lti_params
       # get some of the parameters from the lti request
-      @email_from_lms = params[:lis_person_contact_email_primary] # the email from the LMS
-      @lms_type = params[:tool_consumer_info_product_family_code] # type of lms like moodle/canvas
-      @course_title_from_lms = params[:context_title] # the course titile from lms
+      @email_from_lms = params[:lis_person_contact_email_primary] # user email
+      @lms_type = params[:tool_consumer_info_product_family_code] # lms type
+      @course_title_from_lms = params[:context_title] # course title
       @launch_url_from_lms = params[:launch_presentation_return_url]
-      session[:lis_outcome_service_url] = params[:lis_outcome_service_url] # requires for grade submission
-      session[:oauth_consumer_key] = params[:oauth_consumer_key] # requires for grade submission
+      session[:lis_outcome_service_url] = params[:lis_outcome_service_url] # grading parameters
+      session[:oauth_consumer_key] = params[:oauth_consumer_key] # grading parameters
     end
 end
