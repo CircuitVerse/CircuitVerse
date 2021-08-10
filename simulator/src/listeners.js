@@ -62,6 +62,7 @@ var currX;
 var currY;
 var navMenuButtonHeight;
 var navMenuButton;
+var smallnavbar;
 var isCopy = false;
 /**
  *
@@ -159,18 +160,21 @@ export function pinchZoom(e, globalScope) {
   * (e.touches[1].clientX - e.touches[0].clientX), (e.touches[1].clientY - e.touches[0].clientY)
   * (e.touches[1].clientY - e.touches[0].clientY));
     if (distance >= currDistance) {
-        pinchZ += 0.03;
+        pinchZ += 0.02;
         currDistance = distance;
     } else if (currDistance >= distance) {
-        pinchZ -= 0.03;
+        pinchZ -= 0.02;
         currDistance = distance;
     }
 
     if (pinchZ >= 2) {
         pinchZ = 2;
-    } else if (pinchZ <= 1) {
-        pinchZ = 1;
+    } else if (pinchZ <= 0.5) {
+        pinchZ = 0.5;
     }
+    const oldScale = globalScope.scale;
+    globalScope.scale = Math.max(0.5, Math.min(4 * DPR, pinchZ * 3));
+    globalScope.scale = Math.round(globalScope.scale * 10) / 10;
     // This is not working as expected
     centreX = (e.touches[0].clientX + e.touches[1].clientX)/2;
     centreY = (e.touches[0].clientY + e.touches[1].clientY)/2;
@@ -181,10 +185,6 @@ export function pinchZoom(e, globalScope) {
     const Yf = Math.round(((RawY - globalScope.ox) / globalScope.scale) / unit);
     const currCentreX = Math.round(Xf / unit) * unit;
     const currCentreY = Math.round(Yf / unit) * unit;
-
-    const oldScale = globalScope.scale;
-    globalScope.scale = Math.max(0.5, Math.min(4 * DPR, pinchZ * 2));
-    globalScope.scale = Math.round(globalScope.scale * 10) / 10;
     globalScope.ox = Math.round(currCentreX * (globalScope.scale - oldScale));
     globalScope.oy = Math.round(currCentreY * (globalScope.scale - oldScale));
     gridUpdateSet(true);
@@ -328,7 +328,7 @@ function panStop(e) {
     // small hack so Current circuit element should not spwan above last circuit element
         if(!isCopy){
             findDimensions(globalScope);
-            simulationArea.mouseX = 200 + simulationArea.maxWidth || 0;
+            simulationArea.mouseX = 100 + simulationArea.maxWidth || 0;
             simulationArea.mouseY = simulationArea.minHeight || 0;
             getTap(e);
         }
@@ -975,7 +975,7 @@ function zoomSliderListeners() {
     /**
  * Mobile navbar
  */
-    var smallnavbar = document.getElementById('smallNavbarMenu-btn');
+    smallnavbar = document.getElementById('smallNavbarMenu-btn');
     
     function ChangeIconColor(Id,color){
         if(Id.style.backgroundColor === color){
@@ -987,6 +987,7 @@ function zoomSliderListeners() {
     }
     smallnavbar.addEventListener('touchstart',(e)=>{
         ChangeIconColor(smallnavbar,buttoncolor);
+        smallnavbar.classList.toggle('active');
         e.preventDefault();
     });
     smallnavbar.addEventListener('touchend',(e)=>{
@@ -996,6 +997,7 @@ function zoomSliderListeners() {
     });
     smallnavbar.addEventListener('mousedown',(e)=>{
         ChangeIconColor(smallnavbar,buttoncolor);
+        smallnavbar.classList.toggle('active');
         e.preventDefault();
     });
     smallnavbar.addEventListener('mouseup',(e)=>{
@@ -1022,61 +1024,50 @@ function zoomSliderListeners() {
  
     /**Improved Collapsible navbar */
     var smallNavbarUl = document.getElementsByClassName('smallNavbar-navbar-ul');
+    // var ulicon = document.getElementsByClassName('ulicon');
+
     for(var i=0;i<smallNavbarUl.length;i++){
         (function(index){
-            smallNavbarUl[index].addEventListener('touchstart', (e)=> {
-                onTapColor(smallNavbarUl,index,buttoncolor);
+            smallNavbarUl[index].addEventListener('click', ()=> {
+                // ulicon[index].classList.toggle('active');
                 NavCollapsible(index);
-                e.preventDefault();
-            });
-            smallNavbarUl[index].addEventListener('mousedown', (e)=> {
-                onTapColor(smallNavbarUl,index,buttoncolor);
-                NavCollapsible(index);
-                e.preventDefault();
             });
         })(i);
     }
     var SmallScreenLi = document.getElementsByClassName('SmallScreen-Navbar-li');
     for(i=0;i<SmallScreenLi.length;i++){
         (function(index){
-            SmallScreenLi[index].addEventListener('touchstart', (e)=> {
-                onTapColor(SmallScreenLi,index,buttoncolor);
+            SmallScreenLi[index].addEventListener('click', (e)=> {
+                onTapColor(SmallScreenLi,index,'#A0937D');
+                onTapSmallNavbar(index);
+                setTimeout(function(){  onTapColor(SmallScreenLi,index,''); }, 100);
                 e.preventDefault();
             });
-            SmallScreenLi[index].addEventListener('touchend', (e)=> {
-                onTapSmallNavbar(index);
-                onTapColor(SmallScreenLi,index,'');
-                e.preventDefault();
-            }); 
-            SmallScreenLi[index].addEventListener('mousedown', (e)=> {
-                onTapColor(SmallScreenLi,index,buttoncolor);
-                e.preventDefault();
-            });
-            SmallScreenLi[index].addEventListener('mouseup', (e)=> {
-                onTapSmallNavbar(index);
-                onTapColor(SmallScreenLi,index,'');
-                e.preventDefault();
-            });    
         })(i);
     }
  
    
  
     var smallScreemInner = document.getElementsByClassName('Smallscreen-navbar-inner');
+    var ulicon = document.getElementsByClassName('ulicon');
     function NavCollapsible(index) {
-      
-        if(smallScreemInner[index].style.display === 'inline-block') {
-            smallScreemInner[index].style.display = 'none';
+       
+        if(smallScreemInner[index].style.height === '100%') {
+            smallScreemInner[index].style.height = '0%';
+            ulicon[index].classList.remove('active');
         }
         else {
-            smallScreemInner[index].style.display ='inline-block';
+           
+            smallScreemInner[index].style.height ='100%';
+            ulicon[index].classList.toggle('active');
         }
         for(var i = 0; i < smallNavbarUl.length-1 ;i++) {
             if(i === index) {
                 continue;
             }
             else {
-                smallScreemInner[i].style.display = 'none';
+                ulicon[i].classList.remove('active');
+                smallScreemInner[i].style.height = '0%';
             }
         }
     }
@@ -1115,47 +1106,25 @@ function zoomSliderListeners() {
     }
     /**Function for QuicKMenu */
     var quickMenu = document.getElementsByClassName('quicMenu-align');
-    // here lenght-2 is done because last two button are used for diff purpose 
+    //here lenght-2 is done because last two button are used for diff purpose 
     for(i=0;i<quickMenu.length-2;i++){
         (function(index){
-            quickMenu[index].addEventListener('touchstart', (e)=> {
+            quickMenu[index].addEventListener('click', (e)=> {
                 onTapColor(quickMenu,index,buttoncolor);
-                e.preventDefault();
-
-            });
-            quickMenu[index].addEventListener('touchend', (e)=> {
-                onTapColor(quickMenu,index,'');
                 onQuickmenuTap(index);
+                setTimeout(function(){  onTapColor(quickMenu,index,''); }, 100);
                 e.preventDefault();
-            });
-            quickMenu[index].addEventListener('mousedown', (e)=> {
-                onTapColor(quickMenu,index,buttoncolor);
-                e.preventDefault();
-
-            });
-            quickMenu[index].addEventListener('mouseup', (e)=> {
-                onTapColor(quickMenu,index,'');
-                onQuickmenuTap(index);
-                e.preventDefault();
+               
             });
         })(i);
-       
     }
-    
-    quickMenu[6].addEventListener('touchstart',(e) => {
+    quickMenu[6].addEventListener('click',(e) => {
         onTapColor(quickMenu,6,buttoncolor);
         if(simulationArea.shiftDown == false)
             simulationArea.shiftDown = true;
         else
             simulationArea.shiftDown = false;
         e.preventDefault();
-    });
-    quickMenu[6].addEventListener('mousedown',(e) => {
-        if(simulationArea.shiftDown == false)
-            simulationArea.shiftDown = true;
-        else
-            simulationArea.shiftDown = false;   
-        e.preventDefault();     
     });
 
     /**Function for live Menu 
@@ -1285,35 +1254,35 @@ function onQuickmenuTap(i) {
 } 
 function onTapSmallNavbar(i) {
     switch(i){
-    case 0:logixFunction.newProject();  navMenuButton[0].style.height = '0';
+    case 0:logixFunction.newProject();  closeNavmenu();
         break;
     case 1:logixFunction.save(); 
         break;
     case 2:logixFunction.saveOffline(); 
         break;
-    case 3:logixFunction.createOpenLocalPrompt(); navMenuButton[0].style.height = '0';  //createSaveAsImgPrompt();
+    case 3:logixFunction.createOpenLocalPrompt(); closeNavmenu();  //createSaveAsImgPrompt();
         break;
-    case 4:logixFunction.clearProject(); navMenuButton[0].style.height = '0';
+    case 4:logixFunction.clearProject(); closeNavmenu();
         break;
-    case 5:logixFunction.recoverProject(); navMenuButton[0].style.height = '0';
+    case 5:logixFunction.recoverProject(); closeNavmenu();
         break;
-    case 6:logixFunction.newCircuit(); navMenuButton[0].style.height = '0';
+    case 6:logixFunction.newCircuit(); closeNavmenu();
         break;
-    case 7:logixFunction.newVerilogModule(); navMenuButton[0].style.height = '0';
+    case 7:logixFunction.newVerilogModule(); closeNavmenu();
         break;
-    case 8:logixFunction.createSubCircuitPrompt(); navMenuButton[0].style.height = '0';
+    case 8:logixFunction.createSubCircuitPrompt(); closeNavmenu();
         break;
-    case 9:logixFunction.createCombinationalAnalysisPrompt(); navMenuButton[0].style.height = '0';
+    case 9:logixFunction.createCombinationalAnalysisPrompt(); closeNavmenu();
         break;
-    case 10:logixFunction.bitconverter(); navMenuButton[0].style.height = '0';
+    case 10:logixFunction.bitconverter(); closeNavmenu();
         break;
-    case 11:createSaveAsImgPrompt(); navMenuButton[0].style.height = '0';
+    case 11:createSaveAsImgPrompt(); closeNavmenu();
         break;
-    case 12:logixFunction.colorThemes(); navMenuButton[0].style.height = '0';
+    case 12:logixFunction.colorThemes(); closeNavmenu();
         break;
-    case 13:logixFunction.generateVerilog(); navMenuButton[0].style.height = '0';
+    case 13:logixFunction.generateVerilog(); closeNavmenu();
         break;
-    case 14:logixFunction.showTourGuide(); navMenuButton[0].style.height = '0';
+    case 14:logixFunction.showTourGuide(); closeNavmenu();
         break;
     case 15:window.open('https://docs.circuitverse.org');
         break;
@@ -1322,8 +1291,12 @@ function onTapSmallNavbar(i) {
     case 17:window.open('https://circuitverse.org/forum');
         break;
     default:
-        navMenuButton[0].style.height = '0';
+        closeNavmenu();
         break;
     }
     
+}
+function closeNavmenu(){
+    navMenuButton[0].style.height = '0'; 
+    smallnavbar.classList.remove('active');
 }

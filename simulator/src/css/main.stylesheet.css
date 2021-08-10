@@ -1675,27 +1675,30 @@ input[type='range']::-webkit-slider-thumb {
     flex-grow: 1;
     position: fixed;
     z-index: 1000;
-    height: 400px;
-    width: 670px;
+    height: 450px;
+    width: 600px;
     top: 30%;
     right: 20%;
     border-radius: 20px;
-    box-shadow: rgba(155, 160, 165, 0.2) 0px 8px 24px;
   }
-  #portaidIcon{
-    display: flex;
+  .portaidIcon{
+    background: url(../img/PortraidMode.svg) center/cover no-repeat;
+    display: block;
     font-size: 210px;
     padding-top: 50px;
     padding-right: 10px;
-    animation: rotation 3s infinite linear;
+    height: 150px;
+    width: 250px;
     }
   #portaidModeText{
+    color: white;
     font-size: 35px;
     padding-left: 20px;
     padding-right: 10px;
     padding-top: 40px;
     overflow: hidden;
-    white-space: nowrap;
+    text-align: center;
+    font-weight: bold;
   }
   #potraidLockBg{
     display: flex;
@@ -1716,15 +1719,6 @@ input[type='range']::-webkit-slider-thumb {
     display: none;
   }
 }
-@keyframes rotation {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(-95deg);
-  }
-}
-
 @media screen and (max-device-width: 1366px) {
   #logoWrap{
     height: 100px;
@@ -1733,6 +1727,9 @@ input[type='range']::-webkit-slider-thumb {
     padding-top: 10px;
     padding-bottom: 30px;
     margin-bottom:30px;
+  }
+  .touchNavlogo{
+    background-color:#4AA96C;
   }
   .logo {
     padding-top: 25px;
@@ -1757,45 +1754,67 @@ input[type='range']::-webkit-slider-thumb {
     top: 0;
     overflow-x: hidden;
     transition: 0.5s;
-  }
-  .smallscreen-navbar-inner{
-    display: none;
-    width: auto;
-    max-height: inherit;
-    padding-left: 60px;
+    text-align: left;
     
   }
+  .smallscreen-navbar-inner{
+    margin: 0 auto;
+    text-align:left;
+    padding-left: 5%;
+    padding-right: 0%;
+    transition: 0.5s;
+    height: 0%;
+    overflow: hidden;
+    overflow-y: auto;
+    max-height: 150px;
+  }
+  
   .smallscreen-navbar-inner li{
+    position: relative;
     list-style-type:none;
-    font-size: 10px;
+    font-size: 16px;
     font-family: inherit;
     margin: 10px;
-    width: 140px;
-    height: 25px;
+    width: 280px;
     text-align: center;
-    border-radius: 4px;
-    padding: 5px;
+    border-radius: 10px;
+    padding: 9px;
     font-weight: bold;
-  
+    display: inline-block;
+    vertical-align: top;
   }
   .smallNavbar-navbar-ul{
-    display: inline-flexbox;
+    
+    display:flex;
     font-family: inherit;
     font-weight: bold;
     font-size: 25px;
     margin: 10px;
     padding: 25px;
-    width: 200px;
-    text-align: center;
-    border-radius: 10px;
+    width: 100%;
+    text-align:  left;
   
   }
+ 
+  .smallNavbar-navbar-ul .ulicon{
+    position: absolute;
+    text-align: right;
+    right: 0px;
+    padding-right: 20px;
+    transform: translate(0px)rotate(0deg);
+    transition: 0.7s;
+  }
+  .smallNavbar-navbar-ul .ulicon.active{
+     transform: translate(0px)rotate(180deg);
+  }
+
   #ProjectID{
     font-family: inherit;
     font-weight: bold;
     font-size: 25px;
     padding-right: 50px;
     text-align: right;
+    margin: 10px;
   }
   
   .mobileUserSignIn{
@@ -1817,26 +1836,55 @@ input[type='range']::-webkit-slider-thumb {
 #smallNavbarMenu-btn{
   display: flex;
   position: fixed;
-  width: 35px;
-  height: 35px;
+  width: 40px;
+  height: 30px;
   z-index: 1000;
-  padding: 9px;
-  top: 8px;
-  right:15px;
-  font-size: 18px;
+  cursor: pointer;
+  top: 5px;
+  right: 10px;
+  justify-content: center;
   border-radius: 5px;
+  align-items: center;
+  transition: 0.5s;
 }
+
+
+#smallNavbarMenu-btn::before{
+ content: '';
+ position: absolute;
+ width: 15px;
+ height: 1px;
+ transition: 0.5s;
+ transform:translateY(-5px);
+}
+#smallNavbarMenu-btn::after{
+  content: '';
+  position: absolute;
+  width: 15px;
+  height: 1px;
+  transition:0.5s;
+  transform: translateY(5px);
+}
+#smallNavbarMenu-btn.active::before{
+ 
+  transform:translateY(0px) rotate(45deg);
+  
+ }
+ #smallNavbarMenu-btn.active::after{
+   
+   transform: translateY(0px)rotate(-45deg);
+ }
 
 #tabsBar {
   top: 0px;
   position: absolute;
-  height: 50px;
+  height: 40px;
   overflow-y: scroll;
   padding-right: 50px;
   
 }
 .circuits {
-  height: 35px;
+  height: 27px;
 }
 .circuitName {
   font-size: large;
@@ -1846,7 +1894,7 @@ input[type='range']::-webkit-slider-thumb {
   display: inline-block;
   text-decoration: none;
   padding: 5px;
-  margin: 10px;
+  margin: 7px;
 }
 .logixButton:hover {
   color: seagreen;
@@ -1925,11 +1973,20 @@ padding-left: 10px;
 text-align: left;
 font-weight: bold;
 }
+.mp-name{
+  height: 0%;
+  width: 100%;
+  margin-bottom: 10px;
+font-size: 15px;
+padding-bottom: 25px;
+text-align: left;
+font-weight: bold;
+}
 .quickMenu-name{
   height: 0%;
   width: 100%;
   margin-bottom: 10px;
-font-size: 12px;
+font-size: 15px;
 padding-bottom: 10px;
 padding-left: 10px;
 text-align: left;
@@ -1993,7 +2050,6 @@ font-weight: bold;
   z-index: 100;
   visibility: hidden;
   font-size: 12px;
-  
 }
 
 #touchElement-property:before {
@@ -2019,7 +2075,7 @@ font-weight: bold;
   margin: auto;
   transition: background .5s ease-out;
   z-index: 100;
-  padding: 5px;
+  padding: 15px;
   box-shadow: rgba(155, 160, 165, 0.2) 0px 8px 24px;
   
 }
@@ -2135,7 +2191,7 @@ font-size: 15px;
 }
 #quickmenu-Popover{
   display: inline;
-  width: 220px;
+  width: 180px;
   top: 70px;
   right: 85px;
   position: fixed;
@@ -2149,7 +2205,7 @@ font-size: 15px;
   position: absolute;
   top: 195px;
   content: "";
-  right: calc(50% - 143px);
+  right: calc(50% - 125px);
   border-style: solid;
   border-width: 0px 15px 15px 15px;
   transform: rotate(90deg);
@@ -2163,7 +2219,7 @@ font-size: 15px;
   z-index: 100;
   position: fixed;
   margin: auto;
-  width: 220px;
+  width: 180px;
   padding-left: 0px;
   padding-right: 0px;
   font: inherit;
@@ -2195,14 +2251,20 @@ font-size: 15px;
 }
 .quicMenu-align{
   width: 150px;
-  height: 25px;
+  height: 30px;
   padding: 5px;
-  font-size: 10px;
+  font-size: 12px;
   transition: 0.5s; 
   border-radius: 0px;
   transition: background .5s ease-out;
   margin: 5px;
   border-radius: 5px;
+}
+.quicMenu-align :hover{
+  cursor: default;
+}
+.quicMenu-align-text{
+  margin: 15px;
 }
 #touchMenu{
   display: flex;

@@ -655,20 +655,18 @@ select {
   color: var(--text-panel);
 }
  /*Css for mobile version UI */
- #lockPortaidMode{
-  background-color:var(--primary);
-  color: var(--text-panel);
-  border: 3px solid var(--br-secondary );
-}
 .smallscreen-navbar{
   background-color:var(--primary);
     color: var(--text-panel);
-    opacity: 0.9;
 }
 .smallscreen-navbar-inner li{
   background-color: var(--text-panel);
   color: var(--primary);
   border: 1px solid var(--br-secondary);
+}
+.SmallScreen-Navbar-li {
+  background-color: var(--text-panel);
+  color: var(--primary);
 }
 #smallNavbarMenu-btn{
   background-color:var(--primary);
@@ -679,6 +677,18 @@ select {
   color: var(--text-panel);
   border: 1px solid var(--br-secondary);
 }
+#smallNavbarMenu-btn::before{
+  background: var(--text-panel);
+  box-shadow: 0 5px 0 var(--text-panel);
+}
+#smallNavbarMenu-btn::after{
+  background: var(--text-panel);
+}
+#smallNavbarMenu-btn.active::before{
+ 
+  box-shadow: 0 0 0 var(--text-panel);
+ }
+
 #TouchCe-panel::before{
   border-color: transparent transparent var(--br-secondary);
 }
@@ -732,7 +742,6 @@ select {
 .quicMenu-align{
   background-color:var(--text-panel);
   color:var(--primary);
-  border: 2px solid var(--br-secondary);
 }
 .touchMenuIcon{
   background-color:var(--primary);
@@ -746,6 +755,9 @@ select {
   
 }
 .ce-name{
+  border-bottom: 2px solid var(--br-secondary);
+}
+.mp-name{
   border-bottom: 2px solid var(--br-secondary);
 }
 .quickMenu-name{
@@ -773,9 +785,14 @@ select {
   color: var(--text-panel);
   border: 2px solid var(--br-secondary);
 }
-.touchNavlogo{
-  background-color:var(--text-panel);
+.smallscreen-navbar{
+  background-color:var(--primary);
 }
-#logoWrap{
-  border-bottom:5px solid var(--br-secondary);
+.smallscreen-navbar-inner li{
+  background-color:var(--primary);
+  border: 2px solid var(--text-panel);
+  color: var(--text-panel);
+}
+.smallNavbar-navbar-ul{
+  border-top: 1px solid var(--text-panel);
 }
