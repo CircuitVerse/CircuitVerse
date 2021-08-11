@@ -5,6 +5,12 @@ require "rails_helper"
 describe LtiController, type: :request do
   before do
     Flipper.enable(:lms_integration)
+    @oauth_consumer_key_fromlms = "some_keys"
+    @oauth_shared_secret_fromlms = "some_secrets"
+    @lti_launch_path = "/lti/launch"
+    get "/"
+    @host = request.host
+    @port = request.port
   end
 
   after do
@@ -28,32 +34,17 @@ describe LtiController, type: :request do
 
     context "when lti parameters are valid" do
       it "returns unauthorized (401) if student is not in the group" do
-        data = consumer_data(oauth_consumer_key_fromlms,
-                             oauth_shared_secret_fromlms,
-                             parameters(@not_member.email))
-        post lti_launch_path, params: data, headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        }
+        lti_request(oauth_consumer_key_fromlms, oauth_shared_secret_fromlms, not_member.email)
         expect(response.code).to eq("401")
       end
 
       it "returns success (200) if student is in the group" do
-        data = consumer_data(oauth_consumer_key_fromlms,
-                             oauth_shared_secret_fromlms,
-                             parameters(@member.email))
-        post lti_launch_path, params: data, headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        }
+        lti_request(oauth_consumer_key_fromlms, oauth_shared_secret_fromlms, member.email)
         expect(response.code).to eq("200")
       end
 
       it "redirect (302) to assignment page if user is teacher" do
-        data = consumer_data(oauth_consumer_key_fromlms,
-                             oauth_shared_secret_fromlms,
-                             parameters(@mentor.email))
-        post lti_launch_path, params: data, headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        }
+        lti_request(oauth_consumer_key_fromlms, oauth_shared_secret_fromlms, mentor.email)
         expect(response.code).to eq("302")
       end
     end
@@ -66,10 +57,7 @@ describe LtiController, type: :request do
       end
 
       it "returns unauthorized (401) if parameters contains invalid assignment credentials" do
-        data = consumer_data("some_random", "some_random_secret", parameters(@member.email))
-        post lti_launch_path, params: data, headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        }
+        lti_request("some_random", "some_random_secret", member.email)
         expect(response.code).to eq("401")
       end
     end
@@ -105,26 +93,17 @@ describe LtiController, type: :request do
       consumer.generate_launch_data
     end
 
-    def oauth_consumer_key_fromlms
-      "some_keys"
+    def lti_request(consumer_key, shared_secret, email)
+      data = consumer_data(consumer_key, shared_secret, parameters(email))
+      post lti_launch_path, params: data, headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      }
     end
 
-    def oauth_shared_secret_fromlms
-      "some_secrets"
-    end
+    private
 
-    def lti_launch_path
-      "/lti/launch"
-    end
-
-    def host
-      get "/"
-      request.host
-    end
-
-    def port
-      get "/"
-      request.port
-    end
+      attr_reader :oauth_consumer_key_fromlms, :oauth_shared_secret_fromlms,
+                  :lti_launch_path, :host, :port, :member, :not_member, :mentor,
+                  :group, :assignment
   end
 end
