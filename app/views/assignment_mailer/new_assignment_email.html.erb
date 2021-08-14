@@ -1,5 +1,5 @@
 <div>
-  <h2><%= t("mailer.welcome_heading") %></h2>
+  <h2><%= t("mailer.welcome_heading", name: @user.name) %></h2>
   <%= inline_svg_tag "SVGs/newAssignment.svg", alt: "New Assignment", class: "mailer-assignment-image" %>
   <p class="mailer-text"><%= t("assignment_mailer.assignment_created_html", name: @assignment.name, deadline: @assignment.deadline, group_name: Group.find_by(id:@assignment.group_id).name, mentor_name: User.find_by(id:Group.find_by(id:@assignment.group_id).mentor_id).name) %></p>
   <a href="<%= group_assignment_url(Group.find_by(id:@assignment.group_id), @assignment) %>" class="mailer-button"><%= t("assignment_mailer.view_assignment") %></a>
