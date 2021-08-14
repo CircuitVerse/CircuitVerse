@@ -43,6 +43,7 @@ en:
   back: "Back"
   login: "Login"
   sign_up: "Sign Up"
+  sign_out: "Sign Out"
   assignment: "Assignment"
   launch: "Launch"
   fork: "Fork"

@@ -11,6 +11,7 @@ hi:
   back: "बैक जाएं"
   login: "लॉग इन करें"
   sign_up: "साइन अप करें"
+  sign_out: "Sign Out"
   assignment: "असाइनमेंट"
   launch: "लॉन्च करे"
   fork: "फ़ोर्क करे"
