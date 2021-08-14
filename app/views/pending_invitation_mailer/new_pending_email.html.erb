@@ -4,14 +4,11 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Welcome to CircuitVerse></h1>
-    <p>
-      You have been added to a new group named <%= @group.name %> by <%= User.find_by(id:@group.mentor_id).name%>.<br><br>
-      Sign up with CircuitVerse to explore the digital world. You can use the group once you have signed up with CircuitVerse.
-    </p>
+    <h1><%= t("pending_invitation_email.main_heading") %></h1>
+    <p><%= t("pending_invitation_email.main_description_html", name: @group.name, user_name: User.find_by(id:@group.mentor_id).name) %></p>
     <br>
-    <p>Link to CircuitVerse: www.circuitVerse.org<p>
+    <p><%= t("pending_invitation_email.link_to_circuitverse") %><p>
 
-    <p>Have a great day!</p>
+    <p><%= t("pending_invitation_email.greetings") %></p>
   </body>
 </html>
