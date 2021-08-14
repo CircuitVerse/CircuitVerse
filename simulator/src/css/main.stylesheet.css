@@ -734,7 +734,7 @@ div.icon img {
 }
 
 .tb-case-arrow {
-  border: solid white;
+  border: solid var(--text-panel);
   border-width: 0 3px 3px 0;
   display: inline-block;
   padding: 3px;
@@ -792,7 +792,7 @@ div.icon img {
   display: inline-block;
   margin-top: 10px;
   color: var(--text-panel);
-  max-width: 500px;
+  max-width: 650px;
   overflow-x: auto;
   white-space: nowrap;
 }
@@ -804,10 +804,12 @@ div.icon img {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: center;
+  min-width: 80px;
 }
 
 .tb-manual-table th {
   background: var(--table-head-dark);
+  height: 50px;
 }
 
 .testbench-manual-panel-buttons {
@@ -1047,6 +1049,19 @@ input:checked + .slider:before {
 .custom-btn--tertiary {
   border-radius: 1px;
 }
+/* Used to force auto width on secondary button */
+.custom-btn--basic {
+  border-radius: 1px;
+  border: solid 1px;
+  background-color: transparent;
+  display: inline-block;
+  background: var(--table-head-dark);
+}
+
+.custom-btn--basic:focus {
+  border: solid 1px;
+}
+
 
 #HelpButton {
   background-color: transparent;

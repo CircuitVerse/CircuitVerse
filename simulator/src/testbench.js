@@ -17,6 +17,8 @@ const CONTEXT = {
     CONTEXT_ASSIGNMENTS: 1,
 };
 
+const TESTBENCH_CREATOR_PATH = '/testbench';
+
 
 // Do we have any other function to do this?
 // Utility function. Converts decimal number to binary string
@@ -156,28 +158,39 @@ export class TestbenchData {
 
 /**
  * UI Function
- * Create prompt for the testbench UI
+ * Create prompt for the testbench UI when creator is opened
  */
-export function createTestBenchPrompt() {
+function creatorOpenPrompt(creatorWindow) {
     scheduleBackup();
-    const s = `
-    <p>Enter the Test JSON: <input id='testJSON' type='text'  placeHolder='{"type": "comb", ...}'></p>
+    const windowSVG = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="white" class="bi bi-window" viewBox="0 0 16 16">
+      <path d="M2.5 4a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zm2-.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm1 .5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/>
+      <path d="M2 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H2zm13 2v2H1V3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1zM2 14a1 1 0 0 1-1-1V6h14v7a1 1 0 0 1-1 1H2z"/>
+    </svg>
     `;
+
+    const s = `
+    <div style="text-align: center;">
+        <div style="margin: 20px;">
+            ${windowSVG}
+        </div>
+        <p>A browser pop-up is opened to create the test</p>
+        <p>Please save the test to open it here</p>
+    </div>
+    `;
+
     $('#setTestbenchData').dialog({
         resizable: false,
         width: 'auto',
         buttons: [
             {
-                text: 'Ok',
+                text: 'Close Pop-Up',
                 click() {
-                    const testJSON = $('#testJSON').val();
-                    const testData = validateAndParseJSON(testJSON);
                     $(this).dialog('close');
-                    if (testData.ok) runTestBench(testData.data, globalScope, CONTEXT.CONTEXT_SIMULATOR);
-                    // else display data.errorMessage
-                },
-            },
-        ],
+                    creatorWindow.close();
+                }
+            }
+        ]
     });
 
     $('#setTestbenchData').empty();
@@ -300,7 +313,7 @@ const buttonListenerFunctions = {
     },
 
     changeTestButton: () => {
-        createTestBenchPrompt();
+        openCreator('create');
     },
 
     runAllButton: () => {
@@ -312,16 +325,16 @@ const buttonListenerFunctions = {
         const results = runAll(globalScope.testbenchData.testData, globalScope);
         const passed = results.summary.passed;
         const total = results.summary.total;
-        const resultURL = `/testbench?result=${JSON.stringify(results.detailed)}`;
+        const resultString = JSON.stringify(results.detailed);
         $('#runall-summary').text(`${passed} out of ${total}`);
-        $('#runall-detailed-link').attr('href', resultURL);
+        $('#runall-detailed-link').on('click', () => { openCreator('result', resultString) });
         $('.testbench-runall-label').css('display','table-cell');
         $('.testbench-runall-label').delay(5000).fadeOut('slow');
     },
 
     editTestButton: () => {
-        const resultURL = `/testbench?data=${JSON.stringify(globalScope.testbenchData.testData)}`;
-        window.open(resultURL, '_blank').focus();
+        const editDataString = JSON.stringify(globalScope.testbenchData.testData);
+        openCreator('edit', editDataString);
     },
 
     validateButton: () => {
@@ -338,7 +351,7 @@ const buttonListenerFunctions = {
     },
 
     attachTestButton: () => {
-        createTestBenchPrompt();
+        openCreator('create');
     },
 
     rerunTestButton: () => {
@@ -540,20 +553,6 @@ function getOutputValues(data, outputs) {
 }
 
 /**
- * Validates JSON syntax and returns parsed object
- * Called by createTestBenchPrompt()
- * @param {Object} dataJSON - JSON of test data
- */
-function validateAndParseJSON(dataJSON) {
-    try {
-        const data = JSON.parse(dataJSON);
-        return { ok: true, data };
-    } catch (error) {
-        return { ok: false, errorMessage: 'Corrupt/Invalid Test Data' };
-    }
-}
-
-/**
  * Validate if all inputs and output elements are present with correct bitwidths
  * Called by runTestBench()
  * @param {Object} data - Object containing Test Data
@@ -731,7 +730,7 @@ function setUITableHeaders(testbenchData) {
     $('.tb-data#data-title').children().eq(1).text(data.title || "Untitled");
     $('.tb-data#data-type').children().eq(1).text(data.type === "comb" ? "Combinational" : "Sequential");
 
-    $('#tb-manual-table-labels').html('<th>Label</th>');
+    $('#tb-manual-table-labels').html('<th>LABELS</th>');
     $('#tb-manual-table-bitwidths').html('<td>Bitwidth</td>');
     for (const io of data.groups[0].inputs.concat(data.groups[0].outputs)) {
         const label = `<th>${escapeHtml(io.label)}</th>`;
@@ -795,5 +794,66 @@ function setUIResult(testbenchData, result) {
         const expectedValue = data.groups[groupIndex].outputs.find((dataOutput) => dataOutput.label === output).values[caseIndex];
         const color = resultValue === expectedValue ? "#17FC12" : "#FF1616";
         resultElement.append(`<td style="color: ${color}">${escapeHtml(resultValue)}</td>`);
+    }
+}
+
+/**
+ * Use this function to navigate to test creator. This function starts the storage listener
+ * so the test is loaded directly into the simulator
+ * @param {string} type - 'create', 'edit' or 'result'
+ * @param {String} dataString - data in JSON string to load in case of 'edit' and 'result'  
+ */
+function openCreator(type, dataString) {
+    const popupHeight = 800;
+    const popupWidth = 1200;
+    const popupTop = ( window.height - popupHeight ) / 2;
+    const popupLeft = ( window.width - popupWidth ) / 2;
+    const POPUP_STYLE_STRING = `height=${popupHeight},width=${popupWidth},top=${popupTop},left=${popupLeft}`;
+    let popUp;
+
+    /* Listener to catch testData from pop up and load it onto the testbench */
+    const dataListener = (message) => {
+        if (message.origin !== window.origin || message.data.type !== 'testData') return;
+
+        // Check if the current scope requested the creator pop up
+        const data = JSON.parse(message.data.data);
+        if (data.scopeID != globalScope.id) return;
+
+        // Load test data onto the scope
+        runTestBench(data.testData, globalScope, CONTEXT.CONTEXT_SIMULATOR);
+        // Unbind event listener
+        $(window).off('message', dataListener);
+        // Close the 'Pop up is open' dialog
+        $('#setTestbenchData').dialog('close');
+    }
+
+    if (type === 'create') {
+        const url = `${TESTBENCH_CREATOR_PATH}?scopeID=${globalScope.id}&popUp=true`;
+        popUp = window.open(url, 'popupWindow', POPUP_STYLE_STRING);
+        creatorOpenPrompt(popUp);
+        window.addEventListener('message', dataListener);
+    }
+
+    if (type === 'edit') {
+        const url = `${TESTBENCH_CREATOR_PATH}?scopeID=${globalScope.id}&data=${dataString}&popUp=true`;
+        popUp = window.open(url, 'popupWindow', POPUP_STYLE_STRING);
+        creatorOpenPrompt(popUp);
+        window.addEventListener('message', dataListener);
+    }
+
+    if (type === 'result') {
+        const url = `${TESTBENCH_CREATOR_PATH}?scopeID=${globalScope.id}&result=${dataString}&popUp=true`;
+        popUp = window.open(url, 'popupWindow', POPUP_STYLE_STRING);
+    }
+
+    // Check if popup was closed (in case it was closed by window's X button), then close dialog
+    if (popUp){
+        const checkPopUp = setInterval(() => {
+            if (popUp.closed) {
+                $('#setTestbenchData').dialog('close');
+                $(window).off('message', dataListener);
+                clearInterval(checkPopUp);
+            }
+        }, 1000);
     }
 }

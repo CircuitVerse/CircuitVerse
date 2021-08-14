@@ -12,8 +12,8 @@
             <div style="width: 20%; font-weight: bolder;">Title:</div>
             <div id="test-title-label" contenteditable="true">Untitled</div>
         </div>
-        <button class="tablink tablink-no-override" id="seqSelect" onclick="changeMode('seq') && addGroup();">Sequential Test</button>
-        <button class="tablink tab-selected tablink-no-override" id="combSelect" onclick="changeMode('comb') && addGroup();">Combinational Test</button>
+        <button class="tablink tablink-no-override" id="seqSelect" onclick="changeTestMode('seq') && addGroup();">Sequential Test</button>
+        <button class="tablink tab-selected tablink-no-override" id="combSelect" onclick="changeTestMode('comb') && addGroup();">Combinational Test</button>
         <!-- Default table -->
         <table class="tb-table label-table ui-sortable" id="testBenchTable">
             <tr>
@@ -38,7 +38,8 @@
             <div id="data-group-1" class="data-group">
                 <h3 id="data-group-title-1" contenteditable="true">Group 1</h3>
                 <h5>Click + to add tests to the group</h5>
-                <table style="width:100%" class="tb-table" id="data-table-1">
+                <table class="tb-table" id="data-table-1">
+                    <tbody></tbody>
                 </table>
                 <button class="lower-button plus-button latest-button" id="plus-1" onclick="addCase(0)">+</button>
             </div>
@@ -52,7 +53,7 @@
             <%=  f.hidden_field 'data', id:'tb-data-field' %>
             <%=  f.hidden_field 'testset_access_type', id:'tb-access-field', value: 'Public' %> -->
             <div style="float: right; display: inline-block;">
-                <button class="lower-button save-buton" onclick="parse();">Save</button>
+                <button class="lower-button save-buton" onclick="saveData();">Save</button>
             </div>
         <!-- <% end %> -->
     </div>
@@ -152,31 +153,30 @@
         margin-top: 2%;
     }
 
+    .tb-table {
+        table-layout: fixed;
+        width: 100%;
+        height: 20px;
+        border-spacing: 5px;
+    }
+
     .tb-table th, td {
         border: 2px solid black;
         border-collapse: collapse;
-    }
-
-    .tb-table tr th:first-child, 
-              tr td:first-child {
-        width: 250px;
-    }
-
-    .tb-table th, td {
         padding: 15px;
         text-align: center;
+        transition:transform .2s;
     }
 
     .tb-table th {
         text-align: center;
     }
 
-    .tb-table {
-        table-layout: fixed;
-        width: 100%;
-        border-spacing: 5px;
+    .tb-table tr th:first-child, 
+              tr td:first-child {
+        width: 250px;
     }
-
+    
     .label-table {
         margin-top: 100px;
     }
@@ -204,45 +204,62 @@
 
 
 <script>
+    const CREATORMODE = {
+        NORMAL: 0,
+        SIMULATOR_POPUP: 1
+    };
 
-    window.onload = () => {
-        const query = new URLSearchParams(window.location.search);
-        if (query.has('data')) {
-            $("#tb-creator-head").html("<b>Edit Test</b>")
-            loadData(query.get('data'));
-            return;
-        }
-
-        if (query.has('result')) {
-            $("#tb-creator-head").html("<b>Test Result</b>")
-            loadResult(query.get('result'));
-            readOnlyUI();
-            return;
-        }
-
-        addInput();
-        addOutput();
-        makeSortable();
-    }
-
-    var mode = "comb";
+    var testMode = "comb";
     var groupIndex = 0;
     var inputCount = 0;
     var nextInputIndex = 0;
     var outputCount = 0;
     var nextOutputIndex = 0;
     var cases = [0];
+    var circuitScopeID = undefined;
+    var creatorMode = CREATORMODE.NORMAL;
 
     function dataReset() {
         groupIndex = -1;
         cases = [0];
     }
 
-    /* Change UI mode between Combinational(comb) and Sequential(seq) */
-    function changeMode(m) {
-        if(mode === m) return false;
+    /**
+     * Onload, check if it is opened in a popup.
+     * Check if test is being edited, or created
+     */
+    window.onload = () => {
+        const query = new URLSearchParams(window.location.search);
+        if (query.has('popUp')) {
+            if (query.get('popUp') == 'true') {
+                creatorMode = CREATORMODE.SIMULATOR_POPUP;
+            }
+        }
+        if (query.has('data')) {
+            $("#tb-creator-head").html("<b>Edit Test</b>");
+            circuitScopeID = query.get('scopeID');
+            loadData(query.get('data'));
+            return;
+        }
+
+        if (query.has('result')) {
+            $("#tb-creator-head").html("<b>Test Result</b>");
+            loadResult(query.get('result'));
+            readOnlyUI();
+            return;
+        }
+
+        circuitScopeID = query.get('scopeID');
+        addInput();
+        addOutput();
+        makeSortable();
+    }
+
+    /* Change UI testMode between Combinational(comb) and Sequential(seq) */
+    function changeTestMode(m) {
+        if(testMode === m) return false;
         dataReset();
-        mode = m;
+        testMode = m;
         $(`#combSelect`).removeClass('tab-selected');
         $(`#seqSelect`).removeClass('tab-selected');
         $("#tb-new-group").css("visibility", m === "seq" ? "visible" : "hidden");
@@ -259,6 +276,9 @@
         let s = `<tr><td class="tb-handle"><div onclick="deleteCase($(this))"class="fa fa-minus-square tb-minus">&#8722;</div></td>\n`;
         for(let i = 0; i < inputCount + outputCount; i ++) s += '<td contenteditable="true">0</td>';
         s += '</tr>';
+
+        // Sortable hack
+        current_group_table.find('tbody').remove();
         current_group_table.append(s);
     }
 
@@ -272,7 +292,7 @@
 
     /* Adds group with default name 'Group N' or name supplied in @param groupName */
     /* Used without params by UI, used with params by loadData() */
-    function addGroup(groupName=`${mode === "comb"? "Group" : "Set"} ${groupIndex + 2}`) {
+    function addGroup(groupName=`${testMode === "comb"? "Group" : "Set"} ${groupIndex + 2}`) {
         $(".plus-button").removeClass("latest-button");
         groupIndex++;
 
@@ -280,8 +300,9 @@
         `
         <div id="data-group-${groupIndex + 1}" class="data-group">
             <h3 id="data-group-title-${groupIndex + 1}" contenteditable="true">${escapeHtml(groupName)}</h3>
-            <h5 class="handle">Click + to add tests to the ${mode === "comb"? "group" : "set"}</h5>
-            <table style="width:100%" class="tb-table" id="data-table-${groupIndex + 1}">
+            <h5 class="handle">Click + to add tests to the ${testMode === "comb"? "group" : "set"}</h5>
+            <table class="tb-table" id="data-table-${groupIndex + 1}">
+            <tbody></tbody>
             </table>
             <button class="lower-button plus-button latest-button" id="plus-${groupIndex + 1}" onclick="addCase(${groupIndex})" style="font-size: 25px;">+</button>
         </div>
@@ -294,6 +315,7 @@
 
     /* Deletes a group */
     function deleteGroup(element) {
+        console.log('delet');
         const groupDiv = element.parent();
         const grp = Number(groupDiv.attr('id').split('-').pop());
         groupDiv.remove();
@@ -433,21 +455,34 @@
     function parse() {
         let data = {};
         const tableData = getData();
-        data.type = mode;
+        data.type = testMode;
         data.title = $('#test-title-label').text();
         data.groups = tableData;
-        console.log(data);
-        console.log(JSON.stringify(data));
-        prompt("Ctrl + C to copy", JSON.stringify(data))
         return data;
+    }
+
+    /**
+     * Called when Save is clicked. If opened in popup, sends message to parent window
+     * to attach test to the testbench.
+     */
+    function saveData() {
+        const testData = parse();
+        console.log(testData);
+        console.log(JSON.stringify(testData));
+
+        if (creatorMode === CREATORMODE.SIMULATOR_POPUP) {
+            const postData = { scopeID: circuitScopeID, testData: testData };
+            window.opener.postMessage({ type: "testData", data: JSON.stringify(postData) }, "*");
+            window.close();
+        }
     }
 
     /* Loads data from JSON string into the table */
     function loadData(data) {
         data = JSON.parse(data);
         if(data.title) $('#test-title-label').text(data.title);
-        changeMode();
-        changeMode(data.type);
+        changeTestMode();
+        changeTestMode(data.type);
         for (let group_i = 0; group_i < data.groups.length; group_i ++) {
             const group = data.groups[group_i];
             addGroup(group.label);
@@ -475,11 +510,14 @@
 
     }
 
+    /**
+     * Loads result from JSON string into the testbench creator UI
+     */
     function loadResult(data) {
         data = JSON.parse(data);
         if(data.title) $('#test-title-label').text(data.title);
-        changeMode();
-        changeMode(data.type);
+        changeTestMode();
+        changeTestMode(data.type);
         for (let group_i = 0; group_i < data.groups.length; group_i ++) {
             const group = data.groups[group_i];
             addGroup(group.label);
@@ -517,6 +555,9 @@
         }
     }
 
+    /**
+     * Makes the UI read only for displaying results
+     */
     function readOnlyUI() {
         makeContentUneditable();
         makeUnsortable();
@@ -546,12 +587,32 @@
             ui.placeholder.children().each(function() { $(this).css('border', '0px'); })
         }
 
+        /*  
+            Sortable hack: To allow sorting inside empty tables, the tables should have some height.
+            But it is not possible to give tables height without having rows, so we add a tbody.
+            tbody gives the table height but messes up all the other things. So we only keep tbody
+            if the table has no rows, and once table gets rows, we remove that tbody
+         */
+        const removeTbody = function(e, ui) {
+            $(e.target).find('tbody').remove();
+        }
+
+        const createTbody = function(e, ui) {
+            if ($(e.target).find('tr, tbody').length === 0) {
+                $(e.target).append('<tbody></tbody>');
+            }
+        }
+
         $(".data-group table").sortable({ 
             handle: '.tb-handle',
             helper: helper,
             start: makePlaceholder,
             placeholder: 'clone',
-            connectWith: '.data-group table',
+            connectWith: 'table',
+            receive: removeTbody, // For sortable hack
+            remove: createTbody,  // For sortable hack
+            items: 'tr',
+            revert: 50,
             scroll: false
         });
     }
