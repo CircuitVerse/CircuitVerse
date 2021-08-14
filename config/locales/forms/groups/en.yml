@@ -1,0 +1,11 @@
+en:
+  helpers:
+    label:
+      group:
+        email: "Email IDs:"
+        name: "Group Name:"
+    submit:
+      group:
+        add_member: "Add Members"
+        create: "Save"
+        update: "Save"

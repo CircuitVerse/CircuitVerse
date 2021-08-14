@@ -1,0 +1,11 @@
+hi:
+  helpers:
+    label:
+      group:
+        email: "ईमेल आईडी:"
+        name: "समूह का नाम:"
+    submit:
+      group:
+        add_member: "सदस्य ऐड करे"
+        create: "सेव करे"
+        update: "सेव करे"
