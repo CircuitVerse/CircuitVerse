@@ -10,15 +10,13 @@ class LtiScoreSubmission
 
   def call
     response = oauth_token.post(
-      lis_outcome_service_url, 
+      lis_outcome_service_url,
       score_body.to_xml, "Content-Type" => "application/xml"
     )
-    if response.body.match(/\bsuccess\b/)
-      puts "score submitted"
-      return true
+    if /\bsuccess\b/.match?(response.body)
+      true # grade submission success
     else
-      puts "score submission failed"
-      return false
+      false # grade submission failed
     end
   end
 

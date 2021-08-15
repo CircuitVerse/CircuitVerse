@@ -61,11 +61,9 @@ class AssignmentsController < ApplicationController
   def create
     description = params["description"]
 
-    if Flipper.enabled?(:lms_integration)
-      if params["lms-integration-check"]
-        lti_consumer_key = SecureRandom.hex(4)
-        lti_shared_secret = SecureRandom.hex(4)
-      end
+    if Flipper.enabled?(:lms_integration) && params["lms-integration-check"]
+      lti_consumer_key = SecureRandom.hex(4)
+      lti_shared_secret = SecureRandom.hex(4)
     end
 
     params = assignment_create_params
@@ -74,7 +72,6 @@ class AssignmentsController < ApplicationController
     @assignment = @group.assignments.new(params)
     authorize @assignment, :admin_access?
 
-    puts(params)
     @assignment.description = description
     @assignment.status = "open"
     @assignment.deadline = Time.zone.now + 1.year if @assignment.deadline.nil?
@@ -100,11 +97,9 @@ class AssignmentsController < ApplicationController
   def update
     description = params["description"]
 
-    if Flipper.enabled?(:lms_integration)
-      if params["lms-integration-check"]
-        lti_consumer_key = @assignment.lti_consumer_key.presence || SecureRandom.hex(4)
-        lti_shared_secret = @assignment.lti_shared_secret.presence || SecureRandom.hex(4)
-      end
+    if Flipper.enabled?(:lms_integration) && params["lms-integration-check"]
+      lti_consumer_key = @assignment.lti_consumer_key.presence || SecureRandom.hex(4)
+      lti_shared_secret = @assignment.lti_shared_secret.presence || SecureRandom.hex(4)
     end
 
     params = assignment_update_params
