@@ -224,7 +224,7 @@
     <div class="smallNavbar-navbar-ul">
     
     <% if user_signed_in? %>
-     <%= current_user.name %> </ul>
+     <%= current_user.name %></div>
     <div class="Smallscreen-navbar-inner">
       <li class=""><a href=<%= user_path(current_user) %>>Dashboard</a></li>
       <li class=""><a href=<%= user_groups_path(current_user) %>>My Groups</a></li>
@@ -234,6 +234,7 @@
     <a class="navbar-nav user-field" href=<%= new_user_session_path %>> Sign In </a>
   <% end %>
       </div>
+      
   
 
   <div id="logoWrap">
