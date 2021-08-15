@@ -894,6 +894,16 @@ div.icon img {
   width: 350px !important;
 }
 
+.validation-ui-table td, .validation-ui-table th {
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  min-width: 80px;
+  color: white;  
+}
+
 /* Testbench UI styling end */
 
 #plotArea {

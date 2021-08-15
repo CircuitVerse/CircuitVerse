@@ -17,6 +17,14 @@ const CONTEXT = {
     CONTEXT_ASSIGNMENTS: 1,
 };
 
+const VALIDATION_ERRORS = {
+    NOTPRESENT: 0,          // Element is not present in the circuit
+    WRONGBITWIDTH: 1,       // Element is present but has incorrect bitwidth
+    DUPLICATE_ID_DATA: 2,   // Duplicate identifiers in test data
+    DUPLICATE_ID_SCOPE: 3,  // Duplicate identifiers in scope
+    NO_RST: 4               // Sequential circuit but no reset(RST) in scope
+};
+
 const TESTBENCH_CREATOR_PATH = '/testbench';
 
 
@@ -207,7 +215,7 @@ export function runTestBench(data, scope = globalScope, runContext = CONTEXT.CON
 
     const isValid = validate(data, scope);
     if (!isValid.ok) {
-        showMessage('Testbench: Add all the expected components');
+        showMessage('Testbench: Some elements missing from circuit. Click Validate to know more');
     }
 
     if (runContext === CONTEXT.CONTEXT_SIMULATOR) {
@@ -275,7 +283,7 @@ const buttonListenerFunctions = {
     previousCaseButton: () => {
         const isValid = validate(globalScope.testbenchData.testData, globalScope);
         if (!isValid.ok) {
-            showMessage(`Testbench: ${isValid.message}`);
+            showMessage('Testbench: Some elements missing from circuit. Click Validate to know more');
             return;
         }
         globalScope.testbenchData.casePrev();
@@ -285,7 +293,7 @@ const buttonListenerFunctions = {
     nextCaseButton: () => {
         const isValid = validate(globalScope.testbenchData.testData, globalScope);
         if (!isValid.ok) {
-            showMessage(`Testbench: ${isValid.message}`);
+            showMessage('Testbench: Some elements missing from circuit. Click Validate to know more');
             return;
         }
         globalScope.testbenchData.caseNext();
@@ -295,7 +303,7 @@ const buttonListenerFunctions = {
     previousGroupButton: () => {
         const isValid = validate(globalScope.testbenchData.testData, globalScope);
         if (!isValid.ok) {
-            showMessage(`Testbench: ${isValid.message}`);
+            showMessage('Testbench: Some elements missing from circuit. Click Validate to know more');
             return;
         }
         globalScope.testbenchData.groupPrev();
@@ -305,7 +313,7 @@ const buttonListenerFunctions = {
     nextGroupButton: () => {
         const isValid = validate(globalScope.testbenchData.testData, globalScope);
         if (!isValid.ok) {
-            showMessage(`Testbench: ${isValid.message}`);
+            showMessage('Testbench: Some elements missing from circuit. Click Validate to know more');
             return;
         }
         globalScope.testbenchData.groupNext();
@@ -319,7 +327,7 @@ const buttonListenerFunctions = {
     runAllButton: () => {
         const isValid = validate(globalScope.testbenchData.testData, globalScope);
         if (!isValid.ok) {
-            showMessage(`Testbench: ${isValid.message}`);
+            showMessage('Testbench: Some elements missing from circuit. Click Validate to know more');
             return;
         }
         const results = runAll(globalScope.testbenchData.testData, globalScope);
@@ -339,8 +347,7 @@ const buttonListenerFunctions = {
 
     validateButton: () => {
         const isValid = validate(globalScope.testbenchData.testData, globalScope);
-        if(isValid.ok) showMessage("Testbench: Test is valid");
-        else showMessage(`Testbench: ${isValid.message}`);
+        showValidationUI(isValid);
     },
 
     removeTestButton: () => {
@@ -553,21 +560,109 @@ function getOutputValues(data, outputs) {
 }
 
 /**
+ * UI Function
+ * Shows validation UI
+ * @param {Object} validationErrors - Object with errors returned by validate()
+ */
+function showValidationUI(validationErrors) {
+
+    const checkSVG = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="white" class="bi bi-check" viewBox="0 0 16 16">
+      <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+    </svg>
+    `;
+
+    let s = `
+    <div style="text-align: center; color: white;">
+        <div style="margin: 20px;">
+            ${checkSVG}
+        </div>
+        All good. No validation errors
+    </div>
+    `;
+
+    if (!validationErrors.ok){
+        s = `
+        <div style="text-align: center; color: white;">
+            <p>Please fix these errors to run tests</p>
+            <table class="validation-ui-table">
+                <tr>
+                    <th><b>Identifier</b></th>
+                    <th><b>Error</b></th>
+                </tr>
+        `;
+
+        for (const vError of validationErrors.invalids) {
+            s += `
+                <tr>
+                    <td>${vError.identifier}</td>
+                    <td>${vError.message}</td>
+                </tr>
+            `;
+        }
+
+        s+= '</table></div>';
+    }
+
+    $('#testbenchValidate').dialog({
+        resizable: false,
+        width: 'auto',
+        buttons: [
+            {
+                text: 'Ok',
+                click() {
+                    $(this).dialog('close');
+                }
+            },
+            {
+                text: 'Auto Fix',
+                click() {
+                    const fixes = validationAutoFix(validationErrors);
+                    showMessage(`Testbench: Auto fixed ${fixes} errors`);
+                    $(this).dialog('close');
+                }
+            }
+        ]
+    });
+
+    $('#testbenchValidate').empty();
+    $('#testbenchValidate').append(s);
+}
+
+/**
  * Validate if all inputs and output elements are present with correct bitwidths
- * Called by runTestBench()
  * @param {Object} data - Object containing Test Data
  * @param {Scope} scope - the circuit
  */
 function validate(data, scope) {
-    if (!checkDistinctIdentifiersData(data)) return { ok: false, message: 'Duplicate identifiers in test data' };
-    if (!checkDistinctIdentifiersScope(scope)) return { ok: false, message: 'Duplicate identifiers in circuit' };
+    let invalids = [];
+
+    // Check for duplicate identifiers
+    if (!checkDistinctIdentifiersData(data)) {
+        invalids.push({
+            type: VALIDATION_ERRORS.DUPLICATE_ID_DATA,
+            identifier: '-',
+            message: 'Duplicate identifiers in test data'
+        });
+    }
+
+    if (!checkDistinctIdentifiersScope(scope)) {
+        invalids.push({
+            type: VALIDATION_ERRORS.DUPLICATE_ID_SCOPE,
+            identifier: '-',
+            message: 'Duplicate identifiers in circuit'
+        });
+    }
+
+    // Don't do further checks if duplicates
+    if (invalids.length > 0) return { ok: false, invalids: invalids };
 
     // Validate inputs and outputs
     const inputsValid = validateInputs(data, scope);
     const outputsValid = validateOutputs(data, scope);
 
-    if (!inputsValid.ok) return inputsValid;
-    if (!outputsValid.ok) return outputsValid;
+    invalids = inputsValid.ok ? invalids : invalids.concat(inputsValid.invalids);
+    invalids = outputsValid.ok ? invalids : invalids.concat(outputsValid.invalids);
 
     // Validate presence of reset if test is sequential
     if (data.type === 'seq') {
@@ -577,10 +672,42 @@ function validate(data, scope) {
                 && simulatorReset.objectType === 'Input'
         ));
 
-        if (!(resetPresent)) return { ok: false, message: 'Reset(RST) not present in circuit' };
+        if (!resetPresent) {
+            invalids.push({
+                type: VALIDATION_ERRORS.NO_RST,
+                identifier: 'RST',
+                message: 'Reset(RST) not present in circuit'
+            });
+        }
     }
 
+    if (invalids.length > 0) return { ok: false, invalids: invalids };
     return { ok: true };
+}
+
+/**
+ * Autofix whatever is possible in validation errors.
+ * returns number of autofixed errors
+ * @param {Object} validationErrors - Object with errors returned by validate()
+ */
+function validationAutoFix(validationErrors) {
+    // Currently only autofixes bitwidths
+    let fixedErrors = 0;
+    // Return if no errors
+    if (validationErrors.ok) return fixedErrors;
+
+    const bitwidthErrors = validationErrors.invalids.filter((vError) => {
+        return vError.type === VALIDATION_ERRORS.WRONGBITWIDTH;
+    });
+
+    for (const bwError of bitwidthErrors) {
+        const element = bwError.extraInfo.element;
+        const expectedBitWidth = bwError.extraInfo.expectedBitWidth;
+        element.newBitWidth(expectedBitWidth);
+        fixedErrors++;
+    }
+
+    return fixedErrors;
 }
 
 /**
@@ -615,24 +742,32 @@ function checkDistinctIdentifiersScope(scope) {
  * @param {Scope} scope - the circuit
  */
 function validateInputs(data, scope) {
+    const invalids = [];
     for (const dataInput of data.groups[0].inputs) {
         const matchInput = scope.Input.find((simulatorInput) => simulatorInput.label === dataInput.label);
 
         if (matchInput === undefined) {
-            return {
-                ok: false,
-                message: `Input - ${dataInput.label} is not present in the circuit`,
-            };
+            invalids.push({
+                type: VALIDATION_ERRORS.NOTPRESENT,
+                identifier: dataInput.label,
+                message: `Input is not present in the circuit`,
+            });
         }
 
-        if (matchInput.bitWidth !== dataInput.bitWidth) {
-            return {
-                ok: false,
-                message: `Input - ${dataInput.label} bitwidths don't match in circuit and test`,
-            };
+        else if (matchInput.bitWidth !== dataInput.bitWidth) {
+            invalids.push({
+                type: VALIDATION_ERRORS.WRONGBITWIDTH,
+                identifier: dataInput.label,
+                extraInfo: {
+                    element: matchInput,
+                    expectedBitWidth: dataInput.bitWidth
+                },
+                message: `Input bitwidths don't match in circuit and test (${matchInput.bitWidth} vs ${dataInput.bitWidth})`,
+            });
         }
     }
 
+    if (invalids.length > 0) return { ok: false, invalids: invalids };
     return { ok: true };
 }
 
@@ -643,24 +778,32 @@ function validateInputs(data, scope) {
  * @param {Scope} scope - the circuit
  */
 function validateOutputs(data, scope) {
+    const invalids = [];
     for (const dataOutput of data.groups[0].outputs) {
         const matchOutput = scope.Output.find((simulatorOutput) => simulatorOutput.label === dataOutput.label);
 
         if (matchOutput === undefined) {
-            return {
-                ok: false,
-                message: `Output - ${dataOutput.label} is not present in the circuit`,
-            };
+            invalids.push({
+                type: VALIDATION_ERRORS.NOTPRESENT,
+                identifier: dataOutput.label,
+                message: `Output is not present in the circuit`,
+            });
         }
 
-        if (matchOutput.bitWidth !== dataOutput.bitWidth) {
-            return {
-                ok: false,
-                message: `Output - ${dataOutput.label} bitwidths don't match in circuit and test`,
-            };
+        else if (matchOutput.bitWidth !== dataOutput.bitWidth) {
+            invalids.push({
+                type: VALIDATION_ERRORS.WRONGBITWIDTH,
+                identifier: dataOutput.label,
+                extraInfo: {
+                    element: matchOutput,
+                    expectedBitWidth: dataOutput.bitWidth
+                },
+                message: `Output bitwidths don't match in circuit and test (${matchOutput.bitWidth} vs ${dataOutput.bitWidth})`,
+            });
         }
     }
 
+    if (invalids.length > 0) return { ok: false, invalids: invalids };
     return { ok: true };
 }
 
