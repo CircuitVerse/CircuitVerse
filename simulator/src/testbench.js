@@ -31,6 +31,7 @@ const TESTBENCH_CREATOR_PATH = '/testbench';
 // Do we have any other function to do this?
 // Utility function. Converts decimal number to binary string
 function dec2bin(dec) {
+    if (dec === undefined) return 'X';
     return (dec >>> 0).toString(2);
 }
 

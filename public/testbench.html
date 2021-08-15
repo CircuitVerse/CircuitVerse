@@ -37,7 +37,7 @@
         <div id="dataGroup">
             <div id="data-group-1" class="data-group">
                 <h3 id="data-group-title-1" contenteditable="true">Group 1</h3>
-                <h5>Click + to add tests to the group</h5>
+                <h5 class="data-group-info">Click + to add tests to the group</h5>
                 <table class="tb-table" id="data-table-1">
                     <tbody></tbody>
                 </table>
@@ -300,7 +300,7 @@
         `
         <div id="data-group-${groupIndex + 1}" class="data-group">
             <h3 id="data-group-title-${groupIndex + 1}" contenteditable="true">${escapeHtml(groupName)}</h3>
-            <h5 class="handle">Click + to add tests to the ${testMode === "comb"? "group" : "set"}</h5>
+            <h5 class="data-group-info">Click + to add tests to the ${testMode === "comb"? "group" : "set"}</h5>
             <table class="tb-table" id="data-table-${groupIndex + 1}">
             <tbody></tbody>
             </table>
@@ -346,24 +346,57 @@
 
     /* Adds output with default value 0 or values supplied in @param outputData */
     /* Used without params for UI, used with params by loadData() */
-    function addOutput(label=`out${nextOutputIndex + 1}`, bitwidth=1, outputData=[]) {
+    /* Used with resultData and result=true for setting result */
+    function addOutput(label=`out${nextOutputIndex + 1}`, bitwidth=1, outputData=[], result=false, resultData=[]) {
         nextOutputIndex++;
         outputCount++;
         // Change head table contents
-        const s_head = `<th style="background-color: #afa" id="tb-out-label-${nextOutputIndex}"><span contenteditable="true">${escapeHtml(label)}</span> <a onclick="deleteOutput($(this));"><span class="fa fa-minus-square tb-minus">&#8722;</span></a></th>`
-        const s_data = `<td contenteditable="true">${escapeHtml(bitwidth.toString())}</td>`;
+        let s_head = `<th style="background-color: #afa" id="tb-out-label-${nextOutputIndex}"><span contenteditable="true">${escapeHtml(label)}</span> <a onclick="deleteOutput($(this));"><span class="fa fa-minus-square tb-minus">&#8722;</span></a></th>`
+        let s_data = `<td contenteditable="true">${escapeHtml(bitwidth.toString())}</td>`;
+
+        // If result then set colspan to 2
+        if (result) {
+            s_head = `<th style="background-color: #afa" id="tb-out-label-${nextOutputIndex}" colspan="2"><span contenteditable="true">${escapeHtml(label)}</span> <a onclick="deleteOutput($(this));"><span class="fa fa-minus-square tb-minus">&#8722;</span></a></th>`
+            s_data = `<td contenteditable="true" colspan="2">${escapeHtml(bitwidth.toString())}</td>`;  
+        }
+
         $("#testBenchTable").find("tr").eq(1).find("th").eq(inputCount + outputCount - 1).after(s_head);
         $("#testBenchTable").find("tr").eq(2).find("td").eq(inputCount + outputCount - 1).after(s_data);
+        // If not result then colspan is outputCount
         $("#tb-outputs-head").attr("colspan", outputCount);
+        // else it's 2*outputCount
+        if (result) {
+            $("#tb-outputs-head").attr("colspan", 2 * outputCount);
+        }
+
 
         // Change data tables' contents
 
-        $("#dataGroup").find("table").each(function(group_i) {
-            $(this).find("tr").each(function(case_i) {
-                let s = `<td contenteditable="true">${outputData.length ? escapeHtml(outputData[group_i][case_i]) : 0}</td>`;
-                $(this).find("td").eq(inputCount + outputCount - 1).after(s);
+        // If not result just add the outputs
+        if (!result) {
+            $("#dataGroup").find("table").each(function(group_i) {
+                $(this).find("tr").each(function(case_i) {
+                    let s = `<td contenteditable="true">${outputData.length ? escapeHtml(outputData[group_i][case_i]) : 0}</td>`;
+                    $(this).find("td").eq(inputCount + outputCount - 1).after(s);
+                });
             });
-        });
+
+        // If result then add results besides the outputs
+        // Hacky
+        } else {
+            $("#dataGroup").find("table").each(function(group_i) {
+                $(this).find("tr").each(function(case_i) {
+                    // Add the outputs (expected values)
+                    let outputCellData = `<td>${escapeHtml(outputData[group_i][case_i])}</td>`;
+                    $(this).find("td").eq(inputCount + 2 * (outputCount - 1)).after(outputCellData);
+
+                    // Add the actual values
+                    const resultColor = resultData[group_i][case_i] === outputData[group_i][case_i]? 'green' : 'red';
+                    let resultCellData = `<td style="color: ${resultColor}">${escapeHtml(resultData[group_i][case_i])}</td>`;
+                    $(this).find("td").eq(inputCount + 2 * outputCount - 1).after(resultCellData);
+                });
+            });
+        }
 
     }
 
@@ -540,18 +573,22 @@
             const output = data.groups[0].outputs[output_i];
             const values = data.groups.map(group => { return group.outputs[output_i].values; });
             const results = data.groups.map(group => { return group.outputs[output_i].results; });
-            const tableResult = [];
+            const expectedOutputs = [];
+            const actualOutputs = [];
 
             for (let group_i in values) {
-                const res = [];
+                const groupExpectedOuts = [];
+                const groupActualOuts = [];
                 for (let val_i in values[group_i]) {
-                    res.push(`${values[group_i][val_i]} - ${results[group_i][val_i]}`);
+                    groupExpectedOuts.push(values[group_i][val_i]);
+                    groupActualOuts.push(results[group_i][val_i]);
                 }
 
-                tableResult.push(res);
+                expectedOutputs.push(groupExpectedOuts);
+                actualOutputs.push(groupActualOuts);
             }
 
-            addOutput(output.label, output.bitWidth, tableResult);
+            addOutput(`${output.label}`, output.bitWidth, expectedOutputs, true, actualOutputs);
         }
     }
 
@@ -564,6 +601,7 @@
         $(".lower-button, .table-button, .tb-minus").hide();
         $(".tablink").attr('disabled', 'disabled');
         $(".tablink").removeClass('tablink-no-override');
+        $(".data-group-info").text('');
     }
 
     function makeContentUneditable() {
