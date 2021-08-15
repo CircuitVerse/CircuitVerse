@@ -1,0 +1,10 @@
+hi:
+  helpers:
+    label:
+      custom_mail:
+        subject: "विषय"
+        content: "कंटेंट"
+    submit:
+      custom_mail:
+        create: "नया कस्टम मेल"
+        update: "कस्टम मेल अपडेट करें"

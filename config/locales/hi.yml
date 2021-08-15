@@ -1,5 +1,6 @@
 hi:
   edit: "एडिट करे"
+  show: "दिखाए"
   delete: "इसे मिटायें"
   view: "यहाँ देखे"
   launch_simulator: "सिम्युलेटर लॉन्च करें"

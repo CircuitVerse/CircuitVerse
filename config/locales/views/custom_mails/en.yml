@@ -1,0 +1,15 @@
+en:
+  custom_mails:
+    edit_custom_mail: "Edit Custom Mail"
+    custom_emails_heading: "Custom Emails"
+    new_custom_mail: "New Custom Mail"
+    subject: "Subject"
+    email_send_status: "Sent?"
+    yes: "Yes"
+    no: "No"
+    no_custom_emails_yet: "No custom emails so far."
+    mail_preview: "Mail Preview"
+    send: "Send"
+    send_to_self: "Send to self"
+    mail_sent: "Mail has been sent out"
+    mail_not_sent: "Mail has not been sent"

@@ -1,0 +1,15 @@
+hi:
+  custom_mails:
+    edit_custom_mail: "कस्टम मेल एडिट करें"
+    custom_emails_heading: "कस्टम ईमेल"
+    new_custom_mail: "नया कस्टम मेल"
+    subject: "विषय"
+    email_send_status: "ईमेल भेजा गया?"
+    yes: "हाँ"
+    no: "नहीं"
+    no_custom_emails_yet: "अब तक कोई कस्टम ईमेल नहीं"
+    mail_preview: "मेल प्रीव्यू करे"
+    send: "सेंड करे"
+    send_to_self: "स्वयं को भेजें"
+    mail_sent: "मेल भेज दिया गया है"
+    mail_not_sent: "मेल नहीं भेजा गया है"

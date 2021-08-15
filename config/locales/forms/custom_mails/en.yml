@@ -1,0 +1,12 @@
+en:
+  helpers:
+    label:
+      custom_mail:
+        subject: "Subject"
+        content: "Content"
+        start_date: "Start Date"
+        end_date: "End Date"
+    submit:
+      custom_mail:
+        create: "New Custom Mail"
+        update: "Update Custom Mail"
