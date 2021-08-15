@@ -184,9 +184,7 @@
 
 <!-- navBar-for-small-screen -->
 <div class="smallscreen-navbar">
-<div id="logoWrap">
-  <a href="/"><span class='touchNavlogo'> </span></a>
-  </div>
+
   <div id="ProjectID">Undefined</div>
    
   <div class="smallNavbar-navbar-ul">Project<i class="fas fa-chevron-down ulicon"></i></div>
@@ -223,7 +221,8 @@
     <li class="SmallScreen-Navbar-li"> Discussion Forum</li>
     </div>
 
-    <ul class="smallNavbar-navbar-ul">
+    <div class="smallNavbar-navbar-ul">
+    
     <% if user_signed_in? %>
      <%= current_user.name %> </ul>
     <div class="Smallscreen-navbar-inner">
@@ -231,10 +230,15 @@
       <li class=""><a href=<%= user_groups_path(current_user) %>>My Groups</a></li>
       <div class="dropdown-divider"></div>
       <li class=""><a rel="nofollow" data-method="delete" href=<%= destroy_user_session_path %>>Sign Out</a></li>
-      </div>
-  <% else %>
+      <% else %>
     <a class="navbar-nav user-field" href=<%= new_user_session_path %>> Sign In </a>
   <% end %>
+      </div>
+  
+
+  <div id="logoWrap">
+  <a href="/"><span class='touchNavlogo'> </span></a>
+  </div>
   </div>
 
   <!-- Touchmenu  Responsive Versions -->

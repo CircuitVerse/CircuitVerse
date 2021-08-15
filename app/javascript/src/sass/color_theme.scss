@@ -73,6 +73,9 @@ $text: black;
 $splitter: black;
 $output-rect: blue;
 
+//Touch Screen Menu 
+$touch-menu:#454545;
+
 :root{
   --primary: $baseDefault;
 
@@ -133,6 +136,8 @@ $output-rect: blue;
   --node-norm: $node-norm;
   --splitter: $splitter;
   --output-rect: $output-rect;
+
+  --touch-menu:$touch-menu;
 }
 
 ::-moz-selection {

@@ -1656,14 +1656,13 @@ input[type='range']::-webkit-slider-thumb {
   display: none;
 }
 .touchNavlogo {
-  -webkit-mask: url(./assets/logo.svg) no-repeat center;
-   mask: url(./assets/logo.svg) no-repeat center;
+  -webkit-mask: url(./assets/CVLogo.svg) no-repeat center;
+   mask: url(./assets/CVLogo.svg) no-repeat center;
    display: inline-block;
-   margin-right: 36px;
    padding-top: 25px;
-   height: 70px;
-   width: 250px;
-   padding-bottom: 60px;
+   height: 100px;
+   width: 100px;
+   padding-bottom: 10px;
  }
 
 @media screen and (orientation:portrait) and (max-device-width: 1024px) {
@@ -1722,11 +1721,11 @@ input[type='range']::-webkit-slider-thumb {
 @media screen and (max-device-width: 1366px) {
   #logoWrap{
     height: 100px;
-    text-align: center;
+    text-align: right;
     padding: auto;
-    padding-top: 10px;
-    padding-bottom: 30px;
-    margin-bottom:30px;
+    bottom: 0;
+    padding-bottom: 10px;
+    margin-bottom:10px;
   }
   .touchNavlogo{
     background-color:#4AA96C;
@@ -1760,13 +1759,12 @@ input[type='range']::-webkit-slider-thumb {
   .smallscreen-navbar-inner{
     margin: 0 auto;
     text-align:left;
-    padding-left: 5%;
+    padding-left: 2%;
     padding-right: 0%;
     transition: 0.5s;
     height: 0%;
-    overflow: hidden;
     overflow-y: auto;
-    max-height: 150px;
+    max-height: 125px;
   }
   
   .smallscreen-navbar-inner li{
@@ -1775,10 +1773,11 @@ input[type='range']::-webkit-slider-thumb {
     font-size: 16px;
     font-family: inherit;
     margin: 10px;
-    width: 280px;
+    width: 290px;
+    height: 40px;
     text-align: center;
     border-radius: 10px;
-    padding: 9px;
+    padding: 10px;
     font-weight: bold;
     display: inline-block;
     vertical-align: top;
@@ -1811,10 +1810,10 @@ input[type='range']::-webkit-slider-thumb {
   #ProjectID{
     font-family: inherit;
     font-weight: bold;
-    font-size: 25px;
+    font-size: 30px;
     padding-right: 50px;
-    text-align: right;
-    margin: 10px;
+    text-align: center;
+    margin: 55px;
   }
   
   .mobileUserSignIn{
@@ -1898,12 +1897,6 @@ input[type='range']::-webkit-slider-thumb {
 }
 .logixButton:hover {
   color: seagreen;
-}
-.logo {
-  padding-top: 25px;
-  height: 70px;
-  width: 250px;
-  padding-bottom: 15px;
 }
 .projectName {
   font-size: 25px;
@@ -2291,11 +2284,11 @@ font-size: 15px;
   right: 40px;
 }
 .liveMenuIcon{
-  font-size: 15px;
+  font-size: 18px;
   text-align: center;
-  padding: 8px;
-  height: 35px;
-  width: 35px;
+  padding: 10px;
+  height: 40px;
+  width: 40px;
   border-radius: 10px;
   margin:0px;
   position: relative;

@@ -52,8 +52,8 @@ var uniqid = {
 var currDistance = 0;
 var distance = 0;
 var pinchZ = 0;
-var centreX;
-var centreY;
+var centreX = 0;
+var centreY = 0;
 var timeout;
 var lastTap = 0;
 var initX;
@@ -157,8 +157,8 @@ export function pinchZoom(e, globalScope) {
     updateCanvasSet(true);
     // Calculating distance between touch to see if its pinchIN or pinchOut
     distance = Math.sqrt((e.touches[1].clientX - e.touches[0].clientX)
-  * (e.touches[1].clientX - e.touches[0].clientX), (e.touches[1].clientY - e.touches[0].clientY)
-  * (e.touches[1].clientY - e.touches[0].clientY));
+     * (e.touches[1].clientX - e.touches[0].clientX), (e.touches[1].clientY - e.touches[0].clientY)
+     * (e.touches[1].clientY - e.touches[0].clientY));
     if (distance >= currDistance) {
         pinchZ += 0.02;
         currDistance = distance;
@@ -166,7 +166,7 @@ export function pinchZoom(e, globalScope) {
         pinchZ -= 0.02;
         currDistance = distance;
     }
-
+    
     if (pinchZ >= 2) {
         pinchZ = 2;
     } else if (pinchZ <= 0.5) {
@@ -189,7 +189,7 @@ export function pinchZoom(e, globalScope) {
     globalScope.oy = Math.round(currCentreY * (globalScope.scale - oldScale));
     gridUpdateSet(true);
     scheduleUpdate(1);
-    return;
+    return; 
 }
 
 /*
@@ -333,6 +333,7 @@ function panStop(e) {
             getTap(e);
         }
     }
+    
 }
 
 export default function startListeners() {
@@ -970,7 +971,7 @@ function zoomSliderListeners() {
         sliderZoomButton(1);
     });
 
-    var buttoncolor = 'var(--br-secondary)';
+    var buttoncolor = 'var(--touch-menu)';
     
     /**
  * Mobile navbar
