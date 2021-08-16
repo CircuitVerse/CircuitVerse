@@ -26,16 +26,18 @@ module Utils
     valid = parsed_mails.count
     invalid = total - valid
     already_present = (parsed_mails - newly_added).count
+    was = I18n.t("helpers.utils.was")
+    were = I18n.t("helpers.utils.were")
 
     notice = if total != 0 && valid != 0
-      "Out of #{total} Email(s), #{valid} #{valid == 1 ? 'was' : 'were'} valid and #{invalid} #{invalid == 1 ? 'was' : 'were'} invalid. #{newly_added.count} user(s) will be invited. " + \
+      I18n.t("helpers.utils.email_send_status", total: total, valid: valid, was_or_were_valid: valid == 1 ? was : were, invalid: invalid,  was_or_were_invalid: invalid == 1 ? 'was' : 'were', newly_added_count: newly_added.count) + \
         (if already_present.zero?
-           "No users were already present."
+           I18n.t("helpers.utils.no_already_present_users")
          else
            "#{already_present} user(s) #{already_present == 1 ? 'was' : 'were'} already present."
          end)
     else
-      "No valid Email(s) entered."
+      I18n.t("helpers.utils.no_valid_emails_entered")
     end
   end
 end
