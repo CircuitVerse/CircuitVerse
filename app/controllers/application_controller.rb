@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
 
   before_action :store_user_location!, if: :storable_location?
   around_action :switch_locale
+  before_action :set_locale
 
   rescue_from Pundit::NotAuthorizedError, with: :auth_error
   rescue_from ApplicationPolicy::CustomAuthException, with: :custom_auth_error
@@ -24,9 +25,18 @@ class ApplicationController < ActionController::Base
     render "errors/not_found.html.erb", status: :not_found
   end
 
+  def set_locale
+    I18n.locale = params[:locale]
+    if user_signed_in?
+      User.update(locale: I18n.locale)
+    else
+     session[:locale] = I18n.locale
+    end    
+  end
+
   def switch_locale(&action)
     logger.debug "* Accept-Language: #{request.env['HTTP_ACCEPT_LANGUAGE']}"
-    locale = current_user&.locale || extract_locale_from_accept_language_header || I18n.default_locale
+    locale = current_user&.locale || session[:locale] || extract_locale_from_accept_language_header || I18n.default_locale
     logger.debug "* Locale set to '#{locale}'"
     begin
       I18n.with_locale(locale, &action)
