@@ -28,7 +28,7 @@ class StarsController < ApplicationController
   def create
     @star = Star.new(star_params)
     @star.save
-    render plain: "Star added!"
+    render plain: t("stars.create.success_msg")
     # respond_to do |format|
     #   if @star.save
     #     format.html { redirect_to @star, notice: 'Star was successfully created.' }
@@ -58,7 +58,7 @@ class StarsController < ApplicationController
   # DELETE /stars/1.json
   def destroy
     @star.destroy
-    render plain: "Star removed!"
+    render plain: t("stars.destroy.destroy_msg")
     # respond_to do |format|
     #   format.html { redirect_to stars_url, notice: 'Star was successfully destroyed.' }
     #   format.json { head :no_content }

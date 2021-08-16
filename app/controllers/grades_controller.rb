@@ -21,7 +21,7 @@ class GradesController < ApplicationController
     @grade.remarks = remarks
 
     unless @grade.save
-      render json: { error: "Grade is invalid" },
+      render json: { error: t("grades.create.json_invalid_grade_msg") },
              status: :bad_request
     end
   end

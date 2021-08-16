@@ -70,7 +70,7 @@ class AssignmentsController < ApplicationController
 
     respond_to do |format|
       if @assignment.save
-        format.html { redirect_to @group, notice: "Assignment was successfully created." }
+        format.html { redirect_to @group, notice: t("assignments.create.success_msg") }
         format.json { render :show, status: :created, location: @assignment }
       else
         format.html { render :new }
@@ -89,7 +89,7 @@ class AssignmentsController < ApplicationController
 
     respond_to do |format|
       if @assignment.update(params)
-        format.html { redirect_to @group, notice: "Assignment was successfully updated." }
+        format.html { redirect_to @group, notice: t("assignments.update.update_msg") }
         format.json { render :show, status: :ok }
       else
         format.html { render :edit }
@@ -103,7 +103,7 @@ class AssignmentsController < ApplicationController
   def destroy
     @assignment.destroy
     respond_to do |format|
-      format.html { redirect_to @group, notice: "Assignment was successfully deleted." }
+      format.html { redirect_to @group, notice: t("assignments.destroy.destroy_msg") }
       format.json { head :no_content }
     end
   end

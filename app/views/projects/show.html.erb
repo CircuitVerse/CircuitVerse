@@ -100,7 +100,7 @@
             <p>
               <hr class="projects-horizontal-rule">
               <% if policy(@project).user_access? %>
-                <a href="<%= simulator_edit_path(@project) %>" class="btn primary-button projects-primary-button" target="_blank"><%= t("general.launch_simulator") %></a>
+                <a href="<%= simulator_edit_path(@project) %>" class="btn primary-button projects-primary-button" target="_blank"><%= t("launch_simulator") %></a>
               <% else %>
                 <a class="btn primary-button projects-primary-button projects-others-embed-button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" onclick="embedOther()">
                   <i class="fas fa-code"></i>
@@ -135,11 +135,11 @@
             <p>
               <%= link_to edit_user_project_path(@author, @project), class: "btn secondary-button" do %>
                 <%= image_tag("SVGs/editProject.svg", alt: "Edit Project") %>
-                <span><%= t("general.edit") %></span>
+                <span><%= t("edit") %></span>
               <% end %>
               <%= link_to "#", class: "btn secondary-button", data: {toggle: "modal", target: "#deleteprojectModal", currentauthor: @author.id, currentproject: @project.id} do %>
                 <%= image_tag("SVGs/deleteProject.svg", alt: "Delete Project") %>
-                <span><%= t("general.delete") %></span>
+                <span><%= t("delete") %></span>
               <% end %>
               <a class="btn secondary-button projects-self-embed-button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" onclick="embedSelf()">
                 <i class="fas fa-code"></i>

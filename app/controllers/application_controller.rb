@@ -12,11 +12,12 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
 
   def auth_error
-    render plain: "You are not authorized to do the requested operation"
+    render plain: t("application.auth_error.not_authorized_msg")
   end
 
   def custom_auth_error(exception)
-    render plain: "Not Authorized: #{exception.custom_message}", status: :forbidden
+    render plain: t("application.custom_auth_error.custom_not_authorized_msg",
+                    custom_message: exception.custom_message), status: :forbidden
   end
 
   def not_found

@@ -73,7 +73,7 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
-        format.html { redirect_to user_project_path(@project.author_id, @project), notice: "Project was successfully created." }
+        format.html { redirect_to user_project_path(@project.author_id, @project), notice: t("projects.create.success_msg") }
         format.json { render :show, status: :created, location: @project }
       else
         format.html { render :new }
@@ -88,7 +88,7 @@ class ProjectsController < ApplicationController
     @project.description = params["description"]
     respond_to do |format|
       if @project.update(project_params)
-        format.html { redirect_to user_project_path(@project.author_id, @project), notice: "Project was successfully updated." }
+        format.html { redirect_to user_project_path(@project.author_id, @project), notice: t("projects.update.update_msg") }
         format.json { render :show, status: :ok, location: @project }
       else
         format.html { render :edit }
@@ -102,7 +102,7 @@ class ProjectsController < ApplicationController
   def destroy
     @project.destroy
     respond_to do |format|
-      format.html { redirect_to user_path(@project.author_id), notice: "Project was successfully destroyed." }
+      format.html { redirect_to user_path(@project.author_id), notice: t("projects.destroy.destroy_msg") }
       format.json { head :no_content }
     end
   end

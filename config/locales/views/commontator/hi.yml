@@ -1,4 +1,4 @@
-en:
+hi:
   activerecord:
     attributes:
       commontator/comment:
@@ -49,7 +49,7 @@ en:
       status:
         created_at: "%{created_at} पर पोस्ट किया गया।"
         deleted_by: "टिप्पणी %{deleter_name} द्वारा हटाई गई।"
-        updated_at: "अंतिम बार %{editor_name} द्वारा %{update_at} को अपडेट किया गया।"
+        updated_at: "अंतिम बार %{editor_name} द्वारा %{updated_at} को अपडेट किया गया।"
         replying: "%{creator_name} को प्रत्युत्तर दे"
         reply_pages: "रिप्लाई पेज"
     email:

@@ -60,7 +60,7 @@ class SimulatorController < ApplicationController
 
     File.delete(image_file) if check_to_delete(params[:image])
 
-    render plain: "success"
+    render plain: t("simulator.update.update_msg")
   end
 
   def post_issue
