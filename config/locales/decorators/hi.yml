@@ -1,0 +1,9 @@
+hi:
+  decorators:
+    assignment_graded: "ग्रेड किया गया(%{grading_scale}) "
+    assignment_not_graded: "ग्रेड नहीं किया गया"
+    not_entered: "दर्ज नहीं किया गया"
+    subscribed: "सब्सक्राइब्ड है"
+    not_subscribed: "सब्सक्राइब्ड नहीं है"
+    no_circuits: "कोई सर्किट नहीं"
+    deadline: "%{days} दिन %{hours} घंटे %{minutes} मिनट"

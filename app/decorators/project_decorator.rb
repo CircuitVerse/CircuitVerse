@@ -6,10 +6,10 @@ class ProjectDecorator < SimpleDelegator
   end
 
   def grade_str
-    project.grade&.grade.presence || "N.A."
+    project.grade&.grade.presence || I18n.t("not_available")
   end
 
   def remarks_str
-    project.grade&.remarks.presence || "N.A."
+    project.grade&.remarks.presence || I18n.t("not_available")
   end
 end
