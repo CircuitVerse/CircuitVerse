@@ -67,10 +67,10 @@ class LtiController < ApplicationController
       @email_from_lms = params[:lis_person_contact_email_primary] # user email
       @lms_type = params[:tool_consumer_info_product_family_code] # lms type
       @course_title_from_lms = params[:context_title] # course title
-      lms_domain = params[:launch_presentation_return_url] || "https://www.yourlms.com/lms.php"
+      lms_domain = params[:launch_presentation_return_url]
       session[:lis_outcome_service_url] = params[:lis_outcome_service_url] # grading parameters
       session[:oauth_consumer_key] = params[:oauth_consumer_key] # grading parameters
-      session[:lms_domain] = URI.join lms_domain, "/" # set lms domain in session
+      session[:lms_domain] = URI.join lms_domain, "/" if lms_domain # set in session
     end
 
     def create_project_if_student_present
