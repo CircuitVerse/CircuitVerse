@@ -6,7 +6,7 @@ class GroupMailer < ApplicationMailer
 
     @mentor = user
     @group = group
-    mail(to: @mentor.email, subject: "New Group Created ")
+    mail(to: @mentor.email, subject: I18n.t("group_mailer.subject.new_group_created"))
   end
 
   def new_member_email(user, group)
@@ -14,6 +14,6 @@ class GroupMailer < ApplicationMailer
 
     @user = user
     @group = group
-    mail(to: @user.email, subject: "Added to a New group")
+    mail(to: @user.email, subject: I18n.t("group_mailer.subject.add_to_new_group"))
   end
 end

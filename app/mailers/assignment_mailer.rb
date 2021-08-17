@@ -6,7 +6,7 @@ class AssignmentMailer < ApplicationMailer
 
     @assignment = assignment
     @user = user
-    mail(to: @user.email, subject: "New Assignment in #{Group.find_by(id: @assignment.group_id).name}")
+    mail(to: @user.email, subject: I18n.t("assignment_mailer.subject.new_assignment", group: Group.find_by(id: @assignment.group_id).name))
   end
 
   def update_assignment_email(user, assignment)
@@ -14,6 +14,6 @@ class AssignmentMailer < ApplicationMailer
 
     @assignment = assignment
     @user = user
-    mail(to: @user.email, subject: "Assignment Updated in #{Group.find_by(id: @assignment.group_id).name}")
+    mail(to: @user.email, subject: I18n.t("assignment_mailer.subject.assignment_updated", group: Group.find_by(id: @assignment.group_id).name))
   end
 end

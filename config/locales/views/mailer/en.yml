@@ -4,17 +4,27 @@ en:
     keep_building: "Keep building!"
     view_project: "View Project"
   group_mailer:
+    subject:
+      new_group_created: "New Group Created "
+      add_to_new_group: "Added to a New group"
     group_created_html: "You have successfully created a new group, <span class='mailer-highlighted-text'> %{name} </span>."
     view_group: "View Group"
     member_added_to_group_html: " You have been added to a new group named <span class='mailer-highlighted-text'>%{group_name}</span>. <br>
     The group is mentored by <span class='mailer-highlighted-text'>%{user_name}</span>."
   assignment_mailer:
+    subject:
+      new_assignment: "New Assignment in %{group}"
+      assignment_updated: "Assignment Updated in %{group}"
     assignment_created_html: "A new assignment named <span class='mailer-highlighted-text'>%{name} (%{deadline})</span> has been assigned in <span class='mailer-highlighted-text'> %{group_name}</span>. <br>
     Assignment is mentored by <span class='mailer-highlighted-text'>%{mentor_name}</span>"
     view_assignment: "View Assignment"
     assignment_updated_html: "The assignment <span class='mailer-highlighted-text'>%{name} (%{deadline})</span> has been updated. <br>
     Assignment is mentored by <span class='mailer-highlighted-text'>%{mentor_name}</span>"
   user_mailer:
+    subject:
+      signup_confirmation: "Signing up Confirmation"
+      new_project_created: "New Project Created"
+      project_featured: "Your project is now featured!"
     custom_email:
       hello_user: Hello, %{name}"
     featured_circuit_email:
@@ -32,6 +42,8 @@ en:
       learn_heading: "Learn"
       learn_description: "Want to know more about digital circuits? This Interactive book gives you complete understanding on how digital circuits work."
   pending_invitation_email:
+    subject:
+      add_to_group: "Added to a group in CircuitVerse"
     main_heading: "Welcome to CircuitVerse"
     main_description_html: "You have been added to a new group named %{name} by %{user_name}.<br><br>
       Sign up with CircuitVerse to explore the digital world. You can use the group once you have signed up with CircuitVerse."

@@ -4,17 +4,27 @@ hi:
     keep_building: "निर्माण करते रहे"
     view_project: "परियोजना देखें"
   group_mailer:
+    subject:
+      new_group_created: "नया समूह बनाया गया"
+      add_to_new_group: "एक नए समूह में ऐड किया गया"
     group_created_html: "आपने सफलतापूर्वक एक नया समूह बना लिया है, <span class='mailer-highlighted-text'> %{name} </span>"
     view_group: "समूह देखें"
     member_added_to_group_html: "आपको <span class='mailer-highlighted-text'>%{group_name}</span> नाम के एक नए समूह में जोड़ा गया है। <br>
     समूह का मार्गदर्शन <span class='mailer-highlighted-text'>%{user_name}</span> द्वारा किया जाता है।"
   assignment_mailer:
+    subject:
+      new_assignment: "%{group} में नया असाइनमेंट बनाया गय।"
+      assignment_updated: "असाइनमेंट %{group} में अपडेट किया गया।"
     assignment_created_html: "<span class='mailer-highlighted-text'>%{name} (%{deadline})</span> नाम की नयी असाइनमेंट <span class='mailer-highlighted-text'> %{group_name} में असाइन की गयी है </span>. <br>
     असाइनमेंट का मार्गदर्शन <span class='mailer-highlighted-text'>%{mentor_name}</span> द्वारा किया जाता है"
     view_assignment: "असाइनमेंट देखें"
     assignment_updated_html: "असाइनमेंट <span class='mailer-highlighted-text'>%{name} (%{deadline})</span> को अपडेट कर दिया गया है। <br>
     असाइनमेंट का मार्गदर्शन <span class='mailer-highlighted-text'>%{mentor_name}</span> द्वारा किया जाता है"
   user_mailer:
+    subject:
+      signup_confirmation: "साइन अप कन्फर्मेशन"
+      new_project_created: "नया प्रोजेक्ट बनाया गया"
+      project_featured: "आपकी परियोजना फीचर की गयी है!"
     custom_email:
       hello_user: "नमस्ते, %{name}"
     featured_circuit_email:
@@ -32,6 +42,8 @@ hi:
       learn_heading: "सीखना"
       learn_description: "क्या आप डिजिटल सर्किट के बारे में अधिक जानना चाहते हैं? सर्किटवर्स इंटरैक्टिव बुक आपको डिजिटल सर्किट कैसे काम करती है, इसकी पूरी समझ देती है।"
   pending_invitation_email:
+    subject:
+      add_to_group: "सर्किटवर्स में एक समूह में ऐड किया गया"
     main_heading: "सर्किटवर्स में आपका स्वागत है"
     main_description_html: "आपको %{user_name} द्वारा %{name} नाम के एक नए समूह में जोड़ा गया है।<br><br>
      डिजिटल सर्किट की दुनिया को एक्स्प्लोर करने के लिए सर्किटवर्स के साथ साइन अप करें। एक बार जब आप सर्किटवर्स के साथ साइन अप कर लेते हैं तो आप समूह का उपयोग कर सकते हैं।"

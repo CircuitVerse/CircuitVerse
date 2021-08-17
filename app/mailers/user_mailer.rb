@@ -12,7 +12,7 @@ class UserMailer < ApplicationMailer
   def welcome_email(user)
     @user = user
     @url = "CircuitVerse.org"
-    mail(to: @user.email, subject: "Signing up Confirmation")
+    mail(to: @user.email, subject: I18n.t("user_mailer.subject.signup_confirmation"))
   end
 
   def new_project_email(user, project)
@@ -20,7 +20,7 @@ class UserMailer < ApplicationMailer
 
     @user = user
     @project = project
-    mail(to: @user.email, subject: "New Project Created")
+    mail(to: @user.email, subject: I18n.t("user_mailer.subject.new_project_created"))
   end
 
   def forked_project_email(user, old_project, new_project)
@@ -29,7 +29,7 @@ class UserMailer < ApplicationMailer
     @user = user
     @old_project = old_project
     @new_project = new_project
-    mail(to: @user.email, subject: "New Project Created")
+    mail(to: @user.email, subject: I18n.t("user_mailer.subject.new_project_created"))
   end
 
   def featured_circuit_email(user, project)
@@ -37,6 +37,6 @@ class UserMailer < ApplicationMailer
 
     @user = user
     @project = project
-    mail(to: @user.email, subject: "Your project is now featured!")
+    mail(to: @user.email, subject: I18n.t("user_mailer.subject.project_featured"))
   end
 end
