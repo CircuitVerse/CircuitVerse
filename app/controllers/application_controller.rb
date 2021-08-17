@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :store_user_location!, if: :storable_location?
-  around_action :switch_locale
+  before_action :switch_locale
   before_action :set_locale
 
   rescue_from Pundit::NotAuthorizedError, with: :auth_error
@@ -34,12 +34,12 @@ class ApplicationController < ActionController::Base
     end    
   end
 
-  def switch_locale(&action)
+  def switch_locale
     logger.debug "* Accept-Language: #{request.env['HTTP_ACCEPT_LANGUAGE']}"
     locale = current_user&.locale || session[:locale] || extract_locale_from_accept_language_header || I18n.default_locale
     logger.debug "* Locale set to '#{locale}'"
     begin
-      I18n.with_locale(locale, &action)
+      I18n.locale = locale
     rescue I18n::InvalidLocale
       locale = I18n.default_locale
       retry
