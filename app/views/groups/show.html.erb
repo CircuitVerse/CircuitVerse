@@ -61,6 +61,13 @@
           <td>
             <div class="groups-assignment-details groups-expanded-assignment-name">
               <%= assignment.name %>
+              <% if Flipper.enabled?(:lms_integration) %>
+                <% if policy(@group).admin_access? && assignment.lti_integrated? %>
+                 <br>
+                 <a data-toggle="modal" href="#lmscredentialsModal-<%= assignment.id %>">Show LMS Credentials</a>
+                 <%= render partial: "lms_credentials_modal", locals: {assignment: assignment} %>
+                <% end %>
+              <% end %>
             </div>
           </td>
           <td>

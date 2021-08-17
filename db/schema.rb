@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_25_045536) do
+ActiveRecord::Schema.define(version: 2021_07_23_103800) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,6 +74,8 @@ ActiveRecord::Schema.define(version: 2021_04_25_045536) do
     t.integer "grading_scale", default: 0
     t.boolean "grades_finalized", default: false
     t.json "restrictions", default: "[]"
+    t.string "lti_consumer_key"
+    t.string "lti_shared_secret"
     t.index ["group_id"], name: "index_assignments_on_group_id"
   end
 
@@ -294,6 +296,7 @@ ActiveRecord::Schema.define(version: 2021_04_25_045536) do
     t.bigint "view", default: 1
     t.string "slug"
     t.tsvector "searchable"
+    t.string "lis_result_sourced_id"
     t.index ["assignment_id"], name: "index_projects_on_assignment_id"
     t.index ["author_id"], name: "index_projects_on_author_id"
     t.index ["forked_project_id"], name: "index_projects_on_forked_project_id"
