@@ -1,7 +1,7 @@
 <div>
-  <h2>Welcome to CircuitVerse, <%= @user.name %></h2>
+  <h2><%= t("mailer.welcome_heading", name: @user.name) %></h2>
   <%= inline_svg_tag "SVGs/featuredProject.svg", alt: "New Project", class: "mailer-assignment-image" %>
-  <p class="mailer-text">Yay! You project, <span class="mailer-highlighted-text"><%= @project.name %></span> has been featured on the platform.</p>
-  <a href="<%= user_project_url(@user, @project) %>" class="mailer-button">View Project</a>
-  <p class="mailer-text">Keep building!</p>
+  <p class="mailer-text"><%= t("user_mailer.featured_circuit_email.circuit_featured_html", name: @project.name) %></p>
+  <a href="<%= user_project_url(@user, @project) %>" class="mailer-button"><%= t("mailer.view_project") %></a>
+  <p class="mailer-text"><%= t("mailer.keep_building") %></p>
 </div>

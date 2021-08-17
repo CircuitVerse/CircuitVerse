@@ -1,6 +1,6 @@
 <% content_for :title, @mail.subject %>
 <div>
-  <h2>Hello, <%= @user.name %></h2>
+  <h2><%= t("user_mailer.custom_mail.hello_user", name: @user.name) %></h2>
   <div class="mailer-text mailer-body-container"><%= raw @mail.content %></div>
-  <p class="mailer-text">Keep building!</p>
+  <p class="mailer-text"><%= t("mailer.keep_building") %></p>
 </div>
