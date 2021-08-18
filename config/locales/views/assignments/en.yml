@@ -7,6 +7,11 @@ en:
       grade_scale_cant_change: "(Cannot be changed once set)"
       cannot_be_edited: "%{graded} - Cannot be edited"
       enable_element_restriction: "Enable elements restriction:"
+      time_remaining: "Time remaining: %{time}"
+      no_grade: "No Grade"
+      letter: "Letter(A-F)"
+      percent: "Percent(1-100)"
+      custom: "Custom"
     edit:
       edit_assignment: "Edit Assignment"
     new:

@@ -28,7 +28,7 @@
     <h6><%= form.label :grading_scale %></h6>
     <% if @assignment.new_record? %>
       <span><%= t("assignments.form.grade_scale_cant_change") %></span>
-      <%= form.select :grading_scale, [["No Grade", :no_scale], ["Letter(A-F)", :letter], ["Percent(1-100)", :percent], ["Custom", :custom]], {}, class: 'form-control form-input' %>
+      <%= form.select :grading_scale, [[t("assignments.form.no_grade"), :no_scale], [t("assignments.form.letter"), :letter], [t("assignments.form.percent"), :percent], [t("assignments.form.custom"), :custom]], {}, class: 'form-control form-input' %>
     <% else %>
       <div class="assignments-noedit-grade-field">
         <p><%= t("assignments.form.cannot_be_edited", graded: AssignmentDecorator.new(@assignment).graded) %></p>

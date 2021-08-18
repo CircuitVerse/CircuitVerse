@@ -7,6 +7,11 @@ hi:
       grade_scale_cant_change: "(एक बार सेट होने के बाद बदला नहीं जा सकता)"
       cannot_be_edited: "%{graded} - एडिट नहीं किया जा सकता"
       enable_element_restriction: "एलिमेंट्स पर प्रतिबंध सक्षम करें:"
+      time_remaining: "शेष समय: %{time}"
+      no_grade: "कोई ग्रेड नहीं"
+      letter: "लेटर(A-F)"
+      percent: "परसेंट(1-100)"
+      custom: "कस्टम"
     edit:
       edit_assignment: "असाइनमेंट एडिट करें"
     new:

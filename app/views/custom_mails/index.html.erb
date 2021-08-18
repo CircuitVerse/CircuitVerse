@@ -16,7 +16,7 @@
             <% @mails.each do |mail| %>
               <tr>
                 <td><%= mail.subject %></td>
-                <td><%= mail.sent ? t("custom_mails.yes") : t("custom_mails.no") %></td>
+                <td><%= mail.sent ? t("custom_mails.if_yes") : t("custom_mails.if_no") %></td>
                 <td><%= link_to t("show"), mail, class: "anchor-text" %></td>
                 <td><%= link_to t("edit"), edit_custom_mail_url(mail), class: "anchor-text" %></td>
               </tr>

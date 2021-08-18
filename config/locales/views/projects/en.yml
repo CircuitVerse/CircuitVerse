@@ -8,6 +8,9 @@ en:
       feature_circuit_checkpoint: "Featured (Administrator Only)"
       tag_list_description: "(Enter your Project Tags divided by comma[,])"
       project_is_featured_message: "(This project is featured. It will no longer be featured if public access is removed.)"
+      public: "Public"
+      private: "Private"
+      limited_access: "Limited access"
     edit:
       title: "%{name} - Edit Project"
       main_heading: "Edit Project"

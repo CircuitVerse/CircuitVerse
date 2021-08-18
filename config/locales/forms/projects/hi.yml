@@ -1,0 +1,14 @@
+hi:
+  helpers:
+    label:
+      project:
+        email: "ईमेल आईडी:"
+        name: "नाम"
+        tag_list: "टैग लिस्ट "
+        project_access_type: "परियोजना का एक्सेस टाइप"
+        description: "विवरण"
+    submit:
+      project:
+        add_collaborator: "सहयोगी ऐड करे"
+        create: "परियोजना बनाएं"
+        update: "परियोजना अपडेट करे"

@@ -35,7 +35,7 @@
       <%= @warning %>
         <span class="projects-type-field-warning"><i class="fa fa-exclamation-triangle"></i> <%= t("projects.form.project_is_featured_message") %></span>
       <% end %>
-    <%= form.select :project_access_type, [["Public","Public"],["Private","Private"],["Limited access","Limited access"]], {},  class: 'form-control form-input' %>
+    <%= form.select :project_access_type, [[t("projects.form.public"),"Public"],[t("projects.form.private"),"Private"],[t("projects.form.limited_access"),"Limited access"]], {},  class: 'form-control form-input' %>
   </div>
   <div class="field form-group" id="description">
     <h6><%= form.label :description %></h6>
