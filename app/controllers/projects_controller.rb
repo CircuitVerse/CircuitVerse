@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 class ProjectsController < ApplicationController
   include ActionView::Helpers::SanitizeHelper
 
@@ -10,6 +9,7 @@ class ProjectsController < ApplicationController
   before_action :check_delete_access, only: [:destroy]
   before_action :check_view_access, only: %i[show create_fork]
   before_action :sanitize_name, only: %i[create update]
+  before_action :sanitize_project_description, only: %i[show edit]
 
   # GET /projects
   # GET /projects.json
@@ -139,5 +139,14 @@ class ProjectsController < ApplicationController
 
     def sanitize_name
       params[:project][:name] = sanitize(project_params[:name])
+    end
+
+    # Sanitize description before passing to view
+    def sanitize_project_description
+      @project.description = sanitize(
+          @project.description,
+          tags: %w(img p strong em a sup sub del u span h1 h2 h3 h4 hr li ol ul blockquote),
+          attributes: %w(style src href alt title target)
+        )
     end
 end

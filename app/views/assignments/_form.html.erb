@@ -30,7 +30,7 @@
   </div>
   <div id="description" class="field form-group">
     <h6><%= form.label :description %></h6>
-    <%= render :partial => 'editor/index', :locals => {:content => (sanitize @assignment.description)} %>
+    <%= render :partial => 'editor/index', :locals => {:content => @assignment.description} %>
   </div>
   <div id="deadline-field" class="field form-group projects-tag-form-group">
     <h6><label for="assignment_deadline">Deadline</label></h6> (<span id='remaining-time'><b>(something went wrong when loading script)</b></span>)

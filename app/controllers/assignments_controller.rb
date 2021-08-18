@@ -1,10 +1,13 @@
 # frozen_string_literal: true
 
 class AssignmentsController < ApplicationController
+  include ActionView::Helpers::SanitizeHelper
+
   before_action :authenticate_user!
   before_action :set_assignment, only: %i[show edit update destroy start reopen]
   before_action :set_group
   before_action :check_access, only: %i[edit update destroy reopen]
+  before_action :sanitize_assignment_description, only: %i[show edit]
   after_action :check_reopening_status, only: [:update]
   after_action :allow_iframe_lti, only: %i[show], constraints: lambda {
     Flipper.enabled?(:lms_integration)
@@ -166,5 +169,13 @@ class AssignmentsController < ApplicationController
 
     def check_access
       authorize @assignment, :admin_access?
+    end
+
+    def sanitize_assignment_description
+      @assignment.description = sanitize(
+          @assignment.description,
+          tags: %w(img p strong em a sup sub del u span h1 h2 h3 h4 hr li ol ul blockquote),
+          attributes: %w(style src href alt title target)
+        )
     end
 end

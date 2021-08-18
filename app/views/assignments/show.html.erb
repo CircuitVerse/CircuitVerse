@@ -32,7 +32,7 @@
           <% if @assignment.description %>
             <p><strong>Description: </strong></p>
             <div class="assignments-description">
-              <%= sanitize @assignment.description&.html_safe %>
+              <%= @assignment.description&.html_safe %>
             </div>
           <% end %>
           <% if @assignment.restricted_circuit_elements != "None" %>
