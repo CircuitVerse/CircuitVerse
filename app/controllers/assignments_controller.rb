@@ -173,9 +173,9 @@ class AssignmentsController < ApplicationController
 
     def sanitize_assignment_description
       @assignment.description = sanitize(
-          @assignment.description,
-          tags: %w(img p strong em a sup sub del u span h1 h2 h3 h4 hr li ol ul blockquote),
-          attributes: %w(style src href alt title target)
-        )
+        @assignment.description,
+        tags: %w[img p strong em a sup sub del u span h1 h2 h3 h4 hr li ol ul blockquot],
+        attributes: %w[style src href alt title target]
+      )
     end
 end

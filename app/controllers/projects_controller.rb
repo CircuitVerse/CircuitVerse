@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class ProjectsController < ApplicationController
   include ActionView::Helpers::SanitizeHelper
 
@@ -144,9 +145,9 @@ class ProjectsController < ApplicationController
     # Sanitize description before passing to view
     def sanitize_project_description
       @project.description = sanitize(
-          @project.description,
-          tags: %w(img p strong em a sup sub del u span h1 h2 h3 h4 hr li ol ul blockquote),
-          attributes: %w(style src href alt title target)
-        )
+        @project.description,
+        tags: %w[img p strong em a sup sub del u span h1 h2 h3 h4 hr li ol ul blockquote],
+        attributes: %w[style src href alt title target]
+      )
     end
 end
