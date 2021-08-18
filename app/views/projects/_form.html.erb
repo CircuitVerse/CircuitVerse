@@ -39,7 +39,7 @@
   </div>
   <div class="field form-group" id="description">
     <h6><%= form.label :description %></h6>
-    <%= render :partial => 'editor/index', :locals => {:content => (sanitize @project.description)} %>
+    <%= render :partial => 'editor/index', :locals => {:content => @project.description} %>
   </div>
   <div class="field form-group" onclick="beforeSubmit()">
     <%= form.submit class: 'btn primary-button' %> &nbsp;
