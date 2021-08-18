@@ -421,7 +421,7 @@ function makeSortable() {
     };
 
     const makePlaceholder = function(e, ui) {
-        ui.placeholder.children().each(function() { $(this).css('border', '0px'); })
+        ui.placeholder.children().each(function() { $(this).css('border', '0px'); });
     }
 
     /*  

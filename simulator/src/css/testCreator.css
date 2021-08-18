@@ -99,7 +99,7 @@
 }
 
 .tb-table th, td {
-    border: 2px solid black !important;
+    border: 2px solid black;
     border-collapse: collapse;
     padding: 15px;
     text-align: center;
