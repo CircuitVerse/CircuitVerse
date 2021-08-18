@@ -74,6 +74,7 @@ en:
         reopen: "Reopen Discussion"
         show: "Show Comments"
         hide: "Hide Comments"
+        add_comment: "+ Add Comment"
       errors:
         already_closed: "This discussion has already been closed."
         not_closed: "This discussion is not closed."

@@ -34,7 +34,7 @@ module Utils
         (if already_present.zero?
            I18n.t("helpers.utils.no_already_present_users")
          else
-           "#{already_present} user(s) #{already_present == 1 ? 'was' : 'were'} already present."
+           I18n.t("helpers.utils.users_already_present", already_present: already_present, was_or_were: already_present == 1 ? was : were)
          end)
     else
       I18n.t("helpers.utils.no_valid_emails_entered")

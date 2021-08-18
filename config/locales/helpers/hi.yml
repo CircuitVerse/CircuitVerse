@@ -5,4 +5,5 @@ hi:
       were: "थे"
       email_send_status: "%{total} ईमेल में से, %{valid} मान्य %{was_or_were_valid} और %{invalid} अमान्य %{was_or_were_invalid}। %{newly_added_count} उपयोगकर्ता(उपयोगकर्ताओं) को आमंत्रित किया जाएगा। "
       no_already_present_users: "कोई उपयोगकर्ता पहले से मौजूद नहीं था।"
+      users_already_present: "%{already_present} उपयोगकर्ता पहले से मौजूद %{was_or_were}।"
       no_valid_emails_entered: "कोई वैध ईमेल दर्ज नहीं किया गया।"

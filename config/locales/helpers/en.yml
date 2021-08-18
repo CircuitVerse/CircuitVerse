@@ -5,4 +5,5 @@ en:
       were: "were"
       email_send_status: "Out of %{total} Email(s), %{valid} %{was_or_were_valid} valid and %{invalid} %{was_or_were_invalid} invalid. %{newly_added.count} user(s) will be invited."
       no_already_present_users: "No users were already present."
+      users_already_present: "%{already_present} user(s) %{was_or_were} already present."
       no_valid_emails_entered: "No valid Email(s) entered."
