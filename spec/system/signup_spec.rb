@@ -12,7 +12,7 @@ describe "Sign up", type: :system do
   end
 
   it "does not sign-up when no credentials" do
-    click_button "Sign up"
+    click_button I18n.t("sign_up")
 
     expect(page).to have_text("Email can't be blank")
     expect(page).to have_text("Email is invalid")
@@ -23,7 +23,7 @@ describe "Sign up", type: :system do
   it "does not sign-up when password is empty" do
     fill_in "Name", with: "user1"
     fill_in "Email", with: "user1@example.com"
-    click_button "Sign up"
+    click_button I18n.t("sign_up")
 
     expect(page).to have_text("Password can't be blank")
   end
@@ -31,7 +31,7 @@ describe "Sign up", type: :system do
   it "does not sign-up when email is empty" do
     fill_in "Name", with: "user1"
     fill_in "Password", with: "secret"
-    click_button "Sign up"
+    click_button I18n.t("sign_up")
 
     expect(page).to have_text("Email can't be blank")
   end
@@ -39,7 +39,7 @@ describe "Sign up", type: :system do
   it "does not sign-up when password is less than 6 characters" do
     fill_in "Name", with: "user1"
     fill_in "Password", with: "secr"
-    click_button "Sign up"
+    click_button I18n.t("sign_up")
 
     expect(page).to have_text("Password is too short (minimum is 6 characters)")
   end
@@ -48,7 +48,7 @@ describe "Sign up", type: :system do
     fill_in "Name", with: "!@#$%^&"
     fill_in "Email", with: "user1@example.com"
     fill_in "Password", with: "secret"
-    click_button "Sign up"
+    click_button I18n.t("sign_up")
 
     expect(page).to have_text("Name can only contain letters and spaces")
   end
@@ -57,7 +57,7 @@ describe "Sign up", type: :system do
     fill_in "Name", with: "user"
     fill_in "Email", with: "user1@example.com"
     fill_in "Password", with: "secret"
-    click_button "Sign up"
+    click_button I18n.t("sign_up")
 
     expect(page).to have_text("Welcome! You have signed up successfully.")
   end
