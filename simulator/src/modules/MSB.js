@@ -2,6 +2,7 @@ import CircuitElement from "../circuitElement";
 import Node, { findNode, dec2bin } from "../node";
 import simulationArea from "../simulationArea";
 import { correctWidth, rect, fillText } from "../canvasApi";
+import banana from '../i18n';
 /**
  * @class
  * MSB
@@ -26,7 +27,7 @@ export default class MSB extends CircuitElement {
         this.rightDimensionX = 20;
         this.setHeight(30);
         this.directionFixed = true;
-        this.bitWidth = bitWidth || parseInt(prompt("Enter bitWidth"), 10);
+        this.bitWidth = bitWidth || parseInt(prompt(banana.i18n('enter-bitwidth')), 10);
         this.rectangleObject = false;
         // this.inputSize = 1 << this.bitWidth;
         this.intputSize = this.bitWidth;
@@ -132,8 +133,7 @@ export default class MSB extends CircuitElement {
  * @type {string}
  * @category modules
  */
-MSB.prototype.tooltipText =
-    "MSB ToolTip : The most significant bit or the high-order bit.";
+MSB.prototype.tooltipText = banana.i18n('modules-MSB-tooltip-text');
 MSB.prototype.helplink =
     "https://docs.circuitverse.org/#/decodersandplexers?id=most-significant-bit-msb-detector";
 MSB.prototype.objectType = "MSB";

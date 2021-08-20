@@ -5,6 +5,7 @@ import { correctWidth, lineTo, moveTo, arc } from "../canvasApi";
 import { changeInputSize } from "../modules";
 import { colors } from "../themer/themer";
 import { gateGenerateVerilog } from '../utils';
+import banana from '../i18n';
 
 /**
  * @class
@@ -146,8 +147,7 @@ export default class AndGate extends CircuitElement {
  * @type {string}
  * @category modules
  */
-AndGate.prototype.tooltipText =
-    "And Gate Tooltip : Implements logical conjunction";
+AndGate.prototype.tooltipText = banana.i18n('modules-AndGate-tooltip-text');
 
 /**
  * @memberof AndGate

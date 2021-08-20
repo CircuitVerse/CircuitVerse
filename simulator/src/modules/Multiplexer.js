@@ -3,6 +3,7 @@ import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
 import { correctWidth, lineTo, moveTo, fillText } from "../canvasApi";
 import { changeInputSize } from "../modules";
+import banana from '../i18n';
 /**
  * @class
  * Multiplexer
@@ -32,7 +33,7 @@ export default class Multiplexer extends CircuitElement {
         */
         this.controlSignalSize =
             controlSignalSize ||
-            parseInt(prompt("Enter control signal bitWidth"), 10);
+            parseInt(prompt(banana.i18n('enter-control-signal-bitwidth')), 10);
         this.inputSize = 1 << this.controlSignalSize;
         this.xOff = 0;
         this.yOff = 1;
@@ -321,8 +322,7 @@ export default class Multiplexer extends CircuitElement {
  * @type {string}
  * @category modules
  */
-Multiplexer.prototype.tooltipText =
-    "Multiplexer ToolTip : Multiple inputs and a single line output.";
+Multiplexer.prototype.tooltipText = banana.i18n('modules-Multiplexer-tooltip-text');
 Multiplexer.prototype.helplink =
     "https://docs.circuitverse.org/#/decodersandplexers?id=multiplexer";
 
@@ -334,7 +334,7 @@ Multiplexer.prototype.helplink =
  */
 Multiplexer.prototype.mutableProperties = {
     controlSignalSize: {
-        name: "Control Signal Size",
+        name: banana.i18n('control-signal-size'),
         type: "number",
         max: "32",
         min: "1",

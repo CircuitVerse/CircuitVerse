@@ -4,6 +4,7 @@ import {
 } from './engine';
 import { layoutModeGet } from './layoutMode';
 import plotArea from './plotArea';
+import banana from './i18n';
 
 window.globalScope = undefined;
 window.lightMode = false; // To be deprecated
@@ -208,7 +209,7 @@ export function bitConverterDialog() {
     $('#bitconverterprompt').dialog({
         buttons: [
             {
-                text: "Reset",
+                text: banana.i18n('reset'),
                 click: function () {
                     setBaseValues(0);
                 }

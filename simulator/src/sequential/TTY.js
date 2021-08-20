@@ -3,6 +3,7 @@ import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import { correctWidth, lineTo, moveTo, fillText3 } from '../canvasApi';
 import { colors } from '../themer/themer';
+import banana from '../i18n';
 
 /**
  * @class
@@ -26,8 +27,8 @@ export default class TTY extends CircuitElement {
         */
         this.directionFixed = true;
         this.fixedBitWidth = true;
-        this.cols = cols || parseInt(prompt('Enter cols:'));
-        this.rows = rows || parseInt(prompt('Enter rows:'));
+        this.cols = cols || parseInt(prompt(banana.i18n('enter-cols')));
+        this.rows = rows || parseInt(prompt(banana.i18n('enter-rows')));
 
         this.elementWidth = Math.max(40, Math.ceil(this.cols / 2) * 20);
         this.elementHeight = Math.max(40, Math.ceil(this.rows * 15 / 20) * 20);
@@ -163,19 +164,19 @@ export default class TTY extends CircuitElement {
     }
 }
 
-TTY.prototype.tooltipText = 'TTY ToolTip : Tele typewriter selected.';
+TTY.prototype.tooltipText = banana.i18n('sequential-TTY-tooltip-text');
 TTY.prototype.helplink = 'https://docs.circuitverse.org/#/Sequential?id=tty';
 
 TTY.prototype.mutableProperties = {
     'cols': {
-        name: 'Columns',
+        name: banana.i18n('columns'),
         type: 'number',
         max: '100',
         min: '20',
         func: 'changeColSize',
     },
     'rows': {
-        name: 'Rows',
+        name: banana.i18n('rows'),
         type: 'number',
         max: '10',
         min: '1',

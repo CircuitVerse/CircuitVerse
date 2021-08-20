@@ -4,6 +4,7 @@ import simulationArea from '../simulationArea';
 import { correctWidth, rect, fillText, drawImage} from '../canvasApi';
 import { colors } from '../themer/themer';
 import { promptFile, showMessage, getImageDimensions} from '../utils'
+import banana from '../i18n';
 /**
  * @class
  * Image
@@ -21,8 +22,8 @@ export default class ImageAnnotation extends CircuitElement {
         this.directionFixed = true;
         this.fixedBitWidth = true;
         this.imageUrl = imageUrl;
-        this.cols = cols || parseInt(prompt('Enter cols:'), 10);
-        this.rows = rows || parseInt(prompt('Enter rows:'), 10);
+        this.cols = cols || parseInt(prompt(banana.i18n('enter-cols')), 10);
+        this.rows = rows || parseInt(prompt(banana.i18n('enter-rows')), 10);
         this.setSize();
         this.loadImage();
     }
@@ -105,7 +106,7 @@ export default class ImageAnnotation extends CircuitElement {
             ctx.beginPath();
             ctx.textAlign = 'center';
             ctx.fillStyle = colors['text'];
-            fillText(ctx, "Double Click to Insert Image", xx, yy, 10);
+            fillText(ctx, banana.i18n('modules-ImageAnnotation-insert-image'), xx, yy, 10);
             ctx.fill();
 
             ctx.setLineDash([]);
@@ -142,9 +143,9 @@ export default class ImageAnnotation extends CircuitElement {
 
         // Response contains stringified JSON
         // Image URL available at response.data.link
-        showMessage('Uploading Image');
+        showMessage(banana.i18n('modules-ImageAnnotation-uploading-image'));
         var response = await $.ajax(settings);
-        showMessage('Image Uploaded');
+        showMessage(banana.i18n('modules-ImageAnnotation-image-uploaded'));
         this.imageUrl = JSON.parse(response).data.link;
         this.loadImage();
     }
@@ -175,7 +176,7 @@ export default class ImageAnnotation extends CircuitElement {
  * @type {string}
  * @category modules
  */
-ImageAnnotation.prototype.tooltipText = 'Image ToolTip: Embed an image in the circuit for annotation';
+ImageAnnotation.prototype.tooltipText = banana.i18n('modules-ImageAnnotation-tooltip-text');
 ImageAnnotation.prototype.propagationDelayFixed = true;
 
 /**
@@ -184,6 +185,8 @@ ImageAnnotation.prototype.propagationDelayFixed = true;
  * @type {JSON}
  * @category modules
  */
+ //repetition of imageannotation this can be removed
+
 ImageAnnotation.prototype.mutableProperties = {
     cols: {
         name: 'Columns',
@@ -204,19 +207,19 @@ ImageAnnotation.prototype.objectType = 'ImageAnnotation';
 ImageAnnotation.prototype.rectangleObject = false;
 ImageAnnotation.prototype.mutableProperties = {
     imageUrl: {
-        name: 'Upload Image',
+        name: banana.i18n('modules-ImageAnnotation-buttons-upload-image'),
         type: 'button',
         func: 'uploadImage',
     },
     cols: {
-        name: 'Columns',
+        name: banana.i18n('columns'),
         type: 'number',
         max: '1000',
         min: '5',
         func: 'changeColSize',
     },
     rows: {
-        name: 'Rows',
+        name: banana.i18n('rows'),
         type: 'number',
         max: '1000',
         min: '5',

@@ -1,0 +1,77 @@
+en:
+  application:
+    auth_error:
+      not_authorized_msg: "You are not authorized to do the requested operation"
+    custom_auth_error:
+      custom_not_authorized_msg: "Not Authorized: %{custom_message}"
+  assignments:
+    create:
+      success_msg: "Assignment was successfully created."
+    update:
+      update_msg: "Assignment was successfully updated."
+    destroy:
+      destroy_msg: "Assignment was successfully deleted."
+  collaborations:
+    create:
+      no_self_invitation_msg: "You can't invite yourself. %{notice}"
+    update:
+      update_msg: "Collaboration was successfully updated."
+    destroy:
+      destroy_msg: "Collaboration was successfully destroyed."
+  custom_mails:
+    create:
+      success_msg: "Mail created"
+    update:
+      update_msg: "Mail updated"
+    send_mail:
+      mail_sent_msg: "The mails were queued for sending!"
+    send_mail_self:
+      mail_sent_msg: "A mail has been sent to your email!"
+  errors:
+    not_found:
+      json_no_resource_msg: "Resource not found"
+    unacceptable:
+      json_invalid_param_msg: "Params unacceptable"
+    internal_error:
+      json_internal_error_msg: "Internal server error"
+  grades:
+    create:
+      json_invalid_grade_msg: "Grade is invalid"
+  group_members:
+    destroy:
+      destroy_msg: "Group member was successfully removed."
+  groups:
+    group_invite:
+      member_already_present_msg: "Member is already present in the group."
+      member_add_success_msg: "Group member was successfully added."
+      url_expired_msg: "Url is expired, request a new one from owner of the group."
+      invalid_url_msg: "Invalid url"
+    create:
+      success_msg: "Group was successfully created."
+    update:
+      update_msg: "Group was successfully updated."
+    destroy:
+      destroy_msg: "Group was successfully deleted."
+  logix:
+    examples:
+      example1: "Full Adder from 2-Half Adders"
+      example2: "16 Bit ripple carry adder"
+      example3: "Asynchronous Counter"
+      example4: "Keyboard"
+      example5: "FlipFlop"
+      example6: "ALU 74LS181 by Ananth Shreekumar"
+  projects:
+    create:
+      success_msg: "Project was successfully created."
+    update:
+      update_msg: "Project was successfully updated."
+    destroy:
+      destroy_msg: "Project was successfully destroyed."
+  simulator:
+    update:
+      update_msg: "success"
+  stars:
+    create:
+      success_msg: "Star added!"
+    destroy:
+      destroy_msg: "Star removed!"

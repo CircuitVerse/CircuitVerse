@@ -2,6 +2,7 @@ import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import { fillText4 } from '../canvasApi';
+import banana from '../i18n';
 /**
  * @class
  * ForceGate
@@ -84,5 +85,5 @@ export default class ForceGate extends CircuitElement {
  * @type {string}
  * @category testbench
  */
-ForceGate.prototype.tooltipText = 'Force Gate ToolTip : ForceGate Selected.';
+ForceGate.prototype.tooltipText = banana.i18n('testbench-ForceGate-tooltip-text');
 ForceGate.prototype.objectType = 'ForceGate';

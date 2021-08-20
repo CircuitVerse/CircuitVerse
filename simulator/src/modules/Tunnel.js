@@ -4,6 +4,7 @@ import simulationArea from "../simulationArea";
 import { correctWidth, rect2, fillText } from "../canvasApi";
 import plotArea from "../plotArea";
 import { showError } from "../utils";
+import banana from '../i18n';
 /**
  * @class
  * Tunnel
@@ -96,7 +97,7 @@ export default class Tunnel extends CircuitElement {
             if (tunnel.inp1.bitWidth !== this.inp1.bitWidth) {
                 this.inp1.highlighted = true;
                 tunnel.inp1.highlighted = true;
-                showError(`BitWidth Error: ${this.inp1.bitWidth} and ${tunnel.inp1.bitWidth}`);
+                showError(banana.i18n('bitwidth-error', this.inp1.bitWidth, tunnel.inp1.bitWidth));
             }
             if (tunnel.inp1.value !== this.inp1.value) {
                 tunnel.inp1.value = this.inp1.value;
@@ -320,7 +321,7 @@ export default class Tunnel extends CircuitElement {
  * @type {string}
  * @category modules
  */
-Tunnel.prototype.tooltipText = "Tunnel ToolTip : Tunnel Selected.";
+Tunnel.prototype.tooltipText = banana.i18n('modules-Tunnel-tooltip-text');
 Tunnel.prototype.helplink =
     "https://docs.circuitverse.org/#/miscellaneous?id=tunnel";
 
@@ -334,7 +335,7 @@ Tunnel.prototype.overrideDirectionRotation = true;
  */
 Tunnel.prototype.mutableProperties = {
     identifier: {
-        name: "Debug Flag identifier",
+        name: banana.i18n('debug-flag-identifier'),
         type: "text",
         maxlength: "5",
         func: "setIdentifier",

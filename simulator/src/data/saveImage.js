@@ -5,6 +5,7 @@
  * @category data
  */
 import { generateImage } from './save';
+import banana from '../i18n';
 
 /**
  * Function called to generate a prompt to save an image
@@ -17,7 +18,7 @@ export default function createSaveAsImgPrompt(scope = globalScope) {
         resizable:false,
         width: 'auto',
         buttons: [{
-            text: 'Render Circuit Image',
+            text: banana.i18n('data-saveImage-buttons-render-circuit-image'),
             click() {
                 generateImage($('input[name=imgType]:checked').val(), $('input[name=view]:checked').val(), $('input[name=transparent]:checked').val(), $('input[name=resolution]:checked').val());
                 $(this).dialog('close');

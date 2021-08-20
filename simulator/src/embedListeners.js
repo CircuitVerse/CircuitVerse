@@ -10,6 +10,7 @@ import {
 import { changeScale } from './canvasApi';
 import { copy, paste } from './events';
 import { ZoomIn, ZoomOut} from './listeners';
+import banana from './i18n';
 
 var unit = 10;
 
@@ -142,7 +143,7 @@ export default function startListeners() {
         // }
 
         if (e.key == 'T' || e.key == 't') {
-            simulationArea.changeClockTime(prompt('Enter Time:'));
+            simulationArea.changeClockTime(prompt(banana.i18n('embedListeners-prompt-change-clock-time')));
         }
     });
     document.getElementById('simulationArea').addEventListener('dblclick', (e) => {

@@ -2,6 +2,7 @@ import CircuitElement from "../circuitElement";
 import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
 import { gateGenerateVerilog } from '../utils';
+import banana from '../i18n';
 
 import {
     correctWidth,
@@ -156,8 +157,7 @@ export default class NorGate extends CircuitElement {
  * @type {string}
  * @category modules
  */
-NorGate.prototype.tooltipText =
-    "Nor Gate ToolTip : Combination of OR gate and NOT gate.";
+NorGate.prototype.tooltipText = banana.i18n('modules-NorGate-tooltip-text');
 
 /**
  * @memberof NorGate

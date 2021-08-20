@@ -5,30 +5,41 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :store_user_location!, if: :storable_location?
-  around_action :switch_locale
+  before_action :switch_locale
+  before_action :set_locale
 
   rescue_from Pundit::NotAuthorizedError, with: :auth_error
   rescue_from ApplicationPolicy::CustomAuthException, with: :custom_auth_error
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
 
   def auth_error
-    render plain: "You are not authorized to do the requested operation"
+    render plain: t("application.auth_error.not_authorized_msg")
   end
 
   def custom_auth_error(exception)
-    render plain: "Not Authorized: #{exception.custom_message}", status: :forbidden
+    render plain: t("application.custom_auth_error.custom_not_authorized_msg",
+                    custom_message: exception.custom_message), status: :forbidden
   end
 
   def not_found
     render "errors/not_found.html.erb", status: :not_found
   end
 
-  def switch_locale(&action)
+  def set_locale
+    I18n.locale = params[:locale]
+    if user_signed_in?
+      User.update(locale: I18n.locale)
+    else
+     session[:locale] = I18n.locale
+    end    
+  end
+
+  def switch_locale
     logger.debug "* Accept-Language: #{request.env['HTTP_ACCEPT_LANGUAGE']}"
-    locale = current_user&.locale || extract_locale_from_accept_language_header || I18n.default_locale
+    locale = current_user&.locale || session[:locale] || extract_locale_from_accept_language_header || I18n.default_locale
     logger.debug "* Locale set to '#{locale}'"
     begin
-      I18n.with_locale(locale, &action)
+      I18n.locale = locale
     rescue I18n::InvalidLocale
       locale = I18n.default_locale
       retry

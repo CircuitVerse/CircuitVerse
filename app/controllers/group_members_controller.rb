@@ -96,7 +96,7 @@ class GroupMembersController < ApplicationController
     respond_to do |format|
       format.html do
         redirect_to group_path(@group_member.group),
-                    notice: "Group member was successfully removed."
+                    notice: t("group_members.destroy.destroy_msg")
       end
       format.json { head :no_content }
     end

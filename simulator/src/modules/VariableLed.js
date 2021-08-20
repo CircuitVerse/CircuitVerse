@@ -3,6 +3,7 @@ import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
 import { correctWidth, lineTo, moveTo, arc, drawCircle2 } from "../canvasApi";
 import { changeInputSize } from "../modules";
+import banana from '../i18n';
 /**
  * @class
  * VariableLed
@@ -123,8 +124,7 @@ export default class VariableLed extends CircuitElement {
  * @type {string}
  * @category modules
  */
-VariableLed.prototype.tooltipText =
-    "Variable Led ToolTip: Variable LED inputs an 8 bit value and glows with a proportional intensity.";
+VariableLed.prototype.tooltipText = banana.i18n('modules-VariableLed-tooltip-text');
 
 /**
  * @memberof VariableLed

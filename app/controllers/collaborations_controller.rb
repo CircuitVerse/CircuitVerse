@@ -36,7 +36,7 @@ class CollaborationsController < ApplicationController
     notice = Utils.mail_notice(collaboration_params[:emails], collaboration_emails, newly_added)
 
     if collaboration_params[:emails].include?(current_user.email)
-      notice = "You can't invite yourself. #{notice}"
+      notice = t("collaborations.create.no_self_invitation_msg", notice: notice)
     end
 
     respond_to do |format|
@@ -51,7 +51,7 @@ class CollaborationsController < ApplicationController
 
     respond_to do |format|
       if @collaboration.update(collaboration_params)
-        format.html { redirect_to @collaboration, notice: "Collaboration was successfully updated." }
+        format.html { redirect_to @collaboration, notice: t("collaborations.update.update_msg") }
         format.json { render :show, status: :ok, location: @collaboration }
       else
         format.html { render :edit }
@@ -67,7 +67,7 @@ class CollaborationsController < ApplicationController
 
     @collaboration.destroy
     respond_to do |format|
-      format.html { redirect_to user_project_path(@collaboration.project.author_id, @collaboration.project_id), notice: "Collaboration was successfully destroyed." }
+      format.html { redirect_to user_project_path(@collaboration.project.author_id, @collaboration.project_id), notice: t("collaborations.destroy.destroy_msg") }
       format.json { head :no_content }
     end
   end

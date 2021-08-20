@@ -4,7 +4,7 @@ import simulationArea from "../simulationArea";
 import { correctWidth, bezierCurveTo, moveTo, arc2 } from "../canvasApi";
 import { changeInputSize } from "../modules";
 import { gateGenerateVerilog } from '../utils';
-
+import banana from '../i18n';
 /**
  * @class
  * OrGate
@@ -148,8 +148,7 @@ export default class OrGate extends CircuitElement {
  * @type {string}
  * @category modules
  */
-OrGate.prototype.tooltipText =
-    "Or Gate Tooltip : Implements logical disjunction";
+OrGate.prototype.tooltipText = banana.i18n('modules-OrGate-tooltip-text');
 
 /**
  * @memberof OrGate

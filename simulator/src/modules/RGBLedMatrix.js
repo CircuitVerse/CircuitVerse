@@ -2,6 +2,7 @@ import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import { correctWidth, rect2, rotate, lineTo, moveTo } from '../canvasApi';
+import banana from '../i18n';
 
 /**
  * @class
@@ -286,7 +287,7 @@ export default class RGBLedMatrix extends CircuitElement {
     }
 }
 
-RGBLedMatrix.prototype.tooltipText = 'RGB Led Matrix';
+RGBLedMatrix.prototype.tooltipText = banana.i18n('modules-RGBLedMatrix-tooltip-text');
 
 // Limit the size of the matrix otherwise the simulation starts to lag.
 RGBLedMatrix.prototype.maxRows = 128;
@@ -297,28 +298,28 @@ RGBLedMatrix.prototype.maxLedSize = 3;
 
 RGBLedMatrix.prototype.mutableProperties = {
     rows: {
-        name: 'Rows',
+        name: banana.i18n('rows'),
         type: 'number',
         max: RGBLedMatrix.prototype.maxRows,
         min: 1,
         func: 'changeRows',
     },
     columns: {
-        name: 'Columns',
+        name: banana.i18n('columns'),
         type: 'number',
         max: RGBLedMatrix.prototype.maxColumns,
         min: 1,
         func: 'changeColumns',
     },
     ledSize: {
-        name: 'LED Size',
+        name: banana.i18n('modules-RGBLedMatrix-led-size'),
         type: 'number',
         max: RGBLedMatrix.prototype.maxLedSize,
         min: 1,
         func: 'changeLedSize',
     },
     showGrid: {
-        name: 'Toggle Grid',
+        name: banana.i18n('modules-RGBLedMatrix-buttons-toggle-grid'),
         type: 'button',
         max: RGBLedMatrix.prototype.maxLedSize,
         min: 1,

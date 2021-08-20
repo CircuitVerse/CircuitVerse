@@ -1,6 +1,7 @@
 /* eslint-disable import/no-cycle */
 import EventQueue from './eventQueue';
 import { clockTick } from './utils';
+import banana from './i18n';
 
 /**
  * simulation environment object - holds simulation canvas
@@ -86,7 +87,7 @@ const simulationArea = {
     changeClockTime(t) {
         if (t < 50) return;
         clearInterval(simulationArea.ClockInterval);
-        t = t || prompt('Enter Time Period:');
+        t = t || prompt(banana.i18n('simulationArea-prompt-enter-time-period'));
         simulationArea.timePeriod = t;
         simulationArea.ClockInterval = setInterval(clockTick, t);
     },

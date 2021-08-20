@@ -6,7 +6,7 @@ class AssignmentDecorator < SimpleDelegator
   end
 
   def graded
-    assignment.graded? ? "Graded(#{assignment.grading_scale})" : "Not Graded"
+    assignment.graded? ? I18n.t("decorators.assignment_graded", grading_scale: assignment.grading_scale) : I18n.t("decorators.assignment_not_graded")
   end
 
   def grading_scale_str
@@ -36,10 +36,10 @@ class AssignmentDecorator < SimpleDelegator
   end
 
   def time_remaining
-    str = ""
-    str += "#{(assignment.deadline.to_i - Time.current.to_i) / 1.day} days "
-    str += "#{((assignment.deadline.to_i - Time.now.to_i) / 1.hour) % 24} hours"
-    str += " #{((assignment.deadline.to_i - Time.now.to_i) / 1.minute) % 60} minutes"
+    str = I18n.t("decorators.deadline",
+                 days: (assignment.deadline.to_i - Time.current.to_i) / 1.day,
+                 hours: ((assignment.deadline.to_i - Time.now.to_i) / 1.hour) % 24,
+                 minutes: ((assignment.deadline.to_i - Time.now.to_i) / 1.minute) % 60)
     str
   end
 end

@@ -1,10 +1,7 @@
 <div>
-  <h2>Welcome to CircuitVerse, <%= @user.name %></h2>
+  <h2><%= t("mailer.welcome_heading", name: @user.name) %></h2>
   <%= inline_svg_tag "PNGs/newGroup.png", alt: "New Group", class: "mailer-group-image" %>
-  <p class="mailer-text">
-    You have been added to a new group named <span class="mailer-highlighted-text"><%= @group.name %></span>. <br>
-    The group is mentored by <span class="mailer-highlighted-text"><%= User.find_by(id:@group.mentor_id).name %></span>.
-  </p>
-  <a href="<%= group_url(@group) %>" class="mailer-button">View Group</a>
-  <p class="mailer-text">Keep building!</p>
+  <p class="mailer-text"><%= t("group_mailer.member_added_to_group_html", group_name: @group.name, user_name: User.find_by(id:@group.mentor_id).name) %></p>
+  <a href="<%= group_url(@group) %>" class="mailer-button"><%= t("group_mailer.view_group") %></a>
+  <p class="mailer-text"><%= t("mailer.keep_building") %></p>
 </div>

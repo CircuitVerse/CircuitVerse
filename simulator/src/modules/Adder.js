@@ -2,6 +2,7 @@
 import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
+import banana from '../i18n';
 
 /**
  * @class
@@ -101,6 +102,6 @@ export default class Adder extends CircuitElement {
  * @type {string}
  * @category modules
  */
-Adder.prototype.tooltipText = 'Adder ToolTip : Performs addition of numbers.';
+Adder.prototype.tooltipText = banana.i18n('modules-Adder-tooltip-text');
 Adder.prototype.helplink = 'https://docs.circuitverse.org/#/miscellaneous?id=adder';
 Adder.prototype.objectType = 'Adder';

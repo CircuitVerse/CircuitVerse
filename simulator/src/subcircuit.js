@@ -19,6 +19,7 @@ import { colors } from "./themer/themer";
 import { layoutModeGet } from "./layoutMode"
 import { verilogModeGet } from "./Verilog2CV"
 import { sanitizeLabel } from './verilogHelpers';
+import banana from './i18n';
 /**
  * Function to load a subcicuit
  * @category subcircuit
@@ -34,7 +35,7 @@ export function loadSubCircuit(savedData, scope) {
  */
 export function createSubCircuitPrompt(scope = globalScope) {
     if(verilogModeGet() || layoutModeGet()) {
-        showError("Subcircuit cannot be inserted in this mode");
+        showError(banana.i18n('subcircuit-error-insertion-in-wrong-mode'));
         return;
     }
     $("#insertSubcircuitDialog").empty();
@@ -48,9 +49,7 @@ export function createSubCircuitPrompt(scope = globalScope) {
         }
     }
     if (flag)
-        $("#insertSubcircuitDialog").append(
-            "<p>Looks like there are no other circuits which doesn't have this circuit as a dependency. Create a new one!</p>"
-        );
+        $("#insertSubcircuitDialog").append(banana.i18n('subcircuit-no-other-subcircuit-create-one'));
     $("#insertSubcircuitDialog").dialog({
         resizable:false,
         maxHeight: 800,
@@ -60,7 +59,7 @@ export function createSubCircuitPrompt(scope = globalScope) {
         buttons: !flag
             ? [
                   {
-                      text: "Insert SubCircuit",
+                      text: banana.i18n('subcircuit-buttons-insert-subcircuit'),
                       click() {
                           if (!$("input[name=subCircuitId]:checked").val())
                               return;
@@ -99,7 +98,7 @@ export default class SubCircuit extends CircuitElement {
         super(x, y, scope, "RIGHT", 1); // super call
         this.objectType = "SubCircuit";
         this.scope.SubCircuit.push(this);
-        this.id = id || prompt("Enter Id: ");
+        this.id = id || prompt(banana.i18n('subcircuit-prompt-enter-id'));
         this.directionFixed = true;
         this.fixedBitWidth = true;
         this.savedData = savedData;
@@ -113,21 +112,13 @@ export default class SubCircuit extends CircuitElement {
         // Error handing
         if (subcircuitScope == undefined) {
             // if no such scope for subcircuit exists
-            showError(
-                `SubCircuit : ${
-                    (savedData && savedData.title) || this.id
-                } Not found`
-            );
+            showError(banana.i18n('subcircuit-no-subcircuit-found-error', (savedData && savedData.title) || this.id));
         } else if (!checkIfBackup(subcircuitScope)) {
             // if there is no input/output nodes there will be no backup
-            showError(
-                `SubCircuit : ${
-                    (savedData && savedData.title) || subcircuitScope.name
-                } is an empty circuit`
-            );
+            showError(banana.i18n('subcircuit-empty-circuit-error', (savedData && savedData.title) || subcircuitScope.name));
         } else if (subcircuitScope.checkDependency(scope.id)) {
             // check for cyclic dependency
-            showError("Cyclic Circuit Error");
+            showError(banana.i18n("subcircuit-cyclic-circuit-error"));
         }
         // Error handling, cleanup
         if (
@@ -324,9 +315,7 @@ export default class SubCircuit extends CircuitElement {
         }
 
         if (emptyCircuit) {
-            showError(
-                `SubCircuit : ${subcircuitScope.name} is an empty circuit`
-            );
+            showError(banana.i18n('subcircuit-empty-circuit-error', subcircuitScope.name));
         }
 
         subcircuitScope.layout.height = subcircuitScope.layout.height;

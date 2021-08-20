@@ -8,6 +8,7 @@ import { showMessage, showError, generateId } from '../utils';
 import { checkIfBackup } from './backupCircuit';
 import {generateSaveData, getProjectName, setProjectName} from './save';
 import load from './load';
+import banana from '../i18n';
 
 /**
  * Helper function to recover unsaved data
@@ -16,12 +17,12 @@ import load from './load';
 export function recoverProject() {
     if (localStorage.getItem('recover')) {
         var data = JSON.parse(localStorage.getItem('recover'));
-        if (confirm(`Would you like to recover: ${data.name}`)) {
+        if (confirm(banana.i18n('data-project-recover-project', data.name))) {
             load(data);
         }
         localStorage.removeItem('recover');
     } else {
-        showError('No recover project found');
+        showError(banana.i18n('data-project-no-recover-project'));
     }
 }
 
@@ -38,12 +39,12 @@ export function openOffline() {
         flag = false;
         $('#openProjectDialog').append(`<label class="option custom-radio"><input type="radio" name="projectId" value="${id}" />${projectList[id]}<span></span><i class="fa fa-trash deleteOfflineProject" onclick="deleteOfflineProject('${id}')"></i></label>`);
     }
-    if (flag) $('#openProjectDialog').append('<p>Looks like no circuit has been saved yet. Create a new one and save it!</p>');
+    if (flag) $('#openProjectDialog').append(banana.i18n('data-project-no-project-saved'));
     $('#openProjectDialog').dialog({
         resizable:false,
         width: 'auto',
         buttons: !flag ? [{
-            text: 'Open Project',
+            text: banana.i18n('data-project-buttons-open-project'),
             click() {
                 if (!$('input[name=projectId]:checked').val()) return;
                 load(JSON.parse(localStorage.getItem($('input[name=projectId]:checked').val())));
@@ -75,7 +76,7 @@ export function saveOffline() {
     const temp = JSON.parse(localStorage.getItem('projectList')) || {};
     temp[projectId] = getProjectName();
     localStorage.setItem('projectList', JSON.stringify(temp));
-    showMessage(`We have saved your project: ${getProjectName()} in your browser's localStorage`);
+    showMessage(banana.i18n('data-project-project-saved-offline', getProjectName()));
 }
 
 /**
@@ -100,11 +101,11 @@ window.onbeforeunload = function () {
 
     if (!checkToSave()) return;
 
-    alert('You have unsaved changes on this page. Do you want to leave this page and discard your changes or stay on this page?');
+    alert(banana.i18n('data-project-alert-unsaved-changes'));
     const data = generateSaveData('Untitled');
     localStorage.setItem('recover', data);
     // eslint-disable-next-line consistent-return
-    return 'Are u sure u want to leave? Any unsaved changes may not be recoverable';
+    return banana.i18n('data-project-leave-page');
 };
 
 
@@ -113,12 +114,12 @@ window.onbeforeunload = function () {
  * @category data
  */
 export function clearProject() {
-    if (confirm('Would you like to clear the project?')) {
+    if (confirm(banana.i18n('data-project-clear-project'))) {
         globalScope = undefined;
         resetScopeList();
         $('.circuits').remove();
         newCircuit('main');
-        showMessage('Your project is as good as new!');
+        showMessage(banana.i18n('data-project-project-cleared'));
     }
 }
 
@@ -128,13 +129,13 @@ export function clearProject() {
  * @category data
  */
 export function newProject(verify) {
-    if (verify || projectSaved || !checkToSave() || confirm('What you like to start a new project? Any unsaved changes will be lost.')) {
+    if (verify || projectSaved || !checkToSave() || confirm(banana.i18n('data-project-start-new-project'))) {
         clearProject();
         localStorage.removeItem('recover');
         window.location = '/simulator';
 
         setProjectName(undefined);
         projectId = generateId();
-        showMessage('New Project has been created!');
+        showMessage(banana.i18n('data-project-new-project-created'));
     }
 }

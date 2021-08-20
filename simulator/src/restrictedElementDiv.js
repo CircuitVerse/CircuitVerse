@@ -1,3 +1,4 @@
+import banana from './i18n';
 
 export function updateRestrictedElementsList() {
     if (restrictedElements.length === 0) return;
@@ -38,7 +39,7 @@ export function showRestricted() {
     $('#restrictedDiv').removeClass('display--none');
     // Show no help text for restricted elements
     $('#Help').removeClass('show');
-    $('#restrictedDiv').html('The element has been restricted by mentor. Usage might lead to deduction in marks');
+    $('#restrictedDiv').html(banana.i18n('restrictedElementDiv-element-restricted-message'));
 }
 
 export function hideRestricted() {

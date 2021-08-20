@@ -2,6 +2,7 @@ import CircuitElement from "../circuitElement";
 import Node, { findNode, extractBits } from "../node";
 import simulationArea from "../simulationArea";
 import { correctWidth, rect, fillText } from "../canvasApi";
+import banana from '../i18n';
 /**
  * @class
  * BitSelector
@@ -31,7 +32,7 @@ export default class BitSelector extends CircuitElement {
         */
         this.setDimensions(20, 20);
         this.selectorBitWidth =
-            selectorBitWidth || parseInt(prompt("Enter Selector bitWidth"), 10);
+            selectorBitWidth || parseInt(prompt(banana.i18n('modules-BitSelector-prompt-enter-bitwidth')), 10);
         this.rectangleObject = false;
         this.inp1 = new Node(-20, 0, 0, this, this.bitWidth, "Input");
         this.output1 = new Node(20, 0, 1, this, 1, "Output");
@@ -150,8 +151,7 @@ export default class BitSelector extends CircuitElement {
  * @type {string}
  * @category modules
  */
-BitSelector.prototype.tooltipText =
-    "BitSelector ToolTip : Divides input bits into several equal-sized groups.";
+BitSelector.prototype.tooltipText = banana.i18n('modules-BitSelector-tooltip-text');
 BitSelector.prototype.helplink =
     "https://docs.circuitverse.org/#/decodersandplexers?id=bit-selector";
 
@@ -163,7 +163,7 @@ BitSelector.prototype.helplink =
  */
 BitSelector.prototype.mutableProperties = {
     selectorBitWidth: {
-        name: "Selector Bit Width: ",
+        name: banana.i18n('modules-BitSelector-selector-bitwidth'),
         type: "number",
         max: "32",
         min: "1",

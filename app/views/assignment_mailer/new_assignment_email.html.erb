@@ -1,10 +1,7 @@
 <div>
-  <h2>Welcome to CircuitVerse, <%= @user.name %></h2>
+  <h2><%= t("mailer.welcome_heading", name: @user.name) %></h2>
   <%= inline_svg_tag "SVGs/newAssignment.svg", alt: "New Assignment", class: "mailer-assignment-image" %>
-  <p class="mailer-text">
-    A new assignment named <span class="mailer-highlighted-text"><%= @assignment.name %> (<%= @assignment.deadline %>)</span> has been assigned in <span class="mailer-highlighted-text"><%= Group.find_by(id:@assignment.group_id).name %></span>. <br>
-    Assignment is mentored by <span class="mailer-highlighted-text"><%= User.find_by(id:Group.find_by(id:@assignment.group_id).mentor_id).name %></span>
-  </p>
-  <a href="<%= group_assignment_url(Group.find_by(id:@assignment.group_id), @assignment) %>" class="mailer-button">View Assignment</a>
-  <p class="mailer-text">Keep building!</p>
+  <p class="mailer-text"><%= t("assignment_mailer.assignment_created_html", name: @assignment.name, deadline: @assignment.deadline, group_name: Group.find_by(id:@assignment.group_id).name, mentor_name: User.find_by(id:Group.find_by(id:@assignment.group_id).mentor_id).name) %></p>
+  <a href="<%= group_assignment_url(Group.find_by(id:@assignment.group_id), @assignment) %>" class="mailer-button"><%= t("assignment_mailer.view_assignment") %></a>
+  <p class="mailer-text"><%= t("mailer.keep_building") %></p>
 </div>

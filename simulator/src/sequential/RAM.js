@@ -3,6 +3,7 @@ import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import { correctWidth, fillText2, fillText4, drawCircle2 } from '../canvasApi';
 import {parseNumber, showMessage} from '../utils';
+import banana from '../i18n';
 /**
  * @class
  * RAM Component.
@@ -173,7 +174,7 @@ export default class RAM extends CircuitElement {
             console.group(this.label);
         }
 
-        showMessage("Data dumped to developer Console");
+        showMessage(banana.i18n('sequential-RAM-data-dumped'));
 
         console.log(JSON.stringify(this.data));
 
@@ -187,9 +188,9 @@ export default class RAM extends CircuitElement {
     }
 
     promptData() {
-        var data = prompt("Enter Data (separated by space, comma, tab or newline) (data can be in hex, binary, octal or decimal)");
+        var data = prompt(banana.i18n('sequential-RAM-prompt-enter-data'));
         if (!data) {
-            showError("No data entered.");
+            showError(banana.i18n('sequential-RAM-no-data-entered'));
             return;
         }
         var oldData = this.data;
@@ -214,7 +215,7 @@ export default class RAM extends CircuitElement {
                     throw `Address ${i}: ${data[i]} is too large`;
                 this.data[i] = dataCell;
             }
-            showMessage(`${data.length} data cells loaded`);
+            showMessage(banana.i18n('sequential-RAM-data-cells-loaded', data.length));
         }
         catch (e) {
             this.data = oldData;
@@ -248,29 +249,29 @@ export default class RAM extends CircuitElement {
     }
 }
 
-RAM.prototype.tooltipText = 'Random Access Memory';
+RAM.prototype.tooltipText = banana.i18n('RAM');
 RAM.prototype.shortName = 'RAM';
 RAM.prototype.maxAddressWidth = 20;
 RAM.prototype.mutableProperties = {
     addressWidth: {
-        name: 'Address Width',
+        name: banana.i18n('address-width'),
         type: 'number',
         max: '20',
         min: '1',
         func: 'changeAddressWidth',
     },
     dump: {
-        name: 'Core Dump',
+        name: banana.i18n('core-dump'),
         type: 'button',
         func: 'dump',
     },
     load: {
-        name: 'Load Data',
+        name: banana.i18n('load-data'),
         type: 'button',
         func: 'promptData',
     },
     reset: {
-        name: 'Reset',
+        name: banana.i18n('reset'),
         type: 'button',
         func: 'clearData',
     },

@@ -3,6 +3,7 @@ import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import { lineTo, moveTo, fillText, correctWidth, rect2 } from '../canvasApi';
 import { colors } from '../themer/themer';
+import banana from '../i18n';
 
 
 /**
@@ -173,8 +174,8 @@ export default class Counter extends CircuitElement {
     }
 }
 
-Counter.prototype.tooltipText = "Counter: a binary counter from zero to a given maximum value";
-Counter.prototype.helplink = "https://docs.circuitverse.org/#/inputElements?id=counter"; Counter.prototype.objectType = 'Counter';
+Counter.prototype.tooltipText = banana.i18n('modules-Counter-tooltip-text');
+Counter.prototype.helplink = 'https://docs.circuitverse.org/#/inputElements?id=counter'; Counter.prototype.objectType = 'Counter';
 Counter.prototype.objectType = 'Counter';
 Counter.prototype.canShowInSubcircuit = true;
 Counter.prototype.layoutProperties = {

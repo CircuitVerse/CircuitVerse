@@ -2,6 +2,7 @@
 import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
+import banana from '../i18n';
 
 /**
  * @class
@@ -91,6 +92,6 @@ export default class verilogDivider extends CircuitElement {
  * @type {string}
  * @category modules
  */
-verilogDivider.prototype.tooltipText = 'verilogDivider ToolTip : Performs addition of numbers.';
+verilogDivider.prototype.tooltipText = banana.i18n('modules-verilogDivider-tooltip-text');
 verilogDivider.prototype.helplink = 'https://docs.circuitverse.org/#/miscellaneous?id=verilogDivider';
 verilogDivider.prototype.objectType = 'verilogDivider';

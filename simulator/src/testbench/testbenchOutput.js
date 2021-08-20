@@ -2,6 +2,7 @@ import CircuitElement from '../circuitElement';
 import simulationArea from '../simulationArea';
 import { correctWidth, fillText } from '../canvasApi';
 import Node, { findNode } from '../node';
+import banana from '../i18n';
 
 // helper function to convert decimal to binary
 function dec2bin(dec, bitWidth = undefined) {
@@ -218,12 +219,12 @@ export default class TB_Output extends CircuitElement {
     }
 }
 
-TB_Output.prototype.tooltipText = 'Test Bench Output Selected';
+TB_Output.prototype.tooltipText = banana.i18n('testbench-testbenchOutput-tooltip-text');
 TB_Output.prototype.helplink = 'https://docs.circuitverse.org/#/testbench';
 TB_Output.prototype.centerElement = true;
 TB_Output.prototype.mutableProperties = {
     identifier: {
-        name: 'TestBench Name:',
+        name: banana.i18n('testbench-name'),
         type: 'text',
         maxlength: '10',
         func: 'setIdentifier',

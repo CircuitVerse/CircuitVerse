@@ -3,6 +3,7 @@ import simulationArea from '../simulationArea';
 import { correctWidth, lineTo, moveTo, fillText } from '../canvasApi';
 import Node, { findNode } from '../node';
 import plotArea from '../plotArea';
+import banana from '../i18n';
 
 
 /**
@@ -38,7 +39,7 @@ export default class TB_Input extends CircuitElement {
      * Takes iput when double clicked. For help on generation of input refer to TB_Input.helplink
      */
     dblclick() {
-        this.testData = JSON.parse(prompt('Enter TestBench Json'));
+        this.testData = JSON.parse(prompt(banana.i18n('testbench-testbenchInput-prompt-enter-json')));
         this.setup();
     }
 
@@ -257,7 +258,7 @@ export default class TB_Input extends CircuitElement {
     }
 }
 
-TB_Input.prototype.tooltipText = 'Test Bench Input Selected';
+TB_Input.prototype.tooltipText = banana.i18n('testbench-testbenchInput-tooltip-text');
 
 /**
  * @memberof TB_Input
@@ -270,18 +271,18 @@ TB_Input.prototype.helplink = 'https://docs.circuitverse.org/#/testbench';
 
 TB_Input.prototype.mutableProperties = {
     identifier: {
-        name: 'TestBench Name:',
+        name: banana.i18n('testbench-name'),
         type: 'text',
         maxlength: '10',
         func: 'setIdentifier',
     },
     iteration: {
-        name: 'Reset Iterations',
+        name: banana.i18n('testbench-testbenchInput-buttons-iterations'),
         type: 'button',
         func: 'resetIterations',
     },
     toggleState: {
-        name: 'Toggle State',
+        name: banana.i18n('testbench-testbenchInput-buttons-toggle-state'),
         type: 'button',
         func: 'toggleState',
     },

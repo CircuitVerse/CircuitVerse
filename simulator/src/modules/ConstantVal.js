@@ -3,6 +3,7 @@ import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
 import { correctWidth, rect2, fillText, oppositeDirection } from "../canvasApi";
 import { colors } from "../themer/themer";
+import banana from '../i18n';
 
 function bin2dec(binString) {
     return parseInt(binString, 2);
@@ -88,7 +89,7 @@ export default class ConstantVal extends CircuitElement {
      * updates state using a prompt when dbl clicked
      */
     dblclick() {
-        this.state = prompt("Re enter the value") || "0";
+        this.state = prompt(banana.i18n('modules-ConstantVal-prompt-reenter-value')) || "0";
         this.newBitWidth(this.state.toString().length);
     }
 
@@ -193,8 +194,7 @@ export default class ConstantVal extends CircuitElement {
  * @type {string}
  * @category modules
  */
-ConstantVal.prototype.tooltipText =
-    "Constant ToolTip: Bits are fixed. Double click element to change the bits.";
+ConstantVal.prototype.tooltipText = banana.i18n('modules-ConstantVal-tooltip-text');
 
 /**
  * @memberof ConstantVal

@@ -2,6 +2,7 @@
 import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
+import banana from '../i18n';
 
 /**
  * @class
@@ -86,6 +87,6 @@ export default class verilogPower extends CircuitElement {
  * @type {string}
  * @category modules
  */
-verilogPower.prototype.tooltipText = 'verilogPower ToolTip : Performs addition of numbers.';
+verilogPower.prototype.tooltipText = banana.i18n('modules-verilogPower-tooltip-text');
 verilogPower.prototype.helplink = 'https://docs.circuitverse.org/#/miscellaneous?id=verilogPower';
 verilogPower.prototype.objectType = 'verilogPower';

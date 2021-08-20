@@ -2,6 +2,7 @@ import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import { correctWidth, rect } from '../canvasApi';
+import banana from '../i18n';
 /**
  * @class
  * Rectangle
@@ -22,8 +23,8 @@ export default class Rectangle extends CircuitElement {
         this.directionFixed = true;
         this.fixedBitWidth = true;
         this.rectangleObject = false;
-        this.cols = cols || parseInt(prompt('Enter cols:'), 10);
-        this.rows = rows || parseInt(prompt('Enter rows:'), 10);
+        this.cols = cols || parseInt(prompt(banana.i18n('enter-cols')), 10);
+        this.rows = rows || parseInt(prompt(banana.i18n('enter-rows')), 10);
         this.setSize();
     }
 
@@ -117,7 +118,7 @@ export default class Rectangle extends CircuitElement {
  * @type {string}
  * @category modules
  */
-Rectangle.prototype.tooltipText = 'Rectangle ToolTip : Used to Box the Circuit or area you want to highlight.';
+Rectangle.prototype.tooltipText = banana.i18n('modules-Rectangle-tooltip-text');
 Rectangle.prototype.helplink = 'https://docs.circuitverse.org/#/annotation?id=rectangle';
 Rectangle.prototype.propagationDelayFixed = true;
 
@@ -129,14 +130,14 @@ Rectangle.prototype.propagationDelayFixed = true;
  */
 Rectangle.prototype.mutableProperties = {
     cols: {
-        name: 'Columns',
+        name: banana.i18n('columns'),
         type: 'number',
         max: '1000',
         min: '5',
         func: 'changeColSize',
     },
     rows: {
-        name: 'Rows',
+        name: banana.i18n('rows'),
         type: 'number',
         max: '1000',
         min: '5',

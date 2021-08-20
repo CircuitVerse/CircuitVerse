@@ -2,6 +2,7 @@
 import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
+import banana from '../i18n';
 
 /**
  * @class
@@ -86,6 +87,6 @@ export default class verilogShiftLeft extends CircuitElement {
  * @type {string}
  * @category modules
  */
-verilogShiftLeft.prototype.tooltipText = 'verilogShiftLeft ToolTip : Performs addition of numbers.';
+verilogShiftLeft.prototype.tooltipText = banana.i18n('modules-verilogShiftLeft-tooltip-text');
 verilogShiftLeft.prototype.helplink = 'https://docs.circuitverse.org/#/miscellaneous?id=verilogShiftLeft';
 verilogShiftLeft.prototype.objectType = 'verilogShiftLeft';

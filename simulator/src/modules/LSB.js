@@ -2,6 +2,7 @@ import CircuitElement from "../circuitElement";
 import Node, { findNode, dec2bin } from "../node";
 import simulationArea from "../simulationArea";
 import { correctWidth, rect, fillText } from "../canvasApi";
+import banana from '../i18n';
 /**
  * @class
  * LSB
@@ -25,7 +26,7 @@ export default class LSB extends CircuitElement {
         this.rightDimensionX = 20;
         this.setHeight(30);
         this.directionFixed = true;
-        this.bitWidth = bitWidth || parseInt(prompt("Enter bitWidth"), 10);
+        this.bitWidth = bitWidth || parseInt(prompt(banana.i18n('enter-bitwidth')), 10);
         this.rectangleObject = false;
         // this.inputSize = 1 << this.bitWidth;
         this.intputSize = this.bitWidth;
@@ -137,8 +138,7 @@ export default class LSB extends CircuitElement {
  * @type {string}
  * @category modules
  */
-LSB.prototype.tooltipText =
-    "LSB ToolTip : The least significant bit or the low-order bit.";
+LSB.prototype.tooltipText = banana.i18n('modules-LSB-tooltip-text');
 LSB.prototype.helplink =
     "https://docs.circuitverse.org/#/decodersandplexers?id=least-significant-bit-lsb-detector";
 LSB.prototype.objectType = "LSB";

@@ -3,6 +3,7 @@ import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
 import { correctWidth, lineTo, moveTo, arc } from "../canvasApi";
 import { changeInputSize } from "../modules";
+import banana from '../i18n';
 /**
  * @class
  * Arrow
@@ -77,7 +78,7 @@ export default class Arrow extends CircuitElement {
  * @type {string}
  * @category modules
  */
-Arrow.prototype.tooltipText = "Arrow ToolTip : Arrow Selected.";
+Arrow.prototype.tooltipText = banana.i18n('modules-Arrow-tooltip-text');
 Arrow.prototype.propagationDelayFixed = true;
 Arrow.prototype.helplink =
     "https://docs.circuitverse.org/#/annotation?id=arrow";

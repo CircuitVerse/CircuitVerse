@@ -1,0 +1,77 @@
+hi:
+  application:
+    auth_error:
+      not_authorized_msg: "आप अनुरोधित कार्रवाई करने के लिए अधिकृत नहीं हैं"
+    custom_auth_error:
+      custom_not_authorized_msg: "अधिकृत नहीं: %{custom_message}"
+  assignments:
+    create:
+      success_msg: "असाइनमेंट सफलतापूर्वक बनायीं गयी।"
+    update:
+      update_msg: "असाइनमेंट सफलतापूर्वक अपडेट कि गयी।"
+    destroy:
+      destroy_msg: "असाइनमेंट सफलतापूर्वक हटा दि गयी।"
+  collaborations:
+    create:
+      no_self_invitation_msg: "आप खुद को आमंत्रित नहीं कर सकते। %{notice}"
+    update:
+      update_msg: "कोलैबोरेशन सफलतापूर्वक अपडेट किया गया।"
+    destroy:
+      destroy_msg: "कोलैबोरेशन को सफलतापूर्वक नष्ट कर दिया गया।"
+  custom_mails:
+    create:
+      success_msg: "मेल बनाया गया"
+    update:
+      update_msg: "मेल अपडेट किया गया"
+    send_mail:
+      mail_sent_msg: "मेल भेजने के लिए कतारबद्ध कर दिया गया है!"
+    send_mail_self:
+      mail_sent_msg: "आपके ईमेल पर एक मेल भेज दिया गया है!"
+  errors:
+    not_found:
+      json_no_resource_msg: "रिसोर्स नही मिला"
+    unacceptable:
+      json_invalid_param_msg: "पैरामीटर अस्वीकार्य"
+    internal_error:
+      json_internal_error_msg: "इंटरनल सर्वर एरर हुआ"
+  grades:
+    create:
+      json_invalid_grade_msg: "ग्रेड अमान्य है"
+  group_members:
+    destroy:
+      destroy_msg: "समूह के सदस्य को सफलतापूर्वक निकाल दिया गया."
+  groups:
+    group_invite:
+      member_already_present_msg: "सदस्य पहले से ही समूह में मौजूद है।"
+      member_add_success_msg: "समूह के सदस्य को सफलतापूर्वक ऐड किया गया।"
+      url_expired_msg: "यूआरएल की समय-सीमा खत्म हो गई है, समूह के मालिक से एक नए यूआरएल का अनुरोध करें।"
+      invalid_url_msg: "अवैध यूआरएल"
+    create:
+      success_msg: "समूह सफलतापूर्वक बनाया गया।"
+    update:
+      update_msg: "समूह को सफलतापूर्वक अपडेट किया गया।"
+    destroy:
+      destroy_msg: "समूह को सफलतापूर्वक हटा दिया गया था।"
+  logix:
+    examples:
+      example1: "2 हाफ एडर से फुल एडर"
+      example2: "16 बिट रिप्पल कैर्री ऐडर "
+      example3: "असिंक्रोनोस काउंटर"
+      example4: "कीबोर्ड"
+      example5: "फ्लिपफलोप"
+      example6: "ALU 74LS181 अनंत श्रीकुमार द्वारा"
+  projects:
+    create:
+      success_msg: "परियोजना सफलतापूर्वक बनाई गयी।"
+    update:
+      update_msg: "परियोजना को सफलतापूर्वक अपडेट किया गया।"
+    destroy:
+      destroy_msg: "परियोजना को सफलतापूर्वक नष्ट कर दिया गया।"
+  simulator:
+    update:
+      update_msg: "कार्य सफल हुआ"
+  stars:
+    create:
+      success_msg: "स्टार ऐड किया गया!"
+    destroy:
+      destroy_msg: "स्टार हटा दिया गया!"

@@ -3,6 +3,7 @@ import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import { correctWidth, lineTo, moveTo, fillText } from '../canvasApi';
 import { colors } from '../themer/themer';
+import banana from '../i18n';
 /**
  * @class
  * DflipFlop
@@ -157,7 +158,7 @@ endmodule
     }
 }
 
-DflipFlop.prototype.tooltipText = 'D FlipFlop ToolTip : Introduces delay in timing circuit.';
+DflipFlop.prototype.tooltipText = banana.i18n('sequential-DflipFlop-tooltip-text');
 DflipFlop.prototype.helplink = 'https://docs.circuitverse.org/#/Sequential?id=d-flip-flop';
 
 DflipFlop.prototype.objectType = 'DflipFlop';

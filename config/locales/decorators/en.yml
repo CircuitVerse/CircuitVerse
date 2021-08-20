@@ -1,0 +1,9 @@
+en:
+  decorators:
+    assignment_graded: "Graded(%{grading_scale})"
+    assignment_not_graded: "Not Graded"
+    not_entered: "Not Entered"
+    subscribed: "Subscribed"
+    not_subscribed: "Not Subscribed"
+    no_circuits: "No circuits"
+    deadline: "%{days} days %{hours} hours %{minutes} minutes"

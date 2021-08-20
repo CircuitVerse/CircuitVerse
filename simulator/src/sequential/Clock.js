@@ -3,6 +3,7 @@ import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
 import { correctWidth, lineTo, moveTo } from "../canvasApi";
 import { colors } from '../themer/themer';
+import banana from '../i18n';
 /**
  * @class
  * Clock
@@ -85,7 +86,7 @@ export default class Clock extends CircuitElement {
     }
 }
 
-Clock.prototype.tooltipText = "Clock";
+Clock.prototype.tooltipText = banana.i18n('clock');
 
 Clock.prototype.click = Clock.prototype.toggleState;
 Clock.prototype.objectType = "Clock";

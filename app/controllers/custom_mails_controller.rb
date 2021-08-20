@@ -29,7 +29,7 @@ class CustomMailsController < ApplicationController
     respond_to do |format|
       if @mail.save
         format.html { redirect_to custom_mail_path(@mail) }
-        format.json { render json: { message: "Mail created" }, status: :ok }
+        format.json { render json: { message: t("custom_mails.create.success_msg") }, status: :ok }
       else
         format.html { render :new }
         format.json { render json: @mail.errors, status: :unprocessable_entity }
@@ -41,7 +41,7 @@ class CustomMailsController < ApplicationController
     respond_to do |format|
       if @mail.update(custom_mails_params)
         format.html { redirect_to custom_mail_path(@mail) }
-        format.json { render json: { message: "Mail updated" }, status: :ok }
+        format.json { render json: { message: t("custom_mails.update.update_msg") }, status: :ok }
       else
         format.html { render :edit }
         format.json { render json: @mail.errors, status: :unprocessable_entity }
@@ -55,13 +55,13 @@ class CustomMailsController < ApplicationController
 
     send_mail_in_batches(@mail)
 
-    render html: "The mails were queued for sending!"
+    render html: t("custom_mails.send_mail.mail_sent_msg")
   end
 
   def send_mail_self
     send_mail_to_self(current_user, @mail)
 
-    render html: "A mail has been sent to your email!"
+    render html: t("custom_mails.send_mail_self.mail_sent_msg")
   end
 
   private

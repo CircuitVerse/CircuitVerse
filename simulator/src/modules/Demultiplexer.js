@@ -2,6 +2,7 @@ import CircuitElement from "../circuitElement";
 import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
 import { correctWidth, lineTo, moveTo, fillText } from "../canvasApi";
+import banana from '../i18n';
 /**
  * @class
  * Demultiplexer
@@ -31,7 +32,7 @@ export default class Demultiplexer extends CircuitElement {
         */
         this.controlSignalSize =
             controlSignalSize ||
-            parseInt(prompt("Enter control signal bitWidth"), 10);
+            parseInt(prompt(banana.i18n('enter-control-signal-bitwidth')), 10);
         this.outputsize = 1 << this.controlSignalSize;
         this.xOff = 0;
         this.yOff = 1;
@@ -59,7 +60,7 @@ export default class Demultiplexer extends CircuitElement {
         };
         this.mutableProperties = {
             controlSignalSize: {
-                name: "Control Signal Size",
+                name: banana.i18n('control-signal-size'),
                 type: "number",
                 max: "32",
                 min: "1",
@@ -317,8 +318,7 @@ export default class Demultiplexer extends CircuitElement {
  * @type {string}
  * @category modules
  */
-Demultiplexer.prototype.tooltipText =
-    "DeMultiplexer ToolTip : Multiple outputs and a single line input.";
+Demultiplexer.prototype.tooltipText = banana.i18n('modules-Demultiplexer-tooltip-text');
 Demultiplexer.prototype.helplink =
     "https://docs.circuitverse.org/#/decodersandplexers?id=demultiplexer";
 Demultiplexer.prototype.objectType = "Demultiplexer";
