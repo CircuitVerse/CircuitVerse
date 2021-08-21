@@ -20,7 +20,7 @@ class GradesController < ApplicationController
     @grade.user_id = current_user.id
     @grade.remarks = remarks
 
-    if Flipper.enabled?(:lms_integration) && session[:is_lti]
+    if Flipper.enabled?(:lms_integration, current_user) && session[:is_lti]
       # pass grade back to the LMS if session is LTI
       project = Project.find(grade_params[:project_id])
       assignment = Assignment.find(grade_params[:assignment_id])
