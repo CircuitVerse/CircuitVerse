@@ -10,7 +10,7 @@ class AssignmentsController < ApplicationController
   before_action :sanitize_assignment_description, only: %i[show edit]
   after_action :check_reopening_status, only: [:update]
   after_action :allow_iframe_lti, only: %i[show], constraints: lambda {
-    Flipper.enabled?(:lms_integration)
+    Flipper.enabled?(:lms_integration, current_user)
   }
 
   # GET /assignments
@@ -64,7 +64,7 @@ class AssignmentsController < ApplicationController
   def create
     description = params["description"]
 
-    if Flipper.enabled?(:lms_integration) && params["lms-integration-check"]
+    if Flipper.enabled?(:lms_integration, current_user) && params["lms-integration-check"]
       lti_consumer_key = SecureRandom.hex(4)
       lti_shared_secret = SecureRandom.hex(4)
     end
@@ -79,7 +79,7 @@ class AssignmentsController < ApplicationController
     @assignment.status = "open"
     @assignment.deadline = Time.zone.now + 1.year if @assignment.deadline.nil?
 
-    if Flipper.enabled?(:lms_integration)
+    if Flipper.enabled?(:lms_integration, current_user)
       @assignment.lti_consumer_key = lti_consumer_key
       @assignment.lti_shared_secret = lti_shared_secret
     end
@@ -100,7 +100,7 @@ class AssignmentsController < ApplicationController
   def update
     description = params["description"]
 
-    if Flipper.enabled?(:lms_integration) && params["lms-integration-check"]
+    if Flipper.enabled?(:lms_integration, current_user) && params["lms-integration-check"]
       lti_consumer_key = @assignment.lti_consumer_key.presence || SecureRandom.hex(4)
       lti_shared_secret = @assignment.lti_shared_secret.presence || SecureRandom.hex(4)
     end
@@ -108,7 +108,7 @@ class AssignmentsController < ApplicationController
     params = assignment_update_params
     @assignment.description = description
 
-    if Flipper.enabled?(:lms_integration)
+    if Flipper.enabled?(:lms_integration, current_user)
       @assignment.lti_consumer_key = lti_consumer_key
       @assignment.lti_shared_secret = lti_shared_secret
     end
