@@ -242,6 +242,7 @@ GEM
     hashdiff (1.0.1)
     hashie (4.1.0)
     hirb (0.7.3)
+    hiredis (0.6.3)
     hkdf (0.3.0)
     html_tokenizer (0.0.7)
     htmlentities (4.3.4)
@@ -458,7 +459,7 @@ GEM
       ffi (~> 1.0)
     recaptcha (5.5.0)
       json
-    redis (4.2.5)
+    redis (4.4.0)
     regexp_parser (1.8.2)
     remotipart (1.4.4)
     responders (3.0.1)
@@ -682,6 +683,7 @@ DEPENDENCIES
   geocoder
   hairtrigger (~> 0.2.24)
   hirb
+  hiredis
   http
   i18n-js
   ims-lti (~> 1.1.8)
@@ -715,6 +717,7 @@ DEPENDENCIES
   rails-i18n (~> 6.0.0)
   rails_admin (~> 2.1)
   recaptcha
+  redis (~> 4.0)
   rspec-rails (~> 5.0)
   rspec_junit_formatter
   rubocop
