@@ -15,19 +15,20 @@
     "webpack:analyze_json": "webpack-bundle-analyzer tmp/webpack-stats.json public/packs"
   },
   "devDependencies": {
+    "@webpack-cli/serve": "^1.5.2",
     "eslint": "^7.21.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",
     "expose-loader": "^0.7.5",
     "jsdoc": "3.6.6",
     "webpack-bundle-analyzer": "^4.4.0",
-    "webpack-dev-server": "^3.11.2"
+    "webpack-dev-server": "^4.0.0"
   },
   "dependencies": {
     "@babel/plugin-proposal-numeric-separator": "^7.12.7",
     "@babel/preset-env": "^7.13.10",
     "@fortawesome/fontawesome-free": "^5.15.2",
-    "@rails/webpacker": "5.2.1",
+    "@rails/webpacker": "5.4.2",
     "banana-i18n": "^2.1.0",
     "better-docs": "^2.0.1",
     "bootstrap": "^4.6.0",
@@ -49,7 +50,9 @@
     "opencollective-postinstall": "^2.0.3",
     "popper.js": "^1.16.1",
     "trumbowyg": "^2.23.0",
-    "turbolinks": "^5.2.0"
+    "turbolinks": "^5.2.0",
+    "webpack": "^4.46.0",
+    "webpack-cli": "^4.3.0"
   },
   "collective": {
     "type": "opencollective",
