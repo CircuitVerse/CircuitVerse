@@ -211,6 +211,7 @@ GEM
     fast_jsonapi (1.5)
       activesupport (>= 4.2)
     ffi (1.15.0)
+    ffi (1.15.0-x64-mingw32)
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
@@ -241,6 +242,7 @@ GEM
     hashdiff (1.0.1)
     hashie (4.1.0)
     hirb (0.7.3)
+    hiredis (0.6.3)
     hkdf (0.3.0)
     html_tokenizer (0.0.7)
     htmlentities (4.3.4)
@@ -330,9 +332,9 @@ GEM
     nokogiri (1.11.7)
       mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
-    oauth (0.5.6)
     nokogiri (1.11.7-x64-mingw32)
       racc (~> 1.4)
+    oauth (0.5.6)
     oauth2 (1.4.4)
       faraday (>= 0.8, < 2.0)
       jwt (>= 1.0, < 3.0)
@@ -369,6 +371,7 @@ GEM
     parser (3.0.2.0)
       ast (~> 2.4.1)
     pg (1.2.3)
+    pg (1.2.3-x64-mingw32)
     pg_search (2.3.5)
       activerecord (>= 5.2)
       activesupport (>= 5.2)
@@ -454,7 +457,7 @@ GEM
       ffi (~> 1.0)
     recaptcha (5.5.0)
       json
-    redis (4.2.5)
+    redis (4.4.0)
     regexp_parser (1.8.2)
     remotipart (1.4.4)
     responders (3.0.1)
@@ -529,6 +532,8 @@ GEM
       tilt (>= 1.1, < 3)
     sassc (2.4.0)
       ffi (~> 1.9)
+    sassc (2.4.0-x64-mingw32)
+      ffi (~> 1.9)
     sassc-rails (2.1.2)
       railties (>= 4.0.0)
       sassc (>= 2.0)
@@ -601,6 +606,8 @@ GEM
     turbolinks-source (5.2.0)
     tzinfo (1.2.9)
       thread_safe (~> 0.1)
+    tzinfo-data (1.2021.1)
+      tzinfo (>= 1.0.0)
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
@@ -674,6 +681,7 @@ DEPENDENCIES
   geocoder
   hairtrigger (~> 0.2.24)
   hirb
+  hiredis
   http
   i18n-js
   ims-lti (~> 1.1.8)
@@ -706,6 +714,7 @@ DEPENDENCIES
   rails-i18n (~> 6.0.0)
   rails_admin (~> 2.1)
   recaptcha
+  redis (~> 4.0)
   rspec-rails (~> 5.0)
   rspec_junit_formatter
   rubocop
@@ -736,4 +745,4 @@ DEPENDENCIES
   will_paginate-bootstrap
 
 BUNDLED WITH
-   2.2.18
+   2.2.25
