@@ -135,7 +135,7 @@ group :test do
   gem "rspec_junit_formatter"
   gem "selenium-webdriver"
   gem "shoulda-matchers"
-  gem "webdrivers", "~> 4.0"
+  gem "webdrivers", "~> 4.6"
   gem "webmock"
 end
 
