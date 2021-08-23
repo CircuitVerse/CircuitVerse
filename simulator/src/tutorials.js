@@ -91,8 +91,6 @@ export const tour = [
         },
     },
     
-
-
 ];
 
 export const touchTour = [
@@ -158,7 +156,7 @@ export const tutorialWrapper = () => {
             localStorage.setItem('tutorials', 'done');
         }
     });
-    $('.icon').on('click',() => {
+    $('.icon').on('click', () => {
         panelHighlight.reset(true);
     });
 };
@@ -172,9 +170,12 @@ const animatedTourDriver = new Driver({
 
 export function showTourGuide() {
     $('.draggable-panel .maximize').trigger('click');
-    if(window.screen.width > 1367)
-    {animatedTourDriver.defineSteps(tour);}
-    else{animatedTourDriver.defineSteps(touchTour);}
+    if (window.screen.width > 1367) { 
+        animatedTourDriver.defineSteps(tour); 
+    }
+    else { 
+        animatedTourDriver.defineSteps(touchTour); 
+    }
     animatedTourDriver.start();
     localStorage.setItem('tutorials_tour_done', true);
 }

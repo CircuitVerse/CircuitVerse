@@ -8,7 +8,7 @@
 /* eslint-disable no-param-reassign */
 // Most Listeners are stored here
 import {
-    layoutModeGet, tempBuffer, layoutUpdate, setupLayoutModePanelListeners
+    layoutModeGet, tempBuffer, layoutUpdate, setupLayoutModePanelListeners,
 } from './layoutMode';
 import simulationArea from './simulationArea';
 import {
@@ -19,7 +19,7 @@ import {
 import { changeScale, findDimensions } from './canvasApi';
 import { scheduleBackup } from './data/backupCircuit';
 import {
-    hideProperties, deleteSelected, uxvar, fullView, createElement
+    hideProperties, deleteSelected, uxvar, fullView, createElement,
 } from './ux';
 import {
     updateRestrictedElementsList, updateRestrictedElementsInScope, hideRestricted, showRestricted,
@@ -176,8 +176,8 @@ export function pinchZoom(e, globalScope) {
     globalScope.scale = Math.max(0.5, Math.min(4 * DPR, pinchZ * 3));
     globalScope.scale = Math.round(globalScope.scale * 10) / 10;
     // This is not working as expected
-    centreX = (e.touches[0].clientX + e.touches[1].clientX)/2;
-    centreY = (e.touches[0].clientY + e.touches[1].clientY)/2;
+    centreX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+    centreY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
     const rect = simulationArea.canvas.getBoundingClientRect();
     const RawX = (centreX - rect.left) * DPR;
     const RawY = (centreY - rect.top) * DPR;
@@ -397,7 +397,7 @@ export default function startListeners() {
         if (!simulationArea.shiftDown && simulationArea.multipleObjectSelections.length > 0
         ) {
             if (
-                !simulationArea.multipleObjectSelections.includes(simulationArea.lastSelected,)
+                !simulationArea.multipleObjectSelections.includes(simulationArea.lastSelected)
             ) {
                 simulationArea.multipleObjectSelections = [];
             }
@@ -1029,6 +1029,7 @@ function zoomSliderListeners() {
  
     /** Improved Collapsible navbar */
     var smallScreemInner = document.getElementsByClassName('Smallscreen-navbar-inner');
+    var smallNavbarUl = document.getElementsByClassName('smallNavbar-navbar-ul');
     var ulicon = document.getElementsByClassName('ulicon');
     function NavCollapsible(index) {
        
@@ -1051,10 +1052,10 @@ function zoomSliderListeners() {
             }
         }
     }
-    var smallNavbarUl = document.getElementsByClassName('smallNavbar-navbar-ul');
+   
     // var ulicon = document.getElementsByClassName('ulicon');
 
-    for(var i=0;i<smallNavbarUl.length;i++) {
+    for(var i = 0; i < smallNavbarUl.length; i++) {
         (function(index) {
             smallNavbarUl[index].addEventListener('click', () => {
                 // ulicon[index].classList.toggle('active');
@@ -1063,7 +1064,7 @@ function zoomSliderListeners() {
         }(i));
     }
     var SmallScreenLi = document.getElementsByClassName('SmallScreen-Navbar-li');
-    for(i=0;i<SmallScreenLi.length;i++) {
+    for(var j = 0; j < SmallScreenLi.length; j++) {
         (function(index) {
             SmallScreenLi[index].addEventListener('click', (e) => {
                 onTapColor(SmallScreenLi, index, '#A0937D');
@@ -1072,7 +1073,7 @@ function zoomSliderListeners() {
                     onTapColor(SmallScreenLi, index, ''); }, 100);
                 e.preventDefault();
             });
-        }(i));
+        }(j));
     }
   
 
@@ -1080,7 +1081,7 @@ function zoomSliderListeners() {
    
     var TouchMenuButton = document.getElementsByClassName('touchMenuIcon');
     var panelclose = document.getElementsByClassName('panelclose');
-    for(i=0;i<TouchMenuButton.length;i++) {
+    for(var touchi = 0; touchi < TouchMenuButton.length; touchi++) {
         (function(index) {
             
             TouchMenuButton[index].addEventListener('touchstart', (e) => {
@@ -1103,14 +1104,14 @@ function zoomSliderListeners() {
                 openCurrMenu(index);
                 e.preventDefault();
             });
-        }(i));
+        }(touchi));
             
     }
 
     /** Function for QuicKMenu */
     var quickMenu = document.getElementsByClassName('quicMenu-align');
     // here lenght-2 is done because last two button are used for diff purpose 
-    for(i=0;i<quickMenu.length-2;i++) {
+    for(var quickmenui = 0; quickmenui < quickMenu.length-2; quickmenui++) {
         (function(index) {
             quickMenu[index].addEventListener('click', (e) => {
                 onTapColor(quickMenu, index, buttoncolor);
@@ -1120,7 +1121,7 @@ function zoomSliderListeners() {
                 e.preventDefault();
                
             });
-        }(i));
+        }(quickmenui));
     }
     quickMenu[6].addEventListener('click', (e) => {
         onTapColor(quickMenu, 6, buttoncolor);
@@ -1135,7 +1136,7 @@ function zoomSliderListeners() {
     //  Undo,Delete,Fit to screen
     // 
     var liveMenu = document.getElementsByClassName('liveMenuIcon');
-    for(i=0;i<liveMenu.length;i++) {
+    for(var liveMenui = 0; liveMenui < liveMenu.length; liveMenui++) {
         (function(index) {
             liveMenu[index].addEventListener('touchstart', (e) => {
                 onTapColor(liveMenu, index, buttoncolor);
@@ -1155,7 +1156,7 @@ function zoomSliderListeners() {
                 onTapliveMenu(index);
                 e.preventDefault();
             });
-        }(i));
+        }(liveMenui));
           
     }
 
@@ -1230,7 +1231,7 @@ function onTapColor(classList, currentIndex, color) {
 }
 
 function onTapliveMenu(index) {
-    switch(index) {
+    switch (index) {
     case 0: globalScope.centerFocus(false);
         updateCanvasSet(true); 
         gridUpdateSet(true);
@@ -1243,8 +1244,8 @@ function onTapliveMenu(index) {
         break;    
     }
 }
-function onQuickmenuTap(i) {
-    switch(i) {
+function onQuickmenuTap (i) {
+    switch (i) {
     case 0: logixFunction.save();
         break;
     case 1: logixFunction.saveOffline();
@@ -1255,17 +1256,17 @@ function onQuickmenuTap(i) {
         break;
     case 4: document.execCommand('copy'); 
         simulationArea.shiftDown = false; 
-        isCopy=true; 
+        isCopy = true; 
         break;
     case 5: paste(localStorage.getItem('clipboardData')); 
-        isCopy=false;
+        isCopy = false;
         break;
     default:
         break;
     }
 } 
-function onTapSmallNavbar(i) {
-    switch(i) {
+function onTapSmallNavbar (i) {
+    switch (i) {
     case 0: logixFunction.newProject(); 
         closeNavmenu();
         break;

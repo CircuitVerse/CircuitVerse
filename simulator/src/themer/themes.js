@@ -52,7 +52,7 @@ export default {
         "--splitter": "black",
         "--output-rect": "blue",
         "--disable": "#6c8b93",
-        "--touch-menu":"#7d7d7d",
+        "--touch-menu": "#7d7d7d",
     },
     "Night Sky": {
         "--text-navbar--alt": "#fff",
@@ -105,7 +105,7 @@ export default {
         "--node-norm": "#FFC231",
         "--splitter": "#0284A8",
         "--disable": "#4F74B0",
-        "--touch-menu":"#665627",
+        "--touch-menu": "#665627",
     },
     "Lite-born Spring": {
         "--text-navbar--alt": "#000",
@@ -160,7 +160,7 @@ export default {
         "--node-norm": "#FFC231",
         "--splitter": "#00B462",
         "--disable": "#656565",
-        "--touch-menu":"#BBBFCA",
+        "--touch-menu": "#BBBFCA",
     },
     "G&W": {
         "--text-navbar--alt": "#000",
@@ -215,7 +215,7 @@ export default {
         "--node-norm": "#FFC231",
         "--splitter": "#00B462",
         "--disable": "#656565",
-        "--touch-menu":"#BBBFCA",
+        "--touch-menu": "#BBBFCA",
     },
     "High Contrast": {
         "--text-navbar--alt": "#000",
@@ -270,7 +270,7 @@ export default {
         "--node-norm": "#F38518",
         "--splitter": "#21de5a",
         "--disable": "#262626",
-        "--touch-menu":"#F38518",
+        "--touch-menu": "#F38518",
     },
     "Color Blind": {
         "--text-navbar--alt": "#000",
@@ -325,6 +325,6 @@ export default {
         "--node-norm": "#c59434",
         "--splitter": "#836222",
         "--disable": "#956c6a",
-        "--touch-menu":"#A0937D",
+        "--touch-menu": "#A0937D",
     },
 };

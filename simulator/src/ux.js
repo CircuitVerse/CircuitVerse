@@ -227,7 +227,7 @@ export function prevPropertyObjGet() {
     return prevPropertyObj;
 }
 
-var moduleProperty =  currentScreen();
+var moduleProperty = currentScreen();
 /**
  * show properties of an object.
  * @param {CircuiElement} obj - the object whose properties we want to be shown in sidebar
