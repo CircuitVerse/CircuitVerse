@@ -156,10 +156,7 @@ export function pinchZoom(e, globalScope) {
     updatePositionSet(true);
     updateCanvasSet(true);
     // Calculating distance between touch to see if its pinchIN or pinchOut
-    distance = Math.sqrt(
-        (e.touches[1].clientX - e.touches[0].clientX) * (e.touches[1].clientX - e.touches[0].clientX), 
-        (e.touches[1].clientY - e.touches[0].clientY) * (e.touches[1].clientY - e.touches[0].clientY)
-    );
+    distance = Math.sqrt((e.touches[1].clientX - e.touches[0].clientX) ** 2, (e.touches[1].clientY - e.touches[0].clientY) ** 2);
     if (distance >= currDistance) {
         pinchZ += 0.02;
         currDistance = distance;
@@ -167,10 +164,10 @@ export function pinchZoom(e, globalScope) {
         pinchZ -= 0.02;
         currDistance = distance;
     }
-    
     if (pinchZ >= 2) {
         pinchZ = 2;
-    } else if (pinchZ <= 0.5) {
+    } 
+    else if (pinchZ <= 0.5) {
         pinchZ = 0.5;
     }
     const oldScale = globalScope.scale;
@@ -840,8 +837,7 @@ export default function startListeners() {
         dragEnd();
     });
     timingDiagramQuerySelector.addEventListener('touchstart', (e) => {
-        $('.timing-diagram-panel').draggable().
-            draggable('enable');
+        $('.timing-diagram-panel').draggable().draggable('enable');
         timingDiagramListner.style.position = 'absolute';
         dragStart(e, timingDiagramListner);
     });
@@ -1027,7 +1023,6 @@ function zoomSliderListeners() {
             ulicon[index].classList.remove('active');
         }
         else {
-           
             smallScreemInner[index].style.height = '100%';
             ulicon[index].classList.toggle('active');
         }
@@ -1110,7 +1105,7 @@ function zoomSliderListeners() {
         if(simulationArea.shiftDown == false) {
             simulationArea.shiftDown = true;
         }
-        else{
+        else {
             simulationArea.shiftDown = false;
             e.preventDefault();
         }
@@ -1197,7 +1192,7 @@ function onTapColor(classList, currentIndex, color) {
     if(classList[currentIndex].style.backgroundColor === color) {
         classList[currentIndex].style.backgroundColor = '';
     }
-    else{
+    else {
         classList[currentIndex].style.backgroundColor = color;
     }
     for(var i = 0; i < classList.length; i++) {
