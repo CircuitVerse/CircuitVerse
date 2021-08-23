@@ -72,8 +72,7 @@ $mini-map-stroke: darkgreen;
 $text: black;
 $splitter: black;
 $output-rect: blue;
-
-// Touch Screen Menu 
+//Touch Screen Menu 
 $touch-menu:#454545;
 
 :root{
@@ -770,7 +769,7 @@ select {
 }
 .modulepropertiesInput input, 
 .modulepropertiesInput textarea {
-  background-color:var(--primary);
+  background-color: var(--primary);
   color: var(--text-panel);
   border: 2px solid var(--br-secondary);
 }
@@ -778,7 +777,7 @@ select {
 .modulepropertiesInput select,
 .modulepropertiesInput input, 
 .modulepropertiesInput textarea {
-  background-color:var(--primary);
+  background-color: var(--primary);
   color: var(--text-panel);
   border: 2px solid var(--br-secondary);
 }

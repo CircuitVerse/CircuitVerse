@@ -503,6 +503,4 @@ export function setupTimingListeners() {
             plotArea.mouseDown = false;
         }
     });
-    
-    
 }

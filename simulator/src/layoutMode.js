@@ -377,14 +377,13 @@ export function toggleLayoutMode() {
         $('#layoutDialog').fadeOut();
         $('.layoutElementPanel').fadeOut();
         $('.elementPanel').fadeIn();
-        if (!(window.screen.width > 1367))
-        {
+        if (!(window.screen.width > 1367)) {
             $('.ce-panel').fadeOut();
             $('#touchMenu').fadeIn();
             $(' #liveMenu').fadeIn();
             $('#touchElement-property').fadeIn();
         }    
-        if ((window.screen.width > 1367)){
+        if ((window.screen.width > 1367)) {
             $('.timing-diagram-panel').fadeIn();
         } 
         globalScope.centerFocus(false);
@@ -396,8 +395,7 @@ export function toggleLayoutMode() {
         verilogModeSet(false);
         $('#layoutDialog').fadeIn();
         $('.layoutElementPanel').fadeIn();
-        if (!(window.screen.width > 1367))
-        {   
+        if (!(window.screen.width > 1367)) {   
             $('#touchMenu').fadeOut();
             $(' #liveMenu').fadeOut();
             $('#touchElement-property').fadeOut();

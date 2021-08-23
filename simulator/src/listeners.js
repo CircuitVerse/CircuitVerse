@@ -156,9 +156,10 @@ export function pinchZoom(e, globalScope) {
     updatePositionSet(true);
     updateCanvasSet(true);
     // Calculating distance between touch to see if its pinchIN or pinchOut
-    distance = Math.sqrt((e.touches[1].clientX - e.touches[0].clientX) *
-     (e.touches[1].clientX - e.touches[0].clientX), (e.touches[1].clientY - e.touches[0].clientY) *
-     (e.touches[1].clientY - e.touches[0].clientY));
+    distance = Math.sqrt(
+        (e.touches[1].clientX - e.touches[0].clientX) * (e.touches[1].clientX - e.touches[0].clientX), 
+        (e.touches[1].clientY - e.touches[0].clientY) * (e.touches[1].clientY - e.touches[0].clientY)
+    );
     if (distance >= currDistance) {
         pinchZ += 0.02;
         currDistance = distance;
@@ -189,9 +190,7 @@ export function pinchZoom(e, globalScope) {
     globalScope.oy = Math.round(currCentreY * (globalScope.scale - oldScale));
     gridUpdateSet(true);
     scheduleUpdate(1);
-     
 }
-
 // 
 // Function to start the pan in simulator
 // Works for both touch and Mouse
@@ -230,14 +229,12 @@ function panStart(e) {
     scheduleUpdate(1);
     $('.dropdown.open').removeClass('open');
 }
-
 // 
 // Function to pan in simulator
 // Works for both touch and Mouse
 // For now variable name starts from mouse like mouseDown are used both
 // touch and mouse will change in future
 // 
-
 function panMove(e) {
 // If only one  it touched
 // pan left or right
@@ -333,9 +330,7 @@ function panStop(e) {
             getTap(e);
         }
     }
-    
 }
-
 export default function startListeners() {
     $('#deleteSelected').on('click', () => {
         deleteSelected();
@@ -748,8 +743,7 @@ export default function startListeners() {
     });
 
     $('.search-input').on('keyup', function () {
-        const parentElement = $(this).parent().
-            parent();
+        const parentElement = $(this).parent().parent();
         const closeButton = $('.search-close', parentElement);
         const searchInput = $('.search-input', parentElement);
         const searchResults = $('.search-results', parentElement);
@@ -758,8 +752,7 @@ export default function startListeners() {
         searchResults.css('display', 'block');
         closeButton.css('display', 'block');
         menu.css('display', 'none');
-        const value = $(this).val().
-            toLowerCase();
+        const value = $(this).val().toLowerCase();
 
         closeButton.on('click', () => {
             searchInput.val('');
@@ -783,8 +776,7 @@ export default function startListeners() {
                 // eslint-disable-next-line no-use-before-define
                 htmlIcons += createIcon(e);
             });
-            searchResults.
-                html(htmlIcons);
+            searchResults.html(htmlIcons);
             $('.filterElements').mousedown(createElement);
         }
     });
@@ -861,8 +853,7 @@ export default function startListeners() {
     });
     
     layoutQuerySelector.addEventListener('touchstart', (e) => {
-        $('.timing-diagram-panel').draggable().
-            draggable('enable');
+        $('.timing-diagram-panel').draggable().draggable('enable');
         timingDiagramListner.style.position = 'absolute';
         dragStart(e, layoutListner);
     });
@@ -874,8 +865,7 @@ export default function startListeners() {
     });
 
     layoutElementPanelListner.addEventListener('touchstart', (e) => {
-        $('.timing-diagram-panel').draggable().
-            draggable('enable');
+        $('.timing-diagram-panel').draggable().draggable('enable');
         timingDiagramListner.style.position = 'absolute';
         dragStart(e, layoutElementPanelListner);
     });
@@ -987,7 +977,7 @@ function zoomSliderListeners() {
         if(Id.style.backgroundColor === color) {
             Id.style.backgroundColor = '';
         }
-        else{
+        else {
             Id.style.backgroundColor = color;
         }
     }
@@ -1032,27 +1022,22 @@ function zoomSliderListeners() {
     var smallNavbarUl = document.getElementsByClassName('smallNavbar-navbar-ul');
     var ulicon = document.getElementsByClassName('ulicon');
     function NavCollapsible(index) {
-       
         if(smallScreemInner[index].style.height === '100%') {
             smallScreemInner[index].style.height = '0%';
             ulicon[index].classList.remove('active');
         }
         else {
            
-            smallScreemInner[index].style.height ='100%';
+            smallScreemInner[index].style.height = '100%';
             ulicon[index].classList.toggle('active');
         }
-        for(var i = 0; i < smallNavbarUl.length-1 ;i++) {
-            if(i === index) {
-                continue;
-            }
-            else {
+        for(var i = 0; i < smallNavbarUl.length - 1; i++) {
+            if(i !== index) {
                 ulicon[i].classList.remove('active');
                 smallScreemInner[i].style.height = '0%';
             }
         }
     }
-   
     // var ulicon = document.getElementsByClassName('ulicon');
 
     for(var i = 0; i < smallNavbarUl.length; i++) {
@@ -1083,7 +1068,6 @@ function zoomSliderListeners() {
     var panelclose = document.getElementsByClassName('panelclose');
     for(var touchi = 0; touchi < TouchMenuButton.length; touchi++) {
         (function(index) {
-            
             TouchMenuButton[index].addEventListener('touchstart', (e) => {
                 onTapColor(TouchMenuButton, index, buttoncolor);
                 openCurrMenu(index);
@@ -1105,13 +1089,12 @@ function zoomSliderListeners() {
                 e.preventDefault();
             });
         }(touchi));
-            
     }
 
     /** Function for QuicKMenu */
     var quickMenu = document.getElementsByClassName('quicMenu-align');
     // here lenght-2 is done because last two button are used for diff purpose 
-    for(var quickmenui = 0; quickmenui < quickMenu.length-2; quickmenui++) {
+    for(var quickmenui = 0; quickmenui < quickMenu.length - 2; quickmenui++) {
         (function(index) {
             quickMenu[index].addEventListener('click', (e) => {
                 onTapColor(quickMenu, index, buttoncolor);
@@ -1119,17 +1102,18 @@ function zoomSliderListeners() {
                 setTimeout(() => { 
                     onTapColor(quickMenu, index, ''); }, 100);
                 e.preventDefault();
-               
             });
         }(quickmenui));
     }
     quickMenu[6].addEventListener('click', (e) => {
         onTapColor(quickMenu, 6, buttoncolor);
-        if(simulationArea.shiftDown == false)
+        if(simulationArea.shiftDown == false) {
             simulationArea.shiftDown = true;
-        else
+        }
+        else{
             simulationArea.shiftDown = false;
-        e.preventDefault();
+            e.preventDefault();
+        }
     });
 
     // Function for live Menu 
@@ -1157,10 +1141,7 @@ function zoomSliderListeners() {
                 e.preventDefault();
             });
         }(liveMenui));
-          
     }
-
-
 }
 
 /**
@@ -1168,11 +1149,12 @@ function zoomSliderListeners() {
  * Function to return id or class of panel according to screen width 
  */
 export function currentScreen() {
-    if (window.screen.width > 1367) 
-    { uniqid.modulePropertyInner = '#moduleProperty-inner';
+    if (window.screen.width > 1367) { 
+        uniqid.modulePropertyInner = '#moduleProperty-inner';
         uniqid.PlotAreaId = 'plotArea';
         uniqid.plotID = 'plot';
-        uniqid.tdLog = '#timing-diagram-log'; } 
+        uniqid.tdLog = '#timing-diagram-log';
+    } 
     else {
         uniqid.modulePropertyInner = '#moduleProperty-inner-2';
         uniqid.PlotAreaId = 'plotArea-touchpanel';
@@ -1182,7 +1164,7 @@ export function currentScreen() {
     return uniqid;
 }
 function getID(index) {
-    switch(index) {
+    switch (index) {
     case 0: return document.getElementById('TouchCe-panel');
     case 1: return document.getElementById('touchElement-property');
     case 2: return document.getElementById('touchtD-popover');
@@ -1194,16 +1176,14 @@ function getID(index) {
 function openCurrMenu(index) {
     $('#Help').removeClass('show');
     var element = getID(index);
-    if(element.style.visibility === 'visible')
-    { element.style.visibility = 'hidden'; }
-    else
-    { element.style.visibility = 'visible'; }
-    for(var i=0;i<4;i++) {
-        if(i == index) {
-            continue;
-        }
-        else
-        {
+    if(element.style.visibility === 'visible') { 
+        element.style.visibility = 'hidden';
+    }
+    else { 
+        element.style.visibility = 'visible';
+    }
+    for(var i = 0; i < 4; i++) {
+        if(i !== index) {
             var closelemnt = getID(i);
             closelemnt.style.visibility = 'hidden';
         }
@@ -1220,11 +1200,8 @@ function onTapColor(classList, currentIndex, color) {
     else{
         classList[currentIndex].style.backgroundColor = color;
     }
-    for(var i=0;i<classList.length;i++) {
-        if(i == currentIndex) {
-            continue;
-        }
-        else{
+    for(var i = 0; i < classList.length; i++) {
+        if(i != currentIndex) {
             classList[i].style.backgroundColor = '';
         }
     }
@@ -1244,7 +1221,7 @@ function onTapliveMenu(index) {
         break;    
     }
 }
-function onQuickmenuTap (i) {
+function onQuickmenuTap(i) {
     switch (i) {
     case 0: logixFunction.save();
         break;
@@ -1265,7 +1242,7 @@ function onQuickmenuTap (i) {
         break;
     }
 } 
-function onTapSmallNavbar (i) {
+function onTapSmallNavbar(i) {
     switch (i) {
     case 0: logixFunction.newProject(); 
         closeNavmenu();
@@ -1320,7 +1297,6 @@ function onTapSmallNavbar (i) {
         closeNavmenu();
         break;
     }
-    
 }
 function closeNavmenu() {
     navMenuButton[0].style.height = '0'; 
