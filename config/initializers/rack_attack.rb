@@ -4,10 +4,14 @@ class Rack::Attack
   class Request < ::Rack::Request
     # Take remote IP from Cloudfare's headers instead of rev proxy IP
     def remote_ip
+      if ENV["CF_PROXY_DISABLED"]
+        @remote_ip ||= ip
+      else
       # Cloudflare stores remote IP in CF_CONNECTING_IP header
-      @remote_ip ||= (env["HTTP_CF_CONNECTING_IP"] ||
-                      env["action_dispatch.remote_ip"] ||
-                      ip).to_s
+        @remote_ip ||= (env["HTTP_CF_CONNECTING_IP"] ||
+                        env["action_dispatch.remote_ip"] ||
+                        ip).to_s
+      end
     end
 
     # Hack to get JSON request params
