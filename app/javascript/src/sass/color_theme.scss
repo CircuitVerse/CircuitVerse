@@ -73,7 +73,7 @@ $text: black;
 $splitter: black;
 $output-rect: blue;
 
-//Touch Screen Menu 
+// Touch Screen Menu 
 $touch-menu:#454545;
 
 :root{
@@ -137,7 +137,7 @@ $touch-menu:#454545;
   --splitter: $splitter;
   --output-rect: $output-rect;
 
-  --touch-menu:$touch-menu;
+  --touch-menu: $touch-menu;
 }
 
 ::-moz-selection {
@@ -654,17 +654,17 @@ select {
 }
 
 // Ember view
-#clockProperty{
+#clockProperty {
   background: var(--primary);
   border: 1px solid var(--br-primary);
   color: var(--text-panel);
 }
- /*Css for mobile version UI */
-.smallscreen-navbar{
-  background-color:var(--primary);
-    color: var(--text-panel);
+ // Css for mobile version UI 
+.smallscreen-navbar {
+  background-color: var(--primary);
+  color: var(--text-panel);
 }
-.smallscreen-navbar-inner li{
+.smallscreen-navbar-inner li {
   background-color: var(--text-panel);
   color: var(--primary);
   border: 1px solid var(--br-secondary);
@@ -673,32 +673,32 @@ select {
   background-color: var(--text-panel);
   color: var(--primary);
 }
-#smallNavbarMenu-btn{
-  background-color:var(--primary);
+#smallNavbarMenu-btn {
+  background-color: var(--primary);
   color: var(--text-panel);
 }
-.touch-Ce-Menu{
-  background-color:var(--primary);
+.touch-Ce-Menu {
+  background-color: var(--primary);
   color: var(--text-panel);
   border: 1px solid var(--br-secondary);
 }
-#smallNavbarMenu-btn::before{
+#smallNavbarMenu-btn::before {
   background: var(--text-panel);
   box-shadow: 0 5px 0 var(--text-panel);
 }
-#smallNavbarMenu-btn::after{
+#smallNavbarMenu-btn::after {
   background: var(--text-panel);
 }
-#smallNavbarMenu-btn.active::before{
+#smallNavbarMenu-btn.active::before {
  
   box-shadow: 0 0 0 var(--text-panel);
  }
 
-#TouchCe-panel::before{
+#TouchCe-panel::before {
   border-color: transparent transparent var(--br-secondary);
 }
 #touch-module-property {
-  background-color:var(--primary);
+  background-color: var(--primary);
   color: var(--text-panel);
   border: 1px solid var(--br-secondary);
 }
@@ -710,62 +710,62 @@ select {
 #touchElement-property:before{
   border-color: transparent transparent var(--br-secondary) transparent;
 }
-#touchtD-popover{
-  background-color:var(--primary);
+#touchtD-popover {
+  background-color: var(--primary);
   color: var(--text-panel);
   border: 1px solid var(--br-secondary);
 }
-#touchtD-popover::before{
+#touchtD-popover::before {
   border-color: transparent transparent var(--br-secondary) transparent;
 }
-#touch-time-daigram{
-  background-color:var(--primary);
+#touch-time-daigram {
+  background-color: var(--primary);
   color: var(--text-panel);
   border: 1px solid var(--br-secondary);
 }
 
 
-#touch-timing-diagram-toolbar{
+#touch-timing-diagram-toolbar {
   background-color: var(--bg-tabs);
 }
-#quickMenu{
+#quickMenu {
   background-color:var(--primary);
   color: var(--text-panel);
   border: 1px solid var(--br-secondary);
 }
-#quickmenu-Popover{
+#quickmenu-Popover {
   background-color:var(--primary);
   color: var(--text-panel);
   border: 1px solid var(--br-secondary);
 }
-#touchElement-property:before{
+#touchElement-property:before {
   border-color: transparent transparent var(--br-secondary) transparent;
 }
-#quickmenu-Popover::before{
+#quickmenu-Popover::before {
   border-color: transparent transparent var(--br-secondary);
 }
-.quicMenu-align{
-  background-color:var(--text-panel);
-  color:var(--primary);
+.quicMenu-align {
+  background-color: var(--text-panel);
+  color: var(--primary);
 }
-.touchMenuIcon{
-  background-color:var(--primary);
+.touchMenuIcon {
+  background-color: var(--primary);
   color: var(--text-panel);
   border: 2px solid var(--br-secondary);
 }
-.liveMenuIcon{
-  background-color:var(--primary);
+.liveMenuIcon {
+  background-color: var(--primary);
   color: var(--text-panel);
   border: 1px solid var(--br-secondary);
   
 }
-.ce-name{
+.ce-name {
   border-bottom: 2px solid var(--br-secondary);
 }
-.mp-name{
+.mp-name {
   border-bottom: 2px solid var(--br-secondary);
 }
-.quickMenu-name{
+.quickMenu-name {
   border-bottom: 2px solid var(--br-secondary);
 }
 .modulepropertiesInput input, 
@@ -790,14 +790,14 @@ select {
   color: var(--text-panel);
   border: 2px solid var(--br-secondary);
 }
-.smallscreen-navbar{
+.smallscreen-navbar {
   background-color:var(--primary);
 }
-.smallscreen-navbar-inner li{
+.smallscreen-navbar-inner li {
   background-color:var(--primary);
   border: 2px solid var(--text-panel);
   color: var(--text-panel);
 }
-.smallNavbar-navbar-ul{
+.smallNavbar-navbar-ul {
   border-top: 1px solid var(--text-panel);
 }
