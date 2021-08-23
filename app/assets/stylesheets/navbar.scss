@@ -33,6 +33,7 @@
 
   &:hover {
     color: $primary-green;
+    cursor: pointer;
   }
 
   &.active {
@@ -158,7 +159,7 @@
   height: 38px;
   margin-right: 6px;
   margin-top: 5px;
-  max-width: 90px;
+  max-width: 95px;
 }
 
 //breakpoints

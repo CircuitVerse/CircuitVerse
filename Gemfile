@@ -20,7 +20,7 @@ gem "paperclip", ">= 5.2.0"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 6.0"
 # Use Puma as the app server
-gem "puma", "~> 5.2"
+gem "puma", "~> 5.3"
 # Use SCSS for stylesheets
 gem "sass-rails", "~> 5.0"
 # Use Uglifier as compressor for JavaScript assets
@@ -46,7 +46,7 @@ gem "jquery-rails"
 
 # gem 'acts_as_votable', '~> 0.11.1'
 
-gem "carrierwave", "~> 2.1"
+gem "carrierwave", "~> 2.2"
 
 gem "rails_admin", "~> 2.1"
 
@@ -61,7 +61,7 @@ gem "will_paginate", "~> 3.3.0"
 gem "will_paginate-bootstrap"
 
 gem "bootstrap-typeahead-rails"
-gem "country_select", "~> 4.0"
+gem "country_select", "~> 6.0"
 gem "geocoder"
 
 # for authorization layer
@@ -71,8 +71,12 @@ gem "pundit"
 gem "ahoy_matey"
 gem "i18n-js"
 
+# for lti provider
+ gem "ims-lti", "~> 1.1.8"
+
 # Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 3.0'
+gem 'redis', '~> 4.0'
+gem 'hiredis'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -131,7 +135,7 @@ group :test do
   gem "rspec_junit_formatter"
   gem "selenium-webdriver"
   gem "shoulda-matchers"
-  gem "webdrivers", "~> 4.0"
+  gem "webdrivers", "~> 4.6"
   gem "webmock"
 end
 
@@ -153,12 +157,12 @@ gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 # mails
 gem "premailer-rails", "~> 1.11", ">= 1.11.1"
 
-gem "bugsnag", "~> 6.18"
+gem "bugsnag", "~> 6.22"
 
 gem "invisible_captcha", "~> 1.1"
 
 gem "newrelic_rpm", "~> 6.13"
 
-gem "oj", "~> 3.11"
+gem "oj", "~> 3.12"
 
 gem "hairtrigger", "~> 0.2.24"

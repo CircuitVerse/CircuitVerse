@@ -31,6 +31,22 @@
 
 en:
   hello: "Hello world"
+  edit: "Edit"
+  delete: "Delete"
+  view: "View"
+  launch_simulator: "Launch Simulator"
+  email_us_heading: "Email us at"
+  join_at_slack_heading: "Join and chat with us at"
+  join_at_slack_description: "Slack Channel"
+  welcome_back_text: "Welcome back to the Digital Circuit Universe!"
+  save: "Save"
+  back: "Back"
+  login: "Log in"
+  sign_up: "Sign up"
+  assignment: "Assignment"
+  launch: "Launch"
+  fork: "Fork"
+  more: "More"
 
 # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
@@ -69,4 +85,3 @@ en:
       almost_x_years:
         one:   "1 year" # default was: "almost 1 year"
         other: "%{count} years" # default was: "almost %{count} years"
-

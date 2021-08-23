@@ -48,6 +48,10 @@ body {
   text-align: justify;
 }
 
+.centered-paragraph {
+  margin: 30px 0;
+  text-align: center;
+}
 //alignment
 .alert {
   display: block;
@@ -59,6 +63,12 @@ body {
   margin-right: auto;
   max-width: 1344px;
   text-align: center;
+}
+
+.div-flex-center {
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }
 
 .center-image {

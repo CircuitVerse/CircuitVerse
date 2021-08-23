@@ -1,0 +1,9 @@
+en:
+  lti:
+    launch:
+      notice_no_assignment: "No such Assignment is present in CircuitVerse, please contact your LMS Administrator/Teacher"
+      notice_lms_auth_success_teacher: "Logged in as %{email_from_lms} via %{lms_type} for course %{course_title_from_lms}"
+      notice_students_open_in_cv: "Please open the Assignment in CircuitVerse"
+      notice_ask_teacher: "Please ask your teacher to add you in the CircuitVerse group associated with this course."
+      notice_no_account_in_cv: "You have no account associated with email %{email_from_lms} please create first and try again."
+    
