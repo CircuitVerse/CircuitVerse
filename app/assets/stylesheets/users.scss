@@ -95,7 +95,6 @@
 
 .password-icon {
   color: $secondary-green;
-  height: 40px;
   width: 40px;
 }
 
@@ -272,8 +271,7 @@
     border-radius: 0;
     font-size: 16px;
     margin: 0;
-    margin-top: 20px;
-    padding: 7px 10px;
+    padding: 7px 10px 7px 35px;
     transition: .2s ease-in-out;
 
     &:focus {
@@ -281,6 +279,22 @@
       transition: .2s ease-in-out;
     }
   }
+}
+
+.users-circuits-search {
+  align-items: center;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  padding-top: 20px;
+}
+
+.fa.fa-search.user-circuits-search-icon {
+  color: $fa-search-grey;
+  margin-left: 28px;
+  margin-right: -28px;
+  z-index: 2;
+
 }
 
 .users-circuits-tab {

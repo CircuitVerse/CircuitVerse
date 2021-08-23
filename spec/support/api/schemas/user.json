@@ -11,6 +11,7 @@
           "properties": {
             "email": { "type": "string" },
             "name": { "type": "string" },
+            "locale": { "type": "string" },
             "admin": { "type": "boolean" },
             "country": { "type": ["null", "string"] },
             "educational_institute": { "type": ["null", "string"] },

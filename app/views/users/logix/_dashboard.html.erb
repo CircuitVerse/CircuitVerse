@@ -9,7 +9,7 @@
           </div>
           <div class="users-tag-container">
             <% if !project.assignment_id.nil? %>
-              <span class="badge search-tag">Assignment</span>
+              <span class="badge search-tag"><%= t("assignment") %></span>
             <% end %>
               <span class="badge search-tag"><%= project.project_access_type %></span>
           </div>
@@ -19,12 +19,12 @@
         </div>
         <div class="card-footer users-card-footer">
           <% if policy(project).user_access? %>
-            <a href="<%= simulator_edit_path(project) %>" class="btn primary-button" target="_blank">Launch</a>
+            <a href="<%= simulator_edit_path(project) %>" class="btn primary-button" target="_blank"><%= t("launch") %></a>
           <% else %>
-            <a href="<%= create_fork_project_path(project) %>" class="btn primary-button" target="_blank">Fork</a>
+            <a href="<%= create_fork_project_path(project) %>" class="btn primary-button" target="_blank"><%= t("fork") %></a>
           <% end %>
-            <%= link_to 'View', '#', class: "previewButton btn primary-button", data: {toggle: "modal", target: "#projectModal", currentproject: project} %>
-            <a href="<%= user_project_path(project.author_id, project) %>" class="btn primary-button" target="_blank">More</a>
+            <%= link_to t("view"), '#', class: "previewButton btn primary-button", data: {toggle: "modal", target: "#projectModal", currentproject: project} %>
+            <a href="<%= user_project_path(project.author_id, project) %>" class="btn primary-button" target="_blank"><%= t("more") %></a>
         </div>
       </div>
     </div>

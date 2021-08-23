@@ -17,9 +17,8 @@ class AssignmentDeadlineSubmissionJob < ApplicationJob
           assignment.projects.each do |proj|
             next unless proj.project_submission == false
 
-            submission = proj.dup
+            submission = proj.fork(proj.author)
             submission.project_submission = true
-            submission.forked_project_id = proj.id
             proj.assignment_id = nil
             proj.save!
             submission.save!
