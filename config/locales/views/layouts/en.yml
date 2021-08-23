@@ -6,6 +6,7 @@ en:
     link_to_docs: "Documentation"
     link_to_features: "Features"
     link_to_teachers: "Teachers"
+    link_to_blog: "Blog"
     link_to_about: "About"
     footer:
       social_icon_text: "Follow us on:"
