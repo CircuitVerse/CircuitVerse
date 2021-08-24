@@ -105,7 +105,11 @@ Commontator.configure do |config|
   # Returns: a Boolean, true if and only if the user should be allowed to read that thread
   # Note: can be called with a user object that is nil (if they are not logged in)
   # Default: ->(thread, user) { true } (anyone can read any thread)
-  config.thread_read_proc = ->(thread, user) { true }
+  config.thread_read_proc = ->(thread, user) { 
+    return true if thread.commontable.public?
+
+    ProjectPolicy.new(user, thread.commontable).check_view_access?
+  }
 
   # thread_moderator_proc
   # Type: Proc
@@ -113,7 +117,7 @@ Commontator.configure do |config|
   # Returns: a Boolean, true if and only if the user is a moderator for that thread
   # If you want global moderators, make this proc true for them regardless of thread
   # Default: ->(thread, user) { false } (no moderators)
-  config.thread_moderator_proc = ->(thread, user) { false }
+  config.thread_moderator_proc = ->(thread, user) { user.admin? }
 
   # comment_editing
   # Type: Symbol

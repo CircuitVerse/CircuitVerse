@@ -137,6 +137,10 @@ class Project < ApplicationRecord
     end
   end
 
+  def public?
+    project_access_type == "Public"
+  end
+
   def featured?
     project_access_type == "Public" && FeaturedCircuit.exists?(project_id: id)
   end
