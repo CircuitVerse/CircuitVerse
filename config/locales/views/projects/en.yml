@@ -14,8 +14,6 @@ en:
     edit:
       title: "%{name} - Edit Project"
       main_heading: "Edit Project"
-    new:
-      new_project: "New Project"
     get_projects:
       searched_projects_heading: "Searched Projects"
       searched_tags_heading: "Tags:"

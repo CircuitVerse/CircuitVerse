@@ -14,8 +14,6 @@ hi:
     edit:
       title: "%{name} - परियोजना एडिट करें"
       main_heading: "परियोजना एडिट करें"
-    new:
-      new_project: "नयी परियोजना"
     get_projects:
       searched_projects_heading: "सर्च की गयी परियोजना"
       searched_tags_heading: "टैग:"
