@@ -3,7 +3,7 @@
 require "rails_helper"
 
 describe AssignmentPolicy do
-  subject { AssignmentPolicy.new(user, assignment) }
+  subject { described_class.new(user, assignment) }
 
   before do
     @mentor = FactoryBot.create(:user)
@@ -14,27 +14,33 @@ describe AssignmentPolicy do
     let(:user) { @mentor }
     let(:assignment) { FactoryBot.create(:assignment, group: @group) }
 
-    it { should permit(:admin_access) }
+    it { is_expected.to permit(:admin_access) }
 
     context "assignment is graded and past deadline" do
-      let(:assignment) { FactoryBot.create(:assignment,
-        group: @group, grading_scale: :letter, deadline: Time.now - 1.days) }
+      let(:assignment) do
+        FactoryBot.create(:assignment,
+                          group: @group, grading_scale: :letter, deadline: Time.zone.now - 1.day)
+      end
 
-      it { should permit(:can_be_graded) }
+      it { is_expected.to permit(:can_be_graded) }
     end
 
     context "assignment is ungraded" do
-      let(:assignment) { FactoryBot.create(:assignment, group: @group,
-        deadline: Time.now - 1.days, grading_scale: :no_scale) }
+      let(:assignment) do
+        FactoryBot.create(:assignment, group: @group,
+                                       deadline: Time.zone.now - 1.day, grading_scale: :no_scale)
+      end
 
-      it { should_not permit(:can_be_graded) }
+      it { is_expected.not_to permit(:can_be_graded) }
     end
 
     context "assignment is graded but deadline has not passed" do
-      let(:assignment) { FactoryBot.create(:assignment, group: @group,
-        deadline: Time.now + 1.days, grading_scale: :letter) }
+      let(:assignment) do
+        FactoryBot.create(:assignment, group: @group,
+                                       deadline: Time.zone.now + 1.day, grading_scale: :letter)
+      end
 
-      it { should_not permit(:can_be_graded) }
+      it { is_expected.not_to permit(:can_be_graded) }
     end
   end
 
@@ -47,33 +53,35 @@ describe AssignmentPolicy do
     end
 
     context "assignment is graded and past deadline" do
-      let(:assignment) { FactoryBot.create(:assignment,
-        group: @group, grading_scale: :letter, deadline: Time.now - 1.days) }
+      let(:assignment) do
+        FactoryBot.create(:assignment,
+                          group: @group, grading_scale: :letter, deadline: Time.zone.now - 1.day)
+      end
 
-      it { should_not permit(:can_be_graded) }
+      it { is_expected.not_to permit(:can_be_graded) }
     end
 
     context "assignment is open" do
       let(:assignment) { FactoryBot.create(:assignment, group: @group, status: "open") }
 
-      it { should_not permit(:admin_access) }
-      it { should permit(:edit) }
-      it { should permit(:start) }
+      it { is_expected.not_to permit(:admin_access) }
+      it { is_expected.to permit(:edit) }
+      it { is_expected.to permit(:start) }
 
       context "project is already submitted" do
         before do
           FactoryBot.create(:project, author: @member, assignment: assignment)
         end
 
-        it { should_not permit(:start) }
+        it { is_expected.not_to permit(:start) }
       end
     end
 
     context "assignment is closed" do
       let(:assignment) { FactoryBot.create(:assignment, group: @group, status: "closed") }
 
-      it { should_not permit(:start) }
-      it { should_not permit(:edit) }
+      it { is_expected.not_to permit(:start) }
+      it { is_expected.not_to permit(:edit) }
     end
   end
 end

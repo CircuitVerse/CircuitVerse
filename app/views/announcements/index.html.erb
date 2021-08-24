@@ -2,18 +2,18 @@
   <div class="row center-row">
     <div class="col-xs col-sm col-md col-lg">
       <% if @announcements.count!=0 %>
-        <h1 class="submain-heading">Recent Announcements</h1> <br>
-        <%= link_to "New Annnouncement", new_announcement_path, class: "btn primary-button custom-mail-primary-button" %>
+        <h1 class="submain-heading"><%= t("announcements.recent_announcement_heading") %></h1> <br>
+        <%= link_to t("announcements.new_announcement"), new_announcement_path, class: "btn primary-button custom-mail-primary-button" %>
         <% @announcements.each do |announcement| %>
           <div class="mb-3 border border-success">
             <span class="d-flex justify-content-center overflow-hidden"><%== announcement.body %></span>
-            <%= link_to 'Edit', edit_announcement_url(announcement), class: "anchor-text" %>
-            <%= link_to "Delete",announcement_url(announcement),method: :delete, data: {confirm:'Are you sure?'},class: "anchor-text" %>
+            <%= link_to t("edit"), edit_announcement_url(announcement), class: "anchor-text" %>
+            <%= link_to t("delete"), announcement_url(announcement),method: :delete, data: {confirm:'Are you sure?'},class: "anchor-text" %>
           </div>
         <% end %>
       <% else %>
-        <h1 class="submain-heading">No announcements so far.</h1>
-        <%= link_to "New Annnouncement", new_announcement_path, class: "btn primary-button custom-mail-primary-button m-3" %>
+        <h1 class="submain-heading"><%= t("announcements.no_announcement_heading") %></h1>
+        <%= link_to t("announcements.new_announcement"), new_announcement_path, class: "btn primary-button custom-mail-primary-button m-3" %>
       <% end %>
     </div>
   </div>

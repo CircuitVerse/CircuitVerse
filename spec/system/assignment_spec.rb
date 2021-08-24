@@ -11,7 +11,7 @@ describe "Assignments", type: :system do
   end
 
   context "when user is mentor" do
-    it "should create assignment" do
+    it "creates assignment" do
       sign_in @mentor
       visit new_group_assignment_path(@group)
       name = Faker::Lorem.word
@@ -26,7 +26,7 @@ describe "Assignments", type: :system do
       check_show_page(name, deadline, description, "Input, Button, Power")
     end
 
-    it "should not create assignment when name is blank" do
+    it "does not create assignment when name is blank" do
       sign_in @mentor
       visit new_group_assignment_path(@group)
 
@@ -40,7 +40,7 @@ describe "Assignments", type: :system do
       expect(page).to have_text("Name is too short (minimum is 1 character)")
     end
 
-    it "should be able to edit assignment" do
+    it "is able to edit assignment" do
       sign_in @mentor
       @assignment = FactoryBot.create(:assignment, group: @group)
       visit edit_group_assignment_path(@group, @assignment)
@@ -59,12 +59,12 @@ describe "Assignments", type: :system do
   end
 
   context "when user is a member" do
-    it "should be able to make assignment project" do
+    it "is able to make assignment project" do
       @assignment = FactoryBot.create(:assignment, group: @group)
       sign_in @member
       visit group_path(@group)
       click_on "Start Working"
-      expect(page).to have_content(@member.name + "/" + @assignment.name)
+      expect(page).to have_content("#{@member.name}/#{@assignment.name}")
     end
   end
 
@@ -75,9 +75,7 @@ describe "Assignments", type: :system do
     find("#assignment_deadline", visible: true).send_keys :enter
     fill_in_editor ".trumbowyg-editor", with: description
 
-    if :grading == true then
-      select "percent", from: "assignment_grading_scale"
-    end
+    select "percent", from: "assignment_grading_scale" if :grading == true
 
     page.find("#label-restrict-elements").click
     page.find("#label-Input").click

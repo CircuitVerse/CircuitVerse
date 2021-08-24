@@ -11,7 +11,7 @@ RSpec.describe Api::V1::ThreadsController, "#reopen", type: :request do
       end
 
       it "returns status unauthorized" do
-        expect(response).to have_http_status(401)
+        expect(response).to have_http_status(:unauthorized)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -24,7 +24,7 @@ RSpec.describe Api::V1::ThreadsController, "#reopen", type: :request do
       end
 
       it "returns status conflict & 'thread is already opened' error" do
-        expect(response).to have_http_status(409)
+        expect(response).to have_http_status(:conflict)
         expect(response.parsed_body).to have_jsonapi_error("thread is already opened")
       end
     end
@@ -38,7 +38,7 @@ RSpec.describe Api::V1::ThreadsController, "#reopen", type: :request do
       end
 
       it "returns status success & 'thread reopened' message" do
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
         expect(response.parsed_body["message"]).to eq("thread reopened")
       end
     end

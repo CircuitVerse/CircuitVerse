@@ -10,7 +10,7 @@ RSpec.describe Api::V1::AuthenticationController, "#oauth_login", type: :request
       end
 
       it "return status 404 and should have jsonapi errors" do
-        expect(response).to have_http_status(404)
+        expect(response).to have_http_status(:not_found)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -24,7 +24,7 @@ RSpec.describe Api::V1::AuthenticationController, "#oauth_login", type: :request
       end
 
       it "return status 401 and should have jsonapi errors" do
-        expect(response).to have_http_status(401)
+        expect(response).to have_http_status(:unauthorized)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -38,7 +38,7 @@ RSpec.describe Api::V1::AuthenticationController, "#oauth_login", type: :request
       end
 
       it "return status 404 and should have jsonapi errors" do
-        expect(response).to have_http_status(404)
+        expect(response).to have_http_status(:not_found)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -50,7 +50,7 @@ RSpec.describe Api::V1::AuthenticationController, "#oauth_login", type: :request
       end
 
       it "return status 202 and respond with token" do
-        expect(response).to have_http_status(202)
+        expect(response).to have_http_status(:accepted)
         expect(response.parsed_body).to have_key("token")
       end
     end

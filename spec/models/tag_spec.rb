@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe Tag, type: :model do
   describe "associations" do
-    it { should have_many(:taggings) }
-    it { should have_many(:projects) }
+    it { is_expected.to have_many(:taggings) }
+    it { is_expected.to have_many(:projects) }
   end
 end

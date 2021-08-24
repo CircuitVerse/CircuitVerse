@@ -10,7 +10,10 @@ class SimulatorController < ApplicationController
   before_action :check_view_access, only: %i[show embed get_data]
   before_action :check_edit_access, only: %i[edit update update_image]
   skip_before_action :verify_authenticity_token, only: %i[get_data create]
-  after_action :allow_iframe, only: :embed
+  after_action :allow_iframe, only: %i[embed]
+  after_action :allow_iframe_lti, only: %i[show], constraints: lambda {
+    Flipper.enabled?(:lms_integration, current_user)
+  }
 
   def self.policy_class
     ProjectPolicy
@@ -37,7 +40,7 @@ class SimulatorController < ApplicationController
   end
 
   def get_data
-    render json: @project.data
+    render json: ProjectDatum.find_by(project: @project)&.data
   end
 
   def new
@@ -47,13 +50,16 @@ class SimulatorController < ApplicationController
   end
 
   def update
-    @project.data = sanitize_data(@project, params[:data])
+    @project.build_project_datum unless ProjectDatum.exists?(project_id: @project.id)
+    @project.project_datum.data = sanitize_data(@project, params[:data])
 
     image_file = return_image_file(params[:image])
 
     @project.image_preview = image_file
     @project.name = sanitize(params[:name])
     @project.save
+    @project.project_datum.save
+    image_file.close
 
     File.delete(image_file) if check_to_delete(params[:image])
 
@@ -68,7 +74,7 @@ class SimulatorController < ApplicationController
 
   def create
     @project = Project.new
-    @project.data = sanitize_data(@project, params[:data])
+    @project.build_project_datum.data = sanitize_data(@project, params[:data])
     @project.name = sanitize(params[:name])
     @project.author = current_user
 
@@ -76,12 +82,25 @@ class SimulatorController < ApplicationController
 
     @project.image_preview = image_file
     @project.save!
+    image_file.close
 
     File.delete(image_file) if check_to_delete(params[:image])
 
     # render plain: simulator_path(@project)
     # render plain: user_project_url(current_user,@project)
     redirect_to edit_user_project_url(current_user, @project)
+  end
+
+  def verilog_cv
+    url = "http://127.0.0.1:3040/getJSON"
+    response = HTTP.post(url, json: { "code": params[:code] })
+    render json: response.to_s, status: response.code
+  end
+
+  def allow_iframe_lti
+    return unless session[:is_lti]
+
+    response.headers["X-FRAME-OPTIONS"] = "ALLOW-FROM #{session[:lms_domain]}"
   end
 
   private
@@ -94,11 +113,10 @@ class SimulatorController < ApplicationController
       @project = Project.friendly.find(params[:id])
     end
 
-    # FIXME remove this logic after fixing production data
+    # FIXME: remove this logic after fixing production data
     def set_user_project
       @project = current_user.projects.friendly.find_by(id: params[:id]) || Project.friendly.find(params[:id])
     end
-
 
     def check_edit_access
       authorize @project, :edit_access?

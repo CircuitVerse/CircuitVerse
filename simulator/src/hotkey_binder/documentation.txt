@@ -1,0 +1,45 @@
+The feature includes two libraries:
+1. shortcuts.plugin.js: It consists of a few function(s) 
+    a. Add
+    b. Remove
+    c. RemoveAll
+
+a. function Add takes 3 arguments:
+    shortcut_combination: <string> eg "Ctrl + X"
+    callback: <func> reference to a function, which will be invoked when the above combination is detected
+    opt: <object>  some optional parameters such as propagation, type of keyevent, etc
+
+b. function Remove: removes a particular shortcut provided in the param.
+c. function RemoveAll: takes no param removes all shortcuts.
+
+supported format:
+    * Modifier
+    * Modifier + key
+    * Single key
+
+2. normalizer.plugin.js: is used in keyBinder.js (line 73), to detect the shortcut_combination in string format
+    which is then passed to the shortcuts plugin.
+
+MAIN FILEs:
+    keyBinder.js is the controller, it performs operation that are defined in other files (model, view)
+    It consist of the keydown listener which detects while user is customizing the keys from the preference panel,
+    * checks for restrictions
+    * warns override
+    * restricts non-overridable combinations
+    * Others
+
+USAGE:
+    TO ADD SHORCUTS:
+        #1 add the shortcut in the defaultKeys.json file
+        #2 Assign the callback in addShorcut.js:
+            * the callback should be a func reference,if function to be invoked is already defined in the codebase just set it as it is. (for some func reference may not work, refer next step)
+
+            *for callback not present in the codebase, or is present but doesn't work as intended, defined the function that will invoke the required callback in action.js, note that callback must be func reference hence define it as a higher-order func if necessary in action.js
+    TO REMOVE SHORCUTS:
+        #1. Remove the option from defaultKeys.json
+        #2. Remove the case from addShortcut.js
+    RESTRICTION:
+        To add restriction to any combination, mention it in utils.js -> checkRestricted func, which contains an array that consists of restricted combination, push to the array.
+
+*The feature make uses of localstorage for persistence, only defaultkeys else userkeys will be present in localstorage not both.
+On load IFFE func on keyBinder.js (line 111) will check for userKeys, if found it it will be set, else defaultkeys will be set.

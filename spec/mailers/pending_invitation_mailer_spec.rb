@@ -9,7 +9,7 @@ RSpec.describe PendingInvitationMailer, type: :mailer do
   end
 
   describe "#new_pending_email" do
-    let(:mail) { PendingInvitationMailer.new_pending_email(@pending_invitation) }
+    let(:mail) { described_class.new_pending_email(@pending_invitation) }
 
     it "sends new assignment mail" do
       expect(mail.to).to eq([@pending_invitation.email])
