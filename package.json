@@ -28,7 +28,7 @@
     "@babel/preset-env": "^7.13.10",
     "@fortawesome/fontawesome-free": "^5.15.2",
     "@rails/webpacker": "5.2.1",
-    "banana-i18n": "^2.1.0",
+    "banana-i18n": "^2.2.0",
     "better-docs": "^2.0.1",
     "bootstrap": "^4.6.0",
     "canvas2svg": "1.0.16",
