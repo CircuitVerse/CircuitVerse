@@ -3,7 +3,7 @@
   <%= form_with(model: FeaturedCircuit.new, url: '/featured_circuits', multipart: true, id:"featuredCircuit") do |form| %>
     <%= form.hidden_field :project_id, value: @project.id %>
     <div class="form-group projects-primary-checkpoint">
-      <label for="featured_checkbox" class="primary-checkpoint-container"><h6>Featured (Administrator Only)</h6>
+      <label for="featured_checkbox" class="primary-checkpoint-container"><h6><%= t("projects.form.feature_circuit_checkpoint") %></h6>
         <%= form.check_box :featured, checked: @project.featured?, id: "featured_checkbox" %>
         <div class="primary-checkpoint"></div>
       </label>
@@ -26,16 +26,16 @@
     <%= form.text_field :name, id: :project_name, class: 'form-control form-input' %>
   </div>
   <div class="field form-group projects-tag-form-group">
-    <h6><%= form.label :tag_list %></h6> <span>(Enter your Project Tags divided by comma[,])</span>
+    <h6><%= form.label :tag_list %></h6> <span><%= t("projects.form.tag_list_description") %></span>
     <%= form.text_field :tag_list, class: 'form-control form-input' %>
   </div>
   <div class="field form-group">
     <h6 class="projects-type-field-heading"><%= form.label :project_access_type %></h6>
     <% if @project.featured? %>
       <%= @warning %>
-        <span class="projects-type-field-warning"><i class="fa fa-exclamation-triangle"></i> (This project is featured. It will no longer be featured if public access is removed.)</span>
+        <span class="projects-type-field-warning"><i class="fa fa-exclamation-triangle"></i> <%= t("projects.form.project_is_featured_message") %></span>
       <% end %>
-    <%= form.select :project_access_type, [["Public","Public"],["Private","Private"],["Limited access","Limited access"]], {},  class: 'form-control form-input' %>
+    <%= form.select :project_access_type, [[t("projects.form.public"),"Public"],[t("projects.form.private"),"Private"],[t("projects.form.limited_access"),"Limited access"]], {},  class: 'form-control form-input' %>
   </div>
   <div class="field form-group" id="description">
     <h6><%= form.label :description %></h6>
@@ -43,7 +43,7 @@
   </div>
   <div class="field form-group" onclick="beforeSubmit()">
     <%= form.submit class: 'btn primary-button' %> &nbsp;
-    <%= link_to 'Back', :back, class: 'anchor-text' %>
+    <%= link_to t("back"), :back, class: 'anchor-text' %>
   </div>
 
 <% end %>
