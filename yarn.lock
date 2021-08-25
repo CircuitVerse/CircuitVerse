@@ -5224,10 +5224,10 @@ livereload-js@^3.3.1:
   resolved "https://registry.yarnpkg.com/livereload-js/-/livereload-js-3.3.2.tgz#c88b009c6e466b15b91faa26fd7c99d620e12651"
   integrity sha512-w677WnINxFkuixAoUEXOStewzLYGI76XVag+0JWMMEyjJQKs0ibWZMxkTlB96Lm3EjZ7IeOxVziBEbtxVQqQZA==
 
-livereload@^0.9.2:
-  version "0.9.2"
-  resolved "https://registry.yarnpkg.com/livereload/-/livereload-0.9.2.tgz#718d219ba8c796c4c8dda70ed62186f559da5c72"
-  integrity sha512-pDsYKwFBCm663fyYBgqQP8oHvJyL2YPHeVLnrDoWAL7p9Tz1ep/P5LCKL5EfmGmBsFok3N5ZqvBYgoUdod5slg==
+livereload@^0.9.3:
+  version "0.9.3"
+  resolved "https://registry.yarnpkg.com/livereload/-/livereload-0.9.3.tgz#a714816375ed52471408bede8b49b2ee6a0c55b1"
+  integrity sha512-q7Z71n3i4X0R9xthAryBdNGVGAO2R5X+/xXpmKeuPMrteg+W2U8VusTKV3YiJbXZwKsOlFlHe+go6uSNjfxrZw==
   dependencies:
     chokidar "^3.5.0"
     livereload-js "^3.3.1"
