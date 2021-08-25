@@ -411,6 +411,8 @@ GEM
       activesupport (>= 3.0.0)
     racc (1.5.2)
     rack (2.2.3)
+    rack-attack (6.5.0)
+      rack (>= 1.0, < 3)
     rack-pjax (1.1.0)
       nokogiri (~> 1.5)
       rack (>= 1.1)
@@ -725,6 +727,7 @@ DEPENDENCIES
   pry-rails
   puma (~> 5.3)
   pundit
+  rack-attack
   rails (~> 6.0)
   rails-erd
   rails-i18n (~> 6.0.0)
@@ -761,4 +764,4 @@ DEPENDENCIES
   will_paginate-bootstrap
 
 BUNDLED WITH
-   2.2.25
+   2.2.26

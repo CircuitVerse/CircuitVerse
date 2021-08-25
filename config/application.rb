@@ -21,6 +21,9 @@ module Logix
     config.i18n.available_locales = [:en, :hi]
     config.i18n.default_locale = :en
 
+    # configuring middleware
+    config.middleware.use Rack::Attack
+
     # Site config
     config.site_url = "https://circuitverse.org/"
     config.site_name = "CircuitVerse"
