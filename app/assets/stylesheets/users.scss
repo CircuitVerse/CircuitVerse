@@ -35,9 +35,9 @@
     margin-right: 10px;
   }
 }
-
+$white: #ffffff;
 .primary-checkpoint {
-  background-color: #ffffff;
+  background-color: $white;
   border: 1px solid $secondary-green;
   cursor: pointer;
   padding-left: 4px;
