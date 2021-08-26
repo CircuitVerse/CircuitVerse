@@ -36,6 +36,21 @@
   }
 }
 
+.primary-checkpoint {
+  border: 1px solid $secondary-green;
+  background-color: white;
+  padding-left: 4px;
+  padding-top: 4px;
+  text-align: center;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 1;
+    border-color: $primary-green;
+    transition: .2s ease-in-out
+  }
+}
+
 .users-text-container {
   margin-top: 20px;
   padding-left: 4px;
