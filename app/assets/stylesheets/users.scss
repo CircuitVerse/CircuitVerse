@@ -37,17 +37,18 @@
 }
 
 .primary-checkpoint {
+  background-color: #ffffff;
   border: 1px solid $secondary-green;
-  background-color: white;
+  cursor: pointer;
   padding-left: 4px;
   padding-top: 4px;
   text-align: center;
-  cursor: pointer;
+  
 
   &:hover {
-    opacity: 1;
     border-color: $primary-green;
-    transition: .2s ease-in-out
+    opacity: 1;
+    transition: .2s ease-in-out;
   }
 }
 
