@@ -114,7 +114,7 @@ GEM
       parser (>= 2.4)
       smart_properties
     bindex (0.8.1)
-    bootsnap (1.7.2)
+    bootsnap (1.8.0)
       msgpack (~> 1.0)
     bootstrap-typeahead-rails (0.10.5.1)
       railties (>= 3.0)
