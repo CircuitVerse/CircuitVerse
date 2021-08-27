@@ -33,6 +33,7 @@ import { setProjectName, getProjectName } from './data/save';
 import { changeClockEnable } from './sequential';
 import { changeInputSize } from './modules';
 import { verilogModeGet, verilogModeSet } from './Verilog2CV';
+import { updateTestbenchUI } from './testbench';
 
 export const circuitProperty = {
     toggleLayoutMode, setProjectName, changeCircuitName, changeClockTime, deleteCurrentCircuit, changeClockEnable, changeInputSize, changeLightMode,
@@ -74,6 +75,7 @@ export function switchCircuit(id) {
     simulationArea.lastSelected = globalScope.root;
     if (!embed) {
         showProperties(simulationArea.lastSelected);
+        updateTestbenchUI();
         plotArea.reset();
     }
     updateCanvasSet(true);
@@ -124,6 +126,18 @@ function deleteCurrentCircuit(scopeId = globalScope.id) {
         switchCircuit(Object.keys(scopeList)[0]);
         showMessage('Circuit was successfully deleted');
     } else { showMessage('Circuit was not deleted'); }
+}
+
+/**
+ * Wrapper function around newCircuit to be called from + button on UI
+ */
+export function createNewCircuitScope() {
+    const scope = newCircuit();
+    if (!embed) {
+        showProperties(simulationArea.lastSelected);
+        updateTestbenchUI();
+        plotArea.reset();
+    }
 }
 
 /**
