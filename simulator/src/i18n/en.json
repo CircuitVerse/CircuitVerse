@@ -221,5 +221,6 @@
     "hotkey-binder-KeyBinder-enter-some-key": "Please enter some key(s)",
     "hotkey-binder-KeyBinder-enter-different-key": "Please enter different key(s).",
     "hotkey-binder-KeyBinder-default-shortcut-entered": "The above combination is a system default shortcut & cannot be set.",
-    "hotkey-binder-actions-key-already-assigned": "This key(s) is already assigned to: $1, press Enter to override."
+    "hotkey-binder-actions-key-already-assigned": "This key(s) is already assigned to: $1, press Enter to override.",
+    "listeners-no-elements-found": "No elements found ..."
 }

@@ -221,5 +221,6 @@
     "hotkey-binder-KeyBinder-enter-some-key": "कृपया कुछ किज दर्ज करें",
     "hotkey-binder-KeyBinder-enter-different-key": "कृपया भिन्न किज दर्ज करें।",
     "hotkey-binder-KeyBinder-default-shortcut-entered": "दर्ज किया गया कॉम्बिनेशन संयोजन एक सिस्टम डिफ़ॉल्ट शॉर्टकट है और इसे सेट नहीं किया जा सकता है।",
-    "hotkey-binder-actions-key-already-assigned": "यह की पहले से ही असाइन की गई है: $1, ओवरराइड करने के लिए एंटर दबाएं।"
+    "hotkey-binder-actions-key-already-assigned": "यह की पहले से ही असाइन की गई है: $1, ओवरराइड करने के लिए एंटर दबाएं।",
+    "listeners-no-elements-found": "कोई एलिमेंट नहीं मिला..."
 }

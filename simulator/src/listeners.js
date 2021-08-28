@@ -19,6 +19,7 @@ import save from './data/save';
 import { createElement } from './ux';
 import { verilogModeGet } from './Verilog2CV';
 import { setupTimingListeners } from './plotArea';
+import banana from './i18n';
 
 var unit = 10;
 
@@ -422,7 +423,7 @@ export default function startListeners() {
         }
         let htmlIcons = '';
         const result = elementPanelList.filter(ele => ele.toLowerCase().includes(value));
-        if(!result.length) searchResults.text('No elements found ...');
+        if(!result.length) searchResults.text(banana.i18n('listeners-no-elements-found'));
         else {
             result.forEach( e => htmlIcons += createIcon(e));
             searchResults

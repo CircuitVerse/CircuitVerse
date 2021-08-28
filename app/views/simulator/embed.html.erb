@@ -8,7 +8,7 @@
         <div id="code-window" class='code-window-embed'><textarea id="codeTextArea"></textarea></div>
         <% if @project&.assignment_id.present? && @project&.assignment.elements_restricted? %>
           <div id="restrictedElementsDiv" class="alert alert-danger">
-            <div> <span style="font-style: italic"> Restricted elements used: </span> <span id="restrictedElementsDiv--list"> </span></div>
+            <div> <span style="font-style: italic"><%= t("simulator.restricted_elements_used") %></span> <span id="restrictedElementsDiv--list"> </span></div>
           </div>
         <% end %>
         <div id="MessageDiv" >
@@ -23,12 +23,12 @@
       <div class="zoom-wrapper">
         <div class="noSelect">
           <button type="button" id='zoom-in-embed' class="" style="font-size: 25px;">
-            <span class="fa fa-search-plus" aria-hidden="true" title="Zoom In"></span>
+            <span class="fa fa-search-plus" aria-hidden="true" title="<%= t("simulator.tooltip.zoom_in") %>"></span>
           </button>
         </div>
         <div class="noSelect">
           <button type="button" id='zoom-out-embed' class="" style="font-size: 25px;">
-            <span class="fa fa-search-minus" aria-hidden="true" title="Zoom Out"></span>
+            <span class="fa fa-search-minus" aria-hidden="true" title="<%= t("simulator.tooltip.zoom_out") %>"></span>
           </button>
         </div>
       </div>
@@ -57,8 +57,7 @@
               z-index: 2;"
              href= "/users/<%=@author%>/projects/<%=@logix_project_id%>"
              target="_blank">
-            Made With CircuitVerse
-          </a>
+            <%= t("simulator.made_with_circuitverse") %></a>
 
         </div>
       <% end %>
