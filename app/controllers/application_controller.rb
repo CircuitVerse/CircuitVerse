@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
   def set_locale
     I18n.locale = params[:locale]
     if user_signed_in?
-      User.update(locale: I18n.locale)
+      current_user.update(locale: I18n.locale)
     else
      session[:locale] = I18n.locale
     end    

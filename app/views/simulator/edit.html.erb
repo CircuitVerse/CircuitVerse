@@ -63,7 +63,14 @@
         </ul>
       </li>
       
-      
+      <li class="dropdown nav-dropdown">
+        <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("header.language") %><span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <% I18nSupport.locale_names.each do |locale_array| %>
+              <li><%= link_to locale_array[0], {locale: locale_array[1]}, class: 'dropdown-item text-left pl-1' %></li>
+            <% end %>
+          </ul>
+      </li>
     </ul>
       <span class="projectName noSelect defaultCursor font-weight-bold" id="projectName">
         <%= t("simulator.nav.untitled_project") %>
@@ -195,17 +202,17 @@
   </div>
   <div class="panel-body">
     <div class='timing-diagram-toolbar noSelect'>
-      <button class='custom-btn--primary panel-button' title="<%= t("simulator.panel_header.decrease_size") %>"><span class="fas fa-chevron-left timing-diagram-smaller panel-button-icon"></span></button>
-      <button class='custom-btn--primary panel-button' title="<%= t("simulator.panel_header.increase_size") %>"><span class="fas fa-chevron-right timing-diagram-larger panel-button-icon"></span></button>
-      <button class='custom-btn--primary panel-button' title="<%= t("simulator.panel_header.decrease_height") %>"><span class="fas fa-chevron-up timing-diagram-small-height panel-button-icon"></span></button>
-      <button class='custom-btn--primary panel-button' title="<%= t("simulator.panel_header.increase_height") %>"><span class="fas fa-chevron-down timing-diagram-large-height panel-button-icon"></span></button>
-      <button class='custom-btn--primary panel-button' title="<%= t("simulator.panel_header.download_as_image") %>"><span class="fas fa-download timing-diagram-download"></button>
-      <button class='custom-btn--tertiary panel-button' title="<%= t("simulator.panel_header.reset_timing_diagram") %>"><span class="fas fa-undo timing-diagram-reset"></button>
-      <button class='custom-btn--tertiary panel-button' title="<%= t("simulator.panel_header.autocalibrate_cycle_units") %>"><span class="fas fa-magic timing-diagram-calibrate"></button>
-      <button class='custom-btn--primary panel-button' title="<%= t("simulator.panel_header.zoom_in") %>"><span class="fas fa-search-plus timing-diagram-zoom-in"></button>
-      <button class='custom-btn--primary panel-button' title="<%= t("simulator.panel_header.zoom_out") %>"><span class="fas fa-search-minus timing-diagram-zoom-out"></button>
-      <button class='custom-btn--primary panel-button' title="<%= t("simulator.panel_header.resume_timing_diagram") %>"><span class="fas fa-play timing-diagram-resume"></button>
-      <button class='custom-btn--primary panel-button' title="<%= t("simulator.panel_header.pause_timing_diagram") %>"><span class="fas fa-pause timing-diagram-pause"></button>
+     tton class='custom-btn--primary panel-button' title="<%= t("simulator.tooltip.decrease_size") %>"><span class="fas fa-chevron-left timing-diagram-smaller panel-button-icon"></span></button>
+      <button class='custom-btn--primary panel-button' title="<%= t("simulator.tooltip.increase_size") %>"><span class="fas fa-chevron-right timing-diagram-larger panel-button-icon"></span></button>
+      <button class='custom-btn--primary panel-button' title="<%= t("simulator.tooltip.decrease_height") %>"><span class="fas fa-chevron-up timing-diagram-small-height panel-button-icon"></span></button>
+      <button class='custom-btn--primary panel-button' title="<%= t("simulator.tooltip.increase_height") %>"><span class="fas fa-chevron-down timing-diagram-large-height panel-button-icon"></span></button>
+      <button class='custom-btn--primary panel-button' title="<%= t("simulator.tooltip.download_as_image") %>"><span class="fas fa-download timing-diagram-download"></button>
+      <button class='custom-btn--tertiary panel-button' title="<%= t("simulator.tooltip.reset_timing_diagram") %>"><span class="fas fa-undo timing-diagram-reset"></button>
+      <button class='custom-btn--tertiary panel-button' title="<%= t("simulator.tooltip.autocalibrate_cycle_units") %>"><span class="fas fa-magic timing-diagram-calibrate"></button>
+      <button class='custom-btn--primary panel-button' title="<%= t("simulator.tooltip.zoom_in") %>"><span class="fas fa-search-plus timing-diagram-zoom-in"></button>
+      <button class='custom-btn--primary panel-button' title="<%= t("simulator.tooltip.zoom_out") %>"><span class="fas fa-search-minus timing-diagram-zoom-out"></button>
+      <button class='custom-btn--primary panel-button' title="<%= t("simulator.tooltip.resume_timing_diagram") %>"><span class="fas fa-play timing-diagram-resume"></button>
+      <button class='custom-btn--primary panel-button' title="<%= t("simulator.tooltip.pause_timing_diagram") %>"><span class="fas fa-pause timing-diagram-pause"></button>
       <%= t("simulator.panel_body.timing_diagram.one_cycle_unit_html") %>
       <span id='timing-diagram-log'></span>
     </div>
