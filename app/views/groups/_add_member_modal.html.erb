@@ -36,9 +36,20 @@
           <span>Group Invite Link</span>
         <% end %>
         <div class="collapse" id="collapseExample">
-          <textarea id="embedInviteLink" class="group-invite-link-text" rows="4" cols="35"></textarea>
+          <textarea id="embedInviteLink" class="group-invite-link-text form-control form-input" rows="4" cols="35"></textarea>
+          <button id="copy_to_clipboard" class='btn primary-button'>Copy link</button>
         </div>
       </div>
     </div>
   </div>
 </div>
+<script>
+  document.getElementById('copy_to_clipboard').addEventListener("click", clipboard);
+  function clipboard(){
+      const copyText = document.getElementById("embedInviteLink");
+      copyText.select();
+      copyText.setSelectionRange(0, 99999);
+      navigator.clipboard.writeText(copyText.value);
+      document.getElementById('copy_to_clipboard').innerHTML = "Copied!"; 
+  }
+</script>

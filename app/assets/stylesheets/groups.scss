@@ -451,4 +451,10 @@
     display: inline;
   }
 }
+
+.collapse {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 //groups ends
