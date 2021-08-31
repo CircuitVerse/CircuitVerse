@@ -31,25 +31,24 @@
       </div>
       <div class="mx-auto text-center p-3">
         <p>OR USE</p>
-        <%= button_to generate_token_group_path,{remote: true,method: :put,class: 'btn primary-button', 'data-toggle':'collapse', 'href':'#collapseExample', 'aria-expanded':'false', 'aria-controls':'collapseExample'} do %>
+        <%= button_to generate_token_group_path,{remote: true,method: :put,class: 'btn primary-button', 'data-toggle':'collapse', 'href':'#collapseExample', 'aria-expanded':'false', 'aria-controls':'collapseExample', id: "clipboard_b"} do %>
           <i class="fas fa-external-link-alt"></i>
-          <span>Group Invite Link</span>
+          <span >Group Invite Link</span>
         <% end %>
         <div class="collapse" id="collapseExample">
-          <textarea id="embedInviteLink" class="group-invite-link-text form-control form-input" rows="4" cols="35"></textarea>
-          <button id="copy_to_clipboard" class='btn primary-button'>Copy link</button>
+          <textarea id="embedInviteLink" class="group-invite-link-text" rows="4" cols="35"></textarea>
+          <small class="projectshow-embed-text-confirmation">Copied to Clipboard!</small>
         </div>
       </div>
     </div>
   </div>
 </div>
 <script>
-  document.getElementById('copy_to_clipboard').addEventListener("click", clipboard);
-  function clipboard(){
-      const copyText = document.getElementById("embedInviteLink");
-      copyText.select();
-      copyText.setSelectionRange(0, 99999);
-      navigator.clipboard.writeText(copyText.value);
-      document.getElementById('copy_to_clipboard').innerHTML = "Copied!"; 
-  }
+document.getElementById('clipboard_b').addEventListener("click", copy_to_clipboard);
+function copy_to_clipboard(){
+  setTimeout(function(){
+    $("#embedInviteLink").select();
+    document.execCommand("copy")
+  },1000);
+}
 </script>
