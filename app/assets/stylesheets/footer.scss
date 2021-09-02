@@ -43,8 +43,8 @@
 
 .bounce-out-on-hover:hover, .bounce-out-on-hover:focus, .bounce-out-on-hover:active {
   transform: scale(0.8);
-  -webkit-transform: scale(0.8);
   transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+  -webkit-transform: scale(0.8);
   -webkit-transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
 }
 
