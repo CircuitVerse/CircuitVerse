@@ -39,11 +39,11 @@
   vertical-align: middle;
 }
 
-.bounce-out-on-hover:hover, 
-.bounce-out-on-hover:focus, 
+.bounce-out-on-hover:hover,
+.bounce-out-on-hover:focus,
 .bounce-out-on-hover:active {
- transform: scale(.8);
- transition-timing-function: cubic-bezier(.47, 2.02, .31, -.36);
+  transform: scale(.8);
+  transition-timing-function: cubic-bezier(.47, 2.02, .31, -.36);
 }
 
 .footer-links {
