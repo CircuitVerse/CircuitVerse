@@ -32,20 +32,18 @@
 }
 
 .bounce-out-on-hover {
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  box-shadow: 0 0 1px $black;
   display: inline-block;
   transform: perspective(1px) translateZ(0);
-  transition-duration: 0.5s;
+  transition-duration: .5s;
   vertical-align: middle;
-  -webkit-transform: perspective(1px) translateZ(0);
-  -webkit-transition-duration: 0.5s;
 }
 
-.bounce-out-on-hover:hover, .bounce-out-on-hover:focus, .bounce-out-on-hover:active {
-  transform: scale(0.8);
-  transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
-  -webkit-transform: scale(0.8);
-  -webkit-transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+.bounce-out-on-hover:hover, 
+.bounce-out-on-hover:focus, 
+.bounce-out-on-hover:active {
+ transform: scale(.8);
+ transition-timing-function: cubic-bezier(.47, 2.02, .31, -.36);
 }
 
 .footer-links {
