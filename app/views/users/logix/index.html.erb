@@ -57,7 +57,10 @@
         <button id="favourite-circuits" class="btn users-circuits-tab users-favourites-tab"><%= t("users.logix.index.favourite_circuits") %></button>
         <button id="collaborator-circuits" class="btn users-circuits-tab users-collaborators-tab"><%= t("users.logix.index.collaborated_circuits") %></button>
       </div>
-      <input type="search" class="users-circuits-search" placeholder="<%= t("users.logix.index.search_circuits") %>">
+      <div class="icon-search-align">
+        <span class="fa fa-search user-circuits-search-icon" tabindex="0" aria-label="search"></span>
+        <input type="search" class="users-circuits-search" placeholder="<%= t("users.logix.index.search_circuits") %>">
+      </div>
     </div>
   </div>
   <div class="users-circuits-container">
