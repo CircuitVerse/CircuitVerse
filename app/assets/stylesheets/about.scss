@@ -128,10 +128,10 @@
 }
 
 //Next & previous buttons
-.prev, 
+.prev,
 .next {
   border-radius: 0 3px 3px 0;
-  color:$primary-green;
+  color: $primary-green;
   cursor: pointer;
   font-size: 20px;
   font-weight: bold;
@@ -151,8 +151,9 @@
 }
 
 //On hover, add a black background color with a little bit see-through
-.prev:hover, .next:hover {
-  background-color:$primary-green;
+.prev:hover,
+.next:hover {
+  background-color: $primary-green;
   color: $white;
 }
 
@@ -175,8 +176,8 @@
   width: 15px;
 }
 
-// Add a background color to the active dot/circle
+//Add a background color to the active dot/circle
  .dot:hover,
  .dot.active {
-  background-color:$primary-green;
+  background-color: $primary-green;
 }
