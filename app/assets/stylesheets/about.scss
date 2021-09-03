@@ -12,6 +12,61 @@
   }
 }
 
+.members-container {
+  margin-top: 20px;
+  padding: 20px;
+}
+
+.member-card{
+  border: 1px solid $primary-green;
+  border-radius: 8%;
+  display: inline-block;
+  height: 250px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  max-width: 320px;
+  min-width: 260px;
+}
+
+.member-card-image{
+  border-radius: 20px 20px 0 0;
+  max-height: 180px;
+  max-width: 100%;
+
+  &:hover {
+    opacity: .7;
+  }
+}
+
+.member-card-button {
+  float: right;
+  margin-bottom: 25px;
+}
+
+.member-github-link {
+  margin-left: 5px;
+  margin-right: 5px;
+  width: 40px;
+}
+
+.member-card-footer{
+  background-color: $white;
+  border-top: 1px solid $primary-green;
+  padding-top: 10px;
+}
+
+.member-name{
+  display: block;
+  float: left;
+  font-weight: 600;
+  margin-top: 10px;
+  max-height: 30px;
+  max-width: 150px;
+  overflow: hidden;
+  text-align: left;
+  text-overflow: ellipsis;
+}
+
 .about-contributors-section {
   align-items: center;
   display: flex;
@@ -58,4 +113,69 @@
   .about-social-card-2 {
     margin-top: 10px;
   }
+}
+
+/* Slideshow container */
+.slideshow-container {
+  background: $white;
+  position: relative;
+}
+
+/* Slides */
+.mySlides {
+  display: none;
+  text-align: center;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  border-radius: 0 3px 3px 0;
+  color:$primary-green;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: -30px;
+  padding: 16px;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  border-radius: 3px 0 0 3px;
+  position: absolute;
+  right: 0;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color:$primary-green;
+  color: $white;
+}
+
+/* The dot/bullet/indicator container */
+.dot-container {
+  background: $white;
+  padding: 20px;
+  text-align: center;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  background-color: $iframe-container-grey;
+  border-radius: 50%;
+  cursor: pointer;
+  display: inline-block;
+  height: 15px;
+  margin: 0 2px;
+  transition: background-color 0.6s ease;
+  width: 15px;
+}
+
+/* Add a background color to the active dot/circle */
+ .dot:hover,
+ .dot.active {
+  background-color:$primary-green;
 }

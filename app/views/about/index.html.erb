@@ -31,6 +31,94 @@
     </div>
   </div>
   <hr>
+  <div class="slideshow-container">
+  <div class="mySlides">
+  <% content_for :title, "CircuitVerse - Core Members" %>
+  <div class="container">
+    <div class="row center-row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <h2 class="main-heading">CORE TEAM</h2>
+        <p class="main-description">CircuitVerse is lead by an experienced team that is dedicated to innovation and excellence</p>
+      </div>
+    </div>
+    <div class="row center-row members-container">
+      <% @cores.each do |member| %>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+          <div class="member-card">
+            <%= image_tag member[:img], alt: member[:name], :class => "card-img-top member-card-image" %>
+            <div class="card-footer member-card-footer">
+              <div class="member-name">
+                <p><%= member[:name] %></p>
+              </div>
+              <a class="member-card-button" target="_blank" href="<% member[:link] %>"><%= image_tag "SVGs/github.svg",alt: "Github Icon", :class => "member-github-link" %></a>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  </div>
+  <div class="mySlides">
+  <% content_for :title, "CircuitVerse - Mentors" %>
+  <div class="container">
+    <div class="row center-row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <h2 class="main-heading">MENTORS</h2>
+        <p class="main-description">Our mentors supports and encourages the professional development of the mentee and provides active guidance to help them for the fruitful development of our community.</p>
+      </div>
+    </div>
+    <div class="row center-row members-container">
+      <% @mentors.each do |member| %>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+          <div class="member-card">
+            <%= image_tag member[:img], alt: member[:name], :class => "card-img-top member-card-image" %>
+            <div class="card-footer member-card-footer">
+              <div class="member-name">
+                <p><%= member[:name] %></p>
+              </div>
+              <a class="member-card-button" target="_blank" href="<% member[:link] %>"><%= image_tag "SVGs/github.svg",alt: "Github Icon", :class => "member-github-link" %></a>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  </div>
+  <div class="mySlides">
+  <% content_for :title, "CircuitVerse - Alumni" %>
+  <div class="container">
+    <div class="row center-row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <h2 class="main-heading">ALUMNI</h2>
+        <p class="main-description">We also want to thank all past members for their invaluable contributions!</p>
+      </div>
+    </div>
+    <div class="row center-row members-container">
+      <% @_alumni.each do |member| %>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+          <div class="member-card">
+            <%= image_tag member[:img], alt: member[:name], :class => "card-img-top member-card-image" %>
+            <div class="card-footer member-card-footer">
+              <div class="member-name">
+                <p><%= member[:name] %></p>
+              </div>
+              <a class="member-card-button" target="_blank" href="<% member[:link] %>"><%= image_tag "SVGs/github.svg",alt: "Github Icon", :class => "member-github-link" %></a>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  </div>
+  <a class="prev" onclick="plusSlides(-1)">❮</a>
+  <a class="next" onclick="plusSlides(1)">❯</a>
+  </div>
+  <div class="dot-container">
+  <span class="dot" onclick="currentSlide(1)"></span> 
+  <span class="dot" onclick="currentSlide(2)"></span> 
+  <span class="dot" onclick="currentSlide(3)"></span> 
+  </div>
+  <hr>
   <div class="row center-row">
     <div class="col-xs col-sm col-md col-lg">
       <h2 class="submain-heading"><%= t("about.contributors_heading") %></h2>
@@ -39,7 +127,6 @@
   </div>
   <div class="row center-row">
     <div class="about-contributors-section">
-
     </div>
   </div>
   <br>
@@ -69,4 +156,32 @@
     }
   }
   getContributors('https://api.github.com/repos/CircuitVerse/CircuitVerse/contributors');
+</script>
+<script>
+var slideIndex = 1;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}    
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";  
+  }
+  for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " active";
+}
 </script>
