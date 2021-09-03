@@ -139,8 +139,8 @@
   padding: 16px;
   position: absolute;
   top: 50%;
-  width: auto;
   user-select: none;
+  width: auto;
 }
 
 //Position the "next button" to the right
@@ -172,12 +172,12 @@
   display: inline-block;
   height: 15px;
   margin: 0 2px;
-  transition: background-color 0.6s ease;
+  transition: background-color .6s ease;
   width: 15px;
 }
 
 //Add a background color to the active dot/circle
- .dot:hover,
- .dot.active {
+.dot:hover,
+.dot.active {
   background-color: $primary-green;
 }
