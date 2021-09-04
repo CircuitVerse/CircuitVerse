@@ -31,7 +31,7 @@
   </div>
   <hr>
   <div class="slideshow-container">
-  <div class="mySlides">
+  <div class="myslides">
   <% content_for :title, "CircuitVerse - Core Members" %>
   <div class="container">
     <div class="row center-row">
@@ -57,7 +57,7 @@
     </div>
   </div>
   </div>
-  <div class="mySlides">
+  <div class="myslides">
   <% content_for :title, "CircuitVerse - Mentors" %>
   <div class="container">
     <div class="row center-row">
@@ -83,7 +83,7 @@
     </div>
   </div>
   </div>
-  <div class="mySlides">
+  <div class="myslides">
   <% content_for :title, "CircuitVerse - Alumni" %>
   <div class="container">
     <div class="row center-row">
@@ -167,7 +167,7 @@ function currentSlide(n) {
 }
 function showSlides(n) {
   var i;
-  var slides = document.getElementsByClassName("mySlides");
+  var slides = document.getElementsByClassName("myslides");
   var dots = document.getElementsByClassName("dot");
   if (n > slides.length) {slideIndex = 1}
   if (n < 1) {slideIndex = slides.length}
