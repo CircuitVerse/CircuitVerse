@@ -20,7 +20,7 @@
     "eslint-plugin-import": "^2.24.2",
     "expose-loader": "^0.7.5",
     "jsdoc": "3.6.6",
-    "webpack-bundle-analyzer": "^4.4.0",
+    "webpack-bundle-analyzer": "^4.4.2",
     "webpack-dev-server": "^4.1.0"
   },
   "dependencies": {
