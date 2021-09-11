@@ -42,15 +42,13 @@
 
 //project details
 .projects-iframe-container {
-  border: 1.5px solid $shadow-black;
+  border: 1.5px solid $primary-green;
   margin-bottom: 20px;
   padding: 10px;
 }
 
 .projects-details {
-  background-color: $project-card-grey;
-  padding-left: 0;
-  padding-right: 0;
+  background-color: $white
 }
 
 .projects-details-heading-container {
@@ -61,29 +59,44 @@
 }
 
 .projects-details-heading {
-  color: $white;
-  font-size: 25px;
+  color: $black;
+  font-size: 35px;
   font-weight: 600;
   height: 35px;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  padding-top: 10px;
+  padding-left: 2px;
+  text-align: left;
 }
 
 .projects-views-count-container {
   color: $black;
   display: block;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 300;
   margin-bottom: 8px;
-  margin-right: 0;
-  margin-top: 5px;
-  padding-right: 8px;
-  text-align: right;
+  padding-top: 2px;
+  padding-left: 18px;
+  text-align: left;
 }
 
+.projects-stars-count-container{
+  color: $black;
+  display: block;
+  font-size: 14px;
+  font-weight: 300;
+  margin-bottom: 8px;
+  margin-right: 0;
+  margin-top: 10px;
+  
+  text-align: right;
+}
 .projects-star-count-icon {
   color: $star-yellow;
 }
+
+.custom-cont{
+  height: 500px;
+  }
 
 .projects-user-details-container {
   padding: 0 20px 15px;
@@ -238,3 +251,4 @@
 }
 
 // collaborators tags input closes
+

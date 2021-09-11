@@ -27,39 +27,69 @@
   <% end %>
   <br>
   <div class="row center-row">
-    <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 ">
+    <div class="container">
       <div class="projects-iframe-container">
-        <div class="embed-responsive embed-responsive-4by3">
+        <div class="embed-responsive embed-responsive-4by3 custom-cont">
           <iframe src=<%= simulator_path(@project) %> id="view" webkitAllowFullScreen mozAllowFullScreen allowFullScreen scrolling="no"></iframe>
         </div>
       </div>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
-      <div class="container projects-details">
-        <div class="row center-row projects-details-heading-container">
-          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div class="projects-details-heading">
-              <%= @project.name %>
-            </div>
-          </div>
-        </div>
+  </div>
+  <div class="container projects-details ">
+    <div class="row">
+      <div class="col">
+        <p class="projects-details-heading">
+        <%= @project.name %></p>
         <div class="row projects-views-count-container noSelect">
-          <i class="fas fa-star projects-star-count-icon" aria-hidden="true"></i>
-          <span id="star-count" class="noSelect"><%= @project.stars.count %></span>
-           Stars
-          &nbsp; &nbsp;
-          <i class="fa fa-eye" aria-hidden="true"></i>
           <span id="star-count" class="noSelect"><%= @project.view %></span>
-           Views &nbsp; &nbsp;
+          Views &nbsp; &nbsp;
         </div>
+      </div>
+      <div class="col">
+    <% if user_signed_in? %>
+      <p>
+        <div class="row projects-stars-count-container noSelect">
+        <% if policy(@project).user_access? %>
+          <a href="<%= simulator_edit_path(@project) %>" class="btn primary-button projects-primary-button" target="_blank">Launch simulator</a>
+        <% else %>
+          <a class="btn primary-button projects-primary-button projects-others-embed-button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" onclick="embedOther()">
+            <i class="fas fa-code"></i>
+            <span>Embed</span>
+          </a>
+        <% end %>
+        <% if policy(@project).author_access? %>
+          <%= link_to create_fork_project_path(@project), class: "btn primary-button projects-primary-button" do %>
+          <%= image_tag("SVGs/createCopy.svg", alt: "Create Copy") %>
+          <span>Create Copy</span>
+        <% end %>
+        <% else %>
+          <%= link_to create_fork_project_path(@project), class: "btn primary-button projects-primary-button" do %>
+          <%= image_tag("SVGs/forkProject.svg", alt: "Fork Project") %>
+          <span>Fork</span>
+          <% end %>
+          <% end %>
+        <% if @project.stars.exists?(user_id: current_user.id) %>
+          <i id="toggleStarButton" class="fas fa-star btn primary-button projects-primary-button projects-button-star-icon" aria-hidden="true" onclick="toggleStar()"><%= @project.stars.count %></i>
+        <% else %>
+          <i id="toggleStarButton" class="far fa-star btn primary-button projects-primary-button projects-button-star-icon" aria-hidden="true" onclick="toggleStar()"></i>
+        <% end %>
+      </p>
+    <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
         <div class="row center-row projects-user-details-container">
           <div class="projects-search-tags-container">
             <% if !@project.tags.empty? %>
+            <p class="badge search-tag"><%= @project.project_access_type%></p>
               <% @project.tags.each do |tag| %>
-                <%= link_to tag.name, tag_path(tag.name),class: "badge search-tag" %>
+                <%= link_to tag.name,tag_path(tag.name),class: "badge search-tag" %>
               <% end %>
             <% end %>
           </div>
+<br><br>
+      <hr class="projects-horizontal-rule"><br><br>
           <p>
             <strong>Author: </strong>
             <%= link_to @project.author.name, @project.author, class: "anchor-text" %>
@@ -70,10 +100,7 @@
               <%= link_to @project.forked_project.author.name+"/"+@project.forked_project.name, user_project_path(@project.forked_project.author,@project.forked_project), class: "anchor-text" %>
             </p>
           <% end %>
-          <p>
-            <strong>Project access type: </strong>
-            <%= @project.project_access_type %>
-          </p>
+          <br><br><br><br>
           <% if !@project.description.nil? %>
             <p>
               <strong>Description: </strong>
@@ -96,35 +123,12 @@
               <%= @project.updated_at.strftime("%b %d, %Y") %>
             <% end %>
           </p>
-          <% if user_signed_in? %>
-            <p>
+          
               <hr class="projects-horizontal-rule">
-              <% if policy(@project).user_access? %>
-                <a href="<%= simulator_edit_path(@project) %>" class="btn primary-button projects-primary-button" target="_blank">Launch simulator</a>
-              <% else %>
-                <a class="btn primary-button projects-primary-button projects-others-embed-button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" onclick="embedOther()">
-                  <i class="fas fa-code"></i>
-                  <span>Embed</span>
-                </a>
-              <% end %>
-              <% if policy(@project).author_access? %>
-                <%= link_to create_fork_project_path(@project), class: "btn primary-button projects-primary-button" do %>
-                  <%= image_tag("SVGs/createCopy.svg", alt: "Create Copy") %>
-                  <span>Create Copy</span>
-                <% end %>
-              <% else %>
-                  <%= link_to create_fork_project_path(@project), class: "btn primary-button projects-primary-button" do %>
-                  <%= image_tag("SVGs/forkProject.svg", alt: "Fork Project") %>
-                  <span>Fork</span>
-                <% end %>
-              <% end %>
-              <% if @project.stars.exists?(user_id: current_user.id) %>
-                <i id="toggleStarButton" class="fas fa-star btn primary-button projects-primary-button projects-button-star-icon" aria-hidden="true" onclick="toggleStar()"></i>
-              <% else %>
-                <i id="toggleStarButton" class="far fa-star btn primary-button projects-primary-button projects-button-star-icon" aria-hidden="true" onclick="toggleStar()"></i>
-              <% end %>
-            </p>
-          <% end %>
+
+
+            
+          
           <% if policy(@project).author_access? %>
             <p>
               <a href="#" class="anchor-text" id="<%= @project.id %>" data-toggle="modal" data-target="#collaboratorModal">+ Add a Collaborator</a>
