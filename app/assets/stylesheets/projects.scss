@@ -48,7 +48,7 @@
 }
 
 .projects-details {
-  background-color: $white
+  background-color: $white;
 }
 
 .projects-details-heading-container {
@@ -76,7 +76,7 @@
   text-align: left;
 }
 
-.projects-stars-count-container{
+.projects-stars-count-container {
   color: $black;
   display: block;
   font-size: 14px;
@@ -90,7 +90,7 @@
   color: $star-yellow;
 }
 
-.custom-container{
+.custom-container {
   max-height: 500px;
 }
 
@@ -169,16 +169,16 @@
 
 
 .projects-collaborators-heading {
-  display: block;
   background-color: $white;
   color: $black;
+  display: block;
   font-size: 25px;
   font-weight: 600;
   height: 55px;
-  text-align: left;
   margin-bottom: 10px;
-
+  text-align: left;
 }
+
 .projects-collaborators-userdata {
   overflow: hidden;
   padding: 5px 15px;
