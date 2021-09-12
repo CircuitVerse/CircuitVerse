@@ -60,11 +60,8 @@
 
 .projects-details-heading {
   color: $black;
-  font-size: 35px;
-  font-weight: 600;
-  height: 35px;
-  padding-top: 10px;
   padding-left: 2px;
+  padding-top: 10px;
   text-align: left;
 }
 
@@ -74,8 +71,8 @@
   font-size: 14px;
   font-weight: 300;
   margin-bottom: 8px;
-  padding-top: 2px;
   padding-left: 18px;
+  padding-top: 2px;
   text-align: left;
 }
 
@@ -87,7 +84,6 @@
   margin-bottom: 8px;
   margin-right: 0;
   margin-top: 10px;
-  
   text-align: right;
 }
 .projects-star-count-icon {
@@ -95,8 +91,8 @@
 }
 
 .custom-container{
-  height: 500px;
-  }
+  max-height: 500px;
+}
 
 .projects-user-details-container {
   padding: 0 20px 15px;
@@ -249,3 +245,9 @@
 }
 
 // collaborators tags input closes
+
+@media screen and (max-width: 820px) {
+  .projects-details-heading {
+    font-size: 20px;
+  }
+}
