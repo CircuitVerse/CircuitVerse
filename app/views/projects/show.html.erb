@@ -75,12 +75,13 @@
           <% else %>
           <i id="toggleStarButton" class="far fa-star btn primary-button projects-primary-button projects-button-star-icon" aria-hidden="true" onclick="toggleStar()"></i>
           <% end %>
-          </p>
-          <% end %>
         </div>
+        </p>
+        <% end %>
       </div>
     </div>
   </div>
+  <% if user_signed_in? %>
   <div class="row center-row projects-user-details-container">
     <div class="projects-search-tags-container">
       <p class="badge search-tag"><%= @project.project_access_type%></p>
@@ -91,6 +92,7 @@
       <% end %>
     </div>
   </div>
+  <% end %>
   <hr class="projects-horizontal-rule">
   <div class="container">
     <div class="row">
@@ -199,7 +201,7 @@
 <%= render partial: "add_collaborator_modal" %>
 <%= render partial: "delete_project_confirmation_modal" %>
 <%= render partial: "delete_collaboration_confirmation_modal" %>
-</div>
+</div></div>
 
 <%= commontator_thread(@project) if Flipper.enabled?(:project_comments) %>
 
