@@ -84,7 +84,7 @@
   <% if user_signed_in? %>
   <div class="row center-row projects-user-details-container">
     <div class="projects-search-tags-container">
-      <p class="badge search-tag"><%=@project.project_access_type%></p>
+      <p class="badge search-tag"><%= @project.project_access_type %></p>
       <% if !@project.tags.empty? %>
         <% @project.tags.each do |tag| %>
         <%= link_to tag.name,tag_path(tag.name),class: "badge search-tag" %>
