@@ -171,11 +171,9 @@
   text-align: right;
 }
 
-.projects-collaborators-container {
-  background-color: $project-card-grey;
-}
 
 .projects-collaborators-heading {
+  display: block;
   background-color: $white;
   color: $black;
   font-size: 25px;
@@ -185,8 +183,7 @@
   margin-bottom: 10px;
 
 }
-
-.projects-collaborators-data {
+.projects-collaborators-userdata {
   overflow: hidden;
   padding: 5px 15px;
   text-align: left;
@@ -252,4 +249,3 @@
 }
 
 // collaborators tags input closes
-
