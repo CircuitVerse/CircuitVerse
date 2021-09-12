@@ -176,13 +176,14 @@
 }
 
 .projects-collaborators-heading {
-  background-color: $primary-green;
-  color: $white;
+  background-color: $white;
+  color: $black;
   font-size: 25px;
   font-weight: 600;
   height: 55px;
+  text-align: left;
   margin-bottom: 10px;
-  padding: 10px;
+
 }
 
 .projects-collaborators-data {
