@@ -42,15 +42,13 @@
 
 //project details
 .projects-iframe-container {
-  border: 1.5px solid $shadow-black;
+  border: 1.5px solid $primary-green;
   margin-bottom: 20px;
   padding: 10px;
 }
 
 .projects-details {
-  background-color: $project-card-grey;
-  padding-left: 0;
-  padding-right: 0;
+  background-color: $white;
 }
 
 .projects-details-heading-container {
@@ -61,28 +59,40 @@
 }
 
 .projects-details-heading {
-  color: $white;
-  font-size: 25px;
-  font-weight: 600;
-  height: 35px;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  color: $black;
+  padding-left: 2px;
+  padding-top: 10px;
+  text-align: left;
 }
 
 .projects-views-count-container {
   color: $black;
   display: block;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 300;
+  margin-bottom: 8px;
+  padding-left: 18px;
+  padding-top: 2px;
+  text-align: left;
+}
+
+.projects-stars-count-container {
+  color: $black;
+  display: block;
+  font-size: 14px;
+  font-weight: 300;
   margin-bottom: 8px;
   margin-right: 0;
-  margin-top: 5px;
-  padding-right: 8px;
+  margin-top: 10px;
   text-align: right;
 }
 
 .projects-star-count-icon {
   color: $star-yellow;
+}
+
+.custom-container {
+  max-height: 500px;
 }
 
 .projects-user-details-container {
@@ -158,21 +168,19 @@
   text-align: right;
 }
 
-.projects-collaborators-container {
-  background-color: $project-card-grey;
-}
 
 .projects-collaborators-heading {
-  background-color: $primary-green;
-  color: $white;
+  background-color: $white;
+  color: $black;
+  display: block;
   font-size: 25px;
   font-weight: 600;
   height: 55px;
   margin-bottom: 10px;
-  padding: 10px;
+  text-align: left;
 }
 
-.projects-collaborators-data {
+.projects-collaborators-userdata {
   overflow: hidden;
   padding: 5px 15px;
   text-align: left;
@@ -238,3 +246,9 @@
 }
 
 // collaborators tags input closes
+
+@media screen and (max-width: 820px) {
+  .projects-details-heading {
+    font-size: 20px;
+  }
+}
