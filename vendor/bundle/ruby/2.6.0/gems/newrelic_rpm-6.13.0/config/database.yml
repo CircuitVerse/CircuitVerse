@@ -1,5 +1,0 @@
-# This config is used when setting up a basic rails environment for running the
-# unit tests.
-test:
-  database: ':memory:'
-  adapter: 'sqlite3'

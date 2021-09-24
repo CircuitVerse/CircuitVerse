@@ -1,6 +1,0 @@
---no-private
---hide-api private
---plugin activesupport-concern
---exclude /templates/
-app/**/*.rb
-lib/**/*.rb

@@ -1,6 +1,0 @@
----
-pt-BR:
-  errors:
-    attributes:
-      email:
-        undisposable: "é de um domínio bloqueado"

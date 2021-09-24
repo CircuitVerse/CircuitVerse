@@ -1,8 +1,0 @@
-require 'ffi-compiler/compile_task'
-
-FFI::Compiler::CompileTask.new('http-parser-ext') do |t|
-  t.cflags << "-Wall -Wextra -O3"
-  t.cflags << "-D_GNU_SOURCE=1" if RbConfig::CONFIG["host_os"].downcase =~ /mingw/
-  t.cflags << "-arch x86_64" if t.platform.mac?
-  t.ldflags << "-arch x86_64" if t.platform.mac?
-end
