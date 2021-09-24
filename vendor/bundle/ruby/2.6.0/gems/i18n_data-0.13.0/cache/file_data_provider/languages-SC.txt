@@ -1,0 +1,184 @@
+AA;;Afar
+AB;;Abcasu
+AF;;Afrikaans
+AK;;Akan
+AM;;Amàricu
+AR;;Àrabu
+AN;;Aragonesu
+AS;;Assamesu
+AV;;Avaru
+AE;;Avèsticu
+AY;;Aimarà
+AZ;;Azeru
+BA;;Baschiru
+BM;;Bambara
+BE;;Bielorussu
+BN;;Bengalesu
+BH;;Limbas bihari
+BI;;Bislama
+BO;;Tibetanu
+BS;;Bosnìacu
+BR;;Brètonu
+BG;;Bùlgaru
+CA;;Catalanu; Valentzianu
+CS;;Tzecu
+CH;;Chamorru
+CE;;Cecenu
+CU;;Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic
+CV;;Ciuvàsciu
+KW;;Còrnicu
+CO;;Corsu
+CR;;Cree
+CY;;Gallesu
+DA;;Danesu
+DE;;Tedescu
+DV;;Divehi; Dhivehi; Maldivianu
+DZ;;Dzongkha
+EL;;Grecu modernu (1453-)
+EN;;Inglesu
+EO;;Esperanto
+ET;;Èstone
+EU;;Bascu
+EE;;Ewe
+FO;;Faroesu
+FA;;Persianu
+FJ;;Fijianu
+FI;;Finlandesu
+FR;;Frantzesu
+FY;;Frìsonu otzidentale
+FF;;Fulah
+GD;;Gaèlicu, gaèlicu iscotzesu
+GA;;Irlandesu
+GL;;Galitzianu
+GV;;Mannesu
+GN;;Guaranì
+GU;;Gujarati
+HT;;Haitianu; Crèolu haitianu
+HA;;Hausa
+HE;;Ebràicu
+HZ;;Herero
+HI;;Hindi
+HO;;Hiri Motu
+HR;;Croatu
+HU;;Ungheresu
+HY;;Armenu
+IG;;Igbo
+IO;;Ido
+II;;Sichuan Yi; Nuosu
+IU;;Inuktitut
+IE;;Interlìngue; otzidentale
+IA;;Interlìngua (Assòtziu de sa Limba Internatzionale Ausiliària)
+ID;;Indonesianu
+IK;;Inupiaq
+IS;;Islandesu
+IT;;Italianu
+JV;;Giavanesu
+JA;;Giaponesu
+KL;;Kalaallisut; Groenlandesu
+KN;;Kannada
+KS;;Kashmiri
+KA;;Georgianu
+KR;;Kanuri
+KK;;Kazaku
+KM;;Khmer tzentrale
+KI;;Kikuyu; Gikuyu
+RW;;Kinyarwanda
+KY;;Kirghisu; Kyrgyz
+KV;;Komi
+KG;;Kongo
+KO;;Coreanu
+KJ;;Kuanyama; Kwanyama
+KU;;Curdu
+LO;;Laotianu
+LA;;Latinu
+LV;;Lètone
+LI;;Limburghesu
+LN;;Lingala
+LT;;Lituanu
+LB;;Lussemburghesu
+LU;;Luba-Katanga
+LG;;Ganda
+MH;;Marshallesu
+ML;;Malayalam
+MR;;Marathi
+MK;;Matzèdone
+MG;;Malgàsciu
+MT;;Maltesu
+MN;;Mòngolu
+MI;;Maori
+MS;;Malesu
+MY;;Birmanu
+NA;;Nauru
+NV;;Navajo; Navaho
+NR;;Ndebele meridionale
+ND;;Ndebele setentrionale
+NG;;Ndonga
+NE;;Nepalesu
+NL;;Olandesu; Fiammingu
+NN;;Norvegesu Nynorsk; Nynorsk, Norvegesu
+NB;;Bokmål, Norvegesu; Norvegesu Bokmål
+NO;;Norvegesu
+NY;;Chichewa; Chewa; Nyanja
+OC;;Otzitanu (a pustis de su 1500); Proventzale
+OJ;;Ojibwa
+OR;;Oriya
+OM;;Oromo
+OS;;Ossètiu; Ossèticu
+PA;;Panjabi; Punjabi
+PI;;Pali
+PL;;Polacu
+PT;;Portoghesu
+PS;;Pushto; Pashto; Afganu
+QU;;Quechua
+RM;;Romànciu
+RO;;Rumenu; Romenu; Moldavu
+RN;;Rundi
+RU;;Russu
+SG;;Sango
+SA;;Sànscritu
+SI;;Sinhala; Sinhalesu; Singalesu; Cingalesu
+SK;;Islovacu
+SL;;Islovenu
+SE;;Sami setentrionale
+SM;;Samoanu
+SN;;Shona
+SD;;Sindhi
+SO;;Sòmalu
+ST;;Sotho meridionale
+ES;;Ispagnolu; Castiglianu
+SQ;;Albanesu
+SC;;Sardu
+SR;;Serbu
+SS;;Swati
+SU;;Sundanesu
+SW;;Swahili
+SV;;Isvedesu
+TY;;Tahitianu
+TA;;Tamil
+TT;;Tàtaru
+TE;;Telugu
+TG;;Tagicu
+TL;;Tagalog
+TH;;Tailandesu
+TI;;Tigrignu
+TO;;Tonga (Ìsulas Tonga)
+TN;;Tswana
+TS;;Tsonga
+TK;;Turcmenu
+TR;;Turcu
+TW;;Twi
+UG;;Uiguru
+UK;;Ucrainu
+UR;;Urdu
+UZ;;Uzbecu
+VE;;Venda
+VI;;Vietnamita
+VO;;Volapuk
+WA;;Vallonu
+WO;;Wolof
+XH;;Xhosa
+YI;;Yiddish
+YO;;Yoruba
+ZA;;Zhuang; Chuang
+ZH;;Tzinesu
+ZU;;Zulu

@@ -1,0 +1,10 @@
+Dear <%= @target.printable_target_name %>
+
+<%= @notification.notifier.present? ? @notification.notifier.printable_notifier_name : 'Someone' %> notified you of <%= @notification.notifiable.printable_notifiable_name(@notification.target) %><%= " in #{@notification.group.printable_group_name}" if @notification.group.present? %>.
+
+<%= "Move to notified #{@notification.notifiable.printable_type.downcase}:" %>
+  <%= move_notification_url_for(@notification, open: true) %>
+
+Thank you!
+
+<%= @notification.created_at.strftime("%b %d %H:%M") %>

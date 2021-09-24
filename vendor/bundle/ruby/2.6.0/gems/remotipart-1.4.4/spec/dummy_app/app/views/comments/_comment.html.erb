@@ -1,0 +1,9 @@
+<tr class='comment' id='comment-<%= comment.id %>'>
+  <td><%= comment.subject %></td>
+  <td><%= comment.body %></td>
+  <td><%= link_to comment.attachment_file_name, comment.attachment.url if comment.attachment? %></td>
+  <td><%= link_to comment.other_attachment_file_name, comment.other_attachment.url if comment.other_attachment? %></td>
+  <td><%= link_to 'Show', comment %></td>
+  <td><%= link_to 'Edit', edit_comment_path(comment) %></td>
+  <td><%= link_to 'Destroy', comment, :data => {:confirm => 'Are you sure?'}, :method => :delete, :remote => true %></td>
+</tr>

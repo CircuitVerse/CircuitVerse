@@ -65,6 +65,9 @@ Rails.application.routes.draw do
   get  "/teachers", to: "logix#teachers"
   get  "/contribute", to: "logix#contribute"
 
+  # humans-of-circuitverse web pages resources
+  get  "/humansofcircuitverse", to: "humansofcircuitverse#index"
+
   #announcements
   resources :announcements, except: %i[show]
 

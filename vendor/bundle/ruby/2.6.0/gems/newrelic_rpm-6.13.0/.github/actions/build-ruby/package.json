@@ -1,0 +1,32 @@
+{
+  "name": "newrelic-build-ruby",
+  "version": "1.0.0",
+  "description": "Builds various flavors of Ruby on Ubuntu",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint *.js",
+    "package": "ncc build index.js -o dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/newrelic/newrelic-ruby-agent.git"
+  },
+  "keywords": [
+    "NewRelic",
+    "GitHub",
+    "Actions",
+    "Ruby"
+  ],
+  "bugs": {
+    "url": "https://github.com/newrelic/newrelic-ruby-agent/issues"
+  },
+  "author": "New Relic",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@actions/cache": "^1.0.2",
+    "@actions/core": "^1.2.4",
+    "@actions/exec": "^1.0.4",
+    "@actions/io": "^1.0.2",
+    "ncc": "^0.3.6"
+  }
+}

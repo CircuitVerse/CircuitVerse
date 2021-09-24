@@ -1,0 +1,8 @@
+{
+  "engines": {
+     "yarn": "1.x"
+  },
+  "scripts": {
+    "postinstall": "cd ./spec/rails_app && yarn && yarn install --check-files"
+  }
+}

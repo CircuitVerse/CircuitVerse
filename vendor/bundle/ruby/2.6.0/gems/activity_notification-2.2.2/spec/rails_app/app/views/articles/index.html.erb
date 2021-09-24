@@ -1,0 +1,113 @@
+<% if @exists_notifications_routes %>
+  <section>
+    <h1>Authentecated User</h1>
+    <div class="list_wrapper">
+      <div class="list_image"></div>
+      <div class="list_description_wrapper">
+        <p class="list_description">
+          <% if user_signed_in? %>
+            <span><%= current_user.name %></span> · <%= current_user.email %> · <%= link_to 'Logout', destroy_user_session_path, method: :delete %><br>
+          <% else %>
+            <span>Not logged in</span> · <%= link_to 'Login', new_user_session_path %><br>
+          <% end %>
+          <%= link_to 'Notifications', notifications_path %> /
+          <% if User.subscription_enabled? %>
+            <%= link_to 'Subscriptions', subscriptions_path %>
+          <% end %>
+        </p>
+      </div>
+    </div>
+  </section>
+<% end %>
+
+<% if @exists_user_notifications_routes %>
+  <section>
+    <h1>Listing Users</h1>
+    <% User.all.each do |user| %>
+      <div class="list_wrapper">
+        <div class="list_image"></div>
+        <div class="list_description_wrapper">
+          <p class="list_description">
+            <span><%= user.name %></span> · <%= user.email %><br>
+            <%= link_to 'Notifications', user_notifications_path(user) %> /
+            <% if User.subscription_enabled? %>
+              <%= link_to 'Subscriptions', user_subscriptions_path(user) %>
+            <% end %>
+          </p>
+        </div>
+      </div>
+    <% end %>
+  </section>
+<% end %>
+
+<% if @exists_admins_notifications_routes %>
+  <section>
+    <h1>Authentecated User as Admin</h1>
+    <div class="list_wrapper">
+      <div class="list_image"></div>
+      <div class="list_description_wrapper">
+        <p class="list_description">
+          <% if user_signed_in? %>
+            <span><%= current_user.name %></span> · <%= current_user.email %> <span><%= current_user.admin? ? "(admin)" : "(not admin)" %></span><br>
+          <% else %>
+            <span>Not logged in</span> · <%= link_to 'Login', new_user_session_path %><br>
+          <% end %>
+          <%= link_to 'Notifications', admins_notifications_path %> /
+          <% if User.subscription_enabled? %>
+            <%= link_to 'Subscriptions', admins_subscriptions_path %>
+          <% end %>
+        </p>
+      </div>
+    </div>
+  </section>
+<% end %>
+
+<% if @exists_admin_notifications_routes %>
+  <section>
+    <h1>Listing Admins</h1>
+    <% Admin.all.each do |admin| %>
+      <div class="list_wrapper">
+        <div class="list_image"></div>
+        <div class="list_description_wrapper">
+          <p class="list_description">
+            <span><%= admin.user.name %></span> · <%= admin.user.email %><br>
+            <%= link_to 'Notifications', admin_notifications_path(admin) %> /
+            <% if Admin.subscription_enabled? %>
+              <%= link_to 'Subscriptions', admin_subscriptions_path(admin) %>
+            <% end %>
+          </p>
+        </div>
+      </div>
+    <% end %>
+  </section>
+<% end %>
+
+<section>
+  <div class="create_button_wrapper">
+    <%= link_to 'New Article', new_article_path, class: "create_button green_button" %>
+  </div>
+  <h1>Listing Articles</h1>
+  <% @articles.each do |article| %>
+      <div class="list_wrapper">
+        <div class="list_image large"></div>
+        <div class="list_description_wrapper">
+          <h3 class="list_title">
+            <%= link_to article.title, article %>
+          </h3>
+          <p class="list_description">
+            <span><%= article.user.name %></span> · <%= article.created_at.strftime("%b %d %H:%M") %><br>
+            <%= article.body.truncate(60) if article.body.present? %><br>
+            <%= link_to 'Read', article %>
+          </p>
+          <div class="list_button_wrapper">
+            <% if user_signed_in? and article.author?(current_user) %>
+              <%= link_to 'Edit Article', edit_article_path(article), class: "gray_button" %>
+            <% end %>
+            <%# if user_signed_in? and (article.author?(current_user) or current_user.admin?) %>
+              <%#= link_to 'Destroy Article', article, method: :delete, data: { confirm: 'Are you sure?' }, class: "gray_button" %>
+            <%# end %>
+          </div>
+        </div>
+      </div>
+  <% end %>
+</section>

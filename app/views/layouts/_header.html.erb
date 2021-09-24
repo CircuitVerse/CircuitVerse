@@ -38,6 +38,9 @@
         <a class="nav-link navbar-item navbar-text <%= request.path == '/blog' ? 'active' : '' %>" href="https://blog.circuitverse.org/">Blog</a>
       </li>
       <li class="nav-item px-1">
+        <a class="nav-link navbar-item navbar-text <%= request.path == '/humansofcircuitverse' ? 'active' : '' %>" href="/humansofcircuitverse">Humans Of Circuitverse</a>
+      </li>
+      <li class="nav-item px-1">
         <a class="nav-link navbar-item navbar-text <%= request.path == '/about' ? 'active' : '' %>" href="/about"><%= t('headers.about') %></a>
       </li>
       <% if user_signed_in? %>

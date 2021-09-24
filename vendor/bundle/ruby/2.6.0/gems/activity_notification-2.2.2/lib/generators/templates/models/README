@@ -1,0 +1,14 @@
+===============================================================================
+
+activity_notification uses internal models for notifications and subscriptions
+  - ActivityNotification::Notification
+  - ActivityNotification::Subscription
+
+  You can use your own models with same database table used by these internal models.
+
+  Ensure you have configured table name in your initializer activity_notification.rb.
+  For example:
+    config.notification_table_name = "notifications"
+    config.subscription_table_name = "subscriptions"
+
+===============================================================================

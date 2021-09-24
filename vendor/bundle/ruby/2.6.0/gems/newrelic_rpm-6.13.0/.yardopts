@@ -1,0 +1,26 @@
+--non-transitive-tag api
+--api public
+lib/new_relic/agent.rb
+lib/new_relic/agent/method_tracer.rb
+lib/new_relic/agent/distributed_tracing.rb
+lib/new_relic/agent/distributed_trace_payload.rb
+lib/new_relic/agent/external.rb
+lib/new_relic/agent/instrumentation/controller_instrumentation.rb
+lib/new_relic/agent/instrumentation/rack.rb
+lib/new_relic/agent/instrumentation/metric_frame.rb
+lib/new_relic/agent/stats_engine/metric_stats.rb
+lib/new_relic/agent/datastores.rb
+lib/new_relic/agent/messaging.rb
+lib/new_relic/agent/sql_sampler.rb
+lib/new_relic/agent/tracer.rb
+lib/new_relic/agent/transaction.rb
+lib/new_relic/agent/transaction_sampler.rb
+lib/new_relic/rack/agent_hooks.rb
+lib/new_relic/rack/browser_monitoring.rb
+lib/new_relic/rack/error_collector.rb
+lib/new_relic/rack.rb
+lib/new_relic/agent/transaction/external_request_segment.rb
+-
+LICENSE
+CHANGELOG.md
+CONTRIBUTING.md

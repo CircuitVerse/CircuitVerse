@@ -1,0 +1,23 @@
+{
+  "name": "activity_notification",
+  "description": "Sample single page application for activity_notification using Vue.js",
+  "dependencies": {
+    "@rails/webpacker": ">=4.3.0",
+    "axios": ">=0.21.1",
+    "vue": ">=2.6.10",
+    "vuex": ">=3.1.2",
+    "vuex-persistedstate": ">=2.7.0",
+    "vue-loader": ">=15.7.2",
+    "vue-router": ">=3.1.3",
+    "vue-template-compiler": ">=2.6.10",
+    "vue-moment": ">=4.1.0",
+    "vue-moment-tz": ">=2.1.1",
+    "vue-pluralize": ">=0.0.2",
+    "actioncable-vue": ">=1.5.1",
+    "push.js": ">=1.0.12"
+  },
+  "devDependencies": {
+    "webpack-dev-server": ">=3.11.0"
+  },
+  "license": "MIT"
+}

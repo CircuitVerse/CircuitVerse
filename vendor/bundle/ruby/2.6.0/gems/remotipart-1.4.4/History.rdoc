@@ -1,0 +1,131 @@
+= History
+
+=== 1.4.4 / 2019-12-29
+
+* Fixed Rails 6 autoloading deprecation.
+* Fixed ActiveScaffold incompatibility.
+
+=== 1.4.3 / 2019-05-23
+
+* Fixed xhr.responseText not being populated.
+* Security: fixed cross-site scripting vulnerability when server renders user input.
+
+=== 1.4.2 / 2018-04-25
+
+* Fixed ActionView::Template::Error in web-console.
+
+=== 1.4.0 / 2018-04-09
+
+* Added jQuery 3 compatibility.
+* Changed to use ActiveSupport lazy load hooks on initialization.
+* Changed jQuery iframe-transport to v1.0.1.
+* Fixed to preserve original return value of render call for non-remotipart requests.
+* Fixed remote javascript with &quot; not being executed.
+* Fixed method signature of render_with_remotipart, making RJS templates not usable.
+
+=== 1.3.1 / 2016-10-06
+
+* Fixed remote form submit not working with Firefox 49.
+
+=== 1.3.0 / 2016-09-14
+
+* Added Rails 5 support.
+* Added an event `ajax:remotipartComplete`, which will be fired when the ajax upload completes.
+* Changed to preserve original input files upon submit.
+* Fixed TypeError when POST body is empty with Rails 3.
+
+=== 1.2.1 / 2013-07-07
+
+* Added automatic authenticity_token detection and appending to iframe submission.
+
+=== 1.2.0 / 2013-07-06
+
+* Removed support for older jquery-ujs and jquery < 1.7.
+* Fixed json (and other type) parsing issues, only html_escape HTML responses.
+
+=== 1.1.1 / 2013-07-05
+
+* Fixed issue with GET params not being available in middleware.
+* Fixed issue with clicked submit button not being submitted via remotipart ajax.
+* Fixed issue with HTML not being escaped correctly.
+* Fixed issue with iframe-transport on jQuery 1.10.x.
+* Fixed compatibility issue with Rails 4.
+
+=== 1.1.0 / 2013-07-04
+
+* Updated to latest iframe-transport.
+* Added status-text to js response.
+
+=== 1.0.5 / 2013-02-09
+
+* Fixed gem dependency info.
+
+=== 1.0.4 / 2013-02-09
+
+* Fixed render override compatibility with other gems that override render (e.g. wicked_pdf)
+
+=== 1.0.3 / 2013-02-08
+
+* Fixed for jquery-rails v2.2.x (i.e. jQuery v1.9.x)
+
+=== 1.0.2 / 2012-02-03
+
+* Minor Enhancements
+  * Fixed rendering when JS response contains `textarea` tag
+
+=== 1.0.1 / 2011-11-27
+
+* Minor Enhancements
+  * Added support for non-post methods from Rails's `_method` hidden input.
+  * Fixed IE form submit-bubbling support for jquery 1.7
+
+=== 1.0 / 2011-08-26
+
+* New Features
+  * New dependency on simpler jquery.iframe-transport.js (no more form.js)
+  * New Rack middleware, making `remotipart_response` block obsolete in js.erb responses
+  * Better support for all requested ajax data-types
+
+=== 0.4.2 / 2011-08-26
+
+* Minor Enhancements
+  * Updated to jquery.form.js v2.84
+
+=== 0.4.1 / 2011-07-12
+
+* Minor Enhancements
+  * Updated README and docs
+
+=== 0.4.0 / 2011-07-12
+
+* New Features
+  * Added `remotipart_submitted?` helper method for controllers and views
+  * Added railtie and engine support to add remotipart and dependencies to Rails 3.0 (in the js :defaults) and 3.1 (in the asset pipeline) apps automatically
+* Enhancements
+  * Restructured gem to integrate better with Rails apps
+
+=== 0.3.0 / 2011-02-24
+
+* New Features
+  * Added support for all data-type ajax submissions, not just 'script'. 
+  * Made a little more flexible, so that separate js.erb response templates are no longer needed between remotipart (i.e. multipart) ajax form submissions and regular ajax form submissions, so multiple versions of the same form can now submit to the same action. 
+
+=== 0.2.1 / 2011-01-16
+
+* Minor Enhancements
+	* Added support for passing text_area_tag options to remotipart_response. {GitHub Issue #7}[https://github.com/formasfunction/remotipart/issues#issue/7] - patch by {Todd Eichel}[https://github.com/tfe]
+
+=== 0.2.0 / 2010-12-08
+
+* Bug Fixes
+	* Added support for form action URLs that include GET params. {GitHub Issue #4}[https://github.com/formasfunction/remotipart/issues/closed#issue/4] - initial patch by ramontayag[https://github.com/ramontayag].
+	* Added proper HTML escaping for the remotipart_response textarea content. {GitHub Issue #5}[https://github.com/formasfunction/remotipart/issues/closed#issue/5] - patch by gucki[https://github.com/gucki].
+
+=== 0.1.1 / 2010-08-27
+
+* Bug Fixes
+	* Removed a call to the JS console. {GitHub Issue #1}[https://github.com/formasfunction/remotipart/issues/closed#issue/5] - reported by {Trevor Burnham}[https://github.com/TrevorBurnham].
+
+=== 0.1.0 / 2010-04-09
+
+* Initial Release

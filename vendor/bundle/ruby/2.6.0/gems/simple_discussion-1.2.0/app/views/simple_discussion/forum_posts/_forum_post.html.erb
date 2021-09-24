@@ -1,0 +1,65 @@
+<%# We don't currently cache the forum posts because they have permissions to deal with %>
+
+<%= content_tag :div, id: dom_id(forum_post), class: forum_post_classes(forum_post) do %>
+  <div class="card-header">
+
+    <% if is_moderator_or_owner?(forum_post) %>
+      <div class="float-right">
+        <%= link_to icon("fas","edit"), simple_discussion.edit_forum_thread_forum_post_path(@forum_thread, forum_post),
+          class: "text-muted",
+          data: { toggle: "tooltip", placement: "left" },
+          title: t('edit_this_post')
+        %>
+        &nbsp;
+        <%= link_to icon("fas","trash"), simple_discussion.forum_thread_forum_post_path(@forum_thread, forum_post),
+          class: "text-muted",
+          method: :delete, 
+          data: { toggle: "tooltip", placement: "left", confirm: "Are you sure you want to delete this post?" },
+          title: t('edit_this_post')
+        %>
+      </div>
+    <% end %>
+
+    <div>
+      <%= avatar_tag(forum_post.user.email) %>
+
+      <strong class="forum-post-user">
+        <%= forum_post.user.name %> <%= forum_user_badge(forum_post.user) %>
+      </strong>
+      <small>
+        <%= t('commented_on') %>
+        <%= link_to forum_post.created_at.strftime("%b %d, %Y"), simple_discussion.forum_thread_path(@forum_thread, anchor: "forum_post_#{forum_post.id}") %>:
+      </small>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <%= formatted_content forum_post.body %>
+  </div>
+
+  <% if @forum_thread.solved? && forum_post.solved? %>
+    <div class="card-footer">
+      <div class="pull-right">
+        <strong class="text-success"><%= icon("fas","check") %> <%= t('solved') %></strong>
+
+        <% if is_moderator_or_owner?(@forum_thread) %>
+          <small>
+            <%= link_to t('undo'), simple_discussion.unsolved_forum_thread_forum_post_path(@forum_thread, forum_post), method: :put %>
+          </small>
+        <% end %>
+      </div>
+    </div>
+
+  <% elsif is_moderator_or_owner?(@forum_thread) %>
+    <div class="card-footer">
+      <div class="pull-right">
+        <small>
+          <%= link_to simple_discussion.solved_forum_thread_forum_post_path(@forum_thread, forum_post), method: :put do %>
+            <%= icon("fas","fas","check") %>
+            <%= t('this_solved_my_question') %>
+          <% end %>
+        </small>
+      </div>
+    </div>
+  <% end %>
+<% end %>

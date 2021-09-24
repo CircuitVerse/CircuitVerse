@@ -1,0 +1,40 @@
+os:
+  - linux
+  - osx
+
+rvm:
+  - rbx-3
+  - 2.3
+  - 2.4
+  - 2.5
+  - 2.6
+  - ruby-head
+
+sudo: false
+
+cache: bundler
+
+before_install:
+  - "echo 'gem: --no-document' > ~/.gemrc"
+  # RubyGems update is supported for Ruby 2.3 and later
+  - ruby -e "system('gem update --system') if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new('2.3')"
+  - gem install bundler --version '~> 1.17'
+
+before_script:
+  - 'export JAVA_OPTS="${JAVA_OPTS_FOR_SPECS}"'
+
+env:
+  global:
+  matrix:
+    - CHILDPROCESS_POSIX_SPAWN=true CHILDPROCESS_UNSET=should-be-unset
+    - CHILDPROCESS_POSIX_SPAWN=false CHILDPROCESS_UNSET=should-be-unset
+
+matrix:
+  allow_failures:
+    - rvm: rbx-3
+    - rvm: ruby-head
+    - env: "CHILDPROCESS_POSIX_SPAWN=true"
+  include:
+  - rvm: jruby-9.2.5.0
+    jdk: openjdk11
+    env: "JAVA_OPTS_FOR_SPECS='--add-opens java.base/java.io=org.jruby.dist --add-opens java.base/sun.nio.ch=org.jruby.dist'"

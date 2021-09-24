@@ -1,0 +1,6 @@
+# Copy this template file as aws.rb and set your credentials
+unless Rails.env.test?
+  Aws.config.update({
+    credentials: Aws::Credentials.new('your_access_key_id', 'your_secret_access_key')
+  })
+end

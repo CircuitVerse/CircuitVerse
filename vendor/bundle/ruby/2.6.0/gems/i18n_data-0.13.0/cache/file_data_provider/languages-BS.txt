@@ -1,0 +1,184 @@
+AA;;Afar
+AB;;Azerbejdđanski
+AF;;Afrikaans
+AK;;Azerbejdđanski
+AM;;Amharic
+AR;;Arapski
+AN;;Aragonese
+AS;;Assamese
+AV;;Arapski
+AE;;Avestan
+AY;;Aymara
+AZ;;Azerbejđanski
+BA;;Bashkir
+BM;;Bambara
+BE;;Bjeloruski
+BN;;Bengali
+BH;;Korejski
+BI;;Bislama
+BO;;Tibetan
+BS;;Rumunjki
+BR;;Bretonski
+BG;;Bugarski
+CA;;Catalan; Valencian
+CS;;Češki
+CH;;Chamorro
+CE;;Češki
+CU;;Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic
+CV;;Chuvash
+KW;;Cornish
+CO;;Corsican
+CR;;Grčki
+CY;;Welsh
+DA;;Danski
+DE;;Njemački
+DV;;Divehi; Dhivehi; Maldivian
+DZ;;Dzongkha
+EL;;Greek, Modern (1453-)
+EN;;Engleski
+EO;;Esperanto
+ET;;Estonski
+EU;;Baskijski
+EE;;Ewe
+FO;;Faroese
+FA;;Srpski
+FJ;;Fijian
+FI;;Finski
+FR;;Francuski
+FY;;Western Frisian
+FF;;Fulah
+GD;;Gaelic; Scottish Gaelic
+GA;;Irski
+GL;;Galicijanski
+GV;;Manx
+GN;;Guarani
+GU;;Gujarati
+HT;;Haitian; Haitian Creole
+HA;;Hausa
+HE;;Hebrejski
+HZ;;Hebrejski
+HI;;Hindi
+HO;;Hiri Motu
+HR;;Hrvatski
+HU;;Mađjarski
+HY;;Armenian
+IG;;Igbo
+IO;;Ido
+II;;Litvanski
+IU;;Inuktitut
+IE;;Interlingue; Occidental
+IA;;Interlingua (International Auxiliary Language Association)
+ID;;Infoneziski
+IK;;Inupiaq
+IS;;Islandski
+IT;;Talijanski
+JV;;Javanese
+JA;;Japanski
+KL;;Kalaallisut; Greenlandic
+KN;;Kannada
+KS;;Kashmiri
+KA;;Georgian
+KR;;Kurdski
+KK;;Kazakh
+KM;;Central Khmer
+KI;;Kikuyu; Gikuyu
+RW;;Kinyarwanda
+KY;;Kirghiz; Kyrgyz
+KV;;Komi
+KG;;Kongo
+KO;;Korejski
+KJ;;Kuanyama; Kwanyama
+KU;;Kurdski
+LO;;Lao
+LA;;Latin
+LV;;Latviski
+LI;;Limburgan; Limburger; Limburgish
+LN;;Lingala
+LT;;Litvanski
+LB;;Luxembourgish; Letzeburgesch
+LU;;Luba-Katanga
+LG;;Ganda
+MH;;Maltski
+ML;;Malayalam
+MR;;Maorski
+MK;;Makedonski
+MG;;Malagasy
+MT;;Maltski
+MN;;Mongolian
+MI;;Maorski
+MS;;Malay
+MY;;Burmese
+NA;;Nauru
+NV;;Navajo; Navaho
+NR;;Ndebele, South; South Ndebele
+ND;;Ndebele, North; North Ndebele
+NG;;Bosanski
+NE;;Nepali
+NL;;Dutch; Flemish
+NN;;Norveški (Nynorsk)
+NB;;Bokmål, Norwegian; Norwegian Bokmål
+NO;;Norveški
+NY;;Chichewa; Chewa; Nyanja
+OC;;Occitan (post 1500); Provençal
+OJ;;Ojibwa
+OR;;Oriya
+OM;;Oromo
+OS;;Ruski
+PA;;Panjabi; Punjabi
+PI;;Poljski
+PL;;Poljski
+PT;;Portugalski
+PS;;Pushto; Pashto
+QU;;Quechua
+RM;;Rumunjki
+RO;;Romanian; Moldavian; Moldovan
+RN;;Rundi
+RU;;Ruski
+SG;;Sango
+SA;;Sanskrit
+SI;;Vijetnamski
+SK;;Slovački
+SL;;Slovenski
+SE;;Northern Sami
+SM;;Samoan
+SN;;Xhosa
+SD;;Sindhi
+SO;;Somali
+ST;;Sotho, Southern
+ES;;Spanish; Castilian
+SQ;;Azerbejđanski
+SC;;Makedonski
+SR;;Srpski
+SS;;Swati
+SU;;Sundanese
+SW;;Swahili
+SV;;Švedski
+TY;;Latviski
+TA;;Tamilski
+TT;;Tatar
+TE;;Telugu
+TG;;Tajlandski
+TL;;Tagalog
+TH;;Tajlandski
+TI;;Turski
+TO;;Tonga (Tonga Islands)
+TN;;Tswana
+TS;;Tsonga
+TK;;Turkmen
+TR;;Turski
+TW;;Twi
+UG;;Uighur; Uyghur
+UK;;Ukrajinski
+UR;;Urdu
+UZ;;Uzbek
+VE;;Venda
+VI;;Vijetnamski
+VO;;Volapük
+WA;;Valonski
+WO;;Wolof
+XH;;Xhosa
+YI;;Yiddish
+YO;;Yoruba
+ZA;;Zhuang; Chuang
+ZH;;Kineski
+ZU;;Julia

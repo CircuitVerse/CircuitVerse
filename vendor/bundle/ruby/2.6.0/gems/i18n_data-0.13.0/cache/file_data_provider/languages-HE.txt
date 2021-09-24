@@ -1,0 +1,184 @@
+AA;;עפרית
+AB;;אבחזית
+AF;;אפריקאנס
+AK;;אזרביג'נית
+AM;;אמהרית
+AR;;ערבית
+AN;;אראגונית
+AS;;Assamese
+AV;;ערבית
+AE;;אווסטית
+AY;;Aymara
+AZ;;אזרית
+BA;;בשקירית
+BM;;במברה
+BE;;בלארוסית
+BN;;בנגלית
+BH;;קוריאנית
+BI;;Bislama
+BO;;Tibetan
+BS;;רומנית
+BR;;ברטונית
+BG;;בולגרית
+CA;;Catalan; Valencian
+CS;;צ'כית
+CH;;Chamorro
+CE;;צ'כית
+CU;;Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic
+CV;;Chuvash
+KW;;אירית
+CO;;בוסנית
+CR;;יוונית
+CY;;וולשית
+DA;;דנית
+DE;;גרמנית
+DV;;Divehi; Dhivehi; Maldivian
+DZ;;Dzongkha
+EL;;Greek, Modern (1453-)
+EN;;אנגלית (בריטניה)
+EO;;אספרנטו
+ET;;אסטונית
+EU;;בסקית
+EE;;Ewe
+FO;;Faroese
+FA;;סרבית
+FJ;;Fijian
+FI;;פינית
+FR;;צרפתית
+FY;;פריזית מערבית
+FF;;Fulah
+GD;;Gaelic; Scottish Gaelic
+GA;;אירית
+GL;;גליסית
+GV;;Manx
+GN;;גוארני
+GU;;Gujarati
+HT;;Haitian; Haitian Creole
+HA;;Hausa
+HE;;עברית
+HZ;;עברית
+HI;;Hindi
+HO;;הירי מוטו
+HR;;קרואטית
+HU;;הונגרית
+HY;;ארמנית
+IG;;Igbo
+IO;;Ido
+II;;ליטאית
+IU;;Inuktitut
+IE;;Interlingue; Occidental
+IA;;Interlingua (International Auxiliary Language Association)
+ID;;אינדונזית
+IK;;Inupiaq
+IS;;איסלנדית
+IT;;איטלקית
+JV;;ג׳אווה
+JA;;יפנית
+KL;;Kalaallisut; Greenlandic
+KN;;Kannada
+KS;;Kashmiri
+KA;;גאורגית
+KR;;כורדית
+KK;;Kazakh
+KM;;Central Khmer
+KI;;Kikuyu; Gikuyu
+RW;;Kinyarwanda
+KY;;Kirghiz; Kyrgyz
+KV;;Komi
+KG;;Kongo
+KO;;קוריאנית
+KJ;;Kuanyama; Kwanyama
+KU;;כורדית
+LO;;Lao
+LA;;לטינית
+LV;;לטבית
+LI;;Limburgan; Limburger; Limburgish
+LN;;Lingala
+LT;;ליטאית
+LB;;Luxembourgish; Letzeburgesch
+LU;;Luba-Katanga
+LG;;Ganda
+MH;;מרשלית
+ML;;Malayalam
+MR;;מראטהית
+MK;;מקדונית
+MG;;Malagasy
+MT;;מלטזית
+MN;;מונגולית
+MI;;מאורית
+MS;;Malay
+MY;;Burmese
+NA;;Nauru
+NV;;Navajo; Navaho
+NR;;Ndebele, South; South Ndebele
+ND;;Ndebele, North; North Ndebele
+NG;;נדונגה
+NE;;Nepali
+NL;;Dutch; Flemish
+NN;;נורווגית חדשה; נינורשק
+NB;;Bokmål, Norwegian; Norwegian Bokmål
+NO;;נורווגית
+NY;;Chichewa; Chewa; Nyanja
+OC;;Occitan (post 1500); Provençal
+OJ;;Ojibwa
+OR;;Oriya
+OM;;Oromo
+OS;;רוסית
+PA;;Panjabi; Punjabi
+PI;;פולנית
+PL;;פולנית
+PT;;פורטוגלית
+PS;;Pushto; Pashto
+QU;;Quechua
+RM;;רומנית
+RO;;לטבית
+RN;;Rundi
+RU;;רוסית
+SG;;Sango
+SA;;Sanskrit
+SI;;וייטנאמית
+SK;;סלובקית
+SL;;סלובנית
+SE;;Northern Sami
+SM;;Samoan
+SN;;קוזה
+SD;;Sindhi
+SO;;Somali
+ST;;Sotho, Southern
+ES;;Spanish; Castilian
+SQ;;אזרביג'נית
+SC;;מקדונית
+SR;;סרבית
+SS;;Swati
+SU;;Sundanese
+SW;;Swahili
+SV;;שבדית
+TY;;לטבית
+TA;;טמילית
+TT;;Tatar
+TE;;Telugu
+TG;;תאילנדית
+TL;;Tagalog
+TH;;תאילנדית
+TI;;טורקית
+TO;;Tonga (Tonga Islands)
+TN;;Tswana
+TS;;Tsonga
+TK;;Turkmen
+TR;;טורקית
+TW;;Twi
+UG;;אויגורית
+UK;;אוקראינית
+UR;;אורדו
+UZ;;אוזבקית
+VE;;ונדה
+VI;;וייטנאמית
+VO;;וולאפיק
+WA;;וולונית
+WO;;וולוף
+XH;;קוזה
+YI;;יידיש
+YO;;יורובה
+ZA;;Zhuang; Chuang
+ZH;;סינית
+ZU;;זולו

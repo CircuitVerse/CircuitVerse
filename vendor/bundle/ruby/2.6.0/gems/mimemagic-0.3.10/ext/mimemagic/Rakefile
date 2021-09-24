@@ -1,0 +1,53 @@
+require "rubygems"
+require "rake/clean"
+
+def locate_mime_database
+  possible_paths = [
+    (File.expand_path(ENV["FREEDESKTOP_MIME_TYPES_PATH"]) if ENV["FREEDESKTOP_MIME_TYPES_PATH"]),
+    "/usr/local/share/mime/packages/freedesktop.org.xml",
+    "/opt/homebrew/share/mime/packages/freedesktop.org.xml",
+    "/opt/local/share/mime/packages/freedesktop.org.xml",
+    "/usr/share/mime/packages/freedesktop.org.xml"
+  ].compact
+  path = possible_paths.find { |candidate| File.exist?(candidate) }
+
+  return path unless path.nil?
+  raise(<<-ERROR.gsub(/^ {3}/, ""))
+   Could not find MIME type database in the following locations: #{possible_paths}
+
+   Ensure you have either installed the shared-mime-info package for your distribution, or
+   obtain a version of freedesktop.org.xml and set FREEDESKTOP_MIME_TYPES_PATH to the location
+   of that file.
+
+   This gem might be installed as a dependency of some bigger package, such as rails, activestorage,
+   axlsx or cucumber. While most of these packages use the functionality of this gem, some gems have
+   included this gem by accident. Set USE_FREEDESKTOP_PLACEHOLDER=true if you are certain that you
+   do not need this gem, and wish to skip the inclusion of freedesktop.org.xml.
+
+   The FREEDESKTOP_PLACEHOLDER option is meant as a transitional feature, and will be deprecated in
+   the next release.
+  ERROR
+end
+
+desc "Build a file pointing at the database"
+task :default do
+  mime_database_path = nil
+  if ENV["USE_FREEDESKTOP_PLACEHOLDER"] == "true"
+    File.write("../../dummy.xml", "")
+    mime_database_path = File.expand_path("../../dummy.xml")
+  else
+    mime_database_path = locate_mime_database
+  end
+  
+  target_dir = "#{ENV.fetch("RUBYARCHDIR", "../lib")}/mimemagic"
+  mkdir_p target_dir
+
+  open("#{target_dir}/path.rb", "w") do |f|
+    f.print(<<~SOURCE
+      class MimeMagic
+        DATABASE_PATH="#{mime_database_path}"
+      end
+      SOURCE
+    )
+  end
+end

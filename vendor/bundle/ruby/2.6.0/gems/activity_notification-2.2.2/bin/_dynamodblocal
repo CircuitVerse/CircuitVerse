@@ -1,0 +1,4 @@
+DIST_DIR=spec/DynamoDBLocal-latest
+PIDFILE=dynamodb.pid
+LISTEN_PORT=8000
+LOG_DIR="logs"

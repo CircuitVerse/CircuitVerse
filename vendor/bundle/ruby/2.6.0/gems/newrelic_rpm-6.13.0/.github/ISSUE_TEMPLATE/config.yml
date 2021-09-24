@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Troubleshooting
+    url:  https://github.com/newrelic/newrelic-ruby-agent#support
+    about: checkout the README for troubleshooting directions

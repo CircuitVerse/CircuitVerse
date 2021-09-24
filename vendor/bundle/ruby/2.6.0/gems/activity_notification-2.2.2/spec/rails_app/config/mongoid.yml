@@ -1,0 +1,13 @@
+development:
+  clients:
+    default:
+      database: activity_notification_development
+      hosts:
+        - localhost:27017
+
+test:
+  clients:
+    default:
+      database: activity_notification_test
+      hosts:
+        - localhost:27017

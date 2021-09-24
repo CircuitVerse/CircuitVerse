@@ -1,0 +1,8 @@
+.autotest
+History.txt
+Manifest.txt
+README.txt
+Rakefile
+bin/html_tokenizer
+lib/html_tokenizer.rb
+test/test_html_tokenizer.rb
