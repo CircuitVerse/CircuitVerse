@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class HumansofcircuitverseController < ApplicationController
-  def index 
+  def index
     @contributors = [{ name: "Satvik Ramaprasad", img: "https://avatars.githubusercontent.com/u/2092958?v=4", url: "https://github.com/satu0king" },
                      { name: "Aboobacker MK", img: "https://avatars.githubusercontent.com/u/3112976?s=60&v=4", url: "https://github.com/tachyons" },
                      { name: "Ankit Kataria", img: "https://avatars.githubusercontent.com/u/22021150?s=60&v=4", url: "https://github.com/ankitkataria" },
@@ -25,14 +25,14 @@ class HumansofcircuitverseController < ApplicationController
                      { name: "Josh Heng", img: "https://avatars.githubusercontent.com/u/34946235?s=60&v=4", url: "https://github.com/JoshHeng" },
                      { name: "Aman", img: "https://avatars.githubusercontent.com/u/20012612?s=60&v=4", url: "https://github.com/Amansingla97" },
                      { name: "Pradhumna Rathore", img: "https://avatars.githubusercontent.com/u/31550423?s=60&v=4", url: "https://github.com/sanctophagus" },
-                     { name: "Nitin Singhal", img: "https://avatars.githubusercontent.com/u/16988558?s=60&v=4", url: "https://github.com/nitin10s"},
+                     { name: "Nitin Singhal", img: "https://avatars.githubusercontent.com/u/16988558?s=60&v=4", url: "https://github.com/nitin10s" },
                      { name: "Mohit", img: "https://avatars.githubusercontent.com/u/58560983?s=60&v=4", url: "https://github.com/mohit-003" },
                      { name: "Arjun Garg", img: "https://avatars.githubusercontent.com/u/53009722?s=60&v=4", url: "https://github.com/arjungarg07" },
                      { name: "Saiakash Konidena", img: "https://avatars.githubusercontent.com/u/42511766?s=60&v=4", url: "https://github.com/sal2701" },
                      { name: "Dragon Emperor", img: "https://avatars.githubusercontent.com/u/51922630?s=60&v=4", url: "https://github.com/harshgujrati" },
                      { name: "Ankit Goyal", img: "https://avatars.githubusercontent.com/u/52366781?s=60&v=4", url: "https://github.com/ankit80570" },
                      { name: "Dipansh Parmar", img: "https://avatars.githubusercontent.com/u/49204837?s=60&v=4", url: "https://github.com/dipanshparmar" },
-                     { name: "Arushit Mudgal", img: "https://avatars.githubusercontent.com/u/19341613?s=60&v=4", url: "https://github.com/armudgal"},
+                     { name: "Arushit Mudgal", img: "https://avatars.githubusercontent.com/u/19341613?s=60&v=4", url: "https://github.com/armudgal" },
                      { name: "Akansha Singh", img: "https://avatars.githubusercontent.com/u/47236824?s=60&v=4", url: "https://github.com/akansha-singh" },
                      { name: "Criticic", img: "https://avatars.githubusercontent.com/u/40538506?s=60&v=4", url: "https://github.com/criticic" },
                      { name: "Nilesh Das", img: "https://avatars.githubusercontent.com/u/39062229?s=60&v=4", url: "https://github.com/nileshdas" },
@@ -62,7 +62,7 @@ class HumansofcircuitverseController < ApplicationController
                      { name: "Vedant Jain", img: "https://avatars.githubusercontent.com/u/76901313?s=60&v=4", url: "https://github.com/vedant-jain03" },
                      { name: "Sahaj8", img: "https://avatars.githubusercontent.com/u/43809376?s=60&v=4", url: "https://github.com/Sahaj8" },
                      { name: "Manjot Singh", img: "https://avatars.githubusercontent.com/u/22657113?s=60&v=4", url: "https://github.com/manjotsidhu" },
-                     { name: "Manuel Carrizo", img: "https://avatars.githubusercontent.com/u/633188?s=60&v=4", url: "https://github.com/manuelcarrizo"},
+                     { name: "Manuel Carrizo", img: "https://avatars.githubusercontent.com/u/633188?s=60&v=4", url: "https://github.com/manuelcarrizo" },
                      { name: "Subhajit Barh", img: "https://avatars.githubusercontent.com/u/41638148?s=60&v=4", url: "https://github.com/SubhajitCode" },
                      { name: "Aditiya Singh", img: "https://avatars.githubusercontent.com/u/41179329?s=60&v=4", url: "https://github.com/1337w0rm" },
                      { name: "Angad Kambii", img: "https://avatars.githubusercontent.com/u/54415525?s=60&v=4", url: "https://github.com/angad-k" },
@@ -72,8 +72,8 @@ class HumansofcircuitverseController < ApplicationController
                      { name: "Dhanush Pothulapati", img: "https://avatars.githubusercontent.com/u/44961341?s=60&v=4", url: "https://github.com/Dhanushreddy09" },
                      { name: "Ritika Dhiman", img: "https://avatars.githubusercontent.com/u/35415933?s=60&v=4", url: "https://github.com/ritika99" },
                      { name: "Rakesh Seervi", img: "https://avatars.githubusercontent.com/u/40966318?s=60&v=4", url: "https://github.com/RakeshSeervi" },
-                     { name: "Bijoy Sijo",img: "https://avatars.githubusercontent.com/u/33025716?s=60&v=4", url: "https://github.com/bijoysijo" },
-                     { name: "Prithvi Tharun",img: "https://avatars.githubusercontent.com/u/58725708?s=60&v=4", url: "https://github.com/iprithvitharun" },
+                     { name: "Bijoy Sijo", img: "https://avatars.githubusercontent.com/u/33025716?s=60&v=4", url: "https://github.com/bijoysijo" },
+                     { name: "Prithvi Tharun", img: "https://avatars.githubusercontent.com/u/58725708?s=60&v=4", url: "https://github.com/iprithvitharun" },
                      { name: "Aditya Vats", img: "https://avatars.githubusercontent.com/u/52060608?s=60&v=4", url: "https://github.com/HADES-01" },
                      { name: "Nihar Sanda", img: "https://avatars.githubusercontent.com/u/55532999?s=60&v=4", url: "https://github.com/koolgax99" },
                      { name: "Gautam Saharan", img: "https://avatars.githubusercontent.com/u/54721472?s=60&v=4", url: "https://github.com/GAUTAMSAHARAN" },
