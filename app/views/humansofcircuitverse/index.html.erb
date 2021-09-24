@@ -23,10 +23,10 @@
         <div class="about-contributors-section ">
             <% @contributors.each do |member| %>
                 <div class="about-contributor">
-                    <a target="_blank" href="<%= member[:url]%>" ><%= image_tag member[:img],:class => "about-contributor-image " %></a>
+                    <a target="_blank" href="<%= member[:url] %>" ><%= image_tag member[:img],:class => "about-contributor-image " %></a>
                     <p class="about-container-footer"><%= member[:name] %></p>
                 </div>
             <% end %>
         </div>
-    </div>   
+    </div>
 </div>
