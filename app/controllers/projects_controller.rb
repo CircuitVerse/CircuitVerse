@@ -10,6 +10,7 @@ class ProjectsController < ApplicationController
   before_action :check_delete_access, only: [:destroy]
   before_action :check_view_access, only: %i[show create_fork]
   before_action :sanitize_name, only: %i[create update]
+  before_action :sanitize_project_description, only: %i[show edit]
 
   # GET /projects
   # GET /projects.json
@@ -35,11 +36,6 @@ class ProjectsController < ApplicationController
     commontator_thread_show(@project)
   end
 
-  # GET /projects/new
-  def new
-    @project = Project.new
-  end
-
   # GET /projects/1/edit
   def edit; end
 
@@ -59,23 +55,10 @@ class ProjectsController < ApplicationController
   end
 
   def create_fork
-    # Relaxing fork constraints for now
-    # if current_user.id == @project.author_id
-    #   render plain: "Cannot fork your own project" and return
-    # end
-
     authorize @project
-
-    @project_new = @project.dup
-    @project_new.view = 1
-    @project_new.image_preview = @project.image_preview
-    @project_new.author_id = current_user.id
-    @project_new.forked_project_id = @project.id
-    @project_new.name = @project.name
-    @project_new.save
-
+    @project_new = @project.fork(current_user)
+    @project_new.save!
     @project_new.notify :users, key: "project.fork"
-
     redirect_to user_project_path(current_user, @project_new)
   end
 
@@ -152,5 +135,14 @@ class ProjectsController < ApplicationController
 
     def sanitize_name
       params[:project][:name] = sanitize(project_params[:name])
+    end
+
+    # Sanitize description before passing to view
+    def sanitize_project_description
+      @project.description = sanitize(
+        @project.description,
+        tags: %w[img p strong em a sup sub del u span h1 h2 h3 h4 hr li ol ul blockquote],
+        attributes: %w[style src href alt title target]
+      )
     end
 end

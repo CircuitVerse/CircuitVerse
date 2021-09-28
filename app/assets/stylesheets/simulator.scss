@@ -24,7 +24,7 @@
 .report-sidebar a {   
   color: $white;
   font-size: 13px;
-  padding: 15px;
+  padding: 10px;
   position: absolute;
   right: -119px;
   text-decoration: none;
@@ -32,6 +32,11 @@
   transition: .3s;
   width: 160px;
   z-index: 999;
+}
+
+.report-sidebar span {
+  font-size: 1.2em;
+  padding-right: 20px;
 }
 
 .report-sidebar a:hover {

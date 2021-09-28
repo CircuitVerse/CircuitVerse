@@ -1,0 +1,36 @@
+hi:
+  projects:
+    add_collaborator_description: "अल्पविराम, स्पेस या एंटर से अलग ईमेल आईडी दर्ज करें। उपयोगकर्ताओं को प्लेटफॉर्म पर पहले से ही रजिस्टर्ड होना आवश्यक है।
+             ध्यान दें कि कोलैबोरेशन अभी रियल टाइम नहीं है। हर सेव पिछले डेटा को ओवरराइट कर देता है।"
+    remove_collaborator_message: "क्या आप वाकई इस सहयोगी को हटाना चाहते हैं?"
+    delete_project_message: "क्या आप वाकई इस परियोजना को डिलीट चाहते हैं?"
+    form:
+      feature_circuit_checkpoint: "विशेष रुप से प्रदर्शित करें (केवल एडमिनिस्ट्रेटर)"
+      tag_list_description: "(अपने परियोजना के टैग को अल्पविराम से विभाजित करें [,])"
+      project_is_featured_message: "(यह परियोजना विशेष रुप से प्रदर्शित कि गयी है। यदि पब्लिक एक्सेस को हटा दिया जाता है तो इसे प्रदर्शित नहीं किया जाएगा।)"
+      public: "पब्लिक"
+      private: "प्राइवेट"
+      limited_access: "लिमिटेड एक्सेस"
+    edit:
+      title: "%{name} - परियोजना एडिट करें"
+      main_heading: "परियोजना एडिट करें"
+    get_projects:
+      searched_projects_heading: "सर्च की गयी परियोजना"
+      searched_tags_heading: "टैग:"
+    stars_count: "स्टार"
+    views_count: "व्यूज"
+    project_user: "उपयोगकर्ता:"
+    show:
+      project_author: "रचयिता"
+      project_forked_from: "यहाँ से फोर्क किया गया"
+      project_access_type: "परियोजना का एक्सेस टाइप"
+      project_description: "विवरण:"
+      project_created_at: "जब बनाया गया:"
+      project_updated_at: "जब अपडेट किया गया"
+      project_embed: "एम्बेड करें"
+      project_copy: "परियोजना की कॉपी बनाये"
+      project_collaborator_add: "+ एक सहयोगी ऐड करे"
+      copied_to_clipboard: "क्लिपबोर्ड पर कॉपी किया गया!"
+      collaborators: "सहयोगी"
+    search:
+      no_result_found: "कोई परिणाम नहीं मिला"

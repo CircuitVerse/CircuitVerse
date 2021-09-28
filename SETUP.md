@@ -46,6 +46,13 @@ To clone the repository, either use the Git GUI if you have one installed or ent
 git clone https://github.com/CircuitVerse/CircuitVerse.git
 cd CircuitVerse
 ```
+If you are cloning on Windows machine, use following command with an **administrative shell** to clone the repo.
+
+```sh
+git clone -c core.symlinks=true https://github.com/CircuitVerse/CircuitVerse.git
+cd CircuitVerse
+```
+
 **Note:** If you want to contribute, first fork the original repository and clone your **forked** repository into your local machine. If you don't do this, you will not be able to make commits or change any files.
 ```sh
 git clone https://github.com/<username>/CircuitVerse.git
@@ -63,7 +70,7 @@ cd CircuitVerse
 7. Start Sidekiq (background processes & job queue): `bundle exec sidekiq -e development -q default -q mailers -d -L tmp/sidekiq.log`
 1. ./bin/webpack-dev-server for Hot Module reload for  fast development or transpile using ./bin/webpack.
 
-Then, local development can be started with `rails s -b 127.0.0.1 -p 8080`. Navigate to `127.0.0.1:8080` in your web browser to access the website.
+Then, local development can be started with `rails s -b 127.0.0.1`. Navigate to `localhost:3000` in your web browser to access the website.
 
 #### Additional instructions for Ubuntu
 Additional instructions can be found [here](https://www.howtoforge.com/tutorial/ubuntu-ruby-on-rails/) and there are some extra notes for single user installations:

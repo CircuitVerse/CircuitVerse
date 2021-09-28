@@ -18,11 +18,10 @@ tasks:
       bundle exec rails db:create &&
       bundle exec rails db:schema:load &&
       bundle exec rails db:migrate &&
-      bundle exec rake sunspot:solr:start &&
       bundle exec rails db:seed
     command: >
-      createuser -s postgres &&
-      (redis-server &) &&
+      sleep 5 &&
+      redis-server --daemonize yes &&
       bundle install --without production --path vendor/bundle &&
       yarn &&
       bundle exec rails db:create &&

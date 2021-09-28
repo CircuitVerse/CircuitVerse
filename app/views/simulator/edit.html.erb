@@ -1,15 +1,4 @@
 <% content_for(:html_title) { 'CircuitVerse - Digital Simulator' } %>
-<!--Displays the loading screen  -->
-
-<!-- <script
-  src="https://code.jquery.com/jquery-3.5.1.min.js"
-  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-  crossorigin="anonymous"
-></script>
--->
-<!-- 
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
--->
 
 <script src="/js/plugins/jquery.twbs-toggle-buttons.min.js"></script>
 <script src="/js/plugins/checkBo.min.js"></script>
@@ -30,7 +19,7 @@
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="navbar-nav navbar-menu noSelect pointerCursor" id="toolbar">
       <li class="dropdown nav-dropdown">
-        <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Project<span></span></a>
+        <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.project") %><span></span></a>
         <ul class="dropdown-menu">
           <% if not @project.nil? %>
              <li><a class="dropdown-item logixButton text-left pl-1" href="<%= user_project_url(@project.author, @project) %>" target="_blank">Project Page</a></li>
@@ -46,7 +35,7 @@
         </ul>
       </li>
       <li class="dropdown nav-dropdown">
-        <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Circuit<span class="caret"></span></a>
+        <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.circuit") %><span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item text-left logixButton pl-1" id="newCircuit">New Circuit + </a></li>
           <li><a class="dropdown-item text-left logixButton pl-1" id="newVerilogModule">New Verilog <br> Module</a></li>
@@ -54,7 +43,7 @@
         </ul>
       </li>
       <li class="dropdown nav-dropdown">
-        <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tools<span class="caret"></span></a>
+        <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.tools") %><span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item text-left pl-1 logixButton" id="createCombinationalAnalysisPrompt">Combinational<br>Analysis</a></li>
           <li><a class="dropdown-item text-left pl-1 logixButton" id="bitconverter">Hex-Bin-Dec<br>Converter</a></li>
@@ -65,7 +54,7 @@
         </ul>
       </li>
       <li class="dropdown tour-help nav-dropdown">
-        <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Help<span class="caret"></span></a>
+        <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.help") %><span class="caret"></span></a>
         <ul class="dropdown-menu">
             <li><a class="dropdown-item text-left pl-1 logixButton" id="showTourGuide">Tutorial Guide</a></li>
             <li><a class="dropdown-item text-left pl-1" href="https://docs.circuitverse.org" class="" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">User Manual</a></li>
@@ -143,8 +132,10 @@
         <button type="button" class="quick-btn-redo logixButton" title="Redo" onclick="">
         </button> -->
         <div class="zoom-slider">
+          <button class="zoom-slider-decrement" id="decrement">-</button>
           <input type="range" class="custom-range" min="0" max="45" step="1"  id="customRange1">
           <span id='slider_value'></span>
+          <button class="zoom-slider-increment" id="increment">+</button>
         </div>
       </div>
       
@@ -606,7 +597,6 @@
   </div>
 </div>
 
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
   const embed = false;
   user_id = "<%= user_signed_in? ? " #{current_user.id.to_s} - #{current_user.name}" : "Guest user" %>";
@@ -652,3 +642,4 @@ function old_ui_redirect() {
   window.location.href = window.location.href.replace("/simulator", "/simulator_old")
 }
 </script>
+<script src="/js/data.js"></script>
