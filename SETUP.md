@@ -46,6 +46,13 @@ To clone the repository, either use the Git GUI if you have one installed or ent
 git clone https://github.com/CircuitVerse/CircuitVerse.git
 cd CircuitVerse
 ```
+If you are cloning on Windows machine, use following command with an **administrative shell** to clone the repo.
+
+```sh
+git clone -c core.symlinks=true https://github.com/CircuitVerse/CircuitVerse.git
+cd CircuitVerse
+```
+
 **Note:** If you want to contribute, first fork the original repository and clone your **forked** repository into your local machine. If you don't do this, you will not be able to make commits or change any files.
 ```sh
 git clone https://github.com/<username>/CircuitVerse.git
@@ -61,14 +68,21 @@ cd CircuitVerse
 5. Create database: `rails db:create`
 6. Run database migrations: `rails db:migrate`
 7. Start Sidekiq (background processes & job queue): `bundle exec sidekiq -e development -q default -q mailers -d -L tmp/sidekiq.log`
+1. ./bin/webpack-dev-server for Hot Module reload for  fast development or transpile using ./bin/webpack.
 
-Then, local development can be started with `rails s -b 127.0.0.1 -p 8080`. Navigate to `127.0.0.1:8080` in your web browser to access the website.
+Then, local development can be started with `rails s -b 127.0.0.1`. Navigate to `localhost:3000` in your web browser to access the website.
 
 #### Additional instructions for Ubuntu
 Additional instructions can be found [here](https://www.howtoforge.com/tutorial/ubuntu-ruby-on-rails/) and there are some extra notes for single user installations:
 - If you are facing difficulties installing RVM, most probably it is because of an older version of rvm shipped with Ubuntu's desktop edition and updating the same resolves the problem.
 - [Run Terminal as a login shell](https://rvm.io/integration/gnome-terminal/) so ruby and rails will be available.
 
+### CircuitVerse API documentation setup instructions
+To setup CircuitVerse API documentation, refer [docs/README.md](docs/README.md)
+
+### Additional setup instructions
+[Yarn](https://yarnpkg.com/lang/en/) is a package manager for the JavaScript ecosystem.
+CircuitVerse uses Yarn for frontend package and asset management.
   - Removing RVM
     ```
     sudo apt-get --purge remove ruby-rvm
@@ -80,7 +94,6 @@ Additional instructions can be found [here](https://www.howtoforge.com/tutorial/
     bash -s stable --ruby --autolibs=enable --auto-dotfiles
     ```
 - If you are facing errors running the `rails db:create` ensure that the socket file(i.e `mysql.sock`) is present in that location. Some possible locations where it might be present is `/run/mysqld/mysqld.sock` or `/var/lib/mysql/mysql.sock`.
-
 ### Heroku Deployment
 [Heroku](https://www.heroku.com) is a free cloud platform that can be used for deployment of CircuitVerse
 

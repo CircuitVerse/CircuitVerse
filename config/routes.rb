@@ -16,6 +16,10 @@ Rails.application.routes.draw do
   resources :group_members, only: %i[create destroy]
   resources :groups, except: %i[index] do
     resources :assignments, except: %i[index]
+    member do
+      get "invite/:token", to: "groups#group_invite", as: "invite"
+      put :generate_token
+    end
   end
 
   resources :custom_mails, except: %i[destroy]
@@ -88,6 +92,11 @@ Rails.application.routes.draw do
     get "tags/:tag", to: "projects#get_projects", as: "tag"
   end
 
+  # lti
+  scope "lti"  do
+    match 'launch', to: 'lti#launch', via: [:get, :post] 
+  end
+
   mount Commontator::Engine => "/commontator"
 
   # simulator
@@ -95,17 +104,32 @@ Rails.application.routes.draw do
     get "/:id", to: "simulator#show", as: "simulator"
     get "/edit/:id", to: "simulator#edit", as: "simulator_edit"
     post "/get_data", to: "simulator#get_data"
+    get "get_data/:id", to: "simulator#get_data"
     post "/post_issue", to: "simulator#post_issue"
     post "/update_data", to: "simulator#update"
     post "/update_image", to: "simulator#update_image"
     post "/create_data", to: "simulator#create"
+    post "/verilogcv", to: "simulator#verilog_cv"
     get "/", to: "simulator#new", as: "simulator_new"
     get "/embed/:id", to: "simulator#embed", as: "simulator_embed"
+  end
+
+  scope "/simulator_old" do
+    get "/:id", to: "simulator_old#show", as: "simulator_old"
+    get "/edit/:id", to: "simulator_old#edit", as: "simulator_old_edit"
+    post "/get_data", to: "simulator_old#get_data"
+    post "/post_issue", to: "simulator_old#post_issue"
+    post "/update_data", to: "simulator_old#update"
+    post "/update_image", to: "simulator_old#update_image"
+    post "/create_data", to: "simulator_old#create"
+    post "/verilogcv", to: "simulator_old#verilog_cv"
+    get "/", to: "simulator_old#new", as: "simulator_old_new"
+    get "/embed/:id", to: "simulator_old#embed"
   end
   # get 'simulator/embed_cross/:id', to: 'simulator#embed_cross', as: 'simulator_embed_cross'
 
   resources :users do
-    resources :projects, except: %i[index]
+    resources :projects, except: %i[index new]
   end
   resources :collaborations, only: %i[create destroy update]
 
@@ -114,7 +138,7 @@ Rails.application.routes.draw do
   get "/twitter", to: redirect("https://www.twitter.com/CircuitVerse")
   get "/linkedin", to: redirect("https://www.linkedin.com/company/circuitverse")
   get "/slack", to: redirect(
-    "https://join.slack.com/t/circuitverse-team/shared_invite/enQtNjc4MzcyNDE5OTA3LTdjYTM5NjFiZWZlZGI2MmU1MmYzYzczNmZlZDg5MjYxYmQ4ODRjMjQxM2UyMWI5ODUzODQzMDU2ZDEzNjI4NmE"
+    "https://join.slack.com/t/circuitverse-team/shared_invite/zt-p6bgler9-~8vWvsKmL9lZeYg4pP9hwQ"
   )
   get "/discord", to: redirect("https://discord.gg/8G6TpmM")
   get "/github", to: redirect("https://github.com/CircuitVerse")
@@ -137,7 +161,7 @@ Rails.application.routes.draw do
       post "/forgot_password", to: "users#forgot_password"
       resources :users, only: %i[index show update]
       get "/projects/featured", to: "projects#featured_circuits"
-      resources :projects do
+      resources :projects, only: %i[index show update destroy] do
         member do
           get "toggle-star", to: "projects#toggle_star"
           get "fork", to: "projects#create_fork"

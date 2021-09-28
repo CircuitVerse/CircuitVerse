@@ -9,13 +9,13 @@ RSpec.describe GroupMember, type: :model do
   end
 
   describe "associations" do
-    it { should belong_to(:group) }
-    it { should belong_to(:user) }
+    it { is_expected.to belong_to(:group) }
+    it { is_expected.to belong_to(:user) }
   end
 
   describe "callbacks" do
-    it "should call respective callbacks" do
-      expect_any_instance_of(GroupMember).to receive(:send_welcome_email)
+    it "calls respective callbacks" do
+      expect_any_instance_of(described_class).to receive(:send_welcome_email)
       FactoryBot.create(:group_member, user: @user, group: @group)
     end
   end
@@ -23,9 +23,9 @@ RSpec.describe GroupMember, type: :model do
   describe "public methods" do
     it "sends welcome email" do
       group_member = FactoryBot.create(:group_member, user: @user, group: @group)
-      expect {
+      expect do
         group_member.send_welcome_email
-      }.to have_enqueued_job.on_queue("mailers")
+      end.to have_enqueued_job.on_queue("mailers")
     end
   end
 end

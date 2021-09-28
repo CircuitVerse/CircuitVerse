@@ -6,7 +6,7 @@ describe CustomMailsHelper do
   SUBSCRIBED_USERS_COUNT = 2
   UNSUBSCRIBED_USERS_COUNT = 3
 
-  include CustomMailsHelper
+  include described_class
 
   describe "#send_mail_in_batches" do
     before do
@@ -14,14 +14,14 @@ describe CustomMailsHelper do
       (1..UNSUBSCRIBED_USERS_COUNT).each { FactoryBot.create(:user, subscribed: false) }
 
       @mail = FactoryBot.create(:custom_mail, subject: "Test subject",
-        content: "Test content",
-        sender: FactoryBot.create(:user, subscribed: false))
+                                              content: "Test content",
+                                              sender: FactoryBot.create(:user, subscribed: false))
     end
 
-    it "should send mails to all subscribed users" do
-      expect {
+    it "sends mails to all subscribed users" do
+      expect do
         send_mail_in_batches(@mail)
-      }.to have_enqueued_job.on_queue("mailers").exactly(SUBSCRIBED_USERS_COUNT).times
+      end.to have_enqueued_job.on_queue("mailers").exactly(SUBSCRIBED_USERS_COUNT).times
     end
   end
 end

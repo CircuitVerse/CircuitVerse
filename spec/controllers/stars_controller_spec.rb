@@ -11,9 +11,9 @@ describe StarsController, type: :request do
 
   describe "#create" do
     it "creates a star" do
-      expect {
+      expect do
         post stars_path, params: { star: { user_id: @user.id, project_id: @project.id } }
-      }.to change { Star.count }.by(1)
+      end.to change(Star, :count).by(1)
     end
   end
 
@@ -23,9 +23,9 @@ describe StarsController, type: :request do
     end
 
     it "destroys a star" do
-      expect {
+      expect do
         delete star_path(@star)
-      }.to change { Star.count }.by(-1)
+      end.to change(Star, :count).by(-1)
     end
   end
 
@@ -41,9 +41,9 @@ describe StarsController, type: :request do
       expect(unopened_notifications.count).to eq(1)
       expect(unopened_notifications.latest.notifiable).to eq(@star)
       expect(@star.printable_notifiable_name(@user))
-          .to eq("starred your project \"#{@project.name}\"")
+        .to eq("starred your project \"#{@project.name}\"")
       expect(@star.star_notifiable_path)
-          .to eq("/users/#{@project_author.id}/projects/#{@project.slug}")
+        .to eq("/users/#{@project_author.id}/projects/#{@project.slug}")
     end
   end
 end

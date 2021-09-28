@@ -10,14 +10,14 @@ RSpec.describe Project, type: :model do
   end
 
   describe "associations" do
-    it { should belong_to(:author) }
-    it { should belong_to(:assignment).optional }
-    it { should belong_to(:forked_project).optional }
-    it { should have_many(:forks) }
-    it { should have_many(:stars) }
-    it { should have_many(:collaborations) }
-    it { should have_many(:collaborators) }
-    it { should have_one(:featured_circuit) }
+    it { is_expected.to belong_to(:author) }
+    it { is_expected.to belong_to(:assignment).optional }
+    it { is_expected.to belong_to(:forked_project).optional }
+    it { is_expected.to have_many(:forks) }
+    it { is_expected.to have_many(:stars) }
+    it { is_expected.to have_many(:collaborations) }
+    it { is_expected.to have_many(:collaborators) }
+    it { is_expected.to have_one(:featured_circuit) }
   end
 
   describe "validity" do
@@ -27,6 +27,7 @@ RSpec.describe Project, type: :model do
       project.project_access_type = "Public"
       expect(project).to be_invalid
     end
+
     it "doesn't allow profanities in description" do
       project = FactoryBot.build(:project, assignment: @assignment, author: @user)
       expect(project).to be_valid
@@ -48,9 +49,9 @@ RSpec.describe Project, type: :model do
 
       describe "#send_mail" do
         it "sends new project mail" do
-          expect {
+          expect do
             @project.send_mail
-          }.to have_enqueued_job.on_queue("mailers")
+          end.to have_enqueued_job.on_queue("mailers")
         end
       end
     end
@@ -67,9 +68,9 @@ RSpec.describe Project, type: :model do
 
       describe "#send_mail" do
         it "doesn't send new project mail" do
-          expect {
+          expect do
             @project.send_mail
-          }.to_not have_enqueued_job.on_queue("mailers")
+          end.not_to have_enqueued_job.on_queue("mailers")
         end
       end
     end
@@ -81,9 +82,9 @@ RSpec.describe Project, type: :model do
       end
 
       it "increases the number of views" do
-        expect {
+        expect do
           @project.increase_views(@viewer)
-        }.to change { @project.view }.by(1)
+        end.to change { @project.view }.by(1)
       end
     end
 
@@ -93,11 +94,11 @@ RSpec.describe Project, type: :model do
         FactoryBot.create(:featured_circuit, project: @project)
       end
 
-      it "should remove featured project if project access is not public" do
-        expect {
+      it "removes featured project if project access is not public" do
+        expect do
           @project.project_access_type = "Private"
           @project.save
-        }.to change { FeaturedCircuit.count }.by(-1)
+        end.to change(FeaturedCircuit, :count).by(-1)
       end
     end
   end

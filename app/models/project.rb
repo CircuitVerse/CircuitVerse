@@ -7,6 +7,7 @@ require "custom_optional_target/web_push"
 class Project < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: %i[slugged history]
+  self.ignored_columns = ["data"]
 
   validates :name, length: { minimum: 1 }
   validates :slug, uniqueness: true
@@ -25,6 +26,7 @@ class Project < ApplicationRecord
   mount_uploader :image_preview, ImagePreviewUploader
   has_one :featured_circuit
   has_one :grade, dependent: :destroy
+  has_one :project_datum, dependent: :destroy
 
   scope :public_and_not_forked,
         -> { where(project_access_type: "Public", forked_project_id: nil) }
@@ -36,7 +38,17 @@ class Project < ApplicationRecord
   include PgSearch::Model
   pg_search_scope :text_search, against: %i[name description], associated_against: {
     tags: :name
+  }, using: {
+    tsearch: {
+      dictionary: "english", tsvector_column: "searchable"
+    }
   }
+
+  trigger.before(:insert, :update) do
+    "tsvector_update_trigger(
+        searchable, 'pg_catalog.english', description, name
+      );"
+  end
 
   searchable do
     text :name
@@ -60,41 +72,36 @@ class Project < ApplicationRecord
   # after_commit :send_mail, on: :create
 
   def increase_views(user)
-    if user.nil? || (user.id != author_id)
-      self.view ||= 0
-      self.view += 1
-      save
-    end
+    increment!(:view) if user.nil? || (user.id != author_id)
   end
 
   # returns true if starred, false if unstarred
   def toggle_star(user)
     star = Star.find_by(user_id: user.id, project_id: id)
-    if !star.nil?
-      star.destroy!
-      false
-    else
+    if star.nil?
       @star = Star.create!(user_id: user.id, project_id: id)
       true
+    else
+      star.destroy!
+      false
     end
   end
 
   def fork(user)
-    @forked_project = dup
-    @forked_project.image_preview = image_preview
-    @forked_project.update!(
+    forked_project = dup
+    forked_project.build_project_datum.data = project_datum&.data
+    forked_project.image_preview = image_preview
+    forked_project.update!(
       view: 1, author_id: user.id, forked_project_id: id, name: name
     )
-    @forked_project
+    forked_project
   end
 
   def send_mail
     if forked_project_id.nil?
       UserMailer.new_project_email(author, self).deliver_later if project_submission == false
-    else
-      if project_submission == false
-        UserMailer.forked_project_email(author, forked_project, self).deliver_later
-      end
+    elsif project_submission == false
+      UserMailer.forked_project_email(author, forked_project, self).deliver_later
     end
   end
 
@@ -130,6 +137,10 @@ class Project < ApplicationRecord
     end
   end
 
+  def public?
+    project_access_type == "Public"
+  end
+
   def featured?
     project_access_type == "Public" && FeaturedCircuit.exists?(project_id: id)
   end
@@ -162,7 +173,7 @@ class Project < ApplicationRecord
     end
 
     def should_generate_new_friendly_id?
-      # FIXME Remove extra query once production data is resolved
+      # FIXME: Remove extra query once production data is resolved
       name_changed? || Project.where(slug: slug).count > 1
     end
 end

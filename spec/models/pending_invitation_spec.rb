@@ -9,12 +9,12 @@ RSpec.describe PendingInvitation, type: :model do
   end
 
   describe "associations" do
-    it { should belong_to(:group) }
+    it { is_expected.to belong_to(:group) }
   end
 
   describe "callbacks", :focus do
-    it "should all respective callbacks" do
-      expect_any_instance_of(PendingInvitation).to receive(:send_pending_invitation_mail)
+    it "alls respective callbacks" do
+      expect_any_instance_of(described_class).to receive(:send_pending_invitation_mail)
       FactoryBot.create(:pending_invitation, group: @group)
     end
   end
@@ -22,9 +22,9 @@ RSpec.describe PendingInvitation, type: :model do
   describe "public methods" do
     it "sends pending invitation mail" do
       invitation = FactoryBot.create(:pending_invitation, group: @group)
-      expect {
+      expect do
         invitation.send_pending_invitation_mail
-      }.to have_enqueued_job.on_queue("mailers")
+      end.to have_enqueued_job.on_queue("mailers")
     end
   end
 end

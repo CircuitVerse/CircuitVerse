@@ -10,13 +10,14 @@
     <%= favicon_link_tag 'favicon.ico' %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap" rel="stylesheet">
     <%= csrf_meta_tags %>
 
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <%= render partial: "layouts/google_analytics" %>
+    <%= render partial: "layouts/google_analytics" if Rails.env.production? %>
   </head>
 
   <body>

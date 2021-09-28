@@ -38,6 +38,9 @@ Rails.application.configure do
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
+  # Disable Rack::Attack in test env to not throttle tests
+  config.middleware.delete Rack::Attack
+
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
   config.vapid_public_key = "BP0eSFqHWrs8xtF96UegaSl5rZJDbPkRen_9oQPZfq9q6iFmbwuELSKqm89qydRcG_F5xSsavxvbGyh_ci9_SQM="
