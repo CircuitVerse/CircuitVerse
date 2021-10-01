@@ -31,6 +31,66 @@
     </div>
   </div>
   <hr>
+  <% content_for :title, "CircuitVerse - Core Members" %>
+<div class="container">
+   <div class="row center-row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+         <h2 class="main-heading">CORE TEAM</h2>
+         <p class="main-description">CircuitVerse is lead by an experienced team that is dedicated to innovation and excellence</p>
+      </div>
+   </div>
+   <div class="row center-row teams-section">
+      <% @cores.each do |member| %>
+      <div class="team-member-container">
+         <a target="_blank" href="<%= member[:url] %>" ><%= image_tag member[:img],:class => "about-contributor-image " %></a>
+         <p class="team-footer"><%= member[:name] %></p>
+      </div>
+      <% end %>
+      <br><br>
+   </div>
+</div>
+<br><br>
+<hr>
+<% content_for :title, "CircuitVerse - Mentors" %>
+<div class="container">
+   <div class="row center-row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+         <h2 class="main-heading">MENTORS</h2>
+         <p class="main-description">Our mentors supports and encourages the professional development of the mentee and provides active guidance to help them for the fruitful development of our community.</p>
+      </div>
+   </div>
+   <div class="row center-row teams-section">
+      <% @mentors.each do |member| %>
+      <div class="team-member-container">
+         <a target="_blank" href="<%= member[:url] %>" ><%= image_tag member[:img],:class => "about-contributor-image " %></a>
+         <p class="team-footer"><%= member[:name] %></p>
+      </div>
+      <% end %>
+      <br><br>
+   </div>
+</div>
+<br><br>
+<hr>
+<% content_for :title, "CircuitVerse - Alumni" %>
+<div class="container">
+   <div class="row center-row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+         <h2 class="main-heading">ALUMNI</h2>
+         <p class="main-description">We also want to thank all past members for their invaluable contributions!</p>
+      </div>
+   </div>
+   <div class="row center-row teams-section">
+      <% @alumni.each do |member| %>
+      <div class="team-member-container">
+         <a target="_blank" href="<%= member[:url] %>" ><%= image_tag member[:img],:class => "about-contributor-image " %></a>
+         <p class="team-footer"><%= member[:name] %></p>
+      </div>
+      <% end %>
+      <br><br>
+   </div>
+</div>
+<br><br>
+<hr>
   <div class="row center-row">
     <div class="col-xs col-sm col-md col-lg">
       <h2 class="submain-heading"><%= t("about.contributors_heading") %></h2>

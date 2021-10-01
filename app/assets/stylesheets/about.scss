@@ -59,3 +59,27 @@
     margin-top: 10px;
   }
 }
+
+.teams-section {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 30px;
+  min-width: 100%;
+  justify-content: center;
+}
+
+.team-member-container{
+  height: 130px;
+  width: 130px;
+  margin-top: 35px;
+  margin-right: 3px;
+  margin-left: 25px;
+  margin-bottom: 15px;
+
+}
+.team-footer{
+  color:  #000000;
+  text-align: center;
+  margin-top: 10px;
+}
