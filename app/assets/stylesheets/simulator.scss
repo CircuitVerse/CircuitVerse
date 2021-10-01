@@ -42,3 +42,20 @@
 .report-sidebar a:hover {
   right: 0;
 }
+
+.navbar {
+  position: inherit;
+  top: 0;
+  width: 100vw;
+  z-index: 10000;
+}
+
+#tabsbar {
+  position: inherit;
+  top: 46px;
+}
+
+.navbar-toggler {
+  font-size: 1.02rem;
+  padding: .15rem .75rem;
+}

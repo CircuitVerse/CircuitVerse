@@ -80,13 +80,13 @@ export const tour = [
         },
     },
     {
-        element: '.tour-help',
+        element: '.navbar',
         popover: {
             className: 'tourHelpStep',
             title: 'Restart tutorial anytime',
-            description: 'You can restart this tutorial anytime by clicking on "Tutorial Guide" under this dropdown.',
-            position: 'right',
-            offset: 0,
+            description: 'You can restart this tutorial anytime by clicking on "Tutorial Guide" under Help dropdown.',
+            position: 'down',
+            offset: 400,
         },
     },
 
