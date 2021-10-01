@@ -1,0 +1,30 @@
+{
+  "name": "newrelic-annotate",
+  "version": "1.0.0",
+  "description": "will write errors.txt file to annotations pane",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint *.js",
+    "package": "ncc build index.js -o dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/newrelic/newrelic-ruby-agent.git"
+  },
+  "keywords": [
+    "NewRelic",
+    "GitHub",
+    "Actions",
+    "Ruby"
+  ],
+  "bugs": {
+    "url": "https://github.com/newrelic/newrelic-ruby-agent/issues"
+  },
+  "author": "New Relic",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@actions/core": "^1.2.4",
+    "@actions/io": "^1.0.2",
+    "ncc": "^0.3.6"
+  }
+}

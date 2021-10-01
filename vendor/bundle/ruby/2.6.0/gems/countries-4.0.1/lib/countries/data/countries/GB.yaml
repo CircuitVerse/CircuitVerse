@@ -1,0 +1,73 @@
+---
+GB:
+  continent: Europe
+  address_format: |-
+    {{recipient}}
+    {{street}}
+    {{city}}
+    {{region}}
+    {{postalcode}}
+    {{country}}
+  alpha2: GB
+  alpha3: GBR
+  country_code: '44'
+  international_prefix: '00'
+  ioc: GBR
+  gec: UK
+  name: United Kingdom of Great Britain and Northern Ireland
+  national_destination_code_lengths:
+  - 2
+  national_number_lengths:
+  - 10
+  - 11
+  national_prefix: '0'
+  number: '826'
+  region: Europe
+  subregion: Northern Europe
+  world_region: EMEA
+  un_locode: GB
+  nationality: British
+  eu_member: false
+  eea_member: false
+  vat_rates:
+    standard: 20
+    reduced:
+    - 5
+    super_reduced: 
+    parking: 
+  postal_code: true
+  postal_code_format: GIR ?0AA|(?:(?:AB|AL|B|BA|BB|BD|BF|BH|BL|BN|BR|BS|BT|BX|CA|CB|CF|CH|CM|CO|CR|CT|CV|CW|DA|DD|DE|DG|DH|DL|DN|DT|DY|E|EC|EH|EN|EX|FK|FY|G|GL|GY|GU|HA|HD|HG|HP|HR|HS|HU|HX|IG|IM|IP|IV|JE|KA|KT|KW|KY|L|LA|LD|LE|LL|LN|LS|LU|M|ME|MK|ML|N|NE|NG|NN|NP|NR|NW|OL|OX|PA|PE|PH|PL|PO|PR|RG|RH|RM|S|SA|SE|SG|SK|SL|SM|SN|SO|SP|SR|SS|ST|SW|SY|TA|TD|TF|TN|TQ|TR|TS|TW|UB|W|WA|WC|WD|WF|WN|WR|WS|WV|YO|ZE)(?:\d[\dA-Z]?
+    ?\d[ABD-HJLN-UW-Z]{2}))|BFPO ?\d{1,4}
+  unofficial_names:
+  - United Kingdom
+  - The United Kingdom
+  - Vereinigtes Königreich
+  - Royaume-Uni
+  - Reino Unido
+  - イギリス
+  - Verenigd Koninkrijk
+  - Great Britain (UK)
+  - UK
+  - Великобритания
+  languages_official:
+  - en
+  languages_spoken:
+  - en
+  geo:
+    latitude: 55.378051
+    latitude_dec: '54.56088638305664'
+    longitude: -3.435973
+    longitude_dec: "-2.2125117778778076"
+    max_latitude: 60.91569999999999
+    max_longitude: 33.9165549
+    min_latitude: 34.5614
+    min_longitude: -8.8988999
+    bounds:
+      northeast:
+        lat: 60.91569999999999
+        lng: 33.9165549
+      southwest:
+        lat: 34.5614
+        lng: -8.8988999
+  currency_code: GBP
+  start_of_week: monday

@@ -1,0 +1,20 @@
+rvm:
+  - 1.9.3
+  - 2.1.10
+  - 2.2.7
+  - 2.3.4
+  - 2.4.1
+  - jruby
+gemfile:
+  - gemfiles/rack_1.gemfile
+  - gemfiles/rack_2.gemfile
+matrix:
+  exclude:
+    - rvm: 1.9.3
+      gemfile: gemfiles/rack_2.gemfile
+    - rvm: 2.1.10
+      gemfile: gemfiles/rack_2.gemfile
+    - rvm: jruby
+      gemfile: gemfiles/rack_2.gemfile
+cache: bundler
+sudo: false

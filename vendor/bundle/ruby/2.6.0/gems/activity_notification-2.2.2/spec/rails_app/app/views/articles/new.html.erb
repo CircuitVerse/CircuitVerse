@@ -1,0 +1,7 @@
+<section>
+  <h1>New Article</h1>
+  <%= render partial: 'form', locals: { submit_message: "Create Article" } %>
+  <div class="left_button_wrapper">
+    <%= link_to 'Back', articles_path, class: "gray_button" %>
+  </div>
+</section>

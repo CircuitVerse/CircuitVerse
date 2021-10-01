@@ -1,0 +1,28 @@
+<p><small><%= link_to "← Back to the thread", simple_discussion.forum_thread_path(@forum_thread) %></small></p>
+
+<h2><%= content_tag :span, "Pinned", class: "text-muted" if @forum_thread.pinned? %> <%= @forum_thread.title %></h2>
+
+<p class="thread-details">
+  <strong><%= category_link(@forum_thread.forum_category) %></strong>
+  • <%= t('asked_time_ago', time: time_ago_in_words(@forum_thread.created_at), author: @forum_thread.user.name) %>
+</p>
+</p>
+
+<br />
+
+<%= content_tag :div, id: dom_id(@forum_post), class: forum_post_classes(@forum_post) do %>
+  <div class="card-header">
+    <div>
+      <%= avatar_tag(@forum_post.user.email) %>
+      <strong class="forum-post-user"><%= @forum_post.user.name %></strong>
+      <small>
+        <%= t('commented_on')%>
+        <%= link_to @forum_post.created_at.strftime("%b %d, %Y"), simple_discussion.forum_thread_url(@forum_thread, anchor: "forum_post_#{@forum_post.id}") %>:
+      </small>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <%= render "form" %>
+  </div>
+<% end %>

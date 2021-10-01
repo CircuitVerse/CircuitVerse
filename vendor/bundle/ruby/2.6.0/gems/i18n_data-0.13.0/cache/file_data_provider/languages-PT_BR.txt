@@ -1,0 +1,184 @@
+AA;;Afar
+AB;;Abcázio
+AF;;Africâner
+AK;;Akan
+AM;;Amárico
+AR;;Árabe
+AN;;Aragonês
+AS;;Assamês
+AV;;Avárico
+AE;;Avéstico
+AY;;Aimará
+AZ;;Azerbaidjano
+BA;;Basquir
+BM;;Bambara
+BE;;Bielorusso
+BN;;Bengali
+BH;;Línguas biaris
+BI;;Bislamá
+BO;;Tibetano
+BS;;Bósnio
+BR;;Bretão
+BG;;Búlgaro
+CA;;Catalão; Valenciano
+CS;;Tcheco
+CH;;Chamorro
+CE;;Checheno
+CU;;Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic
+CV;;Tchuvache
+KW;;Córnico
+CO;;Corso
+CR;;Cree
+CY;;Galês
+DA;;Dinamarquês
+DE;;Alemão
+DV;;Divehi; Maldívio
+DZ;;Butanês
+EL;;Grego, Moderno (1453-)
+EN;;Inglês
+EO;;Esperanto
+ET;;Estoniano
+EU;;Basco
+EE;;Jeje
+FO;;Faroês
+FA;;Persa
+FJ;;Fidjiano
+FI;;Finlandês
+FR;;Francês
+FY;;Frísio ocidental
+FF;;Fula
+GD;;Escocês
+GA;;Irlandês
+GL;;Galego
+GV;;Manx
+GN;;Guarani
+GU;;gujerati
+HT;;Haitiano; Crioulo haitiano
+HA;;Hauçá
+HE;;Hebraico
+HZ;;Hereró
+HI;;Híndi
+HO;;Hiri Motu
+HR;;Croata
+HU;;Húngaro
+HY;;Armênio
+IG;;Ibo
+IO;;Ido
+II;;Yi de Sichuan; Nuosu
+IU;;Inuktitut
+IE;;Ocidental
+IA;;Interlíngua
+ID;;Indonésio
+IK;;Inupiaque
+IS;;Islandês
+IT;;Italiano
+JV;;Javanês
+JA;;Japonês
+KL;;Groenlandês
+KN;;Canarês
+KS;;Caxemira
+KA;;Georgiano
+KR;;Canúri
+KK;;Cazaque
+KM;;Khmer Central
+KI;;Quicuio
+RW;;Ruanda
+KY;;Quiguiz
+KV;;Komi
+KG;;Congo
+KO;;Coreano
+KJ;;Cuanhama
+KU;;Curdo
+LO;;Laosiano
+LA;;Latim
+LV;;Letão
+LI;;Limburgês
+LN;;Lingala
+LT;;Lituano
+LB;;Luxemburguês
+LU;;Baluba
+LG;;Nganda
+MH;;Marshalês
+ML;;Malaiala
+MR;;Marati
+MK;;Macedônio
+MG;;Malgaxe
+MT;;Maltês
+MN;;Mongol
+MI;;Maori
+MS;;Malaio
+MY;;Birmanês
+NA;;Nauru
+NV;;Navarro
+NR;;Ndebele do Sul
+ND;;Ndebele do Norte
+NG;;Ovampo
+NE;;Nepali
+NL;;Holandês; Flamengo
+NN;;Norueguês Nynorsk
+NB;;Norwegian Bokmål
+NO;;Norueguês
+NY;;Cinianja
+OC;;Occitâno (pós-1500); Provençal
+OJ;;Obíjua
+OR;;Oriá
+OM;;Oromo
+OS;;Osseta
+PA;;Panjabi
+PI;;Páli
+PL;;Polonês
+PT;;Português
+PS;;Pachto
+QU;;Quíchua
+RM;;Romanche
+RO;;Romeno; Moldávio; Moldavo
+RN;;Kirundi
+RU;;Russo
+SG;;Sango
+SA;;Sânscrito
+SI;;Cingalês
+SK;;Eslovaco
+SL;;Esloveno
+SE;;Sami do norte
+SM;;Samoano
+SN;;Xona
+SD;;Síndi
+SO;;Somali
+ST;;Sesoto do Sul
+ES;;Espanhol; Castelhano
+SQ;;Albanês
+SC;;Sardo
+SR;;Sérvio
+SS;;Swati
+SU;;Sundanês
+SW;;Suaíli
+SV;;Sueco
+TY;;Taitiano
+TA;;Tâmil
+TT;;Tártaro
+TE;;Télugo
+TG;;Tadjique
+TL;;Tagalo
+TH;;Tailandês
+TI;;Tigrínia
+TO;;Tonga
+TN;;Tsuana
+TS;;Tsonga
+TK;;Turcomeno
+TR;;Turco
+TW;;Twi
+UG;;Uigur
+UK;;Ucraniano
+UR;;Urdu
+UZ;;Uzbeque
+VE;;Venda
+VI;;Vietnamita
+VO;;Volapuque
+WA;;Valão
+WO;;Uólofe
+XH;;Xhosa
+YI;;Iídiche
+YO;;Ioruba
+ZA;;Zhuang; Chuang
+ZH;;Chinês
+ZU;;Zulu

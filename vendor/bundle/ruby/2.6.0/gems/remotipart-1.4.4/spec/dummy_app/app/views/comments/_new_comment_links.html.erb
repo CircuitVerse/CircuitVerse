@@ -1,0 +1,5 @@
+<div id='new-comment-links'>
+  <%= link_to 'New Comment', new_comment_path, :remote => true, :'data-type' => 'html', :id => 'new-comment-link' %>
+  <br />
+  <%= link_to 'New Comment with Attachment', new_comment_path(:attachment => true), :remote => true, :'data-type' => 'html', :id => 'new-comment-attachment-link' %>
+</div>

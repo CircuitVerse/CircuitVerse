@@ -1,0 +1,15 @@
+//= require jquery-ui/effects/effect-blind
+//= require jquery-ui/effects/effect-bounce
+//= require jquery-ui/effects/effect-clip
+//= require jquery-ui/effects/effect-drop
+//= require jquery-ui/effects/effect-explode
+//= require jquery-ui/effects/effect-fade
+//= require jquery-ui/effects/effect-fold
+//= require jquery-ui/effects/effect-highlight
+//= require jquery-ui/effects/effect-puff
+//= require jquery-ui/effects/effect-pulsate
+//= require jquery-ui/effects/effect-scale
+//= require jquery-ui/effects/effect-shake
+//= require jquery-ui/effects/effect-size
+//= require jquery-ui/effects/effect-slide
+//= require jquery-ui/effects/effect-transfer

@@ -1,0 +1,102 @@
+<div class="row col-md-12">
+  <h1>
+    <%= t('community') %>
+  </h1>
+</div>
+
+<div class="row simple_discussion">
+  <div class="col-md-3 mb-3">
+
+    <div class="card card-body">
+      <%= link_to t('ask_a_question'), simple_discussion.new_forum_thread_path, class: "btn btn-outline-primary btn-block" %>
+      <hr />
+
+      <div class="forum-thread-filters">
+        <h5>
+          <strong>
+            <%= t('filters') %>
+          </strong>
+        </h5>
+        <div>
+          <%= forum_link_to simple_discussion.forum_threads_path, exact: true do %>
+            <%= icon "fa-fw fas", "bars" %>
+            <%= t('.all_threads') %>
+          <% end %>
+        </div>
+        <% if user_signed_in? %>
+          <div>
+            <%= forum_link_to simple_discussion.mine_forum_threads_path do %><%= icon "fa-fw far", "user-circle" %>
+              <%= t('.my_questions') %>
+            <% end %>
+          </div>
+          <div>
+            <%= forum_link_to simple_discussion.participating_forum_threads_path do %>
+              <%= icon "fa-fw far", "comments" %>
+              <%= t('.participating') %>
+            <% end %>
+          </div>
+        <% end %>
+        <div>
+          <%= forum_link_to simple_discussion.answered_forum_threads_path do %>
+            <%= icon "fa-fw fas", "check" %>
+            <%= t('.answered') %>
+          <% end %>
+        </div>
+        <div>
+          <%= forum_link_to simple_discussion.unanswered_forum_threads_path do %>
+            <%= icon "fa-fw fas", "question" %>
+            <%= t('.unanswered') %>
+          <% end %>
+        </div>
+      </div>
+
+      <hr />
+
+      <div class="forum-thread-filters">
+        <h6>
+          <strong>
+            <%= t('.by_category') %>
+          </strong>
+        </h6>
+        <div><%= forum_link_to simple_discussion.forum_threads_path, exact: true do %><%= icon "fa-fw fas", "circle" %> All<% end %></div>
+        <% ForumCategory.sorted.each do |category| %>
+          <div>
+            <%= forum_link_to simple_discussion.forum_category_forum_threads_path(category) do %>
+              <%= icon "fa-fw fas", "circle", style: "color: #{category.color}" %>
+              <%= category.name %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+
+      <% if @forum_thread.present? && @forum_thread.persisted? %>
+        <hr />
+
+        <%# User has not posted in the thread or subscribed %>
+        <h5><%= t('.notifications') %></h5>
+
+        <%= link_to simple_discussion.forum_thread_notifications_path(@forum_thread), method: :post, class: "btn btn-secondary btn-sm btn-block mb-2" do %>
+          <% if @forum_thread.subscribed? current_user %>
+            <%= icon "fa-fw fas", "bell-slash" %> <%= t('.unsubscribe') %>
+          <% else %>
+            <%= icon "fa-fw fas", "bell" %>
+            <%= t('.suscribe') %>
+          <% end %>
+        <% end %>
+
+        <small><%= @forum_thread.subscribed_reason(current_user) %></small>
+      <% end %>
+    </div>
+
+  </div>
+
+  <div class="col-md-9 mb-3">
+
+    <div class="card card-body">
+      <%= yield %>
+    </div>
+
+  </div>
+</div>
+
+<% parent_layout("application") %>

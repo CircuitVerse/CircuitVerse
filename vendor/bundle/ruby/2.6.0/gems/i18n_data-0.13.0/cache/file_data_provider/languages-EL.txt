@@ -1,0 +1,184 @@
+AA;;Afar
+AB;;Abkhazian
+AF;;Αφρικάανς
+AK;;Akan
+AM;;Amharic
+AR;;Αραβικά
+AN;;Aragonese
+AS;;Assamese
+AV;;Αβαρικά
+AE;;Avestan
+AY;;Aymara
+AZ;;Αζερμπαϊτζιανά
+BA;;Μπάσκιρ
+BM;;Μπαμπάρα
+BE;;Λευκωρωσικά
+BN;;Βεγγαλικά
+BH;;Μπιχάρι γλώσσες
+BI;;Bislama
+BO;;Θιβετιανά
+BS;;Βοσνιακά
+BR;;Βρετονικά
+BG;;Βουλγάρικα
+CA;;Catalan; Valencian
+CS;;Τσέχικα
+CH;;Chamorro
+CE;;Τσετσένικα
+CU;;Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic
+CV;;Chuvash
+KW;;Cornish
+CO;;Κορσικανικά
+CR;;Cree
+CY;;Ουαλικά
+DA;;Δανέζικα
+DE;;Γερμανικά
+DV;;Divehi; Dhivehi; Maldivian
+DZ;;Dzongkha
+EL;;Ελληνικά
+EN;;Αγγλικά
+EO;;Εσπεράντο
+ET;;Εσθονικά
+EU;;Βασκικά
+EE;;Ewe
+FO;;Faroese
+FA;;Περσικά
+FJ;;Fijian
+FI;;Φινλανδικά
+FR;;Γαλλικά
+FY;;Western Frisian
+FF;;Fulah
+GD;;Γαελική, Σκωτική γαελική
+GA;;Ιρλανδέζικα
+GL;;Galician
+GV;;Manx
+GN;;Γκουαρανί
+GU;;Γκουτζαράτι
+HT;;Haitian; Haitian Creole
+HA;;Hausa
+HE;;Εβραϊκά
+HZ;;Herero
+HI;;Ινδουικά
+HO;;Hiri Motu
+HR;;Κροατικά
+HU;;Ουγγρικά
+HY;;Αρμενικά
+IG;;Igbo
+IO;;Ίντο
+II;;Sichuan Yi; Nuosu
+IU;;Inuktitut
+IE;;Interlingue; Occidental
+IA;;Ιντερλίνγκουα (Διεθνής Ένωση Βοηθητικής Γλώσσας IALA)
+ID;;Ινδονησιακά
+IK;;Inupiaq
+IS;;Ισλανδικά
+IT;;Ιταλικά
+JV;;Javanese
+JA;;Ιαπωνικά
+KL;;Kalaallisut, Γροιλανδικά
+KN;;Kannada
+KS;;Kashmiri
+KA;;Γεωργιανά
+KR;;Kanuri
+KK;;Kazakh
+KM;;Central Khmer
+KI;;Kikuyu; Gikuyu
+RW;;Kinyarwanda
+KY;;Kirghiz; Kyrgyz
+KV;;Komi
+KG;;Κονγκολέζικα
+KO;;Κορεάτικα
+KJ;;Kuanyama; Kwanyama
+KU;;Κούρδικα
+LO;;Lao
+LA;;Λατινικά
+LV;;Λετονέζικα
+LI;;Limburgan; Limburger; Limburgish
+LN;;Lingala
+LT;;Λιθουανικά
+LB;;Luxembourgish; Letzeburgesch
+LU;;Luba-Katanga
+LG;;Ganda
+MH;;Marshallese
+ML;;Μαλαγιάλαμ
+MR;;Marathi
+MK;;Σλαβομακεδονικά
+MG;;Μαλαγασικά
+MT;;Μαλτέζικα
+MN;;Μογκολικά
+MI;;Μάορι
+MS;;Malay
+MY;;Burmese
+NA;;Ναουρού
+NV;;Navajo; Navaho
+NR;;Ndebele, South; South Ndebele
+ND;;Ndebele, North; North Ndebele
+NG;;Ndonga
+NE;;Nepali
+NL;;Dutch; Flemish
+NN;;Νορβηγικά Nynorsk
+NB;;Bokmål, Norwegian; Norwegian Bokmål
+NO;;Νορβηγικά
+NY;;Chichewa; Chewa; Nyanja
+OC;;Occitan (post 1500); Provençal
+OJ;;Ojibwa
+OR;;Oriya
+OM;;Oromo
+OS;;Ossetian; Ossetic
+PA;;Panjabi; Punjabi
+PI;;Pali
+PL;;Πολωνέζικα
+PT;;Πορτογαλικά
+PS;;Pushto; Pashto
+QU;;Quechua
+RM;;Ρουμάνικα
+RO;;Ρουμανικά, Μολδαβικά
+RN;;Rundi
+RU;;Ρώσικα
+SG;;Sango
+SA;;Σανσκριτικά
+SI;;Sinhala; Sinhalese
+SK;;Σλοβακικά
+SL;;Σλοβενικά
+SE;;Northern Sami
+SM;;Samoan
+SN;;Shona
+SD;;Sindhi
+SO;;Σομαλικά
+ST;;Sotho, Southern
+ES;;Ισπανικά, Καστιλιάνικα
+SQ;;Αλβανικά
+SC;;Sardinian
+SR;;Σερβικά
+SS;;Swati
+SU;;Sundanese
+SW;;Σουαχίλι
+SV;;Σουηδικά
+TY;;Tahitian
+TA;;Ταμίλ
+TT;;Tatar
+TE;;Telugu
+TG;;Tajik
+TL;;Tagalog
+TH;;Ταϊλανδικά
+TI;;Tigrinya
+TO;;Tonga (Tonga Islands)
+TN;;Tswana
+TS;;Tsonga
+TK;;Turkmen
+TR;;Τουρκικά
+TW;;Twi
+UG;;Uighur; Uyghur
+UK;;Ουκρανικά
+UR;;Urdu
+UZ;;Uzbek
+VE;;Venda
+VI;;Βιετναμέζικα
+VO;;Volapük
+WA;;Walloon
+WO;;Wolof
+XH;;Xhosa
+YI;;Yiddish
+YO;;Yoruba
+ZA;;Zhuang; Chuang
+ZH;;Κινέζικα
+ZU;;Ζουλού

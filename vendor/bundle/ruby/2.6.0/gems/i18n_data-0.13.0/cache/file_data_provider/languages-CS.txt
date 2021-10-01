@@ -1,0 +1,184 @@
+AA;;afarština
+AB;;abchazština
+AF;;afrikánština
+AK;;akanština
+AM;;amharština
+AR;;arabština
+AN;;aragonská španělština
+AS;;ásámština
+AV;;avarština
+AE;;avestština
+AY;;ajmarština
+AZ;;ázerbájdžánština
+BA;;baskirština
+BM;;bambarština
+BE;;běloruština
+BN;;bengálština
+BH;;bihárské jazyky
+BI;;bislámština
+BO;;tibetština
+BS;;bosenština
+BR;;bretonština
+BG;;bulharština
+CA;;katalánština
+CS;;čeština
+CH;;čamoro
+CE;;čečenština
+CU;;Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic
+CV;;čuvaština
+KW;;kornština
+CO;;korsičtina
+CR;;krí
+CY;;velština
+DA;;dánština
+DE;;němčina
+DV;;divehi; maledivština
+DZ;;bhútánština
+EL;;řečtina, moderní (1453-)
+EN;;angličtina
+EO;;esperanto
+ET;;estonština
+EU;;baskičtina
+EE;;eweština
+FO;;faerština
+FA;;perština
+FJ;;fidžijština
+FI;;finština
+FR;;francouzština
+FY;;západofríština
+FF;;fulahština
+GD;;gaelština; skotská gaelština
+GA;;irština
+GL;;galicijština
+GV;;manština
+GN;;guaranština
+GU;;gudžarátština
+HT;;haitská kreolština
+HA;;hauština
+HE;;hebrejština
+HZ;;herero
+HI;;hindština
+HO;;hiri motu
+HR;;chorvatština
+HU;;maďarština
+HY;;arménština
+IG;;igbo
+IO;;ido
+II;;s`čchuandština; nuosu
+IU;;inuktitut
+IE;;interlingue; occidental
+IA;;Interlingua (Mezinárodní pomocná jazyková asociace)
+ID;;indonéština
+IK;;inupiak
+IS;;islandština
+IT;;italština
+JV;;jávština
+JA;;japonština
+KL;;kalmyčtina; grónština
+KN;;kannadština
+KS;;kašmírština
+KA;;gruzínština
+KR;;kanuri
+KK;;kazaština
+KM;;centrální khmerština
+KI;;kukujština
+RW;;rwandština
+KY;;kyrgyzština
+KV;;komijština
+KG;;konžština
+KO;;korejština
+KJ;;kuaňamština
+KU;;kurdština
+LO;;laoština
+LA;;latina
+LV;;lotyština
+LI;;limburština
+LN;;lingalština
+LT;;litevština
+LB;;lucemburština
+LU;;lubu-katanžština
+LG;;ganda
+MH;;maršalština
+ML;;malajálamština
+MR;;maráthština
+MK;;makedonština
+MG;;malgaština
+MT;;maltézština
+MN;;mongolština
+MI;;maorština
+MS;;malajština
+MY;;barmština
+NA;;naurština
+NV;;navajština
+NR;;ndebelština jižní; Jižní Afrika
+ND;;ndebelština severní; Zimbabwe
+NG;;ndondština
+NE;;nepálština
+NL;;nizozemština; vlámština
+NN;;norština Nynorsk
+NB;;norština Bokmål
+NO;;norština
+NY;;čičeva; čeva; ňandžština
+OC;;okcitánština (po 1500); provensálština
+OJ;;odžibwejština
+OR;;orija
+OM;;oromština
+OS;;osečtina
+PA;;paňdžábština
+PI;;páli
+PL;;polština
+PT;;portugalština
+PS;;pašto
+QU;;kečuánština
+RM;;rétorománština
+RO;;rumunština; moldavština; moldovština
+RN;;rundština
+RU;;ruština
+SG;;sangština
+SA;;sanskrt
+SI;;sinhálština
+SK;;slovenština
+SL;;slovinština
+SE;;sami jazyky, severní
+SM;;samojština
+SN;;šonština
+SD;;sindhština
+SO;;somálština
+ST;;sothoština, jižní
+ES;;španělština; kastilština
+SQ;;albánština
+SC;;sardinština
+SR;;srbština
+SS;;svatština
+SU;;sundština
+SW;;svahilština
+SV;;švédština
+TY;;tahitština
+TA;;tamilština
+TT;;tatarština
+TE;;telugu
+TG;;tadžičtina
+TL;;tagalština
+TH;;thajština
+TI;;tigriňa
+TO;;tongština (tonžské ostrovy)
+TN;;tswanština (čwanština)
+TS;;tsongština
+TK;;turkmenština
+TR;;turečtina
+TW;;twi
+UG;;ujgurština
+UK;;ukrajinština
+UR;;urdština
+UZ;;uzbečtina
+VE;;vendština
+VI;;vietnamština
+VO;;volapük
+WA;;valonština
+WO;;wolofština
+XH;;xhosština
+YI;;jidiš
+YO;;jorubština
+ZA;;čuangština
+ZH;;čínština
+ZU;;zuluština

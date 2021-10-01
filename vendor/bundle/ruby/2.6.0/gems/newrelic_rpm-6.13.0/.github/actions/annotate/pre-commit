@@ -1,0 +1,5 @@
+#!/bin/sh
+set -e
+cd .github/actions/annotate
+yarn run package
+exec git add dist/index.js

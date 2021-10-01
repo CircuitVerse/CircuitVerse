@@ -1,0 +1,184 @@
+AA;;Ikinyafari
+AB;;Abukaziyani
+AF;;Ikinyafurikansi
+AK;;Ikinyakani
+AM;;Ikinyamarike
+AR;;Icyarabu
+AN;;Icyaragoneze
+AS;;Ikinyasamese
+AV;;Ikinyavarika
+AE;;Ikinyavesitani
+AY;;Ikinyayimara
+AZ;;Ikinyazeribayijani
+BA;;Ikinyabashikiri
+BM;;Ikibambara
+BE;;Ikibelarusiya
+BN;;Ikibengali
+BH;;Indimi za tupi
+BI;;Ikibisilamu
+BO;;Ikinyatibeti
+BS;;Ikinyabosiniya
+BR;;Ikinyabureto
+BG;;Ikinyabulugariya
+CA;;Catalan; Valencian
+CS;;Ikinyaceke
+CH;;Igishamoro
+CE;;Igiceceni
+CU;;Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic
+CV;;Igicuvashi
+KW;;Igikorunishe
+CO;;Igikoruse
+CR;;Igikiri
+CY;;Ikiwelishi
+DA;;Ikidanwa
+DE;;Ikidage
+DV;;Divehi; Dhivehi; Maldivian
+DZ;;Ikinyazongika
+EL;;Ikigereki, Gishya (1453-)
+EN;;Icyongereza
+EO;;Icyesiperanto
+ET;;Icyesitoniya
+EU;;Ikibasike
+EE;;Icyewe
+FO;;Igifero
+FA;;Ikinyaperisi
+FJ;;Igifijiyani
+FI;;Ikinyafinilande
+FR;;Igifaransa
+FY;;Igifuriziyani
+FF;;Igifurahe
+GD;;Ikigalike; Ikinyasikotilande
+GA;;Ikinyirilande
+GL;;Ikigalegani
+GV;;Ikimangisi
+GN;;Ikigwarani
+GU;;Ikigujarati
+HT;;Ikinyahayiti; Igikerewole nyahayiti
+HA;;Igihawusa
+HE;;Igiheburayo
+HZ;;Igiherero
+HI;;Igihindi
+HO;;Igihiri
+HR;;Ikinyakorowasi
+HU;;Ikinyahangariya
+HY;;Icyarumeniya
+IG;;Ikigibo
+IO;;Ikido
+II;;Igisicuwanayi
+IU;;Ikinukititutu
+IE;;Ikinyenterilinge
+IA;;Interlingua (International Auxiliary Language Association)
+ID;;Ikinyendonisiya
+IK;;Ikinupiyake
+IS;;Ikinyisilande
+IT;;Igitaliyani
+JV;;Ikijavani
+JA;;Ikiyapani
+KL;;Kalaallisut; Greenlandic
+KN;;Iginyakanada
+KS;;Igikashimiri
+KA;;Ikinyageworugiya
+KR;;Igikanuri
+KK;;Igikazaki
+KM;;Central Khmer
+KI;;Ikikuyu
+RW;;Ikinyarwanda
+KY;;Ikirigizi
+KV;;Igikomi
+KG;;Ikinyakongo
+KO;;Igikoreya
+KJ;;Igikwanyama
+KU;;Igikurudishi
+LO;;Ikilawo
+LA;;Ikilatini
+LV;;Ikilativiya
+LI;;Limburgan; Limburger; Limburgish
+LN;;Ilingala
+LT;;Ikinyalitwani
+LB;;Ikinyalugizamburu
+LU;;Ikiluba-Katanga
+LG;;Ikiganda
+MH;;Ikimarishali
+ML;;Ikimalayalamu
+MR;;Ikimarati
+MK;;Ikinyamacedoniya
+MG;;Ikimaragasi
+MT;;Ikinyamalite
+MN;;Ikinyamongoliya
+MI;;Ikimawori
+MS;;Ikimalayi
+MY;;Ikibarumi
+NA;;Ikinawuru
+NV;;Ikinavaho
+NR;;Ikindebele, Amajyepfo
+ND;;Ikindebele, amajyaruguru
+NG;;Ikindonga
+NE;;Ikinyanepale
+NL;;Dutch; Flemish
+NN;;Ikinyanoruveji nayinorusiki
+NB;;Bokmål, Norwegian; Norwegian Bokmål
+NO;;Ikinyanoruveji
+NY;;Igicewa; Igicicewa; Ikinyanja
+OC;;Icyogisitani (nyuma 1500)
+OJ;;Icyojibwa
+OR;;Icyoriya
+OM;;Icyoromo
+OS;;Icyosetiyani
+PA;;Igipanjabi
+PI;;Igipali
+PL;;Ikinyapolonye
+PT;;Igiporutigali
+PS;;Igipushito
+QU;;Igikwecuwa
+RM;;Ikiromani
+RO;;Ikinyamoludavi
+RN;;Ikirundi
+RU;;Ikirusiya
+SG;;Igisango
+SA;;Igisansikiriti
+SI;;Ikinyasinali
+SK;;Igisilovake
+SL;;Ikinyasiloveniya
+SE;;Igisami amajyaruguru
+SM;;Igisamowani
+SN;;Igishona
+SD;;Igisindi
+SO;;Igisomali
+ST;;Igisotho, Amajyepfo
+ES;;Spanish; Castilian
+SQ;;Ikinyalubaniya
+SC;;Ikinyasaridini
+SR;;Ikinyaseribiya
+SS;;Igiswati
+SU;;Ikinyasundani
+SW;;Igiswayili
+SV;;Ikinyasuwede
+TY;;Ikinyatahiti
+TA;;Igitamili
+TT;;Igitatari
+TE;;Igitelugu
+TG;;Igitajika
+TL;;Igitagaloge
+TH;;Igitayi
+TI;;Igitigirinya
+TO;;Igitonga (Ibirwa bya Tonga)
+TN;;Igitswana
+TS;;Igitsonga
+TK;;Igiturukimeni
+TR;;Ikinyaturukiya
+TW;;Igitwi
+UG;;Icyuyiguru
+UK;;Ikinya-ikarayini
+UR;;Icyuridu
+UZ;;Icyuzubeka
+VE;;Ikivenda
+VI;;Ikinyaviyetinamu
+VO;;Ikivolapuke
+WA;;Ikiwaluni
+WO;;Ikiwolofu
+XH;;Ikigisosa
+YI;;Ikiyidishi
+YO;;Ikiyoruba
+ZA;;Igicuwange; Ikizwange
+ZH;;Igishinwa
+ZU;;Ikizulu

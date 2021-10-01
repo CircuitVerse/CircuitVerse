@@ -1,0 +1,184 @@
+AA;;Afar
+AB;;isi-Azerbaijani
+AF;;isiBhulu
+AK;;isi-Azerbaijani
+AM;;isi-Arabhu
+AR;;isi-Arabhu
+AN;;Aragonese
+AS;;Assamese
+AV;;isi-Arabhu
+AE;;Avestan
+AY;;Aymara
+AZ;;isi-Azerbaijani
+BA;;Bashkir
+BM;;Bambara
+BE;;isiBulgarian
+BN;;Bengali
+BH;;isiBosnian
+BI;;Bislama
+BO;;Tibetan
+BS;;isiRoma
+BR;;isiBreton
+BG;;isiBulgarian
+CA;;Catalan; Valencian
+CS;;isiCzech
+CH;;Chamorro
+CE;;isiCzech
+CU;;Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic
+CV;;Chuvash
+KW;;isi-Irish
+CO;;Corsican
+CR;;isiGrike
+CY;;isiWelsh
+DA;;isiDanish
+DE;;isiJamani
+DV;;Divehi; Dhivehi; Maldivian
+DZ;;Dzongkha
+EL;;Greek, Modern (1453-)
+EN;;isiNgesi (UK)
+EO;;isi-Esperanto
+ET;;isi-Estonian
+EU;;isiBasque
+EE;;Ewe
+FO;;Faroese
+FA;;isi-Ukranian
+FJ;;Fijian
+FI;;isiFinnish
+FR;;isiFrentshi
+FY;;isi-Ukranian
+FF;;Fulah
+GD;;Gaelic; Scottish Gaelic
+GA;;isi-Irish
+GL;;isiGalacian
+GV;;Manx
+GN;;isiBulgarian
+GU;;Gujarati
+HT;;Haitian; Haitian Creole
+HA;;Hausa
+HE;;isiHebhere
+HZ;;isiHebhere
+HI;;Hindi
+HO;;isiTurkish
+HR;;isiCroatian
+HU;;isiHungarian
+HY;;isiRoma
+IG;;Igbo
+IO;;Ido
+II;;Lithuania
+IU;;Inuktitut
+IE;;Interlingue; Occidental
+IA;;Interlingua (International Auxiliary Language Association)
+ID;;isiBosnian
+IK;;Inupiaq
+IS;;isi-Icelandic
+IT;;isiTaliyane
+JV;;isiJaphani
+JA;;isiJaphani
+KL;;Kalaallisut; Greenlandic
+KN;;Kannada
+KS;;Kashmiri
+KA;;isiJamani
+KR;;isiTurkish
+KK;;Kazakh
+KM;;Central Khmer
+KI;;Kikuyu; Gikuyu
+RW;;Kinyarwanda
+KY;;Kirghiz; Kyrgyz
+KV;;Komi
+KG;;Kongo
+KO;;isiKorea
+KJ;;Kuanyama; Kwanyama
+KU;;isiTurkish
+LO;;Lao
+LA;;isiLatvian
+LV;;isiLatvian
+LI;;Limburgan; Limburger; Limburgish
+LN;;Lingala
+LT;;Lithuania
+LB;;Luxembourgish; Letzeburgesch
+LU;;Luba-Katanga
+LG;;Ganda
+MH;;isiMaltese
+ML;;Malayalam
+MR;;isiMaori
+MK;;isiMacedonian
+MG;;Malagasy
+MT;;isiMaltese
+MN;;isiMacedonian
+MI;;isiMaori
+MS;;Malay
+MY;;Burmese
+NA;;Nauru
+NV;;Navajo; Navaho
+NR;;Ndebele, South; South Ndebele
+ND;;Ndebele, North; North Ndebele
+NG;;isiBosnian
+NE;;Nepali
+NL;;Dutch; Flemish
+NN;;isiNorwegian (Nynorsk)
+NB;;Bokmål, Norwegian; Norwegian Bokmål
+NO;;isiKorea
+NY;;Chichewa; Chewa; Nyanja
+OC;;Occitan (post 1500); Provençal
+OJ;;Ojibwa
+OR;;Oriya
+OM;;Oromo
+OS;;isiRashiya
+PA;;Panjabi; Punjabi
+PI;;isiPolish
+PL;;isiPolish
+PT;;isiPhuthukesi
+PS;;Pushto; Pashto
+QU;;Quechua
+RM;;isiRoma
+RO;;isiLatvian
+RN;;Rundi
+RU;;isiRashiya
+SG;;Sango
+SA;;Sanskrit
+SI;;isiVietnamese
+SK;;isiSlovak
+SL;;isiSlovenian
+SE;;Northern Sami
+SM;;Samoan
+SN;;Shona
+SD;;Sindhi
+SO;;Somali
+ST;;Sotho, Southern
+ES;;isiPanish
+SQ;;isi-Azerbaijani
+SC;;isiMacedonian
+SR;;isiSerbian
+SS;;isiSwati
+SU;;Sundanese
+SW;;isiSwahili
+SV;;isiSwedish
+TY;;isiLatvian
+TA;;isiTamil
+TT;;Tatar
+TE;;Telugu
+TG;;isiThai
+TL;;Tagalog
+TH;;isiThai
+TI;;isiTurkish
+TO;;Tonga (Tonga Islands)
+TN;;isiTswana
+TS;;isiTsonga
+TK;;Turkmen
+TR;;isiTurkish
+TW;;Twi
+UG;;Uighur; Uyghur
+UK;;isi-Ukranian
+UR;;Urdu
+UZ;;Uzbek
+VE;;isiVenda
+VI;;isiVietnamese
+VO;;Volapük
+WA;;isiWalloon
+WO;;Wolof
+XH;;isiXhosa
+YI;;Yiddish
+YO;;Yoruba
+ZA;;Zhuang; Chuang
+ZH;;isiTshayina
+ZU;;isiZulu
