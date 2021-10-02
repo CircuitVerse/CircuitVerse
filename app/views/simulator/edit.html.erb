@@ -137,14 +137,14 @@
         <button class='custom-btn--primary panel-button' title="Zoom Out"><span class="fas fa-search-minus timing-diagram-zoom-out"></button>
         <button class='custom-btn--primary panel-button' title="Resume Timing Diagram"><span class="fas fa-play timing-diagram-resume"></button>
         <button class='custom-btn--primary panel-button' title="Pause Timing Diagram"><span class="fas fa-pause timing-diagram-pause"></button>
-        1 cycle = 
+        1 cycle =
         <input id="timing-diagram-units" type="number" min="1" autocomplete="off" value="1000">
         Units
         <span id='timing-diagram-log'></span>
       </div>
       <div id="plot">
-        <canvas id="plotArea"
-        ></canvas>
+        <canvas id="plotArea">
+        </canvas>
       </div>
     </div>
   </div>
@@ -154,27 +154,27 @@
     <span><svg style="height: 20px;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18" height="31" viewBox="0 0 18 31">
       <defs>
         <clipPath id="clip-path">
-          <rect width="18" height="31" fill="none"/>
+          <rect width="18" height="31" fill="none" />
         </clipPath>
       </defs>
       <g id="Repeat_Grid_1" data-name="Repeat Grid 1" clip-path="url(#clip-path)">
         <g transform="translate(-21 -29)">
-          <circle id="Ellipse_1" data-name="Ellipse 1" cx="2" cy="2" r="2" transform="translate(22 30)" fill="#fff"/>
+          <circle id="Ellipse_1" data-name="Ellipse 1" cx="2" cy="2" r="2" transform="translate(22 30)" fill="#fff" />
         </g>
         <g transform="translate(-12 -29)">
-          <circle id="Ellipse_1-2" data-name="Ellipse 1" cx="2" cy="2" r="2" transform="translate(22 30)" fill="#fff"/>
+          <circle id="Ellipse_1-2" data-name="Ellipse 1" cx="2" cy="2" r="2" transform="translate(22 30)" fill="#fff" />
         </g>
         <g transform="translate(-21 -18)">
-          <circle id="Ellipse_1-3" data-name="Ellipse 1" cx="2" cy="2" r="2" transform="translate(22 30)" fill="#fff"/>
+          <circle id="Ellipse_1-3" data-name="Ellipse 1" cx="2" cy="2" r="2" transform="translate(22 30)" fill="#fff" />
         </g>
         <g transform="translate(-12 -18)">
-          <circle id="Ellipse_1-4" data-name="Ellipse 1" cx="2" cy="2" r="2" transform="translate(22 30)" fill="#fff"/>
+          <circle id="Ellipse_1-4" data-name="Ellipse 1" cx="2" cy="2" r="2" transform="translate(22 30)" fill="#fff" />
         </g>
         <g transform="translate(-21 -7)">
-          <circle id="Ellipse_1-5" data-name="Ellipse 1" cx="2" cy="2" r="2" transform="translate(22 30)" fill="#fff"/>
+          <circle id="Ellipse_1-5" data-name="Ellipse 1" cx="2" cy="2" r="2" transform="translate(22 30)" fill="#fff" />
         </g>
         <g transform="translate(-12 -7)">
-          <circle id="Ellipse_1-6" data-name="Ellipse 1" cx="2" cy="2" r="2" transform="translate(22 30)" fill="#fff"/>
+          <circle id="Ellipse_1-6" data-name="Ellipse 1" cx="2" cy="2" r="2" transform="translate(22 30)" fill="#fff" />
         </g>
       </g>
     </svg>
@@ -184,18 +184,18 @@
       </button>
     </div>
     <div>
-      <button type="button" class="quick-btn-save logixButton"  id="saveOffline" title="Save Offline" onclick="">
+      <button type="button" class="quick-btn-save logixButton" id="saveOffline" title="Save Offline" onclick="">
       </button>
-    </div>          
+    </div>        
     <div>
       <button type="button" class="quick-btn-delete" title="Delete Selected" id="deleteSelected">
       </button>
-    </div>     
+    </div>
     <div>
       <button type="button" class="quick-btn-download logixButton" id="createSaveAsImgPrompt" title="Download as Image" onclick="">
       </button>
     </div>
-    <div>    
+    <div>
       <button type="button" class="quick-btn-zoom-fit" title="Fit to Screen" onclick="globalScope.centerFocus(false)">
       </button>
     </div>
@@ -212,13 +212,13 @@
       </button> -->
       <div class="zoom-slider">
         <button class="zoom-slider-decrement" id="decrement">-</button>
-        <input type="range" class="custom-range" min="0" max="45" step="1"  id="customRange1">
+        <input type="range" class="custom-range" min="0" max="45" step="1" id="customRange1">
         <span id='slider_value'></span>
         <button class="zoom-slider-increment" id="increment">+</button>
       </div>
     </div>
   </div>
-</div>  
+</div>
 
 <div id="MessageDiv"></div>
 <div class="noSelect defaultCursor draggable-panel draggable-panel-css" id="verilogEditorPanel">
