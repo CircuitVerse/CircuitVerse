@@ -104,7 +104,7 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .team-underline:hover::before{
+  .team-underline:hover::before {
     left: 0;
     right: auto;
     width: 100%;
