@@ -64,9 +64,9 @@
   align-items: center;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   margin-top: -25px;
   min-width: 100%;
-  justify-content: center;
 }
 
 .team-member-container {
@@ -84,22 +84,22 @@
   text-align: center;
 }
 
-.team-link a{
-    text-decoration:none; 
+.team-link a {
+  text-decoration: none;
 }
 
-.team-underline{
+.team-underline {
   position: relative;
 }
 
-.team-underline::before{
+.team-underline::before {
   background-color: $primary-green;
   bottom: 0;
   content: '';
   height: 2px;
   position: absolute;
   right: 0;
-  transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: width .6s cubic-bezier(.25, 1, .5, 1);
   width: 0;
 }
 
