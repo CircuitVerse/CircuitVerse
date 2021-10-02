@@ -26,9 +26,153 @@
   margin-left: 15px;
 }
 
-.footer-social-icon {
-  margin-left: 15px;
-  width: 32px;
+.social
+{
+  position: relative;
+  left: -10%;
+  margin-top: 5%;
+}
+.social ul {
+  display: flex;
+  
+}
+
+.social ul li {
+  list-style: none;
+}
+
+.social ul li a {
+  width: 4vw;
+  height: 4vw;
+  background-color: #fff;
+  text-align: center;
+  line-height: 4vw;
+  font-size: 1.8vw;
+  margin: 0 4px;
+  display: block;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  border: 0.2vw solid #fff;
+  z-index: 1;
+}
+
+.social ul li a .icon {
+  position: relative;
+  color: #262626;
+  transition: .5s;
+  z-index: 3;
+}
+
+.social ul li a:hover .icon {
+  color: #fff;
+  transform: rotateY(360deg);
+}
+
+.social ul li a:before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #f00;
+  transition: .5s;
+  z-index: 2;
+}
+
+.social ul li a:hover:before {
+  top: 0;
+}
+
+.social ul li:nth-child(1) a:before{
+  background: #3b5999;
+}
+
+.social ul li:nth-child(2) a:before{
+  background: #55acee;
+}
+
+.social ul li:nth-child(3) a:before {
+  background: #0077b5;
+}
+
+.social ul li:nth-child(4) a:before {
+  background: #dd4b39;
+}
+@media (min-width:762px) and (max-width:769px)
+{
+  .social
+  {
+    position: relative;
+    left: -5%;
+    margin-top:10%
+  }
+  .social ul li a {
+    width: 4vw;
+    height: 4vw;
+    background-color: #fff;
+    text-align: center;
+    line-height: 4vw;
+    font-size: 1.8vw;
+    margin: 0 4px;
+    display: block;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    border: 0.2vw solid #fff;
+    z-index: 1;
+  }
+}
+@media (max-width:716px)  {
+  .social
+{
+  position: relative;
+  left: -5%;
+  margin-top:10%
+}
+
+.social ul li a {
+  width: 10vw;
+  height: 10vw;
+  background-color: #fff;
+  text-align: center;
+  line-height: 10vw;
+  font-size: 4vw;
+  margin: 0 5px;
+  display: block;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  border: 0.5vw solid #fff;
+  z-index: 1;
+}
+
+}
+@media (min-width:2560px)
+{
+  .social
+  {
+    position: relative;
+    left: -5%;
+    margin-top:10%
+  }
+  
+  .social ul li a {
+    width: 2vw;
+    height: 2vw;
+    background-color: #fff;
+    text-align: center;
+    line-height: 2vw;
+    font-size: 1.2vw;
+    margin: 0 4px;
+    display: block;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    border: 0.1vw solid #fff;
+    z-index: 1;
+  }
 }
 
 .footer-links {
