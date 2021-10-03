@@ -36,7 +36,7 @@
         </div>
         <% if devise_mapping.rememberable? -%>
           <div class="form-group newproject-checkbox">
-            <label class="primary-checkpoint-container users-primary-checkpoint"><h6><%= t("users.sessions.remember_me") %></h6>
+            <label class="primary-checkpoint-container users-primary-checkpoint"><h6 class="right-shift"><%= t("users.sessions.remember_me") %></h6>
               <%= f.check_box :remember_me %>
               <div class="primary-checkpoint"></div>
             </label>

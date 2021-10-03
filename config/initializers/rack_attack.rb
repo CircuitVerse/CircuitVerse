@@ -29,6 +29,13 @@ class Rack::Attack
   # Disabled in test env in environments/test.rb
   Rack::Attack.enabled = !ENV["DISABLE_RACK_ATTACK"] unless Rails.env.production?
 
+  ### Throttle Non Asset requests sitewide ###
+
+  # Throttle by ip
+  throttle('throttle non asset requests by ip', limit: 300, period: 5.minutes) do |req|
+    req.remote_ip unless (req.path.start_with?('/assets') or req.path.start_with?('/uploads'))
+  end
+
   ### Throttle logins ###
 
   # Throttle by IP

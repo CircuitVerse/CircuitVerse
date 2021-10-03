@@ -1,0 +1,36 @@
+en:
+  projects:
+    add_collaborator_description: "Enter Email IDs separated by commas, spaces or enter. Users need to be registered already on the platform.
+            Note that collaboration is not real time as of now. Every save overwites the previous data."
+    remove_collaborator_message: "Are you sure you want to remove this collaborator?"
+    delete_project_message: "Are you sure you want to delete this project?"
+    form:
+      feature_circuit_checkpoint: "Featured (Administrator Only)"
+      tag_list_description: "(Enter your Project Tags divided by comma[,])"
+      project_is_featured_message: "(This project is featured. It will no longer be featured if public access is removed.)"
+      public: "Public"
+      private: "Private"
+      limited_access: "Limited access"
+    edit:
+      title: "%{name} - Edit Project"
+      main_heading: "Edit Project"
+    get_projects:
+      searched_projects_heading: "Searched Projects"
+      searched_tags_heading: "Tags:"
+    stars_count: "Stars"
+    views_count: "Views"
+    project_user: "User:"
+    show:
+      project_author: "Author:"
+      project_forked_from: "Forked from:"
+      project_access_type: "Project access type:"
+      project_description: "Description:"
+      project_created_at: "Created:"
+      project_updated_at: "Updated:"
+      project_embed: "Embed"
+      project_copy: "Create Copy"
+      project_collaborator_add: "+ Add a Collaborator"
+      copied_to_clipboard: "Copied to Clipboard!"
+      collaborators: "Collaborators"
+    search:
+      no_result_found: "No Results Found"
