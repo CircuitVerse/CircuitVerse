@@ -54,3 +54,7 @@ en:
       lms_grading_scale_message: "Cannot be changed once set"
       lms_script_error: "something went wrong when loading script"
       element_restriction: "Enable elements restriction:"
+    created: "Assignment was successfully created."
+    updated: "Assignment was successfully updated."
+    deleted: "Assignment was successfully deleted."
+
