@@ -32,6 +32,13 @@ en:
         see_work_done: "View your Work"
         not_submitted: "Not submitted!"
         show_submission: "View Submission"
+    grp_created: "Group was successfully created."
+    grp_updated: "Group was successfully updated."
+    grp_deleted: "Group was successfully deleted."
+    member_present: "Member is already present in the group."
+    member_added: "Group member was successfully added."
+    url_expired: "Url is expired, request a new one from owner of the group."
+    url_invalid: "Invalid url"
   assignment:
     edit:
       title: "Edit Assignment"

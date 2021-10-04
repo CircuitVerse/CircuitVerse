@@ -26,15 +26,15 @@ class GroupsController < ApplicationController
   def group_invite
     if Group.with_valid_token.exists?(group_token: params[:token])
       if current_user.groups.exists?(id: @group)
-        notice = "Member is already present in the group."
+        notice = t("groups.member_present")
       else
         current_user.group_members.create!(group: @group)
-        notice = "Group member was successfully added."
+        notice = t("groups.member_added")
       end
     elsif Group.exists?(group_token: params[:token])
-      notice = "Url is expired, request a new one from owner of the group."
+      notice = t("groups.url_expired")
     else
-      notice = "Invalid url"
+      notice = t("groups.url_invalid")
     end
     redirect_to group_path(@group), notice: notice
   end
@@ -54,7 +54,7 @@ class GroupsController < ApplicationController
 
     respond_to do |format|
       if @group.save
-        format.html { redirect_to @group, notice: "Group was successfully created." }
+        format.html { redirect_to @group, notice: t("groups.grp_created") }
         format.json { render :show, status: :created, location: @group }
       else
         format.html { render :new }
@@ -68,7 +68,7 @@ class GroupsController < ApplicationController
   def update
     respond_to do |format|
       if @group.update(group_params)
-        format.html { redirect_to @group, notice: "Group was successfully updated." }
+        format.html { redirect_to @group, notice: t("groups.grp_updated") }
         format.json { render :show, status: :ok, location: @group }
       else
         format.html { render :edit }
@@ -82,7 +82,7 @@ class GroupsController < ApplicationController
   def destroy
     @group.destroy
     respond_to do |format|
-      format.html { redirect_to user_groups_path(current_user), notice: "Group was successfully deleted." }
+      format.html { redirect_to user_groups_path(current_user), notice: t("groups.grp_deleted") }
       format.json { head :no_content }
     end
   end
