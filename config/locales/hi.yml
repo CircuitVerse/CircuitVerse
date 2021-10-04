@@ -25,7 +25,11 @@ hi:
   reopen: "फिर से खोले"
   not_available: "उपलब्ध नहीं है"
   assignment_update: "असाइनमेंट अपडेट करें"
-  assigment_edit_group: "समूह"
+  assigment_edit_group: "समूह:"
+  assignment_create: "नया असाइनमेंट बनाए"
+  notification_text1: ""
+  notification_text2: " के लिये नोटिफिकेशन"
+  broser_notification: "ब्राउज़र की नोटिफिकेशन"
   # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
     distance_in_words:

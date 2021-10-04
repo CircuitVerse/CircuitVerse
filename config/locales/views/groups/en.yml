@@ -44,4 +44,6 @@ en:
       deadline: "Deadline"
       lms_grade_fixed_message: "Grading Scale needs to be fixed at 1-100 for passing the grade back to LMS"
       grading_scale: "Grading Scale"
+      lms_grading_scale_message: "Cannot be changed once set"
+      lms_script_error: "something went wrong when loading script"
       element_restriction: "Enable elements restriction:"

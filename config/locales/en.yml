@@ -25,7 +25,11 @@ en:
   reopen: "Reopen"
   not_available: "N.A."
   assignment_update: "Update Assignment"
-  assigment_edit_group: "Group"
+  assigment_edit_group: "Group:"
+  assignment_create: "Create New Assignment"
+  notification_text1: "Notification for "
+  notification_text2: ""
+  broser_notification: "Browser notifications are"
 # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
     distance_in_words:
