@@ -32,3 +32,16 @@ en:
         see_work_done: "View your Work"
         not_submitted: "Not submitted!"
         show_submission: "View Submission"
+  assignment:
+    edit:
+      title: "Edit Assignment"
+    form:
+      lms: "Integrate with LMS"
+      lms_message: "We will generate the required keys for integration after assignment creation. "
+      lms_tutorial: "Learn how to integrate CircuitVerse assignments with any LMS"
+      name: "Name"
+      description: "Description"
+      deadline: "Deadline"
+      lms_grade_fixed_message: "Grading Scale needs to be fixed at 1-100 for passing the grade back to LMS"
+      grading_scale: "Grading Scale"
+      element_restriction: "Enable elements restriction:"
