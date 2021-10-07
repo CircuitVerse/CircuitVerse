@@ -284,8 +284,8 @@ GEM
     inline_svg (1.7.1)
       activesupport (>= 3.0)
       nokogiri (>= 1.6)
-    invisible_captcha (1.1.0)
-      rails (>= 4.2)
+    invisible_captcha (2.0.0)
+      rails (>= 5.0)
     jbuilder (2.11.2)
       activesupport (>= 5.0.0)
     jmespath (1.4.0)
@@ -704,7 +704,7 @@ DEPENDENCIES
   i18n-js
   ims-lti (~> 1.1.8)
   inline_svg
-  invisible_captcha (~> 1.1)
+  invisible_captcha (~> 2.0)
   jbuilder (~> 2.11)
   jquery-rails
   json-schema
