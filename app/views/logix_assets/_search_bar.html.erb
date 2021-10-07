@@ -1,9 +1,9 @@
 <div class="container navbar-search-container">
   <div class="row center-row">
   <%= form_tag("/search", method: "get", id: 'search-box', class: 'navbar-search-bar-form') do %>
-    <%= select_tag :resource , options_for_select([ "Users", "Projects" ],selected: params[:resource]), class: "navbar-search-bar-select", id: "search_type" %>
-    <%= text_field_tag :q,params[:q], placeholder: "Search for projects or users", autocomplete:"off", class: "form-control form-input navbar-search-bar-input" %>
-    <button class="btn primary-button navbar-search-bar-button" type="submit" name="button" value="Submit">Search</button>
+    <%= select_tag :resource , options_for_select([ [t("logix_assets.users"),"Users"], [t("logix_assets.projects"),"Projects"] ],selected: params[:resource]), class: "navbar-search-bar-select", id: "search_type" %>
+    <%= text_field_tag :q,params[:q], placeholder: t("logix_assets.search_user_or_project"), autocomplete:"off", class: "form-control form-input navbar-search-bar-input" %>
+    <button class="btn primary-button navbar-search-bar-button" type="submit" name="button" value="Submit"><%= t("logix_assets.search") %></button>
   <% end %>
   </div>
 </div>
