@@ -1,15 +1,16 @@
 * {
   box-sizing: border-box;
 }
+
 html {
-  scroll-behavior: smooth;
   height: 100%;
+  scroll-behavior: smooth;
 }
 
 body {
   font-family: 'Inter';
-  padding-top: 90px;
   height: 100%;
+  padding-top: 90px;
 }
 
 .noSelect {
@@ -140,9 +141,10 @@ body {
 }
 
 .page-wrap {
+  margin-bottom: -142px;
   min-height: 100%;
-  margin-bottom: -142px; 
 }
-.site-footer{
-  height: 400px; 
+
+.site-footer {
+  height: 400px;
 }
