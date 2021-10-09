@@ -55,7 +55,7 @@
               font-size: 12px;
               color: grey;
               z-index: 2;"
-             href= "/users/<%=@author%>/projects/<%=@logix_project_id%>"
+             href= "/users/<%=@author%>/projects/<%=@circuitverse_project_id%>"
              target="_blank">
             Made With CircuitVerse
           </a>
@@ -66,7 +66,7 @@
 </div>
 
 <script type="text/javascript">
-    __logix_project_id = "<%= @logix_project_id %>";
+    __circuitverse_project_id = "<%= @circuitverse_project_id %>";
         embed=true;
         <% if @project&.assignment_id.present? %>
           restrictedElements = JSON.parse('<%= raw @project&.assignment.restrictions %>');

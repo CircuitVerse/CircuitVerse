@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class LogixController < ApplicationController
+class CircuitverseController < ApplicationController
   MAXIMUM_FEATURED_CIRCUITS = 3
 
   def index
