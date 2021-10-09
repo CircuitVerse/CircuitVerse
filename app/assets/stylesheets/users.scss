@@ -1,3 +1,7 @@
+:root {
+  --cyan: #17a2b8;
+}
+
 //passwords
 .users-image {
   margin-bottom: 15px;
@@ -369,5 +373,8 @@
 
 .tt-dropdown-menu {
   background-color: $white;
+  box-shadow: 2px 2px 2px solid var(--cyan),
+              2px 0px 2px solid var(--cyan);
+  padding: 5px;
 }
 //user profile ends
