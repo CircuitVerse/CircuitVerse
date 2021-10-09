@@ -1,3 +1,7 @@
+:root {
+  --black: #000;
+}
+
 //passwords
 .users-image {
   margin-bottom: 15px;
@@ -369,6 +373,6 @@
 
 .tt-dropdown-menu {
   background-color: $white;
-  border-radius: 10%;
+  border: 1px solid var(--black);
 }
 //user profile ends
