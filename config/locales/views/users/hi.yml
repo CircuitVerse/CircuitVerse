@@ -4,7 +4,7 @@ hi:
     ask_new_user: "क्या आप नए उपयोगकर्ता है?"
     confirmations:
       resend_confirmation_instructions: "पुष्टिकरण निर्देश फिर से भेजें"
-    logix:
+    circuitverse:
       delete_group_confirmation: "क्या आप वाकई इस समूह को हटाना चाहते हैं?"
       delete_user_confirmation: "क्या आप इस खाते को हटाने के लिए सुनिश्चित हैं? इस कार्रवाई को वापस नहीं किया जा सकता."
       preview_project: "परियोजना पूर्वावलोकन"
