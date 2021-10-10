@@ -1,7 +1,7 @@
 <% if @user.name %>
-  <% content_for :title, t("users.logix.groups.title", name: @user.name) %>
+  <% content_for :title, t("users.circuitverse.groups.title", name: @user.name) %>
 <% else %>
-  <% content_for :title, t("users.logix.groups.alt_title") %>
+  <% content_for :title, t("users.circuitverse.groups.alt_title") %>
 <% end %>
 
 
@@ -16,20 +16,20 @@
   <% end %>
   <div class="row center-row">
     <div class="col-xs col-sm col-md col-lg">
-      <h1 class="submain-heading"><%= t("users.logix.groups.main_heading") %></h1>
-      <%= link_to t("users.logix.groups.make_new_group"), new_group_path, class: "btn primary-button groups-add-primary-button" %>
+      <h1 class="submain-heading"><%= t("users.circuitverse.groups.main_heading") %></h1>
+      <%= link_to t("users.circuitverse.groups.make_new_group"), new_group_path, class: "btn primary-button groups-add-primary-button" %>
     </div>
   </div>
   <br>
   <% if @groups_mentored.present? %>
-    <h4 class="submain-heading"><%= t("users.logix.groups.groups_user_mentor_to") %></h4>
+    <h4 class="submain-heading"><%= t("users.circuitverse.groups.groups_user_mentor_to") %></h4>
     <div class="row center-row">
       <% @groups_mentored.each do |group| %>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
           <div class="groups-card groups-mentor-card">
             <div class="groups-mentor-card-name"><%= group.name %></div>
             <div>
-              <p><%= t("users.logix.groups.total_members",group_member_count: group.group_member_count ) %> </p>
+              <p><%= t("users.circuitverse.groups.total_members",group_member_count: group.group_member_count ) %> </p>
             </div>
             <div class="groups-mentor-card-mini-buttons">
               <%= link_to group, class: "mini-button groups-mentor-card-view-mini-button" do %>
@@ -52,14 +52,14 @@
   <% end %>
   <br>
   <% if @user.groups.count!=0 %>
-    <h4 class="submain-heading"><%= t("users.logix.groups.groups_user_belong_to") %></h4>
+    <h4 class="submain-heading"><%= t("users.circuitverse.groups.groups_user_belong_to") %></h4>
     <div class="row center-row">
       <% @user.groups.each do |group| %>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
           <div class="groups-card groups-member-card">
             <div class="groups-member-card-details">
               <div class="groups-mentor-card-name groups-member-card-name"><%= group.name %></div>
-              <p><%= t("users.logix.groups.total_members", group_member_count: group.group_members.count) %></p>
+              <p><%= t("users.circuitverse.groups.total_members", group_member_count: group.group_members.count) %></p>
             </div>
             <div class="groups-mentor-card-buttons">
               <%= link_to group, class: "mini-button groups-mentor-card-view-mini-button groups-member-card-button" do %>
