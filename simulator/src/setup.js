@@ -123,7 +123,7 @@ function setupElementLists() {
 
 
     function createIcon(element) {
-        return `<div class="icon logixModules" id="${element}" title="${element}">
+        return `<div class="icon circuitverseModules" id="${element}" title="${element}">
             <img src= "/img/${element}.svg" >
         </div>`;
     }
@@ -164,10 +164,10 @@ export function setup() {
     
     // Load project data after 1 second - needs to be improved, delay needs to be eliminated
     setTimeout(() => {
-        if (__logix_project_id != 0) {
+        if (__circuitverse_project_id != 0) {ssss
             $('.loadingIcon').fadeIn();
             $.ajax({
-                url: `/simulator/get_data/${__logix_project_id}`,
+                url: `/simulator/get_data/${__circuitverse_project_id}`,
                 type: 'GET',
                 success(response) {
                     var data = (response);

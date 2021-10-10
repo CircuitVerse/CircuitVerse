@@ -9,7 +9,7 @@ import {
     scheduleUpdate, wireToBeCheckedSet, updateCanvasSet, update, updateSimulationSet,
 } from './engine';
 import simulationArea from './simulationArea';
-import logixFunction from './data';
+import circuitverseFunction from './data';
 import { newCircuit, circuitProperty } from './circuit';
 import modules from './modules';
 import { updateRestrictedElementsInScope } from './restrictedElementDiv';
@@ -98,7 +98,7 @@ function menuItemClicked(id, code="") {
     } else if (id === 5) {
         newCircuit();
     } else if (id === 6) {
-        logixFunction.createSubCircuitPrompt();
+        circuitverseFunction.createSubCircuitPrompt();
     } else if (id === 7) {
         globalScope.centerFocus(false);
     }
@@ -136,15 +136,15 @@ export function setupUI() {
         heightStyle: 'content',
     });
 
-    $('.logixModules').mousedown(createElement);
+    $('.circuitverseModules').mousedown(createElement);
 
-    $('.logixButton').on('click',function () {
-        logixFunction[this.id]();
+    $('.circuitverseButton').on('click',function () {
+        circuitverseFunction[this.id]();
     });
     // var dummyCounter=0;
 
 
-    $('.logixModules').hover(function () {
+    $('.circuitverseModules').hover(function () {
         // Tooltip can be statically defined in the prototype.
         var { tooltipText } = modules[this.id].prototype;
         if (!tooltipText) return;
@@ -152,7 +152,7 @@ export function setupUI() {
         $('#Help').empty();
         $('#Help').append(tooltipText);
     }); // code goes in document ready fn only
-    $('.logixModules').mouseleave(() => {
+    $('.circuitverseModules').mouseleave(() => {
         $('#Help').removeClass('show');
     }); // code goes in document ready fn only
 

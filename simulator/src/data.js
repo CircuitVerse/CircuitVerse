@@ -12,28 +12,28 @@ import {createVerilogCircuit, saveVerilogCode, resetVerilogCode} from './Verilog
 import { generateVerilog } from './verilog';
 import { bitConverterDialog } from './utils';
 
-const logixFunction = {};
-logixFunction.save = save;
-logixFunction.load = load;
-logixFunction.createSaveAsImgPrompt = createSaveAsImgPrompt;
-logixFunction.clearProject = clearProject;
-logixFunction.newProject = newProject;
-logixFunction.saveOffline = saveOffline;
-logixFunction.newCircuit = newCircuit;
-logixFunction.createOpenLocalPrompt = openOffline;
-logixFunction.recoverProject = recoverProject;
-logixFunction.createSubCircuitPrompt = createSubCircuitPrompt;
-logixFunction.createCombinationalAnalysisPrompt = createCombinationalAnalysisPrompt;
-logixFunction.fullViewOption = fullView;
-logixFunction.colorThemes = colorThemes;
-logixFunction.showTourGuide = showTourGuideHelper;
-logixFunction.deleteSelected = deleteSelected;
-logixFunction.newVerilogModule = createVerilogCircuit;
-logixFunction.saveVerilogCode = saveVerilogCode;
-logixFunction.resetVerilogCode = resetVerilogCode;
-logixFunction.generateVerilog = generateVerilog;
-logixFunction.bitconverter = bitConverterDialog;
-export default logixFunction;
+const circuitverseFunction = {};
+circuitverseFunction.save = save;
+circuitverseFunction.load = load;
+circuitverseFunction.createSaveAsImgPrompt = createSaveAsImgPrompt;
+circuitverseFunction.clearProject = clearProject;
+circuitverseFunction.newProject = newProject;
+circuitverseFunction.saveOffline = saveOffline;
+circuitverseFunction.newCircuit = newCircuit;
+circuitverseFunction.createOpenLocalPrompt = openOffline;
+circuitverseFunction.recoverProject = recoverProject;
+circuitverseFunction.createSubCircuitPrompt = createSubCircuitPrompt;
+circuitverseFunction.createCombinationalAnalysisPrompt = createCombinationalAnalysisPrompt;
+circuitverseFunction.fullViewOption = fullView;
+circuitverseFunction.colorThemes = colorThemes;
+circuitverseFunction.showTourGuide = showTourGuideHelper;
+circuitverseFunction.deleteSelected = deleteSelected;
+circuitverseFunction.newVerilogModule = createVerilogCircuit;
+circuitverseFunction.saveVerilogCode = saveVerilogCode;
+circuitverseFunction.resetVerilogCode = resetVerilogCode;
+circuitverseFunction.generateVerilog = generateVerilog;
+circuitverseFunction.bitconverter = bitConverterDialog;
+export default circuitverseFunction;
 
 // Hack to restart tour guide
 function showTourGuideHelper() {

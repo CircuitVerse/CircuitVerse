@@ -449,7 +449,7 @@ function save() {
         // Asking user whether they want to login.
         if(confirm("You have to login to save the project, you will be redirected to the login page.")) window.location.href = "/users/sign_in";
         else $('.loadingIcon').fadeOut();
-    } else if (logix_project_id == 0) {
+    } else if (circuitverse_project_id == 0) {
 
         // Create new project - this part needs to be improved and optimised
         var form = $("<form/>", {
@@ -499,7 +499,7 @@ function save() {
             },
             data: {
                 "data": data,
-                "id": logix_project_id,
+                "id": circuitverse_project_id,
                 "image": generateImageForOnline(),
                 name: projectName
             },
@@ -979,7 +979,7 @@ function generateImage(imgType, view, transparent, resolution, down = true) {
 
 }
 
-if (logix_project_id == 0)
+if (circuitverse_project_id == 0)
 setTimeout(promptSave,120000);
 
 function promptSave(){
