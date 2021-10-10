@@ -58,7 +58,7 @@ Rails.application.routes.draw do
     sessions: "users/sessions"
   }
 
-  # logix web pages resources
+  # Logix web pages resources
   root "logix#index"
   get  "/examples", to: "logix#examples"
   get  "/tos", to: "logix#tos"
