@@ -1,5 +1,5 @@
 :root {
-  --cyan: #17a2b8;
+  --shadowgreen: rgba(191,231,213,255);
 }
 
 //passwords
@@ -372,9 +372,9 @@
 }
 
 .tt-dropdown-menu {
-  background-color: $white;
-  box-shadow: 2px 2px 2px solid var(--cyan),
-              -2px 0 2px solid var(--cyan);
-  padding: 5px;
+    background-color: $white;
+    box-shadow: 3px 3px 2px var(--shadowgreen),
+              -3px 0 3px var(--shadowgreen);
+    padding: 10px;
 }
 //user profile ends
