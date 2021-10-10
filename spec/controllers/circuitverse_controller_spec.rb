@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe LogixController, type: :request do
+describe CiruitverseController, type: :request do
   it "gets index page" do
     get root_path
     expect(response.status).to eq(200)
