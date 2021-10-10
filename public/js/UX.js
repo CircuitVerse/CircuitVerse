@@ -87,7 +87,7 @@ function setupUI() {
     //     // minHeight:200,
     // });
 
-    $('.logixModules').mousedown(function () {
+    $('.circuitverseModules').mousedown(function () {
         //////console.log(smartDropXX,smartDropYY);
         if (simulationArea.lastSelected && simulationArea.lastSelected.newElement) simulationArea.lastSelected.delete();
         var obj = new window[this.id](); //(simulationArea.mouseX,simulationArea.mouseY);
@@ -100,13 +100,13 @@ function setupUI() {
             smartDropYY += 80;
         }
     });
-    $('.logixButton').click(function () {
+    $('.circuitverseButton').click(function () {
         window[this.id]();
     });
     // var dummyCounter=0;
 
 
-    $('.logixModules').hover(function () {
+    $('.circuitverseModules').hover(function () {
         // Tooltip can be statically defined in the prototype.
         var tooltipText = window[this.id].prototype.tooltipText;
         if (!tooltipText) return;
@@ -115,7 +115,7 @@ function setupUI() {
         ////console.log("SHOWING")
         $("#Help").append(tooltipText);
     }); // code goes in document ready fn only
-    $('.logixModules').mouseleave(function () {
+    $('.circuitverseModules').mouseleave(function () {
         $("#Help").removeClass("show");
 
     }); // code goes in document ready fn only

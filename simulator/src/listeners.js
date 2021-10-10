@@ -431,7 +431,7 @@ export default function startListeners() {
         }
     });
     function createIcon(element) {
-        return `<div class="${element} icon logixModules filterElements" id="${element}" title="${element}">
+        return `<div class="${element} icon circuitverseModules filterElements" id="${element}" title="${element}">
             <img  src= "/img/${element}.svg" >
         </div>`;
     }

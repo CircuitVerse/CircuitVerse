@@ -339,7 +339,7 @@ export default async function save() {
         if (confirm('You have to login to save the project, you will be redirected to the login page.')) window.location.href = '/users/sign_in';
         else $('.loadingIcon').fadeOut();
         // eslint-disable-next-line camelcase
-    } else if (__logix_project_id == "0") {
+    } else if (__circuitverse_project_id == "0") {
         // Create new project - this part needs to be improved and optimised
         const form = $('<form/>', {
             action: '/simulator/create_data',
@@ -388,7 +388,7 @@ export default async function save() {
             },
             data: JSON.stringify({
                 data,
-                id: __logix_project_id,
+                id: __circuitverse_project_id,
                 image: imageData,
                 name: projectName,
             }),

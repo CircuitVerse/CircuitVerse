@@ -57,7 +57,7 @@ function setupElementLists() {
 
 
     function createIcon(element) {
-        return `<div class="icon logixModules pointerCursor" id="${element}" >
+        return `<div class="icon circuitverseModules pointerCursor" id="${element}" >
             <img src= "/img/${element}.svg" >
             <p class="img__description">${element}</p>
         </div>`;
@@ -390,7 +390,7 @@ function setup() {
 
     // Load project data after 1 second - needs to be improved, delay needs to be eliminated
     setTimeout(function() {
-        if (logix_project_id != 0) {
+        if (circuitverse_project_id != 0) {
             $('.loadingIcon').fadeIn();
             $.ajax({
                 url: '/simulator/get_data',
@@ -399,7 +399,7 @@ function setup() {
                     xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
                 },
                 data: {
-                    "id": logix_project_id
+                    "id": circuitverse_project_id
                 },
                 success: function(response) {
                     data = (response);
@@ -687,7 +687,7 @@ function paste(copyData) {
 
     if (copyData == undefined) return;
     var data = JSON.parse(copyData);
-    if (!data["logixClipBoardData"]) return;
+    if (!data["circuitverseClipBoardData"]) return;
 
     var currentScopeId = globalScope.id;
     for (var i = 0; i < data.scopes.length; i++) {
@@ -830,12 +830,12 @@ function cut(copyList) {
     updateSimulation = true;
 
     var data = backUp(globalScope);
-    data['logixClipBoardData'] = true;
+    data['circuitverseClipBoardData'] = true;
     var dependencyList = globalScope.getDependencies();
     data["dependencies"] = {};
     for (dependency in dependencyList)
         data.dependencies[dependency] = backUp(scopeList[dependency]);
-    data['logixClipBoardData'] = true;
+    data['circuitverseClipBoardData'] = true;
     data = JSON.stringify(data);
 
     simulationArea.multipleObjectSelections = []; //copyList.slice();
@@ -927,7 +927,7 @@ function copy(copyList, cut = false) {
     for (var i = 0; i < requiredDependencies.length; i++)
         saveScope(requiredDependencies[i]);
 
-    data['logixClipBoardData'] = true;
+    data['circuitverseClipBoardData'] = true;
     data = JSON.stringify(data);
 
     simulationArea.multipleObjectSelections = []; //copyList.slice();

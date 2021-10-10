@@ -242,7 +242,7 @@ function drawCombinationalAnalysis(combinationalData, inputList, outputListNames
     var outputPosX = orPosX + 60;
     var inputObjects = [];
 
-    var logixNodes = [];
+    var circuitverseNodes = [];
 
     // Appending constant input to the end of inputObjects
     for (var i = 0; i <= inputCount; i++) {
@@ -264,8 +264,8 @@ function drawCombinationalAnalysis(combinationalData, inputList, outputListNames
         v1.connect(v2);
         var notG = new NotGate(startPosX + i * 40 + 20, startPosY + 40, scope, 'DOWN', 1);
         notG.inp1.connect(v2);
-        logixNodes.push(v1);
-        logixNodes.push(notG.output1);
+        circuitverseNodes.push(v1);
+        circuitverseNodes.push(notG.output1);
     }
 
     function countTerm(s) {
@@ -285,9 +285,9 @@ function drawCombinationalAnalysis(combinationalData, inputList, outputListNames
                 for (var k = 0; k < combinationalData[i][j].length; k++) {
                     if (combinationalData[i][j][k] == '-') { misses++; continue; }
                     var index = 2 * k + (combinationalData[i][j][k] == 0);
-                    var v = new Node(logixNodes[index].absX(), andGate.inp[k - misses].absY(), 2, scope.root);
-                    logixNodes[index].connect(v);
-                    logixNodes[index] = v;
+                    var v = new Node(circuitverseNodes[index].absX(), andGate.inp[k - misses].absY(), 2, scope.root);
+                    circuitverseNodes[index].connect(v);
+                    circuitverseNodes[index] = v;
                     v.connect(andGate.inp[k - misses]);
                 }
             } else {
@@ -295,9 +295,9 @@ function drawCombinationalAnalysis(combinationalData, inputList, outputListNames
                     if (combinationalData[i][j][k] == '-') continue;
                     var index = 2 * k + (combinationalData[i][j][k] == 0);
                     var andGateSubstituteNode = new Node(andPosX, currentPosY, 2, scope.root);
-                    var v = new Node(logixNodes[index].absX(), andGateSubstituteNode.absY(), 2, scope.root);
-                    logixNodes[index].connect(v);
-                    logixNodes[index] = v;
+                    var v = new Node(circuitverseNodes[index].absX(), andGateSubstituteNode.absY(), 2, scope.root);
+                    circuitverseNodes[index].connect(v);
+                    circuitverseNodes[index] = v;
                     v.connect(andGateSubstituteNode);
                     andGateNodes.push(andGateSubstituteNode);
                 }
@@ -334,10 +334,10 @@ function drawCombinationalAnalysis(combinationalData, inputList, outputListNames
         out.setLabel(outputListNames[i]);
         out.newLabelDirection('RIGHT');
     }
-    for (var i = 0; i < logixNodes.length; i++) {
-        if (logixNodes[i].absY() != currentPosY) {
-            var v = new Node(logixNodes[i].absX(), currentPosY, 2, scope.root);
-            logixNodes[i].connect(v);
+    for (var i = 0; i < circuitverseNodes.length; i++) {
+        if (circuitverseNodes[i].absY() != currentPosY) {
+            var v = new Node(circuitverseNodes[i].absX(), currentPosY, 2, scope.root);
+            circuitverseNodes[i].connect(v);
         }
     }
     globalScope.centerFocus();

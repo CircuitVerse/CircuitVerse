@@ -18,7 +18,7 @@ import simulationArea from './simulationArea';
 export function paste(copyData) {
     if (copyData === undefined) return;
     var data = JSON.parse(copyData);
-    if (!data.logixClipBoardData) return;
+    if (!data.circuitverseClipBoardData) return;
 
     var currentScopeId = globalScope.id;
     for (let i = 0; i < data.scopes.length; i++) {
@@ -169,13 +169,13 @@ export function cut(copyList) {
     updateSimulationSet(true);
 
     var data = backUp(globalScope);
-    data.logixClipBoardData = true;
+    data.circuitverseClipBoardData = true;
     var dependencyList = globalScope.getDependencies();
     data.dependencies = {};
     Object.keys(dependencyList).forEach((dependency) => {
         data.dependencies[dependency] = backUp(scopeList[dependency]);
     });
-    data.logixClipBoardData = true;
+    data.circuitverseClipBoardData = true;
     data = JSON.stringify(data);
 
     simulationArea.multipleObjectSelections = []; // copyList.slice();
@@ -264,7 +264,7 @@ export function copy(copyList, cutflag = false) {
         data.scopes.push(backUp(scopeList[id]));
     }
     for (let i = 0; i < requiredDependencies.length; i++) { saveScope(requiredDependencies[i]); }
-    data.logixClipBoardData = true;
+    data.circuitverseClipBoardData = true;
     data = JSON.stringify(data);
     simulationArea.multipleObjectSelections = []; // copyList.slice();
     simulationArea.copyList = []; // copyList.slice();
