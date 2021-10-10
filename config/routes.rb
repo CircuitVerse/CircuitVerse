@@ -58,12 +58,12 @@ Rails.application.routes.draw do
     sessions: "users/sessions"
   }
 
-  # circuitverse web pages resources
-  root "circuitverse#index"
-  get  "/examples", to: "circuitverse#examples"
-  get  "/tos", to: "circuitverse#tos"
-  get  "/teachers", to: "circuitverse#teachers"
-  get  "/contribute", to: "circuitverse#contribute"
+  # logix web pages resources
+  root "logix#index"
+  get  "/examples", to: "logix#examples"
+  get  "/tos", to: "logix#tos"
+  get  "/teachers", to: "logix#teachers"
+  get  "/contribute", to: "logix#contribute"
 
   #announcements
   resources :announcements, except: %i[show]
@@ -74,11 +74,11 @@ Rails.application.routes.draw do
 
   scope "/users" do
     get "/:id/profile", to: redirect('/users/%{id}'), as: "profile"
-    get "/:id/profile/edit", to: "users/circuitverse#edit", as: "profile_edit"
-    patch "/:id/update", to: "users/circuitverse#update", as: "profile_update"
-    get "/:id/groups", to: "users/circuitverse#groups", as: "user_groups"
-    get "/:id/", to: "users/circuitverse#index", as: "user_projects"
-    get "/educational_institute/typeahead/:query" => "users/circuitverse#typeahead_educational_institute"
+    get "/:id/profile/edit", to: "users/logix#edit", as: "profile_edit"
+    patch "/:id/update", to: "users/logix#update", as: "profile_update"
+    get "/:id/groups", to: "users/logix#groups", as: "user_groups"
+    get "/:id/", to: "users/logix#index", as: "user_projects"
+    get "/educational_institute/typeahead/:query" => "users/logix#typeahead_educational_institute"
     get "/:id/notifications", to: "users/notifications#index", as: "notifications"
   end
 
