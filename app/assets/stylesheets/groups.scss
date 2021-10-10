@@ -305,7 +305,7 @@
 }
 
 @media (max-width: 991px) and (min-width: 720px) {
-  .groups-center-imagee {
+  .groups-center-image {
     margin-top: 80px;
   }
 }
@@ -422,6 +422,12 @@
     color: $white;
     text-decoration: none;
     transform: translateY(-4px);
+  }
+}
+
+@media (max-width: 1200px) and (min-width: 970px) {
+  .groups-card {
+    width: 315px;
   }
 }
 
