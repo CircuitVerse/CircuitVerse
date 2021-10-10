@@ -1,13 +1,13 @@
 
-<% content_for :title, t("users.logix.edit_profile.title", name: @profile.name ) %>
+<% content_for :title, t("users.circuitverse.edit_profile.title", name: @profile.name ) %>
 
 <link href="/css/typeahead.min.css" rel="stylesheet">
 
 <div class="container projects-new-container">
   <div class="row center-row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <h1 class="submain-heading"><%= t("users.logix.edit_profile.heading") %></h1>
-        <p class="main-description"><%= t("users.logix.edit_profile.description_html") %></p> <br>
+      <h1 class="submain-heading"><%= t("users.circuitverse.edit_profile.heading") %></h1>
+        <p class="main-description"><%= t("users.circuitverse.edit_profile.description_html") %></p> <br>
     </div>
   </div>
   <div class="row">
@@ -19,14 +19,14 @@
             <%= f.text_field :name, required: true, class:"form-control form-input", autofocus: true %>
           </div>
           <div class="field form-group">
-            <h6><%= t("users.logix.edit_profile.profile_picture") %><h6>
+            <h6><%= t("users.circuitverse.edit_profile.profile_picture") %><h6>
             <p><%= image_tag @profile.profile_picture.url(:thumb), id:'imgedit', class:"users-edit-image", alt:'User Profile Image' %></p>
-            <label for="profile_picture" class="users-edit-image-button"><%= t("users.logix.edit_profile.choose_file") %></label>
+            <label for="profile_picture" class="users-edit-image-button"><%= t("users.circuitverse.edit_profile.choose_file") %></label>
             <input tabindex="0" type="file" accept="image/png, .jpeg, .jpg" class="users-edit-image-button-hidden" id="profile_picture" name="user[profile_picture]" onchange="readURL(this);" value="<%= @profile.profile_picture %>">
           </div>
           <div class="field form-group">
             <h6><%= f.label :country %></h6>
-            <%= f.country_select :country, { include_blank: t("users.logix.edit_profile.country_select_placeholder"), priority_countries: get_priority_countries() }, class: "form-control form-input" %>
+            <%= f.country_select :country, { include_blank: t("users.circuitverse.edit_profile.country_select_placeholder"), priority_countries: get_priority_countries() }, class: "form-control form-input" %>
           </div>
           <div class="field form-group">
             <h6><%= f.label :educational_institute %></h6>
@@ -34,10 +34,10 @@
           </div>
           <div class="field form-group">
             <h6><%= f.label :locale %></h6>
-            <%= f.select :locale, options_for_select(I18nSupport.locale_names, f.object.locale), { prompt: t("users.logix.edit_profile.select_locale_prompt") }, { class: 'form-control form-input' } %>
+            <%= f.select :locale, options_for_select(I18nSupport.locale_names, f.object.locale), { prompt: t("users.circuitverse.edit_profile.select_locale_prompt") }, { class: 'form-control form-input' } %>
           </div>
           <div class="field form-group users-edit-primary-checkpoint">
-            <label for="profile_subscribed" class="primary-checkpoint-container"><h6><%= t("users.logix.edit_profile.subscribe_mail_checkpoint") %></h6>
+            <label for="profile_subscribed" class="primary-checkpoint-container"><h6><%= t("users.circuitverse.edit_profile.subscribe_mail_checkpoint") %></h6>
               <%= f.check_box :subscribed, checked: @profile.subscribed?, id: "profile_subscribed" %>
               <div class="primary-checkpoint"></div>
             </label>
@@ -47,11 +47,11 @@
         <% end %>
         <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <h4 class="submain-heading"><%= t("users.logix.edit_profile.delete_account_heading") %></h4>
-            <p><%= t("users.logix.edit_profile.delete_account_notice") %></p> <br>
+            <h4 class="submain-heading"><%= t("users.circuitverse.edit_profile.delete_account_heading") %></h4>
+            <p><%= t("users.circuitverse.edit_profile.delete_account_notice") %></p> <br>
           </div>
         </div>
-        <%= link_to  t("users.logix.edit_profile.delete_account"), "#", class: "btn primary-delete-button", data: {toggle: "modal", target: "#deleteuserModal", currentuser: @profile.id} %>
+        <%= link_to  t("users.circuitverse.edit_profile.delete_account"), "#", class: "btn primary-delete-button", data: {toggle: "modal", target: "#deleteuserModal", currentuser: @profile.id} %>
       </div>
     </div>
   </div>

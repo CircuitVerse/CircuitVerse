@@ -4,7 +4,7 @@ en:
     ask_new_user: "New User?"
     confirmations:
       resend_confirmation_instructions: "Resend confirmation instructions"
-    logix:
+    circuitverse:
       delete_group_confirmation: "Are you sure you want to delete this group?"
       delete_user_confirmation: "Are you sure you want to delete your account? This action can't be reverted back." 
       preview_project: "Project Preview"
