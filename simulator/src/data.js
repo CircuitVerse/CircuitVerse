@@ -1,4 +1,4 @@
-import { fullView, deleteSelected } from './ux';
+git statusimport { fullView, deleteSelected } from './ux';
 import { createSubCircuitPrompt } from './subcircuit';
 import save from './data/save';
 import load from './data/load';
