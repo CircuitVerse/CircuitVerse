@@ -17,19 +17,19 @@ class SimulatorOldController < ApplicationController
   end
 
   def show
-    @logix_project_id = params[:id]
+    @circuitverse_project_id = params[:id]
     @external_embed = false
     render "embed"
   end
 
   def edit
-    @logix_project_id = params[:id]
+    @circuitverse_project_id = params[:id]
     @projectName = @project.name
   end
 
   def embed
     authorize @project
-    @logix_project_id = params[:id]
+    @circuitverse_project_id = params[:id]
     @project = Project.friendly.find(params[:id])
     @author = @project.author_id
     @external_embed = true
@@ -41,7 +41,7 @@ class SimulatorOldController < ApplicationController
   end
 
   def new
-    @logix_project_id = 0
+    @circuitverse_project_id = 0
     @projectName = ""
     render "edit"
   end

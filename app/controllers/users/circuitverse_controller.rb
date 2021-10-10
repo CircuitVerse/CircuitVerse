@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-class Users::LogixController < ApplicationController
+class Users::CircuitverseController < ApplicationController
   TYPEAHEAD_INSTITUTE_LIMIT = 50
 
-  include UsersLogixHelper
+  include UsersCircuitverseHelper
 
   before_action :authenticate_user!, only: %i[edit update groups]
   before_action :set_user, except: [:typeahead_educational_institute]
