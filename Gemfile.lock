@@ -242,7 +242,7 @@ GEM
       sassc (>= 1.11)
     friendly_id (5.4.1)
       activerecord (>= 4.0.0)
-    geocoder (1.6.3)
+    geocoder (1.7.0)
     globalid (0.5.2)
       activesupport (>= 5.0)
     gravatar_image_tag (1.2.0)
