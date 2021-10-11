@@ -125,16 +125,16 @@ body {
 
   .pagination {
     display: block;
+    margin: 0 auto;
     max-width: none;
     overflow-x: visible;
     padding: 0;
     white-space: nowrap;
-    margin: 0 auto;
   }
 
   .pagination > * {
     display: inline-block;
-    margin-left: -4px;
     margin: auto;
+    margin-left: -4px;
   }
 }
