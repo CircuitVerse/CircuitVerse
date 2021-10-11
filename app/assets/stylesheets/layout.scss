@@ -129,11 +129,12 @@ body {
     overflow-x: visible;
     padding: 0;
     white-space: nowrap;
+    margin: 0 auto;
   }
 
   .pagination > * {
     display: inline-block;
-    margin: 0;
     margin-left: -4px;
+    margin: auto;
   }
 }
