@@ -3,12 +3,14 @@
     at /testbench
 */
 
+import _ from '../vendor/table2csv';
+
 const CREATORMODE = {
     NORMAL: 0,
     SIMULATOR_POPUP: 1
 };
 
-var testMode = "comb";
+var testMode = 'comb';
 var groupIndex = 0;
 var inputCount = 0;
 var nextInputIndex = 0;
@@ -32,6 +34,7 @@ window.onload = () => {
     if (query.has('popUp')) {
         if (query.get('popUp') == 'true') {
             creatorMode = CREATORMODE.SIMULATOR_POPUP;
+            $(".right-button-group").append('<button class="lower-button save-buton" onclick="saveData();">Attach</button>');
         }
     }
     if (query.has('data')) {
@@ -248,7 +251,7 @@ function getData() {
     const groupCount = $('#dataGroup').children().length;
     for(let group_i = 0; group_i < groupCount; group_i++){
         let group = {};
-        group.label = $(`#data-group-title-${group_i + 1}`).html();
+        group.label = getGroupTitle(group_i);
         group.inputs = [];
         group.outputs = [];
 
@@ -283,14 +286,133 @@ function getData() {
     return groups;
 }
 
+function getTestTitle() {
+    return $('#test-title-label').text();
+}
+
+function getGroupTitle(group_i) {
+    return $(`#data-group-title-${group_i + 1}`).text();
+}
+
 /* Parse UI table into Javascript Object */
 function parse() {
     let data = {};
     const tableData = getData();
     data.type = testMode;
-    data.title = $('#test-title-label').text();
+    data.title = getTestTitle();
     data.groups = tableData;
     return data;
+}
+
+/* Export test data as a CSV file */
+function exportAsCSV() {
+    let csvData = '';
+    csvData += "Title,Test Type,Input Count,Output Count\n";
+    csvData += `${getTestTitle()},${testMode},${inputCount},${outputCount}\n\n\n`;
+    csvData += $("table").eq(0).table2CSV();
+    csvData += '\n\n';
+    $("table").slice(1).each(function(group_i) {
+        csvData += getGroupTitle(group_i);
+        csvData += '\n';
+        csvData += $(this).table2CSV();
+        csvData += '\n\n';
+    });
+
+    download(`${getTestTitle()}.csv`, csvData);
+    console.log(csvData);
+    return csvData;
+}
+
+/* Imports data from CSV and loads into the table 
+   To achieve this, first converts to JSON then uses request param to load json to table*/
+function importFromCSV() {
+    let file = $("#csvFileInput").prop('files')[0];
+    let reader = new FileReader();
+
+    reader.onload = () => {
+        let csvContent = reader.result;
+        console.log(csvContent);
+        let jsonData = csv2json(csvContent,1,1);
+
+        location = '/testbench?data=' + jsonData;
+    }
+
+    reader.readAsText(file);
+}
+
+function clickUpload() {
+    $("#csvFileInput").click();
+}
+
+/* Converts CSV to JSON to be loaded into the table */
+function csv2json(csvData) {
+
+    let stripQuotes = (str) => {
+        return str.replaceAll('\"', '');
+    }
+
+    let getBitWidthsCSV = (csvData) => {
+        let testMetadata = csvData.split('\n\n')[0].split('\n');
+        let labels = testMetadata[1].split(',').slice(1).map((label) => { return stripQuotes(label); });
+        let bitWidths = testMetadata[2].split(',').slice(1).map((bw) => { return Number(stripQuotes(bw)); });
+
+        return { labels, bitWidths };
+    }
+
+    let csvMetadata = csvData.split('\n\n\n')[0].split('\n')[1].split(',');
+    csvData = csvData.split('\n\n\n')[1];
+    console.log(csvData);
+    let jsonData = {};
+
+    jsonData.title = csvMetadata[0];
+    jsonData.type = csvMetadata[1];
+    let inputCount = Number(csvMetadata[2]);
+    let outputCount = Number(csvMetadata[3]);
+
+    jsonData.groups = [];
+    let { labels, bitWidths } = getBitWidthsCSV(csvData);
+
+    let groups = csvData.split('\n\n').slice(1);
+    for(let group_i = 0; group_i < groups.length - 1; group_i++) {
+        let rows = groups[group_i].split('\n');
+        jsonData.groups[group_i] = { label: rows[0], n: rows.length - 1, inputs: [], outputs: [] };
+
+        // Parse Inputs
+        for(let input_i = 0; input_i < inputCount; input_i++) {
+            let thisInput = { label: labels[input_i], bitWidth: bitWidths[input_i], values: []};
+            for(let case_i = 1; case_i < rows.length; case_i++)
+                thisInput.values.push(stripQuotes(rows[case_i].split(',')[input_i + 1]));
+
+            jsonData.groups[group_i].inputs.push(thisInput);
+        }
+
+        // Parse Outputs
+        for(let output_i = inputCount; output_i < inputCount + outputCount; output_i++) {
+            let thisOutput = { label: labels[output_i], bitWidth: bitWidths[output_i], values: []};
+            for(let case_i = 1; case_i < rows.length; case_i++){
+                thisOutput.values.push(stripQuotes(rows[case_i].split(',')[output_i + 1]));
+            }
+
+            jsonData.groups[group_i].outputs.push(thisOutput);
+        }
+    }
+
+    return JSON.stringify(jsonData);
+
+}
+
+/* Helper function to download generated file */
+function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
 }
 
 /**
@@ -304,7 +426,7 @@ function saveData() {
 
     if (creatorMode === CREATORMODE.SIMULATOR_POPUP) {
         const postData = { scopeID: circuitScopeID, testData: testData };
-        window.opener.postMessage({ type: "testData", data: JSON.stringify(postData) }, "*");
+        window.opener.postMessage({ type: 'testData', data: JSON.stringify(postData) }, "*");
         window.close();
     }
 }
@@ -481,3 +603,7 @@ window.deleteOutput = deleteOutput;
 window.parse = parse;
 window.saveData = saveData;
 window.changeTestMode = changeTestMode;
+window.exportAsCSV = exportAsCSV;
+window.importFromCSV = importFromCSV;
+window.csv2json = csv2json;
+window.clickUpload = clickUpload;
