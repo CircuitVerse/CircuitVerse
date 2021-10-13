@@ -377,5 +377,7 @@
   box-shadow: 3px 3px 2px var(--shadowgreen),
               -3px 0 3px var(--shadowgreen);
   padding: 10px;
+  max-height: 40vh;
+  overflow-y: scroll;
 }
 //user profile ends
