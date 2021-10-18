@@ -68,6 +68,3 @@ yarn-debug.log*
 config/private.pem
 
 .env
-
-#
-/vendor
