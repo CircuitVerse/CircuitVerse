@@ -45,7 +45,7 @@
     "jquery-ujs": "^1.2.3",
     "jsdoc-export-default-interop": "^0.3.1",
     "livereload": "^0.9.3",
-    "nodemon": "^2.0.12",
+    "nodemon": "^2.0.14",
     "opencollective-postinstall": "^2.0.3",
     "popper.js": "^1.16.1",
     "trumbowyg": "^2.25.1",
