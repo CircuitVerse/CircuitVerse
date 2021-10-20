@@ -24,7 +24,7 @@
           </div>
           <div class="form-group">
             <%= form.label :emails %>
-            <%= form.text_area :emails, id: :group_member_emails, rows: 5, 'data-role': 'tagsinput', class: 'form-control form-input' %>
+            <%= form.text_area :emails, id: :group_member_emails, rows: 4, 'data-role': 'tagsinput', class: 'form-control form-input' %>
           </div>
           <div class="modal-footer">
             <%= form.submit  class: 'add-members-button btn primary-button' %>
@@ -47,15 +47,14 @@
 
 <script>
 $(document).ready(() => {
-  // docs: http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/examples/
   $('#group_member_emails').tagsinput({
     trimValue: true,
     confirmKeys: [13, 44, 32],
   });
 
-  $('.bootstrap-tagsinput input').attr('maxlength', '30'); // to limit the no. of chars entered in input box to avoid the overflow
+  $('.bootstrap-tagsinput input').attr('maxlength', '30');
 
-  $('.add-members-button').attr('disabled', true); // setting submit button to disabled initially
+  $('.add-members-button').attr('disabled', true);
 
   $('.bootstrap-tagsinput input').on('keyup', () => {
     if($('.bootstrap-tagsinput').children().length > 1) {
@@ -66,7 +65,6 @@ $(document).ready(() => {
   });
 
   $('.bootstrap-tagsinput').on('click', () => {
-    // if user deletes tags using mouse click instead of backspace
     if($('.bootstrap-tagsinput').children().length > 1) {
       $('.add-members-button').attr('disabled', false);
     } else {
@@ -75,7 +73,6 @@ $(document).ready(() => {
   })
 
   document.querySelector('.bootstrap-tagsinput input').addEventListener('paste', (e) => {
-    // listening for paste event
     e.preventDefault();
     let pastedEmails = '';
     if (window.clipboardData && window.clipboardData.getData) {
