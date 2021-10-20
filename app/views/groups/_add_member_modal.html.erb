@@ -58,14 +58,14 @@ $(document).ready(() => {
   $('.add-members-button').attr('disabled', true); // setting submit button to disabled initially
 
   $('.bootstrap-tagsinput input').on('keyup', () => {
-    if($('.bootstrap-tagsinput').children().length > 1) { 
+    if($('.bootstrap-tagsinput').children().length > 1) {
       $('.add-members-button').attr('disabled', false);
     } else {
       $('.add-members-button').attr('disabled', true);
     }
   });
 
-  $('.bootstrap-tagsinput').on('click', () => { 
+  $('.bootstrap-tagsinput').on('click', () => {
     // if user deletes tags using mouse click instead of backspace
     if($('.bootstrap-tagsinput').children().length > 1) {
       $('.add-members-button').attr('disabled', false);
@@ -74,7 +74,7 @@ $(document).ready(() => {
     }
   })
 
-  document.querySelector('.bootstrap-tagsinput input').addEventListener('paste', (e) => { 
+  document.querySelector('.bootstrap-tagsinput input').addEventListener('paste', (e) => {
     // listening for paste event
     e.preventDefault();
     let pastedEmails = '';
@@ -90,7 +90,7 @@ $(document).ready(() => {
       this.value = pastedEmails.replace(/./g, '');
       newLinesIntoSpacesSplitted.forEach(value => $('#group_member_emails').tagsinput('add', value))
       $('.add-members-button').attr('disabled', false)
-    } 
+    }
     else {
       const pastedEmailsSplittedBySpace = pastedEmails.split(' ');
       this.value = pastedEmails.replace(/./g, '');
