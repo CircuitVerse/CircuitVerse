@@ -13,7 +13,7 @@
           <% if group_member.errors.any? %>
             <div id="error-message">
               <ul>
-                <% @group_member.errors.full_messages.each do |message| %>
+                <% group_member.errors.full_messages.each do |message| %>
                     <li><%= message %></li>
                 <% end %>
               </ul>
