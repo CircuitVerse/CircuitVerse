@@ -39,7 +39,7 @@ describe "Group management", type: :system do
     click_button "+ Add Members"
     execute_script "document.getElementById('addmemberModal').style.display='block'"
     execute_script "document.getElementById('addmemberModal').style.opacity=1"
-    fill_in "emails", with: @user2.email
+    fill_in "emails", with: @user2.emails
     click_button "Add members"
 
     expect(page).to have_text(
