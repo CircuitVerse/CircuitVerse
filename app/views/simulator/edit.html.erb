@@ -32,6 +32,9 @@
           <li><a class="dropdown-item logixButton text-left pl-1" id="recoverProject">Recover Project</a></li>
           <li><a class="dropdown-item logixButton text-left pl-1" id="fullViewOption">Preview Circuit</a></li>
           <li><a class="dropdown-item logixButton text-left pl-1" onclick="old_ui_redirect()">View Previous UI</a></li>
+          <% if user_signed_in? %>
+          <li><a class="dropdown-item logixButton text-left pl-1" href="<%= user_path(current_user) %>">View Project Page</a></li>
+         <% end %>
         </ul>
       </li>
       <li class="dropdown nav-dropdown">
