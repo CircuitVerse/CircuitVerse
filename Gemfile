@@ -130,7 +130,7 @@ group :development, :test do
 end
 
 group :test do
-  gem "capybara", "~> 3.33"
+  gem "capybara", "~> 3.36"
   gem "json-schema"
   gem "rspec_junit_formatter"
   gem "selenium-webdriver"
