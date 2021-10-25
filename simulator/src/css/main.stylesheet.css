@@ -236,8 +236,11 @@ input[type="text"]:focus {
 
 .quick-btn {
   display: flex;
+  position: absolute;
   width: 400px;
   height: 33px;
+  top: 90px;
+  right: 280px;
   border-radius: 7px;
   z-index: 100;
 }
@@ -686,31 +689,14 @@ div.icon img {
   left: 10px;
 }
 
-.timing-diagram-quick-button-container {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  padding-top: 7px;
-  padding-left: 260px;
-  padding-right: 270px;
-  gap: 20px;
-  justify-content: center;
-  z-index: 100;
-  transition: background .5s ease-out;
-  position: fixed;
-}
-
-@media(min-width: 1140px) {
-  .timing-diagram-quick-button-container{
-    gap: 40px;
-  }
-}
-
 .timing-diagram-panel {
   border-radius: 5px;
   z-index: 100;
   transition: background .5s ease-out; 
+  position: fixed;
   cursor: pointer;
+  left: 300px;
+  top: 90px;
 }
 
 .timing-diagram-panel .panel-header {
