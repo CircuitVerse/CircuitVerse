@@ -21,7 +21,7 @@
     "expose-loader": "^0.7.5",
     "jsdoc": "3.6.6",
     "webpack-bundle-analyzer": "^4.4.0",
-    "webpack-dev-server": "^3.11.2"
+    "webpack-dev-server": "^4.4.0"
   },
   "dependencies": {
     "@babel/plugin-proposal-numeric-separator": "^7.12.7",
