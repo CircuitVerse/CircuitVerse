@@ -31,6 +31,7 @@
     "banana-i18n": "^2.2.0",
     "better-docs": "^2.0.1",
     "bootstrap": "^4.6.0",
+    "bootstrap-tagsinput": "^0.7.1",
     "canvas2svg": "1.0.16",
     "codemirror": "^5.63.3",
     "css-vars": "^2.2.0",
@@ -48,6 +49,7 @@
     "nodemon": "^2.0.12",
     "opencollective-postinstall": "^2.0.3",
     "popper.js": "^1.16.1",
+    "stimulus": "^3.0.1",
     "trumbowyg": "^2.25.1",
     "turbolinks": "^5.2.0"
   },

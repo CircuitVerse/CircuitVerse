@@ -1,5 +1,6 @@
 @import "theme";
 @import "bootstrap/scss/bootstrap";
+@import "bootstrap-tagsinput/dist/bootstrap-tagsinput.css";
 @import 'bootstrap-typeahead-rails';
 @import "font-awesome-sprockets";
 @import "font-awesome";
@@ -13,7 +14,7 @@
 @import 'footer';
 @import 'about';
 @import 'contribute';
-@import 'teacher';
+@import 'teacher';  
 @import 'search';
 @import 'custom_mail';
 @import 'editor';
