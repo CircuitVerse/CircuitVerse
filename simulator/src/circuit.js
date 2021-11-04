@@ -155,7 +155,7 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
             $("#tabsBar").addClass('embed-tabs');
         }
         else {
-            var html = `<div style='' class='circuits toolbarButton current' draggable='true' id='${scope.id}'><span class='circuitName noSelect'>${truncateString(name, 18)}</span><span class ='tabsCloseButton' id='${scope.id}'  >x</span></div>`;
+            var html = `<div style='' class='circuits toolbarButton current' draggable='true' id='${scope.id}'><span class='circuitName noSelect'>${truncateString(name, 18)}</span><span class ='tabsCloseButton' id='${scope.id}'  ><i class="fa tabsCirDeleteIcon fa-trash" aria-hidden="true"></i></span></div>`;
             $('#tabsBar').children().last().before(html);
         }
 
