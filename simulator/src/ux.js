@@ -72,10 +72,57 @@ function showContextMenu() {
         top: `${ctxPos.y}px`,
         left: `${ctxPos.x}px`,
     });
-    ctxPos.visible = true;
-    return false;
+var windowHeight = $(window).height() / 2;
+var windowWidth = $(window).width() / 2;
+// for top, left, right, bottom
+var topPosition;
+var leftPosition;
+var rightPosition;
+var bottomPosition;
+if (ctxPos.y > windowHeight && ctxPos.x <= windowWidth) {
+    //When user click on bottom-left part of window
+    leftPosition = ctxPos.x;
+    bottomPosition = $(window).height() - ctxPos.y;
+    $("#contextMenu").css({
+        left: `${leftPosition}px`,
+        bottom: `${bottomPosition}px`,
+        right: 'auto',
+        top: 'auto',
+    });
+} else if (ctxPos.y > windowHeight && ctxPos.x > windowWidth) {
+    //When user click on bottom-right part of window
+    bottomPosition = $(window).height() - ctxPos.y;
+    rightPosition = $(window).width() - ctxPos.x;
+    $("#contextMenu").css({
+        left: 'auto',
+        bottom: `${bottomPosition}px`,
+        right: `${rightPosition}px`,
+        top: 'auto',
+    });
+} else if (ctxPos.y <= windowHeight && ctxPos.x <= windowWidth) {
+    //When user click on top-left part of window
+    leftPosition = ctxPos.x;
+    topPosition = ctxPos.y;
+    $("#contextMenu").css({
+        left: `${leftPos}px`,
+        bottom: 'auto',
+        right: 'auto',
+        top: `${topPos}px`,
+    });
+} else {
+    //When user click on top-right part of window
+    rightPosition = $(window).width() - ctxPos.x;
+    topPosition = ctxPos.y;
+    $("#contextMenu").css({
+        left: 'auto',
+        bottom: 'auto',
+        right: `${rightPosition}px`,
+        top: `${topPosition}px`,
+    });
 }
-
+ctxPos.visible = true;
+return false;
+}
 /**
  * Function is called when context item is clicked
  * @param {number} id - id of the optoin selected
