@@ -10,6 +10,7 @@ export default class extends Controller {
       });
 
       $('.bootstrap-tagsinput input').attr('maxlength', '30');
+      $('.bootstrap-tagsinput input').attr('id','group_email_input');
 
       $('.add-members-button').attr('disabled', true);
 
