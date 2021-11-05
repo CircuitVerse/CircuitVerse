@@ -1,5 +1,7 @@
 import { Controller } from 'stimulus';
 import "bootstrap-tagsinput/dist/bootstrap-tagsinput.js";
+import * as $ from 'jquery/dist/jquery'
+import 'bootstrap/dist/js/bootstrap';
 
 export default class extends Controller {
   connect() {
