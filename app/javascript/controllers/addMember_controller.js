@@ -17,8 +17,7 @@ export default class extends Controller {
             $('.bootstrap-tagsinput input').on('keyup', () => {
                 if ($('.bootstrap-tagsinput').children().length > 1) {
                     $('.add-members-button').attr('disabled', false);
-                }
-                else {
+                } else {
                     $('.add-members-button').attr('disabled', true);
                 }
             });
@@ -44,8 +43,7 @@ export default class extends Controller {
                     this.value = pastedEmails.replace(/./g, '');
                     newLinesIntoSpacesSplitted.forEach(value => $('#group_member_emails').tagsinput('add', value));
                     $('.add-members-button').attr('disabled', false);
-                }
-                else {
+                } else {
                     const pastedEmailsSplittedBySpace = pastedEmails.split(' ');
                     this.value = pastedEmails.replace(/./g, '');
                     pastedEmailsSplittedBySpace.forEach(value => $('#group_member_emails').tagsinput('add', value));
