@@ -72,8 +72,8 @@ function showContextMenu() {
         top: `${ctxPos.y}px`,
         left: `${ctxPos.x}px`,
     });
-    var windowHeight = $(window).height() /2 ;
-    var windowWidth = $(window).width() *(3/4);
+    var windowHeight = $(window).height() * 0.56;
+    var windowWidth = $(window).width() * 0.9;
     // for top, left, right, bottom
     var topPosition;
     var leftPosition;
@@ -120,8 +120,8 @@ function showContextMenu() {
         top: `${topPosition}px`,
     });
     }
-ctxPos.visible = true;
-return false;
+    ctxPos.visible = true;
+    return false;
 }
 /**
  * Function is called when context item is clicked
