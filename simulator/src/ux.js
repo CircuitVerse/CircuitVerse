@@ -80,15 +80,15 @@ function showContextMenu() {
     var rightPosition;
     var bottomPosition;
     if (ctxPos.y > windowHeight && ctxPos.x <= windowWidth) {
-    //When user click on bottom-left part of window
-    leftPosition = ctxPos.x;
-    bottomPosition = $(window).height() - ctxPos.y;
-    $("#contextMenu").css({
-        left: `${leftPosition}px`,
-        bottom: `${bottomPosition}px`,
-        right: 'auto',
-        top: 'auto',
-    });
+        //When user click on bottom-left part of window
+        leftPosition = ctxPos.x;
+        bottomPosition = $(window).height() - ctxPos.y;
+        $("#contextMenu").css({
+            left: `${leftPosition}px`,
+            bottom: `${bottomPosition}px`,
+            right: 'auto',
+            top: 'auto',
+        });
     } else if (ctxPos.y > windowHeight && ctxPos.x > windowWidth) {
     //When user click on bottom-right part of window
     bottomPosition = $(window).height() - ctxPos.y;
