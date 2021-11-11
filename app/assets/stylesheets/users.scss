@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'Roboto';
+  src: font-url('Roboto.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 //passwords
 .users-image {
   margin-bottom: 15px;
@@ -94,15 +101,85 @@
   width: 100%;
 }
 
-.users-social-links {
-  height: 50px;
-  margin-left: 5px;
-  margin-right: 5px;
-  padding-top: 10px;
-  width: 40px;
+.users-social-btns-container {
+  width: 90%;
+  display: flex;
+  flex-wrap: wrap;
+  height: 120px;
+  justify-content: space-around;
+}
+
+// sign in button styles
+.users-social-btn {
+  border-radius: 2px;
+  box-shadow: 0 3px 4px 0 $shadow-black;
+  height: 42px;
+  width: 190px;
+
+  .users-social-btn-icon-wrapper {
+    align-items: center;
+    background-color: $white;
+    border-radius: 2px;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    margin-left: 1px;
+    margin-top: 1px;
+    position: absolute;
+    width: 40px;
+  }
+
+  .users-social-btn-icon {
+    height: 18px;
+    width: 18px;
+  }
+
+  .users-btn-text {
+    color: $white;
+    float: right;
+    font-family: 'Roboto';
+    font-size: 14px;
+    letter-spacing: .2px;
+    margin: 11px 11px 0 0;
+  }
+}
+// google sign in button styles
+.users-google-btn {
+  background-color: $google-blue;
 
   &:hover {
-    opacity: .7;
+    box-shadow: 0 0 6px $google-blue;
+  }
+
+  &:active {
+    background: $button-active-blue;
+  }
+}
+
+// facebook sign in
+.users-facebook-btn {
+  background-color: $facebook-blue;
+  width: 210px;
+
+  &:hover {
+    box-shadow: 0 0 6px $facebook-blue;
+  }
+
+  &:active {
+    background: $button-active-darkblue;
+  }
+}
+
+// github sign in
+.users-github-btn {
+  background-color: $github-black;
+
+  &:hover {
+    box-shadow: 0 0 6px $github-black;
+  }
+
+  &:active {
+    background: $button-active-black;
   }
 }
 //shared ends
@@ -364,6 +441,16 @@
   .users-circuits-tab {
     font-size: 16px;
     padding: 4px 15px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .users-social-btns-container {
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    height: 140px;
+    justify-content: space-between;
   }
 }
 //user profile ends
