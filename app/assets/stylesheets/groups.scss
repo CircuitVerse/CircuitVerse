@@ -320,11 +320,9 @@
   }
 }
 
-.groups-form {
-  .text-container {
-    padding-left: 40px;
-    text-align: left;
-  }
+.groups-form-text-container {
+  padding-left: 40px;
+  text-align: left;
 }
 
 .groups-input {
@@ -341,10 +339,8 @@
   }
 }
 
-.groups-form {
-  .anchor-text {
-    margin-left: 10px;
-  }
+.groups-form-anchor-text {
+  margin-left: 10px;
 }
 
 //breakpoints
@@ -419,85 +415,75 @@
   }
 }
 
-.groups-mentor {
-  .card-name {
-    font-size: 28px;
-    font-weight: 500;
-    height: 60px;
-    max-width: 250px;
-    overflow: hidden;
-    padding-top: 15px;
-    text-overflow: ellipsis;
+.groups-mentor-card-name {
+  font-size: 28px;
+  font-weight: 500;
+  height: 60px;
+  max-width: 250px;
+  overflow: hidden;
+  padding-top: 15px;
+  text-overflow: ellipsis;
+}
+
+.groups-mentor-card-mini-buttons {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-bottom: 15px;
+}
+
+.groups-mentor-card-view-mini-button {
+  background: $primary-green;
+  transition: transform 0.2s ease-in;
+  width: 95px;
+
+  img {
+    height: 20px;
+    padding-bottom: 2px;
+    width: 20px;
+  }
+
+  &:hover {
+    color: $white;
+    text-decoration: none;
+    transform: translateY(-4px);
   }
 }
 
-.groups-mentor {
-  .card-mini-buttons {
-    align-items: center;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    padding-bottom: 15px;
+.groups-mentor-card-edit-mini-button {
+  background: $mini-button-blue;
+  transition: transform 0.2s ease-in;
+  width: 95px;
+
+  img {
+    height: 20px;
+    padding-bottom: 2px;
+    width: 20px;
+  }
+
+  &:hover {
+    color: $white;
+    text-decoration: none;
+    transform: translateY(-4px);
   }
 }
 
-.groups-mentor {
-  .card-view-mini-button {
-    background: $primary-green;
-    transition: transform 0.2s ease-in;
-    width: 95px;
+.groups-mentor-card-delete-mini-button {
+  background: $primary-red;
+  transition: transform 0.2s ease-in;
+  width: 100px;
 
-    img {
-      height: 20px;
-      padding-bottom: 2px;
-      width: 20px;
-    }
-
-    &:hover {
-      color: $white;
-      text-decoration: none;
-      transform: translateY(-4px);
-    }
+  img {
+    height: 20px;
+    padding-bottom: 2px;
+    width: 20px;
   }
-}
 
-.groups-mentor {
-  .card-edit-mini-button {
-    background: $mini-button-blue;
-    transition: transform 0.2s ease-in;
-    width: 95px;
-
-    img {
-      height: 20px;
-      padding-bottom: 2px;
-      width: 20px;
-    }
-
-    &:hover {
-      color: $white;
-      text-decoration: none;
-      transform: translateY(-4px);
-    }
-  }
-}
-
-.groups-mentor {
-  .card-delete-mini-button {
-    background: $primary-red;
-    transition: transform 0.2s ease-in;
-    width: 100px;
-
-    img {
-      height: 20px;
-      padding-bottom: 2px;
-      width: 20px;
-    }
-
-    &:hover {
-      color: $white;
-      text-decoration: none;
-      transform: translateY(-4px);
-    }
+  &:hover {
+    color: $white;
+    text-decoration: none;
+    transform: translateY(-4px);
   }
 }
 
@@ -507,31 +493,29 @@
   }
 }
 
-.groups-member {
-  .card {
-    align-items: center;
-    border-left: 10px solid $primary-green;
-    flex-direction: row;
-    justify-content: space-around;
-  }
+.groups-member-card {
+  align-items: center;
+  border-left: 10px solid $primary-green;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
-.groups-member {
-  .card-name {
+.groups-member-card {
+  .name {
     max-width: 175px;
   }
 }
 
-.groups-member {
-  .card-details {
+.groups-member-name {
+  .details {
     display: flex;
     flex-direction: column;
     justify-content: center;
   }
 }
 
-.groups-member {
-  .card-button {
+.groups-member-card {
+  .button {
     margin-top: 20px;
     padding: 5px 10px;
   }
