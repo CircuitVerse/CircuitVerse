@@ -43,13 +43,11 @@
   margin-top: 15px;
 }
 
-.groups-expanded {
-  .assignment-name {
-    margin-left: 8px;
-    max-width: 180px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+.groups-expanded-assignment-name {
+  margin-left: 8px;
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .groups-assignment-date {
@@ -134,11 +132,9 @@
   }
 }
 
-.groups-collapsed {
-  .table {
-    display: none;
-    padding: 15px;
-  }
+.groups-collapsed-table {
+  display: none;
+  padding: 15px;
 }
 
 .groups-collapsed {
@@ -148,85 +144,69 @@
   }
 }
 
-.groups-collapsed {
-  .assignment-name {
-    max-width: 150px;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.groups-collapsed-assignment-name {
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.groups-collapsed-empty-table-row {
+  border: 0;
+  height: 10px;
+  line-height: normal;
+  padding: 20px;
+}
+
+.groups-members-card-container {
+  padding: 5px;
+}
+
+.groups-members-card {
+  background-color: $card-green;
+  border: 1px solid $secondary-green;
+  display: inline-block;
+  height: 90px;
+  margin: 18px 10px;
+  padding: 15px;
+  width: 300px;
+}
+
+.groups-members-card-details {
+  padding-right: 0;
+  text-align: left;
+
+  i {
+    margin-right: 3px;
+    margin-top: 0;
+    padding-bottom: 5px;
   }
 }
 
-.groups-collapsed {
-  .empty-table-row {
-    border: 0;
-    height: 10px;
-    line-height: normal;
-    padding: 20px;
-  }
+.groups-members-card-name-container {
+  display: inline-block;
+  height: 25px;
+  max-width: 110px;
+  overflow: hidden;
+  padding-top: 1px;
+  text-overflow: ellipsis;
 }
 
-.groups-members {
-  .card-container {
-    padding: 5px;
-  }
-}
+.groups-members-card-name {
+  color: $black;
+  font-size: 20px;
 
-.groups-members {
-  .card {
-    background-color: $card-green;
-    border: 1px solid $secondary-green;
-    display: inline-block;
-    height: 90px;
-    margin: 18px 10px;
-    padding: 15px;
-    width: 300px;
-  }
-}
-
-.groups-members {
-  .card-details {
-    padding-right: 0;
-    text-align: left;
-
-    i {
-      margin-right: 3px;
-      margin-top: 0;
-      padding-bottom: 5px;
-    }
-  }
-}
-
-.groups-members {
-  .card-name-container {
-    display: inline-block;
-    height: 25px;
-    max-width: 110px;
-    overflow: hidden;
-    padding-top: 1px;
-    text-overflow: ellipsis;
-  }
-}
-
-.groups-members {
-  .card-name {
+  &:hover {
     color: $black;
-    font-size: 20px;
-
-    &:hover {
-      color: $black;
-      text-decoration: none;
-    }
+    text-decoration: none;
   }
 }
 
-.groups-members {
-  .card-email {
-    color: $black;
-    font-size: 15px;
-    max-width: 175px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+.groups-members-card-email {
+  color: $black;
+  font-size: 15px;
+  max-width: 175px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .groups-members-card-button {
