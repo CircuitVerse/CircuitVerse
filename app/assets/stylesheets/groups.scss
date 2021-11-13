@@ -213,7 +213,7 @@
   margin-right: 0;
   padding: 15px 15px 15px 0;
   text-align: right;
-  transition: padding-top 0.2s ease-in;
+  transition: padding-top .2s ease-in;
 
   &:hover {
     padding-top: 11px;
@@ -435,7 +435,7 @@
 
 .groups-mentor-card-view-mini-button {
   background: $primary-green;
-  transition: transform 0.2s ease-in;
+  transition: transform .2s ease-in;
   width: 95px;
 
   img {
@@ -453,7 +453,7 @@
 
 .groups-mentor-card-edit-mini-button {
   background: $mini-button-blue;
-  transition: transform 0.2s ease-in;
+  transition: transform .2s ease-in;
   width: 95px;
 
   img {
@@ -471,7 +471,7 @@
 
 .groups-mentor-card-delete-mini-button {
   background: $primary-red;
-  transition: transform 0.2s ease-in;
+  transition: transform .2s ease-in;
   width: 100px;
 
   img {
@@ -500,10 +500,8 @@
   justify-content: space-around;
 }
 
-.groups-member-card {
-  .name {
-    max-width: 175px;
-  }
+.groups-member-card-name {
+  max-width: 175px;
 }
 
 .groups-member-name {
@@ -514,11 +512,9 @@
   }
 }
 
-.groups-member-card {
-  .button {
-    margin-top: 20px;
-    padding: 5px 10px;
-  }
+.groups-member-card-button {
+  margin-top: 20px;
+  padding: 5px 10px;
 }
 
 .groups-lms-modal {
