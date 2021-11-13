@@ -1,7 +1,7 @@
 //group details
 .groups-editname {
-  .primary-button{
-  margin-bottom: 20px;
+  .primary-button {
+    margin-bottom: 20px;
   }
 }
 
@@ -19,10 +19,10 @@
 }
 
 .groups-members {
-  .scroll-row{
-  max-height: 525px;
-  max-width: 1030px;
-  overflow-y: auto;
+  .scroll-row {
+    max-height: 525px;
+    max-width: 1030px;
+    overflow-y: auto;
   }
 }
 
@@ -44,11 +44,11 @@
 }
 
 .groups-expanded {
-  .assignment-name{
-  margin-left: 8px;
-  max-width: 180px;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  .assignment-name {
+    margin-left: 8px;
+    max-width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
@@ -61,20 +61,20 @@
 }
 
 .groups-assignment {
-  .button-container{
-  min-width: 190px;
+  .button-container {
+    min-width: 190px;
   }
 }
 
 .groups-copy-lms {
-  .credentials-button{
-  margin-left: 5;
-  padding: 2px 6px;
+  .credentials-button {
+    margin-left: 5;
+    padding: 2px 6px;
   }
 }
 
 .groups-view {
-    .mini-button{
+  .mini-button {
     background-color: $primary-green;
     cursor: pointer;
     font-size: 15px;
@@ -89,7 +89,7 @@
 }
 
 .groups-reopen {
-    .mini-button{
+  .mini-button {
     background-color: $mini-button-blue;
     cursor: pointer;
     font-size: 15px;
@@ -104,7 +104,7 @@
 }
 
 .groups-delete {
-    .mini-button{
+  .mini-button {
     background-color: $primary-red;
     cursor: pointer;
     font-size: 15px;
@@ -119,14 +119,14 @@
 }
 
 .groups-no-assignment {
-  .submission-text{
+  .submission-text {
     display: inline-block;
     margin-top: 3px;
   }
 }
 
 .groups-expanded {
-  .empty-table-row{
+  .empty-table-row {
     border: 0;
     height: 20px;
     line-height: normal;
@@ -135,21 +135,21 @@
 }
 
 .groups-collapsed {
-  .table{
+  .table {
     display: none;
     padding: 15px;
   }
 }
 
 .groups-collapsed {
-  .table-head{
+  .table-head {
     min-width: 90px;
     vertical-align: top;
   }
 }
 
 .groups-collapsed {
-  .assignment-name{
+  .assignment-name {
     max-width: 150px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -157,7 +157,7 @@
 }
 
 .groups-collapsed {
-  .empty-table-row{
+  .empty-table-row {
     border: 0;
     height: 10px;
     line-height: normal;
@@ -166,25 +166,25 @@
 }
 
 .groups-members {
-  .card-container{
-  padding: 5px;
+  .card-container {
+    padding: 5px;
   }
 }
 
 .groups-members {
-  .card{
-  background-color: $card-green;
-  border: 1px solid $secondary-green;
-  display: inline-block;
-  height: 90px;
-  margin: 18px 10px;
-  padding: 15px;
-  width: 300px;
+  .card {
+    background-color: $card-green;
+    border: 1px solid $secondary-green;
+    display: inline-block;
+    height: 90px;
+    margin: 18px 10px;
+    padding: 15px;
+    width: 300px;
   }
 }
 
 .groups-members {
-  .card-details{
+  .card-details {
     padding-right: 0;
     text-align: left;
 
@@ -197,7 +197,7 @@
 }
 
 .groups-members {
-  .card-name-container{
+  .card-name-container {
     display: inline-block;
     height: 25px;
     max-width: 110px;
@@ -208,7 +208,7 @@
 }
 
 .groups-members {
-    .card-name{
+  .card-name {
     color: $black;
     font-size: 20px;
 
@@ -220,12 +220,12 @@
 }
 
 .groups-members {
-  .card-email{
-  color: $black;
-  font-size: 15px;
-  max-width: 175px;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  .card-email {
+    color: $black;
+    font-size: 15px;
+    max-width: 175px;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
@@ -233,7 +233,7 @@
   margin-right: 0;
   padding: 15px 15px 15px 0;
   text-align: right;
-  transition: padding-top .2s ease-in;
+  transition: padding-top 0.2s ease-in;
 
   &:hover {
     padding-top: 11px;
@@ -241,7 +241,7 @@
 }
 
 .group-invite {
-  .link-text{
+  .link-text {
     border: 1.5px solid $secondary-green;
     font-size: 12px;
     text-align: left;
@@ -251,30 +251,30 @@
 //breakpoints
 @media (max-width: 1200px) {
   .groups-members {
-    .scroll-row{
-    max-width: 920px;
+    .scroll-row {
+      max-width: 920px;
+    }
   }
-}
 
   .groupsmembers {
-    .card{
-    width: 270px;
+    .card {
+      width: 270px;
     }
   }
 }
 
 @media (max-width: 992px) {
   .groups-members {
-    .scroll-row{
-    max-width: 610px;
+    .scroll-row {
+      max-width: 610px;
     }
   }
 }
 
 @media (max-width: 768px) {
   .groups-table {
-    .heading{
-    display: none;
+    .heading {
+      display: none;
     }
   }
 
@@ -288,21 +288,21 @@
 
   .groups-back {
     .button-container {
-    margin-left: 10px;
+      margin-left: 10px;
     }
   }
 }
 
 @media (max-width: 500px) {
   .groups-collapsed {
-    .table{
-    padding: 10px 5px;
+    .table {
+      padding: 10px 5px;
     }
   }
 
   .groups-collapsed {
-    .table-head{
-    min-width: 70px;
+    .table-head {
+      min-width: 70px;
     }
   }
 
@@ -312,10 +312,10 @@
   }
 
   .groups-members {
-    .card{
-    margin: 10px 0;
-    padding: 10px;
-    width: 270px;
+    .card {
+      margin: 10px 0;
+      padding: 10px;
+      width: 270px;
     }
   }
 }
@@ -323,92 +323,92 @@
 
 //newgroup-editgroup
 .groups-center {
-  .image{
-  margin-bottom: 15px;
-  margin-top: 30px;
-  max-height: 400px;
-  max-width: 90%;
+  .image {
+    margin-bottom: 15px;
+    margin-top: 30px;
+    max-height: 400px;
+    max-width: 90%;
   }
 }
 
 .groups-background {
-  .card{
-  margin-top: 50px;
-  max-width: 80%;
-  padding-bottom: 70px;
-  padding-top: 40px;
+  .card {
+    margin-top: 50px;
+    max-width: 80%;
+    padding-bottom: 70px;
+    padding-top: 40px;
   }
 }
 
 .groups-form {
-  .text-container{
-  padding-left: 40px;
-  text-align: left;
+  .text-container {
+    padding-left: 40px;
+    text-align: left;
   }
 }
 
 .groups-input {
-  .group{
-  width: 80%;
+  .group {
+    width: 80%;
   }
 }
 
 .groups-form {
-  .primary-button{
-  margin-left: 0;
-  padding-left: 30px;
-  padding-right: 30px;
+  .primary-button {
+    margin-left: 0;
+    padding-left: 30px;
+    padding-right: 30px;
   }
 }
 
 .groups-form {
-  .anchor-text{
-  margin-left: 10px;
+  .anchor-text {
+    margin-left: 10px;
   }
 }
 
 //breakpoints
 @media (max-width: 1000px) {
   .groups-form {
-    .text-container{
-    padding-left: 15px;
+    .text-container {
+      padding-left: 15px;
     }
   }
 }
 
 @media (max-width: 991px) and (min-width: 720px) {
-    .groups-center {
-      .image{
+  .groups-center {
+    .image {
       margin-top: 80px;
     }
   }
 }
 
-@media (max-width:400px) {
+@media (max-width: 400px) {
   .groups-form {
-    .primary-button{
-    padding-left: 10px;
-    padding-right: 10px;
+    .primary-button {
+      padding-left: 10px;
+      padding-right: 10px;
     }
   }
 
   .groups-form {
-    .text-container{
-    margin-left: 10px;
-    padding-left: 20px;
+    .text-container {
+      margin-left: 10px;
+      padding-left: 20px;
     }
   }
 
   .groups-background {
-    .card{
-    margin-left: 0;
-    padding-left: 10px;
+    .card {
+      margin-left: 0;
+      padding-left: 10px;
     }
   }
 
   .groups-form {
-    .anchor-text{
-    margin-left: 2px;
+    .anchor-text {
+      margin-left: 2px;
     }
   }
 }
@@ -416,9 +416,9 @@
 
 //groups
 .groups-add {
-  .primary-button{
-  margin-top: 20px;
-  padding: 10px 40px;
+  .primary-button {
+    margin-top: 20px;
+    padding: 10px 40px;
   }
 }
 
@@ -432,93 +432,93 @@
 }
 
 .groups-mentor {
-  .card{
-  align-items: center;
-  border-top: 10px solid $primary-green;
-  flex-direction: column;
+  .card {
+    align-items: center;
+    border-top: 10px solid $primary-green;
+    flex-direction: column;
   }
 }
 
 .groups-mentor {
-  .card-name{
-  font-size: 28px;
-  font-weight: 500;
-  height: 60px;
-  max-width: 250px;
-  overflow: hidden;
-  padding-top: 15px;
-  text-overflow: ellipsis;
+  .card-name {
+    font-size: 28px;
+    font-weight: 500;
+    height: 60px;
+    max-width: 250px;
+    overflow: hidden;
+    padding-top: 15px;
+    text-overflow: ellipsis;
   }
 }
 
 .groups-mentor {
-  .card-mini-buttons{
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  padding-bottom: 15px;
+  .card-mini-buttons {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-bottom: 15px;
   }
 }
 
 .groups-mentor {
-  .card-view-mini-button{
-  background: $primary-green;
-  transition: transform .2s ease-in;
-  width: 95px;
+  .card-view-mini-button {
+    background: $primary-green;
+    transition: transform 0.2s ease-in;
+    width: 95px;
 
-  img {
-    height: 20px;
-    padding-bottom: 2px;
-    width: 20px;
-  }
+    img {
+      height: 20px;
+      padding-bottom: 2px;
+      width: 20px;
+    }
 
-  &:hover {
-    color: $white;
-    text-decoration: none;
-    transform: translateY(-4px);
+    &:hover {
+      color: $white;
+      text-decoration: none;
+      transform: translateY(-4px);
+    }
   }
-}
 }
 
 .groups-mentor {
-  .card-edit-mini-button{
-  background: $mini-button-blue;
-  transition: transform .2s ease-in;
-  width: 95px;
+  .card-edit-mini-button {
+    background: $mini-button-blue;
+    transition: transform 0.2s ease-in;
+    width: 95px;
 
-  img {
-    height: 20px;
-    padding-bottom: 2px;
-    width: 20px;
-  }
+    img {
+      height: 20px;
+      padding-bottom: 2px;
+      width: 20px;
+    }
 
-  &:hover {
-    color: $white;
-    text-decoration: none;
-    transform: translateY(-4px);
+    &:hover {
+      color: $white;
+      text-decoration: none;
+      transform: translateY(-4px);
+    }
   }
-}
 }
 
 .groups-mentor {
-  .card-delete-mini-button{
-  background: $primary-red;
-  transition: transform .2s ease-in;
-  width: 100px;
+  .card-delete-mini-button {
+    background: $primary-red;
+    transition: transform 0.2s ease-in;
+    width: 100px;
 
-  img {
-    height: 20px;
-    padding-bottom: 2px;
-    width: 20px;
-  }
+    img {
+      height: 20px;
+      padding-bottom: 2px;
+      width: 20px;
+    }
 
-  &:hover {
-    color: $white;
-    text-decoration: none;
-    transform: translateY(-4px);
+    &:hover {
+      color: $white;
+      text-decoration: none;
+      transform: translateY(-4px);
+    }
   }
-}
 }
 
 @media (max-width: 1200px) and (min-width: 970px) {
@@ -528,32 +528,32 @@
 }
 
 .groups-member {
-  .card{
-  align-items: center;
-  border-left: 10px solid $primary-green;
-  flex-direction: row;
-  justify-content: space-around;
+  .card {
+    align-items: center;
+    border-left: 10px solid $primary-green;
+    flex-direction: row;
+    justify-content: space-around;
   }
 }
 
 .groups-member {
-  .card-name{
-  max-width: 175px;
+  .card-name {
+    max-width: 175px;
   }
 }
 
 .groups-member {
-  .card-details{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  .card-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 }
 
 .groups-member {
-  .card-button{
-  margin-top: 20px;
-  padding: 5px 10px;
+  .card-button {
+    margin-top: 20px;
+    padding: 5px 10px;
   }
 }
 
