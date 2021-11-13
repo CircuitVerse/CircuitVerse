@@ -305,7 +305,7 @@
 }
 
 @media (max-width: 991px) and (min-width: 720px) {
-  .groups-center-imagee {
+  .groups-center-image {
     margin-top: 80px;
   }
 }
@@ -374,7 +374,7 @@
 .groups-mentor-card-view-mini-button {
   background: $primary-green;
   transition: transform .2s ease-in;
-  width: 75px;
+  width: 95px;
 
   img {
     height: 20px;
@@ -392,7 +392,7 @@
 .groups-mentor-card-edit-mini-button {
   background: $mini-button-blue;
   transition: transform .2s ease-in;
-  width: 75px;
+  width: 95px;
 
   img {
     height: 20px;
@@ -410,6 +410,7 @@
 .groups-mentor-card-delete-mini-button {
   background: $primary-red;
   transition: transform .2s ease-in;
+  width: 100px;
 
   img {
     height: 20px;
@@ -421,6 +422,12 @@
     color: $white;
     text-decoration: none;
     transform: translateY(-4px);
+  }
+}
+
+@media (max-width: 1200px) and (min-width: 970px) {
+  .groups-card {
+    width: 315px;
   }
 }
 
