@@ -42,13 +42,6 @@ export default function startListeners() {
     $('#viewButton').on('click',() => {
         fullView();
     });
-
-    $('#projectName').on('click',() => {
-        simulationArea.lastSelected = globalScope.root;
-        setTimeout(() => {
-            document.getElementById("projname").select();
-        }, 100);
-    });
     /* Makes tabs reordering possible by making them sortable */
     $("#tabsBar").sortable({
         containment: 'parent',

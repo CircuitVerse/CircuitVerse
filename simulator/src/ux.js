@@ -104,7 +104,25 @@ function menuItemClicked(id, code="") {
     }
 }
 window.menuItemClicked = menuItemClicked;
+/**
+ * function to set up project name listeners 
+ * function updates the values of project inputs accordingly and 
+ * setting the name of the title bar as same as it is in the side bar
+ * @category ux
+ */ 
+ function setUpProjectNameListeners() {
 
+    const watchOneInputChangeAndUpdateAnother = (objectToListen, objectToChange) => $(`${objectToListen}`).on('input', (e) => { $(`${objectToChange}`).val(e.target.value); });
+
+    $('.project-name-label').append(`<input type="text" class="projectName" id="projectName" placeholder="Project Name" autocomplete='off' value='${getProjectName() || 'Untitled'}'>`) // adding input bar into the DOM simulator header
+
+    setProjectName($('#projectName').val()); // setting initial value
+    $('#projectName').on('input', () => { // setting project name on change
+        setProjectName($('#projectName').val());
+    })
+    watchOneInputChangeAndUpdateAnother('[name="setProjectName"]', '.projectName'); // setting the value of header title on sidebar title change
+    watchOneInputChangeAndUpdateAnother('.projectName', '[name="setProjectName"]'); // setting the value of sidebar title on header title change
+}
 /**
  * adds some UI elements to side bar and
  * menu also attaches listeners to sidebar
@@ -142,7 +160,8 @@ export function setupUI() {
         logixFunction[this.id]();
     });
     // var dummyCounter=0;
-
+    // setting up project name listeners
+    setUpProjectNameListeners();
 
     $('.logixModules').hover(function () {
         // Tooltip can be statically defined in the prototype.
@@ -512,11 +531,6 @@ export function setupPanels() {
 
     // Minimize Timing Diagram (takes too much space)
     $('.timing-diagram-panel .minimize').trigger('click');
-    
-    $('#projectName').on('click', () => {
-        $("input[name='setProjectName']").focus().select();
-    });
-
 }
 
 function setupPanelListeners(panelSelector) {
