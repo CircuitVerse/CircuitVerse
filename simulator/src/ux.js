@@ -123,6 +123,7 @@ function showContextMenu() {
     ctxPos.visible = true;
     return false;
 }
+
 /**
  * Function is called when context item is clicked
  * @param {number} id - id of the optoin selected
