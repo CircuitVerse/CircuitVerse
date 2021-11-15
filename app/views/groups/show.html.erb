@@ -1,6 +1,7 @@
-
+<%= javascript_pack_tag 'application' %>
 <% content_for :title, @group.name %>
-<div class="container">
+
+<div class="container" data-controller="groups">
   <% if notice %>
   <div class="row" id='alertdiv'>
     <div class="alert alert-success alert-dismissible container text-center">
@@ -29,7 +30,7 @@
   <div class="row center-row groups-row">
     <h3><%= t("groups.show.group_members_heading") %></h3>
     <% if policy(@group).admin_access? %>
-      <button type="button" class="btn primary-button groups-primary-button" data-toggle="modal" data-target="#addmemberModal"><%= t("groups.show.add_members_btn") %></button>
+      <button type="button" class="btn primary-button groups-primary-button" data-toggle="modal" data-target="#addmemberModal" data-action="click->groups#addMemberToGroup" ><%= t("groups.show.add_members_btn") %></button>
     <% end %>
   </div>
   <hr>

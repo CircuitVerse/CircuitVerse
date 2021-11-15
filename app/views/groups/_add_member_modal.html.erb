@@ -22,10 +22,10 @@
           </div>
           <div class="form-group">
             <%= form.label :emails %>
-            <%= form.text_area :emails, id: :group_member_emails, rows: 4, class: 'form-control form-input', autofocus: true %>
+            <%= form.text_area :emails, id: :group_member_emails, rows: 4, class: 'form-control form-input', 'data-role': 'tagsinput' %>
           </div>
           <div class="modal-footer">
-            <%= form.submit  class: 'btn primary-button' %>
+            <%= form.submit  class: 'add-members-button btn primary-button' %>
           </div>
         <% end %>
       </div>
