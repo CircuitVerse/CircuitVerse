@@ -173,26 +173,25 @@
 }
 
 .groups-members-card-details-non-user {
-  display: flex;
   align-items: center;
-
+  display: flex;
+  
   i {
-    padding-bottom: 0px;
     margin-right: 15px;
+    padding-bottom: 0;
   }
 
   .groups-members-card-name-container {
     height: auto;
+  }
+}
 
-    &:hover {
-      .tooltiptext {
-        left: 21%;
-      }
-
-      .tooltiptext {
-        opacity: 1;
-        visibility: visible;
-      }
+.groups-members-card-details-non-user {
+  &:hover {
+    .tooltiptext {
+      left: 21%;
+      opacity: 1;
+      visibility: visible;
     }
   }
 }
