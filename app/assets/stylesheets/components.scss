@@ -243,6 +243,11 @@
   max-width: 100%;
 }
 
+.input-group-addon {
+  position: absolute;
+  right: 0%;
+}
+
 @media (max-width: 400px) {
 
   .form-container {
