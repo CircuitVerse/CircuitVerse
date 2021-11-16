@@ -164,32 +164,46 @@
 .groups-members-card-details {
   padding-right: 0;
   text-align: left;
+
+  i {
+    margin-right: 3px;
+    margin-top: 0;
+    padding-bottom: 5px;
+  }
+}
+
+.groups-members-card-details-non-user {
   display: flex;
   align-items: center;
 
   i {
-    margin-right: 20px;
-    margin-top: 0;
+    padding-bottom: 0px;
+    margin-right: 15px;
+  }
+
+  .groups-members-card-name-container {
+    height: auto;
+
+    &:hover {
+      .tooltiptext {
+        left: 21%;
+      }
+
+      .tooltiptext {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
   }
 }
 
 .groups-members-card-name-container {
   display: inline-block;
+  height: 25px;
   max-width: 110px;
   overflow: hidden;
   padding-top: 1px;
   text-overflow: ellipsis;
-
-  .tooltiptext {
-    left: 25%;
-  }
-}
-
-.groups-members-card-name-container:hover {
-  .tooltiptext {
-    opacity: 1;
-    visibility: visible;
-  }
 }
 
 .groups-members-card-name {
