@@ -172,7 +172,7 @@
   }
 }
 
-.groups-members-card-details-non-user {
+.groups-members-card-details-non-admin {
   align-items: center;
   display: flex;
   
@@ -186,7 +186,7 @@
   }
 }
 
-.groups-members-card-details-non-user {
+.groups-members-card-details-non-admin {
   &:hover {
     .tooltiptext {
       left: 21%;
