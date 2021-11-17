@@ -9,6 +9,7 @@
         "NandGate",
         "XorGate",
         "XnorGate",
+        "Diode",
         "SevenSegDisplay",
         "SixteenSegDisplay",
         "HexDisplay",
@@ -130,7 +131,8 @@
             "XorGate",
             "NandGate",
             "NorGate",
-            "XnorGate"
+            "XnorGate",
+            "Diode"
         ],
         "Decoders & Plexers": [
             "Multiplexer",
