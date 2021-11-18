@@ -562,6 +562,7 @@ export function fullView () {
     $('#tabsBar').hide()
     $('#moduleProperty').hide()
     $('#exitView').append(markUp);
+    document.getElementById('canvasArea').requestFullscreen();
 }
 
 /** 

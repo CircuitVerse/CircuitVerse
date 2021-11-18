@@ -1,0 +1,184 @@
+AA;;afarski
+AB;;abchaski
+AF;;afrykanerski
+AK;;akan
+AM;;amharski
+AR;;arabski
+AN;;aragoński
+AS;;asamski
+AV;;awarski
+AE;;awestyjski
+AY;;ajmara
+AZ;;azerski
+BA;;baszkirski
+BM;;bambara
+BE;;białoruski
+BN;;bengalski
+BH;;języki bihari
+BI;;bislama
+BO;;tybetański
+BS;;bośniacki
+BR;;bretoński
+BG;;bułgarski
+CA;;kataloński; walencki
+CS;;czeski
+CH;;czamorro
+CE;;czeczeński
+CU;;Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic
+CV;;czuwaski
+KW;;kornijski
+CO;;korsykański
+CR;;kri
+CY;;walijski
+DA;;duński
+DE;;niemiecki
+DV;;divehi; malediwski
+DZ;;dzongka
+EL;;grecki współczesny (1453-)
+EN;;angielski
+EO;;esperanto
+ET;;estoński
+EU;;baskijski
+EE;;ewe
+FO;;farerski
+FA;;perski; nowoperski; farsi
+FJ;;fidżyjski
+FI;;fiński
+FR;;francuski
+FY;;zachodniofryzyjski
+FF;;fulani
+GD;;szkocki gaelicki
+GA;;irlandzki
+GL;;galicyjski; galisyjski
+GV;;manx
+GN;;guarani
+GU;;gudźarati
+HT;;haitański; kreolski haitański
+HA;;hausa
+HE;;hebrajski
+HZ;;herero
+HI;;hindi
+HO;;hiri motu
+HR;;chorwacki
+HU;;węgierski
+HY;;ormiański
+IG;;ibo
+IO;;ido
+II;;syczuański
+IU;;inuktitut
+IE;;interlingue; occidental
+IA;;interlingua (Międzynarodowe Stowarzyszenie Języka Pomocniczego)
+ID;;indonezyjski
+IK;;inupiaq
+IS;;islandzki
+IT;;włoski
+JV;;jawajski
+JA;;japoński
+KL;;kalaallisut; grenlandzki
+KN;;kannada
+KS;;kaszmirski
+KA;;gruziński
+KR;;kanuri
+KK;;kazaski
+KM;;khmerski środkowy
+KI;;kikiju; kikuyu; gikuyu
+RW;;rwanda
+KY;;kirgiski
+KV;;komi
+KG;;kongo
+KO;;koreański
+KJ;;kwanyama
+KU;;kurdyjski
+LO;;laotański
+LA;;łaciński
+LV;;łotewski
+LI;;limburgijski
+LN;;lingala
+LT;;litewski
+LB;;luksemburski
+LU;;luba-katanga
+LG;;luganda
+MH;;marshalski
+ML;;malajalam
+MR;;marathi
+MK;;macedoński
+MG;;malgaski
+MT;;maltański
+MN;;mongolski
+MI;;maoryski; maoryjski
+MS;;malajski
+MY;;birmański
+NA;;nauruański
+NV;;navaho
+NR;;ndebele południowy
+ND;;ndebele północny
+NG;;ndonga
+NE;;nepalski
+NL;;holenderski; flamandzki
+NN;;nowonorweski; norweski Nynorsk; nynorsk
+NB;;norweski Bokmål; bokmål
+NO;;norweski
+NY;;chichewa; chewa; njandża
+OC;;okcytański (po 1500); prowansalski
+OJ;;odżibwe
+OR;;orija
+OM;;oromo
+OS;;osetyjski; osetyński
+PA;;pendżabski
+PI;;pali
+PL;;polski
+PT;;portugalski
+PS;;paszto; pasztuński
+QU;;keczua
+RM;;retoromański
+RO;;rumuński; mołdawski
+RN;;rundi
+RU;;rosyjski
+SG;;sango
+SA;;sanskryt
+SI;;syngaleski
+SK;;słowacki
+SL;;słoweński
+SE;;północnolapoński
+SM;;samoański
+SN;;shona
+SD;;sindhi
+SO;;somalijski
+ST;;sotho południowy; sesotho
+ES;;hiszpański; kastylijski
+SQ;;albański
+SC;;sardyński
+SR;;serbski
+SS;;suazi; siswati
+SU;;sundajski
+SW;;suahili
+SV;;szwedzki
+TY;;tahitański
+TA;;tamilski
+TT;;tatarski
+TE;;telugu
+TG;;tadżycki
+TL;;tagalski; tagalog
+TH;;tajski
+TI;;tigrinia
+TO;;tongański (Wyspy Tonga)
+TN;;tswana
+TS;;tsonga
+TK;;turkmeński
+TR;;turecki
+TW;;twi
+UG;;ujgurski
+UK;;ukraiński
+UR;;urdu
+UZ;;uzbecki
+VE;;venda
+VI;;wietnamski
+VO;;wolapik
+WA;;waloński
+WO;;wolof
+XH;;xhosa
+YI;;jidysz
+YO;;joruba
+ZA;;zhuang
+ZH;;chiński
+ZU;;zuluski

@@ -1,0 +1,22 @@
+source 'https://rubygems.org'
+
+gemspec path: '../'
+
+gem 'rails', '~> 6.1.0'
+
+group :development do
+  gem 'bullet'
+  gem 'rack-cors'
+end
+
+group :test do
+  gem 'rails-controller-testing'
+  gem 'ammeter'
+  gem 'timecop'
+  gem 'committee'
+  gem 'committee-rails'
+  # gem 'coveralls', require: false
+  gem 'coveralls_reborn', require: false
+end
+
+gem 'dotenv-rails', groups: [:development, :test]

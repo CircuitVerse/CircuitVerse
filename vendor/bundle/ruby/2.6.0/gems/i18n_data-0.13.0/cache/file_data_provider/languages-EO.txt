@@ -1,0 +1,184 @@
+AA;;Afara
+AB;;Abĥaza
+AF;;Afrikansa
+AK;;Akana
+AM;;Amhara
+AR;;Araba
+AN;;Aragona
+AS;;Asama
+AV;;Avara
+AE;;Avesta
+AY;;Ajmara
+AZ;;Azerbajĝana
+BA;;Baŝkira
+BM;;Bambara
+BE;;Belorusa
+BN;;Bengala
+BH;;Biharaj lingvoj
+BI;;Bislamo
+BO;;Tibeta
+BS;;Bosna
+BR;;Bretona
+BG;;Bulgara
+CA;;Kataluna; Valencia
+CS;;Ĉeĥa
+CH;;Ĉamora
+CE;;Ĉeĉena
+CU;;Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic
+CV;;Ĉuvaŝa
+KW;;Kornvala
+CO;;Korsika
+CR;;Kria
+CY;;Kimra
+DA;;Dana
+DE;;Germana
+DV;;Maldiva
+DZ;;Dzonka
+EL;;Greka (post 1453)
+EN;;Angla
+EO;;Esperanto
+ET;;Estona
+EU;;Eŭska
+EE;;Evea
+FO;;Feroa
+FA;;Persa
+FJ;;Fiĝia
+FI;;Finna
+FR;;Franca
+FY;;Okcidenta frisa
+FF;;Fula
+GD;;Gaela; Skotgaela
+GA;;Irlanda
+GL;;Galega
+GV;;Manksa
+GN;;Gvarania
+GU;;Guĝarata
+HT;;Haitia
+HA;;Haŭsa
+HE;;Hebrea
+HZ;;Herera
+HI;;Hindia
+HO;;Hirimotua
+HR;;Kroata
+HU;;Hungara
+HY;;Armena
+IG;;Igba
+IO;;Ido
+II;;Siĉŭana jia; Nosua
+IU;;Inuktituta
+IE;;Interlingveo; Okcidentalo
+IA;;Interlingvao (IALA)
+ID;;Indonezia
+IK;;Inupiaka
+IS;;Islanda
+IT;;Itala
+JV;;Java
+JA;;Japana
+KL;;Gronlanda
+KN;;Kanara
+KS;;Kaŝmira
+KA;;Kartvela
+KR;;Kanura
+KK;;Kazaĥa
+KM;;Kmera
+KI;;Gikuja
+RW;;Ruanda
+KY;;Kirgiza
+KV;;Komia
+KG;;Konga
+KO;;Korea
+KJ;;Kuanjama
+KU;;Kurda
+LO;;Laosa
+LA;;Latina
+LV;;Latva
+LI;;Limburga
+LN;;Lingala
+LT;;Litova
+LB;;Luksemburga
+LU;;Luba-katanga
+LG;;Ganda
+MH;;Marŝala
+ML;;Malajala
+MR;;Marata
+MK;;Makedona
+MG;;Malagasa
+MT;;Malta
+MN;;Mongola
+MI;;Maoria
+MS;;Malaja
+MY;;Birma
+NA;;Naura
+NV;;Navaha
+NR;;Ndebela, suda
+ND;;Ndebela, norda
+NG;;Ndonga
+NE;;Nepala
+NL;;Nederlanda; Flandra
+NN;;Norvega (Nynorsk)
+NB;;Norvega (Bokmål)
+NO;;Norvega
+NY;;Njanĝa
+OC;;Okcitana (post 1500)
+OJ;;Oĝibva
+OR;;Orija
+OM;;Oroma
+OS;;Oseta
+PA;;Panĝaba
+PI;;Palia
+PL;;Pola
+PT;;Portugala
+PS;;Paŝtua
+QU;;Keĉua
+RM;;Romanĉa
+RO;;Moldava
+RN;;Burunda
+RU;;Rusa
+SG;;Sangoa
+SA;;Sanskrito
+SI;;Sinhala
+SK;;Slovaka
+SL;;Slovena
+SE;;Norda samea
+SM;;Samoa
+SN;;Ŝona
+SD;;Sinda
+SO;;Somalia
+ST;;Sota, suda
+ES;;Hispana
+SQ;;Albana
+SC;;Sarda
+SR;;Serba
+SS;;Svazia
+SU;;Sunda
+SW;;Svahila
+SV;;Sveda
+TY;;Tahitia
+TA;;Tamila
+TT;;Tatara
+TE;;Telugua
+TG;;Taĝika
+TL;;Tagaloga
+TH;;Taja
+TI;;Tigraja
+TO;;Tongana
+TN;;Cvana
+TS;;Conga
+TK;;Turkmena
+TR;;Turka
+TW;;Tvia
+UG;;Ujgura
+UK;;Ukraina
+UR;;Urdua
+UZ;;Uzbeka
+VE;;Vendaa
+VI;;Vjetnama
+VO;;Volapuko
+WA;;Valona
+WO;;Volofa
+XH;;Kosa
+YI;;Jida
+YO;;Joruba
+ZA;;Ĝuanga
+ZH;;Ĉina
+ZU;;Zulua

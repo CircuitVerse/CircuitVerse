@@ -1,0 +1,184 @@
+AA;;Àfar
+AB;;Abkhàzia
+AF;;afrikaans
+AK;;àkan
+AM;;amhàric
+AR;;àrab
+AN;;aragonès
+AS;;assamès
+AV;;àvar
+AE;;avèstic
+AY;;aimara
+AZ;;àzeri
+BA;;baixkir
+BM;;bambara
+BE;;bielorús
+BN;;bengalí
+BH;;llengües biharis
+BI;;bislama
+BO;;tibetà
+BS;;bosnià
+BR;;bretó
+BG;;búlgar
+CA;;català; valencià
+CS;;txec
+CH;;chamorro; chamoru
+CE;;txetxè
+CU;;Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic
+CV;;txuvaix
+KW;;còrnic
+CO;;cors
+CR;;cree
+CY;;gal·lès
+DA;;danès
+DE;;alemany
+DV;;divehi
+DZ;;dzongkha
+EL;;grec modern (des del 1453)
+EN;;anglès
+EO;;esperanto
+ET;;estonià
+EU;;basc; èuscar; eusquera
+EE;;ewe
+FO;;feroès
+FA;;persa; farsi
+FJ;;fijià
+FI;;finès; finlandès
+FR;;francès
+FY;;frisó occidental
+FF;;ful
+GD;;gaèlic; gaèlic escocès
+GA;;irlandès; gaèlic irlandès
+GL;;gallec
+GV;;manx
+GN;;guaraní
+GU;;gujarati
+HT;;haitià; haitià crioll
+HA;;haussa
+HE;;hebreu
+HZ;;herero
+HI;;hindi
+HO;;hiri motu
+HR;;croat
+HU;;hongarès; magiar
+HY;;armeni
+IG;;igbo
+IO;;ido
+II;;nusu
+IU;;inuktitut
+IE;;interlingue; occidental
+IA;;interlingua (International Auxiliary Language Association)
+ID;;indonesi
+IK;;inupiak
+IS;;islandès
+IT;;italià
+JV;;javanès
+JA;;japonès
+KL;;grenlandès; groenlandès
+KN;;kanarès; kannada
+KS;;caixmiri
+KA;;georgià
+KR;;kanuri
+KK;;kazakh
+KM;;khmer central
+KI;;kikuiu
+RW;;kinyarwanda; ruandès
+KY;;kirguís
+KV;;komi
+KG;;Kongo
+KO;;coreà
+KJ;;kuanyama; kwanyama
+KU;;kurd
+LO;;laosià
+LA;;llatí
+LV;;letó
+LI;;limburguès
+LN;;lingala
+LT;;lituà
+LB;;luxemburguès
+LU;;luba-katanga
+LG;;ganda
+MH;;marshallès
+ML;;malaiàlam
+MR;;marathi
+MK;;macedoni; macedònic
+MG;;malgaix
+MT;;maltès
+MN;;mongol
+MI;;maori
+MS;;malai
+MY;;birmà
+NA;;nauruà
+NV;;navajo; navaho
+NR;;ndebele meridional
+ND;;ndebele septentrional
+NG;;ndonga
+NE;;nepalès
+NL;;neerlandès; holandès; flamenc
+NN;;noruec nynorsk
+NB;;noruec bokmål
+NO;;noruec
+NY;;chichewa; chewa; nyanja
+OC;;occità (després del 1500); provençal
+OJ;;ojibwa
+OR;;oriya
+OM;;oromo
+OS;;osseta; osset
+PA;;panjabi
+PI;;pali
+PL;;polonès
+PT;;portuguès
+PS;;paixtu
+QU;;quítxua
+RM;;romanx
+RO;;romanès; moldau
+RN;;kirundi
+RU;;rus
+SG;;sango
+SA;;sànscrit
+SI;;singalès
+SK;;eslovac
+SL;;eslovè
+SE;;sami septentrional
+SM;;samoà
+SN;;shona
+SD;;sindhi
+SO;;somali
+ST;;sotho
+ES;;espanyol; castellà
+SQ;;albanès
+SC;;sard
+SR;;serbi
+SS;;siswati; swati
+SU;;sundanès
+SW;;swahili; suahili
+SV;;suec
+TY;;tahitià
+TA;;tàmil
+TT;;tàtar; tàrtar
+TE;;telugu
+TG;;tadjik
+TL;;tagal; tagàlog
+TH;;tai; thai
+TI;;tigrinya
+TO;;tonga
+TN;;tswana
+TS;;tsonga
+TK;;turcman
+TR;;turc
+TW;;twi
+UG;;uigur
+UK;;ucraïnès
+UR;;urdú
+UZ;;uzbek
+VE;;venda
+VI;;vietnamita
+VO;;volapük
+WA;;való
+WO;;wòlof
+XH;;xosa; xhosa
+YI;;jiddisch
+YO;;ioruba
+ZA;;zhuang
+ZH;;xinès
+ZU;;zulu

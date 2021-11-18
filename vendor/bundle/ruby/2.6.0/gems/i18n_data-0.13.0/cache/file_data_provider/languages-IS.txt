@@ -1,0 +1,184 @@
+AA;;Afar
+AB;;Abkhazian
+AF;;Afrikaans
+AK;;Akan
+AM;;Amharíska
+AR;;Arabískt
+AN;;Aragónska
+AS;;Assamíska
+AV;;Avaríska
+AE;;Avestan
+AY;;Aymara
+AZ;;Azerbaijanska
+BA;;Bashkir
+BM;;Bambara
+BE;;Hvítrússneska
+BN;;Bengalskt
+BH;;Bihari tungumál
+BI;;Bislama
+BO;;Tíbetska
+BS;;Bosníska
+BR;;Bretónska
+BG;;Búlgarska
+CA;;Katalónska; Valensía
+CS;;Tékkneska
+CH;;Chamorró
+CE;;Tétjenska
+CU;;Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic
+CV;;Chuvash
+KW;;Cornish
+CO;;Korsíska
+CR;;Cree
+CY;;Velska
+DA;;Danska
+DE;;Þýska
+DV;;Divehi; Dhivehi; Maldivíska
+DZ;;Dzongkha
+EL;;Gríska, nútíma (1453-)
+EN;;Enska
+EO;;Esperantó
+ET;;Eistneska
+EU;;Baskamál
+EE;;Ewe
+FO;;Færeyska
+FA;;Persneska
+FJ;;Fidjíeyska
+FI;;Finnska
+FR;;Franska
+FY;;Vestur-frísneska
+FF;;Fulah
+GD;;Gelíska; Skosk gelíska
+GA;;Írska
+GL;;Galisíska
+GV;;Manx
+GN;;Guaraní
+GU;;Gujaratískt
+HT;;Haítíska; Haítískt kreólamál
+HA;;Hausa
+HE;;Hebreskt
+HZ;;Herero
+HI;;Hindí
+HO;;Hiri Motu
+HR;;Króatíska
+HU;;Ungverska
+HY;;Armenskt
+IG;;Igbo
+IO;;Ido
+II;;Sichuan Yi; Nuosu
+IU;;Inuktitut
+IE;;Interlingue; vestræn
+IA;;Interlingua (International Auxiliary Language Association)
+ID;;Indónesíska
+IK;;Inupiaq
+IS;;Íslenska
+IT;;Ítalska
+JV;;Javanska
+JA;;Japanska
+KL;;Kalaallisut; grænlenska
+KN;;Kannadískt
+KS;;Kasmírska
+KA;;Georgíska
+KR;;Kanuri
+KK;;Kasakíska
+KM;;Mið-khmeríska
+KI;;Kikuyu; Gikuyu
+RW;;Kinyarwanda
+KY;;Kirgisíska; Kyrgyz
+KV;;Komi
+KG;;Kongóska
+KO;;Kóreska
+KJ;;Kuanyama; Kwanyama
+KU;;Kúrdíska
+LO;;Laó
+LA;;Latneskt
+LV;;Lettneska
+LI;;Limburgan; Limburger; Limburgish
+LN;;Lingala
+LT;;Litháíska
+LB;;Lúxemborgíska
+LU;;Luba-Katanga
+LG;;Ganda
+MH;;Marshallíska
+ML;;Malayanskt
+MR;;Marathi
+MK;;Makedóníska
+MG;;Malagasíska
+MT;;Maltneska
+MN;;Mongólskt
+MI;;Maori
+MS;;Malaíska
+MY;;Búrmíska
+NA;;Nárú
+NV;;Navajo; Navaho
+NR;;Ndebele, suður; Suður-Ndebele
+ND;;Ndebele, norður; Norður-Ndebele
+NG;;Ndonga
+NE;;Nepalska
+NL;;Hollenska; Flæmska
+NN;;Nýnorska
+NB;;Bókmál, norska; Norskt bókmál
+NO;;Norska
+NY;;Chichewa; Chewa; Nyanja
+OC;;Occitanska (eftir 1500); Próvensíska
+OJ;;Ojibwa
+OR;;Oryanskt
+OM;;Oromo
+OS;;Ossetíska; Ossetic
+PA;;Panjabi; Punjabi
+PI;;Pali
+PL;;Pólska
+PT;;Portúgalska
+PS;;Pushto; Pashto
+QU;;Quechua
+RM;;Rómanska; rhetorómanska
+RO;;Rúmenska; Moldóvíska; Moldóvan
+RN;;Rundí
+RU;;Rússneska
+SG;;Sango
+SA;;Sanskrít
+SI;;Sinhala; Sinhalíska
+SK;;Slóvakíska
+SL;;Slóvenska
+SE;;Norðursamíska
+SM;;Samóíska
+SN;;Shona
+SD;;Sindí
+SO;;Sómalska
+ST;;Sotho, suður
+ES;;Spænska; kastilíanska
+SQ;;Albanska
+SC;;Sardiníska
+SR;;Serbneska
+SS;;Swati
+SU;;Sundaneskt
+SW;;Svahílí
+SV;;Sænska
+TY;;Tahítíska
+TA;;Tamílskt
+TT;;Tataríska
+TE;;Telúgú
+TG;;Tadsikíska
+TL;;Tagalog
+TH;;Tælenskt
+TI;;Tigrinya
+TO;;Tonga (Tonga-eyjar)
+TN;;Tswana
+TS;;Tonganska
+TK;;Túrkmenska
+TR;;Tyrkneska
+TW;;Twi
+UG;;Uighur; Uyghur
+UK;;Úkraínska
+UR;;Úrdú
+UZ;;Úsbekíska
+VE;;Venda
+VI;;Víetnamska
+VO;;Volapük
+WA;;Vallónska
+WO;;Wolof
+XH;;Xhosa
+YI;;Jiddíska
+YO;;Yoruba
+ZA;;Zhuang; Chuang
+ZH;;Kínverska
+ZU;;Zúlú

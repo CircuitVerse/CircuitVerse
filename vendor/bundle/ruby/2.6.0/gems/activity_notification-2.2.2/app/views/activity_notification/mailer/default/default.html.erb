@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta content="text/html; charset=UTF-8" />
+  <style>
+    body {
+      font-family: 'Lucida Grande', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
+      color: #4f4f4f;
+      font-weight: normal;
+      font-style: normal;
+    }
+    p{
+      font-size: 14px;
+    }
+    .activity_wrapper {
+      padding: 15px 10px;
+      position: relative;
+    }
+    .activity_wrapper:after{
+      content: "";
+      clear: both;
+      display: block;
+    }
+    .activity_wrapper .user_image {
+      float: left;
+      width: 40px;
+      height: 40px;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-color: #979797;
+    }
+    .activity_wrapper .user_desc_wrapper {
+      float: left;
+      width: calc(100% - 130px);
+      margin-top: 0;
+      margin-left: 10px;
+    }
+    .activity_wrapper .user_desc_wrapper .user_desc {
+      font-size: 12px;
+      line-height: 1.6;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+    .activity_wrapper .user_desc_wrapper .user_desc span{
+      color: #979797;
+      font-weight: bold;
+    }
+    .activity_wrapper .user_desc_wrapper .user_desc strong{
+      font-weight: bold;
+    }
+  </style>
+  <%= yield :head %>
+</head>
+<body>
+<p>Dear <%= @target.printable_target_name %></p>
+<div class="activity_wrapper">
+  <div class="user_image"></div>
+  <div class="user_desc_wrapper">
+    <p class="user_desc">
+      <strong><%= @notification.notifier.present? ? @notification.notifier.printable_notifier_name : 'Someone' %></strong>
+      notified you of
+      <%= @notification.notifiable.printable_notifiable_name(@notification.target) %><%= @notification.group.present? ? " in #{@notification.group.printable_group_name}." : "." %><br>
+      <span><%= @notification.created_at.strftime("%b %d %H:%M") %></span>
+    </p>
+    <p class="user_desc">
+      <span>
+        <%= link_to "Move to notified #{@notification.notifiable.printable_type.downcase}", move_notification_url_for(@notification, open: true) %>
+      </span>
+    </p>
+  </div>
+</div>
+<p>Thank you!</p>
+</body>
+</html>
+
+

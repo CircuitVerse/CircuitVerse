@@ -1,0 +1,184 @@
+AA;;Afárais
+AB;;Abcáisis
+AF;;Afracáinis
+AK;;Acáinis
+AM;;Amáiris
+AR;;Araibis
+AN;;Aragóinis
+AS;;Asaimis
+AV;;Avairis
+AE;;Aivéistis
+AY;;Aidhmiris
+AZ;;Asarbaiseáinis
+BA;;Baiscíris
+BM;;Bambáiris
+BE;;Bealarúisis
+BN;;Beangáilis
+BH;;Bihari languages
+BI;;Bioslamais
+BO;;Tibéidis
+BS;;Boisnis
+BR;;Briotáinis
+BG;;Bulgáiris
+CA;;Catalóinis; Vaileinsis
+CS;;Seicis
+CH;;Seamóróis
+CE;;Seisnis
+CU;;Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic
+CV;;Suvaisis
+KW;;Coirnis
+CO;;Corsaicis
+CR;;Craíais
+CY;;Breatnais
+DA;;Danmhairgis
+DE;;Gearmáinis
+DV;;Divéihis; Maildívis
+DZ;;Seoinicis
+EL;;Gréigis Nua-Aimseartha (1453-)
+EN;;Béarla
+EO;;Esperanto
+ET;;Eastóinis
+EU;;Bascais
+EE;;Éivéis
+FO;;Faróis
+FA;;Peirsis
+FJ;;Fidsis
+FI;;Fionlainnis
+FR;;Fraincis
+FY;;Freaslainnis Iartharach
+FF;;Fulfuildis
+GD;;Gaeilge na hAlban
+GA;;Gaeilge
+GL;;Gailísis
+GV;;Manainnis
+GN;;Guaráinis
+GU;;Gúisearáitis
+HT;;Criól Háítíoch
+HA;;Hásais
+HE;;Eabhrais
+HZ;;Heiréiróis
+HI;;Hiondúis
+HO;;Hírí-Mótúis
+HR;;Cróitis
+HU;;Ungáiris
+HY;;Airméinis
+IG;;Íogbóis
+IO;;Ido
+II;;Íais Shisiuánach
+IU;;Ionúitis
+IE;;Idirtheanga iartharach
+IA;;Idirtheanga (International Auxiliary Language Association)
+ID;;Indinéisis
+IK;;Iniúipiaicis
+IS;;Íoslainnis
+IT;;Iodáilis
+JV;;Iávais
+JA;;Seapáinis
+KL;;Graonlainnis
+KN;;Cannadais
+KS;;Caismíris
+KA;;Seoirsis
+KR;;Canúiris
+KK;;Casaicis
+KM;;Ciméiris Láir
+KI;;Ciocúis
+RW;;Cinearuáindis
+KY;;Cirgisis
+KV;;Coimí
+KG;;Congóis
+KO;;Cóiréis
+KJ;;Cuainiáimis
+KU;;Coirdis
+LO;;Láóis
+LA;;Laidin
+LV;;Laitvis
+LI;;Limbuirgis
+LN;;Liongáilis
+LT;;Liotuáinis
+LB;;Lucsambuirgis; Leitseabuirgis
+LU;;Lúba-Cataingis
+LG;;Gandais
+MH;;Marascailis
+ML;;Mailéalaimis
+MR;;Maraitis
+MK;;Macadóinis
+MG;;Malagáisis
+MT;;Máltais
+MN;;Mongóilis
+MI;;Maorais
+MS;;Malaeis
+MY;;Burmais
+NA;;Nárúis
+NV;;Navachóis
+NR;;Ndebele Theas
+ND;;Ndebele Thuaidh
+NG;;Ndongais
+NE;;Neipeailis
+NL;;Ollainnis; Pléimeannais
+NN;;Ioruais Nynorsk
+NB;;Ioruais Bokmål
+NO;;Ioruais
+NY;;Siséivis
+OC;;Ocatáinis (tar éis 1500)
+OJ;;Óisibvis
+OR;;Oirísis
+OM;;Oraimis
+OS;;Óiséitis
+PA;;Puinseáibis
+PI;;Páilis
+PL;;Polainnis
+PT;;Portaingéilis
+PS;;Paistis
+QU;;Ceatsuais
+RM;;Rómainis
+RO;;Moldávais
+RN;;Rundi
+RU;;Rúisis
+SG;;Sangóis
+SA;;Sanscrait
+SI;;Siolóinis
+SK;;Slóvaicis
+SL;;Slóivéinis
+SE;;Sáimis Thuaidh
+SM;;Samóis
+SN;;Seoinis
+SD;;Sindis
+SO;;Somáilis
+ST;;Sótó Theas
+ES;;Spáinnis; Caistílis
+SQ;;Albáinis
+SC;;Sairdínis
+SR;;Seirbis
+SS;;Suaisis
+SU;;Sundais
+SW;;Svahaílis
+SV;;Sualainnis
+TY;;Taihítis
+TA;;Tamailis
+TT;;Tatairis
+TE;;Teileagúis
+TG;;Táidsícis
+TL;;Tagálaigis
+TH;;Téalainnis
+TI;;Tigrínis
+TO;;Tongais (Oileáin Thonga)
+TN;;Suáinis
+TS;;Songais
+TK;;Tuircméinis
+TR;;Tuircis
+TW;;Tiuíais
+UG;;Úígiúiris
+UK;;Úcráinis
+UR;;Urdúis
+UZ;;Úisbéicis
+VE;;Veindis
+VI;;Vítneamais
+VO;;Volapük
+WA;;Vallúnais
+WO;;Volaifis
+XH;;Cóisis
+YI;;Giúdais
+YO;;Iarúibis
+ZA;;Siuáingis
+ZH;;Sínis
+ZU;;Súlúis

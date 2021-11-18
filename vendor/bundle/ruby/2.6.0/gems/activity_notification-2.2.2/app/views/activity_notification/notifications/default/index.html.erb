@@ -1,0 +1,83 @@
+<div class="notification_wrapper">
+  <div class="notification_header">
+    <h1>
+      Notifications to <%= @target.printable_target_name %>
+      <%= link_to open_all_notifications_path_for(@target, @index_options.slice(:routing_scope, :devise_default_routes)), method: :post, remote: true do %>
+        <span class="notification_count"><span class="<%= 'unopened' if @target.has_unopened_notifications?(@index_options) %>">
+          <%= @target.unopened_notification_count(@index_options) %>
+        </span></span>
+      <% end %>
+    </h1>
+    <h3>
+      <span class="action_cable_status">Disabled</span>
+    </h3>
+  </div>
+  <div class="notifications">
+    <% if @index_options[:with_group_members] %>
+      <%= render_notification @notifications, @index_options.slice(:routing_scope, :devise_default_routes).merge(fallback: :default_without_grouping, with_group_members: true) %>
+    <% else %>
+      <%= render_notification @notifications, @index_options.slice(:routing_scope, :devise_default_routes).merge(fallback: :default) %>
+      <%#= render_notification @notifications, @index_options.slice(:routing_scope, :devise_default_routes).merge(fallback: :text) %>
+    <% end %>
+  </div>
+</div>
+
+<%#= render_notifications_of @target, @index_options.slice(:routing_scope, :devise_default_routes).merge(fallback: :default, index_content: :with_attributes) %>
+<%#= render_notifications_of @target, @index_options.slice(:routing_scope, :devise_default_routes).merge(fallback: :default, index_content: :unopened_with_attributes, reverse: true) %>
+<%#= render_notifications_of @target, @index_options.slice(:routing_scope, :devise_default_routes).merge(fallback: :default_without_grouping, index_content: :with_attributes, with_group_members: true) %>
+
+<style>
+  .notification_wrapper .notification_header h1 span span{
+    color: #fff;
+    background-color: #e5e5e5;
+    border-radius: 4px;
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+  .notification_wrapper .notification_header h1 span span.unopened{
+    background-color: #f87880;
+  }
+</style>
+
+<% if @target.notification_action_cable_allowed? %>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.9/push.min.js"></script>
+  <script>
+    App.activity_notification = App.cable.subscriptions.create(
+      {
+        channel: "<%= @target.notification_action_cable_channel_class_name %>",
+        target_type: "<%= @target.to_class_name %>", target_id: "<%= @target.id %>"
+      },
+      {
+        connected: function() {
+          $(".action_cable_status").html("Online<%= " (authorized)" if @target.notification_action_cable_with_devise? %>");
+        },
+        disconnected: function() {
+          $(".action_cable_status").html("Offline");
+        },
+        rejected: function() {
+          $(".action_cable_status").html("Offline (unauthorized)");
+        },
+        received: function(notification) {
+          // Display notification
+          if (notification.group_owner_id == null) {
+            $(".notifications").prepend(notification.view);
+            $(".notification_count").html("<span class=unopened>" + notification.unopened_notification_count + "</span>");
+          } else {
+            $(".notification_" + notification.group_owner_id).remove();
+            $(".notifications").prepend(notification.group_owner_view);
+            $(".notification_count").html("<span class=unopened>" + notification.unopened_notification_count + "</span>");
+          }
+          // Push notificaion using Web Notification API by Push.js
+          Push.create('ActivityNotification', {
+            body: notification.text,
+            timeout: 5000,
+            onClick: function () {
+              location.href = notification.notifiable_path;
+              this.close();
+            }
+          });
+        }
+      }
+    );
+  </script>
+<% end %>

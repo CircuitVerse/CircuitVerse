@@ -1,0 +1,70 @@
+language: ruby
+
+branches:
+  except:
+    - images
+
+rvm:
+  - 2.7.2
+#  - 2.6.6
+#  - 2.5.8
+#  - 2.4.10 #EOL
+#  - 2.3.8 #EOL
+
+gemfile:
+  - gemfiles/Gemfile.rails-5.0
+  - gemfiles/Gemfile.rails-5.1
+  - gemfiles/Gemfile.rails-5.2
+  - gemfiles/Gemfile.rails-6.0
+  - gemfiles/Gemfile.rails-6.1
+
+env:
+  - AN_ORM=active_record
+  - AN_ORM=active_record AN_TEST_DB=mysql
+  - AN_ORM=active_record AN_TEST_DB=postgresql
+  - AN_ORM=mongoid
+  - AN_ORM=mongoid AN_TEST_DB=mongodb
+  - AN_ORM=dynamoid
+
+matrix:
+  include:
+    - rvm: ruby-head
+      gemfile: Gemfile
+      env: AN_ORM=active_record
+    - rvm: ruby-head
+      gemfile: Gemfile
+      env: AN_ORM=mongoid
+    - rvm: ruby-head
+      gemfile: Gemfile
+      env: AN_ORM=dynamoid
+  exclude:
+    - gemfile: gemfiles/Gemfile.rails-6.1
+      env: AN_ORM=dynamoid
+  allow_failures:
+    - rvm: ruby-head
+  fast_finish: true
+
+services:
+  - mysql
+  - postgresql
+  - mongodb
+
+sudo: false
+
+cache: bundler
+
+install:
+  - bundle install
+  - if [ "$AN_ORM" = "dynamoid" ]; then bin/install_dynamodblocal.sh; fi
+
+before_script:
+  - bundle update
+  - if [ "$AN_TEST_DB" = "mysql" ]; then mysql -e 'create database activity_notification_test'; fi
+  - if [ "$AN_TEST_DB" = "postgresql" ]; then psql -c 'create database activity_notification_test' -U postgres; fi
+  - if [ "$AN_ORM" = "dynamoid" ]; then bin/start_dynamodblocal.sh; fi
+  - if [ "$AN_ORM" = "dynamoid" ]; then export AWS_DEFAULT_REGION=ap-northeast-1 AWS_ACCESS_KEY_ID=dummy AWS_SECRET_ACCESS_KEY=dummy; fi
+
+script: bundle exec rspec
+
+notifications:
+  email: true

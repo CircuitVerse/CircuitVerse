@@ -1,0 +1,46 @@
+<% if notice.present? %>
+  <div class="notice_wrapper">
+    <p class="notice">
+      <%= notice %>
+    </p>
+  </div>
+<% end %>
+
+<header>
+  <div class="header_area">
+    <div class="header_root_wrapper">
+      <%= link_to 'ActivityNotification', root_path %>
+    </div>
+    <div class="header_menu_wrapper">
+      <p>
+        <% if user_signed_in? %>
+          <%= current_user.name %>
+          <%= "(admin)" if current_user.admin? %>
+          <%= link_to 'Logout', destroy_user_session_path, method: :delete %>
+        <% else %>
+          <%= link_to 'Login', new_user_session_path %>
+        <% end %>
+      </p>
+    </div>
+    <div class="header_notification_wrapper">
+      <% if user_signed_in? %>
+        <%= render_notifications_of current_user, fallback: :default, index_content: :with_attributes, devise_default_routes: respond_to?('notifications_path') %>
+        <%#= render_notifications_of current_user, fallback: :default, index_content: :unopened_with_attributes, reverse: true %>
+        <%#= render_notifications_of current_user, fallback: :default, index_content: :with_attributes, as_latest_group_member: true %>
+        <%#= render_notifications_of current_user, fallback: :default_without_grouping, index_content: :with_attributes, with_group_members: true %>
+      <% end %>
+    </div>
+    <div class="header_menu_wrapper">
+      <p>
+        <%= link_to 'Preview Email', "/rails/mailers" %>
+        <%= " · " if !user_signed_in? or (current_user.admin? and respond_to?('admins_notifications_path')) %>
+      </p>
+    </div>
+    <div class="header_menu_wrapper">
+      <p>
+        <%= link_to 'SPA', "/spa/" %>
+        <%= " · " %>
+      </p>
+    </div>
+  </div>
+</header>

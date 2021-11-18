@@ -1,0 +1,184 @@
+AA;;Afarų
+AB;;Abchazų
+AF;;Afrikanų
+AK;;Akanų
+AM;;Amharų
+AR;;Arabų
+AN;;Aragonų
+AS;;Asamų
+AV;;Avarų
+AE;;Avestiškoji
+AY;;Aimarų
+AZ;;Azerbaidžaniečių
+BA;;Baškirų
+BM;;Bambara
+BE;;Baltarusių
+BN;;Bengalų
+BH;;Tajų kalbos
+BI;;Bislama
+BO;;Tibetiečių
+BS;;Bosnių
+BR;;Bretonų
+BG;;Bulgarų
+CA;;Katalonų; Valencijos
+CS;;Čekų
+CH;;Čamorų
+CE;;Čečėnų
+CU;;Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic
+CV;;Čiuvašų
+KW;;Kornų
+CO;;Korsikiečių
+CR;;Kry
+CY;;Valų
+DA;;Danų
+DE;;Vokiečių
+DV;;Maldivų
+DZ;;Botijų
+EL;;Graikų, šiuolaikinė (1453-)
+EN;;Anglų
+EO;;Esperanto
+ET;;Estų
+EU;;Baskų
+EE;;Ivių
+FO;;Farerų
+FA;;Persų
+FJ;;Fidžių
+FI;;Suomių
+FR;;Prancūzų
+FY;;Vakarų fryzų
+FF;;Fulahų
+GD;;Gėlų; škotų gėlų
+GA;;Airių
+GL;;Galisų
+GV;;Menksiečių
+GN;;Gvranių
+GU;;Gudžaratų
+HT;;Haičio; Haičio kreolų
+HA;;Hausų
+HE;;Hebrajų
+HZ;;Hererų
+HI;;Hindi
+HO;;Hiri motu
+HR;;Kroatų
+HU;;Vengrų
+HY;;Armėnų
+IG;;Igbo
+IO;;Ido
+II;;Sichuan Yi; Nuosu
+IU;;Inuktitutas
+IE;;Interlingue
+IA;;Interlingua (tarpinė kalba) (Tarptautinė pagalbinės kalbos asociacija)
+ID;;Indoneziečių
+IK;;Inupiakų
+IS;;Islandų
+IT;;Italų
+JV;;Javiečių
+JA;;Japonų
+KL;;Grenlandų
+KN;;Kanadų
+KS;;Kašmyrų
+KA;;Gruzinų
+KR;;Kanūrių
+KK;;Kazachų
+KM;;Khmerų centrinė
+KI;;Kikui
+RW;;Kinjaruanda
+KY;;Kirgizų
+KV;;Komių
+KG;;Kongo
+KO;;Korėjiečių
+KJ;;Kuaniama
+KU;;Kurdų
+LO;;Laosiečių
+LA;;Lotynų
+LV;;Latvių
+LI;;Limburgo tarmė
+LN;;Lingala
+LT;;Lietuvių
+LB;;Liuksemburgiečių
+LU;;Luba katanga
+LG;;Ganda
+MH;;Maršalo salų
+ML;;Malajalių
+MR;;Marathų
+MK;;Makedonų
+MG;;Malagasių
+MT;;Maltiečių
+MN;;Mongolų
+MI;;Maorių
+MS;;Malajų
+MY;;Birmiečių
+NA;;Nauriečių
+NV;;Navahų
+NR;;Pietų ndebelų
+ND;;Šiaurės ndebelų
+NG;;Ndongų
+NE;;Nepalų
+NL;;Olandų; Flamandų
+NN;;Norvegų nynorsk; nynorsk, norvegų
+NB;;Bokmål; norvegų; norvegų bokmål
+NO;;Norvegų
+NY;;Nianja
+OC;;Očitarų (po 1500)
+OJ;;Ojibva
+OR;;Orijų
+OM;;Oromų
+OS;;Osetinų
+PA;;Pendžabų
+PI;;Pali
+PL;;Lenkų
+PT;;Portugalų
+PS;;Puštūnų
+QU;;Kečujų
+RM;;Retoromanų
+RO;;Moldavų
+RN;;Rundi
+RU;;Rusų
+SG;;Sango
+SA;;Sanskritas
+SI;;Sinhalų
+SK;;Slovakų
+SL;;Slovėnų
+SE;;Šiaurės sami
+SM;;Samojiečių
+SN;;Šonų
+SD;;Sindhų
+SO;;Somalių
+ST;;Pietų sotų
+ES;;Ispanų; Kastilijos
+SQ;;Albanų
+SC;;Sardiniečių
+SR;;Serbų
+SS;;Svazių
+SU;;Sudaniečių
+SW;;Svahilių
+SV;;Švedų
+TY;;Taitiečių
+TA;;Tamilų
+TT;;Totorių
+TE;;Telugų
+TG;;Tadžikų
+TL;;Tagalų
+TH;;Tajų
+TI;;Tigrajų
+TO;;Tongų (Tonga salų)
+TN;;Tsvanų
+TS;;Tsongų
+TK;;Turkmėnų
+TR;;Turkų
+TW;;Tvi
+UG;;Uigūrų
+UK;;Ukrainiečių
+UR;;Urdu
+UZ;;Uzbekų
+VE;;Venda
+VI;;Vietnamiečių
+VO;;Volapiukas
+WA;;Valonų
+WO;;Volofų
+XH;;Kosų
+YI;;Jidiš
+YO;;Jorubų
+ZA;;Džuangų
+ZH;;Kinų
+ZU;;Zulų (zulusų)
