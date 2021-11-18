@@ -1,8 +1,0 @@
-*.gem
-doc/
-Gemfile.lock
-coverage/
-spec/rails_app/log/*
-spec/rails_app/tmp/*
-.ruby-version
-/.bundle

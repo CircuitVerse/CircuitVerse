@@ -1,2 +1,0 @@
-class Users::SubscriptionsWithDeviseController < ActivityNotification::SubscriptionsWithDeviseController
-end

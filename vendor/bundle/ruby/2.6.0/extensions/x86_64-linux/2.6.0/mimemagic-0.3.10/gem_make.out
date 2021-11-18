@@ -1,3 +1,0 @@
-current directory: /workspace/CircuitVerse/vendor/bundle/ruby/2.6.0/gems/mimemagic-0.3.10/ext/mimemagic
-/home/gitpod/.rvm/rubies/ruby-2.6.5/bin/ruby -rrubygems /workspace/CircuitVerse/vendor/bundle/ruby/2.6.0/gems/rake-13.0.6/exe/rake RUBYARCHDIR\=/workspace/CircuitVerse/vendor/bundle/ruby/2.6.0/extensions/x86_64-linux/2.6.0/mimemagic-0.3.10 RUBYLIBDIR\=/workspace/CircuitVerse/vendor/bundle/ruby/2.6.0/extensions/x86_64-linux/2.6.0/mimemagic-0.3.10
-mkdir -p /workspace/CircuitVerse/vendor/bundle/ruby/2.6.0/extensions/x86_64-linux/2.6.0/mimemagic-0.3.10/mimemagic

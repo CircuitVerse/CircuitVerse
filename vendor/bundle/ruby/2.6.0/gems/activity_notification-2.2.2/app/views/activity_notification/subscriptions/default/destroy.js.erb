@@ -1,5 +1,0 @@
-$("#subscriptions").html("<%= escape_javascript( render 'subscriptions', subscriptions: @subscriptions, option_params: @index_options ) %>");
-$("#notification_keys").html("<%= escape_javascript( render 'notification_keys', target: @target, notification_keys: @notification_keys, option_params: @index_options ) %>");
-$("#subscription_form").html("<%= escape_javascript( render 'form', target: @target, option_params: @index_options ) %>");
-
-loadSubscription();
