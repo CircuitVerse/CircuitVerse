@@ -49,7 +49,7 @@ dump.rdb
 public/sitemap.xml.gz
 coverage
 .vscode
-vendor
+/vendor
 
 solr/data
 solr/test/data
