@@ -704,7 +704,11 @@ div.icon img {
   left: 300px;
   top: 90px;
 }
-
+@media screen and (max-width:1143px) {
+  .timing-diagram-panel{
+    left: 100px;
+  }
+}
 @media screen and (max-width:991px) {
   .timing-diagram-panel{
     left: 200px;
