@@ -97,6 +97,12 @@ body {
 }
 
 //pagination
+
+.pagination {
+  display: flex;
+  justify-content: center;
+}
+
 .page-link {
   color: $secondary-green;
 
@@ -124,9 +130,10 @@ body {
   }
 
   .pagination {
-    display: block;
+    display: flex;
+    justify-content: center;
     max-width: none;
-    overflow-x: visible;
+    overflow-x: scroll;
     padding: 0;
     white-space: nowrap;
   }
