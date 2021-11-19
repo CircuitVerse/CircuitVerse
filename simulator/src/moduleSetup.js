@@ -43,7 +43,7 @@ import TwoComplement from './modules/TwoComplement';
 import VariableLed from './modules/VariableLed';
 import XnorGate from './modules/XnorGate';
 import XorGate from './modules/XorGate';
-import Diode from './modules/Diode' ; 
+import Diode from './modules/Diode'; 
 import Clock from './sequential/Clock';
 import DflipFlop from './sequential/DflipFlop';
 import Dlatch from './sequential/Dlatch';
