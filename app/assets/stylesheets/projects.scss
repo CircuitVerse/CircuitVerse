@@ -60,15 +60,15 @@
   display: block;
   font-size: 25px;
   font-weight: 600;
-  text-align: left;
   margin-bottom: -2px;
   overflow: hidden;
+  text-align: left;
   text-overflow: ellipsis;
 }
 
 .simulator-copy-star-button {
-  text-align: right;
   margin-top: -65px;
+  text-align: right;
 }
 
 .edit-embed-delete-button {
@@ -91,7 +91,8 @@
 }
 
 .projects-user-details-container {
-  padding: 0px 0px 0px;
+  padding: 0;
+
   >p {
     display: block;
     margin-bottom: 10px;
@@ -211,10 +212,12 @@
     margin-top: 0;
     text-align: left;
   }
+
   .edit-embed-delete-button {
     margin-top: 45px;
     text-align: left;
   }
+
   .projects-search-tags-container {
     margin-top: -70px;
   }
@@ -224,8 +227,9 @@
   .projects-search-tags-container {
     margin-top: -110px;
   }
+
   .projects-views-count-container {
-    text-align:left;
+    text-align: left;
   }
 }
 
@@ -233,6 +237,7 @@
   .edit-embed-delete-button {
     margin-top: 65px;
   }
+
   .projects-search-tags-container {
     margin-top: -170px;
   }
