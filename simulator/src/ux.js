@@ -69,8 +69,6 @@ function showContextMenu() {
     $('#contextMenu').css({
         visibility: 'visible',
         opacity: 1,
-        top: `${ctxPos.y}px`,
-        left: `${ctxPos.x}px`,
     });
     var windowHeight = $(window).height() * 0.56;
     var windowWidth = $(window).width() * 0.9;
