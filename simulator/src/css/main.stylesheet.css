@@ -307,6 +307,12 @@ input[type="text"]:focus {
   color: white;
 
 }
+/* Mobile view quick bar position */
+@media screen and (max-width:991px){
+  .quick-btn{
+    top:10px;
+  }
+}
 /* dropdown-menu styles */
 
 .dropdown > ul {
@@ -423,7 +429,7 @@ input[type="text"]:focus {
 .ce-panel {
   font: inherit;
   width: 240px;
-  top: 90px;
+  top: 246px;
   left: 10px;
 }
 
@@ -677,7 +683,7 @@ div.icon img {
 .moduleProperty {
   font: inherit;
   width: 250px;
-  top: 90px;
+  top: 246px;
   right: 10px;
 }
 
@@ -699,6 +705,11 @@ div.icon img {
   top: 90px;
 }
 
+@media screen and (max-width:991px) {
+  .timing-diagram-panel{
+    left: 200px;
+  }
+}
 .timing-diagram-panel .panel-header {
   border-radius: 5px;
   border-top-right-radius: 5px;
@@ -1155,6 +1166,7 @@ input:checked + .slider:before {
 }
 .navbar {
   transition: background .5s ease-out; 
+  z-index: 100;
 }
 
 
