@@ -29,16 +29,16 @@
         </li>
       </div>
       <li class="nav-item px-1">
-        <a class="nav-link navbar-item navbar-text <%= request.path == '/features' ? 'active' : '' %>" href="/#home-features-section">Features</a>
+        <a class="nav-link navbar-item navbar-text <%= request.path == '/features' ? 'active' : '' %>" href="<%= request.path == '/features' ? '#' : '/#home-features-section' %>">Features</a>
       </li>
       <li class="nav-item px-1">
-        <a class="nav-link navbar-item navbar-text <%= request.path == '/teachers' ? 'active' : '' %>" href="/teachers">Teachers</a>
+        <a class="nav-link navbar-item navbar-text <%= request.path == '/teachers' ? 'active' : '' %>" href="<%= request.path == '/teachers' ? '#' : '/teachers' %>">Teachers</a>
       </li>
       <li class="nav-item px-1">
-        <a class="nav-link navbar-item navbar-text <%= request.path == '/blog' ? 'active' : '' %>" href="https://blog.circuitverse.org/">Blog</a>
+        <a class="nav-link navbar-item navbar-text <%= request.path == '/blog' ? 'active' : '' %>" href="<%= request.path == '/blog' ? '#' : 'https://blog.circuitverse.org/' %>">Blog</a>
       </li>
       <li class="nav-item px-1">
-        <a class="nav-link navbar-item navbar-text <%= request.path == '/about' ? 'active' : '' %>" href="/about"><%= t('headers.about') %></a>
+        <a class="nav-link navbar-item navbar-text <%= request.path == '/about' ? 'active' : '' %>" href="<%= request.path == '/about' ? '#' : '/about' %>"><%= t('headers.about') %></a>
       </li>
       <% if user_signed_in? %>
       <div class="navbar-nav nav-item dropdown">
@@ -57,7 +57,7 @@
       </div>
       <% else %>
         <li class="nav-item px-1">
-          <a class="nav-link navbar-item navbar-text <%= request.path == '/users/sign_in' ? 'active' : '' %>" href="/users/sign_in">Login</a>
+          <a class="nav-link navbar-item navbar-text <%= request.path == '/users/sign_in' ? 'active' : '' %>" href="<%= request.path == '/users/sign_in' ? '#' : '/users/sign_in' %>">Login</a>
         </li>
       <% end %>
     </ul>
