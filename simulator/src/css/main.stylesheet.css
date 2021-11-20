@@ -234,13 +234,25 @@ input[type="text"]:focus {
   margin-right: 36px;
 }
 
+@media screen and (max-width: 991px) {
+  .quick-btn {
+    position: relative;
+    top: -193px;
+    right: -281px; 
+  }
+}
+@media screen and (min-width: 991px) {
+  .quick-btn {
+    position: absolute;
+    top: 90px;
+    right: 280px;
+  }
+}
+
 .quick-btn {
   display: flex;
-  position: absolute;
   width: 400px;
   height: 33px;
-  top: 90px;
-  right: 280px;
   border-radius: 7px;
   z-index: 100;
 }
@@ -420,10 +432,21 @@ input[type="text"]:focus {
 
 /** ce-panel styling  starts */
 
+@media screen and (max-width: 991px) {
+  .ce-panel {
+    position: relative;
+    top:32px;    
+  }
+}
+@media screen and (min-width: 991px) {
+.ce-panel {
+  top: 90px;
+}
+}
+
 .ce-panel {
   font: inherit;
   width: 240px;
-  top: 90px;
   left: 10px;
 }
 
@@ -674,11 +697,23 @@ div.icon img {
 /*! tab bar styling ends */
 /** Module property styling starts here */
 
+@media screen and (max-width: 991px) {
+  .moduleProperty {
+    top: -345px;
+    right: -708px;
+    position: relative;
+  }
+}
+@media screen and (min-width: 991px) {
+  .moduleProperty {
+    top: 90px;
+    right: 10px;
+  }
+}
+
 .moduleProperty {
   font: inherit;
   width: 250px;
-  top: 90px;
-  right: 10px;
 }
 
 .layoutElementPanel {
@@ -689,14 +724,28 @@ div.icon img {
   left: 10px;
 }
 
+@media screen and (max-width: 991px) {
+  .timing-diagram-panel {
+    position: relative;
+    left: 262px;
+    top: -350px;  
+  }
+}
+
+@media screen and (min-width: 991px) {
+  .timing-diagram-panel {
+    position: fixed;
+    left: 300px;
+    top: 90px;
+}
+}
+
 .timing-diagram-panel {
   border-radius: 5px;
   z-index: 100;
   transition: background .5s ease-out; 
-  position: fixed;
   cursor: pointer;
-  left: 300px;
-  top: 90px;
+  width:fit-content;
 }
 
 .timing-diagram-panel .panel-header {
