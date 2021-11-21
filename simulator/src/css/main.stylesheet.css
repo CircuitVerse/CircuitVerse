@@ -1277,12 +1277,12 @@ font: inherit;
 }
 
 #insertSubcircuitDialog > label {
-  height: 30px;
   border-radius: 3px;
-  margin: 0 5px;
+  margin: 0 10px;
   margin-bottom: 4px;
   justify-content: center;
-  padding-left: 10px;
+  padding: 4px 4px 4px 13px;
+  line-height: 20px;
 }
 
 #miniMap {
