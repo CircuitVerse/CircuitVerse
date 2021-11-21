@@ -57,7 +57,7 @@ gem "sidekiq"
 gem "sunspot_rails"
 
 # For home page pagination
-gem "will_paginate", "~> 3.3.0"
+gem "will_paginate", "~> 3.3.1"
 gem "will_paginate-bootstrap"
 
 gem "bootstrap-typeahead-rails"
