@@ -18,7 +18,7 @@ gem "omniauth-google-oauth2"
 gem "omniauth-microsoft-office365"
 gem "paperclip", ">= 5.2.0"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 6.0"
+gem "rails", "~> 6.1.4"
 # Use Puma as the app server
 gem "puma", "~> 5.5"
 # Use SCSS for stylesheets
@@ -161,7 +161,7 @@ gem "bugsnag", "~> 6.22"
 
 gem "invisible_captcha", "~> 2.0"
 
-gem "newrelic_rpm", "~> 6.13"
+gem "newrelic_rpm", "~> 8.1"
 
 gem "oj", "~> 3.13"
 
