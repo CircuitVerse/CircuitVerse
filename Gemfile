@@ -5,7 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem "acts_as_votable", "~> 0.13.1"
+gem "acts_as_votable", "~> 0.13.2"
 gem "aws-sdk-rails"
 gem "dotenv-rails", groups: %i[development test]
 gem "hirb"
@@ -18,7 +18,7 @@ gem "omniauth-google-oauth2"
 gem "omniauth-microsoft-office365"
 gem "paperclip", ">= 5.2.0"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 6.0"
+gem "rails", "~> 6.1.4"
 # Use Puma as the app server
 gem "puma", "~> 5.5"
 # Use SCSS for stylesheets
