@@ -229,8 +229,8 @@ GEM
     faraday-rack (1.0.0)
     fast_jsonapi (1.5)
       activesupport (>= 4.2)
-    ffi (1.15.3)
-    ffi (1.15.3-x64-mingw32)
+    ffi (1.15.4)
+    ffi (1.15.4-x64-mingw32)
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
@@ -255,7 +255,7 @@ GEM
       activerecord (>= 5.0, < 7)
       ruby2ruby (~> 2.4)
       ruby_parser (~> 3.10)
-    haml (5.2.1)
+    haml (5.2.2)
       temple (>= 0.8.0)
       tilt
     hashdiff (1.0.1)
@@ -455,7 +455,7 @@ GEM
     rails-i18n (6.0.0)
       i18n (>= 0.7, < 2)
       railties (>= 6.0.0, < 7)
-    rails_admin (2.1.1)
+    rails_admin (2.2.1)
       activemodel-serializers-xml (>= 1.0)
       builder (~> 3.1)
       haml (>= 4.0, < 6)
@@ -736,7 +736,7 @@ DEPENDENCIES
   rails (~> 6.1.4)
   rails-erd
   rails-i18n (~> 6.0.0)
-  rails_admin (~> 2.1)
+  rails_admin (~> 2.2)
   recaptcha
   redis (~> 4.0)
   rspec-rails (~> 5.0)
