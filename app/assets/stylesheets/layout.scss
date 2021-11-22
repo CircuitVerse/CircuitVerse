@@ -98,10 +98,14 @@ body {
 
 //pagination
 
-.pagination {
-  display: flex;
-  justify-content: center;
-}
+ .pagination {
+   display: flex;
+   justify-content: center;
+   max-width: none;
+   overflow-x: auto;
+   padding: 0;
+   white-space: nowrap;
+  }
 
 .page-link {
   color: $secondary-green;
@@ -127,15 +131,6 @@ body {
   .pagination-cont {
     overflow-x: auto;
     padding: 0;
-  }
-
-  .pagination {
-    display: flex;
-    justify-content: center;
-    max-width: none;
-    overflow-x: auto;
-    padding: 0;
-    white-space: nowrap;
   }
 
   .pagination > * {
