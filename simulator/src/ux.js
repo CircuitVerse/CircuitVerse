@@ -70,6 +70,7 @@ function showContextMenu() {
         visibility: 'visible',
         opacity: 1,
     });
+    
     var windowHeight = $(window).height() * 0.56;
     var windowWidth = $(window).width() * 0.9;
     // for top, left, right, bottom
