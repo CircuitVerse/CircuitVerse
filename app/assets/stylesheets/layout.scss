@@ -98,13 +98,13 @@ body {
 
 //pagination
 
- .pagination {
-   display: flex;
-   justify-content: center;
-   max-width: none;
-   overflow-x: auto;
-   padding: 0;
-   white-space: nowrap;
+.pagination {
+  display: flex;
+  justify-content: center;
+  max-width: none;
+  overflow-x: auto;
+  padding: 0;
+  white-space: nowrap;
   }
 
 .page-link {
