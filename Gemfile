@@ -5,7 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem "acts_as_votable", "~> 0.13.1"
+gem "acts_as_votable", "~> 0.13.2"
 gem "aws-sdk-rails"
 gem "dotenv-rails", groups: %i[development test]
 gem "hirb"
@@ -18,7 +18,7 @@ gem "omniauth-google-oauth2"
 gem "omniauth-microsoft-office365"
 gem "paperclip", ">= 5.2.0"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 6.0"
+gem "rails", "~> 6.1.4"
 # Use Puma as the app server
 gem "puma", "~> 5.5"
 # Use SCSS for stylesheets
@@ -37,7 +37,7 @@ gem "jbuilder", "~> 2.11"
 
 gem "devise"
 
-gem "commontator", "~> 6.3.1"
+gem "commontator", "~> 6.3.2"
 
 # To generate sitemap.xml
 gem "sitemap_generator"
@@ -48,7 +48,7 @@ gem "jquery-rails"
 
 gem "carrierwave", "~> 2.2"
 
-gem "rails_admin", "~> 2.1"
+gem "rails_admin", "~> 2.2"
 
 # gem 'cancancan', '~>2.0'
 
@@ -57,7 +57,7 @@ gem "sidekiq"
 gem "sunspot_rails"
 
 # For home page pagination
-gem "will_paginate", "~> 3.3.0"
+gem "will_paginate", "~> 3.3.1"
 gem "will_paginate-bootstrap"
 
 gem "bootstrap-typeahead-rails"
@@ -130,7 +130,7 @@ group :development, :test do
 end
 
 group :test do
-  gem "capybara", "~> 3.33"
+  gem "capybara", "~> 3.36"
   gem "json-schema"
   gem "rspec_junit_formatter"
   gem "selenium-webdriver"
@@ -161,7 +161,7 @@ gem "bugsnag", "~> 6.22"
 
 gem "invisible_captcha", "~> 2.0"
 
-gem "newrelic_rpm", "~> 6.13"
+gem "newrelic_rpm", "~> 8.1"
 
 gem "oj", "~> 3.13"
 
