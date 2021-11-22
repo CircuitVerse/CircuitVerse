@@ -425,10 +425,10 @@ export function setupTimingListeners() {
     $('.timing-diagram-calibrate').on('click', () => {
         plotArea.calibrate();
     })
-    $('.resume-autoscroll').on('click', () => {
+    $('.timing-diagram-resume').on('click', () => {
         plotArea.resume();
     })
-    $('.pause-autoscroll').on('click', () => {
+    $('.timing-diagram-pause').on('click', () => {
         plotArea.pause();
     })
     $('.timing-diagram-download').on('click', () => {
