@@ -13,7 +13,7 @@ export default class Diode extends CircuitElement {
         inputLength = 1,
         bitWidth = 1, 
         DiodeFlag = 0    
-        )}
+        )
         super(x, y, scope, dir, bitWidth);
         this.DiodeFlag = DiodeFlag; 
         this.fixedBitWidth = true; 
