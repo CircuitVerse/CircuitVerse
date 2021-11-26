@@ -7,6 +7,9 @@
             <p><%= project.name %></p>
             <span class="tooltiptext"><%= project.name %></span>
           </div>
+          <p>
+            <sub>Author: <%= project.author.name %></sub>
+          <p>
           <div class="users-tag-container">
             <% if !project.assignment_id.nil? %>
               <span class="badge search-tag"><%= t("assignment") %></span>
