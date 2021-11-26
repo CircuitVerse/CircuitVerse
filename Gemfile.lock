@@ -248,9 +248,8 @@ GEM
     friendly_id (5.4.1)
       activerecord (>= 4.0.0)
     geocoder (1.7.0)
-    globalid (0.5.2)
+    globalid (1.0.0)
       activesupport (>= 5.0)
-    gravatar_image_tag (1.2.0)
     hairtrigger (0.2.24)
       activerecord (>= 5.0, < 7)
       ruby2ruby (~> 2.4)
@@ -286,7 +285,7 @@ GEM
     ims-lti (1.2.4)
       builder (>= 1.0, < 4.0)
       oauth (>= 0.4.5, < 0.6)
-    inline_svg (1.7.1)
+    inline_svg (1.7.2)
       activesupport (>= 3.0)
       nokogiri (>= 1.6)
     invisible_captcha (2.0.0)
@@ -577,10 +576,9 @@ GEM
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
       redis (>= 4.2.0)
-    simple_discussion (1.2.0)
-      font-awesome-sass (~> 5.13.0)
+    simple_discussion (1.3.0)
+      font-awesome-sass (>= 5.13.0)
       friendly_id (>= 5.2.0)
-      gravatar_image_tag
       rails (>= 4.2)
       will_paginate (>= 3.1.0)
     simplecov (0.16.1)
@@ -601,7 +599,7 @@ GEM
     sprockets (3.7.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
-    sprockets-rails (3.4.0)
+    sprockets-rails (3.4.1)
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
@@ -750,7 +748,7 @@ DEPENDENCIES
   serviceworker-rails
   shoulda-matchers
   sidekiq
-  simple_discussion (~> 1.2)
+  simple_discussion (~> 1.3)
   sitemap_generator
   spring
   spring-watcher-listen (~> 2.0.0)
