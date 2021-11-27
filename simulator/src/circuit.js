@@ -219,6 +219,8 @@ export default class Scope {
         // root object for referring to main canvas - intermediate node uses this
         this.root = new CircuitElement(0, 0, this, 'RIGHT', 1);
         this.backups = [];
+        // maintaining a state (history) for redo function
+        this.history = [];
         this.timeStamp = new Date().getTime();
         this.verilogMetadata = {
             isVerilogCircuit: false,
