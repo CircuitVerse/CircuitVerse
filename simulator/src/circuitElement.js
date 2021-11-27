@@ -50,7 +50,7 @@ export default class CircuitElement {
         this.scope = scope;
         this.baseSetup();
 
-        this.bitWidth = bitWidth || parseInt(prompt('Enter bitWidth','Enter the source bandwidth here'), 10) || 1;
+        this.bitWidth = bitWidth || parseInt(prompt('Enter bitWidth' , 'Enter the source bandwidth here:  Eg.  4'), 10) || 1;
         this.direction = dir;
         this.directionFixed = false;
         this.labelDirectionFixed = false;
