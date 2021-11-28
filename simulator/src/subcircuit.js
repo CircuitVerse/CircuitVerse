@@ -1,5 +1,5 @@
 /* eslint-disable import/no-cycle */
-import Scope, { changeCircuitName, newCircuit, scopeList, switchCircuit } from "./circuit";
+import Scope, { scopeList, switchCircuit } from "./circuit";
 import CircuitElement from "./circuitElement";
 import simulationArea from "./simulationArea";
 import { scheduleBackup, checkIfBackup } from "./data/backupCircuit";
@@ -19,7 +19,6 @@ import { colors } from "./themer/themer";
 import { layoutModeGet } from "./layoutMode"
 import { verilogModeGet } from "./Verilog2CV"
 import { sanitizeLabel } from './verilogHelpers';
-import { newCircuitCall } from "./hotkey_binder/model/actions";
 /**
  * Function to load a subcicuit
  * @category subcircuit
@@ -33,8 +32,6 @@ export function loadSubCircuit(savedData, scope) {
  * @param {Scope=} scope
  * @category subcircuit
  */
-
- export const newCircuitall = () => $("#newCircuit").trigger('click');
 export function createSubCircuitPrompt(scope = globalScope) {
     if(verilogModeGet() || layoutModeGet()) {
         showError("Subcircuit cannot be inserted in this mode");
@@ -49,10 +46,8 @@ export function createSubCircuitPrompt(scope = globalScope) {
                 `<label class="option custom-radio inline"><input type="radio" name="subCircuitId" value="${id}" />${scopeList[id].name}<span></span></label>`
             );
         }
-      
     }  
-    if(flag)
-    {    
+    if(flag) {    
         $("#insertSubcircuitDialog").append(
             [$("#insertSubcircuitcontent").dialog(),
              $("#insertSubcircuitcontent").dialog("close")]
@@ -84,7 +79,6 @@ export function createSubCircuitPrompt(scope = globalScope) {
             : [],
     });
 }
-
 
 /**
  * @class
