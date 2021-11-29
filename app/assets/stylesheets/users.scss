@@ -224,11 +224,11 @@
   border: 1px solid $primary-green;
   border-radius: 0;
   display: inline-block;
-  max-height: 418px;
   margin-bottom: 15px;
   margin-left: 10px;
   margin-right: 10px;
   margin-top: 15px;
+  max-height: 418px;
   max-width: 350px;
   min-width: 260px;
   width: 92%;
@@ -257,7 +257,9 @@
     white-space: nowrap;
   }
 }
-
+.users-card-authorname {
+  height: 18px;
+}
 .users-card-name:hover .tooltiptext {
   opacity: 1;
   visibility: visible;
