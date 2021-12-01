@@ -84,3 +84,13 @@
     padding-right: 0;
   }
 }
+
+.back-to-top {
+  background-color: #42b983;
+  bottom: 15px;
+  color: $white;
+  font-size: 2vw;
+  line-height: 90%;
+  position: fixed;
+  right: 15px;
+}

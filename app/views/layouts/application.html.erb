@@ -23,6 +23,11 @@
   <body>
     <%= render "layouts/header" %>
     <%= yield %>
+    <div>
+    <button type="button" id="back-to-top" class="btn btn-info new back-to-top">
+        <i class="fas fa-angle-up"></i>
+    </button>
+    </div>
     <%= render "layouts/footer" %>
 
     <script type="text/javascript">
@@ -31,6 +36,18 @@
         if (document.querySelector(".alert")) {
           setTimeout(() => {document.querySelector(".alert").style.display == "none";}, 3000);
         }
+      })
+      backToTop_Button = document.getElementById("back-to-top");
+      window.onscroll = () =>{
+          if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+              backToTop_Button.style.display = "block";
+          } else {
+              backToTop_Button.style.display = "none";
+          }
+      }
+      backToTop_Button.addEventListener("click", ()=>{
+          document.body.scrollTop = 0;
+          document.documentElement.scrollTop = 0;
       })
     </script>
   </body>
