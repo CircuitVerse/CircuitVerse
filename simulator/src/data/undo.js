@@ -17,9 +17,9 @@ import { scheduleBackup } from './backupCircuit';
  * @exports undo
  */
 export default function undo(scope = globalScope) {
-    if (layoutModeGet()) return;
-    if (scope.backups.length === 0) return;
     scheduleBackup(); // Backup current globalscope
+    if (layoutModeGet()) return;
+    if (scope.backups.length < 2) return;
     const backupOx = globalScope.ox;
     const backupOy = globalScope.oy;
     const backupScale = globalScope.scale;
