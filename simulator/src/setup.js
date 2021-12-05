@@ -137,7 +137,7 @@ function setupElementLists() {
             const element = categoryData[i];
             if(!(element.name).startsWith("verilog")) {
                 htmlIcons += createIcon(element);
-                window.elementPanelList.push(element.name);
+                window.elementPanelList.push(element.value);
             }
         }
 
