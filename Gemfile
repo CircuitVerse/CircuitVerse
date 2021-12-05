@@ -37,7 +37,7 @@ gem "jbuilder", "~> 2.11"
 
 gem "devise"
 
-gem "commontator", "~> 6.3.0"
+gem "commontator", "~> 6.3.1"
 
 # To generate sitemap.xml
 gem "sitemap_generator"
@@ -159,7 +159,7 @@ gem "premailer-rails", "~> 1.11", ">= 1.11.1"
 
 gem "bugsnag", "~> 6.22"
 
-gem "invisible_captcha", "~> 1.1"
+gem "invisible_captcha", "~> 2.0"
 
 gem "newrelic_rpm", "~> 6.13"
 
