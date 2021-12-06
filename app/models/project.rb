@@ -4,7 +4,7 @@ require "pg_search"
 
 class Project < ApplicationRecord
   extend FriendlyId
-
+  has_secure_token :collaboration_token
   friendly_id :name, use: %i[slugged history]
   self.ignored_columns += %w[data searchable]
 
@@ -33,6 +33,9 @@ class Project < ApplicationRecord
   has_one :contest_winner, dependent: :destroy
   has_many :submissions, dependent: :destroy
 
+  scope :with_project_token, -> { where("token_expires_at >= ?", Time.zone.now) }
+  TOKEN_DURATION = 12.days
+  
   scope :public_and_not_forked,
         -> { where(project_access_type: "Public", forked_project_id: nil) }
 
@@ -58,6 +61,17 @@ class Project < ApplicationRecord
   acts_as_commontable
   # after_commit :send_mail, on: :create
 
+  def has_valid_token?
+    token_expires_at.present? && token_expires_at > Time.zone.now
+  end
+
+  def reset_project_token
+    transaction do
+      regenerate_collaboration_token
+      update(token_expires_at: Time.zone.now + TOKEN_DURATION)
+    end
+  end
+
   def increase_views(user)
     increment!(:view) if user.nil? || (user.id != author_id)
   end
@@ -79,8 +93,9 @@ class Project < ApplicationRecord
     forked_project.build_project_datum.data = project_datum&.data
     forked_project.circuit_preview.attach(circuit_preview.blob)
     forked_project.image_preview = image_preview
+    forked_project.regenerate_collaboration_token
     forked_project.update!(
-      view: 1, author_id: user.id, forked_project_id: id, name: name
+      view: 1, author_id: user.id, forked_project_id: id, name: name, token_expires_at: Time.zone.now + TOKEN_DURATION
     )
     @project = Project.find(id)
     if @project.author != user # rubocop:disable Style/IfUnlessModifier

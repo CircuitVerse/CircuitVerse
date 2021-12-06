@@ -33,6 +33,7 @@ hi:
       collaborators: "सहयोगी"
     search:
       no_result_found: "कोई परिणाम नहीं मिला"
+    invite_link_btn: "लिंक के माध्यम से आमंत्रित करें"
     modal:
       embed_circuit_heading: "अपना सर्किट एम्बेड करें"
       height: "ऊंचाई"

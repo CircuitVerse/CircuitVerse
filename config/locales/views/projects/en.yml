@@ -36,6 +36,7 @@ en:
       collaborators: "Collaborators"
     search:
       no_result_found: "No Results Found"
+    invite_link_btn: "Collaborator Invite Link"
     modal:
       embed_circuit_heading: "Embed Your Circuit"
       height: "Height"
