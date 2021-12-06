@@ -11,13 +11,16 @@
   </button>
   <div class="collapse navbar-collapse" id="collapsed-navbar">
     <ul class="navbar-nav ml-auto navigationBar-item">
-      <li class="nav-item px-1 pt-1 navbar-search-icon-onexpand">
+      <li class="nav-item px-1 pt-1 ">
         <%= form_tag("/search", method: "get", id: 'search-box', class: 'navbar-search-bar-form') do %>
-          <%= select_tag :resource , options_for_select([ "Users", "Projects" ],selected: params[:resource]), class: "navbar-search-select", id: "search_type" %>
-          <%= text_field_tag :q,params[:q], placeholder: "Search for projects or users", autocomplete:"off", class: "navbar-search-input" %>
+        <div class="navbar-search-icon-onexpand">
           <button class="btn  navbar-search-bar-button" type="submit" name="button" value="Submit">          
           <i class="fa fa-search search-icon <%= request.path == '/search' ? 'active' : '' %>" tabindex="0" aria-label="search"></i>
           </button>
+          <%= text_field_tag :q,params[:q], placeholder: "Search for projects or users", autocomplete:"off", class: "navbar-search-input" %>
+        </div>
+
+          <%= select_tag :resource , options_for_select([ "Users", "Projects" ],selected: params[:resource]), class: "navbar-search-select", id: "search_type" %>
           <% end %>
       </li>
       <li class="nav-item px-1">
@@ -67,9 +70,15 @@
     </ul>
   </div>
 </nav>
+<div class="container-fluid navbar-search-active">
+  <%= render "circuitverse_assets/search_bar" %>
+</div>
 
 
 <script type="text/javascript">
+  function detectMob() {
+    return ( ( window.innerWidth <= 991 ));
+  }
   function activeSearchBar(){
     let searchIconCollapse = document.getElementsByClassName("fa-search")[0];
     let searchIconExpand = document.getElementsByClassName("fa-search")[1];
@@ -87,12 +96,19 @@
     }
     burgerButton.classList.remove("show");
   }
+
+  console.log(detectMob())
+
+
   let searchIconCollapse = document.getElementsByClassName("fa-search")[0];
   let searchIconExpand = document.getElementsByClassName("fa-search")[1];
   let searchBar = document.getElementsByClassName("navbar-search-active")[0];
-  searchIconCollapse.addEventListener("click", activeSearchBar);
-  searchIconExpand.addEventListener("click", activeSearchBar);
-  if (window.location.href.includes('search')) {
+  if(detectMob())
+  {
+    searchIconCollapse.addEventListener("click", activeSearchBar);
+    searchIconExpand.addEventListener("click", activeSearchBar);
+  }
+  if (window.location.href.includes('search') && detectMob()) {
       searchBar.style.display = "block";
   }
 </script>
