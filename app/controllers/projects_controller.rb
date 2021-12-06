@@ -46,10 +46,10 @@ class ProjectsController < ApplicationController
   def project_invite
     if Project.with_project_token.exists?(collaboration_token: params[:token])
       if current_user.collaborations.exists?(project: @project)
-        notice = "Member is already present in the group."
+        notice = "Collaborator is already present in the project."
       else
         current_user.collaborations.create!(project: @project)
-        notice = "Group member was successfully added."
+        notice = "Collaborator was successfully added."
       end
     elsif Project.exists?(collaboration_token: params[:token])
       notice = "Url is expired, request a new one from owner of the Project."
