@@ -31,13 +31,28 @@
         </div>
         <% end %>
       </div>
+      <div class="mx-auto text-center p-3">
+        <p><%= t("groups.use_alternative") %></p>
+        <%= button_to generate_collab_token_user_project_path,{remote: true,method: :put,class: 'btn primary-button', 'data-toggle':'collapse', 'href':'#collapseExample', 'aria-expanded':'false', 'aria-controls':'collapseExample', 'data-target':'#multiCollapseExample2',id: 'invite_collab_button'} do %>
+          <i class="fas fa-external-link-alt"></i>
+          <span><%= t("projects.invite_link_btn") %></span>
+        <% end %>
+        <div class="collapse" id="multiCollapseExample2">
+          <textarea id="embedInviteLink" class="collaborator-invite-link-text" rows="4" cols="35"></textarea>
+        </div>
+      </div>
     </div>
   </div>
+  
 </div>
 
 <script>
 $(document).ready(() => {
   // docs: http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/examples/
+  $(".collaborator-invite-link-text").html("<%= user_project_url %>/invite/<%= @project.collaboration_token %>");
+  $('#invite_collab_button').on('click', ()=>{
+    setTimeout(function(){$("#embedInviteLink").select();document.execCommand("copy")},100);
+  })
   $('#emails').tagsinput({
     trimValue: true,
     confirmKeys: [13, 44, 32],

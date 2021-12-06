@@ -92,6 +92,15 @@ Rails.application.routes.draw do
     get "tags/:tag", to: "projects#get_projects", as: "tag"
   end
 
+  resources :users do
+    resources :projects do
+      member do
+        put :generate_collab_token, to: "projects#generate_collab_token"
+        get "/invite/:token", to: "projects#project_invite", as: "invite"
+      end
+    end
+  end
+
   # lti
   scope "lti"  do
     match 'launch', to: 'lti#launch', via: [:get, :post] 
