@@ -9,6 +9,8 @@ class SimulatorController < ApplicationController
   before_action :set_user_project, only: %i[update edit update_image]
   before_action :check_view_access, only: %i[show embed get_data]
   before_action :check_edit_access, only: %i[edit update update_image]
+  before_action :set_issue_circuit_data, only: %i[view_issue_circuit_data]
+  before_action :check_issue_circuit_data_access, only: %i[view_issue_circuit_data]
   skip_before_action :verify_authenticity_token, only: %i[get_data create]
   after_action :allow_iframe, only: %i[embed]
   after_action :allow_iframe_lti, only: %i[show], constraints: lambda {
@@ -66,9 +68,23 @@ class SimulatorController < ApplicationController
     render plain: "success"
   end
 
+  def view_issue_circuit_data
+    render plain: @issue_circuit_data.data
+  end
+
   def post_issue
     url = ENV["SLACK_ISSUE_HOOK_URL"]
-    HTTP.post(url, json: { text: params[:text] })
+
+    # Post the issue circuit data
+    issue_circuit_data = IssueCircuitDatum.new
+    issue_circuit_data.data = params[:circuit_data]
+    issue_circuit_data.save!
+
+    issue_circuit_data_id = issue_circuit_data.id
+
+    # Send it over to slack hook
+    text = "#{params[:text]}\nCircuit Data: #{request.base_url}/simulator/issue_circuit_data/#{issue_circuit_data_id}"
+    HTTP.post(url, json: { text: text })
     head :ok, content_type: "text/html"
   end
 
@@ -113,6 +129,10 @@ class SimulatorController < ApplicationController
       @project = Project.friendly.find(params[:id])
     end
 
+    def set_issue_circuit_data
+      @issue_circuit_data = IssueCircuitDatum.find(params[:id])
+    end
+
     # FIXME: remove this logic after fixing production data
     def set_user_project
       @project = current_user.projects.friendly.find_by(id: params[:id]) || Project.friendly.find(params[:id])
@@ -124,5 +144,9 @@ class SimulatorController < ApplicationController
 
     def check_view_access
       authorize @project, :view_access?
+    end
+
+    def check_issue_circuit_data_access
+      authorize Project.new, :issue_circuit_data_access?
     end
 end

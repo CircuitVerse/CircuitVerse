@@ -54,6 +54,12 @@ class ProjectPolicy < ApplicationPolicy
     true
   end
 
+  def issue_circuit_data_access?
+    raise CustomAuthException.new("Only admins can view issue circuit data") unless (user.present? && user.admin?)
+
+    true
+  end
+
   def direct_view_access?
     raise @simulator_exception unless check_direct_view_access?
 

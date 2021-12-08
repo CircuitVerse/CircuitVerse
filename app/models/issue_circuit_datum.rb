@@ -1,0 +1,2 @@
+class IssueCircuitDatum < ApplicationRecord
+end
