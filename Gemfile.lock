@@ -117,7 +117,7 @@ GEM
       parser (>= 2.4)
       smart_properties
     bindex (0.8.1)
-    bootsnap (1.8.1)
+    bootsnap (1.9.3)
       msgpack (~> 1.0)
     bootstrap-typeahead-rails (0.10.5.1)
       railties (>= 3.0)
@@ -767,4 +767,4 @@ DEPENDENCIES
   will_paginate-bootstrap
 
 BUNDLED WITH
-   2.2.26
+   2.2.32

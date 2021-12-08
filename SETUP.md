@@ -29,8 +29,8 @@ Instructions are available in our [wiki](https://github.com/CircuitVerse/Circuit
 #### Dependencies
 **Note**: PostgreSQL and Redis *must* be running. PostgreSQL must be configured with a default user
 - [Git](https://git-scm.com/) - using a GUI such as [SourceTree](https://www.sourcetreeapp.com/) or [GitHub Desktop](https://desktop.github.com/) can help.
-- [Ruby on Rails](https://rubyonrails.org/) (`ruby-2.6.5` & `Rails 6.0.1`)
-- [PostgreSQL](https://www.postgresql.org/) (`9.5`) - Database
+- [Ruby](https://www.ruby-lang.org/en/) (`ruby-3.0.3`)
+- [PostgreSQL](https://www.postgresql.org/) (`12`) - Database
 - [Yarn](https://yarnpkg.com/) - JavaScript package manager
 - [Redis](https://redis.io/) - Data structure store
 - [ImageMagick](https://imagemagick.org/) - Image manipulation library
@@ -67,7 +67,7 @@ cd CircuitVerse
      * **Note:** The Postgres credentials need to be updated to your currently running database
 5. Create database: `rails db:create`
 6. Run database migrations: `rails db:migrate`
-7. Start Sidekiq (background processes & job queue): `bundle exec sidekiq -e development -q default -q mailers -d -L tmp/sidekiq.log`
+7. Start Sidekiq (background processes & job queue): `bundle exec sidekiq -e development -q default -q mailers `
 1. ./bin/webpack-dev-server for Hot Module reload for  fast development or transpile using ./bin/webpack.
 
 Then, local development can be started with `rails s -b 127.0.0.1`. Navigate to `localhost:3000` in your web browser to access the website.
