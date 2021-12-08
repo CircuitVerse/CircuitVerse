@@ -83,7 +83,8 @@ class SimulatorController < ApplicationController
     issue_circuit_data_id = issue_circuit_data.id
 
     # Send it over to slack hook
-    text = "#{params[:text]}\nCircuit Data: #{request.base_url}/simulator/issue_circuit_data/#{issue_circuit_data_id}"
+    circuit_data_url = "#{request.base_url}/simulator/issue_circuit_data/#{issue_circuit_data_id}"
+    text = "#{params[:text]}\nCircuit Data: #{circuit_data_url}"
     HTTP.post(url, json: { text: text })
     head :ok, content_type: "text/html"
   end

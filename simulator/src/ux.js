@@ -642,13 +642,13 @@ async function postUserIssue(message) {
     if (result) message += "\n" + result.data.link;
 
     // Generate circuit data for reporting
-    let circuit_data;
+    let circuitData;
     try {
         // Writing default project name to prevent unnecessary prompt in case the
         // project is unnamed
-        circuit_data = generateSaveData("Issue Project");
+        circuitData = generateSaveData("Issue Project");
     } catch (err) {
-        circuit_data = `Circuit data generation failed: ${err}`;
+        circuitData = `Circuit data generation failed: ${err}`;
     }
 
     $.ajax({
@@ -659,7 +659,7 @@ async function postUserIssue(message) {
         },
         data: {
             "text": message,
-            "circuit_data": circuit_data,
+            "circuit_data": circuitData,
         },
         success: function(response) {
             $('#result').html("<i class='fa fa-check' style='color:green'></i> You've successfully submitted the issue. Thanks for improving our platform.");
