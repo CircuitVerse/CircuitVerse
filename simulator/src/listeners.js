@@ -14,6 +14,7 @@ import {
 } from './restrictedElementDiv';
 import { removeMiniMap, updatelastMinimapShown } from './minimap';
 import undo from './data/undo';
+import redo from "./data/redo";
 import { copy, paste, selectAll } from './events';
 import save from './data/save';
 import { createElement } from './ux';
@@ -38,7 +39,9 @@ export default function startListeners() {
     $('#undoButton').on('click',() => {
         undo();
     });
-
+    $('#redoButton').on('click',() => {
+        redo();
+    })
     $('#viewButton').on('click',() => {
         fullView();
     });
@@ -132,8 +135,14 @@ export default function startListeners() {
             simulationArea.controlDown = true;
         }
 
-        if (simulationArea.controlDown && e.key.charCodeAt(0) == 122) { // detect the special CTRL-Z code
+        if (simulationArea.controlDown && e.key.charCodeAt(0) == 122 && !simulationArea.shiftDown) { // detect the special CTRL-Z code
             undo();
+        }
+        if (simulationArea.controlDown && e.key.charCodeAt(0) == 122 && simulationArea.shiftDown) { // detect the special Cmd + shift + z code (macOs)
+            redo();
+        }
+        if (simulationArea.controlDown && e.key.charCodeAt(0) == 121 && !simulationArea.shiftDown) { // detect the special ctrl + Y code (windows)
+            redo();
         }
 
         if (listenToSimulator) {
