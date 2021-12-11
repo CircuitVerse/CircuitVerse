@@ -166,6 +166,28 @@
   display: none;
 }
 
+.users-delete-image-button {
+  border: 1px solid $secondary-red;
+  border-radius: 4px;
+  cursor: pointer;
+  height: 35px;
+  margin-bottom: 20px;
+  margin-left: 10px;
+  padding-top: 5px;
+  text-align: center;
+  width: 120px;
+}
+
+.del_pic:checked ~ .users-delete-image-button,
+.users-delete-image-button:hover {
+  background-color: $primary-red;
+  color: $white;
+}
+
+.del_pic {
+  display: none;
+}
+
 .users-edit-primary-checkpoint {
   margin-bottom: 20px;
   padding-top: 40px;
