@@ -123,7 +123,7 @@ function setupElementLists() {
 
 
     function createIcon(element) {
-        return `<div class="icon logixModules" id="${element.name}" title="${element.value}">
+        return `<div class="icon logixModules" id="${element.name}" title="${element.label}">
             <img src= "/img/${element.name}.svg" >
         </div>`;
     }
@@ -137,7 +137,7 @@ function setupElementLists() {
             const element = categoryData[i];
             if(!(element.name).startsWith("verilog")) {
                 htmlIcons += createIcon(element);
-                window.elementPanelList.push(element.value);
+                window.elementPanelList.push(element.label);
             }
         }
 
