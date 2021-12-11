@@ -9,6 +9,7 @@ import Scope, { scopeList } from '../circuit';
 import { loadScope } from './load';
 import { updateRestrictedElementsInScope } from '../restrictedElementDiv';
 import { forceResetNodesSet } from '../engine';
+import { scheduleBackup } from './backupCircuit';
 /**
  * Function called to generate a prompt to save an image
  * @param {Scope=} - the circuit in which we want to call redo
@@ -16,6 +17,7 @@ import { forceResetNodesSet } from '../engine';
  * @exports redo
  */
 export default function redo(scope = globalScope) {
+    scheduleBackup();
     if (layoutModeGet()) return;
     if (scope.history.length === 0) return;
     const backupOx = globalScope.ox;
