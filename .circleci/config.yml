@@ -1,4 +1,4 @@
-version: 2 # use CircleCI 2.0
+version: 2.1 # use CircleCI 2.0
 orbs: 
   browser-tools: circleci/browser-tools@1.2.3
 jobs: # a collection of steps
