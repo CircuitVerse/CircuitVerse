@@ -428,7 +428,7 @@ export default function startListeners() {
                 const categoryData = elementHierarchy[category];
                 
                 for (let i = 0; i < categoryData.length; i++) {
-                    if(result[j] == categoryData[i]["value"]){
+                    if(result[j] == categoryData[i]["label"]){
                         finalResult.push(categoryData[i]);
                 }
             }
@@ -444,7 +444,7 @@ export default function startListeners() {
     });
 
     function createIcon(element) {
-        return `<div class="${element.name} icon logixModules filterElements" id="${element.name}" title="${element.value}">
+        return `<div class="${element.name} icon logixModules filterElements" id="${element.name}" title="${element.label}">
             <img  src= "/img/${element.name}.svg" >
         </div>`;
     }
