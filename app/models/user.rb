@@ -35,7 +35,8 @@ class User < ApplicationRecord
 
   has_attached_file :profile_picture, styles: { medium: "205X240#", thumb: "100x100>" }, default_url: ":style/Default.jpg"
   attr_accessor :delete_picture
-  before_validation { profile_picture.clear if delete_picture == '1' }
+  
+  before_validation { profile_picture.clear if delete_picture == "1" }
 
   # validations for user
 

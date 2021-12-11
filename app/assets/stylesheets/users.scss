@@ -178,13 +178,13 @@
   width: 120px;
 }
 
-.del_pic:checked ~ .users-delete-image-button,
+.del-pic:checked ~ .users-delete-image-button,
 .users-delete-image-button:hover {
   background-color: $primary-red;
   color: $white;
 }
 
-.del_pic {
+.del-pic {
   display: none;
 }
 

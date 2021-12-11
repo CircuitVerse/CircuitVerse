@@ -23,7 +23,7 @@
             <p><%= image_tag @profile.profile_picture.url(:thumb), id:'imgedit', class:"users-edit-image", alt:'User Profile Image' %></p>
             <label for="profile_picture" class="users-edit-image-button"><%= t("users.circuitverse.edit_profile.choose_file") %></label>
             <input tabindex="0" type="file" accept="image/png, .jpeg, .jpg" class="users-edit-image-button-hidden" id="profile_picture" name="user[profile_picture]" onchange="readURL(this);" value="<%= @profile.profile_picture %>">
-            <%= f.check_box :delete_picture, id: "del_pic", class:"del_pic" %>
+            <%= f.check_box :delete_picture, id: "del_pic", class:"del-pic" %>
             <label for="del_pic" class="users-delete-image-button"><%= t("users.circuitverse.edit_profile.delete_picture") %></label>
           </div>
           <div class="field form-group">
