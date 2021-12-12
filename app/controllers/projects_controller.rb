@@ -36,13 +36,6 @@ class ProjectsController < ApplicationController
     commontator_thread_show(@project)
   end
 
-  def generate_collab_token
-    @project = Project.find(params[:id])
-    if !@project.has_valid_token?
-      @project.reset_project_token
-    end
-  end
-
   def project_invite
     if Project.with_project_token.exists?(collaboration_token: params[:token])
       if current_user.collaborations.exists?(project: @project)
@@ -89,7 +82,6 @@ class ProjectsController < ApplicationController
   # POST /projects.json
   def create
     @project = current_user.projects.create(project_params)
-
     respond_to do |format|
       if @project.save
         format.html { redirect_to user_project_path(@project.author_id, @project), notice: "Project was successfully created." }

@@ -33,7 +33,7 @@
       </div>
       <div class="mx-auto text-center p-3">
         <p><%= t("groups.use_alternative") %></p>
-        <%= button_to generate_collab_token_user_project_path,{remote: true,method: :put,class: 'btn primary-button', 'data-toggle':'collapse', 'href':'#collapseExample', 'aria-expanded':'false', 'aria-controls':'collapseExample', 'data-target':'#multiCollapseExample2',id: 'invite_collab_button'} do %>
+        <%= button_to collaboration_token_project_path,{remote: true,method: :post,class: 'btn primary-button', 'data-toggle':'collapse', 'href':'#collapseExample', 'aria-expanded':'false', 'aria-controls':'collapseExample', 'data-target':'#multiCollapseExample2',id: 'invite_collab_button'} do %>
           <i class="fas fa-external-link-alt"></i>
           <span><%= t("projects.invite_link_btn") %></span>
         <% end %>
