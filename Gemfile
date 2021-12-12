@@ -16,7 +16,7 @@ gem "omniauth-facebook"
 gem "omniauth-github"
 gem "omniauth-google-oauth2"
 gem "omniauth-microsoft-office365"
-gem "paperclip", ">= 5.2.0"
+gem "kt-paperclip", "~> 6.4", ">= 6.4.1"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 6.1.4"
 # Use Puma as the app server
@@ -103,7 +103,7 @@ gem "bootsnap", require: false
 gem "font-awesome-sass", "~> 5.13.1"
 
 gem "disposable_mail", "~> 0.1"
-gem "fast_jsonapi"
+gem 'jsonapi-serializer'
 gem "flipper-redis"
 gem "flipper-ui"
 gem "friendly_id", "~> 5.4.1"
@@ -135,13 +135,13 @@ group :test do
   gem "rspec_junit_formatter"
   gem "selenium-webdriver"
   gem "shoulda-matchers"
-  gem "webdrivers", "~> 4.6"
+  gem 'webdrivers', '~> 5.0', require: false
   gem "webmock"
 end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem "listen", ">= 3.0.5", "< 3.4"
+  gem "listen", ">= 3.0.5", "< 3.8"
   gem "web-console", ">= 3.3.0"
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem "rails-erd"
@@ -157,7 +157,7 @@ gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 # mails
 gem "premailer-rails", "~> 1.11", ">= 1.11.1"
 
-gem "bugsnag", "~> 6.22"
+gem "bugsnag", "~> 6.24"
 
 gem "invisible_captcha", "~> 2.0"
 
