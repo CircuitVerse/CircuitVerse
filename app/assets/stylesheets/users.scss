@@ -166,7 +166,7 @@
   display: none;
 }
 
-.users-delete-image-button {
+.users-remove-image-button {
   border: 1px solid $secondary-red;
   border-radius: 4px;
   cursor: pointer;
@@ -175,16 +175,16 @@
   margin-left: 10px;
   padding-top: 5px;
   text-align: center;
-  width: 120px;
+  width: 140px;
 }
 
-.del-pic:checked ~ .users-delete-image-button,
-.users-delete-image-button:hover {
+.remove-pic:checked ~ .users-remove-image-button,
+.users-remove-image-button:hover {
   background-color: $primary-red;
   color: $white;
 }
 
-.del-pic {
+.remove-pic {
   display: none;
 }
 
