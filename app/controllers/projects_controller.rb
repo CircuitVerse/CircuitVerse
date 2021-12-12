@@ -3,8 +3,8 @@
 class ProjectsController < ApplicationController
   include ActionView::Helpers::SanitizeHelper
 
-  before_action :set_project, only: %i[show edit update destroy generate_collab_token project_invite create_fork change_stars]
-  before_action :authenticate_user!, only: %i[edit update destroy generate_collab_token create_fork change_stars]
+  before_action :set_project, only: %i[show edit update destroy project_invite create_fork change_stars]
+  before_action :authenticate_user!, only: %i[edit update destroy create_fork change_stars]
 
   before_action :check_access, only: %i[edit update destroy]
   before_action :check_delete_access, only: [:destroy]
