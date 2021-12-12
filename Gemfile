@@ -103,7 +103,7 @@ gem "bootsnap", require: false
 gem "font-awesome-sass", "~> 5.13.1"
 
 gem "disposable_mail", "~> 0.1"
-gem "fast_jsonapi"
+gem 'jsonapi-serializer'
 gem "flipper-redis"
 gem "flipper-ui"
 gem "friendly_id", "~> 5.4.1"
