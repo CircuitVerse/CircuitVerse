@@ -21,7 +21,8 @@ jobs: # a collection of steps
           POSTGRES_HOST_AUTH_METHOD: trust
     steps: # a collection of executable commands
       - checkout # special step to check out source code to working directory
-      - browser-tools/install-chrome
+      - browser-tools/install-chrome:
+          chrome-version: 93.0.4577
 
       - run:
           name: generate private key for token auth
