@@ -16,7 +16,7 @@ gem "omniauth-facebook"
 gem "omniauth-github"
 gem "omniauth-google-oauth2"
 gem "omniauth-microsoft-office365"
-gem "paperclip", ">= 5.2.0"
+gem "kt-paperclip", "~> 6.4", ">= 6.4.1"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 6.1.4"
 # Use Puma as the app server
@@ -103,7 +103,7 @@ gem "bootsnap", require: false
 gem "font-awesome-sass", "~> 5.13.1"
 
 gem "disposable_mail", "~> 0.1"
-gem "fast_jsonapi"
+gem 'jsonapi-serializer'
 gem "flipper-redis"
 gem "flipper-ui"
 gem "friendly_id", "~> 5.4.1"
@@ -135,7 +135,7 @@ group :test do
   gem "rspec_junit_formatter"
   gem "selenium-webdriver"
   gem "shoulda-matchers"
-  gem "webdrivers", "~> 4.6"
+  gem 'webdrivers', '~> 5.0', require: false
   gem "webmock"
 end
 
