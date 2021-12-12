@@ -315,6 +315,12 @@ GEM
       activerecord
       kaminari-core (= 1.2.1)
     kaminari-core (1.2.1)
+    kt-paperclip (6.4.1)
+      activemodel (>= 4.2.0)
+      activesupport (>= 4.2.0)
+      mime-types
+      mimemagic (~> 0.3.0)
+      terrapin (~> 0.6.0)
     language_filter (0.3.01)
     listen (3.3.3)
       rb-fsevent (~> 0.10, >= 0.10.3)
@@ -331,9 +337,9 @@ GEM
     meta-tags (2.15.0)
       actionpack (>= 3.2.0, < 6.2)
     method_source (0.9.2)
-    mime-types (3.3.1)
+    mime-types (3.4.1)
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2020.0512)
+    mime-types-data (3.2021.1115)
     mimemagic (0.3.10)
       nokogiri (~> 1)
       rake
@@ -381,12 +387,6 @@ GEM
       oauth2 (~> 1.4)
       omniauth (>= 1.9, < 3)
     orm_adapter (0.5.0)
-    paperclip (6.1.0)
-      activemodel (>= 4.2.0)
-      activesupport (>= 4.2.0)
-      mime-types
-      mimemagic (~> 0.3.0)
-      terrapin (~> 0.6.0)
     parallel (1.21.0)
     parser (3.0.2.0)
       ast (~> 2.4.1)
@@ -712,6 +712,7 @@ DEPENDENCIES
   jquery-rails
   json-schema
   jwt
+  kt-paperclip (~> 6.4, >= 6.4.1)
   language_filter
   listen (>= 3.0.5, < 3.4)
   mailkick
@@ -723,7 +724,6 @@ DEPENDENCIES
   omniauth-github
   omniauth-google-oauth2
   omniauth-microsoft-office365
-  paperclip (>= 5.2.0)
   pg (~> 1.2.3)
   pg_search
   premailer-rails (~> 1.11, >= 1.11.1)
