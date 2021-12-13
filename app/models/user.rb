@@ -4,6 +4,7 @@ class User < ApplicationRecord
   mailkick_user
   require "pg_search"
   include SimpleDiscussion::ForumUser
+  include DeviseAsync
 
   validates :email, undisposable: { message: "Sorry, but we do not accept your mail provider." }
 
@@ -14,7 +15,8 @@ class User < ApplicationRecord
   has_many :rated_projects, through: :stars, dependent: :destroy, source: "project"
   has_many :groups_mentored, class_name: "Group",  foreign_key: "mentor_id", dependent: :destroy
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable,
-         :validatable, :omniauthable, omniauth_providers: %i[google_oauth2 facebook github]
+         :validatable, :omniauthable, :confirmable,
+         omniauth_providers: %i[google_oauth2 facebook github]
 
   # has_many :assignments, foreign_key: 'mentor_id', dependent: :destroy
   has_many :group_members, dependent: :destroy
@@ -33,13 +35,14 @@ class User < ApplicationRecord
   after_commit :send_welcome_mail, on: :create
   after_commit :create_members_from_invitations, on: :create
 
-  has_attached_file :profile_picture, styles: { medium: "205X240#", thumb: "100x100>" }, default_url: ":style/Default.jpg"
+  has_attached_file :profile_picture, styles: { medium: "205X240#", thumb: "100x100>" },
+                                      default_url: ":style/Default.jpg"
 
   # validations for user
 
   validates_attachment_content_type :profile_picture, content_type: %r{\Aimage/.*\z}
 
-  validates :name, presence: true, format: { without: /\A["!@#$%^&"]*\z/,
+  validates :name, presence: true, format: { without: /\A["!@#$%^&]*\z/,
                                              message: "can only contain letters and spaces" }
 
   validates :email, presence: true, format: /\A[^@,\s]+@[^@,\s]+\.[^@,\s]+\z/
@@ -69,12 +72,20 @@ class User < ApplicationRecord
   def self.from_omniauth(access_token)
     data = access_token.info
     user = User.where(email: data["email"]).first
+    # Confirm all existing users using oauth login
+    user.confirm if user && !user.confirmed?
+
     # Uncomment the section below if you want users to be created if they don't exist
-    user ||= User.create(name: data["name"],
-                         email: data["email"],
-                         password: Devise.friendly_token[0, 20],
-                         provider: access_token.provider,
-                         uid: access_token.uid)
+    unless user
+      user = User.new(name: data["name"],
+                      email: data["email"],
+                      password: Devise.friendly_token[0, 20],
+                      provider: access_token.provider,
+                      uid: access_token.uid)
+      # Add this line to confirm automatically for oauth users
+      user.confirm
+      user.save!
+    end
     user
   end
 
@@ -104,6 +115,11 @@ class User < ApplicationRecord
 
   def moderator?
     admin?
+  end
+
+  def after_confirmation
+    self.subscribed = true
+    save
   end
 
   private
