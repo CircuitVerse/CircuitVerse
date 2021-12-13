@@ -30,7 +30,7 @@
     "webpack-dev-server": "^3"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.15.2",
+    "@fortawesome/fontawesome-free": "^5.15.4",
     "@rails/webpacker": "5.4.3",
     "banana-i18n": "^2.3.1",
     "better-docs": "^2.0.1",
