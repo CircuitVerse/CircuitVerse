@@ -180,9 +180,6 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
-    devise-async (1.0.0)
-      activejob (>= 5.0)
-      devise (>= 4.0)
     diff-lcs (1.4.4)
     disposable_mail (0.1.7)
     docile (1.4.0)
@@ -692,7 +689,6 @@ DEPENDENCIES
   country_select (~> 6.0)
   coveralls_reborn (~> 0.23.1)
   devise
-  devise-async
   disposable_mail (~> 0.1)
   dotenv-rails
   erb_lint

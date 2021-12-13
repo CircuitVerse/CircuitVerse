@@ -36,7 +36,6 @@ gem "turbolinks", "~> 5"
 gem "jbuilder", "~> 2.11"
 
 gem "devise"
-gem "devise-async"
 
 gem "commontator", "~> 6.3.2"
 

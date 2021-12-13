@@ -4,6 +4,7 @@ class User < ApplicationRecord
   mailkick_user
   require "pg_search"
   include SimpleDiscussion::ForumUser
+  include DeviseAsync
 
   validates :email, undisposable: { message: "Sorry, but we do not accept your mail provider." }
 
@@ -14,7 +15,7 @@ class User < ApplicationRecord
   has_many :rated_projects, through: :stars, dependent: :destroy, source: "project"
   has_many :groups_mentored, class_name: "Group",  foreign_key: "mentor_id", dependent: :destroy
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable,
-         :validatable, :omniauthable,:confirmable, :async, 
+         :validatable, :omniauthable, :confirmable,
          omniauth_providers: %i[google_oauth2 facebook github]
 
   # has_many :assignments, foreign_key: 'mentor_id', dependent: :destroy
@@ -34,13 +35,14 @@ class User < ApplicationRecord
   after_commit :send_welcome_mail, on: :create
   after_commit :create_members_from_invitations, on: :create
 
-  has_attached_file :profile_picture, styles: { medium: "205X240#", thumb: "100x100>" }, default_url: ":style/Default.jpg"
+  has_attached_file :profile_picture, styles: { medium: "205X240#", thumb: "100x100>" },
+                                      default_url: ":style/Default.jpg"
 
   # validations for user
 
   validates_attachment_content_type :profile_picture, content_type: %r{\Aimage/.*\z}
 
-  validates :name, presence: true, format: { without: /\A["!@#$%^&"]*\z/,
+  validates :name, presence: true, format: { without: /\A["!@#$%^&]*\z/,
                                              message: "can only contain letters and spaces" }
 
   validates :email, presence: true, format: /\A[^@,\s]+@[^@,\s]+\.[^@,\s]+\z/
@@ -117,8 +119,8 @@ class User < ApplicationRecord
 
   def after_confirmation
     self.subscribed = true
-    self.save
- end
+    save
+  end
 
   private
 
