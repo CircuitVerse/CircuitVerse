@@ -14,8 +14,7 @@ services:
   # Install scripts. (runs after repo cloning)
 install:
   - ps: Install-Product node $env:nodejs_version
-  - set PATH=C:\Ruby303\bin;%PATH%
-  - gem install --system
+  - set PATH=C:\Ruby30\bin;%PATH%
   - bundle config --local path vendor/bundle
   - bundle install --with postgresql
   - yarn
