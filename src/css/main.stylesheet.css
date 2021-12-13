@@ -1238,6 +1238,7 @@ font: inherit;
 .content-table tbody {
   display: table-row-group;
   overflow: auto !important;
+  margin-left: 52px;
 }
 
 .output {
