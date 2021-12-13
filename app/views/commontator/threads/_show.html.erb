@@ -60,7 +60,7 @@
         <% end %>
 
         <%= link_to t("commontator.thread.actions.#{close_string}"),
-                    commontator.polymorphic_path([close_string, thread]),
+                    commontator.polymorphic_path([close_string.to_sym, thread]),
                     data: is_closed ? {} :
                                       { confirm: t('commontator.thread.actions.confirm_close') },
                     method: :put,

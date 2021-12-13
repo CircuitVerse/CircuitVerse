@@ -58,12 +58,12 @@ Rails.application.routes.draw do
     sessions: "users/sessions"
   }
 
-  # Logix web pages resources
-  root "logix#index"
-  get  "/examples", to: "logix#examples"
-  get  "/tos", to: "logix#tos"
-  get  "/teachers", to: "logix#teachers"
-  get  "/contribute", to: "logix#contribute"
+  # Circuitverse web pages resources
+  root "circuitverse#index"
+  get  "/examples", to: "circuitverse#examples"
+  get  "/tos", to: "circuitverse#tos"
+  get  "/teachers", to: "circuitverse#teachers"
+  get  "/contribute", to: "circuitverse#contribute"
 
   #announcements
   resources :announcements, except: %i[show]
@@ -74,11 +74,11 @@ Rails.application.routes.draw do
 
   scope "/users" do
     get "/:id/profile", to: redirect('/users/%{id}'), as: "profile"
-    get "/:id/profile/edit", to: "users/logix#edit", as: "profile_edit"
-    patch "/:id/update", to: "users/logix#update", as: "profile_update"
-    get "/:id/groups", to: "users/logix#groups", as: "user_groups"
-    get "/:id/", to: "users/logix#index", as: "user_projects"
-    get "/educational_institute/typeahead/:query" => "users/logix#typeahead_educational_institute"
+    get "/:id/profile/edit", to: "users/circuitverse#edit", as: "profile_edit"
+    patch "/:id/update", to: "users/circuitverse#update", as: "profile_update"
+    get "/:id/groups", to: "users/circuitverse#groups", as: "user_groups"
+    get "/:id/", to: "users/circuitverse#index", as: "user_projects"
+    get "/educational_institute/typeahead/:query" => "users/circuitverse#typeahead_educational_institute"
     get "/:id/notifications", to: "users/notifications#index", as: "notifications"
   end
 
@@ -87,9 +87,14 @@ Rails.application.routes.draw do
 
   # projects
   scope "/projects" do
-    get "/create_fork/:id", to: "projects#create_fork", as: "create_fork_project"
+    post "/create_fork/:id", to: "projects#create_fork", as: "create_fork_project"
     get "/change_stars/:id", to: "projects#change_stars", as: "change_stars"
     get "tags/:tag", to: "projects#get_projects", as: "tag"
+  end
+
+  # lti
+  scope "lti"  do
+    match 'launch', to: 'lti#launch', via: [:get, :post] 
   end
 
   mount Commontator::Engine => "/commontator"
@@ -124,7 +129,7 @@ Rails.application.routes.draw do
   # get 'simulator/embed_cross/:id', to: 'simulator#embed_cross', as: 'simulator_embed_cross'
 
   resources :users do
-    resources :projects, except: %i[index]
+    resources :projects, except: %i[index new]
   end
   resources :collaborations, only: %i[create destroy update]
 
@@ -159,7 +164,7 @@ Rails.application.routes.draw do
       resources :projects, only: %i[index show update destroy] do
         member do
           get "toggle-star", to: "projects#toggle_star"
-          get "fork", to: "projects#create_fork"
+          post "fork", to: "projects#create_fork"
           get "image_preview", to: "projects#image_preview"
         end
         resources :collaborators, only: %i[index create destroy]

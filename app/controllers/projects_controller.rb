@@ -10,6 +10,7 @@ class ProjectsController < ApplicationController
   before_action :check_delete_access, only: [:destroy]
   before_action :check_view_access, only: %i[show create_fork]
   before_action :sanitize_name, only: %i[create update]
+  before_action :sanitize_project_description, only: %i[show edit]
 
   # GET /projects
   # GET /projects.json
@@ -33,11 +34,6 @@ class ProjectsController < ApplicationController
     @collaboration = @project.collaborations.new
     @admin_access = true
     commontator_thread_show(@project)
-  end
-
-  # GET /projects/new
-  def new
-    @project = Project.new
   end
 
   # GET /projects/1/edit
@@ -139,5 +135,14 @@ class ProjectsController < ApplicationController
 
     def sanitize_name
       params[:project][:name] = sanitize(project_params[:name])
+    end
+
+    # Sanitize description before passing to view
+    def sanitize_project_description
+      @project.description = sanitize(
+        @project.description,
+        tags: %w[img p strong em a sup sub del u span h1 h2 h3 h4 hr li ol ul blockquote],
+        attributes: %w[style src href alt title target]
+      )
     end
 end

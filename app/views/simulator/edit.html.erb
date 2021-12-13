@@ -19,7 +19,7 @@
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="navbar-nav navbar-menu noSelect pointerCursor" id="toolbar">
       <li class="dropdown nav-dropdown">
-        <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Project<span></span></a>
+        <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.project") %><span></span></a>
         <ul class="dropdown-menu">
           <% if not @project.nil? %>
              <li><a class="dropdown-item logixButton text-left pl-1" href="<%= user_project_url(@project.author, @project) %>" target="_blank">Project Page</a></li>
@@ -35,7 +35,7 @@
         </ul>
       </li>
       <li class="dropdown nav-dropdown">
-        <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Circuit<span class="caret"></span></a>
+        <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.circuit") %><span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item text-left logixButton pl-1" id="newCircuit">New Circuit + </a></li>
           <li><a class="dropdown-item text-left logixButton pl-1" id="newVerilogModule">New Verilog <br> Module</a></li>
@@ -43,7 +43,7 @@
         </ul>
       </li>
       <li class="dropdown nav-dropdown">
-        <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tools<span class="caret"></span></a>
+        <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.tools") %><span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item text-left pl-1 logixButton" id="createCombinationalAnalysisPrompt">Combinational<br>Analysis</a></li>
           <li><a class="dropdown-item text-left pl-1 logixButton" id="bitconverter">Hex-Bin-Dec<br>Converter</a></li>
@@ -54,7 +54,7 @@
         </ul>
       </li>
       <li class="dropdown tour-help nav-dropdown">
-        <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Help<span class="caret"></span></a>
+        <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.help") %><span class="caret"></span></a>
         <ul class="dropdown-menu">
             <li><a class="dropdown-item text-left pl-1 logixButton" id="showTourGuide">Tutorial Guide</a></li>
             <li><a class="dropdown-item text-left pl-1" href="https://docs.circuitverse.org" class="" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">User Manual</a></li>
@@ -125,6 +125,10 @@
         </button>
       </div>
       <div>
+        <button type="button" class="quick-btn-redo" title="Redo" id="redoButton">
+        </button>
+      </div>
+      <div>
         <button type="button" class="quick-btn-view" title="Preview Circuit" id="viewButton"><i style="color: #ddd;" class="fas fa-expand-arrows-alt"></i>
         </button>
       </div>
@@ -147,6 +151,7 @@
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href=<%= user_path(current_user) %>>Dashboard</a></li>
             <li><a class="dropdown-item" href=<%= user_groups_path(current_user) %>>My Groups</a></li>
+            <li><a class="dropdown-item" href=<%= notifications_path(current_user) %>>Notifications</a></li>
             <div class="dropdown-divider"></div>
             <li><a class="dropdown-item" rel="nofollow" data-method="delete" href=<%= destroy_user_session_path %>>Sign Out</a></li>
           </ul>
@@ -204,8 +209,8 @@
       <button class='custom-btn--tertiary panel-button' title="Autocalibrate Cycle Units"><span class="fas fa-magic timing-diagram-calibrate"></button>
       <button class='custom-btn--primary panel-button' title="Zoom In"><span class="fas fa-search-plus timing-diagram-zoom-in"></button>
       <button class='custom-btn--primary panel-button' title="Zoom Out"><span class="fas fa-search-minus timing-diagram-zoom-out"></button>
-      <button class='custom-btn--primary panel-button' title="Resume Timing Diagram"><span class="fas fa-play timing-diagram-resume"></button>
-      <button class='custom-btn--primary panel-button' title="Pause Timing Diagram"><span class="fas fa-pause timing-diagram-pause"></button>
+      <button class='custom-btn--primary panel-button' title="Resume auto-scroll"><span class="fas fa-play timing-diagram-resume"></button>
+      <button class='custom-btn--primary panel-button' title="Pause auto-scroll"><span class="fas fa-pause timing-diagram-pause"></button>
       1 cycle = 
       <input id="timing-diagram-units" type="number" min="1" autocomplete="off" value="1000">
       Units
@@ -642,3 +647,4 @@ function old_ui_redirect() {
   window.location.href = window.location.href.replace("/simulator", "/simulator_old")
 }
 </script>
+<script src="/js/data.js"></script>

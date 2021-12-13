@@ -99,7 +99,7 @@ class User < ApplicationRecord
   end
 
   def flipper_id
-    "User;#{id}"
+    "User:#{id}"
   end
 
   def moderator?
