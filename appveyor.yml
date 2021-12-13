@@ -23,6 +23,7 @@ build: off
 
 before_test:
   - ruby -v
+  - gem install bundler
   - gem -v
   - bundle -v
   - copy config\database.appveyor.yml config\database.yml
