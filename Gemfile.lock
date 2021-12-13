@@ -301,7 +301,7 @@ GEM
       addressable (>= 2.4)
     jsonapi-serializer (2.2.0)
       activesupport (>= 4.2)
-    jwt (2.2.2)
+    jwt (2.3.0)
     kaminari (1.2.1)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.2.1)
@@ -314,11 +314,11 @@ GEM
       activerecord
       kaminari-core (= 1.2.1)
     kaminari-core (1.2.1)
-    kt-paperclip (6.4.1)
+    kt-paperclip (7.0.1)
       activemodel (>= 4.2.0)
       activesupport (>= 4.2.0)
+      marcel (~> 1.0.1)
       mime-types
-      mimemagic (~> 0.3.0)
       terrapin (~> 0.6.0)
     language_filter (0.3.01)
     listen (3.7.0)
@@ -339,9 +339,6 @@ GEM
     mime-types (3.4.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2021.1115)
-    mimemagic (0.3.10)
-      nokogiri (~> 1)
-      rake
     mini_magick (4.11.0)
     mini_mime (1.1.2)
     mini_portile2 (2.6.1)
@@ -715,7 +712,7 @@ DEPENDENCIES
   json-schema
   jsonapi-serializer
   jwt
-  kt-paperclip (~> 6.4, >= 6.4.1)
+  kt-paperclip (~> 7.0)
   language_filter
   listen (>= 3.0.5, < 3.8)
   mailkick
