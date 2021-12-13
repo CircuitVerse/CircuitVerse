@@ -71,8 +71,8 @@ function showContextMenu() {
         opacity: 1,
     });
     
-    var windowHeight = $(window).height() * 0.56;
-    var windowWidth = $(window).width() * 0.9;
+    var windowHeight = $("#simulationArea").height() - $("#contextMenu").height() - 10;
+    var windowWidth = $("#simulationArea").width() - $("#contextMenu").width() - 10;
     // for top, left, right, bottom
     var topPosition;
     var leftPosition;
