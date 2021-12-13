@@ -57,7 +57,7 @@ Rails.application.configure do
   config.log_tags = [ :request_id ]
 
   # Use a different cache store in production.
-  # config.cache_store = :mem_cache_store
+  config.cache_store = :redis_cache_store
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
   # config.active_job.queue_adapter     = :resque
@@ -83,18 +83,10 @@ Rails.application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
   # Mailer settings
-  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.delivery_method = :ses
   config.action_mailer.default_url_options = { host: "https://circuitverse.org/" }
+  config.action_mailer.asset_host = 'https://circuitverse.org'
 
-  config.action_mailer.smtp_settings = {
-    :user_name => 'apikey',
-    :password => ENV["CIRCUITVERSE_EMAIL_PASSWORD"],
-    :domain => 'circuitverse.org',
-    :address => 'smtp.sendgrid.net',
-    :port => 587,
-    :authentication => :plain,
-    :enable_starttls_auto => true
-  }
 
   config.vapid_public_key = ENV["VAPID_PUBLIC_KEY"]
   config.vapid_private_key = ENV["VAPID_PRIVATE_KEY"]
@@ -106,6 +98,7 @@ Rails.application.configure do
   end
 
 
+  config.action_controller.forgery_protection_origin_check = false 
   Paperclip.options[:command_path] = "/usr/bin/"
   config.active_job.queue_adapter = :sidekiq
 

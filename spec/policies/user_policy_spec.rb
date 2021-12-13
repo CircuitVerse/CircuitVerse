@@ -3,7 +3,7 @@
 require "rails_helper"
 
 describe UserPolicy do
-  subject { UserPolicy.new(user, requested_user) }
+  subject { described_class.new(user, requested_user) }
 
   before do
     @user = FactoryBot.create(:user)
@@ -14,19 +14,21 @@ describe UserPolicy do
 
     context "user is same as requested_user" do
       let(:requested_user) { @user }
-      it { should permit(:groups) }
+
+      it { is_expected.to permit(:groups) }
     end
 
     context "user is admin" do
       let(:requested_user) { @user }
       let(:user) { FactoryBot.create(:user, admin: true) }
 
-      it { should permit(:groups) }
+      it { is_expected.to permit(:groups) }
     end
 
     context "user is not same as requested user" do
       let(:requested_user) { FactoryBot.create(:user) }
-      it { should_not permit(:groups) }
+
+      it { is_expected.not_to permit(:groups) }
     end
   end
 end

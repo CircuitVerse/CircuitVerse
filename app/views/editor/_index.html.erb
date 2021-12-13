@@ -4,21 +4,39 @@
   $(document).ready(function() {
     $('#trumbowyg').trumbowyg({
       svgPath: "https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.20.0/ui/icons.svg",
+      btnsDef: {
+        image: {
+          dropdown: ['insertImage', 'upload'],
+          ico: 'insertImage'
+        }
+      },
       btns: [
-        ['simpleFormatting'],
-        ['strong', 'em', 'del'],
-        ['undo', 'redo'], // Only supported in Blink browsers
+        ['viewHTML'],
+        ['undo', 'redo'],
+        ['formatting'],
+        ['fontfamily'],
+        ['strong', 'em', 'foreColor', 'backColor', 'del'],
+        ['superscript', 'subscript'],
         ['link'],
+        ['image'],
         ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
         ['unorderedList', 'orderedList'],
         ['horizontalRule'],
-        ['removeformat']
+        ['removeformat'],
+        ['fullscreen']
       ],
-      btnsDef: {
-        simpleFormatting: {
-          dropdown: ['p', 'h1', 'h2'],
-          title: 'Formatting',
-          ico: 'p'
+      plugins: {
+        upload: {
+          serverPath: 'https://api.imgur.com/3/image',
+          fileFieldName: 'image',
+          headers: {
+            'Authorization': 'Client-ID 9a33b3b370f1054'
+          },
+          urlPropertyName: 'data.link',
+        },
+        resizimg: {
+          minSize: 64,
+          step: 16,
         }
       }
     });

@@ -1,9 +1,9 @@
 
-<% content_for :title, @group.name + " - Edit Group Name" %>
+<% content_for :title, t("groups.edit.title", name: @group.name) %>
 <div class="container">
   <div class="row center-row">
     <div class="col-xs col-sm col-md col-lg">
-      <h2 class="submain-heading">EDIT GROUP NAME</h2>
+      <h2 class="submain-heading"><%= t("groups.edit.main_heading") %></h2>
     </div>
   </div>
   <div class="row center-row">

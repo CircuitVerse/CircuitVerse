@@ -17,7 +17,7 @@ RSpec.describe Api::V1::AssignmentsController, "#update", type: :request do
       end
 
       it "returns status unauthenticated" do
-        expect(response).to have_http_status(401)
+        expect(response).to have_http_status(:unauthorized)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -31,7 +31,7 @@ RSpec.describe Api::V1::AssignmentsController, "#update", type: :request do
       end
 
       it "returns status unauthorized" do
-        expect(response).to have_http_status(403)
+        expect(response).to have_http_status(:forbidden)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -45,7 +45,7 @@ RSpec.describe Api::V1::AssignmentsController, "#update", type: :request do
       end
 
       it "returns status not_found" do
-        expect(response).to have_http_status(404)
+        expect(response).to have_http_status(:not_found)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -59,7 +59,7 @@ RSpec.describe Api::V1::AssignmentsController, "#update", type: :request do
       end
 
       it "returns status invalid request" do
-        expect(response).to have_http_status(400)
+        expect(response).to have_http_status(:bad_request)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -73,7 +73,7 @@ RSpec.describe Api::V1::AssignmentsController, "#update", type: :request do
       end
 
       it "returns the updated assignment" do
-        expect(response).to have_http_status(202)
+        expect(response).to have_http_status(:accepted)
         expect(response).to match_response_schema("assignment")
         expect(response.parsed_body["data"]["attributes"]["name"]).to eq("test updated")
       end

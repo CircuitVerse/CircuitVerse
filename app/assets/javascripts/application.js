@@ -21,3 +21,10 @@
 //= require time.js
 //= require scroll.js
 //= require trumbowyg/dist/trumbowyg.min.js
+//= require trumbowyg/dist/plugins/colors/trumbowyg.colors.js
+//= require trumbowyg/dist/plugins/pasteembed/trumbowyg.pasteembed.min.js
+//= require trumbowyg/dist/plugins/upload/trumbowyg.upload.min.js
+//= require jquery-resizable-dom/dist/jquery-resizable.min.js
+//= require trumbowyg/dist/plugins/resizimg/trumbowyg.resizimg.min.js
+//= require trumbowyg/dist/plugins/fontfamily/trumbowyg.fontfamily.min.js
+//= require bootstrap-tagsinput/dist/bootstrap-tagsinput.js

@@ -1,13 +1,13 @@
-FROM ruby:2.6.5
+FROM ruby:3.0.3
 
 # set up workdir
 RUN mkdir /circuitverse
 WORKDIR /circuitverse
 
 # install dependencies
-RUN apt-get update -qq && apt-get install -y imagemagick && apt-get clean
+RUN apt-get update -qq && apt-get install -y imagemagick shared-mime-info && apt-get clean
 
-RUN curl -sL https://deb.nodesource.com/setup_10.x | bash \
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash \
  && apt-get update && apt-get install -y nodejs && rm -rf /var/lib/apt/lists/* \
  && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \

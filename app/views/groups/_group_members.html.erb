@@ -7,13 +7,15 @@
           <div class="groups-members-card-name-container">
             <%= link_to user.name, user, class: "groups-members-card-name" %>
           </div>
-          <p class="groups-members-card-email"><%= user.email %></p>
+          <% if policy(group).admin_access? %>
+            <p class="groups-members-card-email"><%= user.email %></p>
+          <% end %>
         </div>
         <div class="col-5 groups-members-card-button">
           <% if policy(group).admin_access? %>
             <%= link_to '#', data: {toggle: "modal", target: "#deletememberModal", currentgroupmember: GroupMember.find_by(user_id:user.id,group_id:group.id).id}, class:"mini-button groups-delete-mini-button" do %>
               <%= image_tag("SVGs/deleteGroup.svg", alt: "Remove Member") %>
-              <span>Remove</span>
+              <span><%= t("remove") %></span>
             <% end %>
           <% end %>
         </div>

@@ -1,10 +1,10 @@
 
-<% content_for :title,  @project.name + " - Edit Project" %>
+<% content_for :title, t("projects.edit.title", name: @project.name) %>
 
 <div class="container projects-new-container">
   <div class="row center-row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <h1 class="submain-heading">Edit Project</h1> <br>
+      <h1 class="submain-heading"><%= t("projects.edit.main_heading") %></h1> <br>
     </div>
   </div>
   <div class="row">

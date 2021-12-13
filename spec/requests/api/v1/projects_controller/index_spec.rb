@@ -17,7 +17,7 @@ RSpec.describe Api::V1::ProjectsController, "#index", type: :request do
       end
 
       it "returns all public projects" do
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
         expect(response).to match_response_schema("projects")
         expect(response.parsed_body["data"].length).to eq(2)
       end
@@ -31,7 +31,7 @@ RSpec.describe Api::V1::ProjectsController, "#index", type: :request do
       end
 
       it "returns all public projects including author details" do
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
         expect(response).to match_response_schema("projects_with_author")
         expect(response.parsed_body["data"].length).to eq(2)
       end
@@ -68,7 +68,7 @@ RSpec.describe Api::V1::ProjectsController, "#index", type: :request do
       end
 
       it "returns all public projects in additon to projects user is author of" do
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
         expect(response).to match_response_schema("projects")
         expect(response.parsed_body["data"].length).to eq(3)
       end
@@ -86,7 +86,7 @@ RSpec.describe Api::V1::ProjectsController, "#index", type: :request do
       end
 
       it "returns only all public projects" do
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
         expect(response).to match_response_schema("projects")
         expect(response.parsed_body["data"].length).to eq(2)
       end

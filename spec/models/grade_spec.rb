@@ -8,23 +8,23 @@ RSpec.describe Grade, type: :model do
     @group = FactoryBot.create(:group, mentor: @mentor)
     @assignment = FactoryBot.create(:assignment, group: @group, grading_scale: :letter)
     @assignment_project = FactoryBot.create(:project, assignment: @assignment,
-      author: FactoryBot.create(:user))
+                                                      author: FactoryBot.create(:user))
   end
 
   describe "associations" do
     before do
-      allow_any_instance_of(Grade).to receive(:assignment).and_return(@assignment)
+      allow_any_instance_of(described_class).to receive(:assignment).and_return(@assignment)
     end
 
-    it { should belong_to(:project) }
-    it { should belong_to(:grader) }
+    it { is_expected.to belong_to(:project) }
+    it { is_expected.to belong_to(:grader) }
   end
 
   describe "validations" do
     context "grading scale" do
       before do
         @grade = FactoryBot.build(:grade, project: @assignment_project, grader: @mentor,
-            grade: "A", assignment: @assignment)
+                                          grade: "A", assignment: @assignment)
       end
 
       context "letter grading scale" do
@@ -41,9 +41,9 @@ RSpec.describe Grade, type: :model do
         before do
           assignment = FactoryBot.create(:assignment, group: @group, grading_scale: :percent)
           assignment_project = FactoryBot.create(:project, assignment: assignment,
-            author: FactoryBot.create(:user))
+                                                           author: FactoryBot.create(:user))
           @grade = FactoryBot.build(:grade, project: assignment_project, grader: @mentor,
-            grade: "98", assignment: assignment)
+                                            grade: "98", assignment: assignment)
         end
 
         it "validates grading scale" do
@@ -61,9 +61,9 @@ RSpec.describe Grade, type: :model do
         before do
           assignment = FactoryBot.create(:assignment, group: @group, grading_scale: :no_scale)
           assignment_project = FactoryBot.create(:project, assignment: assignment,
-            author: FactoryBot.create(:user))
+                                                           author: FactoryBot.create(:user))
           @grade = FactoryBot.build(:grade, project: assignment_project, grader: @mentor,
-            grade: "98", assignment: assignment)
+                                            grade: "98", assignment: assignment)
         end
 
         it "invalidates all grades" do
@@ -79,9 +79,9 @@ RSpec.describe Grade, type: :model do
         before do
           assignment = FactoryBot.create(:assignment, group: @group, grading_scale: :custom)
           assignment_project = FactoryBot.create(:project, assignment: assignment,
-            author: FactoryBot.create(:user))
+                                                           author: FactoryBot.create(:user))
           @grade = FactoryBot.build(:grade, project: assignment_project, grader: @mentor,
-            grade: "98", assignment: assignment)
+                                            grade: "98", assignment: assignment)
         end
 
         it "validates all grades" do
@@ -99,7 +99,7 @@ RSpec.describe Grade, type: :model do
     context "assignment and project" do
       before do
         @grade = FactoryBot.build(:grade, project: @assignment_project, grader: @mentor,
-            grade: "A", assignment: @assignment)
+                                          grade: "A", assignment: @assignment)
       end
 
       it "validates assignment and project relations" do

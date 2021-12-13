@@ -10,11 +10,11 @@ RSpec.describe Api::V1::ProjectsController, "#create_fork", type: :request do
 
     context "when not authenticated" do
       before do
-        get "/api/v1/projects/#{project.id}/fork", as: :json
+        post "/api/v1/projects/#{project.id}/fork", as: :json
       end
 
       it "returns status :not_authorized" do
-        expect(response).to have_http_status(401)
+        expect(response).to have_http_status(:unauthorized)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -22,12 +22,12 @@ RSpec.describe Api::V1::ProjectsController, "#create_fork", type: :request do
     context "when authenticated & forks a non existent project" do
       before do
         token = get_auth_token(user)
-        get "/api/v1/projects/0/fork",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+        post "/api/v1/projects/0/fork",
+             headers: { "Authorization": "Token #{token}" }, as: :json
       end
 
       it "returns status :not_found" do
-        expect(response).to have_http_status(404)
+        expect(response).to have_http_status(:not_found)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -35,12 +35,12 @@ RSpec.describe Api::V1::ProjectsController, "#create_fork", type: :request do
     context "when forks own project" do
       before do
         token = get_auth_token(user)
-        get "/api/v1/projects/#{project.id}/fork",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+        post "/api/v1/projects/#{project.id}/fork",
+             headers: { "Authorization": "Token #{token}" }, as: :json
       end
 
       it "returns status :conflict" do
-        expect(response).to have_http_status(409)
+        expect(response).to have_http_status(:conflict)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -48,12 +48,12 @@ RSpec.describe Api::V1::ProjectsController, "#create_fork", type: :request do
     context "when forks other user's project" do
       before do
         token = get_auth_token(random_user)
-        get "/api/v1/projects/#{project.id}/fork",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+        post "/api/v1/projects/#{project.id}/fork",
+             headers: { "Authorization": "Token #{token}" }, as: :json
       end
 
       it "returns status :ok & return forked project" do
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
         expect(response).to match_response_schema("project")
       end
     end
@@ -61,12 +61,12 @@ RSpec.describe Api::V1::ProjectsController, "#create_fork", type: :request do
     context "when forks other user's project and includes author details" do
       before do
         token = get_auth_token(random_user)
-        get "/api/v1/projects/#{project.id}/fork?include=author",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+        post "/api/v1/projects/#{project.id}/fork?include=author",
+             headers: { "Authorization": "Token #{token}" }, as: :json
       end
 
       it "returns status :ok & return forked project including author details" do
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
         expect(response).to match_response_schema("project_with_author")
       end
     end
@@ -74,12 +74,12 @@ RSpec.describe Api::V1::ProjectsController, "#create_fork", type: :request do
     context "when forks other user's project and includes collaborators" do
       before do
         token = get_auth_token(random_user)
-        get "/api/v1/projects/#{project.id}/fork?include=collaborators",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+        post "/api/v1/projects/#{project.id}/fork?include=collaborators",
+             headers: { "Authorization": "Token #{token}" }, as: :json
       end
 
       it "returns status :ok & return forked project including collaborators" do
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
         expect(response).to match_response_schema("project_with_collaborators")
       end
     end

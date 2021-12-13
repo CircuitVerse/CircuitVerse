@@ -12,6 +12,18 @@
     </div>
   <% end %>
 
+  <% if Flipper.enabled?(:lms_integration, current_user) %>
+    <div id="lms-integration-field" class="field form-group">
+      <label for="lms-integration-check" class="primary-checkpoint-container" id="lms-integration-check-elements"><h6>Integrate with LMS</h6>
+       <%= check_box_tag "lms-integration-check", checked: @assignment.lti_integrated? %>
+       <div class="primary-checkpoint"></div>
+      </label>
+      <div class="lms-integration-message"> <!-- Operated by script -->
+       <p>We will generate the required keys for integration after assignment creation.<a href=<%= lms_integration_tutorial %> target="_blank">Learn how to integrate CircuitVerse assignments with any LMS</a></p>
+      </div>
+    </div>
+  <% end %>
+
   <div id="name-field" class="field form-group">
     <h6><%= form.label :name %></h6>
     <%= form.text_field :name, id: :assignment_name, class: 'form-control form-input' %>
@@ -28,6 +40,11 @@
     <h6><%= form.label :grading_scale %></h6>
     <% if @assignment.new_record? %>
       <span> (Cannot be changed once set)</span>
+      <% if Flipper.enabled?(:lms_integration, current_user) %>
+        <div class="lms-grade-fixed-message"> <!-- Operated by script -->
+          <p>Grading Scale needs to be fixed at 1-100 for passing the grade back to LMS</a></p>
+        </div>
+      <% end %>
       <%= form.select :grading_scale, [["No Grade", :no_scale], ["Letter(A-F)", :letter], ["Percent(1-100)", :percent], ["Custom", :custom]], {}, class: 'form-control form-input' %>
     <% else %>
       <div class="assignments-noedit-grade-field">
@@ -54,7 +71,26 @@
   $(document).ready(function() {
     loadRestrictions(`JSON.parse(<%= raw @assignment.restrictions %>)`);
     loadDeadlinePicker();
+    loadltiIntegration();
   })
+
+  function loadltiIntegration(){
+    $('#lms-integration-check').change(function (e) {
+        e.preventDefault();
+        var radio = $(e.currentTarget);
+        if (radio.is(':checked')) {
+          $('.lms-integration-message').css("display", "block");
+          $('.lms-grade-fixed-message').css("display", "block");
+          $('#assignment_grading_scale').attr('readonly', 'readonly');
+          $('#assignment_grading_scale').val('percent');
+        } else {
+          $('.lms-integration-message').css("display", "none");
+          $('.lms-grade-fixed-message').css("display", "none");
+          $('#assignment_grading_scale').removeAttr('readonly');
+        }
+    });
+    $('#lms-integration-check').trigger('change');
+  }
 
   function loadDeadlinePicker() {
     $('#assignment_deadline').datetimepicker({
@@ -124,7 +160,6 @@
         .attr('value', JSON.stringify(updated_restrictions))
         .appendTo('#assignmentForm');
   }
-
 </script>
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.4.5/jquery.datetimepicker.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.4.5/jquery.datetimepicker.min.js"></script>

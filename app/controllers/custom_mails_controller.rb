@@ -14,6 +14,7 @@ class CustomMailsController < ApplicationController
 
   def show
     @user = current_user
+    @is_preview = true
   end
 
   def new; end

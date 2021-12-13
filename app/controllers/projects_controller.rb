@@ -10,6 +10,7 @@ class ProjectsController < ApplicationController
   before_action :check_delete_access, only: [:destroy]
   before_action :check_view_access, only: %i[show create_fork]
   before_action :sanitize_name, only: %i[create update]
+  before_action :sanitize_project_description, only: %i[show edit]
 
   # GET /projects
   # GET /projects.json
@@ -27,7 +28,7 @@ class ProjectsController < ApplicationController
   def show
     if current_visit && !Ahoy::Event.exists?(visit_id: current_visit.id,
                                              name: "Visited project #{@project.id}")
-      ahoy.track("Visited project " + @project.id.to_s)
+      ahoy.track("Visited project #{@project.id}")
       @project.increase_views(current_user)
     end
     @collaboration = @project.collaborations.new
@@ -35,47 +36,29 @@ class ProjectsController < ApplicationController
     commontator_thread_show(@project)
   end
 
-  # GET /projects/new
-  def new
-    @project = Project.new
-  end
-
   # GET /projects/1/edit
   def edit; end
 
   def change_stars
     star = Star.find_by(user_id: current_user.id, project_id: @project.id)
-    if !star.nil?
-      star.destroy
-      render js: "1"
-    else
+    if star.nil?
       @star = Star.new
       @star.user_id = current_user.id
       @star.project_id = @project.id
       @star.save
       @star.notify :users
       render js: "2"
+    else
+      star.destroy
+      render js: "1"
     end
   end
 
   def create_fork
-    # Relaxing fork constraints for now
-    # if current_user.id == @project.author_id
-    #   render plain: "Cannot fork your own project" and return
-    # end
-
     authorize @project
-
-    @project_new = @project.dup
-    @project_new.view = 1
-    @project_new.remove_image_preview!
-    @project_new.author_id = current_user.id
-    @project_new.forked_project_id = @project.id
-    @project_new.name = @project.name
-    @project_new.save
-
+    @project_new = @project.fork(current_user)
+    @project_new.save!
     @project_new.notify :users, key: "project.fork"
-
     redirect_to user_project_path(current_user, @project_new)
   end
 
@@ -86,7 +69,7 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
-        format.html { redirect_to user_project_path(current_user, @project), notice: "Project was successfully created." }
+        format.html { redirect_to user_project_path(@project.author_id, @project), notice: "Project was successfully created." }
         format.json { render :show, status: :created, location: @project }
       else
         format.html { render :new }
@@ -101,7 +84,7 @@ class ProjectsController < ApplicationController
     @project.description = params["description"]
     respond_to do |format|
       if @project.update(project_params)
-        format.html { redirect_to user_project_path(current_user, @project), notice: "Project was successfully updated." }
+        format.html { redirect_to user_project_path(@project.author_id, @project), notice: "Project was successfully updated." }
         format.json { render :show, status: :ok, location: @project }
       else
         format.html { render :edit }
@@ -115,7 +98,7 @@ class ProjectsController < ApplicationController
   def destroy
     @project.destroy
     respond_to do |format|
-      format.html { redirect_to user_path(current_user), notice: "Project was successfully destroyed." }
+      format.html { redirect_to user_path(@project.author_id), notice: "Project was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -152,5 +135,14 @@ class ProjectsController < ApplicationController
 
     def sanitize_name
       params[:project][:name] = sanitize(project_params[:name])
+    end
+
+    # Sanitize description before passing to view
+    def sanitize_project_description
+      @project.description = sanitize(
+        @project.description,
+        tags: %w[img p strong em a sup sub del u span h1 h2 h3 h4 hr li ol ul blockquote],
+        attributes: %w[style src href alt title target]
+      )
     end
 end

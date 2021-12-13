@@ -2,15 +2,19 @@
 
 class Assignment < ApplicationRecord
   validates :name, length: { minimum: 1 }
+  validates :grading_scale, inclusion: {
+    in: %w[percent],
+    message: "needs to be fixed at 1-100 for passing the grade back to LMS"
+  }, if: :lti_integrated?
   belongs_to :group
-  has_many :projects, class_name: "Project", foreign_key: "assignment_id", dependent: :nullify
+  has_many :projects, class_name: "Project", dependent: :nullify
 
   after_commit :send_new_assignment_mail, on: :create
   after_commit :set_deadline_job
   after_commit :send_update_mail, on: :update
 
   enum grading_scale: { no_scale: 0, letter: 1, percent: 2, custom: 3 }
-  default_scope { order(deadline: :asc)}
+  default_scope { order(deadline: :asc) }
   has_many :grades, dependent: :destroy
 
   def send_new_assignment_mail
@@ -29,7 +33,7 @@ class Assignment < ApplicationRecord
 
   def set_deadline_job
     if status != "closed"
-      if deadline - Time.zone.now > 0
+      if (deadline - Time.zone.now).positive?
         AssignmentDeadlineSubmissionJob.set(wait: ((deadline - Time.zone.now) / 60).minute).perform_later(id)
       else
         AssignmentDeadlineSubmissionJob.perform_later(id)
@@ -43,6 +47,10 @@ class Assignment < ApplicationRecord
 
   def elements_restricted?
     restrictions != "[]"
+  end
+
+  def lti_integrated?
+    lti_consumer_key.present? && lti_shared_secret.present?
   end
 
   def project_order

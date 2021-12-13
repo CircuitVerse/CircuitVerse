@@ -66,7 +66,15 @@
 
 .assignments-list-group {
   list-style: none;
+  max-height: 480px;
+  overflow-y: auto;
   text-align: left;
+}
+
+@media (max-width: 900px) {
+  .assignments-list-group {
+    max-height: 300px;
+  }
 }
 
 .assignments-username-truncate {
@@ -173,6 +181,25 @@ a:not([href]):not([tabindex]) {
   .assignments-grade-horizontal-rule {
     display: block;
     line-height: normal;
+  }
+}
+
+.assignments-description img {
+  max-width: 100%;
+}
+
+.primary-checkpoint {
+  background-color: $white;
+  border: 1px solid $secondary-green;
+  cursor: pointer;
+  padding-left: 4px;
+  padding-top: 4px;
+  text-align: center;
+
+  &:hover {
+    border-color: $primary-green;
+    opacity: 1;
+    transition: .2s ease-in-out;
   }
 }
 //assignment details ends

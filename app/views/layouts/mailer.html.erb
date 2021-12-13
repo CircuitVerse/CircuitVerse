@@ -28,5 +28,8 @@
       </div>
     </div>
     <h6 class="mailer-copyright-text">Copyright &copy; 2020 CircuitVerse. All rights reserved. For any issues, reach out to us support@circuitverse.org</h6>
+    <% unless @is_preview %>
+      <h6> <%= link_to "Unsubscribe from email notifications", mailkick_unsubscribe_url %> </h6>
+    <% end %>
   </body>
 </html>

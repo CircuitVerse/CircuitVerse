@@ -9,16 +9,16 @@ describe "Group management", type: :system do
     @group = FactoryBot.create(:group, mentor: @user)
   end
 
-  before(:each) do
-    driven_by(:selenium)
+  before do
+    driven_by(:selenium_chrome_headless)
     login_as(@user, scope: :user)
   end
 
-  after(:each) do
+  after do
     Warden.test_reset!
   end
 
-  it "should create a group" do
+  it "creates a group" do
     visit "/groups/new"
     fill_in "group[name]", with: "Test"
     click_button "Save"
@@ -26,7 +26,7 @@ describe "Group management", type: :system do
     expect(page).to have_text("Group was successfully created.")
   end
 
-  it "should not create a group when name is blank" do
+  it "does not create a group when name is blank" do
     visit "/groups/new"
     fill_in "group[name]", with: ""
     click_button "Save"
@@ -34,12 +34,13 @@ describe "Group management", type: :system do
     expect(page).to have_text("Name is too short (minimum is 1 character)")
   end
 
-  it "should add a member to the group" do
+  it "adds a member to the group" do
     visit "/groups/#{@group.id}"
     click_button "+ Add Members"
     execute_script "document.getElementById('addmemberModal').style.display='block'"
     execute_script "document.getElementById('addmemberModal').style.opacity=1"
-    fill_in "emails", with: @user2.email
+    fill_in "group_email_input", with: @user2.email
+    fill_in "group_email_input", with: " "
     click_button "Add members"
 
     expect(page).to have_text(
@@ -47,7 +48,7 @@ describe "Group management", type: :system do
     )
   end
 
-  it "should remove a member from the group" do
+  it "removes a member from the group" do
     @group.users.append(@user2)
     visit "/groups/#{@group.id}"
     click_on "Remove"
@@ -55,11 +56,10 @@ describe "Group management", type: :system do
     execute_script "document.getElementById('deletememberModal').style.opacity=1"
     click_on "Delete"
 
-
     expect(page).to have_text("Group member was successfully removed.")
   end
 
-  it "should change the group name" do
+  it "changes the group name" do
     visit "/groups/#{@group.id}"
     click_on "Edit"
     fill_in "group[name]", with: "Example group"

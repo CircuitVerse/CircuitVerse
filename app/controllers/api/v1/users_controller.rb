@@ -50,6 +50,6 @@ class Api::V1::UsersController < Api::V1::BaseController
     end
 
     def user_params
-      params.permit(:name, :educational_institute, :country, :subscribed)
+      params.permit(:name, :locale, :educational_institute, :country, :subscribed)
     end
 end

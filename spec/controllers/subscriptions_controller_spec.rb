@@ -3,7 +3,7 @@
 require "rails_helper"
 
 describe Users::SubscriptionsController, type: :request do
-  it "should get index page" do
+  it "gets index page" do
     get root_path
     expect(response.status).to eq(200)
   end

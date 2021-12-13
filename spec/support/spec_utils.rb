@@ -30,8 +30,7 @@ module SpecUtils
 
   def file_like_object
     dummy_file = Struct.new(:path) do
-      def write(data)
-      end
+      def write(data); end
     end
 
     dummy_file.new(Faker::File.file_name)

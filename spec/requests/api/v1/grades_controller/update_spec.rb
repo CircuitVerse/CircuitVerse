@@ -21,7 +21,7 @@ RSpec.describe Api::V1::GradesController, "#update", type: :request do
       end
 
       it "returns status unauthenticated" do
-        expect(response).to have_http_status(401)
+        expect(response).to have_http_status(:unauthorized)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -35,7 +35,7 @@ RSpec.describe Api::V1::GradesController, "#update", type: :request do
       end
 
       it "returns status unauthorized" do
-        expect(response).to have_http_status(403)
+        expect(response).to have_http_status(:forbidden)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -49,7 +49,7 @@ RSpec.describe Api::V1::GradesController, "#update", type: :request do
       end
 
       it "returns status not_found" do
-        expect(response).to have_http_status(404)
+        expect(response).to have_http_status(:not_found)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -63,7 +63,7 @@ RSpec.describe Api::V1::GradesController, "#update", type: :request do
       end
 
       it "returns status bad_request" do
-        expect(response).to have_http_status(400)
+        expect(response).to have_http_status(:bad_request)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -77,7 +77,7 @@ RSpec.describe Api::V1::GradesController, "#update", type: :request do
       end
 
       it "returns status unprocessable_identity" do
-        expect(response).to have_http_status(422)
+        expect(response).to have_http_status(:unprocessable_entity)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -91,7 +91,7 @@ RSpec.describe Api::V1::GradesController, "#update", type: :request do
       end
 
       it "returns status accepted & grade details" do
-        expect(response).to have_http_status(202)
+        expect(response).to have_http_status(:accepted)
         expect(response).to match_response_schema("grade")
         expect(response.parsed_body["data"]["attributes"]["grade"]).to eq("B")
       end

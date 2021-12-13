@@ -20,8 +20,10 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def check_edit_access?
-    ((!user.nil? && project.author_id == user.id && project.project_submission != true) \
-    || (!user.nil? && Collaboration.exists?(project_id: project.id, user_id: user.id)))
+    return false if user.nil? || project.project_submission
+
+    project.author_id == user.id || \
+      Collaboration.exists?(project_id: project.id, user_id: user.id)
   end
 
   def check_view_access?

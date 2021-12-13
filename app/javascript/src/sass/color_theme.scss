@@ -1,0 +1,655 @@
+//global
+$baseDefault: #454545;
+$text-lite: #fff;
+$text-dark: #000;
+$borderDefault: #fff;
+
+//nav
+$bg-navbar: #454545;
+$text-navbar--alt: black;
+$qp-br-tl: #333333;
+$qp-br-rd: #535353;
+$qp-box-shadow-1: #3b3b3b;
+$qp-box-shadow-2: #4f4f4f;
+
+//tabs bar
+$bg-tabs-grey: #8b8b8b;
+$bg-circuit: #bbbbbb;
+$br-circuit: #454545; //bg of inative circuit
+$br-circuit-cur: white;
+$text-circuit: white;
+
+//dialog background
+$bg-moz: hsla(0, 0%, 27%, 0.902); //blur bg
+$bg-chr: hsla(0, 0%, 27%, 0.702); //blur bg
+
+//ce panel
+$bg-icons-grey: #7d7d7d;
+$text-panel: white;
+
+//
+$bg-text-grey: #cacaca; //dropdown menu hover background
+$bg-secondary-grey: #bbbbbb; //input border bottom & select background
+$br-secondary: #7d7d7d;
+
+
+//btn
+$bg-toggle-btn-primary: #42b983;
+$bg-primary-btn-hov: #3ca877; //custom
+$btn-danger-red: #dc5656;
+$btn-danger-red-dark: #b03662; //hover
+
+$cus-btn-hover-bg: #ddd;
+$cus-btn-hover-text: #000;
+
+
+//context menu
+$context-text: white;
+$context-text-hov: black;
+
+//small components
+$disable: #6c8b93;
+$cus-radio_label: #656565;
+
+//canvas
+$canvas-primary-grey: #eee;
+$canvas-secondary-white: white;
+$node: green;
+$node-norm: green;
+$stroke: black;
+$secondary-stroke: red;
+$fill: white;
+$input-text: green;
+$hover-and-sel: rgba(255, 255, 32,0.8);
+$wire-draw: black;
+$wire-cnt: green;
+$wire-pow: Lime;
+$wire-sel: blue;
+$wire-lose: red;
+$wire-norm: black;
+$mini-map: green;
+$mini-map-stroke: darkgreen;
+$text: black;
+$splitter: black;
+$output-rect: blue;
+
+:root{
+  --primary: $baseDefault;
+
+  --bg-navbar: $bg-navbar;
+  --text-navbar--alt: $text-navbar--alt;
+  --qp-br-tl: $qp-br-tl;
+  --qp-br-rd: $qp-br-rd;
+
+  --br-circuit: $br-circuit;
+  --br-circuit-cur: $br-circuit-cur;
+  --bg-tabs: $bg-tabs-grey;
+  --bg-circuit: $bg-circuit;
+
+  --text-lite: $text-lite;
+  --text-dark: $text-dark;
+  --text-panel: $text-panel;
+  --text-circuit: $text-circuit;
+
+  --context-text: $context-text;
+  --context-text-hov: $context-text-hov;
+
+  --cus-radio_label: $cus-radio_label;
+
+  --br-secondary: $br-secondary;
+
+  --br-primary: $borderDefault;
+  --bg-primary-moz: $bg-moz;
+  --bg-primary-chr: $bg-chr;
+  --bg-icons: $bg-icons-grey;
+  --bg-text: $bg-text-grey;
+  --bg-secondary: $bg-secondary-grey;
+  --canvas-stroke: $canvas-primary-grey;
+  --canvas-fill: $canvas-secondary-white;
+  --bg-toggle-btn-primary: $bg-toggle-btn-primary;
+  --primary-btn-hov: $bg-primary-btn-hov;
+  --btn-danger: $btn-danger-red;
+  --btn-danger-darken: $btn-danger-red-dark;
+  --disable: $disable;
+  --qp-box-shadow-1: $qp-box-shadow-1;
+  --qp-box-shadow-2: $qp-box-shadow-2;
+  --cus-btn-hov--bg: $cus-btn-hover-bg;
+  --cus-btn-hov-text: $cus-btn-hover-text;
+  --node: $node;
+  --stroke: $stroke;
+  --fill: $fill;
+  --hover-and-sel: $hover-and-sel;
+  --wire-draw: $wire-draw;
+  --wire-cnt: $wire-cnt;
+  --wire-pow: $wire-pow;
+  --wire-sel: $wire-sel;
+  --wire-lose: $wire-lose;
+  --mini-map: $mini-map;
+  --mini-map-stroke: $mini-map-stroke;
+  --input-text: $input-text;
+  --secondary-stroke: $secondary-stroke;
+  --text: $text;
+  --wire-norm: $wire-norm;
+  --node-norm: $node-norm;
+  --splitter: $splitter;
+  --output-rect: $output-rect;
+}
+
+::-moz-selection {
+  /* Code for Firefox */
+  color: var(--text-lite);
+  background: var(--bg-icons);
+}
+
+::selection {
+  color: var(--text-lite);
+  background: var(--bg-icons);
+}
+
+.navbar-menu > li > a {
+  color: #fff;
+}
+
+.projectName {
+  color: #fff;
+}
+
+.header {
+  background: var(--bg-navbar);
+}
+
+.quick-btn {
+  //neumorph
+  background: var(--bg-navbar);
+  border-top: 1.5px solid var(--qp-br-tl);
+  border-left: 1.5px solid var(--qp-br-tl);
+  border-right: 1.5px solid var(--qp-br-rd);
+  border-bottom: 1.5px solid var(--qp-br-rd);
+}
+
+.dropdown > ul {
+  background-color: var(--bg-primary-moz);
+  border: 0.5px solid var(--bg-tabs);
+}
+
+@supports (backdrop-filter: blur()) {
+  .dropdown > ul {
+    background-color: var(--bg-primary-chr);
+  }
+}
+
+.dropdown > ul::before {
+  border-top: 1px solid var(--bg-tabs);
+  border-right: 1px solid var(--bg-tabs);
+}
+
+.dropdown > ul::after {
+  border-top: 1.5px solid var(--primary);
+}
+
+.dropdown-menu > li > a {
+  color: #fff !important;
+}
+
+.signIn-btn {
+  color: #fff !important;
+}
+
+.dropdown-menu > li > a:hover {
+  color: var(--text-navbar--alt) !important; 
+  background: var(--bg-text);
+}
+
+#contextMenu {
+  border: 0.5px solid var(--bg-tabs);
+  background-color: var(--bg-primary-moz);
+  color: var(--context-text);
+}
+
+#contextMenu ul li:hover {
+  color: var(--context-text-hov);
+  background: var(--bg-text);
+}
+
+@supports (backdrop-filter: blur()) {
+  #contextMenu {
+    background-color: var(--bg-primary-chr);
+  }
+}
+
+.draggable-panel {
+  background: var(--primary);
+  border: 2px solid var(--br-primary);
+  box-shadow: 0px 0px 10px #4545457f;
+}
+
+.panel-header {
+  color: var(--text-panel);
+  background: var(--primary);
+}
+
+.panel-body {
+  color: var(--text-panel);
+  border-top: 1px solid var(--br-secondary);
+}
+
+.panel-header::before {
+  border-top: 2px solid var(--text-panel);
+}
+
+.search-input {
+  color: var(--text-panel);
+  border: 1px solid var(--br-secondary);
+}
+
+.timing-diagram-toolbar input {
+  color: var(--text-panel);
+  border: 1px solid var(--br-secondary);
+}
+
+.search-results, .search-close {
+  color: var(--text-panel);
+}
+
+#exitViewBtn {
+  border: 1px solid var(--br-primary);
+}
+.ce-hidden,.prop-hidden, #exitViewBtn {
+  color: var(--text-panel);
+  background: var(--primary);
+}
+
+.ui-accordion-header {
+  color: var(--text-panel) !important;
+}
+
+.panelHeader:hover {
+  background-color: var(--bg-icons);
+}
+
+.panelHeader:after,
+.panelHeader:before {
+  background-color: var(--br-primary);
+  border: 1px solid var(--br-primary);
+}
+
+.ui-accordion .ui-accordion-content {
+  background-color: white;
+}
+
+.icon {
+  background-color: white;
+}
+
+.custom-tooltip-styling {
+  background-color: var(--bg-icons) !important;
+  color: var(--text-panel) !important;
+  border: 1px solid var(--br-primary);
+}
+
+.icon:hover {
+  background-color: var(--bg-icons);
+}
+
+.search-results::-webkit-scrollbar-thumb {
+  background-color: #585858;
+}
+
+.search-results::-webkit-scrollbar-thumb:hover {
+  background-color: var(--primary);
+}
+
+.timing-diagram-toolbar {
+  background-color: var(--bg-tabs);
+}
+
+#tabsBar {
+  background-color: var(--bg-tabs);
+  border-top: 1px solid var(--br-primary);
+  border-bottom: 1px solid var(--br-primary);
+}
+
+#tabsBar .circuits  {
+  border: 1px solid var(--br-circuit);
+}
+
+#tabsBar .circuits {
+  color: var(--text-circuit);
+  background-color: var(--bg-tabs);
+}
+
+#tabsBar .current {
+  color: var(--text-circuit);
+  background-color: var(--bg-circuit);
+  border: 1px solid var(--br-circuit-cur);
+}
+
+#tabsBar .current > span {
+  // color: var(--text-panel);
+
+}
+
+#tabsBar button {
+  color: var(--text-panel);
+  background-color: var(--primary);
+  border: 1px solid var(--br-circuit-cur);
+}
+
+#tabsBar button:hover {
+  color: var(--text-panel);
+  // background: var(--bg-tabs);
+  // border: 1px solid var(--primary);
+  border: 1px solid var(--br-circuit-cur);
+}
+
+.moduleProperty input, 
+.moduleProperty textarea {
+  color: var(--text-panel);
+}
+
+.moduleProperty {
+  background: var(--primary);
+  border: 2px solid var(--br-primary);
+  box-shadow: 0px 0px 10px #4545457f;
+  color: var(--text-panel);
+}
+
+#moduleProperty-title {
+  color: var(--text-panel);
+}
+
+.moduleProperty input,
+.moduleProperty select,
+.moduleProperty textarea {
+  border: 1px solid var(--br-secondary) !important;
+  color: var(--text-panel);
+}
+
+.moduleProperty input:focus,
+.moduleProperty select:focus,
+.moduleProperty textarea:focus {
+  color: var(--text-panel);
+  border-color: var(--br-primary) !important;
+}
+
+.input-group div button {
+  color: var(--text-lite);
+}
+
+.input-group-prepend button:hover {
+  background: rgba(202, 202, 202, 0.5);
+}
+
+.input-group-append button:hover {
+  background: rgba(202, 202, 202, 0.5);
+}
+
+.slider {
+  background-color: #ccc;
+  box-shadow: inset 0px 0px 5px rgba(69, 69, 69, 0.255);
+}
+
+.slider:before {
+  background-color: white;
+  box-shadow: 0px 0px 7px rgba(69, 69, 69, 0.8);
+}
+
+input:checked + .slider {
+  background-color: var(--bg-toggle-btn-primary);
+}
+
+.custom-btn--primary {
+  background-color: var(--bg-toggle-btn-primary);
+  color: var(--text-lite);
+}
+.custom-btn--primary:hover {
+  background-color: var(--primary-btn-hov);
+  color: var(--text-lite);
+}
+.custom-btn--secondary {
+  border: 1px solid white;
+  color: var(--text-lite);
+}
+.custom-btn--secondary:hover {
+  background-color: #ddd;
+  color: var(--cus-btn-hov-text);
+}
+
+.custom-btn--secondary:active,
+.custom-btn--secondary:focus {
+  border: 1px solid white;
+}
+
+.custom-btn--tertiary {
+  background-color: var(--btn-danger);
+  color: var(--text-lite);
+}
+
+.custom-btn--tertiary:hover {
+  background-color: var(--btn-danger-darken);
+  color: var(--text-lite);
+}
+
+#HelpButton {
+  border: 1px solid var(--br-primary);
+  color: var(--text-panel);
+}
+
+select {
+  background: var(--bg-secondary);
+  background-color: var(--primary);
+  color: var(--text-lite);
+}
+
+#layoutDialog {
+  border: 2px solid var(--br-primary);
+  box-shadow: 0px 0px 10px #4545457f;
+  background-color: var(--primary);
+  color: var(--text-panel)
+}
+
+#layoutDialog > div span:before {
+  color: var(--text-panel)
+}
+
+.panel-heading {
+  color: var(--text-panel)
+}
+
+.ui-dialog {
+  border: .5px solid var(--br-primary) !important;
+  background: var(--bg-primary-moz) !important;
+}
+
+@supports (backdrop-filter: blur()) {
+  .ui-dialog {
+    background-color: var(--bg-primary-chr) !important;
+  }
+}
+
+.ui-widget-header {
+  color: var(--text-lite) !important;
+  border-bottom: 0.5px solid var(--br-primary);
+}
+
+.option {
+  background-color: white;
+  color: var(--cus-radio_label);
+}
+
+.custom-radio span {
+  border: 3px solid var(--cus-radio_label);
+}
+
+.custom-radio span:after {
+  background: var(--cus-radio_label);
+}
+
+#saveImageDialog {
+  border: 1px solid var(--br-secondary);
+}
+.download-dialog-section-2 {
+  color: var(--text-lite);
+}
+
+.download-dialog-section-2 .active-btn {
+  background: var(--bg-toggle-btn-primary);
+  color: var(--text-lite);
+}
+
+.download-dialog-section-2 .inactive-btn {
+  color: var(--text-lite);
+}
+
+.download-dialog-section-3 {
+  border: 1px solid var(--br-secondary);
+}
+
+.download-dialog-section-3 > span {
+  color: var(--text-lite);
+}
+
+.ui-dialog-titlebar-close::before:hover {
+  background-color: var(--primary);
+}
+
+.ui-dialog .ui-dialog-buttonpane button:hover {
+  color: var(--cus-btn-hov-text) !important;
+  background: var(--cus-btn-hov--bg);
+  border: 1px solid transparent;
+}
+
+.render-btn {
+  color: var(--text-lite);
+  border: 1px solid white;
+}
+
+.render-btn:active {
+  border: 1px solid var(--br-primary);
+}
+
+.render-btn:hover {
+  background: #3ba374;
+  color: var(--text-lite);
+  border: 1px solid transparent;
+}
+
+#combinationalAnalysis {
+  border: 1px solid var(--br-secondary);
+  color: var(--text-lite);
+}
+
+#combinationalAnalysis p input {
+  border-bottom: 1px solid white !important;
+  color: var(--text-lite);
+}
+
+.content-table tr th {
+  background-color: var(--primary);
+  color: var(--text-lite);
+}
+
+.content-table th,
+.content-table td {
+  background-color: #f3f3f3;
+}
+
+#openProjectDialog {
+  color: var(--text-lite);
+}
+
+#openProjectDialog > label {
+  border: 1px solid var(--br-primary);
+  color: var(--text-lite);
+}
+
+#openProjectDialog > label > span {
+  border: 3px solid white;
+}
+
+#openProjectDialog > label > span:after {
+  background: var(--text-lite);
+}
+
+#insertSubcircuitDialog {
+  color: var(--text-lite);
+}
+
+.disable::after {
+  background: var(--disable);
+}
+
+#bitconverterprompt {
+  color: var(--text-lite);
+}
+
+#bitconverterprompt input {
+  border-bottom: 1px solid var(--br-primary);
+  color: var(--text-lite);
+}
+
+#bitconverterprompt input:focus {
+  border-bottom: 1px solid var(--br-primary);
+}
+
+#bitconverterprompt label {
+  color: var(--text-lite) !important;
+}
+
+.radio-green {
+  background: #42b983;
+}
+
+.btn-group-toggle {
+  border: 1px solid var(--br-secondary) !important;
+}
+
+.set {
+  border: 2px solid cyan !important;
+}
+
+.theme {
+  color: var(--text-panel) !important;
+  background: var(--bg-icons) !important;
+  border-radius: 1.5px;
+}
+
+.input-group-prepend button:hover {
+  background: var(--bg-secondary) !important;
+  color: var(--text-lite) !important;
+}
+
+.input-group-append button:hover {
+  background:  var(--bg-secondary) !important;
+  color: var(--text-lite) !important;
+
+}
+
+.input-group-prepend button {
+  color: var(--text-panel) !important;
+}
+
+.input-group-append button {
+  color: var(--text-panel) !important;
+}
+
+#Rectangle_1072 {
+  stroke: var(--text-panel);
+}
+
+#Path_36 {
+  fill: var(--text-panel);
+}
+
+.layout--btn-group {
+  display: block;
+  margin-right: 25px;
+  margin-top: -10px;
+}
+
+// Ember view
+#clockProperty{
+  background: var(--primary);
+  border: 1px solid var(--br-primary);
+  color: var(--text-panel);
+}

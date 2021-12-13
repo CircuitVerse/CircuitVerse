@@ -12,7 +12,7 @@ RSpec.describe Api::V1::UsersController, "#me", type: :request do
       end
 
       it "returns 401 :unauthorized and should have jsonapi errors" do
-        expect(response).to have_http_status(401)
+        expect(response).to have_http_status(:unauthorized)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -24,7 +24,7 @@ RSpec.describe Api::V1::UsersController, "#me", type: :request do
       end
 
       it "returns the logged in user" do
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
         expect(response).to match_response_schema("user")
       end
     end

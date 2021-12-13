@@ -1,4 +1,4 @@
-version: '3.1'
+version: "3.1"
 services:
   db:
     image: postgres
@@ -12,6 +12,8 @@ services:
     build: .
     command: bundle exec sidekiq -q default -q mailers
     volumes:
+      - /circuitverse/.bundle
+      - /circuitverse/node_modules
       - .:/circuitverse
       - ./config/database.docker.yml:/circuitverse/config/database.yml
     environment:
@@ -20,6 +22,8 @@ services:
     build: .
     entrypoint: /circuitverse/bin/docker_run
     volumes:
+      - /circuitverse/.bundle
+      - /circuitverse/node_modules
       - .:/circuitverse
       - ./config/database.docker.yml:/circuitverse/config/database.yml
     ports:
@@ -31,8 +35,23 @@ services:
     environment:
       REDIS_URL: "redis://redis:6379/0"
       CIRCUITVERSE_USE_SOLR: "false"
+      WEBPACKER_DEV_SERVER_HOST: "webpacker"
   redis:
     image: redis
+  webpacker:
+    build: .
+    environment:
+      - NODE_ENV=development
+      - RAILS_ENV=development
+      - WEBPACKER_DEV_SERVER_HOST=0.0.0.0
+    entrypoint: /circuitverse/bin/docker_webpacker_run
+    volumes:
+      - .:/circuitverse
+      - /circuitverse/.bundle
+      - /circuitverse/node_modules
+    ports:
+      - '127.0.0.1:3035:3035'
+
 # volumes:
-  # app:
-  # public:
+# app:
+# public:

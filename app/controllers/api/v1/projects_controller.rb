@@ -43,7 +43,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
   end
 
   def image_preview
-    @project = Project.open.find(params[:id])
+    @project = Project.open.friendly.find(params[:id])
     render json: { "project_preview": request.base_url + @project.image_preview.url }
   end
 
@@ -93,7 +93,6 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
   private
 
-    # rubocop:disable Metrics/AbcSize
     def set_project
       if params[:user_id]
         @author = User.find(params[:user_id])
@@ -103,7 +102,6 @@ class Api::V1::ProjectsController < Api::V1::BaseController
         @author = @project.author
       end
     end
-    # rubocop:enable Metrics/AbcSize
 
     def load_index_projects
       @projects = if current_user.nil?

@@ -1,0 +1,86 @@
+<% if @user.name %>
+  <% content_for :title, t("users.circuitverse.groups.title", name: @user.name) %>
+<% else %>
+  <% content_for :title, t("users.circuitverse.groups.alt_title") %>
+<% end %>
+
+
+<div class="container">
+  <% if notice %>
+  <div class="row" id='alertdiv'>
+    <div class="alert alert-success alert-dismissible container text-center">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <h6><%= notice %></h6>
+    </div>
+  </div>
+  <% end %>
+  <div class="row center-row">
+    <div class="col-xs col-sm col-md col-lg">
+      <h1 class="submain-heading"><%= t("users.circuitverse.groups.main_heading") %></h1>
+      <%= link_to t("users.circuitverse.groups.make_new_group"), new_group_path, class: "btn primary-button groups-add-primary-button" %>
+    </div>
+  </div>
+  <br>
+  <% if @groups_mentored.present? %>
+    <h4 class="submain-heading"><%= t("users.circuitverse.groups.groups_user_mentor_to") %></h4>
+    <div class="row center-row">
+      <% @groups_mentored.each do |group| %>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+          <div class="groups-card groups-mentor-card">
+            <div class="groups-mentor-card-name"><%= group.name %></div>
+            <div>
+              <p><%= t("users.circuitverse.groups.total_members",group_member_count: group.group_member_count ) %> </p>
+            </div>
+            <div class="groups-mentor-card-mini-buttons">
+              <%= link_to group, class: "mini-button groups-mentor-card-view-mini-button" do %>
+                <%= image_tag("SVGs/viewGroup.svg", alt: "View Group") %>
+                <span><%= t("view") %></span>
+              <% end %>
+              <%= link_to edit_group_path(group), class: "mini-button groups-mentor-card-edit-mini-button" do %>
+                <%= image_tag("SVGs/editGroup.svg", alt: "Edit Group") %>
+                <span><%= t("edit") %></span>
+              <% end %>
+              <%= link_to '#', class: "mini-button groups-mentor-card-delete-mini-button", data: {toggle: "modal", target: "#deletegroupModal", currentgroup: group.id} do %>
+                <%= image_tag("SVGs/deleteGroup.svg", alt: "Delete Group") %>
+                <span><%= t("delete") %></span>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+  <br>
+  <% if @user.groups.count!=0 %>
+    <h4 class="submain-heading"><%= t("users.circuitverse.groups.groups_user_belong_to") %></h4>
+    <div class="row center-row">
+      <% @user.groups.each do |group| %>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+          <div class="groups-card groups-member-card">
+            <div class="groups-member-card-details">
+              <div class="groups-mentor-card-name groups-member-card-name"><%= group.name %></div>
+              <p><%= t("users.circuitverse.groups.total_members", group_member_count: group.group_members.count) %></p>
+            </div>
+            <div class="groups-mentor-card-buttons">
+              <%= link_to group, class: "mini-button groups-mentor-card-view-mini-button groups-member-card-button" do %>
+                <%= image_tag("SVGs/viewGroup.svg", alt: "View Group") %>
+                <span><%= t("view") %></span>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+  <%= render partial: "delete_group_confirmation_modal" %>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#deletegroupModal").on("show.bs.modal", function(e) {
+        let group = $(e.relatedTarget).data('currentgroup');
+        $(e.currentTarget).find('#groups-group-delete-button').attr("href",
+        "/groups/" + group.toString());
+    });
+  });
+</script>

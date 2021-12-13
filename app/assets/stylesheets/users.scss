@@ -1,4 +1,10 @@
+:root {
+  --black: rgb(0,0,0);
+  --grey: rgb(108, 117, 125);
+}
+
 //passwords
+
 .users-image {
   margin-bottom: 15px;
   margin-top: 30px;
@@ -30,13 +36,33 @@
 
 .users-primary-checkpoint {
   h6 {
-    display: inline-block;
+    display: block;
     margin-bottom: 0;
     margin-right: 10px;
   }
 }
 
+.primary-checkpoint {
+  background-color: $white;
+  border: 1px solid $secondary-green;
+  cursor: pointer;
+  padding-left: 4px;
+  padding-top: 4px;
+  text-align: center;
+
+  &:hover {
+    border-color: $primary-green;
+    opacity: 1;
+    transition: .2s ease-in-out;
+  }
+}
+
+.right-shift {
+  margin-left: 30px;
+}
+
 .users-text-container {
+  margin-top: 20px;
   padding-left: 4px;
   padding-top: 9px;
 }
@@ -50,6 +76,7 @@
 
   .users-text-container {
     display: block;
+    margin-top: 20px;
     padding-top: 6px;
   }
 }
@@ -93,7 +120,6 @@
 
 .password-icon {
   color: $secondary-green;
-  height: 40px;
   width: 40px;
 }
 
@@ -112,6 +138,7 @@
 }
 
 .users-login-primary-button {
+  margin-top: 20px;
   padding: 8px 25px;
 }
 //login-register ends
@@ -188,6 +215,7 @@
 .users-circuits-container {
   border: 1px solid $form-border-grey;
   margin-top: 0;
+  min-height: 348px;
   padding-bottom: 20px;
   padding-top: 30px;
 }
@@ -222,15 +250,22 @@
   display: block;
   font-size: 18px;
   font-weight: 600;
-  max-height: 30px;
-  max-width: 340px;
   padding-bottom: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  position: relative;
 
   p {
     margin-bottom: 0;
+    max-height: 30px;
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
+}
+
+.users-card-name:hover .tooltiptext {
+  opacity: 1;
+  visibility: visible;
 }
 
 .users-tag-container {
@@ -253,6 +288,46 @@
 .users-card-footer {
   background-color: $card-green;
   border-top: 1px solid $primary-green;
+}
+
+.users-circuits-navbar {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+
+  input {
+    border: 0;
+    border-left: 1px solid $form-border-grey;
+    border-radius: 0;
+    font-size: 16px;
+    margin: 0;
+    padding: 7px 10px 7px 35px;
+    transition: .2s ease-in-out;
+
+    &:focus {
+      border-color: $primary-green;
+      transition: .2s ease-in-out;
+    }
+  }
+}
+.search-icon-dashboard {
+  margin-bottom: -60px;
+  margin-left: 7px;
+}
+.users-circuits-search {
+  align-items: center;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  padding-top: 20px;
+}
+
+.fa.fa-search.user-circuits-search-icon {
+  color: $fa-search-grey;
+  margin-left: 28px;
+  margin-right: -28px;
+  z-index: 2;
+
 }
 
 .users-circuits-tab {
@@ -294,10 +369,6 @@
   width: 100%;
 }
 
-.users-favourites-tab {
-  margin-left: -5px;
-}
-
 //breakpoints
 @media (max-width: 400px) {
   .users-card {
@@ -308,5 +379,16 @@
     font-size: 16px;
     padding: 4px 15px;
   }
+}
+
+.tt-dropdown-menu {
+  background-color: $white;
+  border-right: 1px solid var(--black);
+  border-bottom: 1px solid var(--black);
+  box-shadow: 1px 1px 2px var(--grey),
+              -1px 1px 2px var(--grey);
+  max-height: 40vh;
+  overflow-y: scroll;
+  padding: 10px;
 }
 //user profile ends

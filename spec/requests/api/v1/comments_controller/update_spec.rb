@@ -18,7 +18,7 @@ RSpec.describe Api::V1::CommentsController, "#update", type: :request do
       end
 
       it "returns status unauthorized" do
-        expect(response).to have_http_status(401)
+        expect(response).to have_http_status(:unauthorized)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -31,7 +31,7 @@ RSpec.describe Api::V1::CommentsController, "#update", type: :request do
       end
 
       it "returns status forbidden" do
-        expect(response).to have_http_status(403)
+        expect(response).to have_http_status(:forbidden)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -45,7 +45,7 @@ RSpec.describe Api::V1::CommentsController, "#update", type: :request do
       end
 
       it "returns status unprocessable_identity & can't be blank error" do
-        expect(response).to have_http_status(422)
+        expect(response).to have_http_status(:unprocessable_entity)
         expect(response.parsed_body).to have_jsonapi_error("Comment can't be blank")
       end
     end
@@ -59,7 +59,7 @@ RSpec.describe Api::V1::CommentsController, "#update", type: :request do
       end
 
       it "returns status accepted & edited comment" do
-        expect(response).to have_http_status(202)
+        expect(response).to have_http_status(:accepted)
         expect(response).to match_response_schema("comment")
         expect(response.parsed_body["data"]["attributes"]["body"]).to eq("updated_body")
       end
