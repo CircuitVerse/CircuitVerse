@@ -16,7 +16,7 @@ gem "omniauth-facebook"
 gem "omniauth-github"
 gem "omniauth-google-oauth2"
 gem "omniauth-microsoft-office365"
-gem "kt-paperclip", "~> 6.4", ">= 6.4.1"
+gem "kt-paperclip"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 6.1.4"
 # Use Puma as the app server
@@ -118,7 +118,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "byebug", platforms: %i[mri mingw x64_mingw]
   # Adds support for Capybara system testing and selenium driver
-  gem "coveralls"
+  gem 'coveralls_reborn', '~> 0.23.1', require: false
   gem "erb_lint", require: false
   gem "factory_bot_rails"
   gem "faker"
