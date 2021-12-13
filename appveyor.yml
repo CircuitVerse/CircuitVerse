@@ -15,6 +15,7 @@ services:
 install:
   - ps: Install-Product node $env:nodejs_version
   - set PATH=C:\Ruby30\bin;%PATH%
+  - ruby -v
   - bundle config --local path vendor/bundle
   - bundle install --with postgresql
   - yarn
