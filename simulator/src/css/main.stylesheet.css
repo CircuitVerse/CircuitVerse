@@ -1315,8 +1315,9 @@ font: inherit;
 
 #bitconverterprompt input {
   background: transparent;
-  border: none;
-  outline: none;
+  border: solid;
+  border-width: thin;
+  border-radius: 3px;
   text-align: center;
   font: inherit;
 }
