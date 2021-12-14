@@ -93,7 +93,6 @@ CircuitVerse uses Yarn for frontend package and asset management.
     curl -L https://get.rvm.io |
     bash -s stable --ruby --autolibs=enable --auto-dotfiles
     ```
-- If you are facing errors running the `rails db:create` ensure that the socket file(i.e `mysql.sock`) is present in that location. Some possible locations where it might be present is `/run/mysqld/mysqld.sock` or `/var/lib/mysql/mysql.sock`.
 ### Heroku Deployment
 [Heroku](https://www.heroku.com) is a free cloud platform that can be used for deployment of CircuitVerse
 
@@ -125,7 +124,7 @@ bundle exec sidekiq -e production -q default -q mailers -d -L tmp/sidekiq.log
 
 
 ## Tests
-Before making a pull request, it is a good idea to check that all tests are passing locally. To run the system tests, run `bundle exec rspec` or `bin/rake spec:all`
+Before making a pull request, it is a good idea to check that all tests are passing locally. To run the system tests, run `bundle exec rspec`
 
 **Note:** To pass the system tests, you need the [Chrome Browser](https://www.google.com/chrome/) installed.
 
