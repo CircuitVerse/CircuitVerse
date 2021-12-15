@@ -119,10 +119,18 @@
   width: 70%;
 }
 
+.search-image-cropper {
+  width: 150px;
+  height: 150px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
 .search-usersearch-image {
   display: block;
-  margin-bottom: 20px;
-  width: 70%;
+  width: 100%;
+  height: auto;
 }
 
 .search-username-container {
