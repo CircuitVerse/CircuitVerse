@@ -161,7 +161,7 @@ gem "bugsnag", "~> 6.24"
 
 gem "invisible_captcha", "~> 2.0"
 
-gem "newrelic_rpm", "~> 8.1"
+gem "newrelic_rpm", "~> 8.2"
 
 gem "oj", "~> 3.13"
 
