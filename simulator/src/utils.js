@@ -232,11 +232,13 @@ export var convertors = {
     dec2bin: x => "0b" + x.toString(2),
     dec2hex: x => "0x" + x.toString(16),
     dec2octal: x => "0" + x.toString(8),
+    dec2bcd: x => parseInt(x.toString(10),16).toString(2),
 }
 
 function setBaseValues(x) {
     if (isNaN(x)) return;
     $("#binaryInput").val(convertors.dec2bin(x));
+    $("#bcdInput").val(convertors.dec2bcd(x));
     $("#octalInput").val(convertors.dec2octal(x));
     $("#hexInput").val(convertors.dec2hex(x));
     $("#decimalInput").val(x);
@@ -267,6 +269,24 @@ export function setupBitConvertor() {
         else 
             x = parseInt(inp, 2);
         setBaseValues(x);
+    })
+    $("#bcdInput").on('keyup', function () {
+        var inp = $("#bcdInput").val();
+        var x = 0;
+        while(inp.length%4 !== 0){
+            inp = "0" + inp;
+        }
+        if(inp !== 0){
+            var i = 0;
+            while(i < inp.length/4){
+                if(parseInt(inp.slice((4*i),4*(i+1)), 2) < 10)
+                    x = x*10 + parseInt(inp.slice((4*i),4*(i+1)), 2);
+                else
+                    return setBaseValues(NaN);
+                i++;
+            }
+        }
+        return setBaseValues(x);
     })
 
     $("#hexInput").on('keyup', function () {
