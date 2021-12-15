@@ -169,5 +169,3 @@ gem "hairtrigger", "~> 0.2.24"
 
 # Used for rate limiting
 gem "rack-attack"
-
-gem "localeapp", "~> 3.2"
