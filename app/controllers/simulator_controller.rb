@@ -67,7 +67,7 @@ class SimulatorController < ApplicationController
   end
 
   def view_issue_circuit_data
-    unless current_user&.admin
+    unless current_user&.admin?
       render plain: "Only admins can view issue circuit data", status: :unauthorized
       return
     end
