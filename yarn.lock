@@ -2811,12 +2811,7 @@ color@^3.0.0:
     color-convert "^1.9.1"
     color-string "^1.5.4"
 
-colorette@^1.2.1, colorette@^1.2.2:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/colorette/-/colorette-1.2.2.tgz#cbcc79d5e99caea2dbf10eb3a26fd8b3e6acfa94"
-  integrity sha512-MKGMzyfeuutC/ZJ1cba9NqcNpfeqMUcYmyF1ZFY6/Cn7CNSAKx6a+s48sqLqyAiZuaP2TcqMhoo+dlwFnVxT9w==
-
-colorette@^1.3.0:
+colorette@^1.2.1, colorette@^1.2.2, colorette@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/colorette/-/colorette-1.3.0.tgz#ff45d2f0edb244069d3b772adeb04fed38d0a0af"
   integrity sha512-ecORCqbSFP7Wm8Y6lyqMJjexBQqXSF7SSeaTyGGphogUjBlFP9m9o08wy86HL2uB7fMTxtOUzLMk7ogKcxMg1w==
@@ -3316,14 +3311,7 @@ debug@^3.1.1, debug@^3.2.6, debug@^3.2.7:
   dependencies:
     ms "^2.1.1"
 
-debug@^4.0.1, debug@^4.1.0, debug@^4.1.1:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/debug/-/debug-4.2.0.tgz#7f150f93920e94c58f5574c2fd01a3110effe7f1"
-  integrity sha512-IX2ncY78vDTjZMFUdmsvIRFY2Cf4FnD0wRs+nQwJU8Lu99/tPFdb0VybiiMTPe3I6rQmwsqQqRBvxU+bZ/I8sg==
-  dependencies:
-    ms "2.1.2"
-
-debug@^4.3.2:
+debug@^4.0.1, debug@^4.1.0, debug@^4.1.1, debug@^4.3.3:
   version "4.3.3"
   resolved "https://registry.yarnpkg.com/debug/-/debug-4.3.3.tgz#04266e0b70a98d4462e6e288e38259213332b664"
   integrity sha512-/zxw5+vh1Tfv+4Qn7a5nsbcJKPaSvCDhojn6FEl9vupwK2VCSDtEiEtqr8DFtzYFOdz63LBkxec7DYuc2jon6Q==
@@ -3656,7 +3644,7 @@ enhanced-resolve@^4.5.0:
     memory-fs "^0.5.0"
     tapable "^1.0.0"
 
-enquirer@^2.3.5, enquirer@^2.3.6:
+enquirer@^2.3.5:
   version "2.3.6"
   resolved "https://registry.yarnpkg.com/enquirer/-/enquirer-2.3.6.tgz#2a7fe5dd634a1e4125a975ec994ff5456dc3734d"
   integrity sha512-yjNnPr315/FjS4zIsUxYguYUPP2e1NK4d7E7ZOLiyYCcbFBiTMyID+2wvm2w6+pZ/odMA7cRkjhsPbltwBOrLg==
@@ -5601,27 +5589,26 @@ linkify-it@^2.0.0:
   dependencies:
     uc.micro "^1.0.1"
 
-lint-staged@>=10:
-  version "12.1.2"
-  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-12.1.2.tgz#90c571927e1371fc133e720671dd7989eab53f74"
-  integrity sha512-bSMcQVqMW98HLLLR2c2tZ+vnDCnx4fd+0QJBQgN/4XkdspGRPc8DGp7UuOEBe1ApCfJ+wXXumYnJmU+wDo7j9A==
+lint-staged@>=12:
+  version "12.1.3"
+  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-12.1.3.tgz#a16e885c0a5e77de9cf559724d29a10348670e68"
+  integrity sha512-ajapdkaFxx+MVhvq6xQRg9zCnCLz49iQLJZP7+w8XaA3U4B35Z9xJJGq9vxmWo73QTvJLG+N2NxhjWiSexbAWQ==
   dependencies:
     cli-truncate "^3.1.0"
     colorette "^2.0.16"
     commander "^8.3.0"
-    debug "^4.3.2"
-    enquirer "^2.3.6"
+    debug "^4.3.3"
     execa "^5.1.1"
     lilconfig "2.0.4"
-    listr2 "^3.13.3"
+    listr2 "^3.13.5"
     micromatch "^4.0.4"
     normalize-path "^3.0.0"
-    object-inspect "^1.11.0"
+    object-inspect "^1.11.1"
     string-argv "^0.3.1"
-    supports-color "^9.0.2"
+    supports-color "^9.2.1"
     yaml "^1.10.2"
 
-listr2@^3.13.3:
+listr2@^3.13.5:
   version "3.13.5"
   resolved "https://registry.yarnpkg.com/listr2/-/listr2-3.13.5.tgz#105a813f2eb2329c4aae27373a281d610ee4985f"
   integrity sha512-3n8heFQDSk+NcwBn3CgxEibZGaRzx+pC64n3YjpMD1qguV4nWus3Al+Oo3KooqFKTQEJ1v7MmnbnyyNspgx3NA==
@@ -6362,15 +6349,10 @@ object-copy@^0.1.0:
     define-property "^0.2.5"
     kind-of "^3.0.3"
 
-object-inspect@^1.11.0, object-inspect@^1.9.0:
-  version "1.11.0"
-  resolved "https://registry.yarnpkg.com/object-inspect/-/object-inspect-1.11.0.tgz#9dceb146cedd4148a0d9e51ab88d34cf509922b1"
-  integrity sha512-jp7ikS6Sd3GxQfZJPyH3cjcbJF6GZPClgdV+EFygjFLQ5FmW/dRUnTd9PQ9k0JhoNDabWFbpF1yCdSWCC6gexg==
-
-object-inspect@^1.8.0:
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/object-inspect/-/object-inspect-1.8.0.tgz#df807e5ecf53a609cc6bfe93eac3cc7be5b3a9d0"
-  integrity sha512-jLdtEOB112fORuypAyl/50VRVIBIdVQOSUUGQHzJ4xBSbit81zRarz7GThkEFZy1RceYrWYcPcBFPQwHyAc1gA==
+object-inspect@^1.11.0, object-inspect@^1.11.1, object-inspect@^1.8.0, object-inspect@^1.9.0:
+  version "1.12.0"
+  resolved "https://registry.yarnpkg.com/object-inspect/-/object-inspect-1.12.0.tgz#6e2c120e868fd1fd18cb4f18c31741d0d6e776f0"
+  integrity sha512-Ho2z80bVIvJloH+YzRmpZVQe87+qASmBUKZDWgx9cu+KDrX2ZDH/3tMy+gXbZETVGs2M8YdxObOh7XAtim9Y0g==
 
 object-is@^1.0.1:
   version "1.1.3"
@@ -8889,7 +8871,7 @@ supports-color@^7.0.0, supports-color@^7.1.0:
   dependencies:
     has-flag "^4.0.0"
 
-supports-color@^9.0.2:
+supports-color@^9.2.1:
   version "9.2.1"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-9.2.1.tgz#599dc9d45acf74c6176e0d880bab1d7d718fe891"
   integrity sha512-Obv7ycoCTG51N7y175StI9BlAXrmgZrFhZOb0/PyjHBher/NmsdBgbbQ1Inhq+gIhz6+7Gb+jWF2Vqi7Mf1xnQ==
@@ -9825,15 +9807,10 @@ yallist@^4.0.0:
   resolved "https://registry.yarnpkg.com/yallist/-/yallist-4.0.0.tgz#9bb92790d9c0effec63be73519e11a35019a3a72"
   integrity sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==
 
-yaml@^1.10.2:
+yaml@^1.10.2, yaml@^1.7.2:
   version "1.10.2"
   resolved "https://registry.yarnpkg.com/yaml/-/yaml-1.10.2.tgz#2301c5ffbf12b467de8da2333a459e29e7920e4b"
   integrity sha512-r3vXyErRCYJ7wg28yvBY5VSoAF8ZvlcW9/BwUzEtUsjvX/DKs24dIkuwjtuprwJJHsbyUbLApepYTR1BN4uHrg==
-
-yaml@^1.7.2:
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/yaml/-/yaml-1.10.0.tgz#3b593add944876077d4d683fee01081bd9fff31e"
-  integrity sha512-yr2icI4glYaNG+KWONODapy2/jDdMSDnrONSjblABjD9B4Z5LgiircSt8m8sRZFNi08kG9Sm0uSHtEmP3zaEGg==
 
 yargs-parser@^13.1.2:
   version "13.1.2"

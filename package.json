@@ -23,7 +23,7 @@
     "expose-loader": "^0.7.5",
     "husky": ">=6",
     "jsdoc": "3.6.7",
-    "lint-staged": ">=10",
+    "lint-staged": ">=12",
     "livereload": "^0.9.3",
     "nodemon": "^2.0.12",
     "webpack-bundle-analyzer": "^4.5.0",
