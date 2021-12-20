@@ -46,7 +46,7 @@
     "jquery-resizable-dom": "^0.35.0",
     "jquery-ui": "1.13.0",
     "jquery-ui-css": "^1.11.5",
-    "jquery-ui-dist": "^1.12.1",
+    "jquery-ui-dist": "^1.13.0",
     "jquery-ujs": "^1.2.3",
     "jsdoc-export-default-interop": "^0.3.1",
     "opencollective-postinstall": "^2.0.3",
