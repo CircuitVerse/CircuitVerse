@@ -646,7 +646,7 @@ async function postUserIssue(message) {
     try {
         // Writing default project name to prevent unnecessary prompt in case the
         // project is unnamed
-        circuitData = generateSaveData("Issue Project");
+        circuitData = generateSaveData("Untitled");
     } catch (err) {
         circuitData = `Circuit data generation failed: ${err}`;
     }
