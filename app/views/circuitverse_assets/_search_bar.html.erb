@@ -11,6 +11,12 @@
 <script>
   var filter = document.getElementById("search_type_filter");
   var query = document.getElementById("query_input").value
+  if(document.getElementById("search_type").value == 'Users') {
+    filter.style.display="None";
+  }
+  else {
+    filter.style.display="Block";
+  }
   document.getElementById("search_type").addEventListener("change", ()=>{
     if(document.getElementById("search_type").value == 'Users') {
       filter.style.display="None";
