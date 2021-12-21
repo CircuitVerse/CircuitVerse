@@ -181,6 +181,10 @@
   padding-left: 5px;
 }
 
+.navbar-search-bar-filter {
+  min-width: 150px;
+}
+
 //breakpoints
 @media (max-width: 991px) {
   .navbar-search-icon-oncollapse {

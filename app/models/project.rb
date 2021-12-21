@@ -28,10 +28,18 @@ class Project < ApplicationRecord
   has_one :grade, dependent: :destroy
   has_one :project_datum, dependent: :destroy
 
+  scope :private_projects, -> { where(project_access_type: "Private") }
+
   scope :public_and_not_forked,
         -> { where(project_access_type: "Public", forked_project_id: nil) }
 
+  scope :by_and_not_forked, ->(author_id) { where(author_id: author_id, forked_project_id: nil) }
+
+  scope :most_viewed, -> { order(view: :desc) and where(forked_project_id: nil) }
+
   scope :open, -> { where(project_access_type: "Public") }
+
+  scope :featured_project, -> { joins(:featured_circuit) }
 
   scope :by, ->(author_id) { where(author_id: author_id) }
 

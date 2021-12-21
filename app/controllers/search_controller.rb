@@ -5,9 +5,10 @@ class SearchController < ApplicationController
 
   def search
     resource = params[:resource]
+    filter = params[:filter]
     query_params = params
 
-    @results, template = query(resource, query_params)
+    @results, template = query(resource,filter,query_params)
 
     if template.present?
       render template

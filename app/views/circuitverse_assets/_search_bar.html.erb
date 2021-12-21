@@ -2,8 +2,16 @@
   <div class="row center-row">
   <%= form_tag("/search", method: "get", id: 'search-box', class: 'navbar-search-bar-form') do %>
     <%= select_tag :resource , options_for_select([ "Users", "Projects" ],selected: params[:resource]), class: "navbar-search-bar-select", id: "search_type" %>
-    <%= text_field_tag :q,params[:q], placeholder: "Search for projects or users", autocomplete:"off", class: "form-control form-input navbar-search-bar-input" %>
+    <%= text_field_tag :q,params[:q], placeholder: "Search for projects or users", autocomplete:"off", class: "form-control form-input navbar-search-bar-input", id: "query_input" %>
+    <%= select_tag :filter , options_for_select(["All","Most Viewed","My projects","Private","Featured"],selected: params[:filter]), class: "navbar-search-bar-select navbar-search-bar-filter", id: "search_type_filter" %>
     <button class="btn primary-button navbar-search-bar-button" type="submit" name="button" value="Submit">Search</button>
   <% end %>
   </div>
 </div>
+<script>
+  var filter = document.getElementById("search_type_filter");
+  var query = document.getElementById("query_input").value
+  filter.addEventListener("change", ()=> {
+    window.location.replace(`<%= search_url %>?resource=Projects&q=${query}&filter=${filter.value}&button=Submit`);
+  })
+</script>
