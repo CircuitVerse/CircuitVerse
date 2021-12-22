@@ -18,7 +18,7 @@ module SearchHelper
       when "My projects"
         return ProjectsQuery.new(query_params, Project.by_and_not_forked(current_user)).results, "/projects/search"
       when "Private"
-        return ProjectsQuery.new(query_params, Project.private_projects).results, "/projects/search"
+        return ProjectsQuery.new(query_params, Project.private_projects(current_user)).results, "/projects/search"
       when "Featured"
         return ProjectsQuery.new(query_params, Project.featured_project).results, "/projects/search"
       end

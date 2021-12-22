@@ -28,7 +28,7 @@ class Project < ApplicationRecord
   has_one :grade, dependent: :destroy
   has_one :project_datum, dependent: :destroy
 
-  scope :private_projects, -> { where(project_access_type: "Private") }
+  scope :private_projects, ->(author_id) { where(author_id: author_id, project_access_type: "Private") }
 
   scope :public_and_not_forked,
         -> { where(project_access_type: "Public", forked_project_id: nil) }
