@@ -189,7 +189,7 @@ export function setupUI() {
         logixFunction[this.id]();
     });
     // var dummyCounter=0;
-
+   
 
     $('.logixModules').hover(function () {
         // Tooltip can be statically defined in the prototype.
@@ -559,7 +559,7 @@ export function setupPanels() {
 
     // Minimize Timing Diagram (takes too much space)
     $('.timing-diagram-panel .minimize').trigger('click');
-    
+
     $('#projectName').on('click', () => {
         $("input[name='setProjectName']").focus().select();
     });
