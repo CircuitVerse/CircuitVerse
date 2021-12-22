@@ -10,7 +10,7 @@ describe "Group management", type: :system do
   end
 
   before do
-    driven_by(:selenium)
+    driven_by(:selenium_chrome_headless)
     login_as(@user, scope: :user)
   end
 
