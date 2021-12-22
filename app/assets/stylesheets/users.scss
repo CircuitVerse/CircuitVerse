@@ -155,14 +155,36 @@
   border-radius: 4px;
   cursor: pointer;
   height: 35px;
+  line-height: 35px;
   margin-bottom: 20px;
   margin-left: 10px;
-  padding-top: 5px;
   text-align: center;
   width: 120px;
 }
 
 .users-edit-image-button-hidden {
+  display: none;
+}
+
+.users-remove-image-button {
+  border: 1px solid $secondary-red;
+  border-radius: 4px;
+  cursor: pointer;
+  height: 35px;
+  line-height: 35px;
+  margin-bottom: 20px;
+  margin-left: 10px;
+  text-align: center;
+  width: 140px;
+}
+
+.remove-pic:checked ~ .users-remove-image-button,
+.users-remove-image-button:hover {
+  background-color: $primary-red;
+  color: $white;
+}
+
+.remove-pic {
   display: none;
 }
 
