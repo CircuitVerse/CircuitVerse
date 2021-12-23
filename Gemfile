@@ -106,7 +106,7 @@ gem "disposable_mail", "~> 0.1"
 gem 'jsonapi-serializer'
 gem "flipper-redis"
 gem "flipper-ui"
-gem "friendly_id", "~> 5.4.1"
+gem "friendly_id", "~> 5.4.2"
 gem "inline_svg"
 gem "jwt"
 gem "rails-i18n", "~> 6.0.0"
