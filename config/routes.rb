@@ -106,6 +106,7 @@ Rails.application.routes.draw do
     post "/get_data", to: "simulator#get_data"
     get "get_data/:id", to: "simulator#get_data"
     post "/post_issue", to: "simulator#post_issue"
+    get "/issue_circuit_data/:id", to: "simulator#view_issue_circuit_data" 
     post "/update_data", to: "simulator#update"
     post "/update_image", to: "simulator#update_image"
     post "/create_data", to: "simulator#create"
