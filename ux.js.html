@@ -104,7 +104,7 @@ import { paste } from './events';
 import { setProjectName, getProjectName } from './data/save';
 import { changeScale } from './canvasApi';
 import updateTheme from "./themer/themer";
-import { generateImage } from './data/save';
+import { generateImage, generateSaveData } from './data/save';
 import { setupVerilogExportCodeWindow } from './verilog';
 import { setupBitConvertor} from './utils';
 
@@ -755,19 +755,35 @@ export function fillSubcircuitElements() {
 async function postUserIssue(message) {
 
     var img = generateImage("jpeg", "full", false, 1, false).split(',')[1];
-    const result = await $.ajax({
-            url: 'https://api.imgur.com/3/image',
-            type: 'POST',
-            data: {
-                image: img
-            },
-            dataType: 'json',
-            headers: {
-                Authorization: 'Client-ID 9a33b3b370f1054'
-            },
-        });
 
-    message += "\n" + result.data.link;
+    let result;
+    try {
+        result = await $.ajax({
+                url: 'https://api.imgur.com/3/image',
+                type: 'POST',
+                data: {
+                    image: img
+                },
+                dataType: 'json',
+                headers: {
+                    Authorization: 'Client-ID 9a33b3b370f1054'
+                },
+            });
+    } catch (err) {
+        console.error("Could not generate image, reporting anyway");
+    }
+
+    if (result) message += "\n" + result.data.link;
+
+    // Generate circuit data for reporting
+    let circuitData;
+    try {
+        // Writing default project name to prevent unnecessary prompt in case the
+        // project is unnamed
+        circuitData = generateSaveData("Untitled");
+    } catch (err) {
+        circuitData = `Circuit data generation failed: ${err}`;
+    }
 
     $.ajax({
         url: '/simulator/post_issue',
@@ -777,6 +793,7 @@ async function postUserIssue(message) {
         },
         data: {
             "text": message,
+            "circuit_data": circuitData,
         },
         success: function(response) {
             $('#result').html("&lt;i class='fa fa-check' style='color:green'>&lt;/i> You've successfully submitted the issue. Thanks for improving our platform.");
