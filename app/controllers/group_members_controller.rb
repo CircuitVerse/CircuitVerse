@@ -37,6 +37,7 @@ class GroupMembersController < ApplicationController
     group_member_emails = Utils.parse_mails(group_member_params[:emails])
 
     present_members = User.where(id: @group.group_members.pluck(:user_id)).pluck(:email)
+    present_members.append(@group.mentor.email)
     newly_added = group_member_emails - present_members
 
     newly_added.each do |email|

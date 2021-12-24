@@ -25,7 +25,9 @@ class GroupsController < ApplicationController
 
   def group_invite
     if Group.with_valid_token.exists?(group_token: params[:token])
-      if current_user.groups.exists?(id: @group)
+      if @group.mentor.email == current_user.email
+        notice = "Group mentor can not be invited."
+      elsif current_user.groups.exists?(id: @group)
         notice = "Member is already present in the group."
       else
         current_user.group_members.create!(group: @group)
