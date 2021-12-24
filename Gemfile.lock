@@ -447,9 +447,9 @@ GEM
       ruby-graphviz (~> 1.2)
     rails-html-sanitizer (1.4.2)
       loofah (~> 2.3)
-    rails-i18n (6.0.0)
+    rails-i18n (7.0.1)
       i18n (>= 0.7, < 2)
-      railties (>= 6.0.0, < 7)
+      railties (>= 6.0.0, < 8)
     rails_admin (2.2.1)
       activemodel-serializers-xml (>= 1.0)
       builder (~> 3.1)
@@ -733,7 +733,7 @@ DEPENDENCIES
   rack-attack
   rails (~> 6.1.4)
   rails-erd
-  rails-i18n (~> 6.0.0)
+  rails-i18n (~> 7.0.1)
   rails_admin (~> 2.2)
   recaptcha
   redis (~> 4.5)
