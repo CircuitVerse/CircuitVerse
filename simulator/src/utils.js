@@ -271,16 +271,16 @@ export function setupBitConvertor() {
         setBaseValues(x);
     })
     $("#bcdInput").on('keyup', function () {
-        var inp = $("#bcdInput").val();
-        var x = 0;
-        while (inp.length % 4 !== 0){
-            inp = "0" + inp;
+        var input = $("#bcdInput").val();
+        var num = 0;
+        while (input.length % 4 !== 0){
+            input = "0" + input;
         }
-        if(inp !== 0){
+        if(input !== 0){
             var i = 0;
-            while (i < inp.length / 4){
-                if(parseInt(inp.slice((4 * i), 4 * (i + 1)), 2) < 10)
-                    x = x * 10 + parseInt(inp.slice((4 * i), 4 * (i + 1)), 2);
+            while (i < input.length / 4){
+                if(parseInt(input.slice((4 * i), 4 * (i + 1)), 2) < 10)
+                    num = num * 10 + parseInt(input.slice((4 * i), 4 * (i + 1)), 2);
                 else
                     return setBaseValues(NaN);
                 i++;
