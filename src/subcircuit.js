@@ -151,6 +151,8 @@ export default class SubCircuit extends CircuitElement {
             this.version = this.savedData.version || "1.0";
 
             this.id = this.savedData.id;
+            this.label = this.savedData.label || "";
+            this.labelDirection = this.savedData.labelDirection || "RIGHT";
             for (var i = 0; i < this.savedData.inputNodes.length; i++) {
                 this.inputNodes.push(
                     this.scope.allNodes[this.savedData.inputNodes[i]]
@@ -539,13 +541,6 @@ export default class SubCircuit extends CircuitElement {
         }
     }
 
-    isResolvable() {
-        if (CircuitElement.prototype.isResolvable.call(this)) {
-            return true;
-        }
-        return false;
-    }
-
     /**
      * Procedure if any element is double clicked inside a subcircuit
     **/
@@ -563,6 +558,8 @@ export default class SubCircuit extends CircuitElement {
             x: this.x,
             y: this.y,
             id: this.id,
+            label: this.label,
+            labelDirection: this.labelDirection,
             inputNodes: this.inputNodes.map(findNode),
             outputNodes: this.outputNodes.map(findNode),
             version: this.version,
@@ -571,33 +568,21 @@ export default class SubCircuit extends CircuitElement {
     }
 
     /**
-     * not used because for now everythiing is added onto the globalscope
+     * By design, subcircuit element's input and output nodes are wirelessly
+     * connected to the localscope (clone of the scope of the subcircuit's
+     * circuit). So it is almost like the actual circuit is copied in the
+     * location of the subcircuit element. Therefore no resolve needed.
      */
-    resolve() {
-        // deprecated
-        // var subcircuitScope = this.localScope;//scopeList[this.id];
-        // // this.scope.pending.clean(this); // To remove any pending instances
-        // // return;
-        //
-        // for (i = 0; i < subcircuitScope.Input.length; i++) {
-        //     subcircuitScope.Input[i].state = this.inputNodes[i].value;
-        // }
-        //
-        // for (i = 0; i < subcircuitScope.Input.length; i++) {
-        //     simulationArea.simulationQueue.add(subcircuitScope.Input[i]);
-        // }
-        // play(subcircuitScope);
-        //
-        // for (i = 0; i < subcircuitScope.Output.length; i++) {
-        //     this.outputNodes[i].value = subcircuitScope.Output[i].inp1.value;
-        // }
-        // for (i = 0; i < subcircuitScope.Output.length; i++) {
-        //     this.scope.stack.push(this.outputNodes[i]);
-        // }
-    }
-
     isResolvable() {
         return false;
+    }
+
+    /**
+     * If element not resolvable (always in subcircuits), removePropagation
+     * is called on it.
+     */
+    removePropagation() {
+        // Leave this to the scope of the subcircuit. Do nothing.
     }
 
     verilogName(){

@@ -180,7 +180,7 @@ input[type="text"]:focus {
   text-overflow: ellipsis;
 }
 
-@media(max-width: 992px) {
+@media(max-width: 991px) {
   .projectName {
     visibility: hidden;
   }
@@ -208,7 +208,7 @@ input[type="text"]:focus {
   text-align: right;
 }
 
-@media(max-width: 992px) {
+@media(max-width: 991px) {
   .user-field {
     visibility: hidden;
   }
@@ -368,7 +368,7 @@ input[type="text"]:focus {
   opacity: 1;
 }
 
-@media(max-width: 992px) {
+@media(max-width: 991px) {
   .navbar-nav .dropdown-menu {
     position: absolute;
     float: none;
@@ -1373,13 +1373,13 @@ input:checked + .slider:before {
   min-width: 85px;
 }
 
-@media(max-width: 992px) {
+@media(max-width: 991px) {
   .navbar .nav.pull-right {
     display: none;
   }
 }
 
-@media(max-width:992px) {
+@media(max-width:991px) {
   .nav-dropdown {
     text-align: center;
     padding-top: 20px;
@@ -1447,6 +1447,7 @@ input:checked + .slider:before {
 .content-table tbody {
   display: table-row-group;
   overflow: auto !important;
+  margin-left: 52px;
 }
 
 .output {
