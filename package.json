@@ -21,7 +21,7 @@
     "@webpack-cli/serve": "^1.6.0",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.0",
-    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-import": "^2.25.3",
     "expose-loader": "^0.7.5",
     "husky": ">=6",
     "jsdoc": "3.6.7",
