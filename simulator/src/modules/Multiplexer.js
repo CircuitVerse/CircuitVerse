@@ -336,7 +336,7 @@ Multiplexer.prototype.mutableProperties = {
     controlSignalSize: {
         name: "Control Signal Size",
         type: "number",
-        max: "32",
+        max: "10",
         min: "1",
         func: "changeControlSignalSize",
     },

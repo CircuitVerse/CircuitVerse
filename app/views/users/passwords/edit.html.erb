@@ -2,12 +2,12 @@
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 center-image">
       <%= image_tag "SVGs/login.svg", alt: "Login Sketch", :class => "users-image" %>
-      <h5 class="users-image-text">Welcome back to the Digital Circuit Universe!</h5>
+      <h5 class="users-image-text"><%= t("welcome_back_text") %></h5>
     </div>
 
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
       <div class="users-form-container">
-        <h2 class="users-main-heading">Change your password</h2>
+        <h2 class="users-main-heading"><%= t("users.passwords.change_password_heading") %></h2>
         <%= form_with(model: resource, as: resource_name, url: password_path(resource_name), method: :put, local: true) do |f| %>
           <% if !resource.errors.empty? %>
             <div class="error-message">
@@ -23,7 +23,7 @@
             <h6>
               <%= f.label :password %>
               <% if @minimum_password_length %>
-                (Minimum <%= @minimum_password_length %> characters)
+                <%= t("users.minimum_password_length", minimum_password_length: @minimum_password_length ) %>
               <% end %>
             </h6>
             <div class="input-group">
@@ -38,14 +38,14 @@
           </div>
           <div class="field form-group">
             <div class="input-group">
-              <%= f.submit "Change my password" ,class:"btn primary-button users-primary-button" %>
-              <%= link_to "Go to Login Page", new_user_session_path, class: "anchor-text mt-2" %>
+              <%= f.submit t("users.passwords.change_password") ,class:"btn primary-button users-primary-button" %>
+              <%= link_to t("users.passwords.link_to_login_page"), new_user_session_path, class: "anchor-text mt-2" %>
             </div>
           </div>
           <div class="field form-group">
             <div class="input-group">
-              <span class="users-text">New User?</span>
-              <%= link_to "Sign Up", new_user_registration_path, class:"anchor-text" %>
+              <span class="users-text"><%= t("users.ask_new_user") %></span>
+              <%= link_to t("sign_up"), new_user_registration_path, class:"anchor-text" %>
             </div>
           </div>
           <%= render "users/shared/links" %>

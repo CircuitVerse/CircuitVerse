@@ -64,12 +64,12 @@
       </li>
       
       
-    </ul>
-      <span class="projectName noSelect defaultCursor font-weight-bold" id="projectName">
-         Untitled
-      </span>
+     </ul>
+       <span class="projectName noSelect defaultCursor font-weight-bold" id="projectName">
+          Untitled
+       </span>
 
-
+      
     <div ondrag="(() => {$('.quick-btn').css({'box-shadow': 'none', 'background': 'var(--bg-navbar)'})})()" class='quick-btn'>
       <div id='dragQPanel' class='panel-drag'>
       <span><svg style="height: 20px;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18" height="31" viewBox="0 0 18 31">
@@ -125,6 +125,10 @@
         </button>
       </div>
       <div>
+        <button type="button" class="quick-btn-redo" title="Redo" id="redoButton">
+        </button>
+      </div>
+      <div>
         <button type="button" class="quick-btn-view" title="Preview Circuit" id="viewButton"><i style="color: #ddd;" class="fas fa-expand-arrows-alt"></i>
         </button>
       </div>
@@ -147,6 +151,7 @@
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href=<%= user_path(current_user) %>>Dashboard</a></li>
             <li><a class="dropdown-item" href=<%= user_groups_path(current_user) %>>My Groups</a></li>
+            <li><a class="dropdown-item" href=<%= notifications_path(current_user) %>>Notifications</a></li>
             <div class="dropdown-divider"></div>
             <li><a class="dropdown-item" rel="nofollow" data-method="delete" href=<%= destroy_user_session_path %>>Sign Out</a></li>
           </ul>
@@ -204,8 +209,8 @@
       <button class='custom-btn--tertiary panel-button' title="Autocalibrate Cycle Units"><span class="fas fa-magic timing-diagram-calibrate"></button>
       <button class='custom-btn--primary panel-button' title="Zoom In"><span class="fas fa-search-plus timing-diagram-zoom-in"></button>
       <button class='custom-btn--primary panel-button' title="Zoom Out"><span class="fas fa-search-minus timing-diagram-zoom-out"></button>
-      <button class='custom-btn--primary panel-button' title="Resume Timing Diagram"><span class="fas fa-play timing-diagram-resume"></button>
-      <button class='custom-btn--primary panel-button' title="Pause Timing Diagram"><span class="fas fa-pause timing-diagram-pause"></button>
+      <button class='custom-btn--primary panel-button' title="Resume auto-scroll"><span class="fas fa-play timing-diagram-resume"></button>
+      <button class='custom-btn--primary panel-button' title="Pause auto-scroll"><span class="fas fa-pause timing-diagram-pause"></button>
       1 cycle = 
       <input id="timing-diagram-units" type="number" min="1" autocomplete="off" value="1000">
       Units
@@ -715,3 +720,4 @@ function old_ui_redirect() {
   window.location.href = window.location.href.replace("/simulator", "/simulator_old")
 }
 </script>
+<script src="/js/data.js"></script>

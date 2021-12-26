@@ -1,5 +1,5 @@
 
-<% content_for :title,  @assignment.name + " - Assignment Details" %>
+<% content_for :title, t("assignments.show.title", name: @assignment.name) %>
 
 <div class="container">
   <% if notice %>
@@ -12,49 +12,49 @@
   <% end %>
   <div class="row center-row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <h1 class="submain-heading">ASSIGNMENT DETAILS</h1>
+      <h1 class="submain-heading"><%= t("assignments.show.assignment_details_heading") %></h1>
     </div>
   </div>
   <div class="assignments-container">
     <div class="row center-row">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <div class="assignments-data">
-          <p><strong>Name: </strong><%= @assignment.name %></p>
-          <p><strong>Group: </strong><%= @assignment.group.name %></p>
-          <p><strong>Deadline: </strong><span class="assignments-deadline" data-year=<%= deadline_year(@assignment) %>
+          <p><%= t("assignments.assignment_data.name_html", name: @assignment.name) %></p>
+          <p><%= t("assignments.assignment_data.group_html", group_name: @assignment.group.name) %></p>
+          <p><strong><%= t("assignments.deadline") %></strong><span class="assignments-deadline" data-year=<%= deadline_year(@assignment) %>
             data-month=<%= deadline_month(@assignment) %> data-day=<%= deadline_day(@assignment) %>
             data-hour=<%= deadline_hour(@assignment) %> data-minute=<%= deadline_minute(@assignment) %>
             data-second=<%= deadline_second(@assignment) %>><%= @assignment.deadline %></span></p>
           <% if(@assignment.deadline > Time.now) %>
-            <p><strong>Time Remaining: </strong><%= AssignmentDecorator.new(@assignment).time_remaining %></p>
+            <p><%= t("assignments.assignment_data.time_remaining_html", time_remaining: AssignmentDecorator.new(@assignment).time_remaining) %></p>
           <% end %>
-          <p><strong>Graded: </strong><%= @assignment.graded %></p>
+          <p><%= t("assignments.assignment_data.graded_html", graded: @assignment.graded) %></p>
           <% if @assignment.description %>
-            <p><strong>Description: </strong></p>
+            <p><strong><%= t("assignments.assignment_data.description") %> </strong></p>
             <div class="assignments-description">
               <%= @assignment.description&.html_safe %>
             </div>
           <% end %>
           <% if @assignment.restricted_circuit_elements != "None" %>
-            <p><strong>Restricted Circuited Elements: </strong><%= @assignment.restricted_circuit_elements %></p>
+            <p><%= t("assignments.assignment_data.restricted_elements_html", restricted_circuit_elements: @assignment.restricted_circuit_elements) %></p>
           <% end %>
           <% if policy(@assignment).admin_access? && @assignment.status!="closed" %>
             <br>
             <%= link_to edit_group_assignment_path(@group, @assignment), class:"mini-button groups-reopen-mini-button" do %>
               <%= image_tag("SVGs/editGroup.svg", alt: "Edit Assignment") %>
-              <span>Edit</span>
+              <span><%= t("edit") %></span>
             <% end %>
           <% end %>
           <% if policy(@assignment).can_be_graded? %>
             &nbsp;
-            <%= link_to 'Export Grades', grades_to_csv_path(@assignment, format: "csv"), class: "btn primary-button" %>
+            <%= link_to t("assignments.assignment_data.export_grades"), grades_to_csv_path(@assignment, format: "csv"), class: "btn primary-button" %>
           <% end %>
           &nbsp;
-          <%= link_to 'Back', group_path(@group), class: "anchor-text" %>
+          <%= link_to t("back"), group_path(@group), class: "anchor-text" %>
           <br> <br>
           <hr class="assignments-horizontal-rule">
           <% if policy(@assignment).admin_access? %>
-            <h3 class="assignments-submission-heading">Submissions :</h3>
+            <h3 class="assignments-submission-heading"><%= t("assignments.assignment_data.submissions") %></h3>
             <script>
               $( function() {
                 $('.list-group-item-action').on('click', function (e) {
@@ -72,7 +72,7 @@
             </script>
             <% if @assignment.project_order.blank? %>
               <div class="assignments-no-submission">
-                <h5>No submissions yet!</h5>
+                <h5><%= t("assignments.assignment_data.no_submissions") %></h5>
               </div>
             <% else %>
               <div class="assignments-submission">
@@ -93,21 +93,21 @@
                   </div>
                 </div>
                 <div class="row assignments-submission-row assignments-submission-description assignments-description">
-                  <h6 class="assignments-project-decription-heading">Description:</h6>
+                  <h6 class="assignments-project-decription-heading"><%= t("assignments.assignment_data.description") %></h6>
                   <p id="project-description"></p>
                 </div>
               </div>
 
               <% if policy(@assignment).can_be_graded? %>
                 <div class="assignments-grading-container">
-                  <h5 class="assignments-grading-heading">Grades & Remarks</h5>
+                  <h5 class="assignments-grading-heading"><%= t("assignments.assignment_data.grades_and_remarks") %></h5>
                   <span id="project-grade-error" class="assignments-error"></span>
                   <%= form_with(model: Grade.new, multipart: true,id:"assignment-grade-form",url: "/grades") do |form| %>
                     <%= form.hidden_field :project_id, id: "assignment-project-id" %>
                     <%= form.hidden_field :assignment_id, value: @assignment.id %>
                     <div class="row">
                       <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                        <h6>Grade</h6>
+                        <h6><%= t("assignments.assignment_data.grade") %></h6>
                         <% if @assignment.grading_scale == "percent" %>
                           <%= form.number_field :grade,id: "assignment-grade-grade", min: 0, max: 100, class: "form-control form-input" %>
                         <% elsif @assignment.grading_scale == "letter" || @assignment.grading_scale == "custom" %>
@@ -115,20 +115,20 @@
                         <% end %>
                       </div>
                       <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-                        <h6>Remarks</h6>
+                        <h6><%= t("assignments.assignment_data.remarks") %></h6>
                         <%= form.text_field :remarks,id: "assignment-grade-remarks", class: "form-control form-input" %>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                        <button name="button" type="submit" id="grade-form-submit" class="btn primary-button mt-4">Submit</button>
+                        <button name="button" type="submit" id="grade-form-submit" class="btn primary-button mt-4"><%= t("submit") %></button>
                         &nbsp; &nbsp;
                       </div>
                       <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 assignments-grading-help">
                         <% if @assignment.grading_scale == "percent" %>
-                          <small>Assignments can be graded with percentage (1-100)</small>
+                          <small><%= t("assignments.assignment_data.grading_scale_percent") %></small>
                         <% elsif @assignment.grading_scale == "letter" || @assignment.grading_scale == "custom" %>
-                          <small>Assignments can be graded with any of letters A/B/C/D/E/F</small>
+                          <small><%= t("assignments.assignment_data.grading_scale_letter") %></small>
                         <% end %>
                       </div>
                     </div>
@@ -137,19 +137,19 @@
                 <div class="assignments-grading-container">
                   <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                      <h6>Grade</h6>
+                      <h6><%= t("assignments.assignment_data.grade") %></h6>
                       <span id="project-grade"></span>
                       <br>
                       <div class="assignments-grade-horizontal-rule"></div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-                      <h6>Remarks</h6>
+                      <h6><%= t("assignments.assignment_data.remarks") %></h6>
                       <span id="project-remarks"></span>
                       <br>
                     </div>
                   </div>
                   <div class="row">
-                    <%= button_tag 'Remove', id: "grade-form-remove", class: "btn ml-3 primary-delete-button" %>
+                    <%= button_tag t("assignments.assignment_data.remove"), id: "grade-form-remove", class: "btn ml-3 primary-delete-button" %>
                   </div>
                 </div>
               <% end %>

@@ -114,7 +114,7 @@ function deleteCurrentCircuit(scopeId = globalScope.id) {
         return;
     }
 
-    const confirmation = confirm(`Are you sure want to delete: ${scope.name}\nThis cannot be undone.`);
+    const confirmation = confirm(`Are you sure want to close: ${scope.name}\nThis cannot be undone.`);
     if (confirmation) {
         if (scope.verilogMetadata.isVerilogCircuit) {
             scope.initialize();
@@ -124,8 +124,8 @@ function deleteCurrentCircuit(scopeId = globalScope.id) {
         $(`#${scope.id}`).remove();
         delete scopeList[scope.id];
         switchCircuit(Object.keys(scopeList)[0]);
-        showMessage('Circuit was successfully deleted');
-    } else { showMessage('Circuit was not deleted'); }
+        showMessage('Circuit was successfully closed');
+    } else { showMessage('Circuit was not closed'); }
 }
 
 /**
@@ -233,6 +233,8 @@ export default class Scope {
         // root object for referring to main canvas - intermediate node uses this
         this.root = new CircuitElement(0, 0, this, 'RIGHT', 1);
         this.backups = [];
+        // maintaining a state (history) for redo function
+        this.history = [];
         this.timeStamp = new Date().getTime();
         this.verilogMetadata = {
             isVerilogCircuit: false,
