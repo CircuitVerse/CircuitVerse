@@ -1,0 +1,5 @@
+en:
+  groups:
+    launch:
+      notice_invite_mentor: "Group mentor can not be invited."
+    
