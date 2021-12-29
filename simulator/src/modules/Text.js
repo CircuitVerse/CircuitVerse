@@ -93,6 +93,7 @@ export default class Text extends CircuitElement {
             if (key === 'v' || key === 'V') {
                 return paste(localStorage.getItem('clipboardData'));
             }
+            return;
         } 
         if (key.length === 1) {
             if (this.label === 'Enter Text Here') { this.setLabel(key); } else { this.setLabel(this.label + key); }
