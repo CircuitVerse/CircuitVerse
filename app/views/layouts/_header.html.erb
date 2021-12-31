@@ -93,4 +93,18 @@
   if (window.location.href.includes('search')) {
       searchBar.style.display = "block";
   }
+  <script type="text/javascript">
+    function showDropdown(){
+      let collapsedDropdown = document.getElementsByClassName("dropdown-menu")[1];
+      let expandedDropdown = document.getElementsByClassName("dropdown-menu-show")[1];
+      if (collapsedDropdown.classList.contains("show")) {
+        collapsedDropdown.classList.remove("show");
+      }
+      else {
+        collapsedDropdown.classList.add("show");
+      }
+    }
+    let toggleDropdown = document.getElementsByClassName("dropdown-toggle")[1];
+    toggleDropdown.addEventListener("click", showDropdown);
+  </script>
 </script>
