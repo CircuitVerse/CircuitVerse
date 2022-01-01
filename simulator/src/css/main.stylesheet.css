@@ -1340,7 +1340,8 @@ font: inherit;
 }
 
 .search-input {
-  margin: 0 10px;
+  display: block;
+  margin: 0 auto;
   padding: 3px 10px;
   width: 90%;
   border-radius: 7px;
