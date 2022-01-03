@@ -82,6 +82,7 @@ jobs: # a collection of steps
             COVERALLS_REPO_TOKEN=$COVERALLS_REPO_TOKEN bundle exec turbo_tests \
                               --format RspecJunitFormatter \
                               --out test_results/rspec.xml \
+                              -r rspec_junit_formatter     \
                               --format progress 
 
 
