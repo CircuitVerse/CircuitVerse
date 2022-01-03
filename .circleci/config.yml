@@ -83,6 +83,7 @@ jobs: # a collection of steps
                               --format RspecJunitFormatter \
                               --out test_results/rspec.xml \
                               -r rspec_junit_formatter     \
+                              -n 5 
                               --format progress 
 
 
