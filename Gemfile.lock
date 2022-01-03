@@ -77,6 +77,15 @@ GEM
       device_detector
       safely_block (>= 0.2.1)
     ast (2.4.2)
+    async (1.30.1)
+      console (~> 1.10)
+      nio4r (~> 2.3)
+      timers (~> 4.1)
+    async-container (0.16.12)
+      async
+      async-io
+    async-io (1.32.2)
+      async
     aws-eventstream (1.2.0)
     aws-partitions (1.540.0)
     aws-record (2.7.0)
@@ -158,6 +167,8 @@ GEM
       will_paginate
     concurrent-ruby (1.1.9)
     connection_pool (2.2.5)
+    console (1.14.0)
+      fiber-local
     countries (4.0.1)
       i18n_data (~> 0.13.0)
       sixarm_ruby_unaccent (~> 1.1)
@@ -231,6 +242,7 @@ GEM
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
+    fiber-local (1.0.0)
     flipper (0.22.1)
     flipper-redis (0.22.1)
       flipper (~> 0.22.1)
@@ -331,6 +343,7 @@ GEM
       mini_mime (>= 0.1.1)
     mailkick (0.4.3)
       activesupport (>= 5)
+    mapping (1.1.1)
     marcel (1.0.2)
     matrix (0.4.2)
     meta-tags (2.15.0)
@@ -384,7 +397,7 @@ GEM
       omniauth (>= 1.9, < 3)
     orm_adapter (0.5.0)
     parallel (1.21.0)
-    parser (3.0.3.2)
+    parser (3.1.0.0)
       ast (~> 2.4.1)
     pg (1.2.3)
     pg (1.2.3-x64-mingw32)
@@ -485,6 +498,10 @@ GEM
     rsolr (2.2.1)
       builder (>= 2.1.2)
       faraday (>= 0.9.0)
+    rspec (3.10.0)
+      rspec-core (~> 3.10.0)
+      rspec-expectations (~> 3.10.0)
+      rspec-mocks (~> 3.10.0)
     rspec-core (3.10.1)
       rspec-support (~> 3.10.0)
     rspec-expectations (3.10.1)
@@ -538,6 +555,9 @@ GEM
     rubyzip (2.3.2)
     safely_block (0.3.0)
       errbase (>= 0.1.1)
+    samovar (2.1.4)
+      console (~> 1.0)
+      mapping (~> 1.0)
     sass (3.7.4)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -620,8 +640,15 @@ GEM
       climate_control (>= 0.0.3, < 1.0)
     thor (1.1.0)
     tilt (2.0.10)
+    timers (4.3.3)
     tins (1.29.1)
       sync
+    turbo_test (0.1.2)
+      async-container
+      async-io
+      msgpack
+      rspec
+      samovar
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
@@ -755,6 +782,7 @@ DEPENDENCIES
   strong_migrations
   sunspot_rails
   sunspot_solr
+  turbo_test
   turbolinks (~> 5)
   tzinfo-data
   uglifier (>= 1.3.0)
