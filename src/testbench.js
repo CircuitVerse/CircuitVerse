@@ -18,21 +18,23 @@ const CONTEXT = {
 };
 
 const VALIDATION_ERRORS = {
-    NOTPRESENT: 0,          // Element is not present in the circuit
-    WRONGBITWIDTH: 1,       // Element is present but has incorrect bitwidth
-    DUPLICATE_ID_DATA: 2,   // Duplicate identifiers in test data
-    DUPLICATE_ID_SCOPE: 3,  // Duplicate identifiers in scope
-    NO_RST: 4               // Sequential circuit but no reset(RST) in scope
+    NOTPRESENT: 0, // Element is not present in the circuit
+    WRONGBITWIDTH: 1, // Element is present but has incorrect bitwidth
+    DUPLICATE_ID_DATA: 2, // Duplicate identifiers in test data
+    DUPLICATE_ID_SCOPE: 3, // Duplicate identifiers in scope
+    NO_RST: 4, // Sequential circuit but no reset(RST) in scope
 };
 
 const TESTBENCH_CREATOR_PATH = '/testbench';
 
-
 // Do we have any other function to do this?
 // Utility function. Converts decimal number to binary string
-function dec2bin(dec) {
+function dec2bin(dec, bitWidth = undefined) {
     if (dec === undefined) return 'X';
-    return (dec >>> 0).toString(2);
+    const bin = (dec >>> 0).toString(2);
+    if (!bitWidth) return bin;
+
+    return '0'.repeat(bitWidth - bin.length) + bin;
 }
 
 /**
@@ -52,9 +54,9 @@ export class TestbenchData {
      * Checks whether given case-group pair exists in the test
      */
     isCaseValid() {
-        if(this.currentGroup >= this.data.groups.length || this.currentGroup < 0) return false;
+        if (this.currentGroup >= this.data.groups.length || this.currentGroup < 0) return false;
         const caseCount = this.testData.groups[this.currentGroup].inputs[0].values.length;
-        if(this.currentCase >= caseCount || this.currentCase < 0) return false;
+        if (this.currentCase >= caseCount || this.currentCase < 0) return false;
 
         return true;
     }
@@ -66,7 +68,7 @@ export class TestbenchData {
      */
     setCase(groupIndex, caseIndex) {
         const newCase = new TestbenchData(this.testData, groupIndex, caseIndex);
-        if(newCase.isCaseValid()) {
+        if (newCase.isCaseValid()) {
             this.currentGroup = groupIndex;
             this.currentCase = caseIndex;
             return true;
@@ -87,13 +89,12 @@ export class TestbenchData {
         while (caseCount === 0 || this.currentGroup === newCase.currentGroup) {
             newCase.currentGroup++;
             if (newCase.currentGroup >= groupCount) return false;
-            caseCount = newCase.testData.groups[newCase.currentGroup].inputs[0].values.length; 
+            caseCount = newCase.testData.groups[newCase.currentGroup].inputs[0].values.length;
         }
 
         this.currentGroup = newCase.currentGroup;
         this.currentCase = newCase.currentCase;
         return true;
-
     }
 
     /**
@@ -108,7 +109,7 @@ export class TestbenchData {
         while (caseCount === 0 || this.currentGroup === newCase.currentGroup) {
             newCase.currentGroup--;
             if (newCase.currentGroup < 0) return false;
-            caseCount = newCase.testData.groups[newCase.currentGroup].inputs[0].values.length; 
+            caseCount = newCase.testData.groups[newCase.currentGroup].inputs[0].values.length;
         }
 
         this.currentGroup = newCase.currentGroup;
@@ -131,7 +132,7 @@ export class TestbenchData {
      */
     casePrev() {
         if (this.currentCase <= 0) {
-            if(!this.groupPrev()) return false;
+            if (!this.groupPrev()) return false;
             const caseCount = this.testData.groups[this.currentGroup].inputs[0].values.length;
             this.currentCase = caseCount - 1;
             return true;
@@ -152,7 +153,7 @@ export class TestbenchData {
         if (caseCount > 0) return true;
 
         // Otherwise go next until non empty group
-        const validExists = newCase.groupNext()
+        const validExists = newCase.groupNext();
 
         // If all groups empty return false
         if (!validExists) return false;
@@ -161,7 +162,6 @@ export class TestbenchData {
         this.currentGroup = newCase.currentGroup;
         this.currentCase = newCase.currentCase;
         return true;
-
     }
 }
 
@@ -197,9 +197,9 @@ function creatorOpenPrompt(creatorWindow) {
                 click() {
                     $(this).dialog('close');
                     creatorWindow.close();
-                }
-            }
-        ]
+                },
+            },
+        ],
     });
 
     $('#setTestbenchData').empty();
@@ -213,7 +213,6 @@ function creatorOpenPrompt(creatorWindow) {
  * @param {Scope=} scope - the circuit
  */
 export function runTestBench(data, scope = globalScope, runContext = CONTEXT.CONTEXT_SIMULATOR) {
-
     const isValid = validate(data, scope);
     if (!isValid.ok) {
         showMessage('Testbench: Some elements missing from circuit. Click Validate to know more');
@@ -229,14 +228,13 @@ export function runTestBench(data, scope = globalScope, runContext = CONTEXT.CON
         globalScope.testbenchData = tempTestbenchData;
 
         updateTestbenchUI();
-        return
-    }
-
-    if(runContext === CONTEXT.CONTEXT_ASSIGNMENTS) {
-        // Not implemented
         return;
     }
 
+    if (runContext === CONTEXT.CONTEXT_ASSIGNMENTS) {
+        // Not implemented
+
+    }
 }
 
 /**
@@ -253,8 +251,7 @@ export function updateTestbenchUI() {
 
     setupTestbenchUI();
     if (globalScope.testbenchData != undefined) {
-
-        const testbenchData = globalScope.testbenchData;
+        const { testbenchData } = globalScope;
 
         // Initialize the UI
         setUITableHeaders(testbenchData);
@@ -269,7 +266,6 @@ export function updateTestbenchUI() {
         $('.tb-dialog-button#edit-test-btn').on('click', buttonListenerFunctions.editTestButton);
         $('.tb-dialog-button#validate-btn').on('click', buttonListenerFunctions.validateButton);
         $('.tb-dialog-button#remove-test-btn').on('click', buttonListenerFunctions.removeTestButton);
-
     }
 
     // Add listener to attach test button
@@ -332,12 +328,12 @@ const buttonListenerFunctions = {
             return;
         }
         const results = runAll(globalScope.testbenchData.testData, globalScope);
-        const passed = results.summary.passed;
-        const total = results.summary.total;
+        const { passed } = results.summary;
+        const { total } = results.summary;
         const resultString = JSON.stringify(results.detailed);
         $('#runall-summary').text(`${passed} out of ${total}`);
-        $('#runall-detailed-link').on('click', () => { openCreator('result', resultString) });
-        $('.testbench-runall-label').css('display','table-cell');
+        $('#runall-detailed-link').on('click', () => { openCreator('result', resultString); });
+        $('.testbench-runall-label').css('display', 'table-cell');
         $('.testbench-runall-label').delay(5000).fadeOut('slow');
     },
 
@@ -352,7 +348,7 @@ const buttonListenerFunctions = {
     },
 
     removeTestButton: () => {
-        if (confirm("Are you sure you want to remove the test from the circuit?")) {
+        if (confirm('Are you sure you want to remove the test from the circuit?')) {
             globalScope.testbenchData = undefined;
             setupTestbenchUI();
         }
@@ -370,7 +366,7 @@ const buttonListenerFunctions = {
         setUICurrentCase(globalScope.testbenchData);
         const result = runSingleTest(globalScope.testbenchData, globalScope);
         setUIResult(globalScope.testbenchData, result);
-    }
+    },
 };
 
 /**
@@ -379,8 +375,7 @@ const buttonListenerFunctions = {
  */
 export function setupTestbenchUI() {
     // Don't change UI if UI is minimized (because hide() and show() are recursive)
-    if ($('.testbench-manual-panel .minimize').css('display') === 'none')
-        return;
+    if ($('.testbench-manual-panel .minimize').css('display') === 'none') return;
 
     if (globalScope.testbenchData === undefined) {
         $('.tb-test-not-null').hide();
@@ -405,8 +400,10 @@ function runAll(data, scope) {
     const { inputs, outputs, reset } = bindIO(data, scope);
     let totalCases = 0;
     let passedCases = 0;
-    for (const group of data.groups) {
-        for (const output of group.outputs) output.results = [];
+
+    data.groups.forEach((group) => {
+        // for (const output of group.outputs) output.results = [];
+        group.outputs.forEach((output) => output.results = []);
         for (let case_i = 0; case_i < group.n; case_i++) {
             totalCases++;
             // Set and propagate the inputs
@@ -418,27 +415,28 @@ function runAll(data, scope) {
             // Put the results in the data
 
             let casePassed = true; // Tracks if current case passed or failed
-            for (const outName of caseResult.keys()) {
+
+            caseResult.forEach((_, outName) => {
                 // TODO: find() is not the best idea because of O(n)
                 const output = group.outputs.find((dataOutput) => dataOutput.label === outName);
                 output.results.push(caseResult.get(outName));
 
                 if (output.values[case_i] !== caseResult.get(outName)) casePassed = false;
-            }
+            });
 
             // If current case passed, then increment passedCases
-            if(casePassed) passedCases++;
+            if (casePassed) passedCases++;
         }
 
         // If sequential, trigger reset at the end of group (set)
         if (data.type === 'seq') triggerReset(reset);
-    }
+    });
 
     // Tests done, restart the clocks
     changeClockEnable(true);
 
     // Return results
-    const results = {} 
+    const results = {};
     results.detailed = data;
     results.summary = { passed: passedCases, total: totalCases };
     // console.log(JSON.stringify(results.detailed));
@@ -537,9 +535,9 @@ function runSingleSequential(testbenchData, scope) {
  * @param {Scope} scope - the circuit
  */
 function setInputValues(inputs, group, caseIndex, scope) {
-    for (const input of group.inputs) {
+    group.inputs.forEach((input) => {
         inputs[input.label].state = parseInt(input.values[caseIndex], 2);
-    }
+    });
 
     // Propagate inputs
     play(scope);
@@ -551,11 +549,13 @@ function setInputValues(inputs, group, caseIndex, scope) {
  */
 function getOutputValues(data, outputs) {
     const values = new Map();
-    for (const dataOutput of data.groups[0].outputs) {
+
+    data.groups[0].outputs.forEach((dataOutput) => {
         // Using node value because output state only changes on rendering
         const resultValue = outputs[dataOutput.label].nodeList[0].value;
-        values.set(dataOutput.label, dec2bin(resultValue));
-    }
+        const resultBW = outputs[dataOutput.label].nodeList[0].bitWidth;
+        values.set(dataOutput.label, dec2bin(resultValue, resultBW));
+    });
 
     return values;
 }
@@ -566,7 +566,6 @@ function getOutputValues(data, outputs) {
  * @param {Object} validationErrors - Object with errors returned by validate()
  */
 function showValidationUI(validationErrors) {
-
     const checkSVG = `
     <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="white" class="bi bi-check" viewBox="0 0 16 16">
       <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
@@ -582,7 +581,7 @@ function showValidationUI(validationErrors) {
     </div>
     `;
 
-    if (!validationErrors.ok){
+    if (!validationErrors.ok) {
         s = `
         <div style="text-align: center; color: white;">
             <p>Please fix these errors to run tests</p>
@@ -593,16 +592,16 @@ function showValidationUI(validationErrors) {
                 </tr>
         `;
 
-        for (const vError of validationErrors.invalids) {
+        validationErrors.invalids.forEach((vError) => {
             s += `
                 <tr>
                     <td>${vError.identifier}</td>
                     <td>${vError.message}</td>
                 </tr>
             `;
-        }
+        });
 
-        s+= '</table></div>';
+        s += '</table></div>';
     }
 
     $('#testbenchValidate').dialog({
@@ -613,7 +612,7 @@ function showValidationUI(validationErrors) {
                 text: 'Ok',
                 click() {
                     $(this).dialog('close');
-                }
+                },
             },
             {
                 text: 'Auto Fix',
@@ -621,9 +620,9 @@ function showValidationUI(validationErrors) {
                     const fixes = validationAutoFix(validationErrors);
                     showMessage(`Testbench: Auto fixed ${fixes} errors`);
                     $(this).dialog('close');
-                }
-            }
-        ]
+                },
+            },
+        ],
     });
 
     $('#testbenchValidate').empty();
@@ -643,7 +642,7 @@ function validate(data, scope) {
         invalids.push({
             type: VALIDATION_ERRORS.DUPLICATE_ID_DATA,
             identifier: '-',
-            message: 'Duplicate identifiers in test data'
+            message: 'Duplicate identifiers in test data',
         });
     }
 
@@ -651,12 +650,12 @@ function validate(data, scope) {
         invalids.push({
             type: VALIDATION_ERRORS.DUPLICATE_ID_SCOPE,
             identifier: '-',
-            message: 'Duplicate identifiers in circuit'
+            message: 'Duplicate identifiers in circuit',
         });
     }
 
     // Don't do further checks if duplicates
-    if (invalids.length > 0) return { ok: false, invalids: invalids };
+    if (invalids.length > 0) return { ok: false, invalids };
 
     // Validate inputs and outputs
     const inputsValid = validateInputs(data, scope);
@@ -677,12 +676,12 @@ function validate(data, scope) {
             invalids.push({
                 type: VALIDATION_ERRORS.NO_RST,
                 identifier: 'RST',
-                message: 'Reset(RST) not present in circuit'
+                message: 'Reset(RST) not present in circuit',
             });
         }
     }
 
-    if (invalids.length > 0) return { ok: false, invalids: invalids };
+    if (invalids.length > 0) return { ok: false, invalids };
     return { ok: true };
 }
 
@@ -697,16 +696,13 @@ function validationAutoFix(validationErrors) {
     // Return if no errors
     if (validationErrors.ok) return fixedErrors;
 
-    const bitwidthErrors = validationErrors.invalids.filter((vError) => {
-        return vError.type === VALIDATION_ERRORS.WRONGBITWIDTH;
-    });
+    const bitwidthErrors = validationErrors.invalids.filter((vError) => vError.type === VALIDATION_ERRORS.WRONGBITWIDTH);
 
-    for (const bwError of bitwidthErrors) {
-        const element = bwError.extraInfo.element;
-        const expectedBitWidth = bwError.extraInfo.expectedBitWidth;
+    bitwidthErrors.forEach((bwError) => {
+        const { element, expectedBitWidth } = bwError.extraInfo;
         element.newBitWidth(expectedBitWidth);
         fixedErrors++;
-    }
+    });
 
     return fixedErrors;
 }
@@ -731,7 +727,10 @@ function checkDistinctIdentifiersData(data) {
 function checkDistinctIdentifiersScope(scope) {
     const inputIdentifiersScope = scope.Input.map((input) => input.label);
     const outputIdentifiersScope = scope.Output.map((output) => output.label);
-    const identifiersScope = inputIdentifiersScope.concat(outputIdentifiersScope);
+    let identifiersScope = inputIdentifiersScope.concat(outputIdentifiersScope);
+
+    // Remove identifiers which have not been set yet (ie. empty strings)
+    identifiersScope = identifiersScope.filter((identifer) => identifer != '');
 
     return (new Set(identifiersScope)).size === identifiersScope.length;
 }
@@ -744,31 +743,30 @@ function checkDistinctIdentifiersScope(scope) {
  */
 function validateInputs(data, scope) {
     const invalids = [];
-    for (const dataInput of data.groups[0].inputs) {
+
+    data.groups[0].inputs.forEach((dataInput) => {
         const matchInput = scope.Input.find((simulatorInput) => simulatorInput.label === dataInput.label);
 
         if (matchInput === undefined) {
             invalids.push({
                 type: VALIDATION_ERRORS.NOTPRESENT,
                 identifier: dataInput.label,
-                message: `Input is not present in the circuit`,
+                message: 'Input is not present in the circuit',
             });
-        }
-
-        else if (matchInput.bitWidth !== dataInput.bitWidth) {
+        } else if (matchInput.bitWidth !== dataInput.bitWidth) {
             invalids.push({
                 type: VALIDATION_ERRORS.WRONGBITWIDTH,
                 identifier: dataInput.label,
                 extraInfo: {
                     element: matchInput,
-                    expectedBitWidth: dataInput.bitWidth
+                    expectedBitWidth: dataInput.bitWidth,
                 },
                 message: `Input bitwidths don't match in circuit and test (${matchInput.bitWidth} vs ${dataInput.bitWidth})`,
             });
         }
-    }
+    });
 
-    if (invalids.length > 0) return { ok: false, invalids: invalids };
+    if (invalids.length > 0) return { ok: false, invalids };
     return { ok: true };
 }
 
@@ -780,31 +778,30 @@ function validateInputs(data, scope) {
  */
 function validateOutputs(data, scope) {
     const invalids = [];
-    for (const dataOutput of data.groups[0].outputs) {
+
+    data.groups[0].outputs.forEach((dataOutput) => {
         const matchOutput = scope.Output.find((simulatorOutput) => simulatorOutput.label === dataOutput.label);
 
         if (matchOutput === undefined) {
             invalids.push({
                 type: VALIDATION_ERRORS.NOTPRESENT,
                 identifier: dataOutput.label,
-                message: `Output is not present in the circuit`,
+                message: 'Output is not present in the circuit',
             });
-        }
-
-        else if (matchOutput.bitWidth !== dataOutput.bitWidth) {
+        } else if (matchOutput.bitWidth !== dataOutput.bitWidth) {
             invalids.push({
                 type: VALIDATION_ERRORS.WRONGBITWIDTH,
                 identifier: dataOutput.label,
                 extraInfo: {
                     element: matchOutput,
-                    expectedBitWidth: dataOutput.bitWidth
+                    expectedBitWidth: dataOutput.bitWidth,
                 },
                 message: `Output bitwidths don't match in circuit and test (${matchOutput.bitWidth} vs ${dataOutput.bitWidth})`,
             });
         }
-    }
+    });
 
-    if (invalids.length > 0) return { ok: false, invalids: invalids };
+    if (invalids.length > 0) return { ok: false, invalids };
     return { ok: true };
 }
 
@@ -817,13 +814,14 @@ function bindIO(data, scope) {
     const inputs = {};
     const outputs = {};
     let reset;
-    for (const dataInput of data.groups[0].inputs) {
-        inputs[dataInput.label] = scope.Input.find((simulatorInput) => simulatorInput.label === dataInput.label);
-    }
 
-    for (const dataOutput of data.groups[0].outputs) {
+    data.groups[0].inputs.forEach((dataInput) => {
+        inputs[dataInput.label] = scope.Input.find((simulatorInput) => simulatorInput.label === dataInput.label);
+    });
+
+    data.groups[0].outputs.forEach((dataOutput) => {
         outputs[dataOutput.label] = scope.Output.find((simulatorOutput) => simulatorOutput.label === dataOutput.label);
-    }
+    });
 
     if (data.type === 'seq') {
         reset = scope.Input.find((simulatorOutput) => simulatorOutput.label === 'RST');
@@ -869,19 +867,20 @@ function setUITableHeaders(testbenchData) {
     $('#tb-manual-table-inputs-head').attr('colspan', inputCount);
     $('#tb-manual-table-outputs-head').attr('colspan', outputCount);
 
-    $('.testbench-runall-label').css('display','none');
+    $('.testbench-runall-label').css('display', 'none');
 
-    $('.tb-data#data-title').children().eq(1).text(data.title || "Untitled");
-    $('.tb-data#data-type').children().eq(1).text(data.type === "comb" ? "Combinational" : "Sequential");
+    $('.tb-data#data-title').children().eq(1).text(data.title || 'Untitled');
+    $('.tb-data#data-type').children().eq(1).text(data.type === 'comb' ? 'Combinational' : 'Sequential');
 
     $('#tb-manual-table-labels').html('<th>LABELS</th>');
     $('#tb-manual-table-bitwidths').html('<td>Bitwidth</td>');
-    for (const io of data.groups[0].inputs.concat(data.groups[0].outputs)) {
+
+    data.groups[0].inputs.concat(data.groups[0].outputs).forEach((io) => {
         const label = `<th>${escapeHtml(io.label)}</th>`;
         const bw = `<td>${escapeHtml(io.bitWidth.toString())}</td>`;
         $('#tb-manual-table-labels').append(label);
         $('#tb-manual-table-bitwidths').append(bw);
-    }
+    });
 
     setUICurrentCase(testbenchData);
 }
@@ -903,13 +902,14 @@ function setUICurrentCase(testbenchData) {
     currCaseElement.append('<td>Current Case</td>');
     $('#tb-manual-table-test-result').empty();
     $('#tb-manual-table-test-result').append('<td>Result</td>');
-    for (const input of data.groups[groupIndex].inputs) {
-        currCaseElement.append(`<td>${escapeHtml(input.values[caseIndex])}</td>`);
-    }
 
-    for (const output of data.groups[groupIndex].outputs) {
+    data.groups[groupIndex].inputs.forEach((input) => {
+        currCaseElement.append(`<td>${escapeHtml(input.values[caseIndex])}</td>`);
+    });
+
+    data.groups[groupIndex].outputs.forEach((output) => {
         currCaseElement.append(`<td>${escapeHtml(output.values[caseIndex])}</td>`);
-    }
+    });
 
     $('.testbench-manual-panel .group-label').text(data.groups[groupIndex].label);
     $('.testbench-manual-panel .case-label').text(caseIndex + 1);
@@ -936,7 +936,7 @@ function setUIResult(testbenchData, result) {
     for (const output of result.keys()) {
         const resultValue = result.get(output);
         const expectedValue = data.groups[groupIndex].outputs.find((dataOutput) => dataOutput.label === output).values[caseIndex];
-        const color = resultValue === expectedValue ? "#17FC12" : "#FF1616";
+        const color = resultValue === expectedValue ? '#17FC12' : '#FF1616';
         resultElement.append(`<td style="color: ${color}">${escapeHtml(resultValue)}</td>`);
     }
 }
@@ -945,13 +945,13 @@ function setUIResult(testbenchData, result) {
  * Use this function to navigate to test creator. This function starts the storage listener
  * so the test is loaded directly into the simulator
  * @param {string} type - 'create', 'edit' or 'result'
- * @param {String} dataString - data in JSON string to load in case of 'edit' and 'result'  
+ * @param {String} dataString - data in JSON string to load in case of 'edit' and 'result'
  */
 function openCreator(type, dataString) {
     const popupHeight = 800;
     const popupWidth = 1200;
-    const popupTop = ( window.height - popupHeight ) / 2;
-    const popupLeft = ( window.width - popupWidth ) / 2;
+    const popupTop = (window.height - popupHeight) / 2;
+    const popupLeft = (window.width - popupWidth) / 2;
     const POPUP_STYLE_STRING = `height=${popupHeight},width=${popupWidth},top=${popupTop},left=${popupLeft}`;
     let popUp;
 
@@ -961,15 +961,19 @@ function openCreator(type, dataString) {
 
         // Check if the current scope requested the creator pop up
         const data = JSON.parse(message.data.data);
+
+        // Unbind event listener
+        window.removeEventListener('message', dataListener);
+
+        // If scopeID does not match, do nothing and return
         if (data.scopeID != globalScope.id) return;
 
         // Load test data onto the scope
         runTestBench(data.testData, globalScope, CONTEXT.CONTEXT_SIMULATOR);
-        // Unbind event listener
-        $(window).off('message', dataListener);
+
         // Close the 'Pop up is open' dialog
         $('#setTestbenchData').dialog('close');
-    }
+    };
 
     if (type === 'create') {
         const url = `${TESTBENCH_CREATOR_PATH}?scopeID=${globalScope.id}&popUp=true`;
@@ -990,12 +994,16 @@ function openCreator(type, dataString) {
         popUp = window.open(url, 'popupWindow', POPUP_STYLE_STRING);
     }
 
-    // Check if popup was closed (in case it was closed by window's X button), then close dialog
-    if (popUp){
+    // Check if popup was closed (in case it was closed by window's X button),
+    // then close 'popup open' dialog
+    if (popUp && type !== 'result') {
         const checkPopUp = setInterval(() => {
             if (popUp.closed) {
-                $('#setTestbenchData').dialog('close');
-                $(window).off('message', dataListener);
+                // Close the dialog if it's open
+                if ($('#setTestbenchData').dialog('isOpen')) $('#setTestbenchData').dialog('close');
+
+                // Remove the event listener that listens for data from popup
+                window.removeEventListener('message', dataListener);
                 clearInterval(checkPopUp);
             }
         }, 1000);
