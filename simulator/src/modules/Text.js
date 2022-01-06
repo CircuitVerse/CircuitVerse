@@ -84,18 +84,13 @@ export default class Text extends CircuitElement {
      * @param {string} key - the label
      */
     keyDown(key) {
-        if (simulationArea.controlDown) {
-            if (key === 'c' || key === 'C') {
-                const textToPutOnClipboard = copy([this]);
-                navigator.clipboard.writeText(textToPutOnClipboard);
-                return localStorage.setItem('clipboardData', textToPutOnClipboard);
-            }
-            if (key === 'v' || key === 'V') {
-                return paste(localStorage.getItem('clipboardData'));
-            }
-            return;
-        } 
-        if (key.length === 1) {
+        if (simulationArea.controlDown && (key === 'c' || key === 'C')) {
+            const textToPutOnClipboard = copy([this]);
+            navigator.clipboard.writeText(textToPutOnClipboard);
+            localStorage.setItem('clipboardData', textToPutOnClipboard);
+        } else if (simulationArea.controlDown && (key === 'v' || key === 'V')) {
+            paste(localStorage.getItem('clipboardData'));
+        } else if (key.length === 1) {
             if (this.label === 'Enter Text Here') { this.setLabel(key); } else { this.setLabel(this.label + key); }
         } else if (key === 'Backspace') {
             if (this.label === 'Enter Text Here') { this.setLabel(''); } else { this.setLabel(this.label.slice(0, -1)); }
