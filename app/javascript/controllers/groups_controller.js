@@ -1,5 +1,4 @@
 import { Controller } from 'stimulus';
-import * as $ from 'jquery/dist/jquery';
 import 'js/jquery.js';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import 'bootstrap/dist/js/bootstrap';
