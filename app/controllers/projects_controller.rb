@@ -38,7 +38,7 @@ class ProjectsController < ApplicationController
 
   def project_invite
     if Project.with_project_token.exists?(collaboration_token: params[:token])
-      if current_user.collaborations.exists?(project: @project)
+      if current_user&.collaborations.exists?(project: @project)
         notice = "Collaborator is already present in the project."
       else
         current_user.collaborations.create!(project: @project)
