@@ -424,16 +424,19 @@ export default function startListeners() {
         const result = elementPanelList.filter(ele => ele.toLowerCase().includes(value));
         var finalResult = [];
         for(const j in result) {
-            for (const category in elementHierarchy) {
-                const categoryData = elementHierarchy[category];
-                
-                for (let i = 0; i < categoryData.length; i++) {
-                    if(result[j] == categoryData[i]["label"]){
-                        finalResult.push(categoryData[i]);
-                }
-            }
+            if (result.hasOwnProperty(j)) {
+                for (const category in elementHierarchy) {
+                     if(elementHierarchy.hasOwnProperty(category)) {
+                        const categoryData = elementHierarchy[category];
+                         for (let i = 0; i < categoryData.length; i++) {
+                             if(result[j] == categoryData[i].label) {
+                                 finalResult.push(categoryData[i]);
+                            }
+                        }
+                    }
+                } 
+            }   
         }
-    }
     if(!finalResult.length) searchResults.text('No elements found ...');
     else {
         finalResult.forEach( e => htmlIcons += createIcon(e));
