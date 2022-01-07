@@ -424,9 +424,9 @@ export default function startListeners() {
         const result = elementPanelList.filter(ele => ele.toLowerCase().includes(value));
         var finalResult = [];
         for(const j in result) {
-            if (result.hasOwnProperty(j)) {
+            if (Object.prototype.hasOwnProperty.call(result, j)) {
                 for (const category in elementHierarchy) {
-                     if(elementHierarchy.hasOwnProperty(category)) {
+                     if(Object.prototype.hasOwnProperty.call(elementHierarchy, category)) {
                         const categoryData = elementHierarchy[category];
                          for (let i = 0; i < categoryData.length; i++) {
                              if(result[j] == categoryData[i].label) {
