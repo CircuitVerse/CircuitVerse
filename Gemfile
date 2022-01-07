@@ -18,7 +18,7 @@ gem "omniauth-google-oauth2"
 gem "omniauth-microsoft-office365"
 gem "kt-paperclip"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 6.1.4"
+gem "rails", "~> 7.0"
 # Use Puma as the app server
 gem "puma", "~> 5.5"
 # Use SCSS for stylesheets
@@ -48,7 +48,8 @@ gem "jquery-rails"
 
 gem "carrierwave", "~> 2.2"
 
-gem "rails_admin", "~> 2.2"
+# gem "rails_admin", "~> 2.2"
+gem "rails_admin", github: 'railsadminteam/rails_admin'
 
 # gem 'cancancan', '~>2.0'
 
@@ -92,7 +93,7 @@ gem "pg", "~> 1.2.3"
 gem "meta-tags"
 
 # Notifications
-gem "activity_notification"
+gem "activity_notification", github: 'tachyons/activity_notification'
 gem "serviceworker-rails"
 gem "webpush"
 
@@ -165,7 +166,8 @@ gem "newrelic_rpm", "~> 8.2"
 
 gem "oj", "~> 3.13"
 
-gem "hairtrigger", "~> 0.2.24"
+# gem "hairtrigger", "~> 0.2.24"
+gem "hairtrigger", github: 'erikaxel/hair_trigger'
 
 # Used for rate limiting
 gem "rack-attack"
