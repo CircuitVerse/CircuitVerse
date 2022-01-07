@@ -35,6 +35,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Overrides Devise::Controller::StoreLocation.store_location_for to check if
+  # URL is too long to store in the session
+  def store_location_for(resource_or_scope, location)
+    super unless location && location.length > 150
+  end
+
   private
 
     def extract_locale_from_accept_language_header
