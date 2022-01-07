@@ -38,7 +38,12 @@ class ApplicationController < ActionController::Base
   # Overrides Devise::Controller::StoreLocation.store_location_for to check if
   # URL is too long to store in the session
   def store_location_for(resource_or_scope, location)
-    super unless location && location.length > 150
+    max_location_size = 200 # bytes
+    if location && location.length > max_location_size
+      super resource_or_scope, "/"
+    else
+      super
+    end
   end
 
   private
