@@ -1,5 +1,5 @@
 :root {
-  --black: rgb(0, 0, 0);
+  --black: rgb(0,0,0);
   --grey: rgb(108, 117, 125);
 }
 
@@ -108,7 +108,7 @@
   width: 40px;
 
   &:hover {
-    opacity: 0.7;
+    opacity: .7;
   }
 }
 //shared ends
@@ -324,11 +324,11 @@
     font-size: 16px;
     margin: 0;
     padding: 7px 10px 7px 35px;
-    transition: 0.2s ease-in-out;
+    transition: .2s ease-in-out;
 
     &:focus {
       border-color: $primary-green;
-      transition: 0.2s ease-in-out;
+      transition: .2s ease-in-out;
     }
   }
 }
@@ -376,7 +376,7 @@
   }
 
   &:focus {
-    box-shadow: 0 0 0 0.2rem $form-input-focus-green;
+    box-shadow: 0 0 0 .2rem $form-input-focus-green;
     outline: 0;
   }
 }
