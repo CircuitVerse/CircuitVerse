@@ -448,7 +448,7 @@ export default function startListeners() {
 
     function createIcon(element) {
         return `<div class="${element.name} icon logixModules filterElements" id="${element.name}" title="${element.label}">
-            <img  src= "/img/${element.name}.svg" >
+            <img  src= "/img/${element.name}.svg" alt="element's image" >
         </div>`;
     }
 
