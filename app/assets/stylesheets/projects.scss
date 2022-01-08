@@ -151,10 +151,15 @@
   border: 1.5px solid $secondary-green;
   font-size: 12px;
   text-align: left;
+  outline-color: $secondary-green;
+}
+
+.embed-container {
+  background-color: #f8f9fa;
 }
 
 .projectshow-embed-text-confirmation {
-  display: block;
+  display: none;
   text-align: right;
 }
 

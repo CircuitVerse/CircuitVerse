@@ -102,10 +102,10 @@
               <% if policy(@project).user_access? %>
                 <a href="<%= simulator_edit_path(@project) %>" class="btn primary-button projects-primary-button" target="_blank"><%= t("launch_simulator") %></a>
               <% else %>
-                <a class="btn primary-button projects-primary-button projects-others-embed-button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" onclick="embedOther()">
-                  <i class="fas fa-code"></i>
-                  <span><%= t("projects.show.project_embed") %></span>
-                </a>
+                <a class="btn secondary-button projects-self-embed-button" class="embed-trigger" href="#" sdata-target="#embed" data-toggle="modal">
+                <i class="fas fa-code"></i>
+                <span><%= t("projects.show.project_embed") %></span>
+              </a>
               <% end %>
               <% if policy(@project).author_access? %>
                 <%= link_to create_fork_project_path(@project), class: "btn primary-button projects-primary-button", method: :post do %>
@@ -141,19 +141,68 @@
                 <%= image_tag("SVGs/deleteProject.svg", alt: "Delete Project") %>
                 <span><%= t("delete") %></span>
               <% end %>
-              <a class="btn secondary-button projects-self-embed-button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" onclick="embedSelf()">
+              <a class="btn secondary-button projects-self-embed-button" class="embed-trigger" href="#" data-target="#embed" data-toggle="modal">
                 <i class="fas fa-code"></i>
                 <span><%= t("projects.show.project_embed") %></span>
               </a>
-            </p>
+              </p>
           <% end %>
-          <div class="collapse" id="collapseExample">
-            <div class="projects-embed-text-container">
-              <label for="embedTextArea"></label>
-              <textarea id="embedTextArea" class="projects-embed-text" rows="4" cols="35"><iframe width="600px" height="400px" src="<%= simulator_embed_url(@project) %>" id="projectPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen></iframe></textarea>
+                <div id="embed" 
+                  class="modal fade rounded " 
+                  role="dialog" tabindex="-1"
+                  role="dialog"
+                  aria-labelledby="mySmallModalLabel"
+                  aria-hidden="true">
+                  <div class="modal-dialog ">
+                    <div class="modal-content embed-container">
+                      <div class="container my-2">
+                        <button
+                          type="button"
+                          class="close"
+                          data-dismiss="modal"
+                          aria-label="Close" 
+                        >
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                        <br>
+                        <div class="form-group row">
+                          <label for="height" class="col-sm-2 col-form-label"><b>Iframe</b></label>
+                            <input type="text" class="form-control col-sm-4" id="height" placeholder="Height"/>&nbsp;&nbsp; 
+                            <input type="text" class="form-control col-sm-4" id="width" placeholder="Width"/>
+                        </div>
+                        <div class="form-group row">
+                          <label for="url" class="col-sm-2 col-form-label"><b>Url</b>&emsp;&nbsp;</label>
+                            <input type="text" class="form-control col-sm-8" id="url" value="<%= simulator_embed_url(@project) %>" readonly/><br>
+                        </div>
+                        <div class="form-group row">
+                          <label for="border_px" class="col-sm-2 col-form-label"><b>Border</b></label>
+                            <input type="text" class="form-control col-sm-4" id="border_px" placeholder="Width"/>&nbsp;&nbsp;
+                            <input type="text" class="form-control col-sm-4" id="border_color" placeholder="Color"/>
+                        </div>
+                        <div class="form-group row">
+                          <label for="border_style" class="col-sm-3 col-form-label"><b>Border Style</b></label>
+                            <select class="form-control col-sm-7" id="border_style" placeholder="Select a style">
+                              <option>solid</option>
+                              <option>dashed</option>
+                              <option>dotted</option>
+                              <option>double</option>
+                              <option>groove</option>
+                              <option>ridge</option>
+                              <option>inset</option>
+                              <option>outset</option>
+                              <option>none</option>
+                              <option>hidden</option>
+                              <option>dotted dashed solid double</option>
+                            </select>
+                        </div>
+                        <button class="btn primary-button projects-primary-button embed-button" onclick="edit_embed();copy()">Create Embed</button>
+                      </div>
+                      <textarea class="projects-embed-text embed-textarea" rows="5px" column="115px" id="result"></textarea>
+                      <small class="projectshow-embed-text-confirmation"><%= t("projects.show.copied_to_clipboard") %></small>
+                  </div>
+                </div>
+              </div>  
             </div>
-            <small class="projectshow-embed-text-confirmation"><%= t("projects.show.copied_to_clipboard") %></small>
-          </div>
         </div>
       </div>
     </div>
@@ -225,24 +274,12 @@
   })
 </script>
 <script>
-  function embedOther() {
-    if(document.getElementsByClassName("projects-others-embed-button")[0].ariaExpanded=="false") {
-      document.getElementsByClassName("projects-others-embed-button")[0].classList.add("active");
-    }
-    else {
-      document.getElementsByClassName("projects-others-embed-button")[0].classList.remove("active");
-    }
-    setTimeout(function(){$("#embedTextArea").select();document.execCommand("copy")},100);
-  }
-
-  function embedSelf() {
-    if(document.getElementsByClassName("projects-self-embed-button")[0].ariaExpanded=="false") {
-      document.getElementsByClassName("projects-self-embed-button")[0].classList.add("active");
-    }
-    else {
-      document.getElementsByClassName("projects-self-embed-button")[0].classList.remove("active");
-    }
-    setTimeout(function(){$("#embedTextArea").select();document.execCommand("copy")},100);
+  function copy() {
+    let textarea = document.getElementById("result");
+    var x = document.querySelector(".projectshow-embed-text-confirmation");
+    textarea.select();
+    document.execCommand("copy");
+    x.style.display = "block";
   }
 
   function toggleStar(toggle) {
@@ -282,3 +319,15 @@
     }
   </script>
 <% end %>
+<script>
+  function edit_embed(){
+    const url=document.querySelector('#url').value;
+    const height=document.querySelector('#height').value;
+    const width=document.querySelector('#width').value;
+    const border_px=document.querySelector('#border_px').value;
+    const border_style=document.querySelector('#border_style').value;
+    const border_color=document.querySelector('#border_color').value;
+    const markup=`<iframe src="${url}" style="border-width:${border_px}; border-style: ${border_style}; border-color:${border_color};" name="myiframe" id="projectPreview" scrolling="no" frameborder="1" marginheight="0px" marginwidth="0px" height="${height}" width="${width}" allowFullScreen></iframe>`;
+    document.querySelector('#result').innerText=markup;
+  }
+</script>
