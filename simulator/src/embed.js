@@ -31,15 +31,6 @@ $(document).ready(() => {
         if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) { prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet() ; } else { circuitProperty[this.name](this.value); }
     });
 
-    $('#fullscreen').on('click', function() {
-        if(document.getElementById("fullscreen").value == "Full Screen") {
-            document.getElementById("fullscreen").setAttribute("value","Exit Full Screen");
-        }
-        else {
-            document.getElementById("fullscreen").setAttribute("value","Full Screen");
-        }    
-    });
-    
     // Following codes need to be removed
     $('.objectPropertyAttributeEmbedChecked').on('change keyup paste click', function () {
         scheduleUpdate();
@@ -65,6 +56,12 @@ function toggleFullScreen(value) {
 function exitHandler() {
     setTimeout(() => {
         Object.keys(scopeList).forEach((id) => {
+            if(document.getElementById("fullscreen").value == "Full Screen") {
+                document.getElementById("fullscreen").setAttribute("value","Exit Full Screen");
+            }
+            else {
+                document.getElementById("fullscreen").setAttribute("value","Full Screen");
+            }  
             scopeList[id].centerFocus(true);
         });
         gridUpdateSet(true);
