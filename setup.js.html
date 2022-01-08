@@ -210,8 +210,8 @@ function setupElementLists() {
 
 
     function createIcon(element) {
-        return `&lt;div class="icon logixModules" id="${element}" title="${element}">
-            &lt;img src= "/img/${element}.svg" >
+        return `&lt;div class="icon logixModules" id="${element.name}" title="${element.label}">
+            &lt;img src= "/img/${element.name}.svg" alt="element's image" >
         &lt;/div>`;
     }
 
@@ -222,9 +222,9 @@ function setupElementLists() {
         const categoryData = elementHierarchy[category];
         for (let i = 0; i &lt; categoryData.length; i++) {
             const element = categoryData[i];
-            if(!element.startsWith("verilog")) {
+            if(!(element.name).startsWith("verilog")) {
                 htmlIcons += createIcon(element);
-                window.elementPanelList.push(element);
+                window.elementPanelList.push(element.label);
             }
         }
 
