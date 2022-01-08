@@ -49,6 +49,10 @@ class Assignment < ApplicationRecord
     restrictions != "[]"
   end
 
+  def feature_restricted?
+    feature_restrictions != {}
+  end
+
   def lti_integrated?
     lti_consumer_key.present? && lti_shared_secret.present?
   end

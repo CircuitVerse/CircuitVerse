@@ -22,6 +22,15 @@ class AssignmentDecorator < SimpleDelegator
     end
   end
 
+  def restricted_features
+    restricted_feature_str = JSON.parse(assignment.feature_restrictions).reduce("") do |str, element|
+      str += "#{element}, "
+      str
+    end
+
+    restricted_feature_str.present? ? restricted_feature_str.slice(0..-3) : "None"
+  end
+
   def restricted_circuit_elements
     restricted_elements_str = JSON.parse(assignment.restrictions).reduce("") do |str, element|
       str += "#{element}, "
