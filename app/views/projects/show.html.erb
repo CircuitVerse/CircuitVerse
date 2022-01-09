@@ -147,12 +147,13 @@
               </a>
               </p>
           <% end %>
-                <div id="embed" 
-                  class="modal fade rounded " 
+                <div id="embed"
+                  class="modal fade rounded "
                   role="dialog" tabindex="-1"
                   role="dialog"
                   aria-labelledby="mySmallModalLabel"
-                  aria-hidden="true">
+                  aria-hidden="true"
+                >
                   <div class="modal-dialog ">
                     <div class="modal-content embed-container">
                       <div class="container my-2">
@@ -160,24 +161,24 @@
                           type="button"
                           class="close"
                           data-dismiss="modal"
-                          aria-label="Close" 
+                          aria-label="Close"
                         >
                           <span aria-hidden="true">&times;</span>
                         </button>
                         <br>
                         <div class="form-group row">
                           <label for="height" class="col-sm-2 col-form-label"><b>Iframe</b></label>
-                            <input type="text" class="form-control col-sm-4" id="height" placeholder="Height"/>&nbsp;&nbsp; 
-                            <input type="text" class="form-control col-sm-4" id="width" placeholder="Width"/>
+                            <input type="text" class="form-control col-sm-4" id="height" placeholder="Height">&nbsp;&nbsp; 
+                            <input type="text" class="form-control col-sm-4" id="width" placeholder="Width">
                         </div>
                         <div class="form-group row">
                           <label for="url" class="col-sm-2 col-form-label"><b>Url</b>&emsp;&nbsp;</label>
-                            <input type="text" class="form-control col-sm-8" id="url" value="<%= simulator_embed_url(@project) %>" readonly/><br>
+                            <input type="text" class="form-control col-sm-8" id="url" value="<%= simulator_embed_url(@project) %>" readonly><br>
                         </div>
                         <div class="form-group row">
                           <label for="border_px" class="col-sm-2 col-form-label"><b>Border</b></label>
-                            <input type="text" class="form-control col-sm-4" id="border_px" placeholder="Width"/>&nbsp;&nbsp;
-                            <input type="text" class="form-control col-sm-4" id="border_color" placeholder="Color"/>
+                            <input type="text" class="form-control col-sm-4" id="border_px" placeholder="Width">&nbsp;&nbsp;
+                            <input type="text" class="form-control col-sm-4" id="border_color" placeholder="Color">
                         </div>
                         <div class="form-group row">
                           <label for="border_style" class="col-sm-3 col-form-label"><b>Border Style</b></label>
@@ -201,7 +202,7 @@
                       <small class="projectshow-embed-text-confirmation"><%= t("projects.show.copied_to_clipboard") %></small>
                   </div>
                 </div>
-              </div>  
+              </div>
             </div>
         </div>
       </div>
@@ -304,8 +305,32 @@
   }
 </script>
 
+<script>
+  function edit_embed(){
+    const url=document.querySelector('#url').value;
+    const height=document.querySelector('#height').value;
+    const width=document.querySelector('#width').value;
+    const border_px=document.querySelector('#border_px').value;
+    const border_style=document.querySelector('#border_style').value;
+    const border_color=document.querySelector('#border_color').value;
+    const markup=`<iframe src="${url}" style="border-width:${border_px}; border-style: ${border_style}; border-color:${border_color};" name="myiframe" id="projectPreview" scrolling="no" frameborder="1" marginheight="0px" marginwidth="0px" height="${height}" width="${width}" allowFullScreen></iframe>`;
+    document.querySelector('#result').innerText=markup;
+  }
+</script>
+
 <% if user_signed_in? %>
-  <script type="application/ld+json">
+  <script type="application/ld+json"><script>
+  function edit_embed(){
+    const url=document.querySelector('#url').value;
+    const height=document.querySelector('#height').value;
+    const width=document.querySelector('#width').value;
+    const border_px=document.querySelector('#border_px').value;
+    const border_style=document.querySelector('#border_style').value;
+    const border_color=document.querySelector('#border_color').value;
+    const markup=`<iframe src="${url}" style="border-width:${border_px}; border-style: ${border_style}; border-color:${border_color};" name="myiframe" id="projectPreview" scrolling="no" frameborder="1" marginheight="0px" marginwidth="0px" height="${height}" width="${width}" allowFullScreen></iframe>`;
+    document.querySelector('#result').innerText=markup;
+  }
+</script>
     {
       "@context" : "http://schema.org",
       "@type" : "Article",
@@ -319,15 +344,3 @@
     }
   </script>
 <% end %>
-<script>
-  function edit_embed(){
-    const url=document.querySelector('#url').value;
-    const height=document.querySelector('#height').value;
-    const width=document.querySelector('#width').value;
-    const border_px=document.querySelector('#border_px').value;
-    const border_style=document.querySelector('#border_style').value;
-    const border_color=document.querySelector('#border_color').value;
-    const markup=`<iframe src="${url}" style="border-width:${border_px}; border-style: ${border_style}; border-color:${border_color};" name="myiframe" id="projectPreview" scrolling="no" frameborder="1" marginheight="0px" marginwidth="0px" height="${height}" width="${width}" allowFullScreen></iframe>`;
-    document.querySelector('#result').innerText=markup;
-  }
-</script>
