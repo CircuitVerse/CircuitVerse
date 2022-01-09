@@ -320,17 +320,6 @@
 
 <% if user_signed_in? %>
   <script type="application/ld+json">
-  function edit_embed(){
-    const url=document.querySelector('#url').value;
-    const height=document.querySelector('#height').value;
-    const width=document.querySelector('#width').value;
-    const border_px=document.querySelector('#border_px').value;
-    const border_style=document.querySelector('#border_style').value;
-    const border_color=document.querySelector('#border_color').value;
-    const markup=`<iframe src="${url}" style="border-width:${border_px}; border-style: ${border_style}; border-color:${border_color};" name="myiframe" id="projectPreview" scrolling="no" frameborder="1" marginheight="0px" marginwidth="0px" height="${height}" width="${width}" allowFullScreen></iframe>`;
-    document.querySelector('#result').innerText=markup;
-  }
-</script>
     {
       "@context" : "http://schema.org",
       "@type" : "Article",
