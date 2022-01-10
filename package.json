@@ -16,7 +16,7 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@commitlint/cli": "^16.0.0",
+    "@commitlint/cli": "^16.0.2",
     "@commitlint/config-conventional": "^16.0.0",
     "@webpack-cli/serve": "^1.6.0",
     "eslint": "^7.32.0",
