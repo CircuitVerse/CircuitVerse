@@ -42,7 +42,7 @@ export default class SevenSegDisplay extends CircuitElement {
      * fn to change the color of SevenSegmentDisplay
      * @return {JSON}
      */
-     changeColor(value) {
+    changeColor(value) {
         if (validColor(value)) {
             if (value.trim() === "") {
                 this.color = "Red";
@@ -52,7 +52,7 @@ export default class SevenSegDisplay extends CircuitElement {
                 this.color = value;
                 const temp = colorToRGBA(value);
                 this.actualColor = `rgba(${temp[0]},${temp[1]},${temp[2]}, ${temp[3]})`;
-           }
+            }
         }
     }
     /**
@@ -201,7 +201,7 @@ SevenSegDisplay.prototype.layoutProperties = {
  * @type {JSON}
  * @category modules
  */
- SevenSegDisplay.prototype.mutableProperties = {
+SevenSegDisplay.prototype.mutableProperties = {
     color: {
         name: "Color: ",
         type: "text",

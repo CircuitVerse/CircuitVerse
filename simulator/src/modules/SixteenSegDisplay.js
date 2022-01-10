@@ -35,25 +35,27 @@ export default class SixteenSegDisplay extends CircuitElement {
      * fn to change the color of SixteenSegmentDisplay
      * @return {JSON}
      */
-         changeColor(value) {
-            if (validColor(value)) {
-                if (value.trim() === "") {
-                    this.color = "Red";
-                    this.actualColor = "rgba(255, 0, 0, 1)";
-                }
-                else {
-                    this.color = value;
-                    const temp = colorToRGBA(value);
-                    this.actualColor = `rgba(${temp[0]},${temp[1]},${temp[2]}, ${temp[3]})`;
-               }
+    changeColor(value) {
+        if (validColor(value)) {
+            if (value.trim() === "") {
+                this.color = "Red";
+                this.actualColor = "rgba(255, 0, 0, 1)";
+            }
+            else {
+                this.color = value;
+                const temp = colorToRGBA(value);
+                this.actualColor = `rgba(${temp[0]},${temp[1]},${temp[2]}, ${temp[3]})`;
             }
         }
+    }
+
     /**
      * @memberof SixteenSegDisplay
      * fn to create save Json Data of object
      * @return {JSON}
      */
     customSave() {
+
         const data = {
             constructorParamaters: [this.color],
             nodes: {
@@ -242,7 +244,7 @@ SixteenSegDisplay.prototype.layoutProperties = {
  * @type {JSON}
  * @category modules
  */
- SixteenSegDisplay.prototype.mutableProperties = {
+SixteenSegDisplay.prototype.mutableProperties = {
     color: {
         name: "Color: ",
         type: "text",
