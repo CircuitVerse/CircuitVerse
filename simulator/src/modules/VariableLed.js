@@ -42,8 +42,7 @@ export default class VariableLed extends CircuitElement {
             if (value.trim() === "") {
                 this.color = "Red";
                 this.actualColor = "rgba(255, 0, 0, 1)";
-            }
-            else {
+            } else {
                 this.color = value;
                 const temp = colorToRGBA(value);
                 this.actualColor = `rgba(${temp[0]},${temp[1]},${temp[2]}, ${temp[3]})`;
@@ -58,8 +57,8 @@ export default class VariableLed extends CircuitElement {
      */
     createRGBA(alpha = 1) {
         const len = this.actualColor.length;
-        const temp = this.actualColor.split("").slice(5,len-1).join("").split(',');
-        if(alpha.toString() === "NaN") return `rgba(${temp[0]},${temp[1]},${temp[2]}, 1)`;
+        const temp = this.actualColor.split("").slice(5, len - 1).join("").split(',');
+        if (alpha.toString() === "NaN") return `rgba(${temp[0]}, ${temp[1]}, ${temp[2]}, 1)`;
         return `rgba(${temp[0]},${temp[1]},${temp[2]},${alpha})`;
     }
 

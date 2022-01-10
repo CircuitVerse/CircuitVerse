@@ -40,8 +40,7 @@ export default class SixteenSegDisplay extends CircuitElement {
             if (value.trim() === "") {
                 this.color = "Red";
                 this.actualColor = "rgba(255, 0, 0, 1)";
-            }
-            else {
+            } else {
                 this.color = value;
                 const temp = colorToRGBA(value);
                 this.actualColor = `rgba(${temp[0]},${temp[1]},${temp[2]}, ${temp[3]})`;
@@ -55,7 +54,6 @@ export default class SixteenSegDisplay extends CircuitElement {
      * @return {JSON}
      */
     customSave() {
-
         const data = {
             constructorParamaters: [this.color],
             nodes: {
