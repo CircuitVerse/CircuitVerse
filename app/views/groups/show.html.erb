@@ -112,7 +112,7 @@
                   <% end %>
                 </div>
               <div class="groups-assignment-details">
-                <%= link_to close_group_assignment_path(@group,assignment), class:"mini-button groups-close-mini-button" do %>
+                <%= link_to close_group_assignment_path(@group,assignment), class:"mini-button groups-close-mini-button", method: :put do %>
                   <span><%= t("close") %></span>
                 <% end %>
               </div>
