@@ -33,6 +33,12 @@ class AssignmentPolicy < ApplicationPolicy
     true
   end
 
+  def close?
+    raise CustomAuthError, "Project is already closed" if assignment.status == "closed"
+
+    true
+  end
+
   def can_be_graded?
     admin_access? && assignment.graded? && (assignment.deadline - Time.current).negative?
   end

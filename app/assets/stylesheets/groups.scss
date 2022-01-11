@@ -88,6 +88,18 @@
     text-decoration: none;
   }
 }
+.groups-close-mini-button {
+  background-color: $primary-red;
+  cursor: pointer;
+  font-size: 15px;
+  margin: 10px 5px;
+  padding: 4px 8px 6px;
+
+  &:hover {
+    color: $white;
+    text-decoration: none;
+  }
+}
 
 .groups-delete-mini-button {
   background-color: $primary-red;
