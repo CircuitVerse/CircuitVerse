@@ -12,47 +12,57 @@
     "postinstall": "opencollective-postinstall || true",
     "webpack:analyze": "yarn webpack:build_json && yarn webpack:analyze_json",
     "webpack:build_json": "RAILS_ENV=${RAILS_ENV:-production} NODE_ENV=${NODE_ENV:-production} bin/webpack --profile --json > tmp/webpack-stats.json",
-    "webpack:analyze_json": "webpack-bundle-analyzer tmp/webpack-stats.json public/packs"
+    "webpack:analyze_json": "webpack-bundle-analyzer tmp/webpack-stats.json public/packs",
+    "prepare": "husky install"
   },
   "devDependencies": {
-    "eslint": "^7.21.0",
+    "@commitlint/cli": "^16.0.0",
+    "@commitlint/config-conventional": "^16.0.0",
+    "@webpack-cli/serve": "^1.6.0",
+    "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.24.2",
     "expose-loader": "^0.7.5",
-    "jsdoc": "3.6.6",
-    "webpack-bundle-analyzer": "^4.4.0",
-    "webpack-dev-server": "^3.11.2"
+    "husky": ">=6",
+    "jsdoc": "3.6.7",
+    "lint-staged": ">=12",
+    "livereload": "^0.9.3",
+    "nodemon": "^2.0.12",
+    "webpack-bundle-analyzer": "^4.5.0",
+    "webpack-dev-server": "^3"
   },
   "dependencies": {
-    "@babel/plugin-proposal-numeric-separator": "^7.12.7",
-    "@babel/preset-env": "^7.15.4",
     "@fortawesome/fontawesome-free": "^5.15.2",
-    "@rails/webpacker": "5.2.1",
-    "banana-i18n": "^2.2.0",
+    "@rails/webpacker": "5.4.3",
+    "banana-i18n": "^2.3.1",
     "better-docs": "^2.0.1",
-    "bootstrap": "^4.6.0",
+    "bootstrap": "^4.6.1",
+    "bootstrap-tagsinput": "^0.7.1",
     "canvas2svg": "1.0.16",
-    "codemirror": "^5.63.3",
+    "codemirror": "^5.65.0",
     "css-vars": "^2.2.0",
     "dom-to-image": "^2.6.0",
     "driver.js": "^0.9.8",
     "expose-loader": "^0.7.5",
     "jquery": "^3.6.0",
     "jquery-resizable-dom": "^0.35.0",
-    "jquery-ui": "1.12.1",
+    "jquery-ui": "1.13.0",
     "jquery-ui-css": "^1.11.5",
-    "jquery-ui-dist": "^1.12.1",
+    "jquery-ui-dist": "^1.13.0",
     "jquery-ujs": "^1.2.3",
     "jsdoc-export-default-interop": "^0.3.1",
-    "livereload": "^0.9.3",
-    "nodemon": "^2.0.12",
     "opencollective-postinstall": "^2.0.3",
     "popper.js": "^1.16.1",
+    "stimulus": "^3.0.1",
     "trumbowyg": "^2.25.1",
     "turbolinks": "^5.2.0"
   },
   "collective": {
     "type": "opencollective",
     "url": "https://opencollective.com/CircuitVerse"
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix",
+    "*.rb": "rubocop -a"
   }
 }

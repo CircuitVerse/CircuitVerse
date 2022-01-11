@@ -36,6 +36,7 @@ export function createCombinationalAnalysisPrompt(scope = globalScope) {
         width: 'auto',
         buttons: [
             {
+                style: 'padding: 5px',
                 text: 'Next',
                 click() {
                     var inputList = stripTags($("#inputNameList").val()).split(',');
@@ -145,6 +146,7 @@ function createBooleanPrompt(inputListNames, outputListNames, output, scope = gl
         width: 'auto',
         buttons: [
             {
+                style: 'padding: 6px',
                 text: 'Generate Circuit',
                 click() {
                     $(this).dialog('close');
@@ -182,6 +184,7 @@ function createBooleanPrompt(inputListNames, outputListNames, output, scope = gl
                 },
             },
             {
+                style: 'padding: 6px',
                 text: 'Print Truth Table',
                 click() {
                     var sTable = document.getElementById('combinationalAnalysis').innerHTML;

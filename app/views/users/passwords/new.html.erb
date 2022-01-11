@@ -21,7 +21,7 @@
           <div class="field form-group">
             <h6><%= f.label :email %></h6>
             <div class="input-group">
-              <%= f.email_field :email, autofocus: true, class:"form-control form-input" %>
+              <%= f.email_field :email, autofocus: true, class:"form-control form-input user-email-input" %>
             </div>
           </div>
           <div class="field form-group">
@@ -36,3 +36,7 @@
     </div>
   </div>
 </div>
+<script>
+  $('.user-email-input').val(localStorage.getItem("Email"));
+  localStorage.removeItem("Email");
+</script>

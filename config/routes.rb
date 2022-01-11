@@ -87,7 +87,7 @@ Rails.application.routes.draw do
 
   # projects
   scope "/projects" do
-    get "/create_fork/:id", to: "projects#create_fork", as: "create_fork_project"
+    post "/create_fork/:id", to: "projects#create_fork", as: "create_fork_project"
     get "/change_stars/:id", to: "projects#change_stars", as: "change_stars"
     get "tags/:tag", to: "projects#get_projects", as: "tag"
   end
@@ -106,6 +106,7 @@ Rails.application.routes.draw do
     post "/get_data", to: "simulator#get_data"
     get "get_data/:id", to: "simulator#get_data"
     post "/post_issue", to: "simulator#post_issue"
+    get "/issue_circuit_data/:id", to: "simulator#view_issue_circuit_data" 
     post "/update_data", to: "simulator#update"
     post "/update_image", to: "simulator#update_image"
     post "/create_data", to: "simulator#create"
@@ -164,7 +165,7 @@ Rails.application.routes.draw do
       resources :projects, only: %i[index show update destroy] do
         member do
           get "toggle-star", to: "projects#toggle_star"
-          get "fork", to: "projects#create_fork"
+          post "fork", to: "projects#create_fork"
           get "image_preview", to: "projects#image_preview"
         end
         resources :collaborators, only: %i[index create destroy]

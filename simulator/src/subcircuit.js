@@ -151,6 +151,8 @@ export default class SubCircuit extends CircuitElement {
             this.version = this.savedData.version || "1.0";
 
             this.id = this.savedData.id;
+            this.label = this.savedData.label || "";
+            this.labelDirection = this.savedData.labelDirection || "RIGHT";
             for (var i = 0; i < this.savedData.inputNodes.length; i++) {
                 this.inputNodes.push(
                     this.scope.allNodes[this.savedData.inputNodes[i]]
@@ -556,6 +558,8 @@ export default class SubCircuit extends CircuitElement {
             x: this.x,
             y: this.y,
             id: this.id,
+            label: this.label,
+            labelDirection: this.labelDirection,
             inputNodes: this.inputNodes.map(findNode),
             outputNodes: this.outputNodes.map(findNode),
             version: this.version,

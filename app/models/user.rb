@@ -34,6 +34,9 @@ class User < ApplicationRecord
   after_commit :create_members_from_invitations, on: :create
 
   has_attached_file :profile_picture, styles: { medium: "205X240#", thumb: "100x100>" }, default_url: ":style/Default.jpg"
+  attr_accessor :remove_picture
+  
+  before_validation { profile_picture.clear if remove_picture == "1" }
 
   # validations for user
 

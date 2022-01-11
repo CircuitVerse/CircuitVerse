@@ -58,6 +58,7 @@ export function scheduleBackup(scope = globalScope) {
     var backup = JSON.stringify(backUp(scope));
     if (scope.backups.length === 0 || scope.backups[scope.backups.length - 1] !== backup) {
         scope.backups.push(backup);
+        scope.history = [];
         scope.timeStamp = new Date().getTime();
         projectSavedSet(false);
     }

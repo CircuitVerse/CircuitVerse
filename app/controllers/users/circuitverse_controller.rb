@@ -46,7 +46,7 @@ class Users::CircuitverseController < ApplicationController
 
     def profile_params
       params.require(:user).permit(:name, :profile_picture, :country, :educational_institute,
-                                   :subscribed, :locale)
+                                   :subscribed, :locale, :remove_picture)
     end
 
     def set_user
