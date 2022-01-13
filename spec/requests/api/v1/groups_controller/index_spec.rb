@@ -26,7 +26,7 @@ RSpec.describe Api::V1::GroupsController, "#index", type: :request do
         end
         token = get_auth_token(user)
         get "/api/v1/groups",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns all groups signed in user is member of" do
@@ -45,7 +45,7 @@ RSpec.describe Api::V1::GroupsController, "#index", type: :request do
         end
         token = get_auth_token(user)
         get "/api/v1/groups?include=assignments",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns all groups including assignments signed in user is member of" do
@@ -67,7 +67,7 @@ RSpec.describe Api::V1::GroupsController, "#index", type: :request do
         end
         token = get_auth_token(user)
         get "/api/v1/groups?include=group_members",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns all groups including group_members signed in user is member of" do

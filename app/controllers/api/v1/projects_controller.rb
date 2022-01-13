@@ -44,7 +44,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
   def image_preview
     @project = Project.open.friendly.find(params[:id])
-    render json: { "project_preview": request.base_url + @project.image_preview.url }
+    render json: { project_preview: request.base_url + @project.image_preview.url }
   end
 
   # PATCH /api/v1/projects/:id
@@ -75,9 +75,9 @@ class Api::V1::ProjectsController < Api::V1::BaseController
   # GET /api/v1/projects/:id/toggle-star
   def toggle_star
     if @project.toggle_star(current_user)
-      render json: { "message": "Starred successfully!" }, status: :ok
+      render json: { message: "Starred successfully!" }, status: :ok
     else
-      render json: { "message": "Unstarred successfully!" }, status: :ok
+      render json: { message: "Unstarred successfully!" }, status: :ok
     end
   end
 

@@ -28,7 +28,7 @@ RSpec.describe Api::V1::GroupMembersController, "#index", type: :request do
         # rubocop:enable FactoryBot/CreateList
         token = get_auth_token(mentor)
         get "/api/v1/groups/#{group.id}/members",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns all groups members" do

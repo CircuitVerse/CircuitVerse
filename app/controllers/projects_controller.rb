@@ -69,7 +69,10 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
-        format.html { redirect_to user_project_path(@project.author_id, @project), notice: "Project was successfully created." }
+        format.html do
+          redirect_to user_project_path(@project.author_id, @project),
+                      notice: "Project was successfully created."
+        end
         format.json { render :show, status: :created, location: @project }
       else
         format.html { render :new }
@@ -84,7 +87,10 @@ class ProjectsController < ApplicationController
     @project.description = params["description"]
     respond_to do |format|
       if @project.update(project_params)
-        format.html { redirect_to user_project_path(@project.author_id, @project), notice: "Project was successfully updated." }
+        format.html do
+          redirect_to user_project_path(@project.author_id, @project),
+                      notice: "Project was successfully updated."
+        end
         format.json { render :show, status: :ok, location: @project }
       else
         format.html { render :edit }
@@ -98,7 +104,9 @@ class ProjectsController < ApplicationController
   def destroy
     @project.destroy
     respond_to do |format|
-      format.html { redirect_to user_path(@project.author_id), notice: "Project was successfully destroyed." }
+      format.html do
+        redirect_to user_path(@project.author_id), notice: "Project was successfully destroyed."
+      end
       format.json { head :no_content }
     end
   end

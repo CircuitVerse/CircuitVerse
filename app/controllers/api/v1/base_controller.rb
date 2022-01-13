@@ -4,7 +4,9 @@ class Api::V1::BaseController < ActionController::API
   include Pundit
   include CustomErrors
   include ActionController::RequestForgeryProtection
-  protect_from_forgery with: :exception, if: -> { request.headers["Authorization"].blank? && current_user }
+  protect_from_forgery with: :exception, if: lambda {
+                                               request.headers["Authorization"].blank? && current_user
+                                             }
 
   DEFAULT_PER_PAGE = 5
 

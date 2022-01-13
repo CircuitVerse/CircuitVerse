@@ -87,7 +87,7 @@ class SimulatorOldController < ApplicationController
 
   def verilog_cv
     url = "http://127.0.0.1:3040/getJSON"
-    response = HTTP.post(url, json: { "code": params[:code] })
+    response = HTTP.post(url, json: { code: params[:code] })
     render json: response.to_s, status: response.code
   end
 

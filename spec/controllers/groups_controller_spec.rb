@@ -38,7 +38,7 @@ describe GroupsController, type: :request do
   end
 
   describe "#show" do
-    context "group member is signed in", :focus do
+    context "group member is signed in" do
       before do
         @assignment = FactoryBot.create(:assignment, group: @group,
                                                      status: "reopening", deadline: Time.zone.now - 2.days)

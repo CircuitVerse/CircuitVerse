@@ -33,16 +33,17 @@ class User < ApplicationRecord
   after_commit :send_welcome_mail, on: :create
   after_commit :create_members_from_invitations, on: :create
 
-  has_attached_file :profile_picture, styles: { medium: "205X240#", thumb: "100x100>" }, default_url: ":style/Default.jpg"
+  has_attached_file :profile_picture, styles: { medium: "205X240#", thumb: "100x100>" },
+                                      default_url: ":style/Default.jpg"
   attr_accessor :remove_picture
-  
+
   before_validation { profile_picture.clear if remove_picture == "1" }
 
   # validations for user
 
   validates_attachment_content_type :profile_picture, content_type: %r{\Aimage/.*\z}
 
-  validates :name, presence: true, format: { without: /\A["!@#$%^&"]*\z/,
+  validates :name, presence: true, format: { without: /\A["!@#$%^&]*\z/,
                                              message: "can only contain letters and spaces" }
 
   validates :email, presence: true, format: /\A[^@,\s]+@[^@,\s]+\.[^@,\s]+\z/

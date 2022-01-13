@@ -58,7 +58,7 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
       @assignment.status = "open"
       @assignment.deadline = Time.zone.now + 1.day
       @assignment.save!
-      render json: { "message": "Assignment has been reopened!" }, status: :accepted
+      render json: { message: "Assignment has been reopened!" }, status: :accepted
     end
   end
 
@@ -72,7 +72,7 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
     @project.build_project_datum
     @project.save!
     render json: {
-      "message": "Voila! Project set up under name #{@project.name}"
+      message: "Voila! Project set up under name #{@project.name}"
     }, status: :created
   end
 

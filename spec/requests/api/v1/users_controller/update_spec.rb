@@ -34,7 +34,7 @@ RSpec.describe Api::V1::UsersController, "#update", type: :request do
         random_user = FactoryBot.create(:user)
         patch "/api/v1/users/#{random_user.id}",
               params: { name: "Updated Name" },
-              headers: { "Authorization": "Token #{token}" }, as: :json
+              headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns 403 :forbidden and should have jsonapi errors" do
@@ -48,7 +48,7 @@ RSpec.describe Api::V1::UsersController, "#update", type: :request do
         token = get_auth_token(user)
         patch "/api/v1/users/#{user.id}",
               params: { name: "Updated Name" },
-              headers: { "Authorization": "Token #{token}" }, as: :json
+              headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns the updated user" do
