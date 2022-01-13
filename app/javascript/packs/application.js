@@ -16,5 +16,5 @@
 // const imagePath = (name) => images(name, true)
 
 import 'controllers';
-
-console.log('Hello World from Webpacker')
+import 'trumbowyg';
+import 'jquery';

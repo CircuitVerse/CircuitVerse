@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_07_065750) do
+ActiveRecord::Schema.define(version: 2022_01_10_090826) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,7 +77,6 @@ ActiveRecord::Schema.define(version: 2022_01_07_065750) do
     t.string "lti_consumer_key"
     t.string "lti_shared_secret"
     t.jsonb "feature_restrictions", default: {}
-    t.index ["feature_restrictions"], name: "index_assignments_on_feature_restrictions", using: :gin
     t.index ["group_id"], name: "index_assignments_on_group_id"
   end
 
@@ -305,6 +304,7 @@ ActiveRecord::Schema.define(version: 2022_01_07_065750) do
     t.string "slug"
     t.tsvector "searchable"
     t.string "lis_result_sourced_id"
+    t.datetime "token_expires_at"
     t.index ["assignment_id"], name: "index_projects_on_assignment_id"
     t.index ["author_id"], name: "index_projects_on_author_id"
     t.index ["forked_project_id"], name: "index_projects_on_forked_project_id"

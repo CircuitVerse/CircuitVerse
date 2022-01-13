@@ -1,23 +1,25 @@
-var feature_restriction_metadata = {
-    "Simulator":[  
-        "Combinational Analysis Tool",
-        "Verilog tools"
-     ],
-     "Project": [
-         "Copy / Paste",
-         "Allow Collaborators"
-     ]
-}
+import { Controller } from 'stimulus';
+
+var featureRestrictionMetadata = {
+    Simulator: [
+        'Combinational Analysis Tool',
+        'Verilog tools',
+    ],
+    Project: [
+        'Copy / Paste',
+        'Allow Collaborators',
+    ],
+};
 
 function handleFeatureMainCheckbox() {
-    $('#restrict-feature').change(function (e) {
+    $('#restrict-feature').change((e) => {
         e.preventDefault();
         var radio = $(e.currentTarget);
 
         if (radio.is(':checked')) {
-            $('.restricted-feature-list').css("display", "block");
+            $('.restricted-feature-list').css('display', 'block');
         } else {
-            $('.restricted-feature-list').css("display", "none");
+            $('.restricted-feature-list').css('display', 'none');
         }
     });
     $('#restrict-feature').trigger('change');
@@ -32,7 +34,7 @@ function featureRestrictionsMap(restrictions) {
 }
 
 function htmlRowFeatureName(name) {
-    return "<h6 class=\"circuit-element-category\"> ".concat(name, " </h6>");
+    return '<h6 class="circuit-element-category"> '.concat(name, ' </h6>');
 }
 
 function htmlInlineFeatureCheckbox(elementName, checked) {
@@ -44,7 +46,7 @@ function htmlInlineFeatureCheckbox(elementName, checked) {
         .concat(elementName, '" ')
         .concat('>\n')
         .concat('<div class="primary-checkpoint"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;')
-        .concat(elementName, "</span></label>\n</div>");
+        .concat(elementName, '</span></label>\n</div>');
 }
 
 function generateFeatureRow(name, elements, restrictionMap) {
@@ -67,6 +69,12 @@ function loadFeatureHtml(featureHierarchy, restrictionMap) {
 
 function loadFeatureRestrictions() {
     handleFeatureMainCheckbox();
-    var featureRestrictionMap = featureRestrictionsMap(feature_restriction_metadata);
-    loadFeatureHtml(feature_restriction_metadata, featureRestrictionMap);
+    var featureRestrictionMap = featureRestrictionsMap(featureRestrictionMetadata);
+    loadFeatureHtml(featureRestrictionMetadata, featureRestrictionMap);
+}
+
+export default class extends Controller {
+    connect() {
+        loadFeatureRestrictions();
+    }
 }
