@@ -304,7 +304,6 @@ ActiveRecord::Schema.define(version: 2022_01_10_090826) do
     t.string "slug"
     t.tsvector "searchable"
     t.string "lis_result_sourced_id"
-    t.datetime "token_expires_at"
     t.index ["assignment_id"], name: "index_projects_on_assignment_id"
     t.index ["author_id"], name: "index_projects_on_author_id"
     t.index ["forked_project_id"], name: "index_projects_on_forked_project_id"
