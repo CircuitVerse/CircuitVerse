@@ -34,9 +34,7 @@ class AssignmentPolicy < ApplicationPolicy
   end
 
   def close?
-    raise CustomAuthError, "Project is already closed" if assignment.status == "closed"
-
-    true
+    (assignment.group&.mentor_id == user.id) || user.admin?
   end
 
   def can_be_graded?
