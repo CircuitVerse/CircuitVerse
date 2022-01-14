@@ -17,7 +17,6 @@ function restrictionsMap(restrictions) {
     for (var i = 0; i < restrictions.length; i++) {
         map[restrictions[i]] = true;
     }
-    console.log(map)
     return map;
 }
 
