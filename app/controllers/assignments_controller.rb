@@ -59,7 +59,7 @@ class AssignmentsController < ApplicationController
     redirect_to edit_group_assignment_path(@group, @assignment)
   end
 
-  #close assignment
+  # Close assignment
   def close
     authorize @assignment
     @assignment.status = "closed"
