@@ -20,20 +20,20 @@
           </div>
         <% end %>
         <div class="field form-group">
-          <h6><%= f.label :name %></h6>
+          <h6><label for="user_name">Name</label></h6>
           <div class="input-group">
             <input autofocus="autofocus" class="form-control form-input" type="text" name="user[name]" id="user_name">
           </div>
         </div>
         <div class="field form-group">
-          <h6><%= f.label :email %></h6>
+          <h6><label for="user_email">Email</label></h6>
           <div class="input-group">
             <input class="form-control form-input" type="email" value="" name="user[email]" id="user_email">
           </div>
         </div>
         <div class="field form-group">
           <h6>
-            <%= f.label :password %>
+            <label for="user_password">Password</label>
             <% if @minimum_password_length %>
               <span> <%= t("users.minimum_password_length", minimum_password_length: @minimum_password_length) %></span>
             <% end %>
