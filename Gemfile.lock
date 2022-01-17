@@ -244,7 +244,7 @@ GEM
       sassc (>= 1.11)
     friendly_id (5.4.2)
       activerecord (>= 4.0.0)
-    geocoder (1.7.0)
+    geocoder (1.7.3)
     globalid (1.0.0)
       activesupport (>= 5.0)
     hairtrigger (0.2.24)
