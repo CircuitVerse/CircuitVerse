@@ -1,4 +1,4 @@
-
+<%= javascript_pack_tag 'application' %>
 <% if policy(@project).can_feature? %>
   <%= form_with(model: FeaturedCircuit.new, url: '/featured_circuits', multipart: true, id:"featuredCircuit") do |form| %>
     <%= form.hidden_field :project_id, value: @project.id %>
@@ -25,9 +25,9 @@
     <h6><%= form.label :name %></h6>
     <%= form.text_field :name, id: :project_name, class: 'form-control form-input' %>
   </div>
-  <div class="field form-group projects-tag-form-group">
+  <div class="field form-group projects-tag-form-group" data-controller="project" >
     <h6><%= form.label :tag_list %></h6> <span><%= t("projects.form.tag_list_description") %></span>
-    <%= form.text_field :tag_list, class: 'form-control form-input' %>
+    <%= form.text_field :tag_list, class: 'form-control form-input', id:'project_tags' %>
   </div>
   <div class="field form-group">
     <h6 class="projects-type-field-heading"><%= form.label :project_access_type %></h6>

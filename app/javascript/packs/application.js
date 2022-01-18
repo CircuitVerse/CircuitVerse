@@ -16,5 +16,8 @@
 // const imagePath = (name) => images(name, true)
 
 import 'controllers';
+import 'trumbowyg';
+import 'jquery';
+import 'bootstrap-tagsinput/dist/bootstrap-tagsinput.js';
 
 console.log('Hello World from Webpacker')
