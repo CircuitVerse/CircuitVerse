@@ -1,6 +1,27 @@
 import { Controller } from 'stimulus';
+import 'bootstrap';
 
 export default class extends Controller {
+    connect() {
+        document.getElementsByClassName("dropdown-toggle")[0].addEventListener('click', () => {
+            let collapsedDropdown = document.getElementsByClassName("dropdown-menu")[0];
+            if (collapsedDropdown.classList.contains("show")) {
+                collapsedDropdown.classList.remove("show");
+            }
+            else {
+                collapsedDropdown.classList.add("show");
+            }
+        })
+        document.getElementsByClassName("dropdown-toggle")[1].addEventListener('click', () => {
+            let collapsedDropdown = document.getElementsByClassName("dropdown-menu")[1];
+            if (collapsedDropdown.classList.contains("show")) {
+                collapsedDropdown.classList.remove("show");
+            }
+            else {
+                collapsedDropdown.classList.add("show");
+            }
+        })
+    }
     addMemberToGroup() {
         $('#group_member_emails').tagsinput({
             trimValue: true,
