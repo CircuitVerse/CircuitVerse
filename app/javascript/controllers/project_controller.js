@@ -33,12 +33,12 @@ export default class extends Controller {
                 const newLinesIntoSpaces = pastedEmails.replace(/\n/g, ' ');
                 const newLinesIntoSpacesSplitted = newLinesIntoSpaces.split(' ');
                 this.value = pastedEmails.replace(/./g, '');
-                newLinesIntoSpacesSplitted.forEach(value => $('#project_tags').tagsinput('add', value));
+                newLinesIntoSpacesSplitted.forEach((value) => $('#project_tags').tagsinput('add', value));
                 $('.add-members-button').attr('disabled', false);
             } else {
                 const pastedEmailsSplittedBySpace = pastedEmails.split(' ');
                 this.value = pastedEmails.replace(/./g, '');
-                pastedEmailsSplittedBySpace.forEach(value => $('#project_tags').tagsinput('add', value));
+                pastedEmailsSplittedBySpace.forEach((value) => $('#project_tags').tagsinput('add', value));
                 $('.add-members-button').attr('disabled', false);
             }
         });
