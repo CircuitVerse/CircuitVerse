@@ -18,6 +18,18 @@
 import 'controllers';
 import 'trumbowyg';
 import 'jquery';
-import 'bootstrap-tagsinput/dist/bootstrap-tagsinput.js';
+import 'bootstrap-tagsinput';
+
+function showDropDown(dropDown) {
+    let collapsedDropdown = (dropDown === 0)? document.getElementsByClassName('dropdown-menu')[0] : document.getElementsByClassName('dropdown-menu')[1];
+    if (collapsedDropdown.classList.contains('show')) {
+        collapsedDropdown.classList.remove('show');
+    }
+    else {
+        collapsedDropdown.classList.add('show');
+    }
+}
+document.getElementsByClassName('dropdown-toggle')[0].addEventListener('click', ()=>showDropDown(0))
+document.getElementsByClassName('dropdown-toggle')[1].addEventListener('click', ()=>showDropDown(1))
 
 console.log('Hello World from Webpacker')
