@@ -95,8 +95,6 @@ gem "meta-tags"
 gem "activity_notification"
 gem "webpush"
 
-gem "webpacker", "~> 5.x"
-
 gem "bootsnap", require: false
 
 gem "font-awesome-sass", "~> 5.13.1"
@@ -168,3 +166,7 @@ gem "hairtrigger", "~> 0.2.24"
 
 # Used for rate limiting
 gem "rack-attack"
+
+gem "jsbundling-rails", "~> 1.0"
+
+gem "cssbundling-rails", "~> 1.0"

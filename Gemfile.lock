@@ -173,6 +173,8 @@ GEM
     crass (1.0.6)
     css_parser (1.7.1)
       addressable
+    cssbundling-rails (1.0.0)
+      railties (>= 6.0.0)
     device_detector (1.0.6)
     devise (4.8.1)
       bcrypt (~> 3.0)
@@ -296,6 +298,8 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
+    jsbundling-rails (1.0.0)
+      railties (>= 6.0.0)
     json (2.5.1)
     json-schema (2.8.1)
       addressable (>= 2.4)
@@ -417,8 +421,6 @@ GEM
       nokogiri (~> 1.5)
       rack (>= 1.1)
     rack-protection (2.1.0)
-      rack
-    rack-proxy (0.7.0)
       rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -563,7 +565,6 @@ GEM
       childprocess (>= 0.5, < 5.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2)
-    semantic_range (3.0.0)
     sexp_processor (4.15.2)
     shoulda-matchers (5.0.0)
       activesupport (>= 5.2.0)
@@ -649,11 +650,6 @@ GEM
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
-    webpacker (5.4.3)
-      activesupport (>= 5.2)
-      rack-proxy (>= 0.6.1)
-      railties (>= 5.2)
-      semantic_range (>= 2.3.0)
     webpush (1.1.0)
       hkdf (~> 0.2)
       jwt (~> 2.0)
@@ -686,6 +682,7 @@ DEPENDENCIES
   commontator (~> 6.3.2)
   country_select (~> 6.0)
   coveralls_reborn (~> 0.23.1)
+  cssbundling-rails (~> 1.0)
   devise
   disposable_mail (~> 0.1)
   dotenv-rails
@@ -707,6 +704,7 @@ DEPENDENCIES
   invisible_captcha (~> 2.0)
   jbuilder (~> 2.11)
   jquery-rails
+  jsbundling-rails (~> 1.0)
   json-schema
   jsonapi-serializer
   jwt
@@ -758,7 +756,6 @@ DEPENDENCIES
   web-console (>= 3.3.0)
   webdrivers (~> 5.0)
   webmock
-  webpacker (~> 5.x)
   webpush
   will_paginate (~> 3.3.1)
   will_paginate-bootstrap
