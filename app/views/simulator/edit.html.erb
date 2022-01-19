@@ -35,7 +35,7 @@
         </ul>
       </li>
       <li class="dropdown nav-dropdown">
-        <a href="#" class="dropdown-caret" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.circuit") %><span class="caret" ></span></a>
+        <a href="#" class="dropdown-caret" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.circuit") %><span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item text-left logixButton pl-1" id="newCircuit">New Circuit + </a></li>
           <li><a class="dropdown-item text-left logixButton pl-1" id="newVerilogModule">New Verilog <br> Module</a></li>
@@ -620,26 +620,19 @@
     $('.dropdown.open').removeClass('open');
     $(this).parent('.dropdown').addClass('open');
   });
-
-
 </script>
 
 <!-- on click for dropdowns -->
-
 <script>
-
 $('.dropdown-caret').click(function(){
      $(this).find('span').toggleClass("caret-upside");
   })
-
   $(document).click(function(){
-    
     if($('.caret').hasClass("caret-upside"))
       {
         $('.caret').removeClass("caret-upside")
       }
   })
-
 </script>
 
 <link rel="stylesheet" type="text/css" href="/css/restrictedElements.css">
