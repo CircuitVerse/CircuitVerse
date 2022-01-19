@@ -95,7 +95,7 @@ gem "meta-tags"
 gem "activity_notification"
 gem "webpush"
 
-gem "webpacker", "~> 5.x"
+gem "webpacker", "~> 6.rc"
 
 gem "bootsnap", require: false
 
