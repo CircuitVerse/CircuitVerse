@@ -45,6 +45,7 @@ Rails.application.routes.draw do
 
   scope "/groups" do
     get "/:group_id/assignments/:id/reopen", to: "assignments#reopen", as: "reopen_group_assignment"
+    put "/:group_id/assignments/:id/close", to: "assignments#close", as: "close_group_assignment"
     get "/:group_id/assignments/:id/start", to: "assignments#start", as: "assignment_start"
   end
   resources :stars, only: %i[create destroy]
