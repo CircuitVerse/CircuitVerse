@@ -14,7 +14,8 @@
     "webpack:build_json": "RAILS_ENV=${RAILS_ENV:-production} NODE_ENV=${NODE_ENV:-production} bin/webpack --profile --json > tmp/webpack-stats.json",
     "webpack:analyze_json": "webpack-bundle-analyzer tmp/webpack-stats.json public/packs",
     "prepare": "husky install",
-    "build": "webpack --config ./webpack.config.js"
+    "build": "webpack --config ./webpack.config.js",
+    "build:css": "sass ./app/assets/stylesheets/application.sass.scss ./app/assets/builds/application.css --no-source-map --load-path=node_modules"
   },
   "devDependencies": {
     "@commitlint/cli": "^16.0.0",
@@ -29,13 +30,15 @@
     "lint-staged": ">=12",
     "livereload": "^0.9.3",
     "nodemon": "^2.0.12",
-    "webpack-bundle-analyzer": "^4.5.0"
+    "webpack-bundle-analyzer": "^4.5.0",
+    "webpack-remove-empty-scripts": "^0.7.2"
   },
   "dependencies": {
     "@babel/core": "^7.16.7",
     "@babel/plugin-transform-runtime": "^7.16.8",
     "@babel/preset-env": "^7.16.8",
     "@fortawesome/fontawesome-free": "^5.15.2",
+    "@hotwired/stimulus": "^3.0.1",
     "babel-loader": "^8.2.3",
     "babel-plugin-macros": "^3.1.0",
     "banana-i18n": "^2.3.1",
@@ -48,6 +51,7 @@
     "css-vars": "^2.2.0",
     "dom-to-image": "^2.6.0",
     "driver.js": "^0.9.8",
+    "file-loader": "^6.2.0",
     "jquery": "^3.6.0",
     "jquery-resizable-dom": "^0.35.0",
     "jquery-ui": "1.13.0",
@@ -64,8 +68,7 @@
     "trumbowyg": "^2.25.1",
     "turbolinks": "^5.2.0",
     "webpack": "^5.66.0",
-    "webpack-cli": "^4.9.1",
-    "webpack-fix-style-only-entries": "^0.6.1"
+    "webpack-cli": "^4.9.1"
   },
   "collective": {
     "type": "opencollective",

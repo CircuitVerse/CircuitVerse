@@ -601,6 +601,8 @@ GEM
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
     ssrf_filter (1.0.7)
+    stimulus-rails (1.0.2)
+      railties (>= 6.0.0)
     strong_migrations (0.7.8)
       activerecord (>= 5)
     sunspot (2.5.0)
@@ -747,6 +749,7 @@ DEPENDENCIES
   sitemap_generator
   spring
   spring-watcher-listen (~> 2.0.0)
+  stimulus-rails (~> 1.0)
   strong_migrations
   sunspot_rails
   sunspot_solr
