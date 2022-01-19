@@ -1328,6 +1328,7 @@ font: inherit;
 
 
 .ui-dialog .ui-dialog-buttonpane button {
+  padding:4px !important;
   margin-left: .4em;
 }
 
