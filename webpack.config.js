@@ -18,7 +18,7 @@ module.exports = {
         minimizer: [
             new ESBuildMinifyPlugin({
                 target: 'es2015',
-								css: true
+                css: true,
             })],
     },
     entry: {

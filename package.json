@@ -11,7 +11,7 @@
     "lint": "eslint ./public/js/",
     "postinstall": "opencollective-postinstall || true",
     "webpack:analyze": "yarn webpack:build_json && yarn webpack:analyze_json",
-    "webpack:build_json": "RAILS_ENV=${RAILS_ENV:-production} NODE_ENV=${NODE_ENV:-production} bin/webpack --profile --json > tmp/webpack-stats.json",
+    "webpack:build_json": "RAILS_ENV=${RAILS_ENV:-production} NODE_ENV=${NODE_ENV:-production} webpack --profile --json > tmp/webpack-stats.json",
     "webpack:analyze_json": "webpack-bundle-analyzer tmp/webpack-stats.json public/packs",
     "prepare": "husky install",
     "build": "webpack --config ./webpack.config.js"
