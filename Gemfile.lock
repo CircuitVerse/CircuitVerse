@@ -173,8 +173,6 @@ GEM
     crass (1.0.6)
     css_parser (1.7.1)
       addressable
-    cssbundling-rails (1.0.0)
-      railties (>= 6.0.0)
     device_detector (1.0.6)
     devise (4.8.1)
       bcrypt (~> 3.0)
@@ -540,17 +538,8 @@ GEM
     rubyzip (2.3.2)
     safely_block (0.3.0)
       errbase (>= 0.1.1)
-    sass (3.7.4)
-      sass-listen (~> 4.0.0)
-    sass-listen (4.0.0)
-      rb-fsevent (~> 0.9, >= 0.9.4)
-      rb-inotify (~> 0.9, >= 0.9.7)
-    sass-rails (5.1.0)
-      railties (>= 5.2.0)
-      sass (~> 3.1)
-      sprockets (>= 2.8, < 4.0)
-      sprockets-rails (>= 2.0, < 4.0)
-      tilt (>= 1.1, < 3)
+    sass-rails (6.0.0)
+      sassc-rails (~> 2.1, >= 2.1.1)
     sassc (2.4.0)
       ffi (~> 1.9)
     sassc (2.4.0-x64-mingw32)
@@ -684,7 +673,6 @@ DEPENDENCIES
   commontator (~> 6.3.2)
   country_select (~> 6.0)
   coveralls_reborn (~> 0.23.1)
-  cssbundling-rails (~> 1.0)
   devise
   disposable_mail (~> 0.1)
   dotenv-rails
@@ -741,7 +729,7 @@ DEPENDENCIES
   rubocop-performance
   rubocop-rails
   rubocop-rspec
-  sass-rails (~> 5.0)
+  sass-rails (~> 6.0)
   selenium-webdriver
   shoulda-matchers
   sidekiq
