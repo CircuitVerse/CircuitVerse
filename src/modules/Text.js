@@ -14,6 +14,7 @@ import { rect2, fillText } from '../canvasApi';
  * @category modules
  */
 import { colors } from '../themer/themer';
+import { copy, paste } from '../events';
 
 export default class Text extends CircuitElement {
     constructor(x, y, scope = globalScope, label = '', fontSize = 14) {
@@ -83,7 +84,13 @@ export default class Text extends CircuitElement {
      * @param {string} key - the label
      */
     keyDown(key) {
-        if (key.length === 1) {
+        if (simulationArea.controlDown && (key === 'c' || key === 'C')) {
+            const textToPutOnClipboard = copy([this]);
+            navigator.clipboard.writeText(textToPutOnClipboard);
+            localStorage.setItem('clipboardData', textToPutOnClipboard);
+        } else if (simulationArea.controlDown && (key === 'v' || key === 'V')) {
+            paste(localStorage.getItem('clipboardData'));
+        } else if (key.length === 1) {
             if (this.label === 'Enter Text Here') { this.setLabel(key); } else { this.setLabel(this.label + key); }
         } else if (key === 'Backspace') {
             if (this.label === 'Enter Text Here') { this.setLabel(''); } else { this.setLabel(this.label.slice(0, -1)); }

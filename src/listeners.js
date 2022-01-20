@@ -431,17 +431,33 @@ export default function startListeners() {
         }
         let htmlIcons = '';
         const result = elementPanelList.filter(ele => ele.toLowerCase().includes(value));
-        if(!result.length) searchResults.text('No elements found ...');
-        else {
-            result.forEach( e => htmlIcons += createIcon(e));
-            searchResults
-              .html(htmlIcons);
-            $('.filterElements').mousedown(createElement);
+        var finalResult = [];
+        for(const j in result) {
+            if (Object.prototype.hasOwnProperty.call(result, j)) {
+                for (const category in elementHierarchy) {
+                     if(Object.prototype.hasOwnProperty.call(elementHierarchy, category)) {
+                        const categoryData = elementHierarchy[category];
+                         for (let i = 0; i < categoryData.length; i++) {
+                             if(result[j] == categoryData[i].label) {
+                                 finalResult.push(categoryData[i]);
+                            }
+                        }
+                    }
+                } 
+            }   
         }
+    if(!finalResult.length) searchResults.text('No elements found ...');
+    else {
+        finalResult.forEach( e => htmlIcons += createIcon(e));
+        searchResults
+          .html(htmlIcons);
+        $('.filterElements').mousedown(createElement);
+    }
     });
+
     function createIcon(element) {
-        return `<div class="${element} icon logixModules filterElements" id="${element}" title="${element}">
-            <img  src= "/img/${element}.svg" >
+        return `<div class="${element.name} icon logixModules filterElements" id="${element.name}" title="${element.label}">
+            <img  src= "/img/${element.name}.svg" alt="element's image" >
         </div>`;
     }
 
