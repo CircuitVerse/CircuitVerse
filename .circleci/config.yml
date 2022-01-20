@@ -76,6 +76,10 @@ jobs: # a collection of steps
           command: bin/rails db:schema:load
 
       - run:
+          name: Build assets
+          command: yarn run build
+
+      - run:
           name: Run rspec in parallel
           command: |
             COVERALLS_REPO_TOKEN=$COVERALLS_REPO_TOKEN bundle exec rspec --profile 10 \
