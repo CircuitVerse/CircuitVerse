@@ -961,10 +961,10 @@ balanced-match@^1.0.0:
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
   integrity sha1-ibTRmasr7kneFk6gK4nORi1xt2c=
 
-banana-i18n@^2.3.1:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/banana-i18n/-/banana-i18n-2.3.1.tgz#c6eadf1632d5ad85a7b9f2a03fa8986913b87a45"
-  integrity sha512-E6tZZsyhrJZOzdha96+3nGAb37WhFYHULa9SRPb7PdIqCU1GFKhgG9Hc91KhAOONeixqsLjkBEiXo3b5Pm5+fQ==
+banana-i18n@^2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/banana-i18n/-/banana-i18n-2.3.2.tgz#24821197dc8d2c3bb831eaed6b6db92cf7c86085"
+  integrity sha512-bNhimEKOYO9MpZ512y0vYI+x4eJIWr2a3rjnZuJz/8vg2Jlv1jjPG+krBJNXO6NdGdJhfXE8utk3YDJDBUx09w==
 
 better-docs@^2.0.1:
   version "2.3.2"

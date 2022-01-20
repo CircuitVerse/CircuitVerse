@@ -37,7 +37,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.4",
     "@hotwired/stimulus": "^3.0.1",
-    "banana-i18n": "^2.3.1",
+    "banana-i18n": "^2.3.2",
     "better-docs": "^2.0.1",
     "bootstrap": "^4.6.1",
     "bootstrap-tagsinput": "^0.7.1",
