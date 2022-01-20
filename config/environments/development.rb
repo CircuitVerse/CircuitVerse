@@ -67,7 +67,7 @@ Rails.application.configure do
     :enable_starttls_auto => true,
   }
   config.action_mailer.delivery_method = :smtp
-  if ENV['DOCKER_ENV']
+  if ENV['DOCKER_ENVIRONMENT']
     config.action_mailer.smtp_settings = { :address => "mailcatcher", :port => 1025 }
   else
     config.action_mailer.smtp_settings = { :address => "localhost", :port => 1025 }
