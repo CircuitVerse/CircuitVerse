@@ -1,9 +1,8 @@
-// Place all the styles related to the simulator controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
 @import 'bootstrap/scss/bootstrap';
-@import "font-awesome-sprockets";
-@import "font-awesome";
+//importing font awesome
+$fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
+@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free/scss/solid.scss";
 
 
 .subcircuitdialog {
@@ -25,7 +24,7 @@
   color: $white;
   font-size: 13px;
   padding: 10px;
-  position: absolute;
+  position: fixed;
   right: -119px;
   text-decoration: none;
   bottom: 30px;

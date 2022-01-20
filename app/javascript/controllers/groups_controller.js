@@ -1,7 +1,6 @@
 import { Controller } from 'stimulus';
 import 'bootstrap-tagsinput/dist/bootstrap-tagsinput.js';
 import * as $ from 'jquery/dist/jquery';
-import 'bootstrap/dist/js/bootstrap';
 
 export default class extends Controller {
     addMemberToGroup() {
@@ -33,12 +32,12 @@ export default class extends Controller {
                 const newLinesIntoSpaces = pastedEmails.replace(/\n/g, ' ');
                 const newLinesIntoSpacesSplitted = newLinesIntoSpaces.split(' ');
                 this.value = pastedEmails.replace(/./g, '');
-                newLinesIntoSpacesSplitted.forEach(value => $('#group_member_emails').tagsinput('add', value));
+                newLinesIntoSpacesSplitted.forEach((value) => $('#group_member_emails').tagsinput('add', value));
                 $('.add-members-button').attr('disabled', false);
             } else {
                 const pastedEmailsSplittedBySpace = pastedEmails.split(' ');
                 this.value = pastedEmails.replace(/./g, '');
-                pastedEmailsSplittedBySpace.forEach(value => $('#group_member_emails').tagsinput('add', value));
+                pastedEmailsSplittedBySpace.forEach((value) => $('#group_member_emails').tagsinput('add', value));
                 $('.add-members-button').attr('disabled', false);
             }
         });
