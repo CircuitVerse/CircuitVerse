@@ -50,8 +50,8 @@ module.exports = {
                 use: [MiniCssExtractPlugin.loader, 'css-loader'],
             },
             {
-                test: /\.(png|jpe?g|gif|eot|woff2|woff|ttf|svg)$/i,
-                use: 'file-loader',
+                test: /\.(jpe?g|svg|png|gif|ico|eot|ttf|woff2?)(\?v=\d+\.\d+\.\d+)?$/i,
+                type: 'asset/resource',
             },
             {
                 test: require.resolve('jquery'),
