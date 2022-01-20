@@ -24,6 +24,7 @@ module.exports = {
     entry: {
         application: './app/javascript/application.js',
         simulator: './app/javascript/simulator.js',
+        testbench: './app/javascript/testbench.js',
     },
     output: {
         filename: '[name].js',
