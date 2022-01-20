@@ -38,7 +38,7 @@
     "@fortawesome/fontawesome-free": "^5.15.4",
     "@hotwired/stimulus": "^3.0.1",
     "banana-i18n": "^2.3.1",
-    "better-docs": "^2.0.1",
+    "better-docs": "^2.6.0",
     "bootstrap": "^4.6.1",
     "bootstrap-tagsinput": "^0.7.1",
     "canvas2svg": "1.0.16",
