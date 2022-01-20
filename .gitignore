@@ -69,3 +69,6 @@ config/private.pem
 
 .env
 .eslintcache
+
+/app/assets/builds/*
+!/app/assets/builds/.keep

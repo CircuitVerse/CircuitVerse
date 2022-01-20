@@ -296,6 +296,8 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
+    jsbundling-rails (1.0.0)
+      railties (>= 6.0.0)
     json (2.5.1)
     json-schema (2.8.1)
       addressable (>= 2.4)
@@ -418,8 +420,6 @@ GEM
       rack (>= 1.1)
     rack-protection (2.1.0)
       rack
-    rack-proxy (0.7.0)
-      rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (6.1.4.1)
@@ -538,17 +538,8 @@ GEM
     rubyzip (2.3.2)
     safely_block (0.3.0)
       errbase (>= 0.1.1)
-    sass (3.7.4)
-      sass-listen (~> 4.0.0)
-    sass-listen (4.0.0)
-      rb-fsevent (~> 0.9, >= 0.9.4)
-      rb-inotify (~> 0.9, >= 0.9.7)
-    sass-rails (5.1.0)
-      railties (>= 5.2.0)
-      sass (~> 3.1)
-      sprockets (>= 2.8, < 4.0)
-      sprockets-rails (>= 2.0, < 4.0)
-      tilt (>= 1.1, < 3)
+    sass-rails (6.0.0)
+      sassc-rails (~> 2.1, >= 2.1.1)
     sassc (2.4.0)
       ffi (~> 1.9)
     sassc (2.4.0-x64-mingw32)
@@ -563,9 +554,6 @@ GEM
       childprocess (>= 0.5, < 5.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2)
-    semantic_range (3.0.0)
-    serviceworker-rails (0.6.0)
-      railties (>= 3.1)
     sexp_processor (4.15.2)
     shoulda-matchers (5.0.0)
       activesupport (>= 5.2.0)
@@ -602,6 +590,8 @@ GEM
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
     ssrf_filter (1.0.7)
+    stimulus-rails (1.0.2)
+      railties (>= 6.0.0)
     strong_migrations (0.7.8)
       activerecord (>= 5)
     sunspot (2.5.0)
@@ -618,6 +608,8 @@ GEM
       tins (~> 1.0)
     terrapin (0.6.0)
       climate_control (>= 0.0.3, < 1.0)
+    terser (1.1.8)
+      execjs (>= 0.3.0, < 3)
     thor (1.1.0)
     tilt (2.0.10)
     tins (1.29.1)
@@ -629,8 +621,6 @@ GEM
       concurrent-ruby (~> 1.0)
     tzinfo-data (1.2021.1)
       tzinfo (>= 1.0.0)
-    uglifier (4.2.0)
-      execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.6)
@@ -651,11 +641,6 @@ GEM
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
-    webpacker (5.4.3)
-      activesupport (>= 5.2)
-      rack-proxy (>= 0.6.1)
-      railties (>= 5.2)
-      semantic_range (>= 2.3.0)
     webpush (1.1.0)
       hkdf (~> 0.2)
       jwt (~> 2.0)
@@ -709,6 +694,7 @@ DEPENDENCIES
   invisible_captcha (~> 2.0)
   jbuilder (~> 2.11)
   jquery-rails
+  jsbundling-rails (~> 1.0)
   json-schema
   jsonapi-serializer
   jwt
@@ -743,25 +729,24 @@ DEPENDENCIES
   rubocop-performance
   rubocop-rails
   rubocop-rspec
-  sass-rails (~> 5.0)
+  sass-rails (~> 6.0)
   selenium-webdriver
-  serviceworker-rails
   shoulda-matchers
   sidekiq
   simple_discussion (~> 1.3)
   sitemap_generator
   spring
   spring-watcher-listen (~> 2.0.0)
+  stimulus-rails (~> 1.0)
   strong_migrations
   sunspot_rails
   sunspot_solr
+  terser
   turbolinks (~> 5)
   tzinfo-data
-  uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
   webdrivers (~> 5.0)
   webmock
-  webpacker (~> 5.x)
   webpush
   will_paginate (~> 3.3.1)
   will_paginate-bootstrap

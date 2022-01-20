@@ -47,4 +47,5 @@ Rails.application.configure do
   config.vapid_private_key = "uGNkt259yGQDgGQYP1R4r3q1vTKkCddZe3rImyZvM4w="
 
   config.action_mailer.default_url_options = { host: "example.com" }
+  config.assets.css_compressor = nil
 end
