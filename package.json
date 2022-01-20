@@ -19,8 +19,8 @@
   "devDependencies": {
     "@commitlint/cli": "^16.0.0",
     "@commitlint/config-conventional": "^16.0.0",
-    "@swc/core": "^1.2.131",
     "@webpack-cli/serve": "^1.6.0",
+    "esbuild-loader": "^2.18.0",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.24.2",
@@ -61,7 +61,6 @@
     "sass": "^1.49.0",
     "sass-loader": "^12.4.0",
     "stimulus": "^3.0.1",
-    "swc-loader": "^0.1.15",
     "trumbowyg": "^2.25.1",
     "turbolinks": "^5.2.0",
     "webpack": "^5.66.0",

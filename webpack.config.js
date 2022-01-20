@@ -6,7 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 // in this example, entry.custom will create a corresponding empty custom.js file
 const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
 
-const TerserPlugin = require('terser-webpack-plugin');
+const { ESBuildMinifyPlugin } = require('esbuild-loader');
 
 const mode = process.env.NODE_ENV === 'development' ? 'development' : 'production';
 
@@ -15,7 +15,11 @@ module.exports = {
     optimization: {
         moduleIds: 'deterministic',
         minimize: true,
-        minimizer: [new TerserPlugin()],
+        minimizer: [
+            new ESBuildMinifyPlugin({
+                target: 'es2015',
+								css: true
+            })],
     },
     entry: {
         application: './app/javascript/application.js',
@@ -43,7 +47,7 @@ module.exports = {
             {
                 test: /\.(js)$/,
                 exclude: /node_modules/,
-                use: ['swc-loader'],
+                use: ['esbuild-loader'],
             },
             {
                 test: /\.s[ac]ss$/i,
