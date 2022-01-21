@@ -168,14 +168,20 @@ input[type="text"]:focus {
 .navbar-menu > li > a:hover span, .acc-drop:hover .acc-caret {
   background: none;
 }
-
+.project-name-label{
+  position:relative;
+  left:10%;
+  top: 47%;
+}
 .projectName {
   position: relative;
-  left: .5rem;
+  left:0.5rem;
   font-size: 1em;
+  font-weight:bold;
+  background: transparent;
+  border:none;
   text-align: center;
   display: inline-block;
-  width: 35vw;
   overflow: hidden;
   text-overflow: ellipsis;
 }
