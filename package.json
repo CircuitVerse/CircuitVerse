@@ -4,22 +4,19 @@
   "repository": "git@github.com:CircuitVerse/CircuitVerse.git",
   "license": "MIT",
   "scripts": {
-    "build:docs": "./node_modules/.bin/jsdoc public/src/* -c conf.json -t ./node_modules/better-docs",
-    "watch:doc-src": "npx nodemon --exec 'npm run build:docs' --watch public/src/",
+    "build:docs": "jsdoc simulator/src/* -c conf.json -t ./node_modules/better-docs",
+    "watch:doc-src": "npx nodemon --exec 'npm run build:docs' --watch simulator/src/",
     "watch:doc-output": "npx livereload out",
     "watch:docs": "npm run watch:doc-output & npm run watch:doc-src",
-    "lint": "eslint ./public/js/",
+    "lint": "eslint ./simulator",
     "postinstall": "opencollective-postinstall || true",
-    "webpack:analyze": "yarn webpack:build_json && yarn webpack:analyze_json",
-    "webpack:build_json": "RAILS_ENV=${RAILS_ENV:-production} NODE_ENV=${NODE_ENV:-production} webpack --profile --json > tmp/webpack-stats.json",
-    "webpack:analyze_json": "webpack-bundle-analyzer tmp/webpack-stats.json public/packs",
     "prepare": "husky install",
-    "build": "webpack --config ./webpack.config.js"
+    "build": "node esbuild.config.js"
   },
   "devDependencies": {
     "@commitlint/cli": "^16.0.0",
     "@commitlint/config-conventional": "^16.0.0",
-    "@webpack-cli/serve": "^1.6.0",
+    "chokidar": "^3.5.3",
     "esbuild-loader": "^2.18.0",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.0",
@@ -29,10 +26,7 @@
     "jsdoc": "3.6.7",
     "lint-staged": ">=12",
     "livereload": "^0.9.3",
-    "nodemon": "^2.0.12",
-    "terser-webpack-plugin": "^5.3.0",
-    "webpack-bundle-analyzer": "^4.5.0",
-    "webpack-remove-empty-scripts": "^0.7.2"
+    "nodemon": "^2.0.12"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.4",
@@ -47,12 +41,12 @@
     "css-vars": "^2.2.0",
     "dom-to-image": "^2.6.0",
     "driver.js": "^0.9.8",
+    "esbuild": "^0.14.12",
+    "esbuild-plugin-sass": "^1.0.1",
+    "esbuild-rails": "^1.0.3",
     "file-loader": "^6.2.0",
     "jquery": "^3.6.0",
     "jquery-resizable-dom": "^0.35.0",
-    "jquery-ui": "1.13.0",
-    "jquery-ui-css": "^1.11.5",
-    "jquery-ui-dist": "^1.13.0",
     "jquery-ujs": "^1.2.3",
     "jsdoc-export-default-interop": "^0.3.1",
     "mini-css-extract-plugin": "^2.5.2",
@@ -62,9 +56,7 @@
     "sass-loader": "^12.4.0",
     "stimulus": "^3.0.1",
     "trumbowyg": "^2.25.1",
-    "turbolinks": "^5.2.0",
-    "webpack": "^5.66.0",
-    "webpack-cli": "^4.9.1"
+    "turbolinks": "^5.2.0"
   },
   "collective": {
     "type": "opencollective",
