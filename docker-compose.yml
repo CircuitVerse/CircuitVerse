@@ -39,7 +39,7 @@ services:
       DOCKER_ENVIRONMENT: 'true'
   redis:
     image: redis
-  webpack:
+  asset_build:
     build: .
     environment:
       - NODE_ENV=development
