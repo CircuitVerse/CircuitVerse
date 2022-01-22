@@ -42,6 +42,6 @@ class AssignmentPolicy < ApplicationPolicy
   end
 
   def show_grades?
-    assignment.graded? && Time.current > assignment.deadline
+    assignment.graded? && Time.current > assignment.deadline && assignment.grades_published?
   end
 end
