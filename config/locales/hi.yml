@@ -27,8 +27,8 @@ hi:
   not_available: "उपलब्ध नहीं है"
   publish_grades: "ग्रेड प्रकाशित करें"
   unpublish_grades: "ग्रेड अप्रकाशित करें"
-  publish_grades_successfull: "ग्रेड सफलतापूर्वक प्रकाशित कर दिए गए हैं।"
-  unpublish_grades_successfull: "ग्रेड सफलतापूर्वक अप्रकाशित कर दिए गए हैं।"
+  publish_grades_successfull: "ग्रेड सफलतापूर्वक प्रकाशित हो गए हैं और समूह के सदस्यों के लिए दृश्यमान हैं।"
+  unpublish_grades_successfull: "ग्रेड सफलतापूर्वक अप्रकाशित कर दिए गए हैं और समूह के सदस्यों को दिखाई नहीं दे रहे हैं।"
   # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
     distance_in_words:
