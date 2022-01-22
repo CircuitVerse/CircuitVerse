@@ -154,9 +154,9 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                   <% if (@assignment.grades_published?)%>
-                    <%= button_to t("Unpublish Grades"), publish_grades_group_assignment_path(@assignment), method: "put", id: "grade-form-publish", class: "btn primary-button mt-4" %>
+                    <%= button_to t("unpublish_grades"), unpublish_grades_group_assignment_path(@assignment), method: "put", id: "grade-form-publish", class: "btn primary-button mt-4" %>
                   <% else %>
-                    <%= button_to t("Publish Grades"), publish_grades_group_assignment_path(@assignment), method: "put", id: "grade-form-publish", class: "btn primary-button mt-4" %>
+                    <%= button_to t("publish_grades"), publish_grades_group_assignment_path(@assignment), method: "put", id: "grade-form-publish", class: "btn primary-button mt-4" %>
                   <% end %>
                 </div>
               <% end %>

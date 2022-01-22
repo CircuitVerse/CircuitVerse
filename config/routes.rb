@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     resources :assignments, except: %i[index] do
       member do
         put "publish_grades", to: "assignments#publish_grades", as: "publish_grades"
+        put "unpublish_grades", to: "assignments#unpublish_grades", as: "unpublish_grades"
       end
     end
     member do

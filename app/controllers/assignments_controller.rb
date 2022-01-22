@@ -153,9 +153,20 @@ class AssignmentsController < ApplicationController
 
   def publish_grades
     set_assignment()
-    #if (@assignment.grades_published? == true) @assignment.update(grades_published: false)
     @assignment.update(grades_published: true)
-    #end
+    respond_to do |format|
+      format.html { redirect_to @group, notice: t("publish_grades_successfull") }
+      format.json { head :no_content }
+    end
+  end
+
+  def unpublish_grades
+    set_assignment()
+    @assignment.update(grades_published: false)
+    respond_to do |format|
+      format.html { redirect_to @group, notice: t("unpublish_grades_successfull") }
+      format.json { head :no_content }
+    end
   end
 
   private
