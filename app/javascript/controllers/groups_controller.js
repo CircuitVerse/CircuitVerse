@@ -1,6 +1,5 @@
 import { Controller } from 'stimulus';
 import 'bootstrap-tagsinput/dist/bootstrap-tagsinput.js';
-import * as $ from 'jquery/dist/jquery';
 
 export default class extends Controller {
     addMemberToGroup() {
