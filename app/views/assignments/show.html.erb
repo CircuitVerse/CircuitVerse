@@ -153,7 +153,7 @@
                   </div>
                 </div>
                 <div>
-                  <% if (@assignment.grades_published?)%>
+                  <% if (@assignment.grades_published?) %>
                     <%= button_to t("unpublish_grades"), unpublish_grades_group_assignment_path(@assignment), method: "put", class: "btn primary-delete-button mt-4" %>
                   <% else %>
                     <%= button_to t("publish_grades"), publish_grades_group_assignment_path(@assignment), method: "put", class: "btn primary-button mt-4" %>
