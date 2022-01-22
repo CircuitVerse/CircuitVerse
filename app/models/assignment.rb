@@ -45,6 +45,10 @@ class Assignment < ApplicationRecord
     grading_scale != "no_scale"
   end
 
+  def grades_published?
+    grades_published == true
+  end
+
   def elements_restricted?
     restrictions != "[]"
   end

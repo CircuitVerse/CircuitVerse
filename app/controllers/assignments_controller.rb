@@ -151,6 +151,13 @@ class AssignmentsController < ApplicationController
     response.headers["X-FRAME-OPTIONS"] = "ALLOW-FROM #{session[:lms_domain]}"
   end
 
+  def publish_grades
+    set_assignment()
+    #if (@assignment.grades_published? == true) @assignment.update(grades_published: false)
+    @assignment.update(grades_published: true)
+    #end
+  end
+
   private
 
     # Use callbacks to share common setup or constraints between actions.
