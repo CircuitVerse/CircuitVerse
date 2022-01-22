@@ -161,7 +161,7 @@ class AssignmentsController < ApplicationController
   end
 
   def unpublish_grades
-    set_assignment()
+    set_assignment
     @assignment.update(grades_published: false)
     respond_to do |format|
       format.html { redirect_to @group, notice: t("unpublish_grades_successfull") }
