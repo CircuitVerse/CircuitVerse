@@ -39,8 +39,8 @@
 }
 
 .bounce-out-on-hover img {
-  box-shadow: 0 6px 4px 0 #000;
   border-radius: 100px;
+  box-shadow: 0 6px 4px 0 $black;
 }
 
 .bounce-out-on-hover:hover,
