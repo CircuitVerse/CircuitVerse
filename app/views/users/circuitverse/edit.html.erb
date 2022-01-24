@@ -24,7 +24,7 @@
             <label for="profile_picture" class="users-edit-image-button"><%= t("users.circuitverse.edit_profile.choose_file") %></label>
             <input tabindex="0" type="file" accept="image/png, .jpeg, .jpg" class="users-edit-image-button-hidden" id="profile_picture" name="user[profile_picture]" onchange="readURL(this);" value="<%= @profile.profile_picture %>">
             <%= f.text_field :remove_picture, id: "remove_pic", class:"remove-pic",value:"1" %>
-            <label for="remove_pic" class="users-remove-image-button" onclick="document.getElementById('imgedit').src='/assets/thumb/Default.jpg'; document.getElementById('remove_pic').value = '1'"><%= t("users.circuitverse.edit_profile.remove_picture") %></label>          </div>
+            <label for="remove_pic" class="users-remove-image-button" onclick="rempic()"><%= t("users.circuitverse.edit_profile.remove_picture") %></label>
           </div>
           <div class="field form-group">
             <h6><%= f.label :country %></h6>
@@ -79,6 +79,10 @@
     reader.readAsDataURL(input.files[0]);
     document.getElementById("remove_pic").value = "0";   
     }
+  }
+  function rempic(){
+    document.getElementById('imgedit').src='/assets/thumb/Default.jpg'; 
+    document.getElementById('remove_pic').value = '1';
   }
 </script>
 <script>
