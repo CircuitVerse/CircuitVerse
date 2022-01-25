@@ -14,7 +14,7 @@ jobs:
       - name: jsdocs-dep
         run: npm install
       - name: jsdocs-action
-        uses: andstor/jsdoc-action@v1.2.0
+        uses: andstor/jsdoc-action@v1.2.1
         with:
           source_dir: ./simulator/src
           recurse: true

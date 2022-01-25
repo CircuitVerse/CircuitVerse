@@ -1,0 +1,33 @@
+en:
+  layout:
+    link_to_simulator: "Simulator"
+    getting_started_dropdown: "Getting Started"
+    link_to_learn_more: "Learn"
+    link_to_docs: "Documentation"
+    link_to_features: "Features"
+    link_to_teachers: "Teachers"
+    link_to_blog: "Blog"
+    link_to_about: "About"
+    footer:
+      social_icon_text: "Follow us on:"
+      link_to_examples: "Examples"
+      my_circuits: "My Circuits"
+      link_to_contribute: "Contribute"
+      link_to_forum: "Forum"
+      sponsor_logo_text:
+        brought_by: "Brought to you by:"
+        hosting_sponsor: "Hosting Sponsor:"
+        marketed_by: "Marketed by:"
+        developed_by: "Developed By:"
+      copyright_text: "Copyright © %{time_current_year} CircuitVerse, All rights reserved."
+    header:
+      dashboard: "Dashboard"
+      my_groups: "My Groups"
+      notifications: "Notifications"
+      language: "Language"
+    mailer:
+      join_us: "Join Us"
+      copyright_text: "Copyright © 2021 CircuitVerse. All rights reserved. For any issues, reach out to us support@circuitverse.org"
+      unsubscribe_email_notifications: "Unsubscribe from email notifications"
+    simulator:
+      title: "CircuitVerse - Digital Circuit Simulator online"

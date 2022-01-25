@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_01_075729) do
+ActiveRecord::Schema.define(version: 2021_12_08_142725) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -228,6 +228,12 @@ ActiveRecord::Schema.define(version: 2021_12_01_075729) do
     t.datetime "token_expires_at"
     t.index ["group_token"], name: "index_groups_on_group_token", unique: true
     t.index ["mentor_id"], name: "index_groups_on_mentor_id"
+  end
+
+  create_table "issue_circuit_data", force: :cascade do |t|
+    t.text "data"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "mailkick_opt_outs", force: :cascade do |t|

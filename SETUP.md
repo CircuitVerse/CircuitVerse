@@ -29,8 +29,8 @@ Instructions are available in our [wiki](https://github.com/CircuitVerse/Circuit
 #### Dependencies
 **Note**: PostgreSQL and Redis *must* be running. PostgreSQL must be configured with a default user
 - [Git](https://git-scm.com/) - using a GUI such as [SourceTree](https://www.sourcetreeapp.com/) or [GitHub Desktop](https://desktop.github.com/) can help.
-- [Ruby on Rails](https://rubyonrails.org/) (`ruby-2.6.5` & `Rails 6.0.1`)
-- [PostgreSQL](https://www.postgresql.org/) (`9.5`) - Database
+- [Ruby](https://www.ruby-lang.org/en/) (`ruby-3.0.3`)
+- [PostgreSQL](https://www.postgresql.org/) (`12`) - Database
 - [Yarn](https://yarnpkg.com/) - JavaScript package manager
 - [Redis](https://redis.io/) - Data structure store
 - [ImageMagick](https://imagemagick.org/) - Image manipulation library
@@ -67,10 +67,9 @@ cd CircuitVerse
      * **Note:** The Postgres credentials need to be updated to your currently running database
 5. Create database: `rails db:create`
 6. Run database migrations: `rails db:migrate`
-7. Start Sidekiq (background processes & job queue): `bundle exec sidekiq -e development -q default -q mailers -d -L tmp/sidekiq.log`
-1. ./bin/webpack-dev-server for Hot Module reload for  fast development or transpile using ./bin/webpack.
+7. Run bin/dev to run application server, background job queue and asset compiler
 
-Then, local development can be started with `rails s -b 127.0.0.1`. Navigate to `localhost:3000` in your web browser to access the website.
+Navigate to `localhost:3000` in your web browser to access the website.
 
 #### Additional instructions for Ubuntu
 Additional instructions can be found [here](https://www.howtoforge.com/tutorial/ubuntu-ruby-on-rails/) and there are some extra notes for single user installations:
@@ -93,7 +92,6 @@ CircuitVerse uses Yarn for frontend package and asset management.
     curl -L https://get.rvm.io |
     bash -s stable --ruby --autolibs=enable --auto-dotfiles
     ```
-- If you are facing errors running the `rails db:create` ensure that the socket file(i.e `mysql.sock`) is present in that location. Some possible locations where it might be present is `/run/mysqld/mysqld.sock` or `/var/lib/mysql/mysql.sock`.
 ### Heroku Deployment
 [Heroku](https://www.heroku.com) is a free cloud platform that can be used for deployment of CircuitVerse
 
@@ -112,7 +110,7 @@ Password: password
 
 You can include `binding.pry` anywhere inside the code to open the `pry` console.
 
-CircuitVerse uses webpack to bundle the javascript module and assets. To see any changes made to the simulator code without refreshing (hot reload), start `bin/webpack-dev-server`
+<!-- CircuitVerse uses webpack to bundle the javascript module and assets. To see any changes made to the simulator code without refreshing (hot reload), start `bin/webpack-dev-server` -->
 
 
 ## Production
@@ -125,7 +123,7 @@ bundle exec sidekiq -e production -q default -q mailers -d -L tmp/sidekiq.log
 
 
 ## Tests
-Before making a pull request, it is a good idea to check that all tests are passing locally. To run the system tests, run `bundle exec rspec` or `bin/rake spec:all`
+Before making a pull request, it is a good idea to check that all tests are passing locally. To run the system tests, run `bundle exec rspec`
 
 **Note:** To pass the system tests, you need the [Chrome Browser](https://www.google.com/chrome/) installed.
 

@@ -17,9 +17,10 @@ import { paste } from './events';
 import { setProjectName, getProjectName } from './data/save';
 import { changeScale } from './canvasApi';
 import updateTheme from "./themer/themer";
-import { generateImage } from './data/save';
+import { generateImage, generateSaveData } from './data/save';
 import { setupVerilogExportCodeWindow } from './verilog';
 import { setupBitConvertor} from './utils';
+import { updateTestbenchUI, setupTestbenchUI } from './testbench';
 
 export const uxvar = {
     smartDropXX: 50,
@@ -69,13 +70,60 @@ function showContextMenu() {
     $('#contextMenu').css({
         visibility: 'visible',
         opacity: 1,
-        top: `${ctxPos.y}px`,
-        left: `${ctxPos.x}px`,
     });
+    
+    var windowHeight = $("#simulationArea").height() - $("#contextMenu").height() - 10;
+    var windowWidth = $("#simulationArea").width() - $("#contextMenu").width() - 10;
+    // for top, left, right, bottom
+    var topPosition;
+    var leftPosition;
+    var rightPosition;
+    var bottomPosition;
+    if (ctxPos.y > windowHeight && ctxPos.x <= windowWidth) {
+        //When user click on bottom-left part of window
+        leftPosition = ctxPos.x;
+        bottomPosition = $(window).height() - ctxPos.y;
+        $("#contextMenu").css({
+            left: `${leftPosition}px`,
+            bottom: `${bottomPosition}px`,
+            right: 'auto',
+            top: 'auto',
+        });
+    } else if (ctxPos.y > windowHeight && ctxPos.x > windowWidth) {
+        //When user click on bottom-right part of window
+        bottomPosition = $(window).height() - ctxPos.y;
+        rightPosition = $(window).width() - ctxPos.x;
+        $("#contextMenu").css({
+            left: 'auto',
+            bottom: `${bottomPosition}px`,
+            right: `${rightPosition}px`,
+            top: 'auto',
+        });
+    } else if (ctxPos.y <= windowHeight && ctxPos.x <= windowWidth) {
+        //When user click on top-left part of window
+        leftPosition = ctxPos.x;
+        topPosition = ctxPos.y;
+        $("#contextMenu").css({
+            left: `${leftPosition}px`,
+            bottom: 'auto',
+            right: 'auto',
+            top: `${topPosition}px`,
+        });
+    } else {
+        //When user click on top-right part of window
+        rightPosition = $(window).width() - ctxPos.x;
+        topPosition = ctxPos.y;
+        $("#contextMenu").css({
+            left: 'auto',
+            bottom: 'auto',
+            right: `${rightPosition}px`,
+            top: `${topPosition}px`,
+        });
+    }
     ctxPos.visible = true;
     return false;
 }
-
+ 
 /**
  * Function is called when context item is clicked
  * @param {number} id - id of the optoin selected
@@ -142,7 +190,7 @@ export function setupUI() {
         logixFunction[this.id]();
     });
     // var dummyCounter=0;
-
+   
 
     $('.logixModules').hover(function () {
         // Tooltip can be statically defined in the prototype.
@@ -509,10 +557,21 @@ export function setupPanels() {
     setupPanelListeners('#layoutDialog');
     setupPanelListeners('#verilogEditorPanel');
     setupPanelListeners('.timing-diagram-panel');
+    setupPanelListeners('.testbench-manual-panel');
 
     // Minimize Timing Diagram (takes too much space)
     $('.timing-diagram-panel .minimize').trigger('click');
-    
+
+    // Update the Testbench Panel UI
+    updateTestbenchUI();
+    // Minimize Testbench UI
+    $('.testbench-manual-panel .minimize').trigger('click');
+
+    // Hack because minimizing panel then maximizing sets visibility recursively
+    // updateTestbenchUI calls some hide()s which are undone by maximization
+    // TODO: Remove hack
+    $('.testbench-manual-panel .maximize').on('click', setupTestbenchUI);
+
     $('#projectName').on('click', () => {
         $("input[name='setProjectName']").focus().select();
     });
@@ -621,19 +680,35 @@ export function fillSubcircuitElements() {
 async function postUserIssue(message) {
 
     var img = generateImage("jpeg", "full", false, 1, false).split(',')[1];
-    const result = await $.ajax({
-            url: 'https://api.imgur.com/3/image',
-            type: 'POST',
-            data: {
-                image: img
-            },
-            dataType: 'json',
-            headers: {
-                Authorization: 'Client-ID 9a33b3b370f1054'
-            },
-        });
 
-    message += "\n" + result.data.link;
+    let result;
+    try {
+        result = await $.ajax({
+                url: 'https://api.imgur.com/3/image',
+                type: 'POST',
+                data: {
+                    image: img
+                },
+                dataType: 'json',
+                headers: {
+                    Authorization: 'Client-ID 9a33b3b370f1054'
+                },
+            });
+    } catch (err) {
+        console.error("Could not generate image, reporting anyway");
+    }
+
+    if (result) message += "\n" + result.data.link;
+
+    // Generate circuit data for reporting
+    let circuitData;
+    try {
+        // Writing default project name to prevent unnecessary prompt in case the
+        // project is unnamed
+        circuitData = generateSaveData("Untitled");
+    } catch (err) {
+        circuitData = `Circuit data generation failed: ${err}`;
+    }
 
     $.ajax({
         url: '/simulator/post_issue',
@@ -643,6 +718,7 @@ async function postUserIssue(message) {
         },
         data: {
             "text": message,
+            "circuit_data": circuitData,
         },
         success: function(response) {
             $('#result').html("<i class='fa fa-check' style='color:green'></i> You've successfully submitted the issue. Thanks for improving our platform.");

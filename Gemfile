@@ -16,15 +16,14 @@ gem "omniauth-facebook"
 gem "omniauth-github"
 gem "omniauth-google-oauth2"
 gem "omniauth-microsoft-office365"
-gem "paperclip", ">= 5.2.0"
+gem "kt-paperclip"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 6.1.4"
 # Use Puma as the app server
 gem "puma", "~> 5.5"
 # Use SCSS for stylesheets
-gem "sass-rails", "~> 5.0"
-# Use Uglifier as compressor for JavaScript assets
-gem "uglifier", ">= 1.3.0"
+gem "sass-rails", "~> 6.0"
+gem 'terser'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
@@ -93,23 +92,20 @@ gem "meta-tags"
 
 # Notifications
 gem "activity_notification"
-gem "serviceworker-rails"
 gem "webpush"
-
-gem "webpacker", "~> 5.x"
 
 gem "bootsnap", require: false
 
 gem "font-awesome-sass", "~> 5.13.1"
 
 gem "disposable_mail", "~> 0.1"
-gem "fast_jsonapi"
+gem 'jsonapi-serializer'
 gem "flipper-redis"
 gem "flipper-ui"
-gem "friendly_id", "~> 5.4.1"
+gem "friendly_id", "~> 5.4.2"
 gem "inline_svg"
 gem "jwt"
-gem "rails-i18n", "~> 6.0.0"
+gem "rails-i18n", "~> 7.0.1"
 gem "recaptcha"
 gem "simple_discussion", "~> 1.3"
 gem 'strong_migrations'
@@ -118,7 +114,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "byebug", platforms: %i[mri mingw x64_mingw]
   # Adds support for Capybara system testing and selenium driver
-  gem "coveralls"
+  gem 'coveralls_reborn', '~> 0.23.1', require: false
   gem "erb_lint", require: false
   gem "factory_bot_rails"
   gem "faker"
@@ -135,13 +131,13 @@ group :test do
   gem "rspec_junit_formatter"
   gem "selenium-webdriver"
   gem "shoulda-matchers"
-  gem "webdrivers", "~> 4.6"
+  gem 'webdrivers', '~> 5.0', require: false
   gem "webmock"
 end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem "listen", ">= 3.0.5", "< 3.4"
+  gem "listen", ">= 3.0.5", "< 3.8"
   gem "web-console", ">= 3.3.0"
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem "rails-erd"
@@ -157,11 +153,11 @@ gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 # mails
 gem "premailer-rails", "~> 1.11", ">= 1.11.1"
 
-gem "bugsnag", "~> 6.22"
+gem "bugsnag", "~> 6.24"
 
 gem "invisible_captcha", "~> 2.0"
 
-gem "newrelic_rpm", "~> 8.1"
+gem "newrelic_rpm", "~> 8.2"
 
 gem "oj", "~> 3.13"
 
@@ -169,3 +165,7 @@ gem "hairtrigger", "~> 0.2.24"
 
 # Used for rate limiting
 gem "rack-attack"
+
+gem "jsbundling-rails", "~> 1.0"
+
+gem "stimulus-rails", "~> 1.0"
