@@ -3,8 +3,9 @@ import 'bootstrap-tagsinput/dist/bootstrap-tagsinput.js';
 
 export default class extends Controller {
     embedInviteLink() {
-        setTimeout(()=>{
-            $("#embedInviteLink").select(); document.execCommand("copy")
+        setTimeout(() => {
+            $('#embedInviteLink').select();
+            document.execCommand('copy');
         }, 100);
     }
 }
