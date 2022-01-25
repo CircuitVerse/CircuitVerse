@@ -96,7 +96,7 @@ Rails.application.routes.draw do
   resources :users do
     resources :projects do
       member do
-        get "/invite/:token", to: "projects#project_invite", as: "invite"
+        get "/invite/:token", to: "projects/invitations#create", as: "invite"
       end
     end
   end

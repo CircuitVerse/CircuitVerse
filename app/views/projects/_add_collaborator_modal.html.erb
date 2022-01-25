@@ -1,6 +1,6 @@
 <script src="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
 
-<div id="collaboratorModal" class="modal fade" role="dialog">
+<div id="collaboratorModal" class="modal fade" role="dialog" data-controller="projectCollaboration">
   <div class="modal-dialog primary-modal-dialog">
     <div class="modal-content">
       <div class="modal-header primary-modal-header">
@@ -38,7 +38,7 @@
           <span><%= t("projects.invite_link_btn") %></span>
         <% end %>
         <div class="collapse" id="multiCollapseExample2">
-          <textarea id="embedInviteLink" class="collaborator-invite-link-text" rows="4" cols="35"></textarea>
+          <textarea readonly="readonly" id="embedInviteLink" class="collaborator-invite-link-text" rows="4" cols="35"><%= user_project_url %>/invite/<%= @project.collaboration_token %></textarea>
         </div>
       </div>
     </div>
@@ -48,11 +48,6 @@
 
 <script>
 $(document).ready(() => {
-  // docs: http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/examples/
-  $(".collaborator-invite-link-text").html("<%= user_project_url %>/invite/<%= @project.collaboration_token %>");
-  $('#invite_collab_button').on('click', ()=>{
-    setTimeout(function(){$("#embedInviteLink").select();document.execCommand("copy")},100);
-  })
   $('#emails').tagsinput({
     trimValue: true,
     confirmKeys: [13, 44, 32],

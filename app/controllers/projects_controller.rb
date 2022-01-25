@@ -3,7 +3,7 @@
 class ProjectsController < ApplicationController
   include ActionView::Helpers::SanitizeHelper
 
-  before_action :set_project, only: %i[show edit update destroy project_invite create_fork change_stars]
+  before_action :set_project, only: %i[show edit update destroy create_fork change_stars]
   before_action :authenticate_user!, only: %i[edit update destroy create_fork change_stars]
 
   before_action :check_access, only: %i[edit update destroy]
@@ -34,22 +34,6 @@ class ProjectsController < ApplicationController
     @collaboration = @project.collaborations.new
     @admin_access = true
     commontator_thread_show(@project)
-  end
-
-  def project_invite
-    if Project.with_project_token.exists?(collaboration_token: params[:token])
-      if current_user&.collaborations.exists?(project: @project)
-        notice = "Collaborator is already present in the project."
-      else
-        current_user.collaborations.create!(project: @project)
-        notice = "Collaborator was successfully added."
-      end
-    elsif Project.exists?(collaboration_token: params[:token])
-      notice = "Url is expired, request a new one from owner of the Project."
-    else
-      notice = "Invalid url"
-    end
-    redirect_to user_project_path(user_id: params[:user_id], project_id: params[:project_id]), notice: notice
   end
 
   # GET /projects/1/edit
