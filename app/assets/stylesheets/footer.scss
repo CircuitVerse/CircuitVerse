@@ -32,18 +32,10 @@
 }
 
 .bounce-out-on-hover {
-  box-shadow: 0 0 1px $black;
   display: inline-block;
   transform: perspective(1px) translateZ(0);
   transition-duration: .5s;
   vertical-align: middle;
-}
-
-.bounce-out-on-hover img {
-  margin: 6px;
-  margin-right: 6px;
-  margin-bottom: 6px;
-  margin-top: -3px;
 }
 
 .bounce-out-on-hover:hover,
