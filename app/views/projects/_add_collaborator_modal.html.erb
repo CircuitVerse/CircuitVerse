@@ -1,3 +1,4 @@
+<%= javascript_pack_tag 'application' %>
 <script src="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
 
 <div id="collaboratorModal" class="modal fade" role="dialog" data-controller="projectCollaboration">
@@ -33,7 +34,7 @@
       </div>
       <div class="mx-auto text-center p-3">
         <p><%= t("groups.use_alternative") %></p>
-        <%= button_to collaboration_token_project_path,{remote: true,method: :post,class: 'btn primary-button', 'data-toggle':'collapse', 'href':'#collapseExample', 'aria-expanded':'false', 'aria-controls':'collapseExample', 'data-target':'#multiCollapseExample2',id: 'invite_collab_button'} do %>
+        <%= button_to collaboration_token_project_path,{remote: true,method: :post,class: 'btn primary-button', 'data-toggle':'collapse', 'href':'#collapseExample', 'aria-expanded':'false', 'aria-controls':'collapseExample', 'data-target':'#multiCollapseExample2',id: 'invite_collab_button','data-action':'click->projectCollaboration#embedInviteLink' } do %>
           <i class="fas fa-external-link-alt"></i>
           <span><%= t("projects.invite_link_btn") %></span>
         <% end %>
