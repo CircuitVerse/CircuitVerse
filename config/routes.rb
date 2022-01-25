@@ -45,6 +45,7 @@ Rails.application.routes.draw do
 
   scope "/groups" do
     get "/:group_id/assignments/:id/reopen", to: "assignments#reopen", as: "reopen_group_assignment"
+    put "/:group_id/assignments/:id/close", to: "assignments#close", as: "close_group_assignment"
     get "/:group_id/assignments/:id/start", to: "assignments#start", as: "assignment_start"
   end
   resources :stars, only: %i[create destroy]
@@ -126,6 +127,10 @@ Rails.application.routes.draw do
     post "/verilogcv", to: "simulator_old#verilog_cv"
     get "/", to: "simulator_old#new", as: "simulator_old_new"
     get "/embed/:id", to: "simulator_old#embed"
+  end
+
+  scope "/testbench" do
+    get "/", to: "testbench#creator", as: "testbench_creator"
   end
   # get 'simulator/embed_cross/:id', to: 'simulator#embed_cross', as: 'simulator_embed_cross'
 

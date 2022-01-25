@@ -4,9 +4,9 @@ class AssignmentsController < ApplicationController
   include ActionView::Helpers::SanitizeHelper
 
   before_action :authenticate_user!
-  before_action :set_assignment, only: %i[show edit update destroy start reopen]
+  before_action :set_assignment, only: %i[show edit update destroy start reopen close]
   before_action :set_group
-  before_action :check_access, only: %i[edit update destroy reopen]
+  before_action :check_access, only: %i[edit update destroy reopen close]
   before_action :sanitize_assignment_description, only: %i[show edit]
   after_action :check_reopening_status, only: [:update]
   after_action :allow_iframe_lti, only: %i[show], constraints: lambda {
@@ -57,6 +57,16 @@ class AssignmentsController < ApplicationController
     @assignment.save
 
     redirect_to edit_group_assignment_path(@group, @assignment)
+  end
+
+  # Close assignment
+  def close
+    authorize @assignment
+    @assignment.status = "closed"
+    @assignment.deadline = Time.zone.now
+    @assignment.save
+
+    redirect_to group_assignment_path(@group, @assignment)
   end
 
   # POST /assignments
