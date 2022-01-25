@@ -9,7 +9,7 @@ const watchDirectories = [
 ];
 
 require('esbuild').build({
-    entryPoints: ['application.js', 'simulator.js'],
+    entryPoints: ['application.js', 'simulator.js', 'testbench.js'],
     bundle: true,
     outdir: path.join(process.cwd(), 'app/assets/builds'),
     absWorkingDir: path.join(process.cwd(), 'app/javascript'),

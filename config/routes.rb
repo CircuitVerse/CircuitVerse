@@ -128,6 +128,10 @@ Rails.application.routes.draw do
     get "/", to: "simulator_old#new", as: "simulator_old_new"
     get "/embed/:id", to: "simulator_old#embed"
   end
+
+  scope "/testbench" do
+    get "/", to: "testbench#creator", as: "testbench_creator"
+  end
   # get 'simulator/embed_cross/:id', to: 'simulator#embed_cross', as: 'simulator_embed_cross'
 
   resources :users do

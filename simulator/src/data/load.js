@@ -14,6 +14,7 @@ import { generateId } from '../utils';
 import modules from '../modules';
 import { oppositeDirection } from '../canvasApi';
 import plotArea from '../plotArea';
+import { updateTestbenchUI, TestbenchData } from '../testbench';
 
 /**
  * Backward compatibility - needs to be deprecated
@@ -125,6 +126,15 @@ export function loadScope(scope, data) {
         scope.verilogMetadata = data.verilogMetadata;
     }
 
+    // If Test exists, then restore
+    if (data.testbenchData) {
+        globalScope.testbenchData = new TestbenchData(
+            data.testbenchData.testData,
+            data.testbenchData.currentGroup,
+            data.testbenchData.currentCase
+        );
+    }
+
     // If layout exists, then restore
     if (data.layout) {
         scope.layout = data.layout;
@@ -224,6 +234,9 @@ export default function load(data) {
     // Switch to last focussedCircuit
     if (data.focussedCircuit) 
         switchCircuit(data.focussedCircuit);
+
+    // Update the testbench UI
+    updateTestbenchUI();
 
     updateSimulationSet(true);
     updateCanvasSet(true);
