@@ -154,7 +154,7 @@
                 </div>
                 <div>
                   <% if (@assignment.grades_published?) %>
-                    <%= button_to t("unpublish_grades"), unpublish_grades_group_assignment_path(@assignment), method: "put", class: "btn primary-delete-button mt-4" %>
+                    <button type="button" class="btn btn-secondary mt-4" disabled><%= t("grades_published") %></button>
                   <% else %>
                     <%= button_to t("publish_grades"), publish_grades_group_assignment_path(@assignment), method: "put", class: "btn primary-button mt-4" %>
                   <% end %>
