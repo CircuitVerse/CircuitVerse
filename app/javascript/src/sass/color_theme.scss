@@ -229,11 +229,10 @@ $output-rect: blue;
   background: var(--primary);
 }
 
-
-
-.caret-upside{
-  transform: rotate(180deg) translate(0,2px) !important;
+.show > a >.caret{
+  transform: rotate(180deg) translate(0,2px);
 }
+
 .panel-body {
   color: var(--text-panel);
   border-top: 1px solid var(--br-secondary);
