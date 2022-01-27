@@ -20,7 +20,7 @@ gem "kt-paperclip"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 6.1.4"
 # Use Puma as the app server
-gem "puma", "~> 5.5"
+gem "puma", "~> 5.6"
 # Use SCSS for stylesheets
 gem "sass-rails", "~> 6.0"
 gem 'terser'
@@ -86,7 +86,7 @@ gem "http"
 
 # Database
 
-gem "pg", "~> 1.2.3"
+gem "pg", "~> 1.3.0"
 
 gem "meta-tags"
 
