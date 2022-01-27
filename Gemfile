@@ -86,7 +86,7 @@ gem "http"
 
 # Database
 
-gem "pg", "~> 1.2.3"
+gem "pg", "~> 1.3.0"
 
 gem "meta-tags"
 
@@ -157,7 +157,7 @@ gem "bugsnag", "~> 6.24"
 
 gem "invisible_captcha", "~> 2.0"
 
-gem "newrelic_rpm", "~> 8.2"
+gem "newrelic_rpm", "~> 8.4"
 
 gem "oj", "~> 3.13"
 
