@@ -86,7 +86,7 @@ gem "http"
 
 # Database
 
-gem "pg", "~> 1.2.3"
+gem "pg", "~> 1.3.0"
 
 gem "meta-tags"
 
@@ -122,7 +122,7 @@ group :development, :test do
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
   gem "rubocop-rspec", require: false
-  gem "rspec-rails", "~> 5.0"
+  gem "rspec-rails", "~> 5.1"
 end
 
 group :test do
