@@ -181,7 +181,7 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
-    diff-lcs (1.4.4)
+    diff-lcs (1.5.0)
     disposable_mail (0.1.7)
     docile (1.4.0)
     domain_name (0.5.20190701)
@@ -489,13 +489,13 @@ GEM
       faraday (>= 0.9.0)
     rspec-core (3.10.1)
       rspec-support (~> 3.10.0)
-    rspec-expectations (3.10.1)
+    rspec-expectations (3.10.2)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.10.0)
     rspec-mocks (3.10.2)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.10.0)
-    rspec-rails (5.0.2)
+    rspec-rails (5.1.0)
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       railties (>= 5.2)
@@ -503,7 +503,7 @@ GEM
       rspec-expectations (~> 3.10)
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
-    rspec-support (3.10.2)
+    rspec-support (3.10.3)
     rspec_junit_formatter (0.4.1)
       rspec-core (>= 2, < 4, != 2.12.0)
     rubocop (1.25.0)
@@ -728,7 +728,7 @@ DEPENDENCIES
   rails_admin (~> 2.2)
   recaptcha
   redis (~> 4.5)
-  rspec-rails (~> 5.0)
+  rspec-rails (~> 5.1)
   rspec_junit_formatter
   rubocop
   rubocop-performance
