@@ -1,6 +1,7 @@
 import { dots } from '../canvasApi';
 import themeOptions from './themes';
 import updateThemeForStyle from './themer';
+import abstraction from './customThemeHelper';
 
 const updateBG = () => dots(true, false, true);
 
@@ -10,22 +11,20 @@ const updateBG = () => dots(true, false, true);
  */
 const getCustomThemeCard = () => {
     var propertiesContainer = document.createElement('form');
-    const keys = Object.keys(themeOptions['Custom Theme']);
-    if (keys.length !== 0) {
-        keys.forEach((key) => {
-            const property = document.createElement('div');
-            const newPropertyLabel = document.createElement('label');
-            newPropertyLabel.textContent = key;
-            newPropertyLabel.setAttribute('for', key);
-            const newPropertyInput = document.createElement('input');
-            newPropertyInput.setAttribute('type', 'color');
-            newPropertyInput.setAttribute('name', key);
-            newPropertyInput.setAttribute('value', themeOptions['Custom Theme'][key]);
-            property.append(newPropertyLabel);
-            property.append(newPropertyInput);
-            propertiesContainer.append(property);
-        });
-    }
+    const keys = Object.keys(abstraction);
+    keys.forEach((key) => {
+        const property = document.createElement('div');
+        const newPropertyLabel = document.createElement('label');
+        newPropertyLabel.textContent = key;
+        newPropertyLabel.setAttribute('for', key);
+        const newPropertyInput = document.createElement('input');
+        newPropertyInput.setAttribute('type', 'color');
+        newPropertyInput.setAttribute('name', key);
+        newPropertyInput.setAttribute('value', abstraction[key]['color']);
+        property.append(newPropertyLabel);
+        property.append(newPropertyInput);
+        propertiesContainer.append(property);
+    });
     const fileInput = document.createElement('input');
     fileInput.setAttribute('name', 'themeFile');
     fileInput.setAttribute('type', 'file');
@@ -85,8 +84,9 @@ export const CustomColorThemes = () => {
     /**
      * To preview the changes
      */
-    $('#CustomColorThemesDialog input').change((e) => {
-        themeOptions['Custom Theme'][e.target.name] = e.target.value;
+    $('#CustomColorThemesDialog input').on('input', (e) => {
+        abstraction[e.target.name]['color'] = e.target.value;
+        abstraction[e.target.name]['linked'].forEach((property) => themeOptions['Custom Theme'][property] = e.target.value);
         updateThemeForStyle('Custom Theme');
         updateBG();
     });
