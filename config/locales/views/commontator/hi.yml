@@ -1,0 +1,88 @@
+hi:
+  activerecord:
+    attributes:
+      commontator/comment:
+        body: "कमेंट"
+        creator: "रचयिता"
+        editor: "संपादक"
+        thread: "डिस्कशन"
+        parent: "पैरेंट कमेंट"
+      commontator/subscription:
+        subscriber: "सब्सक्राइबर"
+        thread: "डिस्कशन"
+      commontator/thread:
+        commontable: "कॉमनटेबल"
+    errors:
+      models:
+        commontator/comment:
+          attributes:
+            body:
+              double_posted: "एक अन्य कमेंट का डुप्लिकेट है।"
+    models:
+      commontator/comment:
+        one: "कमेंट"
+        other: "कमैंट्स"
+      commontator/subscription:
+        one: "सब्सक्रिप्शन"
+        other: "सब्सक्रिप्शनस"
+      commontator/thread:
+        one: "थ्रेड"
+        other: "थ्रेड्स"
+  commontator:
+    anonymous: "अनाम"
+    comment:
+      actions:
+        cancel: "रद्द करें"
+        confirm_delete: "क्या आप इस कमेंट को मिटाने के बारे में पक्के हैं?"
+        create: "कमेंट पोस्ट करें"
+        delete: "डिलीट करे"
+        edit: "एडिट करे"
+        new: "नई कमेंट"
+        undelete: "अनडिलीट करे"
+        update: "कमेंट मॉडिफाई करे"
+        reply: "कमेंट का उत्तर दें।"
+      errors:
+        already_deleted: "यह कमेंट पहले ही हटाई जा चुकी है।"
+        create: "यह कमेंट पोस्ट नहीं की जा सकी क्योंकि:"
+        not_deleted: "यह कमेंट हटाई नहीं गई है।"
+        update: "इस कमेंट को अपडेट नहीं किया जा सका क्योंकि:"
+      status:
+        created_at: "%{created_at} पर पोस्ट किया गया।"
+        deleted_by: "कमेंट %{deleter_name} द्वारा हटाई गई।"
+        updated_at: "अंतिम बार %{editor_name} द्वारा %{updated_at} को अपडेट किया गया।"
+        replying: "%{creator_name} को प्रत्युत्तर दे"
+        reply_pages: "रिप्लाई पेज"
+    email:
+      comment_created:
+        body: "%{creator_name} ने %{commontable_name} पर कमेंट किया:"
+        subject: "%{creator_name} ने %{commontable_name} पर एक कमेंट पोस्ट की"
+      thread_link_html: "%{commontable_name} पर सभी कमेंट देखने के लिए <a href='%{comment_url}'>यहां क्लिक करें</a>।"
+    require_login_html: "कमेंट पोस्ट करने से पहले आपको <a href='/users/sign_in' class='anchor-text'>लॉग इन</a> करना होगा।"
+    subscription:
+      actions:
+        subscribe: "सब्सक्राइब करे"
+        unsubscribe: "अनसब्सक्राइब करे"
+      errors:
+        already_subscribed: "आप पहले ही इस डिस्कशन को सब्सक्राइब कर चुके हैं।"
+        not_subscribed: "आपने इस डिस्कशन को सब्सक्राइब नहीं किया है।"
+    thread:
+      actions:
+        show_all: "सभी कमेंट दिखाएं"
+        filter: "कमेंट को फ़िल्टर करें"
+        close: "डिस्कशन बंद करे"
+        confirm_close: "क्या आप वाकई इस चर्चा को बंद करना चाहते हैं?"
+        reopen: "चर्चा फिर से खोलें"
+        show: "कमेंट दिखाएँ"
+        hide: "कमेंट छुपाएं"
+        add_comment: "+ कमेंट ऐड करे"
+      errors:
+        already_closed: "यह डिस्कशन पहले ही बंद हो चुकी है।"
+        not_closed: "यह डिस्कशन बंद नहीं है।"
+      status:
+        cannot_post: "इस समय नई कमेंट पोस्ट नहीं की जा सकतीं।"
+        closed: "कमेंट (%{closer_name} द्वारा बंद की गयी)"
+        open: "कमेंट"
+        pages: "कमेंट पेज"
+  time:
+    formats:
+      commontator: "%b %d %Y को %I: %M %p %Z"
