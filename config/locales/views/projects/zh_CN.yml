@@ -1,0 +1,35 @@
+zh_CN:
+  projects:
+    add_collaborator_description: "输入以逗号、空格分隔的电子邮件 ID 或输入。用户需要已经在平台上注册。请注意，到目前为止，协作还不是实时的。每次保存都会覆盖之前的数据。"
+    delete_project_message: "确定要删除此项目吗？"
+    edit:
+      main_heading: "项目编辑"
+      title: "%{name}- 项目编辑"
+    form:
+      feature_circuit_checkpoint: "精选（仅限管理员）"
+      limited_access: "有限的访问权限"
+      private: "私人"
+      project_is_featured_message: "（这个项目是精选的。如果公共访问权限被移除，它将不再显示。）"
+      public: "公开"
+      tag_list_description: "（输入你的项目标签用逗号 [,] 分隔）"
+    get_projects:
+      searched_projects_heading: "项目搜索"
+      searched_tags_heading: "标签:"
+    project_user: "用户："
+    remove_collaborator_message: "您确定要移除此合作者吗？"
+    search:
+      no_result_found: "未找到结果"
+    show:
+      collaborators: "协作者"
+      copied_to_clipboard: "已复制到剪贴板"
+      project_access_type: "项目访问权限类型："
+      project_author: "作者:"
+      project_collaborator_add: "+ 添加合作者"
+      project_copy: "创建副本"
+      project_created_at: "已创建:"
+      project_description: "描述:"
+      project_embed: "嵌入"
+      project_forked_from: "分叉来自："
+      project_updated_at: "更新:"
+    stars_count: "星星"
+    views_count: "观看量"
