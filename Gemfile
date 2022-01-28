@@ -110,6 +110,7 @@ gem "rails-i18n", "~> 7.0.1"
 gem "recaptcha"
 gem "simple_discussion", "~> 1.3"
 gem 'strong_migrations'
+gem "sprockets", "~> 3.1"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -144,7 +145,6 @@ group :development do
   gem "rails-erd"
   gem "rubocop"
   gem "spring"
-  gem "spring-watcher-listen", "~> 2.0.0"
   gem "sunspot_solr"
 end
 
