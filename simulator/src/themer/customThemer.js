@@ -114,7 +114,7 @@ export const CustomColorThemes = () => {
      * Add listener for file input
      * Read imported JSON file
      */
-    $('#importThemeFile').on('input',(event) => {
+    $('#importThemeFile').on('input', (event) => {
         var File = event.target.files[0];
         if (File !== null && File.name.split('.')[1] === 'json') {
             var fr = new FileReader();
