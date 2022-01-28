@@ -67,10 +67,9 @@ cd CircuitVerse
      * **Note:** The Postgres credentials need to be updated to your currently running database
 5. Create database: `rails db:create`
 6. Run database migrations: `rails db:migrate`
-7. Start Sidekiq (background processes & job queue): `bundle exec sidekiq -e development -q default -q mailers `
-1. ./bin/webpack-dev-server for Hot Module reload for  fast development or transpile using ./bin/webpack.
+7. Run bin/dev to run application server, background job queue and asset compiler
 
-Then, local development can be started with `rails s -b 127.0.0.1`. Navigate to `localhost:3000` in your web browser to access the website.
+Navigate to `localhost:3000` in your web browser to access the website.
 
 #### Additional instructions for Ubuntu
 Additional instructions can be found [here](https://www.howtoforge.com/tutorial/ubuntu-ruby-on-rails/) and there are some extra notes for single user installations:
@@ -111,7 +110,7 @@ Password: password
 
 You can include `binding.pry` anywhere inside the code to open the `pry` console.
 
-CircuitVerse uses webpack to bundle the javascript module and assets. To see any changes made to the simulator code without refreshing (hot reload), start `bin/webpack-dev-server`
+<!-- CircuitVerse uses webpack to bundle the javascript module and assets. To see any changes made to the simulator code without refreshing (hot reload), start `bin/webpack-dev-server` -->
 
 
 ## Production

@@ -20,11 +20,10 @@ gem "kt-paperclip"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 7.0"
 # Use Puma as the app server
-gem "puma", "~> 5.5"
+gem "puma", "~> 5.6"
 # Use SCSS for stylesheets
-gem "sass-rails", "~> 5.0"
-# Use Uglifier as compressor for JavaScript assets
-gem "uglifier", ">= 1.3.0"
+gem "sass-rails", "~> 6.0"
+gem 'terser'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
@@ -88,16 +87,13 @@ gem "http"
 
 # Database
 
-gem "pg", "~> 1.2.3"
+gem "pg", "~> 1.3.0"
 
 gem "meta-tags"
 
 # Notifications
 gem "activity_notification", github: 'tachyons/activity_notification'
-gem "serviceworker-rails"
 gem "webpush"
-
-gem "webpacker", "~> 5.x"
 
 gem "bootsnap", require: false
 
@@ -127,7 +123,7 @@ group :development, :test do
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
   gem "rubocop-rspec", require: false
-  gem "rspec-rails", "~> 5.0"
+  gem "rspec-rails", "~> 5.1"
 end
 
 group :test do
@@ -166,8 +162,11 @@ gem "newrelic_rpm", "~> 8.2"
 
 gem "oj", "~> 3.13"
 
-# gem "hairtrigger", "~> 0.2.24"
-gem "hairtrigger", github: 'erikaxel/hair_trigger'
+gem "hairtrigger", "~> 0.2.25"
 
 # Used for rate limiting
 gem "rack-attack"
+
+gem "jsbundling-rails", "~> 1.0"
+
+gem "stimulus-rails", "~> 1.0"

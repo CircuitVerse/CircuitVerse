@@ -20,6 +20,7 @@ import updateTheme from "./themer/themer";
 import { generateImage, generateSaveData } from './data/save';
 import { setupVerilogExportCodeWindow } from './verilog';
 import { setupBitConvertor} from './utils';
+import { updateTestbenchUI, setupTestbenchUI } from './testbench';
 
 export const uxvar = {
     smartDropXX: 50,
@@ -556,9 +557,20 @@ export function setupPanels() {
     setupPanelListeners('#layoutDialog');
     setupPanelListeners('#verilogEditorPanel');
     setupPanelListeners('.timing-diagram-panel');
+    setupPanelListeners('.testbench-manual-panel');
 
     // Minimize Timing Diagram (takes too much space)
     $('.timing-diagram-panel .minimize').trigger('click');
+
+    // Update the Testbench Panel UI
+    updateTestbenchUI();
+    // Minimize Testbench UI
+    $('.testbench-manual-panel .minimize').trigger('click');
+
+    // Hack because minimizing panel then maximizing sets visibility recursively
+    // updateTestbenchUI calls some hide()s which are undone by maximization
+    // TODO: Remove hack
+    $('.testbench-manual-panel .maximize').on('click', setupTestbenchUI);
 
     $('#projectName').on('click', () => {
         $("input[name='setProjectName']").focus().select();

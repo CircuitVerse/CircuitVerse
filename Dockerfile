@@ -22,9 +22,9 @@ RUN gem install bundler
 RUN bundle install  --without production
 RUN yarn install
 
-
 # copy source
 COPY . /circuitverse
+RUN yarn build
 
 # generate key-pair for jwt-auth
 RUN openssl genrsa -out /circuitverse/config/private.pem 2048
