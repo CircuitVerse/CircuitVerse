@@ -84,17 +84,17 @@ describe AssignmentsController, type: :request do
     let(:update_params) do
       {
         assignment: {
-          description: "updated description"
+          description: "updated description <br> with line break"
         }
       }
     end
 
     context "mentor is signed in" do
-      it "updates the assignment" do
+      it "updates the assignment and description contains line breaks" do
         sign_in @mentor
         put group_assignment_path(@group, @assignment), params: update_params
         @assignment.reload
-        expect(@assignment.description).to eq("updated description")
+        expect(@assignment.description).to eq("updated description <br> with line break")
       end
     end
 

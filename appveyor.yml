@@ -15,7 +15,7 @@ services:
   # Install scripts. (runs after repo cloning)
 install:
   - ps: Install-Product node $env:nodejs_version
-  - set PATH=C:\Ruby26-x64\bin;%PATH%
+  - set PATH=C:\Ruby30-x64\bin;%PATH%
   - ruby -v
   - bundle config --local path vendor/bundle
   - bundle install --with postgresql

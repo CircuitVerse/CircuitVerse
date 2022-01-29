@@ -2,6 +2,7 @@
 
 class AssignmentsController < ApplicationController
   include ActionView::Helpers::SanitizeHelper
+  include SanitizeDescription
 
   before_action :authenticate_user!
   before_action :set_assignment, only: %i[show edit update destroy start reopen close]
@@ -191,10 +192,6 @@ class AssignmentsController < ApplicationController
     end
 
     def sanitize_assignment_description
-      @assignment.description = sanitize(
-        @assignment.description,
-        tags: %w[img p strong em a sup sub del u span h1 h2 h3 h4 hr li ol ul blockquot],
-        attributes: %w[style src href alt title target]
-      )
+      @assignment.description = sanitize_description(@assignment.description)
     end
 end
