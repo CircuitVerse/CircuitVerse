@@ -8,7 +8,7 @@ import { newCircuit, createNewCircuitScope } from './circuit'
 import { createCombinationalAnalysisPrompt } from './combinationalAnalysis';
 import { colorThemes } from "./themer/themer";
 import { showTourGuide } from './tutorials';
-import {createVerilogCircuit, saveVerilogCode, resetVerilogCode} from './Verilog2CV';
+import {createVerilogCircuit, saveVerilogCode, resetVerilogCode, applyTheme} from './Verilog2CV';
 import { generateVerilog } from './verilog';
 import { bitConverterDialog } from './utils';
 
@@ -30,6 +30,7 @@ logixFunction.showTourGuide = showTourGuideHelper;
 logixFunction.deleteSelected = deleteSelected;
 logixFunction.newVerilogModule = createVerilogCircuit;
 logixFunction.saveVerilogCode = saveVerilogCode;
+logixFunction.applyTheme = applyTheme;
 logixFunction.resetVerilogCode = resetVerilogCode;
 logixFunction.generateVerilog = generateVerilog;
 logixFunction.bitconverter = bitConverterDialog;
