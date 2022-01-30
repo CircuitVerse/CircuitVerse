@@ -94,10 +94,9 @@ export function saveVerilogCode() {
     generateVerilogCircuit(code);
 }
 
-export function applyTheme() {
+export function applyVerilogTheme() {
     var dropdown = document.getElementById('selectVerilogTheme');
     var theme = dropdown.options[dropdown.selectedIndex].innerHTML;
-    console.log(theme);
     editor.setOption('theme', theme);
 }
 

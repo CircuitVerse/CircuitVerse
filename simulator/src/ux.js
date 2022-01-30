@@ -21,6 +21,7 @@ import { generateImage, generateSaveData } from './data/save';
 import { setupVerilogExportCodeWindow } from './verilog';
 import { setupBitConvertor} from './utils';
 import { updateTestbenchUI, setupTestbenchUI } from './testbench';
+import { applyVerilogTheme } from './Verilog2CV';
 
 export const uxvar = {
     smartDropXX: 50,
@@ -190,6 +191,11 @@ export function setupUI() {
         logixFunction[this.id]();
     });
     // var dummyCounter=0;
+
+    // calling apply on select theme in dropdown
+    $('.applyTheme').on('change',function () {
+        applyVerilogTheme();
+    });
    
 
     $('.logixModules').hover(function () {
