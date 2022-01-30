@@ -425,12 +425,26 @@ export function setupTimingListeners() {
     $('.timing-diagram-calibrate').on('click', () => {
         plotArea.calibrate();
     })
-    $('.timing-diagram-resume').on('click', () => {
+    const ResumePause = document.querySelector('.ResumePause');
+    let resumeAutoscroll = false;
+
+    function resumeTimingDiagram() {
+        resumeAutoscroll = true;
         plotArea.resume();
-    })
-    $('.timing-diagram-pause').on('click', () => {
+        ResumePause.innerHTML = '<span class="fas fa-pause timing-diagram-pause">';
+        ResumePause.title='Pause auto-scroll';
+       }
+
+    function pauseTimingDiagram() {
+        resumeAutoscroll = false;
         plotArea.pause();
-    })
+        ResumePause.innerHTML = '<span class="fas fa-play timing-diagram-resume">';
+        ResumePause.title='Resume auto-scroll';
+       }
+
+    ResumePause.addEventListener('click', () =>
+        resumeAutoscroll ? pauseTimingDiagram() : resumeTimingDiagram()
+    );
     $('.timing-diagram-download').on('click', () => {
         plotArea.download();
     })
