@@ -6,7 +6,7 @@
 import { resetScopeList, scopeList, newCircuit } from '../circuit';
 import { showMessage, showError, generateId } from '../utils';
 import { checkIfBackup } from './backupCircuit';
-import {generateSaveData, getProjectName, setProjectName} from './save';
+import {generateSaveData, getProjectName, saveOfflineData, setProjectName} from './save';
 import load from './load';
 
 /**
@@ -16,10 +16,28 @@ import load from './load';
 export function recoverProject() {
     if (localStorage.getItem('recover')) {
         var data = JSON.parse(localStorage.getItem('recover'));
-        if (confirm(`Would you like to recover: ${data.name}`)) {
-            load(data);
-        }
-        localStorage.removeItem('recover');
+        let name = data.name;
+        $('#recoverProjectPrompt').empty();
+        $('#recoverProjectPrompt').append(`<span>Would you like to recover: "${name}"</span>`);
+        $('#recoverProjectPrompt').dialog({
+            resizable:false,
+            buttons:[
+                {
+                    text: "Ok",
+                    click(){
+                        load(data);
+                        localStorage.removeItem('recover');
+                        $(this).dialog('close');
+                    },
+                },
+                {
+                    text: "Cancel",
+                    click(){
+                        $(this).dialog('close');
+                    },
+                }
+            ]
+        })
     } else {
         showError('No recover project found');
     }
@@ -70,7 +88,7 @@ export function projectSavedSet(param) {
  * @category data
  */
 export function saveOffline() {
-    const data = generateSaveData();
+    const data = saveOfflineData();
     localStorage.setItem(projectId, data);
     const temp = JSON.parse(localStorage.getItem('projectList')) || {};
     temp[projectId] = getProjectName();
@@ -113,13 +131,29 @@ window.onbeforeunload = function () {
  * @category data
  */
 export function clearProject() {
-    if (confirm('Would you like to clear the project?')) {
-        globalScope = undefined;
-        resetScopeList();
-        $('.circuits').remove();
-        newCircuit('main');
-        showMessage('Your project is as good as new!');
-    }
+    $('#clearProjectPrompt').text('Would you like to clear the project?');
+    $('#clearProjectPrompt').dialog({
+        resizable:false,
+        buttons: [
+            {
+                text: 'OK',
+                click() {
+                    globalScope = undefined;
+                    resetScopeList();
+                    $('.circuits').remove();
+                    newCircuit('main');
+                    showMessage('Your project is as good as new!');
+                    $('#clearProjectPrompt').dialog('close');
+                }
+            },
+            {
+                text: 'Cancel',
+                click() {
+                    $(this).dialog('close');
+                }
+            }
+        ]
+    });
 }
 
 /**
@@ -128,13 +162,38 @@ export function clearProject() {
  * @category data
  */
 export function newProject(verify) {
-    if (verify || projectSaved || !checkToSave() || confirm('What you like to start a new project? Any unsaved changes will be lost.')) {
-        clearProject();
-        localStorage.removeItem('recover');
-        window.location = '/simulator';
-
-        setProjectName(undefined);
-        projectId = generateId();
+    if (verify || projectSaved || !checkToSave()) {
+        newProjectConfirmed();
         showMessage('New Project has been created!');
+    } 
+    else {
+        $('#newProjectPrompt').text('Would you like to start a new project? Any unsaved changes will be lost.');
+        $('#newProjectPrompt').dialog({
+            resizable:false,
+            buttons:[
+                {
+                    text: 'OK',
+                    click() {
+                        newProjectConfirmed();
+                        showMessage('New Project has been created!');
+                        $(this).dialog('close');
+                    }
+                },
+                {
+                    text: 'Cancel',
+                    click() {
+                        $(this).dialog('close');
+                    }
+                },
+            ]
+        });
     }
 }
+
+function newProjectConfirmed() {
+    localStorage.removeItem('recover');
+    window.location = '/simulator';
+
+    setProjectName(undefined);
+    projectId = generateId();
+} 

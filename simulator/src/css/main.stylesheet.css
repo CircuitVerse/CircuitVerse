@@ -1561,6 +1561,67 @@ input:checked + .slider:before {
   background: #42b983;
 }
 
+.prompt {
+  color: white;
+  margin: 10px 0; 
+  display:none;
+}
+
+.ui-dialog[aria-describedby='newCircuitPrompt'] {
+  width: 400px !important;
+}
+
+.ui-dialog[aria-describedby='saveProject'] {
+  width: 400px !important;
+}
+
+.ui-dialog[aria-describedby='recoverProjectPrompt'] {
+  width: 350px !important;
+}
+
+.ui-dialog[aria-describedby='clearProjectPrompt'] {
+  width: 350px !important;
+}
+
+.ui-dialog[aria-describedby='newProjectPrompt'] {
+  width: 350px !important;
+}
+
+.ui-dialog[aria-describedby='closeCircuitPrompt'] {
+  width: 350px !important;
+}
+
+#newCircuitName {
+  border: none;
+  border-bottom: 1px solid white;
+  background: transparent;
+  margin: 5px;
+  padding: 3px;
+}
+
+#newCircuitPrompt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+#newProjectName {
+  border: none;
+  border-bottom: 1px solid white;
+  background: transparent;
+  margin: 5px;
+  padding: 3px;
+}
+
+#saveProject {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow-x: hidden;
+  margin: 10px 0;
+}
+
 .search-input {
   margin: 0 10px;
   padding: 3px 10px;
