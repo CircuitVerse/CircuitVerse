@@ -48,6 +48,7 @@ export default class CircuitElement {
 
         this.label = '';
         this.size = 14;
+        this.style = 'normal';
         this.scope = scope;
         this.baseSetup();
 
@@ -156,6 +157,7 @@ export default class CircuitElement {
             objectType: this.objectType,
             label: this.label,
             size: this.size,
+            style: this.style,
             direction: this.direction,
             labelDirection: this.labelDirection,
             propagationDelay: this.propagationDelay,
@@ -495,7 +497,10 @@ export default class CircuitElement {
         this.label = label || '';
     }
     setfont(font) {
-        this.size=font;
+        this.size = font;
+    }
+    setfontstyle(style) {
+        this.style = style;
     }
     /**
      * Method that draws the outline of the module and calls draw function on module Nodes.
@@ -545,25 +550,25 @@ export default class CircuitElement {
                 ctx.beginPath();
                 ctx.textAlign = 'right';
                 ctx.fillStyle = colors['text'];
-                fillText(ctx, this.label, this.x - lX - 10, this.y + 5, this.size);
+                fillText(ctx, this.label, this.x - lX - 10, this.y + 5, this.size, this.style);
                 ctx.fill();
             } else if (this.labelDirection === 'RIGHT') {
                 ctx.beginPath();
                 ctx.textAlign = 'left';
                 ctx.fillStyle = colors['text'];
-                fillText(ctx, this.label, this.x + rX + 10, this.y + 5, this.size);
+                fillText(ctx, this.label, this.x + rX + 10, this.y + 5, this.size, this.style);
                 ctx.fill();
             } else if (this.labelDirection === 'UP') {
                 ctx.beginPath();
                 ctx.textAlign = 'center';
                 ctx.fillStyle = colors['text'];
-                fillText(ctx, this.label, this.x, this.y + 5 - uY - 10, this.size);
+                fillText(ctx, this.label, this.x, this.y + 5 - uY - 10, this.size, this.style);
                 ctx.fill();
             } else if (this.labelDirection === 'DOWN') {
                 ctx.beginPath();
                 ctx.textAlign = 'center';
                 ctx.fillStyle = colors['text'];
-                fillText(ctx, this.label, this.x, this.y + 5 + dY + 10, this.size);
+                fillText(ctx, this.label, this.x, this.y + 5 + dY + 10, this.size, this.style);
                 ctx.fill();
             }
         }
@@ -602,25 +607,25 @@ export default class CircuitElement {
                 ctx.beginPath();
                 ctx.textAlign = "right";
                 ctx.fillStyle = "black";
-                fillText(ctx, this.label, this.subcircuitMetadata.x + xOffset - lX - 10, this.subcircuitMetadata.y + yOffset + 5, this.size);
+                fillText(ctx, this.label, this.subcircuitMetadata.x + xOffset - lX - 10, this.subcircuitMetadata.y + yOffset + 5, this.size, this.style);
                 ctx.fill();
             } else if (this.subcircuitMetadata.labelDirection == "RIGHT") {
                 ctx.beginPath();
                 ctx.textAlign = "left";
                 ctx.fillStyle = "black";
-                fillText(ctx, this.label, this.subcircuitMetadata.x + xOffset + rX + 10, this.subcircuitMetadata.y + yOffset + 5, this.size);
+                fillText(ctx, this.label, this.subcircuitMetadata.x + xOffset + rX + 10, this.subcircuitMetadata.y + yOffset + 5, this.size, this.style);
                 ctx.fill();
             } else if (this.subcircuitMetadata.labelDirection == "UP") {
                 ctx.beginPath();
                 ctx.textAlign = "center";
                 ctx.fillStyle = "black";
-                fillText(ctx, this.label, this.subcircuitMetadata.x + xOffset, this.subcircuitMetadata.y + yOffset + 5 - uY - 10, this.size);
+                fillText(ctx, this.label, this.subcircuitMetadata.x + xOffset, this.subcircuitMetadata.y + yOffset + 5 - uY - 10, this.size, this.style);
                 ctx.fill();
             } else if (this.subcircuitMetadata.labelDirection == "DOWN") {
                 ctx.beginPath();
                 ctx.textAlign = "center";
                 ctx.fillStyle = "black";
-                fillText(ctx, this.label, this.subcircuitMetadata.x + xOffset, this.subcircuitMetadata.y + yOffset + 5 + dY + 10, this.size);
+                fillText(ctx, this.label, this.subcircuitMetadata.x + xOffset, this.subcircuitMetadata.y + yOffset + 5 + dY + 10, this.size, this.style);
                 ctx.fill();
             }
         }

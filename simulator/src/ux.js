@@ -336,7 +336,7 @@ export function showProperties(obj) {
         
         if (!obj.propagationDelayFixed) { $('#moduleProperty-inner').append(`<p><span>Delay:</span> <input class='objectPropertyAttribute' type='number'  name='changePropagationDelay' min='0' max='100000' value=${obj.propagationDelay}></p>`); }
         
-        if (!obj.disableLabel) { $('#moduleProperty-inner').append(`<p><span>Label:</span> <input class='objectPropertyAttribute' type='text'  name='setLabel' autocomplete='off'  value='${escapeHtml(obj.label)}'></p>`);             $('#moduleProperty-inner').append(`<p><span>Font Size:</span> <input class='objectPropertyAttribute' type='number'  name='setfont' ></p>`); }
+        if (!obj.disableLabel) { $('#moduleProperty-inner').append(`<p><span>Label:</span> <input class='objectPropertyAttribute' type='text'  name='setLabel' autocomplete='off'  value='${escapeHtml(obj.label)}'></p>`); $('#moduleProperty-inner').append(`<p><span>Font Size:</span> <input class='objectPropertyAttribute' type='number'  name='setfont' ></p>`); $('#moduleProperty-inner').append(`<p><span>Font Style:</span> <select class='objectPropertyAttribute' name='setfontstyle'> <option value='normal'>NORMAL</option> <option value='bold'>BOLD</option> <option value='italic'>ITALIC</option> </select>`); }
 
         var s;
         if (!obj.labelDirectionFixed) {
