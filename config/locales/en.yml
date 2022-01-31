@@ -26,8 +26,9 @@ en:
   close : "Close"
   not_available: "N.A."
   publish_grades: "Publish Grades"
-  grades_published: "Grades Published"
-  publish_grades_successfull: "Grades have been published successfully."
+  unpublish_grades: "Unpublish Grades"
+  publish_grades_successfull: "Grades have been published successfully and are visible to the group members."
+  unpublish_grades_successfull: "Grades have been unpublished successfully and are not visible to the group members."
 # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
     distance_in_words:
