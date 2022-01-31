@@ -336,8 +336,7 @@ export function showProperties(obj) {
         
         if (!obj.propagationDelayFixed) { $('#moduleProperty-inner').append(`<p><span>Delay:</span> <input class='objectPropertyAttribute' type='number'  name='changePropagationDelay' min='0' max='100000' value=${obj.propagationDelay}></p>`); }
         
-        if (!obj.disableLabel)
-        $('#moduleProperty-inner').append(`<p><span>Label:</span> <input class='objectPropertyAttribute' type='text'  name='setLabel' autocomplete='off'  value='${escapeHtml(obj.label)}'></p>`);
+        if (!obj.disableLabel) { $('#moduleProperty-inner').append(`<p><span>Label:</span> <input class='objectPropertyAttribute' type='text'  name='setLabel' autocomplete='off'  value='${escapeHtml(obj.label)}'></p>`);             $('#moduleProperty-inner').append(`<p><span>Font Size:</span> <input class='objectPropertyAttribute' type='number'  name='setfont' ></p>`); }
 
         var s;
         if (!obj.labelDirectionFixed) {
