@@ -161,15 +161,6 @@ class AssignmentsController < ApplicationController
     end
   end
 
-  def unpublish_grades
-    set_assignment
-    @assignment.update(grades_published: false)
-    respond_to do |format|
-      format.html { redirect_to @group, notice: t("unpublish_grades_successfull") }
-      format.json { head :no_content }
-    end
-  end
-
   private
 
     # Use callbacks to share common setup or constraints between actions.

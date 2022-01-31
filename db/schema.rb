@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_08_142725) do
+ActiveRecord::Schema.define(version: 2022_01_22_074508) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(version: 2021_12_08_142725) do
     t.json "restrictions", default: "[]"
     t.string "lti_consumer_key"
     t.string "lti_shared_secret"
+    t.boolean "grades_published", default: false
     t.index ["group_id"], name: "index_assignments_on_group_id"
   end
 
