@@ -25,14 +25,12 @@ class GradesController < ApplicationController
       project = Project.find(grade_params[:project_id])
       assignment = Assignment.find(grade_params[:assignment_id])
       score = grade.to_f / 100 # conversion to 0-0.100 scale as per IMS Global specification
-      if assignment.grades_published?
-        LtiScoreSubmission.new(
-          assignment: assignment,
-          lis_result_sourced_id: project.lis_result_sourced_id,
-          score: score,
-          lis_outcome_service_url: session[:lis_outcome_service_url]
-        ).call # LTI score submission, see app/helpers/lti_helper.rb
-      end
+      LtiScoreSubmission.new(
+        assignment: assignment,
+        lis_result_sourced_id: project.lis_result_sourced_id,
+        score: score,
+        lis_outcome_service_url: session[:lis_outcome_service_url]
+      ).call # LTI score submission, see app/helpers/lti_helper.rb
     end
 
     unless @grade.save
