@@ -25,6 +25,9 @@ en:
   reopen: "Reopen"
   close : "Close"
   not_available: "N.A."
+  publish_grades: "Publish Grades"
+  grades_published: "Grades Published"
+  publish_grades_successfull: "Grades have been published successfully."
 # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
     distance_in_words:

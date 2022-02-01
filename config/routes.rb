@@ -15,7 +15,11 @@ Rails.application.routes.draw do
   # resources :assignment_submissions
   resources :group_members, only: %i[create destroy]
   resources :groups, except: %i[index] do
-    resources :assignments, except: %i[index]
+    resources :assignments, except: %i[index] do
+      member do
+        put "publish_grades", to: "assignments#publish_grades", as: "publish_grades"
+      end
+    end
     member do
       get "invite/:token", to: "groups#group_invite", as: "invite"
       put :generate_token

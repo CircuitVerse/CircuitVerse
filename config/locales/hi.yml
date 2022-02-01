@@ -25,6 +25,9 @@ hi:
   reopen: "फिर से खोले"
   close: "बंद करे"
   not_available: "उपलब्ध नहीं है"
+   publish_grades: "ग्रेड प्रकाशित करें"
+  grades_published: "ग्रेड पहले ही प्रकाशित हो चुके हैं"
+  publish_grades_successfull: "ग्रेड सफलतापूर्वक प्रकाशित हो गए हैं।"
   # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
     distance_in_words:
