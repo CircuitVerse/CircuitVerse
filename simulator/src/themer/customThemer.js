@@ -15,7 +15,7 @@ const getCustomThemeCard = () => {
     keys.forEach((key) => {
         const property = document.createElement('div');
         const newPropertyLabel = document.createElement('label');
-        newPropertyLabel.textContent = key + ' (' + abstraction[key].description + ')';
+        newPropertyLabel.textContent = key + ` (${abstraction[key].description})`;
         newPropertyLabel.setAttribute('for', key);
         const newPropertyInput = document.createElement('input');
         newPropertyInput.setAttribute('type', 'color');
