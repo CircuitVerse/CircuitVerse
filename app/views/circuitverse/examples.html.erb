@@ -11,10 +11,10 @@
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
         <div class="card circuit-card">
           <%= image_tag example[:img], alt: example[:name], :class => "card-img-top circuit-card-image examples-circuit-card-image" %>
-          <div class="card-footer circuit-card-footer">
+          <div class="card-footer ">
             <div class="circuit-card-name">
-              <p><%= example[:name] %></p>
-              <span class="tooltiptext"><%= example[:name] %></span>
+                <p class=""><%= example[:name] %></p>
+                <span class="tooltiptext"><%= example[:name] %></span>
             </div>
             <a class="btn primary-button circuit-card-primary-button" target="_blank" href="https://circuitverse.org/<%= example[:id] %>"><%= t("view") %></a>
           </div>

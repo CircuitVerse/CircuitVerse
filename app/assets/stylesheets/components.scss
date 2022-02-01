@@ -108,11 +108,7 @@
   max-width: 100%;
 }
 
-.circuit-card-footer {
-  background-color: $white;
-  border-top: 1px solid $primary-green;
-  padding-top: 10px;
-}
+
 
 .circuit-card-name {
   float: left;
@@ -123,7 +119,7 @@
 
   p {
     max-height: 30px;
-    max-width: 160px;
+    max-width: 150px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -157,6 +153,7 @@
     top: 100%;
   }
 }
+
 
 .circuit-card-name:hover .tooltiptext {
   opacity: 1;

@@ -19,13 +19,13 @@ If you don't see your idea listed, do one of the following:
 
         git checkout -b forgot-password#44
 
-    This both creates and checks out that branch in one command.  
+    This both creates and checks out that branch in one command.
     The feature name should provide a (short) description of the issue.
 
 2. Update the README.md with details of changes to the interface, this includes new environment variables, exposed ports, useful file locations and container parameters.
-   
+
 3. Develop the feature and push it to your local repo.
-   
+
 4. Create Pull Request (PR). Make sure to comment the issue that your PR is supposed to solve.
 
 ## Community
