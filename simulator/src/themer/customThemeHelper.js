@@ -35,5 +35,5 @@ export default {
         color: themeOptions['Custom Theme']['--br-secondary'],
         description: 'borders color',
         ref: ['--br-secondary'],
-    }
+    },
 };

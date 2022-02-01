@@ -15,12 +15,12 @@ const getCustomThemeCard = () => {
     keys.forEach((key) => {
         const property = document.createElement('div');
         const newPropertyLabel = document.createElement('label');
-        newPropertyLabel.textContent = key + ' (' + abstraction[key]['description'] +')';
+        newPropertyLabel.textContent = key + ' (' + abstraction[key].description + ')';
         newPropertyLabel.setAttribute('for', key);
         const newPropertyInput = document.createElement('input');
         newPropertyInput.setAttribute('type', 'color');
         newPropertyInput.setAttribute('name', key);
-        newPropertyInput.setAttribute('value', abstraction[key]['color']);
+        newPropertyInput.setAttribute('value', abstraction[key].color);
         property.append(newPropertyLabel);
         property.append(newPropertyInput);
         propertiesContainer.append(property);
@@ -85,8 +85,8 @@ export const CustomColorThemes = () => {
      * To preview the changes
      */
     $('#CustomColorThemesDialog input').on('input', (e) => {
-        abstraction[e.target.name]['color'] = e.target.value;
-        abstraction[e.target.name]['ref'].forEach((property) => {
+        abstraction[e.target.name].color = e.target.value;
+        abstraction[e.target.name].ref.forEach((property) => {
             themeOptions['Custom Theme'][property] = e.target.value;
         });
         updateThemeForStyle('Custom Theme');
