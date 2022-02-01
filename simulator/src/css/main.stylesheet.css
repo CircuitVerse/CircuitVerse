@@ -1773,18 +1773,6 @@ input[type='range']::-webkit-slider-thumb {
 
 /*! Color them dialog styles ends here*/
 
-
-
-
-.code-window .CodeMirror {
-  height: calc(100vh - 72px);
-}
-@media(max-width: 991px){
-  .code-window .CodeMirror {
-    height: calc(100vh - 82px);
-  }
-}
-
 .code-window-embed .CodeMirror {
   height: 100%;
   overflow: scroll;
