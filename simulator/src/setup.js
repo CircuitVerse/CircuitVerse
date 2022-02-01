@@ -68,7 +68,6 @@ export function resetup() {
     update(); // INEFFICIENT, needs to be deprecated
     simulationArea.prevScale = 0;
     dots();
-    
     codeMirrorEditorResize();
 }
 
