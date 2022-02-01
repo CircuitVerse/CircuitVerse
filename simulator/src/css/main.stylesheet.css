@@ -1777,8 +1777,12 @@ input[type='range']::-webkit-slider-thumb {
 
 
 .code-window .CodeMirror {
-  height: calc(100% - 78px);
-  overflow: scroll;
+  height: calc(100vh - 72px);
+}
+@media(max-width: 991px){
+  .code-window .CodeMirror {
+    height: calc(100vh - 82px);
+  }
 }
 
 .code-window-embed .CodeMirror {
