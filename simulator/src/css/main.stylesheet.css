@@ -1597,6 +1597,7 @@ input:checked + .slider:before {
   background: transparent;
   margin: 5px;
   padding: 3px;
+  color:white;
 }
 
 #newCircuitPrompt {
@@ -1612,6 +1613,7 @@ input:checked + .slider:before {
   background: transparent;
   margin: 5px;
   padding: 3px;
+  color:white;
 }
 
 #saveProject {

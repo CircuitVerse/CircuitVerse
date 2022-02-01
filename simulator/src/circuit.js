@@ -167,19 +167,40 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
     if (layoutModeGet()) { toggleLayoutMode(); }
     if (verilogModeGet()) { verilogModeSet(false);}
     if (name) {
+        createNewCircuit(name, id, isVerilog, isVerilogMain);
+}
+else {
+    $('#newCircuitPrompt').empty();
+    $('#newCircuitPrompt').append(`<label style="margin: 0;">Enter circuit name: </label><input id='newCircuitName' required type='text'>`);
+    $('#newCircuitPrompt').dialog({
+        resizable: false,
+        buttons: [
+            {
+                text: 'Confirm',
+                click() {
+                    let name = $('#newCircuitName').val();
+                    createNewCircuit(name, id, isVerilog, isVerilogMain);
+                    $("#newCircuitPrompt").dialog('close');
+                }
+            }
+            ]
+        })
+    }
+}
+function createNewCircuit(name, id, isVerilog = false, isVerilogMain = false) {
     name = stripTags(name);
     if (!name) return;
     const scope = new Scope(name);
     if (id) scope.id = id;
     scopeList[scope.id] = scope;
-    if(isVerilog) {
+    if (isVerilog) {
         scope.verilogMetadata.isVerilogCircuit = true;
         scope.verilogMetadata.isMainCircuit = isVerilogMain;
     }
     globalScope = scope;
     $('.circuits').removeClass('current');
     if (!isVerilog || isVerilogMain) {
-        if(embed) {
+        if (embed) {
             var html = `<div style='' class='circuits toolbarButton current' draggable='true' id='${scope.id}'><span class='circuitName noSelect'>${truncateString(name, 18)}</span></div>`;
             $('#tabsBar').append(html);
             $("#tabsBar").addClass('embed-tabs');
@@ -195,18 +216,18 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
         $('.tabsCloseButton').off('click');
 
         // Add listeners
-        $('.circuits').on('click',function () {
+        $('.circuits').on('click', function () {
             switchCircuit(this.id);
         });
 
-        $('.circuitName').on('click',(e) => {
+        $('.circuitName').on('click', (e) => {
             simulationArea.lastSelected = globalScope.root;
             setTimeout(() => {
                 document.getElementById('circname').select();
             }, 100);
         });
         
-        $('.tabsCloseButton').on('click',function (e) {
+        $('.tabsCloseButton').on('click', function (e) {
             e.stopPropagation();
             deleteCurrentCircuit(this.id);
         });
@@ -215,74 +236,8 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
         }
         dots(false);
     }
-    
+
     return scope;
-}
-else {
-    $('#newCircuitPrompt').empty();
-    $('#newCircuitPrompt').append(`<label style="margin: 0;">Enter circuit name: </label><input id='newCircuitName' required type='text'>`);
-    $('#newCircuitPrompt').dialog({
-        resizable: false,
-        buttons: [
-            {
-                text: 'Confirm',
-                click() {
-                    let name = $('#newCircuitName').val();
-                    name = stripTags(name);
-                    if (!name) return;
-                    const scope = new Scope(name);
-                    if (id) scope.id = id;
-                    scopeList[scope.id] = scope;
-                    if (isVerilog) {
-                        scope.verilogMetadata.isVerilogCircuit = true;
-                        scope.verilogMetadata.isMainCircuit = isVerilogMain;
-                    }
-                    globalScope = scope;
-                    $('.circuits').removeClass('current');
-                    if (!isVerilog || isVerilogMain) {
-                        if (embed) {
-                            var html = `<div style='' class='circuits toolbarButton current' draggable='true' id='${scope.id}'><span class='circuitName noSelect'>${truncateString(name, 18)}</span></div>`;
-                            $('#tabsBar').append(html);
-                            $("#tabsBar").addClass('embed-tabs');
-                        }
-                        else {
-                            var html = `<div style='' class='circuits toolbarButton current' draggable='true' id='${scope.id}'><span class='circuitName noSelect'>${truncateString(name, 18)}</span><span class ='tabsCloseButton' id='${scope.id}'  >x</span></div>`;
-                            $('#tabsBar').children().last().before(html);
-                        }
-
-                        // Remove listeners
-                        $('.circuits').off('click');
-                        $('.circuitName').off('click');
-                        $('.tabsCloseButton').off('click');
-
-                        // Add listeners
-                        $('.circuits').on('click', function () {
-                            switchCircuit(this.id);
-                        });
-
-                        $('.circuitName').on('click', (e) => {
-                            simulationArea.lastSelected = globalScope.root;
-                            setTimeout(() => {
-                                document.getElementById('circname').select();
-                            }, 100);
-                        });
-
-                        $('.tabsCloseButton').on('click', function (e) {
-                            e.stopPropagation();
-                            deleteCurrentCircuit(this.id);
-                        });
-                        if (!embed) {
-                            showProperties(scope.root);
-                        }
-                        dots(false);
-                    }
-                    $(this).dialog('close');
-                        return scope;
-                }
-            }
-            ]
-        })
-    }
 }
 
 /**
