@@ -152,6 +152,15 @@ class AssignmentsController < ApplicationController
     response.headers["X-FRAME-OPTIONS"] = "ALLOW-FROM #{session[:lms_domain]}"
   end
 
+  def publish_grades
+    set_assignment
+    @assignment.update(grades_published: true)
+    respond_to do |format|
+      format.html { redirect_to @group, notice: t("publish_grades_successfull") }
+      format.json { head :no_content }
+    end
+  end
+
   private
 
     # Use callbacks to share common setup or constraints between actions.

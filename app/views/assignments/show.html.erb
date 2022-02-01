@@ -152,6 +152,13 @@
                     <%= button_tag t("assignments.assignment_data.remove"), id: "grade-form-remove", class: "btn ml-3 primary-delete-button" %>
                   </div>
                 </div>
+                <div>
+                  <% if (@assignment.grades_published?) %>
+                    <button type="button" class="btn btn-secondary mt-4" disabled><%= t("grades_published") %></button>
+                  <% else %>
+                    <%= button_to t("publish_grades"), publish_grades_group_assignment_path(@group, @assignment), method: "put", class: "btn primary-button mt-4" %>
+                  <% end %>
+                </div>
               <% end %>
             <% end %>
           <% end %>
