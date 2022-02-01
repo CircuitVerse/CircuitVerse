@@ -291,6 +291,10 @@
   display: inline-block;
   font-size: 22px;
   position: relative;
+  
+  div{
+    right: -30px;
+  }
 
   input {
     height: 0;
