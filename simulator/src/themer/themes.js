@@ -51,7 +51,6 @@ export default {
         "--node-norm": "green",
         "--splitter": "black",
         "--output-rect": "blue",
-        "--disable": "#6c8b93",
         "--table-head-dark": "#3d3d3d",
     },
     "Night Sky": {
@@ -379,6 +378,5 @@ export default {
         "--node-norm": "#008000",
         "--splitter": "#000",
         "--output-rect": "#0000ff",
-        "--disable": "#6c8b93",
     },
 };

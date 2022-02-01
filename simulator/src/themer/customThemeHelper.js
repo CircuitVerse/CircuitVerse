@@ -1,28 +1,39 @@
 import themeOptions from './themes';
 
 export default {
-    navbar : {
-        color : themeOptions['Custom Theme']['--bg-navbar'],
-        linked : ['--bg-navbar'],
+    Navbar: {
+        color: themeOptions['Custom Theme']['--bg-navbar'],
+        description: 'navbar background',
+        ref: ['--bg-navbar'],
     },
-    primary : {
-        color : themeOptions['Custom Theme']['--primary'],
-        linked : ['--primary', '--br-circuit'],
+    Primary: {
+        color: themeOptions['Custom Theme']['--primary'],
+        description: 'modals background',
+        ref: ['--primary'],
     },
-    secondary : {
-        color : themeOptions['Custom Theme']['--context-text'],
-        linked : ['--context-text', '--br-circuit-cur'],
+    Secondary: {
+        color: themeOptions['Custom Theme']['--bg-tabs'],
+        description: 'tabBar background',
+        ref: ['--bg-tabs'],
     },
-    canvasBackground : {
-        color : themeOptions['Custom Theme']['--canvas-fill'],
-        linked : ['--canvas-fill'],
+    Canvas: {
+        color: themeOptions['Custom Theme']['--canvas-fill'],
+        description: 'canvas background',
+        ref: ['--canvas-fill'],
     },
-    canvasStroke : {
-        color : themeOptions['Custom Theme']['--canvas-stroke'],
-        linked : ['--canvas-stroke'],
+    Stroke: {
+        color: themeOptions['Custom Theme']['--canvas-stroke'],
+        description: 'canvas grid color',
+        ref: ['--canvas-stroke'],
     },
-    text : {
-        color : themeOptions['Custom Theme']['--text'],
-        linked : ['--text'],
+    Text: {
+        color: themeOptions['Custom Theme']['--text-lite'],
+        description: 'text color',
+        ref: ['--text-lite', '--text-panel', '--text-dark'],
+    },
+    Borders: {
+        color: themeOptions['Custom Theme']['--br-secondary'],
+        description: 'borders color',
+        ref: ['--br-secondary'],
     }
-}
+};

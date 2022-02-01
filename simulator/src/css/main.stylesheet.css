@@ -1787,7 +1787,7 @@ input[type='range']::-webkit-slider-thumb {
   }
 
   #CustomColorThemesDialog label {
-    color:#fff;
+    color: var(--text-panel);
     width: 60%;
     height: 30px;
   }
