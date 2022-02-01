@@ -180,7 +180,6 @@ export function codeMirrorEditorResize(){
     var navbarHeight = $('.navbar').outerHeight();
     var tabsbarHeight = $('#tabsBar').outerHeight();
     var h = window.innerHeight - navbarHeight - tabsbarHeight;
-    console.log(h);
     $(".codeMirror").height(h);
 }
 
