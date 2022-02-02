@@ -1562,10 +1562,11 @@ input:checked + .slider:before {
 }
 
 .search-input {
-  margin: 0 10px;
+  display: block;
+  margin: 0 auto;
   padding: 3px 10px;
   width: 90%;
-  border-radius: 13px;
+  border-radius: 7px;
   margin-bottom: 10px;
   background: transparent !important;
 }
