@@ -9,19 +9,6 @@
   width: 100%;
 }
 
-.circuit-card-footer {
-    display: flex;
-    justify-content: space-between; 
-}
-
-.card-footer {
-    padding: 0 1.25rem !important;
-}
-
-.circuit-card {
-    height: 251px !important;
-}
-
 @media(max-width: 400px) {
   .examples-container {
     padding: 20px 0;
