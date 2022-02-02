@@ -1,0 +1,10 @@
+<div>
+  <h1>Assignment Deadline has been reached in <%= @group.name %></h1>
+  <%= inline_svg_tag "SVGs/newAssignment.svg", alt: "New Assignment", class: "mailer-assignment-image" %>
+  <h2>Total students in the group: <%= @total_members %></h2>
+  <h2>Student Submitted the Assignment: <%= @student_submission %></h2>
+  <h2>Student Not Submitted the Assignment: <%= @student_not_submission %></h2>
+  <h2>Student pending to join the group: <%= @pendingInvitation %></h2>
+  <a href="<%= group_assignment_url(@group, @assignment) %>" class="mailer-button">View Assignment</a>
+  <p class="mailer-text">Keep building!</p>
+</div>
