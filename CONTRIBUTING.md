@@ -19,11 +19,11 @@ Please note if someone is already assigned or working on the issue, do not try t
 - `difficulty: easy` issues are usually confined to isolated areas of existing code.
 - `difficulty: medium` issues sometimes entail new features and might affect a significant area of the codebase, but aren't overly complex.
 - `difficulty: hard` issues are typically far-reaching, and might need architecture decisions during implementation. This label might also denote highly complex issues.
-- `duplicate` labelled issues are meant to be already existing issue in the repository.
-- `priority: less` labelled issues are meant to have priority comparatavily lesser than other issues.
-- `priority: medium` labelled issues are meant to have priority comparatively intermediate than other issues.
-- `priority: high` labelled issues are meant to have highest priority and need to fix as soon as possible.
-- `help wanted` labelled issues are meant to get help from core-team.
+- `duplicate` labeled issues are meant to be already existing issue in the repository.
+- `priority: less` labeled issues are meant to have priority comparatavily lesser than other issues.
+- `priority: medium` labeled issues are meant to have priority comparatively intermediate than other issues.
+- `priority: high` labeled issues are meant to have highest priority and need to fix as soon as possible.
+- `help wanted` labeled issues signify that the contributor requires help with something specific in the issue and your help is very much appreciated.
 
 ## Creating an issue.
 
@@ -47,7 +47,7 @@ Please note if someone is already assigned or working on the issue, do not try t
     The feature name should provide a (short) description of the issue.
 
 4. Update the README.md with details of changes to the interface, this includes new environment variables, exposed ports, useful file locations and container parameters.
-5. Develop the feature and push it to your local repo.
+5. Commit your changes and push it to your fork of the repository.
 6. Create Pull Request (PR). Make sure to comment the issue that your PR is supposed to solve.
 
 ## Create a pull request
@@ -70,13 +70,13 @@ Please note if someone is already assigned or working on the issue, do not try t
 
 #### PR Lebels
 
-- `under-review` labelled PR are under review by core team.
-- `waiting for contributor` labelled PR are meant to waiting for contributor to respond.
-- `waiting for design` labelled PR are meant to waiting for review from UI/UX core team.
-- `no activity` labelled PR are meant to have no activity in the PR from since a while.
-- `blocked` labelled PR are meant to not to go ahead for review.
-- `do not merge` labelled PR are meant to not to merge the PR right now(may be later).
-- [awaiting-approval](https://github.com/CircuitVerse/CircuitVerse/labels/awaiting-approval) labelled PR are meant to be waiting for other core-team members.
+- `under-review` labeled PR are under review by core team.
+- `waiting for contributor` labeled PR are meant to waiting for contributor to respond.
+- `waiting for design` labeled PR are meant to waiting for review from UI/UX core team.
+- `no activity` labeled PR are meant to have no activity in the PR from since a while.
+- `blocked` labeled PR are meant to not to go ahead for review.
+- `do not merge` labeled PR are meant to not to merge the PR right now(may be later).
+- [awaiting-approval](https://github.com/CircuitVerse/CircuitVerse/labels/awaiting-approval) labeled PR are meant to be waiting for other core-team members.
 
 ## Community
 Discussions about CircuitVerse issues and features take place on the repository's [Discussions](https://github.com/CircuitVerse/CircuitVerse/discussions) sections. Anybody is welcome to join these conversations. See the [README](README.md) for more information on communication channels.
