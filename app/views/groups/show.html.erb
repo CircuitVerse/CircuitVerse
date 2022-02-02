@@ -156,7 +156,7 @@
             </td>
             <% unless policy(@group).admin_access? %>
               <td>
-                <% if policy(assignment).show_grades? && project_assignment.present? && assignment.grades_published?%>
+                <% if policy(assignment).show_grades? && project_assignment.present? && assignment.grades_published? %>
                   <div class="groups-assignment-details">
                     <div class="groups-no-assignment-submission-text">
                       <h6>
@@ -288,7 +288,7 @@
                   <tr>
                     <th class="groups-collapsed-table-head groups-assignment-details"><%= t("groups.show.assignment.assignment_table_head.grade") %></th>
                     <td>
-                      <% if policy(assignment).show_grades? && project_assignment.present? && assignment.grades_published?%>
+                      <% if policy(assignment).show_grades? && project_assignment.present? && assignment.grades_published? %>
                         <div class="groups-assignment-details">
                           <div class="groups-no-assignment-submission-text">
                             <h6>
