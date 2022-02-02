@@ -66,7 +66,7 @@ Please note if someone is already assigned or working on the issue, do not try t
 - Requested Changes must be resolved (with code or discussion) before merging.
 - If you make changes to a PR, be sure to re-request a review.
 - Don't repeadetely tag someone(may be it is not the right time to review your PR), be patient.
-- Do not 'resolve conversation' unnecessary raised by core-team or any workflows tools(codeclimate or hound) as they may have some purpose.
+- Do not 'resolve conversation' unnecessary raised by core-team or any workflows tools(codeclimate or hound) as they may have some purpose, try to resolve the request changes and if any help wanted tag core-team to give views about that.
 
 #### PR Lebels
 
