@@ -5,11 +5,11 @@
 - It's very easy to misunderstand one another in asynchronous, text-based conversations. When in doubt, assume everyone has the best intentions.
 - If you feel anyone has violated our Code of Conduct, you should anonymously contact the team with our abuse report form via [Slack](https://circuitverse.org/slack), necessary action will be take by the team.
 
-## Where to contribute
+## Issue label
 
 Please note if someone is already assigned or working on the issue, do not try to start working without asking in a thread.
 
-- `core-team` label are internal tasks that will be completed by a Circuitverse core team member. 
+- `maintainers` label are internal tasks that will be completed by a Circuitverse core team member. 
 - [good first issue](https://github.com/CircuitVerse/CircuitVerse/labels/good%20first%20issue) labeled issues are meant for newer developers.
 - [feature](https://github.com/CircuitVerse/CircuitVerse/labels/%F0%9F%8C%9F%20feature) labeled issues are meant to propose new features.
 - [bugs](https://github.com/CircuitVerse/CircuitVerse/labels/%F0%9F%90%9E%20bug) labeled issues are meant to have errors in existing code base.
@@ -19,6 +19,11 @@ Please note if someone is already assigned or working on the issue, do not try t
 - `difficulty: easy` issues are usually confined to isolated areas of existing code.
 - `difficulty: medium` issues sometimes entail new features and might affect a significant area of the codebase, but aren't overly complex.
 - `difficulty: hard` issues are typically far-reaching, and might need architecture decisions during implementation. This label might also denote highly complex issues.
+- `duplicate` labelled issues are meant to be already existing issue in the repository.
+- `priority: less` labelled issues are meant to have priority comparatavily lesser than other issues.
+- `priority: medium` labelled issues are meant to have priority comparatively intermediate than other issues.
+- `priority: high` labelled issues are meant to have highest priority and need to fix as soon as possible.
+- `help wanted` labelled issues are meant to get help from core-team.
 
 ## Creating an issue.
 
@@ -58,10 +63,10 @@ Please note if someone is already assigned or working on the issue, do not try t
 
 ## Pull request reviews
 
-
 - Requested Changes must be resolved (with code or discussion) before merging.
 - If you make changes to a PR, be sure to re-request a review.
 - Don't repeadetely tag someone(may be it is not the right time to review your PR), be patient.
+- Do not 'resolve conversation' unnecessary raised by core-team or any workflows tools(codeclimate or hound) as they may have some purpose.
 
 #### PR Lebels
 
@@ -74,7 +79,7 @@ Please note if someone is already assigned or working on the issue, do not try t
 - [awaiting-approval](https://github.com/CircuitVerse/CircuitVerse/labels/awaiting-approval) labelled PR are meant to be waiting for other core-team members.
 
 ## Community
-Discussions about CircuitVerse issues and features take place on the repository's [Issues](https://github.com/CircuitVerse/CircuitVerse/issues) and [Pull Requests](https://github.com/CircuitVerse/CircuitVerse/pulls) sections. Anybody is welcome to join these conversations. See the [README](README.md) for more information on communication channels.
+Discussions about CircuitVerse issues and features take place on the repository's [Discussions](https://github.com/CircuitVerse/CircuitVerse/discussions) sections. Anybody is welcome to join these conversations. See the [README](README.md) for more information on communication channels.
 
 ### Code Contributors
 
