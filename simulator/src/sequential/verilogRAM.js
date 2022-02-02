@@ -8,7 +8,7 @@ import { correctWidth, fillText2, fillText4, drawCircle2 } from '../canvasApi';
  * @extends CircuitElement
  * @param {number} x - x coord of element
  * @param {number} y - y coord of element
- * @param {Scope=} scope - the ciruit in which we want the Element
+ * @param {Scope=} scope - the circuit in which we want the Element
  * @param {string=} dir - direcion in which element has to drawn
  *
  * Two settings are available:
@@ -44,31 +44,29 @@ import { correctWidth, fillText2, fillText4, drawCircle2 } from '../canvasApi';
  */
 import { colors } from '../themer/themer';
 
-function customResolve(clockInp, dInp, qOutput, en, masterState, 
+function customResolve(clockInp, dInp, qOutput, en, masterState,
     slaveState, prevClockState, clock_polarity, enable_polarity, numIterations) {
-        
-    for(var i = 0; i < numIterations; i++) {
-        if(clock_polarity[i] != undefined) {
-            clock_polarity[i] == true? 1 : 0;
-        }
-        
-        if(enable_polarity[i] != undefined) {
-            enable_polarity[i] == true? 1 : 0;
+
+    for (var i = 0; i < numIterations; i++) {
+        if (clock_polarity[i] != undefined) {
+            clock_polarity[i] == true ? 1 : 0;
         }
 
-        if(clock_polarity[i] == undefined && enable_polarity[i] == undefined) {
-            if(dInp[i].value != undefined) {
+        if (enable_polarity[i] != undefined) {
+            enable_polarity[i] == true ? 1 : 0;
+        }
+
+        if (clock_polarity[i] == undefined && enable_polarity[i] == undefined) {
+            if (dInp[i].value != undefined) {
                 qOutput[i].value = dInp[i].value;
                 simulationArea.simulationQueue.add(qOutput[i]);
             }
-        }
-        else if(clock_polarity[i] == undefined && enable_polarity[i] != undefined) {
-            if((en_value[i] == undefined || en[i].value == enable_polarity[i]) && dInp[i].value != undefined) {
+        } else if (clock_polarity[i] == undefined && enable_polarity[i] != undefined) {
+            if ((en_value[i] == undefined || en[i].value == enable_polarity[i]) && dInp[i].value != undefined) {
                 qOutput[i].value = dInp[i].value;
                 simulationArea.simulationQueue.add(qOutput[i]);
             }
-        }
-        else if(clock_polarity[i] != undefined && enable_polarity[i] == undefined) {
+        } else if (clock_polarity[i] != undefined && enable_polarity[i] == undefined) {
             if (clockInp[i].value == prevClockState[i]) {
                 if (clockInp[i].value == 0 && dInp[i].value != undefined) {
                     masterState[i] = dInp[i].value;
@@ -86,8 +84,7 @@ function customResolve(clockInp, dInp, qOutput, en, masterState,
                 qOutput[i].value = slaveState[i];
                 simulationArea.simulationQueue.add(qOutput[i]);
             }
-        }
-        else {
+        } else {
             if (en[i].value == 0) {
                 prevClockState[i] = clockInp[i].value;
             } else if (en[i].value == 1 || en[i].connections.length == 0) { // if(en.value==1) // Creating Infinite Loop, WHY ??
@@ -152,7 +149,7 @@ export default class verilogRAM extends CircuitElement {
 
         for (var i = 0; i < numWrite; i++) {
             var currWriteData = new Node(-this.leftDimensionX, 0, 0, this, this.bitWidth, 'DATA IN' + i.toString());
-            
+
             var clockInp = new Node(-20, +10, 0, this, 1, 'Clock');
             var dInp = new Node(-20, -10, 0, this, this.bitWidth, 'D');
             var qOutput = new Node(20, -10, 1, this, this.bitWidth, 'Q');
@@ -168,7 +165,7 @@ export default class verilogRAM extends CircuitElement {
             }
 
             currWriteData.connect(dInp);
-            
+
             this.writeDffClock.push(clockInp);
             this.writeDffDInp.push(dInp);
             this.writeDffQOutput.push(qOutput);
@@ -182,11 +179,11 @@ export default class verilogRAM extends CircuitElement {
             this.writeDataIn.push(currWriteData);
             this.writeEnable.push(new Node(-this.leftDimensionX, 20, 0, this, 1, 'WRITE_ENABLE' + i.toString()));
         }
-        
+
         this.reset = new Node(0, this.downDimensionY, 0, this, 1, 'RESET');
         this.coreDump = new Node(-20, this.downDimensionY, 0, this, 1, 'CORE DUMP');
         this.dataOut = [];
-        
+
         this.readDffClock = [];
         this.readDffDInp = [];
         this.readDffQOutput = [];
@@ -196,10 +193,10 @@ export default class verilogRAM extends CircuitElement {
         this.readDffprevClockState = [];
         this.readDffClockPolarity = [];
         this.readDffEnPolarity = [];
-        
+
         for (var i = 0; i < numRead; i++) {
             var currReadOut = new Node(this.rightDimensionX, 0, 1, this, this.bitWidth, 'DATA OUT' + i.toString());
-            
+
             var clockInp = new Node(-20, +10, 0, this, 1, 'Clock');
             var dInp = new Node(-20, -10, 0, this, this.bitWidth, 'D');
             var qOutput = new Node(20, -10, 1, this, this.bitWidth, 'Q');
@@ -209,7 +206,7 @@ export default class verilogRAM extends CircuitElement {
             var prevClockState = 0;
             var clockPolarity = rdports[i]["clock_polarity"];
             var enPolarity = rdports[i]["enable_polarity"];
-            
+
             this.readDffClock.push(clockInp);
             this.readDffDInp.push(dInp);
             this.readDffQOutput.push(qOutput);
@@ -236,17 +233,17 @@ export default class verilogRAM extends CircuitElement {
         this.fillData(memData);
     }
 
-    fillData(memData) {  
+    fillData(memData) {
         for (var i = 0; i < this.words; i++) {
             this.data[i] = 0;
         }
         var len = memData.length;
         var dataIndex = 0;
-        for(var i = 0; i < len; i++) {
-            if(Number.isInteger(memData[i])) {
+        for (var i = 0; i < len; i++) {
+            if (Number.isInteger(memData[i])) {
                 var data = memData[i + 1];
 
-                if(data.startsWith('x')) {
+                if (data.startsWith('x')) {
                     dataIndex += memData[i];
                     continue;
                 }
@@ -254,32 +251,30 @@ export default class verilogRAM extends CircuitElement {
                 var dataValue = 0;
                 var power2 = 1;
 
-                for(var j = this.bitWidth - 1; j >= 0; j--) {
-                    if(data[j] == '1') {
+                for (var j = this.bitWidth - 1; j >= 0; j--) {
+                    if (data[j] == '1') {
                         dataValue += power2;
                     }
                     power2 *= 2;
                 }
-                
-                for(var j = 0; j < memData[i]; j++) {
+
+                for (var j = 0; j < memData[i]; j++) {
                     this.data[dataIndex++] = dataValue;
                 }
                 i++;
-            }
-            else
-            {
+            } else {
                 var data = memData[i];
 
-                if(data.startsWith('x')) {
+                if (data.startsWith('x')) {
                     dataIndex++;
                     continue;
                 }
-                
+
                 var dataValue = 0;
                 var power2 = 1;
 
-                for(var j = this.bitWidth - 1; j >=  0; j--) {
-                    if(data[j] == '1') {
+                for (var j = this.bitWidth - 1; j >= 0; j--) {
+                    if (data[j] == '1') {
                         dataValue += power2;
                     }
                     power2 *= 2;
@@ -295,7 +290,7 @@ export default class verilogRAM extends CircuitElement {
         const data = {
             // NOTE: data is not persisted since verilogRAMs are volatile.
             constructorParamaters: [this.direction, this.bitWidth, this.addressWidth, this.memData, this.words, this.numRead, this.numWrite, this.rdports, this.wrports],
-            
+
             nodes: {
                 readAddress: this.readAddress.map(findNode),
                 writeAddress: this.writeAddress.map(findNode),
@@ -358,7 +353,7 @@ export default class verilogRAM extends CircuitElement {
             this.writeDffDInp,
             this.writeDffQOutput,
             this.writeDffEn,
-            this.writeDffMasterState, 
+            this.writeDffMasterState,
             this.writeDffSlaveState,
             this.writeDffprevClockState,
             this.writeDffClockPolarity,
@@ -391,15 +386,15 @@ export default class verilogRAM extends CircuitElement {
             this.readDffDInp,
             this.readDffQOutput,
             this.readDffEn,
-            this.readDffMasterState, 
+            this.readDffMasterState,
             this.readDffSlaveState,
             this.readDffprevClockState,
             this.readDffClockPolarity,
             this.readDffEnPolarity,
             this.numRead
-        );    
-        
-        
+        );
+
+
     }
 
     customDraw() {

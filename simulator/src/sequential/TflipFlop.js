@@ -12,7 +12,7 @@ import { colors } from '../themer/themer';
  * @extends CircuitElement
  * @param {number} x - x coord of element
  * @param {number} y - y coord of element
- * @param {Scope=} scope - the ciruit in which we want the Element
+ * @param {Scope=} scope - the circuit in which we want the Element
  * @param {string=} dir - direcion in which element has to drawn
  * @category sequential
  */
@@ -145,7 +145,7 @@ export default class TflipFlop extends CircuitElement {
         ctx.fill();
     }
 
-    static moduleVerilog(){
+    static moduleVerilog() {
         return `
         module TflipFlop(q, q_inv, clk, t, a_rst, pre, en);
           parameter WIDTH = 1;
@@ -164,7 +164,7 @@ export default class TflipFlop extends CircuitElement {
             end
         endmodule
         `
-        }
+    }
 }
 
 TflipFlop.prototype.tooltipText = 'T FlipFlop ToolTip :  Changes state / Toggles whenever the clock input is strobed.';

@@ -10,7 +10,7 @@ import { correctWidth, lineTo, moveTo, fillText } from '../canvasApi';
  * @extends CircuitElement
  * @param {number} x - x coord of element
  * @param {number} y - y coord of element
- * @param {Scope=} scope - the ciruit in which we want the Element
+ * @param {Scope=} scope - the circuit in which we want the Element
  * @param {string=} dir - direcion in which element has to drawn
  * @category sequential
  */
@@ -73,15 +73,13 @@ export default class JKflipFlop extends CircuitElement {
         } else if (this.en.value == 1 || this.en.connections.length == 0) {
             if (this.clockInp.value == this.prevClockState) {
                 if (this.clockInp.value == 0 && this.J.value != undefined && this.K.value != undefined) {
-                    if (this.J.value && this.K.value) { this.masterState = 1 ^ this.slaveState; }
-                    else if (this.J.value ^ this.K.value) { this.masterState = this.J.value; }
+                    if (this.J.value && this.K.value) { this.masterState = 1 ^ this.slaveState; } else if (this.J.value ^ this.K.value) { this.masterState = this.J.value; }
                 }
             } else if (this.clockInp.value != undefined) {
                 if (this.clockInp.value == 1) {
                     this.slaveState = this.masterState;
                 } else if (this.clockInp.value == 0 && this.J.value != undefined && this.K.value != undefined) {
-                    if (this.J.value && this.K.value) { this.masterState = 1 ^ this.slaveState; }
-                    else if (this.J.value ^ this.K.value) { this.masterState = this.J.value; }
+                    if (this.J.value && this.K.value) { this.masterState = 1 ^ this.slaveState; } else if (this.J.value ^ this.K.value) { this.masterState = this.J.value; }
                 }
                 this.prevClockState = this.clockInp.value;
             }
@@ -114,7 +112,7 @@ export default class JKflipFlop extends CircuitElement {
     }
 
     customDraw() {
-        var ctx = simulationArea.context;        
+        var ctx = simulationArea.context;
         ctx.strokeStyle = (colors['stroke']);
         ctx.fillStyle = (colors['fill']);
         ctx.beginPath();

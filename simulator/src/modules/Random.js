@@ -11,7 +11,7 @@ import { fillText, lineTo, moveTo, correctWidth, rect2 } from '../canvasApi';
  * @extends CircuitElement
  * @param {number} x - x coord of element
  * @param {number} y - y coord of element
- * @param {Scope=} scope - the ciruit in which we want the Element
+ * @param {Scope=} scope - the circuit in which we want the Element
  * @param {string=} dir - direcion in which element has to drawn
  * @category modules
  */
@@ -126,7 +126,7 @@ export default class Random extends CircuitElement {
             ctx.fill();
         }
     }
-    
+
     static moduleVerilog() {
         return `
       module Random(val, clk, max);
@@ -153,8 +153,8 @@ Random.prototype.objectType = 'Random';
 
 Random.prototype.canShowInSubcircuit = true
 Random.prototype.layoutProperties = {
-    rightDimensionX : 20,
-    leftDimensionX : 0,
-    upDimensionY : 0,
+    rightDimensionX: 20,
+    leftDimensionX: 0,
+    upDimensionY: 0,
     downDimensionY: 20
 }
