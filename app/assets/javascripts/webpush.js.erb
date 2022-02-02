@@ -31,7 +31,14 @@ function checkPermissions() {
   if (Notification.permission === "granted") {
     document.getElementById("browser-notifications-status").innerText = "enabled!";
     document.getElementById("browser-notifications-permission-request").innerText = "Test!";
-  } else {
+  }else if (Notification.permission !== 'denied' || Notification.permission === "default") {
+    Notification.requestPermission(function (permission) {
+      if (permission === "granted") {
+         document.getElementById("browser-notifications-status").innerText = "enabled!";
+         document.getElementById("browser-notifications-permission-request").innerText = "Test!";
+      }
+    });
+  }else {
     document.getElementById("browser-notifications-status").innerText = "disabled!";
     document.getElementById("browser-notifications-permission-request").innerText = "Enable!";
   }
