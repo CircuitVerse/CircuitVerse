@@ -22,8 +22,8 @@ class GradesController < ApplicationController
 
     assignment = Assignment.find(grade_params[:assignment_id])
 
-    if (Flipper.enabled?(:lms_integration, current_user) && session[:is_lti] 
-      && assignment.grades_published?)
+    if (Flipper.enabled?(:lms_integration, current_user) && session[:is_lti] &&
+      assignment.grades_published?)
       # pass grade back to the LMS if session is LTI
       project = Project.find(grade_params[:project_id])
       assignment = Assignment.find(grade_params[:assignment_id])
