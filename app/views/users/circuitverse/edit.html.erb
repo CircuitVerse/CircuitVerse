@@ -1,7 +1,10 @@
-
 <% content_for :title, t("users.circuitverse.edit_profile.title", name: @profile.name ) %>
 
 <link href="/css/typeahead.min.css" rel="stylesheet">
+
+<div class="container error-container">
+  <%= render 'users/circuitverse/errors', obj: @profile %>
+</div>
 
 <div class="container projects-new-container">
   <div class="row center-row">
@@ -23,9 +26,13 @@
             <p><%= image_tag @profile.profile_picture.url(:thumb), id:'imgedit', class:"users-edit-image", alt:'User Profile Image' %></p>
             <label for="profile_picture" class="users-edit-image-button"><%= t("users.circuitverse.edit_profile.choose_file") %></label>
             <input tabindex="0" type="file" accept="image/png, .jpeg, .jpg" class="users-edit-image-button-hidden" id="profile_picture" name="user[profile_picture]" onchange="readURL(this);" value="<%= @profile.profile_picture %>">
-            <%= f.check_box :remove_picture, id: "remove_pic", class:"remove-pic" %>
             <label for="remove_pic" class="users-remove-image-button"><%= t("users.circuitverse.edit_profile.remove_picture") %></label>
+            <%= f.check_box :remove_picture, id: "remove_pic", class:"remove-pic" %>
           </div>
+          <div class="field form-group">
+            <h6><%= f.label :email %><sup><i class="fa fa-asterisk users-edit-asterisk"></i></sup></h6>
+            <%= f.text_field :email, autofocus: true, required: true, class:"form-control form-input",id: "email-filed-check" %>
+        </div>
           <div class="field form-group">
             <h6><%= f.label :country %></h6>
             <%= f.country_select :country, { include_blank: t("users.circuitverse.edit_profile.country_select_placeholder"), priority_countries: get_priority_countries() }, class: "form-control form-input" %>
