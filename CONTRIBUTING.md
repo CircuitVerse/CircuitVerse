@@ -59,14 +59,14 @@ Please note if someone is already assigned or working on the issue, do not try t
 - If there's an existing issue, reference to it by adding something like `References/Closes/Fixes/Resolves #123`, where 123 is the issue number. 
 - Please fill out the PR Template when making a PR.
 
-> Please note: a core team member may close your PR if it has gone stale or if we don't plan to merge the code.
+> Please note: maintainers may close your PR if it has gone stale or if we don't plan to merge the code.
 
 ## Pull request reviews
 
 - Requested Changes must be resolved (with code or discussion) before merging.
 - If you make changes to a PR, be sure to re-request a review.
 - Don't repeadetely tag someone(may be it is not the right time to review your PR), be patient.
-- Do not 'resolve conversation' unnecessary raised by communtiy member or any workflows tools(codeclimate or hound) as they may have some purpose, try to resolve the request changes and if any help wanted tag communtiy member to give views about that.
+- Do not 'resolve conversation' unnecessary raised by community member or any workflows tools(codeclimate or hound) as they may have some purpose, try to resolve the request changes and if any help wanted tag communtiy member to give views about that.
 
 #### PR Lebels
 
