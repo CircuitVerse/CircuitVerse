@@ -2,14 +2,14 @@ import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import { correctWidth, fillText2, fillText4, drawCircle2 } from '../canvasApi';
-import {parseNumber, showMessage} from '../utils';
+import { parseNumber, showMessage } from '../utils';
 /**
  * @class
  * RAM Component.
  * @extends CircuitElement
  * @param {number} x - x coord of element
  * @param {number} y - y coord of element
- * @param {Scope=} scope - the ciruit in which we want the Element
+ * @param {Scope=} scope - the circuit in which we want the Element
  * @param {string=} dir - direcion in which element has to drawn
  *
  * Two settings are available:
@@ -215,8 +215,7 @@ export default class RAM extends CircuitElement {
                 this.data[i] = dataCell;
             }
             showMessage(`${data.length} data cells loaded`);
-        }
-        catch (e) {
+        } catch (e) {
             this.data = oldData;
             showError(e);
         }

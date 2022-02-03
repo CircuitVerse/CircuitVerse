@@ -11,7 +11,7 @@ import { colors } from '../themer/themer';
  * @extends CircuitElement
  * @param {number} x - x coord of element
  * @param {number} y - y coord of element
- * @param {Scope=} scope - the ciruit in which we want the Element
+ * @param {Scope=} scope - the circuit in which we want the Element
  * @param {string=} dir - direcion in which element has to drawn
  * @category sequential
  */
@@ -135,7 +135,7 @@ export default class DflipFlop extends CircuitElement {
         ctx.fill();
     }
 
-    static moduleVerilog(){
+    static moduleVerilog() {
         return `
 module DflipFlop(q, q_inv, clk, d, a_rst, pre, en);
     parameter WIDTH = 1;

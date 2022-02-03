@@ -1,13 +1,20 @@
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-continue */
 import {
-    dots, correctWidth, fillText, rect2,
+    dots,
+    correctWidth,
+    fillText,
+    rect2,
 } from './canvasApi';
 import LayoutBuffer from './layout/layoutBuffer';
 import simulationArea from './simulationArea';
 import { hideProperties, fillSubcircuitElements, prevPropertyObjGet, prevPropertyObjSet, showProperties } from './ux';
 import {
-    update, scheduleUpdate, willBeUpdatedSet, gridUpdateSet, gridUpdateGet
+    update,
+    scheduleUpdate,
+    willBeUpdatedSet,
+    gridUpdateSet,
+    gridUpdateGet
 } from './engine';
 import miniMapArea from './minimap';
 import { showMessage } from './utils';
@@ -17,7 +24,7 @@ import { verilogModeGet, verilogModeSet } from './Verilog2CV';
 /**
  * Layout.js - all subcircuit layout related code is here
  * You can edit how your subcircuit for a circuit will look by
- * clicking edit layout in properties for a ciruit
+ * clicking edit layout in properties for a circuit
  * @category layoutMode
  */
 
@@ -132,12 +139,12 @@ export function renderLayout(scope = globalScope) {
         dots();
     }
 
-     // Update UI position
-    for(let i = 0; i < tempBuffer.subElements.length; i++){
+    // Update UI position
+    for (let i = 0; i < tempBuffer.subElements.length; i++) {
         tempBuffer.subElements[i].update();
 
         // element nodes
-        for(let j = 0; j < tempBuffer.subElements[i].nodeList.length; j++)
+        for (let j = 0; j < tempBuffer.subElements[i].nodeList.length; j++)
             tempBuffer.subElements[i].nodeList[j].update();
     }
 
@@ -148,13 +155,13 @@ export function renderLayout(scope = globalScope) {
         }
     }
     // Render objects
-    for(let i = 0; i < circuitElementList.length; i++){
-        if(globalScope[circuitElementList[i]].length === 0) continue;
+    for (let i = 0; i < circuitElementList.length; i++) {
+        if (globalScope[circuitElementList[i]].length === 0) continue;
         if (!globalScope[circuitElementList[i]][0].canShowInSubcircuit) continue;
 
         let elementName = circuitElementList[i];
 
-        for(let j = 0; j < globalScope[elementName].length; j++){
+        for (let j = 0; j < globalScope[elementName].length; j++) {
             if (globalScope[elementName][j].subcircuitMetadata.showInSubcircuit) {
                 globalScope[elementName][j].drawLayoutMode();
             }
@@ -177,12 +184,12 @@ export function layoutUpdate(scope = globalScope) {
         tempBuffer.Output[i].update();
     }
 
-    for(let i = 0; i < circuitElementList.length; i++){
-        if(globalScope[circuitElementList[i]].length === 0) continue;
-        if(!globalScope[circuitElementList[i]][0].canShowInSubcircuit) continue;
+    for (let i = 0; i < circuitElementList.length; i++) {
+        if (globalScope[circuitElementList[i]].length === 0) continue;
+        if (!globalScope[circuitElementList[i]][0].canShowInSubcircuit) continue;
         let elementName = circuitElementList[i];
 
-        for(let j = 0; j < globalScope[elementName].length; j++){
+        for (let j = 0; j < globalScope[elementName].length; j++) {
             if (globalScope[elementName][j].subcircuitMetadata.showInSubcircuit) {
                 globalScope[elementName][j].layoutUpdate();
             }
@@ -359,7 +366,7 @@ function saveLayout() {
             tempBuffer.Output[i].parent.layoutProperties.x = tempBuffer.Output[i].x;
             tempBuffer.Output[i].parent.layoutProperties.y = tempBuffer.Output[i].y;
         }
-        globalScope.layout = { ...tempBuffer.layout };
+        globalScope.layout = {...tempBuffer.layout };
         // eslint-disable-next-line no-use-before-define
         toggleLayoutMode();
     }
@@ -380,7 +387,7 @@ export function toggleLayoutMode() {
         $('.timing-diagram-panel').fadeIn();
         $('.testbench-manual-panel').fadeIn();
         globalScope.centerFocus(false);
-        if(globalScope.verilogMetadata.isVerilogCircuit)
+        if (globalScope.verilogMetadata.isVerilogCircuit)
             verilogModeSet(true);
         dots();
     } else {
@@ -392,7 +399,7 @@ export function toggleLayoutMode() {
         $('.timing-diagram-panel').fadeOut();
         $('.testbench-manual-panel').fadeOut();
         fillSubcircuitElements();
-        
+
         globalScope.ox = 0;
         globalScope.oy = 0;
         globalScope.scale = DPR * 1.3;
@@ -405,40 +412,40 @@ export function toggleLayoutMode() {
 }
 
 export function setupLayoutModePanelListeners() {
-    $('#decreaseLayoutWidth').on('click',() => {
+    $('#decreaseLayoutWidth').on('click', () => {
         decreaseLayoutWidth();
     });
-    $('#increaseLayoutWidth').on('click',() => {
+    $('#increaseLayoutWidth').on('click', () => {
         increaseLayoutWidth();
     });
-    $('#decreaseLayoutHeight').on('click',() => {
+    $('#decreaseLayoutHeight').on('click', () => {
         decreaseLayoutHeight();
     });
-    $('#increaseLayoutHeight').on('click',() => {
+    $('#increaseLayoutHeight').on('click', () => {
         increaseLayoutHeight();
     });
-    $('#layoutResetNodes').on('click',() => {
+    $('#layoutResetNodes').on('click', () => {
         layoutResetNodes();
     });
-    $('#layoutTitleUp').on('click',() => {
+    $('#layoutTitleUp').on('click', () => {
         layoutTitleUp();
     });
-    $('#layoutTitleDown').on('click',() => {
+    $('#layoutTitleDown').on('click', () => {
         layoutTitleDown();
     });
-    $('#layoutTitleLeft').on('click',() => {
+    $('#layoutTitleLeft').on('click', () => {
         layoutTitleLeft();
     });
-    $('#layoutTitleRight').on('click',() => {
+    $('#layoutTitleRight').on('click', () => {
         layoutTitleRight();
     });
-    $('#toggleLayoutTitle').on('click',() => {
+    $('#toggleLayoutTitle').on('click', () => {
         toggleLayoutTitle();
     });
-    $('#saveLayout').on('click',() => {
+    $('#saveLayout').on('click', () => {
         saveLayout();
     });
-    $('#cancelLayout').on('click',() => {
+    $('#cancelLayout').on('click', () => {
         cancelLayout();
     });
     $('#layoutDialog button').on('click', () => {

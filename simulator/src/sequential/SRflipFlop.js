@@ -10,7 +10,7 @@ import { correctWidth, fillText } from '../canvasApi';
  * @extends CircuitElement
  * @param {number} x - x coord of element
  * @param {number} y - y coord of element
- * @param {Scope=} scope - the ciruit in which we want the Element
+ * @param {Scope=} scope - the circuit in which we want the Element
  * @param {string=} dir - direcion in which element has to drawn
  * @category sequential
  */
