@@ -1561,6 +1561,31 @@ input:checked + .slider:before {
   background: #42b983;
 }
 
+.prompt {
+  color: white;
+  display:none;
+  margin: 10px 0;
+}
+
+#newCircuitPrompt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ui-dialog[aria-describedby='newCircuitPrompt'] {
+  width: 400px !important;
+}
+
+#newCircuitName {
+  border: none;
+  border-bottom: 1px solid white;
+  background: transparent;
+  color:white;
+  padding: 3px;
+  margin: 5px;
+}
+
 .search-input {
   margin: 0 10px;
   padding: 3px 10px;
