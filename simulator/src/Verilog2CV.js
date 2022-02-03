@@ -176,6 +176,13 @@ export default function generateVerilogCircuit(verilogCode, scope = globalScope)
     });
 }
 
+export function codeMirrorEditorResize(){
+    var navbarHeight = $('.navbar').outerHeight();
+    var tabsbarHeight = $('#tabsBar').outerHeight();
+    var h = window.innerHeight - navbarHeight - tabsbarHeight;
+    $(".codeMirror").height(h);
+}
+
 export function setupCodeMirrorEnvironment() {
     var myTextarea = document.getElementById("codeTextArea");
 
@@ -198,4 +205,9 @@ export function setupCodeMirrorEnvironment() {
     setTimeout(function() {
         editor.refresh();
     },1);
+
+    var navbarHeight = $('.navbar').outerHeight();
+    var tabsbarHeight = $('#tabsBar').outerHeight();
+    var h = window.innerHeight - navbarHeight - tabsbarHeight;
+    $(".codeMirror").height(h);
 }
