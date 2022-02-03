@@ -1,6 +1,5 @@
 <link rel="stylesheet" type="text/css" href="/css/restrictedElements.css">
 <script src="/js/metadata.json"></script>
-<%= javascript_pack_tag 'application' %>
 
 <%= form_with(model: [group,@assignment], local: true, html: {onsubmit:"beforeSubmit()"}, multipart: true ,id:"assignmentForm") do |form| %>
   <% if @assignment.errors.any? %>
