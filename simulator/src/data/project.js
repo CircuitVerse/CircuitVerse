@@ -16,7 +16,7 @@ import load from './load';
 export function recoverProject() {
     if (localStorage.getItem('recover')) {
         var data = JSON.parse(localStorage.getItem('recover'));
-        let name = data.name;
+        const name = data.name;
         $('#recoverProjectPrompt').empty();
         $('#recoverProjectPrompt').append(`<span>Would you like to recover: "${name}"</span>`);
         $('#recoverProjectPrompt').dialog({
@@ -24,7 +24,7 @@ export function recoverProject() {
             buttons: [
                 {
                     text: 'Ok',
-                    click(){
+                    click() {
                         load(data);
                         localStorage.removeItem('recover');
                         $(this).dialog('close');
@@ -32,12 +32,12 @@ export function recoverProject() {
                 },
                 {
                     text: 'Cancel',
-                    click(){
+                    click() {
                         $(this).dialog('close');
-                    },
-                }
-            ]
-        })
+                    }
+                },
+            ],
+        });
     } else {
         showError('No recover project found');
     }
