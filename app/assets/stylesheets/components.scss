@@ -75,23 +75,28 @@
 .social-card {
   background-color: $card-green;
   box-shadow: 0 2px 7px $shadow-black;
-  display: inline-block;
-  height: 89px;
-  margin: 50px 7px 40px;
+  justify-content: space-evenly;
+  height: 105px;
+  margin: 50px 40px;
   opacity: .89;
   padding: 15px;
   transition: box-shadow .2s ease-in;
-  width: 300px;
-
+  width: 325px;
   &:hover {
     box-shadow: 0 7px 7px $shadow-black;
   }
 }
-
 .social-card-image {
   float: left;
 }
-
+.social-card-container{
+  display: flex;
+  justify-content: center;
+}
+.about-social-card{
+  display: flex;
+  justify-content: center;
+}
 .circuit-card {
   border: 1px solid $primary-green;
   border-radius: 0;
