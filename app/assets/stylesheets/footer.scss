@@ -34,15 +34,15 @@
 .bounce-out-on-hover {
   display: inline-block;
   transform: perspective(1px) translateZ(0);
-  transition-duration: 0.5s;
+  transition-duration: .5s;
   vertical-align: middle;
 }
 
 .bounce-out-on-hover:hover,
 .bounce-out-on-hover:focus,
 .bounce-out-on-hover:active {
-  transform: scale(0.8);
-  transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+  transform: scale(.8);
+  transition-timing-function: cubic-bezier(.47, 2.02, .31, -.36);
 }
 
 .footer-links {
