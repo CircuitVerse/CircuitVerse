@@ -784,9 +784,7 @@ deleteOfflineProject = function (projectId) {
         $('#openProjectDialog').empty();
 
         for (id in projectList) {
-            $('#openProjectDialog').
-            append(`<label class="option custom-radio">
-            <input type="radio" name="projectId" value="${id}" />${projectList[id]}<span></span><i class="fa fa-trash deleteOfflineProject" onclick="deleteOfflineProject('${id}')"></i></label>`);
+            $('#openProjectDialog').append(`<label class="option custom-radio"><input type="radio" name="projectId" value="${id}" />${projectList[id]}<span></span><i class="fa fa-trash deleteOfflineProject" onclick="deleteOfflineProject('${id}')"></i></label>`);
         }
 
     }
