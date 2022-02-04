@@ -1561,6 +1561,20 @@ input:checked + .slider:before {
   background: #42b983;
 }
 
+.prompt {
+  color: white;
+  margin: 10px 0; 
+  display: none;
+}
+
+.ui-dialog[aria-describedby='recoverProjectPrompt'] {
+  width: 350px !important;
+}
+
+.ui-dialog[aria-describedby='closeCircuitPrompt'] {
+  width: 350px !important;
+}
+
 .search-input {
   margin: 0 10px;
   padding: 3px 10px;

@@ -114,18 +114,34 @@ function deleteCurrentCircuit(scopeId = globalScope.id) {
         return;
     }
 
-    const confirmation = confirm(`Are you sure want to close: ${scope.name}\nThis cannot be undone.`);
-    if (confirmation) {
-        if (scope.verilogMetadata.isVerilogCircuit) {
-            scope.initialize();
-            for(var id in scope.verilogMetadata.subCircuitScopeIds)
-                delete scopeList[id];
-        }
-        $(`#${scope.id}`).remove();
-        delete scopeList[scope.id];
-        switchCircuit(Object.keys(scopeList)[0]);
-        showMessage('Circuit was successfully closed');
-    } else { showMessage('Circuit was not closed'); }
+    $('#closeCircuitPrompt').text(`Are you sure want to close: ${scope.name}\nThis cannot be undone.`);
+    $('#closeCircuitPrompt').dialog({
+        resizable: false,
+        buttons: [
+            {
+                text: 'OK',
+                click() {
+                    if (scope.verilogMetadata.isVerilogCircuit) {
+                        scope.initialize();
+                        for(var id in scope.verilogMetadata.subCircuitScopeIds)
+                            delete scopeList[id];
+                    }
+                    $(`#${scope.id}`).remove();
+                    delete scopeList[scope.id];
+                    switchCircuit(Object.keys(scopeList)[0]);
+                    showMessage('Circuit was successfully closed');
+                    $('#closeCircuitPrompt').dialog('close');
+                }
+            },
+            {
+                text: 'Cancel',
+                click() {
+                    showMessage('Circuit was not closed');
+                    $(this).dialog('close');
+                }
+            }
+        ]
+    });
 }
 
 /**
