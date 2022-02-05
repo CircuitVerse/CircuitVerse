@@ -1,7 +1,12 @@
 import { dots } from '../canvasApi';
 import themeOptions from './themes';
 import updateThemeForStyle from './themer';
-import abstraction from './customThemeHelper';
+import { CreateAbstraction } from './customThemeAbstraction';
+
+/**
+ *
+ */
+var customTheme = CreateAbstraction(themeOptions['Custom Theme']);
 
 const updateBG = () => dots(true, false, true);
 
@@ -11,29 +16,24 @@ const updateBG = () => dots(true, false, true);
  */
 const getCustomThemeCard = () => {
     var propertiesContainer = document.createElement('form');
-    const keys = Object.keys(abstraction);
+    const keys = Object.keys(customTheme);
     keys.forEach((key) => {
         const property = document.createElement('div');
         const newPropertyLabel = document.createElement('label');
-        newPropertyLabel.textContent = key + ` (${abstraction[key].description})`;
+        newPropertyLabel.textContent = `${key} (${customTheme[key].description})`;
         newPropertyLabel.setAttribute('for', key);
         const newPropertyInput = document.createElement('input');
         newPropertyInput.setAttribute('type', 'color');
         newPropertyInput.setAttribute('name', key);
-        newPropertyInput.setAttribute('value', abstraction[key].color);
+        newPropertyInput.setAttribute('value', customTheme[key].color);
+        newPropertyInput.classList.add('customColorInput');
         property.append(newPropertyLabel);
         property.append(newPropertyInput);
         propertiesContainer.append(property);
     });
-    const fileInput = document.createElement('input');
-    fileInput.setAttribute('name', 'themeFile');
-    fileInput.setAttribute('type', 'file');
-    fileInput.setAttribute('id', 'importThemeFile');
-    fileInput.setAttribute('style', 'display:none');
     const downloadAnchor = document.createElement('a');
     downloadAnchor.setAttribute('id', 'downloadThemeFile');
     downloadAnchor.setAttribute('style', 'display:none');
-    propertiesContainer.appendChild(fileInput);
     propertiesContainer.appendChild(downloadAnchor);
     return propertiesContainer;
 };
@@ -84,9 +84,9 @@ export const CustomColorThemes = () => {
     /**
      * To preview the changes
      */
-    $('#CustomColorThemesDialog input').on('input', (e) => {
-        abstraction[e.target.name].color = e.target.value;
-        abstraction[e.target.name].ref.forEach((property) => {
+    $('.customColorInput').on('input', (e) => {
+        customTheme[e.target.name].color = e.target.value;
+        customTheme[e.target.name].ref.forEach((property) => {
             themeOptions['Custom Theme'][property] = e.target.value;
         });
         updateThemeForStyle('Custom Theme');
@@ -102,21 +102,24 @@ export const CustomColorThemes = () => {
     /**
     * Read JSON file and
     * set Custom theme to the Content of the JSON file
-    * @return call CustomColorThemes function
     *  */
     function receivedText(e) {
-        const lines = e.target.result;
-        themeOptions['Custom Theme'] = JSON.parse(lines);
-        localStorage.setItem('Custom Theme', lines);
-        $('#CustomColorThemesDialog').dialog('close');
-        return CustomColorThemes();
+        const lines = JSON.parse(e.target.result);
+        customTheme = CreateAbstraction(lines);
+        themeOptions['Custom Theme'] = lines;
+        // preview theme
+        updateThemeForStyle('Custom Theme');
+        updateBG();
+        // update colors in dialog box
+        $('#CustomColorThemesDialog').empty();
+        $('#CustomColorThemesDialog').append(getCustomThemeCard());
     }
 
     /**
      * Add listener for file input
      * Read imported JSON file
      */
-    $('#importThemeFile').on('input', (event) => {
+    $('#importThemeFile').on('change', (event) => {
         var File = event.target.files[0];
         if (File !== null && File.name.split('.')[1] === 'json') {
             var fr = new FileReader();
