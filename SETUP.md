@@ -11,7 +11,7 @@ There are several ways to run your own instance of CircuitVerse:
 ### Gitpod Cloud Environment
 [Gitpod](https://www.gitpod.io/) is a free platform that allows you to develop CircuitVerse in a cloud VS Code environment. 
 
-Instructions are available in our [wiki](https://github.com/CircuitVerse/CircuitVerse/wiki/Development-on-Gitpod) and pull requests can be created following these [steps](https://github.com/CircuitVerse/CircuitVerse/wiki/Pull-Requests-using-Gitpod).
+Instructions are available in our [Wiki](https://github.com/CircuitVerse/CircuitVerse/wiki/Development-on-Gitpod), and pull requests can be created following these [steps](https://github.com/CircuitVerse/CircuitVerse/wiki/Pull-Requests-using-Gitpod).
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/CircuitVerse/CircuitVerse)
 
@@ -129,7 +129,7 @@ Before making a pull request, it is a good idea to check that all tests are pass
 
 
 ## API Setup
-CircuitVerse API uses `RSASSA` cryptographic signing that requires `private` and associated `public` key. To generate the keys RUN the following commands in `CircuitVerse/`
+CircuitVerse API uses `RSASSA` cryptographic signing that requires a `private` and associated `public` key. To generate the keys, RUN the following commands in `CircuitVerse/`
 ```
 openssl genrsa -out config/private.pem 2048
 openssl rsa -in config/private.pem -outform PEM -pubout -out config/public.pem
