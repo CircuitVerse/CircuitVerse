@@ -6,12 +6,12 @@ Thanks for checking out our contribution guide. We greatly appreciate any work c
 ## How to Contribute
 When you are ready to start work on an issue:
 
-- Let us know by leaving a comment on the issue. (Also let us know later if you are no longer working on it.)
-- Once you are assigned the issue (or once you have claimed the issue) only then proceed to make the Pull Request. This will help avoid multiple PRs pertaining to the same issue.
+- Let us know by leaving a comment on the issue. (Also, let us know later if you are no longer working on it.)
+- Once you are assigned the issue (or once you have claimed the issue), only then proceed to make the Pull Request. This will help avoid multiple PRs on the same issue.
 
 If you don't see your idea listed, do one of the following:
 * **If your contribution is minor,** such as a typo fix, open a pull request.
-* **If your contribution is major,** such as a new feature/enhancement, start by opening an issue first. This way, other people can be also involved in the discussion before you do any work.
+* **If your contribution is major,** such as a new feature/enhancement, start by opening an issue first. This way, other people can also be involved in the discussion before you do any work.
 
 ## Pull Request Process
 
@@ -22,7 +22,7 @@ If you don't see your idea listed, do one of the following:
     This both creates and checks out that branch in one command.  
     The feature name should provide a (short) description of the issue.
 
-2. Update the README.md with details of changes to the interface, this includes new environment variables, exposed ports, useful file locations and container parameters.
+2. Update the README.md with details of changes to the interface. This includes new environment variables, exposed ports, useful file locations, and container parameters.
    
 3. Develop the feature and push it to your local repo.
    
@@ -55,5 +55,6 @@ Support this project with your organization. Your logo will show up here with a 
 
 ### Code Contributors
 
-This project exists because of all the people who have [contributed]((CONTRIBUTING.md)).
+This project exists because of all the amazing people who have contributed:
+
 <a href="https://github.com/CircuitVerse/CircuitVerse/graphs/contributors"><img src="https://opencollective.com/CircuitVerse/contributors.svg?width=890&button=false" alt="Code contributors" /></a>
