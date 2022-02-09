@@ -35,15 +35,15 @@
   box-shadow: 0 0 1px $black;
   display: inline-block;
   transform: perspective(1px) translateZ(0);
-  transition-duration: .5s;
+  transition-duration: 0.5s;
   vertical-align: middle;
 }
 
 .bounce-out-on-hover:hover,
 .bounce-out-on-hover:focus,
 .bounce-out-on-hover:active {
-  transform: scale(.8);
-  transition-timing-function: cubic-bezier(.47, 2.02, .31, -.36);
+  transform: scale(0.8);
+  transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
 }
 
 .footer-links {
@@ -81,3 +81,28 @@
     font-size: 15px;
   }
 }
+
+// .Facebook,
+// .Twitter,
+// .Linkedin {
+//   position: relative;
+// }
+// .Facebook-Tooltip,
+// .Twitter-Tooltip,
+// .Linkedin-Tooltip {
+//   position: absolute;
+//   left: 50%;
+//   top: 50%;
+//   transform: translateX(-50%);
+//   opacity: 0;
+// }
+// .Facebook:hover .Facebook-Tooltip,
+// .Twitter:hover .Twitter-Tooltip,
+// .Linkedin:hover .Linkedin-Tooltip {
+//   cursor: pointer;
+//   left: 8%;
+//   top: -3%;
+//   transform: translateX(-50%);
+//   font-size: 10px;
+//   opacity: 1;
+// }
