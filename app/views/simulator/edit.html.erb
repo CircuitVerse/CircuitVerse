@@ -62,14 +62,11 @@
             <li><a class="dropdown-item text-left pl-1" href="https://circuitverse.org/forum" class="forum-tab" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">Discussion Forum</a></li>
         </ul>
       </li>
-      
-      
      </ul>
        <span class="projectName noSelect defaultCursor font-weight-bold" id="projectName">
           Untitled
        </span>
 
-      
     <div ondrag="(() => {$('.quick-btn').css({'box-shadow': 'none', 'background': 'var(--bg-navbar)'})})()" class='quick-btn'>
       <div id='dragQPanel' class='panel-drag'>
       <span><svg style="height: 20px;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18" height="31" viewBox="0 0 18 31">
@@ -107,16 +104,16 @@
       <div>
         <button type="button" class="quick-btn-save logixButton"  id="saveOffline" title="Save Offline" onclick="">
         </button>
-      </div>          
+      </div>
       <div>
         <button type="button" class="quick-btn-delete" title="Delete Selected" id="deleteSelected">
         </button>
-      </div>     
+      </div>
       <div>
         <button type="button" class="quick-btn-download logixButton" id="createSaveAsImgPrompt" title="Download as Image" onclick="">
         </button>
       </div>
-      <div>    
+      <div>
         <button type="button" class="quick-btn-zoom-fit" title="Fit to Screen" onclick="globalScope.centerFocus(false)">
         </button>
       </div>
@@ -142,7 +139,7 @@
           <button class="zoom-slider-increment" id="increment">+</button>
         </div>
       </div>
-      
+
     </div>
     <ul class="nav navbar-nav noSelect pointerCursor pull-right account-btn">
       <li class="dropdown pull-right">
@@ -211,7 +208,7 @@
       <button class='custom-btn--primary panel-button' title="Zoom Out"><span class="fas fa-search-minus timing-diagram-zoom-out"></button>
       <button class='custom-btn--primary panel-button' title="Resume auto-scroll"><span class="fas fa-play timing-diagram-resume"></button>
       <button class='custom-btn--primary panel-button' title="Pause auto-scroll"><span class="fas fa-pause timing-diagram-pause"></button>
-      1 cycle = 
+      1 cycle =
       <input id="timing-diagram-units" type="number" min="1" autocomplete="off" value="1000">
       Units
       <span id='timing-diagram-log'></span>
@@ -373,7 +370,7 @@
           </g>
           <path id="Path_36" data-name="Path 36" d="M4.7,6.1,0,1.4,1.4,0,4.7,3.3,8,0,9.4,1.4Z" transform="translate(19.4 17.755) rotate(180)" fill="#fff"/>
         </svg>
-        
+
       </button>
         <button
           class="zoomButton-down btn-lg no-select"
@@ -386,7 +383,7 @@
           </g>
           <path id="Path_36" data-name="Path 36" d="M4.7,6.1,0,1.4,1.4,0,4.7,3.3,8,0,9.4,1.4Z" transform="translate(10 11.655)" fill="#fff"/>
         </svg>
-        
+
       </button>
         <button
           class="zoomButton-left btn-lg no-select"
@@ -410,7 +407,7 @@
             <rect x="1" y="1" width="28" height="28" rx="9" fill="none"/>
           </g>
           <path id="Path_36" data-name="Path 36" d="M4.7,6.1,0,1.4,1.4,0,4.7,3.3,8,0,9.4,1.4Z" transform="translate(12 19.055) rotate(-90)" fill="#fff"/>
-        </svg>  
+        </svg>
       </button>
     </div>
     </div>
@@ -514,6 +511,8 @@
 </div>
 
 <div id="colorThemesDialog" class='customScroll colorThemesDialog' tabindex = "0" style="display: none;" title="Select Theme"></div>
+<div id="CustomColorThemesDialog" class='customScroll' tabindex="0" style="display: none;" title="Custom Theme"></div>
+<input type='file' id="importThemeFile" name='themeFile' style="display:none" multiple>
 
 <div class="simulation" id="simulation">
   <div id="restrictedDiv" class="alert alert-danger display--none"></div>
@@ -704,7 +703,7 @@
 $(function(){
     $(".btn-group-toggle").twbsToggleButtons();
   });
-  
+
 $(function(){
 $("#openProjectDialog").checkBo();
 $(".download-dialog-section-2_2").checkBo();
