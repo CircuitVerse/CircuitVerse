@@ -1,6 +1,7 @@
 :root {
   --shadow-color: rgba(0, 0, 0, .2);
 }
+
 .contribute-card {
   border: 0;
   box-shadow: 0 10px 10px var(--shadow-color), 0 0 20px var(--shadow-color);
@@ -69,7 +70,6 @@
     margin-bottom: 20px;
     margin-top: 20px;
   }
-
   .contribute-card {
     height: 100%;
     width: fit-content;
@@ -81,6 +81,7 @@
     height: 100%;
     width: 100%;
   }
+  
 }
 
 @media (max-width: 400px) {
@@ -88,7 +89,6 @@
     margin-bottom: 20px;
     margin-top: 20px;
   }
-  
   .contribute-card {
     height: 100%;
     width: 100%;
