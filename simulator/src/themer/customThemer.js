@@ -12,7 +12,7 @@ const updateBG = () => dots(true, false, true);
 
 /**
  * Generates Custom theme card HTML
- * @return {HTML Element} Theme card html (properties_container)
+ * return Html Element Theme card html (properties_container)
  */
 const getCustomThemeCard = () => {
     var propertiesContainer = document.createElement('form');
