@@ -66,8 +66,8 @@ button:focus {
     padding: 5px;
     width: 200px;
     margin: 3px;
-    word-wrap:break-word;
-    overflow-x:hidden;
+    word-wrap: break-word;
+    overflow-x: hidden;
 }
 
 .pannel-heading {
@@ -111,7 +111,7 @@ button:focus {
     border-color: #0099ff;
 }
 
-input[type="radio"]:checked ~ label {
+input[type="radio"]:checked~label {
     color: #0dff92;
 }
 
@@ -168,12 +168,12 @@ input[type="radio"]:checked ~ label {
     height: 100%;
 }
 
-#container > div {
+#container>div {
     display: table-row;
     height: 0;
 }
 
-#container > div.fill {
+#container>div.fill {
     height: auto;
 }
 
@@ -218,6 +218,7 @@ input[type="radio"]:checked ~ label {
     /*margin-bottom: 0;*/
 }
 
+
 /* MODULES */
 
 .moduleProperty {
@@ -254,7 +255,7 @@ input[type="radio"]:checked ~ label {
     margin-bottom: 0.5em;
 }
 
-#moduleProperty-inner > p {
+#moduleProperty-inner>p {
     margin: 0;
     margin-top: 0.2em;
 }
@@ -291,6 +292,7 @@ select {
     padding: 7px 15px;
     height: auto;
 }
+
 
 /* END OF MODULES  */
 
@@ -334,14 +336,15 @@ select {
     border: 1px solid #0099ff;
 }
 
-.tabsCloseButton:hover{
-    color:#fff;
+.tabsCloseButton:hover {
+    color: #fff;
     font-family: 'Gill Sans', sans-serif;
     margin-left: 1em;
     opacity: 0.5;
 }
+
 .tabsCloseButton {
-    color:#111;
+    color: #111;
     font-family: 'Gill Sans', sans-serif;
     margin-left: 1em;
     opacity: 1.0;
@@ -498,19 +501,20 @@ html {
     transition: 0.4s;
 }
 
-input:checked + .slider {
+input:checked+.slider {
     background-color: #2196f3;
 }
 
-input:focus + .slider {
+input:focus+.slider {
     box-shadow: 0 0 1px #2196f3;
 }
 
-input:checked + .slider:before {
+input:checked+.slider:before {
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
     transform: translateX(26px);
 }
+
 
 /* Rounded sliders */
 
@@ -522,7 +526,9 @@ input:checked + .slider:before {
     border-radius: 50%;
 }
 
+
 /* Slider for white background */
+
 .slider2 {
     position: absolute;
     cursor: pointer;
@@ -548,19 +554,20 @@ input:checked + .slider:before {
     transition: 0.4s;
 }
 
-input:checked + .slider2 {
+input:checked+.slider2 {
     background-color: #2196f3;
 }
 
-input:focus + .slider2 {
+input:focus+.slider2 {
     box-shadow: 0 0 1px #2196f3;
 }
 
-input:checked + .slider2:before {
+input:checked+.slider2:before {
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
     transform: translateX(26px);
 }
+
 
 /* Rounded sliders */
 
@@ -646,7 +653,7 @@ div.icon img {
     position: absolute;
     /*top: 0;*/
     bottom: -16;
-    text-align:center;
+    text-align: center;
     left: 0;
     right: 0;
     background-color: #0099ff;
@@ -680,6 +687,7 @@ div.icon img {
     width: 100%;
     margin-bottom: 5px;
 }
+
 
 /* For loading screen - pace.js */
 
@@ -738,6 +746,7 @@ div.icon img {
     transition-duration: 0.3s;
 }
 
+
 /* Animations to fade the snackbar in and out */
 
 @-webkit-keyframes fadein {
@@ -788,6 +797,7 @@ div.icon img {
     height: 5px;
 }
 
+
 /* dropdown-menu styles */
 
 .dropdown-menu {
@@ -796,16 +806,16 @@ div.icon img {
     border-top: none;
 }
 
-.navbar-nav > li > a {
+.navbar-nav>li>a {
     padding: 7px 15px;
 }
 
-.dropdown-menu > li > a {
+.dropdown-menu>li>a {
     color: #939393 !important;
     padding: 3px 14px;
 }
 
-.dropdown-menu > li > a:hover {
+.dropdown-menu>li>a:hover {
     color: #4db8ff !important;
     background-color: black;
 }
@@ -857,6 +867,7 @@ div.icon img {
     margin-right: 10px;
     /*set margin this way in your custom stylesheet*/
 }
+
 
 /* LOADING ICON CSS STARTS*/
 
@@ -965,5 +976,6 @@ div.icon img {
         opacity: 0;
     }
 }
+
 
 /* LOADING ICON CSS ENDS*/
