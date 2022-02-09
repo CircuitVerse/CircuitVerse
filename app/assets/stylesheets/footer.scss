@@ -85,22 +85,23 @@
 .bounce-out-on-hover::before,
 .bounce-out-on-hover::after {
   --scale: 0;
+  left: 55%;
   position: absolute;
   top: 230%;
-  left: 55%;
   transform: translateX(-50%) translateY(-100%) scale(var(--scale));
-  transition: 150ms transform;
   transform-origin: center;
+  transition: 150ms transform;
 }
 
 .bounce-out-on-hover::before {
-  content: attr(data-tooltip);
-  color: white;
-  padding: .5rem;
+  background: $tooltip-grey;
   border-radius: .3rem;
+  color: $white;
+  content: attr(data-tooltip);
+  padding: .5rem;
   text-align: center;
   width: fit-content;
-  background: #333;
+
 }
 
 .bounce-out-on-hover:hover::before,
