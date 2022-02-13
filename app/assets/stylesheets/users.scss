@@ -34,29 +34,6 @@
   padding-right: 5px;
 }
 
-.users-primary-checkpoint {
-  h6 {
-    display: block;
-    margin-bottom: 0;
-    margin-right: 10px;
-  }
-}
-
-.primary-checkpoint {
-  background-color: $white;
-  border: 1px solid $secondary-green;
-  cursor: pointer;
-  padding-left: 4px;
-  padding-top: 4px;
-  text-align: center;
-
-  &:hover {
-    border-color: $primary-green;
-    opacity: 1;
-    transition: .2s ease-in-out;
-  }
-}
-
 .right-shift {
   margin-left: 30px;
 }
@@ -191,11 +168,6 @@
 
 .remove-pic {
   display: none;
-}
-
-.users-edit-primary-checkpoint {
-  margin-bottom: 20px;
-  padding-top: 40px;
 }
 
 .users-edit-primary-button {
