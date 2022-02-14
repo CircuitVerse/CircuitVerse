@@ -13,6 +13,8 @@ import logixFunction from './data';
 import { newCircuit, circuitProperty } from './circuit';
 import modules from './modules';
 import { updateRestrictedElementsInScope } from './restrictedElementDiv';
+import undo from './data/undo';
+import redo from "./data/redo";
 import { paste } from './events';
 import { setProjectName, getProjectName } from './data/save';
 import { changeScale } from './canvasApi';
@@ -142,7 +144,6 @@ function menuItemClicked(id, code="") {
     } else if (id === 3) {
         deleteSelected();
     } else if (id === 4) {
-        undo();
         undo();
     } else if (id === 5) {
         newCircuit();
