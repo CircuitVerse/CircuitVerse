@@ -30,7 +30,7 @@ Please note if someone is already assigned or working on the issue, do not try t
 - Check if the issue you are going to propose is not duplicate of another issue.
 - Open a new issue according to type i.e., if issue is a bug open a new issue by clicking on `Get Started` in the scope of `Bug Report`.
 - Give a precise and meaningful name of the issue.
-- Describe your issue as good as possible that may ease the process of issue-reviewing by community member.
+- Describe your issue as good as possible that may ease the process of issue-reviewing by a community member.
 
 ## How to contribute
 
@@ -63,20 +63,20 @@ Please note if someone is already assigned or working on the issue, do not try t
 
 ## Pull request reviews
 
-- Requested Changes must be resolved (with code or discussion) before merging.
+- Requested changes must be resolved (with code or discussion) before merging.
 - If you make changes to a PR, be sure to re-request a review.
 - Don't repeadetely tag someone(may be it is not the right time to review your PR), be patient.
-- Do not 'resolve conversation' unnecessary raised by community member or any workflows tools(codeclimate or hound) as they may have some purpose, try to resolve the request changes and if any help wanted tag communtiy member to give views about that.
+- Do not 'resolve conversation' unnecessary raised by a community member or any workflow tools(codeclimate or hound) as they may have some purpose, try to resolve the request changes and if any help wanted tag a communtiy member to give views about that.
 
 #### PR Lebels
 
-- `under-review` labeled PR are under review by core team.
-- `waiting for contributor` labeled PR are meant to waiting for contributor to respond.
-- `waiting for design` labeled PR are meant to waiting for review from UI/UX core team.
-- `no activity` labeled PR are meant to have no activity in the PR from since a while.
-- `blocked` labeled PR are meant to not to go ahead for review.
-- `do not merge` labeled PR are meant to not to merge the PR right now(may be later).
-- [awaiting-approval](https://github.com/CircuitVerse/CircuitVerse/labels/awaiting-approval) labeled PR are meant to be waiting for other communtiy members.
+- `under-review` labeled PRs are under review by core team.
+- `waiting for contributor` labeled PRs are meant to waiting for contributor to respond.
+- `waiting for design` labeled PRs are meant to waiting for review from UI/UX core team.
+- `no activity` labeled PRs are meant to have no activity in the PR from since a while.
+- `blocked` labeled PRs are meant to not to go ahead for review.
+- `do not merge` labeled PRs are meant to not to merge the PR right now(may be later).
+- [awaiting-approval](https://github.com/CircuitVerse/CircuitVerse/labels/awaiting-approval) labeled PRs are meant to be waiting for other communtiy members.
 
 ## Community
 Discussions about CircuitVerse issues and features take place on the repository's [Discussions](https://github.com/CircuitVerse/CircuitVerse/discussions) sections. Anybody is welcome to join these conversations. See the [README](README.md) for more information on communication channels.
