@@ -560,17 +560,16 @@ function escapeHtml(unsafe) {
 export function deleteSelected() {
     if (simulationArea.lastSelected &amp;&amp; !(simulationArea.lastSelected.objectType === 'Node' &amp;&amp; simulationArea.lastSelected.type !== 2)) {
         simulationArea.lastSelected.delete();
-        hideProperties();
     }
         
     for (var i = 0; i &lt; simulationArea.multipleObjectSelections.length; i++) {
         if (!(simulationArea.multipleObjectSelections[i].objectType === 'Node' &amp;&amp; simulationArea.multipleObjectSelections[i].type !== 2)) 
             simulationArea.multipleObjectSelections[i].cleanDelete();
-        hideProperties();
     }
     
     simulationArea.multipleObjectSelections = [];
-
+    simulationArea.lastSelected = undefined;
+    showProperties(simulationArea.lastSelected);
     // Updated restricted elements
     updateCanvasSet(true);
     scheduleUpdate();
