@@ -74,7 +74,16 @@ function showContextMenu() {
         visibility: 'visible',
         opacity: 1,
     });
-    
+    $("#contextMenu ul li").each(function(idx, li) {
+        var listItem = $(li);
+        if(listItem[0].textContent == "Delete" || listItem[0].textContent == "Copy" || listItem[0].textContent == "Cut") {
+            if(simulationArea.lastSelected.hover == false && simulationArea.multipleObjectSelections.length == 0){
+                listItem[0].style.display='none';
+            }else{
+                listItem[0].style.display='block';
+            }
+        }
+    });
     var windowHeight = $("#simulationArea").height() - $("#contextMenu").height() - 10;
     var windowWidth = $("#simulationArea").width() - $("#contextMenu").width() - 10;
     // for top, left, right, bottom
