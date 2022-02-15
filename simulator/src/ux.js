@@ -78,7 +78,8 @@ function showContextMenu() {
         if(listItem[0].textContent == "Delete" || listItem[0].textContent == "Copy" || listItem[0].textContent == "Cut") {
             if(simulationArea.lastSelected.hover == false && simulationArea.multipleObjectSelections.length == 0){
                 listItem[0].style.display='none';
-            }else{
+            }
+            else {
                 listItem[0].style.display='block';
             }
         }
