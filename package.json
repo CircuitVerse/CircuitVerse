@@ -52,7 +52,7 @@
     "mini-css-extract-plugin": "^2.5.2",
     "opencollective-postinstall": "^2.0.3",
     "popper.js": "^1.16.1",
-    "sass": "^1.49.0",
+    "sass": "^1.49.8",
     "sass-loader": "^12.4.0",
     "stimulus": "^3.0.1",
     "trumbowyg": "^2.25.1",
