@@ -1,0 +1,61 @@
+<!---issue reporting-system----->
+<div class="report-sidebar">
+  <a
+    type="button"
+    class="btn btn-primary text-light"
+    data-toggle="modal"
+    data-target=".issue"
+  >
+    <span class="fa fa-bug"></span>&nbsp;&nbsp;Report an issue / Suggest a feature</a
+  >
+</div>
+
+<!---issue reporting system-modal---->
+<div
+  class="modal fade issue"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="mySmallModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="container my-2">
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="container text-center">
+          <h4>Report an issue</h4>
+        </div>
+        <hr />
+        <div class="container my-2 text-center" id="result"></div>
+        <label id="report-label" style="font-weight: lighter;"
+          ><b>Describe your issue:</b></label
+        >
+        <div class="form-group">
+          <textarea
+            class="form-control border-primary"
+            id="issuetext"
+            rows="3"
+          ></textarea>
+        </div>
+        <label for="emailtext" id="email-label" style="font-weight: lighter"><b>Email</b><span> [Optional]</span>:</label>
+        <div class="form-group">
+          <input class="form-control border-primary"  type="email" id="emailtext" rows="3"/>
+        </div>
+        <div class="container">
+          <center>
+            <button type="submit" id="report" class="btn btn-primary">
+              Report
+            </button>
+          </center>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
