@@ -16,7 +16,6 @@
 //= require commontator/application
 //= require bootstrap-typeahead-rails
 //= require bootstrap/dist/js/bootstrap.min.js
-//= require serviceworker-companion
 //= require restrictElements.js
 //= require time.js
 //= require scroll.js

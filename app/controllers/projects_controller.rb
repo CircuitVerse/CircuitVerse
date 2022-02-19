@@ -2,6 +2,7 @@
 
 class ProjectsController < ApplicationController
   include ActionView::Helpers::SanitizeHelper
+  include SanitizeDescription
 
   before_action :set_project, only: %i[show edit update destroy create_fork change_stars]
   before_action :authenticate_user!, only: %i[edit update destroy create_fork change_stars]
@@ -139,10 +140,6 @@ class ProjectsController < ApplicationController
 
     # Sanitize description before passing to view
     def sanitize_project_description
-      @project.description = sanitize(
-        @project.description,
-        tags: %w[img p strong em a sup sub del u span h1 h2 h3 h4 hr li ol ul blockquote],
-        attributes: %w[style src href alt title target]
-      )
+      @project.description = sanitize_description(@project.description)
     end
 end

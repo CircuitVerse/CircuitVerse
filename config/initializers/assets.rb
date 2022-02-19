@@ -12,6 +12,6 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
-Rails.configuration.assets.precompile += %w[serviceworker.js manifest.json webpush.js]
-Rails.configuration.assets.precompile += %w[simulator.css simulator.js]
+Rails.application.config.assets.precompile += %w[manifest.json webpush.js]
+Rails.application.config.assets.precompile += %w[simulator.css simulator.js application_sprockets.js application.js testbench.js testbench.css]
 Rails.application.config.assets.precompile << /\.(?:svg|eot|woff|woff2|ttf|otf)$/

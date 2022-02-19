@@ -36,6 +36,7 @@ class Project < ApplicationRecord
   scope :by, ->(author_id) { where(author_id: author_id) }
 
   include PgSearch::Model
+  accepts_nested_attributes_for :project_datum
   pg_search_scope :text_search, against: %i[name description], associated_against: {
     tags: :name
   }, using: {
