@@ -7,7 +7,7 @@
 
 ## Issue label
 
-Please note:  If you wanted to work on a issue, let us know by leaving a comment on the issue. If someone is already assigned or working on the issue, do not try to start working without asking in a thread. Also let us know later if you are no longer working on it.
+Please note:  If you wanted to work on an issue, let us know by leaving a comment on the issue. If someone is already assigned or working on the issue, do not try to start working without asking in a thread. Also let us know later if you are no longer working on it.
 
 - `maintainers` label are internal tasks that will be completed by a Circuitverse core team member. 
 - [good first issue](https://github.com/CircuitVerse/CircuitVerse/labels/good%20first%20issue) labeled issues are meant for newer developers.
