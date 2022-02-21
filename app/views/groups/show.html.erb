@@ -33,7 +33,7 @@
     <% end %>
   </div>
   <hr>
-  <div class="row center-row groups-members-scroll-row">
+  <div class="<%= policy(@group).admin_access? ? 'row center-row groups-members-scroll-row' : 'row groups-members-scroll-row' %>">
     <%= render partial: "group_members", locals: {group: @group} %>
   </div>
   <div class="row center-row groups-row">
