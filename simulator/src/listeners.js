@@ -8,7 +8,7 @@ import {
 } from './engine';
 import { changeScale } from './canvasApi';
 import { scheduleBackup } from './data/backupCircuit';
-import { hideProperties, deleteSelected, uxvar, fullView } from './ux';
+import { hideProperties, deleteSelected, uxvar, fullView, exitFullView } from './ux';
 import {
     updateRestrictedElementsList, updateRestrictedElementsInScope, hideRestricted, showRestricted,
 } from './restrictedElementDiv';
@@ -44,6 +44,10 @@ export default function startListeners() {
     })
     $('#viewButton').on('click',() => {
         fullView();
+    });
+
+    $(document).on('keyup', function(e) {
+        if (e.key === "Escape") exitFullView();
     });
 
     $('#projectName').on('click',() => {
