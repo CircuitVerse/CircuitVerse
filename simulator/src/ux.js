@@ -13,6 +13,8 @@ import logixFunction from './data';
 import { newCircuit, circuitProperty } from './circuit';
 import modules from './modules';
 import { updateRestrictedElementsInScope } from './restrictedElementDiv';
+import undo from './data/undo';
+import redo from "./data/redo";
 import { paste } from './events';
 import { setProjectName, getProjectName } from './data/save';
 import { changeScale } from './canvasApi';
@@ -71,7 +73,17 @@ function showContextMenu() {
         visibility: 'visible',
         opacity: 1,
     });
-    
+    $("#contextMenu ul li").each(function(idx, li) {
+        var listItem = $(li);
+        if(listItem[0].textContent == "Delete" || listItem[0].textContent == "Copy" || listItem[0].textContent == "Cut") {
+            if(simulationArea.lastSelected.hover == false && simulationArea.multipleObjectSelections.length == 0){
+                listItem[0].style.display='none';
+            }
+            else {
+                listItem[0].style.display='block';
+            }
+        }
+    });
     var windowHeight = $("#simulationArea").height() - $("#contextMenu").height() - 10;
     var windowWidth = $("#simulationArea").width() - $("#contextMenu").width() - 10;
     // for top, left, right, bottom
@@ -142,7 +154,6 @@ function menuItemClicked(id, code="") {
         deleteSelected();
     } else if (id === 4) {
         undo();
-        undo();
     } else if (id === 5) {
         newCircuit();
     } else if (id === 6) {
@@ -190,7 +201,6 @@ export function setupUI() {
         logixFunction[this.id]();
     });
     // var dummyCounter=0;
-   
 
     $('.logixModules').hover(function () {
         // Tooltip can be statically defined in the prototype.
