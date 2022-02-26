@@ -117,6 +117,7 @@ function setupElementLists() {
 
     window.elementHierarchy = metadata.elementHierarchy;
     window.elementPanelList = [];
+    window.elementType = [];
     for (const category in elementHierarchy) {
         let htmlIcons = '';
         const categoryData = elementHierarchy[category];
@@ -125,6 +126,7 @@ function setupElementLists() {
             if (!(element.name).startsWith('verilog')) {
                 htmlIcons += createIcon(element);
                 window.elementPanelList.push(element.label);
+                element.type && window.elementType.push({...[element.label, element.type]})
             }
         }
 
