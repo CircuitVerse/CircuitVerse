@@ -46,7 +46,7 @@ export default function startListeners() {
         fullView();
     });
 
-    $(document).on('keyup', function(e) {
+    $(document).on('keyup', (e) => {
         if (e.key === "Escape") exitFullView();
     });
 
