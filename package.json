@@ -14,7 +14,7 @@
     "build": "node esbuild.config.js"
   },
   "devDependencies": {
-    "@commitlint/cli": "^16.0.0",
+    "@commitlint/cli": "^16.2.1",
     "@commitlint/config-conventional": "^16.0.0",
     "chokidar": "^3.5.3",
     "esbuild-loader": "^2.18.0",
