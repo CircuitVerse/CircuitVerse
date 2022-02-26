@@ -430,10 +430,10 @@ export default function startListeners() {
             return;
         }
         const customFilter = (ele) => {
-            let labelCheck = ele.toLowerCase().includes(value)
+            const labelCheck = ele.toLowerCase().includes(value)
             let typeCheck = false
-            elementType.map((inTyp) => {
-                if (Object.values(inTyp)[0]==ele && Object.values(inTyp)[1].toLowerCase().includes(value)) {
+            elementType.forEach((inTyp) => {
+                if (Object.values(inTyp)[0] == ele && Object.values(inTyp)[1].toLowerCase().includes(value)) {
                     typeCheck = true
                 }
             })
