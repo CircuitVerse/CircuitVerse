@@ -150,6 +150,7 @@ $output-rect: blue;
   color: #fff;
 }
 
+
 .projectName {
   color: #fff;
 }
@@ -228,6 +229,11 @@ $output-rect: blue;
   background: var(--primary);
 }
 
+
+
+.caret-upside {
+  transform: rotate(180deg) translate(0,2px) !important;
+}
 .panel-body {
   color: var(--text-panel);
   border-top: 1px solid var(--br-secondary);
