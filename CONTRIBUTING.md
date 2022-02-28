@@ -81,6 +81,18 @@ Please note:  If you wanted to work on an issue, let us know by leaving a commen
 ## Community
 Discussions about CircuitVerse issues and features take place on the repository's [Discussions](https://github.com/CircuitVerse/CircuitVerse/discussions) sections. Anybody is welcome to join these conversations. See the [README](README.md) for more information on communication channels.
 
+### Financial Contributors
+
+Becoming a [financial contributor](https://opencollective.com/CircuitVerse/contribute) helps us sustain our community and platform.
+
+#### Individuals
+<a href="https://opencollective.com/CircuitVerse"><img src="https://opencollective.com/CircuitVerse/individuals.svg?width=890" alt="Individual financial contributors"></a>
+
+#### Organizations
+Support this project with your organization. Your logo will show up here with a link to your website. [[Contribute](https://opencollective.com/CircuitVerse/contribute)]
+
+<a href="https://opencollective.com/CircuitVerse/organization/0/website"><img src="https://opencollective.com/CircuitVerse/organization/0/avatar.svg" alt="Organization 1"></a>
+
 ### Code Contributors
 
 This project exists because of all the people who have [contributed]((CONTRIBUTING.md)).
