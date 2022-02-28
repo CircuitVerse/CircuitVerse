@@ -47,8 +47,7 @@ gem "jquery-rails"
 
 gem "carrierwave", "~> 2.2"
 
-# gem "rails_admin", "~> 2.2"
-gem "rails_admin", github: 'railsadminteam/rails_admin'
+gem 'rails_admin', ['>= 3.0.0.rc3', '< 4']
 
 # gem 'cancancan', '~>2.0'
 
@@ -92,7 +91,7 @@ gem "pg", "~> 1.3.0"
 gem "meta-tags"
 
 # Notifications
-gem "activity_notification", github: 'tachyons/activity_notification'
+gem "activity_notification"
 gem "webpush"
 
 gem "bootsnap", require: false
@@ -170,3 +169,4 @@ gem "rack-attack"
 gem "jsbundling-rails", "~> 1.0"
 
 gem "stimulus-rails", "~> 1.0"
+gem "sassc-rails"
