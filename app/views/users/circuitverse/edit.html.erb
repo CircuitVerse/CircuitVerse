@@ -1,8 +1,6 @@
 
 <% content_for :title, t("users.circuitverse.edit_profile.title", name: @profile.name ) %>
 
-<link href="/css/typeahead.min.css" rel="stylesheet">
-
 <div class="container projects-new-container">
   <div class="row center-row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -84,13 +82,21 @@
   var searchSelector = 'input.typeahead';
   var bloodhound = new Bloodhound({
     datumTokenizer: function (d) {
-    return Bloodhound.tokenizers.whitespace(d.value);
-  },
+      return Bloodhound.tokenizers.whitespace(d.value);
+    },
     queryTokenizer: Bloodhound.tokenizers.whitespace,
-    remote: '/users/educational_institute/typeahead/%QUERY',
+    remote: {
+      url: '/users/educational_institute/typeahead/',
+      prepare: function(query, settings) {
+        settings.url += encodeURI(query)
+        return settings
+      }
+    },
     limit: 50
   });
+
   bloodhound.initialize();
+  
   $(searchSelector).typeahead(null, {
     displayKey: 'name',
     source: bloodhound.ttAdapter()
