@@ -73,7 +73,7 @@ jobs: # a collection of steps
 
       - run:
           name: Database setup
-          command: bin/rails db:schema:load
+          command: bundle exec rails db:schema:load
 
       - run:
           name: Build assets
