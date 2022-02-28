@@ -142,18 +142,18 @@
             {"name":"Decoder", "label":"Decoder"}
         ],
         "Sequential Elements": [
-            {"name":"DflipFlop", "label":"D flip Flop", "type": "IC74LS74"},
-            {"name":"Dlatch", "label":"D latch", "type": "IC74LS373"},
+            {"name":"DflipFlop", "label":"D flip Flop", "type": "IC7474"},
+            {"name":"Dlatch", "label":"D latch", "type": "IC74373"},
             {"name":"TflipFlop", "label":"T flip Flop"},
-            {"name":"JKflipFlop", "label":"JK flip Flop", "type": "IC74LS76"},
-            {"name":"SRflipFlop", "label":"SR flip Flop", "type": "ICSN74HC00N"},
+            {"name":"JKflipFlop", "label":"JK flip Flop", "type": "IC7476"},
+            {"name":"SRflipFlop", "label":"SR flip Flop", "type": "IC7400N"},
             {"name":"TTY", "label":"TTY"},
             {"name":"Keyboard", "label":"Keyboard"},
             {"name":"Clock", "label":"Clock"},
             {"name":"Rom", "label":"ROM", "type": "MX23C1603"},
             {"name":"RAM", "label":"RAM", "type": "IC7489"},
             {"name":"verilogRAM", "label":"Verilog RAM"},
-            {"name":"EEPROM", "label":"EEPROM", "type": "IC24LC512"}
+            {"name":"EEPROM", "label":"EEPROM", "type": "IC24512"}
         ],
         "Annotation": [
             {"name":"Rectangle", "label":"Rectangle"},
