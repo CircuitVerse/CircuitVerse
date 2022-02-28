@@ -16,7 +16,7 @@ import startEmbedListeners from './embedListeners';
 import './embed';
 import { newCircuit } from './circuit';
 import load from './data/load';
-import save from './data/save';
+import save, { getProjectName } from './data/save';
 import { showTourGuide } from './tutorials';
 import setupModules from './moduleSetup';
 import 'codemirror/lib/codemirror.css';
@@ -163,30 +163,34 @@ export function setup() {
                         simulationArea.changeClockTime(data.timePeriod || 500);
                     }
                     $('.loadingIcon').fadeOut();
+
+                    // here check with the project with same name in save offfline
+                    const projectList = JSON.parse(localStorage.getItem('projectList'));
+                    for (id in projectList){
+                        if(projectList[id] == __projectName){
+                            console.log(checkToSave());
+                            // do some check if they are the same project
+                            // ask for update 
+                            console.log("This project is present....lets check for updates");
+                            const offlinedata = localStorage.getItem(id);
+                            const onlinedata = JSON.stringify(data);
+                            // console.log(offlinedata);
+                            // console.log(onlinedata);
+                            if(offlinedata != onlinedata){
+                                console.log("Difference so prompt user");
+                            }else{
+                                console.log("SAME");
+                            }
+                        }
+                    }
+
                 },
                 failure() {
                     alert('Error: could not load ');
                     $('.loadingIcon').fadeOut();
                 },
             });
-            // here check with the project with same name in save offfline
-            console.log("-----------------");
-            console.log(__logix_project_id);
-            const projectList = JSON.parse(localStorage.getItem('projectList'));
-            let isPresent = false;
-            for (id in projectList){
-                console.log(id);
-                console.log(projectList[id]);
-                if(projectList[id]== __logix_project_id){
-                    isPresent = true;
-                }
-            }
-            console.log("-----------------");  
-            console.log(isPresent);
-            if(isPresent){
-                // do some check if they are the same project
-                // ask for update 
-            } 
+
         } else if (localStorage.getItem('recover_login') && userSignedIn) {
             // Restore unsaved data and save
             var data = JSON.parse(localStorage.getItem('recover_login'));

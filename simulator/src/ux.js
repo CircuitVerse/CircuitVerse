@@ -62,13 +62,13 @@ function hideContextMenu() {
     }, 200); // Hide after 2 sec
 }
 
-var timeCounter = 0, savingstart = false;
+// smaller interval || bigger interval
+var timeCounter = 0, autosavingstart = false, smallInterval = 5, bigInterval = 300;
 setInterval(()=>{
     timeCounter = timeCounter + 1;
     // if number of changes > 5 || on every 60 * 5 = 300sec (5 min) autosave
     // for the first time we wait to start saving until > 5 changes are made
-    if(getCountValue() > 5 || (timeCounter >= 60 && savingstart === true)){
-        console.log(__logix_project_id);
+    if(getCountValue() > 5 || (timeCounter >= (bigInterval / smallInterval) && autosavingstart === true)){
         let projectName = getProjectName();
         if(projectName == undefined){
             projectName = 'Untitled';
@@ -81,13 +81,13 @@ setInterval(()=>{
             recovery(projectName);
         }
 
-        savingstart = true;
+        autosavingstart = true;
         setCountValue(0);
-        if(timeCounter >= 60){
+        if(timeCounter >= (bigInterval / smallInterval)){
             timeCounter = 0;
         }
     }
-}, 5000);
+}, smallInterval*1000);
 
 /**
  * Function displays context menu

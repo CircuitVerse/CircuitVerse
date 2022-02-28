@@ -15,9 +15,15 @@ import C2S from '../../vendor/canvas2svg';
 
 var projectName = undefined;
 
+var isAutoSaving = false;
+export function isAutosaveCall() {
+    return isAutoSaving;
+}
 
 export function autosave(name){
+    isAutoSaving = true;
     saveOffline();
+    isAutoSaving = false;
     localStorage.removeItem('recover');
 }
 

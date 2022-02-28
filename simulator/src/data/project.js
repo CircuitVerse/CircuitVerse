@@ -6,7 +6,7 @@
 import { resetScopeList, scopeList, newCircuit } from '../circuit';
 import { showMessage, showError, generateId } from '../utils';
 import { checkIfBackup } from './backupCircuit';
-import {generateSaveData, getProjectName, setProjectName} from './save';
+import {isAutosaveCall, generateSaveData, getProjectName, setProjectName} from './save';
 import load from './load';
 
 /**
@@ -75,7 +75,10 @@ export function saveOffline() {
     const temp = JSON.parse(localStorage.getItem('projectList')) || {};
     temp[projectId] = getProjectName();
     localStorage.setItem('projectList', JSON.stringify(temp));
-    showMessage(`We have saved your project: ${getProjectName()} in your browser's localStorage`);
+    // if the call is from autosave then dont display showMessage (as it is not required)
+    if(!isAutosaveCall()){
+        showMessage(`We have saved your project: ${getProjectName()} in your browser's localStorage`);
+    }
 }
 
 /**
