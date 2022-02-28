@@ -74,7 +74,7 @@ gem "i18n-js"
 gem "ims-lti", "~> 1.2", "< 2.0"
 
 # Use Redis adapter to run Action Cable in production
-gem 'redis', '~> 4.5'
+gem 'redis', '~> 4.6'
 gem 'hiredis'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
