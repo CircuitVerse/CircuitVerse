@@ -14,7 +14,7 @@
 //= require jquery
 //= require rails-ujs
 //= require commontator/application
-//= require bootstrap-typeahead-rails
+//= require twitter/typeahead.min
 //= require bootstrap/dist/js/bootstrap.min.js
 //= require restrictElements.js
 //= require time.js

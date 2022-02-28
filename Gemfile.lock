@@ -119,8 +119,6 @@ GEM
     bindex (0.8.1)
     bootsnap (1.9.3)
       msgpack (~> 1.0)
-    bootstrap-typeahead-rails (0.10.5.1)
-      railties (>= 3.0)
     bugsnag (6.24.2)
       concurrent-ruby (~> 1.0)
     builder (3.2.4)
@@ -622,6 +620,10 @@ GEM
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
+    twitter-typeahead-rails (0.11.1)
+      actionpack (>= 3.1)
+      jquery-rails
+      railties (>= 3.1)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     tzinfo-data (1.2021.1)
@@ -669,7 +671,6 @@ DEPENDENCIES
   ahoy_matey
   aws-sdk-rails
   bootsnap
-  bootstrap-typeahead-rails
   bugsnag (~> 6.24)
   byebug
   capybara (~> 3.36)
@@ -748,6 +749,7 @@ DEPENDENCIES
   sunspot_solr
   terser
   turbolinks (~> 5)
+  twitter-typeahead-rails
   tzinfo-data
   web-console (>= 3.3.0)
   webdrivers (~> 5.0)
