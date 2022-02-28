@@ -6,7 +6,7 @@ import { backUp } from './backupCircuit';
 import simulationArea from '../simulationArea';
 import backgroundArea from '../backgroundArea';
 import { findDimensions } from '../canvasApi';
-import { projectSavedSet } from './project';
+import { projectSavedSet, saveOffline } from './project';
 import { colors } from '../themer/themer';
 import {layoutModeGet, toggleLayoutMode} from '../layoutMode';
 import {verilogModeGet} from '../Verilog2CV';
@@ -14,6 +14,16 @@ import domtoimage from 'dom-to-image';
 import C2S from '../../vendor/canvas2svg';
 
 var projectName = undefined;
+
+
+export function autosave(name){
+    saveOffline();
+}
+
+export function recovery(name){
+    const data = generateSaveData(name);
+    localStorage.setItem('recover', data);
+}
 
 /**
  * Function to set the name of project.

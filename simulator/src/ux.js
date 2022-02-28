@@ -14,14 +14,14 @@ import { newCircuit, circuitProperty } from './circuit';
 import modules from './modules';
 import { updateRestrictedElementsInScope } from './restrictedElementDiv';
 import { paste } from './events';
-import { setProjectName, getProjectName } from './data/save';
+import { setProjectName, getProjectName, autosave, recovery } from './data/save';
 import { changeScale } from './canvasApi';
 import updateTheme from "./themer/themer";
-import { generateImage, generateSaveData } from './data/save';
 import { setupVerilogExportCodeWindow } from './verilog';
 import { setupBitConvertor} from './utils';
 import { updateTestbenchUI, setupTestbenchUI } from './testbench';
 import { applyVerilogTheme } from './Verilog2CV';
+import { setCountValue, getCountValue } from './listeners';
 
 export const uxvar = {
     smartDropXX: 50,
@@ -61,6 +61,30 @@ function hideContextMenu() {
         ctxPos.visible = false;
     }, 200); // Hide after 2 sec
 }
+
+var timeCounter = 0, savingstart = false;
+setInterval(()=>{
+    timeCounter = timeCounter + 1;
+    if(getCountValue() > 5 || (timeCounter >= 12 && savingstart === true)){
+        // get project name
+        console.log("inside");
+        let projectName = getProjectName();
+        if(projectName == undefined){
+            projectName = 'Untitled';
+        } 
+        console.log(projectId);
+        // recovering project
+        console.log(localStorage.getItem(projectId));
+        if (localStorage.getItem(projectId) !== null) {
+            autosave(projectName);
+        }else{
+            recovery(projectName);
+        }
+        savingstart = true;
+        setCountValue(0);
+        timeCounter = 0;
+    }
+}, 5000);
 
 /**
  * Function displays context menu

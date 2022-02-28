@@ -366,9 +366,9 @@ function generateSaveData(name) {
 
     // Prompts for name, defaults to Untitled
     name = projectName || name || prompt("Enter Project Name:") || "Untitled";
-    data["name"] = stripTags(name)
+    data["name"] = stripTags(name);
     projectName = data["name"];
-    setProjectName(projectName)
+    setProjectName(projectName);
 
     // Save project details
     data["timePeriod"] = simulationArea.timePeriod;
