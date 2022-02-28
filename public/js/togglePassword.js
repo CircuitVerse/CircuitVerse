@@ -9,3 +9,15 @@ function togglePassword() {
         $('#toggle-icon').removeClass('fa-eye-slash');
     }
 }
+
+function togglePasswordConfirmation() {
+    if ($('.users-password-confirmation-input').attr('type') === 'text') {
+        $('.users-password-confirmation-input').attr('type', 'password');
+        $('#confirmation-toggle-icon').addClass('fa-eye-slash');
+        $('#confirmation-toggle-icon').removeClass('fa-eye');
+    } else {
+        $('.users-password-confirmation-input').attr('type', 'text');
+        $('#confirmation-toggle-icon').addClass('fa-eye');
+        $('#confirmation-toggle-icon').removeClass('fa-eye-slash');
+    }
+}

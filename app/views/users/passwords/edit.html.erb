@@ -26,20 +26,30 @@
                 <%= t("users.minimum_password_length", minimum_password_length: @minimum_password_length ) %>
               <% end %>
             </h6>
-            <div class="input-group">
-              <%= f.password_field :password, autofocus: true, autocomplete: "off", class:"form-control form-input" %>
+            <div class="input-group form-input">
+              <%= f.password_field :password, autofocus: true, autocomplete: "off", class:"form-control users-password-input" %>
+              <div class="input-group-addon ml-3 mt-2" onclick="togglePassword()">
+              <i class="far fa-eye-slash password-icon" aria-hidden="true" id="toggle-icon"></i>
+            </div>
             </div>
           </div>
-          <div class="field form-group">
+          <div class="field form-group ">
             <h6><%= f.label :password_confirmation %></h6>
-            <div class="input-group">
-              <%= f.password_field :password_confirmation, autocomplete: "off", class:"form-control form-input" %>
+            <div class="input-group form-input">
+              <%= f.password_field :password_confirmation, autofocus: true, autocomplete: "off", class:"form-control users-password-confirmation-input" %>
+              <div class="input-group-addon ml-3 mt-2" onclick="togglePasswordConfirmation()">
+              <i class="far fa-eye-slash password-icon" aria-hidden="true" id="confirmation-toggle-icon"></i>
+            </div>
             </div>
           </div>
           <div class="field form-group">
             <div class="input-group">
               <%= f.submit t("users.passwords.change_password") ,class:"btn primary-button users-primary-button" %>
-              <%= link_to t("users.passwords.link_to_login_page"), new_user_session_path, class: "anchor-text mt-2" %>
+            </div>
+          </div>
+          <div class="field form-group">
+            <div class="input-group">
+            <%= link_to t("users.passwords.link_to_login_page"), new_user_session_path, class: "anchor-text mt-2" %>
             </div>
           </div>
           <div class="field form-group">
@@ -54,3 +64,5 @@
     </div>
   </div>
 </div>
+
+<script src="/js/togglePassword.js"></script>
