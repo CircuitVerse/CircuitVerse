@@ -66,20 +66,19 @@ var timeCounter = 0, savingstart = false;
 setInterval(()=>{
     timeCounter = timeCounter + 1;
     if(getCountValue() > 5 || (timeCounter >= 12 && savingstart === true)){
-        // get project name
-        console.log("inside");
+        console.log(__logix_project_id);
         let projectName = getProjectName();
         if(projectName == undefined){
             projectName = 'Untitled';
         } 
-        console.log(projectId);
-        // recovering project
-        console.log(localStorage.getItem(projectId));
-        if (localStorage.getItem(projectId) !== null) {
+
+        // if project already present in local storahe || when we load project frpm online..any changes autosaved offline
+        if (localStorage.getItem(projectId) !== null || __logix_project_id != 0) {
             autosave(projectName);
         }else{
             recovery(projectName);
         }
+
         savingstart = true;
         setCountValue(0);
         timeCounter = 0;

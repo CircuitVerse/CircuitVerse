@@ -169,6 +169,24 @@ export function setup() {
                     $('.loadingIcon').fadeOut();
                 },
             });
+            // here check with the project with same name in save offfline
+            console.log("-----------------");
+            console.log(__logix_project_id);
+            const projectList = JSON.parse(localStorage.getItem('projectList'));
+            let isPresent = false;
+            for (id in projectList){
+                console.log(id);
+                console.log(projectList[id]);
+                if(projectList[id]== __logix_project_id){
+                    isPresent = true;
+                }
+            }
+            console.log("-----------------");  
+            console.log(isPresent);
+            if(isPresent){
+                // do some check if they are the same project
+                // ask for update 
+            } 
         } else if (localStorage.getItem('recover_login') && userSignedIn) {
             // Restore unsaved data and save
             var data = JSON.parse(localStorage.getItem('recover_login'));

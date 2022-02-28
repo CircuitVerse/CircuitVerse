@@ -18,6 +18,7 @@ var projectName = undefined;
 
 export function autosave(name){
     saveOffline();
+    localStorage.removeItem('recover');
 }
 
 export function recovery(name){
