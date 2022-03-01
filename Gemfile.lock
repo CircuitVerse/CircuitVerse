@@ -249,8 +249,8 @@ GEM
     geocoder (1.7.3)
     globalid (1.0.0)
       activesupport (>= 5.0)
-    hairtrigger (0.2.24)
-      activerecord (>= 5.0, < 7)
+    hairtrigger (0.2.25)
+      activerecord (>= 5.0, < 8)
       ruby2ruby (~> 2.4)
       ruby_parser (~> 3.10)
     haml (5.2.2)
@@ -535,8 +535,8 @@ GEM
     ruby2ruby (2.4.4)
       ruby_parser (~> 3.1)
       sexp_processor (~> 4.6)
-    ruby_parser (3.15.1)
-      sexp_processor (~> 4.9)
+    ruby_parser (3.18.1)
+      sexp_processor (~> 4.16)
     rubyzip (2.3.2)
     safely_block (0.3.0)
       errbase (>= 0.1.1)
@@ -559,7 +559,7 @@ GEM
       childprocess (>= 0.5, < 5.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2)
-    sexp_processor (4.15.2)
+    sexp_processor (4.16.0)
     shoulda-matchers (5.1.0)
       activesupport (>= 5.2.0)
     sidekiq (6.4.1)
@@ -689,7 +689,7 @@ DEPENDENCIES
   font-awesome-sass (~> 5.13.1)
   friendly_id (~> 5.4.2)
   geocoder
-  hairtrigger (~> 0.2.24)
+  hairtrigger (~> 0.2.25)
   hirb
   hiredis
   http
