@@ -227,3 +227,27 @@
     padding-top: 10px;
   }
 }
+
+@media(max-width:360px) {
+  .centering-form {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+
+  .centering-form-col {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .navbar-search-bar-select {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .navbar-search-container {
+    margin-top: 15px;
+  }
+}

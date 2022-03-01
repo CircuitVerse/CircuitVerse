@@ -1,6 +1,7 @@
 .about-social-anchor {
   color: $black;
   text-decoration: none;
+  word-wrap: break-word;
 
   &:hover {
     color: $black;
@@ -107,6 +108,13 @@
   .team-underline:hover::before {
     left: 0;
     right: auto;
+    width: 100%;
+  }
+}
+
+@media(max-width:530px){
+  .about-social-anchor {
+    padding-left: 20px;
     width: 100%;
   }
 }
