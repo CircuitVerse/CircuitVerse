@@ -86,7 +86,7 @@ gem "http"
 
 # Database
 
-gem "pg", "~> 1.3.0"
+gem "pg", "~> 1.3.3"
 
 gem "meta-tags"
 
@@ -161,7 +161,7 @@ gem "newrelic_rpm", "~> 8.5"
 
 gem "oj", "~> 3.13"
 
-gem "hairtrigger", "~> 0.2.24"
+gem "hairtrigger", "~> 0.2.25"
 
 # Used for rate limiting
 gem "rack-attack"
