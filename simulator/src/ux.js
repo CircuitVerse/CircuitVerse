@@ -20,7 +20,6 @@ import updateTheme from "./themer/themer";
 import { setupVerilogExportCodeWindow } from './verilog';
 import { setupBitConvertor} from './utils';
 import { updateTestbenchUI, setupTestbenchUI } from './testbench';
-import { applyVerilogTheme } from './Verilog2CV';
 import { setCountValue, getCountValue } from './listeners';
 
 export const uxvar = {
@@ -62,19 +61,19 @@ function hideContextMenu() {
     }, 200); // Hide after 2 sec
 }
 
-// smaller interval || bigger interval
-var timeCounter = 0, autosavingstart = false, smallInterval = 5, bigInterval = 300;
+// smaller interval || bigger interval || changeCounterLimit = 5
+var timeCounter = 0, autosavingstart = false, smallInterval = 5, bigInterval = 300, changeCounterLimit = 5;
 setInterval(()=>{
     timeCounter = timeCounter + 1;
     // if number of changes > 5 || on every 60 * 5 = 300sec (5 min) autosave
     // for the first time we wait to start saving until > 5 changes are made
-    if(getCountValue() > 5 || (timeCounter >= (bigInterval / smallInterval) && autosavingstart === true)){
+    if(getCountValue() > changeCounterLimit || (timeCounter >= (bigInterval / smallInterval) && autosavingstart === true)){
         let projectName = getProjectName();
         if(projectName == undefined){
             projectName = 'Untitled';
         } 
 
-        // if project already present in local storahe || when we load project frpm online..any changes autosaved offline
+        // if project already present in local storage || when we load project frpm online..any changes autosaved offline
         if (localStorage.getItem(projectId) !== null || __logix_project_id != 0) {
             autosave(projectName);
         }else{
@@ -218,12 +217,6 @@ export function setupUI() {
         logixFunction[this.id]();
     });
     // var dummyCounter=0;
-
-    // calling apply on select theme in dropdown
-    $('.applyTheme').on('change',function () {
-        applyVerilogTheme();
-    });
-   
 
     $('.logixModules').hover(function () {
         // Tooltip can be statically defined in the prototype.

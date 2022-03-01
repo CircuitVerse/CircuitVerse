@@ -106,8 +106,6 @@ export default function startListeners() {
     });
     document.getElementById('simulationArea').addEventListener('mouseup', (e) => {
         changeCounter++;
-        console.log(changeCounter);
-        console.log("mouse up");
         if (simulationArea.lastSelected) simulationArea.lastSelected.newElement = false;
         /*
         handling restricted circuit elements
@@ -133,7 +131,6 @@ export default function startListeners() {
 
     window.addEventListener('keyup', e => {
         changeCounter++;
-        console.log("key up" + changeCounter);
         scheduleUpdate(1);
         simulationArea.shiftDown = e.shiftKey;
         if (e.keyCode == 16) {
@@ -318,6 +315,7 @@ export default function startListeners() {
     }
 
     document.addEventListener('cut', (e) => {
+        changeCounter++;
         if (verilogModeGet()) return;
         if (document.activeElement.tagName == 'INPUT') return;
         if (document.activeElement.tagName != 'BODY') return;
@@ -345,6 +343,7 @@ export default function startListeners() {
     });
 
     document.addEventListener('copy', (e) => {
+        changeCounter++;
         if (verilogModeGet()) return;
         if (document.activeElement.tagName == 'INPUT') return;
         if (document.activeElement.tagName != 'BODY') return;
@@ -371,6 +370,7 @@ export default function startListeners() {
     });
 
     document.addEventListener('paste', (e) => {
+        changeCounter++;
         if (document.activeElement.tagName == 'INPUT') return;
         if (document.activeElement.tagName != 'BODY') return;
 
