@@ -173,7 +173,7 @@ export function setup() {
                             const offlineLastSaved = JSON.parse(localStorage.getItem(id)).saveTime;
                             const onlineLastSaved = data.saveTime;
                             // if offline last saved is more recent
-                            if (onlineLastSaved  < offlineLastSaved) {
+                            if (onlineLastSaved < offlineLastSaved) {
                                 showMessage(`${__projectName} has some recent unsaved edits which are saved offline`);
                             } else {
                                 showMessage(`${__projectName} is up to date`);

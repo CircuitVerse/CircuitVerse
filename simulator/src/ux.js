@@ -14,7 +14,9 @@ import { newCircuit, circuitProperty } from './circuit';
 import modules from './modules';
 import { updateRestrictedElementsInScope } from './restrictedElementDiv';
 import { paste } from './events';
-import { setProjectName, getProjectName, autosave, recovery } from './data/save';
+import {
+    setProjectName, getProjectName, autosave, recovery,
+} from './data/save';
 import { changeScale } from './canvasApi';
 import updateTheme from "./themer/themer";
 import { setupVerilogExportCodeWindow } from './verilog';
@@ -78,7 +80,7 @@ setInterval(()=> {
         } 
 
         // if project already present in local storage || when we load project frpm online..any changes autosaved offline
-        if (localStorage.getItem(projectId) !== null || __logix_project_id !== 0) {
+        if (__logix_project_id !== 0 || localStorage.getItem(projectId) !== null) {
             autosave(projectName);
         } else {
             recovery(projectName);
