@@ -66,7 +66,7 @@ export function showMessage(mes) {
     setTimeout(() => {
         prevShowMessage = undefined;
         $(`#${id}`).fadeOut();
-    }, 2500);
+    }, 5000);
 }
 
 export function distance(x1, y1, x2, y2) {

@@ -99,7 +99,7 @@ function checkToSave() {
  * @category data
  */
 window.onbeforeunload = function () {
-    if (projectSaved || embed) return;
+    if (projectSavedSet() || embed) return;
 
     if (!checkToSave()) return;
 
