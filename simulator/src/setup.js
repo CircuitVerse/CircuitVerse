@@ -148,7 +148,6 @@ export function setup() {
     if (!embed) { setupUI(); }
     startListeners();
     if (!embed) { keyBinder(); }
-    
     // Load project data after 1 second - needs to be improved, delay needs to be eliminated
     setTimeout(() => {
         if (__logix_project_id != 0) {
@@ -166,22 +165,21 @@ export function setup() {
 
                     // since we want to modify further saves in that instance of saved offline project
                     // if not done then each time new saved instance will be formed
-                    window.projectId  = data.projectId;
+                    window.projectId = data.projectId;
                     const projectList = JSON.parse(localStorage.getItem('projectList'));
-                    for (id in projectList){
-                        if(id === data.projectId){
-                            // added new <<saveTime>> property in data object 
-                            const offlineLastSaved= JSON.parse(localStorage.getItem(id)).saveTime;
+                    for (id in projectList) {
+                        if (id === data.projectId) {
+                            // added new <<saveTime>> property in data object
+                            const offlineLastSaved = JSON.parse(localStorage.getItem(id)).saveTime;
                             const onlineLastSaved = data.saveTime;
                             // if offline last saved is more recent
-                            if(onlineLastSaved  < offlineLastSaved){
+                            if (onlineLastSaved  < offlineLastSaved) {
                                 showMessage(`${__projectName} has some recent unsaved edits which are saved offline`);
-                            }else{
+                            } else {
                                 showMessage(`${__projectName} is up to date`);
                             }
                         }
                     }
-
                 },
                 failure() {
                     alert('Error: could not load ');

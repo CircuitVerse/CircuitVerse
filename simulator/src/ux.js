@@ -62,31 +62,35 @@ function hideContextMenu() {
 }
 
 // smaller interval || bigger interval || changeCounterLimit = 5
-var timeCounter = 0, autosavingstart = false, smallInterval = 5, bigInterval = 300, changeCounterLimit = 5;
-setInterval(()=>{
-    timeCounter = timeCounter + 1;
+var timeCounter = 0;
+var autosavingstart = false;
+var smallInterval = 5;
+var bigInterval = 300;
+var changeCounterLimit = 5;
+setInterval(()=> {
+    timeCounter++;
     // if number of changes > 5 || on every 60 * 5 = 300sec (5 min) autosave
     // for the first time we wait to start saving until > 5 changes are made
     if(getCountValue() > changeCounterLimit || (timeCounter >= (bigInterval / smallInterval) && autosavingstart === true)){
         let projectName = getProjectName();
-        if(projectName == undefined){
+        if (projectName == undefined) {
             projectName = 'Untitled';
         } 
 
         // if project already present in local storage || when we load project frpm online..any changes autosaved offline
-        if (localStorage.getItem(projectId) !== null || __logix_project_id != 0) {
+        if (localStorage.getItem(projectId) !== null || __logix_project_id !== 0) {
             autosave(projectName);
-        }else{
+        } else {
             recovery(projectName);
         }
 
         autosavingstart = true;
         setCountValue(0);
-        if(timeCounter >= (bigInterval / smallInterval)){
+        if (timeCounter >= (bigInterval / smallInterval)) {
             timeCounter = 0;
         }
     }
-}, smallInterval*1000);
+}, smallInterval * 1000);
 
 /**
  * Function displays context menu

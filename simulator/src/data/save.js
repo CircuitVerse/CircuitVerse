@@ -15,23 +15,6 @@ import C2S from '../../vendor/canvas2svg';
 
 var projectName = undefined;
 
-var isAutoSaving = false;
-export function isAutosaveCall() {
-    return isAutoSaving;
-}
-
-export function autosave(name){
-    isAutoSaving = true;
-    saveOffline();
-    isAutoSaving = false;
-    localStorage.removeItem('recover');
-}
-
-export function recovery(name){
-    const data = generateSaveData(name);
-    localStorage.setItem('recover', data);
-}
-
 /**
  * Function to set the name of project.
  * @param {string} name - name for project
@@ -424,4 +407,21 @@ export default async function save() {
 
     // Restore everything
     resetup();
+}
+
+var isAutoSaving = false;
+export function isAutosaveCall() {
+    return isAutoSaving;
+}
+
+export function autosave(name) {
+    isAutoSaving = true;
+    saveOffline();
+    isAutoSaving = false;
+    localStorage.removeItem('recover');
+}
+
+export function recovery(name) {
+    const data = generateSaveData(name);
+    localStorage.setItem('recover', data);
 }
