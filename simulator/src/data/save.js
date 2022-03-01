@@ -102,7 +102,8 @@ export function generateSaveData(name) {
     data.projectId = projectId;
     data.focussedCircuit = globalScope.id;
     data.orderedTabs = getTabsOrder();
-
+    // Time of the save instance
+    data.saveTime = Date.now();
     // Project Circuits, each scope is one circuit
     data.scopes = [];
     const dependencyList = {};

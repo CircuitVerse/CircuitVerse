@@ -168,15 +168,10 @@ export function setup() {
                     const projectList = JSON.parse(localStorage.getItem('projectList'));
                     for (id in projectList){
                         if(projectList[id] == __projectName){
-                            console.log(checkToSave());
-                            // do some check if they are the same project
-                            // ask for update 
-                            console.log("This project is present....lets check for updates");
-                            const offlinedata = localStorage.getItem(id);
-                            const onlinedata = JSON.stringify(data);
-                            // console.log(offlinedata);
-                            // console.log(onlinedata);
-                            if(offlinedata != onlinedata){
+                            // added new <<saveTime>> property in data object 
+                            const offlinedata = JSON.parse(localStorage.getItem(id));
+                            const onlinedata = data;
+                            if(offlinedata.saveTime > onlinedata.saveTime){
                                 console.log("Difference so prompt user");
                             }else{
                                 console.log("SAME");
