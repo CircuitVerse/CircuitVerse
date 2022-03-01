@@ -618,6 +618,8 @@ export function exitFullView(){
     $('#tabsBar').show();
     $('#exitViewBtn').remove();
     $('#moduleProperty').show();
+    $('.timing-diagram-panel').show();
+    $('.testbench-manual-panel').show();
 }
 
 export function fullView () {
@@ -627,6 +629,8 @@ export function fullView () {
     $('.report-sidebar').hide()
     $('#tabsBar').hide()
     $('#moduleProperty').hide()
+    $('.timing-diagram-panel').hide();
+    $('.testbench-manual-panel').hide();
     $('#exitView').append(markUp);
     $('#exitViewBtn').on('click', exitFullView);
 }
