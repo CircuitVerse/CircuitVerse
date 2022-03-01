@@ -1386,10 +1386,10 @@ css-tree@1.1.3:
     mdn-data "2.0.14"
     source-map "^0.6.1"
 
-css-vars@^2.2.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/css-vars/-/css-vars-2.3.0.tgz#ea302c3cf00804513048df38f424213f987d32e8"
-  integrity sha512-AGvTsGrZJqyxQ15YuifOb1Bp3pjjYeawdljPxfqQpoUful+xJ4RYDlbuaAnTVoB98DLLWJ65/hIf84Ys7NbxQw==
+css-vars@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/css-vars/-/css-vars-2.4.0.tgz#79b65417fa91fafea779dcc243f9743a633add0c"
+  integrity sha512-MS0OxeLvWcKKNTvl6pvWbbjJKW1Xo4N05CPFs2244sBI2225h8hkQub9Q44krdl7Vskg3l0wmfGEQXsnHhQsMQ==
 
 cssesc@^3.0.0:
   version "3.0.0"
@@ -4001,10 +4001,10 @@ sass@1.47.0:
     immutable "^4.0.0"
     source-map-js ">=0.6.2 <2.0.0"
 
-sass@^1.49.8:
-  version "1.49.8"
-  resolved "https://registry.yarnpkg.com/sass/-/sass-1.49.8.tgz#9bbbc5d43d14862db07f1c04b786c9da9b641828"
-  integrity sha512-NoGOjvDDOU9og9oAxhRnap71QaTjjlzrvLnKecUJ3GxhaQBrV6e7gPuSPF28u1OcVAArVojPAe4ZhOXwwC4tGw==
+sass@^1.49.9:
+  version "1.49.9"
+  resolved "https://registry.yarnpkg.com/sass/-/sass-1.49.9.tgz#b15a189ecb0ca9e24634bae5d1ebc191809712f9"
+  integrity sha512-YlYWkkHP9fbwaFRZQRXgDi3mXZShslVmmo+FVK3kHLUELHHEYrCmL1x6IUjC7wLS6VuJSAFXRQS/DxdsC4xL1A==
   dependencies:
     chokidar ">=3.0.0 <4.0.0"
     immutable "^4.0.0"
