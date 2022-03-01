@@ -284,7 +284,7 @@ GEM
     ims-lti (1.2.4)
       builder (>= 1.0, < 4.0)
       oauth (>= 0.4.5, < 0.6)
-    inline_svg (1.7.2)
+    inline_svg (1.8.0)
       activesupport (>= 3.0)
       nokogiri (>= 1.6)
     invisible_captcha (2.0.0)
@@ -657,7 +657,7 @@ GEM
       will_paginate (>= 3.0.3)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.5.3)
+    zeitwerk (2.5.4)
 
 PLATFORMS
   ruby
