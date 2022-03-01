@@ -477,7 +477,7 @@ GEM
       ffi (~> 1.0)
     recaptcha (5.8.1)
       json
-    redis (4.5.1)
+    redis (4.6.0)
     regexp_parser (2.2.0)
     remotipart (1.4.4)
     responders (3.0.1)
@@ -727,7 +727,7 @@ DEPENDENCIES
   rails-i18n (~> 7.0.1)
   rails_admin (~> 2.2)
   recaptcha
-  redis (~> 4.5)
+  redis (~> 4.6)
   rspec-rails (~> 5.1)
   rspec_junit_formatter
   rubocop
