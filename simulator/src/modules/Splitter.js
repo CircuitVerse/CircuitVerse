@@ -38,7 +38,7 @@ export default class Splitter extends CircuitElement {
         */
         this.rectangleObject = false;
 
-        this.bitWidthSplit = bitWidthSplit || (prompt('Enter bitWidth Split') || `${'1 '.repeat((bitWidth || 1) - 1)}1`).split(' ').filter((lambda) => lambda !== '').map((lambda) => parseInt(lambda, 10) || 1);
+        this.bitWidthSplit = bitWidthSplit || (prompt('Enter bitWidth Split') || `${'1 '.repeat((this.bitWidth || 1) - 1)}1`).split(' ').filter((lambda) => lambda !== '').map((lambda) => parseInt(lambda, 10) || 1);
         this.splitCount = this.bitWidthSplit.length;
 
         this.setDimensions(10, (this.splitCount - 1) * 10 + 10);
