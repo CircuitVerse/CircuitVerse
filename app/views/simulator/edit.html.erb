@@ -288,12 +288,40 @@
   <span class="fas fa-minus-square minimize"></span>
   <span class="fas fa-external-link-square-alt maximize"></span>
   </div>
+
   <div class="panel-body">
     <div class="layout-body">
       <button class="largeButton btn logixButton btn-xs custom-btn--tertiary" id="resetVerilogCode">Reset Code</button>
       <button class="largeButton btn logixButton btn-xs custom-btn--primary" id="saveVerilogCode">Save Code</button>
       <div id="verilogOutput">
       This is an experimental module. The code is not saved unless the "Save Code" button is clicked.
+      </div>
+    </div>
+  </div>
+
+  <div class="panel-header text-center">Apply Themes</div>
+  <div class="panel-body">
+    <div class="layout-body">
+      <div>
+        <p class="text-center mb-2">Select a theme: </p>
+          <select id="selectVerilogTheme" class="applyTheme" style="width:90%;">    
+            <optgroup label="Light Themes">     
+              <option value="1">default</option>
+              <option value="2">solarized</option>
+              <option value="3">elegant</option>
+              <option value="4">neat</option>
+              <option value="5">idea</option>
+              <option value="6">neo</option>
+            </optgroup>
+            <optgroup label="Dark Themes">
+              <option value="7">blackboard</option>
+              <option>cobalt</option>
+              <option>night</option>
+              <option>the-matrix</option>
+              <option>midnight</option>
+              <option>monokai</option>
+            </optgroup>
+          </select>
       </div>
     </div>
   </div>
