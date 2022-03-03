@@ -119,8 +119,6 @@ GEM
     bindex (0.8.1)
     bootsnap (1.9.3)
       msgpack (~> 1.0)
-    bootstrap-typeahead-rails (0.10.5.1)
-      railties (>= 3.0)
     bugsnag (6.24.2)
       concurrent-ruby (~> 1.0)
     builder (3.2.4)
@@ -670,7 +668,6 @@ DEPENDENCIES
   ahoy_matey
   aws-sdk-rails
   bootsnap
-  bootstrap-typeahead-rails
   bugsnag (~> 6.24)
   byebug
   capybara (~> 3.36)
