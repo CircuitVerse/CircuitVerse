@@ -28,7 +28,7 @@
             </h6>
             <div class="input-group form-input">
               <%= f.password_field :password, autofocus: true, autocomplete: "off", class:"form-control users-password-input" %>
-              <div class="input-group-addon ml-3 mt-2" onclick="togglePassword(0)">
+              <div class="input-group-addon ml-3 mt-2" onclick="togglePassword()">
               <i class="far fa-eye-slash password-icon" aria-hidden="true" id="toggle-icon"></i>
               </div>
             </div>
@@ -37,7 +37,7 @@
             <h6><%= f.label :password_confirmation %></h6>
             <div class="input-group form-input">
               <%= f.password_field :password_confirmation, autofocus: true, autocomplete: "off", class:"form-control users-password-confirmation-input" %>
-              <div class="input-group-addon ml-3 mt-2" onclick="togglePassword(1)">
+              <div class="input-group-addon ml-3 mt-2" onclick="togglePasswordConfirmation()">
               <i class="far fa-eye-slash password-icon" aria-hidden="true" id="confirmation-toggle-icon"></i>
               </div>
             </div>
