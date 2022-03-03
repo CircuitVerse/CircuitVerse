@@ -72,7 +72,7 @@ GEM
     acts_as_votable (0.13.2)
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
-    ahoy_matey (4.0.2)
+    ahoy_matey (4.0.3)
       activesupport (>= 5.2)
       device_detector
       safely_block (>= 0.2.1)
@@ -172,7 +172,7 @@ GEM
     crass (1.0.6)
     css_parser (1.7.1)
       addressable
-    device_detector (1.0.6)
+    device_detector (1.0.7)
     devise (4.8.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -196,7 +196,7 @@ GEM
       rainbow
       rubocop
       smart_properties
-    errbase (0.2.1)
+    errbase (0.2.2)
     erubi (1.10.0)
     execjs (2.7.0)
     factory_bot (6.2.0)
