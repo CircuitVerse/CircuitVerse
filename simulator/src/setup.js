@@ -29,6 +29,7 @@ import { setupCodeMirrorEnvironment } from './Verilog2CV';
 import { keyBinder } from './hotkey_binder/keyBinder';
 import '../vendor/jquery-ui.min.css';
 import '../vendor/jquery-ui.min';
+import { recoverProject } from './data/project';
 
 window.width = undefined;
 window.height = undefined;
@@ -196,7 +197,8 @@ export function setup() {
             save();
         } else if (localStorage.getItem('recover')) {
             // Restore unsaved data which didn't get saved due to error
-            showMessage("We have detected that you did not save your last work. Don't worry we have recovered them. Access them using Project->Recover");
+            // showMessage("We have detected that you did not save your last work. Don't worry we have recovered them. Access them using Project->Recover");
+            recoverProject();
         }
     }, 1000);
 

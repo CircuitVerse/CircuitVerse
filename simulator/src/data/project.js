@@ -16,15 +16,30 @@ import load from './load';
  * @category data
  */
 export function recoverProject() {
+    $('#openProjectDialog').empty();
+    $('#openProjectDialog')[0].title = "Recover Project";
+    let flag = true;
     if (localStorage.getItem('recover')) {
+        flag = false;
         var data = JSON.parse(localStorage.getItem('recover'));
-        if (confirm(`Would you like to recover: ${data.name}`)) {
-            load(data);
-        }
-        localStorage.removeItem('recover');
-    } else {
-        showError('No recover project found');
+        $('#openProjectDialog').append(`<label class="option custom-radio"><input type="radio" name="projectId" value="recover" />${data.name}<span></span></label>`);
+    }else{
+        $('#openProjectDialog').append('<p>Looks like no project to recover.</p>');
     }
+    $('#openProjectDialog').dialog({
+        resizable:false,
+        width: 'auto',
+        buttons: !flag ? [{
+            text: 'Recover Project',
+            click() {
+                if (!$('input[name=projectId]:checked').val()) return;
+                load(JSON.parse(localStorage.getItem($('input[name=projectId]:checked').val())));
+                window.projectId = generateId();
+                $(this).dialog('close');
+                localStorage.removeItem('recover');
+            },
+        }] : [],
+    });
 }
 
 
@@ -34,6 +49,7 @@ export function recoverProject() {
  */
 export function openOffline() {
     $('#openProjectDialog').empty();
+    $('#openProjectDialog')[0].title = "Open Project";
     const projectList = JSON.parse(localStorage.getItem('projectList'));
     let flag = true;
     for (id in projectList) {
@@ -81,6 +97,7 @@ export function saveOffline() {
     if (!isAutosaveCall()) {
         showMessage(`We have saved your project: ${getProjectName()} in your browser's localStorage`);
     }
+    localStorage.removeItem('recover');
 }
 
 /**

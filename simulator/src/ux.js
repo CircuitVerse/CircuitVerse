@@ -80,7 +80,7 @@ setInterval(()=> {
         } 
 
         // if project already present in local storage || when we load project frpm online..any changes autosaved offline
-        if (__logix_project_id !== 0 || localStorage.getItem(projectId) !== null) {
+        if (localStorage.getItem(projectId) != null || __logix_project_id != 0) {
             autosave(projectName);
         } else {
             recovery(projectName);
