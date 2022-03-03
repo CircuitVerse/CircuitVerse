@@ -59,7 +59,6 @@ gem "sunspot_rails"
 gem "will_paginate", "~> 3.3.1"
 gem "will_paginate-bootstrap"
 
-gem "bootstrap-typeahead-rails"
 gem "country_select", "~> 6.0"
 gem "geocoder"
 
