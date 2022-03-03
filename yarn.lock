@@ -544,6 +544,11 @@
   dependencies:
     defer-to-connect "^1.0.1"
 
+"@tarekraafat/autocomplete.js@^10.2.6":
+  version "10.2.6"
+  resolved "https://registry.yarnpkg.com/@tarekraafat/autocomplete.js/-/autocomplete.js-10.2.6.tgz#c25a35b09cd5af15ee2941950d5ae52a79b77abf"
+  integrity sha512-M3awL75YTQVHev4XlWGRKJalwVG3MGgtNnbRdtNipcyMcAV1sfkireBM8BKL/vhFhrus+6/5KZfj/DJDu8X0mg==
+
 "@tsconfig/node10@^1.0.7":
   version "1.0.8"
   resolved "https://registry.yarnpkg.com/@tsconfig/node10/-/node10-1.0.8.tgz#c1e4e80d6f964fbecb3359c43bd48b40f7cadad9"
@@ -1502,6 +1507,11 @@ dom-to-image@^2.6.0:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/dom-to-image/-/dom-to-image-2.6.0.tgz#8a503608088c87b1c22f9034ae032e1898955867"
   integrity sha1-ilA2CAiMh7HCL5A0rgMuGJiVWGc=
+
+dompurify@^2.3.6:
+  version "2.3.6"
+  resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-2.3.6.tgz#2e019d7d7617aacac07cbbe3d88ae3ad354cf875"
+  integrity sha512-OFP2u/3T1R5CEgWCEONuJ1a5+MFKnOYpkywpUSxv/dj1LeBT1erK+JwM7zK0ROy2BRhqVCf0LRw/kHqKuMkVGg==
 
 dot-prop@^5.1.0, dot-prop@^5.2.0:
   version "5.3.0"
