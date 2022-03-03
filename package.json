@@ -51,7 +51,7 @@
     "jquery-resizable-dom": "^0.35.0",
     "jquery-ujs": "^1.2.3",
     "jsdoc-export-default-interop": "^0.3.1",
-    "mini-css-extract-plugin": "^2.5.2",
+    "mini-css-extract-plugin": "^2.6.0",
     "opencollective-postinstall": "^2.0.3",
     "popper.js": "^1.16.1",
     "sass": "^1.49.9",
