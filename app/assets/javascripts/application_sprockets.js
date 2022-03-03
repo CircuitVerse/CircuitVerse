@@ -14,7 +14,8 @@
 //= require jquery
 //= require rails-ujs
 //= require commontator/application
-//= require bootstrap-typeahead-rails
+//= require @tarekraafat/autocomplete.js/dist/autoComplete.min.js
+//= require dompurify/dist/purify.min.js
 //= require bootstrap/dist/js/bootstrap.min.js
 //= require restrictElements.js
 //= require time.js
