@@ -567,9 +567,9 @@ function handleZoom(direction) {
     currentSliderValue += direction;
 
     if (globalScope.scale > 0.5 * DPR) {
-        zoomSlider.val(currentSliderValue).change();                
+        zoomSlider.val(currentSliderValue).change();
     } else if (globalScope.scale < 4 * DPR) {
-        zoomSlider.val(currentSliderValue).change();        
+        zoomSlider.val(currentSliderValue).change();
     }
 
     gridUpdateSet(true);
