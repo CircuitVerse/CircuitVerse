@@ -404,7 +404,7 @@ export function setupTimingListeners() {
         plotArea.resize();
     })
     $('.timing-diagram-larger').on('click', () => {
-        $('#plot').width($('#plot').width() + 20)
+        $('#plot').width(Math.min($('#plot').width() + 20, $(document).width() - 200));
         plotArea.resize();
     })
     $('.timing-diagram-small-height').on('click', () => {
