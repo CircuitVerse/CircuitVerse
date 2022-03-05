@@ -17,13 +17,13 @@ import load from './load';
  */
 export function recoverProject() {
     $('#openProjectDialog').empty();
-    $('#openProjectDialog')[0].title = "Recover Project";
+    $('#openProjectDialog')[0].title = 'Recover Project';
     let flag = true;
     if (localStorage.getItem('recover')) {
         flag = false;
         var data = JSON.parse(localStorage.getItem('recover'));
         $('#openProjectDialog').append(`<label class="option custom-radio"><input type="radio" name="projectId" value="recover" />${data.name}<span></span></label>`);
-    }else{
+    } else {
         $('#openProjectDialog').append('<p>Looks like no project to recover.</p>');
     }
     $('#openProjectDialog').dialog({
@@ -49,7 +49,7 @@ export function recoverProject() {
  */
 export function openOffline() {
     $('#openProjectDialog').empty();
-    $('#openProjectDialog')[0].title = "Open Project";
+    $('#openProjectDialog')[0].title = 'Open Project';
     const projectList = JSON.parse(localStorage.getItem('projectList'));
     let flag = true;
     for (id in projectList) {
