@@ -1,9 +1,16 @@
+:root {
+  --shadow-color: rgba(0, 0, 0, .2);
+}
+
 .contribute-card {
   border: 0;
+  box-shadow: 0 10px 10px var(--shadow-color), 0 0 20px var(--shadow-color);
   display: inline-block;
+  height: 500px;
   margin-bottom: 30px;
   margin-top: 30px;
-  width: 300px;
+  padding-top: 20px;
+  width: fit-content;
 }
 
 .contribute-card-image {
@@ -54,16 +61,40 @@
 }
 
 //breakpoints
-@media (max-width: 400px) {
-  .contribute-card {
-    padding-left: 0;
-    width: 250px;
-  }
-}
-
 @media (max-width: 1199px) {
   .contribute-social-card {
     margin-bottom: 10px;
     margin-top: 10px;
+  }
+
+  .card-spacing-media {
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+
+  .contribute-card {
+    height: 100%;
+    width: fit-content;
+  }
+}
+
+@media (min-width: 401px) and (max-width: 590px) {
+
+  .contribute-card {
+    height: 100%;
+    width: 100%;
+  }
+
+}
+
+@media (max-width: 400px) {
+  .card-spacing-media {
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+
+  .contribute-card {
+    height: 100%;
+    width: 100%;
   }
 }
