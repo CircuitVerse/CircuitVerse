@@ -217,9 +217,9 @@ export function setupCodeMirrorEnvironment() {
         extraKeys: {"Ctrl-Space": "autocomplete"}
     });
 
-    if(!localStorage.getItem('verilog-theme')) {
+    if (!localStorage.getItem('verilog-theme')) {
         localStorage.setItem('verilog-theme', 'default');
-    }else{
+    } else {
         let prevtheme = localStorage.getItem('verilog-theme');
         editor.setOption('theme', prevtheme);
     }
