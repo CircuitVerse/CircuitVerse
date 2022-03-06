@@ -220,7 +220,7 @@ export function setupCodeMirrorEnvironment() {
     if (!localStorage.getItem('verilog-theme')) {
         localStorage.setItem('verilog-theme', 'default');
     } else {
-        let prevtheme = localStorage.getItem('verilog-theme');
+        const prevtheme = localStorage.getItem('verilog-theme');
         editor.setOption('theme', prevtheme);
     }
 
