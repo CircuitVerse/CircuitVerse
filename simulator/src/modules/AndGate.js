@@ -39,7 +39,8 @@ export default class AndGate extends CircuitElement {
         this.inputSize = inputLength;
 
         this.yDim = 20 + (this.inputSize - 2) * 4;
-        this.xDim = 15+(this.inputSize-2) * 5;
+        this.xDim = 15 + (this.inputSize-2) * 5;
+        this.yShifts = [0, 4, -2, 2, -4, 0, 4, -2, 2];
 
         this.setDimensions(this.xDim, this.yDim);
 
@@ -71,7 +72,7 @@ export default class AndGate extends CircuitElement {
             }
         }
 
-        this.output1 = new Node(this.yDim, 0, 1, this);
+        this.output1 = new Node(this.yDim - this.yShifts[this.inputSize-2], 0, 1, this);
     }
 
     /**
