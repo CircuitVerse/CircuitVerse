@@ -35,9 +35,13 @@ export default class AndGate extends CircuitElement {
         this.scope['AndGate'].push(this);
         */
         this.rectangleObject = false;
-        this.setDimensions(15, 20);
         this.inp = [];
         this.inputSize = inputLength;
+
+        this.yDim = 20 + (this.inputSize - 2) * 4;
+        this.xDim = 15+(this.inputSize-2) * 5;
+
+        this.setDimensions(this.xDim, this.yDim);
 
         // variable inputLength , node creation
         if (inputLength % 2 === 1) {
@@ -67,7 +71,7 @@ export default class AndGate extends CircuitElement {
             }
         }
 
-        this.output1 = new Node(20, 0, 1, this);
+        this.output1 = new Node(this.yDim, 0, 1, this);
     }
 
     /**
@@ -118,11 +122,11 @@ export default class AndGate extends CircuitElement {
         const xx = this.x;
         const yy = this.y;
 
-        moveTo(ctx, -10, -20, xx, yy, this.direction);
-        lineTo(ctx, 0, -20, xx, yy, this.direction);
-        arc(ctx, 0, 0, 20, -Math.PI / 2, Math.PI / 2, xx, yy, this.direction);
-        lineTo(ctx, -10, 20, xx, yy, this.direction);
-        lineTo(ctx, -10, -20, xx, yy, this.direction);
+        moveTo(ctx, -10, -this.yDim, xx, yy, this.direction);
+        lineTo(ctx, 0, -this.yDim, xx, yy, this.direction);
+        arc(ctx, 0, 0, this.yDim, -Math.PI / 2, Math.PI / 2, xx, yy, this.direction);
+        lineTo(ctx, -10, this.yDim, xx, yy, this.direction);
+        lineTo(ctx, -10, -this.yDim, xx, yy, this.direction);
         ctx.closePath();
 
         if (
