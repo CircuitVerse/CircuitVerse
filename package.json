@@ -23,7 +23,7 @@
     "eslint-plugin-import": "^2.24.2",
     "expose-loader": "^3.1.0",
     "husky": ">=6",
-    "jsdoc": "3.6.9",
+    "jsdoc": "3.6.10",
     "lint-staged": ">=12",
     "livereload": "^0.9.3",
     "nodemon": "^2.0.12"
