@@ -33,7 +33,7 @@
     "@hotwired/stimulus": "^3.0.1",
     "@tarekraafat/autocomplete.js": "^10.2.6",
     "banana-i18n": "^2.3.2",
-    "better-docs": "^2.7.1",
+    "better-docs": "^2.7.2",
     "bootstrap": "^4.6.1",
     "bootstrap-tagsinput": "^0.7.1",
     "canvas2svg": "1.0.16",

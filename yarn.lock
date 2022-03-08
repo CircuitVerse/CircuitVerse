@@ -918,10 +918,10 @@ banana-i18n@^2.3.2:
   resolved "https://registry.yarnpkg.com/banana-i18n/-/banana-i18n-2.3.2.tgz#24821197dc8d2c3bb831eaed6b6db92cf7c86085"
   integrity sha512-bNhimEKOYO9MpZ512y0vYI+x4eJIWr2a3rjnZuJz/8vg2Jlv1jjPG+krBJNXO6NdGdJhfXE8utk3YDJDBUx09w==
 
-better-docs@^2.7.1:
-  version "2.7.1"
-  resolved "https://registry.yarnpkg.com/better-docs/-/better-docs-2.7.1.tgz#e3b9a08d7249f9161a015a6300b239f6593d7c37"
-  integrity sha512-LLfz+WIm9u46VrE1XhNK/FfynzEpoDWu2TP8aeN7KuNvRTd6MLJisOFFIHyQGT7TNuhFqca4oAYuy9JFoBJFhA==
+better-docs@^2.7.2:
+  version "2.7.2"
+  resolved "https://registry.yarnpkg.com/better-docs/-/better-docs-2.7.2.tgz#fe0b54fca8a904fe050586aa819263195e5eb948"
+  integrity sha512-aIOsGhhcTIDAJfBTABIPDs3q98dfNF85yUwmKShXb3ZG6e7s+ojBePiDqvFwy/MpnjYwuSbuzkbEv4iPWcSuTQ==
   dependencies:
     brace "^0.11.1"
     react-ace "^9.5.0"
