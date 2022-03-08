@@ -32,7 +32,7 @@
     "@fortawesome/fontawesome-free": "^5.15.4",
     "@hotwired/stimulus": "^3.0.1",
     "@tarekraafat/autocomplete.js": "^10.2.6",
-    "banana-i18n": "^2.3.2",
+    "banana-i18n": "^2.3.3",
     "better-docs": "^2.7.2",
     "bootstrap": "^4.6.1",
     "bootstrap-tagsinput": "^0.7.1",

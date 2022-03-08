@@ -913,10 +913,10 @@ balanced-match@^1.0.0:
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
   integrity sha1-ibTRmasr7kneFk6gK4nORi1xt2c=
 
-banana-i18n@^2.3.2:
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/banana-i18n/-/banana-i18n-2.3.2.tgz#24821197dc8d2c3bb831eaed6b6db92cf7c86085"
-  integrity sha512-bNhimEKOYO9MpZ512y0vYI+x4eJIWr2a3rjnZuJz/8vg2Jlv1jjPG+krBJNXO6NdGdJhfXE8utk3YDJDBUx09w==
+banana-i18n@^2.3.3:
+  version "2.3.3"
+  resolved "https://registry.yarnpkg.com/banana-i18n/-/banana-i18n-2.3.3.tgz#4e7d985f22118349533403bea640615117740552"
+  integrity sha512-Z19xWLpqXsropMAFbjQALZi5U908mXEK0vWhr2Apo9JwXFxJws4CSta4Ouas/L7D5DjObL+ZKFeLAKR2peXLbg==
 
 better-docs@^2.7.2:
   version "2.7.2"
