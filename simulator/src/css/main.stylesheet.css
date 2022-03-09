@@ -1551,6 +1551,7 @@ input:checked + .slider:before {
 
 .ui-dialog .ui-dialog-buttonpane button {
   margin-left: .4em;
+  padding: 0px 10px;
 }
 
 .ui-dialog-titlebar-close:hover {
