@@ -95,7 +95,7 @@ gem "webpush"
 
 gem "bootsnap", require: false
 
-gem "font-awesome-sass", "~> 5.13.1"
+gem "font-awesome-sass", "~> 6.0.0"
 
 gem "disposable_mail", "~> 0.1"
 gem 'jsonapi-serializer'
