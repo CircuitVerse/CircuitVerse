@@ -693,7 +693,7 @@
         </div>
         <div class="container">
           <center>
-            <button type="submit" id="report" class="btn btn-primary">
+            <button type="submit" id="report" class="btn btn-primary" onclick="validator()">
               Report
             </button>
           </center>
@@ -712,6 +712,15 @@
   <% else %>
   restrictedElements = [];
   <% end %>
+</script>
+
+<!-- report an issue validator -->
+<script>
+	function validator() {
+		if (document.getElementById("issuetext").value.length == 0) {
+			alert("issue cannot be empty")
+		}
+	}; 
 </script>
 
 <!-- on hover for dropdowns -->
