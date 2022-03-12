@@ -23,7 +23,7 @@ export default function redo(scope = globalScope) {
     const topNode = history.allNodes[history.allNodes.length - 1];
     if (topNode.history !== scope.allNodes[scope.allNodes.length - 1].history || topNode.y !== scope.allNodes[scope.allNodes.length - 1].y) {
         // backup last state of the simulator
-        scheduleBackup()
+        scheduleBackup();
         if (scope.history.length === 0) return;
     }
     const backupOx = globalScope.ox;
