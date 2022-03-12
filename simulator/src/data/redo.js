@@ -17,10 +17,15 @@ import { scheduleBackup } from './backupCircuit';
  * @exports redo
  */
 export default function redo(scope = globalScope) {
-    // backup last state of simulator before redo
-    scheduleBackup();
     if (layoutModeGet()) return;
     if (scope.history.length === 0) return;
+    const history = JSON.parse(scope.history[scope.history.length - 1]);
+    const topNode = history.allNodes[history.allNodes.length - 1];
+    if (topNode.history !== scope.allNodes[scope.allNodes.length - 1].history || topNode.y !== scope.allNodes[scope.allNodes.length - 1].y) {
+        // backup last state of the simulator
+        scheduleBackup()
+        if (scope.history.length === 0) return;
+    }
     const backupOx = globalScope.ox;
     const backupOy = globalScope.oy;
     const backupScale = globalScope.scale;

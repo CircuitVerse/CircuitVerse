@@ -64,6 +64,10 @@ export function scheduleBackup(scope = globalScope) {
         scope.history = [];
         scope.timeStamp = new Date().getTime();
         projectSavedSet(false);
+
+        // condition to check node deletion(sub-circuits)
+        // true -  empty scope.history
+        if (scope.history.length > 0 && scope.allNodes?.length !== JSON.parse(scope.history[scope.history.length - 1]).allNodes?.length) scope.history = [];
     }
 
     return backup;

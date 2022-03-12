@@ -17,10 +17,10 @@ import { scheduleBackup } from './backupCircuit';
  * @exports undo
  */
 export default function undo(scope = globalScope) {
-    // backup last state of simulator before undo
-    scheduleBackup();
     if (layoutModeGet()) return;
     if (scope.backups.length < 2) return;
+    // backup upto last state of simulator
+    scheduleBackup();
     const backupOx = globalScope.ox;
     const backupOy = globalScope.oy;
     const backupScale = globalScope.scale;
