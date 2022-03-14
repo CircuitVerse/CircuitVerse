@@ -28,7 +28,12 @@
 
 .footer-social-icon {
   margin-left: 15px;
+  transition: transform .5s ease;
   width: 32px;
+
+  &:hover {
+    transform: scale(1.5);
+  }
 }
 
 .bounce-out-on-hover {
