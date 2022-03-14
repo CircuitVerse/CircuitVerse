@@ -16,7 +16,7 @@ import startEmbedListeners from './embedListeners';
 import './embed';
 import { newCircuit } from './circuit';
 import load from './data/load';
-import save from './data/save';
+import save, { getProjectName } from './data/save';
 import { showTourGuide } from './tutorials';
 import setupModules from './moduleSetup';
 import 'codemirror/lib/codemirror.css';
@@ -29,6 +29,7 @@ import { setupCodeMirrorEnvironment } from './Verilog2CV';
 import { keyBinder } from './hotkey_binder/keyBinder';
 import '../vendor/jquery-ui.min.css';
 import '../vendor/jquery-ui.min';
+import { recoverProject } from './data/project';
 
 window.width = undefined;
 window.height = undefined;
@@ -148,7 +149,6 @@ export function setup() {
     if (!embed) { setupUI(); }
     startListeners();
     if (!embed) { keyBinder(); }
-
     // Load project data after 1 second - needs to be improved, delay needs to be eliminated
     setTimeout(() => {
         if (__logix_project_id != 0) {
@@ -163,12 +163,31 @@ export function setup() {
                         simulationArea.changeClockTime(data.timePeriod || 500);
                     }
                     $('.loadingIcon').fadeOut();
+
+                    // since we want to modify further saves in that instance of saved offline project
+                    // if not done then each time new saved instance will be formed
+                    window.projectId = data.projectId;
+                    const projectList = JSON.parse(localStorage.getItem('projectList'));
+                    for (id in projectList) {
+                        if (id === data.projectId) {
+                            // added new <<saveTime>> property in data object
+                            const offlineLastSaved = JSON.parse(localStorage.getItem(id)).saveTime;
+                            const onlineLastSaved = data.saveTime;
+                            // if offline last saved is more recent
+                            if (onlineLastSaved < offlineLastSaved) {
+                                showMessage(`${__projectName} has some recent unsaved edits which are saved offline`);
+                            } else {
+                                showMessage(`${__projectName} is up to date`);
+                            }
+                        }
+                    }
                 },
                 failure() {
                     alert('Error: could not load ');
                     $('.loadingIcon').fadeOut();
                 },
             });
+
         } else if (localStorage.getItem('recover_login') && userSignedIn) {
             // Restore unsaved data and save
             var data = JSON.parse(localStorage.getItem('recover_login'));
@@ -178,7 +197,8 @@ export function setup() {
             save();
         } else if (localStorage.getItem('recover')) {
             // Restore unsaved data which didn't get saved due to error
-            showMessage("We have detected that you did not save your last work. Don't worry we have recovered them. Access them using Project->Recover");
+            // showMessage("We have detected that you did not save your last work. Don't worry we have recovered them. Access them using Project->Recover");
+            recoverProject();
         }
     }, 1000);
 

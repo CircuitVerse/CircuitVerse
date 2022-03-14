@@ -16,15 +16,26 @@ import { removeMiniMap, updatelastMinimapShown } from './minimap';
 import undo from './data/undo';
 import redo from "./data/redo";
 import { copy, paste, selectAll } from './events';
-import save from './data/save';
+import { autosave } from './data/save';
 import { createElement } from './ux';
 import { verilogModeGet } from './Verilog2CV';
 import { setupTimingListeners } from './plotArea';
 
 var unit = 10;
 
+var changeCounter = 0;
+export function setCountValue(param) {
+    changeCounter = param;
+}
+
+export function getCountValue() {
+    return changeCounter;
+}
+
+
 export default function startListeners() {
     $('#deleteSelected').on('click',() => {
+        changeCounter++;
         deleteSelected();
     });
 
@@ -37,9 +48,11 @@ export default function startListeners() {
     });
 
     $('#undoButton').on('click',() => {
+        changeCounter++;
         undo();
     });
     $('#redoButton').on('click',() => {
+        changeCounter++;
         redo();
     })
     $('#viewButton').on('click',() => {
@@ -96,6 +109,7 @@ export default function startListeners() {
         $('.dropdown.open').removeClass('open');
     });
     document.getElementById('simulationArea').addEventListener('mouseup', (e) => {
+        changeCounter++;
         if (simulationArea.lastSelected) simulationArea.lastSelected.newElement = false;
         /*
         handling restricted circuit elements
@@ -120,6 +134,7 @@ export default function startListeners() {
     document.getElementById('simulationArea').addEventListener('mousemove', onMouseMove);
 
     window.addEventListener('keyup', e => {
+        changeCounter++;
         scheduleUpdate(1);
         simulationArea.shiftDown = e.shiftKey;
         if (e.keyCode == 16) {
@@ -304,6 +319,7 @@ export default function startListeners() {
     }
 
     document.addEventListener('cut', (e) => {
+        changeCounter++;
         if (verilogModeGet()) return;
         if (document.activeElement.tagName == 'INPUT') return;
         if (document.activeElement.tagName != 'BODY') return;
@@ -331,6 +347,7 @@ export default function startListeners() {
     });
 
     document.addEventListener('copy', (e) => {
+        changeCounter++;
         if (verilogModeGet()) return;
         if (document.activeElement.tagName == 'INPUT') return;
         if (document.activeElement.tagName != 'BODY') return;
@@ -357,6 +374,7 @@ export default function startListeners() {
     });
 
     document.addEventListener('paste', (e) => {
+        changeCounter++;
         if (document.activeElement.tagName == 'INPUT') return;
         if (document.activeElement.tagName != 'BODY') return;
 

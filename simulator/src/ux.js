@@ -14,14 +14,15 @@ import { newCircuit, circuitProperty } from './circuit';
 import modules from './modules';
 import { updateRestrictedElementsInScope } from './restrictedElementDiv';
 import { paste } from './events';
-import { setProjectName, getProjectName } from './data/save';
+import {
+    setProjectName, getProjectName, autosave, recovery,
+} from './data/save';
 import { changeScale } from './canvasApi';
 import updateTheme from "./themer/themer";
-import { generateImage, generateSaveData } from './data/save';
 import { setupVerilogExportCodeWindow } from './verilog';
 import { setupBitConvertor} from './utils';
 import { updateTestbenchUI, setupTestbenchUI } from './testbench';
-import { applyVerilogTheme } from './Verilog2CV';
+import { setCountValue, getCountValue } from './listeners';
 
 export const uxvar = {
     smartDropXX: 50,
@@ -61,6 +62,37 @@ function hideContextMenu() {
         ctxPos.visible = false;
     }, 200); // Hide after 2 sec
 }
+
+// smaller interval || bigger interval || changeCounterLimit = 5
+var timeCounter = 0;
+var autosavingstart = false;
+var smallInterval = 5;
+var bigInterval = 300;
+var changeCounterLimit = 5;
+setInterval(()=> {
+    timeCounter++;
+    // if number of changes > 5 || on every 60 * 5 = 300sec (5 min) autosave
+    // for the first time we wait to start saving until > 5 changes are made
+    if(getCountValue() > changeCounterLimit || (timeCounter >= (bigInterval / smallInterval) && autosavingstart === true)){
+        let projectName = getProjectName();
+        if (projectName == undefined) {
+            projectName = 'Untitled';
+        } 
+
+        // if project already present in local storage || when we load project frpm online..any changes autosaved offline
+        if (localStorage.getItem(projectId) != null || __logix_project_id != 0) {
+            autosave(projectName);
+        } else {
+            recovery(projectName);
+        }
+
+        autosavingstart = true;
+        setCountValue(0);
+        if (timeCounter >= (bigInterval / smallInterval)) {
+            timeCounter = 0;
+        }
+    }
+}, smallInterval * 1000);
 
 /**
  * Function displays context menu
@@ -191,12 +223,6 @@ export function setupUI() {
         logixFunction[this.id]();
     });
     // var dummyCounter=0;
-
-    // calling apply on select theme in dropdown
-    $('.applyTheme').on('change',function () {
-        applyVerilogTheme();
-    });
-   
 
     $('.logixModules').hover(function () {
         // Tooltip can be statically defined in the prototype.

@@ -6,7 +6,7 @@ import { backUp } from './backupCircuit';
 import simulationArea from '../simulationArea';
 import backgroundArea from '../backgroundArea';
 import { findDimensions } from '../canvasApi';
-import { projectSavedSet } from './project';
+import { projectSavedSet, saveOffline } from './project';
 import { colors } from '../themer/themer';
 import {layoutModeGet, toggleLayoutMode} from '../layoutMode';
 import {verilogModeGet} from '../Verilog2CV';
@@ -85,7 +85,8 @@ export function generateSaveData(name) {
     data.projectId = projectId;
     data.focussedCircuit = globalScope.id;
     data.orderedTabs = getTabsOrder();
-
+    // Time of the save instance
+    data.saveTime = Date.now();
     // Project Circuits, each scope is one circuit
     data.scopes = [];
     const dependencyList = {};
@@ -406,4 +407,21 @@ export default async function save() {
 
     // Restore everything
     resetup();
+}
+
+var isAutoSaving = false;
+export function isAutosaveCall() {
+    return isAutoSaving;
+}
+
+export function autosave(name) {
+    isAutoSaving = true;
+    saveOffline();
+    isAutoSaving = false;
+    localStorage.removeItem('recover');
+}
+
+export function recovery(name) {
+    const data = generateSaveData(name);
+    localStorage.setItem('recover', data);
 }

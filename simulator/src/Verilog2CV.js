@@ -3,22 +3,6 @@ import SubCircuit from './subcircuit';
 
 import CodeMirror from 'codemirror/lib/codemirror.js';
 import 'codemirror/lib/codemirror.css';
-
-// Importing CodeMirror themes
-import 'codemirror/theme/3024-day.css';
-import 'codemirror/theme/solarized.css';
-import 'codemirror/theme/elegant.css';
-import 'codemirror/theme/neat.css';
-import 'codemirror/theme/idea.css';
-import 'codemirror/theme/neo.css';
-import 'codemirror/theme/3024-night.css';
-import 'codemirror/theme/blackboard.css';
-import 'codemirror/theme/cobalt.css';
-import 'codemirror/theme/the-matrix.css';
-import 'codemirror/theme/night.css';
-import 'codemirror/theme/monokai.css';
-import 'codemirror/theme/midnight.css';
-
 import 'codemirror/addon/hint/show-hint.css';
 import 'codemirror/mode/verilog/verilog.js';
 import 'codemirror/addon/edit/closebrackets.js';
@@ -40,12 +24,6 @@ export function saveVerilogCode() {
     var code = editor.getValue();
     globalScope.verilogMetadata.code = code;
     generateVerilogCircuit(code);
-}
-
-export function applyVerilogTheme() {
-    var dropdown = document.getElementById('selectVerilogTheme');
-    var theme = dropdown.options[dropdown.selectedIndex].innerHTML;
-    editor.setOption('theme', theme);
 }
 
 export function resetVerilogCode() {
