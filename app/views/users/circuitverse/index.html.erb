@@ -76,7 +76,7 @@
         </div>
       </div>
       <% else %>
-        <%= render partial: "dashboard" , locals: {projects: @user.projects} %>
+        <%= render partial: "dashboard" , locals: {projects: @user.projects, public_projects_exist: @public_projects_exist } %>
       <% end %>
     </div>
     <div id="favourite-circuits-div" class="row center-row circuit-page">
@@ -159,7 +159,7 @@
   };
 
   const fuse = new Fuse(projectList, options);
-  
+
   // on key up
   $('.users-circuits-search').keyup(() => {
     const searchQuery = $('.users-circuits-search').val().toLowerCase().trim();
