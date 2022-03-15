@@ -414,7 +414,7 @@ GEM
       activesupport (>= 3.0.0)
     racc (1.6.0)
     rack (2.2.3)
-    rack-attack (6.5.0)
+    rack-attack (6.6.0)
       rack (>= 1.0, < 3)
     rack-pjax (1.1.0)
       nokogiri (~> 1.5)
