@@ -240,8 +240,8 @@ GEM
       rack (>= 1.4, < 3)
       rack-protection (>= 1.5.3, < 2.2.0)
       sanitize (< 7)
-    font-awesome-sass (5.13.1)
-      sassc (>= 1.11)
+    font-awesome-sass (6.1.0)
+      sassc (>= 2.0)
     friendly_id (5.4.2)
       activerecord (>= 4.0.0)
     geocoder (1.7.3)
@@ -684,7 +684,7 @@ DEPENDENCIES
   faker
   flipper-redis
   flipper-ui
-  font-awesome-sass (~> 5.13.1)
+  font-awesome-sass (~> 6.1.0)
   friendly_id (~> 5.4.2)
   geocoder
   hairtrigger (~> 0.2.25)
