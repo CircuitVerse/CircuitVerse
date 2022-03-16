@@ -1352,6 +1352,7 @@ input:checked + .slider:before {
   line-height: inherit;
   border-radius: 1px;
   font: inherit;
+  padding: 0 10px;
 }
 
 .ui-dialog .ui-dialog-buttonpane button:hover {
