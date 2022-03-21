@@ -11,8 +11,6 @@ class Users::CircuitverseController < ApplicationController
   def index
     @profile = ProfileDecorator.new(@user)
     @projects = @user.rated_projects
-    @is_admin = @current_user ? @profile.id == @current_user.id : false
-    @public_projects_exist = @is_admin || @user.projects.open.exists?
   end
 
   def edit; end
