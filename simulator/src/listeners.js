@@ -561,11 +561,17 @@ $(() => {
 
 // direction is only 1 or -1
 function handleZoom(direction) {
+    
+    var zoomSlider = $('#customRange1');
+    var currentSliderValue = parseInt(zoomSlider.val(), 10);
+    currentSliderValue += direction;
+
     if (globalScope.scale > 0.5 * DPR) {
-        changeScale(direction * 0.1 * DPR);
+        zoomSlider.val(currentSliderValue).change();
     } else if (globalScope.scale < 4 * DPR) {
-        changeScale(direction * 0.1 * DPR);
+        zoomSlider.val(currentSliderValue).change();
     }
+
     gridUpdateSet(true);
     scheduleUpdate();
 }

@@ -45,6 +45,7 @@ export function saveVerilogCode() {
 export function applyVerilogTheme() {
     var dropdown = document.getElementById('selectVerilogTheme');
     var theme = dropdown.options[dropdown.selectedIndex].innerHTML;
+    localStorage.setItem('verilog-theme', theme);
     editor.setOption('theme', theme);
 }
 
@@ -215,6 +216,13 @@ export function setupCodeMirrorEnvironment() {
         indentWithTabs: true,
         extraKeys: {"Ctrl-Space": "autocomplete"}
     });
+
+    if (!localStorage.getItem('verilog-theme')) {
+        localStorage.setItem('verilog-theme', 'default');
+    } else {
+        const prevtheme = localStorage.getItem('verilog-theme');
+        editor.setOption('theme', prevtheme);
+    }
 
     editor.setValue("// Write Some Verilog Code Here!")
     setTimeout(function() {
