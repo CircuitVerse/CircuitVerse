@@ -1211,7 +1211,7 @@ input:checked + .slider:before {
   border-radius: 50%;
   display: block;
   position: absolute;
-  left: 2px;
+  left: 4px;
   top: 50%;
   transform: translateY(-50%);
 }
@@ -1483,7 +1483,7 @@ input:checked + .slider:before {
   margin: 4px;
   padding: 10px;
   background: transparent;
-  border-radius: 1px;
+  border-radius: 10px;
   width: 100%;
 }
 
