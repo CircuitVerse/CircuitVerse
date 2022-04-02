@@ -28,10 +28,17 @@ function testWebPush() {
 }
 
 function checkPermissions() {
-  if (Notification.permission === "granted") {
+  if (Notification.permission !== 'denied'") 
+    {
+    Notification.requestPermission(function (permission)
+    {
+  else if (Notification.permission === "granted") {
     document.getElementById("browser-notifications-status").innerText = "enabled!";
     document.getElementById("browser-notifications-permission-request").innerText = "Test!";
-  } else {
+  }
+}
+}
+ else {
     document.getElementById("browser-notifications-status").innerText = "disabled!";
     document.getElementById("browser-notifications-permission-request").innerText = "Enable!";
   }
