@@ -18,7 +18,7 @@ gem "omniauth-google-oauth2"
 gem "omniauth-microsoft-office365"
 gem "kt-paperclip"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 6.1.4"
+gem "rails", "~> 6.1.5"
 # Use Puma as the app server
 gem "puma", "~> 5.6"
 # Use SCSS for stylesheets
