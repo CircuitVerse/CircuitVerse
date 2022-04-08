@@ -304,8 +304,8 @@
     <div class="layout-body">
       <div>
         <p class="text-center mb-2">Select a theme: </p>
-          <select id="selectVerilogTheme" class="applyTheme" style="width:90%;">    
-            <optgroup label="Light Themes">     
+          <select id="selectVerilogTheme" class="applyTheme" style="width:90%;">  
+            <optgroup label="Light Themes">  
               <option>default</option>
               <option>solarized</option>
               <option>elegant</option>
@@ -641,6 +641,14 @@
     <label >Octal value</label><br><input  type='text' id='octalInput' value='020' label="Octal" name='text1'><br><br>
     <label >Hexadecimal value</label><br><input  type='text' id='hexInput' value='0x10' label="Hex" name='text1'><br><br>
 </div>
+<!----- custom prompt model ----------->
+<div id="promptDialog"
+  class='promptDialogBox'
+  tabindex = "0"
+  style="display: none;"
+  title="Message">
+</div>
+
 <!---issue reporting-system----->
 <div class="report-sidebar">
   <a
