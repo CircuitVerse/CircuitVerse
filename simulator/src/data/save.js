@@ -12,7 +12,7 @@ import {layoutModeGet, toggleLayoutMode} from '../layoutMode';
 import {verilogModeGet} from '../Verilog2CV';
 import domtoimage from 'dom-to-image';
 import C2S from '../../vendor/canvas2svg';
-
+import { promptDialog } from '../prompt/customprompt';
 var projectName = undefined;
 
 /**
@@ -74,8 +74,9 @@ export function getTabsOrder() {
 export function generateSaveData(name) {
     data = {};
 
-    // Prompts for name, defaults to Untitled
-    name = getProjectName() || name || prompt('Enter Project Name:') || 'Untitled';
+    // Prompts for name, defaults to Untitled changed with custom prompt
+    name = getProjectName() || name;
+    if (!name) return;
     data.name = stripTags(name);
     setProjectName(data.name);
 
@@ -329,7 +330,34 @@ export default async function save() {
     $('.loadingIcon').fadeIn();
     const data = generateSaveData();
 
-    const projectName = getProjectName();
+    // const projectName = getProjectName();
+    const projectName = (getProjectName());
+    if (!projectName) {
+        $('.loadingIcon').fadeOut();
+        promptDialog('Enter Project Name', 'Untitled');
+        $('#promptDialog').dialog({
+            buttons: [{
+                text: 'cancel',
+                click() {
+                    // to close the dialog
+                    $('#promptDialog').dialog('close');
+                },
+            },
+            {
+                text: 'confirm',
+                click() {
+                    const name = stripTags($('#promptInput').val());
+                    if (name) {
+                        setProjectName(name);
+                        save();
+                    }
+                    // to close the dialog
+                    $('#promptDialog').dialog('close');
+                },
+            }],
+        });
+        return;
+    }
     var imageData = await generateImageForOnline();
 
     if (!userSignedIn) {

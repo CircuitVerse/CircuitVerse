@@ -21,6 +21,7 @@ import {
 } from './utils';
 import { findDimensions, dots } from './canvasApi';
 import { updateRestrictedElementsList } from './restrictedElementDiv';
+import { promptDialog } from './prompt/customprompt';
 import { scheduleBackup } from './data/backupCircuit';
 import { showProperties } from './ux';
 import {
@@ -132,14 +133,33 @@ function deleteCurrentCircuit(scopeId = globalScope.id) {
  * Wrapper function around newCircuit to be called from + button on UI
  */
 export function createNewCircuitScope() {
-    const scope = newCircuit();
-    if (!embed) {
-        showProperties(simulationArea.lastSelected);
-        updateTestbenchUI();
-        plotArea.reset();
-    }
+    promptDialog('Enter circuit name:', 'Untitled-Circuit');
+    $('#promptDialog').dialog({
+        buttons: [
+            {
+                text: 'cancel',
+                click() {
+                    // to close the dialog
+                    $('#promptDialog').dialog('close');
+                },
+            },
+            {
+                text: 'confirm',
+                click() {
+                    const name = stripTags($('#promptInput').val());
+                    const scope = newCircuit(name);
+                    if (!embed) {
+                        showProperties(simulationArea.lastSelected);
+                        updateTestbenchUI();
+                        plotArea.reset();
+                    }
+                    // to close the dialog
+                    $('#promptDialog').dialog('close');
+                },
+            },
+        ],
+    });
 }
-
 /**
  * Function to create new circuit
  * Function creates button in tab, creates scope and switches to this circuit
@@ -150,8 +170,8 @@ export function createNewCircuitScope() {
 export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
     if (layoutModeGet()) { toggleLayoutMode(); }
     if (verilogModeGet()) { verilogModeSet(false);}
-    name = name || prompt('Enter circuit name:','Untitled-Circuit');
-    name = stripTags(name);
+    // name = name || prompt('Enter circuit name:','Untitled-Circuit');
+    // name = stripTags(name);
     if (!name) return;
     const scope = new Scope(name);
     if (id) scope.id = id;
