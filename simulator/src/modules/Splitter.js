@@ -38,7 +38,7 @@ export default class Splitter extends CircuitElement {
         */
         this.rectangleObject = false;
 
-        this.bitWidthSplit = bitWidthSplit || prompt('Enter bitWidth Split').split(' ').filter((lambda) => lambda !== '').map((lambda) => parseInt(lambda, 10) || 1);
+        this.bitWidthSplit = bitWidthSplit || (prompt('Enter bitWidth Split') || `${'1 '.repeat((this.bitWidth || 1) - 1)}1`).split(' ').filter((lambda) => lambda !== '').map((lambda) => parseInt(lambda, 10) || 1);
         this.splitCount = this.bitWidthSplit.length;
 
         this.setDimensions(10, (this.splitCount - 1) * 10 + 10);
@@ -211,7 +211,7 @@ export default class Splitter extends CircuitElement {
             var splitLabel;
             if (this.bitWidthSplit[this.splitCount - i - 1] == 1)
                 splitLabel = `${bitCount}`;
-            else 
+            else
                 splitLabel = `${bitCount}:${bitCount + this.bitWidthSplit[this.splitCount - i - 1] - 1}`;
 
             fillText2(ctx, splitLabel, 16, -20 * i + this.yOffset + 10, xx, yy, this.direction);
@@ -238,7 +238,7 @@ export default class Splitter extends CircuitElement {
             var inpLabel = this.inp1.verilogLabel;
             // Already Split Regex
             var re = /^(.*)\[(\d*):(\d*)\]$/;
-            if(re.test(inpLabel)) {
+            if (re.test(inpLabel)) {
                 var matches = inpLabel.match(re);
                 inpLabel = matches[1];
                 bitCount = parseInt(matches[3]);
@@ -262,7 +262,7 @@ export default class Splitter extends CircuitElement {
         if (!this.isSplitter) {
             res += "assign " + this.inp1.verilogLabel + " = {";
             for (var i = this.outputs.length - 1; i > 0; i--)
-            res += this.outputs[i].verilogLabel + ",";
+                res += this.outputs[i].verilogLabel + ",";
             res += this.outputs[0].verilogLabel + "};";
         }
         return res;
