@@ -4,7 +4,8 @@ class I18nSupport
   def self.locale_names
     [
       ["English", "en"],
-      ["Hindi", "hi"]
+      ["Hindi", "hi"],
+      ["French", "fn"]
     ]
   end
 end

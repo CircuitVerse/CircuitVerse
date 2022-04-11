@@ -1,0 +1,34 @@
+en:
+  groups:
+    add_member_description: "Entrez les identifiants de messagerie séparés par des virgules/espaces ou sur des lignes séparées. Si les utilisateurs ne sont pas enregistrés, un identifiant de messagerie leur sera envoyé leur demandant de s'inscrire."
+    use_alternative: "OU UTILISER"
+    invite_link_btn: "Lien d'invitation de groupe"
+    remove_assignment_message: "Voulez-vous vraiment supprimer ce devoir ?"
+    remove_member_message: "Voulez-vous vraiment supprimer ce membre ?"
+    edit:
+      title: "%{name} - Modifier le nom du groupe"
+      main_heading: "MODIFIER LE NOM DU GROUPE"
+    new:
+      title: "CircuitVerse - Nouveau groupe"
+      main_heading: "NOUVEAU GROUPE"
+      main_description_html: "Les groupes peuvent être utilisés par les mentors pour définir des projets et donner des notes aux étudiants.
+         Vous pouvez trouver la documentation <a class='anchor-text' href='https://docs.circuitverse.org/#/chapter2/2cvforeducators' target='_blank'>ici</a>."
+    show:
+      edit_name_btn: "Modifier le nom"
+      mentor_name_heading: "Mentor:"
+      group_members_heading: "MEMBRES:"
+      add_members_btn: "+ Ajouter des membres"
+      assignment:
+        heading: "MISSIONS"
+        add_assignment_btn: "+ Ajouter une affectation"
+        assignment_table_head:
+          name: "Nom"
+          deadline: "Date limite"
+          grading: "Classement"
+          actions: "Actions"
+          grade: "Grade"
+        time_remaining_html: "<strong>Temps restant:</strong> %{time_remaining}"
+        start_working_btn: "Commencer à travailler:"
+        see_work_done: "Afficher votre travail"
+        not_submitted: "Pas transmis!"
+        show_submission: "Voir la soumission"
