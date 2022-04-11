@@ -41,12 +41,32 @@ function setProjectName(name) {
 }
 
 function clearProject() {
-    if (confirm("Would you like to clear the project?")){
-    globalScope = undefined;
-    scopeList = {};
-    $('.circuits').remove();
-    newCircuit("main");
-    showMessage("Your project is as good as new!");
+    if (confirm) {
+        promptDialog('Would you like to clear the project? ', 'You will lose all unsaved data !');
+        $('#promptDialog').dialog({
+            buttons: [
+                {
+                    text: 'YES',
+                    click() {
+                        globalScope = undefined;
+                        scopeList = {};
+                        $('.circuits').remove();
+                        newCircuit('main');
+                        showMessage('Your project is as good as new!');
+
+                        // to close the dialog
+                        $('#promptDialog').dialog('close');
+                    },
+                },
+                {
+                    text: 'NO',
+                    click() {
+                    // to close the dialog
+                        $('.loadingIcon').fadeOut();
+                        $('#promptDialog').dialog('close');
+                    },
+                }],
+        });
     }
 }
 

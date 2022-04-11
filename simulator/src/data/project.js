@@ -122,6 +122,7 @@ export function clearProject() {
     }
 }
 
+
 /**
  Function used to start a new project while prompting confirmation from the user
  * @param {boolean} verify - flag to verify a new project

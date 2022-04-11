@@ -1865,14 +1865,15 @@ input[type='range']::-webkit-slider-thumb {
 }
 .promptDialogBox{
   color: white;
+  opacity: 0.8;
 }
 .promptDialogBox input{
   background: none;
-  color: white !important;
-  border: 1px solid black;
+  color: white;
+  border: 1px solid rgb(129, 126, 126);
   width: 90%;
   height: 25px;
-  padding: 4px;
+  padding: 4.5px;
   color: white;
   outline: none;
   margin: 5px auto;

@@ -132,17 +132,11 @@ function deleteCurrentCircuit(scopeId = globalScope.id) {
 /**
  * Wrapper function around newCircuit to be called from + button on UI
  */
-export function createNewCircuitScope() {
+ export function createNewCircuitScope() {
     promptDialog('Enter circuit name:', 'Untitled-Circuit');
     $('#promptDialog').dialog({
         buttons: [
-            {
-                text: 'cancel',
-                click() {
-                    // to close the dialog
-                    $('#promptDialog').dialog('close');
-                },
-            },
+
             {
                 text: 'confirm',
                 click() {
@@ -153,6 +147,13 @@ export function createNewCircuitScope() {
                         updateTestbenchUI();
                         plotArea.reset();
                     }
+                    // to close the dialog
+                    $('#promptDialog').dialog('close');
+                },
+            },
+            {
+                text: 'cancel',
+                click() {
                     // to close the dialog
                     $('#promptDialog').dialog('close');
                 },

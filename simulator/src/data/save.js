@@ -333,28 +333,31 @@ export default async function save() {
     // const projectName = getProjectName();
     const projectName = (getProjectName());
     if (!projectName) {
-        $('.loadingIcon').fadeOut();
+        $('.loadingIcon').fadeIn();
         promptDialog('Enter Project Name', 'Untitled');
         $('#promptDialog').dialog({
-            buttons: [{
-                text: 'cancel',
-                click() {
-                    // to close the dialog
-                    $('#promptDialog').dialog('close');
+            buttons: [
+                {
+                    text: 'confirm',
+                    click() {
+                        const name = stripTags($('#promptInput').val());
+                        if (name) {
+                            setProjectName(name);
+                            save();
+                        }
+                        // to close the dialog
+                        $('#promptDialog').dialog('close');
+                        $('.loadingIcon').fadeOut();
+                    },
                 },
-            },
-            {
-                text: 'confirm',
-                click() {
-                    const name = stripTags($('#promptInput').val());
-                    if (name) {
-                        setProjectName(name);
-                        save();
-                    }
+                {
+                    text: 'cancel',
+                    click() {
                     // to close the dialog
-                    $('#promptDialog').dialog('close');
-                },
-            }],
+                        $('#promptDialog').dialog('close');
+                        $('.loadingIcon').fadeOut();
+                    },
+                }],
         });
         return;
     }
@@ -364,9 +367,32 @@ export default async function save() {
         // user not signed in, save locally temporarily and force user to sign in
         localStorage.setItem('recover_login', data);
         // Asking user whether they want to login.
-        if (confirm('You have to login to save the project, you will be redirected to the login page.')) window.location.href = '/users/sign_in';
-        else $('.loadingIcon').fadeOut();
-        // eslint-disable-next-line camelcase
+        // if (confirm('You have to login to save the project, you will be redirected to the login page.')) window.location.href = '/users/sign_in';
+        if (confirm) {
+            promptDialog('You have to login to save the project ', 'you will be redirected to the login page.');
+            $('#promptDialog').dialog({
+                buttons: 
+                [
+                    {
+                        text: 'OK',
+                        click() {
+                            window.location.href = '/users/sign_in';
+                            // to close the dialog
+                            $('#promptDialog').dialog('close');
+                        },
+                    },
+                    {
+                        text: 'NO',
+                        click() {
+                        // to close the dialog
+                            $('.loadingIcon').fadeOut();
+                            $('#promptDialog').dialog('close');
+                        },
+                    }
+                ],
+            });
+        }
+    // eslint-disable-next-line camelcase
     } else if (__logix_project_id == "0") {
         // Create new project - this part needs to be improved and optimised
         const form = $('<form/>', {
