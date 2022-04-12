@@ -152,6 +152,31 @@ class AssignmentsController < ApplicationController
     response.headers["X-FRAME-OPTIONS"] = "ALLOW-FROM #{session[:lms_domain]}"
   end
 
+  def publish_grades
+    assignment = Assignment.includes(:projects).find(params[:id])
+    assignment.update(grades_published: true)
+
+    # Passing all the grades to LMS if LTI integration is enabled
+    if Flipper.enabled?(:lms_integration, current_user) && session[:is_lti]
+      assignment.projects.each do |project|
+        grade = Grade.find_by(project_id: grade_params[project.id],
+                              assignment_id: grade_params[assignment.id])
+        score = grade.to_f / 100 # conversion to 0-0.100 scale as per IMS Global specification
+        LtiScoreSubmission.new(
+          assignment: assignment,
+          lis_result_sourced_id: project.lis_result_sourced_id,
+          score: score,
+          lis_outcome_service_url: session[:lis_outcome_service_url]
+        ).call # LTI score submission, see app/helpers/lti_helper.rb
+      end
+    end
+
+    respond_to do |format|
+      format.html { redirect_to @group, notice: t("publish_grades_successfull") }
+      format.json { head :no_content }
+    end
+  end
+
   private
 
     # Use callbacks to share common setup or constraints between actions.
