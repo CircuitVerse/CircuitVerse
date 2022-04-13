@@ -10,7 +10,7 @@ import {
 } from './engine';
 import simulationArea from './simulationArea';
 import logixFunction from './data';
-import { newCircuit, circuitProperty } from './circuit';
+import { createNewCircuitScope, circuitProperty } from './circuit';
 import modules from './modules';
 import { updateRestrictedElementsInScope } from './restrictedElementDiv';
 import { paste } from './events';
@@ -145,7 +145,7 @@ function menuItemClicked(id, code="") {
         undo();
         undo();
     } else if (id === 5) {
-        newCircuit();
+        createNewCircuitScope();
     } else if (id === 6) {
         logixFunction.createSubCircuitPrompt();
     } else if (id === 7) {
