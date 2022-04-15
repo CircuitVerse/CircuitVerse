@@ -114,18 +114,34 @@ function deleteCurrentCircuit(scopeId = globalScope.id) {
         return;
     }
 
-    const confirmation = confirm(`Are you sure want to close: ${scope.name}\nThis cannot be undone.`);
-    if (confirmation) {
+    $('#closeCircuitPrompt').text(`Are you sure want to close: ${scope.name}\nThis cannot be undone.`);
+    $('#closeCircuitPrompt').dialog({
+        resizable:false,
+        buttons: [
+            {
+                text: 'OK',
+                click() {
         if (scope.verilogMetadata.isVerilogCircuit) {
             scope.initialize();
-            for(var id in scope.verilogMetadata.subCircuitScopeIds)
+            for (var id in scope.verilogMetadata.subCircuitScopeIds)
                 delete scopeList[id];
         }
         $(`#${scope.id}`).remove();
         delete scopeList[scope.id];
         switchCircuit(Object.keys(scopeList)[0]);
         showMessage('Circuit was successfully closed');
-    } else { showMessage('Circuit was not closed'); }
+        $('#closeCircuitPrompt').dialog('close');
+    }
+},
+{
+    text: 'Cancel',
+    click() {
+        showMessage('Circuit was not closed');
+        $(this).dialog('close');
+    }
+}
+]
+});
 }
 
 /**
@@ -151,20 +167,41 @@ export function createNewCircuitScope() {
 export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
     if (layoutModeGet()) { toggleLayoutMode(); }
     if (verilogModeGet()) { verilogModeSet(false);}
-    name = name || prompt('Enter circuit name:','Untitled-Circuit');
+    if (name) {
+        createNewCircuit(name, id, isVerilog, isVerilogMain);
+}
+else {
+    $('#newCircuitPrompt').empty();
+    $('#newCircuitPrompt').append(`<label style="margin: 0;">Enter circuit name: </label><input id='newCircuitName' required type='text'>`);
+    $('#newCircuitPrompt').dialog({
+        resizable: false,
+        buttons: [
+            {
+                text: 'Confirm',
+                click() {
+                    let name = $('#newCircuitName').val();
+                    createNewCircuit(name, id, isVerilog, isVerilogMain);
+                    $("#newCircuitPrompt").dialog('close');
+                }
+            }
+            ]
+        })
+    }
+}
+function createNewCircuit(name, id, isVerilog = false, isVerilogMain = false) {
     name = stripTags(name);
     if (!name) return;
     const scope = new Scope(name);
     if (id) scope.id = id;
     scopeList[scope.id] = scope;
-    if(isVerilog) {
+    if (isVerilog) {
         scope.verilogMetadata.isVerilogCircuit = true;
         scope.verilogMetadata.isMainCircuit = isVerilogMain;
     }
     globalScope = scope;
     $('.circuits').removeClass('current');
     if (!isVerilog || isVerilogMain) {
-        if(embed) {
+        if (embed) {
             var html = `<div style='' class='circuits toolbarButton current' draggable='true' id='${scope.id}'><span class='circuitName noSelect'>${truncateString(name, 18)}</span></div>`;
             $('#tabsBar').append(html);
             $("#tabsBar").addClass('embed-tabs');
@@ -180,18 +217,18 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
         $('.tabsCloseButton').off('click');
 
         // Add listeners
-        $('.circuits').on('click',function () {
+        $('.circuits').on('click', function () {
             switchCircuit(this.id);
         });
 
-        $('.circuitName').on('click',(e) => {
+        $('.circuitName').on('click', (e) => {
             simulationArea.lastSelected = globalScope.root;
             setTimeout(() => {
                 document.getElementById('circname').select();
             }, 100);
         });
         
-        $('.tabsCloseButton').on('click',function (e) {
+        $('.tabsCloseButton').on('click', function (e) {
             e.stopPropagation();
             deleteCurrentCircuit(this.id);
         });
@@ -200,7 +237,7 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
         }
         dots(false);
     }
-    
+
     return scope;
 }
 
