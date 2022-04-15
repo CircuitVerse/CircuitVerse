@@ -22,13 +22,16 @@
         <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.project") %><span></span></a>
         <ul class="dropdown-menu">
           <% if not @project.nil? %>
-             <li><a class="dropdown-item logixButton text-left pl-1" href="<%= user_project_url(@project.author, @project) %>" target="_blank">Project Page</a></li>
+            <li><a class="dropdown-item logixButton text-left pl-1" href="<%= user_project_url(@project.author, @project) %>" target="_blank">Project Page</a></li>
           <% end %>
           <li><a class="dropdown-item logixButton text-left pl-1" id="newProject">New Project</a></li>
+          <% if user_signed_in? %>
+            <li><a class="dropdown-item logixButton text-left pl-1" href="<%= user_path(current_user) %>">View Project Page</a></li>
+          <% end %>
           <li><a class="dropdown-item logixButton text-left pl-1" id="save">Save Online</a></li>
           <li><a class="dropdown-item logixButton text-left pl-1" id="saveOffline">Save Offline</a></li>
           <li><a class="dropdown-item logixButton text-left pl-1" id="createOpenLocalPrompt">Open Offline</a></li>
-           <li><a class="dropdown-item logixButton text-left pl-1" id="clearProject">Clear Project</a></li>
+          <li><a class="dropdown-item logixButton text-left pl-1" id="clearProject">Clear Project</a></li>
           <li><a class="dropdown-item logixButton text-left pl-1" id="recoverProject">Recover Project</a></li>
           <li><a class="dropdown-item logixButton text-left pl-1" id="fullViewOption">Preview Circuit</a></li>
           <li><a class="dropdown-item logixButton text-left pl-1" onclick="old_ui_redirect()">View Previous UI</a></li>
