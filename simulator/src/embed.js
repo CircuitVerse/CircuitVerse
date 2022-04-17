@@ -12,7 +12,7 @@ circuitProperty.toggleFullScreen = toggleFullScreen;
 $(document).ready(() => {
     // Clock features
     $("#clockProperty").append(
-        "<input type='button' class='objectPropertyAttributeEmbed custom-btn--secondary embed-fullscreen-btn' name='toggleFullScreen' value='Full Screen'> </input>"
+        "<input type='button' id='fullscreen' class='objectPropertyAttributeEmbed custom-btn--secondary embed-fullscreen-btn' name='toggleFullScreen' value='Full Screen'> </input>"
     );
     $("#clockProperty").append(
         `<div>Time: <input class='objectPropertyAttributeEmbed' min='50' type='number' style='width:48px' step='10' name='changeClockTime'  value='${simulationArea.timePeriod}'></div>`
@@ -56,6 +56,12 @@ function toggleFullScreen(value) {
 function exitHandler() {
     setTimeout(() => {
         Object.keys(scopeList).forEach((id) => {
+            if(document.getElementById("fullscreen").value == "Full Screen") {
+                document.getElementById("fullscreen").setAttribute("value","Exit Full Screen");
+            }
+            else {
+                document.getElementById("fullscreen").setAttribute("value","Full Screen");
+            }  
             scopeList[id].centerFocus(true);
         });
         gridUpdateSet(true);
