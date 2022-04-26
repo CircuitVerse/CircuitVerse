@@ -51,6 +51,6 @@ class Users::CircuitverseController < ApplicationController
 
     def set_user
       @profile = current_user
-      @user = User.find(params[:id])
+      @user = User.friendly.find(params[:id])
     end
 end
