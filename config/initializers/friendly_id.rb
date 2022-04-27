@@ -44,7 +44,7 @@ FriendlyId.defaults do |config|
   # performance because it will avoid Rails-internal code that makes runtime
   # calls to `Module.extend`.
   #
-  config.use :finders
+  # config.use :finders
   #
   # ## Slugs
   #
