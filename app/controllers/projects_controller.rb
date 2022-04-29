@@ -16,7 +16,7 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @author = User.find(params[:user_id])
+    @author = User.friendly.find(params[:user_id])
   end
 
   # GET /projects/tags/[tag]
@@ -70,7 +70,7 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
-        format.html { redirect_to user_project_path(@project.author_id, @project), notice: "Project was successfully created." }
+        format.html { redirect_to user_project_path(@project.author, @project), notice: "Project was successfully created." }
         format.json { render :show, status: :created, location: @project }
       else
         format.html { render :new }
@@ -85,7 +85,7 @@ class ProjectsController < ApplicationController
     @project.description = params["description"]
     respond_to do |format|
       if @project.update(project_params)
-        format.html { redirect_to user_project_path(@project.author_id, @project), notice: "Project was successfully updated." }
+        format.html { redirect_to user_project_path(@project.author, @project), notice: "Project was successfully updated." }
         format.json { render :show, status: :ok, location: @project }
       else
         format.html { render :edit }
@@ -99,7 +99,7 @@ class ProjectsController < ApplicationController
   def destroy
     @project.destroy
     respond_to do |format|
-      format.html { redirect_to user_path(@project.author_id), notice: "Project was successfully destroyed." }
+      format.html { redirect_to user_path(@project.author), notice: "Project was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -109,7 +109,7 @@ class ProjectsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_project
       if params[:user_id]
-        @author = User.find(params[:user_id])
+        @author = User.friendly.find(params[:user_id])
         @project = @author.projects.friendly.find(params[:id])
       else
         @project = Project.friendly.find(params[:id])
