@@ -211,7 +211,7 @@
 <%= commontator_thread(@project) if Flipper.enabled?(:project_comments) %>
 
 <script>
-  $(document).ready(function() {  
+  $(document).ready(function() {
     <% if @project&.assignment_id.present? && @project.assignment.feature_restrictions %> {
       let restricted_feature = '<%= @project.assignment.feature_restrictions %>';
       if(restricted_feature.includes('Allow Collaborators')) {
@@ -221,9 +221,8 @@
         $('#copy_paste').attr("style", "display:none")
       }
       $('#restricted_features').html(`<strong>Restricted Features :</strong> ${restricted_feature}`);
-    } 
+    }
     <% end %>
-    
     $("#deleteprojectModal").on("show.bs.modal", function(e) {
         let author = $(e.relatedTarget).data('currentauthor');
         let project = $(e.relatedTarget).data('currentproject');
