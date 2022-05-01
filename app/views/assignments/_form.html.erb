@@ -1,7 +1,7 @@
 <link rel="stylesheet" type="text/css" href="/css/restrictedElements.css">
 <script src="/js/metadata.json"></script>
 
-<%= form_with(model: [group,@assignment], local: true, html: {onsubmit:"beforeSubmit()"}, multipart: true ,id:"assignmentForm") do |form| %>
+<%= form_with(model: [group,@assignment], local: true, html: {onsubmit:"beforeSubmit()"}, multipart: true ,id:"assignmentForm", 'data-controller': "assignment") do |form| %>
   <% if @assignment.errors.any? %>
     <div id="error-message">
       <ul>
@@ -59,6 +59,14 @@
       <div class="primary-checkpoint"></div>
     </label>
     <div class="restricted-elements-list"> <!-- Operated by script --> </div>
+  </div>
+
+  <div id="restrictions-field" class="field form-group" data-controller="assignment">
+    <label for="restrict-feature" class="primary-checkpoint-container" id="label-restrict-feature"><h6><%= t("assignments.form.enable_feature_restriction") %></h6>
+      <%= check_box_tag "restrict-feature" %>
+      <div class="primary-checkpoint"></div>
+    </label>
+    <div class="restricted-feature-list"> <!-- Operated by script --> </div>
   </div>
 
   <div class="field form-group">
@@ -131,6 +139,23 @@
       cleanEditor();
       generateRestrictions();
       generateDate();
+      generateFeatureRestrictions();
+  }
+  function generateFeatureRestrictions() {
+    let new_feature_restriction = [];
+    if ($('#restrict-feature').is(':checked')) {
+      let restricted_feature = $('.feature-restriction');
+      for (let i = 0; i < restricted_feature.length; i++) {
+        let temp = $(restricted_feature[i]);
+        if (temp.is(':checked')) {
+          new_feature_restriction.push(temp.val());
+        }
+      }
+    }
+    $('<input />').attr('type', 'hidden')
+      .attr('name', 'assignment[feature_restrictions]')
+      .attr('value', new_feature_restriction)
+      .appendTo('#assignmentForm');
   }
   function generateDate() {
     const splittedDate = $('#assignment_deadline').val().split(/[\s,/:]+/);

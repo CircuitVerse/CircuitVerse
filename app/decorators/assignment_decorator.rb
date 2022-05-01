@@ -31,6 +31,12 @@ class AssignmentDecorator < SimpleDelegator
     restricted_elements_str.present? ? restricted_elements_str.slice(0..-3) : "None"
   end
 
+  def restricted_features
+    restricted_feature_str = assignment.feature_restrictions
+
+    restricted_feature_str.present? ? restricted_feature_str : "None"
+  end
+
   def closed?
     assignment.status == "closed"
   end

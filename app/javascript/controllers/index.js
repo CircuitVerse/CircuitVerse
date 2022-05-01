@@ -4,5 +4,8 @@
 
 import { application } from "./application"
 
+import AssignmentController from "./assignment_controller.js"
+application.register("assignment", AssignmentController)
+
 import GroupsController from "./groups_controller.js"
 application.register("groups", GroupsController)
