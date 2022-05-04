@@ -8,9 +8,25 @@ import Scope, { scopeList } from "../circuit";
 import { loadScope } from "./load";
 import { updateRestrictedElementsInScope } from "../restrictedElementDiv";
 import { forceResetNodesSet } from "../engine";
+import { findDimensions } from "../canvasApi";
+import simulationArea from "../simulationArea";
 
 
 var myInterval;
+
+
+function applyBackdrop() {
+  findDimensions();
+  const minX = simulationArea.minWidth;
+  const minY = simulationArea.minHeight;
+  const maxX = simulationArea.maxWidth;
+  const maxY = simulationArea.maxHeight;
+
+  console.log("X : " + minX + " " + maxX);
+  console.log("Y : " + minY + " " + maxY);
+
+  
+}
 
 export function stopReplay(scope) {
   console.log("all displayed");
@@ -34,9 +50,9 @@ export function replay(scope = globalScope) {
   // center focus for replay - 
   // else for big circuits some part goes out of screen
   globalScope.centerFocus(false);
-
+  applyBackdrop();
   // add blurr to the unconcerned part
-  
+
   const backupOx = globalScope.ox;
   const backupOy = globalScope.oy;
   const backupScale = globalScope.scale;
