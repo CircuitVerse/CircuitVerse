@@ -16,6 +16,7 @@ export function stopReplay(scope) {
   console.log("all displayed");
   clearInterval(myInterval);
   globalScope = scope;
+  globalScope.centerFocus(false);
   forceResetNodesSet(true);
   updateRestrictedElementsInScope();
 }
@@ -30,11 +31,10 @@ export function replay(scope = globalScope) {
   console.log(scope);
   if (layoutModeGet()) return;
   console.log("replay called");
+  globalScope.centerFocus(false);
   const backupOx = globalScope.ox;
   const backupOy = globalScope.oy;
   const backupScale = globalScope.scale;
-  globalScope.ox = 0;
-  globalScope.oy = 0;
 
   console.log(scope.backups);
   var frames = scope.backups;
