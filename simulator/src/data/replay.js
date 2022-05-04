@@ -12,7 +12,7 @@ import { forceResetNodesSet } from "../engine";
 
 var myInterval;
 
-function stopReplay(scope) {
+export function stopReplay(scope) {
   console.log("all displayed");
   clearInterval(myInterval);
   globalScope = scope;
@@ -26,7 +26,7 @@ function stopReplay(scope) {
  * @category data
  * @exports replay
  */
-export default function replay(scope = globalScope) {
+export function replay(scope = globalScope) {
   console.log(scope);
   if (layoutModeGet()) return;
   console.log("replay called");

@@ -15,7 +15,7 @@ import modules from './modules';
 import { updateRestrictedElementsInScope } from './restrictedElementDiv';
 import { paste } from './events';
 import { setProjectName, getProjectName } from './data/save';
-import replay from './data/replay';
+import { replay, stopReplay } from './data/replay';
 import { changeScale } from './canvasApi';
 import updateTheme from "./themer/themer";
 import { generateImage, generateSaveData } from './data/save';
@@ -657,7 +657,7 @@ export function exitReplayView(){
     $('.testbench-manual-panel').show();
 }
 
-export function replayCircuit() {
+export function replayCircuit(scope = globalScope) {
     const markUp = `
     <button id='exitReplay'>Exit Replay</button>
     <button id='startReplay'>Start Replay</button>`
@@ -674,10 +674,14 @@ export function replayCircuit() {
     $('.timing-diagram-panel').hide();
     $('.testbench-manual-panel').hide();
     $('#exitView').append(markUp);
-    $('#exitReplay').on('click', exitReplayView);
+    $("#exitReplay").on("click", () => {
+        console.log("replay mode exiting");
+        stopReplay(scope);
+        exitReplayView();
+    });
     $("#startReplay").on("click", () => {
-        console.log("replay clicked");  
-        replay();
+        console.log("replay start clicked");
+        replay(scope);
     });
 }
 /** 
