@@ -1723,16 +1723,15 @@ input[type='range']::-webkit-slider-thumb {
 }
 
 #blurPart{
-  position: fixed;
-  width: 200px;
-  height: 200px;
-  top: 50px;
-  left: 50px;
-  /* for IE */
-  box-shadow: 0 0 0 1000px rgba(0,0,0,.3);
-  /* for real browsers */
-  box-shadow: 0 0 0 100vmax rgba(0,0,0,.3);
-  pointer-events: none;
+  z-index: 1001;
+  position: absolute;
+  border-radius: 10px;
+  background: transparent;
+  top: 95px;
+  left: 100px;
+  width: 732px;
+  height: 450px;
+  box-shadow: 0 0 0 9999px rgb(0 0 0 / 50%);
 }
 
 

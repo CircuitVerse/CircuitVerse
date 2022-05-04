@@ -652,15 +652,16 @@ export function exitReplayView(){
     $('#tabsBar').show();
     $('#exitReplay').remove();
     $('#startReplay').remove();
+    $('#blurPart').remove();
     $('#moduleProperty').show();
     $('.timing-diagram-panel').show();
     $('.testbench-manual-panel').show();
 }
 
 export function replayCircuit(scope = globalScope) {
-    let buttonHTML = `<button id='exitReplay'>Exit Replay</button>`
-    buttonHTML += `<button id='startReplay'>Start Replay</button>`
-    blurHTML = `<div id="blurPart"></div>`
+    var buttonHTML = `<button id='exitReplay'>Exit Replay</button>`;
+    buttonHTML += `<button id='startReplay'>Start Replay</button>`;
+    var blurHTML = `<div id="blurPart"></div>`
     // some more ui for player like view
     $('.navbar').hide()
     $('.modules').hide()
@@ -672,14 +673,14 @@ export function replayCircuit(scope = globalScope) {
     $('#exitView').append(buttonHTML);
     $("#exitReplay").on("click", () => {
         console.log("replay mode exiting");
-        // need to fix this part
-        // $('#exitView').remove(blurHTML);
         stopReplay(scope);
         exitReplayView();
     });
     $("#startReplay").on("click", () => {
-        // $('#exitView').append(blurHTML);
         console.log("replay start clicked");
+        if ($('#blurPart').length === 0) {
+            $('#exitView').append(blurHTML);
+        }
         replay(scope);
     });
 }
