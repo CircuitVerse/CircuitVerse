@@ -1,4 +1,4 @@
-import { fullView, deleteSelected } from './ux';
+import { fullView, deleteSelected, replayCircuit } from './ux';
 import { createSubCircuitPrompt } from './subcircuit';
 import save from './data/save';
 import load from './data/load';
@@ -25,6 +25,7 @@ logixFunction.recoverProject = recoverProject;
 logixFunction.createSubCircuitPrompt = createSubCircuitPrompt;
 logixFunction.createCombinationalAnalysisPrompt = createCombinationalAnalysisPrompt;
 logixFunction.fullViewOption = fullView;
+logixFunction.replayCircuit = replayCircuit;
 logixFunction.colorThemes = colorThemes;
 logixFunction.showTourGuide = showTourGuideHelper;
 logixFunction.deleteSelected = deleteSelected;

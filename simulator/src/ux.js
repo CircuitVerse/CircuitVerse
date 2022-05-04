@@ -15,6 +15,7 @@ import modules from './modules';
 import { updateRestrictedElementsInScope } from './restrictedElementDiv';
 import { paste } from './events';
 import { setProjectName, getProjectName } from './data/save';
+import replay from './data/replay';
 import { changeScale } from './canvasApi';
 import updateTheme from "./themer/themer";
 import { generateImage, generateSaveData } from './data/save';
@@ -282,6 +283,7 @@ export function prevPropertyObjGet() {
  */
 export function showProperties(obj) {
     if (obj === prevPropertyObjGet()) return;
+    // if in full view mode || replay mode then return 
     hideProperties();
     prevPropertyObjSet(obj);
     if(layoutModeGet()){
@@ -639,6 +641,44 @@ export function fullView () {
     $('.testbench-manual-panel').hide();
     $('#exitView').append(markUp);
     $('#exitViewBtn').on('click', exitFullView);
+}
+
+
+
+export function exitReplayView(){
+    $('.navbar').show();
+    $('.modules').show();
+    $('.report-sidebar').show();
+    $('#tabsBar').show();
+    $('#exitReplay').remove();
+    $('#startReplay').remove();
+    $('#moduleProperty').show();
+    $('.timing-diagram-panel').show();
+    $('.testbench-manual-panel').show();
+}
+
+export function replayCircuit() {
+    const markUp = `
+    <button id='exitReplay'>Exit Replay</button>
+    <button id='startReplay'>Start Replay</button>`
+    // some more ui for player like view
+
+    // 1. fit to screen
+    // 2. make a blur outside concerned area
+    
+    $('.navbar').hide()
+    $('.modules').hide()
+    $('.report-sidebar').hide()
+    $('#tabsBar').hide()
+    $('#moduleProperty').hide()
+    $('.timing-diagram-panel').hide();
+    $('.testbench-manual-panel').hide();
+    $('#exitView').append(markUp);
+    $('#exitReplay').on('click', exitReplayView);
+    $("#startReplay").on("click", () => {
+        console.log("replay clicked");  
+        replay();
+    });
 }
 /** 
     Fills the elements that can be displayed in the subcircuit, in the subcircuit menu
