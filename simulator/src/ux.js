@@ -658,9 +658,9 @@ export function exitReplayView(){
 }
 
 export function replayCircuit(scope = globalScope) {
-    const markUp = `
-    <button id='exitReplay'>Exit Replay</button>
-    <button id='startReplay'>Start Replay</button>`
+    let buttonHTML = `<button id='exitReplay'>Exit Replay</button>`
+    buttonHTML += `<button id='startReplay'>Start Replay</button>`
+    blurHTML = `<div id="blurPart"></div>`
     // some more ui for player like view
     $('.navbar').hide()
     $('.modules').hide()
@@ -669,13 +669,16 @@ export function replayCircuit(scope = globalScope) {
     $('#moduleProperty').hide()
     $('.timing-diagram-panel').hide();
     $('.testbench-manual-panel').hide();
-    $('#exitView').append(markUp);
+    $('#exitView').append(buttonHTML);
     $("#exitReplay").on("click", () => {
         console.log("replay mode exiting");
+        // need to fix this part
+        // $('#exitView').remove(blurHTML);
         stopReplay(scope);
         exitReplayView();
     });
     $("#startReplay").on("click", () => {
+        // $('#exitView').append(blurHTML);
         console.log("replay start clicked");
         replay(scope);
     });

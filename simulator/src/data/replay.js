@@ -25,7 +25,7 @@ function applyBackdrop() {
   console.log("X : " + minX + " " + maxX);
   console.log("Y : " + minY + " " + maxY);
 
-  
+  // add styles to transparent part
 }
 
 export function stopReplay(scope) {

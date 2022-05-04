@@ -1722,6 +1722,20 @@ input[type='range']::-webkit-slider-thumb {
     border-radius: 5px;
 }
 
+#blurPart{
+  position: fixed;
+  width: 200px;
+  height: 200px;
+  top: 50px;
+  left: 50px;
+  /* for IE */
+  box-shadow: 0 0 0 1000px rgba(0,0,0,.3);
+  /* for real browsers */
+  box-shadow: 0 0 0 100vmax rgba(0,0,0,.3);
+  pointer-events: none;
+}
+
+
 .panel-drag {
   cursor: move;
   opacity: .6;
