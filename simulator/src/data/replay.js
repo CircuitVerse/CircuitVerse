@@ -31,7 +31,12 @@ export function replay(scope = globalScope) {
   console.log(scope);
   if (layoutModeGet()) return;
   console.log("replay called");
+  // center focus for replay - 
+  // else for big circuits some part goes out of screen
   globalScope.centerFocus(false);
+
+  // add blurr to the unconcerned part
+  
   const backupOx = globalScope.ox;
   const backupOy = globalScope.oy;
   const backupScale = globalScope.scale;

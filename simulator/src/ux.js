@@ -662,10 +662,6 @@ export function replayCircuit(scope = globalScope) {
     <button id='exitReplay'>Exit Replay</button>
     <button id='startReplay'>Start Replay</button>`
     // some more ui for player like view
-
-    // 1. fit to screen
-    // 2. make a blur outside concerned area
-    
     $('.navbar').hide()
     $('.modules').hide()
     $('.report-sidebar').hide()
