@@ -9,6 +9,17 @@ import { loadScope } from "./load";
 import { updateRestrictedElementsInScope } from "../restrictedElementDiv";
 import { forceResetNodesSet } from "../engine";
 
+
+var myInterval;
+
+function stopReplay(scope) {
+  console.log("all displayed");
+  clearInterval(myInterval);
+  globalScope = scope;
+  forceResetNodesSet(true);
+  updateRestrictedElementsInScope();
+}
+
 /**
  * Function called to replay a circuit
  * @param {Scope=} - the circuit in which we want to call replay
@@ -33,7 +44,7 @@ export default function replay(scope = globalScope) {
 
   var fps = 1;
   var i = 0;
-  var myInterval = setInterval(function () {
+  myInterval = setInterval(function () {
     // make a temporary scope to load a frome
     const tempScope = new Scope(scope.name);
     loading = true;
@@ -55,11 +66,7 @@ export default function replay(scope = globalScope) {
     console.log("frame : " + i);
     if (i == count) {
       // We've played all frames.
-      console.log("all displayed");
-      clearInterval(myInterval);
-      globalScope = scope;
-      forceResetNodesSet(true);
-      updateRestrictedElementsInScope();
+      stopReplay(scope);
     }
   }, 1000 / fps);
 }
