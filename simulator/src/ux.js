@@ -658,11 +658,13 @@ export function exitReplayView(){
     $('.testbench-manual-panel').show();
 }
 
+/** 
+   Function to set up UI for Replaying circuit
+**/
 export function replayCircuit(scope = globalScope) {
-    var buttonHTML = `<button id='exitReplay'>Exit Replay</button>`;
-    buttonHTML += `<button id='startReplay'>Start Replay</button>`;
+    var exitButton = `<button id='exitReplay'>Exit Replay</button>`;
+    var replayButton = `<button id='startReplay'>Start Replay</button>`;
     var blurHTML = `<div id="blurPart"></div>`
-    // some more ui for player like view
     $('.navbar').hide()
     $('.modules').hide()
     $('.report-sidebar').hide()
@@ -670,20 +672,21 @@ export function replayCircuit(scope = globalScope) {
     $('#moduleProperty').hide()
     $('.timing-diagram-panel').hide();
     $('.testbench-manual-panel').hide();
-    $('#exitView').append(buttonHTML);
+    $('#exitView').append(exitButton);
+    $('#exitView').append(replayButton);
     $("#exitReplay").on("click", () => {
-        console.log("replay mode exiting");
         stopReplay(scope);
         exitReplayView();
     });
     $("#startReplay").on("click", () => {
-        console.log("replay start clicked");
         if ($('#blurPart').length === 0) {
             $('#exitView').append(blurHTML);
         }
+        // some more ui for player like view
         replay(scope);
     });
 }
+
 /** 
     Fills the elements that can be displayed in the subcircuit, in the subcircuit menu
 **/

@@ -1,8 +1,3 @@
-/**
- * Function to replay circuit
- * @param {Scope=} scope - The circuit on which replay is called
- * @category data
- */
 import { layoutModeGet } from "../layoutMode";
 import Scope, { scopeList } from "../circuit";
 import { loadScope } from "./load";
@@ -21,15 +16,12 @@ function applyBackdrop() {
   const minY = simulationArea.minHeight;
   const maxX = simulationArea.maxWidth;
   const maxY = simulationArea.maxHeight;
-
-  console.log("X : " + minX + " " + maxX);
-  console.log("Y : " + minY + " " + maxY);
-
-  // add styles to transparent part
+  let width = (maxX - minX) + 100;
+  let height = (maxY - minY) + 100;
+  $('#blurPart').css({'top': (minY + globalScope.oy - 50), 'left' : (minX + globalScope.ox - 50), 'width' : width, 'height' : height});
 }
 
 export function stopReplay(scope) {
-  console.log("all displayed");
   clearInterval(myInterval);
   globalScope = scope;
   globalScope.centerFocus(false);
@@ -44,25 +36,17 @@ export function stopReplay(scope) {
  * @exports replay
  */
 export function replay(scope = globalScope) {
-  console.log(scope);
   if (layoutModeGet()) return;
-  console.log("replay called");
   // center focus for replay - 
   // else for big circuits some part goes out of screen
   globalScope.centerFocus(false);
+  // add backdrop to the unconcerned part
   applyBackdrop();
-  // add blurr to the unconcerned part
-
   const backupOx = globalScope.ox;
   const backupOy = globalScope.oy;
   const backupScale = globalScope.scale;
-
-  console.log(scope.backups);
   var frames = scope.backups;
   var count = frames.length;
-  console.log(frames);
-  console.log(count);
-
   var fps = 1;
   var i = 0;
   myInterval = setInterval(function () {
