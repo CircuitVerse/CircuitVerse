@@ -66,9 +66,7 @@ export function replay(scope = globalScope) {
     globalScope.ox = backupOx;
     globalScope.oy = backupOy;
     globalScope.scale = backupScale;
-
     i++;
-    console.log("frame : " + i);
     if (i == count) {
       // We've played all frames.
       stopReplay(scope);
