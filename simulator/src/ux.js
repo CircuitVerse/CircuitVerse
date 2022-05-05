@@ -643,8 +643,6 @@ export function fullView () {
     $('#exitViewBtn').on('click', exitFullView);
 }
 
-
-
 export function exitReplayView(){
     $('.navbar').show();
     $('.modules').show();
