@@ -16,14 +16,14 @@ function applyBackdrop() {
     const minY = simulationArea.minHeight;
     const maxX = simulationArea.maxWidth;
     const maxY = simulationArea.maxHeight;
-    const width = (maxX - minX) + 100;
-    const height = (maxY - minY) + 100;
+    const backdropWidth = (maxX - minX) + 100;
+    const backdropHeight = (maxY - minY) + 100;
     // having 50px left, right, top, down padding
     $('#blurPart').css({
         top: (minY + globalScope.oy - 50),
         left: (minX + globalScope.ox - 50),
-        width: width,
-        height: height
+        width: backdropWidth,
+        height: backdropHeight,
     });
 }
 
@@ -73,7 +73,7 @@ export function replay(scope = globalScope) {
         globalScope.oy = backupOy;
         globalScope.scale = backupScale;
         i++;
-        if (i == count) {
+        if (i === count) {
             // We've played all frames.
             stopReplay(scope);
         }
