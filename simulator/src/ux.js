@@ -657,6 +657,8 @@ export function exitReplayView(){
      $("#replay").css("display", "none");
 }
 
+
+import { setProgressValue } from './data/replay';
 /** 
    Function to set up UI for Replaying circuit
 **/
@@ -664,6 +666,11 @@ export function replayCircuit(scope = globalScope) {
     var exitButton = `<button id='exitReplay'>Exit Replay</button>`;
     var replayButton = `<button id='startReplay'>Start Replay</button>`;
     var blurHTML = `<div id="blurPart"></div>`
+    $("#progress").on("click", (e) => {
+        console.log(e.pageX);
+        console.log(this.offsetLeft);
+        setProgressValue(e);
+    })
     $("#replay").css("display", "block");
     $('.navbar').hide()
     $('.modules').hide()
