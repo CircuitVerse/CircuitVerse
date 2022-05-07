@@ -8,7 +8,7 @@ import simulationArea from '../simulationArea';
 
 
 var myInterval;
-
+var fps = 1;
 
 function applyBackdrop() {
     findDimensions();
@@ -53,7 +53,7 @@ export function replay(scope = globalScope) {
     const backupScale = globalScope.scale;
     var frames = scope.backups;
     var count = frames.length;
-    var fps = 1;
+    
     var i = 0;
     myInterval = setInterval(() => {
         // make a temporary scope to load a frome
@@ -78,4 +78,69 @@ export function replay(scope = globalScope) {
             stopReplay(scope);
         }
     }, 1000 / fps);
+}
+
+
+
+
+// Helper functions to replay
+var porgressState = 'stop';
+var progressValue = 50;
+export function setProgressValue(event) {
+    console.log("setting player progress");
+
+    // let progressDiff = event.clientX - $(".replay-panel").position().left;
+    // progressValue = (progressDiff / $(".replay-panel").width()) * 100;
+    // console.log("Progress % : " + progressValue);
+
+    $(".progress-bar").css('width', progressValue + '%');
+
+    // now update the canvas....
+    var currFrame = Math.floor((progressValue * globalScope.backups.length) / 100);
+    console.log("Frame to display : " + currFrame);
+    // load currFrame in the canvas
+}
+		
+export function buttonBackPress() {
+    console.log("button back invoked.");
+    fsp = (fps > 1 ? fps - 1 : 1);
+}
+
+export function buttonForwardPress() {
+    console.log("button forward invoked.");
+    fsp = fps + 1;
+}
+
+export function buttonRewindPress() {
+    console.log("button rewind invoked.");
+    fsp = (fps - 5 > 0 ? fps : 1);
+}
+
+export function buttonFastforwardPress() {
+    console.log("button fast forward invoked.");
+    fsp = (fps + 5);
+}
+
+export function buttonPlayPress() {
+    if(porgressState == 'stop'){
+        porgressState = 'play';
+        $("#button_play").addClass("btn-outline-secondary");
+        $("#button_play i").attr('class', "fa fa-pause");
+    }
+    else if(porgressState == 'play' || porgressState == 'resume'){
+        porgressState = 'pause';
+        $("#button_play i").attr('class', "fa fa-play");
+    }
+    else if(porgressState == 'pause'){
+        porgressState = 'resume';
+        $("#button_play i").attr('class', "fa fa-pause");
+    }
+    console.log("button play pressed, play was "+porgressState);
+}
+
+export function buttonStopPress(){
+    porgressState = 'stop';
+    $("#button_play").removeClass('btn-outline-secondary');
+    $("#button_play i").attr('class', "fa fa-play");
+    console.log("button stop invoked.");    
 }

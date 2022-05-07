@@ -654,6 +654,7 @@ export function exitReplayView(){
     $('#moduleProperty').show();
     $('.timing-diagram-panel').show();
     $('.testbench-manual-panel').show();
+     $("#replay").css("display", "none");
 }
 
 /** 
@@ -663,6 +664,7 @@ export function replayCircuit(scope = globalScope) {
     var exitButton = `<button id='exitReplay'>Exit Replay</button>`;
     var replayButton = `<button id='startReplay'>Start Replay</button>`;
     var blurHTML = `<div id="blurPart"></div>`
+    $("#replay").css("display", "block");
     $('.navbar').hide()
     $('.modules').hide()
     $('.report-sidebar').hide()

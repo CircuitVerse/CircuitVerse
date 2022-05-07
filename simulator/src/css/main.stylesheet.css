@@ -1888,3 +1888,34 @@ input[type='range']::-webkit-slider-thumb {
   /* margin-bottom: 5px; */
   border-radius: 3px;
 }
+
+
+#replay {
+  position: absolute;
+  bottom: -5px;
+  left: 2vw;
+  height: 60px;
+  width: 96vw;
+  background: #454545;
+  border-radius: 3px;
+  display: none;
+  z-index: 3;
+}
+
+.progress {
+  width: 90%;
+  margin: 5px auto;
+  height: 15px;
+}
+
+.player-bar {
+	height: 10px !important;
+}
+
+.player i{
+  color: white;
+}
+
+.player button {
+  background: white;
+}
