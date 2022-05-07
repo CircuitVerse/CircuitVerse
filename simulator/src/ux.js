@@ -667,9 +667,7 @@ export function replayCircuit(scope = globalScope) {
     var replayButton = `<button id='startReplay'>Start Replay</button>`;
     var blurHTML = `<div id="blurPart"></div>`
     $("#progress").on("click", (e) => {
-        console.log(e.pageX);
-        console.log(this.offsetLeft);
-        setProgressValue(e);
+        setProgressValue(e.offsetX);
     })
     $("#replay").css("display", "block");
     $('.navbar').hide()

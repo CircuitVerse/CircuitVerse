@@ -86,12 +86,11 @@ export function replay(scope = globalScope) {
 // Helper functions to replay
 var porgressState = 'stop';
 var progressValue = 50;
-export function setProgressValue(event) {
-    console.log("setting player progress" + event);
+export function setProgressValue(val) {
+    console.log("setting player progress");
 
-    // let progressDiff = event.clientX - $(".replay-panel").position().left;
-    // progressValue = (progressDiff / $(".replay-panel").width()) * 100;
-    // console.log("Progress % : " + progressValue);
+    progressValue = (val / $(".progress").width()) * 100;
+    console.log("Progress % : " + progressValue);
 
     $(".progress-bar").css('width', progressValue + '%');
 
