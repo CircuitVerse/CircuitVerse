@@ -6,7 +6,7 @@ import { forceResetNodesSet } from '../engine';
 import { findDimensions } from '../canvasApi';
 import simulationArea from '../simulationArea';
 
-var myInterval;
+var play_interval;
 var fps = 1;
 var porgressState = 'stop';
 var progressValue = 0;
@@ -40,30 +40,37 @@ export function replay(scope = globalScope) {
 
 
 function playInterval(scope) {
-    myInterval = setInterval(() => {
+    play_interval = setInterval(() => {
         // make a temporary scope to load a frome
-        const tempScope = new Scope(scope.name);
-        let loading = true;
-        const replayData = frames[currFrame];
-        loadScope(tempScope, JSON.parse(replayData));
-        tempScope.id = scope.id;
-        tempScope.name = scope.name;
-        scopeList[scope.id] = tempScope;
-        tempScope.ox = globalScope.ox;
-        tempScope.oy = globalScope.oy;
-        tempScope.scale = globalScope.scale;
-        loading = false;
-        globalScope = tempScope;
-        currFrame++;
-        progressValue = (currFrame / count) * 100;
-        updateProgressBar();
-
+        console.log(currFrame);
+        if(porgressState == 'play' || porgressState == 'resume') {
+            const tempScope = new Scope(scope.name);
+            let loading = true;
+            const replayData = frames[currFrame];
+            loadScope(tempScope, JSON.parse(replayData));
+            tempScope.id = scope.id;
+            tempScope.name = scope.name;
+            scopeList[scope.id] = tempScope;
+            tempScope.ox = globalScope.ox;
+            tempScope.oy = globalScope.oy;
+            tempScope.scale = globalScope.scale;
+            loading = false;
+            globalScope = tempScope;
+            currFrame++;
+            progressValue = (currFrame / count) * 100;
+            updateProgressBar();
+        }
+        
         if (currFrame === count) {
             // We've played all frames.
             stopReplay(scope);
             porgressState = 'stop';
         }
     }, 1000 / fps);
+}
+
+function pauseInterval() {
+    
 }
 
 // function to apply backdrop to the rest of the screen
@@ -89,7 +96,7 @@ export function stopReplay(scope) {
     $("#button_play").removeClass('pause-icon');
     $("#button_play").addClass('play-icon');
     porgressState = 'stop';
-    clearInterval(myInterval);
+    clearInterval(play_interval);
     globalScope = scope;
     globalScope.centerFocus(false);
     forceResetNodesSet(true);
@@ -105,16 +112,14 @@ function updateProgressBar() {
 // Helper functions to replay
 export function setProgressValue(val) {
     console.log("setting player progress");
-
+    porgressState = 'pause';
+    
     progressValue = (val / $(".progress").width()) * 100;
-    console.log("Progress % : " + progressValue);
-
+    currFrame = Math.floor((progressValue * count) / 100);
+    console.log("Progress % : " + progressValue + " || curr Frame : " + currFrame);
     updateProgressBar();
 
-    // now update the canvas....
-    currFrame = Math.floor((progressValue * globalScope.backups.length) / 100);
-    console.log("Frame to display : " + currFrame);
-    // load currFrame in the canvas
+    porgressState = 'play';
 }
 		
 export function buttonBackPress() {
