@@ -11,6 +11,8 @@ var fps = 1;
 var porgressState = 'stop';
 var progressValue = 0;
 var currFrame = 0;
+var frames;
+var count;
 
 /**
  * Function called to replay a circuit
@@ -21,36 +23,37 @@ var currFrame = 0;
 export function replay(scope = globalScope) {
     console.log("starting replay");
     if (layoutModeGet()) return;
+
     // center focus for replay
     // else for big circuits some part goes out of screen
     globalScope.centerFocus(false);
+
     // add backdrop to the unconcerned part
     // applyBackdrop();
-    const backupOx = globalScope.ox;
-    const backupOy = globalScope.oy;
-    const backupScale = globalScope.scale;
-    var frames = scope.backups;
-    var count = frames.length;
-    
+
+    frames = scope.backups;
+    count = frames.length;
+
     currFrame = 0;
+    playInterval(scope);
+}
+
+
+function playInterval(scope) {
     myInterval = setInterval(() => {
         // make a temporary scope to load a frome
         const tempScope = new Scope(scope.name);
-        loading = true;
+        let loading = true;
         const replayData = frames[currFrame];
         loadScope(tempScope, JSON.parse(replayData));
         tempScope.id = scope.id;
         tempScope.name = scope.name;
         scopeList[scope.id] = tempScope;
-        tempScope.ox = backupOx;
-        tempScope.oy = backupOy;
-        tempScope.scale = backupScale;
+        tempScope.ox = globalScope.ox;
+        tempScope.oy = globalScope.oy;
+        tempScope.scale = globalScope.scale;
         loading = false;
         globalScope = tempScope;
-        globalScope.ox = backupOx;
-        globalScope.oy = backupOy;
-        globalScope.scale = backupScale;
-        
         currFrame++;
         progressValue = (currFrame / count) * 100;
         updateProgressBar();
@@ -85,9 +88,6 @@ export function stopReplay(scope) {
     console.log("stoppig replay");
     $("#button_play").removeClass('pause-icon');
     $("#button_play").addClass('play-icon');
-    currFrame = scope.backups.length;
-    progressValue = 100;
-    updateProgressBar();
     porgressState = 'stop';
     clearInterval(myInterval);
     globalScope = scope;
@@ -97,6 +97,7 @@ export function stopReplay(scope) {
 }
 
 function updateProgressBar() {
+    progressValue = (currFrame / count) * 100;
     $(".progress-bar").css('width', progressValue + '%');
 }
 
@@ -167,5 +168,10 @@ export function buttonStopPress(scope){
     porgressState = 'stop';
     $("#button_play").removeClass('btn-outline-secondary');
     console.log("button stop invoked.");    
+
+    currFrame = scope.backups.length;
+    progressValue = 100;
+    updateProgressBar();
+
     stopReplay(scope);
 }
