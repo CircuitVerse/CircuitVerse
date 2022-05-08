@@ -8,7 +8,7 @@ import simulationArea from '../simulationArea';
 
 var play_interval;
 var fps;
-var porgressState;
+var porgressState;  // true for play & false for pause
 var progressValue;
 var currFrame;
 var frames;
@@ -36,17 +36,21 @@ export function replay(scope = globalScope) {
 
 export function setInitialValues(scope) {
     fps = 1;
-    porgressState = 'stop';
+    porgressState = false;
     progressValue = 0;
     currFrame = 0;
     frames = scope.backups;
     count = frames.length;
+    updateProgressBar();
 }
 
 function playInterval(scope) {
+    console.log("playing from : " + currFrame);
+    console.log(frames);
     play_interval = setInterval(() => {
         // make a temporary scope to load a frome
-        if(porgressState == 'play' || porgressState == 'resume') {
+        console.log(currFrame);
+        if(porgressState === true) {
             const tempScope = new Scope(scope.name);
             let loading = true;
             const replayData = frames[currFrame];
@@ -67,7 +71,7 @@ function playInterval(scope) {
         if (currFrame === count) {
             // We've played all frames.
             stopReplay(scope);
-            porgressState = 'stop';
+            porgressState = false;
         }
     }, 1000 / fps);
 }
@@ -77,8 +81,10 @@ export function stopReplay(scope) {
 
     $("#button_play").removeClass('pause-icon');
     $("#button_play").addClass('play-icon');
-    porgressState = 'stop';
     clearInterval(play_interval);
+    porgressState = false;
+    currFrame = 0;
+    progressValue = 0;
     globalScope = scope;
     globalScope.centerFocus(false);
     forceResetNodesSet(true);
@@ -94,16 +100,16 @@ function updateProgressBar() {
 
 
 // On clicking on progress bar to change frame
-export function setProgressValue(val) {
+export function setProgressValue(val, scope) {
     console.log("setProgressValue function");
     
-    porgressState = 'pause';    
     progressValue = (val / $(".progress").width()) * 100;
     currFrame = Math.floor((progressValue * count) / 100);
     console.log("Progress % : " + progressValue + " || curr Frame : " + currFrame);
-    updateProgressBar();
 
-    porgressState = 'play';
+    updateProgressBar();
+    clearInterval(play_interval);
+    playInterval(scope);
 }
 		
 export function buttonBackPress() {
@@ -130,20 +136,18 @@ export function buttonFastforwardPress() {
 
 export function buttonPlayPress(scope) {
     console.log("buttonPlayPress function");
-    console.log("button play pressed, play was " + porgressState);
-    if(porgressState == 'stop'){
-        porgressState = 'play';
+    console.log("progressState :  " + porgressState);
+    console.log("currentFrame :  " + currFrame);
+    if(porgressState === false){
+        porgressState = true;
         $("#button_play").removeClass('play-icon');
         $("#button_play").addClass('pause-icon');
-        replay(scope);
+        if (currFrame === 0) {
+            replay(scope);
+        }
     }
-    else if(porgressState == 'play' || porgressState == 'resume'){
-        porgressState = 'pause';
-        $("#button_play").removeClass('play-icon');
-        $("#button_play").addClass('pause-icon')
-    }
-    else if(porgressState == 'pause'){
-        porgressState = 'resume';
+    else if(porgressState === true){
+        porgressState = false;
         $("#button_play").removeClass('pause-icon');
         $("#button_play").addClass('play-icon')
     }
@@ -152,13 +156,12 @@ export function buttonPlayPress(scope) {
 export function buttonStopPress(scope){
     console.log("button stop invoked.");  
     
-    porgressState = 'stop';
-    $("#button_play").removeClass('btn-outline-secondary');
+    porgressState = false;
 
     currFrame = scope.backups.length;
     progressValue = 100;
     updateProgressBar();
-
+    
     stopReplay(scope);
 }
 

@@ -1940,7 +1940,13 @@ input[type='range']::-webkit-slider-thumb {
 }
 #button_fw {
   background: url(./assets/player/ffp.svg) center/cover;
+  border-radius: 50px;
+  border-color: white;  
+  background-color: white;
 }
 #button_bw {
   background: url(./assets/player/bfp.svg) center/cover;
+  border-radius: 50px;
+  border-color: white;  
+  background-color: white;
 }

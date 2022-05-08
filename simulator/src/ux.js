@@ -690,7 +690,7 @@ export function replayCircuit(scope = globalScope) {
     });
 
     $("#progress").on("click", (e) => {
-        setProgressValue(e.offsetX);
+        setProgressValue(e.offsetX, scope);
     })
     $("#button_fbw").on("click", () => {
         buttonRewindPress();
