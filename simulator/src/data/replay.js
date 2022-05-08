@@ -50,6 +50,10 @@ export function replay(scope = globalScope) {
         globalScope.oy = backupOy;
         globalScope.scale = backupScale;
         i++;
+
+        progressValue = (i / count) * 100;
+        $(".progress-bar").css('width', progressValue + '%');
+        
         if (i === count) {
             // We've played all frames.
             stopReplay(scope);
@@ -78,6 +82,7 @@ function applyBackdrop() {
 
 export function stopReplay(scope) {
     console.log("stoppig replay");
+    porgressState = 'stop';
     clearInterval(myInterval);
     globalScope = scope;
     globalScope.centerFocus(false);
