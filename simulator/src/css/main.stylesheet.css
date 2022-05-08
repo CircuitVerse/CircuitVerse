@@ -1894,7 +1894,7 @@ input[type='range']::-webkit-slider-thumb {
   position: absolute;
   bottom: -5px;
   left: 2vw;
-  height: 60px;
+  height: 65px;
   width: 96vw;
   background: #454545;
   border-radius: 3px;
@@ -1912,23 +1912,32 @@ input[type='range']::-webkit-slider-thumb {
 	height: 10px !important;
 }
 
-.player i{
-  color: white;
-}
 
 .player button {
-  background: white;
+  margin: 1px 2px;
   width: 25px;
   height: 25px;
-  color: white;
+  padding: 15px;
 }
 
 
-#button_play {
+.play-icon {
   background: url(./assets/player/play.svg) center/cover;
+  border-radius: 50px;
+  border-color: white;  
+  background-color: white;
+}
+.pause-icon {
+  background: url(./assets/player/pause.svg) center/cover;
+  border-radius: 50px;
+  border-color: white;  
+  background-color: white;
 }
 #button_stop {
   background: url(./assets/player/stop.svg) center/cover;
+  border-radius: 50px;
+  border-color: white;  
+  background-color: white;
 }
 #button_fw {
   background: url(./assets/player/ffp.svg) center/cover;

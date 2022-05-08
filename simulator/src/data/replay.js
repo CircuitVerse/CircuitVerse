@@ -136,20 +136,25 @@ export function buttonFastforwardPress() {
 }
 
 export function buttonPlayPress(scope) {
+    console.log(porgressState);
     if(porgressState == 'stop'){
         porgressState = 'play';
-        $("#button_play").addClass("btn-outline-secondary");
-        $("#button_play i").attr('class', "fa fa-pause");
+        $("#button_play").removeClass('play-icon');
+        $("#button_play").addClass('pause-icon')
         replay(scope);
     }
     else if(porgressState == 'play' || porgressState == 'resume'){
         porgressState = 'pause';
-        $("#button_play i").attr('class', "fa fa-play");
+        $("#button_play").removeClass('play-icon');
+        $("#button_play").addClass('pause-icon')
+
         // have to find a logic to pause
     }
     else if(porgressState == 'pause'){
         porgressState = 'resume';
-        $("#button_play i").attr('class', "fa fa-pause");
+
+        $("#button_play").removeClass('pause-icon');
+        $("#button_play").addClass('play-icon')
         // cancle the pause replay
     }
     console.log("button play pressed, play was "+porgressState);
@@ -158,7 +163,6 @@ export function buttonPlayPress(scope) {
 export function buttonStopPress(scope){
     porgressState = 'stop';
     $("#button_play").removeClass('btn-outline-secondary');
-    $("#button_play i").attr('class', "fa fa-play");
     console.log("button stop invoked.");    
     stopReplay(scope);
 }
