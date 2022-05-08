@@ -7,10 +7,10 @@ import { findDimensions } from '../canvasApi';
 import simulationArea from '../simulationArea';
 
 var play_interval;
-var fps = 1;
-var porgressState = 'stop';
-var progressValue = 0;
-var currFrame = 0;
+var fps;
+var porgressState;
+var progressValue;
+var currFrame;
 var frames;
 var count;
 
@@ -21,7 +21,6 @@ var count;
  * @exports replay
  */
 export function replay(scope = globalScope) {
-    console.log("starting replay");
     if (layoutModeGet()) return;
 
     // center focus for replay
@@ -31,18 +30,22 @@ export function replay(scope = globalScope) {
     // add backdrop to the unconcerned part
     // applyBackdrop();
 
-    frames = scope.backups;
-    count = frames.length;
-
     currFrame = 0;
     playInterval(scope);
 }
 
+export function setInitialValues(scope) {
+    fps = 1;
+    porgressState = 'stop';
+    progressValue = 0;
+    currFrame = 0;
+    frames = scope.backups;
+    count = frames.length;
+}
 
 function playInterval(scope) {
     play_interval = setInterval(() => {
         // make a temporary scope to load a frome
-        console.log(currFrame);
         if(porgressState == 'play' || porgressState == 'resume') {
             const tempScope = new Scope(scope.name);
             let loading = true;
@@ -69,30 +72,9 @@ function playInterval(scope) {
     }, 1000 / fps);
 }
 
-function pauseInterval() {
-    
-}
-
-// function to apply backdrop to the rest of the screen
-function applyBackdrop() {
-    findDimensions();
-    const minX = simulationArea.minWidth;
-    const minY = simulationArea.minHeight;
-    const maxX = simulationArea.maxWidth;
-    const maxY = simulationArea.maxHeight;
-    const backdropWidth = (maxX - minX) + 100;
-    const backdropHeight = (maxY - minY) + 100;
-    // having 50px left, right, top, down padding
-    $('#blurPart').css({
-        top: (minY + globalScope.oy - 50),
-        left: (minX + globalScope.ox - 50),
-        width: backdropWidth,
-        height: backdropHeight,
-    });
-}
-
 export function stopReplay(scope) {
-    console.log("stoppig replay");
+    console.log("stopReplay function");
+
     $("#button_play").removeClass('pause-icon');
     $("#button_play").addClass('play-icon');
     porgressState = 'stop';
@@ -104,16 +86,18 @@ export function stopReplay(scope) {
 }
 
 function updateProgressBar() {
+    console.log("updateProgressBar function");
+
     progressValue = (currFrame / count) * 100;
     $(".progress-bar").css('width', progressValue + '%');
 }
 
 
-// Helper functions to replay
+// On clicking on progress bar to change frame
 export function setProgressValue(val) {
-    console.log("setting player progress");
-    porgressState = 'pause';
+    console.log("setProgressValue function");
     
+    porgressState = 'pause';    
     progressValue = (val / $(".progress").width()) * 100;
     currFrame = Math.floor((progressValue * count) / 100);
     console.log("Progress % : " + progressValue + " || curr Frame : " + currFrame);
@@ -145,7 +129,8 @@ export function buttonFastforwardPress() {
 }
 
 export function buttonPlayPress(scope) {
-    console.log(porgressState);
+    console.log("buttonPlayPress function");
+    console.log("button play pressed, play was " + porgressState);
     if(porgressState == 'stop'){
         porgressState = 'play';
         $("#button_play").removeClass('play-icon');
@@ -156,23 +141,19 @@ export function buttonPlayPress(scope) {
         porgressState = 'pause';
         $("#button_play").removeClass('play-icon');
         $("#button_play").addClass('pause-icon')
-
-        // have to find a logic to pause
     }
     else if(porgressState == 'pause'){
         porgressState = 'resume';
-
         $("#button_play").removeClass('pause-icon');
         $("#button_play").addClass('play-icon')
-        // cancle the pause replay
     }
-    console.log("button play pressed, play was "+porgressState);
 }
 
 export function buttonStopPress(scope){
+    console.log("button stop invoked.");  
+    
     porgressState = 'stop';
     $("#button_play").removeClass('btn-outline-secondary');
-    console.log("button stop invoked.");    
 
     currFrame = scope.backups.length;
     progressValue = 100;
@@ -180,3 +161,23 @@ export function buttonStopPress(scope){
 
     stopReplay(scope);
 }
+
+/*
+// function to apply backdrop to the rest of the screen
+function applyBackdrop() {
+    findDimensions();
+    const minX = simulationArea.minWidth;
+    const minY = simulationArea.minHeight;
+    const maxX = simulationArea.maxWidth;
+    const maxY = simulationArea.maxHeight;
+    const backdropWidth = (maxX - minX) + 100;
+    const backdropHeight = (maxY - minY) + 100;
+    // having 50px left, right, top, down padding
+    $('#blurPart').css({
+        top: (minY + globalScope.oy - 50),
+        left: (minX + globalScope.ox - 50),
+        width: backdropWidth,
+        height: backdropHeight,
+    });
+}
+*/

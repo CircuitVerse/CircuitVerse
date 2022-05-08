@@ -23,6 +23,7 @@ import { setupBitConvertor} from './utils';
 import { updateTestbenchUI, setupTestbenchUI } from './testbench';
 import { applyVerilogTheme } from './Verilog2CV';
 import {
+    setInitialValues,
     replay,
     stopReplay,
     setProgressValue,
@@ -30,8 +31,8 @@ import {
     buttonForwardPress,
     buttonRewindPress,
     buttonFastforwardPress,
+    buttonStopPress,
     buttonPlayPress,
-    buttonStopPress
 } from './data/replay';
 
 export const uxvar = {
@@ -671,9 +672,9 @@ export function exitReplayView(){
    Function to set up UI for Replaying circuit
 **/
 export function replayCircuit(scope = globalScope) {
+    setInitialValues(scope);    
     var exitButton = `<button id='exitReplay'>Exit Replay</button>`;
     // var blurHTML = `<div id="blurPart"></div>`
-    
     $("#replay").css("display", "block");
     $('.navbar').hide()
     $('.modules').hide()
