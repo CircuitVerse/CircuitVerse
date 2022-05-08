@@ -22,18 +22,16 @@ var count;
  */
 export function replay(scope = globalScope) {
     if (layoutModeGet()) return;
-
     // center focus for replay
     // else for big circuits some part goes out of screen
     globalScope.centerFocus(false);
-
     // add backdrop to the unconcerned part
     // applyBackdrop();
-
     currFrame = 0;
     playInterval(scope);
 }
 
+// function to set the initial values of global variables
 export function setInitialValues(scope) {
     fps = 1;
     porgressState = false;
@@ -44,30 +42,32 @@ export function setInitialValues(scope) {
     updateProgressBar();
 }
 
+// function to create a temporary scope, load circuit data
+function updateDisplay(scope) {
+    const tempScope = new Scope(scope.name);
+    let loading = true;
+    const replayData = frames[currFrame];
+    loadScope(tempScope, JSON.parse(replayData));
+    tempScope.id = scope.id;
+    tempScope.name = scope.name;
+    scopeList[scope.id] = tempScope;
+    tempScope.ox = globalScope.ox;
+    tempScope.oy = globalScope.oy;
+    tempScope.scale = globalScope.scale;
+    loading = false;
+    globalScope = tempScope;
+}
+    
+// function to play the replay
 function playInterval(scope) {
-    console.log("playing from : " + currFrame);
-    console.log(frames);
     play_interval = setInterval(() => {
         // make a temporary scope to load a frome
-        console.log(currFrame);
         if(porgressState === true) {
-            const tempScope = new Scope(scope.name);
-            let loading = true;
-            const replayData = frames[currFrame];
-            loadScope(tempScope, JSON.parse(replayData));
-            tempScope.id = scope.id;
-            tempScope.name = scope.name;
-            scopeList[scope.id] = tempScope;
-            tempScope.ox = globalScope.ox;
-            tempScope.oy = globalScope.oy;
-            tempScope.scale = globalScope.scale;
-            loading = false;
-            globalScope = tempScope;
+            updateDisplay(scope);
             currFrame++;
             progressValue = (currFrame / count) * 100;
             updateProgressBar();
         }
-        
         if (currFrame === count) {
             // We've played all frames.
             stopReplay(scope);
@@ -76,9 +76,8 @@ function playInterval(scope) {
     }, 1000 / fps);
 }
 
+// function to stop playing the replay
 export function stopReplay(scope) {
-    console.log("stopReplay function");
-
     $("#button_play").removeClass('pause-icon');
     $("#button_play").addClass('play-icon');
     clearInterval(play_interval);
@@ -91,53 +90,40 @@ export function stopReplay(scope) {
     updateRestrictedElementsInScope();
 }
 
+// function to update progress bar with replay
 function updateProgressBar() {
-    console.log("updateProgressBar function");
-
     progressValue = (currFrame / count) * 100;
     $(".progress-bar").css('width', progressValue + '%');
 }
 
-
-// On clicking on progress bar to change frame
+// function to calculate & change progressValue when clicked on progress bar
 export function setProgressValue(val, scope) {
-    console.log("setProgressValue function");
-    
     progressValue = (val / $(".progress").width()) * 100;
     currFrame = Math.floor((progressValue * count) / 100);
-    console.log("Progress % : " + progressValue + " || curr Frame : " + currFrame);
-
     updateProgressBar();
     clearInterval(play_interval);
+    updateDisplay(scope);
     playInterval(scope);
 }
-		
+
+// button click handleres
 export function buttonBackPress() {
-    console.log("button back invoked.");
     fps = (fps > 1 ? fps - 1 : 1);
-    console.log("current fps : " + fps);
 }
 
 export function buttonForwardPress() {
-    console.log("button forward invoked.");
     fps = fps + 1;
-    console.log("current fps : " + fps);
 }
 
 export function buttonRewindPress() {
-    console.log("button rewind invoked.");
-    fsp = (fps - 5 > 0 ? fps : 1);
+    fps = (fps - 5 > 0 ? fps : 1);
 }
 
 export function buttonFastforwardPress() {
-    console.log("button fast forward invoked.");
-    fsp = (fps + 5);
+    fps = (fps + 5);
 }
 
 export function buttonPlayPress(scope) {
-    console.log("buttonPlayPress function");
-    console.log("progressState :  " + porgressState);
-    console.log("currentFrame :  " + currFrame);
     if(porgressState === false){
         porgressState = true;
         $("#button_play").removeClass('play-icon');
@@ -146,22 +132,18 @@ export function buttonPlayPress(scope) {
             replay(scope);
         }
     }
-    else if(porgressState === true){
+    else if(porgressState === true) {
         porgressState = false;
         $("#button_play").removeClass('pause-icon');
         $("#button_play").addClass('play-icon')
     }
 }
 
-export function buttonStopPress(scope){
-    console.log("button stop invoked.");  
-    
+export function buttonStopPress(scope){    
     porgressState = false;
-
     currFrame = scope.backups.length;
     progressValue = 100;
     updateProgressBar();
-    
     stopReplay(scope);
 }
 
