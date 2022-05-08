@@ -1918,4 +1918,21 @@ input[type='range']::-webkit-slider-thumb {
 
 .player button {
   background: white;
+  width: 25px;
+  height: 25px;
+  color: white;
+}
+
+
+#button_play {
+  background: url(./assets/player/play.svg) center/cover;
+}
+#button_stop {
+  background: url(./assets/player/stop.svg) center/cover;
+}
+#button_fw {
+  background: url(./assets/player/ffp.svg) center/cover;
+}
+#button_bw {
+  background: url(./assets/player/bfp.svg) center/cover;
 }

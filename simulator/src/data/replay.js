@@ -115,12 +115,14 @@ export function setProgressValue(val) {
 		
 export function buttonBackPress() {
     console.log("button back invoked.");
-    fsp = (fps > 1 ? fps - 1 : 1);
+    fps = (fps > 1 ? fps - 1 : 1);
+    console.log("current fps : " + fps);
 }
 
 export function buttonForwardPress() {
     console.log("button forward invoked.");
-    fsp = fps + 1;
+    fps = fps + 1;
+    console.log("current fps : " + fps);
 }
 
 export function buttonRewindPress() {
@@ -153,7 +155,7 @@ export function buttonPlayPress(scope) {
     console.log("button play pressed, play was "+porgressState);
 }
 
-export function buttonStopPress(){
+export function buttonStopPress(scope){
     porgressState = 'stop';
     $("#button_play").removeClass('btn-outline-secondary');
     $("#button_play i").attr('class', "fa fa-play");
