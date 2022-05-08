@@ -18,7 +18,7 @@ var count;
 // function to update progress bar with replay
 function updateProgressBar() {
     progressValue = (currFrame / count) * 100;
-    $('.progress-bar').css('width', progressValue + '%');
+    $('.progress-bar').css('width', `${progressValue}%`);
 }
 
 // function to create a temporary scope, load circuit data
@@ -145,22 +145,21 @@ export function buttonFastforwardPress() {
 }
 
 export function buttonPlayPress(scope) {
-    if (porgressState === false){
+    if (porgressState === false) {
         porgressState = true;
         $('#button_play').removeClass('play-icon');
         $('#button_play').addClass('pause-icon');
         if (currFrame === 0) {
             replay(scope);
         }
-    }
-    else if (porgressState === true) {
+    } else if (porgressState === true) {
         porgressState = false;
         $('#button_play').removeClass('pause-icon');
-        $('#button_play').addClass('play-icon')
+        $('#button_play').addClass('play-icon');
     }
 }
 
-export function buttonStopPress(scope) {    
+export function buttonStopPress(scope) {
     porgressState = false;
     currFrame = scope.backups.length;
     progressValue = 100;
