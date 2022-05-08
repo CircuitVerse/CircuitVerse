@@ -9,7 +9,8 @@ import simulationArea from '../simulationArea';
 var myInterval;
 var fps = 1;
 var porgressState = 'stop';
-var progressValue = 50;
+var progressValue = 0;
+var currFrame = 0;
 
 /**
  * Function called to replay a circuit
@@ -31,12 +32,12 @@ export function replay(scope = globalScope) {
     var frames = scope.backups;
     var count = frames.length;
     
-    var i = 0;
+    currFrame = 0;
     myInterval = setInterval(() => {
         // make a temporary scope to load a frome
         const tempScope = new Scope(scope.name);
         loading = true;
-        const replayData = frames[i];
+        const replayData = frames[currFrame];
         loadScope(tempScope, JSON.parse(replayData));
         tempScope.id = scope.id;
         tempScope.name = scope.name;
@@ -49,12 +50,12 @@ export function replay(scope = globalScope) {
         globalScope.ox = backupOx;
         globalScope.oy = backupOy;
         globalScope.scale = backupScale;
-        i++;
-
-        progressValue = (i / count) * 100;
-        $(".progress-bar").css('width', progressValue + '%');
         
-        if (i === count) {
+        currFrame++;
+        progressValue = (currFrame / count) * 100;
+        updateProgressBar();
+
+        if (currFrame === count) {
             // We've played all frames.
             stopReplay(scope);
             porgressState = 'stop';
@@ -82,12 +83,19 @@ function applyBackdrop() {
 
 export function stopReplay(scope) {
     console.log("stoppig replay");
+    currFrame = scope.backups.length;
+    progressValue = 100;
+    updateProgressBar();
     porgressState = 'stop';
     clearInterval(myInterval);
     globalScope = scope;
     globalScope.centerFocus(false);
     forceResetNodesSet(true);
     updateRestrictedElementsInScope();
+}
+
+function updateProgressBar() {
+    $(".progress-bar").css('width', progressValue + '%');
 }
 
 // Helper functions to replay
@@ -97,10 +105,10 @@ export function setProgressValue(val) {
     progressValue = (val / $(".progress").width()) * 100;
     console.log("Progress % : " + progressValue);
 
-    $(".progress-bar").css('width', progressValue + '%');
+    updateProgressBar();
 
     // now update the canvas....
-    var currFrame = Math.floor((progressValue * globalScope.backups.length) / 100);
+    currFrame = Math.floor((progressValue * globalScope.backups.length) / 100);
     console.log("Frame to display : " + currFrame);
     // load currFrame in the canvas
 }
