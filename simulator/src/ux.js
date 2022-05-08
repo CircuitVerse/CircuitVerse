@@ -15,7 +15,6 @@ import modules from './modules';
 import { updateRestrictedElementsInScope } from './restrictedElementDiv';
 import { paste } from './events';
 import { setProjectName, getProjectName } from './data/save';
-import { replay, stopReplay } from './data/replay';
 import { changeScale } from './canvasApi';
 import updateTheme from "./themer/themer";
 import { generateImage, generateSaveData } from './data/save';
@@ -23,6 +22,17 @@ import { setupVerilogExportCodeWindow } from './verilog';
 import { setupBitConvertor} from './utils';
 import { updateTestbenchUI, setupTestbenchUI } from './testbench';
 import { applyVerilogTheme } from './Verilog2CV';
+import {
+    replay,
+    stopReplay,
+    setProgressValue,
+    buttonBackPress,
+    buttonForwardPress,
+    buttonRewindPress,
+    buttonFastforwardPress,
+    buttonPlayPress,
+    buttonStopPress
+} from './data/replay';
 
 export const uxvar = {
     smartDropXX: 50,
@@ -658,17 +668,14 @@ export function exitReplayView(){
 }
 
 
-import { setProgressValue } from './data/replay';
 /** 
    Function to set up UI for Replaying circuit
 **/
 export function replayCircuit(scope = globalScope) {
     var exitButton = `<button id='exitReplay'>Exit Replay</button>`;
     var replayButton = `<button id='startReplay'>Start Replay</button>`;
-    var blurHTML = `<div id="blurPart"></div>`
-    $("#progress").on("click", (e) => {
-        setProgressValue(e.offsetX);
-    })
+    // var blurHTML = `<div id="blurPart"></div>`
+    
     $("#replay").css("display", "block");
     $('.navbar').hide()
     $('.modules').hide()
@@ -685,10 +692,32 @@ export function replayCircuit(scope = globalScope) {
     });
     $("#startReplay").on("click", () => {
         if ($('#blurPart').length === 0) {
-            $('#exitView').append(blurHTML);
+            // $('#exitView').append(blurHTML);
         }
         // some more ui for player like view
         replay(scope);
+    });
+
+    $("#progress").on("click", (e) => {
+        setProgressValue(e.offsetX);
+    })
+    $("#button_fbw").on("click", () => {
+        buttonRewindPress();
+    });
+    $("#button_bw").on("click", () => {
+        buttonBackPress();
+    });
+    $("#button_play").on("click", () => {
+        buttonPlayPress(scope);
+    });
+    $("#button_stop").on("click", () => {
+        buttonStopPress(scope);
+    });
+    $("#button_fw").on("click", () => {
+        buttonForwardPress();
+    });
+    $("#button_ffw").on("click", () => {
+        buttonFastforwardPress();
     });
 }
 
