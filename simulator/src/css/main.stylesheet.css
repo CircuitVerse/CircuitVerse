@@ -1889,7 +1889,6 @@ input[type='range']::-webkit-slider-thumb {
   border-radius: 3px;
 }
 
-
 #replay {
   position: absolute;
   bottom: -5px;
@@ -1897,7 +1896,7 @@ input[type='range']::-webkit-slider-thumb {
   height: 65px;
   width: 96vw;
   background: #454545;
-  border-radius: 3px;
+  border-radius: 5px;
   display: none;
   z-index: 3;
 }
@@ -1912,7 +1911,6 @@ input[type='range']::-webkit-slider-thumb {
 	height: 10px !important;
 }
 
-
 .player button {
   margin: 1px 2px;
   width: 25px;
@@ -1920,19 +1918,20 @@ input[type='range']::-webkit-slider-thumb {
   padding: 15px;
 }
 
-
 .play-icon {
   background: url(./assets/player/play.svg) center/cover;
   border-radius: 50px;
   border-color: white;  
   background-color: white;
 }
+
 .pause-icon {
   background: url(./assets/player/pause.svg) center/cover;
   border-radius: 50px;
   border-color: white;  
   background-color: white;
 }
+
 #button_stop {
   background: url(./assets/player/stop.svg) center/cover;
   border-radius: 50px;

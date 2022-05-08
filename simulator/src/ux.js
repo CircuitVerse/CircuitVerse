@@ -659,7 +659,6 @@ export function exitReplayView(){
     $('.report-sidebar').show();
     $('#tabsBar').show();
     $('#exitReplay').remove();
-    $('#startReplay').remove();
     $('#blurPart').remove();
     $('#moduleProperty').show();
     $('.timing-diagram-panel').show();
@@ -673,7 +672,6 @@ export function exitReplayView(){
 **/
 export function replayCircuit(scope = globalScope) {
     var exitButton = `<button id='exitReplay'>Exit Replay</button>`;
-    var replayButton = `<button id='startReplay'>Start Replay</button>`;
     // var blurHTML = `<div id="blurPart"></div>`
     
     $("#replay").css("display", "block");
@@ -685,17 +683,9 @@ export function replayCircuit(scope = globalScope) {
     $('.timing-diagram-panel').hide();
     $('.testbench-manual-panel').hide();
     $('#exitView').append(exitButton);
-    $('#exitView').append(replayButton);
     $("#exitReplay").on("click", () => {
         stopReplay(scope);
         exitReplayView();
-    });
-    $("#startReplay").on("click", () => {
-        if ($('#blurPart').length === 0) {
-            // $('#exitView').append(blurHTML);
-        }
-        // some more ui for player like view
-        replay(scope);
     });
 
     $("#progress").on("click", (e) => {

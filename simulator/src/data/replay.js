@@ -83,6 +83,8 @@ function applyBackdrop() {
 
 export function stopReplay(scope) {
     console.log("stoppig replay");
+    $("#button_play").removeClass('pause-icon');
+    $("#button_play").addClass('play-icon');
     currFrame = scope.backups.length;
     progressValue = 100;
     updateProgressBar();
@@ -97,6 +99,7 @@ export function stopReplay(scope) {
 function updateProgressBar() {
     $(".progress-bar").css('width', progressValue + '%');
 }
+
 
 // Helper functions to replay
 export function setProgressValue(val) {
@@ -140,7 +143,7 @@ export function buttonPlayPress(scope) {
     if(porgressState == 'stop'){
         porgressState = 'play';
         $("#button_play").removeClass('play-icon');
-        $("#button_play").addClass('pause-icon')
+        $("#button_play").addClass('pause-icon');
         replay(scope);
     }
     else if(porgressState == 'play' || porgressState == 'resume'){
