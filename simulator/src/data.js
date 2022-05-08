@@ -35,6 +35,7 @@ logixFunction.resetVerilogCode = resetVerilogCode;
 logixFunction.generateVerilog = generateVerilog;
 logixFunction.bitconverter = bitConverterDialog;
 logixFunction.createNewCircuitScope = createNewCircuitScope;
+
 export default logixFunction;
 
 // Hack to restart tour guide
