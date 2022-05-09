@@ -20,12 +20,14 @@ class ApplicationController < ActionController::Base
   end
 
   def not_found
-    render "errors/not_found.html.erb", status: :not_found
+    render "errors/not_found", status: :not_found
   end
 
   def switch_locale(&action)
     logger.debug "* Accept-Language: #{request.env['HTTP_ACCEPT_LANGUAGE']}"
-    locale = current_user&.locale || extract_locale_from_accept_language_header || I18n.default_locale
+    locale = current_user&.locale ||
+             extract_locale_from_accept_language_header ||
+             I18n.default_locale
     logger.debug "* Locale set to '#{locale}'"
     begin
       I18n.with_locale(locale, &action)
