@@ -25,13 +25,13 @@
 
 <div class='<%= "notification_#{notification.id}" %>'>
   <% if notification.unopened? %>
-    <%= link_to open_notification_path_for(notification, parameters.slice(:routing_scope, :devise_default_routes).merge(reload: false)), method: :post, remote: true, class: "unopened_wrapper" do %>
+    <%= link_to open_notification_path_for(notification, parameters.slice(:routing_scope, :devise_default_routes).merge(reload: false)), method: :put, remote: true, class: "unopened_wrapper" do %>
       <div class="unopned_circle"></div>
       <div class="unopned_description_wrapper">
         <p class="unopned_description">Open</p>
       </div>
     <% end %>
-    <%= link_to open_notification_path_for(notification, parameters.slice(:routing_scope, :devise_default_routes).merge(move: true)), method: :post do %>
+    <%= link_to open_notification_path_for(notification, parameters.slice(:routing_scope, :devise_default_routes).merge(move: true)), method: :put do %>
       <%= yield :notification_content %>
     <% end %>
     <div class="unopened_wrapper"></div>
