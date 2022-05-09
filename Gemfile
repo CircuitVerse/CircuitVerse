@@ -104,7 +104,7 @@ gem "flipper-ui"
 gem "friendly_id", "~> 5.4.2"
 gem "inline_svg"
 gem "jwt"
-gem "rails-i18n", "~> 7.0.1"
+gem "rails-i18n", "~> 7.0.3"
 gem "recaptcha"
 gem "simple_discussion", "~> 1.3"
 gem 'strong_migrations'
