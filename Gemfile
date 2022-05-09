@@ -18,7 +18,7 @@ gem "omniauth-google-oauth2"
 gem "omniauth-microsoft-office365"
 gem "kt-paperclip"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 6.1.4"
+gem "rails", "~> 7.0"
 # Use Puma as the app server
 gem "puma", "~> 5.6"
 # Use SCSS for stylesheets
@@ -47,7 +47,7 @@ gem "jquery-rails"
 
 gem "carrierwave", "~> 2.2"
 
-gem "rails_admin", "~> 2.2"
+gem 'rails_admin', ['>= 3.0.0.rc3', '< 4']
 
 # gem 'cancancan', '~>2.0'
 
@@ -108,6 +108,7 @@ gem "rails-i18n", "~> 7.0.1"
 gem "recaptcha"
 gem "simple_discussion", "~> 1.3"
 gem 'strong_migrations'
+gem "sprockets", "~> 3.1"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -142,7 +143,6 @@ group :development do
   gem "rails-erd"
   gem "rubocop"
   gem "spring"
-  gem "spring-watcher-listen", "~> 2.0.0"
   gem "sunspot_solr"
 end
 
@@ -168,3 +168,4 @@ gem "rack-attack"
 gem "jsbundling-rails", "~> 1.0"
 
 gem "stimulus-rails", "~> 1.0"
+gem "sassc-rails"
