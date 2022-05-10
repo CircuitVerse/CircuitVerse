@@ -581,7 +581,7 @@ GEM
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
     ssrf_filter (1.0.7)
-    stimulus-rails (1.0.2)
+    stimulus-rails (1.0.4)
       railties (>= 6.0.0)
     strong_migrations (0.8.0)
       activerecord (>= 5.2)
