@@ -351,7 +351,7 @@ GEM
       digest
       net-protocol
       timeout
-    newrelic_rpm (8.5.0)
+    newrelic_rpm (8.7.0)
     nio4r (2.5.8)
     nokogiri (1.13.6)
       mini_portile2 (~> 2.8.0)
@@ -410,11 +410,11 @@ GEM
     public_suffix (4.0.6)
     puma (5.6.4)
       nio4r (~> 2.0)
-    pundit (2.1.1)
+    pundit (2.2.0)
       activesupport (>= 3.0.0)
     racc (1.6.0)
     rack (2.2.3)
-    rack-attack (6.6.0)
+    rack-attack (6.6.1)
       rack (>= 1.0, < 3)
     rack-protection (2.1.0)
       rack
@@ -493,7 +493,7 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.11.0)
-    rspec_junit_formatter (0.4.1)
+    rspec_junit_formatter (0.5.1)
       rspec-core (>= 2, < 4, != 2.12.0)
     rubocop (1.26.0)
       parallel (~> 1.10)
@@ -581,7 +581,7 @@ GEM
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
     ssrf_filter (1.0.7)
-    stimulus-rails (1.0.2)
+    stimulus-rails (1.0.4)
       railties (>= 6.0.0)
     strong_migrations (0.8.0)
       activerecord (>= 5.2)
@@ -697,7 +697,7 @@ DEPENDENCIES
   listen (>= 3.0.5, < 3.8)
   mailkick
   meta-tags
-  newrelic_rpm (~> 8.5)
+  newrelic_rpm (~> 8.7)
   oj (~> 3.13)
   omniauth
   omniauth-facebook
