@@ -717,6 +717,7 @@ DEPENDENCIES
   rails_admin (>= 3.0.0.rc3, < 4)
   recaptcha
   redis (~> 4.6)
+  rexml
   rspec-rails (~> 5.1)
   rspec_junit_formatter
   rubocop
@@ -747,4 +748,4 @@ DEPENDENCIES
   will_paginate-bootstrap
 
 BUNDLED WITH
-   2.2.32
+   2.3.13

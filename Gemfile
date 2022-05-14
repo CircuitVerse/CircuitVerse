@@ -9,6 +9,7 @@ gem "acts_as_votable", "~> 0.13.2"
 gem "aws-sdk-rails"
 gem "dotenv-rails", groups: %i[development test]
 gem "hirb"
+gem "kt-paperclip"
 gem "language_filter"
 gem "mailkick"
 gem "omniauth"
@@ -16,14 +17,13 @@ gem "omniauth-facebook"
 gem "omniauth-github"
 gem "omniauth-google-oauth2"
 gem "omniauth-microsoft-office365"
-gem "kt-paperclip"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 7.0"
 # Use Puma as the app server
 gem "puma", "~> 5.6"
 # Use SCSS for stylesheets
 gem "sass-rails", "~> 6.0"
-gem 'terser'
+gem "terser"
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
@@ -47,7 +47,7 @@ gem "jquery-rails"
 
 gem "carrierwave", "~> 2.2"
 
-gem 'rails_admin', ['>= 3.0.0.rc3', '< 4']
+gem "rails_admin", [">= 3.0.0.rc3", "< 4"]
 
 # gem 'cancancan', '~>2.0'
 
@@ -73,8 +73,8 @@ gem "i18n-js"
 gem "ims-lti", "~> 1.2", "< 2.0"
 
 # Use Redis adapter to run Action Cable in production
-gem 'redis', '~> 4.6'
-gem 'hiredis'
+gem "hiredis"
+gem "redis", "~> 4.6"
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -94,35 +94,36 @@ gem "activity_notification"
 gem "webpush"
 
 gem "bootsnap", require: false
+gem "rexml"
 
 gem "font-awesome-sass", "~> 5.13.1"
 
 gem "disposable_mail", "~> 0.1"
-gem 'jsonapi-serializer'
 gem "flipper-redis"
 gem "flipper-ui"
 gem "friendly_id", "~> 5.4.2"
 gem "inline_svg"
+gem "jsonapi-serializer"
 gem "jwt"
 gem "rails-i18n", "~> 7.0.3"
 gem "recaptcha"
 gem "simple_discussion", "~> 1.3"
-gem 'strong_migrations'
 gem "sprockets", "~> 3.1"
+gem "strong_migrations"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "byebug", platforms: %i[mri mingw x64_mingw]
   # Adds support for Capybara system testing and selenium driver
-  gem 'coveralls_reborn', '~> 0.23.1', require: false
+  gem "coveralls_reborn", "~> 0.23.1", require: false
   gem "erb_lint", require: false
   gem "factory_bot_rails"
   gem "faker"
   gem "pry-rails"
+  gem "rspec-rails", "~> 5.1"
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
   gem "rubocop-rspec", require: false
-  gem "rspec-rails", "~> 5.1"
 end
 
 group :test do
@@ -131,7 +132,7 @@ group :test do
   gem "rspec_junit_formatter"
   gem "selenium-webdriver"
   gem "shoulda-matchers"
-  gem 'webdrivers', '~> 5.0', require: false
+  gem "webdrivers", "~> 5.0", require: false
   gem "webmock"
 end
 
@@ -167,5 +168,5 @@ gem "rack-attack"
 
 gem "jsbundling-rails", "~> 1.0"
 
-gem "stimulus-rails", "~> 1.0"
 gem "sassc-rails"
+gem "stimulus-rails", "~> 1.0"
