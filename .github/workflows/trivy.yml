@@ -7,10 +7,10 @@ name: trivy scan
 
 on:
   push:
-    branches: [ feat/trivy_scan ]
+    branches: [ master ]
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ feat/trivy_scan ]
+    branches: [ master ]
   schedule:
     - cron: '27 5 * * 6'
 
