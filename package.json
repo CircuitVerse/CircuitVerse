@@ -38,7 +38,7 @@
     "bootstrap-tagsinput": "^0.7.1",
     "canvas2svg": "1.0.16",
     "codemirror": "^5.65.1",
-    "css-loader": "^6.5.1",
+    "css-loader": "^6.7.1",
     "css-vars": "^2.4.0",
     "dom-to-image": "^2.6.0",
     "dompurify": "^2.3.6",
