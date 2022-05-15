@@ -68,7 +68,7 @@ Please note:  If you wanted to work on an issue, let us know by leaving a commen
 - Don't repeadetely tag someone(may be it is not the right time to review your PR), be patient.
 - Do not 'resolve conversation' unnecessary raised by a community member or any workflow tools(codeclimate or hound) as they may have some purpose, try to resolve the request changes and if any help wanted tag a communtiy member to give views about that.
 
-#### PR Lebels
+#### PR Labels
 
 - `under-review` labeled PRs are under review by core team.
 - `waiting for contributor` labeled PRs are meant to waiting for contributor to respond.
