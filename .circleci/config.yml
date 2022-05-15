@@ -51,7 +51,9 @@ jobs: # a collection of steps
 
       - run: # Install Ruby dependencies
           name: Bundle Install
-          command: bundle install --with postgresql
+          command: |
+            bundle config set --local with postgresql 
+            bundle install
 
       - run: # Install JS dependencies
           name: Yarn Install
