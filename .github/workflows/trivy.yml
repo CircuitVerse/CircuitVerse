@@ -3,14 +3,14 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: build
+name: trivy scan
 
 on:
   push:
-    branches: [ master ]
+    branches: [ feat/trivy_scan ]
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ "master", "feat/trivy_scan"]
+    branches: [ feat/trivy_scan ]
   schedule:
     - cron: '27 5 * * 6'
 
