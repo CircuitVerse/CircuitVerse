@@ -583,7 +583,7 @@ GEM
     ssrf_filter (1.0.7)
     stimulus-rails (1.0.4)
       railties (>= 6.0.0)
-    strong_migrations (0.8.0)
+    strong_migrations (1.0.0)
       activerecord (>= 5.2)
     strscan (3.0.2)
     sunspot (2.5.0)
