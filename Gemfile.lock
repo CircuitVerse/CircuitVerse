@@ -205,7 +205,7 @@ GEM
       smart_properties
     errbase (0.2.2)
     erubi (1.10.0)
-    execjs (2.7.0)
+    execjs (2.8.1)
     factory_bot (6.2.0)
       activesupport (>= 5.0.0)
     factory_bot_rails (6.2.0)
@@ -599,7 +599,7 @@ GEM
       tins (~> 1.0)
     terrapin (0.6.0)
       climate_control (>= 0.0.3, < 1.0)
-    terser (1.1.8)
+    terser (1.1.9)
       execjs (>= 0.3.0, < 3)
     thor (1.2.1)
     tilt (2.0.10)
