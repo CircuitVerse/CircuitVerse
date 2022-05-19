@@ -1,0 +1,10 @@
+en:
+  helpers:
+    label:
+      custom_mail:
+        subject: "Subject"
+        content: "Content"
+    submit:
+      custom_mail:
+        create: "New Custom Mail"
+        update: "Update Custom Mail"

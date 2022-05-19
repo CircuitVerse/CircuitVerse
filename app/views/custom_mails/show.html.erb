@@ -2,19 +2,19 @@
 <div class="container">
   <div class="row center-row">
     <div class="col-xs col-sm col-md col-lg">
-      <h1 class="submain-heading">Mail Preview</h1> <br>
+      <h1 class="submain-heading"><%= t("custom_mails.mail_preview") %></h1> <br>
     </div>
   </div>
   <div class="row center-row">
     <div class="col-xs col-sm col-md col-lg">
-      <%= link_to 'Edit', edit_custom_mail_path(@mail), class: "btn primary-button" %>
-      <%= link_to 'Send', send_custom_mail_path(@mail), class: "btn primary-button" %>
-      <%= link_to 'Send to self', send_custom_mail_self_path(@mail), class: "btn primary-button" %>
+      <%= link_to t("edit"), edit_custom_mail_path(@mail), class: "btn primary-button" %>
+      <%= link_to t("custom_mails.send"), send_custom_mail_path(@mail), class: "btn primary-button" %>
+      <%= link_to t("custom_mails.send_to_self"), send_custom_mail_self_path(@mail), class: "btn primary-button" %>
     </div>
   </div>
   <div class="row center-row">
     <div class="col-xs col-sm col-md col-lg">
-      <h6 class="custom-mail-status">(<%= @mail.sent? ? "Mail has been sent out" : "Mail has not been sent" %>)</h6>
+      <h6 class="custom-mail-status">(<%= @mail.sent? ? t("custom_mails.mail_sent") : t("custom_mails.mail_not_sent") %>)</h6>
     </div>
   </div>
 </div>
