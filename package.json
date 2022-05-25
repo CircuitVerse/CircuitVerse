@@ -67,5 +67,6 @@
   "lint-staged": {
     "*.js": "eslint --cache --fix",
     "*.rb": "rubocop -a"
-  }
+  },
+  "packageManager": "yarn@3.2.1"
 }
