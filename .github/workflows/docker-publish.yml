@@ -112,5 +112,5 @@ jobs:
       # Remove cache to avoid htting 5 GB limit, see https://github.com/docker/build-push-action/issues/252
       - name: 🚚 Swap build cache
         run: |
-          rm -rf /tmp/.docker-cache
-          mv /tmp/.docker-cache-new /tmp/.docker-cache
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
