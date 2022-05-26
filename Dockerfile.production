@@ -12,7 +12,7 @@ RUN yarn install --frozen-lockfile --network-timeout 1000000 && yarn cache clean
 
 COPY Gemfile* ./
 ENV BUNDLE_DEPLOYMENT=true 
-ENV BUNDLE_JOBS=4 
+# ENV BUNDLE_JOBS=4 
 ENV BUNDLE_WITHOUT=development:test 
 
 RUN bundle install \
