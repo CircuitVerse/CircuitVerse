@@ -8,11 +8,11 @@ RUN npm install --global yarn
 WORKDIR /usr/src/app
 
 COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile && yarn cache clean
+RUN yarn install --frozen-lockfile --network-timeout 1000000 && yarn cache clean
 
 COPY Gemfile* ./
 ENV BUNDLE_DEPLOYMENT=true 
-ENV BUNDLE_JOBS=4 
+# ENV BUNDLE_JOBS=4 
 ENV BUNDLE_WITHOUT=development:test 
 
 RUN bundle install \
@@ -41,7 +41,7 @@ ENV BUNDLE_PATH='vendor/bundle'
 ENV RAILS_LOG_TO_STDOUT=true
 ENV BUNDLE_DEPLOYMENT=true 
 ENV BUNDLE_WITHOUT="development:test"
-ENV LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2
+# ENV LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2
 
 ARG REDIS_URL="redis://localhost:6379"
 
