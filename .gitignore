@@ -27,11 +27,11 @@ tmp
 
 /node_modules
 /yarn-error.log
-.pnp.*
+
 .yarn/*
-!.yarn/patches
-!.yarn/plugins
+!.yarn/cache
 !.yarn/releases
+!.yarn/plugins
 !.yarn/sdks
 !.yarn/versions
 
