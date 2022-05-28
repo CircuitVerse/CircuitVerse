@@ -5,7 +5,7 @@ RUN mkdir /circuitverse
 WORKDIR /circuitverse
 
 # install dependencies
-RUN apk update -qq && apk add imagemagick shared-mime-info postgresql-dev
+RUN apk update -qq && apk add imagemagick shared-mime-info postgresql-dev openssl
 
 RUN apk --no-cache add nodejs yarn --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community \
     && apk update && apk add --virtual build-dependencies build-base
@@ -17,7 +17,7 @@ COPY yarn.lock /circuitverse/yarn.lock
 
 RUN gem install bundler
 RUN bundle install  --without production
-RUN yarn config set network-timeout 300000 && yarn install --verbose
+RUN yarn config set network-timeout 300000 && yarn install
 
 # copy source
 COPY . /circuitverse
