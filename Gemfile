@@ -36,7 +36,7 @@ gem "jbuilder", "~> 2.11"
 
 gem "devise"
 
-gem "commontator", "~> 6.3.2"
+gem "commontator", "~> 7.0.0"
 
 # To generate sitemap.xml
 gem "sitemap_generator"
