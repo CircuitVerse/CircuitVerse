@@ -1,5 +1,7 @@
 FROM --platform=$BUILDPLATFORM ruby:3.1.2 as builder
 
+ARG BUILDPLATFORM 
+
 RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash -
 RUN apt-get update -qq && apt-get install -y --no-install-recommends --auto-remove nodejs imagemagick
 
@@ -41,13 +43,15 @@ ENV BUNDLE_PATH='vendor/bundle'
 ENV RAILS_LOG_TO_STDOUT=true
 ENV BUNDLE_DEPLOYMENT=true 
 ENV BUNDLE_WITHOUT="development:test"
+ENV RAILS_SERVE_STATIC_FILES="true"
 # ENV LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2
 
 ARG REDIS_URL="redis://localhost:6379"
 
 
-RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash -
-RUN apt-get update -qq && apt-get install -y --no-install-recommends --auto-remove nodejs imagemagick libpq5 libcurl4 libjemalloc2 \
+RUN apt-get update -qq && apt upgrade -y && apt-get install -y --no-install-recommends --auto-remove curl  \
+   && curl -fsSL https://deb.nodesource.com/setup_14.x | bash - \
+   && apt-get update -qq && apt-get install -y --no-install-recommends --auto-remove nodejs imagemagick libpq5 libcurl4 libjemalloc2  \
    && apt-get clean \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
