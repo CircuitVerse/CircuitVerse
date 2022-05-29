@@ -392,7 +392,7 @@ export function setupTestbenchUI() {
  * @param {Object} data - Object containing Test Data
  * @param {Scope=} scope - the circuit
  */
-function runAll(data, scope) {
+export function runAll(data, scope = globalScope) {
     // Stop the clocks
     // TestBench will now take over clock toggling
     changeClockEnable(false);

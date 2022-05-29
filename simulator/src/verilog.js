@@ -6,7 +6,7 @@
     refer verilog_documentation.md
 */
 import { scopeList } from "./circuit";
-import { errorDetectedGet } from "./engine"; 
+import { errorDetectedGet } from "./engine";
 import { download } from "./utils";
 import { getProjectName } from "./data/save";
 import modules from './modules';
@@ -17,7 +17,7 @@ import 'codemirror/addon/hint/show-hint.css';
 import 'codemirror/mode/verilog/verilog.js';
 import 'codemirror/addon/edit/closebrackets.js';
 import 'codemirror/addon/hint/anyword-hint.js';
-import 'codemirror/addon/hint/show-hint.js';
+// import 'codemirror/addon/hint/show-hint.js';
 import 'codemirror/addon/display/autorefresh.js';
 import {openInNewTab, copyToClipboard, showMessage} from './utils';
 

@@ -23,7 +23,7 @@ import 'codemirror/addon/hint/show-hint.css';
 import 'codemirror/mode/verilog/verilog.js';
 import 'codemirror/addon/edit/closebrackets.js';
 import 'codemirror/addon/hint/anyword-hint.js';
-import 'codemirror/addon/hint/show-hint.js';
+// import 'codemirror/addon/hint/show-hint.js';
 import 'codemirror/addon/display/autorefresh.js';
 import { showError, showMessage } from './utils';
 import { showProperties } from './ux';
@@ -124,7 +124,7 @@ export function YosysJSON2CV(JSON, parentScope = globalScope, name = "verilogCir
 
     for (var subCircuitName in JSON.subcircuits) {
         var scope = YosysJSON2CV(JSON.subcircuits[subCircuitName], subScope, subCircuitName, subCircuitScope);
-        subCircuitScope[subCircuitName] = scope.id; 
+        subCircuitScope[subCircuitName] = scope.id;
     }
 
     for (var device in JSON.devices) {
@@ -149,10 +149,10 @@ export function YosysJSON2CV(JSON, parentScope = globalScope, name = "verilogCir
 
         var fromPortNode = fromObj.getPort(fromPort);
         var toPortNode = toObj.getPort(toPort);
-       
+
         fromPortNode.connect(toPortNode);
     }
-    
+
     if (!root) {
         switchCircuit(parentID);
         return subScope;
@@ -194,7 +194,7 @@ export default function generateVerilogCircuit(verilogCode, scope = globalScope)
             }
         },
         failure: function(err) {
-            
+
         }
     });
 }

@@ -24,7 +24,7 @@ import 'codemirror/addon/hint/show-hint.css';
 import 'codemirror/mode/javascript/javascript'; // verilog.js from codemirror is not working because array prototype is changed.
 import 'codemirror/addon/edit/closebrackets';
 import 'codemirror/addon/hint/anyword-hint';
-import 'codemirror/addon/hint/show-hint';
+// import 'codemirror/addon/hint/show-hint';
 import { setupCodeMirrorEnvironment } from './Verilog2CV';
 import { keyBinder } from './hotkey_binder/keyBinder';
 import '../vendor/jquery-ui.min.css';
