@@ -3,6 +3,7 @@
  */
 
 import Array from './simulator/src/arrayHelpers';
+import 'codemirror/addon/hint/show-hint.js';
 
 global.window = window;
 window.Jquery = require('jquery');

@@ -17,7 +17,7 @@ import 'codemirror/addon/hint/show-hint.css';
 import 'codemirror/mode/verilog/verilog.js';
 import 'codemirror/addon/edit/closebrackets.js';
 import 'codemirror/addon/hint/anyword-hint.js';
-// import 'codemirror/addon/hint/show-hint.js';
+import 'codemirror/addon/hint/show-hint.js';
 import 'codemirror/addon/display/autorefresh.js';
 import {openInNewTab, copyToClipboard, showMessage} from './utils';
 
