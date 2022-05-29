@@ -104,7 +104,6 @@
     <%= render partial: 'commontator/threads/reply', locals: { thread: thread, user: user } %>
   <% end %>
 </div>
-
-<script type="text/javascript">
-  <%= render partial: 'commontator/threads/hide_show_links.js', locals: { thread: thread } %>
+<script>
+  <%= render partial: 'commontator/threads/hide_show_links', locals: { thread: thread }, formats: :js%>
 </script>
