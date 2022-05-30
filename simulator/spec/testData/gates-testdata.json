@@ -73,7 +73,7 @@
         ],
         "outputs": [
           {
-            "label": "out1",
+            "label": "out2",
             "bitWidth": 1,
             "values": [
               "0",
@@ -117,7 +117,7 @@
         ],
         "outputs": [
           {
-            "label": "out1",
+            "label": "out3",
             "bitWidth": 1,
             "values": [
               "1",
@@ -133,7 +133,7 @@
   },
   "xorGate": {
     "type": "comb",
-    "title": "OR Gate",
+    "title": "XOR Gate",
     "groups": [
       {
         "label": "Group 1",
@@ -161,7 +161,7 @@
         ],
         "outputs": [
           {
-            "label": "out1",
+            "label": "out6",
             "bitWidth": 1,
             "values": [
               "0",
@@ -205,7 +205,7 @@
         ],
         "outputs": [
           {
-            "label": "out1",
+            "label": "out7",
             "bitWidth": 1,
             "values": [
               "1",
@@ -237,7 +237,7 @@
         ],
         "outputs": [
           {
-            "label": "out1",
+            "label": "out4",
             "bitWidth": 1,
             "values": [
               "1",
@@ -245,7 +245,7 @@
             ]
           }
         ],
-        "n": 4
+        "n": 2
       }
     ]
   },
@@ -279,7 +279,7 @@
         ],
         "outputs": [
           {
-            "label": "out1",
+            "label": "out5",
             "bitWidth": 1,
             "values": [
               "1",
