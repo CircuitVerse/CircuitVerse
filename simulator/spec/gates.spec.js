@@ -21,37 +21,37 @@ describe('Simulator Gates Testing', () => {
     });
 
     test('AND gate testing', () => {
-        const result = runAll(testData.AndGate, globalScope);
+        const result = runAll(testData.AndGate);
         expect(result.summary.passed).toBe(4);
     });
 
     test('NAND gate testing', () => {
-        const result = runAll(testData.nandGate, globalScope);
+        const result = runAll(testData.nandGate);
         expect(result.summary.passed).toBe(4);
     });
 
     test('NOR gate testing', () => {
-        const result = runAll(testData.norGate, globalScope);
+        const result = runAll(testData.norGate);
         expect(result.summary.passed).toBe(4);
     });
 
     test('NOT gate testing', () => {
-        const result = runAll(testData.notGate, globalScope);
+        const result = runAll(testData.notGate);
         expect(result.summary.passed).toBe(2);
     });
 
     test('OR gate testing', () => {
-        const result = runAll(testData.OrGate, globalScope);
+        const result = runAll(testData.OrGate);
         expect(result.summary.passed).toBe(4);
     });
 
     test('XNOR gate testing', () => {
-        const result = runAll(testData.xnorGate, globalScope);
+        const result = runAll(testData.xnorGate);
         expect(result.summary.passed).toBe(4);
     });
 
     test('XOR gate testing', () => {
-        const result = runAll(testData.xorGate, globalScope);
+        const result = runAll(testData.xorGate);
         expect(result.summary.passed).toBe(4);
     });
 });
