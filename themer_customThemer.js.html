@@ -85,7 +85,9 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { dots } from '../canvasApi';
+            <pre class="prettyprint source linenums"><code>/* eslint-disable import/prefer-default-export */
+/* eslint-disable import/no-cycle */
+import { dots } from '../canvasApi';
 import themeOptions from './themes';
 import updateThemeForStyle from './themer';
 import { CreateAbstraction } from './customThemeAbstraction';
@@ -126,44 +128,60 @@ const getCustomThemeCard = () => {
 };
 
 /**
-* Create Custom Color Themes Dialog
-*/
+ * Create Custom Color Themes Dialog
+ */
 export const CustomColorThemes = () => {
     $('#CustomColorThemesDialog').empty();
     $('#CustomColorThemesDialog').append(getCustomThemeCard());
     $('#CustomColorThemesDialog').dialog({
         resizable: false,
         close() {
-            themeOptions['Custom Theme'] = JSON.parse(localStorage.getItem('Custom Theme')) || themeOptions['Default Theme']; // hack for closing dialog box without saving
+            themeOptions['Custom Theme'] = JSON.parse(localStorage.getItem('Custom Theme'))
+                || themeOptions['Default Theme']; // hack for closing dialog box without saving
             // Rollback to previous theme
             updateThemeForStyle(localStorage.getItem('theme'));
             updateBG();
         },
-        buttons: [{
-            text: 'Apply Theme',
-            click() {
-                // update theme to Custom Theme
-                localStorage.setItem('theme', 'Custom Theme');
-                // add Custom theme to custom theme object
-                localStorage.setItem('Custom Theme', JSON.stringify(themeOptions['Custom Theme']));
-                $('.set').removeClass('set');
-                $('.selected').addClass('set');
-                $(this).dialog('close');
+        buttons: [
+            {
+                text: 'Apply Theme',
+                click() {
+                    // update theme to Custom Theme
+                    localStorage.setItem('theme', 'Custom Theme');
+                    // add Custom theme to custom theme object
+                    localStorage.setItem(
+                        'Custom Theme',
+                        JSON.stringify(themeOptions['Custom Theme']),
+                    );
+                    $('.set').removeClass('set');
+                    $('.selected').addClass('set');
+                    $(this).dialog('close');
+                },
             },
-        }, {
-            text: 'Import Theme',
-            click() {
-                $('#importThemeFile').click();
+            {
+                text: 'Import Theme',
+                click() {
+                    $('#importThemeFile').click();
+                },
             },
-        }, {
-            text: 'Export Theme',
-            click() {
-                const dlAnchorElem = document.getElementById('downloadThemeFile');
-                dlAnchorElem.setAttribute('href', `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(themeOptions['Custom Theme']))}`);
-                dlAnchorElem.setAttribute('download', 'CV_CustomTheme.json');
-                dlAnchorElem.click();
+            {
+                text: 'Export Theme',
+                click() {
+                    const dlAnchorElem = document.getElementById('downloadThemeFile');
+                    dlAnchorElem.setAttribute(
+                        'href',
+                        `data:text/json;charset=utf-8,${encodeURIComponent(
+                            JSON.stringify(themeOptions['Custom Theme']),
+                        )}`,
+                    );
+                    dlAnchorElem.setAttribute(
+                        'download',
+                        'CV_CustomTheme.json',
+                    );
+                    dlAnchorElem.click();
+                },
             },
-        }],
+        ],
     });
 
     $('#CustomColorThemesDialog').focus();
@@ -171,14 +189,17 @@ export const CustomColorThemes = () => {
     /**
      * To preview the changes
      */
-    $('.customColorInput').on('input', (e) => {
-        customTheme[e.target.name].color = e.target.value;
-        customTheme[e.target.name].ref.forEach((property) => {
-            themeOptions['Custom Theme'][property] = e.target.value;
+    function setColorEvent() {
+        $('.customColorInput').on('input', (e) => {
+            customTheme[e.target.name].color = e.target.value;
+            customTheme[e.target.name].ref.forEach((property) => {
+                themeOptions['Custom Theme'][property] = e.target.value;
+            });
+            updateThemeForStyle('Custom Theme');
+            updateBG();
         });
-        updateThemeForStyle('Custom Theme');
-        updateBG();
-    });
+    }
+    setColorEvent();
 
     // hack for updating current theme to the saved custom theme
     setTimeout(() => {
@@ -187,9 +208,9 @@ export const CustomColorThemes = () => {
     }, 50);
 
     /**
-    * Read JSON file and
-    * set Custom theme to the Content of the JSON file
-    *  */
+     * Read JSON file and
+     * set Custom theme to the Content of the JSON file
+     *  */
     function receivedText(e) {
         const lines = JSON.parse(e.target.result);
         customTheme = CreateAbstraction(lines);
@@ -200,6 +221,7 @@ export const CustomColorThemes = () => {
         // update colors in dialog box
         $('#CustomColorThemesDialog').empty();
         $('#CustomColorThemesDialog').append(getCustomThemeCard());
+        setColorEvent();
     }
 
     /**
