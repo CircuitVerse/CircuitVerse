@@ -375,6 +375,9 @@ GEM
     omniauth-github (1.4.0)
       omniauth (~> 1.5)
       omniauth-oauth2 (>= 1.4.0, < 2.0)
+    omniauth-gitlab (2.0.0)
+      omniauth (~> 1.0)
+      omniauth-oauth2 (~> 1.0)
     omniauth-google-oauth2 (0.8.2)
       jwt (>= 2.0)
       oauth2 (~> 1.1)
@@ -703,6 +706,7 @@ DEPENDENCIES
   omniauth
   omniauth-facebook
   omniauth-github
+  omniauth-gitlab
   omniauth-google-oauth2
   omniauth-microsoft-office365
   pg (~> 1.3.4)

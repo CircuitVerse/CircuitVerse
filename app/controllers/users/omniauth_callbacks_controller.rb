@@ -39,7 +39,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def github
     generic_callback("github")
   end
-
+  
+  def gitlab
+    generic_callback("gitlab")
+  end
+  
   def microsoft_office365
     generic_callback("microsoft_office365")
   end
