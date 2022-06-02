@@ -352,7 +352,7 @@ GEM
       digest
       net-protocol
       timeout
-    newrelic_rpm (8.5.0)
+    newrelic_rpm (8.8.0)
     nio4r (2.5.8)
     nokogiri (1.13.6)
       mini_portile2 (~> 2.8.0)
@@ -698,7 +698,7 @@ DEPENDENCIES
   listen (>= 3.0.5, < 3.8)
   mailkick
   meta-tags
-  newrelic_rpm (~> 8.5)
+  newrelic_rpm (~> 8.8)
   oj (~> 3.13)
   omniauth
   omniauth-facebook
