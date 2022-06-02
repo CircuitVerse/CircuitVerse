@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+  before_action :gitlab, only: %i[show], constraints: lambda {
+    Flipper.enabled?(:gitlab_integration, current_user)
+  }
   # You should configure your model like this:
   # devise :omniauthable, omniauth_providers: [:twitter]
 
