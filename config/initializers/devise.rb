@@ -29,7 +29,7 @@ Devise.setup do |config|
   config.omniauth :github, ENV['GITHUB_CLIENT_ID'], ENV['GITHUB_CLIENT_SECRET'], {
     :scope => 'read:user'
   }
-  if Flipper.enabled?(:gitlab_integration, current_user)
+  if Flipper.enabled?(:gitlab_integration)
     config.omniauth :gitlab, ENV['GITLAB_CLIENT_ID'], ENV['GITLAB_CLIENT_SECRET'], {
       :scope => 'read_user'
     }

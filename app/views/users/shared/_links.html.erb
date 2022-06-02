@@ -13,7 +13,7 @@
       <a href="/users/auth/github">
         <%= image_tag "SVGs/github.svg",alt: "Github Icon", :class => "users-social-links" %>
       </a>
-      <% if Flipper.enabled? :gitlab_integration, current_user %>
+      <% if Flipper.enabled? :gitlab_integration %>
         <a href="/users/auth/gitlab">
           <%= image_tag "SVGs/gitlab.svg",alt: "Gitlab Icon", :class => "users-social-links" %>
         </a>
