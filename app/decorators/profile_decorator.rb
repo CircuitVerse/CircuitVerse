@@ -10,7 +10,7 @@ class ProfileDecorator < SimpleDelegator
   end
 
   def educational_institute
-    profile.educational_institute || "Not Entered"
+    profile.educational_institute.strip == "" ? "Not Entered" : profile.educational_institute.strip
   end
 
   def country_name
