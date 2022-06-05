@@ -565,7 +565,6 @@ div.icon img {
   -moz-user-drag: none;
   -o-user-drag: none;
   pointer-events: none;
-
   width: 100%;
   display: inline-block;
 }
