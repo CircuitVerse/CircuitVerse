@@ -234,6 +234,7 @@ export const CustomColorThemes = () => {
             var fr = new FileReader();
             fr.onload = receivedText;
             fr.readAsText(File);
+            $('#importThemeFile').val('');
         } else {
             alert('File Not Supported !');
         }
