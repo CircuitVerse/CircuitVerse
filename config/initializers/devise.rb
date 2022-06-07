@@ -36,6 +36,34 @@ Devise.setup do |config|
   # :mongoid (bson_ext recommended) by default. Other ORMs may be
   # available as additional gems.
   require 'devise/orm/active_record'
+  require 'securerandom'
+  # saml configuration for devise
+  $callback = Rails.env.development? ? 'http://localhost:3000' : ENV['CALLBACK_ADDRESS']
+  config.saml_route_helper_prefix = 'saml'
+  config.saml_create_user = true
+  config.saml_update_resource_hook = ->(user, response, auth_value) {
+    # Maintain the default behavior of setting attributes from the SAML response
+    Devise.saml_default_update_resource_hook.call(user, response, auth_value)
+
+    # Add your behavior to generate a password
+    user.update!(password: SecureRandom.urlsafe_base64)
+  }
+  config.saml_update_user = true
+  config.saml_default_user_key = :email
+  config.saml_session_index_key = :session_index
+  config.saml_use_subject = true
+  config.idp_settings_adapter = nil
+  config.saml_configure do |settings|
+    settings.assertion_consumer_service_url     = "#{$callback}/users/saml/auth"
+    settings.assertion_consumer_service_binding = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+    settings.name_identifier_format             = "urn:oasis:names:tc:SAML:2.0:nameid-format:transient"
+    settings.issuer                             = "#{$callback}/users/saml/metadata"
+    settings.authn_context                      = ""
+    settings.idp_slo_target_url                 = ""
+    settings.idp_sso_target_url                 = "https://dev-82989032.okta.com/app/dev-82989032_circuitversesso_1/exk59n2mygx0YSh2l5d7/sso/saml"
+    settings.idp_cert_fingerprint               = '7E:3D:4B:ED:4F:58:58:3C:F9:9A:2A:5E:CC:5D:EF:1E:C7:B0:05:2E:31:AA:57:7F:56:2D:C2:FF:92:FF:AF:92'
+    settings.idp_cert_fingerprint_algorithm     = 'http://www.w3.org/2000/09/xmldsig#sha256'
+  end
 
   # ==> Configuration for any authentication mechanism
   # Configure which keys are used when authenticating a user. The default is

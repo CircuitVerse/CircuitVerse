@@ -1,0 +1,4 @@
+    "urn:mace:dir:attribute-def:uid": "uid"
+    "urn:mace:dir:attribute-def:email": "email"
+    "urn:mace:dir:attribute-def:name": "name"
+    "urn:mace:dir:attribute-def:password": "encrypted_password"
