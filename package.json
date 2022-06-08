@@ -4,6 +4,7 @@
   "repository": "git@github.com:CircuitVerse/CircuitVerse.git",
   "license": "MIT",
   "scripts": {
+    "test": "jest",
     "build:docs": "jsdoc simulator/src/* -c conf.json -t ./node_modules/better-docs",
     "watch:doc-src": "npx nodemon --exec 'npm run build:docs' --watch simulator/src/",
     "watch:doc-output": "npx livereload out",
@@ -14,6 +15,7 @@
     "build": "node esbuild.config.js"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.18.2",
     "@commitlint/cli": "^16.2.1",
     "@commitlint/config-conventional": "^16.2.4",
     "chokidar": "^3.5.3",
@@ -23,6 +25,8 @@
     "eslint-plugin-import": "^2.26.0",
     "expose-loader": "^3.1.0",
     "husky": ">=6",
+    "jest": "^28.1.0",
+    "jest-environment-jsdom": "^28.1.0",
     "jsdoc": "3.6.10",
     "lint-staged": ">=12",
     "livereload": "^0.9.3",
@@ -35,7 +39,9 @@
     "banana-i18n": "^2.3.3",
     "better-docs": "^2.7.2",
     "bootstrap": "^4.6.1",
+    "bootstrap-input-spinner": "^3.1.10",
     "bootstrap-tagsinput": "^0.7.1",
+    "canvas": "^2.9.1",
     "canvas2svg": "1.0.16",
     "codemirror": "^5.65.1",
     "css-loader": "^6.7.1",
@@ -47,6 +53,7 @@
     "esbuild-plugin-sass": "^1.0.1",
     "esbuild-rails": "^1.0.3",
     "file-loader": "^6.2.0",
+    "identity-obj-proxy": "^3.0.0",
     "jquery": "^3.6.0",
     "jquery-resizable-dom": "^0.35.0",
     "jquery-ujs": "^1.2.3",
