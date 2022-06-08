@@ -28,7 +28,7 @@
     "jest": "^28.1.0",
     "jest-environment-jsdom": "^28.1.0",
     "jsdoc": "3.6.10",
-    "lint-staged": ">=12",
+    "lint-staged": ">=13",
     "livereload": "^0.9.3",
     "nodemon": "^2.0.16"
   },
