@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "@babel/preset-env": "^7.18.2",
-    "@commitlint/cli": "^16.2.1",
+    "@commitlint/cli": "^17.0.2",
     "@commitlint/config-conventional": "^16.2.4",
     "chokidar": "^3.5.3",
     "esbuild-loader": "^2.18.0",
