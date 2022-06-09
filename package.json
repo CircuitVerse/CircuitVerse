@@ -12,6 +12,7 @@
     "@mdi/font": "5.9.55",
     "roboto-fontface": "*",
     "vue": "^3.2.25",
+    "vue-router": "^4.0.15",
     "vuetify": "^3.0.0-beta.0",
     "webfontloader": "^1.0.0"
   },
