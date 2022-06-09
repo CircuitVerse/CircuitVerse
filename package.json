@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@mdi/font": "5.9.55",
+    "pinia": "^2.0.14",
     "roboto-fontface": "*",
     "vue": "^3.2.25",
     "vue-router": "^4.0.15",
