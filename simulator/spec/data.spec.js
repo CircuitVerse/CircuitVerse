@@ -52,7 +52,7 @@ describe('data dir working', () => {
             backups: globalScope.backups.length,
             history: globalScope.history.length,
         };
-        for (let i = 1; i < 10; i++) {
+        for (let i = 1; i < beforeUndo.backups; i++) {
             undo();
             const afterUndo = {
                 backups: globalScope.backups.length + i,
@@ -67,7 +67,7 @@ describe('data dir working', () => {
             backups: globalScope.backups.length,
             history: globalScope.history.length,
         };
-        for (let i = 1; i < 10; i++) {
+        for (let i = 1; i < beforeRedo.history; i++) {
             redo();
             const afterRedo = {
                 backups: globalScope.backups.length - i,
