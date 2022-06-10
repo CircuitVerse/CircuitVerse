@@ -1,17 +1,17 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Home from "../components/Home.vue";
-import Simulator from "../components/Simulator.vue";
+import HomePage from "../pages/HomePage.vue";
+import SimulatorPage from "../pages/SimulatorPage.vue";
 
 const routes = [
     {
         path: "/",
-        name: "Home",
-        component: Home,
+        name: "HomePage",
+        component: HomePage,
     },
     {
         path: "/simulator",
-        name: "Simulator",
-        component: Simulator,
+        name: "SimulatorPage",
+        component: SimulatorPage,
     },
 ];
 const router = createRouter({
