@@ -1,22 +1,22 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../components/Home.vue'
-import Simulator from '../components/Simulator.vue'
+import { createRouter, createWebHistory } from "vue-router";
+import Home from "../components/Home.vue";
+import Simulator from "../components/Simulator.vue";
 
 const routes = [
-	{
-		path: '/',
-		name: 'Home',
-		component: Home
-	},
-	{
-		path: '/simulator',
-		name: 'Simulator',
-		component: Simulator
-	},
-]
+    {
+        path: "/",
+        name: "Home",
+        component: Home,
+    },
+    {
+        path: "/simulator",
+        name: "Simulator",
+        component: Simulator,
+    },
+];
 const router = createRouter({
-	history: createWebHistory(),
-	routes,
-})
+    history: createWebHistory(),
+    routes,
+});
 
-export default router
+export default router;
