@@ -6,7 +6,9 @@
     "serve": "vite preview",
     "build": "vite build",
     "dev": "vite",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src",
+    "format": "prettier .  --write"
   },
   "dependencies": {
     "@mdi/font": "5.9.55",
@@ -20,6 +22,10 @@
   "devDependencies": {
     "@types/webfontloader": "^1.0.0",
     "@vitejs/plugin-vue": "^2.3.3",
+    "eslint": "^8.17.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-vue": "^9.1.0",
+    "prettier": "2.6.2",
     "typescript": "^4.5.4",
     "vite": "^2.9.9",
     "vite-plugin-vuetify": "^1.0.0-alpha.0",
