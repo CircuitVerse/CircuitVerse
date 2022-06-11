@@ -66,7 +66,7 @@ Please note:  If you wanted to work on an issue, let us know by leaving a commen
 - Requested changes must be resolved (with code or discussion) before merging.
 - If you make changes to a PR, be sure to re-request a review.
 - Don't repeadetely tag someone(may be it is not the right time to review your PR), be patient.
-- Do not 'resolve conversation' unnecessary raised by a community member or any workflow tools(codeclimate or hound) as they may have some purpose, try to resolve the request changes and if any help wanted tag a communtiy member to give views about that.
+- Do not 'resolve conversation' unnecessary raised by a community member or any workflow tools(codeclimate or hound) as they may have some purpose, try to resolve the request changes and if any help wanted tag a community member to give views about that.
 
 #### PR Labels
 
