@@ -11,7 +11,6 @@ services:
       - redis
       - mailcatcher
     build: .
-    image: build:latest
     command: bundle exec sidekiq -q default -q mailers
     volumes:
       - /circuitverse/.bundle
@@ -21,7 +20,7 @@ services:
     environment:
       REDIS_URL: "redis://redis:6379/0"
   web:
-    image: build:latest
+    build: .
     entrypoint: /circuitverse/bin/docker_run
     volumes:
       - /circuitverse/.bundle
@@ -41,7 +40,7 @@ services:
   redis:
     image: redis
   asset_build:
-    image: build:latest
+    build: .
     environment:
       - NODE_ENV=development
       - RAILS_ENV=development
