@@ -28,7 +28,7 @@
     "jest": "^28.1.0",
     "jest-environment-jsdom": "^28.1.0",
     "jsdoc": "3.6.10",
-    "lint-staged": ">=12",
+    "lint-staged": ">=13",
     "livereload": "^0.9.3",
     "nodemon": "^2.0.16"
   },
@@ -62,7 +62,7 @@
     "opencollective-postinstall": "^2.0.3",
     "popper.js": "^1.16.1",
     "sass": "^1.49.9",
-    "sass-loader": "^12.6.0",
+    "sass-loader": "^13.0.0",
     "stimulus": "^3.0.1",
     "trumbowyg": "^2.25.1",
     "turbolinks": "^5.2.0"
