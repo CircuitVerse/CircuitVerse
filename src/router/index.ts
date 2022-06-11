@@ -5,11 +5,6 @@ import SimulatorPage from "../pages/SimulatorPage.vue";
 const routes = [
     {
         path: "/",
-        name: "HomePage",
-        component: HomePage,
-    },
-    {
-        path: "/simulator",
         name: "SimulatorPage",
         component: SimulatorPage,
     },
