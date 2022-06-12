@@ -76,6 +76,53 @@ Additional instructions can be found [here](https://www.howtoforge.com/tutorial/
 - If you are facing difficulties installing RVM, most probably it is because of an older version of rvm shipped with Ubuntu's desktop edition and updating the same resolves the problem.
 - [Run Terminal as a login shell](https://rvm.io/integration/gnome-terminal/) so ruby and rails will be available.
 
+#### (Optional) yosys installation for Verilog RTL Synthesis
+If you wish to do Verilog RTL Synthesis/create CircuitVerse Verilog Circuits in your local development environment, you need to:
+1. Install yosys
+2. Setup and run CircuitVerse's yosys2digitaljs-server.
+
+##### Installation steps
+1. **Install yosys**
+   - Many Linux distibutions provide yosys binaries which is easy to install & small in package size. For Example,
+**For Debina/Ubunutu**:
+  ```sudo apt install yosys```
+   - For other linux distributions, MacOS, & Windows OS, you need to install the OSS CAD Suite
+      1. Download an archive matching your OS from [the releases page](https://github.com/YosysHQ/oss-cad-suite-build/releases/latest).
+      2. Extract the archive to a location of your choice (for Windows it is recommended that path does not contain spaces)
+      3. To use OSS CAD Suite 
+
+      **Other Linux distros and macOS**
+      ```shell
+      export PATH="<extracted_location>/oss-cad-suite/bin:$PATH"
+
+      or
+
+      source <extracted_location>/oss-cad-suite/environment
+      ```
+      **Windows**
+      ```
+      from existing shell:
+      <extracted_location>\oss-cad-suite\environment.bat
+
+      to create new shell window:
+      <extracted_location>\oss-cad-suite\start.bat
+      ```
+1. **Setup CircuitVerse yosys2digitaljs-server**
+    - In your local CircuitVerse Repository:
+      ```sh
+      git clone https://github.com/CircuitVerse/yosys2digitaljs-server.git
+
+      cd yosys2digitaljs-server
+
+      yarn
+
+      cd ..
+      ```
+    - To use CircuitVerse yosys2digitaljs-server:
+      ```sh
+      bin/yosys
+      ```
+
 ### CircuitVerse API documentation setup instructions
 To setup CircuitVerse API documentation, refer [docs/README.md](docs/README.md)
 
