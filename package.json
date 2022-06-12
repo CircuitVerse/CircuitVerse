@@ -22,7 +22,7 @@
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.26.0",
-    "husky": ">=6",
+    "husky": ">=8",
     "jest": "^28.1.0",
     "jest-environment-jsdom": "^28.1.0",
     "jsdoc": "3.6.10",
