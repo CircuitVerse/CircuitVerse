@@ -4,17 +4,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   before_action :gitlab, only: %i[show], constraints: lambda {
     Flipper.enabled?(:gitlab_integration)
   }
-  require "omniauth/strategies/github"
-
-  module OmniauthGithubStrategy
-    def authorize_params
-      result = super
-      # meddle with params
-      result
-    end
-  end
-
-  OmniAuth::Strategies::GitHub.prepend(OmniauthGithubStrategy)
   # You should configure your model like this:
   # devise :omniauthable, omniauth_providers: [:twitter]
 
@@ -26,9 +15,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # https://github.com/plataformatec/devise#omniauth
 
   # GET|POST /resource/auth/twitter
-  def passthru
-    super
-  end
+  # def passthru
+  #   super
+  # end
 
   # GET|POST /users/auth/twitter/callback
   # def failure
