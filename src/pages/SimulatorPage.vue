@@ -7,7 +7,10 @@
 </template>
 
 <script lang="ts" setup>
-    import { SimulatorStore } from '../store/Simulator'
-    const main = SimulatorStore();
-    const { title } = main
+import { SimulatorStore } from "../store/SimulatorStore/SimulatorStore";
+
+const store = SimulatorStore();
+let { title } = store;
+title = store.getTitle;
+store.showTitle();
 </script>
