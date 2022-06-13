@@ -7,7 +7,7 @@ export const useActions = defineStore("simulatorStore.actions", () => {
     function showTitle(): void {
         console.log(state.title);
     }
-    
+
     // Note you are free to define as many internal functions as you want.
     // You only expose the functions that are returned.
     return {
