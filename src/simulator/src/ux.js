@@ -150,15 +150,16 @@ export function setupUI() {
     });
     document.getElementById('canvasArea').oncontextmenu = showContextMenu;
 
-    $('#sideBar').resizable({
-        handles: 'e',
-        // minWidth:270,
-    });
-    $('#menu, #subcircuitMenu').accordion({
-        collapsible: true,
-        active: false,
-        heightStyle: 'content',
-    });
+    // commenting jquery-ui (not working)
+    // $('#sideBar').resizable({
+    //     handles: 'e',
+    //     // minWidth:270,
+    // });
+    // $('#menu, #subcircuitMenu').accordion({
+    //     collapsible: true,
+    //     active: false,
+    //     heightStyle: 'content',
+    // });
 
     $('.logixModules').mousedown(createElement);
 

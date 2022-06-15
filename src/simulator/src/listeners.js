@@ -76,15 +76,16 @@ export default function startListeners() {
         }, 100)
     })
     /* Makes tabs reordering possible by making them sortable */
-    $('#tabsBar').sortable({
-        containment: 'parent',
-        items: '> div',
-        revert: false,
-        opacity: 0.5,
-        tolerance: 'pointer',
-        placeholder: 'placeholder',
-        forcePlaceholderSize: true,
-    })
+    // commenting jquery-ui
+    // $('#tabsBar').sortable({
+    //     containment: 'parent',
+    //     items: '> div',
+    //     revert: false,
+    //     opacity: 0.5,
+    //     tolerance: 'pointer',
+    //     placeholder: 'placeholder',
+    //     forcePlaceholderSize: true,
+    // })
 
     document
         .getElementById('simulationArea')
