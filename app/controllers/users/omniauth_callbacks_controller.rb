@@ -39,9 +39,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def github
     generic_callback("github")
   end
-  
+
   def gitlab
     return unless Flipper.enabled?(:gitlab_integration)
+
     generic_callback("gitlab")
   end
 
