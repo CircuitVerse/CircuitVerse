@@ -303,8 +303,11 @@ ActiveRecord::Schema.define(version: 2021_12_08_142725) do
     t.string "slug"
     t.tsvector "searchable"
     t.string "lis_result_sourced_id"
+    t.string "collaboration_token"
+    t.datetime "token_expires_at"
     t.index ["assignment_id"], name: "index_projects_on_assignment_id"
     t.index ["author_id"], name: "index_projects_on_author_id"
+    t.index ["collaboration_token"], name: "index_projects_on_collaboration_token", unique: true
     t.index ["forked_project_id"], name: "index_projects_on_forked_project_id"
     t.index ["searchable"], name: "index_projects_on_searchable", using: :gin
     t.index ["slug", "author_id"], name: "index_projects_on_slug_and_author_id", unique: true

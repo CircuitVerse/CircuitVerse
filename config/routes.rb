@@ -87,6 +87,21 @@ Rails.application.routes.draw do
   post "/push/test", to: "push_subscription#test"
 
   # projects
+
+  resources :projects do
+    member do
+      post "/collaboration_token", to: "projects/collaboration_token#create", as: "collaboration_token"
+    end
+  end
+
+  resources :users do
+    resources :projects do
+      member do
+        get "/invite/:token", to: "projects/invitations#create", as: "invite"
+      end
+    end
+  end
+  
   scope "/projects" do
     post "/create_fork/:id", to: "projects#create_fork", as: "create_fork_project"
     get "/change_stars/:id", to: "projects#change_stars", as: "change_stars"

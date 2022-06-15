@@ -1,6 +1,6 @@
 <script src="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
 
-<div id="collaboratorModal" class="modal fade" role="dialog">
+<div id="collaboratorModal" class="modal fade" role="dialog" data-controller="projectCollaboration">
   <div class="modal-dialog primary-modal-dialog">
     <div class="modal-content">
       <div class="modal-header primary-modal-header">
@@ -31,13 +31,23 @@
         </div>
         <% end %>
       </div>
+      <div class="mx-auto text-center p-3">
+        <p><%= t("groups.use_alternative") %></p>
+        <%= button_to collaboration_token_project_path,{remote: true,method: :post,class: 'btn primary-button', 'data-toggle':'collapse', 'href':'#collapseExample', 'aria-expanded':'false', 'aria-controls':'collapseExample', 'data-target':'#multiCollapseExample2',id: 'invite_collab_button','data-action':'click->projectCollaboration#embedInviteLink' } do %>
+          <i class="fas fa-external-link-alt"></i>
+          <span><%= t("projects.invite_link_btn") %></span>
+        <% end %>
+        <div class="collapse" id="multiCollapseExample2">
+          <textarea readonly="readonly" id="embedInviteLink" class="collaborator-invite-link-text" rows="4" cols="35"><%= user_project_url %>/invite/<%= @project.collaboration_token %></textarea>
+        </div>
+      </div>
     </div>
   </div>
+  
 </div>
 
 <script>
 $(document).ready(() => {
-  // docs: http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/examples/
   $('#emails').tagsinput({
     trimValue: true,
     confirmKeys: [13, 44, 32],
