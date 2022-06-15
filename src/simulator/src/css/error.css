@@ -1,0 +1,24 @@
+.error-code {
+  color: #42b983;
+  font-family: 'CircuitBoredNF';
+  font-size: 142px;
+}
+
+.help-text-main {
+  color: #1c1c1c;
+  font-family: 'Segoe UI';
+  font-size: 22px;
+  font-weight: 400;  
+  margin: 0;
+}
+
+.return {
+  color: #42b983;
+  display: inline-block;
+  font-family: 'Segoe UI';
+  font-weight: 700;
+}
+
+.return:hover {
+  color: #42b983;
+}

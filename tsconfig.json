@@ -11,8 +11,22 @@
         "isolatedModules": true,
         "esModuleInterop": true,
         "lib": ["esnext", "dom"],
-        "skipLibCheck": true
+        "skipLibCheck": true,
+
+        "allowJs": true,
+        "declaration": true,
+        "emitDeclarationOnly": true,
+        "outDir": "dist",
+        "declarationMap": true
     },
-    "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+    "include": [
+        "src/**/*.ts",
+        "src/**/*.d.ts",
+        "src/**/*.tsx",
+        "src/**/*.vue",
+        "src/**/*"
+    ],
     "references": [{ "path": "./tsconfig.node.json" }]
 }
+
+// https://www.typescriptlang.org/docs/handbook/declaration-files/dts-from-js.html

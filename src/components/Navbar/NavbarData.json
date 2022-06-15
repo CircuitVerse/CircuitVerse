@@ -1,0 +1,224 @@
+[
+    {
+        "id": "1",
+        "text": "Project",
+        "spanClass": "caret",
+        "dropdownItems": [
+            {
+                "id": "1",
+                "item": "New Project",
+                "itemid": "newProject",
+                "attributes": []
+            },
+            {
+                "id": "2",
+                "item": "Save Online",
+                "itemid": "save",
+                "attributes": []
+            },
+            {
+                "id": "3",
+                "item": "Save Offline",
+                "itemid": "saveOffline",
+                "attributes": []
+            },
+            {
+                "id": "4",
+                "item": "Open Offline",
+                "itemid": "createOpenLocalPrompt",
+                "attributes": []
+            },
+            {
+                "id": "5",
+                "item": "Clear Project",
+                "itemid": "clearProject",
+                "attributes": []
+            },
+            {
+                "id": "6",
+                "item": "Recover Project",
+                "itemid": "recoverProject",
+                "attributes": []
+            },
+            {
+                "id": "7",
+                "item": "Preview Circuit",
+                "itemid": "fullViewOption",
+                "attributes": []
+            },
+            {
+                "id": "8",
+                "item": "View Previous UI",
+                "itemid": "",
+                "attributes": [
+                    {
+                        "name": "onclick",
+                        "value": "old_ui_redirect()"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "2",
+        "text": "Circuit",
+        "spanClass": "caret",
+        "dropdownItems": [
+            {
+                "id": "1",
+                "item": "New Circuit +",
+                "itemid": "newCircuit",
+                "attributes": []
+            },
+            {
+                "id": "2",
+                "item": "New Verilog \n Module",
+                "itemid": "newVerilogModule",
+                "attributes": []
+            },
+            {
+                "id": "3",
+                "item": "Insert SubCircuit",
+                "itemid": "createSubCircuitPrompt",
+                "attributes": []
+            }
+        ]
+    },
+    {
+        "id": "3",
+        "text": "Tools",
+        "spanClass": "caret",
+        "dropdownItems": [
+            {
+                "id": "1",
+                "item": "Combinational \n Analysis",
+                "itemid": "createCombinationalAnalysisPrompt",
+                "attributes": []
+            },
+            {
+                "id": "2",
+                "item": "Hex-Bin-Dec \n Converter",
+                "itemid": "bitconverter",
+                "attributes": []
+            },
+            {
+                "id": "3",
+                "item": "Download Image",
+                "itemid": "createSaveAsImgPrompt",
+                "attributes": []
+            },
+            {
+                "id": "4",
+                "item": "Themes",
+                "itemid": "colorThemes",
+                "attributes": []
+            },
+            {
+                "id": "5",
+                "item": "Custom Shortcut",
+                "itemid": "customShortcut",
+                "attributes": []
+            },
+            {
+                "id": "6",
+                "item": "Export Verilog",
+                "itemid": "generateVerilog",
+                "attributes": []
+            }
+        ]
+    },
+    {
+        "id": "4",
+        "text": "Help",
+        "spanClass": "caret",
+        "dropdownItems": [
+            {
+                "id": "1",
+                "item": "Tutorial Guide",
+                "itemid": "showTourGuide",
+                "attributes": []
+            },
+            {
+                "id": "2",
+                "item": "User Manual",
+                "itemid": "",
+                "attributes": [
+                    {
+                        "name": "href",
+                        "value": "https://docs.circuitverse.org"
+                    },
+                    {
+                        "name": "target",
+                        "value": "_blank"
+                    },
+                    {
+                        "name": "role",
+                        "value": "button"
+                    },
+                    {
+                        "name": "aria-haspopup",
+                        "value": "true"
+                    },
+                    {
+                        "name": "aria-expanded",
+                        "value": "false"
+                    }
+                ]
+            },
+            {
+                "id": "3",
+                "item": "Learn Digital Logic",
+                "itemid": "",
+                "attributes": [
+                    {
+                        "name": "href",
+                        "value": "https://learn.circuitverse.org"
+                    },
+                    {
+                        "name": "target",
+                        "value": "_blank"
+                    },
+                    {
+                        "name": "role",
+                        "value": "button"
+                    },
+                    {
+                        "name": "aria-haspopup",
+                        "value": "true"
+                    },
+                    {
+                        "name": "aria-expanded",
+                        "value": "false"
+                    }
+                ]
+            },
+            {
+                "id": "4",
+                "item": "Discussion Forum",
+                "itemid": "",
+                "attributes": [
+                    {
+                        "name": "href",
+                        "value": "https://circuitverse.org/forum"
+                    },
+                    {
+                        "name": "target",
+                        "value": "_blank"
+                    },
+                    {
+                        "name": "role",
+                        "value": "button"
+                    },
+                    {
+                        "name": "aria-haspopup",
+                        "value": "true"
+                    },
+                    {
+                        "name": "aria-expanded",
+                        "value": "false"
+                    }
+                ]
+            }
+        ]
+    }
+]

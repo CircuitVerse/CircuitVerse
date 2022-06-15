@@ -1,16 +1,26 @@
 <template>
-    <v-layout>
-        <v-app-bar color="grey-lighten-2">
-            <h2 class="text-center">{{ title }}</h2>
-        </v-app-bar>
-    </v-layout>
+    <Navbar />
+    <ContextMenu />
+    <Extra />
 </template>
 
-<script lang="ts" setup>
-import { SimulatorStore } from "../store/SimulatorStore/SimulatorStore";
+<script lang="ts">
+import Navbar from "../components/Navbar/Navbar.vue";
+import Extra from "../components/Extra.vue";
+import ContextMenu from "../components/ContextMenu/ContextMenu.vue";
 
-const store = SimulatorStore();
-let { title } = store;
-title = store.getTitle;
-store.showTitle();
+import { setup } from '../simulator/src/setup';
+
+export default {
+    name: "Simulator",
+    components: {
+        Navbar,
+        Extra,
+        ContextMenu,
+    },
+    mounted() {
+        console.log("setting up");
+        setup();
+    },
+};
 </script>

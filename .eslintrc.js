@@ -1,6 +1,10 @@
 module.exports = {
     env: {
         node: true,
+        browser: true,
+        commonjs: true,
+        es6: true,
+        jquery: true,
     },
     extends: ["eslint:recommended", "plugin:vue/vue3-recommended", "prettier"],
     rules: {
