@@ -72,3 +72,7 @@ config/private.pem
 
 /app/assets/builds/*
 !/app/assets/builds/.keep
+
+yosys2digitaljs-server
+*/**/node_modules
+*/**/yarn-error.log

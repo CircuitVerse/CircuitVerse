@@ -48,7 +48,9 @@
   cursor: pointer;
   padding-left: 4px;
   padding-top: 4px;
+  position: relative;
   text-align: center;
+  top: 5px;
 
   &:hover {
     border-color: $primary-green;

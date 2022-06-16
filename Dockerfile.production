@@ -1,6 +1,7 @@
 FROM --platform=$BUILDPLATFORM ruby:3.1.2 as builder
 
 ARG BUILDPLATFORM 
+ENV NODE_ENV=production
 
 RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash -
 RUN apt-get update -qq && apt-get install -y --no-install-recommends --auto-remove nodejs imagemagick

@@ -15,6 +15,7 @@ class User < ApplicationRecord
   has_many :groups_mentored, class_name: "Group",  foreign_key: "mentor_id", dependent: :destroy
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable,
          :validatable, :omniauthable, :saml_authenticatable, omniauth_providers: %i[google_oauth2 facebook github]
+         :validatable, :omniauthable, omniauth_providers: %i[google_oauth2 facebook github gitlab]
 
   # has_many :assignments, foreign_key: 'mentor_id', dependent: :destroy
   has_many :group_members, dependent: :destroy
