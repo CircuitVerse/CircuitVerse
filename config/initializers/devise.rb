@@ -43,14 +43,7 @@ Devise.setup do |config|
   $callback = Rails.env.development? ? 'http://localhost:3000' : ENV['CALLBACK_ADDRESS']
   config.saml_route_helper_prefix = 'saml'
   config.saml_create_user = true
-  config.saml_update_resource_hook = ->(user, response, auth_value) {
-    # Maintain the default behavior of setting attributes from the SAML response
-    Devise.saml_default_update_resource_hook.call(user, response, auth_value)
-
-    # Add your behavior to generate a password
-    user.update!(password: SecureRandom.urlsafe_base64)
-  }
-  config.saml_update_user = true
+  config.saml_update_user = false
   config.saml_default_user_key = :email
   config.saml_session_index_key = :session_index
   config.saml_use_subject = true
