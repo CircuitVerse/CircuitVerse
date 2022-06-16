@@ -62,8 +62,8 @@ Devise.setup do |config|
     settings.issuer                             = "#{$callback}/users/saml/metadata"
     settings.authn_context                      = ""
     settings.idp_slo_target_url                 = ""
-    settings.idp_sso_target_url                 = "https://dev-82989032.okta.com/app/dev-82989032_circuitversesso_1/exk59n2mygx0YSh2l5d7/sso/saml"
-    settings.idp_cert_fingerprint               = '7E:3D:4B:ED:4F:58:58:3C:F9:9A:2A:5E:CC:5D:EF:1E:C7:B0:05:2E:31:AA:57:7F:56:2D:C2:FF:92:FF:AF:92'
+    settings.idp_sso_target_url                 = ENV['IDP_SSO_URL']
+    settings.idp_cert_fingerprint               = ENV['IDP_FINGERPRINT']
     settings.idp_cert_fingerprint_algorithm     = 'http://www.w3.org/2000/09/xmldsig#sha256'
   end
 
