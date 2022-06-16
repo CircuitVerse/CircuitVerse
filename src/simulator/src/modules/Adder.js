@@ -1,7 +1,7 @@
 /* eslint-disable no-bitwise */
-import CircuitElement from '../circuitElement';
-import Node, { findNode } from '../node';
-import simulationArea from '../simulationArea';
+import CircuitElement from '../circuitElement'
+import Node, { findNode } from '../node'
+import simulationArea from '../simulationArea'
 
 /**
  * @class
@@ -16,17 +16,17 @@ import simulationArea from '../simulationArea';
  */
 export default class Adder extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
-        super(x, y, scope, dir, bitWidth);
+        super(x, y, scope, dir, bitWidth)
         /* this is done in this.baseSetup() now
         this.scope['Adder'].push(this);
         */
-        this.setDimensions(20, 20);
+        this.setDimensions(20, 20)
 
-        this.inpA = new Node(-20, -10, 0, this, this.bitWidth, 'A');
-        this.inpB = new Node(-20, 0, 0, this, this.bitWidth, 'B');
-        this.carryIn = new Node(-20, 10, 0, this, 1, 'Cin');
-        this.sum = new Node(20, 0, 1, this, this.bitWidth, 'Sum');
-        this.carryOut = new Node(20, 10, 1, this, 1, 'Cout');
+        this.inpA = new Node(-20, -10, 0, this, this.bitWidth, 'A')
+        this.inpB = new Node(-20, 0, 0, this, this.bitWidth, 'B')
+        this.carryIn = new Node(-20, 10, 0, this, 1, 'Cin')
+        this.sum = new Node(20, 0, 1, this, this.bitWidth, 'Sum')
+        this.carryOut = new Node(20, 10, 1, this, 1, 'Cout')
     }
 
     /**
@@ -44,8 +44,8 @@ export default class Adder extends CircuitElement {
                 carryOut: findNode(this.carryOut),
                 sum: findNode(this.sum),
             },
-        };
-        return data;
+        }
+        return data
     }
 
     /**
@@ -54,7 +54,7 @@ export default class Adder extends CircuitElement {
      * @return {boolean}
      */
     isResolvable() {
-        return this.inpA.value !== undefined && this.inpB.value !== undefined;
+        return this.inpA.value !== undefined && this.inpB.value !== undefined
     }
 
     /**
@@ -63,10 +63,10 @@ export default class Adder extends CircuitElement {
      * @param {number} bitWidth - new bitwidth
      */
     newBitWidth(bitWidth) {
-        this.bitWidth = bitWidth;
-        this.inpA.bitWidth = bitWidth;
-        this.inpB.bitWidth = bitWidth;
-        this.sum.bitWidth = bitWidth;
+        this.bitWidth = bitWidth
+        this.inpA.bitWidth = bitWidth
+        this.inpB.bitWidth = bitWidth
+        this.sum.bitWidth = bitWidth
     }
 
     /**
@@ -75,23 +75,23 @@ export default class Adder extends CircuitElement {
      */
     resolve() {
         if (this.isResolvable() === false) {
-            return;
+            return
         }
-        let carryIn = this.carryIn.value;
-        if (carryIn === undefined) carryIn = 0;
-        const sum = this.inpA.value + this.inpB.value + carryIn;
+        let carryIn = this.carryIn.value
+        if (carryIn === undefined) carryIn = 0
+        const sum = this.inpA.value + this.inpB.value + carryIn
 
-        this.sum.value = ((sum) << (32 - this.bitWidth)) >>> (32 - this.bitWidth);
-        this.carryOut.value = +((sum >>> (this.bitWidth)) !== 0);
-        simulationArea.simulationQueue.add(this.carryOut);
-        simulationArea.simulationQueue.add(this.sum);
+        this.sum.value = (sum << (32 - this.bitWidth)) >>> (32 - this.bitWidth)
+        this.carryOut.value = +(sum >>> this.bitWidth !== 0)
+        simulationArea.simulationQueue.add(this.carryOut)
+        simulationArea.simulationQueue.add(this.sum)
     }
 
     generateVerilog() {
-        if(this.carryIn.verilogLabel) {
-            return `assign ${this.sum.verilogLabel} = ${this.inpA.verilogLabel} + ${this.inpB.verilogLabel} + ${this.carryIn.verilogLabel};`;
+        if (this.carryIn.verilogLabel) {
+            return `assign ${this.sum.verilogLabel} = ${this.inpA.verilogLabel} + ${this.inpB.verilogLabel} + ${this.carryIn.verilogLabel};`
         }
-        return `assign ${this.sum.verilogLabel} = ${this.inpA.verilogLabel} + ${this.inpB.verilogLabel};`;
+        return `assign ${this.sum.verilogLabel} = ${this.inpA.verilogLabel} + ${this.inpB.verilogLabel};`
     }
 }
 
@@ -101,6 +101,7 @@ export default class Adder extends CircuitElement {
  * @type {string}
  * @category modules
  */
-Adder.prototype.tooltipText = 'Adder ToolTip : Performs addition of numbers.';
-Adder.prototype.helplink = 'https://docs.circuitverse.org/#/miscellaneous?id=adder';
-Adder.prototype.objectType = 'Adder';
+Adder.prototype.tooltipText = 'Adder ToolTip : Performs addition of numbers.'
+Adder.prototype.helplink =
+    'https://docs.circuitverse.org/#/miscellaneous?id=adder'
+Adder.prototype.objectType = 'Adder'

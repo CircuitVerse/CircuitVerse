@@ -1,7 +1,7 @@
-import CircuitElement from '../circuitElement';
-import Node, { findNode } from '../node';
-import simulationArea from '../simulationArea';
-import { correctWidth, fillText } from '../canvasApi';
+import CircuitElement from '../circuitElement'
+import Node, { findNode } from '../node'
+import simulationArea from '../simulationArea'
+import { correctWidth, fillText } from '../canvasApi'
 /**
  * @class
  * SRflipFlop
@@ -14,36 +14,36 @@ import { correctWidth, fillText } from '../canvasApi';
  * @param {string=} dir - direcion in which element has to drawn
  * @category sequential
  */
-import { colors } from '../themer/themer';
+import { colors } from '../themer/themer'
 export default class SRflipFlop extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT') {
-        super(x, y, scope, dir, 1);
+        super(x, y, scope, dir, 1)
         /*
         this.scope['SRflipFlop'].push(this);
         */
-        this.directionFixed = true;
-        this.fixedBitWidth = true;
-        this.setDimensions(20, 20);
-        this.rectangleObject = true;
-        this.R = new Node(-20, +10, 0, this, 1, 'R');
-        this.S = new Node(-20, -10, 0, this, 1, 'S');
-        this.qOutput = new Node(20, -10, 1, this, 1, 'Q');
-        this.qInvOutput = new Node(20, 10, 1, this, 1, 'Q Inverse');
-        this.reset = new Node(10, 20, 0, this, 1, 'Asynchronous Reset');
-        this.preset = new Node(0, 20, 0, this, 1, 'Preset');
-        this.en = new Node(-10, 20, 0, this, 1, 'Enable');
-        this.state = 0;
+        this.directionFixed = true
+        this.fixedBitWidth = true
+        this.setDimensions(20, 20)
+        this.rectangleObject = true
+        this.R = new Node(-20, +10, 0, this, 1, 'R')
+        this.S = new Node(-20, -10, 0, this, 1, 'S')
+        this.qOutput = new Node(20, -10, 1, this, 1, 'Q')
+        this.qInvOutput = new Node(20, 10, 1, this, 1, 'Q Inverse')
+        this.reset = new Node(10, 20, 0, this, 1, 'Asynchronous Reset')
+        this.preset = new Node(0, 20, 0, this, 1, 'Preset')
+        this.en = new Node(-10, 20, 0, this, 1, 'Enable')
+        this.state = 0
         // this.slaveState = 0;
         // this.prevClockState = 0;
         // this.wasClicked = false;
     }
 
     newBitWidth(bitWidth) {
-        this.bitWidth = bitWidth;
-        this.dInp.bitWidth = bitWidth;
-        this.qOutput.bitWidth = bitWidth;
-        this.qInvOutput.bitWidth = bitWidth;
-        this.preset.bitWidth = bitWidth;
+        this.bitWidth = bitWidth
+        this.dInp.bitWidth = bitWidth
+        this.qOutput.bitWidth = bitWidth
+        this.qInvOutput.bitWidth = bitWidth
+        this.preset.bitWidth = bitWidth
     }
 
     /**
@@ -51,10 +51,10 @@ export default class SRflipFlop extends CircuitElement {
      * always resolvable
      */
     isResolvable() {
-        return true;
-        if (this.reset.value == 1) return true;
-        if (this.S.value != undefined && this.R.value != undefined) return true;
-        return false;
+        return true
+        if (this.reset.value == 1) return true
+        if (this.S.value != undefined && this.R.value != undefined) return true
+        return false
     }
 
     /**
@@ -64,16 +64,19 @@ export default class SRflipFlop extends CircuitElement {
      */
     resolve() {
         if (this.reset.value == 1) {
-            this.state = this.preset.value || 0;
-        } else if ((this.en.value == 1 || this.en.connections == 0) && this.S.value ^ this.R.value) {
-            this.state = this.S.value;
+            this.state = this.preset.value || 0
+        } else if (
+            (this.en.value == 1 || this.en.connections == 0) &&
+            this.S.value ^ this.R.value
+        ) {
+            this.state = this.S.value
         }
 
         if (this.qOutput.value != this.state) {
-            this.qOutput.value = this.state;
-            this.qInvOutput.value = this.flipBits(this.state);
-            simulationArea.simulationQueue.add(this.qOutput);
-            simulationArea.simulationQueue.add(this.qInvOutput);
+            this.qOutput.value = this.state
+            this.qInvOutput.value = this.flipBits(this.state)
+            simulationArea.simulationQueue.add(this.qOutput)
+            simulationArea.simulationQueue.add(this.qInvOutput)
         }
     }
 
@@ -89,41 +92,46 @@ export default class SRflipFlop extends CircuitElement {
                 en: findNode(this.en),
             },
             constructorParamaters: [this.direction],
-
-        };
-        return data;
+        }
+        return data
     }
 
     customDraw() {
-        var ctx = simulationArea.context;
-        //        
-        ctx.strokeStyle = (colors['stroke']);
-        ctx.fillStyle = (colors['fill']);
-        ctx.beginPath();
-        ctx.lineWidth = correctWidth(3);
-        var xx = this.x;
-        var yy = this.y;
+        var ctx = simulationArea.context
+        //
+        ctx.strokeStyle = colors['stroke']
+        ctx.fillStyle = colors['fill']
+        ctx.beginPath()
+        ctx.lineWidth = correctWidth(3)
+        var xx = this.x
+        var yy = this.y
 
         // rect(ctx, xx - 20, yy - 20, 40, 40);
         // moveTo(ctx, -20, 5, xx, yy, this.direction);
         // lineTo(ctx, -15, 10, xx, yy, this.direction);
         // lineTo(ctx, -20, 15, xx, yy, this.direction);
 
+        if (
+            (this.b.hover && !simulationArea.shiftDown) ||
+            simulationArea.lastSelected == this ||
+            simulationArea.multipleObjectSelections.contains(this)
+        )
+            ctx.fillStyle = 'rgba(255, 255, 32,0.8)'
+        ctx.fill()
+        ctx.stroke()
 
-        if ((this.b.hover&&!simulationArea.shiftDown)|| simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = "rgba(255, 255, 32,0.8)";ctx.fill();
-        ctx.stroke();
-
-        ctx.beginPath();
-        ctx.font = '20px Raleway';
-        ctx.fillStyle = colors['input_text'];
-        ctx.textAlign = 'center';
-        fillText(ctx, this.state.toString(16), xx, yy + 5);
-        ctx.fill();
+        ctx.beginPath()
+        ctx.font = '20px Raleway'
+        ctx.fillStyle = colors['input_text']
+        ctx.textAlign = 'center'
+        fillText(ctx, this.state.toString(16), xx, yy + 5)
+        ctx.fill()
     }
 }
 
-SRflipFlop.prototype.tooltipText = 'SR FlipFlop ToolTip : SR FlipFlop Selected.';
+SRflipFlop.prototype.tooltipText = 'SR FlipFlop ToolTip : SR FlipFlop Selected.'
 
-SRflipFlop.prototype.helplink = 'https://docs.circuitverse.org/#/Sequential?id=sr-flip-flop';
+SRflipFlop.prototype.helplink =
+    'https://docs.circuitverse.org/#/Sequential?id=sr-flip-flop'
 
-SRflipFlop.prototype.objectType = 'SRflipFlop';
+SRflipFlop.prototype.objectType = 'SRflipFlop'

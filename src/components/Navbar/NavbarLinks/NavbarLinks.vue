@@ -1,11 +1,16 @@
 <template>
-    <ul class="navbar-nav navbar-menu noSelect pointerCursor" id="toolbar" :key="navbarItem.id" v-for="navbarItem in navbarData">
+    <ul
+        class="navbar-nav navbar-menu noSelect pointerCursor"
+        id="toolbar"
+        :key="navbarItem.id"
+        v-for="navbarItem in navbarData"
+    >
         <NavbarLink :navbarItem="navbarItem" />
     </ul>
 </template>
 
 <script>
-import NavbarLink from './NavbarLink/NavbarLink.vue';
+import NavbarLink from './NavbarLink/NavbarLink.vue'
 
 export default {
     name: 'NavbarLinks',
@@ -13,7 +18,7 @@ export default {
         navbarData: Array,
     },
     components: {
-        NavbarLink
+        NavbarLink,
     },
 }
 </script>

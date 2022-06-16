@@ -1,15 +1,15 @@
-import { defineStore } from "pinia";
+import { defineStore } from 'pinia'
 
 export interface State {
-    title: string;
+    title: string
 }
 
 export const useState = defineStore({
-    id: "simulatorStore.state",
+    id: 'simulatorStore.state',
 
     state: (): State => {
         return {
-            title: "Welcome to CircuitVerse Simulator",
-        };
+            title: 'Welcome to CircuitVerse Simulator',
+        }
     },
-});
+})

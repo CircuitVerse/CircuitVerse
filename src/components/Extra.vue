@@ -980,6 +980,6 @@
 
 <script>
 export default {
-    name: "Extra",
-};
+    name: 'Extra',
+}
 </script>

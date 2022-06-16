@@ -1,22 +1,22 @@
-import { createRouter, createWebHistory } from "vue-router";
-import index from "../pages/index.vue";
-import simulator from "../pages/simulator.vue";
+import { createRouter, createWebHistory } from 'vue-router'
+import index from '../pages/index.vue'
+import simulator from '../pages/simulator.vue'
 
 const routes = [
     {
-        path: "/",
-        name: "index",
+        path: '/',
+        name: 'index',
         component: index,
     },
     {
-        path: "/simulator",
-        name: "simulator",
+        path: '/simulator',
+        name: 'simulator',
         component: simulator,
     },
-];
+]
 const router = createRouter({
     history: createWebHistory(),
     routes,
-});
+})
 
-export default router;
+export default router

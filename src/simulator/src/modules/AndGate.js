@@ -1,10 +1,10 @@
-import CircuitElement from "../circuitElement";
-import Node, { findNode } from "../node";
-import simulationArea from "../simulationArea";
-import { correctWidth, lineTo, moveTo, arc } from "../canvasApi";
-import { changeInputSize } from "../modules";
-import { colors } from "../themer/themer";
-import { gateGenerateVerilog } from '../utils';
+import CircuitElement from '../circuitElement'
+import Node, { findNode } from '../node'
+import simulationArea from '../simulationArea'
+import { correctWidth, lineTo, moveTo, arc } from '../canvasApi'
+import { changeInputSize } from '../modules'
+import { colors } from '../themer/themer'
+import { gateGenerateVerilog } from '../utils'
 
 /**
  * @class
@@ -23,51 +23,46 @@ export default class AndGate extends CircuitElement {
         x,
         y,
         scope = globalScope,
-        dir = "RIGHT",
+        dir = 'RIGHT',
         inputLength = 2,
         bitWidth = 1
     ) {
         /**
          * super call
          */
-        super(x, y, scope, dir, bitWidth);
+        super(x, y, scope, dir, bitWidth)
         /* this is done in this.baseSetup() now
         this.scope['AndGate'].push(this);
         */
-        this.rectangleObject = false;
-        this.setDimensions(15, 20);
-        this.inp = [];
-        this.inputSize = inputLength;
+        this.rectangleObject = false
+        this.setDimensions(15, 20)
+        this.inp = []
+        this.inputSize = inputLength
 
         // variable inputLength , node creation
         if (inputLength % 2 === 1) {
             for (let i = 0; i < inputLength / 2 - 1; i++) {
-                const a = new Node(-10, -10 * (i + 1), 0, this);
-                this.inp.push(a);
+                const a = new Node(-10, -10 * (i + 1), 0, this)
+                this.inp.push(a)
             }
-            let a = new Node(-10, 0, 0, this);
-            this.inp.push(a);
+            let a = new Node(-10, 0, 0, this)
+            this.inp.push(a)
             for (let i = inputLength / 2 + 1; i < inputLength; i++) {
-                a = new Node(-10, 10 * (i + 1 - inputLength / 2 - 1), 0, this);
-                this.inp.push(a);
+                a = new Node(-10, 10 * (i + 1 - inputLength / 2 - 1), 0, this)
+                this.inp.push(a)
             }
         } else {
             for (let i = 0; i < inputLength / 2; i++) {
-                const a = new Node(-10, -10 * (i + 1), 0, this);
-                this.inp.push(a);
+                const a = new Node(-10, -10 * (i + 1), 0, this)
+                this.inp.push(a)
             }
             for (let i = inputLength / 2; i < inputLength; i++) {
-                const a = new Node(
-                    -10,
-                    10 * (i + 1 - inputLength / 2),
-                    0,
-                    this
-                );
-                this.inp.push(a);
+                const a = new Node(-10, 10 * (i + 1 - inputLength / 2), 0, this)
+                this.inp.push(a)
             }
         }
 
-        this.output1 = new Node(20, 0, 1, this);
+        this.output1 = new Node(20, 0, 1, this)
     }
 
     /**
@@ -86,8 +81,8 @@ export default class AndGate extends CircuitElement {
                 inp: this.inp.map(findNode),
                 output1: findNode(this.output1),
             },
-        };
-        return data;
+        }
+        return data
     }
 
     /**
@@ -95,14 +90,14 @@ export default class AndGate extends CircuitElement {
      * resolve output values based on inputData
      */
     resolve() {
-        let result = this.inp[0].value || 0;
+        let result = this.inp[0].value || 0
         if (this.isResolvable() === false) {
-            return;
+            return
         }
         for (let i = 1; i < this.inputSize; i++)
-            result &= this.inp[i].value || 0;
-        this.output1.value = result >>> 0;
-        simulationArea.simulationQueue.add(this.output1);
+            result &= this.inp[i].value || 0
+        this.output1.value = result >>> 0
+        simulationArea.simulationQueue.add(this.output1)
     }
 
     /**
@@ -110,33 +105,33 @@ export default class AndGate extends CircuitElement {
      * function to draw And Gate
      */
     customDraw() {
-        var ctx = simulationArea.context;
-        ctx.beginPath();
-        ctx.lineWidth = correctWidth(3);
-        ctx.strokeStyle = colors["stroke"]; // ("rgba(0,0,0,1)");
-        ctx.fillStyle = colors["fill"];
-        const xx = this.x;
-        const yy = this.y;
+        var ctx = simulationArea.context
+        ctx.beginPath()
+        ctx.lineWidth = correctWidth(3)
+        ctx.strokeStyle = colors['stroke'] // ("rgba(0,0,0,1)");
+        ctx.fillStyle = colors['fill']
+        const xx = this.x
+        const yy = this.y
 
-        moveTo(ctx, -10, -20, xx, yy, this.direction);
-        lineTo(ctx, 0, -20, xx, yy, this.direction);
-        arc(ctx, 0, 0, 20, -Math.PI / 2, Math.PI / 2, xx, yy, this.direction);
-        lineTo(ctx, -10, 20, xx, yy, this.direction);
-        lineTo(ctx, -10, -20, xx, yy, this.direction);
-        ctx.closePath();
+        moveTo(ctx, -10, -20, xx, yy, this.direction)
+        lineTo(ctx, 0, -20, xx, yy, this.direction)
+        arc(ctx, 0, 0, 20, -Math.PI / 2, Math.PI / 2, xx, yy, this.direction)
+        lineTo(ctx, -10, 20, xx, yy, this.direction)
+        lineTo(ctx, -10, -20, xx, yy, this.direction)
+        ctx.closePath()
 
         if (
             (this.hover && !simulationArea.shiftDown) ||
             simulationArea.lastSelected === this ||
             simulationArea.multipleObjectSelections.contains(this)
         )
-            ctx.fillStyle = colors["hover_select"];
-        ctx.fill();
-        ctx.stroke();
+            ctx.fillStyle = colors['hover_select']
+        ctx.fill()
+        ctx.stroke()
     }
 
     generateVerilog() {
-        return gateGenerateVerilog.call(this, '&');
+        return gateGenerateVerilog.call(this, '&')
     }
 }
 
@@ -147,28 +142,27 @@ export default class AndGate extends CircuitElement {
  * @category modules
  */
 AndGate.prototype.tooltipText =
-    "And Gate Tooltip : Implements logical conjunction";
+    'And Gate Tooltip : Implements logical conjunction'
 
 /**
  * @memberof AndGate
  * @type {boolean}
  * @category modules
  */
-AndGate.prototype.alwaysResolve = true;
+AndGate.prototype.alwaysResolve = true
 
 /**
  * @memberof AndGate
  * @type {string}
  * @category modules
  */
-AndGate.prototype.verilogType = "and";
+AndGate.prototype.verilogType = 'and'
 
 /**
  * @memberof AndGate
  * function to change input nodes of the gate
  * @category modules
  */
-AndGate.prototype.changeInputSize = changeInputSize;
-AndGate.prototype.helplink =
-    "https://docs.circuitverse.org/#/gates?id=and-gate";
-AndGate.prototype.objectType = "AndGate";
+AndGate.prototype.changeInputSize = changeInputSize
+AndGate.prototype.helplink = 'https://docs.circuitverse.org/#/gates?id=and-gate'
+AndGate.prototype.objectType = 'AndGate'

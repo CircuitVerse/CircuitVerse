@@ -1,37 +1,35 @@
-
 export function updateRestrictedElementsList() {
-    if (restrictedElements.length === 0) return;
+    if (restrictedElements.length === 0) return
 
-    const { restrictedCircuitElementsUsed } = globalScope;
-    let restrictedStr = '';
+    const { restrictedCircuitElementsUsed } = globalScope
+    let restrictedStr = ''
 
     restrictedCircuitElementsUsed.forEach((element) => {
-        restrictedStr += `${element}, `;
-    });
+        restrictedStr += `${element}, `
+    })
 
     if (restrictedStr === '') {
-        restrictedStr = 'None';
+        restrictedStr = 'None'
     } else {
-        restrictedStr = restrictedStr.slice(0, -2);
+        restrictedStr = restrictedStr.slice(0, -2)
     }
 
-    $('#restrictedElementsDiv--list').html(restrictedStr);
+    $('#restrictedElementsDiv--list').html(restrictedStr)
 }
-
 
 export function updateRestrictedElementsInScope(scope = globalScope) {
     // Do nothing if no restricted elements
-    if (restrictedElements.length === 0) return;
+    if (restrictedElements.length === 0) return
 
-    const restrictedElementsUsed = [];
+    const restrictedElementsUsed = []
     restrictedElements.forEach((element) => {
         if (scope[element].length > 0) {
-            restrictedElementsUsed.push(element);
+            restrictedElementsUsed.push(element)
         }
-    });
+    })
 
-    scope.restrictedCircuitElementsUsed = restrictedElementsUsed;
-    updateRestrictedElementsList();
+    scope.restrictedCircuitElementsUsed = restrictedElementsUsed
+    updateRestrictedElementsList()
 }
 
 // export function showRestricted() {

@@ -1,10 +1,8 @@
-import CircuitElement from '../circuitElement';
-import Node, { findNode } from '../node';
-import simulationArea from '../simulationArea';
-import {
-    correctWidth, lineTo, moveTo, arc,
-} from '../canvasApi';
-import { changeInputSize } from '../modules';
+import CircuitElement from '../circuitElement'
+import Node, { findNode } from '../node'
+import simulationArea from '../simulationArea'
+import { correctWidth, lineTo, moveTo, arc } from '../canvasApi'
+import { changeInputSize } from '../modules'
 /**
  * @class
  * Ground
@@ -15,18 +13,18 @@ import { changeInputSize } from '../modules';
  * @param {number=} bitWidth - bit width per node.
  * @category modules
  */
-import { colors } from '../themer/themer';
+import { colors } from '../themer/themer'
 
 export default class Ground extends CircuitElement {
     constructor(x, y, scope = globalScope, bitWidth = 1) {
-        super(x, y, scope, 'RIGHT', bitWidth);
+        super(x, y, scope, 'RIGHT', bitWidth)
         /* this is done in this.baseSetup() now
         this.scope['Ground'].push(this);
         */
-        this.rectangleObject = false;
-        this.setDimensions(10, 10);
-        this.directionFixed = true;
-        this.output1 = new Node(0, -10, 1, this);
+        this.rectangleObject = false
+        this.setDimensions(10, 10)
+        this.directionFixed = true
+        this.output1 = new Node(0, -10, 1, this)
     }
 
     /**
@@ -43,8 +41,8 @@ export default class Ground extends CircuitElement {
                 state: this.state,
             },
             constructorParamaters: [this.direction, this.bitWidth],
-        };
-        return data;
+        }
+        return data
     }
 
     /**
@@ -52,8 +50,8 @@ export default class Ground extends CircuitElement {
      * resolve output values based on inputData
      */
     resolve() {
-        this.output1.value = 0;
-        simulationArea.simulationQueue.add(this.output1);
+        this.output1.value = 0
+        simulationArea.simulationQueue.add(this.output1)
     }
 
     /**
@@ -67,8 +65,8 @@ export default class Ground extends CircuitElement {
                 output1: findNode(this.output1),
             },
             constructorParamaters: [this.bitWidth],
-        };
-        return data;
+        }
+        return data
     }
 
     /**
@@ -76,28 +74,32 @@ export default class Ground extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        var ctx = simulationArea.context;
-        //        
-        ctx.beginPath();
-        ctx.strokeStyle = [colors['stroke'], 'brown'][((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) + 0];
-        ctx.lineWidth = correctWidth(3);
+        var ctx = simulationArea.context
+        //
+        ctx.beginPath()
+        ctx.strokeStyle = [colors['stroke'], 'brown'][
+            ((this.hover && !simulationArea.shiftDown) ||
+                simulationArea.lastSelected === this ||
+                simulationArea.multipleObjectSelections.contains(this)) + 0
+        ]
+        ctx.lineWidth = correctWidth(3)
 
-        const xx = this.x;
-        const yy = this.y;
+        const xx = this.x
+        const yy = this.y
 
-        moveTo(ctx, 0, -10, xx, yy, this.direction);
-        lineTo(ctx, 0, 0, xx, yy, this.direction);
-        moveTo(ctx, -10, 0, xx, yy, this.direction);
-        lineTo(ctx, 10, 0, xx, yy, this.direction);
-        moveTo(ctx, -6, 5, xx, yy, this.direction);
-        lineTo(ctx, 6, 5, xx, yy, this.direction);
-        moveTo(ctx, -2.5, 10, xx, yy, this.direction);
-        lineTo(ctx, 2.5, 10, xx, yy, this.direction);
-        ctx.stroke();
+        moveTo(ctx, 0, -10, xx, yy, this.direction)
+        lineTo(ctx, 0, 0, xx, yy, this.direction)
+        moveTo(ctx, -10, 0, xx, yy, this.direction)
+        lineTo(ctx, 10, 0, xx, yy, this.direction)
+        moveTo(ctx, -6, 5, xx, yy, this.direction)
+        lineTo(ctx, 6, 5, xx, yy, this.direction)
+        moveTo(ctx, -2.5, 10, xx, yy, this.direction)
+        lineTo(ctx, 2.5, 10, xx, yy, this.direction)
+        ctx.stroke()
     }
 
     generateVerilog() {
-        return `assign ${this.output1.verilogLabel} = ${this.bitWidth}'b0;`;
+        return `assign ${this.output1.verilogLabel} = ${this.bitWidth}'b0;`
     }
 }
 
@@ -107,7 +109,7 @@ export default class Ground extends CircuitElement {
  * @type {string}
  * @category modules
  */
-Ground.prototype.tooltipText = 'Ground: All bits are Low(0).';
+Ground.prototype.tooltipText = 'Ground: All bits are Low(0).'
 
 /**
  * @memberof Ground
@@ -115,12 +117,13 @@ Ground.prototype.tooltipText = 'Ground: All bits are Low(0).';
  * @type {string}
  * @category modules
  */
-Ground.prototype.helplink = 'https://docs.circuitverse.org/#/inputElements?id=ground';
+Ground.prototype.helplink =
+    'https://docs.circuitverse.org/#/inputElements?id=ground'
 
 /**
  * @memberof Ground
  * @type {number}
  * @category modules
  */
-Ground.prototype.propagationDelay = 0;
-Ground.prototype.objectType = 'Ground';
+Ground.prototype.propagationDelay = 0
+Ground.prototype.objectType = 'Ground'

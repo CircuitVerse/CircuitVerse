@@ -18,17 +18,17 @@
 </template>
 
 <script>
-import DropDown from "../../../Dropdown/DropDown.vue";
+import DropDown from '../../../Dropdown/DropDown.vue'
 
 export default {
-    name: "NavbarLink",
+    name: 'NavbarLink',
     props: {
         navbarItem: Object,
     },
     components: {
         DropDown,
     },
-};
+}
 </script>
 
 <style scoped>

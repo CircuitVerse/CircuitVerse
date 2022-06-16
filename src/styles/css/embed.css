@@ -6,7 +6,9 @@
     margin-bottom: 0px;
 }
 
-.switch input {display:none;}
+.switch input {
+    display: none;
+}
 
 .slider {
     position: absolute;
@@ -16,52 +18,50 @@
     right: 0;
     bottom: -2;
     background-color: #ccc;
-    -webkit-transition: .4s;
-    transition: .4s;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
 }
 
 .slider:before {
     position: absolute;
-    content: "";
+    content: '';
     height: 17px;
     width: 17px;
     left: 0px;
     bottom: 0px;
     background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
 }
 
-#clockProperty{
+#clockProperty {
     padding: 10px;
 }
 
-#clockPropertyHeader{
+#clockPropertyHeader {
     border-radius: 3px;
-
 }
-#clockProperty{
+#clockProperty {
     padding: 10px;
     border-radius: 6px;
     opacity: 0.1;
-    transition: .4s;
+    transition: 0.4s;
     height: 109px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
 }
-#clockProperty:hover{
+#clockProperty:hover {
     opacity: 1;
-    -webkit-transition: .4s;
-    transition: .4s;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
 }
 input:checked + .slider {
     /* background-color: #2196F3; */
 }
 
 input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
+    box-shadow: 0 0 1px #2196f3;
 }
 
 input:checked + .slider:before {
@@ -77,22 +77,25 @@ input:checked + .slider:before {
     padding-right: 0.5em;
     border: 1px solid #111;
     display: inline-block;
-
-
 }
-button:focus {outline:0;}
+button:focus {
+    outline: 0;
+}
 #tabsBar .circuits:hover {
     background-color: lightgray;
     /*border: 1px solid #0099ff;*/
-    transition-duration: 100ms
-
+    transition-duration: 100ms;
 }
 #tabsBar .current {
-    transition-duration: 100ms
+    transition-duration: 100ms;
 }
 
 .noSelect {
-    -moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -o-user-select: none;
 }
 .pointerCursor {
     cursor: pointer;
@@ -100,25 +103,25 @@ button:focus {outline:0;}
 .defaultCursor {
     cursor: default;
 }
-.simulation{
+.simulation {
     position: relative;
-    width:auto;
-    height:100%;
-    overflow:hidden;
-    background-color: "white";
+    width: auto;
+    height: 100%;
+    overflow: hidden;
+    background-color: 'white';
 }
 
 #elementName {
-    position:absolute;
-    left: 6px; bottom: 6px;
+    position: absolute;
+    left: 6px;
+    bottom: 6px;
     background-color: white;
-    z-index:101;
+    z-index: 101;
     color: black;
     padding: 1px;
     border: 0.5px solid black;
     display: none;
 }
-
 
 /* LOADING ICON CSS STARTS*/
 .sk-folding-cube {
@@ -178,38 +181,47 @@ button:focus {outline:0;}
     animation-delay: 0.9s;
 }
 @-webkit-keyframes sk-foldCubeAngle {
-    0%, 10% {
+    0%,
+    10% {
         -webkit-transform: perspective(140px) rotateX(-180deg);
         transform: perspective(140px) rotateX(-180deg);
         opacity: 0;
-    } 25%, 75% {
-          -webkit-transform: perspective(140px) rotateX(0deg);
-          transform: perspective(140px) rotateX(0deg);
-          opacity: 1;
-      } 90%, 100% {
-            -webkit-transform: perspective(140px) rotateY(180deg);
-            transform: perspective(140px) rotateY(180deg);
-            opacity: 0;
-        }
+    }
+    25%,
+    75% {
+        -webkit-transform: perspective(140px) rotateX(0deg);
+        transform: perspective(140px) rotateX(0deg);
+        opacity: 1;
+    }
+    90%,
+    100% {
+        -webkit-transform: perspective(140px) rotateY(180deg);
+        transform: perspective(140px) rotateY(180deg);
+        opacity: 0;
+    }
 }
 
 @keyframes sk-foldCubeAngle {
-    0%, 10% {
+    0%,
+    10% {
         -webkit-transform: perspective(140px) rotateX(-180deg);
         transform: perspective(140px) rotateX(-180deg);
         opacity: 0;
-    } 25%, 75% {
-          -webkit-transform: perspective(140px) rotateX(0deg);
-          transform: perspective(140px) rotateX(0deg);
-          opacity: 1;
-      } 90%, 100% {
-            -webkit-transform: perspective(140px) rotateY(180deg);
-            transform: perspective(140px) rotateY(180deg);
-            opacity: 0;
-        }
+    }
+    25%,
+    75% {
+        -webkit-transform: perspective(140px) rotateX(0deg);
+        transform: perspective(140px) rotateX(0deg);
+        opacity: 1;
+    }
+    90%,
+    100% {
+        -webkit-transform: perspective(140px) rotateY(180deg);
+        transform: perspective(140px) rotateY(180deg);
+        opacity: 0;
+    }
 }
 /* LOADING ICON CSS ENDS*/
-
 
 #restrictedElementsDiv {
     position: absolute;
@@ -219,14 +231,14 @@ button:focus {outline:0;}
     width: 215px;
     font-size: 14px;
     background-color: gainsboro;
-    border: 1px solid #0D3349;
-    opacity: .1;
+    border: 1px solid #0d3349;
+    opacity: 0.1;
     padding: 3px 5px;
 }
 
 #restrictedElementsDiv:hover {
     opacity: 1;
-    transition: .4s;
+    transition: 0.4s;
 }
 
 .zoom-wrapper {
@@ -238,7 +250,7 @@ button:focus {outline:0;}
 }
 
 .zoom-wrapper button {
-    opacity: .3;
+    opacity: 0.3;
 }
 .zoom-wrapper button:hover {
     opacity: 1;

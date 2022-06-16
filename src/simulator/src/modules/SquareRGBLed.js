@@ -1,9 +1,7 @@
-import CircuitElement from '../circuitElement';
-import Node, { findNode } from '../node';
-import simulationArea from '../simulationArea';
-import {
-    correctWidth, lineTo, moveTo, rect2,
-} from '../canvasApi';
+import CircuitElement from '../circuitElement'
+import Node, { findNode } from '../node'
+import simulationArea from '../simulationArea'
+import { correctWidth, lineTo, moveTo, rect2 } from '../canvasApi'
 
 /**
  * @class
@@ -18,43 +16,59 @@ import {
  */
 export default class SquareRGBLed extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'UP', pinLength = 1) {
-        super(x, y, scope, dir, 8);
+        super(x, y, scope, dir, 8)
         /* this is done in this.baseSetup() now
         this.scope['SquareRGBLed'].push(this);
         */
-        this.rectangleObject = false;
-        this.setDimensions(15, 15);
-        this.pinLength = pinLength === undefined ? 1 : pinLength;
-        const nodeX = -10 - 10 * pinLength;
-        this.inp1 = new Node(nodeX, -10, 0, this, 8, 'R');
-        this.inp2 = new Node(nodeX, 0, 0, this, 8, 'G');
-        this.inp3 = new Node(nodeX, 10, 0, this, 8, 'B');
-        this.inp = [this.inp1, this.inp2, this.inp3];
-        this.labelDirection = 'UP';
-        this.fixedBitWidth = true;
+        this.rectangleObject = false
+        this.setDimensions(15, 15)
+        this.pinLength = pinLength === undefined ? 1 : pinLength
+        const nodeX = -10 - 10 * pinLength
+        this.inp1 = new Node(nodeX, -10, 0, this, 8, 'R')
+        this.inp2 = new Node(nodeX, 0, 0, this, 8, 'G')
+        this.inp3 = new Node(nodeX, 10, 0, this, 8, 'B')
+        this.inp = [this.inp1, this.inp2, this.inp3]
+        this.labelDirection = 'UP'
+        this.fixedBitWidth = true
 
         // eslint-disable-next-line no-shadow
         this.changePinLength = function (pinLength) {
-            if (pinLength === undefined) return;
-            pinLength = parseInt(pinLength, 10);
-            if (pinLength < 0 || pinLength > 1000) return;
+            if (pinLength === undefined) return
+            pinLength = parseInt(pinLength, 10)
+            if (pinLength < 0 || pinLength > 1000) return
 
             // Calculate the new position of the LED, so the nodes will stay in the same place.
-            const diff = 10 * (pinLength - this.pinLength);
+            const diff = 10 * (pinLength - this.pinLength)
             // eslint-disable-next-line no-nested-ternary
-            const diffX = this.direction === 'LEFT' ? -diff : this.direction === 'RIGHT' ? diff : 0;
+            const diffX =
+                this.direction === 'LEFT'
+                    ? -diff
+                    : this.direction === 'RIGHT'
+                    ? diff
+                    : 0
             // eslint-disable-next-line no-nested-ternary
-            const diffY = this.direction === 'UP' ? -diff : this.direction === 'DOWN' ? diff : 0;
+            const diffY =
+                this.direction === 'UP'
+                    ? -diff
+                    : this.direction === 'DOWN'
+                    ? diff
+                    : 0
 
             // Build a new LED with the new values; preserve label properties too.
-            const obj = new SquareRGBLed(this.x + diffX, this.y + diffY, this.scope, this.direction, pinLength);
-            obj.label = this.label;
-            obj.labelDirection = this.labelDirection;
+            const obj = new SquareRGBLed(
+                this.x + diffX,
+                this.y + diffY,
+                this.scope,
+                this.direction,
+                pinLength
+            )
+            obj.label = this.label
+            obj.labelDirection = this.labelDirection
 
-            this.cleanDelete();
-            simulationArea.lastSelected = obj;
-            return obj;
-        };
+            this.cleanDelete()
+            simulationArea.lastSelected = obj
+            return obj
+        }
 
         this.mutableProperties = {
             pinLength: {
@@ -64,7 +78,7 @@ export default class SquareRGBLed extends CircuitElement {
                 min: '0',
                 func: 'changePinLength',
             },
-        };
+        }
     }
 
     /**
@@ -80,8 +94,8 @@ export default class SquareRGBLed extends CircuitElement {
                 inp2: findNode(this.inp2),
                 inp3: findNode(this.inp3),
             },
-        };
-        return data;
+        }
+        return data
     }
 
     /**
@@ -89,78 +103,88 @@ export default class SquareRGBLed extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        const ctx = simulationArea.context;
-        const xx = this.x;
-        const yy = this.y;
-        const r = this.inp1.value;
-        const g = this.inp2.value;
-        const b = this.inp3.value;
+        const ctx = simulationArea.context
+        const xx = this.x
+        const yy = this.y
+        const r = this.inp1.value
+        const g = this.inp2.value
+        const b = this.inp3.value
 
-        const colors = ['rgb(174,20,20)', 'rgb(40,174,40)', 'rgb(0,100,255)'];
+        const colors = ['rgb(174,20,20)', 'rgb(40,174,40)', 'rgb(0,100,255)']
         for (let i = 0; i < 3; i++) {
-            const x = -10 - 10 * this.pinLength;
-            const y = i * 10 - 10;
-            ctx.lineWidth = correctWidth(3);
+            const x = -10 - 10 * this.pinLength
+            const y = i * 10 - 10
+            ctx.lineWidth = correctWidth(3)
 
             // A gray line, which makes it easy on the eyes when the pin length is large
-            ctx.beginPath();
-            ctx.lineCap = 'butt';
-            ctx.strokeStyle = 'rgb(227, 228, 229)';
-            moveTo(ctx, -15, y, xx, yy, this.direction);
-            lineTo(ctx, x + 10, y, xx, yy, this.direction);
-            ctx.stroke();
+            ctx.beginPath()
+            ctx.lineCap = 'butt'
+            ctx.strokeStyle = 'rgb(227, 228, 229)'
+            moveTo(ctx, -15, y, xx, yy, this.direction)
+            lineTo(ctx, x + 10, y, xx, yy, this.direction)
+            ctx.stroke()
 
             // A colored line, so people know which pin does what.
-            ctx.lineCap = 'round';
-            ctx.beginPath();
-            ctx.strokeStyle = colors[i];
-            moveTo(ctx, x + 10, y, xx, yy, this.direction);
-            lineTo(ctx, x, y, xx, yy, this.direction);
-            ctx.stroke();
+            ctx.lineCap = 'round'
+            ctx.beginPath()
+            ctx.strokeStyle = colors[i]
+            moveTo(ctx, x + 10, y, xx, yy, this.direction)
+            lineTo(ctx, x, y, xx, yy, this.direction)
+            ctx.stroke()
         }
 
-        ctx.strokeStyle = '#d3d4d5';
-        ctx.fillStyle = (r === undefined && g === undefined && b === undefined) ? 'rgb(227, 228, 229)' : `rgb(${r || 0}, ${g || 0}, ${b || 0})`;
-        ctx.lineWidth = correctWidth(1);
-        ctx.beginPath();
-        rect2(ctx, -15, -15, 30, 30, xx, yy, this.direction);
-        ctx.stroke();
+        ctx.strokeStyle = '#d3d4d5'
+        ctx.fillStyle =
+            r === undefined && g === undefined && b === undefined
+                ? 'rgb(227, 228, 229)'
+                : `rgb(${r || 0}, ${g || 0}, ${b || 0})`
+        ctx.lineWidth = correctWidth(1)
+        ctx.beginPath()
+        rect2(ctx, -15, -15, 30, 30, xx, yy, this.direction)
+        ctx.stroke()
 
-        if ((this.hover && !simulationArea.shiftDown)
-            || simulationArea.lastSelected === this
-            || simulationArea.multipleObjectSelections.contains(this)) {
-            ctx.fillStyle = 'rgba(255, 255, 32)';
+        if (
+            (this.hover && !simulationArea.shiftDown) ||
+            simulationArea.lastSelected === this ||
+            simulationArea.multipleObjectSelections.contains(this)
+        ) {
+            ctx.fillStyle = 'rgba(255, 255, 32)'
         }
 
-        ctx.fill();
+        ctx.fill()
     }
     // Draws the element in the subcuircuit. Used in layout mode
     subcircuitDraw(xOffset = 0, yOffset = 0) {
-        var ctx = simulationArea.context;
-        var xx = this.subcircuitMetadata.x + xOffset;
-        var yy = this.subcircuitMetadata.y + yOffset;
-        var r = this.inp1.value;
-        var g = this.inp2.value;
-        var b = this.inp3.value;
+        var ctx = simulationArea.context
+        var xx = this.subcircuitMetadata.x + xOffset
+        var yy = this.subcircuitMetadata.y + yOffset
+        var r = this.inp1.value
+        var g = this.inp2.value
+        var b = this.inp3.value
 
-        ctx.strokeStyle = "#d3d4d5";
-        ctx.fillStyle = (r === undefined && g === undefined && b === undefined) ? "rgb(227, 228, 229)" : "rgb(" + (r || 0) + ", " + (g || 0) + ", " + (b || 0) + ")";
-        ctx.lineWidth = correctWidth(1);
-        ctx.beginPath();
-        rect2(ctx, 0, 0, 15, 15, xx, yy, this.direction);
-        ctx.stroke();
+        ctx.strokeStyle = '#d3d4d5'
+        ctx.fillStyle =
+            r === undefined && g === undefined && b === undefined
+                ? 'rgb(227, 228, 229)'
+                : 'rgb(' + (r || 0) + ', ' + (g || 0) + ', ' + (b || 0) + ')'
+        ctx.lineWidth = correctWidth(1)
+        ctx.beginPath()
+        rect2(ctx, 0, 0, 15, 15, xx, yy, this.direction)
+        ctx.stroke()
 
-        if ((this.hover && !simulationArea.shiftDown) ||
+        if (
+            (this.hover && !simulationArea.shiftDown) ||
             simulationArea.lastSelected == this ||
-            simulationArea.multipleObjectSelections.contains(this)) {
-            ctx.fillStyle = "rgba(255, 255, 32)";
+            simulationArea.multipleObjectSelections.contains(this)
+        ) {
+            ctx.fillStyle = 'rgba(255, 255, 32)'
         }
 
-        ctx.fill();
+        ctx.fill()
     }
 
     generateVerilog() {
-        return this.generateVerilog.call(this);
+        return this.generateVerilog.call(this)
     }
 }
 
@@ -170,7 +194,8 @@ export default class SquareRGBLed extends CircuitElement {
  * @type {string}
  * @category modules
  */
-SquareRGBLed.prototype.tooltipText = 'Square RGB Led ToolTip: RGB Led inputs 8 bit values for the colors RED, GREEN and BLUE.';
+SquareRGBLed.prototype.tooltipText =
+    'Square RGB Led ToolTip: RGB Led inputs 8 bit values for the colors RED, GREEN and BLUE.'
 
 /**
  * @memberof SquareRGBLed
@@ -178,12 +203,13 @@ SquareRGBLed.prototype.tooltipText = 'Square RGB Led ToolTip: RGB Led inputs 8 b
  * @type {string}
  * @category modules
  */
-SquareRGBLed.prototype.helplink = 'https://docs.circuitverse.org/#/outputs?id=square-rgb-led';
-SquareRGBLed.prototype.objectType = 'SquareRGBLed';
-SquareRGBLed.prototype.canShowInSubcircuit = true;
+SquareRGBLed.prototype.helplink =
+    'https://docs.circuitverse.org/#/outputs?id=square-rgb-led'
+SquareRGBLed.prototype.objectType = 'SquareRGBLed'
+SquareRGBLed.prototype.canShowInSubcircuit = true
 SquareRGBLed.prototype.layoutProperties = {
-    rightDimensionX : 15,
-    leftDimensionX : 0,
-    upDimensionY : 15,
-    downDimensionY: 0
+    rightDimensionX: 15,
+    leftDimensionX: 0,
+    upDimensionY: 15,
+    downDimensionY: 0,
 }

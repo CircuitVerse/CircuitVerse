@@ -1,9 +1,9 @@
-import CircuitElement from "../circuitElement";
-import Node, { findNode } from "../node";
-import simulationArea from "../simulationArea";
-import { correctWidth, bezierCurveTo, moveTo, arc2 } from "../canvasApi";
-import { changeInputSize } from "../modules";
-import { gateGenerateVerilog } from '../utils';
+import CircuitElement from '../circuitElement'
+import Node, { findNode } from '../node'
+import simulationArea from '../simulationArea'
+import { correctWidth, bezierCurveTo, moveTo, arc2 } from '../canvasApi'
+import { changeInputSize } from '../modules'
+import { gateGenerateVerilog } from '../utils'
 
 /**
  * @class
@@ -17,49 +17,49 @@ import { gateGenerateVerilog } from '../utils';
  * @param {number=} bitWidth - bit width per node.
  * @category modules
  */
-import { colors } from "../themer/themer";
+import { colors } from '../themer/themer'
 
 export default class OrGate extends CircuitElement {
     constructor(
         x,
         y,
         scope = globalScope,
-        dir = "RIGHT",
+        dir = 'RIGHT',
         inputs = 2,
         bitWidth = 1
     ) {
         // Calling base class constructor
-        super(x, y, scope, dir, bitWidth);
+        super(x, y, scope, dir, bitWidth)
         /* this is done in this.baseSetup() now
         this.scope['OrGate'].push(this);
         */
-        this.rectangleObject = false;
-        this.setDimensions(15, 20);
+        this.rectangleObject = false
+        this.setDimensions(15, 20)
         // Inherit base class prototype
-        this.inp = [];
-        this.inputSize = inputs;
+        this.inp = []
+        this.inputSize = inputs
         if (inputs % 2 === 1) {
             for (let i = Math.floor(inputs / 2) - 1; i >= 0; i--) {
-                const a = new Node(-10, -10 * (i + 1), 0, this);
-                this.inp.push(a);
+                const a = new Node(-10, -10 * (i + 1), 0, this)
+                this.inp.push(a)
             }
-            let a = new Node(-10, 0, 0, this);
-            this.inp.push(a);
+            let a = new Node(-10, 0, 0, this)
+            this.inp.push(a)
             for (let i = 0; i < Math.floor(inputs / 2); i++) {
-                a = new Node(-10, 10 * (i + 1), 0, this);
-                this.inp.push(a);
+                a = new Node(-10, 10 * (i + 1), 0, this)
+                this.inp.push(a)
             }
         } else {
             for (let i = inputs / 2 - 1; i >= 0; i--) {
-                const a = new Node(-10, -10 * (i + 1), 0, this);
-                this.inp.push(a);
+                const a = new Node(-10, -10 * (i + 1), 0, this)
+                this.inp.push(a)
             }
             for (let i = 0; i < inputs / 2; i++) {
-                const a = new Node(-10, 10 * (i + 1), 0, this);
-                this.inp.push(a);
+                const a = new Node(-10, 10 * (i + 1), 0, this)
+                this.inp.push(a)
             }
         }
-        this.output1 = new Node(20, 0, 1, this);
+        this.output1 = new Node(20, 0, 1, this)
     }
 
     /**
@@ -79,8 +79,8 @@ export default class OrGate extends CircuitElement {
                 inp: this.inp.map(findNode),
                 output1: findNode(this.output1),
             },
-        };
-        return data;
+        }
+        return data
     }
 
     /**
@@ -88,14 +88,14 @@ export default class OrGate extends CircuitElement {
      * resolve output values based on inputData
      */
     resolve() {
-        let result = this.inp[0].value || 0;
+        let result = this.inp[0].value || 0
         if (this.isResolvable() === false) {
-            return;
+            return
         }
         for (let i = 1; i < this.inputSize; i++)
-            result |= this.inp[i].value || 0;
-        this.output1.value = result >>> 0;
-        simulationArea.simulationQueue.add(this.output1);
+            result |= this.inp[i].value || 0
+        this.output1.value = result >>> 0
+        simulationArea.simulationQueue.add(this.output1)
     }
 
     /**
@@ -103,17 +103,17 @@ export default class OrGate extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        var ctx = simulationArea.context;
-        ctx.strokeStyle = colors["stroke"];
-        ctx.lineWidth = correctWidth(3);
+        var ctx = simulationArea.context
+        ctx.strokeStyle = colors['stroke']
+        ctx.lineWidth = correctWidth(3)
 
-        const xx = this.x;
-        const yy = this.y;
-        ctx.beginPath();
-        ctx.fillStyle = colors["fill"];
+        const xx = this.x
+        const yy = this.y
+        ctx.beginPath()
+        ctx.fillStyle = colors['fill']
 
-        moveTo(ctx, -10, -20, xx, yy, this.direction, true);
-        bezierCurveTo(0, -20, +15, -10, 20, 0, xx, yy, this.direction);
+        moveTo(ctx, -10, -20, xx, yy, this.direction, true)
+        bezierCurveTo(0, -20, +15, -10, 20, 0, xx, yy, this.direction)
         bezierCurveTo(
             0 + 15,
             0 + 10,
@@ -124,21 +124,21 @@ export default class OrGate extends CircuitElement {
             xx,
             yy,
             this.direction
-        );
-        bezierCurveTo(0, 0, 0, 0, -10, -20, xx, yy, this.direction);
-        ctx.closePath();
+        )
+        bezierCurveTo(0, 0, 0, 0, -10, -20, xx, yy, this.direction)
+        ctx.closePath()
         if (
             (this.hover && !simulationArea.shiftDown) ||
             simulationArea.lastSelected === this ||
             simulationArea.multipleObjectSelections.contains(this)
         )
-            ctx.fillStyle = colors["hover_select"];
-        ctx.fill();
-        ctx.stroke();
+            ctx.fillStyle = colors['hover_select']
+        ctx.fill()
+        ctx.stroke()
     }
 
-    generateVerilog(){
-        return gateGenerateVerilog.call(this, '|');
+    generateVerilog() {
+        return gateGenerateVerilog.call(this, '|')
     }
 }
 
@@ -149,27 +149,27 @@ export default class OrGate extends CircuitElement {
  * @category modules
  */
 OrGate.prototype.tooltipText =
-    "Or Gate Tooltip : Implements logical disjunction";
+    'Or Gate Tooltip : Implements logical disjunction'
 
 /**
  * @memberof OrGate
  * function to change input nodes of the element
  * @category modules
  */
-OrGate.prototype.changeInputSize = changeInputSize;
+OrGate.prototype.changeInputSize = changeInputSize
 
 /**
  * @memberof SevenSegDisplay
  * @type {boolean}
  * @category modules
  */
-OrGate.prototype.alwaysResolve = true;
+OrGate.prototype.alwaysResolve = true
 
 /**
  * @memberof SevenSegDisplay
  * @type {string}
  * @category modules
  */
-OrGate.prototype.verilogType = "or";
-OrGate.prototype.helplink = "https://docs.circuitverse.org/#/gates?id=or-gate";
-OrGate.prototype.objectType = "OrGate";
+OrGate.prototype.verilogType = 'or'
+OrGate.prototype.helplink = 'https://docs.circuitverse.org/#/gates?id=or-gate'
+OrGate.prototype.objectType = 'OrGate'
