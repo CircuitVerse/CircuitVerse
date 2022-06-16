@@ -5,8 +5,9 @@ import simulator from '../pages/simulator.vue'
 const routes = [
     {
         path: '/',
-        name: 'index',
-        component: index,
+        // name: 'index',
+        // component: index,
+        redirect: '/simulator',
     },
     {
         path: '/simulator',
