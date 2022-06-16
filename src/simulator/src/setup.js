@@ -133,7 +133,7 @@ function setupElementLists() {
         // console.log(getImgUrl(${element.name}));
         // var imgToDisp = getImgUrl(element.name);
         return `<div class="icon logixModules" id="${element.name}" title="${element.label}">
-            <img src= "/src/simulator/src/img/${element.name}.svg" alt="${element.name}" >
+            <img src= "/src/assets/img/${element.name}.svg" alt="${element.name}" >
         </div>`
     }
 

@@ -13,13 +13,13 @@ window.$ = window.jQuery = jQuery
 import Array from './simulator/src/arrayHelpers.js'
 window.Array = Array
 
-import './simulator/src/css/main.stylesheet.css'
+import './styles/css/main.stylesheet.css'
 import '../node_modules/bootstrap/scss/bootstrap.scss'
-import './assets/color_theme.scss'
-import './assets/simulator.scss'
-import './assets/tutorials.scss'
+import './styles/color_theme.scss'
+import './styles/simulator.scss'
+import './styles/tutorials.scss'
 
-window.restrictedElements = [];
+window.restrictedElements = []
 
 loadFonts()
 
