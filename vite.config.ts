@@ -10,7 +10,11 @@ export default defineConfig({
     plugins: [vue(), vuetify({ autoImport: true })],
     resolve: {
         alias: {
-            '@': fileURLToPath(new URL('./src', import.meta.url)),
+            '#': fileURLToPath(new URL('./src', import.meta.url)),
+            '@': fileURLToPath(new URL('./src/components', import.meta.url)),
         },
+    },
+    build: {
+        chunkSizeWarningLimit: 1600,
     },
 })
