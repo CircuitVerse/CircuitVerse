@@ -18,6 +18,7 @@ gem "omniauth-github"
 gem "omniauth-gitlab"
 gem "omniauth-google-oauth2"
 gem "omniauth-microsoft-office365"
+gem 'devise_saml_authenticatable'
 gem 'omniauth-rails_csrf_protection'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 7.0"

@@ -56,7 +56,7 @@ Rails.application.routes.draw do
   get "/users/edit", to: redirect('/')
   devise_for :users, controllers: {
     registrations: "users/registrations", omniauth_callbacks: "users/omniauth_callbacks",
-    sessions: "users/sessions"
+    sessions: "users/sessions", :saml_sessions => "users/saml_sessions"
   }
 
   # Circuitverse web pages resources
