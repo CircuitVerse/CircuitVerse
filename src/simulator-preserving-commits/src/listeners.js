@@ -1,634 +1,817 @@
 // Most Listeners are stored here
-import { layoutModeGet, tempBuffer, layoutUpdate, setupLayoutModePanelListeners} from './layoutMode';
-import simulationArea from './simulationArea';
 import {
-    scheduleUpdate, update, updateSelectionsAndPane,
-    wireToBeCheckedSet, updatePositionSet, updateSimulationSet,
-    updateCanvasSet, gridUpdateSet, errorDetectedSet,
-} from './engine';
-import { changeScale } from './canvasApi';
-import { scheduleBackup } from './data/backupCircuit';
-import { hideProperties, deleteSelected, uxvar, fullView, exitFullView } from './ux';
+    layoutModeGet,
+    tempBuffer,
+    layoutUpdate,
+    setupLayoutModePanelListeners,
+} from './layoutMode'
+import simulationArea from './simulationArea'
 import {
-    updateRestrictedElementsList, updateRestrictedElementsInScope, hideRestricted, showRestricted,
-} from './restrictedElementDiv';
-import { removeMiniMap, updatelastMinimapShown } from './minimap';
-import undo from './data/undo';
-import redo from "./data/redo";
-import { copy, paste, selectAll } from './events';
-import save from './data/save';
-import { createElement } from './ux';
-import { verilogModeGet } from './Verilog2CV';
-import { setupTimingListeners } from './plotArea';
+    scheduleUpdate,
+    update,
+    updateSelectionsAndPane,
+    wireToBeCheckedSet,
+    updatePositionSet,
+    updateSimulationSet,
+    updateCanvasSet,
+    gridUpdateSet,
+    errorDetectedSet,
+} from './engine'
+import { changeScale } from './canvasApi'
+import { scheduleBackup } from './data/backupCircuit'
+import {
+    hideProperties,
+    deleteSelected,
+    uxvar,
+    fullView,
+    exitFullView,
+} from './ux'
+import {
+    updateRestrictedElementsList,
+    updateRestrictedElementsInScope,
+    hideRestricted,
+    showRestricted,
+} from './restrictedElementDiv'
+import { removeMiniMap, updatelastMinimapShown } from './minimap'
+import undo from './data/undo'
+import redo from './data/redo'
+import { copy, paste, selectAll } from './events'
+import save from './data/save'
+import { createElement } from './ux'
+import { verilogModeGet } from './Verilog2CV'
+import { setupTimingListeners } from './plotArea'
 
-var unit = 10;
+var unit = 10
 
 export default function startListeners() {
-    $('#deleteSelected').on('click',() => {
-        deleteSelected();
-    });
-
-    $('#zoomIn').on('click',() => {
-        changeScale(0.2, 'zoomButton', 'zoomButton', 2);
-    });
-
-    $('#zoomOut').on('click',() => {
-        changeScale(-0.2, 'zoomButton', 'zoomButton', 2);
-    });
-
-    $('#undoButton').on('click',() => {
-        undo();
-    });
-    $('#redoButton').on('click',() => {
-        redo();
+    $('#deleteSelected').on('click', () => {
+        deleteSelected()
     })
-    $('#viewButton').on('click',() => {
-        fullView();
-    });
+
+    $('#zoomIn').on('click', () => {
+        changeScale(0.2, 'zoomButton', 'zoomButton', 2)
+    })
+
+    $('#zoomOut').on('click', () => {
+        changeScale(-0.2, 'zoomButton', 'zoomButton', 2)
+    })
+
+    $('#undoButton').on('click', () => {
+        undo()
+    })
+    $('#redoButton').on('click', () => {
+        redo()
+    })
+    $('#viewButton').on('click', () => {
+        fullView()
+    })
 
     $(document).on('keyup', (e) => {
-        if (e.key === "Escape") exitFullView();
-    });
+        if (e.key === 'Escape') exitFullView()
+    })
 
-    $('#projectName').on('click',() => {
-        simulationArea.lastSelected = globalScope.root;
+    $('#projectName').on('click', () => {
+        simulationArea.lastSelected = globalScope.root
         setTimeout(() => {
-            document.getElementById("projname").select();
-        }, 100);
-    });
+            document.getElementById('projname').select()
+        }, 100)
+    })
     /* Makes tabs reordering possible by making them sortable */
-    $("#tabsBar").sortable({
-        containment: 'parent',
-        items: '> div',
-        revert: false,
-        opacity: 0.5,
-        tolerance: 'pointer',
-        placeholder: 'placeholder',
-        forcePlaceholderSize: true,
-    });
+    // $("#tabsBar").sortable({
+    //     containment: 'parent',
+    //     items: '> div',
+    //     revert: false,
+    //     opacity: 0.5,
+    //     tolerance: 'pointer',
+    //     placeholder: 'placeholder',
+    //     forcePlaceholderSize: true,
+    // });
 
-    document.getElementById('simulationArea').addEventListener('mousedown', (e) => {
-        simulationArea.mouseDown = true;
+    document
+        .getElementById('simulationArea')
+        .addEventListener('mousedown', (e) => {
+            simulationArea.mouseDown = true
 
-        // Deselect Input
-        if (document.activeElement instanceof HTMLElement)
-            document.activeElement.blur();
+            // Deselect Input
+            if (document.activeElement instanceof HTMLElement)
+                document.activeElement.blur()
 
-        errorDetectedSet(false);
-        updateSimulationSet(true);
-        updatePositionSet(true);
-        updateCanvasSet(true);
+            errorDetectedSet(false)
+            updateSimulationSet(true)
+            updatePositionSet(true)
+            updateCanvasSet(true)
 
-        simulationArea.lastSelected = undefined;
-        simulationArea.selected = false;
-        simulationArea.hover = undefined;
-        var rect = simulationArea.canvas.getBoundingClientRect();
-        simulationArea.mouseDownRawX = (e.clientX - rect.left) * DPR;
-        simulationArea.mouseDownRawY = (e.clientY - rect.top) * DPR;
-        simulationArea.mouseDownX = Math.round(((simulationArea.mouseDownRawX - globalScope.ox) / globalScope.scale) / unit) * unit;
-        simulationArea.mouseDownY = Math.round(((simulationArea.mouseDownRawY - globalScope.oy) / globalScope.scale) / unit) * unit;
-        simulationArea.oldx = globalScope.ox;
-        simulationArea.oldy = globalScope.oy;
+            simulationArea.lastSelected = undefined
+            simulationArea.selected = false
+            simulationArea.hover = undefined
+            var rect = simulationArea.canvas.getBoundingClientRect()
+            simulationArea.mouseDownRawX = (e.clientX - rect.left) * DPR
+            simulationArea.mouseDownRawY = (e.clientY - rect.top) * DPR
+            simulationArea.mouseDownX =
+                Math.round(
+                    (simulationArea.mouseDownRawX - globalScope.ox) /
+                        globalScope.scale /
+                        unit
+                ) * unit
+            simulationArea.mouseDownY =
+                Math.round(
+                    (simulationArea.mouseDownRawY - globalScope.oy) /
+                        globalScope.scale /
+                        unit
+                ) * unit
+            simulationArea.oldx = globalScope.ox
+            simulationArea.oldy = globalScope.oy
 
-        e.preventDefault();
-        scheduleBackup();
-        scheduleUpdate(1);
-        $('.dropdown.open').removeClass('open');
-    });
-    document.getElementById('simulationArea').addEventListener('mouseup', (e) => {
-        if (simulationArea.lastSelected) simulationArea.lastSelected.newElement = false;
-        /*
+            e.preventDefault()
+            scheduleBackup()
+            scheduleUpdate(1)
+            $('.dropdown.open').removeClass('open')
+        })
+    document
+        .getElementById('simulationArea')
+        .addEventListener('mouseup', (e) => {
+            if (simulationArea.lastSelected)
+                simulationArea.lastSelected.newElement = false
+            /*
         handling restricted circuit elements
         */
 
-        if (simulationArea.lastSelected && restrictedElements.includes(simulationArea.lastSelected.objectType)
-            && !globalScope.restrictedCircuitElementsUsed.includes(simulationArea.lastSelected.objectType)) {
-            globalScope.restrictedCircuitElementsUsed.push(simulationArea.lastSelected.objectType);
-            updateRestrictedElementsList();
-        }
-
-        //       deselect multible elements with click
-        if (!simulationArea.shiftDown && simulationArea.multipleObjectSelections.length > 0
-        ) {
             if (
-                !simulationArea.multipleObjectSelections.includes(
-                    simulationArea.lastSelected,
+                simulationArea.lastSelected &&
+                restrictedElements.includes(
+                    simulationArea.lastSelected.objectType
+                ) &&
+                !globalScope.restrictedCircuitElementsUsed.includes(
+                    simulationArea.lastSelected.objectType
                 )
-            ) { simulationArea.multipleObjectSelections = []; }
-        }
-    });
-    document.getElementById('simulationArea').addEventListener('mousemove', onMouseMove);
+            ) {
+                globalScope.restrictedCircuitElementsUsed.push(
+                    simulationArea.lastSelected.objectType
+                )
+                updateRestrictedElementsList()
+            }
 
-    window.addEventListener('keyup', e => {
-        scheduleUpdate(1);
-        simulationArea.shiftDown = e.shiftKey;
+            //       deselect multible elements with click
+            if (
+                !simulationArea.shiftDown &&
+                simulationArea.multipleObjectSelections.length > 0
+            ) {
+                if (
+                    !simulationArea.multipleObjectSelections.includes(
+                        simulationArea.lastSelected
+                    )
+                ) {
+                    simulationArea.multipleObjectSelections = []
+                }
+            }
+        })
+    document
+        .getElementById('simulationArea')
+        .addEventListener('mousemove', onMouseMove)
+
+    window.addEventListener('keyup', (e) => {
+        scheduleUpdate(1)
+        simulationArea.shiftDown = e.shiftKey
         if (e.keyCode == 16) {
-            simulationArea.shiftDown = false;
+            simulationArea.shiftDown = false
         }
         if (e.key == 'Meta' || e.key == 'Control') {
-            simulationArea.controlDown = false;
+            simulationArea.controlDown = false
         }
     })
 
-    window.addEventListener('keydown', (e) => {
-        if (document.activeElement.tagName == 'INPUT') return;
-        if (document.activeElement != document.body) return;
+    window.addEventListener(
+        'keydown',
+        (e) => {
+            if (document.activeElement.tagName == 'INPUT') return
+            if (document.activeElement != document.body) return
 
-        simulationArea.shiftDown = e.shiftKey;
-        if (e.key == 'Meta' || e.key == 'Control') {
-            simulationArea.controlDown = true;
-        }
-
-        if (simulationArea.controlDown && e.key.charCodeAt(0) == 122 && !simulationArea.shiftDown) { // detect the special CTRL-Z code
-            undo();
-        }
-        if (simulationArea.controlDown && e.key.charCodeAt(0) == 122 && simulationArea.shiftDown) { // detect the special Cmd + shift + z code (macOs)
-            redo();
-        }
-        if (simulationArea.controlDown && e.key.charCodeAt(0) == 121 && !simulationArea.shiftDown) { // detect the special ctrl + Y code (windows)
-            redo();
-        }
-
-        if (listenToSimulator) {
-        // If mouse is focusing on input element, then override any action
-        // if($(':focus').length){
-        //     return;
-        // }
-
-            if (document.activeElement.tagName == 'INPUT' || simulationArea.mouseRawX < 0 || simulationArea.mouseRawY < 0 || simulationArea.mouseRawX > width || simulationArea.mouseRawY > height) {
-                return;
-            }
-            // HACK TO REMOVE FOCUS ON PROPERTIES
-            if (document.activeElement.type == 'number') {
-                hideProperties();
-                showProperties(simulationArea.lastSelected);
-            }
-
-
-            errorDetectedSet(false);
-            updateSimulationSet(true);
-            updatePositionSet(true);
-            simulationArea.shiftDown = e.shiftKey;
-
+            simulationArea.shiftDown = e.shiftKey
             if (e.key == 'Meta' || e.key == 'Control') {
-                simulationArea.controlDown = true;
+                simulationArea.controlDown = true
             }
 
-            // zoom in (+)
-            if ((simulationArea.controlDown && (e.keyCode == 187 || e.keyCode == 171)) || e.keyCode == 107) {
-                e.preventDefault();
-                ZoomIn();
+            if (
+                simulationArea.controlDown &&
+                e.key.charCodeAt(0) == 122 &&
+                !simulationArea.shiftDown
+            ) {
+                // detect the special CTRL-Z code
+                undo()
             }
-            // zoom out (-)
-            if ((simulationArea.controlDown && (e.keyCode == 189 || e.keyCode == 173)) || e.keyCode == 109) {
-                e.preventDefault();
-                ZoomOut();
+            if (
+                simulationArea.controlDown &&
+                e.key.charCodeAt(0) == 122 &&
+                simulationArea.shiftDown
+            ) {
+                // detect the special Cmd + shift + z code (macOs)
+                redo()
+            }
+            if (
+                simulationArea.controlDown &&
+                e.key.charCodeAt(0) == 121 &&
+                !simulationArea.shiftDown
+            ) {
+                // detect the special ctrl + Y code (windows)
+                redo()
             }
 
-            if (simulationArea.mouseRawX < 0 || simulationArea.mouseRawY < 0 || simulationArea.mouseRawX > width || simulationArea.mouseRawY > height) return;
+            if (listenToSimulator) {
+                // If mouse is focusing on input element, then override any action
+                // if($(':focus').length){
+                //     return;
+                // }
 
-            scheduleUpdate(1);
-            updateCanvasSet(true);
-            wireToBeCheckedSet(1);
+                if (
+                    document.activeElement.tagName == 'INPUT' ||
+                    simulationArea.mouseRawX < 0 ||
+                    simulationArea.mouseRawY < 0 ||
+                    simulationArea.mouseRawX > width ||
+                    simulationArea.mouseRawY > height
+                ) {
+                    return
+                }
+                // HACK TO REMOVE FOCUS ON PROPERTIES
+                if (document.activeElement.type == 'number') {
+                    hideProperties()
+                    showProperties(simulationArea.lastSelected)
+                }
 
-            // Needs to be deprecated, moved to more recent listeners
-            if (simulationArea.controlDown && (e.key == 'C' || e.key == 'c')) {
-            //    simulationArea.copyList=simulationArea.multipleObjectSelections.slice();
-            //    if(simulationArea.lastSelected&&simulationArea.lastSelected!==simulationArea.root&&!simulationArea.copyList.contains(simulationArea.lastSelected)){
-            //        simulationArea.copyList.push(simulationArea.lastSelected);
-            //    }
-            //    copy(simulationArea.copyList);
-            }
+                errorDetectedSet(false)
+                updateSimulationSet(true)
+                updatePositionSet(true)
+                simulationArea.shiftDown = e.shiftKey
 
+                if (e.key == 'Meta' || e.key == 'Control') {
+                    simulationArea.controlDown = true
+                }
 
-            if (simulationArea.lastSelected && simulationArea.lastSelected.keyDown) {
-                if (e.key.toString().length == 1 || e.key.toString() == 'Backspace' || e.key.toString() == 'Enter') {
-                    simulationArea.lastSelected.keyDown(e.key.toString());
-                    e.cancelBubble = true;
-                    e.returnValue = false;
+                // zoom in (+)
+                if (
+                    (simulationArea.controlDown &&
+                        (e.keyCode == 187 || e.keyCode == 171)) ||
+                    e.keyCode == 107
+                ) {
+                    e.preventDefault()
+                    ZoomIn()
+                }
+                // zoom out (-)
+                if (
+                    (simulationArea.controlDown &&
+                        (e.keyCode == 189 || e.keyCode == 173)) ||
+                    e.keyCode == 109
+                ) {
+                    e.preventDefault()
+                    ZoomOut()
+                }
 
-                    //e.stopPropagation works in Firefox.
-                    if (e.stopPropagation) {
-                        e.stopPropagation();
-                        e.preventDefault();
+                if (
+                    simulationArea.mouseRawX < 0 ||
+                    simulationArea.mouseRawY < 0 ||
+                    simulationArea.mouseRawX > width ||
+                    simulationArea.mouseRawY > height
+                )
+                    return
+
+                scheduleUpdate(1)
+                updateCanvasSet(true)
+                wireToBeCheckedSet(1)
+
+                // Needs to be deprecated, moved to more recent listeners
+                if (
+                    simulationArea.controlDown &&
+                    (e.key == 'C' || e.key == 'c')
+                ) {
+                    //    simulationArea.copyList=simulationArea.multipleObjectSelections.slice();
+                    //    if(simulationArea.lastSelected&&simulationArea.lastSelected!==simulationArea.root&&!simulationArea.copyList.contains(simulationArea.lastSelected)){
+                    //        simulationArea.copyList.push(simulationArea.lastSelected);
+                    //    }
+                    //    copy(simulationArea.copyList);
+                }
+
+                if (
+                    simulationArea.lastSelected &&
+                    simulationArea.lastSelected.keyDown
+                ) {
+                    if (
+                        e.key.toString().length == 1 ||
+                        e.key.toString() == 'Backspace' ||
+                        e.key.toString() == 'Enter'
+                    ) {
+                        simulationArea.lastSelected.keyDown(e.key.toString())
+                        e.cancelBubble = true
+                        e.returnValue = false
+
+                        //e.stopPropagation works in Firefox.
+                        if (e.stopPropagation) {
+                            e.stopPropagation()
+                            e.preventDefault()
+                        }
+                        return
                     }
-                    return;
+                }
+
+                if (
+                    simulationArea.lastSelected &&
+                    simulationArea.lastSelected.keyDown2
+                ) {
+                    if (e.key.toString().length == 1) {
+                        simulationArea.lastSelected.keyDown2(e.key.toString())
+                        return
+                    }
+                }
+
+                if (
+                    simulationArea.lastSelected &&
+                    simulationArea.lastSelected.keyDown3
+                ) {
+                    if (
+                        e.key.toString() != 'Backspace' &&
+                        e.key.toString() != 'Delete'
+                    ) {
+                        simulationArea.lastSelected.keyDown3(e.key.toString())
+                        return
+                    }
+                }
+
+                if (e.keyCode == 16) {
+                    simulationArea.shiftDown = true
+                    if (
+                        simulationArea.lastSelected &&
+                        !simulationArea.lastSelected.keyDown &&
+                        simulationArea.lastSelected.objectType != 'Wire' &&
+                        simulationArea.lastSelected.objectType !=
+                            'CircuitElement' &&
+                        !simulationArea.multipleObjectSelections.contains(
+                            simulationArea.lastSelected
+                        )
+                    ) {
+                        simulationArea.multipleObjectSelections.push(
+                            simulationArea.lastSelected
+                        )
+                    }
+                }
+
+                // Detect offline save shortcut (CTRL+SHIFT+S)
+                if (
+                    simulationArea.controlDown &&
+                    e.keyCode == 83 &&
+                    simulationArea.shiftDown
+                ) {
+                    saveOffline()
+                    e.preventDefault()
+                }
+
+                // Detect Select all Shortcut
+                if (
+                    simulationArea.controlDown &&
+                    (e.keyCode == 65 || e.keyCode == 97)
+                ) {
+                    selectAll()
+                    e.preventDefault()
+                }
+
+                // deselect all Shortcut
+                if (e.keyCode == 27) {
+                    simulationArea.multipleObjectSelections = []
+                    simulationArea.lastSelected = undefined
+                    e.preventDefault()
+                }
+
+                if (
+                    (e.keyCode == 113 || e.keyCode == 81) &&
+                    simulationArea.lastSelected != undefined
+                ) {
+                    if (simulationArea.lastSelected.bitWidth !== undefined) {
+                        simulationArea.lastSelected.newBitWidth(
+                            parseInt(prompt('Enter new bitWidth'), 10)
+                        )
+                    }
+                }
+
+                if (
+                    simulationArea.controlDown &&
+                    (e.key == 'T' || e.key == 't')
+                ) {
+                    // e.preventDefault(); //browsers normally open a new tab
+                    simulationArea.changeClockTime(prompt('Enter Time:'))
                 }
             }
 
-            if (simulationArea.lastSelected && simulationArea.lastSelected.keyDown2) {
-                if (e.key.toString().length == 1) {
-                    simulationArea.lastSelected.keyDown2(e.key.toString());
-                    return;
-                }
+            if (e.keyCode == 8 || e.key == 'Delete') {
+                deleteSelected()
             }
+        },
+        true
+    )
 
-            if (simulationArea.lastSelected && simulationArea.lastSelected.keyDown3) {
-                if (e.key.toString() != 'Backspace' && e.key.toString() != 'Delete') {
-                    simulationArea.lastSelected.keyDown3(e.key.toString());
-                    return;
-                }
+    document
+        .getElementById('simulationArea')
+        .addEventListener('dblclick', (e) => {
+            updateCanvasSet(true)
+            if (
+                simulationArea.lastSelected &&
+                simulationArea.lastSelected.dblclick !== undefined
+            ) {
+                simulationArea.lastSelected.dblclick()
+            } else if (!simulationArea.shiftDown) {
+                simulationArea.multipleObjectSelections = []
             }
+            scheduleUpdate(2)
+        })
 
-            if (e.keyCode == 16) {
-                simulationArea.shiftDown = true;
-                if (simulationArea.lastSelected && !simulationArea.lastSelected.keyDown && simulationArea.lastSelected.objectType != 'Wire' && simulationArea.lastSelected.objectType != 'CircuitElement' && !simulationArea.multipleObjectSelections.contains(simulationArea.lastSelected)) {
-                    simulationArea.multipleObjectSelections.push(simulationArea.lastSelected);
-                }
-            }
+    document
+        .getElementById('simulationArea')
+        .addEventListener('mouseup', onMouseUp)
 
-            // Detect offline save shortcut (CTRL+SHIFT+S)
-            if (simulationArea.controlDown && e.keyCode == 83 && simulationArea.shiftDown) {
-                saveOffline();
-                e.preventDefault();
-            }
-
-            // Detect Select all Shortcut
-            if (simulationArea.controlDown && (e.keyCode == 65 || e.keyCode == 97)) {
-                selectAll();
-                e.preventDefault();
-            }
-
-            // deselect all Shortcut
-            if (e.keyCode == 27) {
-                simulationArea.multipleObjectSelections = [];
-                simulationArea.lastSelected = undefined;
-                e.preventDefault();
-            }
-
-            if ((e.keyCode == 113 || e.keyCode == 81) && simulationArea.lastSelected != undefined) {
-                if (simulationArea.lastSelected.bitWidth !== undefined) { simulationArea.lastSelected.newBitWidth(parseInt(prompt('Enter new bitWidth'), 10)); }
-            }
-
-            if (simulationArea.controlDown && (e.key == 'T' || e.key == 't')) {
-            // e.preventDefault(); //browsers normally open a new tab
-                simulationArea.changeClockTime(prompt('Enter Time:'));
-            }
-        }
-
-        if (e.keyCode == 8 || e.key == 'Delete') {
-            deleteSelected();
-        }
-    }, true);
-
-
-    document.getElementById('simulationArea').addEventListener('dblclick', (e) => {
-        updateCanvasSet(true);
-        if (simulationArea.lastSelected && simulationArea.lastSelected.dblclick !== undefined) {
-            simulationArea.lastSelected.dblclick();
-        }
-        else if (!simulationArea.shiftDown) {
-            simulationArea.multipleObjectSelections = [];
-        }
-        scheduleUpdate(2);
-    });
-
-    document.getElementById('simulationArea').addEventListener('mouseup', onMouseUp);
-
-    document.getElementById('simulationArea').addEventListener('mousewheel', MouseScroll);
-    document.getElementById('simulationArea').addEventListener('DOMMouseScroll', MouseScroll);
+    document
+        .getElementById('simulationArea')
+        .addEventListener('mousewheel', MouseScroll)
+    document
+        .getElementById('simulationArea')
+        .addEventListener('DOMMouseScroll', MouseScroll)
 
     function MouseScroll(event) {
-        updateCanvasSet(true);
-        event.preventDefault();
-        var deltaY = event.wheelDelta ? event.wheelDelta : -event.detail;
-        event.preventDefault();
-        var deltaY = event.wheelDelta ? event.wheelDelta : -event.detail;
-        const direction = deltaY > 0 ? 1 : -1;
-        handleZoom(direction);
-        updateCanvasSet(true);
-        gridUpdateSet(true);
+        updateCanvasSet(true)
+        event.preventDefault()
+        var deltaY = event.wheelDelta ? event.wheelDelta : -event.detail
+        event.preventDefault()
+        var deltaY = event.wheelDelta ? event.wheelDelta : -event.detail
+        const direction = deltaY > 0 ? 1 : -1
+        handleZoom(direction)
+        updateCanvasSet(true)
+        gridUpdateSet(true)
 
-        if (layoutModeGet())layoutUpdate();
-        else update(); // Schedule update not working, this is INEFFICIENT
+        if (layoutModeGet()) layoutUpdate()
+        else update() // Schedule update not working, this is INEFFICIENT
     }
 
     document.addEventListener('cut', (e) => {
-        if (verilogModeGet()) return;
-        if (document.activeElement.tagName == 'INPUT') return;
-        if (document.activeElement.tagName != 'BODY') return;
+        if (verilogModeGet()) return
+        if (document.activeElement.tagName == 'INPUT') return
+        if (document.activeElement.tagName != 'BODY') return
 
         if (listenToSimulator) {
-            simulationArea.copyList = simulationArea.multipleObjectSelections.slice();
-            if (simulationArea.lastSelected && simulationArea.lastSelected !== simulationArea.root && !simulationArea.copyList.contains(simulationArea.lastSelected)) {
-                simulationArea.copyList.push(simulationArea.lastSelected);
+            simulationArea.copyList =
+                simulationArea.multipleObjectSelections.slice()
+            if (
+                simulationArea.lastSelected &&
+                simulationArea.lastSelected !== simulationArea.root &&
+                !simulationArea.copyList.contains(simulationArea.lastSelected)
+            ) {
+                simulationArea.copyList.push(simulationArea.lastSelected)
             }
 
-
-            var textToPutOnClipboard = copy(simulationArea.copyList, true);
+            var textToPutOnClipboard = copy(simulationArea.copyList, true)
 
             // Updated restricted elements
-            updateRestrictedElementsInScope();
-            localStorage.setItem('clipboardData', textToPutOnClipboard);
-            e.preventDefault();
-            if (textToPutOnClipboard == undefined) return;
+            updateRestrictedElementsInScope()
+            localStorage.setItem('clipboardData', textToPutOnClipboard)
+            e.preventDefault()
+            if (textToPutOnClipboard == undefined) return
             if (isIe) {
-                window.clipboardData.setData('Text', textToPutOnClipboard);
+                window.clipboardData.setData('Text', textToPutOnClipboard)
             } else {
-                e.clipboardData.setData('text/plain', textToPutOnClipboard);
+                e.clipboardData.setData('text/plain', textToPutOnClipboard)
             }
         }
-    });
+    })
 
     document.addEventListener('copy', (e) => {
-        if (verilogModeGet()) return;
-        if (document.activeElement.tagName == 'INPUT') return;
-        if (document.activeElement.tagName != 'BODY') return;
+        if (verilogModeGet()) return
+        if (document.activeElement.tagName == 'INPUT') return
+        if (document.activeElement.tagName != 'BODY') return
 
         if (listenToSimulator) {
-            simulationArea.copyList = simulationArea.multipleObjectSelections.slice();
-            if (simulationArea.lastSelected && simulationArea.lastSelected !== simulationArea.root && !simulationArea.copyList.contains(simulationArea.lastSelected)) {
-                simulationArea.copyList.push(simulationArea.lastSelected);
+            simulationArea.copyList =
+                simulationArea.multipleObjectSelections.slice()
+            if (
+                simulationArea.lastSelected &&
+                simulationArea.lastSelected !== simulationArea.root &&
+                !simulationArea.copyList.contains(simulationArea.lastSelected)
+            ) {
+                simulationArea.copyList.push(simulationArea.lastSelected)
             }
 
-            var textToPutOnClipboard = copy(simulationArea.copyList);
+            var textToPutOnClipboard = copy(simulationArea.copyList)
 
             // Updated restricted elements
-            updateRestrictedElementsInScope();
-            localStorage.setItem('clipboardData', textToPutOnClipboard);
-            e.preventDefault();
-            if (textToPutOnClipboard == undefined) return;
+            updateRestrictedElementsInScope()
+            localStorage.setItem('clipboardData', textToPutOnClipboard)
+            e.preventDefault()
+            if (textToPutOnClipboard == undefined) return
             if (isIe) {
-                window.clipboardData.setData('Text', textToPutOnClipboard);
+                window.clipboardData.setData('Text', textToPutOnClipboard)
             } else {
-                e.clipboardData.setData('text/plain', textToPutOnClipboard);
+                e.clipboardData.setData('text/plain', textToPutOnClipboard)
             }
         }
-    });
+    })
 
     document.addEventListener('paste', (e) => {
-        if (document.activeElement.tagName == 'INPUT') return;
-        if (document.activeElement.tagName != 'BODY') return;
+        if (document.activeElement.tagName == 'INPUT') return
+        if (document.activeElement.tagName != 'BODY') return
 
         if (listenToSimulator) {
-            var data;
+            var data
             if (isIe) {
-                data = window.clipboardData.getData('Text');
+                data = window.clipboardData.getData('Text')
             } else {
-                data = e.clipboardData.getData('text/plain');
+                data = e.clipboardData.getData('text/plain')
             }
 
-            paste(data);
+            paste(data)
 
             // Updated restricted elements
-            updateRestrictedElementsInScope();
+            updateRestrictedElementsInScope()
 
-            e.preventDefault();
+            e.preventDefault()
         }
-    });
+    })
 
-    // 'drag and drop' event listener for subcircuit elements in layout mode 
-    $('#subcircuitMenu').on('dragstop', '.draggableSubcircuitElement', function(event, ui){
-        const sideBarWidth = $('#guide_1')[0].clientWidth;
-        let tempElement;
+    // 'drag and drop' event listener for subcircuit elements in layout mode
+    $('#subcircuitMenu').on(
+        'dragstop',
+        '.draggableSubcircuitElement',
+        function (event, ui) {
+            const sideBarWidth = $('#guide_1')[0].clientWidth
+            let tempElement
 
-        if( ui.position.top > 10 && ui.position.left > sideBarWidth){
-            // make a shallow copy of the element with the new coordinates
-            tempElement = globalScope[this.dataset.elementName][this.dataset.elementId];
-            
-            // Changing the coordinate doesn't work yet, nodes get far from element
-            tempElement.x = ui.position.left - sideBarWidth;
-            tempElement.y = ui.position.top;
-            for(let node of tempElement.nodeList){
-                node.x = ui.position.left - sideBarWidth;
-                node.y = ui.position.top
-            } 
+            if (ui.position.top > 10 && ui.position.left > sideBarWidth) {
+                // make a shallow copy of the element with the new coordinates
+                tempElement =
+                    globalScope[this.dataset.elementName][
+                        this.dataset.elementId
+                    ]
 
-            tempBuffer.subElements.push(tempElement);
-            this.parentElement.removeChild(this);
+                // Changing the coordinate doesn't work yet, nodes get far from element
+                tempElement.x = ui.position.left - sideBarWidth
+                tempElement.y = ui.position.top
+                for (let node of tempElement.nodeList) {
+                    node.x = ui.position.left - sideBarWidth
+                    node.y = ui.position.top
+                }
+
+                tempBuffer.subElements.push(tempElement)
+                this.parentElement.removeChild(this)
+            }
         }
-    });
+    )
 
     restrictedElements.forEach((element) => {
         $(`#${element}`).mouseover(() => {
-            showRestricted();
-        });
+            showRestricted()
+        })
 
         $(`#${element}`).mouseout(() => {
-            hideRestricted();
-        });
-    });
+            hideRestricted()
+        })
+    })
 
-    $(".search-input").on("keyup", function() {
-        var parentElement = $(this).parent().parent();
-        var closeButton =  $('.search-close', parentElement);
-        var searchInput =  $('.search-input', parentElement);
-        var searchResults =  $('.search-results', parentElement);
-        var menu =  $('.accordion', parentElement);
+    $('.search-input').on('keyup', function () {
+        var parentElement = $(this).parent().parent()
+        var closeButton = $('.search-close', parentElement)
+        var searchInput = $('.search-input', parentElement)
+        var searchResults = $('.search-results', parentElement)
+        var menu = $('.accordion', parentElement)
 
-        searchResults.css('display', 'block');
-        closeButton.css('display', 'block');
-        menu.css('display', 'none');
-        const value = $(this).val().toLowerCase();
+        searchResults.css('display', 'block')
+        closeButton.css('display', 'block')
+        menu.css('display', 'none')
+        const value = $(this).val().toLowerCase()
 
         closeButton.on('click', () => {
-            searchInput.val('');
-            menu.css('display', 'block');
-            searchResults.css('display', 'none');
-            closeButton.css('display', 'none');
-        });
+            searchInput.val('')
+            menu.css('display', 'block')
+            searchResults.css('display', 'none')
+            closeButton.css('display', 'none')
+        })
         if (value.length === 0) {
-            menu.css('display', 'block');
-            searchResults.css('display', 'none');
-            closeButton.css('display', 'none');
-            return;
+            menu.css('display', 'block')
+            searchResults.css('display', 'none')
+            closeButton.css('display', 'none')
+            return
         }
-        let htmlIcons = '';
-        const result = elementPanelList.filter(ele => ele.toLowerCase().includes(value));
-        var finalResult = [];
-        for(const j in result) {
+        let htmlIcons = ''
+        const result = elementPanelList.filter((ele) =>
+            ele.toLowerCase().includes(value)
+        )
+        var finalResult = []
+        for (const j in result) {
             if (Object.prototype.hasOwnProperty.call(result, j)) {
                 for (const category in elementHierarchy) {
-                     if(Object.prototype.hasOwnProperty.call(elementHierarchy, category)) {
-                        const categoryData = elementHierarchy[category];
-                         for (let i = 0; i < categoryData.length; i++) {
-                             if(result[j] == categoryData[i].label) {
-                                 finalResult.push(categoryData[i]);
+                    if (
+                        Object.prototype.hasOwnProperty.call(
+                            elementHierarchy,
+                            category
+                        )
+                    ) {
+                        const categoryData = elementHierarchy[category]
+                        for (let i = 0; i < categoryData.length; i++) {
+                            if (result[j] == categoryData[i].label) {
+                                finalResult.push(categoryData[i])
                             }
                         }
                     }
-                } 
-            }   
+                }
+            }
         }
-    if(!finalResult.length) searchResults.text('No elements found ...');
-    else {
-        finalResult.forEach( e => htmlIcons += createIcon(e));
-        searchResults
-          .html(htmlIcons);
-        $('.filterElements').mousedown(createElement);
-    }
-    });
+        if (!finalResult.length) searchResults.text('No elements found ...')
+        else {
+            finalResult.forEach((e) => (htmlIcons += createIcon(e)))
+            searchResults.html(htmlIcons)
+            $('.filterElements').mousedown(createElement)
+        }
+    })
 
     function createIcon(element) {
         return `<div class="${element.name} icon logixModules filterElements" id="${element.name}" title="${element.label}">
             <img  src= "/img/${element.name}.svg" alt="element's image" >
-        </div>`;
+        </div>`
     }
 
-    zoomSliderListeners();
-    setupLayoutModePanelListeners();
+    zoomSliderListeners()
+    setupLayoutModePanelListeners()
     if (!embed) {
-        setupTimingListeners();
+        setupTimingListeners()
     }
 }
 
-var isIe = (navigator.userAgent.toLowerCase().indexOf('msie') != -1
-    || navigator.userAgent.toLowerCase().indexOf('trident') != -1);
+var isIe =
+    navigator.userAgent.toLowerCase().indexOf('msie') != -1 ||
+    navigator.userAgent.toLowerCase().indexOf('trident') != -1
 
 function onMouseMove(e) {
-    var rect = simulationArea.canvas.getBoundingClientRect();
-    simulationArea.mouseRawX = (e.clientX - rect.left) * DPR;
-    simulationArea.mouseRawY = (e.clientY - rect.top) * DPR;
-    simulationArea.mouseXf = (simulationArea.mouseRawX - globalScope.ox) / globalScope.scale;
-    simulationArea.mouseYf = (simulationArea.mouseRawY - globalScope.oy) / globalScope.scale;
-    simulationArea.mouseX = Math.round(simulationArea.mouseXf / unit) * unit;
-    simulationArea.mouseY = Math.round(simulationArea.mouseYf / unit) * unit;
+    var rect = simulationArea.canvas.getBoundingClientRect()
+    simulationArea.mouseRawX = (e.clientX - rect.left) * DPR
+    simulationArea.mouseRawY = (e.clientY - rect.top) * DPR
+    simulationArea.mouseXf =
+        (simulationArea.mouseRawX - globalScope.ox) / globalScope.scale
+    simulationArea.mouseYf =
+        (simulationArea.mouseRawY - globalScope.oy) / globalScope.scale
+    simulationArea.mouseX = Math.round(simulationArea.mouseXf / unit) * unit
+    simulationArea.mouseY = Math.round(simulationArea.mouseYf / unit) * unit
 
-    updateCanvasSet(true);
+    updateCanvasSet(true)
 
-    if (simulationArea.lastSelected && (simulationArea.mouseDown || simulationArea.lastSelected.newElement)) {
-        updateCanvasSet(true);
-        var fn;
+    if (
+        simulationArea.lastSelected &&
+        (simulationArea.mouseDown || simulationArea.lastSelected.newElement)
+    ) {
+        updateCanvasSet(true)
+        var fn
 
         if (simulationArea.lastSelected == globalScope.root) {
             fn = function () {
-                updateSelectionsAndPane();
-            };
+                updateSelectionsAndPane()
+            }
         } else {
             fn = function () {
-                if (simulationArea.lastSelected) { simulationArea.lastSelected.update(); }
-            };
+                if (simulationArea.lastSelected) {
+                    simulationArea.lastSelected.update()
+                }
+            }
         }
-        scheduleUpdate(0, 20, fn);
+        scheduleUpdate(0, 20, fn)
     } else {
-        scheduleUpdate(0, 200);
+        scheduleUpdate(0, 200)
     }
 }
 
 function onMouseUp(e) {
-    simulationArea.mouseDown = false;
+    simulationArea.mouseDown = false
     if (!lightMode) {
-        updatelastMinimapShown();
-        setTimeout(removeMiniMap, 2000);
+        updatelastMinimapShown()
+        setTimeout(removeMiniMap, 2000)
     }
 
-    errorDetectedSet(false);
-    updateSimulationSet(true);
-    updatePositionSet(true);
-    updateCanvasSet(true);
-    gridUpdateSet(true);
-    wireToBeCheckedSet(1);
+    errorDetectedSet(false)
+    updateSimulationSet(true)
+    updatePositionSet(true)
+    updateCanvasSet(true)
+    gridUpdateSet(true)
+    wireToBeCheckedSet(1)
 
-    scheduleUpdate(1);
-    simulationArea.mouseDown = false;
+    scheduleUpdate(1)
+    simulationArea.mouseDown = false
 
     for (var i = 0; i < 2; i++) {
-        updatePositionSet(true);
-        wireToBeCheckedSet(1);
-        update();
+        updatePositionSet(true)
+        wireToBeCheckedSet(1)
+        update()
     }
-    errorDetectedSet(false);
-    updateSimulationSet(true);
-    updatePositionSet(true);
-    updateCanvasSet(true);
-    gridUpdateSet(true);
-    wireToBeCheckedSet(1);
+    errorDetectedSet(false)
+    updateSimulationSet(true)
+    updatePositionSet(true)
+    updateCanvasSet(true)
+    gridUpdateSet(true)
+    wireToBeCheckedSet(1)
 
-    scheduleUpdate(1);
-    var rect = simulationArea.canvas.getBoundingClientRect();
+    scheduleUpdate(1)
+    var rect = simulationArea.canvas.getBoundingClientRect()
 
-    if (!(simulationArea.mouseRawX < 0 || simulationArea.mouseRawY < 0 || simulationArea.mouseRawX > width || simulationArea.mouseRawY > height)) {
-        uxvar.smartDropXX = simulationArea.mouseX + 100; // Math.round(((simulationArea.mouseRawX - globalScope.ox+100) / globalScope.scale) / unit) * unit;
-        uxvar.smartDropYY = simulationArea.mouseY - 50; // Math.round(((simulationArea.mouseRawY - globalScope.oy+100) / globalScope.scale) / unit) * unit;
+    if (
+        !(
+            simulationArea.mouseRawX < 0 ||
+            simulationArea.mouseRawY < 0 ||
+            simulationArea.mouseRawX > width ||
+            simulationArea.mouseRawY > height
+        )
+    ) {
+        uxvar.smartDropXX = simulationArea.mouseX + 100 // Math.round(((simulationArea.mouseRawX - globalScope.ox+100) / globalScope.scale) / unit) * unit;
+        uxvar.smartDropYY = simulationArea.mouseY - 50 // Math.round(((simulationArea.mouseRawY - globalScope.oy+100) / globalScope.scale) / unit) * unit;
     }
 }
 
 function resizeTabs() {
-    var $windowsize = $('body').width();
-    var $sideBarsize = $('.side').width();
-    var $maxwidth = ($windowsize - $sideBarsize);
+    var $windowsize = $('body').width()
+    var $sideBarsize = $('.side').width()
+    var $maxwidth = $windowsize - $sideBarsize
     $('#tabsBar div').each(function (e) {
-        $(this).css({ 'max-width': $maxwidth - 30 });
-    });
+        $(this).css({ 'max-width': $maxwidth - 30 })
+    })
 }
 
-window.addEventListener('resize', resizeTabs);
-resizeTabs();
+window.addEventListener('resize', resizeTabs)
+resizeTabs()
 
 $(() => {
-    $('[data-toggle="tooltip"]').tooltip();
-});
+    $('[data-toggle="tooltip"]').tooltip()
+})
 
 // direction is only 1 or -1
-function handleZoom(direction) {
-    
-    var zoomSlider = $('#customRange1');
-    var currentSliderValue = parseInt(zoomSlider.val(), 10);
-    currentSliderValue += direction;
+function handleZoom(direction) {
+    var zoomSlider = $('#customRange1')
+    var currentSliderValue = parseInt(zoomSlider.val(), 10)
+    currentSliderValue += direction
 
-    if (globalScope.scale > 0.5 * DPR) {
-        zoomSlider.val(currentSliderValue).change();
-    } else if (globalScope.scale < 4 * DPR) {
-        zoomSlider.val(currentSliderValue).change();
+    if (globalScope.scale > 0.5 * DPR) {
+        zoomSlider.val(currentSliderValue).change()
+    } else if (globalScope.scale < 4 * DPR) {
+        zoomSlider.val(currentSliderValue).change()
     }
 
-    gridUpdateSet(true);
-    scheduleUpdate();
+    gridUpdateSet(true)
+    scheduleUpdate()
 }
 
-export function ZoomIn() {
-    handleZoom(1);
+export function ZoomIn() {
+    handleZoom(1)
 }
 
-export function ZoomOut() {
-    handleZoom(-1);
+export function ZoomOut() {
+    handleZoom(-1)
 }
 
 function zoomSliderListeners() {
-    document.getElementById("customRange1").value = 5;
-    document.getElementById('simulationArea').addEventListener('DOMMouseScroll',zoomSliderScroll);
-    document.getElementById('simulationArea').addEventListener('mousewheel', zoomSliderScroll);
-    let curLevel = document.getElementById("customRange1").value;
+    document.getElementById('customRange1').value = 5
+    document
+        .getElementById('simulationArea')
+        .addEventListener('DOMMouseScroll', zoomSliderScroll)
+    document
+        .getElementById('simulationArea')
+        .addEventListener('mousewheel', zoomSliderScroll)
+    let curLevel = document.getElementById('customRange1').value
     $(document).on('input change', '#customRange1', function (e) {
-        let newValue = $(this).val();
-        let changeInScale = newValue - curLevel;
-        updateCanvasSet(true);
-        changeScale(changeInScale * .1, 'zoomButton', 'zoomButton', 3)
-        gridUpdateSet(true);
-        curLevel = newValue;
-    });
+        let newValue = $(this).val()
+        let changeInScale = newValue - curLevel
+        updateCanvasSet(true)
+        changeScale(changeInScale * 0.1, 'zoomButton', 'zoomButton', 3)
+        gridUpdateSet(true)
+        curLevel = newValue
+    })
     function zoomSliderScroll(e) {
-        let zoomLevel = document.getElementById("customRange1").value;
-        let deltaY = e.wheelDelta ? e.wheelDelta : -e.detail;
-        const directionY = deltaY > 0 ? 1 : -1;
+        let zoomLevel = document.getElementById('customRange1').value
+        let deltaY = e.wheelDelta ? e.wheelDelta : -e.detail
+        const directionY = deltaY > 0 ? 1 : -1
         if (directionY > 0) zoomLevel++
         else zoomLevel--
         if (zoomLevel >= 45) {
-            zoomLevel = 45;
-            document.getElementById("customRange1").value = 45;
+            zoomLevel = 45
+            document.getElementById('customRange1').value = 45
         } else if (zoomLevel <= 0) {
-            zoomLevel = 0;
-            document.getElementById("customRange1").value = 0;
+            zoomLevel = 0
+            document.getElementById('customRange1').value = 0
         } else {
-            document.getElementById("customRange1").value = zoomLevel;
-            curLevel = zoomLevel;
+            document.getElementById('customRange1').value = zoomLevel
+            curLevel = zoomLevel
         }
     }
     function sliderZoomButton(direction) {
-        var zoomSlider = $('#customRange1');
-        var currentSliderValue = parseInt(zoomSlider.val(), 10);
+        var zoomSlider = $('#customRange1')
+        var currentSliderValue = parseInt(zoomSlider.val(), 10)
         if (direction === -1) {
-            currentSliderValue--;
+            currentSliderValue--
         } else {
-            currentSliderValue++;
+            currentSliderValue++
         }
-        zoomSlider.val(currentSliderValue).change();
+        zoomSlider.val(currentSliderValue).change()
     }
     $('#decrement').click(() => {
-        sliderZoomButton(-1);
-    });
+        sliderZoomButton(-1)
+    })
 
     $('#increment').click(() => {
-        sliderZoomButton(1);
-    });
+        sliderZoomButton(1)
+    })
 }

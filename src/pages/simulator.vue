@@ -9,7 +9,8 @@ import Navbar from '../components/Navbar/Navbar.vue'
 import Extra from '../components/Extra.vue'
 import ContextMenu from '../components/ContextMenu/ContextMenu.vue'
 
-import { setup } from '../simulator/src/setup'
+// import { setup } from '../simulator/src/setup'
+import { setup } from '../simulator-preserving-commits/src/setup'
 
 export default {
     name: 'Simulator',
