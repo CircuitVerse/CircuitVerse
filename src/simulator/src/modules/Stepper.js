@@ -1,8 +1,8 @@
-import CircuitElement from '../circuitElement';
-import Node, { findNode } from '../node';
-import simulationArea from '../simulationArea';
-import { fillText } from '../canvasApi';
-import { changeInputSize } from '../modules';
+import CircuitElement from '../circuitElement'
+import Node, { findNode } from '../node'
+import simulationArea from '../simulationArea'
+import { fillText } from '../canvasApi'
+import { changeInputSize } from '../modules'
 /**
  * @class
  * Stepper
@@ -14,18 +14,18 @@ import { changeInputSize } from '../modules';
  * @param {number=} bitWidth - bitwidth of element
  * @category modules
  */
-import { colors } from '../themer/themer';
+import { colors } from '../themer/themer'
 
 export default class Stepper extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 8) {
-        super(x, y, scope, dir, bitWidth);
+        super(x, y, scope, dir, bitWidth)
         /* this is done in this.baseSetup() now
         this.scope['Stepper'].push(this);
         */
-        this.setDimensions(20, 20);
+        this.setDimensions(20, 20)
 
-        this.output1 = new Node(20, 0, 1, this, bitWidth);
-        this.state = 0;
+        this.output1 = new Node(20, 0, 1, this, bitWidth)
+        this.state = 0
     }
 
     /**
@@ -42,8 +42,8 @@ export default class Stepper extends CircuitElement {
             values: {
                 state: this.state,
             },
-        };
-        return data;
+        }
+        return data
     }
 
     /**
@@ -51,13 +51,13 @@ export default class Stepper extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        var ctx = simulationArea.context;
-        ctx.beginPath();
-        ctx.font = '20px Raleway';
-        ctx.fillStyle = colors['input_text'];
-        ctx.textAlign = 'center';
-        fillText(ctx, this.state.toString(16), this.x, this.y + 5);
-        ctx.fill();
+        var ctx = simulationArea.context
+        ctx.beginPath()
+        ctx.font = '20px Raleway'
+        ctx.fillStyle = colors['input_text']
+        ctx.textAlign = 'center'
+        fillText(ctx, this.state.toString(16), this.x, this.y + 5)
+        ctx.fill()
     }
 
     /**
@@ -65,9 +65,9 @@ export default class Stepper extends CircuitElement {
      * resolve output values based on inputData
      */
     resolve() {
-        this.state = Math.min(this.state, (1 << this.bitWidth) - 1);
-        this.output1.value = this.state;
-        simulationArea.simulationQueue.add(this.output1);
+        this.state = Math.min(this.state, (1 << this.bitWidth) - 1)
+        this.output1.value = this.state
+        simulationArea.simulationQueue.add(this.output1)
     }
 
     /**
@@ -76,8 +76,9 @@ export default class Stepper extends CircuitElement {
      * @param {string} key - the key pressed
      */
     keyDown2(key) {
-        if (this.state < (1 << this.bitWidth) && (key === '+' || key === '=')) this.state++;
-        if (this.state > 0 && (key === '_' || key === '-')) this.state--;
+        if (this.state < 1 << this.bitWidth && (key === '+' || key === '='))
+            this.state++
+        if (this.state > 0 && (key === '_' || key === '-')) this.state--
     }
 }
 
@@ -87,7 +88,8 @@ export default class Stepper extends CircuitElement {
  * @type {string}
  * @category modules
  */
-Stepper.prototype.tooltipText = 'Stepper ToolTip: Increase/Decrease value by selecting the stepper and using +/- keys.';
+Stepper.prototype.tooltipText =
+    'Stepper ToolTip: Increase/Decrease value by selecting the stepper and using +/- keys.'
 
 /**
  * @memberof Stepper
@@ -95,5 +97,6 @@ Stepper.prototype.tooltipText = 'Stepper ToolTip: Increase/Decrease value by sel
  * @type {string}
  * @category modules
  */
-Stepper.prototype.helplink = 'https://docs.circuitverse.org/#/inputElements?id=stepper';
-Stepper.prototype.objectType = 'Stepper';
+Stepper.prototype.helplink =
+    'https://docs.circuitverse.org/#/inputElements?id=stepper'
+Stepper.prototype.objectType = 'Stepper'

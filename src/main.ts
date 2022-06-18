@@ -8,15 +8,13 @@ import i18n from './locales/i18n'
 
 import 'bootstrap'
 
-
-import './globalVariables';
+import './globalVariables'
 
 import './styles/css/main.stylesheet.css'
 import '../node_modules/bootstrap/scss/bootstrap.scss'
 import './styles/color_theme.scss'
 import './styles/simulator.scss'
 import './styles/tutorials.scss'
-
 
 loadFonts()
 

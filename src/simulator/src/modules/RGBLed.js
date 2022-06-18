@@ -1,8 +1,8 @@
-import CircuitElement from "../circuitElement";
-import Node, { findNode } from "../node";
-import simulationArea from "../simulationArea";
-import { correctWidth, lineTo, moveTo, arc, drawCircle2 } from "../canvasApi";
-import { changeInputSize } from "../modules";
+import CircuitElement from '../circuitElement'
+import Node, { findNode } from '../node'
+import simulationArea from '../simulationArea'
+import { correctWidth, lineTo, moveTo, arc, drawCircle2 } from '../canvasApi'
+import { changeInputSize } from '../modules'
 /**
  * @class
  * RGBLed
@@ -12,26 +12,26 @@ import { changeInputSize } from "../modules";
  * @param {Scope=} scope - Cirucit on which element is drawn
  * @category modules
  */
-import { colors } from "../themer/themer";
+import { colors } from '../themer/themer'
 
 export default class RGBLed extends CircuitElement {
     constructor(x, y, scope = globalScope) {
         // Calling base class constructor
-        super(x, y, scope, "UP", 8);
+        super(x, y, scope, 'UP', 8)
         /* this is done in this.baseSetup() now
         this.scope['RGBLed'].push(this);
         */
-        this.rectangleObject = false;
-        this.inp = [];
-        this.setDimensions(10, 10);
-        this.inp1 = new Node(-40, -10, 0, this, 8);
-        this.inp2 = new Node(-40, 0, 0, this, 8);
-        this.inp3 = new Node(-40, 10, 0, this, 8);
-        this.inp.push(this.inp1);
-        this.inp.push(this.inp2);
-        this.inp.push(this.inp3);
-        this.directionFixed = true;
-        this.fixedBitWidth = true;
+        this.rectangleObject = false
+        this.inp = []
+        this.setDimensions(10, 10)
+        this.inp1 = new Node(-40, -10, 0, this, 8)
+        this.inp2 = new Node(-40, 0, 0, this, 8)
+        this.inp3 = new Node(-40, 10, 0, this, 8)
+        this.inp.push(this.inp1)
+        this.inp.push(this.inp2)
+        this.inp.push(this.inp3)
+        this.directionFixed = true
+        this.fixedBitWidth = true
     }
 
     /**
@@ -46,8 +46,8 @@ export default class RGBLed extends CircuitElement {
                 inp2: findNode(this.inp2),
                 inp3: findNode(this.inp3),
             },
-        };
-        return data;
+        }
+        return data
     }
 
     /**
@@ -55,50 +55,50 @@ export default class RGBLed extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        var ctx = simulationArea.context;
+        var ctx = simulationArea.context
 
-        const xx = this.x;
-        const yy = this.y;
+        const xx = this.x
+        const yy = this.y
 
-        ctx.strokeStyle = "green";
-        ctx.lineWidth = correctWidth(3);
-        ctx.beginPath();
-        moveTo(ctx, -20, 0, xx, yy, this.direction);
-        lineTo(ctx, -40, 0, xx, yy, this.direction);
-        ctx.stroke();
+        ctx.strokeStyle = 'green'
+        ctx.lineWidth = correctWidth(3)
+        ctx.beginPath()
+        moveTo(ctx, -20, 0, xx, yy, this.direction)
+        lineTo(ctx, -40, 0, xx, yy, this.direction)
+        ctx.stroke()
 
-        ctx.strokeStyle = "red";
-        ctx.lineWidth = correctWidth(3);
-        ctx.beginPath();
-        moveTo(ctx, -20, -10, xx, yy, this.direction);
-        lineTo(ctx, -40, -10, xx, yy, this.direction);
-        ctx.stroke();
+        ctx.strokeStyle = 'red'
+        ctx.lineWidth = correctWidth(3)
+        ctx.beginPath()
+        moveTo(ctx, -20, -10, xx, yy, this.direction)
+        lineTo(ctx, -40, -10, xx, yy, this.direction)
+        ctx.stroke()
 
-        ctx.strokeStyle = "blue";
-        ctx.lineWidth = correctWidth(3);
-        ctx.beginPath();
-        moveTo(ctx, -20, 10, xx, yy, this.direction);
-        lineTo(ctx, -40, 10, xx, yy, this.direction);
-        ctx.stroke();
+        ctx.strokeStyle = 'blue'
+        ctx.lineWidth = correctWidth(3)
+        ctx.beginPath()
+        moveTo(ctx, -20, 10, xx, yy, this.direction)
+        lineTo(ctx, -40, 10, xx, yy, this.direction)
+        ctx.stroke()
 
-        const a = this.inp1.value;
-        const b = this.inp2.value;
-        const c = this.inp3.value;
-        ctx.strokeStyle = "#d3d4d5";
+        const a = this.inp1.value
+        const b = this.inp2.value
+        const c = this.inp3.value
+        ctx.strokeStyle = '#d3d4d5'
         ctx.fillStyle = [
             `rgba(${a}, ${b}, ${c}, 0.8)`,
-            "rgba(227, 228, 229, 0.8)",
-        ][(a === undefined || b === undefined || c === undefined) + 0];
+            'rgba(227, 228, 229, 0.8)',
+        ][(a === undefined || b === undefined || c === undefined) + 0]
         // ctx.fillStyle = ["rgba(200, 200, 200, 0.3)","rgba(227, 228, 229, 0.8)"][((a === undefined || b === undefined || c === undefined) || (a === 0 && b === 0 && c === 0)) + 0];
-        ctx.lineWidth = correctWidth(1);
+        ctx.lineWidth = correctWidth(1)
 
-        ctx.beginPath();
+        ctx.beginPath()
 
-        moveTo(ctx, -18, -11, xx, yy, this.direction);
-        lineTo(ctx, 0, -11, xx, yy, this.direction);
-        arc(ctx, 0, 0, 11, -Math.PI / 2, Math.PI / 2, xx, yy, this.direction);
-        lineTo(ctx, -18, 11, xx, yy, this.direction);
-        lineTo(ctx, -21, 15, xx, yy, this.direction);
+        moveTo(ctx, -18, -11, xx, yy, this.direction)
+        lineTo(ctx, 0, -11, xx, yy, this.direction)
+        arc(ctx, 0, 0, 11, -Math.PI / 2, Math.PI / 2, xx, yy, this.direction)
+        lineTo(ctx, -18, 11, xx, yy, this.direction)
+        lineTo(ctx, -21, 15, xx, yy, this.direction)
         arc(
             ctx,
             0,
@@ -109,43 +109,51 @@ export default class RGBLed extends CircuitElement {
             xx,
             yy,
             this.direction
-        );
-        lineTo(ctx, -18, -11, xx, yy, this.direction);
-        ctx.stroke();
+        )
+        lineTo(ctx, -18, -11, xx, yy, this.direction)
+        ctx.stroke()
         if (
             (this.hover && !simulationArea.shiftDown) ||
             simulationArea.lastSelected === this ||
             simulationArea.multipleObjectSelections.contains(this)
         )
-            ctx.fillStyle = colors["hover_select"];
-        ctx.fill();
+            ctx.fillStyle = colors['hover_select']
+        ctx.fill()
     }
 
     // Draws the element in the subcuircuit. Used in layout mode
     subcircuitDraw(xOffset = 0, yOffset = 0) {
-        var ctx = simulationArea.context;
+        var ctx = simulationArea.context
 
-        var xx = this.subcircuitMetadata.x + xOffset;
-        var yy = this.subcircuitMetadata.y + yOffset;
-        var dimensionSize = 6;
+        var xx = this.subcircuitMetadata.x + xOffset
+        var yy = this.subcircuitMetadata.y + yOffset
+        var dimensionSize = 6
 
-        var a = this.inp1.value;
-        var b = this.inp2.value;
-        var c = this.inp3.value;
-        ctx.strokeStyle = "#090a0a";
-        ctx.fillStyle = ["rgba(" + a + ", " + b + ", " + c + ", 0.8)", "rgba(227, 228, 229, 0.8)"][((a === undefined || b === undefined || c === undefined)) + 0]
-        ctx.lineWidth = correctWidth(1);
+        var a = this.inp1.value
+        var b = this.inp2.value
+        var c = this.inp3.value
+        ctx.strokeStyle = '#090a0a'
+        ctx.fillStyle = [
+            'rgba(' + a + ', ' + b + ', ' + c + ', 0.8)',
+            'rgba(227, 228, 229, 0.8)',
+        ][(a === undefined || b === undefined || c === undefined) + 0]
+        ctx.lineWidth = correctWidth(1)
 
-        ctx.beginPath();
-        drawCircle2(ctx, 0, 0, dimensionSize, xx, yy, this.direction);           
-        ctx.stroke();
-        if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = "rgba(255, 255, 32,0.8)";
-        ctx.fill();
+        ctx.beginPath()
+        drawCircle2(ctx, 0, 0, dimensionSize, xx, yy, this.direction)
+        ctx.stroke()
+        if (
+            (this.hover && !simulationArea.shiftDown) ||
+            simulationArea.lastSelected == this ||
+            simulationArea.multipleObjectSelections.contains(this)
+        )
+            ctx.fillStyle = 'rgba(255, 255, 32,0.8)'
+        ctx.fill()
     }
     generateVerilog() {
         return `
       always @ (*)
-        $display("RGBLed:{${this.inp1.verilogLabel},${this.inp2.verilogLabel},${this.inp3.verilogLabel}} = {%d,%d,%d}", ${this.inp1.verilogLabel}, ${this.inp2.verilogLabel}, ${this.inp3.verilogLabel});`;
+        $display("RGBLed:{${this.inp1.verilogLabel},${this.inp2.verilogLabel},${this.inp3.verilogLabel}} = {%d,%d,%d}", ${this.inp1.verilogLabel}, ${this.inp2.verilogLabel}, ${this.inp3.verilogLabel});`
     }
 }
 
@@ -156,7 +164,7 @@ export default class RGBLed extends CircuitElement {
  * @category modules
  */
 RGBLed.prototype.tooltipText =
-    "RGB Led ToolTip: RGB Led inputs 8 bit values for the colors RED, GREEN and BLUE.";
+    'RGB Led ToolTip: RGB Led inputs 8 bit values for the colors RED, GREEN and BLUE.'
 
 /**
  * @memberof RGBLed
@@ -164,7 +172,6 @@ RGBLed.prototype.tooltipText =
  * @type {string}
  * @category modules
  */
-RGBLed.prototype.helplink =
-    "https://docs.circuitverse.org/#/outputs?id=rgb-led";
-RGBLed.prototype.objectType = "RGBLed";
-RGBLed.prototype.canShowInSubcircuit = true;
+RGBLed.prototype.helplink = 'https://docs.circuitverse.org/#/outputs?id=rgb-led'
+RGBLed.prototype.objectType = 'RGBLed'
+RGBLed.prototype.canShowInSubcircuit = true

@@ -1,7 +1,7 @@
-import CircuitElement from '../circuitElement';
-import Node, { findNode } from '../node';
-import simulationArea from '../simulationArea';
-import { fillText4 } from '../canvasApi';
+import CircuitElement from '../circuitElement'
+import Node, { findNode } from '../node'
+import simulationArea from '../simulationArea'
+import { fillText4 } from '../canvasApi'
 /**
  * @class
  * ForceGate
@@ -15,13 +15,13 @@ import { fillText4 } from '../canvasApi';
  */
 export default class ForceGate extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
-        super(x, y, scope, dir, bitWidth);
-        this.setDimensions(20, 10);
-        this.objectType = 'ForceGate';
-        this.scope.ForceGate.push(this);
-        this.inp1 = new Node(-20, 0, 0, this);
-        this.inp2 = new Node(0, 0, 0, this);
-        this.output1 = new Node(20, 0, 1, this);
+        super(x, y, scope, dir, bitWidth)
+        this.setDimensions(20, 10)
+        this.objectType = 'ForceGate'
+        this.scope.ForceGate.push(this)
+        this.inp1 = new Node(-20, 0, 0, this)
+        this.inp2 = new Node(0, 0, 0, this)
+        this.output1 = new Node(20, 0, 1, this)
     }
 
     /**
@@ -30,7 +30,7 @@ export default class ForceGate extends CircuitElement {
      * @return {boolean}
      */
     isResolvable() {
-        return (this.inp1.value !== undefined || this.inp2.value !== undefined);
+        return this.inp1.value !== undefined || this.inp2.value !== undefined
     }
 
     /**
@@ -46,8 +46,8 @@ export default class ForceGate extends CircuitElement {
                 inp1: findNode(this.inp1),
                 inp2: findNode(this.inp2),
             },
-        };
-        return data;
+        }
+        return data
     }
 
     /**
@@ -55,8 +55,12 @@ export default class ForceGate extends CircuitElement {
      * resolve output values based on inputData
      */
     resolve() {
-        if (this.inp2.value !== undefined) { this.output1.value = this.inp2.value; } else { this.output1.value = this.inp1.value; }
-        simulationArea.simulationQueue.add(this.output1);
+        if (this.inp2.value !== undefined) {
+            this.output1.value = this.inp2.value
+        } else {
+            this.output1.value = this.inp1.value
+        }
+        simulationArea.simulationQueue.add(this.output1)
     }
 
     /**
@@ -64,17 +68,17 @@ export default class ForceGate extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        var ctx = simulationArea.context;
-        const xx = this.x;
-        const yy = this.y;
+        var ctx = simulationArea.context
+        const xx = this.x
+        const yy = this.y
 
-        ctx.beginPath();
-        ctx.fillStyle = 'Black';
-        ctx.textAlign = 'center';
+        ctx.beginPath()
+        ctx.fillStyle = 'Black'
+        ctx.textAlign = 'center'
 
-        fillText4(ctx, 'I', -10, 0, xx, yy, this.direction, 10);
-        fillText4(ctx, 'O', 10, 0, xx, yy, this.direction, 10);
-        ctx.fill();
+        fillText4(ctx, 'I', -10, 0, xx, yy, this.direction, 10)
+        fillText4(ctx, 'O', 10, 0, xx, yy, this.direction, 10)
+        ctx.fill()
     }
 }
 
@@ -84,5 +88,5 @@ export default class ForceGate extends CircuitElement {
  * @type {string}
  * @category testbench
  */
-ForceGate.prototype.tooltipText = 'Force Gate ToolTip : ForceGate Selected.';
-ForceGate.prototype.objectType = 'ForceGate';
+ForceGate.prototype.tooltipText = 'Force Gate ToolTip : ForceGate Selected.'
+ForceGate.prototype.objectType = 'ForceGate'

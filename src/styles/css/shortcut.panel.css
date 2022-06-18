@@ -1,4 +1,4 @@
-.ui-dialog[aria-describedby="customShortcutDialog"] {
+.ui-dialog[aria-describedby='customShortcutDialog'] {
     min-width: 680px;
 }
 
@@ -101,7 +101,7 @@
     padding-right: 7px;
 }
 
-#preference div:not("#edit-icon") > span {
+#preference div:not('#edit-icon') > span {
     padding: 0 30px;
 }
 

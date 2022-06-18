@@ -1,6 +1,6 @@
 /* eslint-disable import/no-cycle */
-import EventQueue from './eventQueue';
-import { clockTick } from './utils';
+import EventQueue from './eventQueue'
+import { clockTick } from './utils'
 
 /**
  * simulation environment object - holds simulation canvas
@@ -70,30 +70,30 @@ const simulationArea = {
     lock: 'unlocked',
     timer() {
         ckickTimer = setTimeout(() => {
-            simulationArea.clickCount = 0;
-        }, 600);
+            simulationArea.clickCount = 0
+        }, 600)
     },
 
     setup() {
-        this.canvas = document.getElementById('simulationArea');
-        this.canvas.width = width;
-        this.canvas.height = height;
-        this.simulationQueue = new EventQueue(10000);
-        this.context = this.canvas.getContext('2d');
-        simulationArea.changeClockTime(simulationArea.timePeriod);
-        this.mouseDown = false;
+        this.canvas = document.getElementById('simulationArea')
+        this.canvas.width = width
+        this.canvas.height = height
+        this.simulationQueue = new EventQueue(10000)
+        this.context = this.canvas.getContext('2d')
+        simulationArea.changeClockTime(simulationArea.timePeriod)
+        this.mouseDown = false
     },
     changeClockTime(t) {
-        if (t < 50) return;
-        clearInterval(simulationArea.ClockInterval);
-        t = t || prompt('Enter Time Period:');
-        simulationArea.timePeriod = t;
-        simulationArea.ClockInterval = setInterval(clockTick, t);
+        if (t < 50) return
+        clearInterval(simulationArea.ClockInterval)
+        t = t || prompt('Enter Time Period:')
+        simulationArea.timePeriod = t
+        simulationArea.ClockInterval = setInterval(clockTick, t)
     },
     clear() {
-        if (!this.context) return;
-        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        if (!this.context) return
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height)
     },
-};
-export const { changeClockTime } = simulationArea;
-export default simulationArea;
+}
+export const { changeClockTime } = simulationArea
+export default simulationArea
