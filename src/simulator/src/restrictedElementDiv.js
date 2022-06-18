@@ -1,44 +1,46 @@
-export function updateRestrictedElementsList() {
-    if (restrictedElements.length === 0) return
 
-    const { restrictedCircuitElementsUsed } = globalScope
-    let restrictedStr = ''
+export function updateRestrictedElementsList() {
+    if (restrictedElements.length === 0) return;
+
+    const { restrictedCircuitElementsUsed } = globalScope;
+    let restrictedStr = '';
 
     restrictedCircuitElementsUsed.forEach((element) => {
-        restrictedStr += `${element}, `
-    })
+        restrictedStr += `${element}, `;
+    });
 
     if (restrictedStr === '') {
-        restrictedStr = 'None'
+        restrictedStr = 'None';
     } else {
-        restrictedStr = restrictedStr.slice(0, -2)
+        restrictedStr = restrictedStr.slice(0, -2);
     }
 
-    $('#restrictedElementsDiv--list').html(restrictedStr)
+    $('#restrictedElementsDiv--list').html(restrictedStr);
 }
+
 
 export function updateRestrictedElementsInScope(scope = globalScope) {
     // Do nothing if no restricted elements
-    if (restrictedElements.length === 0) return
+    if (restrictedElements.length === 0) return;
 
-    const restrictedElementsUsed = []
+    const restrictedElementsUsed = [];
     restrictedElements.forEach((element) => {
         if (scope[element].length > 0) {
-            restrictedElementsUsed.push(element)
+            restrictedElementsUsed.push(element);
         }
-    })
+    });
 
-    scope.restrictedCircuitElementsUsed = restrictedElementsUsed
-    updateRestrictedElementsList()
+    scope.restrictedCircuitElementsUsed = restrictedElementsUsed;
+    updateRestrictedElementsList();
 }
 
-// export function showRestricted() {
-//     $('#restrictedDiv').removeClass('display--none');
-//     // Show no help text for restricted elements
-//     $('#Help').removeClass('show');
-//     $('#restrictedDiv').html('The element has been restricted by mentor. Usage might lead to deduction in marks');
-// }
+export function showRestricted() {
+    $('#restrictedDiv').removeClass('display--none');
+    // Show no help text for restricted elements
+    $('#Help').removeClass('show');
+    $('#restrictedDiv').html('The element has been restricted by mentor. Usage might lead to deduction in marks');
+}
 
-// export function hideRestricted() {
-//     $('#restrictedDiv').addClass('display--none');
-// }
+export function hideRestricted() {
+    $('#restrictedDiv').addClass('display--none');
+}

@@ -1,7 +1,7 @@
 /* eslint-disable no-bitwise */
-import CircuitElement from '../circuitElement'
-import Node, { findNode } from '../node'
-import simulationArea from '../simulationArea'
+import CircuitElement from '../circuitElement';
+import Node, { findNode } from '../node';
+import simulationArea from '../simulationArea';
 
 /**
  * @class
@@ -15,23 +15,16 @@ import simulationArea from '../simulationArea'
  * @category modules
  */
 export default class verilogShiftRight extends CircuitElement {
-    constructor(
-        x,
-        y,
-        scope = globalScope,
-        dir = 'RIGHT',
-        bitWidth = 1,
-        outputBitWidth = 1
-    ) {
-        super(x, y, scope, dir, bitWidth)
+    constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1, outputBitWidth = 1) {
+        super(x, y, scope, dir, bitWidth);
         /* this is done in this.baseSetup() now
         this.scope['verilogShiftRight'].push(this);
         */
-        this.setDimensions(20, 20)
-        this.outputBitWidth = outputBitWidth
-        this.inp1 = new Node(-20, -10, 0, this, this.bitWidth, 'Input')
-        this.shiftInp = new Node(-20, 0, 0, this, this.bitWidth, 'ShiftInput')
-        this.output1 = new Node(20, 0, 1, this, this.outputBitWidth, 'Output')
+        this.setDimensions(20, 20);
+        this.outputBitWidth = outputBitWidth;
+        this.inp1 = new Node(-20, -10, 0, this, this.bitWidth, 'Input');
+        this.shiftInp = new Node(-20, 0, 0, this, this.bitWidth, 'ShiftInput');
+        this.output1 = new Node(20, 0, 1, this, this.outputBitWidth, 'Output');
     }
 
     /**
@@ -41,18 +34,14 @@ export default class verilogShiftRight extends CircuitElement {
      */
     customSave() {
         const data = {
-            constructorParamaters: [
-                this.direction,
-                this.bitWidth,
-                this.outputBitWidth,
-            ],
+            constructorParamaters: [this.direction, this.bitWidth, this.outputBitWidth],
             nodes: {
                 inp1: findNode(this.inp1),
                 shiftInp: findNode(this.shiftInp),
                 output1: findNode(this.output1),
             },
-        }
-        return data
+        };
+        return data;
     }
 
     /**
@@ -61,9 +50,7 @@ export default class verilogShiftRight extends CircuitElement {
      * @return {boolean}
      */
     isResolvable() {
-        return (
-            this.inp1.value !== undefined && this.shiftInp.value !== undefined
-        )
+        return this.inp1.value !== undefined && this.shiftInp.value !== undefined;
     }
 
     /**
@@ -72,10 +59,10 @@ export default class verilogShiftRight extends CircuitElement {
      * @param {number} bitWidth - new bitwidth
      */
     newBitWidth(bitWidth) {
-        this.bitWidth = bitWidth
-        this.inp1.bitWidth = bitWidth
-        this.shiftInp.bitWidth = bitWidth
-        this.output1.bitWidth = bitWidth
+        this.bitWidth = bitWidth;
+        this.inp1.bitWidth = bitWidth;
+        this.shiftInp.bitWidth = bitWidth;
+        this.output1.bitWidth = bitWidth;
     }
 
     /**
@@ -84,14 +71,12 @@ export default class verilogShiftRight extends CircuitElement {
      */
     resolve() {
         if (this.isResolvable() === false) {
-            return
+            return;
         }
-        const output1 = this.inp1.value >> this.shiftInp.value
+        const output1 = this.inp1.value >> this.shiftInp.value;
 
-        this.output1.value =
-            (output1 << (32 - this.outputBitWidth)) >>>
-            (32 - this.outputBitWidth)
-        simulationArea.simulationQueue.add(this.output1)
+        this.output1.value = ((output1) << (32 - this.outputBitWidth)) >>> (32 - this.outputBitWidth);
+        simulationArea.simulationQueue.add(this.output1);
     }
 }
 
@@ -101,8 +86,6 @@ export default class verilogShiftRight extends CircuitElement {
  * @type {string}
  * @category modules
  */
-verilogShiftRight.prototype.tooltipText =
-    'verilogShiftRight ToolTip : Performs addition of numbers.'
-verilogShiftRight.prototype.helplink =
-    'https://docs.circuitverse.org/#/miscellaneous?id=verilogShiftRight'
-verilogShiftRight.prototype.objectType = 'verilogShiftRight'
+verilogShiftRight.prototype.tooltipText = 'verilogShiftRight ToolTip : Performs addition of numbers.';
+verilogShiftRight.prototype.helplink = 'https://docs.circuitverse.org/#/miscellaneous?id=verilogShiftRight';
+verilogShiftRight.prototype.objectType = 'verilogShiftRight';

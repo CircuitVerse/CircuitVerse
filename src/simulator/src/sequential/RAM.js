@@ -1,8 +1,8 @@
-import CircuitElement from '../circuitElement'
-import Node, { findNode } from '../node'
-import simulationArea from '../simulationArea'
-import { correctWidth, fillText2, fillText4, drawCircle2 } from '../canvasApi'
-import { parseNumber, showMessage } from '../utils'
+import CircuitElement from '../circuitElement';
+import Node, { findNode } from '../node';
+import simulationArea from '../simulationArea';
+import { correctWidth, fillText2, fillText4, drawCircle2 } from '../canvasApi';
+import {parseNumber, showMessage} from '../utils';
 /**
  * @class
  * RAM Component.
@@ -43,77 +43,35 @@ import { parseNumber, showMessage } from '../utils'
  * by keeping the max addressWidth small. If needed, we can increase the max.
  * @category sequential
  */
-import { colors } from '../themer/themer'
-import { showError } from '../utils'
+import { colors } from '../themer/themer';
+import { showError } from '../utils';
 export default class RAM extends CircuitElement {
-    constructor(
-        x,
-        y,
-        scope = globalScope,
-        dir = 'RIGHT',
-        bitWidth = 8,
-        addressWidth = 10
-    ) {
-        super(x, y, scope, dir, Math.min(Math.max(1, bitWidth), 32))
+    constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 8, addressWidth = 10) {
+        super(x, y, scope, dir, Math.min(Math.max(1, bitWidth), 32));
         /*
         this.scope['RAM'].push(this);
         */
-        this.setDimensions(60, 40)
+        this.setDimensions(60, 40);
 
-        this.directionFixed = true
-        this.labelDirection = 'UP'
+        this.directionFixed = true;
+        this.labelDirection = 'UP';
 
-        this.addressWidth = Math.min(
-            Math.max(1, addressWidth),
-            this.maxAddressWidth
-        )
-        this.address = new Node(
-            -this.leftDimensionX,
-            -20,
-            0,
-            this,
-            this.addressWidth,
-            'ADDRESS'
-        )
-        this.dataIn = new Node(
-            -this.leftDimensionX,
-            0,
-            0,
-            this,
-            this.bitWidth,
-            'DATA IN'
-        )
-        this.write = new Node(-this.leftDimensionX, 20, 0, this, 1, 'WRITE')
-        this.reset = new Node(0, this.downDimensionY, 0, this, 1, 'RESET')
-        this.coreDump = new Node(
-            -20,
-            this.downDimensionY,
-            0,
-            this,
-            1,
-            'CORE DUMP'
-        )
-        this.dataOut = new Node(
-            this.rightDimensionX,
-            0,
-            1,
-            this,
-            this.bitWidth,
-            'DATA OUT'
-        )
-        this.prevCoreDumpValue = undefined
+        this.addressWidth = Math.min(Math.max(1, addressWidth), this.maxAddressWidth);
+        this.address = new Node(-this.leftDimensionX, -20, 0, this, this.addressWidth, 'ADDRESS');
+        this.dataIn = new Node(-this.leftDimensionX, 0, 0, this, this.bitWidth, 'DATA IN');
+        this.write = new Node(-this.leftDimensionX, 20, 0, this, 1, 'WRITE');
+        this.reset = new Node(0, this.downDimensionY, 0, this, 1, 'RESET');
+        this.coreDump = new Node(-20, this.downDimensionY, 0, this, 1, 'CORE DUMP');
+        this.dataOut = new Node(this.rightDimensionX, 0, 1, this, this.bitWidth, 'DATA OUT');
+        this.prevCoreDumpValue = undefined;
 
-        this.clearData()
+        this.clearData();
     }
 
     customSave() {
         return {
             // NOTE: data is not persisted since RAMs are volatile.
-            constructorParamaters: [
-                this.direction,
-                this.bitWidth,
-                this.addressWidth,
-            ],
+            constructorParamaters: [this.direction, this.bitWidth, this.addressWidth],
             nodes: {
                 address: findNode(this.address),
                 dataIn: findNode(this.dataIn),
@@ -122,199 +80,145 @@ export default class RAM extends CircuitElement {
                 coreDump: findNode(this.coreDump),
                 dataOut: findNode(this.dataOut),
             },
-        }
+        };
     }
 
     newBitWidth(value) {
-        value = parseInt(value)
-        if (
-            !isNaN(value) &&
-            this.bitWidth != value &&
-            value >= 1 &&
-            value <= 32
-        ) {
-            this.bitWidth = value
-            this.dataIn.bitWidth = value
-            this.dataOut.bitWidth = value
-            this.clearData()
+        value = parseInt(value);
+        if (!isNaN(value) && this.bitWidth != value && value >= 1 && value <= 32) {
+            this.bitWidth = value;
+            this.dataIn.bitWidth = value;
+            this.dataOut.bitWidth = value;
+            this.clearData();
         }
     }
 
     changeAddressWidth(value) {
-        value = parseInt(value)
-        if (
-            !isNaN(value) &&
-            this.addressWidth != value &&
-            value >= 1 &&
-            value <= this.maxAddressWidth
-        ) {
-            this.addressWidth = value
-            this.address.bitWidth = value
-            this.clearData()
+        value = parseInt(value);
+        if (!isNaN(value) && this.addressWidth != value && value >= 1 && value <= this.maxAddressWidth) {
+            this.addressWidth = value;
+            this.address.bitWidth = value;
+            this.clearData();
         }
     }
 
     clearData() {
-        this.data = new Array(Math.pow(2, this.addressWidth))
-        this.tooltipText = `${this.memSizeString()} ${this.shortName}`
+        this.data = new Array(Math.pow(2, this.addressWidth));
+        this.tooltipText = `${this.memSizeString()} ${this.shortName}`;
     }
 
     isResolvable() {
-        return (
-            this.address.value !== undefined ||
-            this.reset.value !== undefined ||
-            this.coreDump.value !== undefined
-        )
+        return this.address.value !== undefined || this.reset.value !== undefined || this.coreDump.value !== undefined;
     }
 
     resolve() {
         if (this.write.value == 1) {
-            this.data[this.address.value] = this.dataIn.value
+            this.data[this.address.value] = this.dataIn.value;
         }
 
         if (this.reset.value == 1) {
-            this.clearData()
+            this.clearData();
         }
 
-        if (
-            this.coreDump.value &&
-            this.prevCoreDumpValue != this.coreDump.value
-        ) {
-            this.dump()
+        if (this.coreDump.value && this.prevCoreDumpValue != this.coreDump.value) {
+            this.dump();
         }
-        this.prevCoreDumpValue = this.coreDump.value
+        this.prevCoreDumpValue = this.coreDump.value;
 
-        this.dataOut.value = this.data[this.address.value] || 0
-        simulationArea.simulationQueue.add(this.dataOut)
+        this.dataOut.value = this.data[this.address.value] || 0;
+        simulationArea.simulationQueue.add(this.dataOut);
     }
 
     customDraw() {
-        var ctx = simulationArea.context
-        //
-        var xx = this.x
-        var yy = this.y
+        var ctx = simulationArea.context;
+        //        
+        var xx = this.x;
+        var yy = this.y;
 
-        ctx.beginPath()
-        ctx.strokeStyle = 'gray'
-        ctx.fillStyle = this.write.value ? 'red' : 'lightgreen'
-        ctx.lineWidth = correctWidth(1)
-        drawCircle2(ctx, 50, -30, 3, xx, yy, this.direction)
-        ctx.fill()
-        ctx.stroke()
+        ctx.beginPath();
+        ctx.strokeStyle = 'gray';
+        ctx.fillStyle = this.write.value ? 'red' : 'lightgreen';
+        ctx.lineWidth = correctWidth(1);
+        drawCircle2(ctx, 50, -30, 3, xx, yy, this.direction);
+        ctx.fill();
+        ctx.stroke();
 
-        ctx.beginPath()
-        ctx.textAlign = 'center'
-        ctx.fillStyle = 'black'
-        fillText4(ctx, this.memSizeString(), 0, -10, xx, yy, this.direction, 12)
-        fillText4(ctx, this.shortName, 0, 10, xx, yy, this.direction, 12)
-        fillText2(
-            ctx,
-            'A',
-            this.address.x + 12,
-            this.address.y,
-            xx,
-            yy,
-            this.direction
-        )
-        fillText2(
-            ctx,
-            'DI',
-            this.dataIn.x + 12,
-            this.dataIn.y,
-            xx,
-            yy,
-            this.direction
-        )
-        fillText2(
-            ctx,
-            'W',
-            this.write.x + 12,
-            this.write.y,
-            xx,
-            yy,
-            this.direction
-        )
-        fillText2(
-            ctx,
-            'DO',
-            this.dataOut.x - 15,
-            this.dataOut.y,
-            xx,
-            yy,
-            this.direction
-        )
-        ctx.fill()
+        ctx.beginPath();
+        ctx.textAlign = 'center';
+        ctx.fillStyle = 'black';
+        fillText4(ctx, this.memSizeString(), 0, -10, xx, yy, this.direction, 12);
+        fillText4(ctx, this.shortName, 0, 10, xx, yy, this.direction, 12);
+        fillText2(ctx, 'A', this.address.x + 12, this.address.y, xx, yy, this.direction);
+        fillText2(ctx, 'DI', this.dataIn.x + 12, this.dataIn.y, xx, yy, this.direction);
+        fillText2(ctx, 'W', this.write.x + 12, this.write.y, xx, yy, this.direction);
+        fillText2(ctx, 'DO', this.dataOut.x - 15, this.dataOut.y, xx, yy, this.direction);
+        ctx.fill();
     }
 
     memSizeString() {
-        var mag = ['', 'K', 'M']
-        var unit =
-            this.bitWidth == 8
-                ? 'B'
-                : this.bitWidth == 1
-                ? 'b'
-                : ` x ${this.bitWidth}b`
-        var v = Math.pow(2, this.addressWidth)
-        var m = 0
+        var mag = ['', 'K', 'M'];
+        var unit = this.bitWidth == 8 ? 'B' : this.bitWidth == 1 ? 'b' : ` x ${this.bitWidth}b`;
+        var v = Math.pow(2, this.addressWidth);
+        var m = 0;
         while (v >= 1024 && m < mag.length - 1) {
-            v /= 1024
-            m++
+            v /= 1024;
+            m++;
         }
-        return v + mag[m] + unit
+        return v + mag[m] + unit;
     }
 
     dump() {
-        var logLabel = console.group && this.label
+        var logLabel = console.group && this.label;
         if (logLabel) {
-            console.group(this.label)
+            console.group(this.label);
         }
 
-        showMessage('Data dumped to developer Console')
+        showMessage("Data dumped to developer Console");
 
-        console.log(JSON.stringify(this.data))
+        console.log(JSON.stringify(this.data));
 
         if (logLabel) {
-            console.groupEnd()
+            console.groupEnd();
         }
     }
 
     dblclick() {
-        this.promptData()
+        this.promptData();
     }
 
     promptData() {
-        var data = prompt(
-            'Enter Data (separated by space, comma, tab or newline) (data can be in hex, binary, octal or decimal)'
-        )
+        var data = prompt("Enter Data (separated by space, comma, tab or newline) (data can be in hex, binary, octal or decimal)");
         if (!data) {
-            showError('No data entered.')
-            return
+            showError("No data entered.");
+            return;
         }
-        var oldData = this.data
+        var oldData = this.data;
         try {
-            var ramSize = 1 << this.addressWidth
-            var maxNumber = 1 << this.bitWidth
-            this.clearData()
+            var ramSize = 1 << this.addressWidth;
+            var maxNumber = 1 << this.bitWidth;
+            this.clearData();
 
-            data = data.split(/[, \n\t]/)
-            data = data.filter((x) => x.length)
+            data = data.split(/[, \n\t]/);
+            data = data.filter(x => x.length);
             if (data.length > ramSize) {
-                throw `Capacity: ${ramSize}. But ${data.length} data cells found`
+                throw `Capacity: ${ramSize}. But ${data.length} data cells found`;
             }
 
             for (var i = 0; i < data.length; i++) {
-                var dataCell = parseNumber(data[i])
+                var dataCell = parseNumber(data[i]);
                 if (isNaN(dataCell))
-                    throw `Address ${i}: ${data[i]} is not a number`
-                if (dataCell < 0) throw `Address ${i}: ${data[i]} is negative`
+                    throw `Address ${i}: ${data[i]} is not a number`;
+                if (dataCell < 0)
+                    throw `Address ${i}: ${data[i]} is negative`;
                 if (dataCell >= maxNumber)
-                    throw `Address ${i}: ${data[i]} is too large`
-                this.data[i] = dataCell
+                    throw `Address ${i}: ${data[i]} is too large`;
+                this.data[i] = dataCell;
             }
-            showMessage(`${data.length} data cells loaded`)
-        } catch (e) {
-            this.data = oldData
-            showError(e)
+            showMessage(`${data.length} data cells loaded`);
+        }
+        catch (e) {
+            this.data = oldData;
+            showError(e);
         }
     }
 
@@ -340,13 +244,13 @@ export default class RAM extends CircuitElement {
             mem[addr] = din;
         end
     endmodule
-    `
+    `;
     }
 }
 
-RAM.prototype.tooltipText = 'Random Access Memory'
-RAM.prototype.shortName = 'RAM'
-RAM.prototype.maxAddressWidth = 20
+RAM.prototype.tooltipText = 'Random Access Memory';
+RAM.prototype.shortName = 'RAM';
+RAM.prototype.maxAddressWidth = 20;
 RAM.prototype.mutableProperties = {
     addressWidth: {
         name: 'Address Width',
@@ -370,5 +274,5 @@ RAM.prototype.mutableProperties = {
         type: 'button',
         func: 'clearData',
     },
-}
-RAM.prototype.objectType = 'RAM'
+};
+RAM.prototype.objectType = 'RAM';

@@ -1,9 +1,9 @@
-import CircuitElement from '../circuitElement'
-import Node, { findNode } from '../node'
-import simulationArea from '../simulationArea'
-import { correctWidth, rect2, fillText } from '../canvasApi'
-import plotArea from '../plotArea'
-import EventQueue from '../eventQueue'
+import CircuitElement from "../circuitElement";
+import Node, { findNode } from "../node";
+import simulationArea from "../simulationArea";
+import { correctWidth, rect2, fillText } from "../canvasApi";
+import plotArea from "../plotArea";
+import EventQueue from '../eventQueue';
 /**
  * @class
  * Flag
@@ -16,57 +16,57 @@ import EventQueue from '../eventQueue'
  * @param {string} identifier - id
  * @category modules
  */
-import { colors } from '../themer/themer'
+import { colors } from "../themer/themer";
 
 export default class Flag extends CircuitElement {
     constructor(
         x,
         y,
         scope = globalScope,
-        dir = 'RIGHT',
+        dir = "RIGHT",
         bitWidth = 1,
         identifier
     ) {
-        super(x, y, scope, dir, bitWidth)
+        super(x, y, scope, dir, bitWidth);
         /* this is done in this.baseSetup() now
         this.scope['Flag'].push(this);
         */
-        this.setWidth(60)
-        this.setHeight(20)
-        this.rectangleObject = false
-        this.directionFixed = true
-        this.orientationFixed = false
-        this.identifier = identifier || `F${this.scope.Flag.length}`
-        this.plotValues = []
+        this.setWidth(60);
+        this.setHeight(20);
+        this.rectangleObject = false;
+        this.directionFixed = true;
+        this.orientationFixed = false;
+        this.identifier = identifier || `F${this.scope.Flag.length}`;
+        this.plotValues = [];
 
-        this.xSize = 10
-        this.flagTimeUnit = 0
+        this.xSize = 10;
+        this.flagTimeUnit = 0;
 
-        this.inp1 = new Node(40, 0, 0, this)
+        this.inp1 = new Node(40, 0, 0, this);
     }
 
     resolve() {
-        this.flagTimeUnit = simulationArea.simulationQueue.time
-        const time = plotArea.getPlotTime(this.flagTimeUnit)
+        this.flagTimeUnit = simulationArea.simulationQueue.time;
+        const time = plotArea.getPlotTime(this.flagTimeUnit);
 
         if (
             this.plotValues.length &&
             this.plotValues[this.plotValues.length - 1][0] === time
         ) {
-            this.plotValues.pop()
+            this.plotValues.pop();
         }
 
         if (this.plotValues.length === 0) {
-            this.plotValues.push([time, this.inp1.value])
-            return
+            this.plotValues.push([time, this.inp1.value]);
+            return;
         }
 
         if (
             this.plotValues[this.plotValues.length - 1][1] === this.inp1.value
         ) {
-            return
+            return;
         }
-        this.plotValues.push([time, this.inp1.value])
+        this.plotValues.push([time, this.inp1.value]);
     }
 
     /**
@@ -83,8 +83,8 @@ export default class Flag extends CircuitElement {
             values: {
                 identifier: this.identifier,
             },
-        }
-        return data
+        };
+        return data;
     }
 
     /**
@@ -92,13 +92,13 @@ export default class Flag extends CircuitElement {
      * set the flag id
      * @param {number} id - identifier for flag
      */
-    setIdentifier(id = '') {
-        if (id.length === 0) return
-        this.identifier = id
-        const len = this.identifier.length
-        if (len === 1) this.xSize = 20
-        else if (len > 1 && len < 4) this.xSize = 10
-        else this.xSize = 0
+    setIdentifier(id = "") {
+        if (id.length === 0) return;
+        this.identifier = id;
+        const len = this.identifier.length;
+        if (len === 1) this.xSize = 20;
+        else if (len > 1 && len < 4) this.xSize = 10;
+        else this.xSize = 0;
     }
 
     /**
@@ -106,13 +106,13 @@ export default class Flag extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        var ctx = simulationArea.context
-        ctx.beginPath()
-        ctx.strokeStyle = colors['stroke']
-        ctx.fillStyle = colors['fill']
-        ctx.lineWidth = correctWidth(1)
-        const xx = this.x
-        const yy = this.y
+        var ctx = simulationArea.context;
+        ctx.beginPath();
+        ctx.strokeStyle = colors["stroke"];
+        ctx.fillStyle = colors["fill"];
+        ctx.lineWidth = correctWidth(1);
+        const xx = this.x;
+        const yy = this.y;
 
         rect2(
             ctx,
@@ -122,43 +122,43 @@ export default class Flag extends CircuitElement {
             40,
             xx,
             yy,
-            'RIGHT'
-        )
+            "RIGHT"
+        );
         if (
             (this.hover && !simulationArea.shiftDown) ||
             simulationArea.lastSelected === this ||
             simulationArea.multipleObjectSelections.contains(this)
         )
-            ctx.fillStyle = colors['hover_select']
-        ctx.fill()
-        ctx.stroke()
+            ctx.fillStyle = colors["hover_select"];
+        ctx.fill();
+        ctx.stroke();
 
-        ctx.font = '14px Raleway'
-        this.xOff = ctx.measureText(this.identifier).width
+        ctx.font = "14px Raleway";
+        this.xOff = ctx.measureText(this.identifier).width;
 
-        ctx.beginPath()
-        rect2(ctx, -40 + this.xSize, -12, this.xOff + 10, 25, xx, yy, 'RIGHT')
-        ctx.fillStyle = '#eee'
-        ctx.strokeStyle = '#ccc'
-        ctx.fill()
-        ctx.stroke()
+        ctx.beginPath();
+        rect2(ctx, -40 + this.xSize, -12, this.xOff + 10, 25, xx, yy, "RIGHT");
+        ctx.fillStyle = "#eee";
+        ctx.strokeStyle = "#ccc";
+        ctx.fill();
+        ctx.stroke();
 
-        ctx.beginPath()
-        ctx.textAlign = 'center'
-        ctx.fillStyle = 'black'
+        ctx.beginPath();
+        ctx.textAlign = "center";
+        ctx.fillStyle = "black";
         fillText(
             ctx,
             this.identifier,
             xx - 35 + this.xOff / 2 + this.xSize,
             yy + 5,
             14
-        )
-        ctx.fill()
+        );
+        ctx.fill();
 
-        ctx.beginPath()
-        ctx.font = '30px Raleway'
-        ctx.textAlign = 'center'
-        ctx.fillStyle = ['blue', 'red'][+(this.inp1.value === undefined)]
+        ctx.beginPath();
+        ctx.font = "30px Raleway";
+        ctx.textAlign = "center";
+        ctx.fillStyle = ["blue", "red"][+(this.inp1.value === undefined)];
         if (this.inp1.value !== undefined) {
             fillText(
                 ctx,
@@ -166,11 +166,11 @@ export default class Flag extends CircuitElement {
                 xx + 35 - this.xSize,
                 yy + 8,
                 25
-            )
+            );
         } else {
-            fillText(ctx, 'x', xx + 35 - this.xSize, yy + 8, 25)
+            fillText(ctx, "x", xx + 35 - this.xSize, yy + 8, 25);
         }
-        ctx.fill()
+        ctx.fill();
     }
 
     /**
@@ -179,20 +179,20 @@ export default class Flag extends CircuitElement {
      * @param {string} dir - new direction
      */
     newDirection(dir) {
-        if (dir === this.direction) return
-        this.direction = dir
-        this.inp1.refresh()
-        if (dir === 'RIGHT' || dir === 'LEFT') {
-            this.inp1.leftx = 50 - this.xSize
-        } else if (dir === 'UP') {
-            this.inp1.leftx = 20
+        if (dir === this.direction) return;
+        this.direction = dir;
+        this.inp1.refresh();
+        if (dir === "RIGHT" || dir === "LEFT") {
+            this.inp1.leftx = 50 - this.xSize;
+        } else if (dir === "UP") {
+            this.inp1.leftx = 20;
         } else {
-            this.inp1.leftx = 20
+            this.inp1.leftx = 20;
         }
         // if(this.direction=="LEFT" || this.direction=="RIGHT") this.inp1.leftx=50-this.xSize;
         //     this.inp1.refresh();
 
-        this.inp1.refresh()
+        this.inp1.refresh();
     }
 }
 
@@ -203,9 +203,9 @@ export default class Flag extends CircuitElement {
  * @category modules
  */
 Flag.prototype.tooltipText =
-    'FLag ToolTip: Use this for debugging and plotting.'
+    "FLag ToolTip: Use this for debugging and plotting.";
 Flag.prototype.helplink =
-    'https://docs.circuitverse.org/#/timing_diagrams?id=using-flags'
+    "https://docs.circuitverse.org/#/timing_diagrams?id=using-flags";
 
 /**
  * @memberof Flag
@@ -214,7 +214,7 @@ Flag.prototype.helplink =
  * @category modules
  */
 Flag.prototype.helplink =
-    'https://docs.circuitverse.org/#/miscellaneous?id=tunnel'
+    "https://docs.circuitverse.org/#/miscellaneous?id=tunnel";
 
 /**
  * @memberof Flag
@@ -224,11 +224,11 @@ Flag.prototype.helplink =
  */
 Flag.prototype.mutableProperties = {
     identifier: {
-        name: 'Debug Flag identifier',
-        type: 'text',
-        maxlength: '5',
-        func: 'setIdentifier',
+        name: "Debug Flag identifier",
+        type: "text",
+        maxlength: "5",
+        func: "setIdentifier",
     },
-}
-Flag.prototype.objectType = 'Flag'
-Flag.prototype.propagationDelay = 0
+};
+Flag.prototype.objectType = "Flag";
+Flag.prototype.propagationDelay = 0;

@@ -40,5 +40,5 @@ export const CreateAbstraction = (themeOptions) => {
             description: 'borders color',
             ref: ['--br-secondary'],
         },
-    }
-}
+    };
+};

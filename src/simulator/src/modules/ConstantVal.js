@@ -1,18 +1,18 @@
-import CircuitElement from '../circuitElement'
-import Node, { findNode } from '../node'
-import simulationArea from '../simulationArea'
-import { correctWidth, rect2, fillText, oppositeDirection } from '../canvasApi'
-import { colors } from '../themer/themer'
+import CircuitElement from "../circuitElement";
+import Node, { findNode } from "../node";
+import simulationArea from "../simulationArea";
+import { correctWidth, rect2, fillText, oppositeDirection } from "../canvasApi";
+import { colors } from "../themer/themer";
 
 function bin2dec(binString) {
-    return parseInt(binString, 2)
+    return parseInt(binString, 2);
 }
 
 function dec2bin(dec, bitWidth = undefined) {
     // only for positive nos
-    var bin = dec.toString(2)
-    if (bitWidth == undefined) return bin
-    return '0'.repeat(bitWidth - bin.length) + bin
+    var bin = dec.toString(2);
+    if (bitWidth == undefined) return bin;
+    return "0".repeat(bitWidth - bin.length) + bin;
 }
 
 /**
@@ -32,31 +32,31 @@ export default class ConstantVal extends CircuitElement {
         x,
         y,
         scope = globalScope,
-        dir = 'RIGHT',
+        dir = "RIGHT",
         bitWidth = 1,
-        state = '0'
+        state = "0"
     ) {
         // state = state || prompt('Enter value');
-        super(x, y, scope, dir, state.length)
+        super(x, y, scope, dir, state.length);
         /* this is done in this.baseSetup() now
             this.scope['ConstantVal'].push(this);
         */
-        this.state = state
-        this.setDimensions(10 * this.state.length, 10)
-        this.bitWidth = bitWidth || this.state.length
-        this.directionFixed = true
-        this.orientationFixed = false
-        this.rectangleObject = false
+        this.state = state;
+        this.setDimensions(10 * this.state.length, 10);
+        this.bitWidth = bitWidth || this.state.length;
+        this.directionFixed = true;
+        this.orientationFixed = false;
+        this.rectangleObject = false;
 
-        this.output1 = new Node(this.bitWidth * 10, 0, 1, this)
-        this.wasClicked = false
-        this.label = ''
+        this.output1 = new Node(this.bitWidth * 10, 0, 1, this);
+        this.wasClicked = false;
+        this.label = "";
     }
 
     generateVerilog() {
         return `localparam [${this.bitWidth - 1}:0] ${this.verilogLabel}=${
             this.bitWidth
-        }b'${this.state};`
+        }b'${this.state};`;
     }
 
     /**
@@ -70,8 +70,8 @@ export default class ConstantVal extends CircuitElement {
                 output1: findNode(this.output1),
             },
             constructorParamaters: [this.direction, this.bitWidth, this.state],
-        }
-        return data
+        };
+        return data;
     }
 
     /**
@@ -79,8 +79,8 @@ export default class ConstantVal extends CircuitElement {
      * resolve output values based on inputData
      */
     resolve() {
-        this.output1.value = bin2dec(this.state)
-        simulationArea.simulationQueue.add(this.output1)
+        this.output1.value = bin2dec(this.state);
+        simulationArea.simulationQueue.add(this.output1);
     }
 
     /**
@@ -88,8 +88,8 @@ export default class ConstantVal extends CircuitElement {
      * updates state using a prompt when dbl clicked
      */
     dblclick() {
-        this.state = prompt('Re enter the value') || '0'
-        this.newBitWidth(this.state.toString().length)
+        this.state = prompt("Re enter the value") || "0";
+        this.newBitWidth(this.state.toString().length);
     }
 
     /**
@@ -99,18 +99,18 @@ export default class ConstantVal extends CircuitElement {
      */
     newBitWidth(bitWidth) {
         if (bitWidth > this.state.length)
-            this.state = '0'.repeat(bitWidth - this.state.length) + this.state
+            this.state = "0".repeat(bitWidth - this.state.length) + this.state;
         else if (bitWidth < this.state.length)
-            this.state = this.state.slice(this.bitWidth - bitWidth)
-        this.bitWidth = bitWidth // ||parseInt(prompt("Enter bitWidth"),10);
-        this.output1.bitWidth = bitWidth
-        this.setDimensions(10 * this.bitWidth, 10)
-        if (this.direction === 'RIGHT') {
-            this.output1.x = 10 * this.bitWidth
-            this.output1.leftx = 10 * this.bitWidth
-        } else if (this.direction === 'LEFT') {
-            this.output1.x = -10 * this.bitWidth
-            this.output1.leftx = 10 * this.bitWidth
+            this.state = this.state.slice(this.bitWidth - bitWidth);
+        this.bitWidth = bitWidth; // ||parseInt(prompt("Enter bitWidth"),10);
+        this.output1.bitWidth = bitWidth;
+        this.setDimensions(10 * this.bitWidth, 10);
+        if (this.direction === "RIGHT") {
+            this.output1.x = 10 * this.bitWidth;
+            this.output1.leftx = 10 * this.bitWidth;
+        } else if (this.direction === "LEFT") {
+            this.output1.x = -10 * this.bitWidth;
+            this.output1.leftx = 10 * this.bitWidth;
         }
     }
 
@@ -119,13 +119,13 @@ export default class ConstantVal extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        var ctx = simulationArea.context
-        ctx.beginPath()
-        ctx.strokeStyle = colors['stroke']
-        ctx.fillStyle = colors['fill']
-        ctx.lineWidth = correctWidth(1)
-        const xx = this.x
-        const yy = this.y
+        var ctx = simulationArea.context;
+        ctx.beginPath();
+        ctx.strokeStyle = colors["stroke"];
+        ctx.fillStyle = colors["fill"];
+        ctx.lineWidth = correctWidth(1);
+        const xx = this.x;
+        const yy = this.y;
 
         rect2(
             ctx,
@@ -135,25 +135,30 @@ export default class ConstantVal extends CircuitElement {
             20,
             xx,
             yy,
-            'RIGHT'
-        )
+            "RIGHT"
+        );
         if (
             (this.hover && !simulationArea.shiftDown) ||
             simulationArea.lastSelected === this ||
             simulationArea.multipleObjectSelections.contains(this)
         )
-            ctx.fillStyle = colors['hover_select']
-        ctx.fill()
-        ctx.stroke()
+            ctx.fillStyle = colors["hover_select"];
+        ctx.fill();
+        ctx.stroke();
 
-        ctx.beginPath()
-        ctx.fillStyle = colors['input_text']
-        ctx.textAlign = 'center'
-        const bin = this.state // dec2bin(this.state,this.bitWidth);
+        ctx.beginPath();
+        ctx.fillStyle = colors["input_text"];
+        ctx.textAlign = "center";
+        const bin = this.state; // dec2bin(this.state,this.bitWidth);
         for (let k = 0; k < this.bitWidth; k++) {
-            fillText(ctx, bin[k], xx - 10 * this.bitWidth + 10 + k * 20, yy + 5)
+            fillText(
+                ctx,
+                bin[k],
+                xx - 10 * this.bitWidth + 10 + k * 20,
+                yy + 5
+            );
         }
-        ctx.fill()
+        ctx.fill();
     }
 
     /**
@@ -162,23 +167,23 @@ export default class ConstantVal extends CircuitElement {
      * @param {string} dir - new direction
      */
     newDirection(dir) {
-        if (dir === this.direction) return
-        this.direction = dir
-        this.output1.refresh()
-        if (dir === 'RIGHT' || dir === 'LEFT') {
-            this.output1.leftx = 10 * this.bitWidth
-            this.output1.lefty = 0
+        if (dir === this.direction) return;
+        this.direction = dir;
+        this.output1.refresh();
+        if (dir === "RIGHT" || dir === "LEFT") {
+            this.output1.leftx = 10 * this.bitWidth;
+            this.output1.lefty = 0;
         } else {
-            this.output1.leftx = 10 // 10*this.bitWidth;
-            this.output1.lefty = 0
+            this.output1.leftx = 10; // 10*this.bitWidth;
+            this.output1.lefty = 0;
         }
 
-        this.output1.refresh()
-        this.labelDirection = oppositeDirection[this.direction]
+        this.output1.refresh();
+        this.labelDirection = oppositeDirection[this.direction];
     }
 
     generateVerilog() {
-        return `assign ${this.output1.verilogLabel} = ${this.bitWidth}'b${this.state};`
+        return `assign ${this.output1.verilogLabel} = ${this.bitWidth}'b${this.state};`;
     }
 }
 
@@ -189,7 +194,7 @@ export default class ConstantVal extends CircuitElement {
  * @category modules
  */
 ConstantVal.prototype.tooltipText =
-    'Constant ToolTip: Bits are fixed. Double click element to change the bits.'
+    "Constant ToolTip: Bits are fixed. Double click element to change the bits.";
 
 /**
  * @memberof ConstantVal
@@ -198,12 +203,12 @@ ConstantVal.prototype.tooltipText =
  * @category modules
  */
 ConstantVal.prototype.helplink =
-    'https://docs.circuitverse.org/#/inputElements?id=constantval'
+    "https://docs.circuitverse.org/#/inputElements?id=constantval";
 
 /**
  * @memberof ConstantVal
  * @type {number}
  * @category modules
  */
-ConstantVal.prototype.propagationDelay = 0
-ConstantVal.prototype.objectType = 'ConstantVal'
+ConstantVal.prototype.propagationDelay = 0;
+ConstantVal.prototype.objectType = "ConstantVal";

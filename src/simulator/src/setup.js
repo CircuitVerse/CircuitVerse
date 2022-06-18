@@ -30,13 +30,6 @@ import { keyBinder } from './hotkey_binder/keyBinder'
 import '../vendor/jquery-ui.min.css'
 import '../vendor/jquery-ui.min'
 
-window.width = undefined
-window.height = undefined
-window.DPR = window.devicePixelRatio || 1 // devicePixelRatio, 2 for retina displays, 1 for low resolution displays
-
-// Initially embed is false so Simulation circuit
-var embed = false
-
 /**
  * to resize window and setup things it
  * sets up new width for the canvas variables.

@@ -5,7 +5,7 @@
  * Custom checkbox and radio
  * Author URL: elmahdim.com
  */
-
+ 
 .cb-checkbox .cb-inner,
 .cb-checkbox i {
     width: 18px;
@@ -62,10 +62,10 @@
     display: inline-block;
     line-height: 18px;
 }
-.cb-checkbox input[type='checkbox'],
-.cb-radio input[type='radio'],
-.cb-switcher input[type='checkbox'],
-.cb-switcher input[type='radio'] {
+.cb-checkbox input[type="checkbox"],
+.cb-radio input[type="radio"],
+.cb-switcher input[type="checkbox"],
+.cb-switcher input[type="radio"] {
     display: none;
 }
 .cb-checkbox.disabled,
@@ -128,7 +128,7 @@
 .cb-checkbox i:before {
     height: 0;
     width: 2px;
-    content: '';
+    content: "";
     display: block;
     position: absolute;
     background-color: #fff;
@@ -322,7 +322,7 @@
     transition: all 0.4s ease;
 }
 .cb-switcher:before {
-    content: '';
+    content: "";
     background-color: #eee;
     -moz-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
     -webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
@@ -350,7 +350,7 @@
 }
 .cb-switcher .inner-switcher:after,
 .cb-switcher .inner-switcher:before {
-    content: '';
+    content: "";
     position: absolute;
     left: 50%;
     width: 0;

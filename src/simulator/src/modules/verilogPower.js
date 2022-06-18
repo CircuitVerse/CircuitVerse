@@ -1,7 +1,7 @@
 /* eslint-disable no-bitwise */
-import CircuitElement from '../circuitElement'
-import Node, { findNode } from '../node'
-import simulationArea from '../simulationArea'
+import CircuitElement from '../circuitElement';
+import Node, { findNode } from '../node';
+import simulationArea from '../simulationArea';
 
 /**
  * @class
@@ -15,23 +15,16 @@ import simulationArea from '../simulationArea'
  * @category modules
  */
 export default class verilogPower extends CircuitElement {
-    constructor(
-        x,
-        y,
-        scope = globalScope,
-        dir = 'RIGHT',
-        bitWidth = 1,
-        outputBitWidth = 1
-    ) {
-        super(x, y, scope, dir, bitWidth)
+    constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1, outputBitWidth = 1) {
+        super(x, y, scope, dir, bitWidth);
         /* this is done in this.baseSetup() now
         this.scope['verilogPower'].push(this);
         */
-        this.setDimensions(20, 20)
-        this.outputBitWidth = outputBitWidth
-        this.inpA = new Node(-20, -10, 0, this, this.bitWidth, 'A')
-        this.inpB = new Node(-20, 0, 0, this, this.bitWidth, 'B')
-        this.answer = new Node(20, 0, 1, this, this.outputBitWidth, 'Answer')
+        this.setDimensions(20, 20);
+        this.outputBitWidth = outputBitWidth;
+        this.inpA = new Node(-20, -10, 0, this, this.bitWidth, 'A');
+        this.inpB = new Node(-20, 0, 0, this, this.bitWidth, 'B');
+        this.answer = new Node(20, 0, 1, this, this.outputBitWidth, 'Answer');
     }
 
     /**
@@ -41,18 +34,14 @@ export default class verilogPower extends CircuitElement {
      */
     customSave() {
         const data = {
-            constructorParamaters: [
-                this.direction,
-                this.bitWidth,
-                this.outputBitWidth,
-            ],
+            constructorParamaters: [this.direction, this.bitWidth, this.outputBitWidth],
             nodes: {
                 inpA: findNode(this.inpA),
                 inpB: findNode(this.inpB),
                 answer: findNode(this.answer),
             },
-        }
-        return data
+        };
+        return data;
     }
 
     /**
@@ -61,7 +50,7 @@ export default class verilogPower extends CircuitElement {
      * @return {boolean}
      */
     isResolvable() {
-        return this.inpA.value !== undefined && this.inpB.value !== undefined
+        return this.inpA.value !== undefined && this.inpB.value !== undefined;
     }
 
     /**
@@ -70,10 +59,10 @@ export default class verilogPower extends CircuitElement {
      * @param {number} bitWidth - new bitwidth
      */
     newBitWidth(bitWidth) {
-        this.bitWidth = bitWidth
-        this.inpA.bitWidth = bitWidth
-        this.inpB.bitWidth = bitWidth
-        this.answer.bitWidth = bitWidth
+        this.bitWidth = bitWidth;
+        this.inpA.bitWidth = bitWidth;
+        this.inpB.bitWidth = bitWidth;
+        this.answer.bitWidth = bitWidth;
     }
 
     /**
@@ -82,14 +71,12 @@ export default class verilogPower extends CircuitElement {
      */
     resolve() {
         if (this.isResolvable() === false) {
-            return
+            return;
         }
-        const answer = Math.pow(this.inpA.value, this.inpB.value)
+        const answer = Math.pow(this.inpA.value, this.inpB.value);
 
-        this.answer.value =
-            (answer << (32 - this.outputBitWidth)) >>>
-            (32 - this.outputBitWidth)
-        simulationArea.simulationQueue.add(this.answer)
+        this.answer.value = ((answer) << (32 - this.outputBitWidth)) >>> (32 - this.outputBitWidth);
+        simulationArea.simulationQueue.add(this.answer);
     }
 }
 
@@ -99,8 +86,6 @@ export default class verilogPower extends CircuitElement {
  * @type {string}
  * @category modules
  */
-verilogPower.prototype.tooltipText =
-    'verilogPower ToolTip : Performs addition of numbers.'
-verilogPower.prototype.helplink =
-    'https://docs.circuitverse.org/#/miscellaneous?id=verilogPower'
-verilogPower.prototype.objectType = 'verilogPower'
+verilogPower.prototype.tooltipText = 'verilogPower ToolTip : Performs addition of numbers.';
+verilogPower.prototype.helplink = 'https://docs.circuitverse.org/#/miscellaneous?id=verilogPower';
+verilogPower.prototype.objectType = 'verilogPower';

@@ -1,20 +1,20 @@
-import CircuitElement from '../circuitElement'
-import Node, { findNode } from '../node'
-import simulationArea from '../simulationArea'
-import { correctWidth, fillText, rect2, oppositeDirection } from '../canvasApi'
-import { getNextPosition } from '../modules'
-import { generateId } from '../utils'
-import { colors } from '../themer/themer'
+import CircuitElement from "../circuitElement";
+import Node, { findNode } from "../node";
+import simulationArea from "../simulationArea";
+import { correctWidth, fillText, rect2, oppositeDirection } from "../canvasApi";
+import { getNextPosition } from "../modules";
+import { generateId } from "../utils";
+import { colors } from "../themer/themer";
 
 function bin2dec(binString) {
-    return parseInt(binString, 2)
+    return parseInt(binString, 2);
 }
 
 function dec2bin(dec, bitWidth = undefined) {
     // only for positive nos
-    var bin = dec.toString(2)
-    if (bitWidth == undefined) return bin
-    return '0'.repeat(bitWidth - bin.length) + bin
+    var bin = dec.toString(2);
+    if (bitWidth == undefined) return bin;
+    return "0".repeat(bitWidth - bin.length) + bin;
 }
 
 /**
@@ -34,29 +34,32 @@ export default class Output extends CircuitElement {
         x,
         y,
         scope = globalScope,
-        dir = 'LEFT',
+        dir = "LEFT",
         bitWidth = 1,
         layoutProperties
     ) {
         // Calling base class constructor
-        super(x, y, scope, dir, bitWidth)
+        super(x, y, scope, dir, bitWidth);
         /* this is done in this.baseSetup() now
         this.scope['Output'].push(this);
         */
         if (layoutProperties) {
-            this.layoutProperties = layoutProperties
+            this.layoutProperties = layoutProperties;
         } else {
-            this.layoutProperties = {}
-            this.layoutProperties.x = scope.layout.width
-            this.layoutProperties.y = getNextPosition(scope.layout.width, scope)
-            this.layoutProperties.id = generateId()
+            this.layoutProperties = {};
+            this.layoutProperties.x = scope.layout.width;
+            this.layoutProperties.y = getNextPosition(
+                scope.layout.width,
+                scope
+            );
+            this.layoutProperties.id = generateId();
         }
 
-        this.rectangleObject = false
-        this.directionFixed = true
-        this.orientationFixed = false
-        this.setDimensions(this.bitWidth * 10, 10)
-        this.inp1 = new Node(this.bitWidth * 10, 0, 0, this)
+        this.rectangleObject = false;
+        this.directionFixed = true;
+        this.orientationFixed = false;
+        this.setDimensions(this.bitWidth * 10, 10);
+        this.inp1 = new Node(this.bitWidth * 10, 0, 0, this);
     }
 
     /**
@@ -65,7 +68,7 @@ export default class Output extends CircuitElement {
      * @return {string}
      */
     generateVerilog() {
-        return `assign ${this.label} = ${this.inp1.verilogLabel};`
+        return `assign ${this.label} = ${this.inp1.verilogLabel};`;
     }
 
     /**
@@ -83,8 +86,8 @@ export default class Output extends CircuitElement {
                 this.bitWidth,
                 this.layoutProperties,
             ],
-        }
-        return data
+        };
+        return data;
     }
 
     /**
@@ -93,21 +96,21 @@ export default class Output extends CircuitElement {
      * @param {number} bitWidth - new bitwidth
      */
     newBitWidth(bitWidth) {
-        if (bitWidth < 1) return
-        const diffBitWidth = bitWidth - this.bitWidth
-        this.state = undefined
-        this.inp1.bitWidth = bitWidth
-        this.bitWidth = bitWidth
-        this.setWidth(10 * this.bitWidth)
+        if (bitWidth < 1) return;
+        const diffBitWidth = bitWidth - this.bitWidth;
+        this.state = undefined;
+        this.inp1.bitWidth = bitWidth;
+        this.bitWidth = bitWidth;
+        this.setWidth(10 * this.bitWidth);
 
-        if (this.direction === 'RIGHT') {
-            this.x -= 10 * diffBitWidth
-            this.inp1.x = 10 * this.bitWidth
-            this.inp1.leftx = 10 * this.bitWidth
-        } else if (this.direction === 'LEFT') {
-            this.x += 10 * diffBitWidth
-            this.inp1.x = -10 * this.bitWidth
-            this.inp1.leftx = 10 * this.bitWidth
+        if (this.direction === "RIGHT") {
+            this.x -= 10 * diffBitWidth;
+            this.inp1.x = 10 * this.bitWidth;
+            this.inp1.leftx = 10 * this.bitWidth;
+        } else if (this.direction === "LEFT") {
+            this.x += 10 * diffBitWidth;
+            this.inp1.x = -10 * this.bitWidth;
+            this.inp1.leftx = 10 * this.bitWidth;
         }
     }
 
@@ -116,16 +119,16 @@ export default class Output extends CircuitElement {
      * function to draw element
      */
     customDraw() {
-        this.state = this.inp1.value
-        var ctx = simulationArea.context
-        ctx.beginPath()
-        ctx.strokeStyle = [colors['out_rect'], colors['stroke_alt']][
+        this.state = this.inp1.value;
+        var ctx = simulationArea.context;
+        ctx.beginPath();
+        ctx.strokeStyle = [colors["out_rect"], colors["stroke_alt"]][
             +(this.inp1.value === undefined)
-        ]
-        ctx.fillStyle = colors['fill']
-        ctx.lineWidth = correctWidth(3)
-        const xx = this.x
-        const yy = this.y
+        ];
+        ctx.fillStyle = colors["fill"];
+        ctx.lineWidth = correctWidth(3);
+        const xx = this.x;
+        const yy = this.y;
 
         rect2(
             ctx,
@@ -135,34 +138,39 @@ export default class Output extends CircuitElement {
             20,
             xx,
             yy,
-            'RIGHT'
-        )
+            "RIGHT"
+        );
         if (
             (this.hover && !simulationArea.shiftDown) ||
             simulationArea.lastSelected === this ||
             simulationArea.multipleObjectSelections.contains(this)
         ) {
-            ctx.fillStyle = colors['hover_select']
+            ctx.fillStyle = colors["hover_select"];
         }
 
-        ctx.fill()
-        ctx.stroke()
+        ctx.fill();
+        ctx.stroke();
 
-        ctx.beginPath()
-        ctx.font = '20px Raleway'
-        ctx.fillStyle = colors['input_text']
-        ctx.textAlign = 'center'
-        let bin
+        ctx.beginPath();
+        ctx.font = "20px Raleway";
+        ctx.fillStyle = colors["input_text"];
+        ctx.textAlign = "center";
+        let bin;
         if (this.state === undefined) {
-            bin = 'x'.repeat(this.bitWidth)
+            bin = "x".repeat(this.bitWidth);
         } else {
-            bin = dec2bin(this.state, this.bitWidth)
+            bin = dec2bin(this.state, this.bitWidth);
         }
 
         for (let k = 0; k < this.bitWidth; k++) {
-            fillText(ctx, bin[k], xx - 10 * this.bitWidth + 10 + k * 20, yy + 5)
+            fillText(
+                ctx,
+                bin[k],
+                xx - 10 * this.bitWidth + 10 + k * 20,
+                yy + 5
+            );
         }
-        ctx.fill()
+        ctx.fill();
     }
 
     /**
@@ -171,25 +179,23 @@ export default class Output extends CircuitElement {
      * @param {string} dir - new direction
      */
     newDirection(dir) {
-        if (dir === this.direction) return
-        this.direction = dir
-        this.inp1.refresh()
-        if (dir === 'RIGHT' || dir === 'LEFT') {
-            this.inp1.leftx = 10 * this.bitWidth
-            this.inp1.lefty = 0
+        if (dir === this.direction) return;
+        this.direction = dir;
+        this.inp1.refresh();
+        if (dir === "RIGHT" || dir === "LEFT") {
+            this.inp1.leftx = 10 * this.bitWidth;
+            this.inp1.lefty = 0;
         } else {
-            this.inp1.leftx = 10 // 10*this.bitWidth;
-            this.inp1.lefty = 0
+            this.inp1.leftx = 10; // 10*this.bitWidth;
+            this.inp1.lefty = 0;
         }
 
-        this.inp1.refresh()
-        this.labelDirection = oppositeDirection[this.direction]
+        this.inp1.refresh();
+        this.labelDirection = oppositeDirection[this.direction];
     }
 
     generateVerilog() {
-        return (
-            'assign ' + this.verilogLabel + ' = ' + this.inp1.verilogLabel + ';'
-        )
+        return "assign " + this.verilogLabel + " = " + this.inp1.verilogLabel + ";"
     }
 }
 
@@ -200,7 +206,7 @@ export default class Output extends CircuitElement {
  * @category modules
  */
 Output.prototype.tooltipText =
-    'Output ToolTip: Simple output element showing output in binary.'
+    "Output ToolTip: Simple output element showing output in binary.";
 
 /**
  * @memberof Output
@@ -208,12 +214,12 @@ Output.prototype.tooltipText =
  * @type {string}
  * @category modules
  */
-Output.prototype.helplink = 'https://docs.circuitverse.org/#/outputs?id=output'
+Output.prototype.helplink = "https://docs.circuitverse.org/#/outputs?id=output";
 
 /**
  * @memberof Output
  * @type {number}
  * @category modules
  */
-Output.prototype.propagationDelay = 0
-Output.prototype.objectType = 'Output'
+Output.prototype.propagationDelay = 0;
+Output.prototype.objectType = "Output";

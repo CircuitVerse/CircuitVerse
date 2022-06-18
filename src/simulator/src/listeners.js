@@ -26,9 +26,12 @@ import {
     fullView,
     exitFullView,
 } from './ux'
-// import {
-//     updateRestrictedElementsList, updateRestrictedElementsInScope, hideRestricted, showRestricted,
-// } from './restrictedElementDiv';
+import {
+    updateRestrictedElementsList,
+    updateRestrictedElementsInScope,
+    hideRestricted,
+    showRestricted,
+} from './restrictedElementDiv'
 import { removeMiniMap, updatelastMinimapShown } from './minimap'
 import undo from './data/undo'
 import redo from './data/redo'
@@ -39,8 +42,6 @@ import { verilogModeGet } from './Verilog2CV'
 import { setupTimingListeners } from './plotArea'
 
 var unit = 10
-var embed = false
-var listenToSimulator = true
 
 export default function startListeners() {
     $('#deleteSelected').on('click', () => {
@@ -76,8 +77,7 @@ export default function startListeners() {
         }, 100)
     })
     /* Makes tabs reordering possible by making them sortable */
-    // commenting jquery-ui
-    // $('#tabsBar').sortable({
+    // $("#tabsBar").sortable({
     //     containment: 'parent',
     //     items: '> div',
     //     revert: false,
@@ -85,7 +85,7 @@ export default function startListeners() {
     //     tolerance: 'pointer',
     //     placeholder: 'placeholder',
     //     forcePlaceholderSize: true,
-    // })
+    // });
 
     document
         .getElementById('simulationArea')
@@ -136,11 +136,20 @@ export default function startListeners() {
         handling restricted circuit elements
         */
 
-            // if (simulationArea.lastSelected && restrictedElements.contains(simulationArea.lastSelected.objectType)
-            //     && !globalScope.restrictedCircuitElementsUsed.contains(simulationArea.lastSelected.objectType)) {
-            //     globalScope.restrictedCircuitElementsUsed.push(simulationArea.lastSelected.objectType);
-            //     updateRestrictedElementsList();
-            // }
+            if (
+                simulationArea.lastSelected &&
+                restrictedElements.includes(
+                    simulationArea.lastSelected.objectType
+                ) &&
+                !globalScope.restrictedCircuitElementsUsed.includes(
+                    simulationArea.lastSelected.objectType
+                )
+            ) {
+                globalScope.restrictedCircuitElementsUsed.push(
+                    simulationArea.lastSelected.objectType
+                )
+                updateRestrictedElementsList()
+            }
 
             //       deselect multible elements with click
             if (
@@ -148,7 +157,7 @@ export default function startListeners() {
                 simulationArea.multipleObjectSelections.length > 0
             ) {
                 if (
-                    !simulationArea.multipleObjectSelections.contains(
+                    !simulationArea.multipleObjectSelections.includes(
                         simulationArea.lastSelected
                     )
                 ) {
@@ -273,11 +282,11 @@ export default function startListeners() {
                     simulationArea.controlDown &&
                     (e.key == 'C' || e.key == 'c')
                 ) {
-                    //  simulationArea.copyList=simulationArea.multipleObjectSelections.slice();
-                    //  if(simulationArea.lastSelected&&simulationArea.lastSelected!==simulationArea.root&&!simulationArea.copyList.contains(simulationArea.lastSelected)){
-                    //      simulationArea.copyList.push(simulationArea.lastSelected);
-                    //  }
-                    //  copy(simulationArea.copyList);
+                    //    simulationArea.copyList=simulationArea.multipleObjectSelections.slice();
+                    //    if(simulationArea.lastSelected&&simulationArea.lastSelected!==simulationArea.root&&!simulationArea.copyList.contains(simulationArea.lastSelected)){
+                    //        simulationArea.copyList.push(simulationArea.lastSelected);
+                    //    }
+                    //    copy(simulationArea.copyList);
                 }
 
                 if (
@@ -456,7 +465,7 @@ export default function startListeners() {
             var textToPutOnClipboard = copy(simulationArea.copyList, true)
 
             // Updated restricted elements
-            // updateRestrictedElementsInScope();
+            updateRestrictedElementsInScope()
             localStorage.setItem('clipboardData', textToPutOnClipboard)
             e.preventDefault()
             if (textToPutOnClipboard == undefined) return
@@ -469,13 +478,11 @@ export default function startListeners() {
     })
 
     document.addEventListener('copy', (e) => {
-        console.log(e)
         if (verilogModeGet()) return
         if (document.activeElement.tagName == 'INPUT') return
         if (document.activeElement.tagName != 'BODY') return
 
         if (listenToSimulator) {
-            console.log('listening to simulator')
             simulationArea.copyList =
                 simulationArea.multipleObjectSelections.slice()
             if (
@@ -483,14 +490,13 @@ export default function startListeners() {
                 simulationArea.lastSelected !== simulationArea.root &&
                 !simulationArea.copyList.contains(simulationArea.lastSelected)
             ) {
-                console.log(simulationArea.lastSelected)
                 simulationArea.copyList.push(simulationArea.lastSelected)
             }
 
             var textToPutOnClipboard = copy(simulationArea.copyList)
 
             // Updated restricted elements
-            // updateRestrictedElementsInScope();
+            updateRestrictedElementsInScope()
             localStorage.setItem('clipboardData', textToPutOnClipboard)
             e.preventDefault()
             if (textToPutOnClipboard == undefined) return
@@ -503,7 +509,6 @@ export default function startListeners() {
     })
 
     document.addEventListener('paste', (e) => {
-        console.log(e)
         if (document.activeElement.tagName == 'INPUT') return
         if (document.activeElement.tagName != 'BODY') return
 
@@ -518,7 +523,7 @@ export default function startListeners() {
             paste(data)
 
             // Updated restricted elements
-            // updateRestrictedElementsInScope();
+            updateRestrictedElementsInScope()
 
             e.preventDefault()
         }
@@ -553,15 +558,15 @@ export default function startListeners() {
         }
     )
 
-    // restrictedElements.forEach((element) => {
-    //     $(`#${element}`).mouseover(() => {
-    //         showRestricted();
-    //     });
+    restrictedElements.forEach((element) => {
+        $(`#${element}`).mouseover(() => {
+            showRestricted()
+        })
 
-    //     $(`#${element}`).mouseout(() => {
-    //         hideRestricted();
-    //     });
-    // });
+        $(`#${element}`).mouseout(() => {
+            hideRestricted()
+        })
+    })
 
     $('.search-input').on('keyup', function () {
         var parentElement = $(this).parent().parent()
@@ -589,7 +594,7 @@ export default function startListeners() {
         }
         let htmlIcons = ''
         const result = elementPanelList.filter((ele) =>
-            ele.toLowerCase().contains(value)
+            ele.toLowerCase().includes(value)
         )
         var finalResult = []
         for (const j in result) {
@@ -730,9 +735,9 @@ function resizeTabs() {
 window.addEventListener('resize', resizeTabs)
 resizeTabs()
 
-$(() => {
-    $('[data-toggle="tooltip"]').tooltip()
-})
+// $(() => {
+//     $('[data-toggle="tooltip"]').tooltip()
+// })
 
 // direction is only 1 or -1
 function handleZoom(direction) {

@@ -66,8 +66,8 @@ button:focus {
     padding: 5px;
     width: 200px;
     margin: 3px;
-    word-wrap: break-word;
-    overflow-x: hidden;
+    word-wrap:break-word;
+    overflow-x:hidden;
 }
 
 .pannel-heading {
@@ -111,17 +111,17 @@ button:focus {
     border-color: #0099ff;
 }
 
-input[type='radio']:checked ~ label {
+input[type="radio"]:checked ~ label {
     color: #0dff92;
 }
 
-.option input[type='radio'] {
+.option input[type="radio"] {
     margin-right: 5px;
     /*position: absolute;*/
     visibility: hidden;
 }
 
-.option input[type='radio']:checked {
+.option input[type="radio"]:checked {
     /*position: absolute;*/
     visibility: visible;
 }
@@ -334,17 +334,17 @@ select {
     border: 1px solid #0099ff;
 }
 
-.tabsCloseButton:hover {
-    color: #fff;
+.tabsCloseButton:hover{
+    color:#fff;
     font-family: 'Gill Sans', sans-serif;
     margin-left: 1em;
     opacity: 0.5;
 }
 .tabsCloseButton {
-    color: #111;
+    color:#111;
     font-family: 'Gill Sans', sans-serif;
     margin-left: 1em;
-    opacity: 1;
+    opacity: 1.0;
     position: absolute;
     top: 5px;
     right: 3;
@@ -459,7 +459,7 @@ html {
     width: auto;
     height: 100%;
     overflow: hidden;
-    background-color: 'white';
+    background-color: "white";
 }
 
 .switch {
@@ -488,7 +488,7 @@ html {
 
 .slider:before {
     position: absolute;
-    content: '';
+    content: "";
     height: 17px;
     width: 17px;
     left: 0px;
@@ -538,7 +538,7 @@ input:checked + .slider:before {
 
 .slider2:before {
     position: absolute;
-    content: '';
+    content: "";
     height: 17px;
     width: 17px;
     left: 0px;
@@ -646,7 +646,7 @@ div.icon img {
     position: absolute;
     /*top: 0;*/
     bottom: -16;
-    text-align: center;
+    text-align:center;
     left: 0;
     right: 0;
     background-color: #0099ff;
@@ -832,7 +832,7 @@ div.icon img {
 }
 
 .ui-dialog-titlebar-close {
-    background-image: url('../img/cross.png');
+    background-image: url("../img/cross.png");
     position: absolute;
     right: 0.3em;
     top: 50%;
@@ -880,7 +880,7 @@ div.icon img {
 }
 
 .sk-folding-cube .sk-cube:before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;

@@ -1,4 +1,4 @@
-import RAM from './RAM'
+import RAM from './RAM';
 /**
  * @class
  * EEPROM Component.
@@ -28,29 +28,29 @@ export default class EEPROM extends RAM {
         dir = 'RIGHT',
         bitWidth = 8,
         addressWidth = 8,
-        data = null
+        data = null,
     ) {
-        super(x, y, scope, dir, bitWidth, addressWidth)
+        super(x, y, scope, dir, bitWidth, addressWidth);
         /*
         this.scope['EEPROM'].push(this);
         */
-        this.data = data || this.data
+        this.data = data || this.data;
     }
 
     clearData() {
-        super.clearData()
+        super.clearData();
         for (var i = 0; i < this.data.length; i++)
-            this.data[i] = this.data[i] || 0
+            this.data[i] = this.data[i] || 0;
     }
 
     customSave() {
-        var saveInfo = super.customSave(this)
+        var saveInfo = super.customSave(this);
 
         // Normalize this.data to use zeroes instead of null when serialized.
-        var { data } = this
+        var {data} = this;
 
-        saveInfo.constructorParamaters.push(data)
-        return saveInfo
+        saveInfo.constructorParamaters.push(data);
+        return saveInfo;
     }
 
     //This is a EERAM without a clock - not normal
@@ -81,14 +81,13 @@ export default class EEPROM extends RAM {
         dout = mem[addr];
         end
     endmodule
-    `
+    `;
     }
 }
 
-EEPROM.prototype.tooltipText =
-    'Electrically Erasable Programmable Read-Only Memory'
-EEPROM.prototype.shortName = 'EEPROM'
-EEPROM.prototype.maxAddressWidth = 10
+EEPROM.prototype.tooltipText = 'Electrically Erasable Programmable Read-Only Memory';
+EEPROM.prototype.shortName = 'EEPROM';
+EEPROM.prototype.maxAddressWidth = 10;
 EEPROM.prototype.mutableProperties = {
     addressWidth: {
         name: 'Address Width',
@@ -100,5 +99,5 @@ EEPROM.prototype.mutableProperties = {
     dump: RAM.prototype.mutableProperties.dump,
     load: RAM.prototype.mutableProperties.load,
     reset: RAM.prototype.mutableProperties.reset,
-}
-EEPROM.prototype.objectType = 'EEPROM'
+};
+EEPROM.prototype.objectType = 'EEPROM';

@@ -1,7 +1,6 @@
 /* eslint-disable import/no-cycle */
 // Helper functions for when circuit is embedded
-import { scopeList } from './circuit'
-// import { circuitProperty } from './circuit';
+import { scopeList, circuitProperty } from './circuit'
 import simulationArea from './simulationArea'
 import {
     scheduleUpdate,
@@ -34,7 +33,16 @@ $(document).ready(() => {
             scheduleUpdate()
             updateCanvasSet(true)
             wireToBeCheckedSet(1)
-            // if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) { prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet() ; } else { circuitProperty[this.name](this.value); }
+            if (
+                simulationArea.lastSelected &&
+                simulationArea.lastSelected[this.name]
+            ) {
+                prevPropertyObjSet(
+                    simulationArea.lastSelected[this.name](this.value)
+                ) || prevPropertyObjGet()
+            } else {
+                circuitProperty[this.name](this.value)
+            }
         }
     )
 
@@ -45,7 +53,16 @@ $(document).ready(() => {
             scheduleUpdate()
             updateCanvasSet(true)
             wireToBeCheckedSet(1)
-            // if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) { prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet(); } else { circuitProperty[this.name](this.checked); }
+            if (
+                simulationArea.lastSelected &&
+                simulationArea.lastSelected[this.name]
+            ) {
+                prevPropertyObjSet(
+                    simulationArea.lastSelected[this.name](this.value)
+                ) || prevPropertyObjGet()
+            } else {
+                circuitProperty[this.name](this.checked)
+            }
         }
     )
 
@@ -113,11 +130,3 @@ if (document.addEventListener) {
     document.addEventListener('fullscreenchange', exitHandler, false)
     document.addEventListener('MSFullscreenChange', exitHandler, false)
 }
-
-/* ****************************************************
-
-    Changes Made :-
-    1. Commented Occurences of Circuit Propety :- Line 4, 12, 32, 40
-    Cannot access Circuit Propery before Initialization
-
-*/
