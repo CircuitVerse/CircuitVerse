@@ -81,6 +81,7 @@ class Api::V1::BaseController < ActionController::API
   private
 
     def paginated_url(base_url, page)
-      page ? "#{base_url}?page[number]=#{page}" : nil
+      paramsIncluded = base_url.index('?') != nil
+      page ? "#{base_url}#{paramsIncluded ? '&':'?'}page[number]=#{page}" : nil
     end
 end

@@ -3,12 +3,14 @@
 # rubocop:disable Metrics/ClassLength
 class Api::V1::ProjectsController < Api::V1::BaseController
   include ActionView::Helpers::SanitizeHelper
+  include SearchHelper
 
   before_action :authenticate_user!, only: %i[update destroy toggle_star create_fork]
   before_action :load_index_projects, only: %i[index]
   before_action :load_user_projects, only: %i[user_projects]
   before_action :load_featured_circuits, only: %i[featured_circuits]
   before_action :load_user_favourites, only: %i[user_favourites]
+  before_action :search_projects, only: %i[search]
   before_action :set_project, only: %i[show update destroy toggle_star create_fork]
   before_action :set_options, except: %i[destroy toggle_star image_preview]
   before_action :filter, only: %i[index user_projects featured_circuits user_favourites]
@@ -20,6 +22,13 @@ class Api::V1::ProjectsController < Api::V1::BaseController
   # GET /api/v1/projects
   def index
     @options[:links] = link_attrs(paginate(@projects), api_v1_projects_url)
+    render json: Api::V1::ProjectSerializer.new(paginate(@projects), @options)
+  end
+
+  # GET /api/v1/projects/search?q=:query
+  def search
+    base_url = "#{api_v1_projects_search_url}?q=#{params[:q]}"
+    @options[:links] = link_attrs(paginate(@projects), base_url)
     render json: Api::V1::ProjectSerializer.new(paginate(@projects), @options)
   end
 
@@ -44,7 +53,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
   def image_preview
     @project = Project.open.friendly.find(params[:id])
-    render json: { "project_preview": request.base_url + @project.image_preview.url }
+    render json: { project_preview: request.base_url + @project.image_preview.url }
   end
 
   # PATCH /api/v1/projects/:id
@@ -75,9 +84,9 @@ class Api::V1::ProjectsController < Api::V1::BaseController
   # GET /api/v1/projects/:id/toggle-star
   def toggle_star
     if @project.toggle_star(current_user)
-      render json: { "message": "Starred successfully!" }, status: :ok
+      render json: { message: "Starred successfully!" }, status: :ok
     else
-      render json: { "message": "Unstarred successfully!" }, status: :ok
+      render json: { message: "Unstarred successfully!" }, status: :ok
     end
   end
 
@@ -136,6 +145,14 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
     def load_featured_circuits
       @projects = Project.joins(:featured_circuit).all
+    end
+
+    def search_projects
+      @projects = if params[:q].present?
+        Project.public_and_not_forked.text_search(params[:q])
+      else
+        Project.public_and_not_forked
+      end.includes(:tags, :author)
     end
 
     # include=author
