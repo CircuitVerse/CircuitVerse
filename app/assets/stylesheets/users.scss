@@ -1,4 +1,10 @@
+:root {
+  --black: rgb(0,0,0);
+  --grey: rgb(108, 117, 125);
+}
+
 //passwords
+
 .users-image {
   margin-bottom: 15px;
   margin-top: 30px;
@@ -30,10 +36,31 @@
 
 .users-primary-checkpoint {
   h6 {
-    display: inline-block;
+    display: block;
     margin-bottom: 0;
     margin-right: 10px;
   }
+}
+
+.primary-checkpoint {
+  background-color: $white;
+  border: 1px solid $secondary-green;
+  cursor: pointer;
+  padding-left: 4px;
+  padding-top: 4px;
+  position: relative;
+  text-align: center;
+  top: 5px;
+
+  &:hover {
+    border-color: $primary-green;
+    opacity: 1;
+    transition: .2s ease-in-out;
+  }
+}
+
+.right-shift {
+  margin-left: 30px;
 }
 
 .users-text-container {
@@ -95,7 +122,6 @@
 
 .password-icon {
   color: $secondary-green;
-  height: 40px;
   width: 40px;
 }
 
@@ -131,14 +157,41 @@
   border-radius: 4px;
   cursor: pointer;
   height: 35px;
+  line-height: 35px;
   margin-bottom: 20px;
   margin-left: 10px;
-  padding-top: 5px;
   text-align: center;
   width: 120px;
 }
 
 .users-edit-image-button-hidden {
+  display: none;
+}
+
+.users-edit-image-button:hover {
+  background-color: $primary-green;
+  color: $white;
+}
+
+.users-remove-image-button {
+  border: 1px solid $secondary-red;
+  border-radius: 4px;
+  cursor: pointer;
+  height: 35px;
+  line-height: 35px;
+  margin-bottom: 20px;
+  margin-left: 10px;
+  text-align: center;
+  width: 140px;
+}
+
+.remove-pic:checked ~ .users-remove-image-button,
+.users-remove-image-button:hover {
+  background-color: $primary-red;
+  color: $white;
+}
+
+.remove-pic {
   display: none;
 }
 
@@ -272,8 +325,7 @@
     border-radius: 0;
     font-size: 16px;
     margin: 0;
-    margin-top: 20px;
-    padding: 7px 10px;
+    padding: 7px 10px 7px 35px;
     transition: .2s ease-in-out;
 
     &:focus {
@@ -281,6 +333,24 @@
       transition: .2s ease-in-out;
     }
   }
+}
+.search-icon-dashboard {
+  margin-bottom: -60px;
+  margin-left: 7px;
+}
+.users-circuits-search {
+  align-items: center;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  padding-top: 20px;
+}
+
+.fa.fa-search.user-circuits-search-icon {
+  color: $fa-search-grey;
+  margin-left: 28px;
+  margin-right: -28px;
+  z-index: 2;
 }
 
 .users-circuits-tab {
@@ -332,5 +402,16 @@
     font-size: 16px;
     padding: 4px 15px;
   }
+}
+
+.tt-dropdown-menu {
+  background-color: $white;
+  border-right: 1px solid var(--black);
+  border-bottom: 1px solid var(--black);
+  box-shadow: 1px 1px 2px var(--grey),
+             -1px 1px 2px var(--grey);
+  max-height: 40vh;
+  overflow-y: scroll;
+  padding: 10px;
 }
 //user profile ends

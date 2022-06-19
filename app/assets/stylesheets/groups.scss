@@ -41,7 +41,7 @@
 
 .groups-expanded-assignment-name {
   margin-left: 8px;
-  max-width: 100px;
+  max-width: 180px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -56,6 +56,11 @@
 
 .groups-assignment-button-container {
   min-width: 190px;
+}
+
+.groups-copy-lms-credentials-button {
+  margin-left: 5;
+  padding: 2px 6px;
 }
 
 .groups-view-mini-button {
@@ -73,6 +78,19 @@
 
 .groups-reopen-mini-button {
   background-color: $mini-button-blue;
+  cursor: pointer;
+  font-size: 15px;
+  margin: 10px 5px;
+  padding: 4px 8px 6px;
+
+  &:hover {
+    color: $white;
+    text-decoration: none;
+  }
+}
+
+.groups-close-mini-button {
+  background-color: $primary-red;
   cursor: pointer;
   font-size: 15px;
   margin: 10px 5px;
@@ -146,6 +164,16 @@
   width: 300px;
 }
 
+.groups-members-card-viewer {
+  background-color: $card-green;
+  border: 1px solid $secondary-green;
+  display: inline-block;
+  height: auto;
+  margin: 10px;
+  padding: 15px;
+  width: 200px;
+}
+
 .groups-members-card-details {
   padding-right: 0;
   text-align: left;
@@ -154,6 +182,30 @@
     margin-right: 3px;
     margin-top: 0;
     padding-bottom: 5px;
+  }
+}
+
+.groups-members-card-details-non-admin {
+  align-items: center;
+  display: flex;
+  
+  i {
+    margin-right: 15px;
+    padding-bottom: 0;
+  }
+
+  .groups-members-card-name-container {
+    height: auto;
+  }
+}
+
+.groups-members-card-details-non-admin {
+  &:hover {
+    .tooltiptext {
+      left: 21%;
+      opacity: 1;
+      visibility: visible;
+    }
   }
 }
 
@@ -300,7 +352,7 @@
 }
 
 @media (max-width: 991px) and (min-width: 720px) {
-  .groups-center-imagee {
+  .groups-center-image {
     margin-top: 80px;
   }
 }
@@ -369,7 +421,7 @@
 .groups-mentor-card-view-mini-button {
   background: $primary-green;
   transition: transform .2s ease-in;
-  width: 75px;
+  width: 95px;
 
   img {
     height: 20px;
@@ -387,7 +439,7 @@
 .groups-mentor-card-edit-mini-button {
   background: $mini-button-blue;
   transition: transform .2s ease-in;
-  width: 75px;
+  width: 95px;
 
   img {
     height: 20px;
@@ -405,6 +457,7 @@
 .groups-mentor-card-delete-mini-button {
   background: $primary-red;
   transition: transform .2s ease-in;
+  width: 100px;
 
   img {
     height: 20px;
@@ -416,6 +469,12 @@
     color: $white;
     text-decoration: none;
     transform: translateY(-4px);
+  }
+}
+
+@media (max-width: 1200px) and (min-width: 970px) {
+  .groups-card {
+    width: 315px;
   }
 }
 
@@ -439,5 +498,11 @@
 .groups-member-card-button {
   margin-top: 20px;
   padding: 5px 10px;
+}
+
+.groups-lms-modal {
+  .link-text {
+    display: inline;
+  }
 }
 //groups ends

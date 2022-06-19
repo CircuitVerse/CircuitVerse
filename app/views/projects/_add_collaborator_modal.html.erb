@@ -4,13 +4,11 @@
   <div class="modal-dialog primary-modal-dialog">
     <div class="modal-content">
       <div class="modal-header primary-modal-header">
-        <h4 class="modal-title">Add members</h4>
+        <h4 class="modal-title"><%= t("add_members") %></h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
-        <p>Enter Email IDs separated by commas, spaces or enter. Users need to be registered already on the platform.
-          Note that collaboration is not real time as of now. Every save overwites the previous data.
-        </p>
+        <p><%= t("projects.add_collaborator_description") %></p>
         <%= form_with(model: @collaboration, local: true) do |form| %>
         <% if @collaboration.errors.any? %>
           <div id="error-message">
@@ -25,11 +23,11 @@
           <%= form.hidden_field :project_id, id: :collaboration_project_id %>
         </div>
         <div class="form-group">
-          <label for="emails">Email IDs:</label>
-          <textarea class="form-control form-input" rows="5" id="emails" name="collaboration[emails]" data-role="tagsinput"></textarea>
+          <%= form.label :emails %>
+          <%= form.text_area :emails, id: :emails, rows: 5, 'data-role': 'tagsinput', class: 'form-control form-input' %>
         </div>
         <div class="modal-footer">
-          <%= form.submit "Add Collaborators", class: 'btn primary-button add-collaborators-button' %>
+          <%= form.submit class: 'btn primary-button add-collaborators-button' %>
         </div>
         <% end %>
       </div>

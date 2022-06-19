@@ -1,0 +1,7 @@
+hi:
+  simulator:
+    nav_item:
+      project: "परियोजना"
+      circuit: "सर्किट"
+      tools: "उपकरण"
+      help: "सहायता"

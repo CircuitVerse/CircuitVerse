@@ -19,5 +19,5 @@
   </div>
 </div>
 <div class="custom-mail-container">
-  <%= render file: "user_mailer/custom_email", layout: "layouts/mailer", mail: @mail, user: @user, is_preview: @is_preview %>
+  <%= render template: "user_mailer/custom_email", layout: "layouts/mailer", mail: @mail, user: @user, is_preview: @is_preview %>
 </div>

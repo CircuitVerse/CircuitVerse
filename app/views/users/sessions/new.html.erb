@@ -2,12 +2,12 @@
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 center-image">
       <%= image_tag "SVGs/login.svg", alt: "Login Sketch", :class => "users-image" %>
-      <h5>Welcome back to the Digital Circuit Universe!</h5>
+      <h5><%= t("welcome_back_text") %></h5>
     </div>
 
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
       <div class="form-container">
-        <h1 class="users-main-heading">Log in</h1>
+        <h1 class="users-main-heading"><%= t("login") %></h1>
         <%= form_with(model: resource, as: resource_name, url: session_path(resource_name), local: true) do |f| %>
         <% flash.each do |key, value| %>
           <div class="error-message"><%= value %></div>
@@ -15,7 +15,7 @@
         <div class="field form-group">
           <h6><%= f.label :email %></h6>
           <div class="input-group">
-            <%= f.email_field :email, autofocus: true, class:"form-control form-input" %>
+            <%= f.email_field :email, autofocus: true, class:"form-control form-input user-email-input" %>
           </div>
         </div>
         <div class="field form-group">
@@ -30,13 +30,13 @@
         <div class="field form-group">
           <div class="input-group">
             <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
-              <%= link_to "Forgot password?", new_password_path(resource_name), class:"anchor-text users-forgot-password-text" %>
+              <%= link_to t("users.sessions.forgot_password"), new_password_path(resource_name), class:"anchor-text users-forgot-password-text" %>
             <% end -%>
           </div>
         </div>
         <% if devise_mapping.rememberable? -%>
           <div class="form-group newproject-checkbox">
-            <label class="primary-checkpoint-container users-primary-checkpoint"><h6>Remember Me</h6>
+            <label class="primary-checkpoint-container users-primary-checkpoint"><h6 class="right-shift"><%= t("users.sessions.remember_me") %></h6>
               <%= f.check_box :remember_me %>
               <div class="primary-checkpoint"></div>
             </label>
@@ -47,10 +47,10 @@
             <% if Flipper.enabled?(:recaptcha) %>
               <%= recaptcha_tags %>
             <% end %>
-            <%= f.submit "Log in" ,class:"btn primary-button users-login-primary-button" %>
+            <%= f.submit t('login') ,class:"btn primary-button users-login-primary-button" %>
             <div class="users-text-container">
-              <span class="users-text">New User?</span>
-              <%= link_to "Sign up", new_registration_path(resource_name) ,class:"anchor-text" %>
+              <span class="users-text"><%= t("users.ask_new_user") %></span>
+              <%= link_to t("sign_up"), new_registration_path(resource_name) ,class:"anchor-text" %>
             </div>
           </div>
         </div>
@@ -60,5 +60,9 @@
     </div>
   </div>
 </div>
-
+<script>
+    $(".users-forgot-password-text").on('click', () => {
+      localStorage.setItem('Email', $(".user-email-input").val());
+    });
+</script>
 <script src="/js/togglePassword.js"></script>

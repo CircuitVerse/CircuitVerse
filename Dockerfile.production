@@ -1,0 +1,66 @@
+FROM --platform=$BUILDPLATFORM ruby:3.1.2 as builder
+
+ARG BUILDPLATFORM 
+ENV NODE_ENV=production
+
+RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash -
+RUN apt-get update -qq && apt-get install -y --no-install-recommends --auto-remove nodejs imagemagick
+
+RUN npm install --global yarn
+
+WORKDIR /usr/src/app
+
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile --network-timeout 1000000 && yarn cache clean
+
+COPY Gemfile* ./
+ENV BUNDLE_DEPLOYMENT=true 
+# ENV BUNDLE_JOBS=4 
+ENV BUNDLE_WITHOUT=development:test 
+
+RUN bundle install \
+   && rm -rf vendor/bundle/ruby/3.1.0/cache/* 
+
+COPY . .
+
+RUN RAILS_ENV=production \
+    SECRET_KEY_BASE=1 \
+    DATABASE_URL=postgres://nulldb \
+		DISABLE_FLIPPER=true \
+    bundle exec rails assets:precompile && \
+	  yarn cache clean
+
+RUN rm -rf node_modules  spec
+
+RUN bundle exec bootsnap precompile --gemfile app/ lib/
+
+FROM --platform=$BUILDPLATFORM ruby:3.1.2-slim as app
+
+COPY --from=builder /usr/src/app /usr/src/app
+
+ENV RAILS_ENV=production
+ENV NODE_ENV=production
+ENV BUNDLE_PATH='vendor/bundle'
+ENV RAILS_LOG_TO_STDOUT=true
+ENV BUNDLE_DEPLOYMENT=true 
+ENV BUNDLE_WITHOUT="development:test"
+ENV RAILS_SERVE_STATIC_FILES="true"
+# ENV LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2
+
+ARG REDIS_URL="redis://localhost:6379"
+
+
+RUN apt-get update -qq && apt upgrade -y && apt-get install -y --no-install-recommends --auto-remove curl  \
+   && curl -fsSL https://deb.nodesource.com/setup_14.x | bash - \
+   && apt-get update -qq && apt-get install -y --no-install-recommends --auto-remove nodejs imagemagick libpq5 libcurl4 libjemalloc2  \
+   && apt-get clean \
+   && rm -rf /var/cache/apt/archives/* \
+   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+   && truncate -s 0 /var/log/*log
+
+WORKDIR /usr/src/app
+
+EXPOSE 3000
+CMD rm -f tmp/pids/server.pid \
+  && bundle exec rails db:migrate \
+  && bundle exec rails s -b 0.0.0.0 -p 3000

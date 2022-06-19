@@ -2,15 +2,15 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# This file is the source Rails uses to define your schema when running `rails
-# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
 # be faster and is potentially less error prone than running all of your
 # migrations from scratch. Old migrations may fail to apply correctly if those
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_24_143139) do
+ActiveRecord::Schema.define(version: 2021_12_08_142725) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,6 +74,8 @@ ActiveRecord::Schema.define(version: 2021_01_24_143139) do
     t.integer "grading_scale", default: 0
     t.boolean "grades_finalized", default: false
     t.json "restrictions", default: "[]"
+    t.string "lti_consumer_key"
+    t.string "lti_shared_secret"
     t.index ["group_id"], name: "index_assignments_on_group_id"
   end
 
@@ -228,6 +230,12 @@ ActiveRecord::Schema.define(version: 2021_01_24_143139) do
     t.index ["mentor_id"], name: "index_groups_on_mentor_id"
   end
 
+  create_table "issue_circuit_data", force: :cascade do |t|
+    t.text "data"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "mailkick_opt_outs", force: :cascade do |t|
     t.string "email"
     t.string "user_type"
@@ -272,12 +280,19 @@ ActiveRecord::Schema.define(version: 2021_01_24_143139) do
     t.index ["group_id"], name: "index_pending_invitations_on_group_id"
   end
 
+  create_table "project_data", force: :cascade do |t|
+    t.bigint "project_id", null: false
+    t.text "data"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["project_id"], name: "index_project_data_on_project_id", unique: true
+  end
+
   create_table "projects", force: :cascade do |t|
     t.string "name"
     t.bigint "author_id"
     t.bigint "forked_project_id"
     t.string "project_access_type", default: "Public"
-    t.text "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "assignment_id"
@@ -286,9 +301,12 @@ ActiveRecord::Schema.define(version: 2021_01_24_143139) do
     t.text "description"
     t.bigint "view", default: 1
     t.string "slug"
+    t.tsvector "searchable"
+    t.string "lis_result_sourced_id"
     t.index ["assignment_id"], name: "index_projects_on_assignment_id"
     t.index ["author_id"], name: "index_projects_on_author_id"
     t.index ["forked_project_id"], name: "index_projects_on_forked_project_id"
+    t.index ["searchable"], name: "index_projects_on_searchable", using: :gin
     t.index ["slug", "author_id"], name: "index_projects_on_slug_and_author_id", unique: true
   end
 
@@ -407,6 +425,7 @@ ActiveRecord::Schema.define(version: 2021_01_24_143139) do
   add_foreign_key "group_members", "users"
   add_foreign_key "groups", "users", column: "mentor_id"
   add_foreign_key "pending_invitations", "groups"
+  add_foreign_key "project_data", "projects"
   add_foreign_key "projects", "assignments"
   add_foreign_key "projects", "projects", column: "forked_project_id"
   add_foreign_key "projects", "users", column: "author_id"
@@ -414,4 +433,24 @@ ActiveRecord::Schema.define(version: 2021_01_24_143139) do
   add_foreign_key "stars", "users"
   add_foreign_key "taggings", "projects"
   add_foreign_key "taggings", "tags"
+  # no candidate create_trigger statement could be found, creating an adapter-specific one
+  execute(<<-SQL)
+CREATE OR REPLACE FUNCTION pg_catalog.tsvector_update_trigger()
+ RETURNS trigger
+ LANGUAGE internal
+ PARALLEL SAFE
+AS $function$tsvector_update_trigger_byid$function$
+  SQL
+
+  create_trigger("projects_after_insert_update_row_tr", :generated => true, :compatibility => 1).
+      on("projects").
+      before(:insert, :update).
+      nowrap(true) do
+    <<-SQL_ACTIONS
+tsvector_update_trigger(
+  searchable, 'pg_catalog.english', description, name
+);
+    SQL_ACTIONS
+  end
+
 end

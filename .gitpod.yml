@@ -24,7 +24,8 @@ tasks:
     init: >
       echo "Installing rvm" &&
       rvm autolibs disable &&
-      rvm install 2.6.5 &&
+      rvm install 3.0.3 &&
+      nvm install 14 &&
       echo "Installing ruby bundler" &&
       gem install bundler &&
       echo "Installing ruby dependencies" &&
@@ -41,9 +42,8 @@ tasks:
       bundle exec rails db:seed
     command: >
       bundle exec rake sunspot:solr:start &&
-      (./bin/webpack-dev-server . &) &&
-      bundle exec rails server
-
+      bundle exec rails db:seed &&
+      bin/dev
 github:
     prebuilds:
         pullRequestsFromForks: true

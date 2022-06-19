@@ -10,33 +10,34 @@
           </a>
         </div>
         <div class="row">
-          <p class="mt-3 mb-0 footer-social-icon-text">Follow us on:</p>
+          <p class="mt-3 mb-0 footer-social-icon-text"><%= t("layout.footer.social_icon_text") %></p>
         </div>
         <div class="row">
-          <a class="" href="/facebook" target="_blank"><%= image_tag("logos/facebook-logo.png", class: "footer-social-icon pt-2", alt: "Facebook Logo") %></a>
-          <a class="" href="/twitter" target="_blank"><%= image_tag("logos/twitter-logo.png", class: "footer-social-icon pt-2", alt: "Twitter Logo") %></a>
-          <a class="" href="/linkedin" target="_blank"><%= image_tag("logos/linkedin-logo.png", class: "footer-social-icon pt-2", alt: "LinkedIn Logo") %></a>
+          <a class="bounce-out-on-hover" href="/facebook" target="_blank" data-tooltip="facebook"><%= image_tag("logos/facebook-logo.png", class: "footer-social-icon pt-2", alt: "Facebook Logo") %></a>
+          <a class="bounce-out-on-hover" href="/twitter" target="_blank" data-tooltip="twitter"><%= image_tag("logos/twitter-logo.png", class: "footer-social-icon pt-2", alt: "Twitter Logo") %></a>
+          <a class="bounce-out-on-hover" href="/linkedin" target="_blank" data-tooltip="linkedin"><%= image_tag("logos/linkedin-logo.png", class: "footer-social-icon pt-2", alt: "LinkedIn Logo") %></a>
         </div>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 footer-column">
         <div class="row text-left">
           <div class="col-5 footer-links">
-            <a href="/simulator"><h6>Simulator</h6></a>
-            <a href="/learn" target="_blank"><h6>Learn</h6></a>
-            <a href="/examples"><h6>Examples</h6></a>
+            <a href="/simulator"><h6><%= t("layout.link_to_simulator") %></h6></a>
+            <a href="/learn" target="_blank"><h6><%= t("layout.link_to_learn_more") %></h6></a>
+            <a href="https://blog.circuitverse.org" target="_blank"><h6><%= t("layout.link_to_blog") %></h6></a>
+            <a href="/examples"><h6><%= t("layout.footer.link_to_examples") %></h6></a>
             <% if user_signed_in? %>
-              <a href="<%= user_path(current_user) %>"><h6>My Circuits</h6></a>
+              <a href="<%= user_path(current_user) %>"><h6><%= t("layout.footer.my_circuits") %></h6></a>
             <% else %>
-              <a href="/users/sign_in"><h6>Log in</h6></a>
+              <a href="/users/sign_in"><h6><%= t("login") %></h6></a>
             <% end %>
           </div>
           <div class="col-6 footer-links">
-            <a href="/docs" target="_blank"><h6>Documentation</h6></a>
-            <a href="/contribute"><h6>Contribute</h6></a>
-            <a href="/teachers"><h6>Teachers</h6></a>
-            <a href="/about"><h6>About</h6></a>
+            <a href="/docs" target="_blank"><h6><%= t("layout.link_to_docs") %></h6></a>
+            <a href="/contribute"><h6><%= t("layout.footer.link_to_contribute") %></h6></a>
+            <a href="/teachers"><h6><%= t("layout.link_to_teachers") %></h6></a>
+            <a href="/about"><h6><%= t("layout.link_to_about") %></h6></a>
             <% if Flipper.enabled?(:forum) %>
-              <h6><%= link_to "Forum", simple_discussion_path %></h6>
+              <h6><%= link_to t("layout.footer.link_to_forum") , simple_discussion_path %></h6>
             <% end %>
           </div>
         </div>
@@ -44,28 +45,28 @@
       <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 footer-column">
         <div class="row">
           <div class="col-6">
-            <small class="text-left footer-sponsor-logo-text">Brought to you by:</small>
-            <a href="https://www.iiitb.ac.in/" target="_blank">
+            <small class="text-left footer-sponsor-logo-text"><%= t("layout.footer.sponsor_logo_text.brought_by") %></small>
+            <a href="https://www.iiitb.ac.in/" rel="noopener" target="_blank">
               <%= image_tag("footer/iiitb.png", class: "footer-sponsor-logo mb-2", alt: "iiitb Logo") %>
             </a>
           </div>
           <div class="col-6">
-            <small class="text-left footer-sponsor-logo-text">Hosting Sponsor:</small>
-            <a href="http://digitalocean.com/" target="_blank">
-              <%= image_tag("footer/DO.png", class: "footer-sponsor-logo mb-2", alt: "DO Logo") %>
+            <small class="text-left footer-sponsor-logo-text"><%= t("layout.footer.sponsor_logo_text.hosting_sponsor") %></small>
+            <a href="https://aws.amazon.com/" rel="noopener" target="_blank">
+              <%= image_tag("footer/Logo-AWS.jpg", class: "footer-sponsor-logo mb-2", alt: "AWS Logo") %>
             </a>
           </div>
         </div>
         <div class="row">
           <div class="col-6">
-            <small class="text-left footer-sponsor-logo-text">Marketed by:</small>
-            <a href="http://www.iiitb.org/" target="_blank">
+            <small class="text-left footer-sponsor-logo-text"><%= t("layout.footer.sponsor_logo_text.marketed_by") %></small>
+            <a href="http://www.iiitb.org/" rel="noopener" target="_blank">
                   <%= image_tag("footer/istudio.png", class: "footer-sponsor-logo", alt: "istudio Logo") %>
                 </a>
           </div>
           <div class="col-6">
-            <small class="text-left footer-sponsor-logo-text">Developed By:</small>
-            <a href="http://zense.co.in/" target="_blank">
+            <small class="text-left footer-sponsor-logo-text"><%= t("layout.footer.sponsor_logo_text.developed_by") %></small>
+            <a href="http://zense.co.in/" rel="noopener" target="_blank">
               <%= image_tag("footer/zense.png", class: "footer-sponsor-logo", alt: "Zense Logo") %>
             </a>
           </div>
@@ -74,7 +75,7 @@
     </div>
     <div class="row">
       <div class="col-12 text-white text-left footer-copyright-text">
-  <p>Copyright &copy; <%= Time.current.year %> CircuitVerse, All rights reserved.</p>
+  <p><%= t("layout.footer.copyright_text",time_current_year: Time.current.year) %></p>
       </div>
     </div>
   </div>

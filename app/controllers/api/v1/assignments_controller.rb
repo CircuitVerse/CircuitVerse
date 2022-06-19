@@ -4,9 +4,9 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
   before_action :authenticate_user!
   before_action :set_options, only: %i[index show create update]
   before_action :set_group, only: %i[index create]
-  before_action :set_assignment, only: %i[show update destroy reopen start]
+  before_action :set_assignment, only: %i[show update destroy reopen start close]
   before_action :check_show_access, only: %i[index]
-  before_action :check_access, only: %i[update destroy reopen]
+  before_action :check_access, only: %i[update destroy reopen close]
   after_action :check_reopening_status, only: [:update]
 
   WHITELISTED_INCLUDE_ATTRIBUTES = %i[projects grades].freeze
@@ -62,6 +62,19 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
     end
   end
 
+  # PUT /api/v1/assignments/:id/close
+  def close
+    authorize @assignment
+    if @assignment.status == "closed"
+      api_error(status: 409, errors: "Assignment is already closed!")
+    else
+      @assignment.status = "closed"
+      @assignment.deadline = Time.zone.now
+      @assignment.save!
+      render json: { "message": "Assignment has been closed!" }, status: :accepted
+    end
+  end
+
   # PATCH /api/v1/assignments/:id/start
   def start
     authorize @assignment
@@ -69,6 +82,7 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
     @project.name = "#{current_user.name}/#{@assignment.name}"
     @project.assignment_id = @assignment.id
     @project.project_access_type = "Private"
+    @project.build_project_datum
     @project.save!
     render json: {
       "message": "Voila! Project set up under name #{@project.name}"

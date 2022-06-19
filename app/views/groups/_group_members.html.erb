@@ -1,24 +1,25 @@
 <% group.users.each do |user| %>
-  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 groups-members-card-container">
-    <div class="groups-members-card">
+  <div class="<%= membersCardViewerContainer(group) %>">
+    <div class="<%= membersCardViewer(group) %>">
       <div class="row">
-        <div class="col-7 groups-members-card-details">
+        <div class="<%= membersCardViewerDetail(group) %>">
           <i class="fa fa-user"></i>
           <div class="groups-members-card-name-container">
+          <span class="tooltiptext"><%= user.name %></span>
             <%= link_to user.name, user, class: "groups-members-card-name" %>
           </div>
           <% if policy(group).admin_access? %>
             <p class="groups-members-card-email"><%= user.email %></p>
           <% end %>
         </div>
-        <div class="col-5 groups-members-card-button">
-          <% if policy(group).admin_access? %>
-            <%= link_to '#', data: {toggle: "modal", target: "#deletememberModal", currentgroupmember: GroupMember.find_by(user_id:user.id,group_id:group.id).id}, class:"mini-button groups-delete-mini-button" do %>
-              <%= image_tag("SVGs/deleteGroup.svg", alt: "Remove Member") %>
-              <span>Remove</span>
-            <% end %>
-          <% end %>
-        </div>
+        <% if policy(group).admin_access? %>
+          <div class="col-5 groups-members-card-button">
+              <%= link_to '#', data: {toggle: "modal", target: "#deletememberModal", currentgroupmember: GroupMember.find_by(user_id:user.id,group_id:group.id).id}, class:"mini-button groups-delete-mini-button" do %>
+                <%= image_tag("SVGs/deleteGroup.svg", alt: "Remove Member") %>
+                <span><%= t("remove") %></span>
+              <% end %>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>

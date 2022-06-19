@@ -2,11 +2,11 @@
   <div class="modal-dialog primary-modal-dialog">
     <div class="modal-content">
       <div class="modal-header primary-modal-header">
-        <h4 class="modal-title">Add members</h4>
+        <h4 class="modal-title"><%= t("add_members") %></h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
-        <p>Enter Email IDs separated by commas/spaces or in separate lines. If users are not registered, an email ID will be sent requesting them to sign up.</p>
+        <p><%= t("groups.add_member_description") %></p>
         <%= form_with(model: group_member, local: true) do |form| %>
           <% if group_member.errors.any? %>
             <div id="error-message">
@@ -21,22 +21,22 @@
             <%= form.hidden_field :group_id, id: :group_member_group_id %>
           </div>
           <div class="form-group">
-            <label for="emails">Email IDs:</label>
-            <textarea class="form-control form-input" rows="4" id="emails" name="group_member[emails]"></textarea>
+            <%= form.label :emails %>
+            <%= form.text_area :emails, id: :group_member_emails, rows: 4, class: 'form-control form-input', 'data-role': 'tagsinput' %>
           </div>
           <div class="modal-footer">
-            <%= form.submit "Add members", class: 'btn primary-button' %>
+            <%= form.submit  class: 'add-members-button btn primary-button' %>
           </div>
         <% end %>
       </div>
       <div class="mx-auto text-center p-3">
-        <p>OR USE</p>
+        <p><%= t("groups.use_alternative") %></p>
         <%= button_to generate_token_group_path,{remote: true,method: :put,class: 'btn primary-button', 'data-toggle':'collapse', 'href':'#collapseExample', 'aria-expanded':'false', 'aria-controls':'collapseExample'} do %>
           <i class="fas fa-external-link-alt"></i>
-          <span>Group Invite Link</span>
+          <span><%= t("groups.invite_link_btn") %></span>
         <% end %>
         <div class="collapse" id="collapseExample">
-          <textarea id="embedInviteLink" class="group-invite-link-text" rows="4" cols="35"></textarea>
+          <textarea readonly="readonly" id="embedInviteLink" class="group-invite-link-text" rows="4" cols="35"></textarea>
         </div>
       </div>
     </div>

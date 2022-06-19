@@ -7,6 +7,7 @@ require "custom_optional_target/web_push"
 class Project < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: %i[slugged history]
+  self.ignored_columns = ["data"]
 
   validates :name, length: { minimum: 1 }
   validates :slug, uniqueness: true
@@ -25,6 +26,7 @@ class Project < ApplicationRecord
   mount_uploader :image_preview, ImagePreviewUploader
   has_one :featured_circuit
   has_one :grade, dependent: :destroy
+  has_one :project_datum, dependent: :destroy
 
   scope :public_and_not_forked,
         -> { where(project_access_type: "Public", forked_project_id: nil) }
@@ -34,9 +36,20 @@ class Project < ApplicationRecord
   scope :by, ->(author_id) { where(author_id: author_id) }
 
   include PgSearch::Model
+  accepts_nested_attributes_for :project_datum
   pg_search_scope :text_search, against: %i[name description], associated_against: {
     tags: :name
+  }, using: {
+    tsearch: {
+      dictionary: "english", tsvector_column: "searchable"
+    }
   }
+
+  trigger.before(:insert, :update) do
+    "tsvector_update_trigger(
+        searchable, 'pg_catalog.english', description, name
+      );"
+  end
 
   searchable do
     text :name
@@ -60,11 +73,7 @@ class Project < ApplicationRecord
   # after_commit :send_mail, on: :create
 
   def increase_views(user)
-    if user.nil? || (user.id != author_id)
-      self.view ||= 0
-      self.view += 1
-      save
-    end
+    increment!(:view) if user.nil? || (user.id != author_id)
   end
 
   # returns true if starred, false if unstarred
@@ -80,12 +89,13 @@ class Project < ApplicationRecord
   end
 
   def fork(user)
-    @forked_project = dup
-    @forked_project.image_preview = image_preview
-    @forked_project.update!(
+    forked_project = dup
+    forked_project.build_project_datum.data = project_datum&.data
+    forked_project.image_preview = image_preview
+    forked_project.update!(
       view: 1, author_id: user.id, forked_project_id: id, name: name
     )
-    @forked_project
+    forked_project
   end
 
   def send_mail
@@ -126,6 +136,10 @@ class Project < ApplicationRecord
     self.tags = names.split(",").map(&:strip).uniq.map do |n|
       Tag.where(name: n.strip).first_or_create!
     end
+  end
+
+  def public?
+    project_access_type == "Public"
   end
 
   def featured?

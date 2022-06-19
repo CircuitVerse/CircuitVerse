@@ -1,6 +1,7 @@
 @import "theme";
 @import "bootstrap/scss/bootstrap";
-@import 'bootstrap-typeahead-rails';
+@import 'bootstrap-tagsinput/dist/bootstrap-tagsinput.css';
+@import 'autoComplete';
 @import "font-awesome-sprockets";
 @import "font-awesome";
 @import 'trumbowyg/dist/ui/trumbowyg.min';

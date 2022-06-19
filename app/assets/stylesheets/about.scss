@@ -59,3 +59,54 @@
     margin-top: 10px;
   }
 }
+
+.teams-section {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: -25px;
+  min-width: 100%;
+}
+
+.team-member-container {
+  height: 130px;
+  margin-bottom: 15px;
+  margin-left: 25px;
+  margin-right: 30px;
+  margin-top: 45px;
+  width: 130px;
+}
+
+.team-footer {
+  color: $black;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.team-link a {
+  text-decoration: none;
+}
+
+.team-underline {
+  position: relative;
+}
+
+.team-underline::before {
+  background-color: $primary-green;
+  bottom: 0;
+  content: '';
+  height: 2px;
+  position: absolute;
+  right: 0;
+  transition: width .6s cubic-bezier(.25, 1, .5, 1);
+  width: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .team-underline:hover::before {
+    left: 0;
+    right: auto;
+    width: 100%;
+  }
+}

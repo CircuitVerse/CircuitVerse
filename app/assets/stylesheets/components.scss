@@ -64,7 +64,7 @@
 .mini-button {
   border-radius: 4px;
   color: $white;
-  height: 32px;
+  height: fit-content;
   margin: 5px;
   padding: 3px 5px;
   text-decoration: none;
@@ -123,7 +123,7 @@
 
   p {
     max-height: 30px;
-    max-width: 160px;
+    max-width: 150px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -240,7 +240,6 @@
   background-color: $white;
   border: 1px solid $secondary-green;
   border-radius: 0;
-  height: 40px;
   max-width: 100%;
 }
 

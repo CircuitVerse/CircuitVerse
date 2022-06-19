@@ -1,0 +1,20 @@
+en:
+  about:
+    title: "CircuitVerse - About us"
+    main_heading: "ABOUT"
+    main_description: "Learn about the awesome people behind CircuitVerse"
+    product_details: "CircuitVerse is a product developed by students at IIIT-Bangalore.
+          It aims to provide a platform where circuits can be designed and simulated using a graphical user interface.
+          While users can design complete CPU implementations within the simulator, the software is designed primarily for educational use.
+          CircuitVerse is an open-source project with an active community. Checkout the contribute page for more detail."
+    terms_of_service: "Terms of Service"
+    privacy_policy: "Privacy Policy"
+    core_team_heading: "CORE TEAM"
+    core_team_description: "CircuitVerse is lead by an experienced team that is dedicated to innovation and excellence."
+    mentors_team_heading: "MENTORS"
+    mentors_team_description: "Our mentors support and encourage the professional development of the mentee and provide active guidance to help them for the fruitful development of our community."
+    alumni_team_heading: "ALUMNI"
+    alumni_team_description: "We also want to thank all past members for their invaluable contributions!"
+    contributors_heading: "CONTRIBUTORS"
+    contributors_description: "Meet the awesome people of CircuitVerse community that've made this platform what it is now."
+    become_contributor: "Become a Contributor"

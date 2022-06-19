@@ -1,12 +1,12 @@
 
 <html>
   <head>
-    <title>CircuitVerse - Digital Circuit Simulator online</title>
+    <title><%= t("layout.simulator.title") %></title>
     <%= csrf_meta_tags %>
+    <script>window.locale = "<%= I18n.locale %>"</script>
     <script src="/js/pace.js"></script>
     <%= stylesheet_link_tag  'simulator', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'simulator', 'data-turbolinks-track': 'reload' %>
-    <%= stylesheet_pack_tag 'simulator', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'simulator', 'data-turbolinks-track': 'reload' %>
     <%= favicon_link_tag 'favicon.ico' %>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <%= render "layouts/google_analytics" %>

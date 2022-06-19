@@ -12,7 +12,7 @@
     </div>
     <%= yield %>
     <hr class="mailer-horizontal-rule">
-    <h2 class="mailer-social-link-text">Join Us</h2>
+    <h2 class="mailer-social-link-text"><%= t("layout.mailer.join_us") %></h2>
     <div class="mailer-social-container">
       <div class="mailer-social-link">
         <a href="https://www.facebook.com/CircuitVerse"><%= inline_svg_tag "SVGs/facebook.svg", alt: "Facebook Logo", class: "mailer-social-image" %></a>
@@ -27,9 +27,9 @@
         <a href="https://github.com/CircuitVerse/CircuitVerse"><%= inline_svg_tag "SVGs/github.svg", alt: "Github Logo", class: "mailer-social-image" %></a>
       </div>
     </div>
-    <h6 class="mailer-copyright-text">Copyright &copy; 2020 CircuitVerse. All rights reserved. For any issues, reach out to us support@circuitverse.org</h6>
+    <h5 class="mailer-copyright-text"><%= t("layout.mailer.copyright_text") %></h6>
     <% unless @is_preview %>
-      <h6> <%= link_to "Unsubscribe from email notifications", mailkick_unsubscribe_url %> </h6>
+      <h5> <%= link_to t("layout.mailer.unsubscribe_email_notifications"), mailkick_unsubscribe_url %> </h6>
     <% end %>
   </body>
 </html>

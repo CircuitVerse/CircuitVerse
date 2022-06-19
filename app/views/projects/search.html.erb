@@ -5,7 +5,7 @@
       <div class="col-12">
         <div class="search-no-results-image">
           <%= image_tag "SVGs/noResult.svg", alt: "No result image" %>
-          <h6>No Results Found</h6>
+          <h6><%= t("projects.search.no_result_found") %></h6>
         </div>
       </div>
     </div>
@@ -21,14 +21,14 @@
           <div class="row center-row search-view-count-container">
             <i class="fas fa-star search-star-count-icon" aria-hidden="true"></i>
             <span id="star-count" class="noSelect"><%= project.stars.count %></span>
-             Stars
+             <%= t("projects.stars_count") %>
             &nbsp; &nbsp;
             <i class="fa fa-eye" aria-hidden="true"></i>
             <span id="star-count" class="noSelect"><%= project.view %></span>
-             Views
+             <%= t("projects.views_count") %>
           </div>
           <div class="row center-row search-user-data-container">
-            <h6>User:</h6>
+            <h6><%= t("projects.project_user") %></h6>
             <div class="search-user-data">
               <%= image_tag project.author.profile_picture.url(:medium), alt: "User Image", class: "search-user-image" %>
               <%= link_to project.author.name, project.author, class: "search-user-link anchor-text" %>
@@ -52,7 +52,7 @@
               </div>
             </div>
             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 search-project-detail-container">
-              <a class="btn primary-button search-primary-button" target="_blank" href="<%= user_project_path(project.author, project) %>" role="button">View</a>
+              <a class="btn primary-button search-primary-button" target="_blank" href="<%= user_project_path(project.author, project) %>" role="button"><%= t("view") %></a>
             </div>
           </div>
           <div class="row center-row">

@@ -10,14 +10,14 @@
   <% end %>
   <div class="my-3 groups-form-text-container">
     <div class="field form-group">
-      <h5><%= form.label :name, "Group Name:" %></h5>
+      <h5><%= form.label :name %></h5>
       <div class="input-group groups-input-group">
         <%= form.text_field :name, id: :group_name, class: 'form-control form-input', autofocus: true %>
       </div>
     </div>
   </div>
   <div class="groups-form-text-container">
-    <%= form.submit 'Save', class: 'btn primary-button groups-form-primary-button' %>
-    <%= link_to 'Back', :back, class: 'groups-form-anchor-text anchor-text' %>
+    <%= form.submit class: 'btn primary-button groups-form-primary-button' %>
+    <%= link_to t("back"), :back, class: 'groups-form-anchor-text anchor-text' %>
   </div>
 <% end %>

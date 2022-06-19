@@ -1,0 +1,34 @@
+hi:
+  groups:
+    add_member_description: "अल्पविराम/स्पेस से अलग या अलग-अलग पंकतियो में ईमेल आईडी दर्ज करें। यदि उपयोगकर्ता ने दर्ज नहीं किया है, तो उन्हें साइन अप करने का अनुरोध करते हुए एक ईमेल आईडी भेजी जाएगी।"
+    use_alternative: "या उपयोग करें "
+    invite_link_btn: "लिंक के माध्यम से आमंत्रित करें"
+    remove_assignment_message: "क्या आप वाकई इस असाइनमेंट को हटाना चाहते हैं?"
+    remove_member_message: "क्या आप वाकई इस सदस्य को हटाना चाहते हैं?"
+    edit:
+      title: "%{name} - समूह का नाम एडिट करें"
+      main_heading: "समूह का नाम एडिट करें"
+    new:
+      title: "सर्किटवर्स - नया समूह"
+      main_heading: "नया समूह"
+      main_description_html: "छात्रों के लिए प्रोजेक्ट सेट करने और ग्रेड देने के लिए मेंटर्स द्वारा समूहों का उपयोग किया जा सकता है।
+         आप डॉक्यूमेंटेशन <a class='anchor-text' href='https://docs.circuitverse.org/#/chapter2/2cvforeducators' target='_blank'>यहां</a> पढ़ सकते हैं।"
+    show:
+      edit_name_btn: "नाम एडिट करें"
+      mentor_name_heading: "मेंटर"
+      group_members_heading: "सदस्य"
+      add_members_btn: "+ सदस्य ऐड करे"
+      assignment:
+        heading: "असाइनमेंट"
+        add_assignment_btn: "+ असाइनमेंट ऐड करे"
+        assignment_table_head:
+          name: "नाम"
+          deadline: "समय सीमा"
+          grading: "ग्रेडिंग"
+          actions: "एक्शन्स"
+          grade: "ग्रेड"
+        time_remaining_html: "<strong>शेष समय:</strong> %{time_remaining}"
+        start_working_btn: "काम शुरू करे"
+        see_work_done: "अपना काम देखें"
+        not_submitted: "प्रस्तुत नहीं किया गया"
+        show_submission: "सबमिशन देखें"

@@ -248,3 +248,9 @@ Style/ClassAndModuleChildren:
 
 RSpec/MultipleExpectations:
   Max: 5
+
+RSpec/InstanceVariable:
+  Enabled: false
+
+RSpec/ContextWording:
+  Enabled: false
