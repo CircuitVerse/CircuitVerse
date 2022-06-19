@@ -1,3 +1,6 @@
+/*global ...*/
+/*eslint no-undef: "error"*/
+
 declare const window: any
 
 import jQuery from 'jquery'

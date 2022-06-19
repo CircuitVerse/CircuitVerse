@@ -2,8 +2,8 @@
     <div id="contextMenu" oncontextmenu="return false;">
         <ul>
             <li
-                :key="index"
                 v-for="(menuOption, index) in contextMenuOptions"
+                :key="index"
                 :data-index="index"
                 @click="menuItemClicked($event)"
             >
@@ -41,6 +41,11 @@ export default {
             },
         }
     },
+
+    // Lifecycle hook on mounted - dont initially display the context menu
+    mounted() {
+        this.hideContextMenu()
+    },
     methods: {
         hideContextMenu() {
             var el = document.getElementById('contextMenu')
@@ -74,11 +79,6 @@ export default {
                 globalScope.centerFocus(false)
             }
         },
-    },
-
-    // Lifecycle hook on mounted - dont initially display the context menu
-    mounted() {
-        this.hideContextMenu()
     },
 }
 </script>

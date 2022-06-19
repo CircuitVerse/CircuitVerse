@@ -3,12 +3,12 @@
         <Logo :cvlogo="navbarLogo" />
         <Hamburger v-if="showSidebar()" />
 
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <NavbarLinks :navbarData="navbarData" />
+        <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
+            <NavbarLinks :navbar-data="navbarData" />
 
             <span
-                class="projectName noSelect defaultCursor font-weight-bold"
                 id="projectName"
+                class="projectName noSelect defaultCursor font-weight-bold"
             >
                 Untitled
             </span>
@@ -16,8 +16,8 @@
             <QuickButton />
 
             <User
-                :isUserSignedIn="isUserSignedIn"
-                :userData="userDropdownItems"
+                :is-user-signed-in="isUserSignedIn"
+                :user-data="userDropdownItems"
             />
         </div>
     </nav>

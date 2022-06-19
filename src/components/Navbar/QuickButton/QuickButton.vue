@@ -95,35 +95,35 @@
         </div>
         <div>
             <button
+                id="save"
                 type="button"
                 class="quick-btn-save-online logixButton"
-                id="save"
                 title="Save Online"
                 onclick=""
             ></button>
         </div>
         <div>
             <button
+                id="saveOffline"
                 type="button"
                 class="quick-btn-save logixButton"
-                id="saveOffline"
                 title="Save Offline"
                 onclick=""
             ></button>
         </div>
         <div>
             <button
+                id="deleteSelected"
                 type="button"
                 class="quick-btn-delete"
                 title="Delete Selected"
-                id="deleteSelected"
             ></button>
         </div>
         <div>
             <button
+                id="createSaveAsImgPrompt"
                 type="button"
                 class="quick-btn-download logixButton"
-                id="createSaveAsImgPrompt"
                 title="Download as Image"
                 onclick=""
             ></button>
@@ -138,42 +138,42 @@
         </div>
         <div>
             <button
+                id="undoButton"
                 type="button"
                 class="quick-btn-undo"
                 title="Undo"
-                id="undoButton"
             ></button>
         </div>
         <div>
             <button
+                id="redoButton"
                 type="button"
                 class="quick-btn-redo"
                 title="Redo"
-                id="redoButton"
             ></button>
         </div>
         <div>
             <button
+                id="viewButton"
                 type="button"
                 class="quick-btn-view"
                 title="Preview Circuit"
-                id="viewButton"
             >
                 <i style="color: #ddd" class="fas fa-expand-arrows-alt"></i>
             </button>
         </div>
         <div class="zoom-slider">
-            <button class="zoom-slider-decrement" id="decrement">-</button>
+            <button id="decrement" class="zoom-slider-decrement">-</button>
             <input
+                id="customRange1"
                 type="range"
                 class="custom-range"
                 min="0"
                 max="45"
                 step="1"
-                id="customRange1"
             />
             <span id="slider_value"></span>
-            <button class="zoom-slider-increment" id="increment">+</button>
+            <button id="increment" class="zoom-slider-increment">+</button>
         </div>
     </div>
 </template>
