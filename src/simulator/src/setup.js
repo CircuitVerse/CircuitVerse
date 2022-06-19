@@ -95,10 +95,6 @@ function setupEnvironment() {
     setupCodeMirrorEnvironment()
 }
 
-// function getImgUrl(pic) {
-//     return require('./img/'+pic+'.svg')
-// }
-
 /**
  * It initializes some useful array which are helpful
  * while simulating, saving and loading project.
@@ -122,11 +118,12 @@ function setupElementLists() {
     window.renderOrder = [...moduleList.slice().reverse(), 'wires', 'allNodes'] // Order of render
 
     function createIcon(element) {
-        // console.log(element.name);
-        // console.log(getImgUrl(${element.name}));
-        // var imgToDisp = getImgUrl(element.name);
+        const elementImg = new URL(
+            `../../assets/img/${element.name}.svg`,
+            import.meta.url
+        ).href
         return `<div class="icon logixModules" id="${element.name}" title="${element.label}">
-            <img src= "/src/assets/img/${element.name}.svg" alt="${element.name}" >
+            <img src= "${elementImg}" alt="${element.name}" >
         </div>`
     }
 
