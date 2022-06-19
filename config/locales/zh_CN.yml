@@ -1,0 +1,63 @@
+zh_CN:
+  add_members: "添加成员"
+  assignment: "任务"
+  back: "返回"
+  close: "关闭"
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: "1 小时"
+        other: "%{count} 小时"
+      about_x_months:
+        one: "1 个月"
+        other: "%{count} 个月"
+      about_x_years:
+        one: "1 年"
+        other: "%{count} 年"
+      almost_x_years:
+        one: "1 年"
+        other: "%{count} 年"
+      half_a_minute: "半分钟"
+      less_than_x_minutes:
+        one: "诶 分钟"
+        other: "%{count} 分钟"
+      less_than_x_seconds:
+        one: "1 秒"
+        other: "%{count} 秒"
+      over_x_years:
+        one: "1 年"
+        other: "%{count} 年"
+      x_days:
+        one: "1 天"
+        other: "%{count} 天"
+      x_minutes:
+        one: "1 分钟"
+        other: "%{count} 分钟"
+      x_months:
+        one: "1 个月"
+        other: "%{count} 个月"
+      x_seconds:
+        one: "1 秒"
+        other: "%{count} 秒"
+  delete: "删除"
+  edit: "编辑"
+  email_us_heading: "给我们发电子邮件"
+  features_description: "借助具有拖放、复制/粘贴、缩放等功能的现代直观用户界面，快速轻松地设计电路"
+  features_heading: "功能"
+  fork: "叉"
+  join_at_slack_description: "Slack 频道"
+  join_at_slack_heading: "加入并与我们聊天"
+  launch: "启动"
+  launch_simulator: "启动模拟器"
+  login: "登录"
+  more: "更多"
+  not_available: "不适用"
+  remove: "移除"
+  reopen: "重新提出"
+  save: "保存"
+  show: "显示"
+  sign_out: "登出"
+  sign_up: "注册"
+  submit: "提交"
+  view: "查看"
+  welcome_back_text: "欢迎回到数字电路世界！"

@@ -1,0 +1,9 @@
+zh_CN:
+  launch_error:
+    main-description: "您请求的内容目前不可用，或者您无权访问该内容。"
+    main-heading: "无法访问内容"
+    title: "CircuitVerse-LTI 错误"
+  open_incv:
+    notice_redirection_error: "如果它不起作用，请点击下面的按钮。"
+    notice_wait_in_open_incv: "我们正在 CircuitVerse 中打开这个作业，请稍候..."
+    open_assignment: "打开作业"

@@ -1,0 +1,62 @@
+zh_CN:
+  devise:
+    confirmations:
+      confirmed: "您的电子邮件地址已成功确认。"
+      send_instructions: "几分钟后，您将收到一封电子邮件，其中包含有关如何确认电子邮件地址的说明。"
+      send_paranoid_instructions: "如果您的电子邮件地址存在于我们的数据库中，您将在几分钟内收到一封电子邮件，其中包含有关如何确认电子邮件地址的说明。"
+    failure:
+      already_authenticated: "您已经登录"
+      inactive: "您的帐户还未激活"
+      invalid: "无效的 %{authentication_keys} 或密码。"
+      last_attempt: "在帐户被锁定之前，您还可以再尝试一次。"
+      locked: "您的账户已被锁定。"
+      not_found_in_database: "无效的 %{authentication_keys} 或密码。"
+      timeout: "您的会话已过期。请重新登录以继续。"
+      unauthenticated: "您需要先登录或注册，然后才能继续。"
+      unconfirmed: "在继续之前，您必须确认您的电子邮件地址。"
+    mailer:
+      confirmation_instructions:
+        subject: "确认说明"
+      email_changed:
+        subject: "电子邮件更改了"
+      password_change:
+        subject: "密码已更改"
+      reset_password_instructions:
+        subject: "重置密码说明"
+      unlock_instructions:
+        subject: "解锁说明"
+    omniauth_callbacks:
+      failure: "无法从 %{kind} 验证您的身份，因为 “%{reason}”。"
+      success: "已成功从 %{kind} 账户进行身份验证。"
+    passwords:
+      no_token: "如果没有密码重置电子邮件发送，就无法访问此页面。如果你确实来自密码重置电子邮件，请确保使用了提供的完整 URL。"
+      send_instructions: "几分钟后，您将收到重置密码的电子邮件。"
+      send_paranoid_instructions: "如果您的电子邮件地址存在于我们的数据库中，几分钟后您将在您的电子邮件地址收到密码恢复链接。"
+      updated: "您的密码已成功更改。您现在已登录。"
+      updated_not_active: "您的密码已成功更改。"
+    registrations:
+      destroyed: "再见！您的账户已成功取消。我们希望很快能再见到你。"
+      signed_up: "欢迎！您已注册成功。"
+      signed_up_but_inactive: "你已成功注册。但是，我们无法登录您，因为您的账户尚未激活。"
+      signed_up_but_locked: "你已成功注册。但是，我们无法登录您，因为您的帐户已被锁定。"
+      signed_up_but_unconfirmed: "带有确认链接的消息已发送到您的电子邮件地址。请点击链接激活您的账户。"
+      update_needs_confirmation: "您成功更新了账户，但我们需要验证您的新电子邮件地址。请检查您的电子邮件，然后点击确认链接以确认您的新电子邮件地址。"
+      updated: "您的账户已成功更新。"
+    sessions:
+      already_signed_out: "已成功注销。"
+      signed_in: "已成功登录。"
+      signed_out: "已成功注销。"
+    unlocks:
+      send_instructions: "几分钟后，您将收到一封电子邮件，其中包含有关如何解锁帐户的说明。"
+      send_paranoid_instructions: "如果您的帐户已存在，几分钟后您将收到一封电子邮件，其中包含有关如何解锁帐户的说明。"
+      unlocked: "您的账户已成功解锁。请登录以继续。"
+  errors:
+    messages:
+      already_confirmed: "已确认，请尝试登录"
+      confirmation_period_expired: "需要在 %{period} 内确认，请申请一个新的"
+      expired: "已过期，请申请一个新的"
+      not_found: "未找到组件"
+      not_locked: "没有锁定"
+      not_saved:
+        one: "1 个错误导致无法保存此 %{resource}："
+        other: "%{count} 个错误禁止保存此 %{resource}："

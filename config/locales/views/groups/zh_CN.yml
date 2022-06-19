@@ -1,0 +1,33 @@
+zh_CN:
+  groups:
+    add_member_description: "输入电子邮件 ID，用逗号/空格分隔，或分开几行。如果用户未注册，系统将向用户发送电子邮件ID，要求他们注册。"
+    edit:
+      main_heading: "编辑组名称"
+      title: "%{name} - 编辑群组名称"
+    invite_link_btn: "群组邀请链接"
+    new:
+      main_description_html: "导师可以使用小组为学生设置项目并给学生评分。你可以<a class='anchor-text' href='https://docs.circuitverse.org/#/groups' target='_blank'>在这里</a>找到文档。"
+      main_heading: "新群组"
+      title: "CircuitVerse-新组"
+    remove_assignment_message: "确定要删除此作业吗？"
+    remove_member_message: "你确定要移除该成员吗？"
+    show:
+      add_members_btn: "+ 添加成员"
+      assignment:
+        add_assignment_btn: "+ 添加分配"
+        assignment_table_head:
+          actions: "操作"
+          deadline: "最后期限："
+          grade: "年级"
+          grading: "等级"
+          name: "名字"
+        heading: "任务"
+        not_submitted: "未提交！"
+        see_work_done: "查看你的作品"
+        show_submission: "查看提交"
+        start_working_btn: "开始工作"
+        time_remaining_html: "<strong>剩余时间：</strong> %{time_remaining}"
+      edit_name_btn: "编辑名称"
+      group_members_heading: "成员"
+      mentor_name_heading: "导师 :"
+    use_alternative: "或者使用"

@@ -1,0 +1,7 @@
+zh_CN:
+  simulator:
+    nav_item:
+      circuit: "电路"
+      help: "帮助"
+      project: "项目"
+      tools: "工具"

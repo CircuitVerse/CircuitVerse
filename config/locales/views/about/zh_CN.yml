@@ -1,0 +1,17 @@
+zh_CN:
+  about:
+    alumni_team_description: "我们还要感谢所有过去的成员所做的宝贵贡献！"
+    alumni_team_heading: "校友"
+    become_contributor: "成为贡献者"
+    contributors_description: "认识 CircuitVerse 社区的杰出人士，他们已经使这个平台成为现在的样子。"
+    contributors_heading: "贡献者"
+    core_team_description: "CircuitVerse由一支经验丰富的团队领导，致力于创新和卓越。"
+    core_team_heading: "核心团队"
+    main_description: "了解 CircuitVerse 背后的杰出人物"
+    main_heading: "关于"
+    mentors_team_description: "我们的导师支持和鼓励学员的专业发展，并提供积极的指导，帮助他们实现社区的卓有成效的发展。"
+    mentors_team_heading: "导师们"
+    privacy_policy: "隐私权政策"
+    product_details: "CircuitVerse 是由 IIIT-班加罗尔的学生开发的产品。它旨在提供一个使用图形用户界面设计和模拟电路的平台。虽然用户可以在模拟器中设计完整的CPU实现，但该软件主要是为教育用途而设计的。CircuitVerse 是一个开源项目，拥有活跃的社区。查看贡献页面了解更多详情。"
+    terms_of_service: "服务条款"
+    title: "CircuitVerse-关于我们"

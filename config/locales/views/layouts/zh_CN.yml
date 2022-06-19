@@ -1,0 +1,33 @@
+zh_CN:
+  layout:
+    footer:
+      copyright_text: "版权所有 © %{time_current_year} CircuitVerse，保留所有权利。"
+      link_to_contribute: "贡献"
+      link_to_examples: "例子"
+      link_to_forum: "论坛"
+      my_circuits: "我的电路"
+      social_icon_text: "关注我们："
+      sponsor_logo_text:
+        brought_by: "由以下人员带给你："
+        developed_by: "由以下人员开发："
+        hosting_sponsor: "主办赞助商："
+        marketed_by: "营销者 :"
+    getting_started_dropdown: "开始使用"
+    header:
+      dashboard: "仪表盘"
+      language: "语言"
+      my_groups: "我的群组"
+      notifications: "通知"
+    link_to_about: "关于"
+    link_to_blog: "博客"
+    link_to_docs: "文档"
+    link_to_features: "功能"
+    link_to_learn_more: "学习"
+    link_to_simulator: "模拟器"
+    link_to_teachers: "教师们"
+    mailer:
+      copyright_text: "版权 © 2022 CircuitVerse。保留所有权利。如有任何问题，请联系我们 support@circuitverse.org"
+      join_us: "加入我们"
+      unsubscribe_email_notifications: "取消订阅电子邮件通知"
+    simulator:
+      title: "CircuitVerse-在线数字电路模拟器"

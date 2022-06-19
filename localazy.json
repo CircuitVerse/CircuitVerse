@@ -1,0 +1,11 @@
+{
+    "writeKey": "a8345386054407063176-421ab39d225bc94122c201e105dadf65d865ec5d0977c30523575c4d4ff5fc29",
+    "readKey": "a8345386054407063176-ac1f83ed8176ae1a53b15f77e13c502e6709b5542867f1202c6f0e2ef1950eab",
+    "upload": {
+        "type": "yaml",
+        "files": "config/locales/views/users/en.yml"
+    },
+    "download": {
+        "files": "config/locales/views/users/zh_CN.yml"
+    }
+}

@@ -1,0 +1,38 @@
+zh_CN:
+  assignments:
+    assignment_data:
+      description: "描述："
+      export_grades: "导出成绩"
+      grade: "年级"
+      graded_html: "<strong>已评分：</strong> %{graded}"
+      grades_and_remarks: "成绩和备注"
+      grading_scale_letter: "作业可以用任何字母A/B/C/D/E/F进行评分"
+      grading_scale_percent: "作业可以按百分比 (1-100) 进行评分"
+      group_html: "<strong>组：</strong> %{group_name}"
+      name_html: "<strong>名称：</strong> %{name}"
+      no_submissions: "还没有提交！"
+      remarks: "備註"
+      remove: "删除"
+      restricted_elements_html: "<strong>受限电路元素：<strong> %{restricted_circuit_elements}"
+      submissions: "提交内容："
+      time_remaining_html: "<strong>剩余时间：</strong> %{time_remaining}"
+    deadline: "最后期限："
+    edit:
+      edit_assignment: "编辑分配"
+    form:
+      cannot_be_edited: "%{graded} - 无法编辑"
+      custom: "自定义"
+      enable_element_restriction: "启用元素限制："
+      grade_scale_cant_change: "（设置后无法更改）"
+      letter: "字母 (A-F)"
+      no_grade: "没有等级"
+      percent: "百分比 (1-100)"
+      time_remaining: "剩余时间：%{time}"
+    group_name: "组：%{name}"
+    new:
+      new_assignment_heading: "新作业"
+      title: "%{name} - 新分配"
+    remaining_time_error: "（加载脚本时出错）"
+    show:
+      assignment_details_heading: "作业详情"
+      title: "%{name} - 分配详情"
