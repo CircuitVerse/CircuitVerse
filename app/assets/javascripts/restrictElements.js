@@ -28,7 +28,7 @@ function htmlInlineCheckbox(elementName, checked) {
     return '\n <div class="form-check form-check-inline"> \n <label class="form-check-label primary-checkpoint-container" id = "label-'
         .concat(elementName, '" for="checkbox-')
         .concat(elementName, '">')
-        .concat('<input class="form-check-input element-restriction" type="checkbox" id="checkbox-')
+        .concat(`<input class="form-check-input element-restriction" type="checkbox" ${checked} id="checkbox-`)
         .concat(elementName, '" value="')
         .concat(elementName, '" ')
         .concat('>\n')
@@ -55,6 +55,7 @@ function loadHtml(elementHierarchy, restrictionMap) {
 }
 
 function loadRestrictions(restrictions) {
+    restrictions = JSON.parse(restrictions);
     handleMainCheckbox();
     var _metadata = metadata;
     var elementHierarchy = _metadata.elementHierarchy;
