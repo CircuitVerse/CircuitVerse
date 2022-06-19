@@ -32,13 +32,15 @@ export function updateRestrictedElementsInScope(scope = globalScope) {
     updateRestrictedElementsList()
 }
 
-// export function showRestricted() {
-//     $('#restrictedDiv').removeClass('display--none');
-//     // Show no help text for restricted elements
-//     $('#Help').removeClass('show');
-//     $('#restrictedDiv').html('The element has been restricted by mentor. Usage might lead to deduction in marks');
-// }
+export function showRestricted() {
+    $('#restrictedDiv').removeClass('display--none')
+    // Show no help text for restricted elements
+    $('#Help').removeClass('show')
+    $('#restrictedDiv').html(
+        'The element has been restricted by mentor. Usage might lead to deduction in marks'
+    )
+}
 
-// export function hideRestricted() {
-//     $('#restrictedDiv').addClass('display--none');
-// }
+export function hideRestricted() {
+    $('#restrictedDiv').addClass('display--none')
+}

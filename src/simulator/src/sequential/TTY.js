@@ -200,12 +200,8 @@ export default class TTY extends CircuitElement {
             this.direction
         )
 
-        if (
-            (this.b.hover && !simulationArea.shiftDown) ||
-            simulationArea.lastSelected == this ||
-            simulationArea.multipleObjectSelections.contains(this)
-        )
-            ctx.fillStyle = 'rgba(255, 255, 32,0.8)'
+        // if ((this.b.hover&&!simulationArea.shiftDown)|| simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this))
+        //     ctx.fillStyle = "rgba(255, 255, 32,0.8)";
         ctx.stroke()
 
         ctx.beginPath()

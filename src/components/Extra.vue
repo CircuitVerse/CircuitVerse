@@ -2,7 +2,7 @@
     <!-- --------------------------------------------------------------------------------------------- -->
     <!-- TabsBar -->
     <div id="tabsBar" class="noSelect pointerCursor">
-        <button class="logixButton" id="createNewCircuitScope" onclick="">
+        <button id="createNewCircuitScope" class="logixButton" onclick="">
             &#43;
         </button>
     </div>
@@ -11,8 +11,8 @@
     <!-- --------------------------------------------------------------------------------------------- -->
     <!-- Verilog Code Editor -->
     <div
-        title="Export Verilog"
         id="verilog-export-code-window-div"
+        title="Export Verilog"
         style="display: none"
     >
         <textarea id="verilog-export-code-window"></textarea>
@@ -25,15 +25,15 @@
     <!-- --------------------------------------------------------------------------------------------- -->
     <!-- Circuit Elements Panel -->
     <div
-        class="modules noSelect defaultCursor ce-panel elementPanel draggable-panel draggable-panel-css"
         id="guide_1"
+        class="modules noSelect defaultCursor ce-panel elementPanel draggable-panel draggable-panel-css"
     >
         <div class="panel-header">
             Circuit Elements
             <span class="fas fa-minus-square minimize"></span>
             <span class="fas fa-external-link-square-alt maximize"></span>
         </div>
-        <div class="panel-body" id="testid">
+        <div id="testid" class="panel-body">
             <div style="position: relative">
                 <input
                     type="text"
@@ -44,7 +44,7 @@
                 <span><i class="fas search-close fa-times-circle"></i></span>
             </div>
             <div class="search-results"></div>
-            <div class="accordion" id="menu"></div>
+            <div id="menu" class="accordion"></div>
         </div>
     </div>
     <!-- --------------------------------------------------------------------------------------------- -->
@@ -61,7 +61,7 @@
         </div>
         <div class="panel-body">
             <div class="search-results"></div>
-            <div class="accordion" id="subcircuitMenu"></div>
+            <div id="subcircuitMenu" class="accordion"></div>
         </div>
     </div>
     <!-- --------------------------------------------------------------------------------------------- -->
@@ -190,22 +190,22 @@
         <div class="panel-body tb-test-not-null tb-panel-hidden">
             <div class="tb-manual-test-data">
                 <div style="margin-bottom: 10px; overflow: auto">
-                    <span class="tb-data" id="data-title"
+                    <span id="data-title" class="tb-data"
                         ><b>Test:</b> <span></span
                     ></span>
-                    <span class="tb-data" id="data-type"
+                    <span id="data-type" class="tb-data"
                         ><b>Type:</b> <span></span
                     ></span>
                 </div>
                 <button
-                    class="custom-btn--basic panel-button tb-dialog-button"
                     id="edit-test-btn"
+                    class="custom-btn--basic panel-button tb-dialog-button"
                 >
                     Edit
                 </button>
                 <button
-                    class="custom-btn--tertiary panel-button tb-dialog-button"
                     id="remove-test-btn"
+                    class="custom-btn--tertiary panel-button tb-dialog-button"
                 >
                     Remove
                 </button>
@@ -216,15 +216,15 @@
                         ><b>Group: </b></span
                     >
                     <button
-                        class="custom-btn--basic panel-button tb-case-button-left tb-case-button"
                         id="prev-group-btn"
+                        class="custom-btn--basic panel-button tb-case-button-left tb-case-button"
                     >
                         <i class="tb-case-arrow tb-case-arrow-left"></i>
                     </button>
                     <span class="tb-test-label group-label"></span>
                     <button
-                        class="custom-btn--basic panel-button tb-case-button-right tb-case-button"
                         id="next-group-btn"
+                        class="custom-btn--basic panel-button tb-case-button-right tb-case-button"
                     >
                         <i class="tb-case-arrow tb-case-arrow-right"></i>
                     </button>
@@ -234,15 +234,15 @@
                         ><b>Case: </b></span
                     >
                     <button
-                        class="custom-btn--basic panel-button tb-case-button-left tb-case-button"
                         id="prev-case-btn"
+                        class="custom-btn--basic panel-button tb-case-button-left tb-case-button"
                     >
                         <i class="tb-case-arrow tb-case-arrow-left"></i>
                     </button>
                     <span class="tb-test-label case-label"></span>
                     <button
-                        class="custom-btn--basic panel-button tb-case-button-right tb-case-button"
                         id="next-case-btn"
+                        class="custom-btn--basic panel-button tb-case-button-right tb-case-button"
                     >
                         <i class="tb-case-arrow tb-case-arrow-right"></i>
                     </button>
@@ -267,14 +267,14 @@
             <div style="display: table; margin-top: 20px; margin-left: 8px">
                 <div class="testbench-manual-panel-buttons">
                     <button
-                        class="custom-btn--basic panel-button tb-dialog-button"
                         id="validate-btn"
+                        class="custom-btn--basic panel-button tb-dialog-button"
                     >
                         Validate
                     </button>
                     <button
-                        class="custom-btn--primary panel-button tb-dialog-button"
                         id="runall-btn"
+                        class="custom-btn--primary panel-button tb-dialog-button"
                     >
                         Run All
                     </button>
@@ -293,8 +293,8 @@
                     <p><i>No Test is attached to the current circuit</i></p>
                 </div>
                 <button
-                    class="custom-btn--primary panel-button tb-dialog-button"
                     id="attach-test-btn"
+                    class="custom-btn--primary panel-button tb-dialog-button"
                 >
                     Attach Test
                 </button>
@@ -311,8 +311,8 @@
     <!-- --------------------------------------------------------------------------------------------- -->
     <!-- Verilog Editor Panel -->
     <div
-        class="noSelect defaultCursor draggable-panel draggable-panel-css"
         id="verilogEditorPanel"
+        class="noSelect defaultCursor draggable-panel draggable-panel-css"
     >
         <div class="panel-header">
             Verilog Module
@@ -323,14 +323,14 @@
         <div class="panel-body">
             <div class="layout-body">
                 <button
-                    class="largeButton btn logixButton btn-xs custom-btn--tertiary"
                     id="resetVerilogCode"
+                    class="largeButton btn logixButton btn-xs custom-btn--tertiary"
                 >
                     Reset Code
                 </button>
                 <button
-                    class="largeButton btn logixButton btn-xs custom-btn--primary"
                     id="saveVerilogCode"
+                    class="largeButton btn logixButton btn-xs custom-btn--primary"
                 >
                     Save Code
                 </button>
@@ -377,8 +377,8 @@
     <!-- --------------------------------------------------------------------------------------------- -->
     <!-- Element Properties Panel -->
     <div
-        class="moduleProperty noSelect effect1 properties-panel draggable-panel draggable-panel-css guide_2"
         id="moduleProperty"
+        class="moduleProperty noSelect effect1 properties-panel draggable-panel draggable-panel-css guide_2"
     >
         <div id="moduleProperty-title" class="noSelect panel-header">
             Properties
@@ -401,19 +401,19 @@
             <span class="fas fa-minus-square minimize"></span>
             <span class="fas fa-external-link-square-alt maximize"></span>
         </div>
-        <div class="layout-body panel-body" id="layout-body">
+        <div id="layout-body" class="layout-body panel-body">
             <div class="">
                 <button
-                    class="zoomButton btn-lg"
                     id="decreaseLayoutWidth"
+                    class="zoomButton btn-lg"
                     title="Decrease Width"
                 >
                     <span class="fa fa-minus" aria-hidden="true"></span>
                 </button>
                 <span>Width</span>
                 <button
-                    class="zoomButton btn-lg"
                     id="increaseLayoutWidth"
+                    class="zoomButton btn-lg"
                     title="Increase Width"
                 >
                     <span class="fa fa-plus" aria-hidden="true"></span>
@@ -421,16 +421,16 @@
             </div>
             <div class="">
                 <button
-                    class="zoomButton btn-lg"
                     id="decreaseLayoutHeight"
+                    class="zoomButton btn-lg"
                     title="Decrease Height"
                 >
                     <span class="fa fa-minus" aria-hidden="true"></span>
                 </button>
                 <span>Height</span>
                 <button
-                    class="zoomButton btn-lg"
                     id="increaseLayoutHeight"
+                    class="zoomButton btn-lg"
                     title="Increase Height"
                 >
                     <span class="fa fa-plus" aria-hidden="true"></span>
@@ -438,7 +438,7 @@
             </div>
             <div class="">
                 <span>Reset all nodes:</span>
-                <button class="zoomButton btn-lg" id="layoutResetNodes">
+                <button id="layoutResetNodes" class="zoomButton btn-lg">
                     <span
                         class="fa fa-sync"
                         aria-hidden="true"
@@ -450,8 +450,8 @@
                 <span>Title</span>
                 <div class="layout--btn-group">
                     <button
-                        class="zoomButton-up btn-lg no-select"
                         id="layoutTitleUp"
+                        class="zoomButton-up btn-lg no-select"
                     >
                         <svg
                             id="Group_304"
@@ -493,8 +493,8 @@
                         </svg>
                     </button>
                     <button
-                        class="zoomButton-down btn-lg no-select"
                         id="layoutTitleDown"
+                        class="zoomButton-down btn-lg no-select"
                     >
                         <svg
                             id="Group_305"
@@ -536,8 +536,8 @@
                         </svg>
                     </button>
                     <button
-                        class="zoomButton-left btn-lg no-select"
                         id="layoutTitleLeft"
+                        class="zoomButton-left btn-lg no-select"
                     >
                         <svg
                             id="Group_306"
@@ -579,8 +579,8 @@
                         </svg>
                     </button>
                     <button
-                        class="zoomButton-right btn-lg no-select"
                         id="layoutTitleRight"
+                        class="zoomButton-right btn-lg no-select"
                     >
                         <svg
                             id="Group_307"
@@ -626,18 +626,18 @@
             <div class="layout-title--enable">
                 <span>Title Enabled:</span>
                 <label class="switch">
-                    <input type="checkbox" checked id="toggleLayoutTitle" />
+                    <input id="toggleLayoutTitle" type="checkbox" checked />
                     <span class="slider"></span>
                 </label>
             </div>
             <div class="">
-                <button class="Layout-btn custom-btn--primary" id="saveLayout">
+                <button id="saveLayout" class="Layout-btn custom-btn--primary">
                     Save
                 </button>
 
                 <button
-                    class="Layout-btn custom-btn--tertiary"
                     id="cancelLayout"
+                    class="Layout-btn custom-btn--tertiary"
                 >
                     Cancel
                 </button>
@@ -689,11 +689,11 @@
                 style="border: none"
                 data-toggle="buttons"
             >
-                <div class="btn" id="radio-full" role="button">
+                <div id="radio-full" class="btn" role="button">
                     <input type="radio" name="view" value="full" /> Full Circuit
                     View
                 </div>
-                <div class="btn active" id="radio-current" role="button">
+                <div id="radio-current" class="btn active" role="button">
                     <input
                         type="radio"
                         name="view"
@@ -750,8 +750,8 @@
         title="Custom Theme"
     ></div>
     <input
-        type="file"
         id="importThemeFile"
+        type="file"
         name="themeFile"
         style="display: none"
         multiple
@@ -760,9 +760,9 @@
 
     <!-- --------------------------------------------------------------------------------------------- -->
     <!-- Simulation Area - Canvas (3) + Help Section-->
-    <div class="simulation" id="simulation">
+    <div id="simulation" class="simulation">
         <!-- <div id="restrictedDiv" class="alert alert-danger display--none"></div> -->
-        <div class="canvasArea" id="canvasArea">
+        <div id="canvasArea" class="canvasArea">
             <canvas
                 id="backgroundArea"
                 style="
@@ -860,36 +860,36 @@
         style="display: none"
     >
         <label>Decimal value</label><br /><input
-            type="text"
             id="decimalInput"
+            type="text"
             value="16"
             label="Decimal"
             name="text1"
         /><br /><br />
         <label>Binary value</label><br /><input
-            type="text"
             id="binaryInput"
+            type="text"
             value="0b10000"
             label="Binary"
             name="text1"
         /><br /><br />
         <label>Binary-coded decimal value</label><br /><input
-            type="text"
             id="bcdInput"
+            type="text"
             value="10110"
             label="BCD"
             name="text1"
         /><br /><br />
         <label>Octal value</label><br /><input
-            type="text"
             id="octalInput"
+            type="text"
             value="020"
             label="Octal"
             name="text1"
         /><br /><br />
         <label>Hexadecimal value</label><br /><input
-            type="text"
             id="hexInput"
+            type="text"
             value="0x10"
             label="Hex"
             name="text1"
@@ -935,36 +935,36 @@
                         <h4>Report an issue</h4>
                     </div>
                     <hr />
-                    <div class="container my-2 text-center" id="result"></div>
+                    <div id="result" class="container my-2 text-center"></div>
                     <label id="report-label" style="font-weight: lighter"
                         ><b>Describe your issue:</b></label
                     >
                     <div class="form-group">
                         <textarea
-                            class="form-control border-primary"
                             id="issuetext"
+                            class="form-control border-primary"
                             rows="3"
                         ></textarea>
                     </div>
                     <label
-                        for="emailtext"
                         id="email-label"
+                        for="emailtext"
                         style="font-weight: lighter"
                         ><b>Email</b><span> [Optional]</span>:</label
                     >
                     <div class="form-group">
                         <input
+                            id="emailtext"
                             class="form-control border-primary"
                             type="email"
-                            id="emailtext"
                             rows="3"
                         />
                     </div>
                     <div class="container">
                         <center>
                             <button
-                                type="submit"
                                 id="report"
+                                type="submit"
                                 class="btn btn-primary"
                             >
                                 Report

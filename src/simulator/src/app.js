@@ -1,4 +1,5 @@
 import { setup } from './setup'
+import Array from './arrayHelpers'
 
 document.addEventListener('DOMContentLoaded', () => {
     setup()
@@ -208,3 +209,5 @@ document.addEventListener('DOMContentLoaded', () => {
         subcircuits: {},
     }
 })
+
+window.Array = Array

@@ -325,7 +325,7 @@ export var verilog = {
         for (var bitWidth = 1; bitWidth <= 32; bitWidth++) {
             var wireList = scope.verilogWireList[bitWidth]
             // Hack for splitter
-            wireList = wireList.filter((x) => !x.contains('['))
+            wireList = wireList.filter((x) => !x.includes('['))
             if (wireList.length == 0) continue
             if (bitWidth == 1) output += '  wire ' + wireList.join(', ') + ';\n'
             else

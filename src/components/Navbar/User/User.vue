@@ -1,6 +1,6 @@
 <template>
     <ul class="nav navbar-nav noSelect pointerCursor pull-right account-btn">
-        <li class="dropdown pull-right" v-if="isUserSignedIn === true">
+        <li v-if="isUserSignedIn === true" class="dropdown pull-right">
             <!-- When integrating with Project remove v-if from above li and also v-else as it is handled by backend -->
             <a
                 href="#"
@@ -25,9 +25,9 @@
                     <a class="dropdown-item" rel="nofollow" data-method="delete">Sign Out</a>
                 </li>
             </ul> -->
-            <DropDown :listItems="userData" dropDownType="user" />
+            <DropDown :list-items="userData" drop-down-type="user" />
         </li>
-        <li class="dropdown pull-right" v-else>
+        <li v-else class="dropdown pull-right">
             <a
                 class="navbar-nav signIn-btn user-field"
                 href="https://circuitverse.org/users/sign_in"
@@ -43,15 +43,15 @@ import DropDown from '../../Dropdown/DropDown.vue'
 
 export default {
     name: 'User',
+    components: {
+        DropDown,
+    },
     props: {
         isUserSignedIn: {
             type: Boolean,
             default: false,
         },
         userData: Array,
-    },
-    components: {
-        DropDown,
     },
 }
 </script>

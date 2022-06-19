@@ -30,7 +30,6 @@ import { verilogModeGet, verilogModeSet } from './Verilog2CV'
  */
 
 var layoutMode = false
-var embed = false
 
 export function layoutModeSet(param) {
     layoutMode = param

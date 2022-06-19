@@ -15,8 +15,6 @@ import Wire from './wire'
 // import { colors } from './themer/themer';
 import { colors } from './themer/themer'
 
-var embed = false
-
 /**
  * Constructs all the connections of Node node
  * @param {Node} node - node to be constructed

@@ -51,7 +51,7 @@ export const checkUpdate = () => {
     const userK = localStorage.get('userKeys')
     if (Object.size(userK) !== Object.size(defaultKeys)) {
         for (const [key, value] of Object.entries(defaultKeys)) {
-            if (!Object.keys(userK).contains(key)) {
+            if (!Object.keys(userK).includes(key)) {
                 userK[key] = value
             }
         }

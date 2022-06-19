@@ -38,17 +38,15 @@ import { changeInputSize } from './modules'
 import { verilogModeGet, verilogModeSet } from './Verilog2CV'
 import { updateTestbenchUI } from './testbench'
 
-var embed = false
-
 export const circuitProperty = {
     toggleLayoutMode,
     setProjectName,
     changeCircuitName,
+    // changeClockTime,
     deleteCurrentCircuit,
     changeClockEnable,
     changeInputSize,
     changeLightMode,
-    // changeClockTime
 }
 export var scopeList = {}
 export function resetScopeList() {
@@ -154,7 +152,7 @@ function deleteCurrentCircuit(scopeId = globalScope.id) {
  * Wrapper function around newCircuit to be called from + button on UI
  */
 export function createNewCircuitScope() {
-    console.log('Create New Circuit Called')
+    simulationArea.lastSelected = undefined
     const scope = newCircuit()
     if (!embed) {
         showProperties(simulationArea.lastSelected)
@@ -438,12 +436,3 @@ export default class Scope {
             (height - ytoolbarOffset - (maxY - minY) * this.scale) / 2
     }
 }
-
-/* ***************************************************************************************88
- changes Made :-
-
- 1. Commented Change Clock Time in Circuit Property : Line 43
-    Uncaught Reference error
-
-
- */

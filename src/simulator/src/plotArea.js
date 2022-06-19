@@ -2,8 +2,6 @@ import simulationArea from './simulationArea'
 import { convertors } from './utils'
 
 var DPR = window.devicePixelRatio || 1
-var embed = false
-var globalScope = undefined
 
 // Helper function to scale to display
 function sh(x) {
@@ -70,10 +68,12 @@ const plotArea = {
     reset() {
         this.cycleCount = 0
         this.cycleTime = new Date().getTime()
-        // for (var i = 0; i < globalScope.Flag.length; i++) {
-        //     globalScope.Flag[i].plotValues = [[0, globalScope.Flag[i].inp1.value]];
-        //     globalScope.Flag[i].cachedIndex = 0;
-        // }
+        for (var i = 0; i < globalScope.Flag.length; i++) {
+            globalScope.Flag[i].plotValues = [
+                [0, globalScope.Flag[i].inp1.value],
+            ]
+            globalScope.Flag[i].cachedIndex = 0
+        }
         this.unitUsed = 0
         this.resume()
         this.resize()
@@ -117,8 +117,7 @@ const plotArea = {
         var oldHeight = this.height
         var oldWidth = this.width
         this.width = document.getElementById('plot').clientWidth * this.DPR
-        // this.height = getFullHeight(globalScope.Flag.length);
-        this.height = 100
+        this.height = getFullHeight(globalScope.Flag.length)
         if (oldHeight == this.height && oldWidth == this.width) return
         this.canvas.width = this.width
         this.canvas.height = this.height
@@ -270,13 +269,17 @@ const plotArea = {
 
         // Flag Labels
         ctx.textAlign = 'left'
-        // for (var i = 0; i < globalScope.Flag.length; i++) {
-        //     var startHeight = getFlagStartY(i);
-        //     ctx.fillStyle = foregroundColor;
-        //     ctx.fillRect(0, startHeight, flagLabelWidth, plotHeight);
-        //     ctx.fillStyle = textColor;
-        //     ctx.fillText(globalScope.Flag[i].identifier, sh(5), startHeight + plotHeight * 0.7);
-        // }
+        for (var i = 0; i < globalScope.Flag.length; i++) {
+            var startHeight = getFlagStartY(i)
+            ctx.fillStyle = foregroundColor
+            ctx.fillRect(0, startHeight, flagLabelWidth, plotHeight)
+            ctx.fillStyle = textColor
+            ctx.fillText(
+                globalScope.Flag[i].identifier,
+                sh(5),
+                startHeight + plotHeight * 0.7
+            )
+        }
 
         // Waveform Status Flags
         const WAVEFORM_NOT_STARTED = 0
@@ -288,121 +291,124 @@ const plotArea = {
         ctx.textAlign = 'center'
         var endX = Math.min(getCycleStartX(endTime), width)
 
-        // for (var i = 0; i < globalScope.Flag.length; i++) {
-        //     var plotValues = globalScope.Flag[i].plotValues;
-        //     var startHeight = getFlagStartY(i) + waveFormPadding;
-        //     var yTop = startHeight;
-        //     var yMid = startHeight + waveFormHeight / 2;
-        //     var yBottom = startHeight + waveFormHeight;
-        //     var state = WAVEFORM_NOT_STARTED;
-        //     var prevY;
+        for (var i = 0; i < globalScope.Flag.length; i++) {
+            var plotValues = globalScope.Flag[i].plotValues
+            var startHeight = getFlagStartY(i) + waveFormPadding
+            var yTop = startHeight
+            var yMid = startHeight + waveFormHeight / 2
+            var yBottom = startHeight + waveFormHeight
+            var state = WAVEFORM_NOT_STARTED
+            var prevY
 
-        //     // Find correct index to start plotting from
-        //     var j = 0;
-        //     // Using caching for optimal performance
-        //     if (globalScope.Flag[i].cachedIndex) {
-        //         j = globalScope.Flag[i].cachedIndex;
-        //     }
-        //     // Move to beyond timeLineStartX
-        //     while (j + 1 < plotValues.length && getCycleStartX(plotValues[j][0]) < timeLineStartX) {
-        //         j++;
-        //     }
-        //     // Move to just before timeLineStartX
-        //     while (j > 0 && getCycleStartX(plotValues[j][0]) > timeLineStartX) {
-        //         j--;
-        //     }
-        //     // Cache index
-        //     globalScope.Flag[i].cachedIndex = j;
+            // Find correct index to start plotting from
+            var j = 0
+            // Using caching for optimal performance
+            if (globalScope.Flag[i].cachedIndex) {
+                j = globalScope.Flag[i].cachedIndex
+            }
+            // Move to beyond timeLineStartX
+            while (
+                j + 1 < plotValues.length &&
+                getCycleStartX(plotValues[j][0]) < timeLineStartX
+            ) {
+                j++
+            }
+            // Move to just before timeLineStartX
+            while (j > 0 && getCycleStartX(plotValues[j][0]) > timeLineStartX) {
+                j--
+            }
+            // Cache index
+            globalScope.Flag[i].cachedIndex = j
 
-        //     // Plot
-        //     for (; j < plotValues.length; j++) {
-        //         var x = getCycleStartX(plotValues[j][0]);
+            // Plot
+            for (; j < plotValues.length; j++) {
+                var x = getCycleStartX(plotValues[j][0])
 
-        //         // Handle out of bound
-        //         if (x < timeLineStartX) {
-        //             if(j + 1 != plotValues.length) {
-        //                 // Next one also is out of bound, so skip this one completely
-        //                 var x1 = getCycleStartX(plotValues[j + 1][0]);
-        //                 if (x1 < timeLineStartX)
-        //                     continue;
-        //             }
-        //             x = timeLineStartX;
-        //         }
+                // Handle out of bound
+                if (x < timeLineStartX) {
+                    if (j + 1 != plotValues.length) {
+                        // Next one also is out of bound, so skip this one completely
+                        var x1 = getCycleStartX(plotValues[j + 1][0])
+                        if (x1 < timeLineStartX) continue
+                    }
+                    x = timeLineStartX
+                }
 
-        //         var value = plotValues[j][1];
-        //         if(value === undefined) {
-        //             if (state == WAVEFORM_STARTED) {
-        //                 ctx.stroke();
-        //             }
-        //             state = WAVEFORM_NOT_STARTED;
-        //             continue;
-        //         }
-        //         if (globalScope.Flag[i].bitWidth == 1) {
-        //             if (x > endX) break;
-        //             var y = value == 1 ? yTop : yBottom;
-        //             if (state == WAVEFORM_NOT_STARTED) {
-        //                 // Start new plot
-        //                 state = WAVEFORM_STARTED;
-        //                 ctx.beginPath();
-        //                 ctx.moveTo(x, y);
-        //             }
-        //             else {
-        //                 ctx.lineTo(x, prevY);
-        //                 ctx.lineTo(x, y);
-        //             }
-        //             prevY = y;
-        //         }
-        //         else {
-        //             var endX;
-        //             if (j + 1 == plotValues.length) {
-        //                 endX = getCycleStartX(endTime);
-        //             }
-        //             else {
-        //                 endX = getCycleStartX(plotValues[j + 1][0]);
-        //             }
-        //             var smallOffset = waveFormHeight / 2;
-        //             ctx.beginPath();
-        //             ctx.moveTo(endX, yMid);
-        //             ctx.lineTo(endX - smallOffset, yTop);
-        //             ctx.lineTo(x + smallOffset, yTop);
-        //             ctx.lineTo(x, yMid);
-        //             ctx.lineTo(x + smallOffset, yBottom);
-        //             ctx.lineTo(endX - smallOffset, yBottom);
-        //             ctx.closePath();
-        //             ctx.stroke();
+                var value = plotValues[j][1]
+                if (value === undefined) {
+                    if (state == WAVEFORM_STARTED) {
+                        ctx.stroke()
+                    }
+                    state = WAVEFORM_NOT_STARTED
+                    continue
+                }
+                if (globalScope.Flag[i].bitWidth == 1) {
+                    if (x > endX) break
+                    var y = value == 1 ? yTop : yBottom
+                    if (state == WAVEFORM_NOT_STARTED) {
+                        // Start new plot
+                        state = WAVEFORM_STARTED
+                        ctx.beginPath()
+                        ctx.moveTo(x, y)
+                    } else {
+                        ctx.lineTo(x, prevY)
+                        ctx.lineTo(x, y)
+                    }
+                    prevY = y
+                } else {
+                    var endX
+                    if (j + 1 == plotValues.length) {
+                        endX = getCycleStartX(endTime)
+                    } else {
+                        endX = getCycleStartX(plotValues[j + 1][0])
+                    }
+                    var smallOffset = waveFormHeight / 2
+                    ctx.beginPath()
+                    ctx.moveTo(endX, yMid)
+                    ctx.lineTo(endX - smallOffset, yTop)
+                    ctx.lineTo(x + smallOffset, yTop)
+                    ctx.lineTo(x, yMid)
+                    ctx.lineTo(x + smallOffset, yBottom)
+                    ctx.lineTo(endX - smallOffset, yBottom)
+                    ctx.closePath()
+                    ctx.stroke()
 
-        //             // Text position
-        //             // Clamp start and end are within the screen
-        //             var x1 = Math.max(x, timeLineStartX);
-        //             var x2 = Math.min(endX, width);
-        //             var textPositionX = (x1 + x2) / 2 ;
+                    // Text position
+                    // Clamp start and end are within the screen
+                    var x1 = Math.max(x, timeLineStartX)
+                    var x2 = Math.min(endX, width)
+                    var textPositionX = (x1 + x2) / 2
 
-        //             ctx.font = `${sh(9)}px Times New Roman`;
-        //             ctx.fillStyle = 'white';
-        //             ctx.fillText(convertors.dec2hex(value), textPositionX, yMid + sh(3));
-        //         }
-        //         if (x > width) {
-        //             state = WAVEFORM_OVER;
-        //             ctx.stroke();
-        //             break;
-        //         }
-        //     }
-        //     if (state == WAVEFORM_STARTED) {
-        //         if (globalScope.Flag[i].bitWidth == 1) {
-        //             ctx.lineTo(endX, prevY);
-        //         }
-        //         ctx.stroke();
-        //     }
-        // }
+                    ctx.font = `${sh(9)}px Times New Roman`
+                    ctx.fillStyle = 'white'
+                    ctx.fillText(
+                        convertors.dec2hex(value),
+                        textPositionX,
+                        yMid + sh(3)
+                    )
+                }
+                if (x > width) {
+                    state = WAVEFORM_OVER
+                    ctx.stroke()
+                    break
+                }
+            }
+            if (state == WAVEFORM_STARTED) {
+                if (globalScope.Flag[i].bitWidth == 1) {
+                    ctx.lineTo(endX, prevY)
+                }
+                ctx.stroke()
+            }
+        }
     },
     // Driver function to render and update
     plot() {
-        // if (embed) return;
-        // if (globalScope.Flag.length === 0) {
-        //     this.canvas.width = 0;
-        //     this.canvas.height = 0;
-        //     return;
-        // }
+        if (embed) return
+        if (globalScope.Flag.length === 0) {
+            this.canvas.width = 0
+            this.canvas.height = 0
+            return
+        }
 
         this.update()
         this.render()

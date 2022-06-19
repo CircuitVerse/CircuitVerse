@@ -49,6 +49,7 @@ export function openOffline() {
         buttons: !flag
             ? [
                   {
+                      id: 'Open_offline_btn',
                       text: 'Open Project',
                       click() {
                           if (!$('input[name=projectId]:checked').val()) return

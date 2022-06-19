@@ -5,7 +5,6 @@ import miniMapArea, { removeMiniMap, updatelastMinimapShown } from './minimap'
 import { colors } from './themer/themer'
 
 var unit = 10
-var embed = false
 
 export function findDimensions(scope = globalScope) {
     var totalObjects = 0

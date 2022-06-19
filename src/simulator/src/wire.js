@@ -6,8 +6,6 @@ import Node from './node'
 import { updateSimulationSet, forceResetNodesSet } from './engine'
 import { colors } from './themer/themer'
 
-var embed = false
-
 /**
  * Wire - To connect two nodes.
  * @class

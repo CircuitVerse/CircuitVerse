@@ -11,8 +11,8 @@
         </a>
 
         <DropDown
-            :listItems="navbarItem.dropdownItems"
-            dropDownType="navLink"
+            :list-items="navbarItem.dropdownItems"
+            drop-down-type="navLink"
         />
     </li>
 </template>
@@ -22,11 +22,11 @@ import DropDown from '../../../Dropdown/DropDown.vue'
 
 export default {
     name: 'NavbarLink',
-    props: {
-        navbarItem: Object,
-    },
     components: {
         DropDown,
+    },
+    props: {
+        navbarItem: Object,
     },
 }
 </script>

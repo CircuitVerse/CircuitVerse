@@ -9,6 +9,12 @@ import {
 import { layoutModeGet } from './layoutMode'
 import plotArea from './plotArea'
 
+window.globalScope = undefined
+window.lightMode = false // To be deprecated
+window.projectId = undefined
+window.id = undefined
+window.loading = false // Flag - all assets are loaded
+
 var prevErrorMessage // Global variable for error messages
 var prevShowMessage // Global variable for error messages
 export function generateId() {
@@ -33,7 +39,7 @@ export function clockTick() {
     if (errorDetectedGet()) return
     if (layoutModeGet()) return
     updateCanvasSet(true)
-    // globalScope.clockTick();
+    globalScope.clockTick()
     plotArea.nextCycle()
     play()
     scheduleUpdate(0, 20)

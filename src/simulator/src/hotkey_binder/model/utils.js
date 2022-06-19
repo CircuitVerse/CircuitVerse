@@ -63,5 +63,5 @@ export const checkRestricted = (key) => {
                     : value
         })
     }
-    return restrictedKeys.contains(key)
+    return restrictedKeys.includes(key)
 }

@@ -1,3 +1,5 @@
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable import/no-cycle */
 import { dots } from '../canvasApi'
 import themeOptions from './themes'
 import updateThemeForStyle from './themer'
@@ -99,14 +101,17 @@ export const CustomColorThemes = () => {
     /**
      * To preview the changes
      */
-    $('.customColorInput').on('input', (e) => {
-        customTheme[e.target.name].color = e.target.value
-        customTheme[e.target.name].ref.forEach((property) => {
-            themeOptions['Custom Theme'][property] = e.target.value
+    function setColorEvent() {
+        $('.customColorInput').on('input', (e) => {
+            customTheme[e.target.name].color = e.target.value
+            customTheme[e.target.name].ref.forEach((property) => {
+                themeOptions['Custom Theme'][property] = e.target.value
+            })
+            updateThemeForStyle('Custom Theme')
+            updateBG()
         })
-        updateThemeForStyle('Custom Theme')
-        updateBG()
-    })
+    }
+    setColorEvent()
 
     // hack for updating current theme to the saved custom theme
     setTimeout(() => {
@@ -128,6 +133,7 @@ export const CustomColorThemes = () => {
         // update colors in dialog box
         $('#CustomColorThemesDialog').empty()
         $('#CustomColorThemesDialog').append(getCustomThemeCard())
+        setColorEvent()
     }
 
     /**
@@ -140,6 +146,7 @@ export const CustomColorThemes = () => {
             var fr = new FileReader()
             fr.onload = receivedText
             fr.readAsText(File)
+            $('#importThemeFile').val('')
         } else {
             alert('File Not Supported !')
         }

@@ -13,8 +13,6 @@ import miniMapArea from './minimap'
 import { resetup } from './setup'
 import { verilogModeGet } from './Verilog2CV'
 
-var embed = false
-
 /**
  * Core of the simulation and rendering algorithm.
  */

@@ -33,7 +33,6 @@ export function loadSubCircuit(savedData, scope) {
  * @category subcircuit
  */
 export function createSubCircuitPrompt(scope = globalScope) {
-    console.log('New Subcirciuit Dialog Function Called')
     if (verilogModeGet() || layoutModeGet()) {
         showError('Subcircuit cannot be inserted in this mode')
         return

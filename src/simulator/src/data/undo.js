@@ -16,7 +16,6 @@ import { forceResetNodesSet } from '../engine'
  * @exports undo
  */
 export default function undo(scope = globalScope) {
-    console.log('Undo Function Called')
     if (layoutModeGet()) return
     if (scope.backups.length < 2) return
     const backupOx = globalScope.ox

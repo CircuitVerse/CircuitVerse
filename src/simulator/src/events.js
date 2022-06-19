@@ -20,8 +20,6 @@ import { TestbenchData } from './testbench'
  * @category events
  */
 export function paste(copyData) {
-    console.log('Paste Function Called')
-    console.log(copyData)
     if (copyData === undefined) return
     var data = JSON.parse(copyData)
     if (!data.logixClipBoardData) return

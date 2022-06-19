@@ -94,15 +94,15 @@ export function keyBinder() {
                 : ''
         if (
             $('#pressedKeys').text().split(' + ').length === 2 &&
-            !modifiers.contains(currentKey) &&
-            modifiers.contains($('#pressedKeys').text().split(' + ')[1])
+            !modifiers.includes(currentKey) &&
+            modifiers.includes($('#pressedKeys').text().split(' + ')[1])
         ) {
             $('#pressedKeys').append(` + ${currentKey}`)
-        } else if (modifiers.contains($('#pressedKeys').text())) {
+        } else if (modifiers.includes($('#pressedKeys').text())) {
             modifiers = modifiers.filter(
                 (mod) => mod === $('#pressedKeys').text()
             )
-            if (!modifiers.contains(currentKey)) {
+            if (!modifiers.includes(currentKey)) {
                 $('#pressedKeys').append(` + ${currentKey}`)
             }
         } else {
@@ -114,7 +114,7 @@ export function keyBinder() {
         }
         if (
             ($('#pressedKeys').text().split(' + ').length === 2 &&
-                ['Ctrl', 'Meta'].contains(
+                ['Ctrl', 'Meta'].includes(
                     $('#pressedKeys').text().split(' + ')[1]
                 )) ||
             ($('#pressedKeys').text().split(' + ')[0] === 'Alt' &&

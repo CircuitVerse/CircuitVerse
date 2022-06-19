@@ -11,6 +11,8 @@ import AndGate from './modules/AndGate'
 import OrGate from './modules/OrGate'
 import NotGate from './modules/NotGate'
 import { stripTags } from './utils'
+import simulationArea from './simulationArea'
+import { findDimensions } from './canvasApi'
 
 var inputSample = 5
 var dataSample = [
@@ -322,6 +324,7 @@ function drawCombinationalAnalysis(
     outputListNames,
     scope = globalScope
 ) {
+    findDimensions(scope)
     var inputCount = inputList.length
     var maxTerms = 0
     for (var i = 0; i < combinationalData.length; i++) {
@@ -332,6 +335,15 @@ function drawCombinationalAnalysis(
     var startPosY = 200
 
     var currentPosY = 300
+
+    if (simulationArea.maxWidth && simulationArea.maxHeight) {
+        if (simulationArea.maxHeight + currentPosY > simulationArea.maxWidth) {
+            startPosX += simulationArea.maxWidth
+        } else {
+            startPosY += simulationArea.maxHeight
+            currentPosY += simulationArea.maxHeight
+        }
+    }
     var andPosX = startPosX + inputCount * 40 + 40 + 40
     var orPosX = andPosX + Math.floor(maxTerms / 2) * 10 + 80
     var outputPosX = orPosX + 60

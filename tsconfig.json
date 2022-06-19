@@ -24,8 +24,9 @@
         "src/**/*.d.ts",
         "src/**/*.tsx",
         "src/**/*.vue",
-        "src/**/*"
-, "commitlint.config.js"    ],
+        "src/**/*",
+        "commitlint.config.js"
+    ],
     "references": [{ "path": "./tsconfig.node.json" }]
 }
 

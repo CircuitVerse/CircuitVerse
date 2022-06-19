@@ -1,19 +1,19 @@
 <template>
     <ul class="dropdown-menu">
-        <li :key="listItem.id" v-for="listItem in listItems">
+        <li v-for="listItem in listItems" :key="listItem.id">
             <a
+                :id="listItem.itemid"
                 class="dropdown-item"
                 :class="
                     dropDownType == 'navLink'
                         ? 'logixButton text-left pl-1'
                         : ''
                 "
-                :id="listItem.itemid"
                 style="white-space: pre-line"
                 >{{ listItem.item }}
             </a>
         </li>
-        <div class="dropdown-divider" v-if="dropDownType == 'user'"></div>
+        <div v-if="dropDownType == 'user'" class="dropdown-divider"></div>
         <li v-if="dropDownType == 'user'">
             <a class="dropdown-item" rel="nofollow" data-method="delete"
                 >Sign Out</a
