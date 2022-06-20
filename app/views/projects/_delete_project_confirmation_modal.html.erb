@@ -2,15 +2,15 @@
   <div class="modal-dialog primary-modal-dialog">
     <div class="modal-content">
       <div class="modal-header secondary-modal-header">
-        <h4 class="modal-title">Delete</h4>
+        <h4 class="modal-title"><%= t("delete") %></h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
-        <p>Are you sure you want to delete this project?</p>
+        <p><%= t("projects.delete_project_message") %></p>
       </div>
       <div class="modal-footer">
         <%= link_to '#', method: :delete, class: "btn primary-delete-button", id: "projects-delete-button" do %>
-          Delete
+          <%= t("delete") %>
         <% end %>
       </div>
     </div>

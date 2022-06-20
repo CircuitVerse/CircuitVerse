@@ -1,4 +1,5 @@
 version: '1.0.{build}'
+image: 'Visual Studio 2022'
 
 cache:
   - vendor/bundle
@@ -6,15 +7,16 @@ cache:
 environment:
   RAILS_ENV: test
   COVERALLS_SERVICE_NAME: appveyor
-  nodejs_version: "12"
+  nodejs_version: "14"
 
 services:
-  - postgresql95
+  - postgresql13
   
   # Install scripts. (runs after repo cloning)
 install:
   - ps: Install-Product node $env:nodejs_version
-  - set PATH=C:\Ruby26\bin;%PATH%
+  - set PATH=C:\Ruby30-x64\bin;%PATH%
+  - ruby -v
   - bundle config --local path vendor/bundle
   - bundle install --with postgresql
   - yarn
@@ -23,11 +25,13 @@ build: off
 
 before_test:
   - ruby -v
+  - gem install bundler
   - gem -v
   - bundle -v
   - copy config\database.appveyor.yml config\database.yml
   - ruby bin\rake db:create
   - ruby bin\rails db:schema:load
+  - yarn build
   - openssl genrsa  -out config/private.pem 2048
   - openssl rsa -in config/private.pem -outform PEM -pubout -out config/public.pem
 

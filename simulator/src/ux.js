@@ -10,16 +10,18 @@ import {
 } from './engine';
 import simulationArea from './simulationArea';
 import logixFunction from './data';
-import { newCircuit, circuitProperty } from './circuit';
+import { createNewCircuitScope, circuitProperty } from './circuit';
 import modules from './modules';
 import { updateRestrictedElementsInScope } from './restrictedElementDiv';
 import { paste } from './events';
 import { setProjectName, getProjectName } from './data/save';
 import { changeScale } from './canvasApi';
 import updateTheme from "./themer/themer";
-import { generateImage } from './data/save';
+import { generateImage, generateSaveData } from './data/save';
 import { setupVerilogExportCodeWindow } from './verilog';
 import { setupBitConvertor} from './utils';
+import { updateTestbenchUI, setupTestbenchUI } from './testbench';
+import { applyVerilogTheme } from './Verilog2CV';
 
 export const uxvar = {
     smartDropXX: 50,
@@ -69,13 +71,60 @@ function showContextMenu() {
     $('#contextMenu').css({
         visibility: 'visible',
         opacity: 1,
-        top: `${ctxPos.y}px`,
-        left: `${ctxPos.x}px`,
     });
+    
+    var windowHeight = $("#simulationArea").height() - $("#contextMenu").height() - 10;
+    var windowWidth = $("#simulationArea").width() - $("#contextMenu").width() - 10;
+    // for top, left, right, bottom
+    var topPosition;
+    var leftPosition;
+    var rightPosition;
+    var bottomPosition;
+    if (ctxPos.y > windowHeight && ctxPos.x <= windowWidth) {
+        //When user click on bottom-left part of window
+        leftPosition = ctxPos.x;
+        bottomPosition = $(window).height() - ctxPos.y;
+        $("#contextMenu").css({
+            left: `${leftPosition}px`,
+            bottom: `${bottomPosition}px`,
+            right: 'auto',
+            top: 'auto',
+        });
+    } else if (ctxPos.y > windowHeight && ctxPos.x > windowWidth) {
+        //When user click on bottom-right part of window
+        bottomPosition = $(window).height() - ctxPos.y;
+        rightPosition = $(window).width() - ctxPos.x;
+        $("#contextMenu").css({
+            left: 'auto',
+            bottom: `${bottomPosition}px`,
+            right: `${rightPosition}px`,
+            top: 'auto',
+        });
+    } else if (ctxPos.y <= windowHeight && ctxPos.x <= windowWidth) {
+        //When user click on top-left part of window
+        leftPosition = ctxPos.x;
+        topPosition = ctxPos.y;
+        $("#contextMenu").css({
+            left: `${leftPosition}px`,
+            bottom: 'auto',
+            right: 'auto',
+            top: `${topPosition}px`,
+        });
+    } else {
+        //When user click on top-right part of window
+        rightPosition = $(window).width() - ctxPos.x;
+        topPosition = ctxPos.y;
+        $("#contextMenu").css({
+            left: 'auto',
+            bottom: 'auto',
+            right: `${rightPosition}px`,
+            top: `${topPosition}px`,
+        });
+    }
     ctxPos.visible = true;
     return false;
 }
-
+ 
 /**
  * Function is called when context item is clicked
  * @param {number} id - id of the optoin selected
@@ -96,7 +145,7 @@ function menuItemClicked(id, code="") {
         undo();
         undo();
     } else if (id === 5) {
-        newCircuit();
+        createNewCircuitScope();
     } else if (id === 6) {
         logixFunction.createSubCircuitPrompt();
     } else if (id === 7) {
@@ -143,6 +192,11 @@ export function setupUI() {
     });
     // var dummyCounter=0;
 
+    // calling apply on select theme in dropdown
+    $('.applyTheme').on('change',function () {
+        applyVerilogTheme();
+    });
+   
 
     $('.logixModules').hover(function () {
         // Tooltip can be statically defined in the prototype.
@@ -425,17 +479,16 @@ function escapeHtml(unsafe) {
 export function deleteSelected() {
     if (simulationArea.lastSelected && !(simulationArea.lastSelected.objectType === 'Node' && simulationArea.lastSelected.type !== 2)) {
         simulationArea.lastSelected.delete();
-        hideProperties();
     }
         
     for (var i = 0; i < simulationArea.multipleObjectSelections.length; i++) {
         if (!(simulationArea.multipleObjectSelections[i].objectType === 'Node' && simulationArea.multipleObjectSelections[i].type !== 2)) 
             simulationArea.multipleObjectSelections[i].cleanDelete();
-        hideProperties();
     }
     
     simulationArea.multipleObjectSelections = [];
-
+    simulationArea.lastSelected = undefined;
+    showProperties(simulationArea.lastSelected);
     // Updated restricted elements
     updateCanvasSet(true);
     scheduleUpdate();
@@ -509,10 +562,21 @@ export function setupPanels() {
     setupPanelListeners('#layoutDialog');
     setupPanelListeners('#verilogEditorPanel');
     setupPanelListeners('.timing-diagram-panel');
+    setupPanelListeners('.testbench-manual-panel');
 
     // Minimize Timing Diagram (takes too much space)
     $('.timing-diagram-panel .minimize').trigger('click');
-    
+
+    // Update the Testbench Panel UI
+    updateTestbenchUI();
+    // Minimize Testbench UI
+    $('.testbench-manual-panel .minimize').trigger('click');
+
+    // Hack because minimizing panel then maximizing sets visibility recursively
+    // updateTestbenchUI calls some hide()s which are undone by maximization
+    // TODO: Remove hack
+    $('.testbench-manual-panel .maximize').on('click', setupTestbenchUI);
+
     $('#projectName').on('click', () => {
         $("input[name='setProjectName']").focus().select();
     });
@@ -553,17 +617,29 @@ function setupPanelListeners(panelSelector) {
     });
 }
 
+export function exitFullView(){
+    $('.navbar').show();
+    $('.modules').show();
+    $('.report-sidebar').show();
+    $('#tabsBar').show();
+    $('#exitViewBtn').remove();
+    $('#moduleProperty').show();
+    $('.timing-diagram-panel').show();
+    $('.testbench-manual-panel').show();
+}
+
 export function fullView () {
-    const onClick = `onclick="(() => {$('.navbar').show(); $('.modules').show(); $('.report-sidebar').show(); $('#tabsBar').show(); $('#exitViewBtn').remove(); $('#moduleProperty').show();})()"`
-    const markUp = `<button id='exitViewBtn' ${onClick} >Exit Full Preview</button>`
+    const markUp = `<button id='exitViewBtn' >Exit Full Preview</button>`
     $('.navbar').hide()
     $('.modules').hide()
     $('.report-sidebar').hide()
     $('#tabsBar').hide()
     $('#moduleProperty').hide()
+    $('.timing-diagram-panel').hide();
+    $('.testbench-manual-panel').hide();
     $('#exitView').append(markUp);
+    $('#exitViewBtn').on('click', exitFullView);
 }
-
 /** 
     Fills the elements that can be displayed in the subcircuit, in the subcircuit menu
 **/
@@ -621,19 +697,35 @@ export function fillSubcircuitElements() {
 async function postUserIssue(message) {
 
     var img = generateImage("jpeg", "full", false, 1, false).split(',')[1];
-    const result = await $.ajax({
-            url: 'https://api.imgur.com/3/image',
-            type: 'POST',
-            data: {
-                image: img
-            },
-            dataType: 'json',
-            headers: {
-                Authorization: 'Client-ID 9a33b3b370f1054'
-            },
-        });
 
-    message += "\n" + result.data.link;
+    let result;
+    try {
+        result = await $.ajax({
+                url: 'https://api.imgur.com/3/image',
+                type: 'POST',
+                data: {
+                    image: img
+                },
+                dataType: 'json',
+                headers: {
+                    Authorization: 'Client-ID 9a33b3b370f1054'
+                },
+            });
+    } catch (err) {
+        console.error("Could not generate image, reporting anyway");
+    }
+
+    if (result) message += "\n" + result.data.link;
+
+    // Generate circuit data for reporting
+    let circuitData;
+    try {
+        // Writing default project name to prevent unnecessary prompt in case the
+        // project is unnamed
+        circuitData = generateSaveData("Untitled");
+    } catch (err) {
+        circuitData = `Circuit data generation failed: ${err}`;
+    }
 
     $.ajax({
         url: '/simulator/post_issue',
@@ -643,6 +735,7 @@ async function postUserIssue(message) {
         },
         data: {
             "text": message,
+            "circuit_data": circuitData,
         },
         success: function(response) {
             $('#result').html("<i class='fa fa-check' style='color:green'></i> You've successfully submitted the issue. Thanks for improving our platform.");

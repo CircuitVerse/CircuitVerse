@@ -6,9 +6,10 @@
       <div class="groups-members-card">
     <% end %>
       <div class="row">
-        <div class="col-7 groups-members-card-details">
+        <div class="<%= membersCardViewerDetail(group) %>">
           <i class="fa fa-user"></i>
           <div class="groups-members-card-name-container">
+            <span class="tooltiptext"><%= member.user.name %></span>
             <%= link_to member.user.name, member.user, class: "groups-members-card-name" %>
           </div>
           <% if policy(group).admin_access? %>

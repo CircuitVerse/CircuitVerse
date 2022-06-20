@@ -582,6 +582,46 @@ HTTP/1.1 202 ACCEPTED
 }
 ```
 
+## CLOSE Assignment
+
+Mentor can CLOSE a assignment immediately in `/api/v1/assignments/:id/close`. Authentication `token` is passed through `Authorization` header and is **required**.
+
+### URL Parameters
+
+| Parameter | Description                               |
+| --------- | ----------------------------------------- |
+| `id`      | The `id` of the assignment to be closed   |
+
+<aside class="notice">User with mentor or admin access can only close the assignment</aside>
+
+### Possible exceptions
+
+| Error Code | Description                                                         |
+| ---------- | ------------------------------------------------------------------- |
+| 401        | When user is not authenticated i.e invalid or corrupt `token`.      |
+| 403        | When non-mentor user tries to close the assignment                  |
+| 404        | When the requested assignment identified by `id` does not exists.   |
+| 409        | When the requested assignment identified by `id` is already closed. |
+
+```http
+PATCH /api/v1/assignments/:id/close HTTP/1.1
+Accept: application/json
+Authorization: Token {token}
+Host: localhost
+```
+
+```http
+HTTP/1.1 202 ACCEPTED
+```
+
+> JSON response example:
+
+```json
+{
+  "message": "Assignment has been closed!"
+}
+```
+
 ## START Assignment
 
 Group Members can start working on the assignment in`/api/v1/assignments/:id/start`. This creates a new private project for he user to work upon. Authentication `token` is passed through `Authorization` header and is **required**.

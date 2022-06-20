@@ -1,8 +1,10 @@
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable guard-for-in */
+
+import { Tooltip } from 'bootstrap';
 import * as metadata from './metadata.json';
-import { generateId, showMessage} from './utils';
+import { generateId, showMessage } from './utils';
 import backgroundArea from './backgroundArea';
 import plotArea from './plotArea';
 import simulationArea from './simulationArea';
@@ -15,32 +17,18 @@ import './embed';
 import { newCircuit } from './circuit';
 import load from './data/load';
 import save from './data/save';
-import showTourGuide from './tutorials';
+import { showTourGuide } from './tutorials';
 import setupModules from './moduleSetup';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/addon/hint/show-hint.css';
-import 'codemirror/mode/javascript/javascript.js'; // verilog.js from codemirror is not working because array prototype is changed.
-import 'codemirror/addon/edit/closebrackets.js';
-import 'codemirror/addon/hint/anyword-hint.js';
-import 'codemirror/addon/hint/show-hint.js';
-import {setupCodeMirrorEnvironment} from './Verilog2CV';
+import 'codemirror/mode/javascript/javascript'; // verilog.js from codemirror is not working because array prototype is changed.
+import 'codemirror/addon/edit/closebrackets';
+import 'codemirror/addon/hint/anyword-hint';
+import 'codemirror/addon/hint/show-hint';
+import { setupCodeMirrorEnvironment } from './Verilog2CV';
 import { keyBinder } from './hotkey_binder/keyBinder';
-
-// TODO include subset of bootstrap we use instead of whole framework
-import 'bootstrap';
-
-import 'jquery-ui/themes/base/core.css';
-import 'jquery-ui/themes/base/resizable.css';
-import 'jquery-ui/themes/base/accordion.css';
-import 'jquery-ui/themes/base/dialog.css';
-import 'jquery-ui/themes/base/tooltip.css';
-import 'jquery-ui/themes/base/theme.css';
-
-import autocomplete from 'jquery-ui/ui/widgets/resizable';
-import accordion from 'jquery-ui/ui/widgets/accordion';
-import dialog from 'jquery-ui/ui/widgets/dialog';
-import tooltip from 'jquery-ui/ui/widgets/tooltip';
-import sortable from 'jquery-ui/ui/widgets/sortable';
+import '../vendor/jquery-ui.min.css';
+import '../vendor/jquery-ui.min';
 
 window.width = undefined;
 window.height = undefined;
@@ -121,10 +109,9 @@ function setupElementLists() {
     window.updateOrder = ['wires', ...circuitElementList, 'nodes', ...annotationList]; // Order of update
     window.renderOrder = [...(moduleList.slice().reverse()), 'wires', 'allNodes']; // Order of render
 
-
     function createIcon(element) {
-        return `<div class="icon logixModules" id="${element}" title="${element}">
-            <img src= "/img/${element}.svg" >
+        return `<div class="icon logixModules" id="${element.name}" title="${element.label}">
+            <img src= "/img/${element.name}.svg" alt="element's image" >
         </div>`;
     }
 
@@ -135,9 +122,9 @@ function setupElementLists() {
         const categoryData = elementHierarchy[category];
         for (let i = 0; i < categoryData.length; i++) {
             const element = categoryData[i];
-            if(!element.startsWith("verilog")) {
+            if (!(element.name).startsWith('verilog')) {
                 htmlIcons += createIcon(element);
-                window.elementPanelList.push(element);
+                window.elementPanelList.push(element.label);
             }
         }
 
@@ -160,8 +147,8 @@ export function setup() {
     setupEnvironment();
     if (!embed) { setupUI(); }
     startListeners();
-    if (!embed) { keyBinder();}
-    
+    if (!embed) { keyBinder(); }
+
     // Load project data after 1 second - needs to be improved, delay needs to be eliminated
     setTimeout(() => {
         if (__logix_project_id != 0) {
@@ -196,7 +183,6 @@ export function setup() {
     }, 1000);
 
     if (!localStorage.tutorials_tour_done && !embed) {
-        setTimeout(()=> {showTourGuide();}, 2000);
+        setTimeout(() => { showTourGuide(); }, 2000);
     }
-    
 }

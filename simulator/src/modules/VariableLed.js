@@ -1,7 +1,7 @@
 import CircuitElement from "../circuitElement";
 import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
-import { correctWidth, lineTo, moveTo, arc, drawCircle2 } from "../canvasApi";
+import { correctWidth, lineTo, moveTo, arc, drawCircle2, colorToRGBA, validColor } from "../canvasApi";
 import { changeInputSize } from "../modules";
 /**
  * @class
@@ -15,7 +15,7 @@ import { changeInputSize } from "../modules";
 import { colors } from "../themer/themer";
 
 export default class VariableLed extends CircuitElement {
-    constructor(x, y, scope = globalScope) {
+    constructor(x, y, scope = globalScope, color = "Red") {
         // Calling base class constructor
 
         super(x, y, scope, "UP", 8);
@@ -27,6 +27,39 @@ export default class VariableLed extends CircuitElement {
         this.inp1 = new Node(-40, 0, 0, this, 8);
         this.directionFixed = true;
         this.fixedBitWidth = true;
+        this.color = color;
+        const temp = colorToRGBA(this.color);
+        this.actualColor = `rgba(${temp[0]},${temp[1]},${temp[2]},${0.8})`;
+    }
+
+    /**
+     * @memberof VariableLed
+     * fn to change the color of VariableLed
+     * @return {JSON}
+     */
+    changeColor(value) {
+        if (validColor(value)) {
+            if (value.trim() === "") {
+                this.color = "Red";
+                this.actualColor = "rgba(255, 0, 0, 1)";
+            } else {
+                this.color = value;
+                const temp = colorToRGBA(value);
+                this.actualColor = `rgba(${temp[0]},${temp[1]},${temp[2]}, ${temp[3]})`;
+            }
+        }
+    }
+
+    /**
+     * @memberof VariableLed
+     * fn to set the rgba value of the color
+     * @return {JSON}
+     */
+    createRGBA(alpha = 1) {
+        const len = this.actualColor.length;
+        const temp = this.actualColor.split("").slice(5, len - 1).join("").split(',');
+        if (alpha.toString() === "NaN") return `rgba(${temp[0]}, ${temp[1]}, ${temp[2]}, 1)`;
+        return `rgba(${temp[0]},${temp[1]},${temp[2]},${alpha})`;
     }
 
     /**
@@ -36,6 +69,7 @@ export default class VariableLed extends CircuitElement {
      */
     customSave() {
         const data = {
+            constructorParamaters: [this.color],
             nodes: {
                 inp1: findNode(this.inp1),
             },
@@ -63,7 +97,7 @@ export default class VariableLed extends CircuitElement {
         const alpha = c / 255;
         ctx.strokeStyle = "#090a0a";
         ctx.fillStyle = [
-            `rgba(255,29,43,${alpha})`,
+            this.createRGBA(alpha),
             "rgba(227, 228, 229, 0.8)",
         ][(c === undefined || c === 0) + 0];
         ctx.lineWidth = correctWidth(1);
@@ -99,7 +133,7 @@ export default class VariableLed extends CircuitElement {
         var c = this.inp1.value;
         var alpha = c / 255;
         ctx.strokeStyle = "#090a0a";
-        ctx.fillStyle = ["rgba(255,29,43," + alpha + ")", "rgba(227, 228, 229, 0.8)"][(c === undefined || c == 0) + 0];
+        ctx.fillStyle = [this.createRGBA(alpha), "rgba(227, 228, 229, 0.8)"][(c === undefined || c == 0) + 0];
         ctx.lineWidth = correctWidth(1);
 
         ctx.beginPath();
@@ -125,6 +159,20 @@ export default class VariableLed extends CircuitElement {
  */
 VariableLed.prototype.tooltipText =
     "Variable Led ToolTip: Variable LED inputs an 8 bit value and glows with a proportional intensity.";
+
+/**
+ * @memberof VariableLed
+ * Mutable properties of the element
+ * @type {JSON}
+ * @category modules
+ */
+VariableLed.prototype.mutableProperties = {
+    color: {
+        name: "Color: ",
+        type: "text",
+        func: "changeColor",
+    },
+};
 
 /**
  * @memberof VariableLed

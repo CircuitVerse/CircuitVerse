@@ -3,7 +3,7 @@
     <div class="container announcements-content-wrapper">
       <span><%== current_announcement.body %></span>
       <% if current_announcement.link? %>
-        <%= link_to "Learn More", current_announcement.link, target: :_blank, class: "btn primary-delete-button" %>
+        <%= link_to t("announcements.learn_more"), current_announcement.link, target: :_blank, class: "btn primary-delete-button" %>
       <% end %>
     </div>
   <% end %>

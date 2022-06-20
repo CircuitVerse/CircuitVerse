@@ -1,57 +1,112 @@
-<% content_for :title, "CircuitVerse - About us" %>
+<% content_for :title, t("about.title") %>
 
 <div class="container">
   <div class="row center-row">
     <div class="col-xs col-sm col-md col-lg">
-      <h1 class="main-heading">ABOUT</h1>
-        <p class="main-description">Learn about the awesome people behind CircuitVerse</p>
-        <p class="justified-paragraph">CircuitVerse is a product developed by students at IIIT-Bangalore.
-          It aims to provide a platform where circuits can be designed and simulated using a graphical user interface.
-          While users can design complete CPU implementations within the simulator, the software is designed primarily for educational use.
-          CircuitVerse is an open-source project with an active community. Checkout the contribute page for more detail.
-        </p>
+      <h1 class="main-heading"><%= t("about.main_heading") %></h1>
+        <p class="main-description"><%= t("about.main_description") %></p>
+        <p class="centered-paragraph"><%= t("about.product_details") %></p>
     </div>
   </div>
-  <div class="col-xs col-sm col-md col-lg">
-    <a class="btn primary-button" href="/tos" target="_blank">Terms of Service</a>
-    <a class="btn primary-button" href="/privacy" target="_blank">Privacy Policy</a>
+  <div class="col-xs col-sm col-md col-lg div-flex-center">
+    <a class="btn primary-button" href="/tos" target="_blank"><%= t("about.terms_of_service") %></a>
+    <a class="btn primary-button" href="/privacy" target="_blank"><%= t("about.privacy_policy") %></a>
   </div>
   <div class="row center-row">
     <div class="col-xs col-sm col-md col-lg">
       <div class="social-card about-social-card-1">
         <a class="about-social-anchor" href="mailto:support@circuitverse.org" target="_blank">
           <%= image_tag "SVGs/email.svg", height: "60", width: "60", alt: "Email Icon", class: "social-card-image" %>
-          <h6>Email us at</h6>
+          <h6><%= t("email_us_heading") %></h6>
           <p>support@circuitverse.org</p>
         </a>
       </div>
       <div class="social-card about-social-card-2">
         <a class="about-social-anchor" href="<%= Rails.configuration.slack_url %>" target="_blank">
           <%= image_tag "SVGs/slack.svg", height: "60", width: "60", alt: "Slack Logo", class: "social-card-image" %>
-          <h6>Join and chat with us at</h6>
-          <p>Slack Channel</p>
+          <h6><%= t("join_at_slack_heading") %></h6>
+          <p><%= t("join_at_slack_description") %></p>
         </a>
       </div>
     </div>
   </div>
   <hr>
-  <div class="row center-row">
-    <div class="col-xs col-sm col-md col-lg">
-      <h2 class="submain-heading">CONTRIBUTORS</h2>
-      <h5>Meet the awesome people of CircuitVerse community that've made this platform what it is now.</h5>
+  <div class="container">
+    <div class="row center-row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <h2 class="main-heading"><%= t("about.core_team_heading") %></h2>
+          <p class="main-description"><%= t("about.core_team_description") %></p>
+        </div>
+    </div>
+    <div class="row center-row teams-section ">
+        <% @cores.each do |member| %>
+        <div class="team-member-container team-link ">
+          <div class="team-underline">
+            <a target="_blank" href="<%= member[:link] %>"><%= image_tag member[:img], :class => "about-contributor-image" %><p class="team-footer "><%= member[:name] %></p></a>
+          </div>
+        </div>
+        <% end %>
+        <br><br>
     </div>
   </div>
-  <div class="row center-row">
-    <div class="about-contributors-section">
-
+  <br><br>
+  <hr>
+  <div class="container">
+    <div class="row center-row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <h2 class="main-heading"><%= t("about.mentors_team_heading") %></h2>
+          <p class="main-description"><%= t("about.mentors_team_description") %></p>
+        </div>
+    </div>
+    <div class="row center-row teams-section">
+        <% @mentors.each do |member| %>
+        <div class="team-member-container team-link">
+          <div class="team-underline">
+            <a target="_blank" href="<%= member[:link] %>"><%= image_tag member[:img], :class => "about-contributor-image" %><p class="team-footer"><%= member[:name] %></p></a>
+          </div>
+        </div>
+        <% end %>
+        <br><br>
     </div>
   </div>
-  <br>
-  <div class="row center-row">
-    <div class="col-xs col-sm col-md col-lg text-center">
-      <a class="btn primary-button about-primary-button" href="/contribute">Become a Contributor</a>
+  <br><br>
+  <hr>
+  <div class="container">
+    <div class="row center-row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <h2 class="main-heading"><%= t("about.alumni_team_heading") %></h2>
+          <p class="main-description"><%= t("about.alumni_team_description") %></p>
+        </div>
+    </div>
+    <div class="row center-row teams-section">
+        <% @alumni.each do |member| %>
+        <div class="team-member-container team-link">
+          <div class="team-underline">
+            <a target="_blank" href="<%= member[:link] %>"><%= image_tag member[:img], :class => "about-contributor-image " %><p class="team-footer underline"><%= member[:name] %></p></a>
+          </div>
+        </div>
+        <% end %>
+        <br><br>
     </div>
   </div>
+  <br><br>
+  <hr>
+    <div class="row center-row">
+      <div class="col-xs col-sm col-md col-lg">
+        <h2 class="submain-heading"><%= t("about.contributors_heading") %></h2>
+        <h5><%= t("about.contributors_description") %></h5>
+      </div>
+    </div>
+    <div class="row center-row">
+      <div class="about-contributors-section">
+      </div>
+    </div>
+    <br>
+    <div class="row center-row">
+      <div class="col-xs col-sm col-md col-lg text-center">
+        <a class="btn primary-button about-primary-button" href="/contribute"><%= t("about.become_contributor") %></a>
+      </div>
+    </div>
 </div>
 
 <script type="text/javascript">
@@ -72,5 +127,5 @@
       document.getElementsByClassName('about-contributors-section')[0].appendChild(contributorElement);
     }
   }
-  getContributors('https://api.github.com/repos/CircuitVerse/CircuitVerse/contributors');
+  getContributors('https://api.github.com/repos/CircuitVerse/CircuitVerse/contributors?per_page=100');
 </script>

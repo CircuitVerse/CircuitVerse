@@ -45,6 +45,7 @@ Rails.application.routes.draw do
 
   scope "/groups" do
     get "/:group_id/assignments/:id/reopen", to: "assignments#reopen", as: "reopen_group_assignment"
+    put "/:group_id/assignments/:id/close", to: "assignments#close", as: "close_group_assignment"
     get "/:group_id/assignments/:id/start", to: "assignments#start", as: "assignment_start"
   end
   resources :stars, only: %i[create destroy]
@@ -55,15 +56,15 @@ Rails.application.routes.draw do
   get "/users/edit", to: redirect('/')
   devise_for :users, controllers: {
     registrations: "users/registrations", omniauth_callbacks: "users/omniauth_callbacks",
-    sessions: "users/sessions"
+    sessions: "users/sessions", :saml_sessions => "users/saml_sessions"
   }
 
-  # Logix web pages resources
-  root "logix#index"
-  get  "/examples", to: "logix#examples"
-  get  "/tos", to: "logix#tos"
-  get  "/teachers", to: "logix#teachers"
-  get  "/contribute", to: "logix#contribute"
+  # Circuitverse web pages resources
+  root "circuitverse#index"
+  get  "/examples", to: "circuitverse#examples"
+  get  "/tos", to: "circuitverse#tos"
+  get  "/teachers", to: "circuitverse#teachers"
+  get  "/contribute", to: "circuitverse#contribute"
 
   #announcements
   resources :announcements, except: %i[show]
@@ -74,11 +75,11 @@ Rails.application.routes.draw do
 
   scope "/users" do
     get "/:id/profile", to: redirect('/users/%{id}'), as: "profile"
-    get "/:id/profile/edit", to: "users/logix#edit", as: "profile_edit"
-    patch "/:id/update", to: "users/logix#update", as: "profile_update"
-    get "/:id/groups", to: "users/logix#groups", as: "user_groups"
-    get "/:id/", to: "users/logix#index", as: "user_projects"
-    get "/educational_institute/typeahead/:query" => "users/logix#typeahead_educational_institute"
+    get "/:id/profile/edit", to: "users/circuitverse#edit", as: "profile_edit"
+    patch "/:id/update", to: "users/circuitverse#update", as: "profile_update"
+    get "/:id/groups", to: "users/circuitverse#groups", as: "user_groups"
+    get "/:id/", to: "users/circuitverse#index", as: "user_projects"
+    get "/educational_institute/typeahead/:query" => "users/circuitverse#typeahead_educational_institute"
     get "/:id/notifications", to: "users/notifications#index", as: "notifications"
   end
 
@@ -87,9 +88,14 @@ Rails.application.routes.draw do
 
   # projects
   scope "/projects" do
-    get "/create_fork/:id", to: "projects#create_fork", as: "create_fork_project"
+    post "/create_fork/:id", to: "projects#create_fork", as: "create_fork_project"
     get "/change_stars/:id", to: "projects#change_stars", as: "change_stars"
     get "tags/:tag", to: "projects#get_projects", as: "tag"
+  end
+
+  # lti
+  scope "lti"  do
+    match 'launch', to: 'lti#launch', via: [:get, :post] 
   end
 
   mount Commontator::Engine => "/commontator"
@@ -101,6 +107,7 @@ Rails.application.routes.draw do
     post "/get_data", to: "simulator#get_data"
     get "get_data/:id", to: "simulator#get_data"
     post "/post_issue", to: "simulator#post_issue"
+    get "/issue_circuit_data/:id", to: "simulator#view_issue_circuit_data" 
     post "/update_data", to: "simulator#update"
     post "/update_image", to: "simulator#update_image"
     post "/create_data", to: "simulator#create"
@@ -121,10 +128,14 @@ Rails.application.routes.draw do
     get "/", to: "simulator_old#new", as: "simulator_old_new"
     get "/embed/:id", to: "simulator_old#embed"
   end
+
+  scope "/testbench" do
+    get "/", to: "testbench#creator", as: "testbench_creator"
+  end
   # get 'simulator/embed_cross/:id', to: 'simulator#embed_cross', as: 'simulator_embed_cross'
 
   resources :users do
-    resources :projects, except: %i[index]
+    resources :projects, except: %i[index new]
   end
   resources :collaborations, only: %i[create destroy update]
 
@@ -159,7 +170,7 @@ Rails.application.routes.draw do
       resources :projects, only: %i[index show update destroy] do
         member do
           get "toggle-star", to: "projects#toggle_star"
-          get "fork", to: "projects#create_fork"
+          post "fork", to: "projects#create_fork"
           get "image_preview", to: "projects#image_preview"
         end
         resources :collaborators, only: %i[index create destroy]

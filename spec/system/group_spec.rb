@@ -10,7 +10,7 @@ describe "Group management", type: :system do
   end
 
   before do
-    driven_by(:selenium)
+    driven_by(:selenium_chrome_headless)
     login_as(@user, scope: :user)
   end
 
@@ -39,7 +39,8 @@ describe "Group management", type: :system do
     click_button "+ Add Members"
     execute_script "document.getElementById('addmemberModal').style.display='block'"
     execute_script "document.getElementById('addmemberModal').style.opacity=1"
-    fill_in "emails", with: @user2.email
+    fill_in "group_email_input", with: @user2.email
+    fill_in "group_email_input", with: " "
     click_button "Add members"
 
     expect(page).to have_text(

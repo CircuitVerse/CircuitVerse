@@ -18,7 +18,7 @@ describe SearchHelper do
         @resource = "Users"
         _, template = query(@resource, query_params)
 
-        expect(template).to eq("/users/logix/search")
+        expect(template).to eq("/users/circuitverse/search")
       end
     end
 

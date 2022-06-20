@@ -8,6 +8,7 @@ describe "Assignments", type: :system do
     @group = FactoryBot.create(:group, primary_mentor: @primary_mentor)
     @member = FactoryBot.create(:user)
     FactoryBot.create(:group_member, group: @group, user: @member)
+    driven_by(:selenium_chrome_headless)
   end
 
   context "when user is primary_mentor" do

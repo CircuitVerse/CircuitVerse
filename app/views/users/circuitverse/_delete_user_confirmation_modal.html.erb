@@ -1,0 +1,18 @@
+<div id="deleteuserModal" class="modal fade" role="dialog">
+  <div class="modal-dialog primary-modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header secondary-modal-header">
+        <h4 class="modal-title"><%= t("delete") %></h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p><%= t("users.circuitverse.delete_user_confirmation") %></p>
+      </div>
+      <div class="modal-footer">
+        <%= link_to '#', method: :delete, class: "btn primary-delete-button", id: "users-user-delete-button" do %>
+          <%= t("delete") %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

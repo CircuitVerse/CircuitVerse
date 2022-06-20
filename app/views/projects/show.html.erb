@@ -46,11 +46,11 @@
         <div class="row projects-views-count-container noSelect">
           <i class="fas fa-star projects-star-count-icon" aria-hidden="true"></i>
           <span id="star-count" class="noSelect"><%= @project.stars.count %></span>
-           Stars
+           <%= t("projects.stars_count") %>
           &nbsp; &nbsp;
           <i class="fa fa-eye" aria-hidden="true"></i>
           <span id="star-count" class="noSelect"><%= @project.view %></span>
-           Views &nbsp; &nbsp;
+           <%= t("projects.views_count") %> &nbsp; &nbsp;
         </div>
         <div class="row center-row projects-user-details-container">
           <div class="projects-search-tags-container">
@@ -61,27 +61,27 @@
             <% end %>
           </div>
           <p>
-            <strong>Author: </strong>
+            <strong><%= t("projects.show.project_author") %> </strong>
             <%= link_to @project.author.name, @project.author, class: "anchor-text" %>
           </p>
           <% if !@project.forked_project.nil? %>
             <p>
-              <strong>Forked from: </strong>
-              <%= link_to @project.forked_project.author.name+"/"+@project.forked_project.name, user_project_path(@project.forked_project.author,@project.forked_project), class: "anchor-text" %>
+              <strong><%= t("projects.show.project_forked_from") %> </strong>
+              <%= link_to @project.forked_project.author.name+"/"+@project.forked_project.name, user_project_path(@project.forked_project.author,@project.forked_project), class: "anchor-text",method: :post %>
             </p>
           <% end %>
           <p>
-            <strong>Project access type: </strong>
+            <strong><%= t("projects.show.project_access_type") %> </strong>
             <%= @project.project_access_type %>
           </p>
           <% if !@project.description.nil? %>
             <p>
-              <strong>Description: </strong>
+              <strong><%= t("projects.show.project_description") %> </strong>
             </p>
             <div class="projects-details-description"><%= sanitize@project.description %></div>
           <% end %>
           <p title="<%= @project.created_at.strftime("%B %d, %Y, %l:%M %p UTC %:z") %>">
-            <strong>Created: </strong>
+            <strong><%= t("projects.show.project_created_at") %> </strong>
             <% if @project.created_at >= 14.days.ago %>
               <%= time_ago_in_words(@project.created_at, include_seconds: true) + " ago" %>
             <% else %>
@@ -89,7 +89,7 @@
             <% end %>
           </p>
           <p title="<%= @project.updated_at.strftime("%B %d, %Y, %l:%M %p UTC %:z") %>">
-            <strong>Updated: </strong>
+            <strong><%= t("projects.show.project_updated_at") %> </strong>
             <% if @project.updated_at >= 14.days.ago %>
               <%= time_ago_in_words(@project.updated_at, include_seconds: true) + " ago" %>
             <% else %>
@@ -100,22 +100,22 @@
             <p>
               <hr class="projects-horizontal-rule">
               <% if policy(@project).user_access? %>
-                <a href="<%= simulator_edit_path(@project) %>" class="btn primary-button projects-primary-button" target="_blank">Launch simulator</a>
+                <a href="<%= simulator_edit_path(@project) %>" class="btn primary-button projects-primary-button" target="_blank"><%= t("launch_simulator") %></a>
               <% else %>
                 <a class="btn primary-button projects-primary-button projects-others-embed-button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" onclick="embedOther()">
                   <i class="fas fa-code"></i>
-                  <span>Embed</span>
+                  <span><%= t("projects.show.project_embed") %></span>
                 </a>
               <% end %>
               <% if policy(@project).author_access? %>
-                <%= link_to create_fork_project_path(@project), class: "btn primary-button projects-primary-button" do %>
+                <%= link_to create_fork_project_path(@project), class: "btn primary-button projects-primary-button", method: :post do %>
                   <%= image_tag("SVGs/createCopy.svg", alt: "Create Copy") %>
-                  <span>Create Copy</span>
+                  <span><%= t("projects.show.project_copy") %></span>
                 <% end %>
               <% else %>
-                  <%= link_to create_fork_project_path(@project), class: "btn primary-button projects-primary-button" do %>
+                  <%= link_to create_fork_project_path(@project), class: "btn primary-button projects-primary-button", method: :post do %>
                   <%= image_tag("SVGs/forkProject.svg", alt: "Fork Project") %>
-                  <span>Fork</span>
+                  <span><%= t("fork") %></span>
                 <% end %>
               <% end %>
               <% if @project.stars.exists?(user_id: current_user.id) %>
@@ -127,7 +127,7 @@
           <% end %>
           <% if policy(@project).author_access? %>
             <p>
-              <a href="#" class="anchor-text" id="<%= @project.id %>" data-toggle="modal" data-target="#collaboratorModal">+ Add a Collaborator</a>
+              <a href="#" class="anchor-text" id="<%= @project.id %>" data-toggle="modal" data-target="#collaboratorModal"><%= t("projects.show.project_collaborator_add") %></a>
             </p>
           <% end %>
           <% if policy(@project).user_access? %>
@@ -135,15 +135,15 @@
             <p>
               <%= link_to edit_user_project_path(@author, @project), class: "btn secondary-button" do %>
                 <%= image_tag("SVGs/editProject.svg", alt: "Edit Project") %>
-                <span>Edit</span>
+                <span><%= t("edit") %></span>
               <% end %>
               <%= link_to "#", class: "btn secondary-button", data: {toggle: "modal", target: "#deleteprojectModal", currentauthor: @author.id, currentproject: @project.id} do %>
                 <%= image_tag("SVGs/deleteProject.svg", alt: "Delete Project") %>
-                <span>Delete</span>
+                <span><%= t("delete") %></span>
               <% end %>
               <a class="btn secondary-button projects-self-embed-button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" onclick="embedSelf()">
                 <i class="fas fa-code"></i>
-                <span>Embed</span>
+                <span><%= t("projects.show.project_embed") %></span>
               </a>
             </p>
           <% end %>
@@ -152,7 +152,7 @@
               <label for="embedTextArea"></label>
               <textarea id="embedTextArea" class="projects-embed-text" rows="4" cols="35"><iframe width="600px" height="400px" src="<%= simulator_embed_url(@project) %>" id="projectPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen></iframe></textarea>
             </div>
-            <small class="projectshow-embed-text-confirmation">Copied to Clipboard!</small>
+            <small class="projectshow-embed-text-confirmation"><%= t("projects.show.copied_to_clipboard") %></small>
           </div>
         </div>
       </div>
@@ -167,7 +167,7 @@
             <div class="row center-row">
               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 projects-collaborators-heading">
                 <div class="">
-                  Collaborators
+                  <%= t("projects.show.collaborators") %>
                 </div>
               </div>
             </div>
@@ -188,17 +188,17 @@
                     <div class="projects-collaborators-button-container">
                       <%= link_to "#", data: {toggle: "modal", target: "#deletecollaborationModal", currentcollaboration: Collaboration.find_by(user_id:user.id, project_id:@project.id).id }, class: "btn primary-delete-button" do %>
                         <%= image_tag("SVGs/deleteGroup.svg", alt: "Delete Collaboration") %>
-                        <span>Remove</span>
+                        <span><%= t("remove") %></span>
                       <% end %>
                     </div>
                   </div>
                 <% end %>
                 <hr class="projects-collaborators-horizontal-rule">
               </div>
+            <% end %>
           </div>
         </div>
       </div>
-      <% end %>
     <% end %>
 
     <%= render partial: "add_collaborator_modal" %>

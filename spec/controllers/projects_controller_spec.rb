@@ -105,7 +105,7 @@ describe ProjectsController, type: :request do
     context "project is not an assignment" do
       it "creates a fork" do
         expect do
-          get create_fork_project_path(@project)
+          post create_fork_project_path(@project)
           @user.reload
         end.to change { @user.projects.count }.by(1)
         expect(@user.projects.order("created_at").last.forked_project_id).to eq(@project.id)
@@ -120,7 +120,7 @@ describe ProjectsController, type: :request do
       end
 
       it "throws error" do
-        get create_fork_project_path(@assignment_project)
+        post create_fork_project_path(@assignment_project)
         check_project_access_error(response)
       end
     end

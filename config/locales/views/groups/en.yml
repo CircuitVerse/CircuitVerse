@@ -1,0 +1,34 @@
+en:
+  groups:
+    add_member_description: "Enter Email IDs separated by commas/spaces or in separate lines. If users are not registered, an email ID will be sent requesting them to sign up."
+    use_alternative: "OR USE"
+    invite_link_btn: "Group Invite Link"
+    remove_assignment_message: "Are you sure you want to delete this assignment?"
+    remove_member_message: "Are you sure you want to remove this member?"
+    edit:
+      title: "%{name} - Edit Group Name"
+      main_heading: "EDIT GROUP NAME"
+    new:
+      title: "CircuitVerse - New Group"
+      main_heading: "NEW GROUP"
+      main_description_html: "Groups can be used by mentors to set projects for and give grades to students.
+        You can find the documentation <a class='anchor-text' href='https://docs.circuitverse.org/#/chapter2/2cvforeducators' target='_blank'>here</a>."
+    show:
+      edit_name_btn: "Edit Name"
+      mentor_name_heading: "Mentor:"
+      group_members_heading: "MEMBERS"
+      add_members_btn: "+ Add Members"
+      assignment:
+        heading: "ASSIGNMENTS"
+        add_assignment_btn: "+ Add Assignment"
+        assignment_table_head:
+          name: "Name"
+          deadline: "DeadLine"
+          grading: "Grading"
+          actions: "Actions"
+          grade: "Grade"
+        time_remaining_html: "<strong>Time remaining:</strong> %{time_remaining}"
+        start_working_btn: "Start Working"
+        see_work_done: "View your Work"
+        not_submitted: "Not submitted!"
+        show_submission: "View Submission"

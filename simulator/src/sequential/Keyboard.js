@@ -1,7 +1,7 @@
 import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
-import { correctWidth, lineTo, moveTo, fillText3, fontSize } from '../canvasApi';
+import { correctWidth, lineTo, moveTo, fillText3 } from '../canvasApi';
 /**
  * @class
  * Keyboard

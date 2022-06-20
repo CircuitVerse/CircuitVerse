@@ -1,11 +1,11 @@
 
-<% content_for :title, @group.name + " - New Assignment" %>
+<% content_for :title, t("assignments.new.title", name: @group.name) %>
 
 <div class="container projects-new-container">
   <div class="row center-row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <h1 class="submain-heading">New Assignment</h1>
-      <h2 class="submain-heading assignments-submain-heading">Group: <%= @group.name %></h2> <br>
+      <h1 class="submain-heading"><%= t("assignments.new.new_assignment_heading") %></h1>
+      <h2 class="submain-heading assignments-submain-heading"><%= t("assignments.group_name",name: @group.name) %></h2> <br>
     </div>
   </div>
   <div class="row">

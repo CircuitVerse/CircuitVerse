@@ -7,8 +7,8 @@ ports:
 tasks:
   - init: >
       rvm autolibs disable &&
-      rvm install 2.6.5 &&
-      nvm install 12 &&
+      rvm install 3.0.3 &&
+      nvm install 14 &&
       gem install bundler &&
       cp config/database.example.yml config/database.yml &&
       createuser -s postgres &&
@@ -29,8 +29,7 @@ tasks:
       bundle exec rails db:migrate &&
       bundle exec rake sunspot:solr:start &&
       bundle exec rails db:seed &&
-      (./bin/webpack-dev-server . &) &&
-      bundle exec rails server
+      bin/dev
 github:
     prebuilds:
         pullRequestsFromForks: true

@@ -37,6 +37,10 @@ class AssignmentPolicy < ApplicationPolicy
     true
   end
 
+  def close?
+    (assignment.group&.mentor_id == user.id) || user.admin?
+  end
+
   def can_be_graded?
     mentor_access? && assignment.graded? && (assignment.deadline - Time.current).negative?
   end
