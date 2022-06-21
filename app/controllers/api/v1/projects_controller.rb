@@ -3,7 +3,6 @@
 # rubocop:disable Metrics/ClassLength
 class Api::V1::ProjectsController < Api::V1::BaseController
   include ActionView::Helpers::SanitizeHelper
-  include SearchHelper
 
   before_action :authenticate_user!, only: %i[update destroy toggle_star create_fork]
   before_action :load_index_projects, only: %i[index]
@@ -152,7 +151,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
         Project.public_and_not_forked.text_search(params[:q])
       else
         Project.public_and_not_forked
-      end.includes(:tags, :author)
+      end
     end
 
     # include=author
