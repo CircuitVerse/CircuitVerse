@@ -38,6 +38,7 @@ export function createCombinationalAnalysisPrompt(scope = globalScope) {
         width: 'auto',
         buttons: [
             {
+                id:'combinationAnalysisNextBtn',
                 style: 'padding: 5px',
                 text: 'Next',
                 click() {
@@ -82,7 +83,7 @@ export function createCombinationalAnalysisPrompt(scope = globalScope) {
             },
         ],
     });
-    $("#combinationalAnalysis").checkBo();
+    // $("#combinationalAnalysis").checkBo();
 }
 /**
  * This funciton hashes the output array and makes required JSON using
@@ -148,6 +149,7 @@ function createBooleanPrompt(inputListNames, outputListNames, output, scope = gl
         width: 'auto',
         buttons: [
             {
+                id:'combinationalAnalysisGenerateBtn',
                 style: 'padding: 6px',
                 text: 'Generate Circuit',
                 click() {
