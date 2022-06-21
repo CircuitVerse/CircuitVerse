@@ -169,7 +169,7 @@ GEM
     country_select (6.0.0)
       countries (~> 4.0)
       sort_alphabetical (~> 1.1)
-    coveralls_reborn (0.23.1)
+    coveralls_reborn (0.24.0)
       simplecov (>= 0.18.1, < 0.22.0)
       term-ansicolor (~> 1.6)
       thor (>= 0.20.3, < 2.0)
@@ -681,7 +681,7 @@ DEPENDENCIES
   coffee-rails (~> 5.0)
   commontator (~> 7.0.0)
   country_select (~> 6.0)
-  coveralls_reborn (~> 0.23.1)
+  coveralls_reborn (~> 0.24.0)
   devise
   devise_saml_authenticatable
   disposable_mail (~> 0.1)
