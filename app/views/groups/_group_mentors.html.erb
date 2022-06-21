@@ -19,14 +19,14 @@
           <% if policy(group).admin_access? %>
             <%= link_to '#', data: {toggle: "modal", target: "#deletememberModal", currentgroupmember: GroupMember.find_by(user_id:member.user.id,group_id:group.id).id}, class:"mini-button groups-delete-mini-button" do %>
               <%= image_tag("SVGs/deleteGroup.svg", alt: "Remove Member") %>
-              <span>Remove</span>
+              <span><%= t("remove") %></span>
             <% end %>
         </div>
             <br><br>
         <div class="col-12 groups-members-card-button">
             <%= link_to '#', data: {toggle: "modal", target: "#demotememberModal", currentgroupmember: GroupMember.find_by(user_id:member.user.id,group_id:group.id).id}, class:"btn btn-info btn-sm" do %>
               <%= image_tag("SVGs/editGroup.svg", alt: "Promote Member") %>
-              <span>Demote</span>
+              <span><%= t("demote") %></span>
             <% end %>
           <% end %>
         </div>
