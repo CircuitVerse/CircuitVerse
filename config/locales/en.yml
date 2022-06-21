@@ -23,8 +23,6 @@ en:
   add_members: "Add members"
   add_mentors: "Add mentors"
   remove: "Remove"
-  demote: "Demote"
-  promote: "Promote"
   reopen: "Reopen"
   close : "Close"
   not_available: "N.A."

@@ -8,6 +8,8 @@ en:
     invite_link_btn: "Group Invite Link"
     remove_assignment_message: "Are you sure you want to delete this assignment?"
     remove_member_message: "Are you sure you want to remove this member?"
+    make_member: "Make member"
+    make_mentor: "Make mentor"
     edit:
       title: "%{name} - Edit Group Name"
       main_heading: "EDIT GROUP NAME"

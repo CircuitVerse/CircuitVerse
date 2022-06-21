@@ -8,6 +8,8 @@ hi:
     invite_link_btn: "लिंक के माध्यम से आमंत्रित करें"
     remove_assignment_message: "क्या आप वाकई इस असाइनमेंट को हटाना चाहते हैं?"
     remove_member_message: "क्या आप वाकई इस सदस्य को हटाना चाहते हैं?"
+    make_member: "सदस्य बनाएं"
+    make_mentor: "मेंटर बनाएं"
     edit:
       title: "%{name} - समूह का नाम एडिट करें"
       main_heading: "समूह का नाम एडिट करें"

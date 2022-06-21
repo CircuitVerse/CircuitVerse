@@ -26,7 +26,7 @@
         <div class="col-12 groups-members-card-button">
             <%= link_to '#', data: {toggle: "modal", target: "#demotememberModal", currentgroupmember: GroupMember.find_by(user_id:member.user.id,group_id:group.id).id}, class:"btn btn-info btn-sm" do %>
               <%= image_tag("SVGs/editGroup.svg", alt: "Promote Member") %>
-              <span><%= t("demote") %></span>
+              <span><%= t("groups.make_member") %></span>
             <% end %>
           <% end %>
         </div>
