@@ -29,7 +29,7 @@
   <div class="row center-row groups-row">
   <h3><%= t("groups.show.mentor_name_heading") %></h3>
     <% if policy(@group).admin_access? %>
-      <button type="button" class="btn primary-button groups-primary-button" data-toggle="modal" data-target="#addmentorModal"><%= t("groups.show.add_mentors_btn") %></button>
+      <button type="button" class="btn primary-button groups-primary-button" data-toggle="modal" data-target="#add-mentor-to-modal" data-action="click->groups#addMentorToGroup" ><%= t("groups.show.add_mentors_btn") %></button>
     <% end %>
   </div>
   <hr>
@@ -354,12 +354,12 @@
         $(e.currentTarget).find('#groups-member-delete-button').attr("href",
         "/group_members/" + groupmember.toString());
     });
-    $("#promotememberModal").on("show.bs.modal", function(e) {
+    $("#promote-member-modal").on("show.bs.modal", function(e) {
         let groupmember = $(e.relatedTarget).data('currentgroupmember');
         $(e.currentTarget).find('#groups-member-promote-button').parent().attr("action",
         "/group_members/" + groupmember.toString());
     });
-    $("#demotememberModal").on("show.bs.modal", function(e) {
+    $("#demote-member-modal").on("show.bs.modal", function(e) {
         let groupmember = $(e.relatedTarget).data('currentgroupmember');
         $(e.currentTarget).find('#groups-member-demote-button').parent().attr("action",
         "/group_members/" + groupmember.toString());
