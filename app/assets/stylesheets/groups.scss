@@ -176,8 +176,8 @@
 }
 
 .groups-members-card-details {
-  padding-top: 20px;
   padding-right: 0;
+  padding-top: 20px;
   text-align: left;
 
   i {
@@ -190,7 +190,7 @@
 .groups-members-card-details-non-admin {
   align-items: center;
   display: flex;
-  padding-top: 0px;
+  padding-top: 0;
   
   i {
     margin-right: 15px;
@@ -241,7 +241,7 @@
 
 .groups-members-card-button {
   margin-right: 0;
-  padding: 0 0 15px 0;
+  padding: 0 0 15px;
   text-align: right;
   transition: padding-top .2s ease-in;
 
@@ -509,20 +509,25 @@
 }
 
 .groups-members-card {
+
   .row {
     flex-wrap: nowrap;
   }
+
   .group-member-button-container {
     width: 100%;
+
     .groups-mentor-card-mini-buttons {
       display: flex;
       flex-direction: column;
     }
+
     .mini-button {
       width: 142px;
     }
+
     .groups-reopen-mini-button {
-      margin: 0px;
+      margin: 0;
     }
   }
 }
