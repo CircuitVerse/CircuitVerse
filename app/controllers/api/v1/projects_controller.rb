@@ -9,6 +9,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
   before_action :load_user_projects, only: %i[user_projects]
   before_action :load_featured_circuits, only: %i[featured_circuits]
   before_action :load_user_favourites, only: %i[user_favourites]
+  before_action :search_projects, only: %i[search]
   before_action :set_project, only: %i[show update destroy toggle_star create_fork]
   before_action :set_options, except: %i[destroy toggle_star image_preview]
   before_action :filter, only: %i[index user_projects featured_circuits user_favourites]
@@ -25,8 +26,6 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
   # GET /api/v1/projects/search?q=:query
   def search
-    query_params = { q: params[:q], page: params[:page][:number], per_page: params[:page][:size] }
-    @projects = ProjectsQuery.new(query_params, Project.public_and_not_forked).results
     base_url = "#{api_v1_projects_search_url}?q=#{params[:q]}"
     @options[:links] = link_attrs(paginate(@projects), base_url)
     render json: Api::V1::ProjectSerializer.new(paginate(@projects), @options)
@@ -145,6 +144,11 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
     def load_featured_circuits
       @projects = Project.joins(:featured_circuit).all
+    end
+
+    def search_projects
+      query_params = { q: params[:q], page: params[:page][:number], per_page: params[:page][:size] }
+      @projects = ProjectsQuery.new(query_params, Project.public_and_not_forked).results
     end
 
     # include=author
