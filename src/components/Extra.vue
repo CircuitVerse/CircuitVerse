@@ -24,29 +24,7 @@
 
     <!-- --------------------------------------------------------------------------------------------- -->
     <!-- Circuit Elements Panel -->
-    <div
-        id="guide_1"
-        class="modules noSelect defaultCursor ce-panel elementPanel draggable-panel draggable-panel-css"
-    >
-        <div class="panel-header">
-            Circuit Elements
-            <span class="fas fa-minus-square minimize"></span>
-            <span class="fas fa-external-link-square-alt maximize"></span>
-        </div>
-        <div id="testid" class="panel-body">
-            <div style="position: relative">
-                <input
-                    type="text"
-                    class="search-input"
-                    value=""
-                    placeholder="Search.."
-                />
-                <span><i class="fas search-close fa-times-circle"></i></span>
-            </div>
-            <div class="search-results"></div>
-            <div id="menu" class="accordion"></div>
-        </div>
-    </div>
+    <ElementsPanelVue />
     <!-- --------------------------------------------------------------------------------------------- -->
 
     <!-- --------------------------------------------------------------------------------------------- -->
@@ -978,8 +956,6 @@
     <!-- --------------------------------------------------------------------------------------------- -->
 </template>
 
-<script>
-export default {
-    name: 'Extra',
-}
+<script lang="ts" setup>
+import ElementsPanelVue from './Panels/ElementsPanel/ElementsPanel.vue'
 </script>
