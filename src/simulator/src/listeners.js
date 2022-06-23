@@ -623,10 +623,13 @@ export default function startListeners() {
             $('.filterElements').mousedown(createElement)
         }
     })
-
     function createIcon(element) {
+        const elementImg = new URL(
+            `../../assets/img/${element.name}.svg`,
+            import.meta.url
+        ).href
         return `<div class="${element.name} icon logixModules filterElements" id="${element.name}" title="${element.label}">
-            <img  src= "/img/${element.name}.svg" alt="element's image" >
+            <img  src="${elementImg}" alt="element's image" >
         </div>`
     }
 
