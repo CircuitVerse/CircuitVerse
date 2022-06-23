@@ -37,6 +37,7 @@ import '../vendor/jquery-ui.min'
  * @category setup
  */
 export function resetup() {
+    console.log('hello from re setup')
     DPR = window.devicePixelRatio || 1
     if (lightMode) {
         DPR = 1
@@ -102,7 +103,8 @@ function setupEnvironment() {
  * @category setup
  */
 function setupElementLists() {
-    $('#menu').empty()
+    console.log('hello from elements list panel setup')
+    // $('#menu').empty()
 
     window.circuitElementList = metadata.circuitElementList
     window.annotationList = metadata.annotationList
@@ -117,6 +119,7 @@ function setupElementLists() {
     ] // Order of update
     window.renderOrder = [...moduleList.slice().reverse(), 'wires', 'allNodes'] // Order of render
 
+    /*
     function createIcon(element) {
         const elementImg = new URL(
             `../../assets/img/${element.name}.svg`,
@@ -126,9 +129,11 @@ function setupElementLists() {
             <img src= "${elementImg}" alt="${element.name}" >
         </div>`
     }
+    */
 
     window.elementHierarchy = metadata.elementHierarchy
     window.elementPanelList = []
+    /*
     for (const category in elementHierarchy) {
         let htmlIcons = ''
         const categoryData = elementHierarchy[category]
@@ -147,6 +152,7 @@ function setupElementLists() {
 
         $('#menu').append(accordionData)
     }
+    */
 }
 
 /**

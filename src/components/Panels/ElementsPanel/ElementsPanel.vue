@@ -25,30 +25,40 @@
                 <span><i class="fas search-close fa-times-circle"></i></span>
             </div>
             <div class="search-results"></div>
-            <div
+            <v-expansion-panels
                 :id="inLayoutMode ? 'subcircuitMenu' : 'menu'"
                 class="accordion"
-            ></div>
+                variant="accordion"
+            >
+                <v-expansion-panel
+                    v-for="category in [
+                        'Input',
+                        'Output',
+                        'Gates',
+                        'Decoder & Plexer',
+                        'Sequentian Elements',
+                        'Annotation',
+                        'Misc',
+                    ]"
+                    :key="category"
+                >
+                    <v-expansion-panel-title>
+                        {{ category }}
+                    </v-expansion-panel-title>
+                    <v-expansion-panel-text>
+                        <h2>Hello from {{ category }}</h2>
+                    </v-expansion-panel-text>
+                </v-expansion-panel>
+            </v-expansion-panels>
         </div>
     </div>
 </template>
 
-<script>
-import PanelHeader from '../PanelHeader.vue'
-// import { layoutModeGet } from '@/simulator/src/layoutMode';
-
-export default {
-    name: 'ElementsPanel',
-    components: {
-        PanelHeader,
-    },
-    data() {
-        return {
-            inLayoutMode: false,
-        }
-    },
-    // computed: {
-    //   inLayoutMode: layoutModeGet(),
-    // }
-}
+<script lang="ts" setup>
+import PanelHeader from '@/Panels/PanelHeader.vue'
+import metadata from '#/simulator/src/metadata'
+import { ref } from 'vue'
+var inLayoutMode = ref(false)
 </script>
+
+<style scoped></style>
