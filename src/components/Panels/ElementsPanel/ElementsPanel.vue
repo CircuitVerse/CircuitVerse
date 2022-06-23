@@ -21,6 +21,7 @@
                     class="search-input"
                     value=""
                     placeholder="Search.."
+                    @keyup="seacrchElements"
                 />
                 <span><i class="fas search-close fa-times-circle"></i></span>
             </div>
@@ -107,6 +108,11 @@ function createElement(elementName) {
         uxvar.smartDropXX = 50
         uxvar.smartDropYY += 80
     }
+}
+
+function seacrchElements() {
+    console.log('Searching ...')
+    // logic to be imported from listener.js
 }
 </script>
 
