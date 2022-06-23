@@ -67,6 +67,7 @@ RSpec.describe Api::V1::UsersController, "#update", type: :request do
       end
 
       it "returns the updated user" do
+        puts response.parsed_body
         expect(response).to have_http_status(:accepted)
         expect(response).to match_response_schema("user")
         profile_picture = response.parsed_body["data"]["attributes"]["profile_picture"]
