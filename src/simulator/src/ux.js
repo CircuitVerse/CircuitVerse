@@ -168,8 +168,6 @@ export function setupUI() {
     //     heightStyle: 'content',
     // });
 
-    $('.logixModules').mousedown(createElement)
-
     $('.logixButton').on('click', function () {
         logixFunction[this.id]()
     })
@@ -230,18 +228,6 @@ export function setupUI() {
     setupPanels()
     setupVerilogExportCodeWindow()
     setupBitConvertor()
-}
-
-export function createElement() {
-    if (simulationArea.lastSelected && simulationArea.lastSelected.newElement)
-        simulationArea.lastSelected.delete()
-    var obj = new modules[this.id]()
-    simulationArea.lastSelected = obj
-    uxvar.smartDropXX += 70
-    if (uxvar.smartDropXX / globalScope.scale > width) {
-        uxvar.smartDropXX = 50
-        uxvar.smartDropYY += 80
-    }
 }
 
 /**

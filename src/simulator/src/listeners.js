@@ -37,11 +37,11 @@ import undo from './data/undo'
 import redo from './data/redo'
 import { copy, paste, selectAll } from './events'
 import save from './data/save'
-import { createElement } from './ux'
 import { verilogModeGet } from './Verilog2CV'
 import { setupTimingListeners } from './plotArea'
 
 var unit = 10
+var listenToSimulator = true
 
 export default function startListeners() {
     $('#deleteSelected').on('click', () => {
@@ -620,7 +620,9 @@ export default function startListeners() {
         else {
             finalResult.forEach((e) => (htmlIcons += createIcon(e)))
             searchResults.html(htmlIcons)
-            $('.filterElements').mousedown(createElement)
+
+            // will be moved to ElementsPanel.Vue
+            // $('.filterElements').mousedown(createElement)
         }
     })
     function createIcon(element) {

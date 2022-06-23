@@ -45,6 +45,7 @@
                                 :key="element"
                                 title="element.label"
                                 class="icon logixModules"
+                                @click="createElement(element.name)"
                             >
                                 <img
                                     :src="element.imgURL"
@@ -62,6 +63,9 @@
 <script lang="ts" setup>
 import PanelHeader from '@/Panels/PanelHeader.vue'
 import metadata from '#/simulator/src/metadata.json'
+import simulationArea from '#/simulator/src/simulationArea'
+import { uxvar } from '#/simulator/src/ux'
+import modules from '#/simulator/src/modules'
 import { onBeforeMount, ref } from 'vue'
 var inLayoutMode = ref(false)
 var panelData = []
@@ -91,6 +95,18 @@ function getImgUrl(elementName) {
     ).href
     console.log(elementImg)
     return elementImg
+}
+
+function createElement(elementName) {
+    if (simulationArea.lastSelected && simulationArea.lastSelected.newElement)
+        simulationArea.lastSelected.delete()
+    var obj = new modules[elementName]()
+    simulationArea.lastSelected = obj
+    uxvar.smartDropXX += 70
+    if (uxvar.smartDropXX / globalScope.scale > width) {
+        uxvar.smartDropXX = 50
+        uxvar.smartDropYY += 80
+    }
 }
 </script>
 
