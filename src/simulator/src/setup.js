@@ -118,41 +118,6 @@ function setupElementLists() {
         ...annotationList,
     ] // Order of update
     window.renderOrder = [...moduleList.slice().reverse(), 'wires', 'allNodes'] // Order of render
-
-    /*
-    function createIcon(element) {
-        const elementImg = new URL(
-            `../../assets/img/${element.name}.svg`,
-            import.meta.url
-        ).href
-        return `<div class="icon logixModules" id="${element.name}" title="${element.label}">
-            <img src= "${elementImg}" alt="${element.name}" >
-        </div>`
-    }
-    */
-
-    window.elementHierarchy = metadata.elementHierarchy
-    window.elementPanelList = []
-    /*
-    for (const category in elementHierarchy) {
-        let htmlIcons = ''
-        const categoryData = elementHierarchy[category]
-        for (let i = 0; i < categoryData.length; i++) {
-            const element = categoryData[i]
-            if (!element.name.startsWith('verilog')) {
-                htmlIcons += createIcon(element)
-                window.elementPanelList.push(element.label)
-            }
-        }
-
-        const accordionData = `<div class="panelHeader">${category}</div>
-        <div class="panel customScroll">
-        ${htmlIcons}
-        </div>`
-
-        $('#menu').append(accordionData)
-    }
-    */
 }
 
 /**

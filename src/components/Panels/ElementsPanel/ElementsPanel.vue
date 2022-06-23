@@ -31,22 +31,27 @@
                 variant="accordion"
             >
                 <v-expansion-panel
-                    v-for="category in [
-                        'Input',
-                        'Output',
-                        'Gates',
-                        'Decoder & Plexer',
-                        'Sequentian Elements',
-                        'Annotation',
-                        'Misc',
-                    ]"
-                    :key="category"
+                    v-for="category in panelData"
+                    :key="category[0]"
                 >
                     <v-expansion-panel-title>
-                        {{ category }}
+                        {{ category[0] }}
                     </v-expansion-panel-title>
                     <v-expansion-panel-text>
-                        <h2>Hello from {{ category }}</h2>
+                        <div class="panel customScroll">
+                            <div
+                                v-for="element in category[1]"
+                                :id="element.name"
+                                :key="element"
+                                title="element.label"
+                                class="icon logixModules"
+                            >
+                                <img
+                                    :src="element.imgURL"
+                                    :alt="element.name"
+                                />
+                            </div>
+                        </div>
                     </v-expansion-panel-text>
                 </v-expansion-panel>
             </v-expansion-panels>
@@ -56,9 +61,37 @@
 
 <script lang="ts" setup>
 import PanelHeader from '@/Panels/PanelHeader.vue'
-import metadata from '#/simulator/src/metadata'
-import { ref } from 'vue'
+import metadata from '#/simulator/src/metadata.json'
+import { onBeforeMount, ref } from 'vue'
 var inLayoutMode = ref(false)
+var panelData = []
+window.elementHierarchy = metadata.elementHierarchy
+window.elementPanelList = []
+
+onBeforeMount(() => {
+    for (const category in elementHierarchy) {
+        var categoryData = []
+        for (let i = 0; i < elementHierarchy[category].length; i++) {
+            const element = elementHierarchy[category][i]
+            console.log(element)
+            if (!element.name.startsWith('verilog')) {
+                window.elementPanelList.push(element.label)
+                element['imgURL'] = getImgUrl(element.name)
+                categoryData.push(element)
+            }
+        }
+        panelData.push([category, categoryData])
+    }
+})
+
+function getImgUrl(elementName) {
+    const elementImg = new URL(
+        `../../../assets/img/${elementName}.svg`,
+        import.meta.url
+    ).href
+    console.log(elementImg)
+    return elementImg
+}
 </script>
 
 <style scoped></style>

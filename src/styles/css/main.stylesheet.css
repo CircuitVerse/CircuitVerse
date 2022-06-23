@@ -473,6 +473,7 @@ input[type='text']:focus {
     grid-template-columns: 1fr 1fr 1fr;
     max-height: 185px;
     border-radius: 2px;
+    overflow: auto;
 }
 
 .ui-accordion-header {
@@ -531,6 +532,10 @@ input[type='text']:focus {
 
 .v-expansion-panel-text {
     background-color: var(--text-panel);
+    color: black;
+}
+.v-expansion-panel-text__wrapper {
+    padding: 0;
 }
 /* expansion panel styles - ends */
 
