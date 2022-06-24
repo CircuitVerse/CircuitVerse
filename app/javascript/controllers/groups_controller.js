@@ -3,12 +3,12 @@ import 'bootstrap-tagsinput/dist/bootstrap-tagsinput.js';
 
 export default class extends Controller {
     connect() {
-        $("#promote-member-modal").on("show.bs.modal", function(e) {
+        $("#promote-member-modal").on("show.bs.modal", (e)=> {
             let groupmember = $(e.relatedTarget).data('currentgroupmember');
             $(e.currentTarget).find('#groups-member-promote-button').parent().attr("action",
             "/group_members/" + groupmember.toString());
         });
-        $("#demote-member-modal").on("show.bs.modal", function(e) {
+        $("#demote-member-modal").on("show.bs.modal", (e)=> {
             let groupmember = $(e.relatedTarget).data('currentgroupmember');
             $(e.currentTarget).find('#groups-member-demote-button').parent().attr("action",
             "/group_members/" + groupmember.toString());

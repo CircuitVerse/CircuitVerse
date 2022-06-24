@@ -20,8 +20,8 @@ describe LtiController, type: :request do
   describe "CircuitVerse as LTI Provider" do
     before do
       # creation of assignment and required users
-      @mentor = FactoryBot.create(:user)
-      @group = FactoryBot.create(:group, mentor: mentor)
+      @primary_mentor = FactoryBot.create(:user)
+      @group = FactoryBot.create(:group, primary_mentor: @primary_mentor)
       @member = FactoryBot.create(:user)
       @not_member = FactoryBot.create(:user)
       FactoryBot.create(:group_member, user: member, group: group)
