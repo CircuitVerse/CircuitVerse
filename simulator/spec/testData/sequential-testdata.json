@@ -1,0 +1,250 @@
+{
+    "DFlipFlop": {
+        "type": "seq",
+        "title": "Untitled",
+        "groups": [
+            {
+                "label": "Set 1",
+                "inputs": [
+                    {
+                        "label": "inp1",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "1"
+                        ]
+                    }
+                ],
+                "outputs": [
+                    {
+                        "label": "out1",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "1"
+                        ],
+                        "results": [
+                            "0",
+                            "1"
+                        ]
+                    },
+                    {
+                        "label": "out2",
+                        "bitWidth": 1,
+                        "values": [
+                            "1",
+                            "0"
+                        ],
+                        "results": [
+                            "1",
+                            "0"
+                        ]
+                    }
+                ],
+                "n": 2
+            }
+        ]
+    },
+    "DLatch": {
+        "type": "seq",
+        "title": "Untitled",
+        "groups": [
+            {
+                "label": "Set 1",
+                "inputs": [
+                    {
+                        "label": "inp1",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "1"
+                        ]
+                    }
+                ],
+                "outputs": [
+                    {
+                        "label": "out3",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "1"
+                        ]
+                    },
+                    {
+                        "label": "out4",
+                        "bitWidth": 1,
+                        "values": [
+                            "1",
+                            "0"
+                        ]
+                    }
+                ],
+                "n": 2
+            }
+        ]
+    },
+    "JkFlipFlop": {
+        "type": "seq",
+        "title": "Untitled",
+        "groups": [
+            {
+                "label": "Set 1",
+                "inputs": [
+                    {
+                        "label": "inp1",
+                        "bitWidth": 1,
+                        "values": [
+                            "1",
+                            "0",
+                            "0",
+                            "1"
+                        ]
+                    },
+                    {
+                        "label": "inp2",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "1",
+                            "0",
+                            "1"
+                        ]
+                    }
+                ],
+                "outputs": [
+                    {
+                        "label": "out7",
+                        "bitWidth": 1,
+                        "values": [
+                            "1",
+                            "0",
+                            "0",
+                            "1"
+                        ],
+                        "results": [
+                            "1",
+                            "0",
+                            "0",
+                            "1"
+                        ]
+                    },
+                    {
+                        "label": "out8",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "1",
+                            "1",
+                            "0"
+                        ],
+                        "results": [
+                            "0",
+                            "1",
+                            "1",
+                            "0"
+                        ]
+                    }
+                ],
+                "n": 4
+            }
+        ]
+    },
+    "SRFlipFlop": {
+        "type": "seq",
+        "title": "Untitled",
+        "groups": [
+            {
+                "label": "Set 1",
+                "inputs": [
+                    {
+                        "label": "inp1",
+                        "bitWidth": 1,
+                        "values": [
+                            "1",
+                            "0",
+                            "0",
+                            "1"
+                        ]
+                    },
+                    {
+                        "label": "inp2",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "1",
+                            "0",
+                            "1"
+                        ]
+                    }
+                ],
+                "outputs": [
+                    {
+                        "label": "out9",
+                        "bitWidth": 1,
+                        "values": [
+                            "1",
+                            "0",
+                            "0",
+                            "0"
+                        ]
+                    },
+                    {
+                        "label": "out10",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "1",
+                            "1",
+                            "1"
+                        ]
+                    }
+                ],
+                "n": 4
+            }
+        ]
+    },
+    "TFlipFlop": {
+        "type": "seq",
+        "title": "Untitled",
+        "groups": [
+            {
+                "label": "Set 1",
+                "inputs": [
+                    {
+                        "label": "inp1",
+                        "bitWidth": 1,
+                        "values": [
+                            "1",
+                            "0",
+                            "1",
+                            "0"
+                        ]
+                    }
+                ],
+                "outputs": [
+                    {
+                        "label": "out5",
+                        "bitWidth": 1,
+                        "values": [
+                            "1",
+                            "1",
+                            "0",
+                            "0"
+                        ]
+                    },
+                    {
+                        "label": "out6",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "0",
+                            "1",
+                            "1"
+                        ]
+                    }
+                ],
+                "n": 4
+            }
+        ]
+    }
+}
