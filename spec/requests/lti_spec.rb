@@ -43,8 +43,8 @@ describe LtiController, type: :request do
         expect(response.code).to eq("200")
       end
 
-      it "redirect (302) to assignment page if user is teacher" do
-        lti_request(oauth_consumer_key_fromlms, oauth_shared_secret_fromlms, mentor.email)
+      it "redirect (302) to assignment page if user is primary mentor" do
+        lti_request(oauth_consumer_key_fromlms, oauth_shared_secret_fromlms, primary_mentor.email)
         expect(response.code).to eq("302")
       end
     end
