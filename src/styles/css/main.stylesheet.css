@@ -1619,11 +1619,9 @@ input:checked + .slider:before {
     right: 19px;
     top: 6px;
     cursor: pointer;
-    display: none;
 }
 
 .search-results {
-    /* display: none; */
     padding: 15px;
     transition: all 0.5s ease;
     max-height: 340px;

@@ -22,14 +22,29 @@
                     class="search-input"
                     placeholder="Search.."
                 />
-                <span><i class="fas search-close fa-times-circle"></i></span>
+                <span
+                    ><i
+                        v-if="elementInput"
+                        class="fas search-close fa-times-circle"
+                        @click="elementInput = ''"
+                    ></i
+                ></span>
             </div>
             <div
-                v-if="elementInput"
-                v-for="element in searchElements()"
-                :key="element"
+                v-if="elementInput && searchElements().length"
                 class="search-results"
-            ></div>
+            >
+                <div
+                    v-for="element in searchElements()"
+                    :id="element.name"
+                    :key="element.name"
+                    title="element.label"
+                    class="icon logixModules"
+                    @click="createElement(element.name)"
+                >
+                    <img :src="element.imgURL" :alt="element.name" />
+                </div>
+            </div>
             <div
                 v-if="elementInput && !searchElements().length"
                 class="search-results"
@@ -97,7 +112,6 @@ onBeforeMount(() => {
         }
         panelData.push([category, categoryData])
     }
-    console.log(elementPanelList)
 })
 
 function getImgUrl(elementName) {
@@ -108,29 +122,14 @@ function getImgUrl(elementName) {
     return elementImg
 }
 
-function createElement(elementName) {
-    if (simulationArea.lastSelected && simulationArea.lastSelected.newElement)
-        simulationArea.lastSelected.delete()
-    var obj = new modules[elementName]()
-    simulationArea.lastSelected = obj
-    uxvar.smartDropXX += 70
-    if (uxvar.smartDropXX / globalScope.scale > width) {
-        uxvar.smartDropXX = 50
-        uxvar.smartDropYY += 80
-    }
-}
-
 var elementInput = ref('')
 function searchElements() {
-    console.log('Searching ...')
     if (!elementInput) return []
     // logic to be imported from listener.js
-    console.log(elementPanelList)
-    console.log(elementInput.value)
+
     const result = elementPanelList.filter((ele) =>
         ele.toLowerCase().includes(elementInput.value)
     )
-    console.log(result)
     var finalResult = []
     for (const j in result) {
         if (Object.prototype.hasOwnProperty.call(result, j)) {
@@ -151,8 +150,19 @@ function searchElements() {
             }
         }
     }
-    console.log(finalResult)
     return finalResult
+}
+
+function createElement(elementName) {
+    if (simulationArea.lastSelected && simulationArea.lastSelected.newElement)
+        simulationArea.lastSelected.delete()
+    var obj = new modules[elementName]()
+    simulationArea.lastSelected = obj
+    uxvar.smartDropXX += 70
+    if (uxvar.smartDropXX / globalScope.scale > width) {
+        uxvar.smartDropXX = 50
+        uxvar.smartDropYY += 80
+    }
 }
 </script>
 
