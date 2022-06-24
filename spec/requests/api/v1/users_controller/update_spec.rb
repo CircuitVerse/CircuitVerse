@@ -58,7 +58,8 @@ RSpec.describe Api::V1::UsersController, "#update", type: :request do
       end
     end
 
-    context "when authenticated as the user and update the profile picture" do
+    # There is a image data
+    context "when authenticated as the user and update the profile picture", :skip_windows do
       before do
         token = get_auth_token(user)
         patch "/api/v1/users/#{user.id}",
