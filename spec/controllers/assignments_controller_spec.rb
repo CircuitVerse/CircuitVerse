@@ -106,10 +106,18 @@ describe AssignmentsController, type: :request do
       end
     end
 
+    let(:mentor_update_params) do
+      {
+        assignment: {
+          description: "updated description"
+        }
+      }
+    end
+
     context "when a mentor is signed in" do
       it "updates the assignment" do
         sign_in_group_mentor(@group)
-        put group_assignment_path(@group, @assignment), params: update_params
+        put group_assignment_path(@group, @assignment), params: mentor_update_params
         @assignment.reload
         expect(@assignment.description).to eq("updated description")
       end

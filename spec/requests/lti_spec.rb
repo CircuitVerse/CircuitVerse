@@ -103,7 +103,7 @@ describe LtiController, type: :request do
     private
 
       attr_reader :oauth_consumer_key_fromlms, :oauth_shared_secret_fromlms,
-                  :lti_launch_path, :host, :port, :member, :not_member, :mentor,
+                  :lti_launch_path, :host, :port, :member, :not_member, :primary_mentor,
                   :group, :assignment, :group
   end
 end
