@@ -1623,7 +1623,7 @@ input:checked + .slider:before {
 }
 
 .search-results {
-    display: none;
+    /* display: none; */
     padding: 15px;
     transition: all 0.5s ease;
     max-height: 340px;

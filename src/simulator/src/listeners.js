@@ -568,12 +568,15 @@ export default function startListeners() {
         })
     })
 
+    /*
     $('.search-input').on('keyup', function () {
         var parentElement = $(this).parent().parent()
         var closeButton = $('.search-close', parentElement)
         var searchInput = $('.search-input', parentElement)
         var searchResults = $('.search-results', parentElement)
         var menu = $('.accordion', parentElement)
+
+        console.log(menu)
 
         searchResults.css('display', 'block')
         closeButton.css('display', 'block')
@@ -634,6 +637,7 @@ export default function startListeners() {
             <img  src="${elementImg}" alt="element's image" >
         </div>`
     }
+    */
 
     zoomSliderListeners()
     setupLayoutModePanelListeners()
