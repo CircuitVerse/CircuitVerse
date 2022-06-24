@@ -3,17 +3,18 @@ import 'bootstrap-tagsinput/dist/bootstrap-tagsinput.js';
 
 export default class extends Controller {
     connect() {
-        $("#promote-member-modal").on("show.bs.modal", (e)=> {
-            let groupmember = $(e.relatedTarget).data('currentgroupmember');
-            $(e.currentTarget).find('#groups-member-promote-button').parent().attr("action",
-            "/group_members/" + groupmember.toString());
+        $('#promote-member-modal').on('show.bs.modal', (e) => {
+            const groupmember = $(e.relatedTarget).data('currentgroupmember');
+            $(e.currentTarget).find('#groups-member-promote-button').parent().attr('action',
+                `/group_members/${groupmember.toString()}`);
         });
-        $("#demote-member-modal").on("show.bs.modal", (e)=> {
-            let groupmember = $(e.relatedTarget).data('currentgroupmember');
-            $(e.currentTarget).find('#groups-member-demote-button').parent().attr("action",
-            "/group_members/" + groupmember.toString());
+        $('#demote-member-modal').on('show.bs.modal', (e) => {
+            const groupmember = $(e.relatedTarget).data('currentgroupmember');
+            $(e.currentTarget).find('#groups-member-demote-button').parent().attr('action',
+                `/group_members/${groupmember.toString()}`);
         });
     }
+
     mentorInputPaste(e) {
         e.preventDefault();
         let pastedEmails = '';
@@ -36,6 +37,7 @@ export default class extends Controller {
             $('.add-mentor-button').attr('disabled', false);
         }
     }
+
     addMentorToGroup() {
         $('#group_mentor_emails').tagsinput({
             trimValue: true,
@@ -53,6 +55,7 @@ export default class extends Controller {
             }
         });
     }
+
     addMemberToGroup() {
         $('#group_member_emails').tagsinput({
             trimValue: true,
