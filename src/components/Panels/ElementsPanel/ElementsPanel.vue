@@ -1,26 +1,20 @@
 <template>
     <div
-        :id="inLayoutMode ? 'guide_1' : ''"
         ref="ElementsPanel"
-        class="noSelect defaultCursor draggable-panel draggable-panel-css"
-        :class="
-            inLayoutMode
-                ? 'layoutElementPanel'
-                : 'modules ce-panel elementPanel'
-        "
+        class="noSelect defaultCursor draggable-panel draggable-panel-css modules ce-panel elementPanel"
     >
         <PanelHeader
-            :header-title="
-                inLayoutMode ? 'LAYOUT ELEMENTS' : 'CIRCUIT ELEMENTS'
-            "
+            :header-title="t('simulator.panel_header.circuit_elements')"
         />
-        <div :id="inLayoutMode ? 'testid' : ''" class="panel-body">
-            <div v-if="inLayoutMode === false" style="position: relative">
+        <div class="panel-body">
+            <div style="position: relative">
                 <input
                     v-model="elementInput"
                     type="text"
                     class="search-input"
-                    placeholder="Search.."
+                    :placeholder="
+                        t('simulator.panel_body.circuit_elements.search')
+                    "
                 />
                 <span
                     ><i
@@ -38,9 +32,11 @@
                     v-for="element in searchElements()"
                     :id="element.name"
                     :key="element.name"
-                    title="element.label"
+                    :title="element.label"
                     class="icon logixModules"
                     @click="createElement(element.name)"
+                    @mouseover="getTooltipText(element.name)"
+                    @mouseleave="tooltipText = 'null'"
                 >
                     <img :src="element.imgURL" :alt="element.name" />
                 </div>
@@ -49,11 +45,11 @@
                 v-if="elementInput && !searchElements().length"
                 class="search-results"
             >
-                No elements found...
+                {{ t('simulator.panel_body.circuit_elements.search_result') }}
             </div>
             <v-expansion-panels
                 v-if="!elementInput"
-                :id="inLayoutMode ? 'subcircuitMenu' : 'menu'"
+                id="menu"
                 class="accordion"
                 variant="accordion"
             >
@@ -62,7 +58,12 @@
                     :key="category[0]"
                 >
                     <v-expansion-panel-title>
-                        {{ category[0] }}
+                        {{
+                            t(
+                                'simulator.panel_body.circuit_elements.expansion_panel_title.' +
+                                    category[0]
+                            )
+                        }}
                     </v-expansion-panel-title>
                     <v-expansion-panel-text>
                         <div class="panel customScroll">
@@ -70,9 +71,11 @@
                                 v-for="element in category[1]"
                                 :id="element.name"
                                 :key="element"
-                                title="element.label"
+                                :title="element.label"
                                 class="icon logixModules"
                                 @click="createElement(element.name)"
+                                @mouseover="getTooltipText(element.name)"
+                                @mouseleave="tooltipText = 'null'"
                             >
                                 <img
                                     :src="element.imgURL"
@@ -83,6 +86,13 @@
                     </v-expansion-panel-text>
                 </v-expansion-panel>
             </v-expansion-panels>
+            <div
+                id="Help"
+                lines="one"
+                :class="tooltipText != 'null' ? 'show' : ''"
+            >
+                {{ tooltipText }}
+            </div>
         </div>
     </div>
 </template>
@@ -94,10 +104,12 @@ import simulationArea from '#/simulator/src/simulationArea'
 import { uxvar } from '#/simulator/src/ux'
 import modules from '#/simulator/src/modules'
 import { onBeforeMount, ref } from 'vue'
-var inLayoutMode = ref(false)
 var panelData = []
 window.elementHierarchy = metadata.elementHierarchy
 window.elementPanelList = []
+
+import { useI18n } from 'vue-i18n'
+const { t, locale } = useI18n()
 
 onBeforeMount(() => {
     for (const category in elementHierarchy) {
@@ -163,6 +175,11 @@ function createElement(elementName) {
         uxvar.smartDropXX = 50
         uxvar.smartDropYY += 80
     }
+}
+
+const tooltipText = ref('null')
+function getTooltipText(elementName) {
+    tooltipText.value = modules[elementName].prototype.tooltipText
 }
 </script>
 
