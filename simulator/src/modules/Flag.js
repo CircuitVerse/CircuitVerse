@@ -205,16 +205,7 @@ export default class Flag extends CircuitElement {
 Flag.prototype.tooltipText =
     "FLag ToolTip: Use this for debugging and plotting.";
 Flag.prototype.helplink =
-    "https://docs.circuitverse.org/#/timing_diagrams?id=using-flags";
-
-/**
- * @memberof Flag
- * Help URL
- * @type {string}
- * @category modules
- */
-Flag.prototype.helplink =
-    "https://docs.circuitverse.org/#/miscellaneous?id=tunnel";
+    "https://docs.circuitverse.org/#/chapter4/8misc?id=flag";
 
 /**
  * @memberof Flag
