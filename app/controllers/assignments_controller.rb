@@ -42,7 +42,7 @@ class AssignmentsController < ApplicationController
   def new
     @assignment = Assignment.new
     @assignment.group_id = params[:group_id]
-    @assignment.deadline = Time.zone.now + 1.week
+    @assignment.deadline = 1.week.from_now
     authorize @assignment, :admin_access?
   end
 
@@ -54,7 +54,7 @@ class AssignmentsController < ApplicationController
   def reopen
     authorize @assignment
     @assignment.status = "open"
-    @assignment.deadline = Time.zone.now + 1.day
+    @assignment.deadline = 1.day.from_now
     @assignment.save
 
     redirect_to edit_group_assignment_path(@group, @assignment)
@@ -88,7 +88,7 @@ class AssignmentsController < ApplicationController
 
     @assignment.description = description
     @assignment.status = "open"
-    @assignment.deadline = Time.zone.now + 1.year if @assignment.deadline.nil?
+    @assignment.deadline = 1.year.from_now if @assignment.deadline.nil?
 
     if Flipper.enabled?(:lms_integration, current_user)
       @assignment.lti_consumer_key = lti_consumer_key

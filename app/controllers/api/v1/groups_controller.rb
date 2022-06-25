@@ -71,7 +71,7 @@ class Api::V1::GroupsController < Api::V1::BaseController
     def set_options
       @options = {}
       @options[:include] = include_resource if params.key?(:include)
-      @options[:params] = { current_user: current_user }
+      @options[:params] = { current_user: }
     end
 
     def group_params

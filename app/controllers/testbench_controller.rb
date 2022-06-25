@@ -1,5 +1,5 @@
 # frozen_string_literal: true
+
 class TestbenchController < ApplicationController
-  def creator
-  end
+  def creator; end
 end

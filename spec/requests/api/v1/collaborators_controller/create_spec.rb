@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe Api::V1::CollaboratorsController, "#create", type: :request do
   describe "create/add collaborators" do
     let!(:author) { FactoryBot.create(:user) }
-    let!(:project) { FactoryBot.create(:project, author: author) }
+    let!(:project) { FactoryBot.create(:project, author:) }
     let!(:user) { FactoryBot.create(:user) }
 
     context "when not authenticated" do
@@ -23,7 +23,7 @@ RSpec.describe Api::V1::CollaboratorsController, "#create", type: :request do
       before do
         token = get_auth_token(FactoryBot.create(:user))
         post "/api/v1/projects/#{project.id}/collaborators/",
-             headers: { "Authorization": "Token #{token}" },
+             headers: { Authorization: "Token #{token}" },
              params: create_params, as: :json
       end
 
@@ -37,7 +37,7 @@ RSpec.describe Api::V1::CollaboratorsController, "#create", type: :request do
       before do
         token = get_auth_token(author)
         post "/api/v1/projects/0/collaborators/",
-             headers: { "Authorization": "Token #{token}" },
+             headers: { Authorization: "Token #{token}" },
              params: create_params, as: :json
       end
 
@@ -51,10 +51,10 @@ RSpec.describe Api::V1::CollaboratorsController, "#create", type: :request do
       before do
         # creates a collaboration
         existing = FactoryBot.create(:user, email: "existing@test.com")
-        FactoryBot.create(:collaboration, user: existing, project: project)
+        FactoryBot.create(:collaboration, user: existing, project:)
         token = get_auth_token(author)
         post "/api/v1/projects/#{project.id}/collaborators/",
-             headers: { "Authorization": "Token #{token}" },
+             headers: { Authorization: "Token #{token}" },
              params: create_params, as: :json
       end
 
@@ -72,7 +72,7 @@ RSpec.describe Api::V1::CollaboratorsController, "#create", type: :request do
 
     def create_params
       {
-        "emails": "#{user.email}, existing@test.com, invalid, #{author.email}"
+        emails: "#{user.email}, existing@test.com, invalid, #{author.email}"
       }
     end
   end

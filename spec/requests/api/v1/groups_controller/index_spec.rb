@@ -21,12 +21,12 @@ RSpec.describe Api::V1::GroupsController, "#index", type: :request do
     context "when authorized and not including assignments or group members" do
       before do
         # create 3 groups with user as group member for each
-        FactoryBot.create_list(:group, 3, mentor: mentor).each do |g|
-          FactoryBot.create(:group_member, group: g, user: user)
+        FactoryBot.create_list(:group, 3, mentor:).each do |g|
+          FactoryBot.create(:group_member, group: g, user:)
         end
         token = get_auth_token(user)
         get "/api/v1/groups",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns all groups signed in user is member of" do
@@ -39,13 +39,13 @@ RSpec.describe Api::V1::GroupsController, "#index", type: :request do
     context "when authorized and including assignments" do
       before do
         # create 3 groups with assignment and group_member for each
-        FactoryBot.create_list(:group, 3, mentor: mentor).each do |g|
-          FactoryBot.create(:group_member, group: g, user: user)
+        FactoryBot.create_list(:group, 3, mentor:).each do |g|
+          FactoryBot.create(:group_member, group: g, user:)
           FactoryBot.create(:assignment, group: g)
         end
         token = get_auth_token(user)
         get "/api/v1/groups?include=assignments",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns all groups including assignments signed in user is member of" do
@@ -59,15 +59,15 @@ RSpec.describe Api::V1::GroupsController, "#index", type: :request do
     context "when authorized and including group_members" do
       before do
         # create 3 groups with 4 group_members for each
-        FactoryBot.create_list(:group, 3, mentor: mentor).each do |g|
+        FactoryBot.create_list(:group, 3, mentor:).each do |g|
           # creates new group member
           FactoryBot.create(:group_member, group: g, user: FactoryBot.create(:user))
           # Adds user as a group member so that the group is accessible to user
-          FactoryBot.create(:group_member, group: g, user: user)
+          FactoryBot.create(:group_member, group: g, user:)
         end
         token = get_auth_token(user)
         get "/api/v1/groups?include=group_members",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns all groups including group_members signed in user is member of" do

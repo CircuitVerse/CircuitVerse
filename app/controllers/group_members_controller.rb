@@ -41,9 +41,9 @@ class GroupMembersController < ApplicationController
 
     newly_added.each do |email|
       email = email.strip
-      user = User.find_by(email: email)
+      user = User.find_by(email:)
       if user.nil?
-        PendingInvitation.where(group_id: @group.id, email: email).first_or_create
+        PendingInvitation.where(group_id: @group.id, email:).first_or_create
         # @group.pending_invitations.create(email:email)
       else
         GroupMember.where(group_id: @group.id, user_id: user.id).first_or_create
@@ -58,7 +58,9 @@ class GroupMembersController < ApplicationController
 
     respond_to do |format|
       format.html do
-        redirect_to group_path(@group), notice: Utils.mail_notice(group_member_params[:emails], group_member_emails, newly_added)
+        redirect_to group_path(@group),
+                    notice: Utils.mail_notice(group_member_params[:emails], group_member_emails,
+                                              newly_added)
       end
     end
     # redirect_to group_path(@group)

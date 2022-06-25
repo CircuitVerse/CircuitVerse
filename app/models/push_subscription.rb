@@ -6,7 +6,7 @@ class PushSubscription < ApplicationRecord
   def send_push_notification(message, url = "")
     payload = {
       body: message,
-      url: url
+      url:
     }
     Webpush.payload_send(
       message: JSON.generate(payload),

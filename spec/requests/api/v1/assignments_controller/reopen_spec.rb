@@ -7,12 +7,12 @@ RSpec.describe Api::V1::AssignmentsController, "#reopen", type: :request do
     let!(:mentor) { FactoryBot.create(:user) }
     let!(:assignment) do
       FactoryBot.create(
-        :assignment, group: FactoryBot.create(:group, mentor: mentor)
+        :assignment, group: FactoryBot.create(:group, mentor:)
       )
     end
     let!(:open_assignment) do
       FactoryBot.create(
-        :assignment, group: FactoryBot.create(:group, mentor: mentor), status: "open"
+        :assignment, group: FactoryBot.create(:group, mentor:), status: "open"
       )
     end
 
@@ -31,7 +31,7 @@ RSpec.describe Api::V1::AssignmentsController, "#reopen", type: :request do
       before do
         token = get_auth_token(FactoryBot.create(:user))
         patch "/api/v1/assignments/#{assignment.id}/reopen",
-              headers: { "Authorization": "Token #{token}" }, as: :json
+              headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status unauthorized" do
@@ -44,7 +44,7 @@ RSpec.describe Api::V1::AssignmentsController, "#reopen", type: :request do
       before do
         token = get_auth_token(mentor)
         patch "/api/v1/assignments/#{open_assignment.id}/reopen",
-              headers: { "Authorization": "Token #{token}" }, as: :json
+              headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status conflict" do
@@ -57,7 +57,7 @@ RSpec.describe Api::V1::AssignmentsController, "#reopen", type: :request do
       before do
         token = get_auth_token(mentor)
         patch "/api/v1/assignments/0/reopen",
-              headers: { "Authorization": "Token #{token}" }, as: :json
+              headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status not_found" do
@@ -70,7 +70,7 @@ RSpec.describe Api::V1::AssignmentsController, "#reopen", type: :request do
       before do
         token = get_auth_token(mentor)
         patch "/api/v1/assignments/#{assignment.id}/reopen",
-              headers: { "Authorization": "Token #{token}" }, as: :json
+              headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "reopens assignment & return status accepted" do
