@@ -82,10 +82,9 @@
                 </v-expansion-panel>
             </v-expansion-panels>
             <div
-                v-if="tooltipText != 'null'"
                 id="Help"
                 lines="one"
-                class="show"
+                :class="tooltipText != 'null' ? 'show' : ''"
             >
                 {{ tooltipText }}
             </div>
