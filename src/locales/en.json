@@ -1,3 +1,128 @@
 {
-    "title": "Welcome to CircuitVerse Simulator Page"
+    "simulator": {
+        "save_online": "Save Online",
+        "save_offline": "Save Offline",
+        "preview_circuit": "Preview Circuit",
+        "export_verilog": "Export Verilog",
+        "insert_subcircuit": "Insert SubCircuit",
+        "undo": "Undo",
+        "report_issue": "Report an issue",
+        "restricted_elements_used": "Restricted elements used:",
+        "made_with_circuitverse": "Made With CircuitVerse",
+        "nav": {
+            "untitled_project": "Untitled",
+            "dashboard": "Dashboard",
+            "my_groups": "My Groups",
+            "sign_out": "Sign Out",
+            "sign_in": "Sign In",
+            "project": {
+                "heading": "Project",
+                "project_page": "Project Page",
+                "new_project": "New Project",
+                "open_offline": "Open Offline",
+                "clear_project": "Clear Project",
+                "recover_project": "Recover Project",
+                "view_previous_ui": "View Previous UI"
+            },
+            "circuit": {
+                "heading": "Circuit",
+                "new_circuit": "New Circuit +",
+                "new_verilog_module_html": "New Verilog <br> Module"
+            },
+            "tools": {
+                "heading": "Tools",
+                "combinational_analysis_html": "Combinational<br>Analysis",
+                "hex_bin_dec_converter_html": "Hex-Bin-Dec<br>Converter",
+                "download_image": "Download Image",
+                "themes": "Themes",
+                "custom_shortcut": "Custom Shortcut"
+            },
+            "help": {
+                "heading": "Help",
+                "tutorial_guide": "Tutorial Guide",
+                "user_manual": "User Manual",
+                "learn_digital_logic": "Learn Digital Logic",
+                "discussion_forum": "Discussion Forum"
+            }
+        },
+        "panel_header": {
+            "circuit_elements": "Circuit Elements",
+            "layout_elements": "Layout Elements",
+            "timing_diagram": "Timing Diagram",
+            "verilog_module": "Verilog Module",
+            "properties": "Properties",
+            "layout": "Layout",
+            "render_image": "Render Image",
+            "select_theme": "Select Theme",
+            "boolean_logic_table": "BooleanLogicTable",
+            "open_project": "Open Project",
+            "bit_converter": "Dec-Bin-Hex-Converter"
+        },
+        "panel_body": {
+            "circuit_elements": {
+                "search": "Search.."
+            },
+            "timing_diagram": {
+                "one_cycle_unit_html": "1 cycle = <br/><input id='timing-diagram-units' type='number' min='1' autocomplete='off' value='1000'><br/>Units"
+            },
+            "verilog_module": {
+                "reset_code": "Reset Code",
+                "save_code": "Save Code",
+                "module_in_experiment_notice": "This is an experimental module. The code is not saved unless the \"Save Code\" button is clicked."
+            },
+            "layout": {
+                "width": "Width",
+                "height": "Height",
+                "reset_all_nodes": "Reset all nodes:",
+                "title": "Title",
+                "title_enabled": "Title Enabled:",
+                "save": "Save",
+                "cancel": "Cancel"
+            },
+            "render_image": {
+                "full_circuit_view": "Full Circuit View",
+                "current_view": "Current View",
+                "transparent_background": "Transparent Background",
+                "resolution": "Resolution:"
+            },
+            "context_menu": {
+                "paste": "Paste",
+                "copy": "Copy",
+                "cut": "Cut",
+                "delete": "Delete",
+                "new_circuit": "New Circuit",
+                "center_focus": "Center Focus"
+            },
+            "bit_converter": {
+                "decimal_value": "Decimal Value",
+                "binary_value": "Binary value",
+                "octal_value": "Octal value",
+                "hexadecimal_value": "Hexadecimal value"
+            },
+            "report_issue": {
+                "describe_issue": "Describe your issue:",
+                "email_html": "<b>Email</b><span> [Optional]</span>:",
+                "report_btn": "Report"
+            }
+        },
+        "tooltip": {
+            "delete_selected": "Delete Selected",
+            "download_as_image": "Download as Image",
+            "fit_to_screen": "Fit to Screen",
+            "redo": "Redo",
+            "decrease_size": "Decrease Size",
+            "increase_size": "Increase Size",
+            "decrease_height": "Decrease Height",
+            "increase_height": "Increase Height",
+            "reset_timing_diagram": "Reset Timing Diagram",
+            "autocalibrate_cycle_units": "Autocalibrate Cycle Units",
+            "zoom_in": "Zoom In",
+            "zoom_out": "Zoom Out",
+            "resume_timing_diagram": "Resume Timing Diagram",
+            "pause_timing_diagram": "Pause Timing Diagram",
+            "decrease_width": "Decrease Width",
+            "increase_width": "Increase Width",
+            "reset": "Reset"
+        }
+    }
 }
