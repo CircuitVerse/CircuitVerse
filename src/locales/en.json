@@ -60,7 +60,17 @@
         },
         "panel_body": {
             "circuit_elements": {
-                "search": "Search.."
+                "search": "Search...",
+                "search_result": "No elements found...",
+                "expansion_panel_title": {
+                    "Input": "Input",
+                    "Output": "Output",
+                    "Gates": "Gates",
+                    "Decoders & Plexers": "Decoders & Plexers",
+                    "Sequential Elements": "Sequential Elements",
+                    "Annotation": "Annotation",
+                    "Misc": "Misc"
+                }
             },
             "timing_diagram": {
                 "one_cycle_unit_html": "1 cycle = <br/><input id='timing-diagram-units' type='number' min='1' autocomplete='off' value='1000'><br/>Units"

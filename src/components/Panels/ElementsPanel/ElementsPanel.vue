@@ -35,7 +35,7 @@
                     :title="element.label"
                     class="icon logixModules"
                     @click="createElement(element.name)"
-                    @mouseover="getIconFocus(element.name)"
+                    @mouseover="getTooltipText(element.name)"
                     @mouseleave="tooltipText = 'null'"
                 >
                     <img :src="element.imgURL" :alt="element.name" />
@@ -45,7 +45,7 @@
                 v-if="elementInput && !searchElements().length"
                 class="search-results"
             >
-                No elements found...
+                {{ t('simulator.panel_body.circuit_elements.search_result') }}
             </div>
             <v-expansion-panels
                 v-if="!elementInput"
@@ -58,7 +58,12 @@
                     :key="category[0]"
                 >
                     <v-expansion-panel-title>
-                        {{ category[0] }}
+                        {{
+                            t(
+                                'simulator.panel_body.circuit_elements.expansion_panel_title.' +
+                                    category[0]
+                            )
+                        }}
                     </v-expansion-panel-title>
                     <v-expansion-panel-text>
                         <div class="panel customScroll">
@@ -69,7 +74,7 @@
                                 :title="element.label"
                                 class="icon logixModules"
                                 @click="createElement(element.name)"
-                                @mouseover="getIconFocus(element.name)"
+                                @mouseover="getTooltipText(element.name)"
                                 @mouseleave="tooltipText = 'null'"
                             >
                                 <img
@@ -173,7 +178,7 @@ function createElement(elementName) {
 }
 
 const tooltipText = ref('null')
-function getIconFocus(elementName) {
+function getTooltipText(elementName) {
     tooltipText.value = modules[elementName].prototype.tooltipText
 }
 </script>

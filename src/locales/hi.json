@@ -59,7 +59,19 @@
             "bit_converter": "Dec-Bin-Hex-कनवर्टर"
         },
         "panel_body": {
-            "circuit_elements": { "search": "खोजें.." },
+            "circuit_elements": {
+                "search": "खोजें...",
+                "search_result": "कोई तत्व नहीं मिला...",
+                "expansion_panel_title": {
+                    "Input": "इनपुट",
+                    "Output": "उत्पादन",
+                    "Gates": "गेट्स",
+                    "Decoders & Plexers": "डिकोडर्स और प्लेक्सर्स",
+                    "Sequential Elements": "अनुक्रमिक तत्व",
+                    "Annotation": "टिप्पणी",
+                    "Misc": "विविध"
+                }
+            },
             "timing_diagram": {
                 "one_cycle_unit_html": "1 साइकिल = <br/><input id='timing-diagram-units' type='number' min='1' autocomplete='off' value='1000'><br/>यूनिट"
             },
