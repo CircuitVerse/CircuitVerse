@@ -11,6 +11,8 @@ import { showTourGuide } from './tutorials';
 import {createVerilogCircuit, saveVerilogCode, resetVerilogCode} from './Verilog2CV';
 import { generateVerilog } from './verilog';
 import { bitConverterDialog } from './utils';
+import { ExportCircuitFiles } from './file/SaveAs';
+import { ImportCircuitFiles } from './file/Open';
 
 const logixFunction = {};
 logixFunction.save = save;
@@ -34,6 +36,8 @@ logixFunction.resetVerilogCode = resetVerilogCode;
 logixFunction.generateVerilog = generateVerilog;
 logixFunction.bitconverter = bitConverterDialog;
 logixFunction.createNewCircuitScope = createNewCircuitScope;
+logixFunction.ExportCircuitFiles = ExportCircuitFiles;
+logixFunction.ImportCircuitFiles = ImportCircuitFiles;
 export default logixFunction;
 
 // Hack to restart tour guide

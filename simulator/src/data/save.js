@@ -117,7 +117,7 @@ export function generateSaveData(name) {
 }
 
 // Helper function to download text
-function download(filename, text) {
+export function download(filename, text) {
     var pom = document.createElement('a');
     pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
     pom.setAttribute('download', filename);
@@ -285,7 +285,7 @@ async function generateImageForOnline() {
         var baseHeight = Math.round(baseWidth / ratio);
         $(node).css('height', baseHeight);
         $(node).css('width', baseWidth);
-        
+
         var data = await domtoimage.toJpeg(node);
         $(node).css('width', prevWidth);
         $(node).css('height', prevHeight);
@@ -313,7 +313,7 @@ async function generateImageForOnline() {
     // Restores Focus
     globalScope.centerFocus(false);
     return data;
-    
+
 }
 /**
  * Function called when you save acircuit online

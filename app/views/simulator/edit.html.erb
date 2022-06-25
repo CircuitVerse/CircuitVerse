@@ -19,6 +19,13 @@
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="navbar-nav navbar-menu noSelect pointerCursor" id="toolbar">
       <li class="dropdown nav-dropdown">
+      <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.file") %><span class="caret"></span></a>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item text-left logixButton" id="ExportCircuitFiles">Save As</a></li>
+        <li><a class="dropdown-item text-left logixButton" id="ImportCircuitFiles">Open</a></li>
+      </ul>
+      </li>
+      <li class="dropdown nav-dropdown">
         <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.project") %><span></span></a>
         <ul class="dropdown-menu">
           <% if not @project.nil? %>
@@ -304,8 +311,8 @@
     <div class="layout-body">
       <div>
         <p class="text-center mb-2">Select a theme: </p>
-          <select id="selectVerilogTheme" class="applyTheme" style="width:90%;">    
-            <optgroup label="Light Themes">     
+          <select id="selectVerilogTheme" class="applyTheme" style="width:90%;">
+            <optgroup label="Light Themes">
               <option>default</option>
               <option>solarized</option>
               <option>elegant</option>
@@ -612,6 +619,22 @@
     </div>
   </div>
 </div>
+
+<div
+  id="ExportCircuitFilesDialog"
+  class='customScroll'
+  tabindex="0"
+  style="display: none;"
+  title="File: Save As"
+></div>
+
+<div
+  id="ImportCircuitFilesDialog"
+  class='customScroll'
+  tabindex="0"
+  style="display: none;"
+  title="File: Open"
+></div>
 
 <div
   id="combinationalAnalysis"
