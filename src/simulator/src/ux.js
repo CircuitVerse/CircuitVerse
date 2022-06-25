@@ -178,18 +178,6 @@ export function setupUI() {
         applyVerilogTheme()
     })
 
-    $('.logixModules').hover(function () {
-        // Tooltip can be statically defined in the prototype.
-        var { tooltipText } = modules[this.id].prototype
-        if (!tooltipText) return
-        $('#Help').addClass('show')
-        $('#Help').empty()
-        $('#Help').append(tooltipText)
-    }) // code goes in document ready fn only
-    $('.logixModules').mouseleave(() => {
-        $('#Help').removeClass('show')
-    }) // code goes in document ready fn only
-
     $('#report').on('click', function () {
         var message = $('#issuetext').val()
         var email = $('#emailtext').val()

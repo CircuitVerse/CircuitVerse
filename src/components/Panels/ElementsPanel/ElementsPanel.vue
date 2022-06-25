@@ -35,6 +35,8 @@
                     :title="element.label"
                     class="icon logixModules"
                     @click="createElement(element.name)"
+                    @mouseover="getIconFocus(element.name)"
+                    @mouseleave="tooltipText = 'null'"
                 >
                     <img :src="element.imgURL" :alt="element.name" />
                 </div>
@@ -67,6 +69,8 @@
                                 :title="element.label"
                                 class="icon logixModules"
                                 @click="createElement(element.name)"
+                                @mouseover="getIconFocus(element.name)"
+                                @mouseleave="tooltipText = 'null'"
                             >
                                 <img
                                     :src="element.imgURL"
@@ -77,6 +81,14 @@
                     </v-expansion-panel-text>
                 </v-expansion-panel>
             </v-expansion-panels>
+            <div
+                v-if="tooltipText != 'null'"
+                id="Help"
+                lines="one"
+                class="show"
+            >
+                {{ tooltipText }}
+            </div>
         </div>
     </div>
 </template>
@@ -159,6 +171,11 @@ function createElement(elementName) {
         uxvar.smartDropXX = 50
         uxvar.smartDropYY += 80
     }
+}
+
+const tooltipText = ref('null')
+function getIconFocus(elementName) {
+    tooltipText.value = modules[elementName].prototype.tooltipText
 }
 </script>
 
