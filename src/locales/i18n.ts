@@ -3,7 +3,9 @@ import en from './en.json'
 import hi from './hi.json'
 
 const i18n = createI18n({
+    legacy: false,
     locale: 'en',
+    // messages
     messages: {
         en,
         hi,
