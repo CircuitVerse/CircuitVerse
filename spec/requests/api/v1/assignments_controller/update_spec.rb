@@ -7,7 +7,7 @@ RSpec.describe Api::V1::AssignmentsController, "#update", type: :request do
     let!(:mentor) { FactoryBot.create(:user) }
     let!(:assignment) do
       FactoryBot.create(
-        :assignment, group: FactoryBot.create(:group, mentor: mentor)
+        :assignment, group: FactoryBot.create(:group, mentor:)
       )
     end
 

@@ -19,7 +19,7 @@ module SpecUtils
   end
 
   def get_group_member(group, member = FactoryBot.create(:user))
-    FactoryBot.create(:group_member, user: member, group: group)
+    FactoryBot.create(:group_member, user: member, group:)
     member
   end
 

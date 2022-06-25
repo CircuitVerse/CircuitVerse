@@ -13,7 +13,7 @@ class CircuitverseController < ApplicationController
 
     page = params[:page].to_i
     @projects = if page.positive?
-      @projects.paginate(page: page)
+      @projects.paginate(page:)
     else
       @projects.paginate(page: nil)
     end

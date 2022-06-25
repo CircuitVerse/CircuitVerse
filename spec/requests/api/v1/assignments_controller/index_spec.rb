@@ -6,9 +6,9 @@ RSpec.describe Api::V1::AssignmentsController, "#index", type: :request do
   describe "list all assignments" do
     let!(:user) { FactoryBot.create(:user) }
     let!(:mentor) { FactoryBot.create(:user) }
-    let!(:group) { FactoryBot.create(:group, mentor: mentor) }
-    let!(:group_member) { FactoryBot.create(:group_member, group: group, user: user) }
-    let!(:assignments) { FactoryBot.create_list(:assignment, 3, group: group) }
+    let!(:group) { FactoryBot.create(:group, mentor:) }
+    let!(:group_member) { FactoryBot.create(:group_member, group:, user:) }
+    let!(:assignments) { FactoryBot.create_list(:assignment, 3, group:) }
 
     context "when not authenticated" do
       before do

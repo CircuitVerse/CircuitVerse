@@ -6,7 +6,7 @@ RSpec.describe Api::V1::GroupsController, "#show", type: :request do
   describe "list specific group" do
     let!(:user) { FactoryBot.create(:user) }
     let!(:mentor) { FactoryBot.create(:user) }
-    let!(:group) { FactoryBot.create(:group, mentor: mentor) }
+    let!(:group) { FactoryBot.create(:group, mentor:) }
 
     context "when not authenticated" do
       before do
@@ -47,7 +47,7 @@ RSpec.describe Api::V1::GroupsController, "#show", type: :request do
 
     context "when authenticated and has access to group" do
       before do
-        FactoryBot.create(:group_member, user: user, group: group)
+        FactoryBot.create(:group_member, user:, group:)
         token = get_auth_token(user)
         get "/api/v1/groups/#{group.id}",
             headers: { Authorization: "Token #{token}" }, as: :json

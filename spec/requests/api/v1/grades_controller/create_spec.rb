@@ -5,9 +5,9 @@ require "rails_helper"
 RSpec.describe Api::V1::GradesController, "#create", type: :request do
   describe "create a grade" do
     let!(:mentor) { FactoryBot.create(:user) }
-    let!(:group) { FactoryBot.create(:group, mentor: mentor) }
-    let!(:assignment) { FactoryBot.create(:assignment, group: group, grading_scale: :letter) }
-    let!(:project) { FactoryBot.create(:project, assignment: assignment) }
+    let!(:group) { FactoryBot.create(:group, mentor:) }
+    let!(:assignment) { FactoryBot.create(:assignment, group:, grading_scale: :letter) }
+    let!(:project) { FactoryBot.create(:project, assignment:) }
 
     context "when not authenticated" do
       before do
@@ -51,7 +51,7 @@ RSpec.describe Api::V1::GradesController, "#create", type: :request do
     context "when authorized but tries to create duplicate grade" do
       before do
         FactoryBot.create(
-          :grade, project: project, assignment: assignment, \
+          :grade, project:, assignment:, \
                   user_id: mentor.id, grade: "A", remarks: "Good"
         )
         token = get_auth_token(mentor)

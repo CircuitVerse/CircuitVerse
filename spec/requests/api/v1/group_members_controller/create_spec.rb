@@ -6,7 +6,7 @@ RSpec.describe Api::V1::GroupMembersController, "#create", type: :request do
   describe "create/add group members" do
     let!(:existing_user) { FactoryBot.create(:user, email: "test@test.com") }
     let!(:mentor) { FactoryBot.create(:user) }
-    let!(:group) { FactoryBot.create(:group, mentor: mentor) }
+    let!(:group) { FactoryBot.create(:group, mentor:) }
 
     context "when not authenticated" do
       before do

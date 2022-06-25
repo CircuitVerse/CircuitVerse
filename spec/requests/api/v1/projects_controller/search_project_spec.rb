@@ -10,7 +10,7 @@ RSpec.describe Api::V1::ProjectsController, "#search", type: :request do
                        "Full adder using half adder"]
 
       project_names.each do |name|
-        create(:project, name: name, project_access_type: "Public")
+        create(:project, name:, project_access_type: "Public")
       end
     end
 

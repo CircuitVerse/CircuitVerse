@@ -34,9 +34,9 @@ RSpec.describe User, type: :model do
   describe "public methods" do
     before do
       mentor = FactoryBot.create(:user)
-      group = FactoryBot.create(:group, mentor: mentor)
+      group = FactoryBot.create(:group, mentor:)
       @user = FactoryBot.create(:user)
-      FactoryBot.create(:pending_invitation, group: group, email: @user.email)
+      FactoryBot.create(:pending_invitation, group:, email: @user.email)
     end
 
     it "sends welcome mail" do

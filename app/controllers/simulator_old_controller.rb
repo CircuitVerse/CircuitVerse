@@ -62,7 +62,7 @@ class SimulatorOldController < ApplicationController
   end
 
   def post_issue
-    url = ENV["SLACK_ISSUE_HOOK_URL"]
+    url = ENV.fetch("SLACK_ISSUE_HOOK_URL", nil)
     HTTP.post(url, json: { text: params[:text] })
     head :ok, content_type: "text/html"
   end

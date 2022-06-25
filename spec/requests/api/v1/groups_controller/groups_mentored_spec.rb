@@ -20,7 +20,7 @@ RSpec.describe Api::V1::GroupsController, "#groups_mentored", type: :request do
     context "when authenticated as mentor and including assignments" do
       before do
         # create 3 groups with assignments and group_members for each
-        FactoryBot.create_list(:group, 3, mentor: mentor).each do |g|
+        FactoryBot.create_list(:group, 3, mentor:).each do |g|
           FactoryBot.create(:assignment, group: g)
         end
         token = get_auth_token(mentor)
@@ -38,13 +38,13 @@ RSpec.describe Api::V1::GroupsController, "#groups_mentored", type: :request do
     context "when authenticated as mentor and including group_members" do
       before do
         # create 3 groups with 4 group_members for each
-        FactoryBot.create_list(:group, 3, mentor: mentor).each do |g|
+        FactoryBot.create_list(:group, 3, mentor:).each do |g|
           # creates three random group members
-          # rubocop:disable FactoryBot/CreateList
+          # rubocop:disable RSpec/FactoryBot/CreateList
           3.times do
             FactoryBot.create(:group_member, group: g, user: FactoryBot.create(:user))
           end
-          # rubocop:enable FactoryBot/CreateList
+          # rubocop:enable RSpec/FactoryBot/CreateList
         end
         token = get_auth_token(mentor)
         get "/api/v1/groups/mentored?include=group_members",

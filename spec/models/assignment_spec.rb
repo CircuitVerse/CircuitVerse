@@ -27,7 +27,7 @@ RSpec.describe Assignment, type: :model do
   context "public methods" do
     before do
       user = FactoryBot.create(:user)
-      FactoryBot.create(:group_member, group: @group, user: user)
+      FactoryBot.create(:group_member, group: @group, user:)
       @assignment = FactoryBot.create(:assignment, group: @group, status: "open")
     end
 

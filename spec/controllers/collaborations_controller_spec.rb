@@ -46,7 +46,7 @@ describe CollaborationsController, type: :request do
   describe "#destroy" do
     before do
       user = FactoryBot.create(:user)
-      @collaboration = FactoryBot.create(:collaboration, project: @project, user: user)
+      @collaboration = FactoryBot.create(:collaboration, project: @project, user:)
     end
 
     context "author of project is logged in" do
