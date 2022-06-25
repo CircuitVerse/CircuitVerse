@@ -17,7 +17,7 @@ install:
   - ps: Install-Product node $env:nodejs_version
   - choco install imagemagick.app -y
   - refreshenv
-  - set PATH=C:\Ruby30-x64\bin;%PATH%
+  - set PATH=C:\Ruby31-x64\bin;%PATH%
   - ruby -v
   - bundle config --local path vendor/bundle
   - bundle install --with postgresql
