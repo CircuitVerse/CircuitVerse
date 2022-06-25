@@ -119,8 +119,6 @@ const plotArea = {
         if (oldHeight == this.height && oldWidth == this.width) return;
         this.canvas.width = this.width;
         this.canvas.height = this.height;
-        document.getElementById('plotArea').style.height = this.canvas.height / this.DPR;
-        document.getElementById('plotArea').style.width = this.canvas.width / this.DPR;
         this.plot();
     },
     // Setup function, called on page load
@@ -205,8 +203,9 @@ const plotArea = {
         }
     },
     render() {
-        var width = this.width;
-        var height = this.height;
+        var { width, height } = this;
+        this.canvas.height = height;
+        this.canvas.width = width;
         var endTime = this.getCurrentTime();
         // Reset canvas
         this.clear();
@@ -384,11 +383,12 @@ const plotArea = {
     // Driver function to render and update
     plot() {
         if (embed) return;
-        if (globalScope.Flag.length == 0) {
-            this.canvas.width = this.canvas.height = 0;
+        if (globalScope.Flag.length === 0) {
+            this.canvas.width = 0;
+            this.canvas.height = 0;
             return;
         }
-        
+
         this.update();
         this.render();
     },

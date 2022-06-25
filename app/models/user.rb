@@ -14,7 +14,7 @@ class User < ApplicationRecord
   has_many :rated_projects, through: :stars, dependent: :destroy, source: "project"
   has_many :groups_mentored, class_name: "Group",  foreign_key: "mentor_id", dependent: :destroy
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable,
-         :validatable, :omniauthable, omniauth_providers: %i[google_oauth2 facebook github]
+         :validatable, :omniauthable, :saml_authenticatable, omniauth_providers: %i[google_oauth2 facebook github gitlab]
 
   # has_many :assignments, foreign_key: 'mentor_id', dependent: :destroy
   has_many :group_members, dependent: :destroy
@@ -73,8 +73,9 @@ class User < ApplicationRecord
   def self.from_omniauth(access_token)
     data = access_token.info
     user = User.where(email: data["email"]).first
+    name = data["name"] || data["nickname"]
     # Uncomment the section below if you want users to be created if they don't exist
-    user ||= User.create(name: data["name"],
+    user ||= User.create(name: name,
                          email: data["email"],
                          password: Devise.friendly_token[0, 20],
                          provider: access_token.provider,

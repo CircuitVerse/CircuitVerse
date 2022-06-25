@@ -77,7 +77,7 @@ class SimulatorController < ApplicationController
   end
 
   def post_issue
-    url = ENV["SLACK_ISSUE_HOOK_URL"]
+    url = ENV.fetch("SLACK_ISSUE_HOOK_URL", nil)
 
     # Post the issue circuit data
     issue_circuit_data = IssueCircuitDatum.new
@@ -113,7 +113,7 @@ class SimulatorController < ApplicationController
   end
 
   def verilog_cv
-    url = "http://127.0.0.1:3040/getJSON"
+    url = ENV.fetch("YOSYS_PATH", "http://127.0.0.1:3040") + "/getJSON"
     response = HTTP.post(url, json: { code: params[:code] })
     render json: response.to_s, status: response.code
   end

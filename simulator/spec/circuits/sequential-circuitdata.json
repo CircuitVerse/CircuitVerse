@@ -1,0 +1,1184 @@
+{
+    "name": "sample",
+    "timePeriod": 500,
+    "clockEnabled": true,
+    "projectId": "yDvzoCP6Qa2VDwWDoj5Q",
+    "focussedCircuit": 81140742990,
+    "orderedTabs": [
+        "81140742990"
+    ],
+    "scopes": [
+        {
+            "layout": {
+                "width": 100,
+                "height": 220,
+                "title_x": 50,
+                "title_y": 13,
+                "titleEnabled": true
+            },
+            "verilogMetadata": {
+                "isVerilogCircuit": false,
+                "isMainCircuit": false,
+                "code": "// Write Some Verilog Code Here!",
+                "subCircuitScopeIds": []
+            },
+            "allNodes": [
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        3
+                    ]
+                },
+                {
+                    "x": -20,
+                    "y": 10,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "Clock",
+                    "connections": [
+                        19
+                    ]
+                },
+                {
+                    "x": -20,
+                    "y": -10,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "D",
+                    "connections": [
+                        17
+                    ]
+                },
+                {
+                    "x": 20,
+                    "y": -10,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "Q",
+                    "connections": [
+                        0
+                    ]
+                },
+                {
+                    "x": 20,
+                    "y": 10,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "Q Inverse",
+                    "connections": [
+                        8
+                    ]
+                },
+                {
+                    "x": 10,
+                    "y": 20,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "Asynchronous Reset",
+                    "connections": [
+                        12
+                    ]
+                },
+                {
+                    "x": 0,
+                    "y": 20,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "Preset",
+                    "connections": []
+                },
+                {
+                    "x": -10,
+                    "y": 20,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "Enable",
+                    "connections": []
+                },
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        4
+                    ]
+                },
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        17
+                    ]
+                },
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        19
+                    ]
+                },
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        34
+                    ]
+                },
+                {
+                    "x": 790,
+                    "y": 390,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        5,
+                        34
+                    ]
+                },
+                {
+                    "x": -20,
+                    "y": 10,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "Clock",
+                    "connections": [
+                        20
+                    ]
+                },
+                {
+                    "x": -20,
+                    "y": -10,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "D",
+                    "connections": [
+                        18
+                    ]
+                },
+                {
+                    "x": 20,
+                    "y": -10,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "Q",
+                    "connections": [
+                        21
+                    ]
+                },
+                {
+                    "x": 20,
+                    "y": 10,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "Q Inverse",
+                    "connections": [
+                        22
+                    ]
+                },
+                {
+                    "x": 600,
+                    "y": 310,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        2,
+                        9,
+                        18
+                    ]
+                },
+                {
+                    "x": 600,
+                    "y": 450,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        14,
+                        17,
+                        32
+                    ]
+                },
+                {
+                    "x": 480,
+                    "y": 330,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        1,
+                        10,
+                        20
+                    ]
+                },
+                {
+                    "x": 480,
+                    "y": 470,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        13,
+                        19,
+                        33
+                    ]
+                },
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        15
+                    ]
+                },
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        16
+                    ]
+                },
+                {
+                    "x": -20,
+                    "y": 10,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "Clock",
+                    "connections": [
+                        33
+                    ]
+                },
+                {
+                    "x": -20,
+                    "y": -10,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "T",
+                    "connections": [
+                        32
+                    ]
+                },
+                {
+                    "x": 20,
+                    "y": -10,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "Q",
+                    "connections": [
+                        30
+                    ]
+                },
+                {
+                    "x": 20,
+                    "y": 10,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "Q Inverse",
+                    "connections": [
+                        31
+                    ]
+                },
+                {
+                    "x": 10,
+                    "y": 20,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "Asynchronous Reset",
+                    "connections": [
+                        36
+                    ]
+                },
+                {
+                    "x": 0,
+                    "y": 20,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "Preset",
+                    "connections": []
+                },
+                {
+                    "x": -10,
+                    "y": 20,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "Enable",
+                    "connections": []
+                },
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        25
+                    ]
+                },
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        26
+                    ]
+                },
+                {
+                    "x": 600,
+                    "y": 620,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        18,
+                        24,
+                        49
+                    ]
+                },
+                {
+                    "x": 480,
+                    "y": 640,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        20,
+                        23,
+                        50
+                    ]
+                },
+                {
+                    "x": 400,
+                    "y": 390,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        11,
+                        12,
+                        35
+                    ]
+                },
+                {
+                    "x": 400,
+                    "y": 710,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        34,
+                        36,
+                        47
+                    ]
+                },
+                {
+                    "x": 800,
+                    "y": 710,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        27,
+                        35
+                    ]
+                },
+                {
+                    "x": -20,
+                    "y": -10,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "J",
+                    "connections": [
+                        49
+                    ]
+                },
+                {
+                    "x": -20,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "K",
+                    "connections": [
+                        62
+                    ]
+                },
+                {
+                    "x": -20,
+                    "y": 10,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "Clock",
+                    "connections": [
+                        50
+                    ]
+                },
+                {
+                    "x": 20,
+                    "y": -10,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "Q",
+                    "connections": [
+                        45
+                    ]
+                },
+                {
+                    "x": 20,
+                    "y": 10,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "Q Inverse",
+                    "connections": [
+                        46
+                    ]
+                },
+                {
+                    "x": 10,
+                    "y": 20,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "Asynchronous Reset",
+                    "connections": [
+                        48
+                    ]
+                },
+                {
+                    "x": 0,
+                    "y": 20,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "Preset",
+                    "connections": []
+                },
+                {
+                    "x": -10,
+                    "y": 20,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "Enable",
+                    "connections": []
+                },
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        40
+                    ]
+                },
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        41
+                    ]
+                },
+                {
+                    "x": 400,
+                    "y": 890,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        35,
+                        48,
+                        64
+                    ]
+                },
+                {
+                    "x": 790,
+                    "y": 890,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        42,
+                        47
+                    ]
+                },
+                {
+                    "x": 600,
+                    "y": 820,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        32,
+                        37,
+                        61
+                    ]
+                },
+                {
+                    "x": 480,
+                    "y": 840,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        33,
+                        39
+                    ]
+                },
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        62
+                    ]
+                },
+                {
+                    "x": -20,
+                    "y": 10,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "R",
+                    "connections": [
+                        63
+                    ]
+                },
+                {
+                    "x": -20,
+                    "y": -10,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "S",
+                    "connections": [
+                        61
+                    ]
+                },
+                {
+                    "x": 20,
+                    "y": -10,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "Q",
+                    "connections": [
+                        59
+                    ]
+                },
+                {
+                    "x": 20,
+                    "y": 10,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "Q Inverse",
+                    "connections": [
+                        60
+                    ]
+                },
+                {
+                    "x": 10,
+                    "y": 20,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "Asynchronous Reset",
+                    "connections": [
+                        65
+                    ]
+                },
+                {
+                    "x": 0,
+                    "y": 20,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "Preset",
+                    "connections": []
+                },
+                {
+                    "x": -10,
+                    "y": 20,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "Enable",
+                    "connections": []
+                },
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        54
+                    ]
+                },
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        55
+                    ]
+                },
+                {
+                    "x": 600,
+                    "y": 990,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        49,
+                        53
+                    ]
+                },
+                {
+                    "x": 570,
+                    "y": 830,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        38,
+                        51,
+                        63
+                    ]
+                },
+                {
+                    "x": 570,
+                    "y": 1010,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        52,
+                        62
+                    ]
+                },
+                {
+                    "x": 400,
+                    "y": 1060,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        47,
+                        65
+                    ]
+                },
+                {
+                    "x": 790,
+                    "y": 1060,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        56,
+                        64
+                    ]
+                }
+            ],
+            "id": 81140742990,
+            "name": "Main",
+            "Input": [
+                {
+                    "x": 270,
+                    "y": 310,
+                    "objectType": "Input",
+                    "label": "inp1",
+                    "direction": "RIGHT",
+                    "labelDirection": "LEFT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "output1": 9
+                        },
+                        "values": {
+                            "state": 1
+                        },
+                        "constructorParamaters": [
+                            "RIGHT",
+                            1,
+                            {
+                                "x": 0,
+                                "y": 20,
+                                "id": "ADKJudOKQoIs54SteC0v"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "x": 270,
+                    "y": 390,
+                    "objectType": "Input",
+                    "label": "RST",
+                    "direction": "RIGHT",
+                    "labelDirection": "LEFT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "output1": 11
+                        },
+                        "values": {
+                            "state": 0
+                        },
+                        "constructorParamaters": [
+                            "RIGHT",
+                            1,
+                            {
+                                "x": 0,
+                                "y": 40,
+                                "id": "auACgXFHbJMmKSylcRIS"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "x": 540,
+                    "y": 830,
+                    "objectType": "Input",
+                    "label": "inp2",
+                    "direction": "RIGHT",
+                    "labelDirection": "LEFT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "output1": 51
+                        },
+                        "values": {
+                            "state": 0
+                        },
+                        "constructorParamaters": [
+                            "RIGHT",
+                            1,
+                            {
+                                "x": 0,
+                                "y": 60,
+                                "id": "gxYJoZ7q7csS6z5HFjAu"
+                            }
+                        ]
+                    }
+                }
+            ],
+            "Output": [
+                {
+                    "x": 920,
+                    "y": 310,
+                    "objectType": "Output",
+                    "label": "out1",
+                    "direction": "LEFT",
+                    "labelDirection": "RIGHT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "inp1": 0
+                        },
+                        "constructorParamaters": [
+                            "LEFT",
+                            1,
+                            {
+                                "x": 100,
+                                "y": 20,
+                                "id": "p812Pea4ZmGV5PkGdpPe"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "x": 920,
+                    "y": 330,
+                    "objectType": "Output",
+                    "label": "out2",
+                    "direction": "LEFT",
+                    "labelDirection": "RIGHT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "inp1": 8
+                        },
+                        "constructorParamaters": [
+                            "LEFT",
+                            1,
+                            {
+                                "x": 100,
+                                "y": 40,
+                                "id": "bQnnZVmd5kDPIeO22TfP"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "x": 920,
+                    "y": 450,
+                    "objectType": "Output",
+                    "label": "out3",
+                    "direction": "LEFT",
+                    "labelDirection": "RIGHT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "inp1": 21
+                        },
+                        "constructorParamaters": [
+                            "LEFT",
+                            1,
+                            {
+                                "x": 100,
+                                "y": 60,
+                                "id": "7kEPCd8x0CsWmJDHGtz7"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "x": 920,
+                    "y": 470,
+                    "objectType": "Output",
+                    "label": "out4",
+                    "direction": "LEFT",
+                    "labelDirection": "RIGHT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "inp1": 22
+                        },
+                        "constructorParamaters": [
+                            "LEFT",
+                            1,
+                            {
+                                "x": 100,
+                                "y": 80,
+                                "id": "umwIPzgaQxhyw3KXeoIe"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "x": 900,
+                    "y": 620,
+                    "objectType": "Output",
+                    "label": "out5",
+                    "direction": "LEFT",
+                    "labelDirection": "RIGHT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "inp1": 30
+                        },
+                        "constructorParamaters": [
+                            "LEFT",
+                            1,
+                            {
+                                "x": 100,
+                                "y": 100,
+                                "id": "ACFEeZBErU96lY78ng2n"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "x": 900,
+                    "y": 640,
+                    "objectType": "Output",
+                    "label": "out6",
+                    "direction": "LEFT",
+                    "labelDirection": "RIGHT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "inp1": 31
+                        },
+                        "constructorParamaters": [
+                            "LEFT",
+                            1,
+                            {
+                                "x": 100,
+                                "y": 120,
+                                "id": "3TD9jZdXa1AX43jOeh4V"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "x": 900,
+                    "y": 820,
+                    "objectType": "Output",
+                    "label": "out7",
+                    "direction": "LEFT",
+                    "labelDirection": "RIGHT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "inp1": 45
+                        },
+                        "constructorParamaters": [
+                            "LEFT",
+                            1,
+                            {
+                                "x": 100,
+                                "y": 140,
+                                "id": "hCbf5heEes1MWbjfBxag"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "x": 900,
+                    "y": 840,
+                    "objectType": "Output",
+                    "label": "out8",
+                    "direction": "LEFT",
+                    "labelDirection": "RIGHT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "inp1": 46
+                        },
+                        "constructorParamaters": [
+                            "LEFT",
+                            1,
+                            {
+                                "x": 100,
+                                "y": 160,
+                                "id": "U33L7gSGF200Koy8RUpn"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "x": 900,
+                    "y": 990,
+                    "objectType": "Output",
+                    "label": "out9",
+                    "direction": "LEFT",
+                    "labelDirection": "RIGHT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "inp1": 59
+                        },
+                        "constructorParamaters": [
+                            "LEFT",
+                            1,
+                            {
+                                "x": 100,
+                                "y": 180,
+                                "id": "4rIpXftfQyQsEnQT7uXl"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "x": 900,
+                    "y": 1010,
+                    "objectType": "Output",
+                    "label": "out10",
+                    "direction": "LEFT",
+                    "labelDirection": "RIGHT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "inp1": 60
+                        },
+                        "constructorParamaters": [
+                            "LEFT",
+                            1,
+                            {
+                                "x": 100,
+                                "y": 200,
+                                "id": "CYefIzHlGgRM7OF8Ctdw"
+                            }
+                        ]
+                    }
+                }
+            ],
+            "TflipFlop": [
+                {
+                    "x": 790,
+                    "y": 630,
+                    "objectType": "TflipFlop",
+                    "label": "T Flip Flop",
+                    "direction": "RIGHT",
+                    "labelDirection": "UP",
+                    "propagationDelay": 10,
+                    "customData": {
+                        "nodes": {
+                            "clockInp": 23,
+                            "dInp": 24,
+                            "qOutput": 25,
+                            "qInvOutput": 26,
+                            "reset": 27,
+                            "preset": 28,
+                            "en": 29
+                        },
+                        "constructorParamaters": [
+                            "RIGHT",
+                            1
+                        ]
+                    }
+                }
+            ],
+            "JKflipFlop": [
+                {
+                    "x": 780,
+                    "y": 830,
+                    "objectType": "JKflipFlop",
+                    "label": "Jk Flip Flop",
+                    "direction": "RIGHT",
+                    "labelDirection": "UP",
+                    "propagationDelay": 10,
+                    "customData": {
+                        "nodes": {
+                            "J": 37,
+                            "K": 38,
+                            "clockInp": 39,
+                            "qOutput": 40,
+                            "qInvOutput": 41,
+                            "reset": 42,
+                            "preset": 43,
+                            "en": 44
+                        },
+                        "constructorParamaters": [
+                            "RIGHT"
+                        ]
+                    }
+                }
+            ],
+            "SRflipFlop": [
+                {
+                    "x": 780,
+                    "y": 1000,
+                    "objectType": "SRflipFlop",
+                    "label": "SR Flip Flop",
+                    "direction": "RIGHT",
+                    "labelDirection": "UP",
+                    "propagationDelay": 10,
+                    "customData": {
+                        "nodes": {
+                            "S": 53,
+                            "R": 52,
+                            "qOutput": 54,
+                            "qInvOutput": 55,
+                            "reset": 56,
+                            "preset": 57,
+                            "en": 58
+                        },
+                        "constructorParamaters": [
+                            "RIGHT"
+                        ]
+                    }
+                }
+            ],
+            "DflipFlop": [
+                {
+                    "x": 780,
+                    "y": 320,
+                    "objectType": "DflipFlop",
+                    "label": "D Flip Flop",
+                    "direction": "RIGHT",
+                    "labelDirection": "UP",
+                    "propagationDelay": 10,
+                    "customData": {
+                        "nodes": {
+                            "clockInp": 1,
+                            "dInp": 2,
+                            "qOutput": 3,
+                            "qInvOutput": 4,
+                            "reset": 5,
+                            "preset": 6,
+                            "en": 7
+                        },
+                        "constructorParamaters": [
+                            "RIGHT",
+                            1
+                        ]
+                    }
+                }
+            ],
+            "Clock": [
+                {
+                    "x": 270,
+                    "y": 330,
+                    "objectType": "Clock",
+                    "label": "CLOCK",
+                    "direction": "RIGHT",
+                    "labelDirection": "LEFT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "output1": 10
+                        },
+                        "constructorParamaters": [
+                            "RIGHT"
+                        ]
+                    }
+                }
+            ],
+            "Dlatch": [
+                {
+                    "x": 790,
+                    "y": 460,
+                    "objectType": "Dlatch",
+                    "label": "D latch",
+                    "direction": "RIGHT",
+                    "labelDirection": "UP",
+                    "propagationDelay": 10,
+                    "customData": {
+                        "nodes": {
+                            "clockInp": 13,
+                            "dInp": 14,
+                            "qOutput": 15,
+                            "qInvOutput": 16
+                        },
+                        "constructorParamaters": [
+                            "RIGHT",
+                            1
+                        ]
+                    }
+                }
+            ],
+            "restrictedCircuitElementsUsed": [],
+            "nodes": [
+                12,
+                17,
+                18,
+                19,
+                20,
+                32,
+                33,
+                34,
+                35,
+                36,
+                47,
+                48,
+                49,
+                50,
+                61,
+                62,
+                63,
+                64,
+                65
+            ]
+        }
+    ]
+}

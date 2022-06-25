@@ -40,6 +40,12 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     generic_callback("github")
   end
 
+  def gitlab
+    return unless Flipper.enabled?(:gitlab_integration)
+
+    generic_callback("gitlab")
+  end
+
   def microsoft_office365
     generic_callback("microsoft_office365")
   end

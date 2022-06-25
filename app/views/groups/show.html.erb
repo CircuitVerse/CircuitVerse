@@ -1,4 +1,3 @@
-<%= javascript_pack_tag 'application' %>
 <% content_for :title, @group.name %>
 
 <div class="container" data-controller="groups">
@@ -34,7 +33,7 @@
     <% end %>
   </div>
   <hr>
-  <div class="row center-row groups-members-scroll-row">
+  <div class="<%= policy(@group).admin_access? ? 'row center-row groups-members-scroll-row' : 'row groups-members-scroll-row' %>">
     <%= render partial: "group_members", locals: {group: @group} %>
   </div>
   <div class="row center-row groups-row">
@@ -111,6 +110,11 @@
                     <span><%= t("edit") %></span>
                   <% end %>
                 </div>
+              <div class="groups-assignment-details">
+                <%= link_to close_group_assignment_path(@group,assignment), class:"mini-button groups-close-mini-button", method: :put do %>
+                  <span><%= t("close") %></span>
+                <% end %>
+              </div>
               <% end %>
               <div class="groups-assignment-details">
                 <%= link_to '#', class:"mini-button groups-delete-mini-button", data: {toggle: "modal", target: "#deleteassignmentModal", currentgroup: @group.id, currentassignment: assignment.id} do %>
