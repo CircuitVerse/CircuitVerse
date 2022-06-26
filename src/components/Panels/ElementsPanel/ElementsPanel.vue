@@ -137,10 +137,9 @@ function getImgUrl(elementName) {
 var elementInput = ref('')
 function searchElements() {
     if (!elementInput) return []
-    // logic to be imported from listener.js
-
+    // logic imported from listener.js
     const result = elementPanelList.filter((ele) =>
-        ele.toLowerCase().includes(elementInput.value)
+        ele.toLowerCase().includes(elementInput.value.toLowerCase())
     )
     var finalResult = []
     for (const j in result) {
