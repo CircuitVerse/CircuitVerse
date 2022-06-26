@@ -65,7 +65,7 @@
                             )
                         }}
                     </v-expansion-panel-title>
-                    <v-expansion-panel-text>
+                    <v-expansion-panel-text eager>
                         <div class="panel customScroll">
                             <div
                                 v-for="element in category[1]"
