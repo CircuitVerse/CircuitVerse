@@ -231,7 +231,7 @@ describe AssignmentsController, type: :request do
         sign_in create(:user)
         expect do
           post group_assignments_path(@assignment)
-        end.to change(Assignment, :count).by(0)
+        end.not_to change(Assignment, :count)
       end
     end
   end

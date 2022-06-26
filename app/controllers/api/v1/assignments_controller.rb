@@ -29,7 +29,7 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
     @assignment = @group.assignments.new(assignment_create_params)
     authorize @assignment, :mentor_access?
     @assignment.status = "open"
-    @assignment.deadline = Time.zone.now + 1.year if @assignment.deadline.nil?
+    @assignment.deadline = 1.year.from_now if @assignment.deadline.nil?
     @assignment.save!
     render json: Api::V1::AssignmentSerializer.new(@assignment, @options), status: :created
   end
@@ -56,9 +56,9 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
       api_error(status: 409, errors: "Project is already opened!")
     else
       @assignment.status = "open"
-      @assignment.deadline = Time.zone.now + 1.day
+      @assignment.deadline = 1.day.from_now
       @assignment.save!
-      render json: { "message": "Assignment has been reopened!" }, status: :accepted
+      render json: { message: "Assignment has been reopened!" }, status: :accepted
     end
   end
 
@@ -71,7 +71,7 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
       @assignment.status = "closed"
       @assignment.deadline = Time.zone.now
       @assignment.save!
-      render json: { "message": "Assignment has been closed!" }, status: :accepted
+      render json: { message: "Assignment has been closed!" }, status: :accepted
     end
   end
 
@@ -85,7 +85,7 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
     @project.build_project_datum
     @project.save!
     render json: {
-      "message": "Voila! Project set up under name #{@project.name}"
+      message: "Voila! Project set up under name #{@project.name}"
     }, status: :created
   end
 
@@ -110,7 +110,7 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
     def set_options
       @options = {}
       @options[:include] = include_resource if params.key?(:include)
-      @options[:params] = { current_user: current_user }
+      @options[:params] = { current_user: }
     end
 
     def check_reopening_status

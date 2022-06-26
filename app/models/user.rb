@@ -33,16 +33,17 @@ class User < ApplicationRecord
   after_commit :send_welcome_mail, on: :create
   after_commit :create_members_from_invitations, on: :create
 
-  has_attached_file :profile_picture, styles: { medium: "205X240#", thumb: "100x100>" }, default_url: ":style/Default.jpg"
+  has_attached_file :profile_picture, styles: { medium: "205X240#", thumb: "100x100>" },
+                                      default_url: ":style/Default.jpg"
   attr_accessor :remove_picture
-  
+
   before_validation { profile_picture.clear if remove_picture == "1" }
 
   # validations for user
 
   validates_attachment_content_type :profile_picture, content_type: %r{\Aimage/.*\z}
 
-  validates :name, presence: true, format: { without: /\A["!@#$%^&"]*\z/,
+  validates :name, presence: true, format: { without: /\A["!@#$%^&]*\z/,
                                              message: "can only contain letters and spaces" }
 
   validates :email, presence: true, format: /\A[^@,\s]+@[^@,\s]+\.[^@,\s]+\z/
@@ -74,7 +75,7 @@ class User < ApplicationRecord
     user = User.where(email: data["email"]).first
     name = data["name"] || data["nickname"]
     # Uncomment the section below if you want users to be created if they don't exist
-    user ||= User.create(name: name,
+    user ||= User.create(name:,
                          email: data["email"],
                          password: Devise.friendly_token[0, 20],
                          provider: access_token.provider,
@@ -87,7 +88,7 @@ class User < ApplicationRecord
       name: oauth_user["name"],
       email: oauth_user["email"],
       password: Devise.friendly_token[0, 20],
-      provider: provider,
+      provider:,
       uid: oauth_user["id"] || oauth_user["sub"]
     )
   end

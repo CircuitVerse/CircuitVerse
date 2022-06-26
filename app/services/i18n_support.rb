@@ -3,8 +3,8 @@
 class I18nSupport
   def self.locale_names
     [
-      ["English", "en"],
-      ["Hindi", "hi"]
+      %w[English en],
+      %w[Hindi hi]
     ]
   end
 end

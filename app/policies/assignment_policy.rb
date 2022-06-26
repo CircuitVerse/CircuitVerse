@@ -4,6 +4,7 @@ class AssignmentPolicy < ApplicationPolicy
   attr_reader :user, :assignment
 
   def initialize(user, assignment)
+    super
     @user = user
     @assignment = assignment
   end

@@ -5,12 +5,12 @@ require "rails_helper"
 RSpec.describe Api::V1::GradesController, "#update", type: :request do
   describe "create a grade" do
     let!(:primary_mentor) { FactoryBot.create(:user) }
-    let!(:group) { FactoryBot.create(:group, primary_mentor: primary_mentor) }
-    let!(:assignment) { FactoryBot.create(:assignment, group: group, grading_scale: :letter) }
-    let!(:project) { FactoryBot.create(:project, assignment: assignment) }
+    let!(:group) { FactoryBot.create(:group, primary_mentor:) }
+    let!(:assignment) { FactoryBot.create(:assignment, group:, grading_scale: :letter) }
+    let!(:project) { FactoryBot.create(:project, assignment:) }
     let!(:grade) do
       FactoryBot.create(
-        :grade, project: project, assignment: assignment, \
+        :grade, project:, assignment:, \
                 user_id: primary_mentor.id, grade: "A", remarks: "Good"
       )
     end
@@ -30,7 +30,7 @@ RSpec.describe Api::V1::GradesController, "#update", type: :request do
       before do
         token = get_auth_token(FactoryBot.create(:user))
         patch "/api/v1/grades/#{grade.id}",
-              headers: { "Authorization": "Token #{token}" },
+              headers: { Authorization: "Token #{token}" },
               params: update_params, as: :json
       end
 
@@ -44,7 +44,7 @@ RSpec.describe Api::V1::GradesController, "#update", type: :request do
       before do
         token = get_auth_token(primary_mentor)
         patch "/api/v1/grades/0",
-              headers: { "Authorization": "Token #{token}" },
+              headers: { Authorization: "Token #{token}" },
               params: update_params, as: :json
       end
 
@@ -58,8 +58,8 @@ RSpec.describe Api::V1::GradesController, "#update", type: :request do
       before do
         token = get_auth_token(primary_mentor)
         patch "/api/v1/grades/#{grade.id}",
-              headers: { "Authorization": "Token #{token}" },
-              params: { "invalid": "invalid" }, as: :json
+              headers: { Authorization: "Token #{token}" },
+              params: { invalid: "invalid" }, as: :json
       end
 
       it "returns status bad_request" do
@@ -72,7 +72,7 @@ RSpec.describe Api::V1::GradesController, "#update", type: :request do
       before do
         token = get_auth_token(primary_mentor)
         patch "/api/v1/grades/#{grade.id}",
-              headers: { "Authorization": "Token #{token}" },
+              headers: { Authorization: "Token #{token}" },
               params: invalid_grading_scale_params, as: :json
       end
 
@@ -86,7 +86,7 @@ RSpec.describe Api::V1::GradesController, "#update", type: :request do
       before do
         token = get_auth_token(primary_mentor)
         patch "/api/v1/grades/#{grade.id}",
-              headers: { "Authorization": "Token #{token}" },
+              headers: { Authorization: "Token #{token}" },
               params: update_params, as: :json
       end
 
@@ -99,16 +99,16 @@ RSpec.describe Api::V1::GradesController, "#update", type: :request do
 
     def update_params
       {
-        "grade": {
-          "grade": "B"
+        grade: {
+          grade: "B"
         }
       }
     end
 
     def invalid_grading_scale_params
       {
-        "grade": {
-          "grade": 100
+        grade: {
+          grade: 100
         }
       }
     end

@@ -9,7 +9,7 @@ describe AssignmentDecorator do
 
   before do
     group = FactoryBot.create(:group, primary_mentor: FactoryBot.create(:user))
-    @assignment = FactoryBot.create(:assignment, group: group, grading_scale: :letter)
+    @assignment = FactoryBot.create(:assignment, group:, grading_scale: :letter)
   end
 
   describe "#graded" do

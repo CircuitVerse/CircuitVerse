@@ -3,13 +3,10 @@
 require "rails_helper"
 
 describe "Group management", type: :system do
-  before(:all) do
+  before do
     @user = FactoryBot.create(:user)
     @user2 = FactoryBot.create(:user)
     @group = FactoryBot.create(:group, primary_mentor: @user)
-  end
-
-  before do
     driven_by(:selenium_chrome_headless)
     login_as(@user, scope: :user)
   end

@@ -8,7 +8,7 @@ RSpec.describe Api::V1::CommentsController, "#downvote", type: :request do
     let!(:project) { FactoryBot.create(:project, project_access_type: "Public") }
     let!(:comment) do
       FactoryBot.create(
-        :commontator_comment, creator: creator, thread: project.commontator_thread
+        :commontator_comment, creator:, thread: project.commontator_thread
       )
     end
 
@@ -27,7 +27,7 @@ RSpec.describe Api::V1::CommentsController, "#downvote", type: :request do
       before do
         token = get_auth_token(creator)
         put "/api/v1/comments/#{comment.id}/downvote",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status forbidden" do
@@ -40,7 +40,7 @@ RSpec.describe Api::V1::CommentsController, "#downvote", type: :request do
       before do
         token = get_auth_token(FactoryBot.create(:user))
         put "/api/v1/comments/#{comment.id}/downvote",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status success & 'comment downvoted' message" do

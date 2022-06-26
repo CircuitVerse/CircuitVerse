@@ -13,7 +13,7 @@ RSpec.describe Assignment, type: :model do
     it { is_expected.to have_many(:projects) }
   end
 
-  describe "callbacks", :focus do
+  describe "callbacks" do
     it "calls respective callbacks" do
       expect_any_instance_of(described_class).to receive(:send_new_assignment_mail)
       expect_any_instance_of(described_class).to receive(:send_update_mail)
@@ -27,7 +27,7 @@ RSpec.describe Assignment, type: :model do
   context "public methods" do
     before do
       user = FactoryBot.create(:user)
-      FactoryBot.create(:group_member, group: @group, user: user)
+      FactoryBot.create(:group_member, group: @group, user:)
       @assignment = FactoryBot.create(:assignment, group: @group, status: "open")
     end
 

@@ -21,12 +21,12 @@ describe LtiController, type: :request do
     before do
       # creation of assignment and required users
       @primary_mentor = FactoryBot.create(:user)
-      @group = FactoryBot.create(:group, primary_mentor: @primary_mentor)
+      @group = FactoryBot.create(:group, primary_mentor:)
       @member = FactoryBot.create(:user)
       @not_member = FactoryBot.create(:user)
-      FactoryBot.create(:group_member, user: member, group: group)
+      FactoryBot.create(:group_member, user: member, group:)
       @assignment = FactoryBot.create(:assignment,
-                                      group: group,
+                                      group:,
                                       grading_scale: 2,
                                       lti_consumer_key: oauth_consumer_key_fromlms,
                                       lti_shared_secret: oauth_shared_secret_fromlms)

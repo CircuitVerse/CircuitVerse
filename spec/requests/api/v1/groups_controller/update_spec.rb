@@ -6,7 +6,7 @@ RSpec.describe Api::V1::GroupsController, "#update", type: :request do
   describe "update specific group" do
     let!(:user) { FactoryBot.create(:user) }
     let!(:primary_mentor) { FactoryBot.create(:user) }
-    let!(:group) { FactoryBot.create(:group, primary_mentor: primary_mentor) }
+    let!(:group) { FactoryBot.create(:group, primary_mentor:) }
 
     context "when not authenticated" do
       before do
@@ -23,7 +23,7 @@ RSpec.describe Api::V1::GroupsController, "#update", type: :request do
       before do
         token = get_auth_token(FactoryBot.create(:user))
         patch "/api/v1/groups/#{group.id}",
-              headers: { "Authorization": "Token #{token}" },
+              headers: { Authorization: "Token #{token}" },
               params: update_params, as: :json
       end
 
@@ -37,7 +37,7 @@ RSpec.describe Api::V1::GroupsController, "#update", type: :request do
       before do
         token = get_auth_token(primary_mentor)
         patch "/api/v1/groups/0",
-              headers: { "Authorization": "Token #{token}" },
+              headers: { Authorization: "Token #{token}" },
               params: update_params, as: :json
       end
 
@@ -51,8 +51,8 @@ RSpec.describe Api::V1::GroupsController, "#update", type: :request do
       before do
         token = get_auth_token(primary_mentor)
         patch "/api/v1/groups/#{group.id}",
-              headers: { "Authorization": "Token #{token}" },
-              params: { "invalid": "invalid" }, as: :json
+              headers: { Authorization: "Token #{token}" },
+              params: { invalid: "invalid" }, as: :json
       end
 
       it "returns status bad_request" do
@@ -63,10 +63,10 @@ RSpec.describe Api::V1::GroupsController, "#update", type: :request do
 
     context "when authorized and has access to update group details" do
       before do
-        FactoryBot.create(:group_member, user: user, group: group)
+        FactoryBot.create(:group_member, user:, group:)
         token = get_auth_token(primary_mentor)
         patch "/api/v1/groups/#{group.id}",
-              headers: { "Authorization": "Token #{token}" },
+              headers: { Authorization: "Token #{token}" },
               params: update_params, as: :json
       end
 
@@ -79,7 +79,7 @@ RSpec.describe Api::V1::GroupsController, "#update", type: :request do
 
     def update_params
       {
-        "name": "Test Group Updated"
+        name: "Test Group Updated"
       }
     end
   end

@@ -6,7 +6,7 @@ RSpec.describe Api::V1::GroupsController, "#destroy", type: :request do
   describe "delete specific group" do
     let!(:user) { FactoryBot.create(:user) }
     let!(:primary_mentor) { FactoryBot.create(:user) }
-    let!(:group) { FactoryBot.create(:group, primary_mentor: primary_mentor) }
+    let!(:group) { FactoryBot.create(:group, primary_mentor:) }
 
     context "when not authenticated" do
       before do
@@ -23,7 +23,7 @@ RSpec.describe Api::V1::GroupsController, "#destroy", type: :request do
       before do
         token = get_auth_token(user)
         delete "/api/v1/groups/#{group.id}",
-               headers: { "Authorization": "Token #{token}" }, as: :json
+               headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status unauthorized" do
@@ -36,7 +36,7 @@ RSpec.describe Api::V1::GroupsController, "#destroy", type: :request do
       before do
         token = get_auth_token(primary_mentor)
         delete "/api/v1/groups/0",
-               headers: { "Authorization": "Token #{token}" }, as: :json
+               headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status not_found" do
@@ -49,7 +49,7 @@ RSpec.describe Api::V1::GroupsController, "#destroy", type: :request do
       before do
         token = get_auth_token(primary_mentor)
         delete "/api/v1/groups/#{group.id}",
-               headers: { "Authorization": "Token #{token}" }, as: :json
+               headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "deletes group & return status no_content" do

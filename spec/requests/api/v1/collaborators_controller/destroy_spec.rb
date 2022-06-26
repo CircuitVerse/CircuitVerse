@@ -5,9 +5,9 @@ require "rails_helper"
 RSpec.describe Api::V1::CollaboratorsController, "#destroy", type: :request do
   describe "delete specific collaborator" do
     let!(:author) { FactoryBot.create(:user) }
-    let!(:project) { FactoryBot.create(:project, author: author) }
+    let!(:project) { FactoryBot.create(:project, author:) }
     let!(:collaborator) { FactoryBot.create(:user) }
-    let!(:collaboration) { FactoryBot.create(:collaboration, user: collaborator, project: project) }
+    let!(:collaboration) { FactoryBot.create(:collaboration, user: collaborator, project:) }
 
     context "when not authenticated" do
       before do
@@ -24,7 +24,7 @@ RSpec.describe Api::V1::CollaboratorsController, "#destroy", type: :request do
       before do
         token = get_auth_token(FactoryBot.create(:user))
         delete "/api/v1/projects/#{project.id}/collaborators/#{collaboration.user.id}",
-               headers: { "Authorization": "Token #{token}" }, as: :json
+               headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status unauthorized" do
@@ -37,7 +37,7 @@ RSpec.describe Api::V1::CollaboratorsController, "#destroy", type: :request do
       before do
         token = get_auth_token(author)
         delete "/api/v1/projects/#{project.id}/collaborators/0",
-               headers: { "Authorization": "Token #{token}" }, as: :json
+               headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status not_found" do
@@ -50,11 +50,11 @@ RSpec.describe Api::V1::CollaboratorsController, "#destroy", type: :request do
       before do
         token = get_auth_token(author)
         delete "/api/v1/projects/#{project.id}/collaborators/#{collaboration.user.id}",
-               headers: { "Authorization": "Token #{token}" }, as: :json
+               headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "deletes collaborator & return status no_content" do
-        expect { Collaboration.find_by!(user: collaborator, project: project) }.to raise_exception(
+        expect { Collaboration.find_by!(user: collaborator, project:) }.to raise_exception(
           ActiveRecord::RecordNotFound
         )
         expect(response).to have_http_status(:no_content)

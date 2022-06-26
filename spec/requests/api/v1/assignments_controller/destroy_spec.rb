@@ -7,7 +7,7 @@ RSpec.describe Api::V1::AssignmentsController, "#destroy", type: :request do
     let!(:primary_mentor) { FactoryBot.create(:user) }
     let!(:assignment) do
       FactoryBot.create(
-        :assignment, group: FactoryBot.create(:group, primary_mentor: primary_mentor)
+        :assignment, group: FactoryBot.create(:group, primary_mentor:)
       )
     end
 
@@ -26,7 +26,7 @@ RSpec.describe Api::V1::AssignmentsController, "#destroy", type: :request do
       before do
         token = get_auth_token(FactoryBot.create(:user))
         delete "/api/v1/assignments/#{assignment.id}",
-               headers: { "Authorization": "Token #{token}" }, as: :json
+               headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status unauthorized" do
@@ -39,7 +39,7 @@ RSpec.describe Api::V1::AssignmentsController, "#destroy", type: :request do
       before do
         token = get_auth_token(primary_mentor)
         delete "/api/v1/assignments/0",
-               headers: { "Authorization": "Token #{token}" }, as: :json
+               headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status not_found" do
@@ -52,7 +52,7 @@ RSpec.describe Api::V1::AssignmentsController, "#destroy", type: :request do
       before do
         token = get_auth_token(primary_mentor)
         delete "/api/v1/assignments/#{assignment.id}",
-               headers: { "Authorization": "Token #{token}" }, as: :json
+               headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "deletes assignment & return status no_content" do
