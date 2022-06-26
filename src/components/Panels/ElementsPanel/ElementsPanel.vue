@@ -98,7 +98,7 @@
 </template>
 
 <script lang="ts" setup>
-import PanelHeader from '@/Panels/PanelHeader.vue'
+import PanelHeader from '../Shared/PanelHeader.vue'
 import metadata from '#/simulator/src/metadata.json'
 import simulationArea from '#/simulator/src/simulationArea'
 import { uxvar } from '#/simulator/src/ux'
