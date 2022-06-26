@@ -23,14 +23,14 @@ class ApplicationController < ActionController::Base
     render "errors/not_found", status: :not_found
   end
 
-  def switch_locale(&)
+  def switch_locale(&block)
     logger.debug "* Accept-Language: #{request.env['HTTP_ACCEPT_LANGUAGE']}"
     locale = current_user&.locale ||
              extract_locale_from_accept_language_header ||
              I18n.default_locale
     logger.debug "* Locale set to '#{locale}'"
     begin
-      I18n.with_locale(locale, &)
+      I18n.with_locale(locale, &block)
     rescue I18n::InvalidLocale
       locale = I18n.default_locale
       retry

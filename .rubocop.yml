@@ -310,3 +310,9 @@ Lint/MissingSuper:
 
 RSpec/FilePath:
   Enabled: false
+
+Style/HashSyntax:
+  EnforcedShorthandSyntax: 'never'
+
+Naming/BlockForwarding:
+  Enabled: false
