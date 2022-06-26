@@ -313,3 +313,6 @@ RSpec/FilePath:
 
 Style/HashSyntax:
   EnforcedShorthandSyntax: 'never'
+
+Naming/BlockForwarding:
+  Enabled: false
