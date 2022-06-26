@@ -33,7 +33,7 @@ class Project < ApplicationRecord
 
   scope :open, -> { where(project_access_type: "Public") }
 
-  scope :by, ->(author_id) { where(author_id:) }
+  scope :by, ->(author_id) { where(author_id: author_id) }
 
   include PgSearch::Model
   accepts_nested_attributes_for :project_datum
@@ -93,7 +93,7 @@ class Project < ApplicationRecord
     forked_project.build_project_datum.data = project_datum&.data
     forked_project.image_preview = image_preview
     forked_project.update!(
-      view: 1, author_id: user.id, forked_project_id: id, name:
+      view: 1, author_id: user.id, forked_project_id: id, name: name
     )
     forked_project
   end
@@ -125,7 +125,7 @@ class Project < ApplicationRecord
   end
 
   def self.tagged_with(name)
-    Tag.find_by!(name:).projects
+    Tag.find_by!(name: name).projects
   end
 
   def tag_list
@@ -175,7 +175,7 @@ class Project < ApplicationRecord
 
     def should_generate_new_friendly_id?
       # FIXME: Remove extra query once production data is resolved
-      name_changed? || Project.where(slug:).count > 1
+      name_changed? || Project.where(slug: slug).count > 1
     end
 end
 # rubocop:enable Metrics/ClassLength

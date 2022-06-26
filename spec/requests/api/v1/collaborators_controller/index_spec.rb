@@ -6,9 +6,9 @@ RSpec.describe Api::V1::CollaboratorsController, "#index", type: :request do
   describe "list all collaborators" do
     let!(:author) { FactoryBot.create(:user) }
     let!(:public_project) do
-      FactoryBot.create(:project, author:, project_access_type: "Public")
+      FactoryBot.create(:project, author: author, project_access_type: "Public")
     end
-    let!(:private_project) { FactoryBot.create(:project, author:) }
+    let!(:private_project) { FactoryBot.create(:project, author: author) }
 
     context "when not authenticated" do
       before do

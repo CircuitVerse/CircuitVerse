@@ -46,7 +46,7 @@ RSpec.describe Api::V1::ProjectsController, "#toggle_star", type: :request do
 
     context "when unstars a starred project" do
       before do
-        FactoryBot.create(:star, project:, user:)
+        FactoryBot.create(:star, project: project, user: user)
         token = get_auth_token(user)
         get "/api/v1/projects/#{project.id}/toggle-star",
             headers: { Authorization: "Token #{token}" }, as: :json

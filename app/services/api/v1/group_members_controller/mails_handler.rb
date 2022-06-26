@@ -37,11 +37,11 @@ class Api::V1::GroupMembersController
 
       # checks for every newly added mail if the user exists or not
       newly_added.each do |email|
-        user = User.find_by(email:)
+        user = User.find_by(email: email)
         if user.nil?
           # invitation being sent to non-existent user
           @pending_mails.push(email)
-          PendingInvitation.where(group_id: @group.id, email:).first_or_create
+          PendingInvitation.where(group_id: @group.id, email: email).first_or_create
         else
           # create group_member for existent users
           @added_mails.push(email)

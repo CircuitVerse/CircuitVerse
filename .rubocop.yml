@@ -310,3 +310,6 @@ Lint/MissingSuper:
 
 RSpec/FilePath:
   Enabled: false
+
+Style/HashSyntax:
+  EnforcedShorthandSyntax: 'never'

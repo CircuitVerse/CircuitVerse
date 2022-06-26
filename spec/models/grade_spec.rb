@@ -40,10 +40,10 @@ RSpec.describe Grade, type: :model do
       context "percent grading scale" do
         before do
           assignment = FactoryBot.create(:assignment, group: @group, grading_scale: :percent)
-          assignment_project = FactoryBot.create(:project, assignment:,
+          assignment_project = FactoryBot.create(:project, assignment: assignment,
                                                            author: FactoryBot.create(:user))
           @grade = FactoryBot.build(:grade, project: assignment_project, grader: @mentor,
-                                            grade: "98", assignment:)
+                                            grade: "98", assignment: assignment)
         end
 
         it "validates grading scale" do
@@ -60,10 +60,10 @@ RSpec.describe Grade, type: :model do
       context "no grading scale" do
         before do
           assignment = FactoryBot.create(:assignment, group: @group, grading_scale: :no_scale)
-          assignment_project = FactoryBot.create(:project, assignment:,
+          assignment_project = FactoryBot.create(:project, assignment: assignment,
                                                            author: FactoryBot.create(:user))
           @grade = FactoryBot.build(:grade, project: assignment_project, grader: @mentor,
-                                            grade: "98", assignment:)
+                                            grade: "98", assignment: assignment)
         end
 
         it "invalidates all grades" do
@@ -78,10 +78,10 @@ RSpec.describe Grade, type: :model do
       context "custom grading scale" do
         before do
           assignment = FactoryBot.create(:assignment, group: @group, grading_scale: :custom)
-          assignment_project = FactoryBot.create(:project, assignment:,
+          assignment_project = FactoryBot.create(:project, assignment: assignment,
                                                            author: FactoryBot.create(:user))
           @grade = FactoryBot.build(:grade, project: assignment_project, grader: @mentor,
-                                            grade: "98", assignment:)
+                                            grade: "98", assignment: assignment)
         end
 
         it "validates all grades" do
