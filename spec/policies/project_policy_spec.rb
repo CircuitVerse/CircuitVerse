@@ -59,8 +59,8 @@ describe ProjectPolicy do
 
     before do
       primary_mentor = FactoryBot.create(:user)
-      group = FactoryBot.create(:group, primary_mentor:)
-      @assignment = FactoryBot.create(:assignment, group:)
+      group = FactoryBot.create(:group, primary_mentor: primary_mentor)
+      @assignment = FactoryBot.create(:assignment, group: group)
     end
 
     it { is_expected.not_to permit(:create_fork) }

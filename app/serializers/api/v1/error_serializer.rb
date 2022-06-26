@@ -14,7 +14,7 @@ class Api::V1::ErrorSerializer
 
   def as_json
     {
-      errors:
+      errors: errors
     }
   end
 

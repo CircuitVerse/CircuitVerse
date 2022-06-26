@@ -162,7 +162,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
       @options = {}
       @options[:include] = include_resource if params.key?(:include)
       @options[:params] = {
-        current_user:,
+        current_user: current_user,
         only_name: true
       }
     end

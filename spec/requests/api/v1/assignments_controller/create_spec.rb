@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe Api::V1::AssignmentsController, "#create", type: :request do
   describe "create/add an assignment" do
     let!(:primary_mentor) { FactoryBot.create(:user) }
-    let!(:group) { FactoryBot.create(:group, primary_mentor:) }
+    let!(:group) { FactoryBot.create(:group, primary_mentor: primary_mentor) }
 
     context "when not authenticated" do
       before do

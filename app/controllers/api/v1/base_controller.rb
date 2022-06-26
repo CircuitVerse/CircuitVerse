@@ -77,7 +77,7 @@ class Api::V1::BaseController < ActionController::API
 
   def api_error(status: 500, errors: [])
     render json: Api::V1::ErrorSerializer.new(status, errors).as_json,
-           status:
+           status: status
   end
 
   private

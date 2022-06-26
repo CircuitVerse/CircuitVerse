@@ -25,7 +25,7 @@ class CollaborationsController < ApplicationController
 
     newly_added.each do |email|
       email = email.strip
-      user = User.find_by(email:)
+      user = User.find_by(email: email)
       if user.nil?
         # PendingInvitation.where(group_id:@group.id,email:email).first_or_create
       else
@@ -38,7 +38,7 @@ class CollaborationsController < ApplicationController
     notice = "You can't invite yourself. #{notice}" if collaboration_params[:emails].include?(current_user.email)
 
     respond_to do |format|
-      format.html { redirect_to user_project_path(@project.author_id, @project.id), notice: }
+      format.html { redirect_to user_project_path(@project.author_id, @project.id), notice:notice }
     end
   end
 

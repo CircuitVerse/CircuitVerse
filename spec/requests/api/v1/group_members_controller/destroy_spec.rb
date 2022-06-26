@@ -6,8 +6,8 @@ RSpec.describe Api::V1::GroupMembersController, "#destroy", type: :request do
   describe "delete specific group members" do
     let!(:user) { FactoryBot.create(:user) }
     let!(:primary_mentor) { FactoryBot.create(:user) }
-    let!(:group) { FactoryBot.create(:group, primary_mentor:) }
-    let!(:group_member) { FactoryBot.create(:group_member, group:, user:) }
+    let!(:group) { FactoryBot.create(:group, primary_mentor: primary_mentor) }
+    let!(:group_member) { FactoryBot.create(:group_member, group: group, user: user) }
 
     context "when not authenticated" do
       before do

@@ -12,7 +12,7 @@ describe ProjectsController, type: :request do
       @tag = FactoryBot.create(:tag)
       @projects = [FactoryBot.create(:project, author: @author),
                    FactoryBot.create(:project, author: @author)]
-      @projects.each { |project| FactoryBot.create(:tagging, project:, tag: @tag) }
+      @projects.each { |project| FactoryBot.create(:tagging, project: project, tag: @tag) }
     end
 
     it "gets project with mentioned tags" do
@@ -115,8 +115,8 @@ describe ProjectsController, type: :request do
     context "project is an assignment" do
       before do
         group = FactoryBot.create(:group, primary_mentor: FactoryBot.create(:user))
-        assignment = FactoryBot.create(:assignment, group:)
-        @assignment_project = FactoryBot.create(:project, author: @author, assignment:)
+        assignment = FactoryBot.create(:assignment, group: group)
+        @assignment_project = FactoryBot.create(:project, author: @author, assignment: assignment)
       end
 
       it "throws error" do

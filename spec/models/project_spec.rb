@@ -6,7 +6,7 @@ RSpec.describe Project, type: :model do
   before do
     @user = FactoryBot.create(:user)
     group = FactoryBot.create(:group, primary_mentor: @user)
-    @assignment = FactoryBot.create(:assignment, group:)
+    @assignment = FactoryBot.create(:assignment, group: group)
   end
 
   describe "associations" do

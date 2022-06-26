@@ -114,7 +114,7 @@ describe AssignmentPolicy do
 
       context "project is already submitted" do
         before do
-          FactoryBot.create(:project, author: @member, assignment:)
+          FactoryBot.create(:project, author: @member, assignment: assignment)
         end
 
         it { is_expected.not_to permit(:start) }

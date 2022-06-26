@@ -20,7 +20,7 @@ RSpec.describe Api::V1::GroupsController, "#groups_owned", type: :request do
     context "when authenticated as primary_mentor and including assignments" do
       before do
         # create 3 groups with assignments and group_members for each
-        FactoryBot.create_list(:group, 3, primary_mentor:).each do |g|
+        FactoryBot.create_list(:group, 3, primary_mentor: primary_mentor).each do |g|
           FactoryBot.create(:assignment, group: g)
         end
         token = get_auth_token(primary_mentor)
@@ -38,7 +38,7 @@ RSpec.describe Api::V1::GroupsController, "#groups_owned", type: :request do
     context "when authenticated as primary_mentor and including group_members" do
       before do
         # create 3 groups with 4 group_members for each
-        FactoryBot.create_list(:group, 3, primary_mentor:).each do |g|
+        FactoryBot.create_list(:group, 3, primary_mentor: primary_mentor).each do |g|
           # creates three random group members
           # rubocop:disable RSpec/FactoryBot/CreateList
           3.times do
