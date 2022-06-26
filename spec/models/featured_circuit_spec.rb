@@ -19,7 +19,7 @@ RSpec.describe FeaturedCircuit, type: :model do
   describe "callbacks" do
     it "checks featured projects are public" do
       project = FactoryBot.create(:project, author: @user, project_access_type: "Public")
-      featured_circuit = FactoryBot.create(:featured_circuit, project: project)
+      featured_circuit = FactoryBot.create(:featured_circuit, project:)
       expect(featured_circuit).to be_valid
       project.project_access_type = "Private"
       project.save
@@ -29,7 +29,7 @@ RSpec.describe FeaturedCircuit, type: :model do
     it "sends featured circuit email" do
       project = FactoryBot.create(:project, author: @user, project_access_type: "Public")
       expect do
-        FactoryBot.create(:featured_circuit, project: project)
+        FactoryBot.create(:featured_circuit, project:)
       end.to have_enqueued_job.on_queue("mailers")
     end
   end

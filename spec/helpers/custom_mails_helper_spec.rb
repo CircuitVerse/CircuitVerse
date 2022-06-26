@@ -3,13 +3,12 @@
 require "rails_helper"
 
 describe CustomMailsHelper do
-  SUBSCRIBED_USERS_COUNT = 2
-  UNSUBSCRIBED_USERS_COUNT = 3
-
   include described_class
 
   describe "#send_mail_in_batches" do
     before do
+      stub_const("SUBSCRIBED_USERS_COUNT", 2)
+      stub_const("UNSUBSCRIBED_USERS_COUNT", 3)
       (1..SUBSCRIBED_USERS_COUNT).each { FactoryBot.create(:user, subscribed: true) }
       (1..UNSUBSCRIBED_USERS_COUNT).each { FactoryBot.create(:user, subscribed: false) }
 

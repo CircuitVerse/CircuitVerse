@@ -89,7 +89,7 @@ class SimulatorController < ApplicationController
     # Send it over to slack hook
     circuit_data_url = "#{request.base_url}/simulator/issue_circuit_data/#{issue_circuit_data_id}"
     text = "#{params[:text]}\nCircuit Data: #{circuit_data_url}"
-    HTTP.post(url, json: { text: text })
+    HTTP.post(url, json: { text: })
     head :ok, content_type: "text/html"
   end
 
@@ -113,7 +113,7 @@ class SimulatorController < ApplicationController
   end
 
   def verilog_cv
-    url = ENV.fetch("YOSYS_PATH", "http://127.0.0.1:3040") + "/getJSON"
+    url = "#{ENV.fetch('YOSYS_PATH', 'http://127.0.0.1:3040')}/getJSON"
     response = HTTP.post(url, json: { code: params[:code] })
     render json: response.to_s, status: response.code
   end

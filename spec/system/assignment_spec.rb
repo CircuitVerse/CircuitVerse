@@ -76,7 +76,7 @@ describe "Assignments", type: :system do
     find("#assignment_deadline", visible: true).send_keys :enter
     fill_in_editor ".trumbowyg-editor", with: description
 
-    select "percent", from: "assignment_grading_scale" if :grading == true
+    select "Percent(1-100)", from: "assignment_grading_scale" if grading == true
 
     page.find("#label-restrict-elements").click
     page.find("#label-Input").click

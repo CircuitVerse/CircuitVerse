@@ -36,7 +36,7 @@ class GroupsController < ApplicationController
     else
       notice = "Invalid url"
     end
-    redirect_to group_path(@group), notice: notice
+    redirect_to group_path(@group), notice:
   end
 
   # GET /groups/new
@@ -82,7 +82,9 @@ class GroupsController < ApplicationController
   def destroy
     @group.destroy
     respond_to do |format|
-      format.html { redirect_to user_groups_path(current_user), notice: "Group was successfully deleted." }
+      format.html do
+        redirect_to user_groups_path(current_user), notice: "Group was successfully deleted."
+      end
       format.json { head :no_content }
     end
   end

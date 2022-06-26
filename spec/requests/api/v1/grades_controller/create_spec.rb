@@ -5,9 +5,9 @@ require "rails_helper"
 RSpec.describe Api::V1::GradesController, "#create", type: :request do
   describe "create a grade" do
     let!(:mentor) { FactoryBot.create(:user) }
-    let!(:group) { FactoryBot.create(:group, mentor: mentor) }
-    let!(:assignment) { FactoryBot.create(:assignment, group: group, grading_scale: :letter) }
-    let!(:project) { FactoryBot.create(:project, assignment: assignment) }
+    let!(:group) { FactoryBot.create(:group, mentor:) }
+    let!(:assignment) { FactoryBot.create(:assignment, group:, grading_scale: :letter) }
+    let!(:project) { FactoryBot.create(:project, assignment:) }
 
     context "when not authenticated" do
       before do
@@ -24,7 +24,7 @@ RSpec.describe Api::V1::GradesController, "#create", type: :request do
       before do
         token = get_auth_token(FactoryBot.create(:user))
         post "/api/v1/assignments/#{assignment.id}/projects/#{project.id}/grades",
-             headers: { "Authorization": "Token #{token}" },
+             headers: { Authorization: "Token #{token}" },
              params: create_params, as: :json
       end
 
@@ -38,8 +38,8 @@ RSpec.describe Api::V1::GradesController, "#create", type: :request do
       before do
         token = get_auth_token(mentor)
         post "/api/v1/assignments/#{assignment.id}/projects/#{project.id}/grades",
-             headers: { "Authorization": "Token #{token}" },
-             params: { "invalid": "invalid" }, as: :json
+             headers: { Authorization: "Token #{token}" },
+             params: { invalid: "invalid" }, as: :json
       end
 
       it "returns status bad_request" do
@@ -51,12 +51,12 @@ RSpec.describe Api::V1::GradesController, "#create", type: :request do
     context "when authorized but tries to create duplicate grade" do
       before do
         FactoryBot.create(
-          :grade, project: project, assignment: assignment, \
+          :grade, project:, assignment:, \
                   user_id: mentor.id, grade: "A", remarks: "Good"
         )
         token = get_auth_token(mentor)
         post "/api/v1/assignments/#{assignment.id}/projects/#{project.id}/grades",
-             headers: { "Authorization": "Token #{token}" },
+             headers: { Authorization: "Token #{token}" },
              params: create_params, as: :json
       end
 
@@ -70,7 +70,7 @@ RSpec.describe Api::V1::GradesController, "#create", type: :request do
       before do
         token = get_auth_token(mentor)
         post "/api/v1/assignments/#{assignment.id}/projects/#{project.id}/grades",
-             headers: { "Authorization": "Token #{token}" },
+             headers: { Authorization: "Token #{token}" },
              params: invalid_grading_scale_params, as: :json
       end
 
@@ -84,7 +84,7 @@ RSpec.describe Api::V1::GradesController, "#create", type: :request do
       before do
         token = get_auth_token(mentor)
         post "/api/v1/assignments/#{assignment.id}/projects/#{project.id}/grades",
-             headers: { "Authorization": "Token #{token}" },
+             headers: { Authorization: "Token #{token}" },
              params: create_params, as: :json
       end
 
@@ -97,18 +97,18 @@ RSpec.describe Api::V1::GradesController, "#create", type: :request do
 
     def create_params
       {
-        "grade": {
-          "grade": "A",
-          "remarks": "Nice Work"
+        grade: {
+          grade: "A",
+          remarks: "Nice Work"
         }
       }
     end
 
     def invalid_grading_scale_params
       {
-        "grade": {
-          "grade": 100,
-          "remarks": "Nice Work"
+        grade: {
+          grade: 100,
+          remarks: "Nice Work"
         }
       }
     end

@@ -20,7 +20,7 @@ describe CollaborationsController, type: :request do
         emails: "#{@new_collaboration.email} #{@user.email}" } }
     end
 
-    context "author is logged in", :focus do
+    context "author is logged in" do
       before do
         FactoryBot.create(:collaboration, project: @project, user: @user)
         sign_in @author
@@ -46,7 +46,7 @@ describe CollaborationsController, type: :request do
   describe "#destroy" do
     before do
       user = FactoryBot.create(:user)
-      @collaboration = FactoryBot.create(:collaboration, project: @project, user: user)
+      @collaboration = FactoryBot.create(:collaboration, project: @project, user:)
     end
 
     context "author of project is logged in" do

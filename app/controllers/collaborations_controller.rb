@@ -25,7 +25,7 @@ class CollaborationsController < ApplicationController
 
     newly_added.each do |email|
       email = email.strip
-      user = User.find_by(email: email)
+      user = User.find_by(email:)
       if user.nil?
         # PendingInvitation.where(group_id:@group.id,email:email).first_or_create
       else
@@ -35,12 +35,10 @@ class CollaborationsController < ApplicationController
 
     notice = Utils.mail_notice(collaboration_params[:emails], collaboration_emails, newly_added)
 
-    if collaboration_params[:emails].include?(current_user.email)
-      notice = "You can't invite yourself. #{notice}"
-    end
+    notice = "You can't invite yourself. #{notice}" if collaboration_params[:emails].include?(current_user.email)
 
     respond_to do |format|
-      format.html { redirect_to user_project_path(@project.author_id, @project.id), notice: notice }
+      format.html { redirect_to user_project_path(@project.author_id, @project.id), notice: }
     end
   end
 
@@ -51,7 +49,9 @@ class CollaborationsController < ApplicationController
 
     respond_to do |format|
       if @collaboration.update(collaboration_params)
-        format.html { redirect_to @collaboration, notice: "Collaboration was successfully updated." }
+        format.html do
+          redirect_to @collaboration, notice: "Collaboration was successfully updated."
+        end
         format.json { render :show, status: :ok, location: @collaboration }
       else
         format.html { render :edit }
@@ -67,7 +67,10 @@ class CollaborationsController < ApplicationController
 
     @collaboration.destroy
     respond_to do |format|
-      format.html { redirect_to user_project_path(@collaboration.project.author_id, @collaboration.project_id), notice: "Collaboration was successfully destroyed." }
+      format.html do
+        redirect_to user_project_path(@collaboration.project.author_id, @collaboration.project_id),
+                    notice: "Collaboration was successfully destroyed."
+      end
       format.json { head :no_content }
     end
   end

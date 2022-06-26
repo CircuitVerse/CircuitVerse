@@ -19,13 +19,13 @@ module SpecUtils
   end
 
   def get_group_member(group, member = FactoryBot.create(:user))
-    FactoryBot.create(:group_member, user: member, group: group)
+    FactoryBot.create(:group_member, user: member, group:)
     member
   end
 
   def check_project_access_error(response)
     expect(response.body).to eq("Not Authorized: Project has been moved or deleted. " \
-      "If you are the owner of the project, Please check your project access privileges.")
+                                "If you are the owner of the project, Please check your project access privileges.")
   end
 
   def file_like_object
