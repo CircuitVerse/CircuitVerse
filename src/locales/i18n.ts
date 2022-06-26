@@ -5,6 +5,7 @@ import hi from './hi.json'
 const i18n = createI18n({
     legacy: false,
     locale: 'en',
+    globalInjection: true,
     // messages
     messages: {
         en,

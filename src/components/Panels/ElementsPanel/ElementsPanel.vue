@@ -4,7 +4,7 @@
         class="noSelect defaultCursor draggable-panel draggable-panel-css modules ce-panel elementPanel"
     >
         <PanelHeader
-            :header-title="t('simulator.panel_header.circuit_elements')"
+            :header-title="$t('simulator.panel_header.circuit_elements')"
         />
         <div class="panel-body">
             <div style="position: relative">
@@ -13,7 +13,7 @@
                     type="text"
                     class="search-input"
                     :placeholder="
-                        t('simulator.panel_body.circuit_elements.search')
+                        $t('simulator.panel_body.circuit_elements.search')
                     "
                 />
                 <span
@@ -45,7 +45,7 @@
                 v-if="elementInput && !searchElements().length"
                 class="search-results"
             >
-                {{ t('simulator.panel_body.circuit_elements.search_result') }}
+                {{ $t('simulator.panel_body.circuit_elements.search_result') }}
             </div>
             <v-expansion-panels
                 v-if="!elementInput"
@@ -59,7 +59,7 @@
                 >
                     <v-expansion-panel-title>
                         {{
-                            t(
+                            $t(
                                 'simulator.panel_body.circuit_elements.expansion_panel_title.' +
                                     category[0]
                             )
@@ -107,9 +107,6 @@ import { onBeforeMount, ref } from 'vue'
 var panelData = []
 window.elementHierarchy = metadata.elementHierarchy
 window.elementPanelList = []
-
-import { useI18n } from 'vue-i18n'
-const { t, locale } = useI18n()
 
 onBeforeMount(() => {
     for (const category in elementHierarchy) {
