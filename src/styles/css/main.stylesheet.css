@@ -432,7 +432,7 @@ input[type='text']:focus {
     left: 10px;
 }
 
-.accordion:last-child {
+.accordion > :last-child {
     margin-bottom: 15px;
 }
 

@@ -24,7 +24,7 @@
 
     <!-- --------------------------------------------------------------------------------------------- -->
     <!-- Circuit Elements Panel -->
-    <ElementsPanelVue />
+    <ElementsPanel />
     <!-- --------------------------------------------------------------------------------------------- -->
 
     <!-- --------------------------------------------------------------------------------------------- -->
@@ -957,5 +957,5 @@
 </template>
 
 <script lang="ts" setup>
-import ElementsPanelVue from './Panels/ElementsPanel/ElementsPanel.vue'
+import ElementsPanel from './Panels/ElementsPanel/ElementsPanel.vue'
 </script>
