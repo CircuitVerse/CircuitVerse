@@ -24,7 +24,7 @@ RSpec.describe Api::V1::GroupsController, "#groups_owned", type: :request do
           FactoryBot.create(:assignment, group: g)
         end
         token = get_auth_token(primary_mentor)
-        get "/api/v1/groups/mentored?include=assignments",
+        get "/api/v1/groups/owned?include=assignments",
             headers: { Authorization: "Token #{token}" }, as: :json
       end
 
