@@ -11,7 +11,7 @@ describe GroupMemberPolicy do
     @mentor = FactoryBot.create(:user)
     group = FactoryBot.create(:group, mentor: @mentor)
     @user = FactoryBot.create(:user)
-    @group_member = FactoryBot.create(:group_member, group:, user: @user)
+    @group_member = FactoryBot.create(:group_member, group: group, user: @user)
   end
 
   context "user is mentor" do

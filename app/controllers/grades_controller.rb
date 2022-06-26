@@ -26,9 +26,9 @@ class GradesController < ApplicationController
       assignment = Assignment.find(grade_params[:assignment_id])
       score = grade.to_f / 100 # conversion to 0-0.100 scale as per IMS Global specification
       LtiScoreSubmission.new(
-        assignment:,
+        assignment: assignment,
         lis_result_sourced_id: project.lis_result_sourced_id,
-        score:,
+        score: score,
         lis_outcome_service_url: session[:lis_outcome_service_url]
       ).call # LTI score submission, see app/helpers/lti_helper.rb
     end
@@ -46,7 +46,7 @@ class GradesController < ApplicationController
       @grade.destroy
     end
 
-    render json: { project_id: }, status: :ok
+    render json: { project_id: project_id }, status: :ok
   end
 
   def to_csv

@@ -7,12 +7,12 @@ RSpec.describe Api::V1::AssignmentsController, "#reopen", type: :request do
     let!(:mentor) { FactoryBot.create(:user) }
     let!(:assignment) do
       FactoryBot.create(
-        :assignment, group: FactoryBot.create(:group, mentor:)
+        :assignment, group: FactoryBot.create(:group, mentor: mentor)
       )
     end
     let!(:open_assignment) do
       FactoryBot.create(
-        :assignment, group: FactoryBot.create(:group, mentor:), status: "open"
+        :assignment, group: FactoryBot.create(:group, mentor: mentor), status: "open"
       )
     end
 

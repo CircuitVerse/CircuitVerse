@@ -5,12 +5,12 @@ require "rails_helper"
 RSpec.describe Api::V1::GradesController, "#destroy", type: :request do
   describe "delete specific grade" do
     let!(:mentor) { FactoryBot.create(:user) }
-    let!(:group) { FactoryBot.create(:group, mentor:) }
-    let!(:assignment) { FactoryBot.create(:assignment, group:, grading_scale: :letter) }
-    let!(:project) { FactoryBot.create(:project, assignment:) }
+    let!(:group) { FactoryBot.create(:group, mentor: mentor) }
+    let!(:assignment) { FactoryBot.create(:assignment, group: group, grading_scale: :letter) }
+    let!(:project) { FactoryBot.create(:project, assignment: assignment) }
     let!(:grade) do
       FactoryBot.create(
-        :grade, project:, assignment:, \
+        :grade, project: project, assignment: assignment, \
                 user_id: mentor.id, grade: "A", remarks: "Good"
       )
     end

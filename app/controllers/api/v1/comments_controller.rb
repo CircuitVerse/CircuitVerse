@@ -113,6 +113,6 @@ class Api::V1::CommentsController < Api::V1::BaseController
 
     def set_options
       @options = {}
-      @options[:params] = { current_user: }
+      @options[:params] = { current_user: current_user }
     end
 end

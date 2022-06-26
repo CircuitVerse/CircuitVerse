@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe Api::V1::GroupMembersController, "#index", type: :request do
   describe "list all groups members" do
     let!(:mentor) { FactoryBot.create(:user) }
-    let!(:group) { FactoryBot.create(:group, mentor:) }
+    let!(:group) { FactoryBot.create(:group, mentor: mentor) }
 
     context "when not authenticated" do
       before do
@@ -23,7 +23,7 @@ RSpec.describe Api::V1::GroupMembersController, "#index", type: :request do
         # create 3 groups members for the defined group
         # rubocop:disable RSpec/FactoryBot/CreateList
         3.times do
-          FactoryBot.create(:group_member, group:, user: FactoryBot.create(:user))
+          FactoryBot.create(:group_member, group: group, user: FactoryBot.create(:user))
         end
         # rubocop:enable RSpec/FactoryBot/CreateList
         token = get_auth_token(mentor)

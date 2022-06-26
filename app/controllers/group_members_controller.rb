@@ -41,9 +41,9 @@ class GroupMembersController < ApplicationController
 
     newly_added.each do |email|
       email = email.strip
-      user = User.find_by(email:)
+      user = User.find_by(email: email)
       if user.nil?
-        PendingInvitation.where(group_id: @group.id, email:).first_or_create
+        PendingInvitation.where(group_id: @group.id, email: email).first_or_create
         # @group.pending_invitations.create(email:email)
       else
         GroupMember.where(group_id: @group.id, user_id: user.id).first_or_create

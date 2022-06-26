@@ -8,7 +8,7 @@ RSpec.describe Api::V1::CommentsController, "#undelete", type: :request do
     let!(:project) { FactoryBot.create(:project, project_access_type: "Public") }
     let!(:comment) do
       FactoryBot.create(
-        :commontator_comment, creator:, thread: project.commontator_thread
+        :commontator_comment, creator: creator, thread: project.commontator_thread
       )
     end
 

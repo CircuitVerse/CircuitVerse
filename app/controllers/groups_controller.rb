@@ -36,7 +36,7 @@ class GroupsController < ApplicationController
     else
       notice = "Invalid url"
     end
-    redirect_to group_path(@group), notice:
+    redirect_to group_path(@group), notice: notice
   end
 
   # GET /groups/new
