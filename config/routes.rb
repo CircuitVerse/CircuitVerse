@@ -45,6 +45,7 @@ Rails.application.routes.draw do
 
   scope "/groups" do
     get "/:group_id/assignments/:id/reopen", to: "assignments#reopen", as: "reopen_group_assignment"
+    put "/:group_id/assignments/:id/close", to: "assignments#close", as: "close_group_assignment"
     get "/:group_id/assignments/:id/start", to: "assignments#start", as: "assignment_start"
   end
   resources :stars, only: %i[create destroy]
@@ -55,7 +56,7 @@ Rails.application.routes.draw do
   get "/users/edit", to: redirect('/')
   devise_for :users, controllers: {
     registrations: "users/registrations", omniauth_callbacks: "users/omniauth_callbacks",
-    sessions: "users/sessions"
+    sessions: "users/sessions", :saml_sessions => "users/saml_sessions"
   }
 
   # Circuitverse web pages resources
@@ -127,6 +128,10 @@ Rails.application.routes.draw do
     get "/", to: "simulator_old#new", as: "simulator_old_new"
     get "/embed/:id", to: "simulator_old#embed"
   end
+
+  scope "/testbench" do
+    get "/", to: "testbench#creator", as: "testbench_creator"
+  end
   # get 'simulator/embed_cross/:id', to: 'simulator#embed_cross', as: 'simulator_embed_cross'
 
   resources :users do
@@ -162,6 +167,7 @@ Rails.application.routes.draw do
       post "/forgot_password", to: "users#forgot_password"
       resources :users, only: %i[index show update]
       get "/projects/featured", to: "projects#featured_circuits"
+      get "/projects/search", to: "projects#search"
       resources :projects, only: %i[index show update destroy] do
         member do
           get "toggle-star", to: "projects#toggle_star"

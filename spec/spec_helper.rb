@@ -42,14 +42,14 @@ RSpec.configure do |config|
         }
       )
       .to_return(status: 200, body: {
-        "sub": "113163207688653496181",
-        "name": "Test OAuth User",
-        "given_name": "Test User",
-        "family_name": "Test User",
-        "picture": "https://lh3.googleusercontent.com/a-/AOh14",
-        "email": "test@test.com",
-        "email_verified": true,
-        "locale": "en"
+        sub: "113163207688653496181",
+        name: "Test OAuth User",
+        given_name: "Test User",
+        family_name: "Test User",
+        picture: "https://lh3.googleusercontent.com/a-/AOh14",
+        email: "test@test.com",
+        email_verified: true,
+        locale: "en"
       }.to_json, headers: {})
 
     # To stub google oauth fetch user response with valid access token but empty email
@@ -63,14 +63,14 @@ RSpec.configure do |config|
         }
       )
       .to_return(status: 200, body: {
-        "sub": "113163207688653496181",
-        "name": "Test OAuth User",
-        "given_name": "Test User",
-        "family_name": "Test User",
-        "picture": "https://lh3.googleusercontent.com/a-/AOh14",
-        "email": "",
-        "email_verified": true,
-        "locale": "en"
+        sub: "113163207688653496181",
+        name: "Test OAuth User",
+        given_name: "Test User",
+        family_name: "Test User",
+        picture: "https://lh3.googleusercontent.com/a-/AOh14",
+        email: "",
+        email_verified: true,
+        locale: "en"
       }.to_json, headers: {})
 
     # To stub google oauth fetch user response with invalid access token
@@ -84,8 +84,8 @@ RSpec.configure do |config|
         }
       )
       .to_return(status: 401, body: {
-        "error": "invalid_request",
-        "error_description": "Invalid Credentials"
+        error: "invalid_request",
+        error_description: "Invalid Credentials"
       }.to_json, headers: {})
   end
 

@@ -28,7 +28,7 @@ RSpec.describe Api::V1::AssignmentsController, "#show", type: :request do
       before do
         token = get_auth_token(FactoryBot.create(:user))
         get "/api/v1/assignments/#{assignment.id}",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status unauthorized" do
@@ -41,7 +41,7 @@ RSpec.describe Api::V1::AssignmentsController, "#show", type: :request do
       before do
         token = get_auth_token(group_member.user)
         get "/api/v1/assignments/0",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status not_found" do
@@ -54,7 +54,7 @@ RSpec.describe Api::V1::AssignmentsController, "#show", type: :request do
       before do
         token = get_auth_token(group_member.user)
         get "/api/v1/assignments/#{assignment.id}",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns the group details" do
@@ -70,7 +70,7 @@ RSpec.describe Api::V1::AssignmentsController, "#show", type: :request do
 
         token = get_auth_token(mentor)
         get "/api/v1/assignments/#{assignment.id}?include=projects",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns assignment with projects that belongs to the assignment" do
@@ -89,7 +89,7 @@ RSpec.describe Api::V1::AssignmentsController, "#show", type: :request do
         )
         token = get_auth_token(mentor)
         get "/api/v1/assignments/#{assignment.id}?include=grades",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns assignment with grades that belongs to the assignment" do

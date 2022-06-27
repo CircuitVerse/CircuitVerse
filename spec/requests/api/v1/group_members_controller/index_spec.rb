@@ -21,14 +21,14 @@ RSpec.describe Api::V1::GroupMembersController, "#index", type: :request do
     context "when authenticated as mentor and has group members" do
       before do
         # create 3 groups members for the defined group
-        # rubocop:disable FactoryBot/CreateList
+        # rubocop:disable RSpec/FactoryBot/CreateList
         3.times do
           FactoryBot.create(:group_member, group: group, user: FactoryBot.create(:user))
         end
-        # rubocop:enable FactoryBot/CreateList
+        # rubocop:enable RSpec/FactoryBot/CreateList
         token = get_auth_token(mentor)
         get "/api/v1/groups/#{group.id}/members",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns all groups members" do

@@ -131,7 +131,7 @@ describe GradesController, type: :request do
         sign_in @mentor
         get grades_to_csv_path(@assignment, format: :csv)
         expect(response.body).to include("#{@assignment_project.author.email}," \
-          "#{@assignment_project.author.name},#{@grade.grade},#{@grade.remarks}")
+                                         "#{@assignment_project.author.name},#{@grade.grade},#{@grade.remarks}")
       end
     end
   end

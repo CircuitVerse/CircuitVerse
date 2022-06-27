@@ -4,6 +4,7 @@ class AssignmentPolicy < ApplicationPolicy
   attr_reader :user, :assignment
 
   def initialize(user, assignment)
+    super
     @user = user
     @assignment = assignment
   end
@@ -31,6 +32,10 @@ class AssignmentPolicy < ApplicationPolicy
     raise CustomAuthError, "Project is already open" if assignment.status == "open"
 
     true
+  end
+
+  def close?
+    (assignment.group&.mentor_id == user.id) || user.admin?
   end
 
   def can_be_graded?

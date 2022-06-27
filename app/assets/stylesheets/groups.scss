@@ -89,6 +89,19 @@
   }
 }
 
+.groups-close-mini-button {
+  background-color: $primary-red;
+  cursor: pointer;
+  font-size: 15px;
+  margin: 10px 5px;
+  padding: 4px 8px 6px;
+
+  &:hover {
+    color: $white;
+    text-decoration: none;
+  }
+}
+
 .groups-delete-mini-button {
   background-color: $primary-red;
   cursor: pointer;
@@ -151,6 +164,16 @@
   width: 300px;
 }
 
+.groups-members-card-viewer {
+  background-color: $card-green;
+  border: 1px solid $secondary-green;
+  display: inline-block;
+  height: auto;
+  margin: 10px;
+  padding: 15px;
+  width: 200px;
+}
+
 .groups-members-card-details {
   padding-right: 0;
   text-align: left;
@@ -159,6 +182,30 @@
     margin-right: 3px;
     margin-top: 0;
     padding-bottom: 5px;
+  }
+}
+
+.groups-members-card-details-non-admin {
+  align-items: center;
+  display: flex;
+  
+  i {
+    margin-right: 15px;
+    padding-bottom: 0;
+  }
+
+  .groups-members-card-name-container {
+    height: auto;
+  }
+}
+
+.groups-members-card-details-non-admin {
+  &:hover {
+    .tooltiptext {
+      left: 21%;
+      opacity: 1;
+      visibility: visible;
+    }
   }
 }
 

@@ -69,3 +69,10 @@ config/private.pem
 
 .env
 .eslintcache
+
+/app/assets/builds/*
+!/app/assets/builds/.keep
+
+yosys2digitaljs-server
+*/**/node_modules
+*/**/yarn-error.log

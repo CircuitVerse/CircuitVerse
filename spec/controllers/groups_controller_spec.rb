@@ -38,10 +38,10 @@ describe GroupsController, type: :request do
   end
 
   describe "#show" do
-    context "group member is signed in", :focus do
+    context "group member is signed in" do
       before do
         @assignment = FactoryBot.create(:assignment, group: @group,
-                                                     status: "reopening", deadline: Time.zone.now - 2.days)
+                                                     status: "reopening", deadline: 2.days.ago)
         sign_in get_group_member(@group)
       end
 
@@ -83,7 +83,7 @@ describe GroupsController, type: :request do
   describe "#invite" do
     before do
       @already_present = FactoryBot.create(:user)
-      @group.update(token_expires_at: Time.zone.now + 12.days)
+      @group.update(token_expires_at: 12.days.from_now)
       FactoryBot.create(:group_member, user: @already_present, group: @group)
     end
 
@@ -101,7 +101,7 @@ describe GroupsController, type: :request do
         sign_in @already_present
         expect do
           get invite_group_path(id: @group.id, token: @group.group_token)
-        end.to change(GroupMember, :count).by(0)
+        end.not_to change(GroupMember, :count)
       end
     end
 

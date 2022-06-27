@@ -23,7 +23,7 @@ RSpec.describe Api::V1::ProjectsController, "#create_fork", type: :request do
       before do
         token = get_auth_token(user)
         post "/api/v1/projects/0/fork",
-             headers: { "Authorization": "Token #{token}" }, as: :json
+             headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status :not_found" do
@@ -36,7 +36,7 @@ RSpec.describe Api::V1::ProjectsController, "#create_fork", type: :request do
       before do
         token = get_auth_token(user)
         post "/api/v1/projects/#{project.id}/fork",
-             headers: { "Authorization": "Token #{token}" }, as: :json
+             headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status :conflict" do
@@ -49,7 +49,7 @@ RSpec.describe Api::V1::ProjectsController, "#create_fork", type: :request do
       before do
         token = get_auth_token(random_user)
         post "/api/v1/projects/#{project.id}/fork",
-             headers: { "Authorization": "Token #{token}" }, as: :json
+             headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status :ok & return forked project" do
@@ -62,7 +62,7 @@ RSpec.describe Api::V1::ProjectsController, "#create_fork", type: :request do
       before do
         token = get_auth_token(random_user)
         post "/api/v1/projects/#{project.id}/fork?include=author",
-             headers: { "Authorization": "Token #{token}" }, as: :json
+             headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status :ok & return forked project including author details" do
@@ -75,7 +75,7 @@ RSpec.describe Api::V1::ProjectsController, "#create_fork", type: :request do
       before do
         token = get_auth_token(random_user)
         post "/api/v1/projects/#{project.id}/fork?include=collaborators",
-             headers: { "Authorization": "Token #{token}" }, as: :json
+             headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status :ok & return forked project including collaborators" do

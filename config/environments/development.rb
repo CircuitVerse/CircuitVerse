@@ -67,7 +67,12 @@ Rails.application.configure do
     :enable_starttls_auto => true,
   }
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = { :address => "localhost", :port => 1025 }
+  if ENV['DOCKER_ENVIRONMENT']
+    config.action_mailer.smtp_settings = { :address => "mailcatcher", :port => 1025 }
+  else
+    config.action_mailer.smtp_settings = { :address => "localhost", :port => 1025 }
+  end
+
   config.vapid_public_key = ENV["VAPID_PUBLIC_KEY"] || "BGxnigbQCa435vZ8_3uFdqLC0XJHXtONgEdI-ydMMs0JaBsnpUfLxR1UDagq6_cDwHyhqjw77tTlp0ULZkx8Xos="
   config.vapid_private_key = ENV["VAPID_PRIVATE_KEY"] || "FkEMkOQHvMybUlCGH-DsOljTJlLzYGb3xEYsFY5Roxk="
 

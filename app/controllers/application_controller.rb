@@ -20,18 +20,31 @@ class ApplicationController < ActionController::Base
   end
 
   def not_found
-    render "errors/not_found.html.erb", status: :not_found
+    render "errors/not_found", status: :not_found
   end
 
-  def switch_locale(&action)
+  def switch_locale(&block)
     logger.debug "* Accept-Language: #{request.env['HTTP_ACCEPT_LANGUAGE']}"
-    locale = current_user&.locale || extract_locale_from_accept_language_header || I18n.default_locale
+    locale = current_user&.locale ||
+             extract_locale_from_accept_language_header ||
+             I18n.default_locale
     logger.debug "* Locale set to '#{locale}'"
     begin
-      I18n.with_locale(locale, &action)
+      I18n.with_locale(locale, &block)
     rescue I18n::InvalidLocale
       locale = I18n.default_locale
       retry
+    end
+  end
+
+  # Overrides Devise::Controller::StoreLocation.store_location_for to check if
+  # URL is too long to store in the session
+  def store_location_for(resource_or_scope, location)
+    max_location_size = 200 # bytes
+    if location && location.length > max_location_size
+      super resource_or_scope, "/"
+    else
+      super
     end
   end
 
