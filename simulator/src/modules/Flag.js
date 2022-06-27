@@ -209,6 +209,13 @@ Flag.prototype.helplink =
 
 /**
  * @memberof Flag
+ * Help URL
+ * @type {string}
+ * @category modules
+ */
+
+/**
+ * @memberof Flag
  * Mutable properties of the element
  * @type {JSON}
  * @category modules
