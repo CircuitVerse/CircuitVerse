@@ -34,3 +34,11 @@ en:
       collaborators: "Collaborators"
     search:
       no_result_found: "No Results Found"
+    modal:
+      embed_circuit_heading: "Embed Your Circuit"
+      height: "Height"
+      width: "Width"
+      url: "URL"
+      border: "Border"
+      border_style: "Border Style"
+      publish_button: "Publish"

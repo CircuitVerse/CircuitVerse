@@ -1,0 +1,52 @@
+<div id="embedProjectCircuit" class="modal fade" role="dialog">
+  <div class="modal-dialog primary-modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header primary-modal-header">
+        <h4 class="modal-title"><%= t("projects.modal.embed_circuit_heading") %></h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="field form-group embed-input-fields">
+            <div><label for="height" class="col-sm-2 col-form-label"><b><%= t("projects.modal.height") %></b></label></div>
+            <input type="text" class="form-control form-input" id="height" placeholder="Height" value="500">
+        </div>
+        <div class="field form-group embed-input-fields">
+        <div><label for="height" class="col-sm-2 col-form-label"><b><%= t("projects.modal.width") %></b></label></div>
+          <input type="text" class="form-control form-input" id="width" placeholder="Width" value="500">
+        </div>
+        <div class="field form-group embed-input-fields">
+            <div><label for="url" class="col-sm-2 col-form-label"><b><%= t("projects.modal.url") %></b></label></div>
+            <input type="text" class="form-control form-input" id="url" value="<%= simulator_embed_url(@project) %>" readonly><br>
+        </div>
+        <div class="field form-group embed-input-fields">
+            <div><label for="border_px" class="col-sm-2 col-form-label"><b><%= t("projects.modal.border") %></b></label></div>
+            <input type="text" class="form-control form-input" id="border_px" placeholder="Width (e.g. 2px)">&nbsp;&nbsp;
+            <input type="text" class="form-control form-input" id="border_color" placeholder="Color (e.g. #FFF)">
+        </div>
+        <div class="field form-group embed-input-fields">
+            <div><label for="border_style" class="col-sm-3 col-form-label"><b><%= t("projects.modal.border_style") %></b></label></div>
+            <select class="form-control form-input" id="border_style" placeholder="Select a style">
+                <option>solid</option>
+                <option>dashed</option>
+                <option>dotted</option>
+                <option>double</option>
+                <option>groove</option>
+                <option>ridge</option>
+                <option>inset</option>
+                <option>outset</option>
+                <option>none</option>
+                <option>hidden</option>
+                <option>dotted dashed solid double</option>
+            </select>
+        </div>
+        <div>
+            <button class="btn primary-button projects-primary-button embed-button" data-action="click->projects#showEmbedLink"><%= t("projects.modal.publish_button") %></button>
+        </div>
+        <div class="collapse show">
+            <textarea class="form-control form-input embed-link-textarea" rows="5px" column="115px" id="result"></textarea>
+            <small class="projectshow-embed-text-confirmation"><%= t("projects.show.copied_to_clipboard") %></small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

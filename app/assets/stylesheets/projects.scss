@@ -163,6 +163,24 @@
   text-align: right;
 }
 
+.embed-input-fields {
+  display: flex;
+
+  .col-form-label {
+    padding-left: 0;
+  }
+
+  b{
+    display: block;
+    width: 100px;
+  }
+}
+
+.embed-link-textarea {
+  width: 100%;
+  font-size: 12px;
+}
+
 .projects-collaborators-container {
   background-color: $project-card-grey;
 }

@@ -34,3 +34,11 @@ hi:
       collaborators: "सहयोगी"
     search:
       no_result_found: "कोई परिणाम नहीं मिला"
+    modal:
+      embed_circuit_heading: "अपना सर्किट एम्बेड करें"
+      height: "ऊंचाई"
+      width: "चौड़ाई"
+      url: "यूआरएल"
+      border: "सीमा"
+      border_style: "सीमा की शैली"
+      publish_button: "प्रकाशित करें"
