@@ -925,5 +925,35 @@
                 "n": 8
             }
         ]
+    },
+    "ForceGate": {
+        "type": "comb",
+        "title": "Force Gate",
+        "groups": [
+            {
+                "label": "Group 1",
+                "inputs": [
+                    {
+                        "label": "inp1",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "1"
+                        ]
+                    }
+                ],
+                "outputs": [
+                    {
+                        "label": "Force-out",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "1"
+                        ]
+                    }
+                ],
+                "n": 8
+            }
+        ]
     }
 }
