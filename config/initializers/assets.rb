@@ -14,4 +14,4 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
 Rails.application.config.assets.precompile += %w[manifest.json webpush.js]
 Rails.application.config.assets.precompile += %w[simulator.css simulator.js application_sprockets.js application.js testbench.js testbench.css]
-Rails.application.config.assets.precompile << /\.(?:svg|eot|woff|woff2|ttf|otf)$/
+Rails.application.config.assets.precompile << ["*.svg", "*.eot", "*.woff", "*.woff2", "*.ttf", "*.otf"]
