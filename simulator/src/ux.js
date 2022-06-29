@@ -10,7 +10,7 @@ import {
 } from './engine';
 import simulationArea from './simulationArea';
 import logixFunction from './data';
-import { newCircuit, circuitProperty } from './circuit';
+import { createNewCircuitScope, circuitProperty } from './circuit';
 import modules from './modules';
 import { updateRestrictedElementsInScope } from './restrictedElementDiv';
 import { paste } from './events';
@@ -21,6 +21,7 @@ import { generateImage, generateSaveData } from './data/save';
 import { setupVerilogExportCodeWindow } from './verilog';
 import { setupBitConvertor} from './utils';
 import { updateTestbenchUI, setupTestbenchUI } from './testbench';
+import { applyVerilogTheme } from './Verilog2CV';
 
 export const uxvar = {
     smartDropXX: 50,
@@ -144,7 +145,7 @@ function menuItemClicked(id, code="") {
         undo();
         undo();
     } else if (id === 5) {
-        newCircuit();
+        createNewCircuitScope();
     } else if (id === 6) {
         logixFunction.createSubCircuitPrompt();
     } else if (id === 7) {
@@ -190,6 +191,11 @@ export function setupUI() {
         logixFunction[this.id]();
     });
     // var dummyCounter=0;
+
+    // calling apply on select theme in dropdown
+    $('.applyTheme').on('change',function () {
+        applyVerilogTheme();
+    });
    
 
     $('.logixModules').hover(function () {
@@ -473,17 +479,16 @@ function escapeHtml(unsafe) {
 export function deleteSelected() {
     if (simulationArea.lastSelected && !(simulationArea.lastSelected.objectType === 'Node' && simulationArea.lastSelected.type !== 2)) {
         simulationArea.lastSelected.delete();
-        hideProperties();
     }
         
     for (var i = 0; i < simulationArea.multipleObjectSelections.length; i++) {
         if (!(simulationArea.multipleObjectSelections[i].objectType === 'Node' && simulationArea.multipleObjectSelections[i].type !== 2)) 
             simulationArea.multipleObjectSelections[i].cleanDelete();
-        hideProperties();
     }
     
     simulationArea.multipleObjectSelections = [];
-
+    simulationArea.lastSelected = undefined;
+    showProperties(simulationArea.lastSelected);
     // Updated restricted elements
     updateCanvasSet(true);
     scheduleUpdate();
@@ -612,17 +617,29 @@ function setupPanelListeners(panelSelector) {
     });
 }
 
+export function exitFullView(){
+    $('.navbar').show();
+    $('.modules').show();
+    $('.report-sidebar').show();
+    $('#tabsBar').show();
+    $('#exitViewBtn').remove();
+    $('#moduleProperty').show();
+    $('.timing-diagram-panel').show();
+    $('.testbench-manual-panel').show();
+}
+
 export function fullView () {
-    const onClick = `onclick="(() => {$('.navbar').show(); $('.modules').show(); $('.report-sidebar').show(); $('#tabsBar').show(); $('#exitViewBtn').remove(); $('#moduleProperty').show();})()"`
-    const markUp = `<button id='exitViewBtn' ${onClick} >Exit Full Preview</button>`
+    const markUp = `<button id='exitViewBtn' >Exit Full Preview</button>`
     $('.navbar').hide()
     $('.modules').hide()
     $('.report-sidebar').hide()
     $('#tabsBar').hide()
     $('#moduleProperty').hide()
+    $('.timing-diagram-panel').hide();
+    $('.testbench-manual-panel').hide();
     $('#exitView').append(markUp);
+    $('#exitViewBtn').on('click', exitFullView);
 }
-
 /** 
     Fills the elements that can be displayed in the subcircuit, in the subcircuit menu
 **/

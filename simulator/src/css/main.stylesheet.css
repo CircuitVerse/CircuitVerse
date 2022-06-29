@@ -1,5 +1,5 @@
 
-/* 
+/*
 ************
 * This stylesheet is to be made modular later
 ************
@@ -320,7 +320,7 @@ input[type="text"]:focus {
 .draggable-panel-css {
   border-radius: 5px;
   z-index: 100;
-  transition: background .5s ease-out; 
+  transition: background .5s ease-out;
   position: fixed;
 }
 
@@ -564,6 +564,7 @@ div.icon img {
   -khtml-user-drag: none;
   -moz-user-drag: none;
   -o-user-drag: none;
+  pointer-events: none;
   width: 100%;
   display: inline-block;
 }
@@ -614,7 +615,7 @@ div.icon img {
 #tabsBar .placeholder {
   justify-content: space-between;
   padding: 1px;
-  display: inline-block; 
+  display: inline-block;
   margin: 2px;
   text-align: center;
   /* min-width: 110px; */
@@ -632,7 +633,7 @@ div.icon img {
   justify-content: space-between;
   border-radius: 3px;
   padding: 1px;
-  display: inline-block; 
+  display: inline-block;
   margin: 2px;
   text-align: center;
   /* min-width: 110px; */
@@ -692,7 +693,7 @@ div.icon img {
 .timing-diagram-panel {
   border-radius: 5px;
   z-index: 100;
-  transition: background .5s ease-out; 
+  transition: background .5s ease-out;
   position: fixed;
   cursor: pointer;
   left: 300px;
@@ -715,7 +716,7 @@ div.icon img {
 .testbench-manual-panel {
   border-radius: 5px;
   z-index: 100;
-  transition: background .5s ease-out; 
+  transition: background .5s ease-out;
   position: fixed;
   cursor: pointer;
   left: 10px;
@@ -901,13 +902,14 @@ div.icon img {
   padding-bottom: 12px;
   text-align: center;
   min-width: 80px;
-  color: white;  
+  color: white;
 }
 
 /* Testbench UI styling end */
 
 #plotArea {
   padding: 3px;
+  width: 100%;
 }
 
 #verilogEditorPanel {
@@ -955,7 +957,7 @@ div.icon img {
   outline: none;
 }
 
-.moduleProperty input, 
+.moduleProperty input,
 .moduleProperty textarea {
   background-color: transparent;
   margin-top: 7px;
@@ -965,13 +967,13 @@ div.icon img {
 }
 
 .moduleProperty select,
-.moduleProperty input, 
+.moduleProperty input,
 .moduleProperty textarea {
   border-radius: 7px !important;
 }
 
 .moduleProperty input:focus,
-.moduleProperty select:focus, 
+.moduleProperty select:focus,
 .moduleProperty textarea {
   outline-width: 0;
   outline: none;
@@ -1363,7 +1365,7 @@ input:checked + .slider:before {
   border-radius: 1px;
 }
 .navbar {
-  transition: background .5s ease-out; 
+  transition: background .5s ease-out;
 }
 
 
@@ -1772,6 +1774,33 @@ input[type='range']::-webkit-slider-thumb {
 }
 
 /*! Color them dialog styles ends here*/
+
+/*! Custom Color theme dialog styles starts here*/
+
+.ui-dialog[aria-describedby="CustomColorThemesDialog"] {
+    min-width: 760px;
+    user-select: none;
+  }
+
+  #CustomColorThemesDialog {
+    height: 400px !important;
+    background: none;
+    overflow: auto;
+  }
+
+  #CustomColorThemesDialog label {
+    color: var(--text-panel);
+    width: 60%;
+    height: 30px;
+  }
+
+  #CustomColorThemesDialog input {
+    cursor: pointer;
+    width: 30%;
+    height: 30px;
+  }
+
+  /*! Custom Color theme dialog styles ends here*/
 
 
 

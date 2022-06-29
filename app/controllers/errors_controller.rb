@@ -18,7 +18,9 @@ class ErrorsController < ApplicationController
   def internal_error
     respond_to do |format|
       format.html { render status: :internal_server_error }
-      format.json { render json: { error: "Internal server error" }, status: :internal_server_error }
+      format.json do
+        render json: { error: "Internal server error" }, status: :internal_server_error
+      end
     end
   end
 end

@@ -4,17 +4,17 @@ require "rails_helper"
 
 describe AssignmentsController, type: :request do
   before do
-    @mentor = FactoryBot.create(:user)
-    @group = FactoryBot.create(:group, mentor: @mentor)
-    @assignment = FactoryBot.create(:assignment, group: @group)
-    @member = FactoryBot.create(:user)
-    FactoryBot.create(:group_member, user: @member, group: @group)
+    @mentor = create(:user)
+    @group = create(:group, mentor: @mentor)
+    @assignment = create(:assignment, group: @group)
+    @member = create(:user)
+    create(:group_member, user: @member, group: @group)
   end
 
   describe "#new" do
     context "user is not mentor" do
       it "restricts access" do
-        sign_in FactoryBot.create(:user)
+        sign_in create(:user)
         get new_group_assignment_path(@group)
         expect(response.body).to include("You are not authorized to do the requested operation")
       end
@@ -48,7 +48,7 @@ describe AssignmentsController, type: :request do
       it "returns required json response" do
         get group_assignment_path(@group, @assignment), params: { format: :json }
         res = JSON.parse(response.body)
-        expect(response.content_type).to eq("application/json; charset=utf-8")
+        expect(response.media_type).to eq("application/json")
         expect(res.keys.sort).to eq(assignment_keys)
       end
     end
@@ -61,8 +61,8 @@ describe AssignmentsController, type: :request do
 
     context "assignment is closed or project already exists" do
       before do
-        @closed_assignment = FactoryBot.create(:assignment, group: @group, status: "closed")
-        FactoryBot.create(:project, assignment: @assignment, author: @member)
+        @closed_assignment = create(:assignment, group: @group, status: "closed")
+        create(:project, assignment: @assignment, author: @member)
       end
 
       it "restricts access" do
@@ -114,32 +114,32 @@ describe AssignmentsController, type: :request do
 
     context "the project is forked" do
       before do
-        @project = FactoryBot.create(:project, author: @member)
-        @forked_project = FactoryBot.create(:project,
-                                            author: @member, forked_project: @project, assignment:
-                                             @assignment, project_submission: true)
+        @project = create(:project, author: @member)
+        @forked_project = create(:project,
+                                 author: @member, forked_project: @project, assignment:
+                                  @assignment, project_submission: true)
       end
 
       it "adds old project as assignment submission" do
         put group_assignment_path(@group, @assignment), params: { assignment:
           { description: "new description" } }
         @project.reload
-        expect(Project.find_by(id: @forked_project.id)).to eq(nil)
+        expect(Project.find_by(id: @forked_project.id)).to be_nil
         expect(@project.assignment_id).to eq(@forked_project.assignment_id)
       end
     end
 
     context "no forked project exists" do
       before do
-        @project = FactoryBot.create(:project,
-                                     author: @member, assignment: @assignment, project_submission: true)
+        @project = create(:project,
+                          author: @member, assignment: @assignment, project_submission: true)
       end
 
       it "sets project submission to false" do
         put group_assignment_path(@group, @assignment), params: { assignment:
           { description: "new description" } }
         @project.reload
-        expect(@project.project_submission).to eq(false)
+        expect(@project.project_submission).to be(false)
       end
     end
   end
@@ -147,7 +147,7 @@ describe AssignmentsController, type: :request do
   describe "#reopen" do
     before do
       sign_in @mentor
-      @closed_assignment = FactoryBot.create(:assignment, group: @group, status: "closed")
+      @closed_assignment = create(:assignment, group: @group, status: "closed")
     end
 
     it "changes status to open" do
@@ -171,10 +171,10 @@ describe AssignmentsController, type: :request do
 
     context "user other than the mentor is logged in" do
       it "does not create assignment" do
-        sign_in FactoryBot.create(:user)
+        sign_in create(:user)
         expect do
           post group_assignments_path(@assignment)
-        end.to change(Assignment, :count).by(0)
+        end.not_to change(Assignment, :count)
       end
     end
   end

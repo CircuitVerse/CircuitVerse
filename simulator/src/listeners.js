@@ -8,7 +8,7 @@ import {
 } from './engine';
 import { changeScale } from './canvasApi';
 import { scheduleBackup } from './data/backupCircuit';
-import { hideProperties, deleteSelected, uxvar, fullView } from './ux';
+import { hideProperties, deleteSelected, uxvar, fullView, exitFullView } from './ux';
 import {
     updateRestrictedElementsList, updateRestrictedElementsInScope, hideRestricted, showRestricted,
 } from './restrictedElementDiv';
@@ -44,6 +44,10 @@ export default function startListeners() {
     })
     $('#viewButton').on('click',() => {
         fullView();
+    });
+
+    $(document).on('keyup', (e) => {
+        if (e.key === "Escape") exitFullView();
     });
 
     $('#projectName').on('click',() => {
@@ -557,11 +561,17 @@ $(() => {
 
 // direction is only 1 or -1
 function handleZoom(direction) {
+    
+    var zoomSlider = $('#customRange1');
+    var currentSliderValue = parseInt(zoomSlider.val(), 10);
+    currentSliderValue += direction;
+
     if (globalScope.scale > 0.5 * DPR) {
-        changeScale(direction * 0.1 * DPR);
+        zoomSlider.val(currentSliderValue).change();
     } else if (globalScope.scale < 4 * DPR) {
-        changeScale(direction * 0.1 * DPR);
+        zoomSlider.val(currentSliderValue).change();
     }
+
     gridUpdateSet(true);
     scheduleUpdate();
 }

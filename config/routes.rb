@@ -56,7 +56,7 @@ Rails.application.routes.draw do
   get "/users/edit", to: redirect('/')
   devise_for :users, controllers: {
     registrations: "users/registrations", omniauth_callbacks: "users/omniauth_callbacks",
-    sessions: "users/sessions"
+    sessions: "users/sessions", :saml_sessions => "users/saml_sessions"
   }
 
   # Circuitverse web pages resources
@@ -167,6 +167,7 @@ Rails.application.routes.draw do
       post "/forgot_password", to: "users#forgot_password"
       resources :users, only: %i[index show update]
       get "/projects/featured", to: "projects#featured_circuits"
+      get "/projects/search", to: "projects#search"
       resources :projects, only: %i[index show update destroy] do
         member do
           get "toggle-star", to: "projects#toggle_star"
