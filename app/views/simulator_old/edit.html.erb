@@ -251,7 +251,7 @@
       embed = false;
 
       <% if @project&.assignment_id.present? %>
-      restrictedElements = JSON.parse('<%= raw @project&.assignment.restrictions %>');
+      restrictedElements = JSON.parse('<%= raw @project&.assignment.clean_restricted_elements %>');
       <% else %>
       restrictedElements = [];
       <% end %>

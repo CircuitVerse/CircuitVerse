@@ -22,7 +22,7 @@ RSpec.describe Api::V1::AssignmentsController, "#create", type: :request do
       before do
         token = get_auth_token(FactoryBot.create(:user))
         post "/api/v1/groups/#{group.id}/assignments",
-             headers: { "Authorization": "Token #{token}" },
+             headers: { Authorization: "Token #{token}" },
              params: create_params, as: :json
       end
 
@@ -36,7 +36,7 @@ RSpec.describe Api::V1::AssignmentsController, "#create", type: :request do
       before do
         token = get_auth_token(mentor)
         post "/api/v1/groups/0/assignments",
-             headers: { "Authorization": "Token #{token}" },
+             headers: { Authorization: "Token #{token}" },
              params: create_params, as: :json
       end
 
@@ -50,8 +50,8 @@ RSpec.describe Api::V1::AssignmentsController, "#create", type: :request do
       before do
         token = get_auth_token(mentor)
         post "/api/v1/groups/#{group.id}/assignments",
-             headers: { "Authorization": "Token #{token}" },
-             params: { "invalid": "invalid params" }, as: :json
+             headers: { Authorization: "Token #{token}" },
+             params: { invalid: "invalid params" }, as: :json
       end
 
       it "returns status invalid request" do
@@ -64,7 +64,7 @@ RSpec.describe Api::V1::AssignmentsController, "#create", type: :request do
       before do
         token = get_auth_token(mentor)
         post "/api/v1/groups/#{group.id}/assignments",
-             headers: { "Authorization": "Token #{token}" },
+             headers: { Authorization: "Token #{token}" },
              params: create_params, as: :json
       end
 
@@ -77,8 +77,8 @@ RSpec.describe Api::V1::AssignmentsController, "#create", type: :request do
 
     def create_params
       {
-        "name": "test", "deadline": Time.zone.now, "description": "test description",
-        "grading_scale": "letter", "restrictions": "[]"
+        name: "test", deadline: Time.zone.now, description: "test description",
+        grading_scale: "letter", restrictions: "[]"
       }
     end
   end

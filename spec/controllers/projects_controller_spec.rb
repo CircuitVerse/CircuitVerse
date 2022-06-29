@@ -51,7 +51,7 @@ describe ProjectsController, type: :request do
           expect do
             get user_project_path(@author, @project)
             @project.reload
-          end.to change { @project.view }.by(0)
+          end.not_to change { @project.view }
         end
       end
     end

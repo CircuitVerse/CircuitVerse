@@ -2,7 +2,7 @@
 
 module SimulatorHelper
   def return_image_file(data_url)
-    str = data_url["data:image/jpeg;base64,".length..-1]
+    str = data_url[("data:image/jpeg;base64,".length)..]
     if str.to_s.empty?
       path = Rails.root.join("public/images/default.png")
       image_file = File.open(path, "rb")
@@ -17,7 +17,7 @@ module SimulatorHelper
   end
 
   def check_to_delete(data_url)
-    !data_url["data:image/jpeg;base64,".length..-1].to_s.empty?
+    !data_url[("data:image/jpeg;base64,".length)..].to_s.empty?
   end
 
   def sanitize_data(project, data)

@@ -25,7 +25,7 @@ RSpec.describe Api::V1::AssignmentsController, "#index", type: :request do
       before do
         token = get_auth_token(FactoryBot.create(:user))
         get "/api/v1/groups/#{group.id}/assignments",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status unauthorized" do
@@ -38,7 +38,7 @@ RSpec.describe Api::V1::AssignmentsController, "#index", type: :request do
       before do
         token = get_auth_token(mentor)
         get "/api/v1/groups/#{group.id}/assignments",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns all assignments that belongs to the group" do
@@ -52,7 +52,7 @@ RSpec.describe Api::V1::AssignmentsController, "#index", type: :request do
       before do
         token = get_auth_token(group_member.user)
         get "/api/v1/groups/#{group.id}/assignments",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns all assignments that belongs to the group" do

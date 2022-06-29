@@ -24,7 +24,7 @@ RSpec.describe Api::V1::GroupMembersController, "#destroy", type: :request do
       before do
         token = get_auth_token(user)
         delete "/api/v1/group/members/#{group_member.id}",
-               headers: { "Authorization": "Token #{token}" }, as: :json
+               headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status unauthorized" do
@@ -37,7 +37,7 @@ RSpec.describe Api::V1::GroupMembersController, "#destroy", type: :request do
       before do
         token = get_auth_token(mentor)
         delete "/api/v1/group/members/0",
-               headers: { "Authorization": "Token #{token}" }, as: :json
+               headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status not_found" do
@@ -50,7 +50,7 @@ RSpec.describe Api::V1::GroupMembersController, "#destroy", type: :request do
       before do
         token = get_auth_token(mentor)
         delete "/api/v1/group/members/#{group_member.id}",
-               headers: { "Authorization": "Token #{token}" }, as: :json
+               headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "delete group & return status no_content" do
