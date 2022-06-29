@@ -111,7 +111,7 @@ gem "jwt"
 gem "rails-i18n", "~> 7.0.3"
 gem "recaptcha"
 gem "simple_discussion", "~> 1.3"
-gem "sprockets", "~> 3.1"
+gem "sprockets", "~> 4.1"
 gem "strong_migrations"
 
 group :development, :test do
