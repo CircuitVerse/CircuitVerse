@@ -1,6 +1,24 @@
 import { Controller } from 'stimulus';
 
 export default class extends Controller {
+    handleMainCheckbox() {
+        $('#advance-embed').change((e) => {
+            e.preventDefault();
+            var radio = $(e.currentTarget);
+
+            if (radio.is(':checked')) {
+                $('.advance-embed-option').css('display', 'block');
+            } else {
+                $('.advance-embed-option').css('display', 'none');
+            }
+        });
+        $('#advance-embed').trigger('change');
+    }
+
+    connect() {
+        this.handleMainCheckbox();
+    }
+
     // eslint-disable-next-line class-methods-use-this
     copy() {
         const textarea = document.getElementById('result');
@@ -11,7 +29,11 @@ export default class extends Controller {
     }
 
     showEmbedLink() {
-        const url = document.querySelector('#url').value;
+        const clockTimeEnable = document.querySelector('#checkbox-clock-time').checked;
+        const displayTitle = document.querySelector('#checkbox-display-title').checked;
+        const fullscreen = document.querySelector('#checkbox-fullscreen').checked;
+        const zoomInOut = document.querySelector('#checkbox-zoom-in-out').checked;
+        const url = `${document.querySelector('#url').value}?display-title=${displayTitle}&clock-time=${clockTimeEnable}&fullscreen=${fullscreen}&zoom-in-out=${zoomInOut}`;
         let height = document.querySelector('#height').value;
         if (height === '') height = 500;
         let width = document.querySelector('#width').value;

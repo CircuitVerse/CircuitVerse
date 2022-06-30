@@ -39,6 +39,42 @@
                 <option>dotted dashed solid double</option>
             </select>
         </div>
+        <div id='advance-embed-field' class="field form-group">
+          <label for="advance-embed" class="primary-checkpoint-container" id="label-advance-embed"><h6><%= t("projects.modal.advance.advance_option") %></h6>
+            <%= check_box_tag "advance-embed" %>
+            <div class="primary-checkpoint"></div>
+          </label>
+          <div class="advance-embed-option"> 
+            <div class="form-check form-check-inline">
+              <label class="form-check-label primary-checkpoint-container">
+                <input class="form-check-input element-restriction" type="checkbox" id="checkbox-clock-time" value="Clock Time" checked="true" />
+                <div class="primary-checkpoint"></div>
+                <h6>Clock/Time</h6>
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label primary-checkpoint-container">
+                <input class="form-check-input element-restriction" type="checkbox" id="checkbox-display-title" value="Display Title" />
+                <div class="primary-checkpoint"></div>
+                <h6>Display Title</h6>
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label primary-checkpoint-container">
+                <input class="form-check-input element-restriction" type="checkbox" id="checkbox-fullscreen" value="Fullscreen" checked="true" />
+                <div class="primary-checkpoint"></div>
+                <h6>Fullscreen</h6>
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label primary-checkpoint-container">
+                <input class="form-check-input element-restriction" type="checkbox" id="checkbox-zoom-in-out" value="Zoom In Out" checked="true" />
+                <div class="primary-checkpoint"></div>
+                <h6>Zoom In/Out</h6>
+              </label>
+            </div>
+          </div>
+        </div>
         <div>
             <button class="btn primary-button projects-primary-button embed-button" data-action="click->projects#showEmbedLink"><%= t("projects.modal.publish_button") %></button>
         </div>

@@ -6,29 +6,54 @@ import {
     scheduleUpdate, wireToBeCheckedSet, updateCanvasSet, gridUpdateSet,
 } from './engine';
 import { prevPropertyObjGet, prevPropertyObjSet } from './ux';
-import { ZoomIn, ZoomOut} from './listeners';
+import { ZoomIn, ZoomOut } from './listeners';
 
 circuitProperty.toggleFullScreen = toggleFullScreen;
 $(document).ready(() => {
-    // Clock features
-    $("#clockProperty").append(
-        "<input type='button' class='objectPropertyAttributeEmbed custom-btn--secondary embed-fullscreen-btn' name='toggleFullScreen' value='Full Screen'> </input>"
-    );
-    $("#clockProperty").append(
-        `<div>Time: <input class='objectPropertyAttributeEmbed' min='50' type='number' style='width:48px' step='10' name='changeClockTime'  value='${simulationArea.timePeriod}'></div>`
-    );
-    $("#clockProperty").append(
-        `<div>Clock: <label class='switch'> <input type='checkbox' ${
-            ["", "checked"][simulationArea.clockEnabled + 0]
-        } class='objectPropertyAttributeEmbedChecked' name='changeClockEnable' > <span class='slider'></span> </label><div>`
-    );
+    const params = new URLSearchParams(window.location.search);
+    const fullscreen = params.get('fullscreen');
+    const clockTime = params.get('clock-time');
+    const displayTitle = params.get('display-title');
+    const zoomInOut = params.get('zoom-in-out');
+    // Clock feature
+
+    if (fullscreen === 'false' && clockTime === 'false') {
+        $('#clockProperty').css('display', 'none');
+    }
+
+    if (fullscreen !== 'false') {
+        $('#clockProperty').append(
+            "<input type='button' class='objectPropertyAttributeEmbed custom-btn--secondary embed-fullscreen-btn' name='toggleFullScreen' value='Full Screen'> </input>",
+        );
+    }
+
+    if (clockTime !== 'false') {
+        $('#clockProperty').append(
+            `<div style='margin-top: 10px' >Time: <input class='objectPropertyAttributeEmbed' min='50' type='number' style='width:48px' step='10' name='changeClockTime'  value='${simulationArea.timePeriod}'></div>`,
+        );
+        $('#clockProperty').append(
+            `<div style='margin-top: 10px' >Clock: <label class='switch'> <input type='checkbox' ${
+                ['', 'checked'][simulationArea.clockEnabled + 0]
+            } class='objectPropertyAttributeEmbedChecked' name='changeClockEnable' > <span class='slider'></span> </label><div>`,
+        );
+    }
+
+    // Zoom in out
+    if (zoomInOut === 'false') {
+        $('#zoom-in-out-embed').css('display', 'none');
+    }
+
+    // Display Title feature
+    if (displayTitle === 'true') {
+        $('#bottom_right_circuit_heading').css('display', 'block');
+    }
 
     // Following codes need to be removed
     $('.objectPropertyAttributeEmbed').on('change keyup paste click', function () {
         scheduleUpdate();
         updateCanvasSet(true);
         wireToBeCheckedSet(1);
-        if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) { prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet() ; } else { circuitProperty[this.name](this.value); }
+        if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) { prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet(); } else { circuitProperty[this.name](this.value); }
     });
 
     // Following codes need to be removed

@@ -42,3 +42,5 @@ hi:
       border: "सीमा"
       border_style: "सीमा की शैली"
       publish_button: "प्रकाशित करें"
+      advance:
+        advance_option: "अग्रिम विकल्प"

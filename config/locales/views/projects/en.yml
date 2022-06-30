@@ -42,3 +42,5 @@ en:
       border: "Border"
       border_style: "Border Style"
       publish_button: "Publish"
+      advance:
+        advance_option: "Advance Option"
