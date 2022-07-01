@@ -1,6 +1,11 @@
 import { Controller } from 'stimulus';
 
 export default class extends Controller {
+    showSubCircuits() {
+        var element = document.getElementById('tabsBar');
+        console.log(element);
+    }
+
     handleMainCheckbox() {
         $('#advance-embed').change((e) => {
             e.preventDefault();
@@ -17,6 +22,7 @@ export default class extends Controller {
 
     connect() {
         this.handleMainCheckbox();
+        this.showSubCircuits();
     }
 
     // eslint-disable-next-line class-methods-use-this
@@ -33,8 +39,8 @@ export default class extends Controller {
         const displayTitle = document.querySelector('#checkbox-display-title').checked;
         const fullscreen = document.querySelector('#checkbox-fullscreen').checked;
         const zoomInOut = document.querySelector('#checkbox-zoom-in-out').checked;
-        const theme = document.querySelector("#theme").value;
-        const url = `${document.querySelector('#url').value}?theme=${theme}&display-title=${displayTitle}&clock-time=${clockTimeEnable}&fullscreen=${fullscreen}&zoom-in-out=${zoomInOut}`;
+        const theme = document.querySelector('#theme').value;
+        const url = `${document.querySelector('#url').value}?theme=${theme}&display_title=${displayTitle}&clock_time=${clockTimeEnable}&fullscreen=${fullscreen}&zoom_in_out=${zoomInOut}`;
         let height = document.querySelector('#height').value;
         if (height === '') height = 500;
         let width = document.querySelector('#width').value;

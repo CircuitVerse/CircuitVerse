@@ -15,9 +15,9 @@ circuitProperty.toggleFullScreen = toggleFullScreen;
 $(document).ready(() => {
     const params = new URLSearchParams(window.location.search);
     const fullscreen = params.get('fullscreen');
-    const clockTime = params.get('clock-time');
-    const displayTitle = params.get('display-title');
-    const zoomInOut = params.get('zoom-in-out');
+    const clockTime = params.get('clock_time');
+    const displayTitle = params.get('display_title');
+    const zoomInOut = params.get('zoom_in_out');
     const selectedTheme = localStorage.getItem('theme');
     const embedTheme = params.get('theme');
     switch (embedTheme) {

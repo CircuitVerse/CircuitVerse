@@ -44,3 +44,8 @@ en:
       publish_button: "Publish"
       advance:
         advance_option: "Advance Option"
+        clock_time: "Clock/Time"
+        display_title: "Display Title"
+        fullscreen: "Fullscreen"
+        zoom_in_out: "Zoom In/Out"
+        theme: "Theme"

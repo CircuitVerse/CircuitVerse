@@ -44,3 +44,8 @@ hi:
       publish_button: "प्रकाशित करें"
       advance:
         advance_option: "अग्रिम विकल्प"
+        clock_time: "घड़ी/समय"
+        display_title: "शीर्षक प्रदर्शन"
+        fullscreen: "फुल्ल्स्क्रीन"
+        zoom_in_out: "ज़ूम इन/आउट"
+        theme: "थीम"
