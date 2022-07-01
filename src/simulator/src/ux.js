@@ -239,6 +239,8 @@ export function prevPropertyObjGet() {
  */
 export function showProperties(obj) {
     if (obj === prevPropertyObjGet()) return
+
+    /*
     hideProperties()
     prevPropertyObjSet(obj)
     if (layoutModeGet()) {
@@ -346,9 +348,7 @@ export function showProperties(obj) {
         ) !== -1
     ) {
         $('#moduleProperty').show()
-        $('#moduleProperty-inner').append(
-            "<div id='moduleProperty-header'>" + 'Project Properties' + '</div>'
-        )
+
         $('#moduleProperty-inner').append(
             `<p><span>Project:</span> <input id='projname' class='objectPropertyAttribute' type='text' autocomplete='off' name='setProjectName'  value='${
                 getProjectName() || 'Untitled'
@@ -518,6 +518,7 @@ export function showProperties(obj) {
             window.open(helplink)
         })
     }
+    */
 
     function checkValidBitWidth() {
         const selector = $("[name='newBitWidth']")
