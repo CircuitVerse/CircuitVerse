@@ -1,11 +1,6 @@
 import { Controller } from 'stimulus';
 
 export default class extends Controller {
-    showSubCircuits() {
-        var element = document.getElementById('tabsBar');
-        console.log(element);
-    }
-
     handleMainCheckbox() {
         $('#advance-embed').change((e) => {
             e.preventDefault();
@@ -22,7 +17,6 @@ export default class extends Controller {
 
     connect() {
         this.handleMainCheckbox();
-        this.showSubCircuits();
     }
 
     // eslint-disable-next-line class-methods-use-this
