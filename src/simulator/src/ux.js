@@ -168,8 +168,6 @@ export function setupUI() {
     //     heightStyle: 'content',
     // });
 
-    $('.logixModules').mousedown(createElement)
-
     $('.logixButton').on('click', function () {
         logixFunction[this.id]()
     })
@@ -179,18 +177,6 @@ export function setupUI() {
     $('.applyTheme').on('change', function () {
         applyVerilogTheme()
     })
-
-    $('.logixModules').hover(function () {
-        // Tooltip can be statically defined in the prototype.
-        var { tooltipText } = modules[this.id].prototype
-        if (!tooltipText) return
-        $('#Help').addClass('show')
-        $('#Help').empty()
-        $('#Help').append(tooltipText)
-    }) // code goes in document ready fn only
-    $('.logixModules').mouseleave(() => {
-        $('#Help').removeClass('show')
-    }) // code goes in document ready fn only
 
     $('#report').on('click', function () {
         var message = $('#issuetext').val()
@@ -230,18 +216,6 @@ export function setupUI() {
     setupPanels()
     setupVerilogExportCodeWindow()
     setupBitConvertor()
-}
-
-export function createElement() {
-    if (simulationArea.lastSelected && simulationArea.lastSelected.newElement)
-        simulationArea.lastSelected.delete()
-    var obj = new modules[this.id]()
-    simulationArea.lastSelected = obj
-    uxvar.smartDropXX += 70
-    if (uxvar.smartDropXX / globalScope.scale > width) {
-        uxvar.smartDropXX = 50
-        uxvar.smartDropYY += 80
-    }
 }
 
 /**

@@ -37,11 +37,11 @@ import undo from './data/undo'
 import redo from './data/redo'
 import { copy, paste, selectAll } from './events'
 import save from './data/save'
-import { createElement } from './ux'
 import { verilogModeGet } from './Verilog2CV'
 import { setupTimingListeners } from './plotArea'
 
 var unit = 10
+var listenToSimulator = true
 
 export default function startListeners() {
     $('#deleteSelected').on('click', () => {
@@ -567,68 +567,6 @@ export default function startListeners() {
             hideRestricted()
         })
     })
-
-    $('.search-input').on('keyup', function () {
-        var parentElement = $(this).parent().parent()
-        var closeButton = $('.search-close', parentElement)
-        var searchInput = $('.search-input', parentElement)
-        var searchResults = $('.search-results', parentElement)
-        var menu = $('.accordion', parentElement)
-
-        searchResults.css('display', 'block')
-        closeButton.css('display', 'block')
-        menu.css('display', 'none')
-        const value = $(this).val().toLowerCase()
-
-        closeButton.on('click', () => {
-            searchInput.val('')
-            menu.css('display', 'block')
-            searchResults.css('display', 'none')
-            closeButton.css('display', 'none')
-        })
-        if (value.length === 0) {
-            menu.css('display', 'block')
-            searchResults.css('display', 'none')
-            closeButton.css('display', 'none')
-            return
-        }
-        let htmlIcons = ''
-        const result = elementPanelList.filter((ele) =>
-            ele.toLowerCase().includes(value)
-        )
-        var finalResult = []
-        for (const j in result) {
-            if (Object.prototype.hasOwnProperty.call(result, j)) {
-                for (const category in elementHierarchy) {
-                    if (
-                        Object.prototype.hasOwnProperty.call(
-                            elementHierarchy,
-                            category
-                        )
-                    ) {
-                        const categoryData = elementHierarchy[category]
-                        for (let i = 0; i < categoryData.length; i++) {
-                            if (result[j] == categoryData[i].label) {
-                                finalResult.push(categoryData[i])
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        if (!finalResult.length) searchResults.text('No elements found ...')
-        else {
-            finalResult.forEach((e) => (htmlIcons += createIcon(e)))
-            searchResults.html(htmlIcons)
-            $('.filterElements').mousedown(createElement)
-        }
-    })
-
-    function createIcon(element) {
-        return `<div class="${element.name} icon logixModules filterElements" id="${element.name}" title="${element.label}">
-            <img  src= "/img/${element.name}.svg" alt="element's image" >
-        </div>`
-    }
 
     zoomSliderListeners()
     setupLayoutModePanelListeners()

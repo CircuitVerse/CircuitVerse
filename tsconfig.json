@@ -12,7 +12,11 @@
         "esModuleInterop": true,
         "lib": ["esnext", "dom"],
         "skipLibCheck": true,
-
+        "baseUrl": "./",
+        "paths": {
+            "#/*": ["./src/*"],
+            "@/*": ["./src/components/*"]
+        },
         "allowJs": true,
         "declaration": true,
         "emitDeclarationOnly": true,
