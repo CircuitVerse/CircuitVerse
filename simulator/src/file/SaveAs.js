@@ -16,6 +16,9 @@ const GetDialogData = () => {
     return container;
 };
 
+/**
+ * To Export Circuit Files
+ */
 export const ExportCircuitFiles = () => {
     $('#ExportCircuitFilesDialog').empty();
     $('#ExportCircuitFilesDialog').append(GetDialogData());
@@ -23,18 +26,15 @@ export const ExportCircuitFiles = () => {
       resizable: false,
       buttons: [
         {
-            text: 'Save',
-            click() {
-              var fileName = $('#circuitFilenameName').val() || 'untitled';
-              const circuitData = generateSaveData($('#projectName').val());
-              fileName = fileName.split('.')[0] + '.cv';
-              console.log(fileName);
-              download(fileName, circuitData);
-              $(this).dialog('close');
-            },
-        },
-      ],
+          text: 'Save',
+          click() {
+            var fileName = $('#projectName').text().trim() || 'untitled';
+            const circuitData = generateSaveData(fileName);
+            fileName = fileName.split('.')[0] + '.cv';
+            download(fileName, circuitData);
+            $(this).dialog('close');
+          },
+        }],
     });
-
     $('#ExportCircuitFilesDialog').focus();
 };

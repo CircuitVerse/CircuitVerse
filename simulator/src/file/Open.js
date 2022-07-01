@@ -8,10 +8,12 @@ export const ImportCircuitFiles = () => {
     $('#ImportCircuitFilesDialog').append(GetDialogData())
     $('#ImportCircuitFilesDialog').dialog({
         resizable: false,
+        close() {
+            load(circuitData);
+        },
         buttons: [{
-            text: 'Open File',
+            text: 'Close',
             click() {
-                load(circuitData);
                 $(this).dialog('close');
             },
         }],
@@ -20,6 +22,8 @@ export const ImportCircuitFiles = () => {
 
     function receivedText(e) {
         circuitData = JSON.parse(e.target.result);
+        load(circuitData);
+        $('#ImportCircuitFilesDialog').dialog('close');
     }
     $('#CircuitDataFile').on('change', (event) => {
         var File = event.target.files[0];
