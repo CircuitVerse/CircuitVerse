@@ -7,14 +7,41 @@ import {
 } from './engine';
 import { prevPropertyObjGet, prevPropertyObjSet } from './ux';
 import { ZoomIn, ZoomOut } from './listeners';
+import themeOptions from './themer/themes';
+import updateThemeForStyle from './themer/themer';
 
 circuitProperty.toggleFullScreen = toggleFullScreen;
+
 $(document).ready(() => {
     const params = new URLSearchParams(window.location.search);
     const fullscreen = params.get('fullscreen');
     const clockTime = params.get('clock-time');
     const displayTitle = params.get('display-title');
     const zoomInOut = params.get('zoom-in-out');
+    const selectedTheme = localStorage.getItem('theme');
+    const embedTheme = params.get('theme');
+    switch (embedTheme) {
+    case 'default':
+        updateThemeForStyle('Default Theme');
+        break;
+    case 'night-sky':
+        updateThemeForStyle('Night Sky');
+        break;
+    case 'lite-born-spring':
+        updateThemeForStyle('Lite-born Spring');
+        break;
+    case 'g-and-w':
+        updateThemeForStyle('G&W');
+        break;
+    case 'high-contrast':
+        updateThemeForStyle('High Contrast');
+        break;
+    case 'color-blind':
+        updateThemeForStyle('Color Blind');
+        break;
+    default:
+        updateThemeForStyle(selectedTheme);
+    }
     // Clock feature
 
     if (fullscreen === 'false' && clockTime === 'false') {

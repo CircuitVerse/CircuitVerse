@@ -33,7 +33,8 @@ export default class extends Controller {
         const displayTitle = document.querySelector('#checkbox-display-title').checked;
         const fullscreen = document.querySelector('#checkbox-fullscreen').checked;
         const zoomInOut = document.querySelector('#checkbox-zoom-in-out').checked;
-        const url = `${document.querySelector('#url').value}?display-title=${displayTitle}&clock-time=${clockTimeEnable}&fullscreen=${fullscreen}&zoom-in-out=${zoomInOut}`;
+        const theme = document.querySelector("#theme").value;
+        const url = `${document.querySelector('#url').value}?theme=${theme}&display-title=${displayTitle}&clock-time=${clockTimeEnable}&fullscreen=${fullscreen}&zoom-in-out=${zoomInOut}`;
         let height = document.querySelector('#height').value;
         if (height === '') height = 500;
         let width = document.querySelector('#width').value;
