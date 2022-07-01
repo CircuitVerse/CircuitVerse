@@ -354,17 +354,7 @@
 
     <!-- --------------------------------------------------------------------------------------------- -->
     <!-- Element Properties Panel -->
-    <div
-        id="moduleProperty"
-        class="moduleProperty noSelect effect1 properties-panel draggable-panel draggable-panel-css guide_2"
-    >
-        <div id="moduleProperty-title" class="noSelect panel-header">
-            Properties
-            <span class="fas fa-minus-square minimize"></span>
-            <span class="fas fa-external-link-square-alt maximize"></span>
-        </div>
-        <div class="panel-body"><div id="moduleProperty-inner"></div></div>
-    </div>
+    <PropertiesPanel />
     <!-- --------------------------------------------------------------------------------------------- -->
 
     <!-- --------------------------------------------------------------------------------------------- -->
@@ -958,4 +948,5 @@
 
 <script lang="ts" setup>
 import ElementsPanel from './Panels/ElementsPanel/ElementsPanel.vue'
+import PropertiesPanel from './Panels/PropertiesPanel/PropertiesPanel.vue'
 </script>
