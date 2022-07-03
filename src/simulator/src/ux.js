@@ -247,68 +247,69 @@ function checkValidBitWidth() {
     }
 }
 
-export function checkPropertiesUpdate(value) {
-    console.log('hello from properties update')
+export function objectPropertyAttributeUpdate() {
+    console.log('ok called from ux.js')
+    checkValidBitWidth()
+    scheduleUpdate()
+    updateCanvasSet(true)
+    wireToBeCheckedSet(1)
+    console.log(this)
+    let { value } = this
+    if (this.type === 'number') {
+        value = parseFloat(value)
+    }
+    if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) {
+        simulationArea.lastSelected[this.name](value)
+        // Commented out due to property menu refresh bug
+        // prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet();
+    } else {
+        circuitProperty[this.name](value)
+    }
+}
 
-    $('.objectPropertyAttribute').on('change keyup paste click', function () {
-        console.log('ok called from ux.js')
-        checkValidBitWidth()
-        scheduleUpdate()
-        updateCanvasSet(true)
-        wireToBeCheckedSet(1)
-        console.log(this)
-        let { value } = this
-        if (this.type === 'number') {
-            value = parseFloat(value)
-        }
-        if (
-            simulationArea.lastSelected &&
-            simulationArea.lastSelected[this.name]
-        ) {
-            simulationArea.lastSelected[this.name](value)
-            // Commented out due to property menu refresh bug
-            // prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet();
-        } else {
-            circuitProperty[this.name](value)
-        }
-    })
+export function objectPropertyAttributeCheckedUpdate() {
+    if (this.name === 'toggleLabelInLayoutMode') return // Hack to prevent toggleLabelInLayoutMode from toggling twice
+    scheduleUpdate()
+    updateCanvasSet(true)
+    wireToBeCheckedSet(1)
+    if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) {
+        simulationArea.lastSelected[this.name](this.value)
+        // Commented out due to property menu refresh bug
+        // prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet();
+    } else {
+        circuitProperty[this.name](this.checked)
+    }
+}
+
+export function checkPropertiesUpdate(value = 0) {
+
+    $('.objectPropertyAttribute').on(
+        'change keyup paste click',
+        objectPropertyAttributeUpdate
+    )
 
     $('.objectPropertyAttributeChecked').on(
         'change keyup paste click',
-        function () {
-            if (this.name === 'toggleLabelInLayoutMode') return // Hack to prevent toggleLabelInLayoutMode from toggling twice
-            scheduleUpdate()
-            updateCanvasSet(true)
-            wireToBeCheckedSet(1)
-            if (
-                simulationArea.lastSelected &&
-                simulationArea.lastSelected[this.name]
-            ) {
-                simulationArea.lastSelected[this.name](this.value)
-                // Commented out due to property menu refresh bug
-                // prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet();
-            } else {
-                circuitProperty[this.name](this.checked)
-            }
-        }
+        objectPropertyAttributeCheckedUpdate
     )
 
-    $('.objectPropertyAttributeChecked').on('click', function () {
-        if (this.name !== 'toggleLabelInLayoutMode') return // Hack to prevent toggleLabelInLayoutMode from toggling twice
-        scheduleUpdate()
-        updateCanvasSet(true)
-        wireToBeCheckedSet(1)
-        if (
-            simulationArea.lastSelected &&
-            simulationArea.lastSelected[this.name]
-        ) {
-            simulationArea.lastSelected[this.name](this.value)
-            // Commented out due to property menu refresh bug
-            // prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet();
-        } else {
-            circuitProperty[this.name](this.checked)
-        }
-    })
+    //Duplicate of above (Handled above)
+    // $('.objectPropertyAttributeChecked').on('click', function () {
+    //     if (this.name !== 'toggleLabelInLayoutMode') return // Hack to prevent toggleLabelInLayoutMode from toggling twice
+    //     scheduleUpdate()
+    //     updateCanvasSet(true)
+    //     wireToBeCheckedSet(1)
+    //     if (
+    //         simulationArea.lastSelected &&
+    //         simulationArea.lastSelected[this.name]
+    //     ) {
+    //         simulationArea.lastSelected[this.name](this.value)
+    //         // Commented out due to property menu refresh bug
+    //         // prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet();
+    //     } else {
+    //         circuitProperty[this.name](this.checked)
+    //     }
+    // })
 }
 
 /**

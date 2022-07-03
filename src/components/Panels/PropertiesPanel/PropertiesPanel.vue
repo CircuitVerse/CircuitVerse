@@ -25,6 +25,7 @@ import simulationArea from '#/simulator/src/simulationArea'
 import PanelHeader from '../Shared/PanelHeader.vue'
 import { onMounted } from 'vue'
 import {
+    checkPropertiesUpdate,
     hideProperties,
     prevPropertyObjGet,
     prevPropertyObjSet,
@@ -44,6 +45,7 @@ onMounted(() => {
 })
 
 function showPropertiesPanel() {
+    checkPropertiesUpdate()
     if (toRaw(propertiesPanelObj.value) == simulationArea.lastSelected) return
     prevPropertyObjSet(simulationArea.lastSelected)
     propertiesPanelObj.value = simulationArea.lastSelected
