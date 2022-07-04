@@ -39,65 +39,43 @@
             :value="escapeHtml(obj.label)"
         />
     </p>
-    <p v-if="!obj.labelDirectionFixed">
-        <span>Label Direction:</span>
-        <select
-            class="objectPropertyAttribute"
-            name="newLabelDirection"
-            :value="obj.labelDirection"
-        >
-            <option
-                v-for="direction in labelDirections"
-                :key="direction"
-                :value="direction"
-            >
-                {{ direction }}
-            </option>
-        </select>
-    </p>
-    <p v-if="!obj.directionFixed">
-        <span>Direction:</span>
-        <select
-            class="objectPropertyAttribute"
-            name="newDirection"
-            :value="obj.direction"
-        >
-            <option
-                v-for="direction in labelDirections"
-                :key="direction"
-                :value="direction"
-            >
-                {{ direction }}
-            </option>
-        </select>
-    </p>
-    <p v-if="!obj.orientationFixed">
-        <span>Orientation:</span>
-        <select
-            class="objectPropertyAttribute"
-            name="newDirection"
-            :value="obj.direction"
-        >
-            <option
-                v-for="direction in labelDirections"
-                :key="direction"
-                :value="direction"
-            >
-                {{ direction }}
-            </option>
-        </select>
-    </p>
+    <DropdownSelect
+        v-if="!obj.labelDirectionFixed"
+        :dropdown-array="labelDirections"
+        property-name="newLabelDirection"
+        :property-value="obj.labelDirection"
+        property-input-name="Label Direction:"
+        property-input-id="labelDirectionValue"
+    />
+    <DropdownSelect
+        v-if="!obj.directionFixed"
+        :dropdown-array="labelDirections"
+        property-name="newDirection"
+        :property-value="obj.direction"
+        property-input-name="Direction:"
+        property-input-id="directionValue"
+    />
+    <DropdownSelect
+        v-if="!obj.orientationFixed"
+        :dropdown-array="labelDirections"
+        property-name="newDirection"
+        :property-value="obj.direction"
+        property-input-name="Orientation:"
+        property-input-id="orientationValue"
+    />
 </template>
 
 <script lang="ts" setup>
 import { escapeHtml } from '#/simulator/src/utils'
 import { ref } from '@vue/reactivity'
 import InputGroups from '../../Shared/InputGroups.vue'
+import DropdownSelect from '../../Shared/DropdownSelect.vue'
+
 const props = defineProps({
     data: { type: Object, default: undefined },
 })
 const obj = props.data
-const labelDirections = ref(['RIGHT', 'DOWN', 'LEFT', 'UP'])
+const labelDirections = ['RIGHT', 'DOWN', 'LEFT', 'UP']
 </script>
 
 <!-- 
