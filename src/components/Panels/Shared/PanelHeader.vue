@@ -1,6 +1,6 @@
 <template>
     <div class="panel-header">
-        {{ props.headerTitle }}
+        {{ headerTitle }}
         <span class="fas fa-minus-square minimize"></span>
         <span class="fas fa-external-link-square-alt maximize"></span>
     </div>

@@ -1141,9 +1141,14 @@ input:checked + .slider:before {
 /** selects styling starts here */
 
 .moduleProperty select {
-    padding-left: 5px;
+    text-align: center;
     width: 81px;
+    height: 20px;
     float: right;
+    font-size: 17px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
 
 /*! selects styling end here */

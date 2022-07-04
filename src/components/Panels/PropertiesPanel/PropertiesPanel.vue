@@ -14,6 +14,10 @@
                     :key="toRaw(propertiesPanelObj)"
                     :data="toRaw(propertiesPanelObj)"
                 />
+                <HelpButton
+                    :key="toRaw(propertiesPanelObj)"
+                    :data="toRaw(propertiesPanelObj)"
+                />
             </div>
         </div>
     </div>
@@ -23,8 +27,10 @@
 import { ref, toRaw } from '@vue/reactivity'
 import simulationArea from '#/simulator/src/simulationArea'
 import PanelHeader from '../Shared/PanelHeader.vue'
+import HelpButton from '../Shared/HelpButton.vue'
 import { onMounted } from 'vue'
 import {
+    checkPropertiesUpdate,
     hideProperties,
     prevPropertyObjGet,
     prevPropertyObjSet,
@@ -37,13 +43,13 @@ import PanelType3 from './PanelTypes/PanelType3.vue'
 const panelBodyHeader = ref('PROJECT PROPERTIES')
 const propertiesPanelObj = ref(undefined)
 const panelType = ref(2) // default is panel type 2 (project properties)
-
 onMounted(() => {
     // checks for which type of properties panel to show
     setInterval(showPropertiesPanel, 100)
 })
 
 function showPropertiesPanel() {
+    checkPropertiesUpdate()
     if (toRaw(propertiesPanelObj.value) == simulationArea.lastSelected) return
     prevPropertyObjSet(simulationArea.lastSelected)
     propertiesPanelObj.value = simulationArea.lastSelected
@@ -70,5 +76,6 @@ function showPropertiesPanel() {
         panelType.value = 3
         panelBodyHeader.value = propertiesPanelObj.value.objectType
     }
+    // console.log('hello')
 }
 </script>

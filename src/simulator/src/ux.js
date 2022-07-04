@@ -232,6 +232,86 @@ export function prevPropertyObjGet() {
     return prevPropertyObj
 }
 
+function checkValidBitWidth() {
+    const selector = $("[name='newBitWidth']")
+    if (
+        selector === undefined ||
+        selector.val() > 32 ||
+        selector.val() < 1 ||
+        !$.isNumeric(selector.val())
+    ) {
+        // fallback to previously saves state
+        selector.val(selector.attr('old-val'))
+    } else {
+        selector.attr('old-val', selector.val())
+    }
+}
+
+export function objectPropertyAttributeUpdate() {
+    checkValidBitWidth()
+    scheduleUpdate()
+    updateCanvasSet(true)
+    wireToBeCheckedSet(1)
+    // console.log(this)
+    let { value } = this
+    // console.log(value)
+    if (this.type === 'number') {
+        value = parseFloat(value)
+    }
+    if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) {
+        simulationArea.lastSelected[this.name](value)
+        // Commented out due to property menu refresh bug
+        // prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet();
+    } else {
+        circuitProperty[this.name](value)
+    }
+}
+
+export function objectPropertyAttributeCheckedUpdate() {
+    if (this.name === 'toggleLabelInLayoutMode') return // Hack to prevent toggleLabelInLayoutMode from toggling twice
+    scheduleUpdate()
+    updateCanvasSet(true)
+    wireToBeCheckedSet(1)
+    if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) {
+        simulationArea.lastSelected[this.name](this.value)
+        // Commented out due to property menu refresh bug
+        // prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet();
+    } else {
+        circuitProperty[this.name](this.checked)
+    }
+}
+
+export function checkPropertiesUpdate(value = 0) {
+    // console.log('update check')
+    $('.objectPropertyAttribute').on(
+        'change keyup paste click',
+        objectPropertyAttributeUpdate
+    )
+
+    $('.objectPropertyAttributeChecked').on(
+        'change keyup paste click',
+        objectPropertyAttributeCheckedUpdate
+    )
+
+    //Duplicate of above (Handled above)
+    // $('.objectPropertyAttributeChecked').on('click', function () {
+    //     if (this.name !== 'toggleLabelInLayoutMode') return // Hack to prevent toggleLabelInLayoutMode from toggling twice
+    //     scheduleUpdate()
+    //     updateCanvasSet(true)
+    //     wireToBeCheckedSet(1)
+    //     if (
+    //         simulationArea.lastSelected &&
+    //         simulationArea.lastSelected[this.name]
+    //     ) {
+    //         simulationArea.lastSelected[this.name](this.value)
+    //         // Commented out due to property menu refresh bug
+    //         // prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet();
+    //     } else {
+    //         circuitProperty[this.name](this.checked)
+    //     }
+    // })
+}
+
 /**
  * show properties of an object.
  * @param {CircuiElement} obj - the object whose properties we want to be shown in sidebar
@@ -477,6 +557,7 @@ export function showProperties(obj) {
             )
         }
 
+        ----> YET TO CONVERT
         if (obj.mutableProperties) {
             for (const attr in obj.mutableProperties) {
                 var prop = obj.mutableProperties[attr]
@@ -510,6 +591,7 @@ export function showProperties(obj) {
     }
 
     var helplink = obj && obj.helplink
+    console.log(obj)
     if (helplink) {
         $('#moduleProperty-inner').append(
             '<p class="btn-parent"><button id="HelpButton" class="btn btn-primary btn-xs" type="button" >&#9432 Help</button></p>'
@@ -518,80 +600,8 @@ export function showProperties(obj) {
             window.open(helplink)
         })
     }
-    */
-
-    function checkValidBitWidth() {
-        const selector = $("[name='newBitWidth']")
-        if (
-            selector === undefined ||
-            selector.val() > 32 ||
-            selector.val() < 1 ||
-            !$.isNumeric(selector.val())
-        ) {
-            // fallback to previously saves state
-            selector.val(selector.attr('old-val'))
-        } else {
-            selector.attr('old-val', selector.val())
-        }
-    }
-
-    $('.objectPropertyAttribute').on('change keyup paste click', function () {
-        checkValidBitWidth()
-        scheduleUpdate()
-        updateCanvasSet(true)
-        wireToBeCheckedSet(1)
-        let { value } = this
-        if (this.type === 'number') {
-            value = parseFloat(value)
-        }
-        if (
-            simulationArea.lastSelected &&
-            simulationArea.lastSelected[this.name]
-        ) {
-            simulationArea.lastSelected[this.name](value)
-            // Commented out due to property menu refresh bug
-            // prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet();
-        } else {
-            circuitProperty[this.name](value)
-        }
-    })
-
-    $('.objectPropertyAttributeChecked').on(
-        'change keyup paste click',
-        function () {
-            if (this.name === 'toggleLabelInLayoutMode') return // Hack to prevent toggleLabelInLayoutMode from toggling twice
-            scheduleUpdate()
-            updateCanvasSet(true)
-            wireToBeCheckedSet(1)
-            if (
-                simulationArea.lastSelected &&
-                simulationArea.lastSelected[this.name]
-            ) {
-                simulationArea.lastSelected[this.name](this.value)
-                // Commented out due to property menu refresh bug
-                // prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet();
-            } else {
-                circuitProperty[this.name](this.checked)
-            }
-        }
-    )
-
-    $('.objectPropertyAttributeChecked').on('click', function () {
-        if (this.name !== 'toggleLabelInLayoutMode') return // Hack to prevent toggleLabelInLayoutMode from toggling twice
-        scheduleUpdate()
-        updateCanvasSet(true)
-        wireToBeCheckedSet(1)
-        if (
-            simulationArea.lastSelected &&
-            simulationArea.lastSelected[this.name]
-        ) {
-            simulationArea.lastSelected[this.name](this.value)
-            // Commented out due to property menu refresh bug
-            // prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet();
-        } else {
-            circuitProperty[this.name](this.checked)
-        }
-    })
+*/
+    checkPropertiesUpdate(this)
 
     // $(".moduleProperty input[type='number']").inputSpinner();
 }
