@@ -557,6 +557,7 @@ export function showProperties(obj) {
             )
         }
 
+        ----> YET TO CONVERT
         if (obj.mutableProperties) {
             for (const attr in obj.mutableProperties) {
                 var prop = obj.mutableProperties[attr]
@@ -590,6 +591,7 @@ export function showProperties(obj) {
     }
 
     var helplink = obj && obj.helplink
+    console.log(obj)
     if (helplink) {
         $('#moduleProperty-inner').append(
             '<p class="btn-parent"><button id="HelpButton" class="btn btn-primary btn-xs" type="button" >&#9432 Help</button></p>'
@@ -598,8 +600,7 @@ export function showProperties(obj) {
             window.open(helplink)
         })
     }
-    */
-
+*/
     checkPropertiesUpdate(this)
 
     // $(".moduleProperty input[type='number']").inputSpinner();

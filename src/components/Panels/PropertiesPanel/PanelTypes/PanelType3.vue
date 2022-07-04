@@ -45,7 +45,7 @@
         property-name="newLabelDirection"
         :property-value="obj.labelDirection"
         property-input-name="Label Direction:"
-        property-input-id="labelDirectionValue"
+        property-select-id="labelDirectionValue"
     />
     <DropdownSelect
         v-if="!obj.directionFixed"
@@ -53,7 +53,7 @@
         property-name="newDirection"
         :property-value="obj.direction"
         property-input-name="Direction:"
-        property-input-id="directionValue"
+        property-select-id="directionValue"
     />
     <DropdownSelect
         v-if="!obj.orientationFixed"
@@ -61,16 +61,14 @@
         property-name="newDirection"
         :property-value="obj.direction"
         property-input-name="Orientation:"
-        property-input-id="orientationValue"
+        property-select-id="orientationValue"
     />
 </template>
 
 <script lang="ts" setup>
 import { escapeHtml } from '#/simulator/src/utils'
-import { ref } from '@vue/reactivity'
 import InputGroups from '../../Shared/InputGroups.vue'
 import DropdownSelect from '../../Shared/DropdownSelect.vue'
-
 const props = defineProps({
     data: { type: Object, default: undefined },
 })

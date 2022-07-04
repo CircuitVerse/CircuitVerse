@@ -2,7 +2,7 @@
     <p>
         <span>{{ propertyInputName }}</span>
         <select
-            :id="propertyInputId"
+            :id="propertySelectId"
             class="objectPropertyAttribute"
             :name="propertyName"
             :value="propertyValue"
@@ -24,6 +24,6 @@ const props = defineProps({
     propertyName: { type: String, default: 'Property Name' },
     propertyValue: { type: String, default: '' },
     propertyInputName: { type: String, default: 'Property_Input_Name' },
-    propertyInputId: { type: String, default: 'Property_Input_Id' },
+    propertySelectId: { type: String, default: 'Property_Input_Id' },
 })
 </script>
