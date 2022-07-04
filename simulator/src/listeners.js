@@ -433,8 +433,18 @@ export default function startListeners() {
             closeButton.css('display', 'none');
             return;
         }
+        const customFilter = (ele) => {
+            const labelCheck = ele.toLowerCase().includes(value)
+            let typeCheck = false
+            elementType.forEach((inTyp) => {
+                if (Object.values(inTyp)[0] == ele && Object.values(inTyp)[1].toLowerCase().includes(value)) {
+                    typeCheck = true
+                }
+            })
+            return labelCheck || typeCheck
+        }
         let htmlIcons = '';
-        const result = elementPanelList.filter(ele => ele.toLowerCase().includes(value));
+        const result = elementPanelList.filter(customFilter);
         var finalResult = [];
         for(const j in result) {
             if (Object.prototype.hasOwnProperty.call(result, j)) {
