@@ -47,29 +47,38 @@ const props = defineProps({
 	propertyInputId: { type: String, default: 'Property_Input_Id' }
 })
 
+console.log(props.propertyInputId);
+
+// can be modified if required
 function increaseValue() {
-	const ele = document.getElementById(props.propertyInputId);
+    const ele = document.getElementById(props.propertyInputId);
+    console.log(props.propertyInputId);
+    console.log(ele);
     var value = parseInt(ele.value, 10);
-	value = isNaN(value) ? 0 : value;
-	value++;
+    value = isNaN(value) ? 0 : value;
+    if (value < props.valueMax)
+        value++;
+    else
+        return;
     props.propertyValue = value;
     ele.value = value;
     // manually triggering on change event
     const e = new Event("change");
-    const element = document.querySelector('.objectPropertyAttribute')
-    element.dispatchEvent(e);
+    ele.dispatchEvent(e);
 }
 
 function decreaseValue() {
 	const ele = document.getElementById(props.propertyInputId);
     var value = parseInt(ele.value, 10);
-	value = isNaN(value) ? 0 : value;
-	value--;
+    value = isNaN(value) ? 0 : value;
+    if (value > props.valueMin)
+        value--;
+    else
+        return;
     props.propertyValue = value;
     ele.value = value;
     // manually triggering on change event
     const e = new Event("change");
-    const element = document.querySelector('.objectPropertyAttribute')
-    element.dispatchEvent(e);
+    ele.dispatchEvent(e);
 }
 </script>

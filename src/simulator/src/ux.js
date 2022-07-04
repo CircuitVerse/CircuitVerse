@@ -248,13 +248,13 @@ function checkValidBitWidth() {
 }
 
 export function objectPropertyAttributeUpdate() {
-    console.log('ok called from ux.js')
     checkValidBitWidth()
     scheduleUpdate()
     updateCanvasSet(true)
     wireToBeCheckedSet(1)
-    console.log(this)
+    // console.log(this)
     let { value } = this
+    // console.log(value)
     if (this.type === 'number') {
         value = parseFloat(value)
     }
@@ -282,7 +282,7 @@ export function objectPropertyAttributeCheckedUpdate() {
 }
 
 export function checkPropertiesUpdate(value = 0) {
-
+    // console.log('update check')
     $('.objectPropertyAttribute').on(
         'change keyup paste click',
         objectPropertyAttributeUpdate
