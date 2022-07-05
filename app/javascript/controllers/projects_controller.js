@@ -1,22 +1,18 @@
+/* eslint-disable class-methods-use-this */
 import { Controller } from 'stimulus';
+
+var flag = false;
 
 export default class extends Controller {
     handleMainCheckbox() {
-        $('#advance-embed').change((e) => {
-            e.preventDefault();
-            var radio = $(e.currentTarget);
-
-            if (radio.is(':checked')) {
-                $('.advance-embed-option').css('display', 'block');
-            } else {
-                $('.advance-embed-option').css('display', 'none');
-            }
-        });
-        $('#advance-embed').trigger('change');
-    }
-
-    connect() {
-        this.handleMainCheckbox();
+        if (flag) {
+            document.querySelector('.advance-embed-option').style.display = 'none';
+            document.querySelector('.advance-embed-field .dropdown').style.transform = 'rotate(0deg)';
+        } else {
+            document.querySelector('.advance-embed-option').style.display = 'block';
+            document.querySelector('.advance-embed-field .dropdown').style.transform = 'rotate(180deg)';
+        }
+        flag = !flag;
     }
 
     // eslint-disable-next-line class-methods-use-this

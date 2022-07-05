@@ -40,10 +40,10 @@
             </select>
         </div>
         <div class="advance-embed-field field form-group">
-          <label for="advance-embed" class="primary-checkpoint-container" id="label-advance-embed"><h6><%= t("projects.modal.advance.advance_option") %></h6>
-            <%= check_box_tag "advance-embed" %>
-            <div class="primary-checkpoint"></div>
-          </label>
+          <div data-action="click->projects#handleMainCheckbox" class="advance-embed-header">
+            <h6><%= t("projects.modal.advance.advance_option")%></h6>
+            <span class='dropdown'></span>
+          </div>
           <div class="advance-embed-option">
             <div class="form-check form-check-inline">
               <label class="form-check-label primary-checkpoint-container">
@@ -90,7 +90,7 @@
             <button class="btn primary-button projects-primary-button embed-button" data-action="click->projects#showEmbedLink"><%= t("projects.modal.publish_button") %></button>
         </div>
         <div class="collapse show">
-            <textarea class="form-control form-input embed-link-textarea" rows="5px" column="115px" id="result"></textarea>
+            <textarea class="form-control form-input embed-link-textarea" rows="5px" column="115px" id="result" readonly></textarea>
             <small class="projectshow-embed-text-confirmation"><%= t("projects.show.copied_to_clipboard") %></small>
         </div>
       </div>

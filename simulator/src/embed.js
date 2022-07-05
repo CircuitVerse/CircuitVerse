@@ -56,12 +56,12 @@ $(document).ready(() => {
 
     if (clockTime !== 'false') {
         $('#clockProperty').append(
-            `<div style='margin-top: 10px' >Time: <input class='objectPropertyAttributeEmbed' min='50' type='number' style='width:48px' step='10' name='changeClockTime'  value='${simulationArea.timePeriod}'></div>`,
+            `<div style='margin-top: 10px' ><label for='changeClockTime'>Time: </label><input class='objectPropertyAttributeEmbed' min='50' type='number' style='width:48px' step='10' name='changeClockTime' id='changeClockTime' value='${simulationArea.timePeriod}'></div>`,
         );
         $('#clockProperty').append(
-            `<div style='margin-top: 10px' >Clock: <label class='switch'> <input type='checkbox' ${
+            `<div style='margin-top: 10px' ><label for='changeClockEnable'>Clock:</label><label class='switch'> <input type='checkbox' ${
                 ['', 'checked'][simulationArea.clockEnabled + 0]
-            } class='objectPropertyAttributeEmbedChecked' name='changeClockEnable' > <span class='slider'></span> </label><div>`,
+            } class='objectPropertyAttributeEmbedChecked' name='changeClockEnable' id='changeClockEnable'> <span class='slider'></span> </label><div>`,
         );
     }
 
