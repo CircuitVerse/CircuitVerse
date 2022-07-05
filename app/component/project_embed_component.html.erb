@@ -40,51 +40,50 @@
             </select>
         </div>
         <div class="advance-embed-field field form-group">
-          <div data-action="click->projects#handleMainCheckbox" class="advance-embed-header">
-            <h6><%= t("projects.modal.advance.advance_option") %></h6>
-            <span class='dropdown'></span>
-          </div>
-          <div class="advance-embed-option">
-            <div class="form-check form-check-inline">
-              <label class="form-check-label primary-checkpoint-container">
-                <input class="form-check-input element-restriction" type="checkbox" id="checkbox-clock-time" value="Clock Time" checked="true">
-                <div class="primary-checkpoint"></div>
-                <h6><%= t("projects.modal.advance.clock_time") %></h6>
-              </label>
+          <details>
+            <summary><%= t("projects.modal.advance.advance_option") %></summary>
+            <div class="advance-embed-option">
+              <div class="form-check form-check-inline">
+                <label class="form-check-label primary-checkpoint-container">
+                  <input class="form-check-input element-restriction" type="checkbox" id="checkbox-clock-time" value="Clock Time" checked="true">
+                  <div class="primary-checkpoint"></div>
+                  <h6><%= t("projects.modal.advance.clock_time") %></h6>
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <label class="form-check-label primary-checkpoint-container">
+                  <input class="form-check-input element-restriction" type="checkbox" id="checkbox-display-title" value="Display Title">
+                  <div class="primary-checkpoint"></div>
+                  <h6><%= t("projects.modal.advance.display_title") %></h6>
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <label class="form-check-label primary-checkpoint-container">
+                  <input class="form-check-input element-restriction" type="checkbox" id="checkbox-fullscreen" value="Fullscreen" checked="true">
+                  <div class="primary-checkpoint"></div>
+                  <h6><%= t("projects.modal.advance.fullscreen") %></h6>
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <label class="form-check-label primary-checkpoint-container">
+                  <input class="form-check-input element-restriction" type="checkbox" id="checkbox-zoom-in-out" value="Zoom In Out" checked="true">
+                  <div class="primary-checkpoint"></div>
+                  <h6><%= t("projects.modal.advance.zoom_in_out") %></h6>
+                </label>
+              </div>
+              <div class="field form-group embed-input-fields">
+                <div><label for="theme" class="col-sm-3 col-form-label"><b><%= t("projects.modal.advance.theme") %></b></label></div>
+                <select class="form-control form-input" id="theme" placeholder="Select a style">
+                    <option value="default">Default</option>
+                    <option value="night-sky">Night Sky</option>
+                    <option value="lite-born-spring">Lite-born Spring</option>
+                    <option value="g-and-w">G&W</option>
+                    <option value="high-contrast">High Contrast</option>
+                    <option value="color-blind">Color Blind</option>
+                </select>
+              </div>
             </div>
-            <div class="form-check form-check-inline">
-              <label class="form-check-label primary-checkpoint-container">
-                <input class="form-check-input element-restriction" type="checkbox" id="checkbox-display-title" value="Display Title">
-                <div class="primary-checkpoint"></div>
-                <h6><%= t("projects.modal.advance.display_title") %></h6>
-              </label>
-            </div>
-            <div class="form-check form-check-inline">
-              <label class="form-check-label primary-checkpoint-container">
-                <input class="form-check-input element-restriction" type="checkbox" id="checkbox-fullscreen" value="Fullscreen" checked="true">
-                <div class="primary-checkpoint"></div>
-                <h6><%= t("projects.modal.advance.fullscreen") %></h6>
-              </label>
-            </div>
-            <div class="form-check form-check-inline">
-              <label class="form-check-label primary-checkpoint-container">
-                <input class="form-check-input element-restriction" type="checkbox" id="checkbox-zoom-in-out" value="Zoom In Out" checked="true">
-                <div class="primary-checkpoint"></div>
-                <h6><%= t("projects.modal.advance.zoom_in_out") %></h6>
-              </label>
-            </div>
-            <div class="field form-group embed-input-fields">
-              <div><label for="theme" class="col-sm-3 col-form-label"><b><%= t("projects.modal.advance.theme") %></b></label></div>
-              <select class="form-control form-input" id="theme" placeholder="Select a style">
-                  <option value="default">Default</option>
-                  <option value="night-sky">Night Sky</option>
-                  <option value="lite-born-spring">Lite-born Spring</option>
-                  <option value="g-and-w">G&W</option>
-                  <option value="high-contrast">High Contrast</option>
-                  <option value="color-blind">Color Blind</option>
-              </select>
-            </div>
-          </div>
+          </details>
         </div>
         <div>
             <button class="btn primary-button projects-primary-button embed-button" data-action="click->projects#showEmbedLink"><%= t("projects.modal.publish_button") %></button>

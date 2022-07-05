@@ -4,12 +4,6 @@ import { Controller } from 'stimulus';
 var flag = false;
 
 export default class extends Controller {
-    handleMainCheckbox() {
-        document.querySelector('.advance-embed-option').style.display = (flag) ? 'none' : 'block';
-        document.querySelector('.advance-embed-field .dropdown').style.transform = (flag) ? 'rotate(0deg)' : 'rotate(180deg)';
-        flag = !flag;
-    }
-
     // eslint-disable-next-line class-methods-use-this
     copy() {
         const textarea = document.getElementById('result');
