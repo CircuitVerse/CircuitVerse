@@ -5,13 +5,8 @@ var flag = false;
 
 export default class extends Controller {
     handleMainCheckbox() {
-        if (flag) {
-            document.querySelector('.advance-embed-option').style.display = 'none';
-            document.querySelector('.advance-embed-field .dropdown').style.transform = 'rotate(0deg)';
-        } else {
-            document.querySelector('.advance-embed-option').style.display = 'block';
-            document.querySelector('.advance-embed-field .dropdown').style.transform = 'rotate(180deg)';
-        }
+        document.querySelector('.advance-embed-option').style.display = (flag) ? 'none' : 'block';
+        document.querySelector('.advance-embed-field .dropdown').style.transform = (flag) ? 'rotate(0deg)' : 'rotate(180deg)';
         flag = !flag;
     }
 
