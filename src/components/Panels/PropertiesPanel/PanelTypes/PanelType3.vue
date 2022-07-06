@@ -63,6 +63,51 @@
         property-input-name="Orientation:"
         property-select-id="orientationValue"
     />
+
+    <div v-for="(value, name) in obj.mutableProperties" :key="name">
+        <InputGroups
+            v-if="value.type === 'number'"
+            :property-name="value.name"
+            :property-value="obj[name]"
+            property-value-type="number"
+            :value-min="value.min || '0'"
+            :value-max="value.max || '200'"
+            :property-input-name="value.func"
+            :property-input-id="value.name"
+        />
+        <p v-if="value.type === 'text'">
+            <span>{{ value.name }}:</span>
+            <input
+                class="objectPropertyAttribute"
+                type="text"
+                :name="value.func"
+                autocomplete="off"
+                :maxlength="value.maxlength || '200'"
+                :value="obj[name]"
+            />
+        </p>
+        <p v-if="value.type === 'button'" class="btn-parent">
+            <button
+                class="objectPropertyAttribute btn custom-btn--secondary"
+                type="button"
+                :name="value.func"
+            >
+                {{ value.name }}
+            </button>
+        </p>
+        <p v-if="value.type === 'textarea'">
+            <span>{{ value.name }}</span>
+            <textarea
+                class="objectPropertyAttribute"
+                type="text"
+                autocomplete="off"
+                rows="9"
+                :name="value.func"
+            >
+                {{ obj[name] }}
+            </textarea>
+        </p>
+    </div>
 </template>
 
 <script lang="ts" setup>

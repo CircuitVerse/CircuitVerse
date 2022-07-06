@@ -986,7 +986,17 @@ div.icon img {
     font-weight: bold;
 }
 
+#moduleProperty-inner > div span {
+    display: inline-block;
+    font-weight: bold;
+}
+
 #moduleProperty-inner > p button {
+    border-radius: 2px;
+    margin: 3px;
+}
+
+#moduleProperty-inner > div button {
     border-radius: 2px;
     margin: 3px;
 }
@@ -1009,6 +1019,10 @@ div.icon img {
     outline: none;
     padding: 5px 5px;
     width: 100%;
+}
+
+.moduleProperty textarea {
+    text-align: left;
 }
 
 .moduleProperty select,
