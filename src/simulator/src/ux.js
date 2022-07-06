@@ -557,7 +557,6 @@ export function showProperties(obj) {
             )
         }
 
-        ----> YET TO CONVERT
         if (obj.mutableProperties) {
             for (const attr in obj.mutableProperties) {
                 var prop = obj.mutableProperties[attr]
