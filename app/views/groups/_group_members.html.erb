@@ -1,4 +1,4 @@
-<% group.group_members.where(mentor: false).each do |member| %>
+<% group.group_members.is_member.each do |member| %>
   <div class="<%= membersCardViewerContainer(group) %>">
     <div class="<%= membersCardViewer(group) %>">
       <div class="row">

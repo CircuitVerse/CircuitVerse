@@ -35,7 +35,7 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
     token = JsonWebToken.encode(
       user_id: @user.id, username: @user.name, email: @user.email
     )
-    render json: { token: }, status: :accepted
+    render json: { token: token }, status: :accepted
   end
 
   # POST api/v1/oauth/signup
@@ -51,7 +51,7 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
         token = JsonWebToken.encode(
           user_id: @user.id, username: @user.name, email: @user.email
         )
-        render json: { token: }, status: :created
+        render json: { token: token }, status: :created
       end
     end
   end
