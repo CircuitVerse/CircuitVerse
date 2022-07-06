@@ -120,10 +120,3 @@ const props = defineProps({
 const obj = props.data
 const labelDirections = ['RIGHT', 'DOWN', 'LEFT', 'UP']
 </script>
-
-<!-- 
-is there any difference between 
-directionFixed
-orientationFixed
-code (s) in ux.js except the span 
--->
