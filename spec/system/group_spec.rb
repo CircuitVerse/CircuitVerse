@@ -6,7 +6,7 @@ describe "Group management", type: :system do
   before do
     @user = FactoryBot.create(:user)
     @user2 = FactoryBot.create(:user)
-    @group = FactoryBot.create(:group, mentor: @user)
+    @group = FactoryBot.create(:group, primary_mentor: @user)
     driven_by(:selenium_chrome_headless)
     login_as(@user, scope: :user)
   end
