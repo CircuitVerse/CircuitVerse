@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   end
 
   # resources :assignment_submissions
-  resources :group_members, only: %i[create destroy]
+  resources :group_members, only: %i[create destroy update]
   resources :groups, except: %i[index] do
     resources :assignments, except: %i[index]
     member do
@@ -167,6 +167,7 @@ Rails.application.routes.draw do
       post "/forgot_password", to: "users#forgot_password"
       resources :users, only: %i[index show update]
       get "/projects/featured", to: "projects#featured_circuits"
+      get "/projects/search", to: "projects#search"
       resources :projects, only: %i[index show update destroy] do
         member do
           get "toggle-star", to: "projects#toggle_star"
@@ -183,9 +184,11 @@ Rails.application.routes.draw do
       end
       post "/assignments/:assignment_id/projects/:project_id/grades", to: "grades#create"
       resources :grades, only: %i[update destroy]
-      get "/groups/mentored", to: "groups#groups_mentored"
+      get "/groups/owned", to: "groups#groups_owned"
       resources :groups, only: %i[index show update destroy]
       delete "/group/members/:id", to: "group_members#destroy"
+      put "/group/members/:id", to: "group_members#update"
+      patch "/group/members/:id", to: "group_members#update"
       resources :groups do
         resources :members, controller: "group_members", shallow: true, only: %i[index create]
         resources :assignments, shallow: true

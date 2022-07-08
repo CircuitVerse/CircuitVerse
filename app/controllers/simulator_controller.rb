@@ -113,7 +113,7 @@ class SimulatorController < ApplicationController
   end
 
   def verilog_cv
-    url = ENV.fetch("YOSYS_PATH", "http://127.0.0.1:3040") + "/getJSON"
+    url = "#{ENV.fetch('YOSYS_PATH', 'http://127.0.0.1:3040')}/getJSON"
     response = HTTP.post(url, json: { code: params[:code] })
     render json: response.to_s, status: response.code
   end

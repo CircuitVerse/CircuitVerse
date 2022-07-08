@@ -18,7 +18,7 @@
 
 .groups-members-scroll-row {
   max-height: 525px;
-  max-width: 1030px;
+  max-width: 1108px;
   overflow-y: auto;
 }
 
@@ -158,24 +158,26 @@
   background-color: $card-green;
   border: 1px solid $secondary-green;
   display: inline-block;
-  height: 90px;
+  height: 100px;
   margin: 18px 10px;
-  padding: 15px;
-  width: 300px;
+  padding: 0 15px;
+  width: 350px;
 }
 
 .groups-members-card-viewer {
   background-color: $card-green;
   border: 1px solid $secondary-green;
   display: inline-block;
-  height: auto;
+  height: 70px;
   margin: 10px;
   padding: 15px;
   width: 200px;
+  white-space: nowrap;
 }
 
 .groups-members-card-details {
   padding-right: 0;
+  padding-top: 20px;
   text-align: left;
 
   i {
@@ -188,6 +190,7 @@
 .groups-members-card-details-non-admin {
   align-items: center;
   display: flex;
+  padding-top: 0;
   
   i {
     margin-right: 15px;
@@ -238,7 +241,7 @@
 
 .groups-members-card-button {
   margin-right: 0;
-  padding: 15px 15px 15px 0;
+  padding: 0 0 15px;
   text-align: right;
   transition: padding-top .2s ease-in;
 
@@ -260,7 +263,7 @@
   }
 
   .groups-members-card {
-    width: 270px;
+    width: 350px;
   }
 }
 
@@ -304,8 +307,7 @@
 
   .groups-members-card {
     margin: 10px 0;
-    padding: 10px;
-    width: 270px;
+    width: 310px;
   }
 }
 //group details ends
@@ -505,4 +507,29 @@
     display: inline;
   }
 }
+
+.groups-members-card {
+
+  .row {
+    flex-wrap: nowrap;
+  }
+
+  .group-member-button-container {
+    width: 100%;
+
+    .groups-mentor-card-mini-buttons {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .mini-button {
+      width: 142px;
+    }
+
+    .groups-reopen-mini-button {
+      margin: 0;
+    }
+  }
+}
+
 //groups ends

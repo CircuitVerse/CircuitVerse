@@ -55,7 +55,7 @@
     "jsdoc-export-default-interop": "^0.3.1",
     "opencollective-postinstall": "^2.0.3",
     "popper.js": "^1.16.1",
-    "sass": "^1.49.9",
+    "sass": "^1.53.0",
     "stimulus": "^3.0.1",
     "trumbowyg": "^2.25.1",
     "turbolinks": "^5.2.0"

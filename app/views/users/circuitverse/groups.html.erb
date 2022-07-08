@@ -21,10 +21,10 @@
     </div>
   </div>
   <br>
-  <% if @groups_mentored.present? %>
-    <h4 class="submain-heading"><%= t("users.circuitverse.groups.groups_user_mentor_to") %></h4>
+  <% if @groups_owned.present? %>
+    <h4 class="submain-heading"><%= t("users.circuitverse.groups.groups_user_owns") %></h4>
     <div class="row center-row">
-      <% @groups_mentored.each do |group| %>
+      <% @groups_owned.each do |group| %>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
           <div class="groups-card groups-mentor-card">
             <div class="groups-mentor-card-name"><%= group.name %></div>

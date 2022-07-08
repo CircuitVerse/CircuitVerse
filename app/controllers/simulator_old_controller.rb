@@ -62,7 +62,7 @@ class SimulatorOldController < ApplicationController
   end
 
   def post_issue
-    url = ENV["SLACK_ISSUE_HOOK_URL"]
+    url = ENV.fetch("SLACK_ISSUE_HOOK_URL", nil)
     HTTP.post(url, json: { text: params[:text] })
     head :ok, content_type: "text/html"
   end
@@ -87,7 +87,7 @@ class SimulatorOldController < ApplicationController
 
   def verilog_cv
     url = "http://127.0.0.1:3040/getJSON"
-    response = HTTP.post(url, json: { "code": params[:code] })
+    response = HTTP.post(url, json: { code: params[:code] })
     render json: response.to_s, status: response.code
   end
 
