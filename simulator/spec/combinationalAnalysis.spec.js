@@ -5,7 +5,7 @@
 import CodeMirror from 'codemirror';
 import { setup } from '../src/setup';
 import { runAll } from '../src/testbench';
-import { createCombinationalAnalysisPrompt } from '../src/combinationalAnalysis';
+import { createCombinationalAnalysisPrompt, performAction } from '../src/combinationalAnalysis';
 
 jest.mock('codemirror');
 describe('Combinational Analysis Testing', () => {
@@ -17,11 +17,10 @@ describe('Combinational Analysis Testing', () => {
     });
 
     test('Boolean Expression working', () => {
-        $('#booleanExpression').val('AB');
-        expect(() => $('#combinationAnalysisNextBtn').click()).not.toThrow();
+        expect(() => performAction('', '', 'AB')).not.toThrow();
     });
 
-    test('Generate Circuit working', () => {
+    test('Generating Circuit', () => {
         expect(() => $('#combinationalAnalysisGenerateBtn').click()).not.toThrow();
     });
 

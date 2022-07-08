@@ -20,6 +20,44 @@ var dataSample = [['01---', '11110', '01---', '00000'], ['01110', '1-1-1', '----
 var sampleInputListNames = ['A', 'B'];
 var sampleOutputListNames = ['X'];
 
+export const performAction = (inputNameList, outputNameList, booleanNameExpression, scope = globalScope) => {
+    var flag = 0;
+    var inputList = stripTags(inputNameList).split(',');
+    var outputList = stripTags(outputNameList).split(',');
+    var booleanExpression = booleanNameExpression;
+    inputList = inputList.map((x) => x.trim());
+    inputList = inputList.filter((e) => e);
+    outputList = outputList.map((x) => x.trim());
+    outputList = outputList.filter((e) => e);
+    booleanExpression = booleanExpression.replace(/ /g, '');
+    booleanExpression = booleanExpression.toUpperCase();
+
+    var booleanInputVariables = [];
+    for (var i = 0; i < booleanExpression.length; i++) {
+        if ((booleanExpression[i] >= 'A' && booleanExpression[i] <= 'Z')) {
+            if (booleanExpression.indexOf(booleanExpression[i]) == i) {
+                booleanInputVariables.push(booleanExpression[i]);
+            }
+        }
+    }
+    booleanInputVariables.sort();
+    if (inputList.length > 0 && outputList.length > 0 && booleanInputVariables.length == 0) {
+        createBooleanPrompt(inputList, outputList, null, scope);
+    }
+    else if (booleanInputVariables.length > 0 && inputList.length == 0 && outputList.length == 0) {
+        var output = solveBooleanFunction(booleanInputVariables, booleanExpression);
+        if(output != null) {
+            createBooleanPrompt(booleanInputVariables, booleanExpression, output, scope);
+        }
+    }
+    else if ((inputList.length == 0 || outputList.length == 0) && booleanInputVariables == 0) {
+        alert('Enter Input / Output Variable(s) OR Boolean Function!');
+    }
+    else {
+        alert('Use Either Combinational Analysis Or Boolean Function To Generate Circuit!');
+    }
+};
+
 /**
  * The prompt for combinational analysis
  * @param {Scope=} - the circuit in which we want combinational analysis
@@ -42,43 +80,7 @@ export function createCombinationalAnalysisPrompt(scope = globalScope) {
                 style: 'padding: 5px',
                 text: 'Next',
                 click() {
-                    var inputList = stripTags($("#inputNameList").val()).split(',');
-                    var outputList = stripTags($("#outputNameList").val()).split(',');
-                    var booleanExpression = $('#booleanExpression').val();
-                    inputList = inputList.map((x) => x.trim());
-                    inputList = inputList.filter((e) => e);
-                    outputList = outputList.map((x) => x.trim());
-                    outputList = outputList.filter((e) => e);
-                    booleanExpression = booleanExpression.replace(/ /g, '');
-                    booleanExpression = booleanExpression.toUpperCase();
-
-                    var booleanInputVariables = [];
-                    for (var i = 0; i < booleanExpression.length; i++) {
-                        if ((booleanExpression[i] >= 'A' && booleanExpression[i] <= 'Z')) {
-                            if (booleanExpression.indexOf(booleanExpression[i]) == i) {
-                                booleanInputVariables.push(booleanExpression[i]);
-                            }
-                        }
-                    }
-                    booleanInputVariables.sort();
-
-                    if (inputList.length > 0 && outputList.length > 0 && booleanInputVariables.length == 0) {
-                        $(this).dialog('close');
-                        createBooleanPrompt(inputList, outputList, null, scope);
-                    }
-                    else if (booleanInputVariables.length > 0 && inputList.length == 0 && outputList.length == 0) {
-                        $(this).dialog('close');
-                        var output = solveBooleanFunction(booleanInputVariables, booleanExpression);
-                        if(output != null) {
-                            createBooleanPrompt(booleanInputVariables, booleanExpression, output, scope);
-                        }
-                    }
-                    else if ((inputList.length == 0 || outputList.length == 0) && booleanInputVariables == 0) {
-                        alert('Enter Input / Output Variable(s) OR Boolean Function!');
-                    }
-                    else {
-                        alert('Use Either Combinational Analysis Or Boolean Function To Generate Circuit!');
-                    }
+                    if(performAction($("#inputNameList").val(), $("#outputNameList").val(), $('#booleanExpression').val())) $(this).dialog('close');
                 },
             },
         ],
